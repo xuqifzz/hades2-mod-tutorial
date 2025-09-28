@@ -1,9 +1,46 @@
 { Animations = [
 
 	/* Cast */
+
+	{
+		Name = "MelinoeBaseDaggerCastAnimations"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Dagger_AttackLeft_Start" }
+			{ Name = "Melinoe_Dagger_AttackLeft_Fire" }
+			{ Name = "Melinoe_Dagger_AttackRight_Start" }
+			{ Name = "Melinoe_Dagger_AttackRight_Fire" }
+			{ Name = "Melinoe_Dagger_AttackSpin_Start" }
+			{ Name = "Melinoe_Dagger_AttackSpin_Fire" }
+			{ Name = "Melinoe_Dagger_AttackStabs_Start" }
+			{ Name = "Melinoe_Dagger_AttackStabs_Fire" }
+			{ Name = "Melinoe_Dagger_Morrigan_AttackStabs_Start" }
+			{ Name = "Melinoe_Dagger_Morrigan_AttackStabs_Fire" }
+			{ Name = "Melinoe_Dagger_Morrigan_AttackStabs_FireLoop" }
+			{ Name = "Melinoe_Dagger_AttackDouble_Start" }
+			{ Name = "Melinoe_Dagger_AttackDouble_StartLoop" }
+			{ Name = "Melinoe_Dagger_AttackDouble_Fire" }
+			{ Name = "Melinoe_Dagger_Morrigan_AttackDouble_Start" }
+			{ Name = "Melinoe_Dagger_Morrigan_AttackDouble_Fire" }
+			{ Name = "Melinoe_Dagger_AttackEx1_Start" }
+			{ Name = "Melinoe_Dagger_AttackEx1_Fire" }
+			{ Name = "Melinoe_Dagger_Morrigan_BlinkAttack_Fire" }
+			{ Name = "Melinoe_Dagger_Morrigan_Attack1_Start" }
+			{ Name = "Melinoe_Dagger_Morrigan_Attack1_Fire" }
+			{ Name = "Melinoe_Dagger_Morrigan_Attack1_FireFast" }
+			{ Name = "Melinoe_Dagger_Special_Start" }
+			{ Name = "Melinoe_Dagger_Special_Start_Slow" }
+			{ Name = "Melinoe_Dagger_Special_StartLoop" }
+			{ Name = "Melinoe_Dagger_Special_Fire" }
+			{ Name = "Melinoe_Dagger_SpecialEx_Fire" }
+			{ Name = "Melinoe_Dagger_SpecialEx_Fire_Slow" }
+		]
+	}
+
 	{
 		Name = "Melinoe_Dagger_Cast_Start"
-		InheritFrom = "MelinoeBaseDaggerAnimations"
+		InheritFrom = "MelinoeBaseDaggerCastAnimations"
 		GrannyAnimation = "Melinoe_Dagger_Base_CastCharge_C_00"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Dagger_Cast_StartLoop"
@@ -33,19 +70,19 @@
 
 	{
 		Name = "Melinoe_Dagger_Cast_Fire"
-		InheritFrom = "MelinoeBaseDaggerAnimations"
+		InheritFrom = "MelinoeBaseDaggerCastAnimations"
 		GrannyAnimation = "Melinoe_Dagger_Base_Cast_C_00"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Dagger_Cast_End"
-		RequireCurrentAnimationNotContains =
-		[
-			{ Name = "Melinoe_Dagger_Special_Start" }
-		]
 		Blends =
 		[ 
 			{
 				BlendTransitionFrom = "Melinoe_Dagger_Cast_StartLoop"
 				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 3
 			}
 		]
 	}

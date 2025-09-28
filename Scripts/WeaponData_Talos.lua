@@ -11,7 +11,7 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
-			FireProjectileStartDelay = 0.08,
+			FireProjectileStartDelay = 0.14,
 
 			AngleTowardsTargetWhileFiring = true,
 			PreAttackStop = true,
@@ -19,8 +19,8 @@ WeaponSetData =
 
 			AttackSlots =
 			{
-				{ ProjectileName = "TalosShieldThrowRight", UseAttackerAngle = true, OffsetDistance = 850, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = -60, PauseDuration = 0.03 },
-				{ ProjectileName = "TalosShieldThrowLeft", UseAttackerAngle = true, OffsetDistance = 850, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 60 },
+				{ ProjectileName = "TalosShieldThrowRight", UseAttackerAngle = true, OffsetDistance = 850, OffsetScaleY = 0.48, OffsetFromAttacker = true, OffsetAngle = -60, PauseDuration = 0.03 },
+				{ ProjectileName = "TalosShieldThrowLeft", UseAttackerAngle = true, OffsetDistance = 850, OffsetScaleY = 0.48, OffsetFromAttacker = true, OffsetAngle = 60 },
 			},
 			BarrelLength = 50,
 
@@ -28,7 +28,7 @@ WeaponSetData =
 			AttackDistance = 870,
 
 			PreAttackDuration = 0.8,
-			FireDuration = 1.7,
+			FireDuration = 1.9,
 			PostAttackDuration = 2.0,
 
 			PreAttackSound = "/SFX/Enemy Sounds/Talos/EmoteCharging",
@@ -45,13 +45,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Talos/EmoteAttacking" },
 				{ Name = "/SFX/Enemy Sounds/Chronos/ChronosScytheWhirl" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 
@@ -80,7 +73,7 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
-			FireProjectileStartDelay = 0.1,
+			FireProjectileStartDelay = 0.15,
 
 			WaitForAngleTowardTarget = true,
 			WaitForAngleTowardTargetTimeOut = 1.0,
@@ -89,14 +82,14 @@ WeaponSetData =
 			PreAttackRotationDampening = 0.1,
 			StopBeforeFire = true,
 
-			ProjectileName = "TalosShieldThrowStraight",
+			ProjectileName = "TalosShieldThrowStraightL",
 			BarrelLength = 50,
 
 			MoveWithinRange = true,
 			AttackDistance = 870,
 
 			PreAttackDuration = 0.8,
-			FireDuration = 0.7,
+			FireDuration = 0.8,
 			PostAttackDuration = 1.2,
 
 			PreAttackSound = "/SFX/Enemy Sounds/Talos/EmoteCharging",
@@ -113,13 +106,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Chronos/ChronosScytheWhirl" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0 },
-		},
 	},
 
 	TalosShieldThrowRight =
@@ -130,7 +116,7 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-
+			ProjectileName = "TalosShieldThrowStraight",
 			PreAttackAnimation = "Enemy_Talos_ThrowRightPreFire",
 			FireAnimation = "Enemy_Talos_ThrowRightFire",
 			PostAttackAnimation = "Enemy_Talos_ThrowRightPostFire",
@@ -143,7 +129,7 @@ WeaponSetData =
 
 		Requirements =
 		{
-			MaxConsecutiveUses = 1,
+			--MaxConsecutiveUses = 1,
 			MinPlayerDistance = 300,
 		},
 
@@ -205,10 +191,11 @@ WeaponSetData =
 
 			FireProjectileStartDelay = 0.07,
 
-			AngleTowardsTargetWhileFiring = true,
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.1,
 			TrackTargetDuringCharge = true,
-
-			PreAttackRotationDampening = 0.25,
+			PreAttackRotationDampening = 0.11,
+			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.03,
 			PostAttackStop = true,
 
@@ -231,7 +218,7 @@ WeaponSetData =
 		{
 			WeaponFireSounds =
 			{
-				{ Name = "/SFX/Enemy Sounds/Polyphemus/PolyphemusKick" },
+				{ Name = "/SFX/Enemy Sounds/Talos/TalosPunch" },
 			},
 		},
 	},
@@ -251,7 +238,7 @@ WeaponSetData =
 
 			FireTicks = 7,
 			FireInterval = 0.16,
-			FireSelfVelocity = 900,
+			FireSelfVelocity = 700,
 
 			ApplyEffectsOnWeaponFire =
 			{
@@ -266,10 +253,12 @@ WeaponSetData =
 				},
 			},
 
+			PreAttackFx = "TalosSpinChargeR",
+
 			PreAttackDuration = 1.4,
 			FireDuration = 0.0,
-			PostAttackDurationMin = 1.0, -- anim is 0.98
-			PostAttackDurationMax = 1.3,
+			PostAttackDurationMin = 1.5, -- anim is 0.98
+			PostAttackDurationMax = 2.0,
 
 			WaitForAngleTowardTarget = true,
 			WaitForAngleTowardTargetTimeOut = 1.0,
@@ -281,8 +270,6 @@ WeaponSetData =
 			FireRotationDampening = 0.05,
 			PostAttackStop = true,
 
-			PostAttackStop = true,
-
 			AttackDistance = 600,
 			MoveWithinRange = false,
 
@@ -292,24 +279,8 @@ WeaponSetData =
 			PreAttackAnimation = "Enemy_Talos_SpinPreFire",
 			FireAnimation = "Enemy_Talos_SpinFire",
 			PostAttackAnimation = "Enemy_Talos_SpinPostFire",
-		},
 
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0 },
-		},
-	},
-
-	TalosSpin_Shadow =
-	{
-		InheritFrom = { "TalosSpin", },
-		AIData =
-		{
-			DeepInheritance = true,
-
-			ProjectileName = "TalosSpin_Shadow",
+			WeaponFireLoopingSound = "/SFX/Enemy Sounds/Talos/TalosSpinLoop",
 		},
 	},
 
@@ -347,7 +318,6 @@ WeaponSetData =
 			PostAttackStop = true,
 
 			FireSound = "/Leftovers/World Sounds/AirshipIgnitionStart",
-			WeaponFireLoopingSound = "/Leftovers/World Sounds/AirshipSprint",
 
 			AttackDistance = 900,
 			AttackDistanceScaleY = 0.9,
@@ -393,14 +363,6 @@ WeaponSetData =
 
 			MoveWithinRange = false,
 			AttackDistance = 9999,
-		},
-
-		HitScreenshake = { Distance = 4, Speed = 600, Duration = 0.3, FalloffSpeed = 3000, Angle = 0 },
-		
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.05 },
 		},
 	},
 }

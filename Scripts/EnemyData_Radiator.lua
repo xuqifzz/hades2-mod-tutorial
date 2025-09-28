@@ -70,6 +70,7 @@ UnitSetData.Radiator =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/Melinoe_1439", Text = "Spindles." },
@@ -128,10 +129,16 @@ UnitSetData.Radiator =
 		WeaponOptions =
 		{
 			"RadiatorMelee360_AutoFire",
+			"RadiatorMelee360_AutoFire", 
+			"RadiatorMelee360_AutoFire", 
+			"RadiatorMelee360_AutoFire", 
+			
+			"RadiatorMelee360_AutoFire_Seek",
 		},
 
 		GeneratorData =
 		{
+			BlockSolo = true,
 			DifficultyRating = 14,
 			BlockEnemyTypes = {"Radiator2_Elite"}
 		},
@@ -149,6 +156,7 @@ UnitSetData.Radiator =
 
 		GeneratorData =
 		{
+			BlockSolo = true,
 			DifficultyRating = 27,
 			BlockEnemyTypes = {"Radiator2"}
 		},

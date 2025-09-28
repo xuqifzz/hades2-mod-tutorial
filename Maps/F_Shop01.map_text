@@ -197,6 +197,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Terrain_ZagContract_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Terrain_Shading_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -365,6 +378,7 @@
         "Terrain_Overlay_01",
         "Terrain_Lighting_01",
         "Terrain_Shading_01",
+        "Terrain_ZagContract_01",
         "Terrain_Decor_05",
         "Terrain_Decor_01",
         "Terrain_Decor_04",
@@ -407,6 +421,19 @@
       "BlendMode": 0,
       "ChildGroups": [],
       "Id": "Shop",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapLogic",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "Contract",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -559,6 +586,7 @@
         "Traps",
         "Breakables",
         "Boat",
+        "Contract",
         "Shop"
       ],
       "Id": "MapLogic",
@@ -576,5 +604,6 @@
     "X": 7221.721,
     "Y": 8656.775
   },
-  "TimeLapseCameraZoom": 0.424
+  "TimeLapseCameraZoom": 0.424,
+  "ShadowPlaneDepth": 0.000
 }

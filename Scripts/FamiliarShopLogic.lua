@@ -11,7 +11,6 @@
 	
 	local screen = OpenFamiliarShopScreen( usee )
 	UseableOn({ Id = usee.ObjectId })
-	FamiliarShopSessionCompletePresentation( usee, screen )
 
 end
 
@@ -24,18 +23,18 @@ function FamiliarShopScreenDisplayCategory( screen )
 
 	local availableItems = {}
 	local purchasedItems = {}
-	screen.ItemNames = {}
 
 	for i, itemName in ipairs( screen.ItemOrder ) do
 		local itemData = FamiliarShopItemData[itemName]
 		if not itemData.DebugOnly then
 			if itemData.FamiliarName == screen.OpenedFrom.Name and ( itemData.GameStateRequirements == nil or IsGameStateEligible( itemData, itemData.GameStateRequirements ) ) then
 				if GameState.FamiliarUpgrades[itemName] then
-					table.insert( purchasedItems, itemData )
+					if screen.ReadOnly or itemData.RarityLevel == 3 then
+						table.insert( purchasedItems, itemData )
+					end
 				else
 					table.insert( availableItems, itemData )
 				end
-				table.insert( screen.ItemNames, itemName )
 			end
 		end
 	end
@@ -49,11 +48,9 @@ function FamiliarShopScreenDisplayCategory( screen )
 		if purchasedItemsToShow[itemName] ~= nil then
 			table.insert( purchasedItems, purchasedItemsToShow[itemName] )
 		end
-	end	
+	end
 
 	screen.NumItems = 0
-	screen.NumItemsPurchaseable = 0
-	screen.NumItemsAffordable = 0
 
 	local firstUseable = false
 	screen.ItemButtons = {}
@@ -63,10 +60,6 @@ function FamiliarShopScreenDisplayCategory( screen )
 		for i, item in ipairs( availableItems ) do
 
 			screen.NumItems = screen.NumItems + 1
-			screen.NumItemsPurchaseable = screen.NumItemsPurchaseable + 1
-			if HasResources( item.Cost ) then
-				screen.NumItemsAffordable = screen.NumItemsAffordable + 1
-			end
 
 			screen.OfferedVoiceLines = screen.OfferedVoiceLines or item.OfferedVoiceLines
 
@@ -87,28 +80,21 @@ function FamiliarShopScreenDisplayCategory( screen )
 			end
 
 			local tooltipData = item
-			local traitName = item.TraitName or item.IncreaseTraitLevel
+			local displayName = item.Name
+			local traitName = item.IncreaseTraitLevel
 			if TraitData[traitName] ~= nil then
-				local traitStacks = 1
-				if CurrentRun.Hero.TraitDictionary[traitName] ~= nil then
-					traitStacks = CurrentRun.Hero.TraitDictionary[traitName][1].StackNum
-				end
-				local traitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName, StackNum = traitStacks })
-				SetTraitTextData( traitData )
-				button.TraitData = traitData
+				local traitStacks = GetFamiliarTraitStacks( traitName )
+				local oldTraitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName, StackNum = traitStacks })
+				local newTraitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName, StackNum = traitStacks + 1 })
+				SetTraitTextData( oldTraitData )
+				SetTraitTextData( newTraitData )
+				button.TraitData = { Old = oldTraitData, New = newTraitData, ExtractData = oldTraitData.ExtractData } -- ExtractData is used for tooltips, where we want to display the old/current value
 				tooltipData = button.TraitData
-			end
-
-			local displayName = item.HelpTextId or item.Name
-			button.DescriptionName = displayName
-			if item.TraitUpgrade ~= nil then
-				displayName = item.TraitUpgrade.."_Upgrade"
-				button.DescriptionName = item.TraitUpgrade.."_Upgrade"
 			end
 			if item.RarityLevel ~= nil then
 				tooltipData.UpgradeName = displayName
 				tooltipData.AspectRarityText = TraitRarityData.AspectRarityText[item.RarityLevel]
-				displayName = "FamiliarShopUpgrade"			
+				displayName = "FamiliarShopUpgrade"
 			end
 
 			local itemNameFormat = ShallowCopyTable( screen.ItemAvailableNameFormat )
@@ -120,22 +106,14 @@ function FamiliarShopScreenDisplayCategory( screen )
 
 			-- Hidden description for tooltip
 			CreateTextBox({ Id = button.Id,
-				Text = item.TraitUpgrade or item.Name,
+				Text = item.Name.."_Upgrade",
 				UseDescription = true,
 				Color = Color.Transparent,
 				LuaKey = "TooltipData",
 				LuaValue = tooltipData,
 			})
-			if tooltipData.StatLines then
-				CreateTextBox({ Id = button.Id,
-					Text = tooltipData.StatLines[1],
-					Color = Color.Transparent,
-					LuaKey = "TooltipData",
-					LuaValue = tooltipData,
-				})
-			end
 			SetInteractProperty({ DestinationId = button.Id, Property = "TooltipX", Value = screen.TooltipX + ScreenCenterNativeOffsetX })
-			SetInteractProperty({ DestinationId = button.Id, Property = "TooltipY", Value = screen.TooltipY })
+			SetInteractProperty({ DestinationId = button.Id, Property = "TooltipY", Value = screen.TooltipY + ScreenCenterNativeOffsetY })
 
 			button.OnMouseOverFunctionName = "MouseOverFamiliarShopItem"
 			button.OnMouseOffFunctionName = "MouseOffFamiliarShopItem"
@@ -155,7 +133,7 @@ function FamiliarShopScreenDisplayCategory( screen )
 			if not GameState.WorldUpgradesViewed[item.Name] then
 				local newButtonKey = "NewIcon"..screen.NumItems
 				components[newButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu" })
-				SetAnimation({ DestinationId = components[newButtonKey].Id , Name = "MusicPlayerNewTrack" })
+				SetAnimation({ DestinationId = components[newButtonKey].Id , Name = "MusicPlayerNewTrack" }) --nopkg
 				Attach({ Id = components[newButtonKey].Id, DestinationId = components[purchaseButtonKey].Id, OffsetX = 300, OffsetY = 0 })
 				components[purchaseButtonKey].NewButtonId = components[newButtonKey].Id
 			end
@@ -188,12 +166,9 @@ function FamiliarShopScreenDisplayCategory( screen )
 
 		local tooltipData = item
 		local displayName = item.Name
-		local traitName = item.TraitName or item.IncreaseTraitLevel
+		local traitName = item.IncreaseTraitLevel
 		if TraitData[traitName] ~= nil then
-			local traitStacks = 1
-			if CurrentRun.Hero.TraitDictionary[traitName] ~= nil then
-				traitStacks = CurrentRun.Hero.TraitDictionary[traitName][1].StackNum
-			end
+			local traitStacks = GetFamiliarTraitStacks( traitName )
 			button.TraitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName, StackNum = traitStacks })
 			SetTraitTextData( button.TraitData )
 			tooltipData = button.TraitData
@@ -219,16 +194,8 @@ function FamiliarShopScreenDisplayCategory( screen )
 			LuaKey = "TooltipData",
 			LuaValue = tooltipData,
 		})
-		if tooltipData.StatLines then
-			CreateTextBox({ Id = button.Id,
-				Text = tooltipData.StatLines[1],
-				Color = Color.Transparent,
-				LuaKey = "TooltipData",
-				LuaValue = tooltipData,
-			})
-		end
 		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipX", Value = screen.TooltipX + ScreenCenterNativeOffsetX })
-		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipY", Value = screen.TooltipY })
+		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipY", Value = screen.TooltipY + ScreenCenterNativeOffsetY })
 
 		button.OnMouseOverFunctionName = "MouseOverFamiliarShopItem"
 		button.OnMouseOffFunctionName = "MouseOffFamiliarShopItem"
@@ -252,9 +219,15 @@ end
 function OpenFamiliarShopScreen( openedFrom, args )
 
 	args = args or {}
+
+	AltAspectRatioFramesShow()
+
 	local screen = DeepCopyTable( ScreenData.FamiliarShop )
 	screen.OpenedFrom = openedFrom
 	screen.ReadOnly = args.ReadOnly
+
+	screen.ItemStartX = screen.ItemStartX + ScreenCenterNativeOffsetX
+	screen.ItemStartY = screen.ItemStartY + ScreenCenterNativeOffsetY
 
 	if IsScreenOpen( screen.Name ) then
 		return
@@ -281,6 +254,8 @@ function OpenFamiliarShopScreen( openedFrom, args )
 		components.CloseButton.OnPressedFunctionName = nil
 	end
 
+	SetAnimation({ DestinationId = components.FamiliarShopAnimalBacking.Id, Name = openedFrom.FamiliarShopGraphic })
+
 	FamiliarShopScreenOpenedPresentation( screen, args )
 
 	local components = screen.Components
@@ -289,8 +264,6 @@ function OpenFamiliarShopScreen( openedFrom, args )
 
 	FamiliarShopScreenDisplayCategory( screen )
 	FamiliarShopUpdateVisibility( screen )
-
-	thread( FamiliarShopScreenOpenFinishedPresentation, screen )
 
 	screen.KeepOpen = true
 	HandleScreenInput( screen )
@@ -303,9 +276,10 @@ function CloseFamiliarShopScreen( screen, button, args )
 	for id, itemButton in pairs( screen.ItemButtons ) do
 		UseableOff({ Id = id })
 	end
-	OnScreenCloseStarted( screen )
 	FamiliarShopScreenCloseStartPresentation( screen )
-	CloseScreen( GetAllIds( screen.Components ) )
+	AltAspectRatioFramesHide()
+	OnScreenCloseStarted( screen )
+	CloseScreen( GetAllIds( screen.Components ), nil, screen, args )
 	OnScreenCloseFinished( screen )
 	if not args.HideCombatUI then
 		ShowCombatUI( screen.Name )
@@ -326,16 +300,8 @@ function HandleFamiliarShopPurchase( screen, button )
 
 	FamiliarShopItemPurchasedPresentation( button, upgradeData )
 
-	table.insert( screen.SaleData, upgradeData )
-	screen.NumSales = screen.NumSales + 1
-
 	GameState.FamiliarUpgrades[upgradeData.Name] = true
 	AddWorldUpgrade( upgradeData.Name )
-	if upgradeData.Names ~= nil then
-		for i, name in pairs( upgradeData.Names ) do
-			AddWorldUpgrade( name )
-		end
-	end
 	CallFunctionName( upgradeData.OnPurchasedFunctionName, upgradeData.OnPurchasedFunctionArgs )
 
 	CreateAnimation({ Name = "ContractorSlotPurchase", DestinationId = button.Id })
@@ -349,7 +315,7 @@ function HandleFamiliarShopPurchase( screen, button )
 	end
 
 	-- close screen
-	CloseFamiliarShopScreen( screen, button, { HideCombatUI = true } )
+	CloseFamiliarShopScreen( screen, button, { HideCombatUI = true, FadeOutTime = screen.OnPurchasedFadeOutTime } )
 
 	thread( DoFamiliarShopPurchase, screen, button )
 end
@@ -358,79 +324,15 @@ function DoFamiliarShopPurchase( screen, button )
 	local itemData = button.Data
 	FamiliarShopPurchasePreActivatePresentation( screen, button, itemData )
 	ActivateConditionalItem( itemData )
-	FamiliarShopPurchasePostActivatePresentation( button, itemData, weaponKit )
+	FamiliarShopPurchasePostActivatePresentation( screen, button, itemData )
 	UpdateAffordabilityStatus()
 	UpdateFamiliarKits( { DoEquip = true } )
 	ShowCombatUI( screen.Name )
-	if not CurrentHubRoom.BlockCombatUI and itemData.FamiliarName == GameState.EquippedFamiliar then
+	if itemData.FamiliarName == GameState.EquippedFamiliar then
 		CheckObjectiveSet( "CheckFamiliarUpgradeInfoPrompt" )
 	end
+	CheckAchievement( screen, { Name = "AchAllFamiliarsMax" } )
 end
-
-function FamiliarShopScreenHideItems( screen )
-
-	SetAlpha({ Ids = screen.CostIds, Fraction = 0, Duration = 0.1 })
-	DestroyTextBox({ Ids = screen.CostIds })
-
-	local componentIds =  {}
-	for i = 1, screen.NumItems do
-		local purchaseButtonKey = (screen.ButtonName or "PurchaseButton")..i
-		table.insert( componentIds, screen.Components[purchaseButtonKey].Id )
-		local purchaseButtonTitleKey = "PurchaseButtonTitle"..i
-		if screen.Components[purchaseButtonTitleKey] ~= nil then
-			table.insert( componentIds, screen.Components[purchaseButtonTitleKey].Id )
-		end
-		local iconKey = "Icon"..i
-		if screen.Components[iconKey] ~= nil then
-			table.insert( componentIds, screen.Components[iconKey].Id )
-		end
-		local newButtonKey = "NewIcon"..i
-		if screen.Components[newButtonKey] ~= nil then
-			table.insert( componentIds, screen.Components[newButtonKey].Id )
-		end
-		if screen.Components["CurrentAmount"..i] ~= nil then
-			table.insert( componentIds, screen.Components["CurrentAmount"..i].Id )
-		end
-	end
-	local fadeOutTime = 0.1
-	SetAlpha({ Ids = componentIds, Fraction = 0, Duration = fadeOutTime })
-	ModifyTextBox({ Ids = componentIds, FadeTarget = 0, FadeDuration = fadeOutTime })
-	local categoryName = screen.ItemCategories.Name
-	ModifyTextBox({ Id = screen.Components["Category"..categoryName].Id, Color = Color.CodexTitleUnselected })
-	wait( fadeOutTime )
-	Destroy({ Ids = componentIds })
-
-	if screen.Components.InfoBoxName ~= nil then
-		ModifyTextBox({ Id = screen.Components.InfoBoxName.Id, FadeTarget = 0.0, })
-		ModifyTextBox({ Id = screen.Components.InfoBoxDescription.Id, FadeTarget = 0.0, })
-		ModifyTextBox({ Id = screen.Components.InfoBoxStatLineLeft.Id, FadeTarget = 0.0, })
-		ModifyTextBox({ Id = screen.Components.InfoBoxStatLineRight.Id, FadeTarget = 0.0, })
-		ModifyTextBox({ Id = screen.Components.InfoBoxFlavor.Id, FadeTarget = 0.0, })
-	end
-
-end
-
---[[
-function FamiliarShopScrollUp( screen, button )
-	if screen.ScrollOffset <= 0 then
-		return
-	end
-	screen.ScrollOffset = screen.ScrollOffset - screen.ItemsPerPage
-	FamiliarShopUpdateVisibility( screen )
-	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY + ((screen.ItemsPerPage - 1) * screen.ItemSpacingY), ForceUseCheck = true })
-	FamiliarShopScreenScrollPresentation( screen, button )
-end
-
-function FamiliarShopScrollDown( screen, button )
-	if screen.ScrollOffset + screen.ItemsPerPage >= screen.NumItems then
-		return
-	end
-	screen.ScrollOffset = screen.ScrollOffset + screen.ItemsPerPage
-	FamiliarShopUpdateVisibility( screen )
-	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY, ForceUseCheck = true })
-	FamiliarShopScreenScrollPresentation( screen, button )
-end
-]]
 
 function FamiliarShopUpdateVisibility( screen )
 
@@ -540,4 +442,14 @@ function AnyFamiliarUpgradesAvailable( source, args )
 		end
 	end
 	return false
+end
+
+function GetFamiliarTraitStacks( traitName )
+	local traitStacks = 1
+	for upgradeName, upgradeData in pairs( FamiliarShopItemData ) do
+		if not upgradeData.DebugOnly and GameState.FamiliarUpgrades[upgradeName] and upgradeData.IncreaseTraitLevel == traitName then
+			traitStacks = traitStacks + 1
+		end
+	end
+	return traitStacks
 end

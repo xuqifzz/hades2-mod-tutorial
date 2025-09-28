@@ -16,7 +16,6 @@ UnitSetData.AutomatonEnforcer =
 		ActivateFadeInDuration = 0,
 		ActivateStartAlpha = 1,
 		ActivateFadeInDelay = 0,
-		ActivateFadeInDuration = 0,
 		
 		ActivateFx = "OlympusEnemySpawnSigilDark_Medium",
 		ActivateFx2 = "OlympusEnemySpawnSigil_Medium",
@@ -29,7 +28,10 @@ UnitSetData.AutomatonEnforcer =
 		DeathSound = "/SFX/Enemy Sounds/AutomatonEnforcer/EmoteDying",
 
 		Groups = { "FlyingEnemies", "Automatons" },
-		Material = "Stone",
+		Material = "Robot",
+		MaterialAlt = "Stone",
+
+		BlockNextBiomeEnemyShrineUpgrade = true,
 
 		StunAnimations = 
 		{
@@ -61,6 +63,8 @@ UnitSetData.AutomatonEnforcer =
 			"AutomatonEnforcerSlash_AmbientBattle",
 		},
 
+		BlockAttributes = { "Orbit", "Vacuum", },
+
 		HeraclesCombatMoneyValue = 4,
 		GeneratorData =
 		{
@@ -84,7 +88,9 @@ UnitSetData.AutomatonEnforcer =
 				Cooldowns =
 				{
 					{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
+					{ Name = "OlympusEnemiesSightedVO", Time = 12 },
 				},
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 				SuccessiveChanceToPlay = 0.1,
 
 				{ Cue = "/VO/MelinoeField_2698", Text = "Auto-Forcers..." },
@@ -92,7 +98,7 @@ UnitSetData.AutomatonEnforcer =
 				{ Cue = "/VO/MelinoeField_2700", Text = "More Auto-Forcers." },
 				{ Cue = "/VO/MelinoeField_2701", Text = "Auto-Forcers, blast..." },
 			},
-			[2] = { GlobalVoiceLines = "AutomatonsSightedLines" },
+			{ GlobalVoiceLines = "AutomatonsSightedLines" },
 		},
 	},
 
@@ -123,6 +129,29 @@ UnitSetData.AutomatonEnforcer =
 		},
 	},
 
+	AutomatonEnforcer_Fiend =
+	{
+
+		InheritFrom = { "AutomatonEnforcer_Elite" },
+		GenusName = "AutomatonEnforcer",
+
+		Health = 1500,
+		HealthBuffer = 1500,
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BiomeEncounterDepth" },
+				Comparison = ">=",
+				Value = 3
+			},
+		},
+
+		GeneratorData =
+		{
+			DifficultyRating = 300,
+		},
+	},
 
 	AutomatonEnforcer_Shadow =
 	{

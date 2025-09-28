@@ -43,6 +43,20 @@
 		FilePath = "Tilesets/Crossroads/Crossroads_FamilyPortrait_01"
 		Ambient = 0.0
 		AngleFromOwner = "Ignore"
+		StartAlpha = 0.0
+		EndAlpha = 1.0
+		Duration = 0.5
+		HoldLastFrame = true
+	}
+	{
+		Name = "TentFamilyPortraitFinished"
+		FilePath = "Tilesets/Crossroads/Crossroads_FamilyPortrait_finished_01"
+		Ambient = 0.0
+		AngleFromOwner = "Ignore"
+		StartAlpha = 0.0
+		EndAlpha = 1.0
+		Duration = 0.5
+		HoldLastFrame = true
 	}
 
 	{
@@ -56,6 +70,31 @@
 		RandomStartFrame = true
 		ReRandomizeOnLoop = false
 		PostRotateScaleY = 0.5
+	}	
+
+	{
+		Name = "OceanusCausticLightScyllaDeath"
+		InheritFrom = "OceanusCausticLight"
+		Ambient = 0
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 5
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		PostRotateScaleY = 0.5
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 2
+		ScaleMax = 2.5
+		AddColor = false
+		ColorFromOwner = "Ignore"
+		ChainTo = null
+		StartAlpha = 1
+		EndAlpha = 0
+		AngleMin = 0
+		AngleMax = 360
+		EaseIn = 0
+		EaseOut = 0.1
+
 	}
 
 	{
@@ -357,46 +396,496 @@
 		StopSoundOnFinishFade = 0.1
 		SoundAllowedAfterFrame = -1
 	}
-	{
-		Name = "Crossroads_BountyBoard_On01"
-		FilePath = "Tilesets\Crossroads\Crossroads_BountyBoard_On01"			
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		Sound = "/SFX/Menu Sounds/MirrorAmbienceLoop"
-		StopSoundOnFinishFade = 0.1
-		SoundAllowedAfterFrame = -1
-		AngleFromOwner = "Maintain"
-		RandomDurationMin = 3
-		RandomDurationMax = 4
-		PingPongAngle = true
-		StartOffsetZ = -4
-		EndOffsetZ = 4
-		PingPongShiftOverDuration = true
-		Loop = true
-		PhaseOffsetAngle = 90
-		EaseIn = 0
-		EaseOut = 1
-	}
-	{
-		Name = "Crossroads_BountyBoard_Off01"
-		FilePath = "Tilesets\Crossroads\Crossroads_BountyBoard_Off01"
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		Color = { Red = 0.3 Green = 0.3 Blue = 0.3 }
-	}
 
 	{
 		Name = "Crossroads_Shrine_On01"			
-		FilePath = "Tilesets\Gameplay\Gameplay_Shrine_01"
-		Sound = "/SFX/Menu Sounds/MirrorAmbienceLoop"
+		FilePath = "Tilesets\Gameplay\Gameplay_Shrine_01_Bottom"
+		Sound = "/SFX/Menu Sounds/MirrorAmbienceLoop3"
 		OffsetY = -370
 		StopSoundOnFinishFade = 0.1
 		SoundAllowedAfterFrame = -1
-		VisualFx = "CharonGhostChargeImpactParticlesVertical"
+		VisualFx = "CrossroadsShrineParticles"
 		VisualFxIntervalMax = 0.4
 		VisualFxIntervalMin = 0.3
+		ChildAnimation = "Crossroads_Shrine_On01_Bottom_Fx"
+	}
+
+	{
+		Name = "Crossroads_Shrine_On01_Bottom_Fx"
+		ChildAnimation = "Crossroads_Shrine_On01_Top"
+		FilePath = "Fx\ShrineBottomFx\ShrineBottomFx"
+		NumFrames = 40
+		PlaySpeed = 24
+		Loop = true
+		Material = "Unlit"
+		Scale = 1
+		OffsetY = -65
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "Crossroads_Shrine_On01_Top"
+		InheritFrom = "Crossroads_Shrine_On01"
+		VisualFx = null
+		Sound = null
+		FilePath = "Tilesets\Gameplay\Gameplay_Shrine_01_Top"
+		StartOffsetZ = 7
+		EndOffsetZ = -7
+		Duration = 4
+		EaseIn = 0
+		EaseOut = 1
+		PingPongShiftOverDuration = true
+		Loop = true
+		StartAngle = -0.25
+		EndAngle = 0.25
+		PingPongAngle = true
+		PhaseOffsetAngle = 90
+		ChildAnimation = "Crossroads_Shrine_On01_Top_Fx"
+	}
+
+	{
+		Name = "Crossroads_Shrine_On01_Top_Fx"
+		InheritFrom = "Crossroads_Shrine_On01_Top"
+		CreateAnimation = null
+		ChildAnimation = null
+		FilePath = "Fx\ShrineTopFx\ShrineTopFx"
+		NumFrames = 40
+		PlaySpeed = 30
+		LoopFramesOnly = true
+		ScaleY = 2
+		Scale = 2
+		GroupName = "FX_Standing_Add"
+		Loop = true
+		Material = "Unlit"
+	}
+
+	{
+		Name = "Crossroads_Shrine_On01_Active"
+		InheritFrom = "Crossroads_Shrine_On01"
+		ChildAnimation = "Crossroads_Shrine_On01_Bottom_Fx_Active"
+		VisualFx = "CrossroadsShrineParticlesActive"
+		VisualFxIntervalMax = 0.1
+		VisualFxIntervalMin = 0.05
+	}
+
+	{
+		Name = "Crossroads_Shrine_On01_Bottom_Fx_Active"
+		InheritFrom = "Crossroads_Shrine_On01_Bottom_Fx"
+		ChildAnimation = "Crossroads_Shrine_On01_Top_Active"
+	}
+
+	{
+		Name = "Crossroads_Shrine_On01_Top_Active"
+		InheritFrom = "Crossroads_Shrine_On01_Top"
+		VisualFx = "CrossroadsShrineActiveBackFlames"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.4
+	}
+
+	{
+		Name = "CrossroadsShrineActiveBackFlames"
+		Random = [
+			{ Name = "CrossroadsShrineActiveBackFlameA" }
+			{ Name = "CrossroadsShrineActiveBackFlameB" }
+			{ Name = "CrossroadsShrineActiveBackFlameC" }
+		]
+	}
+
+	{
+		Name = "CrossroadsShrineActiveFrontFlames"
+		Random = [
+			{ Name = "CrossroadsShrineActiveFrontFlameA" }
+			{ Name = "CrossroadsShrineActiveFrontFlameB" }
+			{ Name = "CrossroadsShrineActiveFrontFlameC" }
+		]
+	}
+
+	{
+		Name = "CrossroadsShrineActiveBackFlameA"
+		FilePath = "Fx\TorchFlameA\TorchFlameA"
+		NumFrames = 44
+		Material = "Unlit"
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		RandomFlipVertical = true
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 50
+		GroupName = "Standing"
+		DrawBehindOwner = true
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		OffsetZ = 300
+		StartOffsetZ = 0
+		EndOffsetZ = 100
+		RandomOffsetY = 100
+		ScaleY = 1.0
+		ScaleX = 1.5
+		Scale = 0.6
+		Red = 0
+		Green = 0
+		Blue = 0
+		// CreateAnimation = "CrossroadsShrineActiveFrontFlames"
+	}
+
+	{
+		Name = "CrossroadsShrineActiveBackFlameB"
+		InheritFrom = "CrossroadsShrineActiveBackFlameA"
+		FilePath = "Fx\TorchFlameB\TorchFlameB"
+	}
+	{
+		Name = "CrossroadsShrineActiveBackFlameC"
+		InheritFrom = "CrossroadsShrineActiveBackFlameA"
+		FilePath = "Fx\TorchFlameC\TorchFlameC"
+	}
+
+	{
+		Name = "CrossroadsShrineActiveFrontFlameA"
+		InheritFrom = "CrossroadsShrineActiveBackFlameA"
+		FilePath = "Fx\TorchFlameA\TorchFlameA"
+		GroupName = "FX_Standing_Add"
+		CreateAnimation = null
+		DrawBehindOwner = false
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartAlpha = 0
+		EndAlpha = 0.5
+		ScaleY = 1.5
+		Hue = 0.1
+		EaseIn = 0
+		EaseOut = 0.25
+	}	
+	{
+		Name = "CrossroadsShrineActiveFrontFlameB"
+		InheritFrom = "CrossroadsShrineActiveFrontFlameA"
+		FilePath = "Fx\TorchFlameB\TorchFlameB"
+	}
+	{
+		Name = "CrossroadsShrineActiveFrontFlameC"
+		InheritFrom = "CrossroadsShrineActiveFrontFlameA"
+		FilePath = "Fx\TorchFlameC\TorchFlameC"
+	}
+
+	{
+		Name = "CrossroadsShrineParticles"
+		Random = [
+			{ Name = "CrossroadsShrineParticleA" }
+			{ Name = "CrossroadsShrineParticleB" }
+		]
+	}
+
+	{
+		Name = "CrossroadsShrineParticlesActive"
+		Random = [
+			{ Name = "CrossroadsShrineParticleA_Active" }
+			{ Name = "CrossroadsShrineParticleB_Active" }
+			{ Name = "CrossroadsShrineParticleB_Active" }
+			{ Name = "CrossroadsShrineParticleB_Active" }
+		]
+	}
+
+	{
+		Name = "CrossroadsShrineParticleC"
+		FilePath = "Particles\particle_moonlightGradient"
+		Material = "Unlit"
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		RandomFlipVertical = true
+		EaseIn = 0
+		EaseOut = 1
+		Angle = 90
+		StartScaleX = 1
+		EndScaleX = 3
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 200
+		GroupName = "FX_Standing_Add"
+		Scale = 4
+		ScaleY = 0.5
+		AlphaMin = 0.1
+		AlphaMax = 1.0
+		VelocityMin = 20
+		VelocityMax = 120
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "CrossroadsShrineParticleA"
+		FilePath = "Particles\particle_addFlake2"
+		AddColor = true
+		StartScale = 0
+		EndScale = 1
+		RandomRotation = true
+		RandomDurationMin = 2
+		RandomDurationMax = 3
+		Angle = 90
+		RandomOffsetX = 80
+		RandomOffsetY = 20
+		ScaleMin = 0.2
+		ScaleMax = 0.45
+		RandomRotationSpeedMin = -160
+		RandomRotationSpeedMax = 160
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		VelocityMin = 120
+		VelocityMax = 200
+		AngleChangeSpeedMin = -20
+		AngleChangeSpeedMax = 20
+		Acceleration = -60
+		PingPongScale = true
+		PingPongColor = true
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		StartRed = 1.0
+		StartGreen = 0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 1
+		EndBlue = 0.6
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		EaseIn = 0
+		EaseOut = 1
+		CreateAnimation = "CrossroadsShrineParticleC"
+	}
+
+	{
+		Name = "CrossroadsShrineParticleB"
+		InheritFrom = "CrossroadsShrineParticleA"
+		GroupName = "FX_Terrain_Add"
+	}
+
+	{
+		Name = "CrossroadsShrineParticleA_Active"
+		InheritFrom = "CrossroadsShrineParticleA"
+		//AngleChangeSpeedMin = -3
+		//AngleChangeSpeedMax = 3
+		VelocityMin = 340
+		VelocityMax = 400
+		Acceleration = -200
+		StartScaleX = 2
+		EndScaleX = 1
+		PingPongScale = false
+		StartScale = 0.5
+		EndScale = 0
+		StartRed = 0.3
+		StartGreen = 1.0
+		StartBlue = 1.0
+		ScaleY = 0.7
+		RandomRotation = false
+		UseOwnAngle = true
+		RandomRotationSpeedMin = 0
+		RandomRotationSpeedMax = 0.001
+		RandomOffsetX = 40
+		CreateAnimation = "CrossroadsShrineParticleC_Active"
+	}
+	{
+		Name = "CrossroadsShrineParticleB_Active"
+		InheritFrom = "CrossroadsShrineParticleA_Active"
+		GroupName = "FX_Terrain_Add"
+		RandomOffsetX = 80
+		StartScale = 1
+	}
+
+	{
+		Name = "CrossroadsShrineParticleC_Active"
+		Random = [
+			{ Name = "CrossroadsShrineParticleC_Active_Front" }
+			{ Name = "CrossroadsShrineParticleC_Active_Back" }
+		]
+
+	}
+
+	{
+		Name = "CrossroadsShrineParticleC_Active_Front"
+		InheritFrom = "CrossroadsShrineParticleC"
+		FilePath = "Particles\particle_heraLightStreak"
+		Material = "Unlit"
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		RandomDurationMin = 0.4
+		RandomDurationMax = 1.0
+		RandomFlipHorizontal = true
+		RandomFlipVertical = false
+		EaseIn = 0
+		EaseOut = 1
+		StartScaleX = 1
+		EndScaleX = 0
+		StartScaleY = 1
+		EndScaleY = 2
+		ScaleMin = 0.15
+		ScaleMax = 0.5
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 100
+		RandomOffsetY = 0
+		GroupName = "FX_Standing_Add"
+		Scale = 4
+		AlphaMin = 0.25
+		AlphaMax = 1.0
+		Hue = -0.1
+		VelocityMin = 120
+		VelocityMax = 240
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AddColor = true
+		Red = 0.5
+		Green = 0.0
+		Blue = 1.0
+	}
+
+	{
+		Name = "CrossroadsCardAltarTerrain01"
+		FilePath = "Tilesets\Crossroads\Crossroads_CardAltar_Terrain01"
+		Duration = 1
+		Loop = true
+		CreateAnimation = "CrossroadsCardAltarTerrain01Fx"
+	}
+
+	{
+		Name = "CrossroadsCardAltarTerrain01Fx"
+		FilePath = "Fx\CrossroadsCardAltarTerrainFx\CrossroadsCardAltarTerrainFx"
+		NumFrames = 60
+		PlaySpeed = 30
+		Material = "Unlit"
+		Loop = true
+		GroupName = "FX_Terrain_Add"
+		Scale = 4
+		VisualFx = "CrossroadsCardAltarTerrain01FxSwirls"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.35
+	}
+
+	{
+		Name = "CrossroadsCardAltarTerrain01FxSwirls"
+		Random = [
+			{ Name = "CrossroadsCardAltarTerrain01FxSwirlA" }
+			{ Name = "CrossroadsCardAltarTerrain01FxSwirlB" }
+			{ Name = "CrossroadsCardAltarTerrain01FxSwirlC" }
+			{ Name = "CrossroadsCardAltarTerrain01FxMoonlightStreak" }
+			{ Name = "CrossroadsCardAltarTerrain01FxMoonlightStreak" }
+		]
+	}
+
+	{
+		Name = "CrossroadsCardAltarTerrain01FxMoonlightStreak"
+		FilePath = "Particles\particle_moonlightGradient"
+		Material = "Unlit"
+		Angle = 90
+		RandomFlipVertical = true
+		ScaleX = 5
+		ScaleFromOwner = "Ignore"
+		StartAlpha = 0
+		EndAlpha = 1
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		RandomDurationMin = 3
+		RandomDurationMax = 5
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		ColorFromOwner = "Ignore"
+		GroupName = "Overlook_Additive_01"
+		VelocityMin = 80
+		VelocityMax = 160
+		Acceleration = -30
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		OffsetZ = 200
+		RandomOffsetX = 120
+	}
+
+	{
+		Name = "CrossroadsCardAltarTerrain01FxSwirlA"
+		FilePath = "Fx\WitchyMist\WitchyMist"
+		NumFrames = 100
+		Material = "Unlit"
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomOffsetX = 120
+		RandomOffsetY = 50
+		StartOffsetZ = 0
+		EndOffsetZ = 230
+		RandomPlaySpeedMin = 20
+		RandomPlaySpeedMax = 24
+		OffsetZ = 150
+		IsometricSkew = "X"
+		AngleMin = 0
+		AngleMax = 360
+		ScaleMin = 1
+		ScaleMax = 2.5
+		Hue = 0.1
+		AlphaMin = 0.08
+		AlphaMax = 0.3
+		StartScaleX = 0.25
+		EndScaleX = 1
+		StartScaleY = 1
+		EndScaleY = 2
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "Additive_01"
+		CreateAnimation = "CrossroadsCardAltarAmbientParticle"
+	}
+
+	{
+		Name = "CrossroadsCardAltarTerrain01FxSwirlB"
+		InheritFrom = "CrossroadsCardAltarTerrain01FxSwirlA"
+		GroupName = "Overlook_Additive_01"
+		Hue = 0.05
+	}
+
+	{
+		Name = "CrossroadsCardAltarTerrain01FxSwirlC"
+		InheritFrom = "CrossroadsCardAltarTerrain01FxSwirlB"
+		Hue = 0.1
+	}
+
+	{
+		Name = "CrossroadsCardAltarAmbientParticle"
+		GroupName = "Additive_01"
+		FilePath = "Particles\particle_glow_add"
+		StartRed = 0
+		StartGreen = 1
+		StartBlue = 0.7
+		EndRed = 0.1
+		EndGreen = 0
+		EndBlue = 1.0
+		Angle = 90
+		OffsetZ = 40
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		Scale = 0.4
+		Material = "Unlit"
+		VelocityMin = 20
+		VelocityMax = 50
+		Acceleration = -10
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AddColor = true
+		RandomDurationMin = 1.5
+		RandomDurationMax = 3
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+	}
+
+	{
+		Name = "CrossroadsShrineParticleC_Active_Back"
+		InheritFrom = "CrossroadsShrineParticleC_Active_Front"
+		GroupName = "FX_Terrain_Add"
+		RandomOffsetX = 20
 	}
 
 
@@ -844,6 +1333,36 @@
 	}
 
 	{
+		Name = "CrossroadsAquarium01"
+		FilePath = "Tilesets\Crossroads\Crossroads_Aquarium_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Duration = 1
+		Loop = true
+		ChildAnimation = "CrossroadsAquarium01_Fx"
+	}
+
+	{
+		Name = "CrossroadsAquarium01_Fx"
+		FilePath = "Fx\AquariumFx\AquariumFx"
+		NumFrames = 75
+		PlaySpeed = 30
+		Loop = true
+		Scale = 1
+		OffsetY = -595
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "CrossroadsAquariumSound"
+		InheritFrom = "Blank"
+		Sound = "/Ambience/FishTankBubblesLoop"
+		StopSoundOnFinishFade = 0.2
+		SoundAllowedAfterFrame = -1
+	}
+
+	{
 		Name = "CrossroadsHadesSign01aFloat"
 		FilePath = "Tilesets\Crossroads\Crossroads_HadesSign_01a"
 		
@@ -914,6 +1433,33 @@
 		EaseIn = 0
 		EaseOut = 1
 	}
+
+	{
+		Name = "CrossroadsFrogtoys03Float"
+		FilePath = "Tilesets\Crossroads\Crossroads_Frogtoys_03"
+		
+		EndAngle = 0.5
+		PingPongAngle = true
+		StartAngle = -0.5
+		PingPongColor = true
+		Duration = 1.5
+		EaseOut = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 0
+		OriginY = 689
+		EndScaleX = 0.99
+		EndScaleY = 1.01
+		PhaseOffsetScale = 90.0
+		PingPongScale = true
+		StartScaleX = 1.01
+		StartScaleY = 0.99
+		VisualFxIntervalMax = 0.4
+		VisualFxIntervalMin = 0.2
+	}
+
 
 	{
 		Name = "CrossroadsShadeSign01Float"

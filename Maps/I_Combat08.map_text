@@ -132,6 +132,32 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Terrain_Glass_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "Terrain_Glass_02",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Terrain_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -510,6 +536,8 @@
         "Terrain_03",
         "Terrain_02",
         "Terrain_01",
+        "Terrain_Glass_02",
+        "Terrain_Glass_01",
         "Terrain_Base",
         "Terrain_BeneathDecor_01",
         "Terrain_BeneathDecor_02",
@@ -742,5 +770,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

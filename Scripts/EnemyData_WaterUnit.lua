@@ -4,7 +4,14 @@ UnitSetData.WaterUnit =
 	WaterUnit =
 	{
 		InheritFrom = { "BaseVulnerableEnemy" },
-		IntroEncounterName = "WaterUnitIntro",
+		--IntroEncounterName = "WaterUnitIntro", -- Miniboss is the intro
+
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersCompletedCache", "MiniBossWaterUnit" },
+			},
+		},
 
 		BlockRespawnShrineUpgrade = true,
 		BlockNextBiomeEnemyShrineUpgrade = true,
@@ -16,6 +23,7 @@ UnitSetData.WaterUnit =
 
 		IsAggroedSound = "/SFX/Enemy Sounds/WaterUnit/EmoteAlerted",
 		DeathSound = "/SFX/Enemy Sounds/WaterUnit/EmoteDying",
+		HealthDamageSound = "/SFX/Enemy Sounds/WaterUnit/EmoteHurt",
 
 		ActivateFx = "",
 		ActivateFx2 = "",
@@ -25,12 +33,11 @@ UnitSetData.WaterUnit =
 		ActivateFadeInDelay = 0.00,
 		ActivateFadeInDuration = 0.6,
 		ActivateTint = false,
-		ActivateStartAlpha = 0, 
 		ActivateDuration = 0.8,
+		ActivateStartAlpha = 1.0,
 		AttachedAnimationName = "WaterUnitGlow",
 
 		ActivateAnimation = "OceanusEnemyBubbles",
-		ActivateStartAlpha = 1.0,
 
 		DeathAnimation = "Enemy_WaterUnit_Death",
 		DeathFx = "EnemyDeathFxFishSmall",
@@ -69,7 +76,7 @@ UnitSetData.WaterUnit =
 
 		WeaponOptions =
 		{
-			"WaterUnitSpit", "WaterUnitSwipe", "WaterUnitLob", "WaterUnitDive", "WaterUnitDive", "WaterUnitFidget"
+			"WaterUnitSpit", "WaterUnitSwipe", "WaterUnitDive", "WaterUnitDive", "WaterUnitFidget"
 		},
 		
 		SpellSummonDataOverrides =
@@ -78,7 +85,7 @@ UnitSetData.WaterUnit =
 			
 			WeaponOptions =
 			{
-				"WaterUnitSpit", "WaterUnitSwipe", "WaterUnitLob"
+				"WaterUnitSpit", "WaterUnitSwipe",
 			},
 		},
 
@@ -101,6 +108,7 @@ UnitSetData.WaterUnit =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_0090", Text = "Serpents." },
@@ -126,7 +134,7 @@ UnitSetData.WaterUnit =
 
 		WeaponOptions =
 		{
-			"WaterUnitSwipe", "WaterUnitSpitElite", "WaterUnitLob", "WaterUnitDive", "WaterUnitDive", "WaterUnitFidget"
+			"WaterUnitSwipe", "WaterUnitSpitElite", "WaterUnitDive", "WaterUnitDive", "WaterUnitFidget"
 		},
 
 		GeneratorData =
@@ -142,12 +150,14 @@ UnitSetData.WaterUnit =
 		MaxHealth = 700,
 		HealthBuffer = 2650,
 		HealthBarType = "Large",
-		HealthBarOffsetY = -350,
+		HealthBarAttachToMarkerName = "head_fxMarker_00_M_JNT",
+		HealthBarOffsetY = -130,
 
 		ArmorSparkAnimation = "HitSparkArmor_Transparent",
 
 		IsAggroedSound = "/SFX/Enemy Sounds/WaterUnitMiniboss/EmoteTaunting",
 		DeathSound = "/SFX/Enemy Sounds/WaterUnitMiniboss/EmoteDying",
+		HealthDamageSound = "/SFX/Enemy Sounds/WaterUnitMiniboss/EmoteHurt",
 
 		BlockRespawnShrineUpgrade = true,
 		BlockCharm = true,
@@ -163,7 +173,6 @@ UnitSetData.WaterUnit =
 			"WaterUnitSpitMiniBoss", "WaterUnitLobMiniboss",
 			"WaterUnitSwipeMiniboss",
 			"WaterUnitDiveMiniBoss", "WaterUnitDiveMiniBoss",
-			-- "WaterUnitRoar", 
 		},
 
 		GeneratorData =

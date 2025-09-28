@@ -2,10 +2,10 @@
   MainMenuScreen =
   {
     Platform = "default"
-    OpenSound = "/SFX/Menu Sounds/PrometheusMainMenuSFX"
+    OpenSound = "null"
     CloseSound = "null"
-    NewUpdateSound = "/SFX/Menu Sounds/PrometheusMainMenuSFX_OneOff"
-    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    NewUpdateSound = "null"
+    SelectionSound = "/SFX/Menu Sounds/IrisMenuToggle2"
     Music = "/Music/IrisMainTheme"
     GamepadCursorControl = true
     InteractDelay = 1.75
@@ -13,14 +13,14 @@
     TransitionOffTime = 0.1
     ForceShowCursor = true
     FreeFormSelectInitialStepDistance = 48
-    FreeFormSelectStepDistance = 6
-    FreeFormSelectSuccessDistance = 8
+    FreeFormSelectStepDistance = 40
+    FreeFormSelectSuccessDistance = 48
     FreeFormSelectSuccessDistanceStep = 0
 
     FreeFormSelectGridLock = true
-    FreeFormSelectOneDimension = false
+    FreeFormSelectOneDimension = true
     FreeFormSelectWrapping = true
-    FreeFormSelectMaxGridDistance = 48
+    FreeFormSelectMaxGridDistance = 200
 
     Back =
     {
@@ -41,7 +41,7 @@
       VerticalJustification = "Center"
     }
 
-    Logo =
+    /* Logo =
     {
       X = 452
       Y = 238
@@ -55,10 +55,11 @@
       FadeDelayMax = 2.01
       FadeSpeed = 2
     }
+ 
 
     Character =
     {
-      Graphic = "MainMenuEAUpdateTitleDelay"
+      Graphic = "null"
       AttachTo = "Logo"
       FadeOpacity = 0.0
       FadeTarget = 1.0
@@ -72,7 +73,7 @@
     UpdateTitleBacking =
     {
       AttachTo = "Logo"
-      Graphic = "MainMenuEALabelDelay"
+      Graphic = "null"
       OffsetX = 200
       OffsetY = 100
       FadeOpacity = 0.0
@@ -82,12 +83,14 @@
       FadeSpeed = 9999
       Scale = 0.5
     }
+   
+    */
 
     PlayGameButton =
     {
-      X = 120
-      Y = 550
-      Justification = "Left"
+      X = 495
+      Y = 625
+      Justification = "Center"
       HelpTextId = "MainMenuScreen_PlayGame"
       TextOffsetX = 0
       Graphic = "null"
@@ -96,22 +99,20 @@
       DeselectOnMouseOff = true
       UseTextArea = true
       Font = "MainMenuP22UndergroundSCHeavy"
-      TextRed = 0.676
-      TextGreen = 0.641
-      TextBlue = 0.661
+      TextRed = 1
+      TextGreen = 1
+      TextBlue = 1
       DisabledTextRed = 0.2
       DisabledTextGreen = 0.2
       DisabledTextBlue = 0.2
-      FontSize = 40
-      SelectedTextRed = 0.337
-      SelectedTextGreen = 1.000
-      SelectedTextBlue = 0.714
+      FontSize = 45
+      SelectedTextRed = 0.06
+      SelectedTextGreen = 0.98
+      SelectedTextBlue = 0.63
       SelectedAnimationIsOverlay = true
       HighlightOffsetX = -80
-      TextJustification = "Left"
+      TextJustification = "Center"
       SelectedTextScale = 1.0
-      NonEnglishScaleModifier = 1.0
-      LangJaScaleModifier = 1.0
       TextOutlineRed = 0
       TextOutlineGreen = 0
       TextOutlineBlue = 0
@@ -123,21 +124,12 @@
       ShadowOffsetX = 0
       ShadowAlpha = 1
       ShadowBlur = 0
-      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+      PressSound = "/SFX/Menu Sounds/IrisMenuBack"
       FadeOpacity = 0.0
       FadeTarget = 1.0
       FadeDelayMin = 1.6
       FadeDelayMax = 1.61
       FadeSpeed = 4.0
-    }
-
-    CloudSaveButton =
-    {
-      InheritFrom = "PlayGameButton"
-      AttachTo = "PlayGameButton"
-      OffsetY = -70
-      PressSound = "null"
-      HelpTextId = "MainMenuScreen_CloudSave_Alt"
     }
 
     /* Options */
@@ -145,75 +137,62 @@
     {
       InheritFrom = "PlayGameButton"
       AttachTo = "PlayGameButton"
-      OffsetY = 75
-      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+      OffsetY = 85
+      PressSound = "/SFX/Menu Sounds/IrisMenuBack"
       HelpTextId = "MainMenuScreen_Settings"
       FadeDelayMin = 1.6
       FadeDelayMax = 1.61
+      TextJustification = "Center"
+
     }
 
     /* Patch Notes */
     AnnouncementButton =
     {
-      InheritFrom = "SettingsButton"
-      AttachTo = "SettingsButton"
-      OffsetY = 75
-      PressSound = "null"
-      HelpTextId = "MainMenuScreen_PatchNotes"
+      HelpTextId = "Blank"
+      Scale = 0
     }
 
     LastUpdateText =
     {
-      AttachTo = "AnnouncementButton"
-      OffsetX = 2
-      OffsetY = 41
-      HelpTextId = "LastUpdate"
-      Justification = "Left"
-      VerticalJustification = "Center"
-      Font = "P22UndergroundSCMedium"
-      FontSize = 22
-      TextRed = 0.5
-      TextGreen = 0.5
-      TextBlue = 0.5
-      TextOutlineRed = 0
-      TextOutlineGreen = 0
-      TextOutlineBlue = 0
-      OutlineThickness = 0
-      ShadowRed = 0.176
-      ShadowGreen = 0.184
-      ShadowBlue = 0.18
-      ShadowOffsetY = 2
-      ShadowAlpha = 1
-      ShadowBlur = 2
-      FadeOpacity = 0.0
-      FadeTarget = 1.0
-      FadeDelayMin = 1.6
-      FadeDelayMax = 1.61
-      FadeSpeed = 4.0
+      HelpTextId = "Blank"
+      Scale = 0
     }
 
     /* Quit */
     ExitButton =
     {
       InheritFrom = "SettingsButton"
-      OffsetY = 110
-      AttachTo = "AnnouncementButton"
-      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+      OffsetY = 90
+      AttachTo = "SettingsButton"
+      PressSound = "/SFX/Menu Sounds/IrisMenuBack"
       HelpTextId = "MainMenuScreen_Quit"
       FadeDelayMin = 1.6
       FadeDelayMax = 1.61
+      TextJustification = "Center"
+    }
+
+    /* Cross-Saves */
+    CloudSaveButton =
+    {
+      InheritFrom = "ExitButton"
+      Width = 975
+      LineSpacingBottom = -35
+      AttachTo = "SettingsButton"
+      HelpTextId = "MainMenuScreen_CloudSave"
     }
 
     NewAnnouncementTag =
     {
       OffsetX = 45
       Graphic = "NewPatchNotesTag"
-      Justification = "Left"
+      Justification = "Center"
       FadeOpacity = 0.0
       FadeTarget = 1.0
       FadeDelayMin = 2.5
       FadeDelayMax = 2.6
       FadeSpeed = 4.0
+      Scale = 0
     }
 
     NextUpdateButton =
@@ -221,7 +200,6 @@
       X = 1690
       Y = 943
       Graphic = "MainMenuNextUpdateBox"
-      HelpTextId = "MainMenuScreen_RoadmapLabel"
       UnderCursorOnAnimation = "MainMenuNextUpdateBoxHighlightOn"
       UnderCursorOffAnimation = "MainMenuNextUpdateBox"
       PressAnimation = "MainMenuNextUpdateBoxPress"
@@ -251,6 +229,7 @@
       TextOutlineGreen = 0
       TextOutlineBlue = 0
       OutlineThickness = 0
+      Scale = 0
     }
 
     NextUpdateText =
@@ -258,12 +237,11 @@
       AttachTo = "NextUpdateButton"
       OffsetY = 0
       OffsetX = 0
-      HelpTextId = "NextUpdateGeneral"
       Justification = "Center"
       VerticalJustification = "Center"
       Font = "P22UndergroundSCMedium"
       FontSize = 21
-      NonEnglishScaleModifier = 1.0
+      
       LineSpacingBottom = -10
       TextRed = 0.812
       TextGreen = 0.792
@@ -309,7 +287,7 @@
       FadeDelayMin = 1.6
       FadeDelayMax = 1.61
       FadeSpeed = 4.0
-      NonEnglishScaleModifier = 1.0
+      
     }
 
     NextUpdateCountFormat =
@@ -334,14 +312,13 @@
       FadeDelayMin = 1.6
       FadeDelayMax = 1.61
       FadeSpeed = 4.0
-      NonEnglishScaleModifier = 1.0
+      
     }
 
     UpdateTitleText =
     {
       X = 440
       Y = 410
-      HelpTextId = "MainMenuScreen_UpdateName"
       Justification = "Center"
       VerticalJustification = "Center"
       Font = "SpectralSCLight"
@@ -376,7 +353,7 @@
       Blue = 0
       Alpha = 0.9
       Width = 5120
-      Height = 1440
+      Height = 1920
       FadeSpeed = 8.0
     }
 
@@ -385,8 +362,8 @@
     {
       Justification = "Center"
       VerticalJustification = "Center"
-      X = 400
-      Y = 933
+      X = 553
+      Y = 964
       Graphic = "GUI\\Shell\\MainMenu_Discord"
       MouseGraphicHover = "GUI\\Shell\\MainMenu_Discord_Highlight"
       HelpTextId = "MainMenuScreen_Discord"
@@ -405,7 +382,7 @@
       SelectedTextScale = 1.0
       SelectOnMouseOver = true
       DeselectOnMouseOff = true
-      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+      PressSound = "/SFX/Menu Sounds/IrisMenuBack"
       FadeOpacity = 0.0
       FadeTarget = 1.0
       FadeDelayMin = 1.7
@@ -471,21 +448,21 @@
       HelpTextId = "MainMenuScreen_Website"
       FadeDelayMin = 1.7
       FadeDelayMax = 1.71
+      FreeFormSelectOffsetX = 80
     }
 
     ControllerWarningText =
     {
-      AttachTo = "WebsiteButton"
-      OffsetY = 102
-      OffsetX = -100
+      X = 495
+      Y = 1050
       HelpTextId = "ControllerWarning"
-      Justification = "Left"
+      Justification = "Center"
       VerticalJustification = "Center"
       Font = "LatoMedium"
       FontSize = 21
-      TextRed = 0.094
-      TextGreen = 0.757
-      TextBlue = 0.337
+      TextRed = 0.19
+      TextGreen = 0.65
+      TextBlue = 0.45
       TextAlpha = 1.0
       TextOutlineRed = 0
       TextOutlineGreen = 0

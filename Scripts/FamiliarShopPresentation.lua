@@ -16,58 +16,13 @@ function FamiliarShopScreenOpenedPresentation( screen, args )
 	thread( PlayVoiceLines, GlobalVoiceLines.FamiliarShopOpenedVoiceLines, true )
 end
 
-function FamiliarShopScreenOpenFinishedPresentation( screen )
-
-	if screen.OfferedVoiceLines ~= nil then
-		if PlayVoiceLines( screen.OfferedVoiceLines, true ) then
-			return
-		end
-	end
-
-	if screen.NumItemsPurchaseable == 0 then
-		thread( PlayVoiceLines, GlobalVoiceLines.GhostAdminSoldOutVoiceLines, true )
-	elseif screen.NumItemsAffordable == 0 then
-		thread( PlayVoiceLines, GlobalVoiceLines.GhostAdminCantAffordAnyVoiceLines, true )
-	else
-		thread( PlayVoiceLines, GlobalVoiceLines.OpenedGhostAdminScreenVoiceLines, true )
-	end
-
-end
-
-function FamiliarShopScreenSelectCategoryPresentation( screen, button )
-
-	PlaySound({ Name = "/SFX/Menu Sounds/DialoguePanelOutMenu" })
-
-end
-
-function FamiliarShopScreenScrollPresentation( screen, button )
-	PlaySound({ Name = "/SFX/Menu Sounds/GodBoonMenuToggle" })
-end
-
 function FamiliarShopScreenCloseStartPresentation( screen )
-	PlaySound({ Name = "/SFX/Menu Sounds/WellShopCloseNew" })
+	PlaySound({ Name = "/SFX/Menu Sounds/RunHistoryClose" })
 end
 
 function FamiliarShopScreenCloseFinishedPresentation( screen )
-	if screen.NumSales <= 0 then
-		PanCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 1.0, FromCurrentLocation = true, Retarget = true, EaseIn = 0 })
-	end
-	thread( PlayVoiceLines, GlobalVoiceLines.FamiliarShopClosedVoiceLines, true )
-end
-
-
-function FamiliarShopSessionCompletePresentation( usee, screen )
-	if screen == nil then
-		return
-	end
-	if screen.NumSales == 0 then
-		if CheckCooldown( "MarketNoSale", 60 ) then
-			PlayEmote( { TargetId = usee.NoSaleEmoteTargetId or usee.ObjectId, AnimationName = usee.NoSaleEmote, OffsetZ = usee.EmoteOffsetZ } )
-		end
-	else
-		if CheckCooldown( "MarketMadeSale", 60 ) then
-			PlayEmote( { TargetId = usee.MadeSaleEmoteTargetId or usee.ObjectId, AnimationName = usee.MadeSaleEmote, OffsetZ = usee.EmoteOffsetZ } )
-		end
+	if screen.ReadOnly then
+		LockCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 0.75 })
 	end
 end
 
@@ -86,25 +41,13 @@ function FamiliarShopPurchasePreActivatePresentation( screen, button, saleData, 
 	MapState.CosmeticPresentationActive = true
 	local familiar = screen.OpenedFrom
 
-	local focusId = screen.OpenedFrom.ObjectId
 	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteThoughtful" })
 	PanCamera({ Id = screen.OpenedFrom.ObjectId, Duration = 1.0, OffsetX = 0, Retarget = true })
-
-	--[[
-	local weaponKit = GetWeaponOrToolKit( button.Data.Name )
-	if weaponKit ~= nil then
-		PanCamera({ Id = weaponKit.ObjectId, Duration = 1.0, Retarget = true, OffsetX = 0, OffsetY = -60, FromCurrentLocation = true })
-	end
-
-	
-	ShakeScreen({ Speed = 500, Distance = 5, Duration = 0.5, FalloffSpeed = 500 })
-	PlaySound({ Name = "/Leftovers/Menu Sounds/TextReveal2" })
-	]]
 
 	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteAffection" })
 	CreateAnimation({ Name = "FamiliarUpgradeSparkles", DestinationId = familiar.ObjectId })
 
-	thread( PlayVoiceLines, GlobalVoiceLines.FamiliarPostTreatVoiceLines, true )
+	thread( PlayVoiceLines, GlobalVoiceLines.FamiliarPostTreatVoiceLines, true, nil, { FamiliarName = familiar.Name } )
 
 	wait( saleData.PanDuration or 1.0 )
 
@@ -115,6 +58,7 @@ function FamiliarShopPurchasePreActivatePresentation( screen, button, saleData, 
 	PlaySound({ Name = "/SFX/Menu Sounds/HadesTextDisappearFade" })
 	
 	RunEventsGeneric( familiar.UpgradedEvents, familiar )
+	RunEventsGeneric( familiar.SetupEvents, familiar ) -- refresh eligible interactions
 
 	wait( 0.3 )
 	thread( CleanUpUpgradeSparkles, familiar )
@@ -126,16 +70,7 @@ function CleanUpUpgradeSparkles( familiar )
 	StopAnimation({ Name = "FamiliarGlow", DestinationId = familiar.ObjectId })
 end
 
-function FamiliarShopPurchasePostActivatePresentation( button, saleData, weaponKit )
-
-	if weaponKit ~= nil then
-		SetAlpha({ Id = weaponKit.ObjectId, Fraction = 1.0, Duration = 0.5 })
-		SetAnimation({ Name = weaponKit.UnequippedKitAnimation or GetWeaponKitAnimation( weaponKit.Name, "Unequipped" ), DestinationId =  weaponKit.ObjectId })
-		if weaponKit.FirstTimeEquipAnimation ~= nil then
-			--PanCamera({ Id = weaponKit.ObjectId, Duration = 1.5, EaseIn = 0.05, EaseOut = 0.3, Retarget = true, FromCurrentLocation = true })
-			--SetAnimation({ Name = weaponKit.FirstTimeEquipAnimation, DestinationId = CurrentRun.Hero.ObjectId })
-		end
-	end
+function FamiliarShopPurchasePostActivatePresentation( screen, button, saleData )
 
 	SetAnimation({ Name = "MelinoeSaluteToEquip", DestinationId = CurrentRun.Hero.ObjectId })
 
@@ -143,16 +78,26 @@ function FamiliarShopPurchasePostActivatePresentation( button, saleData, weaponK
 		TitleText = saleData.UnlockTextId or "FamiliarShopUnlock",
 		SubtitleText = saleData.Name,
 		Icon = saleData.Icon,
-		FontScale = 0.76,
-		IconScale = 0.7,
-		IconMoveSpeed = 0.00001,
+		IconBackingAnimationName = "LocationBackingIrisSmallSubtitleIn",
+		IconBackingAnimationOutName = "LocationBackingIrisSmallSubtitleOut",
+		IconBackingColor = Color.Lavender,
+		IconBackingHSV = { 0.3, -0.1, 0.1},
+		AnimationName = "InfoBannerFamiliarUpgradeIn",
+		AnimationOutName = "InfoBannerFamiliarUpgradeOut",
 		IconOffsetY = 6,
-		Duration = 2.5,
+		IconScale = 0.5,
+		SubtitleOffsetY = 60,
+		IconMoveSpeed = 0.00001,
+		Duration = 2.8,
 	} )
 
 	wait( 2.75 )
 
 	PlaySound({ Name = saleData.ItemActivationSound or "/Leftovers/Menu Sounds/EmoteExcitement" })
+
+	if GameState.EquippedFamiliar ~= screen.OpenedFrom.Name and screen.OpenedFrom.PostUpgradeUnequippedAnimation ~= nil then
+		SetAnimation({ DestinationId = screen.OpenedFrom.ObjectId, Name = screen.OpenedFrom.PostUpgradeUnequippedAnimation })
+	end
 
 	wait( saleData.PostActivationHoldDuration or 0 )
 
@@ -161,27 +106,6 @@ function FamiliarShopPurchasePostActivatePresentation( button, saleData, weaponK
 	--AdjustZoom({ Fraction = 1.0, LerpTime = 0.75 })
 
 	wait( 0.5 )
-
-	if weaponKit ~= nil then
-		if weaponKit.FirstTimeWeaponFire then
-			SetGoalAngle({ Id = CurrentRun.Hero.ObjectId, Angle = 325, CompleteAngle = true })
-			FireWeaponFromUnit({ Weapon = weaponKit.FirstTimeWeaponFire, Id = CurrentRun.Hero.ObjectId })
-		elseif weaponKit.FirstTimeEquipAnimation ~= nil then
-			SetGoalAngle({ Id = CurrentRun.Hero.ObjectId, Angle = 325, CompleteAngle = true })
-			SetAnimation({ Name = weaponKit.FirstTimeEquipAnimation, DestinationId = CurrentRun.Hero.ObjectId })
-		end
-
-		wait( 0.25 )
-		SetAnimation({ Name = weaponKit.EquippedKitAnimation or GetWeaponKitAnimation( weaponKit.Name, "Unequipped" ), DestinationId =  weaponKit.ObjectId })
-		wait( 0.7 )
-
-		if weaponKit.ShopPurchasaeFunctionName ~= nil then
-			CallFunctionName( weaponKit.ShopPurchasaeFunctionName, weaponKit )
-		else
-			CheckAutoObjectiveSets( CurrentRun, "WeaponPickup" )
-		end
-
-	end
 
 	RemoveInputBlock({ Name = "FamiliarShopActivate" })
 	MapState.CosmeticPresentationActive = false
@@ -218,17 +142,20 @@ function MouseOverFamiliarShopItem( button )
 	ModifyTextBox({ Id = components.InfoBoxName.Id,
 		Text = button.Data.Name,
 		FadeTarget = 1.0,
-		LuaKey = "TooltipData",
-		LuaValue = luaValue,
 		Color = rarityColor,
 	})
 	SetAlpha({ Id = components.InfoBoxDescription.Id, Fraction = 1.0, Duration = 0.2 })
+
+	local descriptionText = button.Data.Name
+	if not GameState.FamiliarUpgrades[descriptionText] then
+		descriptionText = descriptionText.."_Upgrade"
+	end
 	ModifyTextBox({ Id = components.InfoBoxDescription.Id,
-		Text = button.Data.Name,
+		Text = descriptionText,
 		UseDescription = true,
 		FadeTarget = 1.0,
 		LuaKey = "TooltipData",
-		LuaValue = button.TraitData or {},
+		LuaValue = button.TraitData,
 	})
 
 	if button.Data.RarityLevel ~= nil then		

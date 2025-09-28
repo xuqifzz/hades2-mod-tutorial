@@ -4,9 +4,38 @@
 		GrannyModel = "CritterRaven_Mesh"
 	}
 	{
+		Name = "FamiliarRavenWild"
+		GrannyModel = "RavenFamiliar_Wild_Mesh"
+	}
+	{
+		Name = "FamiliarRavenChthonic"
+		GrannyModel = "RavenFamiliar_Chthonic_Mesh"
+	}
+	{
+		Name = "FamiliarRavenCute"
+		GrannyModel = "RavenFamiliar_Cute_Mesh"
+	}
+	{
+		Name = "FamiliarRavenMoon"
+		GrannyModel = "RavenFamiliar_Moon_Mesh"
+	}
+	{
+		Name = "FamiliarRavenNightmare"
+		GrannyModel = "RavenFamiliar_Nightmare_Mesh"
+	}
+
+	{
 		Name = "FamiliarRavenBaseAnimation"
 		GrannyModel = "RavenFamiliar_Mesh"
-		ExtraGrannyAnimations = [{ Name = "CritterRaven" }]
+		ExtraGrannyAnimations =
+		[
+			{ Name = "CritterRaven" }
+			{ Name = "FamiliarRavenWild" }
+			{ Name = "FamiliarRavenChthonic" }
+			{ Name = "FamiliarRavenCute" }
+			{ Name = "FamiliarRavenMoon" }
+			{ Name = "FamiliarRavenNightmare" }
+		]
 		GrannyAnimation = "null"
 		GrannyAnimationSpeed = 1.0
 		Scale = 1.0
@@ -28,6 +57,7 @@
 		GrannyAnimation = "Raven_Base_Idle_C_00"
 		CancelOnOwnerMove = true
 		Loop = true
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
@@ -53,6 +83,7 @@
 		InheritFrom = "FamiliarRavenBaseAnimation"
 		GrannyAnimation = "Raven_Base_Move_C_00"
 		Loop = true
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
@@ -78,6 +109,7 @@
 		InheritFrom = "FamiliarRavenBaseAnimation"
 		GrannyAnimation = "Raven_Base_Perch_Start_C_00"
 		ChainTo = "Familiar_Raven_Perched"
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
@@ -112,6 +144,7 @@
 		InheritFrom = "FamiliarRavenBaseAnimation"
 		GrannyAnimation = "Raven_Base_Perched_Fidget_C_00"
 		ChainTo = "Familiar_Raven_Perched"
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
@@ -144,6 +177,7 @@
 		InheritFrom = "FamiliarRavenBaseAnimation"
 		GrannyAnimation = "Raven_Base_Perch_End_C_00"
 		ChainTo = "Familiar_Raven_Idle"
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
@@ -162,6 +196,7 @@
 		InheritFrom = "FamiliarRavenBaseAnimation"
 		GrannyAnimation = "Raven_Base_Spawn_Enter_C_00"
 		ChainTo = "Familiar_Raven_Idle"
+		SoundManagerCap = 46
 		Frames =
 		[
 			{
@@ -184,6 +219,7 @@
 		InheritFrom = "FamiliarRavenBaseAnimation"
 		GrannyAnimation = "Raven_Base_Spawn_Exit_C_00"
 		HoldLastFrame = true
+		SoundManagerCap = 46
 		Frames =
 		[
 			{
@@ -206,6 +242,7 @@
 		InheritFrom = "FamiliarRavenBaseAnimation"
 		GrannyAnimation = "Raven_Base_Victory_C_00"
 		ChainTo = "Familiar_Raven_Idle"
+		SoundManagerCap = 46
 		Frames =
 		[
 			{
@@ -223,6 +260,11 @@
 		InheritFrom = "Familiar_Raven_Victory"
 		ChainTo = "Familiar_Raven_Perch_Start"
 	}
+	{
+		Name = "Familiar_Raven_Victory_Perch_Fast"
+		InheritFrom = "Familiar_Raven_Victory_Perch"
+		GrannyAnimationSpeed = 2.0
+	}
 
 	{
 		Name = "Familiar_Raven_Mine"
@@ -238,6 +280,7 @@
 		GrannyAnimation = "Raven_Base_Harass_C_00"
 		ChainTo = "Familiar_Raven_Idle"
 		GrannyAnimationSpeed = 2.5
+		SoundManagerCap = 38
 		Frames =
 		[
 			{
@@ -264,6 +307,7 @@
 		InheritFrom = "FamiliarRavenBaseAnimation"
 		GrannyAnimation = "Raven_Base_Pet_C_00"
 		ChainTo = "Familiar_Raven_Perched_Idle"
+		SoundManagerCap = 46
 		Frames =
 		[
 			{

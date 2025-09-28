@@ -2,7 +2,8 @@
 	-- Suit
 	SuitHammerTrait = 
 	{
-		CodexWeapon = "WeaponSuit"
+		CodexWeapon = "WeaponSuit",
+		DebugOnly = true,
 	},
 	
 	SuitArmorTrait = 
@@ -18,17 +19,16 @@
 		},
 		AddOutgoingDamageModifiers =
 		{
-			HealthBufferRemoval = 0.20,
 			ValidWeapons = { "WeaponSuit", "WeaponSuit2" },
+			NonExFlatDamageToArmor = 250,
 			ExcludeLinked = true,
-			ReportValues = { ReportedWeaponMultiplier = "HealthBufferRemoval"},
+			ReportValues = { ReportedWeaponMultiplier = "NonExFlatDamageToArmor"},
 		},
 		ExtractValues =
 		{
 			{
 				Key = "ReportedWeaponMultiplier",
-				ExtractAs = "ArmorDamageIncrease",
-				Format = "Percent",
+				ExtractAs = "DamageIncrease",
 			},
 		}
 	},
@@ -37,6 +37,17 @@
 	{
 		InheritFrom = { "WeaponTrait", "SuitHammerTrait" },
 		Icon = "Hammer_Suit_05",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 0.45/0.35,
+			},
+		},
 		GameStateRequirements =
 		{
 			{
@@ -83,6 +94,17 @@
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponSuit", },
+			},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5,
 			},
 		},
 		AddOutgoingDamageModifiers = 
@@ -136,40 +158,53 @@
 				HasAll = { "WeaponSuit", },
 			},
 		},
+		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5,
+			},
+		},
 		AddOutgoingDamageModifiers =
 		{
-			ValidWeaponMultiplier = 1.3,
+			ValidWeaponMultiplier = { BaseValue = 1.3, SourceIsMultiplier = true },
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
 			ReportValues = { ReportedWeaponMultiplier = "ValidWeaponMultiplier"},
 		},
 		PropertyChanges = 
 		{
 			{
-				WeaponName = "WeaponSuit",
+				WeaponNames = { "WeaponSuit","WeaponSuit2", "WeaponSuitDouble", "WeaponSuitCharged",},
 				ProjectileProperty = "AttachToOwner",
 				ChangeValue = false,
+				ExcludeLinked = true,
 			},
 			{
-				WeaponNames = { "WeaponSuit", "WeaponSuit2" },
+				WeaponNames = { "WeaponSuit", "WeaponSuit2", "WeaponSuitDouble" },
 				ProjectileProperty = "Speed",
 				ChangeValue = 4000,
 				ExcludeLinked = true,
 			},
 			{
-				WeaponNames = { "WeaponSuit", "WeaponSuit2" },
+				WeaponNames = { "WeaponSuit", "WeaponSuit2", "WeaponSuitDouble" },
 				ProjectileProperty = "Acceleration",
 				ChangeValue = -15000,
 				ExcludeLinked = true,
 			},
 			{
-				WeaponNames = { "WeaponSuit", "WeaponSuit2" },
+				WeaponNames = { "WeaponSuit", "WeaponSuit2", "WeaponSuitDouble" },
 				WeaponProperty = "SelfVelocity",
 				ChangeValue = 0.5,
 				ChangeType = "Multiply",
 				ExcludeLinked = true,
 			},
 			{
-				WeaponNames = { "WeaponSuit", "WeaponSuit2" },
+				WeaponNames = { "WeaponSuit", "WeaponSuit2", "WeaponSuitDouble" },
 				WeaponProperty = "AutoLockRange",
 				ChangeValue = 1.5,
 				ChangeType = "Multiply",
@@ -203,10 +238,21 @@
 				HasAll = { "WeaponSuit", },
 			},
 		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.4,
+			},
+		},
 		AddOutgoingDamageModifiers = 
 		{
 			ValidWeapons = { "WeaponSuitCharged" },
-			MaxChargeDamage = 100,
+			MaxChargeDamage = { BaseValue = 100 },
 			ReportValues = 
 			{ 
 				ReportedDamageBonus = "MaxChargeDamage" 
@@ -230,6 +276,10 @@
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponSuit", },
 			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponSuit", },
+				IsNone = {"SuitComboAspect", }
+			},
 		},
 		PropertyChanges = 
 		{
@@ -244,14 +294,8 @@
 			{
 				WeaponName = "WeaponSuitDash",
 				ExcludeLinked = true,
-				ProjectileProperty = "StartFx",
-				ChangeValue = "Null",
-			},
-			{
-				WeaponName = "WeaponSuitDash",
-				ExcludeLinked = true,
 				ProjectileProperty = "DetonateFx",
-				ChangeValue = "SuitNovaBurn",
+				ChangeValue = "SuitNovaBurnRapid",
 			},
 		},
 		ExtractValues =
@@ -266,11 +310,27 @@
 	{
 		InheritFrom = { "WeaponTrait", "SuitHammerTrait" },
 		Icon = "Hammer_Suit_10",
+		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5,
+			},
+		},
 		GameStateRequirements =
 		{
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponSuit", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponSuit", },
+				IsNone = {"SuitComboAspect", }
 			},
 		},
 		PropertyChanges = 
@@ -279,13 +339,13 @@
 				WeaponName = "WeaponSuitRanged",
 				ProjectileName = "ProjectileSuitRangedGuided",
 				ProjectileProperty = "NumJumps",
-				ChangeValue = 2,
+				BaseValue = 2,
 			},
 			{
 				WeaponName = "WeaponSuitRanged",
 				ProjectileName = "ProjectileSuitRangedCharged",
 				ProjectileProperty = "NumJumps",
-				ChangeValue = 2,
+				BaseValue = 2,
 				ReportValues = {ReportedChange = "ChangeValue"}
 			},
 			{
@@ -297,7 +357,6 @@
 			{
 				WeaponName = "WeaponSuitRanged",
 				ProjectileName = "ProjectileSuitRangedCharged",
-				ProjectileProperty = "NumJumps",
 				ProjectileProperty = "BounceFx",
 				ChangeValue = "SuitRocketExplosion",
 			},
@@ -319,6 +378,10 @@
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponSuit", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponSuit", },
+				IsNone = {"SuitComboAspect", }
 			},
 		},
 		MissileStartupMultiplier = 0.2,
@@ -379,6 +442,21 @@
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponSuit", },
 			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponSuit", },
+				IsNone = {"SuitComboAspect", }
+			},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 0.35/0.25,
+			},
 		},
 		OnEnemyDamagedAction = 
 		{
@@ -387,7 +465,7 @@
 			FirstHitOnly = true,
 			Args = 
 			{
-				Chance = 0.25,
+				Chance = { BaseValue = 0.25 },
 				ProjectileCount = 2,
 				ProjectileName = "ProjectileSuitRangedUnguided",
 				ReportValues = {ReportedChance = "Chance"}
@@ -398,7 +476,7 @@
 			{
 				Key = "ReportedChance",
 				ExtractAs = "Chance",
-				Format = "Percent",
+				Format = "LuckModifiedPercent",
 			},
 		}
 	},
@@ -411,6 +489,10 @@
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponSuit", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponSuit", },
+				IsNone = {"SuitComboAspect", }
 			},
 		},
 		OnBlockDamageFunction = 
@@ -425,7 +507,8 @@
 				Window = 1,
 				ReportValues = 
 				{ 
-					ReportedCount = "ProjectileCount" 
+					ReportedCount = "ProjectileCount",
+					ReportedCooldown = "PerEnemyCooldown",
 				},
 			}
 		},
@@ -434,6 +517,10 @@
 				{
 					Key = "ReportedCount",
 					ExtractAs = "TooltipCount",
+				},
+				{
+					Key = "ReportedCooldown",
+					ExtractAs = "TooltipCooldown",
 				},
 			}
 	},
@@ -447,13 +534,28 @@
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponSuit", },
 			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponSuit", },
+				IsNone = {"SuitComboAspect", }
+			},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5,
+			},
 		},
 		SeekIntervalMultiplier = 2/3,
 		ManaCostModifiers = 
 		{
 			WeaponNames = { "WeaponSuitRanged" },
 			ExWeapons = true,
-			ManaCostMultiplier = 0.80,
+			ManaCostMultiplier = { BaseValue = 0.80, SourceIsMultiplier = true },
 			ReportValues = 
 			{ 
 				ReportedCost = "ManaCostMultiplier" 
@@ -478,12 +580,27 @@
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponSuit", },
 			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponSuit", },
+				IsNone = {"SuitComboAspect", }
+			},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 8/5,
+			},
 		},
 		AddOutgoingDamageModifiers = 
 		{
 			ValidWeapons = {"WeaponSuitRanged"},
-			ConsecutiveBaseDamage = 5,
-			MaxConsecutiveBaseDamage = 25,
+			ConsecutiveBaseDamage = { BaseValue = 5 } ,
+			MaxConsecutiveBaseDamage = { BaseValue = 25 },
 			MaxConsecutiveStacks = 5, -- used for text only, to equal the above value
 			ReportValues = { ReportedBaseDamage = "ConsecutiveBaseDamage", ReportedMaxDamage = "MaxConsecutiveBaseDamage"}
 		},
@@ -513,5 +630,328 @@
 				ExtractAs = "DamageWindow",
 			},
 		}
-	}
+	},
+	
+	SuitComboForwardRocketTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "SuitHammerTrait" },
+		Icon = "Hammer_Suit_18",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponSuit", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponSuit", },
+				IsAny = {"SuitComboAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "SuitComboAspect" },
+			},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5,
+			},
+		},
+		AddOutgoingDamageModifiers = 
+		{
+			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
+			ValidBaseDamageAddition = 
+			{ 
+				BaseValue = 10,
+			},
+			ReportValues = 
+			{ 
+				ReportedDamageBonus = "ValidBaseDamageAddition" 
+			},
+		},
+		ChargeStageModifiers = 
+		{
+			ValidWeapons = { "WeaponSuitRanged"},
+			ExcludeLinked = true,
+			AddWeaponProperties = 
+			{
+				Projectile = "ProjectileSuitBombStraight",
+				TargetReticleAnimation = "null",
+				ManualAiming = false,
+				AimLineAnimation = "AuraAimLine",
+			}
+		},
+		WeaponDataOverride = 
+		{
+			WeaponSuitRanged = 
+			{
+				BlockEarlySwap = true,
+			}
+		},
+		PropertyChanges = 
+		{
+			{
+				WeaponName = "WeaponSuitRanged",
+				WeaponProperty = "Projectile",
+				ChangeValue = "ProjectileSuitGrenadeStraight",
+			},
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedDamageBonus",
+				ExtractAs = "Increase",
+			},
+		}
+	},
+	SuitComboBlockBuffTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "SuitHammerTrait" },
+		Icon = "Hammer_Suit_19",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponSuit", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponSuit", },
+				IsAny = {"SuitComboAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "SuitComboAspect" },
+			},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 4/3,
+			},
+		},
+		OnBlockDamageFunction = 
+		{
+			Name = "BlockSelfBuff",
+			Args = 
+			{
+				Stacks = { BaseValue = 3 },
+				ReportValues = 
+				{ 
+					ReportedCount = "Stacks",
+				}
+			}
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedCount",
+				ExtractAs = "Stacks",
+			},
+			{
+				External  = true,
+				BaseType = "TraitData",
+				BaseName = "SuitComboAspect",
+				BaseProperty = { "OnWeaponFiredFunctions", "FunctionArgs", "SelfEffectStackMultiplier" },
+				ExtractAs = "ExecuteBonus",
+				Format = "Percent",
+				SkipAutoExtract = true,
+			},
+			{
+				External = true,
+				BaseType = "TraitData",
+				BaseName = "SuitComboAspect",
+				BaseProperty = { "OnWeaponFiredFunctions", "FunctionArgs", "SelfEffectMaxStacks" },
+				ExtractAs = "StackCount",
+				SkipAutoExtract = true,
+			},
+		}
+	},
+	SuitComboDoubleSpecialTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "SuitHammerTrait" },
+		Icon = "Hammer_Suit_20",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponSuit", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponSuit", },
+				IsAny = {"SuitComboAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "SuitComboAspect" },
+			},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 0.6,
+			},
+		},
+		SelfBuffBlastManaCost = { BaseValue = 10 },
+		ExtractValues =
+		{
+			{
+				Key = "SelfBuffBlastManaCost",
+				ExtractAs = "Cost",
+			},
+		}
+	},
+	SuitComboDashAttackTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "SuitHammerTrait" },
+		Icon = "Hammer_Suit_21",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponSuit", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponSuit", },
+				IsAny = {"SuitComboAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "SuitComboAspect" },
+			},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5,
+			},
+		},
+		AddOutgoingDamageModifiers = 
+		{
+			WeaponName = "WeaponSuitDash",
+			ValidWeaponMultiplier = 
+			{ 
+				BaseValue = 1.4,
+				SourceIsMultiplier = true,
+			},
+			ReportValues = 
+			{ 
+				ReportedDamageBonus = "ValidWeaponMultiplier" 
+			},
+		},
+		PropertyChanges = 
+		{
+			{
+				WeaponName = "WeaponSuitDash",
+				ExcludeLinked = true,
+				WeaponProperty = "BlastRadiusMultiplier",
+				ChangeValue = 0.2,
+				ChangeType = "Add",
+			},
+		},
+		ExtractValues =
+		{
+			{
+					Key = "ReportedDamageBonus",
+					ExtractAs = "ReportedBonus",
+					Format = "PercentDelta"
+			},
+		}
+	},
+	SuitPowershotTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "SuitHammerTrait" },
+		Icon = "Hammer_Suit_17",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5,
+			}
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponSuit", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponSuit", },
+				IsAny = {"SuitComboAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "SuitComboAspect" },
+			},
+		},
+		StagePerfectChargeWindow = 0.4,
+		AddOutgoingDamageModifiers =
+		{
+			PerfectChargeMultiplier =
+			{
+				BaseValue = 1.8,
+				SourceIsMultiplier = true,
+			},
+			ReportValues = { ReportedWeaponMultiplier = "PerfectChargeMultiplier"},
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedWeaponMultiplier",
+				ExtractAs = "DamageIncrease",
+				Format = "PercentDelta",
+			},
+			{
+				External  = true,
+				BaseType = "TraitData",
+				BaseName = "SuitComboAspect",
+				BaseProperty = { "OnWeaponFiredFunctions", "FunctionArgs", "SelfEffectStackMultiplier" },
+				ExtractAs = "ExecuteBonus",
+				Format = "Percent",
+				SkipAutoExtract = true,
+			},
+			{
+				External = true,
+				BaseType = "TraitData",
+				BaseName = "SuitComboAspect",
+				BaseProperty = { "OnWeaponFiredFunctions", "FunctionArgs", "SelfEffectMaxStacks" },
+				ExtractAs = "StackCount",
+				SkipAutoExtract = true,
+			},
+		}
+	},
+
 })

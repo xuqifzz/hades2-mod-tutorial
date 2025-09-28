@@ -230,6 +230,12 @@
 		InheritFrom = "Enemy_SatyrCB_Death"
 		ClearCreateAnimations = true
 		CreateAnimation = null
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
 		CreateAnimations = [
 			{ Name = "EnemySandDeathFx" }
 			{ Name = "SatyrCrossbowDeathFx" }
@@ -264,6 +270,7 @@
 		GrannyAnimation = "SatyrCrossbow_Base_Spawn_C_00"
 		ChainTo = "Enemy_SatyrCB_Idle"
 		CreateAnimation = "SatyrSpawnTrail"
+		CancelOnOwnerMove = true
 		Frames =
 		[
 			{

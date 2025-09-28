@@ -1,0 +1,285 @@
+{ Projectiles = [
+	/* Familiars / Summons */
+	{
+		Name = "RavenFamiliarMelee"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		Fuse = 0.13
+		AttachToOwner = true
+		AffectsEnemies = true
+		AffectsFriends = false
+		ImpactVelocity = 200
+		NumPenetrations = 9999
+		AffectsSelf = false
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 5
+		ImpactLineOfSight = true
+		UseRadialImpact = false
+		GroupName = "FX_Standing_Add"
+		Thing =
+		{
+			Graphic = "RavenFamiliarStabFx"
+			GeometryScaleY = 0.6
+			AttachedAnim = null
+			OffsetZ = 150
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 260
+					Y = 30
+				}
+				{
+					X = 260
+					Y = -30
+				}
+				{
+					X = -10
+					Y = -40
+				}
+				{
+					X = -10
+					Y = 40
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "OnHitStun"
+				Duration = 0.5
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Active = false
+				CanAffectInvulnerable = false
+				FrontFx = "null"
+			}
+		]
+	}
+	{
+		Name = "RavenFamiliarMelee_Crit"
+		InheritFrom = "RavenFamiliarMelee"
+		Effects =
+		[
+			{
+				Name = "RavenFamiliarMark"
+				Duration = 6.0
+				Active = true
+				CanAffectInvulnerable = false
+			}
+		]
+	}
+	{
+		Name = "CatFamiliarPounce"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		DetonateSound = "/Leftovers/SFX/BeaconTeleportSFX"
+		AttachToOwner = true
+		RotateWithOwner = true		
+		AffectsEnemies = true
+		AffectsFriends = false
+		ImpactVelocity = 0
+		NumPenetrations = 9999
+		AffectsSelf = false
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		MultipleUnitCollisions = false
+		MultipleObstacleCollisions = false
+		Damage = 99
+		ImpactLineOfSight = false
+		TotalFuse = 0.3
+		DieWithOwner = true
+		GroupName = "FX_Standing_Add"
+		Thing =
+		{
+			Graphic = "Blank"
+			OffsetZ = 0
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 180
+					Y = 100
+				}
+				{
+					X = 180
+					Y = -100
+				}
+				{
+					X = -10
+					Y = -5
+				}
+				{
+					X = -10
+					Y = 5
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "OnHitStunHeavy"
+				Duration = 1.0
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Active = true
+				CanAffectInvulnerable = false
+				FrontFx = "null"
+			}
+		]
+	}
+
+	{
+		Name = "PolecatFamiliarMelee"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		DetonateSound = "/Leftovers/SFX/BeaconTeleportSFX"
+		AttachToOwner = true
+		RotateWithOwner = true		
+		AffectsEnemies = true
+		AffectsFriends = false
+		ImpactVelocity = 0
+		NumPenetrations = 9999
+		AffectsSelf = false
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		MultipleUnitCollisions = false
+		MultipleObstacleCollisions = false
+		Damage = 250
+		ImpactLineOfSight = false
+		TotalFuse = 0.3
+		DieWithOwner = true
+		GroupName = "FX_Standing_Add"
+		Thing =
+		{
+			Graphic = "Blank"
+			OffsetZ = 0
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 180
+					Y = 100
+				}
+				{
+					X = 180
+					Y = -100
+				}
+				{
+					X = -10
+					Y = -5
+				}
+				{
+					X = -10
+					Y = 5
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "OnHitStunHeavy"
+				Duration = 1.0
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Active = true
+				CanAffectInvulnerable = false
+				FrontFx = "null"
+			}
+		]
+	}
+	
+	{
+		Name = "FrogFamiliarLand"
+		InheritFrom = "1_BaseEnemyProjectile"
+		DetonateFx = "FrogFamiliarLandDust"
+		Type = "STRAIGHT"
+		AffectsEnemies = true
+		AffectsFriends = false
+		AffectsSelf = false
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0.02
+		DamageRadius = 230
+		Damage = 0
+		BlastDuration = 0.1
+		BlastSpeed = 2200
+		AttachToOwner = true
+		UseRadialImpact = true
+		DamageRadiusScaleX = 1.175
+		DamageRadiusScaleY = 0.56
+		ProjectileDefenseRadius = 350
+		UseArmor = true
+		UseVulnerability = false
+		DetonateLineOfSightFromOwner = true
+		CanHitWithoutDamage = true
+		Effects =
+		[
+			{
+				Name = "OnHitStun"
+				Duration = 0.7
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Active = true
+				CanAffectInvulnerable = false
+				FrontFx = "null"
+			}
+		]
+	}
+	{
+		Name = "HoundFamiliarBark"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		DetonateSound = "/SFX/Enemy Sounds/Charon/CharonRadialBlast"
+		AffectsEnemies = true
+		AffectsFriends = false
+		AffectsSelf = false
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0.02
+		DamageRadius = 550
+		Damage = 0
+		BlastDuration = 0.1
+		BlastSpeed = 2200
+		AttachToOwner = true
+		UseRadialImpact = true
+		DamageRadiusScaleX = 1.175
+		DamageRadiusScaleY = 0.56
+		UseVulnerability = false
+		DetonateLineOfSightFromOwner = false
+		CanHitWithoutDamage = true
+		Thing =
+		{
+			Graphic = "LamiaShockwaveFx"
+			Grip = 999999
+		}
+		Effects =
+		[
+			{
+				Name = "HoundStun"
+				Duration = 1.25
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Active = true
+				CanAffectInvulnerable = false
+				FrontFx = "DionysusStunnedFx"
+			}
+		]
+	}
+]}

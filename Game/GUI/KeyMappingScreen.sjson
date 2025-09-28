@@ -2,7 +2,7 @@
   KeyMappingScreen =
   {
     Platform = "default"
-    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    SelectionSound = "/SFX/Menu Sounds/IrisMenuToggle2"
     ForceShowCursor = true
     TransitionOnTime = 0.0
     TransitionOffTime = 0.0
@@ -11,20 +11,21 @@
     FreeFormSelectInitialStepDistance = 24
     FreeFormSelectStepDistance = 16
     FreeFormSelectSuccessDistance = 8
-    FreeFormSelectSuccessDistanceStep = 2
-    ItemsPerPage = 8
+    FreeFormSelectSuccessDistanceStep = 6
+    ItemsPerPage = 10
+    InteractDelay = 0.1
 
     DescriptionBox =
-	{
-      X = 650
-      Y = 820
+    {
+      X = 660
+      Y = 860
       Justification = "Center"
       VerticalJustification = "Center"
       Font = "LatoMedium"
-      FontSize = 18
-      TextRed = 0.87
-      TextGreen = 0.87
-      TextBlue = 0.87
+      FontSize = 19
+      TextRed = 0.4
+      TextGreen = 0.4
+      TextBlue = 0.4
       TextOutlineRed = 0
       TextOutlineGreen = 0
       TextOutlineBlue = 0
@@ -36,12 +37,14 @@
       ShadowOffsetY = 3
       ShadowAlpha = 1
       ShadowBlur = 0
-      Width = 700
+      Width = 720
       Height = 300
+      LineSpacingBottom = 6
+      TextSymbolScale = 0.7
     }
 
     KeyText =
-	{
+    {
       TextJustification = "Center"
       FontSize = 24
       Font = "P22UndergroundSCHeavy"
@@ -50,10 +53,15 @@
       TextBlue = 0.9
       TextOffsetX = -1
       TextOffsetY = -2
-      SelectedTextRed = 1
-      SelectedTextGreen = 1
-      SelectedTextBlue = 0.6
+      /* Tune this color for the key text when a key/button selected / mouse hovered (affects '--' and generic letter keys like 'F' or 'Q')*/
+      SelectedTextRed = 0.25 /* 1 */
+      SelectedTextGreen = 0.85 /* 1 */
+      SelectedTextBlue = 0.59 /* 0.6 */
       SelectedTextScale = 1.0
+      /* Tune this color for the '--' text when a key/button is unmapped and unselected */
+      DisabledTextRed = 0.55
+      DisabledTextGreen = 0.55
+      DisabledTextBlue = 0.55
       ShadowOffsetY = 2
       ShadowOffsetX = 0
       ShadowAlpha = 1
@@ -62,19 +70,17 @@
     }
 
     ControlButton =
-	{
-      X = 1380
+    {
+      X = 1554
       Y = 300
-      Spacing = 58
+      Spacing = 48
       LineSpacingRight = 380
       Justification = "Center"
-      VerticalJustification = "Center"
-      
+      VerticalJustification = "Center"      
       Graphic = "null"
       SelectedOnAnimation = "null"
-      Scale = 0.44
-      AddTextArea = true
-      
+      Scale = 0.38
+      AddTextArea = true      
       AddColor = true
       Red = 0
       Green = 0
@@ -82,23 +88,26 @@
       SelectedRed = 0.5
       SelectedGreen = 0.5
       SelectedBlue = 0.5
-      PressSound = "/SFX/Menu Sounds/MirrorMenuStatIncrease"
-      ActionSound = "/SFX/Menu Sounds/MirrorMenuStatLower"      
+      PressSound = "/SFX/Menu Sounds/IrisMenuConfirm"
+      ActionSound = "/SFX/Menu Sounds/IrisMenuBack"      
       DisabledPressSound = "/Leftovers/SFX/OutOfAmmo2"
       TextJustification = "Left"
-      TextOffsetX = -720
+      TextOffsetX = -894
       Font = "P22UndergroundSCMedium"
       FontSize = 22
-      TextRed = 0.8
-      TextGreen = 0.8
-      TextBlue = 0.8
-      SelectedTextRed = 0.85
-      SelectedTextGreen = 0.6
-      SelectedTextBlue = 0.25
+      TextRed = 0.55
+      TextGreen = 0.55
+      TextBlue = 0.55
+      SelectedTextRed = 0.25
+      SelectedTextGreen = 0.85
+      SelectedTextBlue = 0.59
+
+      FlashTextWhileSelected = false
+      FlashTextWhileSelectedColorChangeSpeed = 4.0
     }
-	
+
     RemapInstructions =
-	{
+    {
       X = 960
       Y = 900
       Justification = "Center"
@@ -112,9 +121,9 @@
       FlashMin = 0
       FlashMax = 0.5
       FlashSpeed = 2.0
-      FlashRed = 1.0
-      FlashGreen = 0.8
-      FlashBlue = 0.2
+      FlashRed = 0.25
+      FlashGreen = 0.85
+      FlashBlue = 0.59
       OutlineThickness = 2
       TextOutlineRed = 0
       TextOutlineGreen = 0
@@ -130,26 +139,52 @@
       FontSize = 28
     }
 
+    DefaultsResetConfirm =
+    {
+      X = 1567
+      Y = 520
+      Graphic = "Blank"
+      ScaleY = 1.1
+    }
+
     UpArrow =
     {
-      X = 1500
+      X = 1650
       Y = 220
       Graphic = "GUI\Shell\UpArrow_Base"
       SelectedGraphic = "GUI\Shell\UpArrow_Highlight"
       Scale = 0.4
       AutoActivateWithGamepad = true
-      FreeFormSelectOffsetX = -120
+      FreeFormSelectOffsetX = -100
+      FreeFormSelectOffsetY = -20
     }
 
     DownArrow =
     {
-      X = 1500
-      Y = 780
+      X = 1650
+      Y = 820
       Graphic = "GUI\Shell\DownArrow_Base"
       SelectedGraphic = "GUI\Shell\DownArrow_Highlight"
       Scale = 0.4
       AutoActivateWithGamepad = true
-      FreeFormSelectOffsetX = -120
+      FreeFormSelectOffsetX = -100
+      FreeFormSelectOffsetY = 20
+    }
+
+    ScrollBar = {
+      X = 1650
+      Y = 520
+      Graphic = "GUI\Screens\ScrollbarDownUp"
+      ScaleY = 1.20
+      FreeFormSelectable = false
+    }
+    ScrollBarTracker = {
+      X = 1650
+      Y = 235
+      Graphic = "GUI\Screens\ScrollbarSlider"
+      SelectedGraphic = "GUI\Screens\ScrollbarSlider"
+      FreeFormSelectable = false
+      Scale = 0.25
     }
   }
 }

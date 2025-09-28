@@ -22,11 +22,17 @@ UnitSetData.Harpy =
 		ActivateStartOffsetZ = 2000,
 		PostActivateStop = true,
 		ActivateFallForce = -2000,
+		PostActivateScreenshake = { Distance = 6, Speed = 300, FalloffSpeed = 0, Duration = 0.24, Angle = 90, DistanceThreshold = 200 },
 		DeathSound = "/SFX/Enemy Sounds/HarpyCutter/EmoteDying",
 		DeathAnimation = "Enemy_HarpyCutter_Death",
 		DeathFx = "EnemyDeathFxUndeadLarge",
 
-		MaxHealth = 925,
+		UniqueIconAttachments = 
+		{
+			Burn = "HarpyTalonCutter_Rig:root_00_M_JNT",
+		},
+
+		MaxHealth = 875,
 		HealthBarOffsetY = -280,
 		HealthBarType = "Medium",
 
@@ -40,7 +46,7 @@ UnitSetData.Harpy =
 			DeepInheritance = true,
 
 			SurroundRetaliateDistance = 450,
-			SurroundRefreshInterval = 0.5,
+			SurroundRefreshInterval = 0.1,
 			MaxAttackers = 999,
 		},
 
@@ -51,7 +57,7 @@ UnitSetData.Harpy =
 		AIAggroRange = 1150,
 		PostAggroAI = "SurroundAI",
 
-		WeaponOptions = { "HarpySlice", "HarpyFlap", "HarpyDashRight", "HarpyDashLeft" },
+		WeaponOptions = { "HarpySlice", "HarpyDashRight", "HarpyDashLeft" },
 
 		HeraclesCombatMoneyValue = 4,
 		ActiveCapWeight = 0.67,
@@ -74,6 +80,7 @@ UnitSetData.Harpy =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_2179", Text = "Talons." },
@@ -87,7 +94,7 @@ UnitSetData.Harpy =
 	HarpyCutter_Elite =
 	{
 		InheritFrom = { "Elite", "HarpyCutter" },
-		HealthBuffer = 655,
+		HealthBuffer = 615,
 		IsAggroedSound = "/SFX/Enemy Sounds/HarpyCutter/EmoteTaunting",
 
 		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Rifts" }),
@@ -97,7 +104,7 @@ UnitSetData.Harpy =
 			DeepInheritance = true,
 		},
 
-		WeaponOptions = { "HarpySlice", "HarpyFlap_Elite", "HarpyDashRight", "HarpyDashLeft" },
+		WeaponOptions = { "HarpySlice", "HarpyDashRight", "HarpyDashLeft" },
 
 		HeraclesCombatMoneyValue = 8,
 		GeneratorData =
@@ -148,6 +155,7 @@ UnitSetData.Harpy =
 		DefaultAIData =
 		{
 			DeepInheritance = true,
+			SurroundRefreshInterval = 0.5,
 		},
 		DamagedFxStyles =
 		{
@@ -175,7 +183,9 @@ UnitSetData.Harpy =
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
+				{ Name = "OlympusEnemiesSightedVO", Time = 12 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_2706", Text = "Raptors..." },

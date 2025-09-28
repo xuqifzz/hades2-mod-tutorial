@@ -88,6 +88,7 @@ UnitSetData.Scimiterror =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_2163", Text = "Seeswords..." },

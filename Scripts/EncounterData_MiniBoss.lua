@@ -4,6 +4,76 @@ OverwriteTableKeys( EncounterData,
 	-- NOTE(andrew): Moved MiniBossEncounter base and inheriting from "GeneratedF"
 	-- to EncounterData.lua for Tech Test
 
+	MiniBossAssassin =
+	{
+		InheritFrom = { "MinibossEncounter", "GeneratedF", },
+
+		PreSpawnEnemies = false,
+		SpawnAggroed = true,
+
+		MinWaves = 1,
+		MaxWaves = 1,
+		MinTypes = 1,
+		MaxTypes = 1,
+		TypeCountDepthRamp = 0,
+		EnemyCountDepthRamp = 0,
+		MaxEliteTypes = 2,
+		ActiveEnemyCapBase = 10,
+		ActiveEnemyCapMin = 10,
+		ActiveEnemyCapMax = 10,
+
+		SpawnIntervalMin = 0.3,
+		SpawnIntervalMax = 0.7,
+
+		EndMusicOnCombatOver = 20,
+
+		MoneyDropCapMin = 15,
+		MoneyDropCapMax = 15,
+		MoneyDropCapDepthRamp = 0,
+
+		BlockHighlightEncounter = true,
+		SkipIntroEncounterCheck = true,
+		NoFirstWaveStartDelay = true,
+
+		ManualWaveTemplates =
+		{
+			-- Wave 1
+			[1] =
+			{
+				Spawns =
+				{
+					{
+						Name = "ZombieAssassin_Miniboss",
+						TotalCount = 1,
+						SpawnOnIds = { 40191 },
+						ForceFirst = true,
+						SpawnOverrides =
+						{
+							AggroReactionTimeMin = 0.15,
+							AggroReactionTimeMax = 0.45,
+							SpawnAngleTowardId = 50059,
+						},
+					},
+					{
+						Name = "ZombieAssassin_Shadow",
+						TotalCount = 2,
+						RequiredMiniBossShrine = true,
+						SpawnOverrides =
+						{
+							RequiredSpawnPointType = "EnemyPointMelee",
+						},
+					},
+
+				},
+				SkipWaitForAllDead = true
+			},
+		},
+
+		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
+		CancelSpawnsOnKill = { "ZombieAssassin_Miniboss" },
+		WipeEnemiesOnKill = "ZombieAssassin_Miniboss",
+	},
+
 	MiniBossWaterUnit =
 	{
 		InheritFrom = { "MinibossEncounter", "GeneratedG" },
@@ -94,8 +164,8 @@ OverwriteTableKeys( EncounterData,
 		TypeCountDepthRamp = 0,
 		EnemyCountDepthRamp = 0,
 		MaxEliteTypes = 2,
-		ActiveEnemyCapBase = 2,
-		ActiveEnemyCapMax = 3,
+		ActiveEnemyCapBase = 8,
+		ActiveEnemyCapMax = 8,
 
 		SpawnIntervalMin = 1.0,
 		SpawnIntervalMax = 1.0,
@@ -110,7 +180,7 @@ OverwriteTableKeys( EncounterData,
 		SkipIntroEncounterCheck = true,
 		NoFirstWaveStartDelay = false,
 
-		UnthreadedEvents = EncounterSets.EncounterEventsMiniBossWaterUnit,
+		UnthreadedEvents = EncounterSets.EncounterEventsMiniBossJellyfish,
 
 		ManualWaveTemplates =
 		{
@@ -120,29 +190,30 @@ OverwriteTableKeys( EncounterData,
 				Spawns =
 				{
 					{
-						Name = "WaterUnitMiniboss",
+						Name = "Octofish_Miniboss",
 						TotalCount = 1,
-						SpawnOnIds = { 568842 },
 						ForceFirst = true,
+						SpawnOnId = 737255,
 					},
 					{
-						Name = "Radiator2_Elite",
-						InfiniteSpawns = false,
-						TotalCount = 4,
-						SpawnOnIds = { 612512, 568937, 568939, 568941, },
-						SpawnOverrides = 
-						{
-							SpawnAngleTowardId = 568842,
-						},
+						Name = "Octofish_Shadow",
+						TotalCount = 1,
+						SpawnOnId = 609813,
+						RequiredMiniBossShrine = true,
+					},
+					{
+						Name = "Jellyfish",
+						TotalCount = 24,
+						SpawnPointGroupName = "JellyfishSpawnPoints",
 					},
 				},
-				--StartDelay = 1.2,
 			},
 		},
 
 		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
-		CancelSpawnsOnKill = { "WaterUnitMiniboss" },
-		WipeEnemiesOnKill = "WaterUnitMiniboss",
+		CancelSpawnsOnKill = { "Octofish_Miniboss" },
+		WipeEnemiesOnKill = "Octofish_Miniboss",
+		ForceCombatResolvedAudio = true,
 
 		PreSpawnSpawnOverrides =
 		{
@@ -156,6 +227,9 @@ OverwriteTableKeys( EncounterData,
 		PreSpawnEnemies = false,
 		SpawnAggroed = true,
 		DelayedStart = true,
+
+		BlockDionysusEncounterKeepsake = true,
+		BlockAthenaEncounterKeepsake = true,
 
 		GameStateRequirements =
 		{
@@ -205,8 +279,6 @@ OverwriteTableKeys( EncounterData,
 		BlockHighlightEncounter = true,
 		SkipIntroEncounterCheck = true,
 		NoFirstWaveStartDelay = false,
-
-		SpawnAggroed = true,
 
 		ManualWaveTemplates =
 		{
@@ -321,12 +393,12 @@ OverwriteTableKeys( EncounterData,
 
 	MiniBossSatyrCrossbow =
 	{
-		InheritFrom = { "MinibossEncounter", "GeneratedF", },
-		PreSpawnEnemies = false,
+		InheritFrom = { "MinibossEncounter", "GeneratedN", },
+		PreSpawnEnemies = true,
 		SpawnAggroed = true,
 
-		MinWaves = 1,
-		MaxWaves = 1,
+		MinWaves = 2,
+		MaxWaves = 2,
 		MinTypes = 1,
 		MaxTypes = 1,
 		TypeCountDepthRamp = 0,
@@ -337,7 +409,6 @@ OverwriteTableKeys( EncounterData,
 
 		SpawnIntervalMin = 2.25,
 		SpawnIntervalMax = 5.4,
-		StartDelay = 2,
 
 		EndMusicOnCombatOver = 20,
 
@@ -367,20 +438,103 @@ OverwriteTableKeys( EncounterData,
 						SpawnOnIds = { 646548 },
 						RequiredMiniBossShrine = true,
 					},
+				},
+				StartDelay = 0.5,
+				SkipWaitForAllDead = true,
+			},
+			[2] =
+			{
+				Spawns =
+				{
 					{
 						Name = "Carrion",
 						TotalCount = 5,
 						RequiredMiniBossShrine = false,
 					},
 				},
-				StartDelay = 0.5,
-			},
+			}
 		},
 
 		CancelSpawnsOnKill = { "SatyrCrossbow" },
 		WipeEnemiesOnKill = "SatyrCrossbow",
 
 		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
+	},
+
+	MiniBossBoar =
+	{
+		InheritFrom = { "MinibossEncounter", "GeneratedN", },
+		PreSpawnEnemies = true,
+		SpawnAggroed = true,
+
+		MinWaves = 2,
+		MaxWaves = 2,
+		MinTypes = 1,
+		MaxTypes = 1,
+		TypeCountDepthRamp = 0,
+		EnemyCountDepthRamp = 0,
+		MaxEliteTypes = 2,
+		ActiveEnemyCapBase = 6,
+		ActiveEnemyCapMax = 6,
+
+		SpawnIntervalMin = 2.25,
+		SpawnIntervalMax = 5.4,
+
+		EndMusicOnCombatOver = 20,
+
+		MoneyDropCapMin = 15,
+		MoneyDropCapMax = 15,
+		MoneyDropCapDepthRamp = 0,
+
+		BlockHighlightEncounter = true,
+		SkipIntroEncounterCheck = true,
+
+		ManualWaveTemplates =
+		{
+			-- Wave 1
+			[1] =
+			{
+				Spawns =
+				{
+					{
+						Name = "Boar",
+						TotalCount = 1,
+						SpawnOnIds = { 40191 },
+						ForceFirst = true,
+						SpawnOverrides =
+						{
+							SkipAISetupOnActivate = true,
+						},
+					},
+					{
+						Name = "Boar_Shadow",
+						TotalCount = 3,
+						SpawnOnIds = { 646641, 646634, 646695, },
+						RequiredMiniBossShrine = true,
+						SpawnOverrides =
+						{
+							SkipAISetupOnActivate = true,
+						},
+					},
+				},
+				StartDelay = 0.5,
+				SkipWaitForAllDead = true
+			},
+			[2] =
+			{
+				Spawns =
+				{
+					{
+						Name = "Zombie",
+						TotalCount = 12,
+					},
+				},
+				StartDelay = 5.0,
+			}
+		},
+
+		CancelSpawnsOnKill = { "Boar" },
+		WipeEnemiesOnKill = "Boar",
 	},
 
 	MiniBossCharybdis =
@@ -392,6 +546,9 @@ OverwriteTableKeys( EncounterData,
 		UnthreadedEvents = EncounterSets.EncounterEventsDefault,
 
 		NextRoomResumeMusic = true,
+		
+		BlockAthenaEncounterKeepsake = true,
+		BlockDionysusEncounterKeepsake = true,
 		
 		StartRoomUnthreadedEvents =
 		{
@@ -407,6 +564,82 @@ OverwriteTableKeys( EncounterData,
 		BossKillGlobalVoiceLines = "MiniBossEncounterEndVoiceLines",
 		CancelSpawnsOnKillAllTypes = { "CharybdisTentacle" },
 		WipeEnemiesOnKillAllTypes = { "CharybdisTentacle" }
+	},
+
+	MiniBossCaptain =
+	{
+		InheritFrom = { "MinibossEncounter", "GeneratedO" },
+		PreSpawnEnemies = true,
+		SpawnAggroed = true,
+		Generated = false,
+		SkipLastKillPresentation = false,
+		
+		BlockAthenaEncounterKeepsake = true,
+		BlockDionysusEncounterKeepsake = true,
+		DelayedStart = false,
+
+		UnthreadedEvents = EncounterSets.EncounterEventsDefault,
+
+		StartRoomUnthreadedEvents =
+		{
+			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "Captain" }, SkipPresentation = true, } },
+			{
+				FunctionName = "HandleEncounterPreSpawns"
+			},
+			{
+				FunctionName = "GenericPresentation",
+				Args =
+				{
+					UseableOffIds = { 566590 },
+				},
+			},
+		},
+
+		PreSpawnSpawnOverrides =
+		{
+			WakeUpDelay = 3.0,
+			SpawnAngleTowardId = 723378,
+		},
+
+		MinWaves = 2,
+		MaxWaves = 2,
+		MinTypes = 1,
+		MaxTypes = 1,
+		TypeCountDepthRamp = 0,
+		EnemyCountDepthRamp = 0,
+		MaxEliteTypes = 2,
+		ActiveEnemyCapBase = 6,
+		ActiveEnemyCapMax = 6,
+
+		SpawnIntervalMin = 3.0,
+		SpawnIntervalMax = 5.0,
+
+		SpawnWaves =
+		{
+			-- Wave 1
+			[1] =
+			{
+				Spawns =
+				{
+					{
+						Name = "Captain_Shadow",
+						TotalCount = 1,
+						SpawnOnIds = { 723639 },
+						RequiredMiniBossShrine = true,
+						ForceFirst = true,
+					},
+					{
+						Name = "ZombieCrewman",
+						TotalCount = 14,
+					},
+				},
+			},
+		},
+
+		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
+		
+		CancelSpawnsOnKill = { "Captain" },
+		WipeEnemiesOnKill = "Captain",
 	},
 
 	MiniBossRatCatcher =
@@ -545,13 +778,18 @@ OverwriteTableKeys( EncounterData,
 		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
 		NextRoomResumeMusic = true,
 		WipeEnemiesOnKill = "Talos",
+		ForceCombatResolvedAudio = true,
 	},
 
 	MiniBossDragon =
 	{
 		InheritFrom = { "MinibossEncounter", "GeneratedP", },
-		PreSpawnEnemies = true,
+		PreSpawnEnemies = false,
 		SpawnAggroed = true,
+		DelayedStart = true,
+
+		BlockDionysusEncounterKeepsake = true,
+		BlockAthenaEncounterKeepsake = true,
 
 		MinWaves = 1,
 		MaxWaves = 1,
@@ -582,12 +820,6 @@ OverwriteTableKeys( EncounterData,
 				Spawns =
 				{
 					{
-						Name = "Dragon_MiniBoss",
-						TotalCount = 1,
-						ForceFirst = true,
-						SpawnOnIds = { 560825 },
-					},
-					{
 						Name = "Dragon_Shadow",
 						TotalCount = 1,
 						SpawnOnIds = { 745061 },
@@ -596,6 +828,11 @@ OverwriteTableKeys( EncounterData,
 				},
 				SkipWaitForAllDead = true
 			},
+		},
+		
+		StartRoomUnthreadedEvents =
+		{
+			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "Dragon_MiniBoss" }, IgnoreAI = true, SkipPresentation = true, } },
 		},
 
 		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
@@ -654,5 +891,227 @@ OverwriteTableKeys( EncounterData,
 
 		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
 		CancelSpawnsOnKill = { "HarpyDropper_MiniBoss" },
+	},
+
+	MiniBossBrute =
+	{
+		InheritFrom = { "MinibossEncounter", "GeneratedQ" },
+		PreSpawnEnemies = false,
+		SpawnAggroed = true,
+		DelayedStart = true,
+		SkipIntroEncounterCheck = true,
+		
+		UnthreadedEvents = EncounterSets.EncounterEventsDefault,
+
+		MinWaves = 1,
+		MaxWaves = 1,
+		MinTypes = 1,
+		MaxTypes = 1,
+		TypeCountDepthRamp = 0,
+		EnemyCountDepthRamp = 0,
+		MaxEliteTypes = 2,
+		ActiveEnemyCapBase = 10,
+		ActiveEnemyCapMax = 10,
+
+		SpawnIntervalMin = 0.0,
+		SpawnIntervalMax = 0.0,
+		
+		BlockAthenaEncounterKeepsake = true,
+		BlockDionysusEncounterKeepsake = true,
+
+		ManualWaveTemplates =
+		{
+			-- Wave 1
+			[1] =
+			{
+				Spawns =
+				{
+					{
+						Name = "Brute_Shadow",
+						TotalCount = 1,
+						SpawnOnIds = { 768962 },
+						RequiredMiniBossShrine = true,
+					},
+				},
+				SkipWaitForAllDead = true
+			},
+		},
+		
+		StartRoomUnthreadedEvents =
+		{
+			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "Brute_Miniboss" }, IgnoreAI = true, SkipPresentation = true, } },
+		},
+
+		NextRoomResumeMusic = true,
+		WipeEnemiesOnKill = "Brute_Miniboss",
+		BossKillGlobalVoiceLines = "MiniBossEncounterEndVoiceLines",
+	},
+
+	MiniBossStalker =
+	{
+		InheritFrom = { "MinibossEncounter", "GeneratedQ" },
+		PreSpawnEnemies = false,
+		SpawnAggroed = true,
+		DelayedStart = true,
+		SkipIntroEncounterCheck = true,
+		Generated = false,
+		
+		BlockAthenaEncounterKeepsake = true,
+		BlockDionysusEncounterKeepsake = true,
+
+		UseGroupHealthBar = true,
+		GroupHealthBarTypes = { "Stalker_Miniboss", },
+		--HealthBarTextId = "Charybdis_Full",
+		
+		UnthreadedEvents = EncounterSets.EncounterEventsDefault,
+
+		MinWaves = 2,
+		MaxWaves = 2,
+		MinTypes = 1,
+		MaxTypes = 1,
+		TypeCountDepthRamp = 0,
+		EnemyCountDepthRamp = 0,
+		MaxEliteTypes = 2,
+		ActiveEnemyCapBase = 2.5,
+		ActiveEnemyCapMax = 2.5,
+
+		SpawnIntervalMin = 0.4,
+		SpawnIntervalMax = 0.6,
+
+		SpawnWaves =
+		{
+			-- Wave 1
+			[1] =
+			{
+				Spawns =
+				{
+					{
+						Name = "EarthElemental",
+						TotalCount = 8,
+						RequiredMiniBossShrine = false,
+					},
+					{
+						Name = "EarthElemental_Shadow",
+						TotalCount = 12,
+						RequiredMiniBossShrine = true,
+					},
+				},
+				StartDelay = 3.0,
+			},
+		},
+		
+		StartRoomUnthreadedEvents =
+		{
+			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "Stalker_Miniboss" }, IgnoreAI = true, SkipPresentation = true, } },
+			{ FunctionName = "SetupGroupHealthBar", Args = { } },
+		},
+
+		NextRoomResumeMusic = true,
+		WipeEnemiesOnKillAllTypes = { "Stalker_Miniboss" },
+		CancelSpawnsOnKillAllTypes = { "Stalker_Miniboss" },
+		BossKillGlobalVoiceLines = "MiniBossEncounterEndVoiceLines",
+		HoldKillPresentationForUnitDeaths = { "Stalker_Miniboss" }
+	},
+
+	BossTyphonEye01 =
+	{
+		InheritFrom = { "MinibossEncounter", },
+		SkipBossTraits = true,
+		PreSpawnEnemies = false,
+		SpawnAggroed = true,
+		DelayedStart = true,
+		SkipIntroEncounterCheck = true,
+		
+		UnthreadedEvents = EncounterSets.EncounterEventsDefault,
+		
+		BlockAthenaEncounterKeepsake = true,
+		BlockDionysusEncounterKeepsake = true,
+
+		StartRoomUnthreadedEvents =
+		{
+			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "TyphonEye" }, IgnoreAI = true, SkipPresentation = true, } },
+		},
+
+		WipeEnemiesOnKill = "TyphonEye",
+		CancelSpawnsOnKill = { "TyphonEye" },
+		SpawnThreadName = "TyphonSpawnThread",
+		ForceCombatResolvedAudio = true,
+	},
+
+	BossTyphonTail01 =
+	{
+		InheritFrom = { "MinibossEncounter", "GeneratedQ" },
+		SkipBossTraits = true,
+		PreSpawnEnemies = false,
+		SpawnAggroed = true,
+		DelayedStart = true,
+		SkipIntroEncounterCheck = true,
+		
+		UnthreadedEvents = EncounterSets.EncounterEventsMiniBossTyphonTail,
+		
+		BlockAthenaEncounterKeepsake = true,
+		BlockDionysusEncounterKeepsake = true,
+
+		MinWaves = 1,
+		MaxWaves = 1,
+		MinTypes = 1,
+		MaxTypes = 1,
+		TypeCountDepthRamp = 0,
+		EnemyCountDepthRamp = 0,
+		MaxEliteTypes = 2,
+		ActiveEnemyCapBase = 7,
+		ActiveEnemyCapMax = 7,
+
+		SpawnIntervalMin = 12.0,
+		SpawnIntervalMax = 16.0,
+
+		ManualWaveTemplates =
+		{
+			-- Wave 1
+			[1] =
+			{
+				Spawns =
+				{
+					{
+						Name = "DragonBurrower_Shadow",
+						TotalCount = 8,
+						SpawnOnIds = { 779829, 779865, 779828, 779852, 779853, 779855 },
+						RequiredMiniBossShrine = true,
+					},
+				},
+				SkipWaitForAllDead = true
+			},
+		},
+
+		StartRoomUnthreadedEvents =
+		{
+			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "TyphonTail" }, IgnoreAI = true, SkipPresentation = true, } },
+		},
+
+		WipeEnemiesOnKill = "TyphonTail",
+		CancelSpawnsOnKill = { "TyphonTail" },
+		SpawnThreadName = "TyphonSpawnThread",
+
+		-- VO handled in TyphonIncursionVoiceLines
+		-- StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
+	},
+
+	BossTyphonArm01 =
+	{
+		InheritFrom = { "MinibossEncounter" },
+		
+		SkipBossTraits = true,
+		BlockAthenaEncounterKeepsake = true,
+		BlockDionysusEncounterKeepsake = true,
+
+		DelayedStart = true,
+		StartRoomUnthreadedEvents =
+		{
+			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "TyphonArm" }, IgnoreAI = true, SkipPresentation = true, } },
+		},
+
+		WipeEnemiesOnKill = "TyphonArm",
+		CancelSpawnsOnKill = { "TyphonArm" },
+		SpawnThreadName = "TyphonSpawnThread",
 	},
 })

@@ -270,133 +270,6 @@
 	}
 
 	{
-		Name = "CastCircleInApolloRegen"
-		InheritFrom = "CastCircleIn"
-		VisualFx = null
-		ClearCreateAnimations = true
-		CreateAnimations =
-		[
-			{ Name = "CastCircleEdgeGlow" }
-			{ Name = "CastCircleAmbientFxDark" }
-			{ Name = "CastCircleAmbientFxDark" }
-			{ Name = "CastCircleAmbientFxDark" }
-			{ Name = "CastCircleAmbientFxDark" }
-			{ Name = "CastCircleLine" }
-			{ Name = "CastCircleLine2" }
-			{ Name = "CastCircleLine3" }
-			{ Name = "CastCircleInOverlay" }
-			{ Name = "CastCircleInOverlay" }
-			{ Name = "CastCircleInOverlay" }
-			{ Name = "CastCircleApolloRegenFxEmitter" }
-		]
-	}
-
-	{
-		Name = "CastCircleApolloRegenFxEmitter"
-		FilePath = "Dev\blank_invisible"
-		DieWithOwner = true
-		Duration = 1
-		Loop = true
-		VisualFx = "CastCircleApolloRegenFx"
-		VisualFxIntervalMin = 0.25
-		VisualFxIntervalMax = 0.25
-	}
-
-	{
-		Name = "CastCircleApolloRegenFx"
-		FilePath = "Fx\Apollo\ApolloCastRing"
-		Material = "Unlit"
-		GroupName = "FX_Terrain_Add"
-		ScaleRadius = 460
-		PostRotateScaleY = 0.5
-		StartAlpha = 0
-		EndAlpha = 0.2
-		AlphaMin = 0.5
-		AlphaMax = 1.0
-		PingPongColor = true
-		RotationSpeed = 20
-		RandomRotation = true
-		RandomDurationMin = 1.5
-		RandomDurationMax = 2.0
-		EaseIn = 0
-		EaseOut = 1
-		StartOffsetZ = 0
-		EndOffsetZ = 20
-		CreateAnimations =
-		[
-			{ Name = "ApolloManaRegenFx" }
-			{ Name = "ApolloManaRegenFx" }
-			{ Name = "ApolloManaRegenFx" }
-		]
-	}
-
-	{
-		Name = "ApolloManaRegenFx"
-		Random =
-		[
-			{ Name = "ApolloManaRegenFxA" }
-			{ Name = "ApolloManaRegenFxB" }
-		]
-	}
-
-	{
-		Name = "ApolloManaRegenFxA"
-		FilePath = "Particles\particle_gold_streak"
-		GroupName = "FX_Standing_Add"
-		Material = "Unlit"
-		UseOwnAngle = false
-		AngleFromOwner = "Ignore"
-		StartOffsetZ = 0
-		EndOffsetZ = 120
-		EaseIn = 0.0
-		EaseOut = 1.0
-		StartScale = 0
-		EndScale = 1
-		Scale = 0.5
-		ScaleMin = 0.3
-		ScaleMax = 1.0
-		PingPongScale = true
-		RadialOffsetMin = 200
-		RadialOffsetMax = 300
-		RadialOffsetScaleY = 0.5
-		AngleMin = 0
-		AngleMax = 360
-		RandomDurationMin = 0.5
-		RandomDurationMax = 1.5
-		DieWithOwner = false
-		LocationFromOwner = "Ignore"
-		LocationZFromOwner = "Ignore"
-	}
-
-	{
-		Name = "ApolloManaRegenFxB"
-		InheritFrom = "ApolloManaRegenFxA"
-		FilePath = "Particles\particle_apolloGlow"
-		SortMode = "FromParent"
-		SortFromOwner = "Maintain"
-		Scale = 0.5
-		ScaleY = 3
-		StartScaleY = 1
-		EndScaleY = 3
-		ScaleX = 0.3
-		AlphaMin = 0.1
-		AlphaMax = 0.6
-		ScaleMin = 0.5
-		ScaleMax = 1.0
-		StartScale = 0.999
-		StartAlpha = 0
-		EndAlpha = 1
-		PingPongColor = true
-		PingPongScale = false
-		ColorFromOwner = "Ignore"
-		RandomDurationMin = 1.0
-		RandomDurationMax = 2.0
-		OriginX = 60
-		OriginY = 90
-		EndOffsetZ = 40
-	}
-
-	{
 		Name = "HeraCastSpawnDamageFx"
 		FilePath = "Fx\Hera\HeraProjectile\HeraProjectile"
 		NumFrames = 30
@@ -479,7 +352,6 @@
 		EndRed = 0
 		EndGreen = 0.5
 		EndBlue = 0.5
-		Alpha = 0.3
 		VisualFxIntervalMin = 0.1
 		VisualFxIntervalMax = 0.2
 		VisualFx = "CastCircleHeraSparkle"
@@ -533,13 +405,19 @@
 		DieWithOwner = true
 		Scale = 1.0
 		StartAlpha = 0
-		EndAlpha = 1
+		EndAlpha = 0.5
 		StartScale = 0.8
 		EndScale = 1.1
 		HoldLastFrame = false
 		EaseIn = 0
 		EaseOut = 1
 		Duration = 0.25
+		StartRed = 0
+		StartGreen = 0.75
+		StartBlue = 0.999
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
 		ChainTo = "CastCircleHeraALoop"
 
 	}
@@ -549,16 +427,22 @@
 		InheritFrom = "CastCircleHeraA"
 		Loop = true
 		ChainTo = null
-		StartAlpha = 1
-		EndAlpha = 0.5
+		StartAlpha = 0.5
+		EndAlpha = 0.25
 		PingPongColor = true
 		EaseIn = 0
 		EaseOut = 1
 		Duration = 1.0
 		StartScale = 1.1
 		EndScale = 1.1001
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.75
+		EndBlue = 0.99
 		GroupName = "FX_Standing_Add"
-		Sound = "/SFX/Player Sounds/HeraProjectileLoop"
+		Sound = "/SFX/Player Sounds/HeraProjectileLoop2"
 		StopSoundOnFinishFade = 0.2
 	}
 
@@ -571,6 +455,8 @@
 		DieWithOwner = true
 		OffsetZ = 15
 		Scale = 0.93
+		Duration = 1
+		Loop = true
 	}
 
 	{
@@ -587,12 +473,12 @@
 		Name = "CastCircleInDemeter"
 		InheritFrom = "CastCircleIn"
 		GroupName = "FX_Terrain_Add"
-		Hue = 0.1
-		Saturation = -0.25
-
+		Hue = -0.05
+		Saturation = -0.05
 		VisualFxIntervalMin = 0.1
 		VisualFxIntervalMax = 0.2
 		VisualFx = null
+		Value = 0.05
 		// VisualFx = "CastCircleHeraSparkle"
 		CreateAnimations =
 		[
@@ -606,24 +492,12 @@
 
 			{ Name = "CastCircleDemeterA" }
 			{ Name = "CastCircleDemeterA2" }
-			// { Name = "CastCircleHeraB1" }
-			// { Name = "CastCircleHeraB2" }
-
-			// { Name = "CastCircleInHeraFlare" }
 		]
 	}
 	
 	{
 		Name = "CastCircleInDemeterLong"
-		InheritFrom = "CastCircleIn"
-		GroupName = "FX_Terrain_Add"
-		Hue = 0.1
-		Saturation = -0.25
-
-		VisualFxIntervalMin = 0.1
-		VisualFxIntervalMax = 0.2
-		VisualFx = null
-		// VisualFx = "CastCircleHeraSparkle"
+		InheritFrom = "CastCircleInDemeter"
 		CreateAnimations =
 		[
 			{ Name = "CastCircleAmbientFxDark" }
@@ -645,14 +519,21 @@
 		PostRotateScaleY = 0.5
 		GroupName = "FX_Terrain_Add"
 		StartAlpha = 0
-		EndAlpha = 1
-		Duration = 2.5
-		EaseIn = 0
+		EndAlpha = 0.5
+		Duration = 5.0
+		EaseIn = 0.9
 		EaseOut = 1
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0.9
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
 		StartScale = 1
-		EndScale = 1.05
+		EndScale = 1.2
+		Scale = 0.8
 		PingPongColor = true
-		OffsetZ = 15
+		OffsetZ = 0
 		UseOwnAngle = false
 		AngleFromOwner = "Ignore"
 	}
@@ -662,7 +543,7 @@
 		FilePath = "Fx\Demeter\DemeterBranchRing\DemeterBranchRing"
 		NumFrames = 39
 		PostRotateScaleY = 0.5
-		GroupName = "FX_Terrain"
+		GroupName = "FX_Terrain_Top"
 		PlaySpeed = 30
 		Material = "Unlit"
 		Scale = 3.5
@@ -670,12 +551,14 @@
 		OffsetZ = 15
 		EaseIn = 0
 		EaseOut = 1
-		StartRed = 1
-		StartGreen = 1
+		StartRed = 0.75
+		StartGreen = 0.9
 		StartBlue = 1
-		EndRed = 0.15
-		EndGreen = 0.15
+		EndRed = 0.0
+		EndGreen = 0.0
 		EndBlue = 0.3
+		StartAlpha = 1
+		EndAlpha = 0
 		PingPongColor = true
 		Slides =
 		[
@@ -710,7 +593,7 @@
 			{ DurationFrames = 2 }
 			{ DurationFrames = 2 }
 			{ DurationFrames = 2 }
-			{ DurationFrames = 120 }
+			{ DurationFrames = 2 }
 
 			{ DurationFrames = 2 }
 			{ DurationFrames = 2 }
@@ -817,16 +700,18 @@
 		Name = "CastCircleEdgeGlow"
 		FilePath = "Fx\CastCircleIn\CastCircleEdge"
 		Material = "Unlit"
-		ScaleRadius = 420
+		ScaleRadius = 340
+		MultiplicativeScaleRadius = true
+		Alpha = 1
 		RandomRotation = true
-		RotationSpeed = 90
+		RotationSpeed = 45
 		PostRotateScaleY = 0.5
 		GroupName = "FX_Terrain_Add"
 		DieWithOwner = true
 		ColorFromOwner = "Ignore"
 		StartAlpha = 0
 		EndAlpha = 1
-		StartScale = 0
+		StartScale = 0.85
 		EndScale = 1.0
 		EaseIn = 0
 		EaseOut = 1
@@ -896,32 +781,33 @@
 
 	{
 		Name = "HestiaCastCircleFlames"
-		FilePath = "Fx\Hestia\HestiaFlamePool\HestiaFlamePool"
+		FilePath = "Fx\Hestia\HestiaFlamePoolGlow\HestiaFlamePoolGlow"
 		NumFrames = 30
 		Material = "Unlit"
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
 		AngleMin = 0
 		AngleMax = 360
-		RadialOffsetMin = 0
-		RadialOffsetMax = 400
+		RadialOffsetMin = 200
+		RadialOffsetMax = 325
 		RadialOffsetScaleY = 0.5
 		Loop = false
 		LoopFramesOnly = true
 		RandomPlaySpeedMin = 24
 		RandomPlaySpeedMax = 30
 		RandomFlipHorizontal = true
-		RandomDurationMin = 3.0
-		RandomDurationMax = 3.4
+		RandomDurationMin = 3.2
+		RandomDurationMax = 3.6
 		GroupName = "FX_Terrain_Add"
 		LocationFromOwner = "Ignore"
 		LocationZFromOwner = "Ignore"
 		ReRandomizeOnLoop = false
-		ScaleMin = 0.2
+		ScaleMin = 0.8
 		ScaleMax = 1.0
 		SortMode = "FromParent"
 		SortFromOwner = "Take"
 		ScaleFromOwner = "Ignore"
+		RandomStartFrame = true
 		StartRed = 0.99
 		StartGreen = 0.2
 		StartBlue = 0
@@ -930,48 +816,35 @@
 		EndBlue = 1
 		StartAlpha = 0
 		EndAlpha = 1
+		AlphaMin = 0.33
+		AlphaMax = 0.66
 		PingPongColor = true
-		Scale = 0.5
+		Scale = 0.75
+		VelocityMin = 5
+		VelocityMax = 10
+		Acceleration = -3
+		EaseIn = 0
+		EaseOut = 0.1
+		VisualFx = "HestiaCastCircleFx"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.3
+		VisualFxCap = 6
 	}
+
+	{
+		Name = "HestiaCastCircleFx"
+		Random = [
+			{ Name = "HestiaSparksUpward" }
+			{ Name = "HestiaScorchFlameCast"}
+		]
+	}
+
 	{
 		Name = "HestiaCastCircleFlamesLong"
-		FilePath = "Fx\Hestia\HestiaFlamePool\HestiaFlamePool"
-		NumFrames = 30
-		Material = "Unlit"
-		AngleFromOwner = "Ignore"
-		UseOwnAngle = false
-		AngleMin = 0
-		AngleMax = 360
-		RadialOffsetMin = 0
-		RadialOffsetMax = 400
-		RadialOffsetScaleY = 0.5
-		Loop = false
-		LoopFramesOnly = true
-		RandomPlaySpeedMin = 24
-		RandomPlaySpeedMax = 30
-		RandomFlipHorizontal = true
+		InheritFrom = "HestiaCastCircleFlames"
 		RandomDurationMin = 6.0
 		RandomDurationMax = 6.4
-		GroupName = "FX_Terrain_Add"
-		LocationFromOwner = "Ignore"
-		LocationZFromOwner = "Ignore"
-		ReRandomizeOnLoop = false
-		ScaleMin = 0.2
-		ScaleMax = 1.0
-		SortMode = "FromParent"
-		SortFromOwner = "Take"
-		ScaleFromOwner = "Ignore"
-		StartRed = 0.99
-		StartGreen = 0.2
-		StartBlue = 0
-		EndRed = 1
-		EndGreen = 1
-		EndBlue = 1
-		StartAlpha = 0
-		EndAlpha = 1
-		PingPongColor = true
 		DieWithOwner = true
-		Scale = 0.5
 	}
 
 
@@ -1040,7 +913,7 @@
 		Value = -0.1
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
-		Sound = "/SFX/Player Sounds/HestiaSprintLoop"
+		Sound = "/SFX/Player Sounds/MelCastCircleLoop"
 		StopSoundOnFinishFade = 0.5
 		Duration = 3.0
 		EaseIn = 0.9
@@ -1092,13 +965,16 @@
 		ClearCreateAnimations = true
 		VisualFx = null
 		GroupName = "FX_Terrain"
-		Red = 0
-		Green = 0
-		Blue = 0
+		Hue = 0.3
+		Saturation = 0.7
+		Red = 1
+		Green = 1
+		Blue = 1
 		DieWithOwner = true
-		Alpha = 0.77
-		ScaleRadius = 340.0
-		Sound = null
+		Alpha = 0.33
+		ScaleRadius = 310.0
+		Sound = "/SFX/Player Sounds/HestiaSprintLoop"
+		StopSoundOnFinishFade = 0.5
 	}
 	
 
@@ -1131,7 +1007,7 @@
 		GroupName = "FX_Terrain_Add"
 		RotationSpeed = 72
 		DieWithOwner = true
-		ScaleRadius = 360
+		ScaleRadius = 440
 		RandomRotation = true
 		Duration = 0.25
 		EaseIn = 0.9
@@ -1139,15 +1015,18 @@
 		StartScale = 1.7
 		EndScale = 1.5
 		HoldLastFrame = true
+		MultiplicativeScaleRadius = true
+		ColorFromOwner = "Ignore"
 	}
 
 	{
 		Name = "CastCircleArmedB"
 		InheritFrom = "CastCircleArmedA"
 		FilePath = "Fx\CastCircleIn\CastCircleArmedB"
-		RotationSpeed = -36
-		ScaleRadius = 380
+		RotationSpeed = -72
+		ScaleRadius = 520
 		FlipHorizontal = true
+		ColorFromOwner = "Ignore"
 	}
 
 	{
@@ -1166,7 +1045,9 @@
 		StartAlpha = 0
 		EndAlpha = 1
 		HoldLastFrame = true
-		ScaleRadius = 360.0
+		ScaleRadius = 380.0
+		MultiplicativeScaleRadius = true
+		ColorFromOwner = "Ignore"
 	}
 
 	{
@@ -1211,7 +1092,7 @@
 		StartScale = 1.2
 		EndScale = 1.1
 		StartAlpha = 0
-		EndAlpha = 1
+		EndAlpha = 0.33
 		PingPongColor = true
 		HoldLastFrame = false
 		StartRed = 1
@@ -1301,7 +1182,7 @@
 		Name = "CastCircleOutFade"
 		FilePath = "Fx\CastCircleOut\CastCircleOutFade"
 		Duration = 1.1
-		EaseIn = 0.9
+		EaseIn = 0.99
 		EaseOut = 1.0
 		StartAlpha = 1
 		EndAlpha = 0
@@ -1312,11 +1193,14 @@
 		EndRed = 0
 		EndGreen = 0.5
 		EndBlue = 1.0
+		Material = "Unlit"
 		GroupName = "FX_Terrain_Add"
 		StartScale = 1
 		EndScale = 1.25
 		PostRotateScaleY = 0.5
-		Scale = 1.5
+		Scale = 1.8
+		ScaleRadius = 0
+		ScaleFromOwner = "Ignore"
 		RandomRotation = true
 	}
 
@@ -1352,11 +1236,14 @@
 		Name = "CastCircleOutDisplacement"
 		InheritFrom = "CastCircleOutFade"
 		Duration = 1.3
-		StartAlpha = 0.5
+		StartAlpha = 0.66
 		GroupName = "FX_Displacement"
 		StartScale = 0.9
 		EndScale = 1.3
-		ScaleRadius = 120
+		ScaleRadius = 200
+		CreateAnimation = null
+		ClearCreateAnimations = true
+		VisualFx = null
 	}
 	
 	{
@@ -1402,7 +1289,7 @@
 		RandomPlaySpeedMax = 30.0
 		RandomPlaySpeedMin = 20.0
 		StartFrame = 1
-		RandomFlipHorizontal = true
+		RandomFlipVertical = true
 		RadialOffsetMax = 75.0
 		RadialOffsetMin = 85.0
 		RadialOffsetScaleRadius = 100.0
@@ -1414,7 +1301,7 @@
 		Ambient = 0.0
 		VisualFxCap = 3
 		CreateAnimation = "null"
-		Color = { Red = 0.25 Green = 0.0 Blue = 0.05 }
+		Color = { Red = 0.10 Green = 0.05 Blue = 0.25 }
 	}
 	
 	{
@@ -1532,11 +1419,8 @@
 		Name = "CastCircleLine"
 		FilePath = "Fx\CastCircleLine\CastCircleLine"
 		GroupName = "FX_Terrain_Add"
-		Hue = 0.5
-		EndRed = 0.25
-		StartBlue = 1.0
-		StartGreen = 1.0
-		StartRed = 1.0
+		Hue = 0.7
+		Value = -0.5
 		EndFrame = 120
 		NumFrames = 120
 		RandomPlaySpeedMax = 60.0
@@ -1546,8 +1430,8 @@
 		OffsetZ = 15.0
 		OriginX = 480.0
 		OriginY = -120.0
-		ScaleMin = 1
-		ScaleMax = 1.5
+		ScaleMin = 0.7
+		ScaleMax = 1.0
 		LocationFromOwner = "Take"
 		LocationZFromOwner = "Take"
 		PostRotateScaleY = 0.5
@@ -1766,6 +1650,7 @@
 		RandomPlaySpeedMax = 80.0
 		RandomPlaySpeedMin = 60.0
 		StartScale = 0.5
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 	}
 	
 	{
@@ -1929,6 +1814,13 @@
 		UseOwnAngle = false
 		Scale = 2
 		ChainTo = "CastCircleAphroditeA_Hold"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.3
+		EndGreen = 0.1
+		EndBlue = 0.3
+		ScaleRadius = 155
 	}
 
 	{
@@ -1939,14 +1831,13 @@
 		PlaySpeed = 0.0001
 		Duration = 2.5
 		LoopFramesOnly = true
-		StartAlpha = 1
-		EndAlpha = 0.5
-		StartRed = 1
-		StartGreen = 1
-		StartBlue = 1
-		EndRed = 0.8
-		EndGreen = 0.7
-		EndBlue = 0.99
+		
+		StartRed = 0.3
+		StartGreen = 0.1
+		StartBlue = 0.3
+		EndRed = 0.299
+		EndGreen = 0.099
+		EndBlue = 0.299
 		ChainTo = "CastCircleAphroditeA_Out"
 	}
 
@@ -2124,7 +2015,7 @@
 		InheritFrom = "AphroditeCastPullSparkles"
 		FilePath = "Particles\particle_aphrodite_heart"
 		StartScale = 1.0
-		Sound = "/SFX/Player Sounds/AphroditeLoveDashHeart"
+		Sound = "/SFX/Player Sounds/AphroditeLoveDashHeart2"
 	}
 
 	{
@@ -2172,13 +2063,17 @@
 		FilePath = "Fx\Hephaestus\HephaestusCircle\HephaestusCircle"
 		NumFrames = 30
 		Material = "Unlit"
-		PlaySpeed = 30
+		PlaySpeed = 45
 		PostRotateScaleY = 0.5
 		ChainTo = "CastCircleHephaestusFxA_Hold"
-		ScaleRadius = 150
+		ScaleRadius = 225
 		AngleFromOwner = "Ignore"
 		GroupName = "FX_Terrain"
 		RotationSpeed = 5
+		StartAlpha = 1
+		EndAlpha = 0.25
+		EaseIn = 0.95
+		EaseOut = 1.00
 	}
 
 	{
@@ -2187,7 +2082,10 @@
 		FilePath = "Fx\Hephaestus\HephaestusCircle\HephaestusCircle"
 		NumFrames = 24
 		StartFrame = 32
+		PlaySpeed = 60
 		ChainTo = null
+		StartAlpha = 0.25
+		EndAlpha = 1.00
 	}
 
 	{
@@ -2201,6 +2099,7 @@
 		ScaleRadius = 300
 		AngleFromOwner = "Ignore"
 		RotationSpeed = 5
+		Alpha = 0.25
 	}
 
 	{
@@ -2395,7 +2294,8 @@
 		DieWithOwner = true
 		Alpha = 0.77
 		ScaleRadius = 340.0
-		Sound = null
+		Sound = "/SFX/Player Sounds/ApolloTorchSpecialLoop"
+		StopSoundOnFinishFade = 0.2
 	}
 
 	{
@@ -2530,5 +2430,588 @@
 		EndBlue = 0.85
 	}
 
+
+	{
+		Name = "CastCircleInAres"
+		InheritFrom = "CastCircleIn"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.2
+		StartAlpha = 1.0
+		EndAlpha = 0.5
+		Saturation = 0.25
+		Hue = 0.3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		VisualFx = "CastCircleAmbientFxAres"
+		CreateAnimations =
+		[
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleInOverlayAres" }
+			{ Name = "CastCircleInOverlayAres" }
+			{ Name = "CastCircleInOverlayAres" }
+			{ Name = "CastCircleAresA" }
+			{ Name = "CastCircleAresB" }
+			{ Name = "CastCircleInAresFlare" }
+		]
+	}
+	
+	{
+		Name = "CastCircleArmedC_Fx_Ares"
+		InheritFrom = "CastCircleArmedC_Fx"
+		StartRed = 0.5
+		StartGreen = 0.1
+		StartBlue = 0.1
+		EndRed = 0.4
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Saturation = 0.25
+	}
+	{
+		Name = "CastCircleArmedAres"
+		InheritFrom = "CastCircleArmed"
+		ClearCreateAnimations = true
+		VisualFx = "CastCircleArmedC_Fx_Ares"
+		Hue = 0.34
+		Saturation = 0.25
+		EndRed = 0.3
+		EndGreen = 0.0
+		EndBlue = 0.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Value = 0.25
+		Duration = 3
+		CreateAnimations =
+		[
+			{ Name = "CastCircleArmedA_Ares" }
+			{ Name = "CastCircleArmedB_Ares" }
+			{ Name = "CastCircleArmedC_Ares" }
+		]
+	}
+	
+
+	{
+		Name = "CastCircleArmedA_Ares"
+		InheritFrom = "CastCircleArmedA"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Terrain"
+	}
+	{
+		Name = "CastCircleArmedB_Ares"
+		InheritFrom = "CastCircleArmedB"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Terrain"
+	}
+	{
+		Name = "CastCircleArmedC_Ares"
+		InheritFrom = "CastCircleArmedC"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Terrain"
+	}
+	{
+		Name = "CastCircleAmbientFxAres"
+		
+		Random =
+		[
+			{ Name = "CastCircleAmbientFxAresA" }
+			{ Name = "CastCircleAmbientFxAresB" }
+		]
+	}
+
+	
+	{
+		Name = "CastCircleAmbientFxAresA"
+		InheritFrom = "CastCircleAmbientFxA"
+		RandomPlaySpeedMax = 40.0
+		RandomPlaySpeedMin = 30.0
+		StartAlpha = 0.1
+		EndAlpha = 1.0
+		Color = { Red = 0.5 Green = 0.0 Blue = 0.00 }
+	}
+	
+	{
+		Name = "CastCircleAmbientFxAresB"
+		InheritFrom = "CastCircleAmbientFxA"
+		FilePath = "Fx\CastFxSlowB\CastFxSlowB"
+		CreateAnimations =
+		[
+			{ Name = "CastCircleAmbientFxDark" }
+		]
+	}
+	{
+		Name = "CastCircleInAresFlare"
+		FilePath = "Particles\particle_quickFlashIris"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Duration = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 0.7
+		EndScale = 0.3
+		OffsetZ = 60
+	}
+
+	{
+		Name = "CastCircleOutAres"
+		InheritFrom = "CastCircleIn"
+		FilePath = "Fx\CastCircleOut\CastCircleOut"
+		VisualFx = "null"
+		Sound = "/SFX/Player Sounds/MelCastCircleEnd"
+		EndFrame = 9
+		HoldLastFrame = false
+		NumFrames = 9
+		StartFrame = 1
+		Scale = 1.05
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		Alpha = 1.0
+		Saturation = 0.25
+		Hue = 0.3
+
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "CastCircleOutFadeAres" }
+			{ Name = "CastCircleOutDisplacement" }
+		]
+	}
+
+	{
+		Name = "CastCircleOutFadeAres"
+		InheritFrom = "CastCircleOutFade"
+		ColorFromOwner = "Ignore"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+
+	{
+		Name = "CastCircleAresA"
+		FilePath = "Fx\Ares\AresCircle\AresCircle"
+		NumFrames = 31
+		GroupName = "FX_Terrain"
+		PostRotateScaleY = 0.5
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 2
+		ChainTo = "CastCircleAresA_Hold"
+		Sound = "/SFX/Player Sounds/AresDelayedDamageHit"
+		Material = "Unlit"
+	}
+
+	{
+		Name = "CastCircleAresB"
+		InheritFrom = "CastCircleAresA"
+		NumFrames = 49
+		Scale = 3
+		GroupName = "FX_Terrain_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ChainTo = null
+	}
+
+	{
+		Name = "CastCircleAresA_Hold"
+		InheritFrom = "CastCircleAresA"
+		NumFrames = 1
+		StartFrame = 32
+		PlaySpeed = 0.0001
+		Duration = 2.5
+		LoopFramesOnly = true
+		StartAlpha = 1
+		EndAlpha = 0.5
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 1.0
+		EndGreen = 0.9
+		EndBlue = 0.8
+		StartScale = 1
+		EndScale = 1.05
+		ChainTo = "CastCircleAresA_Out"
+		Sound = "/SFX/Player Sounds/AresPoseidonProjectileLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "CastCircleAresA_Out"
+		InheritFrom = "CastCircleAresA"
+		NumFrames = 16
+		StartFrame = 33
+		ChainTo = null
+	}
+
+	{
+		Name = "CastCircleInOverlayAres"
+		FilePath = "Fx\CastCircleIn\CastCircleIn0015"
+		GroupName = "FX_Add_Top"			
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Sound = "/EmptyCue"
+		ColorFromOwner = "Ignore"
+		EndAlpha = 0.15
+		PingPongColor = true
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 2.0
+		RandomDurationMin = 1.0
+		StartFrame = 1
+		EndOffsetZ = 30.0
+		EndScale = 1.01
+		Hue = 0.4
+		Saturation = 0.5
+		Value = 0.0
+	}
+
+	{
+		Name = "CastCircleInZeus"
+		InheritFrom = "CastCircleIn"
+		Hue = 0.5
+		Value = -0.1
+		VisualFx = null
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.2
+		ClearCreateAnimations = true
+		AddColor = true
+		StartRed = 0.2
+		StartGreen = 0.18
+		StartBlue = 0.15
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		CreateAnimations =
+		[
+			{ Name = "CastCircleEdgeGlow" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleLine" }
+			{ Name = "CastCircleLine2" }
+			{ Name = "CastCircleLine3" }
+			{ Name = "CastCircleInOverlay" }
+			{ Name = "CastCircleInOverlay" }
+			{ Name = "CastCircleInOverlay" }
+			{ Name = "CastCircleZeusA" }
+
+		]
+	}
+
+
+	{
+		Name = "CastCircleZeusA"
+		FilePath = "Fx\Zeus\ZeusCircle\ZeusCircle"
+		NumFrames = 31
+		GroupName = "FX_Terrain_Add"
+		PostRotateScaleY = 0.5
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 2.5
+		ChainTo = "CastCircleZeusA_Hold"
+		ColorFromOwner = "Ignore"
+		Material = "Unlit"
+		Alpha = 0.15
+		VisualFx = "CastCircleAmbientFxZeus"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.2
+	}
+
+
+	{
+		Name = "CastCircleZeusA_Hold"
+		InheritFrom = "CastCircleZeusA"
+		NumFrames = 1
+		StartFrame = 32
+		PlaySpeed = 0.0001
+		Duration = 2.6
+		LoopFramesOnly = true
+		StartAlpha = 1
+		EndAlpha = 0.5
+		StartScale = 1
+		EndScale = 1.05
+		ChainTo = "CastCircleZeusA_Out"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "CastCircleAmbientFxZeus"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.2
+		Sound = "/SFX/Player Sounds/ZeusStormCastCircle"
+	}
+
+	{
+		Name = "CastCircleZeusA_Out"
+		InheritFrom = "CastCircleZeusA"
+		StartAlpha = 1
+		EndAlpha = 0
+		Alpha = 1
+		Scale = 1.05
+		StartScale = 1
+		EndScale = 1.1
+		NumFrames = 16
+		StartFrame = 33
+		EaseIn = 0.99
+		EaseOut = 1.00
+		ChainTo = null
+	}
+
+	{
+		Name = "CastCircleAmbientFxZeus"
+		Random = [
+			{ Name = "CastCircleAmbientFxZeusA" }
+			{ Name = "CastCircleAmbientFxZeusB" }
+			{ Name = "CastCircleAmbientFxZeusC" }
+			{ Name = "CastCircleAmbientFxZeusD" }
+			{ Name = "CastCircleAmbientFxZeusD" }
+			{ Name = "CastCircleAmbientFxZeusD" }
+			{ Name = "CastCircleAmbientFxZeusD" }
+		]
+	}
+
+	{
+		Name = "CastCircleAmbientFxZeusA"
+		FilePath = "Fx\ZeusStaticArcA\ZeusStaticArcA"
+		NumFrames = 15
+		Material = "Unlit"
+		RadialOffsetMin = 30
+		RadialOffsetMax = 100
+		RadialOffsetScaleY = 0.5
+		RadialOffsetScaleRadius = 100
+		GroupName = "FX_Terrain_Add"
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomRotation = true
+		AngleMin = 0
+		AngleMax = 360
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1
+	}
+
+	{
+		Name = "CastCircleAmbientFxZeusB"
+		InheritFrom = "CastCircleAmbientFxZeusA"
+		FilePath = "Fx\ZeusStaticArcB\ZeusStaticArcB"
+	}
+
+	{
+		Name = "CastCircleAmbientFxZeusC"
+		InheritFrom = "CastCircleAmbientFxZeusA"
+		FilePath = "Fx\ZeusStaticArcC\ZeusStaticArcC"
+	}
+
+	{
+		Name = "CastCircleAmbientFxZeusD"
+		InheritFrom = "CastCircleAmbientFxZeusA"
+		FilePath = "Fx\ZeusSpark\ZeusSpark"
+		NumFrames = 60
+		ScaleMin = 0.125
+		ScaleMax = 0.33
+		EaseIn = 0.99
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "CastCircleArmedZeus"
+		InheritFrom = "CastCircleArmed"
+		Hue = 0.5
+		Value = -0.1
+		ClearCreateAnimations = true
+		AddColor = true
+		StartRed = 0.2
+		StartGreen = 0.18
+		StartBlue = 0.15
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		CreateAnimations =
+		[
+			{ Name = "CastCircleArmedA" }
+			{ Name = "CastCircleArmedB" }
+			{ Name = "CastCircleArmedC_Zeus" }
+		]
+	}
+
+	{
+		Name = "CastCircleOutZeus"
+		InheritFrom = "CastCircleOut"
+		Hue = 0.5
+		Value = -0.1
+	}
+
+	{
+		Name = "CastCircleArmedC_Zeus"
+		InheritFrom = "CastCircleArmedC"
+		Hue = 0.55
+	}
+
+	{
+		Name = "CastCircleInPoseidon"
+		InheritFrom = "CastCircleIn"
+		Hue = -0.1
+		AddColor = true
+		StartRed = 0.01
+		StartGreen = 0.15
+		StartBlue = 0.2
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		VisualFx = null
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "CastCircleEdgeGlow" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleLine" }
+			{ Name = "CastCircleLine2" }
+			{ Name = "CastCircleLine3" }
+			{ Name = "CastCircleInOverlay" }
+			{ Name = "CastCircleInOverlay" }
+			{ Name = "CastCircleInOverlay" }
+			{ Name = "CastCirclePoseidonA" }
+			{ Name = "CastCirclePoseidonFx" }
+		]
+	}
+
+	{
+		Name = "CastCirclePoseidonFx"
+		FilePath = "Fx\Poseidon\PoseidonCastNova\PoseidonCastNova"
+		NumFrames = 44
+		StartFrame = 10
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain"
+		AddColor = true
+		Red = 0.02
+		Green = 0.3
+		Blue = 0.4
+		StartAlpha = 0.66
+		EndAlpha = 0.3
+		ScaleRadius = 300
+		Sound = "/SFX/Player Sounds/PoseidonWaterImpactDetonate"
+	}
+
+	{
+		Name = "CastCircleArmedPoseidon"
+		InheritFrom = "CastCircleArmed"
+		AddColor = true
+		StartRed = 0.01
+		StartGreen = 0.15
+		StartBlue = 0.2
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+	}
+	{
+		Name = "CastCircleOutPoseidon"
+		InheritFrom = "CastCircleOut"
+		Sound = "null"
+		Hue = -0.1
+	}
+
+
+
+	{
+		Name = "CastCirclePoseidonA"
+		FilePath = "Fx\Poseidon\PoseidonCircle\PoseidonCircle"
+		NumFrames = 31
+		GroupName = "FX_Terrain_Add"
+		PostRotateScaleY = 0.5
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 2.5
+		ChainTo = "CastCirclePoseidonA_Hold"
+		ColorFromOwner = "Ignore"
+		Material = "Unlit"
+		Alpha = 1
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.33
+		EndBlue = 0.33
+		ClearCreateAnimations = true
+	}
+
+
+	{
+		Name = "CastCirclePoseidonA_Hold"
+		InheritFrom = "CastCirclePoseidonA"
+		StartRed = 0.001
+		StartGreen = 0.33
+		StartBlue = 0.33
+		EndRed = 0
+		EndGreen = 0.1
+		EndBlue = 0.1
+		NumFrames = 1
+		StartFrame = 32
+		PlaySpeed = 0.0001
+		Duration = 2.6
+		DieWithOwner = true
+		LoopFramesOnly = true
+		StartAlpha = 1
+		EndAlpha = 0.5
+		StartScale = 1
+		EndScale = 1.05
+		ChainTo = "CastCirclePoseidonA_Out"
+		Sound = "/SFX/Player Sounds/PoseidonManaBoonRegenSFX"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "CastCirclePoseidonA_Out"
+		InheritFrom = "CastCirclePoseidonA"
+		StartAlpha = 1
+		EndAlpha = 0
+		Alpha = 1
+		Scale = 1.05
+		StartScale = 1
+		EndScale = 1.1
+		NumFrames = 16
+		StartFrame = 33
+		EaseIn = 0.99
+		EaseOut = 1.00
+		ChainTo = null
+	}
 
 ]}

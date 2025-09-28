@@ -1,0 +1,105 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCShadeBardBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "ShadeBard_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	// Idle
+	{
+		Name = "ShadeBard_Idle"
+		InheritFrom = "NPCShadeBardBaseAnimation"
+		GrannyAnimation = "ShadeBard_Base_Idle_C_00"
+		Loop = true
+	}
+
+	// Playing
+	{
+		Name = "ShadeBard_Playing_Start"
+		InheritFrom = "NPCShadeBardBaseAnimation"
+		GrannyAnimation = "ShadeBard_Base_PlayingStart_C_00"
+		ChainTo = "ShadeBard_Playing_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "ShadeBard_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "ShadeBard_Playing_FireLoop"
+		InheritFrom = "NPCShadeBardBaseAnimation"
+		GrannyAnimation = "ShadeBard_Base_Playing_C_00"
+		Loop = true
+	}
+	{
+		Name = "ShadeBard_Playing_End"
+		InheritFrom = "NPCShadeBardBaseAnimation"
+		GrannyAnimation = "ShadeBard_Base_PlayingEnd_C_00"
+		ChainTo = "ShadeBard_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "ShadeBard_Playing_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "ShadeBard_Playing_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// Rocking
+	{
+		Name = "ShadeBard_Rocking_Start"
+		InheritFrom = "NPCShadeBardBaseAnimation"
+		GrannyAnimation = "ShadeBard_Base_RockinOutStart_C_00"
+		ChainTo = "ShadeBard_Rocking_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "ShadeBard_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "ShadeBard_Rocking_FireLoop"
+		InheritFrom = "NPCShadeBardBaseAnimation"
+		GrannyAnimation = "ShadeBard_Base_RockinOut_C_00"
+		Loop = true
+	}
+	{
+		Name = "ShadeBard_Rocking_End"
+		InheritFrom = "NPCShadeBardBaseAnimation"
+		GrannyAnimation = "ShadeBard_Base_RockinOutReturn_C_00"
+		ChainTo = "ShadeBard_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "ShadeBard_Rocking_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "ShadeBard_Rocking_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+]}

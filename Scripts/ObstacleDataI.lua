@@ -21,6 +21,7 @@ OverwriteTableKeys( ObstacleData, {
 		InheritFrom = { "ExitDoor" },
 		HideRewardPreview = true,
 		ExitThroughCenter = true,
+		LoadBackgroundColor = Color.ChronosSand,
 
 		AllowReroll = false,
 
@@ -33,10 +34,30 @@ OverwriteTableKeys( ObstacleData, {
 		HideUseIfLocked = true,
 		CannotUsePresentation = "GenericPresentation",
 
-		ExitFunctionName = "LeaveRoomIPreBossPresentation",
+		ExitFunctionName = "LeaveRoomIPreBoss01Presentation",
 		UnlockedUseSound = "/SFX/Menu Sounds/GeneralWhooshMENULoudLow",
 
 		UnlockedAnimation = "ChronosPrebossDoorHighlight",
+
+		SetupEvents =
+		{
+			Append = true,
+			{
+				FunctionName = "OverwriteSelf",
+				Args =
+				{
+					ExitFunctionName = "LeaveRoomIPreBoss02Presentation",
+					LoadBackgroundColor = "nil",
+				},
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsAny = { "I_PreBoss02" },
+					},
+				},
+			},
+		},
 	},
 
 	ChronosBossExitDoor =
@@ -49,41 +70,6 @@ OverwriteTableKeys( ObstacleData, {
 		AllowReroll = false,
 
 		UnlockedAnimation = "DoorExitLightSoftNE_N_Opening",
-	},
-
-	BattleStandard =
-	{
-		DistanceTrigger =
-		{
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Name" },
-					IsNone = { "I_Boss01" },
-				},
-			},
-			WithinDistance = 550,
-			VoiceLines =
-			{
-				PlayOnceFromTableThisRun = true,
-				RandomRemaining = true,
-				BreakIfPlayed = true,
-				PreLineWait = 0.5,
-				UsePlayerSource = true,
-				SuccessiveChanceToPlayAll = 0.1,
-
-				{ Cue = "/VO/MelinoeField_0434", Text = "A Time Sign..." },
-				{ Cue = "/VO/MelinoeField_0436", Text = "A Sign of Chronos...", PlayFirst = true },
-				{ Cue = "/VO/MelinoeField_0437", Text = "One of those blasted Signs..." },
-				{ Cue = "/VO/MelinoeField_0438", Text = "The Time Sign's back." },
-				{ Cue = "/VO/MelinoeField_0439", Text = "Time Sign there..." },
-				{ Cue = "/VO/MelinoeField_0440", Text = "Another Time Sign..." },
-			}
-		},
-	},
-
-	BattleStandardChronos = {
-		InheritFrom = { "BattleStandard", },
 	},
 
 	-- RoomOpening / I_PreBoss01 Door
@@ -99,7 +85,13 @@ OverwriteTableKeys( ObstacleData, {
 				Value = 1,
 			}
 		},
-		BlockExitUntilUsedIfElligible = true,
+
+		SetupEvents =
+		{
+			{
+				FunctionName = "BlockExitUntilUsedIfElligible",
+			},
+		},
 
 		DistanceTrigger =
 		{
@@ -133,8 +125,16 @@ OverwriteTableKeys( ObstacleData, {
 		OnUsedFunctionName = "ChronosRemainsPresentation",
 		OnUsedFunctionArgs = { VoiceLines = "UsedChronosRemainsVoiceLines" },
 
-		OnHitFunctionName = "ChronosRepulseFromObject",
-		OnHitFunctionArgs = { OffsetZ = -120 },
+		OnHitEvents =
+		{
+			{
+				FunctionName = "ChronosRepulseFromObject",
+				Args =
+				{
+					OffsetZ = -120,
+				},
+			}
+		},
 
 		OnHitVoiceLines =
 		{
@@ -261,6 +261,7 @@ OverwriteTableKeys( ObstacleData, {
 	ShadeClockworkSwaySW01=
 	{
 		InheritFrom = { "BaseGhost", "SmallEmotes" },
+		EmoteOffsetZ = 70,
 	},
 
 
@@ -274,6 +275,14 @@ OverwriteTableKeys( ObstacleData, {
 		{
 			ProjectileName = "RubbleFall",
 			--CrushTypes = { "TartarusCandles01", "TartarusCandles01b", },
+		},
+
+		CollisionReactions =
+		{
+			{
+				MinVelocity = 1,
+				KillSelf = true,
+			}
 		},
 	},
 

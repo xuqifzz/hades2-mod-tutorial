@@ -98,6 +98,13 @@
 		InheritFrom = "EnemyCrawlerBaseAnimation"
 		GrannyAnimation = "Crawler_Base_AttackRushAntic_C_02"
 		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
 	}
 
 	{
@@ -121,6 +128,13 @@
 		InheritFrom = "EnemyCrawlerBaseAnimation"
 		GrannyAnimation = "Crawler_Base_AttackGroundPoundAntic_C_01"
 		DisableOwnerRotation = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.5
+			}
+		]
 		Blends = 
 		[
 			{
@@ -184,6 +198,142 @@
 		CreateAnimation = "HitSparkEnemyDamagedPhysicalRapid"
 		ChainTo = "EnemyCrawlerMiniBossDeathGib"
 		OwnerImmobile = true
+	}
+
+	// Crawler Shadow
+	{
+		Name = "EnemyCrawlerShadowBaseAnimation"
+		GrannyModel = "RatThugGiant_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 4.0
+		Loop = false
+		Enable3DShadow = true
+		OwnerNoInvulnerableCoverage = true
+	}
+	{
+		Name = "Enemy_CrawlerShadow_Idle"
+		InheritFrom = "EnemyCrawlerShadowBaseAnimation"
+		GrannyAnimation = "Crawler_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+	{
+		Name = "Enemy_CrawlerShadow_Move"
+		InheritFrom = "EnemyCrawlerShadowBaseAnimation"
+		GrannyAnimation = "Crawler_Base_Move_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_CrawlerShadow_RushAntic"
+		InheritFrom = "EnemyCrawlerShadowBaseAnimation"
+		GrannyAnimation = "Crawler_Base_AttackRushAntic_C_02"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_CrawlerShadow_RushFire"
+		InheritFrom = "EnemyCrawlerShadowBaseAnimation"
+		GrannyAnimation = "Crawler_Base_AttackRushFire_C_02"
+		OwnerHasNoUnitCollision = true
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "Enemy_CrawlerShadow_RushToIdle"
+		InheritFrom = "EnemyCrawlerShadowBaseAnimation"
+		GrannyAnimation = "Crawler_Base_AttackRushReturnToIdle_C_02"
+	}
+
+	// Mel Polymorph
+
+	{
+		Name = "MelinoeCrawlerBaseAnimation"
+		GrannyModel = "RatThugGiant_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 3.0
+		Loop = false
+		Enable3DShadow = true
+		OwnerNoInvulnerableCoverage = true
+		DisableOwnerManualInteract = true
+	}
+	{
+		Name = "Melinoe_Crawler_Idle"
+		InheritFrom = "MelinoeCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+	{
+		Name = "Melinoe_Crawler_Move"
+		InheritFrom = "MelinoeCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_Move_C_00"
+		NativeMoveSpeed = 400
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Crawler_Attack_End"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Crawler_Attack_Start"
+		InheritFrom = "MelinoeCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_AttackRushAntic_C_02"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 7
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Crawler_Idle"
+				Duration = 3
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Crawler_Attack_Fire"
+		InheritFrom = "MelinoeCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_AttackRushFire_C_02"
+		ChainTo = "Melinoe_Crawler_Attack_End"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Crawler_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Crawler_Attack_End"
+		InheritFrom = "MelinoeCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_AttackRushReturnToIdle_C_02"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Crawler_Idle"
 	}
 
 	// SATYR RAT

@@ -9,22 +9,22 @@
 			EditorOutlineDrawBounds = false
 			Graphic = "ShipsExitDoorLocked"
 			MeshType = "Vertical"
+			CausesOcclusion = true
 			Interact = 
 			{
 				Distance = 225.0
 				OffsetY = -72.0
 			}
-			Tallness = 439
-			Offset = { X = 0 Y = -110 }
 			ExtentScale = 1.25
-			Points =
-			[
-				{ X = -98 Y = -32 }
-				{ X = 78 Y = 56 }
-				{ X = 111 Y = 40 }
-				{ X = -61 Y = -51 }
-			]
-		}
+			Tallness = 542
+        Offset = { X = 0 Y = -110 }
+        Points = [
+          { X = -98 Y = -32 }
+          { X = 78 Y = 56 }
+          { X = 111 Y = 40 }
+          { X = -61 Y = -51 }
+        ]
+      }
 	}
 	
     {
@@ -53,15 +53,16 @@
 				Distance = 175.0
 				OffsetY = -40.0
 			}
+			UseBoundsForSortDrawArea = true
 			ExtentScale = 1.5
 			Tallness = 216
-        Offset = { X = 0 Y = 14 }
-        Points = [
-          { X = -36 Y = -6 }
-          { X = 12 Y = 20 }
-          { X = 39 Y = 7 }
-          { X = -12 Y = -19 }
-        ]
+			Offset = { X = 0 Y = 14 }
+			Points = [
+			  { X = -36 Y = -6 }
+			  { X = 12 Y = 20 }
+			  { X = 39 Y = 7 }
+			  { X = -12 Y = -19 }
+			]
       }
 	}
 	
@@ -1113,16 +1114,16 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "Tilesets\Ships\Ships_CrateSet_01"
-			Tallness = 607
-			Offset = { X = 0 Y = -171 }
-			Points =
-			[
-				{ X = -772 Y = 205 }
-				{ X = -38 Y = 360 }
-				{ X = 766 Y = 51 }
-				{ X = 17 Y = -191 }
-			]
-		}
+			Tallness = 830
+        Offset = { X = 0 Y = -171 }
+        Points = [
+          { X = -403 Y = 342 }
+          { X = 366 Y = 235 }
+          { X = 730 Y = 68 }
+          { X = 104 Y = -246 }
+          { X = -725 Y = 169 }
+        ]
+      }
 	}
 	
 	{
@@ -1167,7 +1168,7 @@
 	
 	{
 		Name = "ShipsShield01"
-		InheritFrom = "1_BaseInvulnerableObstacle"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
 		DisplayInEditor = true
 		Thing = 
 		{
@@ -1209,6 +1210,56 @@
 				{ X = -218 Y = -213 }
 			]
 		}
+	}
+	
+	{
+		Name = "ShipsBeached01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Life = 
+		{
+			SilentImpact = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Beached_01"
+			Tallness = 415
+        Offset = { X = 0 Y = 66 }
+        Points = [
+          { X = -603 Y = 301 }
+          { X = -617 Y = 635 }
+          { X = -174 Y = 626 }
+          { X = 619 Y = 324 }
+          { X = 536 Y = -326 }
+          { X = 63 Y = -234 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsBeached02"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Life = 
+		{
+			SilentImpact = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Beached_02"
+			Tallness = 415
+        Offset = { X = 0 Y = 66 }
+        Points = [
+          { X = -727 Y = -63 }
+          { X = -888 Y = 432 }
+          { X = -720 Y = 483 }
+          { X = 551 Y = 508 }
+          { X = 871 Y = 303 }
+          { X = -316 Y = -342 }
+        ]
+      }
 	}
 	
 	{
@@ -1888,6 +1939,7 @@
 		Name = "ShipsStatue01"
 		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
 		DisplayInEditor = true
+		CollisionReactionRequiredVelocity = 99999
 		Life = 
 		{
 			TriggerOnHit = true
@@ -1896,20 +1948,22 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "ShipsStatueIdle"
+			DrawVfxOnTop = true
+			SortBoundsScale = 0.70
 			Tallness = 693
-        Offset = { X = 0 Y = -247 }
-        Points = [
-          { X = -333 Y = 84 }
-          { X = -245 Y = 184 }
-          { X = -14 Y = 247 }
-          { X = 233 Y = 208 }
-          { X = 337 Y = 86 }
-          { X = 303 Y = 0 }
-          { X = 261 Y = -66 }
-          { X = 83 Y = -120 }
-          { X = -170 Y = -107 }
-          { X = -295 Y = -28 }
-        ]
+			Offset = { X = 0 Y = -247 }
+			Points = [
+			  { X = -333 Y = 84 }
+			  { X = -245 Y = 184 }
+			  { X = -14 Y = 247 }
+			  { X = 233 Y = 208 }
+			  { X = 337 Y = 86 }
+			  { X = 303 Y = 0 }
+			  { X = 261 Y = -66 }
+			  { X = 83 Y = -120 }
+			  { X = -170 Y = -107 }
+			  { X = -295 Y = -28 }
+			]
       }
 	}
 	
@@ -2223,14 +2277,35 @@
 			Tallness = 202
         Offset = { X = 0 Y = -49 }
         Points = [
-          { X = -349 Y = 41 }
-          { X = -306 Y = 107 }
-          { X = 41 Y = 185 }
-          { X = 186 Y = 166 }
+          { X = -347 Y = 60 }
+          { X = -225 Y = 118 }
+          { X = 18 Y = 176 }
+          { X = 120 Y = 176 }
           { X = 314 Y = 76 }
-          { X = 347 Y = 31 }
-          { X = 238 Y = -67 }
-          { X = -194 Y = -77 }
+          { X = 355 Y = 35 }
+          { X = 150 Y = -63 }
+          { X = -117 Y = -55 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsCraggyRocks01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_CraggyRocks_01"
+			Tallness = 1245
+        Offset = { X = 0 Y = -602 }
+        Points = [
+          { X = -583 Y = 66 }
+          { X = -421 Y = 179 }
+          { X = 2 Y = 236 }
+          { X = 634 Y = -116 }
+          { X = 370 Y = -313 }
+          { X = -164 Y = -243 }
         ]
       }
 	}
@@ -2705,20 +2780,22 @@
 	}
 
 	{
-			Name = "ShadeShipsFiveIdle01"
+		Name = "ShadeShipsFiveIdle01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+	  IgnoredByPathfinders = true
       Life = 
       {
+	  ConsiderInvulnerableForSilentImpact = true
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+		TriggerOnHit = false
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShipsShadow_Big"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeShipsFiveIdle"
         StopsLight = false
@@ -2735,20 +2812,22 @@
       }
     }
 		{
-			Name = "ShadeShipsFiveSwaySW01"
+		Name = "ShadeShipsFiveSwaySW01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+	  IgnoredByPathfinders = true
       Life = 
       {
+		ConsiderInvulnerableForSilentImpact = true
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+		TriggerOnHit = false
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShipsShadow_Big"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeShipsFiveSwaySW"
         StopsLight = false
@@ -2765,20 +2844,22 @@
       }
     }
 		{
-			Name = "ShadeShipsThreeIdle01"
+		Name = "ShadeShipsThreeIdle01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+	  IgnoredByPathfinders = true
       Life = 
       {
+		ConsiderInvulnerableForSilentImpact = true
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+		TriggerOnHit = false
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShipsShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeShipsThreeIdle"
         StopsLight = false
@@ -2795,20 +2876,22 @@
       }
     }
 		{
-			Name = "ShadeShipsThreeSwaySW01"
+		Name = "ShadeShipsThreeSwaySW01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+	  IgnoredByPathfinders = true
       Life = 
       {
+		ConsiderInvulnerableForSilentImpact = true
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+		TriggerOnHit = false
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShipsShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeShipsThreeSwaySW"
         StopsLight = false
@@ -2825,20 +2908,22 @@
       }
     }
 		{
-			Name = "ShadeShipsOneIdle01"
+		Name = "ShadeShipsOneIdle01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+	  IgnoredByPathfinders = true
       Life = 
       {
+		ConsiderInvulnerableForSilentImpact = true
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+		TriggerOnHit = false
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShipsShadow_Small"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeShipsOneIdle"
         StopsLight = false
@@ -2855,20 +2940,22 @@
       }
     }
 		{
-			Name = "ShadeShipsOneSwaySW01"
+		Name = "ShadeShipsOneSwaySW01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+	  IgnoredByPathfinders = true
       Life = 
       {
+		ConsiderInvulnerableForSilentImpact = true
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+		TriggerOnHit = false
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShipsShadow_Small"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeShipsOneSwaySW"
         StopsLight = false

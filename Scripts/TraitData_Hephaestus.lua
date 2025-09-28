@@ -53,7 +53,7 @@ OverwriteTableKeys( TraitData, {
 					},
 				},
 				BlastDelay = 0.08,
-				DamageMultiplier = 1.0,
+				DamageMultiplier = 2.0,
 				ReportValues = 
 				{ 
 					ReportedMultiplier = "DamageMultiplier",
@@ -61,6 +61,8 @@ OverwriteTableKeys( TraitData, {
 				},
 			},
 		},
+		BlastReadyVfx = "HephaestusAttackReadyFx",
+		BlastReadyDarkVfx = "HephaestusAttackReadyFx_Dark",
 		StatLines =
 		{
 			"CooldownAltStatDisplay1",
@@ -68,8 +70,9 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues =
 		{
 			{
-					Key = "ReportedCooldown",
-					ExtractAs = "Cooldown",
+				Key = "ReportedCooldown",
+				ExtractAs = "Cooldown",
+				Format = "SpeedModifiedDuration",
 			},
 			{
 				Key = "ReportedMultiplier",
@@ -147,7 +150,6 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
-
 			{
 				WeaponName = "WeaponStaffSwing3",
 				ProjectileName = "ProjectileStaffSwing3",
@@ -189,18 +191,53 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
-
+			
 			{
 				WeaponName = "WeaponStaffSwing5",
-				ProjectileName = "ProjectileSwing5Magic",
-				ProjectileProperty = "DetonateFx",
-				ChangeValue = "StaffChargedAttackFx_Hephaestus",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "StaffChargedAttackFxEmitter_Hephaestus",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+			{
+				WeaponName = "WeaponStaffSwing5",
+				TraitName = "StaffRaiseDeadAspect",
+				ProjectileName = "ProjectileStaffWall",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "StaffWallIn_Hephaestus",
+				ChangeType = "Absolute",
+			},			
+
+			{
+				WeaponName = "WeaponStaffSwing5",
+				TraitName = "StaffRaiseDeadAspect",
+				ProjectileName = "ProjectileStaffWall",
+				ProjectileProperty = "ImpactFx",
+				ChangeValue = "AnubisWallImpactFx_Hephaestus",
+				ChangeType = "Absolute",
+			},
+
+			{
+				WeaponName = "WeaponStaffSwing",
+				TraitName = "StaffRaiseDeadAspect",
+				ProjectileName = "ProjectileStaffSingle",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "AnubisRingFx_Hephaestus",
+				ChangeType = "Absolute",
+			},			
+
+			{
+				WeaponName = "WeaponStaffSwing",
+				TraitName = "StaffRaiseDeadAspect",
+				WeaponProperty = "FireFx",
+				ChangeValue = "StaffProjectileFireFx3_Hephaestus",
+				ChangeType = "Absolute",
+			},
+
 
 			{
 				WeaponName = "WeaponDagger",
+				FalseTraitName = "DaggerTripleAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "DaggerSwipeFast_Hephaestus",
 				ChangeType = "Absolute",
@@ -223,7 +260,8 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponDaggerDash",
-				ProjectilName = "ProjectileDaggerDash",
+				FalseTraitName = "DaggerTripleAspect",
+				ProjectileName = "ProjectileDaggerDash",
 				WeaponProperty = "FireFx",
 				ChangeValue = "DaggerSwipeFastFlipDash_Hephaestus",
 				ChangeType = "Absolute",
@@ -266,10 +304,38 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+			{
+				WeaponName = "WeaponDagger",
+				TraitName = "DaggerTripleAspect",
+				ProjectileName = "ProjectileDaggerSpinMorrigan",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "DaggerMorriganSpin_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponDaggerDash",
+				TraitName = "DaggerTripleAspect",
+				ProjectileName = "ProjectileDaggerSpinMorrigan",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "DaggerMorriganSpin_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponDagger5",
+				TraitName = "DaggerTripleAspect",
+				ProjectileName = "ProjectileDaggerExecuteMorrigan",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "DaggerSwipeDouble_Morrigan_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
 
 
 			{
 				WeaponName = "WeaponAxe",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSwipe1_Hephaestus",
 				ChangeType = "Absolute",
@@ -277,6 +343,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponAxe2",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSwipe2_Hephaestus",
 				ChangeType = "Absolute",
@@ -284,6 +351,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponAxe3",
+				FalseTraitName = "AxeRallyAspect",
 				ProjectileName = "ProjectileAxeOverhead",
 				ProjectileProperty = "DetonateFx",
 				ChangeValue = "AxeNova_Hephaestus",
@@ -292,6 +360,7 @@ OverwriteTableKeys( TraitData, {
 			},	
 			{
 				WeaponName = "WeaponAxeDash",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSwipeUpper_Hephaestus",
 				ChangeType = "Absolute",
@@ -302,6 +371,61 @@ OverwriteTableKeys( TraitData, {
 				ProjectileName = "ProjectileAxeSpin",
 				ProjectileProperty = "DetonateFx",
 				ChangeValue = "AxeSwipe2Spin_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+
+			{
+				WeaponName = "WeaponAxe",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalSlow",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe2",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe3",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe4",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe5",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxeDash",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFastDash",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Hephaestus",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
@@ -320,6 +444,40 @@ OverwriteTableKeys( TraitData, {
 				ProjectileName = "ProjectileLob",
 				ProjectileProperty = "BounceFx",
 				ChangeValue = "LobProjectileBounceFx_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobBullet",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobProjectileBullet_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobBullet",
+				ProjectileProperty = "DeathFx",
+				ChangeValue = "LobProjectileBulletFade_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobOverheat",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobSpecialFx_Hel_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobOverheat",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobSpecialFx_Hel_Demeter",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
@@ -398,27 +556,26 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
-
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBall",
+				ProjectileName = "ProjectileTorchGhost",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchProjectileSmallIn_Hephaestus",
+				ChangeValue = "TorchProjectileGhostIn_Hephaestus",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
 			{
 				WeaponName = "WeaponTorch",
 				FalseTraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchGhostLarge",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchProjectileLargeIn_Hephaestus",
+				ChangeValue = "TorchProjectileGhostLargeIn_Hephaestus",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},			
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBall",
+				ProjectileName = "ProjectileTorchGhost",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "TorchProjectileShadow_Hephaestus",
 				ChangeType = "Absolute",
@@ -427,7 +584,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponTorch",
 				FalseTraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchGhostLarge",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "TorchProjectileShadowLarge_Hephaestus",
 				ChangeType = "Absolute",
@@ -435,7 +592,7 @@ OverwriteTableKeys( TraitData, {
 			},			
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBall",
+				ProjectileName = "ProjectileTorchGhost",
 				ProjectileProperty = "DissipateFx",
 				ChangeValue = "TorchProjectileDissipate_Hephaestus",
 				ChangeType = "Absolute",
@@ -443,12 +600,79 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchGhostLarge",
 				ProjectileProperty = "DissipateFx",
 				ChangeValue = "TorchProjectileDissipate_Hephaestus",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchBallIn_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchBallGroundGlow_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchBallDissipate_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchWave",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWave_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchWave",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchBallGroundGlowWave_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},		
+			{
+				TraitName = "TorchEnhancedAttackTrait",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchWave",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWaveReturn_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},	
+			{
+				TraitName = "TorchEnhancedAttackTrait",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchSupayBallEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWaveReturn_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},	
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "ImpactFx",
+				ChangeValue = "TorchImpactFx_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+
 			{
 				WeaponName = "WeaponTorch",
 				ProjectileName = "ProjectileTorchRepeatStrike",
@@ -459,16 +683,8 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchRepeatStrikeLarge",
-				ProjectileProperty = "DetonateFx",
-				ChangeValue = "RadialNovaPentagramCharged_Hephaestus",
-				ChangeType = "Absolute",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponTorch",
 				TraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchBallEos",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "EosProjectile_Hephaestus_In",
 				ChangeType = "Absolute",
@@ -476,27 +692,46 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponTorch",
 				TraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchBallEos",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "EosProjectileShadow",
 				ChangeType = "Absolute",
 			},
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchExplosion",
+				ProjectileName = "ProjectileTorchGhostExplosion",
 				ProjectileProperty = "DetonateFx",
-				ChangeValue = "AxeNova_Hephaestus",
+				ChangeValue = "ProjectileTorchGhostExplosion_Hephaestus",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},	
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchExplosionLarge",
+				ProjectileName = "ProjectileTorchGhostLargeExplosion",
 				ProjectileProperty = "DetonateFx",
-				ChangeValue = "AxeNova_Hephaestus",
+				ChangeValue = "ProjectileTorchGhostExplosion_Hephaestus",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
-			},	
+			},
+			{
+				FalseTraitName = "TorchEnhancedAttackTrait",
+				TraitName = "TorchAutofireAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchSupayBallEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWave_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "TorchAutofireAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchSupayBallEx",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchBallGroundGlowWave_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
 
 			{
 				WeaponName = "WeaponSuit",
@@ -513,13 +748,36 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitDouble",
+				ProjectileName = "ProjectileSuitDouble",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitPunch_Hephaestus",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitDouble",
+				WeaponProperty = "FireFx",
+				ChangeValue = "SuitPunchFlare_R_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitDouble",
+				WeaponProperty = "FireFx2",
+				ChangeValue = "SuitPunchFlare_L_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
 				WeaponName = "WeaponSuitCharged",
 				ProjectileProperty = "StartFx",
 				ChangeValue = "SuitPunchLarge_Hephaestus",
 				ChangeType = "Absolute",
 			},
 			{
-				FalseTraitName = "SuitDashAttackTrait",
 				WeaponName = "WeaponSuitDash",
 				ProjectileName = "ProjectileSuitDash",
 				ProjectileProperty = "StartFx",
@@ -531,15 +789,7 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponSuitDash",
 				ProjectileName = "ProjectileSuitDash",
 				ProjectileProperty = "DetonateFx",
-				ChangeValue = "SuitNovaBurn_Hephaestus",
-				ChangeType = "Absolute",
-			},
-			{
-				TraitName = "SuitDashAttackTrait",
-				WeaponName = "WeaponSuitDash",
-				ProjectileName = "ProjectileSuitDash",
-				ProjectileProperty = "StartFx",
-				ChangeValue = "Null",
+				ChangeValue = "SuitNovaBurnRapid_Hephaestus",
 				ChangeType = "Absolute",
 			},
 			{
@@ -564,15 +814,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 13/16,
+				Multiplier = 12/14,
 			},
 			Epic =
 			{
-				Multiplier = 11/16,
+				Multiplier = 10/14,
 			},
 			Heroic =
 			{
-				Multiplier = 9/16,
+				Multiplier = 8/14,
 			}
 		},
 		SetupFunction =
@@ -586,7 +836,6 @@ OverwriteTableKeys( TraitData, {
 		OnEnemyDamagedAction = 
 		{
 			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
-			ExcludeProjectiles = {"ProjectileSuitRangedGuidedSplit", "ProjectileSuitSplit", "ProjectileSuitSplit2" },
 			FunctionName = "CheckMassiveAttack",
 			Args = 
 			{
@@ -602,7 +851,7 @@ OverwriteTableKeys( TraitData, {
 				ProjectileName = "MassiveSlamBlast",
 				Cooldown = 
 				{ 
-					BaseValue = 16,
+					BaseValue = 14,
 					MinimumSourceValue = 2,
 					AbsoluteStackValues =
 					{
@@ -611,7 +860,7 @@ OverwriteTableKeys( TraitData, {
 					},
 				},
 				BlastDelay = 0.08,
-				DamageMultiplier = 2.0,
+				DamageMultiplier = 2.5,
 				ReportValues = 
 				{ 
 					ReportedMultiplier = "DamageMultiplier",
@@ -619,6 +868,8 @@ OverwriteTableKeys( TraitData, {
 				},
 			},
 		},
+		BlastReadyVfx = "HephaestusSpecialReadyFx",
+		BlastReadyDarkVfx = "HephaestusSpecialReadyFx_Dark",
 		StatLines =
 		{
 			"CooldownAltStatDisplay1",
@@ -628,6 +879,7 @@ OverwriteTableKeys( TraitData, {
 			{
 					Key = "ReportedCooldown",
 					ExtractAs = "Cooldown",
+					Format = "SpeedModifiedDuration",
 			},
 			{
 				Key = "ReportedMultiplier",
@@ -639,6 +891,15 @@ OverwriteTableKeys( TraitData, {
 				DecimalPlaces = 1,
 				SkipAutoExtract = true,
 			},
+		},
+		ChargeStageModifiers = 
+		{
+			ValidWeapons = { "WeaponTorchSpecial"},
+			ExcludeLinked = true,
+			AddWeaponProperties = 
+			{
+				FireFx = "TorchOrbitStartSwirl_Hephaestus",
+			}
 		},
 		PropertyChanges = {
 
@@ -705,6 +966,7 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				FalseTraitName = "DaggerTripleAspect",
 				WeaponName = "WeaponDaggerThrow",
 				ProjectileName = "ProjectileDaggerThrow",
 				ProjectileProperty = "Graphic",
@@ -712,10 +974,27 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				TraitName = "DaggerTripleAspect",
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrow",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerThrowMorrigan_Hephaestus",
+				ChangeType = "Absolute",
+			},
+			{
+				FalseTraitName = "DaggerTripleAspect",
 				WeaponName = "WeaponDaggerThrow",
 				ProjectileName = "ProjectileDaggerThrowCharged",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "DaggerProjectileFx_Hephaestus", 
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "DaggerTripleAspect",
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerThrowMorrigan_Hephaestus",
 				ChangeType = "Absolute",
 			},
 			{
@@ -733,6 +1012,12 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				WeaponName = "WeaponDaggerThrow",
+				WeaponProperty = "FireSound",
+				ChangeValue = "/SFX/Player Sounds/HephaestusSwipeBig",
+				ChangeType = "Absolute",
+			},
+			{
 				WeaponName = "WeaponAxeBlock2",
 				ProjectileProperty = "DetonateFx",
 				ChangeValue = "AxeDeflect_Hephaestus",
@@ -740,7 +1025,7 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 			{
-				FalseTraitName = "AxeBlockEmpowerTrait",
+				FalseTraitNames = { "AxeBlockEmpowerTrait", "AxeRallyAspect", },
 				WeaponName = "WeaponAxeSpecial",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSpinDouble_Hephaestus",
@@ -748,7 +1033,26 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true
 			},
 			{
+				TraitName = "AxeRallyAspect",
+				FalseTraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "null",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
+				TraitName = "AxeRallyAspect",
+				FalseTraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				WeaponProperty = "FireFx",
+				ChangeValue = "AxeSwipeUpper_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
 				TraitName = "AxeBlockEmpowerTrait",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxeSpecial",
 				WeaponProperty = "FireFx",
 				ChangeValue = "null",
@@ -757,9 +1061,18 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				TraitName = "AxeBlockEmpowerTrait",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxeSpecial",
 				ProjectileProperty = "StartFx",
 				ChangeValue = "AxeSpinDouble_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
+				TraitNames = { "AxeBlockEmpowerTrait", "AxeRallyAspect" },
+				WeaponName = "WeaponAxeSpecial",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "AxeSwipeUpper_Hephaestus",
 				ChangeType = "Absolute",
 				ExcludeLinked = true
 			},
@@ -771,10 +1084,19 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 			{
+				FalseTraitName = "LobGunAspect",
 				WeaponName = "WeaponLobSpecial",
 				ProjectileName = "ProjectileThrowCharged",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "LobSpecialFx_Hephaestus",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobSpecialFx_Hel_Hephaestus",
 				ChangeType = "Absolute",
 			},
 			{
@@ -785,17 +1107,18 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileLobGunRift",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobProjectile_Hephaestus",
+				ChangeType = "Absolute",
+			},
+			{
 				WeaponName = "WeaponSkullImpulse",
 				ProjectileName = "ProjectileSkullImpulse",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "DashLobTrailEmitter_Hephaestus",
-				ChangeType = "Absolute",
-			},	
-			{
-				WeaponName = "WeaponSkullImpulse",
-				ProjectileName = "ProjectileSkullImpulseWave",
-				ProjectileProperty = "Graphic",
-				ChangeValue = "LobSpecialFx_Hephaestus",
 				ChangeType = "Absolute",
 			},
 			{
@@ -804,46 +1127,86 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = "LobCharge_Hephaestus",
 				ChangeType = "Absolute",
 			},
-			{
-				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
-				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchSpecialProjectileIn_Hephaestus",
-				ChangeType = "Absolute",
-			},			
-			{
-				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
-				ProjectileProperty = "AttachedAnim",
-				ChangeValue = "TorchSpecialProjectileGroundGlow_Hephaestus",
-				ChangeType = "Absolute",
-			},			
-			{
-				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
-				ProjectileProperty = "DissipateFx",
-				ChangeValue = "TorchSpecialProjectileDissipate_Hephaestus",
-				ChangeType = "Absolute",
-			},			
+
 			{
 				WeaponName = "WeaponTorchSpecial",
 				ProjectileName = "ProjectileTorchOrbit",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchSpecialProjectileIn_Hephaestus",
+				ChangeValue = "TorchOrbitIn_Hephaestus",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileNames = { "ProjectileTorchOrbit", "ProjectileTorchOrbitEx" },
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchOrbitOut_Hephaestus",
 				ChangeType = "Absolute",
 			},			
 			{
 				WeaponName = "WeaponTorchSpecial",
 				ProjectileName = "ProjectileTorchOrbit",
 				ProjectileProperty = "AttachedAnim",
-				ChangeValue = "TorchSpecialProjectileGroundGlow_Hephaestus",
+				ChangeValue = "TorchOrbitShadow_Hephaestus",
 				ChangeType = "Absolute",
 			},			
 			{
 				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchOrbitShadow_Hephaestus_EX",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchOrbitInEX_Hephaestus",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				WeaponProperty = "FireFx",
+				ChangeValue = "TorchOrbitStartSwirl_Single_Hephaestus",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbit",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchSpecialProjectileGroundGlow_Moros_Hephaestus",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
 				ProjectileName = "ProjectileTorchOrbit",
 				ProjectileProperty = "DissipateFx",
-				ChangeValue = "TorchSpecialProjectileDissipate_Hephaestus",
+				ChangeValue = "TorchSpecialProjectileDissipate_Moros_Hephaestus",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchSpecialProjectileIn_Moros_Hephaestus",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchSpecialProjectileGroundGlow_Moros_Hephaestus",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchSpecialProjectileDissipate_Moros_Hephaestus",
 				ChangeType = "Absolute",
 			},
 			{
@@ -887,6 +1250,78 @@ OverwriteTableKeys( TraitData, {
 				ProjectileProperty = "DetonateFx",
 				ChangeValue = "SuitRocketExplosion_Hephaestus",
 				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenade",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenade_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenade",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBomb",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenadeBig_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBomb",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenadeStraight",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenade_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenadeStraight",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBombStraight",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenadeBig_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBombStraight",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Hephaestus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
 			},
 			{
 				TraitName = "SuitSpecialJumpTrait",
@@ -937,10 +1372,6 @@ OverwriteTableKeys( TraitData, {
 				FireScreenshake = { Distance = 3, Speed = 200, Duration = 0.5, FalloffSpeed = 3000 },
 				HitScreenshake = { Distance = 0, Speed = 0, Duration = 0.0, FalloffSpeed = 0 },
 				HitSimSlowParameters = { },
-				OnFiredFunctionArgs = 
-				{
-					ProjectileDataProperties = { DamageRadius = true },
-				},
 			}
 		},
 		PropertyChanges =
@@ -949,52 +1380,40 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponCast",
 				ProjectileProperties = 
 				{
-					Range = 600,
-					DetonateFx = "HephMassiveHitFixed",
-					PreDetonateFx = "HephMassiveHitHammerCast",
-					PreDetonateFxDuration = 0.99,
-					HideGraphicOnDetonate = false,
-					FuseStart = 1.0,
-					MultiDetonate = true,
-					MaxDetonations = 3,
 					ArmedImpactFx = "null",
-					DeathFx = "CastCircleOut",
-					ArmedDeathFx = "CastCircleOut",
 					Graphic = "CastCircleInHephaestus",
-					DissipateFx = "CastCircleOutHephaestus",
-
+					DetonateFx = "CastCircleOutHephaestus",
 				}
 			},
+		},
+		OnWeaponFiredFunctions =
+		{
+			ValidWeapons = { "WeaponCast" },
+			ExcludeLinked = true,
+			FunctionName = "IntermittentHephCastStrike",
+			FunctionArgs = 
 			{
-				WeaponName = "WeaponCast",
-				ProjectileProperty = "Damage",
-				BaseValue = 50,
-				ReportValues = {ReportedDamage = "ChangeValue"},
-				AbsoluteStackValues =
+				ProjectileName = "HephCastBlast",
+				Count = 3,
+				Delay = 1,
+				DamageMultiplier = 
 				{
-					[1] = 20,
-					[2] = 15,
-					[3] = 10,
-					[4] = 5,
+					BaseValue = 1,
+					AbsoluteStackValues = 
+					{
+						[1] = 20/50,
+						[2] = 15/50,
+						[3] = 10/50,
+						[4] = 5/50,
+					},
 				},
-				AsInt = true,
-			},
-			{
-				WeaponName = "WeaponCast",
-				ProjectileProperty = "ArmedExpirationDamage",
-				BaseValue = 50,
-				ChangeType = "Add",
-				IdenticalMultiplier =
-				{
-					Value = -0.6,
+				ReportValues = 
+				{ 
+					ReportedMultiplier = "DamageMultiplier",
+					ReportedFuse = "Delay",
+					ReportedDetonations = "Count",
 				},
-			},
-			{
-				WeaponName = "WeaponCast",
-				ProjectileProperty = "Fuse",
-				ChangeValue = 1.0,
-				ReportValues = {ReportedFuse = "ChangeValue"}
-			},
+			}
 		},
 		StatLines =
 		{
@@ -1003,8 +1422,12 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues =
 		{
 			{
-				Key = "ReportedDamage",
+				Key = "ReportedMultiplier",
 				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "HephCastBlast",
+				BaseProperty = "Damage",
 			},
 			{
 				Key = "ReportedFuse",
@@ -1013,20 +1436,9 @@ OverwriteTableKeys( TraitData, {
 				SkipAutoExtract = true,
 			},
 			{
-				ExtractAs = "ChillDuration",
+				Key = "ReportedDetonations",
+				ExtractAs = "Detonations",
 				SkipAutoExtract = true,
-				External = true,
-				BaseType = "EffectData",
-				BaseName = "ChillEffect",
-				BaseProperty = "Duration",
-			},
-			{
-				ExtractAs = "ChillActiveDuration",
-				SkipAutoExtract = true,
-				External = true,
-				BaseType = "EffectData",
-				BaseName = "ChillEffect",
-				BaseProperty = "ActiveDuration",
 			},
 		}
 	},
@@ -1071,7 +1483,7 @@ OverwriteTableKeys( TraitData, {
 				Name = "HephSprint",
 				ProjectileName = "HephSprintBlast",
 				Range = 300,
-				DamageMultiplier = 1,
+				DamageMultiplier = 2,
 				Cooldown = 
 				{ 
 					BaseValue = 10,
@@ -1089,6 +1501,8 @@ OverwriteTableKeys( TraitData, {
 				}
 			}
 		},
+		BlastReadyVfx = "HephaestusSprintReadyFx",
+		BlastReadyDarkVfx = "HephaestusSprintReadyFx_Dark",
 				
 		StatLines =
 		{
@@ -1099,6 +1513,7 @@ OverwriteTableKeys( TraitData, {
 			{
 					Key = "ReportedCooldown",
 					ExtractAs = "Cooldown",
+					Format = "SpeedModifiedDuration",
 			},
 			{
 				Key = "ReportedMultiplier",
@@ -1116,6 +1531,7 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "BaseTrait", "EarthBoon" },
 		Icon = "Boon_Hephaestus_31",
 		Slot = "Mana",
+		BlockStacking = true,
 		RarityLevels =
 		{
 			Common =
@@ -1124,65 +1540,40 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.50,
+				Multiplier = 2,
 			},
 			Epic =
 			{
-				Multiplier = 2.00,
+				Multiplier = 3,
 			},
 			Heroic =
 			{
-				Multiplier = 2.50,
+				Multiplier = 4,
 			},
 		},	
-		OnDamagedManaConversionFlat = { 
-			BaseValue = 50,
-			MinMultiplier = 0.1,
-			IdenticalMultiplier =
-			{
-				Value = -0.5,
-				DiminishingReturnsMultiplier = 0.5,
-			},
-		},
-		AddIncomingDamageModifiers =
+		OnDamagedManaConversionFlat = 150,
+		DamageShave =
 		{
-			ValidWeaponMultiplier = 0.9,
-			ReportValues = 
-			{
-				ReportedMultiplier = "ValidWeaponMultiplier"
-			},
+			BaseValue = 1,
+			AsInt = true,
 		},
 		StatLines =
 		{
-			"ManaRevengeRegenStatDisplay1",
+			"DamageShaveStatDisplay1",
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedMultiplier",
-				ExtractAs = "TooltipDamageResistance",
-				Format = "NegativePercentDelta",
-				SkipAutoExtract = true
+				Key = "DamageShave",
+				ExtractAs = "Damage",
+				Negative = true
 			},
 			{
 				Key = "OnDamagedManaConversionFlat",
 				ExtractAs = "TooltipMana",
+				SkipAutoExtract = true
 			},
 		}
-		--[[ from conversion version display
-		StatLines =
-		{
-			"ManaRevengeRegenStatDisplay1",
-		},
-		ExtractValues =
-		{
-			{
-				Key = "OnDamagedManaConversion",
-				ExtractAs = "TooltipMana",
-				Format = "Percent"
-			},
-		}
-		]]
 	},
 
 	AntiArmorBoon = 
@@ -1212,13 +1603,12 @@ OverwriteTableKeys( TraitData, {
 		{
 			HealthBufferDamageMultiplier =
 			{
-				BaseValue = 1.2,
+				BaseValue = 1.4,
 				SourceIsMultiplier = true,
 				AbsoluteStackValues =
 				{
 					[1] = 1.2,
 					[2] = 1.1,
-					[3] = 1.05,
 				},
 			},
 			ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,
@@ -1263,13 +1653,16 @@ OverwriteTableKeys( TraitData, {
 				Multiplier = 2.5,
 			}
 		},
+		AddOutgoingDamageModifiers = 
+		{
+			ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,
+			ArmorToDamageFlatConversion = 0.2,
+			ReportValues = { ReportedBonus = "ArmorToDamageFlatConversion"}
+		},
 		AcquireFunctionName = "HeavyArmorInitialPresentation",
+		OnLevelOrRarityChangeFunctionName = "RestoreHephaestusArmor",
 		SetupFunctions =
 		{
-			{
-				Name = "HeavyArmorSetup",
-				Args = { Name = "HeavyArmor" },
-			},
 			{
 				Name = "CostumeArmor",
 				Args =
@@ -1297,11 +1690,13 @@ OverwriteTableKeys( TraitData, {
 				Key = "ReportedArmor",
 				ExtractAs = "TooltipAmount",
 			},
+			{
+				Key = "ReportedBonus",
+				ExtractAs = "TooltipBonus",
+				Format = "Percent",
+				SkipAutoExtract = true,
+			},
 		}
-	},
-	HeavyArmorExpired = 
-	{
-		Hidden = true,
 	},
 	ArmorBoon = 
 	{
@@ -1333,7 +1728,6 @@ OverwriteTableKeys( TraitData, {
 			Name = "HephaestusArmor",
 			Args =
 			{
-				Source = "Renewable",
 				Amount = 
 				{ 
 					BaseValue = 10, 
@@ -1354,7 +1748,13 @@ OverwriteTableKeys( TraitData, {
 				}
 			},
 		},
-		OnLevelOrRarityChangeFunctionName = "RestoreHephaestusArmor",
+		OnExpire = 
+		{
+			FunctionName = "TraitUnreserveMana",
+			FunctionArgs = { Name = "HephaestusArmor" },
+		},
+		OnLevelOrRarityChangeFunctionName = "RestoreRenewableHephaestusArmor",
+
 		OnArmorBreakFunction= 
 		{
 			Name = "StopHephaestusVfx",
@@ -1381,35 +1781,52 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "BaseTrait", "EarthBoon" },
 		Icon = "Boon_Hephaestus_36",
-		EncounterStartWeapon = "EncounterStartBuffWeapon",
-		PreEquipWeapons = { "EncounterStartBuffWeapon" },
 		RarityLevels =
 		{
 			Common =
 			{
-				Multiplier = 6/6,
+				Multiplier = 1,
 			},
 			Rare =
 			{
-				Multiplier = 7/6,
+				Multiplier = 100/75,
 			},
 			Epic =
 			{
-				Multiplier = 8/6,
+				Multiplier = 125/75,
 			},
 			Heroic =
 			{
-				Multiplier = 9/6,
+				Multiplier = 150/75,
 			}
-		},
-		EncounterStartInvulnerabilityDuration = 
+		}, 
+		Invincible = true,
+		CostumeTrait = true,
+		IsRenewableArmor = true,
+		OnEncounterStartFunction =
 		{
-			BaseValue = 6,		
-			AbsoluteStackValues = 
+			Name = "EncounterStartTempArmor",
+			Args = 
 			{
-				[1] = 1,
-				--[2] = 1,
-			},
+				Vfx = "HephaestusLaurels",
+				Source = "Temporary",
+				Amount =
+				{
+					BaseValue = 75,
+					AbsoluteStackValues =
+					{
+						[1] = 75,
+						[2] = 50,
+						[3] = 25,
+		 			},
+				},
+				Duration = 7,
+				ReportValues = 
+				{
+					ReportedDuration = "Duration",
+					ReportedAmount = "Amount",
+				},
+			}
 		},
 		StatLines =
 		{
@@ -1418,7 +1835,12 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues =
 		{
 			{
-				Key = "EncounterStartInvulnerabilityDuration",
+				Key = "ReportedDuration",
+				ExtractAs = "TooltipDuration",
+				SkipAutoExtract = true,
+			},
+			{
+				Key = "ReportedAmount",
 				ExtractAs = "TooltipAmount",
 				DecimalPlaces = 2,
 			},
@@ -1438,15 +1860,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.5,
+				Multiplier = 1.25,
 			},
 			Epic =
 			{
-				Multiplier = 2.0,
+				Multiplier = 1.50,
 			},
 			Heroic =
 			{
-				Multiplier = 2.5,
+				Multiplier = 1.75,
 			}
 		},
 		StatLines =
@@ -1471,32 +1893,32 @@ OverwriteTableKeys( TraitData, {
 		{
 			Common =
 			{
-				Multiplier = 1.0,
+				Multiplier = 1.00,
 			},
 			Rare =
 			{
-				Multiplier = 1.5,
+				Multiplier = 100/75,
 			},
 			Epic =
 			{
-				Multiplier = 2.0,
+				Multiplier = 125/75,
 			},
 			Heroic =
 			{
-				Multiplier = 2.5,
+				Multiplier = 150/75,
 			}
 		},
 		MassiveAttackSizeModifier = 1.5,
 		AddOutgoingDamageModifiers = 
 		{
-			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast", "MassiveSlamBlastCast" },
-			ValidBaseDamageAddition = { BaseValue = 50 },
-			AbsoluteStackValues =
-			{
-				[1] = 25,
-				[2] = 20,
-				[3] = 15,
-				[4] = 10,
+			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast", "MassiveSlamBlastCast", "HephLeapBlast" },
+			ValidBaseDamageAddition = { 
+				BaseValue = 75, 
+				AbsoluteStackValues =
+				{
+					[1] = 25,
+					[2] = 20,
+	 			},
 			},
 			ReportValues = 
 			{ 
@@ -1536,36 +1958,36 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 4/3,
+				Multiplier = 1.20/1.15,
 			},
 			Epic =
 			{
-				Multiplier = 5/3,
+				Multiplier = 1.25/1.15,
 			},
 			Heroic =
 			{
-				Multiplier = 2.0,
+				Multiplier = 1.30/1.15,
 			}
 		},
 		OnEnemyDamagedAction = 
 		{
-			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast", "MassiveSlamBlastCast"  },
+			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast", "MassiveSlamBlastCast", "HephLeapBlast"  },
 			EffectName = "DelayedKnockbackEffect",
 			Args = 
 			{
-				TriggerDamage = 
+				Modifier = 
 				{ 
-					BaseValue = 300,
+					BaseValue = 1.15,
 					AbsoluteStackValues = 
 					{
-						[1] = 50,
-						[2] = 30,
-						[3] = 20,
+						[1] = 0.05,
+						[2] = 0.03,
+						[3] = 0.02,
 					},
 				},
 				ReportValues = 
 				{ 
-					ReportedDamage = "TriggerDamage",
+					ReportedModifier = "Modifier",
 				}
 			},
 		},
@@ -1576,8 +1998,9 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues =
 		{
 			{
-				Key = "ReportedDamage",
-				ExtractAs = "TooltipDamage",
+				Key = "ReportedModifier",
+				ExtractAs = "DelayedKnockbackModifier",
+				Format = "PercentDelta",
 			},
 			{
 				ExtractAs = "DelayedKnockbackDuration",
@@ -1617,6 +2040,7 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "Rank",
 				IncludeSigns = true,
 			},
-		}
+		},
+		FlavorText = "WeaponUpgradeBoon_FlavorText",
 	},
 })

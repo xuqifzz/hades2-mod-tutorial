@@ -607,6 +607,8 @@
 		RadialOffsetMin = 0
 		RadialOffsetMax = 0
 		GrannyAttachedMarkerLocation = "Mage_Rig:eye_00_M_JNT"
+		Sound = "/SFX/Enemy Sounds/CorruptedShadeLarge/Charge"
+		StopSoundOnFinishFade = 0.2
 	}
 	{
 		Name = "EnemyChargeFxInDark_Mage"
@@ -901,6 +903,7 @@
 		TimeModifierFraction = 1.0
 		SortMode = "FromParent"
 		SortFromOwner = "Maintain"
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 		CreateAnimations =
 		[
 			{ Name = "EnemySpawnBurstLight" }
@@ -949,7 +952,7 @@
 	{
 		Name = "EnemySpawnBurstLight3"
 		InheritFrom = "EnemySpawnBurstLight"
-		FilePath = "Particles\particle_quickflashIris"
+		FilePath = "Particles\particle_quickFlashIris"
 		EndBlue = 0.2
 		EndRed = 0.999
 		StartBlue = 0.5
@@ -1074,35 +1077,43 @@
 	}
 	
 	{
-		Name = "EnemyPreSpawnTerrainSmall"
+		Name = "EnemyPreSpawnTerrainTiny"
 		InheritFrom = "EnemyPreSpawnTerrain"
 		Scale = 0.4
 	}
 
 	{
-		Name = "EnemyPreSpawnTerrainSmall_120"
+		Name = "EnemyPreSpawnTerrainSmall"
 		InheritFrom = "EnemyPreSpawnTerrain"
-		PlaySpeed = 120
-		Scale = 0.4
+		Scale = 0.625
 	}
 	
+	{
+		Name = "EnemyPreSpawnStandingTiny"
+		InheritFrom = "EnemyPreSpawnStanding"
+		Scale = 0.35
+	}
 	{
 		Name = "EnemyPreSpawnStandingSmall"
 		InheritFrom = "EnemyPreSpawnStanding"
-		Scale = 0.35
-	}
-
-	{
-		Name = "EnemyPreSpawnStandingSmall_120"
-		InheritFrom = "EnemyPreSpawnStanding"
-		PlaySpeed = 120
-		Scale = 0.35
+		Scale = 0.55
 	}
 	
 	{
-		Name = "EnemySpawnBurstSmall"
+		Name = "EnemySpawnBurstTiny"
 		InheritFrom = "EnemySpawnBurst"
 		Scale = 0.67
+		CreateAnimations =
+		[
+			{ Name = "EnemySpawnBurstLight" }
+			{ Name = "EnemySpawnBurstLight3" }
+		]
+	}
+
+	{
+		Name = "EnemySpawnBurstSmall"
+		InheritFrom = "EnemySpawnBurst"
+		Scale = 0.89
 		CreateAnimations =
 		[
 			{ Name = "EnemySpawnBurstLight" }
@@ -1367,6 +1378,9 @@
 		Acceleration = -100
 		Scale = 1.6
 		PostRotateScaleY = 0.7
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
 	}
 
 	{
@@ -1391,12 +1405,12 @@
 		Name = "EnemyDeathSmokeColorA"
 		InheritFrom = "EnemyDeathSmokeA"
 		AddColor = true
-		StartRed = 1
-		StartGreen = 0.01
-		StartBlue = 0.3
-		EndRed = 0.99
-		EndGreen = 0
-		EndBlue = 0
+		StartRed = 0.0
+		StartGreen = 0.0
+		StartBlue = 0.0
+		EndRed = 0.05
+		EndGreen = 0.001
+		EndBlue = 0.05
 	}
 
 	{
@@ -1476,6 +1490,21 @@
 	}
 
 	{
+		Name = "EnemyDeathFxFishScylla"
+		InheritFrom = "EnemyDeathFxFish"
+		VisualFx = "EnemyDeathFishBloodScylla"
+		Duration = 0.33
+		VisualFxManagerFrameCap = 100
+		VisualFxCap = 16
+		ClearCreateAnimations = true
+		DieWithOwner = false
+		CreateAnimations = [
+			{ Name = "ScyllaAttackWaveDeath"}
+			{ Name = "EnemyDeathFishGuts" }
+		]
+	}
+
+	{
 		Name = "EnemyDeathFxFishSmall"
 		FilePath = "Dev\blank_invisible"
 		AngleFromOwner = "Ignore"
@@ -1522,6 +1551,61 @@
 		ColorFromOwner = "Ignore"
 		AngleFromOwner = "Take"
 		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "EnemyDeathFishBloodScylla"
+		Random = [
+			{ Name = "EnemyDeathFishBloodScyllaA" }
+			{ Name = "EnemyDeathFishBloodScyllaB" }
+		]
+	}
+
+	{
+		Name = "EnemyDeathFishBloodScyllaA"
+		FilePath = "Fx\OceanusFloodTrapFireSplash\OceanusFloodTrapFireSplash"
+		ScaleMin = 0.5
+		ScaleMax = 1.2
+		Hue = -0.2
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.5
+		EndGreen = 0.5
+		EndBlue = 0.5
+		StartFrame = 1
+		NumFrames = 19
+		RadialOffsetMin = 120
+		RadialOffsetMax = 200
+		RadialOffsetScaleY = 0.5
+		AngleMin = 0
+		AngleMax = 360
+		OffsetZ = 100
+		Value = -0.5
+		AlphaMin = 0.2
+		AlphaMax = 0.5
+		RandomFlipHorizontal = false
+		RandomFlipVertical = false
+		RandomRotation = false
+		UseOwnAngle = false
+		AddColor = false
+		Material = "Unlit"
+		GroupName = "Combat_Menu_Overlay"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		StartAlpha = 1
+		EndAlpha = 0.999
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		CreateAnimation = "ScyllaDeathGreenSquirt"
+	}
+
+	{
+		Name = "EnemyDeathFishBloodScyllaB"
+		InheritFrom = "EnemyDeathFishBloodScyllaA"
+		StartFrame = 20
+		NumFrames = 19
 	}
 
 	{
@@ -1703,6 +1787,9 @@
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.011
 		VisualFxCap = 2
+		ElapsedTimeMultiplierFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 	}
 
 	{
@@ -1735,11 +1822,15 @@
 	{
 		Name = "EnemyDeathLightIris2"
 		InheritFrom = "EnemyDeathLightIris"
+		ScaleFromOwner = "Ignore"
+
 		PostRotateScaleY = 1
 		FilePath = "Particles\particle_quickFlashIris"
 		StartScale = 1.4
 		EndScale = 0
 		RandomRotation = true
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 	}
 
 	{
@@ -1756,6 +1847,8 @@
 		EndRed = 0.999
 		EndGreen = 0.999
 		EndBlue = 0.999
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 	}
 	{
 		Name = "EnemyDeathLightIrisLarge"
@@ -2057,6 +2150,14 @@
 		Ambient = 0.0
 		OverlayVfx = true
 	}
+	{
+		Name = "MedeaLaser"
+		InheritFrom = "EnemyLaser"
+		ChainTo = "MedeaLaserEnd"
+		ChildAnimation = "MedeaLaserStartBurst"
+		ScaleY = 5.0
+		Hue = 0.4
+	}
 
 	{
 		Name = "HadesLaserStartBurst"
@@ -2290,49 +2391,6 @@
       VisualFx = null
     }
 	{
-		Name = "MinotaurAxeArc"
-		FilePath = "Fx\MinotaurAxeArc\MinotaurAxeArc"
-		ColorFromOwner = "Ignore"
-		EndFrame = 28
-		NumFrames = 28
-		PlaySpeed = 60.0
-		StartFrame = 1
-		FlipVertical = true
-		PostRotateScaleY = 0.5
-		Scale = 3.75
-		Ambient = 0.0
-		CreateAnimations =
-		[
-			{ Name = "QuickFlashEnemy" }
-		]
-	}
-
-	{
-		Name = "MinotaurAxeArcRight"
-		InheritFrom = "MinotaurAxeArc"
-		CreateAnimation = "MinotaurAxeArcRightDisplacement"
-		FlipVertical = false
-		CreateAnimations =
-		[
-			{ Name = "QuickFlashEnemy" }
-		]
-	}
-
-	{
-		Name = "MinotaurAxeArcRightDisplacement"
-		InheritFrom = "MinotaurAxeArcRight"
-		CreateAnimation = "null"
-		GroupName = "FX_Displacement"
-		EndAlpha = 0.1
-		PingPongColor = true
-		PlaySpeed = 50.0
-		CreateAnimations =
-		[
-			{ Name = "QuickFlashEnemy" }
-		]
-	}
-
-	{
 		Name = "DisplaceShockwave-EnemyProjectileImpact"
 		InheritFrom = "DisplaceShockwave"
 		StartAlpha = 0.5
@@ -2411,7 +2469,6 @@
 		Color = { Red = 0.65 Green = 0.0 Blue = 0.0 }
 	}
 
-
 	{
 		Name = "EnemyLaserStartBurst"
 		InheritFrom = "EnemyLaser"
@@ -2422,6 +2479,11 @@
 		EndScaleY = 0.0
 		StartScaleY = 3.0
 		Color = { Red = 1.0 Green = 0.01 Blue = 0.90 }
+	}
+	{
+		Name = "MedeaLaserStartBurst"
+		InheritFrom = "EnemyLaserStartBurst"
+		Color = { Red = 0.01 Green = 1.0 Blue = 0.10 }
 	}
 	
 	{
@@ -2459,8 +2521,8 @@
 		Scale = 0.9
 		VisualFxIntervalMax = 0.04
 		VisualFxIntervalMin = 0.02
-	}	
-
+	}
+	
 	{
 		Name = "EnemyLaserTipParticles"
 		InheritFrom = "EnemyLaserOriginFlare"
@@ -2497,6 +2559,14 @@
 		EaseOut = 1.0
 		TransferCopyBody = true
 		EndScaleY = 0.0
+	}
+	{
+		Name = "MedeaLaserEnd"
+		InheritFrom = "EnemyLaserEnd"
+		StartScaleY = 5.0
+		Hue = 0.4
+		StartBlue = 0.0
+		StartRed = 0.0
 	}
 	
 
@@ -2542,6 +2612,7 @@
 		CancelOverCap = true
 		OnlyWhenVisible = true
 		UseAttachedFlasher = false
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 	}
 	
 	{
@@ -2843,6 +2914,7 @@
 		RandomOffsetY = 6.0
 		LocationFromOwner = "Take"
 		SortMode = "FromParent"
+		UseAttachedGroup = false
 		ScaleMax = 1.1
 		ScaleMin = 0.5
 		Ambient = 0.0

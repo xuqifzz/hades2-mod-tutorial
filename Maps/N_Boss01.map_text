@@ -117,6 +117,19 @@
       "Visible": true
     },
     {
+      "BlendMode": 2,
+      "ChildGroups": [],
+      "Id": "Terrain_Additive_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
       "BlendMode": 0,
       "ChildGroups": [],
       "Id": "Reflection_01",
@@ -469,6 +482,7 @@
         "Terrain_Base",
         "Reflection_FX",
         "Reflection_01",
+        "Terrain_Additive_01",
         "WaterFX",
         "River_FX",
         "Clouds",
@@ -582,6 +596,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "SheepSpawnPoints",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapLogic",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "SpawnPoints",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -624,6 +651,7 @@
         "Events",
         "ExitDoors",
         "SpawnPoints",
+        "SheepSpawnPoints",
         "Impassable",
         "RoomNumbers",
         "Scripting",
@@ -646,5 +674,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

@@ -236,8 +236,8 @@
 		StartFrame = 1
 		OriginX = 140.0
 		OriginY = 280.0
-		RadialOffsetMax = 55.0
-		RadialOffsetMin = 50.0
+		RadialOffsetMax = 65.0
+		RadialOffsetMin = 60.0
 		RadialOffsetScaleY = 0.5
 		DieWithOwner = true
 		LocationZFromOwner = "Ignore"
@@ -254,8 +254,9 @@
 		VisualFxCap = 1
 		VisualFxIntervalMax = 0.11
 		VisualFxIntervalMin = 0.1
-
 		TimeModifierFraction = 0
+		OffsetY = -80
+		UseAttachedFlasher = false
 	}
 	
 	{
@@ -265,8 +266,10 @@
 		GroupName = "FX_Dark"
 		VisualFx = "null"
 		RandomPlaySpeedMax = 31.0
-
 		TimeModifierFraction = 0
+		Red = 0
+		Green = 0
+		Blue = 0
 	}
 	
 	
@@ -397,40 +400,131 @@
 
 	{
 		Name = "TeleportDisappear"
-		FilePath = "Fx\HadesDisappear\HadesDisappear"
-		
+		FilePath = "Fx\TeleportPoof\TeleportPoof"
 		AngleFromOwner = "Ignore"
 		Sound = "/SFX/Enemy Sounds/Hades/ZagSmokeDisappear"
 		ColorFromOwner = "Ignore"
-		EndFrame = 45
-		NumFrames = 45
-		PlaySpeed = 30.0
+		EndFrame = 60
+		NumFrames = 60
+		PlaySpeed = 60.0
 		StartFrame = 1
 		RandomFlipHorizontal = true
 		OffsetZ = 80.0
 		LocationFromOwner = "Ignore"
 		SortMode = "FromParent"
-		Scale = 1.66
+		Scale = 1.33
 		ScaleFromOwner = "Ignore"
 		Ambient = 0.0
+		Material = "Unlit"
+		VisualFx = "TeleportDisplace"
+		VisualFxCap = 1
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+		ElapsedTimeMultiplierFromOwner = "Ignore"
+		CreateAnimations = [
+		]
 	}
 	
 	{
-		Name = "TeleportDisappearSmall"
+		Name = "TeleportDisappearCerberusTransform"
 		InheritFrom = "TeleportDisappear"
-		Sound = "/SFX/Player Sounds/FamiliarAppearPoof"
-		PlaySpeed = 45.0
-		Scale = 0.8
-	}
-	{
-		Name = "TeleportDisappearSmall_Raven"
-		InheritFrom = "TeleportDisappearSmall"
-		LocationZFromOwner = "Take"
+		StartScaleX = 0.85
+		EndScaleX = 1.0
+
+		Scale = 3.0
+		ScaleFromOwner = "Ignore"
+		AddColor = true
+		StartRed = 0.5
+		StartGreen = 0.01
+		StartBlue = 0.01
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		VisualFx = "TeleportDisappearCerberusTransformB"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+		VisualFxCap = 1
+		CreateAnimations = [
+			{ Name = "TeleportDisappearCerberusTransformB" }
+			{ Name = "CerberusTransformFur" }
+			{ Name = "CerberusTransformFur" }
+			{ Name = "CerberusTransformFur" }
+			{ Name = "CerberusTransformFur" }
+			{ Name = "CerberusTransformFur" }
+			{ Name = "CerberusTransformFur" }
+			{ Name = "CerberusTransformFur" }
+			{ Name = "CerberusTransformFur" }
+			{ Name = "CerberusTransformFur" }			
+			{ Name = "CerberusTransformFur" }
+			{ Name = "CerberusTransformFur" }
+			{ Name = "CerberusTransformFur" }
+			{ Name = "CerberusTransformFur" }
+			{ Name = "CerberusTransformFur" }
+			{ Name = "CerberusTransformFur" }
+			{ Name = "CerbTransitionEndStreak" }
+			{ Name = "CerbTransitionEndStreak" }
+			{ Name = "CerbTransitionEndStreak" }
+			{ Name = "CerbTransitionEndStreak" }
+			{ Name = "CerbTransitionEndStreak" }
+			{ Name = "CerbTransitionEndStreak" }
+		]
 	}
 
 	{
+		Name = "TeleportDisappearCerberusTransformB"
+		InheritFrom = "TeleportDisappearCerberusTransform"
+		ClearCreateAnimations = true
+		VisualFx = null
+		Scale = 2
+		AddColor = false
+	}
+
+	{
+		Name = "TeleportDisplace"
+		FilePath = "Particles\particle_displaceWink"
+		GroupName = "FX_Displacement"
+		OverlayVfx = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Duration = 0.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Material = "Unlit"
+		Scale = 2
+		StartAlpha = 0.33
+		EndAlpha = 0
+	}
+
+	{
+		Name = "TeleportDisappearSmall"
+		InheritFrom = "TeleportDisappear"
+		Scale = 0.7
+		OffsetZ = 0
+	}
+
+	{
+		Name = "TeleportDisappearFamiliar"
+		InheritFrom = "TeleportDisappear"
+		LocationZFromOwner = "Maintain"
+		LocationFromOwner = "Maintain"
+		Sound = "/SFX/Player Sounds/FamiliarAppearPoof"
+		Scale = 0.7
+		EaseIn = 0.25
+		EaseOut = 1
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+	}
+
+
+	{
 		Name = "ArtemisAimLine"
-		FilePath = "GUI\Widgets\Target_Line"
+		FilePath = "GUI\Widgets\Target_Line2"
 		
 		UseOwnAngle = false
 		EndFrame = 1
@@ -528,12 +622,26 @@
 		RandomPlaySpeedMin = 55
 		RandomPlaySpeedMax = 70
 		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
 		ScaleMin = 1.3
 		ScaleMax = 1.7
 		SortMode = "FromParent"
 		SortFromOwner = "Take"
 		LocationZFromOwner = "Take"
 		Sound = "/SFX/Enemy Sounds/Charon/CharonGroundBlastFire"
+	}
+
+	{
+		Name = "UnitSprintPhaseVFX"
+		InheritFrom = "GhostProjectileImpactNova"
+		RandomPlaySpeedMin = 90
+		RandomPlaySpeedMax = 110
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 0.95
+		ScaleMax = 1.10
+		Sound = "null"
+		OffsetZ = 60
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 	}
 
 	{
@@ -554,7 +662,8 @@
 		VisualFxManagerCap = 400
 		VisualFxManagerFrameCap = 18
 		VisualFxFrameCap = 10
-		Scale = 1.33
+		Scale = 1.0
+		ScaleFromOwner = "Take"
 		CreateAnimation = "GhostTransitionFlare"
 	}
 
@@ -568,6 +677,15 @@
 		ScaleFromOwner = "Ignore"
 		UseOwnAngle = false
 		Scale = 2
+	}
+
+	{
+		Name = "GhostTransitionFlareExorcism"
+		InheritFrom = "GhostTransitionFlare"
+		ScaleX = 0.75
+		Scale = 1.5
+		OffsetZ = 60
+		ColorFromOwner = "Ignore"
 	}
 
 
@@ -605,6 +723,34 @@
 			{ Name = "GhostProjectileTrailDisplacement" }
 		]
 	}
+	
+	{
+		Name = "GhostAspectProjectileAnim"
+		InheritFrom = "GhostProjectileAnim"
+		VisualFx = "GhostAspectProjectileTrail"
+		Hue = 0.68
+		Value = 0.4
+		ScaleX = 0.75
+	}
+	{
+		Name = "GhostAspectProjectileTrail"
+		InheritFrom = "GhostProjectileTrail"
+		Hue = 0.68
+		Value = 0.4
+		ScaleX = 0.75
+		EndGreen = 0.5
+		EndRed = 0.99
+		StartBlue = 0.5
+		StartGreen = 1.0
+		StartRed = 1.0
+	}
+
+	{
+		Name = "GhostAspectProjectileImpactNova"
+		InheritFrom = "GhostProjectileImpactNova"
+		Hue = 0.72
+		Saturation = -0.1
+	}
 
 	{
 		Name = "GhostProjectileTrailDisplacement"
@@ -621,6 +767,100 @@
 		PingPongColor = true
 		StartAlpha = 0
 		EndAlpha = 0.33
+	}
+	{
+		Name = "GhostAspectDissipate"
+		FilePath = "Fx\Tartarus_Ghost_01_Dissipate\Tartarus_Ghost_01_Dissipate"
+		Sound = "/EmptyCue"
+		Hue = 0.66
+		EndFrame = 45
+		HoldLastFrame = true
+		NumFrames = 45
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		OffsetY = -80.0
+		SortFromOwner = "Take"
+		Scale = 1.25
+		ColorFromOwner = "Ignore"
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+		ScaleFromOwner = "Take"
+		Ambient = 0.0
+		VisualFxCap = 1
+		VisualFxIntervalMax = 0.002
+		VisualFxIntervalMin = 0.001
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		CreateAnimations = [
+			{ Name = "GhostAspectDissipateFlare" }
+		]
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "GhostAspectDissipateFlare"
+		FilePath = "Fx\GhostTransitionFlare\GhostTransitionFlare"
+		NumFrames = 15
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleX = 0.75
+		Scale = 1.5
+		OffsetZ = 60
+		Hue = 0.68
+		ColorFromOwner = "Ignore"
 	}
 
 	{
@@ -766,52 +1006,554 @@
 		CreateAnimations =
 		[
 			{ Name = "NightmareStasisFxFront" }
-			{ Name = "NightmareStasisFxDisplacement" }
+			{ Name = "NightmareStasisFxTerrainA" }
+			{ Name = "NightmareStasisFxTerrainB" }
+			{ Name = "NightmareStasisFxTerrainC" }
+			// { Name = "NightmareStasisFxDisplacement" }
 			{ Name = "NightmareStasisFxBack" }
 		]
+	}	
+
+	{
+		Name = "NightmareStasisFx_DeathArea"
+		FilePath = "Dev\blank_invisible"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		CreateAnimations =
+		[
+			{ Name = "NightmareStasisFxFront_DeathArea" }
+			{ Name = "NightmareStasisFxTerrainA" }
+			{ Name = "NightmareStasisFxTerrainB" }
+			{ Name = "NightmareStasisFxTerrainC" }
+			// { Name = "NightmareStasisFxDisplacement" }
+			{ Name = "NightmareStasisFxBack_DeathArea" }
+		]
 	}
+
+	{
+		Name = "NightmareStasisFx_DeathArea_Short"
+		FilePath = "Dev\blank_invisible"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		CreateAnimations =
+		[
+			{ Name = "NightmareStasisFxFront_DeathArea_Short" }
+			{ Name = "NightmareStasisFxTerrainA" }
+			{ Name = "NightmareStasisFxTerrainB" }
+			{ Name = "NightmareStasisFxTerrainC" }
+			// { Name = "NightmareStasisFxDisplacement" }
+			{ Name = "NightmareStasisFxBack_DeathArea_Short" }
+		]
+	}
+
+	{
+		Name = "NightmareStasisFxTerrainA"
+		FilePath = "Fx\Chronos\ChronosRadial\Outer2Small"
+		PostRotateScaleY = 0.5
+		Material = "Unlit"
+		RotationSpeed = 6
+		LocationZFromOwner = "Ignore"
+		GroupName = "FX_Terrain_Add"
+		Scale = 0.25
+		RandomRotation = true
+		Loop = true
+		ReRandomizeOnLoop = false
+		Duration = 1
+		Alpha = 0.5
+		Saturation = -0.33
+	}
+
+	{
+		Name = "NightmareStasisFxTerrainB"
+		InheritFrom = "NightmareStasisFxTerrainA"
+		FilePath = "Fx\Chronos\ChronosRadial\OuterSmall"
+		RotationSpeed = -6
+		Scale = 0.33
+	}
+
+	{
+		Name = "NightmareStasisFxTerrainC"
+		FilePath = "Fx\Chronos\ChronosRadialPreviewA\ChronosRadialPreviewA"
+		Saturation = -0.33
+		LocationZFromOwner = "Ignore"
+		NumFrames = 30
+		PlaySpeed = 30
+		Loop = true
+		RandomRotation = true
+		ReRandomizeOnLoop = false
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		Scale = 0.5
+		RandomRotationSpeedMin = -5
+		RandomRotationSpeedMax = 30
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		LoopFramesOnly = true
+		StartScale = 1
+		EndScale = 0.95
+		EaseIn = 0
+		EaseOut = 1
+		RandomDurationMin = 3
+		RandomDurationMax = 4
+	}
+
+
 	{
 		Name = "NightmareStasisFxMeg"
 		InheritFrom = "NightmareStasisFx"
 		CreateAnimations =
 		[
 			{ Name = "NightmareStasisFxFrontMeg" }
-			{ Name = "NightmareStasisFxDisplacement" }
+			{ Name = "NightmareStasisFxTerrainA" }
+			{ Name = "NightmareStasisFxTerrainB" }
+			{ Name = "NightmareStasisFxTerrainC" }
+			// { Name = "NightmareStasisFxDisplacement" }
+			{ Name = "NightmareStasisFxBack" }
+		]
+	}
+
+	{
+		Name = "NightmareStasisFxNyx"
+		InheritFrom = "NightmareStasisFx"
+		CreateAnimations =
+		[
+			{ Name = "NightmareStasisFxFrontNyx" }
+			{ Name = "NightmareStasisFxTerrainA" }
+			{ Name = "NightmareStasisFxTerrainB" }
+			{ Name = "NightmareStasisFxTerrainC" }
+			// { Name = "NightmareStasisFxDisplacement" }
+			{ Name = "NightmareStasisFxBack" }
+		]
+	}
+
+	{
+		Name = "NightmareStatisFxHecate"
+		InheritFrom = "NightmareStasisFx"
+		CreateAnimations =
+		[
+			{ Name = "NightmareStasisFxFrontHecate" }
+			{ Name = "NightmareStasisFxTerrainA" }
+			{ Name = "NightmareStasisFxTerrainB" }
+			{ Name = "NightmareStasisFxTerrainC" }
+			// { Name = "NightmareStasisFxDisplacement" }
+			{ Name = "NightmareStasisFxBack" }
+		]
+	}
+
+	{
+		Name = "NightmareStasisFxPersephone"
+		InheritFrom = "NightmareStasisFx"
+		CreateAnimations =
+		[
+			{ Name = "NightmareStasisFxFrontPersephone" }
+			{ Name = "NightmareStasisFxTerrainA" }
+			{ Name = "NightmareStasisFxTerrainB" }
+			{ Name = "NightmareStasisFxTerrainC" }
+			// { Name = "NightmareStasisFxDisplacement" }
+			{ Name = "NightmareStasisFxBack" }
+		]
+	}
+
+	{
+		Name = "NightmareStasisFxZagreus"
+		InheritFrom = "NightmareStasisFx"
+		CreateAnimations =
+		[
+			{ Name = "NightmareStasisFxFrontZagreus" }
+			{ Name = "NightmareStasisFxTerrainA" }
+			{ Name = "NightmareStasisFxTerrainB" }
+			{ Name = "NightmareStasisFxTerrainC" }
+			// { Name = "NightmareStasisFxDisplacement" }
 			{ Name = "NightmareStasisFxBack" }
 		]
 	}
 
 	{
 		Name = "NightmareStasisFxBase"
-		FilePath = "Fx\NightmareStasisFx\NightmareStasisFx"
-		GroupName = "FX_Standing_Add"
-		EndFrame = 60
+		FilePath = "Fx\TimeTrapSandBubbleLoop\TimeTrapSandBubbleLoop"
+		GroupName = "FX_Standing"
+		EndFrame = 30
 		Loop = true
-		NumFrames = 60
-		PlayBackwards = true
+		NumFrames = 30
+		PlayBackwards = false
 		RandomPlaySpeedMax = 35.0
-		RandomPlaySpeedMin = 25.0
-		StartFrame = 1
-		OffsetZ = 75.0
+		RandomPlaySpeedMin = 30.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		OffsetZ = 125.0
 		LocationZFromOwner = "Ignore"
-		Scale = 1.25
+		Scale = 0.28
 		ScaleFromOwner = "Ignore"
 		Ambient = 0.0
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Enemy Sounds/TimeElemental/FamilyBubbleSFX"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "NightmareStasisFxSand"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.6
 	}
+
+	{
+		Name = "NightmareStasisFxSand"
+		FilePath = "Particles\particle_dirtSpray_01"
+		RandomRotation = true
+		StartAlpha = 0
+		EndAlpha = 1
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		StartScale = 1
+		EndScale = 1.2
+		PingPongColor = true
+		Gravity = 100
+		RandomDurationMin = 1.5
+		RandomDurationMax = 3
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 500
+		RadialOffsetScaleY = 0.6
+		AngleMin = 45
+		AngleMax = 135
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		Scale = 2
+		OffsetZ = -300
+		GroupName = "FX_Standing_Add"
+	}
+
+
 	{
 		Name = "NightmareStasisFxBaseMeg"
 		InheritFrom = "NightmareStasisFxBase"
-		ScaleX = 1.2
+		ScaleX = 1.0
 	}
 	{
 		Name = "NightmareStasisFxFrontMeg"
 		InheritFrom = "NightmareStasisFxBaseMeg"
+	}
+	{
+		Name = "NightmareStasisFxFrontNyx"
+		InheritFrom = "NightmareStasisFxBase"
+		OffsetZ = 160
+	}
+	{
+		Name = "NightmareStasisFxFrontHecate"
+		InheritFrom = "NightmareStasisFxBase"
+		Scale = 0.9
+		ScaleX = 0.95
+		OffsetZ = 80
+		OffsetY = -20
+		AngleFromOwner = "Ignore"
+		GroupName = "Standing"
+		ColorFromOwner = "Maintain"
+		VisualFx = null
 	}
 
 	{
 		Name = "NightmareStasisFxFront"
 		InheritFrom = "NightmareStasisFxBase"
 		EaseOut = 1.0
+		OffsetZ = 260
+		VisualFx = "NightmareStasisFxRipples"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+	}	
+	{
+		Name = "NightmareStasisFxFront_DeathArea"
+		InheritFrom = "NightmareStasisFxBase"
+		EaseOut = 1.0
+		OffsetZ = 260
+		VisualFx = "NightmareStasisFxRipples_DeathArea"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.4
+	}	
+	{
+		Name = "NightmareStasisFxFront_DeathArea_Short"
+		InheritFrom = "NightmareStasisFxFront_DeathArea"
+		OffsetZ = 130
+		VisualFx = "NightmareStasisFxRipples_DeathArea_Short"
+	}
+	{
+		Name = "NightmareStasisFxFrontPersephone"
+		InheritFrom = "NightmareStasisFxBase"
+		OffsetZ = 260
+		VisualFx = "NightmareStasisFxRipples"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+	}
+	{
+		Name = "NightmareStasisFxFrontZagreus"
+		InheritFrom = "NightmareStasisFxFrontPersephone"
+		Scale = 0.34
+	}
+
+	{
+		Name = "CWDustPuffFront"
+		FilePath = "Fx\ShipsDustFront\ShipsDustFront"
+		NumFrames = 45
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		StartAlpha = 0.4
+		EndAlpha = 0.8
+		Value = -0.25
+		Saturation = 0.3
+		Hue = -0.06
+		Scale = 0.7
+	}
+
+	{
+		Name = "CWDustPuffBack"
+		InheritFrom = "CWDustPuffFront"
+		FilePath = "Fx\ShipsDustBack\ShipsDustBack"
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "NightmareStasisFxEnd"
+		FilePath = "Fx\TimeTrapSandBubbleOut\TimeTrapSandBubbleOut"
+		GroupName = "FX_Standing"
+		EndFrame = 16
+		Loop = false
+		NumFrames = 16
+		RandomPlaySpeedMax = 35.0
+		RandomPlaySpeedMin = 30.0
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/DemeterEnemyFreezeShatter"
+		OffsetZ = 260
+		CreateAnimations = [
+			{ Name = "NightmareStasisFxEndFlare" }
+			{ Name = "NightmareStasisFxEndGlow" }
+			{ Name = "NightmareStasisFxEndTerrainA" }
+			{ Name = "NightmareStasisFxEndDisplacement" }
+		]
+	}
+	{
+		Name = "NightmareStasisFxEndZagreus"
+		InheritFrom = "NightmareStasisFxEnd"
+		Scale = 0.34
+	}
+	{
+		Name = "NightmareStasisFxEndPersephone"
+		InheritFrom = "NightmareStasisFxEnd"
+		Scale = 0.28
+	}
+
+	{
+		Name = "NightmareStasisFxEndFlare"
+		FilePath = "Fx\TintableRadialFlare\TintableRadialFlare"
+		NumFrames = 45
+		AddColor = true
+		Red = 0.7
+		Green = 0.6
+		Blue = 0.5
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetZ = 320
+		ScaleX = 0.6
+		Scale = 2
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "NightmareStasisFxEndGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 0.7
+		Green = 0.6
+		Blue = 0.5
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetZ = 320
+		ScaleX = 0.6
+		Scale = 3
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.5
+	}
+
+	{
+		Name = "NightmareStasisFxEndDisplacement"
+		FilePath = "Fx\DisplaceShockwaveHemi\DisplaceShockwaveHemi"
+		NumFrames = 16
+		Material = "Unlit"
+		GroupName = "FX_Displacement"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetZ = 230
+		Scale = 1.3
+	}
+
+	{
+		Name = "NightmareStasisFxEndTerrainA"
+		FilePath = "Fx\Chronos\ChronosRippleExplosion\ChronosRippleExplosion"
+		NumFrames = 60
+		LocationZFromOwner = "Ignore"
+		GroupName = "FX_Terrain_Add"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Material = "Unlit"
+		RandomFlipHorizontal = true
+	}
+
+	{
+		Name = "NightmareStasisFxRipples"
+		Random = [
+			{ Name = "NightmareStasisFxRippleA" }
+			{ Name = "NightmareStasisFxRippleA" }
+			{ Name = "NightmareStasisFxRippleB" }
+			{ Name = "NightmareStasisFxRippleC" }
+		]
+	}	
+
+	{
+		Name = "NightmareStasisFxRipples_DeathArea"
+		Random = [
+			{ Name = "NightmareStasisFxRippleB" }
+			{ Name = "NightmareStasisFxRippleC" }
+		]
+	}	
+
+	{
+		Name = "NightmareStasisFxRipples_DeathArea_Short"
+		Random = [
+			{ Name = "NightmareStasisFxRippleB_Short" }
+			{ Name = "NightmareStasisFxRippleC" }
+		]
+	}
+
+	{
+		Name = "NightmareStasisFxRippleA"
+		FilePath = "Fx\Chronos\ChronosRiftRipple\ChronosRiftRipple"
+		NumFrames = 35
+		PlaySpeed = 24
+		AngleMin = 80
+		AngleMax = 100
+		StartScaleX = 1
+		EndScaleX = 1.5
+		Material = "Unlit"
+		StartScaleY = 0.5
+		EndScaleY = 0.9
+		VelocityMin = 50
+		VelocityMax = 150
+		Acceleration = -120
+		LocationZFromOwner = "Ignore"
+		OffsetZ = -260
+		LocationFromOwner = "Ignore"
+		RandomFlipVertical = true
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		OriginX = 0
+		OriginY = 120
+		GroupName = "FX_Dark"
+		Red = 0.0
+		Green = 0.0
+		Blue = 0.0
+		Saturation = -1
+	}
+
+	{
+		Name = "NightmareStasisFxRippleB"
+		FilePath = "Fx\CWSandCloud\CWSandCloud"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		NumFrames = 100
+		Material = "Unlit"
+		Angle = 90
+		VelocityMin = 50
+		VelocityMax = 100
+		Acceleration = -60
+		LocationZFromOwner = "Ignore"
+		OffsetZ = -260
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 1
+		ScaleMax = 2
+		ScaleY = 0.6
+		RandomOffsetX = 80
+		OffsetX = -30
+		Red = 0.7
+		Green = 0.6
+		Blue = 0.4
+		OriginX = 70
+		OriginY = 140
+		StartScaleX = 1
+		EndScaleX = 0.3
+		AlphaMin = 0.3
+		AlphaMax = 1.0
+		GroupName = "FX_Dark"
+		CreateAnimation = "NightmareStasisParticleUp"
+	}
+
+	{
+		Name = "NightmareStasisFxRippleB_Short"
+		InheritFrom = "NightmareStasisFxRippleB"
+		CreateAnimation = "NightmareStasisParticleUp_Short"
+	}
+
+	{
+		Name = "NightmareStasisFxRippleC"
+		InheritFrom = "NightmareStasisFxRippleB"
+		GroupName = "Standing"
+		
+	}
+
+	{
+		Name = "NightmareStasisParticleUp"
+		FilePath = "Particles\particle_streak_boosted"
+		AddColor = true
+		Red = 0.7
+		Green = 0.6
+		Blue = 0.4
+		UseOwnAngle = true
+		Material = "Unlit"
+		RandomOffsetX = 60
+		RandomOffsetY = 100
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		StartAlpha = 0
+		EndAlpha = 1
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		PingPongColor = true
+		PingPongScale = true
+		RandomDurationMin = 1.5
+		RandomDurationMax = 3.0
+		Angle = 90
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		VelocityMin = 40
+		VelocityMax = 60
+		Acceleration = -30
+		Scale = 0.25
+		ScaleX = 2
+		OffsetZ = 60
+		LocationFromOwner = "Ignore"
+	}
+
+	{
+		Name = "NightmareStasisParticleUp_Short"
+		InheritFrom = "NightmareStasisParticleUp"
+		OffsetZ = 30
+		ScaleX = 0.5
+		VelocityMin = 20
+		VelocityMax = 30
+		Acceleration = -15
+		RandomOffsetY = 50
 	}
 
 	{
@@ -826,18 +1568,79 @@
 	
 	{
 		Name = "NightmareStasisFxBack"
-		InheritFrom = "NightmareStasisFxBase"
-		GroupName = "Standing"
-		EndAlpha = 0.7
-		PingPongColor = true
-		StartAlpha = 0.4
-		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		FilePath = "Particles\particle_eagleProjectile"
+		Red = 0.0
+		Green = 0.0
+		Blue = 0.0
+		AngleFromOwner = "Ignore"
+		Angle = 90
+		GroupName = "FX_Dark"
+		Duration = 2
+		Alpha = 0.5
+		Loop = true
+		OffsetZ = 100
+		Scale = 1.48
+
+		LocationZFromOwner = "Ignore"
+		VisualFx = "NightmareStasisParticles"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.2
+	}
+
+	{
+		Name = "NightmareStasisFxBack_DeathArea"
+		InheritFrom = "NightmareStasisFxBack"
+		OffsetZ = 225
+	}	
+	{
+		Name = "NightmareStasisFxBack_DeathArea_Short"
+		InheritFrom = "NightmareStasisFxBack"
+		OffsetZ = 100
+	}
+
+
+	{
+		Name = "NightmareStasisParticles"
+		FilePath = "Particles\particle_circle_04"
+		Material = "Unlit"
+		AddColor = true
+		Red = 1
+		Green = 0.5
+		Blue = 0.2
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		ScaleMin = 0.2
+		ScaleMax = 0.5
+		EaseIn = 0
+		EaseOut = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ScaleY = 0.5
+		RadialOffsetMin = 0
+		RadialOffsetMax = 150
+		VelocityMin = 40
+		VelocityMax = 100
+		Acceleration = -50
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.2
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		Angle = 270
+		OffsetZ = 30
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		RandomOffsetX = 80
+		RandomOffsetY = 40
+		AngleChangeSpeedMin = -50
+		AngleChangeSpeedMax = 50
 	}
 	
 	{
 		Name = "NightmareEdgeFxSpawner"
-		FilePath = "Dev\blank_invisible"
-		
+		FilePath = "Dev\blank_invisible"		
 		VisualFx = "NightmareEdgeFx"
 		Duration = 1.0
 		EndFrame = 1
@@ -1317,7 +2120,6 @@
 		Name = "ThanatosTeleport"
 		FilePath = "Fx\ThanatosTeleport\ThanatosTeleport"
 
-		AngleFromOwner = "Ignore"
 		Sound = "/Leftovers/SFX/BeaconTeleportSFX2"
 		EndFrame = 40
 		NumFrames = 40
@@ -1327,8 +2129,10 @@
 		OffsetZ = 200.0
 		LocationFromOwner = "Ignore"
 		SortMode = "FromParent"
-		Scale = 1.25
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
 		ScaleFromOwner = "Ignore"
+		Scale = 1.25
 		Ambient = 0.0
 	}
 
@@ -1829,7 +2633,6 @@
       VisualFxIntervalMin = 0.001
       Hue = 0.4
       CreateAnimations = [
-        { Name = "EnemyHeavySlashWhipLighting" }
         { Name = "ShielderNovaDetonateFlare" }
         { Name = "ShielderNovaShadow" }
         { Name = "ShielderNovaDetonateDissipate" }
@@ -2086,5 +2889,309 @@
       FlipVertical = true
       Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
     }
+
+	{
+		Name = "EndingTimeVignetteFx"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		ChildAnimation = "EndingTimeVignetteFx2Emitter"
+		VisualFx = "EndingTimeVignetteFxRandom"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.05
+	}
+
+	{
+		Name = "EndingTimeVignetteFx2Emitter"
+		InheritFrom = "EndingTimeVignetteFx"
+		ChildAnimation = null
+		VisualFx = "EndingTimeVignetteCircleFx"
+		VisualFxIntervalMin = 1.5
+		VisualFxIntervalMax = 1.5
+	}
+
+	{
+		Name = "EndingTimeVignetteCircleFx"
+		FilePath = "Fx\Chronos\ChronosRadial\Outer"
+		Material = "Unlit"
+		RandomRotation = true
+		StartAlpha = 0.0
+		EndAlpha = 0.33
+		PingPongColor = true
+		Duration = 2.5
+		EaseIn = 0.98
+		EaseOut = 1
+		Scale = 0.6
+		StartScale = 1
+		EndScale = 1.1
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Add_Top"
+		RotationSpeed = -2
+		CreateAnimations = [
+			{ Name = "EndingTimeVignetteCircleFxB" }
+			{ Name = "EndingTimeVignetteCircleFxC" }
+		]
+	}
+
+	{
+		Name = "EndingTimeVignetteCircleFxB"
+		InheritFrom = "EndingTimeVignetteCircleFx"
+		ClearCreateAnimations = true
+		Scale = 0.6
+		RotationSpeed = 2
+		FilePath = "Fx\Chronos\ChronosRadial\Outer2"
+	}	
+	{
+		Name = "EndingTimeVignetteCircleFxC"
+		InheritFrom = "EndingTimeVignetteCircleFx"
+		ClearCreateAnimations = true
+		Scale = 1.0
+		RotationSpeed = 1
+		FilePath = "Fx\Chronos\ChronosRadial\Center2"
+	}
+
+	{
+		Name = "EndingTimeVignetteFxRandom"
+		Random = [
+			{ Name = "EndingTimeVignetteFxA" }
+			{ Name = "EndingTimeVignetteFxC" }
+			{ Name = "EndingTimeVignetteFxB" }
+		]
+	}
+
+	{
+		Name = "EndingTimeVignetteFxA"
+		FilePath = "Fx\Chronos\ChronosRiftRipple\ChronosRiftRipple"
+		NumFrames = 35
+		Material = "Unlit"
+		Loop = false
+		RadialOffsetMin = 800
+		RadialOffsetMax = 960
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		ScaleMin = 1
+		ScaleMax = 2
+		VelocityMin = 100
+		VelocityMax = 120
+		Acceleration = -100
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetScaleY = 0.5
+		RandomFlipVertical = true
+		GroupName = "FX_Standing_Top"
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		DieWithOwner = false
+		ColorFromOwner = "Ignore"
+		EaseIn = 0
+		EaseOut = 1
+		PostRotateScaleY = 0.5
+		ScaleY = 2
+	}
+
+	{
+		Name = "EndingTimeVignetteFxC"
+		InheritFrom = "EndingTimeVignetteFxA"
+		GroupName = "FX_Displacement"
+		AlphaMin = 0.35
+		AlphaMax = 0.50
+		RadialOffsetMin = 300
+		RadialOffsetMax = 400
+		Scale = 2
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxB1"
+		NumFrames = 1
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+	}
+
+	{
+		Name = "EndingTimeVignetteFxB"
+		InheritFrom = "EndingTimeVignetteFxA"
+		FilePath = "Fx\Chronos\ChronosClockwise\ChronosClockwise"
+		NumFrames = 30
+		LoopFramesOnly = true
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		AlphaMin = 0.9
+		OriginX = 0
+		OriginY = 80
+		Scale = 0.255
+		VelocityMin = 200
+		VelocityMax = 220
+		ReRandomizeOnLoop = false
+		StartScaleY = 0
+		EndScaleY = 1
+		PingPongScale = true
+ 		EaseIn = 0
+		EaseOut = 1
+		RadialOffsetMin = 500
+		RadialOffsetMax = 500
+		RadialOffsetScaleY = 1.0
+		GroupName = "FX_Add_Top"
+	}
+
+	{
+		Name = "MelDodgeFx"
+		FilePath = "Fx\MelBlinkStreak\MelBlinkStreak"
+		NumFrames = 22
+		IsometricSkew = "X"
+		AddColor = true
+		Red = 0.1
+		Green = 0.1
+		Blue = 0.1
+		OffsetZ = 60
+		ScaleX = 0.75
+		ScaleY = 1.6
+		Alpha = 0.5
+		Material = "Unlit"
+		FlipHorizontal = true
+		GroupName = "FX_Standing_Add"
+		PlaySpeed = 45
+		AngleMin = -20
+		AngleMax = 20
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+		Sound = "/SFX/Player Sounds/MelPassThroughWhoosh2"
+		CreateAnimations = [
+			{ Name = "MelDodgeFxDisplace" }
+			{ Name = "MelDodgeFxDark" }
+			{ Name = "MelDodgeFxDustA" }
+			{ Name = "MelDodgeFxDustB" }
+		]
+	}
+
+	{
+		Name = "MelDodgeFxDisplace"
+		InheritFrom = "MelDodgeFx"
+		ClearCreateAnimations = true
+		GroupName = "FX_Displacement"
+		Alpha = 0.2
+		ScaleX = 1.25
+		Sound = null
+	}
+
+	{
+		Name = "MelDodgeFxDark"
+		InheritFrom = "MelDodgeFx"
+		ClearCreateAnimations = true
+		GroupName = "FX_Dark"
+		NumFrames = 14
+		Alpha = 1
+		AddColor = true
+		Blue = 0.2
+		Green = 0.04
+		Red = 0.1
+		FilePath = "Fx\MelBlinkDarkStreak\MelBlinkDarkStreak"
+		Sound = null
+	}
+
+	{
+		Name = "MelEnemyMissedFx"
+		InheritFrom = "MelDodgeFx"
+		Red = 0.5
+		Green = 0.3
+		Blue = 0.15
+		Alpha = 0.2
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/EnemyMissSFX"
+		CreateAnimations = [
+			{ Name = "MelDodgeFxMissA" }
+			{ Name = "MelDodgeFxMissB" }
+			{ Name = "MelDodgeFxDisplace" }
+			{ Name = "MelDodgeFxDark" }
+			{ Name = "MelDodgeFxDustB" }
+		]
+	}
+
+	{
+		Name = "MelDodgeFxMissA"
+		FilePath = "Fx\Apollo\ApolloSwirlDirectionalB\ApolloSwirlDirectionalB"
+		NumFrames = 24
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		FlipHorizontal = true
+		OffsetZ = 90
+		ScaleX = 1.5
+	}	
+
+	{
+		Name = "MelDodgeFxMissB"
+		FilePath = "Fx\Apollo\ApolloSwirlDirectionalA\ApolloSwirlDirectionalA"
+		NumFrames = 24
+		OffsetZ = 120
+		Alpha = 0.5
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		FlipHorizontal = true
+		ScaleX = 0.6
+	}
+
+	{
+		Name = "SkillProcFeedbackFx_MissDodge"
+		FilePath = "Fx\SkillProcFeedback\SkillProcFeedback"			
+		EndFrame = 17
+		NumFrames = 17
+		PlaySpeed = 60.0
+		ScaleX = 1.5
+		StartFrame = 1
+		Scale = 0.9
+		Saturation = -0.5
+		Material = "Emissive"
+	}
+
+	{
+		Name = "MelDodgeFxDustA"
+		FilePath = "Fx\DashDustPuff\DashDustPuff"
+		GroupName = "Standing"
+		AngleFromOwner = "Take"
+		EndAlpha = 0.5
+		StartAlpha = 1.0
+		EndFrame = 30
+		NumAngles = 8
+		NumFrames = 30
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Saturation = -0.125
+		RadialOffsetMin = -20
+		RadialOffsetMax = -20
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+	}
+
+	{
+		Name = "MelDodgeFxDustB"
+		FilePath = "Fx\LobDustPuff\LobDustPuff"
+		NumFrames = 44
+		PlaySpeed = 36
+		Saturation = -0.9
+		Value = -0.15
+		AddColor = false
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 1.5
+		Alpha = 0.5
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+
+	}
 
 ]}

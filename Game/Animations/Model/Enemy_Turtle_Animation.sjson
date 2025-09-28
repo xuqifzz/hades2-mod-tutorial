@@ -127,7 +127,17 @@
 		GrannyAnimation = "Turtle_Base_MoveStop_C_00"
 		ChainTo = "Enemy_Turtle_Idle"
 		CancelOnOwnerMove = true
-		OwnerInvulnerable = true
+		Frames =
+		[
+			{
+				Frame = 1
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 18
+				FrameSpeed = 0.0
+			}
+		]
 	}
 
 	/*Fidgets*/
@@ -272,6 +282,14 @@
 				BlendTransitionFrom = "Enemy_Turtle_Idle"
 				Duration = 10
 			}
+			{
+				BlendTransitionFrom = "Enemy_Turtle_SpitAttackFire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_Turtle_SpitAttackReturnToIdle"
+				Duration = 5
+			}
 		]
 	}
 
@@ -282,11 +300,17 @@
 		CreateAnimation = "OceanusEnemySplashSmallNoRipples"
 		AllowRestart = true
 		HoldLastFrame = true
-		Frames = 
+		GrannyAnimationSpeed = 0.5
+
+		Blends = 
 		[
 			{
-				Frame = 0
-				FrameSpeed = 0.5
+				BlendTransitionFrom = "Enemy_Turtle_SpitAttackFire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_Turtle_SpitAttackReturnToIdle"
+				Duration = 5
 			}
 		]
 	}

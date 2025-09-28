@@ -19,6 +19,14 @@
 		[
 			{ Name = "MelArmGlow" }
 		]
+	}	
+
+	{
+		Name = "LaurelCindersSpawner_EndCredits"
+		InheritFrom = "LaurelCindersSpawner"
+		ChildAnimation = "LaurelCindersSpawnerAmbient_EndCredits"
+		ClearCreateAnimations = true
+		VisualFx = "LaurelCinders_EndCredits"
 	}
 
 	
@@ -36,6 +44,22 @@
 			{ Name = "LaurelBurnC" }
 			{ Name = "LaurelBurnD" }
 		]
+	}	
+
+	{
+		Name = "LaurelCinders_EndCredits"
+		FilePath = "Animations\LaurelCinders\LaurelCinders"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "LaurelBurnA_EndCredits" }
+			{ Name = "LaurelBurnB_EndCredits" }
+			{ Name = "LaurelBurnC_EndCredits" }
+			{ Name = "LaurelBurnD_EndCredits" }
+		]
 	}
 	
 	{
@@ -51,6 +75,22 @@
 			{ Name = "LaurelBurnB_Ambient" }
 			{ Name = "LaurelBurnC_Ambient" }
 			{ Name = "LaurelBurnD_Ambient" }
+		]
+	}	
+
+	{
+		Name = "LaurelCindersAmbient_EndCredits"
+		FilePath = "Animations\LaurelCinders\LaurelCinders"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "LaurelBurnA_Ambient_EndCredits" }
+			{ Name = "LaurelBurnB_Ambient_EndCredits" }
+			{ Name = "LaurelBurnC_Ambient_EndCredits" }
+			{ Name = "LaurelBurnD_Ambient_EndCredits" }
 		]
 	}
 	
@@ -437,6 +477,71 @@
 	}
 
 	{
+		Name = "LaurelBurnA_EndCredits"
+		InheritFrom = "LaurelBurnA"
+		AngleMin = -10
+		AngleMax = 2
+		AngleFromOwner = "Ignore"
+		Gravity = 10
+		StartOffsetY = 0
+		EndOffsetY = 1
+		Acceleration = 250.0
+		VelocityMax = 200.0
+		VelocityMin = 100.0
+		StartScale = 0.5
+		EndScale = 1.5
+		ScaleFromOwner = "Ignore"
+		Scale = 0.5
+	}
+	{
+		Name = "LaurelBurnB_EndCredits"
+		InheritFrom = "LaurelBurnA_EndCredits"
+		FilePath = "Fx\LaurelBurnIrisB\LaurelBurnIrisB"
+	}
+	{
+		Name = "LaurelBurnC_EndCredits"
+		InheritFrom = "LaurelBurnA_EndCredits"
+		FilePath = "Fx\LaurelBurnIrisC\LaurelBurnIrisC"
+	}
+	{
+		Name = "LaurelBurnD_EndCredits"
+		InheritFrom = "LaurelBurnA_EndCredits"
+		FilePath = "Fx\LaurelBurnIrisD\LaurelBurnIrisD"
+	}	
+	{
+		Name = "LaurelBurnA_Ambient_EndCredits"
+		InheritFrom = "LaurelBurnA_Ambient"
+		AngleMin = -10
+		AngleMax = 2
+		AngleFromOwner = "Ignore"
+		Gravity = 10
+		StartOffsetY = 0
+		EndOffsetY = 1
+		Acceleration = 250.0
+		VelocityMax = 200.0
+		VelocityMin = 100.0
+		StartScale = 0.5
+		EndScale = 1.5
+		Scale = 0.75
+		ScaleFromOwner = "Ignore"
+	}
+	{
+		Name = "LaurelBurnB_Ambient_EndCredits"
+		InheritFrom = "LaurelBurnA_Ambient_EndCredits"
+		FilePath = "Fx\LaurelBurnIrisB\LaurelBurnIrisB"
+	}
+	{
+		Name = "LaurelBurnC_Ambient_EndCredits"
+		InheritFrom = "LaurelBurnA_Ambient_EndCredits"
+		FilePath = "Fx\LaurelBurnIrisC\LaurelBurnIrisC"
+	}
+	{
+		Name = "LaurelBurnD_Ambient_EndCredits"
+		InheritFrom = "LaurelBurnA_Ambient_EndCredits"
+		FilePath = "Fx\LaurelBurnIrisD\LaurelBurnIrisD"
+	}
+
+	{
 		Name = "LaurelCindersSpawnerAmbient"
 		FilePath = "Dev\blank_invisible"
 		VisualFx = "LaurelCindersAmbient"
@@ -450,6 +555,12 @@
 		VisualFxFrameCap = 1
 		VisualFxManagerCap = 200
 		VisualFxManagerFrameCap = 10
+	}
+
+	{
+		Name = "LaurelCindersSpawnerAmbient_EndCredits"
+		InheritFrom = "LaurelCindersSpawnerAmbient"
+		VisualFx = "LaurelCindersAmbient_EndCredits"
 	}
 
 	{
@@ -955,6 +1066,34 @@
 	}
 
 
+    {
+      Name = "BloodstoneHitFx"
+      FilePath = "Fx\BloodstoneHitFx\BloodstoneHitFx"
+      GroupName = "Standing"
+      VisualFx = "BloodDropletImpact"
+      Sound = "/SFX/HellFireImpactQuiet"
+      ColorFromOwner = "Ignore"
+      EndFrame = 35
+      NumFrames = 35
+      RandomPlaySpeedMax = 60.0
+      RandomPlaySpeedMin = 50.0
+      StartFrame = 1
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Ignore"
+      SortMode = "Isometric"
+      RandomRotation = true
+      Scale = 1.15
+      ScaleFromOwner = "Ignore"
+      Ambient = 0.0
+      VisualFxCap = 5
+      VisualFxIntervalMax = 0.002
+      VisualFxIntervalMin = 0.001
+      CreateAnimations = [
+        { Name = "QuickFlashRed" }
+        { Name = "BloodstoneHitFxB" }
+      ]
+    }
+
 	{
 		Name = "BloodstoneHitFxHades"
 		FilePath = "Fx\BloodstoneHitFx\BloodstoneHitFx"
@@ -1141,6 +1280,8 @@
 		Name = "HeraRetaliateFx"
 		InheritFrom = "SacrificeHealthFx"
 		Sound = "/SFX/Player Sounds/HeraSwipeShareDamage"
+		ScaleFromOwner = "Ignore"
+		Scale = 0.5
 	}
 	
 	{
@@ -1338,7 +1479,7 @@
 		ColorFromOwner = "Ignore"
 		OffsetZ = 120
 		EndAlpha = 0
-		Sound = "/SFX/Player Sounds/DeathFlashBlood"
+		Sound = "/SFX/Enemy Sounds/Typhon/TyphonFatalStab"
 		Slides =
 		[
 			{ DurationFrames = 1 }
@@ -1405,7 +1546,7 @@
 		Name = "HadesDisappear_Player"
 		FilePath = "Fx\HadesDisappear\HadesDisappear"
 		NumFrames = 45
-		PlaySpeed = 60
+		PlaySpeed = 45
 		RandomFlipHorizontal = true
 		Material = "Unlit"
 		AngleFromOwner = "Ignore"
@@ -1413,10 +1554,17 @@
 		ColorFromOwner = "Ignore"
 		LocationFromOwner = "Ignore"
 		SortMode = "FromParent"
-		Scale = 1.66
+		Scale = 1.45
+		ScaleX = 0.8
+		ScaleY = 1.1
 		OffsetZ = 80
 		UseAttachedMarkerLocation = "ZAxis_TRACKING"
 		Sound = "/SFX/Enemy Sounds/Hades/ZagSmokeDisappear"
+		CreateAnimation = "QuickFlashRed"
+		VisualFx = "TeleportDisplace"
+		VisualFxCap = 1
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
 	}
 
 	{
@@ -1838,6 +1986,52 @@
 		Name = "SnowFootstepSteamD"
 		InheritFrom = "SnowFootstepSteamA"
 		FilePath = "Particles\particle_steam_04"
+	}
+
+	{
+		Name = "MelUnequipShovel"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1.05
+		ChainTo = "MelUnequipShovelSparkle"
+	}
+	{
+		Name = "MelUnequipShovelSparkle"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_R_JNT"
+		Scale = 0.6
+	}
+
+	{
+		Name = "MelUnequipPickaxe"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.15
+		ChainTo = "MelUnequipPickaxeSparkle"
+	}
+	{
+		Name = "MelUnequipPickaxeSparkle"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_L_JNT"
+		Scale = 0.6
+	}
+
+	{
+		Name = "MelUnequipRod"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_R_JNT"
+		Scale = 0.6
+	}
+
+	{
+		Name = "MelUnequipTablet"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.9
+		ChainTo = "MelUnequipTabletSparkle"
+	}
+	{
+		Name = "MelUnequipTabletSparkle"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "ToolTablet_Rig:tabletMainA_joint"
+		Scale = 0.6
 	}
 
 ]}

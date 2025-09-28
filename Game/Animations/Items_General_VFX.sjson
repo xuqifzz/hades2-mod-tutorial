@@ -106,16 +106,77 @@
 	}
 
 	{
+		Name = "BaseMetaRewardAnimatedDrop"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Material = "Unlit"
+		StartOffsetZ = -5
+		EndOffsetZ = 0
+		PingPongShiftOverDuration = true
+		Loop = true
+		EaseIn = 0
+		EaseOut = 1
+		AddColor = true
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.1
+		EndGreen = 0.1
+		EndBlue = 0.1
+		PingPongColor = true
+		VisualFx = "PickupSparklesGraybox"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		Scale = 1.0
+		CreateAnimation = "ItemSpawnFx"
+		StartScaleX = 0.99
+		EndScaleX = 1.01
+		StartScaleY = 1.01
+		EndScaleY = 0.99
+		PingPongScale = true
+		PhaseOffsetScale = 90
+		AngleFromOwner = "Ignore"
+		CreateAnimations = [
+			{ Name = "ResourceGlow_Base" }
+		]
+	}
+
+	{
+		Name = "ResourceGlow_Base"
+		FilePath = "Items\Resources\Other\ResourceGlow\ResourceGlow"
+		NumFrames = 120
+		PlaySpeed = 60
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		SortMode = "FromParent"
+		DrawBehindOwner = true
+		GroupName = "FX_Standing_Add"
+		DieWithOwner = true
+		OffsetX = 5
+	}
+
+	{
 		Name = "MetaCurrencyDrop"
-		FilePath = "Items\Resources\Common\MetaCurrency"
-		InheritFrom = "BaseMetaRewardDrop"
-		Scale = 0.5
+		FilePath = "Items\Resources\Common\MetaCurrency\MetaCurrency"
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
+		Sound = "/SFX/Player Sounds/MiscDropLoop"
+		StopSoundOnFinishFade = 0.2
 	}
 
 	{
 		Name = "MetaCurrencyBigDrop"
 		InheritFrom = "MetaCurrencyDrop"
-		Scale = 0.4
+		Scale = 0.8
 		OffsetX = -20
 		OffsetY = -10
 		ChildAnimation = "MetaCurrencyBigDropOffset"
@@ -126,34 +187,62 @@
 		InheritFrom = "MetaCurrencyDrop"
 		OffsetX = 20
 		OffsetY = 10
-		Scale = 0.4
+		Scale = 0.8
 	}
 
 	{
 		Name = "OreFSilverDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Ore\OreFSilver"
-		Scale = 0.5
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Ore\OreFSilver\OreFSilver"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
 	}	
 
 	{
 		Name = "PlantFMolyDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Plant\PlantFMoly"
-		Scale = 0.5
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Plant\PlantFMoly\PlantFMoly"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
+	}
+	{
+		Name = "PlantGLotusDrop"
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Plant\PlantGlotus\PlantGLotus"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
 	}
 
 	{
 		Name = "MetaCardPointsCommonDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Common\MetaCardPointsCommon"
-		Scale = 0.5
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Common\MetaCardPointsCommon\MetaCardPointsCommon"
+		Scale = 1.0
+		NumFrames = 120
+		StartFrame = 1
+		EndFrame = 120
+		Loop = true
+		PlaySpeed = 30.0
+		Sound = "/SFX/Player Sounds/MiscDropLoop"
+		StopSoundOnFinishFade = 0.2
 	}
 	
 	{
       Name = "MetaCardPointsCommonBigDrop"
       InheritFrom = "MetaCardPointsCommonDrop"
-      Scale = 0.4
+      Scale = 0.8
       OffsetX = -20
       OffsetY = -10
       ChildAnimation = "MetaCardPointsCommonBigDropOffset"
@@ -164,7 +253,7 @@
       InheritFrom = "MetaCardPointsCommonDrop"
       OffsetX = 20
       OffsetY = 10
-      Scale = 0.4
+      Scale = 0.8
 	}
 	
 	{
@@ -178,50 +267,85 @@
 	}
 
 	{
-		Name = "OreNBronzeDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Ore\OreNBronze"
-		Scale = 0.5
-	}
-
-	{
 		Name = "MixerFBossDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Boss\MixerFBoss"
-		Scale = 0.58
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Boss\MixerFBoss\MixerFBoss"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		//Loop = true
+		PlaySpeed = 30.0
+		Sound = "/SFX/Object Ambiences/CinderAmbience"
+		StopSoundOnFinishFade = 0.2
 	}
 
 	{
 		Name = "MetaFabricDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Common\MetaFabric"
-		Scale = 0.58
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Common\MetaFabric\MetaFabric"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
 	}
 
 	{
 		Name = "MixerGBossDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Boss\MixerGBoss"
-		Scale = 0.5
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Boss\MixerGBoss\MixerGBoss"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
+		Sound = "/Leftovers/Ambience/PearlAmbience"
+		StopSoundOnFinishFade = 0.2
 	}
 
 	{
 		Name = "MixerHBossDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Boss\MixerHBoss"
-		Scale = 0.5
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Boss\MixerHBoss\MixerHBoss"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
+		Sound = "/SFX/Object Ambiences/TearAmbience"
+		StopSoundOnFinishFade = 0.2
 	}
 	{
 		Name = "MixerIBossDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Boss\MixerIBoss"
-		Scale = 0.65
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Boss\MixerIBoss\MixerIBoss"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
+		OffsetY = -10
+		OffsetX = -5
+		Sound = "/SFX/Enemy Sounds/ChronosZSandAmbience"
+		StopSoundOnFinishFade = 0.2
 	}
 	{
 		Name = "Mixer5CommonDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Other\Mixer5Common"
-		Scale = 0.5
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Other\Mixer5Common\Mixer5Common"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
+		Sound = "/SFX/Player Sounds/ChaosDropLoop"
+		StopSoundOnFinishFade = 0.2
 	}
 
 	{
@@ -344,42 +468,97 @@
 	}
 	{
 		Name = "MixerNBossDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Boss\MixerNBoss"
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Boss\MixerNBoss\MixerNBoss"
 		OffsetZ = 10
-		Scale = 0.45
+		OffsetY = 10
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
+		Sound = "/SFX/Object Ambiences/WoolAmbience"
+		StopSoundOnFinishFade = 0.2
 	}
 	{
 		Name = "MixerOBossDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Boss\MixerOBoss"
-		OffsetZ = 10
-		Scale = 0.5
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Boss\MixerOBoss\MixerOBoss"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
+		Sound = "/SFX/Object Ambiences/AppleAmbience"
+		StopSoundOnFinishFade = 0.2
 	}
 	{
 		Name = "MixerPBossDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Boss\MixerPBoss"
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Boss\MixerPBoss\MixerPBoss"
 		OffsetZ = 10
-		Scale = 0.5
+		Scale = 1.0
+		NumFrames = 120
+		StartFrame = 1
+		EndFrame = 120
+		Loop = true
+		PlaySpeed = 60
+		Sound = "/SFX/Object Ambiences/FeatherAmbience"
+		StopSoundOnFinishFade = 0.2
+	}
+	{
+		Name = "MixerQBossDrop"
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Boss\MixerQBoss\MixerQBoss"
+		OffsetZ = 10
+		OffsetY = 20
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
+		Sound = "/SFX/Object Ambiences/VoidLensAmbience"
+		StopSoundOnFinishFade = 0.2
+	}
+	{
+		Name = "MixerMythicDrop"
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Other\MixerMythic\MixerMythic"
+		OffsetZ = 10
+		OffsetY = 20
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
+		Sound = "/Leftovers/Ambience/EntropyAmbience"
+		StopSoundOnFinishFade = 0.2
 	}
 	{
 		Name = "PlantFNightshadeDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Plant\PlantFNightshade"
-		Scale = 0.5
-	}
-	{
-		Name = "PlantMoneyDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Plant\PlantMoney"
-		Scale = 0.5
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Plant\PlantFNightshade\PlantFNightshade"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
 	}
 	{
 		Name = "SeedMysteryDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Plant\PlantMysterySeed"
-		Scale = 0.5
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Plant\PlantMysterySeed\PlantMysterySeed"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
 	}
 	{
 		Name = "TrashPointsDrop"
@@ -405,22 +584,15 @@
 	}
 
 	{
-		Name = "GiftPointsRareDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Other\GiftPointsRare"
-	}
-
-	{
-		Name = "GiftPointsEpicDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Other\GiftPointsEpic"
-	}
-
-	{
 		Name = "MemPointsCommonDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Common\MemPointsCommon"
-		Scale = 0.5
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Common\MemPointsCommon\MemPointsCommon"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
 	}
 	{
 		Name = "MemPointsCommonShop"
@@ -431,7 +603,7 @@
     {
       Name = "MemPointsCommonBigDrop"
       InheritFrom = "MemPointsCommonDrop"
-      Scale = 0.4
+      Scale = 0.8
       OffsetX = -20
       OffsetY = -10
       ChildAnimation = "MemPointsCommonBigDropOffset"
@@ -442,72 +614,164 @@
       InheritFrom = "MemPointsCommonDrop"
       OffsetX = 20
       OffsetY = 10
-      Scale = 0.4
+      Scale = 0.8
 	}
 
 	{
 		Name = "WeaponPointsRareDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Other\WeaponPointsRare"
-		Scale = 0.5
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Other\WeaponPointsRare\WeaponPointsRare"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
+		Sound = "/Leftovers/Ambience/NightmareAmbience"
+		StopSoundOnFinishFade = 0.2
 	}
 
 	{
 		Name = "CardUpgradePointsDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Other\CardUpgradePoints"
-		Scale = 0.5
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Other\CardUpgradePoints\CardUpgradePoints"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
 	}
 	{
 		Name = "FamiliarPointsDrop"
-		InheritFrom = "BaseMetaRewardDrop"
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
 		FilePath = "Items\Resources\Alchemy\FamiliarPoints"
 		Scale = 0.5
 	}
 	{
 		Name = "CharonPointsDrop"
-		InheritFrom = "BaseMetaRewardDrop"
-		FilePath = "Items\Resources\Other\CharonPoints"
-		Scale = 0.5
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Other\CharonPoints\CharonPoints"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
+	}
+	{
+		Name = "GemPointsDrop"
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Resources\Other\GemsUpgraded\GemsUpgraded"
+		NumFrames = 30
+		PlaySpeed = 30
+		Scale = 1.0
+	}
+	{
+		Name = "GemPointsBigDrop"
+		InheritFrom = "GemPointsDrop"
 	}
 
 	/* Consumables */
 
 	{
+		Name = "BaseStaticPickup"
+		FilePath = "Items\Loot\Onion"
+		EndFrame = 1
+		HoldLastFrame = false
+		NumFrames = 1
+		StartFrame = 1
+		Material = "Unlit"
+		Duration = 2
+		StartOffsetZ = -7
+		EndOffsetZ = 8
+		PingPongShiftOverDuration = true
+		Loop = true
+		EaseIn = 0
+		EaseOut = 1
+		AddColor = true
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.1
+		EndGreen = 0.1
+		EndBlue = 0.1
+		PingPongColor = true
+		VisualFx = "PickupSparklesGraybox"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		Scale = 0.5
+		CreateAnimation = "ItemSpawnFx"
+		StartScaleX = 0.98
+		EndScaleX = 1.02
+		StartScaleY = 1.02
+		EndScaleY = 0.98
+		PingPongScale = true
+		PhaseOffsetScale = 90
+		CreateAnimations =
+		[
+			{ Name = "PickupBackGlow" }
+			{ Name = "PickupBackGlow2" }
+		]
+	}
+	{
+		Name = "BaseStaticPickup_Preview"
+		FilePath = "Items\Loot\Boon\ZeusIconSpin\ZeusIconSpin0015"
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		EndBlue = 0.1
+		EndGreen = 0.1
+		EndRed = 0.1
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.45
+		Material = "Unlit"
+		Duration = 2.5
+		StartOffsetZ = 0
+		EndOffsetZ = 5.0
+		PingPongShiftOverDuration = true
+		OnlyWhenVisible = true
+	}
+
+	{
 		Name = "HealthDrop1"
-		FilePath = "Items\Loot\HealthItem01"			
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Loot\HealthItem01\HealthItem01"
 		VisualFx = "HealthSparkleOutward"
 		VisualFxManagerCap = 400
 		VisualFxManagerFrameCap = 18
-		EndFrame = 1
-		HoldLastFrame = true
-		NumFrames = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
+		NumFrames = 60
 		StartFrame = 1
-		Scale = 0.75
+		Scale = 1
 		Material = "Unlit"
 		VisualFxIntervalMax = 0.1
 		VisualFxIntervalMin = 0.2
-		ZWobbleDistance = 15.0
-		ZWobbleSpeed = 15.0
 		CreateAnimation = "ItemSpawnFx"
 	}
 
 	{
 		Name = "RoomRewardHealDrop"
-		FilePath = "Items\Loot\HealthItem02"
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Loot\HealthItem02\HealthItem02"
 		VisualFx = "HealthSparkleOutward"
-		EndFrame = 1
+		EndFrame = 60
 		Loop = true
-		NumFrames = 1
+		PlaySpeed = 30.0
+		NumFrames = 60
 		StartFrame = 1
-		Scale = 0.75
+		Scale = 1
 		Material = "Unlit"
 		VisualFxIntervalMax = 0.1
 		VisualFxIntervalMin = 0.2
-		Duration = 2.0
-		StartOffsetZ = -5
-		EndOffsetZ = 5
-		PingPongShiftOverDuration = true
 		AngleFromOwner = "Ignore"
 	}
 	{
@@ -528,6 +792,7 @@
 		Name = "RoomRewardHealShop"
 		InheritFrom = "RoomRewardHealDrop"
 		Duration = 0
+		StartOffsetZ = 0
 		EndOffsetZ = 0
 		PingPongShiftOverDuration = false
 		Sound = null
@@ -538,6 +803,7 @@
 		InheritFrom = "HealBigDrop"
 		ChildAnimation = "HealBigShopOffset"
 		Duration = 0
+		StartOffsetZ = 0
 		EndOffsetZ = 0
 		PingPongShiftOverDuration = false
 		Sound = null
@@ -546,6 +812,7 @@
 		Name = "HealBigShopOffset"
 		InheritFrom = "HealBigDropOffset"
 		Duration = 0
+		StartOffsetZ = 0
 		EndOffsetZ = 0
 		PingPongShiftOverDuration = false
 		Sound = null
@@ -554,22 +821,23 @@
 
 	{
 		Name = "ConsolationPrize"
-		CreateAnimation = "ItemSpawnFx"
-		FilePath = "Items\Loot\Onion"			
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Loot\Onion\Onion"
 		VisualFx = "HealthSparkleOutward"
 		VisualFxManagerCap = 400
 		VisualFxManagerFrameCap = 18
+		OffsetX = 5
+		OffsetY = 5
 		AngleFromOwner = "Ignore"
-		EndFrame = 1
-		HoldLastFrame = true
-		NumFrames = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
+		NumFrames = 60
 		StartFrame = 1
-		Scale = 0.25
+		Scale = 1
 		Material = "Unlit"
 		VisualFxIntervalMax = 0.1
 		VisualFxIntervalMin = 0.2
-		ZWobbleDistance = 15.0
-		ZWobbleSpeed = 15.0
 	}
 
 	{
@@ -688,33 +956,44 @@
 	{
 		Name = "ElementalEssenceDrop"
 		InheritFrom = "HealthDrop1"
-		FilePath = "Items\Loot\ElementalEssence"			
+		FilePath = "Items\Loot\ElementalEssence\ElementalEssence"
 		VisualFx = "MiscSparkleOutward"
+	}
+	{
+		Name = "ElementalEssenceDrop_Preview"
+		InheritFrom = "BaseStaticPickup_Preview"
+		FilePath = "Items\Loot\ElementalEssence"
+		Scale = 0.75
 	}
 	{
 		Name = "EarthEssenceDrop"
 		InheritFrom = "HealthDrop1"
-		FilePath = "Items\Loot\EssenceEarth"			
+		FilePath = "Items\Loot\EssenceEarth\EssenceEarth"
 		VisualFx = "MiscSparkleOutward"
+		OffsetY = 5
 	}
 	{
 		Name = "WaterEssenceDrop"
 		InheritFrom = "HealthDrop1"
-		FilePath = "Items\Loot\EssenceWater"			
+		FilePath = "Items\Loot\EssenceWater\EssenceWater"
 		VisualFx = "MiscSparkleOutward"
+		OffsetY = 5
 	}
 	{
 		Name = "AirEssenceDrop"
 		InheritFrom = "HealthDrop1"
-		FilePath = "Items\Loot\EssenceAir"			
+		FilePath = "Items\Loot\EssenceAir\EssenceAir"
 		VisualFx = "MiscSparkleOutward"
+		OffsetY = 5
 	}
 	{
 		Name = "FireEssenceDrop"
 		InheritFrom = "HealthDrop1"
-		FilePath = "Items\Loot\EssenceFire"
+		FilePath = "Items\Loot\EssenceFire\EssenceFire"
 		VisualFx = "MiscSparkleOutward"
+		OffsetY = 5
 	}
+
 	{
 		Name = "StackUpgradeSymbol"
 		FilePath = "Items\Loot\StackUpgrade"			
@@ -733,10 +1012,17 @@
 		InheritFrom = "StackUpgradeSymbol"
 		FilePath = "Items\Loot\WeaponUpgrade"
 	}
+	{
+		Name = "WeaponUpgradeTrade"
+		FilePath = "Items\Loot\WeaponUpgrade"
+		Scale = 0.7
+		OffsetX = -6
+		OffsetY = 0
+	}
 
 	{
 		Name = "BoonSymbolBaseIsometric"
-		FilePath = "Items\Loot\Boon\ZeusIconSpin\ZeusIconSpin0015"			
+		FilePath = "Items\Loot\Boon\ZeusIconSpin\ZeusIconSpin0015"
 		AngleFromOwner = "Ignore"
 		AddColor = true
 		EndBlue = 0.1
@@ -756,6 +1042,8 @@
 		EndOffsetZ = 5.0
 		PingPongShiftOverDuration = true
 		OnlyWhenVisible = true
+		Sound = "/SFX/Player Sounds/MiscDropLoop"
+		StopSoundOnFinishFade = 0.2
 	}
 
 	{
@@ -770,6 +1058,20 @@
 		InheritFrom = "BoonSymbolBaseIsometric"
 		FilePath = "Items\Loot\TalentDrop\TalentDrop0055"
 		Scale = 1
+	}
+	{
+		Name = "TalentDropTrade"
+		FilePath = "Items\Loot\TalentDrop\TalentDrop0055"
+		Scale = 0.9
+		OffsetX = -4
+		OffsetY = -2
+	}
+
+	{
+		Name = "MinorTalentDropPreview"
+		InheritFrom = "BoonSymbolBaseIsometric"
+		FilePath = "Items\Loot\TalentDrop\TalentDrop0055"
+		Scale = 0.75
 	}
 
 	{
@@ -820,26 +1122,25 @@
 		Name = "ShopPreview"
 		InheritFrom = "BoonSymbolBaseIsometric"
 		FilePath = "Items\Loot\PreviewOnly\Shop"
+		Sound = "/SFX/Player Sounds/ShopDropLoop"
 	}
 
 	{
 		Name = "WeaponUpgradePreview"
 		InheritFrom = "BoonSymbolBaseIsometric"
 		FilePath = "Items\Loot\WeaponUpgrade_Preview"
+		Scale = 0.55
+		Sound = "/SFX/Player Sounds/HammerDropLoop"
 	}
 	{
 		Name = "WeaponUpgradeShop"
-		InheritFrom = "WeaponUpgradePreview"
+		InheritFrom = "BoonSymbolBaseIsometric"
+		FilePath = "Items\Loot\WeaponUpgrade_Preview"
 		Duration = 0
+		StartOffsetZ = 0
 		EndOffsetZ = 0
 		PingPongShiftOverDuration = false
 		Sound = null
-	}
-	{
-		Name = "ManaUpgradePreview"
-		InheritFrom = "BoonSymbolBaseIsometric"
-		FilePath = "Items\Loot\ManaUpgrade"
-		Scale = 0.7
 	}
 
 	{
@@ -851,16 +1152,10 @@
 		Name = "HermesUpgradeShop"
 		InheritFrom = "HermesUpgradePreview"
 		Duration = 0
+		StartOffsetZ = 0
 		EndOffsetZ = 0
 		PingPongShiftOverDuration = false
 		Sound = null
-	}
-
-	{
-		Name = "HephaestusUpgradePreview"
-		InheritFrom = "BoonSymbolBaseIsometric"
-		FilePath = "Items\Loot\WeaponUpgrade_Preview"
-		Hue = 0.2
 	}
 
 	{
@@ -872,6 +1167,12 @@
 		Name = "RoomRewardMaxHealthDropShop"
 		InheritFrom = "RoomRewardMaxHealthDropPreview"
 		Sound = null
+	}
+	{
+		Name = "MaxHealthDropSmallPreview"
+		InheritFrom = "BoonSymbolBaseIsometric"
+		FilePath = "Items\Loot\MaxHealthDrop_Preview"
+		Scale = 0.33
 	}
 
 	{
@@ -942,37 +1243,28 @@
 	{
 		Name = "StackUpgrade"
 		CreateAnimation = "ItemSpawnFx"
-		FilePath = "Items\Loot\StackUpgrade"			
+		FilePath = "Items\Loot\StackUpgrade\StackUpgrade"
 		VisualFx = "StackUpgradeSparkleOutward"
-		EndFrame = 1
+		EndFrame = 60
 		HoldLastFrame = false
-		NumFrames = 1
+		NumFrames = 60
 		StartFrame = 1
-		Scale = 0.75
+		Scale = 1.0
+		PlaySpeed = 30.0
 		Material = "Unlit"
 		VisualFxIntervalMax = 0.1
 		VisualFxIntervalMin = 0.2
-		StartOffsetZ = 0
-		EndOffsetZ = 15
-		Duration = 1.75
-		PingPongShiftOverDuration = true
-		EaseIn = 0
-		EaseOut = 1
-		StartAngle = -2
-		EndAngle = 2
-		PingPongAngle = true
-		PhaseOffsetAngle = 90
 		Loop = true
-		PingPongScale = true
-		StartScale = 1
-		EndScale = 1.05
+		CreateAnimations = [
+			{ Name = "ResourceGlow_Base" }
+		]
 	}
 
 	{
 		Name = "StackUpgradeBig"
 		InheritFrom = "StackUpgrade"
 		OffsetX = 20
-		Scale = 0.6
+		Scale = 0.8
 		CreateAnimations =
 		[
 			{ Name = "StackUpgradeBigOffset" }
@@ -983,7 +1275,7 @@
 		InheritFrom = "StackUpgrade"
 		CreateAnimation = null
 		OffsetX = -20
-		Scale = 0.6
+		Scale = 0.8
 		DieWithOwner = true
 	}
 
@@ -992,7 +1284,7 @@
 		InheritFrom = "StackUpgrade"
 		OffsetX = -20
 		OffsetY = -5
-		Scale = 0.4
+		Scale = 0.53
 		CreateAnimations =
 		[
 			{ Name = "StackUpgradeTripleOffset1" }
@@ -1005,7 +1297,7 @@
 		CreateAnimation = null
 		OffsetX = 10
 		OffsetY = -20
-		Scale = 0.4
+		Scale = 0.53
 		SortMode = "FromParent"
 		DieWithOwner = true
 	}
@@ -1015,7 +1307,7 @@
 		CreateAnimation = null
 		OffsetX = 5
 		OffsetY = 10
-		Scale = 0.4
+		Scale = 0.53
 		SortMode = "FromParent"
 		DieWithOwner = true
 	}
@@ -1025,29 +1317,29 @@
 		Name = "WeaponUpgrade"
 		//ChildAnimation = "BoonOrbFrontFlareHammer"
 		CreateAnimation = "ItemSpawnFx"
-		FilePath = "Items\Loot\WeaponUpgrade"			
+		FilePath = "Items\Loot\WeaponUpgrade\WeaponUpgrade"			
 		VisualFx = "WeaponUpgradeSparkleOutward"
-		Duration = 1.333
-		EaseOut = 1.0
-		EndFrame = 1
+		EndFrame = 60
 		Loop = true
-		NumFrames = 1
+		NumFrames = 60
 		StartFrame = 1
-		EndOffsetY = -8.0
+		PlaySpeed = 30
 		Scale = 0.75
 		Material = "Unlit"
 		VisualFxIntervalMax = 0.1
 		VisualFxIntervalMin = 0.2
-		PingPongShiftOverDuration = true
+		CreateAnimations = [
+			{ Name = "ResourceGlow_Base" }
+		]
 	}
 	{
 		Name = "ChaosWeaponUpgrade"
 		ChildAnimation = "BoonOrbFrontFlareHammer"			
-		FilePath = "Fx\Gameplay_Anvil_01_Anim\Gameplay_Anvil_01_Anim"
-		NumFrames = 40
+		FilePath = "Items\Loot\ChaosWeaponUpgrade\ChaosWeaponUpgrade"
+		NumFrames = 60
 		PlaySpeed = 30
 		VisualFx = "WeaponUpgradeSparkleOutward"
-		EndFrame = 40
+		EndFrame = 60
 		Loop = true
 		StartFrame = 1
 		EndOffsetY = -8.0
@@ -1102,6 +1394,20 @@
 		LocationZFromOwner = "Take"
 		Scale = 2
 	}
+	{
+		Name = "StackUpgradePreview"
+		InheritFrom = "BoonSymbolBaseIsometric"
+		FilePath = "Items\Loot\StackUpgrade"
+		Scale = 0.7
+	}
+	{
+		Name = "StackUpgradeTrade"
+		FilePath = "Items\Loot\StackUpgrade\StackUpgrade0055"
+		Scale = 1.0
+		OffsetX = 4
+		OffsetY = 0
+	}
+
 	{
 		Name = "StackUpgradeBigPreview"
 		InheritFrom = "BoonSymbolBaseIsometric"
@@ -1160,72 +1466,6 @@
 	}
 
 	{
-		Name = "BaseStaticPickup"
-		FilePath = "Items\Loot\Onion"
-		EndFrame = 1
-		HoldLastFrame = false
-		NumFrames = 1
-		StartFrame = 1
-		Material = "Unlit"
-		Duration = 2
-		StartOffsetZ = -7
-		EndOffsetZ = 8
-		PingPongShiftOverDuration = true
-		Loop = true
-		EaseIn = 0
-		EaseOut = 1
-		AddColor = true
-		StartRed = 0
-		StartGreen = 0
-		StartBlue = 0
-		EndRed = 0.1
-		EndGreen = 0.1
-		EndBlue = 0.1
-		PingPongColor = true
-		VisualFx = "PickupSparklesGraybox"
-		VisualFxIntervalMin = 0.1
-		VisualFxIntervalMax = 0.2
-		VisualFxManagerCap = 400
-		VisualFxManagerFrameCap = 18
-		Scale = 0.5
-		CreateAnimation = "ItemSpawnFx"
-		StartScaleX = 0.98
-		EndScaleX = 1.02
-		StartScaleY = 1.02
-		EndScaleY = 0.98
-		PingPongScale = true
-		PhaseOffsetScale = 90
-		CreateAnimations =
-		[
-			{ Name = "PickupBackGlow" }
-			{ Name = "PickupBackGlow2" }
-		]
-	}
-	{
-		Name = "BaseStaticPickup_Preview"
-		FilePath = "Items\Loot\Boon\ZeusIconSpin\ZeusIconSpin0015"			
-		AngleFromOwner = "Ignore"
-		AddColor = true
-		EndBlue = 0.1
-		EndGreen = 0.1
-		EndRed = 0.1
-		PingPongColor = true
-		EaseIn = 0
-		EaseOut = 1.0
-		EndFrame = 1
-		Loop = true
-		NumFrames = 1
-		StartFrame = 1
-		Scale = 0.45
-		Material = "Unlit"
-		Duration = 2.5
-		StartOffsetZ = 0
-		EndOffsetZ = 5.0
-		PingPongShiftOverDuration = true
-		OnlyWhenVisible = true
-	}
-
-	{
 		Name = "SpellDrop"
 		FilePath = "Items\Loot\Boon\SeleneIconSpin\SeleneIconSpin"
 		NumFrames = 60
@@ -1248,6 +1488,8 @@
 		VisualFxIntervalMin = 0.33
 		VisualFxIntervalMax = 0.50
 		ChildAnimation = "SpellDropGlowEmitter"
+		Sound = "/Leftovers/Object Ambiences/MoonDropAmbientLoop"
+		StopSoundOnFinishFade = 0.2
 		CreateAnimations =
 		[
 			{ Name = "SpellDropGlowB" }
@@ -1514,6 +1756,7 @@
 
 	{
 		Name = "TalentDrop"
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
 		FilePath = "Items\Loot\TalentDrop\TalentDrop"
 		NumFrames = 60
 		PlaySpeed = 30
@@ -1531,6 +1774,8 @@
 		ChildAnimation = "TalentDropShineEmitter"
 		PingPongShiftOverDuration = true
 		CreateAnimation = "ItemSpawnFx"
+		Sound = "/Leftovers/Object Ambiences/MoonDropAmbientLoop"
+		StopSoundOnFinishFade = 0.2
 	}
 
 	{
@@ -1642,6 +1887,12 @@
 	}
 
 	{
+		Name = "TalentBigDrop"
+		InheritFrom = "TalentDrop"
+		//FilePath = "Items\Loot\TalentDropMinor\TalentDropMinor"
+	}
+
+	{
 		Name = "TalentDropOld"
 		FilePath = "Fx\TalentDrop\TalentDrop"
 		Scale = 1.25
@@ -1664,19 +1915,30 @@
 
 	{
 		Name = "MaxManaDrop"
-		InheritFrom = "BaseStaticPickup"
-		FilePath = "Items\Loot\MaxManaDrop"
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Loot\MaxManaDrop\MaxManaDrop"
+		Scale = 1.0
+		NumFrames = 60
+		StartFrame = 1
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
 	}
 	{
 		Name = "MaxManaDrop_Preview"
 		InheritFrom = "BaseStaticPickup_Preview"
 		FilePath = "Items\Loot\MaxManaDrop_Preview"
 	}
+	{
+		Name = "MaxManaDropSmall_Preview"
+		InheritFrom = "MaxManaDrop_Preview"
+		Scale = 0.33
+	}
 
 	{
 		Name = "MaxManaDropBig"
 		InheritFrom = "MaxManaDrop"
-		Scale = 0.4
+		Scale = 0.8
 		OffsetX = -15
 		OffsetY = -5
 		ChildAnimation = "MaxManaDropOffset"
@@ -1685,7 +1947,7 @@
 		Name = "MaxManaDropOffset"
 		InheritFrom = "MaxManaDrop"
 		CreateAnimation = null
-		Scale = 0.4
+		Scale = 0.8
 		OffsetX = 20
 		OffsetY = 5
 		DieWithOwner = true
@@ -1705,50 +1967,6 @@
 		OffsetX = 15
 		OffsetY = 10
 		ChildAnimation = "null"
-	}
-
-	{
-		Name = "ManaUpgrade"
-		FilePath = "Items\Loot\ManaUpgrade"
-
-		EndFrame = 1
-		HoldLastFrame = false
-		NumFrames = 1
-		StartFrame = 1
-		Material = "Unlit"
-		Duration = 2
-		StartOffsetZ = -7
-		EndOffsetZ = 8
-		PingPongShiftOverDuration = true
-		Loop = true
-		EaseIn = 0
-		EaseOut = 1
-		AddColor = true
-		StartRed = 0
-		StartGreen = 0
-		StartBlue = 0
-		EndRed = 0.1
-		EndGreen = 0.1
-		EndBlue = 0.1
-		PingPongColor = true
-		VisualFx = "PickupSparklesGraybox"
-		VisualFxIntervalMin = 0.1
-		VisualFxIntervalMax = 0.2
-		VisualFxManagerCap = 400
-		VisualFxManagerFrameCap = 18
-		Scale = 0.85
-		CreateAnimation = "ItemSpawnFx"
-		StartScaleX = 0.98
-		EndScaleX = 1.02
-		StartScaleY = 1.02
-		EndScaleY = 0.98
-		PingPongScale = true
-		PhaseOffsetScale = 90
-		CreateAnimations =
-		[
-			{ Name = "PickupBackGlow" }
-			{ Name = "PickupBackGlow2" }
-		]
 	}
 
 	{
@@ -2055,35 +2273,32 @@
 
 	{
 		Name = "ArmorBoost"
-		FilePath = "Items\Loot\ArmorBoost"
-		EndAngle = 1.6
-		PhaseOffsetAngle = 90.0
-		PingPongAngle = true
-		StartAngle = -1.6
-		Duration = 2.0
-		EaseOut = 1.0
-		EndFrame = 1
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Loot\ArmorBoost\ArmorBoost"
+		EndFrame = 60
 		Loop = true
-		NumFrames = 1
+		NumFrames = 60
 		StartFrame = 1
-		EndOffsetZ = 2.0
-		OffsetY = 25.0
-		StartOffsetZ = 20.0
-		Scale = 0.5
+		PlaySpeed = 30.0
+		Scale = 1.0
 		Ambient = 0.0
 		VisualFxIntervalMax = 0.1
 		VisualFxIntervalMin = 0.05
 		PingPongShiftOverDuration = true
 		AngleFromOwner = "Ignore"
-		CreateAnimations =
-		[
-			{ Name = "ItemSpawnFx" }
-		]
+	}
+
+	{
+		Name = "ArmorBoostPreview"
+		InheritFrom = "BaseStaticPickup_Preview"
+		FilePath = "Items\Loot\ArmorBoost"
+		Scale = 0.33
 	}
 	{
 		Name = "ArmorBoostShop"
 		InheritFrom = "ArmorBoost"
 		Duration = 0
+		StartOffsetZ = 0
 		EndOffsetZ = 0
 		PingPongShiftOverDuration = false
 		Sound = null
@@ -2093,6 +2308,7 @@
 		Name = "ArmorBigBoostShop"
 		InheritFrom = "ArmorBoost"
 		Duration = 0
+		StartOffsetZ = 0
 		EndOffsetZ = 0
 		PingPongShiftOverDuration = false
 		Sound = null
@@ -2135,41 +2351,23 @@
 	}
 
 	{
-		Name = "AspectAvailableAura"
-		FilePath = "Fx\HadesFlameAura\HadesFlameAura"
-		
-		AngleFromOwner = "Ignore"
-		ColorFromOwner = "Ignore"
-		MaintainAlphaOnly = true
-		EndFrame = 40
-		Loop = true
-		NumFrames = 40
-		PlaySpeed = 25.0
-		StartFrame = 1
-		OffsetY = 40.0
-		Scale = 1.2
-		Ambient = 0.0
-		UseAttachedFlasher = false
-		OffsetZ = 180
-	}
-
-	{
 		Name = "EmptyMaxHealth"
-		FilePath = "Items\Loot\EmptyMaxHealth"
-		Scale = 0.6
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Loot\EmptyMaxHealth\EmptyMaxHealth"
+		Scale = 1.0
 		EndAngle = 1.6
 		PhaseOffsetAngle = 90.0
 		PingPongAngle = true
 		StartAngle = -1.6
-		Duration = 2.0
 		EaseOut = 1.0
-		EndFrame = 1
+		PlaySpeed = 30.0
+		EndFrame = 35
 		Loop = true
-		NumFrames = 1
+		NumFrames = 35
 		StartFrame = 1
-		EndOffsetZ = 2.0
+		EndOffsetZ = 1.0
 		OffsetY = 25.0
-		StartOffsetZ = 20.0
+		StartOffsetZ = 10.0
 		Ambient = 0.0
 		VisualFxIntervalMax = 0.1
 		VisualFxIntervalMin = 0.05
@@ -2177,12 +2375,19 @@
 		CreateAnimations =
 		[
 			{ Name = "PickupFlareA" }
+			{ Name = "ResourceGlow_Base" }
 		]
+	}
+	{
+		Name = "EmptyMaxHealthPreview"
+		FilePath = "Items\Loot\EmptyMaxHealth"
+		InheritFrom = "BoonSymbolBaseIsometric"
+		Scale = 0.4
 	}
 
 	{
 		Name = "RespawnEgg"
-		FilePath = "GUI\Icons\GhostEmote\FiredUp"
+		FilePath = "GUI\Icons\RespawnEgg"
 		EndFrame = 1
 		HoldLastFrame = true
 		NumFrames = 1
@@ -2377,37 +2582,20 @@
 
 	{
 		Name = "WeaponKitDarkThirst"
-		FilePath = "Fx\Flame\Flame"
+		FilePath = "Fx\WeaponKitDarkThirstBackAnim\WeaponKitDarkThirstBackAnim"
 		NumFrames = 60
-		RandomStartFrame = true
-		ReRandomizeOnLoop = false
+		PlaySpeed = 30
 		Loop = true
-		RandomPlaySpeedMin = 30
-		RandomPlaySpeedMax = 36
-		AngleFromOwner = "Ignore"
-		Angle = -90
-		Red = 0
-		Green = 0
-		Blue = 0
-		AddColor = false
-		ColorFromOwner = "Ignore"
 		Material = "Unlit"
-		OffsetZ = 70
-		Alpha = 0
+		OffsetZ = 120
+		VisualFx = "WeaponKitDarkThirstGlow"
+		VisualFxIntervalMin = 1.5
+		VisualFxIntervalMax = 1.5
 		Sound = "/Leftovers/Object Ambiences/DarkThirstAmbience"
 		StopSoundOnFinishFade = 0.2
 		SoundAllowedAfterFrame = -1
-		VisualFx = "WeaponKitBackingDark"
-		VisualFxIntervalMin = 0.2
-		VisualFxIntervalMax = 0.25
-		GroupName = "Standing"
-		DrawBehindOwner = true
-		SortMode = "FromParent"
-		SortFromOwner = "Maintain"
-		CreateAnimations =
-		[
-			{ Name = "WeaponKitDarkThirstCenter" }
-		]
+		UseAttachedFlasher = false
+		ColorFromOwner = "Ignore"
 	}
 
 	{
@@ -2480,6 +2668,7 @@
 		DrawBehindOwner = true
 		SortMode = "FromParent"
 		SortFromOwner = "Maintain"
+		UseAttachedFlasher = false
 	}
 
 	{
@@ -2519,6 +2708,7 @@
 		OffsetZ = 50
 		RandomPlaySpeedMin = 30
 		RandomPlaySpeedMax = 36
+		UseAttachedFlasher = false
 
 	}
 
@@ -2544,34 +2734,52 @@
 		AlphaMax = 1
 		PostRotateScaleY = 0.5
 		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
 	}
 
 	{
 		Name = "WeaponKitDarkThirstGlow"
-		FilePath = "Particles\particle_glow"
+		FilePath = "Particles\particle_glow_ring_bias"
 		Material = "Unlit"
 		EaseIn = 0
 		EaseOut = 1
 		StartAlpha = 0
 		EndAlpha = 1
 		PingPongColor = true
-		RandomDurationMin = 0.5
-		RandomDurationMax = 1.0
-		StartScaleX = 0.999
-		ScaleX = 1
-		GroupName = "FX_Dark"
-		Red = 0
+		RandomDurationMin = 2
+		RandomDurationMax = 3.5
+		GroupName = "FX_Standing_Add"
+		Red = 1
 		Green = 0
-		Blue = 0
-		Scale = 1
-		Alpha = 1.0
-		ScaleMin = 0.8
-		ScaleMax = 1.0
-		AlphaMin = 0.3
-		AlphaMax = 0.4
-		OffsetZ = 120
+		Blue = 0.01
+		Scale = 0.66
+		Alpha = 0.5
+		OffsetZ = 0
+		StartScale = 1
+		EndScale = 1.5
+		ScaleY = 0.8
+		Angle = 90
 		AngleFromOwner = "Ignore"
 		ColorFromOwner = "Ignore"
+		CreateAnimation = "WeaponKitDarkThirstDisplacement"
+		UseAttachedFlasher = false
+	}
+
+	{
+		Name = "WeaponKitDarkThirstDisplacement"
+		FilePath = "Fx\RadialDisplacement\RadialDisplacement"
+		NumFrames = 60
+		Material = "Unlit"
+		GroupName = "FX_Displacement"
+		PlaySpeed = 24
+		OffsetZ = 120
+		EaseIn = 0.5
+		EaseOut = 1
+		StartScale = 2
+		EndScale = 1
+		Alpha = 0.75
+		StartAlpha = 0
+		EndAlpha = 1
 	}
 
 	{
@@ -2642,7 +2850,7 @@
 	}
 
 	{
-		Name= "WeaponKitBackingBrightSoft"
+		Name = "WeaponKitBackingBrightSoft"
 		InheritFrom = "WeaponKitBackingDarkSoft"
 		FilePath = "Particles\particle_glow"
 		Material = "Unlit"
@@ -2668,7 +2876,7 @@
 		AngleFromOwner = "Ignore"
 		CreateAnimations =
 		[
-			{ Name = "WeaponKitBackingLightStreak" }
+			//{ Name = "WeaponKitBackingLightStreak" }
 			{ Name = "WeaponKitBackingDarkSoft" }
 		]
 	}
@@ -2677,7 +2885,7 @@
 		Name = "WeaponKitBackingLightStreak"
 		InheritFrom = "WeaponKitBackingBrightSoft"
 		ClearCreateAnimations = true
-		FilePath = "Particles\particle_heraLightStreak"
+		FilePath = "Particles\particle_glow_egg"
 		Material = "Unlit"
 		CreateAnimation = null
 		GroupName = "FX_Terrain_Add"
@@ -2689,9 +2897,9 @@
 		EndScale = 1.01
 		StartScaleY = 1
 		EndScaleY = 1.3
-		StartOffsetZ = 100
-		EndOffsetZ = 200
-		ScaleX = 0.5
+		StartOffsetZ = 0
+		EndOffsetZ = 20
+		ScaleX = 1.2
 		AlphaMin = 0.1
 		AlphaMax = 0.3
 		Alpha = 1
@@ -2711,9 +2919,12 @@
 		OffsetZ = 80
 		ColorFromOwner = "Ignore"
 		Material = "Unlit"
-		Hue = 0.15
 		ChainTo = "WeaponKitEquippedFrontOut"
 		TransferFrameFromThis = true
+		AddColor = true
+		Red = 0.3
+		Green = 0.3
+		Blue = 0.3
 	}
 
 	{
@@ -2755,31 +2966,52 @@
 
 	{
 		Name = "WeaponAspectAvailableFront"
-		FilePath = "Fx\WeaponAspectAvailableFront\WeaponAspectAvailableFront"
-		NumFrames = 60
-		PlaySpeed = 30
-		UseOwnAngle = false
-		AngleFromOwner = "Ignore"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
 		Loop = true
-		Material = "Unlit"
-		GroupName = "FX_Standing_Add"
-		CreateAnimation = "WeaponAspectAvailableBack"
-		OffsetZ = 60
-		Duration = 6
-		StartAlpha = 0.3
-		EndAlpha = 1.0
-		PingPongColor = true
-		EaseIn = 0
-		EaseOut = 1
-		LoopFramesOnly = true
+		CreateAnimations = [
+			{ Name = "WeaponAspectAvailableBack" }
+			{ Name = "WeaponAspectAvailableBackGlow" }
+		]
 	}
+
 	{
 		Name = "WeaponAspectAvailableBack"
-		InheritFrom = "WeaponAspectAvailableFront"
-		FilePath = "Fx\WeaponAspectAvailableBack\WeaponAspectAvailableBack"
-		GroupName = "FX_Dark"
+		FilePath = "Fx\WeaponKitAspectsAvailableBack\WeaponKitAspectsAvailableBack"
+		NumFrames = 60
+		Loop = true
+		PlaySpeed = 24
+		Material = "Unlit"
+		GroupName = "FX_Terrain"
 		DieWithOwner = true
 		CreateAnimation = null
+		AngleFromOwner = "Ignore"
+		OffsetZ = 0
+		LocationZFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Scale = 1.25
+		Sound = "/SFX/AspectAvailableAuraSFX"
+		StopSoundOnFinishFade = 0.2
+		SoundAllowedAfterFrame = -1
+	}
+
+	{
+		Name = "WeaponAspectAvailableBackGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0.85
+		Blue = 0.6
+		GroupName = "FX_Dark"
+		StartAlpha = 0.3
+		EndAlpha = 0.5
+		PingPongColor = true
+		Material = "Unlit"
+		Scale = 1
+		Duration = 3
+		Loop = true
+		OffsetZ = 120
 	}
 
 	{
@@ -2954,6 +3186,23 @@
 	}
 
 	{
+		Name = "LimitGraspShrineUpgradeDoorExitLockedSW"
+		InheritFrom = "DoorExitLocked"
+		Scale = 1.28
+		OffsetX = -60
+		OffsetY = 150
+		Angle = 178
+	}
+	{
+		Name = "LimitGraspShrineUpgradeDoorExitLockedNE"
+		InheritFrom = "DoorExitLocked"
+		Scale = 1.28
+		OffsetX = -23
+		OffsetY = 60
+		Angle = 178
+	}
+
+	{
 		Name = "DoorExitLockedFx"
 		InheritFrom = "DoorExitLocked"
 		VisualFx = null
@@ -2984,12 +3233,42 @@
 		Loop = true
 		Scale = 1.5
 		TransferFrameFromThis = true
+		TransferFrameToThis = true
 	}
 
 	{
 		Name = "DoorExitLightSoftSW_Locked"
 		InheritFrom = "DoorExitLightSoftSW"
 		FilePath = "Fx\DoorExitLigtLockedA\DoorExitLigtLockedA"
+	}
+
+	{
+			Name = "DoorExitLightSoftSW_Unlocked_Transition"
+			InheritFrom = "DoorExitLightSoftSW"
+			StartAlpha = 0
+			EndAlpha = 1
+			StartFrame = 40
+			NumFrames = 20
+			PlaySpeed = 30
+			Loop = false
+			EaseIn = 0
+			EaseOut = 1
+			ChainTo = "DoorExitLightSoftSW"
+	}
+
+	{
+		Name = "DoorExitLightSoftSW_Unlock_Transition"
+		InheritFrom = "DoorExitLightSoftSW_Locked"
+		TransferFrameToThis = true
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 0.33
+		EaseIn = 0
+		EaseOut = 1
+		StartAlpha = 1
+		EndAlpha = 0
+		HoldLastFrame = true
+		ChildAnimation = "DoorExitLightSoftSW_Unlocked_Transition"
 	}
 
 	{
@@ -3002,6 +3281,16 @@
 		Name = "DoorExitLightSoftSW_Ephyra_Locked"
 		InheritFrom = "DoorExitLightSoftSW_Ephyra"
 		FilePath = "Fx\DoorExitLigtLockedA\DoorExitLigtLockedA"
+	}
+	{
+		Name = "DoorExitLightSoftSW_Ephyra_Locked_In"
+		InheritFrom = "DoorExitLightSoftSW_Ephyra_Locked"
+		LoopFramesOnly = true
+		Loop = false
+		Duration = 3
+		StartAlpha = 0
+		EndAlpha = 1
+		ChainTo = "DoorExitLightSoftSW_Ephyra_Locked"
 	}
 
 	{
@@ -3046,6 +3335,35 @@
 		FilePath = "Fx\DoorExitLigtLockedB\DoorExitLigtLockedB"
 	}
 
+	{
+			Name = "DoorExitLightSoftNE_Unlocked_Transition"
+			InheritFrom = "DoorExitLightSoftNE"
+			StartAlpha = 0
+			EndAlpha = 1
+			StartFrame = 40
+			NumFrames = 20
+			PlaySpeed = 30
+			Loop = false
+			EaseIn = 0
+			EaseOut = 1
+			ChainTo = "DoorExitLightSoftNE"
+	}
+
+	{
+		Name = "DoorExitLightSoftNE_Unlock_Transition"
+		InheritFrom = "DoorExitLightSoftNE_Locked"
+		TransferFrameToThis = true
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 0.33
+		EaseIn = 0
+		EaseOut = 1
+		StartAlpha = 1
+		EndAlpha = 0
+		HoldLastFrame = true
+		ChildAnimation = "DoorExitLightSoftNE_Unlocked_Transition"
+	}
+
 
 	{
 		Name = "DoorExitLightSoftNE_Ephyra"
@@ -3056,6 +3374,16 @@
 		Name = "DoorExitLightSoftNE_Ephyra_Locked"
 		InheritFrom = "DoorExitLightSoftNE_Ephyra"
 		FilePath = "Fx\DoorExitLigtLockedB\DoorExitLigtLockedB"
+	}
+	{
+		Name = "DoorExitLightSoftNE_Ephyra_Locked_In"
+		InheritFrom = "DoorExitLightSoftNE_Ephyra_Locked"
+		LoopFramesOnly = true
+		Loop = false
+		Duration = 3
+		StartAlpha = 0
+		EndAlpha = 1
+		ChainTo = "DoorExitLightSoftNE_Ephyra_Locked"
 	}
 
 	{
@@ -3504,6 +3832,122 @@
 	}
 
 	{
+		Name = "CauldronEndSpellSequence"
+		FilePath = "Screens\CauldronEndSpellSequence\CauldronEndSpellSequence"
+		NumFrames = 160
+		Material = "Unlit"
+		PlaySpeed = 30
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		VideoTexture = "CauldronEndSpellSequence"
+		ScaleFromOwner = "Ignore"
+		Scale = 1.5
+		OffsetY = -700
+		VisualFx = "CauldronEndBeams"
+		VisualFxCap = 1
+		VisualFxIntervalMin = 2
+		VisualFxIntervalMax = 2
+		Sound = "/SFX/Menu Sounds/CauldronMegaSpell"
+	}
+
+	{
+		Name = "CauldronEndSpellVignette"
+		FilePath = "Fx\CauldronVignette\CauldronEndSpellVignette\CauldronEndSpellVignette"
+		NumFrames = 46
+		PlaySpeed = 30
+		Material = "Unlit"
+		Scale = 5
+		Slides = [
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 48 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "CauldronEndBeams"
+		FilePath = "Fx\CauldronVignette\CauldronEndBeams\CauldronEndBeams"
+		NumFrames = 70
+		PlaySpeed = 30
+		Material = "Unlit"
+		ScaleY = 10
+		Scale = 4
+		OffsetY = -825
+		GroupName = "Combat_UI_World_Add"
+		VisualFx = "CauldronCastVignetteFx"
+		VisualFxCap = 24
+		VisualFxIntervalMax = 0.03
+		VisualFxIntervalMin = 0.025
+		CreateAnimations = [
+			{ Name = "CauldronEndBeamsGlow" }
+		]
+	}
+
+	{
+		Name = "CauldronEndBeamsGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 0.1
+		Green = 1.0
+		Blue = 0.4
+		GroupName = "Combat_UI_World_Add"
+		Material = "Unlit"
+		Scale = 5
+		StartAlpha = 0.5
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 2
+	}
+
+
+	{
 		Name = "CauldronSmokeLarge"
 		FilePath = "Screens\CauldronSmokeLarge\CauldronSmokeLarge"			
 		VideoTexture = "CauldronSmokeLarge"
@@ -3523,7 +3967,6 @@
 		CreateAnimations =
 		[
 			{ Name = "CauldronCastBeam" }
-			{ Name = "CauldronFullscreenDarken" }
 		]
 		Slides =
 		[
@@ -3622,6 +4065,106 @@
 	}
 
 	{
+		Name = "CauldronSmokeLargeWithLid"
+		InheritFrom = "CauldronSmokeLarge"
+		ClearCreateAnimations = true
+		StopSoundOnFinishFade = 2
+
+		Slides =
+		[
+			{ DurationFrames = 2 }
+			/*Frame 1*/
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 Sound = "/Leftovers/SFX/AcidSizzle" }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 10*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 Sound = "/SFX/BurnDamageSizzle" }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 20*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 30*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 40*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 50*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 60*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 70*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+	{
 		Name = "CauldronCastCircle"
 
 		Random =
@@ -3639,12 +4182,8 @@
 
 		AlphaMax = 0.6
 		AlphaMin = 0.2
-		EndAlpha = 1.0
-		EndBlue = 0.2
-		EndRed = 1.0
+		EndAlpha = 0.4
 		PingPongColor = true
-		StartBlue = 0.21
-		StartGreen = 0.99
 		EaseIn = 0.9
 		EaseOut = 1.0
 		EndFrame = 1
@@ -3659,16 +4198,24 @@
 		ScaleMax = 1.1
 		ScaleMin = 0.3
 		Ambient = 0.0
+		StartRed = 0.001
+		StartGreen = 0.21
+		StartBlue = 0.99
+		EndRed = 0.05
+		EndGreen = 1
+		EndBlue = 0.8
 	}
 
 	{
 		Name = "CauldronCastCircleB"
 		InheritFrom = "CauldronCastCircleA"
 		FilePath = "Fx\CastCircles\CastCircleD"
-		EndBlue = 0.4
-		EndGreen = 0.2
-		StartBlue = 0.99
+		StartRed = 0.001
 		StartGreen = 0.21
+		StartBlue = 0.99
+		EndRed = 0.05
+		EndGreen = 0.9
+		EndBlue = 1.0
 	}
 
 	{
@@ -3736,9 +4283,9 @@
 		FilePath = "Particles\particle_glow_egg"
 		GroupName = "FX_Add_Top"
 
-		EndAlpha = 0.25
+		EndAlpha = 0.1
 		PingPongColor = true
-		Duration = 2.5
+		Duration = 1.5
 		EaseOut = 1.0
 		EndFrame = 1
 		NumFrames = 1
@@ -3747,9 +4294,32 @@
 		EndScale = 3.0
 		Scale = 2.0
 		ScaleFromOwner = "Ignore"
-		ScaleX = 1.5
+		StartScaleX = 0.7
+		EndScaleX = 0.5
+		ScaleX = 0.3
 		StartScale = 2.0
 		Ambient = 0.0
+		CreateAnimation = "CauldronCastBackGlow"
+	}
+
+	{
+		Name = "CauldronCastBackGlow"
+		InheritFrom = "CauldronCastGlow"
+		FilePath = "Particles\particle_glow_egg"
+		Red = 0
+		Green = 0
+		Blue = 0
+		EndAlpha = 1
+		ScaleX = 2
+		Duration = 3
+		Scale = 3
+		Alpha = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetZ = 400
+		ColorFromOwner = "Ignore"
+		GroupName = "FX_Dark"
+		CreateAnimation = null
 	}
 
 	{
@@ -3777,7 +4347,6 @@
 		Name = "CauldronSmokeSmall"
 		FilePath = "Fx\CauldronSmokeSmall\CauldronSmokeSmall"
 		GroupName = "FX_Standing_Top"
-
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
 		ColorFromOwner = "Ignore"
@@ -3792,7 +4361,6 @@
 		[
 			{ Name = "CauldronCastBeam" }
 			{ Name = "CauldronCastGlow" }
-			{ Name = "CauldronFullscreenDarken" }
 		]
 	}
 
@@ -3810,15 +4378,12 @@
 		Name = "CauldronFullscreenDarken"
 		FilePath = "Backgrounds\rectangle_01"
 		GroupName = "FX_Standing_Top"
-
 		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
 		StartAlpha = 0.66
 		Duration = 0.5
 		EaseOut = 0.33
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		Scale = 30.0
+		Scale = 8.0
 		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
 	}
 
@@ -3962,6 +4527,38 @@
 		VisualFxIntervalMin = 1.0
 		PingPongShiftOverDuration = true
 	}
+
+	{
+		Name = "ContractTeleportFx"
+		InheritFrom = "BoonDropFrontFlare"
+		AddColor = true
+		Red = 1.0
+		Green = 0.2
+		Blue = 0.2
+		CreateAnimation = "ContractTeleportFlashFx"
+	}
+
+	{
+		Name = "ContractTeleportFlashFx"
+		FilePath = "Fx\PickupFlareA\PickupFlareA"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Alpha = 1.0
+		Red = 1.0
+		Green = 0.2
+		Blue = 0.2
+		EndFrame = 30
+		NumFrames = 30
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OffsetZ = 100.0
+		LocationZFromOwner = "Ignore"
+		SortMode = "Id"
+		Scale = 1.0
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		TimeModifierFraction = 0.0
+	}
 	
 	{
 		Name = "BoonOrbDissipate"
@@ -4075,13 +4672,9 @@
 		InheritFrom = "BlindBoxLoot"
 		VisualFx = "null"
 		ChildAnimation = "null"
-		EndOffsetY = 0
 		VisualFxIntervalMax = 0
 		VisualFxIntervalMin = 0
-		Duration = 0
-		PingPongShiftOverDuration = false
-		PingPongScale = false
-		EndScale = 1
+		Duration = 2.5
 		Sound = null
 	}
 
@@ -4369,7 +4962,7 @@
 		VisualFxIntervalMax = 0.5
 		VisualFxIntervalMin = 0.25
 		OverlayVfx = true
-		Sound = "/SFX/Object Ambiences/BlindBoxLootAmbience"
+		Sound = "null"
 		StopSoundOnFinishFade = 0.2
 		CreateAnimations =
 		[
@@ -4565,7 +5158,150 @@
 		SortMode = "Id"
 		PingPongShiftOverDuration = true
 		OnlyWhenVisible = true
+		StopSoundOnFinishFade = 0.2
 	}
+
+	{
+		Name = "BoonDropOlympus"
+		InheritFrom = "BoonDropGold"
+		ChildAnimation = "BoonDropA-Olympus"
+	}
+
+	{
+		Name = "BoonDropA-Olympus"
+		FilePath = "Fx\OlympusBoon\OlympusBoon"
+		NumFrames = 60
+		PlaySpeed = 30
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		Loop = true
+		OffsetZ = -30
+		VisualFx = "OlympusBoonStreaks"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+	}
+
+	{
+		Name = "OlympusBoonStreaks"
+		Random = [
+			{ Name = "OlympusBoonStreakA" }
+			{ Name = "OlympusBoonStreakB" }
+			{ Name = "OlympusBoonStreakA" }
+			{ Name = "OlympusBoonStreakB" }
+			{ Name = "OlympusBoonStreakC" }
+		]
+	}
+
+	{
+		Name = "OlympusBoonStreakA"
+		FilePath = "Particles\particle_line_03"
+		Material = "Unlit"
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		StartAlpha = 0
+		EndAlpha = 1
+		StartScaleY = 0
+		EndScaleY = 1
+		PingPongScale = true
+		PingPongColor = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ScaleX = 0.7
+		ScaleY = 1
+		RandomOffsetY = 150
+		ScaleMin = 2
+		ScaleMax = 6
+		OffsetZ = 400
+		RandomDurationMin = 2
+		RandomDurationMax = 3
+		Value = 1
+		Saturation = -0.2
+		RandomOffsetX = 30
+		CreateAnimation = "OlympusBoonParticle"
+	}
+
+
+	{
+		Name = "OlympusBoonStreakB"
+		InheritFrom = "OlympusBoonStreakA"
+		RandomOffsetX = 0
+		StartOffsetZ = 5
+		EndOffsetZ = 0
+		StartScaleY = 0.9
+		ScaleX = 1.5
+		EndOffsetY = 1
+	}
+
+	{
+		Name = "OlympusBoonStreakC"
+		InheritFrom = "OlympusBoonStreakA"
+		ScaleMin = 1
+		ScaleMax = 2
+		EndScaleY = 0.5
+		FilePath = "Particles\particle_spectral_streak"
+		Value = 0.3
+		Saturation = -0.6
+		RandomOffsetX = 15
+		StartScaleX = 1
+		EndScaleX = 1.5
+	}
+
+	{
+		Name = "OlympusBoonParticle"
+		Random = [
+			{ Name = "OlympusBoonParticleA" }
+			{ Name = "OlympusBoonParticleB" }
+		]
+	}
+
+	{
+		Name = "OlympusBoonParticleA"
+		FilePath = "Fx\ParticleFlakeBokeh\ParticleFlakeBokeh"
+		NumFrames = 90
+		AddColor = true
+		RandomRotation = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		Material = "Unlit"
+		Red = 1
+		Green = 0.8
+		Blue = 0.5
+		RandomOffsetX = 100
+		RandomOffsetY = 300
+		LoopFramesOnly = true
+		RandomDurationMin = 1.5
+		RandomDurationMax = 2.25
+		StartScale = 0
+		EndScale = 1
+		ScaleMin = 0.33
+		ScaleMax = 1.0
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+		AlphaMin = 0.2
+		AlphaMax = 0.5
+		Scale = 0.3
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Angle = 270
+		VelocityMin = 30
+		VelocityMax = 90
+		LocationFromOwner = "Ignore"
+		GroupName = "FX_Standing"
+		OffsetZ = 500
+	}
+
+	{
+		Name = "OlympusBoonParticleB"
+		InheritFrom = "OlympusBoonParticleA"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		Scale = 0.5
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+		RandomOffsetX = 50
+	}
+
 
 	{
 		Name = "BoonDropAphrodite"
@@ -4622,6 +5358,7 @@
 		Scale = 1.0
 		ColorFromOwner = "Maintain"
 		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/AphroditeDropLoop"
 	}
 	{
 		Name = "BoonDropAphroditeUpgradedPreview"
@@ -4644,6 +5381,7 @@
 		Scale = 1.0
 		ColorFromOwner = "Maintain"
 		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/ChaosDropLoop"
 	}
 	{
 		Name = "BoonDropChaosUpgradedPreview"
@@ -4817,6 +5555,7 @@
 		Scale = 1.0
 		ColorFromOwner = "Maintain"
 		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/DemeterDropLoop"
 	}
 
 	{
@@ -4881,6 +5620,7 @@
 		Scale = 1.0
 		ColorFromOwner = "Maintain"
 		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/HermesDropLoop"
 	}
 
 	{
@@ -4941,12 +5681,79 @@
 		Scale = 1.0
 		ColorFromOwner = "Maintain"
 		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/HephaestusDropLoop"
 	}
 	{
 		Name = "BoonDropHephaestusUpgradedPreview"
 		InheritFrom = "BoonDropHephaestusPreview"
 		ChildAnimation = "BoonUpgradedPreviewSparkles"
 	}
+
+
+	{
+		Name = "BoonDropAres"
+		InheritFrom = "BoonDropGold"
+		ChildAnimation = "BoonDropA-Ares"
+	}
+
+	{
+		Name = "BoonDropA-Ares"
+		InheritFrom = "BoonDropA"
+		ChildAnimation = "BoonDropB-Ares"
+		CreateAnimations =
+		[
+			{ Name = "BoonDropBackGlow" }
+			{ Name = "BoonDropFrontFlare" }
+		]
+		Color = { Red = 0.30 Green = 0.23 Blue = 0.23 }
+	}
+
+	{
+		Name = "BoonDropB-Ares"
+		InheritFrom = "BoonDropB"
+		ChildAnimation = "BoonDropC-Ares"
+		CreateAnimations =
+		[
+			{ Name = "BoonDropBackGlow" }
+			{ Name = "BoonDropFrontFlare" }
+		]
+		Color = { Red = 0.88 Green = 0.46 Blue = 0.46 }
+	}
+
+	{
+		Name = "BoonDropC-Ares"
+		InheritFrom = "BoonDropC"
+		ChildAnimation = "BoonDropAresIcon"
+		CreateAnimations =
+		[
+			{ Name = "BoonDropBackGlow" }
+			{ Name = "BoonDropFrontFlare" }
+		]
+		Color = { Red = 1.0 Green = 0.06 Blue = 0.06 }
+	}
+
+	{
+		Name = "BoonDropAresIcon"
+		InheritFrom = "BoonDropIcon"
+		FilePath = "Items\Loot\Boon\AresIconSpin\AresIconSpin"
+	}
+	{
+		Name = "BoonDropAresPreview"
+		InheritFrom = "BoonDropRoomRewardIconPreviewBase"
+		NumFrames = 1
+		FilePath = "Items\Loot\Boon\AresIconSpin\AresIconSpin0015"
+		OffsetZ = 0
+		Scale = 1.0
+		ColorFromOwner = "Maintain"
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/AresDropLoop"
+	}
+	{
+		Name = "BoonDropAresUpgradedPreview"
+		InheritFrom = "BoonDropAresPreview"
+		ChildAnimation = "BoonUpgradedPreviewSparkles"
+	}
+
 
 	{
 		Name = "BoonDropPoseidon"
@@ -5004,6 +5811,7 @@
 		Scale = 1.0
 		ColorFromOwner = "Maintain"
 		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/PoseidonDropLoop"
 	}
 
 	{
@@ -5069,6 +5877,7 @@
 		Scale = 1.0
 		ColorFromOwner = "Maintain"
 		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/ZeusDropLoop"
 	}
 
 	{
@@ -5136,6 +5945,7 @@
 		Scale = 1.0
 		ColorFromOwner = "Maintain"
 		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/ApolloDropLoop"
 	}
 	{
 		Name = "BoonDropApolloUpgradedPreview"
@@ -5201,6 +6011,7 @@
 		Scale = 1.0
 		ColorFromOwner = "Maintain"
 		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/HeraDropLoop"
 	}
 	{
 		Name = "BoonDropHeraUpgradedPreview"
@@ -5266,6 +6077,7 @@
 		Scale = 1.0
 		ColorFromOwner = "Maintain"
 		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/HestiaDropLoop"
 	}
 	{
 		Name = "BoonDropHestiaUpgradedPreview"
@@ -5648,31 +6460,29 @@
 
 	{
 		Name = "LastStandDrop"
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
 		CreateAnimation = "PickupFlareA"
-		FilePath = "Items\\Loot\\KissofStyx"
-		EndFrame = 1
+		FilePath = "Items\Loot\KissofStyx\KissofStyx"
+		EndFrame = 60
 		Loop = true
-		NumFrames = 1
+		NumFrames = 60
 		StartFrame = 1
-		Duration = 2
-		Scale = 0.8
+		PlaySpeed = 30.0
+		Scale = 1.0
 		Ambient = 0.0
+		Sound = "/SFX/Object Ambiences/LastStandAmbience"
+		StopSoundOnFinishFade = 0.2
 	}
 	{
 		Name = "RerollDrop"
-		CreateAnimation = "PickupFlareA"
-		FilePath = "Fx\StarPulse\StarPulse"
-		Scale = 0.7
-		EndFrame = 80
-		Loop = true
-		NumFrames = 80
-		PlaySpeed = 30.0
-		ReRandomizeOnLoop = false
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
+		FilePath = "Items\Loot\ReRoll\ReRoll"
+		Scale = 1.0
+		NumFrames = 60
 		StartFrame = 1
-		RandomFlipHorizontal = true
-		RandomFlipVertical = true
-		RandomRotation = true
-		Material = "Unlit"
+		EndFrame = 60
+		Loop = true
+		PlaySpeed = 30.0
 	}
 	{
 		Name = "GiftDrop"
@@ -5697,6 +6507,9 @@
 		EndBlue = 0.1
 		PingPongColor = true
 		AngleFromOwner = "Ignore"
+		CreateAnimations = [
+			{ Name = "ResourceGlow_Base" }
+		]
 	}
 
 	{
@@ -5766,7 +6579,6 @@
 	
 	{
 		Name = "MaxHealthDrop"
-		CreateAnimation = "ItemSpawnFx"
 		FilePath = "Fx\MaxHealthUp\MaxHealthUp"			
 		VisualFx = "MaxHealthDropParticles"
 		VisualFxManagerCap = 400
@@ -5784,6 +6596,10 @@
 		VisualFxIntervalMin = 0.2
 		PingPongShiftOverDuration = true
 		SoundManagerCap = 30
+		CreateAnimations = [
+			{ Name = "ResourceGlow_Base" }
+			{ Name = "PickupFlareA" }
+		]
 		Slides =
 		[
 			{ DurationFrames = 1 Sound = "/SFX/HeartPulsate1" Frame = 5 }
@@ -5859,26 +6675,18 @@
 	{
 		Name = "PowerDrinkDrop"
 		CreateAnimation = "PickupFlareA"
-		FilePath = "Items\Loot\PowerDrinkDrop"
+		FilePath = "Items\Loot\PowerDrinkDrop\PowerDrinkDrop"
 		VisualFx = "GiftDropParticles"
-		EndFrame = 1
+		EndFrame = 60
 		Loop = true
-		NumFrames = 1
+		NumFrames = 60
 		StartFrame = 1
-		Duration = 2
-		Scale = 0.8
+		PlaySpeed = 30.0
+		Scale = 1.0
 		Ambient = 0.0
 		VisualFxIntervalMax = 0.3
 		VisualFxIntervalMin = 0.2
-		StartScale = 0.98
-		EndScale = 1.02
-		/*
-		PingPongAngle = true
-		EndAngle = 12.0
-		StartAngle = -12.0*/
-		PingPongScale = true
 	}
-	
 
 	{
 		Name = "RoomRewardAvailable_Back_Meta"
@@ -5911,7 +6719,7 @@
 		NumFrames = 40
 		PlaySpeed = 30.0
 		StartFrame = 1
-		OffsetZ = 0
+		OffsetX = 0
 		OffsetY = 0
 		Scale = 1.0
 		ScaleFromOwner = "Maintain"
@@ -6911,7 +7719,7 @@
 
 	{
 		Name = "MoneyDropCoin"
-		CreateAnimation = "ItemSpawnFx"
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
 		FilePath = "Fx\RoomRewardMoneyDrop\RoomRewardMoneyDrop"			
 		VisualFx = "MoneySparkleOutward"
 		VisualFxManagerCap = 400
@@ -7131,26 +7939,63 @@
 
 	{
 		Name = "ManaSparkleUp"
-		InheritFrom = "MoneySparkle"
+		FilePath = "Particles\particle_sparkle_glow"
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.7
+		RandomOffsetX = 30
+		RandomOffsetY = 50
 		GroupName = "FX_Standing_Add"
+		AddColor = false
+		StartRed = 0.7
+		StartGreen = 0.9
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0.5
+		EndBlue = 1.0
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		ScaleMin = 0.2
+		ScaleMax = 0.5
+		UseOwnAngle = false
+		EaseIn = 0.9
+		EaseOut = 1
+		PingPongColor = true
+		Angle = 90
+		OffsetZ = 80
 		AngleFromOwner = "Ignore"
-		Red = 0.1
-		Blue = 1.0
-		Green = 0.3
-		RandomDurationMin = 0.8
-		RandomDurationMax = 0.9
-		OffsetZ = 60.0
-		Acceleration = 400.0
-		VelocityMin = 60.0
-		EndScale = 2.0
-		ScaleMax = 0.9
-		ScaleMin = 0.6
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		VelocityMin = 300
+		VelocityMax = 400
+		Acceleration = -800
 	}
 	
 	{
+		Name = "ManaSparkleUpWeaponKitUpgrade"
+		InheritFrom = "ManaSparkleUp"
+		UseAttachedFlasher = false
+		ScaleFromOwner = "Ignore"
+		AddColor = true
+		Scale = 0.33
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.0
+		RadialOffsetMin = 50
+		RadialOffsetMax = 100
+		DieWithOwner = false
+		AngleMin = 0
+		AngleMax = 180
+		StartScale = 1
+		EndScale = 0
+		PingPongScale = false
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -500
+	}
+
+	{
 		Name = "ManaSparkleShower"
 		FilePath = "Dev\blank_invisible"
-		
 		VisualFx = "ManaSparkleUp"
 		Duration = 1.25
 		EndFrame = 1
@@ -7158,30 +8003,86 @@
 		StartFrame = 1
 		VisualFxIntervalMax = 0.12
 		VisualFxIntervalMin = 0.08
+		ChildAnimation = "MelManaGatherInstant"
+	}
+
+	{
+		Name = "ManaSparkleShowerWeaponKit"
+		InheritFrom = "ManaSparkleShower"
+		ChildAnimation = null
+		VisualFx = "ManaSparkleUpWeaponKitUpgrade"
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+		VisualFxCap = 10
+		CreateAnimations = [
+			{ Name = "WeaponKitUpgradeFlare" }
+		]
+	}
+
+	{
+		Name = "WeaponKitUpgradeFlare"
+		FilePath = "Particles\particle_glintFlare"
+		AddColor = true
+		StartScale = 1
+		EndScale = 0
+		Duration = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		GroupName = "FX_Standing_Add"
+		Red = 0.5
+		Green = 0.7
+		Blue = 1.0
+		OffsetZ = 100
 	}
 	
 	{
 		Name = "ManaSparkleUpIndicator"
 		InheritFrom = "ManaSparkleUp"
 		OffsetZ = 60.0
-		Acceleration = 200.0
-		VelocityMin = 60.0
-		EndScale = 1.0
+		Acceleration = -4000.0
+		VelocityMin = 900.0
+		VelocityMax = 1200.0
 		ScaleMax = 0.9
 		ScaleMin = 0.6
+		Scale = 0.75
+		UseAttachedFlasher = false
+		StartOffsetZ = 0
+		EndOffsetZ = 10
+		DieWithOwner = false
+		PingPongScale = false
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.66
+		StartScale = 1
+		EndScale = 0
+		StartScaleY = 1.66
+		EndScaleY = 1
+		EaseIn = 0.99
+		EaseOut = 1.0
 	}
 
 	{
 		Name = "ChargeIndicatorManaSparkleShower"
-		FilePath = "Dev\blank_invisible"
-		
+		FilePath = "Fx\SkillProcFeedback\SkillProcFeedback"
+		NumFrames = 17
+		UseAttachedFlasher = false
 		VisualFx = "ManaSparkleUpIndicator"
-		Duration = 0.3
-		EndFrame = 1
-		NumFrames = 1
 		StartFrame = 1
-		VisualFxIntervalMax = 0.05
-		VisualFxIntervalMin = 0.03
+		VisualFxCap = 6
+		OffsetY = -50
+		VisualFxIntervalMax = 0.03
+		VisualFxIntervalMin = 0.02
+		Red = 0
+		Green = 0.5
+		Blue = 1.0
+		StartScale = 0.8
+		EndScale = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AngleFromOwner = "Ignore"
+		Angle = 90
+		PlaySpeed = 45
 	}
 
 	{
@@ -7248,31 +8149,26 @@
 
 	{
 		Name = "StoreRewardRandomStack"
+		InheritFrom = "BaseMetaRewardAnimatedDrop"
 		CreateAnimation = "PickupFlareA"
-		FilePath = "Items\Loot\PomSlice"
+		FilePath = "Items\Loot\PomSlice\PomSlice"
 		VisualFx = "StackUpgradeSparkleOutward"
-		EndFrame = 1
+		EndFrame = 60
 		HoldLastFrame = false
-		NumFrames = 1
+		NumFrames = 60
 		StartFrame = 1
 		Scale = 1
+		PlaySpeed = 30.0
 		Material = "Unlit"
 		VisualFxIntervalMax = 0.1
 		VisualFxIntervalMin = 0.2
-		StartOffsetZ = 0
-		EndOffsetZ = 15
-		PingPongShiftOverDuration = true
-		EaseIn = 0
-		EaseOut = 1.0
 		Loop = true
-		Duration = 1.5
-		StartAngle = -2
-		EndAngle = 2
-		PingPongAngle = true
-		PhaseOffsetAngle = 90
-		PingPongScale = true
-		StartScale = 1
-		EndScale = 1.05
+	}
+	{
+		Name = "RandomStackPreview"
+		InheritFrom = "BoonSymbolBaseIsometric"
+		FilePath = "Items\Loot\PomSlice"
+		Scale = 0.75
 	}
 	
 	{
@@ -7293,8 +8189,8 @@
 		Acceleration = 100.0
 		VelocityMin = 10.0
 		EndScale = 2.2
-		ScaleMax = 1.0
-		ScaleMin = 0.5
+		ScaleMax = 1.5
+		ScaleMin = 1.0
 		Color = { Red = 1.0 Green = 1.4 Blue = 0.0 }
 	}
 	
@@ -7674,7 +8570,7 @@
 		Name = "BoonInteractSpectralHoop"
 		FilePath = "Particles\particle_spectral_hoop"
 		GroupName = "FX_Add_Top"
-		
+		AngleFromOwner = "Ignore"
 		ColorFromOwner = "Ignore"
 		EndAlpha = 1.0
 		PingPongColor = true
@@ -7684,10 +8580,45 @@
 		EndFrame = 1
 		NumFrames = 1
 		StartFrame = 1
-		EndScale = 5.0
+		EndScale = 3.0
 		ScaleFromOwner = "Ignore"
-		StartScale = 3.0
+		StartScale = 1.5
 		Ambient = 0.0
+		VisualFx = "BoonInteractSpectralStreaks"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 24
+	}
+
+	{
+			Name = "BoonInteractSpectralStreaks"
+			FilePath = "Particles\particle_spectral_streak"
+			Material = "Unlit"
+			AngleMin = -40
+			AngleMax = 220
+			OriginX = 100
+			OriginY = 30
+			StartScaleX = 1
+			EndScaleX = 2
+
+			GroupName = "FX_Add_Top"
+			RandomDurationMin = 1.0
+			RandomDurationMax = 1.5
+			AlphaMin = 0.1
+			AlphaMax = 0.6
+			ScaleMin = 0.4
+			ScaleMax = 1.0
+			StartScaleY = 1
+			EndScaleY = 0.3
+			StartAlpha = 0
+			EndAlpha = 1
+			PingPongColor = true
+			VelocityMin = 20
+			VelocityMax = 100
+			AngleFromOwner = "Ignore"
+			Scale = 0.2
+			RadialOffsetMin = 200
+			RadialOffsetMax = 200
 	}
 	
 	{
@@ -7724,7 +8655,7 @@
 
 	{
 		Name = "BoonInteractFxSparkles"
-		FilePath = "Particles\particle_aphrodite_sparkle"
+		FilePath = "Particles\particle_sparkle_glow"
 		GroupName = "FX_Add_Top"
 		
 		AngleFromOwner = "Ignore"
@@ -7737,21 +8668,20 @@
 		RandomDurationMax = 2.5
 		RandomDurationMin = 1.5
 		StartFrame = 1
-		RadialOffsetMax = 400.0
+		RadialOffsetMax = 200.0
 		RadialOffsetMin = 100.0
 		LocationFromOwner = "Take"
-		VelocityMax = 100.0
-		VelocityMin = 10.0
+		VelocityMax = 200.0
+		VelocityMin = 100.0
 		PingPongScale = true
-		Scale = 0.5
+		Scale = 0.1
 		ScaleFromOwner = "Ignore"
 		ScaleMax = 1.0
 		ScaleMin = 0.2
 		StartScale = 0.0
 		Ambient = 0.0
-		RandomAccelerationMax = 100.0
-		RandomAccelerationMin = 20.0
-		Saturation = -1.0
+		RandomAccelerationMax = -100.0
+		RandomAccelerationMin = -20.0
 	}
     
 	{
@@ -7798,4 +8728,194 @@
 		StartScale = 0.0
 		OnlyWhenVisible = true
 	}
+
+	{
+		Name = "OreDepletedFx"
+		FilePath = "Fx\ShipsDustFront\ShipsDustFront"
+		NumFrames = 45
+		AngleFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		GroupName = "Standing"
+		VisualFx = "OreDepletedParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 14
+		ScaleFromOwner = "Ignore"
+		CreateAnimations = [
+			{ Name = "OreDepletedFxBack" }
+			{ Name = "OreDepletedFxB" }
+			{ Name = "OreDepletedFxC" }
+		]
+	}
+
+	{
+		Name = "OreDepletedParticles"
+		Random = [
+			{ Name = "OreDepletedParticleA" }
+			{ Name = "OreDepletedParticleB" }
+			{ Name = "OreDepletedParticleC" }
+			{ Name = "OreDepletedParticleD" }
+			{ Name = "OreDepletedParticleE" }
+		]
+	}
+
+	{
+		Name = "OreDepletedParticleA"
+		FilePath = "Particles\particle_typhonDebris_01"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleMin = 30
+		AngleMax = 150
+		AngleFromOwner = "Ignore"
+		VelocityMin = 200
+		VelocityMax = 500
+		RandomAccelerationMin = -250
+		RandomAccelerationMax = -100
+		Gravity = 800
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomRotation = true
+		RandomRotationSpeedMin = -180
+		RandomRotationSpeedMax = 180
+		RandomDurationMin = 0.4
+		RandomDurationMax = 1.2
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 1
+		ScaleMax = 2
+	}
+
+	{
+		Name = "OreDepletedParticleB"
+		InheritFrom = "OreDepletedParticleA"
+		FilePath = "Particles\particle_typhonDebris_02"
+	}
+	{
+		Name = "OreDepletedParticleC"
+		InheritFrom = "OreDepletedParticleA"
+		FilePath = "Particles\particle_typhonDebris_03"
+	}
+	{
+		Name = "OreDepletedParticleD"
+		InheritFrom = "OreDepletedParticleA"
+		FilePath = "Particles\particle_typhonDebris_04"
+	}
+	{
+		Name = "OreDepletedParticleE"
+		InheritFrom = "OreDepletedParticleA"
+		FilePath = "Particles\particle_typhonDebris_05"
+	}
+
+	{
+		Name = "OreDepletedParticlesFall"
+		Random = [
+			{ Name = "OreDepletedParticleFallA" }
+			{ Name = "OreDepletedParticleFallB" }
+			{ Name = "OreDepletedParticleFallC" }
+			{ Name = "OreDepletedParticleFallD" }
+			{ Name = "OreDepletedParticleFallE" }
+		]
+	}
+
+	{
+		Name = "OreDepletedParticleFallA"
+		FilePath = "Particles\particle_typhonDebris_01"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleMin = 240
+		AngleMax = 300
+		AngleFromOwner = "Ignore"
+		VelocityMin = 100
+		VelocityMax = 150
+		Gravity = 800
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.0
+		EaseOut = 0.1
+		RandomRotation = true
+		RandomRotationSpeedMin = -180
+		RandomRotationSpeedMax = 180
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.6
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 1
+		ScaleMax = 2
+		GroupName = "Standing"
+		RandomOffsetX = 30
+		RandomOffsetY = 100
+		OffsetY = -120
+	}
+
+	{
+		Name = "OreDepletedParticleFallB"
+		InheritFrom = "OreDepletedParticleFallA"
+		FilePath = "Particles\particle_typhonDebris_02"
+	}
+	{
+		Name = "OreDepletedParticleFallC"
+		InheritFrom = "OreDepletedParticleFallA"
+		FilePath = "Particles\particle_typhonDebris_03"
+	}
+	{
+		Name = "OreDepletedParticleFallD"
+		InheritFrom = "OreDepletedParticleFallA"
+		FilePath = "Particles\particle_typhonDebris_04"
+	}
+	{
+		Name = "OreDepletedParticleFallE"
+		InheritFrom = "OreDepletedParticleFallA"
+		FilePath = "Particles\particle_typhonDebris_05"
+	}
+
+	{
+		Name = "OreDepletedFxB"
+		FilePath = "Fx\DoorCloseDust\DoorCloseDust"
+		NumFrames = 30
+		AngleFromOwner = "Ignore"
+		PlaySpeed = 30
+		OriginX = 240
+		OriginY = 400
+		Hue = 0.1
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "OreDepletedFxC"
+		FilePath = "Particles\particle_banished_spike"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartScaleY = 1
+		EndScaleY = 0
+		StartScale = 1
+		EndScale = 0.5
+		OriginX = 193
+		OriginY = 800
+		AngleFromOwner = "Ignore"
+		Duration = 0.2
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Scale = 0.5
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.9
+		EndGreen = 0.5
+		EndBlue = 0.3
+		OffsetZ = 30
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "OreDepletedFxBack"
+		InheritFrom = "OreDepletedFx"
+		ClearCreateAnimations = true
+		FilePath = "Fx\ShipsDustBack\ShipsDustBack"
+		GroupName = "FX_Terrain"
+		VisualFx = "OreDepletedParticlesFall"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 7
+	}
+
 ]}

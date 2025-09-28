@@ -3,6 +3,39 @@
 	/* Cast */
 
 	{
+		Name = "MelinoeBaseSuitCastAnimations"
+		InheritFrom = "MelinoeBaseSuitAnimations"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Suit_AttackPunch1_Start" }
+			{ Name = "Melinoe_Suit_AttackPunch1_Fire" }
+			{ Name = "Melinoe_Suit_AttackPunch2_Start" }
+			{ Name = "Melinoe_Suit_AttackPunch2_Fire" }
+			{ Name = "Melinoe_Suit_Shiva_AttackDouble_Start" }
+			{ Name = "Melinoe_Suit_Shiva_AttackDouble_Fire" }
+			{ Name = "Melinoe_Suit_AttackDash_Start" }
+			{ Name = "Melinoe_Suit_AttackDash_Fire" }
+			{ Name = "Melinoe_Suit_AttackDash_FireSlow" }
+			{ Name = "Melinoe_Suit_OmegaAttackDash_Start" }
+			{ Name = "Melinoe_Suit_OmegaAttackDash_Fire" }
+			{ Name = "Melinoe_Suit_AttackExPunch_Charge" }
+			{ Name = "Melinoe_Suit_AttackExPunch_ChargeLoop" }
+			{ Name = "Melinoe_Suit_AttackExPunch_Start" }
+			{ Name = "Melinoe_Suit_AttackExPunch_Start2" }
+			{ Name = "Melinoe_Suit_AttackExPunch_Fire" }
+			{ Name = "Melinoe_Suit_SpecialMissile_Start" }
+			{ Name = "Melinoe_Suit_SpecialMissile_StartLoopFirst" }
+			{ Name = "Melinoe_Suit_SpecialMissile_StartLoop" }
+			{ Name = "Melinoe_Suit_SpecialMissile_Fire" }
+			{ Name = "Melinoe_Suit_SpecialMissile_FireQuick" }
+			{ Name = "Melinoe_Suit_SpecialMissile_FireLoop" }
+			{ Name = "Melinoe_Suit_Shiva_SpecialMissile_Start" }
+			{ Name = "Melinoe_Suit_Shiva_SpecialMissile_StartLoop" }
+			{ Name = "Melinoe_Suit_Shiva_SpecialMissile_Fire" }
+		]
+	}
+
+	{
 		Name = "SuitR_Cast_Start"
 		InheritFrom = "WeaponSuitRBase"
 		GrannyAnimation = "Suit_GloveRight_Base_CastCharge_C_00"
@@ -40,7 +73,7 @@
 	}
 	{
 		Name = "Melinoe_Suit_Cast_Start"
-		InheritFrom = "MelinoeBaseSuitAnimations"
+		InheritFrom = "MelinoeBaseSuitCastAnimations"
 		GrannyAnimation = "Melinoe_Suit_Base_CastCharge_C_00"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Suit_Cast_StartLoop"
@@ -135,14 +168,10 @@
 	}
 	{
 		Name = "Melinoe_Suit_Cast_Fire"
-		InheritFrom = "MelinoeBaseSuitAnimations"
+		InheritFrom = "MelinoeBaseSuitCastAnimations"
 		GrannyAnimation = "Melinoe_Suit_Base_Cast_C_00"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Suit_Cast_End"
-		RequireCurrentAnimationNotContains =
-		[
-			//{ Name = "Melinoe_Suit_Special_Fire" }
-		]
 
 		Attachments =
 		[
@@ -164,6 +193,10 @@
 			{
 				BlendTransitionFrom = "Melinoe_Suit_Cast_StartLoop"
 				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 3
 			}
 		]
 	}

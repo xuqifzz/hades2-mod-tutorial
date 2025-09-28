@@ -496,9 +496,8 @@
 	}
 
 	{
-		Name = "GoldFlyerGlow"
-		
-		FilePath = "Particles\particle_quickflashIris"
+		Name = "GoldFlyerGlow"		
+		FilePath = "Particles\particle_quickFlashIris"
 		Red = 1
 		Green = 0.8
 		Blue = 0.2
@@ -783,9 +782,8 @@
 	}
 
 	{
-		Name = "MoonDustFlyerGlow"
-		
-		FilePath = "Particles\particle_quickflashIris"
+		Name = "MoonDustFlyerGlow"		
+		FilePath = "Particles\particle_quickFlashIris"
 		Red = 0.1
 		Green = 0.3
 		Blue = 1.0

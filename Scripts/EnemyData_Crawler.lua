@@ -8,8 +8,8 @@ UnitSetData.Crawler =
 
 		EffectVfxScale= 0.5,
 
-		ActivateFx = "EnemyPreSpawnTerrainSmall",
-		ActivateFx2 = "EnemyPreSpawnStandingSmall",
+		ActivateFx = "EnemyPreSpawnTerrainTiny",
+		ActivateFx2 = "EnemyPreSpawnStandingTiny",
 		SpawnFx = "CrawlerHighlight",
 		StopAnimationsOnDeath = { "CrawlerHighlight", "CrawlerHighlightGlow", "CrawlerHighlight_Add" },
 
@@ -20,6 +20,9 @@ UnitSetData.Crawler =
 		},
 		ArmorSparkAnimation = "HitSparkArmor_Small",
 
+		SkipDamagedFx = true,
+		SkipUnitHitFlash = true,
+
 		StunAnimations = 
 		{
 			Default = "Enemy_SatyrRat_OnHit",
@@ -27,6 +30,20 @@ UnitSetData.Crawler =
 
 		MaxHealth = 1,
 		IgnoreSpeedShrine = true,
+		
+		SpellSummonDataOverrides =
+		{
+			DeepInheritance = true,
+			
+			OutgoingDamageModifiers =
+			{
+				{
+					NonPlayerMultiplier = 25,
+				},
+			},
+			MaxHealth = 150,
+			HealthBarOffsetY = -200,
+		},
 
 		Groups = { "GroundEnemies" },
 		IsAggroedSound = "/SFX/Enemy Sounds/Crawler/EmoteAlerted",
@@ -79,11 +96,25 @@ UnitSetData.Crawler =
 		BlockRespawnShrineUpgrade = true,
 		BlockCharm = true,
 		IgnoreSpeedShrine = true,
+		IgnoreSprintPhasingStasisStun = true,
 		EffectVfxScale= 0.5,
 		PolymorphScaleOverride = 0.5,
 		OnDeathFunctionName = "CrawlerMiniBossKillPresentation",
-		OnDeathFunctionArgs = { Message = "CrawlerDefeatedMessage", AltMessage = "CrawlerDefeatedMessageAlt", StartPanTime = 1.0, EndPanTime = 2.0, EndAngle = 270, FlashRed = true, MessageDelay = 0.5, IgnoreEndMusic = true, },
+		OnDeathFunctionArgs =
+		{
+			Message = "CrawlerDefeatedMessage",
+			AltMessage = "CrawlerDefeatedMessageAlt",
+			StartPanTime = 1.0,
+			EndPanTime = 2.0,
+			EndAngle = 270,
+			FlashRed = true,
+			MessageDelay = 0.5,
+			EndSecretMusicEarly = true,
+			IgnoreEndMusic = true,
+			SubtitleDelay = 0.0,
+		},
 		DeathAnimation = "Enemy_Crawler_Death",
+		RunHistoryKilledByName = "CrawlerMinibossCodex",
 
 		DamagedFxStyles =
 		{
@@ -117,7 +148,7 @@ UnitSetData.Crawler =
 
 		UseActivatePresentation = false,
 
-		MaxHealth = 4200,
+		MaxHealth = 4600,
 
 		RequiredSpawnPoint = "EnemyPoint",
 		Groups = { "GroundEnemies" },
@@ -137,11 +168,13 @@ UnitSetData.Crawler =
 			"AttackerAI",
 		},
 
-		WeaponOptions = { "CrawlerRush_Miniboss", "CrawlerMinibossSlam",
-							"CrawlerMinibossSummon", 
-						-- "CrawlerBurrow_Miniboss" -- removed for now
-					},
-		--WeaponOptions = { "CrawlerRush", "CrawlerBurrow_Miniboss" },
+		WeaponOptions =
+		{
+			"CrawlerRush_Miniboss",
+			"CrawlerMinibossSlam",
+			"CrawlerMinibossSummon", 
+			-- "CrawlerBurrow_Miniboss" -- removed for now
+		},
 
 		GeneratorData =
 		{
@@ -152,8 +185,9 @@ UnitSetData.Crawler =
 		{
 			{
 				Name = "Innate",
-				NonPlayerMultiplier = 0.0,
-			}
+				FriendMultiplier = 0.0,
+				TrapDamageTakenMultiplier = 0.0,
+			},
 		},
 
 		OnKillVoiceLines =
@@ -162,12 +196,11 @@ UnitSetData.Crawler =
 			{
 				{ Name = "BossVanquishedSpeech", Time = 60 },
 			},
-			[1] = { GlobalVoiceLines = "BarelySurvivedBossFightVoiceLines" },
-			[2] =
+			{ GlobalVoiceLines = "BarelySurvivedBossFightVoiceLines" },
 			{
 				BreakIfPlayed = true,
 				RandomRemaining = true,
-				PreLineWait = 5.2,				
+				PreLineWait = 5.2,
 				SuccessiveChanceToPlayAll = 0.66,
 				ThreadName = "RoomThread",
 				GameStateRequirements =
@@ -197,6 +230,43 @@ UnitSetData.Crawler =
 			},
 		},
 
+	},
+
+	Crawler_Shadow =
+	{
+		InheritFrom = { "Shadow", "BaseVulnerableEnemy", },
+		GenusName = "Crawler",
+
+		StartAggroed = true,
+
+		DamagedFxStyles =
+		{
+			Default = "HitSparkEnemyDamagedPhysical",
+			Rapid = "HitSparkEnemyDamagedPhysicalRapid",
+		},
+		ArmorSparkAnimation = "HitSparkArmor_Small",
+		
+		MaxHealth = 1500,
+
+		RequiredSpawnPoint = "EnemyPoint",
+		Groups = { "GroundEnemies" },
+		Material = "Organic",
+
+		ActiveCapWeight = 0.4,
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+		},
+		AIOptions =
+		{
+			"AttackerAI",
+		},
+
+		WeaponOptions =
+		{
+			"CrawlerRush_Shadow",
+		},
 	},
 }
 

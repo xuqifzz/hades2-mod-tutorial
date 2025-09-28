@@ -5,20 +5,22 @@ function SetupHarvestPoints( currentRoom, args )
 		EditorActivateAllHarvestPoints()
 	end
 
+	local requirementArgs = { RoomSetName = currentRoom.RoomSetName }
+	local roomData = RoomData[currentRoom.Name] or currentRoom
+
 	-- HarvestPoints
 	local harvestPoints = GetInactiveIdsByType({ Name = "HarvestPoint" })
-	currentRoom.HarvestPointIds = ShallowCopyTable( harvestPoints )
 	if (currentRoom.HarvestPointsAllowed or 0) > 0 then
+		local shouldTrackCount = ( currentRoom.NumHarvestPoints == 0 and not roomData.ResourcePointsIgnoredByBiomeRequirements )
 		currentRoom.HarvestPointChoicesIds = currentRoom.HarvestPointChoicesIds or {}
 		currentRoom.HarvestPointChoicesOptions = currentRoom.HarvestPointChoicesOptions or {}
-		UseHeroTraitsWithValue( "ForceHarvestPoint", true )
 		for i = 1, currentRoom.HarvestPointsAllowed do
 			if IsEmpty( harvestPoints ) then
 				break
 			end
 			local weightedList = {}
 			for k, option in pairs( HarvestData.WeightedOptions ) do
-				if IsGameStateEligible( option, option.GameStateRequirements ) then
+				if IsGameStateEligible( option, option.GameStateRequirements, requirementArgs ) then
 					weightedList[k] = option.Weight
 				end
 			end
@@ -43,7 +45,9 @@ function SetupHarvestPoints( currentRoom, args )
 						SetupObstacle( harvestPoint )
 						ChangeDrawGroup( harvestPoint.ObjectId, harvestPoint.DrawGroup or "Standing" )
 					end
-					currentRoom.NumHarvestPoints = (currentRoom.NumHarvestPoints or 0) + 1
+					if shouldTrackCount then
+						currentRoom.NumHarvestPoints = currentRoom.NumHarvestPoints + 1
+					end
 					currentRoom.UseableHarvestPoint = true
 				end
 			end
@@ -53,13 +57,12 @@ function SetupHarvestPoints( currentRoom, args )
 	-- ShovelPoints
 	local shovelPoints = GetInactiveIdsByType({ Name = "ShovelPoint" })
 	if currentRoom.ShovelPointSuccess then
+		local shouldTrackCount = ( currentRoom.NumShovelPoints == 0 and not roomData.ResourcePointsIgnoredByBiomeRequirements )
 		currentRoom.ShovelPointChoices = currentRoom.ShovelPointChoices or {}
 		for i = 1, currentRoom.ShovelPointsAllowed or 1 do
 			if IsEmpty( shovelPoints ) then
 				break
 			end
-			CurrentRun.ResourceNodesSeen.ToolShovel = (CurrentRun.ResourceNodesSeen.ToolShovel or 0) + 1
-			UseHeroTraitsWithValue( "ForceShovelPoint", true )
 			local shovelPointId = currentRoom.ShovelPointChoices[i] or RemoveRandomValue( shovelPoints )
 			if MapState.ActiveObstacles[shovelPointId] == nil then
 				local shovelPoint = DeepCopyTable( ObstacleData.ShovelPoint )
@@ -67,7 +70,10 @@ function SetupHarvestPoints( currentRoom, args )
 				currentRoom.ShovelPointChoices[i] = shovelPoint.ObjectId
 				Activate({ Id = shovelPoint.ObjectId, TriggerOnSpawn = false })
 				SetupObstacle( shovelPoint )
-				currentRoom.NumShovelPoints = (currentRoom.NumShovelPoints or 0) + 1
+				if shouldTrackCount then
+					currentRoom.NumShovelPoints = currentRoom.NumShovelPoints + 1
+					CurrentRun.BiomeHarvestPointsSeen.ShovelPoint = (CurrentRun.BiomeHarvestPointsSeen.ShovelPoint or 0) + 1
+				end
 				if HasAccessToTool("ToolShovel") then
 					currentRoom.UseableShovelPoint = true
 				else
@@ -81,15 +87,14 @@ function SetupHarvestPoints( currentRoom, args )
 
 	-- PickaxePoints
 	local pickaxePoints = GetInactiveIdsByType({ Name = "PickaxePoint" })
-	if currentRoom.PickaxePointSuccess and not currentRoom.ExorcismPointUsed then
+	if currentRoom.PickaxePointSuccess then
+		local shouldTrackCount = ( currentRoom.NumPickaxePoints == 0 and not roomData.ResourcePointsIgnoredByBiomeRequirements )
 		currentRoom.PickaxePointChoices = currentRoom.PickaxePointChoices or {}
 		for i = 1, currentRoom.PickaxePointsAllowed or 1 do
 			if IsEmpty( pickaxePoints ) then
 				break
-			end	 
-			CurrentRun.ResourceNodesSeen.ToolPickaxe = (CurrentRun.ResourceNodesSeen.ToolPickaxe or 0) + 1
-			UseHeroTraitsWithValue( "ForcePickaxePoint", true )
-			currentRoom.ChosenPickaxePointData = currentRoom.ChosenPickaxePointData or GetRandomEligibleValueFromWeightedList( PickaxePointData.WeightedOptions )
+			end
+			currentRoom.ChosenPickaxePointData = currentRoom.ChosenPickaxePointData or GetRandomEligibleValueFromWeightedList( PickaxePointData.WeightedOptions, requirementArgs )
 			if currentRoom.ChosenPickaxePointData == nil then
 				DebugAssert({ Condition = false, Text = "No valid PickaxePointData", Owner = "James" })
 			end
@@ -102,7 +107,13 @@ function SetupHarvestPoints( currentRoom, args )
 				currentRoom.PickaxePointChoices[i] = pickaxePoint.ObjectId
 				Activate({ Id = pickaxePoint.ObjectId, TriggerOnSpawn = false })
 				SetupObstacle( pickaxePoint )
-				currentRoom.NumPickaxePoints = (currentRoom.NumPickaxePoints or 0) + 1
+				if pickaxePoint.Geometry ~= nil then
+					SetGeometry({ Id = pickaxePoint.ObjectId, Points = pickaxePoint.Geometry })
+				end
+				if shouldTrackCount then
+					currentRoom.NumPickaxePoints = currentRoom.NumPickaxePoints + 1
+					CurrentRun.BiomeHarvestPointsSeen.PickaxePoint = (CurrentRun.BiomeHarvestPointsSeen.PickaxePoint or 0) + 1
+				end
 				if HasAccessToTool( "ToolPickaxe" ) then
 					currentRoom.UseablePickaxePoint = true
 				else
@@ -119,14 +130,13 @@ function SetupHarvestPoints( currentRoom, args )
 	-- ExorcismPoints
 	local exorcismPoints = GetInactiveIdsByType({ Name = "ExorcismPoint" })
 	if currentRoom.ExorcismPointSuccess and not currentRoom.ExorcismPointUsed then
+		local shouldTrackCount = ( currentRoom.NumExorcismPoints == 0 and not roomData.ResourcePointsIgnoredByBiomeRequirements )
 		currentRoom.ExorcismPointChoices = currentRoom.ExorcismPointChoices or {}
 		for i = 1, currentRoom.ExorcismPointsAllowed or 1 do
 			if IsEmpty( exorcismPoints ) then
 				break
-			end	
-			CurrentRun.ResourceNodesSeen.ToolExorcismBook = (CurrentRun.ResourceNodesSeen.ToolExorcismBook or 0) + 1
-			UseHeroTraitsWithValue( "ForceExorcismPoint", true )
-			currentRoom.ChosenExorcismPointData = currentRoom.ChosenExorcismPointData or GetRandomEligibleValueFromWeightedList( ExorcismData.WeightedOptions )
+			end
+			currentRoom.ChosenExorcismPointData = currentRoom.ChosenExorcismPointData or GetRandomEligibleValueFromWeightedList( ExorcismData.WeightedOptions, requirementArgs )
 			if currentRoom.ChosenExorcismPointData == nil then
 				DebugAssert({ Condition = false, Text = "No valid ExorcismData", Owner = "James" })
 			end
@@ -140,15 +150,19 @@ function SetupHarvestPoints( currentRoom, args )
 				Activate({ Id = exorcismPoint.ObjectId, TriggerOnSpawn = false })
 				SetupObstacle( exorcismPoint )
 				RestoreMapStateObject( CurrentRun.CurrentRoom.Name, exorcismPoint )
-				currentRoom.NumExorcismPoints = (currentRoom.NumExorcismPoints or 0) + 1
+				CreateAnimation({ DestinationId = exorcismPoint.ObjectId, Name = "ExorcismPointAvailable" })
+				if shouldTrackCount then
+					currentRoom.NumExorcismPoints = currentRoom.NumExorcismPoints + 1
+					CurrentRun.BiomeHarvestPointsSeen.ExorcismPoint = (CurrentRun.BiomeHarvestPointsSeen.ExorcismPoint or 0) + 1
+				end
 				if HasAccessToTool( "ToolExorcismBook" ) then
 					currentRoom.UseableExorcismPoint = true	
 					ExorcismGenerateMoveSequence( exorcismPoint )
 					ExorcismPointChosenPresentation( exorcismPoint )
+					SetAnimation({ DestinationId = exorcismPoint.ObjectId, Name = exorcismPoint.Animation })
 				else
 					exorcismPoint.ExitsUnlockedFunctionName = nil
 					exorcismPoint.UseText = exorcismPoint.NoToolUseText
-					SetAnimation({ DestinationId = exorcismPoint.ObjectId, Name = exorcismPoint.UnavailableAnimation })
 				end
 			end
 		end
@@ -157,26 +171,29 @@ function SetupHarvestPoints( currentRoom, args )
 	-- FishingPoints
 	local fishingPointIds = GetInactiveIdsByType({ Name = "FishingPoint" })
 	if currentRoom.FishingPointSuccess and not currentRoom.FishingPointUsed then
+		local shouldTrackCount = ( currentRoom.NumFishingPoints == 0 and not roomData.ResourcePointsIgnoredByBiomeRequirements )
 		currentRoom.FishingPointChoices = currentRoom.FishingPointChoices or {}
 		for i = 1, currentRoom.FishingPointsAllowed or 1 do
 			if IsEmpty( fishingPointIds ) then
 				break
 			end
-			CurrentRun.ResourceNodesSeen.ToolFishingRod = (CurrentRun.ResourceNodesSeen.ToolFishingRod or 0) + 1
-			UseHeroTraitsWithValue( "ForceFishingPoint", true )
 			local fishingPointId = currentRoom.FishingPointChoices[i] or RemoveRandomValue( fishingPointIds )
 			if MapState.ActiveObstacles[fishingPointId] == nil then
 				local fishingPoint = DeepCopyTable( ObstacleData.FishingPoint )
 				fishingPoint.ObjectId = fishingPointId
+				if roomData.FishingPointRadii ~= nil then
+					fishingPoint.InteractDistance = roomData.FishingPointRadii[fishingPointId]
+				end
 				currentRoom.FishingPointChoices[i] = fishingPoint.ObjectId
 				Activate({ Id = fishingPoint.ObjectId, TriggerOnSpawn = false })
 				SetupObstacle( fishingPoint )
-				currentRoom.NumFishingPoints = (currentRoom.NumFishingPoints or 0) + 1
+				if shouldTrackCount then
+					currentRoom.NumFishingPoints = currentRoom.NumFishingPoints + 1
+					CurrentRun.BiomeHarvestPointsSeen.FishingPoint = (CurrentRun.BiomeHarvestPointsSeen.FishingPoint or 0) + 1
+				end
 				if HasAccessToTool("ToolFishingRod") then
 					local roomData = RoomData[currentRoom.Name] or currentRoom
-					if roomData.AllowFishingPreExitsUnlock then
-						SetAnimation({ Name = "FishingPointActive", DestinationId = fishingPoint.ObjectId })
-					end
+					SetAnimation({ Name = "FishingPointActive", DestinationId = fishingPoint.ObjectId })
 					currentRoom.UseableFishingPoint = true
 				else
 					fishingPoint.ExitsUnlockedFunctionName = nil
@@ -188,9 +205,130 @@ function SetupHarvestPoints( currentRoom, args )
 
 end
 
+function IsAggroedUnitBlockingHarvest()
+	for id, v  in pairs( ShallowCopyTable( MapState.AggroedUnits ) ) do
+		local unit = ActiveEnemies[id]
+		if unit ~= nil and not unit.AllowHarvestWhileAggroed and not unit.AlwaysTraitor then
+			return true
+		end
+	end
+	return false
+end
+
+function IsComplexHarvestAllowed()
+	if IsCombatEncounterActive( CurrentRun, { IgnoreMainEncounter = CurrentRun.CurrentRoom.IgnoreMainEncounterForInventory, CheckBlockCodexBeforeStart = true } ) then
+		return false
+	end
+
+	if not IsEmpty( RequiredKillEnemies ) then
+		return false
+	end
+
+	if IsAggroedUnitBlockingHarvest() then
+		return false
+	end
+
+	return true
+end
+
+function ActivateHarvestPointBase( source )
+	local roomData = RoomData[CurrentRun.CurrentRoom.Name]
+	if roomData.HarvestPointBase == nil then
+		return
+	end
+	local baseIds = GetInactiveIdsByType({ Name = roomData.HarvestPointBase })
+	local closestBaseId = GetClosestInactiveId({ Id = source.ObjectId, DestinationIds = baseIds, Distance = 200 })
+	Activate({ Id = closestBaseId })
+end
+
+function GetHarvestPointSpawnChance( resourceData, room )
+	local spawnLimitPerBiome = resourceData.SpawnLimitPerBiome
+	if HasFamiliarTool( resourceData.ToolName ) then
+		spawnLimitPerBiome = spawnLimitPerBiome + 1
+	end
+	if not room.IgnoreHarvestBiomeSpawnLimit and ( CurrentRun.BiomeHarvestPointsSeen[resourceData.HarvestPointName] or 0 ) >= spawnLimitPerBiome then
+		return 0
+	end
+
+	local roomChance = room[resourceData.RoomChanceName]
+	if roomChance == 0 then
+		return 0
+	end
+
+	local familiarSpawnChance = 0
+	if HasFamiliarTool( resourceData.ToolName ) then
+		familiarSpawnChance = GetTotalHeroTraitValue( "FamiliarResourceBonusChance" )
+	end
+
+	return (roomChance or resourceData.SpawnChance) + familiarSpawnChance
+end
+
+function GrantElementFromTool( toolName, args )
+	args = args or {}
+
+	if not GameState.WeaponsUnlocked[toolName] then
+		return
+	end
+	if CurrentRun.ToolElementsSpawned[toolName] then
+		return
+	end
+	if CurrentRun.Hero.IsDead then
+		return
+	end
+
+	local toolData = WeaponShopItemData[toolName]
+	if RandomChance( toolData.ElementChance * GetTotalHeroTraitValue( "LuckMultiplier", { IsMultiplier = true }) ) then
+		CurrentRun.ToolElementsSpawned[toolName] = (CurrentRun.ToolElementsSpawned[toolName] or 0) + 1
+		if not args.SkipDelay then
+			wait( toolData.ElementPopupDelay, "GrantElementFromTool" )
+		end
+		local toolData = WeaponShopItemData[toolName]
+		AddTraitToHero( { TraitName = toolData.ElementName, SkipActivatedTraitUpdate = args.SkipActivatedTraitUpdate } )
+		return toolData.ElementName
+	end
+end
+
+function AutoHarvestOnExit()
+	local addResources = {}
+	local elements = {}
+	local harvestPointIds = GetIdsByType({ Names = { "HarvestPoint", "ShovelPoint", "PickaxePoint", "ExorcismPoint", "FishingPoint", "Mixer6CommonDrop" } })
+	for _, id in ipairs( harvestPointIds ) do
+		if IsUseable({ Id = id }) then
+			local harvestPoint = MapState.ActiveObstacles[id]
+			CallFunctionName( harvestPoint.OnUsedOnExitFunctionName, harvestPoint, addResources, elements )
+		end
+	end
+
+	local elementIconSpacing = 80
+	local numElements = TableLength( elements )
+	local elementOffsetX = elementIconSpacing * -0.5 * (numElements - 1)
+	for elementName in pairs( elements ) do
+		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ElementGranted_CombatText", ShadowScaleX = 1.5, SkipRise = true, SkipFlash = false, Duration = 1.8, OffsetX = elementOffsetX, OffsetY = 80, LuaKey = "TempTextData", LuaValue = { Name = elementName } } )
+		elementOffsetX = elementOffsetX + elementIconSpacing
+	end
+
+	local count = 0
+	for resourceName, amount in pairs( addResources ) do
+		local resourceData = ResourceData[resourceName]
+		PlaySound({ Name = resourceData.AutoHarvestSound, DestinationId = HUDScreen.Components.InventoryIcon.Id, Delay = 0.1 + (count * 0.2) })
+		AddResource( resourceName, amount, "AutoHarvestOnExit", {
+			PresentationDelay = count * 0.2,
+			SkipVoiceLines = true,
+			SkipResourceGainSound = true,
+			StartId = HUDScreen.Components.InventoryIcon.Id,
+			OffsetX = -120,
+			AnchorOffsetY = -50 - (count * 50),
+			HoldOffsetY = -100 - (count * 50),
+			FontSize = 120,
+			ShadowScale = 0.5,
+		} )
+		count = count + 1
+	end
+end
+
 function UseHarvestPoint( source, args, user )
 
-	if not CheckCooldown( "UsedHarvestPoint", 0.75, true ) or MapState.HostilePolymorph then
+	if not CheckCooldown( "UsedHarvestPoint", 0.75, true ) or MapState.HostilePolymorph or ( HasFamiliarTool( "ToolHarvest" ) and not MapState.FamiliarUnit ) then
 		return
 	end
 
@@ -198,21 +336,35 @@ function UseHarvestPoint( source, args, user )
 		return
 	end
 
+	local usedFamiliar = false
+	if HasFamiliarTool( "ToolHarvest" ) and IsComplexHarvestAllowed() then
+		usedFamiliar = true
+	end
+
 	AddInputBlock({ Name = "UseHarvestPoint" })
-	if CurrentRun.CurrentRoom.ExitsUnlocked then
+	if CurrentRun.CurrentRoom.ExitsUnlocked or usedFamiliar then
 		AddTimerBlock( CurrentRun, "UseHarvestPoint" )
 	end
-	HarvestStartPresentation( source, args, user )
+
+	if usedFamiliar then
+		BeginFamiliarHarvestInvulnerability()
+		FamiliarHarvestStartPresentation( source, args, user, chosenOption )
+	else
+		HarvestStartPresentation( source, args, user )
+	end
 
 	GameState.HarvestSuccesses = (GameState.HarvestSuccesses or 0) + 1
 	CurrentRun.HarvestSuccesses = (CurrentRun.HarvestSuccesses or 0) + 1
+	if usedFamiliar then
+		GameState.HarvestSuccessesFamiliar = (GameState.HarvestSuccessesFamiliar or 0) + 1
+		CurrentRun.HarvestSuccessesFamiliar = (CurrentRun.HarvestSuccessesFamiliar or 0) + 1
+	else
+		GameState.HarvestSuccessesManual = (GameState.HarvestSuccessesManual or 0) + 1
+		CurrentRun.HarvestSuccessesManual = (CurrentRun.HarvestSuccessesManual or 0) + 1
+	end
 
 	for resourceName, count in pairs( source.AddResources ) do
 		AddResource( resourceName, count, source.Name )
-	end
-
-	if GameState.WorldUpgrades.WorldUpgradeHarvestUpgrade and RandomChance( WorldUpgradeData.WorldUpgradeHarvestUpgrade.BonusResourcesChance ) then
-		thread( HarvestPointGiveBonusResource, source, args, user )
 	end
 
 	UseableOff({ Id = source.ObjectId })
@@ -221,22 +373,46 @@ function UseHarvestPoint( source, args, user )
 	HarvestEndPresentation( source, args, user )
 	RemoveInputBlock({ Name = "UseHarvestPoint" })
 	RemoveTimerBlock( CurrentRun, "UseHarvestPoint" )
-end
 
-function HarvestPointGiveBonusResource( source, args, user )
-	HarvestBonusResourcePresentation( source, args, user )
-	for resourceName, count in pairs( source.AddResources ) do
-		AddResource( resourceName, WorldUpgradeData.WorldUpgradeHarvestUpgrade.BonusResourcesCount, source.Name, { Text = "GainBonusResource" } )
+	if usedFamiliar then
+		EndFamiliarHarvestInvulnerability()
+		thread( PlayVoiceLines, HeroVoiceLines.FamiliarThankingVoiceLines, true )
+		wait( 0.3 )
+		ReenableFamiliar( MapState.FamiliarUnit, { InitialDelay = 1.0 } )
+	end
+
+	local heal = GetTotalHeroTraitValue("ResourceGatherHeal") * CalculateHealingMultiplier()
+	if heal > 0 then
+		Heal( CurrentRun.Hero, { HealFraction = heal, SourceName = "ResourceHeal" })
 	end
 end
 
-function HarvestPointUseCanceled( user )
+function UseHarvestPointOnExit( source, resourceTable, elementTable )
+	for resourceName, count in pairs( source.AddResources ) do
+		resourceTable[resourceName] = (resourceTable[resourceName] or 0) + count
+	end
+
+	local heal = GetTotalHeroTraitValue("ResourceGatherHeal") * CalculateHealingMultiplier()
+	if heal > 0 then
+		Heal( CurrentRun.Hero, { HealFraction = heal, SourceName = "ResourceHeal" })
+	end
+
+	UseableOff({ Id = source.ObjectId })
+	RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "Animation", "Blank" )
+	RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "UseableOff", true )
+
+	thread( UsedHarvestPointPresentation, source, { SkipVoiceLines = true } )
+end
+
+function HarvestPointUseCanceled( user, triggerArgs )
 	killTaggedThreads( user.PreHarvestThreadName )
 	RemoveInputBlock({ Name = "UseHarvestPoint" })
 	RemoveTimerBlock( CurrentRun, "UseHarvestPoint" )
 	RemoveOnDamagedFunction( user, "HarvestPointUseCanceled" )
 	user.OnHostilePolymorphFunctionName = nil
-	DebugPrint({ Text = "Harvest canceled by damage" })
+	if triggerArgs.Silent then
+		SetAnimation({ Name = "MelinoeGatherReturnToIdle", DestinationId = user.ObjectId })
+	end
 end
 
 function UseShovelPoint( source, args, user )
@@ -250,19 +426,19 @@ function UseShovelPoint( source, args, user )
 		return
 	end
 
-	if OnlyFamiliarHasAccessToTool( "ToolShovel" ) and not CurrentRun.CurrentRoom.ExitsUnlocked then
-		HarvestBlockedPresentation( source, { Text = "UseBlockedByMisc" } )
-		return
+	local usedFamiliar = false
+	if HasFamiliarTool( "ToolShovel" ) and IsComplexHarvestAllowed() then
+		usedFamiliar = true
 	end
 
 	AddInputBlock({ Name = "UseShovelPoint" })
-	if CurrentRun.CurrentRoom.ExitsUnlocked then
+	if CurrentRun.CurrentRoom.ExitsUnlocked or usedFamiliar then
 		AddTimerBlock( CurrentRun, "UseShovelPoint" )
 	end
-	local usedFamiliar = false
-	local chosenOption = GetRandomEligibleValueFromWeightedList( ShovelPointData.WeightedOptions )
-	if HasFamiliarTool( "ToolShovel" ) and CurrentRun.CurrentRoom.ExitsUnlocked then
-		usedFamiliar = true
+
+	local chosenOption = GetRandomEligibleValueFromWeightedList( ShovelPointData.WeightedOptions, { RoomSetName = CurrentRun.CurrentRoom.RoomSetName } )
+	if usedFamiliar then
+		BeginFamiliarHarvestInvulnerability()
 		FamiliarShovelStartPresentation( source, args, user, chosenOption )
 	else
 		ShovelStartPresentation( source, args, user, chosenOption )
@@ -279,7 +455,7 @@ function UseShovelPoint( source, args, user )
 	end
 
 	local resourceTimes = 1
-	if RandomChance( GetTotalHeroTraitValue("DoubleToolRewardChance")) then
+	if RandomChance( GetTotalHeroTraitValue("DoubleToolRewardChance") * GetTotalHeroTraitValue( "LuckMultiplier", { IsMultiplier = true })) then
 		resourceTimes = resourceTimes + 1
 	end
 	if resourceTimes > 1 then
@@ -291,19 +467,18 @@ function UseShovelPoint( source, args, user )
 			AddResource( resourceName, count * resourceTimes, source.Name )
 		end
 	end
-	while resourceTimes > 0 do
-		CallFunctionName( chosenOption.OnChosenFunctionName, source, chosenOption.OnChosenFunctionArgs, user, chosenOption )
-		resourceTimes = resourceTimes - 1
-	end
 
 	if ShovelPointData.ShovelPointBonusDrops ~= nil then
 		for i, drop in ipairs( ShovelPointData.ShovelPointBonusDrops ) do
-			if RandomChance( drop.Chance ) then
+			if RandomChance( drop.Chance * GetTotalHeroTraitValue( "LuckMultiplier", { IsMultiplier = true }) ) then
 				if drop.PresentationFunctionName ~= nil then
 					CallFunctionName( drop.PresentationFunctionName, source, args, user )
 				end
 				if drop.ProjectileName ~= nil then
-					CreateProjectileFromUnit({ Name = drop.ProjectileName, Id = CurrentRun.Hero.ObjectId, DestinationId = source.ObjectId, FireFromTarget = true })
+					local shovelTrap = DeepCopyTable( EnemyData.ShovelPointTrap )
+					shovelTrap.ObjectId = SpawnUnit({ Name = "ShovelPointTrap", Group = "Standing", DestinationId = source.ObjectId })	
+					thread(SetupUnit, shovelTrap, CurrentRun )
+					CreateProjectileFromUnit({ Name = drop.ProjectileName, Id = shovelTrap.ObjectId, DestinationId = source.ObjectId, FireFromTarget = true })
 				end
 				if drop.HealthDropName ~= nil then
 					DropMinorConsumable( drop.HealthDropName, source.ObjectId )
@@ -322,7 +497,7 @@ function UseShovelPoint( source, args, user )
 		end
 	end
 
-	CheckForToolElement( source.ObjectId, "ToolShovel2" )
+	thread( GrantElementFromTool, "ToolShovel2" )
 
 	UseableOff({ Id = source.ObjectId })
 	RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "Animation", "ShovelPointUsed" )
@@ -332,20 +507,50 @@ function UseShovelPoint( source, args, user )
 	RemoveTimerBlock( CurrentRun, "UseShovelPoint" )
 
 	if usedFamiliar then
+		EndFamiliarHarvestInvulnerability()
 		thread( PlayVoiceLines, HeroVoiceLines.FamiliarThankingVoiceLines, true )
 		wait( 0.3 )
 		ReenableFamiliar( MapState.FamiliarUnit, { InitialDelay = 1.0 } )
 	end
-
+	
+	local heal = GetTotalHeroTraitValue("ResourceGatherHeal") * CalculateHealingMultiplier()
+	if heal > 0 then
+		Heal( CurrentRun.Hero, { HealFraction = heal, SourceName = "ResourceHeal" })
+	end
 end
 
-function ShovelPointUseCanceled( user )
+function UseShovelPointOnExit( source, resourceTable, elementTable )
+	local chosenOption = GetRandomEligibleValueFromWeightedList( ShovelPointData.WeightedOptions, { RoomSetName = CurrentRun.CurrentRoom.RoomSetName } )
+	for resourceName, count in pairs( chosenOption.AddResources ) do
+		resourceTable[resourceName] = (resourceTable[resourceName] or 0) + count
+	end
+
+	local elementName = GrantElementFromTool( "ToolShovel2", { SkipDelay = true, SkipActivatedTraitUpdate = true } )
+	if elementName ~= nil then
+		elementTable[elementName] = true
+	end
+
+	local heal = GetTotalHeroTraitValue("ResourceGatherHeal") * CalculateHealingMultiplier()
+	if heal > 0 then
+		Heal( CurrentRun.Hero, { HealFraction = heal, SourceName = "ResourceHeal" })
+	end
+
+	UseableOff({ Id = source.ObjectId })
+	RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "Animation", "ShovelPointUsed" )
+	RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "UseableOff", true )
+
+	thread( UsedShovelPointOnExitPresentation, source )
+end
+
+function ShovelPointUseCanceled( user, triggerArgs )
 	killTaggedThreads( user.PreHarvestThreadName )
 	RemoveInputBlock({ Name = "UseShovelPoint" })
 	RemoveTimerBlock( CurrentRun, "UseShovelPoint" )
 	RemoveOnDamagedFunction( user, "ShovelPointUseCanceled" )
 	user.OnHostilePolymorphFunctionName = nil
-	DebugPrint({ Text = "Harvest canceled by damage" })
+	if triggerArgs.Silent then
+		SetAnimation({ Name = "Melinoe_Shovel_End", DestinationId = user.ObjectId })
+	end
 end
 
 function UsePickaxePoint( source, args, user )
@@ -363,19 +568,15 @@ function UsePickaxePoint( source, args, user )
 		return
 	end
 
-	if OnlyFamiliarHasAccessToTool( "ToolPickaxe" ) and not CurrentRun.CurrentRoom.ExitsUnlocked then
-		HarvestBlockedPresentation( source, { Text = "UseBlockedByMisc" } )
-		return
+	local usedFamiliar = false
+	if HasFamiliarTool( "ToolPickaxe" ) and IsComplexHarvestAllowed() then
+		usedFamiliar = true
 	end
-
-	CurrentRun.CurrentRoom.PickaxePointUsed = true
 
 	AddInputBlock({ Name = "UsePickaxePoint" })
-	if CurrentRun.CurrentRoom.ExitsUnlocked then
+	if CurrentRun.CurrentRoom.ExitsUnlocked or usedFamiliar then
 		AddTimerBlock( CurrentRun, "UsePickaxePoint" )
 	end
-
-	local usedFamiliar = false
 
 	user.PreHarvestThreadName = "PickaxeStartPresentation"
 	user.PickaxeDamageTaken = nil
@@ -387,8 +588,8 @@ function UsePickaxePoint( source, args, user )
 	local keepMining = true
 	while keepMining do
 	
-		if HasFamiliarTool( "ToolPickaxe" ) and CurrentRun.CurrentRoom.ExitsUnlocked then
-			usedFamiliar = true
+		if usedFamiliar then
+			BeginFamiliarHarvestInvulnerability()
 			FamiliarPickaxeStartPresentation( source, args, user )
 		else
 			PickaxeStartPresentation( source, args, user )
@@ -405,7 +606,7 @@ function UsePickaxePoint( source, args, user )
 		if source.Health > 0 then
 			PickaxeDepositDamagedPresentation( source, args, user )
 		else
-			PickaxeDepositDestroyedPresentation( source, args, user )
+			PickaxeDepositDestroyedPresentation( source, { UsedFamiliar = usedFamiliar } )
 
 			GameState.PickaxeSuccesses = (GameState.PickaxeSuccesses or 0) + 1
 			CurrentRun.PickaxeSuccesses = (CurrentRun.PickaxeSuccesses or 0) + 1
@@ -417,14 +618,14 @@ function UsePickaxePoint( source, args, user )
 				CurrentRun.PickaxeSuccessesManual = (CurrentRun.PickaxeSuccessesManual or 0) + 1
 			end
 
-			CheckForToolElement( source.ObjectId, "ToolPickaxe2" )
+			thread( GrantElementFromTool, "ToolPickaxe2" )
 
 			UseableOff({ Id = source.ObjectId })
 			RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "Animation", source.EmptyAnimation )
 			RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "UseableOff", true )
 		end
 		local resourceTimes = 1
-		if RandomChance( GetTotalHeroTraitValue("DoubleToolRewardChance")) then
+		if RandomChance( GetTotalHeroTraitValue("DoubleToolRewardChance") * GetTotalHeroTraitValue( "LuckMultiplier", { IsMultiplier = true })) then
 			resourceTimes = resourceTimes + 1
 		end
 	
@@ -444,13 +645,42 @@ function UsePickaxePoint( source, args, user )
 	user.OnHostilePolymorphFunctionName = nil
 	
 	if usedFamiliar then
+		EndFamiliarHarvestInvulnerability()
 		thread( PlayVoiceLines, HeroVoiceLines.FamiliarThankingVoiceLines, true )
 		wait( 0.3 )
 		ReenableFamiliar( MapState.FamiliarUnit, { InitialDelay = 1.0 } )
 	end
+
+	local heal = GetTotalHeroTraitValue("ResourceGatherHeal") * CalculateHealingMultiplier()
+	if heal > 0 and source.Health <= 0 then
+		Heal( CurrentRun.Hero, { HealFraction = heal, SourceName = "ResourceHeal" })
+	end
 end
 
-function PickaxePointUseCanceled( user )
+function UsePickaxePointOnExit( source, resourceTable, elementTable )
+	resourceTable[source.ResourceName] = (resourceTable[source.ResourceName] or 0) + source.Health
+
+	local elementName = GrantElementFromTool( "ToolPickaxe2", { SkipDelay = true, SkipActivatedTraitUpdate = true } )
+	if elementName ~= nil then
+		elementTable[elementName] = true
+	end
+
+	source.Health = 0
+	RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "Health", source.Health )
+
+	local heal = GetTotalHeroTraitValue("ResourceGatherHeal") * CalculateHealingMultiplier()
+	if heal > 0 then
+		Heal( CurrentRun.Hero, { HealFraction = heal, SourceName = "ResourceHeal" })
+	end
+
+	UseableOff({ Id = source.ObjectId })
+	RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "Animation", source.EmptyAnimation )
+	RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "UseableOff", true )
+
+	thread( PickaxeDepositDestroyedPresentation, source, { SkipVoiceLines = true, SkipSound = true } )
+end
+
+function PickaxePointUseCanceled( user, triggerArgs )
 	killTaggedThreads( user.PreHarvestThreadName )
 	RemoveInputBlock({ Name = "UsePickaxePoint" })
 	RemoveTimerBlock( CurrentRun, "UsePickaxePoint" )
@@ -458,64 +688,13 @@ function PickaxePointUseCanceled( user )
 	user.OnHostilePolymorphFunctionName = nil
 	DebugPrint({ Text = "Harvest canceled by damage" })
 	user.PickaxeDamageTaken = true
-end
-
-function ExorcismPointUseCanceled( user )
-	killTaggedThreads( user.PreExorcismThreadName )
-	RemoveInputBlock({ Name = "UseExorcismPoint" })
-	RemoveTimerBlock( CurrentRun, "UseExorcismPoint" )
-	RemoveOnDamagedFunction( user, "ExorcismPointUseCanceled" )
-	user.OnHostilePolymorphFunctionName = nil
-	DebugPrint({ Text = "Exorcism canceled by damage" })
-	user.ExorcismDamageTaken = true
-end
-
-function ExorcismGenerateMoveSequence( source )
-	source.MoveSequence = {}
-	local numMoves = RandomInt( source.NumMovesMin, source.NumMovesMax )
-	local prevMove = nil
-	for i = 1, numMoves do
-		local move = {}
-		while move.Duration == nil or (prevMove ~= nil and move.Left == prevMove.Left and move.Right == prevMove.Right) do -- Don't repeat moves, can just make duration longer
-			local random = RandomInt(1, 3)
-			if ( random == 1 ) then
-				move.Left = true
-				move.Right = true
-			elseif ( random == 2 ) then
-				move.Left = true
-				move.Right = false
-			else
-				move.Left = false
-				move.Right = true
-			end
-			move.Duration = RandomFloat( source.MoveDurationMin, source.MoveDurationMax )
-			move.Index = i
-			source.MoveSequence[i] = move
-		end
-		prevMove = move
+	if triggerArgs.Silent then
+		SetAnimation({ Name = "MelinoePickAxeMineReturnToIdle", DestinationId = user.ObjectId })
 	end
-end
-
-function IsAggoredUnitBlockingHarvest()
-	for id, v  in pairs( ShallowCopyTable( MapState.AggroedUnits ) ) do
-		local unit = ActiveEnemies[id]
-		if unit ~= nil and not unit.AllowHarvestWhileAggored and not unit.AlwaysTraitor then
-			return true
-		end
-	end
-	return false
-end
-function IsAggroedUnitBlockingInteract()
-	for id, v  in pairs( ShallowCopyTable( MapState.AggroedUnits ) ) do
-		local unit = ActiveEnemies[id]
-		if unit ~= nil and not unit.AllowInteractWhileAggroed and not unit.AlwaysTraitor then
-			return true
-		end
-	end
-	return false
 end
 
 function UseExorcismPoint( source, args, user )
+	args = args or {}
 
 	if not CheckCooldown( "UseExorcismPoint", 0.75, true ) or MapState.HostilePolymorph or ( HasFamiliarTool( "ToolExorcismBook" ) and not MapState.FamiliarUnit ) then
 		return
@@ -526,44 +705,36 @@ function UseExorcismPoint( source, args, user )
 		return
 	end
 		
-	if not IsEmpty( RequiredKillEnemies ) or IsAggoredUnitBlockingHarvest() then
+	if not IsComplexHarvestAllowed() then
 		HarvestBlockedPresentation( source, { Text = "UseBlockedByEnemies" } )
-		return
-	end
-
-	local roomData = RoomData[CurrentRun.CurrentRoom.Name] or CurrentRun.CurrentRoom
-	if not CurrentRun.CurrentRoom.ExitsUnlocked and not roomData.AllowExorcismPreExitsUnlock then
-		HarvestBlockedPresentation( source, { Text = roomData.HarvestBlockedText or RoomData.BaseRoom.HarvestBlockedText } )
 		return
 	end
 
 	CurrentRun.CurrentRoom.ExorcismPointUsed = true
 
 	AddInputBlock({ Name = "UseExorcismPoint" })
-	if CurrentRun.CurrentRoom.ExitsUnlocked then
-		AddTimerBlock( CurrentRun, "UseExorcismPoint" )
-	end
+	AddTimerBlock( CurrentRun, "UseExorcismPoint" )
 	
 	CurrentRun.Hero.UntargetableFlags.Exorcism = true
 	SetPlayerInvulnerable( "Exorcism" )
 	AddPlayerImmuneToForce( "Exorcism" )
 
 	user.ExorcismDamageTaken = nil
-	user.PreExorcismThreadName ="PreExorcismThread"
+	user.PreExorcismThreadName = "PreExorcismThread"
 
 	source.AttemptsRemaining = (source.AttemptsRemaining or 0) - 1
 
 	InvalidateCheckpoint()
 
 	local usedFamiliar = false
-	if HasFamiliarTool( "ToolExorcismBook" ) then
+	if HasFamiliarTool( "ToolExorcismBook" ) and not args.DisallowFamiliar then
 		usedFamiliar = true
 		FamiliarExorcismStartPresentation( source, args, user )
 	else
 		ExorcismStartPresentation( source, args, user )
 	end
 
-	if HasFamiliarTool( "ToolExorcismBook" ) then
+	if usedFamiliar then
 		GameState.ExorcismSuccessesFamiliar = (GameState.ExorcismSuccessesFamiliar or 0) + 1
 		CurrentRun.ExorcismSuccessesFamiliar = (CurrentRun.ExorcismSuccessesFamiliar or 0) + 1
 	else
@@ -597,23 +768,26 @@ function UseExorcismPoint( source, args, user )
 	GameState.ExorcisedNames[source.Animation] = (GameState.ExorcisedNames[source.Animation] or 0) + 1
 	CurrentRun.ExorcisedNames[source.Animation] = (CurrentRun.ExorcisedNames[source.Animation] or 0) + 1
 	
-	local resourceTimes = 1
-	if RandomChance( GetTotalHeroTraitValue("DoubleToolRewardChance")) then
-		resourceTimes = resourceTimes + 1
+	if not args.SkipResourceGain then
+		local resourceTimes = 1
+		if RandomChance( GetTotalHeroTraitValue("DoubleToolRewardChance") * GetTotalHeroTraitValue( "LuckMultiplier", { IsMultiplier = true })) then
+			resourceTimes = resourceTimes + 1
+		end
+
+		if resourceTimes > 1 then
+			thread( ChaosRewardIncreasedPresentation, source.ObjectId )
+			waitUnmodified( 0.25, RoomThreadName)
+		end
+
+		for resourceName, resourceAmount in pairs( source.AddResources ) do
+			AddResource( resourceName, resourceAmount * resourceTimes, source.Name )
+		end
+
+		thread( GrantElementFromTool, "ToolExorcismBook2" )
+		thread( CheckQuestStatus )
 	end
 
-	if resourceTimes > 1 then
-		thread( ChaosRewardIncreasedPresentation, source.ObjectId )
-		waitUnmodified( 0.25, RoomThreadName)
-	end
-
-	for resourceName, resourceAmount in pairs( source.AddResources ) do
-		AddResource( resourceName, resourceAmount * resourceTimes, source.Name )
-	end
-
-	CheckForToolElement( source.ObjectId, "ToolExorcismBook2" )
-
-	ExorcismSuccessPresentation( source, args, user )
+	ExorcismSuccessPresentation( source, { UsedFamiliar = usedFamiliar, ShowSpecialEmote = args.ShowSpecialEmote }, user )
 	UseableOff({ Id = source.ObjectId })
 	RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "Animation", "Blank" )
 	RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "UseableOff", true )
@@ -627,6 +801,76 @@ function UseExorcismPoint( source, args, user )
 	
 	if usedFamiliar then
 		ReenableFamiliar( MapState.FamiliarUnit )
+	end
+
+	if not args.SkipResourceGain then
+		local heal = GetTotalHeroTraitValue("ResourceGatherHeal") * CalculateHealingMultiplier()
+		if heal > 0 then
+			Heal( CurrentRun.Hero, { HealFraction = heal, SourceName = "ResourceHeal" })
+		end
+	end
+
+end
+
+function UseExorcismPointOnExit( source, resourceTable, elementTable )
+	for resourceName, resourceAmount in pairs( source.AddResources ) do
+		resourceTable[resourceName] = (resourceTable[resourceName] or 0) + resourceAmount
+	end
+
+	local elementName = GrantElementFromTool( "ToolExorcismBook2", { SkipDelay = true, SkipActivatedTraitUpdate = true } )
+	if elementName ~= nil then
+		elementTable[elementName] = true
+	end
+
+	local heal = GetTotalHeroTraitValue("ResourceGatherHeal") * CalculateHealingMultiplier()
+	if heal > 0 then
+		Heal( CurrentRun.Hero, { HealFraction = heal, SourceName = "ResourceHeal" })
+	end
+
+	CurrentRun.CurrentRoom.ExorcismPointUsed = true
+	UseableOff({ Id = source.ObjectId })
+	RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "Animation", "Blank" )
+	RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "UseableOff", true )
+
+	thread( ExorcismGhostDissipate, source )
+end
+
+function ExorcismPointUseCanceled( user, triggerArgs )
+	killTaggedThreads( user.PreExorcismThreadName )
+	RemoveInputBlock({ Name = "UseExorcismPoint" })
+	RemoveTimerBlock( CurrentRun, "UseExorcismPoint" )
+	RemoveOnDamagedFunction( user, "ExorcismPointUseCanceled" )
+	user.OnHostilePolymorphFunctionName = nil
+	DebugPrint({ Text = "Exorcism canceled by damage" })
+	user.ExorcismDamageTaken = true
+	if triggerArgs.Silent then
+		SetAnimation({ Name = "Melinoe_Tablet_ReturnToIdle", DestinationId = user.ObjectId })
+	end
+end
+
+function ExorcismGenerateMoveSequence( source )
+	source.MoveSequence = {}
+	local numMoves = RandomInt( source.NumMovesMin, source.NumMovesMax )
+	local prevMove = nil
+	for i = 1, numMoves do
+		local move = {}
+		while move.Duration == nil or (prevMove ~= nil and move.Left == prevMove.Left and move.Right == prevMove.Right) do -- Don't repeat moves, can just make duration longer
+			local random = RandomInt(1, 3)
+			if ( random == 1 ) then
+				move.Left = true
+				move.Right = true
+			elseif ( random == 2 ) then
+				move.Left = true
+				move.Right = false
+			else
+				move.Left = false
+				move.Right = true
+			end
+			move.Duration = RandomFloat( source.MoveDurationMin, source.MoveDurationMax )
+			move.Index = i
+			source.MoveSequence[i] = move
+		end
+		prevMove = move
 	end
 end
 
@@ -700,11 +944,13 @@ function ExorcismSequence( source, exorcismData, args, user )
 				consecutiveCheckFails = consecutiveCheckFails + 1
 				--DebugPrint({ Text = "Exorcism consecutiveCheckFails = "..consecutiveCheckFails })
 				if totalCheckFails >= (exorcismData.TotalCheckFails or 99) or consecutiveCheckFails >= (exorcismData.ConsecutiveCheckFails or 14) then
+					thread( DoRumble, { { LeftTriggerStrengthFraction = 0.0,  RightTriggerStrengthFraction = 0.0, }, } )
 					return false
 				end
 			end
 		end
 		if exorcismData.RequireCorrectAtMoveSwitch and consecutiveCheckFails > 0 then
+			thread( DoRumble, { { LeftTriggerStrengthFraction = 0.0,  RightTriggerStrengthFraction = 0.0, }, } )
 			return false
 		end
 
@@ -723,65 +969,245 @@ function ExorcismSequence( source, exorcismData, args, user )
 	end
 
 	DebugPrint({ Text = "totalCheckFails = "..totalCheckFails })
+	thread( DoRumble, { { LeftTriggerStrengthFraction = 0.0,  RightTriggerStrengthFraction = 0.0, }, } )
 	return true
 end
 
-function ActivateHarvestPointBase( source )
-	local roomData = RoomData[CurrentRun.CurrentRoom.Name]
-	if roomData.HarvestPointBase == nil then
+function UseFishingPoint( fishingPoint, args, user )
+
+	if not CheckCooldown( "UsedFishingPoint", 0.75, true ) or MapState.HostilePolymorph or ( HasFamiliarTool( "ToolFishingRod" ) and not MapState.FamiliarUnit ) then
 		return
 	end
-	local baseIds = GetInactiveIdsByType({ Name = roomData.HarvestPointBase })
-	local closestBaseId = GetClosestInactiveId({ Id = source.ObjectId, DestinationIds = baseIds, Distance = 200 })
-	Activate({ Id = closestBaseId })
-end
-
-function GetResourceNodeSpawnChance( resourceData, roomChance, bonusTraitName )
-
-	-- if a room is forcing a spawn chance of 0, we don't want to override that
-	if roomChance ~= nil and roomChance == 0 then
-		return 0
+	
+	if not HasAccessToTool( "ToolFishingRod" ) then
+		HarvestNoToolPresentation( fishingPoint, args, user, "ToolFishingRod" )
+		return
 	end
 
-	local baselineSpawnChance = 0
-	local familiarSpawnChance = 0
-
-	if GameState.EquippedFamiliar and FamiliarData[GameState.EquippedFamiliar].LinkedTool == resourceData.ToolName then
-		familiarSpawnChance = GameState.FamiliarResourceSpawnChance
+	if not IsComplexHarvestAllowed() then
+		HarvestBlockedPresentation( fishingPoint, { Text = "UseBlockedByEnemies" } )
+		return
 	end
 
-	if resourceData.ToolName == GameState.EquippedToolName then
-		if roomChance ~= nil then
-			baselineSpawnChance = roomChance
-		else
-			baselineSpawnChance = resourceData.HasToolSpawnChance
+	if ScreenAnchors.LavaVignetteId ~= nil then
+		HarvestBlockedPresentation( fishingPoint, { Text = "UseBlockedByLava" } )
+		return
+	end
+
+	CurrentRun.CurrentRoom.FishingPointUsed = true
+	CurrentRun.Hero.UntargetableFlags.Fishing = true
+	SetPlayerInvulnerable( "Fishing" )
+	AddPlayerImmuneToForce( "Fishing" )
+
+	AddToGroup({ Id = fishingPoint.ObjectId, Name = "UsedFishingPoint" })
+	SetConfigOption({ Name = "ExclusiveInteractGroup", Value = "UsedFishingPoint" })
+
+	if HasFamiliarTool( "ToolFishingRod" ) then
+		FamiliarFishingPresentation( fishingPoint )
+		CurrentRun.Hero.FishingState = "Success"
+		UseableOff({ Id = fishingPoint.ObjectId })
+		SetAlpha({ Id = fishingPoint.ObjectId, Fraction = 0.0, Duration = 0.25 })
+		BlockVfx({ DestinationId = fishingPoint.ObjectId })
+		local caughtFishName = GetCaughtFishName( GetCurrentFishingBiomeName() )
+		local caughtFishData = FishingData.FishValues[caughtFishName]
+		FishingEndPresentation( caughtFishData, fishingPoint.ObjectId, { Success = true, UsedFamiliar = true, } )
+
+		local heal = GetTotalHeroTraitValue("ResourceGatherHeal") * CalculateHealingMultiplier()
+		if GetTotalHeroTraitValue("ResourceGatherHeal") > 0 then
+			Heal( CurrentRun.Hero, { HealFraction = heal, SourceName = "ResourceHeal" })
 		end
 	else
-		-- having a familiar equipped ignores the cap for its associated resource
-		if familiarSpawnChance > 0 or ( CurrentRun.ResourceNodesSeen[resourceData.ToolName] or 0 ) < resourceData.DefaultSpawnCap then
-			baselineSpawnChance = resourceData.DefaultSpawnChance
+		CurrentRun.Hero.FishingStarted = true
+		FreezePlayerUnit( "FishingStartUp", { DisableTray = true, DisableCodex = true, DisableInventory = true, } )
+		AddTimerBlock( CurrentRun, "Fishing" )
+		wait( 0.25, "FishingStartDelay" )
+		UnfreezePlayerUnit("FishingStartUp")
+		if CurrentRun.Hero.FishingStarted and ScreenAnchors.LavaVignetteId == nil then
+			UseableOff({ Id = fishingPoint.ObjectId })
+			SetAlpha({ Id = fishingPoint.ObjectId, Fraction = 0.0, Duration = 0.25 })
+			StopAnimation({ Name = "FishingPointActiveSparkles", DestinationId = fishingPoint.ObjectId })
+			BlockVfx({ DestinationId = fishingPoint.ObjectId })
+			FishingSequence( nil, { FishingPointId = fishingPoint.ObjectId } )
+		else
+			RemoveTimerBlock( CurrentRun, "Fishing" )
+		end
+ 	end
+
+	RemoveFromGroup({ Id = fishingPoint.ObjectId, Name = "UsedFishingPoint" })
+	SetConfigOption({ Name = "ExclusiveInteractGroup", Value = nil })
+
+	CurrentRun.Hero.UntargetableFlags.Fishing = nil
+	SetPlayerVulnerable( "Fishing" )
+	RemovePlayerImmuneToForce( "Fishing" )
+end
+
+function FishingSequence( source, args )
+	StartFishing( source, args )
+	FishingCaughtPresentation( source, args )
+
+	local fishingState = CurrentRun.Hero.FishingState
+	local caughtFishName = nil
+
+	if fishingState == "Success" then
+		caughtFishName = GetCaughtFishName( GetCurrentFishingBiomeName() )
+	end
+	DebugPrint({ Text = "caughtFishName = "..tostring(caughtFishName) })
+	FishingEndPresentation( FishingData.FishValues[caughtFishName], args.FishingAnimationPointId, { Success = true } )
+
+	if fishingState == "Success" then
+		local heal = GetTotalHeroTraitValue("ResourceGatherHeal") * CalculateHealingMultiplier()
+		if heal > 0 then
+			Heal( CurrentRun.Hero, { HealFraction = heal, SourceName = "ResourceHeal" })
 		end
 	end
+end
+
+function GetCurrentFishingBiomeName()
+	if CurrentHubRoom ~= nil then
+		return CurrentHubRoom.FishBiome or "None"
+	else
+		return CurrentRun.CurrentRoom.FishBiome or CurrentRun.CurrentRoom.RoomSetName or "None"
+	end
+end
+
+function StartFishing( source, args )
+	args = args or {}
+	InvalidateCheckpoint()
+	FreezePlayerUnit( "Fishing", { DisableTray = true, DisableCodex = true, DisableInventory = true, } )
+	CurrentRun.Hero.FishingInput = false
+	CurrentRun.Hero.FishingState = "TooEarly"
+	local fishingFailed = false
+	args.FishingAnimationPointId = SpawnObstacle({ Name = "BlankObstacle", DestinationId = args.FishingPointId, Group = GetGroupName({ Id = args.FishingPointId, DrawGroup = true }) })
 	
-	if baselineSpawnChance ~= 0 then
-		baselineSpawnChance = baselineSpawnChance + GetTotalHeroTraitValue( bonusTraitName )
-	end
+	FishingStartPresentation( source, args )
 
-	return baselineSpawnChance + familiarSpawnChance
+	wait(1.5, "Fishing")
+	thread( WaitForFishingInput, args )
 
-end
+	local difficultyData = FishingData.Difficulty[args.Difficulty or "Default"]
+	
+	local numFakeDunks = RandomInt( difficultyData.NumFakeDunks.Min, difficultyData.NumFakeDunks.Max )
+	for i = 1, numFakeDunks do
+		wait( RandomFloat( difficultyData.FakeDunkInterval.Min, difficultyData.FakeDunkInterval.Max ), "Fishing" )
 
-function CheckForToolElement( spawnPointId, toolName )
-	if GameState.WeaponsUnlocked[toolName] and not CurrentRun.ToolElementsSpawned[toolName] and not CurrentRun.Hero.IsDead then
-		local toolData = WeaponShopItemData[toolName]
-		if RandomChance( toolData.ElementChance ) then
-			thread( GrantElementFromTool, toolData )
+		if CurrentRun.Hero.FishingInput then
+			return
 		end
+		SetAnimation({ Name = "FishingBobberFakeDunkA", DestinationId = args.FishingAnimationPointId })
+		thread( DoRumble, { { ScreenPreWait = 0.01, LeftFraction = 0.17, Duration = 0.17 }, } )
+	end
+
+	local warnTime = RandomFloat( difficultyData.WarnInterval.Min, difficultyData.WarnInterval.Max )
+	wait( warnTime , "Fishing" )
+
+	if CurrentRun.Hero.FishingInput then
+		return
+	end
+
+	local currentRoom = CurrentHubRoom or CurrentRun.CurrentRoom
+	local roomData = RoomData[currentRoom.Name] or currentRoom
+
+	SetAnimation({ Name = "FishingBobberDunk", DestinationId = args.FishingAnimationPointId })
+	PlaySound({ Name = roomData.FishingDunkSound or "/Leftovers/SFX/FishingPlunk", DestinationId = args.FishingAnimationPointId })
+	thread( DoRumble, { { ScreenPreWait = 0.01, RightFraction = 0.4, Duration = 0.3 }, } )
+	CurrentRun.Hero.FishingState = "Success"
+	wait( difficultyData.SuccessInterval, "Fishing" )
+
+	if CurrentRun.Hero.FishingInput then
+		return
+	end
+
+	CurrentRun.Hero.FishingState = "TooLate"
+	SetAnimation({ Name = "FishingBobberResurface", DestinationId = args.FishingAnimationPointId })
+	wait( difficultyData.WayLateInterval, "Fishing" )
+
+	if CurrentRun.Hero.FishingInput then
+		return
+	end
+	CurrentRun.Hero.FishingState = "WayLate"
+	wait( difficultyData.GiveUpInterval, "Fishing" )
+
+	notifyExistingWaiters( "FishingInput" )
+end
+
+function WaitForFishingInput( args )
+	ToggleCombatControl( { "Use" }, true, "Fishing" )
+	FishingReadyForInputPresentation( args.FishingAnimationPointId )
+	NotifyOnControlPressed({ Names = { "Use", }, Notify = "FishingInput" })
+	waitUntil( "FishingInput" )
+	CurrentRun.Hero.FishingInput = true
+	SetThreadWait( "Fishing", 0.01 )
+end
+
+function GetCaughtFishName( biome )
+	local fishName = nil
+	local biomeData = FishingData.BiomeFish.Defaults
+	if FishingData.BiomeFish[biome] then
+		biomeData = FishingData.BiomeFish[biome]
+	end
+
+	if biomeData then
+		local fishingTable = {}
+		for _, fishData in ipairs( biomeData ) do
+			if fishData.GameStateRequirements == nil or IsGameStateEligible( fishData, fishData.GameStateRequirements ) then
+				fishingTable[fishData.Name] = fishingTable.Weight or 1
+			end
+		end
+
+		fishName = GetRandomValueFromWeightedList( fishingTable )
+	end
+
+	return fishName
+end
+
+function CancelFishing()
+	if not CurrentRun.Hero.FishingStarted then
+		return
+	end
+	CurrentRun.Hero.FishingStarted = false
+	RemoveTimerBlock( CurrentRun, "Fishing" )
+	UnblockCombatUI( "Fishing" )
+	notifyExistingWaiters("FishingInput")
+	if HasThread("FishingStartDelay") then
+		killTaggedThreads( "FishingStartDelay")		
+		UnfreezePlayerUnit("FishingStartUp")
 	end
 end
 
-function GrantElementFromTool( toolData )
-	wait( toolData.ElementPopupDelay )
-	AddOrIncreaseTrait( { TraitName = toolData.ElementName } )
-	CurrentRun.ToolElementsSpawned[toolData.Name] = (CurrentRun.ToolElementsSpawned[toolData.Name] or 0) + 1
+function UseFishingPointOnExit( source, resourceTable, elementTable )
+	local caughtFishName = GetCaughtFishName( GetCurrentFishingBiomeName() )
+	resourceTable[caughtFishName] = (resourceTable[caughtFishName] or 0) + 1
+
+	local elementName = GrantElementFromTool( "ToolFishingRod2", { SkipDelay = true, SkipActivatedTraitUpdate = true } )
+	if elementName ~= nil then
+		elementTable[elementName] = true
+	end
+
+	local heal = GetTotalHeroTraitValue("ResourceGatherHeal") * CalculateHealingMultiplier()
+	if heal > 0 then
+		Heal( CurrentRun.Hero, { HealFraction = heal, SourceName = "ResourceHeal" })
+	end
+
+	CurrentRun.CurrentRoom.FishingPointUsed = true
+	UseableOff({ Id = source.ObjectId })
+	UsedFishingPointOnExitPresentation( source )
+end
+
+-- not technically a "harvest point" but still needs to be collected
+function UseDarknessOnExit( source, resourceTable, elementTable )
+	resourceTable.Mixer6Common = (resourceTable.Mixer6Common or 0) + source.AddResources.Mixer6Common
+	CreateAnimation({ Name = source.ConsumeFx, DestinationId = source.ObjectId })
+	Destroy({ Id = source.ObjectId })
+end
+
+function BeginFamiliarHarvestInvulnerability()
+	CurrentRun.Hero.UntargetableFlags.FamiliarHarvest = true
+	SetPlayerInvulnerable( "FamiliarHarvest" )
+	AddPlayerImmuneToForce( "FamiliarHarvest" )
+end
+
+function EndFamiliarHarvestInvulnerability()
+	CurrentRun.Hero.UntargetableFlags.FamiliarHarvest = nil
+	SetPlayerVulnerable( "FamiliarHarvest" )
+	RemovePlayerImmuneToForce( "FamiliarHarvest" )
 end

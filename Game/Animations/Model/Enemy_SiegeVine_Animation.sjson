@@ -16,7 +16,7 @@
 	{
 		Name = "Enemy_SiegeVine_Idle"
 		InheritFrom = "EnemySiegeVineBaseAnimation"
-		GrannyAnimation = "Siegevine_Base_Idle_C_00"
+		GrannyAnimation = "SiegeVine_Base_Idle_C_00"
 		Loop = true
 		CancelOnOwnerMove = true
 		Blends = 
@@ -34,7 +34,7 @@
 	{
 		Name = "Enemy_SiegeVine_HitStun"
 		InheritFrom = "EnemySiegeVineBaseAnimation"
-		GrannyAnimation = "Siegevine_Base_GetHit_C_00"
+		GrannyAnimation = "SiegeVine_Base_GetHit_C_00"
 		Loop = false
 		CancelOnOwnerMove = true
 		AllowRestart = true
@@ -46,7 +46,7 @@
 	{
 		Name = "Enemy_SiegeVine_PreAttack"
 		InheritFrom = "EnemySiegeVineBaseAnimation"
-		GrannyAnimation = "Siegevine_Base_AttackAntic_C_00"
+		GrannyAnimation = "SiegeVine_Base_AttackAntic_C_00"
 		ChainTo = "Enemy_SiegeVine_AttackFire"
 		Loop = false
 		CancelOnOwnerMove = true
@@ -54,17 +54,17 @@
 		[
 			{
 				BlendTransitionFrom = "Enemy_SiegeVine_HitStun"
-				Duration = 10
+				Duration = 7
 			}
 
 			{
 				BlendTransitionFrom = "Enemy_SiegeVine_AttackFire"
-				Duration = 10
+				Duration = 7
 			}
 
 			{
 				BlendTransitionFrom = "Enemy_SiegeVine_AttackReturnToIdle"
-				Duration = 10
+				Duration = 7
 			}
 		]
 	}
@@ -72,16 +72,29 @@
 	{
 		Name = "Enemy_SiegeVine_AttackFire"
 		InheritFrom = "EnemySiegeVineBaseAnimation"
-		GrannyAnimation = "Siegevine_Base_AttackFire_C_00"
+		GrannyAnimation = "SiegeVine_Base_AttackFire_C_00"
 		ChainTo = "Enemy_SiegeVine_AttackReturnToIdle"
 		Loop = false
 		CancelOnOwnerMove = true
+		AllowRestart = true
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_SiegeVine_AttackFire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_SiegeVine_AttackReturnToIdle"
+				Duration = 5
+			}
+		]
 	}
 
 	{
 		Name = "Enemy_SiegeVine_AttackReturnToIdle"
 		InheritFrom = "EnemySiegeVineBaseAnimation"
-		GrannyAnimation = "Siegevine_Base_AttackReturnToIdle_C_00"
+		GrannyAnimation = "SiegeVine_Base_AttackReturnToIdle_C_00"
 		Loop = false
 		CancelOnOwnerMove = true
 	}

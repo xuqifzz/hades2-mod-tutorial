@@ -34,6 +34,32 @@
     }
 
     {
+      Name = "DrownedChambersSteam"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "ScyllaStadiumSteamer"
+        Tallness = 724
+        Offset = { X = 0 Y = 8 }
+      }
+    }
+
+    {
+      Name = "DrownedChambersFire"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "ScyllaStageFire"
+        Tallness = 724
+        Offset = { X = 0 Y = 8 }
+      }
+    }
+
+    {
       Name = "GroundFogIso"
       InheritFrom = "1_BaseDecalObstacle"
       DisplayInEditor = true
@@ -355,6 +381,45 @@
     }
 
     {
+      Name = "ScribbleA"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "ScribbleA"
+        Tallness = 0
+        Offset = { X = 0 Y = -256 }
+      }
+    }
+
+     {
+      Name = "ScribbleB"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "ScribbleB"
+        Tallness = 0
+        Offset = { X = 0 Y = -256 }
+      }
+    }
+
+    {
+      Name = "ScribbleC"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "ScribbleC"
+        Tallness = 0
+        Offset = { X = 0 Y = -256 }
+      }
+    }
+
+    {
       Name = "CandleWisp"
       InheritFrom = "1_BaseDecalObstacle"
       DisplayInEditor = true
@@ -507,6 +572,22 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "SingleBat"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+
+    {
+      Name = "SingleBatWhite"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "SingleBatWhite"
         Points = [
           { X = -2 Y = 2 }
           { X = 2 Y = 2 }
@@ -1112,6 +1193,22 @@
     }
 
     {
+      Name = "AsphodelEmbersTintable"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "AsphodelEmberSpawnerTintable"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+
+    {
       Name = "AsphodelLavaHeatWaves"
       InheritFrom = "1_BaseDecalObstacle"
       DisplayInEditor = true
@@ -1478,6 +1575,22 @@
           { X = 0 Y = -2 }
         ]
       }
+    }    
+
+    {
+      Name = "ElysiumRefractLightC_Shimmer"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "ElysiumRefractLightC_Shimmer"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
     }
 
     {
@@ -1649,6 +1762,7 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "MoonbeamsTintableAdditive"
+        StopsLight = false
         Points = [
           { X = -2 Y = 2 }
           { X = 2 Y = 2 }
@@ -1899,6 +2013,7 @@
       {
         EditorOutlineDrawBounds = true
         Graphic = "ErebusFirefliesA"
+        SortMode = "Secondary"
         Points = [
           { X = -2 Y = 2 }
           { X = 2 Y = 2 }
@@ -1915,6 +2030,7 @@
       {
         EditorOutlineDrawBounds = true
         Graphic = "ErebusFirefliesB"
+        SortMode = "Secondary"
         Points = [
           { X = -2 Y = 2 }
           { X = 2 Y = 2 }
@@ -2057,6 +2173,19 @@
         Graphic = "TorchMarker"
         Invisible = true
         Light = "OceanusCausticLight"
+      }
+    }    
+
+    {
+      Name = "OceanusCausticsScyllaDeath"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TorchMarker"
+        Invisible = true
+        Light = "OceanusCausticLightScyllaDeath"
       }
     }
 
@@ -2582,9 +2711,29 @@
       DisplayInEditor = true
       Thing = 
       {
+        StopsLight = false
         EditorOutlineDrawBounds = false
         Tallness = 300
         Graphic = "CWSandCloudContainer"
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }       
+
+    {
+      Name = "CWSandCloudsNarrow"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        StopsLight = false
+        EditorOutlineDrawBounds = false
+        Tallness = 300
+        Graphic = "CWSandCloudContainerNarrow"
         Offset = { X = 0 Y = 7 }
         Points = [
           { X = -2 Y = 2 }
@@ -3150,10 +3299,6 @@
     {
       EditorOutlineDrawBounds = false
       Graphic = "DoorExitLightSoftSW"
-      Interact = 
-      {
-        Distance = 250.0
-      }
     }
   }  
 
@@ -3165,10 +3310,6 @@
     {
       EditorOutlineDrawBounds = false
       Graphic = "DoorExitLightSoftNE"
-      Interact = 
-      {
-        Distance = 250.0
-      }
     }
   }
 
@@ -3180,6 +3321,22 @@
     {
       EditorOutlineDrawBounds = false
       Graphic = "OlympusSnowflakesGentleSpawner"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }
+
+  {
+    Name = "OlympusOverlookLightningContainer"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "OlympusOverlookLightningContainer"
       Points = [
         { X = -2 Y = 2 }
         { X = 2 Y = 2 }
@@ -3455,6 +3612,720 @@
         ]
       }
     }
+
+  {
+      Name = "TyphonSnakeHighlightA"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonSnakeHighlightA"
+      }
+  }
+
+  {
+      Name = "TyphonSnakeHighlightB"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonSnakeHighlightB"
+      }
+  }
+
+
+  {
+      Name = "TyphonSquiggleWorms01"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonSquiggleWorms01"
+      }
+  }  
+
+  {
+      Name = "TyphonSquiggleWorms02"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonSquiggleWorms02"
+      }
+  }
+
+  {
+      Name = "TyphonWallSnake01_Anim"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonWallSnake01"
+      }
+  }
+
+  {
+      Name = "TyphonWallSnake01a_Anim"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonWallSnake01a"
+      }
+  }
+
+
+  {
+      Name = "TyphonWallSnakeBricks"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonWallSnakeBricks"
+      }
+  }
+
+  {
+      Name = "TyphonWallSnakeBricksFill"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonWallSnakeBricksFill"
+      }
+  }
+
+
+  {
+      Name = "TyphonTopWormsA"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonTopWormsA"
+      }
+  }
+
+
+  {
+      Name = "TyphonTopWormsB"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonTopWormsB"
+      }
+  }
+
+
+  {
+      Name = "TyphonTopWormsC"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonTopWormsC"
+      }
+  }
+
+
+  {
+      Name = "TyphonTerrainStoneRubbleEdge01A"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonTerrainStoneRubbleEdge01A"
+      }
+  }
+
+  {
+      Name = "TyphonTerrainStoneRubbleEdge01B"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonTerrainStoneRubbleEdge01B"
+      }
+  }
+ 
+  {
+    Name = "TyphonStorm"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "TyphonStormSpawner"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }       
+
+  {
+    Name = "TyphonStormLite"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "TyphonStormSpawnerLite"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }     
+
+  {
+    Name = "TyphonStormComp"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "TyphonStormComp"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }   
+
+  {
+    Name = "TyphonStormCompFast"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "TyphonStormCompFast"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }   
+
+  {
+    Name = "TyphonStormTerrainRain"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "TyphonStormTerrainRainSpawner"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }  
+ 
+  {
+    Name = "TyphonRain"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "TyphonRainSpawner"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }   
+
+  {
+    Name = "TyphonDebris"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "TyphonDebrisSpawner"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }  
+
+  {
+      Name = "TyphonTree01SwayA"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonTreeSwayA"
+        Tallness = 805
+        Offset = { X = 0 Y = -295 }
+        Points = [
+          { X = -72 Y = 29 }
+          { X = -45 Y = 93 }
+          { X = 202 Y = 113 }
+          { X = 370 Y = 58 }
+          { X = 433 Y = -10 }
+          { X = 198 Y = -85 }
+        ]
+      }
+  }  
+
+  {
+      Name = "TyphonTree01SwayB"
+      InheritFrom = "TyphonTree01SwayA"
+      Thing = 
+      {
+        Graphic = "TyphonTreeSwayB"
+        Tallness = 846
+        Offset = { X = 0 Y = -306 }
+        Points = [
+          { X = -77 Y = 25 }
+          { X = -68 Y = 72 }
+          { X = 230 Y = 102 }
+          { X = 374 Y = 60 }
+          { X = 426 Y = -19 }
+          { X = 150 Y = -92 }
+        ]
+      }
+  }
+
+    {
+      Name = "TyphonBanner"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonBanner"
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }    
+
+  {
+    Name = "TyphonWindA"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "TyphonWindA"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }    
+
+  {
+    Name = "TyphonWindB"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "TyphonWindB"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }    
+
+  {
+    Name = "TyphonStormCloud"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "TyphonStormCloud"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }     
+
+  {
+    Name = "TyphonStormCloudNoLightning"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "TyphonStormCloudNoLightning"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }    
+
+  {
+    Name = "TyphonStormCloudB"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "TyphonStormCloudB"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }   
+
+  {
+    Name = "TyphonStormCloudC"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "TyphonStormCloudC"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }    
+
+  {
+    Name = "TyphonLightning"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = true
+      Graphic = "TyphonLightningRandom"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }    
+
+  {
+    Name = "TyphonLightningLarge"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = true
+      Graphic = "TyphonLightningC"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }  
+
+  {
+    Name = "EnemyFogCloudA"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = true
+      Graphic = "EnemyFogCloudA"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }  
+
+  {
+    Name = "EnemyFogCloudB"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = true
+      Graphic = "EnemyFogCloudB"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }
+
+  {
+    Name = "EMScyllaFlame"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = true
+      Graphic = "EMScyllaFlameEmitter"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }  
+
+  {
+    Name = "EMScyllaFireworks"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = true
+      Graphic = "EMScyllaFireworksEmitter"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }    
+
+  {
+    Name = "EMScyllaFireworksStreak"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = true
+      Graphic = "EMScyllaFireworksStreakEmitter"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }    
+
+  {
+    Name = "EMScyllaConfettiContinuous"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = true
+      Graphic = "EMScyllaConfettiEmitterContinuous"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }
+
+  {
+    Name = "EMScyllaConfettiBurst"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = true
+      Graphic = "EMScyllaConfettiEmitterBurst"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }
+
+  {
+    Name = "EMChronosRiftA"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = true
+      Graphic = "ChronosRiftStraightInteriorEnvironment"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }    
+
+  {
+    Name = "EMChronosRiftB"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = true
+      Graphic = "ChronosRiftInteriorEnvironment"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }  
+
+  {
+    Name = "EMChronosRiftFxEmitter"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = true
+      Graphic = "EMChronosRiftFxEmitter"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }  
+
+
+  {
+    Name = "OlympusCreditsBirdEmitter"
+    InheritFrom = "1_BaseStandingDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      //Graphic = "EndCreditsBirdFlockEmitter"
+      UseBoundsForSortDrawArea = true
+    }
+  }  {
+    Name = "OlympusCreditsHeroStar01"
+    InheritFrom = "1_BaseStandingDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      Graphic = "EndCreditsHeroStar01"
+      UseBoundsForSortDrawArea = true
+    }
+  }
+  {
+    Name = "OlympusCreditsHeroStar02"
+    InheritFrom = "1_BaseStandingDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      Graphic = "EndCreditsHeroStar02"
+      UseBoundsForSortDrawArea = true
+    }
+  }
+  {
+    Name = "OlympusCreditsShootingStar"
+    InheritFrom = "1_BaseStandingDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      Graphic = "EndCreditsShootingStar"
+      UseBoundsForSortDrawArea = true
+    }
+  }  
+
+  {
+    Name = "OlympusPalaceSunFlare"
+    InheritFrom = "1_BaseStandingDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      Graphic = "PalaceSunFlare"
+      UseBoundsForSortDrawArea = true
+    }
+  }  
+
+  {
+    Name = "OlympusPalaceSunFlareGeneric"
+    InheritFrom = "1_BaseStandingDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      Graphic = "PalaceSunFlareGeneric"
+      UseBoundsForSortDrawArea = true
+    }
+  }
+
+  {
+    Name = "OlympusPalaceSunFlareSecondary"
+    InheritFrom = "1_BaseStandingDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      Graphic = "PalaceSunFlareSecondary"
+      UseBoundsForSortDrawArea = true
+    }
+  }  
+
+  {
+    Name = "OlympusPalaceCloud01aFx"
+    InheritFrom = "1_BaseStandingDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      Graphic = "OlympusPalaceCloud01aFxEmitter"
+      UseBoundsForSortDrawArea = true
+    }
+  }
+
+  {
+    Name = "OlympusPalaceCloud02Fx"
+    InheritFrom = "1_BaseStandingDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      Graphic = "OlympusPalaceCloud02FxEmitter"
+      UseBoundsForSortDrawArea = true
+    }
+  }
+
+  {
+    Name = "OlympusPalaceCloud02aFx"
+    InheritFrom = "1_BaseStandingDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      Graphic = "OlympusPalaceCloud02aFxEmitter"
+      UseBoundsForSortDrawArea = true
+    }
+  }
+
 
   ]
 }

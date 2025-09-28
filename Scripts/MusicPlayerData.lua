@@ -7,6 +7,7 @@ ScreenData.MusicPlayer =
 	OpenEndVoiceLines =
 	{
 		{
+			PlayOnceFromTableThisRun = true,
 			SkipAnim = true,
 			BreakIfPlayed = true,
 			RandomRemaining = true,
@@ -47,7 +48,9 @@ ScreenData.MusicPlayer =
 	ItemSpacingY = 60,
 	IconOffsetX = -388,
 	IconOffsetY = 0,
-	PurchaseButtonScaleY = 0.5,
+	PinScale = 0.65,
+	PinOffsetX = 315,
+	PinOffsetY = 12,
 	IconScale = 0.35,
 	PausePlayIconScale = 0.5,
 	ItemsPerPage = 8,
@@ -104,15 +107,13 @@ ScreenData.MusicPlayer =
 		},
 	},
 
-	PinOffsetX = 315,
-
 	Components = {},
 
 	TooltipX = 1680,
 	TooltipY = 1280,
 
 	ResourceSpendTextInitialOffsetY = 10,
-	ResourceSpendTextSpacingY = -102,
+	ResourceSpendTextSpacingY = -112,
 	ResourceSpendTextOffsetY = 11,
 
 	CostDisplay =
@@ -207,10 +208,10 @@ ScreenData.MusicPlayer =
 		},
 	},
 
-	ItemAvailableAnimation = "CriticalItemShopButton",
-	ItemAvailableHighlightAnimation = "CriticalItemShopButtonHighlight",
-	ItemPurchasedAnimation = "CriticalItemShopButton",
-	ItemPurchasedHighlightAnimation = "CriticalItemShopButtonHighlight",
+	ItemAvailableAnimation = "MusicPlayerItemButton",
+	ItemAvailableMouseOverAnimation = "MusicPlayerItemButtonHighlight",
+	ItemNowPlayingAnimation = "MusicPlayerItemNowPlaying",
+	ItemNowPlayingMouseOverAnimation = "MusicPlayerItemNowPlayingHighlight",
 
 	ComponentData =
 	{
@@ -220,6 +221,7 @@ ScreenData.MusicPlayer =
 		Order =
 		{
 			"ShopBackgroundDim",
+			"ShopBackground",
 			"ListBackground",
 			"InfoBoxBacking",
 			"Scrollbar",
@@ -240,6 +242,16 @@ ScreenData.MusicPlayer =
 			Color = { 1.0, 1.0, 1.0, 0.8 },
 		},
 
+		ShopBackground = 
+		{
+			Animation = "MusicPlayerBackground",
+			X = ScreenCenterX,
+			Y = ScreenCenterY,
+			Alpha = 0.0,
+			AlphaTarget = 1.0,
+			AlphaTargetDuration = 0.1,
+		},
+
 		ResourceCostBacking =
 		{
 			AnimationName = "GUI\\Screens\\CriticalItemShop\\Backing_Left",
@@ -251,16 +263,15 @@ ScreenData.MusicPlayer =
 
 		InfoBoxBacking = 
 		{
-			AnimationName = "GUI\\Screens\\CriticalItemShop\\Backing_Scroll",
+			AnimationName = "GUI\\Screens\\MusicPlayer\\Backing_Scroll",
 			X = 1165,
 			Y = 840,
-			ScaleY = 0.5,
 			Alpha = 0.0,
 			Children = 
 			{
 				InfoBoxDescription =
 				{
-					OffsetX = -282,
+					OffsetX = -300,
 					OffsetY = -35,
 					TextArgs =
 					{
@@ -270,7 +281,7 @@ ScreenData.MusicPlayer =
 						VariableAutoFormat = "BoldFormatGraftDark",
 						Justification = "Left",
 						VerticalJustification = "Top",
-						Width = 568,
+						Width = 610,
 						FadeOpacity = 0.0,
 						FadeTarget = 0.0,
 						LineSpacingBottom = 5,
@@ -332,7 +343,6 @@ ScreenData.MusicPlayer =
 				OnMouseOffFunctionName = "GhostAdminMouseOffScrollArrow",
 				OnPressedFunctionName = "MusicPlayerScrollUp",
 				ControlHotkey = "MenuUp",
-				Sound = "/SFX/Menu Sounds/GeneralWhooshMENU",
 			},
 			InteractProperties =
 			{
@@ -356,7 +366,6 @@ ScreenData.MusicPlayer =
 				OnMouseOffFunctionName = "GhostAdminMouseOffScrollArrow",
 				OnPressedFunctionName = "MusicPlayerScrollDown",
 				ControlHotkey = "MenuDown",
-				Sound = "/SFX/Menu Sounds/GeneralWhooshMENU",
 			},
 			InteractProperties =
 			{
@@ -381,12 +390,29 @@ ScreenData.MusicPlayer =
 			ChildrenOrder =
 			{
 				"CloseButton",
+				"ShuffleButton",
 				"SelectButton",
 				"PinButton",
 			},
 
 			Children =
 			{
+				ShuffleButton = 
+				{
+					Graphic = "ContextualActionButton",
+					GroupName = "Combat_Menu_Overlay",
+					Alpha = 0.0,
+					Data =
+					{
+						OnMouseOverFunctionName = "MouseOverContextualAction",
+						OnMouseOffFunctionName = "MouseOffContextualAction",
+						OnPressedFunctionName = "MusicPlayerShuffle",
+						ControlHotkeys = { "Confirm", },
+					},
+					Text = "Menu_MusicPlayerShuffle",
+					TextArgs = UIData.ContextualButtonFormatRight,
+				},
+
 				PinButton = 
 				{
 					Graphic = "ContextualActionButton",
@@ -411,7 +437,8 @@ ScreenData.MusicPlayer =
 					{
 						-- Dummy button
 					},
-					Text = "Menu_MusicPlayerUnlock",
+					Text = "Menu_MusicPlayerPurchase",
+					AltTexts = { "Menu_MusicPlayerPause", "Menu_MusicPlayerPlay" },
 					TextArgs = UIData.ContextualButtonFormatRight,
 				},
 
@@ -423,7 +450,7 @@ ScreenData.MusicPlayer =
 					{
 						OnMouseOverFunctionName = "MouseOverContextualAction",
 						OnMouseOffFunctionName = "MouseOffContextualAction",
-						OnPressedFunctionName = "CloseGhostAdminScreen",
+						OnPressedFunctionName = "CloseMusicPlayerScreen",
 						ControlHotkeys = { "Cancel", },
 					},
 					Text = "Menu_Exit",
@@ -439,14 +466,19 @@ ScreenData.MusicPlayer =
 
 		"Song_RunStart",
 
+		"Song_ArtemisSong",
 		"Song_CharonShopTheme",
 		"Song_ArachneTheme",
 		"Song_ArtemisTheme",
 		"Song_NemesisTheme",
+		"Song_NarcissusTheme",
+		"Song_EchoTheme",
 		"Song_MedeaTheme",
 		"Song_HeraclesTheme",
 		"Song_CirceTheme",
+		"Song_IcarusTheme",
 		"Song_DionysusMusic",
+		"Song_HypnosMusic",
 
 		"Song_Exploration1",
 		"Song_Exploration2",
@@ -456,6 +488,10 @@ ScreenData.MusicPlayer =
 		"Song_Scylla1b",
 		"Song_Scylla2a",
 		"Song_Scylla2b",
+		"Song_Scylla3a",
+		"Song_Scylla3b",
+		"Song_Scylla4a",
+		"Song_Scylla4b",
 
 		"Song_MourningFields1",
 		"Song_MourningFields2",
@@ -479,7 +515,20 @@ ScreenData.MusicPlayer =
 		"Song_FishingMusicLoop",
 
 		"Song_EndThemeAcoustic",
+		"Song_EndThemeOrchestral",
+
 		"Song_ChronosBossFightMusic",
+		"Song_ChronosBossFightMusicAlt",
+
+		"Song_MusicTyphon1",
+		"Song_MusicTyphon2",
+		"Song_MusicTyphon2b",
+
+		"Song_ApolloSong",
+		"Song_IrisEndTheme",
+		"Song_IrisEndThemeAcoustic",
+
+		"Song_ZagreusTheme",
 	},
 }
 
@@ -502,24 +551,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		PreRevealVoiceLines =
 		{
-			{
-				RandomRemaining = true,
-				PreLineWait = 0.35,
-				UsePlayerSource = true,
-				Cooldowns =
-				{
-					{ Name = "MelMusicPlayerRequestSpeech", Time = 10 },
-				},
-
-				{ Cue = "/VO/Melinoe_3832", Text = "I'd like to hear this one." },
-				{ Cue = "/VO/Melinoe_3833", Text = "Would you play this one, please?" },
-				{ Cue = "/VO/Melinoe_3834", Text = "Let's hear this one." },
-				{ Cue = "/VO/Melinoe_3835", Text = "Play this one next, would you?" },
-				{ Cue = "/VO/Melinoe_3836", Text = "Play us another song, if you don't mind!" },
-				{ Cue = "/VO/Melinoe_3837", Text = "Mind playing this one next?" },
-				{ Cue = "/VO/Melinoe_3838", Text = "Got a request for you.", PlayFirst = true },
-				{ Cue = "/VO/Melinoe_3839", Text = "Up for another song?" },
-			},
+			{ GlobalVoiceLines = "MelMusicChoiceVoiceLines" },
 		},
 	},
 
@@ -681,6 +713,7 @@ OverwriteTableKeys( WorldUpgradeData,
 	{
 		InheritFrom = { "DefaultSongItem" },
 		TrackName = "/Music/MusicPlayer/Iris/IrisMusicScylla1bMusicPlayer",
+		Rocking = true,
 
 		Cost =
 		{
@@ -734,6 +767,7 @@ OverwriteTableKeys( WorldUpgradeData,
 	{
 		InheritFrom = { "DefaultSongItem" },
 		TrackName = "/Music/MusicPlayer/Iris/IrisMusicScylla2bMusicPlayer",
+		Rocking = true,
 
 		Cost =
 		{
@@ -765,6 +799,83 @@ OverwriteTableKeys( WorldUpgradeData,
 			},
 		},
 	},
+
+	Song_Scylla3a =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/IrisMusicScylla3MusicPlayer",
+
+		Cost =
+		{
+			CosmeticsPoints = 350,
+			MixerGBoss = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "EncountersCompletedCache", "BossScylla02" },
+				Comparison = ">=",
+				Value = 2,
+			},
+		},
+	},
+	Song_Scylla3b =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/IrisMusicScylla3bMusicPlayer",
+		Rocking = true,
+
+		Cost =
+		{
+			CosmeticsPoints = 850,
+			MixerGBoss = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "EncountersCompletedCache", "BossScylla02" },
+				Comparison = ">=",
+				Value = 2,
+			},
+		},
+	},
+
+	Song_Scylla4a =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/IrisMusicScylla4MusicPlayer",
+
+		Cost =
+		{
+			CosmeticsPoints = 350,
+			MixerGBoss = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "ScyllaAboutBallad02" }
+			},
+		},
+	},
+	Song_Scylla4b =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/IrisMusicScylla4bMusicPlayer",
+		Rocking = true,
+
+		Cost =
+		{
+			CosmeticsPoints = 850,
+			MixerGBoss = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "ScyllaAboutBallad02" }
+			},
+		},
+	},
+
 	Song_MourningFields1 =
 	{
 		InheritFrom = { "DefaultSongItem" },
@@ -806,6 +917,7 @@ OverwriteTableKeys( WorldUpgradeData,
 	{
 		InheritFrom = { "DefaultSongItem" },
 		TrackName = "/Music/MusicPlayer/Iris/IrisMusicClockworkTartarusMinibossMusicPlayer",
+		Rocking = true,
 
 		Cost =
 		{
@@ -814,6 +926,9 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		GameStateRequirements =
 		{
+			{
+				PathTrue = { "GameState", "ReachedTrueEnding" }
+			},
 			{
 				Path = { "GameState", "EncountersCompletedCache" },
 				HasAll = { "MiniBossRatCatcher", "MiniBossGoldElemental" }
@@ -833,7 +948,12 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "RoomsEntered", "I_Intro" },
+				PathTrue = { "GameState", "ReachedTrueEnding" }
+			},
+			{
+				Path = { "GameState", "RoomsEntered", "I_Intro" },
+				Comparison = ">=",
+				Value = 2,
 			},
 		},
 	},
@@ -850,9 +970,34 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				Path = { "GameState", "ClearedUnderworldRunsCache" },
+				PathTrue = { "GameState", "ReachedTrueEnding" }
+			},
+			{
+				Path = { "GameState", "EnemyKills", "Chronos" },
 				Comparison = ">=",
-				Value = 1,
+				Value = 2,
+			},
+		},
+	},
+	Song_ChronosBossFightMusicAlt =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/ChronosEMMusicPlayer",
+
+		Cost =
+		{
+			CosmeticsPoints = 3200,
+			MixerIBoss = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "ReachedTrueEnding" }
+			},
+			{
+				Path = { "GameState", "EncountersCompletedCache", "BossChronos02" },
+				Comparison = ">=",
+				Value = 2,
 			},
 		},
 	},
@@ -869,7 +1014,34 @@ OverwriteTableKeys( WorldUpgradeData,
 		{
 			{
 				Path = { "GameState", "TextLinesRecord" },
-				HasAll = { "HadesGift01", "ChronosNightmare01" },
+				HasAny = { "HadesFirstMeeting", "HadesFirstMeeting_B", "HadesFirstMeeting_C " },
+			},
+			{
+				Path = { "GameState", "TextLinesRecord" },
+				HasAny = { "HadesGift01", "TrueEnding01" },
+			},
+			{
+				Path = { "GameState", "TextLinesRecord" },
+				HasAny = { "ChronosNightmare01" },
+			},
+		},
+	},
+	Song_EndThemeOrchestral =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/EndThemeORCHESTRALMusicPlayer",
+		Rocking = true,
+
+		Cost =
+		{
+			CosmeticsPoints = 1400,
+
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "TextLinesRecord" },
+				HasAll = { "HadesWithPersephone01" },
 			},
 		},
 	},
@@ -877,6 +1049,7 @@ OverwriteTableKeys( WorldUpgradeData,
 	{
 		InheritFrom = { "DefaultSongItem" },
 		TrackName = "/Music/MusicPlayer/Iris/IrisTimedEncounterMusicMusicPlayer",
+		Rocking = true,
 
 		Cost =
 		{
@@ -901,9 +1074,20 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				Path = { "GameState", "FishingSuccessesManual" },
+				Path = { "GameState", "EncountersCompletedCache" },
+				CountOf =
+				{
+					"EliteChallengeF",
+					"EliteChallengeG",
+					"EliteChallengeH",
+					"EliteChallengeI",
+					"EliteChallengeN",
+					"EliteChallengeO",
+					"EliteChallengeP",
+					"EliteChallengeQ",
+				},
 				Comparison = ">=",
-				Value = 3,
+				Value = 2,
 			},
 		},
 	},
@@ -911,6 +1095,7 @@ OverwriteTableKeys( WorldUpgradeData,
 	{
 		InheritFrom = { "DefaultSongItem" },
 		TrackName = "/Music/MusicPlayer/Iris/IrisMinibossMusicMusicPlayer",
+		Rocking = true,
 
 		Cost =
 		{
@@ -975,7 +1160,8 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				Path = { "GameState", "RoomsEntered", "N_Boss01" },
+				Path = { "GameState", "RoomsEntered" },
+				SumOf = { "N_Boss01", "N_Boss02" },
 				Comparison = ">=",
 				Value = 2,
 			},
@@ -1042,7 +1228,8 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				Path = { "GameState", "RoomsEntered", "O_Boss01" },
+				Path = { "GameState", "RoomsEntered" },
+				SumOf = { "O_Boss01", "O_Boss02" },
 				Comparison = ">=",
 				Value = 2,
 			},
@@ -1090,6 +1277,7 @@ OverwriteTableKeys( WorldUpgradeData,
 	{
 		InheritFrom = { "DefaultSongItem" },
 		TrackName = "/Music/MusicPlayer/Iris/IrisMusicOlympus1MusicPlayer",
+		Rocking = true,
 
 		Cost =
 		{
@@ -1108,6 +1296,7 @@ OverwriteTableKeys( WorldUpgradeData,
 	{
 		InheritFrom = { "DefaultSongItem" },
 		TrackName = "/Music/MusicPlayer/Iris/IrisMusicOlympus2MusicPlayer",
+		Rocking = true,
 
 		Cost =
 		{
@@ -1120,6 +1309,23 @@ OverwriteTableKeys( WorldUpgradeData,
 				Path = { "GameState", "EnemyKills", "Prometheus" },
 				Comparison = ">=",
 				Value = 2,
+			},
+		},
+	},
+	Song_HypnosMusic =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/HypnosLullabyMusicPlayer",
+
+		Cost =
+		{
+			CosmeticsPoints = 700,
+			PlantIPoppy = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "HypnosWakeUp02" },
 			},
 		},
 	},
@@ -1140,4 +1346,220 @@ OverwriteTableKeys( WorldUpgradeData,
 			},
 		},
 	},
+	Song_IcarusTheme =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/IcarusThemeMusicPlayer",
+
+		Cost =
+		{
+			CosmeticsPoints = 250,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "IcarusGift02" },
+			},
+		},
+	},
+	Song_NarcissusTheme =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/NarcissusThemeMusicPlayer",
+
+		Cost =
+		{
+			CosmeticsPoints = 250,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "NarcissusGift02" },
+			},
+		},
+	},
+	Song_EchoTheme =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/EchoThemeMusicPlayer",
+
+		Cost =
+		{
+			CosmeticsPoints = 250,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "EchoGift02" },
+			},
+		},
+	},
+	Song_ArtemisSong =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/ArtemisSongMusicPlayer",
+
+		Cost =
+		{
+			CosmeticsPoints = 500,
+			SuperGiftPoints = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "TextLinesRecord" },
+				HasAll = { "ArtemisHubSinging01", "ArtemisGift02" },
+			},
+			{
+				PathFalse = { "CurrentRun", "TextLinesRecord", "ArtemisHubSinging01" },
+			},
+		},
+	},
+	Song_ApolloSong =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/ApolloSongMusicPlayer",
+
+		Cost =
+		{
+			CosmeticsPoints = 500,
+			SuperGiftPoints = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "TextLinesRecord" },
+				HasAll = { "ZeusPalaceAboutTyphonDeath01", "ApolloGift02" },
+			},
+			{
+				PathFalse = { "CurrentRun", "TextLinesRecord", "ArtemisHubSinging01" },
+			},
+		},
+	},
+	Song_IrisEndTheme =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/IrisEndThemeMusicPlayer",
+		Rocking = true,
+		Cost =
+		{
+			CosmeticsPoints = 2600,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "ReachedTrueEnding" },
+			},
+			{
+				PathFalse = { "CurrentRun", "TextLinesRecord", "TrueEndingFinale01" },
+			},
+		},
+	},
+	Song_IrisEndThemeAcoustic =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/IrisEndThemeAcousticeMusicPlayer",
+		Cost =
+		{
+			CosmeticsPoints = 2000,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "ArtemisHubSingingEndTheme01" },
+			},
+			{
+				PathFalse = { "CurrentRun", "TextLinesRecord", "ArtemisHubSingingEndTheme01" }
+			},
+			{
+				PathTrue = { "GameState", "WorldUpgrades", "Song_IrisEndTheme" }
+			},
+		},
+	},
+	Song_ZagreusTheme =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/TheUnseenOnesMusicPlayer",
+		Rocking = true,
+
+		Cost =
+		{
+			CosmeticsPoints = 2200,
+			Mixer6Common = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "ZagreusBossOutro01" },
+			},
+		},
+	},
+
+	Song_MusicTyphon1 =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/IrisMusicTyphon1MusicPlayer",
+		Rocking = true,
+
+		Cost =
+		{
+			CosmeticsPoints = 1200,
+			MixerPBoss = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "RoomsEntered", "Q_Intro" },
+				Comparison = ">=",
+				Value = 2,
+			},
+		},
+	},
+	Song_MusicTyphon2 =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/IrisMusicTyphon2MusicPlayer",
+		Rocking = true,
+
+		Cost =
+		{
+			CosmeticsPoints = 2400,
+			MixerQBoss = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "ReachedTrueEnding" }
+			},
+			{
+				Path = { "GameState", "EnemyKills", "TyphonHead" },
+				Comparison = ">=",
+				Value = 2,
+			},
+		},
+	},
+	Song_MusicTyphon2b =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/IrisMusicTyphon2EMMusicPlayer",
+		Rocking = true,
+
+		Cost =
+		{
+			CosmeticsPoints = 2300,
+			MixerQBoss = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "ReachedTrueEnding" }
+			},
+			{
+				Path = { "GameState", "EncountersCompletedCache", "BossTyphonHead02" },
+				Comparison = ">=",
+				Value = 2,
+			},
+		},
+	},
+
 })

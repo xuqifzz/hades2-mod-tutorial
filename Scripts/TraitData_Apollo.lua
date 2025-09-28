@@ -35,10 +35,18 @@ OverwriteTableKeys( TraitData, {
 				{
 					[1] = 1.20,
 					[2] = 1.15,
-					[3] = 1.10,
+					[3] = 1.15,
+					[4] = 1.15,
+					[5] = 1.15,
+					[6] = 1.10,
 				},
 			},
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
+			ConditionalValidWeapon = 
+			{
+				TraitName = "TransformPrimaryTalent",
+				WeaponName = "WeaponTransformAttack"
+			},
 			ReportValues = { ReportedWeaponMultiplier = "ValidWeaponMultiplier"},
 		},
 		WeaponDataOverride = 
@@ -59,7 +67,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponDagger",
 				WeaponProperty = "ProjectileScaleMultiplier",
-				ChangeValue = 1.4,
+				ChangeValue = 1.6,
 				ChangeType = "Multiply",
 			},
 			{
@@ -71,7 +79,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponTorch",
 				WeaponProperty = "ProjectileScaleMultiplier",
-				ChangeValue = 1.2,
+				ChangeValue = 1.4,
 				ChangeType = "Multiply",
 			},
 			{
@@ -131,12 +139,12 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = 1.2,
 				ChangeType = "Multiply",
 				ReportValues = { ReportedAoEIncrease = "ChangeValue"},
-			},	
+			},
 			{
-				WeaponName = "WeaponLobChargedPulse",
-				WeaponProperty = "BlastRadiusMultiplier",
-				ChangeValue = 1.2,
-				ChangeType = "Multiply",
+				FalseTraitName = "LobGunAspect",
+				WeaponName = "WeaponLob",
+				ProjectileProperty = "IgnoreObstacleImpactDuration",
+				ChangeValue = 0.10,
 			},															
 			-- Apollo VFX
 			{
@@ -227,9 +235,8 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponStaffSwing5",
-				ProjectileName = "ProjectileSwing5Magic",
-				ProjectileProperty = "DetonateFx",
-				ChangeValue = "StaffChargedAttackFx_Apollo",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "StaffChargedAttackFxEmitter_Apollo",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
@@ -240,8 +247,45 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+
+			{
+				WeaponName = "WeaponStaffSwing5",
+				TraitName = "StaffRaiseDeadAspect",
+				ProjectileName = "ProjectileStaffWall",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "StaffWallIn_Apollo",
+				ChangeType = "Absolute",
+			},			
+
+			{
+				WeaponName = "WeaponStaffSwing5",
+				TraitName = "StaffRaiseDeadAspect",
+				ProjectileName = "ProjectileStaffWall",
+				ProjectileProperty = "ImpactFx",
+				ChangeValue = "AnubisWallImpactFx_Apollo",
+				ChangeType = "Absolute",
+			},
+
+			{
+				WeaponName = "WeaponStaffSwing",
+				TraitName = "StaffRaiseDeadAspect",
+				ProjectileName = "ProjectileStaffSingle",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "AnubisRingFx_Apollo",
+				ChangeType = "Absolute",
+			},			
+
+			{
+				WeaponName = "WeaponStaffSwing",
+				TraitName = "StaffRaiseDeadAspect",
+				WeaponProperty = "FireFx",
+				ChangeValue = "StaffProjectileFireFx3_Apollo",
+				ChangeType = "Absolute",
+			},
+
 			{
 				WeaponName = "WeaponDagger",
+				FalseTraitName = "DaggerTripleAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "DaggerSwipeFast_Apollo",
 				ChangeType = "Absolute",
@@ -256,6 +300,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponDaggerDash",
+				FalseTraitName = "DaggerTripleAspect",
 				ProjectileName = "ProjectileDaggerDash",
 				WeaponProperty = "FireFx",
 				ChangeValue = "DaggerSwipeFastFlipDash_Apollo",
@@ -306,10 +351,38 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = "DaggerSwipe_Apollo",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
-			},			
+			},
+			{
+				WeaponName = "WeaponDagger",
+				TraitName = "DaggerTripleAspect",
+				ProjectileName = "ProjectileDaggerSpinMorrigan",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "DaggerMorriganSpin_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponDaggerDash",
+				TraitName = "DaggerTripleAspect",
+				ProjectileName = "ProjectileDaggerSpinMorrigan",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "DaggerMorriganSpin_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponDagger5",
+				TraitName = "DaggerTripleAspect",
+				ProjectileName = "ProjectileDaggerExecuteMorrigan",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "DaggerSwipeDouble_Morrigan_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
 
 			{
 				WeaponName = "WeaponAxe",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSwipe1_Apollo",
 				ChangeType = "Absolute",
@@ -317,6 +390,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponAxe2",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSwipe2_Apollo",
 				ChangeType = "Absolute",
@@ -324,6 +398,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponAxe3",
+				FalseTraitName = "AxeRallyAspect",
 				ProjectileName = "ProjectileAxeOverhead",
 				ProjectileProperty = "DetonateFx",
 				ChangeValue = "AxeNova_Apollo",
@@ -332,6 +407,7 @@ OverwriteTableKeys( TraitData, {
 			},			
 			{
 				WeaponName = "WeaponAxeDash",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSwipeUpper_Apollo",
 				ChangeType = "Absolute",
@@ -345,6 +421,62 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+
+			{
+				WeaponName = "WeaponAxe",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalSlow",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe2",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe3",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe4",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe5",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxeDash",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFastDash",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+
 			{
 				FalseTraitName = "LobCloseAttackAspect",
 				WeaponName = "WeaponLob",
@@ -359,6 +491,32 @@ OverwriteTableKeys( TraitData, {
 				ProjectileName = "ProjectileLob",
 				ProjectileProperty = "BounceFx",
 				ChangeValue = "LobProjectileBounceFx_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobBullet",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobProjectileBullet_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobBullet",
+				ProjectileProperty = "DeathFx",
+				ChangeValue = "LobProjectileBulletFade_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobOverheat",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobSpecialFx_Hel_Apollo",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
@@ -437,26 +595,94 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+
 			{
 				WeaponName = "WeaponTorch",
 				ProjectileName = "ProjectileTorchBall",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchProjectileSmallIn_Apollo",
+				ChangeValue = "TorchBallIn_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchBallGroundGlow_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchBallDissipate_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchWave",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWave_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchWave",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchBallGroundGlowWave_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},		
+			{
+				TraitName = "TorchEnhancedAttackTrait",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchWave",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWaveReturn_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},	
+			{
+				TraitName = "TorchEnhancedAttackTrait",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchSupayBallEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWaveReturn_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},	
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "ImpactFx",
+				ChangeValue = "TorchImpactFx_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchGhost",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchProjectileGhostIn_Apollo",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
 			{
 				WeaponName = "WeaponTorch",
 				FalseTraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchGhostLarge",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchProjectileLargeIn_Apollo",
+				ChangeValue = "TorchProjectileGhostLargeIn_Apollo",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},			
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBall",
+				ProjectileName = "ProjectileTorchGhost",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "TorchProjectileShadow_Apollo",
 				ChangeType = "Absolute",
@@ -465,7 +691,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponTorch",
 				FalseTraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchGhostLarge",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "TorchProjectileShadowLarge_Apollo",
 				ChangeType = "Absolute",
@@ -473,7 +699,7 @@ OverwriteTableKeys( TraitData, {
 			},			
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBall",
+				ProjectileName = "ProjectileTorchGhost",
 				ProjectileProperty = "DissipateFx",
 				ChangeValue = "TorchProjectileDissipate_Apollo",
 				ChangeType = "Absolute",
@@ -481,7 +707,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchGhostLarge",
 				ProjectileProperty = "DissipateFx",
 				ChangeValue = "TorchProjectileDissipate_Apollo",
 				ChangeType = "Absolute",
@@ -497,16 +723,8 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchRepeatStrikeLarge",
-				ProjectileProperty = "DetonateFx",
-				ChangeValue = "RadialNovaPentagramCharged_Apollo",
-				ChangeType = "Absolute",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponTorch",
 				TraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchBallEos",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "EosProjectile_Apollo_In",
 				ChangeType = "Absolute",
@@ -514,27 +732,46 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponTorch",
 				TraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchBallEos",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "EosProjectileShadow",
 				ChangeType = "Absolute",
 			},	
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchExplosion",
+				ProjectileName = "ProjectileTorchGhostExplosion",
 				ProjectileProperty = "DetonateFx",
-				ChangeValue = "AxeNova_Apollo",
+				ChangeValue = "ProjectileTorchGhostExplosion_Apollo",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},	
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchExplosionLarge",
+				ProjectileName = "ProjectileTorchGhostLargeExplosion",
 				ProjectileProperty = "DetonateFx",
-				ChangeValue = "AxeNova_Apollo",
+				ChangeValue = "ProjectileTorchGhostExplosion_Apollo",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
-			},	
+			},
+			{
+				FalseTraitName = "TorchEnhancedAttackTrait",
+				TraitName = "TorchAutofireAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchSupayBallEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWave_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "TorchAutofireAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchSupayBallEx",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchBallGroundGlowWave_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
 
 			{
 				WeaponName = "WeaponSuit",
@@ -551,13 +788,36 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitDouble",
+				ProjectileName = "ProjectileSuitDouble",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitPunch_Apollo",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitDouble",
+				WeaponProperty = "FireFx",
+				ChangeValue = "SuitPunchFlare_R_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitDouble",
+				WeaponProperty = "FireFx2",
+				ChangeValue = "SuitPunchFlare_L_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
 				WeaponName = "WeaponSuitCharged",
 				ProjectileProperty = "StartFx",
 				ChangeValue = "SuitPunchLarge_Apollo",
 				ChangeType = "Absolute",
 			},
 			{
-				FalseTraitName = "SuitDashAttackTrait",
 				WeaponName = "WeaponSuitDash",
 				ProjectileName = "ProjectileSuitDash",
 				ProjectileProperty = "StartFx",
@@ -569,15 +829,7 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponSuitDash",
 				ProjectileName = "ProjectileSuitDash",
 				ProjectileProperty = "DetonateFx",
-				ChangeValue = "SuitNovaBurn_Apollo",
-				ChangeType = "Absolute",
-			},
-			{
-				TraitName = "SuitDashAttackTrait",
-				WeaponName = "WeaponSuitDash",
-				ProjectileName = "ProjectileSuitDash",
-				ProjectileProperty = "StartFx",
-				ChangeValue = "Null",
+				ChangeValue = "SuitNovaBurnRapid_Apollo",
 				ChangeType = "Absolute",
 			},
 			{
@@ -587,7 +839,7 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 		},
-		
+
 		StatLines =
 		{
 			"AttackDamageStatDisplay1",
@@ -645,6 +897,11 @@ OverwriteTableKeys( TraitData, {
 				},
 			},
 			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
+			ConditionalValidWeapon = 
+			{
+				TraitName = "TransformSpecialTalent",
+				WeaponName = "WeaponTransformSpecial"
+			},
 			ReportValues = { ReportedWeaponMultiplier = "ValidWeaponMultiplier"},
 		},
 		WeaponDataOverride =
@@ -663,7 +920,17 @@ OverwriteTableKeys( TraitData, {
 				}
 			}
 		},
-		PropertyChanges = {
+		ChargeStageModifiers = 
+		{
+			ValidWeapons = { "WeaponTorchSpecial"},
+			ExcludeLinked = true,
+			AddWeaponProperties = 
+			{
+				FireFx = "TorchOrbitStartSwirl_Apollo",
+			}
+		},
+		PropertyChanges =
+		{
 			-- Range/Area Properties
 			{
 				WeaponName = "WeaponStaffBall",
@@ -674,11 +941,11 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponDaggerThrow",
 				WeaponProperty = "ProjectileScaleMultiplier",
-				ChangeValue = 1.4,
+				ChangeValue = 1.6,
 				ChangeType = "Multiply",
 			},
 			{
-				WeaponName = "WeaponAxeBlock2",
+				WeaponName = "WeaponAxeSpecial",
 				WeaponProperty = "ProjectileScaleMultiplier",
 				ChangeValue = 1.2,
 				ChangeType = "Multiply",
@@ -710,7 +977,7 @@ OverwriteTableKeys( TraitData, {
 				ReportValues = { ReportedAoEIncrease = "ChangeValue"},
 			},
 			{
-				WeaponName = "WeaponAxeBlock2",
+				WeaponName = "WeaponAxeSpecialSwing",
 				WeaponProperty = "BlastRadiusMultiplier",
 				ChangeValue = 1.2,
 				ChangeType = "Multiply",
@@ -733,7 +1000,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponSuitRanged",
 				WeaponProperty = "BlastRadiusMultiplier",
-				ChangeValue = 1.2,
+				ChangeValue = 1.6,
 				ChangeType = "Multiply",
 				ReportValues = { ReportedAoEIncrease = "ChangeValue"},
 			},
@@ -794,6 +1061,7 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				FalseTraitName = "DaggerTripleAspect",
 				WeaponName = "WeaponDaggerThrow",
 				ProjectileName = "ProjectileDaggerThrow",
 				ProjectileProperty = "Graphic",
@@ -801,10 +1069,27 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				TraitName = "DaggerTripleAspect",
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrow",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerThrowMorrigan_Apollo",
+				ChangeType = "Absolute",
+			},
+			{
+				FalseTraitName = "DaggerTripleAspect",
 				WeaponName = "WeaponDaggerThrow",
 				ProjectileName = "ProjectileDaggerThrowCharged",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "DaggerProjectileFx_Apollo", 
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "DaggerTripleAspect",
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerThrowMorrigan_Apollo",
 				ChangeType = "Absolute",
 			},
 			{
@@ -835,7 +1120,7 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 			{
-				FalseTraitName = "AxeBlockEmpowerTrait",
+				FalseTraitNames = { "AxeBlockEmpowerTrait", "AxeRallyAspect", },
 				WeaponName = "WeaponAxeSpecial",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSpinDouble_Apollo",
@@ -843,7 +1128,26 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true
 			},
 			{
+				TraitName = "AxeRallyAspect",
+				FalseTraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "null",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
+				TraitName = "AxeRallyAspect",
+				FalseTraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				WeaponProperty = "FireFx",
+				ChangeValue = "AxeSwipeUpper_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
 				TraitName = "AxeBlockEmpowerTrait",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxeSpecial",
 				WeaponProperty = "FireFx",
 				ChangeValue = "null",
@@ -852,9 +1156,18 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				TraitName = "AxeBlockEmpowerTrait",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxeSpecial",
 				ProjectileProperty = "StartFx",
 				ChangeValue = "AxeSpinDouble_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
+				TraitNames = { "AxeBlockEmpowerTrait", "AxeRallyAspect" },
+				WeaponName = "WeaponAxeSpecial",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "AxeSwipeUpper_Apollo",
 				ChangeType = "Absolute",
 				ExcludeLinked = true
 			},
@@ -866,10 +1179,19 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 			{
+				FalseTraitName = "LobGunAspect",
 				WeaponName = "WeaponLobSpecial",
 				ProjectileName = "ProjectileThrowCharged",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "LobSpecialFx_Apollo",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobSpecialFx_Hel_Apollo",
 				ChangeType = "Absolute",
 			},
 			{
@@ -878,7 +1200,15 @@ OverwriteTableKeys( TraitData, {
 				ProjectileProperty = "Graphic",
 				ChangeValue = "DashLobTrailEmitter_Apollo",
 				ChangeType = "Absolute",
-			},			
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileLobGunRift",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobProjectile_Apollo",
+				ChangeType = "Absolute",
+			},
 			{
 				WeaponName = "WeaponLobSpecial",
 				WeaponProperty = "ChargeStartFx",
@@ -887,60 +1217,91 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponSkullImpulse",
-				ProjectileName = "ProjectileSkullImpulseWave",
-				ProjectileProperty = "Graphic",
-				ChangeValue = "LobSpecialFx_Apollo",
-				ChangeType = "Absolute",
-			},
-			{
-				WeaponName = "WeaponSkullImpulse",
 				ProjectileName = "ProjectileSkullImpulse",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "DashLobTrailEmitter_Apollo",
 				ChangeType = "Absolute",
-			},	
-
-			{
-				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
-				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchSpecialProjectileIn_Apollo",
-				ChangeType = "Absolute",
-			},			
-			{
-				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
-				ProjectileProperty = "AttachedAnim",
-				ChangeValue = "TorchSpecialProjectileGroundGlow_Apollo",
-				ChangeType = "Absolute",
-			},			
-			{
-				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
-				ProjectileProperty = "DissipateFx",
-				ChangeValue = "TorchSpecialProjectileDissipate_Apollo",
-				ChangeType = "Absolute",
-			},			
-
+			},
 			{
 				WeaponName = "WeaponTorchSpecial",
 				ProjectileName = "ProjectileTorchOrbit",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchSpecialProjectileIn_Apollo",
+				ChangeValue = "TorchOrbitIn_Apollo",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileNames = { "ProjectileTorchOrbit", "ProjectileTorchOrbitEx" },
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchOrbitOut_Apollo",
 				ChangeType = "Absolute",
 			},			
 			{
 				WeaponName = "WeaponTorchSpecial",
+				ProjectileNames = { "ProjectileTorchOrbit", "ProjectileTorchOrbitEx" },
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchOrbitShadow_Apollo",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchOrbitInEX_Apollo",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponTorchSpecial",
+				WeaponProperty = "FireFx",
+				ChangeValue = "TorchOrbitStartSwirl_Single_Apollo",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbit",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchSpecialProjectileIn_Moros_Apollo",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
 				ProjectileName = "ProjectileTorchOrbit",
 				ProjectileProperty = "AttachedAnim",
-				ChangeValue = "TorchSpecialProjectileGroundGlow_Apollo",
+				ChangeValue = "TorchSpecialProjectileGroundGlow_Moros_Apollo",
 				ChangeType = "Absolute",
-			},			
+			},
 			{
 				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
 				ProjectileName = "ProjectileTorchOrbit",
 				ProjectileProperty = "DissipateFx",
-				ChangeValue = "TorchSpecialProjectileDissipate_Apollo",
+				ChangeValue = "TorchSpecialProjectileDissipate_Moros_Apollo",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchSpecialProjectileIn_Moros_Apollo",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchSpecialProjectileGroundGlow_Moros_Apollo",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchSpecialProjectileDissipate_Moros_Apollo",
 				ChangeType = "Absolute",
 			},
 			{
@@ -984,6 +1345,78 @@ OverwriteTableKeys( TraitData, {
 				ProjectileProperty = "DetonateFx",
 				ChangeValue = "SuitRocketExplosion_Apollo",
 				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenade",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenade_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenade",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBomb",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenadeBig_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBomb",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenadeStraight",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenade_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenadeStraight",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBombStraight",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenadeBig_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBombStraight",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Apollo",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
 			},
 			{
 				TraitName = "SuitSpecialJumpTrait",
@@ -1105,9 +1538,8 @@ OverwriteTableKeys( TraitData, {
 					BaseValue = 1.0,
 					AbsoluteStackValues = 
 					{
-						[1] = 0.6,
-						[2] = 0.4,
-						[3] = 0.2,
+						[1] = 0.5,
+						[2] = 0.25,
 					},
 				},
 				ReportValues = { ReportedMultiplier = "DamageMultiplier"},
@@ -1124,9 +1556,7 @@ OverwriteTableKeys( TraitData, {
 					BaseValue = 1.0,
 					AbsoluteStackValues = 
 					{
-						[1] = 0.6,
-						[2] = 0.4,
-						[3] = 0.2,
+						[1] = 0.500,
 					},
 				},
 			},
@@ -1147,10 +1577,7 @@ OverwriteTableKeys( TraitData, {
 					Graphic = "CastCircleInApollo",
 					ArmedGraphic = "CastCircleArmedApollo",
 					GroupName = "FX_Terrain_Add",
-					DetonateFx = "null",
-					ArmedImpactFx = "null",
-					InflictedDamageFx = "GraspingHandsAttack",
-					DissipateFx = "CastCircleOutApollo",
+					DetonateFx = "CastCircleOutApollo",
 					HideGraphicOnDetonate = false
 				}
 			},
@@ -1193,13 +1620,6 @@ OverwriteTableKeys( TraitData, {
 	{
 		Icon = "Boon_Apollo_31",
 		InheritFrom = { "BaseTrait", "FireBoon" },
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "ZeusExCastBoon", "PoseidonExCastBoon", "HeraExCastBoon" },
-			},
-		},
 		
 		RarityLevels =
 		{
@@ -1209,15 +1629,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.2,
+				Multiplier = 1.5,
 			},
 			Epic =
 			{
-				Multiplier = 1.4,
+				Multiplier = 2.0,
 			},
 			Heroic =
 			{
-				Multiplier = 1.6,
+				Multiplier = 2.5,
 			},
 		},
 		
@@ -1270,14 +1690,16 @@ OverwriteTableKeys( TraitData, {
 			Args = 
 			{
 				ValidProjectileName = "ProjectileCast",
-				ProjectileName = "ApolloCast",
+				ProjectileName = "ApolloCastRapid",
 				DamageMultiplier = 
 				{ 
 					BaseValue = 1,
-					IdenticalMultiplier =
+					AbsoluteStackValues = 
 					{
-						Value = -0.8,
-						DiminishingReturnsMultiplier = 0.8,
+						[1] = 0.5,
+						[2] = 0.4,
+						[3] = 0.3,
+						[4] = 0.2,
 					},
 				},
 				
@@ -1322,11 +1744,6 @@ OverwriteTableKeys( TraitData, {
 		{
 			WeaponSprint =
 			{
-				SprintVfx = 
-				{
-					Cooldown = 0.2,
-					Name = "null",
-				},
 				Sounds =
 				{
 					ChargeSounds =
@@ -1473,26 +1890,16 @@ OverwriteTableKeys( TraitData, {
 			{
 				ManaRestore = 
 				{
-					BaseValue = 50,
+					BaseValue = 40,
 					AbsoluteStackValues = 
 					{
-						[1] = 25,
-						[2] = 20,
-						[3] = 15,
-						[4] = 10,
+						[1] = 20,
+						[2] = 15,
+						[3] = 10,
 					},
 				},
+				ManaRestoreFx = "ApolloManaRegenFxEmitter",
 				ReportValues = { ReportedManaRestore = "ManaRestore" }
-			},
-		},
-		PropertyChanges =
-		{	
-			{
-				WeaponName = "WeaponCast",
-				ProjectileProperties = 
-				{
-					Graphic = "CastCircleInApolloRegen",
-				}
 			},
 		},
 		ExtractValues =
@@ -1561,7 +1968,6 @@ OverwriteTableKeys( TraitData, {
 				BaseType = "Projectile",
 				BaseName = "ApolloRetaliateStrike",
 				BaseProperty = "Damage",
-				ExtractAs = "Damage",
 			},
 			{
 				ExtractAs = "BlindDuration",
@@ -1702,7 +2108,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedChance",
 				ExtractAs = "Chance",
-				Format = "Percent",
+				Format = "LuckModifiedPercent",
 			},
 			{
 				ExtractAs = "BlindDuration",
@@ -1849,7 +2255,7 @@ OverwriteTableKeys( TraitData, {
 	DoubleStrikeChanceBoon = 
 	{
 		Icon = "Boon_Apollo_45",
-		InheritFrom = { "BaseTrait", "FireBoon" },
+		InheritFrom = { "BaseTrait", "AirBoon" },
 		StringTextNumeral = 2, -- used for string
 
 		PropertyChanges = 
@@ -1865,6 +2271,8 @@ OverwriteTableKeys( TraitData, {
 					"WeaponAxe",
 					"WeaponAxe2",
 					"WeaponAxe3",
+					"WeaponAxe4",
+					"WeaponAxe5",
 					"WeaponAxeDash",
 					
 					"WeaponDagger",
@@ -1906,6 +2314,8 @@ OverwriteTableKeys( TraitData, {
 					"WeaponAxe",
 					"WeaponAxe2",
 					"WeaponAxe3",
+					"WeaponAxe4",
+					"WeaponAxe5",
 					"WeaponAxeDash",
 					
 					"WeaponDagger",
@@ -1960,14 +2370,19 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedChance",
 				ExtractAs = "DoubleChance",
-				Format = "Percent",
+				Format = "LuckModifiedPercent",
 			},
 		}
 	},
 	DoubleExManaBoon = -- Legendary
 	{
 		Icon = "Boon_Apollo_40",
-		InheritFrom = { "LegendaryTrait", "AirBoon" },
+		InheritFrom = { "LegendaryTrait", "FireBoon" },
+		CustomNameWithWeaponName = 
+		{
+			WeaponName = "WeaponTorch",
+			Name = "DoubleExManaBoon_Torch",
+		},
 		ApplyAfterHammerTraits = true,
 		OnWeaponChargeFunctions =
 		{
@@ -1979,29 +2394,85 @@ OverwriteTableKeys( TraitData, {
 		{
 			WeaponNames = WeaponSets.HeroPrimarySecondaryWeapons,
 			ExWeapons = true,
-			ManaCostAdd = { BaseValue = 20 },
+			ManaCostAdd = { BaseValue = 30 },
+			InvalidWeapon = 
+			{
+				WeaponName = "WeaponTorchSpecial",
+			},
 			ReportValues = 
 			{ 
 				ReportedCost = "ManaCostAdd" 
 			},
 		},
-		ChargeStageModifiers = 
+		ChargeStageModifiersArray = 
 		{
-			ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,
-			ExWeapons = true,
-			MultiplyExistingWeaponProperties = 
 			{
-				NumProjectileWaves = true,
+				TraitNames = { "LobGunAspect", "LobGunAttackDoublerTrait"},
+				ValidWeapons = WeaponSets.HeroPrimaryWeapons,
+				ExWeapons = true,
+				AddWeaponProperties = 
+				{
+					NumProjectileWaves = 4,
+					ProjectileWaveInterval = 0.15,
+				},
 			},
-			AddWeaponProperties = 
 			{
-				NumProjectileWaves = 2,
-				ProjectileWaveInterval = 0.2,
+				TraitName = "LobGunAspect",
+				FalseTraitName = "LobGunAttackDoublerTrait",
+				ValidWeapons = WeaponSets.HeroPrimaryWeapons,
+				ExWeapons = true,
+				AddWeaponProperties = 
+				{
+					NumProjectileWaves = 2,
+					ProjectileWaveInterval = 0.15,
+				},
 			},
-			AddProperty = 
 			{
-				RequiredWeapon = "WeaponSuit",
-				DeferRevert = true,
+				TraitName = "LobGunAspect",
+				ValidWeapons = WeaponSets.HeroSecondaryWeapons,
+				ExWeapons = true,
+				AddWeaponProperties = 
+				{
+					NumProjectiles = 2,
+					ProjectileInterval = 0.15,
+					ProjectileIntervalStart = 0.15,
+				},
+			},
+			{
+				ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,
+				FalseTraitNames = { "LobGunAspect", "TorchSprintRecallAspect" },
+				InvalidWeapon = 
+				{
+					WeaponName = "WeaponTorchSpecial",
+				},
+				ExWeapons = true,
+				MultiplyExistingWeaponProperties = 
+				{
+					NumProjectileWaves = true,
+				},
+				AddWeaponProperties = 
+				{
+					NumProjectileWaves = 2,
+					ProjectileWaveInterval = 0.2,
+				},
+			},
+			{
+				ValidWeapons = WeaponSets.HeroPrimaryWeapons,
+				FalseTraitNames = { "LobGunAspect", "TorchSprintRecallAspect" },
+				AddProperty = 
+				{
+					RequiredWeapon = "WeaponSuit",
+					DeferRevert = true,
+				},
+			},
+			{
+				ValidWeapons = WeaponSets.HeroSecondaryWeapons,
+				FalseTraitNames = { "LobGunAspect", "TorchSprintRecallAspect", "SuitComboAspect"},
+				AddProperty = 
+				{
+					RequiredWeapon = "WeaponSuit",
+					DeferRevert = true,
+				},
 			},
 		},
 		PropertyChanges = 
@@ -2027,9 +2498,8 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponAxeSpecialSwing",
 				WeaponProperty = "NumProjectileWaves",
-				ChangeValue = 1,
-				ChangeType = "Add",
-				ReportValues = { ReportedChange = "ChangeValue" }
+				ChangeValue = 2,
+				ChangeType = "Multiply",
 			},
 			{
 				WeaponName = "WeaponAxeSpecialSwing",
@@ -2037,6 +2507,16 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = 0.2,
 				ChangeType = "Absolute",
 			},
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "ProjectileInterval",
+				ChangeValue = 0.5,
+				ChangeType = "Multiply",
+			},
+		},
+		SetupFunction = 
+		{
+			Name = "ApolloExSetup"
 		},
 		StatLines =
 		{
@@ -2049,86 +2529,7 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "ManaCostAddition",
 				IncludeSigns = true,
 			},
-		}
-	},
-
-	-- Cut
-	ApolloMissStrikeBoon =
-	{
-		Icon = "Boon_Apollo_38",
-		InheritFrom = { "BaseTrait", "AirBoon" },
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.0,
-			},
-			Rare =
-			{
-				Multiplier = 1.5,
-			},
-			Epic =
-			{
-				Multiplier = 2.0,
-			},
-			Heroic =
-			{
-				Multiplier = 2.5,
-			},
 		},
-		OnDodgeFunction = 
-		{
-			FunctionName = "ApolloBlindStrike",
-			RunOnce = true,
-			FunctionArgs =
-			{
-				ValidActiveEffectGenus = "Blind",
-				ProjectileName = "ApolloPerfectDashStrike",
-				DamageMultiplier = { 
-					BaseValue = 1,
-					MinMultiplier = 0.1,
-					IdenticalMultiplier =
-					{
-						Value = -0.5,
-						DiminishingReturnsMultiplier = 0.8,
-					}, 
-				},
-				Cooldown = 0.2,
-				ReportValues = { ReportedMultiplier = "DamageMultiplier"},
-			},
-		},
-		StatLines =
-		{
-			"MissDamageStatDisplay1",
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedMultiplier",
-				ExtractAs = "Damage",
-				Format = "MultiplyByBase",
-				BaseType = "Projectile",
-				BaseName = "ApolloPerfectDashStrike",
-				BaseProperty = "Damage",
-				ExtractAs = "Damage",
-			},
-			{
-				ExtractAs = "BlindDuration",
-				SkipAutoExtract = true,
-				External = true,
-				BaseType = "EffectData",
-				BaseName = "BlindEffect",
-				BaseProperty = "Duration",
-			},
-			{
-				ExtractAs = "BlindChance",
-				SkipAutoExtract = true,
-				External = true,
-				BaseType = "EffectData",
-				BaseName = "BlindEffect",
-				BaseProperty = "MissChance",
-				Format = "Percent"
-			},
-		}
+		FlavorText = "DoubleExManaBoon_FlavorText",
 	},
 })

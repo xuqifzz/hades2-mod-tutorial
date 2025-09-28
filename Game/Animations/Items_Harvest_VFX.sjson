@@ -35,8 +35,7 @@
 	
 	{
 		Name = "DirtSpraySpawner"
-		FilePath = "Dev\blank_invisible"
-		
+		FilePath = "Dev\blank_invisible"		
 		VisualFx = "DirtSprayRandom"
 		Duration = 0.25
 		EndFrame = 1
@@ -424,6 +423,7 @@
 		OffsetZ = 0
 		Hue = 0.3
 		LocationZFromOwner = "Take"
+		Sound = "/SFX/Menu Sounds/HeartHighlightShimmer2"
 	}
 
 	{
@@ -582,6 +582,12 @@
 	}
 
 	{
+		Name = "HarvestReadySparklesGarden"
+		InheritFrom = "HarvestReadySparkles"
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
 		Name = "HarvestReadySparklesLouder"
 		InheritFrom = "HarvestReadySparkles"
 		ScaleMax = 0.5
@@ -666,6 +672,40 @@
 		EndRed = 0.2
 		EndGreen = 1.0
 		EndBlue = 0.8
+	}
+	{
+		Name = "DoraGlowExorcism"
+		InheritFrom = "HarvestReadyGlowExorcism"
+		StartGreen = 1.0
+		StartBlue = 0.6
+		EndGreen = 0.8
+		EndBlue = 0.4
+		ScaleY = 0.3
+		ScaleX = 3.0
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "DoraStandingOnParticles"	
+		FilePath = "Fx\ErebusFirefliesB\ErebusFirefliesB"
+		NumFrames = 90
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 36
+		OffsetY = -40
+		StartRed = 0.2
+		EndRed = 0.4
+		StartGreen = 1.0
+		EndGreen = 0.92
+		StartBlue = 0.52
+		EndBlue = 1.0
+		StartAlpha = 1.0
+		EndAlpha = 0.0
+		Material = "Unlit"
+		OnlyWhenVisible = true
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
 	}
 	
 	{
@@ -797,7 +837,7 @@
 
 	{
 		Name = "ShovelPointSparklesSecondaryA"
-		FilePath = "Particles\particle_aphrodite_sparkle_noGlow"
+		FilePath = "Particles\particle_aphrodite_sparkle_noglow"
 		RandomDurationMin = 0.6
 		RandomDurationMax = 1.0
 		EaseIn = 0
@@ -841,7 +881,7 @@
 
 	{
 		Name = "ExorcismSparklesSecondaryA"
-		FilePath = "Particles\particle_aphrodite_sparkle_noGlow"
+		FilePath = "Particles\particle_aphrodite_sparkle_noglow"
 		RandomDurationMin = 0.6
 		RandomDurationMax = 1.0
 		EaseIn = 0
@@ -1076,14 +1116,6 @@
 	}
 
 	{
-		Name = "HarvestPointMushroom"
-		InheritFrom = "HarvestPoint"
-		FilePath = "Items\Resources\Plant\PlantMoneyUnharvested"
-		OffsetY = 0.0
-		Scale = 0.17
-	}
-
-	{
 		Name = "HarvestPointPlantGLotus"
 		InheritFrom = "HarvestPoint"
 		FilePath = "Items\Resources\Plant\PlantGLotusUnharvested"
@@ -1180,7 +1212,23 @@
 		OffsetY = 0
 		Scale = 0.2
 	}
+
+	{
+		Name = "HarvestPointPlantQFang"
+		InheritFrom = "HarvestPoint"
+		FilePath = "Items\Resources\Plant\PlantQFangUnharvested"
+		//OffsetY = 0
+		//Scale = 0.2
+	}
 	
+	{
+		Name = "HarvestPointPlantQFangUsed"
+		InheritFrom = "HarvestPointUsed"
+		FilePath = "Items\Resources\Plant\PlantQFangHarvested"
+		//OffsetY = 0
+		//Scale = 0.2
+	}
+
 	{
 		Name = "ShovelPoint"
 		InheritFrom = "HarvestPoint"
@@ -1333,6 +1381,7 @@
 		NumFrames = 1
 		StartFrame = 1
 		Scale = 0.5
+		OffsetY = -50
 	}
 	
 	{
@@ -1344,12 +1393,11 @@
 	{
 		Name = "PickaxePointBronzeEmpty"
 		FilePath = "Items\Resources\Ore\OreNBronzeHarvested"
-		OriginY = 440
-		OriginX = 333.5
 		EndFrame = 1
 		NumFrames = 1
 		StartFrame = 1
 		Scale = 0.5
+		OffsetY = -50
 	}
 
 	{
@@ -1399,6 +1447,29 @@
 	}
 
 	{
+		Name = "PickaxePointOreQScales"
+		InheritFrom = "HarvestPoint"
+		FilePath = "Items\Resources\Ore\OreQScalesUnharvested"
+		VisualFx = "PickaxePointGlint"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.5
+	}
+	
+	{
+		Name = "PickaxePointOreQScalesUnavailable"
+		InheritFrom = "PickaxePointOreQScales"
+		VisualFx = "null"
+	}
+	
+	{
+		Name = "PickaxePointOreQScalesEmpty"
+		InheritFrom = "PickaxePointOreQScalesUnavailable"
+		FilePath = "Items\Resources\Ore\OreQScalesHarvested"	
+	}
+
+	{
 		Name = "PickaxePointOreChaosProtoplasm"
 		InheritFrom = "HarvestPoint"
 		FilePath = "Items\Resources\Ore\OreChaosProtoplasmUnharvested"
@@ -1443,7 +1514,7 @@
 		Name = "PlantBaseReadyToHarvest"
 		FilePath = "Items\Resources\Plant\PlantFNightshadeUnharvested"
 		
-		VisualFx = "HarvestReadySparkles"
+		VisualFx = "HarvestReadySparklesGarden"
 		EndAngle = 0.5
 		PingPongAngle = true
 		StartAngle = -0.5
@@ -1585,31 +1656,147 @@
 		OriginY = 212
 		OriginX = 101
 	}
+
+	{
+		Name = "PlantQSnakereedSprouted"
+		InheritFrom = "PlantBaseSprouted"
+		FilePath = "Items\Resources\Plant\PlantQSnakereedSprouted"
+		Scale = 0.5
+		OriginY = 502
+		OriginX = 99
+	}
 	
+	{
+		Name = "PlantQSnakereedReadyToHarvest"
+		InheritFrom = "PlantBaseReadyToHarvest"
+		FilePath = "Items\Resources\Plant\PlantQSnakereedUnharvested"
+		Scale = 0.5
+		OriginY = 502
+		OriginX = 99
+	}
+
+	{
+		Name = "GardenPlot"
+		FilePath = "Tilesets\Crossroads\Crossroads_GardenPlot_01"
+	}
+
+	{
+		Name = "GardenPlotGlow"
+		FilePath = "Particles\particle_glow_egg"
+		GroupName = "FX_Standing_Add"
+		OffsetX = 20
+		OffsetY = 200
+		AlphaMax = 1.0
+		AlphaMin = 0.2
+		EndAlpha = 0.3
+		EndBlue = 0.2
+		EndGreen = 1.0
+		EndRed = 1.0
+		PingPongColor = true
+		StartBlue = 0.8
+		StartGreen = 0.2
+		StartRed = 0.3
+		Duration = 2.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetZ = 70.0
+		EndScaleX = 0.1
+		EndScaleY = 0.5
+		ScaleMax = 1.0
+		ScaleMin = 0.8
+		StartScale = 0.5
+		StartScaleX = 0.4
+		RandomOffsetX = 30
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+	}	
+
+	{
+		Name = "GardenPlotReadyToPlant"
+		InheritFrom = "GardenPlot"
+		VisualFx = "GardenPlotGlow"
+		VisualFxIntervalMax = 0.4
+		VisualFxIntervalMin = 0.3
+	}
 	
 	{
 		Name = "ExorcismGhostDissipate"
-		FilePath = "Fx\Tartarus_Ghost_01_Dissipate\Tartarus_Ghost_01_Dissipate"
-		
-		VisualFx = "GhostDissipationFx"
-		UseOwnAngle = false
+		FilePath = "Fx\Tartarus_Ghost_01_Dissipate\Tartarus_Ghost_01_Dissipate"		
+		// VisualFx = "GhostDissipationFx"
 		Sound = "/EmptyCue"
-		ColorFromOwner = "Take"
 		EndFrame = 45
 		HoldLastFrame = true
 		NumFrames = 45
-		RandomPlaySpeedMax = 45.0
-		RandomPlaySpeedMin = 24.0
 		ReRandomizeOnLoop = false
 		StartFrame = 1
 		OffsetY = -80.0
 		SortFromOwner = "Take"
-		Scale = 0.5
+		Scale = 1.25
+		ColorFromOwner = "Ignore"
+		UseAttachedShake = false
+		UseAttachedAddColor = false
 		ScaleFromOwner = "Take"
 		Ambient = 0.0
 		VisualFxCap = 1
 		VisualFxIntervalMax = 0.002
 		VisualFxIntervalMin = 0.001
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		CreateAnimations = [
+			{ Name = "GhostTransitionFlareExorcism" }
+		]
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
 	}				
 	
 	{
@@ -1624,12 +1811,14 @@
 		OffsetZ = -60
 		Sound = "/SFX/GhostEvaporate"
 		Color = { Red = 0.0 Green = 1.0 Blue = 0.6 }
+		CreateAnimation = "DoraDissipateFxLoop"
 	}
 	{
-		Name = "DoraDissipateOut"
-		InheritFrom = "DoraDissipate"
-		StartAlpha = 0.25
-		Sound = "null"
+		Name = "DoraDissipateFxLoop"
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "DoraStandingOnFx"
+		VisualFxIntervalMax = 0.6
+		VisualFxIntervalMin = 0.3
 	}
 
 	{
@@ -1719,6 +1908,32 @@
 		Name = "FishingPointActive"
 		InheritFrom = "FishingPoint"
 	}
+
+	{
+		Name = "FishingPointActiveSand"
+		InheritFrom = "FishingPoint"
+		FilePath = "Fx\SandFishingPoint\SandFishingPoint"
+		NumFrames = 30
+		PlaySpeed = 24
+		Scale = 1.5
+		Loop = true
+		CreateAnimation = "FishingPointActiveSparkles"
+	}
+
+	{
+		Name = "FishingPointActiveSparkles"
+		FilePath = "Fx\FishingPointSparkles\FishingPointSparkles"
+		NumFrames = 120
+		GroupName = "FX_Standing_Add"
+		Loop = true
+		PlaySpeed = 30
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Scale = 1.25
+		OffsetZ = 20
+	}
 	
 	{
 		Name = "FishingPointActive_NoShadow"
@@ -1751,6 +1966,15 @@
 		RandomFlipVertical = true
 		Ambient = 0.0
 		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "FishingPointDarkSand"
+		InheritFrom = "FishingPointDark"
+		ColorFromOwner = "Ignore"
+		Alpha = 0.125
+		PlaySpeed = 12
+		Color = { Red = 0.3 Green = 0.2 Blue = 0.1 }
 	}
 	
 	{
@@ -1852,6 +2076,7 @@
 		RandomFlipHorizontal = true
 		SortMode = "FromParent"
 		Ambient = 0.0
+		AngleFromOwner = "Ignore"
 	}
 	
 	{
@@ -1878,6 +2103,7 @@
 		SortMode = "Isometric"
 		Ambient = 0.0
 		Scale = 0.75
+		AngleFromOwner = "Ignore"
 	}
 	
 	{
@@ -1944,63 +2170,6 @@
 		Ambient = 0.0
 		VisualFxDistanceMin = 8
 		VisualFxDistanceMax = 15
-	}	
-
-	{
-		Name = "FishingBobberIdleWithTrail"
-		FilePath = "Fx\FishingBobberIdleNoRipple\FishingBobberIdleNoRipple"
-		AngleFromOwner = "Ignore"
-		UseOwnAngle = false
-		EndFrame = 30
-		Loop = true
-		NumFrames = 30
-		StartFrame = 1
-		Ambient = 0.0
-		VisualFxIntervalMin = 0.1
-		VisualFxIntervalMax = 0.12
-		VisualFx = "FishingBobberTrail"
-	}
-
-	{
-		Name = "FishingBobberTrail"
-		Random = [
-			{ Name = "FishingBobberTrailA" }
-			{ Name = "FishingBobberTrailB" }
-		]
-	}
-
-	{
-		Name = "FishingBobberTrailA"
-		FilePath = "Fx\CalmRipple\CalmRipple"
-		NumFrames = 41
-		RandomRotation = true
-		ScaleMin = 0.8
-		ScaleMax = 1.3
-		StartScale = 0.5
-		EndScale = 1.0
-		EaseIn = 0.9
-		EaseOut = 1.0
-		StartAlpha = 1
-		EndAlpha = 0
-		Red = 0
-		Green = 0
-		Blue = 0
-		PostRotateScaleY = 0.5
-		GroupName = "FX_Terrain"
-		RandomPlaySpeedMin = 24
-		RandomPlaySpeedMax = 30
-		RandomFlipHorizontal = true
-		RandomFlipVertical = true
-		LocationFromOwner = "Ignore"
-		LocationZFromOwner = "Ignore"
-	}
-
-	{
-		Name = "FishingBobberTrailB"
-		InheritFrom = "FishingBobberTrailA"
-		Red = 1
-		Green = 1
-		Blue = 1
 	}
 	
 	{
@@ -2022,6 +2191,189 @@
 		ChainTo = "FishingBobberIdle"
 		FilePath = "Fx\FishingBobberResurface\FishingBobberResurface"
 		Loop = false
+	}
+
+	{
+		Name = "FishingBobberIdle_Sand"
+		InheritFrom = "FishingBobberIdle"
+		AddColor = false
+		Red = 0.7
+		Green = 0.6
+		Blue = 0.4
+		Value = 0.3
+		Saturation = -0.2
+		PlaySpeed = 24
+	}
+
+	{
+		Name = "FishingBobberResurface_Sand"
+		InheritFrom = "FishingBobberIdle"
+		Red = 0.7
+		Green = 0.6
+		Blue = 0.4
+		Value = 0.3
+		Saturation = -0.2
+		PlaySpeed = 24
+	}
+
+	{
+		Name = "FishingBobberDunk_Sand"
+		InheritFrom = "FishingBobberDunk"
+		Red = 0.7
+		Green = 0.6
+		Blue = 0.4
+		Value = 0.3
+		Saturation = -0.2
+		PlaySpeed = 24
+	}
+
+	{
+		Name = "FishingBobberFakeDunkA_Sand"
+		InheritFrom = "FishingBobberFakeDunkA"
+		ChainTo = "FishingBobberIdle_Sand"
+		Red = 0.7
+		Green = 0.6
+		Blue = 0.4
+		Value = 0.3
+		Saturation = -0.2
+		PlaySpeed = 24
+	}
+
+	{
+		Name = "FishingSplashA_Standing_Sand"
+		InheritFrom = "FishingSplashA_Standing"
+	}	
+
+	{
+		Name = "FishingSplashB_Standing_Sand"
+		InheritFrom = "FishingSplashB_Standing"
+	}
+
+	{
+		Name = "CWSandBurstFishing"
+		FilePath = "Fx\CWSandBurst\CWSandBurst"
+		NumFrames = 60
+		GroupName = "Standing"
+		AngleFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		OffsetZ = 90
+		StartAlpha = 1
+		EndAlpha = 0
+		PlaySpeed = 45
+		ScaleX = 0.9
+		Scale = 1
+	}
+
+	{
+		Name = "FishingSplashA_Sand"
+		InheritFrom = "FishingSplashA"
+		AddColor = false
+		Red = 0.45
+		Green = 0.38
+		Blue = 0.20
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		Value = 0.8
+		Alpha = 0.8
+
+		PlaySpeed = 20
+		Scale = 1.1
+		CreateAnimation = "CWSandBurstFishing"
+		VisualFx = "FishingSplashBSandClouds"
+		VisualFxCap = 9
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.1
+		ColorFromOwner = "Ignore"
+	}	
+
+	{
+		Name = "FishingSplashB_Sand"
+		InheritFrom = "FishingSplashB"
+		AddColor = false
+		Red = 0.45
+		Green = 0.38
+		Blue = 0.20
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		Value = 0.8
+		Alpha = 0.8
+		PlaySpeed = 20
+		Scale = 1.33
+		CreateAnimation = "CWSandBurstFishing"
+		VisualFx = "FishingSplashBSandClouds"
+		VisualFxCap = 9
+		VisualFxIntervalMin = 0.03
+		VisualFxIntervalMax = 0.06
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "FishingSplashBSandClouds"
+		Random = [
+			{ Name = "FishingSplashBSandCloudA" }
+			{ Name = "FishingSplashBSandCloudB" }
+			{ Name = "FishingSplashBSandCloudC" }
+			{ Name = "FishingSplashBSandCloudD" }
+		]
+	}
+
+	{
+		Name = "FishingSplashBSandCloudA"
+		FilePath = "Particles\particle_snowDust_01"
+		RandomRotation = true
+		AngleMin = 70
+		AngleMax = 110
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomDurationMin = 1
+		RandomDurationMax = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		VelocityMin = 20
+		VelocityMax = 50
+		Acceleration = -150
+		ScaleFromOwner = "Ignore"
+		UpwardVelocityMin = 20
+		UpwardVelocityMax = 80
+		Gravity = 100
+		ScaleMin = 0.3
+		ScaleMax = 0.5
+		StartScale = 0.3
+		EndScale = 1.0
+		RandomOffsetX = 20
+		RandomOffsetY = 10
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		GroupName = "FX_Standing"
+		Saturation = 0.55
+		Hue = -0.05
+		Value = 0.07
+		ColorFromOwner = "Ignore"
+		OffsetZ = 15
+	}
+
+	{
+		Name = "FishingSplashBSandCloudB"
+		InheritFrom = "FishingSplashBSandCloudA"
+		FilePath = "Particles\particle_snowDust_02"
+	}
+	{
+		Name = "FishingSplashBSandCloudC"
+		InheritFrom = "FishingSplashBSandCloudA"
+		FilePath = "Particles\particle_snowDust_03"
+	}
+	{
+		Name = "FishingSplashBSandCloudD"
+		InheritFrom = "FishingSplashBSandCloudA"
+		FilePath = "Particles\particle_snowDust_04"
 	}
 
 	{
@@ -2055,6 +2407,7 @@
 		NumFrames = 14
 		PlaySpeed = 60
 		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Take"
 		IsometricSkew = "X"
 		Scale = 2
 		OffsetZ = 120
@@ -2341,7 +2694,6 @@
 		Name = "ShovelDirtOutSprayHound"
 		InheritFrom = "ShovelDirtOutSpray"
 		GrannyAttachedMarkerLocation = null
-		Sound = "/Leftovers/World Sounds/SandForage"
 	}
 
 	{
@@ -2616,6 +2968,9 @@
 			VisualFx = "ExorcismSparklesSecondary"
 			VisualFxIntervalMin = 0.1
 			VisualFxIntervalMax = 0.2
+			ColorFromOwner = "Ignore"
+			UseAttachedFlasher = false
+			UseAttachedAddColor = false
 			CreateAnimations = [
 				{ Name = "HarvestPointExorcismFxDark" }
 				{ Name = "HarvestPointExorcismFxLight" }
@@ -2624,6 +2979,19 @@
 				{ Name = "HarvestReadyGlowExorcism" }
 				{ Name = "HarvestReadyGlowExorcism" }
 			]
+		}
+		{
+			Name = "DoraStandingOnFx"
+			InheritFrom = "HarvestPointExorcismFx"
+			ColorFromOwner = "Ignore"
+			VisualFx = null
+			CreateAnimations = [
+				{ Name = "DoraGlowExorcism" }
+				{ Name = "DoraGlowExorcism" }
+				{ Name = "DoraGlowExorcism" }
+				{ Name = "DoraStandingOnParticles"}
+			]
+
 		}
 
 		{
@@ -2647,6 +3015,9 @@
 			Blue = 0
 			PingPongColor = true
 			GroupName = "FX_Dark"
+			ColorFromOwner = "Ignore"
+			UseAttachedFlasher = false
+			UseAttachedAddColor = false
 		}
 
 		{
@@ -2675,6 +3046,9 @@
 			ScaleY = 0.5
 			AlphaMin = 0.5
 			AlphaMax = 1.0
+			ColorFromOwner = "Ignore"
+			UseAttachedFlasher = false
+			UseAttachedAddColor = false
 		}
 
 		{
@@ -2696,95 +3070,74 @@
 			AlphaMax = 0.7
 			EndScale = 1.3
 		}
-
-
-	{
-		Name = "FishingVignette"
-		FilePath = "Dev\blank_invisible"
-		GroupName = "Overlay"
-		VisualFx = "FishingVignetteStreaks"
-		VisualFxIntervalMin = 0.4
-		VisualFxIntervalMax = 0.6
-		AngleFromOwner = "Ignore"
-		Duration = 1
-		Loop = true
-	}
-
-	{
-		Name = "FishingVignetteStreaks"
-		FilePath = "Fx\Vignette\VignetteFishing"
-		GroupName = "Overlay"
-		StartAlpha = 0
-		EndAlpha = 1
-		RandomDurationMin = 1
-		RandomDurationMax = 2
-		ScaleMin = 1
-		ScaleMax = 1.5
-		EaseIn = 0
-		EaseOut = 1
-		StartScale = 1
-		EndScale = 1.3
-		ColorFromOwner = "Maintain"
-		DieWithOwner = true
-		PingPongColor = true
-		RandomFlipHorizontal = true
-		RandomFlipVertical = true
-		AlphaMin = 0.5
-		AlphaMax = 1.0
-	}
-
-	{
-		Name = "FishCatchZone"
-		FilePath = "GUI\HUD\Harvest\FishingRing"
-		Scale = 1
-		GroupName = "FX_Terrain_Add"
-		Loop = true
-		LocationZFromOwner = "Ignore"
-		RotationSpeed = 30.0
-		PostRotateScaleY = 0.5
-		ScaleRadius = 64.0
-		Ambient = 0.0
-		ColorFromOwner = "Maintain"
-		ChildAnimation = "FishCatchZoneIcon"
-	}
-
-	{
-		Name = "FishCatchZoneIcon"
-		FilePath = "GUI\HUD\Harvest\FishingIcon"
-		Material = "Unlit"
-		PostRotateScaleY = 0.5
-		ScaleRadius = 48.0
-		ColorFromOwner = "Maintain"
-	}
 	
 	{
 		Name = "RadialNovaAres"
 		InheritFrom = "RadialNova"
 		Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
 	}
+
 	{
-		Name = "ExorcismPointGhost"
-		FilePath = "Animations\GhostVariants\Big\Idle\BigGhostIdle"
-		EndFrame = 1
-		Loop = true
-		NumAngles = 32
-		NumFrames = 1
-		SmoothStep = true
-		StartFrame = 1
-		UseAttachedSpriteEffects = false
-		EndOffsetZ = 15.0
-		OffsetY = -55.0
-		Ambient = 0.0
-		OnlyWhenVisible = true
-		PingPongShiftOverDuration = true
+		Name = "ExorcismPointAvailable"
+		FilePath = "Dev\blank_invisible"		
 		VisualFx = "HarvestPointExorcismFx"
 		VisualFxIntervalMin = 0.6
 		VisualFxIntervalMax = 1.0
 	}
 
 	{
-		Name = "ExorcismPointGhostUnavailable"
-		InheritFrom = "ExorcismPointGhost"
-		VisualFx = "null"
+		Name = "RespawnEggDissipateFx"
+		FilePath = "Fx\GhostTransitionFlare\GhostTransitionFlare"
+		NumFrames = 15
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		PlaySpeed = 45
+		Hue = -0.1
+		Scale = 1.5
+		DieWithOwner = false
+		CreateAnimations = [
+			{ Name = "RespawnEggSplatFx" }
+		]
 	}
+
+	{
+		Name = "RespawnEggSplatFx"
+		Random = [
+			{ Name = "RespawnEggSplatFxA" }
+			{ Name = "RespawnEggSplatFxB" }
+		]
+	}
+
+	{
+		Name = "RespawnEggSplatFxA"
+		FilePath = "Fx\ErebusMushroomSplatA\ErebusMushroomSplatA"
+		NumFrames = 22
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.01
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		PlaySpeed = 45
+		Hue = -0.2
+		StartScale = 1
+		EndScale = 1.5
+		Saturation = 0.9
+		StartScaleY = 1
+		EndScaleY = 1.5
+		RandomFlipHorizontal = true
+		Scale = 1.5
+		DieWithOwner = false
+	}
+
+	{
+		Name = "RespawnEggSplatFxB"
+		InheritFrom = "RespawnEggSplatFxA"
+		FilePath = "Fx\ErebusMushroomSplatB\ErebusMushroomSplatB"
+	}
+	
 ]}

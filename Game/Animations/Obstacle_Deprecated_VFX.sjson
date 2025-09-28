@@ -118,6 +118,7 @@
 		EndAngle = 0.75
 		PingPongAngle = true
 		StartAngle = -0.75
+		EaseIn = 0
 		EaseOut = 1.0
 		EndFrame = 1
 		Loop = true
@@ -1147,6 +1148,48 @@
 		InheritFrom = "ElysiumRefractLightA"
 		FilePath = "Fx\ElysiumLights\ElysiumRefractLightC"
 		AddColor = true
+	}	
+
+	{
+		Name = "ElysiumRefractLightC_Shimmer"
+		InheritFrom = "ElysiumRefractLightA"
+		FilePath = "Fx\ElysiumLights\ElysiumRefractLightC"
+		AddColor = true
+		VisualFx = "ElysiumRefractLightCFx"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.5
+		StartScale = 1
+		EndScale = 0.8
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 4
+		Loop = true
+		PingPongScale = true
+	}
+
+	{
+		Name = "ElysiumRefractLightCFx"
+		FilePath = "Particles\particle_streak_boosted"
+		Material = "Unlit"
+		StartScaleY = 0
+		EndScaleY = 1
+		PingPongScale = true
+		ScaleMin = 0.2
+		ScaleMax = 1
+		AddColor = true
+		Red = 1
+		Green = 0.85
+		Blue = 0.66
+		AngleMin = 0
+		AngleMax = 360
+		RandomRotation = true
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "FX_Standing_Add"
+		Scale = 0.4
 	}
 	
 	{
@@ -1522,7 +1565,8 @@
 		Name = "HouseFireplace"
 		ChildAnimation = "HouseFireplaceFire"
 		FilePath = "Tilesets\House\House_Fireplace_01"
-		
+		Duration = 1
+		Loop = true
 		Sound = "/Leftovers/Object Ambiences/FireAmbientLoop3"
 		StopSoundOnFinishFade = 0.2
 		EndFrame = 1
@@ -1746,7 +1790,7 @@
 		Name = "HouseMusicStand"
 		FilePath = "Tilesets\House\House_MusicStand_01"
 		
-		VisualFx = "HouseMusicNotes"
+		//VisualFx = "HouseMusicNotes"
 		EndFrame = 1
 		NumFrames = 1
 		StartFrame = 1
@@ -1788,7 +1832,51 @@
 		Scale = 4.0
 		Ambient = 0.0
 	}
-	
+
+	{
+		Name = "ZagContract"
+		FilePath = "GUI\Icons\ZagContract\ZagContract"
+		StartFrame = 1
+		EndFrame = 30
+		Loop = true
+		NumFrames = 30
+		PlaySpeed = 30
+		Scale = 1
+		Ambient = 0.0
+		Sound = "/Leftovers/Object Ambiences/FireAmbientLoop"
+		StopSoundOnFinishFade = 0.2
+		SoundAllowedAfterFrame = -1
+	}
+
+	{
+		Name = "ZagContractAccept"
+		FilePath = "GUI\Icons\ZagContract\ZagContract"
+		StartFrame = 31
+		EndFrame = 40
+		Loop = false
+		NumFrames = 10
+		PlaySpeed = 30
+		Scale = 1
+		Ambient = 0.0
+		ChainTo = "ZagContractAccept_Loop"
+		Sound = "/SFX/Menu Sounds/PactMenuOpenSFX"
+	}
+
+		{
+		Name = "ZagContractAccept_Loop"
+		FilePath = "GUI\Icons\ZagContract\ZagContract"
+		StartFrame = 41
+		EndFrame = 70
+		Loop = true
+		NumFrames = 30
+		PlaySpeed = 30
+		Scale = 1
+		Ambient = 0.0
+		ChainTo = "ZagContractAccept_Loop"
+		Sound = "/Leftovers/Object Ambiences/FireAmbientLoop3"
+		StopSoundOnFinishFade = 0.2
+	}
+
 	{
 		Name = "HouseContractOpenFloat"
 		FilePath = "Fx\HouseContractOpen\HouseContractOpen0041"
@@ -2407,7 +2495,7 @@
 	
 	{
 		Name = "HouseVase07A"
-		FilePath = "Tilesets\House\House_Vase_07A"
+		FilePath = "Tilesets\House\House_Vase_07a"
 		EndFrame = 1
 		NumFrames = 1
 		StartFrame = 1
@@ -2897,192 +2985,8 @@
 	}
 	
 	{
-		Name = "HealthFountainFullStyx"
-		ChildAnimation = "StyxHealthFountainWater"
-		FilePath = "Tilesets\Styx\Styx_Fountain_01"
-		
-		Sound = "/Leftovers/Object Ambiences/WaterStyxHealthRestoreFountain"
-		StopSoundOnFinishFade = 0.3
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		OffsetY = -400.0
-		VisualFxIntervalMax = 0.12
-		VisualFxIntervalMin = 0.1
-		SoundAllowedAfterFrame = -1
-	}
-	
-	{
-		Name = "StyxHealthFountainWater"
-		FilePath = "Fx\StyxHealthFountainWater\StyxHealthFountainWater"
-		
-		VisualFx = "HealthFountainSparkleStyx"
-		EndFrame = 30
-		Loop = true
-		NumFrames = 30
-		PlaySpeed = 30.0
-		StartFrame = 1
-		OffsetX = 6.0
-		OffsetY = -560.0
-		TransferFrameFromThis = true
-		Scale = 2.0
-		Ambient = 0.0
-		VisualFxIntervalMax = 0.15
-		VisualFxIntervalMin = 0.1
-	}
-	
-	{
-		Name = "HealthFountainStreaksStyx"
-		FilePath = "Particles\particle_streak"
-		GroupName = "FX_Standing_Add"
-		
-		Angle = 90.0
-		AddColor = true
-		AlphaMax = 1.0
-		AlphaMin = 0.1
-		EndAlpha = 0.2
-		PingPongColor = true
-		EaseOut = 1.0
-		EndFrame = 1
-		NumFrames = 1
-		RandomDurationMax = 2.0
-		RandomDurationMin = 1.0
-		StartFrame = 1
-		RandomFlipHorizontal = true
-		RandomFlipVertical = true
-		EndOffsetY = -60.0
-		OffsetZ = 600.0
-		RandomOffsetX = 100.0
-		RandomOffsetY = 75.0
-		SortMode = "Id"
-		EndScaleY = 3.0
-		ScaleFromOwner = "Ignore"
-		ScaleMax = 1.0
-		ScaleMin = 0.8
-		ScaleX = 1.5
-		ScaleY = 0.5
-		StartScaleY = 0.25
-		Color = { Red = 1.0 Green = 0.8 Blue = 0.6 }
-	}
-	
-	{
-		Name = "HealthFountainSparkleStyx"
-		CreateAnimation = "HealthFountainStreaksStyx"
-		FilePath = "Particles\particle_addFlake2"
-		GroupName = "FX_Standing_Add"
-		
-		AngleFromOwner = "Ignore"
-		AngleMax = 91.0
-		AngleMin = 90.0
-		AddColor = true
-		AlphaMax = 1.0
-		EndFrame = 1
-		NumFrames = 1
-		RandomDurationMax = 4.0
-		RandomDurationMin = 2.0
-		StartFrame = 1
-		OffsetZ = 350.0
-		OriginX = -30.0
-		OriginY = 30.0
-		RandomOffsetX = 150.0
-		RandomOffsetY = 75.0
-		LocationFromOwner = "Ignore"
-		SortMode = "Id"
-		Acceleration = -30.0
-		VelocityMax = 120.0
-		VelocityMin = 60.0
-		RandomRotation = true
-		RandomRotationSpeedMax = 90.0
-		RandomRotationSpeedMin = -90.0
-		PingPongScale = true
-		Scale = 2.0
-		ScaleFromOwner = "Ignore"
-		ScaleMax = 0.25
-		ScaleMin = 0.02
-		StartScale = 0.0
-		Ambient = 0.0
-		Color = { Red = 0.0 Green = 0.8 Blue = 1.0 }
-	}
-	
-	{
-		Name = "HealthFountainEmptyStyx"
-		InheritFrom = "HealthFountainFullStyx"
-		ChildAnimation = "StyxHealthFountainWaterFade"
-		Sound = "/EmptyCue"
-		EndBlue = 0.25
-		EndGreen = 0.25
-		EndRed = 0.25
-		StartBlue = 1.0
-		StartGreen = 1.0
-		StartRed = 1.0
-		Duration = 0.3
-		HoldLastFrame = true
-	}
-	
-	{
-		Name = "StyxHealthFountainWaterFade"
-		InheritFrom = "StyxHealthFountainWater"
-		VisualFx = "null"
-		EndBlue = 0.25
-		EndGreen = 0.25
-		EndRed = 0.25
-		StartAlpha = 1.0
-		StartBlue = 1.0
-		StartGreen = 1.0
-		StartRed = 1.0
-		Duration = 0.3
-		HoldLastFrame = true
-		Loop = false
-		LoopFramesOnly = true
-		TransferFrameToThis = true
-	}
-	
-	{
-		Name = "PoisonCureFountainGlowSmoke"
-		FilePath = "Fx\DeathFxDark\DeathFxDark"
-		GroupName = "FX_Standing_Add"
-		
-		AddColor = true
-		AlphaMax = 0.2
-		AlphaMin = 0.1
-		EndAlpha = 1.0
-		PingPongColor = true
-		EaseOut = 1.0
-		EndFrame = 56
-		NumFrames = 56
-		RandomPlaySpeedMax = 30.0
-		RandomPlaySpeedMin = 24.0
-		StartFrame = 1
-		RandomFlipHorizontal = true
-		OffsetZ = -30.0
-		OriginX = 182.0
-		OriginY = 328.0
-		RandomOffsetX = 30.0
-		DieWithOwner = true
-		LocationZFromOwner = "Ignore"
-		SortMode = "FromParent"
-		EndScaleY = 1.5
-		Scale = 2.0
-		ScaleMax = 1.0
-		ScaleMin = 0.6
-		Ambient = 0.0
-		Color = { Red = 1.0 Green = 0.90 Blue = 0.4 }
-	}
-
-	{
-		Name = "ChainSway"
-		FilePath = "Fx\ChainSway\ChainSway"
-		
-		EndFrame = 11
-		NumFrames = 11
-		PlaySpeed = 8.0
-		StartFrame = 1
-	}
-	
-	{
 		Name = "InfernalContractBedroom"
-		FilePath = "Tilesets\House\House_Papers_02"
-		
+		FilePath = "Tilesets\House\House_Papers_02"		
 		Sound = "/Leftovers/Object Ambiences/FireAmbientLoopQuiet"
 		EndFrame = 1
 		NumFrames = 1
@@ -3094,631 +2998,15 @@
 	
 	{
 		Name = "HouseFountain01"
-		FilePath = "Tilesets\House\House_Fountain_01"
-		
+		FilePath = "Tilesets\House\House_Fountain_01"		
 		Sound = "/SFX/SellTraitShopBloodFountainLoop"
 		StopSoundOnFinishFade = 0.2
+		SoundAllowedAfterFrame = -1
 		EndFrame = 1
 		NumFrames = 1
 		StartFrame = 1
 		AllowRestart = true
 		OnlyWhenVisible = true
 	}
-
-	/* Epilogue: Olympus */
 	
-	{
-		Name = "SmokeRisingSlowEpilogue"
-		ChildAnimation = "SmokeRisingSlowEpilogue2"
-		FilePath = "Fx\RisingSmoke\RisingSmoke"
-		
-		Angle = -22.0
-		AddColor = true
-		Alpha = 0.02
-		EndFrame = 80
-		Loop = true
-		NumFrames = 80
-		PlaySpeed = 20.0
-		StartFrame = 1
-		OffsetY = 300.0
-		OriginX = 200.0
-		OriginY = 495.0
-		Scale = 3.0
-		Ambient = 0.0
-		OnlyWhenVisible = true
-		Color = { Red = 1.0 Green = 0.30 Blue = 0.10 }
-	}
-	
-	{
-		Name = "SmokeRisingSlowEpilogue2"
-		InheritFrom = "SmokeRisingSlowEpilogue"
-		ChildAnimation = "null"
-		Alpha = 0.03
-		PlaySpeed = 18.0
-		RandomStartFrame = true
-		ReRandomizeOnLoop = false
-		OffsetX = -200.0
-		Scale = 4.0
-		Color = { Red = 0.30 Green = 0.10 Blue = 1.0 }
-	}
-	
-	{
-		Name = "DustFallEpilogueA"
-		FilePath = "Fx\DustFlyers\DustA"
-		GroupName = "FX_Standing_add"
-		
-		AngleFromOwner = "Ignore"
-		AngleMax = 290.0
-		AngleMin = 260.0
-		UseOwnAngle = false
-		AlphaMax = 1.0
-		AlphaMin = 0.2
-		ColorFromOwner = "Ignore"
-		EndAlpha = 1.0
-		PingPongColor = true
-		EndFrame = 1
-		NumFrames = 1
-		RandomDurationMax = 8.0
-		RandomDurationMin = 6.0
-		StartFrame = 1
-		RandomOffsetX = 960.0
-		RandomOffsetY = 540.0
-		LocationFromOwner = "Ignore"
-		SortMode = "FromParent"
-		Gravity = 5.0
-		VelocityMax = 20.0
-		VelocityMin = 5.0
-		RandomRotationSpeedMax = 2.0
-		RandomRotationSpeedMin = -2.0
-		ScaleFromOwner = "Ignore"
-		ScaleMax = 2.0
-		ScaleMin = 1.2
-		Ambient = 0.0
-		OnlyWhenVisible = true
-	}
-	
-	{
-		Name = "DustFallEpilogueB"
-		InheritFrom = "DustFallEpilogueA"
-		FilePath = "Fx\DustFlyers\DustB"
-	}
-	
-	{
-		Name = "DustFallEpilogueC"
-		InheritFrom = "DustFallEpilogueA"
-		FilePath = "Fx\DustFlyers\DustC"
-	}
-	
-	{
-		Name = "DustFallEpilogueD"
-		InheritFrom = "DustFallEpilogueA"
-		FilePath = "Fx\DustFlyers\DustD"
-	}
-	
-	{
-		Name = "DustFallEpilogueE"
-		InheritFrom = "DustFallEpilogueA"
-		FilePath = "Fx\DustFlyers\DustE"
-	}
-	
-	{
-		Name = "DustFallEpilogueF"
-		InheritFrom = "DustFallEpilogueA"
-		FilePath = "Fx\DustFlyers\DustF"
-	}
-	
-	{
-		Name = "DustFallEpilogueG"
-		InheritFrom = "DustFallEpilogueA"
-		FilePath = "Fx\DustFlyers\DustG"
-	}
-	
-	{
-		Name = "DustFallEpilogue"
-		FilePath = "Animations\DustFallEpilogue\DustFallEpilogue"
-		
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		Random =
-		[
-			{ Name = "DustFallEpilogueA" }
-			{ Name = "DustFallEpilogueB" }
-			{ Name = "DustFallEpilogueC" }
-			{ Name = "DustFallEpilogueD" }
-			{ Name = "DustFallEpilogueE" }
-			{ Name = "DustFallEpilogueF" }
-			{ Name = "DustFallEpilogueG" }
-		]
-	}
-	
-	{
-		Name = "OlympianSigilWait"
-		ChainTo = "OlympianSigilGlow"
-		FilePath = "Dev\blank_invisible"
-		GroupName = "Events"
-		
-		DurationFrames = 62
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-	}
-	
-	{
-		Name = "OlympianSigilSpectralHoop"
-		FilePath = "Particles\particle_spectral_hoop"
-		
-		ColorFromOwner = "Ignore"
-		EndAlpha = 0.5
-		PingPongColor = true
-		Duration = 5.0
-		EaseIn = 0.9
-		EaseOut = 1.0
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		LocationFromOwner = "Take"
-		EndScale = 2.5
-		ScaleFromOwner = "Ignore"
-		Ambient = 0.0
-	}
-	
-	{
-		Name = "OlympianSigilGlow"
-		ChildAnimation = "OlympianSigilRing"
-		FilePath = "Particles\particle_glow"
-		GroupName = "Events"
-		
-		VisualFx = "OlympianSigilParticles"
-		EndAlpha = 0.1
-		StartAlpha = 1.0
-		Duration = 4.0
-		EaseIn = 0.9
-		EaseOut = 1.0
-		EndFrame = 1
-		HoldLastFrame = true
-		NumFrames = 1
-		StartFrame = 1
-		SortMode = "Id"
-		RandomRotation = true
-		RandomRotationSpeedMax = 2.0
-		RandomRotationSpeedMin = -2.0
-		EndScale = 2.0
-		Scale = 1.5
-		ScaleFromOwner = "Ignore"
-		VisualFxIntervalMax = 0.5
-		VisualFxIntervalMin = 0.3
-		CreateAnimations =
-		[
-			{ Name = "OlympianSigilSpectralHoop" }
-		]
-	}
-	
-	{
-		Name = "OlympianSigilParticles"
-		FilePath = "Particles\particle_ember_03_glow_add"
-		
-		AngleChangeSpeedMax = 180.0
-		AngleChangeSpeedMin = -180.0
-		AngleFromOwner = "Ignore"
-		AngleMax = 360.0
-		AddColor = true
-		EaseOut = 1.0
-		EndFrame = 1
-		NumFrames = 1
-		RandomDurationMax = 2.0
-		RandomDurationMin = 1.0
-		StartFrame = 1
-		RadialOffsetMax = 50.0
-		RadialOffsetMin = 25.0
-		LocationFromOwner = "Take"
-		Acceleration = -120.0
-		VelocityMax = 150.0
-		VelocityMin = 50.0
-		RandomRotation = true
-		RandomRotationSpeedMax = 200.0
-		RandomRotationSpeedMin = -200.0
-		PingPongScale = true
-		ScaleFromOwner = "Ignore"
-		ScaleMax = 0.5
-		ScaleMin = 0.1
-		StartScale = 0.0
-		Ambient = 0.0
-	}
-	
-	{
-		Name = "OlympianSigilRing"
-		FilePath = "GUI\Epilogue\Olympus_BoonCircle"
-		
-		AddColor = true
-		StartBlue = 1.0
-		StartGreen = 1.0
-		StartRed = 1.0
-		Duration = 2.0
-		EaseIn = 0.9
-		EaseOut = 1.0
-		EndFrame = 1
-		HoldLastFrame = true
-		NumFrames = 1
-		StartFrame = 1
-		RandomRotation = true
-		RandomRotationSpeedMax = 4.0
-		RandomRotationSpeedMin = -4.0
-		StartScale = 1.2
-		Ambient = 0.0
-	}
-	
-	{
-		Name = "OlympianSigilRingHades"
-		FilePath = "GUI\Epilogue\Olympus_BoonCircle_Hades"
-		GroupName = "Combat_Menu_TraitTray_Overlay"
-		
-		AddColor = true
-		StartBlue = 1.0
-		StartGreen = 1.0
-		StartRed = 1.0
-		Duration = 2.5
-		EaseIn = 0.9
-		EaseOut = 1.0
-		EndFrame = 1
-		HoldLastFrame = true
-		NumFrames = 1
-		StartFrame = 1
-		EndScale = 0.9
-		ScaleFromOwner = "Ignore"
-		StartScale = 1.2
-		Ambient = 0.0
-	}
-	
-	{
-		Name = "OlympianSigilGlow_Ares"
-		InheritFrom = "OlympianSigilGlow"
-		VisualFx = "OlympianSigilParticles_Ares"
-		Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
-	}
-	
-	{
-		Name = "OlympianSigilParticles_Ares"
-		InheritFrom = "OlympianSigilParticles"
-		Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
-	}
-	
-	{
-		Name = "OlympianSigilWait_Aphrodite"
-		InheritFrom = "OlympianSigilWait"
-		ChainTo = "Olympus_Aphrodite"
-	}
-	
-	{
-		Name = "OlympianSigilGlow_Aphrodite"
-		InheritFrom = "OlympianSigilGlow"
-		VisualFx = "OlympianSigilParticles_Aphrodite"
-		Color = { Red = 1.0 Green = 0.2 Blue = 0.8 }
-	}
-	
-	{
-		Name = "OlympianSigilParticles_Aphrodite"
-		InheritFrom = "OlympianSigilParticles"
-		Color = { Red = 1.0 Green = 0.2 Blue = 0.8 }
-	}
-	
-	{
-		Name = "OlympianSigilGlow_Athena"
-		InheritFrom = "OlympianSigilGlow"
-		VisualFx = "OlympianSigilParticles_Athena"
-		Color = { Red = 0.0 Green = 0.05 Blue = 1.0 }
-	}
-	
-	{
-		Name = "OlympianSigilParticles_Athena"
-		InheritFrom = "OlympianSigilParticles"
-		Color = { Red = 0.0 Green = 0.05 Blue = 1.0 }
-	}
-	
-	{
-		Name = "OlympianSigilWait_Artemis"
-		InheritFrom = "OlympianSigilWait"
-		ChainTo = "Olympus_Artemis"
-	}
-	
-	{
-		Name = "OlympianSigilGlow_Artemis"
-		InheritFrom = "OlympianSigilGlow"
-		VisualFx = "OlympianSigilParticles_Artemis"
-		Color = { Red = 0.05 Green = 1.0 Blue = 0.2 }
-	}
-	
-	{
-		Name = "OlympianSigilParticles_Artemis"
-		InheritFrom = "OlympianSigilParticles"
-		Color = { Red = 0.05 Green = 1.0 Blue = 0.2 }
-	}
-	
-	{
-		Name = "OlympianSigilWait_Demeter"
-		InheritFrom = "OlympianSigilWait"
-		ChainTo = "Olympus_Demeter"
-	}
-	
-	{
-		Name = "OlympianSigilGlow_Demeter"
-		InheritFrom = "OlympianSigilGlow"
-		VisualFx = "OlympianSigilParticles_Demeter"
-		Color = { Red = 0.6 Green = 0.30 Blue = 1.0 }
-	}
-	
-	{
-		Name = "OlympianSigilParticles_Demeter"
-		InheritFrom = "OlympianSigilParticles"
-		Color = { Red = 0.50 Green = 0.70 Blue = 1.0 }
-	}
-	
-	{
-		Name = "OlympianSigilGlow_Dionysus"
-		InheritFrom = "OlympianSigilGlow"
-		VisualFx = "OlympianSigilParticles_Dionysus"
-		Color = { Red = 0.4 Green = 0.0 Blue = 1.0 }
-	}
-	
-	{
-		Name = "OlympianSigilParticles_Dionysus"
-		InheritFrom = "OlympianSigilParticles"
-		Color = { Red = 0.4 Green = 0.0 Blue = 1.0 }
-	}
-	
-	{
-		Name = "OlympianSigilWait_Hermes"
-		InheritFrom = "OlympianSigilWait"
-		ChainTo = "Olympus_Hermes"
-	}
-	
-	{
-		Name = "OlympianSigilGlow_Hermes"
-		InheritFrom = "OlympianSigilGlow"
-		VisualFx = "OlympianSigilParticles_Hermes"
-		Color = { Red = 1.0 Green = 0.30 Blue = 0.0 }
-	}
-	
-	{
-		Name = "OlympianSigilParticles_Hermes"
-		InheritFrom = "OlympianSigilParticles"
-		Color = { Red = 1.0 Green = 0.30 Blue = 0.0 }
-	}
-	
-	{
-		Name = "OlympianSigilWait_Poseidon"
-		InheritFrom = "OlympianSigilWait"
-		ChainTo = "Olympus_Poseidon"
-	}
-	
-	{
-		Name = "OlympianSigilGlow_Poseidon"
-		InheritFrom = "OlympianSigilGlow"
-		VisualFx = "OlympianSigilParticles_Poseidon"
-		Color = { Red = 0.0 Green = 1.0 Blue = 0.50 }
-	}
-	
-	{
-		Name = "OlympianSigilParticles_Poseidon"
-		InheritFrom = "OlympianSigilParticles"
-		Color = { Red = 0.0 Green = 0.70 Blue = 1.0 }
-	}
-	
-	{
-		Name = "OlympianSigilWait_Zeus"
-		InheritFrom = "OlympianSigilWait"
-		ChainTo = "Olympus_Zeus"
-	}
-	
-	{
-		Name = "OlympianSigilGlow_Zeus"
-		InheritFrom = "OlympianSigilGlow"
-		VisualFx = "OlympianSigilParticles_Zeus"
-		Color = { Red = 1.0 Green = 1.0 Blue = 0.50 }
-	}
-	
-	{
-		Name = "OlympianSigilParticles_Zeus"
-		InheritFrom = "OlympianSigilParticles"
-		Color = { Red = 1.0 Green = 1.0 Blue = 0.50 }
-	}
-	
-	{
-		Name = "Olympus_01_OuterCircle"
-		ChildAnimation = "Olympus_01a_InnerCircle"
-		FilePath = "GUI\Epilogue\Olympus_01_OuterCircle"
-		
-		VisualFx = "DustFallEpilogue"
-		Duration = 50.0
-		EndFrame = 1
-		HoldLastFrame = true
-		NumFrames = 1
-		StartFrame = 1
-		RotationSpeed = -1.0
-		EndScale = 0.8
-		Ambient = 0.0
-		VisualFxIntervalMax = 0.6
-		VisualFxIntervalMin = 0.5
-	}
-	
-	{
-		Name = "Olympus_01a_InnerCircle"
-		ChildAnimation = "SmokeRisingSlowEpilogue"
-		FilePath = "GUI\Epilogue\Olympus_01a_InnerCircle"
-		
-		StopSoundOnFinishFade = 0.2
-		Duration = 50.0
-		EndFrame = 1
-		HoldLastFrame = true
-		NumFrames = 1
-		StartFrame = 1
-		RotationSpeed = 1.0
-		EndScale = 0.8
-		Ambient = 0.0
-	}
-	
-	{
-		Name = "Olympus_02_Vignette"
-		ChildAnimation = "Olympus_01_OuterCircle"
-		FilePath = "GUI\Epilogue\Olympus_02_Vignette"
-		
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		Ambient = 0.0
-	}
-	
-	{
-		Name = "Olympus_Aphrodite"
-		ChildAnimation = "OlympianSigilGlow_Aphrodite"
-		FilePath = "GUI\Epilogue\Olympus_Aphrodite"
-		
-		AngleFromOwner = "Ignore"
-		AddColor = true
-		ColorFromOwner = "Ignore"
-		StartBlue = 1.0
-		StartGreen = 1.0
-		StartRed = 1.0
-		Duration = 0.5
-		EaseIn = 0.9
-		EaseOut = 1.0
-		EndFrame = 1
-		HoldLastFrame = true
-		NumFrames = 1
-		StartFrame = 1
-		ScaleFromOwner = "Ignore"
-		StartScale = 1.4
-		Ambient = 0.0
-	}
-	
-	{
-		Name = "Olympus_Ares"
-		InheritFrom = "Olympus_Aphrodite"
-		ChildAnimation = "OlympianSigilGlow_Ares"
-		FilePath = "GUI\Epilogue\Olympus_Ares"
-	}
-	
-	{
-		Name = "Olympus_Artemis"
-		InheritFrom = "Olympus_Aphrodite"
-		ChildAnimation = "OlympianSigilGlow_Artemis"
-		FilePath = "GUI\Epilogue\Olympus_Artemis"
-	}
-	
-	{
-		Name = "Olympus_Athena"
-		InheritFrom = "Olympus_Aphrodite"
-		ChildAnimation = "OlympianSigilGlow_Athena"
-		FilePath = "GUI\Epilogue\Olympus_Athena"
-	}
-	
-	{
-		Name = "Olympus_Demeter"
-		InheritFrom = "Olympus_Aphrodite"
-		ChildAnimation = "OlympianSigilGlow_Demeter"
-		FilePath = "GUI\Epilogue\Olympus_Demeter"
-	}
-	
-	{
-		Name = "Olympus_Dionysus"
-		InheritFrom = "Olympus_Aphrodite"
-		ChildAnimation = "OlympianSigilGlow_Dionysus"
-		FilePath = "GUI\Epilogue\Olympus_Dionysus"
-	}
-	
-	{
-		Name = "Olympus_Hermes"
-		InheritFrom = "Olympus_Aphrodite"
-		ChildAnimation = "OlympianSigilGlow_Hermes"
-		FilePath = "GUI\Epilogue\Olympus_Hermes"
-	}
-	
-	{
-		Name = "Olympus_Poseidon"
-		InheritFrom = "Olympus_Aphrodite"
-		ChildAnimation = "OlympianSigilGlow_Poseidon"
-		FilePath = "GUI\Epilogue\Olympus_Poseidon"
-	}
-	
-	{
-		Name = "Olympus_Zeus"
-		InheritFrom = "Olympus_Aphrodite"
-		ChildAnimation = "OlympianSigilGlow_Zeus"
-		FilePath = "GUI\Epilogue\Olympus_Zeus"
-	}
-	
-	{
-		Name = "Olympus_Hades"
-		InheritFrom = "Olympus_Aphrodite"
-		ChildAnimation = "null"
-		CreateAnimation = "Olympus_HadesGlow"
-		FilePath = "GUI\Epilogue\Olympus_Hades"
-		VisualFx = "HadesSigilStreaks"
-		VisualFxIntervalMax = 0.21
-		VisualFxIntervalMin = 0.2
-	}
-	
-	{
-		Name = "HadesSigilStreaks"
-		FilePath = "Particles\particle_streak_boosted"
-		GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
-		
-		AngleFromOwner = "Ignore"
-		AngleMax = 360.0
-		AddColor = true
-		AlphaMax = 0.5
-		AlphaMin = 0.1
-		EndAlpha = 1.0
-		PingPongColor = true
-		EaseOut = 1.0
-		EndFrame = 1
-		NumFrames = 1
-		RandomDurationMax = 3.0
-		RandomDurationMin = 1.5
-		StartFrame = 1
-		OriginX = 128.0
-		OriginY = 32.0
-		RadialOffsetMax = 240.0
-		RadialOffsetMin = 200.0
-		LocationFromOwner = "Ignore"
-		Acceleration = -100.0
-		VelocityMax = 100.0
-		VelocityMin = 50.0
-		EndScaleX = 1.5
-		EndScaleY = 0.0
-		ScaleMax = 1.4
-		ScaleMin = 0.7
-		ScaleY = 2.0
-		StartScaleX = 0.8
-		StartScaleY = 0.5
-		Color = { Red = 1.0 Green = 0.10 Blue = 0.0 }
-	}
-	
-	{
-		Name = "Olympus_HadesGlow"
-		ChildAnimation = "OlympianSigilGlow_Hades"
-		FilePath = "GUI\Epilogue\Olympus_HadesGlow"
-		GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
-		
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		Ambient = 0.0
-	}
-	
-	{
-		Name = "OlympianSigilGlow_Hades"
-		InheritFrom = "OlympianSigilGlow"
-		ChildAnimation = "OlympianSigilRingHades"
-		VisualFx = "OlympianSigilParticles_Hades"
-		Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
-	}
-	
-	{
-		Name = "OlympianSigilParticles_Hades"
-		InheritFrom = "OlympianSigilParticles"
-		Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
-	}
-
-
 ]}

@@ -1,4 +1,4 @@
-UnitSetData.NPC_Nemesis =
+﻿ UnitSetData.NPC_Nemesis =
 {
 	-- Nemesis, Hub_Main Id = 557113
 	NPC_Nemesis_01 =
@@ -12,6 +12,7 @@ UnitSetData.NPC_Nemesis =
 		EmoteOffsetX = 80,
 		SpeakerName = "Nemesis",
 		FieldSpeakerName = "NemesisField",
+		LoadPackages = { "Nemesis" },
 		InvincibubbleScale = 1.2,
 		AlwaysShowInvulnerabubbleOnInvulnerableHit = true,
 		ThemeMusic = "/Music/IrisMusicNemesisTheme_MC",
@@ -21,7 +22,12 @@ UnitSetData.NPC_Nemesis =
 		HideHealthBar = true,
 		Icon = "NemesisRewardFinderIcon",
 		ExcludeFromDamageDealtRecord = true,
+		BecomingCloserFunctionName = "BecomingCloserNemesisPresentation",
 
+		BathEnterSound1 = "/SFX/ArmorIdleSFX",
+		BathEnterSound2 = "/SFX/ArmorIdleSFX2",
+		
+		EffectBlocks = { "RavenFamiliarMark" },
 		DamagedFxStyles =
 		{
 			Default = "HitSparkEnemyDamagedMetal",
@@ -71,14 +77,10 @@ UnitSetData.NPC_Nemesis =
 			{
 				PathTrue = { "GameState", "TextLinesRecord", "NemesisGift01" },
 			},
-			{
-				PathFalse = { "PrevRun", "SpecialInteractRecord", "NPC_Nemesis_01" },
-			},
 		},
 		SpecialInteractCooldown = 60,
 		InteractVoiceLines =
 		{
-			[1] =
 			{
 				PreLineWait = 0.3,
 				UsePlayerSource = true,
@@ -92,10 +94,9 @@ UnitSetData.NPC_Nemesis =
 
 				{ Cue = "/VO/Melinoe_1712", Text = "Death to Chronos?" },
 			},
-			[2] = { GlobalVoiceLines = "SaluteVoiceLines" },
-			[3] =
+			{ GlobalVoiceLines = "SaluteVoiceLines" },
 			{
-				PreLineWait = 0.4,
+				PreLineWait = 0.31,
 				RandomRemaining = true,
 				ObjectType = "NPC_Nemesis_01",
 				Cooldowns =
@@ -103,7 +104,65 @@ UnitSetData.NPC_Nemesis =
 					{ Name = "NemesisSaluteSpeech", Time = 30 },
 				},
 
+				{ Cue = "/VO/Nemesis_0123", Text = "Right." },
+				{ Cue = "/VO/Nemesis_0180", Text = "Come on..." },
+				{ Cue = "/VO/Nemesis_0198", Text = "Keep practicing." },
+				{ Cue = "/VO/Nemesis_0199", Text = "Nice try." },
 				{ Cue = "/VO/Nemesis_0292", Text = "Sure." },
+				{ Cue = "/VO/Nemesis_0470", Text = "Oh, come on." },
+				{ Cue = "/VO/Nemesis_0122", Text = "Fine.",
+					PreLineAnim = "Nemesis_Hub_Salute" },
+				{ Cue = "/VO/Nemesis_0124", Text = "{#Emph}<Sigh>",
+					PreLineAnim = "Nemesis_Hub_Salute" },
+				{ Cue = "/VO/Nemesis_0125", Text = "{#Emph}Hrm.",
+					PreLineAnim = "Nemesis_Hub_Salute" },
+				{ Cue = "/VO/Nemesis_0120", Text = "Whatever.", PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "GameState", "TextLinesRecord", "NemesisGift07" },
+						},
+					},
+				},
+				{ Cue = "/VO/Nemesis_0164", Text = "Get lost.",
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "GameState", "TextLinesRecord", "NemesisGift05" },
+						},
+					},
+				},
+				{ Cue = "/VO/Nemesis_0471", Text = "He's gone.",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "ReachedTrueEnding" },
+						},
+						{
+							PathTrue = { "GameState", "TextLinesRecord", "NemesisGift08" },
+						},
+						{
+							Path = { "LastLinePlayed" },
+							IsAny = { "/VO/Melinoe_1712" },
+						},
+					},
+				},
+				{ Cue = "/VO/Nemesis_0472", Text = "Yeah, you too.",
+					PreLineAnim = "Nemesis_Hub_Salute",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "ReachedTrueEnding" },
+						},
+						{
+							PathTrue = { "GameState", "TextLinesRecord", "NemesisGift08" },
+						},
+						{
+							Path = { "LastLinePlayed" },
+							IsAny = { "/VO/Melinoe_1701", "/VO/Melinoe_1703" },
+						},
+					},
+				},
 				{ Cue = "/VO/Nemesis_0293", Text = "Hey.",
 					GameStateRequirements =
 					{
@@ -155,6 +214,9 @@ UnitSetData.NPC_Nemesis =
 					GameStateRequirements =
 					{
 						{
+							PathFalse = { "GameState", "TextLinesRecord", "NemesisGift06" },
+						},
+						{
 							Path = { "LastLinePlayed" },
 							IsAny = { "/VO/Melinoe_1701", "/VO/Melinoe_1703" },
 						},
@@ -169,24 +231,22 @@ UnitSetData.NPC_Nemesis =
 						},
 					},
 				},
-				{ Cue = "/VO/Nemesis_0120", Text = "Whatever.", PlayFirst = true },
-				{ Cue = "/VO/Nemesis_0123", Text = "Right." },
-				{ Cue = "/VO/Nemesis_0180", Text = "Come on..." },
-				{ Cue = "/VO/Nemesis_0198", Text = "Keep practicing." },
-				{ Cue = "/VO/Nemesis_0199", Text = "Nice try." },
-				{ Cue = "/VO/Nemesis_0164", Text = "Get lost." },
-				{ Cue = "/VO/Nemesis_0122", Text = "Fine.",
-					PreLineAnim = "Nemesis_Hub_Salute" },
-				{ Cue = "/VO/Nemesis_0124", Text = "{#Emph}<Sigh>",
-					PreLineAnim = "Nemesis_Hub_Salute" },
-				{ Cue = "/VO/Nemesis_0125", Text = "{#Emph}Hrm.",
-					PreLineAnim = "Nemesis_Hub_Salute" },
+				{ Cue = "/VO/Nemesis_0473", Text = "Might as well.",
+					PreLineAnim = "Nemesis_Hub_Salute",
+					GameStateRequirements =
+					{
+						{
+							Path = { "LastLinePlayed" },
+							IsAny = { "/VO/Melinoe_1705", "/VO/Melinoe_1709" },
+						},
+					},
+				},
 			},
 		},
 
 		ActivateRequirements =
 		{
-			-- None
+			NamedRequirementsFalse = { "NemesisKnowsHecateMissing" },
 		},
 
 		SpawnVoiceLines =
@@ -207,6 +267,23 @@ UnitSetData.NPC_Nemesis =
 				},
 
 				{ Cue = "/VO/MelinoeField_0037", Text = "What's she doing here?" },
+			},
+			{
+				UsePlayerSource = true,
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				PreLineWait = 0.95,
+				PlayOnce = true,
+				PlayOnceContext = "NemesisTartarusIntroVO",
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "I" },
+					},
+				},
+
+				{ Cue = "/VO/MelinoeField_0036", Text = "Nemesis!" },
 			},
 			{
 				UsePlayerSource = true,
@@ -250,7 +327,7 @@ UnitSetData.NPC_Nemesis =
 				{
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-						IsAny = { "NemesisCombatIntro", "NemesisCombatF", "NemesisCombatG", "NemesisCombatH", "GeneratedH_PassiveSmall", "GeneratedH_Passive" }, 
+						IsAny = { "NemesisCombatIntro", "NemesisCombatF", "NemesisCombatG", "NemesisCombatH", "NemesisCombatI", "GeneratedH_PassiveSmall", "GeneratedH_Passive" }, 
 					},
 				},
 
@@ -267,9 +344,19 @@ UnitSetData.NPC_Nemesis =
 				{ Cue = "/VO/NemesisField_0242", Text = "Think you're better, prove it." },
 				{ Cue = "/VO/NemesisField_0243", Text = "Beat me here, can have my Gold." },
 				{ Cue = "/VO/NemesisField_0244", Text = "I slay more, I get your Gold." },
-				{ Cue = "/VO/NemesisField_0245", Text = "Get set to fight, or get out the way." },
+				{ Cue = "/VO/NemesisField_0245", Text = "Get set to fight, or get out of the way." },
 				{ Cue = "/VO/NemesisField_0246", Text = "Good, could use more Gold." },
 				{ Cue = "/VO/NemesisField_0247", Text = "Had a feeling you'd show up." },
+				{ Cue = "/VO/NemesisField_0537", Text = "Surprise.",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+							IsAny = { "I" },
+						},
+					},
+				},
 			},
 		},
 
@@ -398,26 +485,38 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathFalse = { "CurrentRun", "Cleared" }
 					},
-					-- @ update with additional requirements
 				},
-
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
 				{ Cue = "/VO/Nemesis_0002",
-					-- PreLineAnim = "Nemesis_Hub_Salute",
+					-- Portrait = "Portrait_Nemesis_Averted_01",
+
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					PostLineAnim = "Nemesis_Hub_Glare_End",
 					-- PreLineAnim = "Nemesis_Hub_Greet",
-					-- PreLineAnim = "Nemesis_Hub_Glare_Start",
-					-- PostLineAnim = "Nemesis_Hub_Glare_End",
+					-- PreLineAnim = "Nemesis_Hub_Salute",
+					-- PreLineAnim = "Nemesis_Hub_Toss",
+					-- PreLineAnim = "Nemesis_Hub_Interact",
 					Text = "Already hit a wall! Knocked your scrawny ass all the way back here. It's insane that she's sending you out on foot, all on your own." },
+
+				{ Cue = "/VO/Melinoe_0077", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "You're fortunate you have even {#Emph}this {#Prev}responsibility, for all your questioning of orders and complaining." },
 				EndVoiceLines =
 				{
 					{
 						PreLineWait = 0.4,
-						UsePlayerSource = true,
-						RequiredMinElapsedTime = 2,
-						{ Cue = "/VO/Melinoe_1540", Text = "Your skepticism's duly noted." },
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/Nemesis_0458", Text = "Oh, shut up." },
 					},
 				},
 			},
@@ -442,7 +541,7 @@ UnitSetData.NPC_Nemesis =
 					Text = "They're not going to help you, you know. The Fates, I mean. They don't take pity on whoever asks. If anything, you'll make things even worse." },
 				{ Cue = "/VO/Melinoe_1541", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Maybe you just don't give your sisters enough credit. If they once aided my brother, then there has to be a chance they'll aid us. They have a stake in this, too." },
 				{ Cue = "/VO/Nemesis_0035",
 					PreLineAnim = "Nemesis_Hub_Greet",
@@ -484,9 +583,10 @@ UnitSetData.NPC_Nemesis =
 					Text = "Can't believe sucking up to the Fates actually worked. That big scroll over there... that's really from them?" },
 				{ Cue = "/VO/Melinoe_1543", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Personally delivered by Lord Moros, no less. He seemed a little pressed for time, so we didn't get to talk much. Are the two of you close?" },
 				{ Cue = "/VO/Nemesis_0037",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "We're children of Nyx; none of us are close. But we crossed paths. When certain mortals get what they deserve, it involves us both." },
 				EndVoiceLines =
 				{
@@ -526,8 +626,8 @@ UnitSetData.NPC_Nemesis =
 					Text = "Never thought I'd see Moros here of all places. But then again, it only makes sense Doom would come to the Crossroads sooner or later." },
 				{ Cue = "/VO/Melinoe_1545", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "You make it sound like it's a bad thing. All Nyx's kin are welcome here. Headmistress gave her word." },
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "You make it sound like it's a {#Emph}bad {#Prev}thing. All Nyx's kin are welcome here. Headmistress gave her word." },
 				EndVoiceLines =
 				{
 					{
@@ -558,13 +658,13 @@ UnitSetData.NPC_Nemesis =
 
 				{ Cue = "/VO/Melinoe_2234", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Strictly business between you and Lord Charon, isn't it? Never seen you speak except about his wares. At least you're providing him with Gold." },
 				{ Cue = "/VO/Nemesis_0133",
 					Text = "You might technically have a brother, but you don't know what it's like having one around. Charon doesn't like to talk; I respect that." },
 				{ Cue = "/VO/Melinoe_2235", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Truly? He never seems to mind speaking with me, in his way." },
 				EndVoiceLines =
 				{
@@ -594,9 +694,10 @@ UnitSetData.NPC_Nemesis =
 					Text = "So you've been chatting it up with Chaos, of all beings... trying to get the oldest force in the world to take sides? A fundamentally {#Emph}impartial {#Prev}force. Smart." },
 				{ Cue = "/VO/Melinoe_3228", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Sounds like you've been chatting it up yourself! I saw you plunge into a Chaos Gate, as though you knew exactly where it led. Not your first time?" },
 				{ Cue = "/VO/Nemesis_0259",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "Not your business. Just don't go thinking Chaos is going to help {#Emph}you {#Prev}and no one else. Seeing as that wouldn't be fair." },
 				EndVoiceLines =
 				{
@@ -630,7 +731,7 @@ UnitSetData.NPC_Nemesis =
 					Text = "Let me guess. The Fates have nothing but a bunch of busywork laid out for you. No grand revelations, just odd jobs." },
 				{ Cue = "/VO/Melinoe_1546", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "I know better than to question their designs. A minor prophecy fulfilled may result in a greater one coming to pass." },
 				EndVoiceLines =
 				{
@@ -654,6 +755,9 @@ UnitSetData.NPC_Nemesis =
 					{
 						PathFalse = { "GameState", "EnemyKills", "Chronos" },
 					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NemesisCombatFirstIntro" }
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
@@ -666,7 +770,7 @@ UnitSetData.NPC_Nemesis =
 				{ Cue = "/VO/Melinoe_0679", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "I think the circumstances justify heightened security around here. But if you don't, go take it up with the Headmistress, not me." },
 				EndVoiceLines =
 				{
@@ -685,7 +789,11 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "CurrentRun", "RoomCountCache", "F_Boss01" },
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						Path = { "CurrentRun", "RoomsEntered" },
+						HasAny = { "F_Boss01", "F_Boss02" },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -693,16 +801,15 @@ UnitSetData.NPC_Nemesis =
 
 				{ Cue = "/VO/Nemesis_0048",
 					Text = "You don't deserve this. Any of this. It's unfair. But you're stuck with it. So the only question is, what are you going to do about it now?" },
-				{ Cue = "/VO/Melinoe_1548", UsePlayerSource = true,
-					Portrait = "Portrait_Mel_Intense_01",
+				{ Cue = "/VO/Melinoe_3930", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "There's no such question in my mind. And what do {#Emph}you {#Prev}even know about fairness, or who deserves what?" },
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "You'll soon find out! Though, how can you be so sure I don't deserve what's happening or that it isn't fair?" },
 				EndVoiceLines =
 				{
 					{
-						PreLineWait = 0.45,
-						RequiredMinElapsedTime = 1.5,
+						PreLineWait = 0.35,
 						ObjectType = "NPC_Nemesis_01",
 						{ Cue = "/VO/Nemesis_0049", Text = "{#Emph}Hah! {#Prev}You almost had me going there." },
 					},
@@ -714,7 +821,13 @@ UnitSetData.NPC_Nemesis =
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
-					--
+					{
+						PathFalse = { "GameState", "EnemyKills", "Chronos" },
+					},
+					{
+						Path = { "CurrentRun" },
+						HasNone = { "Cleared", "BountyCleared" }
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
@@ -723,7 +836,7 @@ UnitSetData.NPC_Nemesis =
 					Text = "Don't worry, you didn't miss much while you were out. Lot of standing around, chanting prayers for your victory and protection. How'd those work out for you, by the way?" },
 				{ Cue = "/VO/Melinoe_1549", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Fine, thanks. And your own lack of support is a more significant motivator than you realize." },
 				EndVoiceLines =
 				{
@@ -779,22 +892,18 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift01" },
-					},
-					{
-						Path = { "GameState", "UseRecord", "NPC_Nemesis_01" },
-						Comparison = ">=",
-						Value = 4,
+						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift03" },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
 
 				{ Cue = "/VO/Nemesis_0046",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "I always thought... if I could just train harder than you, she'd reconsider. And give the task to me. Worked my ass off. But it didn't matter." },
 				{ Cue = "/VO/Melinoe_1547", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "I worked, too. And Headmistress always made herself clear about our roles. You can't change your birthright, nor can I change mine." },
 				EndVoiceLines =
 				{
@@ -823,7 +932,7 @@ UnitSetData.NPC_Nemesis =
 					AngleTowardHero = true,
 					PreLineAnim = "Nemesis_Hub_Glare_Start",
 					PostLineAnim = "Nemesis_Hub_Glare_End",
-					Text = "The hell are you doing talking to me, you get your scrawny ass back out there and get that Titan! What are you waiting for?" },
+					Text = "The hell are you doing talking to me? You get your scrawny ass back {#Emph}out {#Prev}there, and get that Titan! What are you waiting for?" },
 				EndVoiceLines =
 				{
 					{
@@ -839,16 +948,15 @@ UnitSetData.NPC_Nemesis =
 				PlayOnce = true,
 				UseableOffSource = true,
 				GiftableOffSource = true,
+				PostBlockSpecialInteract = true,
 				GameStateRequirements =
 				{
 					{
-						Path = { "CurrentRun" },
-						HasNone = { "Cleared", "BountyCleared" }
+						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 					{
-						Path = { "GameState", "UseRecord", "NPC_Nemesis_01" },
-						Comparison = ">=",
-						Value = 3,
+						Path = { "CurrentRun" },
+						HasNone = { "Cleared", "BountyCleared" }
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -857,7 +965,8 @@ UnitSetData.NPC_Nemesis =
 					Text = "Another failed attempt. About ready to give in? You don't have the fire. This isn't personal enough for you." },
 				{ Cue = "/VO/Melinoe_1550", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkFlustered01", PreLineAnimTarget = "Hero",
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Isn't {#Emph}personal? {#Prev}You don't see my mother around, either, do you, Nem? Nor my father, nor my brother. Chronos took them all!" },
 				{ Cue = "/VO/Nemesis_0053",
 					AngleTowardHero = true,
@@ -889,9 +998,10 @@ UnitSetData.NPC_Nemesis =
 				{ Cue = "/VO/Melinoe_0602", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "What you said to me before, about my mother. That was very cruel." },
 				{ Cue = "/VO/Nemesis_0054",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "{#Emph}Hm{#Prev}. Fair enough. Can't kill each other here, but we can use our words. If we were fighting for real I wouldn't have held back, either." },
 				EndVoiceLines =
 				{
@@ -900,6 +1010,47 @@ UnitSetData.NPC_Nemesis =
 						UsePlayerSource = true,
 						RequiredMinElapsedTime = 2,
 						{ Cue = "/VO/Melinoe_0603", Text = "I figured not." },
+					},
+				},
+			},
+			NemesisAboutFamily03 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GiftableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisGift07", "HadesWithPersephoneGift01" },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+				{ Cue = "/VO/Nemesis_0412",
+					Text = "How were they, anyway? Your family. Persephone the Queen, Prince Zagreus, whoever else. He doesn't want this blade back yet, does he?" },
+
+				{ Cue = "/VO/Melinoe_5251", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Casual_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "He hasn't mentioned it, he's... I don't know, I like him quite a bit. Perhaps since I haven't been around him for aeons as with siblings from certain other families I've met. And my mother and father, they're... all that I imagined, I suppose." },
+
+				{ Cue = "/VO/Nemesis_0413",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "Right. Probably because your imagination's filling in a lot of blanks. But, least you found them, and it's off to a good start. Not to be taken for granted." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 2,
+						{ Cue = "/VO/Melinoe_5252", Text = "Not at all." },
 					},
 				},
 			},
@@ -915,6 +1066,9 @@ UnitSetData.NPC_Nemesis =
 						PathFalse = { "GameState", "TextLinesRecord", "NemesisAboutChronosBossW01" },
 					},
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "CurrentRun", "RoomsEntered", "I_Boss01" },
 					},
 					{
@@ -927,7 +1081,7 @@ UnitSetData.NPC_Nemesis =
 					Text = "They're saying you got all the way to Tartarus before. How far'd you get? Make it all the way back to your {#Emph}rightful home?" },
 				{ Cue = "/VO/Melinoe_3223", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "If you're referring to the House of Hades, then yes, I did make it there. Though you could best describe it as the House of {#Emph}Chronos{#Prev}, at this point. He was waiting within, just as expected, and... was strong, just as expected, too." },
 				{ Cue = "/VO/Nemesis_0250",
 					PreLineAnim = "Nemesis_Hub_Greet",
@@ -956,6 +1110,9 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						Path = { "GameState", "TextLinesRecord" },
 						HasNone = { "NemesisAboutChronosBossW01", "NemesisAboutChronosBossL01_B" }
 					},
@@ -974,8 +1131,9 @@ UnitSetData.NPC_Nemesis =
 				{ Cue = "/VO/Nemesis_0224",
 					Text = "Can't believe you got to Chronos before me. Knew you stood no chance against him, but... didn't think you'd get there at all anytime soon." },
 				{ Cue = "/VO/Melinoe_3098", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Is that supposed to be some sort of compliment? Or an apology, perhaps?" },
 				EndVoiceLines =
 				{
@@ -996,6 +1154,9 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						Path = { "GameState", "TextLinesRecord" },
 						HasAny = { "NemesisAboutChronosBossL02" },
 					},
@@ -1012,8 +1173,9 @@ UnitSetData.NPC_Nemesis =
 				{ Cue = "/VO/Nemesis_0224",
 					Text = "Can't believe you got to Chronos before me. Knew you stood no chance against him, but... didn't think you'd get there at all anytime soon." },
 				{ Cue = "/VO/Melinoe_3098", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Is that supposed to be some sort of compliment? Or an apology, perhaps?" },
 				EndVoiceLines =
 				{
@@ -1034,6 +1196,9 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "CurrentRun", "RoomsEntered", "I_Boss01" },
 					},
 					{
@@ -1044,15 +1209,17 @@ UnitSetData.NPC_Nemesis =
 					{
 						PathTrue = { "CurrentRun", "Cleared" }
 					},
-					-- @ update with additional requirements
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
 				{ Cue = "/VO/Nemesis_0226",
-					Text = "Come here to gloat, I bet. {#Emph}I beat him! I beat the Titan! {#Prev}Well, hardly matters. He's still alive, you realize, don't you?" },
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					PostLineAnim = "Nemesis_Hub_Glare_End",
+					Text = "Come here to gloat, {#Emph}huh. I beat him! I beat the Titan! {#Prev}Well, hardly matters. He's still alive, you realize, don't you?" },
 				{ Cue = "/VO/Melinoe_2965", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "I wasn't coming here to gloat, and yes, I realize. But this is still a step. If I could vanquish Chronos once, I can do it again. And one of these nights... he's not going to come back." },
 				{ Cue = "/VO/Nemesis_0227",
 					PreLineAnim = "Nemesis_Hub_Greet",
@@ -1085,7 +1252,7 @@ UnitSetData.NPC_Nemesis =
 					{
 						Path = { "GameState", "EnemyKills", "Chronos" },
 						Comparison = ">=",
-						Value = 6,
+						Value = 3,
 					},
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift03" },
@@ -1094,17 +1261,21 @@ UnitSetData.NPC_Nemesis =
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
 				{ Cue = "/VO/Nemesis_0252",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "Ought to admit it when I'm wrong. Never thought you'd get to Chronos in the first place, before I did anyway. Much less beat him down, repeatedly. So — I was wrong. Sorry." },
 				{ Cue = "/VO/Melinoe_3225", UsePlayerSource = true,
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Nemesis, I want you to know it was astonishing to hear those words coming from you just now. It seems we're each more than capable of surprising the other. But mainly... thank you." },
 				{ Cue = "/VO/Nemesis_0253",
 					PreLineAnim = "Nemesis_Hub_Salute",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "No need. Fair is fair. Had my chances to catch up with you, but couldn't get through all the pitfalls in the way. Might be I could have taken Chronos, too. But now I'm not so sure." },
 				{ Cue = "/VO/Melinoe_3226", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Now don't lose heart! There's much left to be done, and we need all your strength and vigilance. We're the Unseen; together we prevail, or we fail." },
 				EndVoiceLines =
 				{
@@ -1120,7 +1291,59 @@ UnitSetData.NPC_Nemesis =
 						{ Cue = "/VO/Melinoe_3227", Text = "...No." },
 					},
 				},
+			},
 
+			NemesisAboutUltimateProgress01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
+						Path = { "CurrentRun", "RoomsEntered" },
+						HasAny = { "Q_Intro", "I_Intro" },
+					},
+					{
+						Path = { "GameState", "EnemyKills", "Chronos" },
+						Comparison = ">=",
+						Value = 2,
+					},
+					{
+						Path = { "GameState", "EnemyKills", "TyphonHead" },
+						Comparison = ">=",
+						Value = 2,
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "HecateAboutStormStop01", "HecateAboutStormStop01_B", "HecateAboutChronosBossW04" },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+				{ Cue = "/VO/Nemesis_0308",
+					Text = "Can't kill Chronos, can't kill Typhon, so what now? Keep doing this till somebody gives up? Thought we had a better plan." },
+				{ Cue = "/VO/Melinoe_4428", UsePlayerSource = true,
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					Text = "The Titan thinks he took the upper hand by awakening that monster. But we'll turn that setback into our gain. Typhon is immensely powerful; a power we can use." },
+				{ Cue = "/VO/Nemesis_0309",
+					PreLineAnim = "Nemesis_Hub_Salute",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "You really think the Titan would just offer up the key to his own undoing like that? Doesn't sound particularly smart." },
+				{ Cue = "/VO/Melinoe_4429", UsePlayerSource = true,
+					PreLineAnim = "MelTalkBrooding01ReturnToIdle", PreLineAnimTarget = "Hero",
+					Text = "The plan was always to exploit what he doesn't know." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.38,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/Nemesis_0310", Text = "Think he knows a lot more than you." },
+					},
+				},
 			},
 
 			NemesisAboutChronosNightmare01 =
@@ -1139,15 +1362,21 @@ UnitSetData.NPC_Nemesis =
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
 				{ Cue = "/VO/Melinoe_1570", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Had one of my dreams, Nem. Your mother was there, and my father. He showed concern for her, she... was under the Titan's spell." },
+
 				{ Cue = "/VO/Nemesis_0090",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "Mother Nyx made a mistake entrusting Hades with so much of the Underworld. This realm was never his by right, not till the Fates decided otherwise. Mother worked hard. They were probably just trying to send her help." },
+
 				{ Cue = "/VO/Melinoe_0621", UsePlayerSource = true,
+					-- Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "You're saying the Fates granted my father authority over the realm of the dead just to give Nyx a hand with all her responsibilities?" },
+
 				EndVoiceLines =
 				{
 					{
@@ -1162,6 +1391,7 @@ UnitSetData.NPC_Nemesis =
 					},
 				},
 			},
+			-- alt below
 			NemesisAboutChronosNightmare02 =
 			{
 				PlayOnce = true,
@@ -1169,38 +1399,86 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "GameState", "TextLinesRecord", "NemesisAboutChronosNightmare01" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NemesisAboutChronosNightmare02_B" },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
 				{ Cue = "/VO/Melinoe_0623", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					Text = "Nemesis, about the dream I had... Chronos, he... demanded that my father tell him where the Fates reside." },
 				{ Cue = "/VO/Nemesis_0092",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "Smart. Mother Nyx never would have told him. The Fates may be my sisters but even I have no idea where they are. Long as they're hidden, no one can mess with their designs." },
 				{ Cue = "/VO/Melinoe_1571", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "You don't sound especially concerned that Chronos apparently found the three weavers of destiny and may be forcing their plans for the future." },
 				{ Cue = "/VO/Nemesis_0093",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
 					Text = "{#Emph}Really? {#Prev}I ever give you the impression I had any hope this would end well?" },
 				{ Cue = "/VO/Melinoe_1572", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "How could he have found them? Wouldn't the Fates see the threat coming?" },
 				{ Cue = "/VO/Nemesis_0094",
+					PostLineAnim = "Nemesis_Hub_Glare_End",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "They're always weaving. That means even they know only so much in advance. Chronos is Time. {#Emph}Time {#Prev}moves faster than expected." },
-				EndVoiceLines =
+			},
+			NemesisAboutChronosNightmare02_B =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
 				{
 					{
-						PreLineWait = 0.45,
-						UsePlayerSource = true,
-						-- { Cue = "/VO/Melinoe_0626", Text = "No, but..." },
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NemesisAboutChronosNightmare01" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NemesisAboutChronosNightmare02" },
 					},
 				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+				{ Cue = "/VO/Melinoe_0623", UsePlayerSource = true,
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					Text = "Nemesis, about the dream I had... Chronos, he... demanded that my father tell him where the Fates reside." },
+				{ Cue = "/VO/Nemesis_0092",
+					Text = "Smart. Mother Nyx never would have told him. The Fates may be my sisters but even I have no idea where they are. Long as they're hidden, no one can mess with their designs." },
+				{ Cue = "/VO/Melinoe_5278", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "You don't sound especially concerned that Chronos somehow found the three weavers of destiny and cast them into exile. And can no longer find them." },
+				{ Cue = "/VO/Nemesis_0093",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					Text = "{#Emph}Really? {#Prev}I ever give you the impression I had any hope this would end well?" },
+				{ Cue = "/VO/Melinoe_5279", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "How did he do it...? Wouldn't the Fates see the threat coming?" },
+				{ Cue = "/VO/Nemesis_0094",
+					PostLineAnim = "Nemesis_Hub_Glare_End",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "They're always weaving. That means even they know only so much in advance. Chronos is Time. {#Emph}Time {#Prev}moves faster than expected." },
 			},
 
 			NemesisAboutWeapons01 =
@@ -1223,7 +1501,7 @@ UnitSetData.NPC_Nemesis =
 					Text = "Even Mother Nyx's weapons favor you. Always thought the Nocturnal Arms would wake for me first. Guess the Fates had other ideas." },
 				{ Cue = "/VO/Melinoe_1569", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "I think the Fates had you covered. You're the bearer of Stygius! Vanquisher of heroes, gods, and Titans." },
 				EndVoiceLines =
 				{
@@ -1244,6 +1522,9 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = { "NemesisGift01", "NemesisAboutEvil01" },
 					},
@@ -1251,21 +1532,23 @@ UnitSetData.NPC_Nemesis =
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
 				{ Cue = "/VO/Melinoe_0613", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Nem. You care so much for mortal justice. Where's your passion for ours? Chronos took {#Emph}everything {#Prev}from us! You said we all should get what we deserve, right?" },
 				{ Cue = "/VO/Nemesis_0083",
+					PreLineAnim = "Nemesis_Hub_Greet",
 					Text = "{#Emph}Khh. {#Prev}Well, that's the thing. If you knew anything about mortals, they had it better once. When Chronos ruled. Called it the {#Emph}Golden Age." },
 				{ Cue = "/VO/Melinoe_2749", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkFlustered01", PreLineAnimTarget = "Hero",
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					Text = "How splendid that must have been for them! If only Chronos could have been so generous with his sons and foster-children. You think him being somewhat nice to some mortals makes up for what he did?" },
 				{ Cue = "/VO/Nemesis_0084",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "No. Look. What if... what if this {#Emph}is {#Prev}what we deserve?" },
 				{ Cue = "/VO/Melinoe_0615", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PreLineAnim = "MelTalkBrooding01ReturnToIdle", PreLineAnimTarget = "Hero",
 					Text = "We deserve better than this, Nemesis. Living in shadows. Denied our families. Don't you want justice for {#Emph}them?" },
 				EndVoiceLines =
 				{
@@ -1306,6 +1589,7 @@ UnitSetData.NPC_Nemesis =
 					-- PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "...How long has it been since you've visited the surface?" },
 				{ Cue = "/VO/Nemesis_0070",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "Too long. Cooped up here now in case you hadn't noticed. But, it's a lost cause anyway. Why do you ask?" },
 				{ Cue = "/VO/Melinoe_1562", UsePlayerSource = true,
 					-- PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
@@ -1336,7 +1620,8 @@ UnitSetData.NPC_Nemesis =
 						PathFalse = { "GameState", "TextLinesRecord", "NemesisAboutSurface01" },
 					},
 					{
-						Path = { "GameState", "RoomCountCache", "N_Boss01" },
+						Path = { "GameState", "RoomCountCache" },
+						SumOf = { "N_Boss01", "N_Boss02" },
 						Comparison = "<=",
 						Value = 5,
 					},
@@ -1348,6 +1633,7 @@ UnitSetData.NPC_Nemesis =
 					-- PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "...How long has it been since you've visited the surface?" },
 				{ Cue = "/VO/Nemesis_0070",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "Too long. Cooped up here now in case you hadn't noticed. But, it's a lost cause anyway. Why do you ask?" },
 				{ Cue = "/VO/Melinoe_3211", UsePlayerSource = true,
 					-- PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
@@ -1373,13 +1659,17 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathFalse = { "GameState", "TextLinesRecord", "NemesisAboutSurface03" },
 					},
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "N" },
 					},
 					{
-						Path = { "GameState", "RoomCountCache", "N_Boss01" },
+						Path = { "GameState", "RoomCountCache" },
+						SumOf = { "N_Boss01", "N_Boss02" },
 						Comparison = "<=",
 						Value = 10,
 					},
@@ -1390,9 +1680,10 @@ UnitSetData.NPC_Nemesis =
 					Text = "You really went up there. They could have called for somebody with experience, but I guess I don't deserve it as much as I thought." },
 				{ Cue = "/VO/Melinoe_1575", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "I'm needed there as part of my task. Though, they must miss you on the surface. So much suffering..." },
 				{ Cue = "/VO/Nemesis_0167",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "Justice doesn't matter anymore. The mortals had it coming. Maybe we all did." },
 				EndVoiceLines =
 				{
@@ -1410,22 +1701,32 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
-						Path = { "GameState", "RoomCountCache", "N_Opening01" },
-						Comparison = ">=",
-						Value = 10,
+						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 					{
-						PathTrue = { "CurrentRun", "RoomCountCache", "N_Opening01" },
+						Path = { "GameState", "RoomsEntered", "N_Opening01" },
+						Comparison = ">=",
+						Value = 8,
 					},
-					-- @ update with additional requirements
+					{
+						SumPrevRuns = 2,
+						Path = { "RoomsEntered" },
+						TableValuesToCount = { "N_Opening01" },
+						Comparison = ">=",
+						Value = 2,
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
 				{ Cue = "/VO/Nemesis_0168",
 					Text = "You keep heading up when you ought to be heading down, toward your objective. Forget about the mountain. Not your fight." },
 				{ Cue = "/VO/Melinoe_0618", UsePlayerSource = true,
-					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Intense_01",
 					Text = "My family on Olympus is under assault by the legions of Chronos, and it's not my fight?" },
 				{ Cue = "/VO/Nemesis_0169",
 					AngleTowardHero = true,
@@ -1437,7 +1738,68 @@ UnitSetData.NPC_Nemesis =
 					{
 						PreLineWait = 0.45,
 						UsePlayerSource = true,
+						RequiredMinElapsedTime = 3,
 						{ Cue = "/VO/Melinoe_0619", Text = "Sure I don't." },
+					},
+				},
+			},
+
+			NemesisAboutSurface04 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
+					{
+						PathTrue = { "CurrentRun", "RoomsEntered", "N_Opening01" },
+					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" }
+					},
+					OrRequirements =
+					{
+						{
+							{
+								PathTrue = { "GameState", "TextLinesRecord", "NemesisAboutTyphon01" },
+							},
+						},
+						{
+							{
+								Path = { "GameState", "RoomsEntered", "Q_Boss01" },
+								Comparison = ">=",
+								Value = 2,
+							},
+						},
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Melinoe_4424", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Why don't I ever see you on the surface, Nem? Surely we have foes deserving your attention there." },
+				{ Cue = "/VO/Nemesis_0303",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					PostLineAnim = "Nemesis_Hub_Glare_End",
+					Text = "Death to Chronos is the only task. Won't get caught up in the details like you. Each night you spend up in the mountains, the Titan secures his foothold below." },
+				{ Cue = "/VO/Melinoe_4425", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "You don't see how Typhon's reemergence complicates matters? He's not exactly the sort of problem one can ignore for long." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.35,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/Nemesis_0304", Text = "Really? Watch me." },
 					},
 				},
 			},
@@ -1448,6 +1810,9 @@ UnitSetData.NPC_Nemesis =
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
 					{
 						Path = { "GameState", "TextLinesRecord" },
 						HasAny = { "ErisFirstMeeting", "ErisFirstMeeting_B" },
@@ -1474,14 +1839,14 @@ UnitSetData.NPC_Nemesis =
 					Text = "Eris is back. What did you do? Did you summon her? I saw you talking." },
 				{ Cue = "/VO/Melinoe_3099", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "You're not remotely pleased to see your sister again? I don't have any more control over her than you do. Headmistress still is giving her the silent treatment, though." },
 				{ Cue = "/VO/Nemesis_0229",
 					PostLineAnim = "Nemesis_Hub_Glare_End",
 					Text = "Ideally, Eris should be somewhere very far from here. Good thing this place is impossible to find, otherwise I'd half expect she would have led Chronos straight to us by now." },
 				{ Cue = "/VO/Melinoe_3100", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "You truly think a daughter of Nyx would betray us? I know Eris is a different sort, but still." },
 				{ Cue = "/VO/Nemesis_0230",
 					Text = "Your father is a son of Chronos. How'd {#Emph}they {#Prev}get on?" },
@@ -1502,7 +1867,8 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "CurrentRun", "RoomsEntered", "O_Boss01" },
+						Path = { "CurrentRun", "RoomsEntered" },
+						HasAny = { "O_Boss01", "O_Boss02" },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -1510,7 +1876,7 @@ UnitSetData.NPC_Nemesis =
 
 				{ Cue = "/VO/Melinoe_3102", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Eris stands against us. Just as I neared my destination on the surface, she was there. Let the Adamant Rail do much of the talking." },
 				{ Cue = "/VO/Nemesis_0231",
 					AngleTowardHero = true,
@@ -1533,21 +1899,26 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "CurrentRun", "RoomsEntered", "O_Boss01" },
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						Path = { "CurrentRun", "RoomsEntered" },
+						HasAny = { "O_Boss01", "O_Boss02" },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
 
 				{ Cue = "/VO/Melinoe_3220", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Isn't there something you can do to talk some sense into Eris? Get her out of my blasted way to Olympus. Or failing that, pin her in an arm bar or leg lock, perhaps?" },
 				{ Cue = "/VO/Nemesis_0247",
 					Text = "Won't waste my time with her at all, though the arm bar or leg lock do have a certain appeal. Not seen her flying through the Underworld lately, have you." },
 				{ Cue = "/VO/Melinoe_3221", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Not other than these Crossroads. Though what's your point, that I should stay out of her way as well as focus solely on Chronos below? It's not so simple for me anymore." },
 				{ Cue = "/VO/Nemesis_0248",
 					AngleTowardHero = true,
@@ -1584,8 +1955,9 @@ UnitSetData.NPC_Nemesis =
 				{ Cue = "/VO/Nemesis_0244",
 					Text = "Showed Eris didn't you. Could hear her crying practically from here. Been far too long since last I kicked her ass myself. At least {#Emph}somebody{#Prev}'s picked up the slack." },
 				{ Cue = "/VO/Melinoe_3218", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Perhaps all of those savage fights between you two contributed to her disagreeable nature. Or yours, for that matter. Unless you're certain neither one of you has changed a bit, in which case, what was all the fighting even for?" },
 				{ Cue = "/VO/Nemesis_0245",
 					AngleTowardHero = true,
@@ -1607,6 +1979,152 @@ UnitSetData.NPC_Nemesis =
 				},
 			},
 
+			NemesisAboutNyx01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisBathHouse03", "DemeterFirstPickUp" },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Melinoe_5260", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Empathetic_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Has anyone ever told you you look a bit like your mother, Nemesis? Having met her I can see the resemblance. In fact, when I first saw her, I... well, anyway." },
+
+				{ Cue = "/VO/Nemesis_0425",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					Text = "No, finish that thought. When you first saw her, you what?" },
+
+				{ Cue = "/VO/Melinoe_5261", UsePlayerSource = true,
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "{#Emph}Erm{#Prev}, when I first saw her, I... look, I was taken aback by her appearance! In a positive way. She was like if you wore an elegant gown, and gave your brow muscles a rest." },
+
+				{ Cue = "/VO/Nemesis_0426",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_End",
+					Text = "Was your idea of a compliment. Nobody wants to look like their mother. Don't look anything like mine anyway. Except maybe the hair." },
+
+				{ Cue = "/VO/Melinoe_5262", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Lady Demeter said I look just like my mother, which I thought was very kind of her! Queen Persephone is striking." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/Nemesis_0427", Text = "Think she and Nyx get on as well as we do?" },
+					},
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_5263", Text = "They couldn't possibly." },
+					},
+				},
+			},
+			NemesisAboutNyx02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "CurrentRun", "UseRecord", "NPC_Nyx_Story_01" },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0423",
+					Text = "Ran into Nyx last night. So whenever she's had her fill of being around Hades and Persephone, she goes off to Chaos for a little quiet time. I can see the appeal." },
+
+				{ Cue = "/VO/Melinoe_5258", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "She's not doing it to get away from my parents! With all that the Underworld's gone through, don't you think Night and Chaos might have a lot to discuss?" },
+
+				{ Cue = "/VO/Nemesis_0424",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Text = "Sure. Trying to imagine what they even talk about. {#Emph}It continues to be very dark here, Chaos. Yes, it does, Nyx." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.3,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_5259", Text = "{#Emph}<Laugh> {#Prev}Sorry." },
+					},
+				},
+			},
+
+			NemesisAboutNyxRescue01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisGift06", "NyxWithNemesis01", "HadesWithPersephoneGift01" },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Melinoe_5255", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "How has it been having your mother back? I'm still growing accustomed to the part where my own birthmother is in my life, even if I may not see her every night." },
+
+				{ Cue = "/VO/Nemesis_0421",
+					Text = "Doubt Mother Nyx will be coming around much either. Never did. But she was never really gone. Night's been around since before Time. Nobody messes with her." },
+
+				{ Cue = "/VO/Melinoe_5256", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Casual_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Speaking of that, sounds like you have free rein to dole out Retribution once again, not that you weren't doling it out before. No need to keep pursuing Chronos now!" },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/Nemesis_0422", Text = "Oh I'm not finished there." },
+					},
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_5257", Text = "Somehow I'm not surprised!" },
+					},
+				},
+			},
+
+
 			NemesisAboutHecate01 =
 			{
 				GameStateRequirements =
@@ -1614,19 +2132,22 @@ UnitSetData.NPC_Nemesis =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "NemesisWithHecate01" },
 					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NemesisWithHecate02" },
+					},
 				},
 				PlayOnce = true,
 				UseableOffSource = true,
 				{ Cue = "/VO/Melinoe_1552", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "So, just how much trouble are you in for mouthing off to Headmistress, Nem? That was utterly disrespectful, even for you." },
 				{ Cue = "/VO/Nemesis_0057",
 					PreLineAnim = "Nemesis_Hub_Greet",
 					Text = "{#Emph}Heh! {#Prev}Well, looks like I've got a lot more guard duty ahead of me. But it was worth it. Help balance out you sucking up to her all the time." },
 				{ Cue = "/VO/Melinoe_1553", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "It figures you have no ability to distinguish between basic courtesy, and what you call sucking up." },
 				EndVoiceLines =
 				{
@@ -1646,23 +2167,27 @@ UnitSetData.NPC_Nemesis =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "NemesisAboutHecate01" },
 					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NemesisWithHecate02" },
+					},
 				},
 				PlayOnce = true,
 				UseableOffSource = true,
 				{ Cue = "/VO/Melinoe_1554", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Was it always like this, between you and Headmistress? I used to think it was {#Emph}me {#Prev}you hated most of all." },
 				{ Cue = "/VO/Nemesis_0059",
 					Text = "You've always been naive, Princess. As for Hecate, I liked her better before she decided {#Emph}this {#Prev}right here was the best use of my talents." },
 				{ Cue = "/VO/Melinoe_1555", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "She made that decision long ago. So you're going to resent her forever? Or are you going to do something about it?" },
 				{ Cue = "/VO/Nemesis_0060",
 					AngleTowardHero = true,
 					PreLineAnim = "Nemesis_Hub_Glare_Start",
 					PostLineAnim = "Nemesis_Hub_Glare_End",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "I {#Emph}am {#Prev}doing something about it! I'm honoring my vow to Mother Nyx. Else I'd be long gone, much to your disappointment, I'm sure." },
 				EndVoiceLines =
 				{
@@ -1684,7 +2209,10 @@ UnitSetData.NPC_Nemesis =
 				{
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsAny = { "F_Boss01" },
+						IsAny = { "F_Boss01", "F_Boss02" },
+					},
+					{
+						PathFalse = { "GameState", "RoomsEntered", "H_Boss01" },
 					},
 					{
 						PathFalse = { "CurrentRun", "RoomsEntered", "F_PostBoss01" },
@@ -1698,8 +2226,8 @@ UnitSetData.NPC_Nemesis =
 				{ Cue = "/VO/Nemesis_0061",
 					Text = "Wondered why Hecate took off all of a sudden. Was just to get in your way! Send you crying home. Guess she doesn't want you to succeed." },
 				{ Cue = "/VO/Melinoe_1557", UsePlayerSource = true,
-					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "She expects me to be prepared for whatever lies ahead." },
 				EndVoiceLines =
 				{
@@ -1734,7 +2262,7 @@ UnitSetData.NPC_Nemesis =
 					Text = "You passed her little test that time. Must have felt so good beating her ass to the ground. Don't get to spar with her, so I can only imagine." },
 				{ Cue = "/VO/Melinoe_1558", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "We're not just sparring. You don't know our craft." },
 				EndVoiceLines =
 				{
@@ -1756,21 +2284,24 @@ UnitSetData.NPC_Nemesis =
 						Path = { "GameState", "TextLinesRecord" },
 						HasAny = { "OdysseusAboutNemesis01", "OdysseusAboutNemesis02" },
 					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NemesisWithHecate02" },
+					},
 				},
 				{ Cue = "/VO/Nemesis_0137",
 					AngleTowardHero = true,
 					PreLineAnim = "Nemesis_Hub_Glare_Start",
 					Text = "Next time you got something to say about me, you come say it to my face. Know you witches would much rather sneak around, though." },
 				{ Cue = "/VO/Melinoe_2236", UsePlayerSource = true,
-					Portrait = "Portrait_Mel_Intense_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "What are you even talking about? I think you're being accusatory and abrasive. There! I said {#Emph}that {#Prev}to your face." },
 				{ Cue = "/VO/Nemesis_0138",
+					-- Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "Odysseus tried giving me one of his talks. Telling me you didn't go complaining to him?" },
 				{ Cue = "/VO/Melinoe_2237", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "He was concerned with how we're getting on. You're not exactly being subtle, and he's quite perceptive in case you hadn't noticed." },
 				EndVoiceLines =
 				{
@@ -1803,6 +2334,10 @@ UnitSetData.NPC_Nemesis =
 						Comparison = "==",
 						Value = 0,
 					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 561502 }, Alive = false },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
@@ -1834,19 +2369,27 @@ UnitSetData.NPC_Nemesis =
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "NPC_Artemis_Field_01" },
 					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "F" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "NemesisGift08", "ArtemisGift08" },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
 				{ Cue = "/VO/Melinoe_2242", UsePlayerSource = true,
-					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Have you met Artemis out there? I suppose it may be worth repeatedly disobeying orders for the chance to see her." },
 				{ Cue = "/VO/Nemesis_0143",
 					PreLineAnim = "Nemesis_Hub_Greet",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "What would you know of it. You really think I'm sneaking out into those woods just to fool around?" },
 				{ Cue = "/VO/Melinoe_2243", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Is everything all right between the two of you, at least?" },
 				EndVoiceLines =
 				{
@@ -1854,6 +2397,44 @@ UnitSetData.NPC_Nemesis =
 						PreLineWait = 0.4,
 						ObjectType = "NPC_Nemesis_01",
 						{ Cue = "/VO/Nemesis_0144", Text = "It's fine." },
+					},
+				},
+			},
+
+			NemesisAboutArtemisSinging01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "AudioState", "AmbientTrackName" },
+						IsAny = { "/Music/ArtemisSong_MC", "/Music/IrisEndThemeCrossroads_MC" },
+					},
+					{
+						Path = { "ConfigOptionCache", "MusicVolume" },
+						Comparison = ">",
+						Value = 0.1,
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0342",
+					Text = "Singing, {#Emph}eugh. {#Prev}The goddess of the hunt apparently is looking for her brother's job. Surprised you're not still over there yourself. Something else you could be practicing." },
+				{ Cue = "/VO/Melinoe_4460", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "It may seem frivolous though we don't sing merely for lack of things to do here, Nemesis. It has a cleansing quality." },
+				{ Cue = "/VO/Nemesis_0343",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Text = "Oh, right. Artemis told me all about what you mean when you talk about cleansing. Least I'm just about out of earshot over here." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_4461", Text = "We'll have to sing louder for you." },
 					},
 				},
 			},
@@ -1868,21 +2449,57 @@ UnitSetData.NPC_Nemesis =
 						PathTrue = { "PrevRun", "UseRecord", "NPC_Hypnos_01" },
 					},
 					{
-						Path = { "GameState", "UseRecord", "NPC_Hypnos_01" },
-						Comparison = ">=",
-						Value = 3,
+						PathTrue = { "GameState", "TextLinesRecord", "HypnosGift01" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "HypnosFinalDreamMeeting01" },
 					},
 				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
 				{ Cue = "/VO/Nemesis_0065",
 					Text = "Been talking to Hypnos again? He can't hear you, you know. Kind of what happens when somebody's fast asleep." },
 				{ Cue = "/VO/Melinoe_0686", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Sleep is not as simple as you make it out to be. I think he can sense my words and intentions." },
 				{ Cue = "/VO/Nemesis_0066",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "Sensing words and intentions, yeah... sounds exactly like the Hypnos I knew." },
+			},
+			NemesisAboutHypnosWakeUp01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "HypnosFinalDreamMeeting01" },
+					},
+				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0455",
+					Text = "Can't believe it! You finally woke Hypnos up, and {#Emph}I {#Prev}slept through the whole thing? He everything you dreamed of?" },
+				{ Cue = "/VO/Melinoe_5276", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Well, {#Emph}erm... {#Prev}his manner wasn't what I expected, and he was not especially appreciative. Although I too am prone to moodiness after sleeping in. Then, he left in a hurry..." },
+				{ Cue = "/VO/Nemesis_0456",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Text = "Tough break I guess! Always thought he really was your type. Well if you do end up working in your father's House, you'll meet again. For now, least we don't have to listen to him snoring {#Emph}every single night." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 3,
+						{ Cue = "/VO/Melinoe_5277", Text = "I do suppose there's that..." },
+					},
+				},
 			},
 
 			NemesisAboutNarcissus01 =
@@ -1894,25 +2511,31 @@ UnitSetData.NPC_Nemesis =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "NemesisWithNarcissus01_FollowUp" },
 					},
+					{
+						PathTrue = { "CurrentRun", "UseRecord", "NPC_Narcissus_01" },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
 
 				{ Cue = "/VO/Melinoe_2238", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Why all the rancor toward Narcissus, by the way? I see how he could be a little irritating, but he doesn't seem all that bad." },
 				{ Cue = "/VO/Nemesis_0140",
 					Text = "Should have seen what he did to this poor Nymph. Absolutely broke her heart. Didn't even notice, or care." },
 				{ Cue = "/VO/Melinoe_2239", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Didn't take you for the sentimental type. I thought you concerned yourself with worse than lovers' quarrels." },
 				{ Cue = "/VO/Nemesis_0141",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "Narcissus cared only for himself, not for anyone around him. Had to make an example of him. He wound up madly in love. With his own reflection. Till the day he died." },
 				{ Cue = "/VO/Melinoe_2240", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "So now he's a Shade in the Underworld. And still staring longingly into his own eyes." },
 				{ Cue = "/VO/Nemesis_0142",
 					Text = "Hey, you're the witch, not me. You know how it is with curses." },
@@ -1921,6 +2544,7 @@ UnitSetData.NPC_Nemesis =
 					{
 						PreLineWait = 0.4,
 						UsePlayerSource = true,
+						RequiredMinElapsedTime = 2,
 						{ Cue = "/VO/Melinoe_2241", Text = "They're easily misused." },
 					},
 				},
@@ -1994,10 +2618,11 @@ UnitSetData.NPC_Nemesis =
 					Text = "Got yet another Titan up against us, huh? {#Emph}Prometheus! {#Prev}One of the smart ones, so they say. And now, an enemy. Could have been on our side had your family not... you know." },
 				{ Cue = "/VO/Melinoe_3604", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Yes, the whole {#Emph}chain-him-to-a-mountain-so-an-eagle-could- eat-his-regenerating-liver-for-aeons {#Prev}thing. Not one of the proudest moments on Olympus, I have to imagine." },
 				{ Cue = "/VO/Nemesis_0263",
 					PreLineAnim = "Nemesis_Hub_Greet",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "Come ask me whether he deserves his vengeance if ever you want to feel any worse about that whole mess." },
 				EndVoiceLines =
 				{
@@ -2006,6 +2631,156 @@ UnitSetData.NPC_Nemesis =
 						UsePlayerSource = true,
 						{ Cue = "/VO/Melinoe_3605", Text = "Watch with the treason, Nem." },
 					},
+				},
+			},
+			NemesisAboutTyphon01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
+						Path = { "CurrentRun", "RoomsEntered" },
+						HasAny = { "Q_Boss01", "Q_Boss02" },
+					},
+					{
+						PathFalse = { "GameState", "EnemyKills", "TyphonHead" },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0264",
+					Text = "So now Olympus has to deal with Typhon, huh? Wonder if Chronos made a deal with him or just revived and set him loose. Either way, plan like that takes a lot of guts." },
+				{ Cue = "/VO/Melinoe_3927", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "You sound rather impressed! I'm certain Chronos would welcome you into his ranks as well if you just tell him how you really feel." },
+				{ Cue = "/VO/Nemesis_0265",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					PostLineAnim = "Nemesis_Hub_Glare_End",
+					Text = "Hit a nerve? Fine. Doesn't change the fact our enemy outsmarted us. So, no need to keep wasting your time up top... wait, you're not going to try and {#Emph}fight {#Prev}that thing, are you?" },
+				{ Cue = "/VO/Melinoe_3928", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "You really think I'm going to leave my family on Olympus to face that monster on their own? You don't know me at all." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.35,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/Nemesis_0266", Text = "Nice knowing you, anyway." },
+					},
+					{
+						PreLineWait = 0.1,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_3929", Text = "A real pleasure." },
+					},
+				},
+			},
+
+			NemesisAboutTyphonW01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
+						Path = { "CurrentRun", "RoomsEntered" },
+						HasAny = { "Q_Boss01", "Q_Boss02" },
+					},
+					{
+						PathTrue = { "CurrentRun", "Cleared" }
+					},
+					{
+						Path = { "CurrentRun" },
+						HasNone = { "BountyCleared" }
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0300",
+					Text = "Must have got a lot of help, knocking Typhon from his perch. Oh, we all heard. You got a dozen family members all up there, some of them strong. So what do they need you for?" },
+				{ Cue = "/VO/Melinoe_4422", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "They certainly are capable, but they're backed into a corner on Olympus. What matters is our latest battle was victorious, and I did what I could to see it through." },
+				{ Cue = "/VO/Nemesis_0301",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Text = "Sharing in your success, or just trying to appease me? Main reason you won is that monster had it coming anyway. But, it'll all even out." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.35,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_4423", Text = "What's that supposed to mean?" },
+					},
+					{
+						PreLineWait = 0.4,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/Nemesis_0302", Text = "You'll see." },
+					},
+
+				},
+			},
+			NemesisAboutTyphonW02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
+						Path = { "CurrentRun", "RoomsEntered" },
+						HasAny = { "Q_Boss01", "Q_Boss02" },
+					},
+					{
+						PathTrue = { "CurrentRun", "Cleared" }
+					},
+					{
+						Path = { "CurrentRun" },
+						HasNone = { "BountyCleared" }
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0305",
+					Text = "Really must be making Typhon mad. What's the plan there besides that? Get so caught up in all the glory that you lose sight of our real enemy?" },
+				{ Cue = "/VO/Melinoe_4426", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "The Father of All Monsters represents an urgent threat; you'd know it if you saw him for yourself. If Olympus is laid to ruin, Chronos prevails. We wouldn't be able to stop him." },
+				{ Cue = "/VO/Nemesis_0306",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Text = "Speak for yourself. The Underworld never needed any of those gods. Chronos wouldn't even be here if not for them." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.3,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_4427", Text = "Thank the Fates we have you to deal with him." },
+					},
+					{
+						PreLineWait = 0.35,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/Nemesis_0307", Text = "Thank the Fates." },
+					},
+
 				},
 			},
 
@@ -2028,7 +2803,7 @@ UnitSetData.NPC_Nemesis =
 					Text = "Been hunched over that cauldron so much, least your craft is finally doing something around here. So much toiling with no results..." },
 				{ Cue = "/VO/Melinoe_0691", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Our craft is typically about the self, and such results tend not to be immediate. Though, I appreciate you noticing." },
 				EndVoiceLines =
 				{
@@ -2045,6 +2820,10 @@ UnitSetData.NPC_Nemesis =
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
+					{
+						-- it's ok
+						-- PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
 					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeWeaponUpgradeSystem" },
 					},
@@ -2081,30 +2860,32 @@ UnitSetData.NPC_Nemesis =
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
-					{
-						Path = { "GameState", "UseRecord", "NPC_Nemesis_01" },
-						Comparison = ">=",
-						Value = 3,
-					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
 
 				{ Cue = "/VO/Melinoe_1564", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Nemesis, for all the time you used to spend on the surface... surely there was something there that made it worth your while?" },
+
 				{ Cue = "/VO/Nemesis_0072",
 					Text = "Oh, {#Emph}there was. {#Prev}Mortals like to reach beyond their means, thinking they're just like us. I'd sniff them out, and put them back in their place." },
+
 				{ Cue = "/VO/Melinoe_1565", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero", 
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Put them back in their place... by punishing them in some inventive fashion, I suppose?" },
+
 				{ Cue = "/VO/Nemesis_0073",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "That's right. We all should get what we deserve, no more, no less." },
+
 				{ Cue = "/VO/Melinoe_0608", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero", 
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero", 
 					Text = "But don't mortals already have ways to ensure justice is served, like my father did?" },
 				EndVoiceLines =
 				{
@@ -2121,24 +2902,23 @@ UnitSetData.NPC_Nemesis =
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
-					{
-						Path = { "GameState", "UseRecord", "NPC_Nemesis_01" },
-						Comparison = ">=",
-						Value = 3,
-					},
+					--
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
 
 				{ Cue = "/VO/Melinoe_0680", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Hey. You miss being up there, don't you? Among the mortals and all that." },
+
 				{ Cue = "/VO/Nemesis_0075",
 					Text = "You know, mortals have a word for deliberate cruelty or callous negligence: They call it evil. I could always catch wind of it. I'd go to the source. And whoever it was, I'd make them pay." },
+					
 				{ Cue = "/VO/Melinoe_1566", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero", 
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero", 
 					Text = "But now you're stuck here, and the evil goes unchecked..." },
 				EndVoiceLines =
 				{
@@ -2158,7 +2938,17 @@ UnitSetData.NPC_Nemesis =
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAny = { "HecateGift01", "DoraGift01", "OdysseusGift01", "MorosGift01", "ErisGift01", "ErisGift01_B", "SkellyGift01" },
+						CountOf =
+						{
+							"HecateGift01",
+							"DoraGift01",
+							"OdysseusGift01",
+							"MorosGift01",
+							"ErisGift01",
+							"SkellyGift01",
+						},
+						Comparison = ">=",
+						Value = 2,
 					},
 					{
 						PathFalse = { "GameState", "TextLinesRecord", "NemesisGift05" },
@@ -2179,7 +2969,11 @@ UnitSetData.NPC_Nemesis =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero", 
 					Text = "{#Emph}Deserves? {#Prev}And I suppose you think {#Emph}you're {#Prev}fit to be the judge of that?" },
 				{ Cue = "/VO/Nemesis_0079",
-					Text = "Yes. Who do you think I am? If everybody just magically got what they deserved, I'd have no reason to exist." },
+					Emote = "PortraitEmoteFiredUp",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					PostLineAnim = "Nemesis_Hub_Glare_End",
+					Text = "Yeah. Who do you think I {#Emph}am? {#Prev}If everybody just magickally got what they deserved, I'd have no reason to exist." },
 				EndVoiceLines =
 				{
 					{
@@ -2207,12 +3001,15 @@ UnitSetData.NPC_Nemesis =
 				-- OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				-- OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
 				{ Cue = "/VO/Melinoe_1573", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero", 
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero", 
 					Text = "I didn't mean to make you uncomfortable, with the Nectar from before. It's just, I've always looked up to you, and... I'm doing the best I can." },
 				{ Cue = "/VO/Nemesis_0100",
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Nemesis_Averted_01",
 					PreLineAnim = "Nemesis_Hub_Greet",
-					Text = "Don't sweat it. Had myself a little drink the other day, and it didn't poison me as far as I know, so we're clear." },
+					Text = "Don't sweat it. Had myself a little drink the other night, and it didn't poison me as far as I know. So we're clear." },
 				EndVoiceLines =
 				{
 					{
@@ -2248,14 +3045,20 @@ UnitSetData.NPC_Nemesis =
 					Text = "Back on your feet again there, Princess? All's well in the Crossroads, nothing to report." },
 				{ Cue = "/VO/Melinoe_2229", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+
+					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "None", Portrait = "Portrait_Mel_Intense_01", WaitTime = 3.5 },
+
 					Text = "It's fortunate we have you vigilantly keeping watch here, Nemesis...! Oh come on, drop the act. What happened, when did you return?" },
+
 				{ Cue = "/VO/Nemesis_0127",
 					PreLineAnim = "Nemesis_Hub_Greet",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "Don't know what you're talking about, and it's not your business anyway. Fates help you on your {#Emph}task." },
+
 				{ Cue = "/VO/Melinoe_2230", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Not quite as easy as you imagined, is it? To think that the embodiment of Retribution could be so arrogant." },
 				EndVoiceLines =
 				{
@@ -2276,13 +3079,16 @@ UnitSetData.NPC_Nemesis =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "NemesisAboutFieldMeeting01" },
 					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
 
 				{ Cue = "/VO/Melinoe_2231", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Does Headmistress know yet of your little excursions? Not much escapes her notice, last I checked." },
 				{ Cue = "/VO/Nemesis_0129",
 					AngleTowardHero = true,
@@ -2292,7 +3098,7 @@ UnitSetData.NPC_Nemesis =
 				{ Cue = "/VO/Melinoe_2232", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "For what, endangering us all? I didn't ask for your assistance, Nemesis." },
 				EndVoiceLines =
 				{
@@ -2322,19 +3128,25 @@ UnitSetData.NPC_Nemesis =
 							"NemesisDamageContestIntro01",
 						 },
 					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NemesisWithHecate02" },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
 
 				{ Cue = "/VO/Melinoe_3230", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "The first few times I saw you out there, I figured you were just venting your anger. But you keep heading out night after night. You're determined, but you're going to get caught." },
+
 				{ Cue = "/VO/Nemesis_0260",
 					Text = "Not if no one says anything. Besides, Hecate likely already knows. She isn't dense. Just letting me learn whatever she thinks I stand to learn the hard way. Works out for both of us." },
+
 				{ Cue = "/VO/Melinoe_3231", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+
 					Text = "Fine. We're both learning a lot I think. But I don't intend to let up on any of my responsibilities, just because you're trying to achieve what I've been tasked to do." },
 				EndVoiceLines =
 				{
@@ -2354,7 +3166,7 @@ UnitSetData.NPC_Nemesis =
 				{
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-						IsAny = { "NemesisCombatIntro", "NemesisCombatF", "NemesisCombatG", "NemesisCombatH", }, 
+						IsAny = { "NemesisCombatIntro", "NemesisCombatF", "NemesisCombatG", "NemesisCombatH", "NemesisCombatI" }, 
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -2364,7 +3176,7 @@ UnitSetData.NPC_Nemesis =
 					Text = "Got careless. All because of a little wager. You want to show me up that bad?" },
 				{ Cue = "/VO/Melinoe_2233", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "I could ask you the same thing. What are you doing back already? You couldn't have gone much farther." },
 				EndVoiceLines =
 				{
@@ -2376,7 +3188,867 @@ UnitSetData.NPC_Nemesis =
 				},
 			},
 
-			-- Partner Conversations
+			NemesisAboutKeepsake01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "TraitRarityCache", "DeathVengeanceKeepsake" },
+						IsAny = { "Epic", "Heroic" },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0344",
+					Text = "Getting some use out of that Evil Eye. Anything or anyone out there force you to call it a night early, next night you go do the same to them. Old tradition, but it works." },
+				{ Cue = "/VO/Melinoe_4462", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Appreciate the gift. The Eye has certainly been instrumental in some cases where I got the better of my foes. Though whether I'm delivering retribution or merely taking vengeance, I'm not always sure." },
+				{ Cue = "/VO/Nemesis_0345",
+					Text = "Sorting out each act of vengeance does take a while. But don't sweat the technicalities too much. You're clear." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.35,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_4463", Text = "Every act of vengeance gets sorted out?" },
+					},
+					{
+						PreLineWait = 0.4,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/Nemesis_0346", Text = "They're supposed to be." },
+					},
+
+				},
+			},
+
+			NemesisAboutTrophyQuest01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "TrophyQuestComplete03" }
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0347",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "You're more conceited than Narcissus. Saw those statues of you in the Training Grounds. You'll have to work a whole lot harder to look like that." },
+				{ Cue = "/VO/Melinoe_4464", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					Emote = "PortraitEmoteSurprise",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "No, I... I had nothing to do with those. Well, I did earn them, they're the Gifts of the Veil bestowed upon Night's Champion...! Oh, that does sound quite conceited..." },
+				{ Cue = "/VO/Nemesis_0348",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "Don't sweat it. They're something all right. Always said you'd never be bigger than me. That's what I get." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.35,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 2,
+						{ Cue = "/VO/Melinoe_4465", Text = "Retribution..." },
+					},
+				},
+			},
+
+			NemesisAboutThrone01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "Cosmetic_NemesisChair" },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0339",
+					Text = "What's with that throne conspicuously near my post. Just a temptation. Never once seen {#Emph}you {#Prev}sit down on the job; you ever seen me?" },
+				{ Cue = "/VO/Melinoe_4458", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "No, it's just... I thought perhaps you'd like the option there at least. Nothing in excess, right? And you {#Emph}do {#Prev}have to stand an awful lot." },
+				{ Cue = "/VO/Nemesis_0340",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "My rules, not yours. I start sitting down, won't want to get back up. Especially wearing all {#Emph}this. {#Prev}Besides, half the point of guard duty is having to stay standing {#Emph}the whole time." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.3,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_4459", Text = "The throne could go away if you prefer." },
+					},
+					{
+						PreLineWait = 0.4,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/Nemesis_0341", Text = "Just leave it there for now." },
+					},
+				},
+			},
+
+			NemesisAboutRelationship01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesChoiceRecord", "NemesisPostCombatBecomingCloser01", },
+						IsAny = { "Choice_NemesisAccept" },
+					},
+					{
+						SumPrevRuns = 6,
+						Path = { "TextLinesRecord", "NemesisPostCombatBecomingCloser01" },
+						CountPathTrue = true,
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Melinoe_4447", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "When we were together out there, it seems almost like a dream. Especially since it was rather unlike either one of us to have set all our responsibilities aside that way..." },
+
+				{ Cue = "/VO/Nemesis_0327",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "You're saying you regret it, fine; I don't. Not like we've made a habit of it, and besides... got you out of my head, just as I wanted." },
+
+				{ Cue = "/VO/Melinoe_4448", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "You did? That isn't how it worked for me at all. I've only thought about you {#Emph}more {#Prev}since then. And I do {#Emph}not {#Prev}regret it!" },
+
+				{ Cue = "/VO/Nemesis_0328",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "No? Well, that's Retribution for you. Some win, some lose, nobody gets it all. Though maybe over time, we can... even things out. Shouldn't be one-sided between us." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.35,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_4449", Text = "I'll hold you to that." },
+					},
+					{
+						PreLineWait = 0.37,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/Nemesis_0329", Text = "Same." },
+					},
+				},
+			},
+			NemesisAboutRelationship01_B =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesChoiceRecord", "NemesisPostCombatBecomingCloser01", },
+						IsAny = { "Choice_NemesisDecline" },
+					},
+					{
+						SumPrevRuns = 6,
+						Path = { "TextLinesRecord", "NemesisPostCombatBecomingCloser01" },
+						CountPathTrue = true,
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Melinoe_4450", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "When we were together out there, Nem... I wanted to make sure you weren't angry with me. No more than usual at least. You said I was distracting you and that's not what I want." },
+
+				{ Cue = "/VO/Nemesis_0330",
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "I know, it's fine, we're good. Unless you keep making too big a deal. I think we get each other now, and we both like it when we're sure. Anyway, be seeing you out there." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 3,
+						{ Cue = "/VO/Melinoe_4451", Text = "Be seeing you." },
+					},
+				},
+			},
+
+			NemesisAboutRelationship02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesChoiceRecord" },
+						HasAny = { "NemesisPostCombatBecomingCloser01" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "NemesisAboutRelationship01", "NemesisAboutRelationship01_B", "NemesisPostCombatBecomingCloser01" }, Min = 3 },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0331",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "When did it start. You couldn't even stand looking at me. Couldn't stand your scrawny ass either. Then something happened. Trying to pinpoint it." },
+
+				{ Cue = "/VO/Melinoe_4452", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "My feelings for you gradually strengthened over time. The anger you brought out in me... I started to like it. I just never thought you would reciprocate." },
+
+				{ Cue = "/VO/Nemesis_0332",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "Took you for a showoff. Never realized how strong you are, and not just physically. And you don't overdo it anymore." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_4453", Text = "That was a compliment." },
+					},
+					{
+						PreLineWait = 0.42,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/Nemesis_0333", Text = "Yeah." },
+					},
+				},
+			},
+
+			NemesisAboutRelationship03 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NemesisAboutRelationship02" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "NemesisAboutRelationship02" }, Min = 5 },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Melinoe_4471", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "You know I can read you sometimes, Nem, and something's wrong, so what is it? If you don't mind telling me..." },
+
+				{ Cue = "/VO/Nemesis_0397",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "{#Emph}Eugh{#Prev}, it's... look, I've not been close with anyone for very long. Just how it goes. So, been wondering where things are going with us, and not liking where it leads." },
+
+				{ Cue = "/VO/Melinoe_4472", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "You truly think we're on some fixed path? The Fates may be your sisters but you needn't {#Emph}all {#Prev}be caught up in self-fulfilling prophecies." },
+
+				{ Cue = "/VO/Nemesis_0398",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "No, but... problem I'm having is I'm starting to like being around you more than not. If it keeps on that way, I'll be..." },
+
+				{ Cue = "/VO/Melinoe_4473", UsePlayerSource = true,
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "...I know. Too much of a good thing. But, must we concern ourselves about the future constantly? We could just appreciate being together when we can. No pressure." },
+
+				{ Cue = "/VO/Nemesis_0399",
+					PreLineWait = 0.4,
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "...No pressure, huh... maybe you're right. Could always find a way to balance it out without messing it up." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 2,
+						{ Cue = "/VO/Melinoe_4474", Text = "A worthwhile pursuit." },
+					},
+				},
+			},
+
+			NemesisAboutErisRelationship01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					OrRequirements =
+					{
+						{
+							{
+								Path = { "GameState", "TextLinesRecord" },
+								HasAll = { "ErisAboutRelationship03", "NemesisAboutRelationship01", },
+							},
+							{
+								FunctionName = "RequireRunsSinceTextLines",
+								FunctionArgs = { TextLines = { "ErisAboutRelationship03", "NemesisAboutRelationship01" }, Min = 2 },
+							},
+						},
+						{
+							{
+								Path = { "GameState", "TextLinesRecord" },
+								HasAll = { "ErisAboutRelationship03_B", "NemesisAboutRelationship01_B", },
+							},
+							{
+								FunctionName = "RequireRunsSinceTextLines",
+								FunctionArgs = { TextLines = { "ErisAboutRelationship03_B", "NemesisAboutRelationship01_B" }, Min = 2 },
+							},
+						},
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0334",
+					Text = "What's with you and Eris, anyway? Thought you'd have the sense to stay away from her, least when you have a choice." },
+
+				{ Cue = "/VO/Melinoe_4454", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "I may lack proper judgment when it comes to choosing comrades, Nemesis. She and I have little in common, but... she makes it difficult to be completely rational." },
+
+				{ Cue = "/VO/Nemesis_0335",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "Well, you'll get what's coming to you when it comes to her. Or me, for that matter but in a different way. Maybe that's the appeal. Anyway, just don't go bringing her around." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 3,
+						{ Cue = "/VO/Melinoe_4455", Text = "Wasn't planning on it." },
+					},
+				},
+			},
+
+			NemesisAboutMorosRelationship01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisBathHouse03", "MorosTaverna02", },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "NemesisBathHouse03", "MorosTaverna02" }, Min = 3 },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0336",
+					Text = "Makes sense you and Doom would get along. First I figured he'd put you off like everybody else, but you both like following orders so much. Means you have a lot in common." },
+
+				{ Cue = "/VO/Melinoe_4456", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "I don't believe we've had a single conversation about how much we love following orders, though we do get on, I think. It doesn't trouble you, does it? You'd tell me if it did." },
+
+				{ Cue = "/VO/Nemesis_0337",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "I'd tell you if it did. Moros never was a happy sort, not that any of us really are; but when he's better off, it probably bodes well for everyone else. Given his connections and all." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_4457", Text = "Has he seemed happier to you?" },
+					},
+					{
+						PreLineWait = 0.4,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/Nemesis_0338", Text = "Maybe just me." },
+					},
+				},
+			},
+
+			NemesisAboutTyphonDeath01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0400",
+					Text = "They're saying you got rid of Typhon for good. Don't believe a word of it. What really happened up there?" },
+
+				{ Cue = "/VO/Melinoe_5006", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Got rid of Typhon for good is a concise way to put it. Involved a rather complex incantation called {#Emph}Disintegration of Monstrosity {#Prev}and some other details best left unspoken. But yes, I do believe he's gone." },
+
+				{ Cue = "/VO/Nemesis_0401",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					PostLineAnim = "Nemesis_Hub_Glare_End",
+					Text = "He's immortal... he can't just {#Emph}be {#Prev}gone, and if he is, why not just do the same to Chronos? Or to anybody who stays on your bad side long enough?" },
+
+				{ Cue = "/VO/Melinoe_5007", UsePlayerSource = true,
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "We've something else in store for Chronos. As for everybody else, they haven't crossed me quite as much just yet." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.38,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/Nemesis_0402", Text = "Yet? {#Emph}Huh." },
+					},
+				},
+			},
+			NemesisAboutHecateKidnapped01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				PreBlockSpecialInteract = true,
+				PostBlockSpecialInteract = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				GameStateRequirements =
+				{
+					NamedRequirements = { "HecateMissing" },
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Melinoe_5008", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					Text = "Do you know Headmistress is gone? Chronos took her right before my eyes! If you were on watch like you ought have been, she... {#Emph}augh!" },
+
+				{ Cue = "/VO/Nemesis_0403",
+					Text = "What are you talking about, {#Emph}Chronos took her. {#Prev}Saw her just the other night. Though, where is she...?" },
+
+				{ Cue = "/VO/Melinoe_5009", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					PreLineAnim = "MelTalkBrooding01ReturnToIdle", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01", PostLineAnimTarget = "Hero",
+					Text = "{#Emph}I just said! {#Prev}She's probably there in the House somewhere with the rest, but I... I've not been able to locate her yet. How could this happen, what could we have done?" },
+
+				{ Cue = "/VO/Nemesis_0404",
+					AngleTowardHero = true,
+					Emote = "PortraitEmoteSurprise",
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					PostLineAnim = "Nemesis_Hub_Glare_End",
+					Text = "You're serious. Wait, why didn't you {#Emph}do {#Prev}something about it if you saw the whole thing? {#Emph}I {#Prev}wasn't even there!" },
+
+				{ Cue = "/VO/Melinoe_5010", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					PreLineAnim = "MelTalkBrooding01ReturnToIdle", PreLineAnimTarget = "Hero",
+					Text = "I was too late! What's your excuse? You could have at least identified the possibility of such a threat!" },
+
+				{ Cue = "/VO/Nemesis_0405",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Text = "Not even all-seeing Selene saw it coming, how could {#Emph}I? {#Prev}Although... keep this quiet. Get her back, or I will." },
+
+				EndVoiceLines =
+				{
+					PreLineWait = 0.4,
+					UsePlayerSource = true,
+					RequiredMinElapsedTime = 2,
+					{ Cue = "/VO/Melinoe_5011", Text = "{#Emph}I {#Prev}will." },
+				},
+			},
+
+			NemesisPostTrueEnding01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				PreBlockSpecialInteract = true,
+				PostBlockSpecialInteract = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "TextLinesRecord", "TrueEndingFinale01" },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0407",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "Finally back from your father's House. Was Hecate all right? After the Titan got her, I... ought to have taken guard duty more seriously, and... won't soon forgive myself, is all." },
+
+				{ Cue = "/VO/Melinoe_5012", UsePlayerSource = true,
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Headmistress would only want for you to learn from it. I half-wonder if she let herself be taken just to get closer to our mark. Perhaps go speak with her...?" },
+
+				{ Cue = "/VO/Nemesis_0408",
+					Text = "Yeah. And what of Chronos, heard he isn't really dead and gone. How come everybody's cheering for you then?" },
+
+				{ Cue = "/VO/Melinoe_5013", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "He's dead and gone in the sense that we have neutralized the threat he posed. I now shall have to grow accustomed to having him as a grandfather, rather than a hated foe." },
+
+				{ Cue = "/VO/Nemesis_0409",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Text = "Don't see why he can't be both. This was never part of the task, and not like you to stray from the objective. We sure this supposedly-neutralized Titan of Time is to be trusted?" },
+
+				{ Cue = "/VO/Melinoe_5014", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "None", Portrait = "Portrait_Mel_Proud_01", WaitTime = 2.6 },
+					Text = "Headmistress sealed his strongest powers just in case. At any rate, we did it, Nem. The task is finally complete!" },
+
+				{ Cue = "/VO/Nemesis_0410",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					PostLineAnim = "Nemesis_Hub_Glare_End",
+					Text = "Then how come you look like you're headed out again? Heard there's still more Time-related business to sort out." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.38,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_5015", Text = "Well, yes, but..." },
+					},
+					{
+						PreLineWait = 0.3,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/Nemesis_0411", Text = "Then we're {#Emph}not {#Prev}done." },
+					},
+				},
+			},
+			NemesisPostTrueEnding02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = {
+							"NeoChronosAboutTartarus01",
+							"NeoChronosAboutTartarus01_B",
+						},
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = {
+							"NeoChronosAboutOlympus01",
+							"NeoChronosAboutOlympus01_B",
+						},
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0414",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					Text = "So you're still fighting Chronos, and you're still fighting Typhon... though, not just a matter of where, but a matter of {#Emph}when{#Prev}. Something like that?" },
+
+				{ Cue = "/VO/Melinoe_5253", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Something like that. {#Emph}Our {#Prev}Chronos, who had let's say a spiritual awakening of sorts, is seeing to it that {#Emph}time flows freely forth{#Prev}, to use his expression. We wish to prevent even the possibility of what happened before." },
+
+				{ Cue = "/VO/Nemesis_0415",
+					PreLineWait = 0.35,
+					PreLineAnim = "Nemesis_Hub_Glare_End",
+					Text = "...I don't get it. What happened before happened {#Emph}already. {#Prev}Time is a simple concept; keeps everything moving forward for {#Emph}everybody {#Prev}at the {#Emph}same exact rate." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.38,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_5254", Text = "There may be more to it than that, apparently." },
+					},
+					{
+						PreLineWait = 0.4,
+						ObjectType = "NPC_Nemesis_01",
+						PreLineAnim = "Nemesis_Hub_Greet",
+						{ Cue = "/VO/Nemesis_0416", Text = "Everything's gotten so complicated..." },
+					},
+				},
+			},
+			NemesisPostTrueEnding03 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NemesisWithHecate02" },
+					},
+					{
+						Path = { "CurrentRun", "EncountersOccurredCache" },
+						HasAny = {
+							"NemesisCombatF",
+							"NemesisCombatG",
+							"NemesisCombatH",
+							"NemesisCombatI",
+							"NemesisRandomEvent",
+						},
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Melinoe_5273", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Still sticking to the Underworld even with the task complete? There must be lots of catching up to do on the surface." },
+
+				{ Cue = "/VO/Nemesis_0453",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Text = "Hecate says conditions have to be {#Emph}just right {#Prev}for whatever it is you're trying to do now. Wouldn't want to throw anything off." },
+
+				{ Cue = "/VO/Melinoe_5274", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Empathetic_01",
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Appreciate the help. It's just I thought you missed being up there, and mortalkind must miss you, too. A lot of undeservedness to be addressed." },
+
+				{ Cue = "/VO/Nemesis_0454",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					PostLineAnim = "Nemesis_Hub_Glare_End",
+					Text = "Keenly aware, thanks. I'll get back to it after the Underworld's in a better spot. Besides, I think your family's paying close attention to what's going on up there." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 3,
+						{ Cue = "/VO/Melinoe_5275", Text = "They probably are." },
+					},
+				},
+			},
+
+			NemesisPostTrueEndingTimeStopped01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "CurrentRun", "EnemyKills", "TyphonHead" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = {
+							"ZeusPalacePostTrueEnding01",
+							"NeoChronosAboutOlympus02",
+							"NemesisPostTrueEnding02",
+							"NemesisPostCombatPostTrueEnding01",
+							"NemesisPostCombatAboutTartarus03",
+							"NemesisWithHecate02",
+							"NeoChronosWithNemesis01",
+							-- "NemesisBathHouse03",
+						},
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "NemesisPostCombatPostTrueEnding01" }, Min = 2 },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0444",
+					Text = "Heard you snuffed another Typhon out last night. Well done, Princess. Things are handled in the Underworld, too, when it comes to {#Emph}time flowing freely forth {#Prev}and all that." },
+
+				{ Cue = "/VO/Melinoe_5445", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Things are handled in the Underworld, {#Emph}how? {#Prev}Wait, you've been speaking with Grandfather Chronos, haven't you? Which means... no..." },
+
+				{ Cue = "/VO/Nemesis_0445",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Text = "Your grandfather did what you never could, and got me in the House of Hades. A remnant one of them, containing the old Chronos we were after all along. And I got him." },
+
+				{ Cue = "/VO/Melinoe_5265", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "You {#Emph}got {#Prev}him? Vanquished Chronos on your very first attempt? Impossible... even if you did prevail you'd most likely end up trapped for all eternity in a temporal rift..." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.39,
+						ObjectType = "NPC_Nemesis_01",
+						PreLineAnim = "Nemesis_Hub_Greet",
+						{ Cue = "/VO/Nemesis_0446", Text = "Go ask your grandfather yourself sometime." },
+					},
+					{
+						PreLineWait = 0.38,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_5266", Text = "You're serious...!" },
+					},
+				},
+			},
+			NemesisPostTrueEndingTimeStopped02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = {
+							"NemesisPostTrueEndingTimeStopped01",
+							"NeoChronosAboutNemesis01",
+						},
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Melinoe_5267", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "You really did eliminate one of the Chronos remnants, Grandfather confirmed. That's... {#Emph}amazing{#Prev}, Nemesis. So then, if I focus my efforts on the Typhon remnants on Olympus..." },
+
+				{ Cue = "/VO/Nemesis_0447",
+					Text = "...I can deal with the Chronos remnants in the Underworld. Was planning on keeping that up no matter what. Hecate even gave me the all-clear." },
+
+				{ Cue = "/VO/Melinoe_5268", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Pleased_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Just, unbelievable. Though I still do reserve the right to deal with Chronos remnants on my own. If nothing else, that route gives me an opportunity to see my family." },
+
+				{ Cue = "/VO/Nemesis_0448",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Text = "Knock yourself out. I get the impression there are more than enough of those {#Emph}potential Chronos remnants {#Prev}out there for the both of us." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.38,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_5269", Text = "Well let's go get them." },
+					},
+					{
+						PreLineWait = 0.36,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/Nemesis_0449", Text = "Let's." },
+					},
+				},
+			},
+
+			NemesisPostEpilogue01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					NamedRequirements = { "ReachedEpilogue" },
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0450",
+					Text = "Heard you found the Three Fates. Don't believe that's how it happened. Probably weren't even looking. They found {#Emph}you." },
+
+				{ Cue = "/VO/Melinoe_5270", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "That is a distinct possibility. Perhaps when Chronos thought he sent them into exile, they merely played along. And now decided to check in after the troubles with him passed." },
+
+				{ Cue = "/VO/Nemesis_0451",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Text = "Sure sounds like something they'd do. But no use speculating, right? And what now, we're all back to having no will of our own? Maybe we never did." },
+
+				{ Cue = "/VO/Melinoe_5271", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Perhaps they don't want us to be certain either way. Nor do they seem to desire all the credit for the actions we take." },
+
+				{ Cue = "/VO/Nemesis_0452",
+					Text = "Guess we'd better act like we have everything under control." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 2,
+						{ Cue = "/VO/Melinoe_5272", Text = "What else can we do?" },
+					},
+				},
+			},
+
+			-- partner conversations
 			OdysseusWithNemesis01 =
 			{
 				Partner = "NPC_Odysseus_01",
@@ -2388,18 +4060,33 @@ UnitSetData.NPC_Nemesis =
 				UseText = "UseListenNPC",
 			},
 
+			NyxWithNemesis01 =
+			{
+				Partner = "NPC_Nyx_Story_01",
+				PlayOnce = true,
+				UseableOffSource = true,
+				StatusAnimation = false,
+				PreBlockSpecialInteract = true,
+				PostBlockSpecialInteract = true,
+				UseText = "UseListenNPC",
+			},
+
+			NeoChronosWithNemesis01 =
+			{
+				PlayOnce = true,
+				Partner = "NPC_Chronos_02",
+				StatusAnimation = false,
+				CopyDataFromPartner = true,
+			},
+
 			NemesisWithHypnos01 =
 			{
 				Partner = "NPC_Hypnos_01",
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift01" },
-					},
-					{
-						Path = { "GameState", "UseRecord", "NPC_Nemesis_01" },
-						Comparison = ">=",
-						Value = 6,
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisGift01", "HypnosGift01" },
 					},
 					{
 						PathTrue = { "GameState", "UseRecord", "NPC_Hypnos_01" },
@@ -2417,16 +4104,16 @@ UnitSetData.NPC_Nemesis =
 				AngleTowardTargetId = 370024,
 				InteractDistance = 300,
 				BlockDistanceTriggers = true,
-				{ Cue = "/VO/Hypnos_0006", Portrait = "Portrait_Hypnos_Sleeping_01", Speaker = "NPC_Hypnos_01",
+				{ Cue = "/VO/Hypnos_0006_C", Portrait = "Portrait_Hypnos_Sleeping_01", Speaker = "NPC_Hypnos_01",
 					-- Emote = "PortraitEmoteDepressed",
-					Text = "{#Emph}Zzzzzzzzz{#Prev}...." },
+					Text = "{#Emph}Zzzzz, zzzz{#Prev}..." },
 				{ Cue = "/VO/Nemesis_0067",
 					PreLineWait = 0.35,
 					Text = "Look at him, all peaceful. Not a care in the world. Could you imagine?" },
 				{ Cue = "/VO/Melinoe_0681", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PreLineWait = 0.35,
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "He's beautiful. He has this wisdom about him, even asleep. Nyx must have taught you all so much." },
 				{ Cue = "/VO/Nemesis_0068",
 					Text = "Not really. Hypnos served in the House of Hades under Mother's care. Ran into him now and then, though. He ever wakes up, hope I can be there when you finally meet." },
@@ -2454,6 +4141,9 @@ UnitSetData.NPC_Nemesis =
 						Comparison = ">=",
 						Value = 6,
 					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
 				},
 				StatusAnimation = false,
 				BlockDistanceTriggers = true,
@@ -2462,14 +4152,20 @@ UnitSetData.NPC_Nemesis =
 				TeleportToId = 566613,
 				AngleTowardTargetId = 556921,
 				InteractDistance = 450,
+
 				{ Cue = "/VO/Hecate_0205", Portrait = "Portrait_Hec_Default_01", Speaker = "NPC_Hecate_01", PreLineWait = 0.35,
 					Text = "You are required at your post, Nemesis. Or shall you take to openly defying me just as your sister does? I shudder to think what your mother would say of you two." },
+
 				{ Cue = "/VO/Nemesis_0055",
 					PreLineWait = 0.35,
 					PreLineAnim = "Nemesis_Hub_Glare_Start",
 					Text = "...You have no right to invoke my mother. None of this would be happening had you fulfilled your role as Handmaiden, and warned her an attack was imminent." },
+
 				{ Cue = "/VO/Hecate_0206", Portrait = "Portrait_Hec_Default_01", Speaker = "NPC_Hecate_01",
+					PreLineAnim = "Hecate_Hub_Stern_Start", PreLineAnimTarget = 556921,
+					PostLineAnim = "Hecate_Hub_Stern_End", PostLineAnimTarget = 556921,
 					Text = "Best watch your mouth or I shall seal it shut! You may continue dwelling on a past you were not witness to, or you may do what is expected of Nyx's daughters. Or whatever Eris is up to! Your choice." },
+
 				EndVoiceLines =
 				{
 					PreLineWait = 0.35,
@@ -2478,6 +4174,76 @@ UnitSetData.NPC_Nemesis =
 					},
 				},
 			},
+			NemesisWithHecate02 =
+			{
+				Partner = "NPC_Hecate_01",
+				PlayOnce = true,
+				UseText = "UseListenNPC",
+				PreBlockSpecialInteract = true,
+				PostBlockSpecialInteract = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisAboutFieldMeeting03", "NemesisPostCombatPostTrueEnding01" }
+					},
+				},
+				StatusAnimation = false,
+				BlockDistanceTriggers = true,
+				IgnoreSourceEndTextLinesThreadedFunctionName = true,
+				UseableOffSource = true,
+				TeleportToId = 566613,
+				AngleTowardTargetId = 556921,
+				InteractDistance = 450,
+
+				{ Cue = "/VO/Hecate_0868",
+					Portrait = "Portrait_Hec_Default_01", Speaker = "NPC_Hecate_01", PreLineWait = 0.35,
+					Text = "...Insubordination, dereliction of duty, falsehood, intimidation, obstinance, simply setting a negative example for the Shades... anything else, would you say?" },
+
+				{ Cue = "/VO/Nemesis_0417",
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "...Indulgence, callousness, negligence. Hecate, I... Headmistress, I accept your judgment, and I have no excuses for my deeds." },
+
+				{ Cue = "/VO/Hecate_0869",
+					Portrait = "Portrait_Hec_Default_01", Speaker = "NPC_Hecate_01",
+					PreLineAnim = "Hecate_Hub_Scoff", PreLineAnimTarget = 556921,
+					Text = "Well thank the Fates that you would spare me that, at least. Now then, with Nyx returned I ought petition her to take you back. Surely the House of Hades could use another hand?" },
+
+				{ Cue = "/VO/Nemesis_0418",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					PreLineWait = 0.35,
+					Text = "...Don't. You know as well as I my place is here. But I'm Retribution Incarnate... I'm not here only to stand guard." },
+
+				{ Cue = "/VO/Hecate_0870",
+					Portrait = "Portrait_Hec_Default_01", Speaker = "NPC_Hecate_01",
+					PreLineAnim = "HecateHubGreet", PreLineAnimTarget = 556921,
+					Text = "Clearly. Much retribution is to come, both above and below in these changing times... and you shall administer it in accordance with Night's will, when and wheresoever you see fit." },
+
+				{ Cue = "/VO/Nemesis_0419",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Text = "Retribution whenever and wherever I see fit... you're letting me proceed? What have I done to deserve that?" },
+
+				{ Cue = "/VO/Hecate_0871",
+					Portrait = "Portrait_Hec_Default_01", Speaker = "NPC_Hecate_01",
+					PreLineAnim = "Hecate_Hub_Stern_Start", PreLineAnimTarget = 556921,
+					PostLineAnim = "Hecate_Hub_Stern_End", PostLineAnimTarget = 556921,
+					Text = "Nemesis, you hold such answers, not I. Now go, and see to our collective charge that time flows freely forth." },
+
+				EndVoiceLines =
+				{
+					PreLineWait = 0.46,
+					ObjectType = "NPC_Nemesis_01",
+					{ Cue = "/VO/Nemesis_0420", Text = "...Consider it done, Headmistress." },
+				},
+			},
+
 			NemesisWithMoros01 =
 			{
 				PlayOnce = true,
@@ -2496,7 +4262,6 @@ UnitSetData.NPC_Nemesis =
 				-- UseText = "UseListenNPC",
 				BlockDistanceTriggers = true,
 				IgnoreSourceEndTextLinesThreadedFunctionName = true,
-				UseableOffSource = true,
 				TeleportToId = 560612,
 				TeleportOffsetX = 130,
 				TeleportOffsetY = 130,
@@ -2597,7 +4362,7 @@ UnitSetData.NPC_Nemesis =
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "NemesisTaverna01", "MorosTaverna01", "NemesisBathHouse02", "MorosBathHouse02" }
+						HasAll = { "NemesisGift08", "MorosGift08" }
 					},
 				},
 				UseText = "UseListenNPC",
@@ -2615,6 +4380,7 @@ UnitSetData.NPC_Nemesis =
 					Text = "Quite a predicament we find ourselves in, Sister. Certainly not one I could have anticipated when first I arrived. How odd... so what are we to do? It's not my wish to interfere." },
 
 				{ Cue = "/VO/Nemesis_0235",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "Don't worry about that, worry about keeping your mouth shut when she's walking up on us. All casual like she doesn't know what's going on." },
 
 				{ Cue = "/VO/Melinoe_3241", UsePlayerSource = true,
@@ -2641,6 +4407,7 @@ UnitSetData.NPC_Nemesis =
 					Text = "{#Emph}Oh! {#Prev}I... I see. Thank you for letting me know. I would never want to hurt either of you. Well maybe {#Emph}you{#Prev}, Nemesis, but only when we spar. How do we resolve this? Our feelings mustn't get in our way." },
 
 				{ Cue = "/VO/Nemesis_0237",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					PreLineAnim = "Nemesis_Hub_Glare_End",
 					Text = "They won't get in our way. And besides, you're busy, not like you were going to devote yourself to one of us, body and soul. Like some mortal that doesn't know any better." },
 
@@ -2692,7 +4459,7 @@ UnitSetData.NPC_Nemesis =
 				{ Cue = "/VO/Nemesis_0239",
 					PreLineWait = 0.35,
 					PreLineAnim = "Nemesis_Hub_Glare_Start",
-					Text = "...No, one last thing, Eris. The Headmistress might have promised Mother she'd look after you, but I did no such thing. So get out of here before I get upset." },
+					Text = "...No. One last thing, Eris. Hecate might have promised Mother she'd look after you, but I did no such thing. So get out of here before I get upset." },
 				{ Cue = "/VO/Eris_0108", Portrait = "Portrait_Eris_Default_01", Speaker = "NPC_Eris_01",
 					PreLineAnim = "Enemy_Eris_Hub_Scoff",
 					PreLineAnimTarget = 585573,
@@ -2783,6 +4550,68 @@ UnitSetData.NPC_Nemesis =
 				},
 			},
 
+			NemesisWithIcarus01 =
+			{
+				Partner = "NPC_Icarus_01",
+				PartnerVariant = "IcarusHome",
+				PlayOnce = true,
+				UseText = "UseListenNPC",
+				PreBlockSpecialInteract = true,
+				PostBlockSpecialInteract = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				-- StatusAnimation = false,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "IcarusGift09", "NemesisGift09" }
+					},
+				},
+				BlockDistanceTriggers = true,
+				IgnoreSourceEndTextLinesThreadedFunctionName = true,
+				UseableOffSource = true,
+				TeleportToId = 743557,
+				TeleportOffsetY = 50,
+				InteractDistance = 450,
+
+				{ Cue = "/VO/Nemesis_0437",
+					PreLineWait = 0.35,
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Text = "...I know these things, kid. As mortal lives go, yours was in one of the bottom categories. A lot shorter and more miserable than average. So you're making up for it a bit." },
+
+				{ Cue = "/VO/Icarus_0478",
+					PreLineWait = 0.15,
+					Portrait = "Portrait_Icarus_Unsure_01", Speaker = "NPC_Icarus_01",
+					PreLineAnim = "Icarus_Pensive_Start", PreLineAnimTarget = 800098,
+					PostLineAnim = "Icarus_Pensive_End", PostLineAnimTarget = 800098,
+					Text = "{#Emph}Erm{#Prev}, so you're saying, Goddess, that I'm to have a better life after death because my life {#Emph}before {#Prev}death was in {#Emph}one of the bottom categories {#Prev}according to some ranking system that you have... hey?" },
+
+				{ Cue = "/VO/Nemesis_0438",
+					-- PreLineAnim = "Moros_Perplexed_End",
+					Text = "That's right. Don't waste it, don't get greedy, you'll be fine. Just keep doing what you're doing." },
+
+				{ Cue = "/VO/Icarus_0479",
+					Portrait = "Portrait_Icarus_Default_01", Speaker = "NPC_Icarus_01",
+					PreLineAnim = "Icarus_Flustered_Start", PreLineAnimTarget = 800098,
+					PostLineAnim = "Icarus_Flustered_End", PostLineAnimTarget = 800098,
+					Text = "But... I'm so fortunate to be here with you all. A short life in exchange for a good eternity, by your reasoning that isn't a fair trade. What have I done to deserve {#Emph}this...?" },
+
+				{ Cue = "/VO/Nemesis_0439",
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					PostLineAnim = "Nemesis_Hub_Glare_End",
+					Text = "You haven't asked too many questions, for one thing. And don't take eternity for granted." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.35,
+						ObjectType = "NPC_Icarus_01",
+
+						{ Cue = "/VO/Icarus_0480", Text = "I won't. I swear." },
+					},
+				},
+			},
 
 			-- Repeatable
 			NemesisChat01 =
@@ -2971,7 +4800,7 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
-						-- PathFalse = { "GameState", "TextLinesRecord", "NemesisGift03" },
+						PathFalse = { "GameState", "TextLinesRecord", "NemesisBathHouse03" },
 					},
 					{
 						FunctionName = "RequiredAlive",
@@ -2981,7 +4810,7 @@ UnitSetData.NPC_Nemesis =
 				UseableOffSource = true,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Nemesis",
 				{ Cue = "/VO/Nemesis_0020",
-					Text = "Go cry to the Headmistress. She's right there." },
+					Text = "Go cry to your Headmistress Hecate. She's right there." },
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
 			},
@@ -3014,7 +4843,8 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "CurrentRun", "RoomCountCache", "O_Boss01" },
+						Path = { "CurrentRun", "RoomCountCache" },
+						HasAny = { "Q_Boss01", "Q_Boss02" },
 					},
 				},
 				UseableOffSource = true,
@@ -3030,7 +4860,7 @@ UnitSetData.NPC_Nemesis =
 				{
 					{
 						Path = { "CurrentRun", "RoomCountCache" },
-						HasAny = { "H_Intro", "P_Intro" },
+						HasAny = { "I_Intro", "Q_Intro" },
 					},
 				},
 				UseableOffSource = true,
@@ -3058,11 +4888,7 @@ UnitSetData.NPC_Nemesis =
 			{
 				GameStateRequirements =
 				{
-					{
-						Path = { "GameState", "CompletedRunsCache" },
-						Comparison = ">=",
-						Value = 30,
-					},
+					--
 				},
 				UseableOffSource = true,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Nemesis",
@@ -3151,12 +4977,41 @@ UnitSetData.NPC_Nemesis =
 			},
 			NemesisChat30 =
 			{
+				PlayFirst = true,
 				UseableOffSource = true,
-				EndGlobalVoiceLines = "MiscEndVoiceLines_Nemesis",
-				{ Cue = "/VO/Nemesis_0033",
-					Text = "Death to Chronos, Princess." },
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift07" },
+					},
+					OrRequirements =
+					{
+						{
+							{
+								PathFalse = { "GameState", "ReachedTrueEnding" },
+							},
+						},
+						{
+							{
+								PathTrue = { "GameState", "SpeechRecord", "/VO/Chronos_1058" },
+							},
+						},
+					},
+				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0033",
+					PreLineAnim = "Nemesis_Hub_Salute",
+					Text = "Death to Chronos, Princess." },
+				EndVoiceLines =
+				{
+					{
+						UsePlayerSource = true,
+						PreLineWait = 0.3,
+						{ Cue = "/VO/Melinoe_1211", Text = "Death to Chronos." },
+					},
+				},
 			},
 			NemesisChat31 =
 			{
@@ -3226,10 +5081,6 @@ UnitSetData.NPC_Nemesis =
 						PathTrue = { "GameState", "UseRecord", "NPC_Nemesis_01" },
 					},
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-						IsNone = { "Shop" },
-					},
-					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
 					},
 				},
@@ -3246,6 +5097,7 @@ UnitSetData.NPC_Nemesis =
 				PlayOnce = true,
 				OnGiftTrack = true,
 				HintId = "Codex_NemesisGiftHint01",
+				PostBlockSpecialInteract = true,
 				Cost =
 				{
 					GiftPoints = 1,
@@ -3257,16 +5109,17 @@ UnitSetData.NPC_Nemesis =
 						-- PathTrue = { "GameState", "TextLinesRecord", "NemesisGift01" },
 					},
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-						IsNone = { "Shop" },
-					},
-					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
 					},
 				},
 				{ Cue = "/VO/Nemesis_0096",
-					Text = "You trying to get me in trouble with the Headmistress or something? Why don't you take your bottle before I smash it, and get your scrawny ass out of here." },
+					Emote = "PortraitEmoteSurprise",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					PostLineAnim = "Nemesis_Hub_Glare_End",
+					Text = "You trying to get me in trouble with Hecate or something? Why don't you take your bottle before I smash it, and get your scrawny ass out of here." },
 				{ Cue = "/VO/Melinoe_0627", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkFlustered01", PreLineAnimTarget = "Hero",
 					PostLineThreadedFunctionName = "GiftPointRefundPresentation",
 					Text = "I wasn't trying to get you in trouble, Nem, I was just... {#Emph}ungh{#Prev}. You know what, forget it." },
@@ -3286,27 +5139,21 @@ UnitSetData.NPC_Nemesis =
 						-- PathTrue = { "GameState", "TextLinesRecord", "NemesisGift02" },
 					},
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-						IsNone = { "Shop" },
-					},
-					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
 					},
 				},
 				{ Cue = "/VO/Nemesis_0097",
 					Text = "Oh, for me? Can't find another way to test one of your poisons, I guess. You witches aren't as subtle as you think." },
 				{ Cue = "/VO/Melinoe_0628", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "That's exactly what someone who was unknowingly poisoned by a witch might say, you know." },
 				EndVoiceLines =
 				{
 					{
 						PreLineWait = 0.35,
 						{ Cue = "/VO/Nemesis_0163", Text = "{#Emph}Ugh." },
-					},
-					{
-						PathTrue = { "CurrentRun", "Hero", "IsDead" },
 					},
 				},
 			},
@@ -3325,16 +5172,13 @@ UnitSetData.NPC_Nemesis =
 						-- PathTrue = { "GameState", "TextLinesRecord", "NemesisGift03" },
 					},
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-						IsNone = { "Shop" },
-					},
-					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
 					},
 				},
 				{ Cue = "/VO/Nemesis_0145",
 					Text = "Oh no, not this again. Look, I forgave you for last time. Didn't mean it as an invitation to get me more of this stuff. Don't like owing anybody any favors." },
 				{ Cue = "/VO/Melinoe_2097", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Casual_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Just take it and enjoy it, Nem. Besides, I heard you were looking for some more of our witches' poison. Nobody seems to appreciate it quite like you." },
@@ -3354,10 +5198,6 @@ UnitSetData.NPC_Nemesis =
 						-- PathTrue = { "GameState", "TextLinesRecord", "NemesisGift04" },
 					},
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-						IsNone = { "Shop" },
-					},
-					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
 					},
 				},
@@ -3369,6 +5209,7 @@ UnitSetData.NPC_Nemesis =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Nemesis... I don't know what I'm supposed to do. We're surrounded by enemies out there. Do we really need more?" },
 				{ Cue = "/VO/Nemesis_0099",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					PreLineWait = 0.35,
 					Text = "...You're not my enemy, Melinoë. I just... Just go." },
 				EndVoiceLines =
@@ -3380,6 +5221,216 @@ UnitSetData.NPC_Nemesis =
 					},
 				},
 			},
+
+			NemesisGift06 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				HintId = "Codex_NemesisGiftHint01",
+				Cost =
+				{
+					GiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						-- PathTrue = { "GameState", "TextLinesRecord", "NemesisGift04" },
+					},
+					{
+						PathTrue = { "CurrentRun", "Hero", "IsDead" },
+					},
+				},
+				{ Cue = "/VO/Nemesis_0311",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Text = "Suggest you quit it with these Nectars soon. Can't have too much of a good thing. Should know that about me by now." },
+				{ Cue = "/VO/Melinoe_4430", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Sure, you can't have too much of a good thing anymore than anybody else. Though, what would happen if you did? You'd need to punish yourself?" },
+				{ Cue = "/VO/Nemesis_0312",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "Yeah. And don't you dare act like you wouldn't do the same. One thing I'll grant Hecate is she does value discipline. Sometimes we have to discipline ourselves." },
+				EndVoiceLines =
+				{
+					{
+						UsePlayerSource = true,
+						PreLineWait = 0.45,
+						{ Cue = "/VO/Melinoe_4431", Text = "We have to take care of ourselves, too." },
+					},
+				},
+			},
+
+			NemesisGift07 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				HintId = "Codex_NemesisGiftHint01",
+				LockedHintId = "Codex_NemesisUnlockHint01",
+				UnfilledIcon = "EmptyHeartWithAmbrosiaIcon",
+				FilledIcon = "FilledHeartWithAmbrosiaIcon",
+				Cost =
+				{
+					SuperGiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisPostCombatAboutRelationship01", "NemesisGift06" },
+					},
+					{
+						PathTrue = { "CurrentRun", "Hero", "IsDead" },
+					},
+				},
+				{ Cue = "/VO/Melinoe_4432", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "I know you dislike excesses of any kind, though I don't think one more Ambrosia bottle's going to tip the scales for you, is it, Nem?" },
+
+				{ Cue = "/VO/Nemesis_0313",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Text = "It might. Won't go to the taverna to find out, so why don't you take it back. Not really the time for luxuries." },
+
+				{ Cue = "/VO/Melinoe_4433", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Casual_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "How about you hold onto it until whenever you feel it's deserved. If you're not indulging, you don't need to be concerned about it, right?" },
+
+				{ Cue = "/VO/Nemesis_0314",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					PostLineAnim = "Nemesis_Hub_Glare_End",
+					Text = "Want to waste something like this, fine. But it's just going in a stash, and probably will never see what little light we get. Long as you're good with that." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.45,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 2,
+						{ Cue = "/VO/Melinoe_4434", Text = "I am." },
+					},
+				},
+			},
+
+			NemesisGift08 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				StartBecomingCloserTrack = true,
+				HintId = "Codex_GrowingCloser01",
+				UnfilledIcon = "EmptyHeartWithAmbrosiaIcon",
+				FilledIcon = "FilledHeartWithAmbrosiaIcon",
+				Cost =
+				{
+					SuperGiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift07" },
+					},
+					{
+						PathTrue = { "CurrentRun", "Hero", "IsDead" },
+					},
+				},
+				{ Cue = "/VO/Melinoe_4435", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Pleased_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Thought I'd bring you something extra for your never-to-be-used stash, Nemesis. Because you might deserve it at some point, you never know." },
+
+				{ Cue = "/VO/Nemesis_0315",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					Text = "{#Emph}You {#Prev}never know. What makes you even think I might deserve something like this? Not exactly been at the top of my field lately." },
+
+				{ Cue = "/VO/Melinoe_4436", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Casual_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Well I am not the arbiter of such matters of course, but I think you {#Emph}do {#Prev}deserve it. You must be harder on yourself than anyone. If only you could see yourself as I do sometime." },
+
+				{ Cue = "/VO/Nemesis_0316",
+					PreLineAnim = "Nemesis_Hub_Glare_End",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "Don't know what {#Emph}that's {#Prev}supposed to mean. We were going for the same result, and both pushed hard. So what. But anyway, into the stash this goes." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 2,
+						{ Cue = "/VO/Melinoe_4437", Text = "Where it belongs." },
+					},
+				},
+			},
+
+			NemesisGift09 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				HintId = "Codex_GrowingCloser01",
+				UnfilledIcon = "EmptyHeartWithAmbrosiaIcon",
+				FilledIcon = "FilledHeartWithAmbrosiaIcon",
+				Cost =
+				{
+					SuperGiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift08" },
+					},
+					{
+						PathTrue = { "CurrentRun", "Hero", "IsDead" },
+					},
+				},
+				{ Cue = "/VO/Nemesis_0317",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "Ambrosia. Look, you should know my never-to-be-used stash is just about full. Wouldn't want for it to overflow." },
+
+				{ Cue = "/VO/Melinoe_4438", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Pleased_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "You could always invite me to the taverna where we might cut into that stash of yours a bit. Why hoard it forever? Besides the reasons that you previously said." },
+
+				{ Cue = "/VO/Nemesis_0318",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "Not going to invite you anywhere long as you keep this up. And I don't appreciate you making light of the subject of avoiding excess. My area of expertise. Not yours." },
+
+				{ Cue = "/VO/Melinoe_4439", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "I'm sorry, Nemesis, I wasn't aiming to be rude; words I cannot entirely believe I'm saying, much less feeling, since we used to trade barbs all the time." },
+
+				{ Cue = "/VO/Nemesis_0319",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "Things sure were nice and simple then, weren't they. But now we're stuck in whatever pattern this is, till we break free, and we're doing that now. No more Ambrosia. Ever." },
+
+				EndVoiceLines =
+				{
+					{
+						UsePlayerSource = true,
+						PreLineWait = 0.4,
+						RequiredMinElapsedTime = 2,
+						{ Cue = "/VO/Melinoe_4440", Text = "Ever? What about Bath Salts?" },
+					},
+					{
+						PreLineWait = 0.38,
+						ObjectType = "NPC_Nemesis_01",
+
+						{ Cue = "/VO/Nemesis_0320", Text = "{#Emph}<Chuckle>" },
+					},
+				},
+			},
+
 			-- taverna
 			NemesisTaverna01 =
 			{
@@ -3409,8 +5460,7 @@ UnitSetData.NPC_Nemesis =
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeTaverna" },
 					},
 					{
-						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						PathFalse = { "CurrentRun", "TimePassageOccurred" },
 						HintId = "Codex_TimePassesGiftUsed",
 					},
 				},
@@ -3421,39 +5471,51 @@ UnitSetData.NPC_Nemesis =
 					Text = "Hey, I know there's an extraordinary likelihood you're going to say {#Emph}no{#Prev}, but... I've an extra-special poison bottle here, and thought maybe we could split it at the taverna, you and I?" },
 
 				{ Cue = "/VO/Nemesis_0146",
-					-- PreLineAnim = "Moros_Greet",
+					PostLineRemoveContextArt = true,
+					PreLineAnim = "Nemesis_Hub_Greet",
 					PortraitExitAnimation = "Portrait_Nemesis_Default_01_Exit",
 					Text = "So damn polite! Well, it's less excessive if we split the bottle, I guess... {#Emph}ungh{#Prev}, you know what? Whatever, sure." },
 
 				{ Cue = "/VO/Nemesis_0147",
+					SkipContextArt = true,
 					PreLineFunctionName = "TavernaStartPresentation",
 					PreLineWait = 0.35,
 					Text = "...Come on, say it: Got your ass kicked. By me. Think that was when I first thought I had a chance. That Hecate would pick me. If I could take you just like that a few more times." },
 
 				{ Cue = "/VO/Melinoe_2099", UsePlayerSource = true,
-					Portrait = "Portrait_Mel_Pleased_01",
+					SkipContextArt = true,
+					Portrait = "Portrait_Mel_Casual_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You're a monster, Nem! I practically started to fear having to spar with you. But, the best way to get stronger is to train against a stronger opponent." },
 
 				{ Cue = "/VO/Nemesis_0148",
+					SkipContextArt = true,
+					Portrait = "Portrait_Nemesis_Averted_01",
+					PreLineAnim = "Nemesis_Hub_Salute",
 					Text = "Maybe that's why I've been stagnating. We don't get to fight like we used to. Makes me sick even thinking about it." },
 
 				{ Cue = "/VO/Melinoe_2100", UsePlayerSource = true,
-					Portrait = "Portrait_Mel_Vulnerable_01",
+					SkipContextArt = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Wait... you stand around thinking about how we used to spar? Should I be flattered or afraid?" },
 
 				{ Cue = "/VO/Nemesis_0149",
+					SkipContextArt = true,
+					PreLineAnim = "Nemesis_Hub_Toss",
 					Text = "Finish your half of the damn poison already! Don't have all night to sit around and stroke your ego. I swear, mortals take after our worst qualities." },
 
 				{ Cue = "/VO/Melinoe_2101", UsePlayerSource = true,
+					SkipContextArt = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I wasn't being serious. Though, maybe I'm more self-centered than I realize. I {#Emph}am {#Prev}part-mortal on my mother's side..." },
 
 				{ Cue = "/VO/Nemesis_0150",
+					SkipContextArt = true,
 
 					PortraitExitAnimation = "Portrait_Nemesis_Default_01_Exit",
 					PostLineThreadedFunctionName = "LoungeRevelryPresentation",
@@ -3462,6 +5524,7 @@ UnitSetData.NPC_Nemesis =
 					Text = "Makes you different, I will give you that. Now come on, I got to get back. Else Hecate might catch us making nice and then neither one of us will hear the end of it." },
 
 				{ Cue = "/VO/Nemesis_0151",
+					Portrait = "Portrait_Nemesis_Averted_01",
 					PreLineFunctionName = "TavernaEndPresentation",
 					PreLineWait = 0.35,
 
@@ -3482,6 +5545,7 @@ UnitSetData.NPC_Nemesis =
 
 			NemesisBathHouse01 =
 			{
+				PauseMusicPlayerMusic = true,
 				PlayOnce = true,
 				OnGiftTrack = true,
 				UseableOffSource = true,
@@ -3511,8 +5575,7 @@ UnitSetData.NPC_Nemesis =
 						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift03" },
 					},
 					{
-						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						PathFalse = { "CurrentRun", "TimePassageOccurred" },
 						HintId = "Codex_TimePassesGiftUsed",
 					},
 				},
@@ -3589,6 +5652,7 @@ UnitSetData.NPC_Nemesis =
 			},
 			NemesisBathHouse02 =
 			{
+				PauseMusicPlayerMusic = true,
 				PlayOnce = true,
 				OnGiftTrack = true,
 				UseableOffSource = true,
@@ -3621,8 +5685,7 @@ UnitSetData.NPC_Nemesis =
 						PathTrue = { "GameState", "RoomsEntered", "H_Intro" },
 					},
 					{
-						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						PathFalse = { "CurrentRun", "TimePassageOccurred" },
 						HintId = "Codex_TimePassesGiftUsed",
 					},
 				},
@@ -3697,18 +5760,111 @@ UnitSetData.NPC_Nemesis =
 
 			},
 
-			-- placeholder
-			NemesisGiftTemp =
+			-- bond forged
+			NemesisBathHouse03 =
 			{
+				PauseMusicPlayerMusic = true,
 				PlayOnce = true,
-				UseableOffSource = true,
 				OnGiftTrack = true,
-				UnfilledIcon = "UnavailableHeartIcon",
-				HintId = "Codex_UnavailableHint",
+				UseableOffSource = true,
+				GiftableOffSource = true,
+				DoNotFlipContextArt = true,
+				UnfilledIcon = "EmptyHeartWithSaltsIcon",
+				FilledIcon = "FilledHeartWithSaltsIcon",
+				HintId = "Codex_NemesisHotSpringsGiftHintAlt",
+				LockedHintId = "Codex_LockedActivityHint",
+				CompletedHintId = "Codex_BondForgedNemesis",
 				Cost =
 				{
-					MysteryResource = 1,
+					GiftPointsRare = 1,
 				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "IsDead" },
+					},
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBathHouse" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift09" },
+					},
+					{
+						PathFalse = { "CurrentRun", "TimePassageOccurred" },
+						HintId = "Codex_TimePassesGiftUsed",
+					},
+				},
+				{ Cue = "/VO/Melinoe_4441", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Pleased_01",
+					Text = "You never did say no to Bath Salts, Nemesis, so how about it? As long as you feel we've earned at least a short break." },
+
+				{ Cue = "/VO/Nemesis_0321",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					PortraitExitAnimation = "Portrait_Nemesis_Averted_01_Exit",
+					PostLineRemoveContextArt = true,
+					Text = "Don't know that we have. Though I've accumulated enough knots in my muscles that it's gotten in the way. So why not." }, 
+
+				{ Cue = "/VO/Nemesis_0322",
+					PreLineFunctionName = "BathHouseStartPresentation",
+					NarrativeContextArt = "DialogueBackground_Bathhouse",
+					Portrait = "Portrait_Nemesis_Bath_01",
+					PortraitExitAnimation = "Portrait_Nemesis_Bath_01_Exit",
+					Text = "Can't believe I'm sitting here with you. Couldn't stand the sight of you for the longest time. Wanted to snap you like a twig. Now I got you helping me unstrap my suit." },
+
+				{ Cue = "/VO/Melinoe_4442", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Bath_01",
+					PortraitExitAnimation = "Portrait_Mel_Bath_01_Exit",
+					Text = "We're capable of change, aren't we? You must believe that yourself, otherwise what's the use of all the retribution you dole out? It can't be for the sake of punishment entirely." },
+
+				{ Cue = "/VO/Nemesis_0323", Portrait = "Portrait_Nemesis_Bath_01",
+					PortraitExitAnimation = "Portrait_Nemesis_Bath_01_Exit",
+					Text = "The punishment is half of it. But yeah. Important to learn, if not from our own failures then those occurring constantly around us. Still I don't think I've changed at all; you have." },
+
+				{ Cue = "/VO/Melinoe_4443", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Bath_01",
+					PortraitExitAnimation = "Portrait_Mel_Bath_01_Exit",
+					Text = "I have? I'm still hell-bent on all my responsibilities. Counting the moments before I can get back to what I'm meant to be doing... rather than enjoying being here with you." },
+
+				{ Cue = "/VO/Nemesis_0324", Portrait = "Portrait_Nemesis_Bath_01",
+					PortraitExitAnimation = "Portrait_Nemesis_Bath_01_Exit",
+					Text = "Except we're only here because you worked up the guts to ask. But fine, maybe you haven't changed a lot. Maybe I just like who you are more than I used to for some reason." },
+
+				{ Cue = "/VO/Melinoe_4444", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Bath_01",
+					PortraitExitAnimation = "Portrait_Mel_Bath_01_Exit",
+					Text = "I feel much the same. Though, I've admired you since training. It gladdens me to be with you like this... and how we've been fighting on the same side, recently." },
+
+				{ Cue = "/VO/Nemesis_0325", Portrait = "Portrait_Nemesis_Bath_01",
+					PortraitExitAnimation = "Portrait_Nemesis_Bath_01_Exit",
+					PostLineFunctionName = "BathHouseQuipPresentation",
+					PostLineThreadedFunctionName = "TimePassesPresentation",
+					PostLineThreadedFunctionArgs = { TimeTicks = 12, },
+
+					EndSound = "/Leftovers/Menu Sounds/EmoteThoughtful",
+					PostLineRemoveContextArt = true,
+					Text = "Always wanted the same thing, just didn't think there was enough to go around. Now, enough talk. Going to get these knots out of my back or what?" },
+
+				{ Cue = "/VO/Nemesis_0326",
+					NarrativeContextArt = "DialogueBackgroundBiome_Woods",
+					PreLineFunctionName = "BathHouseEndPresentation",
+					PreLineWait = 0.2,
+
+					PostLineThreadedFunctionName = "MaxedRelationshipPresentation",
+					PostLineThreadedFunctionArgs = { Text = "NPC_Nemesis_01", Icon = "Keepsake_Nemesis", EndFunctionName = "InCombatTextEvent", EndFunctionArgs = GameData.PostBathHouseArgs },
+
+					Emote = "PortraitEmoteSparkly",
+					-- Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "...Feels better than before, I'll give you that. Though don't go thinking I'll let up on you out there. We're calling this even." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_4446", Text = "As it should be." },
+					},
+				},	
+
 			},
 
 			NemesisBathHouseDecline01 =
@@ -3735,8 +5891,7 @@ UnitSetData.NPC_Nemesis =
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
 					},
 					{
-						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						PathFalse = { "CurrentRun", "TimePassageOccurred" },
 						HintId = "Codex_TimePassesGiftUsed",
 					},
 					{
@@ -3783,8 +5938,7 @@ UnitSetData.NPC_Nemesis =
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
 					},
 					{
-						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						PathFalse = { "CurrentRun", "TimePassageOccurred" },
 						HintId = "Codex_TimePassesGiftUsed",
 					},
 					{
@@ -3809,6 +5963,7 @@ UnitSetData.NPC_Nemesis =
 
 			NemesisFishing01 =
 			{
+				PauseMusicPlayerMusic = true,
 				PlayOnce = true,
 				UseableOffSource = true,
 				GiftableOffSource = true,
@@ -3824,6 +5979,9 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
+						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift03" },
+					},					
+					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeFishingPoint" },
 					},
 					{
@@ -3837,8 +5995,7 @@ UnitSetData.NPC_Nemesis =
 						PathTrue = { "GameState", "UseRecord", "NPC_Nemesis_01" },
 					},
 					{
-						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						PathFalse = { "CurrentRun", "TimePassageOccurred" },
 						HintId = "Codex_TimePassesGiftUsed",
 					},
 					{
@@ -3880,7 +6037,7 @@ UnitSetData.NPC_Nemesis =
 
 					PortraitExitAnimation = "Portrait_Nemesis_Default_01_Exit",
 					PostLineFunctionName = "ResourceGiftedInEventPresentation",
-					PostLineFunctionArgs = { ResourceName = "FishFRare", SoundName = "/Leftovers/SFX/BigFishSplash" },
+					PostLineFunctionArgs = { ResourceName = "FishFRare", SoundName = "/Leftovers/SFX/BigFishSplash", GiftWaitTime = 0 },
 
 					PostLineThreadedFunctionName = "InCombatTextEvent",
 					PostLineThreadedFunctionArgs = GameData.PostFishingArgs,
@@ -3916,21 +6073,25 @@ UnitSetData.NPC_Nemesis =
 					UsePlayerSource = true,
 					SuccessiveChanceToPlayAll = 0.1,
 					PlayOnceFromTableThisRun = true,
+					SkipCooldownCheckIfNonePlayed = true,
 					GameStateRequirements =
 					{
 						{
-							FunctionName = "RequiredAlive",
-							FunctionArgs = { Ids = { 557113 }, Alive = false },
+							Path = { "PreviousDeathAreaRoom", "Name" },
+							IsNone = { "Hub_PreRun" },
 						},
 					},
-
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech" },
+					},
 					{ Cue = "/VO/Melinoe_2308", Text = "Nemesis must have a head start...",
 						PlayFirst = true,
 						GameStateRequirements =
 						{
 							{
 								PathTrue = { "GameState", "TextLinesRecord", "NemesisCombatFirstIntro" },
-							}
+							},
 						},
 					},
 					{ Cue = "/VO/Melinoe_2309", Text = "Nem's still out there I guess...",
@@ -4129,12 +6290,12 @@ UnitSetData.NPC_Nemesis =
 			RandomRemaining = true,
 			PreLineWait = 0.5,
 
-			{ Cue = "/VO/NemesisField_0372", Text = "We tied so keep your coin." },
+			{ Cue = "/VO/NemesisField_0372", Text = "We tied, so keep your coin.", PlayFirst = true },
 			{ Cue = "/VO/NemesisField_0373", Text = "We'll call this one a draw." },
 			{ Cue = "/VO/NemesisField_0374", Text = "We broke even I guess." },
 			{ Cue = "/VO/NemesisField_0375", Text = "Nobody wins this time." },
 			{ Cue = "/VO/NemesisField_0376", Text = "Another draw I guess." },
-			{ Cue = "/VO/NemesisField_0377", Text = "Dead even huh." },
+			{ Cue = "/VO/NemesisField_0377", Text = "Dead even huh?" },
 		},
 		EncounterLostVoiceLines =
 		{
@@ -4162,6 +6323,7 @@ UnitSetData.NPC_Nemesis =
 				{ Cue = "/VO/NemesisField_0369", Text = "Got you, got your Gold." },
 				{ Cue = "/VO/NemesisField_0370", Text = "Looks like I win again." },
 				{ Cue = "/VO/NemesisField_0371", Text = "Fair's fair..." },
+				{ Cue = "/VO/NemesisField_0307", Text = "Warned you." },
 			},
 		},
 
@@ -4177,7 +6339,6 @@ UnitSetData.NPC_Nemesis =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				PreLineWait = 0.25,
-				ChanceToPlay = 0.2,
 				ObjectType = "NPC_Nemesis_01",
 				GameStateRequirements =
 				{
@@ -4188,17 +6349,18 @@ UnitSetData.NPC_Nemesis =
 						PathFalse = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/NemesisField_0220" },
 					},
 					{
-						PathFalse = { "CurrentRun", "ActiveObjectives", "NemesisDamageConest" },
+						PathFalse = { "ScreenState", "ActiveObjectives", "NemesisDamageContest" },
 					},
 					{
 						PathFromArgs = true,
 						Path = { "SourceProjectile", },
-						IsNone = { "FrogFamiliarLand", "CatFamiliarPounce", "RavenFamiliarMelee" },
+						IsNone = { "FrogFamiliarLand", "CatFamiliarPounce", "RavenFamiliarMelee", "HoundFamiliarBark", "PolecatFamiliarMelee" },
 					},
 					{
 						FunctionName = "RequiredDistanceFromHero",
 						FunctionArgs = { MaxDistance = 2000, },
 					},
+					ChanceToPlay = 0.5,
 				},
 
 				{ Cue = "/VO/NemesisField_0210", Text = "Bad idea.", PlayFirst = true },
@@ -4215,8 +6377,7 @@ UnitSetData.NPC_Nemesis =
 				{ Cue = "/VO/NemesisField_0221", Text = "Watch it." },
 				{ Cue = "/VO/NemesisField_0222", Text = "Please." },
 				{ Cue = "/VO/NemesisField_0223", Text = "You little..." },
-
-				{ Cue = "/VO/Nemesis_0085", Text = "{#Emph}Khh..." },
+				{ Cue = "/VO/Nemesis_0085", Text = "{#Emph}Hah." },
 				{ Cue = "/VO/Nemesis_0104", Text = "{#Emph}Urgh..." },
 				{ Cue = "/VO/Nemesis_0105", Text = "{#Emph}Tsch." },
 				{ Cue = "/VO/Nemesis_0106", Text = "{#Emph}Huh!" },
@@ -4225,7 +6386,6 @@ UnitSetData.NPC_Nemesis =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				PreLineWait = 0.25,
-				ChanceToPlay = 0.2,
 				ObjectType = "NPC_Nemesis_01",
 				GameStateRequirements =
 				{
@@ -4235,12 +6395,13 @@ UnitSetData.NPC_Nemesis =
 					{
 						PathFromArgs = true,
 						Path = { "SourceProjectile", },
-						IsNone = { "FrogFamiliarLand", "CatFamiliarPounce", "RavenFamiliarMelee" },
+						IsNone = { "FrogFamiliarLand", "CatFamiliarPounce", "RavenFamiliarMelee", "HoundFamiliarBark", "PolecatFamiliarMelee" },
 					},
 					{
 						FunctionName = "RequiredDistanceFromHero",
 						FunctionArgs = { MaxDistance = 1000, },
 					},
+					ChanceToPlay = 0.2,
 				},
 
 				{ Cue = "/VO/NemesisField_0224", Text = "Watch it!", PlayFirst = true },
@@ -4251,6 +6412,11 @@ UnitSetData.NPC_Nemesis =
 				{ Cue = "/VO/NemesisField_0229", Text = "Want to go?" },
 				{ Cue = "/VO/NemesisField_0230", Text = "Cut it out!" },
 				{ Cue = "/VO/NemesisField_0231", Text = "Fight {#Emph}them!" },
+				{ Cue = "/VO/NemesisField_0302", Text = "Step aside." },
+				{ Cue = "/VO/NemesisField_0303", Text = "Stand back." },
+				{ Cue = "/VO/NemesisField_0304", Text = "Watch it." },
+				{ Cue = "/VO/NemesisField_0305", Text = "I have this." },
+				{ Cue = "/VO/NemesisField_0306", Text = "Get back." },
 			},
 		},
 
@@ -4284,7 +6450,7 @@ UnitSetData.NPC_Nemesis =
 				{
 					{
 						Path = { "CurrentRun", "CurrentRoom", "TextLinesRecord" },
-						HasNone = { "NemesisGetFreeItemIntro01", "NemesisGetFreeItemIntro02" },
+						HasNone = { "NemesisGetFreeItemIntro01", "NemesisGetFreeItemIntro02", "NemesisPostCombatBecomingCloser01" },
 					}
 				},
 				Cooldowns =
@@ -4344,6 +6510,7 @@ UnitSetData.NPC_Nemesis =
 				RandomRemaining = true,
 				PreLineWait = 0.4,
 				AllowTalkOverTextLines = true,
+				ObjectType = "NPC_Nemesis_01",
 
 				{ Cue = "/VO/NemesisField_0080", Text = "Deal's a deal." },
 				{ Cue = "/VO/NemesisField_0081", Text = "It's a deal." },
@@ -4359,8 +6526,7 @@ UnitSetData.NPC_Nemesis =
 		},
 		DealDeclinedVoiceLines =
 		{
-			[1] = { GlobalVoiceLines = "NemesisDealDeclineVoiceLines" },
-			[2] =
+			{ GlobalVoiceLines = "NemesisDealDeclineVoiceLines" },
 			{
 				RandomRemaining = true,
 				PreLineWait = 0.3,
@@ -4603,6 +6769,13 @@ UnitSetData.NPC_Nemesis =
 
 		ExitVoiceLines =
 		{
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "TextLinesRecord" },
+					HasNone = { "NemesisPostCombatBecomingCloser01" },
+				},
+			},
 			{
 				RandomRemaining = true,
 				SuccessiveChanceToPlay = 0.9,
@@ -4658,6 +6831,20 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
+						PathTrue = { "CurrentRun", "CurrentRoom", "NemesisTakeExitRecord", "I_Story01" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_3308", Text = "{#Emph}Hey!" },
+			},
+			{
+				UsePlayerSource = true,
+				PreLineWait = 0.3,
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlayAll = 0.33,
+				GameStateRequirements =
+				{
+					{
 						PathTrue = { "CurrentRun", "CurrentRoom", "NemesisTakeExitRecord", "TrialUpgrade" },
 					},
 				},
@@ -4678,6 +6865,8 @@ UnitSetData.NPC_Nemesis =
 
 				{ Cue = "/VO/Melinoe_2244", Text = "{#Emph}<Scoff>" },
 				{ Cue = "/VO/Melinoe_2245", Text = "Gone." },
+				{ Cue = "/VO/Melinoe_2251", Text = "She's off." },
+				{ Cue = "/VO/Melinoe_2252", Text = "Well...!" },
 				{ Cue = "/VO/Melinoe_2246", Text = "'Night...",
 					PlayFirst = true,
 					PreLineWait = 0.5,
@@ -4726,12 +6915,31 @@ UnitSetData.NPC_Nemesis =
 						},
 					},
 				},
-				{ Cue = "/VO/Melinoe_2251", Text = "She's off." },
-				{ Cue = "/VO/Melinoe_2252", Text = "Well...!" },
 			},
 		},
 
-		Using = { Animation = "NemesisExitStreak", }, 
+		Using =
+		{
+			Animation =
+			{
+				"DeathPortraitOverlayFx",
+				"NemesisExitStreak",
+			},
+			Sounds =
+			{
+			  	"/Leftovers/SFX/RobeFlutter",
+				"/Leftovers/World Sounds/MaskUnlatch1",
+				"/Leftovers/World Sounds/MaskUnlatch2",
+				"/SFX/ArmorIdleSFX",
+				"/Leftovers/World Sounds/Unmask",
+				"/Leftovers/World Sounds/LeavesRustle",
+				"/Leftovers/SFX/RobeFlutter",
+				"/Leftovers/World Sounds/LeavesRustleLimited",
+				"/SFX/ArmorIdleSFX2",
+				"/Leftovers/World Sounds/LeavesRustleSoft",
+				"/Leftovers/World Sounds/LeavesRustleMedium",
+			},
+		}, 
 	},
 
 }
@@ -5736,7 +7944,7 @@ VariantSetData.NPC_Nemesis_01 =
 					},
 					{
 						Path = { "CurrentRun", "EncountersCompletedCache" },
-						HasAny = { "NemesisRandomEvent", "BridgeNemesisRandomEvent", "NemesisCombatF", "NemesisCombatG", "NemesisCombatH" }
+						HasAny = { "NemesisRandomEvent", "BridgeNemesisRandomEvent", "NemesisCombatF", "NemesisCombatG", "NemesisCombatH", "NemesisCombatI" }
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -6024,16 +8232,13 @@ VariantSetData.NPC_Nemesis_01 =
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
-				},
-				OnQueuedFunctionName = "CheckDistanceTriggerThread",
-				OnQueuedFunctionArgs = PresetEventArgs.NemesisRandomEventGreeting,
-				
-				GameStateRequirements =
-				{
 					{
 						FunctionName = "RequiredSellableGodTraits",
 					},
 				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisRandomEventGreeting,
+
 				{ Cue = "/VO/NemesisField_0132",
 					Text = "Sometimes I get a little boost from Artemis, but {#Emph}you? {#Prev}Just about all Olympus backs you up, and {#Emph}even still{#Prev}, it's not enough. Some help {#Emph}they {#Prev}are." },
 				{ Cue = "/VO/MelinoeField_0026", UsePlayerSource = true,
@@ -6678,7 +8883,7 @@ VariantSetData.NPC_Nemesis_01 =
 	-- Nemesis Combat / -- NemesisCombat
 	NemesisCombat =
 	{
-		RequiredSpawnPoint = "EnemyPoint",
+		PreferredSpawnPoint = "EnemyPoint",
 
 		HealthBarTextId = "Chronos_Full",
 		AlwaysShowInvulnerabubbleOnInvulnerableHit = true,
@@ -6760,8 +8965,6 @@ VariantSetData.NPC_Nemesis_01 =
 					Text = "One word of this to Hecate, and you're meat, got it? Now go on while I take care of things." },
 				{ Cue = "/VO/MelinoeField_0014", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "This is my task, not yours. And I'm disappointed with your dereliction of duty. Are you so desperate to prove you're superior to me?" },
 				{ Cue = "/VO/NemesisField_0006",
 					Text = "You know, maybe I am. So how about this: Got some Gold on you, right? Those wretches ought to swarm in any moment. Whoever takes more of them gets the other's coin. What do you say?" },
@@ -6779,6 +8982,34 @@ VariantSetData.NPC_Nemesis_01 =
 						{ Cue = "/VO/NemesisField_0007", Text = "Fair odds of winning if you shut up and fight!" },
 					},
 				},
+			},
+
+			NemesisPreCombatBecomingCloser01 =
+			{
+				PlayFirst = true,
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					-- Force = true,
+					{
+						PathFalse = { "CurrentRun", "TextLinesRecord", "NemesisPostCombatAboutRelationship02" }
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsNone = { "H" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisPostCombatAboutRelationship02" },
+					},
+					NamedRequirements = { "NoRecentBecomingCloserEvent" },
+					NamedRequirementsFalse = { "NearTrueEnding" },
+				},
+				{ Cue = "/VO/MelinoeField_4082", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					Text = "Well, you ready to break a sweat again, Nem?" },
+				{ Cue = "/VO/NemesisField_0479",
+					Text = "Don't insult me else I'll take more than your Gold after this. Now come on." },
 			},
 
 			-- Repeatable
@@ -6919,9 +9150,9 @@ VariantSetData.NPC_Nemesis_01 =
 						Path = { "CurrentRun", "CurrentRoom", "SpeechRecord "},
 						HasNone =
 						{
-							"NemesisField_0243",
-							"NemesisField_0244",
-							"NemesisField_0246",
+							"/VO/NemesisField_0243",
+							"/VO/NemesisField_0244",
+							"/VO/NemesisField_0246",
 						}
 					},
 				},
@@ -6939,9 +9170,9 @@ VariantSetData.NPC_Nemesis_01 =
 						Path = { "CurrentRun", "CurrentRoom", "SpeechRecord "},
 						HasNone =
 						{
-							"NemesisField_0243",
-							"NemesisField_0244",
-							"NemesisField_0246",
+							"/VO/NemesisField_0243",
+							"/VO/NemesisField_0244",
+							"/VO/NemesisField_0246",
 						}
 					},
 				},
@@ -6981,9 +9212,9 @@ VariantSetData.NPC_Nemesis_01 =
 						Path = { "CurrentRun", "CurrentRoom", "SpeechRecord "},
 						HasNone =
 						{
-							"NemesisField_0243",
-							"NemesisField_0244",
-							"NemesisField_0246",
+							"/VO/NemesisField_0243",
+							"/VO/NemesisField_0244",
+							"/VO/NemesisField_0246",
 						}
 					},
 				},
@@ -7001,9 +9232,9 @@ VariantSetData.NPC_Nemesis_01 =
 						Path = { "CurrentRun", "CurrentRoom", "SpeechRecord "},
 						HasNone =
 						{
-							"NemesisField_0243",
-							"NemesisField_0244",
-							"NemesisField_0246",
+							"/VO/NemesisField_0243",
+							"/VO/NemesisField_0244",
+							"/VO/NemesisField_0246",
 						}
 					},
 				},
@@ -7032,9 +9263,9 @@ VariantSetData.NPC_Nemesis_01 =
 						Path = { "CurrentRun", "CurrentRoom", "SpeechRecord "},
 						HasNone =
 						{
-							"NemesisField_0243",
-							"NemesisField_0244",
-							"NemesisField_0246",
+							"/VO/NemesisField_0243",
+							"/VO/NemesisField_0244",
+							"/VO/NemesisField_0246",
 						}
 					},
 				},
@@ -7052,7 +9283,38 @@ VariantSetData.NPC_Nemesis_01 =
 				{ Cue = "/VO/NemesisField_0444",
 					Text = "How about a little friendly competition there, Princess? Come on, let's see it." },
 			},
-
+			NemesisCombatMiscStart21 =
+			{
+				PlayFirst = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NemesisPostCombatAboutTartarus02" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "I" },
+					},
+				},
+				{ Cue = "/VO/NemesisField_0499",
+					Text = "They say Chronos likes Gold, so he won't mind our little contest here." },
+			},
+			NemesisCombatMiscStart22 =
+			{
+				PlayFirst = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NemesisPostCombatAboutTartarus02" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "I" },
+					},
+				},
+				{ Cue = "/VO/NemesisField_0480",
+					Text = "So this is where the {#Emph}real {#Prev}magick happens, huh. Let's see what the best of the Titan's armies have to offer." },
+			},
 		},
 
 		NarrativeDataName = "NPC_Nemesis_01",
@@ -7109,7 +9371,7 @@ VariantSetData.NPC_Nemesis_01 =
 					AngleTowardHero = true,
 					Text = "Thought for sure when first you saw me out here, you'd go telling Hecate soon as you could. But you didn't." },
 				{ Cue = "/VO/MelinoeField_0017", UsePlayerSource = true,
-					Portrait = "Portrait_Mel_Intense_01",
+					-- Portrait = "Portrait_Mel_Intense_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "It's fortunate for you Headmistress doesn't ask me to make reports. You're probably drawing some of our enemy's attention off of me, at least." },
@@ -7134,7 +9396,6 @@ VariantSetData.NPC_Nemesis_01 =
 					},
 				},
 				{ Cue = "/VO/NemesisField_0012",
-					AngleTowardHero = true,
 					Text = "{#Emph}Aw{#Prev}, you brought the Evil Eye I gave to you, how sweet. Make your enemies regret messing with you." },
 				{ Cue = "/VO/MelinoeField_0018", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
@@ -7161,11 +9422,305 @@ VariantSetData.NPC_Nemesis_01 =
 					},
 				},
 				{ Cue = "/VO/MelinoeField_0019", UsePlayerSource = true,
-					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PreLineThreadedFunctionName = "PlayCharacterAnim",
+					PreLineThreadedFunctionArgs = { Name = "MelTalkPensive01", WaitTime = 1, UsePlayerSource = true },
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Say, how do you get past Headmistress on your way down? She's always waiting for me at the edge of Erebus." },
 				{ Cue = "/VO/NemesisField_0016",
 					Text = "Just answered your own question. She's waiting for {#Emph}you{#Prev}, not me. I'm not the one still being tested and trained. And I'm good at avoiding her." },
+			},
+
+			NemesisPostCombatAboutArtemis01 =
+			{
+				PlayOnce = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				-- PreBlockSpecialInteract = true,
+				PostBlockSpecialInteract = true,
+				StatusAnimation = "StatusIconWantsToTalk",
+				PreEventFunctionName = "AngleNPCToHero",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "SpawnRecord", "NPC_Artemis_Field_01" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisGift04", "ArtemisGift02" },
+					},
+				},
+				{ Cue = "/VO/NemesisField_0475",
+					Text = "Ran into Artemis back there. Between her and now me, we must have done half the heavy lifting for you tonight." },
+
+				{ Cue = "/VO/MelinoeField_3632", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Must be what I deserve, though, right? And don't worry, there should be plenty of foes ahead whom I shall have to deal with on my own. How is the goddess of the hunt this eve?" },
+
+				{ Cue = "/VO/NemesisField_0476",
+					Text = "Seems well enough, we had a decent chat. Was beginning to think she's been avoiding me a while, though I can't imagine why she'd want to do a thing like that." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 2,
+						{ Cue = "/VO/MelinoeField_3633", Text = "Nor I." },
+					},
+				},
+			},
+
+			NemesisPostCombatAboutRelationship01 =
+			{
+				PlayOnce = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				-- PreBlockSpecialInteract = true,
+				PostBlockSpecialInteract = true,
+				StatusAnimation = "StatusIconWantsToTalk",
+				PreEventFunctionName = "AngleNPCToHero",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisTaverna01", "NemesisGift06" },
+					},
+				},
+				{ Cue = "/VO/NemesisField_0472",
+					Text = "Who needs to sip Ambrosia in the Crossroads when we could be out here doing this together, right?" },
+
+				{ Cue = "/VO/MelinoeField_3629", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Vanquishing our foes with impunity is your idea of a good time? Although that's not to say I don't take satisfaction in a job well done either. Wait what did you mean by {#Emph}together?" },
+
+				{ Cue = "/VO/NemesisField_0473",
+					PreLineWait = 0.2,
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "Oh shut up. We used to spar, this is the closest thing. Don't know anybody else who can keep up, let alone get ahead." },
+
+				{ Cue = "/VO/MelinoeField_3630", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "A healthy competitive rivalry is all we have between us then?" },
+
+				{ Cue = "/VO/NemesisField_0474",
+					PreLineAnim = "Nemesis_Hub_Greet",
+
+					-- heart unlock
+					PostLineThreadedFunctionName = "RelationshipAdvancedPresentation",
+					PostLineThreadedFunctionArgs = { Delay = 2.0 },
+
+					Text = "I said shut up. What else do you want it to be." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						{ Cue = "/VO/MelinoeField_3631", Text = "...I'll get back to you." },
+					},
+				},
+			},
+
+			NemesisPostCombatAboutRelationship02 =
+			{
+				PlayOnce = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				-- PreBlockSpecialInteract = true,
+				PostBlockSpecialInteract = true,
+				StatusAnimation = "StatusIconWantsToTalk",
+				PreEventFunctionName = "AngleNPCToHero",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisBathHouse03", "NemesisPostCombatAboutRelationship01" },
+					},
+				},
+				{ Cue = "/VO/NemesisField_0445",
+					Emote = "PortraitEmoteSurprise",
+					Text = "...I broke a sweat? I broke a sweat. That never happens, those were weaklings, I... {#Emph}oh damn..." },
+
+				{ Cue = "/VO/MelinoeField_3620", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "What's the matter, Nem, are you all right? Our foes may have resorted to using poisons and such, if I could look at any superficial wounds..." },
+
+				{ Cue = "/VO/NemesisField_0446",
+					Emote = "PortraitEmoteFiredUp",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "Don't touch me! It's not that. Now get on with it." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						{ Cue = "/VO/MelinoeField_3621", Text = "Hey..." },
+					},
+				},
+			},
+
+			-- relationship
+			NemesisPostCombatBecomingCloser01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				StatusAnimation = "StatusIconWantsToTalk",
+				PreEventFunctionName = "AngleNPCToHero",
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "TextLinesRecord", "NemesisPostCombatAboutRelationship02" }
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsNone = { "H" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisPostCombatAboutRelationship02" },
+					},
+					NamedRequirements = { "NoRecentBecomingCloserEvent" },
+					NamedRequirementsFalse = { "NearTrueEnding" },
+				},
+
+				{ Cue = "/VO/NemesisField_0447",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "Not quite as comfortable as being in the springs, is it, Princess? And can be solitary work at that." },
+
+				{ Cue = "/VO/MelinoeField_3622", UsePlayerSource = true,
+					PreLineWait = 0.35,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "It needn't be, but you refused back when I suggested we could go together through these depths. Now having second thoughts?" },
+
+				{ Cue = "/VO/NemesisField_0448",
+					PreLineWait = 0.35,
+					PreLineAnim = "Nemesis_Hub_Salute",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "Been having thoughts, but of a different kind. You got into my head. I want you out. You always tried distracting me back when we sparred and now, you made it worse." },
+
+				{ Cue = "/VO/MelinoeField_3623", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "What are you talking about, what did {#Emph}I {#Prev}do...? ...Oh. By having thoughts you mean... feelings. So what now...?" },
+
+				{ Cue = "/VO/NemesisField_0449",
+					SecretMusic = "/Music/NarcissusTheme",
+					PreLineWait = 0.5,
+					Portrait = "Portrait_Nemesis_Averted_01",
+					Text = "Don't know yet, but... well we could stay here a bit, till enough is enough. Since it's quiet. Not binding you, just... too much solitude lately, and want to even it all out." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/NemesisField_0453", Text = "Oh, didn't need this but maybe you do." },
+					},
+					{
+						PreLineWait = 0.6,
+						UsePlayerSource = true,
+						{ Cue = "/VO/MelinoeField_3627", Text = "Bye, Nem..." },
+					},
+				},
+				{
+					Text = "Choice_NemesisBecomingCloser01",
+					Portrait = "Portrait_Nemesis_Averted_01",
+					IgnoreRawText = true,
+					IsNarration = true,
+					IgnoreContinueArrow = true,
+					BoxAnimation = "NarrationBubbleRomance",
+					BoxExitAnimation = "NarrationBubbleRomanceOut",
+					DisableCharacterFadeColorLag = true,
+					KeepContextArt = true,
+					TextOffsetY = 0,
+					PreContentSound = "/Leftovers/Menu Sounds/EmoteThoughtful",
+					Choices =
+					{
+						{
+							ChoiceText = "Choice_NemesisDecline",
+							{ Cue = "/VO/MelinoeField_3628",
+								UsePlayerSource = true,
+								PreLineWait = 1.0,
+								Portrait = "Portrait_Mel_Vulnerable_01",
+								PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+								PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+								Text = "...I'm much like you in not desiring too much of a good thing. I'm supposed to be on task, you're supposed to be on duty; I just don't think my mind would be at ease. Tell me you understand?" },
+
+							{ Cue = "/VO/NemesisField_0454",
+
+								EndSecretMusic = true,
+
+								PreLineWait = 1.0,
+								Portrait = "Portrait_Nemesis_Averted_01",
+
+								PreLineFunctionName = "NPCRewardDropPreProcess",
+								PostLineFunctionName = "NPCRewardDrop",
+								PostLineFunctionArgs = PresetEventArgs.NemesisGetFreeItemArgs,
+
+								Text = "I do. Forget I asked. Least we got to talk like this. Should get going, but... be seeing you around." },
+						},
+						{
+							ChoiceText = "Choice_NemesisAccept",
+							{ Cue = "/VO/MelinoeField_3624",
+								UsePlayerSource = true,
+								PreLineWait = 1.0,
+								PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+								PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+								Portrait = "Portrait_Mel_Pleased_01",
+								PortraitExitAnimation = "Portrait_Mel_Pleased_01_Exit",
+
+								PostLineFunctionName = "BecomingCloserPresentation",
+								PostLineFunctionArgs = { Sound2 = "/EmptyCue", Sound3 = "/EmptyCue", Partner = "Nemesis", TimeTicks = 10, ExtraWaitTime = 0.25 },
+
+								Text = "...Even it all out... well if we're to make ourselves comfortable and stay quiet, then your armor {#Emph}has {#Prev}to go. Why don't I lend a hand with that, and then we'll go from there?" },
+
+							-- INTERMISSION PRESENTATION
+
+							{ Cue = "/VO/MelinoeField_3625", UsePlayerSource = true,
+								Portrait = "Portrait_Mel_PleasedFlushed_01",
+								PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+								PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+								Text = "...Well your armor's definitely harder to put back on, but we got there. You all right, Nem? The distraction gone away at least...?" },
+
+							{ Cue = "/VO/NemesisField_0451",
+								PreLineWait = 1.0,
+								Portrait = "Portrait_Nemesis_Flushed_01",
+
+								Text = "Think so, and yeah, I'm better now. I'm good. What about you, are you... I mean..." },
+
+							{ Cue = "/VO/MelinoeField_3626", UsePlayerSource = true,
+								Portrait = "Portrait_Mel_PleasedFlushed_01",
+								PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+								PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+								Text = "I'm also good! This was a thrill...! We ought be on assignment, not alleviating solitude, but... you'd know better than anyone whether this was too much." },
+
+							{ Cue = "/VO/NemesisField_0452",
+
+								EndSecretMusic = true,
+
+								PreLineWait = 0.5,
+								Portrait = "Portrait_Nemesis_Flushed_01",
+
+								PreLineFunctionName = "NPCRewardDropPreProcess",
+								PostLineFunctionName = "NPCRewardDrop",
+								PostLineFunctionArgs = PresetEventArgs.NemesisGetFreeItemArgs,
+
+								PostLineThreadedFunctionName = "InCombatTextEvent",
+								PostLineThreadedFunctionArgs = GameData.PostIntermissionArgs,
+
+								Text = "Was just enough for now. Should get going, though could always do this again should the need arise." },
+						},
+					},
+				},
 			},
 
 			NemesisPostCombatAboutOceanus01 =
@@ -7315,6 +9870,144 @@ VariantSetData.NPC_Nemesis_01 =
 					Text = "No help at all, forget I even asked. Got to be some other way inside, and if not, just have to make one I guess. For now, enjoy the lack of competition while you can." },
 			},
 
+			NemesisPostCombatAboutTartarus02 =
+			{
+				PlayOnce = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				-- PreBlockSpecialInteract = true,
+				PostBlockSpecialInteract = true,
+				StatusAnimation = "StatusIconWantsToTalk",
+				PreEventFunctionName = "AngleNPCToHero",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisPostCombatAboutTartarus01" },
+					},
+					{
+						PathTrue = { "GameState", "EnemyKills", "Chronos" },
+					},
+				},
+
+				{ Cue = "/VO/MelinoeField_3676", UsePlayerSource = true,
+					PreLineThreadedFunctionName = "PlayCharacterAnim",
+					PreLineThreadedFunctionArgs = { Name = "MelTalkPensive01", WaitTime = 1, UsePlayerSource = true },
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Any progress locating a means to enter Tartarus? I'd transfer you my birthright if I could under the circumstances, though I'm reasonably certain that's not possible." },
+
+				{ Cue = "/VO/NemesisField_0455",
+					Text = "Got my own birthright, thanks. And yeah, been making progress. Three-headed monster near the maintenance access point to Tartarus... it digs up through the ground." },
+
+				{ Cue = "/VO/MelinoeField_3677", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "You plan to get into the lowest reaches of the Underworld through the hell-hole that beast leaves behind? You know that's Cerberus, my father's dog, don't you?" },
+
+				{ Cue = "/VO/NemesisField_0456",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					PostLineAnim = "Nemesis_Hub_Glare_End",
+					Text = "All the more reason that tunnel's going to lead me right where I need to be, one of these nights. Mark my words." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						{ Cue = "/VO/MelinoeField_3678", Text = "Consider them marked..." },
+					},
+				},
+			},
+
+			NemesisPostCombatAboutTartarus03 =
+			{
+				PlayOnce = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				-- PreBlockSpecialInteract = true,
+				PostBlockSpecialInteract = true,
+				StatusAnimation = "StatusIconWantsToTalk",
+				PreEventFunctionName = "AngleNPCToHero",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisPostCombatAboutTartarus02" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "I" },
+					},
+				},
+
+				{ Cue = "/VO/NemesisField_0457",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					Text = "Told you I'd make it all this way. Nice place your father's got. Though I guess Chronos since refurbished everything." },
+
+				{ Cue = "/VO/MelinoeField_3679", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Congratulations on infiltrating the lowest reaches, Nemesis. And if you've been drawing out some of our enemy's forces, all the better; plenty to go around. Reached Chronos yet?" },
+
+				{ Cue = "/VO/NemesisField_0458",
+					PreLineAnim = "Nemesis_Hub_Glare_End",
+					Text = "Got to what has to be the House of Hades, but you know what? They wouldn't let me in. Tried knocking, tried smashing down the door, no good. So Charon took me back." },
+
+				{ Cue = "/VO/MelinoeField_3680", UsePlayerSource = true,
+					Emote = "PortraitEmoteSurprise",
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "You got Charon to take you on his boat? He's never once permitted me!" },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						ObjectType = "NPC_Nemesis_01",
+						{ Cue = "/VO/NemesisField_0459", Text = "Guess you just don't have the birthright for it, Princess." },
+					},
+					{
+						PreLineWait = 0.33,
+						UsePlayerSource = true,
+						{ Cue = "/VO/MelinoeField_3681", Text = "{#Emph}...Ah." },
+					},
+				},
+			},
+
+			NemesisPostCombatPostTrueEnding01 =
+			{
+				PlayOnce = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				-- PreBlockSpecialInteract = true,
+				PostBlockSpecialInteract = true,
+				StatusAnimation = "StatusIconWantsToTalk",
+				PreEventFunctionName = "AngleNPCToHero",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+
+				{ Cue = "/VO/NemesisField_0477",
+					Text = "Knew you weren't finished, and you know what? Neither am I. Whatever it is you're doing now, I'm not being left out." },
+
+				{ Cue = "/VO/MelinoeField_4081", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Sure! Just have a chat with Headmistress or Grandfather Chronos and they'll fill you in on everything we're up to now." },
+
+				{ Cue = "/VO/NemesisField_0478",
+					Text = "Right. Meantime, anybody asks, I'm just out to stretch my legs and keep my sword arm in top form." },
+			},
+
 			NemesisPostCombatAboutChronos01 =
 			{
 				PlayOnce = true,
@@ -7444,7 +10137,8 @@ VariantSetData.NPC_Nemesis_01 =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "PrevRun", "RoomCountCache", "N_Boss01" },
+						Path = { "PrevRun", "RoomCountCache" },
+						HasAny = { "N_Boss01", "N_Boss02" },
 					},
 					{
 						Path = { "GameState", "RoomCountCache", "N_Opening01", },
@@ -7585,3 +10279,114 @@ VariantSetData.NPC_Nemesis_01 =
 
 OverwriteTableKeys( EnemyData, UnitSetData.NPC_Nemesis )
 OverwriteTableKeys( NPCVariantData, VariantSetData.NPC_Nemesis_01 )
+
+-- Global Nemesis Lines
+GlobalVoiceLines.NemesisDeathReactionVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 1.25,
+	NoTarget = true,
+	Source = { LineHistoryName = "NPC_Nemesis_01", SubtitleColor = Color.NemesisVoice },
+
+	{ Cue = "/VO/NemesisField_0326", Text = "Go home to Hecate, I'll handle it from here." },
+	{ Cue = "/VO/NemesisField_0327", Text = "Always said you don't have what it takes." },
+	{ Cue = "/VO/NemesisField_0328", Text = "Don't let me hear you blame the Fates for this." },
+	{ Cue = "/VO/NemesisField_0329", Text = "Thought you'd take more punishment than that." },
+	{ Cue = "/VO/NemesisField_0330", Text = "Got what was coming to you; I should know." },
+	{ Cue = "/VO/NemesisField_0331", Text = "Was all a bit too much for you, poor thing." },
+	{ Cue = "/VO/NemesisField_0332", Text = "We're all supposed to be counting on you?" },
+	{ Cue = "/VO/NemesisField_0333", Text = "Come on, you could have done better than that." },
+	{ Cue = "/VO/NemesisField_0334", Text = "Go, get your scrawny ass out of here." },
+	{ Cue = "/VO/NemesisField_0335", Text = "You never could handle the pressure you know." },
+}
+
+GlobalVoiceLines.NemesisGatherReactionVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.65,
+		SuccessiveChanceToPlay = 0.5,
+		ObjectType = "NPC_Nemesis_01",
+		GameStateRequirements =
+		{
+			{
+				PathEmpty = { "RequiredKillEnemies" },
+			},
+			{
+				PathFalse = { "CurrentRun", "Hero", "IsDead" }
+			},
+		},		
+		Cooldowns =
+		{
+			{ Name = "NemesisAnyQuipSpeech", Time = 10 },
+		},
+
+		{ Cue = "/VO/NemesisField_0402", Text = "Good for you." },
+		{ Cue = "/VO/NemesisField_0403", Text = "Thank the Fates." },
+		{ Cue = "/VO/NemesisField_0404", Text = "How fortunate for you." },
+		{ Cue = "/VO/NemesisField_0405", Text = "Well deserved." },
+		{ Cue = "/VO/NemesisField_0406", Text = "So what." },
+		{ Cue = "/VO/NemesisField_0407", Text = "What you need that for?" },
+		{ Cue = "/VO/NemesisField_0418", Text = "Lucky you." },
+		{ Cue = "/VO/NemesisField_0419", Text = "Great." },
+		{ Cue = "/VO/NemesisField_0420", Text = "Wow." },
+		{ Cue = "/VO/NemesisField_0421", Text = "So what." },
+	},
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.65,
+		SuccessiveChanceToPlay = 0.5,
+		ObjectType = "NPC_Nemesis_01",
+		GameStateRequirements =
+		{
+			{
+				PathNotEmpty = { "RequiredKillEnemies" },
+			},
+		},		
+		Cooldowns =
+		{
+			{ Name = "NemesisAnyQuipSpeech", Time = 10 },
+		},
+
+		{ Cue = "/VO/NemesisField_0414", Text = "Kidding me?" },
+		{ Cue = "/VO/NemesisField_0415", Text = "Get in the fight!" },
+		{ Cue = "/VO/NemesisField_0416", Text = "What are you doing?" },
+		{ Cue = "/VO/NemesisField_0417", Text = "Fight back!" },
+	},
+}
+
+GlobalVoiceLines.NemesisExorcismReactionVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.65,
+	SuccessiveChanceToPlay = 0.5,
+	ObjectType = "NPC_Nemesis_01",
+	Cooldowns =
+	{
+		{ Name = "NemesisAnyQuipSpeech", Time = 10 },
+	},
+
+	{ Cue = "/VO/NemesisField_0408", Text = "Why bother." },
+	{ Cue = "/VO/NemesisField_0409", Text = "Another Shade to watch." },
+	{ Cue = "/VO/NemesisField_0410", Text = "What did you do." },
+	{ Cue = "/VO/NemesisField_0411", Text = "How touching." },
+	{ Cue = "/VO/NemesisField_0412", Text = "What's the use." },
+	{ Cue = "/VO/NemesisField_0413", Text = "Dead weight." },
+}
+
+GlobalVoiceLines.NemesisScoffingVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.65,
+	SuccessiveChanceToPlay = 0.5,
+	ObjectType = "NPC_Nemesis_01",
+	PreLineAnim = "Nemesis_Hub_Greet",
+
+	{ Cue = "/VO/Nemesis_0105", Text = "{#Emph}Tsch." },
+	{ Cue = "/VO/Nemesis_0106", Text = "{#Emph}Hmph." },
+}

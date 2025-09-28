@@ -36,6 +36,7 @@ WeaponSetData =
 			PreAttackEndDuration = 0.35,
 
 			AttackDistance = 400,
+			AttackDistanceScaleY = 0.5,
 
 			RequireUnitLoS = true,
 			LoSBuffer = 50,
@@ -56,15 +57,8 @@ WeaponSetData =
 		{
 			FireSounds =
 			{
-				{ Name = "/SFX/Enemy Sounds/AutomatonEnforcer/EnforcerSwipe" },
+				{ Name = "/SFX/Enemy Sounds/CrusherAttackImpact" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.15, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.00, LerpTime = 0.04 },
 		},
 	},
 
@@ -150,13 +144,6 @@ WeaponSetData =
 			-- Rifts ban
 			DumbFireWeapons = {},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0 },
-		},
 	},
 
 	AutomatonEnforcerWhirlwind =
@@ -182,7 +169,7 @@ WeaponSetData =
 
 			FireTicks = 10,
 			FireInterval = 0.16,
-			FireSelfVelocity = 700,
+			FireSelfVelocity = 450,
 
 			ApplyEffectsOnWeaponFire =
 			{
@@ -199,16 +186,18 @@ WeaponSetData =
 
 			PreAttackDuration = 1.5,
 			FireDuration = 0.0,
-			PostAttackDurationMin = 1.0, -- anim is 0.98
-			PostAttackDurationMax = 1.3,
+			PostAttackDurationMin = 2.0, -- anim is 0.98
+			PostAttackDurationMax = 2.3,
 
 			PreAttackEndShake = true,
 			PreAttackEndDuration = 0.35,
 
+			PreAttackStop = true,
 			TrackTargetDuringCharge = true,
-			TrackTargetDuringFire = true,
 			PreAttackRotationDampening = 0.05,
+			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.05,
+			PostAttackStop = true,
 
 			AttackDistance = 700,
 
@@ -241,7 +230,7 @@ WeaponSetData =
 			DeepInheritance = true,
 
 			ProjectileName = "AutomatonWhirlwind_Elite",
-			FireSelfVelocity = 800,
+			FireSelfVelocity = 500,
 		},
 	},
 
@@ -260,16 +249,16 @@ WeaponSetData =
 			ProjectileName = "AutomatonBeamBolt",
 			BarrelLength = 150,
 			--SpawnFromMarker = "AutomatonBeamer_Rig:headPanel_00_M_JNT",
-			FireTicks = 15,
-			FireInterval = 0.175,
+			FireTicks = 10,
+			FireInterval = 0.30,
 
 			PreAttackStop = true,
 			StopBeforeFire = true,
 			PostAttackStop = true,
 			TrackTargetDuringCharge = true,
 			TrackTargetDuringFire = true,
-			PreAttackRotationDampening = 0.05,
-			FireRotationDampening = 0.04,
+			PreAttackRotationDampening = 0.045,
+			FireRotationDampening = 0.03,
 
 			PreAttackDuration = 1.5,
 			FireDuration = 0.0,
@@ -318,6 +307,8 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
+			SkipSurroundAICount = true,
+
 			ProjectileName = "AutomatonOrbit",
 			NumProjectiles = 4,
 			ProjectileAngleEvenlySpaced = true,
@@ -327,16 +318,11 @@ WeaponSetData =
 			SkipCanAttack = true,
 
 			PreAttackDuration = 1.0,
-			FireDuration = 3.0,
+			FireDuration = 1.5,
 			PostAttackDuration = 2.0,
 
 			PreAttackFunctionName = "WeaponSetImmuneToStun",
 			ApplyEffectsOnWeaponFire = { WeaponEffectData.AutomatonDefense },
-			--[[FireAddIncomingDamageModifier =
-			{
-				Name = "AutomatonBeamerDefense",
-				PlayerMultiplier = 0.1,
-			},]]
 
 			PostAttackFunctionName = "WeaponRevertStunImmunity",
 			PostAttackRemoveIncomingDamageModifier = "AutomatonBeamerDefense",
@@ -366,7 +352,7 @@ WeaponSetData =
 
 		Requirements =
 		{
-			MinAttacksBetweenUse = 2,
+			MaxUses = 1,
 		},	
 	},
 
@@ -403,10 +389,6 @@ WeaponSetData =
 
 	SentryBotBurst =
 	{
-		Requirements =
-		{
-			MaxAttackers = 3,
-		},
 
 		GameStateRequirements =
 		{
@@ -419,6 +401,7 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
+			ForceUseIfReady = true,
 
 			WaitForAngleTowardTarget = true,
 			TrackTargetDuringCharge = true,
@@ -429,22 +412,13 @@ WeaponSetData =
 			BarrelLength = 75,
 			Spread = 5,
 
-			--[[
-			FireTicks = 2,
-			FireInterval = 0.555,
-			FireTickSelfVelocity = 400,
-			FireTickSelfVelocityAngleOffset = 180,
-			FireTickSelfVelocityConsecutiveMultiplier = 0.95,
-			]]
 			FireFx = "SentryBotBoltFireFx",
 			
-			PreAttackDuration = 1.1,
+			PreAttackDuration = 0.9,
+			PreAttackAnimationSpeed = 1.2,
 			FireDuration = 0.2,
 			PostAttackDurationMin = 1.0,
 			PostAttackDurationMax = 1.2,
-
-			NumProjectiles = 3,
-			ProjectileInterval = 0.085,
 
 			PreAttackSound = "/SFX/Enemy Sounds/SentryBot/EmoteCharging",
 			PreAttackAnimation = "Enemy_SentryBot_BurstPreFire",
@@ -464,13 +438,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Mage/EmoteAttacking" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	SentryBotBurst_Elite =
@@ -481,8 +448,8 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
-			NumProjectiles = 5,
-			ProjectileInterval = 0.045,
+			NumProjectiles = 3,
+			ProjectileInterval = 0.09,
 		},
 	},
 
@@ -505,27 +472,26 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
+
+			SkipSurroundAICount = true,
 		},
 	},
 
 	SentryBotVent =
 	{
-		Requirements =
-		{
-			MinAttackers = 3,
-		},
-
-		--[[GameStateRequirements =
+		GameStateRequirements =
 		{
 			{
 				PathFromSource = true,
 				PathFalse = { "InAmbientBattle" },
 			},
-		},]]
+		},
 
 		AIData =
 		{
 			DeepInheritance = true,
+
+			SkipSurroundAICount = true,
 
 			ProjectileName = "SentryBotVent",
 
@@ -547,42 +513,6 @@ WeaponSetData =
 			PreAttackAnimation = "Enemy_SentryBot_VentPreFire",
 			FireAnimation = "Enemy_SentryBot_VentFire",
 			PostAttackAnimation = "Enemy_SentryBot_VentPostFire",
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.04, Fraction = 1.0, LerpTime = 0 },
-		},
-	},
-
-	SentryBotShutdown =
-	{
-		AIData =
-		{
-			DeepInheritance = true,
-
-			ProjectileName = "SentryBotExplosion",
-
-			PreAttackDuration = 1.0,
-			FireDuration = 0.0,
-			PostAttackDuration = 0,
-
-			PreAttackFx = "LobWarningDecalSentryBot",
-
-			AttackDistance = 300,
-
-			DoNotRepeatOnAttackFail = true,
-
-			PreAttackAnimation = "Enemy_SentryBot_Shutdown",
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 }

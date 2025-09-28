@@ -71,22 +71,20 @@
 }
 TraitSetData.BiomeStates =
 {
-
 	BiomeState =
 	{
 		BiomeStateTrait = true,
+		Hidden = true,
+		DebugOnly = true,
 	},
 
 	VanillaState = 
 	{
 		InheritFrom = {"BiomeState"},
-		Icon = "BiomeState_Vanilla",
 	},
 	WetState = 
 	{
 		InheritFrom = {"BiomeState"},
-		Icon = "BiomeState_Rain",
-		AddToLocationText = true,
 		SetupFunctions =
 		{
 			{
@@ -95,7 +93,6 @@ TraitSetData.BiomeStates =
 				Name = "RainPresentation",
 			}
 		},
-		HarvestPointChanceBonus = 0.60,
 	},
 }
 

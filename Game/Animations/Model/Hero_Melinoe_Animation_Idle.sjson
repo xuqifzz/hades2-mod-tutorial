@@ -49,6 +49,10 @@
 				BlendTransitionFrom = "Melinoe_Witchcraft_End"
 				Duration = 10
 			}
+			{
+				BlendTransitionFrom = "MelinoeWalkStop"
+				Duration = 20
+			}
 
 			/* Weapon Idle Blends for conversation start */
 			{

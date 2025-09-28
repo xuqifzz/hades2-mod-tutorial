@@ -14,7 +14,7 @@ OverwriteTableKeys( ObstacleData, {
 		ExitFunctionName = "ExitBiomeGRoomPresentation",
 		OnUsedEncounterCostPresentationFunctionName = "EncounterCostDoorUsedPresentation",
 
-		UnlockedSound = "/SFX/DartTrapEmitterActivateSlide",
+		UnlockedSound = "/SFX/OceanusTrapDoorSlide",
 		LockedUseSound = "/Leftovers/SFX/OutOfAmmo2",
 		UnlockedUseSound = "/SFX/Menu Sounds/GeneralWhooshMENULoudLow",
 

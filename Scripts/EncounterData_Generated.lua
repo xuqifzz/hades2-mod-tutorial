@@ -5,50 +5,13 @@ OverwriteTableKeys( EncounterData,
 	-- NOTE(andrew): Generated base and GeneratedF moved to 
 	-- EncounterData.lua for the Tech Test
 
-	GeneratedFInvasion =
-	{
-		InheritFrom = { "GeneratedF" },
-
-		UnthreadedEvents = EncounterSets.EncounterEventsInvasion,
-		SpawnAggroed = true,
-		RequireNearPlayerDistance = 600,
-		PreSpawnEnemies = false,
-
-		SpawnIntervalMin = 0.5,
-		SpawnIntervalMax = 2.0,
-
-		MinWaves = 1,
-		MaxWaves = 1,
-		MinTypes = 2,
-		MaxTypes = 3,
-
-		GameStateRequirements =
-		{
-			{
-				Path = { "GameState", "UseRecord", "NPC_Chronos_01" },
-				Comparison = ">=",
-				Value = 2,
-			},
-		},
-
-		SpawnOverrides =
-		{
-			ActivateDuration = 0.5,
-			--ActivateFx = "CerberusRockFall",
-			CreateProjectileOnActivationFinished = "SkyInvaderTouchdown",
-		},
-
-		NoFirstWaveStartDelay = false,
-
-		Blacklist = { FogEmitter = true },
-	},
-
 	GeneratedG =
 	{
 		InheritFrom = { "Generated" },
 		CanEncounterSkip = true,
+		BlockAthenaEncounterKeepsake = false,
 		EnemySet = EnemySets.BiomeG,
-		ActiveEnemyCapBase = 1.0,
+		ActiveEnemyCapBase = 3.0,
 		ActiveEnemyCapMax = 8.0,
 		ActiveEnemyCapDepthRamp = 1.0,
 		MinTypes = 1,
@@ -125,6 +88,7 @@ OverwriteTableKeys( EncounterData,
 		ActiveEnemyCapBase = 3.0,
 		--ExitsDontRequireCompleted = true,
 		CanEncounterSkip = false,
+		BlockAthenaEncounterKeepsake = true,
 		BaseDifficulty = 38,
 		DepthDifficultyRamp = 12,
 		SpawnAggroed = true,
@@ -137,6 +101,8 @@ OverwriteTableKeys( EncounterData,
 		EnemySet = EnemySets.BiomeHPassive,
 		BlockNextBiomeEnemyShrineUpgrade = true,
 		BlockEliteAttributes = true,
+
+		AggroRemainingEnemiesOnWaveStart = false,
 
 		DelayedStart = true,
 		NeverDelayStartFamiliar = true,
@@ -192,7 +158,9 @@ OverwriteTableKeys( EncounterData,
 		DistanceTriggers =
 		{
 			{
-				TriggerGroup = "GroundEnemies", WithinDistance = 650,
+				TriggerGroup = "GroundEnemies",
+				WithinDistance = 650,
+				PreTriggerWait = 1.0,
 				VoiceLines = { GlobalVoiceLines = "FieldsPassiveEnemiesSpottedVoiceLines" },
 			}
 		},
@@ -215,6 +183,7 @@ OverwriteTableKeys( EncounterData,
 	{
 		InheritFrom = { "Generated" },
 		CanEncounterSkip = true,
+		BlockAthenaEncounterKeepsake = false,
 		ForceEncounterStart = true,
 		UnthreadedEvents = EncounterSets.EncounterEventsH,
 		EnemySet = EnemySets.BiomeH,
@@ -279,7 +248,7 @@ OverwriteTableKeys( EncounterData,
 
 	GeneratedH_Treant2 =
 	{
-		InheritFrom = { "MinibossEncounter", "GeneratedH", },
+		InheritFrom = { "GeneratedH", },
 		BlockEliteAttributes = false,
 
 		GameStateRequirements =
@@ -300,9 +269,7 @@ OverwriteTableKeys( EncounterData,
 		MaxTypes = 2,
 		TypeCountDepthRamp = 0,
 		EnemyCountDepthRamp = 0,
-		MaxEliteTypes = 2,
-
-		EndMusicOnCombatOver = 20,
+		MaxEliteTypes = 1,
 
 		ManualWaveTemplates =
 		{
@@ -323,19 +290,20 @@ OverwriteTableKeys( EncounterData,
 				SkipWaitForAllDead = true
 			},
 		},
-
-		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
 	},
 
 	GeneratedH_Screamer2 =
 	{
-		InheritFrom = { "MinibossEncounter", "GeneratedH", },
+		InheritFrom = { "GeneratedH", },
 		BlockEliteAttributes = false,
 
 		GameStateRequirements =
 		{
 			{
 				PathFalse = { "CurrentRun", "EncountersOccurredCache", "GeneratedH_Screamer2" },
+			},
+			{
+				PathTrue = { "GameState", "EncountersCompletedCache", "ScreamerIntro" },
 			},
 			{
 				Path = { "CurrentRun", "BiomeDepthCache" },
@@ -350,9 +318,7 @@ OverwriteTableKeys( EncounterData,
 		MaxTypes = 2,
 		TypeCountDepthRamp = 0,
 		EnemyCountDepthRamp = 0,
-		MaxEliteTypes = 2,
-
-		EndMusicOnCombatOver = 20,
+		MaxEliteTypes = 1,
 
 		ManualWaveTemplates =
 		{
@@ -373,14 +339,13 @@ OverwriteTableKeys( EncounterData,
 				SkipWaitForAllDead = true
 			},
 		},
-
-		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
 	},
 
 	GeneratedI =
 	{
 		InheritFrom = { "Generated" },
 		CanEncounterSkip = true,
+		BlockAthenaEncounterKeepsake = false,
 
 		RequireNotRoomReward = { "ClockworkGoal" },
 
@@ -396,8 +361,7 @@ OverwriteTableKeys( EncounterData,
 		MaxWaves = 3,
 		BaseDifficulty = 325,
 		DepthDifficultyRamp = 105,
-		EnemySet = EnemySets.BiomeIOptional,
-		MaxEliteTypes = 4,
+		MaxEliteTypes = 3,
 		MoneyDropCapMin = 35,
 		MoneyDropCapMax = 45,
 		MoneyDropCapDepthRamp = 0,
@@ -438,8 +402,24 @@ OverwriteTableKeys( EncounterData,
 		ThreadedEvents =
 		{
 			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+				},
 				FunctionName = "HadesSpeakingPresentation",
 				Args = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice, BlockColorGrade = true, OverlayAnim = "ChronosOverlay", VoiceLines = { GlobalVoiceLines = "ChronosAlertVoiceLines" }, StartSound = "/SFX/TimeSlowStart", UseSurvivalPresentation = true, StartDelay = 1.0 },
+			},
+			{
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				FunctionName = "HadesSpeakingPresentation",
+				Args = { LineHistoryName = "NPC_LordHades_01", SubtitleColor = Color.HadesVoice, BlockColorGrade = true, OverlayAnim = "HadesOverlay", VoiceLines = { GlobalVoiceLines = "ChronosAlertVoiceLines" }, StartSound = "/SFX/SurvivalChallengeStart", UseSurvivalPresentation = true, StartDelay = 1.0 },
 			},
 		},
 
@@ -478,6 +458,7 @@ OverwriteTableKeys( EncounterData,
 		MinWaves = 2,
 		MaxWaves = 3,
 		DifficultyMultiplier = 0.85,
+		MaxTypesCap = 2,
 	},
 
 	GeneratedI_Small_GoalReward =
@@ -489,6 +470,8 @@ OverwriteTableKeys( EncounterData,
 		ActiveEnemyCapDepthRamp = 0,
 		MinWaves = 2,
 		MaxWaves = 3,
+
+		MaxTypesCap = 2,
 
 		RequireAnyRoomReward = { "ClockworkGoal" },
 		RequireNotRoomReward = { },
@@ -522,8 +505,24 @@ OverwriteTableKeys( EncounterData,
 		ThreadedEvents =
 		{
 			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+				},
 				FunctionName = "HadesSpeakingPresentation",
-				Args = { SubtitleColor = Color.ChronosVoice, BlockColorGrade = true, OverlayAnim = "ChronosOverlay", VoiceLines = { GlobalVoiceLines = "ChronosAlertVoiceLines" }, StartSound = "/SFX/TimeSlowStart", UseSurvivalPresentation = true, StartDelay = 1.0 },
+				Args = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice, BlockColorGrade = true, OverlayAnim = "ChronosOverlay", VoiceLines = { GlobalVoiceLines = "ChronosAlertVoiceLines" }, StartSound = "/SFX/TimeSlowStart", UseSurvivalPresentation = true, StartDelay = 1.0 },
+			},
+			{
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				FunctionName = "HadesSpeakingPresentation",
+				Args = { LineHistoryName = "NPC_LordHades_01", SubtitleColor = Color.HadesVoice, BlockColorGrade = true, OverlayAnim = "HadesOverlay", VoiceLines = { GlobalVoiceLines = "ChronosAlertVoiceLines" }, StartSound = "/SFX/SurvivalChallengeStart", UseSurvivalPresentation = true, StartDelay = 1.0 },
 			},
 		},
 
@@ -541,6 +540,7 @@ OverwriteTableKeys( EncounterData,
 	{
 		InheritFrom = { "Generated" },
 		CanEncounterSkip = true,
+		BlockAthenaEncounterKeepsake = false,
 		EnemySet = EnemySets.BiomeN,
 		ActiveEnemyCapBase = 4.0,
 		ActiveEnemyCapMax = 10,
@@ -598,7 +598,8 @@ OverwriteTableKeys( EncounterData,
 		MaxTypesCap = 2,
 		BaseDifficulty = 20,
 		DepthDifficultyRamp = 5,
-
+		
+		BlockDionysusEncounterKeepsake = true,
 		CountsForRoomEncounterDepth = false,
 
 		MaxEliteTypes = 1,
@@ -642,6 +643,7 @@ OverwriteTableKeys( EncounterData,
 	{
 		InheritFrom = { "Generated" },
 		CanEncounterSkip = true,
+		BlockAthenaEncounterKeepsake = false,
 		PreSpawnEnemies = false,
 		UnthreadedEvents = EncounterSets.EncounterEventsShipsCombat,
 		EnemySet = EnemySets.BiomeO,
@@ -657,16 +659,16 @@ OverwriteTableKeys( EncounterData,
 
 		ActiveEnemyCapBase = 4.0,
 		ActiveEnemyCapMax = 10,
-		ActiveEnemyCapDepthRamp = 0.45,
+		ActiveEnemyCapDepthRamp = 0.75,
 		MinTypes = 1,
 		MaxTypes = 2,
 		MinWaves = 1,
 		MaxWaves = 2,
-		TypeCountDepthRamp = 0.20,
+		TypeCountDepthRamp = 0.35,
 		EscalateTypeCount = true,
-		MaxTypesCap = 3,
+		MaxTypesCap = 2,
 		BaseDifficulty = 115,
-		DepthDifficultyRamp = 35,
+		DepthDifficultyRamp = 55,
 		UseEncounterDepth = true,
 		MaxEliteTypes = 2,
 		MoneyDropCapMin = 20,
@@ -675,9 +677,9 @@ OverwriteTableKeys( EncounterData,
 
 		HardEncounterOverrideValues =
 		{
-			DepthDifficultyRamp = 30,
+			DepthDifficultyRamp = 45,
 			MaxTypesCap = 4,
-			ActiveEnemyCapDepthRamp = 0.60
+			ActiveEnemyCapDepthRamp = 1.0
 		},
 
 		PostCombatAudioEvents =
@@ -707,6 +709,8 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "GeneratedO" },
 		EnemySet = EnemySets.BiomeOIntro,
 		RequireCompletedIntro = true,
+		
+		CountsForRoomEncounterDepth = false,
 
 		DelayedStart = false,
 		
@@ -719,7 +723,7 @@ OverwriteTableKeys( EncounterData,
 		MaxTypes = 2,
 		MaxTypesCap = 2,
 		BaseDifficulty = 50,
-		DepthDifficultyRamp = 30,
+		DepthDifficultyRamp = 45,
 		--DifficultyMultiplier = 0.5,
 		
 		EncounterRoomRewardOverride = "Empty",
@@ -785,11 +789,13 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "Generated" },
 		
 		CanEncounterSkip = true,
+		BlockAthenaEncounterKeepsake = false,
+		CheckAthenaEncounterKeepsakeOnSkipEncounterStart = true,
 		CanEncounterSkipIfNotFirst = false,
 		UsePreviousStartTime = true,
 
 		EnemySet = EnemySets.BiomeP,
-		ActiveEnemyCapBase = 3.0,
+		ActiveEnemyCapBase = 4.5,
 		ActiveEnemyCapMax = 9, -- Lower to account for Eagle
 		ActiveEnemyCapDepthRamp = 0.45,
 		MinTypes = 1,
@@ -798,8 +804,8 @@ OverwriteTableKeys( EncounterData,
 		MinWaves = 1,
 		MaxWaves = 2,
 		TypeCountDepthRamp = 0.33,
-		BaseDifficulty = 340,
-		DepthDifficultyRamp = 90,
+		BaseDifficulty = 430,
+		DepthDifficultyRamp = 85,
 		MaxEliteTypes = 3,
 		MoneyDropCapMin = 25,
 		MoneyDropCapMax = 35,
@@ -810,13 +816,13 @@ OverwriteTableKeys( EncounterData,
 
 		MaxTypesPerGroup =
 		{
-			Automatons = 2,
+			Automatons = 1,
 			ChronosForces = 2,
 		},
 
 		--PrioritizeGroup = "Automatons",
 		RandomPrioritizeGroup = { "Automatons", "ChronosForces" },
-		PauseDurationAfterPriorityGroup = 6.0,
+		PauseDurationAfterPriorityGroup = 1.0,
 
 		WaveStartUnthreadedEvents =
 		{
@@ -826,18 +832,11 @@ OverwriteTableKeys( EncounterData,
 				{
 					ChanceToPlay = 0.33,
 					{
-						SumPrevRooms = 1,
+						SumPrevRooms = 20,
 						CountPathTrue = true,
 						Path = { "OlympusEagleSpawn" },
 						Comparison = "<=",
 						Value = 0,
-					},
-					{
-						SumPrevRooms = 20,
-						CountPathTrue = true,
-						Path = { "OlympusEagleSpawn" },
-						Comparison = "<",
-						Value = 2,
 					},
 					{
 						PathFalse = { "CurrentRun", "CurrentRoom", "OlympusEagleSpawn" },
@@ -879,7 +878,7 @@ OverwriteTableKeys( EncounterData,
 			{
 				Path = { "CurrentRun", "BiomeDepthCache" },
 				Comparison = ">=",
-				Value = 10,
+				Value = 9,
 			},
 		},
 	},
@@ -894,8 +893,10 @@ OverwriteTableKeys( EncounterData,
 		SkipEndEncounterEffects = true,
 		SkipLastKillPresentation = true,
 		CountsForRoomEncounterDepth = false,
+		BlockNextBiomeEnemyShrineUpgrade = true,
 
 		DelayedStart = false,
+		SkipOnAllEnemiesDeadCleanup = true,
 
 		PreSpawnEnemies = true,
 		SpawnAggroed = false,
@@ -910,6 +911,8 @@ OverwriteTableKeys( EncounterData,
 		--DifficultyMultiplier = 0.5,
 		
 		EncounterRoomRewardOverride = "Empty",
+
+		AggroRemainingEnemiesOnWaveStart = false,
 
 		MaxTypesPerGroup =
 		{
@@ -997,30 +1000,93 @@ OverwriteTableKeys( EncounterData,
 	GeneratedQ =
 	{
 		InheritFrom = { "Generated" },
+
 		CanEncounterSkip = true,
-		EnemySet = EnemySets.BiomeN,
-		ActiveEnemyCapBase = 4.0,
-		ActiveEnemyCapMax = 10,
-		ActiveEnemyCapDepthRamp = 1,
-		MinTypes = 2,
+		BlockAthenaEncounterKeepsake = false,
+		EnemySet = EnemySets.BiomeQ,
+		ActiveEnemyCapBase = 3,
+		ActiveEnemyCapMax = 7,
+		ActiveEnemyCapDepthRamp = 0.25,
 		MaxTypes = 2,
-		MaxTypesCap = 3,
-		TypeCountDepthRamp = 0.20,
+		MaxTypesCap = 2,
+		TypeCountDepthRamp = 0.143,
 		EscalateTypeCount = true,
 		MinWaves = 1,
-		MaxWaves = 2,
-		--BaseDifficulty = 150,
-		--DepthDifficultyRamp = 5,
-
-		BaseDifficulty = 110,
+		MaxWaves = 1,
+		BaseDifficulty = 150,
 		DepthDifficultyRamp = 25,
 		UseEncounterDepth = true,
 		UseEncounterDepthForTypes = true,
 
-		MaxEliteTypes = 1,
-		MoneyDropCapMin = 15,
-		MoneyDropCapMax = 25,
+		MaxEliteTypes = 2,
+		MoneyDropCapMin = 60,
+		MoneyDropCapMax = 85,
 		MoneyDropCapDepthRamp = 0,
+
+		ThreadedEvents =
+		{
+			{ FunctionName = "TyphonIncursion",
+				GameStateRequirements =
+				{
+					OrRequirements =
+					{
+						{
+							{
+								Path = { "GameState", "RoomCountCache", "Q_Intro" },
+								Comparison = "<=",
+								Value = 1,
+							},
+							{
+								SumPrevRooms = 2,
+								CountPathTrue = true,
+								Path = { "TyphonIncursion" },
+								Comparison = "==",
+								Value = 0,
+							},
+						},
+						{
+							ChanceToPlay = 0.3,
+							{
+								SumPrevRooms = 2,
+								CountPathTrue = true,
+								Path = { "TyphonIncursion" },
+								Comparison = "==",
+								Value = 0,
+							},
+						},
+					},
+				},
+				Args =
+				{
+					DelayMin = 2.0, DelayMax = 9.0,
+					CameraMotion = true,
+					IncursionOptions =
+					{
+						TyphonIncursionTailImpale = { SpawnGroup = "TyphonTailIncursion" },
+						TyphonIncursionArmSlam = { SpawnGroup = "TyphonArmIncursion" },
+						TyphonIncursionArmFlick = { SpawnGroup = "TyphonArmIncursion" },
+					},
+				},
+			},
+		}
+	},
+
+	GeneratedQ_Large =
+	{
+		InheritFrom = { "GeneratedQ" },
+
+		ActiveEnemyCapDepthRamp = 0.5,
+		ActiveEnemyCapBase = 6,
+
+		BaseDifficulty = 525,
+		DepthDifficultyRamp = 25,
+	},
+
+	GeneratedQ_Islands =
+	{
+		InheritFrom = { "GeneratedQ" },
+
+		EnemySet = EnemySets.BiomeQIslands,
 	},
 
 })

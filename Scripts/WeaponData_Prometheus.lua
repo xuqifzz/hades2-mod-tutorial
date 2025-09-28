@@ -1,8 +1,16 @@
 WeaponSetData =
 {
 	-- MELEES
-	PrometheusSlam_Base =
+
+	-- Slam
+	-- Base
+	PrometheusSlam_Light =
 	{
+		Requirements =
+		{
+			MapAggressor = "Prometheus",
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
@@ -12,29 +20,41 @@ WeaponSetData =
 			FireProjectileNoDestination = true,
 			FireProjectileStartDelay = 0.075,
 
-			PreAttackStop = true,
-			TrackTargetDuringCharge = true,
+			PreAttackSetUnitProperties =
+			{
+				Speed = 700,
+			},
+			PostAttackResetUnitProperties = true,
+			PreAttackMoveTowardTarget = true,
+			PreAttackMoveTowardTargetLiveOffsetDistance = 200,
+			PreAttackMoveTowardTargetLiveOffsetAngle = 10,
 			StopBeforeFire = true,
-			--TrackTargetDuringFire = true,
-			--PostAttackStop = true,
+			PreAttackRotationDampening = 0.17,
+			TrackTargetDuringCharge = true,
+			PostAttackStop = true,
 
-			PreAttackDuration = 0.465,
+			PreAttackStartMinWaitTime = 0.235,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackDuration = 0.783,
 			FireDuration = 0.275,
-			PostAttackDuration = 0.12,
+			PostAttackDuration = 0.6,
 
 			MoveWithinRange = true,
 			MoveWithinRangeTimeoutMin = 2.0,
 			MoveWithinRangeTimeoutMax = 3.0,
-			AttackDistance = 350,
+			AttackDistance = 800,
+			AttackDistanceScaleY = 0.6,
+			MoveSuccessDistance = 10,
 
 			PreAttackSound = "/SFX/Enemy Sounds/CorruptedShadeLarge/Charge",
+
 			PreAttackAnimation = "Enemy_Prometheus_GroundPoundPreFire",
-			FireAnimation = "Enemy_Prometheus_GroundPoundFire",
+			FireAnimation = "Enemy_Prometheus_GroundPoundFire_Fast",
 			PostAttackAnimation = "Enemy_Prometheus_GroundPoundPostFire_Fast",
 
 			AttackVoiceLines =
 			{
-				[1] = { GlobalVoiceLines = "PrometheusAttackLines" },
+				{ GlobalVoiceLines = "PrometheusAttackLines" },
 			},
 		},
 
@@ -46,33 +66,325 @@ WeaponSetData =
 			},
 		},
 	},
-
-	PrometheusKick_Base =
+	PrometheusSlam_Heavy =
 	{
+		Requirements =
+		{
+			MapAggressor = "Prometheus",
+		},
+
+		AIData =
+		{			
+			DeepInheritance = true,
+
+			AttackSlots =
+			{
+				{ ProjectileName = "PrometheusGroundPound", PauseDuration = 0.45 },
+				{ ProjectileName = "PrometheusGroundPoundNova", },
+			},
+
+			BarrelLength = 50,
+			FireProjectileNoDestination = true,
+			FireProjectileStartDelay = 0.075,
+
+			PreAttackFx = "PrometheusChargingFx",
+			EndPreAttackFx = true,
+
+			PreAttackStop = true,
+			TrackTargetDuringCharge = true,
+			StopBeforeFire = true,
+
+			PreAttackDuration = 1.08,
+			FireDuration = 0.1,
+			PostAttackDuration = 2.775,
+			PostAttackMinWaitTime = 2.5,
+
+			MoveWithinRange = true,
+			MoveWithinRangeTimeoutMin = 2.0,
+			MoveWithinRangeTimeoutMax = 3.0,
+			AttackDistance = 350,
+
+			PreAttackSound = "/SFX/Enemy Sounds/CorruptedShadeLarge/Charge",
+
+			PreAttackAnimation = "Enemy_Prometheus_GroundPoundPreFire_Charged",
+			FireAnimation = "Enemy_Prometheus_GroundPoundFire",
+			PostAttackAnimation = "Enemy_Prometheus_GroundPoundPostFire",
+
+			PreAttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "PrometheusPreAttackLines" },
+			},
+			AttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "PrometheusAttackLines" },
+			},
+		},
+
+		--Sounds =
+		--{
+			--FireSounds =
+			--{
+				--{ Name = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGroundSlam" },
+			--},
+		--},
+	},
+
+	-- Phase
+	PrometheusSlam_P1 =
+	{
+		InheritFrom = { "PrometheusSlam_Heavy", },
+		Requirements =
+		{
+			MapAggressor = "Prometheus",
+			MinAttacksBetweenUse = 2,
+		},
+		AIData =
+		{
+			PostAttackThreadedFunctionName = "PrometheusPostAttackForesight",
+			PostAttackEndFunctionName = "PrometheusCancelPostAttackForesight",
+		},
+	},
+	PrometheusSlam_P2_Starter =
+	{
+		InheritFrom = { "PrometheusSlam_Light", },
+		Requirements =
+		{
+			MinAttacksBetweenUse = 7,
+			MapAggressor = "Prometheus",
+		},
+		AIData =
+		{
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 3,
+							},
+						}
+					},
+					Data =
+					{
+						ChainedWeaponOptions =
+						{
+							"PrometheusKick_P2_Filler", "PrometheusFlurry_P2_Filler", "PrometheusUppercut_P2_Filler",
+						},
+					},
+				},
+			},
+
+			ChainedWeaponOptions =
+			{
+				"PrometheusKick_P2_Filler", "PrometheusUppercut_P2_Filler",
+			},
+		},
+	},
+	PrometheusSlam_P2_Filler =
+	{
+		InheritFrom = { "PrometheusSlam_Light", },
+		Requirements =
+		{
+			-- null
+		},
+		AIData =
+		{
+			MoveWithinRangeTimeoutMin = 0.2,
+			MoveWithinRangeTimeoutMax = 0.2,
+
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 3,
+							},
+						}
+					},
+					Data =
+					{
+						ChainedWeaponOptions =
+						{
+							"PrometheusKick_P2_Ender", "PrometheusFlurry_P2_Ender", "PrometheusUppercut_P2_Ender",
+						},
+					},
+				},
+			},
+
+			ChainedWeaponOptions =
+			{
+				"PrometheusKick_P2_Ender", "PrometheusUppercut_P2_Ender",
+			},
+		},
+	},
+	PrometheusSlam_P2_Ender =
+	{
+		InheritFrom = { "PrometheusSlam_Heavy", },
+
+		AIData =
+		{
+			MoveWithinRangeTimeoutMin = 0.25,
+			MoveWithinRangeTimeoutMax = 0.25,
+
+			PostAttackDuration = 2.1,
+			PostAttackMinWaitTime = 1.89,
+
+			PostAttackThreadedFunctionName = "PrometheusPostAttackForesight",
+			PostAttackEndFunctionName = "PrometheusCancelPostAttackForesight",
+		},
+	},
+	PrometheusSlam_P3_Starter =
+	{
+		InheritFrom = { "PrometheusSlam_Light", },
+		Requirements =
+		{
+			MinAttacksBetweenUse = 7,
+			MapAggressor = "Prometheus",
+		},
+		AIData =
+		{
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 3,
+							},
+						}
+					},
+					Data =
+					{
+						ChainedWeaponOptions =
+						{
+							"PrometheusKick_P3_Filler", "PrometheusFlurry_P3_Filler", "PrometheusUppercut_P3_Filler",
+						},
+					},
+				},
+			},
+
+			ChainedWeaponOptions =
+			{
+				"PrometheusKick_P3_Filler", "PrometheusUppercut_P3_Filler",
+			},
+		},
+	},
+	PrometheusSlam_P3_Filler =
+	{
+		InheritFrom = { "PrometheusSlam_Light", },
+		Requirements =
+		{
+			-- null
+		},
+		AIData =
+		{
+			MoveWithinRangeTimeoutMin = 0.2,
+			MoveWithinRangeTimeoutMax = 0.2,
+
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 3,
+							},
+						}
+					},
+					Data =
+					{
+						ChainedWeaponOptions =
+						{
+							"PrometheusKick_P3_Ender", "PrometheusFlurry_P3_Ender", "PrometheusUppercut_P3_Ender",
+						},
+					},
+				},
+			},
+
+			ChainedWeaponOptions =
+			{
+				"PrometheusKick_P3_Ender", "PrometheusUppercut_P3_Ender",
+			},
+		},
+	},
+	PrometheusSlam_P3_Ender =
+	{
+		InheritFrom = { "PrometheusSlam_Heavy", },
+		AIData =
+		{
+			MoveWithinRangeTimeoutMin = 0.25,
+			MoveWithinRangeTimeoutMax = 0.25,
+
+			PostAttackDuration = 1.8,
+			PostAttackMinWaitTime = 1.62,
+
+			PostAttackThreadedFunctionName = "PrometheusPostAttackForesight",
+			PostAttackEndFunctionName = "PrometheusCancelPostAttackForesight",
+		},
+	},
+
+	-- Kick
+	-- Base
+	PrometheusKick_Light =
+	{
+		Requirements =
+		{
+			MapAggressor = "Prometheus",
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
 
 			ProjectileName = "PrometheusKick",
+			FireProjectileStartDelay = 0.04,
 
-			PreAttackStop = true,
-			TrackTargetDuringCharge = true,
-			PreAttackRotationDampening = 0.15,
+			PreAttackSetUnitProperties =
+			{
+				Speed = 700,
+			},
+			PostAttackResetUnitProperties = true,
+			PreAttackMoveTowardTarget = true,
+			PreAttackMoveTowardTargetLiveOffsetDistance = 200,
+			PreAttackMoveTowardTargetLiveOffsetAngle = 10,
 			StopBeforeFire = true,
-			--TrackTargetDuringFire = true,
-			--PostAttackStop = true,
+			TrackTargetDuringCharge = true,
+			PreAttackRotationDampening = 0.17,
+			PostAttackStop = true,
 
-			PreAttackDuration = 0.5 * 1.1,
-			PreAttackAnimationSpeed = 0.9,
+			PreAttackStartMinWaitTime = 0.042,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackDuration = 0.55,
 			FireDuration = 0.39,
-			PostAttackDuration = 0.05,
+			PostAttackDuration = 0.6,
 
 			MoveWithinRange = true,
 			MoveWithinRangeTimeoutMin = 2.0,
 			MoveWithinRangeTimeoutMax = 3.0,
-			AttackDistance = 280,
-
-			--PreAttackSound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusKickCharge",
+			AttackDistance = 600,
+			AttackDistanceScaleY = 0.67,
+			MoveSuccessDistance = 10,
 
 			PreAttackAnimation = "Enemy_Prometheus_KickPreFire",
 			FireAnimation = "Enemy_Prometheus_KickFire",
@@ -80,7 +392,7 @@ WeaponSetData =
 
 			AttackVoiceLines =
 			{
-				[1] = { GlobalVoiceLines = "PrometheusAttackLines" },
+				{ GlobalVoiceLines = "PrometheusAttackLines" },
 			},
 		},
 
@@ -92,9 +404,311 @@ WeaponSetData =
 			},
 		},
 	},
-
-	PrometheusFlurry_Base =
+	PrometheusKick_Heavy =
 	{
+		Requirements =
+		{
+			MapAggressor = "Prometheus",
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			AttackSlots =
+			{
+				{ ProjectileName = "PrometheusKick", PauseDuration = 0.25 },
+				{ ProjectileName = "PrometheusKickFireWave", AIDataOverrides = { BarrelLength = 300 }, },
+			},
+
+			FireProjectileStartDelay = 0.04,
+			PreAttackStop = true,
+			TrackTargetDuringCharge = true,
+			PreAttackRotationDampening = 0.15,
+			StopBeforeFire = true,
+
+			PreAttackDuration = 1.0,
+			FireDuration = 0.14,
+			PostAttackDuration = 2.4,
+			PostAttackMinWaitTime = 2.16,
+
+			MoveWithinRange = true,
+			MoveWithinRangeTimeoutMin = 2.0,
+			MoveWithinRangeTimeoutMax = 3.0,
+			AttackDistance = 280,
+
+			PreAttackAnimation = "Enemy_Prometheus_KickPreFire_Charged",
+			FireAnimation = "Enemy_Prometheus_KickFire",
+			PostAttackAnimation = "Enemy_Prometheus_KickPostFire",
+
+			PreAttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "PrometheusPreAttackLines" },
+			},
+			AttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "PrometheusAttackLines" },
+			},
+		},
+	},
+	PrometheusKick_Heavy_Passive =
+	{
+		InheritFrom = { "PrometheusKick_Heavy" },
+		Requirements =
+		{
+			MapAggressor = "Heracles",
+		},
+		AIData =
+		{
+			DeepInheritance = true,
+
+			MoveWithinRange = true,
+			AttackDistance = 1000,
+			AttackDistanceScaleY = 0.5,
+			StopMoveWithinRange = true,
+			PreAttackStop = true,
+			WaitForAngleTowardTarget = true,
+
+			RetreatBeforeAttack = true,
+			RetreatToSpawnPoints = true,
+			RetreatToSpawnPointRadius = 500,
+			RetreatBufferDistance = 1500,
+			RetreatTimeout = 1.75,
+		},
+
+	},
+
+	-- Phase
+	PrometheusKick_P1 =
+	{
+		InheritFrom = { "PrometheusKick_Heavy", },
+		Requirements =
+		{
+			MinAttacksBetweenUse = 2,
+			MapAggressor = "Prometheus",
+		},
+		AIData =
+		{
+			PostAttackThreadedFunctionName = "PrometheusPostAttackForesight",
+			PostAttackEndFunctionName = "PrometheusCancelPostAttackForesight",
+		},
+	},
+	PrometheusKick_P2_Starter =
+	{
+		InheritFrom = { "PrometheusKick_Light", },
+		Requirements =
+		{
+			MinAttacksBetweenUse = 7,
+			MapAggressor = "Prometheus",
+		},
+		AIData =
+		{
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 3,
+							},
+						}
+					},
+					Data =
+					{
+						ChainedWeaponOptions =
+						{
+							"PrometheusSlam_P2_Filler", "PrometheusFlurry_P2_Filler", "PrometheusUppercut_P2_Filler",
+						},
+					},
+				},
+			},
+
+			ChainedWeaponOptions =
+			{
+				"PrometheusSlam_P2_Filler", "PrometheusUppercut_P2_Filler",
+			},
+		},
+	},
+	PrometheusKick_P2_Filler =
+	{
+		InheritFrom = { "PrometheusKick_Light", },
+		Requirements =
+		{
+			-- null
+		},
+		AIData =
+		{
+			MoveWithinRangeTimeoutMin = 0.2,
+			MoveWithinRangeTimeoutMax = 0.2,
+
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 3,
+							},
+						}
+					},
+					Data =
+					{
+						ChainedWeaponOptions =
+						{
+							"PrometheusSlam_P2_Ender", "PrometheusFlurry_P2_Ender", "PrometheusUppercut_P2_Ender",
+						},
+					},
+				},
+			},
+
+			ChainedWeaponOptions =
+			{
+				"PrometheusSlam_P2_Ender", "PrometheusUppercut_P2_Ender",
+			},
+		},
+	},
+	PrometheusKick_P2_Ender =
+	{
+		InheritFrom = { "PrometheusKick_Heavy", },
+		Requirements =
+		{
+			MinAttacksBetweenUse = 2,
+		},
+		AIData =
+		{
+			PreAttackRotationDampening = 0.5,
+
+			MoveWithinRangeTimeoutMin = 0.25,
+			MoveWithinRangeTimeoutMax = 0.25,
+
+			PostAttackDuration = 2.1,
+			PostAttackMinWaitTime = 1.89,
+
+			PostAttackThreadedFunctionName = "PrometheusPostAttackForesight",
+			PostAttackEndFunctionName = "PrometheusCancelPostAttackForesight",
+		},
+	},
+	PrometheusKick_P3_Starter =
+	{
+		InheritFrom = { "PrometheusKick_Light", },
+		Requirements =
+		{
+			MinAttacksBetweenUse = 7,
+			MapAggressor = "Prometheus",
+		},
+		AIData =
+		{
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 3,
+							},
+						}
+					},
+					Data =
+					{
+						ChainedWeaponOptions =
+						{
+							"PrometheusSlam_P3_Filler", "PrometheusFlurry_P3_Filler", "PrometheusUppercut_P3_Filler",
+						},
+					},
+				},
+			},
+
+			ChainedWeaponOptions =
+			{
+				"PrometheusSlam_P3_Filler", "PrometheusUppercut_P3_Filler",
+			},
+		},
+	},
+	PrometheusKick_P3_Filler =
+	{
+		InheritFrom = { "PrometheusKick_Light", },
+		Requirements =
+		{
+			-- null
+		},
+		AIData =
+		{
+			MoveWithinRangeTimeoutMin = 0.2,
+			MoveWithinRangeTimeoutMax = 0.2,
+
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 3,
+							},
+						}
+					},
+					Data =
+					{
+						ChainedWeaponOptions =
+						{
+							"PrometheusSlam_P3_Ender", "PrometheusFlurry_P3_Ender", "PrometheusUppercut_P3_Ender",
+						},
+					},
+				},
+			},
+
+			ChainedWeaponOptions =
+			{
+				"PrometheusSlam_P3_Ender", "PrometheusFlurry_P3_Ender", "PrometheusUppercut_P3_Ender",
+			},
+		},
+	},
+	PrometheusKick_P3_Ender =
+	{
+		InheritFrom = { "PrometheusKick_Heavy", },
+		AIData =
+		{
+			PreAttackRotationDampening = 0.5,
+
+			MoveWithinRangeTimeoutMin = 0.25,
+			MoveWithinRangeTimeoutMax = 0.25,
+
+			PostAttackDuration = 1.8,
+			PostAttackMinWaitTime = 1.62,			
+
+			PostAttackThreadedFunctionName = "PrometheusPostAttackForesight",
+			PostAttackEndFunctionName = "PrometheusCancelPostAttackForesight",
+		},
+	},
+
+	-- Flurry
+	-- Base
+	PrometheusFlurry_Light =
+	{
+		Requirements =
+		{
+			MapAggressor = "Prometheus",
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
@@ -108,22 +722,19 @@ WeaponSetData =
 			PreAttackRotationDampening = 0.35,
 			TrackTargetDuringCharge = true,
 			StopBeforeFire = true,
-			--TrackTargetDuringFire = true,
-			--PostAttackStop = true,
 
-			PreAttackDuration = 0.46 * 1.25,
-			PreAttackAnimationSpeed = 0.75,
+			PreAttackStartMinWaitTime = 0.20,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackDuration = 0.75,
 			FireTicks = 5,
 			FireInterval = 0.05,
 			FireDuration = 0.0,
-			PostAttackDuration = 0.15,
+			PostAttackDuration = 0.6,
 
 			MoveWithinRange = true,
 			MoveWithinRangeTimeoutMin = 2.0,
 			MoveWithinRangeTimeoutMax = 3.0,
 			AttackDistance = 200,
-
-			--PreAttackSound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusKickCharge",
 
 			PreAttackAnimation = "Enemy_Prometheus_FlurryPreFire",
 			FireAnimation = "Enemy_Prometheus_FlurryFire",
@@ -132,7 +743,7 @@ WeaponSetData =
 
 			AttackVoiceLines =
 			{
-				[1] = { GlobalVoiceLines = "PrometheusAttackLines" },
+				{ GlobalVoiceLines = "PrometheusAttackLines" },
 			},
 		},
 
@@ -144,9 +755,206 @@ WeaponSetData =
 			},
 		},
 	},
-
-	PrometheusUppercut_Base =
+	PrometheusFlurry_Heavy =
 	{
+		Requirements =
+		{
+			MapAggressor = "Prometheus",
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			AttackSlots =
+			{
+				{ ProjectileName = "PrometheusPunch", AIDataOverrides = { Spread = 5 }, PauseDuration = 0.08 },
+				{ ProjectileName = "PrometheusFlurry", AIDataOverrides = { Spread = 60 }, },
+			},
+
+			PreAttackStop = true,
+			PreAttackRotationDampening = 0.35,
+			TrackTargetDuringCharge = true,
+			StopBeforeFire = true,
+
+
+			PreAttackDuration = 1.0,
+
+			FireTicks = 5,
+			FireInterval = 0.05,
+			FireDuration = 0.0,
+
+			PostAttackDuration = 2.6,
+			PostAttackMinWaitTime = 2.34,
+
+			MoveWithinRange = true,
+			MoveWithinRangeTimeoutMin = 2.0,
+			MoveWithinRangeTimeoutMax = 3.0,
+			AttackDistance = 200,
+
+			PreAttackAnimation = "Enemy_Prometheus_FlurryPreFire_Charged",
+			FireAnimation = "Enemy_Prometheus_FlurryFire",
+			PostAttackAnimation = "Enemy_Prometheus_FlurryPostFire",
+			AttackSound = "/SFX/Player Sounds/MelTorchFireBasic",
+
+			PreAttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "PrometheusPreAttackLines" },
+			},
+
+			AttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "PrometheusAttackLines" },
+			},
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				--{ Name = "/SFX/Enemy Sounds/Polyphemus/PolyphemusKick" },
+			},
+		},
+	},
+	PrometheusFlurry_HeraclesCombo =
+	{
+		InheritFrom = { "PrometheusFlurry_Heavy" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+		},
+	},
+
+	-- Phase
+	PrometheusFlurry_P1 =
+	{
+		InheritFrom = { "PrometheusFlurry_Heavy", },
+		Requirements =
+		{
+			MapAggressor = "Prometheus",
+			MinAttacksBetweenUse = 2,
+		},
+		AIData =
+		{
+			PostAttackThreadedFunctionName = "PrometheusPostAttackForesight",
+			PostAttackEndFunctionName = "PrometheusCancelPostAttackForesight",
+		},
+	},
+	PrometheusFlurry_P2_Starter =
+	{
+		InheritFrom = { "PrometheusFlurry_Light", },
+		Requirements =
+		{
+			MapAggressor = "Prometheus",
+			MinAttacksBetweenUse = 7,
+		},
+		AIData =
+		{
+			ChainedWeaponOptions =
+			{
+				"PrometheusSlam_P2_Filler", "PrometheusKick_P2_Filler", "PrometheusUppercut_P2_Filler",
+			},
+		},
+	},
+	PrometheusFlurry_P2_Filler =
+	{
+		InheritFrom = { "PrometheusFlurry_Light", },
+		Requirements =
+		{
+			-- null
+		},
+		AIData =
+		{
+			MoveWithinRangeTimeoutMin = 0.2,
+			MoveWithinRangeTimeoutMax = 0.2,
+
+			ChainedWeaponOptions =
+			{
+				"PrometheusSlam_P2_Ender", "PrometheusKick_P2_Ender", "PrometheusUppercut_P2_Ender",
+			},
+		},
+	},
+	PrometheusFlurry_P2_Ender =
+	{
+		InheritFrom = { "PrometheusFlurry_Heavy", },
+
+		Requirements =
+		{
+			MinAttacksBetweenUse = 2,
+		},
+
+		AIData =
+		{
+			PostAttackDuration = 2.1,
+			PostAttackMinWaitTime = 1.89,
+
+			MoveWithinRangeTimeoutMin = 0.25,
+			MoveWithinRangeTimeoutMax = 0.25,
+
+			PostAttackThreadedFunctionName = "PrometheusPostAttackForesight",
+			PostAttackEndFunctionName = "PrometheusCancelPostAttackForesight",
+		},
+	},
+	PrometheusFlurry_P3_Starter =
+	{
+		InheritFrom = { "PrometheusFlurry_Light", },
+		Requirements =
+		{
+			MapAggressor = "Prometheus",
+			MinAttacksBetweenUse = 7,
+		},
+		AIData =
+		{
+			ChainedWeaponOptions =
+			{
+				"PrometheusSlam_P3_Filler", "PrometheusKick_P3_Filler", "PrometheusUppercut_P3_Filler",
+			},
+		},
+	},
+	PrometheusFlurry_P3_Filler =
+	{
+		InheritFrom = { "PrometheusFlurry_Light", },
+		Requirements =
+		{
+			-- null
+		},
+		AIData =
+		{
+			MoveWithinRangeTimeoutMin = 0.2,
+			MoveWithinRangeTimeoutMax = 0.2,
+
+			ChainedWeaponOptions =
+			{
+				"PrometheusSlam_P3_Ender", "PrometheusKick_P3_Ender", "PrometheusUppercut_P3_Ender",
+			},
+		},
+	},
+	PrometheusFlurry_P3_Ender =
+	{
+		InheritFrom = { "PrometheusFlurry_Heavy", },
+		AIData =
+		{
+			PostAttackDuration = 1.8,
+			PostAttackMinWaitTime = 1.62,
+
+			MoveWithinRangeTimeoutMin = 0.25,
+			MoveWithinRangeTimeoutMax = 0.25,
+
+			PostAttackThreadedFunctionName = "PrometheusPostAttackForesight",
+			PostAttackEndFunctionName = "PrometheusCancelPostAttackForesight",
+		},
+	},
+
+	-- Uppercut
+	-- Base
+	PrometheusUppercut_Light =
+	{
+		Requirements =
+		{
+			MapAggressor = "Heracles",
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
@@ -155,10 +963,11 @@ WeaponSetData =
 
 			FireProjectileStartDelay = 0.09,
 
-			PreAttackDuration = 0.465 * 1.3,
-			PreAttackAnimationSpeed = 0.7,
+			PreAttackStartMinWaitTime = 0.16,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackDuration = 0.69,
 			FireDuration = 0.365,
-			PostAttackDuration = 0.1,
+			PostAttackDuration = 0.6,
 
 			PreAttackAnimation = "Enemy_Prometheus_UppercutPreFire",
 			FireAnimation = "Enemy_Prometheus_UppercutFire",
@@ -169,22 +978,87 @@ WeaponSetData =
 			MoveWithinRangeTimeoutMax = 3.0,
 			AttackDistance = 300,
 
-			--PreAttackSound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusKickCharge",
-
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.1,
 			PreAttackStop = true,
 			TrackTargetDuringCharge = true,
+			PreAttackRotationDampening = 0.2,
 			StopBeforeFire = true,
-			--TrackTargetDuringFire = true,
-			--PostAttackStop = true,
 
-			PreAttackVoiceLines =
-			{
-				[1] = { GlobalVoiceLines = "PrometheusPreAttackLines" },
-			},
+			RetreatBeforeAttack = true,
+			RetreatBufferDistance = 1500,
+			RetreatTimeout = 1.75,
+			RetreatToSpawnPoints = true,
+			RetreatToSpawnPointRadius = 500,
 
 			AttackVoiceLines =
 			{
-				[1] = { GlobalVoiceLines = "PrometheusAttackLines" },
+				{ GlobalVoiceLines = "PrometheusAttackLines" },
+			},
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Player Sounds/ZagreusFistBigWhoosh" },
+				{ Name = "/SFX/Enemy Sounds/Polyphemus/PolyphemusKick" },
+			},
+		},
+	},
+	PrometheusUppercut_Heavy =
+	{
+		Requirements =
+		{
+			MapAggressor = "Heracles",
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			AttackSlots =
+			{
+				{ ProjectileName = "PrometheusUppercut", PauseDuration = 0.1 },
+				{ ProjectileName = "PrometheusUppercutWhirlwind", AIDataOverrides = { BarrelLength = 500, }, },
+			},
+
+			FireProjectileStartDelay = 0.09,
+
+			PreAttackDuration = 1.1,
+			FireDuration = 0.265,
+			PostAttackDuration = 2.5,
+			PostAttackMinWaitTime = 2.25,
+
+			PreAttackAnimation = "Enemy_Prometheus_UppercutPreFire_Charged",
+			FireAnimation = "Enemy_Prometheus_UppercutFire",
+			PostAttackAnimation = "Enemy_Prometheus_UppercutPostFire",
+
+			MoveWithinRange = true,
+			MoveWithinRangeTimeoutMin = 2.0,
+			MoveWithinRangeTimeoutMax = 3.0,
+			AttackDistance = 300,
+
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.1,
+			PreAttackStop = true,
+			TrackTargetDuringCharge = true,
+			PreAttackRotationDampening = 0.2,
+			StopBeforeFire = true,
+
+			RetreatBeforeAttack = true,
+			RetreatBufferDistance = 1500,
+			RetreatTimeout = 1.75,
+			RetreatToSpawnPoints = true,
+			RetreatToSpawnPointRadius = 500,
+
+			PreAttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "PrometheusPreAttackLines" },
+			},
+			AttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "PrometheusAttackLines" },
 			},
 		},
 
@@ -198,700 +1072,225 @@ WeaponSetData =
 		},
 	},
 
-	-- PHASE 1
-	PrometheusSlam_P1 =
-	{
-		InheritFrom = { "PrometheusSlam_Base", },
-		Requirements =
-		{
-			MinAttacksBetweenUse = 2,
-		},
-		AIData =
-		{
-			AttackSlots =
-			{
-				{ ProjectileName = "PrometheusGroundPound", PauseDuration = 0.45 },
-				{ ProjectileName = "PrometheusGroundPoundNova", },
-			},
-
-			PreAttackFx = "PrometheusChargingFx",
-			EndPreAttackFx = true,
-
-			PreAttackDuration = 0.86,
-			FireDuration = 0.275,
-			PostAttackDuration = 2.6,
-
-			PreAttackVoiceLines =
-			{
-				[1] = { GlobalVoiceLines = "PrometheusPreAttackLines" },
-			},
-
-			PreAttackAnimation = "Enemy_Prometheus_GroundPoundPreFire_Charged",
-			PostAttackAnimation = "Enemy_Prometheus_GroundPoundPostFire",
-		},
-	},
-
-	PrometheusKick_P1 =
-	{
-		InheritFrom = { "PrometheusKick_Base", },
-		Requirements =
-		{
-			MinAttacksBetweenUse = 2,
-		},
-		AIData =
-		{
-			AttackSlots =
-			{
-				{ ProjectileName = "PrometheusKick", PauseDuration = 0.25 },
-				{ ProjectileName = "PrometheusKickFireWave", },
-			},
-
-			--PreAttackFx = "PrometheusChargingFx_Foot",
-			--EndPreAttackFx = true,
-
-			PreAttackRotationDampening = 0.15,
-			PreAttackDuration = 1.0,
-			FireDuration = 0.39,
-			PostAttackDuration = 2.4,
-
-			PreAttackVoiceLines =
-			{
-				[1] = { GlobalVoiceLines = "PrometheusPreAttackLines" },
-			},
-
-			PreAttackAnimation = "Enemy_Prometheus_KickPreFire_Charged",
-			PostAttackAnimation = "Enemy_Prometheus_KickPostFire",
-		},
-	},
-
-	PrometheusFlurry_P1 =
-	{
-		InheritFrom = { "PrometheusFlurry_Base", },
-		Requirements =
-		{
-			MinAttacksBetweenUse = 2,
-		},
-		AIData =
-		{
-			AttackSlots =
-			{
-				{ ProjectileName = "PrometheusPunch", PauseDuration = 0.08 },
-				{ ProjectileName = "PrometheusFlurry", AIDataOverrides = { Spread = 60 }, },
-			},
-
-			--PreAttackFx = "PrometheusChargingFx",
-			--EndPreAttackFx = true,
-
-			PreAttackDuration = 1.0,
-			FireDuration = 0.0,
-			PostAttackDuration = 2.6,
-
-			PreAttackVoiceLines =
-			{
-				[1] = { GlobalVoiceLines = "PrometheusPreAttackLines" },
-			},
-
-			PreAttackAnimation = "Enemy_Prometheus_FlurryPreFire_Charged",
-			PostAttackAnimation = "Enemy_Prometheus_FlurryPostFire",
-		},
-	},
-
+	-- Phases
 	PrometheusUppercut_P1 =
 	{
-		InheritFrom = { "PrometheusUppercut_Base", },
+		InheritFrom = { "PrometheusUppercut_Heavy", },
+		Requirements =
+		{
+			MinAttacksBetweenUse = 2,
+			MapAggressor = "Prometheus",
+		},
+		AIData =
+		{
+			PostAttackThreadedFunctionName = "PrometheusPostAttackForesight",
+			PostAttackEndFunctionName = "PrometheusCancelPostAttackForesight",
+		},
+	},
+	PrometheusUppercut_P2_Starter =
+	{
+		InheritFrom = { "PrometheusUppercut_Light", },
+		Requirements =
+		{
+			MinAttacksBetweenUse = 7,
+			MapAggressor = "Prometheus",
+		},
+		AIData =
+		{
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 3,
+							},
+						}
+					},
+					Data =
+					{
+						ChainedWeaponOptions =
+						{
+							"PrometheusSlam_P2_Filler", "PrometheusKick_P2_Filler", "PrometheusFlurry_P2_Filler",
+						},
+					},
+				},
+			},
+
+			ChainedWeaponOptions =
+			{
+				"PrometheusSlam_P2_Filler", "PrometheusKick_P2_Filler",
+			},
+		},
+	},
+	PrometheusUppercut_P2_Filler =
+	{
+		InheritFrom = { "PrometheusUppercut_Light", },
+		Requirements =
+		{
+			-- null
+		},
+		AIData =
+		{
+			MoveWithinRangeTimeoutMin = 0.2,
+			MoveWithinRangeTimeoutMax = 0.2,
+
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 3,
+							},
+						}
+					},
+					Data =
+					{
+						ChainedWeaponOptions =
+						{
+							"PrometheusSlam_P2_Ender", "PrometheusKick_P2_Ender", "PrometheusFlurry_P2_Ender",
+						},
+					},
+				},
+			},
+
+			ChainedWeaponOptions =
+			{
+				"PrometheusSlam_P2_Ender", "PrometheusKick_P2_Ender",
+			},
+		},
+	},
+	PrometheusUppercut_P2_Ender =
+	{
+		InheritFrom = { "PrometheusUppercut_Heavy", },
 		Requirements =
 		{
 			MinAttacksBetweenUse = 2,
 		},
 		AIData =
 		{
-			AttackSlots =
-			{
-				{ ProjectileName = "PrometheusUppercut", PauseDuration = 0.1 },
-				{ ProjectileName = "PrometheusUppercutWhirlwind", AIDataOverrides = { BarrelLength = 500, }, },
-				{ ProjectileName = "PrometheusUppercutWhirlwindVacuum", OffsetDistance = 500, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-			},
+			PostAttackDuration = 2.1,
+			PostAttackMinWaitTime = 1.89,
 
-			--PreAttackFx = "PrometheusChargingFx",
-			--EndPreAttackFx = true,
+			MoveWithinRangeTimeoutMin = 0.25,
+			MoveWithinRangeTimeoutMax = 0.25,
 
-			PreAttackDuration = 0.93,
-			FireDuration = 0.365,
-			PostAttackDuration = 2.5,
-
-			PreAttackAnimation = "Enemy_Prometheus_UppercutPreFire_Charged",
-			PostAttackAnimation = "Enemy_Prometheus_UppercutPostFire",
+			PostAttackThreadedFunctionName = "PrometheusPostAttackForesight",
+			PostAttackEndFunctionName = "PrometheusCancelPostAttackForesight",
 		},
 	},
-
-	-- PHASE 2
-	-- Starters
-	PrometheusSlam_P2_Starter =
-	{
-		InheritFrom = { "PrometheusSlam_Base", },
-		Requirements =
-		{
-			MinAttacksBetweenUse = 7,
-		},
-		AIData =
-		{
-			--DashIfOverDistance = 600,
-			--DashWeapon = "PrometheusDashForward",
-			ChainedWeaponOptions =
-			{
-				"PrometheusKick_P2_Filler", "PrometheusFlurry_P2_Filler", "PrometheusUppercut_P2_Filler",
-			},
-		},
-	},
-
-	PrometheusKick_P2_Starter =
-	{
-		InheritFrom = { "PrometheusKick_Base", },
-		Requirements =
-		{
-			MinAttacksBetweenUse = 7,
-		},
-		AIData =
-		{
-			--DashIfOverDistance = 600,
-			--DashWeapon = "PrometheusDashForward",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusSlam_P2_Filler", "PrometheusFlurry_P2_Filler", "PrometheusUppercut_P2_Filler",
-			},
-		},
-	},
-
-	PrometheusFlurry_P2_Starter =
-	{
-		InheritFrom = { "PrometheusFlurry_Base", },
-		Requirements =
-		{
-			MinAttacksBetweenUse = 7,
-		},
-		AIData =
-		{
-			--DashIfOverDistance = 600,
-			--DashWeapon = "PrometheusDashForward",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusSlam_P2_Filler", "PrometheusKick_P2_Filler", "PrometheusUppercut_P2_Filler",
-			},
-		},
-	},
-
-	PrometheusUppercut_P2_Starter =
-	{
-		InheritFrom = { "PrometheusUppercut_Base", },
-		Requirements =
-		{
-			MinAttacksBetweenUse = 7,
-		},
-		AIData =
-		{
-			--DashIfOverDistance = 600,
-			--DashWeapon = "PrometheusDashForward",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusSlam_P2_Filler", "PrometheusKick_P2_Filler", "PrometheusFlurry_P2_Filler",
-			},
-		},
-	},
-
-	-- Fillers
-	PrometheusSlam_P2_Filler =
-	{
-		InheritFrom = { "PrometheusSlam_Base", },
-		Requirements =
-		{
-			-- null
-		},
-		AIData =
-		{
-			--PreAttackDuration = 0.232,
-			--PreAttackAnimation = "Enemy_Prometheus_GroundPoundPreFire_Fast",
-
-			--DashIfOverDistance = 600,
-			--DashWeapon = "PrometheusDashForward",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusKick_P2_Ender", "PrometheusFlurry_P2_Ender", "PrometheusUppercut_P2_Ender",
-			},
-		},
-	},
-
-	PrometheusKick_P2_Filler =
-	{
-		InheritFrom = { "PrometheusKick_Base", },
-		Requirements =
-		{
-			-- null
-		},
-		AIData =
-		{
-			--PreAttackDuration = 0.25,
-			--PreAttackAnimation = "Enemy_Prometheus_KickPreFire_Fast",
-
-			--DashIfOverDistance = 600,
-			--DashWeapon = "PrometheusDashForward",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusSlam_P2_Ender", "PrometheusFlurry_P2_Ender", "PrometheusUppercut_P2_Ender",
-			},
-		},
-	},
-
-	PrometheusFlurry_P2_Filler =
-	{
-		InheritFrom = { "PrometheusFlurry_Base", },
-		Requirements =
-		{
-			-- null
-		},
-		AIData =
-		{
-			--PreAttackDuration = 0.23,
-			--PreAttackAnimation = "Enemy_Prometheus_FlurryPreFire_Fast",
-
-			--DashIfOverDistance = 600,
-			--DashWeapon = "PrometheusDashForward",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusSlam_P2_Ender", "PrometheusKick_P2_Ender", "PrometheusUppercut_P2_Ender",
-			},
-		},
-	},
-
-	PrometheusUppercut_P2_Filler =
-	{
-		InheritFrom = { "PrometheusUppercut_Base", },
-		Requirements =
-		{
-			-- null
-		},
-		AIData =
-		{
-			--PreAttackDuration = 0.2325,
-			--PreAttackAnimation = "Enemy_Prometheus_UppercutPreFire_Fast",
-
-			--DashIfOverDistance = 600,
-			--DashWeapon = "PrometheusDashForward",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusSlam_P2_Ender", "PrometheusKick_P2_Ender", "PrometheusFlurry_P2_Ender",
-			},
-		},
-	},
-
-	-- Enders
-	PrometheusSlam_P2_Ender =
-	{
-		InheritFrom = { "PrometheusSlam_P1", },
-
-		AIData =
-		{
-			--DashIfOverDistance = 600,
-			--DashWeapon = "PrometheusDashForward",
-
-			PostAttackDuration = 1.6,
-		},
-	},
-
-	PrometheusKick_P2_Ender =
-	{
-		InheritFrom = { "PrometheusKick_P1", },
-
-		AIData =
-		{
-			--DashIfOverDistance = 600,
-			--DashWeapon = "PrometheusDashForward",
-
-			PostAttackDuration = 1.4,
-
-			PreAttackAnimation = "Enemy_Prometheus_KickPreFire_Charged",
-			PostAttackAnimation = "Enemy_Prometheus_KickPostFire",
-		},
-	},
-
-	PrometheusFlurry_P2_Ender =
-	{
-		InheritFrom = { "PrometheusFlurry_P1", },
-
-		AIData =
-		{
-			--DashIfOverDistance = 600,
-			--DashWeapon = "PrometheusDashForward",
-		
-			PostAttackDuration = 1.6,
-		},
-	},
-
-	PrometheusUppercut_P2_Ender =
-	{
-		InheritFrom = { "PrometheusUppercut_P1", },
-
-		AIData =
-		{
-			--DashIfOverDistance = 600,
-			--DashWeapon = "PrometheusDashForward",
-
-			PostAttackDuration = 1.5,
-		},
-	},
-
-	-- PHASE 3
-	-- Starters
-	PrometheusSlam_P3_Starter =
-	{
-		InheritFrom = { "PrometheusSlam_Base", },
-		Requirements =
-		{
-			MinAttacksBetweenUse = 7,
-		},
-		AIData =
-		{
-			DashIfOverDistance = 600,
-			DashWeapon = "PrometheusDashForward",
-
-			AttackSlots =
-			{
-				{ ProjectileName = "PrometheusGroundPound", PauseDuration = 0.45 },
-				{ ProjectileName = "PrometheusGroundPoundNova", },
-			},
-
-			PreAttackFx = "PrometheusChargingFx",
-			EndPreAttackFx = true,
-
-			PreAttackDuration = 0.86,
-			FireDuration = 0.275,
-			PostAttackDuration = 0.12,
-
-			PreAttackAnimation = "Enemy_Prometheus_GroundPoundPreFire_Charged",
-			PostAttackAnimation = "Enemy_Prometheus_GroundPoundPostFire_Fast",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusKick_P3_Filler1", "PrometheusFlurry_P3_Filler1", "PrometheusUppercut_P3_Filler1",
-				"PrometheusDashBackward",
-			},
-		},
-	},
-
-	PrometheusKick_P3_Starter =
-	{
-		InheritFrom = { "PrometheusKick_Base", },
-		Requirements =
-		{
-			MinAttacksBetweenUse = 7,
-		},
-		AIData =
-		{
-			DashIfOverDistance = 600,
-			DashWeapon = "PrometheusDashForward",
-
-			AttackSlots =
-			{
-				{ ProjectileName = "PrometheusKick", PauseDuration = 0.25 },
-				{ ProjectileName = "PrometheusKickFireWave", },
-			},
-
-			--PreAttackFx = "PrometheusChargingFx",
-			--EndPreAttackFx = true,
-
-			PreAttackDuration = 1.0,
-			FireDuration = 0.39,
-			PostAttackDuration = 0.05,
-
-			PreAttackAnimation = "Enemy_Prometheus_KickPreFire_Charged",
-			PostAttackAnimation = "Enemy_Prometheus_KickPostFire_Fast",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusSlam_P3_Filler1", "PrometheusFlurry_P3_Filler1", "PrometheusUppercut_P3_Filler1",
-				"PrometheusDashBackward",
-			},
-		},
-	},
-
-	PrometheusFlurry_P3_Starter =
-	{
-		InheritFrom = { "PrometheusFlurry_Base", },
-		Requirements =
-		{
-			MinAttacksBetweenUse = 7,
-		},
-		AIData =
-		{
-			DashIfOverDistance = 600,
-			DashWeapon = "PrometheusDashForward",
-
-			AttackSlots =
-			{
-				{ ProjectileName = "PrometheusPunch", PauseDuration = 0.08, },
-				{ ProjectileName = "PrometheusFlurry", AIDataOverrides = { Spread = 60 }, },
-			},
-
-			--PreAttackFx = "PrometheusChargingFx",
-			--EndPreAttackFx = true,
-
-			PreAttackDuration = 1.0,
-			FireDuration = 0.0,
-			PostAttackDuration = 0.15,
-
-			PreAttackAnimation = "Enemy_Prometheus_FlurryPreFire_Charged",
-			PostAttackAnimation = "Enemy_Prometheus_FlurryPostFire_Fast",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusSlam_P3_Filler1", "PrometheusKick_P3_Filler1", "PrometheusUppercut_P3_Filler1",
-				"PrometheusDashBackward",
-			},
-		},
-	},
-
 	PrometheusUppercut_P3_Starter =
 	{
-		InheritFrom = { "PrometheusUppercut_Base", },
+		InheritFrom = { "PrometheusUppercut_Light", },
 		Requirements =
 		{
 			MinAttacksBetweenUse = 7,
+			MapAggressor = "Prometheus",
 		},
 		AIData =
 		{
-			DashIfOverDistance = 600,
-			DashWeapon = "PrometheusDashForward",
-
-			AttackSlots =
+			ConditionalData =
 			{
-				{ ProjectileName = "PrometheusUppercut", PauseDuration = 0.1 },
-				{ ProjectileName = "PrometheusUppercutWhirlwind", AIDataOverrides = { BarrelLength = 500, }, },
-				{ ProjectileName = "PrometheusUppercutWhirlwindVacuum", OffsetDistance = 500, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 3,
+							},
+						}
+					},
+					Data =
+					{
+						ChainedWeaponOptions =
+						{
+							"PrometheusSlam_P3_Filler", "PrometheusKick_P3_Filler", "PrometheusFlurry_P3_Filler",
+						},
+					},
+				},
 			},
-
-			--PreAttackFx = "PrometheusChargingFx",
-			--EndPreAttackFx = true,
-
-			PreAttackDuration = 0.93,
-			FireDuration = 0.365,
-			PostAttackDuration = 0.1,
-
-			PreAttackAnimation = "Enemy_Prometheus_UppercutPreFire_Charged",
-			PostAttackAnimation = "Enemy_Prometheus_UppercutPostFire_Fast",
 
 			ChainedWeaponOptions =
 			{
-				"PrometheusSlam_P3_Filler1", "PrometheusKick_P3_Filler1", "PrometheusFlurry_P3_Filler1",
-				"PrometheusDashBackward", 
+				"PrometheusSlam_P3_Filler", "PrometheusKick_P3_Filler",
 			},
 		},
 	},
-
-	-- Fillers
-	PrometheusSlam_P3_Filler1 =
+	PrometheusUppercut_P3_Filler =
 	{
-		GenusName = "PrometheusSlam_P3_Filler",
-		InheritFrom = { "PrometheusSlam_Base", },
+		InheritFrom = { "PrometheusUppercut_Light", },
+		Requirements =
+		{
+			-- null
+		},
 		AIData =
 		{
-			--PreAttackDuration = 0.232,
-			--PreAttackAnimation = "Enemy_Prometheus_GroundPoundPreFire_Fast",
+			MoveWithinRangeTimeoutMin = 0.2,
+			MoveWithinRangeTimeoutMax = 0.2,
 
-			DashIfOverDistance = 600,
-			DashWeapon = "PrometheusDashForward",
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 3,
+							},
+						}
+					},
+					Data =
+					{
+						ChainedWeaponOptions =
+						{
+							"PrometheusSlam_P3_Ender", "PrometheusKick_P3_Ender", "PrometheusFlurry_P3_Ender",
+						},
+					},
+				},
+			},
 
 			ChainedWeaponOptions =
 			{
-				"PrometheusKick_P3_Filler2", "PrometheusFlurry_P3_Filler2", "PrometheusUppercut_P3_Filler2",
+				"PrometheusSlam_P3_Ender", "PrometheusKick_P3_Ender",
 			},
 		},
 	},
-
-	PrometheusKick_P3_Filler1 =
-	{
-		GenusName = "PrometheusKick_P3_Filler",
-		InheritFrom = { "PrometheusKick_Base", },
-		AIData =
-		{
-			--PreAttackDuration = 0.25,
-			--PreAttackAnimation = "Enemy_Prometheus_KickPreFire_Fast",
-
-			DashIfOverDistance = 600,
-			DashWeapon = "PrometheusDashForward",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusSlam_P3_Filler2", "PrometheusFlurry_P3_Filler2", "PrometheusUppercut_P3_Filler2",
-			},
-		},
-	},
-
-	PrometheusFlurry_P3_Filler1 =
-	{
-		GenusName = "PrometheusFlurry_P3_Filler",
-		InheritFrom = { "PrometheusFlurry_Base", },
-		AIData =
-		{
-			--PreAttackDuration = 0.23,
-			--PreAttackAnimation = "Enemy_Prometheus_FlurryPreFire_Fast",
-
-			DashIfOverDistance = 600,
-			DashWeapon = "PrometheusDashForward",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusSlam_P3_Filler2", "PrometheusKick_P3_Filler2", "PrometheusUppercut_P3_Filler2",
-			},
-		},
-	},
-
-	PrometheusUppercut_P3_Filler1 =
-	{
-		GenusName = "PrometheusUppercut_P3_Filler",
-		InheritFrom = { "PrometheusUppercut_Base", },
-		AIData =
-		{
-			--PreAttackDuration = 0.2325,
-			--PreAttackAnimation = "Enemy_Prometheus_UppercutPreFire_Fast",
-
-			DashIfOverDistance = 600,
-			DashWeapon = "PrometheusDashForward",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusSlam_P3_Filler2", "PrometheusKick_P3_Filler2", "PrometheusFlurry_P3_Filler2",
-			},
-		},
-	},
-
-	PrometheusSlam_P3_Filler2 =
-	{
-		GenusName = "PrometheusSlam_P3_Filler",
-		InheritFrom = { "PrometheusSlam_Base", },
-		AIData =
-		{
-			--PreAttackDuration = 0.232,
-			--PreAttackAnimation = "Enemy_Prometheus_GroundPoundPreFire_Fast",
-
-			DashIfOverDistance = 600,
-			DashWeapon = "PrometheusDashForward",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusKick_P3_Ender", "PrometheusFlurry_P3_Ender", "PrometheusUppercut_P3_Ender",
-			},
-		},
-	},
-
-	PrometheusKick_P3_Filler2 =
-	{
-		GenusName = "PrometheusKick_P3_Filler",
-		InheritFrom = { "PrometheusKick_Base", },
-		AIData =
-		{
-			--PreAttackDuration = 0.25,
-			--PreAttackAnimation = "Enemy_Prometheus_KickPreFire_Fast",
-
-			DashIfOverDistance = 600,
-			DashWeapon = "PrometheusDashForward",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusSlam_P3_Ender", "PrometheusFlurry_P3_Ender", "PrometheusUppercut_P3_Ender",
-			},
-		},
-	},
-
-	PrometheusFlurry_P3_Filler2 =
-	{
-		GenusName = "PrometheusFlurry_P3_Filler",
-		InheritFrom = { "PrometheusFlurry_Base", },
-		AIData =
-		{
-			--PreAttackDuration = 0.23,
-			--PreAttackAnimation = "Enemy_Prometheus_FlurryPreFire_Fast",
-
-			DashIfOverDistance = 600,
-			DashWeapon = "PrometheusDashForward",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusSlam_P3_Ender", "PrometheusKick_P3_Ender", "PrometheusUppercut_P3_Ender",
-			},
-		},
-	},
-
-	PrometheusUppercut_P3_Filler2 =
-	{
-		GenusName = "PrometheusUppercut_P3_Filler",
-		InheritFrom = { "PrometheusUppercut_Base", },
-		AIData =
-		{
-			--PreAttackDuration = 0.2325,
-			--PreAttackAnimation = "Enemy_Prometheus_UppercutPreFire_Fast",
-
-			DashIfOverDistance = 600,
-			DashWeapon = "PrometheusDashForward",
-
-			ChainedWeaponOptions =
-			{
-				"PrometheusSlam_P3_Ender", "PrometheusKick_P3_Ender", "PrometheusFlurry_P3_Ender",
-			},
-		},
-	},
-
-	-- Enders
-	PrometheusSlam_P3_Ender =
-	{
-		InheritFrom = { "PrometheusSlam_P1", },
-		AIData =
-		{
-			DashIfOverDistance = 600,
-			DashWeapon = "PrometheusDashForward",
-
-			PostAttackDuration = 1.6,
-		},
-	},
-
-	PrometheusKick_P3_Ender =
-	{
-		InheritFrom = { "PrometheusKick_P1", },
-		AIData =
-		{
-			DashIfOverDistance = 600,
-			DashWeapon = "PrometheusDashForward",
-
-			PostAttackDuration = 1.4,
-		},
-	},
-
-	PrometheusFlurry_P3_Ender =
-	{
-		InheritFrom = { "PrometheusFlurry_P1", },
-		AIData =
-		{
-			DashIfOverDistance = 600,
-			DashWeapon = "PrometheusDashForward",
-
-			PostAttackDuration = 1.6,
-		},
-	},
-
 	PrometheusUppercut_P3_Ender =
 	{
-		InheritFrom = { "PrometheusUppercut_P1", },
+		InheritFrom = { "PrometheusUppercut_Heavy", },
+		Requirements =
+		{
+			MinAttacksBetweenUse = 2,
+		},
 		AIData =
 		{
-			DashIfOverDistance = 600,
-			DashWeapon = "PrometheusDashForward",
+			PostAttackDuration = 1.8,
+			PostAttackMinWaitTime = 1.62,
 
-			PostAttackDuration = 1.5,
+			MoveWithinRangeTimeoutMin = 0.25,
+			MoveWithinRangeTimeoutMax = 0.25,
+
+			PostAttackThreadedFunctionName = "PrometheusPostAttackForesight",
+			PostAttackEndFunctionName = "PrometheusCancelPostAttackForesight",
 		},
 	},
 
@@ -939,12 +1338,62 @@ WeaponSetData =
 		},
 	},
 
+	PrometheusDashForsight =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			FireSelfVelocity = 7000,
+			ApplyEffectsOnWeaponFire =
+			{
+				{
+					EffectName = "LeapGrip",
+					DataProperties = 
+					{
+						Type = "GRIP",
+						Duration = 0.1,
+						Modifier = 0.0000001,
+						HaltOnEnd = true,
+					}
+				},
+			},
+
+			NoProjectile = true,
+
+			AttackDistance = 9999,
+
+			PreAttackSound = "/SFX/Enemy Sounds/Prometheus/EmoteChuckle",
+			PreAttackAnimation = "Enemy_Prometheus_DashForward_Start_NoStreak",
+			FireAnimation = "Enemy_Prometheus_DashForward_Fire_NoStreak",
+			PostAttackAnimation = "Enemy_Prometheus_DashForward_End",
+
+			TrackTargetDuringCharge = true,
+			StopBeforeFire = true,
+
+			CreateOwnTargetFromOriginalTarget = true,
+			UseTargetAngle = true,
+			TargetAngleOffsetMin = 120,
+			TargetAngleOffsetMax = 240,
+			TargetOffsetDistance = 300,
+
+			RemoveUnitCollisionDuringAttack = true,
+
+			PreAttackThreadedFunctionName = "PrometheusForesightPresentation",
+
+			PreAttackDuration = 0.2,
+			FireDuration = 0.1,
+			PostAttackDuration = 0.285,
+		},
+	},
+
 	PrometheusDashBackward =
 	{
 		InheritFrom = { "PrometheusDashForward", },
 		Requirements =
 		{
 			MaxConsecutiveUses = 1,
+			MapAggressor = "Heracles",
 		},
 		AIData =
 		{
@@ -985,6 +1434,7 @@ WeaponSetData =
 		{
 			RequireTotalAttacks = 3,
 			MinAttacksBetweenUse = 5,
+			MapAggressor = "Heracles",
 		},
 		WeaponSelectorOnly = true,
 		AIData =
@@ -1017,24 +1467,28 @@ WeaponSetData =
 
 			PreAttackDuration = 0.95,
 			FireDuration = 1.6,
-			PostAttackDuration = 1.0,
+			PostAttackDuration = 1.5,
 
 			AttackDistance = 1100,
 
 			PreAttackSelfVelocity = 400,
 
-			PreAttackSound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusKickCharge",
+			PreAttackSound = "/SFX/Enemy Sounds/Prometheus/PrometheusChargeUp",
 
 			PreAttackAnimation = "Enemy_Prometheus_Point_Fast",
 			FireAnimation = "Enemy_Prometheus_Cast_Start",
 			PostAttackAnimation = "Enemy_Prometheus_Cast_Fire",
-		},
 
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0 },
+			RetreatBeforeAttack = true,
+			RetreatBufferDistance = 1500,
+			RetreatTimeout = 1.75,
+			RetreatToSpawnPoints = true,
+			RetreatToSpawnPointRadius = 500,
+
+			PreAttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "PrometheusBurnLines" },
+			},
 		},
 
 		Sounds =
@@ -1046,7 +1500,6 @@ WeaponSetData =
 			},
 		},
 	},
-
 	PrometheusCastLine_P1 =
 	{
 		GenusName = "PrometheusCast_P1",
@@ -1058,6 +1511,9 @@ WeaponSetData =
 
 			ProjectileName = "PrometheusFirePillarForward",
 			FireProjectileStartDelay = 1.6,
+			ImmuneToProjectileSlow = true,
+			SkipFireProjectileIfInTransition = true,
+			SkipFireProjectileIfInterrupted = true,
 
 			BarrelLength = 0,
 
@@ -1069,24 +1525,21 @@ WeaponSetData =
 			FireFx = "PrometheusCastLineAimLine",
 			StopAnimationsOnHitStun = { "PrometheusCastLineAimLine", },
 			FireDuration = 1.6,
-			PostAttackDuration = 1.0,
+			PostAttackDuration = 1.5,
 
 			AttackDistance = 1100,
 
 			PreAttackSelfVelocity = 400,
 
-			PreAttackSound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusKickCharge",
+			RetreatBeforeAttack = true,
+			RetreatTimeout = 1.75,
+			RetreatBufferDistance = 1500,
+			RetreatToSpawnPoints = true,
+			RetreatToSpawnPointRadius = 500,
 
 			PreAttackAnimation = "Enemy_Prometheus_Point_Fast",
 			FireAnimation = "Enemy_Prometheus_Cast_Start",
 			PostAttackAnimation = "Enemy_Prometheus_Cast_Fire",
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0 },
 		},
 
 		Sounds =
@@ -1105,6 +1558,7 @@ WeaponSetData =
 		Requirements =
 		{
 			MinAttacksBetweenUse = 12,
+			MapAggressor = "Heracles",
 		},
 		WeaponSelectorOnly = true,
 		AIData =
@@ -1116,8 +1570,6 @@ WeaponSetData =
 		{
 			"PrometheusCastCircle_P2",
 			"PrometheusCastLine_P2",
-			"PrometheusCastCircle_wEagle_P2",
-			"PrometheusCastLine_wEagle_P2",
 		},
 	},
 
@@ -1126,28 +1578,10 @@ WeaponSetData =
 		InheritFrom = { "PrometheusCastCircle_P1", },
 		GenusName = "PrometheusCast_P2",
 	},
-	PrometheusCastCircle_wEagle_P2 =
-	{
-		InheritFrom = { "PrometheusCastCircle_P1", },
-		GenusName = "PrometheusCast_P2",
-		AIData =
-		{
-			PartnerForceWeaponInterrupt = "EagleDive_P2",
-		},
-	},
 	PrometheusCastLine_P2 =
 	{
 		InheritFrom = { "PrometheusCastLine_P1", },
 		GenusName = "PrometheusCast_P2",
-	},
-	PrometheusCastLine_wEagle_P2 =
-	{
-		InheritFrom = { "PrometheusCastLine_P1", },
-		GenusName = "PrometheusCast_P2",
-		AIData =
-		{
-			PartnerForceWeaponInterrupt = "EagleDive_P2",
-		},
 	},
 
 	PrometheusCastSelector_P3 =
@@ -1155,6 +1589,7 @@ WeaponSetData =
 		GenusName = "PrometheusCast_P3",
 		Requirements =
 		{
+			MapAggressor = "Heracles",
 			MinAttacksBetweenUse = 10,
 		},
 		WeaponSelectorOnly = true,
@@ -1166,8 +1601,6 @@ WeaponSetData =
 		{
 			"PrometheusCastCircle_P3",
 			"PrometheusCastLine_P3",
-			"PrometheusCastCircle_wEagle_P3",
-			"PrometheusCastLine_wEagle_P3",
 		},
 	},
 
@@ -1175,28 +1608,58 @@ WeaponSetData =
 	{
 		InheritFrom = { "PrometheusCastCircle_P1", },
 		GenusName = "PrometheusCast_P3",
-	},
-	PrometheusCastCircle_wEagle_P3 =
-	{
-		InheritFrom = { "PrometheusCastCircle_P1", },
-		GenusName = "PrometheusCast_P3",
 		AIData =
 		{
-			PartnerForceWeaponInterrupt = "EagleDive_P3",
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = "<",
+								Value = 3,
+							},
+						}
+					},
+					Data =
+					{
+						PartnerForceWeaponInterrupt = "EagleDive_P3",
+					},
+				},
+			},
 		},
 	},
 	PrometheusCastLine_P3 =
 	{
 		InheritFrom = { "PrometheusCastLine_P1", },
 		GenusName = "PrometheusCast_P3",
-	},
-	PrometheusCastLine_wEagle_P3 =
-	{
-		InheritFrom = { "PrometheusCastLine_P1", },
-		GenusName = "PrometheusCast_P3",
 		AIData =
 		{
-			PartnerForceWeaponInterrupt = "EagleDive_P3",
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = "<",
+								Value = 3,
+							},
+						}
+					},
+					Data =
+					{
+						PartnerForceWeaponInterrupt = "EagleDive_P3",
+					},
+				},
+			},
 		},
 	},
 
@@ -1212,6 +1675,8 @@ WeaponSetData =
 			NoProjectile = true,
 
 			ExpireProjectilesOnPreAttackStart = { "PrometheusFireCircle", "PrometheusFireCircleSmall", "PrometheusFireCircleLarge" },
+			
+			PreMoveFunctionName = "PrometheusCancelPostAttackForesight",
 
 			PartnerForceWeaponInterrupt = "EagleFlyUp",
 
@@ -1233,8 +1698,7 @@ WeaponSetData =
 
 			PreAttackStop = true,
 			StopMoveWithinRange = true,
-
-			-- PreAttackSound = "/SFX/Enemy Sounds/Carrion/EmoteCharging",
+			ClearAllEffects = true,
 
 			ChainedWeaponOptions = { "PrometheusMemory_P2_Single_C", "PrometheusMemory_P2_Single_L", "PrometheusMemory_P2_Single_R", },
 		},
@@ -1512,7 +1976,7 @@ WeaponSetData =
 
 			PreAttackVoiceLines =
 			{
-				[1] = { GlobalVoiceLines = "PrometheusBurnLines" },
+				{ GlobalVoiceLines = "PrometheusBurnLines" },
 			},
 
 			PreAttackAngleTowardTarget = false,
@@ -1520,7 +1984,7 @@ WeaponSetData =
 			FireFunctionName = "PrometheusMemoryOutroPresentation",
 			FireFunctionArgs =
 			{
-				LandingId = 751891,
+				LandingIds = { 751891, 745036, 745049, 745025, 745030, 745033, 745029 },
 			},
 
 			AttackDistance = 9999,
@@ -1529,6 +1993,31 @@ WeaponSetData =
 			StopMoveWithinRange = true,
 
 			-- PreAttackSound = "/SFX/Enemy Sounds/Carrion/EmoteCharging",
+
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 3,
+							},
+						}
+					},
+					Data =
+					{
+						ChainedWeaponOptions =
+						{
+							"PrometheusKick_P2_Filler",
+						},
+					},
+				},
+			},
 		},
 	},
 
@@ -1568,7 +2057,7 @@ WeaponSetData =
 			ChainedWeaponOptions =
 			{
 				"PrometheusSummon_Sapper",
-				"PrometheusSummon_Harpy",
+				--"PrometheusSummon_Harpy",
 			},
 		},
 	},
@@ -1598,7 +2087,7 @@ WeaponSetData =
 
 			ChainedWeaponOptions =
 			{
-				"PrometheusSummon_Dragon",
+				--"PrometheusSummon_Dragon",
 				"PrometheusSummon_Lancer",
 			},
 		},
@@ -1611,7 +2100,6 @@ WeaponSetData =
 			DeepInheritance = true,
 
 			MoveWithinRange = false,
-			DashIfOverDistance = 99999,
 			NoProjectile = true,
 
 			PreAttackAnimation = "Enemy_Prometheus_Point_Fast",
@@ -1631,12 +2119,13 @@ WeaponSetData =
 			]]
 
 			PreAttackDuration = 0.5,
-			FireDuration = 0.45,
-			PostAttackDuration = 0.0,
+			PreAttackSound = "/SFX/Enemy Sounds/EagleAlerted",
 			PreAttackVoiceLines =
 			{
-				[1] = { GlobalVoiceLines = "PrometheusSpawnWaveLines" },
+				{ GlobalVoiceLines = "PrometheusSpawnWaveLines" },
 			},
+			FireDuration = 0.45,
+			PostAttackDuration = 0.0,
 
 			SpawnBurstOnFire = true,
 			SpawnRate = 0.125,
@@ -1663,13 +2152,6 @@ WeaponSetData =
 				{ Name = "/SFX/TimerFlareSFX" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
-		},
 	},
 
 	PrometheusSummon_Sapper =
@@ -1680,11 +2162,12 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
-			SpawnsPerBurstMin = 4,
-			SpawnsPerBurstMax = 4,
+			SpawnsPerBurstMin = 3,
+			SpawnsPerBurstMax = 3,
+			SpawnRate = 0.4,
 			MaxActiveSpawns = 6,
-			SpawnOnIds = { 751888, 751887, 745026, 745034, },
-			SpawnerOptions = { "SatyrSapper" },
+			SpawnOnIds = { 751888, 745048, 745034, },
+			SpawnerOptions = { "SatyrSapper_Prometheus" },
 		},
 	},
 
@@ -1698,9 +2181,10 @@ WeaponSetData =
 
 			SpawnsPerBurstMin = 3,
 			SpawnsPerBurstMax = 3,
+			SpawnRate = 0.4,
 			MaxActiveSpawns = 6,
 			SpawnOnIds = { 751888, 745048, 745034, },
-			SpawnerOptions = { "SatyrLancer2" },
+			SpawnerOptions = { "SatyrLancer_Prometheus" },
 		},
 	},
 
@@ -1797,12 +2281,6 @@ WeaponSetData =
 			-- VO in WeaponData_Eagle
 		},
 
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.1, LerpTime = 0 },
-			{ ScreenPreWait = 0.07, Fraction = 1.0, LerpTime = 0.1 },
-		},
-
 		Sounds =
 		{
 			FireSounds =
@@ -1851,14 +2329,8 @@ WeaponSetData =
 			--PreAttackSound = "/SFX/Enemy Sounds/EagleAlerted",
 			PreAttackVoiceLines =
 			{
-				[1] = { GlobalVoiceLines = "PrometheusEagleComboLines" },
+				{ GlobalVoiceLines = "PrometheusEagleComboLines" },
 			},
-		},
-
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.1, LerpTime = 0 },
-			{ ScreenPreWait = 0.07, Fraction = 1.0, LerpTime = 0.1 },
 		},
 
 		Sounds =

@@ -221,6 +221,7 @@
 			{ Name = "Melinoe_Suit_AttackPunch2_Start" }
 			{ Name = "Melinoe_Suit_AttackPunch2_Fire" }
 			{ Name = "Melinoe_Suit_AttackDash_Start" }
+			{ Name = "Melinoe_Suit_AttackDash_StartSlow" }
 			{ Name = "Melinoe_Suit_AttackDash_Fire" }
 			{ Name = "Melinoe_Suit_AttackExPunch_Charge" }
 			{ Name = "Melinoe_Suit_AttackExPunch_ChargeLoop" }
@@ -228,9 +229,15 @@
 			{ Name = "Melinoe_Suit_AttackExPunch_Start2" }
 			{ Name = "Melinoe_Suit_AttackExPunch_Fire" }
 			{ Name = "Melinoe_Suit_SpecialMissile_Start" }
+			{ Name = "Melinoe_Suit_SpecialMissile_StartLoopFirst" }
 			{ Name = "Melinoe_Suit_SpecialMissile_StartLoop" }
 			{ Name = "Melinoe_Suit_SpecialMissile_Fire" }
 			{ Name = "Melinoe_Suit_SpecialMissile_FireLoop" }
+			{ Name = "Melinoe_Suit_Shiva_AttackDouble_Start" }
+			{ Name = "Melinoe_Suit_Shiva_AttackDouble_Fire" }
+			{ Name = "Melinoe_Suit_Shiva_SpecialMissile_Start" }
+			{ Name = "Melinoe_Suit_Shiva_SpecialMissile_StartLoop" }
+			{ Name = "Melinoe_Suit_Shiva_SpecialMissile_Fire" }
 			{ Name = "MelinoeCrossCastAntic" }
 			{ Name = "Melinoe_CrossCast_Start_Fast" }
 			{ Name = "MelinoeCrossCastCharge" }
@@ -255,6 +262,93 @@
 			{
 				Name = "SuitB_GetHit"
 				ToBone = "Melinoe_Rig:spine_02_M_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "SuitR_GetHit_LastStand"
+		InheritFrom = "WeaponSuitRBase"
+		GrannyAnimation = "Suit_GloveRight_Base_GetHit_C_00"
+		TimeModifierFraction = 0
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 15
+			}
+		]
+	}
+	{
+		Name = "SuitL_GetHit_LastStand"
+		InheritFrom = "WeaponSuitLBase"
+		GrannyAnimation = "Suit_GloveLeft_Base_GetHit_C_00"
+		TimeModifierFraction = 0
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 15
+			}
+		]
+	}
+	{
+		Name = "SuitB_GetHit_LastStand"
+		InheritFrom = "WeaponSuitBBase"
+		GrannyAnimation = "Suit_Backpack_Base_GetHit_C_00"
+		TimeModifierFraction = 0
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 15
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Suit_GetHit_LastStand"
+		InheritFrom = "MelinoeBaseSuitAnimations"
+		GrannyAnimation = "Melinoe_Suit_Base_GetHit_C_00"
+		DisableOwnerManualInteract = true
+		TimeModifierFraction = 0
+		ChainTo = "Melinoe_Suit_Idle"
+
+		Attachments =
+		[
+			{
+				Name = "SuitR_GetHit_LastStand"
+				ToBone = "Melinoe_Rig:lowerArm_00_R_JNT" 
+			}
+			{
+				Name = "SuitL_GetHit_LastStand"
+				ToBone = "Melinoe_Rig:lowerArm_00_L_JNT"
+			}
+			{
+				Name = "SuitB_GetHit_LastStand"
+				ToBone = "Melinoe_Rig:spine_02_M_JNT"
+			}
+		]
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 15
 			}
 		]
 	}
@@ -351,6 +445,20 @@
 				ToBone = "Melinoe_Rig:spine_02_M_JNT"
 			}
 		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_InteractToEquip"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 23
+				Sound = "/SFX/Player Sounds/RobotMiscB_7quiet"
+			}
+		]
 	}
 
 	{
@@ -373,6 +481,7 @@
 		InheritFrom = "MelinoeBaseSuitAnimations"
 		GrannyAnimation = "Melinoe_Suit_Base_UnEquip_C_00"
 		ChainTo = "MelinoeIdleWeaponless"
+		CancelOnOwnerMove = true
 		Sound = "/SFX/ArmorIdleSFX"
 		VisualFx = null
 		RequireCurrentAnimationNotContains =

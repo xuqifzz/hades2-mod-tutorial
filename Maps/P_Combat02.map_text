@@ -249,6 +249,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Terrain_Decor_06",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Terrain_Gameplay",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -391,7 +404,21 @@
     },
     {
       "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "Foreground_03",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
       "ChildGroups": [
+        "Foreground_03",
         "Foreground_02",
         "Foreground_01",
         "Shading_01",
@@ -403,6 +430,7 @@
         "Standing",
         "Terrain_Lighting_01",
         "Terrain_Gameplay",
+        "Terrain_Decor_06",
         "Terrain_Shadow_01",
         "Terrain_Decor_04",
         "Terrain_Decor_03",
@@ -604,5 +632,5 @@
     "Y": 0.000
   },
   "TimeLapseCameraZoom": 1.000,
-  "ShadowPlaneDepth": 0.000
+  "ShadowPlaneDepth": 0.930
 }

@@ -23,6 +23,9 @@ OverwriteTableKeys( WeaponData,
 		NoAmmoText = "Hint_OutOfLobAmmo",
 		NoAmmoVoiceLines = HeroVoiceLines.WeaponLobOutOfAmmoVoiceLines,
 
+		CompleteObjectivesOnFire = { },
+		CompleteObjectivesOnStagedFire = { },
+
 		SwapAnimations =
 		{
 			["MelinoeIdle"] = "Melinoe_Lob_Idle",
@@ -33,7 +36,7 @@ OverwriteTableKeys( WeaponData,
 			["MelinoeRun"] = "Melinoe_Lob_Run_FireLoop",
 			["MelinoeStop"] = "Melinoe_Lob_Run_End",
 			["MelinoeGetHit"] = "Melinoe_Lob_GetHit",
-			["MelinoeGetHitFinal"] = "Melinoe_Lob_GetHit",
+			["Melinoe_GetHit_LastStand"] = "Melinoe_Lob_GetHit_LastStand",
 
 			["Melinoe_Cast_Start"] = "Melinoe_Lob_Cast_Start",
 			["Melinoe_Cast_StartLoop"] = "Melinoe_Lob_Cast_StartLoop",
@@ -57,24 +60,24 @@ OverwriteTableKeys( WeaponData,
 		SecondaryWeapon = "WeaponLobSpecial",
 		ShowAmmoUI = true,
 		CauseImpactReaction = true,
-		ImpactReactionHitsOverride = 5,
+		ImpactReactionHitsOverride = 5, 
 		OnProjectileDeathFunction = "WeaponLobAmmoDrop",
 		OnProjectileDeathFunctionArgs = 
 		{
 			CollideForces = 
 			{
-				UpwardForceMin = 830,
-				UpwardForceMax = 920,
-				ForceMin = 0,
-				ForceMax = 0,
-				Scatter = 0,
+				UpwardForceMin = 200,
+				UpwardForceMax = 220, 
+				ForceMin = 840,
+				ForceMax = 880,
+				Scatter = 45,
 			},
 			DropForces = 
 			{
-				UpwardForceMin = 735,
-				UpwardForceMax = 745,
-				ForceMin = 0,
-				ForceMax = 0,
+				UpwardForceMin = 435,
+				UpwardForceMax = 445,
+				ForceMin = 500,
+				ForceMax = 530,
 				Scatter = 0,
 			},
 		},
@@ -83,8 +86,8 @@ OverwriteTableKeys( WeaponData,
 		NoAmmoFunctionName = "RangedFailedNoAmmoPresentation",
 		AmmoPackName = "LobAmmoPack",
 		CheckPostFireFail = true,
-		MaxAmmo = 3,
-		
+		MaxAmmo = 4,
+
 		SpeedPropertyChanges = 
 		{
 			{
@@ -92,6 +95,10 @@ OverwriteTableKeys( WeaponData,
 			},
 			{
 				WeaponProperty = "Cooldown",
+			},
+			{
+				EffectName = "Lob1DisableCancellable",
+				EffectProperty = "Duration",
 			},
 		},
 
@@ -110,7 +117,7 @@ OverwriteTableKeys( WeaponData,
 		
 		ShowManaIndicator = true,
 		IgnoreOOMAimlineAlpha = true,
-		HideChargeDuration = 0.20,
+		HideChargeDuration = 0.2,
 		HideChargeDurationIncludesBlinkDuration = true,
 
 		OnChargeFunctionNames = { "DoWeaponCharge", "TriggerLockForSpecial" },
@@ -124,22 +131,32 @@ OverwriteTableKeys( WeaponData,
 			{ 
 				ManaCost = 10,
 				Wait = 0.55,
+				ExChargeAnimationDelay = 0.06,
 				ExChargeAnimation = "Melinoe_Lob_AttackEx1_Start",
+				EarlyPropertySwaps = 
+				{
+					Delay = 0.2,
+					SwapProperties = 
+					{
+						WeaponProperties =
+						{
+							TargetReticleAnimation = "LobEXProjectileReticle",
+							AutoLock = false,
+      						ShowFreeAimLine = true,
+							ReticleRadiusOverride = 530,
+							WeaponRange = 505,
+						},
+					},
+				},
 				WeaponProperties = 
 				{ 
 					Projectile = "ProjectileLobCharged",
-					TargetReticleAnimation = "LobEXProjectileReticle",
 					FireGraphic = "Melinoe_Lob_AttackEx1_Fire",
 					FireFx = "DashDustPuffReverseLarge",
-      				ShowFreeAimLine = true,
-					AutoLock = false,
-					ManualAiming = true,
-					ManualAimingInitialOffset = 540,
       				SelfVelocity = 0,
 					AdditionalProjectileWaveChance = 0,
 				},
 				CompleteObjective = "WeaponLobCharged",
-
 				ChannelSlowEventOnStart = true
 			},
 		},
@@ -164,12 +181,12 @@ OverwriteTableKeys( WeaponData,
 			},			
 			FireSounds =
 			{
-				{ Name = "/VO/MelinoeEmotes/EmoteAttackingBombLob" },
+				{ Name = "/VO/MelinoeEmotes/HelEmoteAttacking1" },
 			},
 			FireStageSounds = 
 			{
 				{ Name = "/VO/MelinoeEmotes/EmotePowerAttackingStaff" },
-				{ Name = "/SFX/Player Sounds/MelSkullsOmegaAttack" },
+				{ Name = "/SFX/Player Sounds/MelSkullsOmegaAttackStart" },
 			},
 			ImpactSounds =
 			{
@@ -189,8 +206,8 @@ OverwriteTableKeys( WeaponData,
 
 		EquipVoiceLines =
 		{
-			[1] = { GlobalVoiceLines = "MiscWeaponEquipVoiceLines" },
-			[2] = { GlobalVoiceLines = "SkellyWeaponEquipReactionVoiceLines" },
+			{ GlobalVoiceLines = "MiscWeaponEquipVoiceLines" },
+			{ GlobalVoiceLines = "SkellyWeaponEquipReactionVoiceLines" },
 		},
 	},
 
@@ -199,7 +216,10 @@ OverwriteTableKeys( WeaponData,
 		StartingWeapon = false,
 		SkipAttackNotReadySounds = true,		
 		CompleteObjectivesOnStagedFire = { "WeaponLobSpecialCharged" },
+		CompleteObjectivesOnNonStagedFire = {},
+		CompleteObjectivesOnFire = {},
 
+		CustomManaIndicatorOffsetY = -210,
 		FireRumbleParameters =
 		{
 			{ ScreenPreWait = 0.02, RightFraction = 0.17, Duration = 0.17 },
@@ -208,6 +228,7 @@ OverwriteTableKeys( WeaponData,
 		DefaultKnockbackForce = 560,
 		DefaultKnockbackScale = 0.7,
 
+		MagnetismMultiplier = 3.8,
 		CauseImpactReaction = true,
 		ImpactReactionHitsOverride = 1,
 		MinSimSpeedAdjustValue = 0.25,
@@ -215,7 +236,7 @@ OverwriteTableKeys( WeaponData,
 		IgnoreOOMAimlineAlpha = true,
 		HideChargeDuration = 0.35,
 		ScaledFireEndEffects = { "LobWeaponSpecialDisable", "LobWeaponSpecialDisableCancellable", "LobWeaponSpecialRotateLock" },
-		OnFiredFunctionName = "RecordWeaponCharge",
+		OnFiredFunctionNames = { "RecordWeaponCharge", },
 		OnChargeFunctionNames = { "DoWeaponCharge", "AllowLobLock" },
 		IsExWithMapStateVariable = "ThrowWeaponDeferred",
 		ChargeWeaponData =
@@ -228,7 +249,7 @@ OverwriteTableKeys( WeaponData,
 		{
 			{ 
 				ManaCost = 20,
-				Wait = 0.9,
+				Wait = 0.8,
 				AnimOnComplete = "Melinoe_Lob_Special1Ex_StartTransition",
 				WeaponProperties = 
 				{ 
@@ -306,14 +327,13 @@ OverwriteTableKeys( WeaponData,
 		SpeedPropertyChanges = 
 		{
 			{
-				ProjectileProperty = "Speed",
-				InvertSource = true
-			},
-			{
 				WeaponProperty = "BlinkDuration",
 			},
 			{
 				WeaponProperty = "ChargeTime",
+			},
+			{
+				WeaponProperty = "ClipRegenInterval",
 			},
 		},
 		Upgrades = { },
@@ -338,7 +358,7 @@ OverwriteTableKeys( WeaponData,
 		ShowManaIndicator = true,
 		IgnoreOOMAimlineAlpha = true,
 		HideChargeDuration = 0.35,
-		OnChargeFunctionName = "DoWeaponCharge",
+		OnChargeFunctionNames = { "DoWeaponCharge", },
 		CustomChannelSlowEvent = "StaffBallSlow",
 		CheckPostFireFail = true,
 		ChargeWeaponData =
@@ -440,7 +460,7 @@ OverwriteTableKeys( WeaponData,
 	WeaponLobPulse = 
 	{
 		IsModifiedByTraits = true,
-		BaseDamageBonusMultiplier = 0.5,
+		BaseDamageBonusMultiplier = "LobBaseDamageBonusMultiplier",
 	},
 
 	WeaponLobChargedPulse = 
@@ -494,7 +514,7 @@ OverwriteTableKeys( WeaponData,
 				Bone = "/SFX/MetalBoneSmash",
 				Brick = "/SFX/MetalStoneClang",
 				Stone = "/SFX/MetalStoneClang",
-				Organic = "/SFX/StabSplatterSmall",
+				Organic = "/SFX/MetalOrganicHitSHIELD",
 				StoneObstacle = "/SFX/SwordWallHitClank",
 				BrickObstacle = "/SFX/SwordWallHitClank",
 				MetalObstacle = "/SFX/SwordWallHitClank",

@@ -247,7 +247,7 @@
       "Visible": true
     },
     {
-      "BlendMode": 10,
+      "BlendMode": 11,
       "ChildGroups": [],
       "Id": "Terrain_Lighten_01",
       "NumSelectedAsDraw": 0,

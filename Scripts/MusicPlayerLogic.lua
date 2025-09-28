@@ -34,14 +34,19 @@ function OpenMusicPlayerScreen( openedFrom, args )
 	screen.ItemStartY = screen.ItemStartY + ScreenCenterNativeOffsetY
 	screen.CostDisplay.StartX = screen.CostDisplay.StartX + ScreenCenterNativeOffsetX
 	screen.CostDisplay.StartY = screen.CostDisplay.StartY + ScreenCenterNativeOffsetY
-	if args.InitialScrollOffset ~= nil then
-		screen.ScrollOffset = args.InitialScrollOffset
-	end
 
 	MusicPlayerDisplayItems( screen )
-	GhostAdminUpdateVisibility( screen )
 
 	UpdateMusicPlayerInteractionText( screen )
+	if GameState.WorldUpgrades.WorldUpgradeMusicPlayerShuffle then
+		SetAlpha({ Id = screen.Components.ShuffleButton.Id, Fraction = 1.0, Duration = 0.2 })
+		screen.Components.ShuffleButton.Visible = true
+		if not GameState.Flags.HasShuffledMusicPlayer then
+			thread( PulseContextActionPresentation, screen.Components.ShuffleButton, { ThreadName = "MusicPlayerShufflePulse", PulseOnce = true } )
+		end
+	else
+		SetAlpha({ Id = screen.Components.ShuffleButton.Id, Fraction = 0.0 })
+	end
 	wait( 0.02 )
 	ScreenResetCursorToStartLocation( screen )
 	RemoveInputBlock({ Name = "OpenMusicPlayerScreen" })
@@ -54,128 +59,198 @@ function OpenMusicPlayerScreen( openedFrom, args )
 
 end
 
+function CloseMusicPlayerScreen( screen, button )
+	killTaggedThreads( "MusicPlayerShufflePulse" )
+	CloseGhostAdminScreen( screen, button )
+end
+
+function MusicPlayerUpdateButtonStatus( screen, button, args )
+	args = args or {}
+
+	if args.Playing and CurrentRun.SuppressAmbientMusic ~= "MusicPlayer" then
+		SetAnimation({ DestinationId = button.IconId, Name = "MusicPlayerPauseButton" }) --nopkg
+		button.NeutralAnimation = screen.ItemNowPlayingAnimation
+		button.MouseOverAnimation = screen.ItemNowPlayingMouseOverAnimation
+	else
+		SetAnimation({ DestinationId = button.IconId, Name = "MusicPlayerPlayButton" }) --nopkg
+		button.NeutralAnimation = screen.ItemAvailableAnimation
+		button.MouseOverAnimation = screen.ItemAvailableMouseOverAnimation
+	end
+
+	if screen.SelectedItem == button then
+		SetAnimation({ DestinationId = button.Id, Name = button.MouseOverAnimation })
+	else
+		SetAnimation({ DestinationId = button.Id, Name = button.NeutralAnimation })
+	end
+
+end
+
 function MusicPlayerDisplayItems( screen )
 
 	local components = screen.Components
 
-	local itemLocationX = screen.ItemStartX
-	local itemLocationY = screen.ItemStartY
-
+	screen.AvailableItems = {}
 	screen.NumItems = 0
 
-	local firstUseable = false
-
+	local playingSongIndex = 0
 	for i, songName in ipairs( screen.Songs ) do
 		local songData = WorldUpgradeData[songName]
-		if songData.GameStateRequirements == nil or IsGameStateEligible( songData, songData.GameStateRequirements ) then
-			
+		if songData.GameStateRequirements == nil or IsGameStateEligible( songData, songData.GameStateRequirements ) or GameState.WorldUpgradesAdded[songName] then
 			screen.NumItems = screen.NumItems + 1
-			local purchased = GameState.WorldUpgradesAdded[songName]
-
-			local purchaseButtonKey = "PurchaseButton"..screen.NumItems
-			components[purchaseButtonKey] = CreateScreenComponent({ Name = "BlankInteractableObstacle",
-				X = itemLocationX,
-				Y = itemLocationY,
-				Group = screen.ComponentData.DefaultGroup,
-				Animation = screen.ItemAvailableAnimation,
-				ScaleY = screen.PurchaseButtonScaleY,
-				Alpha = 0.0,
-			})
-			SetInteractProperty({ DestinationId = components[purchaseButtonKey].Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
-			local button = components[purchaseButtonKey]
-			button.Animation = screen.ItemAvailableAnimation
-			button.HighlightAnimation = screen.ItemAvailableHighlightAnimation
-			AttachLua({ Id = button.Id, Table = button })
-			button.Screen = screen
-			SetInteractProperty({ DestinationId = button.Id, Property = "TooltipX", Value = screen.TooltipX + ScreenCenterNativeOffsetX })
-			SetInteractProperty({ DestinationId = button.Id, Property = "TooltipY", Value = screen.TooltipY })
-
-			local icon = songData.Icon
-			local iconScale = screen.IconScale
-			if purchased then
-				if GameState.MusicPlayerSongName == songData.Name then
-					icon = "MusicPlayerPauseButton"
-				else
-					icon = "MusicPlayerPlayButton"
-				end
-				iconScale = screen.PausePlayIconScale
+			if songData.Name == GameState.MusicPlayerSongName then
+				playingSongIndex = screen.NumItems
 			end
-
-			local iconKey = "Icon"..screen.NumItems
-			if icon ~= nil then
-				components[iconKey] = CreateScreenComponent({ Name = "BlankObstacle",
-					X = itemLocationX + screen.IconOffsetX,
-					Y = itemLocationY,
-					Scale = iconScale,
-					Group = screen.ComponentData.DefaultGroup,
-					Animation = icon,
-					Alpha = 0.0,
-				})
-				button.IconId = components[iconKey].Id
-			end
-
-			local format = nil
-			if purchased then
-				format = screen.ItemPurchasedNameFormat
-			elseif HasResources( songData.Cost ) then
-				format = screen.ItemAvailableAffordableNameFormat
-			else
-				format = screen.ItemAvailableUnaffordableNameFormat
-			end
-
-			local itemNameFormat = ShallowCopyTable( format )
-			itemNameFormat.Id = button.Id
-			itemNameFormat.Text = songData.Name
-			CreateTextBox( itemNameFormat )
-
-			button.OnMouseOverFunctionName = "MouseOverMusicPlayerItem"
-			button.OnMouseOffFunctionName = "MouseOffMusicPlayerItem"
-			if purchased then
-				button.OnPressedFunctionName = "SelectMusicPlayerItem"
-			else
-				button.OnPressedFunctionName = "HandleMusicPlayerPurchase"
-			end
-
-			if not firstUseable then
-				screen.CursorStartX = itemLocationX
-				screen.CursorStartY = itemLocationY
-				firstUseable = true
-			end
-
-			button.Data = songData
-			button.Index = screen.NumItems
-			button.DisplayName = songData.Name
-			button.Purchased = purchased
-
-			if not GameState.WorldUpgradesAdded[songName] then
-				-- Pin icon
-				local pinButtonKey = "PinIcon"..screen.NumItems
-				components[pinButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, Alpha = 0.0, Scale = screen.PurchaseButtonScaleY })
-				Attach({ Id = components[pinButtonKey].Id, DestinationId = components[purchaseButtonKey].Id, OffsetX = screen.PinOffsetX, OffsetY = UIData.PinIconListOffsetY * screen.PurchaseButtonScaleY })
-				components[purchaseButtonKey].PinButtonId = components[pinButtonKey].Id
-				if HasStoreItemPin( button.Data.Name ) then
-					components[purchaseButtonKey].IsPinned = true
-					SetAnimation({ Name = "StoreItemPin", DestinationId = components[purchaseButtonKey].PinButtonId })
-					-- Silent toolip
-					CreateTextBox({ Id = button.Id, TextSymbolScale = 0, Text = "StoreItemPinTooltip", Color = Color.Transparent, })
-				end
-
-				-- New icon
-				if not GameState.WorldUpgradesViewed[songData.Name] then
-					local newIconKey = "NewIcon"..screen.NumItems
-					components[newIconKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, Alpha = 0.0, Animation = "MusicPlayerNewTrack" })
-					Attach({ Id = components[newIconKey].Id, DestinationId = components[purchaseButtonKey].Id, OffsetX = 300, OffsetY = 0 })
-					components[purchaseButtonKey].NewButtonId = components[newIconKey].Id
-				end
-			end
-
-			itemLocationY = itemLocationY + screen.ItemSpacingY
-
+			table.insert( screen.AvailableItems, songData )
 		end
 	end
 
-	SetAlpha({ Ids = { components.Scrollbar.Id, components.ScrollbarSlider.Id }, Fraction = 1.0, Duration = 0.1 })
+	if playingSongIndex > 0 then
+		screen.ScrollOffset = MusicPlayerGetScrollOffsetForIndex( screen, playingSongIndex )
+	end
 
+	MusicPlayerUpdateVisibility( screen )
+
+end
+
+function MusicPlayerUpdateVisibility( screen, args )
+	args = args or {}
+	local components = screen.Components
+
+	if screen.SelectedItem ~= nil then
+		MouseOffMusicPlayerItem( screen.SelectedItem )
+	end
+
+	GhostAdminUpdateScrollbarPresentation( screen, args )
+
+	-- Destroy all the buttons from the last screen
+	Destroy({ Ids = screen.ButtonIds })
+	screen.ButtonIds = {}
+
+	-- Create the new batch of buttons
+	local itemLocationX = screen.ItemStartX
+	local itemLocationY = screen.ItemStartY
+	local firstIndex = screen.ScrollOffset + 1
+	local lastIndex = math.min( screen.NumItems, screen.ScrollOffset + screen.ItemsPerPage )
+	for itemIndex = firstIndex, lastIndex, 1 do
+
+		local itemData = screen.AvailableItems[itemIndex]
+		local displayName = itemData.Name
+		local purchased = GameState.WorldUpgrades[displayName]
+
+		local button = CreateScreenComponent({
+			Name = "BlankInteractableObstacle",
+			X = itemLocationX,
+			Y = itemLocationY,
+			Group = screen.ComponentData.DefaultGroup,
+			Animation = screen.ItemAvailableAnimation,
+			Alpha = 0.0,
+		})
+		components[displayName.."Button"] = button
+		button.AssociatedIds = {}
+		button.Screen = screen
+		button.OnMouseOverFunctionName = "MouseOverMusicPlayerItem"
+		button.OnMouseOffFunctionName = "MouseOffMusicPlayerItem"
+		if purchased then
+			button.OnPressedFunctionName = "SelectMusicPlayerItem"
+		else
+			button.OnPressedFunctionName = "HandleMusicPlayerPurchase"
+		end
+		button.NeutralAnimation = screen.ItemAvailableAnimation
+		button.MouseOverAnimation = screen.ItemAvailableMouseOverAnimation
+		button.Data = itemData
+		button.Purchased = purchased
+		AttachLua({ Id = button.Id, Table = button })
+		SetAnimation({ DestinationId = button.Id, Name = button.NeutralAnimation })
+		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipX", Value = screen.TooltipX + ScreenCenterNativeOffsetX })
+		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipY", Value = screen.TooltipY + ScreenCenterNativeOffsetY })
+		SetInteractProperty({ DestinationId = button.Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
+
+		local iconScale = screen.IconScale
+		if purchased then
+			iconScale = screen.PausePlayIconScale
+		end
+		local icon = CreateScreenComponent({
+			Name = "BlankObstacle",
+			X = itemLocationX + screen.IconOffsetX,
+			Y = itemLocationY,
+			Scale = screen.IconScale,
+			Group = screen.ComponentData.DefaultGroup,
+			Animation = itemData.Icon,
+			Alpha = 0.0,
+		})
+		button.IconId = icon.Id
+		table.insert( button.AssociatedIds, icon.Id )
+		components[displayName.."Icon"] = icon
+
+		local formatName = nil
+		if purchased then
+			formatName = "ItemPurchasedNameFormat"
+		elseif HasResources( itemData.Cost ) then
+			formatName = "ItemAvailableAffordableNameFormat"
+		else
+			formatName = "ItemAvailableUnaffordableNameFormat"
+		end
+		CreateTextBoxWithScreenFormat( screen, button, formatName, { Text = displayName } )
+
+		-- Hidden description for tooltip
+		CreateTextBox({ Id = button.Id,
+			Text = displayName,
+			UseDescription = true,
+			Color = Color.Transparent,
+			LuaKey = "TooltipData",
+			LuaValue = itemData,
+		})
+
+		if purchased then
+			MusicPlayerUpdateButtonStatus( screen, button, { Playing = GameState.MusicPlayerSongName == displayName } )
+		else
+			local pinIcon = CreateScreenComponent({
+				Name = "BlankObstacle",
+				Group = screen.ComponentData.DefaultGroup,
+				Alpha = 0.0,
+				Scale = screen.PinScale,
+			})
+			components[displayName.."PinIcon"] = pinIcon
+			table.insert( button.AssociatedIds, pinIcon.Id )
+			Attach({ Id = pinIcon.Id, DestinationId = button.Id, OffsetX = screen.PinOffsetX, OffsetY = UIData.PinIconListOffsetY + screen.PinOffsetY })
+			button.PinButtonId = pinIcon.Id
+			if HasStoreItemPin( displayName ) then
+				button.IsPinned = true
+				SetAnimation({ Name = "StoreItemPin", DestinationId = pinIcon.Id })
+				-- Silent toolip
+				CreateTextBox({ Id = button.Id, TextSymbolScale = 0, Text = "StoreItemPinTooltip", Color = Color.Transparent, })
+			end
+
+			if not GameState.WorldUpgradesViewed[displayName] then
+				local newIcon = CreateScreenComponent({
+					Name = "BlankObstacle",
+					Group = screen.ComponentData.DefaultGroup,
+					Animation = "MusicPlayerNewTrack",
+					Alpha = 0.0,
+				})
+				components[displayName.."NewIcon"] = newIcon
+				table.insert( button.AssociatedIds, newIcon.Id )
+				Attach({ Id = newIcon.Id, DestinationId = button.Id, OffsetX = 300, OffsetY = 0 })
+				button.NewIconId = newIcon.Id
+			end
+		end
+
+		SetAlpha({ Id = button.Id, Fraction = 1.0, Duration = 0.1 })
+		SetAlpha({ Ids = button.AssociatedIds, Fraction = 1.0, Duration = 0.1 })
+		if args.PlaySequentialFade then
+			wait( 0.05 )
+		end
+
+		if itemData.Name == GameState.MusicPlayerSongName or itemIndex == firstIndex then
+			screen.CursorStartX = itemLocationX
+			screen.CursorStartY = itemLocationY
+		end
+
+		table.insert( screen.ButtonIds, button.Id )
+		screen.ButtonIds = CombineTables( screen.ButtonIds, button.AssociatedIds )
+
+		itemLocationY = itemLocationY + screen.ItemSpacingY
+	end
 end
 
 function HandleMusicPlayerPurchase( screen, button )
@@ -189,45 +264,23 @@ function HandleMusicPlayerPurchase( screen, button )
 	MusicPlayerItemPurchasedPresentation( button )
 
 	AddWorldUpgrade( songData.Name )
+	table.insert( GameState.UnlockedMusicPlayerSongs, songData.Name )
 	RemoveStoreItemPin( songData.Name, { Purchase = true } )
 
-	Destroy({ Id = screen.Components["PurchaseButton".. button.Index].Id })
-	screen.Components["PurchaseButton".. button.Index] = nil
-
-	if screen.Components["Icon".. button.Index] ~= nil then
-		Destroy({ Id = screen.Components["Icon".. button.Index].Id })
-		screen.Components["Icon".. button.Index] = nil
-	end
-
-	for i, button in pairs( screen.Components ) do
-		if button.Data ~= nil and button.Data.ResourceCost ~= nil then
-			local costColor = Color.CostAffordable
-			if not HasResource( button.Data.ResourceName, button.Data.ResourceCost ) then
-				costColor = Color.CostUnaffordable
-			end
-			ModifyTextBox({ Id = screen.Components["PurchaseButton"..button.Index].Id, Color = costColor })
-		end
-	end
-
-	CloseGhostAdminScreen( screen, button )
+	CloseMusicPlayerScreen( screen, button )
 
 	thread( DoMusicPlayerPurchase, screen, button )
 end
 
 function DoMusicPlayerPurchase( screen, button )
 	local itemData = button.Data
-	SpendResources( itemData.Cost, itemData.Name, { Silent = true } )
-	MusicPlayerPurchasePreActivatePresentation( screen, button, itemData )
+	GameState.MusicPlayerPlaylist = nil
 	GameState.MusicPlayerSongName = itemData.Name
-	MusicianMusic( { SourceId = screen.OpenedFrom.ObjectId, TrackName = WorldUpgradeData[itemData.Name].TrackName } )
+	MusicPlayerPurchasePreActivatePresentation( screen, button, itemData )
+	MusicianMusic( WorldUpgradeData[itemData.Name].TrackName )
+	CancelArtemisSinging()
 	MusicPlayerPurchasePostActivatePresentation( screen, button, itemData )
-	OpenMusicPlayerScreen( screen.OpenedFrom, { InitialScrollOffset = screen.ScrollOffset, SkipInitialDelay = true } )
-end
-
-function MusicPlayerPurchaseSequenceFinished( source, args )
-	args = args or {}
-	UseableOn({ Ids = args.UseableOnIds })
-	UpdateAffordabilityStatus()
+	OpenMusicPlayerScreen( screen.OpenedFrom, { SkipInitialDelay = true } )
 end
 
 function MusicPlayerScrollUp( screen, button )
@@ -235,7 +288,8 @@ function MusicPlayerScrollUp( screen, button )
 		return
 	end
 	screen.ScrollOffset = screen.ScrollOffset - screen.ItemsPerPage
-	GhostAdminUpdateVisibility( screen, { AnimateSlider = true } )
+	GenericScrollPresentation( screen, button )
+	MusicPlayerUpdateVisibility( screen, { AnimateSlider = true } )
 	wait(0.02)
 	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY + ((screen.ItemsPerPage - 1) * screen.ItemSpacingY), ForceUseCheck = true })
 end
@@ -245,36 +299,107 @@ function MusicPlayerScrollDown( screen, button )
 		return
 	end
 	screen.ScrollOffset = screen.ScrollOffset + screen.ItemsPerPage
-	GhostAdminUpdateVisibility( screen, { AnimateSlider = true } )
+	GenericScrollPresentation( screen, button )
+	MusicPlayerUpdateVisibility( screen, { AnimateSlider = true } )
 	wait(0.02)
 	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY, ForceUseCheck = true })
 end
 
 function SelectMusicPlayerItem( screen, button )
 	local songName = button.Data.Name
-	if songName == GameState.MusicPlayerSongName then
-		SetAnimation({ DestinationId = button.IconId, Name = "MusicPlayerPlayButton" })
-		StopMusicianMusic()
-		GameState.MusicPlayerSongName = nil
+	if songName == GameState.MusicPlayerSongName and CurrentRun.SuppressAmbientMusic ~= "MusicPlayer" then
+		MusicPlayerUpdateButtonStatus( screen, button, { Playing = false } )
+		StopMusicianMusic( { Duration = 0 } )
 		MusicPlayerStopSongPresentation( screen.OpenedFrom, button )
+		GameState.MusicPlayerSongName = nil
 	else
 		if GameState.MusicPlayerSongName ~= nil then
-			for index = 1, screen.NumItems do
-				local purchaseButtonKey = "PurchaseButton"..index
-				if screen.Components[purchaseButtonKey].Data.Name == GameState.MusicPlayerSongName then
-					SetAnimation({ DestinationId = screen.Components[purchaseButtonKey].IconId, Name = "MusicPlayerPlayButton" })
-					break
-				end
+			local prevButton = screen.Components[GameState.MusicPlayerSongName.."Button"]
+			if prevButton ~= nil then
+				MusicPlayerUpdateButtonStatus( screen, prevButton, { Playing = false } )
 			end
 		end
-		SetAnimation({ DestinationId = button.IconId, Name = "MusicPlayerPauseButton" })
 		GameState.MusicPlayerSongName = songName
-		MusicianMusic( { SourceId = screen.OpenedFrom.ObjectId, TrackName = WorldUpgradeData[songName].TrackName } )
+
+		local artemisAlreadySuppressed = ( CurrentRun.SuppressAmbientMusic == "Artemis" )
+		thread( PlayVoiceLines, GlobalVoiceLines.MelMusicChoiceVoiceLines, true, nil, { ArtemisAlreadySuppressed = artemisAlreadySuppressed } )
+		CancelArtemisSinging()
+
+		MusicPlayerUpdateButtonStatus( screen, button, { Playing = true } )
+		MusicianMusic( WorldUpgradeData[songName].TrackName )
 		MusicPlayerPlaySongPresentation( screen.OpenedFrom, button )
 	end
+	GameState.MusicPlayerPlaylist = nil
 	UpdateMusicPlayerInteractionText( screen, button )
 end
 
 function HasUnviewedMusicPlayerSong( source, args )
 	return HasUnviewedWorldUpgrade( ScreenData.MusicPlayer.Songs )
+end
+
+function MusicPlayerShuffle( screen, button )
+	if not GameState.WorldUpgrades.WorldUpgradeMusicPlayerShuffle then
+		return
+	end
+
+	GameState.Flags.HasShuffledMusicPlayer = true
+	killTaggedThreads( "MusicPlayerShufflePulse" )
+
+	if IsEmpty( GameState.MusicPlayerPlaylist ) then
+		GameState.MusicPlayerPlaylist = MusicPlayerGetShuffledPlaylist()
+	end
+	local nextSong = RemoveFirstValue( GameState.MusicPlayerPlaylist )
+	local prevSong = GameState.MusicPlayerSongName
+	local nextSongIndex = nil
+	for index = 1, screen.NumItems do
+		local songData = screen.AvailableItems[index]
+		if songData.Name == nextSong then
+			nextSongIndex = index
+			break
+		end
+	end
+
+	local prevScrollOffset = screen.ScrollOffset
+	screen.ScrollOffset = MusicPlayerGetScrollOffsetForIndex( screen, nextSongIndex )
+	if screen.ScrollOffset ~= prevScrollOffset then
+		MusicPlayerUpdateVisibility( screen, { AnimateSlider = true } )
+		wait(0.02)
+	end
+	local nextSongButton = screen.Components[nextSong.."Button"]
+	TeleportCursor({ DestinationId = nextSongButton.Id, ForceUseCheck = true })
+
+	MusicPlayerShufflePresentation( screen, nextSongButton )
+
+	GameState.MusicPlayerSongName = nextSong
+	CurrentRun.HasAdvancedMusicPlayerPlaylist = true
+	CancelArtemisSinging()
+
+	MusicPlayerUpdateButtonStatus( screen, nextSongButton, { Playing = true } )
+	if prevSong ~= nil then
+		local prevSongButton = screen.Components[prevSong.."Button"]
+		if prevSongButton ~= nil then
+			MusicPlayerUpdateButtonStatus( screen, prevSongButton, { Playing = false } )
+		end
+	end
+
+	MusicianMusic( WorldUpgradeData[GameState.MusicPlayerSongName].TrackName )
+	MusicPlayerPlaySongPresentation( screen.OpenedFrom )
+
+	UpdateMusicPlayerInteractionText( screen )
+end
+
+function MusicPlayerGetShuffledPlaylist()
+	local playlist = ShallowCopyTable( GameState.UnlockedMusicPlayerSongs )
+	local shuffled = FYShuffle( playlist )
+	-- Prevent the same song from playing twice in a row
+	if GameState.MusicPlayerSongName == shuffled[1] then
+		local swapIndex = RandomInt( 2, #shuffled )
+		shuffled[1] = shuffled[swapIndex]
+		shuffled[swapIndex] = GameState.MusicPlayerSongName
+	end
+	return shuffled
+end
+
+function MusicPlayerGetScrollOffsetForIndex( screen, index )
+	return math.floor( ( index - 1 ) / screen.ItemsPerPage ) * screen.ItemsPerPage
 end

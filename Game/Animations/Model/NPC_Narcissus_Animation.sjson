@@ -1,0 +1,63 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCNarcissusBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Narcissus_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = false
+	}
+
+	// Idle
+	{
+		Name = "Narcissus_Idle"
+		InheritFrom = "NPCNarcissusBaseAnimation"
+		GrannyAnimation = "Narcissus_Base_Idle_C_00"
+		Loop = true
+	}
+
+	// Look
+	{
+		Name = "Narcissus_Look_Start"
+		InheritFrom = "NPCNarcissusBaseAnimation"
+		GrannyAnimation = "Narcissus_Base_LookBack_C_00"
+		ChainTo = "Narcissus_Look_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Narcissus_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Narcissus_Look_FireLoop"
+		InheritFrom = "NPCNarcissusBaseAnimation"
+		GrannyAnimation = "Narcissus_Base_Idle_LookBack_C_00"
+		Loop = true
+	}
+	{
+		Name = "Narcissus_Look_End"
+		InheritFrom = "NPCNarcissusBaseAnimation"
+		GrannyAnimation = "Narcissus_Base_Wave_C_00"
+		ChainTo = "Narcissus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Narcissus_Look_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Narcissus_Look_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+]}

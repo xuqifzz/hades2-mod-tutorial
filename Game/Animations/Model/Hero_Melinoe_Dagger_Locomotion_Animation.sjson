@@ -215,6 +215,14 @@
 				BlendTransitionFrom = "Melinoe_Dagger_Equip"
 				Duration = 5
 			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Morrigan_Attack1_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Morrigan_Attack1_End_Cancelable"
+				Duration = 4
+			}
 		]
 	}
 
@@ -303,6 +311,10 @@
 				Duration = 5
 			}
 			{
+				BlendTransitionFrom = "Melinoe_Dagger_Interact"
+				Duration = 5
+			}
+			{
 				BlendTransitionFrom = "MelinoeBoonInteractPowerUp"
 				Duration = 5
 			}
@@ -316,6 +328,18 @@
 			}
 			{
 				BlendTransitionFrom = "Melinoe_Dagger_Equip"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Morrigan_Attack1_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Morrigan_Attack1_End_Cancelable"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_ForwardCast_End"
 				Duration = 5
 			}
 		]
@@ -344,18 +368,60 @@
 				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
 			}
 		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Run_FireLoop"
+				Duration = 6
+			}
+		]
 	}
 
 	// Melinoe Dagger Sprint
 	{
+		Name = "Melinoe_Dagger_SprintTurn_180"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_RunSprintDirectionChange180_N_00"
+		CancelOnRestart = true
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 740
+		ChainTo = "Melinoe_Dagger_Sprint_FireLoop"
+	}
+
+	{
+		Name = "Melinoe_Dagger_SprintTurn_E90"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_RunSprintDirectionChangeE90_N_00"
+		GrannyRotationY = 90
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 740
+		ChainTo = "Melinoe_Dagger_Sprint_FireLoop"
+	}
+
+	{
+		Name = "Melinoe_Dagger_SprintTurn_W90"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_RunSprintDirectionChangeW90_N_00"
+		GrannyRotationY = -90
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 740
+		ChainTo = "Melinoe_Dagger_Sprint_FireLoop"
+	}
+
+	{
 		Name = "Melinoe_Dagger_Sprint_FireLoop"
-		InheritFrom = "MelinoeBaseDaggerAnimationsWithTurns"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
 		GrannyAnimation = "Melinoe_Dagger_Base_RunSprint_00"
 		NativeMoveSpeed = 740
 		Loop = true
+		DirectionChange180 = "Melinoe_Dagger_SprintTurn_180"
+		DirectionChange90R = "Melinoe_Dagger_SprintTurn_E90"
+		DirectionChange90L = "Melinoe_Dagger_SprintTurn_W90"
 		RequireCurrentAnimationNotContains =
 		[
 			{ Name = "Melinoe_Dagger_Dash_Fire" }
+			{ Name = "Melinoe_Dagger_Cast_Start" }
 		]
 
 		Frames = 
@@ -378,6 +444,14 @@
 			{
 				BlendTransitionFrom = "Melinoe_Dagger_Dash_End1"
 				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Morrigan_Attack1_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Morrigan_Attack1_End_Cancelable"
+				Duration = 4
 			}
 		]
 	}

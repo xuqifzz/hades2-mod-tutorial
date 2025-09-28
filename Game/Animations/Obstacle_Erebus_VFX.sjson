@@ -353,7 +353,6 @@
 
 	{
 		Name = "WaterTeleportStartFx"
-		CreateAnimation = "WaterTeleportStartFx_Standing"
 		FilePath = "Fx\FishingSplashA_Terrain\FishingSplashA_Terrain"
 		
 		Sound = "/Leftovers/World Sounds/ClickSplash"
@@ -367,6 +366,14 @@
 		LocationFromOwner = "Ignore"
 		AngleFromOwner = "Ignore"
 		ColorFromOwner = "Ignore"
+		VisualFx = "WaterTeleportDroplets"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 8
+		CreateAnimations = [
+			{ Name = "WaterTeleportStartFx_Standing" }
+			{ Name = "WaterTeleportStartFx2_Standing" }
+		]
 		Color = { Red = 0.0 Green = 0.50 Blue = 1.0 }
 	}
 	{
@@ -382,10 +389,75 @@
 		SortMode = "Isometric"
 		Ambient = 0.0
 		Scale = 1.25
+		ScaleFromOwner = "Ignore"
 		LocationFromOwner = "Ignore"
 		AngleFromOwner = "Ignore"
 		ColorFromOwner = "Ignore"
-		Color = { Red = 0.0 Green = 0.50 Blue = 1.0 }
+		DieWithOwner = false
+		Color = { Red = 0.35 Green = 0.75 Blue = 0.75 }
+	}
+
+	{
+		Name = "WaterTeleportStartFx2_Standing"
+		FilePath = "Fx\PoseidonVerticalSplash\PoseidonVerticalSplash"
+		NumFrames = 39
+		AngleFromOwner = "Ignore"
+		Hue = -0.1
+		PlaySpeed = 45
+		StartAlpha = 1
+		EndAlpha = 0
+		Scale = 1.25
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		DieWithOwner = false
+	}
+
+	{
+		Name = "WaterTeleportDroplets"
+		Random = [
+			{ Name = "WaterTeleportDropletA" }
+			{ Name = "WaterTeleportDropletB" }
+		]
+	}
+
+	{
+		Name = "WaterTeleportDropletA"
+		FilePath = "Particles\particle_waterSprayIris01"
+		Material = "Unlit"
+		StartScale = 1
+		EndScale = 1.6
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.6
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomRotation = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		Gravity = 800
+		AngleMin = 20
+		AngleMax = 160
+		Acceleration = -400
+		VelocityMin = 250
+		VelocityMax = 500
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 0.2
+		ScaleMax = 0.6
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing"
+		RandomRotationSpeedMin = -90
+		RandomRotationSpeedMax = 90
+		CreateAnimation = "OceanusRandomRipples"
+		Hue = -0.1
+	}
+
+	{
+		Name = "WaterTeleportDropletB"
+		InheritFrom = "WaterTeleportDropletA"
+		FilePath = "Particles\particle_waterSprayIris02"
 	}
 
 
@@ -414,20 +486,20 @@
 	}
 
 	{
-		Name = "ErebusRiverGhost"
-		
-		FilePath	= "Fx\ErebusRiverGhost\ErebusRiverGhost"
+		Name = "ErebusRiverGhost"		
+		FilePath = "Fx\ErebusRiverGhost\ErebusRiverGhost"
 		NumFrames = 120
 		RandomPlaySpeedMin = 20
 		RandomPlaySpeedMax = 30
 		Material = "Unlit"
 		ChainTo = "ErebusRiverGhostDelay"
+		Sound = "/SFX/GhostEmotes/GriefLARGElow"
+		SoundManagerCap = 14
 	}
 
 	{
-		Name = "ErebusRiverGhostDelay"
-		
-		FilePath	= "Fx\ErebusRiverGhost\ErebusRiverGhost0001"
+		Name = "ErebusRiverGhostDelay"		
+		FilePath = "Fx\ErebusRiverGhost\ErebusRiverGhost0001"
 		Alpha = 0.0
 		RandomDurationMin = 2.0
 		RandomDurationMax = 7.0
@@ -435,8 +507,7 @@
 	}
 
 	{
-		Name = "ErebusLeafStepA"
-		
+		Name = "ErebusLeafStepA"		
 		FilePath = "Fx\ErebusLeafStepA\ErebusLeafStepA"
 		NumFrames = 32
 		Hue = -0.35
@@ -947,13 +1018,13 @@
 	}
 
 	{
-		Name = "ErebusFirefliesA"
-		
+		Name = "ErebusFirefliesA"		
 		FilePath = "Fx\ErebusFirefliesA\ErebusFirefliesA"
 		NumFrames = 90
 		RandomPlaySpeedMin = 20
 		RandomPlaySpeedMax = 30
 		Material = "Unlit"
+		OnlyWhenVisible = true
 	}
 
 	{
@@ -1258,6 +1329,39 @@
 		StartAngle = 1.25
 		EndAngle = -1.25
 		FilePath = "Tilesets\Erebus\Erebus_TugBoat_01"
+	}
+
+	{
+		Name = "ErebusOverlookMoon_Phase1"
+		FilePath = "Tilesets\Erebus\Erebus_Moon_FullMoon"
+	}
+	{
+		Name = "ErebusOverlookMoon_Phase2"
+		FilePath = "Tilesets\Erebus\Erebus_Moon_WaningGibbous"
+	}
+	{
+		Name = "ErebusOverlookMoon_Phase3"
+		FilePath = "Tilesets\Erebus\Erebus_Moon_ThirdQuarter"
+	}
+	{
+		Name = "ErebusOverlookMoon_Phase4"
+		FilePath = "Tilesets\Erebus\Erebus_Moon_WaningCrescent"
+	}
+	{
+		Name = "ErebusOverlookMoon_Phase5"
+		FilePath = "Tilesets\Erebus\Erebus_Moon_NewMoon"
+	}
+	{
+		Name = "ErebusOverlookMoon_Phase6"
+		FilePath = "Tilesets\Erebus\Erebus_Moon_WaxingCrescent"
+	}
+	{
+		Name = "ErebusOverlookMoon_Phase7"
+		FilePath = "Tilesets\Erebus\Erebus_Moon_FirstQuarter"
+	}
+	{
+		Name = "ErebusOverlookMoon_Phase8"
+		FilePath = "Tilesets\Erebus\Erebus_Moon_WaxingGibbous"
 	}
 
 ]}

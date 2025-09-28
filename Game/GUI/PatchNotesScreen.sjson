@@ -1,31 +1,38 @@
 {
-  PatchNotesScreen = {
+  PatchNotesScreen =
+  {
     Platform = "default"
-    OpenSound = "/SFX/Menu Sounds/GodBoonMenuClose"
-    CloseSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+    OpenSound = "/SFX/Menu Sounds/IrisMenuOpen"
+    CloseSound = "/SFX/Menu Sounds/IrisMenuBack"
     SelectionSound = "null"
-    TransitionOnTime = 0.1
-    TransitionOffTime = 0.15
+    TransitionOnTime = 0.3
+    TransitionOffTime = 0.35
     ForceShowCursor = true
-    Back = {
+    
+    Back =
+    {
       Justification = "Left"
       VerticalJustification = "Top"
       Red = 0
       Green = 0
       Blue = 0
       Alpha = 0.9
-      Width = 1920
+      Width = 5120
       Height = 1080
     }
-    AnimatedBackground = {
+
+    AnimatedBackground =
+    {
       X = 960
       Y = 540
-      Graphic = "GUI\Shell\Box_FullScreen"
+      Graphic = "ShellFullScreenIn"
       Scale = 1.0
       Justification = "Center"
       VerticalJustification = "Center"
     }
-    TitleText = {
+
+    TitleText =
+    {
       X = 960
       Y = 185
       Justification = "Center"
@@ -34,8 +41,7 @@
       Font = "P22UndergroundSCLightTitling"
       HelpTextId = "MainMenuScreen_PatchNotesTitle"
       Width = 800
-      NonEnglishFont = "P22UndergroundSCLight"
-      
+      NonEnglishFont = "P22UndergroundSCLight"      
       FontSize = 32
       TextRed = 1
       TextGreen = 1
@@ -53,15 +59,15 @@
       ShadowBlur = 0
     }
 
-    SubHeader = {
+    SubHeader =
+    {
       X = 960
       Y = 950
       Justification = "Center"
       VerticalJustification = "Top"
       Font = "LatoMedium"
       HelpTextId = "MainMenuScreen_PatchSubHeading"
-      FontSize = 20
-      
+      FontSize = 20      
       TextRed = 0.87
       TextGreen = 0.87
       TextBlue = 0.87
@@ -82,24 +88,26 @@
       MouseWheelScrollSpeed = 30
       TextSymbolScale = 0.8
       LineSpacingBottom = 8
-      LangCnScaleModifier = 1.0
-      NonEnglishScaleModifier = 1.0
-      LangJaScaleModifier = 1.0
+      
     }
-    ScrollBar = {
+
+    ScrollBar =
+    {
       X = 1550
       Y = 570
       Graphic = "GUI\Screens\ScrollbarDownUp"
       ScaleY = 1.20
       FreeFormSelectable = false
     }
-    ScrollBarTracker = {
+    ScrollBarTracker =
+    {
       X = 1550
       Graphic = "GUI\Screens\ScrollbarSlider"
       SelectedGraphic = "GUI\Screens\ScrollbarSlider"
       FreeFormSelectable = false
       Scale = 0.25
     }
+
     UpArrow =
     {
       X = 1550
@@ -117,14 +125,14 @@
       Scale = 0.4
     }
 
-    AnnouncementText = {
+    AnnouncementText =
+    {
       X = 450
       Y = 280
       Justification = "Left"
       VerticalJustification = "Top"
       Font = "LatoMedium"
-      FontSize = 18
-      
+      FontSize = 18      
       TextRed = 0.87
       TextGreen = 0.87
       TextBlue = 0.87
@@ -145,16 +153,15 @@
       MouseWheelScrollSpeed = 30
       TextSymbolScale = 0.8
       LineSpacingBottom = 8
-      LangCnScaleModifier = 1.0
-      NonEnglishScaleModifier = 1.0
-      LangJaScaleModifier = 1.0
-    }/* Controls */
+      
+    }
+    
+    /* Controls */
     CancelButton =
     {
       X = 1875
       Y = 1030
-      HelpTextId = "MiscSettingsScreen_Back"
-      
+      HelpTextId = "MiscSettingsScreen_Back"      
       // From ContextualButtonFormatRight
       FontSize = 20
       Width = 415
@@ -174,9 +181,10 @@
       SelectedTextRed = 0.50
       SelectedTextGreen = 0.90
       SelectedTextBlue = 0.80
-      PressSound = "/SFX/Menu Sounds/DialoguePanelOut"
+      PressSound = "/SFX/Menu Sounds/IrisMenuToggle2"
       FreeFormSelectable = false
     }
+
     RevealSpoilersButton =
     {
       InheritFrom = "CancelButton"
@@ -184,5 +192,6 @@
       HelpTextId = "PatchNotesScreen_ShowSpoilers"
       FreeFormSelectable = false
     }
+
   }
 }

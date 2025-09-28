@@ -49,6 +49,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Athena_Idle"
 				Duration = 6
 			}
@@ -83,6 +87,10 @@
 		ChainTo = "Athena_Idle"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Athena_Idle"
 				Duration = 6
@@ -122,6 +130,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Athena_Idle"
 				Duration = 6
 			}
@@ -136,6 +148,10 @@
 		ChainTo = "Athena_Idle"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Athena_Idle"
 				Duration = 6
@@ -159,6 +175,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Athena_Idle"
 				Duration = 6
 			}
@@ -180,6 +200,10 @@
 		ChainTo = "Athena_Proud_FireLoop"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Athena_Idle"
 				Duration = 6
@@ -214,6 +238,10 @@
 		ChainTo = "Athena_Idle"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "Athena_Proud_Start"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Athena_Proud_FireLoop"
 				Duration = 6

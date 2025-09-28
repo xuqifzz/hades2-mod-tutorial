@@ -9,20 +9,44 @@ _workingThreads = {}
 _eventListeners = {}
 _eventTimeoutRecord = {}
 _events = {}
-_threadStack = nil
-_activeThread = nil
 
 _tagsToKill = {}
 
 -- Global return tables
 NotifyResultsTable = {}
 
+_coroutinePool = {}
+
+local function coroutineRunner( func, arg1, arg2, arg3, arg4, arg5 )
+
+	while true do
+		func( arg1, arg2, arg3, arg4, arg5 )
+		func, arg1, arg2, arg3, arg4, arg5 = coroutine.yield( "task done" )
+	end
+
+end
+
+
+local function getCoroutine()
+	local co = nil
+	if #_coroutinePool > 0 then
+		co = table.remove( _coroutinePool )
+	else
+		co =  coroutine.create( coroutineRunner )
+	end
+	return co
+end
+
+local function returnCoroutine( co )
+	assert( coroutine.status( co ) == "suspended" )
+	table.insert( _coroutinePool, co )
+end
+
 -- syntactic sugar for yield
 function wait( duration, tag, persist )
 	if duration == nil or duration <= 0 then
 		return
 	end
-	--ProfileZoneEnd({})
 	coroutine.yield({ wait = duration, tag = tag or "Untagged", Persist = persist, threadInfo = lastGoodThreadInfo })
 end
 
@@ -30,22 +54,25 @@ function waitUnmodified( duration, tag, persist )
 	if duration == nil or duration <= 0 then
 		return
 	end
-	--ProfileZoneEnd({})
 	coroutine.yield({ wait = duration, unmodifiedTime = true, tag = tag or "Untagged", Persist = persist, threadInfo = lastGoodThreadInfo })
 end
 
 function waitUntil( event, tag, persist )
-	assert( event )
+	if verboseLogging and event == nil then
+		DebugAssert({ false, Text = "waitUntil called with no name" })
+	end
 	-- no need to wait, event already happened
 	if _events[event] ~= nil then
 		_events[event] = nil
 		return
 	end
-	--ProfileZoneEnd({})
 	coroutine.yield({ wait = -1, event = event, tag = tag, Persist = persist, threadInfo = lastGoodThreadInfo })
 end
 
 function ToLookup( table )
+	if table == nil then
+		return nil
+	end
 	local lookup = {}
 	for key,value in pairs( table ) do
 		lookup[value] = true
@@ -72,21 +99,6 @@ end
 local function EndsWith( String, End )
 	return End == '' or string.sub( String, -string.len(End) ) == End
 end
-
-DebugFunctionIgnores = ToLookup({
-		"dispatch", "resume", "func", "push", "pop", "peek", "newvar",
-		"rawset", "for iterator", "pairs", "yield", "on", "isrunning", "create",
-		"cmp_multitype", "orderedPairs", "__genOrderedIndex", "orderedNext",
-		"unpackTableArgs", "unpackTableArgsInternal",
-		"DeepCopyTable",
-		"GetStackLevel",
-		"GetGlobalRng",
-		"Random",
-		"RandomNumber",
-	})
-
-MainFileFunctions = ToLookup({ "__newindex", "wait", "waitUnmodified", "waitUntil", "notify", "notifyExistingWaiters", "thread", "assert" })
-
 
 function GetRecursiveTableString( object )
 	if object == nil then
@@ -142,79 +154,31 @@ function GetTableString( object, name )
 
 end
 
-function GetStackLevel( startingLevel )
+function resume( thread, threadTable, func, arg1, arg2, arg3, arg4, arg5 )
 
-	local level = startingLevel or 1
-	while true do
-		local info = debug.getinfo(level, "S")
-		if info == nil then
-			break
-		end
-		level = level + 1
-	end
-
-	return level
-
-end
-
-function SetCurrentLine()
-
-	local threadInfo = nil
-	if _threadStack == nil or #_threadStack == 0 then
-		threadInfo = debug.getinfo( 1, "Sl" )
-		_currentStackLevel = GetStackLevel( 2 )
+	local status = nil
+	local info = nil
+	if func ~= nil then
+		status, info = coroutine.resume( thread, func, arg1, arg2, arg3, arg4, arg5 )
 	else
-		threadInfo = debug.getinfo( _activeThread, 1, "Sl" )
-		_currentStackLevel = 1
-		while true do
-			local nextLevelInfo = debug.getinfo( _activeThread, _currentStackLevel + 1, "Sl" )
-			if nextLevelInfo == nil then
-				break
-			end
-			_currentStackLevel = _currentStackLevel + 1
-		end
+		status, info = coroutine.resume( thread )
 	end
-
-	if threadInfo == nil then
-		_currentLine = 0
-		_currentFileName = ""
-		return
-	end
-
-	_currentLine = threadInfo.currentline
-	_currentFileName = threadInfo.source
-
-end
-
-function findGlobal( f )
-	for k, v in pairs( _G ) do
-		if v == f then
-			return k
-		end
-	end
-end
-
-function resume( thread, threadTable )
-
-	if _threadStack == nil then
-		_threadStack = NewStack()
-	end
-	_threadStack:push( thread )
-	_activeThread = thread
-
-	--ProfileZoneStart({ Name = tostring(thread) })
-	local status, info = coroutine.resume( thread )
-	--ProfileZoneEnd({})
+	
 	if not status then
-		DebugMessage({ Text = info })
+		DebugPrint({ Text = info })
 		assert( status, info )
 	end
+
+	if status and info == "task done" then
+		returnCoroutine( thread )
+		return
+	end
+	
 	local wait = info and info.wait
 	local unmodifiedTime = info and info.unmodifiedTime
 	local event = info and info.event
 
-	_threadStack:pop()
-	_activeThread = _threadStack:peek()
+	assert( wait ~= nil, info )
 
 	if status and wait ~= nil then
 		if wait > 0 then
@@ -229,7 +193,7 @@ function resume( thread, threadTable )
 			end
 
 			table.insert( threadTable, { resumeTime = resumeTime, unmodifiedTime = unmodifiedTime, thread = thread, tag = info.tag, Persist = info.Persist, threadInfo = info.threadInfo } )
-			return "wait"
+			return
 		elseif wait < 0 then
 			assert( event )
 			local eventListener = _eventListeners[event]
@@ -238,17 +202,15 @@ function resume( thread, threadTable )
 			end
 			table.insert( eventListener, { Event = event, Thread = thread, Tag = info.tag, Persist = info.Persist, ThreadInfo = info.threadInfo } )
 			_eventListeners[event] = eventListener
-			return "waitUntil"
+			return
 		end
 	end
-
-	return "done"
 
 end
 
 function hurryUpWaitingThreads( tag )
 	--debugprint( "hurryUpWaitingThreads("..tag..")" )
-	for k,v in pairs( _threads ) do
+	for k,v in ipairs( _threads ) do
 		if tag == v.tag then
 			if v.unmodifiedTime then
 				v.resumeTime = _worldTimeUnmodified
@@ -259,14 +221,32 @@ function hurryUpWaitingThreads( tag )
 	end
 end
 
-function dispatch( func, triggerArgs )
-	local co = coroutine.create( function () func( triggerArgs ) end )
+local function comboHook( why, line )
 
-	if verboseLogging then
-		debug.sethook( co, newFunctionCall, "cr" )
+	if why == "line" then
+		allocTracker( why, line )
+	else
+		newFunctionCall( why )
 	end
-	local status = resume( co, _threads )
 
+end
+
+local function setupDebugHooks( co )
+	if verboseLogging and allocTracker then
+		debug.sethook( co, comboHook, "crl" )
+	elseif verboseLogging then
+		debug.sethook( co, newFunctionCall, "cr" )
+	elseif allocTracker then
+		debug.sethook( co, allocTracker, "l" )
+	else
+		debug.sethook()
+	end
+end
+
+function dispatch( func, triggerArgs )
+	local co = getCoroutine()
+	setupDebugHooks( co )
+	resume( co, _threads, func, triggerArgs )
 end
 
 -- This will notify an event *and* store the fact that the event has already notified
@@ -306,7 +286,7 @@ function notifyExistingWaiters( event, wasTimeout )
 end
 
 function HasThread( tag )
-	for k, threadInfo in pairs( _threads ) do
+	for k, threadInfo in ipairs( _threads ) do
 		if threadInfo.tag == tag then
 			return true
 		end
@@ -314,23 +294,23 @@ function HasThread( tag )
 	return false
 end
 
+function HasWaitUntil( notifyName )
+	return _eventListeners[notifyName] ~= nil
+end
+
 function SetElapsedTimeMultiplier( newTimeMultiplier, tag, args )
-	args = args or { Ignores = {} }
+	args = args or {}
 	local threadTargets = { _threads, _workingThreads }
-	for k, threadTarget in pairs( threadTargets ) do
-		for k, threadInfo in pairs( threadTarget ) do
+	for k, threadTarget in ipairs( threadTargets ) do
+		for k, threadInfo in ipairs( threadTarget ) do
 			if threadInfo.resumeTime then
 				if not threadInfo.unmodifiedTime then
 					threadInfo.processed = false
 				end
-				if tag then
+				if tag ~= nil then
 					threadInfo.processed = true
 					if threadInfo.tag == tag then
 						threadInfo.processed = false
-					end
-				elseif not IsEmpty(args.Ignores) then
-					if args.Ignores[threadInfo.tag] then
-						threadInfo.processed = true
 					end
 				end
 			end
@@ -362,7 +342,7 @@ function SetThreadWait( tag, duration )
 		return
 	end
 	local foundThread = false
-	for k, threadInfo in pairs( _threads ) do
+	for k, threadInfo in ipairs( _threads ) do
 		if threadInfo.tag == tag then
 			local resumeTime
 			if threadInfo.unmodifiedTime then
@@ -381,6 +361,10 @@ function SetThreadWait( tag, duration )
 
 	return foundThread
 
+end
+
+function ManageThreads( source, args )
+	killWaitUntilThreads( args.KillWaitUntilThread )
 end
 
 function killWaitUntilThreads( event )
@@ -403,16 +387,16 @@ function killTaggedThreads( tag )
 
 end
 
-function killAllWaitingThreads()
-	_threads = {}
-	_workingThreads = {}
-	_eventListeners = {}
-	_events = {}
-end
-
 function KillNonPersistentThreads()
-	for k, threadInfo in pairs( _threads ) do
+	for k, threadInfo in ipairs( _workingThreads ) do
 		if not threadInfo.Persist then
+			--DebugPrint({ Text = "_workingThreads threadInfo.tag = "..threadInfo.tag })
+			_tagsToKill[threadInfo.tag] = true
+		end
+	end
+	for k, threadInfo in ipairs( _threads ) do
+		if not threadInfo.Persist then
+			--DebugPrint({ Text = "_threads threadInfo.tag = "..threadInfo.tag })
 			_tagsToKill[threadInfo.tag] = true
 		end
 	end
@@ -426,15 +410,11 @@ function KillNonPersistentThreads()
 end
 
 
-function thread( func, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, ... )
-	local args = { arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, ... }
-	local co = coroutine.create( function () func( unpackTableArgs(args) ) end )
-
-	if verboseLogging then
-		debug.sethook( co, newFunctionCall, "cr" )
-	end
-	local status = resume( co, _threads )
-
+function thread( func, arg1, arg2, arg3, arg4, arg5, arg6 )
+	assert( arg6 == nil, "thread() called with too many arguments" )
+	local co = getCoroutine()
+	setupDebugHooks( co )
+	resume( co, _threads, func, arg1, arg2, arg3, arg4, arg5 )
 end
 
 -- Based off reference impl. from https://www.lua.org/pil/5.1.html
@@ -469,29 +449,34 @@ function update( time, unmodifiedTime )
 	_worldTimeUnmodified = unmodifiedTime
 
 	SessionMapState.SecondaryEffectsThisFrame = 0
+
+	-- Perf testing data
 	--if SessionMapState.OnHitsThisFrame > 5 then
 		--DebugPrint({ Text = "SessionMapState.OnHitsThisFrame = "..SessionMapState.OnHitsThisFrame })
 	--end
-	if SessionMapState.OnHitsThisFrame > (CurrentRun.MaxFrameHits or 0) then
-		CurrentRun.MaxFrameHits = SessionMapState.OnHitsThisFrame
-	end
-	SessionMapState.OnHitsThisFrame = 0
+	--if SessionMapState.OnHitsThisFrame > (CurrentRun.MaxFrameHits or 0) then
+		--CurrentRun.MaxFrameHits = SessionMapState.OnHitsThisFrame
+	--end
+	--SessionMapState.OnHitsThisFrame = 0
 
 	--if SessionMapState.RequirementChecksThisFrame > 20 then
 		--DebugPrint({ Text = "SessionMapState.RequirementChecksThisFrame = "..SessionMapState.RequirementChecksThisFrame })
 	--end
-	if SessionMapState.RequirementChecksThisFrame > (CurrentRun.MaxRequirementChecks or 0) then
-		CurrentRun.MaxRequirementChecks = SessionMapState.RequirementChecksThisFrame
-	end
-	SessionMapState.RequirementChecksThisFrame = 0
+	--if SessionMapState.RequirementChecksThisFrame > (CurrentRun.MaxRequirementChecks or 0) then
+		--CurrentRun.MaxRequirementChecks = SessionMapState.RequirementChecksThisFrame
+	--end
+	--SessionMapState.RequirementChecksThisFrame = 0
 
-	SessionMapState.FrameFlags = {}
-
-	for i, writeInfo in ipairs( SessionMapState.DeferredTableWrite ) do
-		_G[writeInfo.TableName][writeInfo.Key] = writeInfo.Value
+	if FrameState.RequestUpdateHealthUI then
+		thread( UpdateHealthUI )
 	end
-	SessionMapState.DeferredTableWrite = {}
-	SessionMapState.DeferredRequiredKillEnemy = nil
+	if FrameState.DeferredPresentation ~= nil then
+		for functionName, args in pairs( FrameState.DeferredPresentation ) do
+			--DebugPrint({ Text = "functionName = "..functionName })
+			CallFunctionName( functionName, args )
+		end
+	end
+	TableClear( FrameState )
 
 	if UpdateTimers ~= nil then
 		UpdateTimers( elapsed )
@@ -503,7 +488,7 @@ function update( time, unmodifiedTime )
 		end
 	end
 
-	for k, threadInfo in pairs( _threads ) do
+	for k, threadInfo in ipairs( _threads ) do
 
 		local checkTime = _worldTime
 		if threadInfo.unmodifiedTime then
@@ -517,11 +502,12 @@ function update( time, unmodifiedTime )
 		else
 			table.insert( _workingThreads, threadInfo )
 		end
-
 	end
 
+	local temp = _threads;
 	_threads = _workingThreads
-	_workingThreads = {}
+	_workingThreads = temp
+	TableClear( _workingThreads )
 
 	for tagToKill, v in pairs( _tagsToKill ) do
 		for i = #_threads, 1, -1 do
@@ -530,10 +516,19 @@ function update( time, unmodifiedTime )
 				table.remove( _threads, i )
 			end
 		end
+		_tagsToKill[tagToKill] = nil
 	end
-	_tagsToKill = {}
 
 	draw( time, unmodifiedTime )
+
+	local firstValue = RemoveFirstIndexValue( SessionMapState.PresentationQueue )
+	if firstValue ~= nil then
+		if firstValue.Threaded then
+			thread( CallFunctionName, firstValue.FunctionName, firstValue.Source, firstValue.Args )
+		else
+			CallFunctionName( firstValue.FunctionName, firstValue.Source, firstValue.Args )
+		end
+	end
 
 end
 
@@ -544,7 +539,7 @@ function draw( time, unmodifiedTime )
 	DeferredAudioScripts()
 	if not IsEmpty( SessionMapState.DestroyRequests ) then
 		Destroy({ Ids = SessionMapState.DestroyRequests })
-		SessionMapState.DestroyRequests = {}
+		TableClear( SessionMapState.DestroyRequests )
 	end
 	--ProfileZoneEnd({})
 end
@@ -578,299 +573,22 @@ function eat_true( t, ... )
 	return ...
 end
 
-function printData( data, len )
-	if len > #data then
-		len = #data
-	end
-
-	local count = len-100
-	for i = 1,count,100 do
-		local e = i+100
-		local str = "["..i.."-"..e.."]: "
-		for j = i,e do
-			str = str..data:byte(j,j).." "
-		end
-		debugprint( str )
-	end
-
-	local str = "["..count.."-"..len.."]: "
-	for i = count,len do
-		str = str..data:byte(i,i).." "
-	end
-	debugprint( str )
-end
-
-GlobalSaveWhitelist =
-{
-	"GameState",
-	"StoredGameState",
-	"CurrentRun",
-	"MapState",
-	"AudioState",
-	"CurrentHubRoom",
-	"CodexStatus",
-	"_worldTime",
-	"_worldTimeUnmodified",
-	"Revision",
-	"NextSeeds",
-}
-
-PermanentRunSaveWhitelist = ToLookup(
-{
-	"EndingRoomName",
-	"TotalTime",
-	"GameplayTime",
-	"MetaUpgradeCostCache",
-	"ShrinePointsCache",
-	"EasyModeLevel",
-	"RunDepthCache",
-	"Cleared",
-	"ActiveBounty",
-	"BountyCleared",
-	"BiomesReached",
-})
-
-MainRunSaveWhitelist = ToLookup(
-{
-	"WeaponsCache",
-	"TraitCache",
-	"ShrineUpgradesCache",
-	"KeepsakeCache",
-	"RunClearMessage",
-	"BiomeStateChangeCount",
-	"CauldronWitchcraftOccurred",
-	"KilledByName",
-})
-
-RecentRunSaveWhitelist = ToLookup(
-{
-	"EncountersOccurredCache",
-	"RoomCountCache",
-	"SpawnRecord",
-	"TextLinesRecord",
-	"WorldUpgradesAdded",
-	"UseRecord",
-	"SpeechRecord",
-})
-
-RoomSaveWhitelist = ToLookup(
-{
-	"Name",
-	"NumHarvestPoints",
-	"NumShovelPoints",
-	"NumPickaxePoints",
-	"NumExorcismPoints",
-	"NumFishingPoints",
-	"ForceSecretDoor",
-	"EncountersOccurredCache",
-	"UseRecord",
-	"TextLinesRecord",
-	"SurfaceShop",
-	"OlympusEagleSpawn",
-	"RoomSetName",
-	"Reward",
-	"RewardStoreName",
-	"ChosenRewardType",
-	"OfferedRewards",
-	"ExitDoorRooms",
-	"TimesVisited",
-	"UnavailableDoors",
-	"ExitsUnlocked",
-	"NextRoomSet",
-	"Encounter",
-	"Encounters",
-	"SaveWhitelist",
-})
-
-EncounterSaveWhitelist = ToLookup(
-{
-	"Name",
-	"NemesisShopping",
-	"HeraclesShopping",
-	"RewardStoreName",
-})
-
-MapStateWhitelist = ToLookup(
-{
-	"OfferedExitDoors",
-	"ShipWheels",
-	"SpawnPoints",
-})
-
-AudioSaveWhitelist = ToLookup(
-{
-	"MusicName",
-	"MusicSection",
-	"MusicSectionStartDepth",
-	"MusicActiveStems",
-	"MusicMutedStems",
-	"AmbientTrackName",
-})
-
-function StripRunForSave( run, runsBackFromCurrent )
-
-	if runsBackFromCurrent <= 0 then
-		return -- Don't strip prevRun
-	end
-
-	for key, value in pairs( run ) do
-		if not PermanentRunSaveWhitelist[key] and ( runsBackFromCurrent > 500 or not MainRunSaveWhitelist[key] ) and ( runsBackFromCurrent > 10 or not RecentRunSaveWhitelist[key] ) then
-			run[key] = nil
-		end
-	end
-end
-
-function StripRoomsForSave( run, keepLastRoom )
-
-	if run == nil then
-		return
-	end
-
-	if run.RoomHistory ~= nil then
-		for roomIndex, room in ipairs( run.RoomHistory ) do
-			if not keepLastRoom or roomIndex ~= TableLength( run.RoomHistory ) then
-				for roomKey, roomValue in pairs( room ) do
-					if not RoomSaveWhitelist[roomKey] and ( room.SaveWhitelist == nil or not room.SaveWhitelist[roomKey] ) then
-						room[roomKey] = nil
-					end
-				end
-				if room.Encounter ~= nil then
-					for encounterKey, encounterValue in pairs( room.Encounter ) do
-						if not EncounterSaveWhitelist[encounterKey] then
-							room.Encounter[encounterKey] = nil
-						end
-					end
-				end
-				if room.Encounters ~= nil then
-					for encounterIndex, encounter in ipairs( room.Encounters ) do
-						for encounterKey, encounterValue in pairs( encounter ) do
-							if not EncounterSaveWhitelist[encounterKey] then
-								encounter[encounterKey] = nil
-							end
-						end
-					end
-				end
-			end
-		end
-	end
-end
-
-
-function Save()
-
-	-- Iris specific stripping
-	StripRoomsForSave( CurrentRun, true )
-	local runCount = #GameState.RunHistory
-	for runIndex, run in ipairs( GameState.RunHistory ) do
-		StripRunForSave( run, runCount - runIndex )
-		if run.RoomHistory ~= nil then
-			StripRoomsForSave( run, false )
-		end
-	end
-
-	local sessionMapState = MapState
-	MapState = {}
-	for key, value in ipairs( MapStateWhitelist ) do
-		MapState[key] = sessionMapState[key]
-	end
-
-	local sessionAudioState = ShallowCopyTable( AudioState )
-	for key, value in pairs( AudioState ) do
-		if not AudioSaveWhitelist[key] then
-			AudioState[key] = nil
-		end
-	end
-
-	local saveTable = {}
-	--local totalKeys = 0
-	for i, key in ipairs( GlobalSaveWhitelist ) do
-		local value = _G[key]
-		if value ~= nil then
-			local valueType = type(value)
-			if valueType ~= "function" and valueType ~= "userdata" and valueType ~= "thread" then
-				if verboseLogging and valueType == "table" then
-					ValidateLoops( key, value )
-					ValidateTypes( value, key, 1, tostring(key) )
-					--totalKeys = totalKeys + CalcTotalNumEntries( value, key )
-				end
-				saveTable[key] = value
-			end
-		end
-	end
-
-	--DebugPrint({ Text = "totalKeys =  "..totalKeys })
-
-	_saveData = assert( luabins.save( saveTable ) )
-
-	AudioState = sessionAudioState
-	MapState = sessionMapState
-
-end
-
-function ValidateTypes( table, tableName, depth, trace )
-
-	for tableKey, tableValue in pairs( table ) do
-		if type(tableValue) == "table" then
-			--if depth > 50 then
-				--DebugAssert({ Condition = false, Text = "trace = "..trace })
-			--end
-			ValidateTypes( tableValue, tableKey, depth + 1, trace.."."..tostring(tableKey) )
-		elseif type(tableValue) == "number" or type(tableValue) == "boolean" or type(tableValue) == "string" then
-			-- Fine primitive type
-		else
-			--table[tableKey] = nil
-			trace = trace.."."..tostring(tableKey)
-			DebugPrint({ Text = "Saving bad type: "..trace, LogOnly = true })
-			DebugAssert({ Condition = false, Text = "Saving bad type: "..trace })
-		end
-	end
-
-end
-
-function DebugLoad( key, value )
-	local t = type(value)
-	if t == "boolean" then
-		debugprint( "restoring "..key.." = "..(value and "true" or "false") )
-	elseif t == "table" then
-		debugprint( "restoring "..key.." = "..pickle(value) )
-	elseif t == nil then
-		debugprint( "restoring "..key.." = nil" )
-	else
-		debugprint( "restoring "..key.." = "..value )
-	end
-end
-
-function Load( data )
-	local savedValues = eat_true( luabins.load( data ) )
-	for key, value in pairs( savedValues ) do
-		--DebugPrint({ Text = "loading key = "..key })
-				_G[key] = value
-			end
-		end
-
-
 -- http://snippets.luacode.org/snippets/stack_97
 -- Stack (for Lua 5.1)
 function NewStack( t )
 
 	local Stack =
 	{
-		push = function( self, ... )
-			for _, v in ipairs{...} do
-				self[#self+1] = v
-			end
+		push = function( self, v )
+			self[#self+1] = v
 		end,
 
-		pop = function( self, num )
-			local num = num or 1
-			if num > #self then
-				error("underflow in NewStack-created stack")
+		pop = function( self )
+			if #self == 0 then
+				return nil
+			else
+				return table.remove(self)
 			end
-			local ret = {}
-			for i = num, 1, -1 do
-				ret[#ret+1] = table.remove(self)
-			end
-			return table.unpack(ret)
 		end,
 
 		peek = function( self )
@@ -885,209 +603,3 @@ function NewStack( t )
 	return setmetatable( t or {}, {__index = Stack} )
 
 end
-
-----------------------------------------------
--- Pickle.lua
--- A table serialization utility for lua
--- Steve Dekorte, http://www.dekorte.com, Apr 2000
--- Freeware
-----------------------------------------------
-
-function pickle( t )
-	return Pickle:clone():pickle_(t)
-end
-
-Pickle =
-{
-	clone = function (t) local nt={}; for i, v in pairs(t) do nt[i]=v end return nt end
-	}
-
-	function Pickle:pickle_( root )
-
-		if type(root) ~= "table" then
-			error("can only pickle tables, not ".. type(root).."s")
-		end
-
-		self._tableToRef = {}
-		self._refToTable = {}
-		local savecount = 0
-		self:ref_(root)
-		local s = ""
-
-		for index, value in pairs( root ) do
-			if type(value) ~= "function" then
-				s = string.format( "%s[%s]=%s,\n", s, self:value_(index), self:value_(value) )
-			end
-		end
-
-		return string.format("{%s}", s)
-
-	end
-
-	function Pickle:value_( value )
-
-		local vtype = type( value )
-
-		if vtype == "string" then
-			return string.format("%q", value)
-		elseif vtype == "number" then
-			return value
-		elseif vtype == "boolean" then
-			if value then
-				return "true"
-			else
-				return "false"
-			end
-		elseif vtype == "table" then
-			return self:pickle_(value)
-		else
-			--error("pickle a "..type(value).." is not supported")
-		end
-
-	end
-
-	function Pickle:ref_(t)
-		local ref = self._tableToRef[t]
-		if not ref then
-
-			if t == self then
-				error("can't pickle the pickle class")
-			end
-
-			table.insert(self._refToTable, t)
-			ref = #self._refToTable
-			self._tableToRef[t] = ref
-
-		end
-		return ref
-	end
-
-----------------------------------------------
--- unpickle
-----------------------------------------------
-
-	function unpickle(s)
-		if type(s) ~= "string" then
-			error("can't unpickle a "..type(s)..", only strings")
-		end
-		local gentables = load("return "..s)
-		local tables = gentables()
-
-		for tnum = 1, #tables do
-			local t = tables[tnum]
-			local tcopy = {}; for i, v in pairs(t) do tcopy[i] = v end
-			for i, v in pairs(tcopy) do
-				local ni, nv
-				if type(i) == "table" then ni = tables[i[1]] else ni = i end
-				if type(v) == "table" then nv = tables[v[1]] else nv = v end
-				t[i] = nil
-				t[ni] = nv
-			end
-		end
-		return tables[1]
-	end
-
-----------------------------------------------
--- PickleTest.lua
--- Testing code for Pickle.lua
--- Steve Dekorte, http://www.dekorte.com, Apr 2000
-----------------------------------------------
-
---dofile("Pickle.lua")
-
---[[
-function test()
-  local t = {
-	name = "foo",
-	ssn=123456789,
-	contact = { phone = "555-1\r\n212", email = "foo@foo.com"},
-  }
-  t.t = { 1 }
-  t.contact.loop = t
-  t["a b"] = "zzz"
-  t[10] = 11
-  t[t] = 5
-  t[t.t] = 10
-
-  local s = pickle(t)
-  print("pickled string:\n\n"..s)
-
-  local ut = unpickle(s)
-  print("pickled string:\n\n"..pickle( ut ))
-  print("loop test:   "); eq(ut == ut.contact.loop)
-  print("subitem test:"); eq(ut.contact.phone == t.contact.phone)
-  print("number value:"); eq(ut.ssn == t.ssn)
-  print("number index:"); eq(ut[10] == 11)
-  print("table index: "); eq(ut[ut] == 5)
-end
---]]
-
-	function eq(b)
-		if b then print(" succeeded") else print(" failed") end
-	end
-
--- Function Serialization
--- http://lua-users.org/lists/lua-l/2009-11/msg00533.html
-
-	function char( c )
-		return ("\\%03d"):format(c:byte())
-	end
-
-	function serializeString( s )
-		return ('"%s"'):format(s:gsub("[^ !#-~]", char))
-	end
-
--- Split a string into a list of string with sep as seperator
-	function string_split(str, sep)
-		local sep, fields = sep or ":", {}
-		local pattern = string.format("([^%s]+)", sep)
-		str:gsub(pattern, function(c) fields[#fields+1] = c end)
-		return fields
-	end
-
--- Returns a new table with the same contents as the passed table.
-	function shallow_copy(t)
-		local t2 = {}
-		for k,v in pairs(t) do
-			t2[k] = v
-		end
-		return t2
-	end
-
-	function Using( usingName )
-	end
-
-	function print_r( t )
-
-		local print_r_cache={}
-		local function sub_print_r(t,indent)
-			if (print_r_cache[tostring(t)]) then
-				print(indent.."*"..tostring(t))
-			else
-				print_r_cache[tostring(t)]=true
-				if (type(t)=="table") then
-					for pos,val in pairs(t) do
-						if (type(val)=="table") then
-							print(indent.."["..pos.."] => "..tostring(t).." {")
-							sub_print_r(val,indent..string.rep(" ",string.len(pos)+8))
-							print(indent..string.rep(" ",string.len(pos)+6).."}")
-						elseif (type(val)=="string") then
-							print(indent.."["..pos..'] => "'..val..'"')
-						else
-							print(indent.."["..pos.."] => "..tostring(val))
-						end
-					end
-				else
-					print(indent..tostring(t))
-				end
-			end
-		end
-		if (type(t)=="table") then
-			print(tostring(t).." {")
-			sub_print_r(t,"  ")
-			print("}")
-		else
-			sub_print_r(t,"  ")
-		end
-		print()
-	end

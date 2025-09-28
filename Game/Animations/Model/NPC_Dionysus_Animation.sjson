@@ -75,4 +75,45 @@
 		ChainTo = "Dionysus_Idle"
 	}
 
+	// Turn
+	{
+		Name = "Dionysus_Turn"
+		InheritFrom = "NPCDionysusBaseAnimation"
+		GrannyAnimation = "Dionysus_Base_Shrug_C_00"
+		ChainTo = "Dionysus_Turn2"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 15
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 52
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Dionysus_Turn2"
+		InheritFrom = "NPCDionysusBaseAnimation"
+		GrannyAnimation = "Dionysus_Base_Shrug_C_00"
+		PlayBackwards = true
+		ChainTo = "Dionysus_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 248
+				FrameSpeed = 1.5
+			}
+		]
+	}
+
 ]}

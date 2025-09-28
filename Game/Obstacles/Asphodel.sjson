@@ -967,6 +967,7 @@
     
     {
       Name = "AsphodelCatacomb01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       CollisionBounce = 0.3
       CollisionBounceRequiredVelocity = 700.0
       CollisionReactionFx = "WallSlamCrumble"
@@ -1240,6 +1241,7 @@
       Name = "AsphodelTerrainRock01"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life = 
       {
         DieOnCollision = true
@@ -1269,6 +1271,7 @@
       Name = "AsphodelTerrainRock02"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life = 
       {
         DieOnCollision = true
@@ -1283,7 +1286,7 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Asphodel\Asphodel_Terrain_Rock_02"
-        Tallness = 247.0
+        Tallness = 434.0
         Offset = { X = 0 Y = -162 }
         Points = [
           { X = -326 Y = -41 }
@@ -1300,6 +1303,7 @@
       Name = "AsphodelTerrainRock03"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life = 
       {
         DieOnCollision = true
@@ -2294,13 +2298,16 @@
     
     {
       Name = "AsphodelPillar06"
-      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
-      ReflectLobProjectiles = false
       Life = 
       {
         HitFx = "PillarHitFx"
         HitSound = "/SFX/PillarBoulderImpact"
+        TriggerOnHit = true
+        HomingEligible = false
+        JumpTargetEligible = false
+        RequiresDamageToAffect = true
       }
       Thing = 
       {
@@ -2326,7 +2333,7 @@
           { Name = "AsphodelPillar06B" }
           { Name = "AsphodelPillar06C" }
           { Name = "AsphodelTerrainRock01" Scale = 0.15 }
-          { Name = "AsphodelSkull" Scale = 1.0 }
+          { Name = "AsphodelSkull" Scale = 0.75 }
         ]
       }
     }
@@ -2338,7 +2345,7 @@
       Thing = 
       {
         EditorOutlineDrawBounds = false
-        Graphic = "AsphodelDestructibleStalagmiteA"
+        Graphic = "AsphodelPillar06A"
       }
     }
     
@@ -2349,7 +2356,7 @@
       Thing = 
       {
         EditorOutlineDrawBounds = false
-        Graphic = "AsphodelDestructibleStalagmiteA"
+        Graphic = "AsphodelPillar06B"
       }
     }
     
@@ -2360,7 +2367,7 @@
       Thing = 
       {
         EditorOutlineDrawBounds = false
-        Graphic = "AsphodelDestructibleStalagmiteA"
+        Graphic = "AsphodelPillar06C"
       }
     }
     
@@ -2368,6 +2375,7 @@
       Name = "AsphodelLavaJelly01"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life = 
       {
         DieOnCollision = true
@@ -3756,6 +3764,7 @@
       InheritFrom = "1_BaseVulnerableObstacle"
       CollidesWithObstacles = false
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life = 
       {
         DieOnCollision = true
@@ -3865,7 +3874,6 @@
     {
       Name = "AsphodelDestructibleStalagmite"
       InheritFrom = "1_BaseVulnerableObstacle"
-      AllowStoppingImpacts = false
       DisplayInEditor = true
       Life = 
       {
@@ -3951,10 +3959,12 @@
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+      IgnoredByPathfinders = true
       Life = 
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        TriggerOnHit = false
       }
       Thing = 
       {
@@ -3973,20 +3983,22 @@
     }
 
 {
-Name = "ShadeAsphodelIdle01"
+    Name = "ShadeAsphodelIdle01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+      IgnoredByPathfinders = true
       Life = 
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
+        TriggerOnHit = false
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeAsphodelIdle"
         StopsLight = false

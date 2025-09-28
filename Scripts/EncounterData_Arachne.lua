@@ -5,7 +5,7 @@ OverwriteTableKeys( EncounterData,
 	{
 		EncounterType = "ArachneCombat",
 		SkipExitReadyCheckpoint = true,
-		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade", "StackUpgrade", "ManaUpgrade", "TalentDrop" },
+		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade", "StackUpgrade", "TalentDrop" },
 
 		GameStateRequirements =
 		{
@@ -16,6 +16,7 @@ OverwriteTableKeys( EncounterData,
 				Path = { "CurrentRun", "EncountersOccurredBiomeCache" },
 				HasNone = { "ArachneCombatF", "ArachneCombatG", "ArachneCombatN" },
 			},
+			NamedRequirements = { "NoRecentArachneEncounter" },
 		},
 
 		UnthreadedEvents = EncounterSets.EncounterEventsArachneCombat,
@@ -42,7 +43,18 @@ OverwriteTableKeys( EncounterData,
 		OnSpawnFunctionName = "ArachneCombatDrumCheck",
 		OnKillFunctionName = "ArachneCombatDrumCheck",
 		SpeakerName = "Arachne",
-		Using = { "CocoonOptions" },
+		Using =
+		{
+			"CocoonOptions",
+			Sounds =
+			{
+				"/SFX/Menu Sounds/Lounge_GlassWithIce",
+				"/SFX/Menu Sounds/Lounge_BottleCork",
+				"/SFX/Menu Sounds/Lounge_BottlePour",
+				"/Leftovers/World Sounds/Caravan Interior/SwallowDrink",
+				"/SFX/Menu Sounds/Lounge_GlassesClinking",
+			},
+		},
 
 		EnterVoiceLines =
 		{
@@ -67,7 +79,15 @@ OverwriteTableKeys( EncounterData,
 				PreLineWait = 1.0,
 				SuccessiveChanceToPlay = 0.33,
 
-				{ Cue = "/VO/Melinoe_1717", Text = "Silk cocoons...", PlayFirst = true },
+				{ Cue = "/VO/Melinoe_1717", Text = "Silk cocoons...", PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+							IsAny = { "F", },
+						},
+					},
+				},
 				{ Cue = "/VO/Melinoe_1718", Text = "Arachne was here...", PlayFirst = true,
 					GameStateRequirements =
 					{
@@ -137,6 +157,8 @@ OverwriteTableKeys( EncounterData,
 				{ Cue = "/VO/Arachne_0365", Text = "{#Emph}<Laughter>" },
 			},
 			{
+				PlayOnce = true,
+				PlayOnceContext = "ArachneLaughResponseVO",
 				BreakIfPlayed = true,
 				RandomRemaining = true,
 				PreLineWait = 0.4,
@@ -167,6 +189,14 @@ OverwriteTableKeys( EncounterData,
 					},
 				},
 				{ Cue = "/VO/Melinoe_1939", Text = "That you, Arachne?", PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "UseRecord", "NPC_Arachne_01" },
+						},
+					},
+				},
+				{ Cue = "/VO/Melinoe_3037", Text = "Arachne, is that you?",
 					GameStateRequirements =
 					{
 						{
@@ -219,7 +249,8 @@ OverwriteTableKeys( EncounterData,
 			{ FunctionName = "SetupArachneCombatEncounter", Args = { CocoonCountMin = 8, CocoonCountMax = 14,
 					CocoonOptions = { "ArachneCocoon_G", "ArachneCocoon_G", "ArachneCocoon_G",
 						  "ArachneCocoonMedium_G", "ArachneCocoonMedium_G",
-						  "ArachneCocoonLarge_G", }, } }
+						  "ArachneCocoonLarge_G", },
+						  RequiredSpawnPointType = "EnemyPoint" } }
 		},
 	},
 

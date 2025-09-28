@@ -118,8 +118,7 @@
 		Name = "Enemy_Treant_RootsPreAttack"
 		InheritFrom = "EnemyTreantBaseAnimation"
 		GrannyAnimation = "Treant_Base_RootsAttackAntic_C_00"
-		Loop = false
-		HoldLastFrame = true
+		ChainTo = "Enemy_Treant_RootsFire"
 		Blends = 
 		[
 			{

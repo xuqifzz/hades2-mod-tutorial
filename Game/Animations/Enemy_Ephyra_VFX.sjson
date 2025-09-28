@@ -1,25 +1,6 @@
 { Animations = [
 
 	{
-		Name = "SlowPuddle"
-		FilePath = "Fx\LavaPuddleIn\LavaPuddleIn0017"
-		GroupName = "FX_Terrain"
-		
-		AngleFromOwner = "Ignore"
-		Alpha = 0.25
-		ColorFromOwner = "Ignore"
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		OriginX = 320.0
-		OriginY = 330.0
-		Scale = 0.65
-		ScaleFromOwner = "Ignore"
-		Ambient = 0.0
-		Color = { Red = 0.05 Green = 0.2 Blue = 0.8 }
-	}
-
-	{
 		Name = "EnemyPreSpawnTerrainEphyra"
 		Random =
 		[
@@ -958,11 +939,27 @@
 	}
 
 	{
+		Name = "ZombieAssassinCloakFront_Miniboss"
+		InheritFrom = "ZombieAssassinCloakFront"
+		Scale = 1.7
+		CreateAnimations =
+		[
+			{ Name = "ZombieAssassinCloakBack_Miniboss" }
+			{ Name = "EphyraDustPuffZAssassinCloak_Miniboss" }
+		]
+	}
+
+	{
 		Name = "ZombieAssassinCloakBack"
 		InheritFrom = "ZombieAssassinCloakFront"
 		ClearCreateAnimations = true
 		GroupName = "FX_Dark"
 		FilePath = "Fx\ZombieAssassinCloakBack\ZombieAssassinCloakBack"
+	}
+	{
+		Name = "ZombieAssassinCloakBack_Miniboss"
+		InheritFrom = "ZombieAssassinCloakBack"
+		Scale = 1.7
 	}
 
 	{
@@ -1011,6 +1008,11 @@
 		AngleFromOwner = "Ignore"
 		LocationFromOwner = "Ignore"
 		LocationZFromOwner = "Ignore"
+	}
+	{
+		Name = "EphyraDustPuffZAssassinCloak_Miniboss"
+		InheritFrom = "EphyraDustPuffZAssassinCloak"
+		Scale = 2.0
 	}
 
 	{
@@ -2357,12 +2359,25 @@
 		VisualFx = "PolyphemusLeapTouchdownFxBright"
 		VisualFxIntervalMin = 0.2
 		VisualFxIntervalMax = 0.2
-		VisualFxManagerCap = 400
-		VisualFxManagerFrameCap = 18
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		PostRotateScaleY = 0.5
 		RandomRotation = true
 		UseAttachedFlasher = false
 		UseAttachedShake = false
+		CreateAnimations =
+		[
+			{ Name = "CyclopsDustRingFront" }
+			{ Name = "CyclopsDustRingBack" }
+			{ Name = "CyclopsTouchdownFlare" }
+			{ Name = "CyclopsTouchdownCrater" }
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+	{
+		Name = "PolyphemusLeapTouchdownFx_Poison"
+		InheritFrom = "PolyphemusLeapTouchdownFx"
+		VisualFx = "PolyphemusLeapTouchdownFxBright_Poison"
 		CreateAnimations =
 		[
 			{ Name = "CyclopsDustRingFront" }
@@ -2481,13 +2496,24 @@
 		VisualFx = "CyclopsDirtClump"
 		VisualFxIntervalMin = 0.06
 		VisualFxIntervalMax = 0.06
-		VisualFxManagerCap = 400
-		VisualFxManagerFrameCap = 18
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		CreateAnimations =
 		[
 			{ Name = "PolyphemusLeapTouchdownFxDark" }
 			{ Name = "PolyphemusLeapTouchdownFxGlow" }
 			{ Name = "PolyphemusLeapTouchdownFxBright2" }
+		]
+	}
+	{
+		Name = "PolyphemusLeapTouchdownFxBright_Poison"
+		InheritFrom = "PolyphemusLeapTouchdownFxBright"
+		Hue = 0.28
+		CreateAnimations =
+		[
+			{ Name = "PolyphemusLeapTouchdownFxDark" }
+			{ Name = "PolyphemusLeapTouchdownFxGlow" }
+			{ Name = "PolyphemusLeapTouchdownFxBright2_Poison" }
 		]
 	}
 
@@ -2499,6 +2525,11 @@
 		StartAlpha = 0
 		EndAlpha = 0.7
 		VisualFx = null
+	}
+	{
+		Name = "PolyphemusLeapTouchdownFxBright2_Poison"
+		InheritFrom = "PolyphemusLeapTouchdownFxBright2"
+		Hue = 0.28
 	}
 
 	{
@@ -2667,6 +2698,18 @@
 			{ Name = "EphyraMudSplatCyclopsStomp" }
 		]
 	}
+	{
+		Name = "CyclopsStompFx_Poison"
+		InheritFrom = "CyclopsStompFx"
+		Hue = 0.3
+		CreateAnimations =
+		[
+			{ Name = "CyclopsStompGlow_Poison" }
+			{ Name = "CyclopsStompDark" }
+			{ Name = "CyclopsDustDebrisCloud" }
+			{ Name = "EphyraMudSplatCyclopsStomp" }
+		]
+	}
 
 	{
 		Name = "EphyraMudSplatCyclopsStomp"
@@ -2704,6 +2747,13 @@
 		Duration = 0.5
 		LocationZFromOwner = "Ignore"
 		Scale = 3
+	}
+	{
+		Name = "CyclopsStompGlow_Poison"
+		InheritFrom = "CyclopsStompGlow"
+		Red = 0.7
+		Green = 1
+		Blue = 0.1
 	}
 
 	{
@@ -2824,6 +2874,13 @@
 		VisualFxIntervalMin = 0.02
 		VisualFxIntervalMax = 0.05
 		TransferFrameFromThis = true
+		Sound = "/SFX/Enemy Sounds/Chariot/ChariotFastMoveLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+	{
+		Name = "CyclopsKickArc_Poison"
+		InheritFrom = "CyclopsKickArc"
+		Hue = 0.28
 	}
 
 	{
@@ -2846,6 +2903,7 @@
 		InheritFrom = "CyclopsKickArc"
 		ClearCreateAnimations = true
 		ChildAnimation = null
+		Sound = null
 		Loop = false
 		Duration = 0.2
 		EaseIn = 0.0
@@ -2861,6 +2919,13 @@
 			{ Name = "CyclopsKickArcDarkLoop" }
 		]
 		ChainTo = "CyclopsKickArc"
+	}
+
+	{
+		Name = "CyclopsKickArcIn_Poison"
+		InheritFrom = "CyclopsKickArcIn"
+		Hue = 0.28
+		ChainTo = "CyclopsKickArc_Poison"
 	}
 
 	{
@@ -2882,10 +2947,17 @@
 		VisualFx = "CyclopsBoulderWaveFx"
 		VisualFxDistanceMin = 140
 		VisualFxDistanceMax = 140
+		Sound = "/SFX/Enemy Sounds/Chariot/ChariotFastMoveLoop"
+		StopSoundOnFinishFade = 0.2
 		CreateAnimations =
 		[
 			{ Name = "CyclopsBoulderWaveFx" }
 		]
+	}
+	{
+		Name = "CyclopsBoulderWave_Poison"
+		InheritFrom = "CyclopsBoulderWave"
+		Hue = 0.28
 	}
 
 	{
@@ -2976,6 +3048,7 @@
 		ChildAnimation = null
 		GroupName = "FX_Displacement"
 		VisualFx = null
+		Sound = null
 		ClearCreateAnimations = true
 		LocationFromOwner = "Ignore"
 		StartAlpha = 0
@@ -3058,6 +3131,7 @@
 		InheritFrom = "CyclopsKickArc"
 		ChildAnimation = null
 		VisualFx = null
+		Sound = null
 		OriginX = 0
 		OriginY = 300
 		FilePath = "Fx\Cyclops\CyclopsKickArcDark\CyclopsKickArcDark"
@@ -3107,6 +3181,22 @@
 	}
 
 	{
+		Name = "CyclopsSlamFx_Poison"
+		InheritFrom = "CyclopsSlamFx"
+		CreateAnimations =
+		[
+			{ Name = "EphyraMudSplatCyclopsSlam" }
+			{ Name = "CyclopsStompCrater" }
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "CyclopsSlamNova_Poison" }
+			{ Name = "CyclopsSlamNovaDisplacement" }
+			{ Name = "CyclopsSlamDustFront" }
+			{ Name = "CyclopsSlamDustBack" }
+		]
+	}
+
+
+	{
 		Name = "CyclopsSlamDustFront"
 		FilePath = "Fx\Cyclops\CyclopsDustRingFront\CyclopsDustRingFront"
 		NumFrames = 60
@@ -3136,6 +3226,11 @@
 		Scale = 2.5
 		Material = "Unlit"
 		UseAttachedFlasher = false
+	}
+	{
+		Name = "CyclopsSlamNova_Poison"
+		InheritFrom = "CyclopsSlamNova"
+		Hue = 0.28
 	}
 
 	{
@@ -3347,8 +3442,19 @@
 			{ Name = "CyclopsStompCrater"}
 		]
 	}
-
-
+	{
+		Name = "CyclopsMarchFx_Poison"
+		InheritFrom = "PolyphemusLeapTouchdownFx_Poison"
+		ClearCreateAnimations = true
+		VisualFx = "CyclopsMarchFxRing_Poison"
+		CreateAnimations =
+		[
+			{ Name = "CyclopsDustRingFrontMarch" }
+			{ Name = "CyclopsDustRingBackMarch" }
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "CyclopsStompCrater"}
+		]
+	}
 
 	{
 		Name = "CyclopsMarchFxRing"
@@ -3365,6 +3471,21 @@
 			{ Name = "PolyphemusLeapTouchdownFxBright2" }
 		]
 	}
+	{
+		Name = "CyclopsMarchFxRing_Poison"
+		InheritFrom = "PolyphemusLeapTouchdownFxBright_Poison"
+		VisualFx = "CyclopsDirtClump"
+		VisualFxIntervalMin = 0.12
+		VisualFxIntervalMax = 0.12
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		CreateAnimations =
+		[
+			{ Name = "PolyphemusLeapTouchdownFxDark" }
+			{ Name = "PolyphemusLeapTouchdownFxGlowBright_Poison" }
+			{ Name = "PolyphemusLeapTouchdownFxBright2_Poison" }
+		]
+	}
 
 	{
 		Name = "PolyphemusLeapTouchdownFxGlowBright"
@@ -3372,7 +3493,22 @@
 		StartAlpha = 0
 		EndAlpha = 0.75
 	}
+	{
+		Name = "PolyphemusLeapTouchdownFxGlowBright_Poison"
+		InheritFrom = "PolyphemusLeapTouchdownFxGlowBright"
+		Hue = 0.28
+	}
 
+	{
+		Name = "CyclopsDustRingMarch"
+		FilePath = "Dev\blank_invisible"
+		CreateAnimations =
+		[
+			{ Name = "CyclopsDustRingFrontMarch" }
+			{ Name = "CyclopsDustRingBackMarch" }
+			{ Name = "CyclopsStompCrater"}
+		]
+	}
 
 	{
 		Name = "CyclopsDustRingFrontMarch"
@@ -4002,6 +4138,90 @@
 		Alpha = 0.5
 	}
 
+
+	{
+		Name = "PolyphemusSwipeL"
+		FilePath = "Fx\ThugMeleeSwipe\ThugMeleeSwipe"
+		NumFrames = 12
+		StartFrame = 8
+		EndFrame = 20
+		Material = "Unlit"
+		PostRotateScaleY = 0.6
+		Angle = -90
+		PlaySpeed = 60
+		Scale = 2.0
+		StartScale = 1.3
+		EndScale = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetZ = 64
+		GroupName = "FX_Standing_Add"
+		CreateAnimations = [
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "PolyphemusSwipeLDisplacement" }
+			{ Name = "PolyphemusSwipeLDark" }
+		]
+	}
+	{
+		Name = "PolyphemusSwipeL_Poison"
+		InheritFrom = "PolyphemusSwipeL"
+		Hue = 0.28
+	}
+
+	{
+		Name = "PolyphemusSwipeLDisplacement"
+		InheritFrom = "PolyphemusSwipeL"
+		ClearCreateAnimations = true
+		GroupName = "FX_Displacement"
+		StartAlpha = 0
+		EndAlpha = 0.15
+		PlaySpeed = 45
+		EaseIn = 0
+	}
+
+	{
+		Name = "PolyphemusSwipeLDark"
+		InheritFrom = "PolyphemusSwipeL"
+		ClearCreateAnimations = true
+		GroupName = "FX_Dark"
+		PlaySpeed = 75
+	}
+
+	{
+		Name = "PolyphemusSwipeR"
+		InheritFrom = "PolyphemusSwipeL"
+		FlipHorizontal = true
+		CreateAnimations = [
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "PolyphemusSwipeRDisplacement" }
+			{ Name = "PolyphemusSwipeRDark" }
+		]
+	}
+	{
+		Name = "PolyphemusSwipeR_Poison"
+		InheritFrom = "PolyphemusSwipeR"
+		Hue = 0.28
+	}
+
+	{
+		Name = "PolyphemusSwipeRDisplacement"
+		InheritFrom = "PolyphemusSwipeR"
+		ClearCreateAnimations = true
+		GroupName = "FX_Displacement"
+		StartAlpha = 0
+		EndAlpha = 0.15
+		PlaySpeed = 45
+		EaseIn = 0
+	}
+
+	{
+		Name = "PolyphemusSwipeRDark"
+		InheritFrom = "PolyphemusSwipeR"
+		ClearCreateAnimations = true
+		GroupName = "FX_Dark"
+		PlaySpeed = 75
+	}
+
 	{
 		Name = "SheepDisappearFx"
 		FilePath = "Fx\EphyraDustPuff\EphyraDustPuff"
@@ -4088,6 +4308,127 @@
 	}
 
 
+	{
+		Name = "SheepSickCloud"
+		FilePath = "Fx\FieldsMiasmaCloud\FieldsMiasmaCloud"
+		NumFrames = 70
+		PlaySpeed = 30
+		ReRandomizeOnLoop = false
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		TransferFrameFromThis = true
+		Loop = true
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 60
+		Scale = 2.0
+		ScaleY = 0.6
+		SortMode = "Isometric"
+		ChainTo = "SheepSickCloudFade"
+		Value = 0.05
+		Sound = "/Leftovers/Ambience/StatueAmbienceLoop"
+		StopSoundOnFinishFade = 0.2
+		Hue = 0.3
+		CreateAnimations =
+		[
+			{ Name = "SheepSickCloudShadow" }
+		]
+	}
+
+	{
+		Name = "SheepSickCloudShadow"
+		InheritFrom = "SheepSickCloud"
+		ClearCreateAnimations = true
+		DieWithOwner = true
+		GroupName = "Shadows"
+		Red = 0.05
+		Green = 0.15
+		Blue = 0.02
+		ScaleY = 0.5
+		Alpha = 0.5
+		FlipVertical = true
+		OffsetY = 80
+		VisualFx = null
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ChainTo = "SheepSickCloudShadowFade"
+	}
+
+	{
+		Name = "SheepSickCloudFade"
+		InheritFrom = "SheepSickCloud"
+		ClearCreateAnimations = true
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 1.2
+		EaseIn = 0
+		EaseOut = 1
+		Loop = false
+		LoopFramesOnly = true
+		TransferFrameToThis = true
+		ChainTo = null
+	}
+
+	{
+		Name = "SheepSickCloudShadowFade"
+		InheritFrom = "SheepSickCloudFade"
+		GroupName = "FX_Terrain"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ScaleY = 0.5
+		Alpha = 0.75
+	}
+
+	{
+		Name = "SheepSickFx"
+		FilePath = "Fx\MatiSlow\MatiSlow"
+		NumFrames = 50
+		Loop = true
+		Material = "Unlit"
+		PlaySpeed = 45
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		OriginX = 130
+		OriginY = 220
+		ScaleX = 0.7
+		Scale = 1.2
+		Hue = 0.4
+		ChainTo = "SheepSickFxFade"
+	}
+
+	{
+		Name = "SheepSickFxFade"
+		InheritFrom = "SheepSickFx"
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.3
+		Loop = false
+		ChainTo = null
+		LoopFramesOnly = true
+	}
+
+	{
+		Name = "SheepSickFxBack"
+		InheritFrom = "SheepSickFx"
+		FlipHorizontal = true
+		Red = 0
+		Green = 0
+		Blue = 0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		ChainTo = "SheepSickFxBackFade"
+	}
+
+	{
+		Name = "SheepSickFxBackFade"
+		InheritFrom = "SheepSickFxBack"
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.3
+		Loop = false
+		ChainTo = null
+		LoopFramesOnly = true
+	}
 
 	// -------------------------------
 	// Battle Standard
@@ -4132,6 +4473,8 @@
 		VisualFx = "BattleStandardFxVertical"
 		VisualFxIntervalMin = 0.2
 		VisualFxIntervalMax = 0.2
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
 		CreateAnimations =
 		[
 			{ Name = "BattleStandardFxB"}
@@ -4239,6 +4582,7 @@
 		UseOwnAngle = true
 		SortMode = "FromParent"
 		SortFromOwner = "Maintain"
+		DieWithOwner = true
 	}
 
 	{
@@ -4342,7 +4686,7 @@
 		NumFrames = 12
 		GroupName = "FX_Standing_Add"
 		Loop = false
-		DieWithOwner = false
+		DieWithOwner = true
 		SortMode = "FromParent"
 		SortFromOwner = "Maintain"
 		CreateAnimations =
@@ -4373,6 +4717,7 @@
 		StartScale = 1
 		EndScale = 1.25
 		OffsetZ = 120
+		DieWithOwner = true
 	}
 	
 	{
@@ -5160,109 +5505,6 @@
 		FilePath = "Fx\EnemyDeathPopOceanusB\EnemyDeathPopOceanusB"
 	}
 
-
-	{
-		Name = "PolyphemusBoulderTouchdownFx"
-		FilePath = "Fx\HydraTouchdown\HydraTouchdown"
-		GroupName = "FX_Terrain"
-		AngleFromOwner = "Ignore"
-		EndFrame = 65
-		NumFrames = 65
-		StartFrame = 1
-		RandomFlipHorizontal = true
-		Ambient = 0.0
-		UseAttachedFlasher = false
-		UseAttachedShake = false
-		ColorFromOwner = "Ignore"
-		LocationZFromOwner = "Ignore"
-		ScaleRadius = 400.0
-		CreateAnimations =
-		[
-			{ Name = "QuickFlashEnemy" }
-		]
-		Slides =
-		[
-			{ DurationFrames = 1 }
-			/*Frame 1*/
-			{ DurationFrames = 1 }
-			{ DurationFrames = 1 }
-			{ DurationFrames = 1 }
-			{ DurationFrames = 1 }
-			{ DurationFrames = 1 }
-			{ DurationFrames = 1 }
-			{ DurationFrames = 1 }
-			{ DurationFrames = 1 }
-			{ DurationFrames = 1 }
-			/*Frame 10*/
-
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			/*Frame 20*/
-
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			/*Frame 30*/
-
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			/*Frame 40*/
-
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			/*Frame 50*/
-
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			/*Frame 60*/
-
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-		]
-	}
-
 	{
 		Name = "FallingCrusherShadowPolyphemus"
 		FilePath = "Fx\CrusherShadow\CrusherShadow"
@@ -5305,6 +5547,8 @@
 		EndBlue = 0
 		Duration = 0.5
 		DieWithOwner = true
+		Sound = "/SFX/BoulderFallWhooshSFX"
+		StopSoundOnFinishFade = 0.2
 		CreateAnimations =
 		[
 			{ Name = "PolyphemusBoulderWarningDecalFill" }
@@ -5644,6 +5888,16 @@
 	}
 
 	{
+		Name = "SoulPylonDestroyedFinished"
+		InheritFrom = "SoulPylonBase"
+		FilePath = "Tilesets\Ephyra\Ephyra_SoulPylonBase_01"
+		ChildAnimation = "SoulPylonDestroyedFxTerrain"
+		CreateAnimation = "null"
+		Duration = 1
+		Loop = true
+	}
+
+	{
 		Name = "SoulPylonDestroyedFxTerrain"
 		FilePath = "Fx\SoulPylonFxDestroyedTerrain\SoulPylonFxDestroyedTerrain"
 		NumFrames = 35
@@ -5891,6 +6145,914 @@
 		DieWithOwner = true
 		LocationZFromOwner = "Ignore"
 		Sound = "/EmptyCue"
+	}
+
+	{
+		Name = "PoisonBarrelZombieProjectile"
+		FilePath = "Fx\ZombieBarrelProjectile\ZombieBarrelProjectile"
+		NumFrames = 10
+		NumAngles = 16
+		Material = "Unlit"
+		Loop = true
+		PlaySpeed = 45
+		ScaleFromOwner = "Ignore"
+		Scale = 1.4
+		LocationZFromOwner = "Maintain"
+		Sound = "/SFX/Enemy Sounds/ZombieHeavyRanged/ZombieHeavyRangedBarrelFlyLoop"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "PoisonBarrelTrail"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.06
+	}
+
+	{
+		Name = "PoisonBarrelTrail"
+		FilePath = "Fx\Flame\Flame"
+		NumFrames = 60
+		Material = "Unlit"
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		StartScale = 1.5
+		EndScale = 0
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.0
+		Loop = false
+		LoopFramesOnly = true
+		StartRed = 0.6
+		StartGreen = 1
+		StartBlue = 0.6
+		EndRed = 0.1
+		EndGreen = 0.5
+		EndBlue = 0.1
+		Hue = 0.12
+		EaseIn = 0.0
+		EaseOut = 1.0
+		RandomFlipVertical = true
+		RandomOffsetX = 30
+		RandomOffsetY = 30
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+	}
+
+	{
+		Name = "MedeaDaggerSwipe"
+		FilePath = "Fx\ShadeSwordSwipe\ShadeSwordSwipe"
+		EndFrame = 30
+		NumFrames = 30
+		PlaySpeed = 60.0
+		StartFrame = 1
+		OriginX = 100.0
+		OriginY = 160.0
+		LocationFromOwner = "Take"
+		SortMode = "FromParent"
+		PostRotateScaleY = 0.62
+		Scale = 2.0
+		Hue = 0.4
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		OverlayVfx = true
+		TimeModifierFraction = 0.75
+		ColorFromOwner = "Ignore"
+		UseAttachedAddColor = false
+		FlipVertical = true
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "MedeaDaggerSwipeDisplacement" }
+		]
+	}
+	{
+		  Name = "MedeaDaggerSwipeDisplacement"
+		  InheritFrom = "MedeaDaggerSwipe"
+		  ClearCreateAnimations = true
+		  GroupName = "FX_Displacement"
+		  Alpha = 0.05
+		  PlaySpeed = 30.0
+	}
+
+	{
+		Name = "MedeaFireOriginFx"
+		FilePath = "Fx\StaffProjectileFireFxCircles\StaffProjectileFireFxCircles0003"
+		IsometricSkew = "Y"
+		GroupName = "FX_Standing_Add"
+		Scale = 0.75
+		CreateAnimation = "StaffProjectileFireFxRing"
+		DieWithOwner = true
+		Color = { Red = 0.2 Green = 1.0 Blue = 0.40 }
+	}
+
+	{
+		Name = "MedeaChargeFx"
+		FilePath = "Fx\EphyraEnemyChargeFx\EphyraEnemyChargeFx"
+		NumFrames = 60
+		Material = "Unlit"
+		GrannyAttachedMarkerLocation = "Medea_Rig:hand_00_R_JNT"
+		ScaleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		GroupName = "FX_Standing_Add"
+		Hue = 0.4
+		Scale = 2
+		RandomRotation = true
+		UseAttachedFlasher = false
+		CreateAnimation = "MedeaChargeFxDark"
+	}
+	{
+		Name = "MedeaChargeFxDark"
+		InheritFrom = "MedeaChargeFx"
+		CreateAnimation = null
+		GroupName = "FX_Dark"
+		Scale = 1.25
+	}
+
+    {
+      Name = "PoisonStatusFx"
+      FilePath = "Fx\DionysusStatusFx\DionysusStatusFx"
+      GroupName = "Combat_UI"
+      AngleFromOwner = "Ignore"
+      Sound = "/SFX/Player Sounds/DionysusBlightWineDamageLoop"
+      StopSoundOnFinishFade = 0.2
+      ColorFromOwner = "Ignore"
+      EndFrame = 45
+      Loop = true
+      NumFrames = 45
+      PlaySpeed = 30.0
+      StartFrame = 1
+      OffsetZ = 160.0
+      TransferFrameFromThis = true
+      ScaleFromOwner = "Ignore"
+      Ambient = 0.0
+      VisualFxIntervalMax = 0.3
+      VisualFxIntervalMin = 0.2
+      Hue = 0.6
+      ChainTo = "PoisonStatusFxDissipate"
+    }
+
+    {
+      Name = "PoisonStatusFxDissipate"
+      InheritFrom = "PoisonStatusFx"
+      ChainTo = "null"
+      EndBlue = 0.25
+      StartAlpha = 1.0
+      StartBlue = 1.0
+      StartGreen = 1.0
+      StartRed = 1.0
+      Duration = 0.2
+      EaseOut = 1.0
+      Loop = false
+      LoopFramesOnly = true
+      TransferFrameToThis = true
+      EndScale = 0.5
+      Hue = 0.6
+    }
+
+    {
+      Name = "PoisonPoolIn"
+      FilePath = "Fx\PoisonPoolIn\PoisonPoolIn"
+      NumFrames = 21
+      PlaySpeed = 30
+      ChainTo = "PoisonPoolLoop"
+      ScaleRadius = 110
+      AngleFromOwner = "Ignore"
+      GroupName = "FX_Terrain_Liquid"
+      ColorFromOwner = "Ignore"
+      AddColor = true
+      Red = 0.06
+      Green = 0.06
+      Blue = 0.02
+    }
+
+    {
+      Name = "PoisonPoolLoop"
+      InheritFrom = "PoisonPoolIn"
+      FilePath = "Fx\PoisonPoolLoop\PoisonPoolLoop"
+      NumFrames = 60
+      Loop = true
+      ChainTo = null
+      CreateAnimation = "PoisonPoolSmokeFadeIn"
+      Sound = "/SFX/Player Sounds/DionysusBlightWineDamageLoop"
+      StopSoundOnFinishFade = 0.25
+    }
+
+    {
+      Name = "PoisonPoolOut"
+      InheritFrom = "PoisonPoolIn"
+      CreateAnimation = null
+      FilePath = "Fx\PoisonPoolOut\PoisonPoolOut"
+      NumFrames = 9
+      ChainTo = null
+      AngleFromOwner = "Ignore"
+      UseOwnAngle = false
+    }
+
+    {
+      Name = "PoisonPoolSmall"
+      Random = [
+        { Name = "PoisonPoolSmallIn" }
+        { Name = "PoisonPoolSmallIn_Flipped" }
+      ]
+    }
+
+    {
+      Name = "PoisonPoolSmallIn"
+      FilePath = "Fx\PoisonPoolSmallIn\PoisonPoolSmallIn"
+      NumFrames = 21
+      PlaySpeed = 30
+      ChainTo = "PoisonPoolSmallLoop"
+      ScaleRadius = 45
+      AngleFromOwner = "Ignore"
+      GroupName = "FX_Terrain_Liquid"
+      ColorFromOwner = "Ignore"
+      AddColor = true
+      Red = 0.06
+      Green = 0.06
+      Blue = 0.02
+    }
+
+    {
+      Name = "PoisonPoolSmallLoop"
+      InheritFrom = "PoisonPoolSmallIn"
+      FilePath = "Fx\PoisonPoolSmallLoop\PoisonPoolSmallLoop"
+      NumFrames = 60
+      Loop = true
+      ChainTo = null
+      CreateAnimation = "PoisonPoolSmokeSmallFadeIn"
+      ColorFromOwner = "Ignore"
+    }
+
+    {
+      Name = "PoisonPoolSmallOut"
+      InheritFrom = "PoisonPoolSmallIn"
+      CreateAnimation = null
+      FilePath = "Fx\PoisonPoolSmallOut\PoisonPoolSmallOut"
+      NumFrames = 9
+      ChainTo = null
+      AngleFromOwner = "Ignore"
+      UseOwnAngle = false
+      ColorFromOwner = "Ignore"
+    }
+
+    {
+      Name = "PoisonPoolSmallIn_Flipped"
+      InheritFrom = "PoisonPoolSmallIn"
+      FlipHorizontal = true
+      ChainTo = "PoisonPoolSmallLoop_Flipped"
+    }
+
+    {
+      Name = "PoisonPoolSmallLoop_Flipped"
+      InheritFrom = "PoisonPoolSmallLoop"
+      FlipHorizontal = true
+      ChainTo = "PoisonPoolSmallOut_Flipped"
+    }
+
+    {
+      Name = "PoisonPoolSmallOut_Flipped"
+      InheritFrom = "PoisonPoolSmallOut"
+      FlipHorizontal = true
+    }
+
+    {
+      Name = "PoisonPoolSmoke"
+      FilePath = "Fx\PoisonPoolSmoke\PoisonPoolSmoke"
+      NumFrames = 60
+      Loop = true
+      Material = "Unlit"
+      Alpha = 1
+      ScaleFromOwner = "Ignore"
+      Scale = 1.25
+      ChainTo = "PoisonPoolSmokeFadeOut"
+      AngleFromOwner = "Ignore"
+      GroupName = "Standing"
+      PlaySpeed = 30
+      OffsetY = 0
+      OffsetZ = 100
+      RandomFlipHorizontal = true
+      DieWithOwner = true
+      TransferFrameToThis = true
+    }
+
+    {
+      Name = "PoisonPoolSmokeFadeIn"
+      InheritFrom = "PoisonPoolSmoke"
+      Loop = false
+      StartAlpha = 0
+      EndAlpha = 1
+      LoopFramesOnly = true
+      Duration = 0.2
+      ChainTo = "PoisonPoolSmoke"
+      DieWithOwner = true
+      TransferFrameFromThis = true
+      TransferFrameToThis = false
+    }
+
+    {
+      Name = "PoisonPoolSmokeFadeOut"
+      InheritFrom = "PoisonPoolSmoke"
+      Loop = false
+      StartAlpha = 1
+      EndAlpha = 0
+      ChainTo = null
+      DieWithOwner = true
+      SortMode = "Isometric"
+    }
+
+    {
+      Name = "PoisonPoolSmokeSmall"
+      InheritFrom = "PoisonPoolSmoke"
+      FilePath = "Fx\PoisonPoolSmokeSmall\PoisonPoolSmokeSmall"
+      ChainTo = "PoisonPoolSmokeSmallFadeOut"
+      Alpha = 0.6
+      SortMode = "Isometric"
+      GroupName = "Standing"
+      DieWithOwner = true
+      OffsetY = 0
+      OffsetZ = 69
+      TransferFrameFromThis = true
+      TransferFrameToThis = true
+    }
+
+    {
+      Name = "PoisonPoolSmokeSmallFadeIn"
+      InheritFrom = "PoisonPoolSmokeSmall"
+      Loop = false
+      StartAlpha = 0
+      EndAlpha = 0.6
+      LoopFramesOnly = true
+      Duration = 0.2
+      ChainTo = "PoisonPoolSmokeSmall"
+      SortMode = "Isometric"
+      TransferFrameFromThis = true
+    }
+
+    {
+      Name = "PoisonPoolSmokeSmallFadeOut"
+      InheritFrom = "PoisonPoolSmokeSmall"
+      Loop = false
+      StartAlpha = 0.6
+      EndAlpha = 0
+      ChainTo = null
+      TransferFrameFromThis = false
+      TransferFrameToThis = true
+    }
+
+	{
+		Name = "MedeaTeleportFx"
+		FilePath = "Fx\TeleportPoof\TeleportPoof"
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Enemy Sounds/Hades/ZagSmokeDisappear"
+		ColorFromOwner = "Ignore"
+		EndFrame = 60
+		NumFrames = 60
+		PlaySpeed = 60.0
+		StartFrame = 1
+		Hue = 0.28
+		RandomFlipHorizontal = true
+		OffsetZ = 80.0
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Scale = 1.33
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		Material = "Unlit"
+		VisualFx = "MedeaTeleportFxDisplace"
+		VisualFxCap = 1
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+		CreateAnimations = [
+		]
+	}
+
+	{
+		Name = "MedeaTeleportFxDisplace"
+		FilePath = "Particles\particle_displaceWink"
+		GroupName = "FX_Displacement"
+		OverlayVfx = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Duration = 0.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Material = "Unlit"
+		Scale = 2
+		StartAlpha = 0.33
+		EndAlpha = 0
+	}
+
+	{
+		Name = "MedeaGroundGlow"
+		FilePath = "Dev\blank_invisible"
+		Light = "MedeaGroundLight"
+		DieWithOwner = true
+		GroupName = "FX_Terrain"
+	}
+
+	{
+		Name = "MedeaGroundLight"
+		FilePath = "Lights\DiffuseSpotlight"
+		StartRed = 0.0
+		StartGreen = 1
+		StartBlue = 0.7
+		EndRed = 1
+		EndGreen = 0
+		EndBlue = 1
+		PingPongColor = true
+		Loop = true
+		Duration = 1
+		StartScale = 1.33
+		EndScale = 1
+		Material = "Unlit"
+		DieWithOwner = true
+		GroupName = "FX_Terrain"
+	}
+	
+	{
+		Name = "MedeaTeleportPreviewFx"
+		FilePath = "Particles\particle_glow_egg"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		StartAlpha = 0
+		EndAlpha = 0.8
+		StartScale = 1
+		EndScale = 1.5
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.9
+		EndRed = 0.6
+		EndGreen = 0.15
+		EndBlue = 0.3
+		Duration = 1.2
+		EaseIn = 0.9
+		EaseOut = 1
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		ScaleFromOwner = "Ignore"
+		Scale = 2.5
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		OffsetZ = 160
+		StartScaleY = 1
+		EndScaleY = 1.3
+		ScaleX = 0.75
+		Sound = "/SFX/Player Sounds/MelMagicalChargeLoop"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations = [
+			{ Name = "MedeaTeleportPreviewCenterGlow" }
+			{ Name = "MedeaTeleportPreviewRadialFx" }
+			{ Name = "MedeaTeleportPreviewGroundGlow" }
+			{ Name = "MedeaTeleportPreviewFlashContainer" }
+
+		]
+	}
+	{
+		Name = "MedeaTeleportPreviewFlashContainer"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1.0
+		ChainTo = "MedeaTeleportPreviewCenterBeam"
+	}
+	{
+		Name = "MedeaTeleportPreviewGroundGlow"
+		FilePath = "Particles\particle_circle"
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		Duration = 1.2
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartAlpha = 0
+		EndAlpha = 0.8
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		Scale = 3
+		StartScale = 0.7
+		EndScale = 1.5
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.9
+		EndRed = 0.6
+		EndGreen = 0.15
+		EndBlue = 0.3
+	}
+
+	{
+		Name = "MedeaTeleportPreviewRadialFx"
+		Random = [
+			{ Name = "MedeaTeleportPreviewRadialFxA" }
+			{ Name = "MedeaTeleportPreviewRadialFxB" }
+			{ Name = "MedeaTeleportPreviewRadialFxC" }
+		]
+	}
+	{
+		Name = "MedeaTeleportPreviewRadialFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC1"
+		Material = "Unlit"
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		StartScale = 1
+		EndScale = 1.5
+		StartAlpha = 0
+		EndAlpha = 0.8
+		Duration = 1.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScaleY = 0.25
+		EndScaleY = 0.33
+		ScaleX = 1.5
+		ScaleFromOwner = "Ignore"
+		FlipHorizontal = true
+		RandomFlipVertical = true
+		OffsetZ = 1200
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0.6
+		EndGreen = 0.15
+		EndBlue = 0.3
+		GroupName = "FX_Standing_Add"
+	}
+	{
+		Name = "MedeaTeleportPreviewRadialFxB"
+		InheritFrom = "MedeaTeleportPreviewRadialFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC2"
+	}
+	{
+		Name = "MedeaTeleportPreviewRadialFxC"
+		InheritFrom = "MedeaTeleportPreviewRadialFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC3"
+	}
+
+	{ 
+		Name = "MedeaTeleportPreviewCenterBeam" 
+		Random = [
+			{ Name = "MedeaTeleportPreviewCenterBeamA" }
+			{ Name = "MedeaTeleportPreviewCenterBeamB" }
+		]
+	}	
+
+	{ 
+		Name = "MedeaTeleportPreviewCenterBeamThick" 
+		Random = [
+			{ Name = "MedeaTeleportPreviewCenterBeamThickA" }
+			{ Name = "MedeaTeleportPreviewCenterBeamThickB" }
+		]
+	}
+
+	{
+		Name = "MedeaTeleportPreviewCenterBeamA"
+		FilePath = "Fx\AutomatonBeamerLaserA\AutomatonBeamerLaserA"
+		NumFrames = 30
+		AddColor = true
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.9
+		EndRed = 0.6
+		EndGreen = 0.15
+		EndBlue = 0.3
+		EaseIn = 0.99
+		EaseOut = 1.0
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		Angle = 270
+		Scale = 2
+		ScaleX = 4
+		StartScaleY = 1
+		EndScaleY = 0.5
+		ScaleFromOwner = "Ignore"
+		OriginY = 64
+		OriginX = 150
+		CreateAnimation = "MedeaTeleportPreviewCenterBeamThick"
+		VisualFx = "MedeaPreviewBeamA"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 4
+	}
+
+	{
+		Name = "MedeaTeleportPreviewCenterBeamB"
+		InheritFrom = "MedeaTeleportPreviewCenterBeamA"
+		FilePath = "Fx\AutomatonBeamerLaserB\AutomatonBeamerLaserB"
+	}
+
+	{
+		Name = "MedeaTeleportPreviewCenterBeamThickA"
+		InheritFrom = "MedeaTeleportPreviewCenterBeamA"
+		StartScaleY = 4
+		PlaySpeed = 240
+		CreateAnimation = null
+		VisualFx = null
+	}
+	{
+		Name = "MedeaTeleportPreviewCenterBeamThickB"
+		InheritFrom = "MedeaTeleportPreviewCenterBeamThickA"
+		FilePath = "Fx\AutomatonBeamerLaserB\AutomatonBeamerLaserB"
+	}
+
+	{
+		Name = "MedeaTeleportPreviewCenterGlow"
+		FilePath = "Particles\particle_apolloGlow2"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Standing_Add"
+		Duration = 1.2
+		StartAlpha = 0
+		EndAlpha = 0.8
+		ScaleY = 10
+		OriginX = 60
+		OriginY = 110
+		Saturation = -0.25
+		StartScaleX = 0.4
+		EndScaleX = 1
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Red = 0.6
+		Green = 0.15
+		Blue = 0.3
+		ScaleFromOwner = "Ignore"
+	}
+	{
+		Name = "MedeaPreviewBeamA"
+		FilePath = "Fx\MoonbeamsColor\MoonbeamsColor"
+		ScaleFromOwner = "Ignore"
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		NumFrames = 60
+		StartAlpha = 1
+		EndAlpha = 0
+		PingPongColor = false
+		Saturation = 0.1
+		Hue = 0
+		Angle = 90
+		Material = "Unlit"
+		GroupName = "FX_Add_Top"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		PlaySpeed = 60
+		AngleFromOwner = "Ignore"
+		ScaleX = 3
+		ScaleY = 0.5
+		StartScaleX = 2
+		EndScaleX = 0.1
+		StartScaleY = 0.5
+		EndScaleY = 0.45
+		LoopFramesOnly = true
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.4
+		EaseIn = 0.99
+		EaseOut = 1.0
+		RandomOffsetX = 20
+		RandomOffsetY = 40
+		FlipHorizontal = true
+		RandomFlipVertical = true
+		OriginX = 35
+		OriginY = 120
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		StartOffsetZ = 0
+		EndOffsetZ = -150
+		VisualFx = "MedeaPreviewParticles"
+		VisualFxCap = 2
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		CreateAnimations = [
+			{ Name = "MedeaPreviewBeamB" }
+		]
+	}
+
+	{
+		Name = "MedeaPreviewBeamB"
+		InheritFrom = "MedeaPreviewBeamA"
+		ScaleFromOwner = "Ignore"
+		ClearCreateAnimations = true
+		RandomDurationMin = 0.7
+		RandomDurationMax = 1.4
+		EndOffsetZ = -20
+		StartScaleY = 0.1
+		EndScaleY = 0.05
+		RandomOffsetX = 40
+	}
+
+	{
+		Name = "MedeaPreviewParticles"
+		FilePath = "Particles\particle_addFlake"
+		Material = "Unlit"
+		AddColor = false
+		StartRed = 0.7
+		StartBlue = 0.8
+		StartGreen = 1.0
+		EndRed = 0.1
+		EndGreen = 0.7
+		EndBlue = 0.999
+		RandomDurationMin = 1.0
+		RandomDurationMax = 1.75
+		ScaleMin = 0.3
+		ScaleMax = 0.7
+		Scale = 1.0
+		AlphaMin = 0.6
+		AlphaMax = 1.0
+		RandomRotation = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		RandomOffsetY = 400
+		RandomOffsetX = 10
+		AngleFromOwner = "Ignore"
+		Angle = 270
+		VelocityMin = 300
+		VelocityMax = 600
+		Acceleration = -1200
+		StartScale = 1
+		EndScale = 0
+		OffsetZ = 500
+		StartOffsetZ = 200
+		EndOffsetZ = 0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ExplodeWarningZombie"
+		FilePath = "GUI\LobWarningDecalIris\LobWarningDecalIris"
+		NumFrames = 21
+		PlaySpeed = 12
+		Material = "Unlit"
+		Loop = false
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Terrain"
+		SortMode = "Isometric"
+		Scale = 2.25
+	}
+
+	{
+		Name = "MedeaPoisonBuffFx"
+		FilePath = "Fx\AresKillDamageBuff\AresKillDamageBuff"
+		GroupName = "FX_Standing_Add"
+		NumFrames = 30
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Material = "Unlit"
+		PlaySpeed = 30
+		Loop = true
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		GrannyAttachedMarkerLocation = "Polyphemus_Rig:neck_00_M_JNT"
+		Hue = 0.2
+		Scale = 1.5
+		ScaleY = 1.33
+		VisualFx = "MedeaPoisonBuffFxSmoke"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		ChainTo = "MedeaPoisonBuffFxFade"
+	}
+
+	{
+		Name = "ZombieHRPoisonFx"
+		FilePath = "Fx\AresKillDamageBuff\AresKillDamageBuff"
+		GroupName = "FX_Standing_Add"
+		NumFrames = 30
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Material = "Unlit"
+		PlaySpeed = 30
+		Loop = true
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		GrannyAttachedMarkerLocation = "ZombieHeavyRanged_Rig:spine_00_M_JNT"
+		Hue = 0.2
+		Scale = 1.5
+		ScaleY = 1.33
+		VisualFx = "MedeaPoisonBuffFxSmoke"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		ChainTo = "ZombieHRPoisonBuffFxFade"
+		DieWithOwner = true
+	}
+
+	{
+		Name = "MedeaPoisonBuffFxFade"
+		InheritFrom = "MedeaPoisonBuffFx"
+		StartAlpha = 1
+		EndAlpha = 0
+		ChainTo = null
+		LoopFramesOnly = true
+		Loop = false
+		Duration = 0.1
+	}
+	{
+		Name = "ZombieHRPoisonBuffFxFade"
+		InheritFrom = "MedeaPoisonBuffFxFade"
+		GrannyAttachedMarkerLocation = "ZombieHeavyRanged_Rig:spine_00_M_JNT"
+	}
+	
+
+	{
+		Name = "MedeaPoisonDamage"
+		InheritFrom = "MedeaPoisonBuffFx"
+		ChainTo = "MedeaPoisonFxFade"
+		Duration = 1
+		Loop = false
+		GrannyAttachedMarkerLocation = "head_fxMarker_00_M_JNT"
+	}
+	{
+		Name = "MedeaPoisonFxFade"
+		InheritFrom = "MedeaPoisonDamage"
+		StartAlpha = 1
+		EndAlpha = 0
+		ChainTo = null
+		LoopFramesOnly = true
+		Loop = false
+		Duration = 0.1
+	}
+
+
+	{
+		Name = "ZombieHRPoisonFxFade"
+		InheritFrom = "ZombieHRPoisonFx"
+		StartAlpha = 1
+		EndAlpha = 0
+		ChainTo = null
+		LoopFramesOnly = true
+		Loop = false
+		Duration = 0.5
+	}
+
+	{
+		Name = "MedeaPoisonBuffFxSmoke"
+		FilePath = "Fx\CastUnitFxArc\CastUnitFxArc"
+		NumFrames = 27
+		FlipHorizontal = true
+		AddColor = true
+		GroupName = "FX_Dark"
+		StartRed = 0.522
+		StartGreen = 0.612
+		StartBlue = 0.184
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		IsometricSkew = "X"
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleMin = -45
+		AngleMax = 45
+		AngleFromOwner = "Take"
+		Scale = 0.5
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		UseAttachedFlasher = false
+		ScaleX = 1.3
+		DieWithOwner = false
+		VisualFx = "MedeaPoisonBuffFxParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 1
+	}
+
+	{
+		Name = "MedeaPoisonBuffFxParticles"
+		FilePath = "Particles\particle_addFlake"
+		Material = "Unlit"
+		Red = 0.827
+		Green = 1
+		Blue = 0.196
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		GroupName = "FX_Standing_Add"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		RandomOffsetX = 30
+		RandomOffsetY = 15
+		AngleMin = 60
+		AngleMax = 120
+		VelocityMin = 300
+		VelocityMax = 650
+		Acceleration = -600
+		ScaleMin = 0.2
+		ScaleMax = 0.5
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.8
+		RandomRotation = true
+		EaseIn = 0
+		EaseOut = 1.0
+		AddColor = true
 	}
 
 ]}

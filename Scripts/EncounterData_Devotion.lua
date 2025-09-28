@@ -18,8 +18,8 @@ OverwriteTableKeys( EncounterData,
 		ActiveEnemyCapDepthRamp = 0,
 		TypeCountDepthRamp = 0,
 		MinTypes = 3,
-		MaxTypes = 4,
-		MaxTypesCap = 4,
+		MaxTypes = 3,
+		MaxTypesCap = 3,
 		MinWaves = 2,
 		MaxWaves = 3,
 		MoneyDropCapMin = 20,
@@ -27,6 +27,7 @@ OverwriteTableKeys( EncounterData,
 		MoneyDropCapDepthRamp = 0,
 
 		CanEncounterSkip = false,
+		BlockAthenaEncounterKeepsake = true,
 		SkipIntroEncounterCheck = true,
 		EncounterType = "Devotion",
 		DelayedStart = true,
@@ -48,13 +49,6 @@ OverwriteTableKeys( EncounterData,
 		PreUnthreadedEvents =
 		{
 			{ FunctionName = "StartDevotionTest" },
-			{
-				FunctionName = "CheckAssistHint",
-				Args =
-				{
-					Delay = 10.0,
-				}
-			},
 		},
 
 		RewardSpawnVoiceLines =
@@ -65,6 +59,7 @@ OverwriteTableKeys( EncounterData,
 				BreakIfPlayed = true,
 				RandomRemaining = true,
 				PreLineWait = 1.0,
+				SuccessiveChanceToPlay = 0.5,
 				SuccessiveChanceToPlayAll = 0.25,
 				GameStateRequirements =
 				{
@@ -82,7 +77,22 @@ OverwriteTableKeys( EncounterData,
 		DistanceTriggers =
 		{
 			{
-				TriggerObjectType = "LootPoint", WithinDistance = 700, GlobalVoiceLines = "DevotionChoicePresentedVoiceLines", FunctionName = "DevotionTestPresentation",
+				TriggerObjectType = "LootPoint",
+				WithinDistance = 700,
+				GlobalVoiceLines = "DevotionChoicePresentedVoiceLines",
+				FunctionName = "DevotionTestPresentation",
+				Args =
+				{
+					PresentationGameStateRequirements =
+					{
+						{
+							Path = { "GameState", "EncountersOccurredCache" },
+							SumOf = { "DevotionTestF", "DevotionTestG", "DevotionTestH", "DevotionTestI", "DevotionTestN", "DevotionTestO", "DevotionTestP", "DevotionTestQ" },
+							Comparison = ">",
+							Value = 1,
+						},
+					},
+				},
 			},
 			{
 				TriggerGroup = "GroundEnemies", WithinDistance = 1000,
@@ -92,6 +102,7 @@ OverwriteTableKeys( EncounterData,
 					{
 						RandomRemaining = true,
 						BreakIfPlayed = true,
+						SuccessiveChanceToPlay = 0.5,
 						SuccessiveChanceToPlayAll = 0.33,
 						PreLineWait = 2.3,
 						GameStateRequirements =
@@ -113,6 +124,7 @@ OverwriteTableKeys( EncounterData,
 					{
 						RandomRemaining = true,
 						BreakIfPlayed = true,
+						SuccessiveChanceToPlay = 0.5,
 						SuccessiveChanceToPlayAll = 0.33,
 						PreLineWait = 2.3,
 						GameStateRequirements =
@@ -212,7 +224,7 @@ OverwriteTableKeys( EncounterData,
 		MaxWaves = 3,
 		MaxTypesCap = 3,
 		BaseDifficulty = 425,
-		DepthDifficultyRamp = 10,
+		DepthDifficultyRamp = 15,
 		MaxEliteTypes = 3,
 	},
 

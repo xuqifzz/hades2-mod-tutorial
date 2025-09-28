@@ -75,6 +75,35 @@ StoreData =
 			"LimitedManaRegenDrop",
 			"LimitedSwapTraitDrop",
 		},
+
+		BoonInfoSortOrder =
+		{
+			"ArmorBoostStore",
+			"DamageSelfDrop",
+			"EmptyMaxHealthShopItem",
+			"ExtendedShopTrait",
+			"FirstHitHealTrait",
+			"HealDropRange",
+			"LastStandShopItem",
+			"LimitedManaRegenDrop",
+			"LimitedSwapTraitDrop",
+			"MemPointsCommonRange",
+			"MetaCardPointsCommonRange",
+			"MetaCurrencyRange",
+			"RandomStoreItem",
+			"SeedMysteryRange",
+			"TemporaryBoonRarityTrait",
+			"TemporaryDiscountTrait",
+			"TemporaryDoorHealTrait",
+			"TemporaryEmptySlotDamageTrait",
+			"TemporaryForcedSecretDoorTrait",
+			"TemporaryHealExpirationTrait",
+			"TemporaryImprovedCastTrait",
+			"TemporaryImprovedDefenseTrait",
+			"TemporaryImprovedExTrait",
+			"TemporaryImprovedSecondaryTrait",
+			"TemporaryMoveSpeedTrait",
+		},
 	},
 
 	SurfaceShop = 
@@ -87,14 +116,11 @@ StoreData =
 				Offers = 1,
 				OptionsData =
 				{
-					{ Name = "HealBigDrop", Weight = 0.75,  ReplacePurchaseRequirements = {} },
-					{ Name = "RoomRewardHealDrop", Weight = 1.0,  ReplacePurchaseRequirements = {} },
+					{ Name = "HealBigDrop", Weight = 0.25,  ReplacePurchaseRequirements = {} },
+					{ Name = "RoomRewardHealDrop", Weight = 1.5,  ReplacePurchaseRequirements = {} },
 					{ Name = "ArmorBigBoost", Weight = 0.25 },
 					{ Name = "ArmorBoost", Weight = 1.0 },
-					{ Name = "LastStandDrop", Weight = 0.50 },
-					{ Name = "MetaCardPointsCommonDrop", Weight = 0.15 },
-					{ Name = "MetaCurrencyDrop", Weight = 0.15 },
-					{ Name = "MemPointsCommonDrop", Weight = 0.15 },
+					{ Name = "LastStandDrop", Weight = 1.50 },
 					{ Name = "GiftDrop", Weight = 0.15, ReplaceRequirements = { NamedRequirements = { "GiftDropLootRequirements" }, } },
 				},
 			},
@@ -123,6 +149,9 @@ StoreData =
 							},
 							{
 								PathFalse = { "CurrentRun", "PendingSpellDrop" },
+							},
+							{
+								PathFalse = { "CurrentRun", "Hero", "TraitDictionary", "SuitHexAspect" },
 							},
 						}
 					},
@@ -192,6 +221,12 @@ StoreData =
 						Name = "WeaponUpgradeDrop", Weight = 2.5,
 						ReplaceRequirements = 
 						{ 
+							{
+								PathFalse = { "CurrentRun", "HubRewardLookup", "WeaponUpgrade" },
+							},
+							{
+								PathTrue = { "GameState", "UseRecord", "WeaponUpgrade" },
+							},
 							NamedRequirements = { "HammerLootRequirements" },
 						},
 					},
@@ -199,6 +234,9 @@ StoreData =
 						Name = "WeaponUpgradeDrop", Weight = 2.5,
 						ReplaceRequirements = 
 						{ 
+							{
+								PathTrue = { "GameState", "UseRecord", "WeaponUpgrade" },
+							},
 							NamedRequirements = { "LateHammerLootRequirements" },
 						},
 					},
@@ -207,11 +245,10 @@ StoreData =
 					{ Name = "MaxHealthDrop", Weight = 1.5 },
 					{ Name = "ArmorBoost", Weight = 1.0 },
 
-					-- Metas
-					{ Name = "MetaCardPointsCommonDrop", Weight = 1.0 },
-					{ Name = "MemPointsCommonDrop", Weight = 0.75 },
-					{ Name = "MetaCurrencyDrop", Weight = 0.50 },
-					{ Name = "GiftDrop", Weight = 0.25, ReplaceRequirements = { NamedRequirements = { "GiftDropLootRequirements" }, } },
+					-- Metas 4:2:1
+					{ Name = "MetaCardPointsCommonDrop", Weight = 1.44 },
+					{ Name = "MetaCurrencyDrop", Weight = 0.72 },
+					{ Name = "GiftDrop", Weight = 0.36, ReplaceRequirements = { NamedRequirements = { "GiftDropLootRequirements" }, } },
 				},
 			},
 			{
@@ -231,6 +268,9 @@ StoreData =
 							},
 							{
 								PathFalse = { "CurrentRun", "HubRewardLookup", "SpellDrop" },
+							},
+							{
+								PathFalse = { "MapState", "OfferedRewards", "SpellDrop" },
 							},
 							{
 								Path = { "GameState", "TextLinesRecord" },
@@ -285,6 +325,7 @@ StoreData =
 					{ Name = "MaxManaDrop", Weight = 0.3 },
 					{ Name = "StackUpgrade", Weight = 0.3, Cost = 100, },
 					{ Name = "TalentDrop", Weight = 0.3 },
+					{ Name = "SpellDrop", ReplaceRequirements = { NamedRequirements = { "SpellDropRequirements" } }, Weight = 0.3 },
 				},
 			},
 			{
@@ -355,31 +396,45 @@ StoreData =
 		}
 	},
 
-	D_WorldShop =
+	Q_WorldShop =
 	{
 		GroupsOf =
 		{
 			{
+				WeightedList = true,
 				Offers = 2,
-				Options =
+				OptionsData =
 				{
-					"MaxHealthDrop",
-					"RandomLoot",
-					"RandomLoot",
+					{ Name = "RandomLoot", Weight = 3.0 },
+					{ Name = "BlindBoxLoot", Weight = 1.0 },
+
+					{ Name = "BoostedRandomLoot",Weight = 1.0, },
+					{ Name = "StackUpgradeBig", Weight = 1.0, Cost = 300 },
+
+					{ Name = "MaxHealthDrop", Weight = 0.3 },
+					{ Name = "MaxManaDrop", Weight = 0.3 },
+					-- { Name = "StackUpgrade", Weight = 0.3, Cost = 100, },
+					{ Name = "TalentDrop", Weight = 0.3 },
+					{ Name = "SpellDrop", ReplaceRequirements = { NamedRequirements = { "SpellDropRequirements" } }, Weight = 0.3 },
 				},
 			},
 			{
+				WeightedList = true,
 				Offers = 2,
-				Options =
+				OptionsData =
 				{
-					"BoostedRandomLoot",
+					{ Name = "HealBigDrop", Weight = 1.0 },
+					{ Name = "ArmorBigBoost", Weight = 0.75 },
+					--{ Name = "HitShieldBigDrop", Weight = 0.50 },
+					{ Name = "LastStandDrop", Weight = 0.50, Cost = 200 },
 				},
 			},
 			{
 				Offers = 1,
 				OptionsData =
 				{
-					{ Name = "ShopHermesUpgrade", Cost = 500, UpgradeChance = 1.0, UpgradedCost = 500, 
+					{
+						Name = "ShopHermesUpgrade", Cost = 500, UpgradeChance = 1.0, UpgradedCost = 500,
 						ReplaceRequirements =
 						{
 							{
@@ -388,9 +443,66 @@ StoreData =
 						},
 					},
 					{ Name = "ChaosWeaponUpgrade", Cost = 650 },
-					--{ Name = "WeaponUpgradeDrop", Cost = 650, SkipRequirements = true },
+					{ Name = "BoostedRandomLoot", },
+					{ Name = "MaxHealthDropBig" },
+					{ Name = "MaxManaDropBig" },
 				},
-			}
+			},
+			{
+				Offers = 1,
+				OptionsData =
+				{
+					{
+						Name = "WeaponPointsRareDrop",
+						Cost = 1300,
+						ReplaceRequirements =
+						{
+							{
+								PathTrue = { "GameState", "LifetimeResourcesGained", "WeaponPointsRare" },
+							}
+						},
+					},
+					{
+						Name = "CardUpgradePointsDrop",
+						Cost = 1000,
+						ReplaceRequirements =
+						{
+							{
+								PathTrue = { "GameState", "LifetimeResourcesGained", "CardUpgradePoints" },
+							}
+						},
+					},
+					{
+						Name = "CharonPointsDrop",
+						ReplaceRequirements =
+						{
+							{
+								PathTrue = { "GameState", "LifetimeResourcesGained", "CharonPoints" },
+							}
+						},
+					},
+
+				},
+			},
+		}
+	},
+	
+	ZagPedestalOptions =
+	{
+		GroupsOf =
+		{
+			{
+				WeightedList = true,
+				Offers = 1,
+				OptionsData =
+				{
+					{ Name = "BlindBoxLoot", Weight = 1.0 },
+					{ Name = "StackUpgradeBig", Weight = 2.0, },
+					{ Name = "StackUpgrade", Weight = 1.0, },
+					{ Name = "TalentBigDrop", Weight = 2.0 },
+					{ Name = "TalentDrop", Weight = 1.0 },
+				},
+			},
 		}
 	},
 }
@@ -418,6 +530,8 @@ ScreenData.WellShop =
 		FreeFormSelectStepDistance = 10,
 	},
 
+	PurchaseSound = "/Leftovers/World Sounds/ClickSplash2",
+
 	ShopItemStartX = ScreenCenterX,
 	ShopItemSpacerX = 820,
 	ShopItemStartY = 300,
@@ -426,12 +540,22 @@ ScreenData.WellShop =
 	ComponentData =
 	{
 		DefaultGroup = "Combat_Menu_Overlay",
+		UseNativeScreenCenter = true,
 		
+		Order =
+		{
+			"BackgroundTint",
+			"ShopBackground",
+			"ActionBarBackground",
+		},
+
 		BackgroundTint = 
 		{
 			Graphic = "rectangle01",
-			GroupName = "Combat_UI",
-			Scale = 10,
+			GroupName = "Combat_Menu_Backing",
+			Scale = 4.0,
+			UseScreenScaleX = true,
+			UseScreenScaleY = true,
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
 			Color = {0.15, 0.15, 0.15, 0.85}
@@ -443,8 +567,6 @@ ScreenData.WellShop =
 			GroupName = "Combat_Menu_Backing", 
 			OffsetX = 0, 
 			OffsetY = 190,
-			ScaleX = 1.3,
-			ScaleY = 1.3,
 			Children = 
 			{
 				ShopSubtitle = 
@@ -464,22 +586,6 @@ ScreenData.WellShop =
 						Justification = "Center",
 					}
 				},
-
-				ShopFlavor = 
-				{
-					GroupName = "Combat_Menu_Overlay",
-					Text = "Store_Hint",
-					TextArgs =  
-					{
-						FontSize = 22,
-						OffsetY = -385, Width = 840,
-						Color = {0.698, 0.702, 0.514, 1.0},
-						Font = "LatoMedium",
-						ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-						Justification = "Center",
-						Scale = 0,
-					}
-				},
 			},
 		},
 
@@ -487,7 +593,7 @@ ScreenData.WellShop =
 		{
 			AnimationName = "GUI\\ActionBar",
 			X = ScreenCenterX,
-			BottomOffset = UIData.ActionBarBottomOffset,
+			Y = UIData.ActionBarY,
 			UseScreenScaleX = true,
 		},
 
@@ -495,7 +601,6 @@ ScreenData.WellShop =
 		{
 			X = UIData.ContextualButtonXRight,
 			Y = UIData.ContextualButtonY,
-			BottomOffset = UIData.ContextualButtonBottomOffset,
 			AutoAlignContextualButtons = true,
 			AutoAlignJustification = "Right",
 
@@ -536,6 +641,7 @@ ScreenData.WellShop =
 					Text = " ",
 					TextArgs = UIData.ContextualButtonFormatRight,
 				},
+
 				CloseButton =
 				{
 					Graphic = "ContextualActionButton",
@@ -550,6 +656,7 @@ ScreenData.WellShop =
 					Text = "Menu_Exit",
 					TextArgs = UIData.ContextualButtonFormatRight,
 				},
+
 				TraitTrayButton = 
 				{
 					Graphic = "ContextualActionButton",

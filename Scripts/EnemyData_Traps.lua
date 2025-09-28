@@ -17,6 +17,8 @@
 				NonPlayerMultiplier = 20.0,
 			},
 		},
+		DamageTextStartColor = Color.TrapDamageLight,
+		DamageTextColor = Color.TrapDamage,
 
 		DefaultAIData =
 		{
@@ -24,32 +26,6 @@
 	},
 
 	-- Erebus Traps
-	RootingTree =
-	{
-		InheritFrom = { "BaseTrap" },
-
-		DefaultAIData = {
-			DeepInheritance = true,
-			
-			TriggerGroups =  { "HeroTeam" },
-			TargetGroups = { "GroundEnemies", "FlyingEnemies", "HeroTeam" },
-
-			IdleAnimation = "RootingTreeIdle",
-			DisabledAnimation = "RootingTreeDisabled",
-		},
-
-		WeaponOptions =
-		{
-			"RootsAoE",
-		},
-
-		AIOptions =
-		{
-			"GuardAI",
-		},
-		ToggleTrap = true,
-	},
-
 	SafeZone =
 	{
 		InheritFrom = { "BaseTrap" },
@@ -61,12 +37,40 @@
 			},
 		},
 
-		DefaultAIData = {
+		DistanceTriggers =
+		{
+			{
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeErebusSafeZones" },
+					},
+				},
+				PreTriggerWait = 0.1,
+				WithinDistance = 550,
+				VoiceLines =
+				{
+					PlayOnce = true,
+					PlayOnceFromTableThisRun = true,
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PreLineWait = 0.3,
+					UsePlayerSource = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech" },
+					},
+
+					{ Cue = "/VO/MelinoeField_0272", Text = "A Warding Circle..." },
+					{ Cue = "/VO/MelinoeField_0273", Text = "Warding Circle there..." },
+				}
+			},
+		},
+
+		DefaultAIData =
+		{
 			DeepInheritance = true,
 			
-			--TriggerGroups =  { "HeroTeam" },
-			--TargetGroups = { "GroundEnemies", "FlyingEnemies", "HeroTeam" },
-
 			IdleAnimation = "SafeZoneIdle",
 			DisabledAnimation = "SafeZoneDisabled",
 		},
@@ -81,35 +85,12 @@
 			"SafeZoneAI",
 		},
 
+		ProjectilesCollideWithGroups =
+		{
+			"EnemyTeam",
+		},
+
 		ToggleTrap = true,
-	},
-
-	CorruptedEgg =
-	{
-		InheritFrom = { "BaseVulnerableEnemy" },
-		MaxHealth = 80,
-
-		RequiredKill = false,
-		UseActivatePresentation = false,
-
-		DefaultAIData =
-		{
-			DeepInheritance = true,
-		},
-
-		WeaponOptions =
-		{
-			"CorruptedSpawns"
-		},
-
-		AIOptions =
-		{
-			"AttackAndDie",
-		},
-
-		MoneyDropOnDeath = {},
-
-		CleanupAnimation = "Blank",
 	},
 
 	BloodMine =
@@ -288,7 +269,17 @@
 		OnDeathShakeScreenDuration = 0.65,
 		OnDeathShakeScreenFalloff = 1500,
 
-		FirstOnHitSound = "/SFX/SteamPipeHit",
+		OnHitEvents =
+		{
+			{
+				FunctionName = "FirstOnHitSound",
+				Args =
+				{
+					Sound = "/SFX/SteamPipeHit",
+				},
+			},
+		},
+
 		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15 },
 
 		OutgoingDamageModifiers =
@@ -358,6 +349,97 @@
 		},		
 	},
 
+
+	GunBombUnit =
+	{
+		InheritFrom = { "BaseTrap" },
+		GenusName = "Eris",
+
+		MaxHealth = 9999,
+		FlashOnFuse = true,
+		FuseDuration = 0.2,
+		ImpactReaction =
+		{
+			--[[RequireAnyProjectileNames =
+			{
+				"ErisLaser", "ErisLaserDash",
+			},]]
+			RequireNotProjectileNames =
+			{
+				"ErisWindBuffet", "GunGrenadeTossLucifer", "OilPuddleFire", "OilPuddleFire02", "OilPuddleFire03", "OilPuddleFire04"
+			},
+			RequireAnyAttackerName =
+			{
+				"_PlayerUnit", "Eris"
+			},
+			FunctionName = "ActivateLuciferFuse"
+		},
+		FuseActivationSound = "/SFX/Player Sounds/ZagreusLuciferPreAttack",
+
+		OnHitShake = { Distance = 3, Speed = 600, Duration = 0.15 },
+
+		OnDeathShakeScreenSpeed = 150,
+		OnDeathShakeScreenDistance = 4,
+		OnDeathShakeScreenDuration = 0.25,
+		OnDeathShakeScreenFalloff = 1500,
+
+		AlwaysTraitor = true,
+		OnDeathFireWeapons = { "GunBombWeapon" },
+
+		DumbFireWeapons = { "GunBombImmolation" },
+
+		IncomingDamageModifiers =
+		{
+			{
+				Name = "ImmolationImmunity",
+				ValidWeapons = { "GunBombImmolation" },
+				ValidWeaponMultiplier = 0,
+				Multiplicative = true,
+			},
+		},
+		KeepNonPlayerMultipliers = true,
+		OutgoingDamageModifiers =
+		{
+			{
+				Name = "IgnoreEris",
+				NonPlayerMultiplier = 0,
+				Multiplicative = true,
+			},
+		},
+
+		OnKillVoiceLines =
+		{
+			{
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				PreLineWait = 0.35,
+				SuccessiveChanceToPlay = 0.25,
+				ObjectType = "Eris",
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "BossHealthBarRecord", "Eris" },
+						Comparison = ">=",
+						Value = 0.65,
+					},
+				},
+				Cooldowns =
+				{
+					{ Name = "ErisSpokeRecently", Time = 12 },
+					{ Name = "ErisBombedRecently", Time = 30 },
+				},
+
+				{ Cue = "/VO/ErisField_0418", Text = "See that?" },
+				{ Cue = "/VO/ErisField_0419", Text = "Off they go!" },
+				{ Cue = "/VO/ErisField_0420", Text = "Whoopsie!" },
+				{ Cue = "/VO/ErisField_0421", Text = "Whoops!" },
+				{ Cue = "/VO/ErisField_0422", Text = "Pop!" },
+				{ Cue = "/VO/ErisField_0423", Text = "{#Emph}Pop!" },
+			},
+		},
+
+	},
+
 	-- Fields Traps
 	MiasmaGeyser =
 	{
@@ -393,11 +475,41 @@
 				NonPlayerMultiplier = 50,
 			},
 		},
+
+		DistanceTriggers =
+		{
+			{
+				PreTriggerWait = 0.1,
+				WithinDistance = 500,
+				VoiceLines =
+				{
+					{
+						PlayOnceFromTableThisRun = true,
+						UsePlayerSource = true,
+						RandomRemaining = true,
+						SuccessiveChanceToPlay = 0.05,
+						GameStateRequirements =
+						{
+							{
+								PathEmpty = { "RequiredKillEnemies" },
+							},
+						},
+						Cooldowns =
+						{
+							{ Name = "MelinoeAnyQuipSpeech" },
+						},
+						{ Cue = "/VO/MelinoeField_0866", Text = "Miasma...", PlayFirst = true },
+						{ Cue = "/VO/MelinoeField_0867", Text = "More Miasma..." },
+					},
+				},
+			}
+		},
 	},
 
 	BrambleTrap =
 	{
 		InheritFrom = { "BaseTrap" },
+		IgnoreElapsedTimeMultiplier = true,
 
 		AIOptions =
 		{
@@ -426,7 +538,7 @@
 		OutgoingDamageModifiers =
 		{
 			{
-				NonPlayerMultiplier = 5.0,
+				NonPlayerMultiplier = 0.0,
 			},
 		},
 	},
@@ -457,6 +569,7 @@
 			ReloadingLoopSound = "/SFX/TrapSettingLoop",
 			ReloadedSound = "/SFX/TrapSet",
 			DisabledAnimation = "SpikeTrapDeactivated",
+
 		},
 
 		Material = "MetalObstacle",
@@ -474,6 +587,7 @@
 		},
 		ToggleTrap = true,
 		IdleAnimation = "SpikeTrapIdle",
+		DisableImmediately = true,
 
 		OutgoingDamageModifiers =
 		{
@@ -563,51 +677,79 @@
 	},
 
 	-- Ephyra Traps
-	PuddleSpawner =
-	{
+
+
+    TyphonEgg =
+    {
 		InheritFrom = { "BaseTrap" },
 
-		IgnoreDamage = true,
-		IgnoreAutoLock = false,
+		MaxHealth = 2000,
+		SkipDamageText = true,
 		HideHealthBar = true,
 		HideLevelDisplay = true,
+		DestroyDelay = 2,
+		DeathAnimation = "Blank",
+		FlashOnFuse = true,
+		FuseDuration = 0.0,
+		IgnoreElapsedTimeMultiplier = true,
+		--FuseAnimation = "FireBarrelLit",
 
-		DefaultAIData = {
-			DeepInheritance = true,
-		},
+		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15 },
 
-		WeaponOptions =
-		{
-			"SlowPuddles",
-		},
-		AIOptions =
-		{
-			"DoAttackerAILoop",
-		},
-	},
+		OnDeathShakeScreenSpeed = 350,
+		OnDeathShakeScreenDistance = 8,
+		OnDeathShakeScreenDuration = 0.65,
+		OnDeathShakeScreenFalloff = 1500,
 
-	PuddleTile =
-	{
-		InheritFrom = { "BaseTrap" },
-		TriggersOnHitEffects = false,
-		PreAttackDuration = 0.0,
-		PostAttackCooldown = 0.01,
+		OnDamagedFunctionName = "ActivateFuse",
+
+		OnDeathFireWeapons = { "TyphonEggDeathWeapon" },
 
 		TargetGroups = { "GroundEnemies", "FlyingEnemies", "HeroTeam" },
-		DefaultAIData =
+
+		OutgoingDamageModifiers =
 		{
-			PointOnlyCollision = true,
+			{
+				NonPlayerMultiplier = 30,
+			}
 		},
 
-		WeaponOptions =
+		IncomingDamageModifiers =
 		{
-			"PuddleTileWeapon"
+			{
+				NonPlayerMultiplier = 0,
+			},
 		},
-		AIOptions =
+    },
+    
+    TyphonEggLarge =
+    {
+        InheritFrom = { "TyphonEgg" },
+
+		MaxHealth = 100,
+        OnDamagedFunctionName = "nil",
+		OnDeathFireWeapons = {},
+		FlashOnFuseColor = Color.White,
+		FuseDuration = 2.0,
+
+		DeathFx = "EnemyDeathFxTyphon",
+		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15 },
+		OnDeathShakeScreenSpeed = 0,
+
+		IncomingDamageModifiers =
 		{
-			"DoAttackerAILoop",
+			{
+				NonPlayerMultiplier = 0,
+			},
 		},
-	},
+
+		OutgoingDamageModifiers =
+		{
+			{
+				NonPlayerMultiplier = 0,
+			}
+		},
+    },
 
 	-- Thessaly Traps
 	FireBarrel =
@@ -635,7 +777,7 @@
 
 		OnDamagedFunctionName = "ActivateFuse",
 
-		OnDeathFireWeapons = { "FireBarrelExplosion", "FireBarrelFireSpread" },
+		OnDeathFireWeapons = { "FireBarrelExplosion" },
 
 		TargetGroups = { "GroundEnemies", "FlyingEnemies", "HeroTeam" },
 
@@ -652,14 +794,50 @@
 
 		FuseAnimation = "FireBarrelShipsLit",
 
-		OnDeathFireWeapons = { "FireBarrelExplosion" },
+		OnDeathFireWeapons = { "FireBarrelExplosionShips" },
+
+		OnKillVoiceLines =
+		{
+			{
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				PreLineWait = 0.5,
+				SuccessiveChanceToPlay = 0.5,
+				SuccessiveChanceToPlayAll = 0.4,
+				ObjectType = "Eris",
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "BossHealthBarRecord", "Eris" },
+						Comparison = ">=",
+						Value = 0.25,
+					},
+					ChanceToPlay = 0.25,
+				},
+				Cooldowns =
+				{
+					{ Name = "ErisSpokeRecently", Time = 12 },
+				},
+
+				{ Cue = "/VO/ErisField_0322", Text = "{#Emph}Ooh {#Prev}that's {#Emph}hot!" },
+				{ Cue = "/VO/ErisField_0323", Text = "{#Emph}Yeah{#Prev}, burn it {#Emph}all {#Prev}down!" },
+				{ Cue = "/VO/ErisField_0324", Text = "Things are heating {#Emph}up!" },
+				{ Cue = "/VO/ErisField_0325", Text = "{#Emph}Spicy!" },
+				{ Cue = "/VO/ErisField_0487", Text = "{#Emph}Whew, hot!" },
+				{ Cue = "/VO/ErisField_0488", Text = "Some mood lighting!" },
+				{ Cue = "/VO/ErisField_0489", Text = "We're on {#Emph}fire!" },
+				{ Cue = "/VO/ErisField_0490", Text = "{#Emph}Everything's on fire!" },
+				{ Cue = "/VO/ErisField_0491", Text = "Getting warmer!" },
+				{ Cue = "/VO/ErisField_0492", Text = "Oh, it {#Emph}burns!" },
+			},
+		},
 	},
 
 	OilPuddle =
 	{
 		InheritFrom = { "BaseTrap" },
 		SilentImpact = true,
-		TriggersOnHitEffects = true,
+		TriggersOnHitEffects = false,
 
 		DefaultAIData = {
 			DeepInheritance = true,
@@ -761,11 +939,12 @@
 		IgnoreAutoLock = false,
 
 		SpawnAnimation = "BattleStandardSpawn",
-		--DeathAnimation = "BattleStandardDeathFxSpawner",
+		DeathAnimation = "BattleStandardDeathFxSpawner",
 		SpawnObstaclesOnDeath =
 		{
 			{ Name = "BattleStandardDestroyed", SyncOwnerAngle = true, RestoreOnLoad = true, },
 		},
+		StopAnimationsOnDeath = { "BattleStandardFxEmitter" },
 		
 		DamagedFxStyles =
 		{
@@ -786,6 +965,7 @@
 			AttackDistance = 9999,
 			RetreatBufferDistance = 9999,
 		},
+		StopAnimationsOnHitStun = true,
 
 		Material = "MetalObstacle",
 
@@ -809,8 +989,21 @@
 				{
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsNone = { "I_Boss01" },
+						IsNone = { "I_Boss01", "Q_Boss02" },
 					},
+					OrRequirements =
+					{
+						{
+							{
+								PathFalse = { "GameState", "ReachedTrueEnding" },
+							},
+						},
+						{
+							{
+								PathTrue = { "GameState", "SpeechRecord", "/VO/Chronos_1058" },
+							},
+						},
+					},					
 				},
 				Cooldowns =
 				{
@@ -823,16 +1016,53 @@
 				{ Cue = "/VO/MelinoeField_0435", Text = "...I'll tear it apart.", PlayOnce = true, PlayOnceContext = "MelinoeField_0435_BannerDestroyed" },				
 			},
 		},
+
+		DistanceTriggers =
+		{
+			{
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "I_Boss01", "Q_Boss02" },
+					},
+				},
+				WithinDistance = 550,
+				VoiceLines =
+				{
+					PlayOnceFromTableThisRun = true,
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PreLineWait = 0.5,
+					UsePlayerSource = true,
+					SuccessiveChanceToPlayAll = 0.1,
+
+					{ Cue = "/VO/MelinoeField_0434", Text = "A Time Sign..." },
+					{ Cue = "/VO/MelinoeField_0436", Text = "A Sign of Chronos...", PlayFirst = true },
+					{ Cue = "/VO/MelinoeField_0437", Text = "One of those blasted Signs..." },
+					{ Cue = "/VO/MelinoeField_0438", Text = "The Time Sign's back." },
+					{ Cue = "/VO/MelinoeField_0439", Text = "Time Sign there..." },
+					{ Cue = "/VO/MelinoeField_0440", Text = "Another Time Sign..." },
+				}
+			}
+		},
 	},
 
 	BattleStandardChronos =
 	{
 		InheritFrom = { "BattleStandard" },
-		SpawnAnimation = "BattleStandardSpawn",
 		DeathAnimation = "BattleStandardDeathFxSpawnerChronos",
+
 		SpawnObstaclesOnDeath =
 		{
 		},
+
+		IncomingDamageModifiers =
+		{
+			{
+				NonPlayerMultiplier = 0,
+			}
+		}
 	},
 
 	SoulPylon =
@@ -858,12 +1088,14 @@
 		HideHealthBar = false,
 		HideLevelDisplay = false,
 		IgnoreAutoLock = false,
-
+		BlockExitText = "ExitBlockedByPylon",
+		TriggersOnDamageEffects = true,
+		EffectBlocks = {"BurnEffect"},
 		DamagedAnimation = "SoulPylonDamaged",
 		DeathSound = "/SFX/Enemy Sounds/Hecate/HecateGroundBlastFire",
 		SpawnObstaclesOnDeath =
 		{
-			{ Name = "SoulPylonDestroyed", SyncOwnerAngle = true, RestoreOnLoad = true, },
+			{ Name = "SoulPylonDestroyed", SyncOwnerAngle = true, RestoreOnLoad = true, RestoreOnLoadName = "SoulPylonDestroyedFinished", },
 		},
 
 		SpawnObstaclesOnSpawn =
@@ -894,55 +1126,108 @@
 
 		OnHitVoiceLines =
 		{
-			UsePlayerSource = true,
-			RandomRemaining = true,
-			BreakIfPlayed = true,
-			PreLineWait = 0.35,
-			ChanceToPlay = 0.05,
-			GameStateRequirements =
 			{
+				UsePlayerSource = true,
+				RandomRemaining = true,
+				PreLineWait = 0.35,
+				SuccessiveChanceToPlay = 0.5,
+				SuccessiveChanceToPlayAll = 0.5,
+				GameStateRequirements =
 				{
-					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "N_Story01", },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = { "HeraclesCombatN", "ArtemisCombatN" },
+					},
+					ChanceToPlay = 0.15,
 				},
+				Cooldowns =
 				{
-					Path = { "CurrentRun", "CurrentRoom", "Name" },
-					IsNone = { "N_Story01", },
+					{ Name = "MelinoeAnyQuipSpeech" },
+					{ Name = "StruckPylonRecently", Time = 360 },
 				},
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsAny = { "HeraclesCombatN", "ArtemisCombatN" },
-				},
-			},
-			Cooldowns =
-			{
-				{ Name = "MelinoeAnyQuipSpeech" },
-				{ Name = "StruckPylonRecently", Time = 300 },
-			},
 
-			{ Cue = "/VO/MelinoeField_0404", Text = "Hold still in there, Shades.", PlayFirst = true, },
-			{ Cue = "/VO/MelinoeField_0405", Text = "You Shades are getting out of there...!" },
-			{ Cue = "/VO/MelinoeField_0406", Text = "You'll be out in no time, Shades." },
-			{ Cue = "/VO/MelinoeField_0407", Text = "How many of these do they have?" },
-			{ Cue = "/VO/MelinoeField_0408", Text = "Don't mind me, Lady Medea...!",
-				GameStateRequirements =
-				{
+				{ Cue = "/VO/MelinoeField_0404", Text = "Hold still in there, Shades.", PlayFirst = true, },
+				{ Cue = "/VO/MelinoeField_0405", Text = "You Shades are getting out of there...!" },
+				{ Cue = "/VO/MelinoeField_0406", Text = "You'll be out in no time, Shades." },
+				{ Cue = "/VO/MelinoeField_0407", Text = "How many of these do they have?" },
+				{ Cue = "/VO/MelinoeField_4232", Text = "Excuse me a moment!",
+					BreakIfPlayed = true,
+					GameStateRequirements =
 					{
-						PathTrue = { "GameState", "UseRecord", "NPC_Medea_01" },
+						{
+							PathTrue = { "GameState", "UseRecord", "NPC_Medea_01" },
+						},
+						{
+							Path = { "CurrentRun", "CurrentRoom", "Name" },
+							IsAny = { "N_Story01", },
+						},
 					},
+				},
+				{ Cue = "/VO/MelinoeField_4233", Text = "Pardon, Lady Medea.",
+					PlayFirst = true,
+					BreakIfPlayed = true,
+					GameStateRequirements =
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsAny = { "N_Story01", },
+						{
+							PathTrue = { "GameState", "UseRecord", "NPC_Medea_01" },
+						},
+						{
+							Path = { "CurrentRun", "CurrentRoom", "Name" },
+							IsAny = { "N_Story01", },
+						},
+					},
+				},
+				{ Cue = "/VO/MelinoeField_0408", Text = "Don't mind me, Lady Medea...!",
+					PlayFirst = true,
+					BreakIfPlayed = true,
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "UseRecord", "NPC_Medea_01" },
+						},
+						{
+							Path = { "CurrentRun", "CurrentRoom", "Name" },
+							IsAny = { "N_Story01", },
+						},
+					},
+				},
+				{ Cue = "/VO/MelinoeField_0409", Text = "Pardon the racket, Lord Charon...!",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "CurrentRoom", "Name" },
+							IsAny = { "N_Shop01", },
+						},
 					},
 				},
 			},
-			{ Cue = "/VO/MelinoeField_0409", Text = "Pardon the racket, Lord Charon...!",
+			{
+				RandomRemaining = true,
+				ObjectType = "NPC_Medea_01",
+				PreLineWait = 0.65,
 				GameStateRequirements =
 				{
-					{
-						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsAny = { "N_Shop01", },
-					},
+					ChanceToPlay = 0.15,
 				},
+				Cooldowns =
+				{
+					{ Name = "MedeaSpokeRecently", Time = 6 },
+				},				
+
+				{ Cue = "/VO/Medea_0295", Text = "Oh, {#Emph}that.", PlayFirst = true },
+				{ Cue = "/VO/Medea_0296", Text = "Oh, right." },
+				{ Cue = "/VO/Medea_0297", Text = "Have at it." },
+				{ Cue = "/VO/Medea_0298", Text = "I was saving that for you..." },
+				{ Cue = "/VO/Medea_0299", Text = "All yours!" },
+				{ Cue = "/VO/Medea_0300", Text = "That's it." },
 			},
 		},
 
@@ -963,12 +1248,16 @@
 						Path = { "CurrentRun", "Hero", "TraitDictionary" },
 						HasNone = { "SurfacePenalty" },
 					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Heracles_01", "NPC_Medea_01", "NPC_Artemis_01" }, Alive = false },
+					},
 				},
 				Cooldowns =
 				{
+					{ Name = "MelinoeAnyQuipSpeech", Time = 5 },
 					{ Name = "MelinoeBarrierDestroyedSpeech", Time = 240 },
 				},
-				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
 
 				{ Cue = "/VO/MelinoeField_0393", Text = "Ghastly thing." },
 				{ Cue = "/VO/MelinoeField_0394", Text = "Shades, you're free!", PreLineWait = 0.45, PlayFirst = true },
@@ -1030,7 +1319,7 @@
 						},
 					},
 				},
-				{ Cue = "/VO/MelinoeField_0401", Text = "One down, one to go.",
+				{ Cue = "/VO/MelinoeField_0401", Text = "Five down, one to go.",
 					GameStateRequirements =
 					{
 						{
@@ -1072,13 +1361,56 @@
 			},
 			{
 				RandomRemaining = true,
+				ObjectType = "NPC_Heracles_01",
+				PreLineWait = 0.65,
+				SuccessiveChanceToPlay = 0.5,
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "HeraclesAnyQuipSpeech", Time = 6 },
+				},
+
+				{ Cue = "/VO/Heracles_0507", Text = "Daughter of Hades...", PlayFirst = true },
+				{ Cue = "/VO/Heracles_0508", Text = "The dead retaliate..." },
+				{ Cue = "/VO/Heracles_0509", Text = "The dead scatter..." },
+				{ Cue = "/VO/Heracles_0510", Text = "Shades of the dead..." },
+				{ Cue = "/VO/Heracles_0511", Text = "Releasing the dead..." },
+				{ Cue = "/VO/Heracles_0512", Text = "Commander of the dead..." },
+				{ Cue = "/VO/Heracles_0513", Text = "They're on our side..." },
+				{ Cue = "/VO/Heracles_0514", Text = "Off they go..." },
+			},
+			{
+				RandomRemaining = true,
 				ObjectType = "NPC_Medea_01",
 				PreLineWait = 0.65,
-				TriggerCooldowns = { "MedeaSpokeRecently" },
-				
+				SuccessiveChanceToPlay = 0.5,
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "MedeaSpokeRecently", Time = 6 },
+				},
+
+				{ Cue = "/VO/Medea_0284", Text = "Off they go...!" },
+				{ Cue = "/VO/Medea_0285", Text = "Scattered like mice." },
+				{ Cue = "/VO/Medea_0286", Text = "How kind of you." },
+				{ Cue = "/VO/Medea_0287", Text = "Bothersome things..." },
+				{ Cue = "/VO/Medea_0288", Text = "They're free..." },
+				{ Cue = "/VO/Medea_0290", Text = "Farewell, spirits!" },
+				{ Cue = "/VO/Medea_0291", Text = "Look at them flee..." },
+				{ Cue = "/VO/Medea_0292", Text = "Others remain..." },
+				{ Cue = "/VO/Medea_0293", Text = "Shattered..." },
+				{ Cue = "/VO/Medea_0294", Text = "All to pieces..." },
 				{ Cue = "/VO/Medea_0095", Text = "You're all worked up." },
 				{ Cue = "/VO/Medea_0096", Text = "Such violence...!", PlayFirst = true },
 				{ Cue = "/VO/Medea_0154", Text = "...that should do it." },
+				{ Cue = "/VO/Medea_0289", Text = "They're free... for now.",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "SpeechRecord", "/VO/Medea_0288" },
+						},
+					},
+				},
 				{ Cue = "/VO/Medea_0164", Text = "...So mote it be.",
 					GameStateRequirements =
 					{
@@ -1100,6 +1432,57 @@
 			},
 		},
 
+		DistanceTriggers =
+		{
+			{
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "N_Story01", "N_MiniBoss01", "N_MiniBoss02" },
+					},
+					{
+						Path = { "CurrentRun", "Hero", "TraitDictionary" },
+						HasNone = { "SurfacePenalty" },
+					},
+				},
+				WithinDistance = 750,
+				VoiceLines =
+				{
+					PlayOnce = true,
+					PlayOnceFromTableThisRun = true,
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PreLineWait = 0.3,
+					UsePlayerSource = true,
+					SuccessiveChanceToPlayAll = 0.1,
+
+					{ Cue = "/VO/MelinoeField_0387", Text = "Shades are trapped within that Pylon there...!", PlayFirst = true, PlayOnce = true },
+					{ Cue = "/VO/MelinoeField_0388", Text = "That Pylon's powering the barrier out there.", PlayFirst = true, PlayOnce = true,
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_0387" },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_0389", Text = "There's my target." },
+					{ Cue = "/VO/MelinoeField_0390", Text = "Pylon sighted." },
+					{ Cue = "/VO/MelinoeField_0391", Text = "Pylon there." },
+					{ Cue = "/VO/MelinoeField_0392", Text = "Another Pylon.",
+						GameStateRequirements =
+						{
+							{
+								Path = { "CurrentRun", "SpawnRecord", "SoulPylon" },
+								Comparison = ">",
+								Value = 1,
+							},
+						}
+					},
+				}
+			},
+		},
+
 		Material = "Shell",
 
 		OnDeathFireWeapons = { "SoulPylonDeath" },
@@ -1110,36 +1493,23 @@
 	},
 
 	-- Misc / Unsorted Traps
-	ShatterCrystal =
+	ShovelPointTrap =
 	{
-		InheritFrom = { "BaseTrap" },
+		InheritFrom = { "PassiveRoomWeapon" },
 
-		IgnoreDamage = true,
-		IgnoreAutoLock = false,
-		HideHealthBar = true,
-		HideLevelDisplay = true,
+		DamageTextStartColor = Color.TrapDamageLight,
+		DamageTextColor = Color.TrapDamage,
 
-		OnDamagedFunctionName = "DirectionalShatterAI",
+		WakeUpDelay = 0.0,
 
-		DefaultAIData = {
-			DeepInheritance = true,
-		},
-
-		WeaponOptions =
+		DefaultAIData =
 		{
-			"ShatterCrystalCone",
+			DeepInheritance = true,
 		},
 
 		AIOptions =
 		{
 			"EmptyAI",
-		},
-
-		OutgoingDamageModifiers =
-		{
-			{
-				NonPlayerMultiplier = 50,
-			},
 		},
 	},
 
@@ -1151,13 +1521,23 @@
 		MaxHealth = 0,
 
 		SkipDamagePresentation = false,
+		SkipDamagePresentationFromNonPlayerUnits = true,
 		SkipDamageText = true,
 		SkipUnitHitFlash = true,
 		HideHealthBar = true,
 		HideLevelDisplay = true,
 		IgnoreAutoLock = true,
-		
-		FirstOnHitSound = "/Leftovers/SFX/CaravanDamage",
+		IgnoreInvisibility = true, -- Skip HadesInvisibility emote presentation
+		OnHitEvents =
+		{
+			{
+				FunctionName = "FirstOnHitSound",
+				Args =
+				{
+					Sound = "/Leftovers/SFX/CaravanDamage",
+				},
+			},
+		},
 		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15 },
 
 		OnDamagedFunctionName = "DestructibleTreeHit",
@@ -1238,6 +1618,7 @@
 			PreLineWait = 0.45,
 			UsePlayerSource = true,
 			SuccessiveChanceToPlay = 0.1,
+			SuccessiveChanceToPlayAll = 0.5,
 			GameStateRequirements =
 			{
 				{
@@ -1247,7 +1628,7 @@
 				},
 				{
 					Path = { "CurrentRun", "CurrentRoom", "Name" },
-					IsNone = { "F_Boss01" },
+					IsNone = { "F_Boss01", "F_Boss02" },
 				},
 			},
 			Cooldowns =
@@ -1282,8 +1663,18 @@
 		HideLevelDisplay = true,
 		IgnoreAutoLock = true,
 		DestroyedStopsProjectiles = true,
+		IgnoreInvisibility = true, -- Skip HadesInvisibility emote presentation
 		
-		FirstOnHitSound = "/Leftovers/SFX/CaravanDamage",
+		OnHitEvents =
+		{
+			{
+				FunctionName = "FirstOnHitSound",
+				Args =
+				{
+					Sound = "/Leftovers/SFX/CaravanDamage",
+				},
+			},
+		},
 		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15 },
 
 		OnDamagedFunctionName = "DestructibleTreeHit",
@@ -1292,6 +1683,8 @@
 		
 		SplinterAnimation = "DestructibleMastDamagedA",
 		DestroyedAnimation = "DestructibleMastDestroyedA",
+		DestroyedAnimationToRestore = "DestructibleMastDestroyedAFinished",
+
 		DamagedFxStyles =
 		{
 			Default = "EphyraIndestructibleWoodSplinters",
@@ -1306,13 +1699,13 @@
 
 		WeaponOptions =
 		{
-			"DestructibleTreeSplinter",
+			"DestructibleMastSplinter",
 		},
 
 		OutgoingDamageModifiers =
 		{
 			{
-				NonPlayerMultiplier = 5,
+				NonPlayerMultiplier = 1,
 			},
 			{
 				PlayerMultiplier = 0.0,
@@ -1364,8 +1757,18 @@
 		HideHealthBar = true,
 		HideLevelDisplay = true,
 		IgnoreAutoLock = true,
+		IgnoreInvisibility = true, -- Skip HadesInvisibility emote presentation
 		
-		FirstOnHitSound = "/SFX/Enemy Sounds/Heartless/HeartProjectileLand",
+		OnHitEvents =
+		{
+			{
+				FunctionName = "FirstOnHitSound",
+				Args =
+				{
+					Sound = "/SFX/Enemy Sounds/Heartless/HeartProjectileLand",
+				},
+			},
+		},
 		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15 },
 
 		OnDamagedFunctionName = "ThornTreeHit",
@@ -1427,6 +1830,91 @@
 			{ Cue = "/VO/MelinoeField_1143", Text = "Thorns always hurt." },
 		}
 
+	},
+
+	TyphonMine =
+	{
+		InheritFrom = { "BaseTrap" },
+
+		DefaultAIData = {
+			DeepInheritance = true,
+		},
+
+		Material = "MetalObstacle",
+
+		WeaponOptions =
+		{
+			"TyphonSpike",
+		},
+
+		AIOptions =
+		{
+			"TyphonMineAI",
+		},
+		ToggleTrap = false,
+
+		SpawnObstaclesOnDeath =
+		{
+			{ Name = "TyphonMineDepleted", SyncFlip = true, RestoreOnLoad = true, GroupName = "Terrain_Gameplay" },
+		},
+
+		OutgoingDamageModifiers =
+		{
+			{
+				NonPlayerMultiplier = 30,
+			},
+		},
+	},
+
+	EyeBomb =
+	{
+		Health = 1,
+		CannotDieFromDamage = true,
+		KillSelfAfterNumReactionProjectiles = 3,
+
+		OnDeathFireWeapons = { "EyeBombExplosion" },
+
+		Material = "Stone",
+		OnHitFunctionName = "CheckUnitInvulnerableHit",
+		InvulnerableHitFx = "TurtleInvincibubbleHit",
+		InvulnerableHitImpactVelocity = 3000,
+		InvulnerableHitSound = "/SFX/Enemy Sounds/Heartless/HeartBeatSquishy",
+		InvulnerableHitFlash = true,
+		InvulnerableBlockHint = true,
+
+		CollisionReactions =
+		{
+			{
+				Cooldown = 1.0,
+				FireProjectileRequiredMinVelocity = 600,
+				Sound = "/SFX/Enemy Sounds/HydraHead/HydraEggLandSplat",
+				FireProjectileData =
+				{
+					ProjectileName = "EyeBombImpact",
+					FireProjectileAtSelf = true,
+					SkipCanAttack = true,
+				},
+			}
+		},
+
+		OutgoingDamageModifiers =
+		{
+			{
+				NonPlayerMultiplier = 1,
+			},
+			{
+				PlayerMultiplier = 0,
+			},
+		},
+
+		DefaultAIData =
+		{
+		},
+
+		AIOptions =
+		{
+			"EmptyAI",
+		},
 	},
 
 	GasTrapPassive =
@@ -1493,14 +1981,10 @@
 
 		DefaultAIData =
 		{
-			PreAttackDuration = 0.0,
-			PostAttackCooldown = 0.01,
-		},
-
-		DefaultAIData =
-		{
 			DeepInheritance = true,
 			PointOnlyCollision = true,
+			PreAttackDuration = 0.0,
+			PostAttackCooldown = 0.01,
 		},
 
 		NonHeroKillCombatText = "LavaKill",

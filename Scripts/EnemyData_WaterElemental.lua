@@ -6,7 +6,7 @@ UnitSetData.WaterElemental =
 		InheritFrom = { "BaseOEnemy", "BaseVulnerableEnemy", "LowPolyEnemy" },
 		IntroEncounterName = "WaterElementalIntro",
 
-		MaxHealth = 140,
+		MaxHealth = 105,
 		HealthBarOffsetY = -120,
 		HealthBarType = "Small",
 
@@ -19,7 +19,6 @@ UnitSetData.WaterElemental =
 		ActivateTint = false,
 		ActivateStartAlpha = 0,
 
-		ActiveCapWeight = 0.20,
 		ArmorSparkAnimation = "HitSparkArmor_Small",
 		DeathSound = "/SFX/Enemy Sounds/WaterElemental/EmoteDying",
 		DeathAnimation = "Enemy_WaterElemental_Death",
@@ -53,9 +52,10 @@ UnitSetData.WaterElemental =
 
 		WeaponOptions =
 		{
-			--"WaterElementalBite", "WaterElementalBurst", "WaterElementalDuplicate"
 			"WaterElementalBite", "WaterElementalFidget"
 		},
+
+		BlockAttributes = { "Metallic", "Orbit", "Vacuum", },
 
 		HeraclesCombatMoneyValue = 1,
 		MoneyDropOnDeath =
@@ -89,6 +89,7 @@ UnitSetData.WaterElemental =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_2159", Text = "Droplets..." },
@@ -102,7 +103,7 @@ UnitSetData.WaterElemental =
 	WaterElemental_Elite =
 	{
 		InheritFrom = { "Elite", "WaterElemental" },
-		HealthBuffer = 140,
+		HealthBuffer = 105,
 		IsAggroedSound = "/SFX/Enemy Sounds/WaterElemental/EmoteTaunting",
 
 		DefaultAIData =
@@ -113,8 +114,6 @@ UnitSetData.WaterElemental =
 		WeaponOptions =
 		{
 			"WaterElementalBite_Elite", "WaterElementalFidget",
-			--"WaterElementalBurst_Elite", 
-			--"WaterElementalDuplicate_Elite"
 		},
 
 		HeraclesCombatMoneyValue = 2,

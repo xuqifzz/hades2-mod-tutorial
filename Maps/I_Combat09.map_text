@@ -430,7 +430,35 @@
     },
     {
       "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "Foreground_05",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 2,
+      "ChildGroups": [],
+      "Id": "Additiive_02",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
       "ChildGroups": [
+        "Additiive_02",
+        "Foreground_05",
         "Foreground_04",
         "Foreground_03",
         "Foreground_02",
@@ -687,5 +715,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

@@ -11,7 +11,6 @@ WeaponSetData =
 			PreAttackAngleTowardTarget = false,
 
 			ProjectileName = "ZombieSpawnerLob",
-			SpawnFromMarker = "ZombieSpawner_Rig:middle_01_R_JNT",
 			FireProjectileTowardTarget = true,
 			TargetSpawnPoints = true,
 			TargetSpawnPointsRadius = 600,
@@ -81,7 +80,6 @@ WeaponSetData =
 				Value = 9,
 			},
 		},
-
 	},
 
 	ZombieAssassinStab =
@@ -125,13 +123,6 @@ WeaponSetData =
 			AttackFailWeapon = "ZombieAssassinLateralDash",
 		},
 
-		HitScreenshake = { Distance = 3, Speed = 700, Duration = 0.07, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.07, Fraction = 1.0, LerpTime = 0 },
-		},
-
 		Sounds =
 		{
 			FireSounds =
@@ -149,6 +140,53 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 			FireTickSelfVelocity = 1000,
+		},
+	},
+
+	ZombieAssassinStab_Miniboss =
+	{
+		InheritFrom = { "ZombieAssassinStab" },
+		AIData =
+		{
+			DeepInheritance = true,
+			FireTickSelfVelocity = 1000,
+
+			ProjectileName = "ZombieAssassinStab_Miniboss",
+			PreAttackRotationDampening = 0.10,
+			FireRotationDampening = 0.3,
+			PostAttackDuration = 0.9,
+			PostAttackMinWaitTime = 0.81,
+			PreAttackSound = "/SFX/Enemy Sounds/AssassinMiniboss/EmoteCharging",
+
+			AttackDistance = 9999,
+			MoveWithinRange = false,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/AssassinMiniboss/EmoteAttacking" },
+				{ Name = "/SFX/Enemy Sounds/Assassin/AssassinSwipe" },
+			},
+		},
+	},
+
+	ZombieAssassinCombo =
+	{
+		WeaponComboOnly = true,
+		AIData =
+		{
+			SkipFireWeapon = true,
+			ForceFirst = true,
+		},
+
+		WeaponCombo =
+		{
+			{ WeaponName = "ZombieAssassinLateralDash" },
+			{ WeaponName = "ZombieAssassinLateralDash", GameStateRequirements = { ChanceToPlay = 0.5 } },
+			{ WeaponName = "ZombieAssassinLateralDash", GameStateRequirements = { ChanceToPlay = 0.5 } },
+			{ WeaponName = "ZombieAssassinStab_Miniboss", },
 		},
 	},
 
@@ -170,6 +208,7 @@ WeaponSetData =
 			NoProjectile = true,
 			PreAttackAngleTowardTarget = true,
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
 
 			PreAttackDuration = 0.0,
 			FireDuration = 0.3,
@@ -203,6 +242,7 @@ WeaponSetData =
 			AttackDistance = 100,
 			MoveSuccessDistance = 50,
 			TargetSpawnPoints = true,
+			TargetSpawnPointsType = "EnemyPoint",
 			TargetSpawnPointsRadius = 600,
 			TargetSpawnPointsRadiusMin = 400,
 
@@ -244,7 +284,55 @@ WeaponSetData =
 			{
 				{ Name = "/SFX/Enemy Sounds/Assassin/EmoteTaunting" },
 			},
-		},		
+		},
+	},
+
+	ZombieAssassinStalk_Miniboss =
+	{
+		InheritFrom = { "ZombieAssassinStalk" },
+
+		Requirements =
+		{
+			RequireTotalAttacks = 3,
+			MinAttacksBetweenUse = 7,
+			MinRequiredKillEnemies = 0,
+			RequiresNotCharmed = true,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			PreMoveFunctionName = "GenericPresentation",
+			PreMoveFunctionArgs = { RemoveOutline = true },
+			FireFunctionName = "GenericPresentation",
+			FireFunctionArgs = { AddOutline = true },
+
+			TargetSpawnPointsRadius = 9999,
+			TargetSpawnPointsRadiusMin = 800,
+			MoveWithinRangeTimeout = 3.0,
+
+			ApplyEffectsOnMove = "nil",
+
+			SpawnBurstOnMove = true,
+			SpawnerOptions = { "Wisp_Elite" },
+			SpawnOnSpawnPoints = true,
+			SpawnRadius = 9999,
+			SpawnsPerBurstMin = 5,
+			SpawnsPerBurstMax = 6,
+			SpawnRate = 0.5,
+			MaxActiveSpawns = 10,
+			SpawnAggroed = true,
+		},
+
+		Sounds =
+		{
+			PreMoveSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/AssassinMiniboss/EmoteEvading" },
+			},
+		},
 	},
 
 	ZombieMelee =
@@ -282,13 +370,6 @@ WeaponSetData =
 			PreAttackAnimation = "Enemy_Zombie_MeleePreFire",
 			FireAnimation = "Enemy_Zombie_MeleeFire",
 			PostAttackAnimation = "Enemy_Zombie_MeleeReturnToIdle",
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0 },
 		},
 
 		Sounds =
@@ -333,7 +414,7 @@ WeaponSetData =
 			FireSelfVelocity = 400,
 
 			TrackTargetDuringCharge = true,
-			PreAttackRotationDampening = 0.11,
+			PreAttackRotationDampening = 0.06,
 			StopBeforeFire = true,
 
 			AttackDistance = 9999,
@@ -347,7 +428,7 @@ WeaponSetData =
 			PreAttackAnimationSpeed = 2.5,
 
 			-- Blink ban
-			TeleportToSpawnPoints = false,
+			PreMoveTeleport = false,
 		},
 	},
 
@@ -407,11 +488,11 @@ WeaponSetData =
 			FireAnimation = "Enemy_ZombieHR_TossFire",
 			PostAttackAnimation = "Enemy_ZombieHR_TossReturnToIdle",
 			
-			AttackDistance = 1100,
+			AttackDistance = 1010,
 			AttackDistanceScaleY = 0.58,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.20,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.10,
 			PostAttackStop = true,
 
@@ -438,7 +519,7 @@ WeaponSetData =
 	},
 
 	ZombieHeavyRangedToss_Elite =
-	{		
+	{
 		InheritFrom = { "ZombieHeavyRangedToss" },
 
 		AIData =
@@ -448,23 +529,16 @@ WeaponSetData =
 		},
 	},
 
-	ZombieHeavyRangedToss_Hub =
+	ZombieHeavyRangedTossPoison =
 	{		
 		InheritFrom = { "ZombieHeavyRangedToss" },
 
 		AIData =
-		{		
-			ProjectileName = "ZombieHeavyRangedToss_Hub",
-			AttackDistance = 99999,
-			DoNotRepeatOnAttackFail = false,
-			RetreatAfterAttackChance = 0.0,
-		},
-
-		Requirements =
 		{
-			MinPlayerDistance = 0,
-		},		
-	},	
+			DeepInheritance = true,
+			ProjectileName = "ZombieHeavyRangedTossPoison",
+		},
+	},
 
 	ZombieHeavyRangedShove =
 	{
@@ -520,13 +594,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/ZombieHeavyRanged/EmoteAttackingMelee" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.07 },
-		},
 	},
 
 	ZombieHeavyRangedShove_Elite =
@@ -560,6 +627,45 @@ WeaponSetData =
 			PreAttackDuration = 0.375,
 			FireDuration = 1.0,
 			PostAttackDuration = 0,
+		},
+	},
+
+	ZombieCorpseExplode =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "ZombieCorpseExplode",
+
+			FireProjectileAtSelf = true,
+			FireFromTarget = true,
+			PreAttackStop = true,
+
+			PreAttackFx = "ExplodeWarningZombie",
+			PreAttackEndShake = true,
+			PreAttackLoopingSound = "/SFX/Enemy Sounds/Hecate/HecatePolymorphCastAndLoop",
+
+			PreAttackEndDuration = 0.9,
+			FireDuration = 0.0,
+			PostAttackDuration = 0.0,
+
+			PreAttackAnimation = "Enemy_Zombie_OnHit",
+
+			MoveWithinRange = false,
+			AttackDistance = 9999999,
+
+			PostAttackKillSelf = true,
+
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Explosion1" },
+				{ Name = "/SFX/Enemy Sounds/EnemyDeathExplode" },
+			},
 		},
 	},
 }

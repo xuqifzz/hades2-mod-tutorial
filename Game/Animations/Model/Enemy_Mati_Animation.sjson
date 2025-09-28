@@ -1,0 +1,184 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyMatiBaseAnimation"
+		
+		GrannyModel = "Mati_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.3
+		Loop = false
+		Enable3DShadow = true
+	}
+	
+	{
+		Name = "Enemy_Mati_Idle"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_Idle_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_Mati_IdlePreEyeClosed"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_PreEyeClosed_C_00"
+		ChainTo = "Enemy_Mati_IdleEyeClosed"
+	}
+	{
+		Name = "Enemy_Mati_IdleEyeClosed"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_EyeClosedLoop_C_00"
+		Loop = true
+		VisualFx = "MatiDefenseShield"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.3
+		CreateAnimation = "MatiDefenseShield"
+		CancelOnOwnerMove = false
+	}
+	{
+		Name = "Enemy_Mati_IdlePostEyeClosed"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_PostEyeClosed_C_00"
+	}
+	
+	{
+		Name = "Enemy_Mati_Spawn"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_Spawn_C_00"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.3
+		CreateAnimations = [
+			//{ Name = "MatiDefenseShield" }
+			{ Name = "MatiSpawnStreaks" }
+		]
+		ChainTo = "Enemy_Mati_IdlePostEyeClosed"
+		LargeObstacle3DModel = true // temp for Design Review
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 26
+				FrameSpeed = 1.5
+				Sound = "/SFX/Enemy Sounds/Carrion/CarrionSpawnWhoosh"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mati_OnHit"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_OnHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Mati_Idle"
+		Sound = "/SFX/Enemy Sounds/Mati/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2.2
+			}
+			{
+				Frame = 13
+				FrameSpeed = 1.25
+			}
+		]
+	}
+	{
+		Name = "Enemy_Mati_OnHit_Heavy"
+		InheritFrom = "Enemy_Mati_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_Mati_HypnoPreFire"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_PreHypnoCast_C_00"
+		CreateAnimation = "MatiHypnoCharge"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Hades/HadesLaserSpin"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mati_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mati_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mati_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mati_HypnoFire"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_HypnoCastFire_C_00"
+		ChainTo = "Enemy_Mati_HypnoFireLoop"
+	}
+
+	{
+		Name = "Enemy_Mati_HypnoFireLoop"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_HypnoCastLoop_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_Mati_HypnoPostFire"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_PostHypnoCast_C_00"
+		ChainTo = "Enemy_Mati_Idle"
+		Sound = "/SFX/Enemy Sounds/Hades/HadesLaserSpin3"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mati_HypnoFireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mati_Death"
+		InheritFrom = "Enemy_Mati_OnHit"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 1.5
+		DeathFxFrameDuration = 78
+		DeathFxColor = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		StartOffsetZ = 0
+		EndOffsetZ = -100
+	}
+]}

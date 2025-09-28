@@ -10,7 +10,8 @@ UnitSetData.Sheep =
 
 		UseActivatePresentation = false,
 
-		OnDeathThreadedFunctionName = "SpawnSheepGhost",
+		--OnDeathThreadedFunctionName = "SpawnSheepGhost",
+		MoneyDropOnDeath = {},
 
 		OnDamagedFunctionName = "SheepHit",
 		SheepHitVelocity = 1500,
@@ -18,6 +19,8 @@ UnitSetData.Sheep =
 		DeathSound = "/SFX/Enemy Sounds/Sheep/EmoteDying",
    		DeathAnimation = "Blank",
    		DeathFx = "SheepDisappearFx",
+		DestroyDelay = 0.1,
+		EscapedVFX = "WheatClusterDestruction",
 		Material = "Organic",
 
 		CollisionReactions = {},
@@ -71,6 +74,21 @@ UnitSetData.Sheep =
 		},
 	},
 
+	Sheep_Intro =
+	{
+		InheritFrom = { "Sheep" },
+
+		WakeUpDelayMin = 1.15,
+		WakeUpDelayMax = 1.5,
+
+		DefaultAIData = {
+			DeepInheritance = true,
+
+			PostMoveIdleDuration = 0.0,
+			ExitMapAfterDuration = -1.0,
+		},
+	},
+
 	Sheep_Zombie =
 	{
 		InheritFrom = { "Sheep" },
@@ -79,9 +97,51 @@ UnitSetData.Sheep =
 
 		WeaponOptions = { "SheepRam" },
 
+		PostAggroAI = "AttackerAI",
+		StartAggroed = true,
+		AggroDuration = 1.0,
 		AIOptions =
 		{
-			"AttackerAI",
+			"AggroAI",
+		},
+
+		DistanceTriggers =
+		{
+			{
+				WithinDistance = 600,
+				VoiceLines =
+				{
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "SessionMapState", "PlayedSheepSightedVoiceLines" },
+						},
+					},
+					{
+						RandomRemaining = true,
+						UsePlayerSource = true,
+						SuccessiveChanceToPlay = 0.2,
+						SuccessiveChanceToPlayAll = 0.1,
+						BreakIfPlayed = true,
+						-- SkipCooldownCheckIfNonePlayed = true,
+						Cooldowns =
+						{
+							{ Name = "MelinoeAnyQuipSpeech" },
+						},
+
+						{ Cue = "/VO/MelinoeField_2190", Text = "Shamble-Sheep...", PlayFirst = true },
+						{ Cue = "/VO/MelinoeField_2191", Text = "They're after me..." },
+					},
+					{ GlobalVoiceLines = "OddSheepSightedVoiceLines" }
+				},
+				FunctionName = "SetPathValue",
+				Args =
+				{
+					TablePath = { "SessionMapState" },
+					Key = "PlayedSheepSightedVoiceLines",
+					Value = true,
+				},
+			},
 		},
 
 		OnHitVoiceLines =
@@ -89,9 +149,12 @@ UnitSetData.Sheep =
 			RandomRemaining = true,
 			BreakIfPlayed = true,
 			PreLineWait = 0.65,
-			ChanceToPlay = 0.25,
 			SuccessiveChanceToPlayAll = 0.05,
 			ObjectType = "Polyphemus",
+			GameStateRequirements =
+			{
+				ChanceToPlay = 0.25,
+			},
 			Cooldowns =
 			{
 				{ Name = "CyclopsSpokeAboutSheepRecently", Time = 80 },
@@ -115,9 +178,12 @@ UnitSetData.Sheep =
 
 		WeaponOptions = { "SheepExplode" },
 
+		PostAggroAI = "AttackAndDie",
+		StartAggroed = true,
+		AggroDuration = 1.0,
 		AIOptions =
 		{
-			"AttackAndDie",
+			"AggroAI",
 		},
 
 		OnHitVoiceLines =
@@ -141,6 +207,45 @@ UnitSetData.Sheep =
 			{ Cue = "/VO/Polyphemus_0405", Text = "Suggest you stay away from those." },
 			{ Cue = "/VO/Polyphemus_0406", Text = "Sheep got into the garlic patch again." },
 		},
+
+		DistanceTriggers =
+		{
+			{
+				WithinDistance = 600,
+				VoiceLines =
+				{
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "SessionMapState", "PlayedSheepSightedVoiceLines" },
+						},
+					},
+					{
+						RandomRemaining = true,
+						UsePlayerSource = true,
+						SuccessiveChanceToPlay = 0.2,
+						SuccessiveChanceToPlayAll = 0.1,
+						BreakIfPlayed = true,
+						-- SkipCooldownCheckIfNonePlayed = true,
+						Cooldowns =
+						{
+							{ Name = "MelinoeAnyQuipSpeech" },
+						},
+
+						{ Cue = "/VO/MelinoeField_2188", Text = "Blast-Sheep...", PlayFirst = true },
+						{ Cue = "/VO/MelinoeField_2189", Text = "They're volatile..." },
+					},
+					{ GlobalVoiceLines = "OddSheepSightedVoiceLines" }
+				},
+				FunctionName = "SetPathValue",
+				Args =
+				{
+					TablePath = { "SessionMapState" },
+					Key = "PlayedSheepSightedVoiceLines",
+					Value = true,
+				},
+			},
+		},
 	},
 
 	Sheep_Sick =
@@ -156,9 +261,51 @@ UnitSetData.Sheep =
 
 		WeaponOptions = { "SheepSickSkip" },
 
+		PostAggroAI = "AttackerAI",
+		StartAggroed = true,
+		AggroDuration = 1.0,
 		AIOptions =
 		{
-			"AttackerAI",
+			"AggroAI",
+		},
+
+		DistanceTriggers =
+		{
+			{
+				WithinDistance = 600,
+				VoiceLines =
+				{
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "SessionMapState", "PlayedSheepSightedVoiceLines" },
+						},
+					},
+					{
+						RandomRemaining = true,
+						UsePlayerSource = true,
+						SuccessiveChanceToPlay = 0.2,
+						SuccessiveChanceToPlayAll = 0.1,
+						BreakIfPlayed = true,
+						-- SkipCooldownCheckIfNonePlayed = true,
+						Cooldowns =
+						{
+							{ Name = "MelinoeAnyQuipSpeech" },
+						},
+
+						{ Cue = "/VO/MelinoeField_2192", Text = "Fever-Sheep...", PlayFirst = true },
+						{ Cue = "/VO/MelinoeField_2193", Text = "They're diseased..." },
+					},
+					{ GlobalVoiceLines = "OddSheepSightedVoiceLines" }
+				},
+				FunctionName = "SetPathValue",
+				Args =
+				{
+					TablePath = { "SessionMapState" },
+					Key = "PlayedSheepSightedVoiceLines",
+					Value = true,
+				},
+			},
 		},
 
 		OnHitVoiceLines =
@@ -187,27 +334,10 @@ UnitSetData.Sheep =
 	Sheep_Passive =
 	{
 		InheritFrom = { "Sheep" },
-		AllowHarvestWhileAggored = true,
+		AllowHarvestWhileAggroed = true,
 		AllowInteractWhileAggroed = true,
 
 		WeaponOptions = { "SheepSkip" },
-
-		AIAggroRange = 0,
-
-		AIOptions =
-		{
-			"AggroAI",
-		},
-	},
-	Pig_Passive =
-	{
-		InheritFrom = { "Sheep" },
-		AllowHarvestWhileAggored = true,
-		AllowInteractWhileAggroed = true,
-
-		WeaponOptions = { "SheepSkip" },
-		SheepHitVelocity = 750,
-		IsAggroedSound = "/SFX/Object Ambiences/PigSFXOnHit",
 
 		AIAggroRange = 0,
 

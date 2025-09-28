@@ -13,7 +13,8 @@ UnitSetData.SentryBot =
 
 		Groups = { "FlyingEnemies", "Automatons" },
 
-		Material = "Stone",
+		Material = "Robot",
+		MaterialAlt = "Stone",
 		OnHitFunctionName = "CheckUnitInvulnerableHit",
 		InvulnerableHitFx = "InvincibleHitSpark",
 		InvulnerableHitImpactVelocity = 1000,
@@ -24,7 +25,6 @@ UnitSetData.SentryBot =
 		ActivateFadeInDuration = 0,
 		ActivateStartAlpha = 1,
 		ActivateFadeInDelay = 0,
-		ActivateFadeInDuration = 0,
 		
 		ActivateFx = "OlympusEnemySpawnSigilDark_Small",
 		ActivateFx2 = "OlympusEnemySpawnSigil_Small",
@@ -33,10 +33,9 @@ UnitSetData.SentryBot =
 		IsAggroedSound = "/SFX/Enemy Sounds/SentryBot/EmoteAlerted",
 		DeathSound = "/SFX/Enemy Sounds/SentryBot/EmoteDying",
 
-		OnDeathFireWeapons = { "SentryBotShutdown" },
+		DeathAnimation = "Enemy_SentryBot_Shutdown",
 
-		DeathFx = null,
-		DeathAnimation = null,
+		BlockNextBiomeEnemyShrineUpgrade = true,
 
 		DamagedFxStyles =
 		{
@@ -53,9 +52,10 @@ UnitSetData.SentryBot =
 		{
 			DeepInheritance = true,
 
-			SurroundRetaliateDistance = 300,
+			SurroundDistance = 750,
+			MaintainSurroundDistance = true,
 			SurroundRefreshInterval = 0.5,
-			MaxAttackers = 3,
+			MaxAttackers = 4,
 		},
 
 		AIOptions =
@@ -74,7 +74,7 @@ UnitSetData.SentryBot =
 		ActiveCapWeight = 0.25,
 		GeneratorData =
 		{
-			DifficultyRating = 50,
+			DifficultyRating = 55,
 			BlockEnemyTypes = {"SentryBot_Elite"}
 		},
 
@@ -94,7 +94,9 @@ UnitSetData.SentryBot =
 				Cooldowns =
 				{
 					{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
+					{ Name = "OlympusEnemiesSightedVO", Time = 12 },
 				},
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 				SuccessiveChanceToPlay = 0.1,
 
 				{ Cue = "/VO/MelinoeField_2690", Text = "Auto-Seekers..." },
@@ -102,7 +104,7 @@ UnitSetData.SentryBot =
 				{ Cue = "/VO/MelinoeField_2692", Text = "More Auto-Seekers." },
 				{ Cue = "/VO/MelinoeField_2693", Text = "Auto-Seekers again." },
 			},
-			[2] = { GlobalVoiceLines = "AutomatonsSightedLines" },
+			{ GlobalVoiceLines = "AutomatonsSightedLines" },
 		},
 
 	},
@@ -129,7 +131,7 @@ UnitSetData.SentryBot =
 		HeraclesCombatMoneyValue = 2,
 		GeneratorData =
 		{
-			DifficultyRating = 90,
+			DifficultyRating = 95,
 			BlockEnemyTypes = {"SentryBot"}
 		},
 	},

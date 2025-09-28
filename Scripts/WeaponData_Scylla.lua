@@ -62,10 +62,10 @@ WeaponSetData =
 			FireDuration = 0.0,
 			PostAttackDuration = 5.5,
 
-			PostAttackEndMusicStemVolume = 0.85,
+			PostAttackEndMusicStemVolume = 1.0,
 			PostAttackEnemyDataOverrides = 
 			{
-				TargetMusicStemVolume = 0.85
+				TargetMusicStemVolume = 1.0
 			},
 		},
 	},
@@ -138,7 +138,7 @@ WeaponSetData =
 			ConditionalData =
 			{
 				{
-					AIData =
+					Data =
 					{
 						RetreatAfterAttack = false,
 						PostAttackDurationMin = 1,
@@ -188,8 +188,6 @@ WeaponSetData =
 			PostAttackAnimation = "Enemy_Scylla_AttackBeltReturnToIdle",
 
 			WeaponFireLoopingSound = "/SFX/Enemy Sounds/Scylla/ScyllaBeltScreamAttack",
-
-			ForceFirst = true,
 		},
 
 		Requirements =
@@ -244,9 +242,11 @@ WeaponSetData =
 
 			PreAttackAnimationSpeed = 0.95,
 			PreAttackDuration = 0.85,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackStartMinWaitTime = 0.29,
 			PreAttackEndShake = true,
 			PreAttackEndFlashFraction = 0.6,
-			FireWaitForAnimation = true,
+			FireDuration = 0.32,
 			PostAttackDurationMin = 2.25,
 			PostAttackDurationMax = 3.45,
 
@@ -286,6 +286,53 @@ WeaponSetData =
 
 	ScyllaClamUp =
 	{
+		Requirements =
+		{
+			MinAttacksBetweenUse = 4,
+		},
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "MapState", "IdleUnits" },
+				UseLength = true,
+				Comparison = "<",
+				Value = 2,
+			},
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			PreAttackLowPass = true,
+
+			PreAttackDurationMin = 4.8,
+			PreAttackDurationMax = 6.8,
+			FireDuration = 0.0,
+			PostAttackDuration = 0.0,
+
+			NoProjectile = true,
+			SkipFireWeapon = true,
+			AttackDistance = 9999,
+			MoveWithinRange = false,
+			TrackTargetDuringCharge = true,
+			PreAttackRotationDampening = 0.10,
+
+			RetreatBeforeAttack = true,
+			RetreatToSpawnPoints = true,
+			RetreatBufferDistance = 1250,
+			RetreatTimeout = 8,
+			RetreatAfterAttack = false,
+
+			ChainedWeapon = "ScyllaClamUpBlast",
+
+			PreAttackAnimation = "Enemy_Scylla_ClamDefenseIntro",
+		},
+	},
+
+	ScyllaClamUpBlast =
+	{
 		AIData =
 		{
 			DeepInheritance = true,
@@ -323,11 +370,10 @@ WeaponSetData =
 			ProjectileAngleInterval = 10,
 			FireProjectileStartDelay = 0.54,
 
-			PreAttackLowPass = true,
-
-			PreAttackDurationMin = 5.3,
-			PreAttackDurationMax = 7.3,
+			PreAttackDuration = 0.5,
+			PreAttackEndMinWaitTime = 0.42,
 			PreAttackEndShake = true,
+			PreAttackEndDuration = 0.5,
 			PreAttackEndFlashFraction = 0.65,
 			FireDuration = 0.0,
 			PostAttackDurationMin = 3.5,
@@ -338,34 +384,11 @@ WeaponSetData =
 
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.10,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.10,
 			PostAttackStop = true,
 
-			RetreatBeforeAttack = true,
-			RetreatToSpawnPoints = true,
-			RetreatBufferDistance = 1250,
-			RetreatTimeout = 8,
-			RetreatAfterAttack = false,
-
-			PreAttackAnimation = "Enemy_Scylla_ClamDefenseIntro",
-			FireAnimation = "Enemy_Scylla_ClamDefenseReturnToIdle",
-			PostAttackAnimation = "Enemy_Scylla_ClamDefenseReturnToIdle",
-		},
-
-		Requirements =
-		{
-			MinAttacksBetweenUse = 4,
-		},
-
-		GameStateRequirements =
-		{
-			{
-				Path = { "MapState", "IdleUnits" },
-				UseLength = true,
-				Comparison = "<",
-				Value = 2,
-			},
+			PreAttackAnimation = "Enemy_Scylla_ClamDefenseReturnToIdle",
 		},
 
 		Sounds =
@@ -378,28 +401,174 @@ WeaponSetData =
 
 	},
 
-	ScyllaTrapPose =
+	ScyllaClamUp2 =
 	{
+		InheritFrom = { "ScyllaClamUp" },
+
+		Requirements =
+		{
+			MinAttacksBetweenUse = 5,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			RetreatBeforeAttack = false,
+
+			PreAttackDurationMin = 0.32,
+			PreAttackDurationMax = 0.64,
+
+			ChainedWeapon = "ScyllaClamUpRush",
+		},
+	},
+
+	ScyllaClamUpRush =
+	{
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+				Comparison = ">=",
+				Value = 2,
+			}
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
 
-			NoProjectile = true,
-			PreAttackFunctionName = "FireFloodTraps",
+			ProjectileName = "ScyllaClamRush",
+			ChainedWeapon = "ScyllaClamUpBlast",
 
-			PreAttackDuration = 0.52,
-			FireDuration = 5.0,
-			PostAttackDuration = 0.5,
+			PreAttackLowPass = true,
+
+			PreAttackSound = "/SFX/Enemy Sounds/Scylla/ScyllaClamChargeup",
+			PreAttackDuration = 1.0,
+			PreAttackStartMinWaitTime = 0.42,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackEndShake = true,
+			PreAttackEndFlashFraction = 0.65,
+			FireDuration = 0.35,
+			PostAttackDuration = 0.0,
 
 			AttackDistance = 9999,
 			MoveWithinRange = false,
+			TrackTargetDuringCharge = true,
+			PreAttackRotationDampening = 0.10,
+			TrackTargetDuringFire = true,
+			FireRotationDampening = 0.10,
+			PostAttackStop = true,
 
-			PreAttackAnimation = "Enemy_Scylla_PoseIntro",
-			FireAnimation = "Enemy_Scylla_PoseLoop",
-			PostAttackAnimation = "Enemy_Scylla_PoseReturnToIdle",
+			FireSelfVelocity = 3000,
 
-			MinAttacksBetweenUse = 4,
+			ApplyEffectsOnWeaponFire =
+			{
+				{
+					EffectName = "DashGrip",
+					DataProperties = 
+					{
+						Type = "GRIP",
+						Duration = 0.35,
+						Modifier = 0.1,
+						HaltOnEnd = true,
+					}
+				},
+			},
+
+			PreAttackAnimation = "Enemy_Scylla_ClamRushPreFire",
+			FireAnimation = "Enemy_Scylla_ClamRushFire",
 		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Scylla/ScyllaClamFire2" },
+			},
+		},
+
+	},
+
+	ScyllaClamUp3 =
+	{
+		InheritFrom = { "ScyllaClamUp" },
+
+		Requirements =
+		{
+			MinAttacksBetweenUse = 5,
+			MinPlayerDistance = 500,
+			RequireTotalAttacks = 5,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			RetreatBeforeAttack = false,
+
+			PreAttackDurationMin = 0.32,
+			PreAttackDurationMax = 0.64,
+
+			ChainedWeapon = "ScyllaClamUpChase",
+		},
+	},
+
+	ScyllaClamUpChase =
+	{
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+				Comparison = ">=",
+				Value = 2,
+			}
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ChainedWeapon = "ScyllaClamUpRush",
+
+			NoProjectile = true,
+			ApplyEffectsOnMove =
+			{
+				{
+					EffectName = "SpeedIncrease",
+					DataProperties = 
+					{
+						Type = "Speed",
+						Duration = 9999,
+						Modifier = 3.0,
+					}
+				},
+			},
+
+			MoveLowPass = true,
+			PreMoveAnimation = "Enemy_Scylla_ClamRushPreFire",
+			MoveAnimation = "Enemy_Scylla_ClamRushFireLoop",
+
+			PreAttackDuration = 0.0,
+			FireDuration = 0.0,
+			PostAttackDuration = 0.0,
+
+			AttackDistance = 550,
+			MoveWithinRange = true,
+			SkipFireWeapon = true,
+
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Charon/CharonGroundBlastFire" },
+			},
+		},
+
 	},
 
 	ScyllaSpin =
@@ -420,7 +589,7 @@ WeaponSetData =
 			ConditionalData =
 			{
 				{
-					AIData =
+					Data =
 					{
 						RetreatAfterAttack = false,
 						PostAttackDurationMin = 3.25,
@@ -484,13 +653,6 @@ WeaponSetData =
 			},
 		},
 
-		HitScreenshake = { Distance = 5, Speed = 950, Duration = 0.16, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.04, Fraction = 0.05, LerpTime = 0 },
-			{ ScreenPreWait = 0.15, Fraction = 1.00, LerpTime = 0.08 },
-		},
-
 		Requirements =
 		{
 			MinAttacksBetweenUse = 3,
@@ -502,7 +664,6 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-			ProjectileName = "ScyllaBeltBoltPreview",
 
 			AttackSlots =
 			{
@@ -566,41 +727,11 @@ WeaponSetData =
 			DeepInheritance = true,
 
 			ProjectileName = "ScyllaNotes",
-			ConditionalProjectiles =
-			{
-				{
-					--ProjectileName = "ScyllaNotes",
-					ProjectileName = "ScyllaNotesBoosted", -- single large
-
-					GameStateRequirements =
-					{
-						{
-							Path = { "MapState", "Flags", "ScyllaBoost" },
-							UseLength = true,
-							Comparison = "<=",
-							Value = 0,
-						},
-					},
-				},
-				{
-					ProjectileName = "ScyllaNotesBoosted",
-
-					GameStateRequirements =
-					{
-						{
-							Path = { "MapState", "Flags", "ScyllaBoost" },
-							UseLength = true,
-							Comparison = ">=",
-							Value = 1,
-						},
-					},
-				}
-			},
 
 			ConditionalData =
 			{
 				{
-					AIData =
+					Data =
 					{
 						FireDuration = 2.8,
 						NumProjectiles = 4,
@@ -661,51 +792,6 @@ WeaponSetData =
 		},		
 	},
 
-	ScyllaBoostedLob =
-	{
-		Requirements =
-		{
-			MinAttacksBetweenUse = 2,
-		},
-
-		AIData =
-		{
-			DeepInheritance = true,
-
-			ImmuneToProjectileSlow = true,			
-
-			ProjectileName = "SirenDrummerLobBoosted",
-			FireTicks = 3,
-			FireInterval = 0.5,
-
-			PreAttackDuration = 0.52,
-			FireDuration = 0.0,
-			PostAttackDuration = 3.5,
-
-			AttackDistance = 9999,
-			MoveWithinRange = false,
-
-			TrackTargetDuringCharge = true,
-			PreAttackRotationDampening = 0.08,
-			AngleTowardsTargetWhileFiring = true,
-			FireRotationDampening = 0.08,
-
-			PreAttackAnimation = "Enemy_Scylla_PoseIntro",
-			FireAnimation = "Enemy_Scylla_PoseLoop",
-			PostAttackAnimation = "Enemy_Scylla_PoseReturnToIdle",
-		},
-		GameStateRequirements =
-		{
-			{
-				Path = { "MapState", "Flags", "ScyllaBoost" },
-				UseLength = true,
-				Comparison = ">=",
-				Value = 1,
-			},
-		},
-
-	},
-
 	ScyllaHeadbangFinisher =
 	{
 		AIData =
@@ -725,7 +811,8 @@ WeaponSetData =
 			PreAttackStop = true,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.10,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
+			PostAttackStop = true,
 
 			FireFx = "ScyllaAttackWave",
 			PreAttackAnimation = "Enemy_Scylla_HeadbangIntro",
@@ -743,8 +830,7 @@ WeaponSetData =
 			MaxActiveSpawns = 40,
 			SpawnerOptions = { "FishSwarmer" },
 			SpawnAggroed = true,
-
-			--DumbFireWeapons = { "ScyllaHeadbangLobs" },
+			SkipLocationBlockedCheck = true,
 		},
 
 		Requirements =
@@ -760,27 +846,60 @@ WeaponSetData =
 		},
 	},
 
-	ScyllaHeadbangLobs =
+	ScyllaHeadbangFinisher2 =
 	{
 		AIData =
 		{
 			DeepInheritance = true,
-			ProjectileName = "SirenDrummerLob",
+			ForceUseIfReady = true,
 
-			AttackSlots =
-			{
-				{ AIDataOverrides = { TargetId = 736947, FireFromTarget = true, FireProjectileAngle = 27, }, },
-				{ AIDataOverrides = { TargetId = 736943, FireFromTarget = true, FireProjectileAngle = 27, }, },
-				{ AIDataOverrides = { TargetId = 736946, FireFromTarget = true, FireProjectileAngle = 27, }, },
-				{ AIDataOverrides = { TargetId = 736948, FireFromTarget = true, FireProjectileAngle = 207, }, },
-				{ AIDataOverrides = { TargetId = 736944, FireFromTarget = true, FireProjectileAngle = 207, }, },
-				{ AIDataOverrides = { TargetId = 736945, FireFromTarget = true, FireProjectileAngle = 207, }, },
-			},
+			ProjectileName = "ScyllaNotesFinale",
+			NumProjectiles = 4,
+			ProjectileInterval = 0.70,
 
-			PreAttackDuration = 0.0,
+			FireTicks = 999,
+			FireInterval = 5.6,
+
+			PreAttackDuration = 1.00,
 			FireDuration = 0.0,
-			PostAttackDuration = 6.0,
-		}
+			PostAttackDuration = 3.0,
+
+			AttackDistance = 700,
+			MoveWithinRange = true,
+			MoveToClosestId = { 743884, 40191, 743880, 743879, 743883, },
+
+			PreAttackStop = true,
+			TrackTargetDuringCharge = true,
+			PreAttackRotationDampening = 0.08,
+			TrackTargetDuringFire = true,
+			TrackTargetAngleOffset = 180,
+			FireRotationDampening = 0.04,
+			PostAttackStop = true,
+
+			FireFx = "ScyllaAttackWave",
+			PreAttackAnimation = "Enemy_Scylla_HeadbangIntro",
+			FireAnimation = "Enemy_Scylla_HeadbangLoop",
+			PostAttackAnimation = "Enemy_Scylla_HeadbangReturnToIdle",
+
+			SpawnBurstPerTick = true,
+			SpawnRate = 0.18,
+			SpawnOnSpawnPoints = true,
+			SpawnRadius = 9999,
+			SpawnsPerBurstMin = 8,
+			SpawnsPerBurstMax = 8,
+			MaxActiveSpawns = 30,
+			SpawnerOptions = { "FishSwarmer_Elite", "Jellyfish_Scylla" },
+			SpawnAggroed = true,
+			SkipLocationBlockedCheck = true,
+		},
+
+		FireRadialBlur = { Distance = 0.5, Strength = 0.5, FXHoldTime = 8.0, FXInTime = 0.15, FXOutTime = 0.15 },
+		FireScreenshake = { Distance = 5, Speed = 800, Duration = 0.7, FalloffSpeed = 3000 },
+		FireRumbleParameters =
+		{
+			{ ScreenPreWait = 0.02, RightFraction = 0.17, Duration = 0.7 },
+		},
+
 	},
 
 	ScyllaHeadbangFinisherHold =

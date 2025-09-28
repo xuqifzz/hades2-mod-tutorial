@@ -1,20 +1,25 @@
 --[[ * UI LIBRARY * ]]
 
+function SetupFormatContainers( triggerArgs )
+	if SessionState.FormattersParsed == nil or (triggerArgs and triggerArgs.HotLoad ) then
+		for formatName, formatTable in pairs( TextFormats ) do
+			formatTable.Name = formatName
+			formatTable.AutoSetDataProperties = true
+			CreateFormatContainer( formatTable )
+		end
+		SessionState.FormattersParsed = true
+	end
+end
+
 OnPreThingCreation
 {
 	function( triggerArgs )
 		-- References survive to objects that cannot survive a load
 		ScreenState = {}
+		ScreenState.ActiveObjectives = {}
 		ScreenState.TraitAddedPresentationQueue = ScreenState.TraitAddedPresentationQueue or {}
 		ScreenAnchors = {}
-		ScreenAnchors.ResourceAnchorIds = {}
-		ScreenAnchors.ResourceDeltaIds = {}
-		ScreenAnchors.ResourceShowing = {}
-		ScreenAnchors.ResourceOffsetYCache = {}
 		ScreenAnchors.CallLock = {}
-		ScreenPresentationData = {}
-		ScreenPresentationData.ResourceRunningThreads = {}
-		ScreenPresentationData.ResourceFloating = {}
 		ActiveScreens = {}
 		ActiveScreenOrder = {}
 
@@ -30,14 +35,7 @@ OnPreThingCreation
 OnPreThingCreation
 {
 	function( triggerArgs )
-		if SessionState.FormattersParsed == nil then
-			for formatName, formatTable in pairs( TextFormats ) do
-				formatTable.Name = formatName
-				formatTable.AutoSetDataProperties = true
-				CreateFormatContainer( formatTable )
-			end
-			SessionState.FormattersParsed = true
-		end
+		SetupFormatContainers( triggerArgs )
 	end
 }
 
@@ -53,22 +51,20 @@ OnAnyLoad
 
 function DeferredUIScripts()
 	if UIScriptsDeferred.ManaMeterDirty then
-		thread( UpdateManaMeterUIReal )
+		UpdateManaMeterUIReal()
 	end
-	if UIScriptsDeferred.ElementalCountDirty then
+	if UIScriptsDeferred.ElementalCountDirty and not UIScriptsDeferred.IgnoreElementalCountDirty then
 		thread( ElementalTraitUpdatedPresentationReal )
 	end
 end
 
 OnMenuOpened{ "PauseScreen",
 	function( triggerArgs )
+		SessionMapState.IsPaused = true
 		SessionState.PrevEasyMode = ConfigOptionCache.EasyMode
 		SessionState.PrevShowGameplayTimer = ConfigOptionCache.ShowGameplayTimer
 		PauseSpeech({ })
-		if AudioState.TraversalSoundId ~= nil then
-			PauseSound({ Id = AudioState.TraversalSoundId })
-		end
-		if CurrentRun ~= nil and CurrentRun.CurrentRoom ~= nil and CurrentRun.CurrentRoom.PauseMusicOnPauseScreen then
+		if SessionMapState.PauseMusicOnPauseScreen then
 			PauseMusic()
 		end
 		if SessionMapState.PauseMenuTakeoverCue ~= nil then
@@ -80,14 +76,12 @@ OnMenuOpened{ "PauseScreen",
 OnMenuCloseFinished{ "PauseScreen",
 	function( triggerArgs )
 		
+		SessionMapState.IsPaused = nil
 		thread( PauseMenuTakeoverClosed )
 
 		ResumeSpeech({ })
-		if CurrentRun ~= nil and CurrentRun.CurrentRoom ~= nil and CurrentRun.CurrentRoom.PauseMusicOnPauseScreen then
+		if SessionMapState.PauseMusicOnPauseScreen then
 			ResumeMusic()
-		end
-		if AudioState.TraversalSoundId ~= nil then
-			ResumeSound({ Id = AudioState.TraversalSoundId })
 		end
 
 		if SessionState.PrevEasyMode ~= ConfigOptionCache.EasyMode then
@@ -149,13 +143,8 @@ end
 
 function ShowRunIntro()
 
-	-- skip this except for every fourth run since the last remembrance, starting after Flashback
+	-- skip this except for every fourth run since the last remembrance
 	local completedRuns = GetCompletedRuns()
-	--[[
-	if completedRuns > 0 and not GameState.TextLinesRecord.Flashback_Mother_01 then
-		return
-	end
-	]]--
 	if GameState.LastRemembranceCompletedRunCount ~= nil then
 		if completedRuns - GameState.LastRemembranceCompletedRunCount < 4 then
 			return
@@ -234,9 +223,13 @@ OnActiveUseTarget{
 		SessionMapState.ActiveUseTarget = useTarget
 		if CanReceiveGift( useTarget ) then
 			SessionMapState.ActiveGiftableUseTarget = true
-			AddControlBlock( "Shout", "ActiveUseTarget" )
+			if not GetConfigOptionValue({ Name = "UseMouse" }) then
+				AddControlBlock( "Shout", "ActiveUseTarget" )
+			end
 		elseif useTarget ~= nil and useTarget.RerollFunctionName ~= nil and CurrentRun.NumRerolls > 0 and useTarget.CanBeRerolled then
-			AddControlBlock( "Shout", "ActiveUseTarget" )
+			if not GetConfigOptionValue({ Name = "UseMouse" }) then
+				AddControlBlock( "Shout", "ActiveUseTarget" )
+			end
 		end
 		ShowUseButton( triggerArgs.triggeredById, useTarget )
 	end
@@ -249,10 +242,10 @@ OnActiveUseTargetLost{
 		end
 		SessionMapState.ActiveUseTarget = nil
 		SessionMapState.ActiveGiftableUseTarget = nil
+		RemoveControlBlock( "Shout", "ActiveUseTarget" )
 		
 		local useTarget = triggerArgs.AttachedTable
 		HideUseButton( triggerArgs.triggeredById or triggerArgs.PrevUseTargetId, useTarget )
-		RemoveControlBlock( "Shout", "ActiveUseTarget" )
 	end
 }
 
@@ -299,7 +292,7 @@ function GetUseText( useTarget )
 	end
 
 	if useTarget.FamiliarUseText ~= nil then
-		if useTarget.LinkedToolName ~= nil and HasFamiliarTool( useTarget.LinkedToolName ) and CurrentRun.CurrentRoom.ExitsUnlocked then
+		if useTarget.LinkedToolName ~= nil and HasFamiliarTool( useTarget.LinkedToolName ) and IsComplexHarvestAllowed() then
 			customUseText = useTarget.FamiliarUseText
 		end
 	end
@@ -394,6 +387,10 @@ function ShowUseButton( objectId, useTarget )
 		return
 	end
 
+	if useTarget.ShowUseButtonEvents ~= nil then
+		RunEventsGeneric( useTarget.ShowUseButtonEvents, useTarget )
+	end
+
 	if useTarget.RefreshExtractValuesOnApproach and useTarget.ExtractValues ~= nil then
 		ExtractValues( CurrentRun.Hero, useTarget, useTarget )
 	end
@@ -402,6 +399,23 @@ function ShowUseButton( objectId, useTarget )
 		if HeroHasTrait("MetaToRunMetaUpgrade") then
 			maxUses = GetHeroTrait("MetaToRunMetaUpgrade").RarityMultiplier
 		end
+		useTarget.ConvertAmount = GetTotalHeroTraitValue( "MetaConversionUses" )
+		useTarget.ConvertMaxAmount = maxUses
+	end
+	
+	if CanGoldifyReward( useTarget ) then
+		useTarget = ShallowCopyTable(useTarget)
+		local maxUses = 0
+		if HeroHasTrait("MetaToRunMetaUpgrade") then
+			maxUses = GetHeroTrait("MetaToRunMetaUpgrade").RarityMultiplier
+		end
+		useTarget.UseTextTalkAndSpecial = useTarget.UseTextTalkAndSpecial or "UseLootAndConsume"
+		useTarget.UseTextTalkGiftAndSpecial = useTarget.UseTextTalkGiftAndSpecial or "UseLootGiftAndConsume"
+		if useTarget.ReplaceSpecialForGoldify then
+			useTarget.UseTextTalkAndSpecial = "UseLootAndConsume"
+			useTarget.UseTextTalkGiftAndSpecial = "UseLootGiftAndConsume"
+		end
+		useTarget.GoldGain = GetRewardGoldifyValue( useTarget )
 		useTarget.ConvertAmount = GetTotalHeroTraitValue( "MetaConversionUses" )
 		useTarget.ConvertMaxAmount = maxUses
 	end
@@ -482,7 +496,7 @@ end
 
 function CreateScreenComponent( params )
 	local component = ShallowCopyTable( params )
-	component.Id = CreateScreenObstacle( params )
+	component.Id = CreateScreenObstacle( component )
 	return component
 end
 
@@ -525,31 +539,10 @@ function CreateScreenObstacle( params )
 		params.Y = ScreenCenterY
 	end
 
-	local obstacleId = SpawnObstacle({ Name = params.Name, Group = params.Group or "Events", OffsetX = params.X, OffsetY = params.Y, UseScreenLocation = true, SortById = true, TriggerOnSpawn = false })
-	if (params.Scale or 1.0) ~= 1.0 then
-		SetScale({ Id = obstacleId, Fraction = params.Scale })
-	end
-	if (params.ScaleX or 1.0) ~= 1.0 then
-		SetScaleX({ Id = obstacleId, Fraction = params.ScaleX })
-	end
-	if (params.ScaleY or 1.0) ~= 1.0 then
-		SetScaleY({ Id = obstacleId, Fraction = params.ScaleY })
-	end
-	if params.Alpha ~= nil then
-		SetAlpha({ Id = obstacleId, Fraction = params.Alpha, Duration = 0 })
-	end
-	if params.AlphaTarget ~= nil then
-		SetAlpha({ Id = obstacleId, Fraction = params.AlphaTarget, Duration = params.AlphaTargetDuration or 0 })
-	end
-	if params.Color ~= nil then
-		SetColor({ Id = obstacleId, Color = params.Color, Duration = 0 })
-	end
-	if params.Angle ~= nil then
-		SetAngle({ Id = obstacleId, Angle = params.Angle })
-	end
-	if params.Animation ~= nil then
-		SetAnimation({ DestinationId = obstacleId, Name = params.Animation })
-	end
+	params.Group = params.Group or "Events"
+	params.Animation = params.Animation or params.AnimationName
+
+	local obstacleId = SpawnScreenObstacle( params )
 
 	if (params.TimeModifierFraction or 1.0) ~= 1.0 then
 		SetThingProperty({ Property = "TimeModifierFraction", DataValue = false, Value = params.TimeModifierFraction, DestinationId = obstacleId })
@@ -566,21 +559,30 @@ function CreateScreenObstacle( params )
 end
 
 function DisableWeapons()
+	SessionMapState.WeaponsDisabled = true
 	for k, weaponName in ipairs( WeaponSets.HeroPrimaryWeapons ) do
-		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
+		if MapState.EquippedWeapons[weaponName] then
+			SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
+		end
 		local weaponNames = WeaponSets.HeroWeaponSets[weaponName]
 		if weaponNames ~= nil then
 			for k, linkedWeaponName in ipairs( weaponNames ) do
-				SetWeaponProperty({ WeaponName = linkedWeaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
+				if MapState.EquippedWeapons[linkedWeaponName] then
+					SetWeaponProperty({ WeaponName = linkedWeaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
+				end
 			end
 		end
 	end
 	for k, weaponName in ipairs( WeaponSets.HeroNonPhysicalWeapons ) do
-		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
+		if MapState.EquippedWeapons[weaponName] then
+			SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
+		end
 		local weaponNames = WeaponSets.HeroWeaponSets[weaponName]
 		if weaponNames ~= nil then
 			for k, linkedWeaponName in ipairs( weaponNames ) do
-				SetWeaponProperty({ WeaponName = linkedWeaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
+				if MapState.EquippedWeapons[linkedWeaponName] then
+					SetWeaponProperty({ WeaponName = linkedWeaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
+				end
 			end
 		end
 	end
@@ -602,6 +604,7 @@ function OnScreenOpened( screen, args )
 	FreezePlayerUnit( screen.Name, screen.FreezePlayerArgs )
 	EnableGamepadCursor( screen.Name )
 	SetConfigOption({ Name = "UseOcclusion", Value = false })
+	SetConfigOption({ Name = "LuaGCStepSize", Value = 50.0 })
 	if not args.SkipBlockTimer then
 		AddTimerBlock( CurrentRun, screen.Name, { MapState = true } )
 	end
@@ -637,7 +640,7 @@ function OnScreenCloseFinished( screen, args )
 	CombatUI.AutoHideEnabled = true
 	thread( StartHideAfterDelayThread )
 
-	if not screen.SkipCheckQuestStatus and IsEmpty( ActiveScreens ) then
+	if not screen.SkipQuestStatusCheck and IsEmpty( ActiveScreens ) then
 		thread( CheckQuestStatus )
 	end
 
@@ -665,6 +668,8 @@ function OnScreenCloseFinished( screen, args )
 
 	if IsEmpty( ActiveScreens ) then
 		SetConfigOption({ Name = "ScreenEdgeIndicatorOpacity", Value = 1.0 })
+		SetConfigOption({ Name = "LuaGCStepSize", Value = "Default" })
+		-- RunGC({ })
 	end
 
 end
@@ -704,22 +709,84 @@ function IsPauseBlocked()
 
 end
 
+function GetComponentDataByName( screen, dataName )
+	if screen == nil or screen.ComponentData == nil then
+		return nil
+	end
+
+	if dataName == nil then
+		return nil -- Assert?
+	end
+
+	-- Breadth-first search
+	local queue = { screen.ComponentData }
+	while #queue > 0 do
+		local node = table.remove( queue, 1 )
+		for componentName, data in pairs( node ) do
+			if componentName == dataName then
+				-- DebugPrint({ Text="Found ComponentData for: "..dataName })
+				return data
+			end
+			if type(data) == "table" and data.Children ~= nil then
+				table.insert( queue, data.Children )
+			end
+		end
+
+	end
+end
+
 function OnLanguageChanged( args )
 	-- Warning: this can be called from the shell
 	if ActiveScreens ~= nil then
 		for screenName, screen in pairs( ActiveScreens ) do
 			if screen.Components then
+				if screenName == "Codex" and ActiveScreens.Codex.Components[screen.OpenEntryName] ~= nil then
+					CodexOpenEntry( screen, ActiveScreens.Codex.Components[screen.OpenEntryName], { AutoOpen = true, LanguageChanged = true } )
+				elseif screenName == "InventoryScreen" and screen.LineHistorySetup == true and screen.ActiveCategoryIndex == 6 then
+					ModifyTextBox({ Id = screen.Components.LineHistory.Id, ClearText = true })
+					screen.LineHistorySetup = false
+					thread( InventoryScreenDisplayLineHistory, screen )
+				end
 				for componentName, component in pairs( screen.Components ) do
 					if component.Id then
-						ModifyTextBox({ 
+						local langData = {}
+						local componentData = nil
+						if component.ComponentName ~= nil and screen.ComponentData ~= nil then
+							componentData = DeepCopyTable( GetComponentDataByName( screen, component.ComponentName ) )
+						elseif component.Data ~= nil then
+							componentData = component.Data
+						end
+						if componentData ~= nil then
+							-- Check if we have any Lang* properties and copy only those changes to langData
+							if componentData.TextArgs ~= nil then
+								componentData = componentData.TextArgs
+							end
+							for k, v in pairs( componentData ) do
+								if componentData["Lang"..k] ~= nil then
+									local val = GetLocalizedValue( v, componentData["Lang"..k] )
+									langData[k] = val
+									langData.AutoSetDataProperties = true
+								end
+							end
+
+						end
+						ModifyTextBox(MergeTables({ 
 							Id = component.Id, 
 							UseLastHelpTextIdOrDefaultText = true,
 							UseDefaultFont = true,
 							UseDefaultScale = true,
 							ReReadTextImmediately = true,
-						})
+						}, langData))
 					end
 				end
+			elseif IsScreenOpen( "Dialog" ) and screen.BackgroundId ~= nil then
+				ModifyTextBox({ 
+					Id = screen.BackgroundId, 
+					UseLastHelpTextIdOrDefaultText = true,
+					UseDefaultFont = true,
+					UseDefaultScale = true,
+					ReReadTextImmediately = true,
+				})
 			end
 		end
 	end
@@ -754,9 +821,21 @@ end
 
 function AreScreensActive( flag )
 	if flag == nil then
+		if ScreenState.InTransition then
+			return true
+		end
 		return not IsEmpty( ActiveScreens )
 	end
 	return ActiveScreens[flag] ~= nil
+end
+
+function AreScreensInactiveExcluding( flags )
+	for flag in pairs( ActiveScreens ) do
+		if not Contains( flags, flag ) then
+			return false
+		end
+	end
+	return true
 end
 
 function FreezePlayerUnit( flag, args )
@@ -771,6 +850,9 @@ function FreezePlayerUnit( flag, args )
 	end
 	if args.DisableCodex then
 		table.insert( disabledKeys, "Codex" )
+	end
+	if args.DisableInventory then
+		table.insert( disabledKeys, "Inventory" )
 	end
 	if args.AllowedKeys then
 		for i, allowedKey in pairs(args.AllowedKeys) do
@@ -793,7 +875,6 @@ end
 
 function HandleScreenInput( screen )
 	screen.KeepOpen = true
-	screen.AllowHold = false
 	while screen.KeepOpen do
 		local notifyName = "ScreenInput"
 		if screen.Name ~= nil then
@@ -819,7 +900,7 @@ function HandleScreenInput( screen )
 				end
 			end
 		end
-		NotifyOnInteractOrControlPressed({ Ids = buttonIds, Names = hotkeyControls, Notify = notifyName, AllowHold = screen.AllowHold })
+		NotifyOnInteractOrControlPressed({ Ids = buttonIds, Names = hotkeyControls, Notify = notifyName })
 		waitUntil( notifyName )
 		local acceptInput = true
 		for screenName, otherScreen in pairs( ActiveScreens ) do
@@ -849,48 +930,19 @@ function HandleScreenInput( screen )
 			DebugPrint({ Text = "input ignored for "..screen.Name })
 		end
 		wait( inputBlockDuration )
-		if screen.AllowInputRepeat then
-			thread( CheckInputRepeat, screen, notifyName, hotkeyControls )
-		end
 	end
 end
 
-function CheckInputRepeat( screen, notifyName, hotkeyControls )
-	local threadName = "RepeatThread"
-	if HasThread( threadName ) then
-		return
-	end
-	wait( 0.1, threadName )
-	if IsControlDown({ Names = hotkeyControls }) then
-		if not screen.AllowHold then
-			wait( 0.5, threadName )
-			if IsControlDown({ Names = hotkeyControls }) then
-				screen.AllowHold = true
-			else
-				screen.AllowHold = false
-			end
-		end
-	else
-		screen.AllowHold = false
-	end
-	if screen.AllowHold then
-		NotifyOnControlPressed({ Names = hotkeyControls, Notify = notifyName, AllowHold = screen.AllowHold })
-	end
-end
-
-function CloseScreen( componentIds, delay, screen )
-	HideTopMenuScreenTooltips( {Ids = componentIds} )
+function CloseScreen( componentIds, delay, screen, args )
+	screen = screen or {}
+	args = args or {}
+	HideTopMenuScreenTooltips({ })
 	ModifyTextBox({ Ids = componentIds, BlockTooltip = true })
-	if delay ~= nil and delay > 0 then
-		waitUnmodified( delay )
-	end
-	local fadeOutTime = 0.2
-	if screen ~= nil then
-		fadeOutTime = screen.FadeOutTime or fadeOutTime
-	end
+	waitUnmodified( delay )
+	local fadeOutTime = args.FadeOutTime or screen.FadeOutTime or 0.2
 	SetAlpha({ Ids = componentIds, Fraction = 0, Duration = fadeOutTime, EaseIn = 0, EaseOut = 1 })
 	ModifyTextBox({ Ids = componentIds, FadeTarget = 0, FadeDuration = fadeOutTime, EaseIn = 0, EaseOut = 1 })
-	waitUnmodified( fadeOutTime )
+	waitUnmodified( args.CloseDestroyWait or screen.CloseDestroyWait or fadeOutTime )
 	Destroy({ Ids = componentIds })
 	ClearUseTarget({})
 end
@@ -913,8 +965,9 @@ function DestroyScreenDataComponents( screen, componentData )
 	end
 end
 
-function CreateComponentFromData( screenData, data )
+function CreateComponentFromData( screenData, data, args )
 
+	args = args or {}
 	if data.BottomOffset ~= nil then
 		data.Y = ScreenHeight - data.BottomOffset
 	elseif data.Y ~= nil and (screenData.UseNativeScreenCenter or data.UseNativeScreenCenter or data.UseNativeScreenY) then
@@ -932,20 +985,13 @@ function CreateComponentFromData( screenData, data )
 	end
 
 	data.Name = data.Name or data.Graphic or "BlankObstacle"
-	data.Group = data.Group or data.GroupName or screenData.DefaultGroup
+	data.Group = data.Group or data.GroupName or args.DefaultGroup or screenData.DefaultGroup
+	if data.Data ~= nil then
+		OverwriteTableKeys( data, data.Data )
+	end
 	local component = CreateScreenComponent( data )
 	component.Data = data
 	
-	if data.AnimationName ~= nil then		
-		SetAnimation({ Name = data.AnimationName, DestinationId = component.Id })		
-	end
-	if data.Animation ~= nil then
-		SetAnimation({ Name = data.Animation, DestinationId = component.Id })
-	end
-
-	if data.Scale ~= nil then
-		SetScale({ Id = component.Id, Fraction = data.Scale })
-	end
 	if data.PillarboxLeft or data.PillarboxRight then
 		data.ScaleX = (data.ScaleX or 1.0) * ScreenState.PillarboxScaleX
 	end
@@ -954,6 +1000,9 @@ function CreateComponentFromData( screenData, data )
 	end
 	if data.ScaleX ~= nil then
 		SetScaleX({ Id = component.Id, Fraction = data.ScaleX })
+	end
+	if data.UseScreenScaleY then
+		data.ScaleY = (data.ScaleY or 1.0) * ScreenScaleY
 	end
 	if data.ScaleY ~= nil then
 		SetScaleY({ Id = component.Id, Fraction = data.ScaleY })
@@ -970,11 +1019,6 @@ function CreateComponentFromData( screenData, data )
 		SetInteractProperty({ DestinationId = component.Id, Property = "TooltipOffsetY", Value = data.TooltipOffsetY })
 	end
 
-	if data.InteractProperties ~= nil then
-		for propertyName, propertyValue in pairs( data.InteractProperties ) do
-			SetInteractProperty({ DestinationId = component.Id, Property = propertyName, Value = propertyValue })
-		end
-	end
 	if data.UseableOff then
 		UseableOff({ Id = component.Id })
 	end
@@ -982,32 +1026,13 @@ function CreateComponentFromData( screenData, data )
 	if data.Text or data.TextArgs then
 		if data.TextArgs ~= nil and data.TextArgs.Format ~= nil then
 			local textArgs = MergeTables( { Id = component.Id, Text = data.Text, }, data.TextArgs )
-			CreateTextBoxWithFormat( ApplyLocalizedProperties( textArgs ) )	
+			CreateTextBoxWithFormat( textArgs )	
 		else
 			local textArgs = MergeTables( { Id = component.Id, Text = data.Text, }, data.TextArgs )
 			CreateTextBox( ApplyLocalizedProperties( textArgs ) )	
 		end
 	end
-
-	if data.Color ~= nil then
-		SetColor({ Id = component.Id, Color = data.Color, Duration = 0 })
-	end
-	if data.Alpha ~= nil then
-		SetAlpha({ Id = component.Id, Fraction = data.Alpha, Duration = 0 })
-	end
-	if data.AlphaTarget ~= nil then
-		SetAlpha({ Id = component.Id, Fraction = data.AlphaTarget, Duration = data.AlphaTargetDuration or 0 })
-	end
-
-	if data.Data ~= nil then
-		component = MergeTables( component, data.Data )
-	end
-
-	if data.Angle ~= nil then
-		SetAngle({ Id = component.Id, Angle = data.Angle })
-	end
 	
-	AttachLua({ Id = component.Id, Table = component })
 	return component
 end
 
@@ -1026,11 +1051,11 @@ function CreateScreenFromData( screen, componentData, args )
 					if data.FunctionName ~= nil then
 						CallFunctionName( data.FunctionName, screen, data )
 					else
-						local component = CreateComponentFromData( componentData, data )
+						local component = CreateComponentFromData( componentData, data, args )
 						component.Screen = screen
 						screen.Components[componentName] = component
 						if data.Children ~= nil then
-							AttachChildrenFromData( screen, component, data, componentData )
+							AttachChildrenFromData( screen, component, data, componentData, args )
 						end
 					end
 					data.Ordered = true
@@ -1041,11 +1066,11 @@ function CreateScreenFromData( screen, componentData, args )
 		for name, data in pairs( componentData ) do
 			--DebugPrint({ Text = "componentName = "..name })
 			if type(data) == "table" and not data.Skip and not data.Ordered and name ~= "Ordered" and not skipComponents[name] and (data.Requirements == nil or IsGameStateEligible( screen, data.Requirements ) ) then
-				local component = CreateComponentFromData( componentData, data )
+				local component = CreateComponentFromData( componentData, data, args )
 				component.Screen = screen
 				screen.Components[name] = component				
 				if data.Children ~= nil then
-					AttachChildrenFromData( screen, component, data, componentData )
+					AttachChildrenFromData( screen, component, data, componentData, args )
 				end
 			end
 		end
@@ -1087,7 +1112,7 @@ function ApproximateStringWidth( text )
 	return len
 end
 
-function AttachChildrenFromData( screen, parentComponent, childData, screenData )
+function AttachChildrenFromData( screen, parentComponent, childData, screenData, args )
 	if childData.Children ~= nil then
 
 		if childData.ChildrenOrder ~= nil then
@@ -1095,7 +1120,8 @@ function AttachChildrenFromData( screen, parentComponent, childData, screenData 
 			for i, componentName in ipairs( childData.ChildrenOrder ) do
 				local data = childData.Children[componentName]
 				if data ~= nil and (data.Requirements == nil or IsGameStateEligible( screen, data.Requirements ) ) then
-					local component = CreateComponentFromData( screenData, data )
+					data.ComponentName = componentName
+					local component = CreateComponentFromData( screenData, data, args )
 					component.Screen = screen
 					screen.Components[componentName] = component
 					if parentComponent.AutoAlignContextualButtons and data.TextArgs then
@@ -1126,20 +1152,21 @@ function AttachChildrenFromData( screen, parentComponent, childData, screenData 
 					end
 					data.Ordered = true
 					if data.Children ~= nil then
-						AttachChildrenFromData( screen, component, data, screenData )
+						AttachChildrenFromData( screen, component, data, screenData, args )
 					end
 				end
 			end
 		end
 
-		for name, data in pairs( childData.Children ) do
+		for componentName, data in pairs( childData.Children ) do
 			if not data.Ordered and (data.Requirements == nil or IsGameStateEligible( screen, data.Requirements ) ) then
-				local component = CreateComponentFromData( screenData, data )	
+				data.ComponentName = componentName
+				local component = CreateComponentFromData( screenData, data, args )	
 				component.Screen = screen
-				screen.Components[name] = component
+				screen.Components[componentName] = component
 				Attach({ Id = component.Id, DestinationId = parentComponent.Id, OffsetX = data.OffsetX, OffsetY = data.OffsetY })
 				if data.Children ~= nil then
-					AttachChildrenFromData( screen, component, data, screenData )
+					AttachChildrenFromData( screen, component, data, screenData, args )
 				end
 			end
 		end
@@ -1172,7 +1199,7 @@ function CreateTextBoxWithFormat( args )
 
 	local format = TextFormats[args.Format]
 	DebugAssert({ Condition = format ~= nil, Text = "Asking for non-existent TextFormat ("..args.Format..")!" })
-	local textBoxParams = MergeTables( format, args )
+	local textBoxParams = MergeTables( format, ApplyLocalizedProperties( args ) )
 	textBoxParams.AutoSetDataProperties = true
 	CreateTextBox( textBoxParams )
 	HotLoadInfo.TextBoxCache = HotLoadInfo.TextBoxCache or {}
@@ -1197,14 +1224,14 @@ function CreateGroupHealthBar( encounter )
 	SetColor({ Id = fallOffBar, Color = Color.HealthFalloff })
 	SetAnimationFrameTarget({ Name = "EnemyHealthBarFillSlowBoss", Fraction = 0, DestinationId = fallOffBar, Instant = true })
 		
-	local scorchBar = CreateScreenObstacle({ Name = "BossHealthBarFill", Group = "Combat_UI", X = xOffset , Y = 72 + yOffset })
-	SetColor({ Id = scorchBar, Color = Color.HealthScorch })
+	local scorchBarId = CreateScreenObstacle({ Name = "BossHealthBarFill", Group = "Combat_UI", X = xOffset , Y = 72 + yOffset })
+	SetColor({ Id = scorchBarId, Color = Color.HealthScorch })
 
 	ScreenAnchors.BossHealthFill = CreateScreenObstacle( {Name = "BossHealthBarFill", Group = "Combat_UI", X = xOffset , Y = 72 + yOffset })
 
 	CreateAnimation({ Name = "BossNameShadow", DestinationId = ScreenAnchors.BossHealthBack })
 
-	SetScaleX({ Ids = { ScreenAnchors.BossHealthBack, ScreenAnchors.BossHealthFill, fallOffBar, scorchBar }, Fraction = 1, Duration = 0 })
+	SetScaleX({ Ids = { ScreenAnchors.BossHealthBack, ScreenAnchors.BossHealthFill, fallOffBar, scorchBarId }, Fraction = 1, Duration = 0 })
 
 	local barName = EncounterData[encounter.Name].HealthBarTextId or encounter.Name
 
@@ -1212,9 +1239,11 @@ function CreateGroupHealthBar( encounter )
 			Font = "CaesarDressing", FontSize = 22, ShadowRed = 0, ShadowBlue = 0, ShadowGreen = 0,
 			OutlineColor = {0, 0, 0, 1}, OutlineThickness = 2,
 			ShadowAlpha = 1.0, ShadowBlur = 0, ShadowOffsetY = 3, ShadowOffsetX = 0, Justification = "Center", OffsetY = -30,
-			OpacityWithOwner = false,
-			AutoSetDataProperties = true,
-			})
+			DataProperties =
+			{
+				OpacityWithOwner = false,
+			},
+		})
 
 	ModifyTextBox({ Id = ScreenAnchors.BossHealthBack, FadeTarget = 0, FadeDuration = 0 })
 	SetAlpha({ Id = ScreenAnchors.BossHealthBack, Fraction = 0.01, Duration = 0.0 })
@@ -1222,13 +1251,13 @@ function CreateGroupHealthBar( encounter )
 	EnemyHealthDisplayAnchors[encounter.Name.."back"] = ScreenAnchors.BossHealthBack
 
 	encounter.HealthBarFill = "EnemyHealthBarFillBoss"
-	SetAnimationFrameTarget({ Name = "EnemyHealthBarFillBoss", Fraction = 1, DestinationId = scorchBar })
+	SetAnimationFrameTarget({ Name = "EnemyHealthBarFillBoss", Fraction = 1, DestinationId = scorchBarId })
 	SetAnimationFrameTarget({ Name = "EnemyHealthBarFillBoss", Fraction = 1, DestinationId = ScreenAnchors.BossHealthFill })
-	SetAlpha({ Ids = { ScreenAnchors.BossHealthFill, fallOffBar, scorchBar }, Fraction = 0.01, Duration = 0.0 })
-	SetAlpha({ Ids = { ScreenAnchors.BossHealthFill, fallOffBar, scorchBar }, Fraction = 1, Duration = 2.0 })
+	SetAlpha({ Ids = { ScreenAnchors.BossHealthFill, fallOffBar, scorchBarId }, Fraction = 0.01, Duration = 0.0 })
+	SetAlpha({ Ids = { ScreenAnchors.BossHealthFill, fallOffBar, scorchBarId }, Fraction = 1, Duration = 2.0 })
 	EnemyHealthDisplayAnchors[encounter.Name] = ScreenAnchors.BossHealthFill
 	EnemyHealthDisplayAnchors[encounter.Name.."falloff"] = fallOffBar
-	EnemyHealthDisplayAnchors[encounter.Name.."scorch"] = scorchBar
+	EnemyHealthDisplayAnchors[encounter.Name.."scorch"] = scorchBarId
 	thread( GroupHealthBarPresentation, encounter )
 end
 
@@ -1247,13 +1276,12 @@ function GroupHealthBarPresentation( encounter )
 		wait(0.005)
 	end
 	StopSound({ Id = bossHealthBarSoundId, Duration = 0.25 })
-	thread( UpdateHealthBar, encounter, 0, { Force = true })
+	UpdateHealthBar( encounter, 0, { Force = true } )
 end
 
 function CheckRemoveGroupHealthBar(encounter)
 
 	local notifyName = encounter.Name.."GroupHealthBarDead"
-	NotifyOnAllDead({ Ids = encounter.HealthBarUnitIds, Notify = notifyName })
 	waitUntil( notifyName )
 
 	if ScreenAnchors.BossHealthTitles ~= nil then
@@ -1270,7 +1298,7 @@ function CreateBossHealthBar( boss )
 	local encounter = CurrentRun.CurrentRoom.Encounter
 	if encounter ~= nil and encounter.UseGroupHealthBar ~= nil then
 		if not boss.HasHealthBar then
-			local offsetY = -155
+			local offsetY = ConstantsData.DefaultHealthBarOffsetY
 			boss.HasHealthBar = true
 			if boss.Scale ~= nil then
 				offsetY = offsetY * boss.Scale
@@ -1299,9 +1327,12 @@ function CreateBossHealthBar( boss )
 	local numBars = GetNumBossHealthBars()
 	local yOffset = 0
 	local xScale = 1 / numBars
-	boss.BarXScale = xScale
+	boss.BarXScale = boss.HealthBarScaleX or xScale
 	local totalWidth = ScreenWidth * xScale
-	local xOffset = ( totalWidth / ( 2 * numBars )) * ( 1 + index * 2 ) + (ScreenWidth - totalWidth) / 2
+	local xOffset = boss.HealthBarLocationX or (( totalWidth / ( 2 * numBars )) * ( 1 + index * 2 ) + (ScreenWidth - totalWidth) / 2)
+	if boss.HealthBarLocationX ~= nil then
+		xOffset = xOffset + ScreenCenterNativeOffsetX
+	end
 
 	if numBars == 0 then
 		return
@@ -1314,15 +1345,14 @@ function CreateBossHealthBar( boss )
 	SetColor({ Id = fallOffBar, Color = Color.HealthFalloff })
 	SetAnimationFrameTarget({ Name = "EnemyHealthBarFillSlowBoss", Fraction = 0, DestinationId = fallOffBar, Instant = true })
 	
-	local scorchBar = CreateScreenObstacle({ Name = "BossHealthBarFill", Group = "Combat_UI", X = xOffset , Y = 72 + yOffset })
-	SetColor({ Id = scorchBar, Color = Color.HealthScorch })
+	local scorchBarId = CreateScreenObstacle({ Name = "BossHealthBarFill", Group = "Combat_UI", X = xOffset , Y = 72 + yOffset })
+	SetColor({ Id = scorchBarId, Color = Color.HealthScorch })
 
 	ScreenAnchors.BossHealthFill = CreateScreenObstacle({ Name = "BossHealthBarFill", Group = "Combat_UI", X = xOffset , Y = 72 + yOffset })	
 	
-	
 	CreateAnimation({ Name = "BossNameShadow", DestinationId = ScreenAnchors.BossHealthBack })
 
-	SetScaleX({ Ids = { ScreenAnchors.BossHealthBack, ScreenAnchors.BossHealthFill, fallOffBar, scorchBar }, Fraction = xScale, Duration = 0 })
+	SetScaleX({ Ids = { ScreenAnchors.BossHealthBack, ScreenAnchors.BossHealthFill, fallOffBar, scorchBarId }, Fraction = boss.BarXScale, Duration = 0 })
 	
 	local bossName = boss.HealthBarTextId or boss.Name
 
@@ -1342,9 +1372,11 @@ function CreateBossHealthBar( boss )
 			Font = "CaesarDressing", FontSize = 22, ShadowRed = 0, ShadowBlue = 0, ShadowGreen = 0,
 			OutlineColor = {0, 0, 0, 1}, OutlineThickness = 2,
 			ShadowAlpha = 1.0, ShadowBlur = 0, ShadowOffsetY = 3, ShadowOffsetX = 0, Justification = "Center", OffsetY = -30,
-			OpacityWithOwner = false,
-			AutoSetDataProperties = true,
-			})
+			DataProperties =
+			{
+				OpacityWithOwner = false,
+			},
+		})
 
 	ModifyTextBox({ Id = ScreenAnchors.BossHealthBack, FadeTarget = 0, FadeDuration = 0 })
 	SetAlpha({ Id = ScreenAnchors.BossHealthBack, Fraction = 0.01, Duration = 0.0 })
@@ -1353,11 +1385,11 @@ function CreateBossHealthBar( boss )
 
 	boss.HealthBarFill = "EnemyHealthBarFillBoss"
 	SetAnimationFrameTarget({ Name = "EnemyHealthBarFillBoss", Fraction = boss.Health / boss.MaxHealth, DestinationId = screenId })
-	SetAlpha({ Ids = { ScreenAnchors.BossHealthFill, fallOffBar, scorchBar }, Fraction = 0.01, Duration = 0.0 })
-	SetAlpha({ Ids = { ScreenAnchors.BossHealthFill, fallOffBar, scorchBar }, Fraction = 1, Duration = 2.0 })
+	SetAlpha({ Ids = { ScreenAnchors.BossHealthFill, fallOffBar, scorchBarId }, Fraction = 0.01, Duration = 0.0 })
+	SetAlpha({ Ids = { ScreenAnchors.BossHealthFill, fallOffBar, scorchBarId }, Fraction = 1, Duration = 2.0 })
 	EnemyHealthDisplayAnchors[boss.ObjectId] = ScreenAnchors.BossHealthFill
 	EnemyHealthDisplayAnchors[boss.ObjectId.."falloff"] = fallOffBar
-	EnemyHealthDisplayAnchors[boss.ObjectId.."scorch"] = scorchBar
+	boss.ScorchHealthBarId = scorchBarId
 
 	thread( BossHealthBarPresentation, boss )
 end
@@ -1365,7 +1397,7 @@ end
 function BossHealthBarPresentation( boss )
 	local screenId = EnemyHealthDisplayAnchors[boss.ObjectId]
 	local falloffId = EnemyHealthDisplayAnchors[boss.ObjectId.."falloff"]
-	local scorchId = EnemyHealthDisplayAnchors[boss.ObjectId.."scorch"]
+	local scorchId = boss.ScorchHealthBarId
 	local healthFraction = 0
 	local bossHealthBarSoundId = PlaySound({ Name = "/SFX/Enemy Sounds/Megaera/MegaeraHealthFillUp", Id = screenId })
 	if boss.HitShields > 0 then
@@ -1374,6 +1406,7 @@ function BossHealthBarPresentation( boss )
 		SetColor({ Id = screenId, Color = Color.Red })
 	end
 	ModifyTextBox({ Id = ScreenAnchors.BossHealthBack, FadeTarget = 1, FadeDuration = 2 })
+	boss.HealthBarLoading = true
 	while healthFraction < boss.Health / boss.MaxHealth do
 		healthFraction = healthFraction + 0.01
 		SetAnimationFrameTarget({ Name = "EnemyHealthBarFillBoss", Fraction = 1 - healthFraction, DestinationId = screenId })
@@ -1381,8 +1414,9 @@ function BossHealthBarPresentation( boss )
 		SetAnimationFrameTarget({ Name = "EnemyHealthBarFillBoss", Fraction = 1 - healthFraction, DestinationId = scorchId })
 		wait(0.005)
 	end
+	boss.HealthBarLoading = nil
 	StopSound({ Id = bossHealthBarSoundId, Duration = 0.25 })
-	thread( UpdateHealthBar, boss, 0, { Force = true })
+	UpdateHealthBar( boss, 0, { Force = true } )
 end
 
 function CheckCallLock( name )
@@ -1490,35 +1524,22 @@ function AddResourceCostDisplay( screen, resourceCostData, args, source )
 	local startY = (args.StartY or ScreenCenterY) - (totalHeight * 0.5)
 	local locationY = startY
 
-	--local inventoryAmountIcon = screen.Components.InventoryAmountIcon
 	local inventoryAmountOffsetY = args.InventoryAmountOffsetY or 80
 	local resourceIconOffsetY = args.ResourceIconOffsetY or -10
 	local iconOffsetX = args.InventoryIconOffsetX or -60
-	--[[
-	if inventoryAmountIcon == nil then
-		inventoryAmountIcon = CreateScreenComponent({ Name = "BlankObstacle", Group = args.GroupName or "Combat_Menu_Overlay",
-			X = locationX + iconOffsetX,
-			Y = locationY + inventoryAmountOffsetY + resourceIconOffsetY,
-			Scale = args.InventoryIconScale or 0.5 })
-		SetAnimation({ DestinationId = inventoryAmountIcon.Id, Name = "GUI\\Screens\\Inventory\\Icon-Inventory" })
-		screen.Components.InventoryAmountIcon = inventoryAmountIcon
-		screen.CostIds = screen.CostIds or {}
-		table.insert( screen.CostIds, inventoryAmountIcon.Id )
-		SetAlpha({ Id = inventoryAmountIcon.Id, Fraction = 1, Duration = 0.1 })
-	else
-		Teleport({ Id = inventoryAmountIcon.Id, OffsetX = locationX + iconOffsetX, OffsetY = locationY + inventoryAmountOffsetY + resourceIconOffsetY })
-		SetAlpha({ Id = inventoryAmountIcon.Id, Fraction = 1, Duration = 0.1 })
-	end
-	]]
 
 	screen.CostIds = screen.CostIds or {}
-	
-	local costDisplayNum = args.CostDisplayNum or 1
+
 	local resourceNum = 1
 	for i, resourceName in ipairs( ResourceDisplayOrderData ) do
 		if resourceCostData[resourceName] then
 
 			local resourceData = ResourceData[resourceName]
+
+			local hideCost = false
+			if resourceData.CostRevealRequirements ~= nil and not IsGameStateEligible( resourceData, resourceData.CostRevealRequirements ) then
+				hideCost = true
+			end
 
 			local resourceNameFormat = ScreenData.GhostAdmin.CostDisplay.ResourceNameAffordableFormat
 			local resourceAmountFormat = ScreenData.GhostAdmin.CostDisplay.ResourceAmountAffordableFormat
@@ -1527,37 +1548,31 @@ function AddResourceCostDisplay( screen, resourceCostData, args, source )
 				resourceNameFormat = ScreenData.GhostAdmin.CostDisplay.ResourceNameUnaffordableFormat
 			end
 
-			local backingKey = "ResourceIconBacking"..costDisplayNum..resourceNum
+			local backingKey = "ResourceIconBacking"..resourceName
 			local resourceIconBacking = screen.Components[backingKey]
-			--if resourceIconBacking == nil then
-				resourceIconBacking = CreateScreenComponent({ Name = "BlankObstacle", Group = args.GroupName or "Combat_Menu_Overlay", X = locationX, Y = locationY })
-				screen.Components[backingKey] = resourceIconBacking				
-				table.insert( screen.CostIds, resourceIconBacking.Id )
-			--[[
-			else
-				Teleport({ Id = resourceIconBacking.Id, OffsetX = locationX, OffsetY = locationY })
-				SetAlpha({ Id = resourceIconBacking.Id, Fraction = 1, Duration = 0.1 })
-			end
-			]]
-			SetAnimation({ DestinationId = resourceIconBacking.Id, Name = "ResourceCardBacking" })
+			resourceIconBacking = CreateScreenComponent({ Name = "BlankObstacle", Group = args.GroupName or "Combat_Menu_Overlay", X = locationX, Y = locationY })
+			screen.Components[backingKey] = resourceIconBacking				
+			table.insert( screen.CostIds, resourceIconBacking.Id )
+			--SetAnimation({ DestinationId = resourceIconBacking.Id, Name = "GhostAdminScreenCauldronReagentsIn" })
+			SetAnimation({ DestinationId = resourceIconBacking.Id, Name = "ResourceCardBacking" }) --nopkg
 
-			local iconKey = "ResourceIcon"..costDisplayNum..resourceNum
+			local iconKey = "ResourceIcon"..resourceName
 			local resourceIcon = screen.Components[iconKey]
-			--if resourceIcon == nil then
-				resourceIcon =  CreateScreenComponent({ Name = "BlankObstacle", Group = args.GroupName or "Combat_Menu_Overlay", X = locationX, Y = locationY + resourceIconOffsetY })
-				screen.Components[iconKey] = resourceIcon
-				table.insert( screen.CostIds, resourceIcon.Id )
-			--[[
-			else
-				Teleport({ Id = resourceIcon.Id, OffsetX = locationX, OffsetY = locationY + resourceIconOffsetY })
-				SetAlpha({ Id = resourceIcon.Id, Fraction = 1, Duration = 0.1 })
-			end
-			]]
+			resourceIcon =  CreateScreenComponent({ Name = "BlankObstacle", Group = args.GroupName or "Combat_Menu_Overlay", X = locationX, Y = locationY + resourceIconOffsetY })
+			screen.Components[iconKey] = resourceIcon
+			table.insert( screen.CostIds, resourceIcon.Id )
 			SetScale({ Id = resourceIcon.Id, Fraction = (args.ResourceIconScale or 0.85) * (resourceData.IconScale or 1.0) })
-			SetAnimation({ DestinationId = resourceIcon.Id, Name = resourceData.IconPath })
+			local iconPath = resourceData.IconPath
+			if hideCost then
+				iconPath = ResourceData.MysteryResource.IconPath
+			end
+			SetAnimation({ DestinationId = resourceIcon.Id, Name = iconPath })
 
 			-- Name
 			local name = resourceData.CostTextId or resourceName
+			if hideCost then
+				name = "MysteryResource_CostName"
+			end
 			local inventoryAmountFormat = ShallowCopyTable( resourceNameFormat )
 			inventoryAmountFormat.Id = resourceIcon.Id
 			inventoryAmountFormat.Text = name
@@ -1565,8 +1580,8 @@ function AddResourceCostDisplay( screen, resourceCostData, args, source )
 
 			-- Cost
 			local costText = resourceCostData[resourceName]
-			if source ~= nil and source.CostAmountTextIds ~= nil and source.CostAmountTextIds[resourceName] ~= nil then
-				costText = source.CostAmountTextIds[resourceName]
+			if hideCost then
+				costText = "MysteryResource"
 			end
 			local resourceAmountFormat = ShallowCopyTable( resourceAmountFormat )
 			resourceAmountFormat.Id = resourceIcon.Id
@@ -1591,32 +1606,28 @@ function AddResourceCostDisplay( screen, resourceCostData, args, source )
 	end
 end
 
-function AddContextualAction( screen, textData, args )
-	if not screen or not screen.Components then
-		return
-	end
-	local reversedTextData = {}
-	for i = #textData, 1, -1 do
-		table.insert( reversedTextData, textData[i] )
-	end
-
-	local maxActions = 5
-	if #reversedTextData < maxActions then
-		while #reversedTextData < maxActions do
-			table.insert( reversedTextData, "Blank" )
-		end
-	end
-	ModifyTextBox({ Id = screen.Components.ContextualActionString.Id, Text = "Contextual_Action", LuaKey = "TempTextData", Font = "LatoBold", FontSize = 24, LuaValue = { Action = reversedTextData }} )
-
-end
-
 function MouseOverContextualAction( button )
 	ModifyTextBox({ Id = button.Id, ColorTarget = { 0.50, 0.90, 0.80, 1.0 }, ColorDuration = 0.2 })
-	PlaySound({ Name = "/SFX/Menu Sounds/DialoguePanelOut", Id = button.Id })
+	PlaySound({ Name = "/SFX/Menu Sounds/DialoguePanelOutMenu", Id = button.Id })
 end
 
 function MouseOffContextualAction( button )
-	ModifyTextBox({ Id = button.Id, ColorTarget = { 0.58, 0.34, 0.78, 1.0 }, ColorDuration = 0.2 })
+	local color = { 0.58, 0.34, 0.78, 1.0 }
+	if button.TextArgs ~= nil then
+		color = button.TextArgs.Color
+	end
+	ModifyTextBox({ Id = button.Id, ColorTarget = color, ColorDuration = 0.2 })
+end
+
+function MouseOverNarrativeChoiceButton( button )
+	SetAnimation({ DestinationId = button.Id, Name = button.MouseOverAnimation })
+	ModifyTextBox({ Id = button.Id, ColorTarget = { 0.50, 0.90, 0.80, 1.0 }, ColorDuration = 0.2 })
+	PlaySound({ Name = "/SFX/Menu Sounds/DialoguePanelOutMenu", Id = button.Id })
+end
+
+function MouseOffNarrativeChoiceButton( button )
+	SetAnimation({ DestinationId = button.Id, Name = button.Animation })
+	ModifyTextBox({ Id = button.Id, ColorTarget = button.TextArgs.Color, ColorDuration = 0.2 })
 end
 
 function AltAspectRatioFramesShow()

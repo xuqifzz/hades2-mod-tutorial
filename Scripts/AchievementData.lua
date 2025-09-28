@@ -1,423 +1,714 @@
-GameData.AchievementData =
+AchievementData =
 {
 	DefaultAchievement =
 	{
 		DebugOnly = true,
 	},
 	
-	--[[
+	AchClearErebus =
+	{
+		InheritFrom = { "DefaultAchievement" },
+		CompleteGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "RoomsEntered", "F_PostBoss01" },
+			},
+		},
+	},
+
+	AchClearOceanus =
+	{
+		InheritFrom = { "DefaultAchievement" },
+		CompleteGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "RoomsEntered", "G_PostBoss01" },
+			},
+		},
+	},
+
+	AchClearFields =
+	{
+		InheritFrom = { "DefaultAchievement" },
+		CompleteGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "RoomsEntered", "H_PostBoss01" },
+			},
+		},
+	},
+
 	AchClearTartarus =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "RoomsEntered", "I_PostBoss01" },
+			},
 		},
 	},
 
-	AchClearAsphodel =
+	AchClearEphyra =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "RoomsEntered", "N_PostBoss01" },
+			},
 		},
 	},
 
-	AchClearElysium =
+	AchClearThessaly =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "RoomsEntered", "O_PostBoss01" },
+			},
 		},
 	},
 
-	AchClearElysiumEM =
+	AchClearOlympus =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "RoomsEntered", "P_PostBoss01" },
+			},
 		},
 	},
 
-	AchClearHeatGate =
-	{
-		InheritFrom = { "DefaultAchievement" },
-	},
-
-	AchClearAnyRun =
+	AchClearSummit =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "RoomsEntered", "Q_PostBoss01" },
+			},
 		},
 	},
-	AchClearRun4thAspect =
+
+	AchCauldronSpells1 =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "GameState", "WorldUpgradesAdded" },
+				UseLength = true,
+				Comparison = ">=",
+				Value = 50,
+			},
 		},
 	},
-	AchBeatCharon =
+
+	AchBathHouse =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "GameState", "TextLinesRecord", },
+				HasAny = { "DoraBathHouse01", "HecateBathHouse01", "OdysseusBathHouse01", "MorosBathHous01", "NemesisBathHouse01", "ErisBathHouse01", "IcarusBathHouse01" }
+			},
 		},
 	},
 
-	AchBronzeSkellyTrophy =
+	AchFishingPier =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "GameState", "TextLinesRecord", },
+				HasAny = { "DoraFishing01", "ErisFishing01", "HecateFishing01", "IcarusFishing01", "MorosFishing01", "NemesisFishing01", "OdysseusFishing01" }
+			},
 		},
 	},
 
-	AchSilverSkellyTrophy =
+	AchTaverna =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "GameState", "TextLinesRecord", },
+				HasAny = { "DoraTaverna01", "ErisTaverna01", "HecateTaverna01", "IcarusTaverna01", "MorosTaverna01", "NemesisTaverna01", "OdysseusTaverna01" }
+			},
 		},
 	},
-
-	AchFoundKeepsakes =
+	
+	AchForgeBonds =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "GameState", "TextLinesRecord", },
+				CountOf = GameData.AllBondForgedEvents,
+				Comparison = ">=",
+				Value = 10,
+			},
 		},
 	},
 
-	AchLeveledKeepsakes =
+	AchProphecies1 =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "GameState", "QuestsCompleted" },
+				UseLength = true,
+				Comparison = ">=",
+				Value = 60,
+			},
 		},
 	},
 
-	AchFoundSummon =
+	AchMaxMem =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "GameState", "MaxMetaUpgradeCostCache" },
+				Comparison = ">=",
+				Value = 30,
+			},
 		},
 	},
 
-	AchFoundAllSummons =
+	AchAllArcana =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestUnlockAllCards" },
+			},
 		},
 	},
 
-	AchMaxedAnyAspect =
+	AchAllArcanaMax =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				FunctionName = "RequireAllMetaUpgradesAtMaxLevel",
+			},
 		},
 	},
 
-	ActUnlockedAllAspects =
+	AchAllWeapons =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestUnlockAllWeapons" },
+			},
 		},
-
 	},
 
-	AchPickedManyBoons =
+	AchAllAspects =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestUnlockAllWeaponAspects" },
+			},
 		},
 	},
-
-	AchPurgedLegendBoon =
-	{
-		InheritFrom = { "DefaultAchievement" },
-	},
-
-	AchPickedManyHammers =
+	
+	AchConfideFrinos =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestPetFrog" },
+			},
 		},
 	},
 
-	AchUnlockedAllWeapons =
+	AchAllFamiliars =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
-		},	
+			{
+				Path = { "GameState", "FamiliarsUnlocked" },
+				HasAll = { "FrogFamiliar", "RavenFamiliar", "CatFamiliar", "HoundFamiliar", "PolecatFamiliar" },
+			},
+		},
 	},
 
-	AchForgedBond =
+	AchAllFamiliarsMax =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "GameState", "FamiliarUpgrades" },
+				HasAll =
+				{
+					"FrogHealthBonus3",
+					"FrogUses3",
+					"FrogDamage3",
+					"CatLastStandHeal3",
+					"CatUses3",
+					"CatAttack3",
+					"RavenCritChanceBonus3",
+					"RavenUses3",
+					"RavenAttack3",					
+					"HoundManaBonus3",					
+					"HoundUses3",					
+					"HoundAttack3",					
+					"PolecatDodgeBonus3",					
+					"PolecatUses3",					
+					"PolecatDamage3",					
+				},
+			},
 		},
 	},
 
-	AchOlympiansCodex =
+	AchEarnPrestige1 =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "CosmeticsPoints" },
+				Comparison = ">=",
+				Value = 10000,
+			},
 		},
 	},
-
-	AchManyBrokerTrades =
+	
+	AchAllKeepsakes =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "GameState", "GiftPresentation" },
+				UseLength = true,
+				Comparison = ">=",
+				Value = 33,
+			},
 		},
 	},
 
-	AchManyCosmetics =
+	AchBounties1 =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "GameState", "PackagedBountyClears" },
+				UseLength = true,
+				Comparison = ">=",
+				Value = 20,
+			},
 		},
 	},
 
-	AchManyQuests =
+	AchAllRandomStreak =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestRandomBountyClearStreak" },
+			},
 		},
 	},
 
-	AchFishFromEachBiome =
+	AchAllRandomUnderworld =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "PackagedBountyClears", "PackageBountyRandomUnderworld_Difficulty2" },
+			},
 		},
 	},
 
-	AchOrpheusSingsAgain =
+	AchBeatHecateNoArcana =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestBeatHecateWithoutArcana" },
+			},
 		},
 	},
 
-	AchMirrorAllUnlocked =
+	AchHelpOdysseus =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestHelpOdysseus" },
+			},
 		},
 	},
 
-	AchNyxChaosReunion =
+	AchHelpDora =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestHelpDora" },
+			},
 		},
 	},
 
-	AchMeetChthonicGods =
+	AchHelpHypnos =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestWakeHypnos" },
+			},
 		},
 	},
 
-	AchAresKills =
+	AchHelpArachne =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestHelpArachne" },
+			},
 		},
 	},
 
-	AchSisyphusLiberation =
+	AchHelpNarcissusAndEcho =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestHelpNarcissusAndEcho" },
+			},
 		},
 	},
 
-	AchSingersReunion =
+	AchCatchFish =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestCatchFish" },
+			},
 		},
 	},
 
-	AchMyrmidonReunion =
+	AchBeatRivalsVow1 =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestMeetShrineAltBosses" },
+			},
 		},
 	},
 
-	AchMirrorUpgradeClears =
+	AchBeatTyphonWithWeapons =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestBeatTyphonWithWeapons" },
+			},
 		},
 	},
 
-	AchPactUpgradesClears =
+	AchBeatChronosWithArcana =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestBeatChronosWithArcana" },
+			},
 		},
 	},
 
-	AchWeaponClears =
+	AchClearWithAllAspects =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestClearedWithAllAspects" },
+			},
 		},
 	},
 
-	AchEliteAttributeKills =
+	AchClearChaosQuest =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "QuestsCompleted", "QuestChaosKeepsakeFullRun" },
+			},
 		},
 	},
 
-	AchAccessAdminChamber =
+	AchNemesisCombat =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "GameState", "NemesisBetWinnings" },
+				Comparison = ">=",
+				Value = 1000,
+			},
 		},
 	},
 
-	AchReachedEnding =
+	AchFamiliarCostumes =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "GameState", "WorldUpgradesAdded" },
+				HasAny =
+				{
+					"FamiliarCostume_FrogChthonic",
+					"FamiliarCostume_FrogCute",
+					"FamiliarCostume_FrogMoon",
+					"FamiliarCostume_FrogNightmare",
+				},
+			},
+			{
+				Path = { "GameState", "WorldUpgradesAdded" },
+				HasAny =
+				{
+					"FamiliarCostume_CatChthonic",
+					"FamiliarCostume_CatHell",
+					"FamiliarCostume_CatMoon",
+					"FamiliarCostume_CatNightmare",
+				},
+			},
+			{
+				Path = { "GameState", "WorldUpgradesAdded" },
+				HasAny =
+				{
+					"FamiliarCostume_RavenChthonic",
+					"FamiliarCostume_RavenCute",
+					"FamiliarCostume_RavenMoon",
+					"FamiliarCostume_RavenNightmare",
+				},
+			},
+			{
+				Path = { "GameState", "WorldUpgradesAdded" },
+				HasAny =
+				{
+					"FamiliarCostume_HoundChaos",
+					"FamiliarCostume_HoundHell",
+					"FamiliarCostume_HoundMoon",
+					"FamiliarCostume_HoundNightmare",
+				},
+			},
+			{
+				Path = { "GameState", "WorldUpgradesAdded" },
+				HasAny =
+				{
+					"FamiliarCostume_PolecatChthonic",
+					"FamiliarCostume_PolecatCute",
+					"FamiliarCostume_PolecatHell",
+					"FamiliarCostume_PolecatNightmare",
+				},
+			},
 		},
 	},
 
-	AchReachedEpilogue =
+	AchKillWitchAsSheep =
+	{
+		InheritFrom = { "DefaultAchievement" },
+		IgnoreProgressCheck = true,
+		CompleteGameStateRequirements =
+		{
+			{
+				PathTrue = { "MapState", "HostilePolymorph" },
+			},
+		},
+	},
+	
+	AchSummonSiren =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "GameState", "SpellSummons", },
+				HasAny = { "SirenKeytarist", "SirenDrummer" },
+			},
 		},
 	},
 
-	AchWellShopItems =
+	AchTartarusInDress =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "CurrentRun", "RoomsEntered", },
+				HasAny = { "I_Boss01" },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasAny = GameData.AllArachneCostumes,
+			},
 		},
 	},
 
-	AchBuffedButterfly =
-	{
-		InheritFrom = { "DefaultAchievement" },
-		GoalValue = 1.296,
-	},
-
-	AchBuffedPlume =
-	{
-		InheritFrom = { "DefaultAchievement" },
-		GoalValue = 0.2,
-	},
-
-	AchCrushedThanatos =
-	{
-		InheritFrom = { "DefaultAchievement" },
-		GoalValue = 15,
-	},
-
-	AchGreaterCall =
-	{
-		InheritFrom = { "DefaultAchievement" },
-	},
-
-	AchGreaterCallSpurned =
-	{
-		InheritFrom = { "DefaultAchievement" },
-	},
-
-	AchSkellyKills =
+	AchEarnStatue1 =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "TrophyQuestComplete01" },
+			},
 		},
 	},
 
-	AchCerberusPets =
+	AchEarnStatue2 =
 	{
 		InheritFrom = { "DefaultAchievement" },
 		CompleteGameStateRequirements =
 		{
-			-- Reimplement
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "TrophyQuestComplete02" },
+			},
 		},
-	},]]
+	},
+
+
+	AchWinSecretContest =
+	{
+		InheritFrom = { "DefaultAchievement" },
+		CompleteGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EnemyKills", "Zagreus" },
+			},
+		},
+	},
+
+	AchTrueEnding =
+	{
+		InheritFrom = { "DefaultAchievement" },
+		CompleteGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "TrueEndingFinale01" },
+			},
+		},
+	},
+	
+	AchEpilogue =
+	{
+		InheritFrom = { "DefaultAchievement" },
+		CompleteGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "FatesEpilogue01" },
+			},
+		},
+	},
+
+	AchAllOtherAch =
+	{
+		InheritFrom = { "DefaultAchievement" },
+		CompleteGameStateRequirements =
+		{
+			{
+				Path = { "GameState", "AchievementsUnlocked" },
+				UseLength = true,
+				Comparison = ">=",
+				Value = 49,
+			},
+		},
+	},
+
+
+}
+
+AchievementOrderData =
+{
+	"AchClearErebus",
+	"AchClearOceanus",
+	"AchClearFields",
+	"AchClearTartarus",
+	"AchClearEphyra",
+	"AchClearThessaly",
+	"AchClearOlympus",
+	"AchClearSummit",
+	"AchCauldronSpells1",
+	"AchBathHouse",
+	"AchFishingPier",
+	"AchTaverna",
+	"AchForgeBonds",
+	"AchProphecies1",
+	"AchMaxMem",
+	"AchAllArcana",
+	"AchAllArcanaMax",
+	"AchAllWeapons",
+	"AchAllAspects",
+	"AchConfideFrinos",
+	"AchAllFamiliars",
+	"AchAllFamiliarsMax",
+	"AchEarnPrestige1",
+	"AchAllKeepsakes",
+	"AchBounties1",
+	"AchAllRandomStreak",
+	"AchAllRandomUnderworld",
+	"AchBeatHecateNoArcana",
+	"AchHelpOdysseus",
+	"AchHelpDora",
+	"AchHelpHypnos",
+	"AchHelpArachne",
+	"AchHelpNarcissusAndEcho",
+	"AchCatchFish",
+	"AchBeatRivalsVow1",
+	"AchBeatTyphonWithWeapons",
+	"AchBeatChronosWithArcana",
+	"AchClearWithAllAspects",
+	"AchClearChaosQuest",
+	"AchNemesisCombat",
+	"AchFamiliarCostumes",
+	"AchKillWitchAsSheep",
+	"AchSummonSiren",
+	"AchTartarusInDress",
+	"AchEarnStatue1",
+	"AchEarnStatue2",
+	"AchWinSecretContest",
+	"AchTrueEnding",
+	"AchEpilogue",
+	"AchAllOtherAch",
 }

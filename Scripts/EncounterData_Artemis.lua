@@ -16,13 +16,11 @@ OverwriteTableKeys( EncounterData,
 				Comparison = ">=",
 				Value = 4,
 			},
-			{
-				PathFalse = { "CurrentRun", "ActiveBounty" },
-			},
 			NamedRequirements = { "NoRecentFieldNPCEncounter" },
+			NamedRequirementsFalse = { "StandardPackageBountyActive", "SurfaceRouteLockedByTyphonKill" },
 		},
 
-		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade", "StackUpgrade", "TalentDrop" },
+		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade" },
 
 		BlockCodexBeforeStart = true,
 		BlockLocationText = true,
@@ -30,17 +28,29 @@ OverwriteTableKeys( EncounterData,
 		-- SkipCombatBeginsVoiceLines = true,
 		RequireCompletedIntro = true,
 		PreSpawnEnemies = false,
-		FastClearThreshold = 65,
 		TimerBlock = "ArtemisEncounter",
 		BlockHighlightEliteTypes = true,
+		
+		BlockAthenaEncounterKeepsake = true,
 
 		MuteSecretMusicDrumsOnCombatOver = true,
 		NextRoomResumeMusic = true,
 
 		UnthreadedEvents = EncounterSets.EncounterEventsArtemisCombat,
-		Using = { "NPC_Artemis_Field_01" },
+		Using =
+		{
+			"NPC_Artemis_Field_01",
+			Sounds =
+			{
+				"/SFX/Menu Sounds/Lounge_GlassWithIce",
+				"/SFX/Menu Sounds/Lounge_BottleCork",
+				"/SFX/Menu Sounds/Lounge_BottlePour",
+				"/Leftovers/World Sounds/Caravan Interior/SwallowDrink",
+				"/SFX/Menu Sounds/Lounge_GlassesClinking",
+			},
+		},
 		SpeakerNames = { "Artemis", },
-		LoadPackages = { "NPC_Artemis_Field_01" },
+		LoadPackages = { "Artemis", "NPC_Artemis_Field_01" },
 
 		DifficultyModifier = 60,
 		--DepthDifficultyRamp = 0,
@@ -80,6 +90,9 @@ OverwriteTableKeys( EncounterData,
 				Comparison = "<=",
 				Value = 0,
 			},
+			{
+				PathFalse = { "PrevRun", "SpecialInteractRecord", "Shrine" },
+			}
 		},
 	},
 
@@ -161,6 +174,9 @@ OverwriteTableKeys( EncounterData,
 				Comparison = "<=",
 				Value = 0,
 			},
+			{
+				PathFalse = { "PrevRun", "SpecialInteractRecord", "Shrine" },
+			}
 		},
 	},
 
@@ -182,13 +198,16 @@ OverwriteTableKeys( EncounterData,
 
 		GameStateRequirements =
 		{
-			DeepInheritance = true,
+			Append = true,
 			{
 				SumPrevRuns = 4,
 				Path = { "SpawnRecord", "NPC_Artemis_Field_01" },
 				Comparison = "<=",
 				Value = 0,
 			},
+			{
+				PathFalse = { "PrevRun", "SpecialInteractRecord", "Shrine" },
+			}
 		},
 	},
 })

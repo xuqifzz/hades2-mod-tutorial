@@ -17,6 +17,7 @@ UnitSetData.SatyrSapper =
 		WakeUpDelay = 1.3,
 		ActivateStartOffsetZ = 2000,
 		PostActivateStop = true,
+		PostActivateScreenshake = { Distance = 6, Speed = 300, FalloffSpeed = 0, Duration = 0.24, Angle = 90, DistanceThreshold = 200 },
 
 		SetupEvents =
 		{
@@ -48,7 +49,9 @@ UnitSetData.SatyrSapper =
 		IsAggroedSound = "/SFX/Enemy Sounds/SatyrSapper/EmoteAlerted",
 		DeathSound = "/SFX/Enemy Sounds/SatyrSapper/EmoteDying",
 		Material = "Bone",
-		HitSparkScale = 1.5,
+		ArmorSparkAnimation = "HitSparkArmor_Large",
+
+		BlockNextBiomeEnemyShrineUpgrade = true,
 
 		DefaultAIData =
 		{
@@ -58,7 +61,6 @@ UnitSetData.SatyrSapper =
 
 			SurroundRetaliateDistance = 400,
 			SurroundRefreshInterval = 0.5,
-			MaxAttackers = 2,
 		},
 		OnDamagedWeaponInterrupt = "SatyrSapperBackDash",
 		OnDamagedWeaponCooldown = 5.0,
@@ -85,14 +87,15 @@ UnitSetData.SatyrSapper =
 
 		WeaponOptions =
 		{
-			"SatyrSapperBackDash", "SatyrSapperMelee", "SatyrSapperRocket", "SatyrSapperLob"
+			"SatyrSapperBackDash", "SatyrSapperMelee", "SatyrSapperRocket", "SatyrSapperLob",
+			"SatyrSapperLob_PreCombat"
 		},
 
 		HeraclesCombatMoneyValue = 2,
 		ActiveCapWeight = 1,
 		GeneratorData =
 		{
-			DifficultyRating = 105,
+			DifficultyRating = 115,
 			BlockEnemyTypes = {"SatyrSapper_Elite"}
 		},
 
@@ -109,7 +112,9 @@ UnitSetData.SatyrSapper =
 				Cooldowns =
 				{
 					{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
+					{ Name = "OlympusEnemiesSightedVO", Time = 12 },
 				},
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 				SuccessiveChanceToPlay = 0.1,
 
 				{ Cue = "/VO/MelinoeField_2702", Text = "Sappers..." },
@@ -135,14 +140,46 @@ UnitSetData.SatyrSapper =
 
 		WeaponOptions =
 		{
-			"SatyrSapperBackDash", "SatyrSapperMelee", "SatyrSapperRocket_Elite", "SatyrSapperLob"
+			"SatyrSapperBackDash", "SatyrSapperMelee", "SatyrSapperRocket_Elite", "SatyrSapperLob",
+			"SatyrSapperLob_PreCombat"
 		},
 
 		HeraclesCombatMoneyValue = 7,
 		GeneratorData =
 		{
-			DifficultyRating = 280,
+			DifficultyRating = 285,
 			BlockEnemyTypes = {"SatyrSapper"}
+		},
+	},
+
+	SatyrSapper_Prometheus =
+	{
+		InheritFrom = { "SatyrSapper" },
+		HideHealthBar = true,
+		GenusName = "SatyrSapper",
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+		},
+
+		AIOptions =
+		{
+			"AttackerAI",
+		},
+
+		WeaponOptions =
+		{
+			"SatyrSapperRocket_Prometheus"
+		},
+
+		SpellSummonDataOverrides =
+		{
+			HideHealthBar = false,
+			WeaponOptions =
+			{
+				"SatyrSapperRocket_PrometheusAlly"
+			},
 		},
 	},
 }

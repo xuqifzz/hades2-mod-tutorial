@@ -106,6 +106,7 @@
       Name = "RespawningCover"
       InheritFrom = "1_BaseInvulnerableObstacle"
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life =
       {
         ProjectilesAlwaysPenetrate = true
@@ -399,6 +400,7 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Erebus\Erebus_Tree_11"
+        UseBoundsForSortDrawArea = true
         Tallness = 2051
         Offset = { X = 0 Y = -905 }
         Points = [
@@ -418,17 +420,19 @@
       DisplayInEditor = true
       Thing = 
       {
+        CausesOcclusion = true
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Erebus\Erebus_WhiteTree_01"
         Tallness = 2319
         Offset = { X = 0 Y = -850 }
         Points = [
-          { X = -81 Y = -72 }
-          { X = -187 Y = 62 }
-          { X = 53 Y = 174 }
-          { X = 327 Y = 72 }
-          { X = 277 Y = -56 }
-          { X = 81 Y = -97 }
+          { X = -358 Y = 39 }
+          { X = -114 Y = 149 }
+          { X = 109 Y = 156 }
+          { X = 380 Y = 69 }
+          { X = 360 Y = -50 }
+          { X = 102 Y = -132 }
+          { X = -149 Y = -122 }
         ]
       }
     }
@@ -439,6 +443,7 @@
       DisplayInEditor = true
       Thing = 
       {
+        CausesOcclusion = true
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Erebus\Erebus_Tree_12"
         Tallness = 1914
@@ -822,7 +827,7 @@
     
     {
       Name = "ErebusTorch01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1009,16 +1014,18 @@
       Thing = 
       {
         EditorOutlineDrawBounds = false
+        DrawEmbeddedBehind = true
         Graphic = "Tilesets\Erebus\Erebus_Rock_11"
         Tallness = 980
         Offset = { X = 0 Y = -336 }
         Points = [
           { X = -280 Y = -52 }
-          { X = -283 Y = 137 }
-          { X = -9 Y = 212 }
-          { X = 331 Y = 101 }
-          { X = 298 Y = -27 }
-          { X = -9 Y = -106 }
+          { X = -334 Y = 143 }
+          { X = -153 Y = 251 }
+          { X = 169 Y = 235 }
+          { X = 319 Y = 131 }
+          { X = 310 Y = -57 }
+          { X = -18 Y = -132 }
         ]
       }
     }
@@ -1212,14 +1219,16 @@
         CausesOcclusion = true
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Erebus\Erebus_Rock_04"
-        Tallness = 992
+        Tallness = 1067
         Offset = { X = 0 Y = -343 }
         Points = [
-          { X = -275 Y = 68 }
-          { X = -20 Y = 192 }
-          { X = 293 Y = 75 }
-          { X = 101 Y = -57 }
-          { X = -64 Y = -79 }
+          { X = -227 Y = 123 }
+          { X = 14 Y = 198 }
+          { X = 313 Y = 73 }
+          { X = 290 Y = -13 }
+          { X = 16 Y = -100 }
+          { X = -293 Y = -62 }
+          { X = -331 Y = 42 }
         ]
       }
     }
@@ -1290,7 +1299,7 @@
     
     {
       Name = "ErebusStoneStatue01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1299,13 +1308,13 @@
         Tallness = 516
         Offset = { X = 0 Y = -170 }
         Points = [
-          { X = -434 Y = 4 }
-          { X = -365 Y = 208 }
-          { X = -231 Y = 280 }
-          { X = 198 Y = 258 }
-          { X = 378 Y = 116 }
-          { X = 324 Y = -74 }
-          { X = -72 Y = -166 }
+          { X = -520 Y = -83 }
+          { X = -501 Y = 175 }
+          { X = -317 Y = 316 }
+          { X = 378 Y = 304 }
+          { X = 626 Y = 141 }
+          { X = 493 Y = -56 }
+          { X = -61 Y = -233 }
         ]
       }
     }
@@ -1889,6 +1898,26 @@
     }
     
     {
+      Name = "ErebusWebs09"
+      InheritFrom = "ErebusWebs01"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Webs_09"
+        Tallness = 2260
+        Offset = { X = 0 Y = -964 }
+        Points = [
+          { X = -106 Y = 16 }
+          { X = -45 Y = -52 }
+          { X = 67 Y = -46 }
+          { X = 90 Y = 60 }
+          { X = -31 Y = 66 }
+        ]
+      }
+    }
+    
+    {
       Name = "ErebusWebs03"
       InheritFrom = "ErebusWebs01"
       DisplayInEditor = true
@@ -1975,16 +2004,13 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Erebus\Erebus_Plant_02"
-        Tallness = 662.0
+        Tallness = 696
         Offset = { X = 0 Y = -142 }
         Points = [
-          { X = 184 Y = -32 }
-          { X = 16 Y = -66 }
-          { X = -210 Y = 172 }
-          { X = -97 Y = 226 }
-          { X = 68 Y = 248 }
-          { X = 180 Y = 232 }
-          { X = 257 Y = 29 }
+          { X = 99 Y = 240 }
+          { X = 36 Y = 208 }
+          { X = -26 Y = 239 }
+          { X = 37 Y = 271 }
         ]
       }
     }
@@ -2113,7 +2139,111 @@
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Erebus\Erebus_Overlook_Moon_01"
         Tallness = 1197
-        Offset = { X = 0 Y = -505 }
+        Offset = { X = 0 Y = 35 }
+      }
+    }
+    
+    {
+      Name = "ErebusMoonFullMoon"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Moon_FullMoon"
+        Tallness = 1197
+        Offset = { X = 0 Y = -22 }
+      }
+    }
+    
+    {
+      Name = "ErebusMoonFirstQuarter"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Moon_FirstQuarter"
+        Tallness = 1197
+        Offset = { X = 0 Y = -12 }
+      }
+    }
+    
+    {
+      Name = "ErebusMoonThirdQuarter"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Moon_ThirdQuarter"
+        Tallness = 1197
+        Offset = { X = 0 Y = -30 }
+      }
+    }
+    
+    {
+      Name = "ErebusMoonWaningGibbous"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Moon_WaningGibbous"
+        Tallness = 1197
+        Offset = { X = 0 Y = -25 }
+      }
+    }
+    
+    {
+      Name = "ErebusMoonWaxingGibbous"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Moon_WaxingGibbous"
+        Tallness = 1197
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "ErebusMoonNewMoon"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Moon_NewMoon"
+        Tallness = 1197
+        Offset = { X = 0 Y = -17 }
+      }
+    }
+    
+    {
+      Name = "ErebusMoonWaxingCrescent"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Moon_WaxingCrescent"
+        Tallness = 1197
+        Offset = { X = 0 Y = -17 }
+      }
+    }
+    
+    {
+      Name = "ErebusMoonWaningCrescent"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Moon_WaningCrescent"
+        Tallness = 1197
+        Offset = { X = 0 Y = -5 }
       }
     }
     
@@ -2523,14 +2653,10 @@
         Tallness = 150
         Offset = { X = 0 Y = -35 }
         Points = [
-          { X = -398 Y = 186 }
-          { X = -383 Y = 225 }
-          { X = -224 Y = 273 }
-          { X = -123 Y = 270 }
-          { X = 225 Y = 56 }
-          { X = 400 Y = -125 }
-          { X = 366 Y = -239 }
-          { X = 236 Y = -251 }
+          { X = 270 Y = -139 }
+          { X = -423 Y = 204 }
+          { X = -206 Y = 312 }
+          { X = 483 Y = -33 }
         ]
       }
     }
@@ -2668,11 +2794,12 @@
     
     {
       Name = "ErebusTerrainHill05"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
         EditorOutlineDrawBounds = false
+        UseBoundsForSortDrawArea = true
         Graphic = "Tilesets\Erebus\Erebus_Terrain_Hill_05"
         Tallness = 598
         Offset = { X = 0 Y = -131 }
@@ -3445,20 +3572,22 @@
 
 
 {
-Name = "ShadeErebusIdle01"
+    Name = "ShadeErebusIdle01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+      IgnoredByPathfinders = true
       Life = 
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
+        TriggerOnHit = false
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeErebusIdle"
         StopsLight = false

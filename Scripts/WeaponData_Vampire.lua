@@ -17,6 +17,7 @@ WeaponSetData =
 			FireProjectileStartDelay = 0.22,
 
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.045,			
 			StopBeforeFire = true,
@@ -78,6 +79,7 @@ WeaponSetData =
 			AttackDistance = 500,
 
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.1,
 			StopBeforeFire = true,
@@ -95,21 +97,6 @@ WeaponSetData =
 
 			--AttackFailWeapon = "VampireInstantTeleport",
 		},
-
-		Sounds =
-		{
-			FireSounds =
-			{
-				{ Name = "/SFX/Enemy Sounds/Vampire/EmoteAttacking" },
-			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.12, LerpTime = 0 },
-			{ ScreenPreWait = 0.06, Fraction = 1.0, LerpTime = 0.03 },
-		},		
 	},
 
 	VampireUppercut =
@@ -138,6 +125,7 @@ WeaponSetData =
 			FireSelfVelocity = 2200,
 
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.1,
 			StopBeforeFire = true,
@@ -153,21 +141,6 @@ WeaponSetData =
 
 			ChainedWeapon = "VampireSweep",
 		},
-
-		Sounds =
-		{
-			FireSounds =
-			{
-				{ Name = "/SFX/Enemy Sounds/Vampire/EmoteAttacking" },
-			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.12, LerpTime = 0 },
-			{ ScreenPreWait = 0.06, Fraction = 1.0, LerpTime = 0.03 },
-		},		
 	},
 
 	VampireSweep =
@@ -205,16 +178,9 @@ WeaponSetData =
 		{
 			FireSounds =
 			{
-				{ Name = "/SFX/Enemy Sounds/Vampire/EmoteAttacking" },
+				-- { Name = "/SFX/Enemy Sounds/Vampire/EmoteAttacking" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.12, LerpTime = 0 },
-			{ ScreenPreWait = 0.06, Fraction = 1.0, LerpTime = 0.03 },
-		},		
+		},	
 	},
 
 	VampireCombo =
@@ -253,6 +219,7 @@ WeaponSetData =
 			AttackDistance = 300,
 
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.06,
 			StopBeforeFire = true,
@@ -275,13 +242,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Vampire/EmoteAttacking" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.12, LerpTime = 0 },
-			{ ScreenPreWait = 0.06, Fraction = 1.0, LerpTime = 0.03 },
-		},		
 	},
 	VampireComboSwing2 =
 	{
@@ -320,13 +280,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Vampire/EmoteAttacking" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.12, LerpTime = 0 },
-			{ ScreenPreWait = 0.06, Fraction = 1.0, LerpTime = 0.03 },
-		},		
 	},
 
 	VampireTeleport =
@@ -347,7 +300,7 @@ WeaponSetData =
 
 			PreTeleportWait = 0.68,
 			PostTeleportWait = 0.7,
-			TeleportToSpawnPoints = true,
+			PreMoveTeleport = true,
 			TeleportMinDistance = 400,
 			TeleportMaxDistance = 2500,
 			TeleportationInterval = 0,

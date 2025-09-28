@@ -12,7 +12,8 @@ UnitSetData.AutomatonBeamer =
 
 		Groups = { "FlyingEnemies", "Automatons" },
 
-		Material = "Stone",
+		Material = "Robot",
+		MaterialAlt = "Stone",
 		OnHitFunctionName = "CheckUnitInvulnerableHit",
 		InvulnerableHitFx = "InvincibleHitSpark",
 		InvulnerableHitImpactVelocity = 1000,
@@ -23,7 +24,6 @@ UnitSetData.AutomatonBeamer =
 		ActivateFadeInDuration = 0,
 		ActivateStartAlpha = 1,
 		ActivateFadeInDelay = 0,
-		ActivateFadeInDuration = 0,
 		
 		ActivateFx = "OlympusEnemySpawnSigilDark",
 		ActivateFx2 = "OlympusEnemySpawnSigil",
@@ -33,6 +33,8 @@ UnitSetData.AutomatonBeamer =
 
 		IsAggroedSound = "/SFX/Enemy Sounds/AutomatonBeamer/EmoteAlerted",
 		DeathSound = "/SFX/Enemy Sounds/AutomatonBeamer/EmoteDying",
+
+		BlockNextBiomeEnemyShrineUpgrade = true,
 
 		StopAnimationsOnDeath = { "AutomatonBeamerDefenseShieldFxIn", "AutomatonBeamerDefenseShieldFx", "AutomatonBeamerDefenseShieldBacking", "AutomatonBeamerDefenseShieldFxDisplacement" },
 		StopAnimationsOnPolymorph =
@@ -94,7 +96,9 @@ UnitSetData.AutomatonBeamer =
 				Cooldowns =
 				{
 					{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
+					{ Name = "OlympusEnemiesSightedVO", Time = 12 },
 				},
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 				SuccessiveChanceToPlay = 0.1,
 
 				{ Cue = "/VO/MelinoeField_2694", Text = "Auto-Watchers..." },
@@ -102,7 +106,7 @@ UnitSetData.AutomatonBeamer =
 				{ Cue = "/VO/MelinoeField_2696", Text = "More Auto-Watchers." },
 				{ Cue = "/VO/MelinoeField_2697", Text = "More Auto-Watchers?" },
 			},
-			[2] = { GlobalVoiceLines = "AutomatonsSightedLines" },
+			{ GlobalVoiceLines = "AutomatonsSightedLines" },
 		},
 	},
 
@@ -112,6 +116,8 @@ UnitSetData.AutomatonBeamer =
 		HealthBuffer = 1250,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/AutomatonBeamer/EmoteTaunting",
+
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Metallic" }),
 
 		DefaultAIData =
 		{

@@ -88,6 +88,18 @@
 				Distance = 250.0
 				OffsetY = -50.0
 			}
+			SortBoundsScale = 0.6
+			Points =
+			[
+				{ X = 44 Y = 52 }
+				{ X = 76 Y = 36 }
+				{ X = 76 Y = -36 }
+				{ X = 44 Y = -52 }
+				{ X = -44 Y = -52 }
+				{ X = -76 Y = -36 }
+				{ X = -76 Y = 36 }
+				{ X = -44 Y = 52 }
+			]
 		}
 	}
 
@@ -101,14 +113,22 @@
 			EditorOutlineDrawBounds = false
 			Graphic = "Enemy_Chronos_Shadowed_Idle"
 			GrannyModel = "Chronos_Mesh"
+			SortBoundsScale = 0.51
 			Tallness = 313
+			Offset = { X = 0 Y = 3 }
 			Points = [
-				{ X = 4 Y = 26 }
-				{ X = 68 Y = -6 }
-				{ X = -8 Y = -44 }
-				{ X = -72 Y = -12 }
-	        ]
-    	 }
+			  { X = 136 Y = 61 }
+			  { X = 136 Y = -53 }
+			  { X = -12 Y = -119 }
+			  { X = -123 Y = -45 }
+			  { X = -129 Y = 44 }
+			  { X = -25 Y = 111 }
+			]
+			Interact = 
+			{
+				Distance = 300.0
+			}
+		}
 	}
 	{
 		Name = "NPC_Chronos_Story_01"
@@ -119,13 +139,40 @@
 			Graphic = "Enemy_Chronos_SittingIdle"
 			EditorOutlineDrawBounds = false
 			Tallness = 475
+			ExtentScale = 1.75
 			Points = [
-				{ X = 44 Y = 46 }
-				{ X = 176 Y = -22 }
-				{ X = 62 Y = -79 }
-				{ X = -72 Y = -12 }
+				{ X = 24 Y = 32 }
+				{ X = 56 Y = 16 }
+				{ X = 56 Y = -16 }
+				{ X = 24 Y = -32 }
+				{ X = -24 Y = -32 }
+				{ X = -56 Y = -16 }
+				{ X = -56 Y = 16 }
+				{ X = -24 Y = 32 }
 	        ]
+			Interact = 
+			{
+				Distance = 250.0
+			}
     	}
+	}
+	{
+		Name = "NPC_Chronos_02"
+		InheritFrom = "NPC_Chronos_01"
+		DisplayInEditor = true
+		Thing =
+		{
+			Graphic = "NPC_Chronos_Enlightened_Idle"
+			GrannyModel = "ChronosReformed_Mesh"
+			Points = [
+				{ X = 46 Y = 14 }
+				{ X = 45 Y = -18 }
+				{ X = 7 Y = -32 }
+				{ X = -23 Y = -28 }
+				{ X = -39 Y = 7 }
+				{ X = 2 Y = 26 }
+			]
+		}
 	}
 
 	{
@@ -190,12 +237,12 @@
 		Speed = 800.0
 		HaltOnSlowMovement = false
 		FriendlyToPlayer = false 
+		ImmuneToStun = true
 		StartGraphic = "Nemesis_Combat_Run_Start"
 		MoveGraphic = "Nemesis_Combat_Run_FireLoop"
 		StopGraphic = "Nemesis_Combat_Run_End"
 		MoveAI = 
 		{
-			Name = "Pathfind"
 			LookAheadDistance = 1024
 			MoveWithoutPath = true
 			SuccessDistance = 100.0
@@ -220,7 +267,8 @@
 			Interact = 
 			{
 				OffsetX = 0.0
-				OffsetY = 60.0
+				OffsetY = 0.0
+				Distance = 220
 			}
 			Points =
 			[
@@ -248,6 +296,12 @@
 			GrannyModel = "Eris_Mesh"
 			Graphic = "Enemy_Eris_HubIdle"
 			Tallness = 175.0
+			Interact = 
+			{
+				Distance = 130
+				OffsetX = -60
+				OffsetY = 110
+			}
 		}
 	}
 	{
@@ -297,7 +351,6 @@
 		}
 		MoveAI = 
 		{
-			Name = "Pathfind"
 			AvoidLocationDistance = 120.0
 			LookAheadDistance = 512.0
 			MoveWithoutPath = true
@@ -338,10 +391,11 @@
 		DisplayInEditor = true
 		Thing = 
 		{
-			AttachedAnim = "MedusaShadow"
 			EditorOutlineDrawBounds = false
-			Graphic = "ArachneIdle"
-			OffsetZ = 80.0
+			Graphic = "Arachne_Weaving"
+			GrannyModel = "Arachne_Mesh"
+			AmbientSound = "/SFX/Object Ambiences/SpiderSkitterLoop"
+			OffsetZ = 300.0
 			Tallness = 75.0
 			Interact = 
 			{
@@ -357,8 +411,9 @@
 		InheritFrom = "NPC_Arachne_01"
 		Thing =
 		{
+			Graphic = "Arachne_Idle_Shadow"
 			ImmuneToForce = true
-			OffsetZ = 40.0
+			OffsetZ = 0.0
 		}
 	}
 
@@ -369,12 +424,12 @@
 		CosmeticRotationSpeed = 470.0
 		RotationSpeed = 1200.0
 		Speed = 500.0
+		ImmuneToStun = true
 		MoveGraphic = "Heracles_Combat_Move"
 		StartGraphic = "Heracles_Combat_MoveStart"
 		StopGraphic = "Heracles_Combat_MoveStop"
 		MoveAI = 
 		{
-			Name = "Pathfind"
 			LookAheadDistance = 512.0
 			MoveWithoutPath = true
 			SuccessDistance = 100.0
@@ -408,6 +463,7 @@
 		{
 			AttachedAnim = "MedusaShadow"
 			EditorOutlineDrawBounds = false
+			UseBoundsForSortDrawArea = false
 			Graphic = "Icarus_Idle"
 			GrannyModel = "Icarus_Mesh"
 			Tallness = 165.0
@@ -445,7 +501,6 @@
 		}
 		MoveAI = 
 		{
-			Name = "Pathfind"
 			LookAheadDistance = 512.0
 			MoveWithoutPath = true
 			SuccessDistance = 100.0
@@ -456,7 +511,8 @@
 		Name = "NPC_Hermes_01"
 		InheritFrom = "BaseNPC"
 		DisplayInEditor = true
-		FriendlyToPlayer = false 
+		FriendlyToPlayer = false
+		DefaultAngle = 320
 		Thing = 
 		{
 			AttachedAnim = "MedusaShadow"
@@ -485,6 +541,28 @@
 			EditorOutlineDrawBounds = false
 			GrannyModel = "Athena_Mesh"
 			Graphic = "Athena_Idle"
+			Tallness = 263
+			Points = [
+			  { X = 4 Y = 26 }
+			  { X = 68 Y = -6 }
+			  { X = -8 Y = -44 }
+			  { X = -72 Y = -12 }
+			]
+			Using = { Name = "AthenaLandingNova" }
+      }
+	}
+
+	{
+		Name = "NPC_Zeus_01"
+		InheritFrom = "BaseNPC"
+		DisplayInEditor = true
+		FriendlyToPlayer = false 
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			EditorOutlineDrawBounds = false
+			GrannyModel = "Zeus_Mesh"
+			Graphic = "Zeus_Hidden"
 			Tallness = 165.0
 			Points =
 			[
@@ -493,10 +571,9 @@
 				{ X = -8 Y = -44 }
 				{ X = -72 Y = -12 }
 			]
-			Using = { Name = "AthenaLandingNova" }
 		}
 	}
-	
+
 	{
 		Name = "NPC_Dionysus_01"
 		InheritFrom = "BaseNPC"
@@ -525,9 +602,10 @@
 		DisplayInEditor = true
 		Thing = 
 		{
-			AttachedAnim = "MedusaShadow"
+			//AttachedAnim = "MedusaShadow"
 			EditorOutlineDrawBounds = false
-			Graphic = "NarcissusIdle"
+			GrannyModel = "Narcissus_Mesh"
+			Graphic = "Narcissus_Idle"
 			Tallness = 165.0
 			Points =
 			[
@@ -549,9 +627,9 @@
 		DisplayInEditor = true
 		Thing = 
 		{
-			AttachedAnim = "MedusaShadow"
+			GrannyModel = "Echo_Mesh"
 			EditorOutlineDrawBounds = false
-			Graphic = "EchoIdle"
+			Graphic = "Echo_Idle"
 			Tallness = 165.0
 			Points =
 			[
@@ -590,9 +668,10 @@
 		DisplayInEditor = true
 		Thing = 
 		{
+			GrannyModel = "Circe_Mesh"
 			AttachedAnim = "MedusaShadow"
 			EditorOutlineDrawBounds = false
-			Graphic = "CirceIdle"
+			Graphic = "Circe_Idle"
 			Tallness = 165.0
 			Points =
 			[
@@ -611,12 +690,36 @@
 		DisplayInEditor = true
 		Thing = 
 		{
+			OffsetZ = 40
 			AttachedAnim = "NPCShadow"
 			EditorOutlineDrawBounds = false
-			Graphic = "SeleneIdle"
+			Graphic = "Selene_Idle"
+			GrannyModel = "Selene_Mesh"
 			Grip = 5000.0
 			Tallness = 175.0
 		}
+	}
+
+
+	{
+		Name = "NPC_HorseAndChariot_01"
+		InheritFrom = "BaseNPC"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			GrannyModel = "HorseAndChariot_Mesh"
+			Graphic = "Horse_Idle"
+			RotateGeometry = true
+		  Tallness = 200
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = 100 Y = 25 }
+          { X = 100 Y = -40 }
+          { X = -400 Y = -40 }
+          { X = -400 Y = 25 }
+        ]
+      }
 	}
 
 	/* Other NPCs */		
@@ -634,7 +737,6 @@
 		}
 		MoveAI = 
 		{
-			Name = "Pathfind"
 			LookAheadDistance = 512.0
 			SuccessDistance = 100.0
 		}
@@ -667,21 +769,29 @@
 			EditorOutlineDrawBounds = false
 			Graphic = "Hypnos_Sleep_Idle"
 			OffsetZ = 100.0
-			Tallness = 150.0
-			Points =
-			[
-				{ X = 4 Y = 96 }
-				{ X = 68 Y = 66 }
-				{ X = -8 Y = 34 }
-				{ X = -72 Y = 52 }
-			]
-		}
+			Tallness = 150
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = 9 Y = 30 }
+          { X = 88 Y = -6 }
+          { X = 11 Y = -55 }
+          { X = -65 Y = -8 }
+        ]
+      }
 	}
 	{
 		Name = "NPC_Hypnos_02"
 		InheritFrom = "NPC_Hypnos_01"
 	}
-	
+	{
+		Name = "NPC_Hypnos_03"
+		InheritFrom = "NPC_Hypnos_01"
+	}
+	{
+		Name = "NPC_Hypnos_04"
+		InheritFrom = "NPC_Hypnos_01"
+	}
+
 	{
 		Name = "NPC_Thanatos_01"
 		InheritFrom = "BaseNPC"
@@ -717,7 +827,6 @@
 		Speed = 450.0
 		MoveAI = 
 		{
-			Name = "Pathfind"
 			LookAheadDistance = 1024.0
 			SuccessDistance = 100.0
 		}
@@ -758,8 +867,8 @@
 		Thing = 
 		{
 			AttachedAnim = "NPCShadow"
-			EditorOutlineDrawBounds = false
 			Graphic = "FrozenNyxIdle"
+			EditorOutlineDrawBounds = false
 			OffsetZ = 50.0
 			Tallness = 225.0
 			Interact = 
@@ -781,19 +890,20 @@
 	
 	{
 		Name = "NPC_Nyx_Story_01"
-		InheritFrom = "NPC_Nyx_01"
+		InheritFrom = "BaseNPC"
 		DisplayInEditor = true
 		Thing = 
 		{
+			Graphic = "Nyx_Idle"
+			GrannyModel = "Nyx_Mesh"
 			EditorOutlineDrawBounds = false
+			Tallness = 225.0
 			Points =
 			[
-				{ X = -43 Y = 3 }
-				{ X = -8 Y = 24 }
-				{ X = 43 Y = 4 }
-				{ X = 36 Y = -30 }
-				{ X = -2 Y = -41 }
-				{ X = -39 Y = -30 }
+				{ X = 0 Y = 40 }
+				{ X = 80 Y = 0 }
+				{ X = 0 Y = -40 }
+				{ X = -80 Y = 0 }
 			]
 		}
 	}
@@ -818,31 +928,6 @@
 				{ X = 157 Y = 33 }
 				{ X = -5 Y = -43 }
 				{ X = -197 Y = 48 }
-			]
-		}
-	}
-	
-	{
-		Name = "NPC_Hades_Story_01"
-		InheritFrom = "NPC_Hades_01"
-		DisplayInEditor = true
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			Graphic = "HadesHouseStandingIntroIdle"
-			Interact = 
-			{
-				OffsetX = 0.0
-				OffsetY = 100.0
-			}
-			Tallness = 300.0
-			Offset = { X = -40 Y = 0 }
-			Points =
-			[
-				{ X = -43 Y = 73 }
-				{ X = 73 Y = 13 }
-				{ X = -29 Y = -29 }
-				{ X = -138 Y = 25 }
 			]
 		}
 	}
@@ -875,6 +960,25 @@
 	}
 
 	{
+		Name = "NPC_Hades_Story_01"
+		InheritFrom = "NPC_Hades_Field_01"
+	}
+	{
+		Name = "NPC_Hades_02"
+		InheritFrom = "NPC_Hades_Field_01"
+		Thing = 
+		{
+			Graphic = "Hades_Unchained_Idle"
+			GrannyModel = "HadesEnding_Mesh"
+			Interact = 
+			{
+				OffsetX = 50.0
+				OffsetY = 50.0
+			}
+		}
+	}
+
+	{
 		Name = "NPC_Cerberus_01"
 		InheritFrom = "BaseNPC"
 		DisplayInEditor = true
@@ -886,7 +990,7 @@
 			Graphic = "Cerberus_Idle_Sitting"
 			Interact = 
 			{
-				Distance = 180.0
+				Distance = 300.0
 				OffsetX = 40.0
 				OffsetY = 50.0
 			}
@@ -911,7 +1015,9 @@
 		DisplayInEditor = true
 		Thing = 
 		{
+			DrawEmbeddedBehind = true
 			EditorOutlineDrawBounds = false
+			RotateGeometry= true
 			GrannyModel = "Cerberus_Mesh"
 			Graphic = "Cerberus_Idle_Laying"
 			Interact = 
@@ -920,17 +1026,34 @@
 				OffsetX = 30.0
 				OffsetY = -20.0
 			}
-			Points =
-			[
-				{ X = 195 Y = -81 }
-				{ X = 122 Y = -114 }
-				{ X = -17 Y = -126 }
-				{ X = -271 Y = -36 }
-				{ X = -289 Y = 23 }
-				{ X = -160 Y = 78 }
-				{ X = -48 Y = 76 }
-				{ X = 106 Y = 7 }
+			Tallness = 117
+			Offset = { X = 0 Y = 0 }
+			Points = [
+			  { X = 231 Y = -49 }
+			  { X = 102 Y = -79 }
+			  { X = -63 Y = -91 }
+			  { X = -213 Y = -79 }
+			  { X = -235 Y = 27 }
+			  { X = -83 Y = 55 }
+			  { X = 79 Y = 73 }
+			  { X = 258 Y = 80 }
+			  { X = 275 Y = 62 }
+			  { X = 274 Y = -14 }
 			]
+      }
+	}
+
+	{
+		Name = "NPC_Cerberus_Story_01"
+		InheritFrom = "NPC_Cerberus_Field_01"
+		Thing =
+		{
+			SortBoundsScale = 0.75
+			Interact = 
+			{
+				OffsetX = -50.0
+				Distance = 210.0
+			}
 		}
 	}
 	
@@ -949,14 +1072,14 @@
 			Tallness = 240.0
 			Points =
 			[
-				{ X = 69 Y = -16 }
-				{ X = 37 Y = -62 }
-				{ X = -33 Y = -61 }
-				{ X = -61 Y = -16 }
-				{ X = -26 Y = 11 }
-				{ X = 30 Y = 9 }
-			]
-		}
+				{ X = 62 Y = -14 }
+				{ X = 30 Y = -32 }
+				{ X = -40 Y = -31 }
+				{ X = -68 Y = 14 }
+				{ X = -33 Y = 41 }
+				{ X = 23 Y = 39 }
+        ]
+      }
 	}
 	
 	{
@@ -984,4 +1107,225 @@
 			]
 		}
 	}
+
+
+	/* -- @ ending */
+	{
+		Name = "NPC_Zagreus_Past_01"
+		InheritFrom = "BaseNPC"
+		DisplayInEditor = true
+		Speed = 640.0
+		StartGraphic = null
+		MoveGraphic = "Enemy_Zagreus_Spear_Run"
+		StopGraphic = "Enemy_Zagreus_Spear_RunStop"
+		Thing = 
+		{
+			AttachedAnim = "NPCShadow"
+			EditorOutlineDrawBounds = false
+			Graphic = "Zagreus_Idle"
+			GrannyModel = "ZagreusPast_Mesh"
+			Gravity = 0.0
+			Grip = 2500.0
+			Interact = 
+			{
+				Distance = 150
+				OffsetX = 50
+				OffsetY = -20
+			}
+			RotateGeometry = true
+			Tallness = 201
+			Offset = { X = 0 Y = 0 }
+			Points = [
+			  { X = 21 Y = 14 }
+			  { X = 34 Y = 8 }
+			  { X = -11 Y = -15 }
+			  { X = -25 Y = -8 }
+			]
+      }
+	}
+
+	{
+		Name = "NPC_Zagreus_01"
+		InheritFrom = "BaseNPC"
+		DisplayInEditor = true
+		Thing = 
+		{
+			AttachedAnim = "NPCShadow"
+			EditorOutlineDrawBounds = false
+			Graphic = "Zagreus_Idle"
+			GrannyModel = "ZagreusPresent_Mesh"
+			Tallness = 225.0
+			Points =
+			[
+				{ X = 4 Y = 26 }
+				{ X = 68 Y = -6 }
+				{ X = -8 Y = -44 }
+				{ X = -72 Y = -12 }
+			]
+			Interact =
+			{
+				Distance = 90
+				OffsetX = -80
+				OffsetY = 80
+			}
+		}
+	}
+	
+	{
+		Name = "NPC_Zeus_Story_01"
+		InheritFrom = "BaseNPC"
+		DisplayInEditor = true
+		FriendlyToPlayer = false 
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			EditorOutlineDrawBounds = false
+			GrannyModel = "Zeus_Mesh"
+			Graphic = "Zeus_Idle"
+			Tallness = 165.0
+			Interact = 
+			{
+				Distance = 130
+				OffsetX = -120
+				OffsetY = 90
+			}
+			Points =
+			[
+				{ X = 4 Y = 26 }
+				{ X = 68 Y = -6 }
+				{ X = -8 Y = -44 }
+				{ X = -72 Y = -12 }
+			]
+		}
+	}
+	{
+		Name = "NPC_Hera_Story_01"
+		InheritFrom = "BaseNPC"
+		DisplayInEditor = true
+		FriendlyToPlayer = false 
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			EditorOutlineDrawBounds = false
+			GrannyModel = "Hera_Mesh"
+			Graphic = "Hera_Idle"
+			Tallness = 165.0
+			Interact = 
+			{
+				Distance = 130
+				OffsetX = -120
+				OffsetY = 90
+			}
+			Points =
+			[
+				{ X = 4 Y = 26 }
+				{ X = 68 Y = -6 }
+				{ X = -8 Y = -44 }
+				{ X = -72 Y = -12 }
+			]
+		}
+	}
+	{
+		Name = "NPC_Apollo_Story_01"
+		InheritFrom = "BaseNPC"
+		DisplayInEditor = true
+		FriendlyToPlayer = false 
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			EditorOutlineDrawBounds = false
+			GrannyModel = "Apollo_Mesh"
+			Graphic = "Apollo_Singing_FireLoop"
+			Tallness = 165.0
+			Interact = 
+			{
+				Distance = 110
+				OffsetX = -20
+				OffsetY = 90
+			}
+			Points =
+			[
+				{ X = 4 Y = 26 }
+				{ X = 68 Y = -6 }
+				{ X = -8 Y = -44 }
+				{ X = -72 Y = -12 }
+			]
+		}
+	}
+	{
+		Name = "NPC_Demeter_Story_01"
+		InheritFrom = "BaseNPC"
+		DisplayInEditor = true
+		FriendlyToPlayer = false 
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			GrannyModel = "Demeter_Mesh"
+			Graphic = "Demeter_Idle"
+			Tallness = 165.0
+			Interact = 
+			{
+				Distance = 130
+				OffsetX = -120
+				OffsetY = 90
+			}
+			Points =
+			[
+				{ X = 4 Y = 26 }
+				{ X = 68 Y = -6 }
+				{ X = -8 Y = -44 }
+				{ X = -72 Y = -12 }
+			]
+		}
+	}
+	{
+		Name = "NPC_Persephone_01"
+		InheritFrom = "BaseNPC"
+		DisplayInEditor = true
+		FriendlyToPlayer = false 
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			EditorOutlineDrawBounds = false
+			GrannyModel = "PersephoneEnding_Mesh"
+			Graphic = "Persephone_Idle"
+			Tallness = 165.0
+			Points =
+			[
+				{ X = 4 Y = 26 }
+				{ X = 68 Y = -6 }
+				{ X = -8 Y = -44 }
+				{ X = -72 Y = -12 }
+			]
+		}
+	}
+	{
+		Name = "NPC_Melinoe_Story_01"
+		InheritFrom = "BaseNPC"
+		DisplayInEditor = true
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			EditorOutlineDrawBounds = false
+			GrannyModel = "YoungMel_Mesh"
+			Graphic = "Melinoe_Young_Idle_Chronos"
+			Tallness = 165.0
+			Points =
+			[
+				{ X = 4 Y = 26 }
+				{ X = 68 Y = -6 }
+				{ X = -8 Y = -44 }
+				{ X = -72 Y = -12 }
+			]
+			Interact =
+			{
+				AutoActivate = true
+				Distance = 170
+				OffsetX = -120
+				OffsetY = 150
+			}
+		}
+	}
+
+
 ]}

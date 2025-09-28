@@ -84,6 +84,7 @@ UnitSetData.Lycanthrope =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_1034", Text = "Lycaons...!" , PlayFirst = true },

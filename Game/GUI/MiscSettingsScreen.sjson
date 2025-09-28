@@ -2,69 +2,75 @@
   MiscSettingsScreen =
   {
     Platform = "default"
-    CloseSound = "/SFX/Menu Sounds/GodBoonMenuClose"
-    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
-    TransitionOnTime = 0.1
-    TransitionOffTime = 0.15
+    CloseSound = "/SFX/Menu Sounds/IrisMenuBack"
+    /* NOTE(Dexter) 2/7/2025 -- OpenSound procs on opening every sub-menu. Storing the effective OpenSound in NewUpdateSound
+       so that the SFX cue isn't hardcoded in-engine and remains configurable here. This only works for MiscSettingsScreen */
+    NewUpdateSound = "/SFX/Menu Sounds/IrisMenuOpen"
+    SelectionSound = "/SFX/Menu Sounds/IrisMenuToggle2"
+    TransitionOnTime = 0.3
+    TransitionOffTime = 0.35
     ForceShowCursor = true
     GamepadSelectionStyle = "FreeForm"
     FreeFormSelectGridLock = true
     FreeFormSelectInitialStepDistance = 24
     FreeFormSelectStepDistance = 16
     FreeFormSelectSuccessDistance = 8
-    FreeFormSelectSuccessDistanceStep = 2
+    FreeFormSelectSuccessDistanceStep = 4
     ItemsPerPage = 10
 
-	Back =
-	{
+    Back =
+    {
+      Width = 5120
+      Height = 1920
       Justification = "Left"
       VerticalJustification = "Top"
       Red = 0
       Green = 0
       Blue = 0
-      Width = 1920
-      Height = 1080
     }
 
     AnimatedBackground =
-	{
+    {
       X = 960
       Y = 540
-      Graphic = "GUI\Shell\Box_FullScreen"
+      Graphic = "ShellFullScreenIn"
       Scale = 0.98
       Justification = "Center"
       VerticalJustification = "Center"
     }
 
-    /*TitleText =
-	{
-      X = 960
-      Y = 180
+    /* NOTE(Dexter) This is the [  button  ] highlight, displaying which menu option is currently visible  */
+    ActiveMarker =
+    {
+      OffsetY = 0
+      Graphic = "Button_Secondary_HighlightOn"
       Justification = "Center"
       VerticalJustification = "Center"
-      DisplayNameId = "SettingsScreen_Options"
-      Font = "P22UndergroundSCLightTitling"      
-      FontSize = 40
-      TextRed = 0.87
-      TextGreen = 0.87
-      TextBlue = 0.87
-      TextOutlineRed = 0.1
-      TextOutlineGreen = 0.1
-      TextOutlineBlue = 0.1
-      OutlineThickness = 1
-      ShadowRed = 0.176
-      ShadowGreen = 0.184
-      ShadowBlue = 0.18
-      ShadowOffsetY = 2
-      ShadowAlpha = 0
-      ShadowBlur = 2
-    }*/
+      Scale = 1.00
+    }
 
-	/* Toggles */
+    /* NOTE(Dexter) This is the [  button  ]--------[ highlight, for when gamepad had focus on the sub-menu  */
+    CategoryFocusHighlight =
+    {
+      X = 435
+      Y = 220
+      Scale = 1.00
+      FadeTarget = 0
+      Graphic = "GUI\\Shell\\buttonSelected_highlight"
+    }
 
-	OptionToggleButton =
-	{
-      X = 1380
+    /* Toggles */
+
+    GenericOption =
+    {
+      FlashTextWhileSelected = false
+      FlashTextWhileSelectedColorChangeSpeed = 4.0
+    }
+
+    OptionToggleButton =
+    {
+      InheritFrom = "GenericOption"
+      X = 1560
       Y = 300
       Spacing = 45
       Justification = "Center"
@@ -74,67 +80,69 @@
       AddTextArea = true
       Font = "P22UndergroundSCMedium"
       FontSize = 22
-      TextRed = 0.8
-      TextGreen = 0.8
-      TextBlue = 0.8
-      SelectedTextRed = 0.85
-      SelectedTextGreen = 0.6
-      SelectedTextBlue = 0.25
+      TextRed = 0.55
+      TextGreen = 0.55
+      TextBlue = 0.55
+      SelectedTextRed = 0.25
+      SelectedTextGreen = 0.85
+      SelectedTextBlue = 0.59
       AddColor = true
       Red = 0
       Green = 0
       Blue = 0
-      SelectedRed = 0.2
-      SelectedGreen = 0.2
-      SelectedBlue = 0.2      
-      TextOffsetX = -720
-      Scale = 0.75
+      SelectedRed = 0.4
+      SelectedGreen = 0.4
+      SelectedBlue = 0.4      
+      TextOffsetX = -900
+      Scale = 1.00
       TextJustification = "Left"
-      ToggleOnSound = "/SFX/Menu Sounds/MirrorMenuStatIncrease"
-      ToggleOffSound = "/SFX/Menu Sounds/MirrorMenuStatLower"
+      ToggleOnSound = "/SFX/Menu Sounds/IrisMenuConfirm"
+      ToggleOffSound = "/SFX/Menu Sounds/IrisMenuBack"
       PressTopAnimation = "InvincibleHitSpark"
       FadeSpeed = 10.0
     }
 
-  OptionToggleButtonDebug =
-	{
+    OptionToggleButtonDebug =
+    {
       InheritFrom = "OptionToggleButton"
       TextRed = 0.8
       TextGreen = 0.3
       TextBlue = 0.3
     }
 
-	OptionNumBox =
-	{
-      X = 1380
+    OptionNumBox =
+    {
+      InheritFrom = "GenericOption"
+      X = 1365
       Y = 300
       Spacing = 45
       Justification = "Center"
       VerticalJustification = "Center"
-      Graphic = null
+      Graphic = "GUI\\Shell\\setttings_option_off"
       AddTextArea = true
       Font = "P22UndergroundSCMedium"
       FontSize = 22
-      TextRed = 0.8
-      TextGreen = 0.8
-      TextBlue = 0.8
-      SelectedTextRed = 0.85
-      SelectedTextGreen = 0.6
-      SelectedTextBlue = 0.25
-      DisabledTextRed = 0.2
-      DisabledTextGreen = 0.2
-      DisabledTextBlue = 0.2
+            TextRed = 0.55
+      TextGreen = 0.55
+      TextBlue = 0.55
+      SelectedTextRed = 0.25
+      SelectedTextGreen = 0.85
+      SelectedTextBlue = 0.59
+      DisabledTextRed = 0.18
+      DisabledTextGreen = 0.18
+      DisabledTextBlue = 0.18
       Red = 1
       Green = 1
       Blue = 1
       SelectedRed = 0.2
       SelectedGreen = 0.2
       SelectedBlue = 0.2
-      TextOffsetX = -720
+      TextOffsetX = -705
+      FreeFormSelectOffsetX = 200
       Scale = 0.85
       TextJustification = "Left"
-      ToggleOnSound = "/SFX/Menu Sounds/MirrorMenuStatIncrease"
-      ToggleOffSound = "/SFX/Menu Sounds/MirrorMenuStatLower"
+      ToggleOnSound = "/SFX/Menu Sounds/IrisMenuConfirm"
+      ToggleOffSound = "/SFX/Menu Sounds/IrisMenuBack"
       PressTopAnimation = "InvincibleHitSpark"
       FadeSpeed = 10.0
     }
@@ -147,34 +155,9 @@
       TextBlue = 0.3
   }
 
-  OptionRumbleTestButton =
-    {
-      X = 1380
-      Y = 205
-      Spacing = 0//45
-      //Y = 655
-      Graphic = "Button_Default"
-      UnderCursorOnAnimation = "Button_HighlightOn"
-      UnderCursorOffAnimation = "Button_HighlightOff"
-      PressAnimation = "Button_Press"
-      Justification = "Center"
-      VerticalJustification = "Center"
-      TextJustification = "Center"
-      Font = "P22UndergroundSCMedium"
-      FontSize = 22
-      TextRed = 0.8
-      TextGreen = 0.714
-      TextBlue = 0.588
-      TextOffsetY = 0
-      PressSound = "/SFX/Menu Sounds/GodBoonChoiceConfirm"
-      HelpTextId = "Test"
-      Width = 280
-      Height = 60
-      Scale = 0.55
-    }
-
 	OptionNumBoxValueText =
 	{
+      InheritFrom = "GenericOption"
       Justification = "Center"
       VerticalJustification = "Center"
       AddTextArea = true
@@ -183,12 +166,12 @@
       TextRed = 0.9
       TextGreen = 0.9
       TextBlue = 0.9
-      SelectedTextRed = 0.85
-      SelectedTextGreen = 0.6
-      SelectedTextBlue = 0.25
-      DisabledTextRed = 0.2
-      DisabledTextGreen = 0.2
-      DisabledTextBlue = 0.2
+      SelectedTextRed = 0.25
+      SelectedTextGreen = 0.85
+      SelectedTextBlue = 0.59
+      DisabledTextRed = 0.18
+      DisabledTextGreen = 0.18
+      DisabledTextBlue = 0.18
       AddColor = true
       Red = 0
       Green = 0
@@ -201,44 +184,44 @@
       TextJustification = "Center"
     }
 
-	OptionNumBoxLeftArrow =
-	{
-    Graphic = "Arrow_Left"
-	  SelectedGraphic = "Arrow_LeftHighlight"
-	  Scale = 0.5
-	  OffsetX = -50
+    OptionNumBoxLeftArrow =
+    {
+      Graphic = "Arrow_Left"
+      SelectedGraphic = "Arrow_LeftHighlight"
+      Scale = 0.5
+      OffsetX = -190
     }
 
-	OptionNumBoxRightArrow =
+    OptionNumBoxRightArrow =
     {
       Graphic = "Arrow_Right"
-	  SelectedGraphic = "Arrow_RightHighlight"
-	  Scale = 0.5
-	  OffsetX = 50
+      SelectedGraphic = "Arrow_RightHighlight"
+      Scale = 0.5
+      OffsetX = 190
     }
 
     OptionLongStringNumBoxLeftArrow =
     {
       InheritFrom = "OptionNumBoxLeftArrow"
-      OffsetX = -200
+      OffsetX = -190
     }
 
     OptionLongStringNumBoxRightArrow =
     {
       InheritFrom = "OptionNumBoxRightArrow"
-      OffsetX = 200
+      OffsetX = 190
     }
 
     OptionControlsStyleLeftArrow =
     {
       InheritFrom = "OptionNumBoxLeftArrow"
-      OffsetX = -160
+      OffsetX = -190
     }
 
     OptionControlsStyleRightArrow =
     {
       InheritFrom = "OptionNumBoxRightArrow"
-      OffsetX = 160
+      OffsetX = 190
     }
 
     OptionStringNumBoxLeftArrow =
@@ -246,7 +229,7 @@
       Graphic = "Arrow_Left"
       SelectedGraphic = "Arrow_LeftHighlight"
       Scale = 0.5
-      OffsetX = -85
+      OffsetX = -190
     }
 
     OptionStringNumBoxRightArrow =
@@ -254,12 +237,13 @@
       Graphic = "Arrow_Right"
       SelectedGraphic = "Arrow_RightHighlight"
       Scale = 0.5
-      OffsetX = 85
+      OffsetX = 190
     }
 
     OptionSlider =
     {
-      X = 1134
+      InheritFrom = "GenericOption"
+      X = 1330
       Y = 300
       ScrollSpeed = 0.4
       Spacing = 45
@@ -269,25 +253,25 @@
       AddTextArea = true
       Font = "P22UndergroundSCMedium"
       FontSize = 22
-      TextRed = 0.8
-      TextGreen = 0.8
-      TextBlue = 0.8
-      SelectedTextRed = 0.85
-      SelectedTextGreen = 0.6
-      SelectedTextBlue = 0.25
+            TextRed = 0.55
+      TextGreen = 0.55
+      TextBlue = 0.55
+      SelectedTextRed = 0.25
+      SelectedTextGreen = 0.85
+      SelectedTextBlue = 0.595
       Red = 1
       Green = 1
       Blue = 1
       SelectedRed = 0.2
       SelectedGreen = 0.2
-      SelectedBlue = 0.2
-      
-      TextOffsetX = -474
-      Scale = 1.0
+      SelectedBlue = 0.2      
+      TextOffsetX = -671
+      ScaleX = 0.88
       BackGraphic = "GUI\\Shell\\settings_bar_bg"
       FillGraphic = "GUI\\Shell\\settings_bar_fill"
-      ToggleOnSound = "/SFX/Menu Sounds/MirrorMenuStatIncrease"
-      ToggleOffSound = "/SFX/Menu Sounds/MirrorMenuStatLower"
+      SelectedGraphic = "GUI\\Shell\\settings_bar_highlight"
+      ToggleOnSound = "/SFX/Menu Sounds/IrisMenuConfirm"
+      ToggleOffSound = "/SFX/Menu Sounds/IrisMenuBack"
       TextJustification = "Left"
       Height = 50
       FlashMin = 0
@@ -316,9 +300,9 @@
       TextRed = 0.9
       TextGreen = 0.9
       TextBlue = 0.9
-      SelectedTextRed = 0.85
-      SelectedTextGreen = 0.6
-      SelectedTextBlue = 0.25
+      SelectedTextRed = 0.25
+      SelectedTextGreen = 0.85
+      SelectedTextBlue = 0.59
       AddColor = true
       Red = 0
       Green = 0
@@ -326,47 +310,46 @@
       Scale = 0.75
       SelectedRed = 0.2
       SelectedGreen = 0.2
-      SelectedBlue = 0.2
-      
-      TextOffsetX = 250
-      TextJustification = "Center"
+      SelectedBlue = 0.2      
+      TextOffsetX = 245
+      TextJustification = "Right"
     }
 
     OptionDropdown =
     {
-      X = 1380
+      InheritFrom = "GenericOption"
+      X = 1365
       Y = 300
       Spacing = 45
       Justification = "Center"
       VerticalJustification = "Center"
-      Graphic = null
+      Graphic = "GUI\\Shell\\setttings_option_off"
       AddTextArea = true
       Font = "P22UndergroundSCMedium"
       FontSize = 22
-      TextRed = 0.8
-      TextGreen = 0.8
-      TextBlue = 0.8
-      SelectedTextRed = 0.85
-      SelectedTextGreen = 0.6
-      SelectedTextBlue = 0.25
+            TextRed = 0.55
+      TextGreen = 0.55
+      TextBlue = 0.55
+      SelectedTextRed = 0.25
+      SelectedTextGreen = 0.85
+      SelectedTextBlue = 0.59
       Red = 1
       Green = 1
       Blue = 1
       SelectedRed = 0.2
       SelectedGreen = 0.2
-      SelectedBlue = 0.2
-      
-      TextOffsetX = -720
+      SelectedBlue = 0.2      
+      TextOffsetX = -705
       Scale = 0.85
       TextJustification = "Left"
-      ToggleOnSound = "/SFX/Menu Sounds/MirrorMenuStatIncrease"
-      ToggleOffSound = "/SFX/Menu Sounds/MirrorMenuStatLower"
+      ToggleOnSound = "/SFX/Menu Sounds/IrisMenuConfirm"
+      ToggleOffSound = "/SFX/Menu Sounds/IrisMenuBack"
       PressTopAnimation = "InvincibleHitSpark"
       FadeSpeed = 10.0
     }
 
     OptionDropdownValueText =
-	{
+    {
       Justification = "Center"
       VerticalJustification = "Center"
       AddTextArea = true
@@ -375,12 +358,12 @@
       TextRed = 0.9
       TextGreen = 0.9
       TextBlue = 0.9
-      SelectedTextRed = 0.85
-      SelectedTextGreen = 0.6
-      SelectedTextBlue = 0.25
-      DisabledTextRed = 0.2
-      DisabledTextGreen = 0.2
-      DisabledTextBlue = 0.2
+      SelectedTextRed = 0.25
+      SelectedTextGreen = 0.85
+      SelectedTextBlue = 0.59
+      DisabledTextRed = 0.18
+      DisabledTextGreen = 0.18
+      DisabledTextBlue = 0.18
       AddColor = true
       Red = 0
       Green = 0
@@ -399,30 +382,27 @@
       Graphic = "Arrow_Down"
 	    SelectedGraphic = "Arrow_DownHighlight"
 	    Scale = 0.5
-	    OffsetX = 100
+	    OffsetX = 185
     }
 
-	ActiveMarker =
-	{
-      OffsetX = -220
-      OffsetY = 0
-      Graphic = "OptionSelectorArrow"
-      Justification = "Center"
-      VerticalJustification = "Center"
-      Scale = 1
+    DefaultsResetConfirm =
+    {
+      X = 1567
+      Y = 500
+      Graphic = "Blank"
     }
 
     DescriptionBox =
-	{
+    {
       X = 660
-      Y = 820
+      Y = 860
       Justification = "Center"
       VerticalJustification = "Center"
       Font = "LatoMedium"
-      FontSize = 20
-      TextRed = 0.87
-      TextGreen = 0.87
-      TextBlue = 0.87
+      FontSize = 19
+      TextRed = 0.4
+      TextGreen = 0.52
+      TextBlue = 0.52
       TextOutlineRed = 0
       TextOutlineGreen = 0
       TextOutlineBlue = 0
@@ -434,8 +414,10 @@
       ShadowOffsetY = 3
       ShadowAlpha = 1
       ShadowBlur = 0
-      Width = 700
+      Width = 720
       Height = 300
+      LineSpacingBottom = 6
+      TextSymbolScale = 0.7
     }
 
     /* Controls */
@@ -464,7 +446,7 @@
       SelectedTextRed = 0.50
       SelectedTextGreen = 0.90
       SelectedTextBlue = 0.80
-      PressSound = "/SFX/Menu Sounds/DialoguePanelOut"
+      PressSound = "/SFX/Menu Sounds/IrisMenuToggle"
       FreeFormSelectable = false
     }
 
@@ -473,7 +455,7 @@
       InheritFrom = "CancelButton"
       OffsetX = -300
       DisplayNameId = "MiscSettingsScreen_Select"
-      PressSound = "/SFX/Menu Sounds/DialoguePanelOut"
+      PressSound = "/SFX/Menu Sounds/IrisMenuToggle"
     }
 
     DefaultsButton =
@@ -482,51 +464,43 @@
       OffsetX = -600
       DisplayNameId = "MiscSettingsScreen_RestoreDefaults"
       HelpTextId = "MiscSettingsScreen_RestoreDefaults"
-      PressSound = "/SFX/Menu Sounds/GodBoonChoiceConfirm"
-    }
-
-    // Rumble test buttons. Only active while GeneralRumbleMultiplier NumBox has focus, but are invisible
-    TestLightRumbleButton =
-    {
-      UseableWhenFadedOut = true
-    }
-
-    TestHeavyRumbleButton =
-    {
-      UseableWhenFadedOut = true
+      PressSound = "/SFX/Menu Sounds/IrisMenuConfirmBig"
     }
 
 	// Categories
 
-	CategoryOptionsButton =
-	{
+    CategoryOptionsButton =
+    {
       X = 435
-      Y = 180
+      Y = 220
       Graphic = "Button_Secondary"
-      UnderCursorOnAnimation = "Button_Secondary_HighlightOn"
-      UnderCursorOffAnimation = "Button_Secondary_HighlightOff"
-      PressAnimation = "Button_Secondary_HighlightOn"
+      SelectedGraphic = "GUI\\Shell\\buttonPartial_highlight"
+      PressAnimation = "Blank"
       Justification = "Center"
       VerticalJustification = "Center"
       TextJustification = "Center"
       Font = "P22UndergroundSCMedium"
       FontSize = 22
-      TextRed = 0.8
-      TextGreen = 0.714
-      TextBlue = 0.588
+      TextRed = 0.35
+      TextGreen = 0.351
+      TextBlue = 0.331
+      SelectedTextRed = 0.25
+      SelectedTextGreen = 0.85
+      SelectedTextBlue = 0.59
       TextOffsetY = 0
-      PressSound = "/SFX/Menu Sounds/DialoguePanelIn"
+      PressSound = "/SFX/Menu Sounds/IrisMenuSwitch"
       Width = 280
       Height = 40
-      ScaleX = 1.25
-      ScaleY = 0.9
+      ScaleX = 1.00
+      ScaleY = 1.00
+      OffsetY = 74
+    }
 
-      FlashSpeed = 3.5
-      FlashRed = 0.50
-      FlashGreen = 0.90
-      FlashBlue = 0.80
-      FlashMin = 0.0
-      FlashMax = 0.5
+    CategoryOptionsButtonDebug =
+    {
+      InheritFrom = "CategoryOptionsButton"
+      ScaleY = 0.9
+      OffsetY = 54
     }
 
     // UserAccessible Categories
@@ -540,122 +514,131 @@
       InheritFrom = "CategoryOptionsButton"
       AttachTo = "GameplayOptionsButton"
       DisplayNameId = "MiscSettingsScreen_ControlsOptions"
-      OffsetY = 54
     }
     InterfaceOptionsButton =
     {
       InheritFrom = "CategoryOptionsButton"
       AttachTo = "ControlsOptionsButton"
       DisplayNameId = "MiscSettingsScreen_InterfaceOptions"
-      OffsetY = 54
     }
     GraphicsOptionsButton =
     {
       InheritFrom = "CategoryOptionsButton"
       AttachTo = "InterfaceOptionsButton"
       DisplayNameId = "MiscSettingsScreen_DisplayOptions"
-      OffsetY = 54
     }
     AccessibilityOptionsButton =
     {
       InheritFrom = "CategoryOptionsButton"
       AttachTo = "GraphicsOptionsButton"
       DisplayNameId = "MiscSettingsScreen_AccessibilityOptions"
-      OffsetY = 54
     }
     AudioOptionsButton =
     {
       InheritFrom = "CategoryOptionsButton"
       AttachTo = "AccessibilityOptionsButton"
       DisplayNameId = "MiscSettingsScreen_AudioOptions"
-      OffsetY = 54
     }
     LanguageOptionsButton =
     {
       InheritFrom = "CategoryOptionsButton"
       AttachTo = "AudioOptionsButton"
       DisplayNameId = "MiscSettingsScreen_LanguageOptions"
-      OffsetY = 54
     }
     CreditsOptionsButton =
     {
       InheritFrom = "CategoryOptionsButton"
       AttachTo = "LanguageOptionsButton"
       DisplayNameId = "MiscSettingsScreen_CreditsOptions"
-      OffsetY = 54
     }
 
     // Non-UserAccessible Categories
     EditorOptionsButton =
-	{
-		InheritFrom = "CategoryOptionsButton"
-		AttachTo = "CreditsOptionsButton"
-		DisplayNameId = "MiscSettingsScreen_EditorOptions"
-        OffsetY = 54
+    {
+      InheritFrom = "CategoryOptionsButtonDebug"
+      AttachTo = "CreditsOptionsButton"
+      DisplayNameId = "MiscSettingsScreen_EditorOptions"
+      OffsetY = 70
     }
-	PerformanceOptionsButton =
-	{
-		InheritFrom = "CategoryOptionsButton"
-		AttachTo = "EditorOptionsButton"
-		DisplayNameId = "MiscSettingsScreen_PerformanceOptions"
-        OffsetY = 54
+    PerformanceOptionsButton =
+    {
+      InheritFrom = "CategoryOptionsButtonDebug"
+      AttachTo = "EditorOptionsButton"
+      DisplayNameId = "MiscSettingsScreen_PerformanceOptions"
     }
-	LoggingOptionsButton =
-	{
-		InheritFrom = "CategoryOptionsButton"
-		AttachTo = "PerformanceOptionsButton"
-		DisplayNameId = "MiscSettingsScreen_LoggingOptions"
-        OffsetY = 54
+    LoggingOptionsButton =
+    {
+      InheritFrom = "CategoryOptionsButtonDebug"
+      AttachTo = "PerformanceOptionsButton"
+      DisplayNameId = "MiscSettingsScreen_LoggingOptions"
     }
-	SavesOptionsButton =
-	{
-		InheritFrom = "CategoryOptionsButton"
-		AttachTo = "LoggingOptionsButton"
-		DisplayNameId = "MiscSettingsScreen_SavesOptions"
-        OffsetY = 54
+    SavesOptionsButton =
+    {
+      InheritFrom = "CategoryOptionsButtonDebug"
+      AttachTo = "LoggingOptionsButton"
+      DisplayNameId = "MiscSettingsScreen_SavesOptions"
     }
-	CheatsOptionsButton =
-	{
-		InheritFrom = "CategoryOptionsButton"
-		AttachTo = "SavesOptionsButton"
-		DisplayNameId = "MiscSettingsScreen_CheatsOptions"
-        OffsetY = 54
+    CheatsOptionsButton =
+    {
+      InheritFrom = "CategoryOptionsButtonDebug"
+      AttachTo = "GameplayOptionsButton"
+      DisplayNameId = "MiscSettingsScreen_CheatsOptions"
+      OffsetY = -70
     }
-	OverlayOptionsButton =
-	{
-		InheritFrom = "CategoryOptionsButton"
-		AttachTo = "CheatsOptionsButton"
-		DisplayNameId = "MiscSettingsScreen_OverlayOptions"
-        OffsetY = 54
+    OverlayOptionsButton =
+    {
+      InheritFrom = "CategoryOptionsButtonDebug"
+      AttachTo = "CheatsOptionsButton"
+      DisplayNameId = "MiscSettingsScreen_OverlayOptions"
+      OffsetY = -54
     }
-	DebugOptionsButton =
-	{
-		InheritFrom = "CategoryOptionsButton"
-		AttachTo = "OverlayOptionsButton"
-		DisplayNameId = "MiscSettingsScreen_DebugOptions"
-        OffsetY = 54
+    DebugOptionsButton =
+    {
+      InheritFrom = "CategoryOptionsButtonDebug"
+      AttachTo = "OverlayOptionsButton"
+      DisplayNameId = "MiscSettingsScreen_DebugOptions"
+      OffsetY = -54
     }
 
     UpArrow =
     {
-      X = 1500
+      X = 1650
       Y = 220
       Graphic = "GUI\Shell\UpArrow_Base"
       SelectedGraphic = "GUI\Shell\UpArrow_Highlight"
       Scale = 0.4
       AutoActivateWithGamepad = true
-      FreeFormSelectOffsetX = -120
+      FreeFormSelectOffsetX = -100
     }
 
     DownArrow =
     {
-      X = 1500
-      Y = 780
+      X = 1650
+      Y = 820
       Graphic = "GUI\Shell\DownArrow_Base"
       SelectedGraphic = "GUI\Shell\DownArrow_Highlight"
       Scale = 0.4
       AutoActivateWithGamepad = true
-      FreeFormSelectOffsetX = -120
+      FreeFormSelectOffsetX = -100
+    }
+
+    ScrollBar = {
+      X = 1650
+      Y = 520
+      Graphic = "GUI\Screens\ScrollbarDownUp"
+      ScaleY = 1.20
+      FreeFormSelectable = false
+    }
+    ScrollBarTracker = {
+      X = 1650
+      Y = 235
+      Graphic = "GUI\Screens\ScrollbarSlider"
+      SelectedGraphic = "GUI\Screens\ScrollbarSlider"
+      FreeFormSelectable = false
+      Scale = 0.25
+      MoveSpeed = 6
+      MoveEaseIn = 0.25 
+      MoveEaseOut = 0.75
     }
 
   }

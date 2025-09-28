@@ -11,13 +11,16 @@
 
 	-- Not allowed to quit after seeing otherwise hidden choices
 	InvalidateCheckpoint()
+	HideCombatUI( screenName )
 	
 	if spellItem ~= nil then
+		AddTimerBlock( CurrentRun, "OpenTalentScreen" )
 		LootPickupPresentation( spellItem )
 		RecordConsumableItem( spellItem )
 		MapState.RoomRequiredObjects[spellItem.ObjectId] = nil
 		SetAlpha({ Id = spellItem.ObjectId, Fraction = 0, Duration = 0 })
 		RemoveScreenEdgeIndicator( spellItem )
+		RemoveTimerBlock( CurrentRun, "OpenTalentScreen" )
 	end
 	
 	local screen = DeepCopyTable( ScreenData[screenName] )
@@ -29,7 +32,7 @@
 	local components = screen.Components
 
 	AltAspectRatioFramesShow()
-	HideCombatUI( screen.Name )
+	
 	OnScreenOpened( screen )
 	LoadVoiceBanks( { Name = "Selene" }, nil, true )
 
@@ -65,9 +68,6 @@
 	CreateScreenFromData( screen, screen.ComponentData )
 	
 	UpdateAdditionalTalentPointButton( screen )
-	SetColor({ Id = components.BackgroundTint.Id, Color = Color.Black })
-	SetAlpha({ Id = components.BackgroundTint.Id, Fraction = 0.0, Duration = 0 })
-	SetAlpha({ Id = components.BackgroundTint.Id, Fraction = 0.9, Duration = 0.5 })
 
 	if not traitData then
 		traitData = GetHeroTrait( CurrentRun.Hero.SlottedSpell.TraitName )
@@ -109,19 +109,23 @@
 		trait.CustomTrayText = trait.ZeroBonusTrayText
 	end
 
+	if CurrentRun.Hero.SlottedSpell.HasDuoTalent and CurrentRun.ScreenViewRecord[screenName] == 1 then
+		thread(FirstTimeDuoTalentPresentation, components.SpellBacking.Id )
+	end
 	-- Short delay to let animations finish and prevent accidental input
 	wait(0.5)
+	SetAlpha({ Id = components.TalentPointText.Id, Fraction = 1.0, Duration = 0.2 })
 	screen.KeepOpen = true
 	HandleScreenInput( screen )
 end
 
 function CreateTalentTreeIcons( screen, args )
 	args = args or {}
-	local offsetX = args.OffsetX or TalentTreeUIData.DefaultStartX + ScreenCenterNativeOffsetX
-	local offsetY = args.OffsetY or TalentTreeUIData.DefaultStartY + ScreenCenterNativeOffsetY
-	local xSpacer = args.XSpacer or TalentTreeUIData.DefaultTalentXSpacer
-	local ySpacer = args.YSpacer or TalentTreeUIData.DefaultTalentYSpacer
-	local scale = args.Scale or TalentTreeUIData.DefaultTalentScale
+	local offsetX = args.OffsetX or screen.DefaultStartX + ScreenCenterNativeOffsetX
+	local offsetY = args.OffsetY or screen.DefaultStartY + ScreenCenterNativeOffsetY
+	local xSpacer = args.XSpacer or screen.DefaultTalentXSpacer
+	local ySpacer = args.YSpacer or screen.DefaultTalentYSpacer
+	local scale = args.Scale or screen.DefaultTalentScale
 	local screenObstacle = args.ObstacleName or "BlankObstacle"
 	local components = screen.Components
 	local spellTalents = nil
@@ -144,15 +148,28 @@ function CreateTalentTreeIcons( screen, args )
 			local talentOffsetX = (talent.GridOffsetX or 0) * xSpacer
 			local talentOffsetY = (talent.GridOffsetY or 0) * ySpacer
 
-			local talentObject = CreateScreenComponent({ Name = screenObstacle, X = i * xSpacer + offsetX + talentOffsetX, Y = s * ySpacer + offsetY + talentOffsetY, Group = "Combat_Menu_Overlay", Scale = scale })
-			AttachLua({ Id = talentObject.Id, Table = talentObject })
+			local interactProperties = nil
+			if screenObstacle ~= "BlankObstacle" then
+				interactProperties =
+				{
+					TooltipOffsetX = ScreenCenterNativeOffsetX + screen.TooltipOffsetXStart - (i * xSpacer + offsetX + talentOffsetX),
+					TooltipOffsetY = ScreenCenterNativeOffsetY + screen.TooltipOffsetYStart - (s * ySpacer + offsetY + talentOffsetY),
+				}
+			end
+			local talentObject = CreateScreenComponent({
+					Name = screenObstacle, X = i * xSpacer + offsetX + talentOffsetX, Y = s * ySpacer + offsetY + talentOffsetY,
+					Group = "Combat_Menu_Overlay",
+					Scale = scale,
+					InteractProperties = interactProperties,
+					Alpha = 0.01,
+					AlphaTarget = 1.0,
+					AlphaTargetDuration = 0.6,
+			})
 			talentObject.Screen = screen
 			talentObject.OnMouseOverFunctionName = "MouseOverTalentButton"
 			talentObject.OnMouseOffFunctionName = "MouseOffTalentButton"
 			talentObject.LinkObjects = {}
 			if screenObstacle ~= "BlankObstacle" then
-				SetInteractProperty({ DestinationId = talentObject.Id, Property = "TooltipOffsetX", Value = ScreenCenterNativeOffsetX + screen.TooltipOffsetXStart - (i * xSpacer + offsetX + talentOffsetX) })
-				SetInteractProperty({ DestinationId = talentObject.Id, Property = "TooltipOffsetY", Value = ScreenCenterNativeOffsetY + screen.TooltipOffsetYStart - (s * ySpacer + offsetY + talentOffsetY) })
 				CreateTextBox({ Id = talentObject.Id,
 					OffsetX = 0, OffsetY = 0,
 					Font = "P22UndergroundSCHeavy",
@@ -161,8 +178,29 @@ function CreateTalentTreeIcons( screen, args )
 					UseDescription = true,
 				})
 			end
-			local talentFrameObject = CreateScreenComponent({ Name = "BlankObstacle", X = i * xSpacer + offsetX + talentOffsetX, Y = s * ySpacer + offsetY + talentOffsetY, Group = "Combat_Menu_Overlay", Scale = scale })
-			SetAnimation({ DestinationId = talentFrameObject .Id, Name = "BoonIcon_Frame_"..talent.Rarity })
+			local talentFrameObject = CreateScreenComponent({ Name = "BlankObstacle", X = i * xSpacer + offsetX + talentOffsetX, Y = s * ySpacer + offsetY + talentOffsetY,
+				Group = "Combat_Menu_Overlay",
+				Scale = scale,
+				Alpha = 0.0,
+				AlphaTarget = 1.0,
+				AlphaTargetDuration = 0.6,
+				})
+			if TraitData[talent.Name] and TraitData[talent.Name].IsDuoBoon then
+				SetAnimation({ DestinationId = talentFrameObject .Id, Name = "BoonIcon_Frame_Duo"})
+				talentObject.OverrideRarity = "Duo"
+				
+				local talentFrameOverlay = CreateScreenComponent({ Name = "BlankObstacle", X = i * xSpacer + offsetX + talentOffsetX, Y = s * ySpacer + offsetY + talentOffsetY,
+					Group = "Combat_Menu_Overlay_Additive",
+					Scale = scale,
+					Alpha = 0.0,
+					AlphaTarget = 1.0,
+					AlphaTargetDuration = 0.6,
+				})
+				SetAnimation({ Name = "ActiveTrait", DestinationId = talentFrameOverlay.Id, Scale = 2, })
+				table.insert( components.TalentFrameIds, talentFrameOverlay.Id)
+			else
+				SetAnimation({ DestinationId = talentFrameObject .Id, Name = "BoonIcon_Frame_"..talent.Rarity })
+			end
 			table.insert( components.TalentFrameIds, talentFrameObject .Id )
 			components.TalentFramesIdsDictionary[i.."_"..s] = talentFrameObject .Id
 			if not screen.ReadOnly then
@@ -189,32 +227,40 @@ function CreateTalentTreeIcons( screen, args )
 			local talentObject = components["TalentObject"..i.."_"..s]
 			talentObject.LinkObjects = {}
 			if talent.LinkTo then
-				for q, linkToIndex in pairs(talent.LinkTo) do
-					local linkObject = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_Overlay_Backing"})
+				for q, linkToIndex in pairs( talent.LinkTo ) do
+					local anim = nil
+					local linkGroupName = nil
+					if talent.Invested then
+						anim = "TalentTreeLineUnlocked"
+						linkGroupName = "Combat_Menu_Overlay_Additive"
+					else
+						anim = "TalentTreeLineLocked"
+						linkGroupName = "Combat_Menu_Overlay_Backing"
+					end
+					local linkObject = CreateScreenComponent({ Name = "BlankObstacle", Group = linkGroupName, Animation = anim,
+						DestinationId = components.TalentIdsDictionary[i.."_"..s], Attach = true,
+						Alpha = 0.0,
+						AlphaTarget = 1.0,
+						AlphaTargetDuration = 0.6,
+					})
 					table.insert( components.LinkObjects, linkObject.Id)
 					table.insert( talentObject.LinkObjects, linkObject.Id)
-					SetAnimation({ DestinationId = linkObject.Id, Name = "TalentTreeLink" })
-					Attach({ Id = linkObject.Id, DestinationId = components.TalentIdsDictionary[i.."_"..s] })
 					SetAngle({ Id = linkObject.Id, Angle = GetAngleBetween( { Id = linkObject.Id, DestinationId = components.TalentIdsDictionary[(i+1).."_"..linkToIndex] })})
-					SetScaleX({ Id = linkObject.Id, Fraction = GetDistance({ Id = linkObject.Id, DestinationId = components.TalentIdsDictionary[(i+1).."_"..linkToIndex]}) / 200 })
-					if talent.Invested then
-						SetAlpha({ Id = linkObject.Id, Fraction = 1, Duration = 0.0 })
-					else
-						SetAlpha({ Id = linkObject.Id, Fraction = screen.UnusableArrowAlpha, Duration = 0.0 })
-					end
+					SetScaleX({ Id = linkObject.Id, Fraction = GetDistance({ Id = linkObject.Id, DestinationId = components.TalentIdsDictionary[(i+1).."_"..linkToIndex]}) / 200 })			
 				end
 			end
 		end
 	end
 end
 
-function UpdateAdditionalTalentPointButton(	screen )
+function UpdateAdditionalTalentPointButton(	screen, args )
+	args = args or {}
 	local components = screen.Components		
 	if screen.ReadOnly then
 		return
 	else
-		SetAlpha({ Ids = { components.TalentPointText.Id, components.AvailablePointsTitle.Id} , Fraction = 1, Duration = 0.2 })
 		ModifyTextBox({ Id = components.TalentPointText.Id, Text = ( CurrentRun.NumTalentPoints + 1 ) })
+		CreateAnimation({ Name = "TalentPointsChangeFx", DestinationId = components.TalentPointText.Id, GroupName = "Combat_Menu_Overlay_Additive", OffsetY = 75 })
 	end
 end
 
@@ -230,6 +276,15 @@ function UpdateTalentButtons( screen, skipUsableCheck )
 	local firstUsable = skipUsableCheck
 	screen.AllInvested = true
 
+	local startingAlpha = 0.0
+	if skipUsableCheck then
+		startingAlpha = 1.0
+	end
+
+	local colorWhiteIds = {}
+	local talentPriorSelectedIds = {}
+	local talentInactiveIds = {}
+
 	for i, column in ipairs( CurrentRun.Hero.SlottedSpell.Talents ) do
 		for s, talent in pairs( column ) do
 			local talentObject = components["TalentObject"..i.."_"..s]
@@ -243,35 +298,50 @@ function UpdateTalentButtons( screen, skipUsableCheck )
 					end
 				end
 			end
+			if not hasPreRequisites and talentObject.Data.LinkTo and talentObject.Data.Bidirectional then
+				for _, preReqIndex in pairs( talentObject.Data.LinkTo ) do
+					if components["TalentObject"..(i+1).."_"..preReqIndex] and ( components["TalentObject"..(i+1).."_"..preReqIndex].Data.Invested or components["TalentObject"..(i+1).."_"..preReqIndex].Data.QueuedInvested ) then
+						-- if any are invested, this becomes valid
+						hasPreRequisites = true
+					end
+				end
+			end
 			if not hasPreRequisites and talentObject.Data.QueuedInvested then
 				talentObject.Data.QueuedInvested = nil		
 				CurrentRun.NumTalentPoints = CurrentRun.NumTalentPoints + 1
 			end
 			
-			SetColor({ Id = talentObject.Id, Color = Color.White })
+			table.insert( colorWhiteIds, talentObject.Id )
 			if talentObject.BadgeId then
-				Destroy({Id = talentObject.BadgeId})
+				Destroy({ Id = talentObject.BadgeId })
 				talentObject.BadgeId = nil
 			end
 			if talentObject.Data.Invested or talentObject.Data.QueuedInvested then
-				local animation = CreateScreenComponent({ Name = "BlankObstacle", Group = "Overlay" })
-				
-				SetAnimation({ DestinationId = animation.Id, Name = "TalentInvested"})
+				local animation = CreateScreenComponent({ Name = "BlankObstacle",
+					Group = screen.ComponentData.DefaultGroup, Scale = screen.DefaultTalentScale,
+					Animation = "TalentTreeIconsUnlocked",
+					DestinationId = talentObject.Id, Attach = true,
+					Alpha = startingAlpha,
+					AlphaTarget = 1.0,
+					AlphaTargetDuration = 0.6,
+				})				
 				talentObject.BadgeId = animation.Id
-				Attach({ Id = animation.Id, DestinationId = talentObject.Id})
-				for _, linkId in pairs (talentObject.LinkObjects) do
-					SetAlpha({ Id = linkId, Fraction = 1, Duration = 0.2 })
+				for _, linkId in pairs( talentObject.LinkObjects ) do
+					SetAnimation({ DestinationId = linkId, Name = "TalentTreeLineUnlocked" })
 				end
-				SetColor({ Id = talentObject.Id, Color = Color.TalentPriorSelected })
-				SetColor({ Id = talentObject.BadgeId, Color = Color.TalentPriorSelected })
-				
+				table.insert( talentPriorSelectedIds, talentObject.Id )
 			elseif not talentObject.Data.Invested then
 				screen.AllInvested = false
 				if hasPreRequisites then
 					talentObject.Valid = true
-					local animation = CreateScreenComponent({ Name = "BlankObstacle", Group = "Overlay", Scale = TalentTreeUIData.DefaultOverlayScale })
-					SetAnimation({ DestinationId = animation.Id, Name = "TalentValidHighlight" })
-					Attach({ Id = animation.Id, DestinationId = talentObject.Id })
+					local animation = CreateScreenComponent({ Name = "BlankObstacle",
+						Group = screen.ComponentData.DefaultGroup, Scale = screen.DefaultTalentScale,
+						Animation = "TalentTreeIconsLocked",
+						DestinationId = talentObject.Id, Attach = true,
+						Alpha = startingAlpha,
+						AlphaTarget = 1.0,
+						AlphaTargetDuration = 0.6,
+					})
 					talentObject.BadgeId = animation.Id
 					if not firstUsable then
 						firstUsable = true
@@ -280,19 +350,20 @@ function UpdateTalentButtons( screen, skipUsableCheck )
 					end
 				else
 					-- off and unusable
-					SetColor({ Id = talentObject.Id, Color = Color.TalentInactive })
-					--local animation = CreateScreenComponent({ Name = "BlankObstacle", Group = "Overlay", Scale = TalentTreeUIData.DefaultOverlayScale })
-					--SetAnimation({ DestinationId = animation.Id, Name = "LockedTalent" })
-					--talentObject.BadgeId = animation.Id
-					--Attach({ Id = animation.Id, DestinationId = talentObject.Id })
+					table.insert( talentInactiveIds, talentObject.Id )
 				end
 				
-				for _, linkId in pairs (talentObject.LinkObjects) do
-					SetAlpha({ Id = linkId, Fraction = screen.UnusableArrowAlpha, Duration = 0.2 })
+				for _, linkId in pairs( talentObject.LinkObjects ) do
+					SetAnimation({ DestinationId = linkId, Name = "TalentTreeLineLocked" })
 				end
 			end
 		end
 	end
+
+	SetColor({ Ids = colorWhiteIds, Color = Color.White })
+	SetColor({ Ids = talentPriorSelectedIds, Color = screen.TalentPriorSelected })
+	SetColor({ Ids = talentInactiveIds, Color = screen.TalentInactive })
+
 end
 
 function MouseOverTalentButton( button )
@@ -324,15 +395,26 @@ function HighlightTalentButton( button )
 	newTraitData.ForBoonInfo = true
 	SetTraitTextData( newTraitData )
 	ModifyTextBox({ Id = button.Id, Text = button.Data.Name, UseDescription = true, LuaKey = "TooltipData", LuaValue = newTraitData })
-	if newTraitData.StatLines then
+	if newTraitData.StatLines or ( newTraitData.CustomStatLinesWithShrineUpgrade ~= nil and GetNumShrineUpgrades( newTraitData.CustomStatLinesWithShrineUpgrade.ShrineUpgradeName ) > 0 ) then
 		SetAlpha({ Id = components.StatLineLeft.Id, Fraction = 1, Duration = 0.2 })
 		SetAlpha({ Id = components.StatLineRight.Id, Fraction = 1, Duration = 0.2 })
+		if (newTraitData.StatLines and TableLength(newTraitData.StatLines) > 1) 
+			or ( newTraitData.CustomStatLinesWithShrineUpgrade and GetNumShrineUpgrades( newTraitData.CustomStatLinesWithShrineUpgrade.ShrineUpgradeName ) > 0 and TableLength(newTraitData.CustomStatLinesWithShrineUpgrade) > 1) then
+			SetAlpha({ Id = components.StatLineLeft2.Id, Fraction = 1, Duration = 0.2 })
+			SetAlpha({ Id = components.StatLineRight2.Id, Fraction = 1, Duration = 0.2 })
+		else
+			SetAlpha({ Id = components.StatLineLeft2.Id, Fraction = 0, Duration = 0.2 })
+			SetAlpha({ Id = components.StatLineRight2.Id, Fraction = 0, Duration = 0.2 })
+		end
 	else
 		SetAlpha({ Id = components.StatLineLeft.Id, Fraction = 0, Duration = 0.2 })
 		SetAlpha({ Id = components.StatLineRight.Id, Fraction = 0, Duration = 0.2 })
+		SetAlpha({ Id = components.StatLineLeft2.Id, Fraction = 0, Duration = 0.2 })
+		SetAlpha({ Id = components.StatLineRight2.Id, Fraction = 0, Duration = 0.2 })
 	end
-	SetTraitTrayDetails( { TraitData = newTraitData, ForBoonInfo = true, DetailsBox = components.DetailsBacking, RarityBox = components.RarityBox, 
-		StatLines = {{ components.StatLineLeft.Id, components.StatLineRight.Id }}, TitleBox = components.TitleBox, Icon = components.TalentIcon })
+	
+	SetTraitTrayDetails( { Button = button, TraitData = newTraitData, ForBoonInfo = true, DetailsBox = components.DetailsBacking, RarityBox = components.RarityBox, 
+		StatLines = {{ components.StatLineLeft.Id, components.StatLineRight.Id }, { components.StatLineLeft2.Id, components.StatLineRight2.Id }}, TitleBox = components.TitleBox, Icon = components.TalentIcon })
 	SetAnimation({ DestinationId = components.TalentFrame.Id, Name = GetTraitFrame( newTraitData) })
 	PlaySound({ Name = "/SFX/Menu Sounds/VictoryScreenBoonToggle", Id = button.Id })
 end
@@ -352,6 +434,7 @@ function OnTalentPressed( screen, button )
 	elseif button.Valid then	
 		screen.SelectedTalent =  selectedTalent
 		PlaySound({ Name = "/SFX/Menu Sounds/VictoryScreenBoonPin", Id = components.TalentPin.Id })
+		CreateAnimation({ Name = "HexReadyFlashTalent", DestinationId = button.Id, GroupName = "Combat_Menu_TraitTray_Overlay_Additive", Scale = (screen.DefaultTalentScale * 1.5) })	
 		TryCloseTalentTree( screen, button )
 		UpdateTalentContextualAction( button )
 	else
@@ -390,12 +473,18 @@ function TryCloseTalentTree( screen, button )
 	end
 
 	SetAlpha({ Id = components.TalentHover.Id, Fraction = 0, Duration = 0.2 })
+	screen.AddedTraitNames = {}
 	for _, talentInfo in pairs( screen.QueuedTalents ) do
-		talentInfo.Invested = true	
+		talentInfo.Invested = true
+		
+		local baseTraitData = TraitData[talentInfo.Name]
+		if baseTraitData.IsDuoBoon then
+			CurrentRun.Hero.SlottedSpell.ObtainedDuoTalent = true
+		end
+		screen.AddedTraitNames[talentInfo.Name] = true
 		if HeroHasTrait( talentInfo.Name ) then
 			local traitData = GetHeroTrait( talentInfo.Name )
 			IncreaseTraitLevel( traitData )
-			local baseTraitData = TraitData[talentInfo.Name]
 			if baseTraitData.AcquireFunctionName then
 				thread( CallFunctionName, baseTraitData.AcquireFunctionName, baseTraitData.AcquireFunctionArgs, traitData )
 			end
@@ -406,19 +495,30 @@ function TryCloseTalentTree( screen, button )
 	SetConfigOption({ Name = "FreeFormSelectWrapY", Value = false })
 	SetConfigOption({ Name = "ExclusiveInteractGroup", Value = nil })
 	UpdateTalentPointInvestedCache()
+	wait( 0.3 ) -- Let confirm animation play
+	SetAnimation({ Name = "TalentScreenOut", DestinationId = screen.Components.BackgroundImage.Id })
 	OnScreenCloseStarted( screen )
 
 	if screen.Source and screen.Source.DestroySourceOnClose then
 		Destroy({ Id = screen.Source.ObjectId })
 	end
 
-	Destroy({ Ids = components.TalentIds})
-	Destroy({ Ids = components.TalentFrameIds})
-	Destroy({ Ids = components.LinkObjects })
-	CloseScreen( GetAllIds( screen.Components ), 0.25 )
+	local ids = GetAllIds( screen.Components )
+	ConcatTableValues( ids, components.TalentIds )
+	ConcatTableValues( ids, components.TalentFrameIds )
+	ConcatTableValues( ids, components.LinkObjects )
+	for i, column in ipairs( CurrentRun.Hero.SlottedSpell.Talents ) do
+		for s, talent in pairs( column ) do
+			local talentObject = components["TalentObject"..i.."_"..s]
+			if talentObject ~= nil and talentObject.BadgeId ~= nil then
+				table.insert( ids, talentObject.BadgeId )
+			end
+		end
+	end
+	CloseScreen( ids, nil, screen, { CloseDestroyWait = 0.5 } )
 	AltAspectRatioFramesHide()
 	if not screen.ReadOnly then
-		CloseTalentScreenPresentation( screen )
+		TalentScreenCloseFinishedPresentation( screen )
 		if HeroHasTrait("SpellTalentKeepsake") then
 			local traitData = GetHeroTrait("SpellTalentKeepsake")
 			traitData.CustomTrayText = traitData.ZeroBonusTrayText
@@ -440,6 +540,7 @@ function TryCloseTalentTree( screen, button )
 	if screen.ReadOnly then
 		ShowTraitTrayScreen( { AutoPin = false } )
 	else
+		notifyExistingWaiters( UIData.TalentMenuId )
 		wait( 0.2, RoomThreadName )
 		if CheckRoomExitsReady( CurrentRun.CurrentRoom ) then
 			UnlockRoomExits( CurrentRun, CurrentRun.CurrentRoom )

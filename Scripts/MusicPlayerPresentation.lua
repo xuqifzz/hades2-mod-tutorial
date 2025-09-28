@@ -8,31 +8,25 @@ function MouseOverMusicPlayerItem( button )
 	
 	local components = button.Screen.Components
 	screen.SelectedItem = button
+	screen.ClipboardText = button.Data.Name
 
-	SetAnimation({ DestinationId = button.Id, Name = button.HighlightAnimation })
+	SetAnimation({ DestinationId = button.Id, Name = button.MouseOverAnimation })
 	PlaySound({ Id = button.Id, Name = "/SFX/Menu Sounds/DialoguePanelOutMenu" })
 
 	SetAlpha({ Id = components.InfoBoxBacking.Id, Fraction = 1.0, Duration = 0.2 })
-	ModifyTextBox({ Id = components.InfoBoxDescription.Id,
+	ModifyTextBox({
+		Id = components.InfoBoxDescription.Id,
 		Text = button.Data.Name,
 		UseDescription = true,
 		FadeTarget = 1.0,
 	})
-	--[[
-	ModifyTextBox({ Id = components.InfoBoxFlavor.Id,
-		Text = button.Data.Name.."_Flavor",
-		UseDescription = true,
-		FadeTarget = 1.0,
-	})
-	]]--
 
 	if not button.Purchased then
 		SetAlpha({ Id = components.ResourceCostBacking.Id, Fraction = 1.0, Duration = 0.2 })
 		AddResourceCostDisplay( button.Screen, button.Data.Cost, button.Screen.CostDisplay, button.Data )
 	end
 
-	local newButtonKey = "NewIcon"..button.Index
-	SetAlpha({ Id = button.NewButtonId, Fraction = 0, Duration = 0.2 })
+	SetAlpha({ Id = button.NewIconId, Fraction = 0, Duration = 0.2 })
 	CurrentRun.WorldUpgradesViewed[button.Data.Name] = true
 	GameState.WorldUpgradesViewed[button.Data.Name] = true
 	
@@ -40,11 +34,12 @@ function MouseOverMusicPlayerItem( button )
 end
 
 function MouseOffMusicPlayerItem( button )
+
 	local screen = button.Screen
 	local components = button.Screen.Components
-	screen.SelectedItem = nil
 
-	SetAnimation({ DestinationId = button.Id, Name = button.Animation })
+	SetAnimation({ DestinationId = button.Id, Name = button.NeutralAnimation })
+	screen.SelectedItem = nil
 
 	SetAlpha({ Id = components.ResourceCostBacking.Id, Fraction = 0.0, Duration = 0.2 })
 	SetAlpha({ Id = components.InfoBoxBacking.Id, Fraction = 0.0, Duration = 0.2 })
@@ -59,7 +54,7 @@ end
 
 function MusicPlayerItemPurchasedPresentation( button )
 	PlaySound({ Name = "/SFX/Menu Sounds/ContractorItemPurchase" })
-	CreateAnimation({ Name = "ContractorSlotPurchase", DestinationId = button.Screen.Components["PurchaseButton".. button.Index].Id, OffsetX = 0 })
+	CreateAnimation({ Name = "ContractorSlotPurchase", DestinationId = button.Id, OffsetX = 0 })
 end
 
 function MusicPlayerPurchasePreActivatePresentation( screen, button, saleData )
@@ -68,13 +63,19 @@ function MusicPlayerPurchasePreActivatePresentation( screen, button, saleData )
 	AddInputBlock({ Name = "ActivateCosmeticPresentation" })
 	MapState.CosmeticPresentationActive = true
 
-	PanCamera({ Id = screen.OpenedFrom.ObjectId, Duration = 1.0, EaseIn = 0.05, EaseOut = 0.3, Retarget = true, FromCurrentLocation = true })
+	PanCamera({ Id = screen.OpenedFrom.ObjectId, Duration = 1.0, EaseIn = 0.03, EaseOut = 0.03, Retarget = true, FromCurrentLocation = true })
 	FocusCamera({ Fraction = 1.3, Duration = 1.0, ZoomType = "Ease" })
 
-	thread( PlayVoiceLines, saleData.PreRevealVoiceLines or GlobalVoiceLines[saleData.PreRevealGlobalVoiceLines] or GlobalVoiceLines.MusicPlayerGlobalVoiceLines )
-	--SetAnimation({ DestinationId = focusId, Name = "Bard_Begin_Song" })
+	local artemisAlreadySuppressed = ( CurrentRun.SuppressAmbientMusic == "Artemis" )
+	thread( PlayVoiceLines, saleData.PreRevealVoiceLines or GlobalVoiceLines.MusicPlayerGlobalVoiceLines, nil, nil, { PurchasingSong = true, ArtemisAlreadySuppressed = artemisAlreadySuppressed } )
 
-	wait( 0.5 )
+	for i, resourceName in ipairs( ResourceDisplayOrderData ) do
+		if saleData.Cost[resourceName] then
+			SpendResource( resourceName, saleData.Cost[resourceName], saleData.Name, { TextOffsetY = screen.ResourceSpendTextOffsetY } )
+			PlaySound({ Name = "/SFX/CauldronIngredientSizzle", Id = CurrentRun.Hero.ObjectId })
+			wait( 0.6 )
+		end
+	end
 	
 end
 
@@ -99,47 +100,69 @@ end
 function UpdateMusicPlayerInteractionText( screen, button )
 
 	local components = screen.Components
-	
-	if button ~= nil and button.Data ~= nil then
 
-		if button.Purchased or ( button.Data.Cost ~= nil and HasResources( button.Data.Cost ) ) then
-			SetAlpha({ Id = components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
-			if button.Purchased then
-				if GameState.MusicPlayerSongName == button.Data.Name then
-					ModifyTextBox({ Id = components.SelectButton.Id, Text = "Menu_MusicPlayerPause"})
-				else
-					ModifyTextBox({ Id = components.SelectButton.Id, Text = "Menu_MusicPlayerPlay"})
-				end
-			else
-				ModifyTextBox({ Id = components.SelectButton.Id, Text = "Menu_MusicPlayerPurchase"})
-			end
-		else
-			SetAlpha({ Id = components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
-		end
-
-		if not button.Purchased and GameState.WorldUpgrades.WorldUpgradePinning then
-			SetAlpha({ Id = components.PinButton.Id, Fraction = 1.0, Duration = 0.2 })
-		else
-			SetAlpha({ Id = components.PinButton.Id, Fraction = 0.0, Duration = 0.2 })
-		end
-
-	else
+	if button == nil or button.Data == nil then
 		SetAlpha({ Id = components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
 		SetAlpha({ Id = components.PinButton.Id, Fraction = 0.0, Duration = 0.2 })
+	elseif not button.Purchased then
+		SetAlpha({ Id = components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
+		ModifyTextBox({ Id = components.SelectButton.Id, Text = components.SelectButton.Text })
+		if GameState.WorldUpgrades.WorldUpgradePinning then
+			SetAlpha({ Id = components.PinButton.Id, Fraction = 1.0, Duration = 0.2 })
+		end
+	else
+		SetAlpha({ Id = components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
+		if GameState.MusicPlayerSongName == button.Data.Name then
+			ModifyTextBox({ Id = components.SelectButton.Id, Text = components.SelectButton.AltTexts[1] })
+		else
+			ModifyTextBox({ Id = components.SelectButton.Id, Text = components.SelectButton.AltTexts[2] })
+		end
+		SetAlpha({ Id = components.PinButton.Id, Fraction = 0.0, Duration = 0.2 })
 	end
+
 end
 
 function MusicPlayerPlaySongPresentation( source, button )
 	if button ~= nil then
 		PlaySound({ Name = "/Leftovers/SFX/LightOn", Id = button.Id })
 	end
-	StopAnimation({ Name = "StatusSinging", DestinationId = source.ObjectId })
-	CreateAnimation({ Name = "StatusSinging", DestinationId = source.ObjectId, OffsetX = -80, OffsetY = -120, })
+
+	StopAnimation({ Name = "StatusSingingMusicPlayer", DestinationId = source.ObjectId })
+	CreateAnimation({ Name = "StatusSingingMusicPlayer", DestinationId = source.ObjectId, OffsetX = -80, OffsetY = -120, })
+
+	local songData = WorldUpgradeData[GameState.MusicPlayerSongName]
+	if songData ~= nil then
+		if songData.Rocking then
+			SetAnimation({ DestinationId = source.ObjectId, Name = "ShadeBard_Rocking_Start" })
+		else
+			SetAnimation({ DestinationId = source.ObjectId, Name = "ShadeBard_Playing_Start" })
+		end
+	end
 end
 
 function MusicPlayerStopSongPresentation( source, button )
 	if button ~= nil then
 		PlaySound({ Name = "/Leftovers/SFX/GeneralWhooshReverse2", Id = button.Id })
 	end
-	StopAnimation({ Name = "StatusSinging", DestinationId = source.ObjectId })
+	StopAnimation({ Name = "StatusSingingMusicPlayer", DestinationId = source.ObjectId })
+
+	local songData = WorldUpgradeData[GameState.MusicPlayerSongName]
+	if songData ~= nil then
+		if songData.Rocking then
+			SetAnimation({ DestinationId = source.ObjectId, Name = "ShadeBard_Rocking_End" })
+		else
+			SetAnimation({ DestinationId = source.ObjectId, Name = "ShadeBard_Playing_End" })
+		end
+	end
+end
+
+function MusicPlayerShufflePresentation( source, button )
+	if button ~= nil then
+		PlaySound({ Name = "/Leftovers/SFX/LightOn", Id = button.Id })
+	end
+	CreateAnimation({ Name = "SkillProcFeedbackFx", DestinationId = button.IconId })
+	local artemisAlreadySuppressed = ( CurrentRun.SuppressAmbientMusic == "Artemis" )
+	thread( PlayVoiceLines, HeroVoiceLines.PlayRandomMusicVoiceLines, true, nil, { ArtemisAlreadySuppressed = artemisAlreadySuppressed } )
+	SetAlpha({ Id = source.Components.ShuffleButton.Id, Fraction = 0.0 })
+	SetAlpha({ Id = source.Components.ShuffleButton.Id, Fraction = 1.0, Duration = 1.5, EaseOut = 1.0 })
 end

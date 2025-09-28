@@ -449,7 +449,6 @@
     {
       Name = "_Impassable_Long"
       InheritFrom = "BaseImpassable"
-      CollisionVelocityRetention = 0.5
       DisplayInEditor = true
       Thing = 
       {
@@ -1284,6 +1283,43 @@
       }
     }
     
+    {
+      Name = "3DDiscoBall_SkipEncounter"
+      InheritFrom = "3DDiscoBall"
+      Thing = {
+        Graphic = "DiscoBallRotate_SkipEncounter"
+      }
+    }
+
+    {
+      Name = "3DMelinoe_Sleep"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        GrannyModel = "Melinoe_Mesh"
+        Graphic = "Melinoe_Sleep_Loop"
+      }
+    }
+
+    {
+      Name = "3DWeaponGigaros"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        StopsLight = false
+        GrannyModel = "WeaponGigaros_Mesh"
+        Graphic = "3DWeaponGigaros_PoseFlat"
+        Interact = 
+        {
+          Distance = 200.0
+          OffsetX = 40
+        }
+      }
+    }
 
   ]
 }

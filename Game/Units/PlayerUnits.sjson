@@ -16,27 +16,22 @@
 	{
 		Name = "_PlayerUnit"
 		InheritFrom = "1_BasePlayerUnit"
-		BackpedalSpeedModifier = 0.34
 		CosmeticRotationSpeed = 1340
 		DisplayInEditor = true
 		FinishMoveAnimationOnIdle = false
 		Magnetism = 1.0
 		MaxUseZ = 10.0
 		MoveGraphic = "MelinoeRun"
-		PriorityWeapon = "RushWeapon"
 		RotationSpeed = 216000.00
 		Speed = 540.0
 		StartGraphic = "MelinoeStart"
 		StopGraphic = "MelinoeStop"
 		TouchdownVelocityRetention = 0.7
-		CanVelocityBeAbsorbed = false
 		StopShiftOnCollision = false
 		TraitorsTreatAsFriendly = true
 		Life =
 		{
 			LobReflectionSpeedMultiplier = 1.5
-			ProjectileHealCap = 100.0
-			ProjectileHealModifier = 0.1
 			ReflectionSpeedMultiplier = 3.0
 			TriggerOnHit = true
 			HomingEligible = true

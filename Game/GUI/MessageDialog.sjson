@@ -6,7 +6,7 @@
     TransitionOffTime = 0.25
     OpenSound = "/SFX/Menu Sounds/HadesLocationTextAppear"
     CloseSound = "null"
-    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    SelectionSound = "/SFX/Menu Sounds/IrisMenuToggle2"
     ForceShowCursor = true
     GamepadCursorControl = true
 
@@ -18,7 +18,7 @@
       Green = 0
       Blue = 0
       Width = 5120
-      Height = 1440
+      Height = 1920
       Alpha = 0.8
     }
 
@@ -34,12 +34,13 @@
     TitleText =
     {
       X = 960
-      Y = 310
+      Y = 300
+      Width = 930
       Justification = "Center"
       VerticalJustification = "Center"
       Font = "P22UndergroundSCMedium"
-      
-      FontSize = 40
+      FontSize = 37
+      LineSpacingBottom = -25
       TextRed = 0.87
       TextGreen = 0.87
       TextBlue = 0.87
@@ -53,15 +54,15 @@
       ShadowBlur = 0
       ShadowOffsetY = 4
       OutlineThickness = 3
-      NonEnglishScaleModifier = 1.0
+      
     }
 
     MessageText =
     {
       X = 580
-      Y = 430
+      Y = 375
       Justification = "Left"
-      VerticalJustification = "Center"
+      VerticalJustification = "Top"
       Font = "LatoMedium"
       FontSize = 26
       TextSymbolScale = 0.8
@@ -88,7 +89,7 @@
       ShadowBlur = 0
       ShadowOffsetY = 4
       OutlineThickness = 4
-      NonEnglishScaleModifier = 1.0
+      
     }
 
     TextBackground =
@@ -108,7 +109,7 @@
       PressAnimation = "Button_Press"
       HelpTextId = "ExitConfirm_Confirm"
       X = 960
-      Y = 570
+      Y = 650
       TextOffsetY = 0
       Justification = "Center"
       VerticalJustification = "Center"

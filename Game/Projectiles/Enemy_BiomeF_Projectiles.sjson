@@ -1,0 +1,1716 @@
+{ Projectiles = [
+
+	// Guard
+	{
+		Name = "GuardMelee"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		DetonateSound = "/Leftovers/SFX/BeaconTeleportSFX"
+		Fuse = 0.18
+		AttachToOwner = true
+		ImpactVelocity = 100
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 3
+		DamageRadius = 250
+		DamageRadiusScaleY = 0.65
+		DetonateFx = "GuardMeleeAoE"
+		ImpactLineOfSight = true
+		DieWithOwner = true
+		Thing =
+		{
+			Graphic = "null"
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+		}
+		Effects =
+		[
+			{
+				Name = "MeleeAttackVictimGrip"
+				Type = "GRIP"
+				Duration = 0.3
+				Modifier = 0.05
+				HaltOnEnd = true
+				Active = true
+			}
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+
+	// Brawler
+	{
+		Name = "BrawlerMelee"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		Fuse = 0.20
+		StartDelay = 0.02
+		AttachToOwner = true
+		ImpactVelocity = 200
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 9
+		ImpactLineOfSight = true
+		Thing =
+		{
+			Graphic = "BrawlerSwipeBase"
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 230
+					Y = 100
+				}
+				{
+					X = 230
+					Y = -100
+				}
+				{
+					X = -10
+					Y = -40
+				}
+				{
+					X = -10
+					Y = 40
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "MeleeAttackVictimGrip"
+				Type = "GRIP"
+				Duration = 0.3
+				Modifier = 0.05
+				HaltOnEnd = true
+				Active = true
+			}
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "BrawlerMeleeClose"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "ARC"
+		DetonateSound = null
+		AttachToOwner = true
+		ImpactVelocity = 200
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 7
+		ImpactLineOfSight = true
+		StartDelay = 0.055
+		ArcStart = -110
+		ArcEnd = 80
+		Speed = 1000
+		Thing =
+		{
+			Graphic = "BrawlerSwipeCloseBase"
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 220
+					Y = 60
+				}
+				{
+					X = 220
+					Y = -60
+				}
+				{
+					X = -10
+					Y = -40
+				}
+				{
+					X = -10
+					Y = 40
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "MeleeAttackVictimGrip"
+				Type = "GRIP"
+				Duration = 0.3
+				Modifier = 0.05
+				HaltOnEnd = true
+				Active = true
+			}
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+
+	// Mage
+	{
+		Name = "MageRanged"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "HOMING"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UseRadialImpact = false
+		UnlimitedUnitPenetration = false
+		DissipateFx = "MageProjectileDissipate"
+		ImpactFx = "MageProjectileExplosion"
+		DetonateSound = "/SFX/FlameTrapFire"
+		Range = 1600
+		Fuse = 5
+		Speed = 560
+		Damage = 4
+		UnpauseResetLocation = true
+		GroupName = "FX_Standing_Add"
+		Thing =
+		{
+			Graphic = "MageProjectile"
+			OffsetZ = 50
+			Tallness = 60
+			AttachedAnim = "null"
+			Grip = 999999
+			UseBoundsForSortDrawArea = true
+			RotateGeometry = true
+			Points =
+			[
+				{
+					X = -24
+					Y = 0
+				}
+				{
+					X = 24
+					Y = 24
+				}
+				{
+					X = 24
+					Y = -24
+				}
+			]
+		}
+		/* Slowing Variant instead of Stun */
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Type = "SPEED"
+				Modifier = 0.7
+				Duration = 0.2
+				DisableMove = false
+				DisableRotate = false
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+
+	// Radiator
+	{
+		Name = "RadiatorMelee360"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = "null"
+		Type = "ARC"
+		AttachToOwner = true
+		ArcStart = 0
+		ArcEnd = 356
+		Speed = 250
+		StartDelay = 0.09
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 5
+		NumPenetrations = 99999
+		ImpactLineOfSightFromOwner = true
+		MultipleUnitCollisions = true
+		ImmunityDuration = 0.5
+		DieWithOwner = true
+		GroupName = "FX_Standing_Add"
+		DeathFx = "RadiatorBeamEnd"
+		Thing =
+		{
+			Graphic = "RadiatorBeam"
+			RotateGeometry = true
+			OffsetZ = 50
+			Grip = 999999
+			SortMode = "FromParent"
+			Points =
+			[
+				{
+					X = 0
+					Y = 0
+				}
+				{
+					X = 275
+					Y = 30
+				}
+				{
+					X = 275
+					Y = -30
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "RadiatorMelee360Elite"
+		InheritFrom = "RadiatorMelee360"
+		Speed = 500
+		Thing =
+		{
+			Graphic = "RadiatorBeamElite"
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 0
+					Y = 0
+				}
+				{
+					X = 300
+					Y = 30
+				}
+				{
+					X = 300
+					Y = -30
+				}
+			]
+		}
+	}
+
+	// Screamer
+	{
+		Name = "ScreamerCone"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "STRAIGHT"
+		DetonateSound = "/Leftovers/SFX/BeaconTeleportSFX"
+		AttachToOwner = true
+		RotateWithOwner = true
+		ImpactVelocity = 100
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		MultipleUnitCollisions = true
+		MultipleObstacleCollisions = true		
+		Damage = 3
+		ImpactLineOfSight = true
+		TotalFuse = 3.8
+		ImmunityDuration = 0.5
+		DieWithOwner = true
+		GroupName = "FX_Standing_Add"
+		Thing =
+		{
+			Graphic = "ScreamerConeFx"
+			OffsetZ = 58
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 260
+					Y = 100
+				}
+				{
+					X = 260
+					Y = -100
+				}
+				{
+					X = -10
+					Y = -5
+				}
+				{
+					X = -10
+					Y = 5
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "ScreamerSlow"
+			Type = "SPEED"
+			Duration = 0.35
+			Modifier = 0.70
+			Active = true
+			CanAffectInvulnerable = false
+			FrontFx = "null"
+		}
+	}
+
+	// Wisp
+	{
+		Name = "WispFuse"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = "WispFuseExplosion"
+		Type = "STRAIGHT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0.0
+		DamageRadius = 300
+		Damage = 8
+		DamageRadiusScaleY = 0.58
+		BlastSpeed = 2000
+		AttachToOwner = true
+		UseRadialImpact = true
+		UseArmor = true
+		UseVulnerability = false
+		Thing =
+		{
+			Graphic = "null"
+			Grip = 999999
+			OffsetY = 70
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+
+	// SiegeVine
+	{
+		Name = "ChasingVines"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "HOMING"
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		AllowTargetInvulnerable = true
+		MaxVictimZ = 9999
+		Damage = 6
+		MaxAdjustRate = 90
+		AdjustRateAcceleration = -15
+		Speed = 150
+		Range = 999999
+		DieWithOwner = true
+		GroupName = "Standing"
+		TotalFuse = 12.0
+		ImmunityDuration = 0.2
+		StartDelay = 0.05
+		ImpactFx = "SiegeVineAttackDetonate"
+		DissipateFx = "SiegeVineAttackDissipate"
+		DeathFx = "SiegeVineAttackDissipate"
+		Thing =
+		{
+			Graphic = "SiegeVineAttack"
+			RotateGeometry = true
+			Points =
+			[
+				{
+					X = 40
+					Y = 60
+				}
+				{
+					X = 80
+					Y = 0
+				}
+				{
+					X = 40
+					Y = -60
+				}
+				{
+					X = 0
+					Y = -20
+				}
+				{
+					X = 0
+					Y = 20
+				}
+			]
+		}
+		/* Slowing Variant instead of Stun */
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Type = "SPEED"
+				Modifier = 0.53
+				Duration = 0.21
+				DisableMove = true /* these still do a move halt */
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "ChasingVinesElite"
+		InheritFrom = "ChasingVines"
+	}
+
+	// Treant
+	{
+		Name = "TreantRanged"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "STRAIGHT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = false
+		DissipateFx = null
+		ImpactFx = "ErebusTreeDestruction_Treant"
+		DetonateSound = "/SFX/FlameTrapFire"
+		Range = 1200
+		Fuse = 5
+		Speed = 925
+		Damage = 1
+		UnpauseResetLocation = true
+		Thing =
+		{
+			Graphic = "TreantProjectileIn"
+			OffsetZ = 70
+			Tallness = 60
+			AttachedAnim = "null"
+			Grip = 999999
+			UseBoundsForSortDrawArea = true
+			RotateGeometry = true
+			Scale = 0.5
+			Color =
+			{
+				Opacity = 1.0
+			}
+			Points =
+			[
+				{
+					X = -50
+					Y = 0
+				}
+				{
+					X = 24
+					Y = 24
+				}
+				{
+					X = 24
+					Y = -24
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Type = "SPEED"
+			Modifier = 0.7
+			Duration = 0.2
+			DisableMove = false
+			DisableRotate = false
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "TreantMelee"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		DetonateSound = null
+		Fuse = 0.20
+		StartDelay = 0.12
+		AttachToOwner = true
+		ImpactVelocity = 200
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 12
+		ImpactLineOfSight = true
+		Thing =
+		{
+			Graphic = "TreantMeleeBase"
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 330
+					Y = 120
+				}
+				{
+					X = 330
+					Y = -120
+				}
+				{
+					X = -10
+					Y = -40
+				}
+				{
+					X = -10
+					Y = 40
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "MeleeAttackVictimGrip"
+				Type = "GRIP"
+				Duration = 0.3
+				Modifier = 0.05
+				HaltOnEnd = true
+				Active = true
+			}
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "TreantRangedRoots"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "INSTANT"
+		DetonateSound = "/SFX/Enemy Sounds/Treant/TreantEmergeBloom"
+		Damage = 0
+		DamageRadius = 320.0
+		BlastSpeed = 1000
+		BlastDuration = 9.5
+		DamageRadiusScaleY = 0.55
+		Fuse = 0.15
+		StartDelay = 0
+		CheckUnitImpact = false
+		UnlimitedUnitPenetration = true
+		MultipleUnitCollisions = true
+		MultipleObstacleCollisions = true
+		ImmunityDuration = 1.4
+		CanHitWithoutDamage = true
+		CheckObstacleImpact = false
+		MaxVictimZ = 9999
+		SpawnGroup = "FX_Terrain"
+		GroupName = "FX_Terrain"
+		DissipateFx = "TreantRootsFxDissipate"
+		Effects =
+		[
+			{
+				Name = "Rooted"
+				Duration = 0.85
+				DisableMove = true
+				DisableRotate = false
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = false
+				FrontFx = "TreantRootsUnitFront"
+				BackFx = "TreantRootsUnitBack"
+				Type = "GRIP"
+				Amount = 99999
+				BlinkRangeMultiplier = 0
+			}
+			{
+				Name = "MeleeAttackVictimGrip"
+				Type = "GRIP"
+				Duration = 0.3
+				Modifier = 0.05
+				HaltOnEnd = true
+				Active = true
+			}
+		]
+		Thing =
+		{
+			Graphic = "TreantRootsFx"
+			RotateGeometry = false
+			Color =
+			{
+				Opacity = 1.0
+			}
+			Points =
+			[
+				{
+					X = 0
+					Y = 8
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -8
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+	}
+
+	// TreantTail
+	{
+		Name = "TreantTailSwipe"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		DamageRadius = 260
+		DamageRadiusScaleY = 0.65
+		DetonateFx = "TreantTailSwipeFx"
+		DetonateSound = "null"
+		AttachToOwner = true
+		DieWithOwner = true
+		UseStartLocation = true
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		StartDelay = 0.10
+		Damage = 6
+		UseVulnerability = false
+		Thing =
+		{
+			Graphic = "null"
+			RotateGeometry = true
+			Grip = 999999
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "TreantTailUnburrow"
+		InheritFrom = "TreantTailSwipe"
+		Fuse = 0.65
+		ImpactVelocity = 340
+	}
+
+	// FogEmitter
+	{
+		Name = "FogEmitterSweep"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "ARC"
+		AttachToOwner = true
+		ImpactVelocity = 2400
+		ArcStart = 77
+		ArcEnd = -87
+		Speed = -577
+		StartDelay = 0.07
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		CanHitWithoutDamage = true
+		Damage = 8
+		NumPenetrations = 99999
+		UseArmor = true
+		UseVulnerability = false
+		InvulnerableImpactOwnerVelocity = 0
+		StartFx = "null"
+		UseRadialImpact = false
+		ImpactLineOfSightFromOwner = true
+		Thing =
+		{
+			Graphic = "FogEmitterSweepArc"
+			Scale = 1.0
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			UseBoundsForSortDrawArea = true
+			Points =
+			[
+				{
+					X = 0
+					Y = 0
+				}
+				{
+					X = 400
+					Y = 160
+				}
+				{
+					X = 680
+					Y = 0
+				}
+				{
+					X = 400
+					Y = -160
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "FogEmitterSlam"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = "null"
+		Type = "INSTANT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0.05
+		DamageRadius = 380
+		Damage = 9
+		Range = 1.0
+		DamageRadiusScaleY = 0.6
+		BlastSpeed = 800
+		AttachToOwner = false
+		UseRadialImpact = true
+		DamageRadiusScaleX = 1.175
+		ProjectileDefenseRadius = 0
+		UseArmor = true
+		UseVulnerability = false
+		ResetCollisionOutsideDetonation = true
+		HollowBlastRadiusBand = 20
+		IgnoreCancelAttachedProjectiles = true
+		ImmunityDuration = 0.65
+		GroupName = "FX_Terrain_Add"
+		Thing =
+		{
+			Graphic = "FogEmitterSlamNova"
+			Grip = 999999
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+
+	// Hecate
+	{
+		Name = "HecatePolymorph"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "HOMING"
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = false
+		IgnoreDodge = true
+		AllowTargetInvulnerable = true
+		MaxAdjustRate = 750
+		IgnoreTargetsWithGroup = "DashInvulnerableTag"
+		Range = 7400
+		Fuse = 6.95
+		Speed = 830
+		Acceleration = 83
+		Damage = 0
+		UnpauseResetLocation = true
+		GroupName = "Standing"
+		ImpactFx = "HecatePolymorphDissipate"
+		DissipateFx = "HecatePolymorphDissipateFade"
+		CanHitWithoutDamage = true
+		Thing =
+		{
+			Graphic = "HecatePolymorphProjectile"
+			OffsetZ = 10
+			Tallness = 60
+			AmbientSound = "/SFX/Enemy Sounds/Hecate/HecatePolymorphCastAndLoop"
+			AttachedAnim = "HecatePolymorphShadow"
+			Grip = 999999
+			UseBoundsForSortDrawArea = true
+			RotateGeometry = true
+			Using =
+			[
+				{
+					Name = "WeaponMorphedBlink"
+					Type = "Weapon"
+				}
+				{
+					Name = "WeaponMorphedAttack"
+					Type = "Weapon"
+				}
+			]
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 32 Y = 0 }
+				{ X = 0 Y = -32 }
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HecatePolymorphStun"
+				Duration = 12
+				Type = "SPEED"
+				Modifier = 1
+				DisableMove = false
+				DisableRotate = false
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = true
+				//BackFx = "HecatePolymorphFx"
+			}
+		]
+	}
+	{
+		Name = "HecatePolymorph_EM"
+		InheritFrom = "HecatePolymorph"
+		Fuse = 3
+		SpawnOnDissipate = "HecatePolymorph_EMSplit"
+		SpawnCount = 3
+		SpawnsEvenlySpaced = true
+	}
+	{
+		Name = "HecatePolymorph_EMSplit"
+		InheritFrom = "HecatePolymorph"
+		Fuse = 4.95
+		Speed = 950
+		SpeedVariance = 500
+		MaxAdjustRate = 350
+		Thing =
+		{
+			Scale = 0.8
+		}
+	}
+	{
+		Name = "HecateMeteor"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "INSTANT"
+		DetonateFx = "HecateMeteorImpact"
+		DetonateSound = "/Leftovers/SFX/MeteorStrike"
+		DamageRadius = 430
+		DamageRadiusScaleY = 0.5
+		Damage = 12
+		Fuse = 1.6
+		BlastSpeed = 3000
+		UseRadialImpact = true
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		GroupName = "FX_Terrain"
+		Thing =
+		{
+			Graphic = "HecateMeteorWarningDecal"
+			RotateGeometry = false
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = -24
+					Y = 0
+				}
+				{
+					X = 24
+					Y = 24
+				}
+				{
+					X = 24
+					Y = -24
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.5
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = true
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = false
+			FrontFx = "DionysusStunnedFx"
+		}
+	}
+	{
+		Name = "HecateMeteor_EM"
+		InheritFrom = "HecateMeteor"
+		SpawnType = "PROJECTILE"
+		SpawnOnDetonate = "HecateMeteor2_EM"
+	}
+	{
+		Name = "HecateMeteor2_EM"
+		InheritFrom = "HecateMeteor_EM"
+		SpawnType = "PROJECTILE"
+		SpawnOnDetonate = "HecateMeteor3_EM"
+	}
+	{
+		Name = "HecateMeteor3_EM"
+		InheritFrom = "HecateMeteor_EM"
+		SpawnType = null
+		SpawnOnDetonate = null
+	}
+	{
+		Name = "HecateMeteorSmall"
+		InheritFrom = "HecateMeteor"
+		DetonateFx = "HecateMeteorImpactSmall"
+		DamageRadius = 215
+		Damage = 6
+		Thing =
+		{
+			Graphic = "HecateMeteorSmallWarningDecal"
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "HecateLaser"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "ARC"
+		AttachToOwner = true
+		ArcStart = -30
+		ArcEnd = 90
+		Speed = 28
+		Fuse = 0.25
+		MultiDetonate = true
+		MultipleUnitCollisions = true
+		AffectsEnemies = true
+		AffectsFriends = false
+		AffectsSelf = false
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		Damage = 8
+		NumPenetrations = 99999
+		ImmunityDuration = 0.5
+		DieWithOwner = true
+		GroupName = "FX_Standing_Add"
+		DissipateFx = "HecateLaserEnd"
+		
+		Thing =
+		{
+			Graphic = "HecateLaser"
+			AmbientSound = "/SFX/Enemy Sounds/Hades/LunarRayLaserBlastLoop"
+			OffsetZ = 120
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 0
+					Y = 12
+				}
+				{
+					X = 1760
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -12
+				}
+			]
+		}
+	}
+	{
+		Name = "HecateLaser2"
+		InheritFrom = "HecateLaser"
+		ArcStart = 90
+		ArcEnd = 210
+		Thing =
+		{
+			AmbientSound = null
+		}
+	}
+	{
+		Name = "HecateLaser3"
+		InheritFrom = "HecateLaser"
+		ArcStart = 210
+		ArcEnd = 330
+		Thing =
+		{
+			AmbientSound = null
+		}
+	}
+	{
+		Name = "HecateLaser4"
+		InheritFrom = "HecateLaser"
+		ArcStart = 30
+		ArcEnd = 150
+		Thing =
+		{
+			AmbientSound = null
+		}
+	}
+	{
+		Name = "HecateLaser5"
+		InheritFrom = "HecateLaser"
+		ArcStart = 150
+		ArcEnd = 270
+		Thing =
+		{
+			AmbientSound = null
+		}
+	}
+	{
+		Name = "HecateLaser6"
+		InheritFrom = "HecateLaser"
+		ArcStart = 270
+		ArcEnd = 390
+		Thing =
+		{
+			AmbientSound = null
+		}
+	}
+	{
+		Name = "HecateRanged"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "STRAIGHT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = false
+		DissipateFx = "HecateRangedOrbDissipate"
+		ImpactFx = "HecateRangedOrbDissipate"
+		DetonateSound = "/SFX/FlameTrapFire"
+		Range = 10000
+		Fuse = 15
+		Speed = 600
+		Damage = 4
+		UnpauseResetLocation = true
+		Thing =
+		{
+			Graphic = "HecateRangedOrbStart"
+			OffsetZ = 75
+			Tallness = 60
+			AttachedAnim = "HecateProjectileLight"
+			Grip = 999999
+			UseBoundsForSortDrawArea = true
+			RotateGeometry = true
+			Scale = 2.5
+			Points =
+			[
+				{
+					X = -24
+					Y = 0
+				}
+				{
+					X = 24
+					Y = 24
+				}
+				{
+					X = 24
+					Y = -24
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Type = "SPEED"
+				Modifier = 0.7
+				Duration = 0.2
+				DisableMove = false
+				DisableRotate = false
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "HecateRangedSmall"
+		InheritFrom = "HecateRanged"
+		Speed = 320.0
+		Acceleration = -20
+		Damage = 4
+		Thing =
+		{
+			Scale = 1.0
+		}
+	}
+	{
+		Name = "HecateRangedSmallHoming"
+		InheritFrom = "HecateRanged"
+		Type = "HOMING"
+		MaxAdjustRate = 30
+		AdjustRateAcceleration = 400
+		Speed = 480.0
+		Damage = 2
+		Fuse = 4.0
+		Thing =
+		{
+			Scale = 0.5
+		}
+	}
+	{
+		Name = "HecateRangedSmallHoming_Bounce"
+		InheritFrom = "HecateRangedSmallHoming"
+		MaxAdjustRate = 70
+	}
+	{
+		Name = "HecateTorchCone"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		NumPenetrations = 0
+		UnlimitedUnitPenetration = true
+		Speed = 2300
+		SpeedScaleY = 0.55
+		UseRadialImpact = false
+		StartDelay = 0
+		AttachToOwner = false
+		InvulnerableImpactOwnerVelocity = 0
+		ImpactLineOfSightFromOwner = true
+		Damage = 7
+		Fuse = 0.25
+		Thing =
+		{
+			Graphic = "ProjectileHecateCone"
+			AttachedAnim = "null"
+			RotateGeometry = true
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 0
+					Y = 200
+				}
+				{
+					X = 0
+					Y = -200
+				}
+				{
+					X = -90
+					Y = 0
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "HecateTorchRing"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "STRAIGHT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0.0
+		DamageRadius = 1600
+		Damage = 12
+		Range = 1.0
+		DamageRadiusScaleY = 0.6
+		BlastSpeed = 400
+		UseRadialImpact = true
+		DamageRadiusScaleX = 1.175
+		ProjectileDefenseRadius = 0
+		UseArmor = true
+		UseVulnerability = false
+		ResetCollisionOutsideDetonation = true
+		HollowBlastRadiusBand = 20
+		ReturnToOwnerAfterInactiveSeconds = 1.95
+		IgnoreCancelAttachedProjectiles = true
+		DoesNotAffectName = "Hecate"
+		ImmunityDuration = 0.8
+		GroupName = "FX_Terrain"
+		Thing =
+		{
+			Graphic = "TorchRingHecateFx"
+			Grip = 999999
+			Color =
+			{
+				Red = 1.0
+				Green = 0.0
+				Blue = 0.5
+				Opacity = 1.0
+			}
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "HecateTorchRingPhase"
+		InheritFrom = "HecateTorchRing"
+		DamageRadius = 2400
+		ReturnToOwnerAfterInactiveSeconds = 2.6
+	}
+	{
+		Name = "HecateTorchRingPhase_EM"
+		InheritFrom = "HecateTorchRing"
+		DamageRadius = 3200
+		ReturnToOwnerAfterInactiveSeconds = 3.9
+	}
+	{
+		Name = "HecateWolfHowlBlast"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		BlastSpeed = 2200
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0.0
+		DamageRadius = 700
+		Damage = 12
+		Range = 1.0
+		DamageRadiusScaleY = 0.6
+		UseRadialImpact = true
+		DamageRadiusScaleX = 1.175
+		ProjectileDefenseRadius = 0
+		UseArmor = true
+		UseVulnerability = false
+		ResetCollisionOutsideDetonation = true
+		HollowBlastRadiusBand = 20
+		ReturnToOwnerAfterInactiveSeconds = 1.95
+		IgnoreCancelAttachedProjectiles = true
+		DoesNotAffectName = "Hecate"
+		ImmunityDuration = 0.8
+		GroupName = "FX_Terrain"
+		Thing =
+		{
+			Graphic = "HecateWolfHowlNova"
+			Grip = 999999
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "HecateDSRing"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "STRAIGHT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0.0
+		DamageRadius = 1600
+		Damage = 14
+		Range = 1.0
+		DamageRadiusScaleY = 0.6
+		BlastSpeed = 600
+		UseRadialImpact = true
+		DamageRadiusScaleX = 1.175
+		ProjectileDefenseRadius = 0
+		UseArmor = true
+		UseVulnerability = false
+		ResetCollisionOutsideDetonation = true
+		HollowBlastRadiusBand = 20
+		ReturnToOwnerAfterInactiveSeconds = 1.95
+		IgnoreCancelAttachedProjectiles = true
+		DoesNotAffectName = "Hecate"
+		ImmunityDuration = 0.3
+		GroupName = "FX_Terrain"
+		Thing =
+		{
+			Graphic = "HecateDarksideRing"
+			Grip = 999999
+			Color =
+			{
+				Red = 1.0
+				Green = 0.0
+				Blue = 0.5
+				Opacity = 1.0
+			}
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{ 
+		Name = "HecateDSRanged"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		DetonateFx = "null"
+		Type = "STRAIGHT"
+		AffectsEnemies = true
+		AffectsFriends = false
+		AffectsSelf = false
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		UnlimitedObstaclePenetration = true
+		Range = 1100
+		Speed = 900
+		Fuse = 5
+		NumPenetrations = 99999
+		Acceleration = -150
+		UseArmor = true
+		UseVulnerability = true
+		AttachToMarker = "null"
+		InvulnerableImpactOwnerVelocity = 0
+		StartFx = "StaffProjectileFireFx3"
+		UseRadialImpact = false
+		ImpactLineOfSightFromOwner = true
+		Damage = 8
+		DissipateFx = "SorceryDarksideProjectileOut"
+		ImpactFx = null
+		GroupName = "FX_Standing_Add"
+		InflictedDamageSound = "/SFX/BurnDamage"
+		Thing =
+		{
+			Graphic = "HecateDarksideProjectile"
+			AttachedAnim = "SorceryDarksideProjectileGroundGlow"
+			AmbientSound = "/SFX/Player Sounds/TransformAttackProjectileLoop"
+			GeometryScaleY = 0.5
+			OffsetZ = 70
+			RotateGeometry = true
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 130
+					Y = 100
+				}
+				{
+					X = 130
+					Y = -100
+				}
+				{
+					X = 0
+					Y = -160
+				}
+				{
+					X = -60
+					Y = -130
+				}
+				{
+					X = 25
+					Y = 130
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Type = "SPEED"
+				Modifier = 0.7
+				Duration = 0.2
+				DisableMove = false
+				DisableRotate = false
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "HecateMelee1"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		AttachToOwner = false
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 11
+		Speed = 630
+		Acceleration = -285
+		Fuse = 1.5
+		ImpactLineOfSight = true
+		DissipateFx = "HecateSlowFlameOut"
+		Thing =
+		{
+			Graphic = "HecateSlowFlameIn"
+			AttachedAnim = "HecateSlowFlameGlow"
+			AmbientSound = "/SFX/Enemy Sounds/Hecate/HecateGroundWeaponSFX"
+			GeometryScaleY = 0.5
+			OffsetZ = 70
+			RotateGeometry = true
+			Scale = 1.8
+			Points =
+			[
+				{
+					X = 100
+					Y = 90
+				}
+				{
+					X = 100
+					Y = -90
+				}
+				{
+					X = 0
+					Y = -140
+				}
+				{
+					X = -50
+					Y = -120
+				}
+				{
+					X = 20
+					Y = 120
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "MeleeAttackVictimGrip"
+				Type = "GRIP"
+				Duration = 0.3
+				Modifier = 0.05
+				HaltOnEnd = true
+				Active = true
+			}
+			/* Slowing Variant instead of Stun */
+			{
+				Name = "HeroOnHitStun"
+				Type = "SPEED"
+				Modifier = 0.7
+				Duration = 0.2
+				DisableMove = false
+				DisableRotate = false
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "HecateMelee2"
+		InheritFrom = "HecateMelee1"
+		Speed = 630
+		Acceleration = -285
+		Fuse = 1.5
+		DissipateFx = "HecateSlowFlameOutFlip"
+		Thing =
+		{
+			Graphic = "HecateSlowFlameInFlip"
+			Scale = 1.8
+			Points =
+			[
+				{
+					X = 100
+					Y = -90
+				}
+				{
+					X = 100
+					Y = 90
+				}
+				{
+					X = 0
+					Y = 140
+				}
+				{
+					X = -50
+					Y = 120
+				}
+				{
+					X = 20
+					Y = -120
+				}
+			]
+		}
+	}
+	{
+		Name = "HecateMeleeCone"
+		InheritFrom = "HecateMelee1"
+		Speed = 400
+		Acceleration = 0
+		Damage = 5
+		ReturnToOwnerAfterInactiveSeconds = 2.5
+		RepeatHitOnReturn = true
+		Fuse = 5.1
+		DissipateFx = "HecateSlowFlameOutFlip"
+		GroupName = "FX_Standing_Add"
+		Thing =
+		{
+			Graphic = "HecateMeleeConeFx"
+			AttachedAnim = "HecateMeleeConeGroundGlow"
+			Scale = 0.85
+			Points =
+			[
+				{
+					X = 80
+					Y = 70
+				}
+				{
+					X = 80
+					Y = -70
+				}
+				{
+					X = 20
+					Y = -100
+				}
+				{
+					X = -20
+					Y = 100
+				}
+			]
+		}
+	}
+
+	{
+		Name = "HecateMeleeCone_EM"
+		InheritFrom = "HecateMeleeCone"
+		Speed = 600
+		ReturnToOwnerAfterInactiveSeconds = 3.5
+		Fuse = 7.1
+	}
+
+	// LightRanged
+	{
+		Name = "LightRangedBolt"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "STRAIGHT"
+		DissipateFx = "EnemyProjectileDissipate"
+		DeathFx = "EnemyProjectileDissipate"
+		ImpactFx = "MageProjectileExplosion_LightRanged"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = false
+		Range = 1200
+		StartDelay = 0.075
+		Fuse = 5
+		Speed = 600
+		Damage = 5
+		UnpauseResetLocation = true
+		Thing =
+		{
+			Graphic = "EnemyProjectileIn"
+			OffsetZ = 50
+			Tallness = 60
+			AttachedAnim = "EnemyProjectileLight"
+			Grip = 999999
+			UseBoundsForSortDrawArea = true
+			RotateGeometry = true
+			Points =
+			[
+				{
+					X = -24
+					Y = 0
+				}
+				{
+					X = 24
+					Y = 24
+				}
+				{
+					X = 24
+					Y = -24
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Type = "SPEED"
+			Modifier = 0.7
+			Duration = 0.2
+			DisableMove = false
+			DisableRotate = false
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+]}

@@ -43,7 +43,6 @@ UnitSetData.BrokenHearted =
 			"AggroAI",
 		},
 
-		--WeaponOptions = { "BrokenHeartedSpit", "BrokenHeartedSlam" },
 		WeaponOptions = { "BrokenHeartedSlam" },
 
 		ActiveCapWeight = 0.34,
@@ -66,6 +65,7 @@ UnitSetData.BrokenHearted =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_1030", Text = "Smackers!", PlayFirst = true },
@@ -84,8 +84,7 @@ UnitSetData.BrokenHearted =
 			DeepInheritance = true,
 		},
 		
-		WeaponOptions = { -- "BrokenHeartedSpit_Elite", -- removed for use in a later unit variant 
-							 "BrokenHeartedSlam" },
+		WeaponOptions = { "BrokenHeartedSlam" },
 
 		ActiveCapWeight = 0.34,
 		GeneratorData =
@@ -103,28 +102,6 @@ UnitSetData.BrokenHearted =
 			},
 		},
 	},
-
-	BrokenHearted_Miniboss =
-	{
-		InheritFrom = { "Elite", "BrokenHearted" },
-		HealthBuffer = 930,
-
-		WakeUpDelayMin = 1.6,
-		WakeUpDelayMax = 1.8,
-		DefaultAIData =
-		{
-			DeepInheritance = true,
-		},
-		
-		WeaponOptions = { "BrokenHeartedSpit_Elite", "BrokenHeartedSlam_Elite" },
-
-		ActiveCapWeight = 0.34,
-		GeneratorData =
-		{
-			DifficultyRating = 45,
-			BlockEnemyTypes = {"BrokenHearted"}
-		},
-	}
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.BrokenHearted )

@@ -1,4 +1,4 @@
-function SetupGardenPlot( plot, args, sourceArgs )
+function SetupGardenPlot( plot, args )
 	if GameState.GardenPlots[plot.ObjectId] ~= nil then
 		GameState.GardenPlots[plot.ObjectId].StatusAnimation = nil -- Don't persist
 		OverwriteTableKeys( plot, GameState.GardenPlots[plot.ObjectId] )
@@ -7,20 +7,9 @@ function SetupGardenPlot( plot, args, sourceArgs )
 	if plot.SeedName ~= nil then
 		plot.PlantId = SpawnObstacle({ Name = "PlantBase", DestinationId = plot.ObjectId, Group = "Standing" })
 	end
-	-- Back compat
-	if plot.MaxStoredResources == nil then
-		local seedData = GardenData.Seeds[plot.SeedName]
-		if seedData ~= nil then
-			local outcomeData = seedData.RandomOutcomes[plot.OutcomeKey]
-			if outcomeData ~= nil then
-				local addResourceAmount = GetFirstValue( outcomeData.AddResources )
-				plot.StoredResources = (plot.StoredGrows or 0) * addResourceAmount
-				plot.MaxStoredResources = (plot.MaxStoredGrows or 0) * addResourceAmount
-			end
-		end
-	end
+	plot.TimesUsed = plot.TimesUsed or 0
 
-	GardenPlotSetupPresentation( plot, args, sourceArgs )
+	GardenPlotSetupPresentation( plot, args )
 end
 
 function UseGardenPlot( plot, args, user )
@@ -35,89 +24,138 @@ function UseGardenPlot( plot, args, user )
 		return
 	end
 	
-	if (plot.StoredGrows or 0) >= 1 then
+	if plot.ReadyForHarvest then
 		-- Harvest
 		AddInputBlock({ Name = "UseGardenPlot" })
-		GardenHarvestStartPresentation( plot, args, user )		
-		local seedData = GardenData.Seeds[plot.SeedName]
-		if seedData ~= nil then
-			local outcomeData = seedData.RandomOutcomes[plot.OutcomeKey]
-			if outcomeData ~= nil then
-				for resourceName, count in pairs( outcomeData.AddResources ) do
-					AddResource( resourceName, count * plot.StoredGrows, plot.Name )
+		local plotIdsToHarvest = { plot.ObjectId }
+		if GameState.WorldUpgrades.WorldUpgradeGardenHarvestAll then
+			for id, gardenPlot in pairs( GameState.GardenPlots ) do
+				if id ~= plot.ObjectId and gardenPlot.ReadyForHarvest then
+					table.insert( plotIdsToHarvest, id )
 				end
 			end
 		end
-		local growsHarvested = plot.StoredGrows
-		plot.StoredGrows = 0
-		plot.StoredResources = 0
-		GardenHarvestEndPresentation( plot, args, user )
-		if seedData ~= nil and seedData.RepeatGrowTimeMin ~= nil then
-			if growsHarvested == plot.MaxStoredGrows then
-				-- Immediately start the next grow if was full
-				plot.StartingGrowTime = RandomInt( seedData.RepeatGrowTimeMin, seedData.RepeatGrowTimeMax )
-				plot.GrowTimeRemaining = plot.StartingGrowTime
+		for i, harvestPlotId in ipairs( plotIdsToHarvest ) do
+			local harvestPlot = GameState.GardenPlots[harvestPlotId]
+			local seedData = GardenData.Seeds[harvestPlot.SeedName]
+			if seedData ~= nil then
+				local outcomeData = seedData.RandomOutcomes[harvestPlot.OutcomeKey]
+				if outcomeData ~= nil then
+					if i == 1 then
+						GardenHarvestStartPresentation( harvestPlot, { PlotIds = plotIdsToHarvest, PlantName = GetFirstKey( outcomeData.AddResources ) }, user )
+					end
+					for resourceName, count in pairs( outcomeData.AddResources ) do
+						AddResource( resourceName, count, harvestPlot.Name, { PresentationDelay = 0.5 * (i - 1) } )
+					end
+					RandomSynchronize( GetIndex( GardenData.PlotOrder, harvestPlotId ) )
+					if GameState.WorldUpgrades.WorldUpgradeHarvestUpgrade and RandomChance( WorldUpgradeData.WorldUpgradeHarvestUpgrade.SeedChance ) then
+						local bonusSeedName = outcomeData.BonusSeedName or harvestPlot.SeedName
+						thread( GardenGiveBonusSeed, harvestPlot, { SeedName = bonusSeedName, PresentationDelay = 0.5 * (i - 1) + 0.3 }, user )
+					end
+					harvestPlot.ReadyForHarvest = false
+					Destroy({ Id = harvestPlot.PlantId })
+					harvestPlot.SeedName = nil
+					harvestPlot.UseText = "UseGardenPlotPlant"
+					harvestPlot.TalkOnlyIfNoGiftOrSpecial = true
+					if HasSeeds() then
+						SetAnimation({ DestinationId = harvestPlot.ObjectId, Name = "GardenPlotReadyToPlant" })
+					end
+				end
 			end
-			GardenPlotTimeUpdatePresentation( plot, args )
-		else
-			Destroy({ Id = plot.PlantId })
-			plot.SeedName = nil
-			plot.UseText = "UseGardenPlotPlant"
-			plot.TalkOnlyIfNoGiftOrSpecial = true
 		end
+		GardenHarvestEndPresentation( nil, nil, user )
 		RemoveInputBlock({ Name = "UseGardenPlot" })
 		UpdateAffordabilityStatus()
-		if HasSeeds() then
-			PlayStatusAnimation( plot, { Animation = "StatusIconWantsToTalkImportant", OffsetZ = plot.AnimOffsetZ } )
-		end
 		return
 	end
 
-	GardenPlotInProgressPresentation( plot, args, user )
 end
 
-function GardenPlantSeed( screen, button  )
+function GardenPlantSeed( screen, button, args  )
+
+	args = args or {}
 	AddInputBlock({ Name = "PlantSeedInGarden" })
-	local plot = screen.Args.PlantTarget
-	if HasSeeds( 2 ) then
-		StopStatusAnimation( plot )
-	else
+
+	local seedName = button.ResourceData.Name
+	local seedData = GardenData.Seeds[seedName]
+	local spentSeeds = 0
+
+	local plots = {}
+	local plantIds = {}
+	if args.MultiPlant then
+		for id, plot in pairs( GameState.GardenPlots ) do
+			if plot ~= screen.Args.PlantTarget and plot.SeedName == nil then
+				table.insert( plots, plot )
+			end
+		end
+		table.sort( plots, GardenSortPlots )
+	end
+	table.insert( plots, 1, screen.Args.PlantTarget )
+	for i, plot in ipairs( plots ) do
+		if HasResource( seedName, spentSeeds + 1 ) then
+			plot.SeedName = seedName
+			plot.StartingGrowTime = RandomInt( seedData.GrowTimeMin, seedData.GrowTimeMax )
+			plot.GrowTimeRemaining = plot.StartingGrowTime
+			plot.TimesUsed = plot.TimesUsed + 1
+			plot.UseText = "UseGardenPlotNotReady"
+			plot.TalkOnlyIfNoGiftOrSpecial = true
+			plot.PlantId = SpawnObstacle({ Name = "PlantBase", DestinationId = plot.ObjectId, Group = "Standing" })
+			table.insert( plantIds, plot.PlantId )
+
+			local weightedList = {}
+			for k, option in pairs( seedData.RandomOutcomes ) do
+				if option.GameStateRequirements == nil or IsGameStateEligible( option, option.GameStateRequirements ) then
+					weightedList[k] = option.Weight or 1
+				end
+			end
+			plot.OutcomeKey = GetRandomValueFromWeightedList( weightedList )
+			local outcomeData = seedData.RandomOutcomes[plot.OutcomeKey]
+			local resourceName = GetFirstKey( outcomeData.AddResources )
+			plot.ResourceIconPath = ResourceData[resourceName].IconPath
+
+			StopStatusAnimation( plot )
+			SetAnimation({ DestinationId = plot.ObjectId, Name = "GardenPlot" })
+			spentSeeds = spentSeeds + 1
+		end
+	end
+
+	CloseInventoryScreen( screen, button )
+	SpendResource( seedName, spentSeeds, "Garden" )
+	GameState.GardenLastSeedPlanted = seedName
+
+	if not HasSeeds() then
 		-- No more seeds for any plot
 		for id, plot in pairs( GameState.GardenPlots ) do
-			StopStatusAnimation( plot )
+			if plot.SeedName == nil then
+				StopStatusAnimation( plot )
+				SetAnimation({ DestinationId = plot.ObjectId, Name = "GardenPlot" })
+			end
 		end
 	end
-	CloseInventoryScreen( screen, button )
-	plot.SeedName = button.ResourceData.Name
-	local seedData = GardenData.Seeds[plot.SeedName]
-	plot.StartingGrowTime = RandomInt( seedData.GrowTimeMin, seedData.GrowTimeMax )
-	plot.GrowTimeRemaining = plot.StartingGrowTime
-	plot.StoredGrows = 0
-	plot.StoredResources = 0
-	plot.LifetimeGrows = 0
 
-	local seedData = GardenData.Seeds[plot.SeedName]
-	local weightedList = {}
-	for k, option in pairs( seedData.RandomOutcomes ) do
-		if option.GameStateRequirements == nil or IsGameStateEligible( option, option.GameStateRequirements ) then
-			weightedList[k] = option.Weight or 1
-		end
-	end
-	plot.OutcomeKey = GetRandomValueFromWeightedList( weightedList )
-	local outcomeData = seedData.RandomOutcomes[plot.OutcomeKey]
-	local resourceName = GetFirstKey( outcomeData.AddResources )
-	plot.ResourceIconPath = ResourceData[resourceName].IconPath
-	plot.MaxStoredGrows = seedData.MaxStoredGrows or 1
-	plot.MaxStoredResources = plot.MaxStoredGrows * GetFirstValue( outcomeData.AddResources )
-
-	GameState.GardenLastSeedPlanted = plot.SeedName
-
-	plot.PlantId = SpawnObstacle({ Name = "PlantBase", DestinationId = plot.ObjectId, Group = "Standing" })
-	SpendResource( button.ResourceData.Name, 1, "Graden" )
-	GardenPlantSeedPresentation( plot, nil, CurrentRun.Hero )
+	GardenPlantSeedPresentation( screen.Args.PlantTarget, { PlantIds = plantIds, Plots = plots }, CurrentRun.Hero )
 	RemoveInputBlock({ Name = "PlantSeedInGarden" })
 end
 
+function GardenSortPlots( plotA, plotB )
+	return GetIndex( GardenData.PlotOrder, plotA.ObjectId ) < GetIndex( GardenData.PlotOrder, plotB.ObjectId )
+end
+
+function GardenMultiPlantSeed( screen, button )
+	if screen.SelectedItem == nil then
+		return
+	end
+	if screen.SelectedItem.PinContextualAction ~= "Menu_MultiPlant" then
+		return
+	end
+	GameState.Flags.HasMultiPlanted = true
+	GardenPlantSeed( screen, screen.SelectedItem, { MultiPlant = true } )
+end
+
+function GardenGiveBonusSeed( source, args, user )
+	GardenBonusSeedPresentation( source, args, user )
+	AddResource( args.SeedName, 1, source.Name, { Text = "GainBonusResource", HoldOffsetY = -370, PresentationDelay = args.PresentationDelay, FlyDuration = 0.8 } )
+end
 
 function GardenTimeTick( args )
 	args = args or {}
@@ -130,21 +168,7 @@ function GardenTimeTick( args )
 				if plot.GrowTimeRemaining ~= nil and plot.GrowTimeRemaining > 0 then
 					plot.GrowTimeRemaining = plot.GrowTimeRemaining - 1
 					if plot.GrowTimeRemaining <= 0 then
-						local seedData = GardenData.Seeds[plot.SeedName]
-						if seedData ~= nil then
-							if (plot.StoredGrows or 0) < (seedData.MaxStoredGrows or 1) then
-								plot.StoredGrows = (plot.StoredGrows or 0) + 1
-								local outcomeData = seedData.RandomOutcomes[plot.OutcomeKey]
-								if outcomeData ~= nil then
-									plot.StoredResources = plot.StoredGrows * GetFirstValue( outcomeData.AddResources )
-									plot.LifetimeGrows = (plot.LifetimeGrows or 0) + 1
-									if seedData.RepeatGrowTimeMin ~= nil then
-										plot.StartingGrowTime = RandomInt( seedData.RepeatGrowTimeMin, seedData.RepeatGrowTimeMax )
-										plot.GrowTimeRemaining = plot.StartingGrowTime
-									end
-								end
-							end
-						end
+						plot.ReadyForHarvest = true
 					end
 					GardenPlotTimeTickPresentation( plot, args )
 					if args.UpdatePlotPresentation then
@@ -163,4 +187,15 @@ function GiftGardenPlot( target, args, giftName )
 	GardenTimeTick( { Ticks = args.Ticks, PlotId = target.ObjectId, UpdatePlotPresentation = true, PanDuration = 0.0, SkipCameraPan = true, TickInterval = 0.2, } )
 	UseableOn({ Id = target.ObjectId })
 	RemoveInputBlock({ Name = "GiftGardenPlot" })
+end
+
+function HasSeeds( neededCount )
+	local numSeeds = 0
+	for seedName, seedData in pairs( GardenData.Seeds ) do
+		numSeeds = numSeeds + (GameState.Resources[seedName] or 0)
+	end
+	if numSeeds >= (neededCount or 1) then
+		return true
+	end
+	return false
 end

@@ -15,8 +15,6 @@
 		AlwaysShowDefaultUseText = true,
 		GodLoot = false,
 		Weight = 10,
-		SurfaceShopText = "Blank",
-		SurfaceShopIcon = "Blank",
 		BoonInfoIcon = "BoonInfoSymbolChaosIcon",
 		BoonInfoTitleText = "UpgradeChoiceMenu_Chaos",
 		Icon = "BoonSymbolChaos",
@@ -32,6 +30,7 @@
 		BoxAnimation = "DialogueSpeechBubble",
 		BoxExitAnimation = "DialogueSpeechBubbleOut",
 		NarrativeTextColor = Color.DialogueText,
+		BackgroundAnimation = "Blank",
 		SkipContextArt = true,
 		PackageName = "TrialUpgrade",
 
@@ -45,6 +44,7 @@
 
 		SpeakerName = "Chaos",
 		Speaker = "NPC_Chaos_01",
+		LoadPackages = { "Chaos", },
 		Portrait = "Portrait_Chaos_Default_01",
 		OverlayAnim = "ChaosOverlay",
 		Gender = "X",
@@ -55,13 +55,16 @@
 			"TrialUpgrade_FlavorText03",
 		},
 		TransformingTraits = true,
-		PermanentTraits = { 
+		PermanentTraits =
+		{ 
 			"ChaosWeaponBlessing", "ChaosSpecialBlessing", "ChaosCastBlessing", "ChaosHealthBlessing", 
 			"ChaosRarityBlessing", "ChaosMoneyBlessing", "ChaosLastStandBlessing", "ChaosManaBlessing", 
 			"ChaosManaOverTimeBlessing", "ChaosExSpeedBlessing", "ChaosElementalBlessing", "ChaosManaCostBlessing",
 			"ChaosSpeedBlessing", "ChaosDoorHealBlessing", "ChaosHarvestBlessing",
-			"ChaosOmegaDamageBlessing"},
-		TemporaryTraits = { 
+			"ChaosOmegaDamageBlessing"
+		},
+		TemporaryTraits =
+		{ 
 			"ChaosNoMoneyCurse", "ChaosHealthCurse", "ChaosHiddenRoomRewardCurse", 
 			"ChaosDamageCurse", "ChaosPrimaryAttackCurse", "ChaosSecondaryAttackCurse",
 			"ChaosDeathWeaponCurse", "ChaosSpeedCurse", "ChaosExAttackCurse",
@@ -96,7 +99,8 @@
 		SpecialInteractGameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "UseRecord", "ChaosGift01" },
+				Path = { "GameState", "TextLinesRecord" },
+				HasAll = { "ChaosGift01", "ChaosAboutLife01" },
 			},
 		},
 		SpecialInteractCooldown = 60,
@@ -105,7 +109,7 @@
 			{
 				PreLineWait = 0.3,
 				SuccessiveChanceToPlay = 0.2,
-				-- RandomRemaining = true,
+				RandomRemaining = true,
 				UsePlayerSource = true,
 				Cooldowns =
 				{
@@ -116,7 +120,7 @@
 			},
 			{ GlobalVoiceLines = "SaluteVoiceLines" },
 			{
-				PreLineWait = 0.4,
+				PreLineWait = 0.33,
 				RandomRemaining = true,
 				Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
 				Cooldowns =
@@ -167,6 +171,36 @@
 
 		UpgradeMenuOpenVoiceLines =
 		{
+			{
+				PlayOnce = true,
+				BreakIfPlayed = true,
+				PreLineWait = 0.9,
+				SkipAnim = true,
+				UsePlayerSource = true,
+				AllowTalkOverTextLines = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "TextLinesRecord", "ChaosGrantsBountyBoard01" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_4783", Text = "{#Emph}Abyssal Insight... {#Prev}the Pitch-Black Stone..." },
+			},
+			{
+				PlayOnce = true,
+				BreakIfPlayed = true,
+				PreLineWait = 0.9,
+				SkipAnim = true,
+				UsePlayerSource = true,
+				AllowTalkOverTextLines = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "TextLinesRecord", "ChaosAboutKeepsake02" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_3646", Text = "{#Emph}Erm{#Prev}, I'll just call it {#Emph}Embryo {#Prev}for now..." },
+			},
 			{ GlobalVoiceLines = "FoundRareBoonVoiceLines" },
 		},
 
@@ -317,9 +351,15 @@
 						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
 					},
 					{
+						Path = { "CurrentRun", "RunDepthCache" },
+						Comparison = "<=",
+						Value = 6,
+					},
+					{
 						Path = { "CurrentRun", "BiomesReached" },
 						HasNone = { "G", "O" },
 					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0057",
@@ -342,9 +382,6 @@
 						Path = { "CurrentRun", "BiomesReached" },
 						HasNone = { "G" },
 					},
-					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
-					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0058",
@@ -360,7 +397,7 @@
 				GameStateRequirements =
 				{
 					{
-						PathFalse = { "CurrentRun", "UseRecord", "ChaosUpgrade" }
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
 					},
 					{
 						PathTrue = { "PrevRun", "Cleared" }
@@ -372,8 +409,9 @@
 						PathTrue = { "CurrentRun", "BiomesReached", "F" },
 					},
 					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
+						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0212",
@@ -387,7 +425,7 @@
 				GameStateRequirements =
 				{
 					{
-						PathFalse = { "CurrentRun", "UseRecord", "ChaosUpgrade" }
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
 					},
 					{
 						PathTrue = { "PrevRun", "Cleared" }
@@ -402,6 +440,62 @@
 					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
 					Text = "You recently entered your father's residence within the Underworld's depths, but did not remain there. Did you at least discover what you sought? Do not respond; I am considering all the potential truths." },
 			},
+			ChaosUnderworldSurfaceCleared01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutTyphon01" },
+					},
+					{
+						PathTrue = { "PrevRun", "Cleared" }
+					},
+					{
+						Path = { "PrevRun", "RoomsEntered" },
+						HasAny = { "Q_Boss01", "Q_Boss02" },
+					},
+					{
+						-- PathFalse = { "PrevRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0285",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "I was unable to detect you for some time, but then the earth itself shuddered as though an object of very substantial size fell from considerable height. That must have been the being you call Typhon. Did you cause him to fall? Do not respond." },
+			},
+			ChaosUnderworldSurfaceCleared02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutTyphon01" },
+					},
+					{
+						PathTrue = { "PrevRun", "Cleared" }
+					},
+					{
+						Path = { "PrevRun", "RoomsEntered" },
+						HasAny = { "Q_Boss01", "Q_Boss02" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0286",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "I am familiar with what you recently achieved, despite Typhon's comparatively different size and strength. How interesting that the smallest beings often prove to be superior; is my conception of strength incorrect?" },
+			},
 
 			ChaosAboutLife01 =
 			{
@@ -414,9 +508,6 @@
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Name", },
 						IsNone = { "TestAllThings", },
-					},
-					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -447,6 +538,9 @@
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "F" },
 					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0030",
@@ -462,6 +556,24 @@
 					SecretMusicActiveStems = { "ChaosBass" },
 					PreContentSound = "/SFX/Menu Sounds/ChaosBoonChange",
 					Text = "I see. Time appears to be the source of many problems recently. As for your brother, I found him to be quite amusing. How interesting that offspring can be so dissimilar." },
+			},
+			ChaosPostTrueEndingAboutZagreus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0336",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosBoonChange",
+					Text = "I understand your brother has returned. Perhaps he shall come visit me again as once he did. Whichever mark he does not choose, you may receive from me instead." },
 			},
 
 			ChaosGrantsBountyBoard01 =
@@ -481,7 +593,7 @@
 					Text = "To make the most of our arrangement, I bid you activate a certain artifact where you reside. Within the pitch-black facets of this standing-stone are possibilities to be explored. I shall reveal how to see them all, but first..." },
 				{
 					PostLineThreadedFunctionName = "DisplayInfoToast",
-					PostLineFunctionArgs = { Duration = 2, Title = "WorldUpgradeAdded", Text = "WorldUpgradeBountyBoard", VoiceLines = HeroVoiceLines.CauldronSpellLearnedVoiceLines },
+					PostLineFunctionArgs = { Duration = 2.5, Title = "WorldUpgradeAdded", Text = "WorldUpgradeBountyBoard", VoiceLines = HeroVoiceLines.CauldronSpellLearnedVoiceLines },
 				},
 			},
 			ChaosAboutBountyBoardUnlock01 =
@@ -520,7 +632,7 @@
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBountyBoard" },
 					},
 					{
-						Path = { "GameState", "BountiesCompleted" },
+						Path = { "GameState", "PackagedBountyClears" },
 						UseLength = true,
 						Comparison = "<=",
 						Value = 4,
@@ -541,12 +653,10 @@
 						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
 					},
 					{
-						PathTrue = { "CurrentRun", "ActiveBounty" },
-					},
-					{
 						FunctionName = "RequireRunsSinceTextLines",
 						FunctionArgs = { TextLines = { "ChaosAboutBounties02", "ChaosAboutBounties03" }, Min = 3 },
 					},
+					NamedRequirements = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0042",
@@ -563,12 +673,10 @@
 						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
 					},
 					{
-						PathTrue = { "CurrentRun", "ActiveBounty" },
-					},
-					{
 						FunctionName = "RequireRunsSinceTextLines",
 						FunctionArgs = { TextLines = { "ChaosAboutBounties01", "ChaosAboutBounties03" }, Min = 3 },
 					},
+					NamedRequirements = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0209",
@@ -585,9 +693,6 @@
 						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
 					},
 					{
-						PathTrue = { "CurrentRun", "ActiveBounty" },
-					},
-					{
 						FunctionName = "RequireRunsSinceTextLines",
 						FunctionArgs = { TextLines = { "ChaosAboutBounties01", "ChaosAboutBounties02" }, Min = 3 },
 					},
@@ -595,6 +700,7 @@
 						Path = { "CurrentRun", "CurrentRoom", "Name", },
 						IsNone = { "F_Opening01", "F_Opening02", "F_Opening03", "N_Opening01" },
 					},
+					NamedRequirements = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0210",
@@ -617,7 +723,10 @@
 						Path = { "GameState", "PackagedBountyClears" },
 						UseLength = true,
 						Comparison = ">=",
-						Value = 5,
+						Value = 6,
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ChaosAboutBountyProgress01" }
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -645,6 +754,75 @@
 					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
 					Text = "Your usage of the pitch-black standing-stone enables me to temporarily emerge from my abyss, and I thank you for that. I can observe more clearly, both the outcome of your Trial, and all else." },
 			},
+			ChaosAboutRandomBounties01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						Path = { "CurrentRun", "ActiveBounty" },
+						IsAny = GameData.AllRandomPackagedBounties,
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0297",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "Welcome, Spawn of Hades, to my most-preferred type of experiment. Here, almost nothing is controlled; the possibilities become so numerous, that to consider all of them shall take some time." },
+			},
+			ChaosAboutRandomBounties02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						Path = { "CurrentRun", "ActiveBounty" },
+						IsAny = GameData.AllRandomPackagedBounties,
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0335",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "You are familiar with what you know as the three realms: the heavens, surface, and the Underworld. But I know there to be a fourth, which you are in right now. And Possibility encompasses the rest." },
+			},
+
+			ChaosAboutBountyProgress01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
+					{
+						-- PathTrue = { "GameState", "TextLinesRecord", "ChaosGift06" },
+					},
+					{
+						Path = { "GameState", "PackagedBountyClears" },
+						UseLength = true,
+						Comparison = ">=",
+						Value = 12,
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0290",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					-- heart unlock
+					PostLineFunctionName = "RelationshipAdvancedPresentation",
+					PostLineFunctionArgs = { Delay = 0.5 },
+					Text = "You need not have participated in the Trials I devised, nor provided quite as many interesting outcomes to observe. But you decided to of your own will nevertheless. Our acquaintance therefore was not a mistake." },
+			},
 
 			ChaosAboutStarDust01 =
 			{
@@ -657,11 +835,9 @@
 					{
 						Path = { "GameState", "LifetimeResourcesGained", "Mixer5Common" },
 						Comparison = ">=",
-						Value = 3,
+						Value = 6,
 					},
-					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
-					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0215",
@@ -684,7 +860,11 @@
 					{
 						Path = { "GameState", "SpentShrinePointsCache" },
 						Comparison = ">=",
-						Value = 10,
+						Value = 8,
+					},
+					{
+						Path = { "CurrentRun", "TextLinesRecord" },
+						HasNone = GameData.AboutShrineEvents,
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -701,6 +881,10 @@
 				{
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						Path = { "CurrentRun", "Hero", "TraitDictionary" },
+						HasAny = GameData.AllWeaponAspects,
 					},
 					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeWeaponUpgradeSystem" },
@@ -729,8 +913,10 @@
 						HasAny = { "RandomBlessingKeepsake" },
 					},
 					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ChaosAboutKeepsake02" }, Min = 3 },
 					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0052",
@@ -738,7 +924,88 @@
 					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
 					Text = "You bear the Embryo I gave to you. It creates an impression as though a part of me is with you, even whilst you are absent from this space. You may continue to make use of it, or not." },
 			},
+			ChaosAboutKeepsake02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						Path = { "CurrentRun", "Hero", "TraitDictionary" },
+						HasAny = { "RandomBlessingKeepsake" },
+					},
+					{
+						Path = { "CurrentRun", "Hero", "TraitDictionary", "RandomBlessingKeepsake", 1, "Rarity" },
+						IsAny = { "Epic", "Heroic" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0296",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "I sense the Embryo you have of mine has grown to some extent. It shall not come of age for quite some time; but you have nurtured it, and it has been of some small service in exchange. I wonder have you given it a name...?" },
+			},
 
+			ChaosAboutKeepsakeQuest01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ChaosAboutSurfaceAppearance01", "ChaosGift03" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ChaosAboutKeepsake01", "ChaosAboutKeepsake02" },
+					},
+					{
+						Path = { "CurrentRun", "Hero", "TraitDictionary" },
+						HasAny = { "RandomBlessingKeepsake" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0293",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "You remain partial to the Embryo you have of mine, and I would see you journey farther with it still. Would you consider the specifics of my thoughts? Respond." },
+				{ Cue = "/VO/MelinoeField_3645", UsePlayerSource = true,
+					SecretMusicMutedStems = { "ChaosBass" },
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "If there is something I may do for you, Almighty Chaos, then you need but ask. Where might I take the Embryo?" },
+				{ Cue = "/VO/Chaos_0294",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosBoonChange",
+					Text = "Take it from the beginning of your journey to the end. Do not replace it on the way, but reach your destination with it there; in the Underworld or on the surface, we care not. This shall serve only to amuse the Embryo and me, and perhaps you." },
+			},
+			ChaosAboutKeepsakeQuest02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutKeepsakeQuest01" },
+					},
+					{
+						Path = { "GameState", "QuestStatus", "QuestChaosKeepsakeFullRun" },
+						IsAny = { "CashedOut" }
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0295",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "You traveled far bearing the Embryo I gave to you, which was an interesting matter to observe, and in accordance with the Fates' design. But did they spur your actions, or did you, or I? Further amusement to consider. Thus, thank you." },
+			},
 			ChaosAboutSurface01 =
 			{
 				PlayOnce = true,
@@ -756,18 +1023,19 @@
 					SecretMusicActiveStems = { "ChaosBass" },
 					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
 					Text = "When you return to shadow, I briefly sense your presence in the infinite abyss. So I have seen that the servant of the Three Fates found you in that hidden place. He relayed to you a secret, did he not? Respond." },
-				{ Cue = "/VO/MelinoeField_0767", UsePlayerSource = true,
+				{ Cue = "/VO/MelinoeField_0767_B", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					SecretMusicMutedStems = { "ChaosBass" },
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "You mean Moros. His secret was about the surface... about how I can survive up there. I know this goes against the Fates' designs, but Olympus needs me. And to achieve my task, I need {#Emph}them." },
+					Text = "You mean Moros. His secret was about the surface... about how I can survive up there. I know this goes against the Fates' designs, but Olympus needs me." },
 				{ Cue = "/VO/Chaos_0033",
 					SecretMusicActiveStems = { "ChaosBass" },
 					PreContentSound = "/SFX/Menu Sounds/ChaosBoonChange",
 					Text = "I see. As you may know, I am uninterested in the Fates having undue influence. Perhaps you may find a catalyst here for this incantation. Whether they like it or not." },
 				{
 					PostLineThreadedFunctionName = "DisplayInfoToast",
-					PostLineFunctionArgs = { Duration = 2, Title = "ChaosUnlockAdded", Text = "PlantChaosThalamusSeedIcon", VoiceLines = { GlobalVoiceLines = "ChaosSeedsUnlockedVoiceLines" }, GiftResource = true, WaitTime = 0.25, ResourceName = "PlantChaosThalamusSeed", SoundName = "/Leftovers/Menu Sounds/TalismanRockUpLEGENDARY" },
+					PostLineFunctionArgs = { Duration = 2.5, Title = "ChaosUnlockAdded", Text = "PlantChaosThalamusSeedIcon", VoiceLines = { GlobalVoiceLines = "ChaosSeedsUnlockedVoiceLines" }, GiftResource = true, WaitTime = 0.25, ResourceName = "PlantChaosThalamusSeed", SoundName = "/Leftovers/Menu Sounds/TalismanRockUpLEGENDARY" },
 				},
 			},
 			ChaosAboutSurface02 =
@@ -782,13 +1050,11 @@
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
 					},
 					{
-						PathTrue = { "PrevRun", "RoomsEntered", "N_Boss01" },
+						Path = { "PrevRun", "RoomsEntered" },
+						HasAny = { "N_Hub" },
 					},
 					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
-					},
-					{
-						PathFalse = { "ChaosAboutSurfaceAppearance01" },
+						PathFalse = { "GameState", "TextLinesRecord", "ChaosAboutSurfaceAppearance01" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -865,6 +1131,7 @@
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "F" },
 					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0214",
@@ -885,12 +1152,10 @@
 						PathTrue = { "GameState", "TextLinesRecord", "ChaosGift03" },
 					},
 					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
-					},
-					{
 						Path = { "CurrentRun", "TraitUses" },
 						HasNone = { "TemporaryForcedSecretDoorTrait" },
 					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0203",
@@ -948,9 +1213,10 @@
 					TextLimit = 285,
 					SecretMusicActiveStems = { "ChaosBass" },
 					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
-					Text = "Responsibility is partly mine for all that has transpired. I attempted to create this world with a degree of care. I nurtured it. Adhered to certain principles, as might a mother and father; for I created them, too. But this world is no longer young. It persists now by its own whim." },
+					Text = "Responsibility is partly mine for all that has transpired. I attempted to create this world with a degree of care. I nurtured it; adhered to certain principles, as might a mother and father, for I created {#Emph}them{#Prev}, too. But this world is no longer young. It persists now by its own whim." },
 			},
 
+			-- alt below
 			ChaosGrantsDarkness01 =
 			{
 				PlayOnce = true,
@@ -962,12 +1228,46 @@
 					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBountyBoard" },
 					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ChaosGrantsDarkness01_B" },
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0047",
 					SecretMusicActiveStems = { "ChaosBass" },
 					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
 					Text = "Once there was Darkness all throughout the Underworld, but now... Chronos works to re-shape the realm to suit his preferences. However, there shall always be Darkness here in this space. And I have made it visible to you." },
+				{
+					PostLineThreadedFunctionName = "DisplayInfoToast",
+					PostLineThreadedFunctionArgs = { Duration = 2, Title = "ChaosUnlockAdded", Text = "Mixer6Common", VoiceLines = { GlobalVoiceLines = "DarknessUnlockedVoiceLines" }, GiftResource = true, WaitTime = 0.25, ResourceName = "Mixer6Common", SoundName = "/SFX/Player Sounds/DarknessCollectionPickup" },
+				},
+			},
+			ChaosGrantsDarkness01_B =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBountyBoard" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ChaosGrantsDarkness01" },
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0047_ALT",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "There shall always be Darkness here in this space. And I have made it visible to you." },
 				{
 					PostLineThreadedFunctionName = "DisplayInfoToast",
 					PostLineThreadedFunctionArgs = { Duration = 2, Title = "ChaosUnlockAdded", Text = "Mixer6Common", VoiceLines = { GlobalVoiceLines = "DarknessUnlockedVoiceLines" }, GiftResource = true, WaitTime = 0.25, ResourceName = "Mixer6Common", SoundName = "/SFX/Player Sounds/DarknessCollectionPickup" },
@@ -1029,6 +1329,13 @@
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
 					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ChronosNightmare01", "ChaosAboutZagreus01" },
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0044",
@@ -1046,11 +1353,12 @@
 					},
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "ChronosNightmare01" },
+						HasAny = { "ChronosNightmare01", "ChaosAboutZagreus01" },
 					},
 					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
+						PathFalse = { "GameState", "TextLinesRecord", "FatesEpilogue01" },
 					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0045",
@@ -1059,6 +1367,7 @@
 					Text = "I shall hold Chronos to account for what has come to pass. But I am not without blame, myself. For I fear that I made present matters worse. We shall see whether any such mistakes can be corrected." },
 			},
 
+			-- post-ending alt below
 			ChaosAboutChronosNightmare01 =
 			{
 				PlayOnce = true,
@@ -1068,26 +1377,41 @@
 						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
 					},
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ChaosAboutChronosNightmare01_B" },
+					},
+					{
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = {
 							"ChronosNightmare01",
-							"HecateAboutFates01",
 							"MorosAboutFates02",
-							"NemesisAboutChronosNightmare02",
 							"HadesAboutChronosNightmare01",
-							"HermesAboutFates01",
 						},
 					},
 					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = {
+							"HecateAboutFates01",
+							"HecateBossAboutFates01",
+						},
 					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = {
+							"NemesisAboutChronosNightmare02",
+							"NemesisAboutChronosNightmare02_B",
+						},
+					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
-				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0098",
 					SecretMusicActiveStems = { "ChaosBass" },
 					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
 					Text = "The weavings of the Fates are said to bind both mortals and immortals alike. The course and outcome of all lives, all preordained. Thus the sense of choice is merely an illusion. Do you believe this, Spawn of Hades? Respond." },
+
 				{ Cue = "/VO/MelinoeField_1209", UsePlayerSource = true,
 					SecretMusicMutedStems = { "ChaosBass" },
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
@@ -1108,6 +1432,73 @@
 					PreContentSound = "/SFX/Menu Sounds/ChaosBoonChange",
 					Text = "Yet they are not so powerful as they appeared. Nevertheless, I think you are correct. Chronos indicated his intentions were benign. I am unfamiliar with deceit, and was misled. I remain quite displeased about this still." },
 			},
+			ChaosAboutChronosNightmare01_B =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ChaosAboutChronosNightmare01" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = {
+							"ChronosNightmare01",
+							"MorosAboutFates02",
+						},
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = {
+							"HecateAboutFates01",
+							"HecateBossAboutFates01",
+						},
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = {
+							"NemesisAboutChronosNightmare02",
+							"NemesisAboutChronosNightmare02_B",
+						},
+					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0098",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "The weavings of the Fates are said to bind both mortals and immortals alike. The course and outcome of all lives, all preordained. Thus the sense of choice is merely an illusion. Do you believe this, Spawn of Hades? Respond." },
+
+				{ Cue = "/VO/MelinoeField_1209_B", UsePlayerSource = true,
+					SecretMusicMutedStems = { "ChaosBass" },
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I think the Fates determine much about our lives... when and where we are born, for instance, and to whom. But I don't think they set every detail. And, I know they're not weaving at all right now..." },
+
+				{ Cue = "/VO/Chaos_0099",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosBoonChange",
+					Text = "I see. For the most part, I concur with your assessment. I am the reason Chronos has them now. He asked me where to find them, and I decided to tell him; to verify such choices could be made without their influence. Now do you understand my quandary? Respond..." },
+
+				{ Cue = "/VO/MelinoeField_4565", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					SecretMusicMutedStems = { "ChaosBass" },
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Oh, almighty Chaos, you were deceived. Chronos is different now, but back then wished to find the Fates for his own gain, as one of the forces in this world powerful enough to stop him..." },
+
+				{ Cue = "/VO/Chaos_0100",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosBoonChange",
+					Text = "Yet they are not so powerful as they appeared. Nevertheless, I think you are correct. Chronos indicated his intentions were benign. I am unfamiliar with deceit, and was misled. I remain quite displeased about this still." },
+			},
+
 			ChaosAboutChronosNightmare02 =
 			{
 				PlayOnce = true,
@@ -1119,15 +1510,88 @@
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutChronosNightmare01" },
 					},
-					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
-					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0101",
 					SecretMusicActiveStems = { "ChaosBass" },
 					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
 					Text = "In retrospect, I ought not have permitted Chronos to speak with me, but he was persuasive. I still do not fully understand how you communicate; what you say is not always what you mean, and your intentions may be carefully veiled. So I pay closer notice now." },
+			},
+			ChaosAboutFates01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ChaosGift04", "ChronosGift04" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "FatesEpilogue01" },
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ChaosAboutChronosNightmare02" }, Min = 6 },
+					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0330",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "Recently the Titan Chronos summoned me, providing many explanations as to why my quandary exists. I did not follow every detail, but observed a different connotation than when last we met, resulting in the disappearance of the Fates. Should I not have accepted his apology? Respond." },
+				{ Cue = "/VO/MelinoeField_4004", UsePlayerSource = true,
+					SecretMusicMutedStems = { "ChaosBass" },
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Almighty Chaos, whether his apology rang true or not isn't for me to say. But I do think the change you heard in Grandfather was a comprehensive one. Can you not work together now to try and find the Fates?" },
+				{ Cue = "/VO/Chaos_0331",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosBoonChange",
+					Text = "The Titan Chronos also volunteered more than I asked. I understand your answer, but am not open to further inquiry. Perhaps the Fates shall be located, or perhaps not." },
+			},
+			ChaosPostEpilogue01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "FatesEpilogue01" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0332",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosBoonChange",
+					Text = "The Three Fates are at last returned, and that is well; thus your assistance with my quandary is complete. But as to whether you discovered {#Emph}them {#Prev}or {#Emph}they {#Prev}decided to return remains unclear. They create far more questions now than I." },
+			},
+			ChaosPostEpilogue02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "FatesEpilogue01" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0333",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosBoonChange",
+					Text = "I am quite interested in control. Once I alone possessed it, until the Fates took some of it from me; then they were gone, after the Titan Chronos had returned. Now they are back. Whose choices have been made...? Everyone's. No one's." },
 			},
 
 			ChaosAboutChronosFight01 =
@@ -1144,12 +1608,181 @@
 					{
 						PathTrue = { "PrevRun", "Cleared" },
 					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0102",
 					SecretMusicActiveStems = { "ChaosBass" },
 					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
 					Text = "There was a certain rumbling I felt within the depths... you reached your destination, did you not? Confronted Chronos, and prevailed. And yet his influence remains. But perhaps the Titan shall relinquish control with further persuasion." },
+			},
+
+			ChaosAboutTyphon01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						Path = { "GameState", "RoomsEntered" },
+						SumOf = { "Q_Boss01", "Q_Boss02" },
+						Comparison = ">=",
+						Value = 2,
+					},
+					{
+						Path = { "PrevRun", "RoomsEntered" },
+						HasAny = { "Q_Boss01", "Q_Boss02" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ZeusPalaceAboutTyphonDeath01" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0282",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "I understand the being you call Typhon presents a significant problem for the Olympians, and now also for you. I had not necessarily expected he and Chronos would join forces; perhaps this is why I could not detect Typhon's reawakening." },
+			},
+			ChaosAboutTyphon02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						Path = { "GameState", "RoomsEntered" },
+						SumOf = { "Q_Boss01", "Q_Boss02" },
+						Comparison = ">=",
+						Value = 2,
+					},
+					{
+						Path = { "PrevRun", "RoomsEntered" },
+						HasAny = { "Q_Boss01", "Q_Boss02" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0283",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "The being that you know as Typhon is the product of an earlier experiment of mine. I sought for my creations to surprise and multiply, but perhaps not to that extent. And I cannot unmake him now." },
+			},
+			ChaosAboutTyphon03 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutTyphon01" },
+					},
+					{
+						Path = { "GameState", "RoomsEntered" },
+						SumOf = { "Q_Boss01", "Q_Boss02" },
+						Comparison = ">=",
+						Value = 2,
+					},
+					{
+						Path = { "PrevRun", "RoomsEntered" },
+						HasAny = { "Q_Boss01", "Q_Boss02" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ZeusPalaceAboutTyphonDeath01" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0284",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "I find it interesting that the being you call Typhon has prioritized destruction above all. Perhaps I created more than I ought to have, and now this counteracting force has emerged. For creation self-corrects." },
+			},
+			ChaosAboutTyphon04 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						Path = { "GameState", "RoomsEntered" },
+						SumOf = { "Q_Boss01", "Q_Boss02" },
+						Comparison = ">=",
+						Value = 2,
+					},
+					{
+						Path = { "PrevRun", "RoomsEntered" },
+						HasAny = { "Q_Boss01", "Q_Boss02" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0287",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "Perhaps you wonder if I am responsible for Typhon in some way, for I created that from which he spawned. I, too, have wondered this, and my conclusion is that I am as responsible for Typhon as Chronos is responsible for you." },
+			},
+
+			ChaosAboutTyphonDeath01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TyphonDefeatedWithStormStop" },
+					},					
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0321",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "Recently I ceased to sense the being you call Typhon, which is unusual considering his size. I have been wondering whether this indicates some sort of trouble I am having, or if Typhon merely is no longer there. Which do you think? Respond." },
+
+				{ Cue = "/VO/MelinoeField_4003", UsePlayerSource = true,
+					SecretMusicMutedStems = { "ChaosBass" },
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "The Father of All Monsters is destroyed, Almighty Chaos. It was an action I did not take lightly, but the threat against my family was significant and pervasive. He left us no choice." },
+
+				{ Cue = "/VO/Chaos_0322",
+					PreContentSound = "/SFX/Menu Sounds/ChaosBoonChange",
+					SecretMusicActiveStems = { "ChaosBass" },
+					Text = "You could have chosen the destruction of Olympus; nonetheless, I understand why you did not. The power to unmake creations such as that... I would be curious to learn it for myself. Although perhaps I would not use it sparingly." },
+			},
+
+			ChaosAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						SumPrevRuns = 2,
+						Path = { "RoomsEntered", "P_Boss01" },
+						Comparison = ">=",
+						Value = 1,
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0288",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "The Titan you know as Prometheus bestowed on mortals sacred fire from Olympus, in an interesting moment I did not entirely expect. How shall that fire be used hence, and in so many different hands?" },
 			},
 
 			ChaosAboutTitans01 =
@@ -1162,6 +1795,9 @@
 					},
 					{
 						PathTrue = { "GameState", "RoomsEntered", "I_Boss01" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -1180,7 +1816,7 @@
 						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
 					},
 					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
+						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -1202,7 +1838,7 @@
 						HasAll = { "ChaosAboutNyx01", "ChronosNightmare01" }
 					},
 					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
+						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -1210,6 +1846,44 @@
 					SecretMusicActiveStems = { "ChaosBass" },
 					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
 					Text = "If Chronos holds the goddess Nyx as captive in your father's House, along with other members of her family and yours, then I would like for that to change. Perhaps he shall release them if you use sufficient violence." },
+			},
+			ChaosWithNyx01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Nyx_Story_01", }, Alive = true },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0328",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "At present, I remain in conversation with the goddess Nyx. My mark is yours as always, but I bid you leave us afterward; though take however long you wish, for we can wait." },
+			},
+			ChaosWithNyx02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Nyx_Story_01", }, Alive = true },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0329",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "I felt an emptiness that was unusual to me after the goddess Nyx was temporarily taken away. Now that she has returned, that emptiness is mostly gone; especially whilst she is here." },
 			},
 
 			ChaosAboutNemesis01 =
@@ -1246,6 +1920,9 @@
 						Comparison = ">=",
 						Value = 2,
 					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ChaosPostEpilogue01" }
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0199",
@@ -1262,14 +1939,16 @@
 						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
 					},
 					{
-						PathTrue = { "GameState", "RoomsEntered", "O_Boss01" }
+						SumPrevRuns = 2,
+						Path = { "RoomsEntered" },
+						TableValuesToCount = { "O_Boss01", "O_Boss02" },
+						Comparison = ">=",
+						Value = 1,
 					},
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutSurfaceAppearance01" }
 					},
-					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
-					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0201",
@@ -1315,8 +1994,9 @@
 						PathTrue = { "CurrentRun", "BiomesReached", "F" },
 					},
 					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
+						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0205",
@@ -1337,12 +2017,10 @@
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "ZeusUpgrade" }
 					},
-					--[[
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
-					]]--
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0170",
@@ -1361,12 +2039,11 @@
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "HeraUpgrade" }
 					},
-					--[[
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
-					]]--
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0171",
@@ -1385,12 +2062,11 @@
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
 					},
-					--[[
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
-					]]--
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0172",
@@ -1410,14 +2086,9 @@
 						PathTrue = { "CurrentRun", "UseRecord", "ApolloUpgrade" }
 					},
 					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
-					},
-					--[[
-					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
-					]]--
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0173",
@@ -1437,12 +2108,13 @@
 						PathTrue = { "CurrentRun", "UseRecord", "HestiaUpgrade" }
 					},
 					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
+						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 					--[[
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 					]]--
 				},
@@ -1463,12 +2135,11 @@
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "HephaestusUpgrade" }
 					},
-					--[[
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
-					]]--
+					-- NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0175",
@@ -1487,12 +2158,11 @@
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
-					--[[
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
-					]]--
+					-- NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0176",
@@ -1511,11 +2181,15 @@
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
 					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
 					--[[
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 					]]--
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -1523,6 +2197,28 @@
 					SecretMusicActiveStems = { "ChaosBass" },
 					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
 					Text = "The goddess Demeter is set for war, and lends to you her wrathful strength. The mother of your mother has experience fighting Titans... her predecessors. You all have grown so numerous that very little common ground remains." },
+			},
+			ChaosAboutAres01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "CurrentRun", "UseRecord", "AresUpgrade" }
+					},
+					{
+						Path = { "CurrentRun", "TextLinesRecord" },
+						HasNone = GameData.GodAboutGodEvents,
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0289",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "You bear the Boon of violent Ares, who often worships me more than his kin; for without creation, there can be no destruction, he says. And I believe he is entirely correct." },
 			},
 			ChaosAboutArtemis01 =
 			{
@@ -1535,12 +2231,10 @@
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "NPC_Artemis_Field_01" }
 					},
-					--[[
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
-					]]--
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0178",
@@ -1559,12 +2253,10 @@
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "HermesUpgrade" }
 					},
-					--[[
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
-					]]--
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0179",
@@ -1583,10 +2275,17 @@
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "SpellDrop" }
 					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ChaosGift01", "SeleneGift01" },
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
 					--[[
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 					]]--
 				},
@@ -1595,6 +2294,257 @@
 					SecretMusicActiveStems = { "ChaosBass" },
 					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
 					Text = "Selene rides across the sky, yet her attentions she directs towards you. Perhaps she is wondering, {#Emph}what is the Moon without Night? {#Prev}Yet I suspect that she is capable in Nyx's absence." },
+			},
+
+			-- other reactions
+			ChaosAboutNyxAspect01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "SuitMarkCritAspect" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0344",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "I momentarily mistook you for the goddess Nyx, for she once had a similar appearance as with yours. Less so your stature and your shape; rather the artifact surrounding you. There is no reason you should have it had Nyx not permitted this." },
+			},
+
+			ChaosAboutFishing01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod" },
+					},
+					{
+						PathNotEmpty = { "CurrentRun", "CurrentRoom", "FishingPointChoices" },
+					},
+					{
+						Path = { "GameState", "EquippedFamiliar" },
+						IsNone = { "CatFamiliar" },
+					},
+					{
+						PathFalse = { "CurrentRun", "CurrentRoom", "FishingPointUsed" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0343",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "Here in this space, there is a living specimen you may procure. I do not care for it, for there are others of its kind. I gave them ability to replicate, and to find purpose in the act." },
+			},
+
+			ChaosAboutForm01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ChaosGift04" }
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0334",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "We are as beings ever-changing, in a way. The particles that form us die and are reborn. From my observance of your relatives and their unusual custom, I have attempted to extrapolate a form more suitable to them; and perhaps you." },
+			},
+
+			ChaosPostTrueEnding01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0317",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "I sensed upheaval in the earth the likes of which I have not felt before; the tenor of it more than the intensity. Something transpired in your father's residence, and Chronos vacated. Why would he take an action such as that? Respond." },
+
+				{ Cue = "/VO/MelinoeField_4001", UsePlayerSource = true,
+					SecretMusicMutedStems = { "ChaosBass" },
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Respectfully, Almighty Chaos... Chronos has had quite a change of heart. I found my brother Zagreus who aided me in bringing it about. Our grandfather conceded in his war against Olympus, and now seeks to make amends." },
+
+				{ Cue = "/VO/Chaos_0318",
+					PreContentSound = "/SFX/Menu Sounds/ChaosBoonChange",
+					SecretMusicActiveStems = { "ChaosBass" },
+					Text = "An interesting change. The absence of detail raises many different questions, which I shall explore. The outcome that you sought has been achieved, yet you seem to pursue it even still. My mark therefore remains available to you." },
+			},
+			ChaosPostTrueEnding02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0319",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "I have one further inquiry concerning what transpired in your father's House. Chronos conceded in his war, you said, yet you continue fighting battles as before. Why is that so? Respond." },
+
+				{ Cue = "/VO/MelinoeField_4002", UsePlayerSource = true,
+					SecretMusicMutedStems = { "ChaosBass" },
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Almighty Chaos, Chronos can explain it far better than I, but Time is like a river seeking to flow freely forth. Yet it can be obstructed and change course disastrously. Essentially, I'm having to re-trace some of my steps to prevent that." },
+
+				{ Cue = "/VO/Chaos_0320",
+					PreContentSound = "/SFX/Menu Sounds/ChaosBoonChange",
+					SecretMusicActiveStems = { "ChaosBass" },
+					Text = "As one who dwells in possibility, I understand. Preventing infinite possibilities, however remote they may be, shall take some time. But Chronos must be well aware of that. I shall look forward to the outcome of this new endeavor." },
+			},
+
+			ChaosPostTrueEndingSurface01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0323",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "You are continuing your journeys to Olympus though the being you called Typhon is no more; for there are battles to be fought as yet, whilst following the footsteps that you made. Is this what Chronos has discovered about Time...?" },
+			},
+			ChaosPostTrueEndingRunCleared01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "PrevRun", "EnemyKills", "TyphonHead" },
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0324",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "I sensed a faint trace of the being you called Typhon once again, then it was gone. Perhaps a current emanating from the river you called Time, and you found a way to put a stop to it. One fewer possibility, yet there are many more." },
+			},
+			ChaosPostTrueEndingAboutUnderworld01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "I_Boss01" },
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0326",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "You reached your father's residence then disappeared, becoming undetectable to me. This was the work of Chronos, was it not? A transference into another realm of possibility, which you attempted to shut from the inside out..." },
+			},
+			ChaosPostTrueEndingAboutNyx01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0327",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "Your meeting with the Titan Chronos set in motion many series of events, resulting in the liberation of the goddess Nyx. That is an outcome I had sought, so for this daughter of mine, I shall give you gratitude." },
+			},
+			ChaosPostTrueEndingAboutUnderworld02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "F" },
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0325",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "I sense a difference now within the Underworld's depths, yet the environment itself is much the same. Those who oppose you still oppose you, so that you may now re-trace some of your steps. This shall result in different outcomes, certainly." },
+			},
+
+			ChaosAboutSayingLittle01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "HecateBathHouseEpilogue01", "ChaosGift07" },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0345",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "Spawn of Hades, I have no further wishes to communicate with you this often at this length. I likely shall use fewer words with you henceforth, I think." },
 			},
 
 			-- repeatable lines
@@ -1917,12 +2867,12 @@
 					},
 					{
 						Path = { "CurrentRun", "RunDepthCache" },
-						Comparison = "<",
-						Value = 3,
+						Comparison = "<=",
+						Value = 4,
 					},
 					{
-						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-						IsAny = { "F", "N", },
+						Path = { "CurrentRun", "BiomesReached" },
+						HasNone = { "G", "O" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -1940,12 +2890,12 @@
 					},
 					{
 						Path = { "CurrentRun", "RunDepthCache" },
-						Comparison = "<",
-						Value = 3,
+						Comparison = "<=",
+						Value = 4,
 					},
 					{
-						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-						IsAny = { "F", "N", },
+						Path = { "CurrentRun", "BiomesReached" },
+						HasNone = { "G", "O" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -1954,7 +2904,262 @@
 					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
 					Text = "Perhaps the Fates themselves expected we would meet this soon." },
 			},
-
+			ChaosChat25 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						FunctionName = "RequireUnrestrictedBoonChoices",
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0337",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "There are innumerable possibilities but I shall offer three, one for each of the Fates." },
+			},
+			ChaosChat26 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0338",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "As you have come to me, I shall create in you a temporary change." },
+			},
+			ChaosChat27 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0339",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "The Fates did not decide you would return to me; it was either you or I." },
+			},
+			ChaosChat28 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0340",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "Your actions yet provide a source of some amusement, Spawn of Hades." },
+			},
+			ChaosChat29 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0341",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "Your frequent visits to this space suggest to me my mark is generally to your benefit." },
+			},
+			ChaosChat30 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0342",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "If you remain here for too long, you shall dissolve into this space; so I suggest you go." },
+			},
+			ChaosChat31 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0346",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "Assist with my experiment, and benefit." },
+			},
+			ChaosChat32 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0347",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "Time appears to be the source of many problems recently." },
+			},
+			ChaosChat33 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0348",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "You need not venture far to find me, Spawn of Hades." },
+			},
+			ChaosChat34 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0349",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "We have eternity to conduct our experiment." },
+			},
+			ChaosChat35 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0350",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "The act of creation is not always pristine." },
+			},
+			ChaosChat36 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0351",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "How interesting that the smallest beings often prove to be superior." },
+			},
+			ChaosChat37 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ChaosGift07" }
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ChaosGift07" }, Min = 8 },
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0352",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "You are amusing, Spawn of Hades, more than I originally thought." },
+			},
+			ChaosChat38 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ChaosAboutRandomBounties01" }, Min = 8 },
+					},
+					{
+						Path = { "CurrentRun", "ActiveBounty" },
+						IsAny = GameData.AllRandomPackagedBounties,
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0353",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "Welcome, Spawn of Hades, to my most-preferred type of experiment." },
+			},
+			ChaosChat39 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0354",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "I shall look forward to the outcome of this new endeavor." },
+			},
+			ChaosChat40 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0355",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "Responsibility is partly mine for all that has transpired." },
+			},
+			ChaosChat41 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0356",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "Respond only when prompted, or when necessary in the absolute." },
+			},
 		},
 
 		GiftTextLineSets =
@@ -1966,6 +3171,7 @@
 				OnGiftTrack = true,
 				UnfilledIcon = "EmptyHeartWithGiftIcon",
 				FilledIcon = "FilledHeartWithGiftIcon",
+				SkipGiftPresentationPost = true,
 				Cost =
 				{
 					GiftPoints = 1,
@@ -1976,7 +3182,7 @@
 						PathTrue = { "GameState", "UseRecord", "TrialUpgrade" },
 					},
 					{
-						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
 				},
@@ -1985,7 +3191,7 @@
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					PostLineFunctionName = "BoonInteractPresentation",
 					PostLineFunctionArgs = { SkipAnim = true },
-					Text = "If you'll permit me, almighty Chaos, I wish you to have this gift of Nectar, in accordance with my family's custom among relatives and friends. None of this would have been possible if not for you..." },
+					Text = "If you'll permit me, Almighty Chaos, I wish you to have this gift of Nectar, in accordance with my family's custom among relatives and friends. None of this would have been possible if not for you..." },
 				{ Cue = "/VO/Chaos_0048",
 					PortraitExitWait = 1.0,
 					SecretMusicActiveStems = { "ChaosBass" },
@@ -1996,6 +3202,9 @@
 			{
 				PlayOnce = true,
 				OnGiftTrack = true,
+				UnfilledIcon = "EmptyHeartWithProphecyIcon",
+				FilledIcon = "FilledHeartWithProphecyIcon",
+				SkipGiftPresentationPost = true,
 				Cost =
 				{
 					GiftPoints = 1,
@@ -2006,7 +3215,7 @@
 						PathTrue = { "GameState", "UseRecord", "TrialUpgrade" },
 					},
 					{
-						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
 				},
@@ -2026,6 +3235,7 @@
 			{
 				PlayOnce = true,
 				OnGiftTrack = true,
+				SkipGiftPresentationPost = true,
 				Cost =
 				{
 					GiftPoints = 1,
@@ -2036,7 +3246,7 @@
 						PathTrue = { "GameState", "UseRecord", "TrialUpgrade" },
 					},
 					{
-						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
 				},
@@ -2045,7 +3255,7 @@
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					PostLineFunctionName = "BoonInteractPresentation",
 					PostLineFunctionArgs = { SkipAnim = true },
-					Text = "I know such sweetness as this Nectar is never to be taken for granted, almighty Chaos. Please, it's yours! Wondrous creations such as this are only possible because of you." },
+					Text = "I know such sweetness as this Nectar is never to be taken for granted, Almighty Chaos. Please, it's yours! Wondrous creations such as this are only possible because of you." },
 				{ Cue = "/VO/Chaos_0050",
 					PortraitExitWait = 1.0,
 					SecretMusicActiveStems = { "ChaosBass" },
@@ -2056,6 +3266,7 @@
 			{
 				PlayOnce = true,
 				OnGiftTrack = true,
+				SkipGiftPresentationPost = true,
 				Cost =
 				{
 					GiftPoints = 1,
@@ -2066,7 +3277,7 @@
 						PathTrue = { "GameState", "UseRecord", "TrialUpgrade" },
 					},
 					{
-						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
 				},
@@ -2086,6 +3297,7 @@
 			{
 				PlayOnce = true,
 				OnGiftTrack = true,
+				SkipGiftPresentationPost = true,
 				Cost =
 				{
 					GiftPoints = 1,
@@ -2096,7 +3308,7 @@
 						PathTrue = { "GameState", "UseRecord", "TrialUpgrade" },
 					},
 					{
-						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
 				},
@@ -2105,7 +3317,7 @@
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					PostLineFunctionName = "BoonInteractPresentation",
 					PostLineFunctionArgs = { SkipAnim = true },
-					Text = "It's heartening to know that the origin of all existence also is a source of such limitless curiosity. Here's to finding great interest even in the simplest of things!" },
+					Text = "It's heartening to know that the Origin of All Existence also is a source of such limitless curiosity. Here's to finding great interest even in the simplest of things!" },
 				{ Cue = "/VO/Chaos_0168",
 					PortraitExitWait = 1.0,
 					SecretMusicActiveStems = { "ChaosBass" },
@@ -2116,6 +3328,7 @@
 			{
 				PlayOnce = true,
 				OnGiftTrack = true,
+				SkipGiftPresentationPost = true,
 				Cost =
 				{
 					GiftPoints = 1,
@@ -2126,7 +3339,7 @@
 						PathTrue = { "GameState", "UseRecord", "TrialUpgrade" },
 					},
 					{
-						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
 				},
@@ -2135,28 +3348,77 @@
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					PostLineFunctionName = "BoonInteractPresentation",
 					PostLineFunctionArgs = { SkipAnim = true },
-					Text = "Such a strange journey your creations take, almighty Chaos! This particular bottle, for instance... formed after untold aeons, only to find its way back to you. Inevitably or not." },
+					Text = "Such a strange journey your creations take, Almighty Chaos! This particular bottle, for instance... formed after untold aeons, only to find its way back to {#Emph}you. {#Prev}Inevitably or not." },
 				{ Cue = "/VO/Chaos_0169",
 					PortraitExitWait = 1.0,
 					SecretMusicActiveStems = { "ChaosBass" },
 					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
 					Text = "I still possess some of the Nectar that your brother once gave to me, when he was dealing with a certain quandary of his. I think that I shall keep this offering close by to that. You follow in his path, yet seem to choose your own way." },
 			},
-
-			-- placeholder
-			ChaosGiftTemp =
+			-- bond forged
+			ChaosGift07 =
 			{
 				PlayOnce = true,
-				UseableOffSource = true,
 				OnGiftTrack = true,
-				UnfilledIcon = "UnavailableHeartIcon",
-				HintId = "Codex_UnavailableHint",
+				LockedHintId = "Codex_ChaosGiftHint01",
+				CompletedHintId = "Codex_BondForgedChaos",
+				UnfilledIcon = "EmptyHeartWithAmbrosiaIcon",
+				FilledIcon = "FilledHeartWithAmbrosiaIcon",
 				Cost =
 				{
-					MysteryResource = 1,
+					SuperGiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "TrialUpgrade" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ChaosGift06", "ChaosAboutBountyProgress01" }
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_3642", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineFunctionName = "BoonInteractPresentation",
+					PostLineFunctionArgs = { SkipAnim = true },
+					Text = "Almighty Chaos, please accept the greatest delicacy for which my family is known. I know it's less than nothing in a way; but for us, it's a symbol of the bonds we share." },
+
+				{ Cue = "/VO/Chaos_0291",
+					PortraitExitWait = 1.0,
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "I am unmoved by this Ambrosia that you offer me yet understand this substance is considered valuable and relatively rare. I wonder why you give it to me now, and wish to know; therefore, respond." },
+
+				{ Cue = "/VO/MelinoeField_3643", UsePlayerSource = true,
+					SecretMusicMutedStems = { "ChaosBass" },
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "You seem to like unguarded truth, Almighty Chaos, and it's that I am very much in awe of you. Your attention and your aid mean more than I can say. My family gives Ambrosia when mere words cannot suffice." },
+
+				{ Cue = "/VO/Chaos_0292",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosBoonChange",
+
+					PostLineThreadedFunctionName = "MaxedRelationshipPresentation",
+					PostLineThreadedFunctionArgs = { Text = "NPC_Chaos_01", Icon = "Keepsake_Chaos" },
+
+					Text = "Your insufficient words have been of greater impact than your gift; I shall accept it all nevertheless. You are amusing, Spawn of Hades, more than I originally thought." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						{ Cue = "/VO/MelinoeField_3644", Text = "{#Emph}Erm... {#Prev}cheers?" },
+					},
 				},
 			},
-
 		},
 
 		GiftGivenVoiceLines =
@@ -2222,7 +3484,6 @@
 				{ Cue = "/VO/Chaos_0128", Text = "The bounds of what is possible continue to expand." },
 				{ Cue = "/VO/Chaos_0129", Text = "This was a chance I trust was well worth taking." },
 				{ Cue = "/VO/Chaos_0130", Text = "I was sufficiently amused by your attempt." },
-				{ Cue = "/VO/Chaos_0253", Text = "May my Star Dust compensate you for your services." },
 				{ Cue = "/VO/Chaos_0254", Text = "This Trial is complete; I bid you return whence you came." },
 				{ Cue = "/VO/Chaos_0255", Text = "I have observed the outcome of this Trial with keen interest." },
 				{ Cue = "/VO/Chaos_0256", Text = "You may go no further; that is all part of the Trial." },
@@ -2231,6 +3492,14 @@
 				{ Cue = "/VO/Chaos_0259", Text = "I did not necessarily expect that you would pass this Trial." },
 				{ Cue = "/VO/Chaos_0260", Text = "Another Trial successfully completed, Spawn of Hades." },
 				{ Cue = "/VO/Chaos_0261", Text = "You passed; but now return to shadow, Spawn of Hades." },
+				{ Cue = "/VO/Chaos_0253", Text = "May my Star Dust compensate you for your services.",
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "CurrentRun", "CurrentRoom", "UseRecord", "GemPointsBigDrop" }
+						},
+					},
+				},
 			},
 			{
 				RandomRemaining = true,
@@ -2281,20 +3550,170 @@
 
 		},
 
-		BlindBoxOpenedVoiceLines =
-		{
-			RandomRemaining = true,
-			BreakIfPlayed = true,
-			PreLineWait = 0.3,
-			Source = { LineHistoryName = "NPC_Demeter_01", SubtitleColor = Color.DemeterVoice },
-			TriggerCooldowns = { "DemeterBoonTakenSpeech" },
-
-			-- How do you do, young man.
-			-- { Cue = "", Text = "TODO(BuildText) Zeus_0078" },
-		},
-
 	},	
 
+}
+
+-- Global Chaos Lines
+GlobalVoiceLines.ChaosSecretUnlockedVoiceLines =
+{
+	{
+		PlayOnce = true,
+		PlayOnceContext = "ChaosAboutSurfacePromptSpeech",
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 1.13,
+		PlayOnceFromTableThisRun = true,
+		SuccessiveChanceToPlay = 0.2,
+		Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeSurfacePenaltyCure" },
+			},
+			{
+				PathFalse = { "GameState", "TextLinesRecord", "ChaosAboutSurface01" },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "MaxHealth" },
+				Comparison = ">=",
+				Value = 50,
+			},
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsNone = { "Chaos_01", "Chaos_02", "Chaos_03", "Chaos_04", "Chaos_05", "Chaos_06" },
+			},
+			{
+				FunctionName = "RequiredHealthFraction",
+				FunctionArgs = { Comparison = ">=", Value = 0.5, },
+			},
+		},
+		{ Cue = "/VO/Chaos_0059", Text = "Come, Spawn of Hades..." },
+		{ Cue = "/VO/Chaos_0064", Text = "You are summoned...", PlayFirst = true },
+		{ Cue = "/VO/Chaos_0066", Text = "Come enter the abyss..." },
+	},
+	{
+		RandomRemaining = true,
+		PreLineWait = 1.13,
+		PlayOnceFromTableThisRun = true,
+		SuccessiveChanceToPlay = 0.2,
+		Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "ChaosGift02" },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "MaxHealth" },
+				Comparison = ">=",
+				Value = 30,
+			},
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsNone = { "Chaos_01", "Chaos_02", "Chaos_03", "Chaos_04", "Chaos_05", "Chaos_06" },
+			},
+			{
+				FunctionName = "RequiredHealthFraction",
+				FunctionArgs = { Comparison = ">=", Value = 0.5, },
+			},
+		},
+		{ Cue = "/VO/Chaos_0059", Text = "Come, Spawn of Hades...", PlayFirst = true },
+		{ Cue = "/VO/Chaos_0060", Text = "The path to me is open..." },
+		{ Cue = "/VO/Chaos_0061", Text = "Return to me again..." },
+		{ Cue = "/VO/Chaos_0062", Text = "Come join me if you wish..." },
+		{ Cue = "/VO/Chaos_0063", Text = "I offer you a different path..." },
+		{ Cue = "/VO/Chaos_0064", Text = "You are summoned..." },
+		{ Cue = "/VO/Chaos_0065", Text = "My gateway is opened..." },
+		{ Cue = "/VO/Chaos_0066", Text = "Come enter the abyss..." },
+	},
+}
+GlobalVoiceLines.ChaosHarvestReactionVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 1.6,
+	ChanceToPlay = 0.13,
+	Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
+	GameStateRequirements =
+	{
+		{
+			Path = { "GameState", "UseRecord", "TrialUpgrade", },
+			Comparison = ">=",
+			Value = 3,
+		},
+		{
+			Path = { "CurrentRun", "CurrentRoom", "Name" },
+			IsAny = { "Chaos_01", "Chaos_02", "Chaos_03", "Chaos_04", "Chaos_05", "Chaos_06" },
+		},
+	},
+	Cooldowns =
+	{
+		{ Name = "ChaosSpokeRecently", Time = 45 },
+	},
+	TriggerCooldownsImmediately = true,
+	TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
+
+	{ Cue = "/VO/Chaos_0191", Text = "You may have it." },
+	{ Cue = "/VO/Chaos_0192", Text = "It is yours." },
+	{ Cue = "/VO/Chaos_0193", Text = "A small gift." },
+	{ Cue = "/VO/Chaos_0194", Text = "That is for you." },
+	{ Cue = "/VO/Chaos_0195", Text = "Please enjoy." },
+	{ Cue = "/VO/Chaos_0196", Text = "Do as you will." },
+}
+
+GlobalVoiceLines.ChaosWarningVoiceLines =
+{
+	RandomRemaining = true,
+	PreLineWait = 0.64,
+	Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
+	GameStateRequirements =
+	{
+		{
+			PathFalse = { "CurrentRun", "Hero", "IsDead" }
+		},
+	},
+	Cooldowns =
+	{
+		{ Name = "ChaosSpokeRecently", Time = 6 },
+	},
+
+	{ Cue = "/VO/Chaos_0141", Text = "Be careful, Spawn of Hades." },
+	-- { Cue = "/VO/Chaos_0142", Text = "This was avoidable." },
+	-- { Cue = "/VO/Chaos_0143", Text = "A momentary lapse." },
+	{ Cue = "/VO/Chaos_0144", Text = "Be mindful of my mark." },
+	{ Cue = "/VO/Chaos_0145", Text = "Remember my mark." },
+	-- { Cue = "/VO/Chaos_0146", Text = "You did agree to this...", PlayFirst = true },
+	-- { Cue = "/VO/Chaos_0147", Text = "Was that worthwhile?" },
+	-- { Cue = "/VO/Chaos_0148", Text = "A questionable choice." },
+	-- { Cue = "/VO/Chaos_0149", Text = "Ill-advised." },
+	{ Cue = "/VO/Chaos_0150", Text = "Do not forget my mark." },
+	{ Cue = "/VO/Chaos_0151", Text = "{#Emph}<Laughter>" },
+	{ Cue = "/VO/Chaos_0152", Text = "{#Emph}<Chuckle>" },
+}
+GlobalVoiceLines.ChaosBigHitVoiceLines =
+{
+	Queue = "Always",
+	RandomRemaining = true,
+	PreLineWait = 1.01,
+	Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
+	GameStateRequirements =
+	{
+		{
+			PathFalse = { "CurrentRun", "Hero", "IsDead" }
+		},
+	},
+	Cooldowns =
+	{
+		{ Name = "ChaosSpokeRecently", Time = 6 },
+	},
+	TriggerCooldowns = { "MelinoeChaosBoonTransformSpeech" },
+
+	{ Cue = "/VO/Chaos_0142", Text = "This was avoidable." },
+	{ Cue = "/VO/Chaos_0143", Text = "A momentary lapse." },
+	{ Cue = "/VO/Chaos_0146", Text = "You did agree to this..." },
+	{ Cue = "/VO/Chaos_0147", Text = "Was that worthwhile?" },
+	{ Cue = "/VO/Chaos_0148", Text = "A questionable choice." },
+	{ Cue = "/VO/Chaos_0149", Text = "Ill-advised." },
 }
 
 OverwriteTableKeys( LootData, LootSetData.Chaos )

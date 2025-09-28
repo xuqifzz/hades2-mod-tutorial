@@ -663,6 +663,10 @@
 				Duration = 6
 			}
 			{
+				BlendTransitionFrom = "Melinoe_Suit_Shiva_SpecialMissile_End"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Melinoe_Suit_Sprint_FireLoop"
 				Duration = 15
 			}
@@ -687,6 +691,10 @@
 				Duration = 5
 			}
 			{
+				BlendTransitionFrom = "Melinoe_Suit_Interact"
+				Duration = 5
+			}
+			{
 				BlendTransitionFrom = "MelinoeBoonInteractPowerUp"
 				Duration = 5
 			}
@@ -700,6 +708,10 @@
 			}
 			{
 				BlendTransitionFrom = "Melinoe_Suit_Equip"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_ForwardCast_End"
 				Duration = 5
 			}
 		]
@@ -764,7 +776,7 @@
 		[
 			{
 				BlendTransitionFrom = "Melinoe_Suit_Run_FireLoop"
-				Duration = 4
+				Duration = 6
 			}
 		]
 	}
@@ -966,6 +978,7 @@
 		RequireCurrentAnimationNotContains =
 		[
 			{ Name = "Melinoe_Suit_Dash_Fire" }
+			{ Name = "Melinoe_Suit_Cast_Start" }
 		]
 		Attachments =
 		[

@@ -16,7 +16,7 @@ WeaponSetData =
 			},
 
 			FireProjectileStartDelay = 0.42,
-			PreAttackDuration = 0.6,
+			PreAttackDuration = 0.7,
 			PreAttackAnimationSpeed = 1.5,
 			FireDuration = 0.5,
 			PostAttackDuration = 1.1,
@@ -27,8 +27,8 @@ WeaponSetData =
 			StopBeforeFire = false,
 			PostAttackStop = true,
 
-			AttackDistance = 730,
-			AttackDistanceScaleY = 0.8,
+			AttackDistance = 600,
+			AttackDistanceScaleY = 0.7,
 			LoSBuffer = 85,
 			RequireUnitLoS = true,
 
@@ -50,13 +50,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Werewolf/EmoteAttacking" },
 			},
 		},
-
-		HitScreenshake = { Distance = 12, Speed = 970, Duration = 0.17, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.06, Fraction = 1.0, LerpTime = 0.07 },
-		},
 	},
 
 	LycanthropeLeapKnockback =
@@ -64,8 +57,6 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-
-			DashIfOverDistance = 99999,
 
 			FireProjectileStartDelay = 0.0,
 			ProjectileName = "LycanthropeLeapKnockback",
@@ -84,14 +75,6 @@ WeaponSetData =
 				--{ Name = "/Leftovers/SFX/CaravanDamage" },
 				--{ Name = "/SFX/Enemy Sounds/Polyphemus/EmotePowerAttacking" },
 			},
-		},
-
-		HitScreenshake = { Distance = 4, Speed = 600, Duration = 0.3, FalloffSpeed = 3000, Angle = 0 },
-		
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.05 },
 		},
 	},
 
@@ -121,8 +104,12 @@ WeaponSetData =
 			RetreatBufferDistance = 1600,
 			RetreatAfterAttackChance = 0.3,
 
-			AttackDistance = 890,
-			AttackDistanceScaleY = 0.7,
+			TrackTargetDuringCharge = true,
+			PreAttackRotationDampening = 0.04,
+			StopBeforeFire = true,
+
+			AttackDistance = 730,
+			AttackDistanceScaleY = 0.65,
 			LoSBuffer = 85,
 			FireSelfVelocity = 2600,
 		},
@@ -135,6 +122,7 @@ WeaponSetData =
 			MinAttacksBetweenUse = 6,
 			MaxActiveSpawns = 3,
 			RequiresNotCharmed = true,
+			MaxUses = 1,
 		},
 
 		AIData =
@@ -177,13 +165,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Werewolf/EmoteHowling" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.06, Fraction = 1.0, LerpTime = 0.07 },
-		},
 	},
 
 	LycanthropeHowlSummons_Elite =
@@ -214,8 +195,6 @@ WeaponSetData =
 
 			FireProjectileStartDelay = 0.03,
 
-			--PreAttackDuration = 0.45/2,
-			--PreAttackAnimationSpeed = 1.5,
 			PreAttackDuration = 0.45,
 			FireDuration = 0.15,
 			PostAttackDuration = 0.5, -- animation is 0.45
@@ -226,6 +205,7 @@ WeaponSetData =
 			PostAttackAnimation = "Enemy_LycanSwarmer_ChompPostFire",
 
 			PreAttackEndShake = true,
+			PreAttackEndFlashFraction = 0.85,
 
 			FireFx = "LycanSwarmerStreaks",
 
@@ -267,6 +247,40 @@ WeaponSetData =
 			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.05,
 			PostAttackStop = true,
+		},
+	},
+
+	LycanSwarmer2Chomp =
+	{
+		InheritFrom = { "LycanSwarmerChomp" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "LycanSwarmer2Chomp",
+
+			PreAttackStop = true,
+			FireTicks = 3,
+			FireInterval = 0.5,
+			FireDuration = 0,
+			PostAttackDuration = 0.3,
+			--AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
+			FireRotationDampening = 0.05,
+			PostAttackStop = true,
+		},
+	},
+
+	LycanSwarmer2Chomp_Ally =
+	{
+		InheritFrom = { "LycanSwarmer2Chomp" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			AttackDistance = 600,
 		},
 	},
 
@@ -318,13 +332,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/LycanSwarmer/EmoteEvading" },
 				{ Name = "/Leftovers/SFX/HarpDash" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.17, Fraction = 1.00, LerpTime = 0 },
 		},
 	},
 }

@@ -28,6 +28,10 @@
 				BlendTransitionFrom = "Enemy_SatyrSapper_Move"
 				Duration = 6
 			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrSapper_MoveStop"
+				Duration = 12
+			}
 		]
 	}
 
@@ -106,6 +110,21 @@
 		NativeMoveSpeed = 325
 		CancelOnOwnerMove = true
 		ChainTo = "Enemy_SatyrSapper_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 1
+			}
+			{
+				Frame = 25
+				FrameSpeed = 0
+			}
+		]
 		Blends =
 		[
 			{
@@ -140,6 +159,7 @@
 		GrannyAnimation = "SatyrSapper_Base_Spawn_C_00"
 		ChainTo = "Enemy_SatyrSapper_Idle"
 		CreateAnimation = "SatyrSpawnTrail"
+		CancelOnOwnerMove = true
 		Frames =
 		[
 			{
@@ -154,6 +174,28 @@
 				Frame = 3
 				FrameSpeed = 1
 				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFistPalm"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrSapper_Escape"
+		InheritFrom = "EnemySatyrSapperBaseAnimation"
+		GrannyAnimation = "SatyrSapper_Base_Spawn_C_00"
+		HoldLastFrame = true
+		PlayBackwards = true
+		Frames =
+		[
+			{
+				Frame = 72
+				FrameSpeed = 1
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusJumpStart"
+				CreateAnimation = "SatyrLandDust"
+			}
+			{
+				Frame = 73
+				FrameSpeed = 1
+				CreateAnimation = "SatyrEscapeTrail"
 			}
 		]
 	}

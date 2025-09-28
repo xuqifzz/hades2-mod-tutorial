@@ -10,13 +10,19 @@ ScreenData.GhostAdmin.ItemCategories =
 			-- None
 		},
 		-- story & major progression
-		-- "WorldUpgradeTimeStop", (listed below for the time being...)
-		"WorldUpgradeAltRunDoor",
+		"WorldUpgradeStormStop",
+		"WorldUpgradeTimeStop",
 		"WorldUpgradeSurfacePenaltyCure",
+		"WorldUpgradeAltRunDoor",
 		"WorldUpgradeQuestLog",
 		"WorldUpgradeMorosUnlock",
 		"WorldUpgradeNarcissusWaters",
+		"WorldUpgradeDoraMemory",
+		"WorldUpgradeMedeaTears",
+		"WorldUpgradeSkellyHealth",
 		"WorldUpgradeWakeHypnos",
+		"WorldUpgradeWakeHypnosT2",
+		"WorldUpgradeWakeHypnosT3", -- @ ending
 		-- deferred story further down
 
 		-- key systems
@@ -25,13 +31,17 @@ ScreenData.GhostAdmin.ItemCategories =
 		"WorldUpgradeBountyBoard",
 		"WorldUpgradeBountyBoardRepeat",
 		"WorldUpgradeFamiliarSystem",
-		"WorldUpgradeFamiliarRest",
 		"WorldUpgradeFamiliarUpgradeSystem",
+		"WorldUpgradeFamiliarCostumeSystem",
 		"WorldUpgradeToolUpgradeSystem",
+		"WorldUpgradeBadgeSeller",
+		"WorldUpgradeChangeNextRunRNG",
 
 		-- key upgrades
+		"WorldUpgradeToolsShop",
 		"WorldUpgradeElementalBoons",
 		"WorldUpgradePinning",
+		"WorldUpgradePinningBoons",
 		"WorldUpgradeMetaUpgradeSaveLayout",
 		"WorldUpgradeKeepsakeSaveFirst",
 		"WorldUpgradeResourceFinder",
@@ -42,33 +52,40 @@ ScreenData.GhostAdmin.ItemCategories =
 		"WorldUpgradeExchangeShop",
 
 		-- run upgrades
+		"WorldUpgradeBossDifficultyT2",
+		"WorldUpgradeBossDifficultyT3",
+		"WorldUpgradeBossDifficultyT4",
+		"WorldUpgradeFountainUpgrade1",
+		"WorldUpgradeFountainUpgrade2",
 		"WorldUpgradeWellShops",
 		"WorldUpgradePostBossWellShops",
 		"WorldUpgradeSurfaceShops",
 		"WorldUpgradePostBossSurfaceShops",
+		"WorldUpgradeRestoreSellTraitShop",
 		"WorldUpgradePostBossSellTraitShops",
 		"WorldUpgradeErebusReprieve",
 		"WorldUpgradeOceanusReprieve",
 		"WorldUpgradeTartarusReprieve",
 		"WorldUpgradeThessalyReprieve",
 		"WorldUpgradeOlympusReprieve",
-		"WorldUpgradeFountainUpgrade1",
-		"WorldUpgradeFountainUpgrade2",
 		"WorldUpgradeBreakableValue1",
 		"WorldUpgradeEphyraZoomOut",
 		"WorldUpgradeFieldsRewardFinder",
 		"WorldUpgradeTimeSlowChronosFight",
-		--"WorldUpgradePauseChronosFight",
+		"WorldUpgradePauseChronosFight",
 		"WorldUpgradeUnusedWeaponBonus",
+		"WorldUpgradeUnusedWeaponBonusT2",
 		"WorldUpgradePostBossGiftRack",
+		"WorldUpgradeDoubleAdvanceKeepsakes",
+		"WorldUpgradeOlympusStatues",
 		"WorldUpgradeErebusSafeZones",
 		"WorldUpgradeSafeZoneSpellCharge",
 		"WorldUpgradeShadeMercs",
 		"WorldUpgradeChallengeSwitches1",
 		"WorldUpgradeChallengeSwitchesExtra1",
 		"WorldUpgradeChallengeSwitchesSurface1",
+		"WorldUpgradeMetaRewardStands",
 		"WorldUpgradeMetaCardPointsCommonRunProgress",
-		"WorldUpgradeMemPointsCommonRunProgress",
 		"WorldUpgradeMetaCurrencyRunProgress",
 		"WorldUpgradeGiftDropRunProgress",
 
@@ -78,21 +95,19 @@ ScreenData.GhostAdmin.ItemCategories =
 		"WorldUpgradeFishingPoint",
 
 		-- supporting systems
-		"WorldUpgradeToolsShop",
 		"WorldUpgradeHarvestUpgrade",
 		"WorldUpgradeGarden",
 		"WorldUpgradeGardenT2",
 		"WorldUpgradeGardenT3",
-		"WorldUpgradeGardenTent",
-		"WorldUpgradeGardenTaverna",
+		"WorldUpgradeGardenHarvestAll",
+		"WorldUpgradeGardenMultiPlant",
+		"WorldUpgradeAutoHarvestOnExit",
+		"WorldUpgradeRelationshipBar",
 		"WorldUpgradeMusicPlayer",
+		"WorldUpgradeMusicPlayerShuffle",
 		"WorldUpgradeRunHistory",
 		"WorldUpgradeGameStats",
-		"WorldUpgradeRelationshipBar",
-
-		-- misc. & deferred story
-		"WorldUpgradeTimeStop",
-		"WorldUpgradeDoraMemory",
+		"WorldUpgradeErisTrashPickup",
 	},		
 	{
 		Name = "WorldUpgradeScreen_Repeatable",
@@ -101,11 +116,20 @@ ScreenData.GhostAdmin.ItemCategories =
 		GameStateRequirements =
 		{
 			NamedRequirements = { "AlchemyUnlocked" },
+			{
+				FunctionName = "RequireAffordableGhostAdminItems",
+				FunctionArgs =
+				{
+					CategoryIndex = 1,
+					HasNone = { "WorldUpgradeStormStop", "WorldUpgradeTimeStop" },
+				},
+			},
 		},
-		"WorldUpgradeMixerShadow",
-		"WorldUpgradeFamiliarPoints",
-		"WorldUpgradeCardUpgradePoints",
-		"WorldUpgradeCardUpgradePoints2",
+		"WorldUpgradeReviveIcarus",
+		"WorldUpgradeAmbrosia",
 		"WorldUpgradeNectar",
+		"WorldUpgradeFamiliarPoints",
+		"WorldUpgradeCardUpgradePoints2",
+		"WorldUpgradeMixerShadow",
 	},
 }

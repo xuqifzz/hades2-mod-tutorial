@@ -9,6 +9,52 @@
 		Sound = "/Leftovers/Object Ambiences/WaterThessalyRestoreFountain"
 		StopSoundOnFinishFade = 0.3
 		SoundAllowedAfterFrame = -1
+		ChildAnimation = "OlympusFountainWaterFx"
+	}
+
+	{
+		Name = "OlympusFountainWaterFx"
+		FilePath = "Fx\OlympusFountainWater\OlympusFountainWater"
+		NumFrames = 60
+		PlaySpeed = 30
+		Material = "Unlit"
+		Loop = true
+		Scale = 2
+		OffsetY = -348
+		TransferFrameFromThis = true
+		VisualFx = "OlympusFountainWaterSparkles"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.4
+	}
+
+	{
+		Name = "OlympusFountainWaterSparkles"
+		FilePath = "Particles\particle_ice_sparkle"
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		RandomOffsetX = 100
+		RandomOffsetY = 25
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.7
+		Acceleration = -10
+		EaseIn = 0
+		EaseOut = 1
+		AngleMin = 220
+		AngleMax = 330
+		VelocityMin = 20
+		VelocityMax = 40
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		OffsetY = -210
+		OffsetX = 20
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		Scale = 0.6
 	}
 
 	{
@@ -17,7 +63,24 @@
 		FilePath = "Tilesets\Olympus\Olympus_Fountain_01a"
 		VisualFx = "null"
 		Sound = "/EmptyCue"
+		ChildAnimation = "OlympusFountainWaterFxEmpty"
 	}
+
+	{
+		Name = "OlympusFountainWaterFxEmpty"
+		InheritFrom = "OlympusFountainWaterFx"
+		StartAlpha = 1
+		EndAlpha = 0
+		TransferFrameToThis = true
+		HoldLastFrame = true
+		LoopFramesOnly = true
+		Loop = false
+		Duration = 0.33
+		EaseIn = 0
+		EaseOut = 1
+		VisualFx = null
+	}
+
 	{
 		Name = "OlympusIcicleFalling"
 		FilePath = "Tilesets\Olympus\Olympus_Icicle_01_Falling"
@@ -229,7 +292,8 @@
 	{
 		Name = "OlympusIndoorExitDoorCloseAnim"
 		InheritFrom = "OlympusIndoorExitDoorOpenAnim"
-		PlaySpeed = 45
+		OffsetY = -187
+		PlaySpeed = 60
 		FilePath = "Fx\Olympus_Door_01_Close\Olympus_Door_01_Close"
 		Sound = "/SFX/ElysiumDoorClose"
 	}
@@ -677,6 +741,7 @@
 		VisualFxManagerCap = 200
 		VisualFxManagerFrameCap = 10
 		OnlyWhenVisible = true
+		DisableInvisibleAnimRender =  true
 	}
 
 	{
@@ -1117,8 +1182,31 @@
 			{ Name = "HeroTouchdownImpactFx" }
 			{ Name = "HeroTouchdownImpactFxGlow" }
 			{ Name = "HeroSkyTouchdownOlympusSphere" }
-			//{ Name = "HydraTouchdownImpactFxDark" }
-			//{ Name = "HydraTouchdownGroundCracks" }
+		]
+	}
+
+	{
+		Name = "HeroSkyTouchdownTyphon"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		Red = 0.2
+		Green = 0.4
+		Blue = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleY = 2
+		ScaleX = 0.5
+		Scale = 2
+		GroupName = "FX_Add_Top"
+		CreateAnimations = [
+			{ Name = "OceanusEnemySplash" }
+			{ Name = "ExplosionScorchDecal" }
+			{ Name = "HeroTouchdownImpactFx" }
+			{ Name = "HeroTouchdownImpactFxGlow" }
+			{ Name = "HeroSkyTouchdownOlympusSphere" }
 		]
 	}
 
@@ -1232,6 +1320,7 @@
 		Sound = "/SFX/OlympusLandingReticleLoop"
 		StopSoundOnFinishFade = 0.2
 		DisableOwnerManualInteract = true
+		OwnerHasNoCollision = true
 	}
 
 	{
@@ -1877,7 +1966,7 @@
 
 	{
 		Name = "DiscoBallReflections"
-		FilePath = "Fx\OlympusDiscoBallReflections\OlympusDiscoBallReflections"
+		FilePath = "Fx\OlympusDiscoballReflections\OlympusDiscoballReflections"
 		NumFrames = 15
 		GroupName = "DiscoBallAdditive"
 		Loop = true
@@ -1889,4 +1978,583 @@
 		PlaySpeed = 30
 		ColorFromOwner = "Maintain"
 	}
+
+	{
+		Name = "DiscoBallReflections_SkipEncounter"
+		InheritFrom = "DiscoBallReflections"
+		OffsetY = -40
+	}
+
+	{
+		Name = "OlympusOverlookLightningContainer"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		Material = "Unlit"
+		VisualFx = "OlympusOverlookLightningFx"
+		VisualFxIntervalMin = 0.25
+		VisualFxIntervalMax = 4
+	}
+
+	{
+		Name = "OlympusOverlookLightningFx"
+		Random = [
+			{ Name = "OlympusOverlookLightningFxLeft" }
+			{ Name = "OlympusOverlookLightningFxRight" }
+		]
+	}
+
+	{
+		Name = "OlympusOverlookLightningFxLeft"
+		FilePath = "Tilesets\Olympus\Olympus_Overlook_01c_Lightning_Left"
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+		GroupName = "Overlook_Lightning"
+		LocationFromOwner = "Ignore"
+		Duration = 0.25
+		StartAlpha = 1
+		EndAlpha = 0
+		Scale = 1.9
+		ColorFromOwner = "Ignore"
+		OffsetX = -6
+		OffsetY = 350
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.2
+		EndGreen = 0.5
+		EndBlue = 1.0
+		CreateAnimations = [
+			{ Name = "OlympusOverlookLightningSkyLeft" }
+		]
+		Sound = "/Ambience/OverlookThunder"
+	}
+
+	{
+		Name = "OlympusOverlookLightningFxRight"
+		InheritFrom = "OlympusOverlookLightningFxLeft"
+		FilePath = "Tilesets\Olympus\Olympus_Overlook_01c_Lightning_Right"
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "OlympusOverlookLightningSkyRight" }
+		]
+	}
+
+	{
+		Name = "OlympusOverlookLightningSkyLeft"
+		Random = [
+			{ Name = "OlympusOverlookLightningSkyLeftA" }
+			{ Name = "OlympusOverlookLightningSkyLeftB" }
+			{ Name = "OlympusOverlookLightningSkyLeftC" }
+		]
+	}	
+	{
+		Name = "OlympusOverlookLightningSkyRight"
+		Random = [
+			{ Name = "OlympusOverlookLightningSkyRightA" }
+			{ Name = "OlympusOverlookLightningSkyRightB" }
+			{ Name = "OlympusOverlookLightningSkyRightC" }
+		]
+	}
+
+	{
+		Name = "OlympusOverlookLightningSkyLeftA"
+		FilePath = "Fx\TyphonLightningA\TyphonLightningA"
+		Material = "Unlit"
+		NumFrames = 25
+		GroupName = "Overlook_Lightning"
+		ColorFromOwner = "Ignore"
+		Hue = 0.6
+		AngleMin = -40
+		AngleMax = -60
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		OffsetY = -450
+		OffsetX = -550
+		RandomOffsetX = 150
+		RandomOffsetY = 75
+		RandomFlipVertical = true
+		CreateAnimation = "OlympusOverlookLightningSkyLeftGlow"
+	}	
+
+	{
+		Name = "OlympusOverlookLightningSkyRightA"
+		InheritFrom = "OlympusOverlookLightningSkyLeftA"
+		AngleMin = 25
+		AngleMax = 75
+		OffsetX = 360
+		OffsetY = -260
+		CreateAnimation = "OlympusOverlookLightningSkyRightGlow"
+	}
+
+	{
+		Name = "OlympusOverlookLightningSkyLeftB"
+		InheritFrom = "OlympusOverlookLightningSkyLeftA"
+		FilePath = "Fx\TyphonLightningB\TyphonLightningB"
+	}
+	{
+		Name = "OlympusOverlookLightningSkyLeftC"
+		InheritFrom = "OlympusOverlookLightningSkyLeftA"
+		FilePath = "Fx\TyphonLightningC\TyphonLightningC"
+		NumFrames = 20
+		Scale = 0.5
+	}	
+
+	{
+		Name = "OlympusOverlookLightningSkyRightB"
+		InheritFrom = "OlympusOverlookLightningSkyRightA"
+		FilePath = "Fx\TyphonLightningB\TyphonLightningB"
+	}
+	{
+		Name = "OlympusOverlookLightningSkyRightC"
+		InheritFrom = "OlympusOverlookLightningSkyRightA"
+		FilePath = "Fx\TyphonLightningC\TyphonLightningC"
+		NumFrames = 20
+		Scale = 0.5
+	}
+
+	{
+		Name = "OlympusOverlookLightningSkyLeftGlow"
+		FilePath = "Particles\particle_glow"
+		Duration = 0.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartAlpha = 0.25
+		EndAlpha = 0
+		GroupName = "Overlook_Lightning"
+		OffsetY = -450
+		OffsetX = -550
+		ColorFromOwner = "Ignore"
+		ScaleX = 2
+		StartRed = 0.5
+		StartGreen = 0.75
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0.2
+		EndBlue = 0.99
+		Scale = 3
+	}
+
+	{
+		Name = "OlympusOverlookLightningSkyRightGlow"
+		InheritFrom = "OlympusOverlookLightningSkyLeftGlow"
+		OffsetX = 360
+		OffsetY = -260
+	}
+
+	{
+		Name = "PalaceSunFlare"
+		FilePath = "Tilesets\Olympus\Olympus_Palace_SunFlare_01"
+		Material = "Unlit"
+		Duration = 1
+		StartAlpha = 0
+		EndAlpha = 1
+		StartScale = 0.75
+		EndScale = 1.0
+		EaseIn = 0
+		EaseOut= 1
+		StartRed = 0.999
+		StartGreen = 0.5
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		Scale = 2
+		ChainTo = "PalaceSunFlareFlicker"
+		VisualFx = "PalaceSunFlareStreakAlt"
+		VisualFxIntervalMin = 0.25
+		VisualFxIntervalMax = 0.37
+		VisualFxUseLocationSincePrevSpawn = true
+	}
+	{
+		Name = "PalaceSunFlare_Epilogue"
+		InheritFrom = "PalaceSunFlare"
+		ChainTo = "PalaceSunFlareFlicker_Epilogue"
+		VisualFx = "PalaceSunFlareStreakAlt_Epilogue"
+	}
+
+	{
+		Name = "PalaceSunFlareStreakAlt"
+		FilePath = "Tilesets\Olympus\Olympus_Palace_SunFlare_01"
+		Material = "Unlit"
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0
+		EaseOut = 1
+		PingPongColor = true
+		StartRed = 0.999
+		StartGreen = 0.75
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		Scale = 0.5
+		GroupName = "SunFlare"
+		RandomRotation = true
+		RotationSpeed = 5
+		ScaleFromOwner = "Ignore"
+	}
+	{
+		Name = "PalaceSunFlareStreakAlt_Epilogue"
+		InheritFrom = "PalaceSunFlareStreakAlt"
+		GroupName = "Combat_Menu_Overlay_Additive"
+		OffsetX = -100
+		OffsetY = -100
+		Scale = 2.5
+		DieWithOwner = true
+	}
+
+	{
+		Name = "PalaceSunFlareLargeGlowOut"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0.3
+		Blue = 0
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 4
+		Material = "Unlit"
+		OffsetX = -700
+		OffsetY = -500
+		Scale = 12
+		StartScale = 1
+		EndScale = 1.5
+		Alpha = 0.08
+		GroupName = "Combat_UI_World"
+	}
+
+	{
+		Name = "PalaceSunFlareLargeGlowIn"
+		InheritFrom = "PalaceSunFlareLargeGlowOut"
+		ChainTo = "PalaceSunFlareLargeGlowOut"
+		StartAlpha = 0
+		EndAlpha = 1
+		StartScale = 0.999
+		EndScale = 1
+	}
+
+	{
+		Name = "PalaceSunFlareStreaks"
+		Random = [
+			{ Name = "PalaceSunFlareStreakA" }
+			{ Name = "PalaceSunFlareStreakB" }
+			{ Name = "PalaceSunFlareStreakB" }
+		]
+	}
+
+	{
+		Name = "PalaceSunFlareStreakA"
+		FilePath = "Particles\particle_streak_boosted"
+		RandomDurationMin = 1.2
+		RandomDurationMax = 3.0
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "SunFlare"
+		AddColor = true
+		Red = 1
+		Green = 0.4
+		Blue = 0.2
+		RandomRotation = true
+		ScaleMin = 1.0
+		ScaleMax = 1.1
+		StartScaleY = 0
+		EndScaleY = 1
+		Scale = 5
+		ColorFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		OnlyWhenVisible = false
+		UseBoundsForSortDrawArea = true
+	}
+
+	{
+		Name = "PalaceSunFlareStreakB"
+		InheritFrom = "PalaceSunFlareStreakA"
+		AddColor = false
+		Scale = 2
+		Blue = 0
+	}
+
+	{
+		Name = "PalaceSunFlareFlicker"
+		InheritFrom = "PalaceSunFlare"
+		StartAlpha = 1
+		EndAlpha = 0.9
+		PingPongColor = true
+		RandomDurationMin = 0.05
+		RandomDurationMax = 0.6
+		Loop = true
+		StartScale = 1
+		EndScale = 0.98
+		StartRed = 0.999
+		StartGreen = 0.99
+		StartBlue = 0.98
+	}
+	{
+		Name = "PalaceSunFlareFlicker_Epilogue"
+		InheritFrom = "PalaceSunFlareFlicker"
+		ChainTo = "PalaceSunFlareFlicker_Epilogue"
+		VisualFx = "PalaceSunFlareStreakAlt_Epilogue"
+	}
+
+	{
+		Name = "PalaceSunFlareSecondary"
+		FilePath = "Tilesets\Olympus\Olympus_Palace_SunFlare_02"
+		Material = "Unlit"
+		InheritFrom = "PalaceSunFlare"
+		VisualFx = null
+		StartScale = 1.1
+		EndScale = 1.2
+		Scale = 1.1
+		Angle = 0
+		OriginX = 250
+		OriginY = 120
+		ChainTo = "PalaceSunFlareSecondaryFlicker"
+	}
+
+	{
+		Name = "PalaceSunFlareSecondaryFlicker"
+		InheritFrom = "PalaceSunFlareSecondary"
+		StartAlpha = 1
+		EndAlpha = 0.9
+		PingPongColor = true
+		RandomDurationMin = 0.05
+		RandomDurationMax = 0.6
+		Loop = true
+		StartScale = 1.2
+		EndScale = 1.198
+		PingPongScale = true
+		StartRed = 0.999
+		StartGreen = 0.99
+		StartBlue = 0.98
+	}
+
+	{
+		Name = "PalaceSunFlareOut"
+		InheritFrom = "PalaceSunFlareFlicker"
+		StartAlpha = 1
+		EndAlpha = 0
+		Loop = false
+		PingPongColor = false
+		ChainTo = null
+		StartScale = 1.0
+		RandomDurationMin = 0.45
+		RandomDurationMax = 0.5
+		VisualFx = null
+	}
+
+	{
+		Name = "PalaceSunFlareSecondaryOut"
+		InheritFrom = "PalaceSunFlareSecondaryFlicker"
+		VisualFx = null
+		StartAlpha = 1
+		EndAlpha = 0
+		Loop = false
+		PingPongColor = false
+		ChainTo = null
+		StartScale = 1.2
+		RandomDurationMin = 0.45
+		RandomDurationMax = 0.5
+	}
+
+	{
+		Name = "PalaceSunFlareGeneric"
+		InheritFrom = "PalaceSunFlare"
+		ChainTo = "PalaceSunFlareFlickerGeneric"
+		VisualFx = "PalaceSunFlareStreakAltGeneric"
+	}
+
+	{
+		Name = "PalaceSunFlareStreakAltGeneric"
+		InheritFrom = "PalaceSunFlareStreakAlt"
+		GroupName = null
+		ScaleFromOwner = "Maintain"
+	}
+
+	{
+		Name = "PalaceSunFlareFlickerGeneric"
+		InheritFrom = "PalaceSunFlareFlicker"
+		GroupName = null
+		VisualFx = "PalaceSunFlareStreakAltGeneric"
+	}
+
+	{
+		Name = "OlympusPalaceCloud01"
+		FilePath = "Tilesets\Olympus\Olympus_Palace_Cloud_01"
+		Duration = 1
+		Loop = true
+	}	
+	{
+		Name = "OlympusPalaceCloud01a"
+		FilePath = "Tilesets\Olympus\Olympus_Palace_Cloud_01a"
+		Duration = 1
+		Loop = true
+		VisualFx = "OlympusPalaceCloud01aParticle"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.5
+	}	
+	{
+		Name = "OlympusPalaceCloud02"
+		FilePath = "Tilesets\Olympus\Olympus_Palace_Cloud_02"
+		Duration = 1
+		Loop = true
+		VisualFx = "OlympusPalaceCloud02Particle"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.5
+	}	
+	{
+		Name = "OlympusPalaceCloud02a"
+		FilePath = "Tilesets\Olympus\Olympus_Palace_Cloud_02a"
+		Duration = 1
+		Loop = true
+		VisualFx = "OlympusPalaceCloud02aParticle"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.5
+	}	
+	{
+		Name = "OlympusPalaceClouds01"
+		FilePath = "Tilesets\Olympus\Olympus_Palace_Clouds_01"
+		Duration = 1
+		Loop = true
+		VisualFx = "OlympusPalaceClouds01Particle"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.5
+	}
+
+	{
+		Name = "OlympusPalaceCloud01FxEmitter"
+		FilePath = "Backgrounds\rectangle_01"
+		Duration = 1
+		Loop = true
+		VisualFx = "OlympusPalaceClouds01Particle"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.5
+		Alpha = 0
+	}
+
+	{
+		Name = "OlympusPalaceCloud01aFxEmitter"
+		InheritFrom = "OlympusPalaceCloud01FxEmitter"
+		VisualFx = "OlympusPalaceCloud01aParticle"
+	}	
+
+	{
+		Name = "OlympusPalaceCloud02FxEmitter"
+		InheritFrom = "OlympusPalaceCloud01FxEmitter"
+		VisualFx = "OlympusPalaceCloud02Particle"
+	}
+
+	{
+		Name = "OlympusPalaceCloud02aFxEmitter"
+		InheritFrom = "OlympusPalaceCloud01FxEmitter"
+		VisualFx = "OlympusPalaceCloud02aParticle"
+	}
+
+	{
+		Name = "OlympusPalaceCloud02Particle"
+		FilePath = "Particles\particle_olympusCloud_02"
+		RandomDurationMin = 4
+		RandomDurationMax = 6
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0
+		EaseOut = 1
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleMin = -2
+		AngleMax = 5
+		VelocityMin = 20
+		VelocityMax = 35
+		AlphaMin = 0.3
+		AlphaMax = 0.8
+		ScaleMin = 2.5
+		ScaleMax = 4.0
+		PingPongColor = true
+		OffsetY = -200
+		RandomOffsetX = 300
+		RandomOffsetY = 40
+		ScaleX = 1.2
+		ScaleFromOwner = "Ignore"
+		Scale = 0.3
+		StartScale = 1
+		EndScale = 1.5
+	}
+
+	{
+		Name = "OlympusPalaceCloud01aParticle"
+		InheritFrom = "OlympusPalaceCloud02Particle"
+		FilePath = "Particles\particle_olympusCloud_01a"
+		OffsetY = -240
+		RandomOffsetX = 400
+		OffsetX = -100
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		ScaleX = 1
+	}
+
+	{
+		Name = "OlympusPalaceCloud02aParticle"
+		InheritFrom = "OlympusPalaceCloud02Particle"
+		FilePath = "Particles\particle_olympusCloud_02a"
+		OffsetY = 0
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		ScaleX = 1
+	}
+
+	{
+		Name = "OlympusPalaceClouds01Particle"
+		FilePath = "Particles\particle_olympusCloud_01"
+		RandomDurationMin = 4
+		RandomDurationMax = 6
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0
+		EaseOut = 1
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleMin = 180
+		AngleMax = 175
+		VelocityMin = 60
+		VelocityMax = 70
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		AlphaMin = 0.3
+		AlphaMax = 0.8
+		ScaleMin = 2.5
+		ScaleMax = 4.0
+		PingPongColor = true
+		OffsetY = -200
+		RandomOffsetX = 800
+		RandomOffsetY = 60
+		ScaleX = 1.2
+		ScaleFromOwner = "Ignore"
+		Scale = 0.5
+		StartScale = 1
+		EndScale = 1.5
+		SortMode = "Id"
+		OnlyWhenVisible = false
+		UseBoundsForSortDrawArea = true
+		AddColor = true
+		StartRed = 0.2
+		StartGreen = 0.0001
+		StartBlue = 0.001
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		Saturation = 0.05
+
+	}
+
 ]}

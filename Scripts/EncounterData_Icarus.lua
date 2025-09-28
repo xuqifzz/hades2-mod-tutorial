@@ -18,22 +18,19 @@ OverwriteTableKeys( EncounterData,
 				Comparison = ">",
 				Value = 1,
 			},
-			{
-				PathFalse = { "CurrentRun", "ActiveBounty" },
-			},
 			NamedRequirements = { "NoRecentFieldNPCEncounter" },
+			NamedRequirementsFalse = { "StandardPackageBountyActive" },
 		},
 
-		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade", "StackUpgrade", "TalentDrop" },
+		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade" },
 
 		BlockAthenaEncounterKeepsake = true,
 
-		BlockCodexBeforeStart = false,
+		BlockCodexBeforeStart = true,
 		DelayedStart = true,
 		-- SkipCombatBeginsVoiceLines = true,
 		RequireCompletedIntro = true,
 		PreSpawnEnemies = false,
-		FastClearThreshold = 65,
 		TimerBlock = "IcarusEncounter",
 		BlockHighlightEliteTypes = true,
 
@@ -44,17 +41,16 @@ OverwriteTableKeys( EncounterData,
 
 		UnthreadedEvents = EncounterSets.EncounterEventsIcarusCombat,
 		Using = { "NPC_Icarus_01" },
-		LoadPackages = { "NPC_Icarus_01" },
+		LoadPackages = { "Icarus", "NPC_Icarus_01" },
 
-		DifficultyModifier = 300,
-		--DepthDifficultyRamp = 0,
-		--BaseDifficulty = 150,
-		ActiveEnemyCapBase = 10,
-		ActiveEnemyCapMax = 10,
+		DifficultyMultiplier = 3.0,
+
+		ActiveEnemyCapBase = 7,
+		ActiveEnemyCapMax = 7, -- Give Icarus bone budget room.
 		ActiveEnemyCapDepthRamp = 0,
 		TypeCountDepthRamp = 0,
-		MinWaves = 3,
-		MaxWaves = 3,
+		MinWaves = 4,
+		MaxWaves = 4,
 		MoneyDropCapMin = 30,
 		MoneyDropCapMax = 30,
 		MoneyDropCapDepthRamp = 0,
@@ -104,6 +100,9 @@ OverwriteTableKeys( EncounterData,
 				Comparison = "<=",
 				Value = 0,
 			},
+			{
+				PathFalse = { "PrevRun", "SpecialInteractRecord", "Shrine" },
+			}
 		},
 	},
 
@@ -115,6 +114,10 @@ OverwriteTableKeys( EncounterData,
 		{
 			{
 				PathFalse = { "CurrentRun", "TextLinesRecord", "CirceFirstMeeting" },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasNone = { "CirceEnlargeTrait", "CirceShrinkTrait" },
 			},
 			{
 				PathFalse = { "GameState", "EncountersCompletedCache", "IcarusCombatIntro" },
@@ -187,6 +190,9 @@ OverwriteTableKeys( EncounterData,
 				Comparison = "<=",
 				Value = 0,
 			},
+			{
+				PathFalse = { "PrevRun", "SpecialInteractRecord", "Shrine" },
+			}
 		},
 	},
 })

@@ -15,10 +15,10 @@ UnitSetData.Swab =
 		ActivateFadeIn = false,
 		ActivateStartAlpha = 1.0, 
 		ActivateDuration = 0.45,
-		--PostActivateDuration = 1.9,
 		WakeUpDelay =  1.9,
 		ActivateStartOffsetZ = 2000,
 		PostActivateStop = true,
+		PostActivateScreenshake = { Distance = 6, Speed = 300, FalloffSpeed = 0, Duration = 0.24, Angle = 90, DistanceThreshold = 400 },
 		--ActivateGravity = 9000,
 		--ActivateFallForce = 2500,
 		DeathAnimation = "Enemy_Swab_Death",
@@ -50,6 +50,8 @@ UnitSetData.Swab =
 			DeepInheritance = true,
 		},
 		AIAggroRange = 1150,
+		EndAIThreadWaitOnFreezeEnd = true,
+		InterruptWeaponOnFreeze = true,
 
 		WeaponOptions =
 		{
@@ -77,6 +79,7 @@ UnitSetData.Swab =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_2175", Text = "Anchors..." },
@@ -93,7 +96,7 @@ UnitSetData.Swab =
 		HealthBuffer = 730,
 		IsAggroedSound = "/SFX/Enemy Sounds/DeadSeaSwab/EmoteTaunting",
 
-		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Hex" }),
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Hex", "Metallic" }),
 
 		DefaultAIData =
 		{
@@ -115,7 +118,6 @@ UnitSetData.Swab =
 
 	Swab_Shadow =
 	{
-
 		InheritFrom = { "Shadow", "Swab" },
 		GenusName = "Swab",
 

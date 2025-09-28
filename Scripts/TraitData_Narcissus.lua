@@ -46,6 +46,19 @@ OverwriteTableKeys( TraitData, {
 				},
 			}
 		},
+		ExtractValues =
+		{
+			{
+				Key = "PlantFMoly",
+				Format = "ResourceAmount",
+				ExtractAs = "TotalMoly",
+			},
+			{
+				Key = "PlantFNightshade",
+				Format = "ResourceAmount",
+				ExtractAs = "TotalNightshade",
+			},
+		},
 	},
 	NarcissusB =
 	{
@@ -81,6 +94,30 @@ OverwriteTableKeys( TraitData, {
 					Name = "HealDropMajor",
 				},
 			}
+		},
+		CustomStatLinesWithShrineUpgrade = 
+		{
+			ShrineUpgradeName = "HealingReductionShrineUpgrade",
+			StatLines = 
+			{
+				"HealingReductionNotice",
+			},
+		},
+		ExtractValues =
+		{
+			{
+				External = true,
+				BaseType = "ConsumableData",
+				BaseName = "HealDropMajor",
+				Format = "FlatHeal",
+				BaseProperty = "HealFixed",
+				ExtractAs = "HealDropAmount"
+			},
+			{
+				Key = "MetaCardPointsCommon",
+				Format = "ResourceAmount",
+				ExtractAs = "TotalMetaCardPointsCommon",
+			},
 		},
 	},
 	NarcissusC =
@@ -118,6 +155,14 @@ OverwriteTableKeys( TraitData, {
 				},
 			}
 		},
+		ExtractValues =
+		{
+			{
+				Key = "OreFSilver",
+				Format = "ResourceAmount",
+				ExtractAs = "TotalSilver",
+			},
+		},
 	},
 	NarcissusD =
 	{
@@ -153,6 +198,14 @@ OverwriteTableKeys( TraitData, {
 				},
 			}
 		},
+		ExtractValues =
+		{
+			{
+				Key = "MemPointsCommon",
+				Format = "ResourceAmount",
+				ExtractAs = "TotalMemPointsCommon",
+			},
+		},
 	},
 	NarcissusE =
 	{
@@ -187,6 +240,14 @@ OverwriteTableKeys( TraitData, {
 					Name = "MaxHealthDrop",
 				},
 			}
+		},
+		ExtractValues =
+		{
+			{
+				Key = "MetaCurrency",
+				Format = "ResourceAmount",
+				ExtractAs = "TotalMetaCurrency",
+			},
 		},
 	},
 	NarcissusF =
@@ -227,6 +288,14 @@ OverwriteTableKeys( TraitData, {
 				},
 			}
 		},
+		ExtractValues =
+		{
+			{
+				Key = "MetaFabric",
+				Format = "ResourceAmount",
+				ExtractAs = "TotalMetaFabric",
+			},
+		},
 	},
 	NarcissusG =
 	{
@@ -235,6 +304,12 @@ OverwriteTableKeys( TraitData, {
 		GameStateRequirements =
 		{
 			-- see NarcissusBenefitChoices =
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "NarcissusGrantsReward01" },
+			},
 		},
 		AcquireFunctionArgs =
 		{
@@ -264,6 +339,14 @@ OverwriteTableKeys( TraitData, {
 			}
 		},
 		FlavorText = "NarcissusG_FlavorText",
+		ExtractValues =
+		{
+			{
+				Key = "Mixer5Common",
+				Format = "ResourceAmount",
+				ExtractAs = "TotalMixer5Common",
+			},
+		},
 	},
 	NarcissusH =
 	{
@@ -286,11 +369,30 @@ OverwriteTableKeys( TraitData, {
 			{
 				{
 					Name = "LastStandDrop",
+					Overrides = 
+					{
+						CanDuplicate = false,
+					}
 				},
 				{
-					Name = "PlantMoneyDrop",
+					Name = "PlantGLotusDrop",
+					Overrides =
+					{
+						AddResources =
+						{
+							PlantGLotus = 2,
+						},
+					},
 				},
 			}
+		},
+		ExtractValues =
+		{
+			{
+				Key = "PlantGLotus",
+				Format = "ResourceAmount",
+				ExtractAs = "TotalLotus",
+			},
 		},
 	},
 	NarcissusI =
@@ -314,6 +416,10 @@ OverwriteTableKeys( TraitData, {
 			{
 				{
 					Name = "BlindBoxLoot",
+					Overrides =
+					{
+						BlockBoughtTextLines = true,
+					},
 				},
 				{
 					Name = "SeedMysteryDrop",
@@ -326,6 +432,14 @@ OverwriteTableKeys( TraitData, {
 					},
 				},
 			}
+		},
+		ExtractValues =
+		{
+			{
+				Key = "SeedMystery",
+				Format = "ResourceAmount",
+				ExtractAs = "TotalSeedMystery",
+			},
 		},
 	},
 })

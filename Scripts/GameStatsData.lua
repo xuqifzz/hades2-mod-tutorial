@@ -7,13 +7,11 @@ ScreenData.GameStats =
 
 	Components = {},
 
-	CategoryStartX = 140,
-	CategoryStartY = 240,
-	CategorySpacingX = 94,
-
-	CategoryIconScale = 0.40,
-	CategoryIconOffsetX = 0,
-	CategoryIconOffsetY = 1,
+	CategoryStartX = 300,
+	CategoryStartY = 230,
+	CategorySpacingX = 74,
+	CategoryScale = 0.8,
+	CategoryIconScale = 0.5,
 
 	ScrollOffset = 0,
 	ItemsPerPage = 15,
@@ -23,47 +21,62 @@ ScreenData.GameStats =
 	{
 		{
 			Name = "GameStats_Weapons",
-			Icon = "GUI\\Screens\\Inventory\\Icon-Resources",
+			Icon = "GUI\\Screens\\GameStats\\Icon-Weapons",
 		},
 		{
 			Name = "GameStats_Boons",
-			Icon = "GUI\\Screens\\Inventory\\Icon-Gifts",
+			Icon = "GUI\\Screens\\GameStats\\Icon-Boons",
 		},
 		{
 			Name = "GameStats_WeaponUpgrades",
-			Icon = "GUI\\Screens\\Inventory\\Icon-Reagents",
-		},
-		{
-			Name = "GameStats_Aspects",
-			Icon = "GUI\\Screens\\Inventory\\Icon-Fish",
+			Icon = "GUI\\Screens\\GameStats\\Icon-Hammers",
 		},
 		{
 			Name = "GameStats_Keepsakes",
-			Icon = "GUI\\Screens\\Inventory\\Icon-Resources",
+			Icon = "GUI\\Screens\\GameStats\\Icon-Keepsakes",
 		},
 	},
 
-	HeaderY = 320,
-	RowStartY = 380,
-	RowSpacingWeapons = 70,
+	WeaponBaseAspectMapping =
+	{
+		BaseStaffAspect = "DummyWeaponStaff",
+		DaggerBackstabAspect = "DummyWeaponDagger",
+		TorchSpecialDurationAspect = "DummyWeaponTorch",
+		AxeRecoveryAspect = "DummyWeaponAxe",
+		LobAmmoBoostAspect = "DummyWeaponLob",
+		BaseSuitAspect = "DummyWeaponSuit",
+	},
+
+	HeaderY = 226,
+	RowStartY = 278,
 	RowSpacingTraits = 40,
-	IconScaleWeapons = 0.3,
-	IconScaleTraits = 0.2,
+	IconScaleTraits = 0.24,
 
 	WeaponColumnHeaders =
 	{
-		{ ColumnName = "Name", X = 340, Justification = "Right", },
-		{ ColumnName = "Icon", X = 380 },
-		{ ColumnName = "UseCount", X = 450, HeaderX = 620, Text = "GameStatsScreen_Usage", Justification = "Center", },
-		{ ColumnName = "BarGraph", X = 490, Justification = "Right", },
-		{ ColumnName = "ClearCount", X = 920, Text = "RunClearScreen_Header_Clears", Justification = "Center", },
-		{ ColumnName = "FastestTimeUnderworld", X = 1120, Text = "RunClearScreen_Header_RecordClearTime_Underworld", Justification = "Center", },
-		{ ColumnName = "HighestShrinePointsUnderworld", X = 1345, Text = "RunClearScreen_Header_RecordShrinePoints_Underworld", Justification = "Center", },
-		{ ColumnName = "FastestTimeSurface", X = 1570, Text = "RunClearScreen_Header_RecordClearTime_Surface", Justification = "Center", },
-		{ ColumnName = "HighestShrinePointsSurface", X = 1795, Text = "RunClearScreen_Header_RecordShrinePoints_Surface", Justification = "Center", },
+		{ ColumnName = "Name", X = 150, Justification = "Left", },
+		{ ColumnName = "Icon", X = 107 },
+		{ ColumnName = "UseCount", X = 690, HeaderX = 860, Text = "GameStatsScreen_Usage", Justification = "Right", HeaderJustification = "Center", },
+		{ ColumnName = "BarGraph", X = 705, Justification = "Right", },
+		{ ColumnName = "ClearCount", X = 1154, Text = "RunClearScreen_Header_Clears", Justification = "Center", },
+		{ ColumnName = "FastestTimeUnderworld", X = 1310, Text = "RunClearScreen_Header_RecordClearTime_Underworld", Justification = "Center", },
+		{ ColumnName = "HighestShrinePointsUnderworld", X = 1430, Text = "RunClearScreen_Header_RecordShrinePoints_Underworld", Justification = "Center", },
+		{ ColumnName = "FastestTimeSurface", X = 1550, Text = "RunClearScreen_Header_RecordClearTime_Surface", Justification = "Center", },
+		{ ColumnName = "HighestShrinePointsSurface", X = 1670, Text = "RunClearScreen_Header_RecordShrinePoints_Surface", Justification = "Center", },
 	},
 
-	ActiveColumnColor = {0.569, 1.000, 0.533, 1.0},
+	Tabs =
+	{
+		{ X = -190, Y = -86, Animation = "GUI\\Screens\\GameStats\\CategoryTab1", Highlight = "GUI\\Screens\\GameStats\\CategoryTabHighlight1", Active = "GUI\\Screens\\GameStats\\CategoryTabActiveHighlightOverlay1" },
+		{ X = -170, Y = -86, Animation = "GUI\\Screens\\GameStats\\CategoryTab2", Highlight = "GUI\\Screens\\GameStats\\CategoryTabHighlight2", Active = "GUI\\Screens\\GameStats\\CategoryTabActiveHighlightOverlay2" },
+		{ X = -150, Y = -86, Animation = "GUI\\Screens\\GameStats\\CategoryTab3", Highlight = "GUI\\Screens\\GameStats\\CategoryTabHighlight3", Active = "GUI\\Screens\\GameStats\\CategoryTabActiveHighlightOverlay3" },
+		{ X = -130, Y = -89, Animation = "GUI\\Screens\\GameStats\\CategoryTab1", Highlight = "GUI\\Screens\\GameStats\\CategoryTabHighlight1", Active = "GUI\\Screens\\GameStats\\CategoryTabActiveHighlightOverlay1" },
+		{ X = -110, Y = -89, Animation = "GUI\\Screens\\GameStats\\CategoryTab2", Highlight = "GUI\\Screens\\GameStats\\CategoryTabHighlight2", Active = "GUI\\Screens\\GameStats\\CategoryTabActiveHighlightOverlay2" },
+	},
+	TabIconMouseOverShiftDistance = 5,
+	TabIconMouseOverShiftSpeed = 300,
+	
+	ActiveColumnColor = {0.606, 0.9, 0.378, 1.0},
 
 	SortKeys =
 	{
@@ -84,7 +97,7 @@ ScreenData.GameStats =
 	{
 		FontSize = 22,
 		OffsetX = 0, OffsetY = 0,
-		Color = Color.White,
+		Color = {0.95, 1, 0.95, 0.8},
 		Font = "P22UndergroundSCMedium",
 		ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
 	},
@@ -93,7 +106,7 @@ ScreenData.GameStats =
 	{
 		FontSize = 22,
 		OffsetX = 0, OffsetY = 0,
-		Color = {0.569, 0.557, 0.533, 1.0},
+		Color = {0.1, 0.08, 0.11, 0.75},
 		Font = "P22UndergroundSCMedium",
 		ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
 	},
@@ -102,7 +115,7 @@ ScreenData.GameStats =
 	{
 		FontSize = 22,
 		OffsetX = 0, OffsetY = 0,
-		Color = {0.569, 1.000, 0.533, 1.0},
+		Color = {0.606, 0.9, 0.378, 1.0},
 		Font = "P22UndergroundSCMedium",
 		ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
 	},
@@ -115,46 +128,43 @@ ScreenData.GameStats =
 		Order =
 		{
 			"BackgroundDim",
-			"Background",
+			"BackgroundBack",
+			"CategoryButtons",
+			"BackgroundFront",
 		},
 
 		BackgroundDim = 
 		{
 			Graphic = "rectangle01",
 			Scale = 9.0,
-			Color = { 0.090, 0.055, 0.157, 0.95 },
+			Color = { 0.090, 0.055, 0.157, 0.8 },
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
 		},
 
-		Background = 
+		BackgroundBack = 
 		{
-			--AnimationName = "Box_FullScreen",
+			AnimationName = "GameStatsBack",
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
 		},
 
-		TitleText = 
+		CategoryButtons =
 		{
-			Text = "GameStatsScreen_Title",
+			FunctionName = "GameStatsScreenCreateCategories",
+		},
+
+		BackgroundFront = 
+		{
+			AnimationName = "GameStatsFront",
 			X = ScreenCenterX,
-			Y = ScreenCenterY - 400,
-			TextArgs =
-			{
-				FontSize = 32,
-				Font = "SpectralSCLightTitling",
-				Color = Color.White,
-				Font = "P22UndergroundSCLightTitling",
-				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 3},
-				OutlineThickness = 3,
-				Justification = "Center",
-			},
+			Y = ScreenCenterY,
 		},
 
 		CategoryTitleText = 
 		{
-			X = 100,
-			Y = 180,
+			X = 80,
+			Y = 77,
 			TextArgs =
 			{
 				FontSize = 26,
@@ -171,18 +181,18 @@ ScreenData.GameStats =
 
 		SortModeIndicator =
 		{
-			AnimationName = "QuestLogEntryArrow",
-			Angle = 90,
-			OffsetX = 25,
-			OffsetY = -35,
+			AnimationName = "GameStatsFilterArrow",
+			OffsetX = 5,
+			OffsetY = -65,
+			Scale = 1,
 			Alpha = 0,
 		},
 
 		ScrollUp =
 		{
 			Graphic = "ButtonCodexUp",
-			X = 140,
-			Y = 320,
+			X = 180,
+			Y = 225,
 			Alpha = 0,
 			InteractProperties =
 			{
@@ -198,8 +208,8 @@ ScreenData.GameStats =
 		ScrollDown = 
 		{
 			Graphic = "ButtonCodexDown",
-			X = 140,
-			Y = 1000,
+			X = 180,
+			Y = 920,
 			Alpha = 0,
 			InteractProperties =
 			{
@@ -282,7 +292,7 @@ ScreenData.GameStats =
 					{
 						OnMouseOverFunctionName = "MouseOverContextualAction",
 						OnMouseOffFunctionName = "MouseOffContextualAction",
-						OnPressedFunctionName = "CloseQuestLogScreen",
+						OnPressedFunctionName = "CloseGameStatsScreen",
 						ControlHotkeys = { "Cancel", },
 					},
 					Text = "Menu_Exit",
@@ -290,5 +300,28 @@ ScreenData.GameStats =
 				},
 			},
 		},
+	},
+}
+
+-- GameStats Screen
+GlobalVoiceLines.OpenedGameStatsScreenVoiceLines =
+{
+	{
+		SkipAnim = true,
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		SuccessiveChanceToPlay = 0.25,
+		SuccessiveChanceToPlayAll = 0.1,
+		PreLineWait = 0.6,
+		Cooldowns =
+		{
+			{ Name = "MelinoeAnyQuipSpeech" },
+			{ Name = "MelRunHistoryIntroSpeech", Time = 30 },
+		},
+
+		{ Cue = "/VO/Melinoe_2979", Text = "Let's have the latest numbers." },
+		{ Cue = "/VO/Melinoe_2980", Text = "Best to keep track of each detail...", PlayFirst = true },
+		{ Cue = "/VO/Melinoe_3852", Text = "Trivia of all I've done so far..." },
+		{ Cue = "/VO/Melinoe_3853", Text = "How does the Record Keeper know all this..." },
 	},
 }

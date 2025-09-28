@@ -1,6 +1,7 @@
 ScreenData.UpgradeChoice =
 {
 	BlockPause = true,
+	BlockExitsReady = true,
 
 	GamepadNavigation =
 	{
@@ -42,13 +43,20 @@ ScreenData.UpgradeChoice =
 
 	TooltipOffsetX = 735,
 
+	PinOffsetX = 800,
+	PinOffsetY = -75,
+
 	QuestIconOffsetX = -100,
 	QuestIconOffsetY = 65,
+	SpellDuoIconOffsetX = -110,
+	SpellDuoIconOffsetY = -100,
 	PoseidonDuoIconOffsetX = 0,
 	PoseidonDuoIconOffsetY = 65,
-	RerollIconOffsetX = 450,
 	BonusIconOffsetX = 470,
 	BonusIconOffsetY = -95,
+
+	CombatUIShowGroups = { "Devotion" },
+
 	PurchaseButton =
 	{
 		Name = "BoonSlotBase",
@@ -89,7 +97,14 @@ ScreenData.UpgradeChoice =
 			OpacityWithOwner = true,
 		},
 	},
-
+	CostText = 
+	{
+		OffsetX = 410, 
+		OffsetY = -60, 
+		FontSize = 28, 
+		Font = "P22UndergroundSCMedium", 
+		Justification = "Right"
+	},
 	TitleText =
 	{
 		FontSize = 27,
@@ -109,7 +124,13 @@ ScreenData.UpgradeChoice =
 	{
 		OffsetX = -420,
 		OffsetY = -35,
-		Width = 920,
+		LangOffsetY = {
+			{ Code = "ja", Value = -30 },
+		},
+		Width = 921.5,
+		LangWidth = {
+			{ Code = "es", Value = 912 },
+		},
 		Justification = "Left",
 		VerticalJustification = "Top",
 		LineSpacingBottom = 5,
@@ -128,6 +149,11 @@ ScreenData.UpgradeChoice =
 	StatLineLeft =
 	{
 		OffsetX = -420,
+		LangDoubleStatLineAndFlavorTextOffsetY = {
+			{ Code = "ko", Value = -15 },
+			{ Code = "zh-CN", Value = -15 },
+			{ Code = "zh-TW", Value = -15 },
+		},
 		Width = 420,
 		Justification = "Left",
 		VerticalJustification = "Top",
@@ -161,6 +187,8 @@ ScreenData.UpgradeChoice =
 		LangOffsetY = 
 		{
 			{ Code = "zh-TW", Value = 83 },
+			{ Code = "ko", Value = 85 },
+			{ Code = "ja", Value = 85 },
 		},
 		LangLineSpacingBottom =
 		{
@@ -222,7 +250,6 @@ ScreenData.UpgradeChoice =
 		OlympusBackground =
 		{
 			Graphic = "rectangle01",
-			AnimationName = "DialogueBackground_Olympus_BoonScreen",
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
 		},
@@ -262,6 +289,16 @@ ScreenData.UpgradeChoice =
 			},
 		},
 
+		ShopLightingMelFace = 
+		{
+			Graphic = "BoonSelectLightingMelFace",
+			Group = "Combat_Menu_Additive",
+			ThingProperties =
+			{
+				Ambient = 0.0,
+			},
+		},
+
 		ShopBackground = 
 		{
 			Graphic = "BoonSelectMel",
@@ -287,7 +324,6 @@ ScreenData.UpgradeChoice =
 
 		TitleText = 
 		{
-			--Text = "",
 			TextArgs =
 			{
 				FontSize = 32,
@@ -302,7 +338,6 @@ ScreenData.UpgradeChoice =
 
 		FlavorText = 
 		{
-			--Text = "",
 			TextArgs =
 			{
 				FontSize = 19,
@@ -368,6 +403,17 @@ ScreenData.UpgradeChoice =
 			},
 		},
 
+		RerollIcon =
+		{
+			X = 1865,
+			Y = 990,
+			Animation = "RerollIcon",
+			Scale = 0.6,
+			Alpha = 0.0,
+			AlphaTarget = 0.0,
+			TextArgs = ScreenData.HUD.ComponentData.RerollIcon.TextArgs
+		},
+
 		ActionBar =
 		{
 			X = UIData.ContextualButtonXRight,
@@ -424,7 +470,6 @@ ScreenData.UpgradeChoice =
 					Text = "Boon_Upgrade",
 					TextArgs = UIData.ContextualButtonFormatRight,
 				},
-
 			},
 		},
 	}

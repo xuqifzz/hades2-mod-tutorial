@@ -1,10 +1,11 @@
 {
   CloudSettingsScreen = {
     Platform = "default"
-    CloseSound = "null"
-    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
-    TransitionOnTime = 0.1
-    TransitionOffTime = 0.15
+    OpenSound = "/SFX/Menu Sounds/IrisMenuOpen"
+    CloseSound = "/SFX/Menu Sounds/IrisMenuBack"
+    SelectionSound = "/SFX/Menu Sounds/IrisMenuToggle2"
+    TransitionOnTime = 0.3
+    TransitionOffTime = 0.35
     ForceShowCursor = true
     GamepadSelectionStyle = "VerticalCycle"
     FreeFormSelectWrapping = true
@@ -21,21 +22,20 @@
     AnimatedBackground = {
       X = 960
       Y = 540
-      Graphic = "AnnouncementBox_CloudSave"
+      Graphic = "ShellHalfScreenIn"
       Justification = "Center"
       VerticalJustification = "Center"
     }
     TitleText = {
       X = 960
-      Y = 185
+      Y = 210
+      Width = 800
       Justification = "Center"
       VerticalJustification = "Center"
       HelpTextId = "CloudSettingsScreen_Title"
       Font = "SpectralSCLightTitling"
       NonEnglishFont = "SpectralSCLight"
-      LangDeScaleModifier = 1.0
-      
-      FontSize = 32
+      FontSize = 36
       TextRed = 1
       TextGreen = 1
       TextBlue = 1
@@ -65,7 +65,7 @@
       TextRed = 0.75
       TextGreen = 0.75
       TextBlue = 0.75
-      FontSize = 36
+      FontSize = 28
       SelectedTextRed = 1
       SelectedTextGreen = 0.75
       SelectedTextBlue = 0.3
@@ -87,7 +87,7 @@
       ShadowAlpha = 1
       ShadowBlur = 0
       HelpTextId = "CloudSaveButton_ConnectSteam"
-      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+      PressSound = "/SFX/Menu Sounds/IrisMenuBack"
     }
     DisconnectSteamButton = {
       InheritFrom = "ConnectSteamButton"
@@ -122,7 +122,7 @@
       Justification = "Center"
       VerticalJustification = "Center"
       X = 960
-      Y = 1030
+      Y = 1016
       FlashMin = 0.0
       FlashMax = 0.5
       FlashSpeed = 1.2
@@ -130,7 +130,7 @@
       FlashGreen = 0.4
       FlashBlue = 0.0
       MouseOverSound = "null"
-      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+      PressSound = "/SFX/Menu Sounds/IrisMenuBack"
       TooltipId = "SettingsScreen_Back"
       Scale = 0.8
     }
@@ -140,8 +140,8 @@
       Y = 910
       VerticalJustification = "Center"
       DisplayNameId = "CloudSaves_InstructionHint"
-      Font = "P22UndergroundSCMedium"
-      FontSize = 22
+      Font = "LatoMedium"
+      FontSize = 20
       TextRed = 0.75
       TextGreen = 0.75
       TextBlue = 0.75
@@ -164,7 +164,7 @@
       ShadowBlur = 0
       Width = 650
       Height = 200
-      NonEnglishScaleModifier = 1.0
+      LineSpacingBottom = 8
     }
   }
 }

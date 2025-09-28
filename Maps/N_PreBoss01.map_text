@@ -262,6 +262,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Terrain_ZagContract_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Terrain_Shadow_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -430,6 +443,7 @@
         "Terrain_Lighting_01",
         "Terrain_Gameplay",
         "Terrain_Shadow_01",
+        "Terrain_ZagContract_01",
         "Terrain_Decor_05",
         "Terrain_Decor_04",
         "Terrain_Decor_03",
@@ -483,7 +497,20 @@
       "NumThingsFrozen": 0,
       "NumThingsSelectable": 0,
       "NumThingsVisible": 0,
-      "ParentGroup": "",
+      "ParentGroup": "MapLogic",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "Contract",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapLogic",
       "Visible": true
     },
     {
@@ -642,7 +669,9 @@
         "SheepPen_Group",
         "Breakables",
         "LittleBldg",
-        "Castle"
+        "Castle",
+        "Contract",
+        "Shop"
       ],
       "Id": "MapLogic",
       "NumSelectedAsDraw": 0,

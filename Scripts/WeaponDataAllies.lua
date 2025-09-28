@@ -49,70 +49,6 @@ WeaponDataAllies =
 			},		
 		},		
 	},
-	SpellSummonRanged = 
-	{
-		AIData =
-		{
-			DeepInheritance = true,
-
-			ProjectileName = "SpellSummonRanged",
-			BarrelLength = 55,
-
-			PreAttackDuration = 0.3,
-			FireDuration = 0.3,
-			PostAttackDuration = 0.6,
-			
-			PreAttackSound = "/SFX/Enemy Sounds/Swarmer/EmoteCharging",
-			PreAttackAnimation = "Enemy_Swarmer_MeleeAttackPreAttack",
-			FireAnimation = "Enemy_Swarmer_MeleeAttackFire",
-			PostAttackAnimation = "Enemy_Swarmer_MeleeAttackReturnToIdle",
-
-			DeathSound = "/SFX/Enemy Sounds/Swarmer/EmoteDying",
-
-			AttackDistance = 1000,
-			RequireProjectileLoS = true,
-			LoSBuffer = 40,
-		},
-
-		Sounds =
-		{
-			FireSounds =
-			{
-				{ Name = "/SFX/FlameTrapFire" },
-			},
-
-			ImpactSounds =
-			{			
-				Invulnerable = "/SFX/Player Sounds/ZagreusShieldRicochet",
-				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-				Bone = "/SFX/BurnDamage",
-				Brick = "/SFX/BurnDamage",
-				Stone = "/SFX/BurnDamage",
-				Organic = "/SFX/BurnDamage",
-				StoneObstacle = "/SFX/BurnDamage",
-				BrickObstacle = "/SFX/BurnDamage",
-				MetalObstacle = "/SFX/BurnDamage",
-				BushObstacle = "/SFX/BurnDamage",
-			},			
-		},
-
-	},
-
-	SummonSelfDestruct =
-	{
-		StartingWeapon = false,
-		IgnoreHealthBuffer = true,
-		OnFiredFunctionName = "SelfDestruct",
-		
-		AIData =
-		{
-			DeepInheritance = true,
-			
-			AttackDistance = 200,
-			PreAttackDuration = 0.1,
-		},
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-	},
 
 	SoulPylonDeath =
 	{
@@ -127,7 +63,6 @@ WeaponDataAllies =
 			FireTicksMin = 15,
 			FireTicksMax = 15,
 			FireInterval = 0.01,
-			BarrelLength = 0,
 			Spread = 360,
 
 
@@ -146,7 +81,6 @@ WeaponDataAllies =
 		}
 	},
 	
-
 	ShadeMercSpiritball =
 	{
 		GameStateRequirements =
@@ -159,7 +93,7 @@ WeaponDataAllies =
 		AIData =
 		{
 			DeepInheritance = true,
-
+			SaveProjectileId = true,
 			ProjectileName = "ShadeMercSpiritball",
 			BarrelLength = 0,
 
@@ -185,22 +119,92 @@ WeaponDataAllies =
 					},
 					GameStateRequirements =
 					{
-						{
-							PathFalse = { "CurrentRun", "Hero", "IsDead" }
-						},
 						ChanceToPlay = 0.2,
 					},
 					{ Cue = "/VO/Melinoe_0132", Text = "Go!", PlayFirst = true },
-					{ Cue = "/VO/Melinoe_0133", Text = "You're free!" },
-					{ Cue = "/VO/Melinoe_0134", Text = "Fight!" },
 					{ Cue = "/VO/Melinoe_0135", Text = "Now!" },
-					{ Cue = "/VO/MelinoeField_0580", Text = "Attack!" },
-					{ Cue = "/VO/MelinoeField_0581", Text = "Together!" },
-					{ Cue = "/VO/MelinoeField_0582", Text = "Aid me!" },
-					{ Cue = "/VO/MelinoeField_0583", Text = "Strike true!" },
+					{ Cue = "/VO/Melinoe_3977", Text = "Now, Shade!" },
+					{ Cue = "/VO/Melinoe_3979", Text = "For the Underworld!" },
+					{ Cue = "/VO/Melinoe_3980", Text = "We fight!" },
+					{ Cue = "/VO/Melinoe_3982", Text = "Show the Commander!",
+						PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "CurrentRun", "Hero", "IsDead" }
+							},
+						},
+					},
+					{ Cue = "/VO/Melinoe_0133", Text = "You're free!",
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "Hero", "IsDead" }
+							},
+						},
+					},
+					{ Cue = "/VO/Melinoe_0134", Text = "Fight!",
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "Hero", "IsDead" }
+							},
+						},
+					},
+					{ Cue = "/VO/Melinoe_3978", Text = "Fight back!",
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "Hero", "IsDead" }
+							},
+						},
+					},
+					{ Cue = "/VO/Melinoe_3981", Text = "I release you!",
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "Hero", "IsDead" }
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_0580", Text = "Attack!",
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "Hero", "IsDead" }
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_0581", Text = "Together!",
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "Hero", "IsDead" }
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_0582", Text = "Aid me!",
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "Hero", "IsDead" }
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_0583", Text = "Strike true!",
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "Hero", "IsDead" }
+							},
+						},
+					},
 					{ Cue = "/VO/Melinoe_0335", Text = "Smite them!",
 						GameStateRequirements =
 						{
+							{
+								PathFalse = { "CurrentRun", "Hero", "IsDead" }
+							},
 							{
 								Path = { "RequiredKillEnemies" },
 								UseLength = true,
@@ -285,15 +289,22 @@ WeaponDataAllies =
 				BushObstacle = "/SFX/BurnDamage",
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
+	ShadeMercAspectSpiritball = 
+	{
+		InheritFrom = {"ShadeMercSpiritball"},
+		
+		GameStateRequirements =
+		{
+		},
 
+		AIData =
+		{
+			DeepInheritance = true,
+			ProjectileName = "ShadeMercAspectSpiritball",
+		},
+
+	},
 	IcarusBombardmentLine =
 	{
 		AIData =
@@ -314,7 +325,9 @@ WeaponDataAllies =
 			TargetSpawnPoints = true,
 			FireProjectileAtTarget = true,
 
-			PreAttackFxAtTarget = "IcarusFlyBy",
+
+			PreAttackThreadedFunctionName = "IcarusFlyByPresentation",
+			PreAttackThreadedFunctionArgs = { FlyByZHeight = 450, FlyByDuration = 1.0, FlyBySpeed = 4500, FlyByScale = 1.8, },
 
 			PreAttackDuration = 0.0,
 			FireDuration = 0.0,
@@ -335,13 +348,6 @@ WeaponDataAllies =
 				{ Name = "/SFX/Player Sounds/ZagreusGunGrenadeLaunchFire" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
-		},
 	},
 
 	IcarusBombardmentLineReverse =
@@ -359,8 +365,9 @@ WeaponDataAllies =
 				{ OffsetX = -300, OffsetY = 300, OffsetScaleY = 0.5 },
 				{ OffsetX = -600, OffsetY = 600, OffsetScaleY = 0.5 },
 			},
-			
-			PreAttackFxAtTarget = "IcarusFlyByReverse",
+
+			PreAttackThreadedFunctionName = "IcarusFlyByPresentation",
+			PreAttackThreadedFunctionArgs = { FlyByZHeight = 450, FlyByDuration = 1.0, FlyBySpeed = 4500, FlyByScale = 1.8, ReverseDirection = true },
 		},
 
 		Requirements =
@@ -390,7 +397,8 @@ WeaponDataAllies =
 			FireProjectileAtTarget = true,
 			SkipIfInvalidLocation = true,
 
-			PreAttackFxAtTarget = "IcarusFlyBy",
+			PreAttackThreadedFunctionName = "IcarusFlyByPresentation",
+			PreAttackThreadedFunctionArgs = { FlyByZHeight = 450, FlyByDuration = 1.0, FlyBySpeed = 4500, FlyByScale = 1.8 },
 
 			PreAttackDuration = 0.0,
 			FireDuration = 0.0,
@@ -410,13 +418,6 @@ WeaponDataAllies =
 			{
 				{ Name = "/SFX/Player Sounds/ZagreusGunGrenadeLaunchFire" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 
@@ -440,7 +441,8 @@ WeaponDataAllies =
 			TargetSpawnPoints = true,
 			FireProjectileAtTarget = true,
 
-			PreAttackFxAtTarget = "IcarusFlyBy",
+			PreAttackThreadedFunctionName = "IcarusFlyByPresentation",
+			PreAttackThreadedFunctionArgs = { FlyByZHeight = 450, FlyByDuration = 1.0, FlyBySpeed = 4500, FlyByScale = 1.8, },
 
 			PreAttackDuration = 0.0,
 			FireDuration = 0.0,
@@ -461,13 +463,6 @@ WeaponDataAllies =
 				{ Name = "/SFX/Player Sounds/ZagreusGunGrenadeLaunchFire" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
-		},
 	},
 
 	IcarusBombardmentSingle =
@@ -480,7 +475,8 @@ WeaponDataAllies =
 			
 			TargetRequiredKillEnemy = true,
 
-			PreAttackFxAtTarget = "IcarusFlyBy",
+			PreAttackThreadedFunctionName = "IcarusFlyByPresentation",
+			PreAttackThreadedFunctionArgs = { FlyByZHeight = 450, FlyByDuration = 1.0, FlyBySpeed = 4500, FlyByScale = 1.8, ReverseDirection = true },
 
 			PreAttackDuration = 0.0,
 			FireDuration = 0.0,
@@ -500,13 +496,6 @@ WeaponDataAllies =
 			{
 				{ Name = "/SFX/Player Sounds/ZagreusGunGrenadeLaunchFire" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 
@@ -598,8 +587,6 @@ WeaponDataAllies =
 				{ Name = "/Leftovers/SFX/AuraPerfectThrow" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
 	},
 
 	ArtemisHuntersMark =
@@ -610,6 +597,7 @@ WeaponDataAllies =
 
 			ProjectileName = "ArtemisHuntersMark",
 			FireProjectileAtTarget = true,
+			TargetClosestToPlayer = false,
 			
 			PreAttackDuration = 0.5,
 			FireDuration = 0.0,
@@ -641,6 +629,10 @@ WeaponDataAllies =
 					{ Cue = "/VO/Artemis_0222", Text = "Marked one." },
 					{ Cue = "/VO/Artemis_0060", Text = "See that?", PlayFirst = true },
 					{ Cue = "/VO/Artemis_0056", Text = "There." },
+					{ Cue = "/VO/Artemis_0441", Text = "Target marked." },
+					{ Cue = "/VO/Artemis_0442", Text = "That one there." },
+					{ Cue = "/VO/Artemis_0443", Text = "Get the mark." },
+					{ Cue = "/VO/Artemis_0444", Text = "One's open." },
 				},
 				{
 					BreakIfPlayed = true,
@@ -697,13 +689,6 @@ WeaponDataAllies =
 			PostAttackDurationMax = 3.5,
 
 			AttackDistance = 9999,
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.1 },
 		},
 
 		Sounds =
@@ -763,13 +748,6 @@ WeaponDataAllies =
 		{
 			PlayerHealthPercentMax = 0.5,
 			MinAttacksBetweenUse = 8,
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.1 },
 		},
 
 		Sounds =
@@ -1017,10 +995,9 @@ WeaponDataAllies =
 			ProjectileName = "HeraclesArcRight",
 
 			FireSelfVelocity = 1300,
+			FireProjectileStartDelay = 0.09,
 
-			FireProjectileStartDelay = 0.025,
-
-			PreAttackDuration = 0.6,
+			PreAttackDuration = 0.62,
 			FireDuration = 0.22,
 			PostAttackDuration = 1.7,
 
@@ -1028,15 +1005,13 @@ WeaponDataAllies =
 			MoveWithinRange = true,
 			PreAttackStop = true,
 
-			FireFx = "MinotaurAxeArcRight",
-			--PreAttackEndShake = true,
 			PreAttackSound = "/SFX/Enemy Sounds/Heracles/EmoteCharging",
-			PreAttackAnimation = "Heracles_Combat_AttackPreFire",
-			FireAnimation = "Heracles_Combat_AttackFire",
-			PostAttackAnimation = "Heracles_Combat_AttackPostFire",
+			PreAttackAnimation = "Heracles_Combat_Swipe_Start",
+			FireAnimation = "Heracles_Combat_Swipe_Fire",
+			PostAttackAnimation = "Heracles_Combat_Swipe_End",
 
-			--PreAttackAngleTowardTarget = true,
 			TrackTargetDuringCharge = true,
+			StopBeforeFire = true,
 			ExpireProjectilesOnHitStun = true,
 			TargetRequiredKillEnemy = true,
 			TrackKillSteal = true,
@@ -1075,27 +1050,25 @@ WeaponDataAllies =
 			LoSBuffer = 120,
 			RequireUnitLoS = true,
 
-			FireFx = "EnemyHeavySlash",
-			FireFxOffset = 300,
-
 			PreAttackAngleTowardTarget = true,
 			WaitForAngleTowardTarget = true,
 			PreAttackStop = true,
+			StopBeforeFire = true,
 
 			PreAttackDuration = 0.0,
-			--PreFireDuration = 0.3,
-			FireDuration = 0.3,
-			PostAttackDuration = 0.3,
+			FireDuration = 0.1,
+			PostAttackDuration = 1.25,
 
 			PreAttackLeap = true,
 			LeapToTarget = true,
 			LeapSound = "/Leftovers/SFX/PlayerJump",
-			--LeapLandingSound = "",
 			LeapSpeed = 2000,
 			LeapPrepareTime = 0.6,
 			LeapRecoveryTime = 0.0,
-			LeapChargeAnimation = "Heracles_Combat_LeapPreFire",
-			LeapAnimation = "Heracles_Combat_LeapFire",
+			LeapChargeAnimation = "Heracles_Combat_Leap_Start",
+			LeapAnimation = "Heracles_Combat_Leap_Fire",
+			LeapLandingAnimation = "Heracles_Combat_Leap_Fire2",
+			PostAttackAnimation = "Heracles_Combat_Leap_End",
 
 			PreAttackVoiceLines =
 			{

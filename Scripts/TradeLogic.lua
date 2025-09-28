@@ -9,10 +9,12 @@
 	screen.ChosenGetOption = chosenGetOption
 
 	local giveItemData = nil
+	local frameAnim = nil
 	if screen.ChosenGiveOption.SellTrait then
-		GenerateSellTraitShop( CurrentRun.CurrentRoom, { SellOptionCount = 1 } )
+		GenerateSellTraitShop( CurrentRun.CurrentRoom, { SellOptionCount = 1, PrioritizeCommonTraits = true } )
 		for i, sellData in pairs( CurrentRun.CurrentRoom.SellOptions ) do
 			giveItemData = CurrentRun.Hero.TraitDictionary[sellData.Name][1]
+			frameAnim = GetTraitFrame( giveItemData )
 			SetTraitTextData( giveItemData )
 		end
 	elseif screen.ChosenGiveOption.UseGetCost then
@@ -46,11 +48,17 @@
 	local rarityColor = Color["BoonPatch"..rarity]
 	local rarityText = "Boon_"..rarity
 
-	local giveItemIcon = giveItemData.Icon or giveItemData.SurfaceShopIcon or giveItemData.IconPath
+	local giveItemIcon = giveItemData.TradeIcon or giveItemData.Icon or giveItemData.SurfaceShopIcon or giveItemData.IconPath
 	if giveItemIcon ~= nil then
 		SetAnimation({ Name = giveItemIcon, DestinationId = components.GiveInfoBoxIcon.Id })
 		SetAlpha({ Id = components.GiveInfoBoxIcon.Id, Fraction = 1.0, Duration = 0.2 })
-		SetAlpha({ Id = components.GiveInfoBoxFrame.Id, Fraction = 1.0, Duration = 0.2 })
+		
+		if frameAnim ~= nil then
+			SetAnimation({ Name = frameAnim, DestinationId = components.GiveInfoBoxFrame.Id })
+			SetAlpha({ Id = components.GiveInfoBoxFrame.Id, Fraction = 1.0, Duration = 0.2 })
+			SetScale({ Id = components.GiveInfoBoxIcon.Id, Fraction = components.GiveInfoBoxFrame.Scale })
+		end
+
 		rarityColor = giveItemIcon.CustomRarityColor or rarityColor
 		rarityText = giveItemIcon.CustomRarityName or rarityText
 	end
@@ -68,21 +76,40 @@
 		LuaKey = "TooltipData",
 		LuaValue = giveItemData,
 	})
+
+	if giveItemData.ResourceName ~= nil then
+		local text = "TradeScreen_CurrentMoney"
+		if not HasResource( giveItemData.ResourceName, chosenGiveOption.Cost ) then
+			text = "TradeScreen_CurrentMoney_CantAfford"
+		end
+		ModifyTextBox({ Id = components.GiveInfoBoxSubText.Id,
+			Text = text,
+			LuaKey = "TempTextData",
+			LuaValue = { Amount = GameState.Resources[giveItemData.ResourceName] },
+		})
+	end
+
+	--[[
 	local backingAnim = ScreenData.UpgradeChoice.RarityBackingAnimations[rarity]
 	if backingAnim ~= nil then
 		SetAnimation({ Name = backingAnim, DestinationId = components.GiveInfoBoxBacking.Id })
 	end
+	]]
 
+	--[[
 	ModifyTextBox({ Id = components.GiveInfoBoxRarity.Id,
 		Text = rarityText,
 		Color = rarityColor
 	})
+	]]
 
+	--[[
 	if giveItemData.StatLines ~= nil then
 		local statLine = giveItemData.StatLines[1]
 		ModifyTextBox({ Id = components.GiveInfoBoxStatLineLeft.Id, AppendToId = components.GiveInfoBoxBacking.Id, Text = statLine, LuaKey = "TooltipData", LuaValue = giveItemData, FadeTarget = 1.0 })
 		ModifyTextBox({ Id = components.GiveInfoBoxStatLineRight.Id, AppendToId = components.GiveInfoBoxBacking.Id, Text = statLine, UseDescription = true, LuaKey = "TooltipData", LuaValue = giveItemData, FadeTarget = 1.0 })
 	end
+	]]
 
 	-- Get Option
 	--DebugPrint({ Text = "chosenGetOption.Name = "..tostring(chosenGetOption.Name) })
@@ -105,11 +132,11 @@
 		getItemData.DropMoney = round(getItemData.DropMoney * moneyMultiplier)
 	end
 
-	local getItemIcon = getItemData.Icon or getItemData.SurfaceShopIcon
+	local getItemIcon = getItemData.TradeIcon or getItemData.Icon or getItemData.SurfaceShopIcon
 	if getItemIcon ~= nil then
 		SetAnimation({ Name = getItemIcon, DestinationId = components.GetInfoBoxIcon.Id })
 		SetAlpha({ Id = components.GetInfoBoxIcon.Id, Fraction = 1.0, Duration = 0.2 })
-		SetAlpha({ Id = components.GetInfoBoxFrame.Id, Fraction = 1.0, Duration = 0.2 })
+		--SetAlpha({ Id = components.GetInfoBoxFrame.Id, Fraction = 1.0, Duration = 0.2 })
 	end
 
 	ModifyTextBox({ Id = components.GetInfoBoxName.Id,
@@ -125,16 +152,31 @@
 		LuaValue = getItemData,
 	})
 
+	if getItemData.AddResources ~= nil then
+		ModifyTextBox({ Id = components.GetInfoBoxSubText.Id,
+			Text = "TradeScreen_CurrentMoney",
+			LuaKey = "TempTextData",
+			LuaValue = { Amount = GameState.Resources[getItemData.ResourceName] },
+		})
+	elseif getItemData.DropMoney ~= nil then
+		ModifyTextBox({ Id = components.GetInfoBoxSubText.Id,
+			Text = "TradeScreen_CurrentMoney",
+			LuaKey = "TempTextData",
+			LuaValue = { Amount = GameState.Resources.Money },
+		})
+	end
+
+	--[[
 	if getItemData.StatLines ~= nil then
 		local statLine = getItemData.StatLines[1]
 		ModifyTextBox({ Id = components.GetInfoBoxStatLineLeft.Id, AppendToId = components.GetInfoBoxBacking.Id, Text = statLine, LuaKey = "TooltipData", LuaValue = getItemData, FadeTarget = 1.0 })
 		ModifyTextBox({ Id = components.GetInfoBoxStatLineRight.Id, AppendToId = components.GetInfoBoxBacking.Id, Text = statLine, UseDescription = true, LuaKey = "TooltipData", LuaValue = getItemData, FadeTarget = 1.0 })
 	end
+	]]
 
 	if giveItemData.ResourceName ~= nil and not HasResource( giveItemData.ResourceName, giveItemData.Cost ) then
 		SetAlpha({ Id = components.AcceptButton.Id, Fraction = 0.0, Duration = 0.0 })
 		UseableOff({ Id = components.AcceptButton.Id })
-		ModifyTextBox({ Id = components.CloseButton.Id, Text = "TradeScreen_DeclineCannotAfford", })
 	end
 	
 	-- Short delay to let animations finish and prevent accidental input
@@ -181,17 +223,9 @@ function TradeDoExchange( screen, args )
 	end
 
 	local item = nil
-	local getConsumableData = ConsumableData[getOption.Name]
-	if getConsumableData ~= nil then
-		if getOption.Overrides ~= nil then
-			for key, value in pairs( getOption.Overrides ) do
-				if getConsumableData[key] ~= nil then
-					getConsumableData[key] = value
-				end
-			end
-		end
-		local consumableId = SpawnObstacle({ Name = getConsumableData.Name, DestinationId = screen.Source.ObjectId, Group = "Standing" })
-		item = CreateConsumableItem( consumableId, getConsumableData.Name, 0, { RunProgressUpgradeEligible = true } )
+	if ConsumableData[getOption.Name] ~= nil or getOption.Name == "SpellDrop" then
+		local consumableId = SpawnObstacle({ Name = getOption.Name, DestinationId = screen.Source.ObjectId, Group = "Standing" })
+		item = CreateConsumableItem( consumableId, getOption.Name, 0, { RunProgressUpgradeEligible = true, DataOverrides = getOption.Overrides } )
 		item.NPCDrop = true
 		ApplyConsumableItemResourceMultiplier( CurrentRun.CurrentRoom, item )
 	else
@@ -200,6 +234,7 @@ function TradeDoExchange( screen, args )
 	end
 	item.FromTrade = true
 	screen.Source.ItemGiven = item
+	MapState.RoomRequiredObjects[item.ObjectId] = item
 
 	local forceAngle = GetAngleBetween({ Id = screen.Source.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
 	ApplyForce({ Id = item.ObjectId, Speed = getOption.Force or args.GetItemForce, Angle = forceAngle, SelfApplied = true })

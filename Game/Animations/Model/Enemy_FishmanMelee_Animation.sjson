@@ -234,6 +234,9 @@
 		Name = "Enemy_FishmanMelee_ImpaleCharge"
 		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
 		GrannyAnimation = "FishmanMelee_Base_ImpaleAntic_C_00"
+		Sound = "/SFX/Enemy Sounds/CorruptedShadeLarge/Charge"
+		GrannyAnimationSpeed = 1.18
+		StopSoundOnFinishFade = 0.2
 		HoldLastFrame = true
 		Blends = 
 		[
@@ -503,9 +506,17 @@
 		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
 		GrannyAnimation = "FishmanMelee_Base_Spawn_C_00"
 		ChainTo = "Enemy_FishmanMelee_Slam_End"
-
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusJumpStart"
 		Frames =
 		[
+			{
+				Frame = 10
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 12
+				Sound = "/Leftovers/SFX/DemonLandWet"
+			}
 			{
 				Frame = 45
 				FrameSpeed = 0

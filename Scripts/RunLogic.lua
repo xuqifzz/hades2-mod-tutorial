@@ -1,12 +1,12 @@
 function CreateNewHero( prevRun, args )
 	local newHero = DeepCopyTable( HeroData )
 	newHero.SpeakerId = 1
-	newHero.Traits = {}
-	newHero.RecentTraits = {}
 	newHero.Health = newHero.MaxHealth
 	newHero.Mana = newHero.MaxMana
 	newHero.ManaDrain = {}
 	newHero.ManaRegenSources = {}
+	newHero.HeroTraitValuesCache = {}
+	newHero.FirstTraitWithPropertyCache = {}
 	newHero.WeaponDataOverride = {}
 	newHero.InvulnerableFlags = {}
 	newHero.Ammo = {}
@@ -47,7 +47,7 @@ function InitHeroLastStands( newHero )
 		AddLastStand({
 			Unit = newHero,
 			IncreaseMax = true,
-			Icon = "ExtraLifeStyx",
+			Icon = "ExtraLifeMel",
 			ManaFraction = 0.4,
 			HealFraction = 0.4,
 			Silent = true
@@ -115,6 +115,10 @@ function IsTraitEligible( traitData, args )
 		return false
 	end
 
+	if traitData.BlockOfferIfPreviouslyPicked and CurrentRun.PickedTraits[traitData.Name] then
+		return false
+	end
+
 	if CurrentRun.BannedTraits[traitData.Name] and not args.AllowBannedTraits then
 		return false
 	end
@@ -133,22 +137,23 @@ function GameStateInit()
 		return
 	end
 
+	GameState.AchievementsUnlocked = GameState.AchievementsUnlocked or {}
 	GameState.TotalTime = GameState.TotalTime or 0
 	GameState.GameplayTime = GameState.GameplayTime or 0
 	GameState.WeaponHistory = GameState.WeaponHistory or {}
 	GameState.WeaponsTouched = GameState.WeaponsTouched or {}
 	GameState.WeaponsUnlocked = GameState.WeaponsUnlocked or {}
 	GameState.FamiliarUpgrades = GameState.FamiliarUpgrades or {}
-	GameState.FamiliarRestTicks = GameState.FamiliarRestTicks or {}
 	GameState.FamiliarsUnlocked = GameState.FamiliarsUnlocked or {}
+	GameState.FamiliarCostumes = GameState.FamiliarCostumes or {}
 	GameState.RunHistory = GameState.RunHistory or {}
-	GameState.MetaUpgrades = GameState.MetaUpgrades or {}
 	GameState.ShrineUpgrades = GameState.ShrineUpgrades or {}
 	GameState.SpentShrinePointsCache = GameState.SpentShrinePointsCache or 0
 	GameState.WeaponKills = GameState.WeaponKills or {}
 	GameState.LootPickups = GameState.LootPickups or {}
 	GameState.UseRecord = GameState.UseRecord or {}
 	GameState.SpecialInteractRecord = GameState.SpecialInteractRecord or {}
+	GameState.SpellSummons = GameState.SpellSummons or {}
 	--GameState.TriggerRecord = GameState.TriggerRecord or {}  -- Unused, wasting save space
 
 	GameState.NPCInteractions = GameState.NPCInteractions or {}
@@ -164,9 +169,11 @@ function GameStateInit()
 	GameState.HealthRecord = GameState.HealthRecord or {}
 	GameState.ActualHealthRecord = GameState.ActualHealthRecord or {}
 	GameState.LastBossHealthBarRecord = GameState.LastBossHealthBarRecord or {}
+	GameState.LastBossDifficultyRecord = GameState.LastBossDifficultyRecord or {}
 	GameState.CompletedObjectiveSets = GameState.CompletedObjectiveSets or {}
 	GameState.RecordLastClearedShrineReward = GameState.RecordLastClearedShrineReward or {}
 	GameState.NemesisTakeExitRecord = GameState.NemesisTakeExitRecord or {}
+	GameState.NemesisTakeRoomExitRecord = GameState.NemesisTakeRoomExitRecord or {}
 	GameState.NPCShopItemStolenRecord = GameState.NPCShopItemStolenRecord or {}
 	GameState.ErisCurseRewardTaken = GameState.ErisCurseRewardTaken or {}
 
@@ -175,13 +182,18 @@ function GameStateInit()
 	GameState.LastPlayedRandomLines = GameState.LastPlayedRandomLines or {}
 
 	GameState.TextLinesRecord = GameState.TextLinesRecord or {}
+	GameState.TextLinePanelCount = GameState.TextLinePanelCount or {}
+	GameState.TextLinePanelSkipCount = GameState.TextLinePanelSkipCount or {}
+	GameState.TextLinesChoiceRecord = GameState.TextLinesChoiceRecord or {}
+
 	GameState.MusicRecord = GameState.MusicRecord or {}
 	GameState.MusicEndRecord = GameState.MusicEndRecord or {}
+	GameState.ScyllaDefeatMusicRecord = GameState.ScyllaDefeatMusicRecord or {}
 	GameState.TraitUses = GameState.TraitUses or {}
 	GameState.PlayedRandomTextLines = GameState.PlayedRandomTextLines or {}
-	GameState.LastPlayOnceTextLinesGamePhaseTicksRecord = GameState.LastPlayOnceTextLinesGamePhaseTicksRecord or {}
 
 	GameState.GiftRecord = GameState.GiftRecord or {}
+	GameState.GiftTextLinesOrderRecord = GameState.GiftTextLinesOrderRecord or {}
 	GameState.GiftResourceRecord = GameState.GiftResourceRecord or {}
 	GameState.GiftPresentation = GameState.GiftPresentation or {}
 	GameState.NewKeepsakeItem = GameState.NewKeepsakeItem or {}
@@ -194,6 +206,7 @@ function GameStateInit()
 	GameState.BiomeMapRecord = GameState.BiomeMapRecord or {} 
 	GameState.BiomeMusicPlayCounts = GameState.BiomeMusicPlayCounts or {}
 	GameState.BiomeMusicLastFirstPlayed = GameState.BiomeMusicLastFirstPlayed or {}
+	GameState.UnlockedMusicPlayerSongs = GameState.UnlockedMusicPlayerSongs or {}
 
 	GameState.Flags = GameState.Flags or {}
 	GameState.ReturnedRandomEligibleSourceNames = GameState.ReturnedRandomEligibleSourceNames or {}
@@ -202,42 +215,56 @@ function GameStateInit()
 	GameState.PlayedRandomRunIntroData = GameState.PlayedRandomRunIntroData or {}	
 	GameState.PlayedRunOutros = GameState.PlayedRunOutros or {}
 	GameState.RemainingRunOutros = GameState.RemainingRunOutros or {}
+	GameState.PlayedGhostEavesdroppers = GameState.PlayedGhostEavesdroppers or {}
+	GameState.RemainingGhostEavesdroppers = GameState.RemainingGhostEavesdroppers or {}
 	GameState.PlayedRunClearMessages = GameState.PlayedRunClearMessages or {}
 	GameState.RemainingRunClearMessages = GameState.RemainingRunClearMessages or {}
 	--GameState.LastPlayedRandomRunOutroData = GameState.LastPlayedRandomRunOutroData or {}
 
 	GameState.FishCaught = GameState.FishCaught or {}
 	GameState.ExorcisedNames = GameState.ExorcisedNames or {}
-	GameState.LastUnlockedMetaUpgrades = GameState.LastUnlockedMetaUpgrades or {}
-	GameState.MetaUpgradesUnlocked = GameState.MetaUpgradesUnlocked or {}
-	GameState.MetaUpgradesSelected = GameState.MetaUpgradesSelected or {}
 	GameState.MetaUpgradeState =  GameState.MetaUpgradeState or {}
 	GameState.KeepsakeChambers = GameState.KeepsakeChambers or {}
+	GameState.ClearedFullRunWithKeepsakes = GameState.ClearedFullRunWithKeepsakes or {}
 	GameState.Resources = GameState.Resources or {}
 	GameState.LifetimeResourcesGained = GameState.LifetimeResourcesGained or {}
 	GameState.LifetimeResourcesSpent = GameState.LifetimeResourcesSpent or {}
 	GameState.ResourcesViewed = GameState.ResourcesViewed or {}
+	GameState.LayoutSetArtViewed = GameState.LayoutSetArtViewed or {}
 	GameState.NextCharonPointCache = GameState.NextCharonPointCache or 0
 	GameState.MoneySpentTowardCharonPoints = GameState.MoneySpentTowardCharonPoints or 0
 	GameState.StoreItemPins = GameState.StoreItemPins or {}
 	GameState.StoreItemPinsPurchased = GameState.StoreItemPinsPurchased or {}
 	GameState.EnemyEliteAttributeKills = GameState.EnemyEliteAttributeKills or {}
 
-	GameState.ShrinePointClearsComplete = GameState.ShrinePointClearsComplete or {}
+	GameState.ClearedRunsCache = GameState.ClearedRunsCache or 0
+	GameState.HighestShrinePointClearUnderworldCache = GameState.HighestShrinePointClearUnderworldCache or 0
+	GameState.HighestShrinePointClearSurfaceCache = GameState.HighestShrinePointClearSurfaceCache or 0
+	GameState.HighestRunDepthCache = GameState.HighestRunDepthCache or 0
+	GameState.FastestUnderworldClearTimeCache = GameState.FastestUnderworldClearTimeCache or 0
+	GameState.FastestSurfaceClearTimeCache = GameState.FastestSurfaceClearTimeCache or 0
+
 	GameState.WeaponUnlocks = GameState.WeaponUnlocks or {}
 	GameState.SeenWeaponUnlocks = GameState.SeenWeaponUnlocks or {}
-	GameState.AssistUnlocks = GameState.AssistUnlocks or {}
 	GameState.LastWeaponUpgradeName = GameState.LastWeaponUpgradeName or {}
 	GameState.LifetimeTraitStats = GameState.LifetimeTraitStats or {}
-	GameState.LifetimeWeaponStats = GameState.LifetimeWeaponStats or {}
 	GameState.TraitsTaken = GameState.TraitsTaken or {}
+	GameState.TraitsSeen = GameState.TraitsSeen or {}
 	GameState.ClearedWithMetaUpgrades = GameState.ClearedWithMetaUpgrades or {}
+	GameState.ClearedWithWeapons = GameState.ClearedWithWeapons or {}
+	GameState.ClearedWithAspects = GameState.ClearedWithAspects or {}
+	GameState.ClearedWithFamiliars = GameState.ClearedWithFamiliars or {}
 	GameState.QuestsViewed = GameState.QuestsViewed or {}
+	GameState.QuestsCompleted = GameState.QuestsCompleted or {}
 	GameState.QuestStatus = GameState.QuestStatus or {}
-	GameState.BountiesCompleted = GameState.BountiesCompleted or {}
+	GameState.ShrineBountiesCompleted = GameState.ShrineBountiesCompleted or {}
 	GameState.PackagedBountyClears = GameState.PackagedBountyClears or {}
 	GameState.PackagedBountyAttempts = GameState.PackagedBountyAttempts or {}
 	GameState.PackagedBountyClearRecordTime = GameState.PackagedBountyClearRecordTime or {}
+	GameState.PackagedBountyClearStreak = GameState.PackagedBountyClearStreak or {}
+	GameState.PackagedBountyHighestClearStreak = GameState.PackagedBountyHighestClearStreak or {}
+	GameState.RandomBountyClearStreak = GameState.RandomBountyClearStreak or 0
+	GameState.RandomBountyHighestClearStreak = GameState.RandomBountyHighestClearStreak or 0
 	GameState.CodexEntriesViewed = GameState.CodexEntriesViewed or {}
 	GameState.SpeechRecordContexts = GameState.SpeechRecordContexts or {}
 
@@ -245,36 +272,18 @@ function GameStateInit()
 	GameState.WorldUpgradesViewed = GameState.WorldUpgradesViewed or {}
 	GameState.WorldUpgradesRevealed = GameState.WorldUpgradesRevealed or {}
 	GameState.WorldUpgradesAdded = GameState.WorldUpgradesAdded or {}
-	UnlockWorldUpgrade( "Cosmetic_TentBlanket01" )
-	UnlockWorldUpgrade( "Cosmetic_TentCandle01" )
-	UnlockWorldUpgrade( "Cosmetic_TentShelf01" )
-	UnlockWorldUpgrade( "Cosmetic_FrinosRock01" )
-	UnlockWorldUpgrade( "Cosmetic_OdysseusTable01" )
-	UnlockWorldUpgrade( "Cosmetic_MainHangingTassles01" )
-	UnlockWorldUpgrade( "Cosmetic_MainHangingRope01" )
-	UnlockWorldUpgrade( "Cosmetic_MainLanterns01" )
-	UnlockWorldUpgrade( "Cosmetic_Cauldron01" )
-	UnlockWorldUpgrade( "Cosmetic_CauldronRing01" )
-	UnlockWorldUpgrade( "Cosmetic_CauldronPillars01" )
-	UnlockWorldUpgrade( "Cosmetic_HypnosLanterns01" )
-	UnlockWorldUpgrade( "Cosmetic_HypnosPillars01" )
-	UnlockWorldUpgrade( "Cosmetic_TavernaTables01" )
-	UnlockWorldUpgrade( "Cosmetic_TavernaChairs01" )
-	UnlockWorldUpgrade( "Cosmetic_SkellyFloor01" )
-	UnlockWorldUpgrade( "Cosmetic_TrainingDummy01" )
-	UnlockWorldUpgrade( "Song_MainTheme" )
-	UnlockWorldUpgrade( "Costume_Default" )
-	UnlockWorldUpgrade( "WeaponStaffSwing" )
+	GameState.CosmeticsPurchasedCountCache = GameState.CosmeticsPurchasedCountCache or {}
+
+	for i, upgradeName in ipairs( GameData.WorldUpgradeAutomaticUnlocks ) do
+		UnlockWorldUpgrade( upgradeName )
+	end
 
 	GameState.ItemsViewed = GameState.ItemsViewed or {}
-
 	GameState.ScreensViewed = GameState.ScreensViewed or {}
-	GameState.PromptCustomTextViewed = GameState.PromptCustomTextViewed or {}
 
 	GameState.ItemInteractions = GameState.ItemInteractions or {}
-	GameState.EnemySpawns = GameState.EnemySpawns or {}
-	GameState.EnemyDamage = GameState.EnemyDamage or {}
 	GameState.CauseOfDeath = GameState.CauseOfDeath or "NoCauseOfDeath"
+	GameState.CauseOfDeathDisplay = GameState.CauseOfDeathDisplay or GameState.CauseOfDeath or "NoCauseOfDeath"
 
 	GameState.ObjectivesCompleted = GameState.ObjectivesCompleted or {}
 	GameState.ObjectivesFailed = GameState.ObjectivesFailed or {}
@@ -289,10 +298,9 @@ function GameStateInit()
 
 	GameState.MaxMetaUpgradeCostCache = GameState.MaxMetaUpgradeCostCache or GetMaxMetaUpgradeCost()
 	GameState.MetaUpgradeCostCache = GameState.MetaUpgradeCostCache or 0
-	GameState.GamePhaseLifetimeTicks = GameState.GamePhaseLifetimeTicks or 0
+
 	GameState.GamePhase = GameState.GamePhase or GamePhaseData.StartingGamePhase
-	GameState.GamePhaseTicks = GameState.GamePhaseTicks or 0
-	GameState.GamePhaseTargetTicks = GameState.GamePhaseTargetTicks or GetGamePhaseTargetTicks()
+	GameState.GamePhaseRunsRemaining = GameState.GamePhaseRunsRemaining or GamePhaseData.StartingGamePhaseRunsRemaining
 end
 
 function StartNewGame( mapName )
@@ -303,7 +311,6 @@ function StartNewGame( mapName )
 	GameStateInit()
 	
 	InitializeMetaUpgradeState()
-	InitializeGiftData()
 
 	if CurrentRun == nil then
 		StartNewRun( nil, { RoomName = mapName, StartingBiome = "F" } )
@@ -316,7 +323,7 @@ function RunStateInit()
 		return
 	end
 	CurrentRun.AnimationState = CurrentRun.AnimationState or {}
-	CurrentRun.BountiesCompleted = CurrentRun.BountiesCompleted or {}
+	CurrentRun.ShrineBountiesCompleted = CurrentRun.ShrineBountiesCompleted or {}
 	CurrentRun.EventState = CurrentRun.EventState or {}
 	CurrentRun.MapStates = CurrentRun.MapStates or {}
 	CurrentRun.NPCInteractions = CurrentRun.NPCInteractions or {}
@@ -341,14 +348,18 @@ function RunStateInit()
 	CurrentRun.ProjectileRecord = CurrentRun.ProjectileRecord or {}
 	CurrentRun.TotalTime = CurrentRun.TotalTime or 0
 	CurrentRun.GameplayTime = CurrentRun.GameplayTime or 0
+	CurrentRun.ClearedBiomes = CurrentRun.ClearedBiomes or 0
 	CurrentRun.BiomeTotalTimes = CurrentRun.BiomeTotalTimes or {}
 	CurrentRun.BiomeGameplayTimes = CurrentRun.BiomeGameplayTimes or {}
 	CurrentRun.BiomeTime = CurrentRun.BiomeTime or 0
-	CurrentRun.BiomeBoonSkips = CurrentRun.BiomeBoonSkips or {}
+	CurrentRun.BiomeBoonSkipCount = CurrentRun.BiomeBoonSkipCount or 0
 	CurrentRun.BiomeTimeKeepsake = CurrentRun.BiomeTimeKeepsake or 0
 	CurrentRun.BiomeMusicPlayCounts = CurrentRun.BiomeMusicPlayCounts or {}
+	CurrentRun.BiomeHarvestPointsSeen = CurrentRun.BiomeHarvestPointsSeen or {}
+	CurrentRun.ToolElementsSpawned = CurrentRun.ToolElementsSpawned or {}
 	CurrentRun.ExpiredKeepsakes = CurrentRun.ExpiredKeepsakes or {}
 	CurrentRun.TraitUses = CurrentRun.TraitUses or {}
+	CurrentRun.PickedTraits = CurrentRun.PickedTraits or {}
 	CurrentRun.TraitCache = CurrentRun.TraitCache or {}
 	CurrentRun.BannedTraits = CurrentRun.BannedTraits or {}
 	CurrentRun.ShrineUpgradesCache = CurrentRun.ShrineUpgradesCache or {}
@@ -359,12 +370,14 @@ function RunStateInit()
 	CurrentRun.KeepsakeCache = CurrentRun.KeepsakeCache or {}
 	CurrentRun.ScreenViewRecord = CurrentRun.ScreenViewRecord or {}
 	CurrentRun.RewardPriorities = CurrentRun.RewardPriorities or {}
+	CurrentRun.BlockedKeepsakes = CurrentRun.BlockedKeepsakes or {}
 
 	CurrentRun.ResourcesSpent = CurrentRun.ResourcesSpent or {}
 	CurrentRun.ResourcesGained = CurrentRun.ResourcesGained or {}
 	CurrentRun.ObjectivesCompleted = CurrentRun.ObjectivesCompleted or {}
 	CurrentRun.FishCaught = CurrentRun.FishCaught or {}
 	CurrentRun.ExorcisedNames = CurrentRun.ExorcisedNames or {}
+	CurrentRun.RelationshipsAdvanced = CurrentRun.RelationshipsAdvanced or {}
 	CurrentRun.ShadeMercsCollected = CurrentRun.ShadeMercsCollected or 0
 	CurrentRun.BiomeStateChangeCount = CurrentRun.BiomeStateChangeCount or 0
 
@@ -381,6 +394,7 @@ function RunStateInit()
 	CurrentRun.SpeechRecord = CurrentRun.SpeechRecord or {}
 	CurrentRun.SpeechRecordContexts = CurrentRun.SpeechRecordContexts or {}
 	CurrentRun.TextLinesRecord = CurrentRun.TextLinesRecord or {}
+	CurrentRun.TextLinesChoiceRecord = CurrentRun.TextLinesChoiceRecord or {}
 	CurrentRun.MusicRecord = CurrentRun.MusicRecord or {}
 	CurrentRun.MusicEndRecord = CurrentRun.MusicEndRecord or {}
 	CurrentRun.HubTextLinesRecord = CurrentRun.HubTextLinesRecord or {}
@@ -388,18 +402,17 @@ function RunStateInit()
 	CurrentRun.UseRecord = CurrentRun.UseRecord or {}
 	CurrentRun.BiomeUseRecord = CurrentRun.BiomeUseRecord or {}
 	CurrentRun.SpecialInteractRecord = CurrentRun.SpecialInteractRecord or {}
-	CurrentRun.EnemyUpgrades = CurrentRun.EnemyUpgrades or {}
 	CurrentRun.BlockedEncounters = CurrentRun.BlockedEncounters or {}
 	CurrentRun.SpawnRecord = CurrentRun.SpawnRecord or {}
 	CurrentRun.EnemyKills = CurrentRun.EnemyKills or {}
+	CurrentRun.EncounterClearStats = CurrentRun.EncounterClearStats or {}
 
-	CurrentRun.ActiveObjectives = CurrentRun.ActiveObjectives or {}
 	CurrentRun.RunDepthCache = CurrentRun.RunDepthCache or 1
 	CurrentRun.EncounterDepth = CurrentRun.EncounterDepth or 1
-	CurrentRun.SupportAINames = CurrentRun.SupportAINames or {}
 	CurrentRun.ClosedDoors = CurrentRun.ClosedDoors or {}
 	CurrentRun.BannedEliteAttributes = CurrentRun.BannedEliteAttributes or {}
 	CurrentRun.NemesisTakeExitRecord = CurrentRun.NemesisTakeExitRecord or {}
+	CurrentRun.NemesisTakeRoomExitRecord = CurrentRun.NemesisTakeRoomExitRecord or {}
 	CurrentRun.NPCShopItemStolenRecord = CurrentRun.NPCShopItemStolenRecord or {}
 
 	CurrentRun.WorldUpgradesAdded = CurrentRun.WorldUpgradesAdded or {}
@@ -421,6 +434,7 @@ function StartNewRun( prevRun, args )
 
 	CurrentRun = {}
 	RunStateInit()
+	CurrentRun.Revision = Revision
 
 	if args.RunOverrides ~= nil then
 		OverwriteTableKeys( CurrentRun, args.RunOverrides )
@@ -430,13 +444,14 @@ function StartNewRun( prevRun, args )
 		ShrineUpgradeExtractValues( name )
 	end
 	
+	CurrentRun.ActiveBounty = args.ActiveBounty
 	CurrentRun.ForceNextEncounterData = args.Encounter
 	CurrentRun.Hero = CreateNewHero( prevRun, args )
 	
 	if GameState.WorldUpgrades.WorldUpgradeUnusedWeaponBonus ~= nil then
 		if prevRun ~= nil and prevRun.BonusUnusedWeaponName ~= nil and CurrentRun.Hero.Weapons[prevRun.BonusUnusedWeaponName] then
-			if GameState.WorldUpgrades.UnusedWeaponBonusAddGems then
-				AddTrait( CurrentRun.Hero, "UnusedWeaponBonusTraitAddGems" )
+			if GameState.WorldUpgrades.WorldUpgradeUnusedWeaponBonusT2 then
+				AddTrait( CurrentRun.Hero, "UnusedWeaponBonusTrait2" )
 			else
 				AddTrait( CurrentRun.Hero, "UnusedWeaponBonusTrait" )
 			end
@@ -445,35 +460,34 @@ function StartNewRun( prevRun, args )
 
 	local bountyData = BountyData[args.ActiveBounty]
 	if bountyData ~= nil and bountyData.StartingTraits ~= nil then
+		LoadActiveBountyPackages()
 		for i, traitData in ipairs( bountyData.StartingTraits ) do
-			AddTrait( CurrentRun.Hero, traitData.Name, traitData.Rarity )
+			AddTrait( CurrentRun.Hero, traitData.Name, traitData.Rarity, { FromLoot = true })
 		end
 	end
-
+	
+	GameState.FatedStatus = "Unknown"
+	UpdateFateStatus()
 	EquipKeepsake( CurrentRun.Hero, GameState.LastAwardTrait, { FromLoot = true, SkipNewTraitHighlight = true, AddToCache = true })
-	EquipAssist( CurrentRun.Hero, GameState.LastAssistTrait, { SkipNewTraitHighlight = true } )
-	EquipFamiliar( nil, { Unit = CurrentRun.Hero, FamiliarName = GameState.EquippedFamiliar, SkipNewTraitHighlight = true } )
+	EquipFamiliar( nil, { Unit = CurrentRun.Hero, FamiliarName = GameState.EquippedFamiliar } )
 	EquipWeaponUpgrade( CurrentRun.Hero, { SkipNewTraitHighlight = true, SkipUIUpdate = true } )
 	EquipMetaUpgrades( CurrentRun.Hero, { SkipNewTraitHighlight = true })
 	UpdateRunHistoryCache( CurrentRun )
-	BuildMetaupgradeCache()	
-	
-	CurrentRun.BonusUnusedWeaponName = GetRandomUnequippedWeapon()
+
+	CurrentRun.BonusUnusedWeaponName = GetRandomUnequippedWeapon( prevRun )
 	CurrentRun.ActiveBiomeTimer = GetNumShrineUpgrades("BiomeSpeedShrineUpgrade") > 0
 	CurrentRun.NumRerolls = GetTotalHeroTraitValue( "RerollCount" )
 	CurrentRun.NumTalentPoints = GetTotalHeroTraitValue("TalentPointCount")
-	CurrentRun.ActiveBounty = args.ActiveBounty
 	CurrentRun.ActiveBountyClears = GameState.PackagedBountyClears[CurrentRun.ActiveBounty] or 0
 	CurrentRun.ActiveBountyAttempts = GameState.PackagedBountyAttempts[CurrentRun.ActiveBounty] or 0
 	CurrentRun.SpellCharge = 5000
-	CurrentRun.ResourceNodesSeen = {}
-	CurrentRun.ToolElementsSpawned = {}
 
 	if ConfigOptionCache.EasyMode then
 		CurrentRun.EasyModeLevel = GameState.EasyModeLevel
 	end
 
 	InitHeroLastStands( CurrentRun.Hero )
+	UpdateHeroTraitDictionary()
 
 	InitializeRewardStores( CurrentRun )
 	--SelectBannedEliteAttributes( CurrentRun )
@@ -538,6 +552,31 @@ function RoomInit( room )
 	room.MusicRecord = room.MusicRecord or {}
 	room.MusicEndRecord = room.MusicEndRecord or {}
 	room.SpawnPoints = room.SpawnPoints or {}
+	room.EliteAttributes = room.EliteAttributes or {}
+	room.SpeechRecord = room.SpeechRecord or {}
+	room.TextLinesRecord = room.TextLinesRecord or {}
+	room.TraitUses = room.TraitUses or {}
+	room.ExitDoorRooms = room.ExitDoorRooms or {}
+	room.TimesVisited = room.TimesVisited or 0
+	room.SpawnThreads = room.SpawnThreads or {}
+	room.ActiveEncounters = room.ActiveEncounters or {}
+	room.EncountersOccurredCache = room.EncountersOccurredCache or {}
+	room.Kills = room.Kills or {}
+	room.UnavailableDoors = room.UnavailableDoors or {}
+	room.RoomCreations = room.RoomCreations or {}
+	room.NemesisTakeExitRecord = room.NemesisTakeExitRecord or {}
+	room.NemesisTakeRoomExitRecord = room.NemesisTakeRoomExitRecord or {}
+	room.UseRecord = room.UseRecord or {}
+	room.NumHarvestPoints = room.NumHarvestPoints or 0
+	room.NumShovelPoints = room.NumShovelPoints or 0
+	room.NumPickaxePoints = room.NumPickaxePoints or 0
+	room.NumExorcismPoints = room.NumExorcismPoints or 0
+	room.NumFishingPoints = room.NumFishingPoints or 0
+	room.BloodDropCount = room.BloodDropCount or 0
+	room.BloodDropBonus = room.BloodDropBonus or 0
+	room.BloodDropRequirement = room.BloodDropRequirement or 1
+	room.LastStandsUsed = room.LastStandsUsed or {}
+	room.ForcedBoonNames = room.ForcedBoonNames or {}
 end
 
 function CreateRoom( roomData, args )
@@ -545,25 +584,6 @@ function CreateRoom( roomData, args )
 	args = args or {}
 
 	local room = DeepCopyTable( roomData )
-	room.EliteAttributes = {}
-	room.SpeechRecord = {}
-	room.TextLinesRecord = {}
-	room.TraitUses = {}
-	room.ExitDoorRooms = {}
-	room.TimesVisited = 0
-	room.SpawnThreads = {}
-	room.ActiveEncounters = {}
-	room.EncountersOccurredCache = {}
-	room.Kills = {}
-	room.UnavailableDoors = {}
-	room.RoomCreations = {}
-	room.NemesisTakeExitRecord = {}
-	room.UseRecord = {}
-	room.NumHarvestPoints = 0
-	room.NumShovelPoints = 0
-	room.NumPickaxePoints = 0
-	room.NumExorcismPoints = 0
-	room.NumFishingPoints = 0
 	RoomInit( room )
 	if args.RoomOverrides ~= nil then
 		for key, value in pairs( args.RoomOverrides ) do
@@ -594,9 +614,6 @@ function CreateRoom( roomData, args )
 	local secretChance = room.SecretSpawnChance or RoomData.BaseRoom.SecretSpawnChance
 	room.SecretChanceSuccess = RandomChance( secretChance )
 
-	local shrinePointDoorChance = room.ShrinePointDoorSpawnChance or RoomData.BaseRoom.ShrinePointDoorSpawnChance
-	room.ShrinePointDoorChanceSuccess =  RandomChance( shrinePointDoorChance )
-
 	local challengeChance = room.ChallengeSpawnChance or RoomData.BaseRoom.ChallengeSpawnChance
 	room.ChallengeChanceSuccess = RandomChance( challengeChance )
 
@@ -607,6 +624,10 @@ function CreateRoom( roomData, args )
 
 	local surfaceShopChance = room.SurfaceShopSpawnChance or RoomData.BaseRoom.SurfaceShopSpawnChance
 	room.SurfaceShopChanceSuccess = RandomChance( surfaceShopChance )
+
+	local metaRewardStandChance = room.MetaRewardStandSpawnChance or RoomData.BaseRoom.MetaRewardStandSpawnChance
+	metaRewardStandChance = metaRewardStandChance + (room.MetaRewardStandSpawnChanceIncreasePerChamber or RoomData.BaseRoom.MetaRewardStandSpawnChanceIncreasePerChamber) * ( CurrentRun.BiomeDepthCache - 1 )
+	room.MetaRewardStandSuccess = RandomChance( metaRewardStandChance )
 
 	local anomalyDoorChance = roomData.AnomalyDoorChance or RoomData.BaseRoom.AnomalyDoorChance
 	if anomalyDoorChance ~= nil and GameState.BiomeVisits ~= nil and ( GameState.BiomeVisits.Anomaly == nil or GameState.BiomeVisits.Anomaly < 1 ) then
@@ -619,39 +640,84 @@ function CreateRoom( roomData, args )
 	end
 
 	room.HarvestPointsAllowed = 0
-	if IsGameStateEligible( room, room.HarvestPointRequirements or HarvestData.DefaultGameStateRequirements ) then
+	if room.HasHarvestPoint and IsGameStateEligible( room, room.HarvestPointRequirements or HarvestData.DefaultGameStateRequirements ) then
 		for k, spawnChance in ipairs( room.HarvestPointChances or HarvestData.DefaultSpawnChances ) do
+			if HasFamiliarTool( "ToolHarvest" ) then
+				spawnChance = spawnChance + GetTotalHeroTraitValue( "FamiliarResourceBonusChance" )
+			end
 			spawnChance = spawnChance * (CurrentRun.HarvestPointChanceMultiplier or 1.0)
-			if RandomChance( spawnChance + GetTotalHeroTraitValue( "HarvestPointChanceBonus" ) ) or ( k == 1 and room.HarvestPointForceRequirements ~= nil and IsGameStateEligible( room, room.HarvestPointForceRequirements ) ) then
+			if RandomChance( spawnChance ) or ( k == 1 and room.HarvestPointForceRequirements ~= nil and IsGameStateEligible( room, room.HarvestPointForceRequirements ) ) then
 				room.HarvestPointsAllowed = room.HarvestPointsAllowed + 1
 			end
 		end
 	end
 
-	local shovelPointChance = GetResourceNodeSpawnChance( ShovelPointData, room.ShovelPointChance, "ShovelPointChanceBonus" )
-	shovelPointChance = shovelPointChance * (CurrentRun.ShovelPointChanceMultiplier or 1.0)
-	if room.HasShovelPoint and IsGameStateEligible( room, room.ShovelPointRequirements or ShovelPointData.DefaultGameStateRequirements ) then
-		room.ShovelPointSuccess = HasHeroTraitValue( "ForceShovelPoint" ) or RandomChance( shovelPointChance )
+	local forceShovelPoint = false
+	if room.HasShovelPoint then
+		if room.ShovelPointForceRequirements ~= nil and IsGameStateEligible( room, room.ShovelPointForceRequirements ) then
+			forceShovelPoint = true
+			room.ShovelPointSuccess = true
+		elseif IsGameStateEligible( room, room.ShovelPointRequirements or ShovelPointData.DefaultGameStateRequirements ) then
+			local shovelPointChance = GetHarvestPointSpawnChance( ShovelPointData, room ) * (CurrentRun.ShovelPointChanceMultiplier or 1.0)
+			room.ShovelPointSuccess = RandomChance( shovelPointChance )
+		end
 	end
 
-	local pickaxePointChance = GetResourceNodeSpawnChance( PickaxePointData, room.PickaxePointChance, "PickaxePointChanceBonus" )
-	pickaxePointChance = pickaxePointChance * (CurrentRun.PickaxePointChanceMultiplier or 1.0)
-	if room.HasPickaxePoint and IsGameStateEligible( room, room.PickaxePointRequirements or PickaxePointData.DefaultGameStateRequirements ) then
-		room.PickaxePointSuccess = HasHeroTraitValue( "ForcePickaxePoint" )
-			or RandomChance( pickaxePointChance )
-			or ( room.PickaxePointForceRequirements ~= nil and IsGameStateEligible( room, room.PickaxePointForceRequirements ) )
+	local forcePickaxePoint = false
+	if room.HasPickaxePoint then
+		if room.PickaxePointForceRequirements ~= nil and IsGameStateEligible( room, room.PickaxePointForceRequirements ) then
+			forcePickaxePoint = true
+			room.PickaxePointSuccess = true
+		elseif IsGameStateEligible( room, room.PickaxePointRequirements or PickaxePointData.DefaultGameStateRequirements ) then
+			local pickaxePointChance = GetHarvestPointSpawnChance( PickaxePointData, room ) * (CurrentRun.PickaxePointChanceMultiplier or 1.0)
+			room.PickaxePointSuccess = RandomChance( pickaxePointChance )
+		end
 	end
 
-	local exorcismPointChance = GetResourceNodeSpawnChance( ExorcismData, room.ExorcismPointChance, "ExorcismPointChanceBonus" )
-	exorcismPointChance = exorcismPointChance * (CurrentRun.ExorcismPointChanceMultiplier or 1.0)
 	if room.HasExorcismPoint and IsGameStateEligible( room, room.ExorcismPointRequirements or ExorcismData.DefaultGameStateRequirements ) then
-		room.ExorcismPointSuccess = HasHeroTraitValue( "ForceExorcismPoint" ) or RandomChance( exorcismPointChance )
+		local exorcismPointChance = GetHarvestPointSpawnChance( ExorcismData, room ) * (CurrentRun.ExorcismPointChanceMultiplier or 1.0)
+		room.ExorcismPointSuccess = RandomChance( exorcismPointChance )
 	end
 
-	local fishingPointChance = GetResourceNodeSpawnChance( FishingData, room.FishingPointChance, "FishingPointChanceBonus" )
-	fishingPointChance = fishingPointChance * (CurrentRun.FishingPointChanceMultiplier or 1.0)
 	if room.HasFishingPoint and IsGameStateEligible( room, room.FishingPointRequirements or FishingData.DefaultGameStateRequirements ) then
-		room.FishingPointSuccess = HasHeroTraitValue( "ForceFishingPoint" ) or RandomChance( fishingPointChance )
+		local fishingPointChance = GetHarvestPointSpawnChance( FishingData, room ) * (CurrentRun.FishingPointChanceMultiplier or 1.0)
+		room.FishingPointSuccess = RandomChance( fishingPointChance )
+	end
+
+	if room.AllowOnlyOneToolHarvestableResource then
+		local toolSuccesses = FYShuffle( { "ShovelPointSuccess", "PickaxePointSuccess", "ExorcismPointSuccess", "FishingPointSuccess" } )
+		local choseHarvestPoint = false
+		for i, toolSuccess in ipairs( toolSuccesses ) do
+			if room[toolSuccess] then
+				if choseHarvestPoint then
+					room[toolSuccess] = false
+				end
+				choseHarvestPoint = true
+			end
+		end
+	else
+		-- Allow one simple harvest
+		if room.ShovelPointSuccess and room.PickaxePointSuccess then
+			-- forced points take priority
+			if forceShovelPoint then
+				room.PickaxePointSuccess = false
+			elseif forcePickaxePoint then
+				room.ShovelPointSuccess = false
+			elseif CoinFlip() then
+				room.ShovelPointSuccess = false
+			else
+				room.PickaxePointSuccess = false
+			end
+		end
+
+		-- Allow one complex harvest
+		if room.ExorcismPointSuccess and room.FishingPointSuccess then
+			if CoinFlip() then
+				room.ExorcismPointSuccess = false
+			else
+				room.FishingPointSuccess = false
+			end
+		end
 	end
 
 	CurrentRun.RoomCreations[room.Name] = (CurrentRun.RoomCreations[room.Name] or 0) + 1
@@ -697,6 +763,7 @@ function ChooseNextRoomData( currentRun, args, otherDoors )
 	args = args or {}
 
 	local currentRoom = currentRun.CurrentRoom
+	local currentRoomData = RoomData[currentRoom.Name] or currentRoom
 	local roomSetName = args.RoomSetName or currentRun.CurrentRoom.RoomSetName or "F"
 	if args.ForceNextRoomSet ~= nil or currentRoom.ForceNextRoomSet ~= nil then
 		roomSetName = args.ForceNextRoomSet or currentRoom.ForceNextRoomSet
@@ -712,15 +779,15 @@ function ChooseNextRoomData( currentRun, args, otherDoors )
 		nextRoomData = RoomData[ForceNextRoom]
 	elseif args.ForceNextRoom ~= nil and RoomData[args.ForceNextRoom] ~= nil then
 		nextRoomData = RoomData[args.ForceNextRoom]
-	elseif (currentRoom.LinkedRoom ~= nil or currentRoom.LinkedRooms ~= nil) and args.ForceNextRoomSet == nil then
-		local nextRoomName = currentRoom.LinkedRoom
-		if currentRoom.LinkedRooms ~= nil then
+	elseif (currentRoomData.LinkedRoom ~= nil or currentRoomData.LinkedRooms ~= nil) and args.ForceNextRoomSet == nil then
+		local nextRoomName = currentRoomData.LinkedRoom
+		if currentRoomData.LinkedRooms ~= nil then
 			local eligibleRoomNames = {}
 			local forcedRoomNames = {}
-			for i, linkedRoomName in ipairs( CollapseTableOrdered( currentRoom.LinkedRooms ) ) do
-				if IsRoomEligible( currentRun, currentRoom, RoomData[linkedRoomName], args ) then
+			for i, linkedRoomName in ipairs( CollapseTableOrdered( currentRoomData.LinkedRooms ) ) do
+				if IsRoomEligible( currentRun, currentRoomData, RoomData[linkedRoomName], args ) then
 					table.insert( eligibleRoomNames, linkedRoomName )
-					if IsRoomForced( currentRun, currentRoom, RoomData[linkedRoomName], args, otherDoors ) then
+					if IsRoomForced( currentRun, currentRoomData, RoomData[linkedRoomName], args, otherDoors ) then
 						table.insert( forcedRoomNames, linkedRoomName )
 					end
 				end
@@ -760,6 +827,7 @@ function ChooseNextRoomData( currentRun, args, otherDoors )
 	if currentRoom.DoAnomalies and nextRoomData.AllowAnomalyReplacement then
 		nextRoomData = ChooseNextRoomData( currentRun, { ForceNextRoomSet = "Anomaly" } )
 		nextRoomData.PrevRoomExitFunctionName = "ExitToAnomalyPresentation"
+		-- LoadPackages({ Names = "Chronos", IgnoreAssert = true })
 	end
 
 	DebugAssert({ Condition = nextRoomData ~= nil, Text = "No eligible rooms for exit door!", Owner = "Eduardo" })
@@ -1097,8 +1165,6 @@ function GenerateEncounter( currentRun, room, encounter )
 	local difficultyMultiplier = encounter.DifficultyMultiplier or 1
 
 	-- resources
-	local metaPointStoreRamp = encounter.MetaPointStoreRamp or 0
-	encounter.MetaPointStore = math.ceil( currentRun.RunDepthCache * metaPointStoreRamp * GetTotalHeroTraitValue("RoomMetaPointMultiplier", { IsMultiplier = true }))
 
 	local moneyDropStoreRamp = encounter.MoneyDropCapDepthRamp or 0
 	encounter.MoneyDropStore = ( RandomInt( encounterData.MoneyDropCapMin, encounterData.MoneyDropCapMax ) + currentRun.RunDepthCache * moneyDropStoreRamp ) or 0
@@ -1178,6 +1244,7 @@ function GenerateEncounter( currentRun, room, encounter )
 	local requireCompletedIntro = encounter.RequireCompletedIntro
 	local minDepthBeforeIntros = RoomData.BaseRoom.MinDepthBeforeIntros
 	if room ~= nil then
+		requireCompletedIntro = encounter.RequireCompletedIntro or room.RequireCompletedIntro
 		minDepthBeforeIntros = room.MinDepthBeforeIntros or RoomData.BaseRoom.MinDepthBeforeIntros
 	end
 	if GetBiomeDepth(CurrentRun) < minDepthBeforeIntros then
@@ -1260,9 +1327,6 @@ function FillEnemyTypes( encounter, wave, room )
 	local eliteCapReached = false
 	local eliteTypeCount = 0
 	for index, spawnData in pairs( spawnTable ) do
-		if spawnData.RequiredMetaUpgrade ~= nil and GetNumMetaUpgrades(spawnData.RequiredMetaUpgrade) == 0 then
-			table.insert(removeIndexes, index)
-		end
 		if spawnData.Name and EnemyData[spawnData.Name] and EnemyData[spawnData.Name].IsElite then
 			eliteTypeCount = eliteTypeCount + 1
 		end
@@ -1497,6 +1561,7 @@ end
 function IsEnemyEligible( enemyName, encounter, wave )
 
 	local enemyData = EnemyData[enemyName]
+	local encounter = encounter or CurrentRun.CurrentRoom.Encounter or {}
 
 	if enemyData.IneligibleIfUncompletedIntroEncounter and enemyData.IntroEncounterName ~= nil and not HasEncounterBeenCompleted(enemyData.IntroEncounterName) then
 		return false
@@ -1719,12 +1784,11 @@ function IsInspectPointEligible( currentRun, source, inspectPointData )
 	return true
 end
 
-function GetInteractedGods( needsEnemyUpgrade )
-	needsEnemyUpgrade = needsEnemyUpgrade or false
+function GetInteractedGods()
 	local interactedGods = {}
 	if GameState.LootPickups ~= nil then
 		for lootName, amount in pairs( GameState.LootPickups ) do
-			if amount >= 1 and ( not needsEnemyUpgrade or EnemyUpgradeData[lootName] ~= nil ) then
+			if amount >= 1 then
 				table.insert( interactedGods, lootName )
 			end
 		end
@@ -1850,6 +1914,7 @@ function EndBiomeRecords( source, args )
 	CurrentRun.BiomeUseRecord = {}
 	CurrentRun.BiomeRoomCountCache = {}
 	CurrentRun.EncountersOccurredBiomeCache = {}
+	CurrentRun.BiomeHarvestPointsSeen = {}
 	local prevRoom = CurrentRun.RoomHistory[#CurrentRun.RoomHistory - 1]
 	if prevRoom ~= nil then
 		local prevBiomeName = prevRoom.RoomSetName
@@ -1858,6 +1923,7 @@ function EndBiomeRecords( source, args )
 			CurrentRun.BiomeGameplayTimes[prevBiomeName] = CurrentRun.GameplayTime
 		end
 	end
+	CurrentRun.BiomeBoonSkipCount = 0
 	CurrentRun.BiomeEncounterDepth = 1
 	CurrentRun.BiomeRewardsSpawned = 0
 end
@@ -1876,41 +1942,23 @@ function GetCompletedRuns()
 	return GameState.CompletedRunsCache
 end
 
-function HasSeenRoom( roomName, excludeThisRun )
-
-	if GameState.RoomCountCache[roomName] ~= nil and GameState.RoomCountCache[roomName] > 0 then
-		return true
-	end
-
-	if not excludeThisRun and HasSeenRoomInRun( CurrentRun, roomName ) then
-		return true
-	end
-
-	return false
-end
-
-function HasSeenEncounter( encounterName )
-
-	if GameState.EncountersOccurredCache[encounterName] ~= nil and GameState.EncountersOccurredCache[encounterName] > 0 then
-		return true
-	end
-	return false
-
-end
-
 function RecordRunStats()
+	CurrentRun.RunResult = GetRunResult( CurrentRun )
 	CurrentRun.EndingRoomName = CurrentRun.CurrentRoom.Name
 	CurrentRun.WeaponsCache = DeepCopyTable( CurrentRun.Hero.Weapons )
 	CurrentRun.TraitRarityCache = CurrentRun.TraitRarityCache or {}
-	for k, traitData in pairs( CurrentRun.Hero.Traits ) do
+	for k, traitData in ipairs( CurrentRun.Hero.Traits ) do
 		if not traitData.RecordCacheOnEquip then
 			CurrentRun.TraitCache[traitData.Name] = (CurrentRun.TraitCache[traitData.Name] or 0) + 1
-			CurrentRun.TraitRarityCache[traitData.Name] = traitData.Rarity or "Common"
 		end
+		CurrentRun.TraitRarityCache[traitData.Name] = traitData.Rarity or "Common"
 	end
 	CurrentRun.ShrinePointsCache = GetTotalSpentShrinePoints()
 	CurrentRun.ShrineUpgradesCache = DeepCopyTable( GameState.ShrineUpgrades ) 
 	CurrentRun.MetaUpgradeCostCache = GameState.MetaUpgradeCostCache
+	if GameState.HighestRunDepthCache < CurrentRun.RunDepthCache then
+		GameState.HighestRunDepthCache = CurrentRun.RunDepthCache
+	end
 
 	-- send progression events before updating 'cleared' counts
 	local roomNames = {}
@@ -1918,7 +1966,7 @@ function RecordRunStats()
 		table.insert( roomNames, room.Name )
 	end
 	table.insert( roomNames, CurrentRun.CurrentRoom.Name )
-	SendProgressionEvents({ Names = roomNames, CompletedRuns = GameState.CompletedRunsCache, ClearedUnderworldRuns = GameState.ClearedUnderworldRunsCache, ClearedSurfaceRuns = GameState.ClearedSurfaceRunsCache, Cleared = CurrentRun.Cleared })
+	SendProgressionEvents({ Names = roomNames, CompletedRuns = GameState.CompletedRunsCache, ClearedUnderworldRuns = GameState.ClearedUnderworldRunsCache, ClearedSurfaceRuns = GameState.ClearedSurfaceRunsCache, Cleared = CurrentRun.Cleared, GameplayTime = GameState.GameplayTime, TotalTime = GameState.TotalTime })
 
 	-- 'cleared' means achieved a victory condition as opposed to dying	
 	local runsCleared = 0
@@ -1926,43 +1974,58 @@ function RecordRunStats()
 	local surfaceRunsCleared = 0
 	if CurrentRun.Cleared then
 		runsCleared = runsCleared + 1
-		if not CurrentRun.ActiveBounty and CurrentRun.BiomesReached ~= nil then
-			if CurrentRun.BiomesReached.F then
-				underworldRunsCleared = underworldRunsCleared + 1
-			else
-				surfaceRunsCleared = surfaceRunsCleared + 1
+		if WasUnderworldRun( CurrentRun ) then
+			underworldRunsCleared = underworldRunsCleared + 1
+			if GameState.HighestShrinePointClearUnderworldCache < CurrentRun.ShrinePointsCache then
+				GameState.HighestShrinePointClearUnderworldCache = CurrentRun.ShrinePointsCache
+			end
+			if GameState.FastestUnderworldClearTimeCache > CurrentRun.GameplayTime then
+				GameState.FastestUnderworldClearTimeCache = CurrentRun.GameplayTime
+			end
+		else
+			surfaceRunsCleared = surfaceRunsCleared + 1
+			if GameState.HighestShrinePointClearSurfaceCache < CurrentRun.ShrinePointsCache then
+				GameState.HighestShrinePointClearSurfaceCache = CurrentRun.ShrinePointsCache
+			end
+			if GameState.FastestSurfaceClearTimeCache > CurrentRun.GameplayTime then
+				GameState.FastestSurfaceClearTimeCache = CurrentRun.GameplayTime
 			end
 		end
 	end
-	for k, run in pairs( GameState.RunHistory ) do
-		if run.Cleared then
+	for k, run in ipairs( GameState.RunHistory ) do
+		if run.RunResult == RunResultData.UnderworldSuccess then
 			runsCleared = runsCleared + 1
-			if not run.ActiveBounty then
-				if run.BiomesReached == nil or run.BiomesReached.F or run.EndingRoomName == "I_Boss01" then
-					underworldRunsCleared = underworldRunsCleared + 1
-				else
-					surfaceRunsCleared = surfaceRunsCleared + 1
-				end
-			end
+			underworldRunsCleared = underworldRunsCleared + 1
+		elseif run.RunResult == RunResultData.SurfaceSuccess then
+			runsCleared = runsCleared + 1
+			surfaceRunsCleared = surfaceRunsCleared + 1
 		end
 	end
 	GameState.ClearedRunsCache = runsCleared
 	GameState.ClearedUnderworldRunsCache = underworldRunsCleared
 	GameState.ClearedSurfaceRunsCache = surfaceRunsCleared
 
-	GameState.HighestShrinePointClearUnderworldCache = GetHighestShrinePointRunClear( CurrentRun, { RequiredBiome = "F" } )
-	GameState.HighestShrinePointClearSurfaceCache = GetHighestShrinePointRunClear( CurrentRun, { RequiredBiome = "N" } )
-
 	UpdateLifetimeTraitRecords( CurrentRun )
 
 	for bossName, healthFraction in pairs( CurrentRun.BossHealthBarRecord ) do
 		GameState.LastBossHealthBarRecord[bossName] = healthFraction
+	end
+
+	for bossName, bossData in pairs( BossDifficultyShrineEncounterMap ) do
+		if CurrentRun.EncountersOccurredCache[bossData.Encounter] then
+			GameState.LastBossDifficultyRecord[bossName] = false
+		elseif CurrentRun.EncountersOccurredCache[bossData.AltEncounter] then
+			GameState.LastBossDifficultyRecord[bossName] = true
+		end
 	end
 end
 
 function RecordRunCleared()
 	-- set current run to Cleared / victory achieved; used with GetNumRunsCleared()
 	CurrentRun.Cleared = true
+	if CurrentRun.ActiveBounty ~= nil then
+		CurrentRun.BountyCleared = true
+	end
 	RecordRunStats()
 
 	GameState.ClearedWithMetaUpgrades[CurrentRun.CurrentRoom.RoomSetName] = GameState.ClearedWithMetaUpgrades[CurrentRun.CurrentRoom.RoomSetName] or {}
@@ -1970,6 +2033,28 @@ function RecordRunCleared()
 		if metaUpgradeData.Equipped then
 			GameState.ClearedWithMetaUpgrades[CurrentRun.CurrentRoom.RoomSetName][metaUpgradeName] = true
 		end
+	end
+
+	GameState.ClearedWithWeapons[CurrentRun.CurrentRoom.RoomSetName] = GameState.ClearedWithWeapons[CurrentRun.CurrentRoom.RoomSetName] or {}
+	for weaponName in pairs( CurrentRun.Hero.Weapons ) do
+		GameState.ClearedWithWeapons[weaponName] = true
+		GameState.ClearedWithWeapons[CurrentRun.CurrentRoom.RoomSetName][weaponName] = true
+	end
+
+	for traitName in pairs( CurrentRun.TraitCache ) do
+		local traitData = TraitData[traitName]
+		if traitData ~= nil and traitData.Slot == "Aspect" then
+			local actualTraitName = GetKey( ScreenData.GameStats.WeaponBaseAspectMapping, traitName ) or traitName
+			GameState.ClearedWithAspects[actualTraitName] = true
+		end
+	end
+
+	if GameState.EquippedFamiliar ~= nil then
+		GameState.ClearedWithFamiliars[GameState.EquippedFamiliar] = true
+	end
+
+	if CurrentRun.ActiveBounty == nil and #CurrentRun.KeepsakeCache == 1 then
+		GameState.ClearedFullRunWithKeepsakes[CurrentRun.KeepsakeCache[1]] = true
 	end
 end
 
@@ -1996,7 +2081,7 @@ function UpdateLifetimeTraitRecords( run )
 			GameState.LifetimeTraitStats[traitName] = GameState.LifetimeTraitStats[traitName] or {}
 			local stats = GameState.LifetimeTraitStats[traitName]
 			stats.UseCount = (stats.UseCount or 0) + 1
-			if run.Cleared and ( isUnderworldRun or run.BiomesReached.P ) then
+			if run.Cleared and ( isUnderworldRun or run.BiomesReached.Q ) then
 				stats[clearCountRecordName] = (stats[clearCountRecordName] or 0) + 1
 				stats.ClearCount = (stats.ClearCount or 0) + 1
 				if run.GameplayTime < (stats[fastestTimeRecordName] or 999999) then
@@ -2008,52 +2093,11 @@ function UpdateLifetimeTraitRecords( run )
 			end
 		end
 	end
-
-	if run.WeaponsCache ~= nil then
-		for weaponName in pairs( run.WeaponsCache ) do
-			if Contains( WeaponSets.HeroPrimaryWeapons, weaponName ) then
-				GameState.LifetimeWeaponStats[weaponName] = GameState.LifetimeWeaponStats[weaponName] or {}
-				local stats = GameState.LifetimeWeaponStats[weaponName]
-				stats.UseCount = (stats.UseCount or 0) + 1
-				if run.Cleared and ( isUnderworldRun or run.BiomesReached.P ) then
-					stats[clearCountRecordName] = (stats[clearCountRecordName] or 0) + 1
-					stats.ClearCount = (stats.ClearCount or 0) + 1
-					if run.GameplayTime < (stats[fastestTimeRecordName] or 999999) then
-						stats[fastestTimeRecordName] = run.GameplayTime
-					end
-					if run.ShrinePointsCache > (stats[shrinePointsRecordName] or 0) then
-						stats[shrinePointsRecordName] = run.ShrinePointsCache
-					end
-				end
-			end
-		end
-	end
-end
-
-function HasSeenRoomInRun( run, roomName )
-
-	if run.CurrentRoom ~= nil and run.CurrentRoom.Name == roomName then
-		return true
-	end
-	if run.RoomCountCache ~= nil and run.RoomCountCache[roomName] ~= nil and run.RoomCountCache[roomName] > 0 then
-		return true
-	end
-	return false
-
-end
-
-function HasSeenRoomEarlierInRun( run, roomName )
-
-	if run.RoomCountCache[roomName] ~= nil and run.RoomCountCache[roomName] > 0 then
-		return true
-	end
-	return false
-
 end
 
 function HasSeenRoomInNumRuns( roomName, runCount )
 
-	if HasSeenRoomInRun( CurrentRun, roomName ) then
+	if CurrentRun.RoomsEntered[roomName] then
 		return true
 	end
 
@@ -2062,64 +2106,13 @@ function HasSeenRoomInNumRuns( roomName, runCount )
 			return false
 		end
 		local prevRun = GameState.RunHistory[runIndex]
-		if HasSeenRoomInRun( prevRun, roomName ) then
+		if prevRun.RoomsEntered ~= nil and prevRun.RoomsEntered[roomName] then
 			return true
 		end
 	end
 
 	return false
 
-end
-
-function BuildMetaupgradeCache()
-	CurrentRun.MetaUpgradeCache = {}
-	for upgradeName, upgradeAmount in pairs( GameState.MetaUpgrades ) do
-		if IsMetaUpgradeActive( upgradeName ) then
-			CurrentRun.MetaUpgradeCache[upgradeName] = upgradeAmount
-		end
-	end
-end
-
-function GetNumMetaUpgrades( upgradeName, args )
-	if CurrentRun and CurrentRun.Hero and not CurrentRun.Hero.IsDead and CurrentRun.CurrentRoom and not CurrentRun.CurrentRoom.TestRoom and CurrentRun.MetaUpgradeCache then
-		return CurrentRun.MetaUpgradeCache[upgradeName] or 0
-	end
-	args = args or {}
-	if not MetaUpgradeData[upgradeName] then
-		return 0
-	end
-
-	if not args.UnModified and not IsMetaUpgradeActive( upgradeName ) then
-		return 0
-	end
-
-	if CurrentRun.MetaUpgrades ~= nil then
-		-- Run override
-		return CurrentRun.MetaUpgrades[upgradeName] or 0
-	end
-	return GameState.MetaUpgrades[upgradeName] or 0
-end
-
-function GetTotalAccumulatedMetaPoints()
-	if not GameState.Resources or not GameState.Resources.MetaPoints then
-		return 0
-	end
-
-	local total = GameState.Resources.MetaPoints + GetTotalSpentMetaPoints()
-	return total
-end
-
-function GetTotalSpentMetaPoints()
-	local total = 0
-	for k, upgradeName in pairs( GameState.MetaUpgradesSelected ) do
-		for i = 1, GetNumMetaUpgrades( upgradeName, { UnModified = true }) do
-			local price = GetMetaUpgradePrice( MetaUpgradeData[upgradeName], i - 1 )
-			if price ~= nil then
-				total = total + price
-			end
-		end
-	end
-	return total
 end
 
 function GetEligibleMeleeWeapons()
@@ -2159,9 +2152,16 @@ end
 OnSpawn{
 	function( triggerArgs )
 		local obstacleData = ObstacleData[triggerArgs.name]
+		local enemyData = EnemyData[triggerArgs.name]
+		if verboseLogging and obstacleData ~= nil and enemyData ~= nil then
+			DebugAssert({ Condition = false, Text = triggerArgs.name.." has both ObstacleData and EnemeyData", Owner = "Eduardo" })
+		end
 		if obstacleData ~= nil then
 			if not SessionMapState.DeferredObstacleInitializationFinished then
 				DeferredObstacleInitialization = DeferredObstacleInitialization or {}
+				if SessionMapState.DeferredObstacleInitializationStarted then
+					DebugAssert({ Condition = false, Text = obstacleData.Name.." spawned after DeferredObstacleInitializationStarted", Owner = "Gavin" })
+				end
 				DeferredObstacleInitialization[triggerArgs.triggeredById] = triggerArgs.name
 				return
 			end
@@ -2170,19 +2170,23 @@ OnSpawn{
 				obstacle.ObjectId = triggerArgs.triggeredById
 				SetupObstacle( obstacle, true )
 			end
-		elseif triggerArgs.NeedsLuaInitialization and EnemyData[triggerArgs.name] ~= nil then
-			local enemy = DeepCopyTable(EnemyData[triggerArgs.name])
-			enemy.ObjectId = triggerArgs.triggeredById
-			enemy.SpawnedById = triggerArgs.SpawnedById
-			SetupUnit( enemy, CurrentRun )
-			if triggerArgs.SpawnedById ~= nil then
-				local spawner = ActiveEnemies[triggerArgs.SpawnedById]
-				if spawner ~= nil then
-					spawner.Spawns = spawner.Spawns or {}
-					spawner.Spawns[enemy.ObjectId] = enemy
-				elseif enemy.ActivateFuseIfNoSpawner then
-					ActivateFuse( enemy )
+		elseif enemyData ~= nil then
+			if triggerArgs.NeedsLuaInitialization then
+				local enemy = DeepCopyTable( enemyData )
+				enemy.ObjectId = triggerArgs.triggeredById
+				enemy.SpawnedById = triggerArgs.SpawnedById
+				SetupUnit( enemy, CurrentRun )
+				if triggerArgs.SpawnedById ~= nil then
+					local spawner = ActiveEnemies[triggerArgs.SpawnedById]
+					if spawner ~= nil then
+						spawner.Spawns = spawner.Spawns or {}
+						spawner.Spawns[enemy.ObjectId] = enemy
+					elseif enemy.ActivateFuseIfNoSpawner then
+						ActivateFuse( enemy )
+					end
 				end
+			elseif SessionMapState.DeferredUnitInitialization ~= nil then
+				SessionMapState.DeferredUnitInitialization[triggerArgs.triggeredById] = triggerArgs.name
 			end
 		end
 	end
@@ -2276,7 +2280,9 @@ function SetupObstacle( obstacle, replaceOnlyNull, args )
 	if obstacle.ActivateIds ~= nil then
 		Activate({ Ids = obstacle.ActivateIds })
 	end
-	AttachLua({ Id = obstacle.ObjectId, Table = obstacle, OnlyNullKeys = replaceOnlyNull })
+	if not args.SkipAttachLua then
+		AttachLua({ Id = obstacle.ObjectId, Table = obstacle, OnlyNullKeys = replaceOnlyNull })
+	end
 	MapState.ActiveObstacles[obstacle.ObjectId] = obstacle
 	if obstacle.Buckets ~= nil then
 		for k, bucketName in ipairs( obstacle.Buckets ) do
@@ -2292,10 +2298,6 @@ function SetupObstacle( obstacle, replaceOnlyNull, args )
 	obstacle.Health = obstacle.MaxHealth
 
 	if obstacle.BlockExitUntilUsed then
-		MapState.RoomRequiredObjects[obstacle.ObjectId] = obstacle
-	end
-
-	if obstacle.BlockExitUntilUsedIfElligible and IsGameStateEligible( obstacle, obstacle.OnUsedGameStateRequirements) then
 		MapState.RoomRequiredObjects[obstacle.ObjectId] = obstacle
 	end
 
@@ -2341,16 +2343,59 @@ function SetupObstacle( obstacle, replaceOnlyNull, args )
 		LoadVoiceBanks( obstacle.SpeakerName )
 	end
 
+	if obstacle.LoadPackages ~= nil then
+		LoadPackages({ Names = obstacle.LoadPackages })
+	end
+
 	if obstacle.SetupEvents ~= nil then
 		RunEventsGeneric( obstacle.SetupEvents, obstacle, args )
 	end
 
+	if obstacle.ValueOptions ~= nil and not obstacle.ValueOptionsProcessed then
+		ProcessObjectValueOptions( obstacle )
+	end
+
 end
 
-function HasSetupFunction( object, functionName )
-	if object.SetupEvents ~= nil then
-		for k, setupFunctionEntry in ipairs( object.SetupEvents ) do
-			if setupFunctionEntry.FunctionName == functionName then
+function ProcessObjectValueOptions( object )
+	for k, swapOption in ipairs( object.ValueOptions ) do
+		if swapOption.GameStateRequirements == nil or IsGameStateEligible( swapOption, swapOption.GameStateRequirements ) then
+			if RandomChance( swapOption.Chance ) then
+				if swapOption.Animation ~= nil then
+					SetAnimation({ DestinationId = object.ObjectId, Name = swapOption.Animation, OffsetY = swapOption.OffsetY or 0 })
+					RecordObjectState( CurrentRun.CurrentRoom, object.ObjectId, "Animation", swapOption.Animation )
+				end
+				object.MoneyDropOnDeath = swapOption.MoneyDropOnDeath
+				RecordObjectState( CurrentRun.CurrentRoom, object.ObjectId, "MoneyDropOnDeath", object.MoneyDropOnDeath )
+				OverwriteTableKeys(object, swapOption.DataOverrides)
+				break
+			end
+		end
+	end
+
+	if object.SpawnUnitFromEnemySet ~= nil or object.SpawnUnitFromBiomeEnemySet ~= nil then
+		local enemySet = EnemySets[object.SpawnUnitFromEnemySet] or EnemySets[object.SpawnUnitFromBiomeEnemySet]
+		
+		if object.SpawnUnitFromBiomeEnemySet ~= nil then
+			enemySet = EnemySets[object.SpawnUnitFromBiomeEnemySet.."_"..CurrentRun.CurrentRoom.RoomSetName] or enemySet
+		end
+
+		local eligibleOptions = {}
+		for k, unitName in pairs(enemySet) do
+			if IsEnemyEligible(unitName) then
+				table.insert(eligibleOptions, unitName)
+			end
+		end
+		object.SpawnUnitOnDeath = GetRandomValue(eligibleOptions)
+	end
+
+	object.ValueOptionsProcessed = true
+end
+
+function HasEventFunctionName( events, functionName )
+	if events ~= nil then
+		for k, eventEntry in ipairs( events ) do
+			if eventEntry.FunctionName == functionName then
 				return true
 			end
 		end
@@ -2370,16 +2415,6 @@ function CheckSetupFunction( object, functionName )
 	end
 end
 
-function DidFailRun( run )
-	if run.Cleared then
-		return false
-	end
-	if not run.Hero.IsDead then
-		return false
-	end
-	return true
-end
-
 function UpdateConfigOptionCache()
 	ConfigOptionCache = ConfigOptionCache or {}
 	local optionsToCache =
@@ -2395,6 +2430,7 @@ function UpdateConfigOptionCache()
 		"ShowGameplayTimer",
 		"MusicVolume",
 		"SprintAutoHold",
+		"EasyModeResistanceCap",
 
 	}
 	for k, optionName in pairs( optionsToCache ) do
@@ -2511,12 +2547,7 @@ function UpdateTimers( elapsed )
 
 	GameState.GameplayTime = GameState.GameplayTime + elapsed
 	CurrentRun.GameplayTime = CurrentRun.GameplayTime + elapsed
-	if CurrentRun.ActiveBiomeTimerKeepsake and not IsBiomeTimerPaused() and HeroHasTrait("SpeedRunBossKeepsake") and not CurrentRun.SpeedRunBossKeepsakeTriggered then
-		CurrentRun.BiomeTimeKeepsake = CurrentRun.BiomeTimeKeepsake - elapsed
-		if CurrentRun.BiomeTimeKeepsake <= 0 and ( CurrentRun.BiomeTimeKeepsake + elapsed ) > 0 then
-			thread( SpeedKeepsakeExpiredPresentation )
-		end
-	end
+
 	if HeroHasTrait("TimedBuffKeepsake") then
 		if  not IsBiomeTimerPaused() then
 			local traitData = GetHeroTrait("TimedBuffKeepsake")
@@ -2535,16 +2566,24 @@ function UpdateTimers( elapsed )
 			local traitData = GetHeroTrait("ChaosTimeCurse")
 			traitData.CurrentTime = traitData.CurrentTime - elapsed
 			local threshold = 30
-			if traitData.CurrentTime  <= threshold and (traitData.CurrentTime  + elapsed) > threshold then
+			local criticalThreshold = 10
+			if traitData.CurrentTime <= threshold and (traitData.CurrentTime  + elapsed) > threshold then
 				ChaosTimerAboutToExpirePresentation(threshold )
 			elseif traitData.CurrentTime  <= 0 and (traitData.CurrentTime  + elapsed) > 0 then
 				if not CurrentRun.Hero.InvulnerableFlags.BlockDeath then
 					CurrentRun.CurrentRoom.Encounter.TookChaosCurseDamage = true
 					CurrentRun.CurrentRoom.KilledByChaosCurse = true
-					thread( SacrificeHealth, { SacrificeHealthMin = traitData.Damage, SacrificeHealthMax = traitData.Damage, MinHealth = 0 })
+					thread( ChaosTimerExpirePresentation )
+					thread( SacrificeHealth, { SacrificeHealthMin = traitData.Damage, SacrificeHealthMax = traitData.Damage, MinHealth = 0, AttackerName = "TrialUpgrade" } )
 				end
 				if not CurrentRun.Hero.IsDead then
 					thread( RemoveTraitData, CurrentRun.Hero, traitData )
+				end
+			elseif traitData.CurrentTime <= criticalThreshold and (traitData.CurrentTime  + elapsed) > 0 then
+				if (traitData.CurrentTime  + elapsed) > criticalThreshold then
+					ChaosTimerReallyAboutToExpirePresentation(criticalThreshold )
+				elseif math.floor(traitData.CurrentTime) ~= math.floor( traitData.CurrentTime + elapsed ) then
+					ChaosTimerReallyAboutToExpirePing()
 				end
 			end
 		end
@@ -2586,4 +2625,44 @@ function RequestSave( args )
 		return
 	end
 	SaveCheckpoint( args )
+end
+
+function GetRunResult( run )
+	if run.ActiveBounty ~= nil then
+		if run.BountyCleared then
+			return RunResultData.BountySuccess
+		else
+			return RunResultData.BountyFail
+		end
+	end
+
+	if run.BiomesReached ~= nil and run.BiomesReached.N then
+		if run.Cleared then
+			return RunResultData.SurfaceSuccess
+		else
+			return RunResultData.SurfaceFail
+		end
+	end
+
+	if run.Cleared then
+		return RunResultData.UnderworldSuccess
+	else
+		return RunResultData.UnderworldFail
+	end
+end
+
+function WasUnderworldRun( run )
+	return run.RunResult == RunResultData.UnderworldSuccess or run.RunResult == RunResultData.UnderworldFail
+end
+
+function WasSurfaceRun( run )
+	return run.RunResult == RunResultData.SurfaceSuccess or run.RunResult == RunResultData.SurfaceFail
+end
+
+function WasBountyRun( run )
+	return run.RunResult == RunResultData.BountySuccess or run.RunResult == RunResultData.BountyFail
+end
+
+function WasRunSuccess( run )
+	return run.RunResult == RunResultData.UnderworldSuccess or run.RunResult == RunResultData.SurfaceSuccess or run.RunResult == RunResultData.BountySuccess
 end

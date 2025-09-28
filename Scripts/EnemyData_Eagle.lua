@@ -4,7 +4,7 @@ UnitSetData.Eagle =
 	{
 		InheritFrom = { "BaseVulnerableEnemy"},
 		GenusName = "Prometheus",
-		Material = "Bone",
+		RequiredKill = false,
 
 		Groups = { "FlyingEnemies" },
 		MaxHealth = 8000,
@@ -14,26 +14,29 @@ UnitSetData.Eagle =
 		Material = "Organic",
 
 		ComboPartnerName = "Prometheus",
-		PreBossAISetupFunctionName = "SetupComboPartners",
+		PreBossAISetupFunctionName = "EagleBattleStart",
 
-		SpawnAnimation = "Enemy_Eagle_SpiralLaunchPreFireLoop",
+		SpawnAnimation = "Enemy_Eagle_Invisible",
 
 		OnDamagedFunctionName = "CheckEagleRetreat",
 
-		PreBossAISetupFunctionName = "EagleBattleStart",
+		MoneyDropOnDeath = { Chance = 0 },
+
 		DefaultAIData =
 		{
-			OlympusWeaponOptions = { "EagleRollLeft", "EagleRush_Fast", "EagleRush_Fast", "EagleRollRight" },
-			OlympusWeaponCountMin = 4,
-			OlympusWeaponCountMax = 8,
+			OlympusStartWeapon = "EagleDive_Olympus",
+			OlympusEndWeapon = "EagleFlyUpWhirlwind_Olympus",
+			OlympusWeaponOptions = { "EagleRollLeft_Olympus", "EagleRush_Olympus", "EagleRush_Olympus", "EagleRollRight_Olympus" },
+			OlympusWeaponCountMin = 3,
+			OlympusWeaponCountMax = 5,
 		},
-		WeaponOptions = { "EagleFlyUp"  },
+		WeaponOptions = { "EagleFlyUp", "EagleDive_Solo" },
 		Using =
 		{
 			Weapons =
 			{
 				"EagleDive_Olympus",
-				"EagleFlyUpWhirlwind",
+				"EagleFlyUpWhirlwind_Olympus",
 			},
 
 			Sounds =

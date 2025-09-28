@@ -6,7 +6,7 @@
 		Font =
 		{
 			default = "en/LatoMedium.xnb"
-			ja = "ja/NotoSansJPMedium.xnb"
+			ja = "ja/TogeGothicMedium.xnb"
 			ko = "ko/NotoSansKR.xnb"		
 			zh-CN = "zh-CN/Default.xnb"
 			zh-TW = "zh-TW/NotoSansTC.xnb"
@@ -27,10 +27,33 @@
 		}
 	}
 
+	LatoBold64 =
+	{
+		FontSize = 64
+		Font =
+		{
+			default = "en/LatoBold64.xnb"
+		}
+	}
+
 	LatoItalic = 
 	{
 		FontSize = 30
 		EmphasisFont = "LatoItalic"
+		Font =
+		{
+			default = "en/LatoItalic.xnb"
+			ko = "ko/NotoSansKRItalic.xnb"
+			zh-CN = "zh-CN/Default.xnb"
+			zh-TW = "zh-TW/NotoSansTC.xnb"
+			ja = "ja/TogeGothicMedium.xnb"
+		}
+	}
+
+	QuestLogLatoItalic = 
+	{
+		FontSize = 30
+		EmphasisFont = "LatoBoldItalic"
 		Font =
 		{
 			default = "en/LatoItalic.xnb"
@@ -84,6 +107,20 @@
 	LatoMedium = 
 	{
 		FontSize = 30
+		Spacing =
+		{
+			de = -1.90
+			en = -1.90
+			el = -1.90
+			es = -1.90
+			fr = -1.90
+			it = -1.90
+			pt-BR = -1.90
+			pl = -1.90
+			ru = -1.90
+			tr = -1.90
+			uk = -1.90
+		}
 		EmphasisFont = "LatoBold"
 		Font =
 		{
@@ -126,13 +163,17 @@
 	MainMenuP22UndergroundSCHeavy = 
 	{
 		FontSize = 35
+		Spacing =
+		{
+			zh-TW = 30
+		}
 		Font =
 		{
 			default = "en/P22UndergroundSCHeavy.xnb"
 			tr = "tr/P22UndergroundSCHeavy.xnb"
 			ko = "ko/NotoSansKRBold.xnb"
 			zh-CN = "zh-CN/NotoSansSCBold.xnb"
-			zh-TW = "zh-TW/NotoSerifTCBoldTitling.xnb"
+			zh-TW = "zh-TW/NotoSerifTCBold.xnb"
 			ja = "ja/SourceHanSerifMedium.xnb"
 		}
 	}
@@ -164,13 +205,22 @@
 	P22UndergroundSCLightTitling = 
 	{
 		FontSize = 64
+		Spacing = 
+		{
+			default = 60
+			tr      = 60
+			ko      = 30
+			zh-CN   = 30
+			zh-TW   = 30
+			ja      = 0
+		}
 		Font =
 		{
-			default = "en/P22UndergroundSCLightTitling.xnb"
-			tr = "tr/P22UndergroundSCLightTitling.xnb"
-			ko = "ko/NotoSansKRTitling.xnb"
-			zh-CN = "zh-CN/W04Titling.xnb"
-			zh-TW = "zh-TW/NotoSerifTCBoldTitling.xnb"
+			default = "en/P22UndergroundSCLight.xnb"
+			tr = "tr/P22UndergroundSCLight.xnb"
+			ko = "ko/NotoSansKR.xnb"
+			zh-CN = "zh-CN/W04.xnb"
+			zh-TW = "zh-TW/NotoSerifTCBold.xnb"
 			ja = "ja/SourceHanSerifMedium.xnb"
 		}
 	}
@@ -231,6 +281,20 @@
 		}
 	}
 
+	CreditsP22UndergroundSCMediumCJK =
+	{
+		FontSize = 35
+		OutlineExtraSpace = 2
+		Font =
+		{
+			default = "en/P22UndergroundSCMedium.xnb"
+			zh-CN = "zh-CN/Default.xnb"
+			zh-TW = "zh-TW/NotoSansTC.xnb"
+			ko = "ko/NotoSansKR.xnb"
+			ja = "ja/SourceHanSerifMedium.xnb"
+		}
+	}
+
 	CaesarDressing = 
 	{
 		FontSize = 36
@@ -244,24 +308,6 @@
 			zh-CN = "zh-CN/W04.xnb"
 			zh-TW = "zh-TW/NotoSansTC.xnb"
 			ja = "ja/Utsukushi.xnb"
-		}
-	}
-
-	SpectralSCBold = 
-	{
-		FontSize = 20
-		Font =
-		{
-			default = "en/SpectralSCBold.xnb"
-			el = "el/PiazzollaHeavy.xnb"
-			tr = "el/PiazzollaHeavy.xnb"
-			pl = "el/PiazzollaHeavy.xnb"
-			ru = "el/PiazzollaHeavy.xnb"
-			uk = "el/PiazzollaHeavy.xnb"
-			ko = "ko/NotoSansKRBold.xnb"
-			zh-CN = "zh-CN/Default.xnb"
-			zh-TW = "zh-TW/NotoSansTC.xnb"
-			ja = "ja/HomuraSemiBold.xnb"
 		}
 	}
 
@@ -303,16 +349,28 @@
 	SpectralSCLightTitling = 
 	{
 		FontSize = 64
+		Spacing =
+		{
+			default = 60
+			ru      = 60
+			uk      = 2
+			el      = -0.50
+			tr      = 60
+			ko      = 48
+			zh-CN   = 30
+			zh-TW   = 30
+			ja      = 30
+		}
 		Font =
 		{
-			default = "en/SpectralSCLightTitling.xnb"
-			ru = "el/PiazzollaLightTitling.xnb"
+			default = "en/SpectralSCLight.xnb"
+			ru = "el/PiazzollaLight.xnb"
 			uk = "uk/Kotyhoroshko.xnb"
 			el = "el/PiazzollaLight.xnb"
-			tr = "el/PiazzollaLightTitling.xnb"
-			ko = "ko/HahmletLightTitling.xnb"
-			zh-CN = "zh-CN/W04Titling.xnb"
-			zh-TW = "zh-TW/NotoSerifTCBoldTitling.xnb"
+			tr = "el/PiazzollaLight.xnb"
+			ko = "ko/HahmletLight.xnb"
+			zh-CN = "zh-CN/W04.xnb"
+			zh-TW = "zh-TW/NotoSerifTCBold.xnb"
 			ja = "ja/HomuraSemiBold.xnb"
 		}
 	}

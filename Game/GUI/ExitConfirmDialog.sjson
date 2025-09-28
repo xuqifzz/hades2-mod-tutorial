@@ -3,10 +3,10 @@
   {
     Platform = "default"
     TransitionOnTime = 0.1
-    TransitionOffTime = 0.15
-    OpenSound = "/SFX/Menu Sounds/HadesLocationTextAppear"
+    TransitionOffTime = 0.2
+    OpenSound = "/SFX/Menu Sounds/IrisMenuOpen"
     CloseSound = "null"
-    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    SelectionSound = "/SFX/Menu Sounds/IrisMenuToggle2"
     ForceShowCursor = true
     GamepadCursorControl = true
 
@@ -18,15 +18,15 @@
       Green = 0
       Blue = 0
       Width = 5120
-      Height = 1440
+      Height = 1920
       Alpha = 0.8
     }
 
     AnimatedBackground =
     {
       X = 960
-      Y = 540
-      Graphic = "null"
+      Y = 440
+      Graphic = "ShellConfirmIn"
       Justification = "Center"
       VerticalJustification = "Center"
     }
@@ -35,10 +35,12 @@
     {
       X = 960
       Y = 300
+      Width = 930
       Justification = "Center"
       VerticalJustification = "Center"
       Font = "P22UndergroundSCMedium"
-      FontSize = 40
+      FontSize = 37
+      LineSpacingBottom = -25
       TextRed = 0.87
       TextGreen = 0.87
       TextBlue = 0.87
@@ -52,7 +54,7 @@
       ShadowBlur = 0
       ShadowOffsetY = 4
       OutlineThickness = 3
-      NonEnglishScaleModifier = 1.0
+      
     }
 
     NameFormat =
@@ -63,7 +65,7 @@
       Font = "LatoBold"
       FontSize = 26
       TextSymbolScale = 0.8
-      NonEnglishScaleModifier = 1.0
+      
     }
 
     NameHighlightFormat =
@@ -85,15 +87,15 @@
       ShadowBlur = 1
       ShadowOffsetY = 2
       ShadowOffsetX = 0
-      NonEnglishScaleModifier = 1.0
+      
     }
 
     PromptText =
     {
       X = 960
-      Y = 450
+      Y = 400
       Justification = "Center"
-      VerticalJustification = "Center"
+      VerticalJustification = "Top"
       Font = "LatoMedium"
       FontSize = 26
       TextSymbolScale = 0.8
@@ -120,16 +122,7 @@
       ShadowBlur = 0
       ShadowOffsetY = 4
       OutlineThickness = 3
-      NonEnglishScaleModifier = 1.0
-    }
-
-    TextBackground =
-    {
-      X = 960
-      Y = 440
-      Graphic = "GUI\\Shell\\background_confirm"
-      Justification = "Center"
-      VerticalJustification = "Center"
+      
     }
 
     ConfirmButton =
@@ -140,8 +133,8 @@
       PressAnimation = "Button_Press"
       HelpTextId = "ExitConfirm_Confirm"
       X = 730
-      Y = 620
-      TextOffsetY = 0
+      Y = 650
+      TextOffsetY = -3
       Justification = "Center"
       VerticalJustification = "Center"
       TextScale = 0.7
@@ -162,8 +155,8 @@
       InheritFrom = "ConfirmButton"
       HelpTextId = "ExitConfirm_Cancel"
       X = 1200
-      Y = 620
-      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+      Y = 650
+      PressSound = "/SFX/Menu Sounds/IrisMenuBack"
     }
 
     CancelCountdownText =

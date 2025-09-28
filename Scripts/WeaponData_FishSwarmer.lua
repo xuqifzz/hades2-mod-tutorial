@@ -10,7 +10,7 @@ WeaponSetData =
 			Spread = 20,
 			SetAngleTowardProjectileAngle = true,
 
-      		FireSelfVelocity = 1200.0,
+      		FireSelfVelocity = 1650.0,
 			ApplyEffectsOnWeaponFire =
 			{
 				WeaponEffectData.AttackLowGrip,
@@ -38,13 +38,6 @@ WeaponSetData =
 			PostAttackAnimation = "Enemy_FishSwarmer_BiteReturnToIdle",
 
 			MinionWeapon = "FishSwarmerBite",
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.05, LerpTime = 0 },
-			{ ScreenPreWait = 0.06, Fraction = 1.0, LerpTime = 0.05 },
 		},
 
 		Sounds =
@@ -82,10 +75,12 @@ WeaponSetData =
 
 			ProjectileName = "FishSwarmerBite_Elite",
 
-			MoveWithinRange = false,
-      		FireSelfVelocity = 1450.0,
+			MoveWithinRange = true,
+      		FireSelfVelocity = 2250.0,
 
-			AttackStaggerDelay = 0.5,
+			AttackStaggerDelay = 0.15,
+			AttackDistance = 430,
+			AttackDistanceScaleY = 0.7,
 
 			MinionWeapon = "FishSwarmerBite_Elite",
 		},
@@ -100,7 +95,7 @@ WeaponSetData =
 			
 			MoveWithinRange = false,
 			PostAttackDuration = 0.5,
-      		FireSelfVelocity = 1450.0,
+      		FireSelfVelocity = 2250.0,
 			  
 			MinionWeapon = "FishSwarmerBiteFinal_Elite",
 		},

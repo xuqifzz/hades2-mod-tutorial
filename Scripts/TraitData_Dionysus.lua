@@ -6,7 +6,7 @@
 		{
 			{
 				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "CastProjectileBoon", "CastAnywhereBoon", "HadesCastProjectileBoon", "PoseidonCastBoon", "CastAttachBoon" },
+				HasNone = { "CastProjectileBoon", "CastAnywhereBoon", "HadesCastProjectileBoon", "SelfCastBoon" },
 			},
 		},
 		Icon = "Boon_Dionysus_27",
@@ -163,25 +163,37 @@
 			},
 			Rare =
 			{
-				Multiplier = 1.25,
+				Multiplier = 1.4,
 			},
 			Epic =
 			{
-				Multiplier = 1.50,
+				Multiplier = 1.8,
 			},
 			Heroic =
 			{
-				Multiplier = 1.75,
+				Multiplier = 2.2,
 			},
 		},
-		PropertyChanges =
+		AcquireFunctionName = "GrantRandomMaxHealth",
+		AcquireFunctionArgs = 
 		{
+			MinHealth = {BaseValue = 50},
+			MaxHealth = 
 			{
-				LuaProperty = "MaxHealth",
-				BaseValue = 80,
-				ChangeType = "Add",
-				ReportValues = { ReportedMaxLife = "ChangeValue"}
+				CustomRarityMultiplier = 
+				{
+					Common = { Multiplier = 1.0 },
+					Rare = { Multiplier = 1.25 },
+					Epic = { Multiplier = 1.5 },
+					Heroic = { Multiplier = 1.75 }
+				},
+				BaseValue = 80
 			},
+			ReportValues = 
+			{
+				ReportedMin = "MinHealth",
+				ReportedMax = "MaxHealth",
+			}
 		},
 		
 		StatLines =
@@ -191,8 +203,13 @@
 		ExtractValues =
 		{
 			{
-				Key = "ReportedMaxLife",
-				ExtractAs = "TooltipLife",
+				Key = "ReportedMin",
+				ExtractAs = "TooltipLifeMin",
+				IncludeSigns = true,
+			},
+			{
+				Key = "ReportedMax",
+				ExtractAs = "TooltipLifeMax",
 				IncludeSigns = true,
 			},
 		}
@@ -261,39 +278,9 @@
 			},
 		}
 	},
-	RandomDuoBoon = 
-	{
-		InheritFrom = { "BaseTrait", "WaterBoon" },
-		Icon = "Boon_Dionysus_33",
-		
-		AcquireFunctionName = "GrantEligibleDuo",
-		AcquireFunctionArgs = 
-		{
-			SkipRequirements = true,		-- Skip prereq traits
-			Count = 1,
-			BlockedTraits = 
-			{
-				SuperSacrificeBoonHera = true,
-				SuperSacrificeBoonZeus = true,
-			},
-			ReportValues = { ReportedCount = "Count"}
-		},
-		
-		StatLines =
-		{
-			"DuoBoonCountStatLine",
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedCount",
-				ExtractAs = "Count",
-			},
-		}
-	},
 	PowerDrinkBoon = 
 	{
-		Icon = "Boon_Dionysus_29",
+		Icon = "Boon_Dionysus_33",
 		InheritFrom = { "BaseTrait", "WaterBoon" },
 		RarityLevels =
 		{
@@ -315,7 +302,7 @@
 			},
 		},
 		DrinkCritCount = 1,
-		DrinkCritVfx = "DaggerBlockActiveFx",
+		DrinkCritVfx = "PowerDrinkFx",
 		SetupFunction =
 		{
 			Name = "CheckDrinkSpawn",
@@ -361,7 +348,8 @@
 			{
 				Key = "ReportedInterval",
 				ExtractAs = "Amount",
-				DecimalPlaces = 2,
+				DecimalPlaces = 1,
+				Format = "SpeedModifiedDuration",
 			},
 			{
 				Key = "ReportedDamage",
@@ -394,17 +382,35 @@
 				Multiplier = 1.6,
 			},
 		},
-		EncounterHealMultiplier = { BaseValue = 0.5 },
+		OnEncounterStartFunction =
+		{
+			Name = "RecordDamageSnapshot",
+		},
+		EncounterEndFunctionName = "EndEncounterHeal",
+		EncounterEndFunctionArgs =
+		{
+			EncounterHealMultiplier = { BaseValue = 0.5 },
+			ReportValues = { ReportedEncounterHealMultiplier = "EncounterHealMultiplier" }
+		},
 		StatLines =
 		{
 			"EncounterHealStatDisplay1",
 		},
+		CustomStatLinesWithShrineUpgrade = 
+		{
+			ShrineUpgradeName = "HealingReductionShrineUpgrade",
+			StatLines = 
+			{
+				"EncounterHealStatDisplay1",
+				"HealingReductionNotice",
+			},
+		},
 		ExtractValues =
 		{
 			{
-				Key = "EncounterHealMultiplier",
+				Key = "ReportedEncounterHealMultiplier",
 				ExtractAs = "EncounterHeal",
-				Format =  "Percent",
+				Format =  "PercentHeal",
 				HideSigns = true,
 			},
 		}
@@ -472,6 +478,7 @@
 				Key = "ReportedInterval",
 				ExtractAs = "Interval",
 				SkipAutoExtract = true,
+				Format = "SpeedModifiedDuration",
 			},
 			{
 				ExtractAs = "Duration",
@@ -482,5 +489,168 @@
 				BaseProperty = "TotalFuse",
 			},
 		}
+	},
+
+	BankBoon = 
+	{
+		InheritFrom = { "BaseTrait", "WaterBoon" },
+		CustomTrayText = "BankBoon_Tray",
+		Icon = "Boon_Dionysus_34",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 400/300,
+			},
+			Epic =
+			{
+				Multiplier = 500/300,
+			},
+			Heroic =
+			{
+				Multiplier = 600/300,
+			},
+		},
+		AcquireFunctionName = "BankGold",
+		AcquireFunctionArgs = 
+		{
+			ReturnGold = { BaseValue = 300 },
+			ReportValues = { ReportedGold = "ReturnGold" }
+		},
+		StoredGold = 0,
+		OnLevelOrRarityChangeFunctionName = "CreditMissingGold",
+		StatLines =
+		{
+			"BankStatLine1",
+		},
+		TrayStatLines =
+		{
+			"TrayBankStatLine1",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedGold",
+				ExtractAs = "AmountGained",
+			},
+			{
+				Key = "StoredGold",
+				ExtractAs = "TooltipGold",
+				SkipAutoExtract = true
+			},
+		}
+	},
+
+	RandomBaseDamageBoon = 
+	{
+		InheritFrom = { "WaterBoon" },
+		Icon = "Boon_Dionysus_29",
+
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 7/5,
+			},
+			Epic =
+			{
+				Multiplier = 9/5,
+			},
+			Heroic =
+			{
+				Multiplier = 11/5,
+			},
+		},
+		
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "DionysusPostTrueEnding01" },
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "DionysusPostTrueEnding01" },
+			},
+		},
+		FirstTimeEntranceAnimation = "BoonEntranceNew",
+		PriorityRequirements =
+		{
+			{
+				PathFalse = { "GameState", "TraitsSeen", "RandomBaseDamageBoon" },
+			},
+		},
+		AddOutgoingDamageModifiers = 
+		{
+			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
+			RandomizedBaseDamage = 
+			{
+				-- Rolls chance from top to bottom
+				{
+					Value = 555,
+					Chance = {BaseValue = 0.05},
+					DamagePresentationFunctionName =  "HighRollHitPresentation",
+					TriggerArgsKey = "RandomHighRoll",
+					ReportValues = 
+					{
+						ReportedHighestDamage = "Value",
+						ReportedChance = "Chance",
+					}
+				},
+				{
+					Value = 55,
+					ReportValues = 
+					{
+						ReportedMiddleDamage = "Value",
+					},
+					Chance = 0.5,
+				},
+				{
+					Value = 5,
+					ReportValues = 
+					{
+						ReportedLowestDamage = "Value",
+					}
+				}
+			}
+		},
+		StatLines =
+		{
+			"RandomDamageStatLine",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedLowestDamage",
+				ExtractAs = "MinDamage",
+				SkipAutoExtract = true,
+			},
+			{
+				Key = "ReportedMiddleDamage",
+				ExtractAs = "MidDamage",
+				SkipAutoExtract = true,
+			},
+			{
+				Key = "ReportedHighestDamage",
+				ExtractAs = "MaxDamage",
+				SkipAutoExtract = true,
+			},
+			{
+				Key = "ReportedChance",
+				ExtractAs = "Chance",
+				Format = "LuckModifiedPercent",
+				HideSigns = true,
+			},
+		},
+		FlavorText = "RandomBaseDamageBoon_FlavorText",
 	}
 })

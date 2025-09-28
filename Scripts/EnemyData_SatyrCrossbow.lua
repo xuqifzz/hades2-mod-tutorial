@@ -4,16 +4,18 @@ UnitSetData.SatyrCrossbow =
 	{
 		InheritFrom = { "BaseVulnerableEnemy" },
 		MaxHealth = 600,
-		HealthBuffer = 2200,
+		HealthBuffer = 2550,
 
 		ActivateAnimation = "Enemy_SatyrCB_Spawn",
 		ActivateFx = "EnemyPreSpawnTerrainChronos",
 		ActivateFx2 = "EnemyPreSpawnStandingMediumChronos",
 		ActivateFxPreSpawn = "EnemySpawnBurstMediumChronos",
+		PostActivateScreenshake = { Distance = 6, Speed = 300, FalloffSpeed = 0, Duration = 0.24, Angle = 90, DistanceThreshold = 200 },
 		DeathFx = "EnemyDeathFxChronos",
 		DeathAnimation = "Enemy_SatyrCB_Death",
 
-		HealthBarOffsetY = -220,
+		HealthBarAttachToMarkerName = "head_fxMarker_00_M_JNT",
+		HealthBarOffsetY = -120,
 		Material = "Organic",
 		IsAggroedSound = "/SFX/Enemy Sounds/SatyrCrossbow/EmoteTaunting",
 		DeathSound = "/SFX/Enemy Sounds/SatyrCrossbow/EmoteDying",
@@ -77,6 +79,9 @@ UnitSetData.SatyrCrossbow =
 		ActivateStartOffsetZ = 2000,
 		PostActivateStop = true,
 
+		HealthBarAttachToMarkerName = "nil",
+		HealthBarOffsetY = -220,
+
 		SetupEvents =
 		{
 			{
@@ -108,8 +113,7 @@ UnitSetData.SatyrCrossbow =
 		WeaponOptions =
 		{
 			"SatyrCrossbow2ShieldedBolt", 
-			"SatyrCrossbow2ShieldRush", 
-			--"SatyrCrossbow2FadeBolt",
+			"SatyrCrossbow2ShieldRush",
 		},
 
 		HeraclesCombatMoneyValue = 6,
@@ -137,7 +141,9 @@ UnitSetData.SatyrCrossbow =
 				Cooldowns =
 				{
 					{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
+					{ Name = "OlympusEnemiesSightedVO", Time = 12 },
 				},
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 				SuccessiveChanceToPlay = 0.1,
 
 				{ Cue = "/VO/MelinoeField_2745", Text = "Raiders..." },
@@ -165,7 +171,6 @@ UnitSetData.SatyrCrossbow =
 		{
 			"SatyrCrossbow2ShieldedBolt", 
 			"SatyrCrossbow2ShieldRush", 
-			--"SatyrCrossbow2FadeBolt",
 		},
 
 		HeraclesCombatMoneyValue = 10,

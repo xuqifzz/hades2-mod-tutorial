@@ -1,0 +1,41 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCNyxBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Nyx_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		OffsetZ = 30
+		Enable3DShadow = true
+	}
+
+	// Idle
+	{
+		Name = "Nyx_Idle"
+		InheritFrom = "NPCNyxBaseAnimation"
+		GrannyAnimation = "Nyx_Base_Idle_C_00"
+		Loop = true
+	}
+
+	// Greeting
+	{
+		Name = "Nyx_Greeting"
+		InheritFrom = "NPCNyxBaseAnimation"
+		GrannyAnimation = "Nyx_Base_IdleGreeting_C_00"
+		ChainTo = "Nyx_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Nyx_Idle"
+				Duration = 6
+			}
+		]
+	}
+]}

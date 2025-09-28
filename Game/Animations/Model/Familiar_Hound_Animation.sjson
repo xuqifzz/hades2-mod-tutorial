@@ -4,9 +4,33 @@
 		GrannyModel = "CritterDog_Mesh"
 	}
 	{
+		Name = "FamiliarHoundChaos"
+		GrannyModel = "HoundFamiliar_Chaos_Mesh"
+	}
+	{
+		Name = "FamiliarHoundHell"
+		GrannyModel = "HoundFamiliar_Hell_Mesh"
+	}
+	{
+		Name = "FamiliarHoundMoon"
+		GrannyModel = "HoundFamiliar_Moon_Mesh"
+	}
+	{
+		Name = "FamiliarHoundNightmare"
+		GrannyModel = "HoundFamiliar_Nightmare_Mesh"
+	}
+
+	{
 		Name = "FamiliarHoundBaseAnimation"
 		GrannyModel = "HoundFamiliar_Mesh"
-		ExtraGrannyAnimations = [{ Name = "CritterDog" }]
+		ExtraGrannyAnimations =
+		[
+			{ Name = "CritterDog" }
+			{ Name = "FamiliarHoundChaos" }
+			{ Name = "FamiliarHoundHell" }
+			{ Name = "FamiliarHoundMoon" }
+			{ Name = "FamiliarHoundNightmare" }
+		]
 		GrannyAnimation = "null"
 		GrannyAnimationSpeed = 1.0
 		Scale = 1.0
@@ -76,6 +100,14 @@
 				BlendTransitionFrom = "Familiar_Hound_Dig_ShovelPoint"
 				Duration = 8
 			}
+			{
+				BlendTransitionFrom = "Familiar_Hound_Turn"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Familiar_Hound_DropIn_Enter"
+				Duration = 6
+			}
 		]
 	}
 	{
@@ -111,7 +143,7 @@
 		Blends =
 		[
 			{
-				BlendTransitionFrom = "Familiar_Hound_Pet"
+				BlendTransitionFrom = "BlendTransitionFromAll"
 				Duration = 10
 			}
 		]
@@ -163,6 +195,18 @@
 		GrannyAnimation = "Hound_Base_Exit_C_00"
 		CancelOnOwnerMove = true
 		ChainTo = "Familiar_Hound_Stand"
+		Frames =
+		[
+			{
+				Frame = 26
+				Sound = "/SFX/FishSandSplash"
+			}
+			{
+				Frame = 28
+				Sound = "/SFX/FishSandSplash"
+			}
+		]
+		Blends = null
 	}
 	{
 		Name = "Familiar_Hound_DropIn_Exit"
@@ -175,6 +219,7 @@
 		Name = "Familiar_Hound_Greet"
 		InheritFrom = "FamiliarHoundBaseAnimation"
 		GrannyAnimation = "Hound_Base_Greet_C_00"
+		CancelOnOwnerMove = true
 		ChainTo = "Familiar_Hound_Stand"
 	}
 
@@ -204,7 +249,7 @@
 		[
 			{
 				Frame = 10
-				Sound = "/SFX/FishSandSplash"
+				Sound = "/SFX/DogDig"
 			}
 			{
 				Frame = 45
@@ -253,9 +298,25 @@
 		InheritFrom = "FamiliarHoundBaseAnimation"
 		GrannyAnimation = "Hound_Base_Pet_C_00"
 		ChainTo = "Familiar_Hound_StandToSit"
-
+		Sound = "/SFX/Familiars/DogSnort"
 		Frames =
 		[
+			{
+				Frame = 100
+				Sound = "/SFX/Familiars/DogGrowlCute"
+			}
+			{
+				Frame = 150
+				Sound = "/Leftovers/SFX/FootstepsWheat2"
+			}
+			{
+				Frame = 165
+				Sound = "/Leftovers/SFX/FootstepsWheat2"
+			}
+			{
+				Frame = 185
+				Sound = "/Leftovers/SFX/FootstepsWheat2"
+			}
 			{
 				Frame = 220
 				FrameSpeed = 0
@@ -308,8 +369,8 @@
 				FrameSpeed = 1
 			}
 			{
-				Frame = 20
-				Sound = "/SFX/Familiars/DogBarkCute"
+				Frame = 10
+				Sound = "/SFX/Familiars/DogBarkDiscovery"
 			}
 			{
 				Frame = 64
@@ -350,8 +411,8 @@
 				FrameSpeed = 1
 			}
 			{
-				Frame = 20
-				Sound = "/SFX/Familiars/DogBarkCute"
+				Frame = 10
+				Sound = "/SFX/Familiars/DogBarkDiscovery"
 			}
 			{
 				Frame = 60
@@ -418,8 +479,8 @@
 				FrameSpeed = 1
 			}
 			{
-				Frame = 40
-				Sound = "/SFX/Familiars/DogBarkCute"
+				Frame = 20
+				Sound = "/SFX/Familiars/DogBarkDiscovery"
 			}
 			{
 				Frame = 70
@@ -434,5 +495,52 @@
 			}
 		]
 	}
+	{
+		Name = "Familiar_Hound_Turn"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_Pet_C_00"
+		ChainTo = "Familiar_Hound_Stand"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 163
+				FrameSpeed = 1
+			}
+			{
+				Frame = 185
+				Sound = "/Leftovers/SFX/FootstepsWheat2"
+			}
+			{
+				Frame = 220
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Familiar_Hound_Sit_Idle"
+				Duration = 12
 
+			}
+			{
+				BlendTransitionFrom = "Familiar_Hound_Sit_Idle_Fidget1"
+				Duration = 12
+				
+			}
+			{
+				BlendTransitionFrom = "Familiar_Hound_Sit_Idle_Fidget2"
+				Duration = 12
+				
+			}
+			{
+				BlendTransitionFrom = "Familiar_Hound_Sit_Idle_Fidget3"
+				Duration = 12
+				
+			}
+		]
+	}
 ]}

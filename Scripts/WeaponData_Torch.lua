@@ -28,7 +28,7 @@ OverwriteTableKeys( WeaponData,
 			["MelinoeRun"] = "Melinoe_Torch_Run_FireLoop",
 			["MelinoeStop"] = "Melinoe_Torch_Run_End",
 			["MelinoeGetHit"] = "Melinoe_Torch_GetHit",
-			--["MelinoeGetHitFinal"] = "MelinoeTorchGetHitFinal",
+			["Melinoe_GetHit_LastStand"] = "Melinoe_Torch_GetHit_LastStand",
 
 			["Melinoe_Cast_Start"] = "Melinoe_Torch_Cast_Start",
 			["Melinoe_Cast_StartLoop"] = "Melinoe_Torch_Cast_StartLoop",
@@ -48,7 +48,6 @@ OverwriteTableKeys( WeaponData,
 		WeaponInteractAnimation = "Melinoe_Torch_Interact",
 		
 		UseText = "UseWeaponKit",
-		--ShowStaffUI = true,
 		SecondaryWeapon = "WeaponTorchSpecial",
 
 		CauseImpactReaction = true,
@@ -58,16 +57,17 @@ OverwriteTableKeys( WeaponData,
 		IgnoreOOMAimlineAlpha = true,
 		ChannelSlowIneligible = true,
 		OnChargeFunctionNames = { "DoWeaponCharge", "MarkTorchTarget" },
-		HideChargeDuration = 1.5,
+		HideChargeDuration = 0.8,
 		AllowManaRegenUntilChargeIndicator = true,
 
 		ChargeWeaponData =
 		{
+			OnChargeStartFunctionName = "StartTorchCharge",
 			EmptyChargeFunctionName = "EmptyTorchCharge",
 			OnStageReachedFunctionName = "TorchChargeStage",
 		},
 		OnHasNoManaFunctionName = "TorchOutOfMana",
-		OnFiredFunctionName = "TorchRepeatedFire",
+		OnFiredFunctionNames = { "TorchRepeatedFire", },
 		
 		OutOfManaFunctionName = "WeaponCooldownOutOfMana",
 		OutOfManaFunctionArgs = { Cooldown = 0.85 },
@@ -93,14 +93,11 @@ OverwriteTableKeys( WeaponData,
 					ChargeStartAnimation = "Melinoe_Torch_Attack3_Start",
 					FireGraphic = "Melinoe_Torch_Attack3_Fire"
 				},
-				{
-					ChargeStartAnimation = "Melinoe_Torch_Attack4_Start",
-					FireGraphic = "Melinoe_Torch_Attack4_Fire"
-				},
+				--[[
 				{
 					ChargeStartAnimation = "Melinoe_Torch_Attack5_Start",
 					FireGraphic = "Melinoe_Torch_Attack5_Fire"
-				},
+				},]]
 			}
 		},
 		OnWeaponTriggerReleaseFunctionName = "ResetFireSequence",
@@ -109,25 +106,18 @@ OverwriteTableKeys( WeaponData,
 		{
 			{
 				SkipManaSpendOnFire = true,
-				ManaCost = 3,
-				Wait = 2.5,
-				WeaponProperties =
+				ManaCost = 5,
+				Wait = 1.35,
+				ManualHandlePerfectCharge = true,
+				ResetChargeOnFire = true,
+				WeaponProperties = 
 				{
-					Projectile = "ProjectileTorchBallLarge",
+					ChargeStartAnimation = "Melinoe_Torch_Attack4_Start",
+					FireGraphic = "Melinoe_Torch_Attack4_Fire",
+					Projectile = "ProjectileTorchWave",
 					AdditionalProjectileWaveChance = 0,
 				},
-				RelativeWeaponProperties = 
-				{
-					Cooldown = { Value = 0.25/0.35, ChangeType = "Multiply" },
-				},
 				CompleteObjective = "WeaponTorchCharged",
-			},
-		},
-		SpeedPropertyChanges = 
-		{
-			{
-				RecordExState = true,
-				WeaponProperty = "Cooldown",
 			},
 		},
 
@@ -138,8 +128,8 @@ OverwriteTableKeys( WeaponData,
 
 		EquipVoiceLines =
 		{
-			[1] = { GlobalVoiceLines = "MiscWeaponEquipVoiceLines" },
-			[2] = { GlobalVoiceLines = "SkellyWeaponEquipReactionVoiceLines" },
+			{ GlobalVoiceLines = "MiscWeaponEquipVoiceLines" },
+			{ GlobalVoiceLines = "SkellyWeaponEquipReactionVoiceLines" },
 		},
 
 		Sounds =
@@ -155,14 +145,10 @@ OverwriteTableKeys( WeaponData,
 			FireStageSounds = 
 			{
 				{ Name = "/SFX/Player Sounds/MelTorchFireOmega" },
-				{ 
-					Name = "/VO/MelinoeEmotes/EmotePowerAttackingStaff",
-					Cooldown = 10.0
-
-				},
+				{ Name = "/VO/MelinoeEmotes/EmotePowerAttackingStaff" },
 			},			
 			ImpactSounds =
-			{			
+			{
 				Invulnerable = "/SFX/Player Sounds/ZagreusShieldRicochet",
 				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
 				Bone = "/SFX/BurnDamageTorches",
@@ -173,6 +159,13 @@ OverwriteTableKeys( WeaponData,
 				BrickObstacle = "/SFX/BurnDamageTorches",
 				MetalObstacle = "/SFX/BurnDamageTorches",
 				BushObstacle = "/SFX/BurnDamage",
+				Shell = "/SFX/ShellImpact",
+			},
+		},
+		SpeedPropertyChanges = 
+		{
+			{
+				WeaponProperty = "Cooldown",
 			},
 		},
 	},
@@ -190,7 +183,13 @@ OverwriteTableKeys( WeaponData,
 
 		DefaultKnockbackForce = 640,
 		DefaultKnockbackScale = 0.8,
-
+		
+		SpeedPropertyChanges = 
+		{
+			{
+				WeaponProperty = "ChargeTime",
+			},
+		},
 		OnChargeFunctionNames = { "DoWeaponCharge" },
 		
 		ChargeWeaponStages = 
@@ -202,12 +201,17 @@ OverwriteTableKeys( WeaponData,
 				ForceRelease = true,
 				WeaponProperties =
 				{
-					Projectile = "ProjectileTorchOrbit",
+					Projectile = "ProjectileTorchOrbitEx",
 					NumProjectiles = 2,
-					ProjectileAngleStartOffset = math.rad(-90),
+					ProjectileAngleStartOffset = math.rad(-180),
 					ProjectileAngleOffset = math.rad(180),
 					FireGraphic = "Melinoe_Torch_Special1Ex_Fire",
-					AdditionalProjectileWaveChance = 0
+					FireFx = "TorchOrbitStartSwirl_Base",
+					AdditionalProjectileWaveChance = 0,
+				},
+				ProjectileProperties = 
+				{
+					ArcEnd = -1080,
 				},
 				CompleteObjective = "WeaponTorchSpecialCharged",
 			},
@@ -227,7 +231,7 @@ OverwriteTableKeys( WeaponData,
 		{
 			ChargeSounds =
 			{
-				{ Name = "/VO/MelinoeEmotes/EmoteAttackingDaggerThrow" },
+				{ Name = "/VO/MelinoeEmotes/EmoteCharging" },
 				{
 					Name = "/SFX/Player Sounds/MelMagicalCharge",
 					StoppedBy = { "ChargeCancel", "Fired" }
@@ -236,13 +240,14 @@ OverwriteTableKeys( WeaponData,
 			FireSounds =
 			{
 				{ Name = "/SFX/Player Sounds/MelTorchSpecialPreSpin" },
+
 			},
 			FireStageSounds = 
 			{
-				{ Name = "/VO/MelinoeEmotes/EmotePowerAttackingStaff" },
+				{ Name = "/VO/MelinoeEmotes/EmoteAttackingBombLob" },
 			},
 			ImpactSounds =
-			{			
+			{
 				Invulnerable = "/SFX/Player Sounds/ZagreusShieldRicochet",
 				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
 				Bone = "/SFX/BurnDamageTorches",
@@ -253,6 +258,7 @@ OverwriteTableKeys( WeaponData,
 				BrickObstacle = "/SFX/BurnDamageTorches",
 				MetalObstacle = "/SFX/BurnDamageTorches",
 				BushObstacle = "/SFX/BurnDamage",
+				Shell = "/SFX/ShellImpact",
 			},
 		},
 	},

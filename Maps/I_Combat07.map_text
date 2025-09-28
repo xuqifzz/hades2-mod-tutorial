@@ -67,6 +67,32 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Terrain_MottledSand_02",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "Terrain_MottledSand_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "FX_River_02",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -487,6 +513,8 @@
         "River_Overlay_01",
         "FX_River_01",
         "FX_River_02",
+        "Terrain_MottledSand_01",
+        "Terrain_MottledSand_02",
         "River_Water_01",
         "Beneath_Decor_02",
         "Beneath_01",
@@ -674,5 +702,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.910
 }

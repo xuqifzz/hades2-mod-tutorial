@@ -49,6 +49,32 @@
 				BlendTransitionFrom = "Melinoe_Torch_Run_FireLoop"
 				Duration = 4
 			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_StartLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_End"
+				Duration = 4
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1Ex_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1Ex_End"
+				Duration = 4
+			}
 		]
 	}
 
@@ -96,6 +122,32 @@
 				BlendTransitionFrom = "Melinoe_Torch_Run_FireLoop"
 				Duration = 4
 			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_StartLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_End"
+				Duration = 4
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1Ex_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1Ex_End"
+				Duration = 4
+			}
 		]
 	}
 
@@ -122,6 +174,7 @@
 				Name = "TorchL_Attack2_Fire"
 				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT" 
 			}
+
 		]
 	}
 
@@ -141,6 +194,32 @@
 			}
 			{
 				BlendTransitionFrom = "Melinoe_Torch_Run_FireLoop"
+				Duration = 4
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_StartLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_End"
+				Duration = 4
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1Ex_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1Ex_End"
 				Duration = 4
 			}
 		]
@@ -187,6 +266,32 @@
 			}
 			{
 				BlendTransitionFrom = "Melinoe_Torch_Run_FireLoop"
+				Duration = 4
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_StartLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_End"
+				Duration = 4
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1Ex_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1Ex_End"
 				Duration = 4
 			}
 		]
@@ -244,6 +349,32 @@
 			}
 			{
 				BlendTransitionFrom = "Melinoe_Torch_Run_FireLoop"
+				Duration = 4
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_StartLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_End"
+				Duration = 4
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1Ex_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1Ex_End"
 				Duration = 4
 			}
 		]
@@ -332,6 +463,32 @@
 				BlendTransitionFrom = "Melinoe_Torch_Attack5_Fire"
 				Duration = 5
 			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_StartLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_End"
+				Duration = 4
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1Ex_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1Ex_End"
+				Duration = 4
+			}
 		]
 	}
 
@@ -366,76 +523,6 @@
 				BlendTransitionFrom = "BlendTransitionFromAll"
 				Duration = 6
 			}
-			/*
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Run_Start"
-				Duration = 5
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Run_End"
-				Duration = 5
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Sprint_FireLoop"
-				Duration = 5
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Dash_Fire"
-				Duration = 5
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Dash_Fire"
-				Duration = 5
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Run_FireLoop"
-				Duration = 5
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Attack1_StartSequence"
-				Duration = 5
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Attack1_Start"
-				Duration = 5
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Attack1_Fire"
-				Duration = 5
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Attack2_Start"
-				Duration = 5
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Attack2_Fire"
-				Duration = 5
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Attack3_Start"
-				Duration = 5
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Attack3_Fire"
-				Duration = 5
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Attack4_Start"
-				Duration = 5
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Attack4_Fire"
-				Duration = 5
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Attack5_Start"
-				Duration = 5
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Attack5_Fire"
-				Duration = 5
-			}
-			*/
 		]
 	}
 	{
@@ -520,6 +607,14 @@
 				Sound = "/Leftovers/SFX/PlayerJumpMedium"
 			}
 		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
 	}
 
 	{
@@ -543,6 +638,110 @@
 				FootstepFxR = ""
 				FootstepFxL = "FireFootstepL-Spawner"
 				FootstepSound = "/SFX/Player Sounds/FootstepsHardSurfaceRun"
+			}
+		]
+	}
+
+	// Supay
+
+	{
+		Name = "TorchR_Supay_AttackEx1_Fire"
+		InheritFrom = "WeaponTorchRBase"
+		GrannyAnimation = "TorchR_Weapon_Supay_IdleToIdleEXBurst_C_00"
+	}
+
+	{
+		Name = "TorchL_Supay_AttackEx1_Fire"
+		InheritFrom = "WeaponTorchLBase"
+		GrannyAnimation = "TorchL_Weapon_Supay_IdleToIdleEXBurst_C_00"
+	}
+
+	{
+		Name = "Melinoe_Torch_Supay_AttackEx1_Fire"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Supay_IdleToIdleEXBurst_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Torch_Supay_AttackEx1_End"
+		Loop = false
+		StopSoundOnFinishFade = 0.2
+		Attachments =
+		[
+			{
+				Name = "TorchR_Supay_AttackEx1_Fire"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "TorchL_Supay_AttackEx1_Fire"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 6
+				Sound = "/VO/MelinoeEmotes/SupayEmoteCharging2"
+			}
+			{
+				Frame = 32
+				Sound = "/VO/MelinoeEmotes/SupayEmoteAttacking2"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Torch_Supay_AttackEx1_FireAlt"
+		InheritFrom = "Melinoe_Torch_Supay_AttackEx1_Fire"
+		Frames =
+		[
+			{
+				Frame = 6
+				Sound = "/VO/MelinoeEmotes/SupayEmoteCharging1"
+			}
+			{
+				Frame = 40
+				Sound = "/VO/MelinoeEmotes/SupayEmoteAttacking2"
+			}
+		]
+	},
+
+	{
+		Name = "TorchR_Supay_AttackEx1_End"
+		InheritFrom = "WeaponTorchRBase"
+		GrannyAnimation = "TorchR_Weapon_Supay_IdleToIdleEXBurstOutro_C_00"
+	}
+
+	{
+		Name = "TorchL_Supay_AttackEx1_End"
+		InheritFrom = "WeaponTorchLBase"
+		GrannyAnimation = "TorchL_Weapon_Supay_IdleToIdleEXBurstOutro_C_00"
+	}
+
+	{
+		Name = "Melinoe_Torch_Supay_AttackEx1_End"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Supay_IdleToIdleEXBurstOutro_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Torch_Supay_Idle"
+		Loop = false
+		Sound = null
+
+		Attachments =
+		[
+			{
+				Name = "TorchR_Supay_AttackEx1_End"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "TorchL_Supay_AttackEx1_End"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
 			}
 		]
 	}

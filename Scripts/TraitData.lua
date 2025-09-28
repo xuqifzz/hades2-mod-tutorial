@@ -22,19 +22,32 @@ PropertyOrderingValues =
 ProjectileThingPropertyNames = 
 {
 	Graphic = true,
+	AttachedAnim = true,
+	AmbientSound = true,
 }
 
 PersistentTraitKeys = 
 { 
 	"Activated",
 	"TraitListTextString",
-	"HarvestBoons",
 	"SacrificedTraitName", 
+	"UpgradedTraitName", 
 	"Uses",
 	"RemainingUses",
 	"ShrineManaReserve",
 	"CurrentArmor",
+	"RemainingBlocks",
+	"StoredGold",
 }
+
+PatchIgnoreTraitKeys = ToLookup(
+{
+	"RemainingUses",
+	"Slot",
+	"ActiveSlotOffsetIndex",
+	"ShowInHUD",
+	"HideInRunHistory",
+})
 
 ProcessTraitDataBlacklist = ToLookup(
 {
@@ -71,6 +84,11 @@ LinkedTraitData =
 	ApolloCoreTraits = { "ApolloWeaponBoon", "ApolloSpecialBoon", "ApolloCastBoon", "ApolloSprintBoon", "ApolloManaBoon" },
 	ApolloBlindTraits = { "ApolloCastBoon", "ApolloSprintBoon", "ApolloRetaliateBoon", "BlindChanceBoon", },
 
+	AresCoreTraits = { "AresWeaponBoon", "AresSpecialBoon", "AresCastBoon", "AresSprintBoon", "AresManaBoon" },
+	AresRendTraits = { "AresWeaponBoon", "AresSpecialBoon" },
+	AresBloodDropTraits = { "AresManaBoon", "BloodDropRevengeBoon", "RendBloodDropBoon" },
+	AresSwordTraits = { "AresCastBoon", "AresSprintBoon", "OmegaDelayedDamageBoon" },
+
 	DemeterCoreTraits = { "DemeterWeaponBoon", "DemeterSpecialBoon", "DemeterCastBoon", "DemeterSprintBoon", "DemeterManaBoon" },
 	DemeterRootTraits = { "DemeterWeaponBoon", "DemeterSpecialBoon", "DemeterCastBoon", },
 
@@ -78,22 +96,23 @@ LinkedTraitData =
 	HephaestusMassiveTraits = { "HephaestusWeaponBoon", "HephaestusSpecialBoon", "HephaestusSprintBoon", }, -- MassiveCastBoon
 
 	HeraCoreTraits = { "HeraWeaponBoon", "HeraSpecialBoon", "HeraCastBoon", "HeraSprintBoon", "HeraManaBoon" },
-	HeraLinkTraits = { "HeraWeaponBoon", "HeraSpecialBoon", "HeraCastBoon", "HeraSprintBoon", "DamageShareRetaliateBoon", },
+	HeraLinkTraits = { "HeraWeaponBoon", "HeraSpecialBoon", "HeraCastBoon", "HeraSprintBoon", },
 
 	HestiaCoreTraits = { "HestiaWeaponBoon", "HestiaSpecialBoon", "HestiaCastBoon", "HestiaSprintBoon", "HestiaManaBoon" },
 	HestiaBurnTraits = { "HestiaWeaponBoon", "HestiaSpecialBoon", "HestiaCastBoon", }, -- "HestiaSprintBoon", EchoBurnBoon, BurnOmegaBoon
 
 	PoseidonCoreTraits = { "PoseidonWeaponBoon", "PoseidonSpecialBoon", "PoseidonCastBoon", "PoseidonSprintBoon", "PoseidonManaBoon" },
-	PoseidonSplashTraits = { "PoseidonWeaponBoon", "PoseidonSpecialBoon", "PoseidonCastBoon" }, -- PoseidonSplashSprintBoon
+	PoseidonSplashTraits = { "PoseidonWeaponBoon", "PoseidonSpecialBoon" }, -- PoseidonSplashSprintBoon
 	PoseidonKnockbackTraits = { "PoseidonWeaponBoon", "PoseidonSpecialBoon", "PoseidonCastBoon", "PoseidonSprintBoon", "PoseidonExCastBoon", },
+	PoseidonKnockbackAmplifyTraits = { "PoseidonCastBoon", "PoseidonStatusBoon" },
 
 	ZeusCoreTraits = { "ZeusWeaponBoon", "ZeusSpecialBoon", "ZeusCastBoon", "ZeusSprintBoon", "ZeusManaBoon", },
 	ZeusEchoTraits = { "ZeusWeaponBoon", "ZeusSpecialBoon", },
 	ZeusBoltTraits = { "ZeusWeaponBoon", "ZeusSpecialBoon", "ZeusCastBoon", "ZeusSprintBoon", "ZeusManaBoltBoon", "BoltRetaliateBoon", "CastAnywhereBoon", },
 
-	WeaponTraits = { "AphroditeWeaponBoon", "ApolloWeaponBoon", "DemeterWeaponBoon", "HephaestusWeaponBoon", "HeraWeaponBoon", "HestiaWeaponBoon", "PoseidonWeaponBoon", "ZeusWeaponBoon", },
-	SpecialTraits = { "AphroditeSpecialBoon", "ApolloSpecialBoon", "DemeterSpecialBoon", "HephaestusSpecialBoon", "HeraSpecialBoon", "HestiaSpecialBoon", "PoseidonSpecialBoon", "ZeusSpecialBoon", },
-	CastTraits = { "AphroditeCastBoon", "ApolloCastBoon", "DemeterCastBoon", "HephaestusCastBoon", "HeraCastBoon", "HestiaCastBoon", "PoseidonCastBoon", "ZeusCastBoon", },
+	WeaponTraits = { "AphroditeWeaponBoon", "ApolloWeaponBoon", "DemeterWeaponBoon", "HephaestusWeaponBoon", "HeraWeaponBoon", "HestiaWeaponBoon", "PoseidonWeaponBoon", "ZeusWeaponBoon", "AresWeaponBoon" },
+	SpecialTraits = { "AphroditeSpecialBoon", "ApolloSpecialBoon", "DemeterSpecialBoon", "HephaestusSpecialBoon", "HeraSpecialBoon", "HestiaSpecialBoon", "PoseidonSpecialBoon", "ZeusSpecialBoon", "AresSpecialBoon" },
+	CastTraits = { "AphroditeCastBoon", "ApolloCastBoon", "DemeterCastBoon", "HephaestusCastBoon", "HeraCastBoon", "HestiaCastBoon", "PoseidonCastBoon", "ZeusCastBoon", "AresCastBoon" },
 }
 
 TraitRequirements = 
@@ -180,7 +199,6 @@ TraitRequirements =
 	},
 
 	-- Hestia
-	BurnExplodeBoon = { OneOf = LinkedTraitData.HestiaBurnTraits, },
 	BurnArmorBoon = { OneOf = LinkedTraitData.HestiaBurnTraits, },
 	BurnStackBoon = { OneOf = LinkedTraitData.HestiaBurnTraits, },
 	OmegaZeroBurnBoon = { OneOf = LinkedTraitData.HestiaBurnTraits, },
@@ -191,7 +209,7 @@ TraitRequirements =
 
 		OneFromEachSet =
 		{
-			LinkedTraitData.HestiaBurnTraits,
+			{ "HestiaCastBoon" },
 			{ "BurnExplodeBoon", "BurnArmorBoon", "BurnStackBoon", "OmegaZeroBurnBoon", },
 			{ "CastProjectileBoon", "FireballManaSpecialBoon", },
 		},
@@ -215,7 +233,7 @@ TraitRequirements =
 	--FocusLightningBoon = { OneOf = LinkedTraitData.ZeusCoreTraits, },
 	DoubleBoltBoon = { OneOf = LinkedTraitData.ZeusBoltTraits, },
 	EchoExpirationBoon = { OneOf = LinkedTraitData.ZeusEchoTraits, },
-	LightningDebuffGeneratorBoon = { OneOf = LinkedTraitData.ZeusEchoTraits, },
+	LightningDebuffGeneratorBoon = { OneOf = {"FocusLightningBoon"}, },
 	CastAnywhereBoon = { OneOf = LinkedTraitData.CastTraits, },
 	SpawnKillBoon =
 	{
@@ -227,21 +245,71 @@ TraitRequirements =
 		},
 	},
 
+	-- Ares
+	
+	RendBloodDropBoon = { OneOf = LinkedTraitData.AresRendTraits, },
+	AresStatusDoubleDamageBoon = { OneOf = LinkedTraitData.AresRendTraits, },
+	AresExCastBoon = { OneOf = LinkedTraitData.CastTraits, },
+	DoubleBloodDropBoon =
+	{
+		OneFromEachSet =
+		{
+			{ "AresWeaponBoon", "AresSpecialBoon", "AresCastBoon", "AresSprintBoon", },
+			LinkedTraitData.AresBloodDropTraits,
+			{ "AresExCastBoon",  "AresStatusDoubleDamageBoon", "MissingHealthCritBoon", "LowHealthLifestealBoon", "OmegaDelayedDamageBoon", },
+		},
+	},
 
 	-- Hermes
+	LuckyBoon = 
+	{
+		OneOf =
+		{
+			"DoubleRewardBoon",
+			"PoseidonCastBoon",
+			"PoseidonStatusBoon",
+
+			"BoltRetaliateBoon",
+			"DoubleBoltBoon",
+			"SpawnKillBoon",
+
+			"BlindChanceBoon",
+			"DoubleStrikeChanceBoon",
+
+			"CritBonusBoon",
+			"HighHealthCritBoon",
+			"InsideCastCritBoon",
+			"TimedCritVulnerabilityBoon",
+			"FocusCritBoon",
+			"DashOmegaBuffBoon",
+			"SorceryCritBoon",
+
+			"AresManaBoon",
+			"BloodDropRevengeBoon",
+			"MissingHealthCritBoon",
+			"AresStatusDoubleDamageBoon",
+			"RendBloodDropBoon",
+			-- Duos
+			"DoubleSplashBoon",
+			"BloodManaBurstBoon",
+			"MoneyDamageBoon",
+		},
+	},
 	TimeStopLastStandBoon = 
 	{
 		OneOf =
 		{
 			"HermesWeaponBoon",
 			"HermesSpecialBoon",
-			"SlowProjectileBoon",
 			"HermesCastDiscountBoon",
+			"SprintShieldBoon",
 			"SorcerySpeedBoon",
 			"DodgeChanceBoon",
-			"HexCooldownBuffBoon",
+			"SlowProjectileBoon",
+			"MoneyMultiplierBoon",
 			"TimedKillBuffBoon",
-			"SprintShieldBoon",
+			"RestockBoon",
+			"LuckyBoon",
 		},
 	},
 
@@ -268,8 +336,9 @@ TraitRequirements =
 	{
 		OneFromEachSet =
 		{
-			LinkedTraitData.HeraCoreTraits,
-			{ "RoomRewardBonusBoon", "DoubleRewardBoon" },
+			{ "HeraWeaponBoon", "HeraSpecialBoon", "HeraCastBoon", "OmegaHeraProjectileBoon", },
+			{ "PoseidonWeaponBoon", "PoseidonSpecialBoon", "PoseidonCastBoon", "OmegaPoseidonProjectileBoon" },
+			{ "OmegaHeraProjectileBoon", "OmegaPoseidonProjectileBoon" },
 		},
 	},
 
@@ -295,8 +364,9 @@ TraitRequirements =
 	{
 		OneFromEachSet =
 		{
-			{ "PoseidonCastBoon", "PoseidonManaBoon", "PoseidonSprintBoon", "RoomRewardBonusBoon", "DoubleRewardBoon" },
-			{ "DemeterCastBoon", "DemeterManaBoon", "DemeterSprintBoon", "ReserveManaHitShieldBoon", "RootDurationBoon", "BoonGrowthBoon" },
+			LinkedTraitData.PoseidonCoreTraits,
+			LinkedTraitData.DemeterCoreTraits,
+			{ "RoomRewardBonusBoon", "DoubleRewardBoon", "BoonGrowthBoon", "PlantHealthBoon", },
 		}
 	},
 
@@ -377,7 +447,7 @@ TraitRequirements =
 	{
 		OneFromEachSet =
 		{
-			LinkedTraitData.HeraCoreTraits,
+			LinkedTraitData.HeraLinkTraits,
 			LinkedTraitData.HestiaCoreTraits,
 		},
 	},
@@ -386,7 +456,7 @@ TraitRequirements =
 	{
 		OneFromEachSet =
 		{			
-			{ "PoseidonStatusBoon", },
+			LinkedTraitData.PoseidonKnockbackAmplifyTraits,
 			{ "HestiaWeaponBoon", "HestiaSpecialBoon", "HestiaCastBoon", "OmegaZeroBurnBoon", "FireballManaSpecialBoon", "CastProjectileBoon", },
 		},
 	},
@@ -404,9 +474,8 @@ TraitRequirements =
 	{
 		OneFromEachSet =
 		{			
-			{ "ApolloWeaponBoon", "ApolloSpecialBoon", "ApolloCastBoon", "ApolloManaBoon", "ApolloSprintBoon", },
-			{ "HestiaWeaponBoon", "HestiaSpecialBoon", "HestiaCastBoon", "HestiaManaBoon", "HestiaSprintBoon", },
-			{ "SacrificeBoon" },
+			LinkedTraitData.ApolloBlindTraits,
+			LinkedTraitData.HestiaCoreTraits,
 		}
 	},
 
@@ -423,7 +492,7 @@ TraitRequirements =
 	{
 		OneFromEachSet =
 		{
-			{ "FocusLightningBoon", "LightningDebuffGeneratorBoon" },
+			{ "FocusLightningBoon" },
 			LinkedTraitData.HephaestusCoreTraits,
 		},
 	},
@@ -431,8 +500,8 @@ TraitRequirements =
 	MassiveCastBoon = 
 	{
 		OneFromEachSet =
-		{			
-			{ "PoseidonCastBoon", "PoseidonExCastBoon" },
+		{
+			LinkedTraitData.PoseidonCoreTraits,
 			LinkedTraitData.HephaestusMassiveTraits,
 		}
 	},
@@ -468,7 +537,7 @@ TraitRequirements =
 	{
 		OneFromEachSet =
 		{			
-			{ "HephaestusWeaponBoon", "HephaestusSpecialBoon", },
+			{ "HephaestusWeaponBoon", "HephaestusSpecialBoon", "HephaestusSprintBoon" },
 			LinkedTraitData.HestiaCoreTraits,
 		}
 	},
@@ -495,7 +564,7 @@ TraitRequirements =
 	{
 		OneFromEachSet =
 		{			
-			{ "PoseidonStatusBoon", },
+			LinkedTraitData.PoseidonKnockbackAmplifyTraits,
 			{ "ZeusWeaponBoon", "ZeusSpecialBoon", "ZeusCastBoon", "ZeusSprintBoon", "BoltRetaliateBoon", "CastAnywhereBoon", },
 		}
 	},
@@ -509,6 +578,78 @@ TraitRequirements =
 		}
 	},
 
+	SelfCastBoon = 
+	{
+		OneFromEachSet = 
+		{
+			{ "AresCastBoon", "AresExCastBoon", },
+			LinkedTraitData.DemeterCoreTraits,
+		}
+	},
+
+	AutoRevengeBoon = 
+	{
+		OneFromEachSet = 
+		{
+			LinkedTraitData.AresRendTraits,
+			LinkedTraitData.ZeusCoreTraits,
+			{ "BloodDropRevengeBoon", "ApolloRetaliateBoon", "BoltRetaliateBoon" }
+		}
+	},
+
+	BloodRetentionBoon = 
+	{
+		OneFromEachSet = 
+		{
+			LinkedTraitData.AresBloodDropTraits,
+			LinkedTraitData.HeraCoreTraits,
+		}
+	},
+
+	RapidSwordBoon = 
+	{
+		OneFromEachSet = 
+		{
+			LinkedTraitData.AresSwordTraits,
+			LinkedTraitData.HephaestusCoreTraits,
+		}
+	},
+
+	DoubleSwordBoon = 
+	{
+		OneFromEachSet = 
+		{
+			LinkedTraitData.AresSwordTraits,
+			LinkedTraitData.ApolloCoreTraits,
+		}
+	},
+
+	DoubleSplashBoon = 
+	{
+		OneFromEachSet = 
+		{
+			LinkedTraitData.AresCoreTraits,
+			LinkedTraitData.PoseidonSplashTraits,
+		}
+	},
+
+	FireballRendBoon = 
+	{
+		OneFromEachSet = 
+		{
+			LinkedTraitData.AresCoreTraits,
+			{ "FireballManaSpecialBoon", "CastProjectileBoon", },
+		}
+	},
+
+	BloodManaBurstBoon = 
+	{
+		OneFromEachSet = 
+		{
+			LinkedTraitData.AresBloodDropTraits,
+			LinkedTraitData.AphroditeCoreTraits,
+		}
+	},
 	-- Special suit hex
 	
 	SpellMoonBeamTrait = { OneOf = {"SuitHexAspect" }}
@@ -535,6 +676,15 @@ TraitRarityData =
 		"TraitLevel_AspectLvl4",
 		"TraitLevel_AspectLvl5",
 		"TraitLevel_AspectLvl6",
+	},
+	HammerRarityText = 
+	{
+		"TraitLevel_AspectLvl1",
+		"TraitLevel_AspectLvl1",
+		"TraitLevel_AspectLvl1",
+		"TraitLevel_AspectLvl1",
+		"TraitLevel_AspectLvl2",
+		"TraitLevel_AspectLvl3",
 	},
 	
 	TalentRarity = 
@@ -564,13 +714,17 @@ TraitRarityData =
 	LegacyGameStateRequirements = 
 	{
 		{
-			PathTrue = { "GameState", "TextLinesRecord", "PoseidonLegacyBoonIntro01" },
+			-- intentionally removed now that PoseidonLegacyBoonIntro01 is only for narrative flavor
+			-- PathTrue = { "GameState", "TextLinesRecord", "PoseidonLegacyBoonIntro01" },
 		},
 	},
 	ElementalGameStateRequirements = 
 	{
 		{
 			PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeElementalBoons" },
+		},
+		{
+			PathFalse = { "CurrentRun", "CurrentRoom", "TextLinesRecord", "HermesFirstPickUp" },
 		},
 	},
 }
@@ -581,86 +735,31 @@ TraitElementData =
 	{ 
 		Icon = "FireTraitSmall",
 		Keyword = "FireBoonKeyword",
-		GameStateRequirements = 
-		{
-			{
-				Path = { "CurrentRun", "Hero", "Elements", "Fire" },
-				Comparison = ">=",
-				Value = 1,
-			},
-		},
-		Traits = 
-		{
-			--"FireBaseDamageBoon",
-		}
+		BaseElement = true,
 	},
 	Water = 
 	{ 
 		Icon = "WaterTraitSmall" ,
 		Keyword = "WaterBoonKeyword",
-		GameStateRequirements = 
-		{
-			{
-				Path = { "CurrentRun", "Hero", "Elements", "Water" },
-				Comparison = ">=",
-				Value = 1,
-			},
-		},
-		Traits = 
-		{
-			--"WaterHealthBoon",
-		},
+		BaseElement = true,
 	},
 	Earth = 
 	{ 
 		Icon = "EarthTraitSmall" ,
 		Keyword = "EarthBoonKeyword",
-		GameStateRequirements = 
-		{
-			{
-				Path = { "CurrentRun", "Hero", "Elements", "Earth" },
-				Comparison = ">=",
-				Value = 1,
-			},
-		},
-		Traits = 
-		{
-			--"EarthManaBoon",
-		},
+		BaseElement = true,
 	},
 	Air = 
 	{ 
 		Icon = "AirTraitSmall" ,
 		Keyword = "AirBoonKeyword",
-		GameStateRequirements = 
-		{
-			{
-				Path = { "CurrentRun", "Hero", "Elements", "Air" },
-				Comparison = ">=",
-				Value = 1,
-			},
-		},
-		Traits = 
-		{
-			--"AirDodgeBoon",
-		},
+		BaseElement = true,
 	},
 	Aether = 
 	{ 
 		Icon = "AetherTraitSmall" ,
 		Keyword = "AetherBoonKeyword",
-		GameStateRequirements = 
-		{
-			{
-				Path = { "CurrentRun", "Hero", "Elements", "Aether" },
-				Comparison = ">=",
-				Value = 1,
-			},
-		},
-		Traits = 
-		{
-			--"AetherSpeedBoon",
-		},
+		BaseElement = false,
 	},
 }
 
@@ -671,6 +770,7 @@ TraitSetData.Base =
 	BaseTrait =
 	{
 		Cost = 30,
+		DebugOnly = true,
 		RarityLevels =
 		{
 			Common =
@@ -699,28 +799,34 @@ TraitSetData.Base =
 	AirBoon = 
 	{
 		Elements = { "Air" },
+		DebugOnly = true,
 	},
 	FireBoon = 
 	{
 		Elements = {"Fire"},
+		DebugOnly = true,
 	},
 	EarthBoon = 
 	{
 		Elements = {"Earth"},
+		DebugOnly = true,
 	},
 	WaterBoon = 
 	{
 		Elements = {"Water"},
+		DebugOnly = true,
 	},
 	AetherBoon = 
 	{
 		Elements = {"Aether"},
+		DebugOnly = true,
 	},
 
 	LegendaryTrait =
 	{
 		Cost = 120,
 		BlockStacking = true,
+		DebugOnly = true,
 		RarityLevels =
 		{
 			Legendary =
@@ -733,6 +839,7 @@ TraitSetData.Base =
 
 	InPersonOlympianTrait =
 	{
+		DebugOnly = true,
 		RarityLevels =
 		{
 			Common =
@@ -767,6 +874,7 @@ TraitSetData.Base =
 		IsDuoBoon = true,
 		Frame = "Duo",
 		BlockStacking = true,
+		DebugOnly = true,
 		RarityLevels =
 		{
 			Duo =
@@ -774,12 +882,13 @@ TraitSetData.Base =
 				MinMultiplier = 1,
 				MaxMultiplier = 1,
 			},
-		}
+		},
 	},
 
 	LegacyTrait = 
 	{
 		IsLegacyTrait = true,
+		DebugOnly = true,
 	},
 
 	UnityTrait = 
@@ -787,18 +896,27 @@ TraitSetData.Base =
 		IsElementalTrait = true,
 		BlockStacking = true,
 		BlockInRunRarify = true,
+		BlockMenuRarify = true,
 		ExcludeFromRarityCount = true,
 		CustomRarityName = "Boon_Infusion",
 		CustomRarityColor = Color.BoonPatchElemental,
 		InfoBackingAnimation = "BoonSlotUnity",
 		UpgradeChoiceBackingAnimation = "BoonSlotUnity",
 		Frame = "Unity",
+		DebugOnly = true,
 		RarityLevels =
 		{
 			Common =
 			{
-				MinMultiplier = 1,
-				MaxMultiplier = 1,
+				Multiplier = 1,
+			},
+			Rare =
+			{
+				Multiplier = 1,
+			},
+			Epic =
+			{
+				Multiplier = 1,
 			},
 		}
 	},
@@ -807,12 +925,17 @@ TraitSetData.Base =
 	{
 		Frame = "Hammer",
 		IsHammerTrait = true,
+		CustomRarityColor = Color.White,
+		InfoBackingAnimation = "BoonSlotBase",
+		DebugOnly = true,
+		TrayTextBackingOffsetY = 3,
 	},
 
 	CostumeTrait = 
 	{
 		Frame = "Hammer",
 		CostumeTrait = true,
+		DebugOnly = true,
 		RarityLevels =
 		{
 			Common =
@@ -839,6 +962,7 @@ TraitSetData.Base =
 		TraitTrayOpenSpellScreen = true,
 		IsTalent = true,
 		Icon = "Athena_Ares_01",
+		DebugOnly = true,
 		RarityLevels =
 		{
 			Common =
@@ -892,6 +1016,7 @@ TraitSetData.Base =
 	ChaosCurseTrait =
 	{
 		Icon = "Shop_Vial",
+		DebugOnly = true,
 	},
 
 	ChaosCurseRemainingEncounters =
@@ -903,10 +1028,12 @@ TraitSetData.Base =
 			AsInt = true,
 		},
 		UsesAsEncounters = true,
+		DebugOnly = true,
 	},
 
 	ChaosBlessingTrait =
 	{
+		DebugOnly = true,
 		RarityLevels =
 		{
 			Common =
@@ -934,6 +1061,7 @@ TraitSetData.Base =
 		Slot = "Aspect",
 		HideInHUD = true,
 		HideInRunHistory = true,
+		DebugOnly = true,
 		
 		RarityLevels =
 		{
@@ -987,15 +1115,16 @@ TraitSetData.Base =
 		}
 	},
 
-	LimitedTimeTrait =
+	ManaOverTimeSource = 
 	{
-		LimitedTime = true,
+		ManaOverTimeSource = true,
+		DebugOnly = true,
 	},
 
 	-- Misc Traits
 	FallbackGold = 
 	{
-		Icon = "Boon_Athena_09",
+		Icon = "Boon_No_Choice_Money",
 		InheritFrom = { "BaseTrait" }, 
 		
 		RarityLevels =
@@ -1030,6 +1159,13 @@ TraitSetData.Base =
 				ExtractAs = "GoldAmount",
 			},
 		}
+	},
+
+	InfernalContractBoon = 
+	{
+		Frame = "Common",
+		Icon = "Trait_InfernalContract",
+		FlavorText = "InfernalContractBoon_FlavorText",		
 	},
 
 	SurfacePenalty = 
@@ -1093,8 +1229,15 @@ TraitSetData.Base =
 		HideInRunHistory = true,
 		AddResources =
 		{
-			MetaCurrency = 2,
+			MetaCurrency = 3,
 		},
+		PreExitsUnlockedFunctionName = "UnusedWeaponBonusReward",
+	},
+	UnusedWeaponBonusTrait2 =
+	{
+		InheritFrom = { "UnusedWeaponBonusTrait" },
+		Icon = "Trait_UnusedWeaponBonus2",
+		OnRoomRewardSpawnedFunctionName = "UnusedWeaponBonusDropGems",
 	},
 
 	RoomRewardMaxManaTrait =
@@ -1146,7 +1289,6 @@ TraitSetData.DummyWeapons =
 {
 	BaseDummyWeapon = 
 	{
-		Icon = "Shop_BedroomDecor",
 		Slot = "Aspect",
 		HideInHUD = true,
 		HideInRunHistory = true,

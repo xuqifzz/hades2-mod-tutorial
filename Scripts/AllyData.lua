@@ -11,9 +11,9 @@ UnitSetData.Allies =
 
 		AddToEnemyTeam = false,
 
-		ActivateFx = "Blank",
-		ActivateFx2 = "Blank",
-		ActivateFxPreSpawn = "Blank",
+		ActivateFx = "nil",
+		ActivateFx2 = "nil",
+		ActivateFxPreSpawn = "nil",
 		ActivateFadeIn = true,
 		ActivateFadeInDelay = 0.3,
 		ActivateFadeInDuration = 0.3,
@@ -102,16 +102,6 @@ UnitSetData.Allies =
 			"SpellSummonMelee",
 		},
 	},
-	
-	SummonSelfDestruct =
-	{
-		InheritFrom = { "SwarmerSummon" },
-
-		WeaponOptions = { "SummonSelfDestruct" },
-		DestroyDelay = 0.2,
-		PreDeathFunctionName = "FireSummonDeathWeapon",
-	},
-	
 
 	ShadeMerc =
 	{
@@ -127,7 +117,8 @@ UnitSetData.Allies =
 		{
 			DisappearDuration = 0.1,
 		},
-
+		
+		PlayerTrap = true,
 		NonHeroKillCombatText = "ShadeMercKill",
 		NonHeroKillCombatTextUsePlayerSource = true,
 
@@ -138,7 +129,7 @@ UnitSetData.Allies =
 			RecruitDistance = 150,
 			ResetTime = 10.0,
 
-			IdleAnimation = "ShadeHubMIdle",
+			IdleAnimation = "ShadeMercIdle",
 			DisabledAnimation = "Blank",
 
 			TargetClosest = true,
@@ -151,6 +142,13 @@ UnitSetData.Allies =
 			{
 				NonPlayerMultiplier = 1.0,
 			},
+			{
+				ValidMapKeyBaseDamageAddition = "ShadeMercBaseDamageBonus"
+			},
+			{
+				UseSessionMapStateValue = "ShadeMercDamageBonus",
+				SessionMapStateMultiplier = 1,
+			}
 		},
 
 		WeaponOptions =
@@ -163,6 +161,37 @@ UnitSetData.Allies =
 			"ShadeMercAI",
 		},
 	},
+
+	ShadeMercAspect = 
+	{
+		InheritFrom = { "ShadeMerc" },
+		
+		CollisionReactions =
+		{
+		},
+		ImpactReaction =
+		{
+		},
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+
+			RecruitDistance = 300,
+			ResetTime = 10.0,
+
+			IdleAnimation = "ShadeAspectIdle",
+			DisabledAnimation = "Blank",
+
+			UseTargetId = true,
+			TargetRequiredKillEnemy = true,
+			IgnoreInvulnerable = true,
+		},
+
+		WeaponOptions =
+		{
+			"ShadeMercAspectSpiritball",
+		},
+	}
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.Allies )

@@ -5,6 +5,7 @@
 		FilePath = "Fx\HeraUnitFx\HeraUnitFx"
 		GroupName = "FX_Standing_Add"
 		VisualFx = "HeraUnitFxParticles"
+		Hue = -0.33
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
 		EaseIn = 0.99
@@ -59,7 +60,7 @@
 		ScaleMax = 1.0
 		ScaleMin = 0.1
 		Ambient = 0.0
-		Color = { Red = 0.50 Green = 0.0 Blue = 1.0 }
+		Color = { Red = 0.0 Green = 0.5 Blue = 1.0 }
 	}
 	
 	{
@@ -77,7 +78,7 @@
 		Name = "HeraProjectileAnim"
 		FilePath = "Fx\HeraCastGroundLine\HeraCastGroundLine"
 		GroupName = "FX_Terrain_Add"
-		
+		Hue = -0.33
 		VisualFx = "HeraProjectileAnimGlow"
 		Sound = "/SFX/Player Sounds/HeraProjectileLoopQuake"
 		StopSoundOnFinishFade = 0.2
@@ -102,7 +103,7 @@
 		Name = "HeraProjectileAnim_Devotion"
 		FilePath = "Fx\HeraCastGroundLine\HeraCastGroundLine"
 		GroupName = "FX_Terrain_Add"
-		
+		Hue = -0.33
 		VisualFx = "HeraProjectileAnimGlow"
 		Sound = "/SFX/Player Sounds/HeraProjectileLoopQuake"
 		StopSoundOnFinishFade = 0.2
@@ -146,12 +147,15 @@
 		AngleFromOwner = "Take"
 		UseOwnAngle = false
 		AddColor = true
-		EndAlpha = 0.5
-		EndBlue = 1.0
-		EndRed = 0.5
 		PingPongColor = true
-		StartBlue = 0.5
-		StartGreen = 1.0
+		StartAlpha = 1
+		EndAlpha = 0.5
+		StartRed = 1.0
+		StartGreen = 0.7
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.6
+		EndBlue = 0.25
 		EaseOut = 1.0
 		EndFrame = 1
 		NumFrames = 1
@@ -161,21 +165,22 @@
 		RandomFlipHorizontal = true
 		EndOffsetZ = 30.0
 		OriginX = 64.0
-		OriginY = 420.0
+		OriginY = 440.0
 		RadialOffsetMax = 720.0
 		RadialOffsetMin = -720.0
 		StartOffsetZ = -30.0
 		DieWithOwner = true
 		LocationFromOwner = "Take"
-		EndScaleX = 0.7
 		EndScaleY = 2.0
 		ScaleFromOwner = "Ignore"
 		ScaleMax = 1.0
 		ScaleMin = 0.25
 		ScaleY = 0.5
 		StartScaleX = 0.6
+		EndScaleX = 0.2
 		StartScaleY = 0.1
 		Ambient = 0.0
+		OffsetZ = 30
 	}
 	
 	{
@@ -192,6 +197,7 @@
 	{
 		Name = "HeraProjectileAnimGlowDetonate"
 		InheritFrom = "HeraProjectileAnimGlow"
+		Hue = -0.33
 		CreateAnimation = "null"
 		EndAlpha = 0.0
 		PingPongColor = false
@@ -201,9 +207,9 @@
 		RandomDurationMin = 0.2
 		OriginY = 440.0
 		DieWithOwner = false
-		EndScaleX = 1.0
 		Scale = 1.25
 		StartScaleX = 0.5
+		EndScaleX = 0.2
 		CreateAnimations =
 		[
 			{ Name = "HeraProjectileAnimGlowDetonateParticleRandom" }
@@ -274,7 +280,7 @@
 		Scale = 3.0
 		ScaleFromOwner = "Ignore"
 		ScaleX = 2.5
-		Color = { Red = 0.4 Green = 0.05 Blue = 1.0 }
+		Color = { Red = 0.1 Green = 0.7 Blue = 1.0 }
 	}
 	
 	{
@@ -312,12 +318,13 @@
 		InheritFrom = "HeraProjectileAnim"
 		FilePath = "Fx\HeraCastGroundLine\HeraCastGroundLineDark"
 		GroupName = "FX_Terrain"
-		
+		Hue = -0.15
 		Sound = "/EmptyCue"
 		Alpha = 1.0
+		StartRed = 0.01
 		EndBlue = 0.5
-		EndGreen = 0.01
-		EndRed = 0.25
+		EndGreen = 0.3
+		EndRed = 0.0
 		PingPongColor = true
 		Duration = 1.0
 		EaseOut = 1.0
@@ -351,7 +358,7 @@
 	{
 		Name = "HeraCastDetonate"
 		FilePath = "Fx\HeraCastGroundLineDissipate\HeraCastGroundLineDissipate"
-		
+		Hue = -0.33
 		EndFrame = 22
 		NumFrames = 22
 		PlaySpeed = 30.0
@@ -591,7 +598,13 @@
 		EndGreen = 0.999
 		EndBlue = 0.999
 	}
-
+	
+	{
+		Name = "HeraSprintLoop"
+		InheritFrom = "HeraSprintPullFx"
+		Loop = true
+		DieWithOwner = true
+	}
 	{
 		Name = "HeraSprintFxSpawner"
 		Duration = 1
@@ -856,8 +869,6 @@
 		EndRed = 0.1
 		EndGreen = 0.3
 		EndBlue = 1.0
-		LocationZFromOwner = "Ignore"
-		OffsetZ = 0
 		ClearCreateAnimations = true
 		VisualFx = null
 		VisualFxCap = 32

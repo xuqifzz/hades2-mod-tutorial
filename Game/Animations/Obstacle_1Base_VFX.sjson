@@ -129,13 +129,6 @@
 	}
 
 	{
-		Name = "SheepSickAura"
-		InheritFrom = "SafeZoneCircle"
-		EndRed = 1.0
-		StartRed = 1
-	}
-
-	{
 		Name = "SafeZoneCircleExpireWarning"
 		InheritFrom = "SafeZoneCircle"
 		ScaleRadius = 0

@@ -3,14 +3,19 @@ RoomSetData.P =
 	BaseP =
 	{
 		DebugOnly = true,
+		RichPresence = "#RichPresence_P",
 		Icon = "GUI\\Screens\\BountyBoard\\Biome_Olympus",
 		ResultText = "RunHistoryScreenResult_Olympus",
+		
 
 		Tags = { "Indoor", "Outdoor" },
 		BlockHeroLight = true,
 
 		-- LocationText = "BiomeP",
 		SaveProfileLocationText = "BiomeP_Short",
+
+		NarrativeContextArt = "DialogueBackground_MountOlympus",
+		NarrativeContextArtFlippable = false,
 
 		LegalEncounters = EncounterSets.PEncountersDefault,
 		--DevotionEncounters = {"DevotionTestP"},
@@ -38,7 +43,273 @@ RoomSetData.P =
 		HasPickaxePoint = true,
 		HasFishingPoint = true,
 		HasExorcismPoint = true,
-		HarvestPointBase = "OlympusTerrainHarvestPointBase01",
+		HarvestPointBase = "DrownedChambersHarvestPointBase01",
+
+		ShovelPointChance = 0.16,
+		PickaxePointChance = 0.24,
+		ExorcismPointChance = 0.16,
+		FishingPointChance = 0.12,
+
+		LocationAnimName = "InfoBannerOlympusIn",
+		LocationAnimOutName = "InfoBannerOlympusIn",
+
+		HarvestPointRequirements =
+		{
+			{
+				SumPrevRooms = 3,
+				Path = { "NumHarvestPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantPIris" },
+						Comparison = "<",
+						Value = 12,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+				},
+			},
+		},
+		ShovelPointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeToolsShop" },
+			},
+			{
+				SumPrevRooms = 4,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantPOliveSeed" },
+						Comparison = "<",
+						Value = 12,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 2,
+						Path = { "NumPickaxePoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
+		},
+		PickaxePointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				SumPrevRooms = 4,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "OrePAdamant" },
+						Comparison = "<",
+						Value = 18,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 2,
+						Path = { "NumShovelPoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
+		},
+		ExorcismPointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 2,
+			},
+			{
+				Path = { "CurrentRun", "BiomeDepthCache" },
+				Comparison = ">=",
+				Value = 2,
+			},
+			{
+				SumPrevRooms = 6,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					OrRequirements =
+					{
+						{
+							{
+								Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+								Comparison = "<=",
+								Value = 1500,
+							},
+						},
+						{
+							{
+								Path = { "GameState", "ExorcisedNames", "ShadeTyphonIdle" },
+								Comparison = "<",
+								Value = 2,
+							},
+						},
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 2,
+						Path = { "NumFishingPoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
+		},
+		FishingPointRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeToolsShop" },
+			},
+			{
+				SumPrevRooms = 5,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", },
+						NotHasAll = { "FishPCommon", "FishPRare", "FishPLegendary" },
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 2,
+						Path = { "NumExorcismPoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
+		},
 
 		SecretSpawnChance = 0.05,
 		SecretDoorRequirements =
@@ -70,7 +341,6 @@ RoomSetData.P =
 		FlipHorizontalChance = 0.0,
 
 		BreakableValueOptions = { MaxHighValueBreakables = 6 },
-		NarrativeContextArt = "DialogueBackground_Olympus_Silent",
 
 		Ambience = "/Ambience/OlympusOutdoorAmbience",
 
@@ -101,8 +371,32 @@ RoomSetData.P =
 						Comparison = "~=",
 						Value = "P_Intro",
 					},
+					NamedRequirementsFalse = { "OlympusBiomeAfterTrueEnding" },
 				},
 				Args = { DelayMin = 3.5, DelayMax = 5.0 },
+			},
+		},
+
+		ThreadedEvents =
+		{
+			{
+				FunctionName = "DisplayInfoBanner",
+				Args = RoomEventData.BountyInfoBannerArgs,
+				GameStateRequirements =
+				{
+					NamedRequirements = { "ShouldShowBountyInfoBanner" },
+				},
+			},
+		},
+		PostCombatReloadThreadedEvents =
+		{
+			{
+				FunctionName = "DisplayInfoBanner",
+				Args = RoomEventData.BountyInfoBannerArgs,
+				GameStateRequirements =
+				{
+					NamedRequirements = { "ShouldShowBountyInfoBanner" },
+				},
 			},
 		},
 	},
@@ -142,10 +436,15 @@ RoomSetData.P =
 		FlipHorizontal = false,
 		FlipHorizontalChance = 0.0,
 
+		HarvestPointChances = { 0.02, },
+		ShovelPointChance = 0.02,
+		PickaxePointChance = 0.02,
+		--ExorcismPointChance = 0.02,
+		FishingPointChance = 0.02,
+
 		RushMaxRangeOverride = 525,
 
-		ForceAtBiomeDepthMin = 0,
-		ForceAtBiomeDepthMax = 1,
+		AlwaysForce = true,
 		MaxAppearancesThisBiome = 1,
 
 		ZoomFraction = 0.75,
@@ -159,7 +458,6 @@ RoomSetData.P =
 		StartUnthreadedEvents =
 		{
 			{ FunctionName = "EndBiomeRecords", },
-			{ FunctionName = "EndAllBiomeStates" },
 		},
 
 		ThreadedEvents =
@@ -170,9 +468,7 @@ RoomSetData.P =
 				Args = RoomEventData.BountyInfoBannerArgs,
 				GameStateRequirements =
 				{
-					{
-						PathTrue = { "CurrentRun", "ActiveBounty" },
-					},
+					NamedRequirements = { "ShouldShowBountyInfoBanner" },
 				},
 			},
 			{
@@ -180,12 +476,6 @@ RoomSetData.P =
 				Args =
 				{
 					ObjectiveSetName = "BountyAdvancedTooltip",
-				},
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "CurrentRun", "ActiveBounty" },
-					},
 				},
 			},
 		},
@@ -214,12 +504,12 @@ RoomSetData.P =
 				TriggerGroup = "BannerTarget",
 				WithinDistance = 600,
 				FunctionName = "DisplayInfoBanner",
-				Args = { Text = "Location_BiomeP", },
-				GameStateRequirements =
+				Args =
 				{
-					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
-					},
+					Text = "Location_BiomeP",
+					AnimationName = "InfoBannerOlympusIn",
+					AnimationOutName = "InfoBannerOlympusOut",
+					Delay = 2.0,
 				},
 			},
 
@@ -257,7 +547,7 @@ RoomSetData.P =
 					},
 				},
 			},
-			[561086] =
+			[772025] =
 			{
 				PlayOnce = true,
 				UseText = "UseExamineMisc",
@@ -294,29 +584,42 @@ RoomSetData.P =
 
 		EnterVoiceLines =
 		{
-			[1] = { GlobalVoiceLines = "StartPackagedBountyRunVoiceLines" },
-			[2] = { GlobalVoiceLines = "BiomeStateChangeStartVoiceLines" },
-			[3] =
+			{ GlobalVoiceLines = "StartPackagedBountyRunVoiceLines" },
+			{ GlobalVoiceLines = "BiomeStateChangeStartVoiceLines" },
 			{
 				RandomRemaining = true,
 				PreLineWait = 2.65,
 				SuccessiveChanceToPlay = 0.5,
 				SuccessiveChanceToPlayAll = 0.2,
-				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
 
 				{ Cue = "/VO/MelinoeField_2455", Text = "Mount Olympus..." },
 				{ Cue = "/VO/MelinoeField_2456", Text = "I'm here..." },
 				{ Cue = "/VO/MelinoeField_2457", Text = "Made it this far..." },
+				{ Cue = "/VO/Melinoe_1463", Text = "Cold up here..." },
+				{ Cue = "/VO/Melinoe_1464", Text = "At last...", PlayFirst = true },
+				{ Cue = "/VO/MelinoeField_2714", Text = "Deep breath, Mel...",
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredHealthFraction",
+							FunctionArgs = { Comparison = ">=", Value = 0.75, },
+						},
+					},
+				},
 				{ Cue = "/VO/MelinoeField_2458", Text = "Now for the climb...",
 					GameStateRequirements =
 					{
 						{
-							PathFalse = { "CurrentRun", "SpeechRecord", "/VO/MelinoeField_2524" },
+							Path = { "CurrentRun", "SpeechRecord" },
+							HasNone = { "/VO/MelinoeField_2524", "/VO/MelinoeField_2544" },
 						},
 					},
 				},
-				{ Cue = "/VO/Melinoe_1463", Text = "Cold up here..." },
-				{ Cue = "/VO/Melinoe_1464", Text = "At last...", PlayFirst = true },			
 			},
 		},
 
@@ -326,15 +629,17 @@ RoomSetData.P =
 	{
 		InheritFrom = { "P_BaseOutdoor", "BaseP" },
 		MaxCreationsThisRun = 1,
-		FishingPointChance = 0.9,
+		FishingPointChance = 0.8,
 		LegalEncounters = { "Shop" },
 		ForcedReward = "Shop",
 		StoreDataName = "WorldShop",
 		StartUnthreadedEvents = EncounterSets.ShopRoomEvents,
 		NoReroll = true,
 		
+		ZagContractDestinationId = 778665,
+		FlipZagContract = true,
+		
 		ZoomFraction = 0.855,
-		FlipHorizontalChance = 0.0,
 
 		EnterSound = "/SFX/StyxWingDoorCloseSFX",
 
@@ -400,8 +705,8 @@ RoomSetData.P =
 		InheritFrom = { "P_BaseOutdoor", "BaseP" },
 		Tags = { "Indoor", "Outdoor" },
 
-		ForceAtBiomeDepthMin = 10,
-		ForceAtBiomeDepthMax = 10,
+		ForceAtBiomeDepthMin = 9,
+		ForceAtBiomeDepthMax = 9,
 		LinkedRoom = "P_Boss01",
 
 		EnterSound = "/SFX/StyxWingDoorCloseSFX",
@@ -411,10 +716,12 @@ RoomSetData.P =
 			-- None
 		},
 		
+		ZagContractRewardDestinationId = 778667,
+		
 		SecretSpawnChance = 0.0,
 
 		SkipLastKillPresentation = true,
-		
+
 		LegalEncounters = { "Shop" },
 		ForcedFirstReward = "Shop",
 		StartUnthreadedEvents = EncounterSets.ShopRoomEvents,
@@ -429,6 +736,65 @@ RoomSetData.P =
 		EntranceDirection = "LeftRight",
 		FlipHorizontalChance = 0.0,
 
+		IntroSequenceDuration = 0.96,
+
+		IgnoreStemMixer = true,
+		MusicMutedStems = { "Drums", "Bass", "Guitar", },
+
+		StartThreadedEvents =
+		{			
+			{
+				FunctionName = "ActivateFamiliar",
+				GameStateRequirements =
+				{
+					-- gale appearance requirements; requires HecateGrantsFamiliars01 to be recruited
+					{
+						PathFalse = { "GameState", "FamiliarsUnlocked", "PolecatFamiliar" },
+					},
+					{
+						-- PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeFamiliarUpgradeSystem" }
+					},
+					{
+						Path = { "GameState", "LifetimeResourcesSpent", "FamiliarPoints" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
+					NamedRequirementsFalse = { "HecateFamiliarsInHub" },
+					-- ChanceToPlay = 0.75,
+				},
+				Args =
+				{
+					Id = 778664,
+					Name = "PolecatFamiliar",
+					SkipAISetup = true,
+					OverwriteSelf =
+					{
+						OnUsedFunctionName = "nil",
+						SpecialInteractFunctionName = "PolecatFamiliarSpecialInteractLockedInRun",
+						PreRecruit = true,
+						DistanceTriggers =
+						{
+							{
+								WithinDistance = 550,
+								FunctionName = "GenericPresentation",
+								Args =
+								{
+									PreWait = 0.0,
+									AngleTowardHero = true,
+									SetAnimation = "Familiar_Polecat_Greet",
+									VoiceLines = { GlobalVoiceLines = "PolecatReactionVoiceLines" },
+								},
+							},
+						}
+					},
+				},
+			},
+
+		},
+
 		EnterVoiceLines =
 		{
 			{
@@ -436,9 +802,8 @@ RoomSetData.P =
 				RandomRemaining = true,
 				PreLineWait = 1.6,
 				SuccessiveChanceToPlay = 0.25,
-				SuccessiveChanceToPlayAll = 0.05,
+				SuccessiveChanceToPlayAll = 0.1,
 
-				{ Cue = "/VO/MelinoeField_2512", Text = "The summit's just ahead..." },
 				{ Cue = "/VO/MelinoeField_2513", Text = "Quiet here at least...", PlayFirst = true },
 			},
 		},
@@ -468,7 +833,7 @@ RoomSetData.P =
 				SetupGameStateRequirements =
 				{
 					{
-						--
+						PathFalse = { "GameState", "ReachedTrueEnding" }
 					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
@@ -496,14 +861,17 @@ RoomSetData.P =
 	P_Boss01 =
 	{
 		InheritFrom = { "BaseP", },
-
 		-- the following may be removed once Indoor/Outdoor is chosen for this map
 		Ambience = "/Leftovers/Ambience/LavaEruptRumbleLoop_2D",
 		ReverbValue = 1,
 		GlobalEcho = 0.5,
 
-		NarrativeContextArt = "nil",
+		NarrativeContextArt = "DialogueBackground_BossRoom_Prometheus",
 		HeroCreateAnimation = "nil",
+
+		BackupCauseOfDeath = "Prometheus",
+		
+		ExitsUnlockedThreadedEvents = {},
 
 		SwapSounds =
 		{
@@ -512,6 +880,7 @@ RoomSetData.P =
 		},
 
 		ValidateSecretData = false,
+		HasFishingPoint = false,
 
 		FlipHorizontal = false,
 		FlipHorizontalChance = 0,
@@ -524,14 +893,15 @@ RoomSetData.P =
 
 		ResetBinksOnEnter = true,
 		ResetBinksOnExit = true,
-		LegalEncounters = { "BossPrometheus01", },
+		LegalEncounters = { "BossPrometheus01", "BossPrometheus02" },
 		ForcedReward = "MixerPBossDrop",
 
-		EntranceFunctionName = "RoomEntranceBoss",
-		EntranceFunctionArgs = { AngleTowardsIdOnEnd = 560670 },
+		EntranceFunctionName = "RoomEntranceBossPrometheus",
 		IntroSequenceDuration = 2.7,
 		BlockCameraReattach = true,
 		ZoomFraction = 0.785,
+
+		SpeakerName = { "Selene" },
 
 		UnthreadedEvents =
 		{
@@ -540,36 +910,95 @@ RoomSetData.P =
 				Args =
 				{
 					ProcessTextLinesIds = { 560670 },
-					SetupBossIds = { 560670, 560671, },
-					PreTextLinesWaitTime = 0.5,
+					SetupBossIds = { 560670, 560671, 768168 },
 					DelayedStart = true,
 				},
 			},
 		},
-		
-		ExitFunctionName = "EndEarlyAccessPresentation",
-		SkipLoadNextMap = true,
 
 		EnterVoiceLines =
 		{
 			{
-				BreakIfPlayed = true,
-				RandomRemaining = true,
-				PreLineWait = 1.3,
-				SuccessiveChanceToPlay = 0.1,
-				UsePlayerSource = true,			
+				PreLineWait = 0.5,
+				PostLineWait = 0.0,
+				ObjectType = "Prometheus",
 				GameStateRequirements =
 				{
 					{
-						Path = { "GameState", "RoomsEntered", "P_Boss01" },
+						Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
 						Comparison = ">=",
 						Value = 3,
 					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "PrometheusAboutAltFight01", "PrometheusAboutAltFight01_B" }
+					},
 				},
-				-- { Cue = "/VO/MelinoeField_0529", Text = "Polyphemus!", PlayFirst = true },
+
+				{ Cue = "/VO/Heracles_0370", Text = "It's her...",
+					ObjectType = "Heracles" },
+				{ Cue = "/VO/Prometheus_0487", Text = "...What did I tell you?", BreakIfPlayed = true, PreLineWait = 0.15 },
 			},
 			{
 				BreakIfPlayed = true,
+				RandomRemaining = true,
+				PreLineWait = 1.0,
+				SuccessiveChanceToPlay = 0.8,
+				SuccessiveChanceToPlayAll = 0.1,
+				PostLineWait = 0.0,
+				ObjectType = "Heracles",
+				-- PreLineAnim = "Heracles_Hub_Greet", -- slow flex
+				-- PreLineAnim = "Heracles_Hub_Granting", -- finger point
+				-- PreLineAnim = "Heracles_Hub_Brooding", -- quick flex
+
+				{ Cue = "/VO/Heracles_0366", Text = "She's here." },
+				{ Cue = "/VO/Heracles_0371", Text = "The witch.", PlayFirst = true },
+				{ Cue = "/VO/Heracles_0364", Text = "He knew it.", PreLineAnim = "Heracles_Hub_Greet" },
+				{ Cue = "/VO/Heracles_0365", Text = "Just like he said..." },
+				{ Cue = "/VO/Heracles_0158", Text = "Well?" },
+				{ Cue = "/VO/Heracles_0370", Text = "It's her...",
+					PreLineAnim = "Heracles_Hub_Granting",
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequireRunsSinceTextLines",
+							FunctionArgs = { TextLines = { "PrometheusAboutAltFight01", "PrometheusAboutAltFight01_B" }, Min = 9 },
+						},
+					}
+				},
+				{ Cue = "/VO/Heracles_0372", Text = "Didn't I just see you?",
+					PreLineAnim = "Heracles_Hub_Granting",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "EncountersOccurredCache" },
+							HasAny = { "HeraclesCombatO", "HeraclesCombatO2", "HeraclesCombatP", "HeraclesCombatP2" },
+						},
+					},
+				},
+				{ Cue = "/VO/Heracles_0373", Text = "Again we meet.",
+					PreLineAnim = "Heracles_Hub_Greet",
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "EncountersOccurredCache" },
+							HasAny = { "HeraclesCombatN", "HeraclesCombatN2", "HeraclesCombatO", "HeraclesCombatO2", "HeraclesCombatP", "HeraclesCombatP2" },
+						},
+					},
+				},
+				{ Cue = "/VO/Heracles_0374", Text = "Injured is she...",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredHealthFraction",
+							FunctionArgs = { Comparison = "<=", Value = 0.45, },
+						},
+					},
+				},
+			},
+			{
 				RandomRemaining = true,
 				PreLineWait = 1.0,
 				SuccessiveChanceToPlay = 0.8,
@@ -577,16 +1006,49 @@ RoomSetData.P =
 				PostLineWait = 0.0,
 				ObjectType = "Prometheus",
 
-				{ Cue = "/VO/Prometheus_0053", Text = "Stop right there.", PlayFirst = true },
-				{ Cue = "/VO/Prometheus_0054", Text = "Don't move." },
-				{ Cue = "/VO/Prometheus_0055", Text = "It's you." },
-				{ Cue = "/VO/Prometheus_0056", Text = "I knew it.", PostLineFunctionName = "EagleReaction", },
-				{ Cue = "/VO/Prometheus_0057", Text = "I knew it!", PostLineFunctionName = "EagleReaction", },
-				{ Cue = "/VO/Prometheus_0058", Text = "Here's our prey.", PostLineFunctionName = "EagleReaction", },
-				{ Cue = "/VO/Prometheus_0059", Text = "A brief word?" },
-				{ Cue = "/VO/Prometheus_0060", Text = "Gods..." },
-				{ Cue = "/VO/Prometheus_0063", Text = "My premonition." },
-				{ Cue = "/VO/Prometheus_0061", Text = "Agent of Change...",
+				{ Cue = "/VO/Prometheus_0053", Text = "Stop right there.", PlayFirst = true, BreakIfPlayed = true },
+				{ Cue = "/VO/Prometheus_0054", Text = "Don't move.", BreakIfPlayed = true },
+				{ Cue = "/VO/Prometheus_0055", Text = "It's you.", BreakIfPlayed = true },
+				{ Cue = "/VO/Prometheus_0056", Text = "I knew it.", PostLineFunctionName = "EagleReaction", BreakIfPlayed = true },
+				{ Cue = "/VO/Prometheus_0057", Text = "I knew it!", PostLineFunctionName = "EagleReaction", BreakIfPlayed = true },
+				{ Cue = "/VO/Prometheus_0058", Text = "Here's our prey.", PostLineFunctionName = "EagleReaction", BreakIfPlayed = true },
+				{ Cue = "/VO/Prometheus_0059", Text = "A brief word?", BreakIfPlayed = true },
+				{ Cue = "/VO/Prometheus_0060", Text = "Gods...", BreakIfPlayed = true },
+				{ Cue = "/VO/Prometheus_0063", Text = "My premonition.", BreakIfPlayed = true },
+				{ Cue = "/VO/Prometheus_0496", Text = "Again we meet.", BreakIfPlayed = true },
+				{ Cue = "/VO/Prometheus_0492", Text = "I thought you might show up.", BreakIfPlayed = true },
+				{ Cue = "/VO/Prometheus_0493", Text = "{#Emph}Ah {#Prev}yes...", BreakIfPlayed = true },
+				{ Cue = "/VO/Prometheus_0494", Text = "Predictably enough...", BreakIfPlayed = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "LastBossHealthBarRecord", "Prometheus" },
+							Comparison = ">",
+							Value = 0,
+						},
+					},
+				},
+				{ Cue = "/VO/Prometheus_0495", Text = "How was the climb?", BreakIfPlayed = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "RoomsEntered", "P_Boss01" },
+							Comparison = ">=",
+							Value = 4,
+						},
+					},
+				},
+				{ Cue = "/VO/Prometheus_0497", Text = "Not had your fill?", BreakIfPlayed = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "RoomsEntered", "P_Boss01" },
+							Comparison = ">=",
+							Value = 6,
+						},
+					},
+				},
+				{ Cue = "/VO/Prometheus_0061", Text = "Agent of Change...", BreakIfPlayed = true,
 					GameStateRequirements =
 					{
 						{
@@ -595,7 +1057,7 @@ RoomSetData.P =
 						},
 					},
 				},
-				{ Cue = "/VO/Prometheus_0064", Text = "What do you know.",
+				{ Cue = "/VO/Prometheus_0064", Text = "What do you know.", BreakIfPlayed = true,
 					GameStateRequirements =
 					{
 						{
@@ -605,7 +1067,7 @@ RoomSetData.P =
 						},
 					}
 				},
-				{ Cue = "/VO/Prometheus_0062", Text = "Our nightly routine.",
+				{ Cue = "/VO/Prometheus_0062", Text = "Our nightly routine.", BreakIfPlayed = true,
 					GameStateRequirements =
 					{
 						{
@@ -618,12 +1080,130 @@ RoomSetData.P =
 						},
 					},
 				},
+				{ Cue = "/VO/Prometheus_0490", Text = "All present and accounted for.", BreakIfPlayed = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+							Comparison = ">=",
+							Value = 3,
+						},
+					},
+				},
+				{ Cue = "/VO/Prometheus_0486", Text = "I told you so, big man.", PreLineWait = 0.5,
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+							Comparison = ">=",
+							Value = 3,
+						},
+					},
+				},
+				{ Cue = "/VO/Prometheus_0487", Text = "...What did I tell you?", PreLineWait = 0.5,
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+							Comparison = ">=",
+							Value = 3,
+						},
+						{
+							PathTrue = { "GameState", "TextLinesRecord", "PrometheusAboutAltFight05" },
+						},
+					},
+				},
+				{ Cue = "/VO/Prometheus_0488", Text = "You see, big man?", PreLineWait = 0.5,
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+							Comparison = ">=",
+							Value = 3,
+						},
+					},
+				},
+				{ Cue = "/VO/Prometheus_0489", Text = "Look there, man.", PreLineWait = 0.5,
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+							Comparison = ">=",
+							Value = 3,
+						},
+					},
+				},
+				{ Cue = "/VO/Prometheus_0491", Text = "Say hello, Heracles.", PreLineWait = 0.5,
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+							Comparison = ">=",
+							Value = 3,
+						},
+					},
+				},
+			},
+			{
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				PreLineWait = 0.35,
+				ObjectType = "Heracles",
+
+				{ Cue = "/VO/Heracles_0367", Text = "Fine.",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "LastLinePlayed" },
+							IsAny = { "/VO/Prometheus_0486" },
+						},
+					},
+				},
+				{ Cue = "/VO/Heracles_0368", Text = "Show-off.",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "LastLinePlayed" },
+							IsAny = { "/VO/Prometheus_0487" },
+						},
+					},
+				},
+				{ Cue = "/VO/Heracles_0369", Text = "I do.",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "LastLinePlayed" },
+							IsAny = { "/VO/Prometheus_0488" },
+						},
+					},
+				},
+				{ Cue = "/VO/Heracles_0103_B", Text = "No.",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "LastLinePlayed" },
+							IsAny = { "/VO/Prometheus_0491" },
+						},
+					},
+				},
 			},
 			{
 				RandomRemaining = true,
 				PreLineWait = 1.0,
 				SuccessiveChanceToPlay = 0.5,
 				UsePlayerSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+						Comparison = "<",
+						Value = 3,
+					},
+				},
 
 				{ Cue = "/VO/MelinoeField_2514", Text = "Prometheus.", PlayFirst = true },
 				{ Cue = "/VO/MelinoeField_2515", Text = "Titan." },
@@ -640,11 +1220,12 @@ RoomSetData.P =
 				UseText = "UseExamineMisc",
 				SetupGameStateRequirements =
 				{
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
 				{
-					Inspect_P_PostBoss01_01 =
+					Inspect_P_Boss01_01 =
 					{
 						{ Cue = "/VO/Storyteller_0304",
 							Text = "{#Emph}No trace remains now of the Titan of Foresight or his Eagle companion, save for a single feather left behind; as if to goad the Princess on toward greater heights." },
@@ -667,13 +1248,13 @@ RoomSetData.P =
 				SetupGameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "Inspect_P_PostBoss01_01" }
+						PathTrue = { "GameState", "TextLinesRecord", "Inspect_P_Boss01_01" }
 					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
 				{
-					Inspect_P_PostBoss01_02 =
+					Inspect_P_Boss01_02 =
 					{
 						{ Cue = "/VO/Storyteller_0303",
 							Text = "{#Emph}Not even the intense heat rising from the mountain's central hearth can entirely dispel the chill here in the air; a gathering storm, not wrought by gods, but something else." },
@@ -689,6 +1270,71 @@ RoomSetData.P =
 					},
 				},
 			},
+			[793951] =
+			{
+				PlayOnce = true,
+				UseText = "UseExamineMisc",
+				SetupGameStateRequirements =
+				{
+					{
+						Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					NamedRequirements = { "NoRecentInspectPointUsed" },
+				},
+				InteractTextLineSets =
+				{
+					Inspect_P_Boss01_03 =
+					{
+						{ Cue = "/VO/Storyteller_0425",
+							Text = "{#Emph}It seems that the perceptive Titan who defied the King of the Olympians and one of that King's strongest and most-fearsome sons are battling as one, on the same side..." },
+						EndVoiceLines =
+						{
+							{
+								PreLineWait = 0.4,
+								UsePlayerSource = true,
+								RequiredMinElapsedTime = 3,
+								{ Cue = "/VO/MelinoeField_3618", Text = "It seems that way for sure." },
+							},
+						},
+					},
+				},
+			},
+			[794213] =
+			{
+				PlayOnce = true,
+				UseText = "UseExamineMisc",
+				SetupGameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "Inspect_P_Boss01_03" },
+					},
+					{
+						Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					NamedRequirements = { "NoRecentInspectPointUsed" },
+				},
+				InteractTextLineSets =
+				{
+					Inspect_P_Boss01_04 =
+					{
+						{ Cue = "/VO/Storyteller_0460",
+							Text = "{#Emph}These hallowed heights ought be for gods alone, perhaps their worshipers at best; not for their former allies and their bitterest of foes, who plot against their divine rule." },
+						EndVoiceLines =
+						{
+							{
+								PreLineWait = 0.4,
+								UsePlayerSource = true,
+								RequiredMinElapsedTime = 3,
+								{ Cue = "/VO/MelinoeField_3658", Text = "What are they scheming...?" },
+							},
+						},
+					},
+				},
+			},
 		},
 
 	},
@@ -696,7 +1342,7 @@ RoomSetData.P =
 	P_PostBoss01 =
 	{
 		InheritFrom = { "BaseP" },
-
+		RichPresence = "#RichPresence_PostBossSurface",
 		LegalEncounters = { "Empty" },
 
 		ValidateSecretData = false,
@@ -704,16 +1350,18 @@ RoomSetData.P =
 		UnthreadedEvents = EncounterSets.EncounterEventsNonCombat,
 
 		EntranceFunctionName = "RoomEntranceStandard",
+		EnterSound = "/SFX/StyxWingDoorCloseSFX",
 
 		GameStateRequirements =
 		{
 			-- None
 		},
+		
+		ExitsUnlockedThreadedEvents = {},
 
 		RequiresLinked = true,
 		NextRoomSet = { "Q", },
-		ExitPreviewAnim = "ExitUpPreview",
-		RichPresence = "#RichPresence_PostBoss",
+		ExitPreviewAnim = "ExitAheadPreview",
 		IgnoreMusic = true,
 		BlockRunProgressUI = true,
 		Ambience = "/Leftovers/SFX/WindAmbienceLocal",
@@ -731,16 +1379,35 @@ RoomSetData.P =
 		ChallengeSpawnChance = 0.0,
 		SurfaceShopSpawnChance = 1.0,
 		ForceSurfaceShop = true,
-		HasFishingPoint = true,
 
 		WellShopSpawnChance = 0.0,
 		ForceWellShop = false,
 		SecretSpawnChance = 0.0,
 		SellTraitShrineUpgrade = true,
-		AllowExorcismPreExitsUnlock = true,
-		AllowFishingPreExitsUnlock = true,
 
-		StartUnthreadedEvents = {},
+		StartUnthreadedEvents =
+		{
+			{
+				FunctionName = "GenericPresentation",
+				Args =
+				{
+					LoadPackages = { "Chronos" },
+					LoadVoiceBanks = { "Chronos" },
+				},
+			},
+			{
+				FunctionName = "CheckPriorityConversations",
+				Args =
+				{
+					Conversations =
+					{
+						"NeoChronosAboutOlympus01",
+						"NeoChronosAboutOlympus01_B",
+						"NeoChronosAboutOlympus02",
+					},
+				},
+			},
+		},
 
 		SurfaceShopRequirements =
 		{
@@ -810,21 +1477,24 @@ RoomSetData.P =
 				UseText = "UseExamineMisc",
 				SetupGameStateRequirements =
 				{
+					{
+						PathTrue = { "GameState", "RoomsEntered", "Q_Intro" },
+					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
 				{
 					Inspect_P_PostBoss01_01 =
 					{
-						{ Cue = "",
-							Text = "{#Emph}TKTK" },
+						{ Cue = "/VO/Storyteller_0329",
+							Text = "{#Emph}Beyond the fires on the heights of Mount Olympus lies the solitary pathway to the summit, on which stands a fortress stronger than the mightiest of gods and Titans both." },
 						EndVoiceLines =
 						{
 							{
 								PreLineWait = 0.4,
 								UsePlayerSource = true,
 								RequiredMinElapsedTime = 3,
-								-- { Cue = "/VO/MelinoeField_2524", Text = "Bit of a climb..." },
+								{ Cue = "/VO/MelinoeField_3250", Text = "And past that, the Palace of Zeus..." },
 							},
 						},
 					},
@@ -840,13 +1510,11 @@ RoomSetData.P =
 				{ Name = "MelinoeAnyQuipSpeech" },
 			},
 			{
-				PreLineWait = 3.2,
-				RandomRemaining = true,
-				BreakIfPlayed = true,
-				SuccessiveChanceToPlay = 0.85,
-				SuccessiveChanceToPlayAll = 0.15,
+				PreLineWait = 2.5,
+				PlayOnce = true,
+				PlayOnceContext = "P_PostBossExitVO",
 
-				-- { Cue = "/VO/MelinoeField_2451", Text = "The path to Olympus...", PlayFirst = true },
+				{ Cue = "/VO/MelinoeField_2512", Text = "The summit's just ahead..." },
 			},
 		},
 
@@ -922,7 +1590,7 @@ RoomSetData.P =
 
 		MultipleEncountersData =
 		{
-			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat01_PreCombat01", "P_Combat01_PreCombat02" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat01_PreCombat01", "P_Combat01_PreCombat02", "P_Combat01_PreCombat03", "P_Combat01_PreCombat04" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
 				
 			{ LegalEncounters = EncounterSets.PEncountersDefault },
 		},
@@ -938,10 +1606,16 @@ RoomSetData.P =
 		ZoomFraction = 0.75,
 
 		EnterSound = "/SFX/StyxWingDoorCloseSFX",
-
+		SwapAnimations = {
+			["OlympusSnowExplosionDecal"] = "OlympusCraterIndoor",
+			["ExplosionCrater"] = "OlympusCraterIndoor",
+			["SuitExhaustSprintDust"] = "SuitExhaustSprintDust_Olympus",
+			["ExplosionScorchDecal"] = "OlympusSnowExplosionDecal",
+			["EphyraUndeadGib"] = "EphyraUndeadGibOlympus",
+		},
 		MultipleEncountersData =
 		{
-			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat02_PreCombat01", "P_Combat02_PreCombat02" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat02_PreCombat01", "P_Combat02_PreCombat02", "P_Combat02_PreCombat03" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
 				
 			{ LegalEncounters = EncounterSets.PEncountersDefault },
 		},
@@ -957,7 +1631,7 @@ RoomSetData.P =
 
 		MultipleEncountersData =
 		{
-			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "OlympusIntro", "P_Combat03_PreCombat01" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true },
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "OlympusIntro", "P_Combat03_PreCombat01", "P_Combat03_PreCombat02", "P_Combat03_PreCombat03" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true },
 			{ LegalEncounters = EncounterSets.PEncountersDefault,
 				GameStateRequirements = { { PathTrue = { "GameState", "EncountersCompletedCache", "OlympusIntro" } }, }, },
 		},
@@ -1039,10 +1713,16 @@ RoomSetData.P =
 		HasFishingPoint = false,
 
 		EnterSound = "/SFX/StyxWingDoorCloseSFX",
-
+		SwapAnimations = {
+			["OlympusSnowExplosionDecal"] = "OlympusCraterIndoor",
+			["ExplosionCrater"] = "OlympusCraterIndoor",
+			["SuitExhaustSprintDust"] = "SuitExhaustSprintDust_Olympus",
+			["ExplosionScorchDecal"] = "OlympusSnowExplosionDecal",
+			["EphyraUndeadGib"] = "EphyraUndeadGibOlympus",
+		},
 		MultipleEncountersData =
 		{
-			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat04_PreCombat01" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat04_PreCombat01", "P_Combat04_PreCombat02", "P_Combat04_PreCombat03" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
 				
 			{ LegalEncounters = EncounterSets.PEncountersDefault },
 		},
@@ -1058,9 +1738,11 @@ RoomSetData.P =
 
 		EnterSound = "/SFX/StyxWingDoorCloseSFX",
 
+		RushMaxRangeOverride = 525,
+
 		MultipleEncountersData =
 		{
-			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat05_PreCombat01", "P_Combat05_PreCombat02" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat05_PreCombat01", "P_Combat05_PreCombat02", "P_Combat05_PreCombat03" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
 				
 			{ LegalEncounters = EncounterSets.PEncountersDefault },
 		},
@@ -1076,7 +1758,7 @@ RoomSetData.P =
 
 		MultipleEncountersData =
 		{
-			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat06_PreCombat01", "P_Combat06_PreCombat02" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat06_PreCombat01", "P_Combat06_PreCombat02", "P_Combat06_PreCombat03", "P_Combat06_PreCombat04" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
 				
 			{ LegalEncounters = EncounterSets.PEncountersDefault },
 		},
@@ -1089,10 +1771,16 @@ RoomSetData.P =
 		EntranceDirection = "Right",
 
 		EnterSound = "/SFX/StyxWingDoorCloseSFX",
-
+		SwapAnimations = {
+			["OlympusSnowExplosionDecal"] = "OlympusCraterIndoor",
+			["ExplosionCrater"] = "OlympusCraterIndoor",
+			["SuitExhaustSprintDust"] = "SuitExhaustSprintDust_Olympus",
+			["ExplosionScorchDecal"] = "OlympusSnowExplosionDecal",
+			["EphyraUndeadGib"] = "EphyraUndeadGibOlympus",
+		},
 		MultipleEncountersData =
 		{
-			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat07_PreCombat01" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat07_PreCombat01", "P_Combat07_PreCombat02", "P_Combat07_PreCombat03" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
 				
 			{ LegalEncounters = EncounterSets.PEncountersDefault },
 		},
@@ -1110,10 +1798,17 @@ RoomSetData.P =
 		EnterSound = "/SFX/StyxWingDoorCloseSFX",
 
 		EntranceDirection = "Right",
+		SwapAnimations = {
+			["OlympusSnowExplosionDecal"] = "OlympusCraterIndoor",
+			["ExplosionCrater"] = "OlympusCraterIndoor",
+			["SuitExhaustSprintDust"] = "SuitExhaustSprintDust_Olympus",
+			["ExplosionScorchDecal"] = "OlympusSnowExplosionDecal",
+			["EphyraUndeadGib"] = "EphyraUndeadGibOlympus",
+		},
 
 		MultipleEncountersData =
 		{
-			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat08_PreCombat01", "P_Combat08_PreCombat02", }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat08_PreCombat01", "P_Combat08_PreCombat02", "P_Combat08_PreCombat03" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
 				
 			{ LegalEncounters = EncounterSets.PEncountersDefault },
 		},
@@ -1124,14 +1819,21 @@ RoomSetData.P =
 		InheritFrom = { "P_BaseIndoor", "P_CombatData" },
 		
 		HasFishingPoint = false,
+		HasExorcismPoint = false,
 
 		EntranceDirection = "Right",
 
 		EnterSound = "/SFX/StyxWingDoorCloseSFX",
-
+		SwapAnimations = {
+			["OlympusSnowExplosionDecal"] = "OlympusCraterIndoor",
+			["ExplosionCrater"] = "OlympusCraterIndoor",
+			["SuitExhaustSprintDust"] = "SuitExhaustSprintDust_Olympus",
+			["ExplosionScorchDecal"] = "OlympusSnowExplosionDecal",
+			["EphyraUndeadGib"] = "EphyraUndeadGibOlympus",
+		},
 		MultipleEncountersData =
 		{
-			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat09_PreCombat01", "P_Combat09_PreCombat02" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat09_PreCombat01", "P_Combat09_PreCombat02", "P_Combat09_PreCombat03" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
 				
 			{ LegalEncounters = EncounterSets.PEncountersDefault },
 		},
@@ -1144,10 +1846,16 @@ RoomSetData.P =
 		EntranceDirection = "Left",
 
 		EnterSound = "/SFX/StyxWingDoorCloseSFX",
-
+		SwapAnimations = {
+			["OlympusSnowExplosionDecal"] = "OlympusCraterIndoor",
+			["ExplosionCrater"] = "OlympusCraterIndoor",
+			["SuitExhaustSprintDust"] = "SuitExhaustSprintDust_Olympus",
+			["ExplosionScorchDecal"] = "OlympusSnowExplosionDecal",
+			["EphyraUndeadGib"] = "EphyraUndeadGibOlympus",
+		},
 		MultipleEncountersData =
 		{
-			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat10_PreCombat01" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat10_PreCombat01", "P_Combat10_PreCombat02", "P_Combat10_PreCombat03" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
 				
 			{ LegalEncounters = EncounterSets.PEncountersDefault },
 		},
@@ -1163,7 +1871,7 @@ RoomSetData.P =
 
 		MultipleEncountersData =
 		{
-			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat11_PreCombat01", "P_Combat11_PreCombat02" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat11_PreCombat01", "P_Combat11_PreCombat02", "P_Combat11_PreCombat03", "P_Combat11_PreCombat04" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
 				
 			{ LegalEncounters = EncounterSets.PEncountersDefault },
 		},
@@ -1177,11 +1885,13 @@ RoomSetData.P =
 
 		EntranceDirection = "LeftRight",
 
+		ZoomFraction = 0.75,
+
 		EnterSound = "/SFX/StyxWingDoorCloseSFX",
 
 		MultipleEncountersData =
 		{
-			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat12_PreCombat01", "P_Combat12_PreCombat02" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat12_PreCombat01", "P_Combat12_PreCombat02", "P_Combat12_PreCombat03" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
 				
 			{ LegalEncounters = EncounterSets.PEncountersDefault },
 		},
@@ -1213,7 +1923,7 @@ RoomSetData.P =
 
 		MultipleEncountersData =
 		{
-			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat14_PreCombat01", "P_Combat14_PreCombat02" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat14_PreCombat01", "P_Combat14_PreCombat02", "P_Combat14_PreCombat03" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
 				
 			{ LegalEncounters = EncounterSets.PEncountersDefault },
 		},
@@ -1228,7 +1938,7 @@ RoomSetData.P =
 
 		MultipleEncountersData =
 		{
-			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat15_PreCombat01", "P_Combat15_PreCombat02" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat15_PreCombat01", "P_Combat15_PreCombat02", "P_Combat15_PreCombat03", "P_Combat15_PreCombat04" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
 				
 			{ LegalEncounters = EncounterSets.PEncountersDefault },
 		},
@@ -1243,7 +1953,79 @@ RoomSetData.P =
 
 		MultipleEncountersData =
 		{
-			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat16_PreCombat01" }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { "P_Combat16_PreCombat01", "P_Combat16_PreCombat02", "P_Combat16_PreCombat03", }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+				
+			{ LegalEncounters = EncounterSets.PEncountersDefault },
+		},
+	},
+
+	P_Combat17 =
+	{
+		InheritFrom = { "P_BaseOutdoor", "P_CombatData" },
+
+		EntranceDirection = "Right",
+
+		EnterSound = "/SFX/StyxWingDoorCloseSFX",
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BiomeEncounterDepth" },
+				Comparison = ">=",
+				Value = 3,
+			},
+		},
+
+		MultipleEncountersData =
+		{
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+				
+			{ LegalEncounters = EncounterSets.PEncountersDefault },
+		},
+	},
+
+	P_Combat18 =
+	{
+		InheritFrom = { "P_BaseIndoor", "P_CombatData" },
+
+		HasFishingPoint = false,
+
+		EntranceDirection = "LeftRight",
+
+		EnterSound = "/SFX/StyxWingDoorCloseSFX",
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BiomeEncounterDepth" },
+				Comparison = ">=",
+				Value = 3,
+			},
+		},
+
+		MultipleEncountersData =
+		{
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
+				
+			{ LegalEncounters = EncounterSets.PEncountersDefault },
+		},
+	},
+
+	P_Combat19 =
+	{
+		InheritFrom = { "P_BaseOutdoor", "P_CombatData" },
+
+		HasFishingPoint = false,
+
+		EntranceDirection = "Left",
+
+		ZoomFraction = 0.70,
+
+		EnterSound = "/SFX/StyxWingDoorCloseSFX",
+
+		MultipleEncountersData =
+		{
+			{ LegalEncounters = CombineTables(EncounterSets.PEncountersIntros, { }), GameStateRequirements = { ChanceToPlay = 1.0 }, ContinueIfInelligible = true, },
 				
 			{ LegalEncounters = EncounterSets.PEncountersDefault },
 		},
@@ -1267,27 +2049,14 @@ RoomSetData.P =
 		DisableRewardMagnetisim = true,
 		IntroSequenceDuration = 0.02,
 
-		ForceSurfaceShop = true,
+		SurfaceShopSpawnChance = 1.0,
 		ChallengeSpawnChance = 0.0,
 
-		HasFishingPoint = true,
-		FishingPointChance = 0.9,
-
-		HarvestPointChances =
-		{
-			0.8,
-			0.4,
-			0.1,
-		},
-
-		ShovelPointChance = 0.35,
-		PickaxePointChance = 0.35,
-		ExorcismPointChance = 0,
-
-		HarvestPointRequirements = { },
-		ShovelPointRequirements = { },
-		--PickaxePointRequirements = { },
-		ExorcismPointRequirements = { },
+		HarvestPointChances = { 0.5, 0.3, },
+		ShovelPointChance = 0.20,
+		PickaxePointChance = 0.30,
+		ExorcismPointChance = 0.20,
+		FishingPointChance = 0.15,
 
 		StartThreadedEvents =
 		{			
@@ -1304,6 +2073,11 @@ RoomSetData.P =
 				Comparison = ">=",
 				Value = 4,
 			},
+			{
+				Path = { "CurrentRun", "BiomeDepthCache" },
+				Comparison = "<=",
+				Value = 7,
+			},
 		},
 
 		EnterGlobalVoiceLines = "EnteredReprieveRoomVoiceLines",
@@ -1317,9 +2091,6 @@ RoomSetData.P =
 				UseText = "UseExamineMisc",
 				SetupGameStateRequirements =
 				{
-					{
-						-- PathTrue = { "GameState", "TextLinesRecord", "InspectHomerReveal01", },
-					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
@@ -1346,14 +2117,82 @@ RoomSetData.P =
 	P_Story01 =
 	{
 		InheritFrom = { "P_BaseIndoor", "BaseP" },
-		HasFishingPoint = true,
-		FishingPointChance = 0.9,
 		ForcedReward = "Story",
 		NoReroll = true,
 		MaxCreationsThisRun = 1,
-		RichPresence = "#RichPresence_PStory01",
-		AllowExorcismPreExitsUnlock = true,
-		AllowFishingPreExitsUnlock = true,
+		NarrativeContextArt = "nil",
+
+		SecretSpawnChance = 0.00,
+
+		HarvestPointRequirements =
+		{
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantPIris" },
+						Comparison = "<",
+						Value = 8,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+				},
+			},
+		},
+		ShovelPointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeToolsShop" },
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantPOliveSeed" },
+						Comparison = "<",
+						Value = 6,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+				},
+			},
+		},
+		PickaxePointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "OrePAdamant" },
+						Comparison = "<",
+						Value = 18,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+				},
+			},
+		},
 
 		SwapSounds =
 		{
@@ -1376,11 +2215,9 @@ RoomSetData.P =
 			{
 				Path = { "CurrentRun", "BiomeDepthCache" },
 				Comparison = "<=",
-				Value = 8,
+				Value = 7,
 			},
-			{
-				PathFalse = { "CurrentRun", "ActiveBounty" },
-			},
+			NamedRequirementsFalse = { "StandardPackageBountyActive" },
 		},
 
 		Ambience = "/Leftovers/Object Ambiences/ScummyTownAmbience",
@@ -1411,7 +2248,7 @@ RoomSetData.P =
 			{
 				BreakIfPlayed = true,
 				RandomRemaining = true,
-				PreLineWait = 1.9,
+				PreLineWait = 3.5,
 				SuccessiveChanceToPlay = 0.25,
 				SuccessiveChanceToPlayAll = 0.05,
 
@@ -1492,7 +2329,7 @@ RoomSetData.P =
 		{
 			{
 				Path = { "CurrentRun", "RoomsEntered", },
-				HasNone = { "P_MiniBoss02", },
+				HasNone = { "P_MiniBoss02", "P_MiniBoss03", },
 			},
 			{
 				Path = { "CurrentRun", "BiomeDepthCache" },
@@ -1532,7 +2369,7 @@ RoomSetData.P =
 
 		MaxCreationsThisRun = 1,
 		ForceAtBiomeDepthMin = 4,
-		ForceAtBiomeDepthMax = 8,
+		ForceAtBiomeDepthMax = 7,
 		MaxAppearancesThisBiome = 1,
 
 		EntranceDirection = "LeftRight",
@@ -1544,7 +2381,7 @@ RoomSetData.P =
 		EnterGlobalVoiceLines = "TalosEncounterStartVoiceLines",
 		CombatResolvedVoiceLines =
 		{
-			[1] = { GlobalVoiceLines = "MiniBossEncounterEndVoiceLines" },
+			{ GlobalVoiceLines = "MiniBossEncounterEndVoiceLines" },
 		},
 
 		InspectPoints =
@@ -1555,9 +2392,6 @@ RoomSetData.P =
 				UseText = "UseExamineMisc",
 				SetupGameStateRequirements =
 				{
-					{
-						-- PathTrue = { "GameState", "TextLinesRecord", "InspectHomerReveal01", },
-					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
@@ -1597,13 +2431,40 @@ RoomSetData.P =
 		ZoomFraction = 0.705,
 		RushMaxRangeOverride = 545,
 
-		IntroSequenceDuration = 1.95,
+		EntranceFunctionName = "RoomEntranceBoss",
+		EntranceFunctionArgs =
+		{
+			AngleTowardsIdOnEnd = 775781,
+			BossId = 775781,
+			BossIntroAnimation = "Enemy_Dragon_IntroRoar",
+			BossIntroAngleTowardPlayer = true,
+			EnterWait = 0.1,
+			BossIntroDelay = 1.1,
+			BossIntroShake = true,
+			BossIntroShakeDuration = 1.0,
+		},
+		BlockCameraReattach = true,
+
+		UnthreadedEvents =
+		{
+			{
+				FunctionName = "BossIntro",
+				Args =
+				{
+					ProcessTextLinesIds = { 775781 },
+					SetupBossIds = { 775781, },
+					DelayedStart = true,
+					SkipBossMusic = true,
+				},
+			},
+		},
+
 
 		GameStateRequirements =
 		{
 			{
 				Path = { "CurrentRun", "RoomsEntered", },
-				HasNone = { "P_MiniBoss01", },
+				HasNone = { "P_MiniBoss01", "P_MiniBoss03", },
 			},
 			{
 				Path = { "CurrentRun", "BiomeDepthCache" },
@@ -1627,7 +2488,7 @@ RoomSetData.P =
 
 		MaxCreationsThisRun = 1,
 		ForceAtBiomeDepthMin = 4,
-		ForceAtBiomeDepthMax = 8,
+		ForceAtBiomeDepthMax = 7,
 		MaxAppearancesThisBiome = 1,
 
 		EntranceDirection = "Right",
@@ -1638,7 +2499,7 @@ RoomSetData.P =
 
 		CombatResolvedVoiceLines =
 		{
-			[1] = { GlobalVoiceLines = "MiniBossEncounterEndVoiceLines" },
+			{ GlobalVoiceLines = "MiniBossEncounterEndVoiceLines" },
 		},
 
 		InspectPoints =
@@ -1670,6 +2531,62 @@ RoomSetData.P =
 				},
 			},
 
+		},
+
+	},
+
+	P_MiniBoss03 =
+	{
+		InheritFrom = { "P_BaseOutdoor", "BaseP" },
+		RewardPreviewIcon = "RoomRewardSubIcon_Miniboss",
+		DebugOnly = true,
+
+		HasFishingPoint = false,
+		
+		SecretSpawnChance = 0.0,
+		SuppressRewardSpawnSounds = false,
+		ReverbValue = 1.0,
+
+		ZoomFraction = 0.775,
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "RoomsEntered", },
+				HasNone = { "P_MiniBoss01", "P_MiniBoss02", },
+			},
+			{
+				Path = { "CurrentRun", "BiomeDepthCache" },
+				Comparison = ">=",
+				Value = 4,
+			},
+			{
+				Path = { "MapState", "OfferedExitDoors" },
+				UseLength = true,
+				Comparison = ">",
+				Value = 1,
+			},
+		},
+
+		LegalEncounters = { "MiniBossHarpy" },
+		FlipHorizontalChance = 0.0,
+
+		ForcedRewardStore = "RunProgress",
+		EligibleRewards = { "Boon" },
+		BoonRaritiesOverride = { Duo = 0.2, Legendary = 0.2, Epic = 0.10, Rare = 0.90 },
+
+		MaxCreationsThisRun = 1,
+		ForceAtBiomeDepthMin = 4,
+		ForceAtBiomeDepthMax = 7,
+		MaxAppearancesThisBiome = 1,
+
+		EntranceDirection = "Right",
+
+		MusicActiveStems = { "Guitar", "Bass", "Drums", },
+
+		CombatResolvedVoiceLines =
+		{
+			{ GlobalVoiceLines = "MiniBossEncounterEndVoiceLines" },
 		},
 
 	},

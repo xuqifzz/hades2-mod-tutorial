@@ -104,6 +104,7 @@
 		AllowRestart = true
 		CancelOnOwnerMove = true
 		ChainTo = "Enemy_DespairElemental_Idle"
+		Sound = "/SFX/Enemy Sounds/DespairElementalRegular/EmoteHurt"
 		Frames =
 		[
 			{
@@ -179,9 +180,10 @@
 		VisualFx = "DespairElementalTrail"
 		VisualFxDistanceMin = 60
 		VisualFxDistanceMax = 70
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
 		Sound = "/SFX/Enemy Sounds/FireChariot/FireChariotFastMoveLoop"
 		StopSoundOnFinishFade = 0.2
-
 		Blends = 
 		[
 			{

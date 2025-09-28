@@ -3,6 +3,38 @@
 	/* Cast */
 
 	{
+		Name = "MelinoeBaseStaffCastAnimations"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		RequireCurrentAnimationNotContains =
+		[
+			// Staff
+			{ Name = "Melinoe_Staff_Attack1_Start" }
+			{ Name = "Melinoe_Staff_Attack1_Fire" }
+			{ Name = "Melinoe_Staff_Attack2_Start" }
+			{ Name = "Melinoe_Staff_Attack2_Fire" }
+			{ Name = "Melinoe_Staff_Attack3_Start" }
+			{ Name = "Melinoe_Staff_Attack3_Fire" }
+			{ Name = "Melinoe_Staff_AttackDash1_Start" }
+			{ Name = "Melinoe_Staff_AttackDash1_Fire" }
+			{ Name = "Melinoe_Staff_AttackEx1_Start" }
+			{ Name = "Melinoe_Staff_AttackEx1_StartLoop" }
+			{ Name = "Melinoe_Staff_AttackEx1_Fire" }
+			{ Name = "Melinoe_Staff_Special1_Start" }
+			{ Name = "Melinoe_Staff_Special1_StartLoop" }
+			{ Name = "Melinoe_Staff_Special1_Fire" }
+			{ Name = "Melinoe_Staff_SpecialEx1_Fire" }
+			{ Name = "Melinoe_Staff_Anubis_AttackSlam_Start" }
+			{ Name = "Melinoe_Staff_Anubis_AttackSlam_Fire" }
+			{ Name = "Melinoe_Staff_Anubis_AttackWall_Start" }
+			{ Name = "Melinoe_Staff_Anubis_AttackWall_StartLoop" }
+			{ Name = "Melinoe_Staff_Anubis_AttackWall_Fire" }
+			{ Name = "Melinoe_Staff_Anubis_Special1_Start" }
+			{ Name = "Melinoe_Staff_Anubis_Special1_StartLoop" }
+			{ Name = "Melinoe_Staff_Anubis_Special1_Fire" }
+		]
+	}
+
+	{
 		Name = "Staff_Cast_Start"
 		InheritFrom = "WeaponStaffBase"
 		GrannyAnimation = "Staff_Base_CastCharge_C_00"
@@ -16,7 +48,7 @@
 	}
 	{
 		Name = "Melinoe_Staff_Cast_Start"
-		InheritFrom = "MelinoeBaseStaffAnimations"
+		InheritFrom = "MelinoeBaseStaffCastAnimations"
 		GrannyAnimation = "Melinoe_Staff_Base_CastCharge_C_00"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Staff_Cast_StartLoop"
@@ -70,14 +102,10 @@
 	}
 	{
 		Name = "Melinoe_Staff_Cast_Fire"
-		InheritFrom = "MelinoeBaseStaffAnimations"
+		InheritFrom = "MelinoeBaseStaffCastAnimations"
 		GrannyAnimation = "Melinoe_Staff_Base_Cast_C_00"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Staff_Cast_End"
-		RequireCurrentAnimationNotContains =
-		[
-			{ Name = "Melinoe_Staff_Special1_Start" }
-		]
 		Attachments =
 		[
 			{
@@ -91,6 +119,10 @@
 			{
 				BlendTransitionFrom = "Melinoe_Staff_Cast_StartLoop"
 				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 3
 			}
 		]
 	}

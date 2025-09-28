@@ -57,6 +57,10 @@
           { X = -173 Y = -250 }
         ]
       }
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
     }
     
     {
@@ -233,7 +237,6 @@
     {
       Name = "TartarusPillarBase04"
       InheritFrom = "1_BaseInvulnerableObstacle"
-      AllowStoppingImpacts = false
       DisplayInEditor = true
       ReflectLobProjectiles = false
       Life = 
@@ -310,7 +313,6 @@
     {
       Name = "TartarusShopPad01"
       InheritFrom = "1_BaseInvulnerableObstacle"
-      AllowStoppingImpacts = false
       DisplayInEditor = true
       Thing = 
       {
@@ -332,7 +334,6 @@
     {
       Name = "TartarusStoreSign01"
       InheritFrom = "1_BaseInvulnerableObstacle"
-      AllowStoppingImpacts = false
       DisplayInEditor = true
       Thing = 
       {
@@ -354,7 +355,6 @@
     {
       Name = "TartarusStoreSign01a"
       InheritFrom = "1_BaseInvulnerableObstacle"
-      AllowStoppingImpacts = false
       DisplayInEditor = true
       Thing = 
       {
@@ -375,7 +375,6 @@
     {
       Name = "TartarusShip01"
       InheritFrom = "1_BaseInvulnerableObstacle"
-      AllowStoppingImpacts = false
       DisplayInEditor = true
       Thing = 
       {
@@ -396,7 +395,6 @@
     {
       Name = "ReturnShip01"
       InheritFrom = "1_BaseInvulnerableObstacle"
-      AllowStoppingImpacts = false
       DisplayInEditor = true
       Thing = 
       {
@@ -421,7 +419,6 @@
     {
       Name = "ReturnShip01Front"
       InheritFrom = "1_BaseInvulnerableObstacle"
-      AllowStoppingImpacts = false
       DisplayInEditor = true
       Thing = 
       {
@@ -445,7 +442,6 @@
     {
       Name = "ReturnShipEmpty"
       InheritFrom = "1_BaseInvulnerableObstacle"
-      AllowStoppingImpacts = false
       DisplayInEditor = true
       Thing = 
       {
@@ -915,7 +911,7 @@
     
     {
       Name = "TartarusStatueKneeling01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1404,7 +1400,7 @@
     
     {
       Name = "TartarusUrn01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1442,10 +1438,13 @@
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+      IgnoredByPathfinders = true
       Life = 
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
+        TriggerOnHit = false
       }
       Thing = 
       {
@@ -1560,7 +1559,7 @@
     
     {
       Name = "TartarusCubeBrick04"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -3352,8 +3351,14 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Tartarus\Tartarus_Chains_02"
-        Tallness = 50.0
+        Tallness = 2289
         Offset = { X = 0 Y = -1144 }
+        Points = [
+          { X = -1363 Y = -570 }
+          { X = 1516 Y = 869 }
+          { X = 1326 Y = 964 }
+          { X = -1553 Y = -475 }
+        ]
       }
     }
     
@@ -3435,6 +3440,7 @@
       Name = "TartarusRubble02"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life = 
       {
         DieOnCollision = true
@@ -3835,6 +3841,7 @@
       Name = "TartarusMushrooms01"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life = 
       {
         DieOnCollision = true
@@ -3891,6 +3898,7 @@
       Name = "TartarusMushrooms02"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life = 
       {
         DieOnCollision = true
@@ -4768,209 +4776,6 @@
           { X = -136 Y = -417 }
           { X = -628 Y = -313 }
         ]
-      }
-    }
-    
-    {
-      Name = "HeavyRangedCrystal1"
-      InheritFrom = "1_BaseInvulnerablePassableObstacle"
-      CollidesWithObstacles = false
-      DisplayInEditor = true
-      Life = 
-      {
-        DieOnCollision = true
-        Invulnerable = false
-        ProjectilesAlwaysPenetrate = true
-      }
-      Thing = 
-      {
-        AttachedAnim = "LootShadowStatic"
-        DieOnTouchdown = true
-        EditorOutlineDrawBounds = false
-        Graphic = "HeavyRangedCrystal1"
-        Grip = 1000.0
-        OffsetZ = 84.0
-        Tallness = 50.0
-        Points = [
-          { X = 0 Y = 16 }
-          { X = 32 Y = 0 }
-          { X = 0 Y = -16 }
-          { X = -32 Y = 0 }
-        ]
-      }
-    }
-    
-    {
-      Name = "HeavyRangedCrystal2"
-      InheritFrom = "HeavyRangedCrystal1"
-      DisplayInEditor = true
-      Life = 
-      {
-      }
-      Thing = 
-      {
-        AttachedAnim = "LootShadowStaticSmall"
-        EditorOutlineDrawBounds = false
-        Graphic = "HeavyRangedCrystal2"
-        Points = [
-          { X = 0 Y = 8 }
-          { X = 16 Y = 0 }
-          { X = 0 Y = -8 }
-          { X = -16 Y = 0 }
-        ]
-      }
-    }
-    
-    {
-      Name = "HeavyRangedCrystal3"
-      InheritFrom = "HeavyRangedCrystal2"
-      DisplayInEditor = true
-      Life = 
-      {
-      }
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "HeavyRangedCrystal3"
-      }
-    }
-    
-    {
-      Name = "HeavyRangedCrystal4"
-      InheritFrom = "HeavyRangedCrystal2"
-      DisplayInEditor = true
-      Life = 
-      {
-      }
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "HeavyRangedCrystal4Dormant"
-      }
-    }
-    
-    {
-      Name = "HealRangedCrystal1"
-      InheritFrom = "HeavyRangedCrystal1"
-      DisplayInEditor = true
-      Life = 
-      {
-      }
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "HealRangedCrystal1"
-      }
-    }
-    
-    {
-      Name = "HealRangedCrystal1SuperElite"
-      InheritFrom = "HealRangedCrystal1"
-      DisplayInEditor = true
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Saturation = -1.0
-        Color = { Red = 0.50 Green = 0.50 Blue = 0.50 }
-      }
-    }
-    
-    {
-      Name = "HealRangedCrystal1Miniboss"
-      InheritFrom = "HealRangedCrystal1"
-      DisplayInEditor = true
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "HealRangedCrystal1Miniboss"
-      }
-    }
-    
-    {
-      Name = "HealRangedCrystal2"
-      InheritFrom = "HeavyRangedCrystal2"
-      DisplayInEditor = true
-      Life = 
-      {
-      }
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "HealRangedCrystal2"
-      }
-    }
-    
-    {
-      Name = "HealRangedCrystal2SuperElite"
-      InheritFrom = "HealRangedCrystal2"
-      DisplayInEditor = true
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Saturation = -1.0
-        Color = { Red = 0.50 Green = 0.50 Blue = 0.50 }
-      }
-    }
-    
-    {
-      Name = "HealRangedCrystal2Miniboss"
-      InheritFrom = "HealRangedCrystal2"
-      DisplayInEditor = true
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "HealRangedCrystal2Miniboss"
-      }
-    }
-    
-    {
-      Name = "HealRangedCrystal3"
-      InheritFrom = "HeavyRangedCrystal3"
-      DisplayInEditor = true
-      Life = 
-      {
-      }
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "HealRangedCrystal3"
-      }
-    }
-    
-    {
-      Name = "HealRangedCrystal3Miniboss"
-      InheritFrom = "HealRangedCrystal3"
-      DisplayInEditor = true
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "HealRangedCrystal3Miniboss"
-      }
-    }
-    
-    {
-      Name = "HealRangedCrystal3SuperElite"
-      InheritFrom = "HealRangedCrystal3"
-      DisplayInEditor = true
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Saturation = -1.0
-        Color = { Red = 0.50 Green = 0.50 Blue = 0.50 }
-      }
-    }
-    
-    {
-      Name = "HealRangedCrystal4"
-      InheritFrom = "HeavyRangedCrystal4"
-      DisplayInEditor = true
-      Life = 
-      {
-      }
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "HealRangedCrystal4Dormant"
       }
     }
   ]

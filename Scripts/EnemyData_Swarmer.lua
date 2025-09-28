@@ -17,7 +17,7 @@ UnitSetData.Swarmer =
 		DeathSound = "/SFX/Enemy Sounds/Swarmer/EmoteDying",
 		DeathAnimation = "Enemy_Swarmer_Death",
 
-		BlockAttributes = { "SpreadHitShields" },
+		BlockAttributes = { "SpreadHitShields", },
 
 		MaxHealth = 30,
 		HealthBarOffsetY = -100,
@@ -62,6 +62,7 @@ UnitSetData.Swarmer =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_2749", Text = "Sandskulls." },
@@ -119,7 +120,7 @@ UnitSetData.Swarmer =
 
 		GeneratorData =
 		{
-			DifficultyRating = 25,
+			DifficultyRating = 35,
 			BlockEnemyTypes = { "SwarmerClockwork_Elite" }
 		},
 	},
@@ -142,7 +143,7 @@ UnitSetData.Swarmer =
 
 		GeneratorData =
 		{
-			DifficultyRating = 50,
+			DifficultyRating = 65,
 			BlockEnemyTypes = {"SwarmerClockwork",}
 		},
 	},

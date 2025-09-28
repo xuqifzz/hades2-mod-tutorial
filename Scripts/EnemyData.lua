@@ -13,6 +13,8 @@ CollisionReactionData =
 	}
 }
 
+ConstantsData.DefaultHealthBarOffsetY = -155
+
 UnitSetData.Enemies =
 {
 	-- Top-level inheritance
@@ -74,13 +76,10 @@ UnitSetData.Enemies =
 		Groups = { "GroundEnemies" },
 		AddToEnemyTeam = true,
 
-		MaxHitShields = 5,
-
 		IsAggroedSound = "/SFX/Enemy Sounds/Swarmer/EmoteAlerted",
 		
 		UseActivatePresentation = true,
 		-- ActivateAnimation = "AresBladeSpinOut",
-		--ActivateFx = "TeleportDisappearSmall",
 		
 		ActivateFx = "EnemyPreSpawnTerrain",
 		ActivateFx2 = "EnemyPreSpawnStanding",
@@ -128,7 +127,7 @@ UnitSetData.Enemies =
 
 		MaxHitShields = 5,
 
-		BlockNonPlayerDamageNumbers = true,
+		BlockDamageNumbersByGroups = { "EnemyTeam" },
 
 		DefaultAIData =
 		{
@@ -140,6 +139,8 @@ UnitSetData.Enemies =
 			PreAttackAngleTowardTarget = true,
 			MoveWithinRange = true,
 			StopMoveWithinRange = true,
+
+			SkipSelfVelocityIfImpactSlow = false,
 
 			DontRetreatIfCharmed = true,
 
@@ -213,10 +214,16 @@ UnitSetData.Enemies =
 		UseActivatePresentation = false,
 		BlockRespawnShrineUpgrade = true,
 		IgnoreFinalEnemyDirectionHint = true,
+		IgnoreCastSlow = true,
+		NeverLeavesShadeMerc = true,
 
 		SkipAISetupOnActivate = true,
+		ManualDeathAnimation = true,
 		
 		ClearChillOnDeath = true,
+
+		ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+		BossDifficultyShrineRequiredCount = 4,
 
 		IncomingDamageModifiers =
 		{
@@ -225,6 +232,11 @@ UnitSetData.Enemies =
 				NonPlayerMultiplier = 10,
 				Multiplicative = true,
 			},
+		},
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
 		},
 
 		StunAnimations = 
@@ -267,7 +279,7 @@ UnitSetData.Enemies =
 			{
 				AIDataOverrides =
 				{
-					TeleportToSpawnPoints = true,
+					PreMoveTeleport = true,
 					TeleportationIntervalMin = 5.5,
 					TeleportationIntervalMax = 9.0,
 					TeleportStartFx = "BlinkStart",
@@ -315,7 +327,7 @@ UnitSetData.Enemies =
 						Cooldown = 1.5,
 						DataProperties = 
 						{
-							Duration = 0.5,
+							Duration = 0.1,
 						}
 					},
 				},
@@ -382,6 +394,8 @@ UnitSetData.Enemies =
 				DataOverrides =
 				{
 					StunAnimations = {},
+					WasImmuneToStunWithoutArmor = true,
+					PlayStunAnimationOnHealthBufferDeplete = false,
 				},
 				UnitPropertyChanges =
 				{
@@ -469,9 +483,9 @@ UnitSetData.Enemies =
 			{
 				MaxPerRoom = 1,
 
+				AddAdditionalAIFunctions = { "FogAI" },
 				DataOverrides =
 				{
-					AdditionalAIFunctions = { "FogAI" },
 					StopAnimationsOnDeath = { "FogEmitterInside", "FogEmitterOutside" },
 				},
 				BlockAttributes = { "Metallic" },
@@ -497,9 +511,9 @@ UnitSetData.Enemies =
 			{
 				MaxPerRoom = 1,
 				
+				AddAdditionalAIFunctions = { "EliteMetallicInvulnerability" },
 				DataOverrides =
 				{
-					AdditionalAIFunctions = { "EliteMetallicInvulnerability" },
 					InvulnerableFx = "Invincibubble",
 				},
 				BlockAttributes = { "Fog" },
@@ -510,6 +524,16 @@ UnitSetData.Enemies =
 	SuperElite =
 	{
 		IsSuperElite = true,
+
+		Outline =
+		{
+			R = 196,
+			G = 41,
+			B = 2,
+			Opacity = 0.8,
+			Thickness = 4,
+			Threshold = 0.85,
+		},
 	},
 
 	Shadow =
@@ -557,6 +581,20 @@ UnitSetData.Enemies =
 		},
 	},
 
+	BaseQEnemy =
+	{
+		MoneyDropOnDeath =
+		{
+			Chance = 0.7,
+			MinParcels = 1,
+			MaxParcels = 1,
+			MinValue = 1,
+			MaxValue = 1,
+			ValuePerDifficulty = 0.16,
+			ValuePerDifficultyMaxValueVariance = 1.3,
+		},
+	},
+
 	-- Oceanus Base
 	OceanusUnitData =
 	{
@@ -564,7 +602,7 @@ UnitSetData.Enemies =
 		ActivateFx = "WaterUnitSurface",
 		ActivateFx2 = "nil",
 		ActivateVerticalForce = 2300,
-		ActivateFxPreSpawn = "Blank",
+		ActivateFxPreSpawn = "nil",
 		ActivateFxPreSpawnDelay = 0.80,
 		ActivateFadeIn = true,
 		ActivateFadeInDelay = 0.00,
@@ -822,7 +860,7 @@ UnitSetData.Enemies =
 		},
 	},
 
-	LightningStorm =
+	AresUpgradeRoomWeapon =
 	{
 		InheritFrom = { "PassiveRoomWeapon" },
 
@@ -833,7 +871,7 @@ UnitSetData.Enemies =
 
 		WeaponOptions =
 		{
-			"LightningStorm",
+			"DevotionAres",
 		},
 	},
 
@@ -851,6 +889,23 @@ UnitSetData.Enemies =
 		WeaponOptions =
 		{
 			"ShipsBombardment",
+		},
+	},
+
+	PolyphemusBoulders =
+	{
+		InheritFrom = { "PassiveRoomWeapon" },
+
+		WakeUpDelay = 0.0,
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+		},
+
+		AIOptions =
+		{
+			"EmptyAI",
 		},
 	},
 
@@ -894,8 +949,6 @@ UnitSetData.Enemies =
 		InheritFrom = { "BaseVulnerableEnemy" },
 
 		RequiredKill = true,
-
-		MaxHealth = 100,
 
 		PreferredSpawnPoint = "EnemyPointRanged",
 
@@ -1095,8 +1148,6 @@ UnitSetData.Enemies =
 		HealthBarOffsetY = -130,
 		HitSparkScale = 2.4,
 
-		BlockAttributes = { "ExtraDamage" },
-
 		DefaultAIData =
 		{
 			DeepInheritance = true,
@@ -1115,45 +1166,6 @@ UnitSetData.Enemies =
 			"AttackerAI",
 		},
 		OnDamagedFunctionName = "AggroSpawns",
-	},
-	BaseSatyr =
-	{
-		InheritFrom = { "BaseVulnerableEnemy" },
-		DamagedFxStyles =
-		{
-			Default = "HitSparkEnemyDamagedPhysical",
-			Rapid = "HitSparkEnemyDamagedPhysicalRapid",
-		},
-		Groups = { "GroundEnemies" },
-		Material = "Organic",
-		IsAggroedSound = "/SFX/Enemy Sounds/Bloodless01/EmoteAlerted",
-		HealthBarOffsetY = -200,
-		HitSparkOffsetZ = 140,
-		
-		AIOptions =
-		{
-			"AggroAI",
-		},
-		PostAggroAI = "AttackerAI",
-
-		DefaultAIData =
-		{
-			DeepInheritance = true,
-			MoveWithinRangeTimeoutMin = 4.0,
-			MoveWithinRangeTimeoutMax = 8.0,
-		},
-
-		MoneyDropOnDeath =
-		{
-			Chance = 0.5,
-			MinParcels = 1,
-			MaxParcels = 1,
-			MinValue = 1,
-			MaxValue = 1,
-			ValuePerDifficulty = 0.065,
-			ValuePerDifficultyMaxValueVariance = 1.3,
-		},
-		HitSparkScale = 1.5,
 	},
 
 	-- Unused Minos Traps
@@ -1199,33 +1211,6 @@ UnitSetData.Enemies =
 		AIOptions =
 		{
 			"GuardAI",
-		},
-		ToggleTrap = true,
-	},
-	SpikeCube =
-	{
-		InheritFrom = { "BaseTrap" },
-
-		PreAttackDuration = 0.01,
-		PostAttackCooldown = 0.75,
-
-		--RequiredVictimVelocity = 1000,
-		Color = { 255, 0, 0, 255 },
-
-		AttackWarningAnimation = "LobWarningDecal",
-		AttackWarningAnimationRadius = 210,
-
-		TargetGroups = { "GroundEnemies", "FlyingEnemies", "HeroTeam" },
-
-		Material = "MetalObstacle",
-
-		WeaponOptions =
-		{
-			"SpikeWallWeapon",
-		},
-		AIOptions =
-		{
-			"CollisionRetaliateAI",
 		},
 		ToggleTrap = true,
 	},
@@ -1293,5 +1278,4 @@ StatusAnimations =
 {
 	WantsToTalk = "StatusIconWantsToTalk",
 	Speaking = "StatusIconSpeaking",
-	Charmed = "StatusIconNPCCharmed"
 }

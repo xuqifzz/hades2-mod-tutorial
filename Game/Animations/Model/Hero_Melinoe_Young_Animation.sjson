@@ -103,7 +103,7 @@
 		[
 			{
 				BlendTransitionFrom = "Melinoe_Young_Run_FireLoop"
-				Duration = 10
+				Duration = 6
 			}
 		]
 	}
@@ -191,6 +191,93 @@
 		NativeMoveSpeed = 320
 	}
 
+	// Get Hit
+	{
+		Name = "Melinoe_Young_GetHit"
+		InheritFrom = "MelinoeBaseYoungAnimation"
+		GrannyAnimation = "YoungMel_NoWeapon_Base_GetHit_C_00"
+		CancelOnOwnerMove = true
+		TimeModifierFraction = 0
+	}
+
+	// Last Stand
+	{
+		Name = "Melinoe_Young_GetHit_LastStand"
+		InheritFrom = "MelinoeBaseYoungAnimation"
+		GrannyAnimation = "YoungMel_NoWeapon_Base_GetHit_C_00"
+		DisableOwnerManualInteract = true
+		TimeModifierFraction = 0
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 6
+			}
+		]
+	}
+
+	/* Last Stand */
+	{
+		Name = "Melinoe_Young_LastStand_Fire"
+		InheritFrom = "MelinoeBaseYoungAnimation"
+		GrannyAnimation = "YoungMel_NoWeapon_Base_CrossCastFire_N_00"
+		ChainTo = "Melinoe_Young_LastStand_End"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 5
+				FrameSpeed = 0.5
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Young_LastStand_End"
+		InheritFrom = "MelinoeBaseYoungAnimation"
+		GrannyAnimation = "YoungMel_NoWeapon_Base_CrossCastReturn_N_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Young_Idle"
+	}
+
+	// Interact
+	{
+		Name = "Melinoe_Young_Interact_Start"
+		InheritFrom = "MelinoeBaseYoungAnimation"
+		GrannyAnimation = "YoungMel_NoWeapon_Base_ExcitedStart_C_00"
+		GrannyAnimationSpeed = 2
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Young_Interact_End"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Young_Interact_End"
+		InheritFrom = "MelinoeBaseYoungAnimation"
+		GrannyAnimation = "YoungMel_NoWeapon_Base_ExcitedReturnToIdle_C_00"
+		GrannyAnimationSpeed = 2
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Young_Idle"
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Melinoe_Young_Interact_Start"
+				Duration = 4
+			}
+		]
+	}
+
 	// Conversation/Personality
 	{
 		Name = "Melinoe_Young_Pensive_Start"
@@ -198,6 +285,13 @@
 		GrannyAnimation = "YoungMel_NoWeapon_Base_PensiveStart_C_00"
 		CancelOnOwnerMove = true
 		ChainTo = "Melinoe_Young_Pensive_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
 	}
 	{
 		Name = "Melinoe_Young_Pensive_FireLoop"
@@ -232,6 +326,13 @@
 		GrannyAnimation = "YoungMel_NoWeapon_Base_BroodingStart_C_00"
 		CancelOnOwnerMove = true
 		ChainTo = "Melinoe_Young_Brooding_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
 	}
 	{
 		Name = "Melinoe_Young_Brooding_FireLoop"
@@ -266,6 +367,13 @@
 		GrannyAnimation = "YoungMel_NoWeapon_Base_ExcitedStart_C_00"
 		CancelOnOwnerMove = true
 		ChainTo = "Melinoe_Young_Excited_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
 	}
 	{
 		Name = "Melinoe_Young_Excited_FireLoop"
@@ -294,4 +402,42 @@
 		]
 	}
 
+	// Hide and Seek
+
+	{
+		Name = "Melinoe_Young_Idle_Chronos"
+		InheritFrom = "MelinoeBaseYoungAnimation"
+		GrannyAnimation = "YoungMel_NoWeapon_Base_IdleChronosHideSeek_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 18
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Young_Idle_Crouched"
+		InheritFrom = "MelinoeBaseYoungAnimation"
+		GrannyAnimation = "YoungMel_NoWeapon_Base_CrouchHideSeek_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+	
+	{
+		Name = "Melinoe_Young_Idle_Crouched_End"
+		InheritFrom = "MelinoeBaseYoungAnimation"
+		GrannyAnimation = "YoungMel_NoWeapon_Base_CrouchHideSeekToExcited_C_00"
+		ChainTo = "Melinoe_Young_Excited_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Young_Idle_Crouched"
+				Duration = 6
+			}
+		]
+	}
 ]}

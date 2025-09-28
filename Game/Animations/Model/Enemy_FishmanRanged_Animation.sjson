@@ -137,7 +137,7 @@
 		Name = "Enemy_FishmanRanged_SelfDestruct"
 		InheritFrom = "EnemyFishmanRangedBaseAnimation"
 		GrannyAnimation = "FishmanRanged_Base_SelfDestruct_01"
-		GrannyAnimationSpeed = 0.7
+		GrannyAnimationSpeed = 1.3
 		Sound = "/SFX/BombFusePreExplode"
 		StopSoundOnFinishFade = 0.2
 	}
@@ -150,6 +150,8 @@
 		GrannyAnimation = "FishmanRanged_Base_AttackSpitCharge_00"
 		HoldLastFrame = true
 		CreateAnimation = "FishmanRangedTailGlowEat"
+		Sound = "/SFX/Enemy Sounds/Mudman/MudmanRangedChargeNoSlap"
+		StopSoundOnFinishFade = 0.2
 		GrannyAnimationSpeed = 1.0
 		Blends = 
 		[
@@ -200,6 +202,7 @@
 		GrannyAnimation = "FishmanRanged_Base_AttackSpitFireInitial_00"
 		ChainTo = "Enemy_FishmanRanged_AttackSpitFireLoop"
 		AllowRestart = true
+		GrannyAnimationSpeed = 0.80
 	}
 
 	{
@@ -207,6 +210,7 @@
 		InheritFrom = "EnemyFishmanRangedBaseAnimation"
 		GrannyAnimation = "FishmanRanged_Base_AttackSpitFireLoop_00"
 		Loop = true
+		GrannyAnimationSpeed = 0.75
 	}
 
 	{

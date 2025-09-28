@@ -12,7 +12,7 @@ UnitSetData.Zombie =
 		ActivateAnimation = "Enemy_Zombie_Spawn",
 		ActivateFx = "EphyraZombieHoleIn",
 		ActivateFx2 = "EphyraZombieSpawnMask",
-		ActivateFxPreSpawn = "Blank",
+		ActivateFxPreSpawn = "nil",
 		ActivateFadeIn = false,
 		ActivateTint = false,
 		ActivateStartAlpha = 1, 
@@ -41,6 +41,7 @@ UnitSetData.Zombie =
 			"AggroAI",
 		},
 		
+		PlayStunAnimationOnHealthBufferDeplete = true,
 		StunAnimations = 
 		{
 			Default = "Enemy_Zombie_OnHit",
@@ -99,6 +100,7 @@ UnitSetData.Zombie =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_0451", Text = "Shamblers." },
@@ -113,6 +115,8 @@ UnitSetData.Zombie =
 		InheritFrom = { "Zombie" },
 
 		AIOptions = { "IdleAI" },
+		CanBeAggroed = true,
+		CanBeChainAggroed = false,
 		OnDamagedFunctionName = "AggroUnit",
 		WakeUpDelayMin = 0.0,
 		WakeUpDelayMax = 0.5,
@@ -216,8 +220,8 @@ UnitSetData.Zombie =
 	{
 		InheritFrom = { "BasePEnemy", "BaseChronosForces", "Zombie" },
 		MaxHealth = 590,
-		ActivateFx = "ZombieOlympusHoleIn",
-		ActivateFx2 = "ZombieOlympusSpawnMask",
+		ActivateFx = "EarthElementalHoleIn",
+		ActivateFx2 = "EarthElementalSpawnMask",
 
 		GrannyTexture = "GR2/ZombieOlympus_Color",
 

@@ -7,7 +7,7 @@ Animations =
 		Name = "ZeusCastGroundParticles"
 		FilePath = "Fx\LightningAreaLoop\LightningAreaLoop"
 		GroupName = "FX_Terrain_Add"
-		
+		DieWithOwner = true
 		VisualFx = "ZeusCastGroundParticlesSpread"
 		AngleFromOwner = "Ignore"
 		EndFrame = 40
@@ -338,14 +338,13 @@ Animations =
 	
 	{
 		Name = "ZeusLightningIris"
-		
 		Random =
 		[
 			{ Name = "ZeusLightningIrisA" }
 			{ Name = "ZeusLightningIrisB" }
 		]
 	}
-	
+
 	{
 		Name = "ZeusLightningIrisA"
 		FilePath = "Fx\ZeusLightningA\ZeusLightningA"
@@ -374,6 +373,7 @@ Animations =
 		VisualFxIntervalMax = 0.02
 		VisualFxIntervalMin = 0.01
 		OverlayVfx = true
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 		Slides =
 		[
 
@@ -425,7 +425,7 @@ Animations =
 			{ DurationFrames = 1 }
 		]
 	}
-	
+
 	{
 		Name = "ZeusLightningIrisB"
 		InheritFrom = "ZeusLightningIrisA"
@@ -476,6 +476,35 @@ Animations =
 			{ DurationFrames = 1 }
 		]
 	}
+
+
+	{
+		Name = "ZeusLightningIrisRapid"
+		Random =
+		[
+			{ Name = "ZeusLightningIrisRapidA" }
+			{ Name = "ZeusLightningIrisRapidB" }
+		]
+	}
+	{
+		Name = "ZeusLightningIrisRapidA"
+		InheritFrom = "ZeusLightningIrisA"
+		ClearSlides = true
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		VisualFx = null
+		CreateAnimation = "ZeusLightningLightRapid"
+	}	
+	{
+		Name = "ZeusLightningIrisRapidB"
+		InheritFrom = "ZeusLightningIrisB"
+		ClearSlides = true
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		VisualFx = null
+		CreateAnimation = "ZeusLightningLightRapid"
+	}
+
 	
 	{
 		Name = "LightningBoltLingerParticle"
@@ -528,6 +557,7 @@ Animations =
 		StartFrame = 1
 		Scale = 2.0
 		Ambient = 0.0
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 		CreateAnimations =
 		[
 			{ Name = "ZeusLightningGroundLight" }
@@ -535,7 +565,8 @@ Animations =
 			{ Name = "ZeusLightningDirectionalFlash" }
 		]
 	}
-	
+
+
 	{
 		Name = "ZeusLightningFlash"
 		InheritFrom = "ZeusLightningLight"
@@ -567,7 +598,6 @@ Animations =
 		Name = "ZeusLightningGroundLight"
 		FilePath = "Fx\TerrainFlash\TerrainFlash"
 		GroupName = "FX_Terrain_Add"
-		
 		AddColor = true
 		EndGreen = 0.15
 		EndRed = 0.999
@@ -579,6 +609,22 @@ Animations =
 		StartFrame = 1
 		PostRotateScaleY = 0.5
 		Scale = 1.5
+	}
+
+	{
+		Name = "ZeusLightningGroundLightRapid"
+		InheritFrom = "ZeusLightningGroundLight"
+		Alpha = 0.25
+	}
+
+	{
+		Name = "ZeusLightningLightRapid"
+		InheritFrom = "ZeusLightningLight"
+		ClearCreateAnimations = true
+		Alpha = 0.33
+		CreateAnimations = [
+			{ Name = "ZeusLightningGroundLightRapid" }
+		]
 	}
 
 	{
@@ -600,6 +646,11 @@ Animations =
 		EaseIn = 0.99
 		EaseOut = 1.0
 	}
+	{
+		Name = "ZeusParticlesUpward_IgnoreLocation"
+		InheritFrom = "ZeusParticlesUpward"
+		LocationFromOwner = "Ignore"
+	}
 
 
 	{
@@ -620,13 +671,13 @@ Animations =
 		LocationFromOwner = "Ignore"
 		AngleFromOwner = "Take"
 		Material = "Unlit"
-		RandomPlaySpeedMin = 40
-		RandomPlaySpeedMax = 50
+		RandomPlaySpeedMin = 70
+		RandomPlaySpeedMax = 90
 		EaseIn = 0.9
 		EaseOut = 1.0
 		FlipHorizontal = true
-		Velocity = 200
-		Acceleration = -200
+		Velocity = 400
+		Acceleration = -400
 		OverlayVfx = true
 		SortMode = "FromParent"
 		SortFromOwner = "Take"
@@ -1462,24 +1513,46 @@ Animations =
 
 {
 		Name = "ManaDropZeus"
-		FilePath = "Fx\Zeus\ZeusStaffBall\ZeusStaffBall"
+		FilePath = "Fx\Zeus\ZeusManaBall\ZeusManaBall"
 		NumFrames = 60
 		RandomStartFrame = true
 		ReRandomizeOnLoop = false
 		Loop = true
-		RandomPlaySpeedMin = 80
-		RandomPlaySpeedMax = 90
-		Scale = 1.2
+		PlaySpeed = 30
+		Scale = 1.1
 		Material = "Unlit"
 		UseOwnAngle = false
 		AngleFromOwner = "Take"
 		OffsetZ = 0
 		// ChildAnimation = "ZeusChargedCircleEmitter"
-		VisualFxDistanceMin = 120
-		VisualFxDistanceMax = 120
+		VisualFx = "ManaDropZeusGlowFx"
+		VisualFxIntervalMin = 1.2
+		VisualFxIntervalMax = 1.7
 		Sound = "/SFX/Player Sounds/ZeusLightningProjectileBallLoop"
 		StopSoundOnFinishFade = 0.4
 	}
+
+	{
+		Name = "ManaDropZeusGlowFx"
+		FilePath = "Particles\particle_glow_ring_bias"
+		Material = "Unlit"
+		StartAlpha = 0
+		EndAlpha = 0.75
+		PingPongColor = true
+		Duration = 1.5
+		GroupName = "FX_Standing_Add"
+		Red = 1
+		Green = 0.7
+		Blue = 0.3
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		StartScale = 0.2
+		EndScale = 0.4
+		OffsetZ = 20
+		DieWithOwner = true
+		LocationZFromOwner = "Take"
+	}
+
 	{
 		Name = "ManaDropZeusIn"
 		InheritFrom = "ManaDropZeus"

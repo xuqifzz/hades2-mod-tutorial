@@ -11,7 +11,7 @@ UnitSetData.ZombieHeavyRanged =
 
 		ActivateFx = "EphyraZombieHRHoleIn",
 		ActivateFx2 = "EphyraZombieHRSpawnMask",
-		ActivateFxPreSpawn = "Blank",
+		ActivateFxPreSpawn = "nil",
 		DeathAnimation = "Enemy_ZombieHR_Death",
 		DeathFx = "EnemyDeathFxUndeadLarge",
 		ActivateAnimation = "Enemy_ZombieHR_Spawn",
@@ -59,6 +59,8 @@ UnitSetData.ZombieHeavyRanged =
 		{
 			"ZombieHeavyRangedToss", "ZombieHeavyRangedShove"
 		},
+		
+		BlockAttributes = { "Orbit", "Vacuum", },
 
 		HeraclesCombatMoneyValue = 5,
 		MoneyDropOnDeath =
@@ -92,6 +94,7 @@ UnitSetData.ZombieHeavyRanged =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_0455", Text = "Lubbers." },
@@ -107,6 +110,8 @@ UnitSetData.ZombieHeavyRanged =
 		HealthBuffer = 380,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/ZombieHeavyRanged/EmoteTaunting",
+
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Metallic" }),
 
 		GameStateRequirements =
 		{
@@ -131,6 +136,18 @@ UnitSetData.ZombieHeavyRanged =
 		},
 	},
 
+	ZombieHeavyRanged_EM =
+	{
+		InheritFrom = { "ZombieHeavyRanged" },
+		GenusName = "ZombieHeavyRanged",
+
+		CreateAnimations = { "ZombieHRPoisonFx", },
+
+		WeaponOptions =
+		{
+			"ZombieHeavyRangedTossPoison", "ZombieHeavyRangedShove"
+		},
+	},
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.ZombieHeavyRanged )

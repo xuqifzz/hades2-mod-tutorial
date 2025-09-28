@@ -156,13 +156,46 @@
 			/*Frame 20*/
 		]
 	}
+	{
+		Name = "OlympusStatueReadyFx"
+		FilePath = "Fx\MoonbeamsTintableAdditive\MoonbeamsTintableAdditive"
+		NumFrames = 60
+		AddColor = true
+		Angle = -90
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Add_Top"
+		Loop = false
+		LoopFramesOnly = true
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		RandomStartFrame = true
+		ScaleX = 1.5
+		OffsetY = -100
+		ScaleY = 1.5
+		ScaleMin = 0.6
+		ScaleMax = 1.5
+		StartScaleY = 0.6
+		EndScaleY = 1
+		Red = 0.6
+		Green = 0.8
+		Blue = 1
+		EaseIn = 0
+		EaseOut = 1
+		AlphaMin = 0.2
+		AlphaMax = 0.5
+		RandomFlipVertical = true
+		ScaleFromOwner = "Ignore"
+	}
 
 	{
 		Name = "ZeusStatueIdle"
 		FilePath = "Tilesets\Olympus\Olympus_Statue_Zeus_01"
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
+		VisualFx = "OlympusStatueReadyFx"
+		VisualFxIntervalMin = 0.33
+		VisualFxIntervalMax = 0.50
 		OffsetY = -200.0
 		CancelOnOwnerMove = true
 		AngleFromOwner = "Ignore"
@@ -174,11 +207,28 @@
 		FilePath = "Tilesets\Olympus\Olympus_Statue_Zeus_01_AboutToFire"
 	}
 	{
+		Name = "ZeusStatueDepleted"
+		InheritFrom = "ZeusStatueIdle"
+		VisualFx = null
+		Red = 0.8
+		Green = 0.85
+		Blue = 1.0
+		Value = -0.35
+		Saturation = -1
+	}
+	{
+		Name = "ZeusStatueProp"
+		InheritFrom = "ZeusStatueIdle"
+		VisualFx = null
+		Saturation = -0.4
+		Value = -0.25
+	}
+	{
 		Name = "DemeterStatueIdle"
 		FilePath = "Tilesets\Olympus\Olympus_Statue_Demeter_01"
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
+		VisualFx = "OlympusStatueReadyFx"
+		VisualFxIntervalMin = 0.33
+		VisualFxIntervalMax = 0.50
 		OffsetY = -200.0
 		CancelOnOwnerMove = true
 		AngleFromOwner = "Ignore"
@@ -190,11 +240,21 @@
 		FilePath = "Tilesets\Olympus\Olympus_Statue_Demeter_01_AboutToFire"
 	}
 	{
+		Name = "DemeterStatueDepleted"
+		InheritFrom = "DemeterStatueIdle"
+		VisualFx = null
+		Saturation = -1
+		Red = 0.8
+		Green = 0.85
+		Blue = 1.0
+		Value = -0.35
+	}
+	{
 		Name = "HestiaStatueIdle"
 		FilePath = "Tilesets\Olympus\Olympus_Statue_Hestia_01"
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
+		VisualFx = "OlympusStatueReadyFx"
+		VisualFxIntervalMin = 0.33
+		VisualFxIntervalMax = 0.50
 		OffsetY = -200.0
 		CancelOnOwnerMove = true
 		AngleFromOwner = "Ignore"
@@ -206,11 +266,21 @@
 		FilePath = "Tilesets\Olympus\Olympus_Statue_Hestia_01_AboutToFire"
 	}
 	{
+		Name = "HestiaStatueDepleted"
+		InheritFrom = "HestiaStatueIdle"
+		VisualFx = null
+		Red = 0.8
+		Green = 0.85
+		Blue = 1.0
+		Value = -0.35
+		Saturation = -1
+	}
+	{
 		Name = "PoseidonStatueIdle"
 		FilePath = "Tilesets\Olympus\Olympus_Statue_Poseidon_01"
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
+		VisualFx = "OlympusStatueReadyFx"
+		VisualFxIntervalMin = 0.33
+		VisualFxIntervalMax = 0.50
 		OffsetY = -200.0
 		CancelOnOwnerMove = true
 		AngleFromOwner = "Ignore"
@@ -220,6 +290,16 @@
 		Name = "PoseidonStatuePreFire"
 		InheritFrom = "PoseidonStatueIdle"
 		FilePath = "Tilesets\Olympus\Olympus_Statue_Poseidon_01_AboutToFire"
+	}
+	{
+		Name = "PoseidonStatueDepleted"
+		InheritFrom = "PoseidonStatueIdle"
+		VisualFx = null
+		Red = 0.8
+		Green = 0.85
+		Blue = 1.0
+		Value = -0.35
+		Saturation = -1
 	}
 
 	{
@@ -239,14 +319,6 @@
 	}
 
 	{
-		Name = "EliteManaDrainRingFx"
-		InheritFrom = "HestiaStatueRingFx"
-		Sound = "/Leftovers/SFX/AuraAmbientLoop"
-		StopSoundOnFinishFade = 0.2
-		AddColor = true
-		Color = { Red = 0.0 Green = 0.0 Blue = 0.5 }
-	}
-	{
 		Name = "HestiaStatueFireballFx"
 		FilePath = "Fx\Fireball\Fireball"
 		Sound = "/SFX/Player Sounds/HestiaFireballLaunchLoop"
@@ -262,7 +334,7 @@
 		VisualFxDistanceMin = 50.0
 	}
 	{
-		Name = "HestiaStatueFireBall"
+		Name = "HestiaStatueFireball"
 		FilePath = "Fx\HestiaProjectileDevotion\HestiaProjectileDevotion"
 		AngleFromOwner = "Maintain"
 		Sound = "/SFX/Enemy Sounds/Mourner/RangedAttackLoop"
@@ -279,7 +351,7 @@
 		VisualFxIntervalMax = 0.21
 		VisualFxIntervalMin = 0.21
 		OverlayVfx = true
-		VisualFx = "HestiaStatueFireBallTrail"
+		VisualFx = "HestiaStatueFireballTrail"
 		CreateAnimations =
 		[
 			{ Name = "EnemyProjectileGlow" }
@@ -288,16 +360,16 @@
 	}
 
 	{
-		Name = "HestiaStatueFireBallTrail"
+		Name = "HestiaStatueFireballTrail"
 		Random = [
-			{ Name = "HestiaStatueFireBallTrailA" }
-			{ Name = "HestiaStatueFireBallTrailB" }
-			{ Name = "HestiaStatueFireBallTrailC" }
+			{ Name = "HestiaStatueFireballTrailA" }
+			{ Name = "HestiaStatueFireballTrailB" }
+			{ Name = "HestiaStatueFireballTrailC" }
 		]
 	}
 
 	{
-		Name = "HestiaStatueFireBallTrailA"
+		Name = "HestiaStatueFireballTrailA"
 		FilePath = "Fx\Hestia\HestiaFlameA\HestiaFlameA"
 		NumFrames = 16
 		Material = "Unlit"
@@ -324,13 +396,13 @@
 	}
 
 	{
-		Name = "HestiaStatueFireBallTrailB"
-		InheritFrom = "HestiaStatueFireBallTrailA"
+		Name = "HestiaStatueFireballTrailB"
+		InheritFrom = "HestiaStatueFireballTrailA"
 		FilePath = "Fx\Hestia\HestiaFlameB\HestiaFlameB"
 	}
 	{
-		Name = "HestiaStatueFireBallTrailC"
-		InheritFrom = "HestiaStatueFireBallTrailA"
+		Name = "HestiaStatueFireballTrailC"
+		InheritFrom = "HestiaStatueFireballTrailA"
 		FilePath = "Fx\Hestia\HestiaFlameC\HestiaFlameC"
 	}
 
@@ -354,6 +426,85 @@
 			{ Name = "HestiaStatueFireIgniteGlow" }
 			{ Name = "HestiaStatueFireGlowAmbient" }
 		]
+	}
+
+	{
+		Name = "DemeterStatueFrostStorm"
+		FilePath = "Fx\Demeter\DemeterWhirlwind\DemeterWhirlwind"
+		NumFrames = 60
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 55
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ReRandomizeOnLoop = false
+		Loop = true
+		Material = "Unlit"
+		ScaleX = 0.5
+		ScaleY = 0.7
+		ScaleRadius = 80
+		TransferFrameFromThis = true
+		Sound = "/SFX/Player Sounds/DemeterBlizzardVortexSmall"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "DemeterSprintStormIceClouds"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		OverlayVfx = true
+		ChildAnimation = "DemeterSprintStormFxTrailEmitter"
+		ChainTo = "DemeterSprintStormFxDissipate"
+		Alpha = 0.6
+	}
+
+	{
+		Name = "PoseidonStatueWave"
+		FilePath = "Dev\blank_invisible"
+		Sound = "/SFX/Player Sounds/PoseidonWaterRangedAttack"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "PoseidonStatueWaveFx"
+		VisualFxIntervalMin = 0.02
+		VisualFxIntervalMax = 0.05
+	}
+	{
+		Name = "PoseidonStatueWaveFx"
+		Random = [
+			{ Name = "PoseidonStatueWaveFx1" }
+			{ Name = "PoseidonStatueWaveFx2" }
+		]
+	}
+
+	{
+		Name = "PoseidonStatueWaveFx1"
+		FilePath = "Fx\Poseidon\PoseidonConeSplash\PoseidonConeSplash"
+		NumFrames = 33
+		RandomFlipVertical = true
+		PostRotateScaleY = 0.5
+		OriginX = 0
+		OriginY = 180
+		Material = "Unlit"
+		GroupName = "FX_Terrain"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleMin = 1.2
+		ScaleMax = 1.4
+		AngleMin = -10
+		AngleMax = 10
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 70
+		ScaleY = 1.25
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.9
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "PoseidonStatueWaveFx2"
+		InheritFrom = "PoseidonStatueWaveFx1"
+		FilePath = "Fx\Poseidon\PoseidonConeSplashLarge\PoseidonConeSplashLarge"
+		Scale = 0.5
+		OriginX = 0
+		OriginY = 360
 	}
 
 	{
@@ -454,6 +605,7 @@
 		DieWithOwner = false
 		ChainTo = null
 		Sound = null
+		DisableInvisibleAnimRender = true
 	}
 
 
@@ -729,7 +881,7 @@
 	{
 		Name = "EnforcerWhirlwindFx"
 		FilePath = "Fx\AutomatonEnforcerWhirlwind\AutomatonEnforcerWhirlwind"
-		Sound = "/SFX/Enemy Sounds/GuardSwipe"
+		Sound = null
 		EndFrame = 30
 		NumFrames = 30
 		PlaySpeed = 60
@@ -1707,6 +1859,21 @@
 	}
 
 	{
+		Name = "EnemySentryBotDeathFx"
+		InheritFrom = "EnemyBeamerDeathFx"
+		Scale = 1
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "QuickFlashIce" }
+			{ Name = "EnemySentryDeathFlare" }
+			{ Name = "SentryDeathDustFront" }
+			{ Name = "SentryDeathDustBack" }
+			{ Name = "BeamerDeathDustTerrain" }
+			{ Name = "SentryDeathDark" }
+		]
+	}
+
+	{
 		Name = "AutomatonEnforcerDeath"
 		FilePath = "Fx\AutomatonEnforcerDeath\AutomatonEnforcerDeath"
 		NumFrames = 40
@@ -1759,6 +1926,12 @@
 		VisualFxIntervalMin = 0.25
 		VisualFxIntervalMax = 0.25
 		VisualFxCap = 1
+	}
+
+	{
+		Name = "SentryDeathDark"
+		InheritFrom = "BeamerDeathDark"
+		Scale = 0.5
 	}
 
 	{
@@ -1832,12 +2005,23 @@
 	}
 
 	{
+		Name = "SentryDeathDustFront"
+		InheritFrom = "BeamerDeathDustFront"
+		Scale = 0.75
+	}
+
+	{
 		Name = "BeamerDeathDustBack"
 		InheritFrom = "BeamerDeathDustFront"
 		FilePath = "Fx\ShipsDustBack\ShipsDustBack"
 		GroupName = "FX_Dark"
 		ClearCreateAnimations = true
 		CreateAnimation = null
+	}
+	{
+		Name = "SentryDeathDustBack"
+		InheritFrom = "BeamerDeathDustBack"
+		Scale = 0.75
 	}
 
 	{
@@ -1862,6 +2046,12 @@
 		GroupName = "FX_Standing_Add"
 		Scale = 2
 		ScaleX = 0.6
+	}
+
+	{
+		Name = "EnemySentryDeathFlare"
+		InheritFrom = "EnemyBeamerDeathFlare"
+		Scale = 1
 	}
 
 	{
@@ -2268,6 +2458,9 @@
 		VisualFx = "AutomatonBeamerDefenseTrail"
 		VisualFxDistanceMin = 15
 		VisualFxDistanceMax = 15
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		VisualFxFrameCap = 10
 		VisualFxUse3DAngle = true
 		Sound = "/SFX/Enemy Sounds/InvincibleProjectileLoop"
 		StopSoundOnFinishFade = 0.2
@@ -2355,7 +2548,7 @@
 		PlaySpeed = 30
 		TransferFrameToThis = true
 		LoopFramesOnly = true
-		Duration = 3
+		Duration = 1.2
 		Material = "Unlit"
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
@@ -2708,6 +2901,7 @@
 		OriginY = 100
 		ScaleY = 1.5
 		ScaleX = 0.75
+		PostRotateScaleY = 0.5
 		GroupName = "FX_Standing_Add"
 		FlipVertical = true
 		EaseIn = 0.99
@@ -2782,6 +2976,7 @@
 		EaseIn = 0.9
 		EaseOut = 1
 		ScaleY = 4
+		PostRotateScaleY = 0.5
 	}
 	{
 		Name = "AutomatonEnforcerBoostFx"
@@ -2916,7 +3111,6 @@
 		VelocityMax = 500
 	}
 
-
 	{
 		Name = "DragonFire"
 		Random = [
@@ -2948,6 +3142,8 @@
 		VisualFxIntervalMin = 0.05
 		VisualFxIntervalMax = 0.10
 		VisualFxCap = 6
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
 		CreateAnimations = [
 			{ Name = "DragonFireParticle" }
 			{ Name = "DragonFireGlow" }
@@ -2960,6 +3156,33 @@
 	{
 		Name = "DragonFireB"
 		InheritFrom = "DragonFireA"
+		FilePath = "Fx\DragonFireB\DragonFireB"
+	}
+
+	{
+		Name = "DragonFireNoLinger"
+		Random = [
+			{ Name = "DragonFireNoLingerA" }
+			{ Name = "DragonFireNoLingerB" }
+		]
+	}
+
+	{
+		Name = "DragonFireNoLingerA"
+		ScaleRadius = 105
+		ScaleMin = 1.0
+		InheritFrom = "DragonFireA"
+		CreateAnimations = [
+			{ Name = "DragonFireParticle" }
+			{ Name = "DragonFireGlow" }
+			{ Name = "DragonFireGlowFlash" }
+			{ Name = "DragonFireSnowSteam" }
+		]
+	}
+
+	{
+		Name = "DragonFireNoLingerB"
+		InheritFrom = "DragonFireNoLingerA"
 		FilePath = "Fx\DragonFireB\DragonFireB"
 	}
 
@@ -3055,32 +3278,59 @@
 		FilePath = "Fx\EphyraSmallFireB\EphyraSmallFireB"
 	}
 
+
 	{
 		Name = "DragonFireSnowSteam"
-		FilePath = "Fx\OlympusSnowflakesStormBlur\OlympusSnowflakesStormBlur"
-		NumFrames = 10
-		Angle = 90
-		AngleFromOwner = "Ignore"
+		Random = [
+			{ Name = "DragonFireSnowSteamA" }
+			{ Name = "DragonFireSnowSteamB" }
+			{ Name = "DragonFireSnowSteamC" }
+			{ Name = "DragonFireSnowSteamD" }
+		]
+	}
+	{
+		Name = "DragonFireSnowSteamA"
+		FilePath = "Particles\particle_steam_01"
+		NumFrames = 1
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
 		StartAlpha = 1
 		EndAlpha = 0
-		Duration = 1.75
+		Duration = 1.5
 		StartScale = 0.5
 		EndScale = 1.5
 		Scale = 2
-		PlaySpeed = 0.0001
 		RandomStartFrame = true
 		LoopFramesOnly = true
 		StartOffsetZ = 0
-		EndOffsetZ = 200
-		EaseIn = 0.9
+		EndOffsetZ = 100
+		EaseIn = 0.5
 		EaseOut = 1.0
-		OriginX = 0
-		OriginY = 135
 		SortMode = "FromParent"
 		SortFromOwner = "Take"
 		Red = 0.4
 		Green = 0.7
 		Blue = 1
+		Material = "Unlit"
+		StartScaleY = 0.5
+		EndScaleY = 0.75
+		RandomFlipHorizontal = true
+	}
+
+	{
+		Name = "DragonFireSnowSteamB"
+		InheritFrom = "DragonFireSnowSteamA"
+		FilePath = "Particles\particle_steam_02"
+	}	
+	{
+		Name = "DragonFireSnowSteamC"
+		InheritFrom = "DragonFireSnowSteamA"
+		FilePath = "Particles\particle_steam_03"
+	}	
+	{
+		Name = "DragonFireSnowSteamD"
+		InheritFrom = "DragonFireSnowSteamA"
+		FilePath = "Particles\particle_steam_04"
 	}
 
 
@@ -3268,7 +3518,7 @@
 		ScaleMin = 0.7
 		ScaleMax = 1.2
 		LocationZFromOwner = "Take"
-		OffsetZ = 80
+		OffsetZ = 0
 		AngleFromOwner = "Ignore"
 		Angle = 270
 		ScaleY = 2
@@ -3487,6 +3737,8 @@
 		Red = 1
 		Green = 0.7
 		Blue = 0.5
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
 		CreateAnimation = "SatyrRocketProjectileParticles"
 
 	}
@@ -3651,6 +3903,35 @@
 	}
 
 	{
+		Name = "SatyrEscapeTrail"
+		FilePath = "Fx\SatyrSpawnStreaks\SatyrSpawnStreaks"
+		PlayBackwards = true
+		FlipVertical = true
+		NumFrames = 7
+		Material = "Unlit"
+		ScaleY = 2
+		ScaleX = 1.5
+		OriginX = 128
+		OriginY = 256
+		OffsetZ = -400
+		LocationZFromOwner = "Maintain"
+		ColorFromOwner = "Ignore"
+		DrawBehindOwner = true
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Dark"
+		UseOwnAngle = false
+		Slides = [
+			{ DurationFrames = 3 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+	{
 		Name = "SatyrLandDust"
 		FilePath = "Fx\ShipsDustTerrain\ShipsDustTerrain"
 		NumFrames = 42
@@ -3662,6 +3943,7 @@
 		Green = 0.4
 		Blue = 0.7
 		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
 		GroupName = "FX_Terrain"
 		ScaleFromOwner = "Ignore"
 		StartAlpha = 0.4
@@ -3886,6 +4168,7 @@
 			{ Name = "MageProjectileDark" }
 		]
 		PingPongColor = true
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 	}
 
 
@@ -4118,6 +4401,7 @@
 
 	{
 		Name = "SatyrSapperDeathFxPhysical"
+		Sound = "/SFX/Enemy Sounds/SatyrSapperDeathSFX"
 		Random = [
 			{ Name = "SatyrSapperDeathFxPhysicalA" }
 			{ Name = "SatyrSapperDeathFxPhysicalB" }
@@ -4224,6 +4508,7 @@
 	}
 	{
 		Name = "SatyrCrossbowDeathFxPhysical"
+		Sound = "/SFX/Enemy Sounds/SatyrCrossbowDeathSFX"
 		Random = [
 			{ Name = "SatyrCrossbowDeathFxPhysicalA" }
 			{ Name = "SatyrCrossbowDeathFxPhysicalB" }
@@ -4331,6 +4616,7 @@
 
 	{
 		Name = "SatyrLancerDeathFxPhysical"
+		Sound = "/SFX/Enemy Sounds/SatyrLancerDeathSFX"
 		Random = [
 			{ Name = "SatyrLancerDeathFxPhysicalA" }
 			{ Name = "SatyrLancerDeathFxPhysicalB" }
@@ -4614,9 +4900,44 @@
 		FilePath = "Fx\DeathSplatSandDissipateB\DeathSplatSandDissipateB"
 	}
 
+	{
+		Name = "Enemy_EarthElemental_Death"
+		FilePath = "Fx\EarthElementalDeath\EarthElementalDeath"
+		NumFrames = 40
+		HoldLastFrame = true
+		Material = "Until"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		PlaySpeed = 45
+		Scale = 1.25
+		OffsetZ = 60
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.01
+		LoopFramesOnly = true
+		Duration = 6
+		RandomFlipHorizontal = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		UseAttachedAddColor = false
+		ColorFromOwner = "Ignore"
+		Hue = 0.64
+
+	}
+	{
+		Name = "Enemy_EarthElemental_Shadow_Death"
+		InheritFrom = "Enemy_EarthElemental_Death"
+		Duration = 0.7
+	}
 
 	{
-		Name = "ZombieOlympusSpawnMask"
+		Name = "EarthElementalSpawnMask"
 		FilePath = "Fx\EphyraZombieHoleIn\ZombieSpawnMask"
 		ScaleFromOwner = "Ignore"
 		Duration = 2
@@ -4643,12 +4964,12 @@
 	}
 
 	{
-		Name = "ZombieOlympusHoleIn"
+		Name = "EarthElementalHoleIn"
 		FilePath = "Fx\EphyraZombieHoleIn\EphyraZombieHoleIn"
 		NumFrames = 22
 		PlaySpeed = 60
 		GroupName = "FX_Terrain"
-		ChainTo = "ZombieOlympusHoleHold"
+		ChainTo = "EarthElementalHoleHold"
 		ScaleFromOwner = "Ignore"
 		Scale = 0.4
 		AngleFromOwner = "Ignore"
@@ -4656,7 +4977,7 @@
 		OffsetZ = 0
 		LocationZFromOwner = "Ignore"
 		LocationFromOwner = "Ignore"
-		VisualFx = "ZombieOlympusSpawnSnowClump"
+		VisualFx = "EarthElementalSpawnSnowClump"
 		VisualFxIntervalMin = 0.2
 		VisualFxIntervalMax = 0.3
 		AddColor = true
@@ -4669,19 +4990,19 @@
 	}
 
 	{
-		Name = "ZombieOlympusHoleHold"
-		InheritFrom = "ZombieOlympusHoleIn"
+		Name = "EarthElementalHoleHold"
+		InheritFrom = "EarthElementalHoleIn"
 		NumFrames = 1
 		RandomDurationMin = 0.3
 		RandomDurationMax = 0.6
 		FilePath = "Fx\EphyraZombieHoleIn\EphyraZombieHoleIn0022"
-		ChainTo = "ZombieOlympusHoleOut"
+		ChainTo = "EarthElementalHoleOut"
 		VisualFxCap = 3
 	}
 
 	{
-		Name = "ZombieOlympusHoleOut"
-		InheritFrom = "ZombieOlympusHoleIn"
+		Name = "EarthElementalHoleOut"
+		InheritFrom = "EarthElementalHoleIn"
 		FilePath = "Fx\EphyraZombieHoleOut\EphyraZombieHoleOut"
 		ChainTo = null
 		NumFrames = 26
@@ -4690,12 +5011,12 @@
 	}
 
 	{
-		Name = "ZombieOlympusSpawnSnowClump"
+		Name = "EarthElementalSpawnSnowClump"
 		Random =
 		[
-			{ Name = "ZombieOlympusSpawnSnowClumpA" }
-			{ Name = "ZombieOlympusSpawnSnowClumpB" }
-			{ Name = "ZombieOlympusSpawnSnowClumpC" }
+			{ Name = "EarthElementalSpawnSnowClumpA" }
+			{ Name = "EarthElementalSpawnSnowClumpB" }
+			{ Name = "EarthElementalSpawnSnowClumpC" }
 		]
 	}
 
@@ -4728,7 +5049,7 @@
 	}
 
 	{
-		Name = "ZombieOlympusSpawnSnowClumpA"
+		Name = "EarthElementalSpawnSnowClumpA"
 		InheritFrom = "OlympusSnowClumpA"
 		EaseIn = 0.9
 		EaseOut = 1.0
@@ -4745,14 +5066,14 @@
 	}
 
 	{
-		Name = "ZombieOlympusSpawnSnowClumpB"
-		InheritFrom = "ZombieOlympusSpawnSnowClumpA"
+		Name = "EarthElementalSpawnSnowClumpB"
+		InheritFrom = "EarthElementalSpawnSnowClumpA"
 		FilePath = "Fx\EphyraZombieDirtClumpB\EphyraZombieDirtClumpB"
 	}		
 
 	{
-		Name = "ZombieOlympusSpawnSnowClumpC"
-		InheritFrom = "ZombieOlympusSpawnSnowClumpA"
+		Name = "EarthElementalSpawnSnowClumpC"
+		InheritFrom = "EarthElementalSpawnSnowClumpA"
 		FilePath = "Fx\EphyraZombieDirtClumpC\EphyraZombieDirtClumpC"
 	}		
 
@@ -5385,6 +5706,20 @@
 	}
 
 	{
+		Name = "MatiHypnoCharge"
+		InheritFrom = "BasePreAttackGlow"
+
+		GrannyAttachedMarkerLocation = "Mati_Rig:iris_00_M_JNT"
+		VisualFx = "MatiHypnoChargeStreaks"
+	}
+	{
+		Name = "MatiHypnoChargeStreaks"
+		InheritFrom = "BasePreAttackGlowStreaks"
+
+		GrannyAttachedMarkerLocation = "Mati_Rig:iris_00_M_JNT"
+	}
+
+	{
 		Name = "SentryBotBlastCharge"
 		FilePath = "Fx\EnemyChargeIn\EnemyChargeIn"
 		GroupName = "FX_Standing_Add"
@@ -5395,6 +5730,8 @@
 		VisualFx = "SentryBotBlastChargeStreaks"
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.01
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
 		ChainTo = "SentryBotBlastChargeOut"
 		StartScale = 1.33
 		EndScale = 0.1
@@ -5556,60 +5893,22 @@
 	}
 
 	{
-		Name = "LobWarningDecalSentryBot"
-		FilePath = "GUI\LobWarningDecalIris\LobWarningDecalIris"
-		NumFrames = 21
-		PlaySpeed = 12
-		Material = "Unlit"
-		Loop = false
+		Name = "OlympusCraterIndoor"
+		FilePath = "Tilesets\Olympus\Olympus_Terrain_Crack_01"
+		GroupName = "FX_Terrain_Decor"
+		ScaleMin = 0.45
+		ScaleMax = 0.7
+		Scale = 0.4
+		RandomFlipHorizontal = true
 		AngleFromOwner = "Ignore"
-		UseOwnAngle = false
-		GroupName = "FX_Terrain"
-		SortMode = "Isometric"
-		Scale = 1.05
-		OffsetY = 30
-	}
-
-	{
-		Name = "PrometheusMagicCirclePreview"
-		FilePath = "Fx\SirenDrummerCircle\SirenDrummerCircleD"
-		RotationSpeed = 8
-		GroupName = "FX_Terrain"
-		Scale = 2
-		PostRotateScaleY = 0.5
-		EaseIn = 0.9
-		EaseOut = 1.0
-		StartScale = 0.9
-		EndScale = 1.0
-		Duration = 0.45
-		Material = "Unlit"
-		DieWithOwner = true
-		ColorFromOwner = "Ignore"
-		UseAttachedFlasher = false
-		UseAttachedShake = false
-		UseAttachedAddColor = false
-		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_InvertedDecal"
-		StopSoundOnFinishFade = 0.2
-	}
-
-	{
-		Name = "PrometheusMagicCircleInvertedPreview"
-		FilePath = "Fx\SirenDrummerCircle\SirenDrummerCircleInvertBorder"
-		PostRotateScaleY = 0.5
-		RotationSpeed = 16
-		Material = "Unlit"
-		GroupName = "FX_Terrain_Top"
-		VisualFx = "SirenDrummerInvertedCircleFx"
-		VisualFxIntervalMin = 0.1
-		VisualFxIntervalMax = 0.1
-		Scale = 1.65
-		ColorFromOwner = "Ignore"
-		UseAttachedFlasher = false
-		UseAttachedShake = false
-		UseAttachedAddColor = false
-		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_InvertedDecal"
-		StopSoundOnFinishFade = 0.2
-		Duration = 0.45
+		AngleMin = -15
+		AngleMax = 15
+		Duration = 1
+		HoldLastFrame = true
+		Value = -0.1
+		Saturation = -0.1
+		AlphaMin = 0.6
+		AlphaMax = 0.9
 	}
 
 	{
@@ -5624,7 +5923,7 @@
 	{
 		Name = "OlympusSnowExplosionDecalA"
 		FilePath = "Fx\OlympusSnowExplosionDecals\OlympusSnowExplosionDecalA"
-		GroupName = "FX_Terrain"
+		GroupName = "FX_Terrain_Decor"
 		RequiresUnblocked = true
 		ColorFromOwner = "Ignore"
 		Duration = 0.25
@@ -5635,7 +5934,7 @@
 		NumFrames = 1
 		StartFrame = 1
 		StartScale = 0.0
-		Ambient = 0.0
+		Ambient = 1.0
 		RandomFlipHorizontal = true
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
@@ -5774,6 +6073,7 @@
 		LocationZFromOwner = "Take"
 		LocationFromOwner = "Ignore"
 		Material = "Unlit"
+		Angle = 180
 		ScaleMin = 0.3
 		ScaleMax = 1.0
 		Scale = 0.6
@@ -5899,6 +6199,7 @@
 		VisualFxDistanceMin = 100
 		VisualFxDistanceMax = 100
 		TransferFrameToThis = true
+		Sound = "/SFX/Enemy Sounds/Prometheus/PrometheusFlameWaveSFX2"
 		CreateAnimations = [
 			{ Name = "PrometheusFlameWaveB" }
 			{ Name = "PrometheusFlameWaveC" }
@@ -5957,6 +6258,7 @@
 		DieWithOwner = true
 		RandomStartFrame = true
 		Alpha = 0.5
+		Sound = null
 	}	
 
 	{
@@ -5969,6 +6271,7 @@
 		RandomStartFrame = true
 		Alpha = 0.5
 		ScaleY = 0.5
+		Sound = null
 	}	
 
 
@@ -5984,6 +6287,7 @@
 		OffsetZ = -10
 		DieWithOwner = true
 		RandomStartFrame = true
+		Sound = null
 	}
 
 
@@ -6011,6 +6315,7 @@
 		AngleFromOwner = "Take"
 		StartScaleY = 1
 		EndScaleY = 0.5
+		Sound = null
 		CreateAnimations = [
 			{ Name = "PrometheusFlameWaveTrailDisplacement" }
 			{ Name = "PrometheusFlameWaveTrailSmallFlame" }
@@ -6061,6 +6366,7 @@
 		Alpha = 1
 		StartAlpha = 1
 		EndAlpha = 0.999
+		Sound = null
 		CreateAnimations = [
 			{ Name = "PrometheusFlameWaveDissipateB" }
 			{ Name = "PrometheusFlameWaveDissipateC" }
@@ -6134,6 +6440,7 @@
 		EndScaleY = 1
 		EaseIn = 0
 		EaseOut = 1
+		Sound = null
 		CreateAnimations = [
 			{ Name = "PrometheusFlameWaveStartFlare" }
 			{ Name = "PrometheusFlameWaveInB" }
@@ -6622,7 +6929,7 @@
 		OriginX = 0
 		OriginY = 300
 		Alpha = 0.6
-		ScaleRadius = 580
+		ScaleRadius = 520
 		DieWithOwner = true
 		Sound = "/SFX/Player Sounds/HestiaFlamePuddleSFX"
 		StopSoundOnFinishFade = 0.2
@@ -7150,7 +7457,7 @@
 		DieWithOwner = true
 		UseOwnAngle = false
 		AngleFromOwner = "Ignore"
-		Sound = "/SFX/Enemy Sounds/WretchedThug/ThugChargeUp"
+		Sound = "/SFX/Enemy Sounds/Prometheus/PrometheusChargeUp"
 		StopSoundOnFinishFade = 0.2
 		StartAlpha = 0.65
 		ChainTo = "PrometheusChargingFxOut"
@@ -7428,7 +7735,7 @@
 		PostRotateScaleY = 0.5
 		GroupName = "FX_Terrain"
 		Duration = 3.2
-		ScaleRadius = 400
+		ScaleRadius = 460
 		VisualFx = "PrometheusSkyCastPreviewPulse"
 		VisualFxIntervalMin = 0.2
 		VisualFxIntervalMax = 0.3
@@ -7455,12 +7762,12 @@
 		FilePath = "Fx\Prometheus\PrometheusLargeFirePreviewRing02B"
 		Material = "Unlit"
 		PostRotateScaleY = 0.5
-		Duration = 3.7
+		Duration = 3.6
 		StartScale = 0
 		EndScale = 1
 		StartAlpha = 0
 		EndAlpha = 1
-		Scale = 2
+		Scale = 1.7
 		EaseIn = 0
 		EaseOut = 1
 		GroupName = "FX_Terrain_Add"
@@ -7471,8 +7778,9 @@
 		RandomRotation = true
 		RandomFlipVertical = true
 		ChainTo = "PrometheusSkyCastPreviewTimer_Out"
-		Sound = "/SFX/Player Sounds/TimeSlowCharge"
+		Sound = "/SFX/Enemy Sounds/Prometheus/PrometheusMegaCharge"
 		StopSoundOnFinishFade = 0.2
+		DieWithOwner = true
 	}
 
 	{
@@ -7532,6 +7840,7 @@
 		StartRed = 0.0
 		StartGreen = 0.0
 		StartBlue = 0.0
+		DieWithOwner = true
 		CreateAnimations =
 		[
 			{ Name = "PrometheusSkyCastPreviewTimer" }
@@ -7545,7 +7854,7 @@
 		FilePath = "Particles\particle_shadow"
 		PostRotateScaleY = 0.5
 		GroupName = "FX_Terrain_Dark"
-		Duration = 3.7
+		Duration = 4.0
 		Alpha = 0.5
 		StartAlpha = 0
 		EndAlpha = 1
@@ -7554,6 +7863,7 @@
 		StartScale = 0
 		EndScale = 1
 		Scale = 6
+		DieWithOwner = true
 	}
 
 	{
@@ -7618,7 +7928,7 @@
 		PostRotateScaleY = 0.5
 		GroupName = "FX_Terrain_Add"
 		OffsetZ = 0
-		Scale = 4
+		Scale = 3.5
 		ScaleFromOwner = "Ignore"
 		AngleFromOwner = "Ignore"
 		StartAngle = 0
@@ -8464,6 +8774,193 @@
 	}
 
 	{
+		Name = "PrometheusDeathDecal"
+		FilePath = "Fx\Prometheus\PrometheusDeathDecal"
+		GroupName = "FX_Terrain"
+		Material = "Unlit"
+		Duration = 1
+		Loop = true
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		VisualFx = "PrometheusDeathDecalFx"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.1
+	}
+
+	{
+		Name = "PrometheusDeathDecalFx"
+		Random = [
+			{ Name = "PrometheusDeathDecalFlame" }
+		]
+	}
+
+
+	{
+		Name = "PrometheusDeathDecalFlame"
+		Random =
+		[
+			{ Name = "PrometheusDeathDecalFlameA" }
+			{ Name = "PrometheusDeathDecalFlameB" }
+			{ Name = "PrometheusDeathDecalFlameC" }				
+			{ Name = "PrometheusDeathDecalFlameD" }
+			{ Name = "PrometheusDeathDecalFlameE" }
+			{ Name = "PrometheusDeathDecalFlameF" }				
+	
+		    { Name = "PrometheusDeathDecalParticlesA" }
+		    { Name = "PrometheusDeathDecalParticlesB" }
+		    { Name = "PrometheusDeathDecalParticlesC" }
+		    { Name = "PrometheusDeathDecalParticlesD" }
+		    { Name = "PrometheusDeathDecalParticlesE" }
+		    { Name = "PrometheusDeathDecalParticlesF" }
+		    { Name = "PrometheusDeathDecalParticlesG" }
+		    { Name = "PrometheusDeathDecalParticlesH" }
+
+
+		]
+	}
+
+	{
+		Name = "PrometheusDeathDecalFlameA"
+		FilePath = "Fx\Hestia\HestiaGroundFlameA\HestiaGroundFlameA"
+		NumFrames = 50
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 36
+		GroupName = "FX_Terrain_Top"
+		ScaleMin = 0.25
+		ScaleMax = 0.5
+		ColorFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 75
+		RadialOffsetMax = 150
+		VelocityMin = 15
+		VelocityMax = 66
+		UseOwnAngle = false
+		Acceleration = -150
+		ScaleX = 1.25
+		ScaleY = 0.7
+		StartScale = 0.5
+		EndScale = 2
+		EaseIn = 0
+		EaseOut = 1
+		StartAlpha = 0
+		EndAlpha = 1
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		PingPongColor = true
+		Hue = 0.53
+	}
+
+	{
+		Name = "PrometheusDeathDecalFlameB"
+		InheritFrom = "PrometheusDeathDecalFlameA"
+		FilePath = "Fx\Hestia\HestiaGroundFlameB\HestiaGroundFlameB"
+	}
+
+	{
+		Name = "PrometheusDeathDecalFlameC"
+		InheritFrom = "PrometheusDeathDecalFlameA"
+		FilePath = "Fx\Hestia\HestiaGroundFlameC\HestiaGroundFlameC"
+	}
+	{
+		Name = "PrometheusDeathDecalFlameD"
+		InheritFrom = "PrometheusDeathDecalFlameA"
+		Hue = 0
+	}
+	{
+		Name = "PrometheusDeathDecalFlameE"
+		InheritFrom = "PrometheusDeathDecalFlameD"
+		FilePath = "Fx\Hestia\HestiaGroundFlameB\HestiaGroundFlameB"
+	}
+	{
+		Name = "PrometheusDeathDecalFlameF"
+		InheritFrom = "PrometheusDeathDecalFlameD"
+		FilePath = "Fx\Hestia\HestiaGroundFlameC\HestiaGroundFlameC"
+	}
+
+	{
+		Name = "PrometheusDeathDecalParticlesA"
+		FilePath = "Fx\BossDeathParticlesA\BossDeathParticlesA"
+		NumFrames = 48
+		RandomFlipHorizontal = true
+		ScaleMin = 0.3
+		ScaleMax = 0.7
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.05
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		RadialOffsetMin = 100
+		RadialOffsetMax = 200
+		RadialOffsetScaleY = 0.5
+		RandomPlaySpeedMin = 15
+		RandomPlaySpeedMax = 24
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AngleMin = 0
+		AngleMax = 360
+		AlphaMin = 0.3
+		AlphaMax = 1.0
+		OriginX = 110
+		OriginY = 220
+		StartScaleY = 1
+		EndScaleY = 1.6
+		ScaleX = 0.66
+	}
+
+	{
+		Name = "PrometheusDeathDecalParticlesB"
+		InheritFrom = "PrometheusDeathDecalParticlesA"
+		FilePath = "Fx\BossDeathParticlesB\BossDeathParticlesB"
+	}
+	{
+		Name = "PrometheusDeathDecalParticlesC"
+		InheritFrom = "PrometheusDeathDecalParticlesA"
+		FilePath = "Fx\BossDeathParticlesC\BossDeathParticlesC"
+	}
+	{
+		Name = "PrometheusDeathDecalParticlesD"
+		InheritFrom = "PrometheusDeathDecalParticlesA"
+		FilePath = "Fx\BossDeathParticlesD\BossDeathParticlesD"
+	}
+	{
+		Name = "PrometheusDeathDecalParticlesE"
+		InheritFrom = "PrometheusDeathDecalParticlesA"
+		Red = 0
+		Green = 0.5
+		Blue = 1.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+	}	
+	{
+		Name = "PrometheusDeathDecalParticlesF"
+		InheritFrom = "PrometheusDeathDecalParticlesE"
+		FilePath = "Fx\BossDeathParticlesB\BossDeathParticlesB"
+	}
+	{
+		Name = "PrometheusDeathDecalParticlesG"
+		InheritFrom = "PrometheusDeathDecalParticlesE"
+		FilePath = "Fx\BossDeathParticlesC\BossDeathParticlesC"
+	}
+	{
+		Name = "PrometheusDeathDecalParticlesH"
+		InheritFrom = "PrometheusDeathDecalParticlesE"
+		FilePath = "Fx\BossDeathParticlesD\BossDeathParticlesD"
+	}
+
+
+	{
 		Name = "PrometheusDeathFxIn"
 		FilePath = "Dev\blank_invisible"
 		Duration = 3.75
@@ -8595,6 +9092,8 @@
 		VisualFxIntervalMin = 0.1
 		VisualFxIntervalMax = 0.1
 		VisualFxCap = 6
+		Sound = "/SFX/Enemy Sounds/Prometheus/PrometheusFireTornadoLoop"
+		StopSoundOnFinishFade = 0.1
 		Slides = [
 			{ DurationFrames = 1 }
 			{ DurationFrames = 1 }
@@ -9269,7 +9768,7 @@
 		ScaleFromOwner = "Ignore"
 		Scale = 1.5
 		OffsetZ = 60
-//		ScaleX = 1.5
+		//ScaleX = 1.5
 		AngleFromOwner = "Maintain"
 		VisualFx = "EagleSweepStreak"
 		VisualFxDistanceMin = 150
@@ -9685,7 +10184,7 @@
 		EndGreen = 0.1
 		EndBlue = 0.9
 		ScaleFromOwner = "Ignore"
-		Scale = 3
+		Scale = 0
 		Duration = 0.5
 		StartScale = 1
 		EndScale = 1.5
@@ -9700,10 +10199,10 @@
 		VisualFxIntervalMax = 0.04
 		VisualFxManagerCap = 500
 		VisualFxManagerFrameCap = 20
-		VisualFxCap = 6
+		VisualFxCap = 3
 		CreateAnimations = [
 			{ Name = "PrometheusMemoryFireAB" }
-			{ Name = "PrometheusMemoryFireAB" }
+			// { Name = "PrometheusMemoryFireAB" }
 			{ Name = "PrometheusMemoryFireC" }
 			{ Name = "PrometheusMemoryFireD" }
 			//{ Name = "PrometheusMemoryFireDisplacement" }
@@ -9722,6 +10221,8 @@
 		Random = [
 			{ Name = "PrometheusMemoryFireA" }
 			{ Name = "PrometheusMemoryFireB" }
+			{ Name = "PrometheusMemoryFireA_Add" }
+			{ Name = "PrometheusMemoryFireB_Add" }
 		]
 	}
 
@@ -9730,10 +10231,12 @@
 		FilePath = "Fx\Prometheus\PrometheusMemoryFireA\PrometheusMemoryFireA"
 		NumFrames = 45
 		Material = "Unlit"
-		RandomPlaySpeedMin = 60
-		RandomPlaySpeedMax = 90
-		UseOwnAngle = false
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 75
 		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		RandomRotationSpeedMin = -5
+		RandomRotationSpeedMax = 5
 		ScaleFromOwner = "Ignore"
 		ScaleMin = 0.5
 		ScaleMax = 1.0
@@ -9743,13 +10246,6 @@
 		LocationFromOwner = "Ignore"
 		ColorFromOwner = "Ignore"
 		Scale = 1.5
-		AddColor = true
-		StartRed = 0.3
-		StartGreen = 0.5
-		StartBlue = 0.7
-		EndRed = 0
-		EndGreen = 0
-		EndBlue = 0
 		EaseIn = 0.99
 		EaseOut = 1.0
 		VelocityMin = 400
@@ -9763,7 +10259,22 @@
 		Name = "PrometheusMemoryFireB"
 		InheritFrom = "PrometheusMemoryFireA"
 		FilePath = "Fx\Prometheus\PrometheusMemoryFireB\PrometheusMemoryFireB"
-	}	
+	}
+
+	{
+		Name = "PrometheusMemoryFireA_Add"
+		InheritFrom = "PrometheusMemoryFireA"
+		GroupName = "FX_Standing_Add"
+		StartScale = 0.7
+		EndScale = 1.25
+	}
+	{
+		Name = "PrometheusMemoryFireB_Add"
+		InheritFrom = "PrometheusMemoryFireB"
+		GroupName = "FX_Standing_Add"
+		StartScale = 0.7
+		EndScale = 1.25
+	}
 
 	{
 		Name = "PrometheusMemoryFireC"
@@ -9810,6 +10321,7 @@
 		EaseOut = 0.25
 		LocationZFromOwner = "Ignore"
 		LocationFromOwner = "Ignore"
+		IgnoreIfMinConfigPreset = true
 	}
 
 
@@ -9875,6 +10387,7 @@
 		RandomDurationMax = 2.0
 		SortMode = "FromParent"
 		SortFromOwner = "Maintain"
+		IgnoreIfMinConfigPreset = true
 	}
 
 
@@ -9938,6 +10451,7 @@
 		FilePath = "Dev\blank_invisible"
 		GrannyAttachedMarkerLocation = "Prometheus_Rig:root_00_M_JNT"
 		DurationFrames = 1
+		DisableInvisibleAnimRender = true
 		CreateAnimations = [
 			{ Name = "PrometheusMemoryChargingFxA" }
 			{ Name = "PrometheusMemoryChargingFxC_Random" }
@@ -9971,8 +10485,9 @@
 		EndScaleX = 1.0
 		ScaleY = 0.7
 		Material = "Unlit"
-		Sound = "/SFX/Player Sounds/TimeSlowChargeLoop"
+		Sound = "/SFX/Enemy Sounds/Prometheus/PrometheusMegaChargeLoop"
 		StopSoundOnFinishFade = 0.2
+		DisableInvisibleAnimRender = true
 	}
 	{
 		Name = "PrometheusMemoryChargingFxD"
@@ -10066,7 +10581,7 @@
 		AngleFromOwner = "Ignore"
 		ScaleX = 0.66
 		PingPongColor = true
-
+		DisableInvisibleAnimRender = true
 	}
 
 	{
@@ -10246,29 +10761,145 @@
 
 	{
 		Name = "TalosMagnetFx"
-		FilePath = "Fx\CorruptedShadeVacuum\CorruptedShadeVacuum"
+		FilePath = "Fx\TalosMagnetPull\TalosMagnetPull"
 		UseAttachedFlasher = false
-		NumFrames = 30
+		NumFrames = 15
 		Loop = true
 		PlaySpeed = 60
-		OriginX = 0
-		OriginY = 120
-		ScaleX = 2
+		OriginX = 210
+		OriginY = 102.5
+		ScaleX = 4
 		Scale = 2
-		ScaleY = 1.5
+		ScaleY = 1
 		TransferFrameFromThis = true
 		TransferFrameToThis = true
 		LocationZFromOwner = "Ignore"
-		OffsetZ = 100
 		Material = "Unlit"
-		Saturation = -0.5
-		Hue = 0.1
-		Alpha = 0.66
-		VisualFx = "CorruptedShadeVacuumDebris"
-		VisualFxIntervalMin = 0.01
-		VisualFxIntervalMax = 0.02
-		VisualFxCap = 20
+		FlipHorizontal = false
+		GroupName = "FX_Standing_Add"
+		Angle = 180
+		OffsetZ = 220
+		VisualFx = "TalosMagnetFxParticles"
+		VisualFxIntervalMin = 0.08
+		VisualFxIntervalMax = 0.1
+		CreateAnimation = "TalosMagnetFxDisplacement"
 	}
+
+	{
+		Name = "TalosMagnetFxDisplacement"
+		InheritFrom = "TalosMagnetFx"
+		CreateAnimation = null
+		GroupName = "FX_Displacement"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		AngleFromOwner = "Maintain"
+		DieWithOwner = true
+		PlaySpeed = 45
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Alpha = 0.66
+		ScaleY = 0.5
+		ClearCreateAnimations = true
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 1
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.1
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "TalosMagnetFxParticles"
+		FilePath = "Particles\particle_addFlake"
+		AddColor = true
+		Red = 0.3
+		Green = 0
+		Blue = 1
+		StartScale = 1
+		EndScale = 0
+		PingPongScale = false
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		RandomOffsetX = 100
+		RandomOffsetY = 50
+		RandomRotation = false
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RadialOffsetMin = 400
+		RadialOffsetMax = 1000
+		StartScaleX = 3
+		EndScaleX = 1
+		VelocityMin = 400
+		VelocityMax = 1000
+		Acceleration = -400
+		Angle = 0
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		EaseIn = 0.0
+		EaseOut = 1.0
+		OffsetZ = 150
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		AngleFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+		Scale = 0.5
+		ScaleFromOwner = "Ignore"
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.8
+	}
+
+	{
+		Name = "TalosMagnetPreFireChargeFx"
+		FilePath = "Fx\EnemyChargeIn\EnemyChargeIn"
+		NumFrames = 60
+		Hue = -0.15
+		GrannyAttachedMarkerLocation = "Talos_Rig:handPart_00_L_JNT"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		Scale = 0.5
+		UseAttachedFlasher = false
+		ChildAnimation = "TalosMagnetPreFireChargeFxB"
+	}
+
+	{
+		Name = "TalosMagnetPreFireChargeFxB"
+		FilePath = "Particles\particle_eagleProjectile"
+		Material = "Unlit"
+		FlipHorizontal = true
+		GroupName = "FX_Standing_Add"
+		Red = 0.2
+		Green = 0
+		Blue = 1.0
+		GrannyAttachedMarkerLocation = "Talos_Rig:handPart_00_L_JNT"
+		OriginX = 10
+		OriginY = 80
+		ScaleY = 0.66
+		UseAttachedFlasher = false
+	}
+
+	{
+		Name = "TalosMagnetPreFireChargeFxB_Fade"
+		InheritFrom = "TalosMagnetPreFireChargeFxB"
+		StartScaleX = 1
+		EndScaleX = 0
+		EaseIn = 0.9
+		EaseOut = 1
+		DurationFrames = 6
+	}
+
+	{
+		Name = "TalosMagnetFireChargeFx"
+		InheritFrom = "TalosMagnetPreFireChargeFx"
+		FilePath = "Fx\EnemyChargeOut\EnemyChargeOut"
+		NumFrames = 6
+		ChildAnimation = "TalosMagnetPreFireChargeFxB_Fade"
+	}
+
 	{
 		Name = "TalosUppercut"
 		FilePath = "Fx\FistUppercut\FistUppercut"
@@ -10670,8 +11301,6 @@
 		EndRed = 0.01
 		EndGreen = 0.2
 		EndBlue = 0.99
-		//Sound = "/SFX/Player Sounds/TimeSlowChargeLoop"
-		StopSoundOnFinishFade = 0.2
 		CreateAnimation = "PrometheusDeathFlameSpark"
 	}
 
@@ -11009,6 +11638,1365 @@
 	}
 
 
+	{
+		Name = "HeraclesEMSpinFx"
+		FilePath = "Fx\ThugMeleeSwipe\ThugMeleeSwipe"
+		NumFrames = 20
+		Loop = false
+		FlipHorizontal = false
+		FlipVertical = false
+		Material = "Unlit"
+		PostRotateScaleY = 0.60
+		PlaySpeed = 30
+		OffsetZ = 60
+		RotationSpeed = -960
+		Scale = 1.8
+		Hue = -0.02
+		CreateAnimations = [
+			{ Name = "HeraclesEMSpinFxGlow" }
+			{ Name = "HeraclesEMSpinFxDark" }
+			{ Name = "HeraclesEMSpinFxFill" }
+			{ Name = "HeraclesEMSpinDisplacement" }
+			{ Name = "HeraclesEMSpinDustFront" }
+			{ Name = "HeraclesEMSpinDustBack" }
+		]
+	}
+
+	{
+		Name = "HeraclesEMSpinFxGlow"
+		FilePath = "Particles\particle_glow_ring_bias"
+		Red = 1
+		Green = 0
+		Blue = 0.05
+		Alpha = 0.5
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.5
+		AngleFromOwner = "Take"
+		RotationSpeed = -1080
+		PostRotateScaleY = 0.66
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		Scale = 2
+	}
+
+	{
+		Name = "HeraclesEMSpinDustFront"
+		FilePath = "Fx\ShipsDustFront\ShipsDustFront"
+		NumFrames = 45
+		StartAlpha = 0.1
+		EndAlpha = 0.66
+		RandomFlipHorizontal = true
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		StartScale = 1
+		EndScale = 1.33
+		EaseIn = 0.99
+		EaseOut = 1.00
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Scale = 2
+		GroupName = "FX_Standing"
+		Material = "Unlit"
+	}
+	{
+		Name = "HeraclesEMSpinDustBack"
+		InheritFrom = "HeraclesEMSpinDustFront"
+		FilePath = "Fx\ShipsDustBack\ShipsDustBack"
+		GroupName = "FX_Terrain"
+	}
 
 
+	{
+		Name = "HeraclesEMSpinFxDark"
+		InheritFrom = "HeraclesEMSpinFx"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		PlaySpeed = 24
+	}
+
+	{
+		Name = "HeraclesEMSpinFxFill"
+		FilePath = "Fx\Chronos\ChronosScytheSpin\ChronosScytheSpin"
+		GroupName = "FX_Terrain"
+		NumFrames = 15
+		Loop = false
+		FlipHorizontal = true
+		FlipVertical = true
+		Material = "Unlit"
+		PostRotateScaleY = 0.66
+		PlaySpeed = 45
+		LoopFramesOnly = true
+		Duration = 0.4
+		RandomStartFrame = true
+		OffsetZ = 30
+		Saturation = -1
+		Alpha = 0.5
+		AngleFromOwner = "Take"
+		RotationSpeed = -480
+		StartScale = 1.15
+		EndScale = 1.3
+		Red = 1
+		Green = 0
+		Blue = 0.3
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+
+	}
+
+	{
+		Name = "HeraclesEMSpinDisplacement"
+		InheritFrom = "HeraclesEMSpinFxFill"
+		GroupName = "FX_Displacement"
+		StartAlpha = 0
+		EndAlpha = 0.15
+		PingPongColor = true
+		PlaySpeed = 30
+		StartScale = 1.15
+		EndScale = 1.3
+		AddColor = true
+		Red = 0.5
+		Green = 0.5
+		Blue = 0.5
+	}
+
+	{
+		Name = "HeraclesEMLeapFx"
+		CreateAnimation = "QuickFlashEnemy"
+		FilePath = "Fx\EnemyHeavySlash\EnemyHeavySlash"
+		GroupName = "Standing"
+		Angle = 180.0
+		ColorFromOwner = "Ignore"
+		EndFrame = 27
+		NumFrames = 27
+		PlaySpeed = 90.0
+		StartFrame = 1
+		OriginX = 300.0
+		OriginY = 124.0
+		SortMode = "Id"
+		ScaleX = 2
+		Ambient = 0.0
+	}
+
+	{
+		Name = "HeraclesEMWaveFx"
+		ChainTo = "HeraclesEMWaveFxFade"
+		FilePath = "Fx\WaveFistFx\WaveFistFx"
+		GroupName = "FX_Standing_Add"
+		VisualFx = "HeraclesEMWaveFxTrail"
+		Sound = "/SFX/Enemy Sounds/BloodlessWaveAmbienceLoop"
+		StopSoundOnFinishFade = 0.2
+		EndFrame = 10
+		Loop = true
+		NumFrames = 10
+		StartFrame = 1
+		OffsetZ = 60.0
+		OriginX = 386.0
+		OriginY = 240.0
+		PostRotateScaleY = 0.5
+		Scale = 0.75
+		Ambient = 0.0
+		VisualFxDistanceMax = 60.0
+		VisualFxDistanceMin = 59.0
+		OverlayVfx = true
+		PingPongShiftOverDuration = true
+		CreateAnimations =
+		[
+			{ Name = "HeraclesEMWaveFxDark" }
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+	{
+		Name = "HeraclesEMWaveFxFade"
+		InheritFrom = "HeraclesEMWaveFx"
+		ChainTo = "null"
+		CreateAnimation = "null"
+		VisualFx = "null"
+		Sound = "/EmptyCue"
+		StartAlpha = 1.0
+		StartBlue = 1.0
+		StartGreen = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Loop = false
+		PlaySpeed = 30.0
+		LocationFromOwner = "Ignore"
+		EndScale = 1.25
+		CreateAnimations = []
+	}
+	{
+		Name = "HeraclesEMWaveFxDark"
+		InheritFrom = "HeraclesEMWaveFx"
+		ChainTo = "null"
+		CreateAnimation = "null"
+		GroupName = "FX_Dark"
+		VisualFx = "null"
+		Sound = "/EmptyCue"
+		DieWithOwner = true
+		Scale = 1.05
+		ScaleFromOwner = "Ignore"
+		CreateAnimations = []
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "HeraclesEMWaveFxTrail"
+		FilePath = "Fx\EnemyWaveFist\EnemyWaveFist"
+		GroupName = "FX_Terrain"		
+		EaseIn = 0.95
+		EaseOut = 1.0
+		EndFrame = 24
+		NumFrames = 24
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		EndScaleY = 1.5
+		PostRotateScaleY = 0.5
+		Scale = 1.25
+		ScaleFromOwner = "Ignore"
+		StartScaleY = 0.75
+		Ambient = 0.0
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 14
+		CreateAnimations =
+		[
+			{ Name = "HeraclesEMWaveFxDustPuff" }
+			{ Name = "HeraclesEMWaveFxDebris" }
+			{ Name = "HeraclesEMWaveFxDisplacement" }
+			{ Name = "HeraclesEMWaveFxTrailGlow" }
+		]
+	}
+
+	{
+		Name = "HeraclesEMWaveFxDustPuff"
+		InheritFrom = "DustPuffA"
+		GroupName = "Standing"
+		AngleFromOwner = "Ignore"
+		RandomPlaySpeedMax = 30.0
+		OffsetZ = 110.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		Scale = 1.3
+		ScaleMax = 1.0
+		ScaleMin = 0.1
+	}
+
+	{
+		Name = "HeraclesEMWaveFxTrailGlow"
+		FilePath = "Fx\WaveFistFx\WaveFistFx"
+		GroupName = "FX_Terrain_Add"
+		
+		Alpha = 0.25
+		ColorFromOwner = "Ignore"
+		StartAlpha = 1.0
+		Duration = 0.3
+		EndFrame = 10
+		LoopFramesOnly = true
+		NumFrames = 10
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OffsetZ = 60.0
+		OriginX = 400.0
+		OriginY = 240.0
+		LocationFromOwner = "Ignore"
+		Acceleration = -200.0
+		VelocityMax = 300.0
+		VelocityMin = 250.0
+		EndScaleX = 1.5
+		PostRotateScaleY = 0.5
+		Color = { Red = 1.0 Green = 0.0 Blue = 1.0 }
+	}
+
+	{
+		Name = "HeraclesEMWaveFxDisplacement"
+		FilePath = "Fx\DisplaceShockwaveHemi\DisplaceShockwaveHemi"
+		GroupName = "FX_Displacement"
+		
+		Angle = 90.0
+		AngleFromOwner = "Take"
+		Alpha = 0.05
+		EndFrame = 16
+		NumFrames = 16
+		PlaySpeed = 30.0
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		ScaleX = 2.0
+		Ambient = 0.0
+	}
+
+	{
+		Name = "HeraclesEMWaveFxDebris"
+		FilePath = "Animations\RubbleFallImpactDebrisWaveFist\RubbleFallImpactDebrisWaveFist"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "HeraclesEMWaveFxDebrisA" }
+			{ Name = "HeraclesEMWaveFxDebrisB" }
+			{ Name = "HeraclesEMWaveFxDebrisC" }
+		]
+	}
+
+	{
+		Name = "HeraclesEMWaveFxDebrisA"
+		FilePath = "Fx\RubbleFallImpactDebrisA\RubbleFallImpactDebrisA"
+		GroupName = "FX_Terrain"
+		
+		AngleFromOwner = "Ignore"
+		EndFrame = 43
+		NumFrames = 43
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomOffsetX = 100.0
+		RandomOffsetY = 50.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleMax = 0.8
+		ScaleMin = 0.2
+		Slides =
+		[
+			{ DurationFrames = 1 RandomDurationFramesMax = 5 RandomDurationFramesMin = 1 }
+		]
+	}
+	
+	{
+		Name = "HeraclesEMWaveFxDebrisB"
+		InheritFrom = "HeraclesEMWaveFxDebrisA"
+		FilePath = "Fx\RubbleFallImpactDebrisB\RubbleFallImpactDebrisB"
+		EndFrame = 39
+		NumFrames = 39
+		StartFrame = 1
+		Slides =
+		[
+			{ DurationFrames = 1 RandomDurationFramesMax = 5 RandomDurationFramesMin = 1 }
+		]
+	}
+	
+	{
+		Name = "HeraclesEMWaveFxDebrisC"
+		InheritFrom = "HeraclesEMWaveFxDebrisA"
+		FilePath = "Fx\RubbleFallImpactDebrisC\RubbleFallImpactDebrisC"
+		Slides =
+		[
+			{ DurationFrames = 1 RandomDurationFramesMax = 5 RandomDurationFramesMin = 1 }
+		]
+	}
+
+	// Talos
+
+	{
+		Name = "TalosShieldSingle"
+		FilePath = "Fx\TalosShieldSingle\TalosShieldSingle"
+		NumFrames = 10
+		Loop = true
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 3.5
+		OffsetZ = 100
+		ChildAnimation = "TalosShieldSingleFxEmitter"
+		CreateAnimation = "TalosShieldSingleTrailEmitter"
+	}
+
+	{
+		Name = "TalosShieldSingleTrailEmitter"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		DieWithOwner = true
+		VisualFx = "TalosShieldSingleTrail"
+		VisualFxDistanceMin = 100
+		VisualFxDistanceMax = 100
+	}
+
+	{
+		Name = "TalosShieldSingleFxEmitter"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFx = "TalosShieldSingleTrailFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+	}
+
+	{
+		Name = "TalosShieldSingleTrail"
+		FilePath = "Fx\Ares\AresSliceParticleA\AresSliceParticleA"
+		NumFrames = 20
+		EaseIn = 0.0
+		EaseOut = 1
+		Duration = 0.33
+		Scale = 1.25
+		StartScale = 1.5
+		EndScale = 1.4
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		RandomRotation = true
+		StartRed = 1
+		StartGreen = 0.001
+		StartBlue = 0.1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		OffsetZ = 100
+		ScaleFromOwner = "Ignore"
+		PlaySpeed = 90
+		OwnerVelocityFraction = 0.9
+		RotationSpeed = 720
+		StartAlpha = 0.5
+		EndAlpha = 0
+	}
+
+	{
+		Name = "TalosShieldSingleTrailFx"
+		FilePath = "Fx\Chronos\ChronosScytheSpin\ChronosScytheSpin"
+		NumFrames = 15
+		Material = "Unlit"
+		LocationZFromOwner = "Maintain"
+		LocationFromOwner = "Maintain"
+		OffsetZ = 100
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		Scale = 0.75
+		ScaleFromOwner = "Ignore"
+		Acceleration = -300
+		StartScale = 0.6
+		EndScale = 0.8
+		FlipVertical = true
+		RandomRotation = true
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		RotationSpeed = -1080
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0
+		EndBlue = 0
+		DieWithOwner = true
+	}
+
+	{
+		Name = "TalosShieldSingleShadow"
+		FilePath = "Fx\TalosShieldSingle\TalosShieldSingle"
+		NumFrames = 10
+		Loop = true
+		Red = 0
+		Green = 0
+		Blue = 0
+		LocationZFromOwner = "Ignore"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 3.5
+		OffsetZ = 0
+		Alpha = 0.66
+		DieWithOwner = true
+	}
+
+	{
+		Name = "TalosShieldSingleFade"
+		InheritFrom = "TalosShieldSingle"
+		LoopFramesOnly = true
+		Loop = false
+		Duration = 0.1
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0
+		EndBlue = 0.05
+		VisualFx = null
+		ChildAnimation = null
+	}
+
+
+	{
+		Name = "TalosShieldSingleFadeWinkR"
+		FilePath = "Particles\particle_enemyFlare"
+		ScaleFromOwner = "Ignore"
+		StartScale = 3
+		EndScale = 0
+		Material = "Unlit"
+		Duration = 0.25
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Scale = 0.66
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ChildAnimation = null
+		GroupName = "FX_Standing_Add"
+		GrannyAttachedMarkerLocation = "Talos_Rig:shield_00_R_JNT"
+		Sound = "/SFX/Enemy Sounds/Talos/TalosShieldCatch"
+	}
+
+	{
+		Name = "TalosShieldSingleFadeWinkL"
+		InheritFrom = "TalosShieldSingleFadeWinkR"
+		GrannyAttachedMarkerLocation = "Talos_Rig:shield_00_L_JNT"
+	}
+
+
+	{
+		Name = "TalosShieldVerticalR"
+		FilePath = "Fx\TalosShieldVertical\TalosShieldVertical"
+		NumFrames = 4
+		NumAngles = 32
+		Loop = true
+		Material = "Unlit"
+		AngleFromOwner = "Maintain"
+		UseOwnAngle = false
+		Scale = 3.0
+		OffsetZ = 0
+		CreateAnimations = [
+			{ Name = "TalosShieldVerticalShadow" }
+			{ Name = "TalosShieldVerticalSparkEmitter" }
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "TalosShieldVerticalL"
+		InheritFrom = "TalosShieldVerticalR"
+		Angle = 180
+	}
+
+	{
+		Name = "TalosShieldVerticalRFade"
+		InheritFrom = "TalosShieldVerticalR"
+		ClearCreateAnimations = true
+		LoopFramesOnly = true
+		Loop = false
+		Duration = 0.1
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0
+		EndBlue = 0.05
+		VisualFx = null
+		ChildAnimation = null
+		StartOffsetZ = 0
+		EndOffsetZ = 200
+	}
+
+	{
+		Name = "TalosShieldVerticalLFade"
+		InheritFrom = "TalosShieldVerticalRFade"
+		Angle = 180
+	}
+
+
+	{
+		Name = "TalosShieldVerticalSparkEmitter"
+		FilePath = "Dev\blank_invisible"
+		DieWithOwner = true
+		VisualFx = "TalosShieldVerticalSparks"
+		VisualFxDistanceMin = 30
+		VisualFxDistanceMax = 120
+		Duration = 1
+		Loop = true
+	}
+
+	{
+		Name = "TalosShieldVerticalShadow"
+		InheritFrom = "TalosShieldVerticalR"
+		PostRotateScaleY = 0.5
+		GroupName = "Shadows"
+		Red = 0
+		Green = 0
+		Blue = 0
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 0
+		VisualFx = "TalosShieldVerticalTrail"
+		VisualFxDistanceMin = 20
+		VisualFxDistanceMax = 20
+		DieWithOwner = true
+		ClearCreateAnimations = true
+		CreateAnimation = null
+	}
+
+	{
+		Name = "TalosShieldVerticalSparks"
+		Random = [
+			{ Name = "TalosShieldVerticalSparkA" }
+			{ Name = "TalosShieldVerticalSparkB" }
+			{ Name = "TalosShieldVerticalSparkC" }
+		]
+	}
+
+	{
+		Name = "TalosShieldVerticalSparkA"
+		FilePath = "Fx\AxeSparkA\AxeSparkA"
+		NumFrames = 45
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		Hue = 0.5
+		RandomFlipHorizontal = true
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 75
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		Scale = 2
+		OffsetZ = -60
+	}
+
+	{
+		Name = "TalosShieldVerticalSparkB"
+		InheritFrom = "TalosShieldVerticalSparkA"
+		FilePath = "Fx\AxeSparkB\AxeSparkB"
+	}	
+	{
+		Name = "TalosShieldVerticalSparkC"
+		InheritFrom = "TalosShieldVerticalSparkA"
+		FilePath = "Fx\AxeSparkC\AxeSparkC"
+	}
+
+	{
+		Name = "TalosShieldVerticalTrail"
+		FilePath = "Fx\FadeTrailHard\FadeTrailHard"
+		NumFrames = 25
+		ScaleX = 2
+		EaseIn = 0.9
+		EaseOut = 1
+		AddColor = false
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.05
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		Duration = 0.3
+		GroupName = "FX_Terrain_Add"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Material = "Unlit"
+		AngleFromOwner = "Take"
+		Angle = 0
+		OffsetZ = -10
+		Scale = 0.5
+	}
+
+	{
+		Name = "TalosFireLobProjectile"
+		FilePath = "Fx\WaterUnitProjectileLob\WaterUnitProjectileLob"
+		NumFrames = 50
+		PlaySpeed = 30
+		ReRandomizeOnLoop = false
+		Loop = true
+		Hue = 0.10
+		Scale = 0.5
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		Saturation = 0.0
+		Value = 0.0
+		AddColor = true
+		Red = 0.9
+		Green = 0.5
+		Blue = 0.0
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		TransferFrameToThis = true
+		VisualFx = "TalosFireLobProjectileDrips"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		Sound = "/SFX/Enemy Sounds/Talos/TalosFireballsLaunch"
+	}
+
+	{
+		Name = "TalosFireLobProjectileDrips"
+		Random = [
+			{ Name = "TalosFireLobProjectileDripA" }
+			{ Name = "TalosFireLobProjectileDripB" }
+			{ Name = "TalosFireLobProjectileDripC" }
+		]
+	}
+
+	{
+		Name = "TalosFireLobProjectileDripA"
+		FilePath = "Fx\EphyraEnemyDripA\EphyraEnemyDripA"
+		AddColor = true
+		Hue = 0.1
+		Red = 1
+		Green = 0.5
+		Blue = 0
+		NumFrames = 17
+		RandomFlipHorizontal = true
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleY = 0.5
+		OffsetZ = -10
+		RandomOffsetX = 10
+	}
+
+	{
+		Name = "TalosFireLobProjectileDripB"
+		InheritFrom = "TalosFireLobProjectileDripA"
+		FilePath = "Fx\EphyraEnemyDripB\EphyraEnemyDripB"
+	}
+	{
+		Name = "TalosFireLobProjectileDripC"
+		InheritFrom = "TalosFireLobProjectileDripA"
+		FilePath = "Fx\EphyraEnemyDripC\EphyraEnemyDripC"
+	}
+
+	{
+		Name = "TalosFireLobProjectileIn"
+		InheritFrom = "TalosFireLobProjectile"
+		ChainTo = "TalosFireLobProjectile"
+		TransferFrameFromThis = true
+		Duration = 0.15
+		EaseIn = 0
+		EaseOut = 1
+		StartScale = 0
+		EndScale = 1
+		Loop = false
+		LoopFramesOnly = true
+		RandomStartFrame = true
+		CreateAnimations = 
+		[
+			{ Name = "TalosFireLobProjectileGlow" }
+		]	
+	}
+
+	{
+		Name = "TalosFireLobProjectileGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0
+		Blue = 0
+		Alpha = 0.25
+		GroupName = "FX_Standing_Add"
+		Scale = 1
+		Material = "Unlit"
+		Duration = 0.15
+		Loop = false
+		DieWithOwner = true
+		ScaleFromOwner = "Ignore"
+		StartScale = 0
+		EndScale = 1
+		EaseIn = 0
+		EaseOut = 1
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "TalosFireLobDetonate"
+		FilePath = "Fx\WaterLobProjectileExplosion\WaterLobProjectileExplosion"
+		NumFrames = 28
+		Hue = 0.15
+		Scale = 0.5
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		Material = "Unlit"
+		GroupName = "FX_Terrain"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.1
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0
+		CreateAnimations = [
+			{ Name = "TalosFireLobDetonateGlow" }
+			{ Name = "TalosFireLobDetonateExplosion" }
+		]
+	}
+
+	{
+		Name = "TalosFireLobDetonateExplosion"
+		FilePath = "Fx\FireballExplosion\FireballExplosion"
+		NumFrames = 37
+		RandomFlipHorizontal = true
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleMin = 0.4
+		ScaleMax = 0.5
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0.4
+		EndBlue = 0
+		ScaleY = 0.6
+	}
+
+	{
+		Name = "TalosFireLobDetonateGlow"
+		FilePath = "Particles\particle_glow"
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.1
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0
+		EaseIn = 0.99
+		EaseOut = 1
+		Duration = 1.2
+		GroupName = "FX_Standing_Add"
+		PostRotateScaleY = 0.5
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
+	{
+		Name = "TalosGroundFireFx"
+		FilePath = "Fx\GreekFire\GreekFire"
+		NumFrames = 60
+		Loop = true
+		Material = "Unlit"
+		RandomPlaySpeedMax = 36
+		RandomPlaySpeedMin = 30
+		RandomFlipHorizontal = true
+		ReRandomizeOnLoop = false
+		TransferFrameFromThis = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleRadius = 150
+		Red = 1
+		Green = 0.7
+		Blue = 0.5
+		GroupName = "FX_Terrain"
+		ChainTo = "TalosGroundFireFxFade"
+		VisualFx = "TalosFireSparks"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		CreateAnimations = [
+			{ Name = "TalosFireScorchMarkIn" }
+			{ Name = "TalosFireGlow" }
+		]
+	}
+
+
+	{
+		Name = "TalosFireSparks"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		NumFrames = 90
+		ScaleX = 2
+		AngleMin = 80
+		AngleMax = 70
+		Material = "Unlit"
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		ScaleMin = 0.2
+		ScaleMax = 0.3
+		GroupName = "FX_Standing_Add"
+		AddColor = false
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.05
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		VelocityMin = 200
+		VelocityMax = 300
+		RandomAccelerationMin = -300
+		RandomAccelerationMax = -150
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		RandomOffsetX = 50
+		RandomOffsetY = 25
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AngleChangeSpeedMin = 0
+		AngleChangeSpeedMax = -90
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		DieWithOwner = true
+	}
+
+	{
+		Name = "TalosFireGlow"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Terrain_Add"
+		Red = 1
+		Green = 0.3
+		Blue = 0
+		StartAlpha = 0.0
+		EndAlpha = 0.3
+		PingPongColor = true
+		Loop = true
+		EaseIn = 0
+		EaseOut = 1
+		Scale = 2
+		OffsetZ = 30
+		AngleFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		DieWithOwner = true
+	}
+
+	{
+		Name = "TalosGroundFireFxFade"
+		InheritFrom = "TalosGroundFireFx"
+		TransferFrameToThis = true
+		Loop = false
+		LoopFramesOnly = true
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0
+		EndBlue = 0
+		Duration = 0.5
+		EaseIn = 0
+		EaseOut = 1
+		ChainTo = null
+	}
+
+
+	{
+		Name = "TalosFireScorchMarkIn"
+		FilePath = "Fx\GreekFire\GreekFireScorchMark"
+		GroupName = "FX_Terrain_Dark"
+		StartAlpha = 0
+		EndAlpha = 0.5
+		Duration = 0.25
+		EaseIn = 0
+		EaseOut = 1
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ChainTo = "TalosFireScorchMarkHold"
+		ScaleRadius = 110
+	}
+
+	{
+		Name = "TalosFireScorchMarkHold"
+		FilePath = "Fx\GreekFire\GreekFireScorchMark"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Duration = 5
+		ChainTo = "TalosFireScorchMarkOut"
+		ScaleRadius = 110
+	}
+
+	{
+		Name = "TalosFireScorchMarkOut"
+		InheritFrom = "GreekFireScorchMarkIn"
+		StartAlpha = 0.5
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.1
+		Duration = 1
+		ChainTo = null
+	}
+
+	{
+		Name = "TalosSpinChargeR"
+		FilePath = "Fx\EnemyChargeIn\EnemyChargeIn"
+		NumFrames = 60
+		Material = "Unlit"
+		PlaySpeed = 50
+		GrannyAttachedMarkerLocation = "Talos_Rig:hand_00_R_JNT"
+		ChainTo = "TalosSpinChargeR_Out"
+		GroupName = "FX_Standing_Add"
+		Scale = 0.75
+		Hue = 0.025
+		UseAttachedFlasher = false
+		OffsetZ = -30
+		CreateAnimations =
+		[
+			{ Name = "TalosSpinChargeR_Dark" }
+			{ Name = "TalosSpinChargeL" }
+		]
+	}
+
+	{
+		Name = "TalosSpinChargeR_Dark"
+		InheritFrom = "TalosSpinChargeR"
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		ChainTo = null
+	}
+
+	{
+		Name = "TalosSpinChargeR_Out"
+		InheritFrom = "TalosSpinChargeR"
+		PlaySpeed = 45
+		NumFrames = 6
+		ChainTo = null
+		FilePath = "Fx\EnemyChargeOut\EnemyChargeOut"
+	}	
+
+	{
+		Name = "TalosSpinChargeL"
+		InheritFrom = "TalosSpinChargeR"
+		GrannyAttachedMarkerLocation = "Talos_Rig:hand_00_L_JNT"
+		ChainTo = "TalosSpinChargeL_Out"
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "TalosSpinChargeL_Dark" }
+		]
+	}
+
+	{
+		Name = "TalosSpinChargeL_Dark"
+		InheritFrom = "TalosSpinChargeR_Dark"
+		GrannyAttachedMarkerLocation = "Talos_Rig:hand_00_L_JNT"
+	}
+
+	{
+		Name = "TalosSpinChargeL_Out"
+		InheritFrom = "TalosSpinChargeR_Out"
+		GrannyAttachedMarkerLocation = "Talos_Rig:hand_00_L_JNT"
+	}
+
+
+	{
+		Name = "TalosSpinFxBase"
+		FilePath = "Dev\blank_invisible"
+		DurationFrames = 1
+		CreateAnimations = [
+			{ Name = "TalosSpinFx" }
+			{ Name = "TalosSpinFxDark" }
+			{ Name = "TalosSpinFxDisplacement" }
+		]
+	}
+
+	{
+		Name = "TalosSpinFx"
+		FilePath = "Fx\AutomatonEnforcerWhirlwind\AutomatonEnforcerWhirlwind"
+		Sound = null
+		EndFrame = 30
+		NumFrames = 30
+		PlaySpeed = 90
+		StartFrame = 1
+		EndScale = 1.04
+		PostRotateScaleY = 0.5
+		ScaleRadius = 140.0
+		StartScale = 0.9
+		Ambient = 0.0
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		FlipHorizontal = true
+		DieWithOwner = false
+		LocationFromOwner = "Maintain"
+		LocationZFromOwner = "Take"
+		OffsetZ = 120
+		Angle = 90
+		VisualFx = "TalosSpinFxParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.04
+		CreateAnimations = [
+
+		]
+	}
+
+	{
+		Name = "TalosSpinFxParticles"
+		FilePath = "Particles\particle_darkness"
+		AddColor = false
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		ScaleY = 0.5
+		StartScaleX = 3
+		EndScaleX = 1
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		PostRotateScaleY = 0.6
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		OffsetZ = 0
+		OwnerVelocityFraction = 1.0
+		RadialOffsetMin = 400
+		RadialOffsetMax = 500
+		VelocityMin = 300
+		VelocityMax = 600
+		RandomAccelerationMin = -600
+		RandomAccelerationMax = -300
+		AngleChangeSpeedMin = 120
+		AngleChangeSpeedMax = 180
+		AngleChangeAcceleration = -90
+		Scale = 0.5
+		RandomDurationMin = 0.3
+		RandomDurationMax = 1.2
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetScaleY = 0.5
+		StartScale = 1
+		EndScale = 0
+		Hue = 0.15
+	}
+
+	{
+		Name = "TalosSpinFxDark"
+		InheritFrom = "TalosSpinFx"
+		FilePath = "Fx\AutomatonEnforcerWhirlwindDark\AutomatonEnforcerWhirlwindDark"
+		ClearCreateAnimations = true
+		GroupName = "FX_Terrain_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OffsetZ = 0
+		PlaySpeed = 80
+		VisualFx = null
+	}
+
+	{
+		Name = "TalosSpinSnowDust"
+		FilePath = "Particles\particle_olympusSnow"
+		StartAlpha = 0
+		EndAlpha = 1
+		RandomDurationMin = 0.8
+		RandomDurationMax = 1.4
+		EaseIn = 0
+		EaseOut = 1
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		RadialOffsetMin = 300
+		RadialOffsetMax = 450
+		RadialOffsetScaleY = 0.5
+		AngleMin = 0
+		AngleMax = 360
+		AlphaMin = 0.3
+		AlphaMax = 0.4
+		PostRotateScaleY = 0.66
+		Scale = 0.8
+		ScaleFromOwner = "Ignore"
+		Value = 0.4
+		RandomRotationSpeedMin = -30
+		RandomRotationSpeedMax = 0
+		AngleChangeSpeed = -30
+		UseOwnAngle = false
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -100
+		ScaleMin = 0.6
+		ScaleMax = 0.9
+		OffsetZ = 60
+		RandomRotation = true
+		PingPongColor = true
+		GroupName = "FX_Standing"
+		Material = "Unlit"
+		StartScale = 1
+		EndScale = 1.3
+		Gravity = 50
+	}
+
+	{
+		Name = "TalosSpinFxDisplacement"
+		InheritFrom = "TalosSpinFx"
+		VisualFx = null
+		ClearCreateAnimations = true
+		GroupName = "FX_Displacement"
+		PlaySpeed = 70
+		StartAlpha = 0
+		EndAlpha = 0.1
+		OffsetZ = 0
+	}
+
+
+	{
+		Name = "TalosDeathArcs"
+		Random = [
+			{ Name = "TalosDeathArcA" }
+			{ Name = "TalosDeathArcB" }
+			{ Name = "TalosDeathArcC" }			
+			{ Name = "TalosDeathArcD" }
+			{ Name = "TalosDeathArcE" }
+			{ Name = "TalosDeathArcF" }			
+			{ Name = "TalosDeathArcG" }
+			{ Name = "TalosDeathArcH" }
+			{ Name = "TalosDeathArcI" }
+		]
+	}
+
+	{
+		Name = "TalosDeathArcA"
+		InheritFrom = "EnemyBeamerDeathArcA"
+		RandomOffsetX = 85
+		RandomOffsetY = 85
+		ScaleMin = 0.3
+		ScaleMax = 1.5
+		VelocityMin = 30
+		VelocityMax = 120
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		GroupName = "Combat_Menu_Overlay_Additive"
+		GrannyAttachedMarkerLocation = "Talos_Rig:legParts_05_M_JNT"
+		CreateAnimations = [
+			{ Name = "TalosDeathSpark" }
+			{ Name = "TalosDeathFxGlow" }
+		]
+	}
+
+	{
+		Name = "TalosDeathArcB"
+		InheritFrom = "TalosDeathArcA"
+		FilePath = "Fx\ZeusStaticArcB\ZeusStaticArcB"
+		GrannyAttachedMarkerLocation = "Talos_Rig:legParts_04_M_JNT"
+	}
+
+	{
+		Name = "TalosDeathArcC"
+		InheritFrom = "TalosDeathArcA"
+		FilePath = "Fx\ZeusStaticArcC\ZeusStaticArcC"
+		GrannyAttachedMarkerLocation = "Talos_Rig:legParts_03_M_JNT"
+	}	
+
+	{
+		Name = "TalosDeathArcD"
+		InheritFrom = "TalosDeathArcA"
+		GroupName = "Combat_Menu_Overlay_Additive"
+		GrannyAttachedMarkerLocation = "Talos_Rig:legParts_02_M_JNT"
+	}
+
+	{
+		Name = "TalosDeathArcE"
+		InheritFrom = "TalosDeathArcA"
+		FilePath = "Fx\ZeusStaticArcB\ZeusStaticArcB"
+		GrannyAttachedMarkerLocation = "Talos_Rig:legParts_01_M_JNT"
+	}
+
+	{
+		Name = "TalosDeathArcF"
+		InheritFrom = "TalosDeathArcA"
+		FilePath = "Fx\ZeusStaticArcC\ZeusStaticArcC"
+		GrannyAttachedMarkerLocation = "Talos_Rig:lowerArmPart_00_L_JNT"
+	}	
+
+	{
+		Name = "TalosDeathArcG"
+		InheritFrom = "TalosDeathArcA"
+		GrannyAttachedMarkerLocation = "Talos_Rig:upperArmPart_00_L_JNT"
+	}	
+
+	{
+		Name = "TalosDeathArcH"
+		InheritFrom = "TalosDeathArcA"
+		FilePath = "Fx\ZeusStaticArcC\ZeusStaticArcC"
+		GrannyAttachedMarkerLocation = "Talos_Rig:lowerArmPart_00_R_JNT"
+	}	
+
+	{
+		Name = "TalosDeathArcI"
+		InheritFrom = "TalosDeathArcA"
+		GrannyAttachedMarkerLocation = "Talos_Rig:upperArmPart_00_R_JNT"
+	}
+
+	{
+		Name = "TalosDeathSpark"
+		FilePath = "Particles\particle_addFlake2"
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		Gravity = 200
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		Scale = 1.0
+		StartScaleX = 2
+		EndScaleX = 1
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1
+		GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		VelocityMin = 100
+		VelocityMax = 400
+		Acceleration = -100
+		ColorFromOwner = "Ignore"
+		Material = "Unlit"
+		RandomDurationMin = 0.25
+		RandomDurationMax = 0.5
+		AddColor = true
+		Red = 0
+		Green = 0.4
+		Blue = 1.0
+	}
+
+	{
+		Name = "TalosDeathFxGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 0.2
+		Green = 0.45
+		Blue = 1.0
+		ScaleMin = 0.5
+		ScaleMax = 2.0
+		AlphaMin = 0.05
+		AlphaMax = 0.20
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1
+		GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Material = "Unlit"
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.9
+	}
 ]}

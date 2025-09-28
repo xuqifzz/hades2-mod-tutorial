@@ -277,6 +277,15 @@
 				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
 			}
 		]
+
+		
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Special1Ex_End"
+				Duration = 6
+			}
+		]
 	}
 
 	{
@@ -381,6 +390,10 @@
 				Duration = 5
 			}
 			{
+				BlendTransitionFrom = "Melinoe_Lob_Interact"
+				Duration = 5
+			}
+			{
 				BlendTransitionFrom = "MelinoeBoonInteractPowerUp"
 				Duration = 5
 			}
@@ -390,6 +403,14 @@
 			}
 			{
 				BlendTransitionFrom = "Melinoe_Lob_Equip"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_ForwardCast_End"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Special1Ex_End"
 				Duration = 6
 			}
 
@@ -432,9 +453,87 @@
 				FootstepFxL = "FireFootstepL-Spawner"
 			}
 		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Run_FireLoop"
+				Duration = 6
+			}
+		]
 	}
 
 	/* Melinoe Lob Sprint  */
+
+	{
+		Name = "Lob_SprintTurn_180"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_RunDirectionChange180_N_00"
+	}
+	{
+		Name = "Melinoe_Lob_SprintTurn_180"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_RunSprintDirectionChange180_N_00"
+		CancelOnRestart = true
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 740
+		CreateAnimation = "LobSkullGlowMovement"
+		ChainTo = "Melinoe_Lob_Sprint_FireLoop"
+		Attachments =
+		[
+			{
+				Name = "Lob_SprintTurn_180"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Lob_SprintTurn_E90"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_RunDirectionChangeE90_N_00"
+	}
+	{
+		Name = "Melinoe_Lob_SprintTurn_E90"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_RunSprintDirectionChangeE90_N_00"
+		GrannyRotationY = 90
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 740
+		CreateAnimation = "LobSkullGlowMovement"
+		ChainTo = "Melinoe_Lob_Sprint_FireLoop"
+		Attachments =
+		[
+			{
+				Name = "Lob_SprintTurn_E90"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Lob_SprintTurn_W90"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_RunDirectionChangeW90_N_00"
+	}
+	{
+		Name = "Melinoe_Lob_SprintTurn_W90"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_RunSprintDirectionChangeW90_N_00"
+		GrannyRotationY = -90
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 740
+		CreateAnimation = "LobSkullGlowMovement"
+		ChainTo = "Melinoe_Lob_Sprint_FireLoop"
+		Attachments =
+		[
+			{
+				Name = "Lob_SprintTurn_W90"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
 	{
 		Name = "Lob_Sprint_FireLoop"
 		InheritFrom = "WeaponLobBase"
@@ -444,14 +543,18 @@
 	}
 	{
 		Name = "Melinoe_Lob_Sprint_FireLoop"
-		InheritFrom = "MelinoeBaseLobAnimationsWithTurns"
+		InheritFrom = "MelinoeBaseLobAnimations"
 		GrannyAnimation = "Melinoe_Lob_Base_RunSprint_N_00"
 		NativeMoveSpeed = 740
 		CreateAnimation = "LobSkullGlowMovement"
 		Loop = true
+		DirectionChange180 = "Melinoe_Lob_SprintTurn_180"
+		DirectionChange90R = "Melinoe_Lob_SprintTurn_E90"
+		DirectionChange90L = "Melinoe_Lob_SprintTurn_W90"
 		RequireCurrentAnimationNotContains =
 		[
 			{ Name = "Melinoe_Lob_Dash_Fire" }
+			{ Name = "Melinoe_Lob_Cast_Start" }
 		]
 		Attachments =
 		[

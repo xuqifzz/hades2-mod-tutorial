@@ -62,6 +62,38 @@ UnitSetData.LightRanged =
 			DifficultyRating = 10,
 			BlockEnemyTypes = {"LightRanged_Elite"}
 		},
+
+		OnDeathFunctionName = "CheckAchievement",
+		OnDeathFunctionArgs = { Name = "AchKillWitchAsSheep", },
+
+		OnKillVoiceLines =
+		{
+			{
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				PreLineWait = 0.65,
+				ObjectType = "Hecate",
+				SuccessiveChanceToPlay = 0.5,
+				SuccessiveChanceToPlayAll = 0.25,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "Hero", "PolymorphType" },
+						IsAny = { "Sheep", "Pig", "Rat" }
+					},
+				},
+				Cooldowns =
+				{
+					{ Name = "HecateSpokeRecently", Time = 12 },
+				},
+
+				{ Cue = "/VO/HecateField_0413", Text = "Still dangerous, I see!" },
+				{ Cue = "/VO/HecateField_0414", Text = "More deadly than you look!" },
+				{ Cue = "/VO/HecateField_0415", Text = "Clever..." },
+				{ Cue = "/VO/HecateField_0416", Text = "You still can fight..." },
+			},
+		},
+
 	},
 
 	LightRanged_Elite =

@@ -8,14 +8,14 @@ UnitSetData.Brawler =
 		UseActivatePresentation = true,
 		ActivateAnimation = "Enemy_Brawler_Spawn",
 		ActivateStartAlpha = 1.0,
-		ActivateFx = "EnemyPreSpawnTerrainMedium",
-		ActivateFx2 = "EnemyPreSpawnStandingMedium",
-		ActivateFxPreSpawn = "EnemySpawnBurstMedium",
+		ActivateFx = "EnemyPreSpawnTerrainLarge",
+		ActivateFx2 = "EnemyPreSpawnStandingLarge",
+		ActivateFxPreSpawn = "EnemySpawnBurstLarge",
 
 		DeathAnimation = "Enemy_Brawler_Death",
 		DeathFx = "EnemyDeathFxIris",
 
-		MaxHealth = 210,
+		MaxHealth = 255,
 		HealthBarOffsetY = -200,
 		Material = "Organic",
 
@@ -68,6 +68,7 @@ UnitSetData.Brawler =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/Melinoe_1435", Text = "Wastrels." },
@@ -83,7 +84,7 @@ UnitSetData.Brawler =
 		HealthBuffer = 330,
 		IsAggroedSound = "/SFX/Enemy Sounds/Brawler/EmoteTaunting",
 
-		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Rifts" }),
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Rifts", "Metallic" }),
 
 		DefaultAIData =
 		{
@@ -144,13 +145,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Brawler/EmoteAttacking" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.07 },
-		},
 	},
 
 	BrawlerMeleeClose =
@@ -186,7 +180,7 @@ WeaponSetData =
 			DoNotRepeatOnAttackFail = true,
 
 			-- Blink ban
-			TeleportToSpawnPoints = false,
+			PreMoveTeleport = false,
 			-- Rifts ban
 			DumbFireWeapons = {},
 		},
@@ -197,13 +191,6 @@ WeaponSetData =
 			{
 				{ Name = "/SFX/Enemy Sounds/Brawler/EmoteAttacking" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.22, Fraction = 1.0, LerpTime = 0.07 },
 		},
 	},
 

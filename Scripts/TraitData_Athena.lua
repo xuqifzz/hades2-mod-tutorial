@@ -24,7 +24,12 @@
 				Multiplier = 2.5,
 			},
 		},
-		
+		GameStateRequirements = 
+		{
+			{
+				PathFalse = { "CurrentRun", "TextLinesRecord", "AthenaFirstMeeting"}
+			}
+		},
 		OnWeaponFiredFunctions =
 		{
 			ValidWeapons =  {"WeaponBlink"},
@@ -33,7 +38,7 @@
 			FunctionArgs =
 			{
 				DamageMultiplier = {BaseValue = 1},
-				Duration = 0.35,
+				Duration = 0.175,
 				EffectNames = {"AthenaInvulnerable", "AthenaProjectileDefense"},
 			},
 		},
@@ -116,7 +121,7 @@
 		},
 		SetupFunction =
 		{
-			Name = "HadesInvisibilitySetup",
+			Name = "AthenaInvulnerabilitySetup",
 		},
 		StatLines =
 		{
@@ -127,6 +132,7 @@
 			{
 				Key = "ReportedCooldown",
 				ExtractAs = "Cooldown",
+				Format = "SpeedModifiedDuration",
 			},
 			{
 				Key = "ReportedDuration",
@@ -170,14 +176,17 @@
 				ReportValues = { ReportedManaReservationCost = "ManaReservationCost" }
 			},
 		},
-		AddLastStand =
-		{
+		AcquireFunctionName = "AddLastStand",
+		AcquireFunctionArgs = {
 			Name = "Athena",
-			Icon = "ExtraLifeHeart",
+			Icon = "ExtraLifeAthena",
 			HealFraction = 0.4,
 			ManaFraction = 0.4,
+			ValidityFunctionName = "IsLastStandManaReserveEligible",
 			IncreaseMax = true,
+			Priority = true,
 		},
+		OnLevelOrRarityChangeFunctionName = "RestoreLastStandManaReserve",
 		StatLines =
 		{
 			"ReserveManaStatDisplay1",
@@ -222,6 +231,12 @@
 				Multiplier = 2.5,
 			},
 		},		
+		GameStateRequirements = 
+		{
+			{
+				PathFalse = { "CurrentRun", "TextLinesRecord", "AthenaFirstMeeting"}
+			}
+		},
 		ShowInHUD = true,
 		OnWeaponFiredFunctions = 
 		{
@@ -258,6 +273,7 @@
 			{
 				Key = "ReportedCooldown",
 				ExtractAs = "Cooldown",
+				Format = "SpeedModifiedDuration",
 				DecimalPlaces = 1,
 				SkipAutoExtract = true,
 			},
@@ -290,8 +306,11 @@
 		GameStateRequirements =
 		{
 			NamedRequirements = { "MissingLastStand", },
+			{
+				PathFalse = { "CurrentRun", "TextLinesRecord", "AthenaFirstMeeting"}
+			}
 		},
-		LastStandHealFraction = {BaseValue = 0.2 },
+		LastStandHealFraction = {BaseValue = 0.1 },
 		AcquireFunctionName = "AthenaRefillLastStands",
 		StatLines =
 		{
@@ -357,7 +376,7 @@
 				Cooldown = 3,
 				ProjectileName = "AthenaCastProjectile",
 				DamageMultiplier = { BaseValue = 1 },
-				Duration = 1.25,
+				Duration = 0.5,
 				EffectNames = {"AthenaInvulnerable", "AthenaProjectileDefense"},
 				ReportValues = { ReportedMultiplier = "DamageMultiplier"},
 			},
@@ -384,5 +403,150 @@
 				BaseProperty = "Damage",
 			},
 		}
+	},
+	ManaSpearBoon = 
+	{
+		Icon = "Boon_Athena_33",
+		InheritFrom = { "BaseTrait", "FireBoon" },
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.00,
+			},
+			Rare =
+			{
+				Multiplier = 200/150,
+			},
+			Epic =
+			{
+				Multiplier = 250/150,
+			},
+			Heroic =
+			{
+				Multiplier = 300/150,
+			},
+		},
+
+		OnManaSpendAction = 
+		{
+			FunctionName = "CheckManaSpear",
+			FunctionArgs = 
+			{
+				ManaCost = 90,
+				Range = 1100,
+				ProjectileName = "ProjectileAthenaManaSpear",
+				TargetCount = 3,
+				DamageMultiplier = 
+				{
+					BaseValue = 1,
+					DecimalPlaces = 3,
+				},
+				ReportValues = 
+				{ 
+					ReportedMultiplier = "DamageMultiplier",
+					ReportedMana = "ManaCost",
+					ReportedTargets = "TargetCount",
+				}
+			}
+		},
+		StatLines =
+		{
+			"SpearDamageStatDisplay1",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "ProjectileAthenaManaSpear",
+				BaseProperty = "Damage",
+			},
+			{
+				Key = "ReportedMana",
+				ExtractAs = "Mana",
+				SkipAutoExtract = true
+			},
+			{
+				Key = "ReportedTargets",
+				ExtractAs = "Count",
+				SkipAutoExtract = true
+			},
+		}
+	},
+
+	OlympianSpellCountBoon =
+	{
+		Icon = "Boon_Athena_34",
+		ShowInHUD = true,
+		InheritFrom = { "FireBoon" },
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 2,
+			},
+			Epic =
+			{
+				Multiplier = 3,
+			},
+			Heroic =
+			{
+				Multiplier = 4,
+			},
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "AthenaGrantsReward01" },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasAny = 
+				{
+					"PolymorphZeusTalent",
+					"MeteorHestiaTalent",
+					"TransformAphroditeTalent",
+					"LeapHephaestusTalent",
+					"LaserApolloTalent",
+					"SummonHeraTalent",
+					"TimeSlowDemeterTalent",
+					"PotionPoseidonTalent",
+					"MoonBeamAresTalent",
+				},
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "AthenaGrantsReward01" },
+			},
+		},
+		FirstTimeEntranceAnimation = "BoonEntranceNew",
+		PriorityRequirements =
+		{
+			{
+				PathFalse = { "GameState", "TraitsSeen", "OlympianSpellCountBoon" },
+			},
+		},
+		OlympianSpellCountAddition = { BaseValue = 1 },
+		StatLines = 
+		{
+			"RarifyBoonStatLine1",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "OlympianSpellCountAddition",
+				ExtractAs = "Uses",
+			},
+		},
+		FlavorText = "OlympianSpellCountBoon_FlavorText",
 	},
 })

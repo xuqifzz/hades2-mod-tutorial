@@ -6,7 +6,7 @@
     TransitionOffTime = 0.15
     OpenSound = "null"
     CloseSound = "null"
-    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    SelectionSound = "/SFX/Menu Sounds/IrisMenuToggle2"
     ForceShowCursor = true
     GamepadCursorControl = true
 
@@ -34,11 +34,13 @@
     TitleText =
     {
       X = 960
-      Y = 310
+      Y = 300
+      Width = 930
       Justification = "Center"
       VerticalJustification = "Center"
       Font = "P22UndergroundSCMedium"
-      FontSize = 40
+      FontSize = 37
+      LineSpacingBottom = -25
       TextRed = 0.87
       TextGreen = 0.87
       TextBlue = 0.87
@@ -52,7 +54,7 @@
       ShadowBlur = 0
       ShadowOffsetY = 4
       OutlineThickness = 4
-      NonEnglishScaleModifier = 1.0
+      
     }
 
     MessageText =
@@ -87,7 +89,7 @@
       ShadowBlur = 0
       ShadowOffsetY = 4
       OutlineThickness = 4
-      NonEnglishScaleModifier = 1.0
+      
     }
 
     TextBackground =
@@ -107,7 +109,7 @@
       PressAnimation = "Button_Press"
       HelpTextId = "PauseScreen_Exit"
       X = 730
-      Y = 570
+      Y = 650
       TextOffsetY = 0
       Justification = "Center"
       VerticalJustification = "Center"
@@ -129,7 +131,7 @@
       InheritFrom = "ConfirmButton"
       HelpTextId = "ExitConfirm_Retry"
       X = 1200
-      Y = 570
+      Y = 650
       PressSound = "/SFX/Menu Sounds/GodBoonInteract"
     }
 

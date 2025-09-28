@@ -14,11 +14,11 @@ WeaponSetData =
 			FireDuration = 0.3,
 			PostAttackDuration = 2.1,
 
-			--AttackDistance = 170,
 			AttackDistance = 290,
 			FireSelfVelocity = 700,
 
 			TrackTargetDuringCharge = true,
+			StopBeforeFire = true,
 
 			PreAttackEndShake = true,
 			PreAttackAnimation = "Enemy_Guard_MeleePreAttack",
@@ -39,13 +39,6 @@ WeaponSetData =
 			{
 				{ Name = "/SFX/Enemy Sounds/Guard/EmoteAttacking" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.15, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.00, LerpTime = 0.04 },
 		},
 	},
 
@@ -123,6 +116,7 @@ WeaponSetData =
 			MoveWithinRange = true,
 			StopMoveWithinRange = false,
 			PreAttackStop = false,
+			StopBeforeFire = false,
 
 			AttackDistance = 800,
 			FireAnimation = "Enemy_Guard_MeleeFireMulti",
@@ -138,87 +132,6 @@ WeaponSetData =
 			FireDuration = 0.0,
 			PostAttackDuration = 2.1,
 			--DoNotRepeatOnAttackFail = true,
-		},
-	},
-
-	GuardHyperSpin =
-	{
-		InheritFrom = { "GuardMelee" },
-
-		AIData =
-		{
-			DeepInheritance = true,
-			ProjectileName = "GuardMelee3",
-
-			PostAttackDuration = 0,
-			FireDuration = 0.25,
-			AttackDistance = 580,
-
-			MoveWithinRange = true,
-			StopMoveWithinRange = true,
-			PreAttackStop = true,
-
-			FireAnimation = "Enemy_Guard_MeleeFireMulti",
-
-			ChainedWeapon = "GuardHyperSpinA",
-		},
-	},
-
-	GuardHyperSpinA =
-	{
-		InheritFrom = { "GuardHyperSpin" },
-
-		AIData =
-		{
-			DeepInheritance = true,
-			ProjectileName = "GuardMelee3A",
-			ChainedWeapon = "GuardHyperSpinB",
-			PreAttackDuration = 0,
-			MoveWithinRange = false,
-		},
-	},
-	GuardHyperSpinB =
-	{
-		InheritFrom = { "GuardHyperSpinA" },
-
-		AIData =
-		{
-			DeepInheritance = true,
-			ProjectileName = "GuardMelee3B",
-			ChainedWeapon = "GuardHyperSpinC",
-		},
-	},
-	GuardHyperSpinC =
-	{
-		InheritFrom = { "GuardHyperSpinA" },
-
-		AIData =
-		{
-			DeepInheritance = true,
-			ProjectileName = "GuardMelee3C",
-			ChainedWeapon = "GuardHyperSpinD",
-		},
-	},
-	GuardHyperSpinD =
-	{
-		InheritFrom = { "GuardHyperSpinA" },
-
-		AIData =
-		{
-			DeepInheritance = true,
-			ProjectileName = "GuardMelee3D",
-			ChainedWeapon = "GuardHyperSpinE",
-		},
-	},
-	GuardHyperSpinE =
-	{
-		InheritFrom = { "GuardHyperSpinA" },
-
-		AIData =
-		{
-			DeepInheritance = true,
-			ProjectileName = "GuardMelee3E",
-			PostAttackDuration = 1.8,
 		},
 	},
 }

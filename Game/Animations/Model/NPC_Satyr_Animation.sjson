@@ -27,43 +27,213 @@
 		Name = "NPCSatyr_Idle1"
 		InheritFrom = "NPCSatyrBaseAnimation"
 		GrannyAnimation = "OlympusGuests_Base_Idle_C_00"
+		Loop = true
+		GrannyRandomLoopCountMin = 2
+		GrannyRandomLoopCountMax = 3
+		ChainTo = "NPCSatyr_Random_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 16
+			}
+		]
 	}
 	{
 		Name = "NPCSatyr_Idle2"
 		InheritFrom = "NPCSatyrBaseAnimation"
 		GrannyAnimation = "OlympusGuests_Base_Idle_C_01"
+		Loop = true
+		GrannyRandomLoopCountMin = 2
+		GrannyRandomLoopCountMax = 3
+		ChainTo = "NPCSatyr_Random_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 16
+			}
+		]
 	}
 	{
 		Name = "NPCSatyr_Idle3"
 		InheritFrom = "NPCSatyrBaseAnimation"
 		GrannyAnimation = "OlympusGuests_Base_Idle_C_02"
+		Loop = true
+		GrannyRandomLoopCountMin = 2
+		GrannyRandomLoopCountMax = 3
+		ChainTo = "NPCSatyr_Random_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 16
+			}
+		]
 	}
 	{
 		Name = "NPCSatyr_Idle4"
 		InheritFrom = "NPCSatyrBaseAnimation"
 		GrannyAnimation = "OlympusGuests_Base_Idle_C_03"
+		Loop = true
+		GrannyRandomLoopCountMin = 2
+		GrannyRandomLoopCountMax = 3
+		ChainTo = "NPCSatyr_Random_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 16
+			}
+		]
 	}
+	{
+		Name = "NPCSatyr_Random_Idle"
+		Random =
+		[
+			{ Name = "NPCSatyr_Idle1" }
+			{ Name = "NPCSatyr_Idle2" }
+			{ Name = "NPCSatyr_Idle3" }
+			{ Name = "NPCSatyr_Idle4" }
+		]
+	}
+
+	{
+		Name = "NPCSatyr_Idle_OnHit"
+		Random =
+		[
+			{ Name = "NPCSatyr_Idle1_OnHit" }
+			{ Name = "NPCSatyr_Idle2_OnHit" }
+			{ Name = "NPCSatyr_Idle3_OnHit" }
+			{ Name = "NPCSatyr_Idle4_OnHit" }
+		]
+	}
+	{
+		Name = "NPCSatyr_Idle1_OnHit"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_IdleHitReact_C_00"
+		ChainTo = "NPCSatyr_Idle1"
+	}
+	{
+		Name = "NPCSatyr_Idle2_OnHit"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_IdleHitReact_C_01"
+		ChainTo = "NPCSatyr_Idle2"
+	}
+	{
+		Name = "NPCSatyr_Idle3_OnHit"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_IdleHitReact_C_02"
+		ChainTo = "NPCSatyr_Idle3"
+	}
+	{
+		Name = "NPCSatyr_Idle4_OnHit"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_IdleHitReact_C_03"
+		ChainTo = "NPCSatyr_Idle4"
+	}
+
 	{
 		Name = "NPCSatyr_Idle5"
 		InheritFrom = "NPCSatyrBaseAnimation"
 		GrannyAnimation = "OlympusGuests_Base_Idle_C_04"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 16
+			}
+		]
+	}
+	{
+		Name = "NPCSatyr_Idle5_OnHit"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_IdleHitReact_C_04"
+		ChainTo = "NPCSatyr_Idle5"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 7
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 21
+				FrameSpeed = 1
+			}
+		]
 	}
 
 	{
 		Name = "NPCSatyr_IdleSitting"
 		InheritFrom = "NPCSatyrBaseAnimation"
 		GrannyAnimation = "OlympusGuests_Base_IdleSitting_C_00"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 16
+			}
+		]
 	}
 
 	{
 		Name = "NPCSatyr_Dance1"
 		InheritFrom = "NPCSatyrBaseAnimation"
 		GrannyAnimation = "OlympusGuests_Base_Dance_C_00"
+		Loop = true
+		GrannyRandomLoopCountMin = 2
+		GrannyRandomLoopCountMax = 4
+		ChainTo = "NPCSatyr_Dance2"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 16
+			}
+		]
 	}
 	{
 		Name = "NPCSatyr_Dance2"
 		InheritFrom = "NPCSatyrBaseAnimation"
 		GrannyAnimation = "OlympusGuests_Base_Dance_C_01"
+		Loop = true
+		GrannyRandomLoopCountMin = 2
+		GrannyRandomLoopCountMax = 4
+		ChainTo = "NPCSatyr_Dance1"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 16
+			}
+		]
+	}
+	{
+		Name = "NPCSatyr_Dance_OnHit"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_DanceHitReact_C_00"
+		ChainTo = "NPCSatyr_Dance1"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 7
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 21
+				FrameSpeed = 1
+			}
+		]
 	}
 
 	{
@@ -73,12 +243,16 @@
 		Loop = true
 		GrannyRandomLoopCountMin = 3
 		GrannyRandomLoopCountMax = 7
-		ChainTo = "NPCSatyr_HoldingDrink_Loop"
+		ChainTo = "NPCSatyr_StirringDrink"
 		Blends =
 		[
 			{
 				BlendTransitionFrom = "NPCSatyr_StirringDrink"
 				Duration = 20
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 16
 			}
 		]
 	}
@@ -86,21 +260,38 @@
 		Name = "NPCSatyr_StirringDrink"
 		InheritFrom = "NPCSatyrBaseAnimation"
 		GrannyAnimation = "OlympusGuests_Base_StirringDrink_C_00"
-		ChainTo = "NPCSatyr_HoldingDrink_Loop"
+		ChainTo = "NPCSatyr_HoldingDrink"
 		Blends =
 		[
 			{
 				BlendTransitionFrom = "NPCSatyr_HoldingDrink"
 				Duration = 20
 			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 16
+			}
 		]
 	}
 	{
-		Name = "NPCSatyr_HoldingDrink_Loop"
-		Random =
+		Name = "NPCSatyr_Drink_OnHit"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_StirringDrinkHitReact_C_00"
+		ChainTo = "NPCSatyr_StirringDrink"
+		Frames =
 		[
-			{ Name = "NPCSatyr_HoldingDrink" }
-			{ Name = "NPCSatyr_StirringDrink" }
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 7
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 21
+				FrameSpeed = 1
+			}
 		]
 	}
 ]}

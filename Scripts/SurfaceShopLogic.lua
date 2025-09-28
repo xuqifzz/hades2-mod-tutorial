@@ -5,10 +5,13 @@ function ShowSurfaceShopScreen()
 	if IsScreenOpen( screen.Name ) then
 		return
 	end
+
+	AltAspectRatioFramesShow()
 	
 	killTaggedThreads( CombatUI.HideThreadName )
-	SetPlayerInvulnerable("StoreScreenOpen")
+	SetPlayerInvulnerable( screen.Name )
 	OnScreenOpened( screen )
+	HideCombatUI( screen.Name, screen.TraitTrayArgs )
 	CreateScreenFromData( screen, screen.ComponentData )
 	screen.OnCloseItems = {}
 
@@ -28,12 +31,8 @@ function ShowSurfaceShopScreen()
 	local components = screen.Components
 
 	local offeredWeaponUpgrades = {}
-	
-	local flavorTextOptions = { "SurfaceShop_FlavorText01" }
-	local flavorText = GetRandomValue( flavorTextOptions )
-	ModifyTextBox({ Id = components.ShopFlavor.Id, Text = flavorText })
 
-	wait(0.25)
+	wait(0.02)
 	CreateSurfaceShopButtons( screen )
 	
 	if not IsEmpty( CurrentRun.CurrentRoom.Store.StoreOptions ) then
@@ -87,11 +86,11 @@ function CreateSurfaceShopButtons( screen )
 			numButtons = numButtons + groupData.Offers
 		end
 	end
-
+	
+	RandomSynchronize( GetRunDepth( CurrentRun ) )
 	local firstUseable = false
 	for itemIndex = 1, numButtons do
 		local upgradeData = CurrentRun.CurrentRoom.Store.StoreOptions[itemIndex]
-		
 		if upgradeData ~= nil then
 			if not upgradeData.Processed then
 				if upgradeData.Type == "Consumable" then
@@ -120,11 +119,12 @@ function CreateSurfaceShopButtons( screen )
 					delayCostMultiplier = SurfaceShopData.DelayPriceDiscount[#SurfaceShopData.DelayPriceDiscount]
 				end
 				upgradeData.SpeedUpResourceCosts = {}
-				local costMultiplier = 1 + ( MetaUpgradeData.ShopPricesShrineUpgrade.ChangeValue - 1 )
-				costMultiplier = costMultiplier * GetTotalHeroTraitValue("StoreCostMultiplier", {IsMultiplier = true, Multiplicative = true})
+				upgradeData.BaseResourceCosts = {}
+				local costMultiplier = GetShopCostMultiplier()
 				for resourceName, resourceAmount in pairs(upgradeData.ResourceCosts) do
 					local baseCost = round( resourceAmount * costMultiplier )
 					local penaltyCost = round( resourceAmount * costMultiplier * SurfaceShopData.ImpatienceMultiplier )
+					upgradeData.BaseResourceCosts[resourceName] = resourceAmount
 					upgradeData.ResourceCosts[resourceName] = round( baseCost * delayCostMultiplier )
 					upgradeData.SpeedUpResourceCosts[resourceName] = (penaltyCost - round( baseCost * delayCostMultiplier ))
 				end
@@ -136,11 +136,33 @@ function CreateSurfaceShopButtons( screen )
 			CurrentRun.CurrentRoom.Store.StoreOptions[itemIndex] = upgradeData
 			local tooltipData = upgradeData
 
+			local surfaceShopIcon = GetSurfaceShopIcon( upgradeData )
+			local icon = nil
+			if surfaceShopIcon ~= nil then
+				icon = DeepCopyTable( ScreenData.UpgradeChoice.Icon )
+				icon.X = itemLocationX + ScreenData.UpgradeChoice.IconOffsetX
+				icon.Y = itemLocationY + ScreenData.UpgradeChoice.IconOffsetY
+				icon.Animation = surfaceShopIcon
+				icon.Alpha = 0.0
+				icon.AlphaTarget = 1.0
+				icon.AlphaTargetDuration = 0.2
+
+				local iconBackingKey = "IconBacking"..itemIndex
+				components[iconBackingKey] = CreateScreenComponent({ Name = "BlankObstacle",
+					Alpha = 0.0, AlphaTarget = 1.0, AlphaTargetDuration = 0.2,
+					X = icon.X + screen.IconBackingOffsetX, Y = icon.Y + screen.IconBackingOffsetY,
+					Group = "Combat_Menu", Animation = "SurfaceShopIconBacking"
+				})
+			end
+
 
 			local purchaseButtonKey = "PurchaseButton"..itemIndex
 			local purchaseButton = DeepCopyTable( ScreenData.UpgradeChoice.PurchaseButton )
 			purchaseButton.X = itemLocationX
 			purchaseButton.Y = itemLocationY
+			--purchaseButton.Alpha = 0.0
+			--purchaseButton.AlphaTarget = 1.0
+			--purchaseButton.AlphaTargetDuration = 0.2
 			components[purchaseButtonKey] = CreateScreenComponent( purchaseButton )
 
 			local highlight = ShallowCopyTable( ScreenData.UpgradeChoice.Highlight )
@@ -149,16 +171,12 @@ function CreateSurfaceShopButtons( screen )
 			components[purchaseButtonKey.."Highlight"] = CreateScreenComponent( highlight )
 			components[purchaseButtonKey].Highlight = components[purchaseButtonKey.."Highlight"]
 
-			if GetSurfaceShopIcon( upgradeData )  ~= nil then
-				local icon = DeepCopyTable( ScreenData.UpgradeChoice.Icon )
-				icon.X = itemLocationX + ScreenData.UpgradeChoice.IconOffsetX
-				icon.Y = itemLocationY + ScreenData.UpgradeChoice.IconOffsetY 
-				icon.Animation = GetSurfaceShopIcon( upgradeData )
+			if surfaceShopIcon ~= nil then				
 				components["Icon"..itemIndex] = CreateScreenComponent( icon )
 			end
 
 			local iconKey = "HermesSpeedUp"..itemIndex
-			components[iconKey] = CreateScreenComponent({ Name = "BlankObstacle", X = itemLocationX - 313 + 560, Y = itemLocationY - 50, Group = "Combat_Menu" })
+			components[iconKey] = CreateScreenComponent({ Name = "BlankObstacle", X = itemLocationX + 457, Y = itemLocationY - 50, Group = "Combat_Menu" })
 				
 			if upgradeData.Purchased then
 				SetAnimation({ DestinationId = components[iconKey].Id , Name = "SurfaceShopBuyNowSticker" })
@@ -181,6 +199,10 @@ function CreateSurfaceShopButtons( screen )
 			if not HasResources( targetResourceCosts ) then
 				costColor = Color.CostUnaffordable
 			end
+			local titleColor = costColor
+			if not CurrentRun.CurrentRoom.FirstPurchase and HasHeroTraitValue("FirstPurchaseDiscount") and ( costColor == Color.CostAffordableShop ) then
+				costColor = Color.CostAffordableDiscount
+			end
 			local button = components[purchaseButtonKey]
 			button.Screen = screen
 			AttachLua({ Id = button.Id, Table = button })
@@ -194,8 +216,11 @@ function CreateSurfaceShopButtons( screen )
 
 			local purchaseButtonCostKey = "PurchaseButtonCost"..itemIndex
 			components[purchaseButtonCostKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", Scale = 1, X = itemLocationX, Y = itemLocationY })
-			
-			CreateTextBox(MergeTables({ Id = components[purchaseButtonCostKey].Id, Text = costString, OffsetX = 410, OffsetY = -50, FontSize = 28, Color = costColor, Font = "P22UndergroundSCMedium", Justification = "Right" },LocalizationData.SellTraitScripts.ShopButton))
+			local costText = DeepCopyTable( ScreenData.UpgradeChoice.CostText )
+			costText.Text = costString
+			costText.Color = costColor
+			costText.Id = components[purchaseButtonCostKey].Id
+			CreateTextBox( costText )
 
 			local purchaseButtonTitleKey = "PurchaseButtonTitle"..itemIndex
 			components[purchaseButtonTitleKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", X = itemLocationX, Y = itemLocationY })
@@ -204,7 +229,7 @@ function CreateSurfaceShopButtons( screen )
 			titleText.Text = GetSurfaceShopText( upgradeData )
 			titleText.LuaKey = "TempTextData"
 			titleText.LuaValue = upgradeData
-			titleText.Color = costColor
+			titleText.Color = titleColor
 			CreateTextBox( titleText )
 
 			local descriptionText = DeepCopyTable( ScreenData.UpgradeChoice.DescriptionText )
@@ -215,6 +240,37 @@ function CreateSurfaceShopButtons( screen )
 			CreateTextBoxWithFormat( descriptionText )
 
 			SetInteractProperty({ DestinationId = components[purchaseButtonKey].Id, Property = "TooltipOffsetX", Value = ScreenData.UpgradeChoice.TooltipOffsetX })
+			
+			local statLines = upgradeData.StatLines
+			local statLineData = upgradeData
+			if upgradeData.CustomStatLinesWithShrineUpgrade ~= nil and GetNumShrineUpgrades( upgradeData.CustomStatLinesWithShrineUpgrade.ShrineUpgradeName ) > 0 then
+				statLines = upgradeData.CustomStatLinesWithShrineUpgrade.StatLines
+			end
+			if statLines then
+				for lineNum, statLine in ipairs(statLines) do
+					if statLine ~= "" then
+
+						local offsetY = (lineNum - 1) * ScreenData.UpgradeChoice.LineHeight
+
+						local statLineLeft = DeepCopyTable(ScreenData.UpgradeChoice.StatLineLeft)
+						statLineLeft.Id = components[purchaseButtonKey].Id
+						statLineLeft.Text = statLine
+						statLineLeft.OffsetY = offsetY
+						statLineLeft.LuaValue = statLineData
+						statLineLeft.AppendToId = descriptionText.Id
+						CreateTextBoxWithFormat( statLineLeft )
+
+						local statLineRight = DeepCopyTable(ScreenData.UpgradeChoice.StatLineRight)
+						statLineRight.Id = components[purchaseButtonKey].Id
+						statLineRight.Text = statLine
+						statLineRight.OffsetY = offsetY
+						statLineRight.AppendToId = descriptionText.Id
+						statLineRight.LuaValue = statLineData
+						CreateTextBoxWithFormat( statLineRight )
+
+					end
+				end
+			end
 
 			local purchaseButtonDeliveryKey = "PurchaseButtonDelivery"..itemIndex
 			components[purchaseButtonDeliveryKey ] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", Scale = 1, X = itemLocationX, Y = itemLocationY })
@@ -223,7 +279,7 @@ function CreateSurfaceShopButtons( screen )
 			if upgradeData.Purchased then
 				deliveryDuration = "SpeedUpDelivery"
 			end
-			CreateTextBox(MergeTables({ Id = components[purchaseButtonDeliveryKey].Id, Text = deliveryDuration,
+			CreateTextBox({ Id = components[purchaseButtonDeliveryKey].Id, Text = deliveryDuration,
 				FontSize = 18,
 				OffsetX = -245, OffsetY = 80,
 				Width = 720,
@@ -234,7 +290,7 @@ function CreateSurfaceShopButtons( screen )
 				VerticalJustification = "BOTTOM",
 				LuaKey = "TempTextData",
 				LuaValue = { Delay = upgradeData.RoomDelay }
-			},LocalizationData.SellTraitScripts.ShopButton))
+			})
 
 			components[purchaseButtonKey].Data = upgradeData
 			components[purchaseButtonKey].WeaponName = currentWeapon
@@ -253,39 +309,12 @@ function CreateSurfaceShopButtons( screen )
 			itemLocationY = itemLocationY + itemLocationYSpacer
 		end
 	end
-	--[[
-	if HeroHasTrait( "PanelRerollMetaUpgrade" ) then
-		local increment = 0
-		if CurrentRun.CurrentRoom.SpentRerolls then
-			increment = CurrentRun.CurrentRoom.SpentRerolls[CurrentRun.CurrentRoom.Store.Screen.Name] or 0
-		end
-		local cost = RerollCosts.Shop + increment
-
-		local color = Color.White
-		if CurrentRun.NumRerolls < cost or cost < 0 then
-			color = Color.CostUnaffordable
-		end
-		if cost > 0 then
-			components["RerollPanel"] = CreateScreenComponent({ Name = "ShopRerollButton", Scale = 1.0, Group = "Combat_Menu" })
-			Attach({ Id = components["RerollPanel"].Id, DestinationId = components.ShopBackground.Id, OffsetX = -200, OffsetY = 440 })
-			components["RerollPanel"].OnPressedFunctionName = "AttemptPanelReroll"
-			components["RerollPanel"].RerollFunctionName = "RerollStore"
-			components["RerollPanel"].Cost = cost
-			components["RerollPanel"].RerollColor = {48, 25, 83, 255}
-			components["RerollPanel"].RerollId = CurrentRun.CurrentRoom.Store.Screen.Name
-			CreateTextBox({ Id = components["RerollPanel"].Id, Text = "RerollCount", OffsetX = 28, OffsetY = -5,
-			ShadowColor = {0,0,0,1}, ShadowOffset={0,3}, OutlineThickness = 3, OutlineColor = {0,0,0,1},
-			FontSize = 28, Color = color, Font = "P22UndergroundSCHeavy", LuaKey = "TempTextData", LuaValue = { Amount = cost }})
-			SetInteractProperty({ DestinationId = components["RerollPanel"].Id, Property = "TooltipOffsetX", Value = 850 })
-			CreateTextBox({ Id = components["RerollPanel"].Id, Text = "MetaUpgradeRerollHint", Color = Color.Transparent, Font = "P22UndergroundSCHeavy", LuaKey = "TempTextData", LuaValue = { Amount = cost }})
-		end
-	end
-	]]
 
 end
 
 
 function HandleSurfaceShopAction( screen, button )
+	local components = screen.Components
 	local upgradeData = button.Data
 	local costAmount = 0
 	local speedUpDelivery = false
@@ -314,6 +343,7 @@ function HandleSurfaceShopAction( screen, button )
 			return
 		else
 			itemData.Purchased = true
+			button.Purchased = true
 		end
 	end
 
@@ -321,8 +351,11 @@ function HandleSurfaceShopAction( screen, button )
 		CantPurchasePresentation( screen.Components["PurchaseButton".. button.Index] )
 		return
 	end
-
+	local wasFirstPurchase = not CurrentRun.CurrentRoom.FirstPurchase and HasHeroTraitValue("FirstPurchaseDiscount")
+	CurrentRun.CurrentRoom.FirstPurchase = true
 	CurrentRun.SurfaceShopPurchases =  (CurrentRun.SurfaceShopPurchases or 0) + 1
+	GameState.SurfaceShopPurchases = (GameState.SurfaceShopPurchases or 0) + 1
+
 
 	if speedUpDelivery then
 		SpendResources( upgradeData.SpeedUpResourceCosts, upgradeData.Name or "WeaponUpgrade" )
@@ -332,6 +365,50 @@ function HandleSurfaceShopAction( screen, button )
 	else
 		ModifyTextBox({ Id = screen.Components.SelectButton.Id, Text = "Menu_Rush" })
 		SpendResources( upgradeData.ResourceCosts, upgradeData.Name or "WeaponUpgrade" )
+	end
+
+	if wasFirstPurchase then
+
+		local numButtons = StoreData.WorldShop.MaxOffers
+		if numButtons == nil then
+			numButtons = 0
+			for i, groupData in pairs( StoreData.WorldShop.GroupsOf ) do
+				numButtons = numButtons + groupData.Offers
+			end
+		end
+
+		local firstUseable = false
+		for itemIndex = 1, numButtons do
+			local upgradeData = CurrentRun.CurrentRoom.Store.StoreOptions[itemIndex]
+			if upgradeData ~= nil then
+				local delayCostMultiplier = SurfaceShopData.DelayPriceDiscount[upgradeData.RoomDelay]
+				if not delayCostMultiplier then
+					delayCostMultiplier = SurfaceShopData.DelayPriceDiscount[#SurfaceShopData.DelayPriceDiscount]
+				
+				end
+				local costMultiplier = GetShopCostMultiplier()
+				for resourceName, resourceAmount in pairs(upgradeData.BaseResourceCosts) do
+					local baseCost = round( resourceAmount * costMultiplier )
+					local penaltyCost = round( resourceAmount * costMultiplier * SurfaceShopData.ImpatienceMultiplier )
+					upgradeData.ResourceCosts[resourceName] = round( baseCost * delayCostMultiplier )
+					upgradeData.SpeedUpResourceCosts[resourceName] = (penaltyCost - round( baseCost * delayCostMultiplier ))
+				end
+				
+				local purchaseButtonKey = "PurchaseButton"..itemIndex
+				components[purchaseButtonKey].Data = upgradeData
+
+				local costString = "@GUI\\Icons\\Currency"
+				local targetResourceCosts = upgradeData.ResourceCosts
+				if upgradeData.Purchased then
+					targetResourceCosts = upgradeData.SpeedUpResourceCosts
+				end
+				if upgradeData.ResourceCosts then 
+					local costAmount = GetResourceCost( targetResourceCosts, "Money" )
+					costString = costAmount .. " " .. costString
+				end
+				ModifyTextBox({ Id = screen.Components[purchaseButtonKey].CostId, Text = costString })		
+			end
+		end
 	end
 
 	StorePurchasePresentation( screen, button, upgradeData, speedUpDelivery )
@@ -353,6 +430,9 @@ function HandleSurfaceShopAction( screen, button )
 		Destroy({ Id = screen.Components["PurchaseButton"..button.Index.."Highlight"].Id })
 		screen.Components["PurchaseButton"..button.Index.."Highlight"] = nil
 
+		Destroy({ Id = screen.Components["IconBacking".. button.Index].Id })
+		screen.Components["IconBacking".. button.Index] = nil
+
 		Destroy({ Id = screen.Components["Icon".. button.Index].Id })
 		screen.Components["Icon".. button.Index] = nil
 
@@ -364,6 +444,35 @@ function HandleSurfaceShopAction( screen, button )
 
 		Destroy({ Id = screen.Components["HermesSpeedUp" .. button.Index].Id })
 		screen.Components["HermesSpeedUp" .. button.Index] = nil
+
+		local excludeNames = { itemData.Name }
+		if not CurrentRun.CurrentRoom.FirstSpeedUpPurchase and HasHeroTraitValue("FirstPurchaseDiscount") then
+			for _, value in pairs(CurrentRun.CurrentRoom.Store.StoreOptions) do
+				if value and value.Name then
+					table.insert(excludeNames, value.Name)
+				end
+			end
+			local rerollSurfaceData = DeepCopyTable( StoreData.SurfaceShop )
+			for i, data in pairs(rerollSurfaceData.GroupsOf) do
+				if data.Offers > 1 then
+					data.Offers = 1
+				end
+			end
+			local newOptions = FillInShopOptions({ StoreData = rerollSurfaceData, RoomName = CurrentRun.CurrentRoom.Name, ExclusionNames = excludeNames  }).StoreOptions
+			local targetIndex = button.Index 
+			if not IsEmpty(newOptions) and button.Index == 3 and newOptions[2] then
+				-- The Surface shop has 2 slots that are pulled from the same pool. This catches the case the exclusions leave only one item in those two slots
+				targetIndex = 2
+			end
+			if IsEmpty(newOptions) or not newOptions[ targetIndex ] then
+				targetIndex = button.Index
+				newOptions = FillInShopOptions({ StoreData = StoreData.SurfaceShop, RoomName = CurrentRun.CurrentRoom.Name }).StoreOptions
+			end
+			CurrentRun.CurrentRoom.Store.StoreOptions[ button.Index ] = newOptions[ targetIndex ]
+			CurrentRun.CurrentRoom.FirstSpeedUpPurchase = true
+			InvalidateCheckpoint()
+		end
+		CloseSurfaceShopScreen( screen, button  )
 	else
 		local shopTrait = DeepCopyTable(TraitData.StorePendingDeliveryItem)
 		shopTrait.RemainingUses = itemData.RoomDelay 
@@ -381,7 +490,7 @@ function HandleSurfaceShopAction( screen, button )
 		if itemData.Name == "SpellDrop" then
 			CurrentRun.PendingSpellDrop = true
 		end
-		AddTraitToHero({ TraitData =  shopTrait})
+		AddTraitToHero({ TraitData =  shopTrait, SkipUIUpdate = true })
 
 		ModifyTextBox({ Id = screen.Components["PurchaseButtonDelivery" .. button.Index].Id, Text = "SpeedUpDelivery"})
 
@@ -395,10 +504,15 @@ function HandleSurfaceShopAction( screen, button )
 		SetAnimation({ DestinationId = screen.Components["HermesSpeedUp".. button.Index].Id , Name = "SurfaceShopBuyNowSticker" })
 		ModifyTextBox({ Id = screen.Components["PurchaseButtonCost"..button.Index].Id, Text = costString })
 	end
-
+	UpdateHeroTraitDictionary()
 	thread( PlayVoiceLines, upgradeData.PurchasedLines, true )
 	for i, button in pairs(CurrentRun.CurrentRoom.Store.Buttons) do
-		UpdateCostButton( button )
+
+		if button.Purchased then
+			UpdateCostButton( button, button.Data.SpeedUpResourceCosts )
+		else
+			UpdateCostButton( button )
+		end
 	end
 end
 
@@ -407,32 +521,23 @@ function CloseSurfaceShopScreen( screen, button )
 	local closeItems = DeepCopyTable( screen.OnCloseItems )
 	CloseStoreScreen( screen, button )
 	
-	local enemyPoints = GetIdsByType({ Names = { "EnemyPoint", "SecretPoint", "EnemyPointRanged", "EnemyPointMelee", "EnemyPointSupport" }})
-	local spawnPoints = GetClosestIds({ Id = CurrentRun.Hero.ObjectId, DestinationIds = enemyPoints, Distance = 600 })
-	if TableLength(spawnPoints) < 3 then
-		spawnPoints = ShallowCopyTable(enemyPoints)
-	end
 	local startIndex = 1
 	for s, name in pairs( closeItems ) do
-		for i, trait in pairs( CurrentRun.Hero.TraitDictionary.StorePendingDeliveryItem) do
-			if trait.AcquiredDepth == CurrentRun.RunDepthCache and trait.ShopItemName == name then
-				local consumableId = nil
-				while spawnPoints[startIndex] and SessionMapState.SurfaceShopSpawnPointsUsed[spawnPoints[startIndex]] do
-					startIndex = startIndex + 1
+		local condemnedTrait = nil
+		if not IsEmpty( CurrentRun.Hero.TraitDictionary.StorePendingDeliveryItem ) then
+			for i, trait in pairs( CurrentRun.Hero.TraitDictionary.StorePendingDeliveryItem ) do
+				if trait.AcquiredDepth == CurrentRun.RunDepthCache and trait.ShopItemName == name then
+					local spawnPointId = SelectSurfaceItemSpawnPoint()
+					local rewardItem = SpawnStoreItemInWorld( trait.OnExpire.SpawnShopItem, spawnPointId )
+					if rewardItem ~= nil then
+						rewardItem.BlockBoughtTextLines = true
+					end
+					thread( SurfaceShopItemSameRoomPresentation, spawnPointId )
+					condemnedTrait = trait
+					break
 				end
-				if spawnPoints[startIndex] then
-					consumableId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = spawnPoints[startIndex] })
-					SessionMapState.SurfaceShopSpawnPointsUsed[spawnPoints[startIndex]] = true
-
-				else
-					consumableId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = CurrentRun.Hero.ObjectId, OffsetX = RandomFloat(-10, 10), OffsetY = RandomFloat(-10, 10) })
-				end
-				SpawnStoreItemInWorld( trait.OnExpire.SpawnShopItem, consumableId )
-				thread( SurfaceShopItemSameRoomPresentation, consumableId )
-				thread( DestroyOnDelay, { consumableId }, 0.05 )
-				RemoveTraitData( CurrentRun.Hero, trait, { SkipExpire = true })
-				break
 			end
+			RemoveTraitData( CurrentRun.Hero, condemnedTrait, { SkipExpire = true })
 		end
 	end
 end
@@ -442,8 +547,13 @@ function LoadResourcesForPendingDeliveryItem( unit, args, contextArgs, trait )
 		return
 	end
 	local itemData = ConsumableData[trait.ShopItemName] or LootData[trait.ShopItemName]
-	if itemData ~= nil and itemData.SpeakerName ~= nil then
-		LoadVoiceBanks( itemData.SpeakerName )
+	if itemData ~= nil then
+		if itemData.SpeakerName ~= nil then
+			LoadVoiceBanks( itemData.SpeakerName )
+		end
+		if itemData.LoadPackages ~= nil then
+			LoadPackages({ Names = itemData.LoadPackages })
+		end
 	end
 
 end
@@ -464,4 +574,34 @@ function MouseOffSurfaceShopButton( component )
 	SetAlpha({ Id = screen.Components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
 	SetAnimation({ DestinationId = component.Highlight.Id, Name = "BoonHighlightOut" })
 	ModifyTextBox({ Id = screen.Components.SelectButton.Id, Text = " " })
+end
+
+function SelectSurfaceItemSpawnPoint()
+	if MapState.SurfaceItemSpawnPoints == nil then
+		MapState.SurfaceItemSpawnPoints = {}
+		for i, id in pairs( GetIds({ Name = "SpawnPoints" }) ) do
+			MapState.SurfaceItemSpawnPoints[id] = true
+		end
+		for i, id in pairs( GetIdsByType({ Name = "LootPoint" }) ) do
+			MapState.SurfaceItemSpawnPoints[id] = true
+		end
+		for i, id in pairs( GetIdsByType({ Name = "FamiliarPoint" }) ) do
+			MapState.SurfaceItemSpawnPoints[id] = true
+		end
+		for i, id in pairs( GetIds({ Name = "AltRewardSpawnPoints" }) ) do
+			MapState.SurfaceItemSpawnPoints[id] = true
+		end
+	end
+	for id, reward in pairs( MapState.RewardPointsUsed ) do
+		MapState.SurfaceItemSpawnPoints[id] = nil
+	end
+	if IsEmpty( MapState.SurfaceItemSpawnPoints ) then
+		return CurrentRun.Hero.ObjectId
+	end
+	local spawnPointId = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationIds = GetAllKeys( MapState.SurfaceItemSpawnPoints ) })	
+	if spawnPointId <= 0 then
+		return CurrentRun.Hero.ObjectId
+	end
+	MapState.SurfaceItemSpawnPoints[spawnPointId] = nil
+	return spawnPointId
 end

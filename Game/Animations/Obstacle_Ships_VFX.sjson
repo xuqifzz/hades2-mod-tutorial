@@ -193,6 +193,7 @@
 		VisualFx = "ShipsSeaSprayEmitter"
 		VisualFxIntervalMin = 3
 		VisualFxIntervalMax = 5
+		CreateAnimation = "ShipsSeaSprayIntro"
 	}	
 
 	{
@@ -202,6 +203,17 @@
 		VisualFx = "ShipsSeaSprayEmitter"
 		VisualFxIntervalMin = 1
 		VisualFxIntervalMax = 2
+		CreateAnimation = "ShipsSeaSprayIntro"
+	}
+
+	{
+		Name = "ShipsSeaSprayIntro"
+		FilePath = "Dev\blank_invisible"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 3
+		VisualFx = "ShipsSeaSpray"
+		VisualFxCap = 1
+		Duration = 1.1
 	}
 
 	{
@@ -212,6 +224,8 @@
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.02
 		VisualFxCap = 4
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
 	}
 
 	{
@@ -312,6 +326,7 @@
 		RandomFlipVertical = true
 		RandomRotationSpeedMin = -15
 		RandomRotationSpeedMax = 0
+		DisableInvisibleAnimRender = true
 	}
 
 	{
@@ -695,8 +710,10 @@
 		Loop = true
 		RandomPlaySpeedMin = 30
 		RandomPlaySpeedMax = 36
+		StopSoundOnFinishFade = 0.01
+		SoundManagerCap = 26
 		Scale = 4
-				Slides = [
+		Slides = [
 			{ DurationFrames = 2 }
 			{ DurationFrames = 2 }
 			{ DurationFrames = 2 }
@@ -981,9 +998,10 @@
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
 		Scale = 1.6
-		OffsetY = -75
+		OffsetY = -55
 		SortMode = "FromParent"
 		SortFromOwner = "Take"
+		ColorFromOwner = "Take"
 		Slides = [
 			{ DurationFrames = 1 }
 			{ DurationFrames = 1 }
@@ -1028,7 +1046,7 @@
 		FilePath = "Fx\ShipsBreakable02Shatter\ShipsBreakable02Shatter"
 		NumFrames = 32
 		Scale = 1.2
-		OffsetY = -65
+		OffsetY = -45
 		Slides = [
 			{ DurationFrames = 1 }
 			{ DurationFrames = 1 }
@@ -1074,7 +1092,7 @@
 		FilePath = "Fx\ShipsBreakable03Shatter\ShipsBreakable03Shatter"
 		NumFrames = 30
 		Scale = 1.4
-		OffsetY = -45
+		OffsetY = -25
 		Slides = [
 			{ DurationFrames = 1 }
 			{ DurationFrames = 1 }

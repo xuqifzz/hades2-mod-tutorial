@@ -1,491 +1,17 @@
-MusicTrackData =
+﻿-- Global Dora Lines / Dora Global Lines
+PresetAudioArgs =
 {
-	F =
+	DoraNormalAppearArgs =
 	{
-		{ Name = "/Music/IrisMusicExploration2_MC" },
-		{ Name = "/Music/IrisMusicExploration1_MC" },
-		{ Name = "/Music/IrisMusicErebus2_MC" },
-	},
-	G =
-	{
-		{
-			Name = "/Music/IrisMusicScylla1_MC",
-			TrackStartEvents =
-			{
-				{
-					GameStateRequirements =
-					{
-						{
-							Path = { "GameState", "BiomeMusicPlayCounts", "G" },
-							Modulo = 4,
-							Comparison = "==",
-							Value = 2,
-						},
-					},
-					FunctionName = "MusicSetTrackOffset",
-					Args =
-					{
-						TrackOffset = 34.194,
-					},
-					FailedFunctionName = "SetPathValue",
-					FailedFunctionArgs =
-					{
-						TablePath = { "SessionMapState", },
-						Key = "Humming",
-						Value = true
-					},
-				},
-			},
-		},
-		{
-			Name = "/Music/IrisMusicScylla2_MC",
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "RoomsEntered", "G_PostBoss01" },
-				},
-			},
-			TrackStartEvents =
-			{
-				{
-					GameStateRequirements =
-					{
-						{
-							Path = { "GameState", "BiomeMusicPlayCounts", "G" },
-							Modulo = 4,
-							Comparison = "==",
-							Value = 3,
-						},
-					},
-					FunctionName = "MusicSetTrackOffset",
-					Args =
-					{
-						TrackOffset = 28.168,
-					},
-					FailedFunctionName = "SetPathValue",
-					FailedFunctionArgs =
-					{
-						TablePath = { "SessionMapState", },
-						Key = "Humming",
-						Value = true
-					},
-				},
-			},
-		},
-	},
-	H =
-	{
-		{ Name = "/Music/IrisMusicMourningFields1_MC" },
-		{ Name = "/Music/IrisMusicMourningFields2_MC" },
-	},
-	I =
-	{
-		{ Name = "/Music/IrisMusicClockworkTartarus_MC" },
-	},
-	N =
-	{
-		{ Name = "/Music/IrisMusicFilthyArp_MC" },
-		{ Name = "/Music/IrisMusicEphyra2_MC" },
-		{ Name = "/Music/IrisMusicEphyra3_MC" },
-	},
-	O =
-	{
-		{ Name = "/Music/IrisMusicShips1_MC" },
-		{ Name = "/Music/IrisMusicShips2_MC" },
-	},
-	P =
-	{
-		{
-			Name = "/Music/IrisMusicOlympus1_MC",
-			GameStateRequirements =
-			{
-				NamedRequirementsFalse = { "OlympusMusic1PlayedLast" },
-				{
-					PathFalse = { "CurrentRun", "MusicRecord", "/Music/IrisMusicOlympus1_MC" },
-				}
-			},
-		},
-		{
-			Name = "/Music/IrisMusicOlympus2_MC",
-			GameStateRequirements =
-			{
-				NamedRequirementsFalse = { "OlympusMusic2PlayedLast" },
-				{
-					PathFalse = { "CurrentRun", "MusicRecord", "/Music/IrisMusicOlympus2_MC" },
-				}
-			},
-		},
-	},
-}
-
-RoomStartMusicEvents =
-{
-	-- Underworld Run
-	{
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "BiomesReached", "F" },
-			},
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" }
-			},
-			{
-				Path = { "CurrentRun", "RunDepthCache" },
-				Comparison = "==",
-				Value = 2,
-			},
-			{
-				-- Actually started in Erebus, not faked from a Bounty
-				Path = { "CurrentRun", "RoomsEntered" },
-				HasAny = { "F_Opening01", "F_Opening02", "F_Opening03", },
-			},
-		},
-		MusicSection = 2,
-	},
-	{
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "BiomesReached", "F" },
-			},
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" }
-			},
-			{
-				Path = { "CurrentRun", "RunDepthCache" },
-				Comparison = "==",
-				Value = 3,
-			},
-			{
-				-- Actually started in Erebus, not faked from a Bounty
-				Path = { "CurrentRun", "RoomsEntered" },
-				HasAny = { "F_Opening01", "F_Opening02", "F_Opening03", },
-			},
-		},
-		MusicSection = 3,
-	},
-	{
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "BiomesReached", "F" },
-			},
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" }
-			},
-			{
-				Path = { "CurrentRun", "RunDepthCache" },
-				Comparison = ">",
-				Value = 3,
-			},
-			{
-				Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-				IsNone = { "Styx", "G", },
-			},
-			{
-				Path = { "AudioState", "MusicSection", },
-				Comparison = "==",
-				Value = 0,
-			},
-			{
-				FunctionName = "RequiredMusicSectionRoomDuration",
-				FunctionArgs = { Value = 2 },
-			},
-		},
-		MusicSection = 1,
-	},
-	{
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "BiomesReached", "F" },
-			},
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" }
-			},
-			{
-				PathFalse = { "AudioState", "MusicId" },
-			},
-			{
-				PathFalse = { "AudioState", "SecretMusicId" },
-			},
-			{
-				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsNone = { "G_Intro", "H_Intro", "I_Intro", "G_Reprieve01", "H_Reprieve01", "I_Reprieve01", "I_PreBoss01", "I_Boss01", },
-			},
-		},
-		PlayBiomeMusic = true,
-		MusicSection = 0,
-		UseRoomMusicSection = true,
-	},
-	-- Oceanus
-	{
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-				IsAny = { "G" },
-			},
-			{
-				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsNone = { "G_Story01", },
-			},
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" }
-			},
-		},
-		MusicActiveStems = { "Vocals" },
-	},
-	{
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-				IsAny = { "G" },
-			},
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" }
-			},
-			{
-				Path = { "CurrentRun", "BiomeDepthCache" },
-				Comparison = "<=",
-				Value = 3,
-			},
-		},
-		MusicSection = 0,
-	},
-	{
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-				IsAny = { "G" },
-			},
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" }
-			},
-			{
-				Path = { "CurrentRun", "BiomeDepthCache" },
-				Comparison = ">",
-				Value = 3,
-			},
-			{
-				Path = { "GameState", "BiomeMusicPlayCounts", "G" },
-				Modulo = 4,
-				Comparison = "<=",
-				Value = 1,
-			},
-			{
-				Path = { "AudioState", "MusicSection", },
-				Comparison = "==",
-				Value = 0,
-			},
-			-- { FunctionName = "RequiredMusicSectionRoomDuration", FunctionArgs = { Value = 2 }, },
-		},
-		MusicSection = 1,
-	},
-	{
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-				IsAny = { "G" },
-			},
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" }
-			},
-			{
-				Path = { "CurrentRun", "BiomeDepthCache" },
-				Comparison = ">",
-				Value = 3,
-			},
-			{
-				Path = { "GameState", "BiomeMusicPlayCounts", "G" },
-				Modulo = 4,
-				Comparison = ">=",
-				Value = 2,
-			},
-			{
-				Path = { "AudioState", "MusicSection", },
-				Comparison = "==",
-				Value = 0,
-			},
-			-- { FunctionName = "RequiredMusicSectionRoomDuration", FunctionArgs = { Value = 2 }, },
-		},
-		MusicSection = 3,
-	},
-	-- Fields
-	{
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-				IsAny = { "H" },
-			},
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" }
-			},
-			{
-				Path = { "CurrentRun", "BiomeDepthCache" },
-				Comparison = "==",
-				Value = 2,
-			},
-			{
-				Path = { "AudioState", "MusicSection" },
-				Comparison = "==",
-				Value = 0,
-			},
-		},
-		MusicSection = 1,
-	},
-	-- Tartarus
-	{
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsAny = { "I_MiniBoss01", "I_MiniBoss02" },
-			},
-		},
-		FunctionName = "GenericPresentation",
-		FunctionArgs =
-		{
-			SetSoundCueValues =
-			{
-				{
-					Name = "Miniboss",
-					Value = 1.0,
-					AudioStateId = "MusicId",
-					Duration = 0.75,
-				}
-			},
-		},
-	},
-	{
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-				IsAny = { "I", },
-			},
-			{
-				Path = { "CurrentRun", "RemainingClockworkGoals", },
-				Comparison = "<=",
-				Value = 1,
-			},
-		},
-		MusicActiveStems = { "Guitar", "Drums", "Bass", },
+		SetModel = "Dora_Mesh",
+		SetAnimation = "Dora_Appear",
 	},
 
-	-- Surface Run
+	DoraScaryAppearArgs =
 	{
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "BiomesReached", "N" },
-			},
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" }
-			},
-			{
-				PathFalse = { "AudioState", "MusicId" },
-			},
-			{
-				PathFalse = { "AudioState", "SecretMusicId" },
-			},
-			{
-				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsNone = { "O_Intro", },
-			},
-		},
-		PlayBiomeMusic = true,
-		MusicSection = 0,
-		UseRoomMusicSection = true,
-	},
-	{
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsAny = { "N_Hub" },
-			},
-			{
-				Path = { "AudioState", "MusicSection", },
-				Comparison = "==",
-				Value = 0,
-			},
-		},
-		MusicSection = 1,
-		UseRoomMusicSection = true,
-	},	
-}
-
-CombatOverMusicEvents =
-{
-	{
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "RunDepthCache", },
-				Comparison = ">=",
-				Value = 3,
-			},
-			{
-				Path = { "AudioState", "MusicName", },
-				IsAny = { "/Music/MusicRunstart_MC", },
-			},
-		},
-		EndMusic = true,
-	},
-	{
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "BiomeDepthCache", },
-				Comparison = ">=",
-				Value = 2,
-			},
-			{
-				Path = { "AudioState", "MusicName", },
-				IsAny = { "/Music/IrisMusicBiomeStartOlympus_MC", },
-			},
-		},
-		EndMusic = true,
-		EndMusicArgs =
-		{
-			Duration = 5.0,
-			IgnoreSection = true,
-		},
-	},
-	{
-		GameStateRequirements =
-		{
-			-- None
-		},
-		MusicMutedStems = { "Drums", },
-	},
-	{
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsAny = { "I_MiniBoss01", "I_MiniBoss02" },
-			},
-		},
-		FunctionName = "GenericPresentation",
-		FunctionArgs =
-		{
-			SetSoundCueValues =
-			{
-				{
-					Name = "Miniboss",
-					Value = 0.0,
-					AudioStateId = "MusicId",
-					Duration = 0.75,
-				}
-			},
-		},
+		SetModel = "ScaryDora_Mesh",
+		SetAnimation = "DoraScary_Appear",
+		CreateAnimation = "EnemyDeathFx_Dora",
 	},
 }
 
@@ -556,6 +82,7 @@ GlobalVoiceLines.UsedFountainVoiceLines =
 		Cooldowns =
 		{
 			{ Name = "MelinoeAnyQuipSpeech" },
+			{ Name = "BarrierDownVoiceLines", Time = 4 },
 		},
 
 		{ Cue = "/VO/Melinoe_0250", Text = "{#Emph}Whew." },
@@ -563,10 +90,19 @@ GlobalVoiceLines.UsedFountainVoiceLines =
 		{ Cue = "/VO/Melinoe_0252", Text = "{#Emph}Ah." },
 		{ Cue = "/VO/Melinoe_0253", Text = "{#Emph}<Sigh>" },
 		{ Cue = "/VO/Melinoe_1122", Text = "Pure water...", PreLineWait = 0.9 },
-		{ Cue = "/VO/Melinoe_1841", Text = "Needed that..." },
 		{ Cue = "/VO/Melinoe_1842", Text = "Clean..." },
 		{ Cue = "/VO/Melinoe_1843", Text = "OK..." },
 		{ Cue = "/VO/Melinoe_1844", Text = "That's good..." },
+		{ Cue = "/VO/Melinoe_1841", Text = "Needed that...",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					FunctionName = "RequiredHealthFraction",
+					FunctionArgs = { Comparison = "<=", Value = 0.5, },
+				},
+			},
+		},
 	},
 	{
 		Queue = "Always",
@@ -587,10 +123,35 @@ GlobalVoiceLines.UsedFountainVoiceLines =
 		RandomRemaining = true,
 		PreLineWait = 1.35,
 		SuccessiveChanceToPlayAll = 0.1,
+		ObjectType = "NPC_Chronos_02",
+		Cooldowns =
+		{
+			{ Name = "ChronosAnyQuipSpeech", Time = 8 },
+		},
+		RequiredSourceValueFalse = "Hidden",
+
+		{ Cue = "/VO/Chronos_1104", Text = "May you be well.", PlayFirst = true },
+		{ Cue = "/VO/Chronos_1102", Text = "Refreshing, is it not?" },
+		{ Cue = "/VO/Chronos_1103", Text = "The source of life..." },
+		{ Cue = "/VO/Chronos_1105", Text = "For the road ahead." },
+		{ Cue = "/VO/Chronos_1106", Text = "The water runs clear." },
+		{ Cue = "/VO/Chronos_1107", Text = "Ready to go?" },
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 1.35,
+		SuccessiveChanceToPlayAll = 0.1,
 		ObjectType = "NPC_Chronos_01",
 		Cooldowns =
 		{
 			{ Name = "ChronosAnyQuipSpeech", Time = 8 },
+		},
+		GameStateRequirements =
+		{
+			{
+				PathFalse = { "CurrentRun", "SpawnedChronosForTaunt" },
+			},
 		},
 
 		{ Cue = "/VO/Chronos_0078", Text = "Refreshing, is it not?" },
@@ -637,7 +198,16 @@ GlobalVoiceLines.UsedTelescopeVoiceLines =
 	{ Cue = "/VO/MelinoeField_0612", Text = "What else is here..." },
 	{ Cue = "/VO/MelinoeField_0613", Text = "Let's get the lay of the land..." },
 	{ Cue = "/VO/MelinoeField_0614", Text = "Show me the surroundings." },
-	{ Cue = "/VO/MelinoeField_0615", Text = "Where else can we go." },
+	{ Cue = "/VO/MelinoeField_0615", Text = "Where else can we go.",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "SpawnRecord", "SoulPylon" },
+				Comparison = ">=",
+				Value = 1,
+			},
+		},
+	},
 	{ Cue = "/VO/MelinoeField_0616", Text = "Need a quick overview.", PlayFirst = true },
 	{ Cue = "/VO/MelinoeField_0617", Text = "What's left of Ephyra?" },
 }
@@ -730,6 +300,7 @@ GlobalVoiceLines.UsedRewardFinderVoiceLines =
 
 GlobalVoiceLines.ErisNotSightedVoiceLines =
 {
+	Queue = "Always",
 	PlayOnce = true,
 	PlayOnceContext = "ErisCurseGiverMIA",
 	RandomRemaining = true,
@@ -747,473 +318,6 @@ GlobalVoiceLines.ErisNotSightedVoiceLines =
 	{ Cue = "/VO/MelinoeField_1960", Text = "Eris didn't show at least..." },
 }
 
-GlobalVoiceLines.StartPackagedBountyRunVoiceLines =
-{
-	Cooldowns =
-	{
-		{ Name = "MelinoeAnyQuipSpeech" },
-	},
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.66,
-		SuccessiveChanceToPlayAll = 0.5,
-		ThreadName = "RoomThread",
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "ActiveBounty" },
-			},
-			{
-				Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-				IsNone = { "F", "N" },
-			},
-		},
-
-		{ Cue = "/VO/Melinoe_2630", Text = "The Pitch-Black Stone transported me..." },
-		{ Cue = "/VO/Melinoe_2631", Text = "Already come this far..." },
-		{ Cue = "/VO/MelinoeField_2108", Text = "Here already..." },
-		{ Cue = "/VO/MelinoeField_2109", Text = "Skipped me ahead..." },
-	},
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.66,
-		SuccessiveChanceToPlayAll = 0.5,
-		ThreadName = "RoomThread",
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "ActiveBounty" },
-			},
-			{
-				Path = { "CurrentRun", "ActiveBounty" },
-				IsNone = { "PackageBountyChaosIntro" },
-			},
-		},
-		Cooldowns =
-		{
-			{ Name = "MelinoeAnyQuipSpeech", Time = 60 },
-		},
-
-		{ Cue = "/VO/Melinoe_1427", Text = "My loadout's changed." },
-		{ Cue = "/VO/Melinoe_1428", Text = "Feels different somehow.", PlayFirst = true },
-		{ Cue = "/VO/MelinoeField_2103", Text = "What happened to me..." },
-		{ Cue = "/VO/MelinoeField_2104", Text = "Chaos..." },
-		{ Cue = "/VO/MelinoeField_2105", Text = "Something's happened..." },
-		{ Cue = "/VO/MelinoeField_2106", Text = "I feel... {#Emph}ungh..." },
-		{ Cue = "/VO/MelinoeField_2107", Text = "Only temporary..." },
-	},
-	{
-		PreLineWait = 0.66,
-		SuccessiveChanceToPlayAll = 0.2,
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "ActiveBounty" },
-				IsAny = { "PackageBountyChaosIntro" },
-			},
-		},
-
-		{ Cue = "/VO/MelinoeField_2044", Text = "I feel... unstoppable..." },
-	},
-	-- 4+ losses
-	{
-		NoTarget = true,
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		SuccessiveChanceToPlayAll = 0.5,
-		PreLineWait = 0.942,
-		ThreadName = "RoomThread",
-		Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "ActiveBountyAttempts" },
-				Comparison = ">=",
-				ValuePath = { "CurrentRun", "ActiveBountyClears" },
-				ValuePathAddition = 5,
-			},
-		},
-		{ Cue = "/VO/Chaos_0248", Text = "Perhaps you should cease attempting this Trial for now." },
-		{ Cue = "/VO/Chaos_0249", Text = "Perhaps if your weapon was stronger? Or perhaps not.", PlayFirst = true },
-		{ Cue = "/VO/Chaos_0250", Text = "I have eternity for these attempts; do you?" },
-		{ Cue = "/VO/Chaos_0251", Text = "Only continue with this Trial if that is your wish." },
-	},
-	-- 2 - 3 losses
-	{
-		NoTarget = true,
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		SuccessiveChanceToPlayAll = 0.5,
-		PreLineWait = 0.942,
-		ThreadName = "RoomThread",
-		Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "ActiveBountyAttempts" },
-				Comparison = ">=",
-				ValuePath = { "CurrentRun", "ActiveBountyClears" },
-				ValuePathAddition = 3,
-			},
-		},
-		{ Cue = "/VO/Chaos_0237", Text = "Repeated failure is acceptable to me, for it is amusing." },
-		{ Cue = "/VO/Chaos_0239", Text = "Your prior failure in this Trial was quite interesting to observe." },
-		{ Cue = "/VO/Chaos_0242", Text = "This Trial has been difficult, and yet you reattempt." },
-		{ Cue = "/VO/Chaos_0243", Text = "I think this Trial may be far too difficult for you." },
-		{ Cue = "/VO/Chaos_0244", Text = "Try all you like; your repeat attempts are interesting." },
-		{ Cue = "/VO/Chaos_0247", Text = "We have been through this before, and shall do it again." },
-	},
-	-- 1 - 2 loss
-	{
-		NoTarget = true,
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		SuccessiveChanceToPlayAll = 0.5,
-		PreLineWait = 0.942,
-		ThreadName = "RoomThread",
-		Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "ActiveBountyAttempts" },
-				Comparison = ">=",
-				ValuePath = { "CurrentRun", "ActiveBountyClears" },
-				ValuePathAddition = 2,
-			},
-		},
-		{ Cue = "/VO/Chaos_0233", Text = "Repetition sometimes is required for success." },
-		{ Cue = "/VO/Chaos_0236", Text = "I am curious to see if you shall fail this Trial once again." },
-		{ Cue = "/VO/Chaos_0238", Text = "Shall this Trial prove too much for you again?" },
-		{ Cue = "/VO/Chaos_0232", Text = "You are the variable in this Trial, Spawn of Hades." },
-		{ Cue = "/VO/Chaos_0234", Text = "A Trial may require multiple attempts.", PlayFirst = true },
-		{ Cue = "/VO/Chaos_0235", Text = "I have affected this night much like you experienced before." },
-		{ Cue = "/VO/Chaos_0240", Text = "Perhaps you have a better sense of what to expect this time." },
-		{ Cue = "/VO/Chaos_0241", Text = "I appreciate your willingness to reattempt this Trial." },
-		{ Cue = "/VO/Chaos_0245", Text = "This is a Trial that you know; yet the outcome may change." },
-		{ Cue = "/VO/Chaos_0246", Text = "I shall be interested to see what you do differently this time." },
-	},
-	-- initial attempts & general
-	{
-		NoTarget = true,
-		RandomRemaining = true,
-		SuccessiveChanceToPlayAll = 0.66,
-		PreLineWait = 0.876,
-		ThreadName = "RoomThread",
-		Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "ActiveBounty" },
-			},
-		},
-		{ Cue = "/VO/Chaos_0217", Text = "Our Trial thus begins, O Spawn of Hades.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyChaosIntro" },
-				},
-			},
-		},
-
-		{ Cue = "/VO/Chaos_0262", Text = "Vengeance is an impulse I would better understand.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyRevenge" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0265", Text = "Gold flows freely throughout my domain; claim it.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyGold" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0268", Text = "Let us see the so-called Earthshaker live up to his title.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyOceanus" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0277", Text = "This is a Trial of strength, so please use it with care.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyHellChop" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0275", Text = "This is a Trial of destruction, so please see what you can do.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyHazard" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0269", Text = "I have no wish to see the god of light, only his strength.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyHealer", "PackageBountyHazard" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0270", Text = "The cold brought on by the goddess of seasons, I know well.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyOneTouch" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0272", Text = "The goddess of love is well accustomed to being observed.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyAphrodite" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0273", Text = "The goddess of the hearth, and the potential of her flames...",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyHestia" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0276", Text = "This is a Trial of haste, so please do not hesitate.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountySpeed" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0224", Text = "You lack the power you accumulated; but not the knowledge.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyStarter" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0225", Text = "I can take away your strength, but not your experience.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyStarter" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0264", Text = "You have a strong connection to the Moon; show it to me.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountySpellCast" },
-				},
-			},
-		},
-		--[[
-		{ Cue = "/VO/Chaos_0278", Text = "I believe your magick shall be of little use in this Trial.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyLowMana" },
-				},
-			},
-		},
-		]]--
-		{ Cue = "/VO/Chaos_0263", Text = "Do the Fates determine what transpires, or do you?",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyCriticalHealth" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0266", Text = "The King of Olympus commands thunder, but I created it.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyZeus" },
-				},
-			},
-		},
-
-		{ Cue = "/VO/Chaos_0219", Text = "You have arrived here rather quickly, Spawn of Hades.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "BiomesReached" },
-					HasNone = { "F", "N" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0220", Text = "Let us begin our current Trial from this point.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "BiomesReached" },
-					HasNone = { "F", "N" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0221", Text = "Commence this Trial from this point, beginning now.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "BiomesReached" },
-					HasNone = { "F", "N" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0222", Text = "I have an interest in evaluating this domain.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "BiomesReached" },
-					HasNone = { "F", "N" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0223", Text = "You may proceed immediately, Spawn of Hades.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "BiomesReached" },
-					HasNone = { "F", "N" },
-				},
-			},
-		},
-
-		{ Cue = "/VO/Chaos_0226", Text = "This Trial shall attempt to break you, Spawn of Hades.",
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny =
-					{
-						"PackageBountyCriticalHealth",
-						"PackageBountyOneTouch",
-					},
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0227", Text = "It is possible that this Trial is impossible, Spawn of Hades.",
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny =
-					{
-						"PackageBountyCriticalHealth",
-						"PackageBountyOneTouch",
-					},
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0228", Text = "I do not think you shall complete this Trial, though please try.",
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny =
-					{
-						"PackageBountyCriticalHealth",
-						"PackageBountyOneTouch",
-					},
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0229", Text = "The Fates themselves determine the details of this Trial.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyRandomUnderworld10Shrine" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0230", Text = "I cede control of the details of this Trial to the Fates.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyRandomUnderworld10Shrine" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0231", Text = "In choosing this Trial, all other choices shall be made for you.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ActiveBounty" },
-					IsAny = { "PackageBountyRandomUnderworld10Shrine" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chaos_0105", Text = "This shall be interesting..." },
-		{ Cue = "/VO/Chaos_0106", Text = "I have made some adjustments to reality..." },
-		{ Cue = "/VO/Chaos_0107", Text = "Minor changes may have profound effects..." },
-		{ Cue = "/VO/Chaos_0108", Text = "Some alterations to the fabric of reality..." },
-		{ Cue = "/VO/Chaos_0109", Text = "Is all this in accordance with the Fates' design?" },
-		{ Cue = "/VO/Chaos_0110", Text = "Of infinite possibilities, this was your choice." },
-		{ Cue = "/VO/Chaos_0111", Text = "From my infinite depths rises an opportunity." },
-		{ Cue = "/VO/Chaos_0112", Text = "I do appreciate your willingness..." },
-		{ Cue = "/VO/Chaos_0113", Text = "So many minor details to adjust..." },
-		{ Cue = "/VO/Chaos_0114", Text = "Another possibility to be explored..." },
-		{ Cue = "/VO/Chaos_0218", Text = "All that you see is my domain, and I am everywhere." },
-	},
-
-}
 GlobalVoiceLines.BiomeStateChangeStartVoiceLines =
 {
 	{
@@ -1236,6 +340,10 @@ GlobalVoiceLines.BiomeStateChangeStartVoiceLines =
 }
 GlobalVoiceLines.TaskBegunVoiceLines =
 {
+	Cooldowns =
+	{
+		{ Name = "MelRunStartSpeech", Time = 12 },
+	},
 	-- first surface visit
 	{
 		BreakIfPlayed = true,
@@ -1249,6 +357,10 @@ GlobalVoiceLines.TaskBegunVoiceLines =
 				{
 					PathFalse = { "GameState", "RoomCountCache", "N_Opening01" },
 				},
+				{
+					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+					IsAny = { "N" },
+				},
 			},
 		},
 	},
@@ -1261,6 +373,22 @@ GlobalVoiceLines.TaskBegunVoiceLines =
 		SuccessiveChanceToPlayAll = 0.25,
 
 		-- surface route
+		{ Cue = "/VO/MelinoeField_4353", Text = "No trace of Typhon shall remain.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "TextLinesRecord" },
+					HasAny = { "NeoChronosAboutOlympus01", "NeoChronosAboutOlympus01_B" },
+				},
+				{
+					PathTrue = { "GameState", "ReachedTrueEnding" },
+				},
+				{
+					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+					IsAny = { "N" },
+				},
+			},
+		},
 		{ Cue = "/VO/Melinoe_0569", Text = "{#Emph}<Inhale>", PlayFirst = true,
 			GameStateRequirements =
 			{
@@ -1280,6 +408,9 @@ GlobalVoiceLines.TaskBegunVoiceLines =
 					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
 					IsAny = { "N" },
 				},
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
 			},
 		},
 		{ Cue = "/VO/Melinoe_0122", Text = "Cold up here...",
@@ -1293,12 +424,31 @@ GlobalVoiceLines.TaskBegunVoiceLines =
 		},
 
 		-- underworld route
+		{ Cue = "/VO/MelinoeField_4352", Text = "No trace of the old Chronos shall remain.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "TextLinesRecord" },
+					HasAny = { "NeoChronosAboutTartarus01", "NeoChronosAboutTartarus01_B" },
+				},
+				{
+					PathTrue = { "GameState", "ReachedTrueEnding" },
+				},
+				{
+					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+					IsAny = { "F" },
+				},
+			},
+		},
 		{ Cue = "/VO/Melinoe_0380", Text = "I'll get you, Chronos.",
 			GameStateRequirements =
 			{
 				{
 					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
 					IsAny = { "F" },
+				},
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
 				},
 			},
 		},
@@ -1326,11 +476,127 @@ GlobalVoiceLines.TaskBegunVoiceLines =
 					Comparison = ">=",
 					Value = 7,
 				},
+				OrRequirements =
+				{
+					{
+						{
+							PathFalse = { "GameState", "ReachedTrueEnding" },
+						},
+					},
+					{
+						{
+							PathTrue = { "GameState", "SpeechRecord", "/VO/Chronos_1058" },
+						},
+					},
+				},
 			},
+		},
+		{ Cue = "/VO/Melinoe_0402", Text = "Time is against us.",
+			GameStateRequirements = 
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+					IsAny = { "F" },
+				},
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+			}
 		},
 
 		-- either route
-		{ Cue = "/VO/Melinoe_0003_V3", Text = "It's now or never." },
+		{ Cue = "/VO/MelinoeField_4351", Text = "Another possibility.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "ReachedTrueEnding" },
+				},
+				{
+					PathTrue = { "PrevRun", "Cleared" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4350", Text = "Time shall freely flow.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "ReachedTrueEnding" },
+				},
+				{
+					Path = { "GameState", "TextLinesRecord" },
+					HasAny = { "NeoChronosAboutTartarus01", "NeoChronosAboutOlympus01" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4348", Text = "Just like before.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "ReachedTrueEnding" },
+				},
+				{
+					PathTrue = { "PrevRun", "Cleared" },
+				},
+				OrRequirements =
+				{
+					{
+						{
+							PathTrue = { "PrevRun", "EnemyKills", "TyphonHead" },
+						},
+						{
+							PathTrue = { "CurrentRun", "BiomesReached", "N" }
+						},
+					},
+					{
+						{
+							PathTrue = { "PrevRun", "EnemyKills", "Chronos" }
+						},
+						{
+							PathTrue = { "CurrentRun", "BiomesReached", "F" }
+						},
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4349", Text = "Ensuring victory.",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "ReachedTrueEnding" },
+				},
+				{
+					PathTrue = { "PrevRun", "Cleared" },
+				},
+				OrRequirements =
+				{
+					{
+						{
+							PathTrue = { "PrevRun", "EnemyKills", "TyphonHead" },
+						},
+						{
+							PathTrue = { "CurrentRun", "BiomesReached", "N" }
+						},
+					},
+					{
+						{
+							PathTrue = { "PrevRun", "EnemyKills", "Chronos" }
+						},
+						{
+							PathTrue = { "CurrentRun", "BiomesReached", "F" }
+						},
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_0003_V3", Text = "It's now or never.",
+			GameStateRequirements = 
+			{
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+			}
+		},
 		{ Cue = "/VO/Melinoe_0114", Text = "Time to shine." },
 		{ Cue = "/VO/Melinoe_0115", Text = "For my family." },
 		{ Cue = "/VO/Melinoe_0116", Text = "Moonlight guide me." },
@@ -1348,7 +614,7 @@ GlobalVoiceLines.TaskBegunVoiceLines =
 			{
 				{
 					PathFalse = { "CurrentRun", "SpeechRecord", "/VO/Melinoe_0377" },
-				}
+				},
 			},
 		},
 	},
@@ -1358,19 +624,109 @@ GlobalVoiceLines.TaskBegunVoiceLines =
 GlobalVoiceLines.StartNewRunVoiceLines =
 {
 	-- underworld route
+	{ GlobalVoiceLines = "StartPostTrueEndingRunIntroVoiceLines" },
+	{
+		PlayOnce = true,
+		PlayOnceContext = "HecateMissingRunStartVO",
+		BreakIfPlayed = true,
+		PreLineWait = 0.3,
+		UsePlayerSource = true,
+		ThreadName = "RoomThread",
+		GameStateRequirements =
+		{
+			NamedRequirements = { "HecateMissing" },
+		},
+
+		{ Cue = "/VO/Melinoe_5158", Text = "I need to find Headmistress...!" },
+	},
 	{
 		BreakIfPlayed = true,
 		RandomRemaining = true,
 		PreLineWait = 0.3,
 		UsePlayerSource = true,
 		ThreadName = "RoomThread",
-		SuccessiveChanceToPlayAll = 0.9,
-		GameStateRequirements =
-		{
+		SuccessiveChanceToPlay = 0.9,
+		SuccessiveChanceToPlayAll = 0.8,
+
+		{ Cue = "/VO/Melinoe_0107", Text = "I'm off." },
+		{ Cue = "/VO/Melinoe_0108", Text = "I go.", },
+		{ Cue = "/VO/Melinoe_0109", Text = "Heading out.", },
+		{ Cue = "/VO/Melinoe_0110", Text = "Commencing.", },
+		{ Cue = "/VO/Melinoe_0029", Text = "I'd best be off...", },
+		{ Cue = "/VO/Melinoe_0375", Text = "Farewell, Commander.", },
+		{ Cue = "/VO/Melinoe_0377", Text = "This is my path.", },
+		{ Cue = "/VO/Melinoe_0378", Text = "I'll make this count." },
+		{ Cue = "/VO/Melinoe_0379", Text = "My path is set.", },
+		{ Cue = "/VO/Melinoe_1668", Text = "I was born for this." },
+		{ Cue = "/VO/Melinoe_3058_B", Text = "Here we go." },
+		{ Cue = "/VO/Melinoe_4302", Text = "Into the dark." },
+		{ Cue = "/VO/Melinoe_4304", Text = "For the Unseen." },
+		{ Cue = "/VO/Melinoe_4305", Text = "To the abyss." },
+		{ Cue = "/VO/Melinoe_0376", Text = "Into Erebus.",
+			GameStateRequirements =
 			{
+				{
+					PathFromArgs = true,
+					PathFalse = { "ActiveBounty" },
+				},
 			},
 		},
-
+		{ Cue = "/VO/Melinoe_1608", Text = "Find the Titan, slay the Titan.", PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					PathFalse = { "ActiveBounty" },
+				},
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_0111", Text = "Once more.",
+			GameStateRequirements =
+			{
+				OrRequirements =
+				{
+					{
+						{
+							PathFromArgs = true,
+							PathFalse = { "ActiveBounty" },
+						},
+					},
+					{
+						{
+							PathFromArgs = true,
+							Path = { "ActiveBountyAttempts" },
+							Comparison = ">=",
+							Value = 2,
+						},
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_2482", Text = "Once more, then.",
+			GameStateRequirements =
+			{
+				OrRequirements =
+				{
+					{
+						{
+							PathFromArgs = true,
+							PathFalse = { "ActiveBounty" },
+						},
+					},
+					{
+						{
+							PathFromArgs = true,
+							Path = { "ActiveBountyAttempts" },
+							Comparison = ">=",
+							Value = 2,
+						},
+					},
+				},
+			},
+		},
 		{ Cue = "/VO/Melinoe_3390", Text = "Ready or not, hence I go.",
 			PlayFirst = true,
 			GameStateRequirements =
@@ -1388,50 +744,90 @@ GlobalVoiceLines.StartNewRunVoiceLines =
 				},
 			},
 		},
-		{ Cue = "/VO/Melinoe_0376", Text = "Into Erebus." },
-		{ Cue = "/VO/Melinoe_1608", Text = "Find the Titan, slay the Titan.", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_0107", Text = "I'm off." },
-		{ Cue = "/VO/Melinoe_0108", Text = "I go.", },
-		{ Cue = "/VO/Melinoe_0109", Text = "Heading out.", },
-		{ Cue = "/VO/Melinoe_0110", Text = "Commencing.", },
-		{ Cue = "/VO/Melinoe_0111", Text = "Once more.", },
-		{ Cue = "/VO/Melinoe_2482", Text = "Once more, then." },
-		{ Cue = "/VO/Melinoe_0029", Text = "I'd best be off...", },
-		{ Cue = "/VO/Melinoe_0375", Text = "Farewell, Commander.", },
-		{ Cue = "/VO/Melinoe_0377", Text = "This is my path.", },
-		{ Cue = "/VO/Melinoe_0378", Text = "I'll make this count." },
-		{ Cue = "/VO/Melinoe_0379", Text = "My path is set.", },
-		{ Cue = "/VO/Melinoe_1668", Text = "I was born for this." },
-		{ Cue = "/VO/Melinoe_3058_B", Text = "Here we go." },
-	},
-	--[[
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.3,
-		SuccessiveChanceToPlay = 0.5,
-		ThreadName = "RoomThread",
-		GameStateRequirements =
-		{
+		{ Cue = "/VO/Melinoe_4303", Text = "To Tartarus.",
+			GameStateRequirements =
 			{
-				PathTrue = { "GameState", "TextLinesRecord", "InspectHomerReveal01", },
+				{
+					PathTrue = { "GameState", "RoomsEntered", "I_Intro" },
+				},
+				{
+					PathFromArgs = true,
+					PathFalse = { "ActiveBounty" },
+				},
 			},
 		},
-
-		{ Cue = "/VO/Melinoe_0861", Text = "You with me, Homer?" },
-		{ Cue = "/VO/Melinoe_0862", Text = "Ready, Homer?" },
-		{ Cue = "/VO/Melinoe_0863", Text = "Let's go, Homer.", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_1133", Text = "Come along, Homer." },
+		{ Cue = "/VO/Melinoe_4306", Text = "Walk in the woods...",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					SumPrevRuns = 2,
+					Path = { "Cleared" },
+					CountPathTrue = true,
+					Comparison = ">=",
+					Value = 2,
+				},
+				{
+					Path = { "GameState", "ClearedUnderworldRunsCache" },
+					Comparison = ">=",
+					Value = 2,
+				},
+				{
+					Path = { "GameState", "ClearedSurfaceRunsCache" },
+					Comparison = ">=",
+					Value = 2,
+				},
+				{
+					PathFromArgs = true,
+					PathFalse = { "ActiveBounty" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_5721", Text = "Let's go kill Time.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "TextLinesRecord", "NeoChronosGift02" }
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_4307", Text = "Now for Chronos.",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "EnemyKills", "TyphonHead" },
+				},
+				{
+					Path = { "GameState", "ClearedUnderworldRunsCache" },
+					Comparison = ">=",
+					Value = 2,
+				},
+				{
+					Path = { "GameState", "ClearedSurfaceRunsCache" },
+					Comparison = ">=",
+					Value = 2,
+				},
+				{
+					PathFromArgs = true,
+					PathFalse = { "ActiveBounty" },
+				},
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+			},
+		},
 	},
-	]]--
+	{ GlobalVoiceLines = "StartMiscRunVoiceLines" },
 }
 GlobalVoiceLines.StartSurfaceRunVoiceLines =
 {
 	-- surface route
+	{ GlobalVoiceLines = "StartPostTrueEndingRunIntroVoiceLines" },
 	{
-		BreakIfPlayed = true,
 		RandomRemaining = true,
 		PreLineWait = 0.3,
+		SuccessiveChanceToPlay = 0.9,
 		SuccessiveChanceToPlayAll = 0.8,
 		ThreadName = "RoomThread",
 		GameStateRequirements =
@@ -1442,12 +838,52 @@ GlobalVoiceLines.StartSurfaceRunVoiceLines =
 
 		{ Cue = "/VO/Melinoe_0113", Text = "To the surface.", PlayFirst = true },
 		{ Cue = "/VO/Melinoe_2480", Text = "Heading up." },
-		{ Cue = "/VO/Melinoe_2483", Text = "Break the siege..." },
+		{ Cue = "/VO/Melinoe_2483", Text = "Break the siege...",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+			},
+		},
 		{ Cue = "/VO/Melinoe_2488", Text = "Unfinished business here..." },
 		{ Cue = "/VO/Melinoe_2489", Text = "More to be done up here." },
 		{ Cue = "/VO/Melinoe_1665", Text = "With the grace of the Moon." },
 		{ Cue = "/VO/Melinoe_3568", Text = "Toward the gods..." },
 		{ Cue = "/VO/Melinoe_3569", Text = "Going up..." },
+		{ Cue = "/VO/Melinoe_4308", Text = "Into the cold." },
+		{ Cue = "/VO/Melinoe_4311", Text = "For the family." },
+		{ Cue = "/VO/Melinoe_4312", Text = "To higher ground." },
+		{ Cue = "/VO/Melinoe_4309", Text = "Just wait, Typhon.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" },
+				},
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_4310", Text = "Now for Typhon.",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "EnemyKills", "Chronos" },
+				},
+				{
+					Path = { "GameState", "ClearedUnderworldRunsCache" },
+					Comparison = ">=",
+					Value = 2,
+				},
+				{
+					Path = { "GameState", "ClearedSurfaceRunsCache" },
+					Comparison = ">=",
+					Value = 2,
+				},
+			},
+		},
 		{ Cue = "/VO/Melinoe_2481", Text = "Ephyra awaits.",
 			GameStateRequirements =
 			{
@@ -1488,10 +924,14 @@ GlobalVoiceLines.StartSurfaceRunVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					PathTrue = { "CurrentRun", "RoomsEntered", "O_Boss01" },
+					Path = { "CurrentRun", "RoomsEntered" },
+					HasAny = { "O_Boss01", "O_Boss02" },
 				},
 				{
 					PathFalse = { "CurrentRun", "RoomsEntered", "P_Intro" },
+				},
+				{
+					PathFalse = { "GameState", "TextLinesRecord", "ErisTaverna02" },
 				},
 			},
 		},
@@ -1527,9 +967,13 @@ GlobalVoiceLines.StartSurfaceRunVoiceLines =
 					PathTrue = { "GameState", "SpeechRecord", "/VO/Melinoe_2485" },
 				},
 				{
-					PathTrue = { "PrevRun", "BiomesReached", "F" },
+					PathFalse = { "CurrentRun", "ActiveBounty" },
 				},
-			}
+				-- the run has not yet reset before this plays
+				{
+					PathTrue = { "CurrentRun", "BiomesReached", "F" },
+				},
+			},
 		},
 		{ Cue = "/VO/Melinoe_2487", Text = "New night, new path.",
 			PlayFirst = true,
@@ -1539,43 +983,1000 @@ GlobalVoiceLines.StartSurfaceRunVoiceLines =
 					PathTrue = { "GameState", "SpeechRecord", "/VO/Melinoe_2485" },
 				},
 				{
-					PathTrue = { "PrevRun", "BiomesReached", "F" },
+					PathFalse = { "CurrentRun", "ActiveBounty" },
 				},
-			}
+				-- the run has not yet reset before this plays
+				{
+					PathTrue = { "CurrentRun", "BiomesReached", "F" },
+				},
+			},
 		},
 	},
-	--[[
 	{
 		BreakIfPlayed = true,
-		PreLineWait = 0.35,
+		PreLineWait = 0.25,
 		PlayOnce = true,
 		PlayOnceContext = "SkellySurfaceRunReaction",
 		ObjectType = "NPC_Skelly_01",
 		ThreadName = "RoomThread",
-		Cooldowns =
-		{
-			-- { Name = "SkellyKeepsakeSpeech", Time = 10 },
-		},
 
-		-- { Cue = "/VO/Skelly_0123", Text = "Wait how did you--" ,
+		{ Cue = "/VO/Skelly_0123", Text = "Wait how did you—" ,
 			GameStateRequirements =
 			{
+				{
+					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeAltRunDoor" }
+				},
 				{
 					PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure", },
 				},
 			},
 		},
-		-- { Cue = "/VO/Skelly_0124", Text = "Such youthful vigor..." ,
-			GameStateRequirements =
+	},
+	{ GlobalVoiceLines = "StartMiscRunVoiceLines" },
+}
+GlobalVoiceLines.StartPostTrueEndingRunIntroVoiceLines =
+{
+	PlayOnce = true,
+	PlayOnceContext = "PostTrueEndingRunStartIntroVO",
+	BreakIfPlayed = true,
+	RandomRemaining = true,
+	PreLineWait = 0.3,
+	ThreadName = "RoomThread",
+	GameStateRequirements =
+	{
+		{
+			PathTrue = { "GameState", "ReachedTrueEnding" },
+		},
+	},
+
+	{ Cue = "/VO/Melinoe_5280", Text = "Let's see what happens...", PlayFirst = true },
+	{ Cue = "/VO/Melinoe_5281", Text = "Time to retrace my steps..." },
+	{ Cue = "/VO/Melinoe_5282", Text = "Here we go again...!" },
+	{ Cue = "/VO/Melinoe_5283", Text = "The task continues." },
+	{ Cue = "/VO/Melinoe_5284", Text = "Always more to be done." },
+	{ Cue = "/VO/Melinoe_5285", Text = "All part of our new phase." },
+}
+GlobalVoiceLines.StartMiscRunVoiceLines =
+{
+	RandomRemaining = true,
+	PreLineWait = 0.3,
+	SuccessiveChanceToPlayAll = 0.8,
+	ThreadName = "RoomThread",
+	GameStateRequirements =
+	{
+		{
+		},
+	},
+
+	{ Cue = "/VO/Melinoe_4313", Text = "Till tomorrow." },
+	{ Cue = "/VO/Melinoe_4314", Text = "Again." },
+	{ Cue = "/VO/Melinoe_4315", Text = "Into the night." },
+	{ Cue = "/VO/Melinoe_4318", Text = "From the shadows..." },
+	{ Cue = "/VO/Melinoe_4319", Text = "Farewell, everyone." },
+	{ Cue = "/VO/Melinoe_4325", Text = "Moonlight guide us." },
+	{ Cue = "/VO/Melinoe_4326", Text = "Moonlight guide me." },
+	{ Cue = "/VO/Melinoe_4316", Text = "{#Emph}Easy.",
+		GameStateRequirements =
+		{
 			{
-				{
-					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure", },
-				},
+				SumPrevRuns = 3,
+				-- CurrentRun hasn't 'turned over' yet so this isn't needed
+				-- IgnoreCurrentRun = true,
+				Path = { "Cleared" },
+				CountPathTrue = true,
+				Comparison = ">=",
+				Value = 3,
 			},
 		},
 	},
-	]]--
+	{ Cue = "/VO/Melinoe_4317", Text = "Let's keep this up.",
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "Cleared" }
+			},
+		},
+	},
+	{ Cue = "/VO/Melinoe_4320", Text = "Frinos, with me.",
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "EquippedFamiliar" },
+				IsAny = { "FrogFamiliar" },
+			},
+		},
+	},
+	{ Cue = "/VO/Melinoe_4321", Text = "Raki, come on.",
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "EquippedFamiliar" },
+				IsAny = { "RavenFamiliar" },
+			},
+		},
+	},
+	{ Cue = "/VO/Melinoe_4322", Text = "Toula, ready?",
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "EquippedFamiliar" },
+				IsAny = { "CatFamiliar" },
+			},
+		},
+	},
+	{ Cue = "/VO/Melinoe_4323", Text = "Hecuba, let's go.",
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "EquippedFamiliar" },
+				IsAny = { "HoundFamiliar" },
+			},
+		},
+	},
+	{ Cue = "/VO/Melinoe_4324", Text = "Stay close, Gale.",
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "EquippedFamiliar" },
+				IsAny = { "PolecatFamiliar" },
+			},
+		},
+	},
+	{ Cue = "/VO/Melinoe_5280", Text = "Let's see what happens...", PlayFirst = true,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "ReachedTrueEnding" },
+			},
+		},
+	},
+	{ Cue = "/VO/Melinoe_5281", Text = "Time to retrace my steps...", PlayFirst = true,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "ReachedTrueEnding" },
+			},
+		},
+	},
+	{ Cue = "/VO/Melinoe_5282", Text = "Here we go again...!", PlayFirst = true,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "ReachedTrueEnding" },
+			},
+		},
+	},
+	{ Cue = "/VO/Melinoe_5283", Text = "The task continues.", PlayFirst = true,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "ReachedTrueEnding" },
+			},
+		},
+	},
+	{ Cue = "/VO/Melinoe_5284", Text = "Always more to be done.", PlayFirst = true,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "ReachedTrueEnding" },
+			},
+		},
+	},
+	{ Cue = "/VO/Melinoe_5285", Text = "All part of our new phase.", PlayFirst = true,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "ReachedTrueEnding" },
+			},
+		},
+	},
 }
+
+GlobalVoiceLines.FamiliarFrogCostumeUnlocked =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		SuccessiveChanceToPlay = 0.25,
+		UsePlayerSource = true,
+		Queue = "Always",
+
+		{ Cue = "/VO/Melinoe_5415", Text = "Let's see it, Frinos!" },
+	},
+}
+GlobalVoiceLines.FamiliarRavenCostumeUnlocked =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		SuccessiveChanceToPlay = 0.25,
+		UsePlayerSource = true,
+		Queue = "Always",
+
+		{ Cue = "/VO/Melinoe_5416", Text = "Raki, shapeshift!" },
+	},
+}
+GlobalVoiceLines.FamiliarCatCostumeUnlocked =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		SuccessiveChanceToPlay = 0.25,
+		UsePlayerSource = true,
+		Queue = "Always",
+
+		{ Cue = "/VO/Melinoe_5417", Text = "Toula, transform!" },
+	},
+}
+GlobalVoiceLines.FamiliarHoundCostumeUnlocked =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		SuccessiveChanceToPlay = 0.25,
+		UsePlayerSource = true,
+		Queue = "Always",
+
+		{ Cue = "/VO/Melinoe_5418", Text = "Switch it up, Hecuba!" },
+	},
+}
+GlobalVoiceLines.FamiliarPolecatCostumeUnlocked =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		SuccessiveChanceToPlay = 0.25,
+		UsePlayerSource = true,
+		Queue = "Always",
+
+		{ Cue = "/VO/Melinoe_5419", Text = "Gale, makeover time!" },
+	},
+}
+GlobalVoiceLines.FamiliarAngryCostumeUnlocked =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		SuccessiveChanceToPlay = 0.25,
+		UsePlayerSource = true,
+		Queue = "Always",
+
+		{ Cue = "/VO/Melinoe_5409", Text = "Show me your rage!" },
+	},
+}
+GlobalVoiceLines.FamiliarCoolCostumeUnlocked =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		SuccessiveChanceToPlay = 0.25,
+		UsePlayerSource = true,
+		Queue = "Always",
+
+		{ Cue = "/VO/Melinoe_5410", Text = "Show me your discipline!" },
+	},
+}
+GlobalVoiceLines.FamiliarCuteCostumeUnlocked =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		SuccessiveChanceToPlay = 0.25,
+		UsePlayerSource = true,
+		Queue = "Always",
+
+		{ Cue = "/VO/Melinoe_5412", Text = "Show me your whimsy!" },
+	},
+}
+GlobalVoiceLines.FamiliarChillCostumeUnlocked =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		SuccessiveChanceToPlay = 0.25,
+		UsePlayerSource = true,
+		Queue = "Always",
+
+		{ Cue = "/VO/Melinoe_5411", Text = "Show me your serenity!" },
+	},
+}
+GlobalVoiceLines.FamiliarDarkCostumeUnlocked =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		UsePlayerSource = true,
+		Queue = "Always",
+
+		{ Cue = "/VO/Melinoe_5414", Text = "Show me your Dark Side!", PlayFirst = true },
+		{ Cue = "/VO/Melinoe_5414_B", Text = "Show me your Dark Side!" },
+		{ Cue = "/VO/Melinoe_5414_C", Text = "Show me your Dark Side!" },
+	},
+}
+GlobalVoiceLines.FamiliarMiscCostumeUnlocked =
+{
+	{
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		-- SuccessiveChanceToPlay = 0.75,
+		UsePlayerSource = true,
+		Queue = "Always",
+
+		{ Cue = "/VO/Melinoe_5408", Text = "Show me another side of you!" },
+		{ Cue = "/VO/Melinoe_5413", Text = "Show me who you are!" },
+	}
+}
+
+GlobalVoiceLines.FamiliarFrogSwitchCostumeVoiceLines =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		SuccessiveChanceToPlay = 0.5,
+		UsePlayerSource = true,
+		Queue = "Always",
+		SkipCooldownCheckIfNonePlayed = true,
+		Cooldowns =
+		{
+			{ Name = "MelinoeSwitchedFamiliarCostumeSpeech", Time = 18 },
+			{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+		},
+
+		{ Cue = "/VO/Melinoe_5428", Text = "Shapeshift, Frinos." },
+		{ Cue = "/VO/Melinoe_5415", Text = "Let's see it, Frinos!" },
+	},
+}
+GlobalVoiceLines.FamiliarRavenSwitchCostumeVoiceLines =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		SuccessiveChanceToPlay = 0.5,
+		UsePlayerSource = true,
+		Queue = "Always",
+		SkipCooldownCheckIfNonePlayed = true,
+		Cooldowns =
+		{
+			{ Name = "MelinoeSwitchedFamiliarCostumeSpeech", Time = 18 },
+			{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+		},
+
+		{ Cue = "/VO/Melinoe_5429", Text = "Shapeshift, Raki." },
+		{ Cue = "/VO/Melinoe_5416", Text = "Raki, shapeshift!" },
+	},
+}
+GlobalVoiceLines.FamiliarCatSwitchCostumeVoiceLines =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		SuccessiveChanceToPlay = 0.5,
+		UsePlayerSource = true,
+		Queue = "Always",
+		SkipCooldownCheckIfNonePlayed = true,
+		Cooldowns =
+		{
+			{ Name = "MelinoeSwitchedFamiliarCostumeSpeech", Time = 18 },
+			{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+		},
+
+		{ Cue = "/VO/Melinoe_5430", Text = "Shapeshift, Toula." },
+		{ Cue = "/VO/Melinoe_5417", Text = "Toula, transform!" },
+	},
+}
+GlobalVoiceLines.FamiliarHoundSwitchCostumeVoiceLines =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		SuccessiveChanceToPlay = 0.5,
+		UsePlayerSource = true,
+		Queue = "Always",
+		SkipCooldownCheckIfNonePlayed = true,
+		Cooldowns =
+		{
+			{ Name = "MelinoeSwitchedFamiliarCostumeSpeech", Time = 18 },
+			{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+		},
+
+		{ Cue = "/VO/Melinoe_5431", Text = "Shapeshift, Hecuba." },
+		{ Cue = "/VO/Melinoe_5418", Text = "Switch it up, Hecuba!" },
+	},
+}
+GlobalVoiceLines.FamiliarPolecatSwitchCostumeVoiceLines =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		SuccessiveChanceToPlay = 0.5,
+		UsePlayerSource = true,
+		Queue = "Always",
+		SkipCooldownCheckIfNonePlayed = true,
+		Cooldowns =
+		{
+			{ Name = "MelinoeSwitchedFamiliarCostumeSpeech", Time = 18 },
+			{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+		},
+
+		{ Cue = "/VO/Melinoe_5432", Text = "Shapeshift, Gale." },
+		{ Cue = "/VO/Melinoe_5419", Text = "Gale, makeover time!" },
+	},
+}
+GlobalVoiceLines.FamiliarMiscSwitchCostumeVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		SuccessiveChanceToPlay = 0.75,
+		UsePlayerSource = true,
+		Queue = "Always",
+		SkipCooldownCheckIfNonePlayed = true,
+		Cooldowns =
+		{
+			{ Name = "MelinoeSwitchedFamiliarCostumeSpeech", Time = 18 },
+			{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+		},
+
+		{ Cue = "/VO/Melinoe_5420", Text = "Shapeshift." },
+		{ Cue = "/VO/Melinoe_5421", Text = "Shapeshift!" },
+		{ Cue = "/VO/Melinoe_5422", Text = "Now change." },
+		{ Cue = "/VO/Melinoe_5423", Text = "Change." },
+		{ Cue = "/VO/Melinoe_5424", Text = "Switch it up." },
+	},
+}
+GlobalVoiceLines.FamiliarSwitchToDefaultCostumeVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		PreLineWait = 0.2,
+		SuccessiveChanceToPlay = 0.75,
+		UsePlayerSource = true,
+		Queue = "Always",
+		SkipCooldownCheckIfNonePlayed = true,
+		Cooldowns =
+		{
+			{ Name = "MelinoeSwitchedFamiliarCostumeSpeech", Time = 18 },
+			{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+		},
+
+		{ Cue = "/VO/Melinoe_5425", Text = "Back to normal." },
+		{ Cue = "/VO/Melinoe_5426", Text = "Return." },
+		{ Cue = "/VO/Melinoe_5427", Text = "Regain your outward form." },
+	},
+}
+GlobalVoiceLines.FamiliarCostumeReactionVoiceLines =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.85,
+		SuccessiveChanceToPlay = 0.75,
+		UsePlayerSource = true,
+		Queue = "Always",
+		SkipCooldownCheckIfNonePlayed = true,
+		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+		{ Cue = "/VO/Melinoe_5479", Text = "You look {#Emph}great!", PlayFirst = true },
+		{ Cue = "/VO/Melinoe_5480", Text = "{#Emph}Ooh{#Prev}, impressive." },
+		{ Cue = "/VO/Melinoe_5481", Text = "I like it...!" },
+		{ Cue = "/VO/Melinoe_5482", Text = "I love it." },
+		{ Cue = "/VO/Melinoe_5483", Text = "You look fabulous." },
+		{ Cue = "/VO/Melinoe_5484", Text = "It suits you!" },
+		{ Cue = "/VO/Melinoe_5485", Text = "Well look at you." },
+		{ Cue = "/VO/Melinoe_5486", Text = "...Perfect.", PreLineWait = 0.65 },
+		{ Cue = "/VO/Melinoe_5487", Text = "...Yes.", PreLineWait = 0.65 },
+		{ Cue = "/VO/Melinoe_5488", Text = "It's definitely you." },
+	},
+}
+
+GlobalVoiceLines.BadgeUpgradedVoiceLines =
+{
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 0.65 },
+	-- Tier 1
+	{
+		BreakIfPlayed = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "BadgeRank" },
+				Comparison = "==",
+				Value = 1,
+			},
+		},
+		{ Cue = "/VO/Melinoe_5318", Text = "{#Emph}We are as Wraiths in the night. Let it thus be known!" },
+	},
+	{
+		BreakIfPlayed = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "BadgeRank" },
+				Comparison = "==",
+				Value = 10,
+			},
+		},
+		{ Cue = "/VO/Melinoe_5331", Text = "{#Emph}Hereby our rank is Wraith I. We shall be feared." },
+	},
+	-- Tier 2
+	{
+		BreakIfPlayed = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "BadgeRank" },
+				Comparison = "==",
+				Value = 11,
+			},
+		},
+		{ Cue = "/VO/Melinoe_5319", Text = "{#Emph}We are as Specters drifting in the dark. Let it thus be known!" },
+	},
+	{
+		BreakIfPlayed = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "BadgeRank" },
+				Comparison = "==",
+				Value = 20,
+			},
+		},
+		{ Cue = "/VO/Melinoe_5332", Text = "{#Emph}Hereby our rank is Specter I. We are darkness." },
+	},
+	-- Tier 3
+	{
+		BreakIfPlayed = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "BadgeRank" },
+				Comparison = "==",
+				Value = 21,
+			},
+		},
+		{ Cue = "/VO/Melinoe_5320", Text = "{#Emph}We are as Revenants of darkest shadow. Let it thus be known!" },
+	},
+	{
+		BreakIfPlayed = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "BadgeRank" },
+				Comparison = "==",
+				Value = 30,
+			},
+		},
+		{ Cue = "/VO/Melinoe_5333", Text = "{#Emph}Hereby our rank is Revenant I. We haunt our foes." },
+	},
+	-- Tier 4
+	{
+		BreakIfPlayed = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "BadgeRank" },
+				Comparison = "==",
+				Value = 31,
+			},
+		},
+		{ Cue = "/VO/Melinoe_5321", Text = "{#Emph}We are as Nightmares that linger forever. Let it thus be known!" },
+	},
+	{
+		BreakIfPlayed = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "BadgeRank" },
+				Comparison = "==",
+				Value = 40,
+			},
+		},
+		{ Cue = "/VO/Melinoe_5334", Text = "{#Emph}Hereby our rank is Nightmare I. There's no escaping us." },
+	},
+	-- Tier 5
+	{
+		BreakIfPlayed = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "BadgeRank" },
+				Comparison = "==",
+				Value = 41,
+			},
+		},
+		{ Cue = "/VO/Melinoe_5322", Text = "{#Emph}We are all Unseen, in status and in name. Let it thus be known!" },
+	},
+	-- Final Tier
+	{
+		BreakIfPlayed = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "BadgeRank" },
+				Comparison = "==",
+				Value = 50,
+			},
+		},
+		{ Cue = "/VO/Melinoe_5335", Text = "{#Emph}Hereby our rank is Unseen I. The eternal order." },
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+
+		{ Cue = "/VO/Melinoe_5323", Text = "{#Emph}Hereby our rank is IX.",
+			SuccessiveChanceToPlay = 0.85,
+			GameStateRequirements =
+			{
+				OrRequirements =
+				{
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 2,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 12,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 22,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 32,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 42,
+						},
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_5324", Text = "{#Emph}Hereby our rank is VIII.",
+			SuccessiveChanceToPlay = 0.85,
+			GameStateRequirements =
+			{
+				OrRequirements =
+				{
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 3,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 13,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 23,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 33,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 43,
+						},
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_5325", Text = "{#Emph}Hereby our rank is VII.",
+			SuccessiveChanceToPlay = 0.85,
+			GameStateRequirements =
+			{
+				OrRequirements =
+				{
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 4,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 14,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 24,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 34,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 44,
+						},
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_5326", Text = "{#Emph}Hereby our rank is VI.",
+			SuccessiveChanceToPlay = 0.85,
+			GameStateRequirements =
+			{
+				OrRequirements =
+				{
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 5,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 15,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 25,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 35,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 45,
+						},
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_5327", Text = "{#Emph}Hereby our rank is V.",
+			SuccessiveChanceToPlay = 0.85,
+			GameStateRequirements =
+			{
+				OrRequirements =
+				{
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 6,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 16,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 26,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 36,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 46,
+						},
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_5328", Text = "{#Emph}Hereby our rank is IV.",
+			SuccessiveChanceToPlay = 0.85,
+			GameStateRequirements =
+			{
+				OrRequirements =
+				{
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 7,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 17,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 27,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 37,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 47,
+						},
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_5329", Text = "{#Emph}Hereby our rank is III.",
+			SuccessiveChanceToPlay = 0.85,
+			GameStateRequirements =
+			{
+				OrRequirements =
+				{
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 8,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 18,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 28,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 38,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 48,
+						},
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_5330", Text = "{#Emph}Hereby our rank is II.",
+			SuccessiveChanceToPlay = 0.85,
+			GameStateRequirements =
+			{
+				OrRequirements =
+				{
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 9,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 19,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 29,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 39,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "BadgeRank" },
+							Comparison = "==",
+							Value = 49,
+						},
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_5302", Text = "{#Emph}We are the Unseen, and we shall be feared." },
+		{ Cue = "/VO/Melinoe_5303", Text = "{#Emph}Let fear of the Unseen spread farther still!" },
+		{ Cue = "/VO/Melinoe_5304", Text = "{#Emph}The tales of the Unseen shall grow." },
+		{ Cue = "/VO/Melinoe_5305", Text = "{#Emph}Our exploits soon shall turn to terrifying tales." },
+	},
+}
+
 GlobalVoiceLines.StartNewPackagedBountyVoiceLines =
 {
 	-- starting packaged bounties
@@ -1659,13 +2060,6 @@ GlobalVoiceLines.StartNewPackagedBountyVoiceLines =
 			RandomRemaining = true,
 			PreLineWait = 0.2,
 			SuccessiveChanceToPlayAll = 0.75,
-			GameStateRequirements =
-			{
-				{
-					-- PathFromArgs = true,
-					-- PathTrue = { "ActiveBounty" },
-				},
-			},
 
 			{ Cue = "/VO/Melinoe_1421", Text = "I can overcome this." },
 			{ Cue = "/VO/Melinoe_3058", Text = "Commencing Chaos Trial." },
@@ -1677,6 +2071,10 @@ GlobalVoiceLines.StartNewPackagedBountyVoiceLines =
 			{ Cue = "/VO/Melinoe_2629", Text = "This vision I accept." },
 			{ Cue = "/VO/Melinoe_0047", Text = "I'll do my best." },
 			{ Cue = "/VO/Melinoe_1669", Text = "I can do this." },
+			{ Cue = "/VO/Melinoe_5499", Text = "Chaos take me..." },
+			{ Cue = "/VO/Melinoe_5500", Text = "Very well, then." },
+			{ Cue = "/VO/Melinoe_5501", Text = "I accept this Trial." },
+			{ Cue = "/VO/Melinoe_5502", Text = "Trial set." },
 		},
 	},
 	{ GlobalVoiceLines = "StartNewRunVoiceLines" },
@@ -1684,6 +2082,12 @@ GlobalVoiceLines.StartNewPackagedBountyVoiceLines =
 
 GlobalVoiceLines.CombatBeginsVoiceLines =
 {
+	GameStateRequirements =
+	{
+		{
+			PathFalse = { "CurrentRun", "CurrentRoom", "Encounter", "SpawnsSkipped" }
+		},
+	},
 	{
 		BreakIfPlayed = true,
 		RandomRemaining = true,
@@ -1694,7 +2098,7 @@ GlobalVoiceLines.CombatBeginsVoiceLines =
 		{
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-				IsAny = { "GeneratedNSubRoom", "GeneratedNSubRoom_Bigger" },
+				IsAny = { "GeneratedNSubRoom", "GeneratedNSubRoom_Bigger", "GeneratedQ" },
 			},
 		},
 		Cooldowns =
@@ -1720,17 +2124,21 @@ GlobalVoiceLines.CombatBeginsVoiceLines =
 		{
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-				IsNone = { "FIntroFight", "GeneratedAnomalyB", "BossHecate01", "BossScylla01", "BossPolyphemus01", "BossEris01", "BossPrometheus01", "MiniBossTreant", "MiniBossFogEmitter", "MiniBossWaterUnit", "MiniBossCrawler", "FishmanIntro", "FishSwarmerIntro", "WaterUnitIntro", "RadiatorIntro", "ScreamerIntro", "SiegeVineIntro", "TurtleIntro", "ZombieAssassinIntro", "ZombieHeavyRangedIntro", "ZombieSpawnerIntro", "MudmanIntro", "OlympusIntro",
-				},
+				IsNone = { "FIntroFight", "GeneratedAnomalyB", "BossHecate01", "BossHecate02", "BossScylla01", "BossScylla02", "BossPolyphemus01", "BossPolyphemus02", "BossEris01", "BossEris02", "BossPrometheus01", "BossPrometheus02", "BossTyphonTail01", "BossTyphonHead01", "BossTyphonHead02", "MiniBossTreant", "MiniBossFogEmitter", "MiniBossWaterUnit", "MiniBossCrawler", "FishmanIntro", "FishSwarmerIntro", "WaterUnitIntro", "RadiatorIntro", "ScreamerIntro", "SiegeVineIntro", "TurtleIntro", "ZombieAssassinIntro", "ZombieHeavyRangedIntro", "ZombieSpawnerIntro", "MudmanIntro", "OlympusIntro", },
 			},
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsNone = { "F_Opening01", "F_Opening02", "F_Opening03", "F_Story01", "G_Story01", "I_Story01", "I_Boss01", "N_Opening01", "N_Story01", "O_Story01", "P_Intro", "P_S" },
+				IsNone = { "F_Opening01", "F_Opening02", "F_Opening03", "F_Story01", "G_Story01", "I_Story01", "I_Boss01", "N_Opening01", "N_Story01", "O_Story01", "P_Intro", "P_Story01", "N_Hub" },
 			},
 			{
 				Path = { "CurrentRun", "Hero", "TraitDictionary" },
 				HasNone = { "SurfacePenalty" },
 			},
+			{
+				Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+				IsNone = { "Q" },
+			},
+			NamedRequirements = { "PastTartarusIntroFight" },
 		},
 		Cooldowns =
 		{
@@ -1743,16 +2151,126 @@ GlobalVoiceLines.CombatBeginsVoiceLines =
 		{ Cue = "/VO/Melinoe_0271", Text = "Come on!" },
 		{ Cue = "/VO/Melinoe_0273", Text = "Face me!" },
 		{ Cue = "/VO/Melinoe_0275", Text = "Come!" },
-		{ Cue = "/VO/Melinoe_1774", Text = "This is the Titan's fault." },
+		{ Cue = "/VO/MelinoeField_4822", Text = "Come on then." },
+		{ Cue = "/VO/MelinoeField_4824", Text = "This'll be quick." },
+		{ Cue = "/VO/MelinoeField_4826", Text = "You're in my way." },
+		{ Cue = "/VO/MelinoeField_4828", Text = "I have you." },
 		{ Cue = "/VO/Melinoe_1776", Text = "Let's begin." },
 		{ Cue = "/VO/Melinoe_1778", Text = "You dare?" },
-		{ Cue = "/VO/Melinoe_1784", Text = "Come." },		
+		{ Cue = "/VO/Melinoe_1784", Text = "Come." },
+		{ Cue = "/VO/MelinoeField_4820", Text = "Come on." },
+		{ Cue = "/VO/MelinoeField_4830", Text = "Remnant forces...",
+			GameStateRequirements = 
+			{
+				{
+					PathTrue = { "GameState", "ReachedTrueEnding" },
+				},
+				{
+					Path = { "CurrentRun", "BiomesReached" },
+					HasAny = { "I", "N", "O", "P" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4832", Text = "You hungry, Zorephet...?",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponAxe" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4834", Text = "Face Zorephet!",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponAxe" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4836", Text = "Flames take you.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponTorch" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4838", Text = "Burn, Ygnium...",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponTorch" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4840", Text = "Why look, Revaal.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponLob" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4842", Text = "Face the Argent Skull.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponLob" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4844", Text = "Ready, Xinth?",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponSuit" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4846", Text = "I bear the Black Coat...",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponSuit" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4587", Text = "More steps to be retraced...!",
+			PlayFirst = true,
+			GameStateRequirements = 
+			{
+				{
+					PathTrue = { "GameState", "ReachedTrueEnding" },
+				},
+				{
+					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+					IsAny = { "I", "O", "P" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_1774", Text = "This is the Titan's fault.",
+			GameStateRequirements = 
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+					IsNone = { "Q" },
+				},
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4821", Text = "Who first?" },
+		{ Cue = "/VO/MelinoeField_4823", Text = "Face me." },
 		{ Cue = "/VO/Melinoe_0257", Text = "Traitors!",
 			GameStateRequirements = 
 			{
 				{
 					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
 					IsAny = { "I", "N" },
+				},
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
 				},
 			},
 		},
@@ -1765,7 +2283,7 @@ GlobalVoiceLines.CombatBeginsVoiceLines =
 					Comparison = ">=",
 					Value = 2,
 				},
-			}
+			},
 		},
 		{ Cue = "/VO/Melinoe_0265", Text = "I'll slay you all!",
 			GameStateRequirements = 
@@ -1775,6 +2293,9 @@ GlobalVoiceLines.CombatBeginsVoiceLines =
 					UseLength = true,
 					Comparison = ">=",
 					Value = 3,
+				},
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
 				},
 			}
 		},
@@ -1820,6 +2341,9 @@ GlobalVoiceLines.CombatBeginsVoiceLines =
 					Comparison = ">=",
 					Value = 8,
 				},
+				{
+					PathFalse = { "CurrentRun", "SpeechRecord", "/VO/Melinoe_1772" },
+				},
 			},
 		},
 		{ Cue = "/VO/Melinoe_1772", Text = "I'll send you to your graves.",
@@ -1834,6 +2358,9 @@ GlobalVoiceLines.CombatBeginsVoiceLines =
 				{
 					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
 					IsNone = { "G" },
+				},
+				{
+					PathFalse = { "CurrentRun", "SpeechRecord", "/VO/Melinoe_1259" },
 				},
 			},
 		},
@@ -1928,13 +2455,7 @@ GlobalVoiceLines.KillingEnemyVoiceLines =
 			{
 				Path = { "RequiredKillEnemies" },
 				UseLength = true,
-				Comparison = "<=",
-				Value = 2,
-			},
-			{
-				Path = { "RequiredKillEnemies" },
-				UseLength = true,
-				Comparison = ">=",
+				Comparison = "==",
 				Value = 1,
 			},
 			{
@@ -1944,6 +2465,9 @@ GlobalVoiceLines.KillingEnemyVoiceLines =
 			},
 			{
 				PathTrue = { "CurrentRun", "CurrentRoom", "Encounter", "FinalWave" },
+			},
+			{
+				PathTrue = { "CurrentRun", "CurrentRoom", "Encounter", "SpawnsComplete" },
 			},
 			{
 				Path = { "CurrentRun", "Hero", "TraitDictionary" },
@@ -1964,6 +2488,7 @@ GlobalVoiceLines.KillingEnemyVoiceLines =
 					"ArtemisCombatG2",
 					"ArtemisCombatN",
 					"ArtemisCombatN2",
+					"HeraclesCombatIntro",
 					"HeraclesCombatN",
 					"HeraclesCombatN2",
 					"HeraclesCombatO",
@@ -1973,16 +2498,29 @@ GlobalVoiceLines.KillingEnemyVoiceLines =
 					"NemesisCombatF",
 					"NemesisCombatG",
 					"NemesisCombatH",
+					"NemesisCombatI",
+					"IcarusCombatIntro",
 					"IcarusCombatO",
 					"IcarusCombatO2",
 					"IcarusCombatP",
 					"IcarusCombatP2",
 					"BossHecate01",
+					"BossHecate02",
 					"BossScylla01",
+					"BossScylla02",
 					"BossInfestedCerberus01",
+					"BossInfestedCerberus02",
 					"BossChronos01",
+					"BossChronos02",
 					"BossPolyphemus01",
+					"BossPolyphemus02",
 					"BossEris01",
+					"BossEris02",
+					"BossPrometheus01",
+					"BossPrometheus02",
+					"BossTyphonTail01",
+					"BossTyphonHead01",
+					"BossTyphonHead02",
 					"DevotionTestF",
 					"DevotionTestG",
 					"DevotionTestH",
@@ -2009,7 +2547,7 @@ GlobalVoiceLines.KillingEnemyVoiceLines =
 		RandomRemaining = true,
 		BreakIfPlayed = true,
 		SuccessiveChanceToPlay = 0.25,
-		PreLineWait = 0.35,
+		PreLineWait = 0.05, -- +0.3 KillVoiceLinesQueue
 		RecheckRequirementsPostWait = true,
 		Cooldowns =
 		{
@@ -2038,12 +2576,12 @@ GlobalVoiceLines.KillingEnemyVoiceLines =
 			-- @ hacky fix to these lines sometimes playing before her intro lines
 			{
 				Path = { "CurrentRun", "CurrentRoom", "SpeechRecord" },
-				HasAny = { "/VO/Artemis_0036", "/VO/Artemis_0037", "/VO/Artemis_0038", "/VO/Artemis_0039", "/VO/Artemis_0040", "/VO/Artemis_0041", "/VO/Artemis_0042", "/VO/Artemis_0043", "/VO/Artemis_0044", "/VO/Artemis_0045", "/VO/Artemis_0046", "/VO/Artemis_0047", "/VO/Artemis_0048", "/VO/Artemis_0049" },
+				HasAny = { "/VO/Artemis_0036", "/VO/Artemis_0037", "/VO/Artemis_0038", "/VO/Artemis_0039", "/VO/Artemis_0040", "/VO/Artemis_0041", "/VO/Artemis_0042", "/VO/Artemis_0043", "/VO/Artemis_0044", "/VO/Artemis_0045", "/VO/Artemis_0046", "/VO/Artemis_0047", "/VO/Artemis_0048", "/VO/Artemis_0049", "/VO/Artemis_0409" },
 			},
 		},
 		RandomRemaining = true,
 		BreakIfPlayed = true,
-		PreLineWait = 0.65,
+		PreLineWait = 0.35, -- +0.3 KillVoiceLinesQueue
 		SuccessiveChanceToPlay = 0.35,
 		Cooldowns =
 		{
@@ -2064,11 +2602,16 @@ GlobalVoiceLines.KillingEnemyVoiceLines =
 		{ Cue = "/VO/Artemis_0069", Text = "Look at you." },
 		{ Cue = "/VO/Artemis_0070", Text = "Clean kill." },
 		{ Cue = "/VO/Artemis_0071", Text = "You got 'em." },
+		{ Cue = "/VO/Artemis_0350", Text = "Good." },
+		{ Cue = "/VO/Artemis_0351", Text = "Perfect." },
+		{ Cue = "/VO/Artemis_0352", Text = "Clean." },
+		{ Cue = "/VO/Artemis_0353", Text = "Keep going!" },
+		{ Cue = "/VO/Artemis_0354", Text = "Just like that." },
 	},
 	{
 		BreakIfPlayed = true,
 		RandomRemaining = true,
-		PreLineWait = 0.35,
+		PreLineWait = 0.05, -- +0.3 KillVoiceLinesQueue
 		SuccessiveChanceToPlay = 0.65,
 		GameStateRequirements =
 		{
@@ -2103,7 +2646,7 @@ GlobalVoiceLines.KillingEnemyVoiceLines =
 	{
 		RandomRemaining = true,
 		BreakIfPlayed = true,
-		PreLineWait = 0.65,
+		PreLineWait = 0.35, -- +0.3 KillVoiceLinesQueue
 		SuccessiveChanceToPlay = 0.1,
 		ObjectType = "NPC_Nemesis_01",
 		GameStateRequirements =
@@ -2134,12 +2677,12 @@ GlobalVoiceLines.KillingEnemyVoiceLines =
 		{
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-				IsAny = { "HeraclesCombatN", "HeraclesCombatN2", "HeraclesCombatO", "HeraclesCombatO2" },
+				IsAny = { "HeraclesCombatIntro", "HeraclesCombatN", "HeraclesCombatN2", "HeraclesCombatO", "HeraclesCombatO2", "HeraclesCombatP", "HeraclesCombatP2" },
 			},
 		},
 		RandomRemaining = true,
 		BreakIfPlayed = true,
-		PreLineWait = 0.65,
+		PreLineWait = 0.35, -- +0.3 KillVoiceLinesQueue
 		SuccessiveChanceToPlay = 0.1,
 		ObjectType = "NPC_Heracles_01",
 		Cooldowns =
@@ -2155,18 +2698,25 @@ GlobalVoiceLines.KillingEnemyVoiceLines =
 		{ Cue = "/VO/Heracles_0072", Text = "Not bad.", PlayFirst = true },
 		{ Cue = "/VO/Heracles_0073", Text = "Saved me the trouble." },
 		{ Cue = "/VO/Heracles_0074", Text = "Easy, sister." },
+		{ Cue = "/VO/Heracles_0475", Text = "Yours." },
+		{ Cue = "/VO/Heracles_0476", Text = "Your kill." },
+		{ Cue = "/VO/Heracles_0477", Text = "Getting there." },
+		{ Cue = "/VO/Heracles_0478", Text = "Not bad!" },
 	},
 	{
 		GameStateRequirements =
 		{
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-				IsAny = { "IcarusCombatO", "IcarusCombatO2", "IcarusCombatP" },
+				IsAny = { "IcarusCombatIntro", "IcarusCombatO", "IcarusCombatO2", "IcarusCombatP", "IcarusCombatP2" },
+			},
+			{
+				PathTrue = { "SessionMapState", "IcarusPlayedEncounterStartLines" },
 			},
 		},
 		RandomRemaining = true,
 		BreakIfPlayed = true,
-		PreLineWait = 0.65,
+		PreLineWait = 0.35, -- +0.3 KillVoiceLinesQueue
 		SuccessiveChanceToPlay = 0.35,
 		ObjectType = "NPC_Icarus_01",
 		Cooldowns =
@@ -2192,7 +2742,7 @@ GlobalVoiceLines.KillingEnemyVoiceLines =
 		{
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsNone = { "F_Opening01", "F_Opening02", "F_Opening03", "F_Boss01", "G_Boss01", "H_Boss01", "I_Boss01", "N_Opening01", "N_Boss01", "O_Boss01", "P_Boss01", "Q_Boss01" },
+				IsNone = { "F_Opening01", "F_Opening02", "F_Opening03", "F_Boss01", "F_Boss02", "G_Boss01", "G_Boss02", "H_Boss01", "H_Boss02", "I_Boss01", "N_Opening01", "N_Boss01", "N_Boss02", "N_MiniBoss01", "O_Boss01", "O_Boss02", "P_Boss01", "Q_MiniBoss01", "Q_MiniBoss02", "Q_MiniBoss03", "Q_MiniBoss04", "Q_MiniBoss05", "Q_Boss01", "Q_Boss02" },
 			},
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
@@ -2203,6 +2753,10 @@ GlobalVoiceLines.KillingEnemyVoiceLines =
 				IsNone = GameData.CombatNPCEncounters,
 			},
 			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasNone = { "SurfacePenalty" },
+			},
+			{
 				FunctionName = "RequiredAlive",
 				FunctionArgs = { Units = { "NPC_Athena_01", }, Alive = false },
 			},
@@ -2210,7 +2764,7 @@ GlobalVoiceLines.KillingEnemyVoiceLines =
 		},
 		RandomRemaining = true,
 		BreakIfPlayed = true,
-		PreLineWait = 0.35,
+		PreLineWait = 0.05, -- +0.3 KillVoiceLinesQueue
 		Cooldowns =
 		{
 			{ Name = "MelinoeCombatQuipPlayed", Time = 400 },
@@ -2251,7 +2805,7 @@ GlobalVoiceLines.KillingEnemyVoiceLines =
 		{ Cue = "/VO/Melinoe_0318", Text = "Foolish." },
 		{ Cue = "/VO/Melinoe_0352", Text = "{#Emph}Hah." },
 		{ Cue = "/VO/Melinoe_0353", Text = "{#Emph}Heh!" },
-		{ Cue = "/VO/Melinoe_0575", Text = "{#Emph}Hm!" },
+		{ Cue = "/VO/Melinoe_0575", Text = "{#Emph}Hm." },
 		{ Cue = "/VO/MelinoeField_0600", Text = "Fall." },
 		{ Cue = "/VO/MelinoeField_0601", Text = "Denied." },
 		{ Cue = "/VO/MelinoeField_0602", Text = "Laughable." },
@@ -2269,12 +2823,12 @@ GlobalVoiceLines.RevengeKillingEnemyVoiceLines =
 	BreakIfPlayed = true,
 	RandomRemaining = true,
 	PlayOnceFromTableThisRun = true,
-	PreLineWait = 0.45,
+	PreLineWait = 0.15,-- +0.3 KillVoiceLinesQueue
 	GameStateRequirements =
 	{
 		{
 			Path = { "CurrentRun", "CurrentRoom", "Name" },
-			IsNone = { "F_Boss01", "G_Boss01", "H_Boss01", "I_Boss01", "N_Boss01", "O_Boss01", "P_Boss01", "Q_Boss01" },
+			IsNone = { "F_Boss01", "F_Boss02", "G_Boss01", "G_Boss02", "H_Boss01", "H_Boss02", "I_Boss01", "N_Boss01", "N_Boss02", "O_Boss01", "O_Boss02", "P_Boss01", "Q_MiniBoss01", "Q_MiniBoss02", "Q_MiniBoss03", "Q_MiniBoss04", "Q_MiniBoss05", "Q_Boss01", "Q_Boss02" },
 		},
 	},
 	Cooldowns =
@@ -2324,6 +2878,48 @@ GlobalVoiceLines.SteamTrapKillVoiceLines =
 	},
 }
 
+GlobalVoiceLines.OddSheepSightedVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		UsePlayerSource = true,
+		SuccessiveChanceToPlay = 0.2,
+		SuccessiveChanceToPlayAll = 0.1,
+		GameStateRequirements = 
+		{
+			-- None
+		},
+		SkipCooldownCheckIfNonePlayed = true,
+		Cooldowns =
+		{
+			{ Name = "MelinoeAnyQuipSpeech" },
+		},
+
+		{ Cue = "/VO/MelinoeField_2186", Text = "Those sheep...!" },
+		{ Cue = "/VO/MelinoeField_2187", Text = "What's with those..." },
+	},
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.3,
+		SuccessiveChanceToPlay = 0.5,
+		SuccessiveChanceToPlayAll = 0.5,
+		ObjectType = "Medea",
+		GameStateRequirements =
+		{
+			--
+		},
+		Cooldowns =
+		{
+			{ Name = "MedeaSpokeRecently", Time = 16 },
+		},
+
+		{ Cue = "/VO/Medea_0440", Text = "Livestock..." },
+		{ Cue = "/VO/Medea_0441", Text = "The shepherd's flock...", PlayFirst = true },
+		{ Cue = "/VO/Medea_0442", Text = "More livestock..." },
+		{ Cue = "/VO/Medea_0443", Text = "Part of your flock, Cyclops...?" },
+	},
+}
 GlobalVoiceLines.SatyrsSightedVoiceLines =
 {
 	BreakIfPlayed = true,
@@ -2338,7 +2934,9 @@ GlobalVoiceLines.SatyrsSightedVoiceLines =
 	{
 		{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 		{ Name = "SatyrVoiceLinesPlayedRecently", Time = 600 },
+		{ Name = "OlympusEnemiesSightedVO", Time = 12 },
 	},
+	TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 	SuccessiveChanceToPlay = 0.1,
 
 	{ Cue = "/VO/MelinoeField_1635", Text = "Satyrs...!" },
@@ -2362,7 +2960,9 @@ GlobalVoiceLines.ChronosLegionsSightedVoiceLines =
 	{
 		{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 		{ Name = "ChronosLegionSightedLinesPlayedRecently", Time = 600 },
+		{ Name = "OlympusEnemiesSightedVO", Time = 12 },
 	},
+	TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 	SuccessiveChanceToPlay = 0.1,
 
 	{ Cue = "/VO/MelinoeField_2865", Text = "The Titan's legions!" },
@@ -2386,7 +2986,9 @@ GlobalVoiceLines.AutomatonsSightedLines =
 	{
 		{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 		{ Name = "AutomatonVoiceLinesPlayedRecently", Time = 600 },
+		{ Name = "OlympusEnemiesSightedVO", Time = 12 },
 	},
+	TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 	SuccessiveChanceToPlay = 0.1,
 
 	{ Cue = "/VO/MelinoeField_2684", Text = "Automatons..." },
@@ -2397,8 +2999,156 @@ GlobalVoiceLines.AutomatonsSightedLines =
 	{ Cue = "/VO/MelinoeField_2689", Text = "Olympian defenses..." },
 }
 
+GlobalVoiceLines.SatyrGuestSmallTalkVoiceLines =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		UsePlayerSource = true,
+		GameStateRequirements = 
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsAny = { "P_Story01" },
+			},
+		},
+		Cooldowns =
+		{
+			{ Name = "MelinoeAnyQuipSpeech" },
+			{ Name = "MelinoeSatyrSmallTalkSpeech", Time = 40 },
+		},
+
+		{ Cue = "/VO/MelinoeField_4495", Text = "Oh, {#Emph}erm{#Prev}, hello.", PlayFirst = true },
+		{ Cue = "/VO/MelinoeField_4496", Text = "I, {#Emph}erm{#Prev}, like your horns?" },
+		{ Cue = "/VO/MelinoeField_4497", Text = "Hello, I'm... going." },
+		{ Cue = "/VO/MelinoeField_4498", Text = "Fine feast, right?" },
+		{ Cue = "/VO/MelinoeField_4499", Text = "Hi there..." },
+		{ Cue = "/VO/MelinoeField_4500", Text = "So, {#Emph}erm... {#Prev}yes." },
+	},
+}
+GlobalVoiceLines.SatyrGuestOnHitVoiceLines =
+{
+	{
+		PreLineWait = 0.45,
+		RandomRemaining = true,
+		UsePlayerSource = true,
+		GameStateRequirements = 
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsAny = { "P_Story01" },
+			},
+			ChanceToPlay = 0.33,
+		},
+		Cooldowns =
+		{
+			{ Name = "MelinoeAnyQuipSpeech" },
+			{ Name = "MelinoeSatyrAttackSpeech", Time = 40 },
+		},
+
+		{ Cue = "/VO/MelinoeField_4501", Text = "Only a jest!" },
+		{ Cue = "/VO/MelinoeField_4502", Text = "Just mingling!" },
+		{ Cue = "/VO/MelinoeField_4503", Text = "Great feast, isn't it?" },
+		{ Cue = "/VO/MelinoeField_4504", Text = "Just checking!", PlayFirst = true },
+	},
+	{ GlobalVoiceLines = "DionysusGuestHitReactionVoiceLines" },
+}
+
+GlobalVoiceLines.LeavingArenaVoiceLines =
+{
+	{
+		PreLineWait = 0.5,
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		SuccessiveChanceToPlay = 0.5,
+		SkipCooldownCheckIfNonePlayed = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsAny = { "C_Boss01" },
+			},
+		},
+		Cooldowns =
+		{
+			{ Name = "MelinoeAnyQuipSpeech" },
+			{ Name = "MelinoeRoomExitVoiceLines", Time = 25 },
+		},
+
+		{ Cue = "/VO/MelinoeField_4244", Text = "Enjoy the rest of your evening, everyone!", PlayFirst = true },
+		{ Cue = "/VO/Melinoe_4319", Text = "Farewell, everyone." },
+		{ Cue = "/VO/MelinoeField_4993", Text = "Was that enough of a good show?" },
+		{ Cue = "/VO/MelinoeField_4994", Text = "No one crosses the Unseen!" },
+		{ Cue = "/VO/MelinoeField_4995", Text = "It's impolite to stare you know!" },
+		{ Cue = "/VO/MelinoeField_4996", Text = "Remember to comply with all the stated rules!" },
+		{ Cue = "/VO/MelinoeField_4997", Text = "Glory to Elysium!" },
+		{ Cue = "/VO/MelinoeField_4998", Text = "Had enough glory for one night?" },
+	},
+}
+GlobalVoiceLines.ReturnedFromElysiumVoiceLines =
+{
+	PlayOnceFromTableThisRun = true,
+	RandomRemaining = true,
+	PreLineWait = 0.7,
+	UsePlayerSource = true,
+	SuccessiveChanceToPlayAll = 0.5,
+	GameStateRequirements =
+	{
+		{
+			PathTrue = { "CurrentRun", "RoomsEntered", "C_Boss01" },
+		},
+	},
+
+	{ Cue = "/VO/MelinoeField_4290", Text = "...I'm back...", PlayFirst = true },
+	{ Cue = "/VO/MelinoeField_4291", Text = "...And I'm back." },
+	{ Cue = "/VO/MelinoeField_4293", Text = "...Where were we...?" },
+	{ Cue = "/VO/MelinoeField_4292", Text = "{#Emph}...Ow.",
+		GameStateRequirements =
+		{
+			{
+				FunctionName = "RequiredHealthFraction",
+				FunctionArgs = { Comparison = "<=", Value = 0.66, },
+			},
+		},
+	},
+}
+
+GlobalVoiceLines.MonstersSightedVoiceLines =
+{
+	BreakIfPlayed = true,
+	RandomRemaining = true,
+	UsePlayerSource = true,
+	-- SkipCooldownCheckIfNonePlayed = true,
+	GameStateRequirements = 
+	{
+		{
+			Path = { "CurrentRun", "CurrentRoom", "Name" },
+			IsNone = { "Q_MiniBoss01", "Q_MiniBoss02", "Q_MiniBoss03", "Q_MiniBoss04", "Q_MiniBoss05", "Q_Boss01", "Q_Boss02" }
+		},
+	},
+	Cooldowns =
+	{
+		{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
+		{ Name = "MonsterVoiceLinesPlayedRecently", Time = 600 },
+	},
+	TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
+	SuccessiveChanceToPlay = 0.1,
+
+	{ Cue = "/VO/MelinoeField_2951", Text = "What are these... {#Emph}things?", PlayFirst = true, PlayOnce = true },
+	-- { Cue = "/VO/Melinoe_1954", Text = "What...?" },
+	{ Cue = "/VO/MelinoeField_2958", Text = "Monsters..." },
+	{ Cue = "/VO/MelinoeField_2959", Text = "Monsters...!" },
+	{ Cue = "/VO/MelinoeField_2960", Text = "More monsters..." },
+	{ Cue = "/VO/MelinoeField_2961", Text = "Come, you monsters..." },
+}
+
 GlobalVoiceLines.CombatResolvedVoiceLines =
 {
+	Cooldowns =
+	{
+		{ Name = "MelCombatResolvedSpeech", Time = 300 },
+		{ Name = "MelinoeAnyQuipSpeech" },
+	},
 	-- Selene reactions
 	{
 		GameStateRequirements =
@@ -2439,11 +3189,6 @@ GlobalVoiceLines.CombatResolvedVoiceLines =
 		{ Cue = "/VO/Selene_0252", Text = "Onward to your goal." },
 		{ Cue = "/VO/Selene_0253", Text = "I witnessed everything." },
 		{ Cue = "/VO/Selene_0254", Text = "Surpassing strength." },
-	},
-	Cooldowns =
-	{
-		{ Name = "MelCombatResolvedSpeech", Time = 300 },
-		{ Name = "MelinoeAnyQuipSpeech" },
 	},
 	{
 		BreakIfPlayed = true,
@@ -2555,6 +3300,19 @@ GlobalVoiceLines.CombatResolvedVoiceLines =
 				{
 					PathTrue = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/Melinoe_1774" },
 				},
+				OrRequirements =
+				{
+					{
+						{
+							PathFalse = { "GameState", "ReachedTrueEnding" },
+						},
+					},
+					{
+						{
+							PathTrue = { "GameState", "SpeechRecord", "/VO/Chronos_1058" },
+						},
+					},
+				},
 			},
 		},
 		{ Cue = "/VO/Melinoe_1777", Text = "Satisfactory.",
@@ -2650,6 +3408,102 @@ GlobalVoiceLines.CombatResolvedVoiceLines =
 				},
 			}
 		},
+		{ Cue = "/VO/MelinoeField_4825", Text = "...It's over.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/MelinoeField_4824" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4827", Text = "Clear path.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/MelinoeField_4826" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4829", Text = "All mine.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/MelinoeField_4828" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4831", Text = "All gone.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/MelinoeField_4830" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4833", Text = "Merely a snack.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/MelinoeField_4832" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4835", Text = "That was the Moonstone Axe.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/MelinoeField_4834" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4837", Text = "Ashes.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/MelinoeField_4836" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4839", Text = "Incinerated.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/MelinoeField_4838" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4841", Text = "Scorched Earth.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/MelinoeField_4840" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4843", Text = "Destroyed.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/MelinoeField_4842" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4845", Text = "Threats eliminated.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/MelinoeField_4844" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4847", Text = "No escape.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/MelinoeField_4846" },
+				},
+			},
+		},
 	},
 	-- misc reactions
 	{
@@ -2664,11 +3518,14 @@ GlobalVoiceLines.CombatResolvedVoiceLines =
 			},
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-				IsNone = { "DevotionTestF", "DevotionTestG", "DevotionTestH", "DevotionTextN", "DevotionTestO", "DevotionTestP" },
+				IsNone = { "DevotionTestF", "DevotionTestG", "DevotionTestH", "DevotionTestN", "DevotionTestO", "DevotionTestP", "Empty", },
 			},
 			{
 				Path = { "CurrentRun", "Hero", "TraitDictionary" },
 				HasNone = { "SurfacePenalty" },
+			},
+			{
+				PathFalse = { "CurrentRun", "CurrentRoom", "Encounter", "SpawnsSkipped" },
 			},
 			{
 				FunctionName = "RequiredAlive",
@@ -2677,13 +3534,38 @@ GlobalVoiceLines.CombatResolvedVoiceLines =
 		},
 		ThreadName = "RoomThread",
 
+		{ Cue = "/VO/Melinoe_0007_V3", Text = "As expected." },
+		{ Cue = "/VO/Melinoe_0136", Text = "Acceptable." },
+		{ Cue = "/VO/Melinoe_0137", Text = "Onward." },
+		{ Cue = "/VO/Melinoe_0138", Text = "All right." },
+		{ Cue = "/VO/Melinoe_0139", Text = "That's that." },
+		{ Cue = "/VO/Melinoe_0140", Text = "All done." },
+		{ Cue = "/VO/Melinoe_0141", Text = "Clear." },
+		{ Cue = "/VO/Melinoe_0276", Text = "I think not." },
+		{ Cue = "/VO/Melinoe_0277", Text = "Enough of this." },
+		{ Cue = "/VO/Melinoe_0278", Text = "You shouldn't have crossed me." },
+		{ Cue = "/VO/Melinoe_0280", Text = "Foes eliminated." },
+		{ Cue = "/VO/Melinoe_0281", Text = "Area clear." },
+		{ Cue = "/VO/Melinoe_0282", Text = "{#Emph}Whew." },
+		{ Cue = "/VO/Melinoe_0689", Text = "Enough." },
+		{ Cue = "/VO/Melinoe_2993", Text = "All right." },
+		{ Cue = "/VO/MelinoeField_0554", Text = "...OK." },
+		{ Cue = "/VO/MelinoeField_0555", Text = "...There." },
+		{ Cue = "/VO/MelinoeField_0556", Text = "...Silence." },
+		{ Cue = "/VO/MelinoeField_0557", Text = "...Good." },
+		{ Cue = "/VO/MelinoeField_0558", Text = "...All clear." },
+		{ Cue = "/VO/MelinoeField_0559", Text = "It's done." },
+		{ Cue = "/VO/MelinoeField_0560", Text = "All quiet." },
+		{ Cue = "/VO/MelinoeField_0561", Text = "{#Emph}Huh!" },
+		{ Cue = "/VO/MelinoeField_0562", Text = "{#Emph}Whew..." },
+		{ Cue = "/VO/MelinoeField_0563", Text = "Straightforward." },
 		{ Cue = "/VO/MelinoeField_2063", Text = "We did it, Frinos.",
 			GameStateRequirements =
 			{
 				{
 					Path = { "GameState", "EquippedFamiliar" },
 					IsAny = { "FrogFamiliar" },
-				}
+				},
 			},
 		},
 		{ Cue = "/VO/MelinoeField_2064", Text = "Got them, Frinos.",
@@ -2715,16 +3597,80 @@ GlobalVoiceLines.CombatResolvedVoiceLines =
 				}
 			},
 		},
-		{ Cue = "/VO/Melinoe_0007_V3", Text = "As expected." },
-		{ Cue = "/VO/Melinoe_0136", Text = "Acceptable." },
-		{ Cue = "/VO/Melinoe_0137", Text = "Onward." },
-		{ Cue = "/VO/Melinoe_0138", Text = "All right." },
-		{ Cue = "/VO/Melinoe_0139", Text = "That's that." },
-		{ Cue = "/VO/Melinoe_0140", Text = "All done." },
-		{ Cue = "/VO/Melinoe_0141", Text = "Clear." },
-		{ Cue = "/VO/Melinoe_0276", Text = "I think not." },
-		{ Cue = "/VO/Melinoe_0277", Text = "Enough of this." },
-		{ Cue = "/VO/Melinoe_0278", Text = "You shouldn't have crossed me." },
+		{ Cue = "/VO/MelinoeField_3070", Text = "You saved me there, Toula...",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "LastStandsUsed", },
+					HasAny = { "LastStandFamiliar" },
+				}
+			},
+		},
+		{ Cue = "/VO/MelinoeField_3071", Text = "I owe you one, Toula.",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "LastStandsUsed", },
+					HasAny = { "LastStandFamiliar" },
+				}
+			},
+		},
+		{ Cue = "/VO/MelinoeField_3066", Text = "We did it, Raki.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EquippedFamiliar" },
+					IsAny = { "RavenFamiliar" },
+				}
+			},
+		},
+		{ Cue = "/VO/MelinoeField_3067", Text = "Good work, Raki!",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EquippedFamiliar" },
+					IsAny = { "RavenFamiliar" },
+				}
+			},
+		},
+		{ Cue = "/VO/MelinoeField_3068", Text = "Good girl, Hecuba.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EquippedFamiliar" },
+					IsAny = { "HoundFamiliar" },
+				}
+			},
+		},
+		{ Cue = "/VO/MelinoeField_3069", Text = "Well done there, Hecuba.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EquippedFamiliar" },
+					IsAny = { "HoundFamiliar" },
+				}
+			},
+		},
+		{ Cue = "/VO/MelinoeField_3072", Text = "Got them, Gale.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EquippedFamiliar" },
+					IsAny = { "PolecatFamiliar" },
+				}
+			},
+		},
+		{ Cue = "/VO/MelinoeField_3073", Text = "Good fight, Gale.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EquippedFamiliar" },
+					IsAny = { "PolecatFamiliar" },
+				}
+			},
+		},
 		{ Cue = "/VO/Melinoe_0279", Text = "Rest now, all of you.",
 			GameStateRequirements =
 			{
@@ -2734,21 +3680,6 @@ GlobalVoiceLines.CombatResolvedVoiceLines =
 				}
 			},
 		},
-		{ Cue = "/VO/Melinoe_0280", Text = "Foes eliminated." },
-		{ Cue = "/VO/Melinoe_0281", Text = "Area clear." },
-		{ Cue = "/VO/Melinoe_0282", Text = "{#Emph}Whew." },
-		{ Cue = "/VO/Melinoe_0689", Text = "Enough." },
-		{ Cue = "/VO/Melinoe_2993", Text = "All right." },
-		{ Cue = "/VO/MelinoeField_0554", Text = "...OK." },
-		{ Cue = "/VO/MelinoeField_0555", Text = "...There." },
-		{ Cue = "/VO/MelinoeField_0556", Text = "...Silence." },
-		{ Cue = "/VO/MelinoeField_0557", Text = "...Good." },
-		{ Cue = "/VO/MelinoeField_0558", Text = "...All clear." },
-		{ Cue = "/VO/MelinoeField_0559", Text = "It's done." },
-		{ Cue = "/VO/MelinoeField_0560", Text = "All quiet." },
-		{ Cue = "/VO/MelinoeField_0561", Text = "{#Emph}Huh!" },
-		{ Cue = "/VO/MelinoeField_0562", Text = "{#Emph}Whew..." },
-		{ Cue = "/VO/MelinoeField_0563", Text = "Straightforward." },
 		{ Cue = "/VO/MelinoeField_0564", Text = "...I'm soaked.",
 			GameStateRequirements =
 			{
@@ -2870,7 +3801,7 @@ GlobalVoiceLines.CombatResolvedLowHealthVoiceLines =
 		RandomRemaining = true,
 		PlayOnceFromTableThisRun = true,
 		SuccessiveChanceToPlayAll = 0.5,
-		PreLineWait = 1.0,
+		PreLineWait = 0.9,
 		Queue = "Always",
 		Source = { LineHistoryName = "NPC_Selene_01", SubtitleColor = Color.SeleneVoice },
 
@@ -2890,7 +3821,11 @@ GlobalVoiceLines.CombatResolvedLowHealthVoiceLines =
 		{
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-				IsNone = { "ArtemisCombatIntro", "ArtemisCombatF", "ArtemisCombatG", "ArtemisCombatN", "NemesisCombatIntro", "NemesisCombatF", "NemesisCombatG", "HeraclesCombatIntro", "HeraclesCombatN", "HeraclesCombatN2", "HeraclesCombatP", "HeraclesCombatP2", "IcarusCombatO", "IcarusCombatO2", "IcarusCombatP", "IcarusCombatP2" },
+				IsNone = { "ArtemisCombatIntro", "ArtemisCombatF", "ArtemisCombatG", "ArtemisCombatN", "NemesisCombatIntro", "NemesisCombatF", "NemesisCombatG", "NemesisCombatH", "NemesisCombatI", "HeraclesCombatIntro", "HeraclesCombatN", "HeraclesCombatN2", "HeraclesCombatP", "HeraclesCombatP2", "IcarusCombatO", "IcarusCombatO2", "IcarusCombatP", "IcarusCombatP2" },
+			},
+			{
+				FunctionName = "RequiredAlive",
+				FunctionArgs = { Units = { "NPC_Athena_01" }, Alive = false },
 			},
 		},
 
@@ -2900,6 +3835,9 @@ GlobalVoiceLines.CombatResolvedLowHealthVoiceLines =
 		{ Cue = "/VO/Melinoe_0286", Text = "Not good enough." },
 		{ Cue = "/VO/Melinoe_0287", Text = "Spilled half my blood back there..." },
 		{ Cue = "/VO/Melinoe_0288", Text = "Mistakes were made..." },
+		{ Cue = "/VO/Melinoe_0290", Text = "Keep going..." },
+		{ Cue = "/VO/Melinoe_0291", Text = "I can still fight." },
+		{ Cue = "/VO/Melinoe_0292", Text = "{#Emph}Ungh{#Prev}, that hurt." },
 		{ Cue = "/VO/Melinoe_0289", Text = "One more chamber...",
 			GameStateRequirements =
 			{
@@ -2909,18 +3847,10 @@ GlobalVoiceLines.CombatResolvedLowHealthVoiceLines =
 				},
 			},
 		},
-		{ Cue = "/VO/Melinoe_0290", Text = "Keep going..." },
-		{ Cue = "/VO/Melinoe_0291", Text = "I can still fight." },
-		{ Cue = "/VO/Melinoe_0292", Text = "{#Emph}Ungh{#Prev}, that hurt." },
 	},
 }
 GlobalVoiceLines.BarelySurvivedBossFightVoiceLines =
 {
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 7.1,
-	SuccessiveChanceToPlayAll = 0.33,
-	UsePlayerSource = true,
 	GameStateRequirements =
 	{
 		{
@@ -2938,13 +3868,39 @@ GlobalVoiceLines.BarelySurvivedBossFightVoiceLines =
 			FunctionArgs = { Comparison = "<=", Value = 0.25, },
 		},
 	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 7.1,
+		SuccessiveChanceToPlayAll = 0.33,
+		UsePlayerSource = true,
 
-	{ Cue = "/VO/MelinoeField_0548", Text = "...Survived all that..." },
-	{ Cue = "/VO/MelinoeField_0549", Text = "...A bit too close..." },
-	{ Cue = "/VO/MelinoeField_0550", Text = "...Pulled through, somehow..." },
-	{ Cue = "/VO/MelinoeField_0551", Text = "...Oh, thank the gods..." },
-	{ Cue = "/VO/MelinoeField_0552", Text = "...A narrow victory, but still..." },
-	{ Cue = "/VO/MelinoeField_0553", Text = "...Somehow managed that..." },
+		{ Cue = "/VO/MelinoeField_0548", Text = "...Survived all that..." },
+		{ Cue = "/VO/MelinoeField_0549", Text = "...A bit too close..." },
+		{ Cue = "/VO/MelinoeField_0550", Text = "...Pulled through, somehow..." },
+		{ Cue = "/VO/MelinoeField_0551", Text = "...Oh, thank the gods..." },
+		{ Cue = "/VO/MelinoeField_0552", Text = "...A narrow victory, but still..." },
+		{ Cue = "/VO/MelinoeField_0553", Text = "...Somehow managed that..." },
+	},
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 7.1,
+		SuccessiveChanceToPlay = 0.33,
+		SuccessiveChanceToPlayAll = 0.33,
+
+		StatusAnimation = "StatusIconStorytellerSpeaking",
+		StatusAnimSourceIsHero = true,
+		Source = { LineHistoryName = "Speaker_Homer", SubtitleColor = Color.NarratorVoice },
+		ThreadName = "RoomThread",
+
+		{ Cue = "/VO/Storyteller_0443", Text = "{#Emph}She stands victorious, yet hardly stands at all." },
+		{ Cue = "/VO/Storyteller_0444", Text = "{#Emph}A hard-earned victory..." },
+		{ Cue = "/VO/Storyteller_0445", Text = "{#Emph}Defeat seemed certain for a moment there..." },
+		{ Cue = "/VO/Storyteller_0446", Text = "{#Emph}A victory paid for with ample blood." },
+		{ Cue = "/VO/Storyteller_0447", Text = "{#Emph}A narrow victory, but still." },
+		{ Cue = "/VO/Storyteller_0448", Text = "{#Emph}Her adversary almost did her in." },
+	},
 }
 
 GlobalVoiceLines.CocoonRewardFoundVoiceLines =
@@ -3020,14 +3976,15 @@ GlobalVoiceLines.OutOfManaVoiceLines =
 				PathFalse = { "SessionState", "InFlashback" },
 			},
 			{
-				PathFalse = { "SessionMapState", "PrometheusMemorySpellBlocked" }
-			},
-			{
 				PathNotEmpty = { "RequiredKillEnemies" },
 			},
 			{
 				Path = { "CurrentRun", "Hero", "TraitDictionary" },
 				HasNone = { "SurfacePenalty" },
+			},
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsNone = { "G_Boss01", "G_Boss02", "H_Boss01", "H_Boss02", "I_Boss01", "N_Boss01", "N_Boss02", "O_Boss01", "O_Boss02", "P_Boss01", "Q_Boss01", "Q_Boss02" },
 			},
 		},
 
@@ -3196,6 +4153,28 @@ GlobalVoiceLines.UsedShieldDropVoiceLines =
 		{ Cue = "/VO/MelinoeField_0732", Text = "Shielded up." },
 	},
 }
+GlobalVoiceLines.UsedLastStandDropVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.55,
+		SuccessiveChanceToPlay = 0.5,
+		Cooldowns =
+		{
+			{ Name = "MelinoeAnyQuipSpeech" },
+		},
+
+		{ Cue = "/VO/Melinoe_0250", Text = "{#Emph}Whew!" },
+		{ Cue = "/VO/Melinoe_0251", Text = "{#Emph}Mm." },
+		{ Cue = "/VO/Melinoe_0252", Text = "{#Emph}Ah." },
+		{ Cue = "/VO/Melinoe_0253", Text = "{#Emph}Whew." },
+		{ Cue = "/VO/Melinoe_1837", Text = "Better..." },
+		{ Cue = "/VO/Melinoe_1838", Text = "{#Emph}Whew{#Prev}, good." },
+		{ Cue = "/VO/Melinoe_1839", Text = "Vitality..." },
+		{ Cue = "/VO/Melinoe_1840", Text = "Life..." },
+	},
+}
 
 GlobalVoiceLines.UsedMoneyDropVoiceLines =
 {
@@ -3230,6 +4209,7 @@ GlobalVoiceLines.UsedMoneyDropVoiceLines =
 	{ Cue = "/VO/Melinoe_1291", Text = "More of this tainted Gold." },
 	{ Cue = "/VO/Melinoe_1292", Text = "Some of these golden coins...", PlayFirst = true },
 	{ Cue = "/VO/Melinoe_1293", Text = "Pure Gold..." },
+	{ Cue = "/VO/Melinoe_0694", Text = "Gold..." },
 }
 
 GlobalVoiceLines.UsedPowerDrinkVoiceLines =
@@ -3266,13 +4246,60 @@ GlobalVoiceLines.UsedCharonPointsDropVoiceLines =
 		{ Cue = "/VO/Charon_0029", Text = "{#Emph}Kohh..." },
 	},
 }
+GlobalVoiceLines.ClaimedContractItemVoiceLines =
+{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.55,
+		SuccessiveChanceToPlay = 0.5,
+		Cooldowns =
+		{
+			{ Name = "MelinoeAnyQuipSpeech" },
+		},
+
+		{ Cue = "/VO/MelinoeField_4294", Text = "I earned this." },
+		{ Cue = "/VO/MelinoeField_4295", Text = "My entitlement.", PlayFirst = true },
+		{ Cue = "/VO/MelinoeField_4296", Text = "From the Contract." },
+		{ Cue = "/VO/MelinoeField_4297", Text = "Contract-approved." },
+		{ Cue = "/VO/MelinoeField_4298", Text = "For besting Zagreus." },
+}
+
 GlobalVoiceLines.PickedMoonSpellVoiceLines =
 {
+	-- in opening rooms
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 1.0,
+		-- SuccessiveChanceToPlay = 0.66,
+		Source = { LineHistoryName = "NPC_Selene_01", SubtitleColor = Color.SeleneVoice },
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsAny = { "F_Opening01", "F_Opening02", "F_Opening03", "N_Opening01" },
+			},
+		},
+		Cooldowns =
+		{
+			{ Name = "SeleneAnyQuipSpeech", Time = 6 },
+		},
+
+		{ Cue = "/VO/Selene_0277", Text = "Now, little star." },
+		{ Cue = "/VO/Selene_0278", Text = "Now..." },
+		{ Cue = "/VO/Selene_0279", Text = "Remember me..." },
+		{ Cue = "/VO/Selene_0280", Text = "Your Hex..." },
+		{ Cue = "/VO/Selene_0281", Text = "Prepared..." },
+		{ Cue = "/VO/Selene_0282", Text = "My light..." },
+		{ Cue = "/VO/Selene_0283", Text = "Ready..." },
+		{ Cue = "/VO/Selene_0284", Text = "There..." },
+	},
+	-- in other rooms
 	{
 		UsePlayerSource = true,
 		RandomRemaining = true,
 		PreLineWait = 0.65,
-		SuccessiveChanceToPlay = 0.33,
+		SuccessiveChanceToPlay = 0.2,
 
 		{ Cue = "/VO/Melinoe_0025", Text = "Together we shine.", PlayFirst = true },
 		{ Cue = "/VO/Melinoe_0573", Text = "Together we shine..." },
@@ -3280,7 +4307,7 @@ GlobalVoiceLines.PickedMoonSpellVoiceLines =
 	},
 	{
 		RandomRemaining = true,
-		PreLineWait = 0.5,
+		PreLineWait = 0.55,
 		SuccessiveChanceToPlay = 0.66,
 		Source = { LineHistoryName = "NPC_Selene_01", SubtitleColor = Color.SeleneVoice },
 		Cooldowns =
@@ -3298,6 +4325,16 @@ GlobalVoiceLines.PickedMoonSpellVoiceLines =
 		{ Cue = "/VO/Selene_0212", Text = "Then, shine." },
 		{ Cue = "/VO/Selene_0213", Text = "You shall be feared." },
 		{ Cue = "/VO/Selene_0214", Text = "My light is yours." },
+		{ Cue = "/VO/Selene_0376", Text = "Let us be off." },
+		{ Cue = "/VO/Selene_0380", Text = "Now we Silver Sisters ride.",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "UseRecord", "NPC_Artemis_Field_01" },
+				},
+			},
+		},
 		{ Cue = "/VO/Selene_0121", Text = "Together we shine.", PlayFirst = true,
 			GameStateRequirements =
 			{
@@ -3308,6 +4345,7 @@ GlobalVoiceLines.PickedMoonSpellVoiceLines =
 			},
 		},
 		{ Cue = "/VO/Selene_0122", Text = "Together we shine...!",
+			PlayFirst = true,
 			GameStateRequirements =
 			{
 				{
@@ -3319,188 +4357,13 @@ GlobalVoiceLines.PickedMoonSpellVoiceLines =
 
 	},
 }
-GlobalVoiceLines.CostumeChangedVoiceLines =
-{
-	{
-		PreLineWait = 0.35,
-		RandomRemaining = true,
-		ObjectType = "NPC_Arachne_01",
-		-- SuccessiveChanceToPlayAll = 0.75,
-		-- also see additional Arachne lines below
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "TextLinesRecord" },
-				HasNone = GameData.ArachneUpsetEvents,
-			},
-		},
-
-		{ Cue = "/VO/Arachne_0171", Text = "Certainly!" },
-		{ Cue = "/VO/Arachne_0172", Text = "Of course!" },
-		{ Cue = "/VO/Arachne_0173", Text = "Of course." },
-		{ Cue = "/VO/Arachne_0174", Text = "Right away." },
-		{ Cue = "/VO/Arachne_0175", Text = "Coming right up!" },
-		{ Cue = "/VO/Arachne_0176", Text = "Oh, yes." },
-		{ Cue = "/VO/Arachne_0177", Text = "I hear that!" },
-		{ Cue = "/VO/Arachne_0178", Text = "Wonderful." },
-		{ Cue = "/VO/Arachne_0179", Text = "You bet." },
-		{ Cue = "/VO/Arachne_0180", Text = "Why, sure!" },
-		{ Cue = "/VO/Arachne_0184", Text = "Do you like it?", PlayFirst = true, PreLineWait = 1.0 },
-		{ Cue = "/VO/Arachne_0185", Text = "Well, what do you think?", PreLineWait = 1.0 },
-		{ Cue = "/VO/Arachne_0186", Text = "How does that feel?", PreLineWait = 1.0 },
-	},
-	{
-		RandomRemaining = true,
-		-- SuccessiveChanceToPlay = 0.75,
-		UsePlayerSource = true,
-		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
-
-		-- { Cue = "/VO/Melinoe_1409", Text = "It's certainly a change..." },
-		{ Cue = "/VO/Melinoe_1410", Text = "How do I look?",
-			GameStateRequirements =
-			{
-				{
-					Path = { "LastLinePlayed" },
-					IsNone = { "/VO/Arachne_0184", "/VO/Arachne_0185", "/VO/Arachne_0186" },
-				},
-			},
-		},
-		-- { Cue = "/VO/Melinoe_1411", Text = "Seems like a decent fit..." },
-		{ Cue = "/VO/Melinoe_1412", Text = "I think I like it...",
-			GameStateRequirements =
-			{
-				{
-					Path = { "LastLinePlayed" },
-					IsNone = { "/VO/Arachne_0184" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_1413", Text = "I'm comfortable in this..." },
-		{ Cue = "/VO/Melinoe_1731", Text = "Why this is beautiful, thank you...!", PlayFirst = true },
-		{ Cue = "/VO/MelinoeField_2378", Text = "Thanks, Arachne." },
-		{ Cue = "/VO/Melinoe_0350", Text = "{#Emph}<Laugh>" },
-		{ Cue = "/VO/Melinoe_0351", Text = "{#Emph}<Laugh>" },
-	},
-	{
-		RandomRemaining = true,
-		BreakIfPlayed = true,
-		PreLineWait = 0.25,
-		SuccessiveChanceToPlay = 0.66,
-		ObjectType = "NPC_Arachne_01",
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "TextLinesRecord" },
-				HasNone = GameData.ArachneUpsetEvents,
-			},
-		},
-
-		{ Cue = "/VO/Arachne_0181", Text = "A {#Emph}perfect {#Prev}fit!" },
-		{ Cue = "/VO/Arachne_0182", Text = "There!",
-			GameStateRequirements =
-			{
-				{
-					Path = { "LastLinePlayed" },
-					IsNone = { "/VO/Melinoe_1410", "/VO/Melinoe_1411", "/VO/Melinoe_1412", "/VO/Melinoe_1413", "/VO/Melinoe_1731" },
-				},
-			},
-		},
-		{ Cue = "/VO/Arachne_0183", Text = "Oh, you look {#Emph}wonderful!" },
-		{ Cue = "/VO/Arachne_0187", Text = "Made this one just for you." },
-		{ Cue = "/VO/Arachne_0188", Text = "I knew you'd pick this one!" },
-		{ Cue = "/VO/Arachne_0189", Text = "You truly look lovely." },
-		{ Cue = "/VO/Arachne_0190", Text = "I hope you like it.",
-			GameStateRequirements =
-			{
-				{
-					Path = { "LastLinePlayed" },
-					IsNone = { "/VO/Melinoe_1412" },
-				},
-			},
-		},
-		{ Cue = "/VO/Arachne_0191", Text = "Now you enjoy, all right?" },
-		{ Cue = "/VO/Arachne_0192", Text = "{#Emph}Whew! {#Prev}Enjoy it while it lasts..." },
-		{ Cue = "/VO/Arachne_0193", Text = "All in an evening's work!" },
-		{ Cue = "/VO/Arachne_0194", Text = "Woven with care." },
-		{ Cue = "/VO/Arachne_0195", Text = "It's all yours." },
-		{ Cue = "/VO/Arachne_0196", Text = "Like a warm embrace..." },
-		{ Cue = "/VO/Arachne_0197", Text = "May it keep you safe." },
-		{ Cue = "/VO/Arachne_0198", Text = "Absolutely stunning...!" },
-		{ Cue = "/VO/Arachne_0199", Text = "It matches your eye.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "Hero", "TraitDictionary" },
-					HasAny = { "VitalityCostume", "CastDamageCostume" },
-				}
-			},
-		},
-		{ Cue = "/VO/Arachne_0200", Text = "What a sight you are." },
-	}
-}
-GlobalVoiceLines.CostumeDestroyedVoiceLines =
-{
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.25,
-		SuccessiveChanceToPlay = 0.75,
-		UsePlayerSource = true,
-		Cooldowns =
-		{
-			{ Name = "MelinoeAnyQuipSpeech" },
-		},
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "Hero", "LastBrokenArmorTraitName" },
-				IsAny = { "AgilityCostume", "ManaCostume", "VitalityCostume", "CastDamageCostume", "IncomeCostume", "HighArmorCostume" },
-			},
-		},
-		{ Cue = "/VO/Melinoe_1916", Text = "My outfit!" },
-		{ Cue = "/VO/Melinoe_1917", Text = "So much for silken armor..." },
-		{ Cue = "/VO/Melinoe_1918", Text = "There goes Arachne's suit..." },
-		{ Cue = "/VO/Melinoe_1919", Text = "They broke my suit...",
-			PlayOnce = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Name" },
-					IsNone = { "F_Boss01", "G_Boss01", "H_Boss01", "I_Boss01" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_0578", Text = "{#Emph}Hrm." },
-		{ Cue = "/VO/Melinoe_0579", Text = "{#Emph}Hm!" },
-		{ Cue = "/VO/Melinoe_0580", Text = "{#Emph}Ugh..." },
-		{ Cue = "/VO/MelinoeField_2374", Text = "Blast..." },
-		{ Cue = "/VO/MelinoeField_2375", Text = "{#Emph}Augh..." },
-		{ Cue = "/VO/MelinoeField_2376", Text = "My silk...", PlayFirst = true },
-		{ Cue = "/VO/MelinoeField_2377", Text = "My dress..." },
-		{ Cue = "/VO/MelinoeField_2379", Text = "{#Emph}Tsk..." },
-	},
-	{
-		RandomRemaining = true,
-		BreakIfPlayed = true,
-		PreLineWait = 0.35,
-		SuccessiveChanceToPlayAll = 0.5,
-		ObjectType = "NPC_Arachne_01",
-
-		{ Cue = "/VO/Arachne_0268", Text = "Limit one per evening, I'm afraid...", PlayFirst = true },
-		{ Cue = "/VO/Arachne_0269", Text = "Hey, I'm not made of those you know!" },
-		{ Cue = "/VO/Arachne_0270", Text = "Oh, now that's a shame..." },
-		{ Cue = "/VO/Arachne_0271", Text = "Oh, dear..." },
-		{ Cue = "/VO/Arachne_0272", Text = "Aw..." },
-		{ Cue = "/VO/Arachne_0273", Text = "{#Emph}<Gasp>" },
-		{ Cue = "/VO/Arachne_0274", Text = "Ooh!" },
-	}
-}
 
 GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 {
 	RandomRemaining = true,
 	PreLineWait = 1.0,
 	SuccessiveChanceToPlay = 0.25,
+	UsePlayerSource = true,
 	GameStateRequirements =
 	{
 		{
@@ -3509,7 +4372,7 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		},
 		{
 			Path = { "CurrentRun", "CurrentRoom", "Name" },
-			IsNone = { "H_Bridge01", "H_MiniBoss01", "H_MiniBoss02", "H_PreBoss01", "H_Boss01" },
+			IsNone = { "H_Bridge01", "H_MiniBoss01", "H_MiniBoss02", "H_PreBoss01", "H_Boss01", "H_Boss02", "H_Combat15" },
 		},
 		{
 			PathNotEmpty = { "MapState", "RoomRequiredObjects" },
@@ -3519,7 +4382,6 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		},
 	},
 	TriggerCooldowns = { Name = "MelinoeAnyQuipSpeech" },
-	ThreadName = "RoomThread",
 
 	{ Cue = "/VO/MelinoeField_1565", Text = "Could try the nearest exit just in case...",
 		PlayOnce = true,
@@ -3544,10 +4406,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 2,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 2,
+				},
 			},
 		}
 	},
@@ -3555,10 +4419,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 2,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 2,
+				},
 			},
 		}
 	},
@@ -3566,10 +4432,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 2,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 2,
+				},
 			},
 		}
 	},
@@ -3577,10 +4445,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 2,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 2,
+				},
 			},
 		}
 	},
@@ -3588,10 +4458,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 2,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 2,
+				},
 			},
 		}
 	},
@@ -3599,10 +4471,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 2,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 2,
+				},
 			},
 		}
 	},
@@ -3610,10 +4484,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 2,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 2,
+				},
 			},
 		}
 	},
@@ -3622,10 +4498,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 2,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 2,
+				},
 			},
 		}
 	},
@@ -3633,10 +4511,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 2,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 2,
+				},
 			},
 		}
 	},
@@ -3677,10 +4557,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 1,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 1,
+				},
 			},
 		}
 	},
@@ -3688,10 +4570,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 1,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 1,
+				},
 			},
 		}
 	},
@@ -3699,10 +4583,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 1,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 1,
+				},
 			},
 		}
 	},
@@ -3710,10 +4596,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 1,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 1,
+				},
 			},
 		}
 	},
@@ -3721,10 +4609,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 1,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 1,
+				},
 			},
 		}
 	},
@@ -3732,10 +4622,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 1,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 1,
+				},
 			},
 		}
 	},
@@ -3743,10 +4635,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 1,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 1,
+				},
 			},
 		}
 	},
@@ -3754,10 +4648,12 @@ GlobalVoiceLines.FieldsRewardClaimedVoiceLines =
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "RoomRequiredObjects" },
-				UseLength = true,
-				Comparison = "==",
-				Value = 1,
+				FunctionName = "RequiredRewardCountInRoom",
+				FunctionArgs =
+				{
+					ExcludeNames = { "NPC_Nemesis_01", "NPC_Athena_01" },
+					Value = 1,
+				},				
 			},
 		}
 	},
@@ -3811,6 +4707,7 @@ GlobalVoiceLines.MiscUpgradePickedVoiceLines =
 	{
 		{ Name = "MelinoeRewardPickUpSpeech", Time = 60 },
 	},
+	TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
 	{
 		GameStateRequirements =
 		{
@@ -3823,7 +4720,7 @@ GlobalVoiceLines.MiscUpgradePickedVoiceLines =
 		PlayOnceContext = "ArachneCombatExitHintVO",
 		BreakIfPlayed = true,
 		RandomRemaining = true,
-		PreLineWait = 0.85,
+		PreLineWait = 0.65,
 		UsePlayerSource = true,
 
 		{ Cue = "/VO/Melinoe_1934", Text = "The exit wards are down..." },
@@ -3842,10 +4739,9 @@ GlobalVoiceLines.MiscUpgradePickedVoiceLines =
 			},
 		},
 
-		UsePlayerSource = true,
 		BreakIfPlayed = true,
 		RandomRemaining = true,
-		PreLineWait = 0.85,
+		PreLineWait = 0.75,
 		SuccessiveChanceToPlay = 0.33,
 		UsePlayerSource = true,
 
@@ -3859,14 +4755,14 @@ GlobalVoiceLines.MiscUpgradePickedVoiceLines =
 		{
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-				IsNone = { "Shop", "DevotionTestF", "DevotionTestG", "DevotionTestH", "DevotionTextN", "DevotionTestO", "DevotionTestP", "ArtemisCombatIntro",
+				IsNone = { "Shop", "DevotionTestF", "DevotionTestG", "DevotionTestH", "DevotionTestN", "DevotionTestO", "DevotionTestP", "ArtemisCombatIntro",
 					"ArtemisCombatF", "ArtemisCombatF2",
 					"ArtemisCombatG", "ArtemisCombatG2",
 					"ArtemisCombatN", "ArtemisCombatN2",
 					"HeraclesCombatN", "HeraclesCombatN2",
 					"HeraclesCombatO", "HeraclesCombatO2",
 					"HeraclesCombatP", "HeraclesCombatP2",
-					"NemesisCombatF", "NemesisCombatG",
+					"NemesisCombatF", "NemesisCombatG", "NemesisCombatI",
 					"NemesisCombatH", "IcarusCombatO",
 					"IcarusCombatO2", "IcarusCombatP",
 					"IcarusCombatP2", },
@@ -3882,6 +4778,10 @@ GlobalVoiceLines.MiscUpgradePickedVoiceLines =
 		PreLineWait = 0.65,
 		SuccessiveChanceToPlay = 0.33,
 		UsePlayerSource = true,
+		Cooldowns =
+		{
+			{ Name = "MelinoeMiscRewardSpeech", Time = 60 },
+		},
 
 		{ Cue = "/VO/Melinoe_0200", Text = "Greater strength." },
 		{ Cue = "/VO/Melinoe_0201", Text = "I accept this gift." },
@@ -3900,6 +4800,9 @@ GlobalVoiceLines.MiscUpgradePickedVoiceLines =
 		{ Cue = "/VO/Melinoe_0178", Text = "Now..." },
 		{ Cue = "/VO/Melinoe_0179", Text = "All right." },
 		{ Cue = "/VO/Melinoe_0180", Text = "Set." },
+		{ Cue = "/VO/Melinoe_5587", Text = "Stronger." },
+		{ Cue = "/VO/Melinoe_5588", Text = "Felt that." },
+		{ Cue = "/VO/Melinoe_5590", Text = "Yes." },
 	},
 }
 
@@ -3952,8 +4855,6 @@ GlobalVoiceLines.FieldsPassiveEnemiesSpottedVoiceLines =
 				{
 					"DespairElemental",
 					"DespairElemental_Elite",
-					"DespairElementalLarge",
-					"DespairElementalLarge_Elite",
 				},					
 			}
 		},
@@ -4085,25 +4986,6 @@ GlobalVoiceLines.FieldsEnemiesSpottedVoiceLines =
 				Path = { "OriginalSource", "Name" },
 				IsAny =
 				{
-					"Lamia",
-					"Lamia_Elite",
-				},
-			}
-		},
-
-		{ Cue = "/VO/MelinoeField_1037", Text = "Lamiai.", PlayFirst = true },
-		{ Cue = "/VO/MelinoeField_1038", Text = "Lamiai...!" },
-	},
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		GameStateRequirements = 
-		{
-			{
-				PathFromArgs = true,
-				Path = { "OriginalSource", "Name" },
-				IsAny =
-				{
 					"FogEmitter2",
 					"FogEmitter2_Elite",
 				},
@@ -4165,7 +5047,7 @@ GlobalVoiceLines.HarvestPointFoundVoiceLines =
 	{
 		BreakIfPlayed = true,
 		RandomRemaining = true,
-		SuccessiveChanceToPlayAll = 0.66,
+		SuccessiveChanceToPlayAll = 0.33,
 		PreLineWait = 0.75,
 		Source = { LineHistoryName = "NPC_Selene_01", SubtitleColor = Color.SeleneVoice },
 		GameStateRequirements =
@@ -4174,20 +5056,31 @@ GlobalVoiceLines.HarvestPointFoundVoiceLines =
 				PathTrue = { "CurrentRun", "UseRecord", "SpellDrop" }
 			},
 			{
-				PathFalse = { "CurrentRun", "BiomesReached", "G" },
+				Path = { "CurrentRun", "BiomesReached" },
+				HasNone = { "G", "Q" },
 			},
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsNone = { "F_Story01", "G_Story01", "I_Story01", "N_Story01", "O_Story01", "P_Story01" },
+				IsNone = { "F_Story01", "F_PostBoss01", "G_Story01", "I_Story01", "N_Story01", "O_Story01", "P_Story01" },
+			},
+			{
+				Path = { "GameState", "GamePhase", },
+				Comparison = "~=",
+				Value = 5,
+			},
+			{
+				Path = { "CurrentRun", "TextLinesRecord" },
+				HasNone = { "HecateBossKidnapped01" },
 			},
 			{
 				FunctionName = "RequiredAlive",
-				FunctionArgs = { Units = { "NPC_Nemesis_01", "NPC_Heracles_01", "NPC_Icarus_01", "NPC_Athena_01" }, Alive = false },
+				FunctionArgs = { Units = { "NPC_Artemis_Field_01", "NPC_Nemesis_01", "NPC_Heracles_01", "NPC_Icarus_01", "NPC_Athena_01" }, Alive = false },
 			},
 		},
 		Cooldowns =
 		{
-			{ Name = "SeleneRewardSpottedSpeech", Time = 180 },
+			{ Name = "SeleneAnyQuipSpeech", Time = 10 },
+			{ Name = "SeleneRewardSpottedSpeech", Time = 300 },
 		},
 
 		{ Cue = "/VO/Selene_0145", Text = "I see something for you.", PlayFirst = true },
@@ -4202,6 +5095,160 @@ GlobalVoiceLines.HarvestPointFoundVoiceLines =
 		{ Cue = "/VO/Selene_0244", Text = "Observe nearby..." },
 		{ Cue = "/VO/Selene_0245", Text = "A small discovery..." },
 		{ Cue = "/VO/Selene_0246", Text = "Something nearby..." },
+		{ Cue = "/VO/Selene_0404", Text = "Look there." },
+		{ Cue = "/VO/Selene_0405", Text = "Observe." },
+		{ Cue = "/VO/Selene_0406", Text = "There." },
+		{ Cue = "/VO/Selene_0407", Text = "A valuable for you." },
+		{ Cue = "/VO/Selene_0408", Text = "Allow me." },
+		{ Cue = "/VO/Selene_0409", Text = "Do you see?" },
+		{ Cue = "/VO/Selene_0411", Text = "I am your guide." },
+		{ Cue = "/VO/Selene_0412", Text = "Something to procure." },
+		{ Cue = "/VO/Selene_0416", Text = "I see everything." },
+		{ Cue = "/VO/Selene_0418", Text = "Follow your senses." },
+		{ Cue = "/VO/Selene_0415", Text = "Your attention?",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeAutoHarvestOnExit" },
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0413", Text = "Before you go...",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeAutoHarvestOnExit" },
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0410", Text = "Follow my light.",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeAutoHarvestOnExit" },
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0414", Text = "Do not depart just yet.",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeAutoHarvestOnExit" },
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0417", Text = "Search there.",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeAutoHarvestOnExit" },
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0419", Text = "A digging spot.",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasShovelPoint" },
+			},
+		},
+		{ Cue = "/VO/Selene_0420", Text = "I see a digging spot.",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasShovelPoint" },
+			},
+		},
+		{ Cue = "/VO/Selene_0421", Text = "Something in the Earth...",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasShovelPoint" },
+			},
+		},
+		{ Cue = "/VO/Selene_0422", Text = "A fishing point.",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasFishingPoint" },
+			},
+		},
+		{ Cue = "/VO/Selene_0423", Text = "A fishing point is near.",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasFishingPoint" },
+			},
+		},
+		{ Cue = "/VO/Selene_0424", Text = "In the waters...",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasFishingPoint" },
+			},
+		},
+		{ Cue = "/VO/Selene_0425", Text = "An outcropping.",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasPickaxePoint" },
+			},
+		},
+		{ Cue = "/VO/Selene_0426", Text = "I see an outcropping.",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasPickaxePoint" },
+			},
+		},
+		{ Cue = "/VO/Selene_0427", Text = "The glint of valuables.",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasPickaxePoint" },
+			},
+		},
+		{ Cue = "/VO/Selene_0428", Text = "Some flora there.",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasHarvestPoint" },
+				{
+					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+					IsNone = { "O", "Q" },
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0429", Text = "Some flora.",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasHarvestPoint" },
+				{
+					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+					IsNone = { "O", "Q" },
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0430", Text = "Reagent located.",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasHarvestPoint" },
+			},
+		},
+		{ Cue = "/VO/Selene_0431", Text = "A Lost Shade.",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasExorcismPoint" },
+			},
+		},
+		{ Cue = "/VO/Selene_0432", Text = "I see a Lost Shade.",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasExorcismPoint" },
+			},
+		},
+		{ Cue = "/VO/Selene_0433", Text = "A Shade needs you.",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasExorcismPoint" },
+			},
+		},
+		{ Cue = "/VO/Selene_0434", Text = "I see a Shade in need...",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasExorcismPoint" },
+			},
+		},
 	},
 	{
 		BreakIfPlayed = true,
@@ -4232,7 +5279,31 @@ GlobalVoiceLines.HarvestPointFoundVoiceLines =
 		{ Cue = "/VO/Melinoe_0826", Text = "That's something." },
 		{ Cue = "/VO/Melinoe_0827", Text = "Something there." },
 		{ Cue = "/VO/Melinoe_0828", Text = "I see it." },
-		{ Cue = "/VO/Melinoe_0829", Text = "There." },		
+		{ Cue = "/VO/Melinoe_0829", Text = "There." },
+		{ Cue = "/VO/Melinoe_0751", Text = "A fishing point.",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasFishingPoint" },
+			},
+		},
+		{ Cue = "/VO/Melinoe_0752", Text = "Fishing point there.",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasFishingPoint" },
+			},
+		},
+		{ Cue = "/VO/MelinoeField_1340", Text = "A fish is near...",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasFishingPoint" },
+			},
+		},
+		{ Cue = "/VO/MelinoeField_1341", Text = "I sense a fish...",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "RoomOnlyHasFishingPoint" },
+			},
+		},
 	},
 }
 GlobalVoiceLines.ResourceFoundVoiceLines =
@@ -4247,7 +5318,7 @@ GlobalVoiceLines.ResourceFoundVoiceLines =
 		{
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsNone = { "TestAllThings" },
+				IsNone = { "TestAllThings", "H_Bridge01" },
 			},
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
@@ -4283,6 +5354,23 @@ GlobalVoiceLines.ResourceFoundVoiceLines =
 		{ Cue = "/VO/Melinoe_0829", Text = "There." },
 		{ Cue = "/VO/Melinoe_0830", Text = "Oh." },
 	},
+	{ GlobalVoiceLines = "HecateGatherReactionVoiceLines" },
+	{ GlobalVoiceLines = "ArachneGatherReactionVoiceLines" },
+	{ GlobalVoiceLines = "NemesisGatherReactionVoiceLines" },
+	{ GlobalVoiceLines = "ArtemisGatherReactionVoiceLines" },
+	{ GlobalVoiceLines = "IcarusGatherReactionVoiceLines" },
+	{ GlobalVoiceLines = "CharonGatherReactionVoiceLines" },
+	{ GlobalVoiceLines = "HadesHarvestReactionVoiceLines" },
+	{ GlobalVoiceLines = "HermesHarvestReactionVoiceLines" },
+	{ GlobalVoiceLines = "ChronosGatherReactionVoiceLines" },
+	{ GlobalVoiceLines = "HeraclesGatherReactionVoiceLines" },
+	{ GlobalVoiceLines = "MedeaGatherReactionVoiceLines" },
+	{ GlobalVoiceLines = "PolyphemusGatherReactionVoiceLines" },
+	{ GlobalVoiceLines = "ErisGatherReactionVoiceLines" },
+	{ GlobalVoiceLines = "PrometheusGatherReactionVoiceLines" },
+	{ GlobalVoiceLines = "AthenaGatherReactionVoiceLines" },
+	{ GlobalVoiceLines = "DionysusGatherReactionVoiceLines" },
+	{ GlobalVoiceLines = "ChaosHarvestReactionVoiceLines" },
 }
 GlobalVoiceLines.FoundSeedVoiceLines =
 {
@@ -4295,6 +5383,10 @@ GlobalVoiceLines.FoundSeedVoiceLines =
 		{
 			{
 				PathEmpty = { "RequiredKillEnemies" },
+			},
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsNone = { "H_Bridge01" }
 			},
 		},
 		Cooldowns =
@@ -4320,8 +5412,18 @@ GlobalVoiceLines.BreakableHighValueDestroyedVoiceLines =
 			},
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-				IsNone = { "Story_Chronos01", "Story_Narcissus_01", "Story_Hades_01", "NemesisCombatIntro", "NemesisCombatF", 
-				"NemesisCombatG", "NemesisCombatH" },
+				IsNone =
+				{
+					"Story_Chronos01",
+					"Story_Narcissus_01",
+					"Story_Hades_01",
+					"NemesisCombatIntro",
+					"NemesisCombatF",
+					"NemesisCombatG",
+					"NemesisCombatH",
+					"NemesisCombatI",
+					"TyphonShop",
+				},
 			},
 			{
 				Path = { "GameState", "CompletedRunsCache" },
@@ -4350,24 +5452,26 @@ GlobalVoiceLines.BreakableHighValueDestroyedVoiceLines =
 }
 GlobalVoiceLines.HarvestBonusResourceVoiceLines =
 {
+	Cooldowns =
+	{
+		{ Name = "OdysseusHarvestVO", Time = 2 },
+	},
 	{
 		PlayOnce = true,
+		PlayOnceFromTableThisRun = true,
 		PlayOnceContext = "HarvestBountyVO",
 		BreakIfPlayed = true,
 		RandomRemaining = true,
 		UsePlayerSource = true,
 		PreLineWait = 0.45,
-		GameStateRequirements =
+		SkipCooldownCheckIfNonePlayed = true,
+		Cooldowns =
 		{
-			{
-				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsNone = { "TestAllThings" },
-			},
+			{ Name = "MelinoeAnyQuipSpeech", Time = 4 },
 		},
-		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
 
-		{ Cue = "/VO/MelinoeField_2360", Text = "Gaia's Secrets..." },
-		{ Cue = "/VO/MelinoeField_2361", Text = "Gaia's Bounty..." },
+		{ Cue = "/VO/Melinoe_4703", Text = "Gaia's Secrets..." },
+		{ Cue = "/VO/Melinoe_4704", Text = "Gaia's Bounty..." },
 	},
 	{ GlobalVoiceLines = "PositiveReactionVoiceLines" },
 }
@@ -4437,7 +5541,7 @@ GlobalVoiceLines.HoundReactionVoiceLines =
 	RandomRemaining = true,
 	UsePlayerSource = true,
 	PreLineWait = 0.55,
-	SuccessiveChanceToPlayAll = 0.1,
+	SuccessiveChanceToPlayAll = 0.33,
 	GameStateRequirements =
 	{
 		--
@@ -4447,6 +5551,20 @@ GlobalVoiceLines.HoundReactionVoiceLines =
 	{ Cue = "/VO/Melinoe_3871", Text = "It's Hecuba the Hound...!" },
 	{ Cue = "/VO/Melinoe_3872", Text = "Hecuba on watch." },
 	{ Cue = "/VO/Melinoe_3873", Text = "Hecuba!" },
+}
+GlobalVoiceLines.PolecatReactionVoiceLines =
+{
+	RandomRemaining = true,
+	UsePlayerSource = true,
+	PreLineWait = 0.55,
+	SuccessiveChanceToPlayAll = 0.33,
+	GameStateRequirements =
+	{
+		--
+	},
+
+	{ Cue = "/VO/MelinoeField_3049", Text = "Gale, is that you?", PlayFirst = true },
+	{ Cue = "/VO/MelinoeField_3050", Text = "Gale!" },
 }
 
 GlobalVoiceLines.NegativeReactionVoiceLines =
@@ -4463,7 +5581,7 @@ GlobalVoiceLines.NegativeReactionVoiceLines =
 		{ Name = "MelinoeAnyQuipSpeech" },
 	},
 
-	{ Cue = "/VO/Melinoe_1947", Text = "{#Emph}Khh." },
+	{ Cue = "/VO/Melinoe_1947", Text = "{#Emph}<Scoff>" },
 	{ Cue = "/VO/Melinoe_1948", Text = "{#Emph}Ngh." },
 	{ Cue = "/VO/Melinoe_1949", Text = "{#Emph}<Sigh>" },
 	{ Cue = "/VO/Melinoe_1950", Text = "{#Emph}<Sigh>" },
@@ -4507,7 +5625,6 @@ GlobalVoiceLines.NemesisDealDeclineVoiceLines =
 		PlayOnce = true, PlayFirst = true,
 		GameStateRequirements =
 		{
-			-- @ update with additional requirements
 			{
 				PathFalse = { "GameState", "TextLinesRecord", "NemesisGift06" },
 			},
@@ -4565,7 +5682,24 @@ GlobalVoiceLines.SaluteVoiceLines =
 			},
 		},
 
-		{ Cue = "/VO/Melinoe_1700", Text = "Death to Chronos!" },
+		{ Cue = "/VO/Melinoe_1700", Text = "Death to Chronos!",
+			GameStateRequirements =
+			{
+				OrRequirements =
+				{
+					{
+						{
+							PathFalse = { "GameState", "TextLinesRecord", "TrueEnding01" },
+						},
+					},
+					{
+						{
+							PathTrue = { "GameState", "SpeechRecord", "/VO/Chronos_1058" },
+						},
+					},
+				},
+			},
+		},
 		{ Cue = "/VO/Melinoe_1701", Text = "Moonlight guide you." },
 		{ Cue = "/VO/Melinoe_1703", Text = "May moonlight guide you." },
 		{ Cue = "/VO/Melinoe_1704", Text = "Moonlight guide us." },
@@ -4586,8 +5720,24 @@ GlobalVoiceLines.SaluteVoiceLines =
 			},
 		},
 
-		{ Cue = "/VO/Melinoe_1700_2", Text = "Death to Chronos!" },
-		
+		{ Cue = "/VO/Melinoe_1700_2", Text = "Death to Chronos!",
+			GameStateRequirements =
+			{
+				OrRequirements =
+				{
+					{
+						{
+							PathFalse = { "GameState", "ReachedTrueEnding" },
+						},
+					},
+					{
+						{
+							PathTrue = { "GameState", "SpeechRecord", "/VO/Chronos_1058" },
+						},
+					},
+				},
+			},
+		},
 		{ Cue = "/VO/Melinoe_2784", Text = "Salutations!",
 			GameStateRequirements =
 			{
@@ -4638,7 +5788,24 @@ GlobalVoiceLines.SaluteVoiceLines =
 				},
 			},
 		},
-		{ Cue = "/VO/Melinoe_1700_2", Text = "Death to Chronos!" },
+		{ Cue = "/VO/Melinoe_1700_2", Text = "Death to Chronos!",
+			GameStateRequirements =
+			{
+				OrRequirements =
+				{
+					{
+						{
+							PathFalse = { "GameState", "TextLinesRecord", "TrueEnding01" },
+						},
+					},
+					{
+						{
+							PathTrue = { "GameState", "SpeechRecord", "/VO/Chronos_1058" },
+						},
+					},
+				},
+			},
+		},
 		{ Cue = "/VO/Melinoe_1701_2", Text = "Moonlight guide you." },
 		{ Cue = "/VO/Melinoe_1703_2", Text = "May moonlight guide you." },
 		{ Cue = "/VO/Melinoe_1704_2", Text = "Moonlight guide us." },
@@ -4746,8 +5913,26 @@ GlobalVoiceLines.PurchasedConsumableVoiceLines =
 		{ Cue = "/VO/Melinoe_1215", Text = "Should be useful." },
 		{ Cue = "/VO/Melinoe_1216", Text = "I need this." },
 		{ Cue = "/VO/Melinoe_1217", Text = "This should help." },
-		{ Cue = "/VO/Melinoe_1218", Text = "This one, please.", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_1219", Text = "May I?" },
+		{ Cue = "/VO/Melinoe_1222", Text = "Valuable enough." },
+		{ Cue = "/VO/Melinoe_0554", Text = "I'll take it." },
+		{ Cue = "/VO/Melinoe_0556", Text = "This one." },
+		{ Cue = "/VO/Melinoe_0559", Text = "Fair trade." },
+		{ Cue = "/VO/Melinoe_1218", Text = "This one, please.", PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "CurrentRun", "BiomesReached", "P" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_1219", Text = "May I?",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "CurrentRun", "BiomesReached", "P" },
+				},
+			},
+		},
 		{ Cue = "/VO/Melinoe_1220", Text = "I have the Gold.",
 			GameStateRequirements =
 			{
@@ -4762,7 +5947,10 @@ GlobalVoiceLines.PurchasedConsumableVoiceLines =
 				{
 					PathFalse = { "CurrentRun", "Hero", "IsDead" }
 				},
-			}
+				{
+					PathFalse = { "CurrentRun", "BiomesReached", "P" },
+				},
+			},
 		},
 		{ Cue = "/VO/Melinoe_1221", Text = "Here's the Gold.",
 			GameStateRequirements =
@@ -4770,13 +5958,19 @@ GlobalVoiceLines.PurchasedConsumableVoiceLines =
 				{
 					PathFalse = { "CurrentRun", "Hero", "IsDead" }
 				},
-			}
+				{
+					PathFalse = { "CurrentRun", "BiomesReached", "P" },
+				},
+			},
 		},
-		{ Cue = "/VO/Melinoe_1222", Text = "Valuable enough." },
-		{ Cue = "/VO/Melinoe_0554", Text = "I'll take it." },
-		{ Cue = "/VO/Melinoe_0556", Text = "This one." },
-		{ Cue = "/VO/Melinoe_0558", Text = "Here you are." },
-		{ Cue = "/VO/Melinoe_0559", Text = "Fair trade." },
+		{ Cue = "/VO/Melinoe_0558", Text = "Here you are.",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "CurrentRun", "BiomesReached", "P" },
+				},
+			},
+		},
 	},
 	{
 		BreakIfPlayed = true,
@@ -4804,7 +5998,8 @@ GlobalVoiceLines.PurchasedConsumableVoiceLines =
 		{ Cue = "/VO/Charon_0068", Text = "{#Emph}Grngh..." },
 		{ Cue = "/VO/Charon_0069", Text = "{#Emph}Aaugh..." },
 		{ Cue = "/VO/Charon_0093", Text = "{#Emph}Eehhh..." },
-	}
+	},
+	{ GlobalVoiceLines = "HermesPurchaseReactionVoiceLines" },
 }
 GlobalVoiceLines.RushWellShopItemVoiceLines =
 {
@@ -4945,6 +6140,19 @@ GlobalVoiceLines.PurchasedDamageSelfDropVoicelines =
 }
 
 -- hub interaction voice lines
+GlobalVoiceLines.AlchemyStartVoiceLines =
+{
+	PreLineWait = 0.3,
+	RandomRemaining = true,
+
+	{ Cue = "/VO/Melinoe_1350", Text = "Power to create..." },
+	{ Cue = "/VO/Melinoe_1351", Text = "Power to change..." },
+	{ Cue = "/VO/Melinoe_5591", Text = "{#Emph}Become as new..." },
+	{ Cue = "/VO/Melinoe_5592", Text = "{#Emph}Become as new...!" },
+	{ Cue = "/VO/Melinoe_5593", Text = "{#Emph}Become what I seek." },
+	{ Cue = "/VO/Melinoe_5594", Text = "{#Emph}Become what I seek...!" },
+}
+
 GlobalVoiceLines.CookingStartedVoiceLines =
 {
 	{
@@ -4957,6 +6165,10 @@ GlobalVoiceLines.CookingStartedVoiceLines =
 		
 		{ Cue = "/VO/Melinoe_2329", Text = "This'll take a little while..." },
 		{ Cue = "/VO/Melinoe_2330", Text = "It'll be worth the wait." },
+		{ Cue = "/VO/Melinoe_5509", Text = "Covered up..." },
+		{ Cue = "/VO/Melinoe_5510", Text = "Now simmer away..." },
+		{ Cue = "/VO/Melinoe_5511", Text = "It's cooking..." },
+		{ Cue = "/VO/Melinoe_5512", Text = "Bubble away..." },
 	},
 	--[[
 	{
@@ -5002,10 +6214,144 @@ GlobalVoiceLines.CookingCompleteVoiceLines =
 
 		{ Cue = "/VO/Melinoe_2331", Text = "Smells delicious!" },
 		{ Cue = "/VO/Melinoe_2332", Text = "Fresh from the pot!", PlayFirst = true },
+		{ Cue = "/VO/Melinoe_1352", Text = "Transmutation complete.", PlayFirst = true },
+		{ Cue = "/VO/Melinoe_1353", Text = "Transmutation succeeded." },
+		{ Cue = "/VO/Melinoe_5513", Text = "All done." },
+		{ Cue = "/VO/Melinoe_5514", Text = "It's finished." },
+		{ Cue = "/VO/Melinoe_5515", Text = "There we have it." },
+		{ Cue = "/VO/Melinoe_5516", Text = "Just right." },
 	},
 }
+
+GlobalVoiceLines.MelMusicChoiceVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		PreLineWait = 0.35,
+		UsePlayerSource = true,
+		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+		Cooldowns =
+		{
+			{ Name = "MelMusicPlayerRequestSpeech", Time = 10 },
+		},
+		GameStateRequirements =
+		{
+			OrRequirements =
+			{
+				{
+					{
+						PathFromArgs = true,
+						PathTrue = { "PurchasingSong" },
+					},
+				},
+				{
+					-- reduced odds of playing for already-unlocked songs
+					ChanceToPlay = 0.33,
+				},
+			},
+		},
+
+		{ Cue = "/VO/Melinoe_3832", Text = "I'd like to hear this one." },
+		{ Cue = "/VO/Melinoe_3833", Text = "Would you play this one, please?" },
+		{ Cue = "/VO/Melinoe_3834", Text = "Let's hear this one." },
+		{ Cue = "/VO/Melinoe_3835", Text = "Play this one next, would you?" },
+		{ Cue = "/VO/Melinoe_3836", Text = "Play us another song, if you don't mind!" },
+		{ Cue = "/VO/Melinoe_3837", Text = "Mind playing this one next?" },
+		{ Cue = "/VO/Melinoe_3838", Text = "Got a request for you.", PlayFirst = true },
+		{ Cue = "/VO/Melinoe_3839", Text = "Up for another song?" },
+		{ Cue = "/VO/Melinoe_4007", Text = "I like this one." },
+		{ Cue = "/VO/Melinoe_4008", Text = "One of my favorites." },
+		{ Cue = "/VO/Melinoe_4009", Text = "Among the best." },
+		{ Cue = "/VO/Melinoe_4010", Text = "Personal pick." },
+		{ Cue = "/VO/Melinoe_3841", Text = "Surprised you've heard of this one, but all right...",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					SumPrevRuns = 6,
+					Path = { "SpeechRecord", "/VO/Melinoe_3841" },
+					CountPathTrue = true,
+					Comparison = "<=",
+					Value = 0,
+				},
+				{
+					Path = { "GameState", "MusicPlayerSongName" },
+					IsAny =
+					{
+						-- "Song_Scylla1a",
+						"Song_Scylla1b",
+						"Song_Scylla2a",
+						"Song_Scylla2b",
+						"Song_Scylla3a",
+						"Song_Scylla3b",
+						"Song_Scylla4a",
+						"Song_Scylla4b",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3840", Text = "I almost hesitate to ask...",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					SumPrevRuns = 6,
+					Path = { "SpeechRecord", "/VO/Melinoe_3841" },
+					CountPathTrue = true,
+					Comparison = "<=",
+					Value = 0,
+				},
+				{
+					Path = { "GameState", "MusicPlayerSongName" },
+					IsAny =
+					{
+						-- "Song_Scylla1a",
+						"Song_Scylla1b",
+						"Song_Scylla2a",
+						"Song_Scylla2b",
+						"Song_Scylla3a",
+						"Song_Scylla3b",
+						"Song_Scylla4a",
+						"Song_Scylla4b",
+					},
+				},
+			},
+		},
+	},
+	{ GlobalVoiceLines = "ArtemisSongStoppedReactionVoiceLines" },
+	{ GlobalVoiceLines = "OdysseusSongReactionVoiceLines" },
+}
+
 GlobalVoiceLines.WardedDoorVoiceLines =
 {
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.45,
+		PlayOnceFromTableThisRun = true,
+		UsePlayerSource = true,
+		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+		SkipCooldownCheckIfNonePlayed = true,
+		Cooldowns =
+		{
+			{ Name = "MelinoeExitAttemptSpeech", Time = 8 },
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TyphonDefeatedWithStormStop" },
+			},
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeTimeStop" },
+			},
+			{
+				PathFalse = { "GameState", "ReachedTrueEnding" },
+			},
+		},
+
+		{ Cue = "/VO/Melinoe_5694", Text = "Done with Typhon. Chronos next.", PlayFirst = true },
+		{ Cue = "/VO/Melinoe_5695", Text = "Death to Chronos." },
+	},
 	{
 		RandomRemaining = true,
 		PreLineWait = 0.45,
@@ -5013,12 +6359,33 @@ GlobalVoiceLines.WardedDoorVoiceLines =
 		PlayOnceContext = "WardedDoorVO",
 		UsePlayerSource = true,
 
-		{ Cue = "/VO/Melinoe_0562", Text = "{#Emph}Ungh{#Prev}, these blasted wards...", PlayFirst = true },
+		{ Cue = "/VO/Melinoe_5558", Text = "Have to complete an incantation first...", PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeAltRunDoor" },
+				},
+				{
+					PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeAltRunDoor" },
+				},
+			},
+		},
 		{ Cue = "/VO/Melinoe_0561", Text = "Sealed as always...", PlayFirst = true,
 			GameStateRequirements =
 			{
 				{
-					PathTrue = { "GameState", "SpeechRecord", "/VO/Melinoe_0562" }
+					PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeAltRunDoor" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_0562", Text = "{#Emph}Ungh{#Prev}, these blasted wards...", PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "SpeechRecord", "/VO/Melinoe_0561" }
+				},
+				{
+					PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeAltRunDoor" },
 				},
 			},
 		},
@@ -5026,7 +6393,14 @@ GlobalVoiceLines.WardedDoorVoiceLines =
 		{ Cue = "/VO/Melinoe_2386", Text = "Can't do it." },
 		{ Cue = "/VO/Melinoe_3084", Text = "No use." },
 		{ Cue = "/VO/Melinoe_3085", Text = "{#Emph}Ngh." },
-		{ Cue = "/VO/Melinoe_3086", Text = "I wish." },
+		{ Cue = "/VO/Melinoe_3086", Text = "I wish.",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeAltRunDoor" },
+				},
+			},
+		},
 		{ Cue = "/VO/Melinoe_3087", Text = "Can't do it." },
 	},
 	{
@@ -5080,271 +6454,6 @@ GlobalVoiceLines.EndTechTestVoiceLines =
 }
 
 -- resource interaction voice lines
-
-
--- MINOS RESOURCES
-GlobalVoiceLines.SpentMetaPointsVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	SuccessiveChanceToPlay = 0.33,
-	Cooldowns =
-	{
-		--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-	},
-}
-GlobalVoiceLines.PurchasedMetaPointsVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	SuccessiveChanceToPlay = 0.66,
-	Cooldowns =
-	{
-		--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-	},
-}
-GlobalVoiceLines.InsufficientMetaPointsVoiceLines =
-{
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.35,
-		SuccessiveChanceToPlayAll = 0.75,
-		Cooldowns =
-		{
-			--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-		},
-	},
-	{ GlobalVoiceLines = "InvalidResourceInteractionVoiceLines" },
-}
-
-GlobalVoiceLines.SpentLockKeysVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	SuccessiveChanceToPlay = 0.33,
-	Cooldowns =
-	{
-		--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-	},
-}
-GlobalVoiceLines.PurchasedLockKeysVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	SuccessiveChanceToPlay = 0.66,
-	Cooldowns =
-	{
-		--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-	},
-}
-GlobalVoiceLines.InsufficientLockKeysVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	Cooldowns =
-	{
-		--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-	},
-}
-
-GlobalVoiceLines.SpentGiftPointsVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	SuccessiveChanceToPlay = 0.33,
-	Cooldowns =
-	{
-		--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-	},
-}
-GlobalVoiceLines.PurchasedGiftPointsVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	SuccessiveChanceToPlay = 0.75,
-	Cooldowns =
-	{
-		--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-	},
-}
-GlobalVoiceLines.InsufficientGiftPointsVoiceLines =
-{
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.35,
-		SuccessiveChanceToPlayAll = 0.75,
-		Cooldowns =
-		{
-			--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-		},
-	},
-	{ GlobalVoiceLines = "InvalidResourceInteractionVoiceLines" },
-}
-GlobalVoiceLines.SpentGemsVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	SuccessiveChanceToPlay = 0.5,
-	Cooldowns =
-	{
-		--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-	},
-}
-GlobalVoiceLines.PurchasedGemsVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	SuccessiveChanceToPlay = 0.75,
-	Cooldowns =
-	{
-		--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-	},
-}
-GlobalVoiceLines.InsufficientGemsVoiceLines =
-{
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.35,
-		SuccessiveChanceToPlayAll = 0.75,
-		Cooldowns =
-		{
-			--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-		},
-	},
-	{ GlobalVoiceLines = "InvalidResourceInteractionVoiceLines" },
-}
-GlobalVoiceLines.SpentSuperGemsVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	SuccessiveChanceToPlay = 0.4,
-	Cooldowns =
-	{
-		--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-	},
-}
-GlobalVoiceLines.PurchasedSuperGemsVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	SuccessiveChanceToPlay = 0.75,
-	Cooldowns =
-	{
-		--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-	},
-}
-GlobalVoiceLines.InsufficientSuperGemsVoiceLines =
-{
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.35,
-		SuccessiveChanceToPlayAll = 0.75,
-		Cooldowns =
-		{
-			--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-		},
-	},
-	{ GlobalVoiceLines = "InvalidResourceInteractionVoiceLines" },
-}
-
-GlobalVoiceLines.SpentSuperLockKeysVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	SuccessiveChanceToPlay = 0.4,
-	Cooldowns =
-	{
-		--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-	},
-}
-GlobalVoiceLines.PurchasedSuperLockKeysVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	SuccessiveChanceToPlay = 0.75,
-	Cooldowns =
-	{
-		--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-	},
-}
-GlobalVoiceLines.NotEnoughSuperLockKeysVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	Cooldowns =
-	{
-		--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-	},
-}
-GlobalVoiceLines.InsufficientSuperLockKeysVoiceLines =
-{
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.35,
-		SuccessiveChanceToPlayAll = 0.75,
-		Cooldowns =
-		{
-			--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-		},
-	},
-	{ GlobalVoiceLines = "InvalidResourceInteractionVoiceLines" },
-}
-GlobalVoiceLines.SpentSuperGiftPointsVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	SuccessiveChanceToPlay = 0.33,
-	Cooldowns =
-	{
-		--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-	},
-}
-GlobalVoiceLines.PurchasedSuperGiftPointsVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	SuccessiveChanceToPlay = 0.75,
-	Cooldowns =
-	{
-		--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-	},
-}
-GlobalVoiceLines.InsufficientSuperGiftPointsVoiceLines =
-{
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.35,
-		SuccessiveChanceToPlayAll = 0.75,
-		Cooldowns =
-		{
-			--{ Name = "ZagreusResourceInteractionSpeech", Time = 6 },
-		},
-	},
-	{ GlobalVoiceLines = "InvalidResourceInteractionVoiceLines" },
-}
--- END MINOS RESOURCES
 
 
 GlobalVoiceLines.InsufficientMetaCurrencyVoiceLines =
@@ -5402,6 +6511,21 @@ GlobalVoiceLines.InvalidResourceInteractionVoiceLines =
 	},
 }
 
+GlobalVoiceLines.MelSighVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.5,
+	UsePlayerSource = true,
+	TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+	{ Cue = "/VO/Melinoe_2944", Text = "{#Emph}<Sigh>" },
+	{ Cue = "/VO/Melinoe_2945", Text = "{#Emph}<Sigh>" },
+	{ Cue = "/VO/Melinoe_0253", Text = "{#Emph}<Sigh>" },
+	{ Cue = "/VO/Melinoe_0432", Text = "{#Emph}<Sigh>" },
+	{ Cue = "/VO/Melinoe_1950", Text = "{#Emph}<Sigh>" },
+}
+
 GlobalVoiceLines.MiscEndVoiceLines_Hypnos =
 {
 	{
@@ -5444,7 +6568,24 @@ GlobalVoiceLines.MiscEndVoiceLines_Charon =
 
 		{ Cue = "/VO/Melinoe_1209", Text = "I shall, Lord Charon." },
 		{ Cue = "/VO/Melinoe_1210", Text = "And you as well, Boatman." },
-		{ Cue = "/VO/Melinoe_1211", Text = "Death to Chronos." },
+		{ Cue = "/VO/Melinoe_1211", Text = "Death to Chronos.",
+			GameStateRequirements =
+			{
+				OrRequirements =
+				{
+					{
+						{
+							PathFalse = { "GameState", "ReachedTrueEnding" },
+						},
+					},
+					{
+						{
+							PathTrue = { "GameState", "SpeechRecord", "/VO/Chronos_1058" },
+						},
+					},
+				},
+			},
+		},
 		{ Cue = "/VO/Melinoe_1212", Text = "I know." },
 		{ Cue = "/VO/Melinoe_1213", Text = "It is, indeed." },
 		{ Cue = "/VO/Melinoe_1214", Text = "Oh, if only." },
@@ -5686,7 +6827,33 @@ GlobalVoiceLines.BoonUsedVoiceLines =
 		{ Cue = "/VO/Hestia_0179", Text = "Smart girl!" },
 		{ Cue = "/VO/Hestia_0180", Text = "Fine choice!" },
 		{ Cue = "/VO/Hestia_0181", Text = "Into the fire!" },
-		{ Cue = "/VO/Hestia_0182", Text = "Let's cook." },		
+		{ Cue = "/VO/Hestia_0182", Text = "Let's cook." },
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.5,
+		GameStateRequirements =
+		{
+			{
+				PathFromArgs = true,
+				Path = { "OriginalSource", "Name" },
+				Comparison = "==",
+				Value = "AresUpgrade",
+			},
+			{
+				PathFalse = { "CurrentRun", "CurrentRoom", "Encounter", "Completed" },
+			},
+			NamedRequirements = { "IsDevotionEncounter" },
+		},
+		Source = { LineHistoryName = "NPC_Ares_01", SubtitleColor = Color.AresVoice },
+
+		{ Cue = "/VO/Ares_0114", Text = "How sensible." },
+		{ Cue = "/VO/Ares_0115", Text = "Oh truly?" },
+		{ Cue = "/VO/Ares_0116", Text = "{#Emph}Ah. {#Prev}Very good." },
+		{ Cue = "/VO/Ares_0117", Text = "Most intriguing." },
+		{ Cue = "/VO/Ares_0118", Text = "How diplomatic.", PlayFirst = true },
+		{ Cue = "/VO/Ares_0119", Text = "A clever move." },
 	},
 	{
 		BreakIfPlayed = true,
@@ -5708,7 +6875,7 @@ GlobalVoiceLines.BoonUsedVoiceLines =
 
 		{ Cue = "/VO/MelinoeField_2045", Text = "By the will of {#Emph}Chaos...?", PlayFirst = true, PlayOnce = true },
 		{ Cue = "/VO/MelinoeField_2046", Text = "By the will of Chaos!", PlayFirst = true },
-		{ Cue = "/VO/MelinoeField_2047", Text = "Hail, almighty Chaos...!" },
+		{ Cue = "/VO/MelinoeField_2047", Text = "Hail, Almighty Chaos...!" },
 		{ Cue = "/VO/MelinoeField_2048", Text = "Chaos, I heard your call!" },
 	},
 	{
@@ -5720,7 +6887,10 @@ GlobalVoiceLines.BoonUsedVoiceLines =
 			{
 				PathFromArgs = true,
 				Path = { "OriginalSource", "Name" },
-				IsNone = { "WeaponUpgrade", "StackUpgrade", "StackUpgradeBig", "StackUpgradeTriple", "SpellDrop", "TalentDrop", "MinorTalentDrop", "TrialUpgrade" },
+				IsNone = { "WeaponUpgrade", "StackUpgrade", "StackUpgradeBig", "StackUpgradeTriple", "SpellDrop", "TalentDrop", "MinorTalentDrop", "TalentBigDrop", "TrialUpgrade", "BlindBoxLoot" },
+			},
+			{
+				PathFalse = { "CurrentRun", "CurrentRoom", "TextLinesRecord", "HermesFirstPickUp" },
 			},
 		},
 		Cooldowns =
@@ -5783,29 +6953,265 @@ GlobalVoiceLines.BoonUsedVoiceLines =
 	},
 }
 
-GlobalVoiceLines.ManaDropUsedVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 0.15,
-	SuccessiveChanceToPlay = 0.75,
-	GameStateRequirements =
-	{
-		{
-			PathTrue = { "GameState", "TextLinesRecord", "SeleneFirstPickUp", },
-		},
-	},
-
-	{ Cue = "/VO/Melinoe_0178", Text = "Now..." },
-	{ Cue = "/VO/Melinoe_0179", Text = "All right." },
-	{ Cue = "/VO/Melinoe_0541", Text = "Focus." },
-}
 GlobalVoiceLines.TalentDropUsedVoiceLines =
 {
 	Cooldowns =
 	{
 		{ Name = "MelinoeRewardPickUpSpeech", Time = 60 },
 	},
+	TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+	-- talentdrop: duo chosen
+	{
+		PlayOnceFromTableThisRun = true,
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.75,
+		-- SuccessiveChanceToPlay = 0.5,
+		Source = { LineHistoryName = "NPC_Selene_01", SubtitleColor = Color.SeleneVoice },
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsNone = { "H_Bridge01" },
+			},
+		},
+
+		{ Cue = "/VO/Selene_0440", Text = "Zeus shall be notified at once.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"PolymorphZeusTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0441", Text = "Your Path has led to Zeus.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"PolymorphZeusTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0442", Text = "Queen Hera shall be notified at once.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"SummonHeraTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0443", Text = "Your Path has led to Hera.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"SummonHeraTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0444", Text = "Poseidon shall be notified at once.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"PotionPoseidonTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0445", Text = "Your Path has led to Poseidon.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"PotionPoseidonTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0446", Text = "Demeter shall be notified at once.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"TimeSlowDemeterTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0447", Text = "Your Path has led to Demeter.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"TimeSlowDemeterTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0448", Text = "Apollo shall be notified at once.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"LaserApolloTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0449", Text = "Your Path has led to Apollo.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"LaserApolloTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0450", Text = "Aphrodite shall be notified at once.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"TransformAphroditeTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0451", Text = "Your Path has led to Aphrodite.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"TransformAphroditeTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0452", Text = "Hephaestus shall be notified at once.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"LeapHephaestusTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0453", Text = "Your Path has led to Hephaestus.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"LeapHephaestusTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0454", Text = "Hestia shall be notified at once.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"MeteorHestiaTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0455", Text = "Your Path has led to Hestia.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"MeteorHestiaTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0456", Text = "Ares shall be notified at once.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"MoonBeamAresTalent",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Selene_0457", Text = "Your Path has led to Ares.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "AddedTraitNames", },
+					HasAny =
+					{
+						"MoonBeamAresTalent",
+					},
+				},
+			},
+		},
+	},
+
 	-- talentdrop: max chosen
 	{
 		BreakIfPlayed = true,
@@ -5880,8 +7286,6 @@ GlobalVoiceLines.TalentDropUsedVoiceLines =
 		{ Cue = "/VO/MelinoeField_1680", Text = "The sheer might of the Moon..." },
 	},
 
-
-
 	-- talentdrop: other cases
 	{
 		RandomRemaining = true,
@@ -5926,6 +7330,11 @@ GlobalVoiceLines.TalentDropUsedVoiceLines =
 			},
 			]]--
 			{
+				Path = { "GameState", "GamePhase", },
+				Comparison = "~=",
+				Value = 5,
+			},
+			{
 				Path = { "CurrentRun", "CurrentRoom", "Name" },
 				IsNone = { "H_Bridge01" },
 			},
@@ -5940,6 +7349,62 @@ GlobalVoiceLines.TalentDropUsedVoiceLines =
 		{ Cue = "/VO/Selene_0269", Text = "On to the next phase." },
 		{ Cue = "/VO/Selene_0270", Text = "Into the dark..." },
 	},
+}
+GlobalVoiceLines.CatGreetingVoiceLines =
+{
+	GameStateRequirements =
+	{
+		{
+			PathFalse = { "SessionMapState", "OdysseusAtTaverna" },
+		},
+	},
+	Cooldowns =
+	{
+		{ Name = "MelinoeAnyQuipSpeech" },
+	},
+	{
+		PlayOnceFromTableThisRun = true,
+		PlayOnceContext = "HubCatGreetingVO",
+		UsePlayerSource = true,
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.15,
+		SuccessiveChanceToPlay = 0.25,
+		SuccessiveChanceToPlayAll = 0.25,
+		SkipCooldownCheckIfNonePlayed = true,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "SpeechRecord", "/VO/Melinoe_4841" },
+			},
+		},
+
+		{ Cue = "/VO/Melinoe_4842", Text = "Hi, kitties.", PostLineFunctionName = "AmbientCatsSmallReaction" },
+		{ Cue = "/VO/Melinoe_4843", Text = "Hi, kitties...", PostLineFunctionName = "AmbientCatsSmallReaction" },
+	},
+	{ GlobalVoiceLines = "CritterGreetingVoiceLines" },
+}
+GlobalVoiceLines.CritterGreetingVoiceLines =
+{
+	PlayOnceFromTableThisRun = true,
+	PlayOnceContext = "HubCritterGreetingVO",
+	UsePlayerSource = true,
+	RandomRemaining = true,
+	PreLineWait = 0.15,
+	SuccessiveChanceToPlay = 0.75,
+	SuccessiveChanceToPlayAll = 0.5,
+	SkipCooldownCheckIfNonePlayed = true,
+	Cooldowns =
+	{
+		{ Name = "MelinoeAnyQuipSpeech" },
+	},
+
+	{ Cue = "/VO/Melinoe_4148", Text = "Hello, friends." },
+	{ Cue = "/VO/Melinoe_4149", Text = "Hi, gang.", PlayFirst = true },
+	{ Cue = "/VO/Melinoe_4150", Text = "Hello." },
+	{ Cue = "/VO/Melinoe_4151", Text = "Hi everyone." },
+	{ Cue = "/VO/Melinoe_4152", Text = "Hi there." },
+	{ Cue = "/VO/Melinoe_4153", Text = "Evening." },
 }
 GlobalVoiceLines.ThankingCharacterVoiceLines =
 {
@@ -5956,6 +7421,30 @@ GlobalVoiceLines.ThankingCharacterVoiceLines =
 	{ Cue = "/VO/Melinoe_0764_B", Text = "Thank you!" },
 	{ Cue = "/VO/Melinoe_0765_B", Text = "Thank you." },
 	{ Cue = "/VO/Melinoe_0767_B", Text = "Thanks..." },
+}
+GlobalVoiceLines.ThankingIcarusVoiceLines =
+{
+	UsePlayerSource = true,
+	RandomRemaining = true,
+	PreLineWait = 0.45,
+	SuccessiveChanceToPlay = 0.5,
+	GameStateRequirements =
+	{
+		{
+			PathFalse = { "CurrentRun", "Hero", "IsDead" }
+		},
+	},
+	Cooldowns =
+	{
+		{ Name = "MelinoeAnyQuipSpeech" },
+	},
+
+	{ Cue = "/VO/Melinoe_0651", Text = "Thank you." },
+	{ Cue = "/VO/Melinoe_0764", Text = "Thank you!" },
+	{ Cue = "/VO/Melinoe_0765", Text = "Thank you." },
+	{ Cue = "/VO/Melinoe_0767", Text = "Thanks..." },
+	{ Cue = "/VO/MelinoeField_2579", Text = "I'm grateful, Icarus.", PlayOnceThisRun = true },
+	{ Cue = "/VO/MelinoeField_2581", Text = "Cheers, Icarus...", PlayOnceThisRun = true },
 }
 GlobalVoiceLines.ThankingAthenaVoiceLines =
 {
@@ -6020,6 +7509,115 @@ GlobalVoiceLines.ThankingDionysusVoiceLines =
 		{ Cue = "/VO/Melinoe_0767_B", Text = "Thanks..." },
 	},
 }
+GlobalVoiceLines.ThankingHadesVoiceLines =
+{
+	{
+		UsePlayerSource = true,
+		PreLineWait = 0.45,
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		SuccessiveChanceToPlay = 0.75,
+		SuccessiveChanceToPlayAll = 0.75,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsAny = { "I_Story01" },
+			},
+		},
+		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+		{ Cue = "/VO/MelinoeField_1529", Text = "You honor me." },
+		{ Cue = "/VO/MelinoeField_1530", Text = "I shall return..." },
+		{ Cue = "/VO/MelinoeField_1532", Text = "For our family." },
+		{ Cue = "/VO/MelinoeField_4784", Text = "Thank you two.",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					FunctionName = "RequiredAlive",
+					FunctionArgs = { Units = { "NPC_Persephone_01" } },
+				},
+			},
+		},
+
+		{ Cue = "/VO/MelinoeField_4785", Text = "Thank you both.",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					FunctionName = "RequiredAlive",
+					FunctionArgs = { Units = { "NPC_Persephone_01" } },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4787", Text = "You two be well.",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					FunctionName = "RequiredAlive",
+					FunctionArgs = { Units = { "NPC_Persephone_01" } },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4786", Text = "See you again.",
+			GameStateRequirements =
+			{
+				{
+					FunctionName = "RequiredAlive",
+					FunctionArgs = { Units = { "NPC_Persephone_01" } },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_1525", Text = "Thank you, Father.",
+			GameStateRequirements =
+			{
+				{
+					FunctionName = "RequiredAlive",
+					FunctionArgs = { Units = { "NPC_Persephone_01" }, Alive = false },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_1526", Text = "It won't be for naught.",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_1527", Text = "Hold on, Father...",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_1528", Text = "Cerberus, take care of him, OK...?",
+			GameStateRequirements =
+			{
+				{
+					FunctionName = "RequiredAlive",
+					FunctionArgs = { Ids = { 506405 }, },
+				},
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_1531", Text = "You'll be avenged.",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+			},
+		},
+	},
+}
 GlobalVoiceLines.DarknessUnlockedVoiceLines =
 {
 	{
@@ -6036,7 +7634,7 @@ GlobalVoiceLines.ChaosSeedsUnlockedVoiceLines =
 {
 	{
 		UsePlayerSource = true,
-		PreLineWait = 1.1,
+		PreLineWait = 1.3,
 		Cooldowns =
 		{
 			{ Name = "MelinoeAnyQuipSpeech" },
@@ -6050,7 +7648,7 @@ GlobalVoiceLines.ThankingChaosVoiceLines =
 		RandomRemaining = true,
 		PreLineWait = 1.1,
 
-		{ Cue = "/VO/Melinoe_0765", Text = "Thank you." },
+		{ Cue = "/VO/Melinoe_0765_B", Text = "Thank you." },
 		{ Cue = "/VO/MelinoeField_1012", Text = "I'm grateful." },
 		{ Cue = "/VO/MelinoeField_0779", Text = "Almighty Chaos..." },
 	},
@@ -6081,7 +7679,7 @@ GlobalVoiceLines.FoundRareBoonVoiceLines =
 		{ Cue = "/VO/Melinoe_1960", Text = "{#Emph}Oh...!" },
 		{ Cue = "/VO/Melinoe_1961", Text = "{#Emph}Huh..." },
 		{ Cue = "/VO/Melinoe_1962", Text = "{#Emph}Ooh!" },
-		{ Cue = "/VO/Melinoe_1963", Text = "{#Emph}Hoh..." },
+		-- { Cue = "/VO/Melinoe_1963", Text = "{#Emph}Hoh..." },
 		{ Cue = "/VO/Melinoe_1964", Text = "{#Emph}Hmm!" },
 		{ Cue = "/VO/Melinoe_1965", Text = "{#Emph}Whew..." },
 	},
@@ -6115,6 +7713,11 @@ GlobalVoiceLines.DevotionChoicePresentedVoiceLines =
 	GameStateRequirements =
 	{
 		-- None
+	},
+	SkipCooldownCheckIfNonePlayed = true,
+	Cooldowns =
+	{
+		{ Name = "MelinoeAnyQuipSpeech" },
 	},
 
 	{ Cue = "/VO/Melinoe_1260", Text = "Aid from two relatives at once?", PlayFirst = true, PlayOnce = true },
@@ -6228,7 +7831,7 @@ GlobalVoiceLines.GodRejectedVoiceLines =
 			},
 		},
 
-		{ Cue = "/VO/Melinoe_1269", Text = "Sorry, Auntie Hestia." },
+		{ Cue = "/VO/Melinoe_1269", Text = "Sorry, Great-Auntie!" },
 	},
 	{
 		RandomRemaining = true,
@@ -6245,6 +7848,39 @@ GlobalVoiceLines.GodRejectedVoiceLines =
 		},
 
 		{ Cue = "/VO/Melinoe_1272", Text = "Don't hate me, Aphrodite?" },
+	},
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 1.65,
+		SuccessiveChanceToPlay = 0.33,
+		UsePlayerSource = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Encounter", "SpurnedGodName" },
+				IsAny = { "HephaestusUpgrade" },
+			},
+		},
+
+		{ Cue = "/VO/MelinoeField_3038", Text = "Hephaestus, don't be mad..." },
+	},
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 1.65,
+		SuccessiveChanceToPlay = 0.33,
+		UsePlayerSource = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Encounter", "SpurnedGodName" },
+				IsAny = { "AresUpgrade" },
+			},
+		},
+
+		{ Cue = "/VO/MelinoeField_3039", Text = "Is this what you want, Ares?", PlayFirst = true },
+		{ Cue = "/VO/MelinoeField_3040", Text = "Care for a fight, Ares?" },
 	},
 	{
 		BreakIfPlayed = true,
@@ -6340,6 +7976,11 @@ GlobalVoiceLines.ForkingPathVoiceLines =
 					IsAny = { "F_Opening01", "F_Opening02", "F_Opening03" },
 				},
 			},
+			Cooldowns =
+			{
+				{ Name = "MelinoeAnyQuipSpeech", Time = 5 }
+			},
+
 			{ Cue = "/VO/Melinoe_1390", Text = "Looks like a new path out...",
 				GameStateRequirements =
 				{
@@ -6460,7 +8101,7 @@ GlobalVoiceLines.RecordRunDepthVoiceLines =
 		},
 		{
 			Path = { "CurrentRun", "CurrentRoom", "Name" },
-			IsNone = { "F_PreBoss01", "F_Boss01", "F_PostBoss01", "G_Intro", "G_PreBoss01", "G_Boss01", "G_PostBoss01", "H_Intro", "H_PreBoss01", "H_Boss01", "H_PostBoss01", "I_Intro", "I_Story01", "I_PreBoss01", "I_Boss01", "N_Opening01", "N_PreBoss01", "N_Boss01", "N_PostBoss01", "O_Intro", "O_PreBoss01", "O_Boss01", "O_PostBoss01", "P_PreBoss01", "P_Boss01", "P_PostBoss01" },
+			IsNone = { "F_PreBoss01", "F_Boss01", "F_Boss02", "F_PostBoss01", "G_Intro", "G_PreBoss01", "G_Boss01", "G_Boss02", "G_PostBoss01", "H_Intro", "H_PreBoss01", "H_Boss01", "H_Boss02", "H_PostBoss01", "I_Intro", "I_Story01", "I_PreBoss01", "I_PreBoss02", "I_Boss01", "N_Opening01", "N_PreBoss01", "N_Boss01", "N_Boss02", "N_PostBoss01", "O_Intro", "O_PreBoss01", "O_Boss01", "O_Boss02", "O_PostBoss01", "P_PreBoss01", "P_Boss01", "P_PostBoss01" },
 		},
 	},
 
@@ -6578,12 +8219,110 @@ GlobalVoiceLines.EnteredReprieveRoomVoiceLines =
 			{
 				PathTrue = { "GameState", "TextLinesRecord", "InspectHomerReveal01" },
 			},
+			NamedRequirements = { "NoRecentInspectPointUsed" },
 		},
 
 		{ Cue = "/VO/Storyteller_0107", Text = "{#Emph}A brief respite awaits..." },
 		{ Cue = "/VO/Storyteller_0108", Text = "{#Emph}Her foes are nowhere to be found..." },
 		{ Cue = "/VO/Storyteller_0109", Text = "{#Emph}A moment of reprieve..." },
 		{ Cue = "/VO/Storyteller_0110", Text = "{#Emph}The welcome solitude..." },
+		{ Cue = "/VO/Storyteller_0392", Text = "{#Emph}Here it is safe and quiet..." },
+		{ Cue = "/VO/Storyteller_0393", Text = "{#Emph}A place of momentary comfort..." },
+		{ Cue = "/VO/Storyteller_0394", Text = "{#Emph}There is no danger here..." },
+		{ Cue = "/VO/Storyteller_0395", Text = "{#Emph}Life-giving waters, just ahead..." },
+		{ Cue = "/VO/Storyteller_0396", Text = "{#Emph}The soothing waters of a fountain..." },
+		{ Cue = "/VO/Storyteller_0397", Text = "{#Emph}A fleeting sense of peace..." },
+		{ Cue = "/VO/Storyteller_0398", Text = "{#Emph}Again, this moonlit grove in Erebus...",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "F_Reprieve01" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0399", Text = "{#Emph}Within these winding woods, a place of rest...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "F_Reprieve01" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0400", Text = "{#Emph}Fresh water so deep in the sea...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "G_Reprieve01" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0401", Text = "{#Emph}No trace of horrid lurkers of the deep...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "G_Reprieve01" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0402", Text = "{#Emph}That ancient fountain chamber, once again...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "I_Reprieve01" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0403", Text = "{#Emph}Her brother drank these waters many times...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "I_Reprieve01" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0404", Text = "{#Emph}A clear spring in the Rift of Thessaly...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "O_Reprieve01" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0405", Text = "{#Emph}This peaceful little isle in the Rift...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "O_Reprieve01" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0406", Text = "{#Emph}The hidden spring within Olympus...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "P_Reprieve01" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0407", Text = "{#Emph}These purest waters from the mountaintop...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "P_Reprieve01" },
+				},
+			},
+		},
 	},
 }
 
@@ -6666,7 +8405,7 @@ GlobalVoiceLines.MiniBossEncounterStartVoiceLines =
 		BreakIfPlayed = true,
 		RandomRemaining = true,
 		PreLineWait = 1.76,
-		SuccessiveChanceToPlayAll = 0.33,
+		SuccessiveChanceToPlayAll = 0.2,
 		GameStateRequirements =
 		{
 			{
@@ -6677,7 +8416,82 @@ GlobalVoiceLines.MiniBossEncounterStartVoiceLines =
 
 		{ Cue = "/VO/Melinoe_1003", Text = "A Root-Stalker...", PlayFirst = true },
 		{ Cue = "/VO/Melinoe_1004", Text = "This one again..." },
+		{ Cue = "/VO/MelinoeField_3717", Text = "Go back beneath the Earth." },
+		{ Cue = "/VO/MelinoeField_3720", Text = "Still rooted here I see.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EnemyKills", "Treant" },
+					Comparison = ">=",
+					Value = 2,
+				},
+			}
+		},
+		{ Cue = "/VO/MelinoeField_3719", Text = "Grown back, have you?",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EnemyKills", "Treant" },
+					Comparison = ">=",
+					Value = 3,
+				},
+			}
+		},
+		{ Cue = "/VO/MelinoeField_0249", Text = "You don't know who you're dealing with...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EnemyKills", "Treant" },
+					Comparison = ">=",
+					Value = 3,
+				},
+			}
+		},
+		{ Cue = "/VO/MelinoeField_3718", Text = "You can't stop me anymore.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "LastKilledByName" },
+					IsNone = { "Treant", "Treant2" },
+				},
+				{
+					Path = { "GameState", "EnemyKills", "Treant" },
+					Comparison = ">=",
+					Value = 6,
+				},
+			}
+		},
 	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 1.76,
+		SuccessiveChanceToPlayAll = 0.25,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+				IsAny = { "MiniBossAssassin" },
+			},
+		},
+
+		{ Cue = "/VO/MelinoeField_3698", Text = "...You're a long way from Ephyra.", PlayFirst = true },
+		{ Cue = "/VO/MelinoeField_3696", Text = "A Cutthroat came especially for me..." },
+		{ Cue = "/VO/MelinoeField_3699", Text = "The Master-Slicer returns." },
+		{ Cue = "/VO/MelinoeField_3700", Text = "Shall we cross blades again?" },
+		{ Cue = "/VO/MelinoeField_3701", Text = "Chronos must reward you handsomely.", PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_3696" }
+				},
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+			},
+		},
+	},
+
 	{
 		BreakIfPlayed = true,
 		RandomRemaining = true,
@@ -6719,9 +8533,28 @@ GlobalVoiceLines.MiniBossEncounterStartVoiceLines =
 			},
 		},
 		{ Cue = "/VO/MelinoeField_0161", Text = "You're in my way." },
-		{ Cue = "/VO/MelinoeField_0162", Text = "This isn't your domain." },
+		{ Cue = "/VO/MelinoeField_0162", Text = "This isn't your domain.", PlayFirst = true },
 		{ Cue = "/VO/MelinoeField_0163", Text = "Remember me, Serpent?" },
-		{ Cue = "/VO/MelinoeField_0164", Text = "You ought have stayed below.", PlayFirst = true },
+		{ Cue = "/VO/MelinoeField_0164", Text = "You ought have stayed below." },
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 1.2,
+		SuccessiveChanceToPlayAll = 0.25,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+				IsAny = { "MiniBossJellyfish" },
+			},
+		},
+
+		{ Cue = "/VO/MelinoeField_3017", Text = "A swarm of Hellifish...!", PlayFirst = true },
+		{ Cue = "/VO/MelinoeField_3018", Text = "More of those Hellifish..." },
+		{ Cue = "/VO/MelinoeField_3019", Text = "Hello, Hellifish..." },
+		{ Cue = "/VO/MelinoeField_3020", Text = "Get your tentacles away from me." },
+		{ Cue = "/VO/MelinoeField_3021", Text = "Go float someplace else." },
 	},
 	{
 		BreakIfPlayed = true,
@@ -6828,20 +8661,67 @@ GlobalVoiceLines.MiniBossEncounterStartVoiceLines =
 			},
 		},
 
-		{ Cue = "/VO/Melinoe_1008", Text = "Death to the servants of Chronos!" },
+		{ Cue = "/VO/Melinoe_1008", Text = "Death to the servants of Chronos!",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+			}
+		},
 		{ Cue = "/VO/MelinoeField_0249", Text = "You don't know who you're dealing with..." },
-		{ Cue = "/VO/MelinoeField_0467", Text = "A champion of Chronos...!", PlayFirst = true },
-		{ Cue = "/VO/MelinoeField_0468", Text = "No mercy for servants of the Titan...!" },
+		{ Cue = "/VO/MelinoeField_0467", Text = "A champion of Chronos...!", PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+			}
+		},
+		{ Cue = "/VO/MelinoeField_0468", Text = "No mercy for servants of the Titan...!",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+			}
+		},
 		{ Cue = "/VO/MelinoeField_0469", Text = "I'll send your soul into the depths of hell." },
 		{ Cue = "/VO/MelinoeField_0470", Text = "Are you the Satyr currently in charge?" },
 		{ Cue = "/VO/MelinoeField_0471", Text = "This city belongs to the mortals...!" },
-		{ Cue = "/VO/MelinoeField_0472", Text = "Let this be a message to your lord!" },
+		{ Cue = "/VO/MelinoeField_0472", Text = "Let this be a message to your lord!",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+			}
+		},
 	},
 	{
 		BreakIfPlayed = true,
 		RandomRemaining = true,
 		PreLineWait = 1.45,
 		SuccessiveChanceToPlayAll = 0.33,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+				IsAny = { "MiniBossCaptain" },
+			},
+		},
+		{ Cue = "/VO/MelinoeField_3142", Text = "Now there's a seasoned sailor...", PlayFirst = true },
+		{ Cue = "/VO/MelinoeField_3143", Text = "Back for another voyage, Captain?" },
+		{ Cue = "/VO/MelinoeField_3144", Text = "I'm commandeering this vessel!" },
+		{ Cue = "/VO/MelinoeField_3145", Text = "Looks like you have a stowaway, Captain!" },
+		{ Cue = "/VO/MelinoeField_3146", Text = "I'll run this blasted ship aground!" },
+		{ Cue = "/VO/MelinoeField_3147", Text = "You'll soon sail back to hell." },
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 1.0,
+		SuccessiveChanceToPlayAll = 0.25,
 		GameStateRequirements =
 		{
 			{
@@ -6854,6 +8734,87 @@ GlobalVoiceLines.MiniBossEncounterStartVoiceLines =
 		{ Cue = "/VO/MelinoeField_2618", Text = "You Dracons ought to choose wiser alliances." },
 		{ Cue = "/VO/MelinoeField_2619", Text = "Soon you shall be afraid of me, Dracon." },
 		{ Cue = "/VO/MelinoeField_2620", Text = "Not had enough of me, Dracon?" },
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 1.0,
+		SuccessiveChanceToPlayAll = 0.25,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+				IsAny = { "MiniBossBrute" },
+			},
+		},
+		{ Cue = "/VO/MelinoeField_2957", Text = "That's... gods...!", PlayFirst = true, PlayOnce = true, PlayOnceContext = "TyphonBruteIntroVO" },
+		{ Cue = "/VO/MelinoeField_3006", Text = "One of Typhon's broodlings...",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_3007", Text = "You've got your father's looks...",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_3008", Text = "You're one of Typhon's bigger children aren't you.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_3009", Text = "That broodling again...",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_3010", Text = "It's that broodling... or a twin?",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" },
+				},
+			},
+		},
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 1.0,
+		SuccessiveChanceToPlayAll = 0.25,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+				IsAny = { "MiniBossStalker" },
+			},
+		},
+		{ Cue = "/VO/MelinoeField_3132", Text = "You two appear well-fed...", PlayFirst = true, },
+		{ Cue = "/VO/MelinoeField_3133", Text = "These two again." },
+		{ Cue = "/VO/MelinoeField_3134", Text = "These two again? Or two just like the rest.",
+			SuccessiveChanceToPlay = 0.33,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_3133" }
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_3135", Text = "You two get along quite well for twins." },
+		{ Cue = "/VO/MelinoeField_3136", Text = "I don't like either one of you." },
+		{ Cue = "/VO/MelinoeField_0249", Text = "You don't know who you're dealing with..." },
 	},
 	{ GlobalVoiceLines = "MiniBossEncounterMiscStartLines" },
 	{ GlobalVoiceLines = "CombatBeginsVoiceLines" },
@@ -6893,7 +8854,7 @@ GlobalVoiceLines.MiniBossEncounterEndVoiceLines =
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 1.25,
-			SuccessiveChanceToPlayAll = 0.66,
+			SuccessiveChanceToPlayAll = 0.33,
 			ThreadName = "RoomThread",
 			GameStateRequirements =
 			{
@@ -6911,9 +8872,10 @@ GlobalVoiceLines.MiniBossEncounterEndVoiceLines =
 			{ Cue = "/VO/Melinoe_1002", Text = "{#Emph}Whew." },
 		},
 		{
+			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 1.25,
-			SuccessiveChanceToPlayAll = 0.66,
+			SuccessiveChanceToPlayAll = 0.33,
 			ThreadName = "RoomThread",
 			GameStateRequirements =
 			{
@@ -6934,7 +8896,27 @@ GlobalVoiceLines.MiniBossEncounterEndVoiceLines =
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 1.25,
-			SuccessiveChanceToPlayAll = 0.66,
+			SuccessiveChanceToPlayAll = 0.33,
+			ThreadName = "RoomThread",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+					IsAny = { "MiniBossAssassin" },
+				},
+			},
+
+			{ Cue = "/VO/MelinoeField_3702", Text = "...And here your soul shall stay.", PlayFirst = true },
+			{ Cue = "/VO/MelinoeField_3703", Text = "I'll not fall to some hired thug." },
+			{ Cue = "/VO/MelinoeField_3704", Text = "Whatever you were paid was not enough." },
+			{ Cue = "/VO/MelinoeField_3705", Text = "Your little plan to slay me backfired." },
+			{ Cue = "/VO/MelinoeField_3706", Text = "You should have stayed up top." },
+		},
+		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			PreLineWait = 1.25,
+			SuccessiveChanceToPlayAll = 0.33,
 			ThreadName = "RoomThread",
 			GameStateRequirements =
 			{
@@ -6953,7 +8935,27 @@ GlobalVoiceLines.MiniBossEncounterEndVoiceLines =
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 1.25,
-			SuccessiveChanceToPlayAll = 0.66,
+			SuccessiveChanceToPlayAll = 0.5,
+			ThreadName = "RoomThread",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+					IsAny = { "MiniBossJellyfish" },
+				},
+			},
+
+			{ Cue = "/VO/MelinoeField_3022", Text = "...I can sting too.", PreLineWait = 1.5 },
+			{ Cue = "/VO/MelinoeField_3023", Text = "These always grow back..." },
+			{ Cue = "/VO/MelinoeField_3024", Text = "Too much squirming." },
+			{ Cue = "/VO/MelinoeField_3025", Text = "Your place is out at sea.", PlayFirst = true },
+			{ Cue = "/VO/MelinoeField_3026", Text = "...Squish.", PreLineWait = 1.5 },
+		},
+		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			PreLineWait = 1.25,
+			SuccessiveChanceToPlayAll = 0.5,
 			ThreadName = "RoomThread",
 			GameStateRequirements =
 			{
@@ -6973,7 +8975,7 @@ GlobalVoiceLines.MiniBossEncounterEndVoiceLines =
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 1.25,
-			SuccessiveChanceToPlayAll = 0.66,
+			SuccessiveChanceToPlayAll = 0.5,
 			ThreadName = "RoomThread",
 			GameStateRequirements =
 			{
@@ -6994,7 +8996,7 @@ GlobalVoiceLines.MiniBossEncounterEndVoiceLines =
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 1.25,
-			SuccessiveChanceToPlayAll = 0.66,
+			SuccessiveChanceToPlayAll = 0.33,
 			ThreadName = "RoomThread",
 			GameStateRequirements =
 			{
@@ -7012,7 +9014,7 @@ GlobalVoiceLines.MiniBossEncounterEndVoiceLines =
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 1.25,
-			SuccessiveChanceToPlayAll = 0.66,
+			SuccessiveChanceToPlayAll = 0.33,
 			ThreadName = "RoomThread",
 			GameStateRequirements =
 			{
@@ -7027,12 +9029,87 @@ GlobalVoiceLines.MiniBossEncounterEndVoiceLines =
 			{ Cue = "/VO/MelinoeField_1629", Text = "Not losing to a {#Emph}bag...", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_1630", Text = "Who needs Gold anyway..." },
 		},
+		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			PreLineWait = 1.25,
+			SuccessiveChanceToPlayAll = 0.66,
+			ThreadName = "RoomThread",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+					IsAny = { "MiniBossSatyrCrossbow" },
+				},
+			},
+
+			{ Cue = "/VO/MelinoeField_0473", Text = "Your soul be damned, traitor.", PlayFirst = true, },
+			{ Cue = "/VO/MelinoeField_0474", Text = "You chose the wrong side." },
+			{ Cue = "/VO/MelinoeField_0475", Text = "Another night, another Satyr slaughtered." },
+			{ Cue = "/VO/MelinoeField_0476", Text = "I look forward to meeting your replacement." },
+			{ Cue = "/VO/MelinoeField_0477", Text = "For Ephyra." },
+			{ Cue = "/VO/MelinoeField_0478", Text = "For Olympus." },
+
+			{ Cue = "/VO/Melinoe_1009", Text = "One less traitor." },
+			{ Cue = "/VO/Melinoe_0999", Text = "Got you." },
+		},
+		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			PreLineWait = 1.25,
+			SuccessiveChanceToPlayAll = 0.66,
+			ThreadName = "RoomThread",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+					IsAny = { "MiniBossBoar" },
+				},
+			},
+
+			{ Cue = "/VO/MelinoeField_3713", Text = "You ought to be at rest." },
+			{ Cue = "/VO/MelinoeField_3714", Text = "Peace, Spirit." },
+			{ Cue = "/VO/MelinoeField_3715", Text = "Now calm yourself, Spirit." },
+			{ Cue = "/VO/MelinoeField_3716", Text = "Let go your rage, Spirit.", PlayFirst = true },
+			{ Cue = "/VO/MelinoeField_3712", Text = "If Heracles could handle it...",
+				GameStateRequirements =
+				{
+					{
+						-- PathTrue = { "GameState", "TextLinesRecord", "HeraclesAboutBoar01" },
+					},
+					{
+						PathTrue = { "GameState", "EncountersCompletedCache", "HeraclesCombatN" },
+					},
+				},
+			},
+		},
+		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			PreLineWait = 1.25,
+			SuccessiveChanceToPlayAll = 0.33,
+			ThreadName = "RoomThread",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+					IsAny = { "MiniBossCaptain" },
+				},
+			},
+			{ Cue = "/VO/MelinoeField_3148", Text = "May this be your final voyage for a while." },
+			{ Cue = "/VO/MelinoeField_3149", Text = "I'll take the helm from here." },
+			{ Cue = "/VO/MelinoeField_3150", Text = "The sea claims another." },
+			{ Cue = "/VO/MelinoeField_3151", Text = "Are all sailors as surly as that one?" },
+			{ Cue = "/VO/MelinoeField_3152", Text = "Are all sailors as salty as that one?" },
+			{ Cue = "/VO/MelinoeField_3153", Text = "Enjoy Poseidon's depths.", PlayFirst = true },
+			{ Cue = "/VO/MelinoeField_3154", Text = "You're sunk, Yargonaut." },
+		},
 		-- occurs via GenericBossKillPresentation
 		{
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 1.55,
-			SuccessiveChanceToPlayAll = 0.66,
+			SuccessiveChanceToPlayAll = 0.33,
 			ThreadName = "RoomThread",
 			GameStateRequirements =
 			{
@@ -7043,13 +9120,41 @@ GlobalVoiceLines.MiniBossEncounterEndVoiceLines =
 			},
 			{ Cue = "/VO/MelinoeField_1866", Text = "You'll soon be back for more, won't you?", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_1868", Text = "Don't get in my way." },
-			{ Cue = "/VO/MelinoeField_1870", Text = "How many ships have fallen in that maw?" },
 			{ Cue = "/VO/MelinoeField_1871", Text = "Drove it away for now..." },
+			{ Cue = "/VO/MelinoeField_1870", Text = "How many ships have fallen in that maw?",
+				GameStateRequirements =
+				{
+					OrRequirements =
+					{
+						{
+							{
+								PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_1839" },
+							},
+							{
+								SumPrevRuns = 8,
+								Path = { "SpeechRecord", "/VO/MelinoeField_1839" },
+								CountPathTrue = true,
+								Comparison = "<=",
+								Value = 0,
+							},
+						},
+						{
+							{
+								PathFalse = { "GameState", "SpeechRecord", "/VO/MelinoeField_1839" },
+							},
+						},
+					},
+				},
+			},
 			{ Cue = "/VO/MelinoeField_1869", Text = "Tell Scylla I said {#Emph}hi.",
 				GameStateRequirements = 
 				{
 					{
-						PathTrue = { "PrevRun", "RoomsEntered", "G_Boss01" },
+						PathTrue = { "GameState", "TextLinesRecord", "ScyllaAboutAltFight01" },
+					},
+					{
+						Path = { "PrevRun", "RoomsEntered" },
+						HasAny = { "G_Boss01", "G_Boss02" },
 					},
 				},
 			},
@@ -7067,7 +9172,7 @@ GlobalVoiceLines.MiniBossEncounterEndVoiceLines =
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 1.25,
-			SuccessiveChanceToPlayAll = 0.66,
+			SuccessiveChanceToPlayAll = 0.33,
 			ThreadName = "RoomThread",
 			GameStateRequirements =
 			{
@@ -7088,7 +9193,7 @@ GlobalVoiceLines.MiniBossEncounterEndVoiceLines =
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 1.25,
-			SuccessiveChanceToPlayAll = 0.66,
+			SuccessiveChanceToPlayAll = 0.33,
 			ThreadName = "RoomThread",
 			GameStateRequirements =
 			{
@@ -7104,12 +9209,135 @@ GlobalVoiceLines.MiniBossEncounterEndVoiceLines =
 			{ Cue = "/VO/MelinoeField_2624", Text = "A magnificent beast, but a threat..." },
 			{ Cue = "/VO/MelinoeField_2625", Text = "Olympus is no place for such monstrosities...", PlayFirst = true },
 		},
+		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			PreLineWait = 1.25,
+			SuccessiveChanceToPlayAll = 0.33,
+			ThreadName = "RoomThread",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+					IsAny = { "MiniBossBrute" },
+				},
+			},
 
+			{ Cue = "/VO/MelinoeField_3301", Text = "All these monstrosities... oh, no...", PlayFirst = true, PlayOnce = true, PreLineWait = 1.6 },
+			{ Cue = "/VO/MelinoeField_3011", Text = "Foul creature..." },
+			{ Cue = "/VO/MelinoeField_3013", Text = "{#Emph}Eugh{#Prev}, that is a {#Emph}stench..." },
+			{ Cue = "/VO/MelinoeField_3014", Text = "Go cry to your father." },
+			{ Cue = "/VO/MelinoeField_3015", Text = "One less of Typhon's brood." },
+			{ Cue = "/VO/MelinoeField_3016", Text = "What a brute..." },
+			{ Cue = "/VO/MelinoeField_3012", Text = "Children can be such a nuisance, so they say.",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "EnemyKills", "TyphonHead" },
+						Comparison = ">=",
+						Value = 2,
+					},
+				},
+			},
+		},
+		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			PreLineWait = 1.25,
+			SuccessiveChanceToPlayAll = 0.33,
+			ThreadName = "RoomThread",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+					IsAny = { "MiniBossStalker" },
+				},
+			},
+
+			{ Cue = "/VO/MelinoeField_3137", Text = "Not so easy to hunt down, was I?" },
+			{ Cue = "/VO/MelinoeField_3138", Text = "Stay in the ground next time.", PlayFirst = true },
+			{ Cue = "/VO/MelinoeField_3141", Text = "Now this fortress is your grave." },
+			{ Cue = "/VO/MelinoeField_3139", Text = "Your father shall be hearing about this.",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "EnemyKills", "TyphonHead" }
+					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" }
+					},
+				},
+			},
+			{ Cue = "/VO/MelinoeField_3140", Text = "I'll deal with your father next.",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "EnemyKills", "TyphonHead" }
+					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" }
+					},
+				},
+			},
+		},
+		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			PreLineWait = 1.25,
+			SuccessiveChanceToPlayAll = 0.33,
+			ThreadName = "RoomThread",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+					IsAny = { "BossTyphonTail01" },
+				},
+			},
+
+			{ Cue = "/VO/MelinoeField_3300", Text = "That monster, that was... {#Emph}Typhon...", PlayFirst = true, PlayOnce = true },
+			{ Cue = "/VO/MelinoeField_3241", Text = "Retreated..." },
+			{ Cue = "/VO/MelinoeField_3242", Text = "See you again shortly." },
+			{ Cue = "/VO/MelinoeField_3243", Text = "It fell back..." },
+			{ Cue = "/VO/MelinoeField_3244", Text = "Drove it back..." },
+			{ Cue = "/VO/MelinoeField_3245", Text = "Just his tail..." },
+			{ Cue = "/VO/MelinoeField_3246", Text = "Just his tail... one of them...",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_3245" },
+					},
+				}
+			},
+		},
+		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			PreLineWait = 1.25,
+			SuccessiveChanceToPlayAll = 0.33,
+			ThreadName = "RoomThread",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+					IsAny = { "BossTyphonEye01" },
+				},
+			},
+
+			{ Cue = "/VO/MelinoeField_3691", Text = "It's improper to stare." },
+			{ Cue = "/VO/MelinoeField_3692", Text = "...Properly disgusting." },
+			{ Cue = "/VO/MelinoeField_3693", Text = "Should have stayed shut." },
+			{ Cue = "/VO/MelinoeField_3694", Text = "How many more of those does Typhon have..." },
+			{ Cue = "/VO/MelinoeField_3695", Text = "That was vile..." },
+			{ Cue = "/VO/MelinoeField_2955", Text = "These are... eggs...", PlayOnce = true },
+			{ Cue = "/VO/MelinoeField_2952", Text = "The walls are... breathing...", PlayOnce = true },
+			{ Cue = "/VO/MelinoeField_2954", Text = "This is all... one being...", PlayOnce = true, PlayFirst = true },
+		},
 		-- misc. miniboss victories
 		{
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 1.25,
+			SuccessiveChanceToPlay = 0.85,
 			SuccessiveChanceToPlayAll = 0.66,
 			ThreadName = "RoomThread",
 
@@ -7120,7 +9348,7 @@ GlobalVoiceLines.MiniBossEncounterEndVoiceLines =
 				{
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-						IsNone = { "MiniBossCrawler" },
+						IsNone = { "MiniBossCrawler", "MiniBossJellyfish", "MiniBossDragon", "MiniBossStalker" },
 					},
 				},
 			},
@@ -7129,69 +9357,48 @@ GlobalVoiceLines.MiniBossEncounterEndVoiceLines =
 			{ Cue = "/VO/MelinoeField_0695", Text = "Until we meet again." },
 			{ Cue = "/VO/MelinoeField_0696", Text = "Remember that." },
 			{ Cue = "/VO/MelinoeField_0697", Text = "We'll have to do this again." },
-
-			-- @ for review
-			{ Cue = "/VO/Melinoe_0861", Text = "You with me, Homer?",
-				GameStateRequirements =
+		},
+		-- homer shout-outs
+		{
+			PlayOnceFromTableThisRun = true,
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			PreLineWait = 1.25,
+			SuccessiveChanceToPlay = 0.75,
+			ThreadName = "RoomThread",
+			GameStateRequirements =
+			{
 				{
-					{
-						PathTrue = { "GameState", "TextLinesRecord", "InspectHomerReveal01", },
-					},
-					{
-						Path = { "GameState", "CompletedRunsCache" },
-						Comparison = ">=",
-						Value = 10,
-					},
-					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
-					},
+					PathTrue = { "GameState", "TextLinesRecord", "InspectHomerReveal01", },
 				},
-			},
-			{ Cue = "/VO/Melinoe_0862", Text = "Ready, Homer?",
-				GameStateRequirements =
 				{
-					{
-						PathTrue = { "GameState", "TextLinesRecord", "InspectHomerReveal01", },
-					},
-					{
-						Path = { "GameState", "CompletedRunsCache" },
-						Comparison = ">=",
-						Value = 10,
-					},
-					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
-					},
+					Path = { "GameState", "CompletedRunsCache" },
+					Comparison = ">=",
+					Value = 10,
 				},
-			},
-			{ Cue = "/VO/Melinoe_0863", Text = "Let's go, Homer.",
-				GameStateRequirements =
 				{
-					{
-						PathTrue = { "GameState", "TextLinesRecord", "InspectHomerReveal01", },
-					},
-					{
-						Path = { "GameState", "CompletedRunsCache" },
-						Comparison = ">=",
-						Value = 6,
-					},
-					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
-					},
+					PathFalse = { "CurrentRun", "ActiveBounty" },
 				},
+				{
+					FunctionName = "RequiredHealthFraction",
+					FunctionArgs = { Comparison = ">=", Value = 0.2, },
+				},
+				NamedRequirements = { "NoRecentInspectPointUsed" },
 			},
-			{ Cue = "/VO/Melinoe_0864", Text = "See that, Homer?", PlayFirst = true,
+			{ Cue = "/VO/Melinoe_0861", Text = "You with me, Homer?" },
+			{ Cue = "/VO/Melinoe_0862", Text = "Ready, Homer?" },
+			{ Cue = "/VO/Melinoe_0863", Text = "Let's go, Homer." },
+			{ Cue = "/VO/Melinoe_0864", Text = "See that, Homer?" },
+			{ Cue = "/VO/Melinoe_1130", Text = "You there, Homer?" },
+			{ Cue = "/VO/Melinoe_1131", Text = "What say you, Homer?" },
+			{ Cue = "/VO/Melinoe_1133", Text = "Come along, Homer." },
+			{ Cue = "/VO/Melinoe_1134", Text = "Say something, Homer?" },
+			{ Cue = "/VO/Melinoe_1531", Text = "Keep up, Homer.",
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "InspectHomerReveal01", },
-					},
-					{
-						Path = { "GameState", "CompletedRunsCache" },
-						Comparison = ">=",
-						Value = 6,
-					},
-					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = ">=", Value = 0.75, },
 					},
 				},
 			},
@@ -7199,15 +9406,10 @@ GlobalVoiceLines.MiniBossEncounterEndVoiceLines =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "InspectHomerReveal01", },
-					},
-					{
-						Path = { "GameState", "CompletedRunsCache" },
+						Path = { "CurrentRun", "CurrentRoom", "Kills" },
+						UseLength = true,
 						Comparison = ">=",
-						Value = 6,
-					},
-					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
+						Value = 2,
 					},
 				},
 			},
@@ -7309,7 +9511,17 @@ GlobalVoiceLines.CharybdisEncounterStartVoiceLines =
 
 		{ Cue = "/VO/MelinoeField_1858", Text = "That maw... there's no mistaking it.", PlayFirst = true },
 		{ Cue = "/VO/MelinoeField_1860", Text = "You're going to let me pass!" },
-		{ Cue = "/VO/MelinoeField_1863", Text = "Feast on this ship, not me!" },
+		{ Cue = "/VO/MelinoeField_1863", Text = "Feast on this {#Emph}ship{#Prev}, not me!" },
+		{ Cue = "/VO/MelinoeField_3721", Text = "Got some new tentacles I see!",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EncountersCompletedCache", "MiniBossCharybdis" },
+					Comparison = ">=",
+					Value = 3,
+				},
+			},
+		},
 		{ Cue = "/VO/MelinoeField_1859", Text = "Charybdis, Devourer of Ships...!", PlayFirst = true,
 			GameStateRequirements =
 			{
@@ -7338,7 +9550,9 @@ GlobalVoiceLines.CharybdisEncounterStartVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					PathTrue = { "GameState", "EncountersCompletedCache", "MiniBossCharybdis" },
+					Path = { "GameState", "EncountersCompletedCache", "MiniBossCharybdis" },
+					Comparison = ">=",
+					Value = 2,
 				},
 			},
 		},
@@ -7357,6 +9571,7 @@ GlobalVoiceLines.TalosEncounterStartVoiceLines =
 	{
 		PreLineWait = 1.76,
 		PlayOnce = true,
+		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
 
 		{ Cue = "/VO/MelinoeField_2466", Text = "Wow, you must be Talos. Please tell me you're smarter than the other Automatons around here?" },
 		{ Cue = "/VO/MelinoeField_2467", Text = "I'll have to take that as an absolutely not!", PreLineWait = 3.1, BreakIfPlayed = true },
@@ -7366,6 +9581,7 @@ GlobalVoiceLines.TalosEncounterStartVoiceLines =
 		BreakIfPlayed = true,
 		RandomRemaining = true,
 		SuccessiveChanceToPlayAll = 0.75,
+		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
 
 		{ Cue = "/VO/MelinoeField_2468", Text = "Remember me, Talos? Or just attack me right away...", PlayFirst = true, },
 		{ Cue = "/VO/MelinoeField_2470", Text = "I'd like a word with Lord Hephaestus about you." },
@@ -7484,1213 +9700,6 @@ GlobalVoiceLines.PinnedItemVoiceLines =
 	{ Cue = "/VO/Melinoe_0790", Text = "Noted." },
 }
 
--- Cauldron -- Crossroads Cauldron
-GlobalVoiceLines.AboutToCastSpell =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 0.15,
-	SuccessiveChanceToPlay = 0.75,
-
-	{ Cue = "/VO/Melinoe_0178", Text = "Now..." },
-	{ Cue = "/VO/Melinoe_0179", Text = "All right." },
-}
-
--- Cauldron Alchemy
-GlobalVoiceLines.ResourceTransmutationVoiceLines =
-{
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.65,
-		UsePlayerSource = true,
-		Queue = "Always",
-		Cooldowns =
-		{
-			-- { "MelinoeAnyQuipSpeech" },
-		},
-	
-		{ Cue = "/VO/Melinoe_1352", Text = "Transmutation complete.", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_1353", Text = "Transmutation succeeded." },
-		{ Cue = "/VO/Melinoe_1354", Text = "My will is manifest." },
-		{ Cue = "/VO/Melinoe_1355", Text = "Re-shaped by Chaos..." },
-	}
-}
-
--- Aspects Screen
-GlobalVoiceLines.OpenedWeaponUpgradeMenuVoiceLines =
-{
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.45,
-		UsePlayerSource = true,
-		SuccessiveChanceToPlay = 0.75,
-		Cooldowns =
-		{
-			{ Name = "MelinoeAnyQuipSpeech" },
-		},
-
-		{ Cue = "/VO/Melinoe_2541", Text = "The Aspects of the Nocturnal Arms..." },
-		{ Cue = "/VO/Melinoe_0728", Text = "Descura.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponStaffSwing" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3428", Text = "Descura.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponStaffSwing" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3429", Text = "Descura.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponStaffSwing" },
-				},
-				{
-					Path = { "GameState", "WeaponsUnlocked" },
-					HasAll =
-					{ 
-						"StaffClearCastAspect",
-						"StaffSelfHitAspect",
-					},
-				},
-			},
-		},		
-		{ Cue = "/VO/Melinoe_0730", Text = "Lim and Oros.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponDagger" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3430", Text = "Lim and Oros.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponDagger" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3431", Text = "Lim. Oros.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponDagger" },
-				},
-				{
-					Path = { "GameState", "WeaponsUnlocked" },
-					HasAll =
-					{ 
-						"DaggerBlockAspect",
-						"DaggerHomingThrowAspect",
-					},
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_0736", Text = "Ygnium.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponTorch" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3432", Text = "Ygnium.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponTorch" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3433", Text = "Ygnium.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponTorch" },
-				},
-				{
-					Path = { "GameState", "WeaponsUnlocked" },
-					HasAll =
-					{ 
-						"TorchDetonateAspect",
-						"TorchSprintRecallAspect",
-					},
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3032", Text = "Zorephet.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponAxe" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3434", Text = "Zorephet.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponAxe" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3435", Text = "Zorephet.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponAxe" },
-				},
-				{
-					Path = { "GameState", "WeaponsUnlocked" },
-					HasAll =
-					{ 
-						"AxeArmCastAspect",
-						"AxePerfectCriticalAspect",
-					},
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_0734", Text = "Revaal.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponLob" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3436", Text = "Revaal.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponLob" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3437", Text = "Revaal.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponLob" },
-				},
-				{
-					Path = { "GameState", "WeaponsUnlocked" },
-					HasAll =
-					{ 
-						"LobCloseAttackAspect",
-						"LobImpulseAspect",
-					},
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3617", Text = "Xinth.",
-			PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponSuit" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3618", Text = "Xinth.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponSuit" },
-				},
-				{
-					Path = { "GameState", "WeaponsUnlocked" },
-					HasAll =
-					{ 
-						-- "LobCloseAttackAspect",
-						-- "LobImpulseAspect",
-					},
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3619", Text = "Xinth.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponSuit" },
-				},
-				{
-					Path = { "GameState", "WeaponsUnlocked" },
-					HasAll =
-					{ 
-						-- "LobCloseAttackAspect",
-						-- "LobImpulseAspect",
-					},
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3416", Text = "I have returned." },
-		{ Cue = "/VO/Melinoe_3417", Text = "Such intricate work..." },
-		{ Cue = "/VO/Melinoe_3418", Text = "Still not even a scratch..." },
-		-- single-weapon lines
-		{ Cue = "/VO/Melinoe_3415", Text = "Show me what you can do.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsNone = { "WeaponDagger", "WeaponTorch" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3420", Text = "I'm honored as your bearer.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsNone = { "WeaponDagger", "WeaponTorch" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3422", Text = "Show me your past.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsNone = { "WeaponDagger", "WeaponTorch" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3423", Text = "Show me our future.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsNone = { "WeaponDagger", "WeaponTorch" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3425", Text = "In service to the realm.",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsNone = { "WeaponDagger", "WeaponTorch" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3426", Text = "Can hear me, can't you...?",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsNone = { "WeaponDagger", "WeaponTorch" },
-				},
-			},
-		},
-		-- dual-weapon lines
-		{ Cue = "/VO/Melinoe_3421", Text = "Who else shall wield you?",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponDagger", "WeaponTorch" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3419", Text = "What secrets do you keep...?",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponDagger", "WeaponTorch" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3424", Text = "Forged by the Fates...",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponDagger", "WeaponTorch" },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3427", Text = "What form suits you tonight?",
-			GameStateRequirements =
-			{
-				{
-					PathFromArgs = true,
-					Path = { "WeaponName" },
-					IsAny = { "WeaponDagger", "WeaponTorch" },
-				},
-			},
-		},
-	},
-}
-
-GlobalVoiceLines.AspectMaxedVoiceLines =
-{
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	UsePlayerSource = true,
-	TriggerCooldowns = { "MelinoeMiscWeaponEquipSpeech" },
-
-	{ Cue = "/VO/Melinoe_2619", Text = "My bond with this Aspect is complete." },
-	{ Cue = "/VO/Melinoe_2620", Text = "Our bond is now complete." },
-	{ Cue = "/VO/Melinoe_2621", Text = "We are inseparable now." },
-}
-
--- Market / Broker / Wretched Broker
-GlobalVoiceLines.OpenedMarketVoiceLines =
-{
-	{
-		SkipAnim = true,
-		PlayOnce = true,
-		PlayOnceContext = "BrokerSellShop",
-		BreakIfPlayed = true,
-		PreLineWait = 0.6,
-		GameStateRequirements =
-		{
-			{
-				Path = { "GameState", "WorldUpgradesAdded" },
-				HasAny = { "WorldUpgradeSellShop" },
-			},
-			{
-				Path = { "GameState", "WorldUpgradesAdded" },
-				HasNone = { "WorldUpgradeExchangeShop" },
-			},
-		},
-		{ Cue = "/VO/Melinoe_3763", Text = "I can now trade some of my findings for more Bones." },
-	},
-	{
-		SkipAnim = true,
-		PlayOnce = true,
-		PlayOnceContext = "BrokerExchangeShop",
-		BreakIfPlayed = true,
-		PreLineWait = 0.6,
-		GameStateRequirements =
-		{
-			{
-				Path = { "GameState", "WorldUpgradesAdded" },
-				HasAny = { "WorldUpgradeExchangeShop" },
-			},
-		},
-		{ Cue = "/VO/Melinoe_3764", Text = "Whatever I no longer need, I can recycle now." },
-	},
-	{
-		SkipAnim = true,
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		SuccessiveChanceToPlay = 0.25,
-		PreLineWait = 0.6,
-		Cooldowns =
-		{
-			{ Name = "MelMarketIntroSpeech", Time = 30 },
-		},
-
-		{ Cue = "/VO/Melinoe_3579", Text = "Moon Dust now in stock...",
-			PlayFirst = true,
-			PlayOnce = true,
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeCardUpgradeSystem" }
-				},
-				{
-					PathFalse = { "CurrentRun", "WorldUpgradesAdded", "WorldUpgradeCardUpgradeSystem" }
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_0552", Text = "Hail, Broker.", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_2345", Text = "Good evening, Broker." },
-		{ Cue = "/VO/Melinoe_2346", Text = "Broker." },
-		{ Cue = "/VO/Melinoe_2347", Text = "Just checking up on you." },
-		{ Cue = "/VO/Melinoe_2348", Text = "What do I need..." },
-	},
-}
-GlobalVoiceLines.TradedMarketItemVoiceLines =
-{
-	Cooldowns =
-	{
-		{ Name = "MelinoeAnyQuipSpeech" },
-		{ Name = "MelMarketInteraction", Time = 8 },
-	},
-	-- recycling
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.45,
-		UsePlayerSource = true,
-		SkipAnim = true,
-		SuccessiveChanceToPlay = 0.75,
-		GameStateRequirements =
-		{
-			{
-				Path = { "ActiveScreens", "MarketScreen", "ActiveCategoryIndex" },
-				Comparison = "==",
-				Value = 4,
-			}
-		},
-
-		{ Cue = "/VO/Melinoe_3765", Text = "Returning to the Earth.", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_3766", Text = "This is for return." },
-		{ Cue = "/VO/Melinoe_3767", Text = "Back to Gaia." },
-		{ Cue = "/VO/Melinoe_3768", Text = "Recycle please, Broker." },
-		{ Cue = "/VO/Melinoe_3769", Text = "Some more recycling." },
-		{ Cue = "/VO/Melinoe_3770", Text = "For recycling." },
-	},
-	-- selling
-	{
-		GameStateRequirements =
-		{
-			{
-				Path = { "ActiveScreens", "MarketScreen", "ActiveCategoryIndex" },
-				Comparison = "==",
-				Value = 3,
-			}
-		},
-
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.45,
-		UsePlayerSource = true,
-		SkipAnim = true,
-		SuccessiveChanceToPlay = 0.75,
-
-		{ Cue = "/VO/Melinoe_0558", Text = "Here you are." },
-		{ Cue = "/VO/Melinoe_0559", Text = "Fair trade." },
-	},
-	-- buying
-	{
-		GameStateRequirements =
-		{
-			{
-				Path = { "ActiveScreens", "MarketScreen", "ActiveCategoryIndex" },
-				Comparison = "!=",
-				Value = 3,
-			},
-			{
-				Path = { "ActiveScreens", "MarketScreen", "ActiveCategoryIndex" },
-				Comparison = "!=",
-				Value = 4,
-			}
-		},
-
-		RandomRemaining = true,
-		PreLineWait = 0.45,
-		UsePlayerSource = true,
-		SkipAnim = true,
-		SuccessiveChanceToPlay = 0.75,
-
-		{ Cue = "/VO/Melinoe_0554", Text = "I'll take it." },
-		{ Cue = "/VO/Melinoe_0555", Text = "One, please." },
-		{ Cue = "/VO/Melinoe_0556", Text = "This one." },
-		{ Cue = "/VO/Melinoe_0558", Text = "Here you are." },
-		{ Cue = "/VO/Melinoe_0559", Text = "Fair trade." },
-		{ Cue = "/VO/Melinoe_2349", Text = "Here are the Bones." },
-		{ Cue = "/VO/Melinoe_2350", Text = "Trade you." },
-		{ Cue = "/VO/Melinoe_2351", Text = "I've need of that." },
-		{ Cue = "/VO/Melinoe_2352", Text = "Should be of use." },
-	},
-}
-GlobalVoiceLines.ClosedMarketVoiceLines =
-{
-	{
-		SkipAnim = true,
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		SuccessiveChanceToPlayAll = 0.1,
-		PlayOnceFromTableThisRun = true,
-		PreLineWait = 0.45,
-		Cooldowns =
-		{
-			{ Name = "MelinoeAnyQuipSpeech" },
-		},
-
-		{ Cue = "/VO/Melinoe_0560", Text = "Farewell." },
-		{ Cue = "/VO/Melinoe_2353", Text = "Be well." },
-		{ Cue = "/VO/Melinoe_2354", Text = "Take care, then." },
-	},
-}
-
--- RunHistory Screen
-GlobalVoiceLines.OpenedRunHistoryScreenVoiceLines =
-{
-	{
-		SkipAnim = true,
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		SuccessiveChanceToPlay = 0.25,
-		SuccessiveChanceToPlayAll = 0.1,
-		PreLineWait = 0.5,
-		Cooldowns =
-		{
-			{ Name = "MelinoeAnyQuipSpeech" },
-			{ Name = "MelRunHistoryIntroSpeech", Time = 30 },
-		},
-
-		{ Cue = "/VO/Melinoe_2981", Text = "What does my history reveal?", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_2982", Text = "Let's see how fares my task." },
-		{ Cue = "/VO/Melinoe_3854", Text = "How've I been doing?" },
-		{ Cue = "/VO/Melinoe_3855", Text = "My recent history detailed..." },
-	},
-}
-GlobalVoiceLines.PositiveRunHistoryScreenVoiceLines =
-{
-	{
-		SkipAnim = true,
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		SuccessiveChanceToPlay = 0.2,
-		SuccessiveChanceToPlayAll = 0.05,
-		PreLineWait = 0.44,
-		Cooldowns =
-		{
-			{ Name = "MelinoeAnyQuipSpeech" },
-		},
-
-		{ Cue = "/VO/Melinoe_3860", Text = "Went all right." },
-		{ Cue = "/VO/Melinoe_3861", Text = "Good one that time." },
-		{ Cue = "/VO/Melinoe_3862", Text = "Proper." },
-		{ Cue = "/VO/Melinoe_3863", Text = "Adequate..." },
-	},
-}
-GlobalVoiceLines.NegativeRunHistoryScreenVoiceLines =
-{
-	{
-		SkipAnim = true,
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		SuccessiveChanceToPlay = 0.2,
-		SuccessiveChanceToPlayAll = 0.05,
-		PreLineWait = 0.44,
-		Cooldowns =
-		{
-			{ Name = "MelinoeAnyQuipSpeech" },
-		},
-
-		{ Cue = "/VO/Melinoe_3856", Text = "{#Emph}Mm." },
-		{ Cue = "/VO/Melinoe_3857", Text = "Not quite..." },
-		{ Cue = "/VO/Melinoe_3858", Text = "{#Emph}Eugh..." },
-		{ Cue = "/VO/Melinoe_3859", Text = "Oh, right..." },
-	},
-}
-
-
--- GameStats Screen
-GlobalVoiceLines.OpenedGameStatsScreenVoiceLines =
-{
-	{
-		SkipAnim = true,
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		SuccessiveChanceToPlay = 0.25,
-		SuccessiveChanceToPlayAll = 0.1,
-		PreLineWait = 0.6,
-		Cooldowns =
-		{
-			{ Name = "MelinoeAnyQuipSpeech" },
-			{ Name = "MelRunHistoryIntroSpeech", Time = 30 },
-		},
-
-		{ Cue = "/VO/Melinoe_2979", Text = "Let's have the latest numbers." },
-		{ Cue = "/VO/Melinoe_2980", Text = "Best to keep track of each detail...", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_3852", Text = "Trivia of all I've done so far..." },
-		{ Cue = "/VO/Melinoe_3853", Text = "How does the Record-Keeper know all this..." },
-	},
-}
-
--- Altar
-GlobalVoiceLines.OpenedCardScreenVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.55,
-	SuccessiveChanceToPlayAll = 0.33,
-	GameStateRequirements =
-	{
-		{
-			PathTrue = { "ActiveScreens", "MetaUpgradeCardLayout" },
-		},
-	},
-	Cooldowns =
-	{
-		{ Name = "MelCardScreenOpenedSpeech", Time = 20 },
-	},
-
-	{ Cue = "/VO/Melinoe_1609", Text = "Headmistress lent me the Arcana...", PlayFirst = true, PlayOnce = true },
-	{ Cue = "/VO/Melinoe_2404", Text = "The ashes remember." },
-	{ Cue = "/VO/Melinoe_2405", Text = "Ashes of the past..." },
-	{ Cue = "/VO/Melinoe_2406", Text = "What say the ashes...?" },
-	{ Cue = "/VO/Melinoe_0539", Text = "The Arcana..." },
-	{ Cue = "/VO/Melinoe_0540", Text = "Strength and wisdom of my predecessors." },
-	{ Cue = "/VO/Melinoe_0541", Text = "Focus..." },
-	{ Cue = "/VO/Melinoe_1135", Text = "What say the Cards this eve?" },
-	{ Cue = "/VO/Melinoe_1136", Text = "Which Cards reflect my path...?" },
-	{ Cue = "/VO/Melinoe_1137", Text = "Know the past, know the future..." },
-	{ Cue = "/VO/Melinoe_1138", Text = "What say the Arcana...?" },
-	{ Cue = "/VO/Melinoe_1139", Text = "I have this..." },
-	{ Cue = "/VO/Melinoe_1867", Text = "Wisdom of the ages..." },
-	{ Cue = "/VO/Melinoe_1868", Text = "{#Emph}<Sigh>" },
-	{ Cue = "/VO/Melinoe_1869", Text = "What is my path...?" },
-	{ Cue = "/VO/Melinoe_1870", Text = "Just breathe..." },
-	{ Cue = "/VO/Melinoe_2403", Text = "The Altar of Ashes.", PlayFirst = true,
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "GameState", "SpeechRecord", "/VO/Melinoe_1609" },
-			},
-		},
-	},
-	{ Cue = "/VO/Melinoe_0538", Text = "My Altar...",
-		GameStateRequirements =
-		{
-			{
-				Path = { "GameState", "CompletedRunsCache" },
-				Comparison = ">=",
-				Value = 12,
-			},
-		}
-	},
-
-	-- also copy lines below to OpenedCardScreenHighPsycheLines
-	{ Cue = "/VO/Melinoe_3912", Text = "The Arcana... I finally understand...",
-		PlayFirst = true,
-		PlayOnceContext = "CardUpgradeIntroVO",
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeCardUpgradeSystem" }
-			},
-		}
-	},
-	{ Cue = "/VO/Melinoe_3828", Text = "I can store different arrangements of Arcana now...", PlayFirst = true,
-		PlayOnce = true,
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeMetaUpgradeSaveLayout" }
-			},
-		},
-	},
-
-}
-GlobalVoiceLines.OpenedCardScreenHighPsycheLines =
-{
-	Cooldowns =
-	{
-		{ Name = "MelCardScreenOpenedSpeech", Time = 20 },
-	},
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.55,
-		SuccessiveChanceToPlayAll = 0.1,
-		Cooldowns =
-		{
-			{ Name = "MelCardScreenOpenedSpeech", Time = 20 },
-		},
-
-		{ Cue = "/VO/Melinoe_3773", Text = "I should be able to increase my Grasp..." },
-		{ Cue = "/VO/Melinoe_3774", Text = "Think I can raise my Grasp..." },
-		{ Cue = "/VO/Melinoe_3912", Text = "The Arcana... I finally understand...",
-			PlayFirst = true,
-			PlayOnceContext = "CardUpgradeIntroVO",
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeCardUpgradeSystem" }
-				},
-			}
-		},
-		{ Cue = "/VO/Melinoe_3828", Text = "I can store different arrangements of Arcana now...",
-			PlayFirst = true,
-			PlayOnce = true,
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeMetaUpgradeSaveLayout" }
-				},
-			},
-		},
-	},
-}
-
-GlobalVoiceLines.UnlockedCardVoiceLines =
-{
-	RandomRemaining = true,
-	PreLineWait = 0.65,
-	SuccessiveChanceToPlayAll = 0.33,
-	SkipAnim = true,
-	Cooldowns =
-	{
-		{ Name = "MelCardUnlockSpeech", Time = 10 },
-	},
-
-	{ Cue = "/VO/Melinoe_0544", Text = "New Arcana..." },
-	{ Cue = "/VO/Melinoe_0545", Text = "Another Card..." },
-	{ Cue = "/VO/Melinoe_0546", Text = "This strength is mine.", PlayFirst = true },
-}
-
-GlobalVoiceLines.UpgradedMemLimitVoiceLines =
-{
-	RandomRemaining = true,
-	PreLineWait = 0.35,
-	PlayOnceFromTableThisRun = true,
-	SuccessiveChanceToPlayAll = 0.1,
-	UsePlayerSource = true,
-	SkipAnim = true,
-
-	{ Cue = "/VO/Melinoe_0547", Text = "I can do this...", PlayFirst = true },
-	{ Cue = "/VO/Melinoe_0548", Text = "Concentrate..." },
-	{ Cue = "/VO/Melinoe_2602", Text = "All in the mind..." },
-	{ Cue = "/VO/Melinoe_2603", Text = "Remnants of the past..." },
-	{ Cue = "/VO/Melinoe_2604", Text = "So that's it..." },
-	{ Cue = "/VO/Melinoe_2605", Text = "I see it now..." },
-	{ Cue = "/VO/Melinoe_2606", Text = "I never realized..." },
-	{ Cue = "/VO/Melinoe_2607", Text = "Just as I thought..." },
-}
-GlobalVoiceLines.CannotAffordMemUpgradeVoiceLines =
-{
-	RandomRemaining = true,
-	PreLineWait = 0.65,
-	PlayOnceFromTableThisRun = true,
-	SuccessiveChanceToPlayAll = 0.1,
-	UsePlayerSource = true,
-	SkipAnim = true,
-	GameStateRequirements =
-	{
-		{
-			Path = { "GameState", "MaxMetaUpgradeCostCache" },
-			Comparison = "<",
-			Value = 30,
-		}
-	},
-
-	{ Cue = "/VO/Melinoe_0779", Text = "I need more Psyche..." },
-	{ Cue = "/VO/Melinoe_0780", Text = "Don't have enough Psyche..." },
-}
-
-GlobalVoiceLines.ReachedMemLimitVoiceLines =
-{
-	RandomRemaining = true,
-	PreLineWait = 0.65,
-	SuccessiveChanceToPlay = 0.5,
-	UsePlayerSource = true,
-	SkipAnim = true,
-	Cooldowns =
-	{
-		{ Name = "MelMemLimitSpeech", Time = 30 },
-	},
-	TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
-
-	{ Cue = "/VO/Melinoe_2325", Text = "I lack the Grasp for this.", PlayFirst = true, },
-	{ Cue = "/VO/Melinoe_2326", Text = "I can't quite grasp this one..." },
-	{ Cue = "/VO/Melinoe_2327", Text = "This is beyond my Grasp." },
-	{ Cue = "/VO/Melinoe_2328", Text = "Don't think I can do this..." },
-	{ Cue = "/VO/Melinoe_0777", Text = "I'm at my limit." },
-	{ Cue = "/VO/Melinoe_0778", Text = "I've reached my limit." },
-}
-GlobalVoiceLines.ReachedMaxMemLimitVoiceLines =
-{
-	RandomRemaining = true,
-	PreLineWait = 0.65,
-	SuccessiveChanceToPlay = 0.5,
-	UsePlayerSource = true,
-	SkipAnim = true,
-	Cooldowns =
-	{
-		{ Name = "MelMemLimitSpeech", Time = 30 },
-	},
-
-	{ Cue = "/VO/Melinoe_0777", Text = "I'm at my limit." },
-	{ Cue = "/VO/Melinoe_0778", Text = "I've reached my limit." },
-}
-GlobalVoiceLines.ClosedCardScreenVoiceLines =
-{
-	RandomRemaining = true,
-	PreLineWait = 0.75,
-	PlayOnceFromTableThisRun = true,
-	SuccessiveChanceToPlayAll = 0.33,
-	UsePlayerSource = true,
-	GameStateRequirements =
-	{
-		{
-			PathTrue = { "SessionState", "MetaUpgradeChanges", "HasChanged" },
-		},
-	},
-
-	{ Cue = "/VO/Melinoe_1140", Text = "Ready for more." },
-	{ Cue = "/VO/Melinoe_1141", Text = "The Cards know." },
-	{ Cue = "/VO/Melinoe_1142", Text = "Better prepared." },
-	{ Cue = "/VO/Melinoe_1143", Text = "That'll do.", PlayFirst = true },
-	{ Cue = "/VO/Melinoe_0549", Text = "Very well." },
-	{ Cue = "/VO/Melinoe_0550", Text = "Ready." },
-}
-GlobalVoiceLines.SwitchToUpgradeCardModeVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 0.65,
-	SuccessiveChanceToPlay = 0.3,
-	SuccessiveChanceToPlayAll = 0.05,
-	Cooldowns =
-	{
-		{ Name = "MelinoeAnyQuipSpeech" },
-		{ Name = "MelCardScreenModeSpeech", Time = 20 },
-	},
-
-	{ Cue = "/VO/Melinoe_0992", Text = "What's this...?", PlayFirst = true, PlayOnce = true, PlayOnceContext = "FirstTimeSwitchedToUpgradeModeVO" },
-	{ Cue = "/VO/Melinoe_0242", Text = "Let me see..." },
-}
-GlobalVoiceLines.SwitchFromUpgradeCardModeVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 0.65,
-	SuccessiveChanceToPlay = 0.3,
-	SuccessiveChanceToPlayAll = 0.05,
-	Cooldowns =
-	{
-		{ Name = "MelinoeAnyQuipSpeech" },
-		{ Name = "MelCardScreenModeSpeech", Time = 20 },
-	},
-
-	{ Cue = "/VO/Melinoe_0282", Text = "{#Emph}Whew." },
-	{ Cue = "/VO/Melinoe_0575", Text = "{#Emph}Hm." },
-}
-GlobalVoiceLines.UpgradeCardVoiceLines =
-{
-	Cooldowns =
-	{
-		{ Name = "MelCardUpgradeSpeech", Time = 2 },
-	},
-	TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
-	{
-		RandomRemaining = true,
-		BreakIfPlayed = true,
-		PreLineWait = 0.45,
-		SuccessiveChanceToPlayAll = 0.75,
-
-		{ Cue = "/VO/Melinoe_2973", Text = "I see it now...", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_2976", Text = "I never realized...", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_2978", Text = "This potential...", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_2974", Text = "Now I see..." },
-		{ Cue = "/VO/Melinoe_2975", Text = "I understand..." },
-		{ Cue = "/VO/Melinoe_2977", Text = "So that's it..." },
-		{ Cue = "/VO/Melinoe_0993", Text = "I see it now." },
-		{ Cue = "/VO/Melinoe_0994", Text = "I see..." },
-		{ Cue = "/VO/Melinoe_0995", Text = "So that's it..." },
-	},
-	{
-		RandomRemaining = true,
-		BreakIfPlayed = true,
-		PreLineWait = 0.45,
-
-		{ Cue = "/VO/Melinoe_0178", Text = "Now..." },
-		{ Cue = "/VO/Melinoe_0179", Text = "All right." },
-		{ Cue = "/VO/Melinoe_0185", Text = "There." },
-		{ Cue = "/VO/Melinoe_0205", Text = "Better." },
-		{ Cue = "/VO/Melinoe_0203", Text = "Yes." },
-		{ Cue = "/VO/Melinoe_0209", Text = "There." },
-		{ Cue = "/VO/Melinoe_0206", Text = "Good." },
-	},
-}
-
--- Weapon Shop / Weapons
--- Silver Pool
-GlobalVoiceLines.WeaponShopOpenedVoiceLines =
-{
-	Cooldowns =
-	{
-		{ Name = "MelWeaponShopInteractSpeech", Time = 30 },
-	},
-	{
-		PlayOnce = true,
-		PreLineWait = 0.65,
-		UsePlayerSource = true,
-
-		{ Cue = "/VO/Melinoe_1611", Text = "The Arms of Night are now at my disposal..." },
-		{ Cue = "/VO/Melinoe_1898", Text = "...or shall be, soon enough.",
-			PreLineWait = 0.8, BreakIfPlayed = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "LastLinePlayed" },
-					IsAny = { "/VO/Melinoe_1611" },
-				},
-			},
-		},
-	},
-	{
-		PlayOnce = true,
-		PreLineWait = 0.65,
-		UsePlayerSource = true,
-		GameStateRequirements = 
-		{
-			{
-				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeWeaponUpgradeSystem" },
-			},
-		},
-
-		{ Cue = "/VO/Melinoe_3392", Text = "So much to choose from now..." },
-		{ Cue = "/VO/Melinoe_3393", Text = "Where to even begin...?",
-			PreLineWait = 0.8, BreakIfPlayed = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "LastLinePlayed" },
-					IsAny = { "/VO/Melinoe_3392" },
-				},
-			},
-		},
-	},
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.65,
-		PlayOnceFromTableThisRun = true,
-		SuccessiveChanceToPlayAll = 0.1,
-		UsePlayerSource = true,
-
-		{ Cue = "/VO/Melinoe_0570", Text = "The Silver Pool...", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_3395", Text = "The Arms of Night..." },
-		{ Cue = "/VO/Melinoe_3396", Text = "What secrets lie within?" },
-		{ Cue = "/VO/Melinoe_3397", Text = "Much deeper than it looks..." },
-		{ Cue = "/VO/Melinoe_3829", Text = "The depths of the Silver Pool...",
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeWeaponUpgradeSystem" }
-				},
-			},
-		},
-	},
-}
-GlobalVoiceLines.WeaponShopExpandedVoiceLines =
-{
-	{
-		SkipAnim = true,
-		PlayOnce = true,
-		PlayOnceContext = "ToolsShopIntro",
-		BreakIfPlayed = true,
-		PreLineWait = 0.65,
-		GameStateRequirements =
-		{
-			{
-				Path = { "GameState", "WorldUpgradesAdded" },
-				HasAny = { "WorldUpgradeToolsShop" },
-			},
-		},
-		{ Cue = "/VO/Melinoe_0571", Text = "There's something new here..." },
-	},
-	{
-		SkipAnim = true,
-		PlayOnce = true,
-		PlayOnceContext = "AspectsShopIntro",
-		BreakIfPlayed = true,
-		PreLineWait = 1.0,
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeWeaponUpgradeSystem" },
-			},
-		},
-		{ Cue = "/VO/Melinoe_2541", Text = "The Aspects of the Nocturnal Arms..." },
-	},
-	{
-		SkipAnim = true,
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 1.0,
-		UsePlayerSource = true,
-		Cooldowns =
-		{
-			{ Name = "ShopExpandedSpeech", Time = 10 },
-		},
-
-		{ Cue = "/VO/Melinoe_0241", Text = "Interesting..." },
-		{ Cue = "/VO/Melinoe_0575", Text = "{#Emph}Hm!" },
-	},
-}
-
-GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines =
-{
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.45,
-		SuccessiveChanceToPlayAll = 0.1,
-		ObjectType = "NPC_Skelly_01",
-		TriggerCooldowns = { "SkellyAnyQuipSpeech" },
-
-		{ Cue = "/VO/Skelly_0015", Text = "A fitting armament.", PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "CurrentRun", "WeaponsUnlocked", "WeaponDagger" }
-				},
-			},
-		},
-		{ Cue = "/VO/Skelly_0026", Text = "Bear it with honor.", PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "CurrentRun", "WeaponsUnlocked", "WeaponAxe" }
-				},
-			},
-		},
-		{ Cue = "/VO/Skelly_0027", Text = "Would that I could see behind me now...", PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "CurrentRun", "WeaponsUnlocked", "WeaponTorch" }
-				},
-			},
-		},
-		{ Cue = "/VO/Skelly_0028", Text = "That creepy artifact is {#Emph}yours{#Prev}, kiddo.", PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "CurrentRun", "WeaponsUnlocked", "WeaponLob" }
-				},
-			},
-		},
-		{ Cue = "/VO/Skelly_0411", Text = "I like the sound of {#Emph}that!", PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "CurrentRun", "WeaponsUnlocked", "WeaponSuit" }
-				},
-			},
-		},
-		{ Cue = "/VO/Skelly_0412", Text = "Let me see, let me see!" },
-	},
-}
-GlobalVoiceLines.SkellyWeaponUpgradeReactionVoiceLines =
-{
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.65,
-		SuccessiveChanceToPlayAll = 0.5,
-		ObjectType = "NPC_Skelly_01",
-		TriggerCooldowns = { "SkellyAnyQuipSpeech" },
-		Cooldowns =
-		{
-			{ Name = "SkellyUpgradeReactionSpeech", Time = 5 },
-		},
-
-		{ Cue = "/VO/Skelly_0198", Text = "Whoa, what was that?" },
-		{ Cue = "/VO/Skelly_0199", Text = "Hey, what just happened?" },
-		{ Cue = "/VO/Skelly_0200", Text = "Oh dang!" },
-		{ Cue = "/VO/Skelly_0201", Text = "Oh something's going on back there..." },
-		{ Cue = "/VO/Skelly_0202", Text = "Oh, something's up!" },
-		{ Cue = "/VO/Skelly_0203", Text = "I know that sound all right!" },
-	},
-}
-GlobalVoiceLines.SkellyToolUnlockReactionVoiceLines =
-{
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 1.0,
-		CooldownTime = 5,
-		SuccessiveChanceToPlayAll = 0.1,
-		ObjectType = "NPC_Skelly_01",
-		TriggerCooldowns = { "SkellyAnyQuipSpeech" },
-
-		{ Cue = "/VO/Skelly_0014", Text = "Requisition authorized!" },
-		{ Cue = "/VO/Skelly_0029", Text = "Do make good use of that." },
-		{ Cue = "/VO/Skelly_0030", Text = "It shall serve you well." },
-		{ Cue = "/VO/Skelly_0031", Text = "A trusty tool indeed." },
-		{ Cue = "/VO/Skelly_0118", Text = "The path to perfection...",
-			GameStateRequirements =
-			{
-				{
-					Path = { "GameState", "SpeechRecord" },
-					HasAll = { "/VO/Skelly_0029", "/VO/Skelly_0030", "/VO/Skelly_0031" },
-				},
-			},
-		},
-	},
-}
-GlobalVoiceLines.WeaponUnlockGlobalVoiceLines =
-{
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.35,
-		-- SuccessiveChanceToPlay = 0.33,
-		UsePlayerSource = true,
-
-		{ Cue = "/VO/Melinoe_0572", Text = "Awaken, Arms of Night, and join with me!", PlayFirst = true },
-		-- { Cue = "/VO/Melinoe_0242", Text = "Let me see..." },
-		{ Cue = "/VO/Melinoe_0178", Text = "Now..." },
-		{ Cue = "/VO/Melinoe_0214", Text = "This one." },
-		{ Cue = "/VO/Melinoe_0215", Text = "How about..." },
-		-- { Cue = "/VO/Melinoe_0216", Text = "Should work." },
-		{ Cue = "/VO/Melinoe_0217", Text = "You." },
-		{ Cue = "/VO/Melinoe_0218", Text = "Why not." },
-		{ Cue = "/VO/Melinoe_0219", Text = "{#Emph}Hm." },
-		{ Cue = "/VO/Melinoe_0220", Text = "{#Emph}Heh." },
-		-- { Cue = "/VO/Melinoe_0234", Text = "Open." },
-		{ Cue = "/VO/Melinoe_0236", Text = "This one." },
-		-- { Cue = "/VO/Melinoe_0237", Text = "You're mine." },
-		{ Cue = "/VO/Melinoe_0238", Text = "Sure." },
-		{ Cue = "/VO/Melinoe_0239", Text = "Join with me." },
-		-- { Cue = "/VO/Melinoe_0240", Text = "You are mine now." },
-	},
-	{ GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
-}
 GlobalVoiceLines.FamiliarUpgradedGlobalVoiceLines =
 {
 	{
@@ -8797,7 +9806,7 @@ GlobalVoiceLines.FamiliarUpgradedGlobalVoiceLines =
 			{
 				PathFromArgs = true,
 				Path = { "FamiliarName" },
-				IsAny = { "CatFamiliar", "HoundFamiliar" },
+				IsAny = { "CatFamiliar", "HoundFamiliar", "PolecatFamiliar" },
 			}
 		},
 
@@ -8887,253 +9896,37 @@ GlobalVoiceLines.FamiliarUpgradedGlobalVoiceLines =
 				},
 			},
 		},
-
-	},
-}
-
-GlobalVoiceLines.AnyAspectUpgradedVoiceLines =
-{
-	RandomRemaining = true,
-	PreLineWait = 0.2,
-	-- SuccessiveChanceToPlay = 0.33,
-	UsePlayerSource = true,
-	Cooldowns =
-	{
-		{ Name = "MelinoeAspectUpgradeSpeech", Time = 4 },
-	},
-	TriggerCooldowns = { "MelWeaponShopInteractSpeech" },
-
-	{ Cue = "/VO/Melinoe_2549", Text = "Awaken, hidden power." },
-	{ Cue = "/VO/Melinoe_2550", Text = "There's more to this Aspect." },
-	{ Cue = "/VO/Melinoe_2551", Text = "Let our bond grow strong." },
-	{ Cue = "/VO/Melinoe_2552", Text = "Become even stronger." },
-	{ Cue = "/VO/Melinoe_2553", Text = "Such power hides within." },
-	{ Cue = "/VO/Melinoe_2554", Text = "Show me your true strength." },
-	{ Cue = "/VO/Melinoe_2555", Text = "You are bound to me, and I am your bearer." },
-	{ Cue = "/VO/Melinoe_2556", Text = "Draw greater power from the Silver Pool." },
-}
-
-GlobalVoiceLines.StaffAspectUpgradedVoiceLines =
-{
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.2,
-		SuccessiveChanceToPlay = 0.25,
-		UsePlayerSource = true,
-		Cooldowns =
-		{
-			{ Name = "MelinoeAspectUpgradeSpeech", Time = 4 },
+		{ Cue = "/VO/Melinoe_3961", Text = "Here you go, Gale.",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "FamiliarName" },
+					IsAny = { "PolecatFamiliar" },
+				},
+				{
+					PathFalse = { "CurrentRun", "SpeechRecord", "/VO/Melinoe_3961" },
+				},
+			},
 		},
-		TriggerCooldowns = { "MelWeaponShopInteractSpeech" },
-
-		{ Cue = "/VO/Melinoe_2545", Text = "Descura: Awaken!", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_2546", Text = "Descura, reveal your secrets!" },
-	},
-	{ GlobalVoiceLines = "AnyAspectUpgradedVoiceLines" },
-	{ GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
-}
-GlobalVoiceLines.DaggerAspectUpgradedVoiceLines =
-{
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.2,
-		SuccessiveChanceToPlay = 0.25,
-		UsePlayerSource = true,
-		Cooldowns =
-		{
-			{ Name = "MelinoeAspectUpgradeSpeech", Time = 4 },
+		{ Cue = "/VO/Melinoe_3962", Text = "Here, Gale.",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "FamiliarName" },
+					IsAny = { "PolecatFamiliar" },
+				},
+				{
+					PathFalse = { "CurrentRun", "SpeechRecord", "/VO/Melinoe_3962" },
+				},
+			},
 		},
-		TriggerCooldowns = { "MelWeaponShopInteractSpeech" },
-
-		{ Cue = "/VO/Melinoe_2547", Text = "Lim and Oros: Awaken!", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_2548", Text = "Lim and Oros, reveal your secrets!" },
 	},
-	{ GlobalVoiceLines = "AnyAspectUpgradedVoiceLines" },
-	{ GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
 }
 
-GlobalVoiceLines.AxeAspectUpgradedVoiceLines =
-{
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.2,
-		SuccessiveChanceToPlay = 0.25,
-		UsePlayerSource = true,
-		Cooldowns =
-		{
-			{ Name = "MelinoeAspectUpgradeSpeech", Time = 4 },
-		},
-		TriggerCooldowns = { "MelWeaponShopInteractSpeech" },
-
-		{ Cue = "/VO/Melinoe_3743", Text = "Zorephet: Awaken!", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_3744", Text = "Zorephet, reveal your secrets!" },
-	},
-	{ GlobalVoiceLines = "AnyAspectUpgradedVoiceLines" },
-	{ GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
-}
-
-GlobalVoiceLines.TorchAspectUpgradedVoiceLines =
-{
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.2,
-		SuccessiveChanceToPlay = 0.25,
-		UsePlayerSource = true,
-		Cooldowns =
-		{
-			{ Name = "MelinoeAspectUpgradeSpeech", Time = 4 },
-		},
-		TriggerCooldowns = { "MelWeaponShopInteractSpeech" },
-
-		{ Cue = "/VO/Melinoe_3741", Text = "Ygnium: Awaken!", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_3742", Text = "Ygnium, reveal your secrets!" },
-	},
-	{ GlobalVoiceLines = "AnyAspectUpgradedVoiceLines" },
-	{ GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
-}
-
-GlobalVoiceLines.LobAspectUpgradedVoiceLines =
-{
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.2,
-		SuccessiveChanceToPlay = 0.25,
-		UsePlayerSource = true,
-		Cooldowns =
-		{
-			{ Name = "MelinoeAspectUpgradeSpeech", Time = 4 },
-		},
-		TriggerCooldowns = { "MelWeaponShopInteractSpeech" },
-
-		{ Cue = "/VO/Melinoe_3745", Text = "Revaal: Awaken!", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_3746", Text = "Revaal, reveal your secrets!" },
-	},
-	{ GlobalVoiceLines = "AnyAspectUpgradedVoiceLines" },
-	{ GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
-}
-
-GlobalVoiceLines.SuitAspectUpgradedVoiceLines =
-{
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.2,
-		SuccessiveChanceToPlay = 0.25,
-		UsePlayerSource = true,
-		Cooldowns =
-		{
-			{ Name = "MelinoeAspectUpgradeSpeech", Time = 4 },
-		},
-		TriggerCooldowns = { "MelWeaponShopInteractSpeech" },
-
-		{ Cue = "/VO/Melinoe_3738", Text = "Xinth: Awaken!", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_3739", Text = "Xinth, reveal your secrets!" },
-	},
-	{ GlobalVoiceLines = "AnyAspectUpgradedVoiceLines" },
-	{ GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
-}
-
-GlobalVoiceLines.ToolUnlockGlobalVoiceLines =
-{
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.35,
-		-- SuccessiveChanceToPlay = 0.33,
-		UsePlayerSource = true,
-		Cooldowns =
-		{
-			{ Name = "MelinoeMiscToolEquipSpeech", Time = 40 },
-		},
-
-		{ Cue = "/VO/Melinoe_0235", Text = "Open up." },
-		{ Cue = "/VO/Melinoe_0216", Text = "Should work." },
-		{ Cue = "/VO/Melinoe_0237", Text = "You're mine." },
-		{ Cue = "/VO/Melinoe_0240", Text = "You are mine now." },
-	},
-	{ GlobalVoiceLines = "SkellyToolUnlockReactionVoiceLines" },
-}
-GlobalVoiceLines.AnyToolUpgradedVoiceLines =
-{
-	RandomRemaining = true,
-	PreLineWait = 0.2,
-	-- SuccessiveChanceToPlay = 0.33,
-	UsePlayerSource = true,
-	Cooldowns =
-	{
-		{ Name = "MelinoeMiscToolEquipSpeech", Time = 10 },
-	},
-	TriggerCooldowns = { "MelWeaponShopInteractSpeech" },
-
-	{ Cue = "/VO/Melinoe_2561", Text = "May you shine like the Moon." },
-	{ Cue = "/VO/Melinoe_2562", Text = "Bathe now in the light of the Moon." },
-}
-GlobalVoiceLines.ToolPickaxeUpgradedVoiceLines =
-{
-	{
-		PlayOnce = true,
-		PreLineWait = 0.2,
-		UsePlayerSource = true,
-		Cooldowns =
-		{
-			{ Name = "MelinoeMiscToolEquipSpeech", Time = 10 },
-		},
-		TriggerCooldowns = { "MelWeaponShopInteractSpeech" },
-
-		{ Cue = "/VO/Melinoe_2557", Text = "The Crescent Pick achieves a greater form..." },
-	},
-	{ GlobalVoiceLines = "AnyToolUpgradedVoiceLines" },
-	{ GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
-}
-GlobalVoiceLines.ToolExorcismBookUpgradedVoiceLines =
-{
-	{
-		PlayOnce = true,
-		PreLineWait = 0.2,
-		UsePlayerSource = true,
-		Cooldowns =
-		{
-			{ Name = "MelinoeMiscToolEquipSpeech", Time = 10 },
-		},
-		TriggerCooldowns = { "MelWeaponShopInteractSpeech" },
-
-		{ Cue = "/VO/Melinoe_2559", Text = "New life for the Tablet of Peace." },
-	},
-	{ GlobalVoiceLines = "AnyToolUpgradedVoiceLines" },
-	{ GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
-}
-GlobalVoiceLines.ToolShovelUpgradedVoiceLines =
-{
-	{
-		PlayOnce = true,
-		PreLineWait = 0.2,
-		UsePlayerSource = true,
-		Cooldowns =
-		{
-			{ Name = "MelinoeMiscToolEquipSpeech", Time = 10 },
-		},
-		TriggerCooldowns = { "MelWeaponShopInteractSpeech" },
-
-		{ Cue = "/VO/Melinoe_2558", Text = "The Silver Spade shines even brighter now." },
-	},
-	{ GlobalVoiceLines = "AnyToolUpgradedVoiceLines" },
-	{ GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
-}
-GlobalVoiceLines.ToolFishingRodUpgradedVoiceLines =
-{
-	{
-		PlayOnce = true,
-		PreLineWait = 0.2,
-		UsePlayerSource = true,
-		Cooldowns =
-		{
-			{ Name = "MelinoeMiscToolEquipSpeech", Time = 10 },
-		},
-		TriggerCooldowns = { "MelWeaponShopInteractSpeech" },
-
-		{ Cue = "/VO/Melinoe_2560", Text = "The Rod of Fishing should be stronger now." },
-	},
-	{ GlobalVoiceLines = "AnyToolUpgradedVoiceLines" },
-	{ GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
-}
 
 GlobalVoiceLines.PostRevealGlobalVoiceLines =
 {
@@ -9160,32 +9953,6 @@ GlobalVoiceLines.PostRevealGlobalVoiceLines =
 		{ Cue = "/VO/Melinoe_0241", Text = "Interesting..." },
 	},
 }
-GlobalVoiceLines.WeaponShopClosedVoiceLines =
-{
-	{
-		PlayOnce = true,
-		PreLineWait = 0.8,
-		UsePlayerSource = true,
-		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponStaffSwing" },
-			},
-			{
-				Path = { "GameState", "WeaponsUnlocked" },
-				HasNone = { "WeaponDagger", "WeaponTorch", "WeaponAxe", "WeaponLob", "WeaponSuit" },
-			},
-			{
-				Path = { "GameState", "CompletedRunsCache" },
-				Comparison = "==",
-				Value = 0,
-			},
-		},
-
-		{ Cue = "/VO/Melinoe_1899", Text = "Much more than just this staff bathing in there." },
-	},
-}
 
 -- Weapon Equipping
 GlobalVoiceLines.MiscWeaponEquipVoiceLines =
@@ -9193,6 +9960,7 @@ GlobalVoiceLines.MiscWeaponEquipVoiceLines =
 	Cooldowns =
 	{
 		{ Name = "MelinoeMiscWeaponEquipSpeech", Time = 25 },
+		{ Name = "MelinoeAnyQuipSpeech", Time = 5 },
 	},
 	{
 		PlayOnceFromTableThisRun = true,
@@ -9200,7 +9968,7 @@ GlobalVoiceLines.MiscWeaponEquipVoiceLines =
 		{
 			{
 				Path = { "CurrentRun", "Hero", "TraitDictionary" },
-				HasAny = { "UnusedWeaponBonusTrait" },
+				HasAny = { "UnusedWeaponBonusTrait", "UnusedWeaponBonusTrait2" },
 			},
 		},
 		BreakIfPlayed = true,
@@ -9325,10 +10093,9 @@ GlobalVoiceLines.SwitchedWeaponUpgradeVoiceLines =
 {
 	Cooldowns =
 	{
-		{ Name = "MelinoeWeaponUpgradeScreenSpeech", Time = 3 },
+		{ Name = "MelinoeWeaponUpgradeScreenSpeech", Time = 6 },
 	},
 	{
-		BreakIfPlayed = true,
 		RandomRemaining = true,
 		PreLineWait = 0.35,
 		SuccessiveChanceToPlay = 0.8,
@@ -9365,6 +10132,22 @@ GlobalVoiceLines.SwitchedWeaponUpgradeVoiceLines =
 				},
 			}
 		},
+		{ Cue = "/VO/Melinoe_2457", Text = "Anubis.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "StaffRaiseDeadAspect"},
+				},
+			}
+		},
+		{ Cue = "/VO/Melinoe_2458", Text = "Anubis...!",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "StaffRaiseDeadAspect"},
+				},
+			}
+		},
 		{ Cue = "/VO/Melinoe_2455", Text = "Artemis.",
 			GameStateRequirements =
 			{
@@ -9394,6 +10177,22 @@ GlobalVoiceLines.SwitchedWeaponUpgradeVoiceLines =
 			{
 				{
 					PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "DaggerHomingThrowAspect"},
+				},
+			}
+		},
+		{ Cue = "/VO/Melinoe_3996", Text = "The Morrigan.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "DaggerTripleAspect"},
+				},
+			}
+		},
+		{ Cue = "/VO/Melinoe_3997", Text = "The Morrigan...!",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "DaggerTripleAspect"},
 				},
 			}
 		},
@@ -9437,6 +10236,22 @@ GlobalVoiceLines.SwitchedWeaponUpgradeVoiceLines =
 				},
 			}
 		},
+		{ Cue = "/VO/Melinoe_4376", Text = "Supay.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "TorchAutofireAspect" },
+				},
+			}
+		},
+		{ Cue = "/VO/Melinoe_4377", Text = "Supay...!",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "TorchAutofireAspect" },
+				},
+			}
+		},
 		{ Cue = "/VO/Melinoe_3018", Text = "Charon.",
 			GameStateRequirements =
 			{
@@ -9466,6 +10281,22 @@ GlobalVoiceLines.SwitchedWeaponUpgradeVoiceLines =
 			{
 				{
 					PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AxePerfectCriticalAspect" },
+				},
+			}
+		},
+		{ Cue = "/VO/Melinoe_4382", Text = "Nergal.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AxeRallyAspect" },
+				},
+			}
+		},
+		{ Cue = "/VO/Melinoe_4383", Text = "Nergal...!",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AxeRallyAspect" },
 				},
 			}
 		},
@@ -9501,6 +10332,22 @@ GlobalVoiceLines.SwitchedWeaponUpgradeVoiceLines =
 				},
 			}
 		},
+		{ Cue = "/VO/Melinoe_4388", Text = "Hel.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "LobGunAspect" },
+				},
+			}
+		},
+		{ Cue = "/VO/Melinoe_4389", Text = "Hel...!",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "LobGunAspect" },
+				},
+			}
+		},
 		{ Cue = "/VO/Melinoe_3734", Text = "Selene.",
 			GameStateRequirements =
 			{
@@ -9533,6 +10380,53 @@ GlobalVoiceLines.SwitchedWeaponUpgradeVoiceLines =
 				},
 			}
 		},
+		{ Cue = "/VO/Melinoe_4394", Text = "Shiva.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "SuitComboAspect" },
+				},
+			}
+		},
+		{ Cue = "/VO/Melinoe_4395", Text = "Shiva...!",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "SuitComboAspect" },
+				},
+			}
+		},
+	},
+	{
+		RandomRemaining = true,
+		PlayOnceFromTableThisRun = true,
+		PlayOnceContext = "SeleneAspectEquipSpeech",
+		PreLineWait = 0.35,
+		SuccessiveChanceToPlayAll = 0.1,
+		Source = { LineHistoryName = "NPC_Selene_01", SubtitleColor = Color.SeleneVoice },
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "SuitHexAspect" },
+			},
+			{
+				Path = { "GameState", "GamePhase", },
+				Comparison = "~=",
+				Value = 5,
+			},
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "SeleneGift03" },
+			},
+			-- Selene is MIA during this
+			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+		},
+		Cooldowns =
+		{
+			{ Name = "SeleneAnyQuipSpeech", Time = 6 },
+		},
+
+		{ Cue = "/VO/Selene_0392", Text = "Yes...?", PlayFirst = true },
+		{ Cue = "/VO/Selene_0393", Text = "Little star." },
 	},
 	{
 		RandomRemaining = true,
@@ -9542,7 +10436,7 @@ GlobalVoiceLines.SwitchedWeaponUpgradeVoiceLines =
 		{
 			{
 				Path = { "CurrentRun", "Hero", "TraitDictionary" },
-				HasAny = { "BaseStaffAspect", "DaggerBackstabAspect" },
+				HasAny = { "BaseStaffAspect", "DaggerBackstabAspect", "AxeRecoveryAspect", "TorchSpecialDurationAspect", "LobAmmoBoostAspect", "BaseSuitAspect" },
 			},
 		},
 
@@ -9596,6 +10490,56 @@ GlobalVoiceLines.FamiliarEquipVoiceLines =
 		{ Cue = "/VO/Melinoe_0846", Text = "Care to accompany me, little one?" },
 		{ Cue = "/VO/Melinoe_0847", Text = "Come, little one, let's go." },
 		{ Cue = "/VO/Melinoe_2499", Text = "Together we'll go far." },
+		{ Cue = "/VO/Melinoe_2498", Text = "It shall be my honor." },
+		{ Cue = "/VO/Melinoe_5625", Text = "Your turn." },
+		{ Cue = "/VO/Melinoe_5626", Text = "Join me?" },
+		{ Cue = "/VO/Melinoe_5627", Text = "Come along?" },
+		{ Cue = "/VO/Melinoe_5628", Text = "With me." },
+		{ Cue = "/VO/Melinoe_5629", Text = "Frinos.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EquippedFamiliar" },
+					IsAny = { "FrogFamiliar" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_5631", Text = "Raki.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EquippedFamiliar" },
+					IsAny = { "RavenFamiliar" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_5630", Text = "Toula.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EquippedFamiliar" },
+					IsAny = { "CatFamiliar" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_5632", Text = "Hecuba.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EquippedFamiliar" },
+					IsAny = { "HoundFamiliar" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_5633", Text = "Gale.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EquippedFamiliar" },
+					IsAny = { "PolecatFamiliar" },
+				},
+			},
+		},
 	},
 	{
 		RandomRemaining = true,
@@ -9608,9 +10552,33 @@ GlobalVoiceLines.FamiliarEquipVoiceLines =
 			{ Name = "SkellyFamiliarSpeech", Time = 10 },
 		},
 
-		{ Cue = "/VO/Skelly_0132", Text = "It seems we have a new disciple!", PlayOnce = true, PlayOnceContext = "FirstFamiliarEquip", PlayFirst = true, },
-		{ Cue = "/VO/Skelly_0133", Text = "A new disciple joined our ranks, young one!" },
-		{ Cue = "/VO/Skelly_0134", Text = "Whence came that tiny beast?" },
+		{ Cue = "/VO/Skelly_0132", Text = "It seems we have a new disciple!", PlayOnce = true, PlayOnceContext = "FamiliarEquipFirst", PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EquippedFamiliar" },
+					IsAny = { "FrogFamiliar" },
+				}
+			},
+		},
+		{ Cue = "/VO/Skelly_0133", Text = "A new disciple joined our ranks, young one!", PlayOnce = true, PlayOnceContext = "FamiliarEquipSecond", PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EquippedFamiliar" },
+					IsAny = { "RavenFamiliar" },
+				}
+			},
+		},
+		{ Cue = "/VO/Skelly_0134", Text = "Whence came that tiny beast?", PlayOnce = true, PlayOnceContext = "FamiliarEquipThird", PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EquippedFamiliar" },
+					IsAny = { "CatFamiliar", "PolecatFamiliar" },
+				}
+			},
+		},
 		{ Cue = "/VO/Skelly_0135", Text = "The small amphibian is welcome here.",
 			GameStateRequirements =
 			{
@@ -9619,7 +10587,7 @@ GlobalVoiceLines.FamiliarEquipVoiceLines =
 					IsAny = { "FrogFamiliar" },
 				}
 			},
-		 },
+		},
 		{ Cue = "/VO/Skelly_0136", Text = "That feline is to be trusted then?",
 			GameStateRequirements =
 			{
@@ -9638,10 +10606,116 @@ GlobalVoiceLines.FamiliarEquipVoiceLines =
 				}
 			},
 		},
+
 	},
 }
 GlobalVoiceLines.FamiliarPostTreatVoiceLines =
 {
+	{
+		PlayOnce = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.45,
+		UsePlayerSource = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "FamiliarUpgrades" },
+				HasAll = GameData.AllFrogFamiliarUpgrades,
+			},
+			{
+				PathFromArgs = true,
+				Path = { "FamiliarName" },
+				IsAny = { "FrogFamiliar" },
+			},
+		},
+		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+		{ Cue = "/VO/Melinoe_5582", Text = "Look at how strong you've grown." },
+	},
+	{
+		PlayOnce = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.45,
+		UsePlayerSource = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "FamiliarUpgrades" },
+				HasAll = GameData.AllRavenFamiliarUpgrades,
+			},
+			{
+				PathFromArgs = true,
+				Path = { "FamiliarName" },
+				IsAny = { "RavenFamiliar" },
+			},
+		},
+		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+		{ Cue = "/VO/Melinoe_5583", Text = "Look at you now, little raven." },
+	},
+	{
+		PlayOnce = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.45,
+		UsePlayerSource = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "FamiliarUpgrades" },
+				HasAll = GameData.AllCatFamiliarUpgrades,
+			},
+			{
+				PathFromArgs = true,
+				Path = { "FamiliarName" },
+				IsAny = { "CatFamiliar" },
+			},
+		},
+		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+		{ Cue = "/VO/Melinoe_5584", Text = "You're an impressive cat." },
+	},
+	{
+		PlayOnce = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.45,
+		UsePlayerSource = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "FamiliarUpgrades" },
+				HasAll = GameData.AllHoundFamiliarUpgrades,
+			},
+			{
+				PathFromArgs = true,
+				Path = { "FamiliarName" },
+				IsAny = { "HoundFamiliar" },
+			},
+		},
+		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+		{ Cue = "/VO/Melinoe_5585", Text = "The queen of the hounds." },
+	},
+	{
+		PlayOnce = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.45,
+		UsePlayerSource = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "FamiliarUpgrades" },
+				HasAll = GameData.AllPolecatFamiliarUpgrades,
+			},
+			{
+				PathFromArgs = true,
+				Path = { "FamiliarName" },
+				IsAny = { "PolecatFamiliar" },
+			},
+		},
+		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+		{ Cue = "/VO/Melinoe_5586", Text = "You've done it now, Gale." },
+	},
 	{
 		PreLineWait = 0.45,
 		RandomRemaining = true,
@@ -9659,313 +10733,76 @@ GlobalVoiceLines.FamiliarPostTreatVoiceLines =
 		{ Cue = "/VO/Melinoe_3877", Text = "Works every time." },
 		{ Cue = "/VO/Melinoe_3878", Text = "Always does the trick." },
 		{ Cue = "/VO/Melinoe_3879", Text = "Those must be tasty..." },
+		{ Cue = "/VO/Melinoe_5634", Text = "Nourishing!" },
+		{ Cue = "/VO/Melinoe_5635", Text = "Can't get enough of those." },
+		{ Cue = "/VO/Melinoe_5636", Text = "That good, huh?" },
+		{ Cue = "/VO/Melinoe_5637", Text = "Growing strong." },
 	},
 	{ GlobalVoiceLines = "PositiveReactionVoiceLines" },
 }
 
--- Keepsakes Lines
-GlobalVoiceLines.OpenedAwardMenuVoiceLines =
+GlobalVoiceLines.CardInspectVoiceLines =
 {
-	PlayOnceFromTableThisRun = true,
+	PreLineWait = 0.4,
+	BreakIfPlayed = true,
+	SuccessiveChanceToPlay = 0.2,
+	SuccessiveChanceToPlayAll = 0.2,
+	GameStateRequirements =
+	{
+		{
+			PathTrue = { "ActiveScreens", "MetaUpgradeCardUpgradeLayout" },
+		},
+	},
+	SkipCooldownCheckIfNonePlayed = true,
 	Cooldowns =
 	{
-		{ Name = "KeepsakesMentionedRecently", Time = 200 },
-		{ Name = "MelinoeRemainsSilent", Time = 8 },
+		{ Name = "MelinoeAnyQuipSpeech" },
+		{ Name = "MelCardScreenModeSpeech", Time = 20 },
 	},
-	{
-		SkipAnim = true,
-		PlayOnce = true,
-		PlayOnceContext = "KeepsakeFavoritesAddedVO",
-		BreakIfPlayed = true,
-		PreLineWait = 0.65,
-		GameStateRequirements =
-		{
-			{
-				Path = { "GameState", "WorldUpgradesAdded" },
-				HasAny = { "WorldUpgradeKeepsakeSaveFirst" },
-			},
-		},
-		{ Cue = "/VO/Melinoe_3760", Text = "I now can remember a Keepsake to start with each night..." },
-	},
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.6,
-		SuccessiveChanceToPlayAll = 0.1,
-		ObjectType = "NPC_Chronos_01",
-		GameStateRequirements = 
-		{
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" },
-			},
-		},
-		Cooldowns =
-		{
-			{ Name = "ChronosAnyQuipSpeech", Time = 8 },
-		},
 
-		{ Cue = "/VO/Chronos_0697", Text = "{#Emph}Hmm, hm, hmm, hmmm..." },
-		{ Cue = "/VO/Chronos_0698", Text = "{#Emph}...hm, hmm, hm, hmmm..." },
-		{ Cue = "/VO/Chronos_0699", Text = "I shall wait.", PlayFirst = true },
-	},
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		SuccessiveChanceToPlay = 0.33,
-		PreLineWait = 0.6,
-		GameStateRequirements =
-		{
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" }
-			},
-			{
-				FunctionName = "RequiredHealthFraction",
-				FunctionArgs = { Comparison = ">=", Value = 0.2, },
-			},
-		},
-		Cooldowns =
-		{
-			{ Name = "MelSwitchKeepsakeHintVO", Time = 20 },
-		},
-
-		{ Cue = "/VO/MelinoeField_0721", Text = "Should I change things up?" },
-		{ Cue = "/VO/MelinoeField_0722", Text = "Maybe I should switch." },
-		{ Cue = "/VO/MelinoeField_0723", Text = "Try another one maybe..." },
-		{ Cue = "/VO/MelinoeField_0724", Text = "Could try a different one..." },
-		{ Cue = "/VO/MelinoeField_0725", Text = "Which one would help..." },
-		{ Cue = "/VO/MelinoeField_0726", Text = "Which Keepsake now..." },
-	},
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		SuccessiveChanceToPlay = 0.2,
-		PreLineWait = 0.6,
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "Hero", "IsDead" }
-			},
-		},
-		{ Cue = "/VO/Melinoe_0834", Text = "My Keepsakes...", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_2642", Text = "Which one..." },
-		{ Cue = "/VO/Melinoe_2643", Text = "I'm in the mood for..." },
-		{ Cue = "/VO/Melinoe_2644", Text = "Faith of my comrades..." },
-		{ Cue = "/VO/Melinoe_2645", Text = "Another Keepsake perhaps...?" },
-		{ Cue = "/VO/Melinoe_3174", Text = "This night calls for..." },
-		{ Cue = "/VO/Melinoe_3177", Text = "Which shall it be..." },
-		{ Cue = "/VO/Melinoe_3175", Text = "Which Keepsake for tonight...",
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentHubRoom", "Name" },
-					IsAny = { "Hub_PreRun"},
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3176", Text = "Everything's in order...",
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentHubRoom", "Name" },
-					IsAny = { "Hub_PreRun"},
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3178", Text = "Which to use first...",
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentHubRoom", "Name" },
-					IsAny = { "Hub_PreRun"},
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_3179", Text = "Which to start with...",
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentHubRoom", "Name" },
-					IsAny = { "Hub_PreRun"},
-				},
-			},
-		},
-	},
+	{ Cue = "/VO/Melinoe_5489", Text = "Let's take a closer look...", PlayFirst = true },
+	{ Cue = "/VO/Melinoe_5490", Text = "Intricate detail...", PlayFirst = true },
+	{ Cue = "/VO/Melinoe_0241", Text = "Interesting..." },
+	{ Cue = "/VO/Melinoe_0242", Text = "Let me see..." },
+	{ Cue = "/VO/Melinoe_0337", Text = "{#Emph}Hmm." },
+	{ Cue = "/VO/Melinoe_1961", Text = "{#Emph}Huh..." },
 }
-GlobalVoiceLines.AwardMenuNewAvailableVoiceLines =
-{
-	Cooldowns =
-	{
-		{ Name = "KeepsakesMentionedRecently", Time = 200 },
-	},
-	{
-		{
-			SkipAnim = true,
-			RandomRemaining = true,
-			PreLineWait = 0.6,
-			SuccessiveChanceToPlayAll = 0.1,
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "ActiveScreens", "KeepsakeRack" },
-				},
-				{
-					FunctionName = "RequiredAlive",
-					FunctionArgs = { Units = { "NPC_Chronos_01" }, Alive = false },
-				},
-			},
 
-			-- ~8 variants?
-			{ Cue = "/VO/Melinoe_0834", Text = "My Keepsakes...",
-				GameStateRequirements = 
-				{
-					{
-						Path = { "GameState", "GiftPresentation" },
-						UseLength = true,
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{ Cue = "/VO/Melinoe_3207", Text = "What's that one do?" },
-			{ Cue = "/VO/Melinoe_3208", Text = "A new Keepsake...", PlayFirst = true },
-			{ Cue = "/VO/Melinoe_3209", Text = "My collection grows..." },
-			{ Cue = "/VO/Melinoe_3210", Text = "New Keepsake there..." },
-			{ Cue = "/VO/Melinoe_0836", Text = "Something new there?" },
-			{ Cue = "/VO/Melinoe_0837", Text = "Expanded my collection..." },
-		},
-		{
-			PlayOnce = true,
-			BreakIfPlayed = true,
-			ObjectType = "NPC_Skelly_01",
-
-			{ Cue = "/VO/Skelly_0082", Text = "Behold that heirloom storage case over there!" },
-		},
-	},
-}
-GlobalVoiceLines.AwardMenuEmptyVoiceLines =
+GlobalVoiceLines.ClosedWeaponUpgradeMenuVoiceLines =
 {
 	{
-		SkipAnim = true,
-		PlayOnce = true,
+		RandomRemaining = true,
+		PlayOnceFromTableThisRun = true,
+		PlayOnceContext = "SeleneAspectEquipSpeech",
 		PreLineWait = 0.4,
-
-		{ Cue = "/VO/Melinoe_0835", Text = "I'd store my Keepsakes here, if I had any..." },
-	},
-	{
-		PlayOnce = true,
-		BreakIfPlayed = true,
-		ObjectType = "NPC_Skelly_01",
-
-		{ Cue = "/VO/Skelly_0082", Text = "Behold that heirloom storage case over there!" },
-	},
-}
-GlobalVoiceLines.AwardSelectedVoiceLines =
-{
-	{
-		RandomRemaining = true,
-		-- PlayOnceFromTableThisRun = true,
-		PreLineWait = 0.3,
-		SuccessiveChanceToPlay = 0.5,
+		Source = { LineHistoryName = "NPC_Selene_01", SubtitleColor = Color.SeleneVoice },
 		GameStateRequirements =
 		{
 			{
-				FunctionName = "RequiredAlive",
-				FunctionArgs = { Units = { "NPC_Chronos_01" }, Alive = false },
+				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "SuitHexAspect" },
 			},
-		},
-		Cooldowns =
-		{
-			{ Name = "MelinoeAnyQuipSpeech" },
-		},
-
-		{ Cue = "/VO/Melinoe_0838", Text = "This one." },
-		{ Cue = "/VO/Melinoe_0839", Text = "That one." },
-		{ Cue = "/VO/Melinoe_0840", Text = "Should work." },
-		{ Cue = "/VO/Melinoe_0841", Text = "Should keep me company." },
-		{ Cue = "/VO/Melinoe_2646", Text = "Ought to help." },
-		{ Cue = "/VO/Melinoe_2647", Text = "Very well." },
-		{ Cue = "/VO/Melinoe_2648", Text = "Sure." },
-		{ Cue = "/VO/Melinoe_3204", Text = "All right." },
-		{ Cue = "/VO/Melinoe_3205", Text = "This, then." },
-		{ Cue = "/VO/Melinoe_3206", Text = "Might as well." },
-	},
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.35,
-		SuccessiveChanceToPlay = 0.15,
-		ObjectType = "NPC_Skelly_01",
-		Cooldowns =
-		{
-			{ Name = "SkellyKeepsakeSpeech", Time = 60 },
-		},
-
-		{ Cue = "/VO/Skelly_0128", Text = "May it serve you well." },
-		{ Cue = "/VO/Skelly_0129", Text = "A fine selection!" },
-		{ Cue = "/VO/Skelly_0130", Text = "A fine selection." },
-		{ Cue = "/VO/Skelly_0131", Text = "That's no mere trinket, huh?" },
-	},
-}
-GlobalVoiceLines.AwardMenuClosedVoiceLines =
-{
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.45,
-		SuccessiveChanceToPlayAll = 0.25,
-		ObjectType = "NPC_Chronos_01",
-		GameStateRequirements = 
-		{
 			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" },
+				Path = { "GameState", "GamePhase", },
+				Comparison = "~=",
+				Value = 5,
 			},
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "SeleneGift03" },
+			},
+			ChanceToPlay = 0.33,
+			-- Selene is MIA during this
+			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
 		},
 		Cooldowns =
 		{
-			{ Name = "ChronosAnyQuipSpeech", Time = 8 },
+			{ Name = "SeleneAnyQuipSpeech", Time = 6 },
 		},
-
-		{ Cue = "/VO/Chronos_0081", Text = "{#Emph}Ahem?",
-			GameStateRequirements =
-			{
-				{
-					PathFalse = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/Chronos_0081" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chronos_0082", Text = "Please take your time.",
-			GameStateRequirements =
-			{
-				{
-					PathFalse = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/Chronos_0082" },
-				},
-			},
-		},
-		{ Cue = "/VO/Chronos_0700", Text = "Are we quite done?", PlayFirst = true },
-		{ Cue = "/VO/Chronos_0701", Text = "Fine choice." },
-		{ Cue = "/VO/Chronos_0776", Text = "What have you there?" },
-		{ Cue = "/VO/Chronos_0777", Text = "A trinket of some sort?" },
-		{ Cue = "/VO/Chronos_0778", Text = "{#Emph}Oh{#Prev}, fine choice!" },
-		{ Cue = "/VO/Chronos_0779", Text = "{#Emph}Oh{#Prev}, very wise!" },
-		{ Cue = "/VO/Chronos_0780", Text = "Cleverly decided." },
-		{ Cue = "/VO/Chronos_0702", Text = "Now if I may?" },
-		{ Cue = "/VO/Chronos_0781", Text = "Now, if I may?" },
-	},	
-	{
-		RandomRemaining = true,
-		-- PlayOnceFromTableThisRun = true,
-		PreLineWait = 0.45,
-		SuccessiveChanceToPlay = 0.5,
-		Cooldowns =
-		{
-			{ Name = "MelinoeAnyQuipSpeech" },
-		},
-
-		{ Cue = "/VO/Melinoe_0204", Text = "Excellent." },
-		{ Cue = "/VO/Melinoe_0206", Text = "Good." },
-		{ Cue = "/VO/Melinoe_0208", Text = "{#Emph}Hm!" },
-		{ Cue = "/VO/Melinoe_0244", Text = "Very well..." },
-		{ Cue = "/VO/Melinoe_0179", Text = "All right." },
-		{ Cue = "/VO/Melinoe_0180", Text = "Set." },
+		
+		{ Cue = "/VO/Selene_0394", Text = "{#Emph}Sky Fall." },
+		{ Cue = "/VO/Selene_0395", Text = "{#Emph}Sky Fall...!" },
+		{ Cue = "/VO/Selene_0389", Text = "I see..." },
+		{ Cue = "/VO/Selene_0390", Text = "Well chosen.", PlayFirst = true },
+		{ Cue = "/VO/Selene_0391", Text = "My Aspect..." },
 	},
 }
 
@@ -9980,7 +10817,6 @@ GlobalVoiceLines.OlympusAssaultReactionLines =
 			IsAny = { "P" },
 		},
 	},
-	SuccessiveChanceToPlayAll = 0.33,
 	SuccessiveChanceToPlayAll = 0.1,
 
 	{ Cue = "/VO/MelinoeField_2459", Text = "It's under attack...", PlayFirst = true },
@@ -10017,6 +10853,215 @@ GlobalVoiceLines.AutomatonReactionLines =
 	},
 }
 
+GlobalVoiceLines.ActiveStatueSpottedVoiceLines =
+{
+	{
+		PlayOnce = true,
+		UsePlayerSource = true,
+		GameStateRequirements = 
+		{
+		},
+		Cooldowns =
+		{
+			{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+		},
+
+		{ Cue = "/VO/MelinoeField_2993", Text = "Those statues should be activated now..." },
+	},
+}
+GlobalVoiceLines.StatueActivatedVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		-- PlayOnceFromTableThisRun = true,
+		PreLineWait = 0.25,
+
+		TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
+
+		{ Cue = "/VO/MelinoeField_2998", Text = "{#Emph}Now!" },
+		{ Cue = "/VO/MelinoeField_2999", Text = "Do it!" },
+	},
+	--[[
+	{
+		-- { Cue = "/VO/Zeus_0101", Text = "This shall come as a shock!" },
+		-- { Cue = "/VO/Zeus_0102", Text = "A storm is coming..." },
+		-- { Cue = "/VO/Zeus_0103", Text = "Behold my thunderbolts!" },
+	},
+	{
+		-- { Cue = "/VO/Hestia_0078", Text = "What say we turn up the heat?!" },
+		-- { Cue = "/VO/Hestia_0079", Text = "They'll burn!" },
+		-- { Cue = "/VO/Hestia_0080", Text = "Flames take them all!" },
+	},
+	]]--
+}
+GlobalVoiceLines.TyphonSummonReactionVoiceLines =
+{
+	{
+		PlayOnceFromTableThisRun = true,
+		UsePlayerSource = true,
+		RandomRemaining = true,
+		PreLineWait = 5.0,
+		SuccessiveChanceToPlay = 0.5,
+		SuccessiveChanceToPlayAll = 0.33,
+		RecheckRequirementsPostWait = true,
+		Cooldowns =
+		{
+			{ Name = "MelinoeAnyQuipSpeech" },
+		},
+		GameStateRequirements =
+		{
+			{
+				FunctionName = "RequiredHealthFraction",
+				FunctionArgs = { Comparison = ">=", Value = 0.2, },
+			},
+		},
+
+		{ Cue = "/VO/Melinoe_1954", Text = "What...?", PlayFirst = true, PlayOnce = true, PlayOnceContext = "TyphonFirstEggSpawnReactionVO" },
+		{ Cue = "/VO/MelinoeField_3281", Text = "Eggs...!" },
+		{ Cue = "/VO/MelinoeField_3282", Text = "Those eggs...!" },
+		{ Cue = "/VO/MelinoeField_3283", Text = "{#Emph}Ungh{#Prev}, eggs..." },
+		{ Cue = "/VO/MelinoeField_3284", Text = "More eggs?" },
+		{ Cue = "/VO/MelinoeField_3285", Text = "Egg breath...!" },
+		{ Cue = "/VO/MelinoeField_3286", Text = "Here we go..." },
+		{ Cue = "/VO/MelinoeField_3287", Text = "Need to stop these..." },
+		{ Cue = "/VO/MelinoeField_3288", Text = "More eggs to break..." },
+	},
+}
+
+GlobalVoiceLines.ApproachingHouseLines =
+{
+	{
+		PreLineWait = 2.0,
+		BreakIfPlayed = true,
+		PlayOnce = true,
+		PlayOnceContext = "FirstIPreBoss02VisitSpeech",
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "ReachedTrueEnding" },
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4190", Text = "The House of Hades..." },
+	},
+	{
+		PreLineWait = 1.2,
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		SuccessiveChanceToPlay = 0.5,
+		GameStateRequirements =
+		{
+			{
+				FunctionName = "RequiredHealthFraction",
+				FunctionArgs = { Comparison = ">=", Value = 0.2, },
+			},
+		},
+
+		{ Cue = "/VO/MelinoeField_1291", Text = "Down there...!", PlayFirst = true },
+		{ Cue = "/VO/MelinoeField_1292", Text = "There it is..." },
+		{ Cue = "/VO/MelinoeField_1293", Text = "The House..." },
+		{ Cue = "/VO/MelinoeField_1294", Text = "Made it through..." },
+		{ Cue = "/VO/MelinoeField_1295", Text = "I'm here..." },
+		{ Cue = "/VO/MelinoeField_1296", Text = "This is it..." },
+		{ Cue = "/VO/MelinoeField_4188", Text = "Reconstruction underway...", PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_4190" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4191", Text = "The River Styx...",
+			PlayFirst = true, PreLineWait = 2.0,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_4190" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4189", Text = "It's changed so much...",
+			PlayFirst = true, PreLineWait = 2.0,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_4190" },
+				},
+				{
+					Path = { "GameState", "SpeechRecord", "/VO/MelinoeField_4189" },
+					Comparison = "<=",
+					Value = 3,
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_4190", Text = "The House of Hades...",
+			PlayFirst = true, PreLineWait = 2.0,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "ReachedTrueEnding" },
+				},
+				{
+					SumPrevRuns = 8,
+					Path = { "SpeechRecord", "/VO/MelinoeField_4190" },
+					CountPathTrue = true,
+					Comparison = "<=",
+					Value = 0,
+				},
+			},
+		},
+	},
+}
+
+GlobalVoiceLines.InfiltratingHouseLines =
+{
+	{
+		PreLineWait = 0.5,
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		SuccessiveChanceToPlay = 0.5,
+		GameStateRequirements =
+		{
+			{
+			},
+		},
+
+		{ Cue = "/VO/MelinoeField_1299", Text = "One way in...!" },
+		{ Cue = "/VO/MelinoeField_1300", Text = "{#Emph}<Inhale>", PlayFirst = true },
+		{ Cue = "/VO/MelinoeField_1301", Text = "River, take me...!" },
+		{ Cue = "/VO/MelinoeField_1302", Text = "Styx, take me...!" },
+		{ Cue = "/VO/MelinoeField_1303", Text = "Quick dip...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EnemyKills", "Chronos" },
+					Comparison = ">=",
+					Value = 3,
+				},
+				{
+					Path = { "GameState", "LastBossHealthBarRecord", "Chronos" },
+					Comparison = "<=",
+					Value = 0,
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_1304", Text = "Swimtime...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EnemyKills", "Chronos" },
+					Comparison = ">=",
+					Value = 2,
+				},
+				{
+					Path = { "GameState", "LastBossHealthBarRecord", "Chronos" },
+					Comparison = "<=",
+					Value = 0,
+				},
+			},
+		},
+	},
+}
+
 -- Global Misc Lines
 GlobalVoiceLines.FishNotCaughtReactionLines =
 {
@@ -10030,7 +11075,7 @@ GlobalVoiceLines.FishNotCaughtReactionLines =
 		{
 			{
 				Path = { "CurrentRun", "TextLinesRecord", },
-				HasAny = { "HecateFishing01" },
+				HasAny = { "HecateFishing01", "HecateFishing02" },
 			},
 			{
 				PathTrue = { "CurrentRun", "Hero", "IsDead" },
@@ -10074,7 +11119,7 @@ GlobalVoiceLines.FishNotCaughtReactionLines =
 		{
 			{
 				Path = { "CurrentRun", "TextLinesRecord", },
-				HasAny = { "OdysseusFishing01" },
+				HasAny = { "OdysseusFishing01", "OdysseusFishing02" },
 			},
 			{
 				PathTrue = { "CurrentRun", "Hero", "IsDead" },
@@ -10134,6 +11179,62 @@ GlobalVoiceLines.FishNotCaughtReactionLines =
 		BreakIfPlayed = true,
 		RandomRemaining = true,
 		PreLineWait = 0.65,
+		ObjectType = "NPC_Eris_01",
+		AllowTalkOverTextLines = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "TextLinesRecord", },
+				HasAny = { "ErisFishing01" },
+			},
+			{
+				PathTrue = { "CurrentRun", "Hero", "IsDead" },
+			},
+		},
+
+		{ Cue = "/VO/Eris_0233", Text = "{#Emph}Sorry!" },
+		{ Cue = "/VO/Eris_0234", Text = "You blew it!", PlayFirst = true },
+		{ Cue = "/VO/Eris_0235", Text = "You missed!" },
+		{ Cue = "/VO/Eris_0236", Text = "Got away, huh?" },
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.65,
+		ObjectType = "NPC_Icarus_01",
+		AllowTalkOverTextLines = true,
+		GameStateRequirements =
+		{
+			OrRequirements =
+			{
+				{
+					{
+						Path = { "CurrentRun", "TextLinesRecord", },
+						HasAny = { "IcarusFishing01" },
+					},
+					{
+						PathTrue = { "CurrentRun", "Hero", "IsDead" },
+					},
+				},
+				{
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" },
+					},
+				},
+			},
+		},
+		
+		{ Cue = "/VO/Icarus_0229", Text = "It got away..." },
+		{ Cue = "/VO/Icarus_0230", Text = "Tough one..." },
+		{ Cue = "/VO/Icarus_0231", Text = "{#Emph}Ah {#Prev}well..." },
+		{ Cue = "/VO/Icarus_0232", Text = "{#Emph}Aah{#Prev}, sorry...", PlayFirst = true },
+		{ Cue = "/VO/Icarus_0233", Text = "Not our night..." },
+		{ Cue = "/VO/Icarus_0234", Text = "No good." },
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.65,
 		ObjectType = "NPC_Arachne_01",
 
 		{ Cue = "/VO/Arachne_0340", Text = "{#Emph}<Scoff>" },
@@ -10164,7 +11265,54 @@ GlobalVoiceLines.FishNotCaughtReactionLines =
 	{
 		BreakIfPlayed = true,
 		RandomRemaining = true,
+		PreLineWait = 0.65,
+		ObjectType = "NPC_Heracles_01",
+
+		{ Cue = "/VO/Heracles_0609", Text = "Bested..." },
+		{ Cue = "/VO/Heracles_0610", Text = "Vanquished..." },
+		{ Cue = "/VO/Heracles_0611", Text = "You lost.", PlayFirst = true },
+		{ Cue = "/VO/Heracles_0612", Text = "{#Emph}<Scoff> Hah." },
+	},
+	{
 		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.65,
+		ObjectType = "NPC_Medea_01",
+
+		{ Cue = "/VO/Medea_0327", Text = "All for naught." },
+		{ Cue = "/VO/Medea_0328", Text = "Shall I curse it...?", PlayFirst = true },
+		{ Cue = "/VO/Medea_0329", Text = "Next time, perhaps." },
+		{ Cue = "/VO/Medea_0330", Text = "I saw nothing." },
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.65,
+		ObjectType = "NPC_Circe_01",
+
+		{ Cue = "/VO/Circe_0196", Text = "How unexpected..." },
+		{ Cue = "/VO/Circe_0197", Text = "Not meant to be." },
+		{ Cue = "/VO/Circe_0198", Text = "Oh, no..." },
+		{ Cue = "/VO/Circe_0199", Text = "What happened there?" },
+		{ Cue = "/VO/Circe_0200", Text = "An effort, nonetheless!", PlayFirst = true },
+		{ Cue = "/VO/Circe_0201", Text = "I thought you {#Emph}had {#Prev}that one!" },
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.65,
+		ObjectType = "NPC_Artemis_Field_01",
+
+		{ Cue = "/VO/Artemis_0338", Text = "No good...", PlayFirst = true },
+		{ Cue = "/VO/Artemis_0339", Text = "{#Emph}Mm." },
+		{ Cue = "/VO/Artemis_0340", Text = "Eluded." },
+		{ Cue = "/VO/Artemis_0341", Text = "Evaded." },
+		{ Cue = "/VO/Artemis_0342", Text = "Not quite." },
+		{ Cue = "/VO/Artemis_0343", Text = "Missed the mark..." },
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
 		PreLineWait = 0.65,
 		ObjectType = "NPC_Athena_01",
 
@@ -10176,7 +11324,6 @@ GlobalVoiceLines.FishNotCaughtReactionLines =
 	{
 		BreakIfPlayed = true,
 		RandomRemaining = true,
-		BreakIfPlayed = true,
 		PreLineWait = 0.65,
 		ObjectType = "NPC_Dionysus_01",
 		PreLineAnim = "Dionysus_Surprise",
@@ -10203,6 +11350,11 @@ GlobalVoiceLines.FishNotCaughtReactionLines =
 				Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
 				IsNone = { "G", "H", "I", },
 			},
+			{
+				Path = { "GameState", "GamePhase", },
+				Comparison = "~=",
+				Value = 5,
+			},
 		},
 
 		{ Cue = "/VO/Selene_0304", Text = "I saw nothing at all." },
@@ -10215,7 +11367,7 @@ GlobalVoiceLines.FishNotCaughtReactionLines =
 	{
 		BreakIfPlayed = true,
 		RandomRemaining = true,
-		PreLineWait = 0.35,
+		PreLineWait = 0.45,
 		Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
 		GameStateRequirements =
 		{
@@ -10236,8 +11388,26 @@ GlobalVoiceLines.FishNotCaughtReactionLines =
 	{
 		BreakIfPlayed = true,
 		RandomRemaining = true,
+		PreLineWait = 0.68,
+		SuccessiveChanceToPlay = 0.66,
+		ObjectType = "NPC_Charon_01",
+		PreLineAnim = "Charon_Fierce",
+		GameStateRequirements =
+		{
+			{
+				PathFalse = { "CurrentRun", "Hero", "IsDead" },
+			},
+		},
+
+		{ Cue = "/VO/Charon_0126", Text = "{#Emph}Ahhh..." },
+		{ Cue = "/VO/Charon_0127", Text = "{#Emph}Ehhh..." },
+		{ Cue = "/VO/Charon_0128", Text = "{#Emph}Mmm..." },
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
 		ChanceToPlay = 0.33,
-		PreLineWait = 0.41,
+		PreLineWait = 0.57,
 		Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
 		GameStateRequirements =
 		{
@@ -10254,7 +11424,36 @@ GlobalVoiceLines.FishNotCaughtReactionLines =
 		{ Cue = "/VO/Chaos_0188", Text = "An acceptable loss." },
 		{ Cue = "/VO/Chaos_0189", Text = "Perhaps the Fates desired this.", PlayFirst = true },
 		{ Cue = "/VO/Chaos_0190", Text = "An unsuccessful attempt." },
-	}
+	},
+	{
+		PlayOnceFromTableThisRun = true,
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.6,
+		SuccessiveChanceToPlay = 0.1,
+		SuccessiveChanceToPlayAll = 0.5,
+		StatusAnimation = "StatusIconStorytellerSpeaking",
+		StatusAnimSourceIsHero = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "UseRecord", "InspectPoint" },
+				Comparison = ">=",
+				Value = 40,
+			},
+			NamedRequirements = { "NoRecentInspectPointUsed" },
+		},
+		Source = { LineHistoryName = "Speaker_Anonymous", SubtitleColor = Color.NarratorVoice },
+		Cooldowns =
+		{
+			{ Name = "HomerSpokeRecently", Time = 420 },
+		},
+
+		{ Cue = "/VO/Storyteller_0315", Text = "{#Emph}Whatever lurks within those waters, there remains." },
+		{ Cue = "/VO/Storyteller_0316", Text = "{#Emph}Her prey escapes, however narrowly..." },
+		{ Cue = "/VO/Storyteller_0317", Text = "{#Emph}Well, she is not the Princess of the Sea..." },
+		{ Cue = "/VO/Storyteller_0318", Text = "{#Emph}That which she sought to capture slips away..." },
+	},
 }
 GlobalVoiceLines.FishIdentifiedReactionLines =
 {
@@ -10269,7 +11468,7 @@ GlobalVoiceLines.FishIdentifiedReactionLines =
 		{
 			{
 				Path = { "CurrentRun", "TextLinesRecord", },
-				HasAny = { "HecateFishing01" },
+				HasAny = { "HecateFishing01", "HecateFishing02" },
 			},
 			{
 				PathTrue = { "CurrentRun", "Hero", "IsDead" },
@@ -10277,7 +11476,9 @@ GlobalVoiceLines.FishIdentifiedReactionLines =
 		},
 
 		{ Cue = "/VO/Hecate_0386", Text = "And caught." },
-		{ Cue = "/VO/Hecate_0387", Text = "Ensnared!" },
+		{ Cue = "/VO/Hecate_0575", Text = "{#Emph}Hmm." },
+		{ Cue = "/VO/Hecate_0578", Text = "{#Emph}Hm." },
+		{ Cue = "/VO/Hecate_0580", Text = "{#Emph}Hmm." },
 	},
 	{
 		BreakIfPlayed = true,
@@ -10311,7 +11512,7 @@ GlobalVoiceLines.FishIdentifiedReactionLines =
 		{
 			{
 				Path = { "CurrentRun", "TextLinesRecord", },
-				HasAny = { "OdysseusFishing01" },
+				HasAny = { "OdysseusFishing01", "OdysseusFishing02" },
 			},
 			{
 				PathTrue = { "CurrentRun", "Hero", "IsDead" },
@@ -10320,6 +11521,8 @@ GlobalVoiceLines.FishIdentifiedReactionLines =
 
 		{ Cue = "/VO/Odysseus_0076", Text = "Hey, you got one!" },
 		{ Cue = "/VO/Odysseus_0077", Text = "{#Emph}Hoh{#Prev}, nice catch!" },
+		{ Cue = "/VO/Odysseus_0765", Text = "{#Emph}There {#Prev}it is!" },
+		{ Cue = "/VO/Odysseus_0767", Text = "Caught!" },
 	},
 	{
 		BreakIfPlayed = true,
@@ -10365,7 +11568,7 @@ GlobalVoiceLines.FishIdentifiedReactionLines =
 	{
 		BreakIfPlayed = true,
 		RandomRemaining = true,
-		PreLineWait = 0.5,
+		PreLineWait = 0.8,
 		Queue = "Interrupt",
 		ObjectType = "NPC_Nemesis_01",
 		AllowTalkOverTextLines = true,
@@ -10386,6 +11589,28 @@ GlobalVoiceLines.FishIdentifiedReactionLines =
 		{ Cue = "/VO/Nemesis_0189", Text = "Can we get back to work?" },
 		{ Cue = "/VO/Nemesis_0190", Text = "Big deal." },
 	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.85,
+		Queue = "Interrupt",
+		ObjectType = "NPC_Eris_01",
+		AllowTalkOverTextLines = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "TextLinesRecord", },
+				HasAny = { "ErisFishing01" },
+			},
+			{
+				PathTrue = { "CurrentRun", "Hero", "IsDead" },
+			},
+		},
+
+		{ Cue = "/VO/Eris_0230", Text = "Real {#Emph}beauty {#Prev}there!" },
+		{ Cue = "/VO/Eris_0232", Text = "{#Emph}Ugly!" },
+	},
+	{ GlobalVoiceLines = "IcarusFishCaughtReactionVoiceLines" },
 	{
 		BreakIfPlayed = true,
 		RandomRemaining = true,
@@ -10436,6 +11661,85 @@ GlobalVoiceLines.FishIdentifiedReactionLines =
 				},
 			},
 		},
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.65,
+		Queue = "Interrupt",
+		ObjectType = "NPC_Heracles_01",
+		Cooldowns =
+		{
+			{ Name = "HeraclesAnyQuipSpeech", Time = 4 },
+		},
+
+		{ Cue = "/VO/Heracles_0603", Text = "Glory." },
+		{ Cue = "/VO/Heracles_0604", Text = "Astonishing." },
+		{ Cue = "/VO/Heracles_0605", Text = "You're victorious.", PlayFirst = true },
+		{ Cue = "/VO/Heracles_0607", Text = "Mightily impressive." },
+		{ Cue = "/VO/Heracles_0608", Text = "Truly a feat." },
+		{ Cue = "/VO/Heracles_0606", Text = "Fish vanquished.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "TextLinesRecord", "HeraclesGift03" },
+				},
+			},
+		},
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.65,
+		Queue = "Interrupt",
+		ObjectType = "NPC_Medea_01",
+		Cooldowns =
+		{
+			{ Name = "MedeaSpokeRecently", Time = 4 },
+		},
+
+		{ Cue = "/VO/Medea_0321", Text = "Well, look at that." },
+		{ Cue = "/VO/Medea_0322", Text = "No magick required." },
+		{ Cue = "/VO/Medea_0323", Text = "Risen from the deep." },
+		{ Cue = "/VO/Medea_0324", Text = "The Acheron provides.", PlayFirst = true },
+		{ Cue = "/VO/Medea_0325", Text = "Is it even alive...?" },
+		{ Cue = "/VO/Medea_0326", Text = "You caught something..." },
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.65,
+		Queue = "Interrupt",
+		ObjectType = "NPC_Circe_01",
+		Cooldowns =
+		{
+			{ Name = "CirceAnyQuipSpeech", Time = 4 },
+		},
+
+		{ Cue = "/VO/Circe_0190", Text = "The deed is done!" },
+		{ Cue = "/VO/Circe_0191", Text = "From water to land!" },
+		{ Cue = "/VO/Circe_0192", Text = "How {#Emph}marvelous!" },
+		{ Cue = "/VO/Circe_0193", Text = "A rescue from the Rift!", PlayFirst = true },
+		{ Cue = "/VO/Circe_0194", Text = "You have it!" },
+		{ Cue = "/VO/Circe_0195", Text = "I'd not a doubt!" },
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.35,
+		Queue = "Interrupt",
+		ObjectType = "NPC_Artemis_Field_01",
+		AllowTalkOverTextLines = true,
+		Cooldowns =
+		{
+			{ Name = "ArtemisAnyQuipSpeech", Time = 4 },
+		},
+		{ Cue = "/VO/Artemis_0332", Text = "Success." },
+		{ Cue = "/VO/Artemis_0333", Text = "There it is." },
+		{ Cue = "/VO/Artemis_0334", Text = "Not bad!" },
+		{ Cue = "/VO/Artemis_0335", Text = "{#Emph}Ooh." },
+		{ Cue = "/VO/Artemis_0336", Text = "Look at that!", PlayFirst = true },
+		{ Cue = "/VO/Artemis_0337", Text = "Well caught." },
 	},
 	{
 		BreakIfPlayed = true,
@@ -10622,13 +11926,49 @@ GlobalVoiceLines.FishIdentifiedReactionLines =
 		{ Cue = "/VO/Chaos_0185", Text = "That was amusing to behold." },
 		{ Cue = "/VO/Chaos_0186", Text = "A show of certain skill..." },
 	},
+	{
+		PlayOnceFromTableThisRun = true,
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.6,
+		SuccessiveChanceToPlay = 0.1,
+		SuccessiveChanceToPlayAll = 0.5,
+		StatusAnimation = "StatusIconStorytellerSpeaking",
+		StatusAnimSourceIsHero = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "UseRecord", "InspectPoint" },
+				Comparison = ">=",
+				Value = 40,
+			},
+			{
+				Path = { "CurrentRun", "FishingSuccessesFamiliar" },
+				Comparison = "<",
+				Value = 1,
+			},
+			NamedRequirements = { "NoRecentInspectPointUsed" },
+		},
+		Source = { LineHistoryName = "Speaker_Anonymous", SubtitleColor = Color.NarratorVoice },
+		Cooldowns =
+		{
+			{ Name = "HomerSpokeRecently", Time = 420 },
+		},
+
+		{ Cue = "/VO/Storyteller_0309", Text = "{#Emph}Her prize procured from water, caught with grace." },
+		{ Cue = "/VO/Storyteller_0310", Text = "{#Emph}Mere mortals never could achieve such skill." },
+		{ Cue = "/VO/Storyteller_0311", Text = "{#Emph}A catch achievable only by gods." },
+		{ Cue = "/VO/Storyteller_0312", Text = "{#Emph}Behold, another creature from the depths." },
+		{ Cue = "/VO/Storyteller_0313", Text = "{#Emph}A sudden flash, and thus the catch is made." },
+		{ Cue = "/VO/Storyteller_0314", Text = "{#Emph}Is there a water denizen she cannot catch?" },
+	},
 }
 
 GlobalVoiceLines.SpellReactionVoiceLines =
 {
 	Cooldowns =
 	{
-		{ Name = "SpellReactionVOPlayedRecently", Time = 45 },
+		{ Name = "SpellReactionVOPlayedRecently", Time = 90 },
 	},
 	-- Hecate
 	{
@@ -10664,6 +12004,7 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 		},
 		{
 			RandomRemaining = true,
+			PreLineWait = 1.6,
 			GameStateRequirements =
 			{
 				{
@@ -10677,6 +12018,23 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 		},
 		{
 			RandomRemaining = true,
+			PreLineWait = 0.4,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellTimeSlowTrait" },
+				},
+			},
+
+			{ Cue = "/VO/HecateField_0374", Text = "Phase Shift..." },
+			{ Cue = "/VO/HecateField_0375", Text = "Phase Shift, was it?" },
+			{ Cue = "/VO/HecateField_0376", Text = "Time can bend..." },
+		},
+		{
+			RandomRemaining = true,
+			PreLineWait = 1.2,
+
 			{ Cue = "/VO/HecateField_0231", Text = "The Lunar Ray...",
 				PlayFirst = true,
 				GameStateRequirements =
@@ -10733,6 +12091,7 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 		},
 		{
 			RandomRemaining = true,
+			PreLineWait = 1.65,
 			SuccessiveChanceToPlay = 0.5,
 			GameStateRequirements =
 			{
@@ -10751,8 +12110,7 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 	{
 		BreakIfPlayed = true,
 		RandomRemaining = true,
-		PreLineWait = 1.8,
-		SuccessiveChanceToPlay = 0.5,
+		PreLineWait = 1.5,
 		ObjectType = "Scylla",
 		GameStateRequirements =
 		{
@@ -10761,8 +12119,8 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 				HasAny = { "SpellSummonTrait" },
 			},
 			{
-				Path = { "CurrentRun", "CurrentRoom", "Kills" },
-				HasNone = { "FishSwarmer", "FishSwarmer_Elite" },
+				Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+				IsAny = { "SirenDrummer", "SirenKeytarist", "CharybdisTentacle2" },
 			},
 		},
 		TriggerCooldowns = { "ScyllaSpokeRecently" },
@@ -10772,12 +12130,8 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "CurrentRun", "EnemyKills" },
-					HasAll = { "SirenDrummer" },
-				},
-				{
-					Path = { "CurrentRun", "EnemyKills" },
-					HasNone = { "SirenKeytarist" },
+					Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+					IsAny = { "SirenDrummer" },
 				},
 			},
 		},
@@ -10786,12 +12140,8 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "CurrentRun", "EnemyKills" },
-					HasAll = { "SirenDrummer" },
-				},
-				{
-					Path = { "CurrentRun", "EnemyKills" },
-					HasNone = { "SirenKeytarist" },
+					Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+					IsAny = { "SirenDrummer" },
 				},
 			},
 		},
@@ -10800,12 +12150,8 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "CurrentRun", "EnemyKills" },
-					HasAll = { "SirenDrummer" },
-				},
-				{
-					Path = { "CurrentRun", "EnemyKills" },
-					HasNone = { "SirenKeytarist" },
+					Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+					IsAny = { "SirenDrummer" },
 				},
 			},
 		},
@@ -10814,12 +12160,8 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "CurrentRun", "EnemyKills" },
-					HasAll = { "SirenDrummer" },
-				},
-				{
-					Path = { "CurrentRun", "EnemyKills" },
-					HasNone = { "SirenKeytarist" },
+					Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+					IsAny = { "SirenDrummer" },
 				},
 			},
 		},
@@ -10828,12 +12170,8 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "CurrentRun", "EnemyKills" },
-					HasAll = { "SirenKeytarist" },
-				},
-				{
-					Path = { "CurrentRun", "EnemyKills" },
-					HasNone = { "SirenDrummer" },
+					Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+					IsAny = { "SirenKeytarist" },
 				},
 			},
 		},
@@ -10842,12 +12180,8 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "CurrentRun", "EnemyKills" },
-					HasAll = { "SirenKeytarist" },
-				},
-				{
-					Path = { "CurrentRun", "EnemyKills" },
-					HasNone = { "SirenDrummer" },
+					Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+					IsAny = { "SirenKeytarist" },
 				},
 			},
 		},
@@ -10856,12 +12190,8 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "CurrentRun", "EnemyKills" },
-					HasAll = { "SirenKeytarist" },
-				},
-				{
-					Path = { "CurrentRun", "EnemyKills" },
-					HasNone = { "SirenDrummer" },
+					Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+					IsAny = { "SirenKeytarist" },
 				},
 			},
 		},
@@ -10870,15 +12200,51 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "CurrentRun", "EnemyKills" },
-					HasAll = { "SirenKeytarist" },
-				},
-				{
-					Path = { "CurrentRun", "EnemyKills" },
-					HasNone = { "SirenDrummer" },
+					Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+					IsAny = { "SirenKeytarist" },
 				},
 			},
 		},
+		{ Cue = "/VO/Scylla_0376", Text = "Control yourself, Charybdis!",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+					IsAny = { "CharybdisTentacle2" },
+				},
+			},
+		},
+		{ Cue = "/VO/Scylla_0377", Text = "Hands {#Emph}off{#Prev}, Charybdis!",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+					IsAny = { "CharybdisTentacle2" },
+				},
+			},
+		},
+		{ Cue = "/VO/Scylla_0378", Text = "Charybdis, get a {#Emph}hold {#Prev}of yourself!",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+					IsAny = { "CharybdisTentacle2" },
+				},
+			},
+		},
+		{ Cue = "/VO/Scylla_0379", Text = "Charybdis, snap {#Emph}out {#Prev}of it!",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+					IsAny = { "CharybdisTentacle2" },
+				},
+			},
+		},		
 		{ Cue = "/VO/Scylla_0250", Text = "Quit messing with my band!" },
 		{ Cue = "/VO/Scylla_0251", Text = "You {#Emph}cut {#Prev}that out!" },
 		{ Cue = "/VO/Scylla_0252", Text = "Not {#Emph}this {#Prev}again!" },
@@ -10909,6 +12275,95 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 		{ Cue = "/VO/Polyphemus_0339", Text = "Was that...?" },
 		{ Cue = "/VO/Polyphemus_0340", Text = "What, that's {#Emph}it?" },
 	},
+	-- Eris
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		ObjectType = "Eris",
+		SuccessiveChanceToPlay = 0.5,
+		SkipCooldownCheckIfNonePlayed = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BossHealthBarRecord", "Eris" },
+				Comparison = ">=",
+				Value = 0.2,
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasNone = { "SpellPotionTrait" },
+			},
+		},
+		Cooldowns =
+		{
+			{ Name = "ErisSpokeRecently", Time = 10 },
+		},
+		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			PreLineWait = 1.5,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellTransformTrait" },
+				},
+			},
+
+			{ Cue = "/VO/ErisField_0303", Text = "Oh, {#Emph}scary!" },
+			{ Cue = "/VO/ErisField_0304", Text = "What's gotten into you?" },
+			{ Cue = "/VO/ErisField_0305", Text = "Snap out of it, babe!" },
+			{ Cue = "/VO/ErisField_0306", Text = "You're a {#Emph}freak!", PlayFirst = true },
+			{ Cue = "/VO/ErisField_0307", Text = "So {#Emph}angry!" },
+			{ Cue = "/VO/ErisField_0308", Text = "Big deal!" },
+		},
+		{
+			RandomRemaining = true,
+			PreLineWait = 1.45,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellLaserTrait" },
+				},
+			},
+
+			{ Cue = "/VO/ErisField_0309", Text = "Whoa, {#Emph}watch {#Prev}it!" },
+			{ Cue = "/VO/ErisField_0310", Text = "I'll do the shooting, thanks!" },
+			{ Cue = "/VO/ErisField_0311", Text = "Ooh {#Emph}shiny!" },
+			{ Cue = "/VO/ErisField_0314", Text = "{#Emph}Whoa {#Prev}calm down!" },
+		},
+		{
+			RandomRemaining = true,
+			PreLineWait = 1.6,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellSummonTrait" },
+				},
+			},
+
+			{ Cue = "/VO/ErisField_0315", Text = "Turned one against me, {#Emph}eh?" },
+			{ Cue = "/VO/ErisField_0316", Text = "They always stab me in the back..." },
+			{ Cue = "/VO/ErisField_0317", Text = "You got a minion of your {#Emph}own!" },
+			{ Cue = "/VO/ErisField_0318", Text = "Who's your new {#Emph}friend?", PlayFirst = true },
+		},
+		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			PreLineWait = 1.5,
+
+			{ Cue = "/VO/ErisField_0291", Text = "What did you just do?" },
+			{ Cue = "/VO/ErisField_0292", Text = "Like {#Emph}that'll {#Prev}work!" },
+			{ Cue = "/VO/ErisField_0293", Text = "Oh be {#Emph}quiet!" },
+			{ Cue = "/VO/ErisField_0294", Text = "Stay out of this, {#Emph}Moon!" },
+			{ Cue = "/VO/ErisField_0295", Text = "Whatever!" },
+			{ Cue = "/VO/ErisField_0296", Text = "{#Emph}Lunatic!" },
+			{ Cue = "/VO/ErisField_0312", Text = "Neat trick!" },
+			{ Cue = "/VO/ErisField_0313", Text = "Hey what {#Emph}gives?" },
+		},
+	},
 	-- Prometheus
 	{
 		BreakIfPlayed = true,
@@ -10934,7 +12389,6 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 		{ Cue = "/VO/Prometheus_0278", Text = "Magick..." },
 		{ Cue = "/VO/Prometheus_0279", Text = "The wrath of gods..." },
 	},
-
 	-- Chronos
 	{
 		BreakIfPlayed = true,
@@ -10986,6 +12440,7 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 		{
 			RandomRemaining = true,
 			PreLineWait = 1.65,
+			SkipCooldownCheckIfNonePlayed = true,
 			GameStateRequirements =
 			{
 				{
@@ -10994,14 +12449,59 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 				},
 			},
 
+			{ Cue = "/VO/Chronos_1221", Text = "That Tempus there is {#Emph}mine!",
+				PlayFirst = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+						IsAny = { "TimeElemental2" },
+					},
+				},
+			},
+			{ Cue = "/VO/Chronos_1222", Text = "Traitorous Tempus!",
+				PlayFirst = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+						IsAny = { "TimeElemental2" },
+					},
+				},
+			},
+			{ Cue = "/VO/Chronos_1223", Text = "You have yourself a Tempus for a pet!",
+				PlayFirst = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+						IsAny = { "TimeElemental2" },
+					},
+				},
+			},
+			{ Cue = "/VO/Chronos_1224", Text = "What is that Tempus {#Emph}doing?!",
+				PlayFirst = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "SummonEnemyName" },
+						IsAny = { "TimeElemental2" },
+					},
+				},
+			},
 			{ Cue = "/VO/Chronos_0675", Text = "A traitor in my ranks." },
 			{ Cue = "/VO/Chronos_0676", Text = "My legions are susceptible..." },
 			{ Cue = "/VO/Chronos_0677", Text = "That is {#Emph}my {#Prev}servant!" },
-			{ Cue = "/VO/Chronos_0678", Text = "Get your {#Emph}own {#Prev}servants!", PlayFirst = true },
+			{ Cue = "/VO/Chronos_0678", Text = "Get your {#Emph}own {#Prev}servants!" },
+			{ Cue = "/VO/Chronos_0920", Text = "You twist my servant's will!", PlayFirst = true },
+			{ Cue = "/VO/Chronos_0921", Text = "What lunacy is {#Emph}this?" },
+			{ Cue = "/VO/Chronos_0922", Text = "A betrayal...!" },
+			{ Cue = "/VO/Chronos_0923", Text = "Manipulative witch...!" },
 		},
 		{
 			RandomRemaining = true,
 			PreLineWait = 1.45,
+			SuccessiveChanceToPlay = 0.33,
 			GameStateRequirements =
 			{
 				{
@@ -11025,7 +12525,7 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 		RandomRemaining = true,
 		PreLineWait = 1.8,
 		ObjectType = "NPC_Nemesis_01",
-		SuccessiveChanceToPlay = 0.5,
+		SuccessiveChanceToPlay = 0.33,
 		GameStateRequirements =
 		{
 			{
@@ -11042,12 +12542,74 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 		{ Cue = "/VO/NemesisField_0300", Text = "No way..." },
 		{ Cue = "/VO/NemesisField_0301", Text = "How..." },
 	},
-	-- Heracles
+	-- Artemis
 	{
 		BreakIfPlayed = true,
 		RandomRemaining = true,
 		PreLineWait = 1.8,
-		ObjectType = "NPC_Heracles_01",
+		ObjectType = "NPC_Artemis_Field_01",
+		SuccessiveChanceToPlay = 0.33,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasNone = { "SpellPotionTrait" },
+			},
+		},
+		TriggerCooldowns = { "ArtemisAnyQuipSpeech" },
+
+		{ Cue = "/VO/Artemis_0454", Text = "Selene's gift..." },
+		{ Cue = "/VO/Artemis_0457", Text = "Cheers, Selene!" },
+		{ Cue = "/VO/Artemis_0458", Text = "Teamwork!" },
+		{ Cue = "/VO/Artemis_0459", Text = "Moonlight..." },
+		{ Cue = "/VO/Artemis_0455", Text = "That never works for {#Emph}me...",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellTransformTrait" },
+				},
+			},
+		},
+		{ Cue = "/VO/Artemis_0456", Text = "The Silver Sisters special!",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellLaserTrait" },
+				},
+			},
+		},
+		{ Cue = "/VO/Artemis_0462", Text = "You're fast...",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellTimeSlowTrait" },
+				},
+			},
+		},
+		{ Cue = "/VO/Artemis_0463", Text = "Where'd you go...?",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellTimeSlowTrait" },
+				},
+			},
+		},
+	},
+	-- Icarus
+	{
+		PlayOnceFromTableThisRun = true,
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 1.8,
+		ObjectType = "NPC_Icarus_01",
 		SuccessiveChanceToPlay = 0.5,
 		GameStateRequirements =
 		{
@@ -11056,11 +12618,208 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 				HasNone = { "SpellPotionTrait" },
 			},
 		},
-		TriggerCooldowns = { "HeraclesAnyQuipSpeech" },
+		TriggerCooldowns = { "IcarusAnyQuipSpeech" },
+
+		{ Cue = "/VO/Icarus_0495", Text = "What was {#Emph}that...?", PlayFirst = true },
+		{ Cue = "/VO/Icarus_0496", Text = "Moonlight..." },
+		{ Cue = "/VO/Icarus_0497", Text = "The moon...!" },
+		{ Cue = "/VO/Icarus_0498", Text = "Incredible..." },
+		{ Cue = "/VO/Icarus_0500", Text = "{#Emph}Hah{#Prev}, look at that!" },
+		{ Cue = "/VO/Icarus_0499", Text = "Where did you go...?",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellTimeSlowTrait" },
+				},
+			},
+		},
+		{ Cue = "/VO/Icarus_0501", Text = "Oh, gods..." },
+		{ Cue = "/VO/Icarus_0502_B", Text = "{#Emph}Whoa...!" },
+		{ Cue = "/VO/Icarus_0502_C", Text = "{#Emph}Whoa..." },
+	},
+	-- Heracles
+	{
+		PlayOnceFromTableThisRun = true,
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 1.8,
+		ObjectType = "NPC_Heracles_01",
+		SuccessiveChanceToPlay = 0.5,
+		SkipCooldownCheckIfNonePlayed = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasNone = { "SpellPotionTrait" },
+			},
+		},
+		Cooldowns =
+		{
+			{ Name = "HeraclesAnyQuipSpeech", Time = 12 },
+		},
 
 		{ Cue = "/VO/Heracles_0081", Text = "You and your tricks..." },
 		{ Cue = "/VO/Heracles_0082", Text = "Magick...", PlayFirst = true },
 		{ Cue = "/VO/Heracles_0083", Text = "Tricksy..." },
+		{ Cue = "/VO/Heracles_0484", Text = "Witch..." },
+		{ Cue = "/VO/Heracles_0485", Text = "You and your magick..." },
+		{ Cue = "/VO/Heracles_0486", Text = "How did..." },
+		{ Cue = "/VO/Heracles_0487", Text = "Uncanny..." },
+		{ Cue = "/VO/Heracles_0488", Text = "Unnatural..." },
+		{ Cue = "/VO/Heracles_0489", Text = "{#Emph}Eugh..." },
+	},
+	-- Medea
+	{
+		PlayOnceFromTableThisRun = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.65,
+		SuccessiveChanceToPlayAll = 0.05,
+		ObjectTypes = { "Medea", "NPC_Medea_01" },
+		Cooldowns =
+		{
+			{ Name = "MedeaSpokeRecently", Time = 16 },
+		},
+
+		{ Cue = "/VO/Medea_0419", Text = "The Eye of Night...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasNone = { "SpellPotionTrait", "SpellLeapTrait" },
+				},
+			},
+		},
+		{ Cue = "/VO/Medea_0420", Text = "By the Moon...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasNone = { "SpellPotionTrait", "SpellLeapTrait" },
+				},
+			},
+		},
+		{ Cue = "/VO/Medea_0421", Text = "The Lunar Ray...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellLaserTrait" },
+				},
+			},
+		},
+		{ Cue = "/VO/Medea_0423", Text = "Wolf Howl...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellLeapTrait" },
+				},
+			},
+		},
+		{ Cue = "/VO/Medea_0424", Text = "Total Eclipse...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellMeteorTrait" },
+				},
+			},
+		},
+		{ Cue = "/VO/Medea_0425", Text = "Sky Fall...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellMoonBeamTrait" },
+				},
+			},
+		},
+		{ Cue = "/VO/Medea_0426", Text = "Dark Side...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellTransformTrait" },
+				},
+			},
+		},
+		{ Cue = "/VO/Medea_0427", Text = "Your Dark Side...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellTransformTrait" },
+				},
+			},
+		},
+		{ Cue = "/VO/Medea_0428", Text = "Phase Shift...?",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellTimeSlowTrait" },
+				},
+			},
+		},
+		{ Cue = "/VO/Medea_0429", Text = "Moon Water...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellPotionTrait" },
+				},
+			},
+		},
+		{ Cue = "/VO/Medea_0430", Text = "Night Bloom...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellSummonTrait" },
+				},
+			},
+		},
+		{ Cue = "/VO/Medea_0431", Text = "We have a guest...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny = { "SpellSummonTrait" },
+				},
+			},
+		},
+	},
+	-- Zagreus
+	{
+		PlayOnceFromTableThisRun = true,
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 1.8,
+		ObjectType = "Zagreus",
+		SuccessiveChanceToPlay = 0.5,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasNone = { "SpellPotionTrait" },
+			},
+		},
+		SkipCooldownCheckIfNonePlayed = true,
+		Cooldowns =
+		{
+			{ Name = "ZagreusAnyQuipSpeech", Time = 10 },
+		},
+
+		{ Cue = "/VO/Zagreus_0370", Text = "Hey, {#Emph}magick!", PlayFirst = true },
+		{ Cue = "/VO/Zagreus_0371", Text = "Whoa." },
+		{ Cue = "/VO/Zagreus_0372", Text = "Neat trick!" },
+		{ Cue = "/VO/Zagreus_0373", Text = "Fancy!" },
+		{ Cue = "/VO/Zagreus_0374", Text = "How'd you do that?" },
+		{ Cue = "/VO/Zagreus_0375", Text = "How nice for you!" },
+		{ Cue = "/VO/Zagreus_0376", Text = "Magick..." },
+		{ Cue = "/VO/Zagreus_0377", Text = "Magick tricks..." },
 	},
 }
 GlobalVoiceLines.SpellPolymorphReactionVoiceLines =
@@ -11077,7 +12836,6 @@ GlobalVoiceLines.SpellPolymorphReactionVoiceLines =
 		PreLineWait = 0.65,
 		SuccessiveChanceToPlay = 0.5,
 		ObjectType = "Hecate",
-		SuccessiveChanceToPlay = 0.33,
 		GameStateRequirements =
 		{
 			{
@@ -11094,6 +12852,21 @@ GlobalVoiceLines.SpellPolymorphReactionVoiceLines =
 		{ Cue = "/VO/HecateField_0216", Text = "Apologies, Sisters...!" },
 		{ Cue = "/VO/HecateField_0217", Text = "The tables turn." },
 		{ Cue = "/VO/HecateField_0218", Text = "Uncalled for!" },
+	},
+	-- Artemis
+	{
+		RandomRemaining = true,
+		PreLineWait = 0.65,
+		ObjectType = "NPC_Artemis_Field_01",
+		SuccessiveChanceToPlay = 0.5,
+		SkipCooldownCheckIfNonePlayed = true,
+		Cooldowns =
+		{
+			{ Name = "ArtemisAnyQuipSpeech", Time = 10 },
+		},
+
+		{ Cue = "/VO/Artemis_0460", Text = "Hunting livestock, sure.", PlayFirst = true },
+		{ Cue = "/VO/Artemis_0461", Text = "Easy targets." },
 	},
 	-- Polyphemus
 	{
@@ -11118,6 +12891,42 @@ GlobalVoiceLines.SpellPolymorphReactionVoiceLines =
 		{ Cue = "/VO/Polyphemus_0318", Text = "{#Emph}<Sniff> {#Prev}More sheep?", PlayFirst = true },
 		{ Cue = "/VO/Polyphemus_0319", Text = "More sheep out of thin air?" },
 		{ Cue = "/VO/Polyphemus_0320", Text = "Hey, how'd you make more sheep?" },
+	},
+	-- Medea
+	{
+		PlayOnceFromTableThisRun = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.65,
+		SuccessiveChanceToPlay = 0.05,
+		ObjectTypes = { "Medea", "NPC_Medea_01" },
+		Cooldowns =
+		{
+			{ Name = "MedeaSpokeRecently", Time = 16 },
+		},
+
+		{ Cue = "/VO/Medea_0422", Text = "The Twilight Curse..." },
+	},
+	-- Eris
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.65,
+		SuccessiveChanceToPlay = 0.5,
+		ObjectType = "Eris",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BossHealthBarRecord", "Eris" },
+				Comparison = ">=",
+				Value = 0.2,
+			},
+		},
+		TriggerCooldowns = { "ErisSpokeRecently" },
+		
+		{ Cue = "/VO/ErisField_0297", Text = "{#Emph}Haha, wow!" },
+		{ Cue = "/VO/ErisField_0298", Text = "You're {#Emph}mean!" },
+		{ Cue = "/VO/ErisField_0299", Text = "You {#Emph}animal!" },
+		{ Cue = "/VO/ErisField_0300", Text = "{#Emph}Aw, sheep!", PlayFirst = true },
 	},
 	-- Chronos
 	{
@@ -11144,103 +12953,6 @@ GlobalVoiceLines.SpellPolymorphReactionVoiceLines =
 		{ Cue = "/VO/Chronos_0658", Text = "Livestock..." },
 	},
 
-}
-
--- Global Hades Lines
-GlobalVoiceLines.HadesCurseVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 0.35,
-	NoTarget = true,
-	Source = { LineHistoryName = "NPC_Hades_01", SubtitleColor = Color.HadesVoice },
-
-	{ Cue = "/VO/Hades_0085", Text = "{#Emph}Curse you..." },
-	{ Cue = "/VO/Hades_0086", Text = "{#Emph}Curse you, Father..." },
-	{ Cue = "/VO/Hades_0087", Text = "{#Emph}Blast you, Father!" },
-	{ Cue = "/VO/Hades_0088", Text = "{#Emph}You stay away from her...!" },
-	{ Cue = "/VO/Hades_0089", Text = "{#Emph}Wretched Titan..." },
-	{ Cue = "/VO/Hades_0090", Text = "{#Emph}Wretched excuse for a father!" },
-	{ Cue = "/VO/Hades_0091", Text = "{#Emph}There is no escape." },
-	{ Cue = "/VO/Hades_0092", Text = "{#Emph}Get from my House!" },
-	{ Cue = "/VO/Hades_0093", Text = "{#Emph}Death is your only family." },
-	{ Cue = "/VO/Hades_0094", Text = "{#Emph}For what you did to me!" },
-	{ Cue = "/VO/Hades_0095", Text = "{#Emph}<Laughter>", PlayFirst = true },
-}
-GlobalVoiceLines.HadesHarvestReactionVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 0.65,
-	SuccessiveChanceToPlayAll = 0.33,
-	ObjectType = "NPC_Hades_Field_01",
-	GameStateRequirements =
-	{
-		{
-			Path = { "GameState", "UseRecord", "NPC_Hades_Field_01" },
-			Comparison = ">=",
-			Value = 2,
-		},
-	},
-	Cooldowns =
-	{
-		{ Name = "HadesSpokeRecently", Time = 12 },
-	},
-
-	{ Cue = "/VO/Hades_0152", Text = "Why pick the refuse from this place?" },
-	{ Cue = "/VO/Hades_0153", Text = "There's nothing here of use." },
-	{ Cue = "/VO/Hades_0183", Text = "Just go..." },
-}
-GlobalVoiceLines.HadesPickaxeReactionVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 0.65,
-	SuccessiveChanceToPlayAll = 0.33,
-	ObjectType = "NPC_Hades_Field_01",
-	GameStateRequirements =
-	{
-		{
-			Path = { "GameState", "UseRecord", "NPC_Hades_Field_01" },
-			Comparison = ">=",
-			Value = 2,
-		},
-	},
-	Cooldowns =
-	{
-		{ Name = "HadesSpokeRecently", Time = 12 },
-	},
-
-	{ Cue = "/VO/Hades_0179", Text = "Good riddance.", PlayFirst = true },
-	{ Cue = "/VO/Hades_0180", Text = "Marble..." },
-	{ Cue = "/VO/Hades_0181", Text = "In his own likeness..." },
-	{ Cue = "/VO/Hades_0182", Text = "Oh he has more..." },
-	{ Cue = "/VO/Hades_0184", Text = "{#Emph}<Chuckle>" },
-}
-GlobalVoiceLines.HadesExorcismReactionVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 0.65,
-	SuccessiveChanceToPlayAll = 0.2,
-	ObjectType = "NPC_Hades_Field_01",
-	GameStateRequirements =
-	{
-		{
-			Path = { "GameState", "UseRecord", "NPC_Hades_Field_01" },
-			Comparison = ">=",
-			Value = 2,
-		},
-	},
-	Cooldowns =
-	{
-		{ Name = "HadesSpokeRecently", Time = 12 },
-	},
-
-	{ Cue = "/VO/Hades_0154", Text = "I thought that one would never leave." },
-	{ Cue = "/VO/Hades_0155", Text = "A Shade that has a spine." },
-	{ Cue = "/VO/Hades_0185", Text = "Long had that one waited here..." },
-	{ Cue = "/VO/Hades_0186", Text = "The Shades heed you at least..." },
 }
 
 -- Global Zeus Lines
@@ -11271,391 +12983,6 @@ GlobalVoiceLines.ZeusInstaKillVoiceLines =
 	},
 }
 
--- Global Poseidon Lines
-GlobalVoiceLines.PoseidonDoubleRewardReactionLines =
-{
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.25,
-		Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
-		GameStateRequirements =
-		{
-			--
-		},
-		{ Cue = "/VO/Poseidon_0202", Text = "{#Emph}Hahaha{#Prev}, yes!" },
-		{ Cue = "/VO/Poseidon_0242", Text = "Yes, {#Emph}haha!", PlayFirst = true },
-		{ Cue = "/VO/Poseidon_0343", Text = "Have {#Emph}another!" },
-		{ Cue = "/VO/Poseidon_0344", Text = "How about {#Emph}two!" },
-		{ Cue = "/VO/Poseidon_0345", Text = "And {#Emph}another!" },
-		{ Cue = "/VO/Poseidon_0346", Text = "{#Emph}One {#Prev}more!" },
-	},
-	{ GlobalVoiceLines = "PositiveReactionVoiceLines" },
-}
-GlobalVoiceLines.PoseidonRoomRewardBonusReactionLines =
-{
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.15,
-		Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
-		GameStateRequirements =
-		{
-			--
-		},
-		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
-
-		{ Cue = "/VO/Poseidon_0347", Text = "My {#Emph}bounty!" },
-		{ Cue = "/VO/Poseidon_0348", Text = "{#Emph}Behold!", PlayFirst = true },
-		{ Cue = "/VO/Poseidon_0349", Text = "All for you!" },
-		{ Cue = "/VO/Poseidon_0350", Text = "Treasure from the {#Emph}sea!" },
-	},
-}
-
-GlobalVoiceLines.PoseidonWelcomeVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	SuccessiveChanceToPlay = 0.5,
-	PreLineWait = 1.35,
-	Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
-	GameStateRequirements =
-	{
-		{
-			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-			IsAny = { "O" },
-		},
-	},
-	Cooldowns =
-	{
-		{ Name = "PoseidonAnyQuipSpeech", Time = 240 },
-	},
-
-	{ Cue = "/VO/Ships_0090", Text = "Welcome to my waters!", PlayFirst = true },
-	{ Cue = "/VO/Ships_0091", Text = "Welcome back!" },
-	{ Cue = "/VO/Ships_0092", Text = "My niece, you made it here!" },
-	{ Cue = "/VO/Ships_0093", Text = "Your voyage begins anew!" },
-	{ Cue = "/VO/Ships_0094", Text = "Prepare to embark!" },
-	{ Cue = "/VO/Ships_0095", Text = "Let's get you through this channel!" },
-}
-GlobalVoiceLines.PoseidonSetSailVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 1.35,
-	Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
-	GameStateRequirements =
-	{
-		{
-			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-			IsAny = { "O" },
-		},
-	},
-	Cooldowns =
-	{
-		{ Name = "PoseidonAnyQuipSpeech", Time = 240 },
-	},
-	PostLineFunctionName = "HadesSpeakingPresentation",
-	PostLineFunctionArgs = { PlaySpeechFirst = true, OverlayAnim = "PoseidonOverlay" },
-
-	{ Cue = "/VO/Ships_0096", Text = "Smooth sailing, my niece!" },
-	{ Cue = "/VO/Ships_0097", Text = "May you sail swift and true!" },
-	{ Cue = "/VO/Ships_0098", Text = "These are contested waters I'm afraid!" },
-	{ Cue = "/VO/Ships_0099", Text = "Sail on and have no fear!" },
-	{ Cue = "/VO/Ships_0100", Text = "Steady as she goes!" },
-	{ Cue = "/VO/Ships_0101", Text = "Sail forth!" },
-}
-GlobalVoiceLines.PoseidonCombatBeginsVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 1.35,
-	Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
-	GameStateRequirements =
-	{
-		{
-			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-			IsAny = { "O" },
-		},
-	},
-	Cooldowns =
-	{
-		{ Name = "PoseidonAnyQuipSpeech", Time = 180 },
-	},
-	PostLineFunctionName = "HadesSpeakingPresentation",
-	PostLineFunctionArgs = { PlaySpeechFirst = true, OverlayAnim = "PoseidonOverlay" },
-
-	{ Cue = "/VO/Ships_0102", Text = "Unwelcome company!" },
-	{ Cue = "/VO/Ships_0103", Text = "Contaminated waters!" },
-	{ Cue = "/VO/Ships_0104", Text = "Servants of Chronos!" },
-	{ Cue = "/VO/Ships_0105", Text = "Enemies, upon my waters!" },
-	{ Cue = "/VO/Ships_0106", Text = "Upon my waters!" },
-	{ Cue = "/VO/Ships_0107", Text = "Our enemies abound!" },
-	{ Cue = "/VO/Ships_0108", Text = "Rough waters coming up..." },
-	{ Cue = "/VO/Ships_0109", Text = "Pirates!" },
-}
-GlobalVoiceLines.PoseidonEliteCombatBeginsVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 1.35,
-	Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
-	GameStateRequirements =
-	{
-		{
-			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-			IsAny = { "O" },
-		},
-	},
-	Cooldowns =
-	{
-		{ Name = "PoseidonAnyQuipSpeech", Time = 360 },
-	},
-
-	{ Cue = "/VO/Ships_0110", Text = "Beware this one!" },
-	{ Cue = "/VO/Ships_0111", Text = "Don't let your guard down now!" },
-	{ Cue = "/VO/Ships_0112", Text = "Go give it everything you've got!" },
-	{ Cue = "/VO/Ships_0113", Text = "Brace yourself, Niece!" },
-	{ Cue = "/VO/Ships_0114", Text = "All right, Niece, here we go!" },
-}
-GlobalVoiceLines.PoseidonKillingEnemyVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 1.35,
-	Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
-	GameStateRequirements =
-	{
-		{
-			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-			IsAny = { "O" },
-		},
-	},
-	Cooldowns =
-	{
-		{ Name = "PoseidonAnyQuipSpeech", Time = 360 },
-	},
-
-	{ Cue = "/VO/Ships_0115", Text = "{#Emph}Haha{#Prev}, good one, my niece!" },
-	{ Cue = "/VO/Ships_0116", Text = "Another down, {#Emph}haha!" },
-	{ Cue = "/VO/Ships_0117", Text = "That ought to teach them!" },
-	{ Cue = "/VO/Ships_0118", Text = "Yes, that's it!" },
-	{ Cue = "/VO/Ships_0119", Text = "No mercy shown!" },
-	{ Cue = "/VO/Ships_0120", Text = "Nice catch!" },
-	{ Cue = "/VO/Ships_0121", Text = "That's my niece!" },
-	{ Cue = "/VO/Ships_0122", Text = "Showed that one!" },
-}
-GlobalVoiceLines.PoseidonPlayerInjuredVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 1.35,
-	Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
-	GameStateRequirements =
-	{
-		{
-			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-			IsAny = { "O" },
-		},
-	},
-	Cooldowns =
-	{
-		{ Name = "PoseidonAnyQuipSpeech", Time = 120 },
-	},
-
-	{ Cue = "/VO/Ships_0123", Text = "Be careful, Niece!" },
-	{ Cue = "/VO/Ships_0124", Text = "Now just hang on!" },
-	{ Cue = "/VO/Ships_0125", Text = "You can do this!" },
-	{ Cue = "/VO/Ships_0126", Text = "Steady yourself!" },
-	{ Cue = "/VO/Ships_0127", Text = "Keep fighting!" },
-	{ Cue = "/VO/Ships_0128", Text = "Don't you back down!" },
-}
-GlobalVoiceLines.PoseidonNextWaveVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 1.35,
-	Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
-	GameStateRequirements =
-	{
-		{
-			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-			IsAny = { "O" },
-		},
-	},
-	Cooldowns =
-	{
-		{ Name = "PoseidonAnyQuipSpeech", Time = 120 },
-	},
-
-	{ Cue = "/VO/Ships_0129", Text = "{#Emph}Augh{#Prev}, no..." },
-	{ Cue = "/VO/Ships_0130", Text = "{#Emph}Erm{#Prev}, don't look now..." },
-	{ Cue = "/VO/Ships_0131", Text = "More trouble for you, Niece!" },
-	{ Cue = "/VO/Ships_0132", Text = "More incoming!" },
-	{ Cue = "/VO/Ships_0133", Text = "Look what they're doing to my seas!" },
-	{ Cue = "/VO/Ships_0134", Text = "This storm's not over yet!" },
-	{ Cue = "/VO/Ships_0135", Text = "Watch out!" },
-	{ Cue = "/VO/Ships_0136", Text = "Reinforcements!" },
-}
-GlobalVoiceLines.PoseidonCombatResolvedVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 1.35,
-	Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
-	GameStateRequirements =
-	{
-		{
-			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-			IsAny = { "O" },
-		},
-	},
-	Cooldowns =
-	{
-		{ Name = "PoseidonAnyQuipSpeech", Time = 120 },
-	},
-
-	{ Cue = "/VO/Ships_0137", Text = "The coast is clear for now." },
-	{ Cue = "/VO/Ships_0138", Text = "You showed them all!" },
-	{ Cue = "/VO/Ships_0139", Text = "That's my niece!" },
-	{ Cue = "/VO/Ships_0140", Text = "You did it!" },
-	{ Cue = "/VO/Ships_0141", Text = "Excellent work." },
-	{ Cue = "/VO/Ships_0142", Text = "Well done back there!" },
-	{ Cue = "/VO/Ships_0143", Text = "That's what they get." },
-	{ Cue = "/VO/Ships_0144", Text = "Enough of them!" },
-}
-GlobalVoiceLines.PoseidonCombatResolvedLowHealthVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 1.35,
-	Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
-	GameStateRequirements =
-	{
-		{
-			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-			IsAny = { "O" },
-		},
-	},
-	Cooldowns =
-	{
-		{ Name = "PoseidonAnyQuipSpeech", Time = 120 },
-	},
-
-	{ Cue = "/VO/Ships_0145", Text = "Rough patch of water there..." },
-	{ Cue = "/VO/Ships_0146", Text = "Still in one piece are you?" },
-	{ Cue = "/VO/Ships_0147", Text = "Thought you were good as gone!" },
-	{ Cue = "/VO/Ships_0148", Text = "You made it out of that?!" },
-}
-GlobalVoiceLines.PoseidonDeathResponseVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 1.35,
-	Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
-	GameStateRequirements =
-	{
-		{
-			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-			IsAny = { "O" },
-		},
-		{
-			Path = { "CurrentRun", "CurrentRoom", "Name" },
-			IsNone = { "O_Boss01" },
-		},
-	},
-	Cooldowns =
-	{
-		-- { Name = "PoseidonAnyQuipSpeech", Time = 120 },
-	},
-
-	{ Cue = "/VO/Ships_0149", Text = "My niece? Where did you go?!", PlayFirst = true },
-	{ Cue = "/VO/Ships_0150", Text = "Those blasted pirates, {#Emph}augh..." },
-	{ Cue = "/VO/Ships_0151", Text = "Ill tidings once again..." },
-	{ Cue = "/VO/Ships_0152", Text = "What happened, little Niece?!" },
-	{ Cue = "/VO/Ships_0153", Text = "The voyage wasn't meant to be..." },
-	{ Cue = "/VO/Ships_0154", Text = "I'm sorry, little Niece!" },
-}
-GlobalVoiceLines.PoseidonBoonChoiceVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	SuccessiveChanceToPlay = 0.25,
-	PreLineWait = 7.55,
-	Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
-	GameStateRequirements =
-	{
-		{
-			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-			IsAny = { "O" },
-		},
-		{
-			{
-				PathTrue = { "ActiveScreens", "UpgradeChoice" },
-			},
-		},
-	},
-	Cooldowns =
-	{
-		-- { Name = "PoseidonAnyQuipSpeech", Time = 120 },
-	},
-
-	{ Cue = "/VO/Ships_0155", Text = "This ought to help I think!" },
-	{ Cue = "/VO/Ships_0156", Text = "A little gift!" },
-	{ Cue = "/VO/Ships_0157", Text = "A bounty from the sea!" },
-	{ Cue = "/VO/Ships_0158", Text = "For you, my niece!" },
-	{ Cue = "/VO/Ships_0159", Text = "Got something for you!" },
-	{ Cue = "/VO/Ships_0160", Text = "Here's a fresh catch for you!" },
-}
-GlobalVoiceLines.PoseidonForkingPathsVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 1.35,
-	Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
-	GameStateRequirements =
-	{
-		{
-			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-			IsAny = { "O" },
-		},
-	},
-	Cooldowns =
-	{
-		{ Name = "PoseidonAnyQuipSpeech", Time = 120 },
-	},
-
-	{ Cue = "/VO/Ships_0161", Text = "Where to?" },
-	{ Cue = "/VO/Ships_0162", Text = "There's many currents in the sea..." },
-	{ Cue = "/VO/Ships_0163", Text = "The helm is yours!" },
-	{ Cue = "/VO/Ships_0164", Text = "Which way to navigate?" },
-}
-GlobalVoiceLines.PoseidonExitRoomVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 1.35,
-	Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
-	GameStateRequirements =
-	{
-		{
-			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-			IsAny = { "O" },
-		},
-	},
-	Cooldowns =
-	{
-		{ Name = "PoseidonAnyQuipSpeech", Time = 120 },
-	},
-
-	{ Cue = "/VO/Ships_0165", Text = "Onward!" },
-	{ Cue = "/VO/Ships_0166", Text = "Smooth sailing!" },
-	{ Cue = "/VO/Ships_0167", Text = "Off you go!" },
-	{ Cue = "/VO/Ships_0168", Text = "Press on!" },
-	{ Cue = "/VO/Ships_0169", Text = "You're getting there!" },
-	{ Cue = "/VO/Ships_0170", Text = "Keep it up!" },
-}
-
 -- Global Hestia Lines
 GlobalVoiceLines.HestiaSacrificeVoiceLines =
 {
@@ -11675,658 +13002,64 @@ GlobalVoiceLines.HestiaSacrificeVoiceLines =
 	},
 }
 
--- Global Hecate Lines
-GlobalVoiceLines.HecateCauldronAssistanceLines =
-{
-	{
-		PreLineWait = 1.0,
-		RandomRemaining = true,
-		BreakIfPlayed = true,
-		SuccessiveChanceToPlayAll = 0.5,
-		ObjectType = "NPC_Hecate_01",
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "SpeechRecord" },
-				CountOf = {
-					"/VO/Melinoe_2465",
-					"/VO/Melinoe_2466",
-					"/VO/Melinoe_2467",
-					"/VO/Melinoe_2468",
-					"/VO/Melinoe_2469",
-					"/VO/Melinoe_2470",
-					"/VO/Melinoe_2471",
-					"/VO/Melinoe_2472",
-
-					"/VO/Melinoe_2577",
-					"/VO/Melinoe_2578",
-					"/VO/Melinoe_2579",
-					"/VO/Melinoe_2580",
-					"/VO/Melinoe_2581",
-					"/VO/Melinoe_2582",
-					"/VO/Melinoe_2583",
-					"/VO/Melinoe_2584",
-				},
-				Comparison = ">=",
-				Value = 3,
-			},
-			{
-				Path = { "CurrentRun", "SpeechRecord" },
-				HasAny = { "/VO/Melinoe_2472" },
-			},
-		},
-		{ Cue = "/VO/Hecate_0604", Text = "Appreciate your strength." },
-		{ Cue = "/VO/Hecate_0605", Text = "Our wards are that much stronger thanks to you.", PlayFirst = true },
-		{ Cue = "/VO/Hecate_0606", Text = "Thus we remain concealed." },
-		{ Cue = "/VO/Hecate_0607", Text = "Thank you for that, Melinoë." },
-		{ Cue = "/VO/Hecate_0608", Text = "The wards about this place are back at strength." },
-		{ Cue = "/VO/Hecate_0609", Text = "Our voices joined, thus we remain unseen." },
-	},
-}
-GlobalVoiceLines.AddingReagentVoiceLines =
-{
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.05,
-		SuccessiveChanceToPlay = 0.66,
-		UsePlayerSource = true,
-
-		{ Cue = "/VO/Melinoe_0242", Text = "Let me see..." },
-		{ Cue = "/VO/Melinoe_0178", Text = "Now..." },
-		{ Cue = "/VO/Melinoe_0518", Text = "I'm ready.", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_0519", Text = "Let's begin.", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_0520", Text = "This should help.", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_0521", Text = "Headmistress, if I may?", PlayFirst = true,
-			GameStateRequirements =
-			{
-				{
-					FunctionName = "RequiredAlive",
-					FunctionArgs = { Ids =  { 556921 }, },
-				},
-			},
-		},
-		{ Cue = "/VO/Melinoe_0522", Text = "Should have everything here." },
-		{ Cue = "/VO/Melinoe_0523", Text = "Into the pot..." },
-		{ Cue = "/VO/Melinoe_0524", Text = "In you go." },
-		-- { Cue = "/VO/Melinoe_0525", Text = "One at a time..." },
-		{ Cue = "/VO/Melinoe_0526", Text = "Temperature looks good..." },
-		{ Cue = "/VO/Melinoe_0527", Text = "Should be everything." },				
-	},
-	{
-		PreLineWait = 0.45,
-		RandomRemaining = true,
-		SuccessiveChanceToPlay = 0.66,
-		ObjectType = "NPC_Hecate_01",
-		-- RequiredSourceValueFalse = "InPartnerConversation",
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "MapState", "AddingReagents" },
-			},
-		},
-
-		{ Cue = "/VO/Hecate_0174", Text = "You may proceed.", PlayFirst = true },
-		{ Cue = "/VO/Hecate_0175", Text = "Ah, I see." ,
-			GameStateRequirements =
-			{
-				{
-					Path = { "LastLinePlayed" },
-					IsNone = { "/VO/Melinoe_0521" },
-				},
-			},
-		},
-		{ Cue = "/VO/Hecate_0176", Text = "Begin." },
-		{ Cue = "/VO/Hecate_0177", Text = "Go on." },
-		{ Cue = "/VO/Hecate_0178", Text = "Go on." },
-		{ Cue = "/VO/Hecate_0179", Text = "Now say the words.", BreakIfPlayed = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "LastLinePlayed" },
-					IsNone = { "/VO/Melinoe_0521" },
-				},
-			},
-		},
-		{ Cue = "/VO/Hecate_0180", Text = "Now, say the words.", BreakIfPlayed = true,
-			GameStateRequirements =
-			{
-				{
-					Path = { "LastLinePlayed" },
-					IsNone = { "/VO/Melinoe_0521" },
-				},
-			},
-		},
-		{ Cue = "/VO/Hecate_0181", Text = "Carefully..." },
-		{ Cue = "/VO/Hecate_0182", Text = "What else?" },
-		{ Cue = "/VO/Hecate_0183", Text = "And...?" },
-		{ Cue = "/VO/Hecate_0184", Text = "Any more?" },
-		{ Cue = "/VO/Hecate_0185", Text = "{#Emph}Ah." },
-	},
-}
-GlobalVoiceLines.CauldronReactionVoiceLines =
-{
-	{
-		GameStateRequirements =
-		{
-			{
-				FunctionName = "RequiredAlive",
-				FunctionArgs = { Ids = { 556921 }, Alive = false },
-			},
-		},
-		{
-			PreLineWait = 1.95,
-			RandomRemaining = true,
-			UsePlayerSource = true,
-
-			{ Cue = "/VO/Melinoe_0535", Text = "So mote it be..." },
-			{ Cue = "/VO/Melinoe_0536", Text = "So mote it be." },
-			{ Cue = "/VO/Melinoe_0537", Text = "...It is done." },
-		},
-	},
-	{
-		{
-			PreLineWait = 0.95,
-			BreakIfPlayed = true,
-			RandomRemaining = true,
-			ObjectType = "NPC_Hecate_01",
-			SuccessiveChanceToPlay = 0.5,
-			PreLineThreadedFunctionName = "LightRangedSalute",
-			RequiredSourceValueFalse = "InPartnerConversation",
-			Cooldowns =
-			{
-				{ Name = "SoMoteItBeUtteredRecently", Time = 30 },
-			},
-			TriggerCooldowns = { "HecateSpokeRecently" },
-
-			{ Cue = "/VO/Hecate_0065", Text = "So mote it be...",
-				PlayedThreadedFunctionName = "CauldronCastingVoiceLines",
-				PlayedThreadedFunctionArgs =
-				{
-					VoiceLines =
-					{
-						{ Cue = "/VO/Melinoe_3918", Text = "So mote it be..." },
-					},
-				},
-			},
-			{ Cue = "/VO/Hecate_0186", Text = "So mote it be...", 
-				PlayedThreadedFunctionName = "CauldronCastingVoiceLines",
-				PlayedThreadedFunctionArgs =
-				{
-					VoiceLines =
-					{
-						{ Cue = "/VO/Melinoe_3919", Text = "So mote it be..." },
-					},
-				},
-			},
-			{ Cue = "/VO/Hecate_0187", Text = "So mote it be.", 
-				PlayedThreadedFunctionName = "CauldronCastingVoiceLines",
-				PlayedThreadedFunctionArgs =
-				{
-					VoiceLines =
-					{
-						{ Cue = "/VO/Melinoe_3920", Text = "So mote it be." },
-					},
-				},
-			},
-			{ Cue = "/VO/Hecate_0188", Text = "So mote it be.", PlayFirst = true,
-				PlayedThreadedFunctionName = "CauldronCastingVoiceLines",
-				PlayedThreadedFunctionArgs =
-				{
-					VoiceLines =
-					{
-						{ Cue = "/VO/Melinoe_3921", Text = "So mote it be." },
-					},
-				},
-			},
-		},
-		{
-			PreLineWait = 0.95,
-			RandomRemaining = true,
-			ObjectType = "NPC_Hecate_01",
-			PreLineThreadedFunctionName = "LightRangedSalute",
-			-- RequiredSourceValueFalse = "InPartnerConversation",
-			TriggerCooldowns = { "HecateSpokeRecently" },
-
-			{ Cue = "/VO/Hecate_0189", Text = "'Tis done." },
-			{ Cue = "/VO/Hecate_0329", Text = "'Tis done..." },
-			{ Cue = "/VO/Hecate_0190", Text = "{#Emph}Hmm{#Prev}, yes..." },
-			{ Cue = "/VO/Hecate_0191", Text = "There." },
-			{ Cue = "/VO/Hecate_0330", Text = "Interesting..." },
-			{ Cue = "/VO/Hecate_0331", Text = "You've done it..." },
-			{ Cue = "/VO/Hecate_0480", Text = "So it shall be." },
-			{ Cue = "/VO/Hecate_0481", Text = "Your will is done." },
-			{ Cue = "/VO/Hecate_0482", Text = "You have it." },
-			{ Cue = "/VO/Hecate_0687", Text = "Your intent was true." },
-			{ Cue = "/VO/Hecate_0688", Text = "Carefully said." },
-			{ Cue = "/VO/Hecate_0689", Text = "I felt your words." },
-			{ Cue = "/VO/Hecate_0690", Text = "Aught else?" },
-			{ Cue = "/VO/Hecate_0735", Text = "By your will." },
-			{ Cue = "/VO/Hecate_0736", Text = "It shall be thus." },
-			{ Cue = "/VO/Hecate_0737", Text = "As you say." },
-			{ Cue = "/VO/Hecate_0738", Text = "Very well, then." },
-			{ Cue = "/VO/Hecate_0686", Text = "Hear that, Selene?",
-				GameStateRequirements =
-				{
-					{
-						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "HecateGift02", "SeleneGift02" },
-					},
-				}
-			},
-			{ Cue = "/VO/Hecate_0691", Text = "See that, Sisters?",
-				GameStateRequirements =
-				{
-					{
-						Path = { "GameState", "CompletedRunsCache" },
-						Comparison = ">=",
-						Value = 10,
-					},
-				}
-			},
-		},
-		{
-			PlayOnce = true,
-			BreakIfPlayed = true,
-			PreLineWait = 0.42,
-			UsePlayerSource = true,
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
-				},
-			},
-
-			{ Cue = "/VO/Melinoe_0853", Text = "Let's try the surface one more time..." },
-		},
-	},
-}
 
 -- Global Dionysus Lines
 GlobalVoiceLines.SkippedEncounterVoiceLines =
 {
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 0.85 },
+	{
+		PlayOnceFromTableThisRun = true,
+		RandomRemaining = true,
+		Source = { LineHistoryName = "NPC_Dionysus_01", SubtitleColor = Color.DionysusVoice },
+
+		{ Cue = "/VO/Dionysus_0268", Text = "{#Emph}Yeah, hahahaha!" },
+		{ Cue = "/VO/Dionysus_0269", Text = "{#Emph}Niiice!" },
+		{ Cue = "/VO/Dionysus_0270", Text = "{#Emph}Relaaax!" },
+		{ Cue = "/VO/Dionysus_0271", Text = "{#Emph}Take it easy!" },
+		{ Cue = "/VO/Dionysus_0273", Text = "{#Emph}All you, Mel baby!" },
+		{ Cue = "/VO/Dionysus_0274", Text = "{#Emph}It's your lucky night!", PlayFirst = true },
+		{ Cue = "/VO/Dionysus_0275", Text = "{#Emph}Take a load off!" },
+		{ Cue = "/VO/Dionysus_0272", Text = "{#Emph}Where'd everybody go...?",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "SpeechRecord" },
+					CountOf =
+					{
+						"/VO/Dionysus_0268", "/VO/Dionysus_0269", "/VO/Dionysus_0270", "/VO/Dionysus_0271", "/VO/Dionysus_0272", "/VO/Dionysus_0273", "/VO/Dionysus_0274", "/VO/Dionysus_0275"
+					},
+					Comparison = ">=",
+					Value = 6,
+				},
+			}
+		},
+	},
 	{
 		RandomRemaining = true,
 		BreakIfPlayed = true,
-		PreLineWait = 1.0,
+		PreLineWait = 0.1,
 		SuccessiveChanceToPlay = 0.5,
 		SuccessiveChanceToPlayAll = 0.1,
+		SkipCooldownCheckIfNonePlayed = true,
 		Cooldowns =
 		{
 			{ Name = "MelinoeAnyQuipSpeech", Time = 4 },
 		},
 
 		{ Cue = "/VO/MelinoeField_2812", Text = "A moment of peace..." },
-		{ Cue = "/VO/MelinoeField_2813", Text = "No foes in sight..." },
 		{ Cue = "/VO/MelinoeField_2814", Text = "The Fig Leaf took effect.", PlayFirst = true },
 		{ Cue = "/VO/MelinoeField_2815", Text = "Cheers, Dionysus sir." },
-	},
-	{ GlobalVoiceLines = "PositiveReactionVoiceLines" },
-}
-
--- Global Odysseus Lines
-GlobalVoiceLines.OdysseusLaughVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 0.35,
-	NoTarget = true,
-	Source = { LineHistoryName = "NPC_Odysseus_01", SubtitleColor = Color.OdysseusVoice },
-
-	{ Cue = "/VO/Odysseus_0106", Text = "{#Emph}<Chuckle>" },
-	{ Cue = "/VO/Odysseus_0107", Text = "{#Emph}<Chuckle>" },
-	{ Cue = "/VO/Odysseus_0108", Text = "{#Emph}<Laugh>" },
-	{ Cue = "/VO/Odysseus_0109", Text = "{#Emph}<Laugh>" },
-}
-
--- Global Dora Lines / Dora Global Lines
-PresetAudioArgs =
-{
-	DoraNormalAppearArgs =
-	{
-		SetModel = "Dora_Mesh",
-		SetAnimation = "Dora_Appear",
-	},
-
-	DoraScaryAppearArgs =
-	{
-		SetModel = "ScaryDora_Mesh",
-		SetAnimation = "DoraScary_Appear",
-		CreateAnimation = "EnemyDeathFx_Dora",
-	},
-}
-
-GlobalVoiceLines.DoraSummonedVoiceLines =
-{
-	SkipAnim = true,
-	Cooldowns =
-	{
-		{ Name = "DoraGreetedRecently", Time = 240 },
-	},
-	{
-		BreakIfPlayed = true,
-		PreLineWait = 0.15,
-		PlayOnceFromTableThisRun = true,
-		ObjectType = "NPC_Dora_01",
-		GameStateRequirements =
-		{
-			{
-				FunctionName = "RequiredQueuedTextLine",
-				FunctionArgs = { IsAny = { "DoraFirstMeeting", },  },
-			},
-		},
-		{ Cue = "/VO/Dora_0129", Text = "{#Emph}Boo!!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs, },
-	},
-	{
-		BreakIfPlayed = true,
-		PreLineWait = 0.15,
-		PlayOnceFromTableThisRun = true,
-		ObjectType = "NPC_Dora_01",
-		GameStateRequirements =
-		{
-			{
-				FunctionName = "RequiredQueuedTextLine",
-				FunctionArgs = { IsAny = { "DoraAboutPrometheus02" },  },
-			},
-		},
-		{ Cue = "/VO/Dora_0324", Text = "...Prometheus... Titan of... Foresight...? {#Emph}Tsk... yeah...", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	},
-	{
-		BreakIfPlayed = true,
-		PreLineWait = 0.15,
-		PlayOnceFromTableThisRun = true,
-		ObjectType = "NPC_Dora_01",
-		GameStateRequirements =
-		{
-			{
-				FunctionName = "RequiredQueuedTextLine",
-				FunctionArgs = { IsAny = { "DoraRunProgress01", "DoraAboutHaunting02", "DoraAboutHaunting04", "DoraAboutChronosBossW02" },  },
-			},
-		},
-
-		{ Cue = "/VO/Dora_0133", Text = "{#Emph}Who dares?", PlayFirst = true, PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs, },
-		{ Cue = "/VO/Dora_0228", Text = "{#Emph}Kneel before me!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs, },
-		{ Cue = "/VO/Dora_0144", Text = "{#Emph}Approach, witch!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs, },
-		{ Cue = "/VO/Dora_0226", Text = "{#Emph}You have returned.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs, },
-	},
-	{
-		BreakIfPlayed = true,
-		PreLineWait = 0.15,
-		PlayOnceFromTableThisRun = true,
-		ObjectType = "NPC_Dora_01",
-		GameStateRequirements =
-		{
-			{
-				FunctionName = "RequiredQueuedTextLine",
-				FunctionArgs = { IsAny = { "DoraListless01", "DoraListless02", "DoraListless03","DoraAboutExisting01", "DoraAboutChronosBossW01" },  },
-			},
-		},
-
-		{ Cue = "/VO/Dora_0125", Text = "Hey.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0126", Text = "Hey...", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0224", Text = "Oh hey...", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0220", Text = "How's it going?", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	},
-	{
-		BreakIfPlayed = true,
-		PreLineWait = 0.15,
-		PlayOnceFromTableThisRun = true,
-		ObjectType = "NPC_Dora_01",
-		GameStateRequirements =
-		{
-			{
-				FunctionName = "RequiredQueuedTextLine",
-				FunctionArgs = { IsAny = { "DoraAboutShades04", "DoraAboutShades04_B" },  },
-			},
-		},
-		{ Cue = "/VO/Dora_0224", Text = "Oh hey!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	},
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PlayOnceFromTableThisRun = true,
-		PreLineWait = 0.15,
-		ObjectType = "NPC_Dora_01",
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "Cleared" }
-			},
-		},
-
-		{ Cue = "/VO/Dora_0229", Text = "Took you long enough.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0230", Text = "You know how late it is?", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0231", Text = "Out late again huh.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0232", Text = "Oh, finally!", PlayFirst = true, PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0489", Text = "Whoa, you're back!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0490", Text = "You were out awhile.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0491", Text = "How'd it go, OK?", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0492", Text = "Oh you're up.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		-- SGV
-		{ Cue = "/VO/Dora_0493", Text = "{#Emph}How can this be?", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs,
-		},
-		{ Cue = "/VO/Dora_0494", Text = "{#Emph}What have you done?", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs,
-		},
-
-	},
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PlayOnceFromTableThisRun = true,
-		PreLineWait = 0.15,
-		ObjectType = "NPC_Dora_01",
-
-		{ Cue = "/VO/Dora_0125", Text = "Hey.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0126", Text = "Hey...", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0127", Text = "Heya.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0128", Text = "Boo.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0135", Text = "Well look at you!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0136", Text = "Whoa, hey!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0137", Text = "There you are!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0220", Text = "How's it going?", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0221", Text = "Where'd you come from?", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0222", Text = "So what's up?", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0223", Text = "What's going on?", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		{ Cue = "/VO/Dora_0224", Text = "Oh hey!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-		-- SGV
-		{ Cue = "/VO/Dora_0129", Text = "{#Emph}Boo!!",
-			PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs,
+		{ Cue = "/VO/MelinoeField_2813", Text = "No foes in sight...",
 			GameStateRequirements =
 			{
 				{
-					FunctionName = "RequireRunsSinceTextLines",
-					FunctionArgs = { TextLines = { "DoraFirstMeeting" }, Min = 8 },
+					PathFalse = { "CurrentRun", "SpeechRecord", "/VO/Dionysus_0274" }
 				},
 			},
 		},
-		{ Cue = "/VO/Dora_0130", Text = "{#Emph}OoooOooo...!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs,
-		},
-		{ Cue = "/VO/Dora_0131", Text = "{#Emph}OoooOooo!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs,
-		},
-		{ Cue = "/VO/Dora_0132", Text = "{#Emph}OoooOooo...", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs,
-		},
-		{ Cue = "/VO/Dora_0133", Text = "{#Emph}Who dares?", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs,
-		},
-		{ Cue = "/VO/Dora_0134", Text = "{#Emph}Hail, witch!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs,
-		},
-		{ Cue = "/VO/Dora_0145", Text = "{#Emph}Come forth!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs,
-		},
-		{ Cue = "/VO/Dora_0225", Text = "{#Emph}I rise again!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs,
-		},
-		{ Cue = "/VO/Dora_0226", Text = "{#Emph}You have returned.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs,
-		},
-		{ Cue = "/VO/Dora_0227", Text = "{#Emph}Fear me!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs,
-		},
-		{ Cue = "/VO/Dora_0228", Text = "{#Emph}Kneel before me!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs,
-		},
-	}
-}
-GlobalVoiceLines.DoraHidingVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PlayOnceFromTableThisRun = true,
-	PreLineWait = 0.15,
-	SuccessiveChanceToPlay = 0.75,
-	SkipAnim = true,
-	Actor = "Dora",
-	ObjectType = "NPC_Dora_01",
-	SubtitleMinDistance = 1200,
-	GameStateRequirements =
-	{
-		{
-			Path = { "CurrentRun", "TextLinesRecord" },
-			HasNone = { "DoraFirstMeeting", },
-		},
-		{
-			PathFromSource = true,
-			Path = { "DefaultCategoryIndex" },
-			Comparison = "==",
-			Value = 1,
-		},
 	},
-	Cooldowns =
-	{
-		{ Name = "DoraVanishedVO", Time = 180 },
-	},
-
-	{ Cue = "/VO/Dora_0138", Text = "See ya!" },
-	{ Cue = "/VO/Dora_0139", Text = "Later!" },
-	{ Cue = "/VO/Dora_0140", Text = "So long!" },
-	{ Cue = "/VO/Dora_0141", Text = "'K bye." },
-	{ Cue = "/VO/Dora_0233", Text = "Got to go." },
-	{ Cue = "/VO/Dora_0234", Text = "Bye now." },
-	{ Cue = "/VO/Dora_0235", Text = "Take it easy." },
-	-- SGV
-	{
-		PreLineFunctionName = "GenericPresentation",
-		PreLineFunctionArgs =
-		{
-			SetModel = "ScaryDora_Mesh",
-			SetAnimation = "DoraScary_Idle",
-			CreateAnimation = "EnemyDeathFx_Dora",
-		},
-		{ Cue = "/VO/Dora_0142", Text = "{#Emph}I shall returnnn!" },
-	},
-	{
-		PreLineFunctionName = "GenericPresentation",
-		PreLineFunctionArgs =
-		{
-			SetModel = "ScaryDora_Mesh",
-			SetAnimation = "DoraScary_Idle",
-			CreateAnimation = "EnemyDeathFx_Dora",
-		},
-		{ Cue = "/VO/Dora_0143", Text = "{#Emph}I shall return!" },
-	},
-	{
-		PreLineFunctionName = "GenericPresentation",
-		PreLineFunctionArgs =
-		{
-			SetModel = "ScaryDora_Mesh",
-			SetAnimation = "DoraScary_Idle",
-			CreateAnimation = "EnemyDeathFx_Dora",
-		},
-		{ Cue = "/VO/Dora_0236", Text = "{#Emph}Farewell..." },
-	},
-	{
-		PreLineFunctionName = "GenericPresentation",
-		PreLineFunctionArgs =
-		{
-			SetModel = "ScaryDora_Mesh",
-			SetAnimation = "DoraScary_Idle",
-			CreateAnimation = "EnemyDeathFx_Dora",
-		},
-		{ Cue = "/VO/Dora_0237", Text = "{#Emph}Back to the abyss..." },
-	},
-	{
-		PreLineFunctionName = "GenericPresentation",
-		PreLineFunctionArgs =
-		{
-			SetModel = "ScaryDora_Mesh",
-			SetAnimation = "DoraScary_Idle",
-			CreateAnimation = "EnemyDeathFx_Dora",
-		},
-		{ Cue = "/VO/Dora_0238", Text = "{#Emph}I gooo..." },
-	},
-}
-GlobalVoiceLines.DoraRedecorationReactionVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.65,
-	SuccessiveChanceToPlay = 0.5,
-	ObjectType = "NPC_Dora_01",
-	GameStateRequirements = 
-	{
-	},
-	Cooldowns =
-	{
-		{ Name = "DoraCosmeticsReactionVO", Time = 60 },
-	},
-
-	{ Cue = "/VO/Dora_0251", Text = "Whatever.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0252", Text = "It's your stuff.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0253", Text = "All right, hold on.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0277", Text = "Changed your mind?", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0278", Text = "All righty.",
-		PreLineFunctionName = "GenericPresentation",
-		PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0279", Text = "OK let's bring it in.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0280", Text = "Sure, whatever.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0368", Text = "Let's change it up.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0369", Text = "No prob.",
-		PreLineFunctionName = "GenericPresentation",
-		PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0370", Text = "Shades, get in there!", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0371", Text = "Sure thing.",
-		PreLineFunctionName = "GenericPresentation",
-		PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0372", Text = "Got it, hold up.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0373", Text = "All right sure.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0374", Text = "Liked it the other way?", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0375", Text = "In with the old.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0376", Text = "Change your mind?", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-
-	-- SGV
-	{ Cue = "/VO/Dora_0254", Text = "{#Emph}Why not, indeed...", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs,
-		GameStateRequirements =
-		{
-			{
-				Path = { "LastLinePlayed" },
-				IsAny = { "/VO/Melinoe_1400" },
-			},
-		},
-	},
-	{ Cue = "/VO/Dora_0255", Text = "{#Emph}It shall be done...", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs },
-	{ Cue = "/VO/Dora_0256", Text = "{#Emph}If that is your will...", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs },
-	{ Cue = "/VO/Dora_0378", Text = "{#Emph}If that is your will.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs },
-	{ Cue = "/VO/Dora_0379", Text = "{#Emph}Then very well.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs },
-	{ Cue = "/VO/Dora_0380", Text = "{#Emph}As you require.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs },
-	{ Cue = "/VO/Dora_0381", Text = "{#Emph}A change of heart.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraScaryAppearArgs },
-}
-
-GlobalVoiceLines.DoraDecorationRemovedLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.65,
-	SuccessiveChanceToPlay = 0.5,
-	ObjectType = "NPC_Dora_01",
-	GameStateRequirements = 
-	{
-	},
-	Cooldowns =
-	{
-		{ Name = "DoraCosmeticsReactionVO", Time = 6 },
-	},
-
-	{ Cue = "/VO/Dora_0382", Text = "Good as gone.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0383", Text = "Could always put it back.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0384", Text = "We'll just stash it away.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0385", Text = "Clean-up crew! Hop to it.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0386", Text = "Bit of an eyesore huh.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0387", Text = "Better off without.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0388", Text = "Easy-peasy.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
-	{ Cue = "/VO/Dora_0389", Text = "Yeah OK.", PreLineFunctionName = "GenericPresentation", PreLineFunctionArgs = PresetAudioArgs.DoraNormalAppearArgs, },
+	{ GlobalVoiceLines = "PositiveReactionVoiceLines" },
 }
 
 -- Global Hypnos Lines
@@ -12350,6 +13083,25 @@ GlobalVoiceLines.HypnosDozingOffVoiceLines =
 	ObjectType = "NPC_Hypnos_01",
 
 	-- Removed Hypnos VO
+}
+
+GlobalVoiceLines.HypnosDreamSaluteVoiceLines =
+{
+	{
+		PreLineWait = 0.3,
+		RandomRemaining = true,
+		UsePlayerSource = true,
+		-- RandomRemaining = true,
+		Cooldowns =
+		{
+			{ Name = "MelinoeSaluteSpeech", Time = 4 },
+		},
+		{ Cue = "/VO/Melinoe_1883", Text = "Rest easy, Son of Nyx.", PlayFirst = true },
+		{ Cue = "/VO/Melinoe_3575", Text = "You look comfortable." },
+		{ Cue = "/VO/Melinoe_3576", Text = "Not a care in the world." },
+		{ Cue = "/VO/Melinoe_3577", Text = "You're safe here..." },
+		{ Cue = "/VO/Melinoe_3578", Text = "Moonlight guide you." },
+	},
 }
 
 -- Global Skelly Lines
@@ -12637,605 +13389,6 @@ GlobalVoiceLines.InventoryOpenedVoiceLines =
 	}
 }
 
-GlobalVoiceLines.SkellyLockedReactionVoiceLines =
-{
-	{
-		BreakIfPlayed = true,
-		PreLineWait = 0.35,
-		PlayOnceFromTableThisRun = true,
-		ObjectType = "NPC_Skelly_01",
-		GameStateRequirements =
-		{
-			{
-				Path = { "GameState", "UseRecord", "NPC_Skelly_01", },
-				Comparison = ">=",
-				Value = 1,
-			},
-		},
-		Cooldowns =
-		{
-			{ Name = "SkellyLockedSpeech", Time = 5 },
-		},
-
-		{ Cue = "/VO/Skelly_0125", Text = "Please step away from that." },
-	},
-	{
-		BreakIfPlayed = true,
-		PreLineWait = 0.35,
-		PlayOnceFromTableThisRun = true,
-		ObjectType = "NPC_Skelly_01",
-		GameStateRequirements =
-		{
-			{
-				Path = { "GameState", "UseRecord", "NPC_Skelly_01", },
-				Comparison = ">=",
-				Value = 1,
-			},
-		},
-		Cooldowns =
-		{
-			{ Name = "SkellyLockedSpeech", Time = 5 },
-		},
-
-		{ Cue = "/VO/Skelly_0126", Text = "Don't make me come over there." },
-	},
-	{
-		BreakIfPlayed = true,
-		PreLineWait = 0.35,
-		PlayOnceFromTableThisRun = true,
-		ObjectType = "NPC_Skelly_01",
-		GameStateRequirements =
-		{
-			{
-				Path = { "GameState", "UseRecord", "NPC_Skelly_01", },
-				Comparison = ">=",
-				Value = 1,
-			},
-		},
-		Cooldowns =
-		{
-			{ Name = "SkellyLockedSpeech", Time = 5 },
-		},
-
-		{ Cue = "/VO/Skelly_0127", Text = "{#Emph}Eh{#Prev}, the incorrigible youth of today..." },
-	},	
-}
-
-GlobalVoiceLines.TrophyAttackReactionVoiceLines =
-{
-	Cooldowns =
-	{
-		{ Name = "SkellyAnyQuipSpeech", Time = 8 },
-	},
-	GameStateRequirements =
-	{
-		{
-			PathFromArgs = true,
-			Path = { "SourceProjectile", },
-			IsNone = { "FrogFamiliarLand", "CatFamiliarPounce", "RavenFamiliarMelee" },
-		},
-	},
-	{
-		PreLineWait = 0.3,
-		RandomRemaining = true,
-		BreakIfPlayed = true,
-		ChanceToPlay = 0.25,
-		ObjectType = "NPC_Skelly_01",
-
-		{ Cue = "/VO/Skelly_0327", Text = "Restrain yourself!" },
-		{ Cue = "/VO/Skelly_0330", Text = "Watch out with those, will ya?", PlayFirst = true },
-		{ Cue = "/VO/Skelly_0333", Text = "{#Emph}Please{#Prev}, young one!" },
-		{ Cue = "/VO/Skelly_0334", Text = "Hey cut that out!" },
-		{ Cue = "/VO/Skelly_0335", Text = "You mustn't hit those!" },
-		{ Cue = "/VO/Skelly_0336", Text = "Night's gonna be so mad!" },
-		{ Cue = "/VO/Skelly_0328", Text = "Don't chip the paint!",
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "TextLinesRecord", "TrophyQuestComplete01" }
-				},
-			}
-		},
-		{ Cue = "/VO/Skelly_0329", Text = "Do not defile the artistry!",
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "TextLinesRecord", "TrophyQuestComplete01" }
-				},
-			}
-		},
-
-		{ Cue = "/VO/Skelly_0331", Text = "Watch the statues!",
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "TextLinesRecord", "TrophyQuestComplete02" }
-				},
-			}
-		},
-		{ Cue = "/VO/Skelly_0332", Text = "No, the statues!",
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "TextLinesRecord", "TrophyQuestComplete02" }
-				},
-			}
-		},
-	},
-
-}
-
--- Global Artemis Lines
-GlobalVoiceLines.ArtemisDeathReactionVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 1.25,
-	NoTarget = true,
-	Source = { LineHistoryName = "NPC_Artemis_01", SubtitleColor = Color.ArtemisVoice },
-
-	{ Cue = "/VO/Artemis_0101", Text = "Sister, wait, don't go!" },
-	{ Cue = "/VO/Artemis_0102", Text = "Next time, we'll make them pay..." },
-	{ Cue = "/VO/Artemis_0103", Text = "I'm sorry, Sister..." },
-	{ Cue = "/VO/Artemis_0104", Text = "No... I swore to protect you...", PlayFirst = true },
-}
-
--- Global Arachne Lines -- Arachne
-GlobalVoiceLines.ArachneGreetingLines =
-{
-	{
-		Queue = "Interrupt",
-		RandomRemaining = true,
-		BreakIfPlayed = true,
-		ObjectType = "NPC_Arachne_01",
-
-		{ Cue = "/VO/Arachne_0133", Text = "Oh!" },
-		{ Cue = "/VO/Arachne_0134", Text = "Ah, it's you!" },
-		{ Cue = "/VO/Arachne_0135", Text = "Oh, welcome!" },
-		{ Cue = "/VO/Arachne_0136", Text = "You've come back!" },
-		{ Cue = "/VO/Arachne_0137", Text = "Do my eyes deceive?" },
-		{ Cue = "/VO/Arachne_0138", Text = "My friend!" },
-		{ Cue = "/VO/Arachne_0139", Text = "Is it truly you?" },
-		{ Cue = "/VO/Arachne_0140", Text = "{#Emph}<Gasp>" },
-		{ Cue = "/VO/Arachne_0141", Text = "A customer!" },
-		{ Cue = "/VO/Arachne_0142", Text = "My finest customer!" },
-		{ Cue = "/VO/Arachne_0143", Text = "Why hello there!" },
-		{ Cue = "/VO/Arachne_0144", Text = "Good evening!" },
-		{ Cue = "/VO/Arachne_0145", Text = "Welcome back!" },
-		{ Cue = "/VO/Arachne_0146", Text = "Ah, {#Emph}haha!" },
-		{ Cue = "/VO/Arachne_0147", Text = "Hello again!" },
-		{ Cue = "/VO/Arachne_0148", Text = "Oh, it's been too long!" },
-		{ Cue = "/VO/Arachne_0149", Text = "Got some cocoons for you!" },
-		{ Cue = "/VO/Arachne_0150", Text = "Some new cocoons there!" },
-		{ Cue = "/VO/Arachne_0356", Text = "Oh...!", PlayFirst = true },
-		{ Cue = "/VO/Arachne_0357", Text = "{#Emph}Huh...!" },
-	},
-}
-GlobalVoiceLines.ArachneMutteringLines =
-{
-	RandomRemaining = true,
-	{
-		PreLineWait = 0.75,
-		--Actor = "StrangerOcclusionP",
-		ObjectType = "NPC_Arachne_01",
-		RecheckRequirementsForSubLines = true,
-		GameStateRequirements = 
-		{
-			{
-				PathFalse = { "CurrentRun", "TriggerRecord", "ArachneInterrupt" },
-			},
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" },
-			},
-		},
-
-		{ Cue = "/VO/Arachne_0201", Text = "{#Emph}Dye the silk and loooad it," },
-		{ Cue = "/VO/Arachne_0202", Text = "{#Emph}Spinning, spinning goes the thread," },
-		{ Cue = "/VO/Arachne_0203", Text = "{#Emph}Warp and weft, warp and weft," },
-		{ Cue = "/VO/Arachne_0204", Text = "{#Emph}Cut it up and fooold it." },
-		{ Cue = "/VO/Arachne_0205", Text = "And again...!" },
-		{ Cue = "/VO/Arachne_0201", Text = "{#Emph}Dye the silk and loooad it,", PreLineWait = 1.2 },
-		{ Cue = "/VO/Arachne_0202", Text = "{#Emph}Spinning, spinning goes the thread," },
-		{ Cue = "/VO/Arachne_0203", Text = "{#Emph}Warp and weft, warp and weft," },
-		{ Cue = "/VO/Arachne_0204", Text = "{#Emph}Cut it up and fooold it.", BreakIfPlayed = true },
-	},
-	{
-		PreLineWait = 0.75,
-		--Actor = "StrangerOcclusionP",
-		ObjectType = "NPC_Arachne_01",
-		RecheckRequirementsForSubLines = true,
-		GameStateRequirements = 
-		{
-			{
-				PathFalse = { "CurrentRun", "TriggerRecord", "ArachneInterrupt" },
-			},
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" },
-			},
-		},
-
-		{ Cue = "/VO/Arachne_0206", Text = "{#Emph}Silken finery, so soft, divine..." },
-		{ Cue = "/VO/Arachne_0207", Text = "{#Emph}I spin my threads and catch whatever comes my way..." },
-		{ Cue = "/VO/Arachne_0208", Text = "{#Emph}A pleasant memory that lingers on my mind..." },
-		{ Cue = "/VO/Arachne_0209", Text = "{#Emph}From lonely dark of night until the break of day..." },
-		{ Cue = "/VO/Arachne_0210", Text = "One more time..." },
-		{ Cue = "/VO/Arachne_0206", Text = "{#Emph}Silken finery, so soft, divine...", PreLineWait = 1.2 },
-		{ Cue = "/VO/Arachne_0207", Text = "{#Emph}I spin my threads and catch whatever comes my way..." },
-		{ Cue = "/VO/Arachne_0208", Text = "{#Emph}A pleasant memory that lingers on my mind..." },
-		{ Cue = "/VO/Arachne_0209", Text = "{#Emph}From lonely dark of night until the break of day...", BreakIfPlayed = true },
-	},
-	{
-		PreLineWait = 0.75,
-		--Actor = "StrangerOcclusionP",
-		ObjectType = "NPC_Arachne_01",
-		RecheckRequirementsForSubLines = true,
-		GameStateRequirements = 
-		{
-			{
-				PathFalse = { "CurrentRun", "TriggerRecord", "ArachneInterrupt" },
-			},
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" },
-			},
-		},
-
-		{ Cue = "/VO/Arachne_0211", Text = "{#Emph}Oh, little fly, come sit and rest your wings..." },
-		{ Cue = "/VO/Arachne_0212", Text = "{#Emph}You've grown so tired flying to and fro..." },
-		{ Cue = "/VO/Arachne_0213", Text = "{#Emph}I'll wrap you up and sing you soon to sleep..." },
-		{ Cue = "/VO/Arachne_0214", Text = "{#Emph}I'll drink of you and leave a little heap..." },
-		{ Cue = "/VO/Arachne_0215", Text = "{#Emph}Ha ha ha... {#Prev}again...", PreLineWait = 1.2 },
-		{ Cue = "/VO/Arachne_0211", Text = "{#Emph}Oh, little fly, come sit and rest your wings..." },
-		{ Cue = "/VO/Arachne_0212", Text = "{#Emph}You've grown so tired flying to and fro..." },
-		{ Cue = "/VO/Arachne_0213", Text = "{#Emph}I'll wrap you up and sing you soon to sleep..." },
-		{ Cue = "/VO/Arachne_0214", Text = "{#Emph}I'll drink of you and leave a little heap...", BreakIfPlayed = true },
-	},
-}
-GlobalVoiceLines.ArachneGatherReactionVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 0.65,
-	SuccessiveChanceToPlay = 0.5,
-	ObjectType = "NPC_Arachne_01",
-	GameStateRequirements =
-	{
-		NamedRequirementsFalse = { "ArachneBrooding" },
-	},
-	Cooldowns =
-	{
-		{ Name = "ArachneSpokeRecently", Time = 10 },
-	},
-
-	{ Cue = "/VO/Arachne_0326", Text = "Good eye!" },
-	{ Cue = "/VO/Arachne_0327", Text = "Finders keepers." },
-	{ Cue = "/VO/Arachne_0328", Text = "{#Emph}Ooh {#Prev}what's that?", PlayFirst = true },
-	{ Cue = "/VO/Arachne_0329", Text = "Found it!" },
-	{ Cue = "/VO/Arachne_0357", Text = "{#Emph}Huh..." },
-	{ Cue = "/VO/Arachne_0360", Text = "{#Emph}Hm..." },
-}
-GlobalVoiceLines.ArachnePickaxeReactionVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 0.65,
-	SuccessiveChanceToPlayAll = 0.5,
-	ObjectType = "NPC_Arachne_01",
-	GameStateRequirements =
-	{
-		NamedRequirementsFalse = { "ArachneBrooding" },
-	},
-	Cooldowns =
-	{
-		{ Name = "ArachneSpokeRecently", Time = 10 },
-	},
-
-	{ Cue = "/VO/Arachne_0317", Text = "Oh you got something!" },
-	{ Cue = "/VO/Arachne_0318", Text = "Nice find." },
-	{ Cue = "/VO/Arachne_0319", Text = "Fine work there!" },
-	{ Cue = "/VO/Arachne_0320", Text = "Help yourself!" },
-	{ Cue = "/VO/Arachne_0321", Text = "Help yourself." },
-}
-GlobalVoiceLines.ArachneExorcismReactionVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 0.65,
-	SuccessiveChanceToPlayAll = 0.5,
-	ObjectType = "NPC_Arachne_01",
-	GameStateRequirements =
-	{
-		--[[ replaced with the requirements below
-		{
-			Path = { "CurrentRun", "TextLinesRecord" },
-			HasNone = GameData.ArachneUpsetEvents,
-		},
-		]]--
-		NamedRequirementsFalse = { "ArachneBrooding" },
-	},
-	Cooldowns =
-	{
-		{ Name = "ArachneSpokeRecently", Time = 10 },
-	},
-
-	{ Cue = "/VO/Arachne_0322", Text = "You got one!" },
-	{ Cue = "/VO/Arachne_0323", Text = "Nicely done." },
-	{ Cue = "/VO/Arachne_0324", Text = "You saved them." },
-	{ Cue = "/VO/Arachne_0325", Text = "You did it." },
-}
-GlobalVoiceLines.ArachneMineReactionVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 0.25,
-	SuccessiveChanceToPlayAll = 0.5,
-	ObjectType = "NPC_Arachne_01",
-	GameStateRequirements =
-	{
-		NamedRequirementsFalse = { "ArachneBrooding" },
-	},
-	Cooldowns =
-	{
-		{ Name = "ArachneSpokeRecently", Time = 10 },
-	},
-
-	{ Cue = "/VO/Arachne_0232", Text = "Watch out!" },
-	{ Cue = "/VO/Arachne_0233", Text = "Look out!" },
-	{ Cue = "/VO/Arachne_0234", Text = "Careful!" },
-	{ Cue = "/VO/Arachne_0235", Text = "Sorry!" },
-	{ Cue = "/VO/Arachne_0236", Text = "Oops!" },
-	{ Cue = "/VO/Arachne_0237", Text = "Yikes!" },
-}
-GlobalVoiceLines.ArachneCocoonPositiveReactionLines =
-{
-	RandomRemaining = true,
-	PreLineWait = 0.65,
-	SuccessiveChanceToPlay = 0.66,
-	ObjectType = "NPC_Arachne_01",
-	GameStateRequirements =
-	{
-		{
-			Path = { "CurrentRun", "CurrentRoom", "Name" },
-			IsAny = { "F_Story01" },
-		},
-		NamedRequirementsFalse = { "ArachneBrooding" },
-	},
-	Cooldowns =
-	{
-		{ Name = "ArachneSpokeRecently", Time = 10 },
-	},
-
-	{ Cue = "/VO/Arachne_0279", Text = "That's on the house!" },
-	{ Cue = "/VO/Arachne_0280", Text = "Enjoy!" },
-	{ Cue = "/VO/Arachne_0281", Text = "For you!" },
-	{ Cue = "/VO/Arachne_0282", Text = "Oh you found it!" },
-	{ Cue = "/VO/Arachne_0283", Text = "Surprise!" },
-	{ Cue = "/VO/Arachne_0284", Text = "Hope it helps!" },
-	{ Cue = "/VO/Arachne_0285", Text = "All yours." },
-	{ Cue = "/VO/Arachne_0286", Text = "Oh good!" },
-	{ Cue = "/VO/Arachne_0287", Text = "Keep it!" },
-	{ Cue = "/VO/Arachne_0288", Text = "Just for you!" },
-}
-GlobalVoiceLines.ArachneCocoonNegativeReactionLines =
-{
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 1.0,
-		SuccessiveChanceToPlay = 0.2,
-		PlayOnceFromTableThisRun = true,
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsAny = { "F_Story01" },
-			},
-			{
-				PathEmpty = { "MapState", "RoomRequiredObjects" },
-			},
-		},
-
-		{ Cue = "/VO/Melinoe_1920", Text = "Got to make way for more." },
-		{ Cue = "/VO/Melinoe_1921", Text = "She says this is OK..." },
-		{ Cue = "/VO/Melinoe_1922", Text = "So many of these..." },
-		{ Cue = "/VO/Melinoe_1923", Text = "No spiderlings in sight." },
-	},
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 1.0,
-		SuccessiveChanceToPlay = 0.2,
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "CurrentRoom", "Encounter", "Completed" },
-			},
-			{
-				PathEmpty = { "MapState", "RoomRequiredObjects" },
-			},
-		},
-		Cooldowns =
-		{
-			{ Name = "MelinoeFleeCocoonSpeech", Time = 240 },
-		},
-
-		{ Cue = "/VO/Melinoe_1930", Text = "Could make a run for it...", PlayFirst = true },
-		{ Cue = "/VO/Melinoe_1931", Text = "Don't have to stand and fight..." },
-		{ Cue = "/VO/Melinoe_1932", Text = "The exits are right there..." },
-		{ Cue = "/VO/Melinoe_1933", Text = "Perhaps I'd better go..." },
-	},
-	{
-		ThreadName = "RoomThread",
-		RandomRemaining = true,
-		PreLineWait = 0.65,
-		SuccessiveChanceToPlay = 0.66,
-		ObjectType = "NPC_Arachne_01",
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsAny = { "F_Story01" },
-			},
-			NamedRequirementsFalse = { "ArachneBrooding" },
-		},
-		Cooldowns =
-		{
-			{ Name = "ArachneSpokeRecently", Time = 10 },
-		},
-
-		{ Cue = "/VO/Arachne_0216", Text = "Oh, sorry about that!" },
-		{ Cue = "/VO/Arachne_0217", Text = "Oh, {#Emph}shoo! {#Prev}Get out of here!" },
-		{ Cue = "/VO/Arachne_0218", Text = "Oh not another one of those." },
-		{ Cue = "/VO/Arachne_0219", Text = "Oh do be careful!" },
-		{ Cue = "/VO/Arachne_0220", Text = "Oh no!" },
-		{ Cue = "/VO/Arachne_0221", Text = "How'd that one get in here?" },
-		{ Cue = "/VO/Arachne_0222", Text = "Sorry for the mess!" },
-		{ Cue = "/VO/Arachne_0223", Text = "One of those again." },
-		{ Cue = "/VO/Arachne_0224", Text = "Forgot I snagged that one." },
-		{ Cue = "/VO/Arachne_0225", Text = "Pop at your own risk..." },
-	},
-}
-
--- Global Selene Lines
-GlobalVoiceLines.SeleneExorcismReactionVoiceLines =
-{
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	SuccessiveChanceToPlay = 0.5,
-	PreLineWait = 0.7,
-	Source = { LineHistoryName = "NPC_Selene_01", SubtitleColor = Color.SeleneVoice },
-	GameStateRequirements =
-	{
-		{
-			PathTrue = { "CurrentRun", "UseRecord", "SpellDrop" },
-		},
-		{
-			PathTrue = { "GameState", "TextLinesRecord", "SeleneGift02" },
-		},
-		{
-			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-			IsNone = { "G", "H", "I", },
-		},
-	},
-
-	{ Cue = "/VO/Selene_0310", Text = "A possible ally." },
-	{ Cue = "/VO/Selene_0311", Text = "Another joins our ranks." },
-	{ Cue = "/VO/Selene_0312", Text = "Well done." },
-	{ Cue = "/VO/Selene_0313", Text = "A soul no longer lost." },
-	{ Cue = "/VO/Selene_0314", Text = "Peace for the dead..." },
-	{ Cue = "/VO/Selene_0315", Text = "Everlasting peace..." },
-	{ Cue = "/VO/Selene_0316", Text = "To our abode..." },
-	{ Cue = "/VO/Selene_0317", Text = "Freedom in death." },
-}
-
--- Global Nemesis Lines
-GlobalVoiceLines.NemesisDeathReactionVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 1.25,
-	NoTarget = true,
-	Source = { LineHistoryName = "NPC_Nemesis_01", SubtitleColor = Color.NemesisVoice },
-
-	{ Cue = "/VO/NemesisField_0326", Text = "Go home to Hecate, I'll handle it from here." },
-	{ Cue = "/VO/NemesisField_0327", Text = "Always said you don't have what it takes." },
-	{ Cue = "/VO/NemesisField_0328", Text = "Don't let me hear you blame the Fates for this." },
-	{ Cue = "/VO/NemesisField_0329", Text = "Thought you'd take more punishment than that." },
-	{ Cue = "/VO/NemesisField_0330", Text = "Got what was coming to you; I should know." },
-	{ Cue = "/VO/NemesisField_0331", Text = "Was all a bit too much for you, poor thing." },
-	{ Cue = "/VO/NemesisField_0332", Text = "We're all supposed to be counting on you?" },
-	{ Cue = "/VO/NemesisField_0333", Text = "Come on, you could have done better than that." },
-	{ Cue = "/VO/NemesisField_0334", Text = "Go, get your scrawny ass out of here." },
-	{ Cue = "/VO/NemesisField_0335", Text = "You never could handle the pressure you know." },
-}
-GlobalVoiceLines.NemesisGatherReactionVoiceLines =
-{
-	{
-		RandomRemaining = true,
-		BreakIfPlayed = true,
-		PreLineWait = 0.65,
-		SuccessiveChanceToPlay = 0.5,
-		ObjectType = "NPC_Nemesis_01",
-		GameStateRequirements =
-		{
-			{
-				PathEmpty = { "RequiredKillEnemies" },
-			},
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" }
-			},
-		},		
-		Cooldowns =
-		{
-			{ Name = "NemesisAnyQuipSpeech", Time = 10 },
-		},
-
-		{ Cue = "/VO/NemesisField_0402", Text = "Good for you." },
-		{ Cue = "/VO/NemesisField_0403", Text = "Thank the Fates." },
-		{ Cue = "/VO/NemesisField_0404", Text = "How fortunate for you." },
-		{ Cue = "/VO/NemesisField_0405", Text = "Well deserved." },
-		{ Cue = "/VO/NemesisField_0406", Text = "So what." },
-		{ Cue = "/VO/NemesisField_0407", Text = "What you need that for?" },
-		{ Cue = "/VO/NemesisField_0418", Text = "Lucky you." },
-		{ Cue = "/VO/NemesisField_0419", Text = "Great." },
-		{ Cue = "/VO/NemesisField_0420", Text = "Wow." },
-		{ Cue = "/VO/NemesisField_0421", Text = "So what." },
-	},
-	{
-		RandomRemaining = true,
-		BreakIfPlayed = true,
-		PreLineWait = 0.65,
-		SuccessiveChanceToPlay = 0.5,
-		ObjectType = "NPC_Nemesis_01",
-		GameStateRequirements =
-		{
-			{
-				PathNotEmpty = { "RequiredKillEnemies" },
-			},
-		},		
-		Cooldowns =
-		{
-			{ Name = "NemesisAnyQuipSpeech", Time = 10 },
-		},
-
-		{ Cue = "/VO/NemesisField_0414", Text = "Kidding me?" },
-		{ Cue = "/VO/NemesisField_0415", Text = "Get in the fight!" },
-		{ Cue = "/VO/NemesisField_0416", Text = "What are you doing?" },
-		{ Cue = "/VO/NemesisField_0417", Text = "Fight back!" },
-	},	
-}
-
-GlobalVoiceLines.NemesisExorcismReactionVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 0.65,
-	SuccessiveChanceToPlay = 0.5,
-	ObjectType = "NPC_Nemesis_01",
-	Cooldowns =
-	{
-		{ Name = "NemesisAnyQuipSpeech", Time = 10 },
-	},
-
-	{ Cue = "/VO/NemesisField_0408", Text = "Why bother." },
-	{ Cue = "/VO/NemesisField_0409", Text = "Another Shade to watch." },
-	{ Cue = "/VO/NemesisField_0410", Text = "What did you do." },
-	{ Cue = "/VO/NemesisField_0411", Text = "How touching." },
-	{ Cue = "/VO/NemesisField_0412", Text = "What's the use." },
-	{ Cue = "/VO/NemesisField_0413", Text = "Dead weight." },
-}
-GlobalVoiceLines.NemesisScoffingVoiceLines =
-{
-	RandomRemaining = true,
-	BreakIfPlayed = true,
-	PreLineWait = 0.65,
-	SuccessiveChanceToPlay = 0.5,
-	ObjectType = "NPC_Nemesis_01",
-	PreLineAnim = "Nemesis_Hub_Greet",
-
-	{ Cue = "/VO/Nemesis_0105", Text = "{#Emph}Tsch." },
-	{ Cue = "/VO/Nemesis_0106", Text = "{#Emph}Hmph." },
-}
-
 -- Global Athena Lines
 GlobalVoiceLines.AthenaGatherReactionVoiceLines =
 {
@@ -13264,7 +13417,6 @@ GlobalVoiceLines.StorytellerRunStartVoiceLines =
 	RandomRemaining = true,
 	BreakIfPlayed = true,
 	PreLineWait = 2.0,
-	ChanceToPlay = 0.1,
 	GameStateRequirements =
 	{
 		{
@@ -13275,6 +13427,7 @@ GlobalVoiceLines.StorytellerRunStartVoiceLines =
 		{
 			PathTrue = { "GameState", "TextLinesRecord", "InspectHomerReveal01" },
 		},
+		ChanceToPlay = 0.1,
 	},
 
 	Source = { LineHistoryName = "Speaker_Homer", SubtitleColor = Color.NarratorVoice },
@@ -13299,19 +13452,26 @@ GlobalVoiceLines.StorytellerFightReactionVoiceLines =
 	{
 		RandomRemaining = true,
 		BreakIfPlayed = true,
-		PreLineWait = 0.5,
-		SuccessiveChanceToPlay = 0.5,
+		PreLineWait = 0.45,
+		RecheckRequirementsPostWait = true,
+		-- always play if Mel prompts it, max. once per run
+		-- SuccessiveChanceToPlay = 0.75,
+		-- SuccessiveChanceToPlayAll = 0.1,
 		GameStateRequirements =
 		{
 			{
 				Path = { "LastLinePlayed" },
-				IsAny = { "/VO/Melinoe_0861", "/VO/Melinoe_0862", "/VO/Melinoe_0863", "/VO/Melinoe_0864", "/VO/Melinoe_1129", "/VO/Melinoe_1379" },
+				IsAny = { "/VO/Melinoe_0861", "/VO/Melinoe_0862", "/VO/Melinoe_0863", "/VO/Melinoe_0864", "/VO/Melinoe_1129", "/VO/Melinoe_1130", "/VO/Melinoe_1131", "/VO/Melinoe_1379" },
 			},
 			{
 				PathFalse = { "CurrentRun", "ActiveBounty" },
 			},
 			{
 				PathTrue = { "GameState", "TextLinesRecord", "InspectHomerReveal01" },
+			},
+			{
+				Path = { "ActiveScreens" },
+				HasNone = { "Dialog", "UpgradeChoice" },
 			},
 		},
 
@@ -13328,17 +13488,141 @@ GlobalVoiceLines.StorytellerFightReactionVoiceLines =
 		{ Cue = "/VO/Storyteller_0073", Text = "{#Emph}A victory, yet Time our foe remains!" },
 		{ Cue = "/VO/Storyteller_0074", Text = "{#Emph}Sing, O Muse." },
 		{ Cue = "/VO/Storyteller_0076", Text = "{#Emph}Such wondrous spectacle." },
+		{ Cue = "/VO/Storyteller_0363", Text = "{#Emph}After the fury of that battle, calm." },
+		{ Cue = "/VO/Storyteller_0364", Text = "{#Emph}Again her foes are utterly destroyed." },
+		{ Cue = "/VO/Storyteller_0366", Text = "{#Emph}Her victory achieved, she presses on." },
+		{ Cue = "/VO/Storyteller_0368", Text = "{#Emph}Few traces of her cruel foes remain." },
+		{ Cue = "/VO/Storyteller_0370", Text = "{#Emph}Another battle fought with skill and grace." },
+		{ Cue = "/VO/Storyteller_0362", Text = "{#Emph}The Titan's forces, shattered at her feet.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "BiomesReached" },
+					HasAny = { "I", "O" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0369", Text = "{#Emph}She stands alone, unless you count her pet.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "EquippedFamiliar" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0371", Text = "{#Emph}Her foes did not so much as touch her in that bout.",
+			GameStateRequirements =
+			{
+				{
+					FunctionName = "RequiredHealthFraction",
+					FunctionArgs = { Comparison = ">=", Value = 1.0, },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0374", Text = "{#Emph}The worst of Erebus, fallen like leaves.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "F_MiniBoss01", "F_MiniBoss02" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0375", Text = "{#Emph}The deadliest of Oceanus, gone.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "O_MiniBoss01", "O_MiniBoss02", "O_MiniBoss03" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0376", Text = "{#Emph}The Daemons of the Mourning Fields, dispersed.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "H_MiniBoss01" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0377", Text = "{#Emph}Even the Titan's strongest Satyrs were no match.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "I_MiniBoss01" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0378", Text = "{#Emph}A captain of the Titan's guard, vanquished.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "N_MiniBoss01" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0379", Text = "{#Emph}That fearsome maw retreats into the depths.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "O_MiniBoss01" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0380", Text = "{#Emph}That dreaded sailor, driven to the depths.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "O_MiniBoss02" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0381", Text = "{#Emph}One fewer countless dangers on the mountaintop.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "P_MiniBoss01", "P_MiniBoss02" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0382", Text = "{#Emph}The greatest of Automatons, destroyed.",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "P_MiniBoss01" },
+				},
+			},
+		},
+		{ Cue = "/VO/Storyteller_0383", Text = "{#Emph}Monstrous Typhon's hateful brood, repelled.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" },
+				},
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "Q_MiniBoss02", "Q_MiniBoss05" },
+				},
+			},
+		},		
 	},
 	{
 		RandomRemaining = true,
 		BreakIfPlayed = true,
-		PreLineWait = 0.5,
-		SuccessiveChanceToPlay = 0.5,
+		PreLineWait = 0.45,
 		GameStateRequirements =
 		{
 			{
 				Path = { "LastLinePlayed" },
-				IsAny = { "/VO/Melinoe_0861", "/VO/Melinoe_0862", "/VO/Melinoe_0863", "/VO/Melinoe_1531" },
+				IsAny = { "/VO/Melinoe_0861", "/VO/Melinoe_0862", "/VO/Melinoe_0863", "/VO/Melinoe_1129", "/VO/Melinoe_1133", "/VO/Melinoe_1134", "/VO/Melinoe_1531" },
 			},
 			{
 				PathFalse = { "CurrentRun", "ActiveBounty" },
@@ -13347,7 +13631,6 @@ GlobalVoiceLines.StorytellerFightReactionVoiceLines =
 				PathTrue = { "GameState", "TextLinesRecord", "InspectHomerReveal01" },
 			},
 		},
-
 		StatusAnimation = "StatusIconStorytellerSpeaking",
 		StatusAnimSourceIsHero = true,
 		Source = { LineHistoryName = "Speaker_Homer", SubtitleColor = Color.NarratorVoice },
@@ -13356,19 +13639,52 @@ GlobalVoiceLines.StorytellerFightReactionVoiceLines =
 		{ Cue = "/VO/Storyteller_0058", Text = "{#Emph}Whither goes the Princess, so shall I." },
 		{ Cue = "/VO/Storyteller_0072", Text = "{#Emph}The Princess calls into the dark, to no avail." },
 		{ Cue = "/VO/Storyteller_0075", Text = "{#Emph}Hail Princess, light of the Moon." },
+		{ Cue = "/VO/Storyteller_0365", Text = "{#Emph}None can escape the Princess of the Dead." },
+		{ Cue = "/VO/Storyteller_0367", Text = "{#Emph}Shades of the dead, her only witnesses." },
+		{ Cue = "/VO/Storyteller_0372", Text = "{#Emph}All is quiet once again, for now." },
+		{ Cue = "/VO/Storyteller_0373", Text = "{#Emph}Now only death and the Princess remain." },
 	},
 }
-
-GlobalVoiceLines.InvasionEncounterStartVoiceLines =
+GlobalVoiceLines.StorytellerReturnToHubVoiceLines =
 {
 	{
 		RandomRemaining = true,
-		PreLineWait = 0.85,
-		NoTarget = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.5,
+		SuccessiveChanceToPlay = 0.5,
+		SuccessiveChanceToPlayAll = 0.1,
+		GameStateRequirements =
+		{
+			{
+				Path = { "LastLinePlayed" },
+				IsAny = { "/VO/Melinoe_0861", "/VO/Melinoe_0862", "/VO/Melinoe_0863", "/VO/Melinoe_0864", "/VO/Melinoe_1129", "/VO/Melinoe_1379" },
+			},
+			{
+				PathFalse = { "CurrentRun", "ActiveBounty" },
+			},
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "InspectHomerReveal01" },
+			},
+			{
+				Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+				IsAny = { "N", },
+			},
+			NamedRequirements = { "NoRecentInspectPointUsed" },
+		},
+		Cooldowns =
+		{
+			{ Name = "HomerSpokeRecently", Time = 420 },
+		},
 
-		{ Cue = "/VO/Chronos_0007", Text = "A word, if you please?" },
-		{ Cue = "/VO/Intercom_0036", Text = "You cannot stop Time." },
-		{ Cue = "/VO/Intercom_0044", Text = "You are beginning to annoy me, girl." },
+		StatusAnimation = "StatusIconStorytellerSpeaking",
+		StatusAnimSourceIsHero = true,
+		Source = { LineHistoryName = "Speaker_Homer", SubtitleColor = Color.NarratorVoice },
+		ThreadName = "RoomThread",
+
+		{ Cue = "/VO/Storyteller_0408", Text = "{#Emph}Thus she returns to the Ephyra square." },
+		{ Cue = "/VO/Storyteller_0409", Text = "{#Emph}Steadily, she retraces her steps." },
+		{ Cue = "/VO/Storyteller_0410", Text = "{#Emph}Her work here for the night is done." },
+		{ Cue = "/VO/Storyteller_0411", Text = "{#Emph}Back to the heart of the necropolis." },
 	},
 }
 
@@ -13405,8 +13721,15 @@ GlobalVoiceLines.ChallengeEncounterEnemySightedVoiceLines =
 	{ Cue = "/VO/Melinoe_1745", Text = "You should have stayed in shadow." },
 	{ Cue = "/VO/Melinoe_1746", Text = "Come, you thieves." },
 	{ Cue = "/VO/Melinoe_1747", Text = "Interlopers...", PlayFirst = true },
-	{ Cue = "/VO/Melinoe_1748", Text = "This does not belong to you." },
 	{ Cue = "/VO/Melinoe_1749", Text = "This will be over soon." },
+	{ Cue = "/VO/Melinoe_1748", Text = "This does not belong to you.",
+		GameStateRequirements =
+		{
+			{
+				PathFalse = { "CurrentRun", "BiomesReached", "P" },
+			},
+		},
+	},
 }
 GlobalVoiceLines.ChallengeEncounterClearedVoiceLines =
 {
@@ -13435,7 +13758,26 @@ GlobalVoiceLines.ChallengeSwitchOpenedVoiceLines =
 		{ Name = "MelinoeAnyQuipSpeech", Time = 4 },
 	},
 
-	{ Cue = "/VO/Melinoe_1759", Text = "Thank you, Father." },
+	{ Cue = "/VO/Melinoe_1759", Text = "Thank you, Father.",
+		GameStateRequirements =
+		{
+			{
+				PathFromArgs = true,
+				Path = { "EncounterType" },
+				IsNone = { "EliteChallenge" },
+			},
+		},
+	},
+	{ Cue = "/VO/Melinoe_0981", Text = "Thank you, Nyx.",
+		GameStateRequirements =
+		{
+			{
+				PathFromArgs = true,
+				Path = { "EncounterType" },
+				IsAny = { "EliteChallenge" },
+			},
+		},
+	},
 	{ Cue = "/VO/Melinoe_1760", Text = "For safe-keeping." },
 	{ Cue = "/VO/Melinoe_1761", Text = "That's everything." },
 	{ Cue = "/VO/Melinoe_1762", Text = "Property recovered.", PlayFirst = true },
@@ -13558,6 +13900,20 @@ GlobalVoiceLines.PerfectClearEncounterConcludedLines =
 GlobalVoiceLines.PerfectClearEncounterClearedLines =
 {
 }
+GlobalVoiceLines.MetaRewardStandUsedVoiceLines =
+{
+	PlayOnce = true,
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.45,
+	-- SuccessiveChanceToPlayAll = 0.5,
+	Cooldowns =
+	{
+		{ Name = "MelinoeAnyQuipSpeech", Time = 4 },
+	},
+
+	{ Cue = "/VO/MelinoeField_3568", Text = "For having come this far on such a night..." },
+}
 
 GlobalVoiceLines.ExtraDoorEncounterStartVoiceLines =
 {
@@ -13607,110 +13963,77 @@ GlobalVoiceLines.ExtraDoorEncounterStartVoiceLines =
 	},
 }
 
--- Global Chaos Lines
-GlobalVoiceLines.ChaosSecretUnlockedVoiceLines =
+-- Summit
+GlobalVoiceLines.PalaceEntranceUsedVoiceLines =
 {
+	Queue = "Interrupt",
 	{
 		PlayOnce = true,
-		PlayOnceContext = "ChaosAboutSurfacePromptSpeech",
+		PreLineWait = 0.35,
 		RandomRemaining = true,
-		BreakIfPlayed = true,
-		PreLineWait = 1.13,
-		PlayOnceFromTableThisRun = true,
-		SuccessiveChanceToPlay = 0.2,
-		Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
+
+		{ Cue = "/VO/MelinoeField_3457", Text = "{#Emph}To all my family on the mountain, let me pass...?" },
+	},
+	{
+		PreLineWait = 0.35,
+		RandomRemaining = true,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeSurfacePenaltyCure" },
-			},
-			{
-				PathFalse = { "GameState", "TextLinesRecord", "ChaosAboutSurface01" },
-			},
-			{
-				Path = { "CurrentRun", "Hero", "MaxHealth" },
-				Comparison = ">=",
-				Value = 50,
-			},
-			{
-				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsNone = { "Chaos_01", "Chaos_02", "Chaos_03", "Chaos_04", "Chaos_05", "Chaos_06" },
-			},
-			{
-				FunctionName = "RequiredHealthFraction",
-				FunctionArgs = { Comparison = ">=", Value = 0.5, },
+				PathFalse = { "CurrentRun", "SpeechRecord", "/VO/MelinoeField_3457" }
 			},
 		},
-		{ Cue = "/VO/Chaos_0059", Text = "Come, Spawn of Hades..." },
-		{ Cue = "/VO/Chaos_0064", Text = "You are summoned...", PlayFirst = true },
-		{ Cue = "/VO/Chaos_0066", Text = "Come enter the abyss..." },
+
+		{ Cue = "/VO/MelinoeField_3457", Text = "{#Emph}To all my family on the mountain, let me pass...?", PlayFirst = true },
+		{ Cue = "/VO/MelinoeField_3458", Text = "{#Emph}To all my family on the mountain, let me pass." },
+		{ Cue = "/VO/MelinoeField_3459", Text = "{#Emph}To all my family on the mountain, let me pass!" },
+	},
+	{
+		PreLineWait = 4.25,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "ReachedTrueEnding" },
+			},
+		},
+		{ Cue = "/VO/MelinoeField_1275", Text = "It worked..." },
 	},
 	{
 		RandomRemaining = true,
-		PreLineWait = 1.13,
-		PlayOnceFromTableThisRun = true,
-		SuccessiveChanceToPlay = 0.2,
-		Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
+		PreLineWait = 2.25,
+		SuccessiveChanceToPlayAll = 0.5,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "TextLinesRecord", "ChaosGift02" },
-			},
-			{
-				Path = { "CurrentRun", "Hero", "MaxHealth" },
-				Comparison = ">=",
-				Value = 30,
-			},
-			{
-				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsNone = { "Chaos_01", "Chaos_02", "Chaos_03", "Chaos_04", "Chaos_05", "Chaos_06" },
-			},
-			{
-				FunctionName = "RequiredHealthFraction",
-				FunctionArgs = { Comparison = ">=", Value = 0.5, },
+				PathFalse = { "GameState", "ReachedTrueEnding" },
 			},
 		},
-		{ Cue = "/VO/Chaos_0059", Text = "Come, Spawn of Hades...", PlayFirst = true },
-		{ Cue = "/VO/Chaos_0060", Text = "The path to me is open..." },
-		{ Cue = "/VO/Chaos_0061", Text = "Return to me again..." },
-		{ Cue = "/VO/Chaos_0062", Text = "Come join me if you wish..." },
-		{ Cue = "/VO/Chaos_0063", Text = "I offer you a different path..." },
-		{ Cue = "/VO/Chaos_0064", Text = "You are summoned..." },
-		{ Cue = "/VO/Chaos_0065", Text = "My gateway is opened..." },
-		{ Cue = "/VO/Chaos_0066", Text = "Come enter the abyss..." },
+
+		{ Cue = "/VO/MelinoeField_3460", Text = "{#Emph}Aah...!" },
+		{ Cue = "/VO/MelinoeField_3461", Text = "{#Emph}<Gasp>" },
+		{ Cue = "/VO/MelinoeField_3462", Text = "{#Emph}So... bright...", PlayFirst = true, PreLineWait = 3.25 },
 	},
 }
-GlobalVoiceLines.ChaosHarvestReactionVoiceLines =
+
+GlobalVoiceLines.PalaceObservationVoiceLines =
 {
+	UsePlayerSource = true,
 	RandomRemaining = true,
 	BreakIfPlayed = true,
-	PreLineWait = 0.78,
-	ChanceToPlay = 0.33,
-	Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
-	GameStateRequirements =
-	{
-		{
-			Path = { "GameState", "UseRecord", "TrialUpgrade", },
-			Comparison = ">=",
-			Value = 3,
-		},
-		{
-			Path = { "CurrentRun", "CurrentRoom", "Name" },
-			IsAny = { "Chaos_01", "Chaos_02", "Chaos_03", "Chaos_04", "Chaos_05", "Chaos_06" },
-		},
-	},
+	SuccessiveChanceToPlay = 0.5,
+	SuccessiveChanceToPlayAll = 0.33,
 	Cooldowns =
 	{
-		{ Name = "ChaosSpokeRecently", Time = 45 },
+		{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+		{ Name = "MelinoePalaceObservationSpeech", Time = 30 },
 	},
-	TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 
-	{ Cue = "/VO/Chaos_0191", Text = "You may have it." },
-	{ Cue = "/VO/Chaos_0192", Text = "It is yours." },
-	{ Cue = "/VO/Chaos_0193", Text = "A small gift." },
-	{ Cue = "/VO/Chaos_0194", Text = "That is for you." },
-	{ Cue = "/VO/Chaos_0195", Text = "Please enjoy." },
-	{ Cue = "/VO/Chaos_0196", Text = "Do as you will." },
+	{ Cue = "/VO/MelinoeField_4246", Text = "I think I know everyone here..." },
+	{ Cue = "/VO/MelinoeField_4247", Text = "The family..." },
+	{ Cue = "/VO/MelinoeField_4248", Text = "This is only the courtyard..." },
+	{ Cue = "/VO/MelinoeField_4249", Text = "Where are the others...?" },
+	{ Cue = "/VO/MelinoeField_4250", Text = "Such a place..." },
+	{ Cue = "/VO/MelinoeField_4251", Text = "It's warmer than I thought..." },
 }
 
 -- Tartarus
@@ -13726,8 +14049,7 @@ GlobalVoiceLines.PostBossHiddenExitUsedVoiceLines =
 		},
 
 		{ Cue = "/VO/Melinoe_0178", Text = "Now..." },
-		{ Cue = "/VO/MelinoeField_1271", Text = "On my authority as Princess of the Underworld: {#Emph}Unseal...!", PreLineWait = 0.5 },
-		{ Cue = "/VO/Melinoe_0204", Text = "Excellent.", PreLineWait = 1.3, BreakIfPlayed = true }
+		{ Cue = "/VO/MelinoeField_1271", Text = "On my authority as Princess of the Underworld: {#Emph}Unseal...!", PreLineWait = 0.5, BreakIfPlayed = true },
 	},
 	{
 		BreakIfPlayed = true,
@@ -13748,38 +14070,16 @@ GlobalVoiceLines.PostBossHiddenExitUsedVoiceLines =
 }
 GlobalVoiceLines.RoomOpeningMainDoorVoiceLines =
 {
+	Queue = "Interrupt",
 	{
 		PreLineWait = 0.35,
+
 		{ Cue = "/VO/MelinoeField_1270", Text = "Please work..." },
 		{ Cue = "/VO/MelinoeField_1272", Text = "On my authority as Princess of the Underworld: {#Emph}Unseal.", PreLineWait = 1.0 },
 
 		{ Cue = "/VO/MelinoeField_1472", Text = "Blood and...", PreLineWait = 2.33, PreLineAnim = "MelTalkBroodingFull01" },
-		{ Cue = "/VO/Melinoe_1633", Text = "Didn't work...", PreLineWait = 1.1 },
+		{ Cue = "/VO/Melinoe_0224", Text = "Won't open.", PreLineWait = 1.1 },
 		{ Cue = "/VO/Melinoe_0215", Text = "How about...", PreLineWait = 1.25 },
 	},
 }
 
-MusicMarkerData =
-{
-	HummingStart =
-	{
-		FunctionName = "SetPathValue",
-		FunctionArgs =
-		{
-			TablePath = { "SessionMapState", },
-			Key = "Humming",
-			Value = true
-		},
-	},
-
-	HummingStop =
-	{
-		FunctionName = "SetPathValue",
-		FunctionArgs =
-		{
-			TablePath = { "SessionMapState", },
-			Key = "Humming",
-			Value = false,
-		},
-	},
-}

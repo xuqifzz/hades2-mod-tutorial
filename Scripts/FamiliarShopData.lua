@@ -44,16 +44,8 @@
 	{
 		InheritFrom = { "BaseFrogUpgrade" },
 		Icon = "FamiliarShopIcon_FrogUses",
-		BonusResourceSpawnChance = 0.03,
 		ShowLastInGroup = "FrogUses",
-		SimpleExtractValues =
-		{
-			{
-				Property = "BonusResourceSpawnChance",
-				Multiply = 100 / 0.12, -- Temp divide by BaseResourceSpawnChance 
-				NewProperty = "BonusResourceSpawnChancePercent",
-			},
-		},
+		IncreaseTraitLevel = "FamiliarFrogResourceBonus",
 	},
 
 	FrogUses2 = 
@@ -85,14 +77,12 @@
 		InheritFrom = { "BaseFrogUpgrade" },
 		Icon = "FamiliarShopIcon_FrogDamage",
 		ShowLastInGroup = "FrogDamage",
-		TraitName = "FamiliarFrogDamage",
+		IncreaseTraitLevel = "FamiliarFrogDamage",
 	},
 
 	FrogDamage2 = 
 	{
 		InheritFrom = { "FrogDamage" },
-		TraitName = nil,
-		IncreaseTraitLevel = "FamiliarFrogDamage",
 		RarityLevel = 2,
 		GameStateRequirements = 
 		{
@@ -105,8 +95,6 @@
 	FrogDamage3 = 
 	{
 		InheritFrom = { "FrogDamage" },
-		TraitName = nil,
-		IncreaseTraitLevel = "FamiliarFrogDamage",
 		RarityLevel = 3,
 		GameStateRequirements = 
 		{
@@ -160,16 +148,8 @@
 	{
 		InheritFrom = { "BaseCatUpgrade" },
 		Icon = "FamiliarShopIcon_CatUses",
-		BonusResourceSpawnChance = 0.025,
 		ShowLastInGroup = "CatUses",
-		SimpleExtractValues =
-		{
-			{
-				Property = "BonusResourceSpawnChance",
-				Multiply = 100 / 0.1, -- Temp divide by BaseResourceSpawnChance 
-				NewProperty = "BonusResourceSpawnChancePercent",
-			},
-		},
+		IncreaseTraitLevel = "FamiliarCatResourceBonus",
 	},
 
 	CatUses2 =
@@ -201,10 +181,7 @@
 		InheritFrom = { "BaseCatUpgrade" },
 		Icon = "FamiliarShopIcon_CatAttack",
 		ShowLastInGroup = "CatAttack",
-		OverwriteSelf =
-		{
-			NumAttacks = 2,
-		},
+		IncreaseTraitLevel = "FamiliarCatAttacks",
 	},
 
 	CatAttack2 = 
@@ -217,10 +194,6 @@
 				PathTrue = { "GameState", "FamiliarUpgrades", "CatAttack" },
 			},
 		},
-		OverwriteSelf =
-		{
-			NumAttacks = 3,
-		},
 	},
 
 	CatAttack3 = 
@@ -232,10 +205,6 @@
 			{
 				PathTrue = { "GameState", "FamiliarUpgrades", "CatAttack2" },
 			},
-		},
-		OverwriteSelf =
-		{
-			NumAttacks = 4,
 		},
 	},
 
@@ -250,18 +219,9 @@
 	RavenCritChanceBonus =
 	{
 		InheritFrom = { "BaseRavenUpgrade" },
-		Icon = "FamiliarIcon_Raven",
+		Icon = "FamiliarShopIcon_RavenCritChanceBonus",
 		ShowLastInGroup = "RavenCritChanceBonus",
 		IncreaseTraitLevel = "CritFamiliar",
-		BonusChance = 0.01, -- Temp hardcoding, should match CritFamiliar AbsoluteStackValues
-		SimpleExtractValues =
-		{
-			{
-				Property = "BonusChance",
-				Multiply = 100, 
-				NewProperty = "BonusCritChancePercent",
-			},
-		},
 	},
 
 	RavenCritChanceBonus2 = 
@@ -291,17 +251,9 @@
 	RavenUses =
 	{
 		InheritFrom = { "BaseRavenUpgrade" },
-		Icon = "FamiliarIcon_Raven",
-		BonusResourceSpawnChance = 0.025,
+		Icon = "FamiliarShopIcon_RavenUses",
 		ShowLastInGroup = "RavenUses",
-		SimpleExtractValues =
-		{
-			{
-				Property = "BonusResourceSpawnChance",
-				Multiply = 100 / 0.1, -- Temp divide by BaseResourceSpawnChance 
-				NewProperty = "BonusResourceSpawnChancePercent",
-			},
-		},
+		IncreaseTraitLevel = "FamiliarRavenResourceBonus",
 	},
 
 	RavenUses2 =
@@ -331,23 +283,9 @@
 	RavenAttack =
 	{
 		InheritFrom = { "BaseRavenUpgrade" },
-		Icon = "FamiliarIcon_Raven",
+		Icon = "FamiliarShopIcon_RavenAttack",
 		ShowLastInGroup = "RavenAttack",
-		FrequencyIncrease = 10.0 / 8.0, -- Temp divide from original to modified MaxTimeBetweenAttacks
-		OverwriteSelf =
-		{
-			MinTimeBetweenAttacks = 7.0,
-			MaxTimeBetweenAttacks = 8.0,
-		},
-		SimpleExtractValues =
-		{
-			{
-				Property = "FrequencyIncrease",
-				Multiply = 100,
-				Add = -100,
-				NewProperty = "FrequencyIncreasePercent",
-			},
-		},
+		IncreaseTraitLevel = "FamiliarRavenAttackDuration",
 	},
 
 	RavenAttack2 = 
@@ -360,11 +298,6 @@
 				PathTrue = { "GameState", "FamiliarUpgrades", "RavenAttack" },
 			},
 		},
-		OverwriteSelf =
-		{
-			MinTimeBetweenAttacks = 5.0,
-			MaxTimeBetweenAttacks = 6.0,
-		},
 	},
 
 	RavenAttack3 = 
@@ -376,11 +309,6 @@
 			{
 				PathTrue = { "GameState", "FamiliarUpgrades", "RavenAttack2" },
 			},
-		},
-		OverwriteSelf =
-		{
-			MinTimeBetweenAttacks = 3.0,
-			MaxTimeBetweenAttacks = 4.0,
 		},
 	},
 
@@ -395,7 +323,7 @@
 	HoundManaBonus = 
 	{
 		InheritFrom = { "BaseHoundUpgrade" },
-		Icon = "FamiliarIcon_Hound",
+		Icon = "FamiliarShopIcon_HoundManaBonus",
 		ShowLastInGroup = "HoundManaBonus",
 		IncreaseTraitLevel = "DigFamiliar",
 	},
@@ -427,17 +355,9 @@
 	HoundUses =
 	{
 		InheritFrom = { "BaseHoundUpgrade" },
-		Icon = "FamiliarIcon_Hound",
-		BonusResourceSpawnChance = 0.025,
+		Icon = "FamiliarShopIcon_HoundUses",
 		ShowLastInGroup = "HoundUses",
-		SimpleExtractValues =
-		{
-			{
-				Property = "BonusResourceSpawnChance",
-				Multiply = 100 / 0.1, -- Temp divide by BaseResourceSpawnChance 
-				NewProperty = "BonusResourceSpawnChancePercent",
-			},
-		},
+		IncreaseTraitLevel = "FamiliarHoundResourceBonus",
 	},
 
 	HoundUses2 =
@@ -467,22 +387,9 @@
 	HoundAttack =
 	{
 		InheritFrom = { "BaseHoundUpgrade" },
-		Icon = "FamiliarIcon_Hound",
+		Icon = "FamiliarShopIcon_HoundAttack",
 		ShowLastInGroup = "HoundAttack",
-		FrequencyIncrease = 0.15, -- This is wrong but close enough... 12% -> 14% -> 16%
-		OverwriteSelf =
-		{
-			MinTimeBetweenBarks = 7.0,
-			MaxTimeBetweenBarks = 8.0,
-		},
-		SimpleExtractValues =
-		{
-			{
-				Property = "FrequencyIncrease",
-				Multiply = 100,
-				NewProperty = "FrequencyIncreasePercent",
-			},
-		},
+		IncreaseTraitLevel = "FamiliarHoundBarkDuration",
 	},
 
 	HoundAttack2 =
@@ -494,11 +401,6 @@
 			{
 				PathTrue = { "GameState", "FamiliarUpgrades", "HoundAttack" },
 			},
-		},
-		OverwriteSelf =
-		{
-			MinTimeBetweenBarks = 6.0,
-			MaxTimeBetweenBarks = 7.0,
 		},
 	},
 
@@ -512,10 +414,109 @@
 				PathTrue = { "GameState", "FamiliarUpgrades", "HoundAttack2" },
 			},
 		},
-		OverwriteSelf =
+	},
+
+	-- PolecatFamiliar / Gale
+
+	BasePolecatUpgrade = 
+	{
+		DebugOnly = true,
+		FamiliarName = "PolecatFamiliar",
+	},
+
+	PolecatDodgeBonus = 
+	{
+		InheritFrom = { "BasePolecatUpgrade" },
+		Icon = "FamiliarShopIcon_PolecatDodgeBonus",
+		ShowLastInGroup = "PolecatDodgeBonus",
+		IncreaseTraitLevel = "DodgeFamiliar",
+	},
+
+	PolecatDodgeBonus2 = 
+	{
+		InheritFrom = { "PolecatDodgeBonus" },
+		RarityLevel = 2,
+		GameStateRequirements = 
 		{
-			MinTimeBetweenBarks = 5.0,
-			MaxTimeBetweenBarks = 6.0,
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "PolecatDodgeBonus" },
+			},
+		},
+	},
+
+	PolecatDodgeBonus3 = 
+	{
+		InheritFrom = { "PolecatDodgeBonus" },
+		RarityLevel = 3,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "PolecatDodgeBonus2" },
+			},
+		},
+	},
+
+	PolecatUses = 
+	{
+		InheritFrom = { "BasePolecatUpgrade" },
+		Icon = "FamiliarShopIcon_PolecatUses",
+		ShowLastInGroup = "PolecatUses",
+		IncreaseTraitLevel = "FamiliarPolecatResourceBonus",
+	},
+
+	PolecatUses2 = 
+	{
+		InheritFrom = { "PolecatUses" },
+		RarityLevel = 2,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "PolecatUses" },
+			},
+		},
+	},
+
+	PolecatUses3 = 
+	{
+		InheritFrom = { "PolecatUses" },
+		RarityLevel = 3,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "PolecatUses2" },
+			},
+		},
+	},
+
+	PolecatDamage =
+	{
+		InheritFrom = { "BasePolecatUpgrade" },
+		Icon = "FamiliarShopIcon_PolecatDamage",
+		ShowLastInGroup = "PolecatDamage",
+		IncreaseTraitLevel = "FamiliarPolecatDamage",
+	},
+
+	PolecatDamage2 = 
+	{
+		InheritFrom = { "PolecatDamage" },
+		RarityLevel = 2,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "PolecatDamage" },
+			},
+		},
+	},
+
+	PolecatDamage3 = 
+	{
+		InheritFrom = { "PolecatDamage" },
+		RarityLevel = 3,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "PolecatDamage2" },
+			},
 		},
 	},
 
@@ -542,6 +543,9 @@ ScreenData.FamiliarShop =
 	ItemsPerPage = 5,
 	ScrollOffset = 0,
 	FreeFormSelectOffsetX = -450,
+
+	FadeOutTime = 0.3,
+	OnPurchasedFadeOutTime = 0.4,
 
 	OpenSound = "/SFX/CrappyRewardPickup",
 
@@ -623,13 +627,19 @@ ScreenData.FamiliarShop =
 		"HoundAttack",
 		"HoundAttack2",
 		"HoundAttack3",
+
+		"PolecatDodgeBonus",
+		"PolecatDodgeBonus2",
+		"PolecatDodgeBonus3",
+		"PolecatUses",
+		"PolecatUses2",
+		"PolecatUses3",
+		"PolecatDamage",
+		"PolecatDamage2",
+		"PolecatDamage3",
 	},
 
 	Components = {},
-
-	SaleData = {},
-	NumSales = 0,
-	NumItemsOffered = 0,
 
 	TooltipX = 1680,
 	TooltipY = 1280,
@@ -642,11 +652,14 @@ ScreenData.FamiliarShop =
 	ComponentData =
 	{
 		DefaultGroup = "Combat_Menu",
+		UseNativeScreenCenter = true,
 
 		Order =
 		{
 			"BackgroundDim",
-			"ListBackground",
+			"FamiliarShopBacking",
+			"FamiliarShopAnimalBacking",
+			"ActionBarBackground",
 			"ResourceCostBacking",
 		},
 
@@ -660,6 +673,25 @@ ScreenData.FamiliarShop =
 			Y = ScreenCenterY,
 			UseNativeScreenCenter = true,
 			Color = { 1.0, 1.0, 1.0, 0.8 },
+		},
+
+		FamiliarShopBacking =
+		{
+			AnimationName = "FamiliarShopBackdrop",
+			X = ScreenCenterX,
+			Y = ScreenCenterY,
+			Alpha = 0.0,
+			AlphaTarget = 1.0,
+			AlphaTargetDuration = 0.2,
+		},
+
+		FamiliarShopAnimalBacking =
+		{
+			X = ScreenCenterX + 540,
+			Y = ScreenCenterY,
+			Alpha = 0.0,
+			AlphaTarget = 1.0,
+			AlphaTargetDuration = 0.2,
 		},
 
 		TitleText = 
@@ -753,37 +785,57 @@ ScreenData.FamiliarShop =
 			}
 		},
 
-		SelectButton =
+		ActionBarBackground =
 		{
-			Graphic = "ContextualActionButton",
-			GroupName = "Combat_Menu_Overlay",
-			X = UIData.ContextualButtonXRight - UIData.ContextualButtonSpacing - 100,
-			BottomOffset = UIData.ContextualButtonBottomOffset,
-			Alpha = 0.0,
-			Data =
-			{
-				-- Dummy button
-			},
-			Text = "FamiliarShop_Select",
-			TextArgs = UIData.ContextualButtonFormatLeft,
+			AnimationName = "GUI\\ActionBar",
+			X = ScreenCenterX,
+			Y = UIData.ActionBarY,
 		},
 
-		CloseButton =
+		ActionBar =
 		{
-			Graphic = "ContextualActionButton",
-			GroupName = "Combat_Menu_Overlay",
 			X = UIData.ContextualButtonXRight,
-			BottomOffset = UIData.ContextualButtonBottomOffset,
-			Alpha = 0.0,
-			Data =
+			Y = UIData.ContextualButtonY,
+			AutoAlignContextualButtons = true,
+			AutoAlignJustification = "Right",
+
+			ChildrenOrder =
 			{
-				OnMouseOverFunctionName = "MouseOverContextualAction",
-				OnMouseOffFunctionName = "MouseOffContextualAction",
-				OnPressedFunctionName = "CloseFamiliarShopScreen",
-				ControlHotkeys = { "Cancel", },
+				"CloseButton",
+				"SelectButton",
 			},
-			Text = "Menu_Exit",
-			TextArgs = UIData.ContextualButtonFormatRight,
+
+			Children =
+			{
+				SelectButton =
+				{
+					Graphic = "ContextualActionButton",
+					GroupName = "Combat_Menu_Overlay",
+					Alpha = 0.0,
+					Data =
+					{
+						-- Dummy button
+					},
+					Text = "FamiliarShop_Select",
+					TextArgs = UIData.ContextualButtonFormatLeft,
+				},
+
+				CloseButton =
+				{
+					Graphic = "ContextualActionButton",
+					GroupName = "Combat_Menu_Overlay",
+					Alpha = 0.0,
+					Data =
+					{
+						OnMouseOverFunctionName = "MouseOverContextualAction",
+						OnMouseOffFunctionName = "MouseOffContextualAction",
+						OnPressedFunctionName = "CloseFamiliarShopScreen",
+						ControlHotkeys = { "Cancel", },
+					},
+					Text = "Menu_Exit",
+					TextArgs = UIData.ContextualButtonFormatRight,
+				},
+			},
 		},
 	},
 }

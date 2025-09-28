@@ -9,7 +9,7 @@ OverwriteTableKeys( TraitData, {
 		BlockInRunRarify = true,
 		AddOutgoingLifestealModifiers =
 		{
-			LimitedUse = 100,
+			LimitedUse = 125,
 			ValidMultiplier = 0.01,
 			MinLifesteal = 1,
 			ReportValues = 
@@ -68,7 +68,7 @@ OverwriteTableKeys( TraitData, {
 		{
 			{
 				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "CastProjectileBoon", "CastAnywhereBoon", "CastAttachBoon", "CastLobBoon" },
+				HasNone = { "CastProjectileBoon", "CastAnywhereBoon", "CastLobBoon", "SelfCastBoon" },
 			},
 		},
 		OverrideWeaponFireNames =
@@ -207,7 +207,8 @@ OverwriteTableKeys( TraitData, {
 			PresentationFunctionName = "HadesPreDamagePresentation",
 			Text = "PreDamageHit_Hades",
 			PreDamage = { BaseValue = 0.20 },
-			EnemyType = "Boss",
+			ValidRooms = { "I_Boss01", "Q_Boss01", "Q_Boss02"},
+			DamageSourceName = "HadesPreDamageBoon",
 			ReportValues = { ReportedDamage = "PreDamage" }
 		},
 		SpeakerNames = { "Hades" },
@@ -224,6 +225,10 @@ OverwriteTableKeys( TraitData, {
 				Format = "Percent",
 				HideSigns = true,
 			},
+			{
+				Format = "FinalBoss",
+				ExtractAs = "FinalBoss",
+			}
 		},
 	},
 	HadesChronosDebuffBoon = 
@@ -261,22 +266,143 @@ OverwriteTableKeys( TraitData, {
 				Key = "DebuffValue",
 				ExtractAs = "ReportedDebuff",
 				Format = "PercentDelta",
+				HideSigns = true,
+			},
+			{
+				Format = "FinalBoss",
+				ExtractAs = "FinalBoss",
+			}
+		},
+	},
+	HadesDashSweepBoon = 
+	{
+		InheritFrom = { "InPersonOlympianTrait" },
+		Icon = "Boon_Hades_09",
+		BlockInRunRarify = true,
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.00,
+			},
+			Rare =
+			{
+				Multiplier = 1.1,
+			},
+			Epic =
+			{
+				Multiplier = 1.2,
+			},
+			Heroic =
+			{
+				Multiplier = 1.3,
+			},
+		},
+		AddOutgoingDamageModifiers =
+		{	
+			ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,
+			ValidActiveEffects = {"HadesSweepEffect"},
+			NonExMultiplier = 1.30,
+			ReportValues = {ReportedDamageMultiplier = "NonExMultiplier"},
+		},
+		OnWeaponFiredFunctions = 
+		{
+			ValidWeapons = { "WeaponBlink" },
+			ExcludeLinked = true,
+			FunctionName = "FireHadesSprintProjectile",
+			FunctionArgs = 
+			{
+				ProjectileName = "SpearWeaponSpin",
+				DamageMultiplier = 
+				{ 
+					BaseValue = 1,
+				},
+				ReportValues = 
+				{ 
+					ReportedMultiplier = "DamageMultiplier" 
+				},
+			},
+		},
+		OnEnemyDamagedAction = 
+		{
+			ValidProjectiles = {"SpearWeaponSpin"},
+			EffectName = "HadesSweepEffect",
+		},
+		StatLines =
+		{
+			"SweepDamageStatDisplay",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "SpearWeaponSpin",
+				BaseProperty = "Damage",
+			},
+			{
+				Key = "ReportedDamageMultiplier",
+				ExtractAs = "ReportedHadesMultiplier",
+				Format = "PercentDelta",
+				HideSigns = true,
+				SkipAutoExtract = true,
+			},
+			{
+				ExtractAs = "ReportedHadesDuration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "HadesSweepEffect",
+				BaseProperty = "Duration",
 			},
 		},
 	},
 	HadesInvisibilityRetaliateBoon = 
 	{
 		InheritFrom = { "InPersonOlympianTrait" },
-		Icon = "Boon_Hades_04",
-		BlockInRunRarify = true,
-		AddOutgoingDamageModifiers =
+
+		RarityLevels =
 		{
-			InvisibleVolleyMultiplier =
+			Common =
 			{
-				BaseValue = 2,
+				Multiplier = 1.0,
+			},
+		},
+		Icon = "Boon_Hades_04",
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "TextLinesRecord" },
+				HasAny = { "HadesMeeting02", "HadesWithPersephone01" },
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				Path = { "GameState", "TextLinesRecord" },
+				HasAny = { "HadesMeeting02", "HadesWithPersephone01" },
+			},
+		},
+		FirstTimeEntranceAnimation = "BoonEntranceLegendary",
+		PriorityRequirements =
+		{
+			{
+				PathFalse = { "GameState", "TraitsSeen", "HadesInvisibilityRetaliateBoon" },
+			},
+		},
+		BlockInRunRarify = true,
+		ShowInHUD = true,
+		AddOutgoingDamageModifiers =
+		{			
+			RequiredSelfEffectsMultiplier =
+			{
+				BaseValue = 1.7,
 				SourceIsMultiplier = true,
 			},
-			ReportValues = { ReportedWeaponMultiplier = "InvisibleVolleyMultiplier"},
+			RequiredEffects = { "HadesInvisible" },
+			ReportValues = { ReportedWeaponMultiplier = "RequiredSelfEffectsMultiplier"},
 		},
 		OnSelfDamagedFunction = 
 		{
@@ -285,7 +411,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Cooldown = 40,
 				EffectName = "HadesInvisible",
-				Duration = 10,
+				Duration = 5,
 				ReportValues = 
 				{ 
 					ReportedCooldown = "Cooldown",
@@ -296,15 +422,6 @@ OverwriteTableKeys( TraitData, {
 		SetupFunction =
 		{
 			Name = "HadesInvisibilitySetup",
-		},
-		OnProjectileDeathFunction = 
-		{
-			Name = "RemoveWeaponInvisibleFire",
-		},
-		OnWeaponFiredFunctions = 
-		{
-			ValidWeapons = CombineAllValues({ WeaponSets.HeroNonPhysicalWeapons, WeaponSets.HeroAllWeapons }),	
-			FunctionName = "CheckWeaponInvisibleFire",
 		},
 		StatLines =
 		{
@@ -328,6 +445,7 @@ OverwriteTableKeys( TraitData, {
 				SkipAutoExtract = true,
 			},
 		},
+		FlavorText = "HadesInvisibilityRetaliateBoon_FlavorText",
 	},
 	HadesDeathDefianceDamageBoon = 
 	{
@@ -415,7 +533,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				ManaCost = 60,
 				EnemyName = "HadesTombstone",
-				Count = 6,
+				Count = 3,
 				ReportValues = 
 				{ 
 					ReportedMana = "ManaCost",
@@ -444,87 +562,6 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedMana",
 				ExtractAs = "Mana",
-				SkipAutoExtract = true,
-			},
-		},
-	},
-	HadesLaserThresholdBoon = 
-	{
-		InheritFrom = { "InPersonOlympianTrait" },
-		Icon = "Boon_Hades_08",
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.0,
-			},
-			Rare =
-			{
-				Multiplier = 1.5,
-			},
-			Epic =
-			{
-				Multiplier = 2.0,
-			},
-			Heroic =
-			{
-				Multiplier = 2.5,
-			},
-		},
-		BlockInRunRarify = true,
-		OnSelfDamagedFunction = 
-		{
-			NotDamagingRetaliate = true,
-			Name = "CheckRadialLaserRetaliate",
-			FunctionArgs = 
-			{
-				HealthThreshold = 100,
-				ProjectileName = "HadesCastBeam",
-				ProjectileCount = 4,
-				InvulnerabilityDuration = 5,
-				ReportValues = 
-				{ 
-					ReportedThreshold = "HealthThreshold",
-					ReportedCount = "ProjectileCount",
-					ReportedDuration = "InvulnerabilityDuration",
-				}
-			}
-		},
-		StatLines =
-		{
-			"LaserDamageStatDisplay",
-		},
-		ExtractValues =
-		{
-			{
-				ExtractAs = "Damage",
-				External = true,
-				BaseType = "ProjectileBase",
-				BaseName = "HadesCastBeam",
-				BaseProperty = "Damage",
-			},
-			{
-				ExtractAs = "Interval",
-				SkipAutoExtract = true,
-				External = true,
-				BaseType = "ProjectileBase",
-				BaseName = "HadesCastBeam",
-				BaseProperty = "ImmunityDuration",
-				DecimalPlaces = 2,
-			},
-			{
-				Key = "ReportedThreshold",
-				ExtractAs = "Threshold",
-				SkipAutoExtract = true,
-			},
-			{
-				Key = "ReportedCount",
-				ExtractAs = "Count",
-				SkipAutoExtract = true,
-			},
-			{
-				Key = "ReportedDuration",
-				ExtractAs = "Duration",
 				SkipAutoExtract = true,
 			},
 		},

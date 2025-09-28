@@ -15,14 +15,17 @@
 		FirstTimeEquipSound = "/SFX/Enemy Sounds/Minotaur/HugeAxeSwing",
 		SprintLoopSound = "/SFX/Player Sounds/MelinoeSuitHoverStartAndLoop",
 		SprintEndSound = "/SFX/Player Sounds/MelinoeSuitHoverEnd",
-		EndEffectsOnBlink = { "ExAttackSuitShield", "ExAttackSuitDefense" },
+		EndEffectsOnBlink = { "ExAttackSuitShield", "ExAttackSuitDefense","SuitChargeDisableRotation" },
 		UseText = "UseWeaponKit",
 		UpgradeChoiceText = "UpgradeChoiceMenu_Melee",
 		NoBountyAvailableText = "ShrineScreen_NoBountyAvailable_Suit",
+		UnequipFunctionName = "ClearSuitMarkers",
 		UnlockName = "WeaponSuit_Unlock",
 		ExpireDashWeaponOnDash = true,
 		DummyTraitName = "DummyWeaponSuit",
 		SecondaryWeapon = "WeaponSuitRanged",
+		CheckPostFireFail = true,
+		DashSwaps = {"WeaponSuit", "WeaponSuit2"},
 		StartRoomEvents = 
 		{
 			{
@@ -72,7 +75,7 @@
 			["MelinoeRun"] = "Melinoe_Suit_Run_FireLoop",
 			["MelinoeStop"] = "Melinoe_Suit_Run_End",
 			["MelinoeGetHit"] = "Melinoe_Suit_GetHit",
-			["MelinoeGetHitFinal"] = "Melinoe_Suit_GetHit",
+			["Melinoe_GetHit_LastStand"] = "Melinoe_Suit_GetHit_LastStand",
 
 			["Melinoe_Cast_Start"] = "Melinoe_Suit_Cast_Start",
 			["Melinoe_Cast_StartLoop"] = "Melinoe_Suit_Cast_StartLoop",
@@ -184,6 +187,7 @@
 	{
 		IsExWeapon = true,
 		DoProjectileBlockPresentation = true,
+		BlockSound = "/SFX/Enemy Sounds/Exalted/EnergyShieldBlock",
 		InheritFrom = { "WeaponSuit", },
 		--ChargeText = { Text = "SpearSpinMaxMessage", Duration = 0.2, OffsetY = -160, SkipShadow = true, SkipFlash = true, SkipRise = true },
 		--MaxChargeText = { Text = "SpearSpinMaxMessage", Duration = 0.3, OffsetY = -160, SkipShadow = true, SkipRise = true },
@@ -192,13 +196,16 @@
 		OutOfManaFunctionName = "WeaponCooldownOutOfMana",
 		OutOfManaFunctionArgs = { Cooldown = 0.85 },
 		OnChargeFunctionNames = { "DoWeaponCharge", "EndDashDisableForce" },
-		OnFiredFunctionName = "CheckSuitChargedDisable",
+		OnFiredFunctionNames = { "CheckSuitChargedDisable", },
 		ChargeWeaponData =
 		{
 			EmptyChargeFunctionName = "EmptySuitAttackCharge",
 			OnStageReachedFunctionName = "SuitAttackChargeStage"
 		},
 		CompleteObjectivesOnFire = { "WeaponSuitCharged" },
+
+		ProjectileBlockFunctionName = "ShieldBlock",
+		ProjectileBlockFunctionArgs = { EffectName = "BlockStun", MaxDistance = 600 },
 		
 		OnEnemyDamagedFunction = 
 		{
@@ -209,42 +216,43 @@
 		BlockLingerDuration = 0.30,
 		FireBlockLingerDuration = 0.35,
 		ManaIndicatorUsesStageProgression = true,
-		CheckPostFireFail = true,
+		
+		MinWeaponChargeTime = 0.02,
 		ChargeWeaponStages = 
 		{
 				{ ManaCost = 1, Force = 700, WeaponProperties = { NumProjectiles = 1, FireGraphic = "Melinoe_Suit_AttackExPunch_Start", DamageMultiplier  = 1 }, Wait = 0.15, HideStageReachedFx = true },
-				{ ManaCost = 2, Force = 725, WeaponProperties = { DamageMultiplier  = 1.25 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 3, Force = 750, WeaponProperties = { DamageMultiplier = 1.50 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 4, Force = 775, WeaponProperties = { DamageMultiplier = 1.75 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 5, Force = 800, WeaponProperties = { DamageMultiplier = 2.00 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 6, Force = 825, WeaponProperties = { DamageMultiplier = 2.25 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 7, Force = 850, WeaponProperties = { DamageMultiplier = 2.50 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 8, Force = 875, WeaponProperties = { DamageMultiplier = 2.75 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 9, Force = 900, WeaponProperties = { DamageMultiplier = 3.00 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 10, Force = 900, WeaponProperties = { DamageMultiplier = 3.25 }, Wait = 0.06, HideStageReachedFx = true },
+				{ ManaCost = 2, Force = 725, WeaponProperties = { DamageMultiplier  = 1.25 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 3, Force = 750, WeaponProperties = { DamageMultiplier = 1.50 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 4, Force = 775, WeaponProperties = { DamageMultiplier = 1.75 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 5, Force = 800, WeaponProperties = { DamageMultiplier = 2.00 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 6, Force = 825, WeaponProperties = { DamageMultiplier = 2.25 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 7, Force = 850, WeaponProperties = { DamageMultiplier = 2.50 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 8, Force = 875, WeaponProperties = { DamageMultiplier = 2.75 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 9, Force = 900, WeaponProperties = { DamageMultiplier = 3.00 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 10, Force = 900, WeaponProperties = { DamageMultiplier = 3.25 }, Wait = 0.05, HideStageReachedFx = true },
 
-				{ ManaCost = 11, Force = 900, WeaponProperties = { DamageMultiplier  = 3.50 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 12, Force = 900, WeaponProperties = { DamageMultiplier = 3.75 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 13, Force = 900, WeaponProperties = { DamageMultiplier = 4.00 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 14, Force = 900, WeaponProperties = { DamageMultiplier = 4.25 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 15, Force = 900, WeaponProperties = { DamageMultiplier = 4.50 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 16, Force = 900, WeaponProperties = { DamageMultiplier = 4.75 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 17, Force = 900, WeaponProperties = { DamageMultiplier = 5.00 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 18, Force = 900, WeaponProperties = { DamageMultiplier = 5.25 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 19, Force = 900, WeaponProperties = { DamageMultiplier = 5.50 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 20, Force = 900, WeaponProperties = { DamageMultiplier = 5.75 }, Wait = 0.06, HideStageReachedFx = true },
+				{ ManaCost = 11, Force = 900, WeaponProperties = { DamageMultiplier  = 3.50 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 12, Force = 900, WeaponProperties = { DamageMultiplier = 3.75 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 13, Force = 900, WeaponProperties = { DamageMultiplier = 4.00 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 14, Force = 900, WeaponProperties = { DamageMultiplier = 4.25 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 15, Force = 900, WeaponProperties = { DamageMultiplier = 4.50 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 16, Force = 900, WeaponProperties = { DamageMultiplier = 4.75 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 17, Force = 900, WeaponProperties = { DamageMultiplier = 5.00 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 18, Force = 900, WeaponProperties = { DamageMultiplier = 5.25 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 19, Force = 900, WeaponProperties = { DamageMultiplier = 5.50 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 20, Force = 900, WeaponProperties = { DamageMultiplier = 5.75 }, Wait = 0.05, HideStageReachedFx = true },
 
-				{ ManaCost = 21, Force = 900, WeaponProperties = { DamageMultiplier  = 6.00 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 22, Force = 900, WeaponProperties = { DamageMultiplier = 6.25 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 23, Force = 900, WeaponProperties = { DamageMultiplier = 6.50 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 24, Force = 900, WeaponProperties = { DamageMultiplier = 6.75 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 25, Force = 900, WeaponProperties = { DamageMultiplier = 7.00 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 26, Force = 900, WeaponProperties = { DamageMultiplier = 7.25 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 27, Force = 900, WeaponProperties = { DamageMultiplier = 7.50 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 28, Force = 900, WeaponProperties = { DamageMultiplier = 7.75 }, Wait = 0.06, HideStageReachedFx = true },
-				{ ManaCost = 29, Force = 900, WeaponProperties = { DamageMultiplier = 8.00 }, Wait = 0.06, HideStageReachedFx = true },
+				{ ManaCost = 21, Force = 900, WeaponProperties = { DamageMultiplier  = 6.00 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 22, Force = 900, WeaponProperties = { DamageMultiplier = 6.25 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 23, Force = 900, WeaponProperties = { DamageMultiplier = 6.50 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 24, Force = 900, WeaponProperties = { DamageMultiplier = 6.75 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 25, Force = 900, WeaponProperties = { DamageMultiplier = 7.00 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 26, Force = 900, WeaponProperties = { DamageMultiplier = 7.25 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 27, Force = 900, WeaponProperties = { DamageMultiplier = 7.50 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 28, Force = 900, WeaponProperties = { DamageMultiplier = 7.75 }, Wait = 0.05, HideStageReachedFx = true },
+				{ ManaCost = 29, Force = 900, WeaponProperties = { DamageMultiplier = 8.00 }, Wait = 0.05, HideStageReachedFx = true },
 
-				{ ManaCost = 30, Force = 900, WeaponProperties = { DamageMultiplier = 10.00 }, Wait = 0.1, ForceRelease = true},
+				{ ManaCost = 30, Force = 900, WeaponProperties = { DamageMultiplier = 10.00 }, Wait = 0.1, ForceRelease = true, BlockForceReleaseWithoutMana = true},
 		},
 		DefaultKnockbackForce = 720,
 		DefaultKnockbackScale = 0.9,
@@ -252,11 +260,12 @@
 		FireScreenshake = { Distance = 8, Speed = 500, FalloffSpeed = 1400, Duration = 0.22, Angle = 0, ScreenPreWait = 0.11 },
 
 		ChargeCameraMotion = { ZoomType = "Overshoot", Fraction = 1.045, Duration = 2.08, },
+		ChargeCancelCameraMotion = { ZoomType = "Undershoot", Fraction = 1.0, Duration = 0.1, RestoreDefaultDuration = 0.1  },
 		FireCameraMotion = { ZoomType = "Ease", Fraction = 0.96, Duration = 0.3, HoldDuration = 0.3, RestoreDefaultDuration = 0.4  },
 
 		ChargeRumbleParameters =
 		{
-			{ ScreenPreWait = 0.02, Fraction = 0.09, Duration = 2.08 },
+			{ ScreenPreWait = 0.02, Fraction = 0.09, Duration = 0.15 },
 		},
 
 		FireRumbleParameters =
@@ -290,8 +299,17 @@
 					SetPitchToPropertyValue = "ChargeTime",
 				},
 			},
+			MaxStageSounds = 
+			{
+				{ Name = "/VO/MelinoeEmotes/EmoteFullPowerAttackingSuit" },
+			},
 			FireSounds =
 			{
+				PerfectChargeSounds =
+				{
+					{ Name = "/SFX/Player Sounds/ZagreusCriticalFire" },
+				},
+				{ Name = "/VO/MelinoeEmotes/EmotePowerAttackingSuit" },
 				-- handled in Suit_Attacks_Animation
 			},
 			ImpactSounds =
@@ -301,7 +319,7 @@
 				Bone = "/SFX/MetalBoneSmash",
 				Brick = "/SFX/MetalStoneClang",
 				Stone = "/SFX/MetalStoneClang",
-				Organic = "/SFX/StabSplatterSmall",
+				Organic = "/SFX/MetalOrganicHitSHIELD",
 				StoneObstacle = "/SFX/SwordWallHitClank",
 				BrickObstacle = "/SFX/SwordWallHitClank",
 				MetalObstacle = "/SFX/SwordWallHitClank",
@@ -322,7 +340,9 @@
 		OnChargeFunctionNames = { "DoWeaponCharge", "CheckSuitEnemiesInRange" },
 		OnProjectileDeathFunction = "WeaponSuitAmmoTransform",
 		OnEnemyDamagedFunction = { FunctionName = "RemoveMissileMark" },
-		NoTargetColor = Color.YellowGreen,
+		NoTargetColor = { 142, 142, 142, 255 },
+		NoTargetHSV = { 1.0, -1.0, -0.5 },
+
 		OnProjectileDeathFunctionArgs = 
 		{
 			ProjectileSuitRangedUnguided = 
@@ -349,9 +369,9 @@
 		BaseCooldown = 0.6,					-- How long the base cooldown is
 		BaseExCooldown = 0.1,				-- How long the base cooldown is for the EX attack
 		BaseCooldownAddition = 0.1,			-- How each subsequent EX attack projectile increases cooldown by this amount
-		SeekAngle = 40,						-- Seek arc
-		UnguidedSeekAngle = 90,				-- Base seek arc (doubled, so 180 is full 360)
-		SeekScaleY = 0.5,					-- Y adjustment to maintain isometry. Needs to match the PostRotateScaleY value of the SeekGuideMid animation
+		SeekAngle = 30,						-- Seek arc
+		UnguidedSeekAngle = 110,			-- Base seek arc (doubled, so 180 is full 360)
+		SeekScaleY = 0.6,					-- Y adjustment to maintain isometry. Needs to match the PostRotateScaleY value of the SeekGuideMid animation
 		ChargedProjectileName = "ProjectileSuitRangedChargedUnguided",
 		MaxTargets = 6,
 		stageManaCost = 2,
@@ -406,12 +426,7 @@
 		{
 			FireSounds =
 			{
-				PerfectChargeSounds =
-				{
-					{ Name = "/SFX/Player Sounds/ZagreusCriticalFire" },
-				},
-				{ Name = "/SFX/Player Sounds/MelinoeSuitSpecialPreLaunch" },
-				{ Name = "/VO/MelinoeEmotes/EmoteAttackingBombLob" },
+				-- Look at SuitBaseMissileAttack to change fire sounds
 			},
 			FireStageSounds = 
 			{
@@ -436,5 +451,24 @@
 		
 		SelfMultiplier = 0,
 		Upgrades = { },	
+	},
+
+	WeaponSuitDouble =
+	{
+		InheritFrom = { "WeaponSuit", },
+		SpeedPropertyChanges = 
+		{
+			{
+				WeaponProperty = "ChargeTime",
+			},
+			{
+				EffectName = "SuitAttack3Disable",
+				EffectProperty = "Duration",
+			},
+			{
+				EffectName = "SuitAttack3DisableCancellable",
+				EffectProperty = "Duration",
+			},
+		},
 	},
 })

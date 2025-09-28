@@ -33,13 +33,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/FogEmitter/FogEmitterSwipe" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.04, Fraction = 0.05, LerpTime = 0.0 },
-			{ ScreenPreWait = 0.09, Fraction = 1.00, LerpTime = 0.04 },
-		},
 	},
 
 	FogEmitterSlam =
@@ -82,13 +75,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/FogEmitter/FogEmitterSlam" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.04, Fraction = 0.05, LerpTime = 0.0 },
-			{ ScreenPreWait = 0.09, Fraction = 1.00, LerpTime = 0.04 },
-		},
 	},
 
 	FogEmitter2Sweep =
@@ -110,20 +96,6 @@ WeaponSetData =
 			AttackDistance = 320,
 
 			MaxConsecutiveUses = nil,
-		},
-	},
-
-	FogEmitter2Slam =
-	{
-		InheritFrom = { "FogEmitterSlam", },
-		AIData =
-		{
-			DeepInheritance = true,
-
-			ProjectileName = "FogEmitterSlamSmall",
-			MoveWithinRange = true,
-
-			AttackDistance = 230,
 		},
 	},
 }

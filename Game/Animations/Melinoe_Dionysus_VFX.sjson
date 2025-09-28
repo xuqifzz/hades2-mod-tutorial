@@ -161,7 +161,7 @@
 		ColorFromOwner = "Maintain"
 		EndAlpha = 0.9
 		StartAlpha = 0.0
-		Duration = 0.1
+		Duration = 0.2
 		EaseIn = 0.9
 		EaseOut = 1.0
 		EndFrame = 60
@@ -171,9 +171,28 @@
 		StartFrame = 1
 		TransferFrameFromThis = true
 		ScaleFromOwner = "Ignore"
-		ScaleRadius = 320.0
+		Scale = 1.25
 		StartScale = 0.0
+		EndScale = 1.0
 		Ambient = 0.0
+		CreateAnimation = "DionysusCloudBStartFx"
+	}
+
+	{
+		Name = "DionysusCloudBStartFx"
+		FilePath = "Fx\DionysusNova\DionysusNova"
+		GroupName = "Standing"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		EndFrame = 25
+		NumFrames = 25
+		PlaySpeed = 60.0
+		StartFrame = 1
+		OffsetZ = 30.0
+		ScaleY = 0.7
+		Scale = 1.6
+		Ambient = 0.0
+		Alpha = 0.3
 	}
 
 	{
@@ -207,6 +226,7 @@
 		CreateAnimation = "DionysusCloudBEndGraphic"
 		UseOwnAngle = false
 		Sound = "/SFX/Player Sounds/DionysusRadialPoof"
+		StartAlpha = 1
 		EndAlpha = 0.0
 		Duration = 0.25
 		EndScale = 1.25
@@ -220,14 +240,13 @@
 		UseOwnAngle = false
 		EndFrame = 25
 		NumFrames = 25
-		PlaySpeed = 45.0
+		PlaySpeed = 60.0
 		StartFrame = 1
-		OffsetZ = 60.0
-		Scale = 1.4
-		ScaleRadius = 350
+		OffsetZ = 30.0
+		ScaleY = 0.7
+		ScaleRadius = 200
 		Ambient = 0.0
-		StartAlpha = 0.5
-		EndAlpha = 0.1
+		Alpha = 0.3
 	}
 	{
 		Name = "DionysusCloudBShadow"
@@ -243,6 +262,23 @@
 		DieWithOwner = true
 		ScaleFromOwner = "Take"
 		ScaleRadius = 300.0
+	}
+
+	{
+		Name = "PowerDrinkFx"
+		FilePath = "Fx\ArtemisDashTwinkle\ArtemisDashTwinkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:head_00_M_JNT"
+		Hue = 0.48
+		GroupName = "FX_Standing_Add"			
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		Duration = 1.0
+		EndFrame = 19
+		Loop = true
+		NumFrames = 19
+		StartFrame = 1
 	}
 
 ]}

@@ -2,6 +2,20 @@
 	[
 
 	{
+		Name = "ZagreusFireFootstepL-Spawner"
+		InheritFrom = "GroupChange"
+		VisualFx = "FireFootstepL"
+		GrannyAttachedMarkerLocation = "Zagreus_Rig:toe_00_L_JNT"
+	}
+	
+	{
+		Name = "ZagreusFireFootstepR-Spawner"
+		InheritFrom = "GroupChange"
+		VisualFx = "FireFootstepR"
+		GrannyAttachedMarkerLocation = "Zagreus_Rig:toe_00_R_JNT"
+	}
+
+	{
 		Name = "HadesFireFootstepL-Spawner"
 		InheritFrom = "GroupChange"
 		VisualFx = "HadesFireFootstepL"
@@ -149,6 +163,121 @@
 		Duration = 0.33
 	}
 
+	{
+		Name = "HadesBlessingFx"
+		FilePath = "Fx\HadesSymbolShatter\HadesSymbolShatter"
+		GroupName = "Combat_UI_World_Backing"
+		
+		AngleFromOwner = "Ignore"
+		EndFrame = 62
+		NumFrames = 62
+		PlaySpeed = 60.0
+		StartFrame = 1
+		OffsetZ = 90
+		RadialOffsetMin = 50
+		RadialOffsetMax = 50
+		SortMode = "Id"
+		EndScale = 1.1
+		Scale = 1.2
+		Ambient = 0.0
+		TimeModifierFraction = 0.0
+		Slides =
+		[
+
+			{ DurationFrames = 90 }
+			/*Frame 1*/
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 30 Sound = "/SFX/Menu Sounds/HadesSigilUnlockNoDoor" }
+			{ DurationFrames = 2 }
+			/*Frame 20*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 30*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 40*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 50*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 60*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "HadesContractFx"
+		FilePath = "Fx\HadesSymbolShatter\HadesSymbolShatter"
+		GroupName = "Combat_UI_World_Backing"
+		AngleFromOwner = "Ignore"
+		EndFrame = 62
+		NumFrames = 62
+		PlaySpeed = 20.0
+		StartFrame = 1
+		OffsetZ = 90
+		SortMode = "Id"
+		EndScale = 1.1
+		Scale = 2.5
+		Ambient = 0.0
+		TimeModifierFraction = 0.0
+	}
 
 	{
 		Name = "HypnosSleepZsEmitter"
@@ -242,43 +371,66 @@
 		FlipVertical = true
 	}
 
+	{
+		Name = "HeraclesMeleeArc"
+		FilePath = "Fx\MinotaurAxeArc\MinotaurAxeArc"
+		ColorFromOwner = "Ignore"
+		EndFrame = 28
+		NumFrames = 28
+		PlaySpeed = 60.0
+		StartFrame = 1
+		PostRotateScaleY = 0.5
+		Scale = 3.75
+		Ambient = 0.0
+		CreateAnimation = "HeraclesMeleeArcRightDisplacement"
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
 
 	{
-		Name = "IcarusFlyBy"
-		FilePath = "Fx\BasicBat\BasicBat"
-		UseAttachedFlasher = false
-		GroupName = "Standing"
-		AngleFromOwner = "Take"
-		Angle = 30.0
-		ColorFromOwner = "Ignore"
-		StartAlpha = 1.0
-		Duration = 3.0
-		EaseIn = 0.01
-		EaseOut = 0.02
-		EndFrame = 13
-		LoopFramesOnly = true
-		NumAngles = 32
-		NumFrames = 13
-		PlaySpeed = 10
-		StartFrame = 1
-		LocationFromOwner = "Take"
-		LocationZFromOwner = "Take"
-		Velocity = 5000.0
-		OffsetZ = 200
-		Scale = 10.0
-		ScaleFromOwner = "Ignore"
-		Ambient = 0.0
-		StartOffsetX = -600
-		StartOffsetY = 600
-		Sound = "/Leftovers/World Sounds/AirshipSprint"
-		StopSoundOnFinishFade = 0.2
+		Name = "HeraclesMeleeArcRightDisplacement"
+		InheritFrom = "HeraclesMeleeArc"
+		CreateAnimation = null
+		GroupName = "FX_Displacement"
+		EndAlpha = 0.1
+		PingPongColor = true
+		PlaySpeed = 50.0
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+		]
 	}
 	{
-		Name = "IcarusFlyByReverse"
-		InheritFrom = "IcarusFlyBy"
-		Angle = 200.0
-		StartOffsetX = 600
-		StartOffsetY = -600
+		Name = "HeraclesBountyStatus"
+		FilePath = "GUI\Icons\BountyTarget"
+		GroupName = "Combat_UI"
+		ColorFromOwner = "Ignore"
+		SortFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		DieWithOwner = true
+		Duration = 0.5
+		NumFrames = 1
+		StartFrame = 1
+		EndFrame = 1
+		Loop = true
+		StartScale = 0.9
+		EndScale = 1.1
+		PingPongScale = true
+		OffsetZ = 75
+		Ambient = 0.0
+		Scale = 1.6
+		//ChildAnimation = "HeraclesBountyStatusGlow"
+	}
+	{
+		Name = "HeraclesBountyStatusGlow"
+		InheritFrom = "EliteUnitStatusGlow2"
+		AngleFromOwner = "Ignore"
+		Alpha = 0.5
+		OffsetZ = 75
+		Color = { Red = 1.0 Green = 0.9 Blue = 0.7 }
 	}
 
 	{
@@ -724,6 +876,7 @@
 		Name = "GiftNPC"
 		InheritFrom = "GiftDrop"
 		CreateAnimation = "PickupFlareA_Gift"
+		CreateAnimations = []
 		FilePath = "Dev\blank_invisible"
 
 		AngleFromOwner = "Ignore"
@@ -951,6 +1104,11 @@
 		Hue = 0.15
 	}
 	{
+		Name = "LobWarningDecalIris_Typhon"
+		InheritFrom = "LobWarningDecalIris"
+		Hue = -0.05
+	}
+	{
 		Name = "InspectPointLoop"
 		CreateAnimation = "InspectPointLoopFx"
 		FilePath = "Backgrounds\rectangle_01"
@@ -1012,6 +1170,42 @@
 	}
 	
 	{
+		Name = "ArcanaNewBoneFx"
+		FilePath = "Fx\TintableRadialFlare\TintableRadialFlare"
+		NumFrames = 45
+		AddColor = true
+		StartRed = 0.2
+		StartGreen = 0.99
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 1.0
+		EndBlue = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		ChildAnimation = "ArcanaNewBoneFxB"
+	}
+
+	{
+		Name = "ArcanaNewBoneFxB"
+		FilePath = "Particles\particle_glintFlare"
+		AddColor = true
+		DurationFrames = 22
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomRotation = true
+		StartRed = 0.2
+		StartGreen = 0.99
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 1.0
+		EndBlue = 0.5
+	}
+	
+	{
 		Name = "InspectPointGhostParticles"
 		FilePath = "Particles\particle_steam_02"
 		GroupName = "Combat_UI"
@@ -1045,99 +1239,129 @@
 		PingPongShiftOverDuration = true
 	}
 	{
-		Name = "ArachneIdle"
-		FilePath = "Tilesets\Erebus\Erebus_Spider_01"
-		Sound = "/SFX/Object Ambiences/SpiderSkitterLoop"
-		Scale = 0.7
-		StopSoundOnFinishFade = 0.2
-		Angle = 90
+		Name = "HermesDashBase"
+		FilePath = "Fx\DashStreakLight\DashStreakLight"
+		GroupName = "FX_Standing_Add"
+		Angle = 90.0
+		AngleFromOwner = "Take"
+		EndFrame = 8
+		NumFrames = 8
+		Duration = 0.65
+		StartFrame = 1
+		OffsetZ = 30.0
+		OriginX = 345.0
+		OriginY = 96.0
+		LocationZFromOwner = "Ignore"
+		SortMode = "FromParent"
+		IsometricSkew = "Y"
+		Scale = 2.5
+		Ambient = 0.0
+		OverlayVfx = true
+		ColorFromOwner = "Ignore"
+		AddColor = true
+		Color = { Red = 1.0 Green = 0.1 Blue = 0.0}
+		CreateAnimations =
+		[
+			{ Name = "HermesDashDark" }
+			{ Name = "HermesDashDisplacement" }
+			{ Name = "HermesDashDustPuff" }
+			{ Name = "HermesDashLight" }
+			{ Name = "HermesDashFlat" }
+		]
 	}
+	
 	{
-		Name = "SeleneIdle"
-		FilePath = "Animations\NPCSelene\Selene_01"
-		ScaleFromOwner = "Maintain"
-		AngleFromOwner = "Ignore"
-		/*ColorFromOwner = "Ignore"*/
-		FlipHorizontal = true
+		Name = "HermesDashFlat"
+		InheritFrom = "HermesDashBase"
+		Angle = 0.0
+		OffsetZ = 60.0
+		IsometricSkew = "None"
+		PostRotateScaleY = 0.5
+		ScaleY = 0.5
+		CreateAnimations = []
+	}
+	
+	{
+		Name = "HermesDashDisplacement"
+		InheritFrom = "HermesDashBase"
+		GroupName = "FX_Displacement"
+		Alpha = 0.3
+		EndAlpha = 1.0
+		PlaySpeed = 30.0
+		OriginX = 405.0
+		CreateAnimations = []
+	}
+	
+	{
+		Name = "HermesDashDark"
+		InheritFrom = "HermesDashBase"
+		FilePath = "Fx\DashStreakDark\DashStreakDark"
+		GroupName = "FX_Dark"
+		AddColor = false
+		EndFrame = 15
+		NumFrames = 15
+		PlaySpeed = 50.0
+		StartFrame = 1
+		CreateAnimations = []
+	}
+
+	{
+		Name = "HermesDashDustPuff"
+		FilePath = "Fx\DashDustPuff\DashDustPuff"
+		GroupName = "Standing"
+		AngleFromOwner = "Take"
+		EndAlpha = 0.5
+		StartAlpha = 1.0
+		EndFrame = 30
+		NumAngles = 8
+		NumFrames = 30
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+	}
+
+	
+	{
+		Name = "HermesDashLight"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.6
+		StartRed = 0.01
+		StartGreen = 1.0
+		StartBlue = 0.5
+		EndRed = 0.5
+		EndGreen = 0.1
+		EndBlue = 1.0
+		Duration = 0.4
+		EaseIn = 0.9
+		EaseOut = 1.0
 		EndFrame = 1
 		NumFrames = 1
 		StartFrame = 1
-		Material = "Unlit"
-		OffsetY = -100.0
-		Scale = 0.36
-		/* ChildAnimation = "DemeterSpinLoop" */
+		OriginX = 220.0
+		OriginY = 128.0
+		PostRotateScaleY = 0.5
+		Scale = 1.5
+		ScaleX = 2.0
+		Ambient = 0.0
 	}
-	{
-		Name = "NarcissusIdle"
-		FilePath = "Animations\NPCNarcissus\Narcissus_01"
-		ScaleFromOwner = "Maintain"
-		AngleFromOwner = "Ignore"
-		/*ColorFromOwner = "Ignore"*/
-		FlipHorizontal = true
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		Material = "Unlit"
-		OffsetY = -100.0
-		Scale = 0.36
-	}
-	{
-		Name = "EchoIdle"
-		FilePath = "Animations\NPCNarcissus\Narcissus_01"
-		ScaleFromOwner = "Maintain"
-		AngleFromOwner = "Ignore"
-		/*ColorFromOwner = "Ignore"*/
-		FlipHorizontal = true
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		Material = "Unlit"
-		OffsetY = -100.0
-		Scale = 0.36
-		Hue = -0.05
-		Saturation = -0.2
-		Value = -0.1
-	}
-	{
-		Name = "CirceIdle"
-		FilePath = "Animations\NPCCirce\Circe_01"
-		ScaleFromOwner = "Maintain"
-		AngleFromOwner = "Ignore"
-		FlipHorizontal = true
-		/*ColorFromOwner = "Ignore"*/
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		Material = "Unlit"
-		OffsetY = -100.0
-		Scale = 0.36
-	}
-	{
-		Name = "HermesIdle"
-		FilePath = "Animations\NPCHermes\Hermes_01"
-		ScaleFromOwner = "Maintain"
-		AngleFromOwner = "Ignore"
-		FlipHorizontal = true
-		/*ColorFromOwner = "Ignore"*/
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		Material = "Unlit"
-		OffsetY = -100.0
-		Scale = 0.36
-	}
+
 	{
 		Name = "BouldyIdle"
 		FilePath = "Tilesets\Tartarus\Tartarus_Rubble_03"
 	}
-		
+
 	// Flashback Frozen characters
 
 	{
 		Name = "FrozenNyxIdle"
 		FilePath = "Animations\NPCNyx\IdleGreeting\NyxIdleGreeting3415"			
 		Material = "Unlit"
-		ChildAnimation = "NightmareStasisFx"
+		ChildAnimation = "NightmareStasisFxNyx"
 		StartAlpha = 0.5
 		EndAlpha = 1.0
 		Duration = 3
@@ -1151,12 +1375,13 @@
 		VisualFx = "FrozenZagFx"
 		VisualFxIntervalMin = 0.1
 		VisualFxIntervalMax = 0.11
-		StartAlpha = 0.5
+		StartAlpha = 0.9
 		EndAlpha = 1.0
 		Duration = 3
 		PingPongColor = true
 		Loop = true
-		ChildAnimation = "NightmareStasisFx"
+		OffsetZ = 90
+		ChildAnimation = "NightmareStasisFx_DeathArea"
 	}
 
 	{
@@ -1169,7 +1394,7 @@
 		PingPongColor = true
 		Duration = 1
 		LocationFromOwner = "Take"
-		Angle = 40
+		Angle = 90
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
 		LocationZFromOwner = "Take"
@@ -1177,11 +1402,21 @@
 		StartRed = 1
 		StartGreen = 0.5
 		StartBlue = 0
+		Alpha = 0.75
 		EndRed = 0.99
 		EndGreen = 1.0
 		EndBlue = 1.0
 		Loop = false
 		ChildAnimation = "null"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+	}
+
+	{
+		Name = "FrozenZagFx_DeathAreaRestored"
+		InheritFrom = "FrozenZagFx"
+		OffsetX = -30
+
 	}
 
 	{
@@ -1196,14 +1431,16 @@
 		Duration = 3
 		PingPongColor = true
 		Loop = true
-		ChildAnimation = "NightmareStasisFx"
+		ChildAnimation = "NightmareStasisFx_DeathArea_Short"
 	}
 
 	{
 		Name = "FrozenAchillesFx"
 		InheritFrom = "FrozenZagFx"
+		Angle = 40
 		OffsetY = -100
 		OffsetX = -110
+		OffsetZ = 0
 		FilePath = "Animations\NPCAchilles\AchillesFrozen"
 	}
 
@@ -1217,16 +1454,19 @@
 		StartAlpha = 0.5
 		EndAlpha = 1.0
 		Duration = 3
+		OffsetZ = 0
 		PingPongColor = true
 		Loop = true
-		ChildAnimation = "NightmareStasisFx"
+		ChildAnimation = "NightmareStasisFx_DeathArea_Short"
 	}
 
 	{
 		Name = "FrozenThanatosFx"
 		InheritFrom = "FrozenZagFx"
+		Angle = 40
 		OffsetX = 0
 		OffsetY = -50
+		OffsetZ = 0
 		FilePath = "Animations\NPCThanatos\ThanatosNoScythe"
 	}
 
@@ -1242,7 +1482,7 @@
 		Duration = 3
 		PingPongColor = true
 		Loop = true
-		ChildAnimation = "NightmareStasisFxMeg"
+		ChildAnimation = "NightmareStasisFx_DeathArea_Short"
 	}
 
 	{
@@ -1250,6 +1490,8 @@
 		InheritFrom = "FrozenZagFx"
 		OffsetX = 0
 		OffsetY = -50
+		OffsetZ = 0
+		Angle = 40
 		FilePath = "Animations\Fury\MegFrozen"
 	}
 
@@ -1265,28 +1507,60 @@
 		Duration = 3
 		PingPongColor = true
 		Loop = true
-		ChildAnimation = "NightmareStasisFx"
+		ChildAnimation = "NightmareStasisFx_DeathArea_Short"
 	}
 	{
 		Name = "FrozenDusaIdleFx"
 		InheritFrom = "FrozenZagFx"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
 		OffsetX = 0
-		OffsetY = -70
-		Angle = -25
+		OffsetY = 0
+		Angle = 270
+		OffsetZ = 0
+		AngleChangeSpeed = -120
 		FilePath = "Animations\Dusa\Attack\DusaAttack0056"
 	}
 
 	{
 		Name = "FrozenPersephoneIdle"
-		FilePath = "Animations\NPCPersephone\UnderworldVulnerable\PersephoneUnderworldVulnerable1648"			
+		FilePath = "Animations\NPCPersephone\PersephoneFrozen"
 		Material = "Unlit"
-		StartAlpha = 0.5
+		StartAlpha = 0.9
 		EndAlpha = 1.0
 		Duration = 3
 		PingPongColor = true
 		Loop = true			
-		ChildAnimation = "NightmareStasisFx"
+		OffsetZ = 120
+		ChildAnimation = "NightmareStasisFx_DeathArea"
+		VisualFx = "FrozenPersephoneFx_DeathArea"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.11
 	}
+
+	{
+		Name = "FrozenPersephoneFx"
+		InheritFrom = "FrozenZagFx"
+		FilePath = "Animations\NPCPersephone\PersephoneFrozen"
+		OffsetX = -7
+		OffsetY = -100
+		StartScale = 1
+		EndScale = 1.05
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 5
+		VelocityMax = 10
+		Alpha = 0.5
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "FrozenPersephoneFx_DeathArea"
+		InheritFrom = "FrozenPersephoneFx"
+		OffsetX = 0
+		OffsetY = -80
+	}
+
 
 	{
 		Name = "AthenaUnequipSparkle"
@@ -1386,4 +1660,172 @@
 		LocationZFromOwner = "Ignore"
 		LocationFromOwner = "Take"
 	}
+
+
+	{
+		Name = "CirceCrystalSparkle_Red"
+		FilePath = "Particles\particle_enemyAttackSparkle"
+		Material = "Unlit"
+		GrannyAttachedMarkerLocation = "Circe_Rig:gem_00_M_JNT"
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		Duration = 0.25
+		Hue = 0
+		Scale = 0.5
+		CreateAnimation = "CirceCrystalSparkleGlow_Red"
+		VisualFx = "CirceCrystalSparkleFx_Red"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.011
+		VisualFxCap = 3
+	}
+	{
+		Name = "CirceCrystalSparkleFx_Red"
+		InheritFrom = "CirceCrystalSparkle_Red"
+		VisualFx = null
+		CreateAnimation = null
+		AngleMin = 0
+		AngleMax = 360
+		PingPongScale = false
+		LocationFromOwner = "Ignore"
+		GrannyAttachedMarkerLocation = null
+		StartScale = 1
+		EndScale = 0
+		Hue = 0
+		VelocityMin = 70
+		VelocityMax = 150
+		Acceleration = -150
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.75
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 0.15
+		ScaleMax = 0.30
+		Sound = null
+	}
+
+	{
+		Name = "CirceCrystalSparkleGlow_Red"
+		InheritFrom = "CirceCrystalSparkle_Red"
+		CreateAnimation = null
+		VisualFx = null
+		GrannyAttachedMarkerLocation = null
+		Sound = null
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		FilePath = "Particles\particle_glow"
+		PingPongScale = false
+		StartScale = 0
+		EaseIn = 0.99
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.5
+		EndRed = 1.0
+		EndGreen = 0
+		EndBlue = 0
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.4
+		Scale = 1
+	}
+
+	{
+		Name = "CirceCrystalSparkle_Green"
+		InheritFrom = "CirceCrystalSparkle_Red"
+		GrannyAttachedMarkerLocation = "Circe_Rig:gem_01_M_JNT"
+		CreateAnimation = "CirceCrystalSparkleGlow_Green"
+		VisualFx = "CirceCrystalSparkleFx_Green"
+		Scale = 0.2
+		Hue = 0.33
+	}
+	{
+		Name = "CirceCrystalSparkleFx_Green"
+		InheritFrom = "CirceCrystalSparkleFx_Red"
+		Hue = 0.33
+	}
+	{
+		Name = "CirceCrystalSparkleGlow_Green"
+		InheritFrom = "CirceCrystalSparkleGlow_Red"
+		StartRed = 0.5
+		StartGreen = 1.0
+		StartBlue = 0.5
+		EndRed = 0
+		EndGreen = 1.0
+		EndBlue = 0
+	}
+
+	{
+		Name = "CirceCrystalSparkle_Blue"
+		InheritFrom = "CirceCrystalSparkle_Red"
+		GrannyAttachedMarkerLocation = "Circe_Rig:gem_02_M_JNT"
+		CreateAnimation = "CirceCrystalSparkleGlow_Blue"
+		VisualFx = "CirceCrystalSparkleFx_Blue"
+		Scale = 0.3
+		Hue = 0.66
+	}
+	{
+		Name = "CirceCrystalSparkleFx_Blue"
+		InheritFrom = "CirceCrystalSparkleFx_Red"
+		Hue = 0.66
+	}
+	{
+		Name = "CirceCrystalSparkleGlow_Blue"
+		InheritFrom = "CirceCrystalSparkleGlow_Red"
+		StartRed = 0.5
+		StartGreen = 0.5
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "MedeaGlow"
+		FilePath = "Particles\particle_glow"
+		GrannyAttachedMarkerLocation = "Medea_Rig:spine_00_M_JNT"
+		AngleFromOwner = "Ignore"
+		Alpha = 0.5
+		Color = { Red = 1 Green = 0.7 Blue = 1}
+		Material = "Unlit"
+		GroupName = "Standing_Back_Add"
+		UseAttachedFlasher = false
+		StartScale = 1.0
+		EndScale = 0.9
+		Duration = 2
+		Loop = true
+		EaseIn = 0
+		EaseOut = 1
+		PingPongScale = true
+		Scale = 0.65
+		ScaleY = 1.8
+		DieWithOwner = true
+	}
+
+	{
+		Name = "SeleneGlow"
+		FilePath = "Particles\particle_glow"
+		GrannyAttachedMarkerLocation = "Selene_Rig:moonMain_00_M_JNT"
+		AngleFromOwner = "Ignore"
+		Alpha = 0.4
+		Color = { Red = 0.8 Green = 0.8 Blue = 1}
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		UseAttachedFlasher = false
+		StartScale = 1.0
+		EndScale = 0.9
+		Duration = 2
+		Loop = true
+		EaseIn = 0
+		EaseOut = 1
+		PingPongScale = true
+		Scale = 0.9
+		ScaleY = 1.2
+		DieWithOwner = true
+	}
+
 ]}

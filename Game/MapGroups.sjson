@@ -2,17 +2,39 @@
 	MapGroups =
 	[
 		{
-			Name = "Asphodel"
+			Name = "BiomeB"
 			Maps = [
 				{
 					Name = "B_*"
 				}
 			]
 			Using = [
+			{
+				Type = "Animation"
+				Name = "ChronosAnomalyCircle"
+			}
+			{
+				Type = "Animation"
+				Name = "ChronosAnomalyPoint"
+			}
 			]
 		}
 		{
-			Name = "Erebus"
+			Name = "BiomeC"
+			Maps = [
+				{
+					Name = "C_*"
+				}
+			]
+			Using = [
+			{
+				Type = "Animation"
+				Name = "LaurelBurnIrisZagPresent"
+			}
+			]
+		}
+		{
+			Name = "BiomeF"
 			Maps = [
 				{
 					Name = "F_*"
@@ -27,73 +49,394 @@
 				Type = "Text"
 				Name = "Textures\Fx\Erebus_Shrub_04_Rustle:0.5"
 			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_Erebus_In"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_Erebus_Out"
+			}
 			]
 		}
 
 		{
-			Name = "Oceanus"
+			Name = "BiomeG"
 			Maps = [
 				{
 					Name = "G_*"
 				}
 			]
 			Using = [
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_Oceanus_In"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_Oceanus_Out"
+			}
+			{
+				Type = "Component"
+				Name = "MusicMarkerData"
+			}
+			{
+				Type = "Animation"
+				Name = "PalaceSunFlare_Epilogue"
+			}
+			{
+				Type = "Animation"
+				Name = "NightmareEdgeFxSpawner"
+			}
 			]
 		}
 
 		{
-			Name = "Fields"
+			Name = "BiomeH"
 			Maps = [
 				{
 					Name = "H_*"
 				}
 			]
 			Using = [
+				{
+					Type = "Animation"
+					Name = "DialogueBackground_Fields_In"
+				}
+			]
+			Ignore = [
+			{
+				Name = "H_PostBoss01"
+			}
 			]
 		}
 
 		{
-			Name = "Tartarus"
+			Name = "BiomeI"
 			Maps = [
 				{
 					Name = "I_*"
 				}
+				{
+					Name = "H_PostBoss01"
+				}
 			]
 			Using = [
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_CWTartarus_In"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_CWTartarus_Out"
+			}
+			{
+				Type = "Component"
+				Name = "GameData.NightmareSequenceData.SwapSounds"
+			}
+			{
+				Type = "Animation"
+				Name = "NightmareEdgeFxSpawner"
+			}
+			{
+				Type = "Animation"
+				Name = "NightmareVignetteLoop"
+			}
+			]
+			Ignore = [
+			{
+				Name = "I_PreBoss01"
+			}
+			{
+				Name = "I_PreBoss02"
+			}
+			{
+				Name = "I_Boss01"
+			}
+			{
+				Name = "I_PostBoss01"
+			}
+			{
+				Name = "I_ChronosFlashback01"
+			}
+			{
+				Name = "I_DeathAreaRestored"
+			}
 			]
 		}
 
 		{
-			Name = "Ephyra"
+			Name = "BiomeIHouse"
+			Maps = [
+				{
+					Name = "I_PreBoss01"
+				}
+				{
+					Name = "I_PreBoss02"
+				}
+				{
+					Name = "I_Boss01"
+				}
+				{
+					Name = "I_PostBoss01"
+				}
+				{
+					Name = "I_ChronosFlashback01"
+				}
+				{
+					Name = "I_DeathAreaRestored"
+				}
+				{
+					Name = "Flashback_DeathArea*"
+				}
+				{
+					Name = "EndCredits*"
+				}
+			]
+			Using = [
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_CWTartarus_In"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_CWTartarus_Out"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_BossRoom_Chronos_In"
+			}
+			{
+				Type = "Component"
+				Name = "GameData.NightmareSequenceData.SwapSounds"
+			}
+			{
+				Type = "Animation"
+				Name = "NightmareEdgeFxSpawner"
+			}
+			{
+				Type = "Animation"
+				Name = "NightmareVignetteLoop"
+			}
+			]
+		}
+
+		{
+			Name = "BiomeN"
 			Maps = [
 				{
 					Name = "N_*"
 				}
 			]
 			Using = [
+			{
+				Type = "Text"
+				Name = "Textures\GUI\Screens\EphyraHubMap*"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_Ephyra_In"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_Ephyra_Out"
+			}
 			]
 		}
 
 		{
-			Name = "Thessaly"
+			Name = "BiomeO"
 			Maps = [
 				{
 					Name = "O_*"
 				}
 			]
-		}
-
-		{
-			Name = "Olympus"
-			Maps = [
-				{
-					Name = "P_*"
-				}
+			Using = [
+			{
+				Type = "Animation"
+				Name = "ShipsDoorMelZwoop"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_Thessaly_In"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_Thessaly_Out"
+			}
+			]
+			Ignore = [
+			{
+				Name = "O_PostBoss01"
+			}
+			{
+				Name = "O_Boss01"
+			}
+			{
+				Name = "O_Boss02"
+			}
 			]
 		}
 
 		{
-			Name = "Chaos"
+			Name = "BiomeOBoss"
+			Maps = [
+				{
+					Name = "O_Boss01"
+				}
+				{
+					Name = "O_Boss02"
+				}
+			]
+			Using = [
+			{
+				Type = "Animation"
+				Name = "ShipsDoorMelZwoop"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_Thessaly_In"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_Thessaly_Out"
+			}
+			{
+				Type = "Animation"
+				Name = "ShadeShipsOneIdle"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_BossRoom_Eris_In"
+			}
+			]
+		}
+
+		{
+			Name = "BiomeP"
+			Maps = [
+				{
+					Name = "P_*"
+				}
+				{
+					Name = "O_PostBoss01"
+				}
+			]
+			Using = [
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_MountOlympus_In"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_BossRoom_Prometheus_In"
+			}
+			{
+				Type = "Animation"
+				Name = "ShadeTyphonIdle"
+			}
+			]
+		}
+
+		{
+			Name = "BiomeQ"
+			Maps = [
+				{
+					Name = "Q_*"
+				}
+			]
+			Using = [
+			{
+				Type = "Text"
+				Name = "Textures\Fx\TyphonScreenWaterDropletsDisplace"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\Fx\TyphonScreenWaterDropletsHighlight"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_Typhon_In"
+			}
+			{
+				Type = "Animation"
+				Name = "EndingTimeVignetteFx"
+			}
+			{
+				Type = "Animation"
+				Name = "NightmareVignetteLoop"
+			}
+			{
+				Type = "Animation"
+				Name = "NightmareEdgeFxSpawner"
+			}
+			]
+			Ignore = [
+			{
+				Name = "Q_Boss01"
+			}
+			{
+				Name = "Q_Boss02"
+			}
+			{
+				Name = "Q_PostBoss01"
+			}
+			{
+				Name = "Q_Story01"
+			}
+			]
+		}
+
+		{
+			Name = "BiomeQEnding"
+			Map = [
+			{
+				Name = "Q_Boss01"
+			}
+			{
+				Name = "Q_Boss02"
+			}
+			{
+				Name = "Q_PostBoss01"
+			}
+			{ 
+				Name = "Q_Story01"
+			}
+			]
+			Using = [
+			{
+				Type = "Text"
+				Name = "Textures\Fx\TyphonScreenWaterDropletsDisplace"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\Fx\TyphonScreenWaterDropletsHighlight"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_Typhon_In"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_Erebus_In"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\GR2\TyphonHeadStage*"
+			}
+			{
+				Type = "Animation"
+				Name = "EndingTimeVignetteFx"
+			}
+			{
+				Type = "Animation"
+				Name = "NightmareVignetteLoop"
+			}
+			]
+		}
+
+		{
+			Name = "BiomeChaos"
 			Maps = [
 				{
 					Name = "Chaos_*"
@@ -102,7 +445,7 @@
 		}
 
 		{
-			Name = "DeathArea"
+			Name = "BiomeHub"
 			Maps = [
 				{
 					Name = "Hub_*"
@@ -118,7 +461,35 @@
 			}
 			{
 				Type = "Component"
-				Name = "WorldUpgradeData"
+				Name = "ScreenData.MusicPlayer"
+			}
+			{
+				Type = "Component"
+				Name = "ScreenData.MetaUpgradeCardLayout"
+			}
+			{
+				Type = "Component"
+				Name = "ScreenData.Shrine"
+			}
+			{
+				Type = "Component"
+				Name = "ScreenData.BountyBoard"
+			}
+			{
+				Type = "Component"
+				Name = "ScreenData.MailboxScreen"
+			}
+			{
+				Type = "Component"
+				Name = "ScreenData.WeaponUpgradeScreen"
+			}
+			{
+				Type = "Component"
+				Name = "ScreenData.FamiliarCostumeShop"
+			}
+			{
+				Type = "Component"
+				Name = "WorldUpgradeData:0.5,0.25,0.125"
 			}
 			{
 				Type = "Component"
@@ -129,26 +500,117 @@
 				Name = "GameData.DreamSequenceData"
 			}
 			{
+				Type = "Component"
+				Name = "GamePhaseData.GamePhases:0.5"
+			}
+			{
 				Type = "Animation"
 				Name = "TentFamilyPortrait"
 			}
 			{
-				Type = "Text"
-				Name = "Textures\GUI\Screens\MetaUpgrade:0.5,0.33,0.25"
+				Type = "Animation"
+				Name = "TentFamilyPortraitFinished"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_Bathhouse"
+			}
+			{
+				Type = "Animation"
+				Name = "DialogueBackground_MountOlympus_In"
+			}
+			{
+				Type = "Animation"
+				Name = "ShrinePactThermometerFlame"
 			}
 			{
 				Type = "Text"
-				Name = "Textures\GUI\Screens\Shrine"
+				Name = "Textures\GUI\Screens\MetaUpgrade:1.0,0.7,0.5,0.33,0.28"
 			}
-			]
-		}
-
-		{
-			Name = "Flashback"
-			Maps = [
-				{
-					Name = "Flashback_DeathArea*"
-				}
+			{
+				Type = "Text"
+				Name = "Textures\GUI\Screens\ChaosTrial"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\GUI\Screens\CriticalItemShop"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\GUI\Screens\ResourceShop"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\GUI\Screens\BountyBoard"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\GUI\Screens\PactThermometer"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\GUI\Screens\GameStats"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\GUI\Screens\WeaponUpgrade"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\GUI\Screens\WeaponShop"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\GUI\Screens\MusicPlayer"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\Fx\CauldronLiquidSurfaceRipple"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\GUI\Screens\RunHistory"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\GUI\Screens\QuestLog"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\Screens\QuestLogScreen"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\GUI\Screens\CosmeticsShop"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\GUI\Screens\MailboxScreen"
+			}
+			{
+				Type = "Animation"
+				Name = "NightmareEdgeFxSpawner"
+			}
+			{
+				Type = "Animation"
+				Name = "CriticalItemShopButtonReveal"
+			}
+			{
+				Type = "Animation"
+				Name = "Portrait_Bathhouse_01"
+			}
+			{
+				Type = "Animation"
+				Name = "WeaponKitDarkThirst"
+			}
+			{
+				Type = "Animation"
+				Name = "ShrineMeterBarFillOverlay"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\Animations\ShadeVariants"
+			}
 			]
 		}
 

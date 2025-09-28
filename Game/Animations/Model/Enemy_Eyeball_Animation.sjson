@@ -1,0 +1,80 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyEyeballBaseAnimation"
+		
+		GrannyModel = "TyphonEyeball_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_Eyeball_Idle"
+		InheritFrom = "EnemyEyeballBaseAnimation"
+		GrannyAnimation = "TyphonEyeball_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_Eyeball_Move"
+		InheritFrom = "EnemyEyeballBaseAnimation"
+		GrannyAnimation = "TyphonEyeball_Base_Move_C_00"
+		NativeMoveSpeed = 340
+		Loop = true
+		VisualFx = "DespairElementalTrailSlow"
+		VisualFxDistanceMin = 30
+		VisualFxDistanceMax = 35
+		Sound = "/SFX/Enemy Sounds/DespairElementalHuge/MoveLoop"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eyeball_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eyeball_MoveStop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eyeball_MoveStop"
+		InheritFrom = "EnemyEyeballBaseAnimation"
+		GrannyAnimation = "TyphonEyeball_Base_MoveStop_C_00"
+		NativeMoveSpeed = 340
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Eyeball_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eyeball_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eyeball_Spawn"
+		InheritFrom = "EnemyEyeballBaseAnimation"
+		GrannyAnimation = "TyphonEyeball_Base_SpawnBallFire_C_00"
+		OwnerHasNoCollision = true
+		Frames = 
+		[
+			{
+				Frame = 50
+				Sound = "/SFX/Enemy Sounds/Typhon/TailSlimeSplode"
+			}
+			{
+				Frame = 76
+				FrameSpeed = 2.0
+			}
+		]
+	}
+
+] }

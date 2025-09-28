@@ -36,7 +36,7 @@ WeaponSetData =
 			PreAttackAnimation = "Enemy_Eagle_Invisible",
 			FireAnimation = "Enemy_Eagle_Descend",
 			PostAttackAnimation = "Enemy_Eagle_DescendPostFire_Fast",
-			FireSetZHeight = 5,
+			FireSetZHeight = 40,
 			FireSetZDuration = 0.25,
 
 			ChainedWeaponOptions = { "EagleFlyUpWhirlwind" },
@@ -90,6 +90,28 @@ WeaponSetData =
 	EagleDive_P3 =
 	{
 		InheritFrom = { "EagleDive_P1", },
+		AIData =
+		{
+			ChainedWeaponOptions = { "EagleCastComboLeft_P3", "EagleCastComboRight_P3" },
+		},
+	},
+
+	EagleDive_Solo =
+	{
+		InheritFrom = { "EagleDive_P1", },
+
+		Requirements =
+		{
+			MaxUses = 1,
+		},
+
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "MapState", "Flags", "PrometheusKnockedOut", },
+			},
+		},
+
 		AIData =
 		{
 			ChainedWeaponOptions = { "EagleCastComboLeft_P3", "EagleCastComboRight_P3" },
@@ -157,6 +179,8 @@ WeaponSetData =
 			WaitForAngleTowardTargetTimeOut = 0.4,
 
 			PreAttackDuration = 0.83,
+			PreAttackStartMinWaitTime = 0.2772,
+			PreAttackEndMinWaitTime = 0.42,
 			FireDuration = 0.3,
 			PostAttackDuration = 0.1,
 
@@ -172,12 +196,6 @@ WeaponSetData =
 			StopBeforeFire = true,
 
 			PreAttackSound = "/SFX/Enemy Sounds/EagleHurt",
-		},
-
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.1, LerpTime = 0 },
-			{ ScreenPreWait = 0.07, Fraction = 1.0, LerpTime = 0.1 },
 		},
 
 		Sounds =
@@ -197,10 +215,25 @@ WeaponSetData =
 		AIData =
 		{
 			PreAttackDuration = 0.28,
+			PreAttackStartMinWaitTime = "nil",
+			PreAttackEndMinWaitTime = 0.28,
 			PreAttackAnimation = "Enemy_Eagle_SweepPreFire_Fast",
 
 			--PreAttackFx = "EagleAimLine",
 			EndPreAttackFx = true,
+		},
+	},
+
+	EagleRush_Olympus =
+	{
+		InheritFrom = { "EagleRush_Fast", },
+		AIData =
+		{
+			ProjectileName = "EagleSweep_Olympus",
+
+			PreAttackDuration = 0.415,
+			PreAttackEndMinWaitTime = 0.415,
+			PreAttackAnimation = "Enemy_Eagle_SweepPreFire_Olympus",
 		},
 	},
 
@@ -256,18 +289,21 @@ WeaponSetData =
 			-- PreAttackSound = "/SFX/Enemy Sounds/EagleHurt",
 		},
 
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.1, LerpTime = 0 },
-			{ ScreenPreWait = 0.07, Fraction = 1.0, LerpTime = 0.1 },
-		},
-
 		Sounds =
 		{
 			FireSounds =
 			{
 				{ Name = "/SFX/Enemy Sounds/Carrion/CarrionAttackWhoosh" },
 			},
+		},
+	},
+
+	EagleRollLeft_Olympus =
+	{
+		InheritFrom = { "EagleRollLeft", },
+		AIData =
+		{
+			ProjectileName = "EagleRollFireball_Olympus",
 		},
 	},
 
@@ -287,6 +323,15 @@ WeaponSetData =
 		AIData =
 		{
 			FireSelfVelocityAngleOffset = -60,
+		},
+	},
+
+	EagleRollRight_Olympus =
+	{
+		InheritFrom = { "EagleRollRight", },
+		AIData =
+		{
+			ProjectileName = "EagleRollFireball_Olympus",
 		},
 	},
 
@@ -357,6 +402,15 @@ WeaponSetData =
 		},
 	},
 
+	EagleFlyUpWhirlwind_Olympus =
+	{
+		InheritFrom = { "EagleFlyUpWhirlwind" },
+		AIData =
+		{
+			ProjectileName = "EagleFlyUpWhirlwind_Olympus",
+		},
+	},
+
 	EagleSummon =
 	{
 		AIData =
@@ -398,7 +452,7 @@ WeaponSetData =
 
 			FireDuration = 3.0,
 
-			ChainedWeaponOptions = { --[[ "EagleSwoop",]]  "EagleInAirWait" },
+			ChainedWeaponOptions = { "EagleDive_Solo",  "EagleInAirWait" },
 
 			FireAnimation = "Enemy_Eagle_Invisible",
 		},
@@ -421,6 +475,8 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
+			ProjectileName = "EagleSwoop_Olympus",
+
 			TeleportToTarget = false,
 			TeleportMaxDistance = 400,
 
@@ -428,43 +484,6 @@ WeaponSetData =
 			PreAttackDurationMax = 1.0,
 
 			ChainedWeaponOptions = "nil",
-		},
-	},
-
-	EagleFlyUp_Olympus =
-	{
-		AIData =
-		{
-			DeepInheritance = true,
-
-			PreAttackStop = true,
-			PostAttackStop = true,
-			MoveWithinRange = false,
-			NoProjectile = true,
-			AttackDistance = 9999,
-
-			PreAttackDuration = 0.75,
-			FireDuration = 0.55,
-			PostAttackDuration = 0.6,
-
-			ClearAllEffects = true,
-
-			PreAttackAnimation = "Enemy_Eagle_AscendPreFire",
-
-			FireSetZHeight = 2000,
-			FireSetZDuration = 0.55,
-		},
-	},
-
-	EagleCombo_SpiralFlyUp =
-	{
-		InheritFrom = { "EagleFlyUp" },
-
-		AIData =
-		{
-			DeepInheritance = true,
-
-			ChainedWeapon = "EagleCombo_Spiral",
 		},
 	},
 
@@ -482,7 +501,6 @@ WeaponSetData =
 			StopMoveWithinRange = true,
 			TeleportToComboPartner = true,
 			EndPartnerWaitOnMoveEnd = true,
-			AttackDistance = 99999,
 			PreAttackSetZHeight = 60,
 			PreAttackSetZDuration = 0.19,
 			PostAttackSetZHeight = 2000,
@@ -497,7 +515,6 @@ WeaponSetData =
 			MoveWithinRange = true,
 			TrackTargetDuringCharge = false,
 			AngleTowardsTargetWhileFiring = false,
-			PostAttackStop = false,
 			PreAttackAngleTowardTarget = false,
 			PostAttackStop = true,
 
@@ -511,7 +528,7 @@ WeaponSetData =
 
 			SoundManagerCap = 30,
 
-			PreAttackSound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_SwipeCharge",
+			PreAttackSound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGroundSlamCharge",
 			PreAttackAnimation = "Enemy_Eagle_SpiralCatch",
 			FireAnimation = "Enemy_Eagle_SpiralLaunchPreFire",
 			PostAttackAnimation = "Enemy_Eagle_Invisible",
@@ -541,7 +558,6 @@ WeaponSetData =
 			MoveWithinRange = false,
 			TrackTargetDuringCharge = false,
 			AngleTowardsTargetWhileFiring = false,
-			PostAttackStop = false,
 			PreAttackAngleTowardTarget = false,
 			PostAttackStop = true,
 
@@ -555,7 +571,7 @@ WeaponSetData =
 
 			SoundManagerCap = 30,
 
-			PreAttackSound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_SwipeCharge",
+			PreAttackSound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGroundSlamCharge",
 			--PreAttackAnimation = "Enemy_Eagle_SpiralLaunchPreFireLoop",
 			FireAnimation = "Enemy_Eagle_SpiralLaunchPreFire",
 			PostAttackAnimation = "Enemy_Eagle_SpiralLaunchFire",

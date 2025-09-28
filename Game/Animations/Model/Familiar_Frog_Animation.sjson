@@ -4,9 +4,33 @@
 		GrannyModel = "CritterFrog_Mesh"
 	}
 	{
-		Name = "FamailiarFrogBaseAnimation"
+		Name = "FamiliarFrogChthonic"
+		GrannyModel = "FrogFamiliar_Chthonic_Mesh"
+	}
+	{
+		Name = "FamiliarFrogCute"
+		GrannyModel = "FrogFamiliar_Cute_Mesh"
+	}
+	{
+		Name = "FamiliarFrogMoon"
+		GrannyModel = "FrogFamiliar_Moon_Mesh"
+	}
+	{
+		Name = "FamiliarFrogNightmare"
+		GrannyModel = "FrogFamiliar_Nightmare_Mesh"
+	}
+
+	{
+		Name = "FamiliarFrogBaseAnimation"
 		GrannyModel = "Frog_Mesh"
-		ExtraGrannyAnimations = [{ Name = "CritterFrog" }]
+		ExtraGrannyAnimations =
+		[
+			{ Name = "CritterFrog" }
+			{ Name = "FamiliarFrogChthonic" }
+			{ Name = "FamiliarFrogCute" }
+			{ Name = "FamiliarFrogMoon" }
+			{ Name = "FamiliarFrogNightmare" }
+		]
 		GrannyAnimation = "null"
 		GrannyAnimationSpeed = 1.0
 		Scale = 1.0
@@ -16,10 +40,9 @@
 
 	{
 		Name = "Familiar_Frog_Idle"
-		InheritFrom = "FamailiarFrogBaseAnimation"
+		InheritFrom = "FamiliarFrogBaseAnimation"
 		GrannyAnimation = "Frog_Base_Idle_C_00"
 		Loop = true
-
 		Blends =
 		[ 
 			{
@@ -59,14 +82,14 @@
 
 	{
 		Name = "Familiar_Frog_HopStart"
-		InheritFrom = "FamailiarFrogBaseAnimation"
+		InheritFrom = "FamiliarFrogBaseAnimation"
 		GrannyAnimation = "Frog_Base_HopStart_N_00"
 		ChainTo = "Familiar_Frog_Hop"
 	}
 
 	{
 		Name = "Familiar_Frog_Hop"
-		InheritFrom = "FamailiarFrogBaseAnimation"
+		InheritFrom = "FamiliarFrogBaseAnimation"
 		GrannyAnimation = "Frog_Base_HopLoop_N_00"
 		HoldLastFrame = true
 		GrannyAnimationSpeed = 1.0
@@ -74,7 +97,7 @@
 
 	{
 		Name = "Familiar_Frog_HopTouchdown"
-		InheritFrom = "FamailiarFrogBaseAnimation"
+		InheritFrom = "FamiliarFrogBaseAnimation"
 		GrannyAnimation = "Frog_Base_HopTouchdown_N_00"
 		ChainTo = "Familiar_Frog_Idle"
 	}
@@ -95,7 +118,7 @@
 
 	{
 		Name = "Familiar_Frog_Greet"
-		InheritFrom = "FamailiarFrogBaseAnimation"
+		InheritFrom = "FamiliarFrogBaseAnimation"
 		GrannyAnimation = "Frog_Base_Greet_C_00"
 		ChainTo = "Familiar_Frog_Idle"
 		Blends =
@@ -113,7 +136,7 @@
 
 	{
 		Name = "Familiar_Frog_Pet"
-		InheritFrom = "FamailiarFrogBaseAnimation"
+		InheritFrom = "FamiliarFrogBaseAnimation"
 		GrannyAnimation = "Frog_Base_PetFrinos_C_00"
 		ChainTo = "Familiar_Frog_Idle"
 		Blends =
@@ -131,14 +154,14 @@
 
 	{
 		Name = "Familiar_Frog_Exorcise"
-		InheritFrom = "FamailiarFrogBaseAnimation"
+		InheritFrom = "FamiliarFrogBaseAnimation"
 		GrannyAnimation = "Frog_Base_Exorcise_C_00"
 		ChainTo = "Familiar_Frog_Idle"
 	}
 
 	{
 		Name = "Familiar_Frog_RecruitStart"
-		InheritFrom = "FamailiarFrogBaseAnimation"
+		InheritFrom = "FamiliarFrogBaseAnimation"
 		GrannyAnimation = "Frog_Base_Greet_C_00"
 		ChainTo = "Familiar_Frog_Recruit2"
 		Blends =
@@ -153,7 +176,7 @@
 
 	{
 		Name = "Familiar_Frog_Recruit2"
-		InheritFrom = "FamailiarFrogBaseAnimation"
+		InheritFrom = "FamiliarFrogBaseAnimation"
 		GrannyAnimation = "Frog_Base_PetFrinos_C_00"
 		ChainTo = "Familiar_Frog_Idle"
 		Blends =
@@ -167,21 +190,30 @@
 
 	{
 		Name = "Familiar_Frog_Block"
-		InheritFrom = "FamailiarFrogBaseAnimation"
+		InheritFrom = "FamiliarFrogBaseAnimation"
 		GrannyAnimation = "Frog_Base_Block_N_00"
 		ChainTo = "Familiar_Frog_Idle"
+		Sound = "/SFX/Familiars/FrogCroakMiffed"
 	}
 
 	{
 		Name = "Familiar_Frog_DropIn"
-		InheritFrom = "FamailiarFrogBaseAnimation"
+		InheritFrom = "FamiliarFrogBaseAnimation"
 		GrannyAnimation = "Frog_Base_DropIn_N_00"
 		ChainTo = "Familiar_Frog_Idle"
+		Frames =
+		[
+			{
+				Frame = 17
+				Sound = "/Leftovers/SFX/FootstepsSlime"
+			}
+		]
+		Blends = null
 	}
 
 	{
 		Name = "Familiar_Frog_GoUp"
-		InheritFrom = "FamailiarFrogBaseAnimation"
+		InheritFrom = "FamiliarFrogBaseAnimation"
 		GrannyAnimation = "Frog_Base_GoUp_N_00"
 		HoldLastFrame = true
 		GrannyAnimationSpeed = 1.0
@@ -189,8 +221,19 @@
 
 	{
 		Name = "Familiar_Frog_Victory"
-		InheritFrom = "FamailiarFrogBaseAnimation"
+		InheritFrom = "FamiliarFrogBaseAnimation"
 		GrannyAnimation = "Frog_Base_Victory_C_00"
 		ChainTo = "Familiar_Frog_Idle"
+	}
+
+	{
+		Name = "Familiar_Frog_Idle_Ambient"
+		InheritFrom = "FamiliarFrogBaseAnimation"
+		GrannyAnimation = "Frog_Base_Idle_C_00"
+		OnlyWhenVisible = true
+		Loop = true
+		RandomStartFrame = true
+		RandomPlaySpeedMin = 0.7
+		RandomPlaySpeedMax = 1.2
 	}
 ]}

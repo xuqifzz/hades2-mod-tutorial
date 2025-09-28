@@ -4,7 +4,7 @@ ScreenData.ElementalPromptLayout =
 	Components = {},
 
 	OpenSound = "/SFX/Menu Sounds/HadesLocationTextAppear",
-	CloseSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+	CloseSound = "/SFX/Menu Sounds/IrisMenuBack",
 
 	ComponentData = 
 	{
@@ -91,7 +91,7 @@ ScreenData.ElementalPromptLayout =
 					Data =
 					{
 						OnPressedFunctionName = "ExitElementalPromptScreen",
-						PressSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+						PressSound = "/SFX/Menu Sounds/IrisMenuBack",
 					}
 				},
 			}

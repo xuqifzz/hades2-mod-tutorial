@@ -108,6 +108,38 @@
 		]
 	}
 
+	// Intro
+
+	{
+		Name = "Enemy_Scylla_Intro_FireLoop"
+		InheritFrom = "EnemyScyllaBaseAnimation"
+		GrannyAnimation = "Scylla_Base_ClamDefenseLoop_C_00"
+		Loop = true
+		VisualFx = "ScyllaClamDefenseRipple"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.6
+	}
+	{
+		Name = "Enemy_Scylla_Intro_End"
+		InheritFrom = "EnemyScyllaBaseAnimation"
+		GrannyAnimation = "Scylla_Base_ClamDefenseReturnToIdle_C_00"
+		ChainTo = "Enemy_Scylla_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Scylla_Intro_FireLoop"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 28
+				Sound = "/SFX/Enemy Sounds/Scylla/ScyllaDeathShellSlam"
+			}
+		]
+	}	
+
 	/* Hit React Death */
 
 	{
@@ -124,10 +156,17 @@
 		GrannyAnimation = "Scylla_Base_Death_C_00"
 		Loop = false
 		HoldLastFrame = false
-		VisualFx = "EnemyDeathPopFishScylla"
+		VisualFx = "ScyllaDeathRipple"
 		VisualFxIntervalMin = 0.1
 		VisualFxIntervalMax = 0.3
 		ChainTo = "Enemy_Scylla_Death_Shell"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.4
+		EndGreen = 0.4
+		EndBlue = 0.7
+		Duration = 3
 		Frames =
 		[
 			{
@@ -135,13 +174,17 @@
 				Sound = "/SFX/Enemy Sounds/Scylla/ScyllaDeathBackgroundSFX"
 			}
 			{
+				Frame = 5
+				FootstepFxR = "ScyllaDeathSpotlight"
+			}
+			{
 				Frame = 166
 				Sound = "/SFX/Enemy Sounds/Scylla/ScyllaDeathShellSlam"
+				FootstepFxR = "EnemyDeathFxFishScylla"
 			}
 			{
 				Frame = 170
-				FootstepFxR = "ScyllaDeathRippleSpawner"
-				FootstepFxL = ""
+				Sound = "/SFX/Enemy Sounds/Mudman/MudmanMeleeAttackFire"
 			}
 		]
 	}
@@ -155,13 +198,13 @@
 		Duration = 1.0
 		GrannyAnimationSpeed = 0.01
 		DeathFxFrameDuration = 60
-		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxColor = { Red = 0.1 Green = 0.2 Blue = 0.4 }
 		DeathFxThickness = 0.01
 		DeathFxEaseIn = 0.9
 		DeathFxEaseOut = 1.0
-		StartRed = 1.0
-		StartGreen = 1.0
-		StartBlue = 1.0
+		StartRed = 0.4
+		StartGreen = 0.4
+		StartBlue = 0.7
 		EndRed = 0
 		EndGreen = 0
 		EndBlue = 0
@@ -174,24 +217,12 @@
 		OwnerHasNoCollision = true
 		OwnerUntargetable = true
 		OwnerImmobile = true
-		VisualFx = "ScyllaDeathSplashes"
+		VisualFx = null
 		VisualFxCap = 16
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.03
 		Sound = null
-
-		CreateAnimations =
-		[
-			{ Name = "EnemyDeathFxStartFlareLarge" }
-			{ Name = "EnemyDeathFxIris" }
-			{ Name = "EnemyDeathFxIris" }
-			{ Name = "EnemyDeathFxFish" }
-			{ Name = "EnemyDeathFxFish" }
-		]
-
-
 		BlockNewOwnerAnims = true
-
 		Frames =
 		[
 			{ Frame = 0	FrameSpeed = 0.0 }
@@ -445,6 +476,14 @@
 				BlendTransitionFrom = "Enemy_Scylla_ClamDefenseLoop"
 				Duration = 4
 			}
+			{
+				BlendTransitionFrom = "Enemy_Scylla_ClamRushFireLoop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scylla_ClamRushPostFire"
+				Duration = 6
+			}
 		]
 	}
 
@@ -589,4 +628,113 @@
 		]
 	}
 
+	// Clam Rush
+	{
+		Name = "Enemy_Scylla_ClamRushPreFire"
+		InheritFrom = "EnemyScyllaBaseAnimation"
+		GrannyAnimation = "Scylla_Base_BoostAntic_C_00"
+		HoldLastFrame = true
+		OwnerInvulnerable = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Scylla_ClamDefenseLoop"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Scylla_ClamRushFire"
+		InheritFrom = "EnemyScyllaBaseAnimation"
+		GrannyAnimation = "Scylla_Base_BoostDashFirst_C_00"
+		ChainTo = "Enemy_Scylla_ClamRushFireLoop"
+		CancelOnOwnerMove = false
+		OwnerInvulnerable = true
+	}
+	{
+		Name = "Enemy_Scylla_ClamRushFireLoop"
+		InheritFrom = "EnemyScyllaBaseAnimation"
+		GrannyAnimation = "Scylla_Base_BoostDashLoop_C_00"
+		Loop = true
+		CancelOnOwnerMove = false
+		OwnerInvulnerable = true
+	}
+	{
+		Name = "Enemy_Scylla_ClamRushPostFire"
+		InheritFrom = "EnemyScyllaBaseAnimation"
+		GrannyAnimation = "Scylla_Base_BoostDashReturn_C_00"
+		OwnerInvulnerable = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Scylla_ClamRushFireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// New Song
+	{
+		Name = "Enemy_Scylla_NewSong_Start"
+		InheritFrom = "EnemyScyllaBaseAnimation"
+		GrannyAnimation = "Scylla_Base_MoveStart_C_00"
+		ChainTo = "Enemy_Scylla_NewSong_FireLoop"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.4
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scylla_Idle"
+				Duration = 24
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Scylla_NewSong_FireLoop"
+		InheritFrom = "EnemyScyllaBaseAnimation"
+		GrannyAnimation = "Scylla_Base_Move_C_00"
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.4
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Scylla_NewSong_Start"
+				Duration = 24
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Scylla_NewSong_End"
+		InheritFrom = "EnemyScyllaBaseAnimation"
+		GrannyAnimation = "Scylla_Base_MoveStop_C_00"
+		ChainTo = "Enemy_Scylla_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Scylla_NewSong_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scylla_NewSong_FireLoop"
+				Duration = 6
+			}
+		]
+	}
 ]}

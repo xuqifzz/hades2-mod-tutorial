@@ -31,14 +31,12 @@ EnemySets =
 		"SiegeVine",
 		"SiegeVine_Elite",
 
-		"Wisp",
-		"Wisp_Elite",
+		--"Wisp",
+		--"Wisp_Elite",
 	},
 
 	BiomeF_EliteChallenge =
 	{
-		"SiegeVine_Elite",
-		"Screamer_Elite",
 		"Brawler_Elite",
 	},
 
@@ -93,13 +91,16 @@ EnemySets =
 
 		"Radiator2",
 		"Radiator2_Elite",
+
+		--[["Jellyfish",
+		"Jellyfish_Elite",
+		"Octofish",
+		"Octofish_Elite",]]
 	},
 
 	BiomeG_EliteChallenge =
 	{
-		"FishmanRanged_Elite",
 		"FishmanMelee_Elite",
-		"Turtle_Elite",
 	},
 
 	BiomeGLockedDoor =
@@ -185,20 +186,13 @@ EnemySets =
 
 	BiomeH_EliteChallenge =
 	{
-		"Lovesick_Elite",
 		"Lycanthrope_Elite",
 		"Mourner_Elite",
-		"Lamia_Elite",
 	},
 
 	BiomeHPassive =
 	{
-		--"DespairElemental",
-		--"DespairElemental_Elite",
 		"DespairElemental_Elite",
-		--"DespairElementalLarge",
-		--"DespairElementalLarge_Elite",
-		--"DespairElementalLarge_Elite",
 
 		"CorruptedShadeSmall",
 		"CorruptedShadeSmall_Elite",
@@ -227,8 +221,6 @@ EnemySets =
 
 		"DespairElemental",
 		"DespairElemental_Elite",
-		"DespairElementalLarge",
-		"DespairElementalLarge_Elite",
 
 		"BrokenHearted",
 		"BrokenHearted_Elite",
@@ -280,9 +272,6 @@ EnemySets =
 
 	BiomeI_EliteChallenge =
 	{
-		"GoldElemental_Elite",
-		"TimeElemental_Elite",
-		"SwarmerClockwork_Elite",
 		"SatyrLancer_Elite",
 		"SatyrRatCatcher_Elite",
 		"ClockworkHeavyMelee_Elite",
@@ -333,7 +322,6 @@ EnemySets =
 		"Mudman_Elite",
 		"ZombieHeavyRanged_Elite",
 		"ZombieAssassin_Elite",
-		"ZombieSpawner_Elite",
 	},
 
 	CocoonSpawnsEasy_N =
@@ -410,8 +398,6 @@ EnemySets =
 
 	BiomeO_EliteChallenge =
 	{
-		"Stickler_Elite",
-		"Drunk_Elite",
 		"Swab_Elite",
 	},
 
@@ -478,16 +464,8 @@ EnemySets =
 	BiomeP_EliteChallenge =
 	{
 		"SatyrSapper_Elite",
-		"SatyrSapper_Elite",
-		"SatyrLancer2_Elite",
-		"SatyrCrossbow2_Elite",
-		"HarpyDropper_Elite",
-		"HarpyDropper_Elite",
-		"Dragon_Elite",
 		"Dragon_Elite",
 		"AutomatonEnforcer_Elite",
-		"AutomatonEnforcer_Elite",
-		"AutomatonBeamer_Elite",
 		"AutomatonBeamer_Elite",
 	},
 
@@ -571,6 +549,53 @@ EnemySets =
 		"ZombieOlympus_Elite",
 	},
 
+	-- Typhon (Q)
+	BiomeQ =
+	{
+		"SimpleSquad",
+		"SimpleSquad_Elite",
+		
+		"Stalker",
+		"Stalker_Elite",
+
+		"Brute",
+		"Brute_Elite",
+
+		"Mati",
+		"Mati_Elite",
+
+		"DragonBurrower",
+		"DragonBurrower_Elite",
+	},
+
+	BiomeQIslands =
+	{
+		"SimpleSquad",
+		"SimpleSquad_Elite",
+
+		"Mati",
+		"Mati_Elite",
+
+		"DragonBurrower",
+		"DragonBurrower_Elite",
+	},
+
+	TyphonEggSpawnOptions =
+	{
+		"Simple",
+		"Simple_Elite",
+		"Stalker",
+		"Stalker_Elite",
+		"Brute",
+		"Brute_Elite",
+	},
+
+	BiomeQ_EliteChallenge =
+	{
+		"Brute_Elite",
+	},
+
+	-- Asphodel (B)
 	BiomeB =
 	{
 		"Swarmer_Elite",
@@ -610,6 +635,11 @@ EnemySets =
 		"Sheep_Zombie",
 		"Sheep_Explosive",
 		"Sheep_Sick",
+
+		"Mudman2",
+		"Brute2",
+		"LycanSwarmer2",
+		"FishmanMelee2",
 		
 		"Talos",
 	},
@@ -625,7 +655,6 @@ EnemySets =
 		"HeavyArmor",
 		"ManaDrain",
 		"Massive",
-		"Metallic",
 		"Miasma",
 		"Molten",
 		"Orbit",
@@ -639,6 +668,7 @@ EnemySets =
 		--"Rifts",
 		--"Homing",
 		--"Radial",
+		--"Metallic",
 	},
 
 	EliteAttributesRunBanOptions =

@@ -4,7 +4,7 @@ UnitSetData.Mourner =
 	{
 		InheritFrom = { "BaseVulnerableEnemy" },
 
-		MaxHealth = 825,
+		MaxHealth = 855,
 		HealthBarType = "MediumLarge",
 		HealthBarOffsetY = -280,
 
@@ -39,6 +39,11 @@ UnitSetData.Mourner =
 		{
 			Default = "Enemy_Mourner_OnHit",
 			Heavy = "Enemy_Mourner_OnHit_Heavy",
+		},
+
+		UniqueIconAttachments = 
+		{
+			Burn = "Mourner_Rig:root_00_M_JNT",
 		},
 
 		DefaultAIData =
@@ -86,6 +91,7 @@ UnitSetData.Mourner =
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 
 			{ Cue = "/VO/MelinoeField_1036", Text = "Mourners...!", PlayFirst = true },
 		},
@@ -94,8 +100,10 @@ UnitSetData.Mourner =
 	Mourner_Elite =
 	{
 		InheritFrom = { "Elite", "Mourner" },
-		HealthBuffer = 550,
+		HealthBuffer = 590,
 		HealthBarOffsetY = -310,
+
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Metallic" }),
 
 		IsAggroedSound = "/SFX/Enemy Sounds/Mourner/EmoteTaunting",
 
@@ -110,7 +118,7 @@ UnitSetData.Mourner =
 			"MournerRampage_Elite",
 			"MournerRampage_Elite",
 			"MournerRampage_Elite",
-			"MournerScream",
+			--"MournerScream",
 		},
 
 		GeneratorData =

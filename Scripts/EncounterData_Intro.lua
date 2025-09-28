@@ -10,7 +10,7 @@ OverwriteTableKeys( EncounterData,
 		AlwaysForce = true,
 		DifficultyModifier = 120,
 		
-		ActiveEnemyCapBase = 5.0,
+		ActiveEnemyCapBase = 6.0,
 		ActiveEnemyCapMax = 8.0,
 		ActiveEnemyCapDepthRamp = 1.0,
 
@@ -43,8 +43,8 @@ OverwriteTableKeys( EncounterData,
 				{
 					{
 						Name = "FishmanMelee",
-						CountMin = 1,
-						CountMax = 1,
+						CountMin = 2,
+						CountMax = 2,
 					},
 					{
 						Name = "FishmanRanged",
@@ -64,8 +64,8 @@ OverwriteTableKeys( EncounterData,
 					},
 					{
 						Name = "FishmanRanged",
-						CountMin = 2,
-						CountMax = 2,
+						CountMin = 3,
+						CountMax = 3,
 					},
 				},
 				StartDelay = 0
@@ -78,11 +78,11 @@ OverwriteTableKeys( EncounterData,
 	FishSwarmerIntro =
 	{
 		InheritFrom = { "BaseIntroEncounter", "GeneratedG" },
-		DifficultyModifier = 20,
-		MinWaves = 3,
-		MaxWaves = 3,
+		DifficultyModifier = 45,
+		MinWaves = 2,
+		MaxWaves = 2,
 
-		ActiveEnemyCapBase = 2.0,
+		ActiveEnemyCapBase = 5.0,
 		ActiveEnemyCapMax = 8.0,
 		ActiveEnemyCapDepthRamp = 1.0,
 
@@ -93,8 +93,8 @@ OverwriteTableKeys( EncounterData,
 				{
 					{
 						Name = "FishSwarmerSquad",
-						CountMin = 2,
-						CountMax = 2,
+						CountMin = 4,
+						CountMax = 4,
 					},
 				},
 				StartDelay = 0
@@ -131,7 +131,7 @@ OverwriteTableKeys( EncounterData,
 		DifficultyModifier = 65,
 		MinWaves = 3,
 		MaxWaves = 3,
-		ActiveEnemyCapBase = 4,
+		ActiveEnemyCapBase = 5,
 		ActiveEnemyCapMax = 8.0,
 		ActiveEnemyCapDepthRamp = 1.0,
 
@@ -772,7 +772,7 @@ OverwriteTableKeys( EncounterData,
 		MaxWaves = 2,
 		ActiveEnemyCapBase = 4,
 		ActiveEnemyCapMax = 8.0,
-		ActiveEnemyCapDepthRamp = 1.0,
+		ActiveEnemyCapDepthRamp = 1.5,
 
 		PreSpawnEnemies = false,
 
@@ -815,7 +815,7 @@ OverwriteTableKeys( EncounterData,
 		MaxWaves = 2,
 		ActiveEnemyCapBase = 4,
 		ActiveEnemyCapMax = 8.0,
-		ActiveEnemyCapDepthRamp = 1.0,
+		ActiveEnemyCapDepthRamp = 1.5,
 
 		PreSpawnEnemies = false,
 
@@ -858,7 +858,7 @@ OverwriteTableKeys( EncounterData,
 		MaxWaves = 2,
 		ActiveEnemyCapBase = 4,
 		ActiveEnemyCapMax = 8.0,
-		ActiveEnemyCapDepthRamp = 1.0,
+		ActiveEnemyCapDepthRamp = 1.5,
 
 		PreSpawnEnemies = false,
 
@@ -901,7 +901,7 @@ OverwriteTableKeys( EncounterData,
 		MaxWaves = 2,
 		ActiveEnemyCapBase = 4,
 		ActiveEnemyCapMax = 8.0,
-		ActiveEnemyCapDepthRamp = 1.0,
+		ActiveEnemyCapDepthRamp = 1.5,
 
 		PreSpawnEnemies = false,
 
@@ -945,7 +945,7 @@ OverwriteTableKeys( EncounterData,
 		MaxWaves = 2,
 		ActiveEnemyCapBase = 4,
 		ActiveEnemyCapMax = 8.0,
-		ActiveEnemyCapDepthRamp = 1.0,
+		ActiveEnemyCapDepthRamp = 1.5,
 
 		PreSpawnEnemies = false,
 
@@ -1178,6 +1178,136 @@ OverwriteTableKeys( EncounterData,
 		},
 	},
 
+	MatiIntro =
+	{
+		InheritFrom = { "BaseIntroEncounter", "GeneratedQ" },
+		MinWaves = 2,
+		MaxWaves = 2,
+		ActiveEnemyCapBase = 4,
+		ActiveEnemyCapMax = 8.0,
+		ActiveEnemyCapDepthRamp = 1.0,
+
+		WaveStartUnthreadedEvents = {},
+
+		PreSpawnEnemies = true,
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "Mati",
+						CountMin = 2,
+						CountMax = 2,
+					},
+					{
+						Name = "Stalker",
+						CountMin = 1,
+						CountMax = 1,
+					},
+				},
+				StartDelay = 0
+			},
+			{
+				Spawns =
+				{
+					{
+						Name = "Mati_Elite",
+						CountMin = 2,
+						CountMax = 2,
+					},
+					{
+						Name = "Stalker",
+						CountMin = 1,
+						CountMax = 1,
+					},
+				},
+				StartDelay = 0
+			},
+		},
+	},
+
+	BruteIntro =
+	{
+		InheritFrom = { "BaseIntroEncounter", "GeneratedQ" },
+		MinWaves = 2,
+		MaxWaves = 2,
+		ActiveEnemyCapBase = 4,
+		ActiveEnemyCapMax = 8.0,
+		ActiveEnemyCapDepthRamp = 1.0,
+
+		WaveStartUnthreadedEvents = {},
+
+		PreSpawnEnemies = true,
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "Brute",
+						CountMin = 2,
+						CountMax = 2,
+					},
+				},
+				StartDelay = 0
+			},
+			{
+				Spawns =
+				{
+					{
+						Name = "Brute_Elite",
+						CountMin = 1,
+						CountMax = 1,
+					},
+				},
+				StartDelay = 0
+			},
+		},
+	},
+
+	StalkerIntro =
+	{
+		InheritFrom = { "BaseIntroEncounter", "GeneratedQ" },
+		MinWaves = 2,
+		MaxWaves = 2,
+		ActiveEnemyCapBase = 4,
+		ActiveEnemyCapMax = 8.0,
+		ActiveEnemyCapDepthRamp = 1.0,
+
+		WaveStartUnthreadedEvents = {},
+
+		PreSpawnEnemies = true,
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "Stalker",
+						CountMin = 2,
+						CountMax = 2,
+					},
+				},
+				StartDelay = 0
+			},
+			{
+				Spawns =
+				{
+					{
+						Name = "Stalker_Elite",
+						CountMin = 1,
+						CountMax = 1,
+					},
+				},
+				StartDelay = 0
+			},
+		},
+	},
+
 	OlympusIntro =
 	{
 		InheritFrom = { "GeneratedP_PreCombat" },
@@ -1281,6 +1411,63 @@ OverwriteTableKeys( EncounterData,
 				StartGlobalVoiceLines = "AutomatonAttackReactionLines",
 			},
 		},
+
+		ManualWaveTemplates = {},
+	},
+
+	TyphonIntro =
+	{
+		InheritFrom = { "GeneratedQ" },
+		AlwaysForce = true,
+		SkipIntroEncounterCheck = true,
+		PreSpawnEnemies = false,
+		ThreadedEvents = {},
+
+		ActiveEnemyCapBase = 3,
+		ActiveEnemyCapMax = 3,
+
+		MinWaves = 2,
+		MaxWaves = 2,
+
+		GameStateRequirements =
+		{
+			{
+				PathFalse = { "GameState", "EncountersCompletedCache", "TyphonIntro" },
+			},
+		},
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "Stalker",
+						TotalCount = 2,
+					},
+					{
+						Name = "SimpleSquad",
+						TotalCount = 1,
+					},
+				},
+				StartDelay = 0
+			},
+			{
+				Spawns =
+				{
+					{
+						Name = "SimpleSquad",
+						TotalCount = 2,
+					},
+					{
+						Name = "Stalker",
+						TotalCount = 3,
+					},
+				},
+				StartDelay = 0
+			},
+		},
+
 
 		ManualWaveTemplates = {},
 	},

@@ -5,7 +5,6 @@
 	{
 		InheritFrom = { "NonCombat" },
 		MaxAppearancesThisBiome = 1,
-		UnthreadedEvents = {},
 
 		OnSpawnFunctionName = "ArachneCombatDrumCheck",
 		OnKillFunctionName = "ArachneCombatDrumCheck",
@@ -41,7 +40,7 @@
 				{
 					{
 						FunctionName = "RequiredQueuedTextLine",
-						FunctionArgs = { IsAny = { "HecateWithArachne01_FollowUp", },  },
+						FunctionArgs = { IsAny = { "HecateWithArachne01_FollowUp", }, },
 					},
 				},
 				Args =
@@ -83,12 +82,6 @@
 			-- any others
 		},
 
-		StartVoiceLines =
-		{
-			-- The strum of music brought him to an unexpected sight...
-			-- { Cue = "", Text = "TODO(BuildText) Storyteller_0079", PreLineWait = 1.5, PlayOnce = true },
-		},
-
 		ExitVoiceLines =
 		{
 			GameStateRequirements =
@@ -121,6 +114,10 @@
 				RandomRemaining = true,
 				SuccessiveChanceToPlay = 0.66,
 				PreLineWait = 0.33,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
 
 				{ Cue = "/VO/Melinoe_1764", Text = "Weave on." },
 				{ Cue = "/VO/Melinoe_1765", Text = "Until we meet again." },
@@ -168,11 +165,85 @@
 		UnthreadedEvents = {},
 		StartRoomUnthreadedEvents =
 		{
+			-- post-ending
+			{ FunctionName = "ActivatePrePlaced",
+				Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "NPC_Nemesis_01" }, },
+				GameStateRequirements =
+				{
+					NamedRequirements = { "SpawnNemesisWithNeoChronos" },
+				},
+			},
 			{
 				FunctionName = "CheckPriorityConversations",
 				GameStateRequirements =
 				{
-					-- None
+					{
+						PathFalse = { "PrevRun", "SpawnedChronosForTaunt" },
+					},
+					{
+						Path = { "PrevRun", "TextLinesRecord" },
+						HasNone = GameData.NeoChronosErebusEvents,
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				Args =
+				{
+					Conversations = GameData.NeoChronosErebusEvents,
+				},
+			},
+			{
+				FunctionName = "SpawnChronosForTaunt",
+				Args =
+				{
+					UnitId = 772130,
+					UnitName = "NPC_Chronos_02",
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathFalse = { "CurrentRun", "SpawnRecord", "NPC_Chronos_02" },
+					},
+					{
+						PathFalse = { "PrevRun", "SpawnedChronosForTaunt" },
+					},
+					{
+						Path = { "PrevRun", "TextLinesRecord" },
+						HasNone = GameData.NeoChronosErebusEvents,
+					},
+					NamedRequirements = { "NeoChronosCanSpawnInErebus" },
+					ChanceToPlay = 0.5,
+				},
+			},
+
+			-- pre-ending
+			{
+				FunctionName = "CheckPriorityConversations",
+				GameStateRequirements =
+				{
+					OrRequirements =
+					{
+						{
+							{
+								PathFalse = { "PrevRun", "SpawnRecord", "NPC_Chronos_01" },
+							},
+						},
+						{
+							{
+								Path = { "PrevRun", "TextLinesRecord" },
+								HasAny = { "ChronosAnomalyIntro01" },
+							},
+						},
+					},
+					-- @ ending
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					NamedRequirementsFalse = { "HecateMissing" },
 				},
 				Args =
 				{
@@ -199,17 +270,316 @@
 						"ChronosPostBattleMeeting03",
 						"ChronosPostBattleMeeting04",
 						"ChronosMeetingAboutOlympians01",
+						"ChronosMeetingAboutPrometheus01",
+						"ChronosMeetingAboutPrometheus02",
+						"ChronosMeetingAboutTyphon01",
+						"ChronosMeetingAboutTyphon02",
+						"ChronosMeetingAboutTyphonW01",
+						"ChronosMeetingAboutShrine01",
+					},
+				},
+			},
+			{
+				FunctionName = "SpawnChronosForTaunt",
+				Args =
+				{
+					UnitId = 561902,
+					UnitName = "NPC_Chronos_01",
+				},
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						Path = { "GameState", "ClearedUnderworldRunsCache" },
+						Comparison = ">=",
+						Value = 1,
+					},
+					-- not spawned PrevRun, or the run before that
+					{
+						SumPrevRuns = 3,
+						Path = { "SpawnRecord", "NPC_Chronos_01" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					NamedRequirementsFalse = { "HecateMissing" },
+					ChanceToPlay = 0.5,
+				},
+			},
+		},
+
+		DistanceTriggers =
+		{
+			{
+				TriggerObjectType = "NPC_Chronos_02", WithinDistance = 950,
+				VoiceLines =
+				{
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PreLineAnim = "NPC_Chronos_Enlightened_Greet",
+
+					PostLineFunctionName = "ChronosExit",
+					PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.1 },
+					Cooldowns =
+					{
+						{ Name = "ChronosSpokeRecently", Time = 4 },
+					},
+
+					{ Cue = "/VO/Chronos_1319", Text = "Go on, Granddaughter, and I shall be waiting at the House." },
+					{ Cue = "/VO/Chronos_1327", Text = "Fight on, Granddaughter, and farewell till Tartarus!" },
+					{ Cue = "/VO/Chronos_1328", Text = "Let us eliminate all traces of my foul former self." },
+					{ Cue = "/VO/Chronos_1322", Text = "Death to Chronos, Granddaughter!",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "GameState", "SpeechRecord", "/VO/Chronos_1058" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_1323", Text = "Death to Chronos, Granddaughter! But only to the other ones.",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "GameState", "SpeechRecord", "/VO/Chronos_1058" },
+							},
+							{
+								PathFalse = { "CurrentRun", "SpeechRecord", "/VO/Chronos_1323" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_1320", Text = "Go forth! I know that you shall once again prevail!",
+						GameStateRequirements =
+						{
+							{
+								Path = { "GameState", "LastBossHealthBarRecord", "Chronos" },
+								Comparison = "<=",
+								Value = 0,
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_1321", Text = "Last night perhaps did not pan out but there is always {#Emph}now!",
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "PrevRun", "Cleared" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_1324", Text = "If you already have the might of Zeus, then this bodes well!",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "CurrentRun", "UseRecord", "ZeusUpgrade" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_1325", Text = "The strength of my strong son Poseidon already at hand!",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "CurrentRun", "UseRecord", "PoseidonUpgrade" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_1326", Text = "You have your father's blessing even now...!",
+						GameStateRequirements =
+						{
+							{
+								Path = { "CurrentRun", "Hero", "TraitDictionary" },
+								HasAny =
+								{
+									"HadesLifestealBoon",
+									"HadesCastProjectileBoon",
+									"HadesPreDamageBoon",
+									"HadesChronosDebuffBoon",
+									"HadesInvisibilityRetaliateBoon",
+									"HadesDeathDefianceDamageBoon",
+									"HadesManaUrnBoon",
+								},
+							},
+						},
+					},
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "SpawnedChronosForTaunt" },
+					},
+				},
+			},
+			{
+				TriggerObjectType = "NPC_Chronos_01", WithinDistance = 950,
+				VoiceLines =
+				{
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PreLineAnim = "Enemy_Chronos_Shadowed_Greeting",
+
+					PostLineFunctionName = "ChronosExit",
+					PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.1 },
+					Cooldowns =
+					{
+						{ Name = "ChronosSpokeRecently", Time = 4 },
+					},
+
+					{ Cue = "/VO/Chronos_0621", Text = "You rabble-rousing miscreant, {#Emph}again?", PlayFirst = true },
+					{ Cue = "/VO/Chronos_0622", Text = "You have a long way yet to go, Granddaughter..." },
+					{ Cue = "/VO/Chronos_0623", Text = "I shall be waiting for you hence, my girl!" },
+					{ Cue = "/VO/Chronos_0624", Text = "Such an arduous path you have before you, girl." },
+					{ Cue = "/VO/Chronos_0625", Text = "Have you learned nothing, Granddaughter...?" },
+					{ Cue = "/VO/Chronos_0626", Text = "What a meddlesome child that Hades has in you." },
+					{ Cue = "/VO/Chronos_0627", Text = "You ought be much better behaved than this." },
+					{ Cue = "/VO/Chronos_0628", Text = "Such stubborn disobedience from a granddaughter of mine." },
+					{ Cue = "/VO/Chronos_0629", Text = "I do not appreciate your stubbornness, my girl." },
+					{ Cue = "/VO/Chronos_0630", Text = "This night shall not go quite as well as you expect." },
+					{ Cue = "/VO/Chronos_0924", Text = "You stubborn and incorrigible child..." },
+					{ Cue = "/VO/Chronos_0926", Text = "Safe travels down to Tartarus my girl." },
+					{ Cue = "/VO/Chronos_0925", Text = "Are you enjoying this nightly routine?",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "PrevRun", "RoomsEntered", "G_Intro" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_0929", Text = "Night after night you carry on like this?",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "PrevRun", "RoomsEntered", "G_Intro" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_0927", Text = "Decided to give poor Typhon a break?",
+						GameStateRequirements =
+						{
+							{
+								Path = { "PrevRun", "RoomsEntered" },
+								HasAny = { "Q_Boss01", "Q_Boss02" },
+							},
+							{
+								PathTrue = { "PrevRun", "Cleared" },
+							},
+							{
+								PathFalse = { "PrevRun", "ZeusPalaceAboutTyphonDeath01" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_0928", Text = "How shall Olympus withstand Typhon with you here?",
+						GameStateRequirements =
+						{
+							{
+								Path = { "PrevRun", "RoomsEntered" },
+								HasAny = { "Q_Boss01", "Q_Boss02" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_0930", Text = "That staff of yours is no match for my scythe.",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponStaffSwing" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_0931", Text = "Come to assassinate me with those knives?",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponDagger" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_0932", Text = "Those torches of yours made you easy to detect.",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponTorch" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_0933", Text = "That axe of yours looks awfully unwieldy to me.",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponAxe" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_0934", Text = "You traipse about with that exploding skull?",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponLob" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_0935", Text = "You look absurd with those newfangled armaments.",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponSuit" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_0936", Text = "At least you bring a proper weapon to our fight.",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AxePerfectCriticalAspect" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_0937", Text = "You mock me with all these nightly affronts.",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "PrevRun", "RoomsEntered", "I_Boss01" },
+							},
+							{
+								PathTrue = { "PrevRun", "Cleared" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_0938", Text = "Go on, face me again, see if I care!",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "PrevRun", "RoomsEntered", "I_Boss01" },
+							},
+							{
+								PathTrue = { "PrevRun", "Cleared" },
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_0939", Text = "This night shall go no different from the last.",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "PrevRun", "RoomsEntered", "I_Boss01" },
+							},
+							{
+								PathFalse = { "PrevRun", "Cleared" },
+							},
+						},
+					},
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "SpawnedChronosForTaunt" },
 					},
 				},
 			},
 		},
+
 	},
 
 	Story_Narcissus_01 =
 	{
 		InheritFrom = { "NonCombat" },
 		MaxAppearancesThisBiome = 1,
-		UnthreadedEvents = {},
 		StartRoomUnthreadedEvents =
 		{
 			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "NPC_Narcissus_01" }, } },
@@ -245,7 +615,7 @@
 				{
 					{
 						FunctionName = "RequiredQueuedTextLine",
-						FunctionArgs = { IsAny = { "NemesisWithNarcissus01_FollowUp", },  },
+						FunctionArgs = { IsAny = { "NemesisWithNarcissus01_FollowUp", }, },
 					},
 				},
 				Args =
@@ -274,7 +644,6 @@
 								PreLineAnimTarget = 623584,
 								Text = "...Look at me when I'm talking to you, you louse. Oh, right. You can't. Must be so sick of staring at yourself by now." },
 							{ Cue = "/VO/Narcissus_0063", Portrait = "Portrait_Narcissus_Default_01", Speaker = "NPC_Narcissus_01",
-								-- PreLineAnim = "SisyphusExplaining", PreLineAnimTarget = 370001,
 								Text = "The only thing I'm sick of, {#Emph}I-Forget-Your-Name{#Prev}, is you tramping about, disturbing my peace! If you don't have anything nice to say, why don't you {#Emph}go?" },
 						{ Cue = "/VO/NemesisField_0026",
 								PreLineAnim = "Nemesis_Hub_Glare_End",
@@ -291,7 +660,7 @@
 				{
 					{
 						FunctionName = "RequiredQueuedTextLine",
-						FunctionArgs = { IsAny = { "NemesisWithNarcissus02_FollowUp", },  },
+						FunctionArgs = { IsAny = { "NemesisWithNarcissus02_FollowUp", }, },
 					},
 				},
 				Args =
@@ -321,7 +690,6 @@
 								Text = "...Tell me again I'm playing {#Emph}hard-to-get{#Prev}, and so help me, I will pluck your limbs from you one at a time like they're the petals of an {#Emph}itty bitty flower. {#Prev}How's that sound?" },
 							{ Cue = "/VO/Narcissus_0186", Portrait = "Portrait_Narcissus_Default_01", Speaker = "NPC_Narcissus_01",
 								Emote = "PortraitEmoteFiredUp",
-								-- PreLineAnim = "SisyphusExplaining", PreLineAnimTarget = 370001,
 								Text = "Sounds {#Emph}bad{#Prev}, that's how! But also like something somebody playing hard-to-get would say. So I don't know! Now why don't you... {#Emph}tell me some more about yourself?" },
 							{ Cue = "/VO/NemesisField_0424",
 								PreLineAnim = "Nemesis_Hub_Glare_End",
@@ -342,6 +710,10 @@
 				},
 			},
 
+		},
+		ThreadedEvents =
+		{
+			{ FunctionName = "NarcissusAdmirersPresentation" },
 		},
 
 		StartVoiceLines =
@@ -370,16 +742,18 @@
 				{
 					{
 						FunctionName = "RequiredQueuedTextLine",
-						FunctionArgs = { IsNone = { "NemesisWithNarcissus01_FollowUp", "NemesisWithNarcissus02_FollowUp" },  },
+						FunctionArgs = { IsNone = { "NemesisWithNarcissus01_FollowUp", "NemesisWithNarcissus02_FollowUp" }, },
 					},
 					NamedRequirementsFalse = { "NarcissusDirtyWater" },
 				},
 
 				VoiceLines =
 				{
-					RandomRemaining = true,
-					SuccessiveChanceToPlayAll = 0.25,
 					UsePlayerSource = true,
+					RandomRemaining = true,
+					SuccessiveChanceToPlay = 0.25,
+					SuccessiveChanceToPlayAll = 0.5,
+					SkipCooldownCheckIfNonePlayed = true,
 					Cooldowns =
 					{
 						{ Name = "MelinoeAnyQuipSpeech", Time = 60 },
@@ -417,6 +791,9 @@
 			{
 				PathTrue = { "GameState", "RoomCountCache", "H_Boss01" },
 			},
+			{
+				PathFalse = { "CurrentRun", "Hero", "MutePermanent" },
+			},
 		},
 		RequireRoomReward = "Story",
 
@@ -435,6 +812,7 @@
 					{
 						"NarcissusWithEcho01",
 						"NarcissusWithEcho02",
+						"NarcissusWithEcho03",
 					},
 				},
 			},
@@ -503,6 +881,7 @@
 							PlayOnce = true,
 							PlayOnceContext = "EchoIntro",
 							ObjectType = "NPC_Echo_01",
+							PreLineAnim = "Echo_Greeting_Start",
 
 							{ Cue = "/VO/Echo_0002", Text = "Someone there? {#Echo1}Someone there? {#Prev}{#Echo2}Someone there?",
 								GameStateRequirements =
@@ -531,6 +910,8 @@
 				TriggerObjectType = "NPC_Echo_01", WithinDistance = 1111, ScaleY = 0.75,
 				LeaveDistanceBuffer = 60,
 				FunctionName = "FieldsBridgeEchoMusic",
+				PostTriggerFunctionName = "GenericPresentation",
+				PostTriggerFunctionArgs = { Id = 617749, SetAnimation = "Echo_Greeting_Start" },
 				VoiceLines =
 				{
 					Queue = "Always",
@@ -752,6 +1133,68 @@
 							},
 						},
 					},
+					{ Cue = "/VO/MelinoeField_4641", Text = "That looks like quite the gathering of Shades...!",
+						GameStateRequirements = 
+						{
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutHelp02", }, },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_4645", Text = "Echo, we did it!",
+						GameStateRequirements = 
+						{
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoPostTrueEnding01", }, },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_4623", Text = "It's you. It's been too long!",
+						GameStateRequirements = 
+						{
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutOlympus01", }, },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_4668", Text = "Don't give in.",
+						GameStateRequirements = 
+						{
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutCurse02", }, },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_4638", Text = "Echo, are you back...?",
+						GameStateRequirements = 
+						{
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutCurse03", }, },
+							},
+						},
+					},
+
+-- { Cue = "/VO/MelinoeField_4641", Text = "That looks like quite the gathering of Shades...!" },
+-- { Cue = "/VO/MelinoeField_4643", Text = "Hecuba, remember this place?" },
+-- { Cue = "/VO/MelinoeField_4645", Text = "Echo, we did it!" },
+-- { Cue = "/VO/MelinoeField_4648", Text = "Whew, it's tough out there..." },
+-- { Cue = "/VO/MelinoeField_4651", Text = "You're not alone." },
+-- { Cue = "/VO/MelinoeField_4652", Text = "You're looking well!" },
+-- { Cue = "/VO/MelinoeField_4653", Text = "Take care OK?" },
+-- { Cue = "/VO/MelinoeField_4654", Text = "Moonlight guide you." },
+-- { Cue = "/VO/MelinoeField_4655", Text = "Thank you for your help." },
+-- { Cue = "/VO/MelinoeField_4656", Text = "Let's keep going..." },
+-- { Cue = "/VO/MelinoeField_4657", Text = "Always good to see a friendly face!" },
+-- { Cue = "/VO/MelinoeField_4658", Text = "Just passing through...!" },
+-- { Cue = "/VO/MelinoeField_4659", Text = "Hi Echo, what's new?" },
+-- { Cue = "/VO/MelinoeField_4660", Text = "Why hello again." },
+-- { Cue = "/VO/MelinoeField_4661", Text = "I'm back from Olympus...!" },
+
 					{ Cue = "/VO/MelinoeField_0752", Text = "Hi, Echo!",
 						GameStateRequirements = 
 						{
@@ -919,6 +1362,42 @@
 							},
 						},
 					},
+					{ Cue = "/VO/MelinoeField_4651", Text = "You're not alone.",
+						GameStateRequirements = 
+						{
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat19", }, },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_4652", Text = "You're looking well!",
+						GameStateRequirements = 
+						{
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat20", }, },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_4654", Text = "Moonlight guide you.",
+						GameStateRequirements = 
+						{
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat21", }, },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_4658", Text = "Just passing through...!",
+						GameStateRequirements = 
+						{
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat22", }, },
+							},
+						},
+					},
 
 				},
 
@@ -975,28 +1454,6 @@
 				{ Cue = "/VO/Medea_0119", Text = "Perhaps she shall go far..." },
 			},
 		},
-
-		DistanceTriggers =
-		{
-			{
-				TriggerObjectType = "NPC_Medea_01", WithinDistance = 800,
-				LeaveDistanceBuffer = 60,
-
-				VoiceLines =
-				{
-					RandomRemaining = true,
-					SuccessiveChanceToPlayAll = 0.25,
-					UsePlayerSource = true,
-					Cooldowns =
-					{
-						{ Name = "MelinoeAnyQuipSpeech", Time = 60 },
-					},
-
-					-- { Cue = "/VO/Melinoe_2148", Text = "What's all this?", PlayFirst = true, PlayOnce = true, PlayOnceContext = "NarcissusFirstMeetingVO" },
-				},
-
-			},
-		},
 	},
 
 	Story_Circe_01 =
@@ -1007,38 +1464,14 @@
 		StartRoomUnthreadedEvents =
 		{
 			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "NPC_Circe_01" }, } },
+			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 0.2, FractionMax = 1.0, LegalTypes = { "Pig" }, } },
+			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "PigSad" }, } },
 			{ FunctionName = "CheckConversations" },
 		},
 
 		StartVoiceLines =
 		{
 			-- 
-		},
-
-		ExitVoiceLines =
-		{
-		},
-
-		DistanceTriggers =
-		{
-			{
-				TriggerObjectType = "NPC_Circe_01", WithinDistance = 800,
-				LeaveDistanceBuffer = 60,
-
-				VoiceLines =
-				{
-					RandomRemaining = true,
-					SuccessiveChanceToPlayAll = 0.25,
-					UsePlayerSource = true,
-					Cooldowns =
-					{
-						{ Name = "MelinoeAnyQuipSpeech", Time = 60 },
-					},
-
-					-- { Cue = "/VO/Melinoe_2148", Text = "What's all this?", PlayFirst = true, PlayOnce = true, PlayOnceContext = "NarcissusFirstMeetingVO" },
-				},
-
-			},
 		},
 	},
 
@@ -1100,28 +1533,6 @@
 			},
 
 		},
-
-		DistanceTriggers =
-		{
-			{
-				TriggerObjectType = "NPC_Dionysus_01", WithinDistance = 800,
-				LeaveDistanceBuffer = 60,
-
-				VoiceLines =
-				{
-					RandomRemaining = true,
-					SuccessiveChanceToPlayAll = 0.25,
-					UsePlayerSource = true,
-					Cooldowns =
-					{
-						{ Name = "MelinoeAnyQuipSpeech", Time = 60 },
-					},
-
-					-- { Cue = "/VO/Melinoe_2148", Text = "What's all this?", PlayFirst = true, PlayOnce = true, PlayOnceContext = "NarcissusFirstMeetingVO" },
-				},
-
-			},
-		},
 	},
 
 	NemesisRandomEvent =
@@ -1131,6 +1542,9 @@
 		DisableTraps = true,
 		NextRoomResumeMusic = true,
 		BlockMaxBonusRewards = true,
+
+		-- For Fields where this is the room's encounter.
+		MoneyDropStore = 25,
 
 		GameStateRequirements =
 		{
@@ -1146,13 +1560,11 @@
 				Comparison = ">=",
 				Value = 4,
 			},
-			{
-				PathFalse = { "CurrentRun", "ActiveBounty" },
-			},
 			NamedRequirements = { "NoRecentNemesisEncounter", "NoRecentFieldNPCEncounter" },
+			NamedRequirementsFalse = { "StandardPackageBountyActive", "HecateMissing", "NemesisBecomingCloserAvailable", },
 		},
 
-		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade", "StackUpgrade", "ManaUpgrade", "TalentDrop" },
+		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade", "StackUpgrade", "TalentDrop" },
 
 		MaxAppearancesThisBiome = 1,
 		UnthreadedEvents = {},
@@ -1209,8 +1621,8 @@
 				FunctionName = "NemesisTakeRoomExit",
 				Args =
 				{
-					RandomWaitMin = 0.5,
-					RandomWaitMax = 0.6,
+					RandomWaitMin = 0.1,
+					RandomWaitMax = 0.5,
 				},
 				GameStateRequirements =
 				{
@@ -1224,8 +1636,8 @@
 				FunctionName = "NemesisTakeRoomExit",
 				Args =
 				{
-					RandomWaitMin = 1.0,
-					RandomWaitMax = 5.0,
+					RandomWaitMin = 0.5,
+					RandomWaitMax = 2.0,
 				},
 				GameStateRequirements =
 				{
@@ -1364,9 +1776,64 @@
 		{
 			{
 				FunctionName = "ActivatePrePlaced",
+				GameStateRequirements =
+				{
+					-- None
+				},
 				Args =
 				{
-					LegalTypes = { "NPC_Hades_Field_01", },
+					LegalTypes = { "NPC_Hades_Field_01" },
+					SpawnOverrides =
+					{
+						AllowSpecialInteractInPartnerConversation = true,
+					},
+				},
+			},
+			{
+				FunctionName = "ActivatePrePlaced",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						FunctionName = "RequiredQueuedTextLine",
+						FunctionArgs =
+						{
+							IsNone =
+							{
+								"HadesAboutBouldy01_B",
+								"HadesAboutMelinoe01",
+								"HadesAboutPersephoneAway01",
+							},
+						},
+					},
+					OrRequirements =
+					{
+						{
+							-- Always spawn before final gift
+							{
+								PathFalse = { "GameState", "TextLinesRecord", "HadesWithPersephoneGift06" },
+							},
+						},
+						{
+							-- Always spawn if didn't spawn last run
+							{
+								PathFalse = { "PrevRun", "SpawnRecord", "NPC_Persephone_01" },
+							},
+						},
+						{
+							-- Otherwise 80% chance to spawn
+							ChanceToPlay = 0.8,
+						},
+						
+					},
+				},
+				Args =
+				{
+					LegalTypes = { "NPC_Persephone_01" },
+					-- Persephone is never separately usable
+					AddInteractBlock = "PartnerConversationOnly",
 				},
 			},
 			{
@@ -1378,30 +1845,34 @@
 			},
 			{
 				-- Cerberus always spawn before HadesAboutSisyphus01
-				FunctionName = "ActivatePrePlaced",
+				FunctionName = "SetupCerberusStory",
 				Args =
 				{
-					LegalTypes = { "NPC_Cerberus_Field_01", },
+					ActivateUnitsByType = { "NPC_Cerberus_Field_01", },
+					ActivateIdsByGroup = { "Cerberus" },
 				},
 				GameStateRequirements =
 				{
 					{
-						PathFalse = { "GameState", "TextLinesRecord", "HadesAboutSisyphus01", },
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "HadesAboutSisyphus01", "HadesAboutSisyphus01_B" },
 					},
 				},
 			},
 			{
 				-- Cerberus sometimes spawns after HadesAboutSisyphus01
-				FunctionName = "ActivatePrePlaced",
+				FunctionName = "SetupCerberusStory",
 				Args =
 				{
-					LegalTypes = { "NPC_Cerberus_Field_01", },
+					ActivateUnitsByType = { "NPC_Cerberus_Field_01", },
+					ActivateIdsByGroup = { "Cerberus" },
 				},
 				GameStateRequirements =
 				{
 					ChanceToPlay = 0.8,
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "HadesAboutSisyphus01", },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "HadesAboutSisyphus01", "HadesAboutSisyphus01_B" },
 					},
 				},
 			},
@@ -1446,4 +1917,421 @@
 			},
 		},
 	},
+
+	-- @ ending
+	Empty_Chaos =
+	{
+		InheritFrom = { "Empty" },
+		StartRoomUnthreadedEvents =
+		{
+			-- Nyx in Chaos appearances
+			{
+				FunctionName = "ActivatePrePlaced",
+				GameStateRequirements =
+				{
+					-- Force = true,
+					NamedRequirements = { "NyxUnlockedInChaos", },
+					{
+						SumPrevRuns = 4,
+						IgnoreCurrentRun = true,
+						Path = { "SpawnRecord", "NPC_Nyx_Story_01" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive", "ReachedEpilogueRecently" },
+					ChanceToPlay = 0.75,
+				},
+				Args =
+				{
+					LegalTypes = { "NPC_Nyx_Story_01" },
+				},
+			},
+			{
+				FunctionName = "CheckConversations",
+				Args = {},
+			},
+		},
+	},
+
+	-- @ ending
+	Story_Palace_01 =
+	{
+		InheritFrom = { "Empty" },
+		UnthreadedEvents = EncounterSets.EncounterEventsNonCombat,
+		MaxAppearancesThisBiome = 1,
+		StartRoomUnthreadedEvents =
+		{
+			{
+				FunctionName = "ActivatePrePlaced",
+				Args =
+				{
+					LegalTypes =
+					{
+						"NPC_Zeus_Story_01",
+						"NPC_Hera_Story_01",
+						"NPC_Apollo_Story_01",
+					},
+				},
+			},
+			{
+				FunctionName = "CheckPriorityConversations",
+				GameStateRequirements =
+				{
+					-- None
+				},
+				Args =
+				{
+					IgnorePartnerExists = true,
+					Conversations =
+					{
+						"ZeusPalaceFirstMeeting",
+						"ZeusPalaceMeeting02",
+						"DemeterPalaceFirstMeeting",
+						"ZeusPalaceMeeting03_B",
+						"ZeusPalaceMeeting03_A",
+						"ZeusPalaceMeeting03",
+						"ZeusPalaceMeeting04",
+						"ZeusPalaceMeeting04_B",
+						"ZeusPalaceAboutTyphonDeath01",
+						"DemeterPalacePostTrueEnding01",
+						"DemeterPalaceAboutTyphonDeath01",
+						"ZeusPalacePostTrueEnding01",
+					},
+				},
+			},
+			{
+				FunctionName = "SetupApolloMusic",
+				Args =
+				{
+					ApolloId = 723553,
+					Params =
+					{
+						LowPass = 0.0,
+						Vocals = 1.0,
+					},
+				},
+			},
+			--[[
+			{
+				FunctionName = "ActivatePrePlacedObstacles",
+				GameStateRequirements =
+				{
+					RequiredTextLines = { "PersephoneMeeting09" },
+				},
+				Args =
+				{
+					Groups = { "TravelBags" },
+				},
+			},
+			]]--
+		},
+	},
+
+	Story_DeathAreaRestored =
+	{
+		InheritFrom = { "Empty" },
+
+		StartRoomUnthreadedEvents =
+		{
+			{
+				FunctionName = "GenericPresentation",
+				Args =
+				{
+					LoadVoiceBanks = { "Zagreus", "Hades", "Persephone", "Selene", "Nyx" },
+					LoadPackages = { "Zagreus", "Hades", "Persephone", "Selene", "Nyx", "Cerberus" },
+				},
+			},
+			{
+				FunctionName = "ActivatePrePlaced",
+				Args =
+				{
+					Types = { "NPC_Chronos_Story_01" },
+					OverwriteSelf =
+					{
+						Animation = "Enemy_Chronos_Idle",
+					},
+				},
+			},
+			{
+				FunctionName = "ActivatePrePlaced",
+				Args =
+				{
+					Types = { "NPC_Hecate_Story_01" },
+				},
+			},
+		},
+
+		UnthreadedEvents =
+		{
+			{
+				FunctionName = "SurpriseNPCPresentation",
+				Args =
+				{
+					SourceId = 774366,
+					SkipAngleTowardTarget = true,
+					SkipCameraLock = true,
+					PanIds = { 560366, 772454 },
+					TextLineSet =
+					{
+						-- see also TrueEnding02, TrueEndingFinale01
+						TrueEnding01 =
+						{
+							PlayOnce = true,
+							SkipContextArt = true,
+							UseableOffSource = true,
+							InitialGiftableOffSource = true,
+							GiftableOffSource = true,
+							PreBlockSpecialInteract = true,
+							PostBlockSpecialInteract = true,
+							SkipAngleTowardTarget = true,
+
+							{ Cue = "/VO/HecateField_0323",
+								Source = "NPC_Hecate_01",
+								-- Emote = "PortraitEmoteFiredUp",
+								Text = "Prepare to suffer for all that you've done, wretch! Or shall I stay my hand merely because you made the mistake of loosening your hold on me?" },
+
+							{ Cue = "/VO/Chronos_1372",
+								PreLineWait = 0.35,
+								Source = "NPC_Chronos_01",
+								Portrait = "Portrait_Chronos_Confused_01",
+								Text = "...{#Emph}Oh {#Prev}this was no mistake... nor shall I seek mercy from the likes of you, {#Emph}witch! {#Prev}Do with me as you must... I care not." },
+
+							{ Cue = "/VO/MelinoeField_3570",
+								UsePlayerSource = true,
+								Portrait = "Portrait_Mel_Intense_01",
+								PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+								PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+								Text = "Chronos! Headmistress! What happened? What's going on?!" },
+
+							{ Cue = "/VO/HecateField_0324",
+								Source = "NPC_Hecate_01",
+								Emote = "PortraitEmoteSurprise",
+								Text = "Melinoë...! Where are we? One instant I discovered that our enemy invaded Erebus, then the next I know he's groveling about my feet! How is this possible? What have you done...?" },
+
+							{ Cue = "/VO/MelinoeField_4975",
+								UsePlayerSource = true,
+								PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+								PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+								Portrait = "Portrait_Mel_Intense_01",
+								Text = "I did everything as planned! But Zagreus, I told him... I {#Emph}warned {#Prev}him! In his time he was supposed to run the Titan through, and {#Emph}end {#Prev}all this!" },
+
+							{ Cue = "/VO/Chronos_1373",
+								Source = "NPC_Chronos_01",
+								Portrait = "Portrait_Chronos_Confused_01",
+								Emote = "PortraitEmoteFiredUp",
+								Text = "Zagreus {#Emph}spared {#Prev}me! Took me in! And from that point... I led what came to be an altogether different life... which I now realize... was but a dream. A {#Emph}delusion! {#Prev}Yet, still... you changed my course...!" },
+
+							{ Cue = "/VO/MelinoeField_4976",
+								UsePlayerSource = true,
+								PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+								PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+								Portrait = "Portrait_Mel_Intense_01",
+								Text = "And you take me for a fool! You suddenly recall having this chat with Zagreus a while back, and now you're having all these second thoughts?" },
+
+							{ Cue = "/VO/Chronos_1374",
+								Source = "NPC_Chronos_01",
+								Portrait = "Portrait_Chronos_Confused_01",
+								Text = "Second thoughts? Oh far, far more. Here, in this House... you had delighted in a hiding-game when you were very small. And you and Zagreus would fight... but out of love... not in the bitter way {#Emph}we {#Prev}fought. I did not realize there could have been this other past of mine... this {#Emph}better {#Prev}past." },
+
+							{ Cue = "/VO/MelinoeField_5061",
+								UsePlayerSource = true,
+								Portrait = "Portrait_Mel_Vulnerable_01",
+								PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+								PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+
+								Text = "A {#Emph}better past...? {#Prev}But, none of it occurred... nothing {#Emph}changed! {#Prev}You should be {#Emph}gone... {#Prev}not flooded with false memories. I would never have grown up cheerily with you! I don't understand..." },
+
+							{ Cue = "/VO/HecateField_0325",
+								Source = "NPC_Hecate_01",
+								PreLineWait = 0.25,
+								Text = "None of us understand ourselves entirely; Melinoë, this wretch is overcome, and shan't be using his old tricks again! {#Emph}End him." },
+
+							{ Cue = "/VO/Chronos_1375",
+								Source = "NPC_Chronos_01",
+								Portrait = "Portrait_Chronos_Confused_01",
+								--Emote = "PortraitEmoteFiredUp",
+								Text = "{#Emph}Yes! {#Prev}Finish what you set your mind to, Granddaughter! For I have no desire to exist in such a world, with all of you, like {#Emph}this! {#Prev}Not for one moment longer...!" },
+
+							{ Cue = "/VO/MelinoeField_4978",
+								UsePlayerSource = true,
+								Portrait = "Portrait_Mel_Intense_01",
+								PreLineAnim = "MelTalkFlustered01", PreLineAnimTarget = "Hero",
+								Emote = "PortraitEmoteFiredUp",
+								-- PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+								Text = "{#Emph}Silence! {#Prev}You'll exist in this world until I say otherwise. Now, enough talk. Release our family from your hold!" },
+
+							{ Cue = "/VO/Chronos_1020_B",
+								PreLineWait = 0.35,
+								Source = "NPC_Chronos_01",
+								Portrait = "Portrait_Chronos_Confused_01",
+								PortraitExitAnimation = "Portrait_Chronos_Confused_01_Exit",
+								PostLineFunctionName = "SummonFamilyMembers",
+								PostLineRemoveContextArt = true,
+								Text = "Our family...? Granddaughter, I... shall not release them, no. You shall. And I await their judgment, and your own." },
+
+							{ Cue = "/VO/Hades_0208",
+								Emote = "PortraitEmoteFiredUp",
+								Portrait = "Portrait_Hades_Chained_02",
+								Source = "NPC_Hades_Story_01",
+								PreLineWait = 0.5,
+								Text = "Father, what... why have you brought me here? And the others...! What is the meaning of all this?" },
+
+							{ Cue = "/VO/Chronos_1376",
+								Source = "NPC_Chronos_01",
+								Portrait = "Portrait_Chronos_Confused_01",
+								PostLineFunctionName = "SetupFamilyRescueCamera",
+								Text = "Ask your daughter, Hades! Perhaps she can explain better than I. As for the Queen, and Prince, and all the rest... the Princess needs but to remind them who they are." },
+						},
+						-- the story continues in FamilyRescuePresentation & TrueEnding02
+					},
+				},
+			},
+		},
+	},
+
+	Story_EndCredits =
+	{
+		InheritFrom = { "Empty" },
+
+		StartRoomUnthreadedEvents =
+		{
+			{
+				FunctionName = "GenericPresentation",
+				Args =
+				{
+					LoadVoiceBanks = { "Chronos", "Artemis", "Apollo", "Selene" },
+					LoadPackages = { "Chronos", "Artemis", "Apollo", "Selene" },
+				},
+			},
+			{
+				FunctionName = "SetupEndingCredits",
+			},
+		},
+
+		UnthreadedEvents =
+		{
+			{
+				FunctionName = "SurpriseNPCPresentation",
+				Args =
+				{
+					IntroWait = 1.5,
+					SourceId = 780625,
+					SkipPan = true,
+					SkipAngleTowardTarget = true,
+					SkipCameraLock = true,
+					TextLineSet =
+					{
+						TrueEndingFinale01 =
+						{
+							PlayOnce = true,
+							UseableOffSource = true,
+							SkipContextArt = true,
+
+							{ Cue = "/VO/Selene_0379",
+								PreLineWait = 0.25,
+								Source = "NPC_Selene_01",
+								Portrait = "Portrait_Selene_InPerson_01",
+									Text = "...If I may briefly interrupt, we have arrived at our initial destination, everyone. Olympus is not far from here." },
+
+							{ Cue = "/VO/Chronos_1028",
+								PreLineWait = 0.35,
+								Source = "NPC_Chronos_02",
+								Speaker = "NPC_Chronos_01",
+								Text = "...I do appreciate the ride upon your gleaming chariot, O Moon; but it is time for me to go. Perhaps my conversations with Hades have prepared me to face my other sons..." },
+
+							{ Cue = "/VO/MelinoeField_5069", UsePlayerSource = true,
+								Text = "Lord Uncle Zeus asked that you come alone. He and Olympus may not be quite as merciful as Father was, but how you act with them shall help determine that. They ought to be expecting you by now." },
+
+							{ Cue = "/VO/Chronos_1429",
+								Source = "NPC_Chronos_02",
+								Speaker = "NPC_Chronos_01",
+								PortraitExitAnimation = "Portrait_Chronos_Default_02_Exit",
+								PostLineFunctionName = "TwinsEntrancePresentation",
+
+								Text = "And I ought never to be late. Perhaps they shall at least permit me to assist you from here on in case you do retrace your steps. Till then, farewell. And thank you, Granddaughter. My Time Keeper." },
+
+							-- Twins Enter
+							{ Cue = "/VO/MelinoeField_3907", UsePlayerSource = true,
+								PreLineWait = 0.5,
+								Portrait = "Portrait_Mel_Pleased_01",
+								Text = "Lord Apollo! And Lady Artemis!" },
+
+							{ Cue = "/VO/Apollo_0204",
+								Source = "NPC_Apollo_Story_01",
+								Portrait = "Portrait_Apollo_InPerson_01",
+								Text = "It's a beautiful night, Lady Selene! And {#Emph}you {#Prev}must be the esteemed Witch of the Crossroads! You've trained my cousin very well indeed, to have brought Chronos to our heights, still in one piece!" },
+
+							{ Cue = "/VO/Artemis_0382",
+								Source = "NPC_Artemis_01",
+								Text = "Fine, Apollo, I was incorrect for once, no need to boast. Melinoë, I may have wagered that you'd cut the Titan to ribbons sooner than you'd bring him here." },
+
+							{ Cue = "/VO/MelinoeField_3908", UsePlayerSource = true,
+								Portrait = "Portrait_Mel_Proud_01",
+								PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "PortraitEmoteSurprise", Portrait = "Portrait_Mel_Hesitant_01", WaitTime = 6.5 },
+								Text = "I know it's unimaginable, but he came here willingly. And Lord Zeus wanted to speak to him in private. Wait, does that mean... you were kicked out of your {#Emph}house?" },
+
+							{ Cue = "/VO/Apollo_0205",
+								PostLineFunctionName = "CreditsSecretMusicOff",
+								Source = "NPC_Apollo_Story_01",
+								Portrait = "Portrait_Apollo_InPerson_01",
+								Text = "Well we consider it a Palace, but, {#Emph}erm... {#Prev}no! No, we've been appointed to escort you to the Crossroads as a symbol of our family's unity, and come bearing a gift. Shall we be off?" },
+
+							EndVoiceLines =
+							{
+								{
+									PreLineWait = 1.1,
+									PlayOverTextLines = true,
+									AllowTalkOverTextLines = true,
+									Source = { LineHistoryName = "NPC_Selene_01", SubtitleColor = Color.SeleneVoice },
+
+									{ Cue = "/VO/Selene_0381", Text = "We ride." },
+								},
+								{
+									PreLineWait = 0.4,
+									PlayOverTextLines = true,
+									AllowTalkOverTextLines = true,
+									Source = { LineHistoryName = "NPC_Artemis_01", SubtitleColor = Color.ArtemisVoice },
+
+									{ Cue = "/VO/Artemis_0384", Text = "Here we go." },
+								},
+							},
+						},
+					},
+				},
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "SessionMapState", "SkipCreditsPreamble" },
+					},
+				},
+			},
+			{
+				FunctionName = "EndingCreditsPresentation",
+				Args =
+				{
+					CameraPanId = 780638,
+					CameraZoom = 0.75,
+					ChariotId = 780625,
+				},
+			},
+		},
+		Using =
+		{
+			GrannyModels = { "Artemis_Mesh", "Apollo_Mesh" },
+			Animations =
+			{
+				"Tilesets/Olympus/Olympus_Credits_Constellation_01",
+				"Tilesets/Olympus/Olympus_Credits_Constellation_02",
+				"Tilesets/Olympus/Olympus_Credits_Constellation_03",
+				"Tilesets/Olympus/Olympus_Credits_Constellation_04",
+				"Tilesets/Olympus/Olympus_Credits_Constellation_05",
+				"Tilesets/Olympus/Olympus_Credits_Constellation_06",
+				"Tilesets/Olympus/Olympus_Credits_Constellation_07",
+				"Tilesets/Olympus/Olympus_Credits_Constellation_08",
+				"Tilesets/Olympus/Olympus_Credits_Constellation_09",
+				"Tilesets/Olympus/Olympus_Credits_Constellation_10",
+			},
+		},
+	},
+
 })

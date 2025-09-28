@@ -1,0 +1,154 @@
+{ Animations = [
+	{
+		Name = "PigAngry"
+		GrannyModel = "PigAngry_Mesh"
+	}
+	{
+		Name = "PigSad"
+		GrannyModel = "PigSad_Mesh"
+	}
+	{
+		Name = "EnemyPigBaseAnimation"
+		
+		GrannyModel = "Pig_Mesh"
+		ExtraGrannyAnimations = 
+		[
+			{ Name = "PigAngry" }
+			{ Name = "PigSad" }
+		]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		DisableOwnerManualInteract = true
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_Pig_Idle"
+		InheritFrom = "EnemyPigBaseAnimation"
+		GrannyAnimation = "Pig_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+	{
+		Name = "Enemy_Pig_Move"
+		InheritFrom = "EnemyPigBaseAnimation"
+		GrannyAnimation = "Pig_Base_Move_C_00"
+		Loop = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_Pig_Idle",
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Pig_OnHit",
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Pig_OnHit_Heavy",
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Pig_MoveStop"
+		InheritFrom = "EnemyPigBaseAnimation"
+		GrannyAnimation = "Pig_Base_Idle_C_00"
+		ChainTo = "Enemy_Pig_Idle"
+		CancelOnOwnerMove = true
+		GrannyAnimationSpeed = 2.5
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Pig_Move",
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Pig_OnHit"
+		InheritFrom = "EnemyPigBaseAnimation"
+		GrannyAnimation = "Pig_Base_GetHit_C_00"
+		ChainTo = "Enemy_Pig_Idle"
+		CancelOnOwnerMove = true
+		AllowRestart = true
+	}
+	{
+		Name = "Enemy_Pig_OnHit_Heavy"
+		InheritFrom = "Enemy_Pig_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}	
+	{
+		Name = "Enemy_Pig_OnHit_Mel"
+		InheritFrom = "Enemy_Pig_OnHit"
+		Sound = "/VO/MelinoeEmotes/EmotePigHit"
+	}	
+
+	{
+		Name = "Enemy_Pig_Dash_Start"
+		InheritFrom = "EnemyPigBaseAnimation"
+		GrannyAnimation = "Pig_Base_DashAntic_C_00"
+		ChainTo = "Enemy_Pig_Dash_Fire"
+		CancelOnOwnerMove = false
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_Pig_Dash_End",
+				Duration = 2
+			}
+			{
+				BlendTransitionFrom = "Enemy_Pig_OnHit",
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Pig_OnHit_Heavy",
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Pig_Dash_Fire"
+		InheritFrom = "EnemyPigBaseAnimation"
+		GrannyAnimation = "Pig_Base_Dash_C_00"
+		ChainTo = "Enemy_Pig_Dash_End"
+		CancelOnOwnerMove = false
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2.0
+			}
+			{
+				Frame = 5
+				FrameSpeed = 2.0
+				CreateAnimation = "DashDustPuff"
+			}
+			{
+				Frame = 12
+				FrameSpeed = 2.0
+				Sound = "/Leftovers/SFX/FootstepsSand"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Pig_Dash_End"
+		InheritFrom = "EnemyPigBaseAnimation"
+		GrannyAnimation = "Pig_Base_DashReturnToIdle_C_00"
+		ChainTo = "Enemy_Pig_Idle"
+		CancelOnOwnerMove = false
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/SFX/FootstepsSand"
+			}
+		]
+	}
+
+]}

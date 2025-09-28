@@ -1,4 +1,5 @@
 Import "UtilityLogic.lua"
+Import "SaveLogic.lua"
 Import "PatchLogic.lua"
 
 Import "ColorData.lua"
@@ -18,18 +19,14 @@ Import "CodexLogic.lua"
 Import "CodexPresentation.lua"
 Import "DebugData.lua"
 Import "Debug.lua"
-Import "LocalizationData.lua"
 
 Import "EnemyAILogic.lua"
 Import "UpgradeLogic.lua"
-Import "FishingLogic.lua"
-Import "FishingPresentation.lua"
 Import "HarvestLogic.lua"
 Import "HarvestPresentation.lua"
 Import "PowersPresentation.lua"
 Import "GardenLogic.lua"
 Import "GardenPresentation.lua"
-Import "GamePhaseLogic.lua"
 Import "BiomeStateLogic.lua"
 Import "BiomeStatePresentation.lua"
 Import "KeepsakeLogic.lua"
@@ -52,6 +49,8 @@ Import "WeaponShopLogic.lua"
 Import "WeaponShopPresentation.lua"
 Import "FamiliarShopLogic.lua"
 Import "FamiliarShopPresentation.lua"
+Import "FamiliarCostumeLogic.lua"
+Import "FamiliarCostumePresentation.lua"
 Import "QuestLogLogic.lua"
 Import "QuestPresentation.lua"
 Import "BountyLogic.lua"
@@ -65,6 +64,7 @@ Import "MusicPlayerPresentation.lua"
 Import "ShrineLogic.lua"
 Import "ShrinePresentation.lua"
 Import "AchievementLogic.lua"
+Import "BadgeLogic.lua"
 Import "BadgePresentation.lua"
 Import "ResourcePresentation.lua"
 Import "ResourceLogic.lua"
@@ -72,6 +72,15 @@ Import "SpellPresentation.lua"
 Import "SpellLogic.lua"
 Import "RunClearLogic.lua"
 Import "RoomPresentation.lua"
+Import "BiomeMapPresentation.lua"
+Import "PresentationBiomeF.lua"
+Import "PresentationBiomeG.lua"
+Import "PresentationBiomeH.lua"
+Import "PresentationBiomeI.lua"
+Import "PresentationBiomeN.lua"
+Import "PresentationBiomeO.lua"
+Import "PresentationBiomeP.lua"
+Import "PresentationBiomeQ.lua"
 Import "EncounterPresentation.lua"
 Import "EnemyPresentation.lua"
 Import "RunLogic.lua"
@@ -99,6 +108,7 @@ RoomThreadName = "RoomThread"
 
 -- SessionStateInit
 SessionState = {}
+SessionState.AchievementsUnlocked = {}
 SessionState.MapLoads = 0
 SessionState.GlobalCooldowns = {}
 SessionState.GlobalCounts = {}
@@ -106,8 +116,13 @@ SessionState.GameplaySlows = {}
 SessionState.PlayerGameplaySlows = {}
 SessionState.EarlyDetonationProjectileIds = {}
 SessionState.FreeSeekProjectileIds = {}
+SessionState.PoseidonExCastTarget = {}
 SessionState.PropertyChangeList = { WeaponChanges = {}, ProjectileChanges = {}, EffectChanges = {} }
 SessionState.ObjectiveSwaps = {}
+
+if not _istool() then
+	SetupFormatContainers({ })
+end
 
 OnPreThingCreation
 {
@@ -149,7 +164,7 @@ OnPreThingCreation
 		end
 
 		if CurrentRun.CurrentRoom ~= nil then
-			if GetConfigOptionValue({ Name = "ResetRoomData" }) then
+			if GetConfigOptionValue({ Name = "ForceUnflipMapThings" }) then
 				CurrentRun.CurrentRoom.Flipped = false
 			end
 			if GetConfigOptionValue({ Name = "ForceFlipMapThings" }) then
@@ -159,12 +174,6 @@ OnPreThingCreation
 		if CurrentRun ~= nil and CurrentRun.CurrentRoom.Flipped ~= nil and CurrentRun.CurrentRoom.Name == mapName then
 			SetConfigOption({ Name = "FlipMapThings", Value = CurrentRun.CurrentRoom.Flipped })
 		end
-
-		if GetConfigOptionValue({ Name = "DumpRunStatsOnLoad" }) then
-			DumpGameStateToFile()
-		end
-
-		LoadActiveBountyPackages()
 
 	end
 }
@@ -192,6 +201,8 @@ OnAnyLoad
 		ValidateCodexCategories()
 		ValidateRoomSets()
 		ValidateRequirements()
+		ValidateTraitData()
+		ValidateQuestData()
 
 		local mapName = triggerArgs.name
 		roomData = RoomData[mapName]
@@ -201,7 +212,8 @@ OnAnyLoad
 		end
 
 		if DeferredObstacleInitialization ~= nil then
-			for id, name in pairs( DeferredObstacleInitialization ) do
+			SessionMapState.DeferredObstacleInitializationStarted = true
+			for id, name in pairs( ShallowCopyTable( DeferredObstacleInitialization ) ) do -- Protection from OnSpawn triggering and being added to the table mid-iteration
 				local obstacleData = ObstacleData[name]
 				local obstacle = DeepCopyTable( obstacleData )
 				obstacle.ObjectId = id
@@ -234,38 +246,46 @@ OnAnyLoad
 			GameState.IllegalConversationModification = true
 		end
 
-		if mapName == GameData.HubMapName then
-			if CurrentHubRoom ~= nil and CurrentHubRoom.Name ~= GameData.HubMapName then
-				DeathAreaRoomTransition( HubRoomData[mapName] )
+		local hubRoomData = HubRoomData[mapName]
+		if hubRoomData ~= nil then
+			if hubRoomData.OnLoadEvents ~= nil then
+				RunEventsGeneric( hubRoomData.OnLoadEvents, hubRoomData, triggerArgs )
 			else
-				StartDeathLoop( CurrentRun )
+				DeathAreaRoomTransition( hubRoomData )
 			end
-		elseif HubRoomData[mapName] ~= nil then
-			DeathAreaRoomTransition( HubRoomData[mapName] )
 		end
 
 	end
 }
 
-function LoadCurrentRoomResources(currentRoom)
-	LoadVoiceBanks("MelinoeField", true)
+function LoadCurrentRoomResources( currentRoom )
 	local voiceBanks = { currentRoom.Name, currentRoom.ForceLootName, currentRoom.ChosenRewardType, currentRoom.Encounter.Name, currentRoom.Encounter.LootAName, currentRoom.Encounter.LootBName }
 	for _, name in pairs(voiceBanks) do
-		LoadVoiceBanks( GetSpeakerName( name ) )
+		local speakerName = GetSpeakerName( name )
+		LoadVoiceBanks( speakerName )
+		if not GameData.MissingPackages[speakerName] then
+			LoadPackages( { Name = speakerName } )
+		end
 	end
+
 
 	local packages = { currentRoom.ForceLootName, currentRoom.Encounter.LootAName, currentRoom.Encounter.LootBName, currentRoom.ChosenRewardType }
 	for _, name in pairs(packages) do
-		if not GameData.MissingPackages[lootName] then
+		if not GameData.MissingPackages[name] then
 			LoadPackages({ Name = name })
 		end
 	end
 
-	if CurrentRun.CurrentRoom.Store ~= nil then
+	if CurrentRun.CurrentRoom.Store ~= nil and CurrentRun.CurrentRoom.Store.StoreOptions ~= nil then
 		for i, data in pairs( CurrentRun.CurrentRoom.Store.StoreOptions ) do
 			local itemData = ConsumableData[data.Name] or LootData[data.Name]
-			if itemData ~= nil and itemData.SpeakerName ~= nil then
-				LoadVoiceBanks( itemData.SpeakerName )
+			if itemData ~= nil then
+				if itemData.SpeakerName ~= nil then
+					LoadVoiceBanks( itemData.SpeakerName )
+				end
+				if itemData.LoadPackages ~= nil then
+					LoadPackages({ Names = itemData.LoadPackages })
+				end
 			end
 		end
 	end
@@ -274,15 +294,28 @@ end
 
 
 function MapStateInit()
+
+	if MapState ~= nil then
+		if MapState.ProjectileSounds ~= nil then
+			-- Cleanup any remaining old sounds before leaking the ids
+			for projectileId, soundId in pairs( MapState.ProjectileSounds ) do
+				StopSound({ Id = soundId, Duration = 0.2 })
+			end
+		end
+	end
+
 	MapState = {}
 	MapState.SimSpeedChanges = {}
 	MapState.PhasingFlags = {}
 	MapState.BlockTimerFlags = {}
-	MapState.FullManaAtFireStart = {}
-	MapState.FullManaVolleys = {}
-	MapState.StaffClearCountHits = 0
+	MapState.BloomRequests = {}
+	MapState.EquippedWeapons = {}
 	MapState.HeroNotStopsProjectile = {}
+	MapState.ManaChargeIndicatorIds = {}
+	MapState.CastArmDisable = {}
+	MapState.ProjectileSounds = {}
 	MapState.ActiveObstacles = {}
+	MapState.BloodDrops = {}
 	MapState.AggroedUnits = {}
 	MapState.OfferedExitDoors = {}
 	MapState.OfferedRewardPreviewTypes = {}
@@ -291,24 +324,25 @@ function MapStateInit()
 	MapState.OptionalRewards = MapState.OptionalRewards or {}
 	MapState.ShipWheels = MapState.ShipWheels or {}
 	MapState.InspectPoints = MapState.InspectPoints or {}
+	MapState.HealthBufferSources = MapState.HealthBufferSources or {}
 	MapState.Flags = {}
 	MapState.GroupHealthWaiters = {}
 	MapState.CombatUIHide = {}
+	MapState.ObjectiveUIHide = {}
 	MapState.Reticles = {}
 	MapState.SandwichCount = 0
 	MapState.SprintShields = 0
 	MapState.BossShieldTriggers = 0
 	MapState.ExCastCount = 0
-	MapState.ExShieldTriggers = 0
-	MapState.ExShieldWeapons = {}
 	MapState.ChargedManaWeapons = {}
 	MapState.TorchFireIndex = 1
 	MapState.LastBlinkTimeUnmodified = 0
 	MapState.HexCooldownDodgeChance = 0
 	MapState.UsedSafeZones = {}
 	MapState.SpellSummons = {}
-	MapState.MapSpeedMultiplier = 1
+	MapState.TypeIdsCache = {}
 	MapState.WeaponCharge = {}
+	MapState.TemporaryHealthBufferSources = {}
 	MapState.MoneyUI = 
 	{ 	
 		LastValue = GetResourceAmount( "Money" ),
@@ -321,6 +355,9 @@ end
 
 function SessionMapStateInit()
 	SessionMapState = {}
+	SessionMapState.DeferredUnitInitialization = {}
+	SessionMapState.PresentationQueue = {}
+	SessionMapState.DistanceCache = {}
 	SessionMapState.SpawnPointsUsed = {}
 	SessionMapState.OriginMarkers = {}
 	SessionMapState.InvalidRepeatCastIds = {}
@@ -328,27 +365,31 @@ function SessionMapStateInit()
 	SessionMapState.InvalidSplitIds = {}
 	SessionMapState.CastAttachedProjectiles = {}
 	SessionMapState.CurrentExAttachedProjectiles = {}
+	SessionMapState.CurrentAttachedBaseProjectiles = {}
 	SessionMapState.FirstBurnRecord = {}
+	SessionMapState.ExSwordRecord = {}
 	SessionMapState.SpawnKillRecord = {}
 	SessionMapState.PulseAmmoVolleys = {}
+	SessionMapState.DashVolleys = {}
 	SessionMapState.AmmoVolleys = {}
 	SessionMapState.TorchOrbitIds = {}
+	SessionMapState.ExProjectileIds = {}
 	SessionMapState.LobLock = {}
 	SessionMapState.SpecialLock = {}
 	SessionMapState.BlinkLock = {}
+	SessionMapState.CastLock = {}
 	SessionMapState.SuitLock = {}
-	SessionMapState.WeaponSpeedMultipliers = {}
 	SessionMapState.ChargeStageManaSpend = {}
+	SessionMapState.WaveHitRecord = {}
 	SessionMapState.FirstHitRecord = {}
-	SessionMapState.VolleyHitRecord = {}
 	SessionMapState.ProjectileChargeStageReached = {}
 	SessionMapState.BurstCounter = 0
 	SessionMapState.TimedBuff = 0
+	SessionMapState.TimedBuffStartTimes = {}
 	SessionMapState.ReadiedMassiveAttacks = {}
 	SessionMapState.DaggerLastHit = 0
 	SessionMapState.SpellMultiuseCount = 0
 	SessionMapState.DamageShareRecord = {}
-	SessionMapState.WeaponSpawnPointsUsed = {}
 	SessionMapState.PerfectCritChance = {}
 	SessionMapState.MarkedEnemies = {}
 	SessionMapState.PlayerMoveBlocks = {}
@@ -359,12 +400,12 @@ function SessionMapStateInit()
 	SessionMapState.ProjectileSpawnRecord = {}
 	SessionMapState.ExpireOldestProjectiles = {}
 	SessionMapState.ExpireOldestProjectilesOrder = {}
+	SessionMapState.QueuedProjectileDamageMultipliers = {}
 	SessionMapState.EnemySpawnDelays = {}
 	SessionMapState.SecondaryEffectsThisFrame = 0
 	SessionMapState.OnHitsThisFrame = 0
 	SessionMapState.RequirementChecksThisFrame = 0
 	SessionMapState.DoorTextCount = 0
-	SessionMapState.FrameFlags = {}
 	SessionMapState.DestroyRequests = {}
 	SessionMapState.PlayingCues = SessionMapState.PlayingCues or {}
 	SessionMapState.BlockWeaponFailedToFire = {}
@@ -372,13 +413,14 @@ function SessionMapStateInit()
 	SessionMapState.SpellHealWindow = 0
 	SessionMapState.LifeOnKillRecord = SessionMapState.LifeOnKillRecord or {}
 	SessionMapState.FiredChillKill = SessionMapState.FiredChillKill or {}
-	SessionMapState.DeferredTableWrite = {}
 	SessionMapState.PlayerControlBlocks = {}
 	SessionMapState.PlayerMoveBlocks = {}
 	SessionMapState.ElapsedTimeMultiplierIgnores = {}
 	SessionMapState.DifferentOmegaVolleys = {}
 	SessionMapState.DifferentOmegaProjectileIds = {}
+	SessionMapState.SuitChargedAttackIds = {}
 	SessionMapState.DrinkCritVolleys = {}
+	SessionMapState.DrinkCritProjectileIds = {}
 	SessionMapState.PendingStageManaRefund = {}
 	SessionMapState.MarkImages = {}
 	SessionMapState.MaxChargeStageReached = {}
@@ -387,11 +429,45 @@ function SessionMapStateInit()
 	SessionMapState.ConsecutiveMissileHits = {}
 	SessionMapState.ConsecutiveMoonBeamHits = {}
 	SessionMapState.LeapCritVolleys = {}
-	SessionMapState.InvisibleVolleys = {}
+	SessionMapState.LeapCritProjectileIds = {}
+	SessionMapState.ClearBonusOnHitProjectileIds = {}
+	SessionMapState.SprintBonusVolleys = {}
+	SessionMapState.SprintBonusProjectiles = {}
 	SessionMapState.ShownMetaUpgradeCardIds = {}
 	SessionMapState.ExistingMissileTargetIds = {}
 	SessionMapState.BlockStagedCharge = {}
 	SessionMapState.LockCameraMotion = {}
+	SessionMapState.ExSwaps = {}
+	SessionMapState.AutoMagnetizeIds = {}
+	SessionMapState.ApolloDevotionIds = {}
+	SessionMapState.SprintBurnInflicted = {}
+	SessionMapState.CosmeticsPurchased = {}
+	SessionMapState.DarkSide = {}
+	SessionMapState.DeathMarkers = {}
+	SessionMapState.DeathSummons = {}
+	SessionMapState.DisplayedLuckMultiplier = 0
+	SessionMapState.InCombatTextStackCount = 0
+	SessionMapState.MapSpeedMultiplier = 1
+	SessionMapState.SummonFirstHitRecord = {}
+	SessionMapState.CastDefense = {}
+	SessionMapState.PotionCastIds = {}
+	SessionMapState.OverheatConsecutiveHit = 0
+	SessionMapState.GlobalAttackSpecialSpeed = {}
+	SessionMapState.TempArmorPresentation = {}
+	SessionMapState.TempArmorPresentationOut = {}
+	SessionMapState.DuoTalentEligibleGender = {}
+	SessionMapState.DuoTalentEligibleSpell = {}
+	SessionMapState.LastAnubisProjectileIds = {}
+	SessionMapState.AnubisShadeIds = {}
+	SessionMapState.BulletCount = 1
+	SessionMapState.LobGunSpecialHits = {}
+	SessionMapState.ValidSuperchargeCastIds = {}
+	SessionMapState.PolymorphIgnores = {}
+	SessionMapState.SuitBonusProjectileId = {}
+	SessionMapState.WrappingMoveSpeed = {}
+	SessionMapState.DoubleStrikeProjectiles = {}
+
+	FrameState = {}
 end
 
 function ValidateIdLeaks( trace, tableToCheck )
@@ -408,7 +484,7 @@ function ValidateIdLeaks( trace, tableToCheck )
 end
 
 function ValidateLoops( trace, tableToCheck )
-	if string.len( trace ) > 200 then
+	if string.len( trace ) > 250 then
 		DebugAssert({ Condition = false, Text = "Loop found in "..trace })
 	end
 	--local extraIgnores = ToLookup({ })
@@ -454,7 +530,7 @@ end
 
 function GetMaxHealthUpgradeIncrement( value, ignoreCap )
 	local expectedMaxHealth = HeroData.MaxHealth
-	for i, trait in pairs(CurrentRun.Hero.Traits) do
+	for i, trait in ipairs( CurrentRun.Hero.Traits ) do
 		if trait.PropertyChanges ~= nil then
 			for k, propertyChange in pairs( trait.PropertyChanges ) do
 				if propertyChange.LuaProperty == "MaxHealth" then
@@ -492,44 +568,9 @@ function GetMaxHealthUpgradeIncrement( value, ignoreCap )
 	end
 end
 
-function DoesRunMatchBounty(run, bountyName)
-
-	if BountyData[bountyName] == nil then
-		return false
-	end
-
-	if run.WeaponsCache ~= nil and run.WeaponsCache[BountyData[bountyName].WeaponKitName] == nil then
-		return false
-	end
-
-	if BountyData[bountyName].StartingTraits ~= nil then
-		for i, startingTrait in ipairs( BountyData[bountyName].StartingTraits ) do
-			if run.TraitCache[startingTrait.Name] == nil then
-				return false
-			end
-		end
-	end
-
-	if run.BiomesReached ~= nil then
-		local ignoreBiomes = { "Hub", "Chaos", "Anomaly", "N_SubRooms" }
-		for biomeName, reached in pairs( run.BiomesReached ) do
-			local forceReached = false
-			if BountyData[bountyName].RunOverrides ~= nil and BountyData[bountyName].RunOverrides.BiomesReached ~= nil then
-				forceReached = BountyData[bountyName].RunOverrides.BiomesReached[biomeName]
-			end
-			if biomeName ~= BountyData[bountyName].StartingBiome and not forceReached and not Contains( ignoreBiomes, biomeName) then
-				return false
-			end
-		end
-	end
-
-	return true
-
-end
-
 function GetMaxManaUpgradeIncrement( value )
 	local expectedMaxMana = HeroData.MaxMana
-	for i, trait in pairs(CurrentRun.Hero.Traits) do
+	for i, trait in ipairs( CurrentRun.Hero.Traits ) do
 		if trait.PropertyChanges ~= nil then
 			for k, propertyChange in pairs( trait.PropertyChanges ) do
 				if propertyChange.LuaProperty == "MaxMana" then
@@ -558,7 +599,7 @@ end
 
 function ValidateMaxHealth( blockDelta )
 	local expectedMaxHealth = HeroData.MaxHealth
-	for i, trait in pairs(CurrentRun.Hero.Traits) do
+	for i, trait in ipairs( CurrentRun.Hero.Traits ) do
 		if trait.PropertyChanges ~= nil then
 			for k, propertyChange in pairs( trait.PropertyChanges ) do
 				if propertyChange.LuaProperty == "MaxHealth" then
@@ -597,7 +638,7 @@ end
 
 function GetExpectedMaxMana()
 	local expectedMaxMana = HeroData.MaxMana
-	for i, trait in pairs(CurrentRun.Hero.Traits) do
+	for i, trait in ipairs( CurrentRun.Hero.Traits ) do
 		if trait.PropertyChanges ~= nil then
 			for k, propertyChange in pairs( trait.PropertyChanges ) do
 				if propertyChange.LuaProperty == "MaxMana" then
@@ -626,7 +667,7 @@ function ValidateMaxMana()
 	end
 	CurrentRun.Hero.Mana = math.min( CurrentRun.Hero.Mana, GetHeroMaxAvailableMana() )
 	CurrentRun.Hero.Mana = math.max( CurrentRun.Hero.Mana, 0 )
-	UpdateWeaponMana()
+	UpdateWeaponMana( 0, { IgnoreHint = true, } )
 end
 
 function SetupMap()
@@ -678,6 +719,9 @@ function SetupMap()
 	CreateGroup({ Name = "FX_Add_Top", BlendMode = "Additive" })
 	InsertGroupInFront({ Name = "FX_Add_Top", DestinationName = "FX_Standing_Top" })
 
+	CreateGroup({ Name = "FX_Terrain_Decor", BlendMode = "Normal" })
+	InsertGroupBehind({ Name = "FX_Terrain_Decor", DestinationName = "Terrain_Gameplay" })
+
 	local vignetteBlendMode = "Overlay"
 	if not GetConfigOptionValue({ Name = "DrawBloom" }) then
 		vignetteBlendMode = "Additive"
@@ -708,7 +752,7 @@ function AttemptUseDoor( door, args )
 	end
 
 	if door.EncounterCost ~= nil then
-		if not IsEmpty(CurrentRun.CurrentRoom.ActiveEncounters) then
+		if not IsEmpty( CurrentRun.CurrentRoom.ActiveEncounters ) then
 			thread( CannotUseDoorPresentation, door )
 			return
 		elseif not door.EncounterCostStarted then
@@ -717,17 +761,21 @@ function AttemptUseDoor( door, args )
 			if door.OnUsedEncounterCostPresentationFunctionName ~= nil then
 				CallFunctionName(door.OnUsedEncounterCostPresentationFunctionName, door, args)
 			end
+			if not IsEmpty(SessionMapState.SkipEncounterIds) and CurrentRun.CurrentRoom.Encounter.SpawnsSkipped then
+				thread( SkipEncounterEndPresentation )
+			end
 
 			local doorEncounter = DeepCopyTable( EncounterData[door.EncounterCost] )
 			GenerateEncounter(CurrentRun, CurrentRun.CurrentRoom, doorEncounter)
-			StopAnimation({ DestinationId = door.ObjectId, Name = "LockedIconNoKey" })
-			CreateAnimation({ DestinationId = door.ObjectId, Name = "LockedIconRelease", Group = "FX_Standing_Top" })
+			StopAnimation({ DestinationId = door.ObjectId, Names = { "OceanusManholeLockIdleGlow", "OceanusManholeLockIdle", "OceanusManholeLockIdleIn" } })
+			PlaySound({ Name = "/SFX/OceanusTrapDoorUnlock" })
+			CreateAnimation({ DestinationId = door.ObjectId, Name = "OceanusManholeUnlock", Group = "FX_Terrain_Top" })
 			RefreshUseButton(door.ObjectId, door)
 
 			StartEncounter(CurrentRun, CurrentRun.CurrentRoom, doorEncounter)
 
 			door.EncounterCost = nil
-			if HasHeroTraitValue( "AllowDoorReroll" ) then
+			if door.Room ~= nil and door.Room.ChosenRewardType ~= "Shop" and HasHeroTraitValue( "AllowDoorReroll" ) then
 				door.CanBeRerolled = true
 			end
 			CreateDoorRewardPreview( door )
@@ -745,7 +793,7 @@ function AttemptUseDoor( door, args )
 	door.InUse = true
 
 	if door.HealthCost ~= nil then
-		SacrificeHealth({ SacrificeHealthMin = door.HealthCost, SacrificeHealthMax = door.HealthCost, Silent = true, DeductHealth = true })
+		SacrificeHealth( { SacrificeHealthMin = door.HealthCost, SacrificeHealthMax = door.HealthCost, Silent = true, DeductHealth = true, AttackerName = "TrialUpgrade" } )
 	end
 
 	SetPlayerInvulnerable( "LeaveRoom" )
@@ -800,8 +848,10 @@ function AttemptUseDoor( door, args )
 		CurrentRun.CurrentRoom.CloseDoorOnReturn = door.ObjectId
 	end
 
-	if CurrentRun.CurrentRoom.OnUseSetRunData ~= nil and CurrentRun.CurrentRoom.OnUseSetRunData[door.Name] ~= nil then
-		OverwriteTableKeys( CurrentRun.CurrentRoom, CurrentRun.CurrentRoom.OnUseSetRunData[door.Name] )
+	local roomData = RoomData[CurrentRun.CurrentRoom.Name] or CurrentRun.CurrentRoom
+
+	if roomData.OnUseSetRunData ~= nil and roomData.OnUseSetRunData[door.Name] ~= nil then
+		OverwriteTableKeys( CurrentRun.CurrentRoom, roomData.OnUseSetRunData[door.Name] )
 	end
 
 	LeaveRoom( CurrentRun, door )
@@ -818,20 +868,17 @@ function CheckSpecialDoorRequirement( door )
 		return "ExitBlockedByHealthReq"
 	end
 
-	if door.ShrinePointReq ~= nil and GetTotalSpentShrinePoints() < door.ShrinePointReq then
-		return "ExitBlockedByShrinePointReq"
-	end
-
 	return nil
 
 end
 
-function GetDoorHealAmount( currentRun )
+function GetDoorHealAmount( currentRun, limitedOnly )
 	local maxHealth = currentRun.Hero.MaxHealth
 	local healAmount = 0
 	local roomHealFraction = GetTotalHeroTraitValue("DoorHeal")
 	local roomHealFixed = GetTotalHeroTraitValue("DoorHealFixed")
 	local roomHealFullThreshold = GetTotalHeroTraitValue("DoorFullHealThreshold", {IsMultiplier = true })
+	local roomHealIgnorePenalty = GetTotalHeroTraitValue("DoorHealIgnorePenaltyFixed")
 	if CurrentRun.Hero.Health / CurrentRun.Hero.MaxHealth >= roomHealFullThreshold then
 		roomHealFixed = CurrentRun.Hero.MaxHealth - CurrentRun.Hero.Health
 	end
@@ -850,6 +897,9 @@ function GetDoorHealAmount( currentRun )
 	healAmount = roomHealFraction * maxHealth
 	healAmount = healAmount + roomHealFixed
 
+	if limitedOnly then
+		healAmount = 0
+	end
 	if HeroHasTrait("DoorHealReserveKeepsake") then
 		local missingHealth = CurrentRun.Hero.MaxHealth - CurrentRun.Hero.Health
 		if missingHealth > healAmount then
@@ -857,10 +907,10 @@ function GetDoorHealAmount( currentRun )
 			local trait = GetHeroTrait("DoorHealReserveKeepsake")
 			local healReserve = trait.DoorHealReserve
 			if healReserve > remainingMissing then
-				healAmount = healAmount + remainingMissing
-				trait.DoorHealReserve = trait.DoorHealReserve - remainingMissing
+				roomHealIgnorePenalty = roomHealIgnorePenalty + remainingMissing
+				trait.DoorHealReserve = round( trait.DoorHealReserve - remainingMissing )
 			else
-				healAmount = healAmount + trait.DoorHealReserve
+				roomHealIgnorePenalty = roomHealIgnorePenalty + trait.DoorHealReserve
 				trait.DoorHealReserve = 0
 				trait.CustomName = trait.ZeroBonusTrayText
 				if healReserve ~= 0 then
@@ -870,13 +920,20 @@ function GetDoorHealAmount( currentRun )
 			end
 		end
 	end
-
-	healAmount = round( healAmount * CalculateHealingMultiplier())
+	
+	local healingMultiplier = CalculateHealingMultiplier()
+	if healingMultiplier < 1 then
+		healAmount = round( healAmount * healingMultiplier)
+		healAmount = healAmount + roomHealIgnorePenalty	
+	else
+		healAmount = healAmount + roomHealIgnorePenalty
+		healAmount = round( healAmount * healingMultiplier)
+	end
 	return healAmount
 end
 
-function CheckDoorHealTrait( currentRun, door )
-	local healAmount = GetDoorHealAmount( currentRun )
+function CheckDoorHealTrait( currentRun, door, limitedOnly )
+	local healAmount = GetDoorHealAmount( currentRun, limitedOnly )
 	local hasText = false
 	if healAmount > 0 then
 		local silent = false
@@ -891,27 +948,59 @@ function CheckDoorHealTrait( currentRun, door )
 		IncrementTableValue( SessionMapState, "DoorTextCount" )
 	end
 
-	thread( UpdateHealthUI )
+	FrameState.RequestUpdateHealthUI = true
 end
 
-function CheckUnusedWeaponBonusTrait()
-	if HeroHasTrait( "UnusedWeaponBonusTrait" ) then
-		wait( 0.43 )
-		for name, amount in pairs( TraitData.UnusedWeaponBonusTrait.AddResources ) do
-			thread( UnusedWeaponBonusPresentation ) 
-			AddResource( name, amount, "UnusedWeaponBonusTrait",
-				{
-					StartId = HUDScreen.Components.InventoryIcon.Id,
-					OffsetX = -120,
-					AnchorOffsetY = -50,
-					HoldOffsetY = -100,
-					FontSize = 120,
-					ShadowScale = 0.4,
-					IgnoreAsLastResourceGained = true,
-				}
-				)
-		end
+function UnusedWeaponBonusReward()
+	if CurrentRun and CurrentRun.CurrentRoom and CurrentRun.CurrentRoom.SkipUnusedWeaponBonusReward then
+		return
 	end
+	if GameState.ClearedRunsCache <= 0 then
+		wait( 0.43 )
+	end
+	for name, amount in pairs( TraitData.UnusedWeaponBonusTrait.AddResources ) do
+		thread( UnusedWeaponBonusPresentation )
+		AddResource( name, amount, "UnusedWeaponBonusTrait", {
+			StartId = HUDScreen.Components.InventoryIcon.Id,
+			OffsetX = -120,
+			AnchorOffsetY = -50,
+			HoldOffsetY = -100,
+			FontSize = 120,
+			ShadowScale = 0.5,
+			IgnoreAsLastResourceGained = true,
+		} )
+	end
+end
+
+function UnusedWeaponBonusDropGems( source, args )
+	local encounter = CurrentRun.CurrentRoom.Encounter
+	if encounter == nil or encounter.EncounterType ~= "Boss" or encounter.SkipBossTraits then
+		return
+	end
+
+	local consumableData = ConsumableData.GemPointsDrop
+	local amount = consumableData.AddResources.GemPoints + consumableData.IncreasePerBiomeCleared * (CurrentRun.ClearedBiomes - 1)
+	GiveRandomConsumables(
+		{
+			Delay = 0.35,
+			ForceToValidLocation = true,
+			KeepCollision = true,
+			LootOptions =
+			{
+				{
+					Name = "GemPointsDrop",
+					Overrides =
+					{
+						CanDuplicate = false,
+						AddResources =
+						{
+							GemPoints = amount,
+						},
+					},
+				},
+			},
+		}
+	)
 end
 
 function CheckInspectPoints( currentRun, source )
@@ -987,9 +1076,9 @@ function StartRoom( currentRun, currentRoom )
 
 	DebugAssert({ Condition = not currentRun.Hero.IsDead, Text = "Starting a room with a dead hero!" })
 
-	if currentRoom.RichPresence ~= nil then
-		SetRichPresence({ Key = "status", Value = currentRoom.RichPresence })
-		SetRichPresence({ Key = "steam_display", Value = currentRoom.RichPresence })
+	if roomData.RichPresence ~= nil then
+		SetRichPresence({ Key = "status", Value = roomData.RichPresence })
+		SetRichPresence({ Key = "steam_display", Value = roomData.RichPresence })
 	end
 
 	AddTimerBlock( currentRun, "StartRoom" )
@@ -1005,12 +1094,6 @@ function StartRoom( currentRun, currentRoom )
 
 	DebugPrint({ Text = "StartRoom: "..currentRoom.Name.." (RunDepth = "..currentRun.RunDepthCache..")".." (BiomeDepth = "..currentRun.BiomeDepthCache..")".." (Seed = "..GetGlobalRng().seed..")" })
 
-	local previousRoom = GetPreviousRoom(currentRun)
-	if previousRoom ~= nil and previousRoom.StartTime ~= nil then
-		local timeInPrev = _worldTime - previousRoom.StartTime
-		--DebugPrint({ Text = "Time in previous: "..timeInPrev.." seconds" })
-	end
-
 	if currentRoom.CameraWalls then
 		CreateCameraWalls({ })
 	end
@@ -1022,7 +1105,6 @@ function StartRoom( currentRun, currentRoom )
 		ValidateMaxHealth()
 		ValidateMaxMana()
 	end
-	currentRoom.StartTime = _worldTime
 
 	local prevRoom = GetPreviousRoom( currentRun )
 	if prevRoom ~= nil and prevRoom.CheckWeaponHistory then
@@ -1038,11 +1120,18 @@ function StartRoom( currentRun, currentRoom )
 	AssignObstacles( currentRoom )
 
 	if currentRoom.Encounters ~= nil then
-		for _, encounter in ipairs(currentRoom.Encounters) do
+		for _, encounter in ipairs( currentRoom.Encounters ) do
 			LoadSpawnPackages( encounter )
 		end
 	else
 		LoadSpawnPackages( currentRoom.Encounter )
+	end
+	if currentRoom.CageRewards ~= nil then
+		for i, cageReward in ipairs( currentRoom.CageRewards ) do
+			if cageReward.Encounter ~= nil then
+				LoadSpawnPackages( cageReward.Encounter )
+			end
+		end
 	end
 	LoadBountyPackages( currentRoom )
 	if GameState.EquippedFamiliar ~= nil then
@@ -1103,6 +1192,7 @@ function StartRoom( currentRun, currentRoom )
 	
 	if GetNumShrineUpgrades( "BiomeSpeedShrineUpgrade" ) > 0 then
 		if currentRoom.BiomeStartRoom then
+			-- if we are in a erebus / chaos / postboss room reset the timer
 			local rankIndex = GetNumShrineUpgrades("BiomeSpeedShrineUpgrade")
 			local additionalTime = MetaUpgradeData.BiomeSpeedShrineUpgrade.ChangeValue
 			if additionalTime then
@@ -1110,67 +1200,62 @@ function StartRoom( currentRun, currentRoom )
 				thread( BiomeTimeCheckpointPresentation, CurrentRun, additionalTime )
 			end
 		end
-		-- if we are in a erebus / chaos / postboss room reset the timer
 		thread( BiomeSpeedTimerLoop )
 	end
-
-	local currentArea = CurrentRun.CurrentRoom.BiomeMapArea or CurrentRun.CurrentRoom.RoomSetName
-	if currentRoom.BiomeStartRoom and HeroHasTrait("SpeedRunBossKeepsake") then
-		trait = GetHeroTrait("SpeedRunBossKeepsake")
-		if trait.Timers[currentArea] ~= nil then
-			CurrentRun.ActiveBiomeTimerKeepsake = true
-			CurrentRun.SpeedRunBossKeepsakeTriggered = nil
-			CurrentRun.BiomeTimeKeepsake = trait.Timers[currentArea]
-		else
-			CurrentRun.ActiveBiomeTimerKeepsake = false
-		end
-	elseif not HeroHasTrait("SpeedRunBossKeepsake") then
-		CurrentRun.ActiveBiomeTimerKeepsake = false
-	end
-
+	
 	if currentRoom.BiomeStartRoom and HeroHasTrait("EchoRepeatKeepsakeBoon") then
 		local traitData = GetHeroTrait("EchoRepeatKeepsakeBoon")
-		if TraitData[traitData.RepeatedKeepsake] and GameState.LastAwardTrait ~= traitData.RepeatedKeepsake then
-			EquipKeepsake( CurrentRun.Hero, traitData.RepeatedKeepsake, { FromLoot = true, OverwriteSlot = true, SkipAddToHUD = true })
-			traitData.CustomTrayText = traitData.ActivatedTrayText
-			local newKeepsake = traitData.RepeatedKeepsake
-			if newKeepsake == "BonusMoneyKeepsake" then
-				AddResource( "Money", round(traitData.BonusMoney * GetTotalHeroTraitValue( "MoneyMultiplier", { IsMultiplier = true } ), "BonusMoneyKeepsake" ))
+		local baseRepeatedTraitData = TraitData[traitData.RepeatedKeepsake]
+		if baseRepeatedTraitData then
+			if baseRepeatedTraitData.Permanent and HeroHasTrait(traitData.RepeatedKeepsake) then
+				local trait = GetHeroTrait(traitData.RepeatedKeepsake)
+				local traitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitData.RepeatedKeepsake, Rarity = "Common" })
+				-- With only two cases I don't think it's worth making a generic solution
+				if trait.Name == "GoldifyKeepsake" then
+					trait.BoonConversionUses = trait.BoonConversionUses + traitData.BoonConversionUses
+				elseif trait.Name == "RarifyKeepsake" then
+					trait.RarityUpgradeData.Uses = trait.RarityUpgradeData.Uses + traitData.RarityUpgradeData.Uses
+				end
+			else
+				EquipKeepsake( CurrentRun.Hero, traitData.RepeatedKeepsake, { ForceRarity = "Common", FromLoot = true, OverwriteSlot = true, SkipAddToHUD = true })
+				traitData.CustomTrayText = traitData.ActivatedTrayText
+				local newKeepsake = traitData.RepeatedKeepsake
+				if newKeepsake == "BonusMoneyKeepsake" then
+					local newTraitData = GetHeroTrait("BonusMoneyKeepsake") 
+					AddResource( "Money", round(newTraitData.BonusMoney * GetTotalHeroTraitValue( "MoneyMultiplier", { IsMultiplier = true } )), "BonusMoneyKeepsake" )
+				end
 			end
 		end
 	end
 
-	if currentRoom.BiomeStartRoom and HeroHasTrait("BonusMoneyKeepsake") then
-		local traitData = GetHeroTrait("BonusMoneyKeepsake") 
-		ReduceTraitUses( traitData , {Force = true })
+	if currentRoom.BiomeStartRoom then
+		if HeroHasTrait("BonusMoneyKeepsake") then
+			local traitData = GetHeroTrait("BonusMoneyKeepsake") 
+			ReduceTraitUses( traitData , {Force = true })
 
-		if traitData.ZeroBonusTrayText then
-			traitData.CustomTrayText = traitData.ZeroBonusTrayText
+			if traitData.ZeroBonusTrayText then
+				traitData.CustomTrayText = traitData.ZeroBonusTrayText
+			end
+		end
+		if HeroHasTrait( "PersistentDionysusSkipKeepsake" ) then
+			local traitData = GetHeroTrait("PersistentDionysusSkipKeepsake")
+			traitData.ActivatedThisBiome = false
+			traitData.CustomTrayText = "PersistentDionysusSkipKeepsake"
+		end
+		if HeroHasTrait("SkipEncounterKeepsake") then
+			local traitData = GetHeroTrait("SkipEncounterKeepsake") 
+			ReduceTraitUses( traitData , {Force = true })
+			if traitData.ZeroBonusTrayText then
+				traitData.CustomTrayText = traitData.ZeroBonusTrayText
+			end
+		end
+		if HeroHasTrait( "DodgeFamiliar" ) then
+			local traitData = GetHeroTrait( "DodgeFamiliar" )
+			traitData.RemainingBlocks = TraitData.DodgeFamiliar.RemainingBlocks
 		end
 	end
 	if currentRoom.BiomeStartRoom then
 		IncrementTableValue( CurrentRun, "ClearedBiomes" )
-	end
-
-	if GetNumMetaUpgrades("ExtraChanceReplenishMetaUpgrade") > 0 then
-		local numRegenerationLastStands = 0
-		for i, lastStand in pairs(CurrentRun.Hero.LastStands) do
-			if lastStand.Name == "ExtraChanceReplenishMetaUpgrade" then
-				numRegenerationLastStands = numRegenerationLastStands + 1
-			end
-		end
-		while GetNumMetaUpgrades("ExtraChanceReplenishMetaUpgrade") > numRegenerationLastStands do
-			AddLastStand({
-				Name = "ExtraChanceReplenishMetaUpgrade",
-				Unit = CurrentRun.Hero,
-				Icon = "ExtraLifeReplenish",
-				WeaponName = "LastStandMetaUpgradeShield",
-				HealFraction = MetaUpgradeData.ExtraChanceReplenishMetaUpgrade.HealPercent,
-				Silent = true
-			})
-			numRegenerationLastStands = numRegenerationLastStands + 1
-		end
-		CurrentRun.Hero.MaxLastStands = TableLength(CurrentRun.Hero.LastStands)
 	end
 
 	StartRoomPresentation( currentRun, currentRoom, darknessEarned )
@@ -1189,17 +1274,8 @@ function StartRoom( currentRun, currentRoom )
 		wait( currentRoom.Encounter.SpawnDelay )
 	end
 
-	if currentRoom.DisableWeapons then
-		ToggleCombatControl( CombatControlsDefaults, false, roomData.Name)
-	elseif currentRoom.DisableWeaponsExceptDash then
-		ToggleCombatControl( { "Shout", "Assist", "Attack2", "Attack1", "Attack3", "AutoLock" }, false, roomData.Name )
-	else
-		ToggleCombatControl( CombatControlsDefaults, true, roomData.Name )
-	end
-
-	if not currentRoom.HideCombatUI then
-		ShowCombatUI()
-	end
+	ToggleCombatControl( CombatControlsDefaults, true, roomData.Name )
+	ShowCombatUI( nil, { IgnoreLifePips = ShowingCombatUI } ) -- Should probably be a general rule but keeping contained to this call for now
 
 	CheckDashOverride( currentRoom )
 
@@ -1226,19 +1302,18 @@ function StartRoom( currentRun, currentRoom )
 				end
 			end
 			StartEncounter( currentRun, currentRoom, currentRoom.Encounter )
-			CheckInspectPoints( currentRun, roomData )
-			--wait( 1.0, RoomThreadName )
 		end
 		currentRoom.AllEncountersCompleted = true
+		CheckInspectPoints( currentRun, roomData )
 		if CheckRoomExitsReady( currentRoom ) then
 			UnlockRoomExits( currentRun, currentRoom )
 		end
-	else
+	else	
 		StartEncounter( currentRun, currentRoom, currentRoom.Encounter )
 		CheckInspectPoints( currentRun, roomData )
 	end
 
-	StartTriggers( currentRoom, roomData.PostCombatDistanceTriggers )
+	RunEventsGeneric( RoomData[currentRoom.Name].PostCombatEvents, currentRoom )
 
 end
 
@@ -1268,7 +1343,7 @@ function SetupRoomArt( currentRun, currentRoom )
 end
 
 function WaitForNextEncounterReady()
-	while not IsEmpty( MapState.RoomRequiredObjects ) or IsScreenOpen( "UpgradeChoice" ) or IsScreenOpen( "BoonMenu" ) or IsScreenOpen( "Dialog" ) do
+	while not IsEmpty( MapState.RoomRequiredObjects ) or IsScreenOpen( "UpgradeChoice" ) or IsScreenOpen( "BoonMenu" ) or IsScreenOpen( "Dialog" ) or IsScreenOpen( "SpellScreen" ) or IsScreenOpen( "TalentScreen" ) do
 		wait( 0.5 )
 	end
 end
@@ -1284,10 +1359,12 @@ function ShipsEncounterSetup( encounter, args )
 		return
 	end
 
+	RandomSynchronize( 3 )
+
 	local wheelRewardObstacles = {}
 	local twoRewardChoice = false
 	MapState.ShipWheels = {}
-	if RandomChance(EncounterData[encounter.Name].TwoRewardChoiceChance or 1) then
+	if RandomChance( EncounterData[encounter.Name].TwoRewardChoiceChance or 1 ) then
 		twoRewardChoice = true
 
 		local wheelLeft = DeepCopyTable( ObstacleData.ShipsSteeringWheelLeft )
@@ -1313,7 +1390,9 @@ function ShipsEncounterSetup( encounter, args )
 		MapState.ShipWheels[wheelRight.ObjectId] = wheelRight
 	else
 		table.insert( wheelRewardObstacles, wheel )
-		wheel.CanBeRerolled = true
+		if HasHeroTraitValue( "AllowDoorReroll" ) then
+			wheel.CanBeRerolled = true
+		end
 		wheel.ReadyToUse = true
 		MapState.ShipWheels[wheel.ObjectId] = wheel
 	end
@@ -1322,14 +1401,12 @@ function ShipsEncounterSetup( encounter, args )
 
 	local rewardsChosen = {}
 	local rewardStoreName = ChooseNextRewardStore( CurrentRun )
-	for k, wheelObstacle in pairs( wheelRewardObstacles ) do
+	for k, wheelObstacle in ipairs( wheelRewardObstacles ) do
 		UseableOn({ Id = wheelObstacle.ObjectId })
 		wheelObstacle.Room = CurrentRun.CurrentRoom
 		wheelObstacle.RewardStoreName = rewardStoreName
 		wheelObstacle.ChosenRewardType = ChooseRoomReward( CurrentRun, CurrentRun.CurrentRoom, rewardStoreName, rewardsChosen, { IgnoreForcedReward = true } )
 		SetupRoomReward( CurrentRun, wheelObstacle.Room, rewardsChosen, { ChosenRewardType = wheelObstacle.ChosenRewardType, AlwaysSetupForceLootName = true } )
-		local speakerName = LootData[wheelObstacle.ChosenRewardType] and LootData[wheelObstacle.ChosenRewardType].SpeakerName or ""
-		LoadVoiceBanks( speakerName, false, true )
 		wheelObstacle.ForceLootName = wheelObstacle.Room.ForceLootName
 		table.insert( rewardsChosen, { RewardType = wheelObstacle.ChosenRewardType, ForceLootName = wheelObstacle.ForceLootName } )
 		CreateDoorRewardPreview( wheelObstacle, wheelObstacle.ChosenRewardType, wheelObstacle.ForceLootName )
@@ -1338,13 +1415,13 @@ function ShipsEncounterSetup( encounter, args )
 	end
 
 	-- Wait for selection
-	waitUntil("ShipsEncounterSelected")
+	waitUntil( "ShipsEncounterSelected" )
 
 	ShipsSteeringWheelSelectionPresentation( wheelId )
 
 	StartEncounterEffects( encounter )
 
-	for k, wheelObstacle in pairs( wheelRewardObstacles ) do
+	for k, wheelObstacle in ipairs( wheelRewardObstacles ) do
 		DestroyDoorRewardPresenation( wheelObstacle )
 		if twoRewardChoice then
 			Destroy({ Id = wheelObstacle.ObjectId })
@@ -1364,6 +1441,13 @@ function UseShipWheel( wheel )
 	CurrentRun.CurrentRoom.Encounter.RewardStoreName = wheel.RewardStoreName
 	CurrentRun.CurrentRoom.Encounter.EncounterRoomRewardOverride = wheel.ChosenRewardType
 	CurrentRun.CurrentRoom.ForceLootName = wheel.ForceLootName
+
+	local speakerName = ( LootData[wheel.ChosenRewardType] and LootData[wheel.ChosenRewardType].SpeakerName ) or ( LootData[wheel.ForceLootName] and LootData[wheel.ForceLootName].SpeakerName ) or nil
+	LoadVoiceBanks( speakerName, false, true )
+	if speakerName ~= nil and not GameData.MissingPackages[speakerName] then
+		LoadPackages( { Name = speakerName, IgnoreAssert = true } )
+	end
+
 	notifyExistingWaiters( "ShipsEncounterSelected" )
 end
 
@@ -1403,6 +1487,8 @@ function RestoreUnlockRoomExits( currentRun, currentRoom )
 		Encounter = currentRoom.Encounter,
 		ChallengeEncounter = currentRoom.ChallengeEncounter
 	})
+	
+	currentRoom.Leaving = false
 
 	RestoreObjectStates( currentRoom )
 
@@ -1461,25 +1547,16 @@ function RestoreUnlockRoomExits( currentRun, currentRoom )
 
 	CheckInspectPoints( currentRun, currentRoom )
 
-	StartTriggers( currentRoom, currentRoom.PostCombatDistanceTriggers )
-
 	wait(0.1)
 
 	DoUnlockRoomExits( currentRun, currentRoom )
 
 	wait(0.1)
 
-	
 	RemoveTimerBlock(currentRun, "RestoreUnlockRoomExits")
-	if currentRoom.DisableWeapons then
-		ToggleCombatControl( CombatControlsDefaults, false )
-	else
-		ToggleCombatControl( CombatControlsDefaults, true )
-	end
-
-	if not currentRoom.HideCombatUI then
-		ShowCombatUI()
-	end
+	
+	ToggleCombatControl( CombatControlsDefaults, true )
+	ShowCombatUI()
 
 	if GetNumShrineUpgrades("BiomeSpeedShrineUpgrade") > 0 then
 		thread( BiomeSpeedTimerLoop )
@@ -1499,12 +1576,8 @@ function LoadSpawnPackages( encounter )
 		LoadPackages({ Names = encounterData.LoadPackages })
 	end
 
-	for _, packageData in pairs(GetHeroTraitValues("LoadPackages")) do
-		if type(packageData) == "table" then
-			LoadPackages({ Names = packageData })
-		else
-			LoadPackages({ Name = packageData })
-		end
+	for _, packageNames in pairs( GetHeroTraitValues( "LoadPackages" ) ) do
+		LoadPackages({ Names = packageNames })
 	end
 
 	if encounter.Spawns == nil then
@@ -1519,7 +1592,7 @@ end
 
 function LoadBountyPackages( currentRoom )
 	local bountyData = BountyData[bountyName]
-	if bountyData ~= nil and ( bountyData.Encounter == currentRoom.Encounter.Name or bountyData.Room == currentRoom.Name ) then
+	if bountyData ~= nil and bountyData.Encounter == currentRoom.Encounter.Name then
 		LoadVoiceBanks({ Name = "Chaos" })
 	end
 end
@@ -1535,18 +1608,15 @@ function LoadVoiceBanks( characters, persist, ignoreAssert )
 end
 
 function SetupPreActivatedEnemies( source )
-
-	for enemyName, enemyData in pairs( EnemyData ) do
+	for id, name in pairs( SessionMapState.DeferredUnitInitialization ) do
+		local enemyData = EnemyData[name]
 		if not enemyData.SkipDefaultSetup then
-			local ids = GetIdsByType({ Name = enemyName })
-			for k, id in pairs( ids ) do
-				local unit = DeepCopyTable( enemyData )
-				unit.ObjectId = id
-				thread( SetupUnit, unit, CurrentRun, { SkipAISetup = source.PreActivatedSkipAISetup } )
-			end
+			local unit = DeepCopyTable( enemyData )
+			unit.ObjectId = id
+			thread( SetupUnit, unit, CurrentRun, { SkipAISetup = source.PreActivatedSkipAISetup } )
 		end
 	end
-
+	SessionMapState.DeferredUnitInitialization = nil
 end
 
 function SetupHeroObject( room, applyLuaUpgrades )
@@ -1568,6 +1638,14 @@ function SetupHeroObject( room, applyLuaUpgrades )
 	AddToGroup({ Id = currentRun.Hero.ObjectId, Name = "HeroTeam" })
 
 	GatherAndEquipWeapons( currentRun )
+	if roomData.BlockCombat then
+		DisableWeapons()
+		if roomData.UnloadWeapons then
+			UnloadPackages({ Names = WeaponPackages })
+		end
+	else
+		HandleWeaponAnimSwaps()
+	end
 
 	-- Laurel Crown VFX
 	if currentRun.Hero.AttachedAnimationName ~= nil then
@@ -1584,10 +1662,12 @@ function SetupHeroObject( room, applyLuaUpgrades )
 	CurrentRun.Hero.InvulnerableFlags = {}
 	CurrentRun.Hero.UntargetableFlags = {}
 	CurrentRun.Hero.ImmuneToForceFlags = {}
+	CurrentRun.Hero.PhasingFlags = {}
 	currentRun.Hero.PlayingVoiceLine = nil
 	currentRun.Hero.QueuedVoiceLines = {}
 	currentRun.Hero.SpeechParams = currentRun.Hero.SpeechParams or {}
 	currentRun.Hero.ReserveManaSources = {}
+	currentRun.Hero.ReserveHealthSources = {}
 	currentRun.Hero.StatusAnimation = nil
 	currentRun.Hero.PrevStatusAnimation = nil
 	currentRun.Hero.BlockStatusAnimations = nil
@@ -1600,6 +1680,7 @@ function SetupHeroObject( room, applyLuaUpgrades )
 	currentRun.Hero.ComboCount = 0
 	currentRun.Hero.ComboReady = false
 	currentRun.Hero.VacuumRush = false
+	currentRun.Hero.ReserveHealthExtra = currentRun.Hero.ReserveHealthExtra or 0
 	if currentRun.Hero.ManaData and currentRun.Hero.ManaData.BaseManaRegen and currentRun.Hero.ManaData.BaseManaRegen > 0 then
 		ManaRegenSetup( currentRun.Hero, { Name = "Innate", ManaRegenPerSecond = currentRun.Hero.ManaData.BaseManaRegen })
 	end
@@ -1614,13 +1695,11 @@ function SetupHeroObject( room, applyLuaUpgrades )
 	-- Build all upgrades.
 	UpdateHeroTraitDictionary()
 	CheckActivatedTraits( CurrentRun.Hero, { SkipPresentation = true } )
-	ApplyMetaUpgrades( currentRun.Hero, applyLuaUpgrades )
 	ApplyTraitUpgrade( currentRun.Hero, applyLuaUpgrades )
 	ApplyTraitSetupFunctions( currentRun.Hero )
-	ApplyMetaModifierHeroUpgrades( currentRun.Hero, applyLuaUpgrades )
 	ApplyAllTraitWeapons( currentRun.Hero )
 
-	for k, trait in pairs( currentRun.Hero.Traits ) do
+	for k, trait in ipairs( CurrentRun.Hero.Traits ) do
 		if trait.RoomCooldown ~= nil then
 			IncrementTraitCooldown( trait )
 		end
@@ -1633,7 +1712,9 @@ function SetupHeroObject( room, applyLuaUpgrades )
 
 	SetupCostume()
 
-	CheckAttachmentTextures( CurrentRun.Hero )
+	if room.HeroUnitName == nil then
+		CheckAttachmentTextures( CurrentRun.Hero )
+	end
 
 	SetLightBarColor({ PlayerIndex = 1, Color = currentRun.Hero.LightBarColor or HeroData.LightBarColor });
 	
@@ -1672,6 +1753,7 @@ end
 
 function StartRoomPreLoadBinks( args )
 
+	--[[
 	local currentRun = args.Run
 	local room = args.Room
 
@@ -1690,6 +1772,7 @@ function StartRoomPreLoadBinks( args )
 	end
 
 	PreLoadBinks({ Names = finalBinksToPreload })
+	]]
 
 end
 
@@ -1753,18 +1836,23 @@ function StartEncounter( currentRun, currentRoom, encounter )
 		if encounterData.ForceEncounterStart or ( CurrentRun.CurrentRoom.Encounter == encounter and encounter ~= currentRoom.ChallengeEncounter and not encounterData.DelayedStart ) then
 			StartEncounterEffects( encounter )
 		end
+	elseif encounterData.CheckAthenaEncounterKeepsakeOnSkipEncounterStart and HeroHasTrait("AthenaEncounterKeepsake") then
+		local traitData = GetHeroTrait("AthenaEncounterKeepsake")
+		if IsTraitActive(traitData) and traitData.UniqueEncounterArgs and IsGameStateEligible( traitData, traitData.UniqueEncounterArgs.GameStateRequirements) then
+			thread( CallFunctionName, traitData.UniqueEncounterArgs.EncounterThreadedFunctions.FunctionName, encounter, traitData.UniqueEncounterArgs.EncounterThreadedFunctions.Args )
+		end
 	end
 
 	if encounter.EncounterType == "Default" then
-		DebugPrint({ Text = encounter.Name })
+		--DebugPrint({ Text = encounter.Name })
 		local encounterDifficulty = encounter.DifficultyRating or "?"
-		DebugPrint({ Text = "    Encounter Difficulty = "..encounterDifficulty })
+		--DebugPrint({ Text = "    Encounter Difficulty = "..encounterDifficulty })
 		for waveIndex, wave in pairs(encounter.SpawnWaves) do
-			DebugPrint({ Text = "        Wave #"..waveIndex })
+			--DebugPrint({ Text = "        Wave #"..waveIndex })
 			local waveDifficulty = wave.DifficultyRating or "?"
-			DebugPrint({ Text = "        Wave Difficulty = "..waveDifficulty })
+			--DebugPrint({ Text = "        Wave Difficulty = "..waveDifficulty })
 			if wave.TypeCount ~= nil then
-				DebugPrint({ Text = "        Max Types: "..wave.TypeCount })
+				--DebugPrint({ Text = "        Max Types: "..wave.TypeCount })
 			end
 
 			local totalActualDifficultyRating = 0
@@ -1776,11 +1864,11 @@ function StartEncounter( currentRun, currentRoom, encounter )
 					enemyDifficultyRatingTotal = ( enemyCount * spawnEnemyArgs.GeneratorData.DifficultyRating )
 				end
 				totalActualDifficultyRating = totalActualDifficultyRating + enemyDifficultyRatingTotal
-				DebugPrint({ Text = "            "..enemyName.." "..enemyCount.." ("..enemyDifficultyRatingTotal..") " })
+				--DebugPrint({ Text = "            "..enemyName.." "..enemyCount.." ("..enemyDifficultyRatingTotal..") " })
 			end
 
 			if wave.TypeCount ~= nil then
-				DebugPrint({ Text = "    Spawned Difficulty Rating: "..totalActualDifficultyRating })
+				--DebugPrint({ Text = "    Spawned Difficulty Rating: "..totalActualDifficultyRating })
 			end
 		end
 	end
@@ -1793,22 +1881,12 @@ function StartEncounter( currentRun, currentRoom, encounter )
 		currentRun.BiomeEncounterDepth = (currentRun.BiomeEncounterDepth or 1) + 1
 		currentRun.EncounterDepth = currentRun.EncounterDepth + 1
 	end
-	table.insert(currentRoom.ActiveEncounters, encounter)
-	if encounter.TimerBlock ~= nil and ( encounter.TimerBlockRequirements == nil or IsGameStateEligible( currentRoom, encounter.TimerBlockRequirements ) ) then
-		AddTimerBlock( currentRun, encounter.TimerBlock )
+	table.insert( currentRoom.ActiveEncounters, encounter )
+	if encounterData.TimerBlock ~= nil and ( encounterData.TimerBlockRequirements == nil or IsGameStateEligible( currentRoom, encounterData.TimerBlockRequirements ) ) then
+		AddTimerBlock( currentRun, encounterData.TimerBlock )
 	end
 	if CurrentRun.Hero.Health / CurrentRun.Hero.MaxHealth <= HealthUI.LowHealthThreshold and not currentRoom.HideLowHealthShroud then
 		HeroDamageLowHealthPresentation( true )
-	end
-	if CurrentRun.CurrentRoom.Encounter == encounter and encounter ~= currentRoom.ChallengeEncounter then
-		local goldPerRoom = round( GetTotalHeroTraitValue("MoneyPerRoom") )
-		if HasHeroTraitValue( "BlockMoney" ) then
-			goldPerRoom = 0
-		end
-		if goldPerRoom > 0 then
-			thread( PassiveGoldGainPresentation, goldPerRoom )
-			AddResource( "Money", goldPerRoom, "HermesMoneyTrait" )
-		end
 	end
 
 	if encounter.ForceEliteAttrubuteCount ~= nil then
@@ -1819,9 +1897,7 @@ function StartEncounter( currentRun, currentRoom, encounter )
 
 	RunEvents( encounter, encounterData )
 
-	StartTriggers( encounter, encounter.PostCombatDistanceTriggers )
-
-	RemoveValue( currentRoom.ActiveEncounters, encounter )
+	RemoveValueAndCollapse( currentRoom.ActiveEncounters, encounter )
 	encounter.Completed = true
 	if encounter.EncounterType == "Miniboss" or encounter.EncounterType == "Boss" then
 		UpdateSpellActiveStatus()
@@ -1830,16 +1906,10 @@ function StartEncounter( currentRun, currentRoom, encounter )
 	GameState.EncountersCompletedCache[encounter.Name] = (GameState.EncountersCompletedCache[encounter.Name] or 0) + 1
 
 	-- Check for encounter-end effects
-	if encounter and encounter.StartTime and not encounter.ClearTime then
-		encounter.ClearTime = _worldTime - encounter.StartTime
-	end
+	RecordEncounterClearStats( encounter )
 	EndEncounterEffects( currentRun, currentRoom, encounter )
 	if not encounter.SkipDisableTrapsOnEnd then
 		DisableRoomTraps()
-	end
-
-	if encounter ~= nil and encounter.RemoveUpgradeOnEnd ~= nil then
-		RemoveEnemyUpgrade(encounter.RemoveUpgradeOnEnd, CurrentRun)
 	end
 
 	-- Check for encounter complete exit	
@@ -1850,8 +1920,11 @@ function StartEncounter( currentRun, currentRoom, encounter )
 
 end
 
-function GiveRandomConsumables( args )
+function GiveRandomConsumables( args, trait, contextArgs )
 	args = args or {}
+	if contextArgs ~= nil and contextArgs.OverwriteArgs then
+		OverwriteTableKeys( args, contextArgs.OverwriteArgs )
+	end
 	wait( args.Delay, RoomThreadName )
 
 	if args.GlobalVoiceLines ~= nil then
@@ -1867,9 +1940,12 @@ function GiveRandomConsumables( args )
 	for i, lootData in ipairs( args.LootOptions ) do
 		if lootData.Chance ~= nil then
 			if RandomChance( lootData.Chance * multiplier) and ( IsEmpty( lootData.GameStateRequirements ) or IsGameStateEligible( lootData, lootData.GameStateRequirements ) ) then
+				if args.UseSurfaceSpawnPoints then
+					destinationId = SelectSurfaceItemSpawnPoint()
+				end
 				local consumableId = SpawnObstacle({ Name = lootData.Name, DestinationId = destinationId, Group = "Standing",
-					OffsetX = RandomFloat( -1 * range, range ),
-					OffsetY = RandomFloat( -1 * range, range ),
+					OffsetX = args.OffsetX or RandomFloat( -1 * range, range ),
+					OffsetY = args.OffsetY or RandomFloat( -1 * range, range ),
 					ForceToValidLocation = args.ForceToValidLocation })
 				local consumable = CreateConsumableItem( consumableId, lootData.Name, 0, args )
 				if lootData.Overrides ~= nil then
@@ -1907,19 +1983,25 @@ function GiveRandomConsumables( args )
 				if args.MultiplyMoney then
 					amount = amount * GetTotalHeroTraitValue( "MoneyMultiplier", { IsMultiplier = true } )
 				end
-				thread( GushMoney, { Amount = amount, LocationId = destinationId, Source = "GiveRandomConsumables" } )
+				thread( GushMoney, { Amount = amount, LocationId = args.DestinationId or CurrentRun.Hero.ObjectId, Source = "GiveRandomConsumables" } )
 			else
 				for i = 1, amount do
+					if args.ReRandomizeForcePerItem then
+						force = args.Force or RandomFloat( args.ForceMin or 75, args.ForceMax or 150 )
+						upwardAngle = args.UpwardAngle or RandomFloat( args.UpwardForceMin or 500, args.UpwardForceMax or 700 )
+					end
+					angle = args.Angle or RandomFloat( args.AngleMin or 0, args.AngleMax or 360 )
+					if args.UseSurfaceSpawnPoints then
+						destinationId = SelectSurfaceItemSpawnPoint()
+					end
 					local consumableId = SpawnObstacle({ Name = lootData.Name, DestinationId = destinationId, Group = "Standing",
-						OffsetX = RandomFloat( -1 * range, range ),
-						OffsetY = RandomFloat( -1 * range, range ),
+						OffsetX = args.OffsetX or RandomFloat( -1 * range, range ),
+						OffsetY = args.OffsetY or RandomFloat( -1 * range, range ),
 						ForceToValidLocation = args.ForceToValidLocation })
 					local consumable = CreateConsumableItem( consumableId, lootData.Name, 0, args )
 					if lootData.Overrides ~= nil then
 						for key, value in pairs( lootData.Overrides ) do
-							if consumable[key] ~= nil then
-								consumable[key] = value
-							end
+							consumable[key] = value
 						end
 					end
 					ApplyConsumableItemResourceMultiplier( {}, consumable )
@@ -1944,8 +2026,8 @@ function GiveRandomConsumables( args )
 						consumable.OnUseEvents = consumable.OnUseEvents or {}
 						table.insert( consumable.OnUseEvents, args.AddUnthreadedOnUseEvent )
 					end
-					if lootData.Interval ~= nil then
-						wait( lootData.Interval )
+					if lootData.Interval or args.Interval then
+						wait( lootData.Interval or args.Interval )
 					end	
 				end
 			end
@@ -1958,7 +2040,7 @@ function GiveLoot( args )
 	local lootData = ChooseLoot( { args.ExcludeLootName }, args.ForceLootName )
 	if lootData ~= nil then
 		if not args.BoughtFromShop then
-			for k, trait in pairs( CurrentRun.Hero.Traits ) do
+			for k, trait in ipairs( CurrentRun.Hero.Traits ) do
 				if trait.ForceBoonName == lootData.Name then
 					ReduceTraitUses( trait )
 				end
@@ -1980,12 +2062,6 @@ end
 function CreateWeaponLoot( args )
 	args = args or {}
 	return CreateLoot( MergeTables( args, { Name = "WeaponUpgrade" } ) )
-end
-
-
-function CreateManaLoot( args )
-	args = args or {}
-	return CreateLoot( MergeTables( args, { Name = "ManaUpgrade", AutoLoadPackages = true } ) )
 end
 
 function CreateHermesLoot( args )
@@ -2030,6 +2106,7 @@ function GetRarityChances( loot )
 	local name = loot.Name
 	local ignoreTempRarityBonus = loot.IgnoreTempRarityBonus
 	local ignoreAllRarityBonus = loot.IgnoreAllRarityBonus 
+	local ignoreRoomRarityBonus = loot.IgnoreRoomRarityBonus
 	local referencedTable = "BoonData"
 	if name == "StackUpgrade" then
 		referencedTable = "StackData"
@@ -2039,12 +2116,12 @@ function GetRarityChances( loot )
 		referencedTable = "HermesData"
 	end
 
-	local rarityChances = ShallowCopyTable(CurrentRun.Hero[referencedTable].RarityChances) or {}
+	local rarityChances = ShallowCopyTable( HeroData[referencedTable].RarityChances ) or {}
 	for rarityName in pairs( TraitRarityData.RarityValues ) do
 		rarityChances[rarityName] = rarityChances[rarityName] or 0
 	end
 
-	if CurrentRun.CurrentRoom.BoonRaritiesOverride then
+	if CurrentRun.CurrentRoom.BoonRaritiesOverride and not ignoreRoomRarityBonus then
 		for rarityName in pairs( TraitRarityData.RarityValues ) do
 			loot.AddBoostedAnimation = true
 			rarityChances[rarityName] = CurrentRun.CurrentRoom.BoonRaritiesOverride[rarityName] or rarityChances[rarityName]
@@ -2069,9 +2146,31 @@ function GetRarityChances( loot )
 			end
 		end
 	end
+	local rarityTraits = GetHeroTraitValues("MultiplicativeRarityBonus", { UnlimitedOnly = ignoreTempRarityBonus })
+	for i, rarityTraitData in pairs(rarityTraits) do
+		if ( rarityTraitData.RequiredGod == nil or rarityTraitData.RequiredGod == name ) 
+			and ( rarityTraitData.GodLootOnly == nil or (rarityTraitData.GodLootOnly and ( loot.GodLoot or loot.TreatAsGodLootByShops ))) then
+			for rarityName in pairs( TraitRarityData.RarityValues ) do
+				if rarityTraitData[rarityName] then
+					rarityChances[rarityName] = rarityChances[rarityName] * rarityTraitData[rarityName]
+				end
+			end
+		end
+	end
 	return rarityChances
 end
 
+function PassRarityCheck( rarityName )
+	if not rarityName or rarityName == "Common" then
+		return true
+	end
+	local rarityChances = GetRarityChances({ IgnoreTempRarityBonus = true })
+	if RandomChance(rarityChances[rarityName]) then
+		return true
+	end
+	return false
+end
+ 
 function AllAtLeastRarity( loot, baseRarity )
 	if IsEmpty(loot.UpgradeOptions) then
 		return false
@@ -2117,18 +2216,6 @@ function HasExchangeOnLoot( loot )
 	return false
 end
 
-function HasTraitsOnLoot( loot, traitNames )
-	if loot == nil or loot.UpgradeOptions == nil then
-		return false
-	end
-	for i, traitData in pairs( loot.UpgradeOptions ) do
-		if Contains(traitNames, traitData.ItemName) then
-			return true
-		end
-	end
-	return false
-end
-
 function CreateLoot( args )
 
 	RandomSynchronize()
@@ -2149,6 +2236,7 @@ function CreateLoot( args )
 		if not GameData.MissingPackages[loot.Name] then
 			LoadPackages({ Name = loot.Name, IgnoreAssert = true })
 		end
+		LoadPackages({ Name = loot.LoadPackages, IgnoreAssert = true })
 		if loot.SpeakerName ~= nil then
 			LoadVoiceBanks( loot.SpeakerName, false, true )
 		end
@@ -2176,9 +2264,9 @@ function CreateLoot( args )
 	LootSpawnPresentation( loot, args )
 
 	if args.ResourceCosts ~= nil then
-		loot.ResourceCosts = ShallowCopyTable( args.ResourceCosts )
-		local costMultiplier = 1 + ( MetaUpgradeData.ShopPricesShrineUpgrade.ChangeValue - 1 )
-		costMultiplier = costMultiplier * GetTotalHeroTraitValue("StoreCostMultiplier", {IsMultiplier = true, Multiplicative = true})
+		loot.ResourceCosts = ShallowCopyTable( args.ResourceCosts )	
+		loot.BaseResourceCosts = ShallowCopyTable( loot.ResourceCosts )
+		local costMultiplier = GetShopCostMultiplier()
 		if costMultiplier ~= 1 then
 			for name, cost in pairs( loot.ResourceCosts ) do
 				loot.ResourceCosts[name] = round( cost * costMultiplier )
@@ -2213,14 +2301,18 @@ function SelectRoomRewardSpawnPoint( currentRoom, args )
 		return currentRoom.SpawnRewardOnId
 	end
 
-	local spawnPointId = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationNames = "SpawnPoints" })
+	local excludeId = nil
+	if MapState.FamiliarUnit ~= nil then
+		excludeId = MapState.FamiliarUnit.SpawnPointOccupiedId
+	end
+	local spawnPointId = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationNames = "SpawnPoints", ExcludeId = excludeId })
 	if spawnPointId <= 0 then
 		if currentRoom.SpawnPoints.Loot == nil or IsEmpty(currentRoom.SpawnPoints.Loot) then
 			currentRoom.SpawnPoints.Loot = GetIdsByType({ Name = "LootPoint" })
 		end
 		spawnPointId = RemoveRandomValue(currentRoom.SpawnPoints.Loot) or -1
 	end
-	DebugAssert({ Condition = spawnPointId > 0, Text = "No spawn point found for RoomReward!", Owner = "Eduardo" })
+	--DebugAssert({ Condition = spawnPointId > 0, Text = "No spawn point found for RoomReward!", Owner = "Eduardo" })
 	return spawnPointId
 end
 
@@ -2245,12 +2337,6 @@ function CheckMoneyDrop( enemy, moneyDropData, attacker )
 	local recipient = nil
 
 	local moneyMultiplier = GetTotalHeroTraitValue( "MoneyMultiplier", { IsMultiplier = true } )
-	for key, upgradeName in pairs( CurrentRun.EnemyUpgrades ) do
-		local upgradeData = EnemyUpgradeData[upgradeName]
-		if upgradeData.MoneyMultiplierDelta then
-			moneyMultiplier = moneyMultiplier + (upgradeData.MoneyMultiplier - 1)
-		end
-	end
 
 	local currentEncounter = CurrentRun.CurrentRoom.Encounter
 	if currentEncounter ~= nil and currentEncounter.MoneyDropStore and not moneyDropData.IgnoreRoomMoneyStore then
@@ -2303,6 +2389,11 @@ function EscalateMagnetism( consumable )
 	wait( consumable.MagnetismHintRemainingTime, RoomThreadName )
 	SetObstacleProperty({ Property = "Magnetism", Value = consumable.MagnetismEscalateAmount, DestinationId = consumable.ObjectId })
 
+end
+
+function UseableOnDelay( ids, delay )
+	wait( delay, RoomThreadName )
+	UseableOn({ Ids = ids })
 end
 
 function RecordMapState( mapName, id, property, value )
@@ -2393,6 +2484,10 @@ function RestoreObjectState( object, objectState )
 		SetThingProperty({ DestinationId = id, Property = "StopsProjectiles", Value = objectState.StopsProjectiles })
 	end
 
+	if objectState.SpawnInPlace ~= nil then
+		SpawnObstacle({ Name = objectState.SpawnInPlace, DestinationId = id, Group = GetGroupName({ Id = id, DrawGroup = true }) })
+	end
+
 	if objectState.Destroyed and not object.SkipDestroy then
 		SetThingProperty({ DestinationId = id, Property = "SuppressSounds", Value = true, DataValue = false })
 		ActiveEnemies[id] = nil
@@ -2430,19 +2525,20 @@ function HandleBreakableSwap( currentRoom, args )
 	if RoomData[currentRoom.Name].BreakableHighValueChanceMultiplier ~= nil then
 		chanceMultiplier = chanceMultiplier * RoomData[currentRoom.Name].BreakableHighValueChanceMultiplier
 	end
-
+	CurrentRun.CurrentRoom.HighValueBreakableIds = {}
 	for index = 0, highValueLimit, 1 do
 		local breakable = RemoveRandomValue( legalBreakables )
 		if breakable == nil then
 			return
 		end
-		local valueOptions = breakable.ValueOptions
+		local valueOptions = breakable.BreakableValueOptions
 		for k, swapOption in ipairs( valueOptions ) do
 			if swapOption.GameStateRequirements == nil or IsGameStateEligible( swapOption, swapOption.GameStateRequirements ) then
 				if RandomChance( swapOption.Chance * chanceMultiplier ) then
 					if swapOption.Animation ~= nil then
 						SetAnimation({ DestinationId = breakable.ObjectId, Name = swapOption.Animation, OffsetY = swapOption.OffsetY or 0 })
 					end
+					table.insert( CurrentRun.CurrentRoom.HighValueBreakableIds, breakable.ObjectId )
 					RecordObjectState( currentRoom, breakable.ObjectId, "Animation", swapOption.Animation )
 					breakable.MoneyDropOnDeath = ShallowCopyTable( swapOption.MoneyDropOnDeath )
 					RecordObjectState( currentRoom, breakable.ObjectId, "MoneyDropOnDeath", breakable.MoneyDropOnDeath )
@@ -2451,8 +2547,8 @@ function HandleBreakableSwap( currentRoom, args )
 					for k, v in pairs(swapOption.DataOverrides) do
 						RecordObjectState( CurrentRun.CurrentRoom, breakable.ObjectId, k, v )
 					end
-					if breakable.ValueOptions.SetupEvents ~= nil then
-						RunEventsGeneric( breakable.ValueOptions.SetupEvents, breakable )
+					if breakable.BreakableValueOptions.SetupEvents ~= nil then
+						RunEventsGeneric( breakable.BreakableValueOptions.SetupEvents, breakable )
 					end
 					break
 				end
@@ -2464,12 +2560,12 @@ end
 function FindAllSwappableBreakables()
 	local legalBreakables = { }
 	for id, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
-		if enemy.ValueOptions ~= nil then
+		if enemy.BreakableValueOptions ~= nil then
 			legalBreakables[id] = enemy
 		end
 	end
 	for id, obstacle in pairs( ShallowCopyTable( MapState.ActiveObstacles ) ) do
-		if obstacle.ValueOptions ~= nil then
+		if obstacle.BreakableValueOptions ~= nil then
 			legalBreakables[id] = obstacle
 		end
 	end
@@ -2520,88 +2616,81 @@ function DropMoney( amount, args )
 	local moneyDrop = { Amount = amount, Source = args.Source or "GenericDrop" }
 	moneyDrop.ObjectId = SpawnObstacle({ Name = moneySize, DestinationId = args.LocationId, OffsetX = offset.X, OffsetY = offset.Y, OffsetZ = offset.Z, Group = "Standing", TriggerOnSpawn = false, })	
 	moneyDrop.ConsumeFx = moneyConsumeFx
-	AttachLua({ Id = moneyDrop.ObjectId, Table = moneyDrop })
-	moneyDrop.OnUsedFunctionName = "UseMoneyDrop"
-	MoneyDropPresentation( moneyDrop, args )
+	thread( UseMoneyDrop, moneyDrop, args )
+	MoneyDropPresentation( moneyDrop, args )	
 end
 
-function UseMoneyDrop( moneyDrop, user )
-
-	if HasHeroTraitValue( "BlockMoney" ) then
-		return
+function UseMoneyDrop( moneyDrop, args )
+	args = args or {}
+	wait( args.PickupDelay or 1.2, "MoneyDropThread" )
+	if CurrentRun.Hero.HeroTraitValuesCache.BlockMoney[1] == nil then
+		AddResource( "Money", moneyDrop.Amount, moneyDrop.Source )
 	end
-	AddResource( "Money", moneyDrop.Amount, moneyDrop.Source )
 	CreateAnimation({ Name = moneyDrop.ConsumeFx, DestinationId = moneyDrop.ObjectId })
-	--[[if EncounterData[CurrentRun.CurrentRoom.Encounter.Name].TrackPlayerMoneyObjective then
-		UpdateObjectiveDescription( "PlayerMoney", "Objective_PlayerMoney", "PlayerMoney", GameState.Resources.Money - CurrentRun.CurrentRoom.Encounter.StartPlayerMoney )
-	end]]
+	Destroy({ Id = moneyDrop.ObjectId })
 end
 
-function ClearUpgrades()
-	CurrentRun.Hero.RecentTraits = {}
+function InstantUseMoneyDrops()
+	SetThreadWait( "MoneyDropThread", 0.01 )
+end
+
+function ClearUpgrades( args )
+	args = args or {}
+
 	CurrentRun.Hero.Traits = {}
 	CurrentRun.Hero.OnFireWeapons = {}
-	CurrentRun.Hero.OnDamageWeapons = {}
-	CurrentRun.Hero.OnKillWeapons = {}
 	CurrentRun.Hero.LastStands = {}
-	CurrentRun.Hero.WeaponDataOverride = nil
+	CurrentRun.Hero.WeaponDataOverride = {}
 	CurrentRun.Hero.ManaRegenSources = {}
 	CurrentRun.SpellCharge = 0
 
 	if CurrentRun.Hero.OutgoingDamageModifiers ~= nil then
-		for i, modifier in pairs( CurrentRun.Hero.OutgoingDamageModifiers ) do
+		for i, modifier in ipairs( CurrentRun.Hero.OutgoingDamageModifiers ) do
 			if modifier.Name and MetaUpgradeData[modifier.Name] == nil then
 				CurrentRun.Hero.OutgoingDamageModifiers[i] = nil
 			end
 		end
+		CurrentRun.Hero.OutgoingDamageModifiers = CollapseTable( CurrentRun.Hero.OutgoingDamageModifiers )
 	end
 	if CurrentRun.Hero.OutgoingCritModifiers ~= nil then
-		for i, modifier in pairs( CurrentRun.Hero.OutgoingCritModifiers ) do
+		for i, modifier in ipairs( CurrentRun.Hero.OutgoingCritModifiers ) do
 			if modifier.Name and MetaUpgradeData[modifier.Name] == nil then
 				CurrentRun.Hero.OutgoingCritModifiers[i] = nil
 			end
 		end
+		CurrentRun.Hero.OutgoingCritModifiers = CollapseTable( CurrentRun.Hero.OutgoingCritModifiers )
 	end
 	for metaUpgradeName in pairs( CurrentRun.TemporaryMetaUpgrades ) do
 		GameState.MetaUpgradeState[metaUpgradeName].Equipped = nil
 	end
-
 	
 	for metaUpgradeName, metaUpgradeData in pairs( GameState.MetaUpgradeState ) do
 		if metaUpgradeData.Equipped and MetaUpgradeCardData[ metaUpgradeName ].TraitName and MetaUpgradeCardData[ metaUpgradeName ].ActiveWhileDead then
 			AddTraitToHero({ TraitName = MetaUpgradeCardData[ metaUpgradeName ].TraitName })
 		end
 	end
+
+	CurrentRun.Hero.PortraitOverrides = nil
+
+	if args.ClearChipmunk then
+		CurrentRun.Hero.SpeechParams.Chipmunk = nil
+		SetAudioEffectState({ Name = "Chipmunk", Value = 0 })
+	end
+
+	if args.KeepFamiliarTraits and GameState.EquippedFamiliar ~= nil then
+		local familiarData = FamiliarData[GameState.EquippedFamiliar]
+		if familiarData ~= nil then
+			for _, traitName in ipairs( familiarData.TraitNames ) do
+				AddTraitToHero({ TraitName = traitName })
+			end
+		end
+	end
 end
 
-function ProcessInterest( eventSource, args )
-	if not IsMetaUpgradeActive("InterestMetaUpgrade") then
-		return
-	end
-	args = args or {}
-	local waitDelay = args.StartDelay or 0 
-	local goldPerRoom = round( GetTotalHeroTraitValue("MoneyPerRoom") )
-	if HasHeroTraitValue( "BlockMoney" ) then
-		goldPerRoom = 0
-	end
-	if goldPerRoom > 0 then
-		waitDelay = waitDelay + 0.5
-	end
-	wait( waitDelay)
-	local interest = math.ceil( GetResourceAmount( "Money" ) )
-	AddResource( "Money", interest, "InterestMetaupgrade" )
-	thread( InCombatText, CurrentRun.Hero.ObjectId, "InterestGainedCombatText", 1.5 , {  LuaKey = "TempTextData", LuaValue = { Amount = interest }})
-end
-
-function OnMetaPointsAdded( name, amount, source, args )
-
-	args = args or {}
-	local healMultiplier = GetTotalHeroTraitValue("MetaPointHealMultiplier")
-	healMultiplier = healMultiplier * CalculateHealingMultiplier() * GetTotalHeroTraitValue("MaxHealthMultiplier", { IsMultiplier = true })
-	if healMultiplier > 0 and round( healMultiplier * amount ) > 0 then
-		thread( DelayedHeal, 0.5,  round( healMultiplier * amount ), "MetaPointHeal" )
-	end
-
+function SetupHeroForEnding()
+	CurrentRun.Hero.PreDeathTraits = CurrentRun.Hero.Traits
+	ClearUpgrades( { KeepFamiliarTraits = true, ClearChipmunk = true } )
+	CurrentRun.Hero.Health = CurrentRun.Hero.MaxHealth
 end
 
 function AddMaxHealth( healthGained, source, args )
@@ -2624,8 +2713,13 @@ function AddMaxHealth( healthGained, source, args )
 	AddTraitToHero({ TraitData = healthTraitData })
 	healthGained = round(healthGained * GetTotalHeroTraitValue("MaxHealthMultiplier", { IsMultiplier = true }))
 	if not( args.Silent ) then
+		if args.NoHealing then
+			MaxHealthIncreaseText({ MaxHealthGained = CurrentRun.Hero.MaxHealth - startingHealth , SpecialText = "EmptyMaxHealthIncrease" })
+		else
 		MaxHealthIncreaseText({ MaxHealthGained = CurrentRun.Hero.MaxHealth - startingHealth , SpecialText = "MaxHealthIncrease" })
+		thread( UpdateHealthUI, { FalloffDelay = 0.0 } )
 	end
+end
 end
 
 function AddMaxMana( manaGained, source, args )
@@ -2642,9 +2736,10 @@ function AddMaxMana( manaGained, source, args )
 
 	local manaTraitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName })
 	manaTraitData.PropertyChanges[1].ChangeValue = manaGained
+	manaTraitData.Source = args.Source
 	AddTraitToHero({ TraitData = manaTraitData })
 	if not( args.Silent ) then
-		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "MaxManaIncrease", Duration = 0.7, LuaKey = "TooltipData", ShadowScale = 0.7, OffsetY = -100,  LuaValue = { TooltipMana = manaGained }})
+		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "MaxManaIncrease", PreDelay = args.PreDelay or 0, Duration = 0.7, LuaKey = "TooltipData", ShadowScale = 0.7, OffsetY = -100, LuaValue = { TooltipMana = manaGained }})
 	end
 end
 
@@ -2667,22 +2762,13 @@ function AddArmor( armorGained, args )
 		traitData.CurrentArmor = traitData.CurrentArmor + armorGained
 		AddHealthBuffer( traitData.CurrentArmor, traitData.Name, { Silent = true } )	
 		thread(OnPlayerArmorGain, { Amount = armorGained,  Silent = args.Silent } )
-		thread( UpdateHealthUI )
-	end
-end
-
-function OnLockKeysAdded( name, amount, source, args )
-	args = args or {}
-	if amount > 0 then
-		if not CurrentRun.Hero.IsDead and CurrentRun.CurrentRoom ~= nil and CurrentRun.CurrentRoom.ChallengeSwitch ~= nil then
-			thread( UpdateLockedKeyPresentation, CurrentRun.CurrentRoom.ChallengeSwitch )
-		end
+		FrameState.RequestUpdateHealthUI = true
 	end
 end
 
 function StartEncounterEffects( encounter )
 	encounter = encounter or CurrentRun.CurrentRoom.Encounter
-	encounter.StartTime = _worldTime
+	encounter.StartTime = CurrentRun.GameplayTime
 	CurrentRun.Hero.HitShields = 0
 	SessionMapState.SpellUsed = nil
 	
@@ -2694,55 +2780,45 @@ function StartEncounterEffects( encounter )
 		ReenableFamiliar( MapState.FamiliarUnit )
 		RunEventsGeneric( MapState.FamiliarUnit.EncounterStartEvents, MapState.FamiliarUnit )
 	end
-	if not CurrentRun.CurrentRoom.BlockClearRewards then
-		notifyExistingWaiters("EncounterStart")
-		for i, traitData in pairs( CurrentRun.Hero.Traits) do
-			if traitData.PerfectClearDamageBonus or (traitData.AddOutgoingDamageModifiers and traitData.AddOutgoingDamageModifiers .UndamagedMultiplier ) then
-				PerfectClearTraitStartPresentation( traitData )
-			end
-			if traitData.FastClearDodgeBonus then
-				SetupDodgeBonus( encounter, traitData )
-			end
-			if traitData.EncounterStartWeapon then
-				FireWeaponFromUnit({ Weapon = traitData.EncounterStartWeapon, Id = CurrentRun.Hero.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
-			end
-			if traitData.EncounterStartEffect then
-				local dataProperties = MergeTables( EffectData[traitData.EncounterStartEffect.Name].EffectData, traitData.EncounterStartEffect.EffectData )
-				ApplyEffect({ DestinationId = CurrentRun.Hero.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = traitData.EncounterStartEffect.Name, DataProperties = dataProperties })
-			end
-			if traitData.Slot == "Spell" then
-				thread( SpellHintPresentation, GetWeaponData( CurrentRun.Hero, traitData.PreEquipWeapons[1]) )
-			end
-			if traitData.SetupFunction and traitData.SetupFunction.RepeatOnEncounterStart then
-				thread( CallFunctionName, traitData.SetupFunction.Name, CurrentRun.Hero, traitData.SetupFunction.Args )
-			end
-			if encounter.CanEncounterSkip and not encounter.SpawnsSkipped then
-				if IsTraitActive(traitData) and traitData.UniqueEncounterArgs and IsGameStateEligible( traitData, traitData.UniqueEncounterArgs.GameStateRequirements) then
-					thread( CallFunctionName, traitData.UniqueEncounterArgs.EncounterThreadedFunctions.FunctionName, encounter, traitData.UniqueEncounterArgs.EncounterThreadedFunctions.Args )
-				end
-			end
+	notifyExistingWaiters("EncounterStart")
+	for i, traitData in pairs( CurrentRun.Hero.Traits) do
+		if traitData.EncounterStartWeapon then
+			FireWeaponFromUnit({ Weapon = traitData.EncounterStartWeapon, Id = CurrentRun.Hero.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
+		end
+		if traitData.EncounterStartEffect then
+			local dataProperties = MergeTables( EffectData[traitData.EncounterStartEffect.Name].EffectData, traitData.EncounterStartEffect.EffectData )
+			ApplyEffect({ DestinationId = CurrentRun.Hero.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = traitData.EncounterStartEffect.Name, DataProperties = dataProperties })
+		end
+		if traitData.Slot == "Spell" then
+			thread( SpellHintPresentation, GetWeaponData( CurrentRun.Hero, traitData.PreEquipWeapons[1]) )
+		end
+		if traitData.OnEncounterStartFunction then
+			thread( CallFunctionName, traitData.OnEncounterStartFunction.Name, CurrentRun.Hero, traitData.OnEncounterStartFunction.Args )
+		end
+		if traitData.SetupFunction and traitData.SetupFunction.RepeatOnEncounterStart then
+			thread( CallFunctionName, traitData.SetupFunction.Name, CurrentRun.Hero, traitData.SetupFunction.Args )
+		end
+		if IsTraitActive(traitData) and traitData.UniqueEncounterArgs and IsGameStateEligible( traitData, traitData.UniqueEncounterArgs.GameStateRequirements) then
+			thread( CallFunctionName, traitData.UniqueEncounterArgs.EncounterThreadedFunctions.FunctionName, encounter, traitData.UniqueEncounterArgs.EncounterThreadedFunctions.Args )
+		end
+			
 
-			if encounter.EncounterType == "Boss"  then
-				if traitData.BossSpeedTriggerEffect then
-					thread(CheckSpeedKeepsakeTrigger, unit, traitData.BossSpeedTriggerEffect )
-				end
-
-				if traitData.BossEncounterShieldHits then
-					MapState.BossShieldTriggers = traitData.BossEncounterShieldHits
-					MapState.BossShieldFx = traitData.BossShieldFx
-					if MapState.BossShieldFx then
-						CreateAnimation({ Name = traitData.BossShieldFx, DestinationId = CurrentRun.Hero.ObjectId })
-					end
+		if encounter.EncounterType == "Boss" and not encounter.SkipBossTraits then
+			if traitData.BossEncounterShieldHits then
+				MapState.BossShieldTriggers = traitData.BossEncounterShieldHits
+				MapState.BossShieldFx = traitData.BossShieldFx
+				if MapState.BossShieldFx then
+					CreateAnimation({ Name = traitData.BossShieldFx, DestinationId = CurrentRun.Hero.ObjectId })
 				end
 			end
 		end
 	end
 
-	for i, traitData in pairs(CurrentRun.Hero.Traits) do
-		if traitData.EncounterPreDamage and IsTraitActive(traitData) then
+	for i, traitData in ipairs( CurrentRun.Hero.Traits ) do
+		if not encounter.SkipBossTraits and traitData.EncounterPreDamage and IsTraitActive(traitData) then
 			local validEnemy = false
 			local damageData = traitData.EncounterPreDamage
-			if damageData.EnemyType == "Boss" then
+			if damageData.EnemyType == "Boss" or Contains(damageData.ValidRooms, CurrentRun.CurrentRoom.Name) then
 				for unitId, unit in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 					if  unit.IsBoss then
 						thread( PreDamageBoss, unit, unit.MaxHealth * damageData.PreDamage, damageData )
@@ -2771,10 +2847,19 @@ function EndEncounterEffects( currentRun, currentRoom, currentEncounter )
 	if SessionMapState.LaserSpellDown then
 		LaserHoldClear()
 	end
-	CurrentRun.Hero.HeroTraitValuesCache = {}
+	UpdateHeroTraitDictionary()
 	if currentRoom.DestroyAssistUnitOnEncounterEndId and not currentEncounter.SkipCleanupRaiseDead then
 		thread( CleanupRaiseDeadEncounter, currentRoom )
 	end
+	
+	if SessionMapState.ManaUrnIds ~= nil then
+		for id in pairs( SessionMapState.ManaUrnIds ) do
+			if ActiveEnemies[id] then
+				thread( Kill, ActiveEnemies[id], { SkipOnDeathFunction = true } )
+			end
+		end
+	end
+
 	if currentEncounter == currentRoom.Encounter or currentEncounter == currentRoom.ChallengeEncounter or currentEncounter == MapState.EncounterOverride then
 		ClearEffect({ Id = currentRun.Hero.ObjectId, Name = "KillDamageBonus"})
 		MapState.ExCastCount = 0
@@ -2796,9 +2881,10 @@ function EndEncounterEffects( currentRun, currentRoom, currentEncounter )
 
 		for chapterName, chapterData in pairs( CodexData ) do
 			for entryName, entryData in pairs( chapterData.Entries ) do
-				CheckCodexUnlock( chapterName, entryName, { DeferShowUpdate = true } )
+				CheckCodexUnlock( chapterName, entryName, { DeferShowUpdate = true, SkipEntriesUnlockedCacheUpdate = true } )
 			end
 		end
+		GameState.CodexEntriesUnlockedCache = CalcNumCodexEntriesUnlocked()
 
 		if MapState.PendingCodexUpdate then
 			MapState.PendingCodexUpdate = false
@@ -2814,28 +2900,14 @@ function EndEncounterEffects( currentRun, currentRoom, currentEncounter )
 
 	if currentEncounter == currentRoom.Encounter or currentEncounter == MapState.EncounterOverride then
 		local heroHealth = CurrentRun.Hero.Health
-		local encounterHealAmount = GetTotalHeroTraitValue("CombatEncounterAbsoluteHeal")
-
-		if HasHeroTraitValue("EncounterHealMultiplier") and currentEncounter.TotalDamageTaken then
-			encounterHealAmount = encounterHealAmount + round(currentEncounter.TotalDamageTaken * GetTotalHeroTraitValue("EncounterHealMultiplier"))
-		end
-		local healthFloor = round( CurrentRun.Hero.MaxHealth * GetTotalHeroTraitValue("CombatEncounterHealthPercentFloor") )
-		if (heroHealth + encounterHealAmount) < healthFloor then
-			encounterHealAmount = healthFloor - heroHealth
-		end
-		Heal( CurrentRun.Hero, { HealAmount = encounterHealAmount, Name = "EncounterHeal" } )
-
 		local traitsToRemove = {}
-		for k, trait in pairs( currentRun.Hero.Traits ) do
+		for k, trait in ipairs( CurrentRun.Hero.Traits ) do
 			if trait.EncounterEndFunctionName ~= nil then
-				CallFunctionName( trait.EncounterEndFunctionName, trait, trait.EncounterEndFunctionArgs )
+				thread( CallFunctionName, trait.EncounterEndFunctionName, trait, trait.EncounterEndFunctionArgs )
 			end
-			if currentRun.CurrentRoom.Encounter.EncounterType == "Boss"  then
-				if trait.BossConvertArmor and IsTraitActive( trait ) then
-					ConvertArmorToHealth( trait )
-				end
+			if currentRun.CurrentRoom.Encounter.EncounterType == "Boss" and not currentRun.CurrentRoom.Encounter.SkipBossTraits then
 				if trait.BossEncounterShieldHits and trait.BossShieldFx then
-					StopAnimation({ Name = trait.BossShieldFx, DestinationId = CurrentRun.Hero })
+					StopAnimation({ Name = trait.BossShieldFx, DestinationId = CurrentRun.Hero, IncludeCreatedAnimations = true })
 					UpdateTraitNumber( trait )
 				end
 				if trait.UsesAsBosses then
@@ -2857,13 +2929,13 @@ function EndEncounterEffects( currentRun, currentRoom, currentEncounter )
 						trait.PropertyChanges[1].ChangeValue = 1
 					end
 					ValidateMaxHealth()
-					thread(UpdateHealthUI)
+					FrameState.RequestUpdateHealthUI = true
 					if not currentEncounter or not currentEncounter.BlockPostBossKeepsakeExpiration then
 						thread( LowHealthCritKeepsakeExpiredPresentation, trait )
 					end
 				end
 			end
-			if trait.RemainingUses ~= nil and trait.UsesAsEncounters and (not trait.UsesRequireSpawnMultiplier or ( trait.UsesRequireSpawnMultiplier and not currentEncounter.BlockSpawnMultipliers )) then
+			if not currentRoom.IgnoreEncounterUses and trait.RemainingUses ~= nil and trait.UsesAsEncounters and (not trait.UsesRequireSpawnMultiplier or ( trait.UsesRequireSpawnMultiplier and not currentEncounter.BlockSpawnMultipliers )) then
 				if trait.HoldRemainingRooms ~= nil and trait.HoldRemainingRooms > 0 then
 					trait.HoldRemainingRooms = trait.HoldRemainingRooms - 1
 				else
@@ -2875,15 +2947,8 @@ function EndEncounterEffects( currentRun, currentRoom, currentEncounter )
 				TraitUIUpdateText( trait )
 			end
 		end
-		if not currentRoom.BlockClearRewards then
-			for k, traitData in pairs(currentRun.Hero.Traits) do
-				if not currentEncounter.PlayerTookDamage and traitData.PerfectClearDamageBonus then
-					traitData.AccumulatedDamageBonus = traitData.AccumulatedDamageBonus + (traitData.PerfectClearDamageBonus - 1)
-					PerfectClearTraitSuccessPresentation( traitData )
-					CurrentRun.CurrentRoom.PerfectEncounterCleared = true
-					CheckAchievement( { Name = "AchBuffedButterfly", CurrentValue = traitData.AccumulatedDamageBonus } )
-				end
-				
+		if not currentRoom.SkipRoomsPerUpgrade then
+			for k, traitData in ipairs( CurrentRun.Hero.Traits ) do
 				if traitData.CurrentKeepsakeDamageBonus and traitData.CurrentKeepsakeDamageBonus > 1 then
 					traitData.CurrentKeepsakeDamageBonus = traitData.CurrentKeepsakeDamageBonus - traitData.DecayRate
 					if traitData.CurrentKeepsakeDamageBonus <= 1 then
@@ -2893,22 +2958,11 @@ function EndEncounterEffects( currentRun, currentRoom, currentEncounter )
 						thread( DecayingBoostKeepsakeExpiredPresentation )
 					end
 				end
-
-				if traitData.FastClearThreshold then
-					local clearTimeThreshold = currentEncounter.FastClearThreshold or traitData.FastClearThreshold
-					if currentEncounter.ClearTime < clearTimeThreshold and traitData.FastClearDodgeBonus then
-						local lastDodgeBonus = traitData.AccumulatedDodgeBonus
-						SetLifeProperty({ Property = "DodgeChance", Value = -1 * lastDodgeBonus, ValueChangeType = "Add", DestinationId = CurrentRun.Hero.ObjectId, DataValue = false })
-						SetUnitProperty({ Property = "Speed", Value = 1/( 1 + lastDodgeBonus ), ValueChangeType = "Multiply", DestinationId = CurrentRun.Hero.ObjectId })
-						traitData.AccumulatedDodgeBonus = traitData.AccumulatedDodgeBonus + traitData.FastClearDodgeBonus
-						SetLifeProperty({ Property = "DodgeChance", Value = traitData.AccumulatedDodgeBonus, ValueChangeType = "Add", DestinationId = CurrentRun.Hero.ObjectId, DataValue = false })
-						SetUnitProperty({ Property = "Speed", Value = 1 + traitData.AccumulatedDodgeBonus, ValueChangeType = "Multiply", DestinationId = CurrentRun.Hero.ObjectId })
-						thread( FastClearTraitSuccessPresentation, traitData )
-						CheckAchievement( { Name = "AchBuffedPlume", CurrentValue = traitData.AccumulatedDodgeBonus } )
-					end
-				end
 				if traitData.EscalatingKeepsakeValue then
 					traitData.EscalatingKeepsakeValue = traitData.EscalatingKeepsakeValue + traitData.EscalatingKeepsakeGrowthPerRoom
+				end
+				if traitData.EscalatingCostumeValue then
+					traitData.EscalatingCostumeValue = traitData.EscalatingCostumeValue + traitData.EscalatingCostumeValueGrowthPerRoom
 				end
 			end
 		end
@@ -2917,7 +2971,9 @@ function EndEncounterEffects( currentRun, currentRoom, currentEncounter )
 			RemoveTraitData( currentRun.Hero, trait )
 		end
 		AdvanceKeepsake()
-		CheckChamberTraits()
+		if not currentRoom.SkipRoomsPerUpgrade then
+			CheckChamberTraits()
+		end
 		EncounterEndPresentation()
 		
 		if MapState.TransformArgs then
@@ -2929,6 +2985,28 @@ function EndEncounterEffects( currentRun, currentRoom, currentEncounter )
 	end
 end
 
+function IsEncounterActiveCombat( encounter, args )
+	local encounterData = EncounterData[encounter.Name] or encounter
+	local ignoreDelayedStart = false
+	if args.CheckBlockCodexBeforeStart then
+		ignoreDelayedStart = encounterData.BlockCodexBeforeStart
+	end
+
+	if encounter.EncounterType == "NonCombat" then
+		return false
+	end
+	if not encounter.InProgress then
+		return false
+	end
+	if encounter.DelayedStart and not encounter.StartTime and not ignoreDelayedStart then
+		return false
+	end
+	if encounter.Completed then
+		return false
+	end
+	return true
+end
+
 function IsCombatEncounterActive( currentRun, args  )
 	args = args or {}
 	if currentRun.CurrentRoom == nil then
@@ -2937,47 +3015,35 @@ function IsCombatEncounterActive( currentRun, args  )
 	if currentRun.CurrentRoom.AlwaysInCombat then
 		return true
 	end
-	if not IsEmpty(MapState.OfferedExitDoors) then
-		for i, door in pairs(MapState.OfferedExitDoors) do
-			if door.EncounterCostStarted and door.EncounterCost then
-				return true
+	if currentRun.Hero.IsDead then
+		return false
+	end
+
+	if HasTimerBlock( currentRun ) then
+		local hasExcludedTimer = false
+		for _, name in pairs( TimerBlockCombatExcludes ) do
+			if currentRun.BlockTimerFlags[ name ] then
+				hasExcludedTimer = true
 			end
+		end
+		if not hasExcludedTimer then
+			return false
 		end
 	end
 
-	if not currentRun.Hero.IsDead then
-		if HasTimerBlock( currentRun ) then
-			local hasExcludedTimer = false
-			for _, name in pairs( TimerBlockCombatExcludes ) do
-				if currentRun.BlockTimerFlags[ name ] then
-					hasExcludedTimer = true
-				end
-			end
-			if not hasExcludedTimer then
-				return false
-			end
-		end
-
-		if currentRun.CurrentRoom.StartedChallengeEncounter and not currentRun.CurrentRoom.ChallengeEncounter.Completed then
+	local mainEncounter = currentRun.CurrentRoom.Encounter
+	if mainEncounter ~= nil and not args.IgnoreMainEncounter then
+		if IsEncounterActiveCombat( mainEncounter, args ) then
 			return true
 		end
+	end
 
-		local encounter = currentRun.CurrentRoom.Encounter
-		if encounter ~= nil and not args.IgnoreMainEncounter then
-			if encounter.EncounterType == "NonCombat" then
-				return false
-			end
-			if not encounter.InProgress then
-				return false
-			end
-			if encounter.DelayedStart and not encounter.StartTime then
-				return false
-			end
-			if not encounter.Completed then
-				return true
-			end
+	for i, encounter in ipairs( currentRun.CurrentRoom.ActiveEncounters ) do
+		if encounter ~= mainEncounter and IsEncounterActiveCombat( encounter, args ) then
+			return true
 		end
 	end
+
 	return false
 end
 
@@ -2998,19 +3064,21 @@ function CheckRoomExitsReady( currentRoom )
 		return false
 	end
 
-	if IsScreenOpen( "BoonMenu" ) then
-		DebugPrint({ Text = "Exit Blocked By: Boon Menu" })
-		return false
+	for screenName, screen in pairs( ActiveScreens ) do
+		if screen.BlockExitsReady then
+			DebugPrint({ Text = "Exit Blocked By: "..screen.Name })
+			return false
+		end
 	end
 
-	for k, encounter in pairs(currentRoom.ActiveEncounters) do
+	for k, encounter in ipairs( currentRoom.ActiveEncounters ) do
 		if not encounter.ExitsDontRequireCompleted and not encounter.Completed then
 			DebugPrint({ Text = "Exit Blocked By: "..encounter.Name.." Not Completed" })
 			return false
 		end
 	end
 
-	if currentRoom.MultipleEncountersData ~= nil and TableLength(currentRoom.MultipleEncountersData) > 1 and not currentRoom.AllEncountersCompleted == true then
+	if currentRoom.MultipleEncountersData ~= nil and TableLength( currentRoom.MultipleEncountersData ) > 1 and not currentRoom.AllEncountersCompleted then
 		DebugPrint({ Text = "Exit Blocked By: MultipleEncounters Not Completed" })
 		return false
 	end
@@ -3151,6 +3219,10 @@ function SetupUnit( unit, currentRun, args )
 	if unit.GrannyTexture ~= nil then
 		SetThingProperty({ Property = "GrannyTexture", Value = unit.GrannyTexture, DestinationId = unit.ObjectId })
 	end
+
+	if unit.GrannyAttachmentTexture ~= nil then
+		SetThingProperty({ Property = "GrannyTexture", AttachmentMeshName = unit.GrannyAttachmentTexture.MeshName, Value = unit.GrannyAttachmentTexture.GrannyTexture, DestinationId = unit.ObjectId })
+	end
 		
 	unit.ExpireProjectileIdsOnHitStun = {}
 	unit.ExpireProjectileIdsOnFreeze = {}
@@ -3161,6 +3233,9 @@ function SetupUnit( unit, currentRun, args )
 	unit.DamageRadiusIdsByHealthPercent = {}
 	unit.ActiveInputBlocks = {}
 	unit.ActiveEffects = {}
+	unit.ActiveEffectsAtDamageStart = {}
+	unit.QueuedDamageMultipliers = {}
+	unit.CreatedDisplayAnchors = {}
 	unit.IncomingDamageModifiers = unit.IncomingDamageModifiers or {}
 
 	GameState.SpawnRecord[unit.Name] = (GameState.SpawnRecord[unit.Name] or 0) + 1
@@ -3186,6 +3261,10 @@ function SetupUnit( unit, currentRun, args )
 		end
 	end
 
+	if unit.SpawnAngle ~= nil then
+		SetAngle({ Id = unit.ObjectId, Angle = unit.SpawnAngle })
+	end
+
 	if unit.SpawnAngleMin ~= nil and unit.SpawnAngleMax ~= nil then
 		SetGoalAngle({ Id = unit.ObjectId, Angle = RandomFloat(unit.SpawnAngleMin, unit.SpawnAngleMax) })
 	end
@@ -3197,6 +3276,28 @@ function SetupUnit( unit, currentRun, args )
 	if unit.BlockPolymorph then
 		AddEffectBlock({ Id = unit.ObjectId, Name = "PolymorphTag"})
 	end
+
+	unit.HitShields = 0
+	unit.SpeedMultiplier = 1
+	if unit.UseShrineUpgrades and not args.IgnoreShrineUpgrades then
+		if not unit.IgnoreShieldShrine then
+			unit.HitShields = GetNumShrineUpgrades( "EnemyShieldShrineUpgrade" )
+		end
+		if not unit.IgnoreSpeedShrine then
+			local speedMultiplier = (MetaUpgradeData.EnemySpeedShrineUpgrade.ChangeValue - 1.0) + (unit.EliteAdditionalSpeedMultiplier or 0)
+			--DebugPrint({ Text = "speedMultiplier = "..speedMultiplier })
+			if speedMultiplier > 0.0 then		
+				unit.SpeedMultiplier = unit.SpeedMultiplier + speedMultiplier
+				--DebugPrint({ Text = "unit.SpeedMultiplier = "..unit.SpeedMultiplier })
+				if unit.AIThreadName then
+					SetElapsedTimeMultiplier( (unit.SpeedMultiplier + speedMultiplier) / unit.SpeedMultiplier, unit.AIThreadName )
+				end
+			end
+		end
+	end
+	--DebugPrint({ Text = "unit.SpeedMultiplier = "..tostring(unit.SpeedMultiplier) })
+	SetThingProperty({ Property = "ElapsedTimeMultiplier", Value = unit.SpeedMultiplier, ValueChangeType = "Multiply", DataValue = false, DestinationId = unit.ObjectId })
+
 	if not args.Silent then
 		if unit.ActivatePresentationFunctionName ~= nil then
 			CallFunctionName( unit.ActivatePresentationFunctionName, unit, args )
@@ -3293,34 +3394,13 @@ function SetupUnit( unit, currentRun, args )
 	if unit.HealthBuffer ~= nil and unit.HealthBuffer > 0 then
 		local healthBufferMultiplier = unit.HealthBufferMultiplier or 1
 		unit.HealthBuffer = unit.HealthBuffer * healthMultiplier * healthBufferMultiplier
+		local healthBufferBonus = unit.HealthBufferBonus or 0
+		unit.HealthBuffer = unit.HealthBuffer + healthBufferBonus
 		DoEnemyHealthBuffered( unit )
 	end
 
 	if unit.Phases ~= nil then
 		unit.CurrentPhase = 1
-	end
-	unit.HitShields = 0
-	unit.SpeedMultiplier = 1
-	if unit.UseShrineUpgrades and not unit.IgnoreSpeedShrine then
-		unit.HitShields = GetNumShrineUpgrades( "EnemyShieldShrineUpgrade" )
-		local speedMultiplier = (MetaUpgradeData.EnemySpeedShrineUpgrade.ChangeValue - 1.0) + (unit.EliteAdditionalSpeedMultiplier or 0)
-		--DebugPrint({ Text = "speedMultiplier = "..speedMultiplier })
-		if speedMultiplier > 0.0 then		
-			unit.SpeedMultiplier = unit.SpeedMultiplier + speedMultiplier
-			--DebugPrint({ Text = "unit.SpeedMultiplier = "..unit.SpeedMultiplier })
-			if unit.AIThreadName then
-				SetElapsedTimeMultiplier( (unit.SpeedMultiplier + speedMultiplier) / unit.SpeedMultiplier, unit.AIThreadName)
-			end
-		end
-	end
-	SetThingProperty({ Property = "ElapsedTimeMultiplier", Value = unit.SpeedMultiplier, ValueChangeType = "Multiply", DataValue = false, DestinationId = unit.ObjectId })
-
-	if unit.SpeedMin ~= nil and unit.SpeedMax ~= nil then
-		DebugAssert({ Condition = false, Text = "Using deprecated property", Owner = "Gavin" })
-	end
-
-	if unit.ScaleMin and unit.ScaleMax then
-		DebugAssert({ Condition = false, Text = "Using deprecated property", Owner = "Gavin" })
 	end
 
 	if unit.Color ~= nil then
@@ -3364,10 +3444,6 @@ function SetupUnit( unit, currentRun, args )
 		end
 	end
 
-	if unit.RandomFlipHorizontal and CoinFlip() then
-		DebugAssert({ Condition = false, Text = "Using deprecated property" })
-	end
-
 	if not args.SkipPresentation then
 		thread( PlayVoiceLines, args.OnSpawnVoiceLines or unit.OnSpawnVoiceLines, nil, unit )
 	end
@@ -3379,13 +3455,17 @@ function SetupUnit( unit, currentRun, args )
 				LoadVoiceBanks( unit.FieldSpeakerName, nil, args.IgnoreAssert )
 			end
 		end
-		if unit.PackageName ~= nil then
-			LoadPackages({ Name = unit.PackageName })
+		if unit.LoadPackages ~= nil then
+			LoadPackages({ Names = unit.LoadPackages, IgnoreAssert = args.IgnoreAssert })
 		end
 	end
 
 	if not unit.SkipAISetupOnActivate and not args.SkipAISetup then
 		SetupAI( unit )
+	end
+
+	if unit.SetupGroupAI and unit.UnitGroupData ~= nil then
+		thread(CallFunctionName, unit.UnitGroupData.GroupAI, unit)
 	end
 
 	if unit.SpawnEvents ~= nil then
@@ -3395,7 +3475,7 @@ function SetupUnit( unit, currentRun, args )
 	if CurrentRun.CurrentRoom ~= nil and CurrentRun.CurrentRoom.Encounter ~= nil then
 		local encounterData = EncounterData[CurrentRun.CurrentRoom.Encounter.Name] or CurrentRun.CurrentRoom.Encounter
 		if encounterData.OnSpawnFunctionName ~= nil then
-			CallFunctionName( encounterData.OnSpawnFunctionName, unit )
+			CallFunctionName( encounterData.OnSpawnFunctionName, unit, CurrentRun.CurrentRoom.Encounter )
 		end
 	end
 
@@ -3404,26 +3484,17 @@ function SetupUnit( unit, currentRun, args )
 	if unit.IgnoreTimeSlowEffects then
 		AddEffectBlock({ Id = unit.ObjectId, Name = "LegacyChillEffect" })	
 	end
+	if unit.EffectBlocks then
+		for _, effectName in ipairs( unit.EffectBlocks ) do
+			AddEffectBlock({ Id = unit.ObjectId, Name = effectName })
+		end
+	end
 end
 
 function ApplyEnemyModifiers(unit, currentRun, args )
-
-	for k, enemyUpgradeName in pairs( CurrentRun.EnemyUpgrades ) do
-		local upgradeData = EnemyUpgradeData[enemyUpgradeName]
-		if upgradeData.AddDumbFireWeapons then
-			EquipDumbFireWeapons( unit, upgradeData )
-		end
-		ApplyUnitPropertyChanges( unit, upgradeData.PropertyChanges, true )
-	end
-
 	-- for enemy on spawn traits
-	for i, traitData in pairs( GetHeroTraitValues("AddOnEnemySpawnWeapon")) do
-		if traitData.AffectChance == nil or RandomChance(traitData.AffectChance) then
-			FireWeaponFromUnit({ Weapon = traitData.Weapon, Id = currentRun.Hero.ObjectId, DestinationId = unit.ObjectId, AutoEquip = true })
-		end
-	end
 	for i, traitData in pairs( GetHeroTraitValues("OnEnemySpawnFunction")) do
-		if traitData.Chance == nil or RandomChance(traitData.Chance) then
+		if traitData.Chance == nil or RandomChance(traitData.Chance * GetTotalHeroTraitValue( "LuckMultiplier", { IsMultiplier = true })) then
 			thread(CallFunctionName, traitData.FunctionName, unit, traitData.Args)
 		end
 	end
@@ -3445,14 +3516,14 @@ function SetupAI( enemy, args )
 		SessionMapState.EnemySpawnDelays[wakeThreadName] = nil
 	end
 
-	if enemy.SupportUnitName ~= nil then
-		SpawnSupportAI( enemy, CurrentRun )
-	end
-
 	if enemy.AIStages ~= nil then
 		enemy.AIThreadName = "AIThread_"..enemy.Name.."_"..enemy.ObjectId
 		thread( StagedAI, enemy )
 		return
+	end
+
+	if enemy.PreAISetupFunctionName ~= nil then
+		CallFunctionName(enemy.PreAISetupFunctionName, enemy)
 	end
 
 	local aiBehaviorName = GetRandomValue( enemy.AIOptions )
@@ -3472,13 +3543,8 @@ end
 function ActivateDumbFireWeapons( currentRun, enemy )
 
 	if enemy.DumbFireWeapons ~= nil then
-		for k, weaponData in pairs( enemy.DumbFireWeapons ) do
-			if weaponData.Name == nil then
-				weaponData = WeaponData[weaponData]
-				thread( DumbFireAttack, enemy, weaponData )
-			else
-				thread( DumbFireAttack, enemy, weaponData )
-			end
+		for k, weaponName in pairs( enemy.DumbFireWeapons ) do
+			thread( DumbFireAttack, enemy, weaponName )
 		end
 	end
 end
@@ -3504,7 +3570,17 @@ function CheckAvailableTextLines( source, args )
 	source.NextInteractLines = GetRandomEligibleTextLines( source, source.InteractTextLineSets, GetNarrativeDataValue( source, source.InteractTextLinePriorities or "InteractTextLinePriorities" ), args )
 	if source.NextInteractLines ~= nil then
 		if source.NextInteractLines.Partner ~= nil then
-			CheckPartnerConversations( source )
+			local partnerUnit = CheckPartnerConversations( source )
+			if partnerUnit ~= nil then
+				-- Fill in the stub except for the lines themselves
+				if source.NextInteractLines.CopyDataFromPartner then
+					for i, key in ipairs( PartnerConversationDataShare ) do
+						if source.NextInteractLines[key] == nil then
+							source.NextInteractLines[key] = partnerUnit.NextInteractLines[key]
+						end
+					end
+				end
+			end
 		end
 		SetNextInteractLines( source, source.NextInteractLines )
 	end
@@ -3540,7 +3616,9 @@ function SetNextInteractLines( source, textLines )
 	end
 
 	if textLines.TeleportToId ~= nil then
-		DebugAssert({ Condition = IdExists({ Id = textLines.TeleportToId }), Text = source.Name.." is being teleported to a non-existent id: "..textLines.TeleportToId, Owner = "Greg" })
+		if CurrentHubRoom == nil or CurrentHubRoom.Name == GameData.HubMapName then
+			DebugAssert({ Condition = IdExists({ Id = textLines.TeleportToId }), Text = source.Name.." is being teleported to a non-existent id: "..textLines.TeleportToId, Owner = "Greg" })
+		end
 		Teleport({ Id = textLines.TeleportId or source.ObjectId, DestinationId = textLines.TeleportToId, OffsetX = textLines.TeleportOffsetX, OffsetY = textLines.TeleportOffsetY, OnlyIfDestinationExits = true, })
 		source.ActiveNarrativeTeleportId = textLines.TeleportToId
 	end
@@ -3608,8 +3686,8 @@ function CheckConversations( source, args )
 		end
 	end
 	for id, unit in ipairs( sortedUnits ) do
-		CheckAvailableTextLines( unit )
-		SetAvailableUseText( unit )
+		CheckAvailableTextLines( unit, args )
+		SetAvailableUseText( unit, args )
 		
 	end
 	for id, unit in ipairs( sortedUnits ) do
@@ -3625,15 +3703,16 @@ end
 
 function CalcTotalSpawns( currentRun, currentRoom, currentEncounter, spawnInfo )
 
+	if spawnInfo.RequiredMiniBossShrine ~= nil and ( GetNumShrineUpgrades( "MinibossCountShrineUpgrade" ) <= 0 ) == spawnInfo.RequiredMiniBossShrine then
+		spawnInfo.InfiniteSpawns = false
+		return 0
+	end
+
 	if spawnInfo.InfiniteSpawns then
 		return 1
 	end
 
 	if spawnInfo.TotalCount == nil and (spawnInfo.CountMin == nil or spawnInfo.CountMax == nil) then
-		return 0
-	end
-
-	if spawnInfo.RequiredMiniBossShrine ~= nil and ( GetNumShrineUpgrades( "MinibossCountShrineUpgrade" ) <= 0 ) == spawnInfo.RequiredMiniBossShrine then
 		return 0
 	end
 
@@ -3664,13 +3743,16 @@ function UnlockRoomExits( run, room, delay )
 	room.ExitsUnlocked = true
 
 	thread( CheckQuestStatus )
-	thread( CheckProgressAchievements )
 
-	if CheckBounties( room ) then
+	if CheckPackagedBountyCompletion() then
 		return
 	end
 
-	CheckUnusedWeaponBonusTrait()
+	for i, trait in ipairs( CurrentRun.Hero.Traits ) do
+		if trait.PreExitsUnlockedFunctionName ~= nil then
+			CallFunctionName( trait.PreExitsUnlockedFunctionName, trait, trait.PreExitsUnlockedFunctionArgs )
+		end
+	end
 
 	if IsEmpty( MapState.OfferedExitDoors ) then
 		return
@@ -3682,7 +3764,14 @@ function UnlockRoomExits( run, room, delay )
 		encounterData = EncounterData[room.Encounter.Name] or room.Encounter
 	end
 
-	wait( delay or roomData.UnlockExitsWait or 0.4 ) -- Must wait for post-reward presentation to complete
+	-- Must wait for post-reward presentation to complete
+	local defaultWait = 0.4
+	if GameState.ClearedRunsCache >= 1 then
+		defaultWait = 0.2
+	end
+	wait( delay or roomData.UnlockExitsWait or defaultWait )
+	InstantUseMoneyDrops()
+	wait( 0.03 )
 
 	local heroLocation = GetLocation({ Id = run.Hero.ObjectId })
 	RecordObjectState( room, run.Hero.ObjectId, "Location", heroLocation )
@@ -3720,14 +3809,14 @@ function ChooseNextRewardStore( run )
 
 	local rewardStoreName = nil
 	local targetMetaRewardsRatio = (run.TargetMetaRewardsRatio or run.CurrentRoom.TargetMetaRewardsRatio or run.Hero.TargetMetaRewardsRatio)
-	--DebugPrint({ Text = "targetMetaRewardsRatio = "..targetMetaRewardsRatio })
-	local metaProgressChance = targetMetaRewardsRatio 
-	local currentMetaProgressRatio = CalcMetaProgressRatio( run )
-	if currentMetaProgressRatio ~= nil then
-		metaProgressChance = metaProgressChance + (run.Hero.TargetMetaRewardsAdjustSpeed * (targetMetaRewardsRatio - currentMetaProgressRatio))
+	--DebugPrint({ Text = "TargetMetaRewardsRatio = "..TargetMetaRewardsRatio })
+	local minorRunProgressChance = targetMetaRewardsRatio 
+	local currentMetaRunProgressRatio = CalcMetaProgressRatio( run )
+	if currentMetaRunProgressRatio ~= nil then
+		minorRunProgressChance = minorRunProgressChance + (run.Hero.TargetMetaRewardsAdjustSpeed * (targetMetaRewardsRatio - currentMetaRunProgressRatio))
 	end
-	--DebugPrint({ Text = "metaProgressChance = "..metaProgressChance })
-	if RandomChance( metaProgressChance ) then
+	--DebugPrint({ Text = "minorRunProgressChance = "..minorRunProgressChance })
+	if RandomChance( minorRunProgressChance ) then
 		rewardStoreName = "MetaProgress"
 	else
 		rewardStoreName = "RunProgress"
@@ -3783,7 +3872,7 @@ function DoUnlockRoomExits( run, room )
 			else
 				roomForDoorData = ChooseNextRoomData( run, door.ChooseRoomArgs, exitDoorsIPairs )
 			end
-			local roomForDoor = CreateRoom( roomForDoorData, { SkipChooseReward = true, SkipChooseEncounter = true, })
+			local roomForDoor = CreateRoom( roomForDoorData, { SkipChooseReward = true, SkipChooseEncounter = true, RoomOverrides = room.NextRoomOverrides })
 			roomForDoor.NeedsReward = true
 			door.Room = roomForDoor
 		end
@@ -3796,19 +3885,6 @@ function DoUnlockRoomExits( run, room )
 			rewardStoreName = rewardStoreOverrides[index]
 		end
 		wait( 0.02 ) -- Distribute workload
-	end
-
-	if run.CurrentRoom.FirstAppearanceNumExitOverrides ~= nil and not HasSeenRoomEarlierInRun( run, run.CurrentRoom.Name ) then
-		local randomDoors = ShallowCopyTable( exitDoorsIPairs )
-		for i = 1, run.CurrentRoom.FirstAppearanceNumExitOverrides do
-			local randomDoor = RemoveRandomValue( randomDoors )
-			if randomDoor ~= nil and randomDoor.Room ~= nil then
-				randomDoor.Room.UseOptionalOverrides = true
-				for key, value in pairs( randomDoor.Room.OptionalOverrides ) do
-					randomDoor.Room[key] = value
-				end
-			end
-		end
 	end
 
 	--DebugAssert({ Condition = #exitDoorsIPairs == run.CurrentRoom.NumExits, Text = "NumExits data mismatched to actual exits for "..run.CurrentRoom.Name })
@@ -3893,6 +3969,23 @@ function DoUnlockRoomExits( run, room )
 		end
 	end
 
+	MapState.OfferedRewards = {}
+	for i, doorData in pairs( MapState.OfferedExitDoors ) do
+		if doorData and doorData.Room then
+			local room = doorData.Room
+			if room.CageRewards then
+				for _, cageReward in pairs(room.CageRewards) do
+					if cageReward.RewardType then
+						MapState.OfferedRewards[cageReward.RewardType] = true
+					end
+				end
+			end
+			if room.ChosenRewardType then
+				MapState.OfferedRewards[room.ChosenRewardType] = true
+			end
+		end
+	end
+
 	for id, obstacle in pairs( ShallowCopyTable( MapState.ActiveObstacles ) ) do
 		if obstacle.ExitsUnlockedFunctionName ~= nil then
 			thread( CallFunctionName, obstacle.ExitsUnlockedFunctionName, obstacle, obstacle.ExitsUnlockedFunctionArgs )
@@ -3927,7 +4020,7 @@ function DoUnlockRoomExits( run, room )
 		PlaySound({ Name = "/SFX/WellShopUnlocked", Id = CurrentRun.CurrentRoom.WellShop.ObjectId })
 	end
 
-	if CurrentRun.CurrentRoom.SellTraitShop ~= nil then
+	if CurrentRun.CurrentRoom.SellTraitShop ~= nil and not CurrentRun.CurrentRoom.SellTraitShop.BlockedByRequirements then
 		CurrentRun.CurrentRoom.SellTraitShop.ReadyToUse = true
 		CurrentRun.CurrentRoom.SellTraitShop.UseText = CurrentRun.CurrentRoom.SellTraitShop.AvailableUseText
 		RefreshUseButton( CurrentRun.CurrentRoom.SellTraitShop.ObjectId, CurrentRun.CurrentRoom.SellTraitShop )
@@ -3940,7 +4033,18 @@ function DoUnlockRoomExits( run, room )
 		CurrentRun.CurrentRoom.SurfaceShop.UseText = CurrentRun.CurrentRoom.SurfaceShop.AvailableUseText
 		RefreshUseButton( CurrentRun.CurrentRoom.SurfaceShop.ObjectId, CurrentRun.CurrentRoom.SurfaceShop )
 		SetAnimation({ Name = "SurfaceShopUnlocked", DestinationId = CurrentRun.CurrentRoom.SurfaceShop.ObjectId })
-		PlaySound({ Name = "/SFX/Menu Sounds/KeepsakeHermesFastClear", Id = CurrentRun.CurrentRoom.SurfaceShop.ObjectId })
+		PlaySound({ Name = "/SFX/Menu Sounds/KeepsakeHermesFastClear2", Id = CurrentRun.CurrentRoom.SurfaceShop.ObjectId })
+	end
+
+	if CurrentRun.CurrentRoom.MetaRewardStand ~= nil then
+		if GameState.SpentShrinePointsCache >= CurrentRun.CurrentRoom.MetaRewardStand.RequiredShrinePoints then
+			CurrentRun.CurrentRoom.MetaRewardStand.ReadyToUse = true
+			CurrentRun.CurrentRoom.MetaRewardStand.UseText = CurrentRun.CurrentRoom.MetaRewardStand.AvailableUseText
+			RefreshUseButton( CurrentRun.CurrentRoom.MetaRewardStand.ObjectId, CurrentRun.CurrentRoom.MetaRewardStand )
+			StopAnimation({ Name = "MetaRewardStandLockedFx", DestinationId = CurrentRun.CurrentRoom.MetaRewardStand.ObjectId })
+			SetAnimation({ Name = "MetaRewardStandUnlocked", DestinationId = CurrentRun.CurrentRoom.MetaRewardStand.ObjectId })
+			PlaySound({ Name = "/SFX/WellShopUnlocked", Id = CurrentRun.CurrentRoom.MetaRewardStand.ObjectId })
+		end
 	end
 
 	StartTriggers( CurrentRun.CurrentRoom, roomData.ExitsUnlockedDistanceTriggers )
@@ -3973,6 +4077,9 @@ function AssignRoomToExitDoor( door, room )
 		CurrentRun.CurrentRoom.OfferedRewards[door.ObjectId] = offeredReward
 	end
 	if room.ForceDoorAllowReroll then
+		door.AllowReroll = true
+	end
+	if RoomData[CurrentRun.CurrentRoom.Name].ForceCurrentRoomDoorsAllowReroll then
 		door.AllowReroll = true
 	end
 	if door.AllowReroll and not room.NoReroll and CheckSpecialDoorRequirement( door ) == nil and room.ChosenRewardType ~= "Shop" and HasHeroTraitValue( "AllowDoorReroll" ) then
@@ -4013,34 +4120,50 @@ function LeaveRoom( currentRun, door )
 	if CurrentRun.CurrentRoom.TempHealth then
 		Damage( CurrentRun.Hero, { SourceWeapon = "TempHealth", DamageAmount = CurrentRun.CurrentRoom.TempHealth, MinHealth = 1, PureDamage = true, Silent = true } )
 	end
+	for sourceName in pairs(MapState.TemporaryHealthBufferSources) do
+		if HeroHasTrait( sourceName ) then	
+			local trait = GetHeroTrait(sourceName)
+			trait.CurrentArmor = 0
+		end
+		RemoveHealthBufferSource(sourceName)
+	end
 	if MapState.FamiliarUnit ~= nil then
 		MapState.FamiliarUnit.DisableAIWhenReady = true
-		--CleanupEnemy( MapState.FamiliarUnit )
 	end
 
 	CurrentRun.NextHeroStartPoint = CurrentRun.CurrentRoom.NextHeroStartPoint or CurrentRun.NextHeroStartPoint
 	CurrentRun.NextHeroEndPoint = CurrentRun.CurrentRoom.NextHeroEndPoint or CurrentRun.NextHeroEndPoint
 
+	ClearHealthReserve()
 	ClearEffect({ Id = currentRun.Hero.ObjectId, All = true, BlockAll = true, })
 	StopCurrentStatusAnimation( currentRun.Hero )
 	currentRun.Hero.BlockStatusAnimations = true
 	AddTimerBlock( currentRun, "LeaveRoom" )
 	SetPlayerInvulnerable( "LeaveRoom" )
 	EndSpellTransform()
+	InstantUseMoneyDrops()
+	if GameState.WorldUpgrades.WorldUpgradeAutoHarvestOnExit then
+		AutoHarvestOnExit()
+	end
+	SetThreadWait( "GrantElementFromTool", 0.01 )
 
 	ClearGameplayElapsedTimeMultipliers()
 
 	local ammoIds = GetIdsByType({ Name = "LobAmmoPack" })
 	SetObstacleProperty({ Property = "Magnetism", Value = 3000, DestinationIds = ammoIds })
 	SetObstacleProperty({ Property = "MagnetismSpeedMax", Value = 2000, DestinationIds = ammoIds })
-	StopAnimation({ DestinationIds = ammoIds, Name = "AmmoReturnTimer" })
+	for i, ammoId in ipairs( ammoIds ) do
+		StopAnimation({ DestinationId = ammoId, Name = "AmmoReturnTimer" })
+	end
 
 	RunEventsGeneric( currentRun.CurrentRoom.LeaveEvents, currentRun.CurrentRoom )
 	if MapState.FamiliarUnit ~= nil then
 		RunEventsGeneric( MapState.FamiliarUnit.LeaveEvents, MapState.FamiliarUnit )
 	end
 
-	GamePhaseTick()
+	if not CurrentRun.RoomsEntered[nextRoom.Name] and not nextRoom.SkipGamePhaseTick then
+		GamePhaseTick()
+	end
 
 	ResetObjectives()
 
@@ -4060,7 +4183,6 @@ function LeaveRoom( currentRun, door )
 
 	LeaveRoomStartPresentation( door )
 
-	RemoveRallyHealth()
 	if nextRoom.TimesVisited == 0 then
 		if not nextRoom.BlockDoorHealFromPrevious then
 			local leaveRoomFunctionNames = {}
@@ -4072,15 +4194,17 @@ function LeaveRoom( currentRun, door )
 				thread( CallFunctionName, functionName, currentRun, door )
 			end
 		end
+	elseif HasHeroTraitValue("DoorHealReserve") then
+		thread( CallFunctionName, "CheckDoorHealTrait", currentRun, door, true )
 	end
 	local removedTraits = {}
-	for _, trait in pairs( currentRun.Hero.Traits ) do
+	for _, trait in ipairs( CurrentRun.Hero.Traits ) do
 		if trait.StatMultiplier then
 			if trait.BlockDecay then
 				trait.BlockDecay = false
 			else
+				trait.StatMultiplier = trait.StatMultiplier - trait.Decay
 				if trait.StatMultiplier > 0 then
-					trait.StatMultiplier = trait.StatMultiplier - trait.Decay
 					local maxHealth = trait.StatMultiplier * trait.StartMaxHealth
 					local maxMana = trait.StatMultiplier * trait.StartMaxMana
 					trait.PropertyChanges[1].ChangeValue = maxMana
@@ -4103,7 +4227,7 @@ function LeaveRoom( currentRun, door )
 		RemoveTraitData( currentRun.Hero, trait )
 	end
 	if nextRoom.PauseBiomeState then
-		EndAllBiomeStates()
+		RemoveAllBiomeStateTraits()
 	elseif currentRoomData.PauseBiomeState 
 		and not nextRoom.PauseBiomeState 
 		and CurrentRun.BiomeStateName 
@@ -4111,14 +4235,14 @@ function LeaveRoom( currentRun, door )
 		and BiomeStateData.BiomeStates[CurrentRun.BiomeStateName].TraitName 
 		and not HeroHasTrait(BiomeStateData.BiomeStates[CurrentRun.BiomeStateName].TraitName) then
 		
-		AddTraitToHero({TraitName = BiomeStateData.BiomeStates[CurrentRun.BiomeStateName].TraitName, SkipUIUpdate = true, SkipPriorityTray = true })	
+		AddTraitToHero( { TraitName = BiomeStateData.BiomeStates[CurrentRun.BiomeStateName].TraitName, SkipUIUpdate = true, SkipPriorityTray = true, SkipSetup = true } )	
 	end
 
 	local heroExitPointId = GetClosest({ Id = door.ObjectId, DestinationIds = GetIdsByType({ Name = "HeroExit" }) })
 	local angleToExit = GetAngleBetween({ Id = door.ObjectId, DestinationId = heroExitPointId })
 	if currentRoomData.IgnoreExitDirection then
 		-- Do nothing
-	elseif RoomData[currentRun.CurrentRoom.Name].CardinalEntranceDirection then
+	elseif currentRoomData.CardinalEntranceDirection then
 		if angleToExit > 0 and angleToExit < 90 then
 			currentRun.CurrentRoom.ExitDirection = "North"
 		elseif angleToExit > 90 and angleToExit < 180 then
@@ -4135,9 +4259,9 @@ function LeaveRoom( currentRun, door )
 			currentRun.CurrentRoom.ExitDirection = "Left"
 		end
 	end
-	
-	if CurrentRun.Hero.HealthBuffer then
-		CurrentRun.Hero.HealthBuffer = 0
+
+	if not IsEmpty( SessionMapState.TimedBuffStartTimes ) then
+		nextRoom.TimedBuffStartTimes = ShallowCopyTable(SessionMapState.TimedBuffStartTimes)
 	end
 
 	local exitFunctionName = currentRun.CurrentRoom.ExitFunctionName or door.Room.PrevRoomExitFunctionName or door.ExitFunctionName or "LeaveRoomPresentation"
@@ -4164,7 +4288,7 @@ function LeaveRoom( currentRun, door )
 
 	CallFunctionName( exitFunctionName, currentRun, door, exitFunctionArgs )
 	if currentRoomData.LeavePostPresentationEvents ~= nil then
-		RunEventsGeneric( currentRoomData.LeavePostPresentationEvents, currentRoom )
+		RunEventsGeneric( currentRoomData.LeavePostPresentationEvents, currentRun.CurrentRoom, { NextRoom = nextRoom } )
 	end
 
 	SetThingProperty({ Property = "Ambient", Value = 0.0, DestinationId = currentRun.Hero.ObjectId })
@@ -4231,6 +4355,8 @@ function LeaveRoom( currentRun, door )
 		ValidateCheckpoint({ Value = true })
 	end
 
+	UnloadPackages({ Names = PortraitPackages })
+
 	RemoveInputBlock({ Name = "MoveHeroToRoomPosition" })
 	RemoveInputBlock({ Name = "LastKill" })
 	AddInputBlock({ Name = "MapLoad" })
@@ -4239,7 +4365,7 @@ function LeaveRoom( currentRun, door )
 	door.InUse = false
 	nextRoom.TimesVisited = nextRoom.TimesVisited + 1
 
-	LoadMap({ Name = nextRoom.Name, ResetBinks = previousRoom.ResetBinksOnExit or currentRun.CurrentRoom.ResetBinksOnEnter, LoadBackgroundColor = currentRun.CurrentRoom.LoadBackgroundColor })
+	LoadMap({ Name = nextRoom.Name, ResetBinks = previousRoom.ResetBinksOnExit or currentRun.CurrentRoom.ResetBinksOnEnter, LoadBackgroundColor = door.LoadBackgroundColor or currentRun.CurrentRoom.LoadBackgroundColor })
 
 end
 
@@ -4413,21 +4539,19 @@ function CheckDistanceTrigger( trigger, triggerSource, id )
 		return
 	end
 
-	wait( trigger.PreEligibilityWait )
-
 	if not IsDistanceTriggerEligible( currentRun, trigger, trigger.GameStateRequirements ) then
 		return
 	end
 
 	wait( trigger.PreTriggerWait )
 
-	DebugAssert({ Condition = ( currentRun.Hero.ObjectId ~= nil ), Text = "Hero.ObjectId is nil when setting up distance trigger for "..tostring(triggerSource.Name), Owner = "Caleb" })
+	--DebugAssert({ Condition = ( currentRun.Hero.ObjectId ~= nil ), Text = "Hero.ObjectId is nil when setting up distance trigger for "..tostring(triggerSource.Name), Owner = "Caleb" })
 
-	if trigger.PreTriggerAnimation ~= nil and not GetConfigOptionValue({ Name = "EditingMode" }) then
+	if trigger.PreTriggerAnimation ~= nil and not ConfigOptionCache.EditingMode then
 		SetAnimation({ Name = trigger.PreTriggerAnimation, DestinationId = triggerSource.ObjectId })
 	end
 
-	if trigger.PreTriggerAlpha ~= nil and not GetConfigOptionValue({ Name = "EditingMode" })  then
+	if trigger.PreTriggerAlpha ~= nil and not ConfigOptionCache.EditingMode then
 		SetAlpha({ Id = triggerSource.ObjectId, Fraction = trigger.PreTriggerAlpha, Duration = trigger.PreTriggerAlphaDuration or 1 })
 	end
 
@@ -4507,9 +4631,6 @@ function CheckDistanceTrigger( trigger, triggerSource, id )
 		if trigger.StatusAnimation ~= nil then
 			PlayStatusAnimation( triggerSource, { Animation = trigger.StatusAnimation } )
 		end
-		if trigger.CheckTextLinesStatusAnimation and triggerSource.NextInteractLines ~= nil and triggerSource.NextInteractLines.StatusAnimation then
-			PlayStatusAnimation( triggerSource, { Animation = triggerSource.NextInteractLines.StatusAnimation } )
-		end
 
 		if trigger.Emote ~= nil then
 			PlayEmote( { TargetId = notifiedById, AnimationName = trigger.Emote, OffsetZ = triggerSource.EmoteOffsetZ } )
@@ -4581,7 +4702,7 @@ function IsDistanceTriggerEligible( currentRun, trigger, requirements )
 end
 
 function PanToTargetAndBack( targetId )
-	PanCamera({ Ids = { targetId, CurrentRun.Hero.ObjectId }, Duration = 1.5, EaseIn = 0.05, EaseOut = 0.3 })
+	PanCamera({ Ids = { targetId, CurrentRun.Hero.ObjectId }, Duration = 1.5, EaseIn = 0.03, EaseOut = 0.03 })
 	wait(3.0)
 	LockCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 1.25 })
 end
@@ -4636,7 +4757,7 @@ function PlayStatusAnimation( source, args )
 	if not source.StatusAnimUseOwnerGroup then
 		group = source.StatusAnimGroup or "Combat_UI_World"
 	end
-	CreateAnimation({ Name = animation, DestinationId = source.ObjectId, OffsetX = source.AnimOffsetX, OffsetZ = args.AnimOffsetZ or source.AnimOffsetZ, Group = group })
+	CreateAnimation({ Name = animation, DestinationId = source.ObjectId, OffsetX = source.AnimOffsetX, OffsetZ = args.AnimOffsetZ or source.AnimOffsetZ, Scale = args.Scale, Group = group })
 
 end
 
@@ -4648,10 +4769,6 @@ function StopCurrentStatusAnimation( source )
 end
 
 function StopStatusAnimation( source, animation )
-
-	if not ConfigOptionCache.ShowUIAnimations then
-		return false
-	end
 
 	if source == nil then
 		return false
@@ -4711,7 +4828,6 @@ function HandleSecretSpawns( currentRun )
 			local secretPointId = RemoveRandomValue( secretPointIds )
 			local secretDoor = DeepCopyTable( ObstacleData.SecretDoor )
 			secretDoor.ObjectId = SpawnObstacle({ Name = "SecretDoor", Group = "FX_Terrain", DestinationId = secretPointId, AttachedTable = secretDoor })
-			SetupObstacle( secretDoor )
 			secretDoor.HealthCost = currentRoom.SecretDoorHealthCost or GetSecretDoorCost()
 			if forcedSecretDoor then
 				secretDoor.HealthCost = 0	
@@ -4720,28 +4836,6 @@ function HandleSecretSpawns( currentRun )
 			local secretRoom = CreateRoom( secretRoomData )
 			AssignRoomToExitDoor( secretDoor, secretRoom )
 			--AddToGroup({ Id = secretDoor.ObjectId, Name = "ExitDoors" })
-		end
-	end
-	if not IsEmpty( secretPointIds ) and IsShrinePointDoorEligible( currentRun, currentRoom ) then
-		currentRoom.ForceShrinePointDoor = true
-		local shrinePointRoomOptions = currentRoom.ShrinePointRoomOptions or RoomSetData.Base.BaseRoom.ShrinePointRoomOptions
-		local shrinePointRoomName = GetRandomValue(shrinePointRoomOptions)
-		local shrinePointRoomData = RoomSetData.Base[shrinePointRoomName]
-		if shrinePointRoomData ~= nil then
-			local secretPointId = RemoveRandomValue( secretPointIds )
-			local shrinePointDoor = DeepCopyTable( ObstacleData.ShrinePointDoor )
-			shrinePointDoor.ObjectId = SpawnObstacle({ Name = "ShrinePointDoor", Group = "FX_Terrain", DestinationId = secretPointId, AttachedTable = shrinePointDoor })
-			SetupObstacle( shrinePointDoor )
-			shrinePointDoor.ShrinePointReq = currentRoom.ShrinePointDoorCost or ( shrinePointDoor.CostBase + ( shrinePointDoor.CostPerDepth * (currentRun.RunDepthCache - 1) ) )
-			local activeShrinePoints = GetTotalSpentShrinePoints()
-			local costFontColor = Color.CostAffordable
-			if shrinePointDoor.ShrinePointReq > activeShrinePoints then
-				costFontColor = Color.CostUnaffordable
-			end
-			local shrinePointRoom = CreateRoom( shrinePointRoomData, { SkipChooseReward = true } )
-			shrinePointRoom.NeedsReward = true
-			AssignRoomToExitDoor( shrinePointDoor, shrinePointRoom )
-			currentRun.LastShrinePointDoorDepth = GetRunDepth( currentRun )
 		end
 	end
 
@@ -4769,7 +4863,7 @@ function HandleSecretSpawns( currentRun )
 		currentRoom.SellTraitShop = DeepCopyTable( ObstacleData.SellTraitShop )
 		currentRoom.SellTraitShop.ObjectId = challengeBaseId
 		SetupObstacle( currentRoom.SellTraitShop )
-		SetAnimation({ DestinationId = currentRoom.SellTraitShop.ObjectId, Name = "SellTraitShopLocked" })
+		-- animation set in ObstacleData
 		UseableOn({ Id = currentRoom.SellTraitShop.ObjectId })
 		GenerateSellTraitShop( currentRoom )
 	end
@@ -4820,7 +4914,7 @@ function HandleSecretSpawns( currentRun )
 			end
 		end
 		-- Elite Switch
-		requirements = roomData.PerfectClearSwitchRequirements or RoomData.BaseRoom.PerfectClearSwitchRequirements
+		requirements = roomData.EliteSwitchRequirements or RoomData.BaseRoom.EliteSwitchRequirements
 		if IsGameStateEligible( currentRoom, requirements )  then
 			if currentRoom.ChallengeChanceSuccess or IsEliteChallengeForced(currentRoom)  then
 				UseHeroTraitsWithValue("ForceEliteSwitch", true)
@@ -4886,6 +4980,37 @@ function HandleSecretSpawns( currentRun )
 		end
 	end
 
+	-- Meta Reward Stands
+	if not IsEmpty( challengeBaseIds ) and IsMetaRewardStandEligible( currentRun, currentRoom ) then
+		currentRoom.ForceMetaRewardStand = true
+		local challengeBaseId = RemoveRandomValue( challengeBaseIds )
+		local metaRewardStand = DeepCopyTable( ObstacleData.MetaRewardStand )
+		metaRewardStand.ObjectId = challengeBaseId
+		SetupObstacle( metaRewardStand )
+		SetAnimation({ DestinationId = challengeBaseId, Name = "MetaRewardStandLocked" })
+		currentRoom.MetaRewardStand = metaRewardStand
+
+		local rewardData = GetRandomEligibleValueFromWeightedList( MetaRewardStandData.WeightedOptions )
+		local displayItemId = SpawnObstacle({ Name = "BlankObstacle", DestinationId = challengeBaseId, Group = "Standing" })
+		SetAnimation({ DestinationId = displayItemId, Name = rewardData.Animation })
+		CreateAnimation({ Name = "MetaRewardStandItemShadow", DestinationId = displayItemId })
+		SetScale({ Id = displayItemId, Fraction = metaRewardStand.RewardIconScale })
+		Attach({ Id = displayItemId, DestinationId = challengeBaseId, OffsetY = -30, OffsetZ = 100 })
+		SetThingProperty({ Property = "SortMode", Value = "FromParent", DestinationId = displayItemId })
+		UseableOn({ Id = metaRewardStand.ObjectId })
+		metaRewardStand.ResourceData = ResourceData[rewardData.Name]
+		metaRewardStand.RewardAmount = rewardData.Amount
+		metaRewardStand.DisplayItemId = displayItemId
+		if GameState.SpentShrinePointsCache < metaRewardStand.RequiredShrinePoints then
+			metaRewardStand.UseText = "UseMetaRewardStand_LockedByShrine"
+			metaRewardStand.CannotUseText = "MetaRewardStandBlockedByShrine"
+			metaRewardStand.ExitsUnlockedFunctionName = nil
+			metaRewardStand.ExitsUnlockedFunctionArgs = nil
+		end
+
+		currentRun.LastMetaRewardStandDepth = currentRun.RunDepthCache
+	end
+
 	SetupHarvestPoints( currentRoom )
 
 	-- Anomaly
@@ -4897,16 +5022,6 @@ end
 function HasAccessToTool( toolName )
 	if GameState.WeaponsUnlocked[toolName] then
 		return true
-	end
-	if HasFamiliarTool( toolName ) then
-		return true
-	end
-	return false
-end
-
-function OnlyFamiliarHasAccessToTool( toolName )
-	if GameState.WeaponsUnlocked[toolName] then
-		return false
 	end
 	if HasFamiliarTool( toolName ) then
 		return true
@@ -4937,29 +5052,6 @@ function IsSecretDoorEligible( currentRun, currentRoom )
 
 	local requirements = currentRoom.SecretDoorRequirements or RoomData.BaseRoom.SecretDoorRequirements
 	if requirements ~= nil and not IsGameStateEligible( currentRoom, requirements ) then
-		return false
-	end
-
-	return true
-
-end
-
-function IsShrinePointDoorEligible( currentRun, currentRoom )
-
-	if currentRoom.ForceShrinePointDoor then
-		return true
-	end
-
-	if HasHeroTraitValue( "ForceShrinePointDoor" ) then
-		return true
-	end
-
-	if not currentRoom.ShrinePointDoorChanceSuccess then
-		return false
-	end
-
-	local requirements = currentRoom.ShrinePointDoorRequirements or RoomData.BaseRoom.ShrinePointDoorRequirements
-	if not IsGameStateEligible( currentRoom, requirements ) then
 		return false
 	end
 
@@ -5032,7 +5124,20 @@ function IsSurfaceShopEligible( currentRun, currentRoom )
 		return false
 	end
 	return true
+end
 
+function IsMetaRewardStandEligible( currentRun, currentRoom )
+	if currentRoom.ForceMetaRewardStand then
+		return true
+	end
+	local requirements = roomData.MetaRewardStandRequirements or RoomData.BaseRoom.MetaRewardStandRequirements
+	if not IsGameStateEligible( currentRoom, requirements ) then
+		return false
+	end
+	if not currentRoom.MetaRewardStandSuccess then
+		return false
+	end
+	return true
 end
 
 function CreateVignette()
@@ -5054,7 +5159,7 @@ function DestroyRequiredKills( args )
 				enemy.MoneyDropOnDeath = nil
 				enemy.MetaPointDropOnDeath = nil
 			end
-			thread( Kill, enemy, { BlockRespawns = true } )
+			thread( Kill, enemy, { BlockRespawns = true, SkipDeathWeapons = true } )
 			wait( destroyInterval, RoomThreadName )
 		end
 	end
@@ -5105,7 +5210,9 @@ end
 function EnableRoomTraps( )
 	CurrentRun.CurrentRoom.BlockDisableTraps = false
 	for enemyId, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
-		EnableTrap(enemy)
+		if enemy.ActivateGameStateRequirements == nil or IsGameStateEligible(enemy, enemy.ActivateGameStateRequirements) then
+			EnableTrap(enemy)
+		end
 	end
 end
 
@@ -5173,30 +5280,7 @@ function ShadeMercManager( room, args )
 		return
 	end
 
-	local activeCount = args.MaxActive
-	local startingCount = args.StartingCount or 0
-	if args.StartingCountMin ~= nil and args.StartingCountMax ~= nil then
-		startingCount = RandomInt( args.StartingCountMin, args.StartingCountMax )
-	end
-	startingCount = startingCount + GetTotalHeroTraitValue("ShadeMercCountBonus")
-	activeCount = activeCount + GetTotalHeroTraitValue("ShadeMercCountBonus")
-	for i=1,startingCount do
-		if TableLength(room.ShadeMercActiveIds) < activeCount and not IsEmpty(room.ShadeMercInactiveIds) then
-			local nextShadeId = RemoveRandomValue(room.ShadeMercInactiveIds)
-			Activate({ Id = nextShadeId })
-			local name = GetName({ Id = nextShadeId })
-			local nextShade = DeepCopyTable( EnemyData[name] )
-			nextShade.ObjectId = nextShadeId
-			if args.RestoreObjectState then
-				RestoreMapStateObject( room.Name, nextShade )
-			end
-			SetupUnit( nextShade, CurrentRun )
-			table.insert( room.ShadeMercActiveIds, nextShadeId )
-			if args.RequireForExit then
-				MapState.RoomRequiredObjects[nextShadeId] = ActiveEnemies[nextShadeId]
-			end
-		end
-	end
+	DoShadeMercActivations( room, args )
 
 	if args.RespawnInterval == nil then
 		return
@@ -5222,6 +5306,36 @@ function ShadeMercManager( room, args )
 		end
 
 	end
+
+end
+
+function DoShadeMercActivations( room, args )
+
+	local activeCount = args.MaxActive
+	local startingCount = args.StartingCount or 0
+	if args.StartingCountMin ~= nil and args.StartingCountMax ~= nil then
+		startingCount = RandomInt( args.StartingCountMin, args.StartingCountMax )
+	end
+	startingCount = startingCount + GetTotalHeroTraitValue("ShadeMercCountBonus")
+	activeCount = activeCount + GetTotalHeroTraitValue("ShadeMercCountBonus")
+	for i=1,startingCount do
+		if TableLength(room.ShadeMercActiveIds) < activeCount and not IsEmpty(room.ShadeMercInactiveIds) then
+			local nextShadeId = RemoveRandomValue(room.ShadeMercInactiveIds)
+			Activate({ Id = nextShadeId })
+			local name = GetName({ Id = nextShadeId })
+			local nextShade = DeepCopyTable( EnemyData[name] )
+			nextShade.ObjectId = nextShadeId
+			if args.RestoreObjectState then
+				RestoreMapStateObject( room.Name, nextShade )
+			end
+			SetupUnit( nextShade, CurrentRun )
+			table.insert( room.ShadeMercActiveIds, nextShadeId )
+			if args.RequireForExit then
+				MapState.RoomRequiredObjects[nextShadeId] = ActiveEnemies[nextShadeId]
+			end
+		end
+	end
+
 end
 
 function PolyphemusBoulderManager( room, args )
@@ -5251,6 +5365,20 @@ function PolyphemusBoulderManager( room, args )
 	LoadVoiceBanks({ Name = "Polyphemus" })
 	
 	waitUntil("RequiredKillEnemyKilledOrSpawned")
+
+	local passiveRoomUnit = nil
+	if not IsEmpty(spawnIds) then
+		passiveRoomUnit = DeepCopyTable( EnemyData.PolyphemusBoulders )
+		passiveRoomUnit.ObjectId = SpawnUnit({ Name = "PolyphemusBoulders", Group = "Standing", DestinationId = CurrentRun.Hero.ObjectId })	
+		thread(SetupUnit, passiveRoomUnit, CurrentRun )
+		passiveRoomUnit.Groups = passiveRoomUnit.Groups or {}
+		table.insert( passiveRoomUnit.Groups, "RoomWeapon" )
+		SetThingProperty({ Property = "ElapsedTimeMultiplier", Value = _elapsedTimeMultiplier, DataValue = false, ValueChangeType = "Multiply", DestinationId = passiveRoomUnit.ObjectId })
+		AddToGroup({ Id = passiveRoomUnit.ObjectId, Names = passiveRoomUnit.Groups })
+
+		room.Encounter.PassiveRoomWeapons = room.Encounter.PassiveRoomWeapons or {}
+		table.insert(room.Encounter.PassiveRoomWeapons, passiveRoomUnit.ObjectId)
+	end
 
 	for i = 1, totalCount, 1 do
 		if IsEmpty(spawnIds) then
@@ -5285,7 +5413,7 @@ function PolyphemusBoulderManager( room, args )
 			StopAnimation({ Name = "PolyphemusBoulderWarningDecalDarkHold", DestinationId = targetId })
 			return
 		end
-		CreateProjectileFromUnit({ Name = args.ProjectileName, Id = CurrentRun.Hero.ObjectId, DestinationId = targetId, FireFromTarget = true })
+		CreateProjectileFromUnit({ Name = args.ProjectileName, Id = passiveRoomUnit.ObjectId, DestinationId = targetId, FireFromTarget = true })
 		StopAnimation({ Name = args.ReticleAnimation, DestinationId = targetId })
 	end
 
@@ -5340,7 +5468,7 @@ function RespawningCoverManager( room, args )
 	--while room.Encounter ~= nil and not room.Encounter.Completed do
 	while true do
 
-		wait( args.RespawnInterval, RoomThreadName )
+		wait( args.RespawnInterval, "RespawningCoverManager" )
 
 		local respawnCount = 1
 		if args.ObjectsPerIntervalMin ~= nil and args.ObjectsPerIntervalMax ~= nil then
@@ -5405,18 +5533,29 @@ function ChooseAvailableN_HubDoors( room, args )
 
 	local doorIds = GetAllKeys( roomData.PredeterminedDoorRooms )
 
-	for doorId, roomName in pairs( roomData.PredeterminedDoorRooms ) do
-		if not IsGameStateEligible( RoomData[roomName], RoomData[roomName].GameStateRequirements ) then
-			doorIds[doorId] = nil
-			room.UnavailableDoors[doorId] = true
-		end
-	end
-
 	-- Remove all doors which dont have a room assigned yet
 	local allDoors = GetIdsByType({ Names = args.Types })
 	for k, doorId in pairs(allDoors) do
 		if not Contains(doorIds, doorId) then
 			room.UnavailableDoors[doorId] = true
+		end
+	end
+
+	if CoinFlip() then -- Make MiniBoss01 unavailable
+		RemoveValue(doorIds, 617043)
+		room.UnavailableDoors[617043] = true
+	else  -- Make MiniBoss02 unavailable
+		RemoveValue(doorIds, 560889)
+		room.UnavailableDoors[560889] = true
+	end
+
+	for doorId, roomName in pairs( roomData.PredeterminedDoorRooms ) do
+		if not IsGameStateEligible( RoomData[roomName], RoomData[roomName].GameStateRequirements ) then
+			RemoveValue(doorIds, doorId)
+			room.UnavailableDoors[doorId] = true
+		elseif IsRoomForced( CurrentRun, room, RoomData[roomName] ) then -- if it is eligible, check if we should force it.
+			RemoveValue(doorIds, doorId)
+			count = count - 1
 		end
 	end
 
@@ -5460,7 +5599,11 @@ function HandlePylonObjective( room, args )
 
 	wait( args.Delay, RoomThreadName )
 
-	wait(1.3)
+	wait(1.3, RoomThreadName)
+
+	if room.Leaving then
+		return
+	end
 
 	CheckObjectiveSet("BiomeNBossUnlock")
 	local objectiveText = 0
@@ -5470,7 +5613,7 @@ function HandlePylonObjective( room, args )
 
 	UpdateObjectiveDescription( "BiomeNPylons", "Objective_BiomeNPylons", "Pylons", 6 - numPylons )
 
-	wait(1.3)
+	wait(1.3, RoomThreadName)
 
 	if numPylons >= 6 then
 		MarkObjectiveComplete("BiomeNPylons")
@@ -5497,6 +5640,12 @@ function SpawnRewardCages( room, args )
 		local rewardOverride = cageReward.RewardType or ChooseRoomReward( CurrentRun, {}, room.RewardStoreName )
 		local reward = SpawnRoomReward( room, { RewardOverride = rewardOverride, LootName = cageReward.ForceLootName, SpawnRewardOnId = spawnPointId, AutoLoadPackages = true } )
 		rewardCage.RewardId = reward.ObjectId
+
+		for k, spawnPointId in ipairs( MapState.SpawnPoints ) do
+			SessionMapState.DistanceCache[spawnPointId] = SessionMapState.DistanceCache[spawnPointId] or {}
+			local distance = SessionMapState.DistanceCache[spawnPointId][rewardCage.ObjectId] or GetDistance({ Id = spawnPointId, DestinationId = rewardCage.ObjectId })
+			SessionMapState.DistanceCache[spawnPointId][rewardCage.ObjectId] = distance
+		end
 
 		UseableOff({ Id = rewardCage.RewardId })
 	end
@@ -5639,7 +5788,8 @@ function UseFieldsRewardFinder( source, args )
 				wait( args.Interval )
 			end
 		end
-		for rewardId, reward in pairs( MapState.OptionalRewards ) do
+		local optionalRewards = ShallowCopyTable( MapState.OptionalRewards ) -- copying because the original table may change during iteration
+		for rewardId, reward in pairs( optionalRewards ) do
 			if IsAlive({ Id = rewardId }) then
 				local spellIcon = nil
 				if SpellData[reward.LootName] ~= nil then
@@ -5655,7 +5805,7 @@ function UseFieldsRewardFinder( source, args )
 		end
 		if CurrentRun.CurrentRoom.ExitsUnlocked then
 			for index, door in pairs( MapState.OfferedExitDoors ) do
-				CreateScreenEdgeIndicator( door, { AnimName = "FieldsExitRewardFinder" } )
+				CreateScreenEdgeIndicator( door, { AnimName = door.RewardFinderAnimation or "FieldsExitRewardFinder" } )
 			end
 		end
 	end
@@ -5666,7 +5816,7 @@ function CheckFieldsExitIndicators()
 		return
 	end
 	for index, door in pairs( MapState.OfferedExitDoors ) do
-		CreateScreenEdgeIndicator( door, { AnimName = "FieldsExitRewardFinder" } )
+		CreateScreenEdgeIndicator( door, { AnimName = door.RewardFinderAnimation or "FieldsExitRewardFinder" } )
 	end
 	for rewardId, reward in pairs( MapState.OptionalRewards ) do
 		if reward.IndicatorBackingId == nil then
@@ -5694,10 +5844,18 @@ function SetupDefaultDoor( source, args )
 	end
 end
 
-function CheckDoorUnavailable( source, args )
-	if not CurrentRun.CurrentRoom.ExitsUnlocked and args.UnavailableChance ~= nil and not IsDoorClosedForRun( CurrentRun, source ) and RandomChance( args.UnavailableChance ) then
-		CurrentRun.CurrentRoom.UnavailableDoors = CurrentRun.CurrentRoom.UnavailableDoors or {}
-		CurrentRun.CurrentRoom.UnavailableDoors[source.ObjectId] = true
+function CheckN_SubRoomDoorUnavailable( source, args )
+
+	if not CurrentRun.CurrentRoom.ExitsUnlocked and args.AboveMinAvailableChance ~= nil and not IsDoorClosedForRun( CurrentRun, source ) then
+		CurrentRun.NumSubRoomsSpawned = CurrentRun.NumSubRoomsSpawned or 0
+		local soulPylonsSpawned = CurrentRun.SpawnRecord.SoulPylon or 0
+		local minSubRooms = soulPylonsSpawned * args.MinSubRoomsPerPylon
+		if CurrentRun.NumSubRoomsSpawned < minSubRooms or RandomChance( args.AboveMinAvailableChance ) then
+			CurrentRun.NumSubRoomsSpawned = CurrentRun.NumSubRoomsSpawned + 1
+		else
+			CurrentRun.CurrentRoom.UnavailableDoors = CurrentRun.CurrentRoom.UnavailableDoors or {}
+			CurrentRun.CurrentRoom.UnavailableDoors[source.ObjectId] = true
+		end
 	end
 end
 
@@ -5731,8 +5889,21 @@ function HandleChronosPreSpawns( room, args )
 		if count < activateCount then
 			count = count + 1
 		else
-			thread( Kill, enemy, { SuppressSounds = true } )
+			thread( Kill, enemy, { SuppressSounds = true, SkipDeathWeapons = true } )
 		end
+	end
+end
+
+function BlockExitUntilUsedIfElligible( source, args )
+	if IsGameStateEligible( source, source.OnUsedGameStateRequirements ) then
+		MapState.RoomRequiredObjects[source.ObjectId] = source
+	end
+end
+
+function SetDepletedAnimIfUnuseable( source, args )
+	if not IsGameStateEligible( source, source.OnUsedGameStateRequirements ) then
+		SetAnimation({ DestinationId = source.ObjectId, Name = source.DepletedAnimation })
+		UseableOff({ Id = source.ObjectId })
 	end
 end
 
@@ -5748,7 +5919,7 @@ function ValidateRoomSets()
 	end
 	for roomName, roomData in pairs( RoomData ) do
 		if not roomData.DebugOnly and not roomData.TestRoom and not allRooms[roomName] then
-			DebugAssert({ Condition = false, Text = roomData.Name.." is not listed in any RoomSet" })
+			DebugAssert({ Condition = false, Text = roomData.Name.." is not listed in any RoomSet", Owner = "Eduardo", })
 		end
 	end
 end
@@ -5762,5 +5933,29 @@ end
 function EraseRoomKeys( encounter, args, room )
 	for i, key in pairs( args.EraseKeys ) do
 		room[key] = nil
+	end
+end
+
+function TyphonEyeEggFuser(room, args)
+
+	wait(args.StartDelay)
+
+	while room.Encounter.InProgress do
+
+		local nextEggId = GetRandomValue( GetIdsByType({ Name = "TyphonEggLarge" }) )
+		local nextEgg = ActiveEnemies[nextEggId]
+		if nextEgg ~= nil and GetActiveEnemyCount() < args.ActiveEnemyCap then
+			if GetNumShrineUpgrades("MinibossCountShrineUpgrade") >= 1 then
+				nextEgg.SpawnUnitOnDeath = args.EggShadowSpawn
+			else
+				nextEgg.SpawnUnitOnDeath = args.EggSpawn
+			end
+			nextEgg.SkipSpawnOverActiveCap = args.ActiveEnemyCap
+			nextEgg.OnDeathFireWeapons = { "TyphonEggDeathWeapon" }
+
+			thread( ActivateFuse, nextEgg )
+		end
+
+		wait(args.Interval)
 	end
 end

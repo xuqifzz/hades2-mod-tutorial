@@ -208,6 +208,7 @@
 		AllowRestart = false
 		Sound = "/SFX/Enemy Sounds/Mage/MageDartSalvo"
 		StopSoundOnFinishFade = 0.3
+		GrannyAnimationSpeed = 0.5
 		Frames =
 		[
 			{

@@ -1,0 +1,45 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCHeraBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Hera_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 8
+			}
+		]
+	}
+
+	// Idle
+	{
+		Name = "Hera_Idle"
+		InheritFrom = "NPCHeraBaseAnimation"
+		GrannyAnimation = "Hera_Base_Idle_C_00"
+		Loop = true
+	}
+
+	// Greet
+	{
+		Name = "Hera_Greet"
+		InheritFrom = "NPCHeraBaseAnimation"
+		GrannyAnimation = "Hera_Base_Greeting_C_00"
+		ChainTo = "Hera_Idle"
+	}
+
+	// Pensive
+	{
+		Name = "Hera_Pensive"
+		InheritFrom = "NPCHeraBaseAnimation"
+		GrannyAnimation = "Hera_Base_Pensive_C_00"
+		ChainTo = "Hera_Idle"
+	}
+
+]}

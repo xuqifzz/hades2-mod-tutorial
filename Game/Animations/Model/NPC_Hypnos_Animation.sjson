@@ -28,4 +28,9 @@
 		InheritFrom = "Hypnos_Sleep_Idle"
 		Sound = null
 	}
+	{
+		Name = "Hypnos_Sleep_Idle_Silent_NoZs"
+		InheritFrom = "Hypnos_Sleep_Idle_Silent"
+		CreateAnimation = null
+	}
 ]}

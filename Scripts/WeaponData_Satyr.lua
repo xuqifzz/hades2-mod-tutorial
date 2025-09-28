@@ -1,68 +1,5 @@
 WeaponSetData =
 {
-	SatyrRetreatDash =
-	{
-
-		AIData =
-		{
-			DeepInheritance = true,
-
-			CreateOwnTarget = true,
-			TargetOffsetDistance = 300,
-			TargetAngleOptions = { 0 },
-
-			FireSelfVelocity = 2000,
-
-			MoveWithinRange = false,
-			NoProjectile = true,
-			WaitForAngleTowardTarget = true,
-
-			PreAttackDuration = 0.0,
-			FireDuration = 0.0,
-			PostAttackDuration = 0.0,
-
-      		FireFx = "ShadeTeleportFlare"
-		},
-
-		Sounds =
-		{
-			FireSounds =
-			{
-				{ Name = "/SFX/Enemy Sounds/Exalted/EmoteEvading" },
-			},
-		},
-	},
-
-	SatyrVolley01 =
-	{
-
-		AIData =
-		{
-			DeepInheritance = true,
-
-			ProjectileName = "ChariotRanged",
-			FireTicks = 3,
-			Spread = 5,
-			FireInterval = 0.35,
-			BarrelLength = 55,
-			FireProjectileTowardTarget = true,
-
-			PreAttackStartWait = 0.1,
-			PreAttackDuration = 0.8,
-			FireDuration = 0.3,
-			PostAttackDuration = 0.8,
-
-			MoveWithinRange = false,
-			RetreatBufferDistance = 1500,
-			RetreatBeforeAttack = true,
-			RetreatTimeout = 0.5,
-			RetreatBufferDistance = 1500,
-
-			PreAttackAnimation = "Enemy_MaleGrey_HidingFace",
-			FireAnimation = "Enemy_MaleGrey_CastForward",
-		},
-	},
-
 	SatyrCrossbowShieldedBolt =
 	{
 		Requirements =
@@ -106,13 +43,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/SatyrCrossbow/EmoteAttacking" },
 				{ Name = "/SFX/Player Sounds/ZagreusBowFire" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
 		},
 	},
 
@@ -163,13 +93,6 @@ WeaponSetData =
 				{ Name = "/SFX/Player Sounds/ZagreusShieldRush" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0 },
-		},
 	},
 
 	SatyrCrossbowFadeBolt =
@@ -208,7 +131,8 @@ WeaponSetData =
 
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.10,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
+			PostAttackStop = true,
 
 			PreAttackSound = "/SFX/Enemy Sounds/SatyrCrossbow/EmoteCharging",
 			PreAttackAnimation = "Enemy_SatyrCB_FadeBoltPreFire",
@@ -251,8 +175,8 @@ WeaponSetData =
 			PostAttackDurationMin = 1.45,
 			PostAttackDurationMax = 1.90,
 		},
-
 	},
+
 	SatyrCrossbow2ShieldRush =
 	{
 		InheritFrom = { "SatyrCrossbowShieldRush" },
@@ -267,16 +191,6 @@ WeaponSetData =
 			PostAttackDurationMin = 1.10,
 			PostAttackDurationMax = 1.55,
 		},
-
-	},
-	SatyrCrossbow2FadeBolt =
-	{
-		InheritFrom = { "SatyrCrossbowFadeBolt" },
-		AIData =
-		{
-			ProjectileName = "SatyrCrossbow2HomingBolt",
-			PostAttackDuration = 1.3,
-		},
 	},
 
 	SatyrRatCatcherSummon =
@@ -286,6 +200,7 @@ WeaponSetData =
 			MinAttacksBetweenUse = 2,
 			MaxActiveSpawns = 3,
 			RequiresNotCharmed = true,
+			MaxRequiredKillEnemies = 3,
 		},
 
 		AIData =
@@ -321,13 +236,6 @@ WeaponSetData =
 			SpawnerOptions = { "Crawler" },
 			SpawnAggroed = true,
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.06, Fraction = 1.0, LerpTime = 0.07 },
-		},
 	},
 
 	SatyrRatCatcherSummon_Elite =
@@ -339,27 +247,64 @@ WeaponSetData =
 			DeepInheritance = true,
 			SpawnerOptions = { "Crawler_Elite" },
 		},
-
 	},
 
 	SatyrRatCatcherSummon_Miniboss =
 	{
-		InheritFrom = { "SatyrRatCatcherSummon" },
+		Requirements =
+		{
+			RequiresNotCharmed = true,
+			MaxUses = 1,
+		},
 
 		AIData =
 		{
 			DeepInheritance = true,
-			SpawnerOptions = { "Crawler_Elite" },
-			SpawnsPerBurstMin = 12,
-			SpawnsPerBurstMax = 12,
-			MaxActiveSpawns = 24,
-			SpawnBurstDelay = 0.5,
-			SpawnRate = 0.12,
-			SpawnRadius = 750,
+
+			NoProjectile = true,
+			PreAttackStop = true,
+			DoNotRepeatOnAttackFail = true,
+
+			PreAttackAnimationSpeed = 2.0,
+			PreAttackDuration = 0.5,
+			FireDuration = 0.66,
+			PostAttackDuration = 1.0,
+
+			DumbFireWeapons = { "SatyrRatCatcherSummonSpawner", },
 
 			PreAttackSound = "/SFX/Enemy Sounds/SatyrRatcatcherMiniboss/EmoteSummoning",
-		},
+			PreAttackFx = "EnemyChargeFxIn_SatyrRatCatcher_Summon",
+			PreAttackAnimation = "Enemy_SatyrRatCatcher_SummonPreFire",
+			FireAnimation = "Enemy_SatyrRatCatcher_SummonFire_Fast",
+			PostAttackAnimation = "Enemy_SatyrRatCatcher_SummonPostFire",
 
+			AttackDistance = 99999,
+			MoveWithinRange = false,
+		},
+	},
+
+	SatyrRatCatcherSummonSpawner =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			NoProjectile = true,
+
+			SpawnBurstOnFire = true,
+			SpawnOnSpawnPoints = true,
+			SpawnAggroed = true,
+			SpawnerOptions = { "Crawler_Elite" },
+			SpawnsPerBurstMin = 8,
+			SpawnsPerBurstMax = 8,
+			MaxActiveSpawns = 24,
+			SpawnBurstDelay = 0.5,
+			SpawnRateMin = 0.75,
+			SpawnRateMax = 1.25,
+			SpawnRadius = 750,
+
+			DumbFireInterval = 10,
+		},
 	},
 
 	SatyrRatCatcherCast =
@@ -390,6 +335,11 @@ WeaponSetData =
 			RetreatTimeoutMin = 3,
 			RetreatTimeoutMax = 4,
 			RetreatBufferDistance = 800,
+			
+			PreAttackAngleTowardTarget = true,
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.5,
+			PreAttackStop = true,
 			
 			PreAttackSound = "/SFX/Enemy Sounds/SatyrRatcatcher/EmoteCharging",
 			PreAttackAnimation = "Enemy_SatyrRatCatcher_CastPreFire",
@@ -432,15 +382,6 @@ WeaponSetData =
 	SatyrRatCatcherCast_Miniboss =
 	{
 		InheritFrom = { "SatyrRatCatcherCast" },
-
-		Requirements =
-		{
-			MinPlayerDistance = 200,
-		},
-
-		PostAttackDurationMin = 0.8,
-		PostAttackDurationMax = 1.2,
-
 		AIData =
 		{
 			DeepInheritance = true,
@@ -448,6 +389,14 @@ WeaponSetData =
 			ProjectileAngleInterval = 40,
 			AttackDistance = 800,
 			AttackDistanceScaleY = 0.7,
+
+			PostAttackDurationMin = 0.8,
+			PostAttackDurationMax = 1.2,
+
+			RetreatAfterAttack = true,
+			RetreatTimeoutMin = 0.2,
+			RetreatTimeoutMax = 1,
+			RetreatBufferDistance = 800,
 
 			PreAttackSound = "/SFX/Enemy Sounds/SatyrRatcatcherMiniboss/EmoteCharging",
 		},
@@ -487,7 +436,10 @@ WeaponSetData =
 			LoSBuffer = 85,
 			RequireUnitLoS = true,
 
+			PreAttackAngleTowardTarget = true,
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.5,
+			PreAttackStop = true,
 
 			RetreatAfterAttack = true,
 			RetreatTimeoutMin = 2,
@@ -507,31 +459,31 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/SatyrRatcatcher/EmoteAttacking" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.07 },
-		},
 	},
 
-	SatyrRatCatcherMeleeCultist =
+	SatyrCultistMelee =
 	{
-
 		AIData =
 		{
 			DeepInheritance = true,
 
-			ProjectileName = "SatyrRatCatcherMelee",
-			FireProjectileAtSelf = true,
-			FireSelfVelocity = 1400, 
+			AttackSlots =
+			{
+				{ ProjectileName = "SatyrCultistMelee", PauseDuration = 0.4 },
+				{ ProjectileName = "SatyrCultistMeleeRadial", AIDataOverrides = { SpawnFromMarker = "SatyrCultist_Rig:pinky_00_L_JNT" } },
+			},
 
-			PreAttackFx = "SatyrRatCatcherMeleeChargeFx",
-			PreAttackDuration = 1.4,
-			FireDuration = 0.25,
-			PostAttackDuration = 1.1,
-			FireProjectileStartDelay = 0.25,
+			ChargeSelfVelocity = 1800, 
+			ApplyEffectsOnWeaponFire =
+			{
+				WeaponEffectData.AttackHighGrip,
+			},
+
+			--PreAttackFx = "SatyrRatCatcherMeleeChargeFx",
+			PreAttackStop = true,
+			PreAttackDuration = 1.5,
+			FireDuration = 3.0,
+			PostAttackDuration = 1.0, --anim is 0.98
 
 			AttackDistance = 600,
 			AttackDistanceScaleY = 0.80,
@@ -539,10 +491,11 @@ WeaponSetData =
 			RequireUnitLoS = true,
 
 			WaitForAngleTowardTarget = true,
+			MaxAttackers = 99,
 
-			PreAttackAnimation = "Enemy_SatyrRatCatcher_MeleePreFire",
-			FireAnimation = "Enemy_SatyrRatCatcher_MeleeFire",
-			PostAttackAnimation = "Enemy_SatyrRatCatcher_MeleePostFire",
+			PreAttackAnimation = "Enemy_SatyrCultist_Stab_Start",
+			FireAnimation = "Enemy_SatyrCultist_Stab_Fire",
+			PostAttackAnimation = "Enemy_SatyrCultist_Stab_End",
 		},
 
 		Sounds =
@@ -553,12 +506,184 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/SatyrRatcatcher/EmoteAttacking" },
 			},
 		},
+	},
 
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
+	SatyrCultistMelee_Elite =
+	{
+		InheritFrom = { "SatyrCultistMelee" },
+
+		AIData =
 		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.07 },
+			DeepInheritance = true,
+
+			AttackSlots =
+			{
+				{ ProjectileName = "SatyrCultistMelee_Elite", PauseDuration = 0.4 },
+				{ ProjectileName = "SatyrCultistMeleeRadial_Elite", AIDataOverrides = { SpawnFromMarker = "SatyrCultist_Rig:pinky_00_L_JNT" } },
+			},
+
+			ChargeSelfVelocity = 2100, 
+		},
+	},
+
+	SatyrCultistThrow =
+	{
+		Requirements =
+		{
+			MinPlayerDistance = 400,
+		},
+		
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "CultistThrow",
+
+			BarrelLength = 200,
+
+			RetreatBeforeAttack = true,
+			RetreatBufferDistance = 1100,
+			RetreatTimeout = 3.0,
+
+			FireProjectileStartDelay = 0.02,
+
+			--PreAttackFx = "SatyrRatCatcherMeleeChargeFx",
+			PreAttackStop = true,
+			PreAttackDuration = 1.5,
+			FireDuration = 0.1,
+			PostAttackDuration = 1.0, --anim is 0.98
+
+			AttackDistance = 1000,
+			AttackDistanceScaleY = 0.55,
+			LoSBuffer = 85,
+			RequireUnitLoS = true,
+
+			WaitForAngleTowardTarget = true,
+			MaxAttackers = 99,
+
+			PreAttackAnimation = "Enemy_SatyrCultist_Throw_Start",
+			FireAnimation = "Enemy_SatyrCultist_Throw_Fire",
+			PostAttackAnimation = "Enemy_SatyrCultist_Throw_End"
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Minotaur/HugeAxeSwing" },
+				{ Name = "/SFX/Enemy Sounds/SatyrRatcatcher/EmoteAttacking" },
+			},
+		},
+	},
+
+	SatyrCultistThrow_Elite =
+	{
+		InheritFrom = { "SatyrCultistThrow" },
+		
+		AIData =
+		{
+			DeepInheritance = true,
+
+			NumProjectiles = 3,
+			ProjectileAngleInterval = 12,
+		},
+	},
+
+	SatyrCultistRitual =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "CultistShockwave",
+			FireProjectileAtSelf = true,
+			
+			PreAttackSetThingProperties =
+			{
+				ImmuneToForce = true
+			},
+
+			PreAttackDuration = 1.5,
+			FireDuration = 0.2,
+			PostAttackDuration = 0.0,
+
+			PostAttackKillSelf = true,
+
+			AttackDistance = 9999,
+			MoveWithinRange = false,
+			TargetSelf = true,
+
+			PreAttackAngleTowardTarget = false,
+
+			PreAttackAnimation = "Enemy_SatyrCultist_Ritual",
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Minotaur/HugeAxeSwing" },
+				{ Name = "/SFX/Enemy Sounds/SatyrRatcatcher/EmoteAttacking" },
+			},
+		},
+	},
+
+	SatyrCultistCast =
+	{
+		Requirements = 
+		{
+			MinPlayerDistance = 400,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "SatyrCultistCast",
+			BarrelLength = 150,
+			FireProjectileStartDelay = 0.4,
+
+			ExpireProjectilesOnHitStun = true,
+			ExpireProjectilesOnFreeze = true,
+
+			RequireUnitLoS = true,
+
+			PreAttackStop = true,
+			PreAttackDuration = 1.0,
+			FireDuration = 11.2,
+			PostAttackDuration = 0.9,
+
+			PreAttackEndShake = true,
+			PreAttackFxAtProjectileStartLocation = "EnemyChargeFxIn",
+			
+			PreAttackSound = "/SFX/Enemy Sounds/Lamia/EmoteChargingRanged",
+			PreAttackAnimation = "Enemy_SatyrCultist_Cast_Start",
+			--FireAnimation = "Enemy_SatyrCultist_Stab_Fire",
+			PostAttackAnimation = "Enemy_SatyrCultist_Stab_End",
+
+			AttackDistance = 2000,
+			AttackDistanceScaleY = 0.45,
+			DoNotRepeatOnAttackFail = true,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Lamia/EmoteAttackingRanged" },
+				{ Name = "/SFX/Enemy Sounds/FreezeShotWeaponFire" },
+			},
+		},
+	},
+
+	SatyrCultistCast_Elite =
+	{
+		InheritFrom = { "SatyrCultistCast" },
+		AIData =
+		{
+			DeepInheritance = true,
+
+			FireDuration = 3.25,
 		},
 	},
 
@@ -566,21 +691,41 @@ WeaponSetData =
 	{
 		InheritFrom = { "SatyrRatCatcherMelee" },
 
-		AIData =
-		{
-			DeepInheritance = true,
-			ProjectileName = "SatyrRatCatcherMelee_Miniboss",
-			FireSelfVelocity = "nil",
-			FireProjectileStartDelay = 0.1,
-
-			AttackDistance = 300,
-			DoNotRepeatOnAttackFail = true,
-			PreAttackSound = "/SFX/Enemy Sounds/SatyrRatcatcherMiniboss/EmoteChargingMelee",
-		},
-
 		Requirements =
 		{
 			MaxPlayerDistance = 600,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ApplyEffectsOnWeaponFire =
+			{
+				{
+					EffectName = "AttackLowGrip",
+					DataProperties = 
+					{
+						Type = "GRIP",
+						Duration = 0.2,
+						Modifier = 0.6,
+						HaltOnEnd = true,
+					},
+				},
+			},
+
+			ProjectileName = "SatyrRatCatcherMelee_Miniboss",
+			FireSelfVelocity = 1900,
+			PreAttackAnimationSpeed = 2.0,
+			PreAttackDuration = 0.7,
+			FireProjectileStartDelay = 0.2,
+
+			RetreatDurationMin = 1.0,
+			RetreatDurationMax = 1.2,
+
+			AttackDistance = 600,
+			DoNotRepeatOnAttackFail = true,
+			PreAttackSound = "/SFX/Enemy Sounds/SatyrRatcatcherMiniboss/EmoteChargingMelee",
 		},
 
 		Sounds =
@@ -591,7 +736,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/SatyrRatcatcherMiniboss/EmoteAttacking" },
 			},
 		},
-
 	},
 
 	SatyrRatCatcherSpell =
@@ -654,13 +798,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/SatyrRatcatcher/RatcatcherRangedFireSingle" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	SatyrLancerThrust =
@@ -672,8 +809,9 @@ WeaponSetData =
 			ProjectileName = "SatyrLancerThrust",
 
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.5,
 			TrackTargetDuringCharge = true,
-			PreAttackRotationDampening = 0.02,
+			PreAttackRotationDampening = 0.07,
 			StopBeforeFire = true,
 
 			PreAttackEndShake = true,
@@ -687,8 +825,8 @@ WeaponSetData =
 			FireAnimation = "Enemy_SatyrLancer_ThrustFire",
 			PostAttackAnimation = "Enemy_SatyrLancer_ThrustPostFire",
 
-			AttackDistance = 410,
-			AttackDistanceScaleY = 0.7,
+			AttackDistance = 550,
+			AttackDistanceScaleY = 0.6,
 
 			RequireProjectileLoS = true,
 			LoSBuffer = 80,
@@ -703,8 +841,8 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/SatyrLancer/LancerMeleeAttackWhoosh" },
 			},
 		},
-
 	},
+
 	SatyrLancer2Thrust =
 	{
 		InheritFrom = { "SatyrLancerThrust" },
@@ -727,6 +865,7 @@ WeaponSetData =
 			FireInterval = 0.31,
 		},
 	},
+
 	SatyrLancer2Thrust_Elite =
 	{
 		InheritFrom = { "SatyrLancer2Thrust" },
@@ -748,9 +887,11 @@ WeaponSetData =
 
 			FireProjectileAtTarget = true,
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.5,
 			TrackTargetDuringCharge = true,
-			PreAttackRotationDampening = 0.05,
-			StopBeforeFire = true,
+			PreAttackRotationDampening = 0.08,
+			TrackTargetDuringFire = true,
+			FireRotationDampening = 0.05,
 			PostAttackStop = true,
 
 			FireProjectileStartDelay = 0.07,
@@ -786,8 +927,8 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/SatyrLancer/LancerRangedAttackWhoosh" },
 			},
 		},
-
 	},
+
 	SatyrLancer2Throw =
 	{
 		InheritFrom = { "SatyrLancerThrow" },
@@ -806,24 +947,50 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-			NumProjectiles = 3,
-			ProjectileAngleInterval = 15,
+			FireTicks = 3,
+			FireInterval = 0.4,
 		},
 	},
-	SatyrLancer2Throw_Elite =
+
+	SatyrLancerThrow_Prometheus =
 	{
 		InheritFrom = { "SatyrLancer2Throw" },
+
+		Requirements =
+		{
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
 
-			NumProjectiles = 3,
-			ProjectileAngleInterval = 15,
+			AttackDistance = 2000,
+			ChainedWeapon = "SatyrLancerEscape",
 		},
 	},
 
-	SatyrLancerDefense =
+	SatyrLancerThrow_PrometheusAlly =
 	{
+		InheritFrom = { "SatyrLancer2Throw" },
+
+		Requirements =
+		{
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			AttackDistance = 2000,
+		},
+	},
+
+	SatyrLancerEscape =
+	{
+		Requirements =
+		{
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
@@ -831,27 +998,27 @@ WeaponSetData =
 			MoveWithinRange = false,
 			NoProjectile = true,
 
-			PreAttackDuration = 0.0,
-			FireDuration = 0.7,
-			PostAttackDuration = 0.5,
-			AttackDistance = 9999,
-
-			FireSelfVelocity = 1500,
-			FireSelfVelocityAngleOffset = 180,
-
-			--PostAttackThreadedFunctionName = "HandleUnitDefenseApply",
-
-			FireAnimation = "Enemy_SatyrLancer_Defense",
-			PostAttackAnimation = "Enemy_SatyrLancer_Defense_End",
-			--FireFx = "ShadeShieldBlock",
+			PreAttackAnimation = "Enemy_SatyrLancer_Escape",
+			PreAttackDuration = 0.83,
+			FireDuration = 0.0,
+			PostAttackDuration = 0.1,
+			PostAttackAlpha = 0,
+			PostAttackAlphaDuration = 0.1,
+			FireSelfUpwardVelocity = 8000,
+			PostAttackKillSelf = true,
+			PostAttackKillSelfArgs = { SkipOnDeathFunction = true, Silent = true, SkipDestroyDelay = true, },
 		},
+	},
 
-		Sounds =
+	SatyrLancer2Throw_Elite =
+	{
+		InheritFrom = { "SatyrLancer2Throw" },
+		AIData =
 		{
-			WeaponFireSounds =
-			{
-				--{ Name = "/SFX/Enemy Sounds/Exalted/EnemyShieldBlock" },
-			},
+			DeepInheritance = true,
+
+			FireTicks = 3,
+			FireInterval = 0.4,
 		},
 	},
 
@@ -878,7 +1045,7 @@ WeaponSetData =
 			PostAttackDuration = 0.55,
 
 			TrackTargetDuringCharge = true,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
 			PostAttackStop = true,
 
 			PreAttackAnimation = "Enemy_SatyrLancer_BackDashPreFire",
@@ -916,7 +1083,7 @@ WeaponSetData =
 			PostAttackDuration = 0.55,
 
 			TrackTargetDuringCharge = true,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
 			PostAttackStop = true,
 
 			PreAttackAnimation = "Enemy_SatyrLancer_StrafeRightPreFire",
@@ -954,7 +1121,7 @@ WeaponSetData =
 			PostAttackDuration = 0.55,
 
 			TrackTargetDuringCharge = true,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
 			PostAttackStop = true,
 
 			PreAttackAnimation = "Enemy_SatyrLancer_StrafeLeftPreFire",
@@ -973,13 +1140,14 @@ WeaponSetData =
 	{
 		Requirements =
 		{
-			MinPlayerDistance = 400,
-			MaxAttackers = 2,
+			MaxAttackers = 3,
+			MinPlayerDistance = 300,
 		},
 
 		AIData =
 		{
 			DeepInheritance = true,
+			ForceUseIfReady = true,
 
 			ProjectileName = "SatyrRocket",
 			FireFx = "SatyrRocketFireFx",
@@ -990,12 +1158,145 @@ WeaponSetData =
 
 			PreAttackStop = true,
 			TrackTargetDuringCharge = true,
+			PreAttackRotationDampening = 0.06,
+			TrackTargetDuringFire = false,
+			PostAttackStop = true,
+
+			PreAttackDuration = 1.5,
+			FireDuration = 0.48,
+			PostAttackDurationMin = 1.32, -- anim is 1.32
+			PostAttackDurationMax = 1.65,
+
+			ChainedWeapon = "SatyrSapperBackDash",
+			
+			PreAttackSound = "/SFX/Enemy Sounds/SatyrSapper/EmoteChargingRanged",
+			PreAttackAnimation = "Enemy_SatyrSapper_RocketPreFire",
+			FireAnimation = "Enemy_SatyrSapper_RocketFire",
+			PostAttackAnimation = "Enemy_SatyrSapper_RocketPostFire",
+
+			DoNotRepeatOnAttackFail = true,
+
+			AttackDistance = 980,
+			AttackDistanceScaleY = 0.55,
+			RequireProjectileLoS = true,
+			LoSBuffer = 70,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/SatyrSapper/EmoteAttackingRanged" },
+				{ Name = "/SFX/Enemy Sounds/Theseus/TheseusMortarLaunch" },
+			},
+		},
+	},
+
+	SatyrSapperRocket_Elite =
+	{
+		InheritFrom = { "SatyrSapperRocket" },
+		AIData =
+		{
+			DeepInheritance = true,
+
+			NumProjectiles = 2,
+			ProjectileStartAngleOffset = -15,
+			ProjectileAngleInterval = 30,
+			ProjectileInterval = 0.08,
+			Spread = 6,
+		},
+	},
+
+	SatyrSapperRocket_Prometheus =
+	{
+		InheritFrom = { "SatyrSapperRocket" },
+
+		Requirements =
+		{
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			AttackDistance = 9999,
+			MoveWithinRange = false,
+
+			ProjectileName = "SatyrRocket_Prometheus",
+
+			ChainedWeapon = "SatyrSapperEscape",
+			PostAttackDuration = 1.33,
+			PostAttackDurationMin = "nil",
+			PostAttackDurationMax = "nil",
+		},
+	},
+
+	SatyrSapperRocket_PrometheusAlly =
+	{
+		InheritFrom = { "SatyrSapperRocket" },
+
+		Requirements =
+		{
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			AttackDistance = 2000,
+		},
+	},
+
+	SatyrSapperEscape =
+	{
+		Requirements =
+		{
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			MoveWithinRange = false,
+			NoProjectile = true,
+
+			PreAttackAnimation = "Enemy_SatyrSapper_Escape",
+			PreAttackDuration = 1.23,
+			FireDuration = 0.0,
+			PostAttackDuration = 0.1,
+			PostAttackAlpha = 0,
+			PostAttackAlphaDuration = 0.1,
+			FireSelfUpwardVelocity = 8000,
+			PostAttackKillSelf = true,
+			PostAttackKillSelfArgs = { SkipOnDeathFunction = true, Silent = true, SkipDestroyDelay = true, },
+		},
+	},
+
+	SatyrSapperShotgun =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "SatyrShotgunBolt",
+			FireFx = "SatyrRocketFireFx",
+			NumProjectiles = 5,
+			ProjectileAngleInterval = 8,
+			ProjectileInterval = 0.05,
+			BarrelLength = 125,
+			FireProjectileStartDelay = 0.05,
+			--ProjectileStartZHeight = 900,
+
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
+
+			PreAttackStop = true,
+			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.08,
 			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.05,
 			PostAttackStop = true,
 
-			PreAttackStop = true,
 			PreAttackDuration = 1.5,
 			FireDuration = 0.48,
 			PostAttackDurationMin = 1.4, -- anim is 1.32
@@ -1022,39 +1323,38 @@ WeaponSetData =
 		},
 	},
 
-	SatyrSapperRocket_Elite =
-	{
-		InheritFrom = { "SatyrSapperRocket" },
-		AIData =
-		{
-			DeepInheritance = true,
-
-			NumProjectiles = 3,
-			ProjectileAngleInterval = 15,
-			ProjectileInterval = 0.04,
-			Spread = 3,
-		},
-	},
-
 	SatyrSapperLob =
 	{
 		Requirements =
 		{
 			MaxConsecutiveUses = 1,
+			MinPlayerDistance = 400,
+		},
+
+		GameStateRequirements =
+		{
+			{
+				PathFromSource = true,
+				PathFalse = { "InAmbientBattle" },
+			}
 		},
 
 		AIData =
 		{
 			DeepInheritance = true,
+
+			SkipSurroundAICount = true,
 
 			ProjectileName = "SatyrSapperLob",
 			FireProjectileAtTarget = true,
 			FireProjectileStartDelay = 0.13,
 			SpawnFromMarker = "SatyrSapper_Rig:hips_00_M_JNT",
 			BarrelLength = 75,
+			ImmuneToProjectileSlow = true,
 
 			CreateOwnTargetFromOriginalTarget = true,
 			OffsetY = 75,
+			SkipIfTargetLocationBlocked = true,
 
 			DoNotRepeatOnAttackFail = true,
 
@@ -1079,13 +1379,6 @@ WeaponSetData =
 			ChainedWeapon = "SatyrSapperBackDash",
 		},
 
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.3, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.03 },
-		},
-
 		Sounds =
 		{
 			FireSounds =
@@ -1104,13 +1397,22 @@ WeaponSetData =
 		{
 		},
 
+		GameStateRequirements =
+		{
+			{
+				PathFromSource = true,
+				PathTrue = { "InAmbientBattle" },
+			}
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
 			ChainedWeapon = "nil",
 			RequireProjectileLoS = false,
+			SkipIfTargetLocationBlocked = false,
+			ForceUseIfReady = true,
 		},
-
 	},
 
 	SatyrSapperMelee =
@@ -1125,10 +1427,13 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
+			SkipSurroundAICount = true,
+
 			ProjectileName = "SatyrSapperMelee",
 
-			PreAttackStop = true,
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
+			PreAttackStop = true,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.02,
 			StopBeforeFire = true,
@@ -1153,7 +1458,6 @@ WeaponSetData =
 			LoSBuffer = 80,
 			LoSEndBuffer = 32,
 
-			SkipSurroundAICount = true,
 
 			ChainedWeapon = "SatyrSapperBackDash",
 		},
@@ -1168,17 +1472,33 @@ WeaponSetData =
 		},
 	},
 
-	SatyrSapperBackDash =
+	SatyrSapperMelee_Fiend =
 	{
-		Requirements =
-		{
-			MaxConsecutiveUses = 3,
-			MaxPlayerDistance = 300,
-		},
+		InheritFrom = { "SatyrSapperMelee" },
 
 		AIData =
 		{
 			DeepInheritance = true,
+
+			ProjectileName = "SatyrSapperMelee",
+		},
+	},
+
+	SatyrSapperBackDash =
+	{
+		Requirements =
+		{
+			MaxConsecutiveUses = 2,
+			MaxPlayerDistance = 600,
+		},
+
+		ChainChance = 0.33,
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			SkipSurroundAICount = true,
 
 			AttackFailWeapon = "nil",
 
@@ -1206,10 +1526,8 @@ WeaponSetData =
 			FireAnimation = "Enemy_SatyrSapper_BackStepFire",
 			PostAttackAnimation = "Enemy_SatyrSapper_BackStepPostFire",
 
-			SkipSurroundAICount = true,
-
 			-- Blink ban
-			TeleportToSpawnPoints = false,
+			PreMoveTeleport = false,
 		},
 
 		Sounds =

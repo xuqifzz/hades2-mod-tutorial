@@ -4,7 +4,6 @@
     {
       Name = "SurfaceDestructiblePillar"
       InheritFrom = "1_BaseVulnerableObstacle"
-      AllowStoppingImpacts = false
       DisplayInEditor = true
       ReflectLobProjectiles = false
       Life = 
@@ -80,6 +79,7 @@
       Name = "SurfaceGravemarker01"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life = 
       {
         DieOnCollision = true
@@ -112,6 +112,7 @@
       Name = "SurfaceGravemarker04"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life = 
       {
         DieOnCollision = true
@@ -144,6 +145,7 @@
       Name = "SurfaceGravemarker01a"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life = 
       {
         DieOnCollision = true
@@ -216,6 +218,7 @@
       Name = "SurfaceGravemarker06"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life = 
       {
         DieOnCollision = true
@@ -245,6 +248,7 @@
       Name = "SurfaceGravemarker07a"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life = 
       {
         DieOnCollision = true
@@ -298,6 +302,7 @@
       Name = "SurfaceRubble02a"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life = 
       {
         DieOnCollision = true
@@ -479,7 +484,7 @@
     
     {
       Name = "SurfaceBarrel01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -519,7 +524,7 @@
     
     {
       Name = "SurfaceBroom01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -576,7 +581,7 @@
     
     {
       Name = "SurfaceWheat01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1006,7 +1011,7 @@
     
     {
       Name = "SurfaceBasket01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1027,7 +1032,7 @@
     
     {
       Name = "SurfaceBasket01a"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1662,10 +1667,12 @@
         Graphic = "Tilesets\Surface\Surface_Grasses_02"
         StopsProjectiles = false
         StopsUnits = false
-        Tallness = 80.0
+        Tallness = 80
         Offset = { X = 0 Y = -59 }
         Points = [
           { X = 293 Y = 275 }
+          { X = 293 Y = 293 }
+          { X = 293 Y = 284 }
         ]
       }
     }

@@ -9,6 +9,14 @@
 		Scale = 3.3
 		Loop = false
 		Enable3DShadow = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 4
+			}
+		]
 	}
 
 	{
@@ -22,39 +30,18 @@
 		InheritFrom = "NPCCharonBaseAnimations"
 		GrannyAnimation = "Charon_NoWeapon_Base_Fierce_C_01"
 		ChainTo = "Charon_Idle"
-		Blends =
-		[
-			{
-				BlendTransitionFrom = "Charon_Idle"
-				Duration = 4
-			}
-		]
 	}
 	{
 		Name = "Charon_Thanking"
 		InheritFrom = "NPCCharonBaseAnimations"
 		GrannyAnimation = "Charon_NoWeapon_Base_Thanking_C_02"
 		ChainTo = "Charon_Idle"
-		Blends =
-		[
-			{
-				BlendTransitionFrom = "Charon_Idle"
-				Duration = 4
-			}
-		]
 	}
 	{
 		Name = "Charon_Greeting"
 		InheritFrom = "NPCCharonBaseAnimations"
 		GrannyAnimation = "Charon_NoWeapon_Base_Greetings_C_02"
 		ChainTo = "Charon_Idle"
-		Blends =
-		[
-			{
-				BlendTransitionFrom = "Charon_Idle"
-				Duration = 4
-			}
-		]
 	}
 
 ]}

@@ -1,0 +1,165 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyTyphonEyeBaseAnimation"
+		
+		GrannyModel = "TyphonEye_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = false
+		UseAttachedFlasher = false
+		LargeObstacle3DModel = true
+	}
+
+	{
+		Name = "Enemy_TyphonEye_Idle"
+		InheritFrom = "EnemyTyphonEyeBaseAnimation"
+		GrannyAnimation = "TyphonEye_Base_Idle_C_00"
+		Loop = true
+	}
+
+	// Spawn Eyeball
+	{
+		Name = "Enemy_TyphonEye_SpawnEyeball_Start"
+		InheritFrom = "EnemyTyphonEyeBaseAnimation"
+		GrannyAnimation = "TyphonEye_Base_SpawnBallStart_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonEye_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonEye_SpawnEyeball_Fire"
+		InheritFrom = "EnemyTyphonEyeBaseAnimation"
+		GrannyAnimation = "TyphonEye_Base_SpawnBallFire_C_00"
+		ChainTo = "Enemy_TyphonEye_Shut_FireLoop"
+	}
+
+	// Eye Shut
+	{
+		Name = "Enemy_TyphonEye_Shut_Start"
+		InheritFrom = "EnemyTyphonEyeBaseAnimation"
+		GrannyAnimation = "TyphonEye_Base_EyeShutStart_C_00"
+		ChainTo = "Enemy_TyphonEye_Shut_FireLoop"
+	}
+	{
+		Name = "Enemy_TyphonEye_Shut_FireLoop"
+		InheritFrom = "EnemyTyphonEyeBaseAnimation"
+		GrannyAnimation = "TyphonEye_Base_EyeShutLoop_C_00"
+		Loop = true
+		OwnerInvulnerable = true
+	}
+	{
+		Name = "Enemy_TyphonEye_Shut_End"
+		InheritFrom = "EnemyTyphonEyeBaseAnimation"
+		GrannyAnimation = "TyphonEye_Base_EyeShutReturn_C_00"
+		ChainTo = "Enemy_TyphonEye_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonEye_Shut_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonEye_Shut_End_Fast"
+		InheritFrom = "Enemy_TyphonEye_Shut_End"
+		GrannyAnimationSpeed = 3.0
+	}
+
+	// Sustain
+	{
+		Name = "Enemy_TyphonEye_Sustain_Start"
+		InheritFrom = "EnemyTyphonEyeBaseAnimation"
+		GrannyAnimation = "TyphonEye_Base_SustainStart_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonEye_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonEye_Sustain_Fire"
+		InheritFrom = "EnemyTyphonEyeBaseAnimation"
+		GrannyAnimation = "TyphonEye_Base_SustainFire_C_00"
+		ChainTo = "Enemy_TyphonEye_Sustain_End"
+	}
+	{
+		Name = "Enemy_TyphonEye_Sustain_End"
+		InheritFrom = "EnemyTyphonEyeBaseAnimation"
+		GrannyAnimation = "TyphonEye_Base_SustainReturn_C_00"
+		ChainTo = "Enemy_TyphonEye_Idle"
+	}
+
+	{
+		Name = "Enemy_TyphonEye_Death"
+		InheritFrom = "EnemyTyphonEyeBaseAnimation"
+		GrannyAnimation = "TyphonEye_Base_SpawnBallFire_C_00"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 8.0
+		DeathFxFrameDuration = 480
+		DeathFxColor = { Red = 0.5 Green = 0.0 Blue = 0.0 }
+		DeathFxThickness = 0.01
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0.2
+		EndGreen = 0.05
+		EndBlue = 0.05
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.01
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/TyphonEyeball/TyphonEyeballDeath"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		VisualFx = "BossDeathParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 36
+		LargeObstacle3DModel = false
+		CreateAnimations =
+		[
+			{ Name = "EnemyTyphonEyeDeathFxEmitterA" }
+			{ Name = "EnemyTyphonEyeDeathFxEmitterB" }
+			{ Name = "EnemyDeathFxTyphon" }
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.1
+			}
+			{
+				Frame = 5
+				FrameSpeed = 0.01
+			}
+			{
+				Frame = 7
+				FrameSpeed = 0.0
+			}
+		]
+	}
+
+] }

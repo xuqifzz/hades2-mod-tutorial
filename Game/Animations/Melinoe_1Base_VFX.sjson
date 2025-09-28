@@ -945,8 +945,7 @@
 
 	{
 		Name = "MelManaGather"
-		
-		FilePath = "Particles\particle_quickflashIris"
+		FilePath = "Particles\particle_quickFlashIris"
 		StartRed = 0
 		StartGreen = 0.05
 		StartBlue = 0.99
@@ -975,11 +974,30 @@
 		OffsetZ = 0
 		GrannyAttachedMarkerLocation = "Melinoe_Rig:spine_01_M_JNT"
 	}
+
+	{
+		Name = "MelManaGatherInstant"
+		InheritFrom = "MelManaGather"
+		ColorFromOwner = "Ignore"
+		Loop = false
+		Duration = 0.5
+		EaseIn = 0.9
+		VisualFxCap = 3
+		PingPongColor = false
+		StartAlpha = 1
+		EndAlpha = 0
+		CreateAnimations = [
+			{ Name = "MelManaGatherFx" }
+			{ Name = "MelManaGatherFx" }
+			{ Name = "MelManaGatherFx" }
+			{ Name = "MelManaGatherFx" }
+			{ Name = "MelManaGatherFx" }
+		]
+	}
 	
 	{
-		Name = "MelManaGatherOOM"
-		
-		FilePath = "Particles\particle_quickflashIris"
+		Name = "MelManaGatherOOM"		
+		FilePath = "Particles\particle_quickFlashIris"
 		StartRed = 0.74
 		StartGreen = 0.05
 		StartBlue = 0
@@ -1842,129 +1860,6 @@
 
 		]
 	}
-
-	{
-		Name = "GestureSequenceFxFront"
-		InheritFrom = "DeathSequenceFxFront"
-		FilePath = "Fx\DeathSequenceFxFront\DeathSequenceFxFront"
-		NumFrames = 97
-		Scale = 1.25
-		ClearSlides = true
-
-		Slides =
-		[
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-
-			{ DurationFrames = 0 }
-
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 0 }
-			{ DurationFrames = 15 }
-			{ DurationFrames = 3 }
-			{ DurationFrames = 3 }
-			{ DurationFrames = 3 }
-			{ DurationFrames = 3 }
-			{ DurationFrames = 3 }
-
-			{ DurationFrames = 3 }
-			{ DurationFrames = 3 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-			{ DurationFrames = 2 }
-
-		]
-	}
-
-
 	{
 		Name = "DeathSequenceFxBack"
 		InheritFrom = "DeathSequenceFxFront"
@@ -2021,15 +1916,210 @@
 			{ DurationFrames = 2 }
 		]
 	}
-
 	{
-		Name = "GestureSequenceFxBack"
-		InheritFrom = "DeathSequenceFxBack"
+		Name = "LastStandFxFront"
 		FilePath = "Fx\DeathSequenceFxFront\DeathSequenceFxFront"
+		NumFrames = 97
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Material = "Unlit"
+		OffsetZ = -175
 		Scale = 1.25
-		PlaySpeed = 120
-	}
+		GroupName = "FX_Add_Top"
+		SortMode = "FromParent"
+		OriginX = 450
+		OriginY = 540
+		TimeModifierFraction = 0.0
+		Slides =
+		[
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
 
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 20 }
+
+			{ DurationFrames = 5 }
+			{ DurationFrames = 5 }
+			{ DurationFrames = 5 }
+			{ DurationFrames = 5 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+		]
+	}
+	{
+		Name = "LastStandFxBack"
+		InheritFrom = "LastStandFxFront"
+		FilePath = "Fx\DeathSequenceFxBack\DeathSequenceFxBack"
+		GroupName = "Standing_Back_Add"
+		NumFrames = 39
+		DrawBehindOwner = true
+		ClearSlides = true
+		OriginX = 450
+		OriginY = 388
+		Slides =
+		[
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 20 }
+
+			{ DurationFrames = 5 }
+			{ DurationFrames = 5 }
+			{ DurationFrames = 5 }
+			{ DurationFrames = 5 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+	{
+		Name = "LastStandFxBurst"
+		FilePath = "Fx\DeathSequenceFxFront\DeathSequenceFxFront"
+		NumFrames = 58
+		StartFrame = 39
+		PlaySpeed = 60
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Material = "Unlit"
+		OffsetZ = -30
+		Scale = 0.7
+		GroupName = "FX_Add_Top"
+		SortMode = "FromParent"
+		OriginX = 450
+		OriginY = 540
+		TimeModifierFraction = 0.0
+	}
 	{
 		Name = "RadialNovaPentagram"
 		FilePath = "Fx\RadialNovaPentagram\RadialNovaPentagram"
@@ -2155,11 +2245,12 @@
 		IsometricSkew = "None"
 		PostRotateScaleY = 0.5
 		Duration = 0.35
-		StartAlpha = 0
-		EndAlpha = 1
-		PingPongColor = true
-		StartScale = 1.5
-		EndScale = 2.25
+		StartAlpha = 1
+		EndAlpha = 0
+		PingPongColor = false
+		MultiplicativeScaleRadius = true
+		StartScale = 1.0
+		EndScale = 1.1
 		LocationZFromOwner = "Take"
 		OffsetZ = 0
 		ScaleRadius = 130
@@ -2181,23 +2272,23 @@
 
 	{
 		Name = "RadialNovaPentagramFlare"
-		FilePath = "Particles\particle_quickflashIris"
+		FilePath = "Particles\particle_quickFlashIris"
 		Material = "Unlit"
 		StartScale = 0.5
 		EndScale = 0
-		Duration = 0.2
-		EaseIn = 0.9
+		Duration = 0.1
+		EaseIn = 0.95
 		EaseOut = 1.0
 		GroupName = "FX_Add_Top"
 		Scale = 1.0
-		OffsetZ = 120
+		OffsetZ = 0
 	}
 
 	{
 		Name = "RadialNovaPentagramGlow"
 		FilePath = "Particles\particle_glow"
 		Material = "Unlit"
-		StartAlpha = 0.5
+		StartAlpha = 0.25
 		EndAlpha = 0
 		Duration = 0.15
 		EaseIn = 0.9
@@ -2207,12 +2298,13 @@
 		Red = 0.1
 		Green = 1
 		Blue = 0.6
+		ColorFromOwner = "Ignore"
 	}
 
 	{
 		Name = "RadialNovaPentagramFlareCharged"
 		InheritFrom = "RadialNovaPentagramFlare"
-		Scale = 2
+		Scale = 1
 	}
 
 	{
@@ -2320,7 +2412,7 @@
 		Duration = 0.25
 		Hue = 0.5 
 		Scale = 0.4
-		Sound = "/Leftovers/SFX/PowerUpFwoosh"
+		Sound = "/Leftovers/SFX/PowerUpFwooshSingle"
 		CreateAnimation = "MelUnequipGlow"
 		VisualFx = "MelUnequipSparkleFx"
 		VisualFxIntervalMin = 0.01
@@ -2358,6 +2450,7 @@
 		CreateAnimation = null
 		VisualFx = null
 		GrannyAttachedMarkerLocation = null
+		Sound = null
 		LocationFromOwner = "Ignore"
 		ScaleFromOwner = "Ignore"
 		FilePath = "Particles\particle_glow"
@@ -2411,6 +2504,7 @@
 		EndRed = 0.5
 		EndGreen = 0.6
 		EndBlue = 0.7
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 		VisualFx = "WaterSplashFootstepDroplets"
 		VisualFxManagerCap = 200
 		VisualFxManagerFrameCap = 18
@@ -2564,6 +2658,7 @@
 		ScaleMin = 0.5
 		AngleMin = -20
 		AngleMax = 20
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 	}
 	
 	{
@@ -2630,6 +2725,22 @@
 			{ Name = "BlinkTrailFxOutGroundLighting" }
 		]
 	}
+	{
+		Name = "CastSpeedSparkleEmitter"
+		FilePath = "Backgrounds\rectangle_01"
+		OffsetZ = 120
+		Scale = 2
+		Alpha = 0.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		VisualFx = "BlinkTrailFxOutParticles"
+		VisualFxIntervalMin = 0.04
+		VisualFxIntervalMax = 0.05
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		OnlyWhenVisible = true
+	}
 
 	{
 		Name = "BlinkTrailFxOutParticles"
@@ -2660,6 +2771,99 @@
 		SortFromOwner = "Take"
 	}
 
+	{
+		Name = "MelHoverTrail"
+		//FilePath = "Fx\DaggerProjectileCurvedTrail\DaggerProjectileCurvedTrail0005"
+		//Duration = 0.5
+		//StartAlpha = 0
+		//EndAlpha = 1
+		//AddColor = true
+		NumFrames = 28
+		PlaySpeed = 75
+		StartScale = 2.5
+		EndScale = 3.5
+		ScaleY = 2
+		FilePath = "Fx\FadeTrail\FadeTrail"
+		AngleFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		EndRed = 0.5
+		EndGreen = 0.05
+		EndBlue = 1
+		StartRed = 0
+		StartGreen = 1.0
+		StartBlue = 1
+		Alpha = 0.04
+		PingPongColor = false
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		OffsetZ = 120
+		CreateAnimation = "MelHoverTrailSparkleRandom"
+	}
+
+	{
+		Name = "MelHoverTrailSparkleRandom"
+		Random = [
+			{ Name = "MelHoverTrailSparkleA"}
+			{ Name = "MelHoverTrailSparkleB"}
+			{ Name = null }
+			{ Name = null }			
+			{ Name = null }
+			{ Name = null }
+			{ Name = null }
+			{ Name = null }
+			{ Name = null }
+		]
+	}
+
+	{
+		Name = "MelHoverTrailSparkleA"
+		FilePath = "Particles\particle_addFlake"
+		AddColor = true
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		EndRed = 0.5
+		EndGreen = 0.05
+		EndBlue = 1
+		StartRed = 0
+		StartGreen = 1.0
+		StartBlue = 0.9
+		GroupName = "FX_Standing_Add"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.5
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		AngleMin = 160
+		AngleMax = 200
+		StartScaleX = 1
+		EndScaleX = 1.25
+		ScaleY = 0.75
+		AngleChangeSpeedMin = -3
+		AngleChangeSpeedMax = 3
+		AngleFromOwner = "Take"
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -50
+		UseOwnAngle = true
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 0.2
+		ScaleMax = 0.4
+		OffsetZ = 120
+		RandomOffsetY = 20
+		RandomOffsetX = 10
+	}
+
+	{
+		Name = "MelHoverTrailSparkleB"
+		InheritFrom = "MelHoverTrailSparkleA"
+		AddColor = false
+		AlphaMin = 0.6
+		ScaleMin = 0.3
+		ScaleMax = 0.5
+	}
 
 	{
 		Name = "BlinkTrailFxIn"
@@ -2714,19 +2918,6 @@
 		OffsetZ = 0
 		StartAlpha = 0.1
 		Sound = null
-	}
-
-	{
-		Name = "MelUnequipShovel"
-		FilePath = "Dev\blank_invisible"
-		Duration = 1.05
-		ChainTo = "MelUnequipShovelSparkle"
-	}
-	{
-		Name = "MelUnequipShovelSparkle"
-		InheritFrom = "MelUnequipSparkle"
-		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_R_JNT"
-		Scale = 0.6
 	}
 
 	{
@@ -2913,6 +3104,11 @@
 		VisualFxIntervalMax = 0.011
 		VisualFxIntervalMin = 0.01
 	}
+	{
+		Name = "WrathPresentationStreak_Fast"
+		InheritFrom = "WrathPresentationStreak"
+		PlaySpeed = 85.0
+	}
 
 	{
 		Name = "WrathPresentationBottomDivider"
@@ -2928,6 +3124,13 @@
 	}
 
 	{
+		Name = "WrathPresentationBottomDivider_Fast"
+		InheritFrom = "WrathPresentationBottomDivider"
+		ChildAnimation = "WrathPresentationStreaksTop_Fast"
+		Duration = 0.75
+	}
+
+	{
 		Name = "WrathPresentationStreaksTop"
 		FilePath = "Fx\WrathPresentationStreaksTop\WrathPresentationStreaksTop"
 
@@ -2938,6 +3141,12 @@
 		OffsetY = -320.0
 		ScaleX = 8.0
 		Ambient = 0.0
+	}
+	
+	{
+		Name = "WrathPresentationStreaksTop_Fast"
+		InheritFrom = "WrathPresentationStreaksTop"
+		PlaySpeed = 85.0
 	}
 	{
 		Name = "WrathFire"
@@ -3012,80 +3221,274 @@
 
 	{
 		Name = "FireballProjectile"
-		FilePath = "Fx\Fireball\Fireball"
+		FilePath = "Fx\Hestia\HestiaProjectile\HestiaProjectile"
 		
 		VisualFx = "FireballProjectileTrail"
 		Sound = "/SFX/Player Sounds/HestiaFireballLaunchLoop"
 		StopSoundOnFinishFade = 0.2
-		EndFrame = 100
+		EndFrame = 50
 		Loop = true
-		NumFrames = 100
-		PlaySpeed = 30.0
+		NumFrames = 50
+		PlaySpeed = 45.0
 		StartFrame = 1
-		ScaleX = 1.2
+		ScaleX = 1
 		Ambient = 0.0
 		VisualFxDistanceMax = 55.0
 		VisualFxDistanceMin = 50.0
+		OriginX = 140
+		OriginY = 100
+	}
+
+	{
+		Name = "FireballProjectileShadow"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0.2
+		Blue = 0
+		GroupName = "FX_Terrain_Add"
+		DieWithOwner = true
+		Scale = 1.0
+		StartAlpha = 0.7
+		EndAlpha = 1
+		Duration = 0.33
+		EaseIn = 0
+		EaseOut = 1
+		Loop = true
+		PostRotateScaleY = 0.5
+		Alpha = 0.5
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "FireballProjectileTrailShadow"
+		InheritFrom = "FireballProjectileShadow"
+		StartAlpha = 0.33
+		Scale = 0.5
+		EndAlpha = 0
+		Loop = false
+		LocationFromOwner = "Ignore"
+		DieWithOwner = false
 	}
 	
 	{
 		Name = "FireballProjectileTrail"
-		FilePath = "Fx\Flame\Flame"
-		
-		AngleFromOwner = "Take"
-		EndBlue = 0.3
-		EndGreen = 0.5
-		EndRed = 0.99
-		StartBlue = 1.0
-		StartGreen = 1.0
-		StartRed = 1.0
-		EaseIn = 0.9
-		EaseOut = 1.0
-		EndFrame = 60
-		LoopFramesOnly = true
-		NumFrames = 60
-		RandomDurationMax = 1.0
-		RandomDurationMin = 0.5
-		RandomStartFrame = true
-		StartFrame = 1
+		Random = [
+			{ Name = "FireballProjectileTrailA" }
+			{ Name = "FireballProjectileTrailB" }
+			{ Name = "FireballProjectileTrailC" }
+		]
+	}
+
+	{
+		Name = "FireballProjectileTrailA"
+		FilePath = "Fx\Hestia\HestiaFlameA\HestiaFlameA"
+		NumFrames = 16
 		RandomFlipVertical = true
-		DrawBehindOwner = true
-		LocationFromOwner = "Ignore"
 		LocationZFromOwner = "Take"
-		SortMode = "FromParent"
-		EndScaleY = 0.0
+		LocationFromOwner = "Ignore"
+		Material = "Unlit"
+		ScaleMin = 0.4
 		ScaleMax = 1.1
-		ScaleMin = 0.8
-		Ambient = 0.0
-		OverlayVfx = true
+		GroupName = "FX_Standing_Add"
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 60
+		StartScaleY = 0.5
+		EndScaleY = 1.0
+		AngleMin = -30
+		AngleMax = 30
+		Red = 1
+		Green = 0.5
+		Blue = 0
+		CreateAnimation = "FireballProjectileTrailShadow"
 	}
 	{
+		Name = "FireballProjectileTrailB"
+		InheritFrom = "FireballProjectileTrailA"
+		FilePath = "Fx\Hestia\HestiaFlameB\HestiaFlameB"
+	}
+	{
+		Name = "FireballProjectileTrailC"
+		InheritFrom = "FireballProjectileTrailA"
+		FilePath = "Fx\Hestia\HestiaFlameC\HestiaFlameC"
+	}
+
+
+	{
 		Name = "FireballExplosion"
-		FilePath = "Fx\FireballExplosion\FireballExplosion"
+		FilePath = "Fx\Hestia\HestiaFireballExplosion\HestiaFireballExplosion"
 		GroupName = "Standing"
-		
+		RandomFlipHorizontal = true
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
 		Sound = "/SFX/Player Sounds/HestiaFireballImpact"
 		ColorFromOwner = "Ignore"
 		EndFrame = 39
 		NumFrames = 39
-		RandomPlaySpeedMax = 40.0
-		RandomPlaySpeedMin = 30.0
 		StartFrame = 1
 		OffsetY = -30.0
 		LocationFromOwner = "Take"
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 		LocationZFromOwner = "Ignore"
 		SortMode = "Id"
 		ScaleFromOwner = "Ignore"
-		ScaleRadius = 225.0
+		ScaleRadius = 321.0
+		VisualFx = "FireballExplosionSparks"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 12
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
 		Ambient = 0.0
+		AddColor = true
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartRed = 0.5
+		StartGreen = 0.25
+		StartBlue = 0.01
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
 		CreateAnimations =
 		[
 			{ Name = "QuickFlashRed" }
+			{ Name = "FireballExplosionGlow" }
+			{ Name = "HestiaScorchMark" }
 		]
 	}
-		
+
+	{
+		Name = "FireballExplosionSparks"
+		FilePath = "Fx\Hestia\HestiaSparks\HestiaSparks"
+		NumFrames = 10
+		AngleMin = 20
+		AngleMax = 160
+		VelocityMin = 900
+		VelocityMax = 1200
+		Acceleration = -1200
+		UpwardVelocityMin = 50
+		UpwardVelocityMax = 300
+		Gravity = 1200
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		LoopFramesOnly = true
+		RadialOffsetMin = 1
+		RadialOffsetMax = 300
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1
+		StartScale = 1
+		EndScale = 0
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		DieWithOwner = false
+		StartRed = 1
+		StartGreen = 0.6
+		StartBlue = 0.01
+		EndRed = 0.99
+		EndGreen = 0.1
+		EndBlue = 0
+		StartScaleX = 1
+		EndScaleX = 0.2
+		RotateWithGravity = true
+	}
+
+	{
+		Name = "FireballExplosionGlow"
+		FilePath = "Particles\particle_glow"
+		StartRed = 1
+		StartGreen = 0.6
+		StartBlue = 0.1
+		EndRed = 0.99
+		EndGreen = 0.3
+		EndBlue = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Duration = 1.5
+		Material = "Unlit"
+		DieWithOwner = false
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.5
+		EndAlpha = 0
+		Scale = 3
+	}
+
+	{
+		Name = "FireballExplosionGlowIcarus"
+		InheritFrom = "FireballExplosionGlow"
+		Scale = 1.25
+		Duration = 0.75
+	}
+
+	{
+		Name = "FireballExplosionIcarus"
+		InheritFrom = "FireballExplosion"
+		FilePath = "Fx\SuitRocketExplosion\SuitRocketExplosion"
+		NumFrames = 40
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		DrawBehindOwner = true
+		ScaleRadius = 0
+		StartRed = 0.01
+		StartGreen = 0.01
+		StartBlue = 0.01
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		AddColor = true
+		ClearCreateAnimations = true
+		Scale = 1.25
+		Saturation = 0.33
+		VisualFx = null
+		CreateAnimations = 
+		[
+			{ Name = "FireballExplosionGlowIcarus" }
+			{ Name = "FireballNovaIcarus" }
+			{ Name = "FireballExplosionIcarusB" }
+		]
+	}
+
+	{
+		Name = "FireballExplosionIcarusB"
+		FilePath = "Fx\Hestia\HestiaImpact\HestiaImpact"
+		NumFrames = 21
+		PostRotateScaleY = 0.5
+		Material = "Unlit"
+		GroupName = "FX_Terrain"
+		RandomRotation = true
+		ScaleFromOwner = "Ignore"
+		Scale = 3
+	}
+
+	{
+		Name = "FireballNovaIcarus"
+		FilePath = "Fx\RadialNova\RadialNova"
+		NumFrames = 44
+		PlaySpeed = 90
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		RandomRotation = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ScaleRadius = 380
+		AddColor = true
+		StartRed = 0.1
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.99
+		EndGreen = 0.2
+		EndBlue = 0.001
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Material = "Unlit"
+		OffsetZ = 60
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
 	{
 		Name = "HitSparkArmorMel"
 		Random = [	
@@ -3184,6 +3587,11 @@
 		Color = { Red = 1.0 Green = 0.05 Blue = 0.0 }
 	}
 	{
+		Name = "PlayerHitSpark_NoBlood"
+		InheritFrom = "PlayerHitSpark"
+		CreateAnimation = null
+	}
+	{
 		Name = "PlayerBurnDamage"
 		InheritFrom = "HitSparkB"
 		AddColor = false
@@ -3233,6 +3641,12 @@
       VisualFxIntervalMax = 0.45
       VisualFxIntervalMin = 0.35
       Color = { Red = 0.6 Green = 0.0 Blue = 1.0 }
+    }
+    {
+      Name = "WeaponBonusFxNyx"
+      InheritFrom = "WeaponBonusFx"
+      Sound = "/SFX/Player Sounds/NyxBoostLoop"
+      StopSoundOnFinishFade = 0.2
     }
 
     {
@@ -3422,7 +3836,6 @@
       Sound = "/Leftovers/Object Ambiences/DarkThirstAmbience"
       StopSoundOnFinishFade = 0.2
       Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
-	  CancelAnimation = "WeaponBonusFxBack"
     }
 
     {
@@ -3483,6 +3896,338 @@
       ScaleY = 0.5
       StartScaleX = 0.5
       Material = "Unlit"
+    }
+
+    {
+    	Name = "MelShieldFront"
+    	FilePath = "Fx\MelShieldFront\MelShieldFront"
+    	NumFrames = 60
+    	Material = "Unlit"
+    	PlaySpeed = 30
+    	LocationZFromOwner = "Maintain"
+    	LocationFromOwner = "Maintain"
+    	AngleFromOwner = "Ignore"
+    	UseOwnAngle = false
+    	GroupName = "FX_Standing_Add"
+    	Loop = true
+    	DieWithOwner = true
+    	CreateAnimation = "MelShieldBack"
+    	TransferFrameFromThis = true
+    	OffsetZ = 70
+    	Scale = 1.2
+    	//GrannyAttachedMarkerLocation = "Melinoe_Rig:root_00_M_JNT"
+    	ChainTo = "MelShieldFrontFade"
+    	SortMode = "FromParent"
+    	SortFromOwner = "Maintain"
+    }
+
+    {
+    	Name = "MelShieldFrontFade"
+    	InheritFrom = "MelShieldFront"
+    	TransferFrameToThis = true
+    	StartAlpha = 1
+    	EndAlpha = 0
+    	LoopFramesOnly = true
+    	Loop = false
+    	Duration = 0.33
+    	EaseIn = 0.9
+    	EaseOut = 1.0
+    	ChainTo = null
+    	CreateAnimation = null
+    }
+
+    {
+    	Name = "MelShieldBack"
+    	InheritFrom = "MelShieldFront"
+		FilePath = "Fx\MelShieldBack\MelShieldBack"
+		GroupName = "FX_Dark"
+		CreateAnimation = null
+		ChainTo = null
+    }
+
+    {
+    	Name = "HermesSprintShieldFx"
+    	InheritFrom = "MelShieldFront"
+    	ChainTo = "HermesSprintShieldFxFade"
+    	ChildAnimation = "HermesSprintShieldFxB"
+    	UseOwnAngle = true
+    	AngleFromOwner = "Maintain"
+    	Angle = -90
+    	OffsetZ = 75
+    	CreateAnimation = null
+    }
+
+    {
+    	Name = "HermesSprintShieldFxB"
+    	FilePath = "Particles\particle_eagleProjectile"
+    	Material = "Unlit"
+    	Duration = 0.5
+    	EaseIn = 0
+    	EaseOut = 1
+    	Loop = true
+    	StartAlpha = 0.33
+    	EndAlpha = 0.66
+    	PingPongColor = true
+    	DieWithOwner = true
+    	OffsetZ = 80
+    	Scale = 2
+    	StartRed = 0.99
+    	StartGreen = 0.2
+    	StartBlue = 0.01
+    	EndRed = 1.0
+    	EndGreen = 0.5
+    	EndBlue = 0.0
+    }
+
+    {
+    	Name = "HermesSprintShieldFxBFade"
+    	InheritFrom = "HermesSprintShieldFxB"
+    	StartAlpha = 0.33
+    	EndAlpha = 0
+    	Duration = 0.33
+    	ChainTo = null
+    	PingPongColor = false
+    }
+
+    {
+    	Name = "HermesSprintShieldFxFade"
+    	InheritFrom = "HermesSprintShieldFx"
+    	TransferFrameToThis = true
+    	StartAlpha = 1
+    	EndAlpha = 0
+    	LoopFramesOnly = true
+    	Loop = false
+    	Duration = 0.33
+    	EaseIn = 0.9
+    	EaseOut = 1.0
+    	ChainTo = null
+    	CreateAnimation = null
+    	ChildAnimation = "HermesSprintShieldFxBFade"
+    }
+
+	
+	
+    {
+      Name = "SpearSwipe360"
+      ChildAnimation = "SpearSwipe360B"
+      CreateAnimation = "SpearSwipe360-Displace"
+      FilePath = "Fx\SpearSwipe\SpearSwipe"
+      GroupName = "FX_Standing_Add"
+      AddColor = true
+      ColorFromOwner = "Ignore"
+      EndRed = 0.999
+      StartBlue = 0.001
+      StartGreen = 0.1
+      StartRed = 1.0
+      EndFrame = 28
+      NumFrames = 28
+      PlaySpeed = 60.0
+      StartFrame = 1
+      SortMode = "FromParent"
+      PostRotateScaleY = 0.62
+      ScaleRadius = 234.0
+      Ambient = 0.0
+      OverlayVfx = true
+      TimeModifierFraction = 0.9
+      LocationZFromOwner = "Take"
+      CreateAnimations = [
+        { Name = "SpearSwipe360Dark" }
+      ]
+    }
+    {
+      Name = "SpearSwipe360Dark"
+      InheritFrom = "SpearSwipe360"
+      ChildAnimation = "null"
+      CreateAnimation = "null"
+      ClearCreateAnimations = true
+      GroupName = "FX_Dark"
+      AddColor = false
+      EndRed = 0.0
+      StartBlue = 0.0
+      StartGreen = 0.0
+      StartRed = 0.02
+      PlaySpeed = 50.0
+      Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+    }
+
+    {
+      Name = "SpearSwipe360-Displace"
+      InheritFrom = "SpearSwipe360"
+      ChildAnimation = "null"
+      CreateAnimation = "null"
+      ClearCreateAnimations = true
+      GroupName = "FX_Displacement"
+      StartAlpha = 0.1
+      ClearSlides = true
+    }
+
+    {
+      Name = "SpearSwipe360B"
+      InheritFrom = "SpearSwipe360"
+      ChildAnimation = "SpearSwipeGlow"
+      EndGreen = 0.1
+      StartGreen = 0.2
+      ClearSlides = true
+    }
+    {
+      Name = "SpearSwipeGlow"
+      ChildAnimation = "SpearSwipe360BaseEmitter"
+      FilePath = "Fx\SpearSwipe\SpearSwipeGlow"
+      GroupName = "FX_Standing_Add"
+      Angle = 180.00
+      EndGreen = 0.1
+      EndRed = 0.999
+      StartAlpha = 1.0
+      StartBlue = 0.001
+      StartGreen = 0.2
+      StartRed = 1.0
+      DurationFrames = 12
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      RotationSpeed = -720.00
+      PostRotateScaleY = 0.5
+      Scale = 2.0
+      ScaleRadius = 234.0
+      Ambient = 0.0
+      OverlayVfx = true
+      TimeModifierFraction = 0.9
+    }
+
+    {
+      Name = "SpearSwipe360BaseEmitter"
+      FilePath = "Dev\blank_invisible"
+      VisualFx = "SpearSwipe360BaseParticles"
+      Duration = 0.2
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      VisualFxIntervalMax = 0.021
+      VisualFxIntervalMin = 0.02
+    }
+
+    {
+      Name = "SpearSwipe360BaseParticles"
+      FilePath = "Particles\particle_glow_add"
+      GroupName = "FX_Standing_Add"
+      AngleChangeAcceleration = -500.00
+      AngleChangeSpeedMax = 361.00
+      AngleChangeSpeedMin = 360.00
+      AngleFromOwner = "Ignore"
+      AngleMax = 360.00
+      AddColor = true
+      EndRed = 0.999
+      StartBlue = 0.001
+      StartGreen = 0.1
+      StartRed = 1.0
+      EndFrame = 1
+      NumFrames = 1
+      RandomDurationMax = 0.8
+      RandomDurationMin = 0.4
+      StartFrame = 1
+      RandomFlipVertical = true
+      RadialOffsetMax = 100.0
+      RadialOffsetMin = 99.0
+      RadialOffsetScaleRadius = 150.0
+      RadialOffsetScaleY = 0.5
+      LocationFromOwner = "Ignore"
+      Acceleration = -500.0
+      VelocityMax = 300.0
+      VelocityMin = 250.0
+      EndScale = 0.0
+      ScaleMax = 0.5
+      ScaleMin = 0.02
+      Ambient = 0.0
+    }
+
+	
+    {
+      Name = "MarkTargetHades"
+      FilePath = "Fx\HadesStatus\HadesStatus"
+      NumFrames = 30
+      Loop = true
+      Material = "Unlit"
+      AngleFromOwner = "Ignore"
+      ScaleFromOwner = "Ignore"
+      ColorFromOwner = "Ignore"
+      UseAttachedAddColor = false
+      UseAttachedFlasher = false
+      DieWithOwner = true
+      Scale = 0.85
+      OffsetZ = 240
+	  GroupName = "FX_Standing"
+      CreateAnimation = "MarkTargetHadesStart"
+      Sound = "/SFX/HadesAspectEffectLoop"
+      StopSoundOnFinishFade = 0.2
+      ChainTo = "MarkTargetHadesEnd"
+      VisualFx = "MarkTargetHadesFx"
+      VisualFxIntervalMin = 0.2
+      VisualFxIntervalMax = 0.3
+    }
+    {
+      Name = "MarkTargetHadesFx"
+      FilePath = "Particles\particle_steam_01"
+      StartRed = 1
+      RandomRotation = true
+      EndRed = 0
+      StartGreen = 0.001
+      EndGreen = 0
+      StartBlue = 0.001
+      EndBlue = 0
+      OffsetZ = 0
+      GroupName = "FX_Dark"
+      StartAlpha = 0
+      EndAlpha = 1
+      PingPongColor = true
+      Duration = 1
+      Scale = 1.0
+      AngleFromOwner = "Ignore"
+      StartScale = 0.6
+      EndScale = 1.2
+      PostRotateScaleY = 1.5
+      Material = "Unlit"
+    }
+    {
+      Name = "MarkTargetHadesStart"
+      InheritFrom = "MarkTargetHades"
+      AddColor = true
+      StartRed = 1
+      StartGreen = 1
+      StartBlue = 0.1
+      EndRed = 0
+      EndGreen = 0
+      EndBlue = 0
+      EaseIn = 0.9
+      EaseOut = 1.0
+      Loop = false
+      StartScale = 1.2
+      EndScale = 1.0
+      CreateAnimation = null
+      ClearCreateAnimations = true
+      ChainTo = null
+      Sound = "/SFX/HeatCollectionPickupReverse"
+    }
+    {
+      Name = "MarkTargetHadesEnd"
+      InheritFrom = "MarkTargetHades"
+      CreateAnimation = null
+      ClearCreateAnimations = true
+      ChainTo = null
+      Loop = false
+      StartScale = 1
+      EndScale = 0.9
+      EaseIn = 0.0
+      EaseOut = 1.0
+      StartRed = 1
+      StartGreen = 1
+      StartBlue = 1
+      EndRed = 0.5
+      EndGreen = 0
+      EndBlue = 0
+      StartAlpha = 1
+      EndAlpha = 0
+      VisualFx = null
+      Sound = "null"
     }
 
 ]}

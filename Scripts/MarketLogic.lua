@@ -19,8 +19,9 @@ function GenerateMarketItems( source, args )
 			CurrentRun.MarketItems[categoryIndex] = {}
 			local nonPriorityItems = {}
 			for j, buyData in ipairs( category ) do
-				if buyData.GameStateRequirements == nil or IsGameStateEligible( buyData, buyData.GameStateRequirements ) then
-					if buyData.Priority then
+				local requirementsMet = buyData.GameStateRequirements == nil or IsGameStateEligible( buyData, buyData.GameStateRequirements )
+				if requirementsMet or category.ShowItemsWithUnmetRequirements then
+					if ( category.ShowItemsWithUnmetRequirements and requirementsMet ) or ( not category.ShowItemsWithUnmetRequirements and buyData.Priority ) then
 						table.insert( CurrentRun.MarketItems[categoryIndex], DeepCopyTable( buyData ) )
 					else
 						table.insert( nonPriorityItems, buyData )
@@ -28,7 +29,11 @@ function GenerateMarketItems( source, args )
 				end
 			end
 			for i, chosenOption in ipairs( nonPriorityItems ) do
-				table.insert( CurrentRun.MarketItems[categoryIndex], DeepCopyTable( chosenOption ) )
+				local dataCopy = DeepCopyTable( chosenOption )
+				if category.ShowItemsWithUnmetRequirements then
+					dataCopy.HasUnmetRequirements = true
+				end
+				table.insert( CurrentRun.MarketItems[categoryIndex], dataCopy )
 			end
 		end
 	end
@@ -117,10 +122,25 @@ function OpenMarketScreen( args )
 
 			screen.NumCategories = screen.NumCategories + 1
 			GameState.WorldUpgradesRevealed[slotName] = true
-			categoryTitleX = categoryTitleX + screen.CategorySpacingX
 		else
 			category.Locked = true
 		end
+
+		if category.Locked then
+			local categoryButton = CreateScreenComponent({
+				Name = "BlankObstacle",
+				X = categoryTitleX,
+				Y = screen.CategoryStartY,
+				Group = "Combat_Menu_Overlay",
+				Animation = "GUI/Screens/Inventory/CategoryTabInactive",
+				Scale = 0.5,
+				Alpha = 0.0
+			})
+			screen.Components["InactiveCategory"..category.Name] = categoryButton
+			SetAlpha({ Id = categoryButton.Id, Fraction = 1.0, Duration = 0.1 })
+		end
+
+		categoryTitleX = categoryTitleX + screen.CategorySpacingX
 	end
 
 	if tabsToReveal ~= nil then
@@ -147,11 +167,11 @@ function OpenMarketScreen( args )
 				AlphaTarget = 1.0,
 				AlphaTargetDuration = 0.1,
 			})
-			Attach({ Id = components[newButtonKey].Id, DestinationId = categoryButton.Id, OffsetX = screen.NewIconOffsetX, OffsetY = screen.NewIconOffsetY })
+			Attach({ Id = components[newButtonKey].Id, DestinationId = categoryButton.Id, OffsetX = screen.NewTabIconOffsetX, OffsetY = screen.NewTabIconOffsetY })
 		end
 	end
 
-	MarketScreenDisplayCategory( screen, screen.ActiveCategoryIndex )
+	MarketScreenDisplayCategory( screen, screen.ActiveCategoryIndex, { FirstOpen = true } )
 	WeaponShopUpdateVisibility( screen )
 	UpdateMarketScreenInteractionText( screen )
 	wait( 0.02 )
@@ -164,8 +184,9 @@ function OpenMarketScreen( args )
 
 end
 
-function MarketScreenDisplayCategory( screen, categoryIndex )
+function MarketScreenDisplayCategory( screen, categoryIndex, args )
 
+	args = args or {}
 	screen.SelectedItem = nil
 
 	local components = screen.Components
@@ -198,12 +219,18 @@ function MarketScreenDisplayCategory( screen, categoryIndex )
 	SetAnimation({ DestinationId = components.BasicResourceButton.Id, Name = resourceData.TextIconPath or resourceData.IconPath or resourceData.Icon })
 	ModifyTextBox({ Id = components.BasicResourceButton.Id, Text = GameState.Resources[currencyResourceName] or 0, })
 
-	if category.FlipSides then
-		-- Sell Mode
-		SetAnimation({ DestinationId = screen.Components.Background.Id, Name = "ResourceShopItemsBackground_Selling" })
-	else
-		-- Buy Mode
-		SetAnimation({ DestinationId = screen.Components.Background.Id, Name = "ResourceShopItemsBackground" })
+	if not args.FirstOpen and screen.CurrentFlipSides ~= category.FlipSides then
+		if category.FlipSides then
+			-- Sell Mode
+			SetAnimation({ DestinationId = screen.Components.Background.Id, Name = "MarketScreenTransitionBuyToSell" })
+			screen.CloseAnimation = "MarketScreenOutSell"
+			screen.CurrentFlipSides = true
+		else
+			-- Buy Mode
+			SetAnimation({ DestinationId = screen.Components.Background.Id, Name = "MarketScreenTransitionSellToBuy" })
+			screen.CloseAnimation = "MarketScreenOutBuy"
+			screen.CurrentFlipSides = false
+		end
 	end
 
 	local itemLocationX = screen.ItemStartX
@@ -222,8 +249,10 @@ function MarketScreenDisplayCategory( screen, categoryIndex )
 			local costDisplay = item.Cost
 			local costText = "ResourceCost"
 			local unaffordableColor = nil
-			local anim = "GUI\\Screens\\ResourceShop\\Button-Buy"
-			local highlightAnim = "GUI\\Screens\\ResourceShop\\Button-Buy_Highlight"
+			local anim = "MarketScreenButtonBuy"
+			local highlightAnim = "MarketScreenButtonInBuy"
+			local mouseOffAnim = "MarketScreenButtonOutBuy"
+			local purchaseAnim = "MarketScreenButtonPurchaseBuy"
 			if category.FlipSides then
 				for resourceName, resourceAmount in pairs( item.Cost ) do
 					buyResourceData = ResourceData[resourceName]
@@ -233,8 +262,10 @@ function MarketScreenDisplayCategory( screen, categoryIndex )
 					costDisplay[item.BuyName] = item.BuyAmount
 					costText = "ResourceCostSelling"
 					unaffordableColor = Color.White
-					anim = "GUI\\Screens\\ResourceShop\\Button-Sell"
-					highlightAnim = "GUI\\Screens\\ResourceShop\\Button-Sell_Highlight"
+					anim = "MarketScreenButtonSell"
+					highlightAnim = "MarketScreenButtonInSell"
+					mouseOffAnim = "MarketScreenButtonOutSell"
+					purchaseAnim = "MarketScreenButtonPurchaseSell"
 					break
 				end
 				if buyResourceData == nil then
@@ -275,6 +306,8 @@ function MarketScreenDisplayCategory( screen, categoryIndex )
 				button.OnMouseOffFunctionName = "MarketScreenMouseOffItem"
 				button.Animation = anim
 				button.HighlightAnimation = highlightAnim
+				button.MouseOffAnimation = mouseOffAnim
+				button.PurchaseAnimation = purchaseAnim
 
 				if not firstUseable then
 					screen.CursorStartX = itemLocationX
@@ -294,6 +327,9 @@ function MarketScreenDisplayCategory( screen, categoryIndex )
 				})
 
 				local itemNameFormat = screen.ItemNameFormat
+				if item.HasUnmetRequirements then
+					itemNameFormat = screen.UnmetRequirementsItemNameFormat
+				end
 				itemNameFormat.Id = components[purchaseButtonKey].Id
 				itemNameFormat.Text = item.LeftDisplayName
 				itemNameFormat.LuaValue = item
@@ -337,6 +373,26 @@ function MarketScreenDisplayCategory( screen, categoryIndex )
 					CreateTextBox({ Id = components[purchaseButtonKey].Id, TextSymbolScale = 0, Text = pinTooltip, Color = Color.Transparent })
 				end
 
+				local bannerIcon = nil
+				if not item.Priority then
+					bannerIcon = screen.LimitedOfferBannerIcon
+					CreateTextBox({ Id = components[purchaseButtonKey].Id, TextSymbolScale = 0, Text = "Market_LimitedTimeOffer", Color = Color.Transparent })
+				elseif item.HasUnmetRequirements then
+					bannerIcon = screen.NeededResourceBannerIcon
+					CreateTextBox({ Id = components[purchaseButtonKey].Id, TextSymbolScale = 0, Text = "MarketEarlySellWarningTooltip", Color = Color.Transparent })
+				end
+
+				if bannerIcon ~= nil then
+					local bannerIconKey = "BannerIcon"..screen.NumItems
+					components[bannerIconKey] = CreateScreenComponent({
+						Name = "BlankObstacle",
+						Group = "Combat_Menu_Overlay",
+						Animation = bannerIcon,
+						Alpha = 0.0,
+					})
+					Attach({ Id = components[bannerIconKey].Id, DestinationId = components[purchaseButtonKey].Id, OffsetX = screen.BannerIconOffsetX, OffsetY = screen.BannerIconOffsetY })
+				end
+
 				if not category.FlipSides and not GameState.ItemsViewed[item.BuyName] then
 					local newIconKey = "NewIcon"..screen.NumItems
 					components[newIconKey] = CreateScreenComponent({
@@ -345,7 +401,7 @@ function MarketScreenDisplayCategory( screen, categoryIndex )
 						Animation = "MusicPlayerNewTrack",
 						Alpha = 0.0,
 					})
-					Attach({ Id = components[newIconKey].Id, DestinationId = components[purchaseButtonKey].Id, OffsetX = 375, OffsetY = 0 })
+					Attach({ Id = components[newIconKey].Id, DestinationId = components[purchaseButtonKey].Id, OffsetX = screen.NewIconOffsetX, OffsetY = screen.NewIconOffsetY })
 					components[purchaseButtonKey].NewButtonId = components[newIconKey].Id
 				end
 
@@ -410,6 +466,7 @@ function HandleMarketPurchase( screen, button )
 		screen.Components["SellText"..button.Index],
 		screen.Components["PinIcon"..button.Index],
 		screen.Components["Icon"..button.Index],
+		screen.Components["BannerIcon"..button.Index],
 		screen.Components["CurrentAmount"..button.Index],
 	})
 
@@ -456,6 +513,8 @@ function HandleMarketPurchase( screen, button )
 
 	MarketScreenPurchaseFinishPresentation( screen, button, item )
 
+	CheckAchievement( screen, { Name = "AchEarnPrestige1" } )
+
 end
 
 function MarketScreenSellAll( screen, button )
@@ -466,6 +525,7 @@ function MarketScreenSellAll( screen, button )
 		screen.Components["SellText"..button.Index],
 		screen.Components["PinIcon"..button.Index],
 		screen.Components["Icon"..button.Index],
+		screen.Components["BannerIcon"..button.Index],
 		screen.Components["CurrentAmount"..button.Index],
 	})
 	UseableOff({ Ids = buttonIds })
@@ -562,6 +622,9 @@ function MarketScreenUpdateResourceStatus( screen )
 end
 
 function MarketScreenSelectCategory( screen, button )
+	if button.CategoryIndex == screen.ActiveCategoryIndex then
+		return
+	end
 	WeaponShopScreenSelectCategoryPresentation( screen, button )
 	WeaponShopScreenHideItems( screen )
 	wait( 0.1 )
@@ -625,7 +688,10 @@ function UpdateMarketScreenInteractionText( screen, button )
 	local components = screen.Components
 
 	local category = screen.ItemCategories[screen.ActiveCategoryIndex]
-	if button ~= nil and button.Data ~= nil and button.Data.Cost ~= nil and HasResources( button.Data.Cost ) then
+	if button == nil or button.Data == nil then
+		SetAlpha({ Id = components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
+		SetAlpha({ Id = components.SellAllButton.Id, Fraction = 0.0, Duration = 0.2 })
+	else
 		SetAlpha({ Id = components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
 		if screen.ActiveCategoryIndex == 3 then
 			ModifyTextBox({ Id = components.SelectButton.Id, Text = components.SelectButton.AltTexts[1] })
@@ -641,10 +707,9 @@ function UpdateMarketScreenInteractionText( screen, button )
 			else
 				ModifyTextBox({ Id = components.SellAllButton.Id, Text = components.SellAllButton.Text })
 			end
+		else
+			SetAlpha({ Id = components.SellAllButton.Id, Fraction = 0.0, Duration = 0.2 })
 		end
-	else
-		SetAlpha({ Id = components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
-		SetAlpha({ Id = components.SellAllButton.Id, Fraction = 0.0, Duration = 0.2 })
 	end
 
 	if screen.NumCategories >= 2 then
@@ -671,6 +736,41 @@ function HasUnviewedMarketItem( source, args )
 						end
 					end
 				end
+			end
+		end
+	end
+	return false
+end
+
+function HasAllWorldUpgradesRequiringResource( source, args )
+	args = args or {}
+	local resourceName = args.ResourceName or GetFirstKey( source.Cost )
+	for worldUpgrade, worldUpgradeData in pairs( WorldUpgradeData ) do
+		if worldUpgradeData.Cost ~= nil and worldUpgradeData.Cost[resourceName] ~= nil then
+			if worldUpgradeData.Repeatable then
+				if worldUpgradeData.OnActivateFinishedFunctionArgs ~= nil and worldUpgradeData.OnActivateFinishedFunctionArgs.ResourceName ~= nil and not HasAllWorldUpgradesRequiringResource(source, { ResourceName = worldUpgradeData.OnActivateFinishedFunctionArgs.ResourceName }) then
+					return false
+				end
+			elseif not GameState.WorldUpgradesAdded[worldUpgrade] then
+				return false
+			end
+		end
+	end
+	for weaponName, weaponData in pairs( WeaponShopItemData ) do
+		if weaponData.Cost ~= nil and weaponData.Cost[resourceName] ~= nil then
+			if not GameState.WeaponsUnlocked[weaponName] then
+				return false
+			end
+		end
+	end
+	return true
+end
+
+function IsMarketItemInStock( source, args )
+	for categoryIndex, categoryItems in ipairs( CurrentRun.MarketItems ) do
+		for itemIndex, itemData in ipairs( categoryItems ) do
+			if itemData.BuyName == args.Name and not itemData.SoldOut then
+				return true
 			end
 		end
 	end

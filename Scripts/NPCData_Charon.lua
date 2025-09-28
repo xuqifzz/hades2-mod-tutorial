@@ -9,23 +9,27 @@ UnitSetData.NPC_Charon =
 		Portrait = "Portrait_Charon_Default_01",
 		Groups = { "NPCs" },
 		SubtitleColor = Color.CharonVoice,
+		EmoteOffsetY = -350,
+		EmoteOffsetX = 135,
 		AnimOffsetZ = 0,
 		AlwaysShowInvulnerabubbleOnInvulnerableHit = true,
 		InvincibubbleScale = 1.25,
 		SpeakerName = "Charon",
+		LoadPackages = { "Charon", },
 
 		SpecialInteractFunctionName = "SpecialInteractSalute",
 		SpecialInteractGameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "TextLinesRecord", "CharonGift01" },
+				Path = { "GameState", "UseRecord", "NPC_Charon_01" },
+				Comparison = ">=",
+				Value = 2,
 			},
 		},
 		BoonInfoTitleText = "Codex_BoonInfo_Charon",
 		SpecialInteractCooldown = 60,
 		InteractVoiceLines =
 		{
-			[1] =
 			{
 				RandomRemaining = true,
 				UsePlayerSource = true,
@@ -59,6 +63,10 @@ UnitSetData.NPC_Charon =
 				},
 				{ Cue = "/VO/Melinoe_2276", Text = "You're always welcome here and safe, Lord Charon.",
 					PlayFirst = true,
+					Cooldowns =
+					{
+						{ Name = "SaidWelcomeHereRecently", Time = 180 },
+					},
 					GameStateRequirements =
 					{
 						{
@@ -67,8 +75,7 @@ UnitSetData.NPC_Charon =
 					},
 				},
 			},
-			[2] = { GlobalVoiceLines = "SaluteVoiceLines" },
-			[3] =
+			{ GlobalVoiceLines = "SaluteVoiceLines" },
 			{
 				RandomRemaining = true,
 				PreLineWait = 0.3,
@@ -76,9 +83,67 @@ UnitSetData.NPC_Charon =
 				ObjectType = "NPC_Charon_01",
 
 				{ Cue = "/VO/Charon_0031", Text = "{#Emph}Sshhh..." },
-				{ Cue = "/VO/Charon_0018", Text = "{#Emph}Heeeehhhhh..." },
-				{ Cue = "/VO/Charon_0017", Text = "{#Emph}Urrrnngggghhh..." },
 				{ Cue = "/VO/Charon_0029", Text = "{#Emph}Kohh..." },
+				{ Cue = "/VO/Charon_0112", Text = "{#Emph}Krraahhhh...",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "LastLinePlayed" },
+							IsAny = { "/VO/Melinoe_1700" },
+						},
+					},
+				},
+				{ Cue = "/VO/Charon_0113", Text = "{#Emph}Mmmmnnnn...",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "LastLinePlayed" },
+							IsAny = { "/VO/Melinoe_1701", "/VO/Melinoe_1878" },
+						},
+					},
+				},
+				{ Cue = "/VO/Charon_0114", Text = "{#Emph}Ssshhh...",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "LastLinePlayed" },
+							IsAny = { "/VO/Melinoe_1703", "/VO/Melinoe_1235" },
+						},
+					},
+				},
+				{ Cue = "/VO/Charon_0115", Text = "{#Emph}Auugghhh...",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "LastLinePlayed" },
+							IsAny = { "/VO/Melinoe_1704", "/VO/Melinoe_2275" },
+						},
+					},
+				},
+				{ Cue = "/VO/Charon_0116", Text = "{#Emph}Hrrmmm...",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "LastLinePlayed" },
+							IsAny = { "/VO/Melinoe_2273" },
+						},
+					},
+				},
+				{ Cue = "/VO/Charon_0117", Text = "{#Emph}Hrreehh...",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "LastLinePlayed" },
+							IsAny = { "/VO/Melinoe_2276" },
+						},
+					},
+				},
 			},
 		},
 
@@ -123,6 +188,7 @@ UnitSetData.NPC_Charon =
 						PathTrue = { "GameState", "UseRecord", "CharonPointsDrop" },
 					},
 					NamedRequirements = { "MailboxUnlocked" },
+					NamedRequirementsFalse = { "ClearBeforeTrueEnding" },
 				},
 
 				UseText = "UseListenNPC",
@@ -208,7 +274,7 @@ UnitSetData.NPC_Charon =
 				{
 					PreLineWait = 0.5,
 					UsePlayerSource = true,
-					{ Cue = "/VO/Melinoe_1198", Text = "I long to see that day." },
+					{ Cue = "/VO/Melinoe_1198", Text = "I long to see that night." },
 				},
 			},
 			CharonAboutGold02 =
@@ -235,11 +301,21 @@ UnitSetData.NPC_Charon =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "CharonGift01" },
+					},
+					{
+						Path = { "GameState", "LifetimeResourcesSpent", "CharonPoints" },
+						Comparison = ">=",
+						Value = 2,
 					},
 				},
 				{ Cue = "/VO/Charon_0036",
 					Text = "{#Emph}Haaaa{#Prev}, hrrrnnnnggghhh..." },
 				{ Cue = "/VO/Melinoe_1199", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "{#Emph}Hah! {#Prev}We'll have to see how much Chronos still loves his Gold after all this. The good thing about traitors is their loyalties can be bought..." },
@@ -249,6 +325,7 @@ UnitSetData.NPC_Charon =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
+				StatusAnimation = "StatusIconWantsToTalkImportant_NPC",
 				GameStateRequirements =
 				{
 					{
@@ -256,9 +333,9 @@ UnitSetData.NPC_Charon =
 					},
 					NamedRequirements = { "MailboxUnlocked" },
 				},
-				StatusAnimation = "StatusIconWantsToTalkImportant_NPC",
 				{ Cue = "/VO/Charon_0057",
 					Text = "{#Emph}Hrrnnnaaauuggghh..." },
+
 				{ Cue = "/VO/MelinoeField_0733", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
@@ -273,6 +350,52 @@ UnitSetData.NPC_Charon =
 					{ Cue = "/VO/Melinoe_0842_B", Text = "Why thank you...!" },
 				},
 			},
+			CharonAboutCharonPoints01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				StatusAnimation = "StatusIconWantsToTalkImportant_NPC",
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "WeaponPointsRare" },
+						Comparison = ">=",
+						Value = 10,
+					},
+					{
+						Path = { "GameState", "LifetimeResourcesSpent", "CharonPoints" },
+						Comparison = ">=",
+						Value = 20,
+					},
+					NamedRequirements = { "MailboxUnlocked" },
+				},
+				{ Cue = "/VO/Charon_0135",
+					Text = "{#Emph}Rrnnngghh, huuaaahhh..." },
+				{ Cue = "/VO/MelinoeField_4505", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "None", Portrait = "Portrait_Mel_Proud_01", WaitTime = 4.7 },
+
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+
+					-- heart unlock
+					PostLineThreadedFunctionName = "RelationshipAdvancedPresentation",
+					PostLineThreadedFunctionArgs =
+					{
+						Delay = 0.8,
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "GameState", "TextLinesRecord", "CharonGift06" },
+							},
+						},
+					},
+
+					Text = "Something about your Gold Rewards... in which I've achieved Silver status now? Oh thank you very much, my lord! I'm pleased to be a loyal customer of yours." },
+			},
 
 			CharonAboutSpeaking01 =
 			{
@@ -282,6 +405,9 @@ UnitSetData.NPC_Charon =
 				{
 					{
 						PathTrue = { "PrevRun", "UseRecord", "NPC_Charon_01", },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "CharonGift05" },
 					},
 				},
 				{ Cue = "/VO/Charon_0037",
@@ -322,10 +448,12 @@ UnitSetData.NPC_Charon =
 					},
 				},
 				{ Cue = "/VO/MelinoeField_1584", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineThreadedFunctionName = "PlayCharacterAnim",
 					PreLineThreadedFunctionArgs = { Name = "MelTalkExplaining01", WaitTime = 1, UsePlayerSource = true },
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I bear the gift you generously gave to me. A Keepsake to bring fortune on such nights. Things are looking up already!" },
+
 				{ Cue = "/VO/Charon_0078",
 					Text = "{#Emph}Rraaauuggggghhhh..." },
 				EndVoiceLines =
@@ -366,6 +494,37 @@ UnitSetData.NPC_Charon =
 					{ Cue = "/VO/MelinoeField_2838", Text = "Whatever you say, my lord." },
 				},
 			},
+			CharonAboutHermesKeepsake01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "Hero", "TraitDictionary" },
+						HasAny = { "TimedBuffKeepsake" },
+					},
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
+				},
+				{ Cue = "/VO/Charon_0102",
+					PreLineAnim = "Charon_Thanking",
+					Text = "{#Emph}Aauugggh{#Prev}, hhrrrrmm..." },
+				{ Cue = "/VO/MelinoeField_3372", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "{#Emph}Swiftness...? {#Prev}You mean the Metallic Droplet that I have, my lord. A gift from Hermes himself! No better way to reach your finest wares as soon as possible." },
+				{ Cue = "/VO/Charon_0078",
+					Text = "{#Emph}Rraaauuggggghhhh..." },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.44,
+					ObjectType = "NPC_Charon_01",
+					RequiredMinElapsedTime = 2,
+					{ Cue = "/VO/Charon_0103", Text = "{#Emph}Hrraahhh..." },
+				},
+			},
 
 			CharonAboutWellShops01 =
 			{
@@ -386,12 +545,13 @@ UnitSetData.NPC_Charon =
 				{ Cue = "/VO/Charon_0094",
 					Text = "{#Emph}Rnnggghhh, ggraagghhh...?" },
 				{ Cue = "/VO/MelinoeField_2839", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "The reappearance of your Wells is certainly no accident, my lord. All it took was the appropriate incantation! Little by little, we shall restore the old order." },
 				EndVoiceLines =
 				{
-					PreLineWait = 0.4,
+					PreLineWait = 0.47,
 					ObjectType = "NPC_Charon_01",
 					RequiredMinElapsedTime = 2,
 					{ Cue = "/VO/Charon_0095", Text = "{#Emph}Hhhaaughh..." },
@@ -416,7 +576,7 @@ UnitSetData.NPC_Charon =
 				{ Cue = "/VO/MelinoeField_2842", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "The Shrines to Lord Hermes that I've seen around the Surface... I noticed they take offerings of Gold as well. I take it the two of you are back in business, then?" },
+					Text = "The Shrines of Lord Hermes that I've seen around the surface... I noticed they take offerings of Gold as well. I take it the two of you are back in business, then?" },
 				{ Cue = "/VO/Charon_0097",
 					Text = "Hrrrrmmm, {#Emph}nnrrrraaauggghh..." },
 				EndVoiceLines =
@@ -432,6 +592,7 @@ UnitSetData.NPC_Charon =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements =
 				{
 					{
@@ -453,6 +614,37 @@ UnitSetData.NPC_Charon =
 					PreLineWait = 0.45,
 					UsePlayerSource = true,
 					{ Cue = "/VO/MelinoeField_1758", Text = "I'll bear it to the best of my ability." },
+				},
+			},
+			CharonAboutThanatosAspect01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				SkipPreNarrativeUnequip = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AxePerfectCriticalAspect" },
+					},
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
+				},
+				{ Cue = "/VO/Charon_0147",
+					PreLineAnim = "Charon_Fierce",
+					Emote = "PortraitEmoteFiredUp",
+					Text = "{#Emph}Guuhhhh, raauuugggghh..." },
+
+				{ Cue = "/VO/MelinoeField_4514", UsePlayerSource = true,
+					-- PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					-- PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "You mean this scythe... you recognize it as your brother's then, my lord. Well I may not be Death Incarnate, but shall wield his blade as deftly as I'm able in his honor." },
+
+				EndVoiceLines =
+				{
+					PreLineWait = 0.45,
+					ObjectType = "NPC_Charon_01",
+					{ Cue = "/VO/Charon_0148", Text = "{#Emph}Mmmm..." },
 				},
 			},
 
@@ -481,12 +673,72 @@ UnitSetData.NPC_Charon =
 					Portrait = "Portrait_Mel_Intense_01",
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "Yes, my lord, I spoke the Oath, if that is what you mean. Thus in shadow, I serve; and to shadow, I'll return ere comes the light of Dawn." },
+					Text = "Yes, my lord; I spoke the Oath, if that is what you mean. Thus in shadow, I serve; and to shadow I'll return, ere comes the light of Dawn." },
 				EndVoiceLines =
 				{
 					PreLineWait = 0.45,
-					UsePlayerSource = true,
+					ObjectType = "NPC_Charon_01",
 					{ Cue = "/VO/Charon_0082", Text = "{#Emph}Hrrnnngghh..." },
+				},
+			},
+			CharonAboutShrine02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
+					{
+						PathTrue = { "GameState", "ActiveShrineBounty" },
+					},
+					{
+						Path = { "GameState", "SpentShrinePointsCache" },
+						Comparison = ">=",
+						Value = 8,
+					},
+				},
+				{ Cue = "/VO/Charon_0104",
+					PreLineAnim = "Charon_Fierce",
+					Text = "{#Emph}Hooaaaaahhh, hrrmm..." },
+				{ Cue = "/VO/MelinoeField_3373", UsePlayerSource = true,
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "You sense the Testament of Night I think, my lord. So that your mother Nyx's influence may never fade, whether in the Underworld or beyond." },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.46,
+					ObjectType = "NPC_Charon_01",
+					{ Cue = "/VO/Charon_0105", Text = "{#Emph}Nrrrhhh..." },
+				},
+			},
+
+			CharonAboutPackagedBounties01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
+					{
+						PathTrue = { "CurrentRun", "ActiveBounty" },
+					},
+				},
+				{ Cue = "/VO/Charon_0106",
+					PreLineAnim = "Charon_Fierce",
+					Text = "{#Emph}Krraaahhhh, hhrrrnn..." },
+				{ Cue = "/VO/MelinoeField_3374", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "You sense it too, don't you? A strange feeling in the air... the influence of Chaos all around us. I'm being tested even now. Perhaps all of us are..." },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.46,
+					ObjectType = "NPC_Charon_01",
+					{ Cue = "/VO/Charon_0107", Text = "{#Emph}Mmmmmnn..." },
 				},
 			},
 
@@ -601,6 +853,8 @@ UnitSetData.NPC_Charon =
 					PreLineThreadedFunctionName = "PlayCharacterAnim",
 					PreLineThreadedFunctionArgs = { Name = "MelTalkExplaining01", WaitTime = 1, UsePlayerSource = true },
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Empathetic_01",
+
 					Text = "My Lord, is this your ship? It is remarkable, although I fear with all the hostile vessels everywhere that it may come to harm... or even you." },
 				{ Cue = "/VO/Charon_0086",
 					Text = "{#Emph}Grrnn, neehhhhhhhh..." },
@@ -620,6 +874,9 @@ UnitSetData.NPC_Charon =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
 						IsAny = { "F", },
 					},
@@ -631,6 +888,8 @@ UnitSetData.NPC_Charon =
 					PreLineThreadedFunctionName = "PlayCharacterAnim",
 					PreLineThreadedFunctionArgs = { Name = "MelTalkBrooding01", WaitTime = 1, UsePlayerSource = true },
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Vulnerable_01",
+
 					Text = "It must be so frustrating, Lord Charon. Watching the dead of Erebus wallow here with no place to go. You'll send them on their way yet." },
 				{ Cue = "/VO/Charon_0045",
 					Text = "Grrnngghh, {#Emph}hrraaauuuggghh...!" },
@@ -648,7 +907,11 @@ UnitSetData.NPC_Charon =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "PrevRun", "RoomsEntered", "I_PreBoss01" },
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						Path = { "PrevRun", "RoomsEntered" },
+						HasAny = { "I_PreBoss01", "I_PreBoss02", },
 					},
 					{
 						PathFalse = { "PrevRun", "Cleared" }
@@ -676,6 +939,9 @@ UnitSetData.NPC_Charon =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "PrevRun", "RoomsEntered", "I_Boss01" },
 					},
 					{
@@ -691,7 +957,10 @@ UnitSetData.NPC_Charon =
 					PreLineThreadedFunctionName = "PlayCharacterAnim",
 					PreLineThreadedFunctionArgs = { Name = "MelTalkBrooding01", WaitTime = 1, UsePlayerSource = true },
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Proud_01",
+
 					Text = "We got him finally, Lord Charon! The Titan can be slain... if but to complicate his schemes a little while, till we can put a stop to him for good." },
+
 				{ Cue = "/VO/Charon_0075",
 					PreLineAnim = "Charon_Fierce",
 					Text = "{#Emph}Nrrghhh, hrrrnnn..." },
@@ -703,12 +972,94 @@ UnitSetData.NPC_Charon =
 				},
 			},
 
+			CharonAboutTyphon01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" },
+					},
+				},
+				{ Cue = "/VO/Melinoe_4240", UsePlayerSource = true,
+					PreLineThreadedFunctionName = "PlayCharacterAnim",
+					PreLineThreadedFunctionArgs = { Name = "MelTalkBrooding01", WaitTime = 1, UsePlayerSource = true },
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I reached the summit of Olympus finally... they're fighting back against Typhon himself! Perhaps you knew already..." },
+				{ Cue = "/VO/Charon_0098",
+					PreLineAnim = "Charon_Fierce",
+					Text = "{#Emph}Hreeeehh, hrrmmm..." },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.3,
+					UsePlayerSource = true,
+					{ Cue = "/VO/Melinoe_4241", Text = "He's quite enormous, yes." },
+				},
+			},
+			CharonAboutTyphon02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					OrRequirements =
+					{
+						{
+							{
+								PathTrue = { "CurrentRun", "Hero", "IsDead" }
+							},
+							{
+								PathTrue = { "CurrentRun", "EnemyKills", "TyphonHead" },
+							},
+						},
+						{
+							{
+								PathFalse = { "CurrentRun", "Hero", "IsDead" }
+							},
+							{
+								PathTrue = { "PrevRun", "EnemyKills", "TyphonHead" },
+							},
+						},
+					},
+				},
+				{ Cue = "/VO/Charon_0099",
+					PreLineAnim = "Charon_Fierce",
+					Text = "{#Emph}Hraaaauugghhh, haaaahhh...!" },
+				{ Cue = "/VO/Melinoe_4242", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "We vanquished Typhon, at least for the night, my lord! Hermes ensured that I was well-supplied. Plenty of Gold for you lately!" },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.44,
+						ObjectType = "NPC_Charon_01",
+						RequiredMinElapsedTime = 3,
+						{ Cue = "/VO/Charon_0100", Text = "{#Emph}Graauuggghh..." },
+					},
+				},
+			},
+
 			CharonAboutSelene01 =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "IsDead" }
+					},
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "SpellDrop" }
 					},
@@ -719,7 +1070,7 @@ UnitSetData.NPC_Charon =
 					},
 					{
 						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-						IsNone = { "G", "H", "I", "N", "O", "P", "Q" },
+						IsAny = { "F" },
 					},
 				},
 				{ Cue = "/VO/Charon_0054",
@@ -731,7 +1082,7 @@ UnitSetData.NPC_Charon =
 				EndVoiceLines =
 				{
 					{
-						PreLineWait = 0.4,
+						PreLineWait = 0.42,
 						ObjectType = "NPC_Charon_01",
 						RequiredMinElapsedTime = 2,
 						{ Cue = "/VO/Charon_0055", Text = "{#Emph}Mrrrrnnnnggghhh..." },
@@ -772,7 +1123,7 @@ UnitSetData.NPC_Charon =
 				EndVoiceLines =
 				{
 					{
-						PreLineWait = 0.4,
+						PreLineWait = 0.43,
 						ObjectType = "NPC_Charon_01",
 						RequiredMinElapsedTime = 3,
 						{ Cue = "/VO/Charon_0047", Text = "{#Emph}Nnnggghhhh..." },
@@ -797,6 +1148,12 @@ UnitSetData.NPC_Charon =
 						PathTrue = { "GameState", "UseRecord", "NPC_Hypnos_01" },
 					},
 					{
+						SumPrevRuns = 2,
+						Path = { "UseRecord", "NPC_Moros_01" },
+						Comparison = ">=",
+						Value = 1,
+					},
+					{
 						PathFalse = { "CurrentRun", "Hero", "IsDead" }
 					},
 					{
@@ -805,13 +1162,19 @@ UnitSetData.NPC_Charon =
 					},
 					{
 						FunctionName = "RequireRunsSinceTextLines",
-						FunctionArgs = { TextLines = { "MorosSecondAppearance" }, Max = 8 },
+						FunctionArgs = { TextLines = { "MorosSecondAppearance" }, Max = 8.6 },
 					},
 				},
 				{ Cue = "/VO/Melinoe_2007", UsePlayerSource = true,
+
+					--[[
 					PreLineThreadedFunctionName = "PlayCharacterAnim",
 					PreLineThreadedFunctionArgs = { Name = "MelTalkExplaining01", WaitTime = 1, UsePlayerSource = true },
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					]]--
+
+					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "None", Portrait = "Portrait_Mel_Hesitant_01", WaitTime = 7.5 },
+
 					Text = "Lord Charon, Moros returned! He's joined us at the Crossroads. Now we've no fewer than {#Emph}three {#Prev}mighty sons of Nyx within our ranks. Granted, one's always fast asleep..." },
 				{ Cue = "/VO/Charon_0048",
 					Text = "{#Emph}Huunnnnnggghhhh..." },
@@ -822,7 +1185,7 @@ UnitSetData.NPC_Charon =
 					Text = "Forgive me, I must not have understood. Hypnos is of greater use this way...?" },
 				EndVoiceLines =
 				{
-					PreLineWait = 0.4,
+					PreLineWait = 0.47,
 					ObjectType = "NPC_Charon_01",
 					RequiredMinElapsedTime = 3,
 					{ Cue = "/VO/Charon_0049", Text = "{#Emph}Hmm, hmm..." },
@@ -846,12 +1209,13 @@ UnitSetData.NPC_Charon =
 				{ Cue = "/VO/Charon_0087",
 					Text = "{#Emph}Hrrmmmm, nnnrrraaauggghhh..." },
 				{ Cue = "/VO/Melinoe_3263", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Yes, my lord, I met Apollo, Grandmother, Uncle Poseidon... I've known Artemis and Hermes for so long, I'm impressed they kept my secret from the others all this time." },
 				EndVoiceLines =
 				{
-					PreLineWait = 0.4,
+					PreLineWait = 0.48,
 					ObjectType = "NPC_Charon_01",
 					RequiredMinElapsedTime = 3,
 					{ Cue = "/VO/Charon_0088",
@@ -865,6 +1229,9 @@ UnitSetData.NPC_Charon =
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "CharonAboutOlympians01" },
+					},
 					{
 						PathFalse = { "GameState", "UseRecord", "HermesUpgrade" },
 					},
@@ -881,7 +1248,7 @@ UnitSetData.NPC_Charon =
 					PreLineWait = 0.4,
 					UsePlayerSource = true,
 					-- RequiredMinElapsedTime = 2,
-					{ Cue = "/VO/Melinoe_3262", Text = "Of course. He'll be back any evening now I'm sure." },
+					{ Cue = "/VO/Melinoe_3262", Text = "He'll be back any evening now I'm sure." },
 				},
 			},
 
@@ -898,16 +1265,24 @@ UnitSetData.NPC_Charon =
 						Path = { "GameState", "QuestsViewed" },
 						HasAny = { "QuestMeetOlympians" },
 					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "CharonAboutHermesMission01" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "CharonAboutHermesMission01" }, Min = 2 },
+					},
 				},
 				{ Cue = "/VO/Charon_0050",
 					Text = "{#Emph}Hrrrmmmmmm..." },
 				{ Cue = "/VO/Melinoe_1817", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Empathetic_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I'm certain he's all right, my lord. This is Hermes we're talking about! It's not like anyone could catch him, even if he were in peril." },
 				EndVoiceLines =
 				{
-					PreLineWait = 0.4,
+					PreLineWait = 0.46,
 					ObjectType = "NPC_Charon_01",
 					RequiredMinElapsedTime = 3,
 					{ Cue = "/VO/Charon_0051", Text = "{#Emph}Nrrgghhh..." },
@@ -948,6 +1323,7 @@ UnitSetData.NPC_Charon =
 					},
 				},
 				{ Cue = "/VO/Melinoe_1203", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineThreadedFunctionName = "PlayCharacterAnim",
 					PreLineThreadedFunctionArgs = { Name = "MelTalkExplaining01", WaitTime = 1, UsePlayerSource = true },
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
@@ -961,6 +1337,39 @@ UnitSetData.NPC_Charon =
 					{ Cue = "/VO/Melinoe_1204", Text = "Of course, my lord." },
 				},
 			},
+			CharonAboutHermes04 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "HermesFieldAboutTyphon01" },
+					},
+					{
+						SumPrevRuns = 3,
+						Path = { "RoomsEntered", "Q_PreBoss01" },
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				{ Cue = "/VO/Melinoe_4243", UsePlayerSource = true,
+					PreLineThreadedFunctionName = "PlayCharacterAnim",
+					PreLineThreadedFunctionArgs = { Name = "MelTalkExplaining01", WaitTime = 1, UsePlayerSource = true },
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I've run into Lord Hermes at the summit of Olympus, making preparations against Typhon with the rest. Have you been able to cross paths with him?" },
+				{ Cue = "/VO/Charon_0101",
+					Text = "{#Emph}Hrrrmmm, mmrrrrngghhh..." },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.4,
+					UsePlayerSource = true,
+					{ Cue = "/VO/Melinoe_4244", Text = "So, not for very long." },
+				},
+			},
 
 			CharonAboutNemesis01 =
 			{
@@ -970,7 +1379,11 @@ UnitSetData.NPC_Charon =
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "CharonGift01", "CharonWithHecate01" },
+						HasAll = { "CharonGift01" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "CharonWithHecate01", "MorosWithCharon01", "MorosWithCharon02", "CharonAboutArtemisSinging01" },
 					},
 					{
 						PathTrue = { "PrevRun", "UseRecord", "NPC_Charon_01" }
@@ -987,6 +1400,7 @@ UnitSetData.NPC_Charon =
 					PreLineThreadedFunctionName = "PlayCharacterAnim",
 					PreLineThreadedFunctionArgs = { Name = "MelTalkBrooding01", WaitTime = 1, UsePlayerSource = true },
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					Text = "You're not particularly close with your brothers or sisters, are you? When you chance to visit us, Nemesis all but ignores you..." },
 				{ Cue = "/VO/Charon_0043",
 					Text = "Nrrrmmm, {#Emph}hhaaaaahhhh..." },
@@ -1030,6 +1444,64 @@ UnitSetData.NPC_Charon =
 					PreLineWait = 0.45,
 					UsePlayerSource = true,
 					{ Cue = "/VO/MelinoeField_1588", Text = "Then may she go unseen." },
+				},
+			},
+			CharonAboutNemesisShopping01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Nemesis_01", }, Alive = true },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_3375", UsePlayerSource = true,
+					PreLineThreadedFunctionName = "PlayCharacterAnim",
+					PreLineThreadedFunctionArgs = { Name = "MelTalkPensive01", WaitTime = 1, UsePlayerSource = true },
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Proud_01",
+					Text = "I see you have another customer, my lord. First come first served, is it?" },
+				{ Cue = "/VO/Charon_0108",
+					Text = "{#Emph}Hrrrraauugghhh, haaahhh..." },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.42,
+					UsePlayerSource = true,
+					{ Cue = "/VO/MelinoeField_3376", Text = "I'll hurry it up." },
+				},
+			},
+			CharonAboutHeraclesShopping01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Heracles_01", }, Alive = true },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_3377", UsePlayerSource = true,
+					PreLineThreadedFunctionName = "PlayCharacterAnim",
+					PreLineThreadedFunctionArgs = { Name = "MelTalkPensive01", WaitTime = 1, UsePlayerSource = true },
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Proud_01",
+					Text = "Supplying goods to mighty Heracles! Sometimes I wonder whom else you provide for, my lord. Not that you'd say." },
+				{ Cue = "/VO/Charon_0109",
+					Text = "{#Emph}Nnnrrrraaauuuggghhh..." },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.42,
+					UsePlayerSource = true,
+					{ Cue = "/VO/Melinoe_0423_B", Text = "Oh." },
 				},
 			},
 
@@ -1097,12 +1569,16 @@ UnitSetData.NPC_Charon =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChronosNightmare01" },
 					},
 				},
 				{ Cue = "/VO/Melinoe_1294", UsePlayerSource = true,
 					PreLineThreadedFunctionArgs = { Name = "MelTalkPensive01", WaitTime = 1, UsePlayerSource = true },
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					Text = "Your mother Nyx, my lord... I saw her lately in a nightmare or a dream. She was very beautiful... and she was unharmed, I think." },
 				{ Cue = "/VO/Charon_0042",
 					Text = "Mrmmm, {#Emph}nrruuunnngghhh..." },
@@ -1121,14 +1597,20 @@ UnitSetData.NPC_Charon =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = { "MorosAboutFates02" },
 					},
 				},
 				{ Cue = "/VO/Melinoe_1298", UsePlayerSource = true,
-					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineThreadedFunctionArgs = { Name = "MelTalkPensive01", WaitTime = 1, UsePlayerSource = true },
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					Text = "You know already, don't you, my lord? About the Three Fates. That Chronos has your sisters in his thrall. Lord Moros is safe with us, at least." },
 				{ Cue = "/VO/Charon_0044",
 					Text = "Kkhhh, {#Emph}kkhhrrrraaauugggghhhh..." },
@@ -1149,26 +1631,55 @@ UnitSetData.NPC_Charon =
 					{
 						Path = { "GameState", "UseRecord", "NPC_Artemis_Field_01" },
 						Comparison = ">=",
-						Value = 2,
+						Value = 4,
 					},
+					OrRequirements =
 					{
-						PathTrue = { "PrevRun", "UseRecord", "NPC_Artemis_Field_01" },
-					},
-					{
-						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-						IsAny = { "F" },
+						{
+							{
+								SumPrevRuns = 2,
+								Path = { "EncountersOccurredCache" },
+								TableValuesToCount = { "ArtemisCombatN", "ArtemisCombatN2" },
+								CountPathTrue = true,
+								Comparison = ">=",
+								Value = 1,
+							},
+							{
+								Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+								IsAny = { "N" },
+							},
+						},
+						{
+							{
+								SumPrevRuns = 2,
+								Path = { "EncountersOccurredCache" },
+								TableValuesToCount = { "ArtemisCombatF", "ArtemisCombatF2", "ArtemisCombatG", "ArtemisCombatG2" },
+								CountPathTrue = true,
+								Comparison = ">=",
+								Value = 1,
+							},
+							{
+								Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+								IsAny = { "F", "G" },
+							},
+						},
 					},
 				},
 				{ Cue = "/VO/Melinoe_1818", UsePlayerSource = true,
 					PreLineThreadedFunctionArgs = { Name = "MelTalkPensive01", WaitTime = 1, UsePlayerSource = true },
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "It's reassuring to know Artemis has been keeping track of things around here lately, my lord. She seems unusually well-supplied, as well." },
+					Portrait = "Portrait_Mel_Proud_01",
+					Text = "It's reassuring to know Artemis has been keeping track of things around here lately, my lord. She seems unusually well-supplied..." },
 				{ Cue = "/VO/Charon_0056",
 					Text = "{#Emph}Hhrrraaauuggghhh..." },
 				EndVoiceLines =
 				{
 					PreLineWait = 0.45,
 					UsePlayerSource = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech" },
+					},
 					{ Cue = "/VO/Melinoe_1819", Text = "Oh, I won't tell a soul." },
 				},
 			},
@@ -1199,6 +1710,317 @@ UnitSetData.NPC_Charon =
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You're right. She's twice as resourceful as just about anybody. {#Emph}Four {#Prev}times! Just... look out for her, would you?" },
+			},
+
+			CharonGrantsHiddenAspect01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				StatusAnimation = "StatusIconWantsToTalkImportant_NPC",
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked" },
+						HasAll = { "WeaponStaffSwing", "WeaponDagger", "WeaponTorch", "WeaponAxe", "WeaponLob", "WeaponSuit" },
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked" },
+						HasAll = { "AxeArmCastAspect", "AxePerfectCriticalAspect" },
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked" },
+						HasAny = { "AxeArmCastAspect5", "AxePerfectCriticalAspect5" },
+					},
+					NamedRequirementsFalse =
+					{
+						"StaffHiddenAspectRevealInProgress",
+						"DaggerHiddenAspectRevealInProgress",
+						"TorchHiddenAspectRevealInProgress",
+						-- "AxeHiddenAspectRevealInProgress",
+						"LobHiddenAspectRevealInProgress",
+						"SuitHiddenAspectRevealInProgress"
+					},
+				},
+				{ Cue = "/VO/Charon_0129",
+					PreLineAnim = "Charon_Greeting",
+					Text = "{#Emph}Shaaaauugghh..." },
+
+				{ Cue = "/VO/MelinoeField_3501", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					Text = "Lord Charon, are you giving this to me? The pattern on this parchmentwork... the Mark of Night, and a triple-headed lion, and the words... {#Emph}I see you hoard the shattered corpses of your foes. {#Prev}This is a waking-phrase, for Zorephet?" },
+
+				{ Cue = "/VO/Charon_0130",
+					PreLineAnim = "Charon_Fierce",
+					Text = "{#Emph}Rrrraauugghh, hrrrrn..." },
+
+				{ Cue = "/VO/MelinoeField_3502", UsePlayerSource = true,
+					PreLineAnim = "MelinoeIdleWeaponless", PreLineAnimTarget = "Hero",
+					Text = "You are entrusting me with this. Well if you think I'm ready then I'll say it at the Silver Pool next opportunity I get. Thank you, my lord." },
+				{
+					PostLineThreadedFunctionName = "DisplayInfoToast",
+					PostLineThreadedFunctionArgs = { Duration = 2.5, Title = "HiddenAspectRevealed", Text = "HiddenAspectRevealed_Axe" },
+				},
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.36,
+						UsePlayerSource = true,
+						{ Cue = "/VO/MelinoeField_3806", Text = "{#Emph}I see you hoard the shattered corpses of your foes." },
+					},
+					{
+						PreLineWait = 0.31,
+						ObjectType = "NPC_Charon_01",
+						{ Cue = "/VO/Charon_0130", Text = "{#Emph}Nrrrggghhh, hnnn..." },
+					},
+				},
+			},
+			CharonAboutHiddenAspect01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				SkipPreNarrativeUnequip = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AxeRallyAspect" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_3530", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Casual_01",
+					Text = "This is it, my lord! The hidden aspect of Nergal that I would never have revealed if not for you. Is this some warrior-god from a distant land, or time?" },
+				{ Cue = "/VO/Charon_0131",
+					PreLineAnim = "Charon_Fierce",
+					Text = "{#Emph}Nrrrggghhh, haaaa..." },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.4,
+					UsePlayerSource = true,
+					{ Cue = "/VO/MelinoeField_3531", Text = "Then perhaps both..." },
+				},
+
+			},
+
+			CharonAboutZagreusFight01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "RoomsEntered", "C_Boss01" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_5037", UsePlayerSource = true,
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Lord Charon, why didn't you say anything about those Infernal Contracts I've started to see? I wound up in an inadvertent clash with Zagreus!" },
+
+				{ Cue = "/VO/Charon_0150",
+					PreLineAnim = "Charon_Fierce",
+					Text = "{#Emph}Graaahhh, hrrrmmm...?" },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "EnemyKills", "Zagreus" },
+							},
+							{
+								Path = { "GameState", "LastBossHealthBarRecord", "Zagreus" },
+								Comparison = ">",
+								Value = 0,
+							},
+						},
+
+						{ Cue = "/VO/MelinoeField_5038", Text = "Well, you know what I mean. And no I {#Emph}didn't {#Prev}win!" },
+					},
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						GameStateRequirements =
+						{
+							OrRequirements =
+							{
+								{
+									{
+										PathTrue = { "CurrentRun", "EnemyKills", "Zagreus" },
+									},
+								},
+								{
+									{
+										Path = { "GameState", "LastBossHealthBarRecord", "Zagreus" },
+										Comparison = "==",
+										Value = 0,
+									},
+								},
+							},
+						},
+
+						{ Cue = "/VO/MelinoeField_5039", Text = "Well, you know what I mean. And yes, I {#Emph}won!" },
+					},
+				},
+			},
+
+			CharonPostTrueEnding01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				{ Cue = "/VO/Charon_0141",
+					Text = "{#Emph}Nnnnn... haaaaahh, hrhrrnngghhh..." },
+
+				{ Cue = "/VO/MelinoeField_4506", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "We are victorious indeed, my lord, and thanks in no small part to all you've done. I trust that Nyx has already visited with you. But, what of all the Gold that remains?" },
+
+				{ Cue = "/VO/Charon_0142",
+					PreLineAnim = "Charon_Fierce",
+					Emote = "PortraitEmoteAnger",
+					Text = "{#Emph}Grrrnn, hraaauggghh..." },
+
+				EndVoiceLines =
+				{
+					PreLineWait = 0.4,
+					UsePlayerSource = true,
+					{ Cue = "/VO/MelinoeField_4507", Text = "Then you shall have it!" },
+				},
+			},
+			CharonPostTrueEnding02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					OrRequirements =
+					{
+						{
+							{
+								PathTrue = { "PrevRun", "BiomesReached", "F" },
+							},
+							{
+								PathTrue = { "CurrentRun", "BiomesReached", "N" },
+							},
+						},
+						{
+							{
+								PathTrue = { "PrevRun", "BiomesReached", "N" },
+							},
+							{
+								PathTrue = { "CurrentRun", "BiomesReached", "F" },
+							},
+						},
+					},
+				},
+				{ Cue = "/VO/MelinoeField_4508", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Why am I unsurprised you're still here offering your wares, even with everything that's happened recently, my lord? You won't stop until the Underworld's entirely restored." },
+
+				{ Cue = "/VO/Charon_0143",
+					PreLineAnim = "Charon_Fierce",
+					Emote = "PortraitEmoteAnger",
+					Text = "{#Emph}Hrrraaaugggghhh!!" },
+
+				EndVoiceLines =
+				{
+					PreLineWait = 0.4,
+					UsePlayerSource = true,
+					{ Cue = "/VO/MelinoeField_4509", Text = "Not even then, got it!" },
+				},
+
+			},
+			CharonPostEpilogue01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					NamedRequirements = { "ReachedEpilogue" },
+				},
+				{ Cue = "/VO/Charon_0144",
+					PreLineAnim = "Charon_Thanking",
+					Emote = "PortraitEmoteFiredUp",
+					Text = "{#Emph}Kkhhhrrnn, aaauugggghhhh...!" },
+
+				{ Cue = "/VO/MelinoeField_4510", UsePlayerSource = true,
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "...You mean your sisters the Fates... you knew they'd be all right? I never imagined I could even meet them myself. One of them, she... well, she reminded me a little bit of {#Emph}you." },
+
+				{ Cue = "/VO/Charon_0145",
+					PreLineAnim = "Charon_Fierce",
+					Emote = "PortraitEmoteAnger",
+					Text = "{#Emph}Guuuhhhhh..." },
+
+				EndVoiceLines =
+				{
+					PreLineWait = 0.42,
+					UsePlayerSource = true,
+					{ Cue = "/VO/MelinoeField_4511", Text = "Well it was only a first impression..." },
+				},
+			},
+
+			-- hub events / hub-only
+			CharonAboutArtemisSinging01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "IsDead" }
+					},
+					{
+						Path = { "AudioState", "AmbientTrackName" },
+						IsAny = { "/Music/ArtemisSong_MC", "/Music/IrisEndThemeCrossroads_MC" },
+					},
+					{
+						Path = { "ConfigOptionCache", "MusicVolume" },
+						Comparison = ">",
+						Value = 0.1,
+					},
+				},
+				{ Cue = "/VO/Charon_0110",
+					Text = "Mmmm, {#Emph}mmmmrrnnnn..." },
+				{ Cue = "/VO/Melinoe_4184", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					Text = "You picked a fine time to make your deliveries, my lord. That's Artemis singing nearby! Although perhaps such music isn't to your taste." },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.48,
+					ObjectType = "NPC_Charon_01",
+					RequiredMinElapsedTime = 3,
+					{ Cue = "/VO/Charon_0111", Text = "{#Emph}Mmmm..." },
+				},
 			},
 
 			-- repeatable
@@ -1436,21 +2258,147 @@ UnitSetData.NPC_Charon =
 					PreLineAnim = "Charon_Thanking",
 					Text = "{#Emph}Nrrrghhhhh, hauuuugghhhh..." },
 				{ Cue = "/VO/Melinoe_3384", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Perseverance is what got us to this point, my lord. May your resolve never waver! Whenever mine does, I take comfort knowing I have such dependable allies." },
 			},
-			-- placeholder
 			CharonGift05 =
 			{
 				PlayOnce = true,
-				UseableOffSource = true,
 				OnGiftTrack = true,
-				UnfilledIcon = "UnavailableHeartIcon",
-				HintId = "Codex_UnavailableHint",
+				HintId = "Codex_CharonGiftHint01",
 				Cost =
 				{
-					MysteryResource = 1,
+					GiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "NPC_Charon_01" },
+					},
+				},
+				{ Cue = "/VO/Charon_0132",
+					PreLineAnim = "Charon_Thanking",
+					Text = "{#Emph}Nraaauuggh, guhhh..." },
+				{ Cue = "/VO/Melinoe_5438", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "You really should try it sometime, my lord! Nectar is one of the things just about everybody on Olympus can agree on, and that must mean something, right?" },
+			},
+			CharonGift06 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				HintId = "Codex_CharonGiftHint01",
+				Cost =
+				{
+					GiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "NPC_Charon_01" },
+					},
+				},
+				{ Cue = "/VO/Charon_0133",
+					PreLineAnim = "Charon_Thanking",
+					Text = "{#Emph}Hrrnnnmm, nnrrrr..." },
+				{ Cue = "/VO/Melinoe_5439", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I know you never would permit yourself indulgences, my lord, but... you ought to receive more than mere coin in recompense for all your service! Perhaps the Nectar's but another token gesture." },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.47,
+					ObjectType = "NPC_Charon_01",
+					RequiredMinElapsedTime = 2,
+					{ Cue = "/VO/Charon_0134", Text = "{#Emph}Ehhh..." },
+				},
+			},
+			CharonGift07 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				LockedHintId = "Codex_CharonUnlockHint01",
+				UnfilledIcon = "EmptyHeartWithAmbrosiaIcon",
+				FilledIcon = "FilledHeartWithAmbrosiaIcon",
+				Cost =
+				{
+					SuperGiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "CharonGift06", "CharonAboutCharonPoints01" },
+					},
+				},
+				{ Cue = "/VO/Melinoe_5440", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I've heard in times past, you'd discreetly transport shipments of Ambrosia all the way into the depths of Tartarus. And knowing you, my lord, you would never sample your own wares, so here. This is a gift, not a delivery." },
+
+				{ Cue = "/VO/Charon_0136",
+					PreLineAnim = "Charon_Thanking",
+					Text = "{#Emph}Hoohhhhh, hrrrnnnn..." },
+
+				EndVoiceLines =
+				{
+					PreLineWait = 0.4,
+					UsePlayerSource = true,
+					{ Cue = "/VO/Melinoe_5441", Text = "May there soon come such a time..." },
+				},
+			},
+			CharonGift08 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				UnfilledIcon = "EmptyHeartWithAmbrosiaIcon",
+				FilledIcon = "FilledHeartWithAmbrosiaIcon",
+				CompletedHintId = "Codex_BondForgedCharon",
+				Cost =
+				{
+					SuperGiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "CharonGift06", "CharonAboutCharonPoints01" },
+					},
+				},
+				{ Cue = "/VO/Melinoe_5442", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Here, my lord. If you plan to keep the other Ambrosia bottle in reserve, perhaps you could share this one with a professional associate. No need to save it for later." },
+
+				{ Cue = "/VO/Charon_0137",
+					PreLineWait = 0.35,
+					PreLineAnim = "Charon_Thanking",
+					Text = "{#Emph}Auuugggghh, mmmm...? Kkrrnnn..." },
+
+				{ Cue = "/VO/Melinoe_5443", UsePlayerSource = true,
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Mel_Empathetic_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+
+					PostLineThreadedFunctionName = "MaxedRelationshipPresentation",
+					PostLineThreadedFunctionArgs = { Text = "NPC_Charon_01", Icon = "Keepsake_Charon" },
+
+					Text = "...I've merely strived to better understand you, knowing it was never about words or gifts. You are the Boatman of the Underworld... a mighty son of Nyx... and the most dependable sort of comrade I could ever want." },
+
+				EndVoiceLines =
+				{
+					PreLineWait = 0.49,
+					ObjectType = "NPC_Charon_01",
+					RequiredMinElapsedTime = 2,
+					{ Cue = "/VO/Charon_0138", Text = "{#Emph}Nnnnhhh..." },
 				},
 			},
 
@@ -1484,6 +2432,32 @@ UnitSetData.NPC_Charon =
 		},
 	},
 
+}
+
+-- Global Charon Lines
+GlobalVoiceLines.CharonGatherReactionVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.65,
+	SuccessiveChanceToPlay = 0.33,
+	ObjectType = "NPC_Charon_01",
+	-- PreLineAnim = "Charon_Fierce",
+	Cooldowns =
+	{
+		{ Name = "CharonSpokeRecently", Time = 12 },
+	},
+	GameStateRequirements =
+	{
+		{
+			PathFalse = { "CurrentRun", "Hero", "IsDead" },
+		},
+	},
+
+	{ Cue = "/VO/Charon_0118", Text = "{#Emph}Guhhh..." },
+	{ Cue = "/VO/Charon_0119", Text = "{#Emph}Rrnnn..." },
+	{ Cue = "/VO/Charon_0120", Text = "{#Emph}Krrhh..." },
+	{ Cue = "/VO/Charon_0121", Text = "{#Emph}Ksshh..." },
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.NPC_Charon )

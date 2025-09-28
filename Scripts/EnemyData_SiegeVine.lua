@@ -18,15 +18,13 @@ UnitSetData.SiegeVine =
 
 		MaxHealth = 290,
 		HealthBarOffsetY = -240,
+		Groups = { "GroundEnemies", "IgnoreSafeZone", },
 
 		IsAggroedSound = "/SFX/Enemy Sounds/SiegeVine/EmoteAlerted",
 		DeathSound = "/SFX/Enemy Sounds/SiegeVine/EmoteDying",
 
 		PreferredSpawnPoint = "EnemyPointRanged",
 		Material = "Organic",
-
-		--OnDamagedFunctionNames = { "ActivateFuse" },
-		--OnDeathFireWeapons = { "MineBlast" },
 		
 		StunAnimations = 
 		{
@@ -38,15 +36,12 @@ UnitSetData.SiegeVine =
 			"AggroAI",
 		},
 		AIAggroRange = 1300,
-		--AdditionalAIFunctions = { "DefenseAI" },
 
 		DefaultAIData =
 		{
 			DeepInheritance = true,
 
 			PreAttackSound = "/SFX/Enemy Sounds/SiegeVine/EmoteCharging",
-
-			--DefenseWeapon = "RootsAoESiegeVine",
 		},
 
 		WeaponOptions =
@@ -89,6 +84,7 @@ UnitSetData.SiegeVine =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/Melinoe_1645", Text = "Thorn-Weepers." },
@@ -105,12 +101,17 @@ UnitSetData.SiegeVine =
 
 		IsAggroedSound = "/SFX/Enemy Sounds/SiegeVine/EmoteAlerted",
 
-		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Radial" }),
+		EliteAttributeOptions =
+		{
+			"Fog",
+			"HeavyArmor",
+			"Orbit",
+			"Radial",
+		},
 
 		DefaultAIData =
 		{
 			DeepInheritance = true,
-			--DefenseWeapon = "RootsAoESiegeVine",
 		},
 		--AdditionalAIFunctions = { "DefenseAI" },
 		
@@ -139,42 +140,6 @@ UnitSetData.SiegeVine =
 			ActiveEnemyCapBonus = 2,
 		},
 	},
-
-	SiegeVine2 =
-	{
-		InheritFrom = { "Elite", "SiegeVine" },
-		HealthBuffer = 800,
-
-		IsAggroedSound = "/SFX/Enemy Sounds/SiegeVine/EmoteAlerted",
-
-		DefaultAIData =
-		{
-			DeepInheritance = true,
-		},
-		
-		WeaponOptions =
-		{
-			"SiegeVine2FastVines", "SiegeVine2RootVines",
-		},
-
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "BiomeDepthCache", },
-				Comparison = ">=",
-				Value = 4,
-			},
-		},
-
-		GeneratorData =
-		{
-			DifficultyRating = 300,
-			BlockSolo = true,
-			BlockEnemyTypes = {"SiegeVine"},
-			ActiveEnemyCapBonus = 2,
-		},
-	},
-
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.SiegeVine )

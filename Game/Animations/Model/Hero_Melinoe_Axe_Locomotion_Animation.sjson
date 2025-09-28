@@ -34,6 +34,15 @@
 
 			{ Name = "Melinoe_Axe_SpecialEx1_Start" }
 			{ Name = "Melinoe_Axe_Special1_End" }
+
+			{ Name = "Melinoe_Axe_Nergal_Attack1_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Attack2_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Attack3_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Attack4_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Attack5_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Special_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Special_Fire" }
+			{ Name = "Melinoe_Axe_Nergal_SpecialEx_Start" }
 		]
 
 		Attachments =
@@ -90,6 +99,15 @@
 
 			{ Name = "Melinoe_Axe_SpecialEx1_Start" }
 			{ Name = "Melinoe_Axe_Special1_End" }
+
+			{ Name = "Melinoe_Axe_Nergal_Attack1_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Attack2_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Attack3_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Attack4_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Attack5_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Special_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Special_Fire" }
+			{ Name = "Melinoe_Axe_Nergal_SpecialEx_Start" }
 		]
 		Attachments =
 		[
@@ -401,6 +419,10 @@
 				Duration = 8
 			}
 			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_SpecialEx_Cancel2"
+				Duration = 8
+			}
+			{
 				BlendTransitionFrom = "Melinoe_Axe_Special1_Fire"
 				Duration = 8
 			}
@@ -440,6 +462,10 @@
 				Duration = 5
 			}
 			{
+				BlendTransitionFrom = "Melinoe_Axe_Interact"
+				Duration = 5
+			}
+			{
 				BlendTransitionFrom = "MelinoeBoonInteractPowerUp"
 				Duration = 5
 			}
@@ -459,6 +485,94 @@
 				BlendTransitionFrom = "Melinoe_Axe_Equip"
 				Duration = 5
 			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_AttackDash_Fire"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_AttackDash_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_AttackDash_Cancel"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack1_Fire"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack1_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack1_Cancel"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack2_Fire"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack2_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack3_Fire"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack3_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack4_Fire"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack4_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack5_Fire"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack5_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Special_Start"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Special_Fire"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Special_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_SpecialEx_Start"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_SpecialEx_Fire"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_SpecialEx_End"
+				Duration = 8
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_ForwardCast_End"
+				Duration = 5
+			}
+
+			
 		]
 	}
 
@@ -498,9 +612,96 @@
 				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
 			}
 		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Run_FireLoop"
+				Duration = 6
+			}
+		]
 	}
 
 	// Melinoe Axe Sprint
+
+	{
+		Name = "Axe_SprintTurn_180"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_DragRun_N_00"
+	}
+	{
+		Name = "Melinoe_Axe_SprintTurn_180"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_DragRunSprintDirectionChange180_N_00"
+		CancelOnRestart = true
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 740
+		VisualFx = "AxeSparks"
+		VisualFxGrannyAttachedMarkerLocation = "WeaponAxe_Rig_01:blade_R_joint"
+		VisualFxDistanceMin = 40
+		VisualFxDistanceMax = 100
+		ChainTo = "Melinoe_Axe_Sprint_FireLoop"
+		Attachments =
+		[
+			{
+				Name = "Axe_SprintTurn_180"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+	}
+
+	{
+		Name = "Axe_SprintTurn_E90"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_DragRun_N_00"
+	}
+	{
+		Name = "Melinoe_Axe_SprintTurn_E90"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_DragRunSprintDirectionChangeE90_N_00"
+		GrannyRotationY = 90
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 740
+		VisualFx = "AxeSparks"
+		VisualFxGrannyAttachedMarkerLocation = "WeaponAxe_Rig_01:blade_R_joint"
+		VisualFxDistanceMin = 40
+		VisualFxDistanceMax = 100
+		ChainTo = "Melinoe_Axe_Sprint_FireLoop"
+		Attachments =
+		[
+			{
+				Name = "Axe_SprintTurn_E90"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Axe_SprintTurn_W90"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_DragRun_N_00"
+	}
+	{
+		Name = "Melinoe_Axe_SprintTurn_W90"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_DragRunSprintDirectionChangeW90_N_00"
+		GrannyRotationY = -90
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 740
+		VisualFx = "AxeSparks"
+		VisualFxGrannyAttachedMarkerLocation = "WeaponAxe_Rig_01:blade_R_joint"
+		VisualFxDistanceMin = 40
+		VisualFxDistanceMax = 100
+		ChainTo = "Melinoe_Axe_Sprint_FireLoop"
+		Attachments =
+		[
+			{
+				Name = "Axe_SprintTurn_W90"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
 	{
 		Name = "Axe_Sprint_FireLoop"
 		InheritFrom = "WeaponAxeBase"
@@ -524,9 +725,13 @@
 		VisualFxDistanceMin = 40
 		VisualFxDistanceMax = 100
 		Loop = true
+		DirectionChange180 = "Melinoe_Axe_SprintTurn_180"
+		DirectionChange90R = "Melinoe_Axe_SprintTurn_E90"
+		DirectionChange90L = "Melinoe_Axe_SprintTurn_W90"
 		RequireCurrentAnimationNotContains =
 		[
 			{ Name = "Melinoe_Axe_Dash_Fire" }
+			{ Name = "Melinoe_Axe_Cast_Start" }
 		]
 		Attachments =
 		[

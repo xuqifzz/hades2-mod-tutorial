@@ -1,8 +1,8 @@
 {
   "AmbientLightColor": {
-    "X": 1.000,
-    "Y": 0.976,
-    "Z": 0.925
+    "X": 0.949,
+    "Y": 0.878,
+    "Z": 0.755
   },
   "BackdropColor": {
     "R": 0,
@@ -455,9 +455,9 @@
       "Visible": true
     },
     {
-      "BlendMode": 2,
+      "BlendMode": 0,
       "ChildGroups": [],
-      "Id": "Additive_01",
+      "Id": "Foreground_04",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -470,7 +470,7 @@
     {
       "BlendMode": 0,
       "ChildGroups": [
-        "Additive_01",
+        "Foreground_04",
         "Foreground_03",
         "Foreground_02",
         "Foreground_01",
@@ -701,5 +701,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.950
 }

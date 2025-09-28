@@ -106,6 +106,32 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Terrain_BaseBoat_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "Terrain_Below_05",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Terrain_Below_04",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -185,6 +211,19 @@
       "BlendMode": 0,
       "ChildGroups": [],
       "Id": "Terrain_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "Terrain_03",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -575,6 +614,7 @@
         "Terrain_Decor_03",
         "Terrain_Decor_02",
         "Terrain_Decor_01",
+        "Terrain_03",
         "Terrain_01",
         "Terrain_02",
         "Terrain_Base",
@@ -582,6 +622,8 @@
         "Terrain_Below_02",
         "Terrain_Below_03",
         "Terrain_Below_04",
+        "Terrain_Below_05",
+        "Terrain_BaseBoat_01",
         "Terrain_Below_FX_01",
         "Terrain_Below_FX_02",
         "Terrain_Below_FX_03",
@@ -643,6 +685,19 @@
       "BlendMode": 0,
       "ChildGroups": [],
       "Id": "Traps",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapLogic",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "AltRewardSpawnPoints",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -809,6 +864,7 @@
         "RoomNumbers",
         "Scripting",
         "ShipPowerCells",
+        "AltRewardSpawnPoints",
         "Traps",
         "Breakables"
       ],
@@ -827,5 +883,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.880
 }

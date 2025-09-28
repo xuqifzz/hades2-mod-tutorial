@@ -2,6 +2,7 @@
 {
 	DefaultWeaponValues =
 	{	
+		MinWeaponChargeTime = 0.1,
 		DefaultKnockbackForce = 800,
 		DefaultKnockbackScale = 1,
 		DefaultSpeedPropertyChanges = 
@@ -31,11 +32,11 @@
 	{
 		UpgradeChoiceText = "UpgradeChoiceMenu_Ranged",
 		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.05, FalloffSpeed = 3000 },
-		LinkedTraitNames = { "ArtemisCastCountBoon", "CastCountMetaUpgrade" },
+		LinkedTraitNames = { "ArtemisCastCountBoon" },
 		
 		ShowManaIndicator = true,
 		HideChargeDuration = 0.15,
-		OnChargeFunctionName = "DoWeaponCharge",
+		OnChargeFunctionNames = { "DoWeaponCharge", },
 		CustomChannelSlowEvent = "WeaponCastProjectile",
 		ArmedCastChargeStage = true,
 		ChargeWeaponData =
@@ -78,7 +79,6 @@
 			ChargeSounds =
 			{
 				{
-					Name = "/VO/MelinoeEmotes/EmoteEvading",
 					Name = "/SFX/Player Sounds/MelMagicalChargeLoop",
 					StoppedBy = { "ChargeCancel", "Fired" }
 				}
@@ -122,12 +122,12 @@
 	{
 		UpgradeChoiceText = "UpgradeChoiceMenu_Ranged",
 		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.05, FalloffSpeed = 3000 },
-		LinkedTraitNames = { "ArtemisCastCountBoon", "CastCountMetaUpgrade" },
+		LinkedTraitNames = { "ArtemisCastCountBoon" },
 		
 		ArmedCastChargeStage = true,
 		ShowManaIndicator = true,
 		HideChargeDuration = 0.15,
-		OnChargeFunctionName = "DoWeaponCharge",
+		OnChargeFunctionNames = { "DoWeaponCharge", },
 		CustomChannelSlowEvent = "WeaponAnywhereCast",
 
 		ChargeWeaponData =
@@ -152,7 +152,7 @@
 		ImpactReactionHitsOverride = 10,
 
 		SkipManaIndicatorIfZeroManaCost = true,
-		OnFiredFunctionName = "FireAnywhereCastAtLocation",
+		OnFiredFunctionNames = { "FireAnywhereCastAtLocation", },
 		SpeedPropertyChanges = 
 		{
 			{
@@ -211,11 +211,11 @@
 	{
 		UpgradeChoiceText = "UpgradeChoiceMenu_Ranged",
 		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.05, FalloffSpeed = 3000 },
-		LinkedTraitNames = { "ArtemisCastCountBoon", "CastCountMetaUpgrade" },
+		LinkedTraitNames = { "ArtemisCastCountBoon" },
 		
 		ShowManaIndicator = true,
 		HideChargeDuration = 0.15,
-		OnChargeFunctionName = "DoWeaponCharge",
+		OnChargeFunctionNames = { "DoWeaponCharge", },
 		CustomChannelSlowEvent = "WeaponCastProjectile",
 		ArmedCastChargeStage = true,
 		ChargeWeaponData =
@@ -297,11 +297,11 @@
 	{
 		UpgradeChoiceText = "UpgradeChoiceMenu_Ranged",
 		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.05, FalloffSpeed = 3000 },
-		LinkedTraitNames = { "ArtemisCastCountBoon", "CastCountMetaUpgrade" },
+		LinkedTraitNames = { "ArtemisCastCountBoon" },
 		
 		ShowManaIndicator = true,
 		HideChargeDuration = 0.15,
-		OnChargeFunctionName = "DoWeaponCharge",
+		OnChargeFunctionNames = { "DoWeaponCharge", },
 		CustomChannelSlowEvent = "WeaponCastProjectileHades",
 		ArmedCastChargeStage = true,
 		ChargeWeaponData =
@@ -377,27 +377,24 @@
 
 		SelfMultiplier = 0,
 	},
+
 	WeaponCast =
 	{
 		UpgradeChoiceText = "UpgradeChoiceMenu_Ranged",
-		--ManaCost = 0,
-		--ChargeCameraMotion = { ZoomType = "Overshoot", Fraction = 1.04, Duration = 0.22 },
-		--FireCameraMotion = { ZoomType = "Ease", Fraction = 1.0, Duration = 0.1 },
 		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.05, FalloffSpeed = 3000 },
-
-		--RumbleDistanceThreshold = 500,
 
 		FireRumbleParameters =
 		{
 			{ ScreenPreWait = 0.06, Fraction = 0.21, Duration = 0.21 },
 		},
-		OnFiredFunctionName = "WeaponCastFired",
+		OnFiredFunctionNames = { "WeaponCastFired", },
 		OnFiredFunctionArgs = 
 		{ 
 			ProjectileNames = { },
 		},
+		OnChargeFunctionNames = { "CheckChargeCastBuffs", },
 
-		OnHitFunctionNames = { "RefreshImpactSlow" },
+		OnHitFunctionNames = { "RefreshImpactSlow",	"CheckOnArmedHitEffect", },
 
 		CauseImpactReaction = true,
 		ImpactReactionHitsOverride = 10,
@@ -405,13 +402,6 @@
 		SkipManaIndicatorIfZeroManaCost = true,
 		
 		UnarmedCastCompleteGraphic = "Melinoe_Cast_Fire_Quick",
-		--NotReadySound = "/Leftovers/SFX/OutOfAmmo2",
-		--NotReadyText = "OutOfAmmo_Alt",
-		--NoAmmoFunctionName = "RangedFailedNoAmmoPresentation",
-		--NotReadyAmmoPackText = "RetrieveAmmo",
-		--NotReadyAmmoInEnemyText = "RetrieveAmmoFromEnemy",
-		--NotReadyPulseStoredAmmo = true,
-		--SkipAttackNotReadySounds = true,
 		
 		SpeedPropertyChanges = 
 		{
@@ -447,19 +437,6 @@
 			},
 		},
 
-		--[[
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.3, LerpTime = 0 },
-			{ ScreenPreWait = 0.02, Fraction = 1.0, LerpTime = 0.07 },
-		},
-		
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.05, FalloffSpeed = 3000 },
-		HitRumbleParameters =
-		{
-			{ ScreenPreWait = 0.06, Fraction = 0.11, Duration = 0.11 },
-		},
-		]]
 		OnArmedHitEffect = 
 		{
 			EffectName = "OnHitStun",
@@ -472,6 +449,7 @@
 				CanAffectInvulnerable = false,
 			}
 		},
+
 		ArmedParameters = 
 		{
 			Sounds =
@@ -504,6 +482,7 @@
 			},
 		},
 		SelfMultiplier = 0,
+		Using = { EffectNames = { "ImpactSlow", "ImpactGrip" }, WeaponName = "WeaponCastProjectileHades" },
 	},
 
 	WeaponCastVacuum =
@@ -564,8 +543,12 @@
 		HideOutOfManaPresentation = true,
 		FireScreenshake = { Distance = 3, Speed = 1000, Duration = 0.05, FalloffSpeed = 3000 },
 		
-		OnFiredFunctionName = "CastArmedFunction",
+		OnFiredFunctionNames = { "CastArmedFunction", },
 		RepeatFailToFireFunction = true,
+
+		OnChargeFunctionNames = {},
+		ChargeWeaponData = {},
+		ChargeWeaponStages = {},
 
 		FireRumbleParameters =
 		{
@@ -611,7 +594,7 @@
 		CompleteObjectivesOnFire = { "RushWeapon" },
 		ExpireProjectilesOnFire = {"ProjectileAxeSpin", "ProjectileDagger"},
 		CancelWeaponOnFire = "WeaponAxeBlock2",
-		OnChargeFunctionName = "WeaponBlinkFunction",
+		OnChargeFunctionNames = { "WeaponBlinkFunction", },
 		--OnChargeFunctionArgs = { AlphaDuration = 0.3 },
 		OnChargeCancelFunctionName = "ClearBlinkAlpha",
 		SimSlowBlur =
@@ -657,22 +640,17 @@
 
 		Upgrades = { },
 	},
-
+	WeaponMorphedBlink_YoungMel = 
+	{
+		OnChargeFunctionNames = { "WeaponBlinkFunction", },
+		OnChargeCancelFunctionName = "ClearBlinkAlpha",
+	},
 	WeaponSprint =
 	{
-	
 		HideChargeDuration = 0.25,
-		NoManaNotificationCooldown = 1.8,
-		--[[
-		DrainManaEffect = 
-		{
-			Name = "SprintManaDrain",
-			RequiredStartMana = 10,
-			EffectName = "SprintInvuln",
-			CostPerSecond = 60,
-			OutOfManaFunctionName = "WeaponSprintOutOfMana",
-		}
-		]]
+		IgnoreObjectives = true,
+		ChargeWeaponData = {},
+		OnChargeFunctionNames = {},
 	},
 	WeaponSprintEx =
 	{
@@ -681,13 +659,86 @@
 
 	WeaponMorphedAttack =
 	{
-		FiredHeroVoiceLines = "SheepAttackVoiceLines",
+		OnFiredFunctionNames = { "WeaponFiredGenericPresentation", },
+		OnFiredFunctionArgs =
+		{
+			VoiceLines =
+			{
+				PlayOnceFromTableThisRun = true,
+				PreLineWait = 0.4,
+				RandomRemaining = true,
+				ChanceToPlay = 0.25,
+				SuccessiveChanceToPlay = 0.25,
+				SuccessiveChanceToPlayAll = 0.05,
+				ObjectType = "Hecate",
+				Cooldowns =
+				{
+					{ Name = "HecateSpokeRecently", Time = 10 },
+				},
+
+				{ Cue = "/VO/HecateField_0209", Text = "If you could see yourself...!",
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "CurrentRun", "SpeechRecord", "/VO/Hecate_0152" },
+						},
+					},
+				},
+				{ Cue = "/VO/HecateField_0210", Text = "Not very dignified." },
+				{ Cue = "/VO/HecateField_0211", Text = "Come on, Melinoë." },
+				{ Cue = "/VO/HecateField_0212", Text = "Fall back!" },
+			},
+		},
 		Sounds =
 		{
 			FireSounds =
 			{
 				{ Name = "/VO/MelinoeEmotes/EmoteSheepAttacking" },
 				-- { Name = "/VO/MelinoeEmotes/EmoteSheepHit" }
+			},
+
+			ImpactSounds =
+			{
+				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
+				Bone = "/SFX/FistImpactMedium",
+				Brick = "/SFX/FistImpactMedium",
+				Stone = "/SFX/FistImpactMedium",
+				Organic = "/SFX/FistImpactMedium",
+			},
+
+		},
+	},
+	WeaponMorphedAttack_Pig =
+	{
+		InheritFrom = { "WeaponMorphedAttack" },
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/VO/MelinoeEmotes/EmotePigAttacking" },
+			},
+
+			ImpactSounds =
+			{
+				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
+				Bone = "/SFX/FistImpactMedium",
+				Brick = "/SFX/FistImpactMedium",
+				Stone = "/SFX/FistImpactMedium",
+				Organic = "/SFX/FistImpactMedium",
+			},
+
+		},
+	},
+	WeaponMorphedAttack_Rat =
+	{
+		InheritFrom = { "WeaponMorphedAttack" },
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/VO/MelinoeEmotes/EmoteRatAttacking" },
 			},
 
 			ImpactSounds =
@@ -751,7 +802,7 @@
 		IsModifiedByTraits = true,
 		SpellWeapon = true,
 		FailToFireFunctionName = "SpellFailToFirePresentation",
-		OnChargeFunctionName = "StartSpellCharge",
+		OnChargeFunctionNames = { "StartSpellCharge", },
 		OnChargeFunctionArgs = 
 		{
 			TimeSlowModifier = 0.001,
@@ -770,13 +821,13 @@
 	{
 		InheritFrom = { "BaseSpell", },
 		CompleteObjectivesOnFire = { "SpellTransformPrompt" },
-		ManaSpendCost = 80,
+		ManaSpendCost = 110,
 		Duration = 5.0,
 
 		OnChargeFunctionArgs = 
 		{
 			TimeSlowModifier = 0.001,
-			Duration = 1.1,
+			Duration = 0.1,
 			DisableBlink = true,
 			Force = true,
 		},
@@ -784,14 +835,13 @@
 		OnFiredFunctionNames = { "SpellFire", "SpellTransform", },
 		OnFiredFunctionArgs = 
 		{
-			TransformWeapons = { "WeaponTransformAttack", "WeaponTransformSpecial", "WeaponTransformBlink" },
+			TransformWeapons = { "WeaponTransformAttack", "WeaponTransformSpecial" },
 			StartVfx = "SuperStartFlare",
 			EndVfx = "SuperStartFlare",
 			RevertAnimationSwaps = true,
 			EndGraphic = "MelinoeEquip",
 			Vfx = "GrenadeSelfDamageOutputFx",
 			Scale = 1.1,
-			TransformTexture = "Models/Melinoe/MelinoeTransform_Color",
 		},
 		FireSimSlowParameters =
 		{
@@ -869,11 +919,6 @@
 		},
 	},
 
-	WeaponTransformBlink = 
-	{
-
-	},
-
 	WeaponSpellMeteor = 
 	{
 		InheritFrom = { "BaseSpell", },
@@ -888,6 +933,7 @@
 		},
 
 		HitSimSlowCooldown = 1.0,
+		SimSlowDistanceThreshold = 800,
 		HitSimSlowParameters =
 		{
 			{ ScreenPreWait = 0.15, Fraction = 0.10, LerpTime = 0 },
@@ -934,7 +980,7 @@
 		OnChargeFunctionArgs = 
 		{
 			TimeSlowModifier = 0.001,
-			Duration = 1.0,
+			Duration = 0.7,
 			DisableBlink = true,
 			Force = true,
 		},
@@ -958,11 +1004,11 @@
 		FireScreenshake = { Distance = 4, Speed = 400, FalloffSpeed = 1400, Duration = 0.16, Angle = 225, ScreenPreWait = 0.19 },
 
 		ChargeScreenshake = { Distance = 2, Speed = 100, FalloffSpeed = 2000, Duration = 1.5 },
-		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 1.08, Duration = 1.6, HoldDuration = 3.00, RestoreDefaultDuration = 0.4 },
+		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 1.08, Duration = 0.7, HoldDuration = 0.0, RestoreDefaultDuration = 0.4 },
 
 		ChargeRumbleParameters =
 		{
-			{ ScreenPreWait = 0.02, Fraction = 0.14, Duration = 2.1 },
+			{ ScreenPreWait = 0.02, Fraction = 0.22, Duration = 1.0 },
 		},
 	},
 	WeaponSpellSummon = 
@@ -985,7 +1031,7 @@
 		OnChargeFunctionArgs = 
 		{
 			TimeSlowModifier = 0.001,
-			Duration = 1.0,
+			Duration = 0.6,
 			DisableBlink = true,
 			Force = true,
 		},
@@ -993,7 +1039,7 @@
 		FireScreenshake = { Distance = 4, Speed = 400, FalloffSpeed = 1400, Duration = 0.16, Angle = 225, ScreenPreWait = 0.19 },
 
 		ChargeScreenshake = { Distance = 2, Speed = 100, FalloffSpeed = 2000, Duration = 1.0 },
-		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 1.08, Duration = 1.1, HoldDuration = 1.0, RestoreDefaultDuration = 0.4 },
+		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 1.08, Duration = 0.7, HoldDuration = 0.0, RestoreDefaultDuration = 0.4 },
 
 		ChargeRumbleParameters =
 		{
@@ -1008,19 +1054,18 @@
 				{ Name = "/VO/MelinoeEmotes/EmoteCastingFierce" },
 			},
 		},
-		Using = { Weapon = "SpellSummonRanged" },
 	},
 	WeaponSpellPolymorph = 
 	{
 		InheritFrom = { "BaseSpell", },
 		CompleteObjectivesOnFire = { "SpellPolymorphPrompt" },
 		OnFiredFunctionNames = { "SpellReloadStarted", "SpellFire", "SpellPolymorphFire" },
-		ManaSpendCost = 50,
+		ManaSpendCost = 40,
 
 		OnChargeFunctionArgs = 
 		{
 			TimeSlowModifier = 0.001,
-			Duration = 1.0,
+			Duration = 0.6,
 			DisableBlink = true,
 			Force = true,
 		},
@@ -1030,7 +1075,7 @@
 		FireScreenshake = { Distance = 4, Speed = 400, FalloffSpeed = 1400, Duration = 0.16, Angle = 225, ScreenPreWait = 0.19 },
 
 		ChargeScreenshake = { Distance = 2, Speed = 100, FalloffSpeed = 2000, Duration = 1.5 },
-		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 1.08, Duration = 1.6, HoldDuration = 0.02, RestoreDefaultDuration = 0.4 },
+		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 1.08, Duration = 0.7, HoldDuration = 0.0, RestoreDefaultDuration = 0.4 },
 
 		ChargeRumbleParameters =
 		{
@@ -1052,11 +1097,12 @@
 			{ ScreenPreWait = 0.0, RightFraction = 0.3, Duration = 0.18 },
 		},
 
-		HitSimSlowCooldown = 0.2,
+		HitSimSlowCooldown = 0.3,
+		SimSlowDistanceThreshold = 220,
 		HitSimSlowParameters =
 		{
 			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.1, Fraction = 1.00, LerpTime = 0.07 },
+			{ ScreenPreWait = 0.03, Fraction = 1.00, LerpTime = 0.07 },
 		},
 
 		Sounds =
@@ -1080,14 +1126,24 @@
 			EndWarnNum = 3,
 			EndWarnPresentationFunction = "SpellSlowWarnPresentation",
 			EndSlowMotionSound = "/VO/MelinoeEmotes/EmoteGasping",
-			EndSlowMotionFunctionName = "EndTimeSlow" },
-			BaseDuration = 4.0,
-			ManaSpendCost = 100,
+			EndSlowMotionFunctionName = "EndTimeSlow"
+		},
+
+		OnChargeFunctionArgs = 
+		{
+			TimeSlowModifier = 0.001,
+			Duration = 0.8,
+			DisableBlink = true,
+			Force = true,
+		},
+
+		BaseDuration = 4.0,
+		ManaSpendCost = 130,
 
 		FireScreenshake = { Distance = 4, Speed = 400, FalloffSpeed = 1400, Duration = 0.16, Angle = 225, ScreenPreWait = 0.19 },
 
 		ChargeScreenshake = { Distance = 2, Speed = 100, FalloffSpeed = 2000, Duration = 1.0 },
-		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 1.08, Duration = 1.1, HoldDuration = 1.0, RestoreDefaultDuration = 0.4 },
+		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 1.08, Duration = 0.7, HoldDuration = 0.0, RestoreDefaultDuration = 0.4 },
 
 		ChargeRumbleParameters =
 		{
@@ -1115,7 +1171,7 @@
 		InheritFrom = { "BaseSpell", },
 		CompleteObjectivesOnFire = { "SpellPotionPrompt" },
 
-		OnChargeFunctionName = "nil",
+		OnChargeFunctionNames = {},
 		OnChargeFunctionArgs = {},
 
 		OnFiredFunctionNames = { "SpellPotion", "SpellFire" },
@@ -1127,7 +1183,7 @@
 		FireScreenshake = { Distance = 4, Speed = 400, FalloffSpeed = 1400, Duration = 0.08, Angle = 225, ScreenPreWait = 0.19 },
 
 		ChargeScreenshake = { Distance = 2, Speed = 100, FalloffSpeed = 2000, Duration = 1.5 },
-		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 1.08, Duration = 1.6, HoldDuration = 1.0, RestoreDefaultDuration = 0.4 },
+		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 1.08, Duration = 0.3, HoldDuration = 0.0, RestoreDefaultDuration = 0.4 },
 
 		ChargeRumbleParameters =
 		{
@@ -1150,7 +1206,7 @@
 		CompleteObjectivesOnFire = { "SpellLeapPrompt" },
 		OnFiredFunctionNames = {"SpellFire", "SetupSpellLeap" },
 		ExpireProjectilesOnFire = {"ProjectileAxeSpin"},
-		ManaSpendCost = 40,
+		ManaSpendCost = 50,
 		ShowManaIndicator = false,
 		RiseDistance = 400,
 		RiseTime = 0.6,			--Ascent duration
@@ -1184,7 +1240,7 @@
 		HitScreenshake = { Distance = 8, Speed = 800, FalloffSpeed = 1400, Duration = 0.24, Angle = 90, ScreenPreWait = 0.02 },
 
 		ChargeScreenshake = { Distance = 2, Speed = 100, FalloffSpeed = 2000, Duration = 1.0 },
-		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 1.1, Duration = 1.1, HoldDuration = 1.0, RestoreDefaultDuration = 0.4 },
+		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 1.08, Duration = 0.7, HoldDuration = 0.0, RestoreDefaultDuration = 0.4 },
 
 		ChargeRumbleParameters =
 		{
@@ -1211,7 +1267,7 @@
 		InheritFrom = { "BaseSpell", },
 		CompleteObjectivesOnFire = { "SpellPotionPrompt" },
 
-		OnChargeFunctionName = "nil",
+		OnChargeFunctionNames = {},
 		OnChargeFunctionArgs = {},
 
 		OnFiredFunctionNames = { "MoonBeamSpellFire" },
@@ -1226,11 +1282,11 @@
 		Using = { EffectName = "MoonBeamVulnerability", },
 		ShowManaIndicator = false,
 		ManaSpendCost = 100,
-
+		LinkedTraitManaSpendAdjustment = "SuitHexAspect",
 		FireScreenshake = { Distance = 4, Speed = 400, FalloffSpeed = 1400, Duration = 0.08, Angle = 225, ScreenPreWait = 0.19 },
 
 		ChargeScreenshake = { Distance = 2, Speed = 100, FalloffSpeed = 2000, Duration = 1.5 },
-		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 1.08, Duration = 1.6, HoldDuration = 1.0, RestoreDefaultDuration = 0.4 },
+		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 1.08, Duration = 0.3, HoldDuration = 0.0, RestoreDefaultDuration = 0.4 },
 
 		ChargeRumbleParameters =
 		{
@@ -1263,7 +1319,6 @@
 		},
 
 		Upgrades = { },
-		HitText = "BodySlamHit",
 		KillText = "BodySlamHit",
 
 		Sounds =
@@ -1297,20 +1352,94 @@ GameData.WeaponEquipOrder =
 
 GameData.MissingPackages =
 ToLookup({
+	"None",
+
 	"WeaponUpgrade",
 	"WeaponCastArm",
 	"WeaponDaggerThrow",
 	"WeaponSprint",
+	"WeaponSprintEx",
 	"WeaponAxeSpecial",
+	"WeaponAxe4",
+	"WeaponAxe5",
 	"WeaponStaffBall",
 	"WeaponLobSpecial",
-	"StackUpgrade",
+	"WeaponSuitRanged",
+	"WeaponTransformAttack",
+	"WeaponTransformSpecial",
+	"WeaponSkullImpulse",
+	"WeaponLobChargedPulse",
+	"WeaponLobPulse",
+
 	"WeaponTorchSpecial",
 	"FlashbackHadesBlink",
 	"WeaponSpellNova",
 	"WeaponCastProjectile",
-	"WeaponCastProjectileHades",
 	"EncounterStartBuffWeapon",
-	"PoseidonSprintWeapon",
+	"WeaponCastBlink",
+	"WeaponCastProjectileHades",
+	"WeaponAnywhereCast",
+	"WeaponCastLob",
+	"WeaponCastProjectile",
+	"WeaponSprintEx",
+	
+	"MixerFBossDrop",	
+	"MixerGBossDrop",	
+	"MixerHBossDrop",
 	"MixerIBossDrop",
+
+	"MixerNBossDrop",
+	"MixerOBossDrop",
+	"MixerPBossDrop",
+	"MixerQBossDrop",
+	
+	"Mixer5CommonDrop",
+
+	"Boon",
+	"SpellDrop",
+	"GiftDrop",
+	"TalentDrop",
+	"TalentBigDrop",
+	"MinorTalentDrop",
+	"StackUpgrade",
+	"StackUpgradeBig",
+	"StackUpgradeTriple",
+	"Shop",
+	"Story",
+	"Devotion",
+	"ClockworkGoal",
+	"MetaCardPointsCommonDrop",
+	"MetaCurrencyBigDrop",
+	"MetaCardPointsCommonBigDrop",
+	"MaxHealthDropSmall",
+	"MaxHealthDrop",
+	"MaxHealthDropBig",
+	"MaxManaDropSmall",
+	"MaxManaDrop",
+	"MaxManaDropBig",
+	"RoomMoneyDrop",
+	"RoomMoneyTripleDrop",
+	"RoomMoneyTinyDrop",
+	"MetaCurrencyDrop",
+	"MemPointsCommonBigDrop",
+	"TestingRoom",
+	
+	"EarthBoost",
+	"WaterBoost",
+	"AirBoost",
+	"FireBoost",
+	"ElementalBoost",
+
+	"Intercom",
 })
+
+WeaponPackages = 
+{
+	"WeaponCast",
+	"WeaponAxe",
+	"WeaponStaffSwing",
+	"WeaponDagger",
+	"WeaponTorch",
+	"WeaponLob",
+	"WeaponSuit",
+}

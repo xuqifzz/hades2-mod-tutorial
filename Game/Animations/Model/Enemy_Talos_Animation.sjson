@@ -117,6 +117,8 @@
 		InheritFrom = "EnemyTalosBaseAnimation"
 		GrannyAnimation = "Talos_Base_SprintStart_C_00"
 		ChainTo = "Enemy_Talos_SprintLoop"
+		Sound = "/SFX/Player Sounds/RobotMiscB_6"
+		StopSoundOnFinishFade = 0.2
 		CancelOnOwnerMove = false
 		Blends =
 		[
@@ -153,12 +155,15 @@
 		Loop = true
 		OwnerHasNoUnitCollision = true
 		CancelOnOwnerMove = false
+		Sound = "/SFX/Enemy Sounds/Talos/TalosJetLoop"
+		StopSoundOnFinishFade = 0.2
 	}
 	{
 		Name = "Enemy_Talos_SprintStop"
 		InheritFrom = "EnemyTalosBaseAnimation"
 		GrannyAnimation = "Talos_Base_SprintEnd_C_00"
 		CancelOnOwnerMove = false
+		Sound = "/SFX/Player Sounds/RobotMiscB_5"
 		Blends =
 		[
 			{
@@ -228,8 +233,9 @@
 		InheritFrom = "EnemyTalosBaseAnimation"
 		GrannyAnimation = "Talos_Base_MagnetPreFire_C_00"
 		HoldLastFrame = true
-		Sound = "/SFX/Player Sounds/ZagreusChargeRamaSitar"
+		Sound = "/SFX/Enemy Sounds/Talos/TalosMagnetSuck"
 		StopSoundOnFinishFade = 0.2
+		CreateAnimation = "TalosMagnetPreFireChargeFx"
 		Blends =
 		[
 			{
@@ -262,6 +268,7 @@
 		Name = "Enemy_Talos_MagnetFire"
 		InheritFrom = "EnemyTalosBaseAnimation"
 		GrannyAnimation = "Talos_Base_MagnetFire_C_00"
+		CreateAnimation = "TalosMagnetFireChargeFx"
 		HoldLastFrame = true
 		Frames =
 		[
@@ -276,6 +283,8 @@
 		InheritFrom = "EnemyTalosBaseAnimation"
 		GrannyAnimation = "Talos_Base_MagnetUppercutPreFire_C_00"
 		HoldLastFrame = true
+		Sound = "/SFX/Player Sounds/RobotMiscB_6"
+		StopSoundOnFinishFade = 0.2
 	}
 	{
 		Name = "Enemy_Talos_MagnetPunchFire"
@@ -331,8 +340,6 @@
 		InheritFrom = "EnemyTalosBaseAnimation"
 		GrannyAnimation = "Talos_Base_SpinFire_C_00"
 		Loop = true
-		Sound = "/SFX/Enemy Sounds/Chronos/ChronosSuctionStartAndLoop"
-		StopSoundOnFinishFade = 0.2
 	}
 	{
 		Name = "Enemy_Talos_SpinPostFire"
@@ -355,8 +362,7 @@
 		InheritFrom = "EnemyTalosBaseAnimation"
 		GrannyAnimation = "Talos_Base_ThrowPreFire_C_00"
 		HoldLastFrame = true
-		Sound = "/SFX/Enemy Sounds/HeavyRangedSplitterMiniboss/CrystalBeamPreAttackBIG"
-		StopSoundOnFinishFade = 0.2
+		Sound = "/SFX/Player Sounds/RobotMiscB_6"
 		Blends =
 		[
 			{
@@ -390,6 +396,7 @@
 		InheritFrom = "EnemyTalosBaseAnimation"
 		GrannyAnimation = "Talos_Base_ThrowFire_C_00"
 		ChainTo = "Enemy_Talos_ThrowFireLoop"
+		Sound = "/SFX/Player Sounds/RobotMiscB_1"
 	}
 	{
 		Name = "Enemy_Talos_ThrowFireLoop"
@@ -409,13 +416,24 @@
 				Duration = 6
 			}
 		]
+		Frames =
+		[
+			{
+				Frame = 19
+				FootstepFxR = "TalosShieldSingleFadeWinkL"
+			}
+			{
+				Frame = 26
+				FootstepFxR = "TalosShieldSingleFadeWinkR"
+			}
+		]
 	}
-
 	// THROW LEFT
 	{
 		Name = "Enemy_Talos_ThrowLeftPreFire"
 		InheritFrom = "EnemyTalosBaseAnimation"
 		GrannyAnimation = "Talos_Base_ThrowPreFire_LeftArm_C_00"
+		Sound = "/SFX/Player Sounds/RobotMiscB_3"
 		HoldLastFrame = true
 		Blends =
 		[
@@ -450,6 +468,7 @@
 		InheritFrom = "EnemyTalosBaseAnimation"
 		GrannyAnimation = "Talos_Base_ThrowFire_LeftArm_C_00"
 		ChainTo = "Enemy_Talos_ThrowLeftFireLoop"
+		Sound = "/SFX/Player Sounds/RobotMiscB_1"
 	}
 	{
 		Name = "Enemy_Talos_ThrowLeftFireLoop"
@@ -473,7 +492,7 @@
 		[
 			{
 				Frame = 26
-				Sound = "/SFX/Player Sounds/ZagreusShieldCatch"
+				FootstepFxR = "TalosShieldSingleFadeWinkL"
 			}
 		]
 	}
@@ -484,6 +503,7 @@
 		InheritFrom = "EnemyTalosBaseAnimation"
 		GrannyAnimation = "Talos_Base_ThrowPreFire_RightArm_C_00"
 		HoldLastFrame = true
+		Sound = "/SFX/Player Sounds/RobotMiscB_3"
 		Blends =
 		[
 			{
@@ -517,6 +537,7 @@
 		InheritFrom = "EnemyTalosBaseAnimation"
 		GrannyAnimation = "Talos_Base_ThrowFire_RightArm_C_00"
 		ChainTo = "Enemy_Talos_ThrowRightFireLoop"
+		Sound = "/SFX/Player Sounds/RobotMiscB_1"
 	}
 	{
 		Name = "Enemy_Talos_ThrowRightFireLoop"
@@ -540,7 +561,7 @@
 		[
 			{
 				Frame = 26
-				Sound = "/SFX/Player Sounds/ZagreusShieldCatch"
+				FootstepFxR = "TalosShieldSingleFadeWinkR"
 			}
 		]
 	}
@@ -550,6 +571,10 @@
 		GrannyAnimation = "Talos_Base_Death_C_00"
 		LargeObstacle3DModel = true
 		ChainTo = "Enemy_Talos_Death_Dissolve"
+		VisualFx = "TalosDeathArcs"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 110
 		Frames =
 		[
 			{

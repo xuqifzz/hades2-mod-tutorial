@@ -6,7 +6,6 @@ UnitSetData.FishSwarmer =
 		InheritFrom = { "OceanusUnitData", "BaseVulnerableEnemy","LowPolyEnemy"  },
 		ActivateFx = "WaterUnitSurfaceSmall",
 		Groups = { "FlyingEnemies" },
-		IsAggroedSound = "/SFX/Enemy Sounds/Swarmer/EmoteAlerted",
 		Material = "Organic",
 		
 		ActivateAnimation = "Enemy_FishSwarmer_Spawn",
@@ -16,13 +15,20 @@ UnitSetData.FishSwarmer =
 		DeathAnimation = "Enemy_FishSwarmer_Death",
 		DeathFx = "EnemyDeathFxIris_Small",
 
-		MaxHealth = 50,
+		MaxHealth = 65,
 		HealthBarOffsetY = -100,
 
-		AggroReactionTimeMin = 1.0,
-		AggroReactionTimeMax = 1.5,
+		IgnoreProjectileExpireOnDeath = true,
+
+		AggroReactionTimeMin = 0.5,
+		AggroReactionTimeMax = 0.6,
 		PreSpawnAggroReactionTimeMin = 1.0,
-		PreSpawnAggroReactionTimeMax = 1.5,
+		PreSpawnAggroReactionTimeMax = 1.1,
+
+		SkipRecordDestroyedState = true,
+
+		SkipDamagedFx = true,
+		SkipUnitHitFlash = true,
 
 		StunAnimations = 
 		{
@@ -30,13 +36,18 @@ UnitSetData.FishSwarmer =
 			Heavy = "Enemy_FishSwarmer_HitStun_Heavy",
 		},
 
-		AIAggroRange = 900,
+		UniqueIconAttachments = 
+		{
+			Burn = "FishSwarmer_Rig:root_00_M_JNT",
+		},
+
+		AIAggroRange = 1300,
 		DefaultAIData =
 		{
 			DeepInheritance = true,
 			
 			FollowDistance = 40,
-			FollowSuccessDistance = 20,
+			FollowRefreshDuration = 1.0,
 
 			SoundManagerCap = 38,
 			PreAttackSound = "/SFX/Enemy Sounds/FishSwarmer/EmoteCharging",
@@ -72,6 +83,8 @@ UnitSetData.FishSwarmer =
 
 		ActiveCapWeight = 0.25,
 
+		BlockAttributes = { "Orbit", "Vacuum", },
+
 		AIOptions =
 		{
 			"AggroAI",
@@ -91,6 +104,7 @@ UnitSetData.FishSwarmer =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_0094", Text = "Pinheads." },
@@ -103,8 +117,8 @@ UnitSetData.FishSwarmer =
 	FishSwarmer_Elite =
 	{
 		InheritFrom = { "Elite", "FishSwarmer" },
-		MaxHealth = 100,
-		HealthBuffer = 170,
+		MaxHealth = 120,
+		HealthBuffer = 160,
 		HealthBarOffsetY = -250,
 		HealthBarType = "Medium",
 

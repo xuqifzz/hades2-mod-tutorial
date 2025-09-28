@@ -47,6 +47,11 @@ OverwriteTableKeys( TraitData, {
 				},
 			},
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
+			ConditionalValidWeapon = 
+			{
+				TraitName = "TransformPrimaryTalent",
+				WeaponName = "WeaponTransformAttack"
+			},
 			ReportValues = { ReportedWeaponMultiplier = "ValidWeaponMultiplier"},
 		},
 		WeaponDataOverride = 
@@ -162,19 +167,51 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
-
 			{
 				WeaponName = "WeaponStaffSwing5",
-				ProjectileName = "ProjectileSwing5Magic",
-				ProjectileProperty = "DetonateFx",
-				ChangeValue = "StaffChargedAttackFx_Demeter",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "StaffChargedAttackFxEmitter_Demeter",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+			{
+				WeaponName = "WeaponStaffSwing5",
+				TraitName = "StaffRaiseDeadAspect",
+				ProjectileName = "ProjectileStaffWall",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "StaffWallIn_Demeter",
+				ChangeType = "Absolute",
+			},			
 
+			{
+				WeaponName = "WeaponStaffSwing5",
+				TraitName = "StaffRaiseDeadAspect",
+				ProjectileName = "ProjectileStaffWall",
+				ProjectileProperty = "ImpactFx",
+				ChangeValue = "AnubisWallImpactFx_Demeter",
+				ChangeType = "Absolute",
+			},
+
+			{
+				WeaponName = "WeaponStaffSwing",
+				TraitName = "StaffRaiseDeadAspect",
+				ProjectileName = "ProjectileStaffSingle",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "AnubisRingFx_Demeter",
+				ChangeType = "Absolute",
+			},			
+
+			{
+				WeaponName = "WeaponStaffSwing",
+				TraitName = "StaffRaiseDeadAspect",
+				WeaponProperty = "FireFx",
+				ChangeValue = "StaffProjectileFireFx3_Demeter",
+				ChangeType = "Absolute",
+			},
 
 			{
 				WeaponName = "WeaponDagger",
+				FalseTraitName = "DaggerTripleAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "DaggerSwipeFast_Demeter",
 				ChangeType = "Absolute",
@@ -189,6 +226,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponDaggerDash",
+				FalseTraitName = "DaggerTripleAspect",
 				ProjectileName = "ProjectileDaggerDash",
 				WeaponProperty = "FireFx",
 				ChangeValue = "DaggerSwipeFastFlipDash_Demeter",
@@ -240,9 +278,37 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+			{
+				WeaponName = "WeaponDagger",
+				TraitName = "DaggerTripleAspect",
+				ProjectileName = "ProjectileDaggerSpinMorrigan",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "DaggerMorriganSpin_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponDaggerDash",
+				TraitName = "DaggerTripleAspect",
+				ProjectileName = "ProjectileDaggerSpinMorrigan",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "DaggerMorriganSpin_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponDagger5",
+				TraitName = "DaggerTripleAspect",
+				ProjectileName = "ProjectileDaggerExecuteMorrigan",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "DaggerSwipeDouble_Morrigan_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
 
 			{
 				WeaponName = "WeaponAxe",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSwipe1_Demeter",
 				ChangeType = "Absolute",
@@ -250,6 +316,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponAxe2",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSwipe2_Demeter",
 				ChangeType = "Absolute",
@@ -257,6 +324,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponAxe3",
+				FalseTraitName = "AxeRallyAspect",
 				ProjectileName = "ProjectileAxeOverhead",
 				ProjectileProperty = "DetonateFx",
 				ChangeValue = "AxeNova_Demeter",
@@ -265,6 +333,7 @@ OverwriteTableKeys( TraitData, {
 			},			
 			{
 				WeaponName = "WeaponAxeDash",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSwipeUpper_Demeter",
 				ChangeType = "Absolute",
@@ -278,6 +347,62 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+
+			{
+				WeaponName = "WeaponAxe",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalSlow",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe2",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe3",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe4",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe5",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxeDash",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFastDash",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+
 			{
 				FalseTraitName = "LobCloseAttackAspect",			
 				WeaponName = "WeaponLob",
@@ -292,6 +417,32 @@ OverwriteTableKeys( TraitData, {
 				ProjectileName = "ProjectileLob",
 				ProjectileProperty = "BounceFx",
 				ChangeValue = "LobProjectileBounceFx_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobBullet",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobProjectileBullet_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobBullet",
+				ProjectileProperty = "DeathFx",
+				ChangeValue = "LobProjectileBulletFade_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobOverheat",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobSpecialFx_Hel_Demeter",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
@@ -370,27 +521,26 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
-
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBall",
+				ProjectileName = "ProjectileTorchGhost",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchProjectileSmallIn_Demeter",
+				ChangeValue = "TorchProjectileGhostIn_Demeter",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
 			{
 				WeaponName = "WeaponTorch",
 				FalseTraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchGhostLarge",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchProjectileLargeIn_Demeter",
+				ChangeValue = "TorchProjectileGhostLargeIn_Demeter",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},			
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBall",
+				ProjectileName = "ProjectileTorchGhost",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "TorchProjectileShadow_Demeter",
 				ChangeType = "Absolute",
@@ -399,7 +549,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponTorch",
 				FalseTraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchGhostLarge",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "TorchProjectileShadowLarge_Demeter",
 				ChangeType = "Absolute",
@@ -407,7 +557,7 @@ OverwriteTableKeys( TraitData, {
 			},			
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBall",
+				ProjectileName = "ProjectileTorchGhost",
 				ProjectileProperty = "DissipateFx",
 				ChangeValue = "TorchProjectileDissipate_Demeter",
 				ChangeType = "Absolute",
@@ -415,12 +565,79 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchGhostLarge",
 				ProjectileProperty = "DissipateFx",
 				ChangeValue = "TorchProjectileDissipate_Demeter",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchBallIn_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchBallGroundGlow_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchBallDissipate_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchWave",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWave_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchWave",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchBallGroundGlowWave_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},		
+			{
+				TraitName = "TorchEnhancedAttackTrait",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchWave",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWaveReturn_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},	
+			{
+				TraitName = "TorchEnhancedAttackTrait",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchSupayBallEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWaveReturn_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},	
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "ImpactFx",
+				ChangeValue = "TorchImpactFx_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+
 			{
 				WeaponName = "WeaponTorch",
 				ProjectileName = "ProjectileTorchRepeatStrike",
@@ -431,16 +648,8 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchRepeatStrikeLarge",
-				ProjectileProperty = "DetonateFx",
-				ChangeValue = "RadialNovaPentagramCharged_Demeter",
-				ChangeType = "Absolute",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponTorch",
 				TraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchBallEos",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "EosProjectile_Demeter_In",
 				ChangeType = "Absolute",
@@ -448,27 +657,46 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponTorch",
 				TraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchBallEos",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "EosProjectileShadow",
 				ChangeType = "Absolute",
 			},
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchExplosion",
+				ProjectileName = "ProjectileTorchGhostExplosion",
 				ProjectileProperty = "DetonateFx",
-				ChangeValue = "AxeNova_Demeter",
+				ChangeValue = "ProjectileTorchGhostExplosion_Demeter",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},	
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchExplosionLarge",
+				ProjectileName = "ProjectileTorchGhostLargeExplosion",
 				ProjectileProperty = "DetonateFx",
-				ChangeValue = "AxeNova_Demeter",
+				ChangeValue = "ProjectileTorchGhostExplosion_Demeter",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
-			},	
+			},
+			{
+				FalseTraitName = "TorchEnhancedAttackTrait",
+				TraitName = "TorchAutofireAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchSupayBallEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWave_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				TraitName = "TorchAutofireAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchSupayBallEx",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchBallGroundGlowWave_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
 
 			{
 				WeaponName = "WeaponSuit",
@@ -485,13 +713,36 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitDouble",
+				ProjectileName = "ProjectileSuitDouble",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitPunch_Demeter",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitDouble",
+				WeaponProperty = "FireFx",
+				ChangeValue = "SuitPunchFlare_R_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitDouble",
+				WeaponProperty = "FireFx2",
+				ChangeValue = "SuitPunchFlare_L_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
 				WeaponName = "WeaponSuitCharged",
 				ProjectileProperty = "StartFx",
 				ChangeValue = "SuitPunchLarge_Demeter",
 				ChangeType = "Absolute",
 			},
 			{
-				FalseTraitName = "SuitDashAttackTrait",
 				WeaponName = "WeaponSuitDash",
 				ProjectileName = "ProjectileSuitDash",
 				ProjectileProperty = "StartFx",
@@ -503,15 +754,7 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponSuitDash",
 				ProjectileName = "ProjectileSuitDash",
 				ProjectileProperty = "DetonateFx",
-				ChangeValue = "SuitNovaBurn_Demeter",
-				ChangeType = "Absolute",
-			},
-			{
-				TraitName = "SuitDashAttackTrait",
-				WeaponName = "WeaponSuitDash",
-				ProjectileName = "ProjectileSuitDash",
-				ProjectileProperty = "StartFx",
-				ChangeValue = "Null",
+				ChangeValue = "SuitNovaBurnRapid_Demeter",
 				ChangeType = "Absolute",
 			},
 			{
@@ -579,7 +822,6 @@ OverwriteTableKeys( TraitData, {
 		OnEnemyDamagedAction = 
 		{
 			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
-			ExcludeProjectiles = {"ProjectileSuitRangedGuidedSplit", "ProjectileSuitSplit", "ProjectileSuitSplit2" },
 			FunctionName = "ApplyRoot",
 			Args = 
 			{
@@ -600,6 +842,11 @@ OverwriteTableKeys( TraitData, {
 				},
 			},
 			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
+			ConditionalValidWeapon = 
+			{
+				TraitName = "TransformSpecialTalent",
+				WeaponName = "WeaponTransformSpecial"
+			},
 			ReportValues = { ReportedWeaponMultiplier = "ValidWeaponMultiplier"},
 		},
 		WeaponDataOverride =
@@ -616,6 +863,15 @@ OverwriteTableKeys( TraitData, {
 						},
 					},
 				}
+			}
+		},
+		ChargeStageModifiers = 
+		{
+			ValidWeapons = { "WeaponTorchSpecial"},
+			ExcludeLinked = true,
+			AddWeaponProperties = 
+			{
+				FireFx = "TorchOrbitStartSwirl_Demeter",
 			}
 		},
 		PropertyChanges = {
@@ -683,6 +939,7 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				FalseTraitName = "DaggerTripleAspect",
 				WeaponName = "WeaponDaggerThrow",
 				ProjectileName = "ProjectileDaggerThrow",
 				ProjectileProperty = "Graphic",
@@ -690,10 +947,27 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				TraitName = "DaggerTripleAspect",
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrow",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerThrowMorrigan_Demeter",
+				ChangeType = "Absolute",
+			},
+			{
+				FalseTraitName = "DaggerTripleAspect",
 				WeaponName = "WeaponDaggerThrow",
 				ProjectileName = "ProjectileDaggerThrowCharged",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "DaggerProjectileFx_Demeter", 
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "DaggerTripleAspect",
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerThrowMorrigan_Demeter",
 				ChangeType = "Absolute",
 			},
 			{
@@ -724,21 +998,6 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 			{
-				WeaponName = "WeaponDagger5",
-				ProjectileName = "ProjectileDaggerBackstab",
-				ProjectileProperty = "StartFx",
-				ChangeValue = "DaggerSwipe_Demeter",
-				ChangeType = "Absolute",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponDagger5",
-				WeaponProperty = "ChargeStartFx",
-				ChangeValue = "DaggerCharge_Demeter",
-				ChangeType = "Absolute",
-				ExcludeLinked = true,
-			},
-			{
 				WeaponName = "WeaponAxeBlock2",
 				ProjectileProperty = "DetonateFx",
 				ChangeValue = "AxeDeflect_Demeter",
@@ -746,7 +1005,7 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 			{
-				FalseTraitName = "AxeBlockEmpowerTrait",
+				FalseTraitNames = { "AxeBlockEmpowerTrait", "AxeRallyAspect", },
 				WeaponName = "WeaponAxeSpecial",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSpinDouble_Demeter",
@@ -754,7 +1013,26 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true
 			},
 			{
+				TraitName = "AxeRallyAspect",
+				FalseTraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "null",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
+				TraitName = "AxeRallyAspect",
+				FalseTraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				WeaponProperty = "FireFx",
+				ChangeValue = "AxeSwipeUpper_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
 				TraitName = "AxeBlockEmpowerTrait",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxeSpecial",
 				WeaponProperty = "FireFx",
 				ChangeValue = "null",
@@ -763,9 +1041,18 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				TraitName = "AxeBlockEmpowerTrait",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxeSpecial",
 				ProjectileProperty = "StartFx",
 				ChangeValue = "AxeSpinDouble_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
+				TraitNames = { "AxeBlockEmpowerTrait", "AxeRallyAspect" },
+				WeaponName = "WeaponAxeSpecial",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "AxeSwipeUpper_Demeter",
 				ChangeType = "Absolute",
 				ExcludeLinked = true
 			},
@@ -777,10 +1064,19 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 			{
+				FalseTraitName = "LobGunAspect",
 				WeaponName = "WeaponLobSpecial",
 				ProjectileName = "ProjectileThrowCharged",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "LobSpecialFx_Demeter",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobSpecialFx_Hel_Demeter",
 				ChangeType = "Absolute",
 			},
 			{
@@ -789,19 +1085,20 @@ OverwriteTableKeys( TraitData, {
 				ProjectileProperty = "Graphic",
 				ChangeValue = "DashLobTrailEmitter_Demeter",
 				ChangeType = "Absolute",
-			},			
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileLobGunRift",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobProjectile_Demeter",
+				ChangeType = "Absolute",
+			},
 			{
 				WeaponName = "WeaponSkullImpulse",
 				ProjectileName = "ProjectileSkullImpulse",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "DashLobTrailEmitter_Demeter",
-				ChangeType = "Absolute",
-			},	
-			{
-				WeaponName = "WeaponSkullImpulse",
-				ProjectileName = "ProjectileSkullImpulseWave",
-				ProjectileProperty = "Graphic",
-				ChangeValue = "LobSpecialFx_Demeter",
 				ChangeType = "Absolute",
 			},
 			{
@@ -812,45 +1109,84 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
-				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchSpecialProjectileIn_Demeter",
-				ChangeType = "Absolute",
-			},			
-			{
-				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
-				ProjectileProperty = "AttachedAnim",
-				ChangeValue = "TorchSpecialProjectileGroundGlow_Demeter",
-				ChangeType = "Absolute",
-			},			
-			{
-				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
-				ProjectileProperty = "DissipateFx",
-				ChangeValue = "TorchSpecialProjectileDissipate_Demeter",
-				ChangeType = "Absolute",
-			},			
-
-			{
-				WeaponName = "WeaponTorchSpecial",
 				ProjectileName = "ProjectileTorchOrbit",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchSpecialProjectileIn_Demeter",
+				ChangeValue = "TorchOrbitIn_Demeter",
 				ChangeType = "Absolute",
-			},			
+			},
 			{
 				WeaponName = "WeaponTorchSpecial",
+				ProjectileNames = { "ProjectileTorchOrbit", "ProjectileTorchOrbitEx" },
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchOrbitOut_Demeter",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileNames = { "ProjectileTorchOrbit", "ProjectileTorchOrbitEx" },
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchOrbitShadow_Demeter",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchOrbitInEX_Demeter",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				WeaponProperty = "FireFx",
+				ChangeValue = "TorchOrbitStartSwirl_Single_Demeter",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbit",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchSpecialProjectileIn_Moros_Demeter",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
 				ProjectileName = "ProjectileTorchOrbit",
 				ProjectileProperty = "AttachedAnim",
-				ChangeValue = "TorchSpecialProjectileGroundGlow_Demeter",
+				ChangeValue = "TorchSpecialProjectileGroundGlow_Moros_Demeter",
 				ChangeType = "Absolute",
-			},			
+			},
 			{
 				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
 				ProjectileName = "ProjectileTorchOrbit",
 				ProjectileProperty = "DissipateFx",
-				ChangeValue = "TorchSpecialProjectileDissipate_Demeter",
+				ChangeValue = "TorchSpecialProjectileDissipate_Moros_Demeter",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchSpecialProjectileIn_Moros_Demeter",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchSpecialProjectileGroundGlow_Moros_Demeter",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchSpecialProjectileDissipate_Moros_Demeter",
 				ChangeType = "Absolute",
 			},
 			{
@@ -894,6 +1230,78 @@ OverwriteTableKeys( TraitData, {
 				ProjectileProperty = "DetonateFx",
 				ChangeValue = "SuitRocketExplosion_Demeter",
 				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenade",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenade_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenade",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBomb",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenadeBig_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBomb",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenadeStraight",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenade_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenadeStraight",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBombStraight",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenadeBig_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBombStraight",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Demeter",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
 			},
 			{
 				TraitName = "SuitSpecialJumpTrait",
@@ -976,7 +1384,7 @@ OverwriteTableKeys( TraitData, {
 		
 		OnEnemyDamagedAction = 
 		{
-			ValidWeapons = WeaponSets.HeroRangedWeapons,
+			ValidProjectiles = {"DemeterCastBlast"},
 			FunctionName = "ApplyRoot",
 			Args = 
 			{
@@ -992,6 +1400,33 @@ OverwriteTableKeys( TraitData, {
 				HitSimSlowParameters = { },
 			}
 		},
+		OnWeaponFiredFunctions =
+		{
+			ValidWeapons = { "WeaponCast" },
+			ExcludeLinked = true,
+			FunctionName = "ContinuousDemeterCast",
+			FunctionArgs = 
+			{
+				ProjectileName = "DemeterCastBlast",
+				Delay = 0.5,
+				Fx = "DemeterIceRainExact",
+				DamageMultiplier = 
+				{
+					BaseValue = 1,
+					AbsoluteStackValues = 
+					{
+						[1] = 5/10,
+						[2] = 3/10,
+						[3] = 2/10,
+					},
+				},
+				ReportValues = 
+				{ 
+					ReportedMultiplier = "DamageMultiplier",
+					ReportedFuse = "Delay",
+				},
+			}
+		},
 		PropertyChanges =
 		{
 			{
@@ -999,36 +1434,11 @@ OverwriteTableKeys( TraitData, {
 				ProjectileProperties = 
 				{
 					Range = 600,
-					DetonateFx = "DemeterIceRain",
 					Graphic = "CastCircleInDemeter",
 					ImpactFx = "DemeterSlowImpact",
-					HideGraphicOnDetonate = false,
-					FuseStart = 0,
-					MultiDetonate = true,
-					MaxDetonations = 6,
 					ArmedImpactFx = "null",
-					DeathFx = "CastCircleOut",
-					ArmedDeathFx = "CastCircleOut"
+					-- DeathFx = "CastCircleOut",
 				}
-			},
-			{
-				WeaponName = "WeaponCast",
-				ProjectileProperty = "Damage",
-				BaseValue = 10,
-				ReportValues = {ReportedDamage = "ChangeValue"},
-				AbsoluteStackValues =
-				{
-					[1] = 5,
-					[2] = 3,
-					[3] = 2,
-				},
-				AsInt = true
-			},
-			{
-				WeaponName = "WeaponCast",
-				ProjectileProperty = "Fuse",
-				ChangeValue = 0.5,
-				ReportValues = {ReportedFuse = "ChangeValue"}
 			},
 			{
 				WeaponName = "WeaponCast",
@@ -1053,8 +1463,12 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues =
 		{
 			{
-				Key = "ReportedDamage",
+				Key = "ReportedMultiplier",
 				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "DemeterCastBlast",
+				BaseProperty = "Damage",
 			},
 			{
 				Key = "ReportedFuse",
@@ -1116,7 +1530,7 @@ OverwriteTableKeys( TraitData, {
 			FunctionName = "DemeterSprintBlast",
 			FunctionArgs =
 			{
-				ProjectileNames = {"DemeterSprintStorm","DemeterSprintDefense"},
+				ProjectileNames = {"DemeterSprintStorm"},
 				MaxProjectiles = 1,
 				StartDelay = 0.2,
 				DamageMultiplier = 
@@ -1224,18 +1638,18 @@ OverwriteTableKeys( TraitData, {
 			{
 				PercentManaRegenPerSecond =
 				{
-					BaseValue = 0.4,
+					BaseValue = 0.5,
 					AbsoluteStackValues =
 					{
-						[1] = 0.20,
-						[2] = 0.15,
-						[3] = 0.10,
-						[4] = 0.05,
+						[1] = 0.5,
+						[2] = 0.4,
+						[3] = 0.3,
+						[4] = 0.2,
 					},
 				},
-				MovePenaltyDuration = 1,
-				ManaRegenStartFx = "ManaRegenFlashFx",
-				ManaRegenStartSound = "/Leftovers/SFX/SprintChargeUp",
+				MovePenaltyDuration = 0.5,
+				ManaRegenStartFx = "DemeterManaBoonFx",
+				ManaRegenStartSound = "/SFX/Player Sounds/DemeterTranquilGainStart",
 				ReportValues = { ReportedManaRecovery = "PercentManaRegenPerSecond", ReportedMovePenaltyDuration = "MovePenaltyDuration" }
 			},
 			RunOnce = true
@@ -1289,7 +1703,7 @@ OverwriteTableKeys( TraitData, {
 
 		OnEnemyDamagedAction = 
 		{
-			ValidProjectiles = { "DemeterSprintStorm" },
+			ValidProjectiles = { "DemeterCastStorm" },
 			EffectName = "LegacyChillEffect",
 		},
 		OnWeaponFiredFunctions =
@@ -1298,7 +1712,7 @@ OverwriteTableKeys( TraitData, {
 			FunctionName = "DemeterCastBlast",
 			FunctionArgs =
 			{
-				ProjectileNames = {"DemeterSprintStorm","DemeterSprintDefense"},
+				ProjectileNames = {"DemeterCastStorm"},
 				MaxProjectiles = 1,
 				StartDelay = 0.2,
 				DamageMultiplier = 
@@ -1326,14 +1740,14 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "Damage",
 				Format = "MultiplyByBase",
 				BaseType = "Projectile",
-				BaseName = "DemeterSprintStorm",
+				BaseName = "DemeterCastStorm",
 				BaseProperty = "Damage",
 			},
 			{
 				ExtractAs = "Duration",
 				External = true,
 				BaseType = "ProjectileBase",
-				BaseName = "DemeterSprintStorm",
+				BaseName = "DemeterCastStorm",
 				BaseProperty = "TotalFuse",
 				DecimalPlaces = 2,
 				SkipAutoExtract = true,
@@ -1351,7 +1765,7 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "Fuse",
 				External = true,
 				BaseType = "ProjectileBase",
-				BaseName = "DemeterSprintStorm",
+				BaseName = "DemeterCastStorm",
 				BaseProperty = "Fuse",
 				DecimalPlaces = 2,
 				SkipAutoExtract = true,
@@ -1422,51 +1836,35 @@ OverwriteTableKeys( TraitData, {
 				SeedMystery = 1,
 			},
 		},
-		OnResourceMaxHealth =
+		ResourceGatherHeal = 
 		{
-			ResourceNames =
+			BaseValue = 0.1,
+			AbsoluteStackValues =
 			{
-				"PlantFMoly",
-				"SeedMystery",
-				"PlantFNightshadeSeed",
-				"PlantGCattailSeed",
-				"PlantHWheatSeed",
-				"PlantIPoppySeed",
-				"PlantNGarlicSeed",
-				"PlantOMandrakeSeed",
-				"PlantPOliveSeed",
-				"PlantChaosThalamusSeed",
-				"PlantFNightshade",
-				"PlantGLotus",
-				"PlantHMyrtle",
-				"PlantIShaderot",
-				"PlantNMoss",
-				"PlantODriftwood",
-				"PlantPIris",
-				"PlantMoney",
+				[1] = 0.02,
+				[2] = 0.01,
 			},
-			Amount = 
-			{
-				BaseValue = 5,
-				AsInt = true,
-				MinMultiplier = 0.05,
-				IdenticalMultiplier =
-				{
-					Value = -0.8,
-				},
-			},
-			ReportValues = {ReportedAmount = "Amount"}
 		},
 		StatLines =
 		{
 			"PlantHealthStatDisplay1",
 		},
+		CustomStatLinesWithShrineUpgrade = 
+		{
+			ShrineUpgradeName = "HealingReductionShrineUpgrade",
+			StatLines = 
+			{
+				"PlantHealthStatDisplay1",
+				"HealingReductionNotice",
+			},
+		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedAmount",
+				Key = "ResourceGatherHeal",
 				ExtractAs = "TooltipHealthConversion",
-				IncludeSigns = true,
+				Format = "PercentHeal",
+				HideSigns = true,
 			}
 		}
 	},
@@ -1482,8 +1880,6 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 		Icon = "Boon_Demeter_36",
-		BlockInRunRarify = true,
-		ExcludeTraitFromLastRunBoonPool = true,
 		BlockStacking = true,
 		RarityLevels =
 		{
@@ -1493,29 +1889,23 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 2,
+				Multiplier = 5/6,
 			},
 			Epic =
 			{
-				Multiplier = 3,
+				Multiplier = 4/6,
 			},
 			Heroic =
 			{
-				Multiplier = 4,
+				Multiplier = 3/6,
 			},
 		},
-
-		AcquireFunctionName = "HarvestBoons",
-		AcquireFunctionArgs = 
-		{
-			Name = "BoonGrowthBoon",
-			NumTraits = { BaseValue = 1 },
-			ReportValues = { ReportedNumTraits = "NumTraits" }
-		},
+		AcquireFunctionName = "UpdateUpgradableTraitCount",
 		RoomsPerUpgrade = 
 		{ 
-			Amount = 3,
+			Amount = { BaseValue = 6 },
 			Rarity = true,
+			LowPriorityTraitName = "BoonGrowthBoon",
 			ReportValues = 
 			{ 
 				ReportedRoomsPerUpgrade = "Amount" 
@@ -1524,18 +1914,10 @@ OverwriteTableKeys( TraitData, {
 		CurrentRoom = 0,
 		StatLines =
 		{
-			"GodBoonsAffectedStatDisplay1",
-		},
-		TrayStatLines = 
-		{
-			"GodBoonsAffectedTrayStatDisplay1"
+			"EncounterRarityStatDisplay1",
 		},
 		ExtractValues =
 		{
-			{
-				Key = "ReportedNumTraits",
-				ExtractAs = "TooltipTraitNum",
-			},
 			{
 				Key = "ReportedRoomsPerUpgrade",
 				ExtractAs = "TooltipRoomInterval",
@@ -1546,6 +1928,7 @@ OverwriteTableKeys( TraitData, {
 	ReserveManaHitShieldBoon =
 	{
 		Icon = "Boon_Demeter_33",
+		BlockStacking = true,
 		InheritFrom = { "BaseTrait", "EarthBoon" },
 
 		RarityLevels =
@@ -1556,15 +1939,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 15/20,
+				Multiplier = 20/25,
 			},
 			Epic =
 			{
-				Multiplier = 10/20,
+				Multiplier = 15/25,
 			},
 			Heroic =
 			{
-				Multiplier = 5/20,
+				Multiplier = 10/25,
 			}
 		},
 		God = "Demeter",
@@ -1577,7 +1960,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				ManaReservationCost =
 				{
-					BaseValue = 20,
+					BaseValue = 25,
 					AsInt = true,
 					MinimumSourceValue = 1,
 					MinMultiplier = -1,
@@ -1588,6 +1971,11 @@ OverwriteTableKeys( TraitData, {
 				},
 				ReportValues = { ReportedManaReservationCost = "ManaReservationCost" }
 			},
+		},
+		OnExpire = 
+		{
+			FunctionName = "TraitUnreserveMana",
+			FunctionArgs = { Name = "ManaReserveTraitInvulnerability" },
 		},
 		StatLines =
 		{
@@ -1606,13 +1994,6 @@ OverwriteTableKeys( TraitData, {
 	{
 		Icon = "Boon_Demeter_38",
 		InheritFrom = { "BaseTrait", "EarthBoon" },
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "StaffAttackRecoveryTrait", "DaggerRapidAttackTrait", "AxeAttackRecoveryTrait" }, 
-			},
-		},
 		RarityLevels =
 		{
 			Common =
@@ -1621,15 +2002,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.5,
+				Multiplier = 1.3,
 			},
 			Epic =
 			{
-				Multiplier = 2.0,
+				Multiplier = 1.6,
 			},
 			Heroic =
 			{
-				Multiplier = 2.5,
+				Multiplier = 1.9,
 			}
 		},
 	
@@ -1639,11 +2020,12 @@ OverwriteTableKeys( TraitData, {
 			{
 				BaseValue = 1.5,
 				SourceIsMultiplier = true,
-				MinMultiplier = 0.1,
-				IdenticalMultiplier =
+				--MinMultiplier = 0.1,
+				AbsoluteStackValues =
 				{
-					Value = -0.5,
-					DiminishingReturnsMultiplier = 0.8,
+					[1] = 1.15,
+					[2] = 1.10,
+					[3] = 1.05,
 				},
 			},
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
@@ -1705,13 +2087,6 @@ OverwriteTableKeys( TraitData, {
 	CastAttachBoon = 
 	{
 		InheritFrom = { "BaseTrait", "EarthBoon" },
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "CastProjectileBoon", "CastAnywhereBoon", "HadesCastProjectileBoon", "PoseidonCastBoon", "CastLobBoon" },
-			},
-		},
 		Icon = "Boon_Demeter_35",
 		RarityLevels =
 		{
@@ -1732,6 +2107,7 @@ OverwriteTableKeys( TraitData, {
 				Multiplier = 2.5,
 			}
 		},		
+		--[[
 		OnProjectileArmFunction =
 		{
 			FunctionName = "OnDemeterCastArmed",
@@ -1763,11 +2139,22 @@ OverwriteTableKeys( TraitData, {
 				ProjectileProperty = "IgnoreCancelAttachedProjectiles",
 				ChangeValue = true,
 			}
-		},
+		},]]
 		AddOutgoingDamageModifiers =
 		{
-			ValidWeapons = WeaponSets.HeroRangedWeapons,
+			ValidProjectiles = {"ProjectileCast"},
 			ValidWeaponMultiplier =
+			{
+				BaseValue = 1.20,
+				SourceIsMultiplier = true,
+				AbsoluteStackValues =
+				{
+					[1] = 1.10,
+					[2] = 1.05,
+				},
+			},
+			RequiredEffects = { "InsideCastBuff" },
+			RequiredSelfEffectsMultiplier =
 			{
 				BaseValue = 1.20,
 				SourceIsMultiplier = true,
@@ -1785,7 +2172,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		StatLines = 
 		{
-			"CastDamageStatDisplay1",
+			"ExCastDamageStatDisplay2",
 		},
 		ExtractValues =
 		{
@@ -1871,6 +2258,20 @@ OverwriteTableKeys( TraitData, {
 			FunctionName = "CheckChillKill",
 			FunctionArgs =
 			{
+				ExecuteImmunities = 
+				{
+					Prometheus = 
+					{
+						GameStateRequirement = 
+						{
+							{
+								Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+								Comparison = ">=",
+								Value = 3,
+							},
+						}
+					}
+				},
 				ChillDeathThreshold = 0.1,
 				DamageMultiplier = 1.0,
 				ProjectileName = "DemeterChillKill",
@@ -1918,6 +2319,7 @@ OverwriteTableKeys( TraitData, {
 				BaseName = "ChillEffect",
 				BaseProperty = "ActiveDuration",
 			},
-		}
+		},
+		FlavorText = "InstantRootKill_FlavorText",
 	},
 })

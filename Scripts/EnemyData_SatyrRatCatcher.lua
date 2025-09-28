@@ -5,9 +5,9 @@ UnitSetData.SatyrRatCatcher =
 		InheritFrom = { "BaseVulnerableEnemy" },
 
 		MaxHealth = 1000,
-		HitSparkScale = 1.5,
 		HealthBarOffsetY = -250,
 		HealthBarType = "Large",
+		ArmorSparkAnimation = "HitSparkArmor_Large",		
 
 		ActivateAnimation = "Enemy_SatyrRatCatcher_Spawn",
 		ActivateFx = "EnemyPreSpawnTerrainChronosLarge",
@@ -19,6 +19,7 @@ UnitSetData.SatyrRatCatcher =
 		Groups = { "GroundEnemies" },
 		IsAggroedSound = "/SFX/Enemy Sounds/SatyrRatcatcher/EmoteTaunting",
 		DeathSound = "/SFX/Enemy Sounds/SatyrRatcatcher/EmoteDying",
+		HealthDamageSound = "/SFX/Enemy Sounds/SatyrRatcatcher/EmoteHurt",
 		Material = "Bone",
 
 		DefaultAIData =
@@ -32,7 +33,6 @@ UnitSetData.SatyrRatCatcher =
 			SurroundRefreshInterval = 0.5,
 			MaxAttackers = 2,
 		},
-		AIAggroRange = 9999,
 		
 		StunAnimations = 
 		{
@@ -84,13 +84,14 @@ UnitSetData.SatyrRatCatcher =
 					{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 				},
 				SuccessiveChanceToPlay = 0.1,
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 
 				{ Cue = "/VO/MelinoeField_1639", Text = "Vierophants...", PlayFirst = true },
 				{ Cue = "/VO/MelinoeField_1640", Text = "Vierophants...!" },
 				{ Cue = "/VO/MelinoeField_1641", Text = "More Vierophants." },
 				{ Cue = "/VO/MelinoeField_1642", Text = "More Vierophants?" },
 			},
-			[2] = { GlobalVoiceLines = "SatyrsSightedVoiceLines" },
+			{ GlobalVoiceLines = "SatyrsSightedVoiceLines" },
 		},
 
 	},
@@ -134,12 +135,18 @@ UnitSetData.SatyrRatCatcher =
 	{
 		InheritFrom = { "Elite", "SatyrRatCatcher" },
 		MaxHealth = 3200,
-		HealthBuffer = 3500,
+		HealthBuffer = 5000,
+		HealthBarAttachToMarkerName = "head_fxMarker_00_M_JNT",
+		HealthBarOffsetY = -100,
 		HealthBarType = "Large",
+
 		IsAggroedSound = "/SFX/Enemy Sounds/SatyrRatcatcherMiniboss/EmoteTaunting",
 		DeathSound = "/SFX/Enemy Sounds/SatyrRatcatcherMiniboss/EmoteDying",
+		HealthDamageSound = "/SFX/Enemy Sounds/SatyrRatcatcherMiniboss/EmoteHurt",
 
 		BlockRespawnShrineUpgrade = true,
+
+		ForcedNextWeapon = "SatyrRatCatcherSummon_Miniboss",
 
 		DefaultAIData =
 		{
@@ -148,13 +155,15 @@ UnitSetData.SatyrRatCatcher =
 
 		WeaponOptions =
 		{
-			"SatyrRatCatcherSummon_Miniboss", "SatyrRatCatcherCast_Miniboss", "SatyrRatCatcherMelee_Miniboss",
-			"SatyrRatCatcherSpell",
+			"SatyrRatCatcherCast_Miniboss", "SatyrRatCatcherMelee_Miniboss",
+			--"SatyrRatCatcherSpell",
 		},
 		
 		SpellSummonDataOverrides =
 		{
 			DeepInheritance = true,
+			
+			ForcedNextWeapon = "SatyrRatCatcherCast_Miniboss",
 			
 			WeaponOptions =
 			{
@@ -169,33 +178,12 @@ UnitSetData.SatyrRatCatcher =
 		},
 	},
 
-	SatyrCultist =
+	SatyrRatCatcher_SuperElite =
 	{
-		InheritFrom = { "SatyrRatCatcher" },
-		MaxHealth = 630,
-		HealthBarType = "MediumLarge",
-		HealthBarOffsetY = -200,
-		IsAggroedSound = "/SFX/Enemy Sounds/SatyrCultist/EmoteAlerted",
-		DeathSound = "/SFX/Enemy Sounds/SatyrCultist/EmoteDying",
-
-		AIWakeDelay = 1.35,
-		DefaultAIData =
-		{
-			DeepInheritance = true,
-		},
-		AIAggroRange = 1500,
-		PostAggroAI = "AttackerAI",
-
-		WeaponOptions =
-		{
-			"SatyrRatCatcherMeleeCultist",
-		},
-
-		GeneratorData =
-		{
-			DifficultyRating = 75,
-			--BlockEnemyTypes = {"SatyrRatCatcher"}
-		},
+		InheritFrom = { "SuperElite", "SatyrRatCatcher_Miniboss" },
+		MaxHealth = 1000,
+		HealthBuffer = 5000,
+		BlockRaiseDead = false,
 	},
 }
 

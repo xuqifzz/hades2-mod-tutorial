@@ -1,10 +1,9 @@
-LootSetData.Demeter =
+﻿LootSetData.Demeter =
 {
 	-- Demeter
 	DemeterUpgrade = 
 	{
 		InheritFrom = { "BaseLoot", "BaseSoundPackage" },
-		OffersElementalTrait = {"Water","Earth"},
 		GameStateRequirements =
 		{
 			--
@@ -15,8 +14,6 @@ LootSetData.Demeter =
 		AlwaysShowDefaultUseText = true,
 		GodLoot = true,
 		Weight = 10,
-		SurfaceShopText = "DemeterUpgrade_Store",
-		SurfaceShopIcon = "BoonInfoSymbolDemeterIcon",
 		BoonInfoIcon = "BoonInfoSymbolDemeterIcon",
 		MenuTitle = "UpgradeChoiceMenu_Title_DemeterUpgrade",
 		EchoLastRewardId = "EchoLastRewardBoon_DemeterUpgrade",
@@ -38,7 +35,9 @@ LootSetData.Demeter =
 
 		SpeakerName = "Demeter",
 		Speaker = "NPC_Demeter_01",
+		LoadPackages = { "Demeter", },
 		Portrait = "Portrait_Demeter_Default_01",
+		WrathPortrait = "Portrait_Demeter_Default_01_Wrath",
 		OverlayAnim = "DemeterOverlay",
 		Gender = "Female",
 		FlavorTextIds =
@@ -81,6 +80,7 @@ LootSetData.Demeter =
 			"MaxHealthDamageBoon",
 			"BurnConsumeBoon",
 			"ClearRootBoon",
+			"SelfCastBoon",
 		},
 		Consumables = { },
 
@@ -133,8 +133,8 @@ LootSetData.Demeter =
 				
 				{ Cue = "/VO/Melinoe_0649", Text = "Grandmother..." }
 			},
-			[2] = { GlobalVoiceLines = "HeraclesBoonReactionVoiceLines" },
-			[3] = { GlobalVoiceLines = "FoundRareBoonVoiceLines" },
+			{ GlobalVoiceLines = "HeraclesBoonReactionVoiceLines" },
+			{ GlobalVoiceLines = "FoundRareBoonVoiceLines" },
 		},
 
 		DuoPickupTextLines =
@@ -279,9 +279,29 @@ LootSetData.Demeter =
 					PreLineFunctionName = "BoonInteractPresentation", PreLineWait = 0.5,
 					Source = "HestiaUpgrade",
 					Emote = "PortraitEmoteFiredUp",
+					Portrait = "Portrait_Hestia_Displeased_01",
 					Text = "And you, Demeter, you've not changed at {#Emph}all! None {#Prev}of you have! It's why you're in a heap of {#Emph}trouble {#Prev}now, or {#Emph}we {#Prev}I ought to say. Good thing your grandkid's coming to our rescue!" },
 			},
 
+			DemeterWithAres01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "SelfCastBoon" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0190",
+					Text = "{#Emph}Oh{#Prev}, Ares. Not even our most-eager god of war can put an immediate stop to the troubles that our family is having to weather. Have you so little control of your domain?" },
+				{ Cue = "/VO/Ares_0163",
+					PortraitExitWait = 0.35,
+					PreLineFunctionName = "BoonInteractPresentation", PreLineWait = 0.5,
+					Source = "AresUpgrade",
+					Text = "We all but do our best, O Demeter. For my part, I ensure that wars are instigated when required, and that necessary outcomes are achieved. But I cannot precisely guarantee their duration or intensity, for violence is a force unto itself." },
+			},
 		},
 
 		InteractTextLineSets =
@@ -302,7 +322,7 @@ LootSetData.Demeter =
 					PostLineFunctionName = "BoonInteractPresentation",
 					BoxAnimation = "DialogueSpeechBubble",
 					BoxExitAnimation = "DialogueSpeechBubbleOut",
-					NarrativeContextArt = "DialogueBackground_Erebus",
+					UseRoomContextArt = true,
 					PostLineRemoveContextArt = true,
 					TextColor = Color.DialogueText,
 					Text = "Headmistress told me so much about you, and now at last we meet. {#Emph}In the name of Hades! Olympus, I accept this message!" },
@@ -509,19 +529,40 @@ LootSetData.Demeter =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
 					},
-					-- @ temp
-					--[[
 					{
-						Path = { "GameState", "UseRecord", "DemeterUpgrade" },
-						Comparison = ">=",
-						Value = 3,
+						PathTrue = { "GameState", "TextLinesRecord", "DemeterGift01" },
 					},
-					]]--
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0033",
 					
 					Text = "I miss your mother terribly, and your brother as well. He was my little sprout. Chronos must have ensnared him with the others in your father's House, the unforgivable wretch..." },
+			},
+			DemeterAboutZagreus02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" },
+					},
+					{
+						SumPrevRuns = 6,
+						Path = { "RoomsEntered", "C_Boss01" },
+						Comparison = ">=",
+						Value = 1,
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "DemeterGift07" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0280",
+					Portrait = "Portrait_Demeter_Pleased_01",			
+					Text = "Your brother Zagreus, why I suppose he's no longer my little sprout by now, grown as he has into a noble Underworld Prince. That you two finally know each other gladdens my old heart." },
 			},
 
 			DemeterAboutMelinoe01 =
@@ -548,6 +589,10 @@ LootSetData.Demeter =
 					},
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ArtemisAboutApollo01" },
+					},
+					{
+						Path = { "CurrentRun", "TextLinesRecord" },
+						HasNone = { "ApolloAboutMelinoe01", "ArtemisAboutApollo01" }
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -584,7 +629,7 @@ LootSetData.Demeter =
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0086",
-					Text = "The first time your mother was lost to me... the Witch of the Crossroads emerged from the shadows to light my way, as I searched to the ends of the earth. We found not a thing; but at least I was not alone..." },
+					Text = "The first time your mother was lost to me... the Witch of the Crossroads emerged from the shadows to light my way, as I searched to the ends of the Earth. We found not a thing; but at least I was not alone..." },
 			},
 			DemeterAboutHecate02 =
 			{
@@ -599,6 +644,28 @@ LootSetData.Demeter =
 				{ Cue = "/VO/Demeter_0039",
 					
 					Text = "You know I always felt a kinship with Hecate, seldom though we saw each other. She never seemed to want for children of her own. But the Fates delivered you to her anyhow." },
+			},
+			DemeterAboutHecate03 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "DemeterGift06", "HecateGift06" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0269",
+					Portrait = "Portrait_Demeter_Pleased_01",			
+				
+					Text = "I reached out to the Witch of the Crossroads recently... to give thanks to her, for making such a difficult decision to keep you hidden for as long as she did. I know she did it for your safety... and to raise the likelihood we would prevail." },
 			},
 
 			DemeterAboutChronos01 =
@@ -623,6 +690,9 @@ LootSetData.Demeter =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
 					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0041",
@@ -640,16 +710,61 @@ LootSetData.Demeter =
 					{
 						PathTrue = { "PrevRun", "RoomsEntered", "I_Boss01" },
 					},
-					{
-						Path = { "GameState", "RoomsEntered", "I_Boss01" },
-						Comparison = ">=",
-						Value = 4,
-					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0097",
 					
 					Text = "I take it Chronos still goes everywhere with that old gaudy-looking golden scythe of his? He fancies himself a reaper, speaks of harvest and decay; but he merely speaks in riddles, whilst {#Emph}I {#Prev}work directly in the trade." },
+			},
+
+			DemeterAboutChronosBossW01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "PrevRun", "EnemyKills", "Chronos" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0213",
+					
+					Text = "If it is true you reached the Underworld's depths and slew that wretched Titan there, then {#Emph}good. {#Prev}It likely shall take more than that, I know, but you must have inflicted some amount of pain, and perhaps fear. Which is a start." },
+			},
+			DemeterAboutChronosBossW02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "DemeterAboutChronosBossW01" },
+					},
+					{
+						PathTrue = { "PrevRun", "EnemyKills", "Chronos" },
+					},
+					{
+						Path = { "GameState", "EnemyKills", "Chronos" },
+						Comparison = ">=",
+						Value = 2,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0214",
+					
+					Text = "You bested Chronos again didn't you, flower? We always knew he could be beaten; I once saw to it myself. But can he be destroyed? The Witch of the Crossroads {#Emph}must {#Prev}know..." },
 			},
 
 			DemeterAboutPrometheus01 =
@@ -670,6 +785,224 @@ LootSetData.Demeter =
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0167",
 					Text = "Prometheus stole fire from us not for mortalkind, but because he desired it for his own gain. What good is that power to him now, upon a mountain cold as ice?" },
+			},
+			DemeterAboutPrometheus02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						SumPrevRuns = 2,
+						Path = { "RoomsEntered", "P_Boss01" },
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0212",
+					Text = "I could snuff out the flames of that Prometheus... but in so doing, all of mortalkind would likely freeze. I am not yet prepared to go {#Emph}that {#Prev}far, though likely can be pushed." },
+			},
+			DemeterAboutPrometheus03 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						SumPrevRuns = 2,
+						Path = { "RoomsEntered", "P_Boss01" },
+						Comparison = ">=",
+						Value = 1,
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Demeter_0226",
+					Text = "This scheme that Chronos has devised to keep all of us occupied... even Prometheus remains a nuisance as before! Inform us right away if you suspect any deceit." },
+			},
+
+			DemeterAboutTyphon01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						SumPrevRuns = 4,
+						Path = { "RoomsEntered" },
+						TableValuesToCount = { "Q_Boss01", "Q_Boss02" },
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0216",
+					Emote = "PortraitEmoteAnger",
+					Text = "The incursion by that abhorrent monster Typhon... it is more than a threat, it is an {#Emph}insult! I {#Prev}control the seasons, yet he {#Emph}dares {#Prev}smother our mountain in his foul storm?" },
+			},
+			DemeterAboutTyphon02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "DemeterAboutTyphon01" },
+					},
+					{
+						SumPrevRuns = 4,
+						Path = { "RoomsEntered" },
+						TableValuesToCount = { "Q_Boss01", "Q_Boss02" },
+						Comparison = ">=",
+						Value = 1,
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0217",
+					Text = "If Chronos truly is behind the reawakening of Typhon, then he is not merely arrogant, but mad. He promises another Golden Age yet visits such a creature on this world?" },
+			},
+			DemeterAboutTyphon03 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},					
+					{
+						SumPrevRuns = 2,
+						Path = { "RoomsEntered" },
+						TableValuesToCount = { "Q_Boss01", "Q_Boss02" },
+						Comparison = ">=",
+						Value = 1,
+					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Demeter_0227",
+					Text = "Snow falls gently on Olympus as before, but no trace of Typhon's foul storm remains... or of the {#Emph}rest {#Prev}of him. But you are able to confront him still somewhere beyond...?" },
+			},
+			DemeterAboutTyphonW01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "GameState", "EnemyKills", "TyponHead" },
+					},
+					{
+						Path = { "PrevRun", "TextLinesRecord" },
+						HasAny = { "DemeterPalaceFirstMeeting", "DemeterPalaceAboutTyphonDeath01" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0218",
+					Text = "Zeus says you substantially contributed to Typhon's defeat at our summit. Thank you for that, flower, but I regret I could not have been there to say so at our Palace grounds. Our enemies are numerous, and not letting up." },
+			},
+			DemeterAboutTyphonW02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
+						PathTrue = { "PrevRun", "EnemyKills", "TyponHead" },
+					},
+					{
+						Path = { "GameState", "EnemyKills", "TyphonHead" },
+						Comparison = ">=",
+						Value = 2,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0219",
+					Text = "That monster Typhon apparently has not yet understood that neither he nor Chronos shall stop us. But we shall {#Emph}make {#Prev}him, and your presence here may be the difference we need." },
+			},
+			DemeterAboutTyphonDeath01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "F" },
+					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0220",
+					Text = "Now the Titan Chronos is our solitary goal. Show him no more mercy than the monster he unleashed would have shown us. But be careful; I demand your safe return." },
+			},
+			DemeterAboutTyphonDeath02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "DemeterPalaceAboutTyphonDeath01" },
+					},
+					{
+						PathTrue = { "PrevRun", "EnemyKills", "TyponHead" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0221",
+					Portrait = "Portrait_Demeter_Pleased_01",
+					Text = "As much as I relished our victory over Typhon, to have finally met you meant the world to me, flower. Forgive that I am not known for my cheer, especially as of late. And may we see each other again." },
 			},
 
 			DemeterAboutCirce01 =
@@ -705,6 +1038,9 @@ LootSetData.Demeter =
 				{
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "DemeterGift01" }
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -779,6 +1115,32 @@ LootSetData.Demeter =
 					Text = "You sprang forth from underneath that gloom unto our world's surface, have you, flower? If you mean to visit our mountain, merely follow the path of desolation leading straight to us..." },
 			},
 
+			DemeterAboutSurfaceThreat01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "O_Intro" },
+					},
+					{
+						PathFalse = { "GameState", "RoomsEntered", "Q_Boss01" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "HeraAboutSurfaceThreat01" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0168",
+					Text = "The very ground beneath our feet has started to shift, and it bodes ill, I think. What does blasted Chronos now intend to do, topple our entire mountain to the Earth?" },
+			},
+
 			DemeterAboutEarth01 =
 			{
 				PlayOnce = true,
@@ -801,6 +1163,28 @@ LootSetData.Demeter =
 					Text = "Fear not for this mountaintop, nor for the Earth; for she is far more resilient than us all. Our foes could scour {#Emph}every trace {#Prev}of our existence, yet Mother Gaia would remain, and recover." },
 			},
 
+			DemeterAboutUnderworld01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "F" },
+					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Demeter_0225",
+					Text = "A proper garden must be carefully maintained. So it shall be with your Underworld as I see it, flower. If there exists some lingering influence from Chronos, let us root it out." },
+			},
+
 			DemeterAboutOceanus01 =
 			{
 				PlayOnce = true,
@@ -811,7 +1195,7 @@ LootSetData.Demeter =
 					},
 					{
 						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-						IsAny = { "G", },
+						IsAny = { "G" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -830,10 +1214,20 @@ LootSetData.Demeter =
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
 					},
 					{
-						PathTrue = { "PrevRun", "RoomsEntered", "H_Intro" },
-					},
-					{
 						PathTrue = { "CurrentRun", "BiomesReached", "F" },
+					},
+					OrRequirements =
+					{
+						{
+							{
+								PathTrue = { "PrevRun", "RoomsEntered", "H_Intro" },
+							},
+						},
+						{
+							{
+								PathTrue = { "CurrentRun", "BiomesReached", "H" },
+							},
+						},
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -841,6 +1235,26 @@ LootSetData.Demeter =
 				{ Cue = "/VO/Demeter_0093",
 					
 					Text = "Your journey sends you through the Mourning Fields. I've seen that place... just {#Emph}dreadful{#Prev}, utterly! All of the wheat there, it... I thought perhaps it would provide a bit of cheer..." },
+			},
+			DemeterAboutTartarus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "I_Intro" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0215",
+					
+					Text = "Your recent descent took you deeper than my deepest roots, close to where the Titan Chronos now resides... and holds your mother captive with the rest. Is there no way to inform us of what happened?" },
 			},
 
 			DemeterAboutEphyra01 =
@@ -945,6 +1359,10 @@ LootSetData.Demeter =
 						Comparison = "==",
 						Value = 5,
 					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "F", "N", "O", "P" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -987,7 +1405,7 @@ LootSetData.Demeter =
 
 				{ Cue = "/VO/Demeter_0047",
 					
-					Text = "The bounties of the earth... life flourishes even there where you reside, amid all that death. Flowers, roots, herbs, and seeds; you know their hidden strength. I let them grow for you." },
+					Text = "The bounties of the Earth... life flourishes even there where you reside, amid all that death. Flowers, roots, herbs, and seeds; you know their hidden strength. I let them grow for you." },
 			},
 			DemeterAboutResources02 =
 			{
@@ -1082,7 +1500,7 @@ LootSetData.Demeter =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1100,15 +1518,9 @@ LootSetData.Demeter =
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "ApolloUpgrade" }
 					},
-					-- @ temp
-					{
-						Path = { "GameState", "UseRecord", "DemeterUpgrade" },
-						Comparison = ">=",
-						Value = 3,
-					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1125,17 +1537,14 @@ LootSetData.Demeter =
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
 					},
 					{
-						PathTrue = { "CurrentRun", "UseRecord", "ZeusUpgrade" }
+						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
-					-- @ temp
 					{
-						Path = { "GameState", "UseRecord", "DemeterUpgrade" },
-						Comparison = ">=",
-						Value = 3,
+						PathTrue = { "CurrentRun", "UseRecord", "ZeusUpgrade" }
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1154,15 +1563,9 @@ LootSetData.Demeter =
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
 					},
-					-- @ temp
-					{
-						Path = { "GameState", "UseRecord", "DemeterUpgrade" },
-						Comparison = ">=",
-						Value = 3,
-					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1186,7 +1589,7 @@ LootSetData.Demeter =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1207,7 +1610,7 @@ LootSetData.Demeter =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1228,7 +1631,7 @@ LootSetData.Demeter =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1249,7 +1652,7 @@ LootSetData.Demeter =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1269,14 +1672,39 @@ LootSetData.Demeter =
 						PathTrue = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
 					{
-						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
+					--[[
+					{
+						Path = { "CurrentRun", "TextLinesRecord" },
+						HasNone = GameData.GodAboutGodEvents,
+					},
+					]]--
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0061",
 					
 					Text = "Normally, sweet Aphrodite's power over beauty provides no shortage of entertainment I'm sure, though I fail to see how her blessing can be of much benefit in such a predicament as ours." },
+			},
+			DemeterAboutAres01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "CurrentRun", "UseRecord", "AresUpgrade" }
+					},
+					{
+						Path = { "CurrentRun", "TextLinesRecord" },
+						HasNone = GameData.GodAboutGodEvents,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0241",
+					Text = "I knew warlike Ares would be unable to resist giving our present conflict his personal attention. Although I doubt he shall help put it to an end, for he is thoroughly enjoying this." },
 			},
 			DemeterAboutHermes01 =
 			{
@@ -1291,7 +1719,7 @@ LootSetData.Demeter =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1310,11 +1738,39 @@ LootSetData.Demeter =
 					{
 						PathTrue = { "PrevRun", "UseRecord", "NPC_Artemis_Field_01" },
 					},
+					{
+						Path = { "CurrentRun", "TextLinesRecord" },
+						HasNone = GameData.GodAboutGodEvents,
+					},	
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0063",
 					
 					Text = "Perhaps I misjudged your woodsy cousin Artemis. To think that she found you! I was certain she was merely gallivanting with her Nymph-friends rather than being of use." },
+			},
+			DemeterAboutAthena01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						SumPrevRuns = 2,
+						Path = { "UseRecord", "NPC_Athena_01" },
+						Comparison = ">=",
+						Value = 1,
+					},
+					{
+						Path = { "CurrentRun", "TextLinesRecord" },
+						HasNone = GameData.GodAboutGodEvents,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0243",
+					
+					Text = "Did the famous wisdom of Athena live up to her reputation, flower? I would think our master strategist should not have to defend the front lines herself. But what do I know?" },
 			},
 
 			DemeterAboutHades01 =
@@ -1340,6 +1796,9 @@ LootSetData.Demeter =
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
 					},
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "GameState", "TextLinesRecord", "HermesAboutHades01" }
 					},
 					{
@@ -1351,6 +1810,39 @@ LootSetData.Demeter =
 					
 					Text = "Word reaches us that you located Hades, flower! How he must seethe, incarcerated in that pit of despair, although at least he's whole. What of your mother, nothing still...?" },
 			},
+			DemeterAboutHades03 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					OrRequirements =
+					{
+						{
+							{
+								SumPrevRuns = 2,
+								Path = { "RoomsEntered", "I_Story01" },
+								Comparison = ">=",
+								Value = 1,
+							},
+						},
+						{
+							{
+								PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "HadesAndPersephoneKeepsake" },
+							},
+						},
+					}
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0270",
+					
+					Text = "Surely he would not admit to this... but your father has been through quite an ordeal. Worse perhaps than any of us. But he and your mother have weathered difficult times before, and each time they have grown from it." },
+			},
 
 			DemeterAboutPersephone01 =
 			{
@@ -1361,6 +1853,9 @@ LootSetData.Demeter =
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
 					},
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "GameState", "TextLinesRecord", "DemeterGift02" }
 					},
 				},
@@ -1369,7 +1864,69 @@ LootSetData.Demeter =
 					
 					Text = "You inherited your mother's flaxen hair, and seemingly her force of will. Greenery would burst to life for her... the dead would too, if but they could. Within the reaches of my heart not yet grown cold, I know she still is safe." },
 			},
-			
+			DemeterAboutPersephone02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "DemeterGift02" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0224",
+					Portrait = "Portrait_Demeter_Pleased_01",
+					Text = "Your mother used to visit us for months on end, but now... knowing that she is all right and restored to her Underworld throne, I could not ask for more. Not right away." },
+			},
+
+			DemeterAboutFates01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "HermesAboutFates01" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "DemeterAboutFates02" },
+					},
+					NamedRequirementsFalse = { "ReachedEpilogue" },
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0229",
+					Text = "Now even the weavers of destiny apparently are gone, and shall do nothing to preserve their stake in our futures? That is the talk on the mountain, Granddaughter. So then we truly are alone... but we can fend for ourselves." },
+			},
+			DemeterAboutFates02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "HermesAboutFates01", "ZeusPalacePostTrueEnding01" },
+					},
+					NamedRequirementsFalse = { "ReachedEpilogue" },
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0232",
+					Text = "Chronos claims not even he knows where the Three Fates currently reside, despite having cast them away himself? I've seldom heard such foolishness. To think such a bumbling fool could have come so close to overthrowing us!" },
+			},
+
 			DemeterAboutFarmBoy01 =
 			{
 				PlayOnce = true,
@@ -1398,10 +1955,13 @@ LootSetData.Demeter =
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
 					},
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "PrevRun", "Cleared" }
 					},
 					{
-						PathTrue = { "PrevRun", "RoomCountCache", "I_Boss01" },
+						PathTrue = { "PrevRun", "RoomsEntered", "I_Boss01" },
 					},
 				},
 
@@ -1409,6 +1969,30 @@ LootSetData.Demeter =
 				{ Cue = "/VO/Demeter_0091",
 
 					Text = "Granddaughter, where have you been? In the deepest reaches of your father's realm, perhaps! Striking at the very heart of our enemy. One can but hope." },
+			},
+			DemeterSurfaceRunCleared01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "PrevRun", "Cleared" }
+					},
+					{
+						Path = { "PrevRun", "RoomsEntered" },
+						HasAny = { "Q_Boss01", "Q_Boss02" },
+					},
+				},
+
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0166",
+					Text = "I thank you, flower, for you've thrown our enemies upon this mountain into turmoil. Even now they attempt to regroup, but with your continued effort, we may drive them back." },
 			},
 
 			DemeterAboutPackageBounty01 =
@@ -1421,8 +2005,14 @@ LootSetData.Demeter =
 					},
 					{
 						Path = { "CurrentRun", "ActiveBounty" },
-						IsAny = { "PackageBountyOneTouch" }
+						IsAny = { "PackageBountyDemeter" }
 					},
+					--[[
+					{
+						Path = { "CurrentRun", "ActiveBounty" },
+						IsAny = { "PackageBountyDemeter", "PackageBountyOneTouch", "PackageBountyStrife" }
+					},
+					]]--
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0156",
@@ -1444,13 +2034,36 @@ LootSetData.Demeter =
 					{
 						Path = { "GameState", "SpentShrinePointsCache" },
 						Comparison = ">=",
-						Value = 14,
+						Value = 10,
+					},
+					{
+						Path = { "CurrentRun", "TextLinesRecord" },
+						HasNone = GameData.AboutShrineEvents,
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0157",
 					
 					Text = "Such a foreboding night this is! The air is thick with the death and decay of your father's realm, and the desolation I have wrought. The pale Moon can scarce cut through..." },
+			},
+
+			DemeterAboutSnow01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "P", },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0274",
+					
+					Text = "Do you see those tiny flecks that drift down from the heavens to the Earth? I call it snow, and it is beautiful but very cold. We gods ought to be like the snow ourselves." },
 			},
 
 			DemeterAboutPom01 =
@@ -1488,6 +2101,225 @@ LootSetData.Demeter =
 					Text = "We are connected not unlike that Sheaf of Barley which you have. Each stem is broken easily, and yet the bunch is strong! Each different, and yet all very much alike." },
 			},
 
+			DemeterPostTrueEnding01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ZeusPalacePostTrueEnding01" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0222",
+					Emote = "PortraitEmoteAnger",
+					Text = "What have you {#Emph}done? {#Prev}The Titan Chronos ought have been destroyed, not taken in. The rot is in his very soul and cannot be removed! But... my daughter, she sent word that she is well, and... {#Emph}oh{#Prev}, what am I to {#Emph}do {#Prev}with all of this..." },
+			},
+
+			DemeterPostTrueEnding02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "DemeterGift03" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0192",
+					Portrait = "Portrait_Demeter_Pleased_01",
+
+					-- heart unlock
+					PostLineFunctionName = "RelationshipAdvancedPresentation",
+					PostLineFunctionArgs = { Delay = 0.5 },
+
+					Text = "Oh, Granddaughter... what would I have ever done if not for you. That this mountain yet stands is one thing, but then... you found your mother for the both of us. I cannot repay you... what love I have to give shall have to suffice." },
+			},
+			DemeterPostTrueEnding03 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ZeusPalacePostTrueEnding01" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0223",
+					Text = "I shall never forgive Chronos, nor do I wish to see his wretched countenance again. But if whatever spell you cast on him has truly withered his ambitions, then so be it. Perhaps there was no other way..." },
+			},
+
+			DemeterPostEpilogue01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					NamedRequirements = { "ReachedEpilogue" },
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0233",
+					Text = "The weavers of destiny have sprouted up from the Earth once again! And conveniently right after we quelled the Titan's uprising without {#Emph}them {#Prev}having to intervene. We never {#Emph}could {#Prev}depend on the Fates..." },
+			},
+			DemeterPostEpilogue02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					NamedRequirements = { "ReachedEpilogue" },
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0234",
+					Text = "When my sisters and I and your father and his brothers first slew Chronos long ago, it was an ugly victory, but ushered in an age in which Olympus ruled. Now it seems another age is nigh... and I have yet to see a perfect one." },
+			},
+
+			DemeterAboutPalace01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "DemeterGift03" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = {
+							"DemeterPalaceFirstMeeting",
+							"DemeterPalaceAboutTyphonDeath01",
+							"DemeterPalacePostTrueEnding01",
+						},
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = {
+							"DemeterPalaceFirstMeeting",
+							"DemeterPalaceAboutTyphonDeath01",
+							"DemeterPalacePostTrueEnding01",
+						}, Max = 8 },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Demeter_0228",
+					Portrait = "Portrait_Demeter_Pleased_01",
+					Text = "There has been little cause for joy upon Olympus in the recent past, certainly not for me. But seeing {#Emph}you{#Prev}, flower? That made up for much of the hardship. I know it may be some time before we meet again, but also know we {#Emph}shall." },
+			},
+
+			DemeterAboutPersephoneAspect01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "LobImpulseAspect" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Demeter_0237",
+					Text = "Some sort of skull you have... one of the Arms of Night, I know, and yet, that {#Emph}form... {#Prev}something about it, it... reminds me not of Nyx, but... of my {#Emph}daughter? Ah{#Prev}, but do not listen to my ravings. Carry on." },
+			},
+			DemeterAboutHelAspect01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "LobGunAspect" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Demeter_0238",
+					Text = "That artifact you bear... such cold is emanating from it that I sense its power all the way from here. Whatever is the origin of all that deathlike frost, it isn't of this realm..." },
+			},
+
+			DemeterPostGift01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "DemeterGift07" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0235",
+					Portrait = "Portrait_Demeter_Pleased_01",
+					Text = "At times I fear that I've grown cold and bitter, but this matter has been quite rejuvenating in a way... ever since meeting you. I had perhaps been dormant for too long." },
+			},
+
+			DemeterAboutFamilyTree01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0230",
+					Text = "How revolting to think that Chronos is technically a grandfather to you, as I am a grandmother. We have no connection at all, yet this family tree of ours has grown for many aeons and has twisted limbs by now..." },
+			},
+
+			DemeterAboutSayingLittle01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "DemeterGift08" },
+					},
+					NamedRequirements = { "ReachedEpilogue" },
+				},
+
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0236",
+					Text = "Of late I feel increasingly at loss for words, flower. After all this toil... I may wilt from social graces for a while. Though you'll have my undying support for as long as you require." },
+			},
+
 			-- repeatable lines
 			DemeterChat01 =
 			{
@@ -1521,10 +2353,14 @@ LootSetData.Demeter =
 			},
 			DemeterChat03 =
 			{
+				PlayFirst = true,
 				GameStateRequirements =
 				{
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1535,10 +2371,14 @@ LootSetData.Demeter =
 			},
 			DemeterChat04 =
 			{
+				PlayFirst = true,
 				GameStateRequirements =
 				{
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1605,11 +2445,16 @@ LootSetData.Demeter =
 			},
 			DemeterChat09 =
 			{
+				PlayFirst = true,
 				GameStateRequirements =
 				{
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
 					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -1647,10 +2492,14 @@ LootSetData.Demeter =
 			},
 			DemeterChat12 =
 			{
+				PlayFirst = true,
 				GameStateRequirements =
 				{
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1787,11 +2636,16 @@ LootSetData.Demeter =
 			},
 			DemeterChat22 =
 			{
+				PlayFirst = true,
 				GameStateRequirements =
 				{
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
 					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -1848,6 +2702,9 @@ LootSetData.Demeter =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
 					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},					
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -1857,10 +2714,14 @@ LootSetData.Demeter =
 			},
 			DemeterChat27 =
 			{
+				PlayFirst = true,
 				GameStateRequirements =
 				{
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1911,6 +2772,157 @@ LootSetData.Demeter =
 					
 					Text = "Look what I picked just for you this eve, flower." },
 			},
+			DemeterChat31 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Demeter_0185",
+					Text = "Tonight calls for inclement weather, so our enemies had better bundle up." },
+			},
+			DemeterChat32 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Demeter_0186",
+					Text = "As you are my granddaughter, you are welcome to reap the benefits." },
+			},
+			DemeterChat33 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Demeter_0187",
+					Text = "The Earth shall drink deep of the blood of our enemies; those that {#Emph}can {#Prev}bleed, at least." },
+			},
+			DemeterChat34 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						SumPrevRuns = 2,
+						Path = { "RoomsEntered", "P_Intro" },
+						Comparison = ">=",
+						Value = 1,
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Demeter_0188",
+					Text = "It remains unseasonably cold up here, flower. But you seem not to mind." },
+			},
+			DemeterChat35 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "F" },
+					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Demeter_0189",
+					Text = "I shall not hesitate to purge what warmth remains within the Earth, if that is what it takes." },
+			},
+			DemeterChat36 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Demeter_0251",
+					Text = "None know better than I of just how cruel the turning of the seasons can be." },
+			},
+			DemeterChat37 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Demeter_0252",
+					Text = "I shall drain all remaining life from whichever of our enemies have any of it left." },
+			},
+			DemeterChat38 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Demeter_0253",
+					Text = "Even in the wake of such devastation as we have seen, life can survive, and regrow." },
+			},
+			DemeterChat39 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Demeter_0254",
+					Text = "From the ashes of this war, may we yet flourish with sufficient time." },
+			},
+			DemeterChat40 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Demeter_0255",
+					Text = "Time threatened to take everything away from us, but we held fast, and always shall." },
+			},
+
 		},
 
 		BoughtTextLines =
@@ -1924,6 +2936,12 @@ LootSetData.Demeter =
 						PathFromSource = true,
 						PathTrue = { "WasRandomLoot" },
 					},
+					{
+						SumPrevRooms = 6,
+						Path = { "UseRecord", "DemeterUpgrade" },
+						Comparison = "<=",
+						Value = 0,
+					},					
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0084",
@@ -1938,6 +2956,13 @@ LootSetData.Demeter =
 						PathFromSource = true,
 						PathTrue = { "WasRandomLoot" },
 					},
+					{
+						SumPrevRooms = 6,
+						Path = { "UseRecord", "DemeterUpgrade" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0085",
@@ -1953,6 +2978,13 @@ LootSetData.Demeter =
 						FunctionName = "RequiredAlive",
 						FunctionArgs = { Units = { "NPC_Charon_01" }, },
 					},
+					{
+						SumPrevRooms = 6,
+						Path = { "UseRecord", "DemeterUpgrade" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0075",
@@ -1968,6 +3000,13 @@ LootSetData.Demeter =
 						FunctionName = "RequiredAlive",
 						FunctionArgs = { Units = { "NPC_Charon_01" }, },
 					},
+					{
+						SumPrevRooms = 6,
+						Path = { "UseRecord", "DemeterUpgrade" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0076",
@@ -1979,12 +3018,18 @@ LootSetData.Demeter =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					-- { 	FunctionName = "RequiredAlive", 	FunctionArgs = { Units = { "NPC_Charon_01" }, }, },
+					{
+						SumPrevRooms = 6,
+						Path = { "UseRecord", "DemeterUpgrade" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0082",
 					
-					Text = "If only you could see my fields in the morning sun... shining brighter than any gold you shall ever find. Such metals ought remain within the earth." },
+					Text = "If only you could see my fields in the morning sun... shining brighter than any Gold you shall ever find. Such metals ought remain within the Earth." },
 			},
 			DemeterLootBought04 =
 			{
@@ -1995,6 +3040,13 @@ LootSetData.Demeter =
 						FunctionName = "RequiredAlive",
 						FunctionArgs = { Units = { "NPC_Charon_01" }, },
 					},
+					{
+						SumPrevRooms = 6,
+						Path = { "UseRecord", "DemeterUpgrade" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0083",
@@ -2250,17 +3302,18 @@ LootSetData.Demeter =
 						PathTrue = { "GameState", "UseRecord", "DemeterUpgrade" },
 					},
 					{
-						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/Melinoe_0961", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Casual_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					PostLineFunctionName = "BoonInteractPresentation",
 					PostLineFunctionArgs = { SkipAnim = true },
 					PostLineRemoveContextArt = true,
-					Text = "To think the goddess of seasons herself is my grandmother. I am honored to have made your acquaintance." },
+					Text = "To think the goddess of seasons herself is my grandmother. I am honored to have made your acquaintance!" },
 				{ Cue = "/VO/Demeter_0067",
 					PortraitExitWait = 1.0,
 					NarrativeContextArt = "DialogueBackground_Olympus",
@@ -2270,8 +3323,8 @@ LootSetData.Demeter =
 			{
 				PlayOnce = true,
 				OnGiftTrack = true,
-				-- UnfilledIcon = "EmptyHeartWithGiftIcon",
-				-- FilledIcon = "FilledHeartWithGiftIcon",
+				UnfilledIcon = "EmptyHeartWithProphecyIcon",
+				FilledIcon = "FilledHeartWithProphecyIcon",
 				Cost =
 				{
 					GiftPoints = 1,
@@ -2282,11 +3335,12 @@ LootSetData.Demeter =
 						PathTrue = { "GameState", "UseRecord", "DemeterUpgrade" },
 					},
 					{
-						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/Melinoe_0962", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					PostLineFunctionName = "BoonInteractPresentation",
@@ -2314,11 +3368,12 @@ LootSetData.Demeter =
 						PathTrue = { "GameState", "UseRecord", "DemeterUpgrade" },
 					},
 					{
-						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/MelinoeField_1769", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					PostLineFunctionName = "BoonInteractPresentation",
@@ -2346,11 +3401,12 @@ LootSetData.Demeter =
 						PathTrue = { "GameState", "UseRecord", "DemeterUpgrade" },
 					},
 					{
-						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/MelinoeField_1770", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					PostLineFunctionName = "BoonInteractPresentation",
@@ -2362,21 +3418,154 @@ LootSetData.Demeter =
 					NarrativeContextArt = "DialogueBackground_Olympus",
 					Text = "It's strange... as much as I loved your mother, she never honored me thus. Perhaps I was too lenient with her, or perhaps your generation is merely more considerate of their predecessors." },
 			},
-
-			-- placeholder
-			DemeterGiftTemp =
+			DemeterGift05 =
 			{
 				PlayOnce = true,
-				UseableOffSource = true,
 				OnGiftTrack = true,
-				UnfilledIcon = "UnavailableHeartIcon",
-				HintId = "Codex_UnavailableHint",
+				-- UnfilledIcon = "EmptyHeartWithGiftIcon",
+				-- FilledIcon = "FilledHeartWithGiftIcon",
 				Cost =
 				{
-					MysteryResource = 1,
+					GiftPoints = 1,
 				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "DemeterUpgrade" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_3726", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineFunctionName = "BoonInteractPresentation",
+					PostLineFunctionArgs = { SkipAnim = true },
+					PostLineRemoveContextArt = true,
+					Text = "I cannot begin to imagine all that you do for this world, Grandmother. All living creatures count on you and what the seasons bring. That you are able to make time for me amid all that is not something I'll ever take for granted." },
+				{ Cue = "/VO/Demeter_0164",
+					PortraitExitWait = 1.0,
+					NarrativeContextArt = "DialogueBackground_Olympus",
+					Text = "I thank you for the offering, though I am usually left cold. From mortals lately, merely begging, cries for mercy, nothing more. {#Emph}Let my crops grow, Lady Demeter. Save my harvest, Lady Demeter! {#Prev}Insufferable..." },
 			},
+			DemeterGift06 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				-- UnfilledIcon = "EmptyHeartWithGiftIcon",
+				-- FilledIcon = "FilledHeartWithGiftIcon",
+				Cost =
+				{
+					GiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "DemeterUpgrade" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_3727", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineFunctionName = "BoonInteractPresentation",
+					PostLineFunctionArgs = { SkipAnim = true },
+					PostLineRemoveContextArt = true,
+					Text = "Where I am from, we lacked for plenty, but we never truly lacked. And I know that's in small part because of you, Grandmother. My headmistress thinks so highly of you, and I could see why from the moment we met like this." },
+				{ Cue = "/VO/Demeter_0165",
+					PortraitExitWait = 1.0,
+					NarrativeContextArt = "DialogueBackground_Olympus",
+					Text = "Perhaps I ought have far more gratitude, myself. I think so often of my pain and lack... how could I not? Yet I have you, this mountain home, and more. Would only that the burden of it all ever lightened." },
+			},
+			DemeterGift07 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				LockedHintId = "Codex_HeraDemeterGiftHint01",
+				UnfilledIcon = "EmptyHeartWithAmbrosiaIcon",
+				FilledIcon = "FilledHeartWithAmbrosiaIcon",
+				Cost =
+				{
+					SuperGiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "DemeterUpgrade" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "DemeterPostTrueEnding02", "DemeterGift06" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_4167", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineFunctionName = "BoonInteractPresentation",
+					PostLineFunctionArgs = { SkipAnim = true },
+					PostLineRemoveContextArt = true,
+					Text = "A gift of Ambrosia for you, Grandmother! Perhaps this can liven things up, for there ought to be much cause for celebration in the coming times. But mostly I just wanted you to have it, for all the hope you gave me." },
+				{ Cue = "/VO/Demeter_0193",
+					PortraitExitWait = 1.0,
+					NarrativeContextArt = "DialogueBackground_Olympus",
+					Portrait = "Portrait_Demeter_Pleased_01",
+					Text = "You say {#Emph}I {#Prev}gave {#Emph}you {#Prev}hope? I was intent on fighting the Titan no matter what. But having met you... I started to consider the possibility that we might prevail. Then I could see my daughter's gentle face, and {#Emph}her {#Prev}daughter's. I can think of no worthier cause." },
+			},
+			DemeterGift08 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				CompletedHintId = "Codex_BondForgedDemeter",
+				UnfilledIcon = "EmptyHeartWithAmbrosiaIcon",
+				FilledIcon = "FilledHeartWithAmbrosiaIcon",
+				Cost =
+				{
+					SuperGiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "DemeterUpgrade" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "DemeterGift07" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_4168", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineFunctionName = "BoonInteractPresentation",
+					PostLineFunctionArgs = { SkipAnim = true },
+					PostLineRemoveContextArt = true,
+					Text = "Grandmother, you've stood by me ever since we met, and I felt our bond from the start. May this Ambrosia commemorate not just our past but our future. For I feel I still have so much to learn about you, and learn from you." },
+				{ Cue = "/VO/Demeter_0194",
+					PortraitExitWait = 1.0,
+					NarrativeContextArt = "DialogueBackground_Olympus",
+					Portrait = "Portrait_Demeter_Pleased_01",
 
+					PostLineThreadedFunctionName = "MaxedRelationshipPresentation",
+					PostLineThreadedFunctionArgs = { Text = "NPC_Demeter_01", Icon = "Keepsake_Demeter" },
+
+					Text = "I shall accept this, but no more. Know that your mother and I always had our struggles, flower. It was only once she lived her own life rather than my idea of it that our withered connection started to heal. May your and my relationship grow quickly past that point." },
+			},
 		},
 
 		GiftGivenVoiceLines =
@@ -2404,6 +3593,111 @@ LootSetData.Demeter =
 
 		},
 
+		FullSuperActivatedVoiceLines =
+		{
+			Queue = "Interrupt",
+			{
+				RandomRemaining = true,
+				Source = { LineHistoryName = "NPC_Demeter_01", SubtitleColor = Color.DemeterVoice },
+				GameStateRequirements =
+				{
+					OrRequirements =
+					{
+						{
+							{
+								Path = { "CurrentRun", "CurrentRoom", "Encounter", "SpurnedGodName" },
+								IsNone = { "DemeterUpgrade" },
+							},
+						},
+						{
+							{
+								PathTrue = { "CurrentRun", "CurrentRoom", "Encounter", "Completed" },
+							},
+						},
+					},
+					NamedRequirements = { "FullSuperVoiceLinesEligible" },
+				},
+
+				{ Cue = "/VO/Demeter_0147", Text = "Back to dust!" },
+				{ Cue = "/VO/Demeter_0149", Text = "Ripe for the harvest!" },
+				{ Cue = "/VO/Demeter_0150", Text = "Reap what you sow!", PlayFirst = true },
+				{ Cue = "/VO/Demeter_0245", Text = "Shiver and rot!" },
+				{ Cue = "/VO/Demeter_0247", Text = "The numbing cold!" },
+				{ Cue = "/VO/Demeter_0246", Text = "Freeze forever!",
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "SpeechRecord" },
+							HasAll = { "/VO/Demeter_0147", "/VO/Demeter_0149", "/VO/Demeter_0150", "/VO/Demeter_0245", "/VO/Demeter_0247" },
+						},
+					},
+				},
+			},
+			{
+				RandomRemaining = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "SpurnedGodName" },
+						IsAny = { "DemeterUpgrade" },
+					},
+					{
+						PathFalse = { "CurrentRun", "CurrentRoom", "Encounter", "Completed" },
+					},
+					NamedRequirements = { "FullSuperVoiceLinesEligible" },
+				},
+
+				{ Cue = "/VO/Demeter_0248", Text = "Is this truly what you want?!" },
+				{ Cue = "/VO/Demeter_0249", Text = "How like your mother you are!", PlayFirst = true },
+				{ Cue = "/VO/Demeter_0250", Text = "Whatever you say, Granddaughter!" },
+			},
+			{
+				PlayOnceFromTableThisRun = true,
+				RandomRemaining = true,
+				ObjectTypes = { "Chronos", "Chronos_TyphonFight" },
+				PreLineWait = 0.35,
+				SuccessiveChanceToPlayAll = 0.33,
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "ChronosSpokeRecently", Time = 8 },
+				},
+
+				{ Cue = "/VO/Chronos_1259", Text = "Unseasonably cold...!" },
+				{ Cue = "/VO/Chronos_1260", Text = "A {#Emph}chill {#Prev}here in these {#Emph}depths?", PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "CurrentRoom", "Name" },
+							IsAny = { "I_Boss01" }
+						},
+					},
+				},
+			},
+			{
+				PlayOnceFromTableThisRun = true,
+				RandomRemaining = true,
+				ObjectTypes = { "Zagreus" },
+				PreLineWait = 0.35,
+				SuccessiveChanceToPlayAll = 0.33,
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "ZagreusSpokeRecently", Time = 6 },
+				},
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsAny = { "C_Boss01" },
+					},
+				},
+
+				{ Cue = "/VO/Zagreus_0358", Text = "Grandmother...?", PlayFirst = true },
+				{ Cue = "/VO/Zagreus_0359", Text = "She has a favorite then!" },
+			},
+		},
+
 		DeathTauntVoiceLines =
 		{
 			RandomRemaining = true,
@@ -2420,23 +3714,26 @@ LootSetData.Demeter =
 
 		RarityUpgradeVoiceLines =
 		{
-			RandomRemaining = true,
-			BreakIfPlayed = true,
-			PreLineWait = 0.3,
-			Source = { LineHistoryName = "NPC_Demeter_01", SubtitleColor = Color.DemeterVoice },
-			Cooldowns =
+			{ GlobalVoiceLines = "ZagreusRarifyVoiceLines" },
 			{
-				{ Name = "BoonRarifiedSpeech", Time = 60 },
-			},
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				PreLineWait = 0.3,
+				Source = { LineHistoryName = "NPC_Demeter_01", SubtitleColor = Color.DemeterVoice },
+				Cooldowns =
+				{
+					{ Name = "BoonRarifiedSpeech", Time = 240 },
+				},
 
-			{ Cue = "/VO/Demeter_0139", Text = "Very well." },
-			{ Cue = "/VO/Demeter_0140", Text = "Yes, of course." },
-			{ Cue = "/VO/Demeter_0141", Text = "I shall oblige." },
-			{ Cue = "/VO/Demeter_0142", Text = "Your choice." },
-			{ Cue = "/VO/Demeter_0143", Text = "Yes, done." },
-			{ Cue = "/VO/Demeter_0144", Text = "As you wish." },
-			{ Cue = "/VO/Demeter_0145", Text = "Certainly." },
-			{ Cue = "/VO/Demeter_0146", Text = "For you." },
+				{ Cue = "/VO/Demeter_0139", Text = "Very well." },
+				{ Cue = "/VO/Demeter_0140", Text = "Yes, of course." },
+				{ Cue = "/VO/Demeter_0141", Text = "I shall oblige." },
+				{ Cue = "/VO/Demeter_0142", Text = "Your choice." },
+				{ Cue = "/VO/Demeter_0143", Text = "Yes, done." },
+				{ Cue = "/VO/Demeter_0144", Text = "As you wish." },
+				{ Cue = "/VO/Demeter_0145", Text = "Certainly." },
+				{ Cue = "/VO/Demeter_0146", Text = "For you." },
+			},
 		},
 
 		BlindBoxOpenedVoiceLines =
@@ -2445,7 +3742,7 @@ LootSetData.Demeter =
 			BreakIfPlayed = true,
 			PreLineWait = 0.3,
 			Source = { LineHistoryName = "NPC_Demeter_01", SubtitleColor = Color.DemeterVoice },
-			TriggerCooldowns = { "DemeterBoonTakenSpeech" },
+			TriggerCooldowns = { "DemeterBoonTakenSpeech", "MelinoeBoonTakenSpeech" },
 
 			{ Cue = "/VO/Demeter_0133", Text = "Hello, flower!" },
 			{ Cue = "/VO/Demeter_0134", Text = "It is I." },
@@ -2456,6 +3753,7 @@ LootSetData.Demeter =
 			{ Cue = "/VO/Demeter_0181", Text = "Behold." },
 		},
 
+		Using = { ProjectileName = "DemeterSprintStorm" },
 	},	
 
 }

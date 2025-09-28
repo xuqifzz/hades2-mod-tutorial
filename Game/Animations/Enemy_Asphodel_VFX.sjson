@@ -481,7 +481,8 @@
 	{
 		Name = "BloodlessBerserkerSwipe"
 		FilePath = "Fx\ShadeSwordSwipe\ShadeSwordSwipe"		
-		ColorFromOwner = "Ignore"
+		ColorFromOwner = "Maintain"
+		MaintainAlphaOnly = true
 		EndFrame = 30
 		NumFrames = 30
 		StartFrame = 1
@@ -905,4 +906,73 @@
 		InheritFrom = "Blank"
 		OwnerHasNoCollision = true
 	}
+
+	{
+		Name = "BloodlessMeleeStreaks"
+		FilePath = "Fx\KnockbackLines\KnockbackLines"
+		VisualFxManagerCap = 300
+		CreateAnimation = "BloodlessMeleeStreaksDark"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Maintain"
+		ColorFromOwner = "Ignore"
+		EndBlue = 0.42
+		EndGreen = 0.46
+		EndRed = 0.48
+		StartBlue = 0.48
+		StartGreen = 0.49
+		StartRed = 0.5
+		ScaleY = 0.55
+		EndFrame = 19
+		NumFrames = 19
+		PlaySpeed = 90.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		OriginX = 70.0
+		OriginY = 138.0
+		LocationZFromOwner = "Maintain"
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.6
+		StartScaleX = 6.0
+		Ambient = 0.0
+		OffsetZ = 50
+		UseVelocityAngleFromOwner = true
+		UseAttachedAddColor = false
+		UseAttachedFlasher = false
+		TimeModifierFraction = 0.5
+		Slides =
+		[
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+	{
+		Name = "BloodlessMeleeStreaksDark"
+		InheritFrom = "BloodlessMeleeStreaks"
+		CreateAnimation = null
+		GroupName = "FX_Dark"
+		PlaySpeed = 60.0
+		ScaleY = 0.6
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+
 ]}

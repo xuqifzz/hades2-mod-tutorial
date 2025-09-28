@@ -2,7 +2,6 @@
 
 	{
 		Name = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_01"
 		AngleFromOwner = "Ignore"
 		EndFrame = 1
 		NumFrames = 1
@@ -12,25 +11,8 @@
 
 	{
 		Name = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_01"			
 		AngleFromOwner = "Ignore"
 		Material = "Unlit"
-	}
-
-	{
-		Name = "BiomeState_Vanilla"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BiomeStateIcons\Vanilla"
-		EndFrame = 1
-		StartFrame = 1
-	}
-
-	{
-		Name = "BiomeState_Rain"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BiomeStateIcons\Rain"
-		EndFrame = 1
-		StartFrame = 1
 	}
 
 	{
@@ -69,6 +51,11 @@
 		FilePath = "GUI\Screens\FamiliarIcons\familiars_hound_01"
 	}
 	{
+		Name = "FamiliarIcon_Polecat"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\FamiliarIcons\familiars_polecat_01"
+	}
+	{
 		Name = "KeepsakeIcon"
 		FilePath = "GUI\Screens\AwardMenu\missing_keepsake_01"
 		AngleFromOwner = "Ignore"
@@ -100,7 +87,355 @@
 		Material = "Unlit"
 		Scale = 0.45
 	}
-
+	
+    {
+      Name = "KeepsakeMax_Corner"
+      AngleFromOwner = "Ignore"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+	  Scale = 0.6
+      Material = "Unlit"
+    }
+    {
+      Name = "KeepsakeMax"
+      AngleFromOwner = "Ignore"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Material = "Unlit"
+	  Scale = 0.45
+    }
+	{
+		Name = "Keepsake_Arachne_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Arachne"
+	}
+	{
+		Name = "Keepsake_Arachne"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Arachne"
+	}
+	{
+		Name = "Keepsake_Aphrodite_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Aphrodite"
+	}
+	{
+		Name = "Keepsake_Aphrodite"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Aphrodite"
+	}
+	{
+		Name = "Keepsake_Apollo_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Apollo"
+	}
+	{
+		Name = "Keepsake_Apollo"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Apollo"
+	}
+	{
+		Name = "Keepsake_Ares_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Ares"
+	}
+	{
+		Name = "Keepsake_Ares"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Ares"
+	}
+	{
+		Name = "Keepsake_Artemis_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Artemis"
+	}
+	{
+		Name = "Keepsake_Artemis"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Artemis"
+	}
+	{
+		Name = "Keepsake_Athena_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Athena"
+	}
+	{
+		Name = "Keepsake_Athena"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Athena"
+	}
+	{
+		Name = "Keepsake_Charon_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Charon"
+	}
+	{
+		Name = "Keepsake_Charon"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Charon"
+	}
+	{
+		Name = "Keepsake_Chaos_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Chaos"
+	}
+	{
+		Name = "Keepsake_Chaos"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Chaos"
+	}
+	{
+		Name = "Keepsake_Circe_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Circe"
+	}
+	{
+		Name = "Keepsake_Circe"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Circe"
+	}
+	{
+		Name = "Keepsake_Demeter_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Demeter"
+	}
+	{
+		Name = "Keepsake_Demeter"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Demeter"
+	}
+	{
+		Name = "Keepsake_Dionysus_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Dionysus"
+	}
+	{
+		Name = "Keepsake_Dionysus"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Dionysus"
+	}
+	{
+		Name = "Keepsake_Dora_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Dora"
+	}
+	{
+		Name = "Keepsake_Dora"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Dora"
+	}
+	{
+		Name = "Keepsake_Echo_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Echo"
+	}
+	{
+		Name = "Keepsake_Echo"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Echo"
+	}
+	{
+		Name = "Keepsake_Eris_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Eris"
+	}
+	{
+		Name = "Keepsake_Eris"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Eris"
+	}
+	{
+		Name = "Keepsake_Hecate_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Hecate"
+	}
+	{
+		Name = "Keepsake_Hecate"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Hecate"
+	}
+	{
+		Name = "Keepsake_Hephaestus_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Hephaestus"
+	}
+	{
+		Name = "Keepsake_Hephaestus"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Hephaestus"
+	}
+	{
+		Name = "Keepsake_Hera_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Hera"
+	}
+	{
+		Name = "Keepsake_Hera"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Hera"
+	}
+	{
+		Name = "Keepsake_Heracles_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Heracles"
+	}
+	{
+		Name = "Keepsake_Heracles"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Heracles"
+	}
+	{
+		Name = "Keepsake_Hermes_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Hermes"
+	}
+	{
+		Name = "Keepsake_Hermes"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Hermes"
+	}
+	{
+		Name = "Keepsake_Nemesis_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Nemesis"
+	}
+	{
+		Name = "Keepsake_Nemesis"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Nemesis"
+	}
+	{
+		Name = "Keepsake_Hestia_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Hestia"
+	}
+	{
+		Name = "Keepsake_Hestia"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Hestia"
+	}
+	{
+		Name = "Keepsake_Icarus_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Icarus"
+	}
+	{
+		Name = "Keepsake_Icarus"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Icarus"
+	}
+	{
+		Name = "Keepsake_Medea_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Medea"
+	}
+	{
+		Name = "Keepsake_Medea"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Medea"
+	}
+	{
+		Name = "Keepsake_Moros_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Moros"
+	}
+	{
+		Name = "Keepsake_Moros"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Moros"
+	}
+	{
+		Name = "Keepsake_Narcissus_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Narcissus"
+	}
+	{
+		Name = "Keepsake_Narcissus"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Narcissus"
+	}
+	{
+		Name = "Keepsake_Odysseus_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Odysseus"
+	}
+	{
+		Name = "Keepsake_Odysseus"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Odysseus"
+	}
+	{
+		Name = "Keepsake_Poseidon_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Poseidon"
+	}
+	{
+		Name = "Keepsake_Poseidon"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Poseidon"
+	}
+	{
+		Name = "Keepsake_Selene_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Selene"
+	}
+	{
+		Name = "Keepsake_Selene"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Selene"
+	}
+	{
+		Name = "Keepsake_Skelly_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Skelly"
+	}
+	{
+		Name = "Keepsake_Skelly"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Skelly"
+	}
+	{
+		Name = "Keepsake_Zeus_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Zeus"
+	}
+	{
+		Name = "Keepsake_Zeus"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Zeus"
+	}
+	{
+		Name = "Keepsake_HadesAndPersephone_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\HadesPersephone"
+	}
+	{
+		Name = "Keepsake_HadesAndPersephone"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\HadesPersephone"
+	}
+	{
+		Name = "Keepsake_Chronos_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Chronos"
+	}
+	{
+		Name = "Keepsake_Chronos"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Chronos"
+	}
+	{
+		Name = "Keepsake_Zagreus_Corner"
+		InheritFrom = "KeepsakeMax_Corner"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_small\Zagreus"
+	}
+	{
+		Name = "Keepsake_Zagreus"
+		InheritFrom = "KeepsakeMax"
+		FilePath = "GUI\Screens\AwardMenu\KeepsakeMaxGift\KeepsakeMaxGift_big\Zagreus"
+	}
 	{
 		Name = "Keepsake_Unknown"
 		InheritFrom = "KeepsakeIcon"
@@ -110,12 +445,25 @@
 
 	{
 		Name = "Weapon_Random"
-		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\BountyBoard\Random_Weapon"
+
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Material = "Unlit"
+		Scale = 0.5
 	}
 	{
 		Name = "Keepsake_Random"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_01"
+		FilePath = "GUI\Screens\BountyBoard\Random_Keepsake"
+
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Material = "Unlit"
+		Scale = 0.72
 	}
 	{
 		Name = "Keepsake_Skelly_Tooth"
@@ -132,149 +480,7 @@
 		EndFrame = 1
 		StartFrame = 1
 	}
-	{
-		Name = "Keepsake_01"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_01"
-	}
-	{
-		Name = "Keepsake_02"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_02"
-	}
-	{
-		Name = "Keepsake_03"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_03"
-	}
-	{
-		Name = "Keepsake_04"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_04"
-	}
-	{
-		Name = "Keepsake_05"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_05"
-	}
-	{
-		Name = "Keepsake_06"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_06"
-	}
-	{
-		Name = "Keepsake_07"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_07"
-	}
-	{
-		Name = "Keepsake_08"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_08"
-	}
-	{
-		Name = "Keepsake_09"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_09"
-	}
-	{
-		Name = "Keepsake_10"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_10"
-	}
-	{
-		Name = "Keepsake_11"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_11"
-	}
-	{
-		Name = "Keepsake_12"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_12"
-	}
-		 
-	{
-		Name = "Keepsake_13"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_13"
-	}
-		 
-	{
-		Name = "Keepsake_14"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_14"
-	}
-		 
-	{
-		Name = "Keepsake_15"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_15"
-	}
 
-	{
-		Name = "Keepsake_16"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_16"
-	}
-
-	{
-		Name = "Keepsake_17"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_17"
-	}
-
-	{
-		Name = "Keepsake_18"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_18"
-	}
-		 
-	{
-		Name = "Keepsake_19"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_19"
-	}
-		 
-	{
-		Name = "Keepsake_20"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_20"
-	}
-		 
-	{
-		Name = "Keepsake_21"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_21"
-	}
-		 
-	{
-		Name = "Keepsake_22"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_22"
-	}
-		 
-	{
-		Name = "Keepsake_23"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_23"
-	}
-		 
-	{
-		Name = "Keepsake_24"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_24"
-	}
-	{
-		Name = "Keepsake_25"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_25"
-	}
-		 
-	{
-		Name = "Keepsake_26"
-		InheritFrom = "KeepsakeIcon"
-		FilePath = "GUI\Screens\AwardMenu\Keepsake_26"
-	}
 	{
 		Name = "Keepsake_27"
 		InheritFrom = "KeepsakeIcon"
@@ -420,6 +626,26 @@
 		InheritFrom = "KeepsakeIcon"
 		FilePath = "GUI\Screens\AwardMenu\Keepsake_55"
 	}
+	{
+		Name = "Keepsake_56"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_56"
+	}
+	{
+		Name = "Keepsake_57"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_57"
+	}
+	{
+		Name = "Keepsake_58"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_58"
+	}
+	{
+		Name = "Keepsake_59"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_59"
+	}
 
 
 	{
@@ -492,13 +718,6 @@
 		Name = "Shop_Vase"
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\ShopIcons\Shop_29"
-		EndFrame = 1
-		StartFrame = 1
-	}
-	{
-		Name = "Shop_Pearl"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\ShopIcons\Shop_09"
 		EndFrame = 1
 		StartFrame = 1
 	}
@@ -608,167 +827,6 @@
 		EndFrame = 1
 		StartFrame = 1
 	}
-	{
-		Name = "Shop_Misc"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\ShopIcons\bedroom_decor_10"
-		EndFrame = 1
-		StartFrame = 1
-	}
-
-	{
-		Name = "Boon_Aphrodite_01"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_01"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_02"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_02"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_03"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_03"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_04"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_04"
-	}
-	{
-		Name = "Boon_Aphrodite_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_05"
-	}
-	{
-		Name = "Boon_Aphrodite_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_06"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_07"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_08"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_09"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_10"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_11"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_12"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_13"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_14"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_15"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_16"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_17"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_18"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_19"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_20"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_21"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_22"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_23"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_24"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_25"
-	}
-		 
-	{
-		Name = "Boon_Aphrodite_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Aphrodite_26"
-	}
 
 	{
 		Name = "Boon_Aphrodite_27"
@@ -851,156 +909,6 @@
 		FilePath = "GUI\Screens\BoonIcons\Aphrodite_42"
 	}
 		 
-	{
-		Name = "Boon_Apollo_01"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_01"
-	}
-		 
-	{
-		Name = "Boon_Apollo_02"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_02"
-	}
-		 
-	{
-		Name = "Boon_Apollo_03"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_03"
-	}
-	{
-		Name = "Boon_Apollo_04"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_04"
-	}
-		 
-	{
-		Name = "Boon_Apollo_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_05"
-	}
-	{
-		Name = "Boon_Apollo_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_06"
-	}
-		 
-	{
-		Name = "Boon_Apollo_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_07"
-	}
-	{
-		Name = "Boon_Apollo_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_08"
-	}
-		 
-	{
-		Name = "Boon_Apollo_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_09"
-	}
-		 
-	{
-		Name = "Boon_Apollo_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_10"
-	}
-		 
-	{
-		Name = "Boon_Apollo_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_11"
-	}
-		 
-	{
-		Name = "Boon_Apollo_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_12"
-	}
-		 
-	{
-		Name = "Boon_Apollo_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_13"
-	}
-		 
-	{
-		Name = "Boon_Apollo_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_14"
-	}
-		 
-	{
-		Name = "Boon_Apollo_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_15"
-	}
-		 
-	{
-		Name = "Boon_Apollo_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_16"
-	}
-		 
-	{
-		Name = "Boon_Apollo_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_17"
-	}
-		 
-	{
-		Name = "Boon_Apollo_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_18"
-	} 
-		 
-	{
-		Name = "Boon_Apollo_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_19"
-	}
-	{
-		Name = "Boon_Apollo_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_20"
-	}
-	{
-		Name = "Boon_Apollo_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_21"
-	}
-	{
-		Name = "Boon_Apollo_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_22"
-	}
-		 
-	{
-		Name = "Boon_Apollo_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_23"
-	}
-		 
-	{
-		Name = "Boon_Apollo_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_24"
-	}
-		 
-	{
-		Name = "Boon_Apollo_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_25"
-	}
-		 
-	{
-		Name = "Boon_Apollo_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Apollo_26"
-	}
-
 	{
 		Name = "Boon_Apollo_27"
 		InheritFrom = "BoonIcon"
@@ -1149,334 +1057,162 @@
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\Arachne_06"
 	}
-		 
+
 	{
-		Name = "Boon_Ares_01"
+		Name = "Boon_Arachne_07"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_01"
-	}
-		 
-	{
-		Name = "Boon_Ares_02"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_02"
-	}
-		 
-	{
-		Name = "Boon_Ares_03"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_03"
-	}
-		 
-	{
-		Name = "Boon_Ares_04"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_04"
-	}
-		 
-	{
-		Name = "Boon_Ares_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_05"
-	}
-		 
-	{
-		Name = "Boon_Ares_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_06"
-	}
-		 
-	{
-		Name = "Boon_Ares_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_07"
-	}
-		 
-	{
-		Name = "Boon_Ares_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_08"
+		FilePath = "GUI\Screens\BoonIcons\Arachne_07"
 	}
 
 	{
-		Name = "Boon_Ares_09"
+		Name = "Boon_Arachne_08"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_09"
-	}
-		 
-	{
-		Name = "Boon_Ares_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_10"
-	}
-		 
-	{
-		Name = "Boon_Ares_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_11"
-	}
-		 
-	{
-		Name = "Boon_Ares_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_12"
-	}
-		 
-	{
-		Name = "Boon_Ares_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_13"
+		FilePath = "GUI\Screens\BoonIcons\Arachne_08"
 	}
 
 	{
-		Name = "Boon_Ares_14"
+		Name = "Boon_Ares_27"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_14"
-	}
-		 
-	{
-		Name = "Boon_Ares_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_15"
-	}
-		 
-	{
-		Name = "Boon_Ares_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_16"
-	}
-		 
-	{
-		Name = "Boon_Ares_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_17"
-	}
-		 
-	{
-		Name = "Boon_Ares_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_18"
-	}
-	
-		 
-	{
-		Name = "Boon_Ares_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_19"
-	}
-		 
-	{
-		Name = "Boon_Ares_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_20"
-	}
-	
-	{
-		Name = "Boon_Ares_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_21"
-	}
-		 
-	{
-		Name = "Boon_Ares_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_22"
-	}
-		 
-	{
-		Name = "Boon_Ares_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_23"
-	}
-		 
-	{
-		Name = "Boon_Ares_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_24"
-	}
-		 
-	{
-		Name = "Boon_Ares_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_25"
+		FilePath = "GUI\Screens\BoonIcons\Ares_27"
 	}
 
 	{
-		Name = "Boon_Ares_26"
+		Name = "Boon_Ares_28"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Ares_26"
-	}
-		 
-	{
-		Name = "Boon_Artemis_01"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_01"
-	}
-	
-		 
-	{
-		Name = "Boon_Artemis_02"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_02"
-	}
-	
-		 
-	{
-		Name = "Boon_Artemis_03"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_03"
-	}
-	
-		 
-	{
-		Name = "Boon_Artemis_04"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_04"
-	}
-	
-		 
-	{
-		Name = "Boon_Artemis_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_05"
-	}
-	
-		 
-	{
-		Name = "Boon_Artemis_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_06"
-	}
-	
-		 
-	{
-		Name = "Boon_Artemis_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_07"
-	}
-	
-		 
-	{
-		Name = "Boon_Artemis_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_08"
-	}
-	
-		 
-	{
-		Name = "Boon_Artemis_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_09"
-	}
-	
-		 
-	{
-		Name = "Boon_Artemis_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_10"
-	}
-	
-	{
-		Name = "Boon_Artemis_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_11"
-	}
-	
-		 
-	{
-		Name = "Boon_Artemis_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_12"
-	}
-	
-		 
-	{
-		Name = "Boon_Artemis_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_13"
-	}
-	
-		 
-	{
-		Name = "Boon_Artemis_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_14"
-	}
-		 
-	{
-		Name = "Boon_Artemis_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_15"
-	}
-		 
-	{
-		Name = "Boon_Artemis_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_16"
-	}
-		 
-	{
-		Name = "Boon_Artemis_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_17"
-	}
-		 
-	{
-		Name = "Boon_Artemis_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_18"
-	}
-		 
-	{
-		Name = "Boon_Artemis_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_19"
-	}
-	
-	{
-		Name = "Boon_Artemis_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_20"
-	}
-		 
-	{
-		Name = "Boon_Artemis_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_21"
-	}
-	
-		 
-	{
-		Name = "Boon_Artemis_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_22"
-	}
-		 
-	{
-		Name = "Boon_Artemis_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_23"
-	}
-	
-		 
-	{
-		Name = "Boon_Artemis_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_24"
-	}
-	
-	{
-		Name = "Boon_Artemis_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_25"
-	}
-		 
-	{
-		Name = "Boon_Artemis_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Artemis_26"
+		FilePath = "GUI\Screens\BoonIcons\Ares_28"
 	}
 
+	{
+		Name = "Boon_Ares_29"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_29"
+	}
+
+	{
+		Name = "Boon_Ares_30"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_30"
+	}
+
+	{
+		Name = "Boon_Ares_31"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_31"
+	}
+
+	{
+		Name = "Boon_Ares_32"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_32"
+	}
+
+	{
+		Name = "Boon_Ares_33"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_33"
+	}
+
+	{
+		Name = "Boon_Ares_34"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_34"
+	}
+
+	{
+		Name = "Boon_Ares_35"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_35"
+	}
+
+	{
+		Name = "Boon_Ares_36"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_36"
+	}
+
+	{
+		Name = "Boon_Ares_37"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_37"
+	}
+
+	{
+		Name = "Boon_Ares_38"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_38"
+	}
+
+	{
+		Name = "Boon_Ares_39"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_39"
+	}
+
+	{
+		Name = "Boon_Ares_40"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_40"
+	}
+
+	{
+		Name = "Boon_Ares_41"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_41"
+	}
+
+	{
+		Name = "Boon_Ares_42"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_42"
+	}
+
+	{
+		Name = "Boon_Ares_43"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_43"
+	}
+
+	{
+		Name = "Boon_Ares_44"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_44"
+	}
+
+	{
+		Name = "Boon_Ares_45"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_45"
+	}
+
+	{
+		Name = "Boon_Ares_46"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_46"
+	}
+
+	{
+		Name = "Boon_Ares_47"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_47"
+	}
+
+	{
+		Name = "Boon_Ares_48"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_48"
+	}
+
+	{
+		Name = "Boon_Ares_49"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_49"
+	}
+	{
+		Name = "Boon_Ares_50"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Ares_50"
+	}
+		 
 	{
 		Name = "Boon_Artemis_27"
 		InheritFrom = "BoonIcon"
@@ -1518,163 +1254,19 @@
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\Artemis_33"
 	}
-		 
+
 	{
-		Name = "Boon_Athena_01"
+		Name = "Boon_Artemis_34"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_01"
-	}
-		 
-	{
-		Name = "Boon_Athena_02"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_02"
-	}
-		 
-	{
-		Name = "Boon_Athena_03"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_03"
-	}
-		 
-	{
-		Name = "Boon_Athena_04"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_04"
-	}
-		 
-	{
-		Name = "Boon_Athena_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_05"
-	}
-		 
-	{
-		Name = "Boon_Athena_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_06"
-	}
-		 
-	{
-		Name = "Boon_Athena_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_07"
-	}
-		 
-	{
-		Name = "Boon_Athena_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_08"
-	}
-		 
-	{
-		Name = "Boon_Athena_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_09"
-	}
-		 
-	{
-		Name = "Boon_Athena_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_10"
-	}
-		 
-	{
-		Name = "Boon_Athena_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_11"
-	}
-		 
-	{
-		Name = "Boon_Athena_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_12"
-	}
-		 
-	{
-		Name = "Boon_Athena_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_13"
-	}
-		 
-	{
-		Name = "Boon_Athena_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_14"
-	}
-		 
-	{
-		Name = "Boon_Athena_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_15"
-	}
-		 
-	{
-		Name = "Boon_Athena_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_16"
-	}
-		 
-	{
-		Name = "Boon_Athena_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_17"
-	}
-		 
-	{
-		Name = "Boon_Athena_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_18"
-	}
-		 
-	{
-		Name = "Boon_Athena_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_19"
-	}
-		 
-	{
-		Name = "Boon_Athena_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_20"
-	}
-		 
-	{
-		Name = "Boon_Athena_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_21"
-	}
-		 
-	{
-		Name = "Boon_Athena_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_22"
-	}
-		 
-	{
-		Name = "Boon_Athena_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_23"
-	}
-		 
-	{
-		Name = "Boon_Athena_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_24"
-	}
-		 
-	{
-		Name = "Boon_Athena_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_25"
-	}
-		 
-	{
-		Name = "Boon_Athena_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Athena_26"
+		FilePath = "GUI\Screens\BoonIcons\Artemis_34"
 	}
 
+	{
+		Name = "Boon_Artemis_35"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Artemis_35"
+	}
+		 
 	{
 		Name = "Boon_Athena_27"
 		InheritFrom = "BoonIcon"
@@ -1709,6 +1301,24 @@
 		Name = "Boon_Athena_32"
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\Athena_32"
+	}
+
+	{
+		Name = "Boon_Athena_33"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Athena_33"
+	}
+
+	{
+		Name = "Boon_Athena_34"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Athena_34"
+	}
+	
+	{
+		Name = "Boon_No_Choice_Money"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\NoChoiceMoney"
 	}
 	
 	{
@@ -1752,153 +1362,9 @@
 		FilePath = "GUI\Screens\BoonIcons\Hades_08"
 	}
 	{
-		Name = "Boon_Chaos_01"
+		Name = "Boon_Hades_09"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_01"
-	}
-	{
-		Name = "Boon_Chaos_02"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_02"
-	}
-	{
-		Name = "Boon_Chaos_03"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_03"
-	}
-		 
-	{
-		Name = "Boon_Chaos_04"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_04"
-	}
-
-	{
-		Name = "Boon_Chaos_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_05"
-	}
-	{
-		Name = "Boon_Chaos_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_06"
-	}
-		 
-	{
-		Name = "Boon_Chaos_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_07"
-	}
-	{
-		Name = "Boon_Chaos_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_08"
-	}
-	{
-		Name = "Boon_Chaos_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_09"
-	}
-		 
-	{
-		Name = "Boon_Chaos_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_10"
-	}
-		 
-	{
-		Name = "Boon_Chaos_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_11"
-	}
-		 
-	{
-		Name = "Boon_Chaos_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_12"
-	}
-		 
-	{
-		Name = "Boon_Chaos_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_13"
-	}
-		 
-	{
-		Name = "Boon_Chaos_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_14"
-	}
-		 
-	{
-		Name = "Boon_Chaos_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_15"
-	}
-		 
-	{
-		Name = "Boon_Chaos_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_16"
-	}
-		 
-	{
-		Name = "Boon_Chaos_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_17"
-	}
-	{
-		Name = "Boon_Chaos_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_18"
-	}
-		 
-	{
-		Name = "Boon_Chaos_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_19"
-	}
-		 
-	{
-		Name = "Boon_Chaos_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_20"
-	}
-		 
-	{
-		Name = "Boon_Chaos_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_21"
-	}
-		 
-	{
-		Name = "Boon_Chaos_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_22"
-	}
-		 
-	{
-		Name = "Boon_Chaos_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_23"
-	}
-		 
-	{
-		Name = "Boon_Chaos_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_24"
-	}
-		 
-	{
-		Name = "Boon_Chaos_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_25"
-	}
-		 
-	{
-		Name = "Boon_Chaos_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Chaos_26"
+		FilePath = "GUI\Screens\BoonIcons\Hades_09"
 	}
 
 	{
@@ -2108,163 +1574,19 @@
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\Circe_07"
 	}
-		 
+
 	{
-		Name = "Boon_Demeter_01"
+		Name = "Boon_Circe_08"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_01"
-	}
-		 
-	{
-		Name = "Boon_Demeter_02"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_02"
-	}
-		 
-	{
-		Name = "Boon_Demeter_03"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_03"
-	}
-		 
-	{
-		Name = "Boon_Demeter_04"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_04"
-	}
-		 
-	{
-		Name = "Boon_Demeter_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_05"
-	}
-		 
-	{
-		Name = "Boon_Demeter_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_06"
-	}
-		 
-	{
-		Name = "Boon_Demeter_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_07"
-	}
-		 
-	{
-		Name = "Boon_Demeter_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_08"
-	}
-		 
-	{
-		Name = "Boon_Demeter_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_09"
-	}
-		 
-	{
-		Name = "Boon_Demeter_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_10"
-	}
-		 
-	{
-		Name = "Boon_Demeter_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_11"
-	}
-		 
-	{
-		Name = "Boon_Demeter_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_12"
-	}
-		 
-	{
-		Name = "Boon_Demeter_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_13"
-	}
-		 
-	{
-		Name = "Boon_Demeter_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_14"
-	}
-		 
-	{
-		Name = "Boon_Demeter_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_15"
-	}
-		 
-	{
-		Name = "Boon_Demeter_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_16"
-	}
-		 
-	{
-		Name = "Boon_Demeter_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_17"
-	}
-		 
-	{
-		Name = "Boon_Demeter_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_18"
-	}
-		 
-	{
-		Name = "Boon_Demeter_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_19"
-	}
-		 
-	{
-		Name = "Boon_Demeter_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_20"
-	}
-		 
-	{
-		Name = "Boon_Demeter_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_21"
-	}
-		 
-	{
-		Name = "Boon_Demeter_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_22"
-	}
-		 
-	{
-		Name = "Boon_Demeter_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_23"
-	}
-		 
-	{
-		Name = "Boon_Demeter_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_24"
-	}
-		 
-	{
-		Name = "Boon_Demeter_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_25"
-	}
-		 
-	{
-		Name = "Boon_Demeter_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Demeter_26"
+		FilePath = "GUI\Screens\BoonIcons\Circe_08"
 	}
 
+	{
+		Name = "Boon_Circe_09"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Circe_09"
+	}
+		 
 	{
 		Name = "Boon_Demeter_27"
 		InheritFrom = "BoonIcon"
@@ -2354,162 +1676,6 @@
 	}
 		 
 	{
-		Name = "Boon_Dionysus_01"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_01"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_02"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_02"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_03"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_03"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_04"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_04"
-	}
-	
-	{
-		Name = "Boon_Dionysus_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_05"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_06"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_07"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_08"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_09"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_10"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_11"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_12"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_13"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_14"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_15"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_16"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_17"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_18"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_19"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_20"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_21"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_22"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_23"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_24"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_25"
-	}
-		 
-	{
-		Name = "Boon_Dionysus_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Dionysus_26"
-	}
-
-	{
 		Name = "Boon_Dionysus_27"
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\Dionysus_27"
@@ -2549,6 +1715,12 @@
 		Name = "Boon_Dionysus_33"
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\Dionysus_33"
+	}
+
+	{
+		Name = "Boon_Dionysus_34"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Dionysus_34"
 	}
 
 	{
@@ -2594,289 +1766,9 @@
 	}
 
 	{
-		Name = "Hammer_Axe_01"
+		Name = "Boon_Echo_08"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_01"
-	}
-	{
-		Name = "Hammer_Axe_01_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_01"
-	}
-		 
-	{
-		Name = "Hammer_Axe_02"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_02"
-	}
-	{
-		Name = "Hammer_Axe_02_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_02"
-	}
-		 
-	{
-		Name = "Hammer_Axe_03"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_03"
-	}
-	{
-		Name = "Hammer_Axe_03_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_03"
-	}
-		 
-	{
-		Name = "Hammer_Axe_04"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_04"
-	}
-	{
-		Name = "Hammer_Axe_04_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_04"
-	}
-		 
-	{
-		Name = "Hammer_Axe_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_05"
-	}
-	{
-		Name = "Hammer_Axe_05_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_05"
-	}
-		 
-	{
-		Name = "Hammer_Axe_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_06"
-	}
-	{
-		Name = "Hammer_Axe_06_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_06"
-	}
-		 
-	{
-		Name = "Hammer_Axe_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_07"
-	}
-	{
-		Name = "Hammer_Axe_07_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_07"
-	}
-		 
-	{
-		Name = "Hammer_Axe_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_08"
-	}
-	{
-		Name = "Hammer_Axe_08_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_08"
-	}
-		 
-	{
-		Name = "Hammer_Axe_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_09"
-	}
-	{
-		Name = "Hammer_Axe_09_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_09"
-	}
-		 
-	{
-		Name = "Hammer_Axe_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_10"
-	}
-	{
-		Name = "Hammer_Axe_10_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_10"
-	}
-		 
-	{
-		Name = "Hammer_Axe_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_11"
-	}
-	{
-		Name = "Hammer_Axe_11_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_11"
-	}
-		 
-	{
-		Name = "Hammer_Axe_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_12"
-	}
-	{
-		Name = "Hammer_Axe_12_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_12"
-	}
-		 
-	{
-		Name = "Hammer_Axe_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_13"
-	}
-	{
-		Name = "Hammer_Axe_13_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_13"
-	}
-		 
-	{
-		Name = "Hammer_Axe_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_14"
-	}
-	{
-		Name = "Hammer_Axe_14_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_14"
-	}
-		 
-	{
-		Name = "Hammer_Axe_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_15"
-	}
-	{
-		Name = "Hammer_Axe_15_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_15"
-	}
-		 
-	{
-		Name = "Hammer_Axe_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_16"
-	}
-	{
-		Name = "Hammer_Axe_16_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_16"
-	}
-		 
-	{
-		Name = "Hammer_Axe_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_17"
-	}
-	{
-		Name = "Hammer_Axe_17_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_17"
-	}
-		 
-	{
-		Name = "Hammer_Axe_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_18"
-	}
-	{
-		Name = "Hammer_Axe_18_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_18"
-	}
-		 
-	{
-		Name = "Hammer_Axe_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_19"
-	}
-	{
-		Name = "Hammer_Axe_19_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_19"
-	}
-		 
-	{
-		Name = "Hammer_Axe_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_20"
-	}
-	{
-		Name = "Hammer_Axe_20_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_20"
-	}
-		 
-	{
-		Name = "Hammer_Axe_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_21"
-	}
-	{
-		Name = "Hammer_Axe_21_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_21"
-	}
-		 
-	{
-		Name = "Hammer_Axe_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_22"
-	}
-	{
-		Name = "Hammer_Axe_22_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_22"
-	}
-		 
-	{
-		Name = "Hammer_Axe_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_23"
-	}
-	{
-		Name = "Hammer_Axe_23_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_23"
-	}
-		 
-	{
-		Name = "Hammer_Axe_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_24"
-	}
-	{
-		Name = "Hammer_Axe_24_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_24"
-	}
-		 
-	{
-		Name = "Hammer_Axe_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_25"
-	}
-	{
-		Name = "Hammer_Axe_25_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_25"
-	}
-		 
-	{
-		Name = "Hammer_Axe_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_26"
-	}
-	{
-		Name = "Hammer_Axe_26_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerAxe_26"
+		FilePath = "GUI\Screens\BoonIcons\Echo_08"
 	}
 
 	{
@@ -2959,293 +1851,23 @@
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\HammerAxe_42"
 	}
-		 
 	{
-		Name = "Hammer_Daggers_01"
+		Name = "Hammer_Axe_43"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_01"
+		FilePath = "GUI\Screens\BoonIcons\HammerAxe_43"
 	}
 	{
-		Name = "Hammer_Daggers_01_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_01"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_02"
+		Name = "Hammer_Axe_44"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_02"
+		FilePath = "GUI\Screens\BoonIcons\HammerAxe_44"
 	}
 	{
-		Name = "Hammer_Daggers_02_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_02"
+		Name = "Hammer_Axe_45"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerAxe_45"
 	}
 		 
-	{
-		Name = "Hammer_Daggers_03"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_03"
-	}
-	{
-		Name = "Hammer_Daggers_03_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_03"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_04"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_04"
-	}
-	{
-		Name = "Hammer_Daggers_04_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_04"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_05"
-	}
-	{
-		Name = "Hammer_Daggers_05_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_05"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_06"
-	}
-	{
-		Name = "Hammer_Daggers_06_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_06"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_07"
-	}
-	{
-		Name = "Hammer_Daggers_07_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_07"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_08"
-	}
-	{
-		Name = "Hammer_Daggers_08_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_08"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_09"
-	}
-	{
-		Name = "Hammer_Daggers_09_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_09"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_10"
-	}
-	{
-		Name = "Hammer_Daggers_10_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_10"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_11"
-	}
-	{
-		Name = "Hammer_Daggers_11_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_11"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_12"
-	}
-	{
-		Name = "Hammer_Daggers_12_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_12"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_13"
-	}
-	{
-		Name = "Hammer_Daggers_13_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_13"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_14"
-	}
-	{
-		Name = "Hammer_Daggers_14_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_14"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_15"
-	}
-	{
-		Name = "Hammer_Daggers_15_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_15"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_16"
-	}
-	{
-		Name = "Hammer_Daggers_16_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_16"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_17"
-	}
-	{
-		Name = "Hammer_Daggers_17_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_17"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_18"
-	}
-	{
-		Name = "Hammer_Daggers_18_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_18"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_19"
-	}
-	{
-		Name = "Hammer_Daggers_19_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_19"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_20"
-	}
-	{
-		Name = "Hammer_Daggers_20_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_20"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_21"
-	}
-	{
-		Name = "Hammer_Daggers_21_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_21"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_22"
-	}
-	{
-		Name = "Hammer_Daggers_22_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_22"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_23"
-	}
-	{
-		Name = "Hammer_Daggers_23_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_23"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_24"
-	}
-	{
-		Name = "Hammer_Daggers_24_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_24"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_25"
-	}
-	{
-		Name = "Hammer_Daggers_25_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_25"
-	}
-		 
-	{
-		Name = "Hammer_Daggers_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_26"
-	}
-	{
-		Name = "Hammer_Daggers_26_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_26"
-	}
-
+ 
 	{
 		Name = "Hammer_Daggers_27"
 		InheritFrom = "BoonIcon"
@@ -3320,6 +1942,26 @@
 		Name = "Hammer_Daggers_41"
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_41"
+	}
+	{
+		Name = "Hammer_Daggers_42"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_42"
+	}
+	{
+		Name = "Hammer_Daggers_43"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_43"
+	}
+	{
+		Name = "Hammer_Daggers_44"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_44"
+	}
+	{
+		Name = "Hammer_Daggers_45"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_45"
 	}
 
 	{
@@ -3397,293 +2039,42 @@
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\HammerLob_15"
 	}
-		 
 	{
-		Name = "Hammer_Staff_01"
+		Name = "Hammer_Lob_16"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_01"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_16"
 	}
 	{
-		Name = "Hammer_Staff_01_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_01"
-	}
-		 
-	{
-		Name = "Hammer_Staff_02"
+		Name = "Hammer_Lob_17"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_02"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_17"
 	}
 	{
-		Name = "Hammer_Staff_02_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_02"
-	}
-		 
-	{
-		Name = "Hammer_Staff_03"
+		Name = "Hammer_Lob_18"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_03"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_18"
 	}
 	{
-		Name = "Hammer_Staff_03_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_03"
-	}
-		 
-	{
-		Name = "Hammer_Staff_04"
+		Name = "Hammer_Lob_19"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_04"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_19"
 	}
 	{
-		Name = "Hammer_Staff_04_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_04"
+		Name = "Hammer_Lob_20"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_20"
+	}
+	{
+		Name = "Hammer_Lob_21"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_21"
+	}
+	{
+		Name = "Hammer_Lob_22"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_22"
 	}
 		 
-	{
-		Name = "Hammer_Staff_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_05"
-	}
-	{
-		Name = "Hammer_Staff_05_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_05"
-	}
-		 
-	{
-		Name = "Hammer_Staff_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_06"
-	}
-	{
-		Name = "Hammer_Staff_06_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_06"
-	}
-		 
-	{
-		Name = "Hammer_Staff_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_07"
-	}
-	{
-		Name = "Hammer_Staff_07_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_07"
-	}
-		 
-	{
-		Name = "Hammer_Staff_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_08"
-	}
-	{
-		Name = "Hammer_Staff_08_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_08"
-	}
-		 
-	{
-		Name = "Hammer_Staff_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_09"
-	}
-	{
-		Name = "Hammer_Staff_09_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_09"
-	}
-		 
-	{
-		Name = "Hammer_Staff_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_10"
-	}
-	{
-		Name = "Hammer_Staff_10_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_10"
-	}
-		 
-	{
-		Name = "Hammer_Staff_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_11"
-	}
-	{
-		Name = "Hammer_Staff_11_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_11"
-	}
-		 
-	{
-		Name = "Hammer_Staff_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_12"
-	}
-	{
-		Name = "Hammer_Staff_12_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_12"
-	}
-		 
-	{
-		Name = "Hammer_Staff_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_13"
-	}
-	{
-		Name = "Hammer_Staff_13_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_13"
-	}
-		 
-	{
-		Name = "Hammer_Staff_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_14"
-	}
-	{
-		Name = "Hammer_Staff_14_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_14"
-	}
-		 
-	{
-		Name = "Hammer_Staff_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_15"
-	}
-	{
-		Name = "Hammer_Staff_15_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_15"
-	}
-		 
-	{
-		Name = "Hammer_Staff_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_16"
-	}
-	{
-		Name = "Hammer_Staff_16_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_16"
-	}
-		 
-	{
-		Name = "Hammer_Staff_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_17"
-	}
-	{
-		Name = "Hammer_Staff_17_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_17"
-	}
-		 
-	{
-		Name = "Hammer_Staff_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_18"
-	}
-	{
-		Name = "Hammer_Staff_18_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_18"
-	}
-		 
-	{
-		Name = "Hammer_Staff_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_19"
-	}
-	{
-		Name = "Hammer_Staff_19_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_19"
-	}
-		 
-	{
-		Name = "Hammer_Staff_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_20"
-	}
-	{
-		Name = "Hammer_Staff_20_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_20"
-	}
-		 
-	{
-		Name = "Hammer_Staff_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_21"
-	}
-	{
-		Name = "Hammer_Staff_21_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_21"
-	}
-		 
-	{
-		Name = "Hammer_Staff_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_22"
-	}
-	{
-		Name = "Hammer_Staff_22_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_22"
-	}
-		 
-	{
-		Name = "Hammer_Staff_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_23"
-	}
-	{
-		Name = "Hammer_Staff_23_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_23"
-	}
-		 
-	{
-		Name = "Hammer_Staff_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_24"
-	}
-	{
-		Name = "Hammer_Staff_24_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_24"
-	}
-		 
-	{
-		Name = "Hammer_Staff_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_25"
-	}
-	{
-		Name = "Hammer_Staff_25_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_25"
-	}
-		 
-	{
-		Name = "Hammer_Staff_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_26"
-	}
-	{
-		Name = "Hammer_Staff_26_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerStaff_26"
-	}
-
 	{
 		Name = "Hammer_Staff_27"
 		InheritFrom = "BoonIcon"
@@ -3758,6 +2149,31 @@
 		Name = "Hammer_Staff_41"
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\HammerStaff_41"
+	}
+	{
+		Name = "Hammer_Staff_42"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerStaff_42"
+	}
+	{
+		Name = "Hammer_Staff_43"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerStaff_43"
+	}
+	{
+		Name = "Hammer_Staff_44"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerStaff_44"
+	}
+	{
+		Name = "Hammer_Staff_45"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerStaff_45"
+	}
+	{
+		Name = "Hammer_Staff_46"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerStaff_46"
 	}
 
 	{
@@ -3849,291 +2265,35 @@
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\HammerSuit_15"
 	}
-		 
 	{
-		Name = "Hammer_Torch_01"
+		Name = "Hammer_Suit_16"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_01"
+		FilePath = "GUI\Screens\BoonIcons\HammerSuit_16"
 	}
 	{
-		Name = "Hammer_Torch_01_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_01"
-	}
-		 
-	{
-		Name = "Hammer_Torch_02"
+		Name = "Hammer_Suit_17"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_02"
+		FilePath = "GUI\Screens\BoonIcons\HammerSuit_17"
 	}
 	{
-		Name = "Hammer_Torch_02_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_02"
-	}
-		 
-	{
-		Name = "Hammer_Torch_03"
+		Name = "Hammer_Suit_18"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_03"
+		FilePath = "GUI\Screens\BoonIcons\HammerSuit_18"
 	}
 	{
-		Name = "Hammer_Torch_03_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_03"
-	}
-		 
-	{
-		Name = "Hammer_Torch_04"
+		Name = "Hammer_Suit_19"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_04"
+		FilePath = "GUI\Screens\BoonIcons\HammerSuit_19"
 	}
 	{
-		Name = "Hammer_Torch_04_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_04"
-	}
-		 
-	{
-		Name = "Hammer_Torch_05"
+		Name = "Hammer_Suit_20"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_05"
+		FilePath = "GUI\Screens\BoonIcons\HammerSuit_20"
 	}
 	{
-		Name = "Hammer_Torch_05_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_05"
-	}
-		 
-	{
-		Name = "Hammer_Torch_06"
+		Name = "Hammer_Suit_21"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_06"
-	}
-	{
-		Name = "Hammer_Torch_06_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_06"
-	}
-		 
-	{
-		Name = "Hammer_Torch_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_07"
-	}
-	{
-		Name = "Hammer_Torch_07_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_07"
-	}
-		 
-	{
-		Name = "Hammer_Torch_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_08"
-	}
-	{
-		Name = "Hammer_Torch_08_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_08"
-	}
-		 
-	{
-		Name = "Hammer_Torch_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_09"
-	}
-	{
-		Name = "Hammer_Torch_09_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_09"
-	}
-		 
-	{
-		Name = "Hammer_Torch_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_10"
-	}
-	{
-		Name = "Hammer_Torch_10_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_10"
-	}
-		 
-	{
-		Name = "Hammer_Torch_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_11"
-	}
-	{
-		Name = "Hammer_Torch_11_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_11"
-	}
-		 
-	{
-		Name = "Hammer_Torch_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_12"
-	}
-	{
-		Name = "Hammer_Torch_12_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_12"
-	}
-		 
-	{
-		Name = "Hammer_Torch_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_13"
-	}
-	{
-		Name = "Hammer_Torch_13_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_13"
-	}
-		 
-	{
-		Name = "Hammer_Torch_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_14"
-	}
-	{
-		Name = "Hammer_Torch_14_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_14"
-	}
-		 
-	{
-		Name = "Hammer_Torch_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_15"
-	}
-	{
-		Name = "Hammer_Torch_15_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_15"
-	}
-		 
-	{
-		Name = "Hammer_Torch_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_16"
-	}
-	{
-		Name = "Hammer_Torch_16_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_16"
-	}
-		 
-	{
-		Name = "Hammer_Torch_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_17"
-	}
-	{
-		Name = "Hammer_Torch_17_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_17"
-	}
-		 
-	{
-		Name = "Hammer_Torch_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_18"
-	}
-	{
-		Name = "Hammer_Torch_18_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_18"
-	}
-		 
-	{
-		Name = "Hammer_Torch_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_19"
-	}
-	{
-		Name = "Hammer_Torch_19_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_19"
-	}
-		 
-	{
-		Name = "Hammer_Torch_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_20"
-	}
-	{
-		Name = "Hammer_Torch_20_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_20"
-	}
-		 
-	{
-		Name = "Hammer_Torch_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_21"
-	}
-	{
-		Name = "Hammer_Torch_21_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_21"
-	}
-		 
-	{
-		Name = "Hammer_Torch_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_22"
-	}
-	{
-		Name = "Hammer_Torch_22_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_22"
-	}
-		 
-	{
-		Name = "Hammer_Torch_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_23"
-	}
-	{
-		Name = "Hammer_Torch_23_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_23"
-	}
-		 
-	{
-		Name = "Hammer_Torch_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_24"
-	}
-	{
-		Name = "Hammer_Torch_24_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_24"
-	}
-		 
-	{
-		Name = "Hammer_Torch_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_25"
-	}
-	{
-		Name = "Hammer_Torch_25_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_25"
-	}
-		 
-	{
-		Name = "Hammer_Torch_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_26"
-	}
-	{
-		Name = "Hammer_Torch_26_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\HammerTorch_26"
+		FilePath = "GUI\Screens\BoonIcons\HammerSuit_21"
 	}
 
 	{
@@ -4211,292 +2371,16 @@
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\HammerTorch_41"
 	}
-		 
 	{
-		Name = "Boon_Hephaestus_01"
+		Name = "Hammer_Torch_42"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_01"
-	}
+		FilePath = "GUI\Screens\BoonIcons\HammerTorch_42"
+	} 
 	{
-		Name = "Boon_Hephaestus_01_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_01"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_02"
+		Name = "Hammer_Torch_43"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_02"
-	}
-	{
-		Name = "Boon_Hephaestus_02_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_02"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_03"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_03"
-	}
-	{
-		Name = "Boon_Hephaestus_03_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_03"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_04"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_04"
-	}
-	{
-		Name = "Boon_Hephaestus_04_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_04"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_05"
-	}
-	{
-		Name = "Boon_Hephaestus_05_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_05"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_06"
-	}
-	{
-		Name = "Boon_Hephaestus_06_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_06"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_07"
-	}
-	{
-		Name = "Boon_Hephaestus_07_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_07"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_08"
-	}
-	{
-		Name = "Boon_Hephaestus_08_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_08"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_09"
-	}
-	{
-		Name = "Boon_Hephaestus_09_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_09"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_10"
-	}
-	{
-		Name = "Boon_Hephaestus_10_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_10"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_11"
-	}
-	{
-		Name = "Boon_Hephaestus_11_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_11"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_12"
-	}
-	{
-		Name = "Boon_Hephaestus_12_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_12"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_13"
-	}
-	{
-		Name = "Boon_Hephaestus_13_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_13"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_14"
-	}
-	{
-		Name = "Boon_Hephaestus_14_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_14"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_15"
-	}
-	{
-		Name = "Boon_Hephaestus_15_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_15"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_16"
-	}
-	{
-		Name = "Boon_Hephaestus_16_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_16"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_17"
-	}
-	{
-		Name = "Boon_Hephaestus_17_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_17"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_18"
-	}
-	{
-		Name = "Boon_Hephaestus_18_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_18"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_19"
-	}
-	{
-		Name = "Boon_Hephaestus_19_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_19"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_20"
-	}
-	{
-		Name = "Boon_Hephaestus_20_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_20"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_21"
-	}
-	{
-		Name = "Boon_Hephaestus_21_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_21"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_22"
-	}
-	{
-		Name = "Boon_Hephaestus_22_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_22"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_23"
-	}
-	{
-		Name = "Boon_Hephaestus_23_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_23"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_24"
-	}
-	{
-		Name = "Boon_Hephaestus_24_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_24"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_25"
-	}
-	{
-		Name = "Boon_Hephaestus_25_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_25"
-	}
-		 
-	{
-		Name = "Boon_Hephaestus_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_26"
-	}
-	{
-		Name = "Boon_Hephaestus_26_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hephaestus_26"
-	}
+		FilePath = "GUI\Screens\BoonIcons\HammerTorch_43"
+	} 
 
 	{
 		Name = "Boon_Hephaestus_27"
@@ -4582,292 +2466,6 @@
 	}
 		 
 	{
-		Name = "Boon_Hera_01"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_01"
-	}
-	{
-		Name = "Boon_Hera_01_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_01"
-	}
-		 
-	{
-		Name = "Boon_Hera_02"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_02"
-	}
-	{
-		Name = "Boon_Hera_02_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_02"
-	}
-		 
-	{
-		Name = "Boon_Hera_03"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_03"
-	}
-	{
-		Name = "Boon_Hera_03_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_03"
-	}
-		 
-	{
-		Name = "Boon_Hera_04"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_04"
-	}
-	{
-		Name = "Boon_Hera_04_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_04"
-	}
-		 
-	{
-		Name = "Boon_Hera_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_05"
-	}
-	{
-		Name = "Boon_Hera_05_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_05"
-	}
-		 
-	{
-		Name = "Boon_Hera_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_06"
-	}
-	{
-		Name = "Boon_Hera_06_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_06"
-	}
-		 
-	{
-		Name = "Boon_Hera_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_07"
-	}
-	{
-		Name = "Boon_Hera_07_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_07"
-	}
-		 
-	{
-		Name = "Boon_Hera_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_08"
-	}
-	{
-		Name = "Boon_Hera_08_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_08"
-	}
-		 
-	{
-		Name = "Boon_Hera_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_09"
-	}
-	{
-		Name = "Boon_Hera_09_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_09"
-	}
-		 
-	{
-		Name = "Boon_Hera_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_10"
-	}
-	{
-		Name = "Boon_Hera_10_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_10"
-	}
-		 
-	{
-		Name = "Boon_Hera_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_11"
-	}
-	{
-		Name = "Boon_Hera_11_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_11"
-	}
-		 
-	{
-		Name = "Boon_Hera_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_12"
-	}
-	{
-		Name = "Boon_Hera_12_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_12"
-	}
-		 
-	{
-		Name = "Boon_Hera_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_13"
-	}
-	{
-		Name = "Boon_Hera_13_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_13"
-	}
-		 
-	{
-		Name = "Boon_Hera_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_14"
-	}
-	{
-		Name = "Boon_Hera_14_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_14"
-	}
-		 
-	{
-		Name = "Boon_Hera_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_15"
-	}
-	{
-		Name = "Boon_Hera_15_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_15"
-	}
-		 
-	{
-		Name = "Boon_Hera_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_16"
-	}
-	{
-		Name = "Boon_Hera_16_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_16"
-	}
-		 
-	{
-		Name = "Boon_Hera_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_17"
-	}
-	{
-		Name = "Boon_Hera_17_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_17"
-	}
-		 
-	{
-		Name = "Boon_Hera_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_18"
-	}
-	{
-		Name = "Boon_Hera_18_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_18"
-	}
-		 
-	{
-		Name = "Boon_Hera_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_19"
-	}
-	{
-		Name = "Boon_Hera_19_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_19"
-	}
-		 
-	{
-		Name = "Boon_Hera_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_20"
-	}
-	{
-		Name = "Boon_Hera_20_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_20"
-	}
-		 
-	{
-		Name = "Boon_Hera_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_21"
-	}
-	{
-		Name = "Boon_Hera_21_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_21"
-	}
-		 
-	{
-		Name = "Boon_Hera_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_22"
-	}
-	{
-		Name = "Boon_Hera_22_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_22"
-	}
-		 
-	{
-		Name = "Boon_Hera_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_23"
-	}
-	{
-		Name = "Boon_Hera_23_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_23"
-	}
-		 
-	{
-		Name = "Boon_Hera_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_24"
-	}
-	{
-		Name = "Boon_Hera_24_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_24"
-	}
-		 
-	{
-		Name = "Boon_Hera_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_25"
-	}
-	{
-		Name = "Boon_Hera_25_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_25"
-	}
-		 
-	{
-		Name = "Boon_Hera_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_26"
-	}
-	{
-		Name = "Boon_Hera_26_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hera_26"
-	}
-
-	{
 		Name = "Boon_Hera_27"
 		InheritFrom = "BoonTrayIcon"
 		FilePath = "GUI\Screens\BoonIcons\Hera_27"
@@ -4951,291 +2549,6 @@
 		FilePath = "GUI\Screens\BoonIcons\Hera_48"
 	}
 		 
-	{
-		Name = "Boon_Hermes_01"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_01"
-	}
-	{
-		Name = "Boon_Hermes_01_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_01"
-	}
-		 
-	{
-		Name = "Boon_Hermes_02"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_02"
-	}
-	{
-		Name = "Boon_Hermes_02_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_02"
-	}
-		 
-	{
-		Name = "Boon_Hermes_03"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_03"
-	}
-	{
-		Name = "Boon_Hermes_03_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_03"
-	}
-		 
-	{
-		Name = "Boon_Hermes_04"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_04"
-	}
-	{
-		Name = "Boon_Hermes_04_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_04"
-	}
-		 
-	{
-		Name = "Boon_Hermes_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_05"
-	}
-	{
-		Name = "Boon_Hermes_05_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_05"
-	}
-		 
-	{
-		Name = "Boon_Hermes_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_06"
-	}
-	{
-		Name = "Boon_Hermes_06_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_06"
-	}
-		 
-	{
-		Name = "Boon_Hermes_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_07"
-	}
-	{
-		Name = "Boon_Hermes_07_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_07"
-	}
-		 
-	{
-		Name = "Boon_Hermes_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_08"
-	}
-	{
-		Name = "Boon_Hermes_08_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_08"
-	}
-		 
-	{
-		Name = "Boon_Hermes_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_09"
-	}
-	{
-		Name = "Boon_Hermes_09_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_09"
-	}
-		 
-	{
-		Name = "Boon_Hermes_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_10"
-	}
-	{
-		Name = "Boon_Hermes_10_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_10"
-	}
-		 
-	{
-		Name = "Boon_Hermes_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_11"
-	}
-	{
-		Name = "Boon_Hermes_11_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_11"
-	}
-		 
-	{
-		Name = "Boon_Hermes_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_12"
-	}
-	{
-		Name = "Boon_Hermes_12_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_12"
-	}
-		 
-	{
-		Name = "Boon_Hermes_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_13"
-	}
-	{
-		Name = "Boon_Hermes_13_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_13"
-	}
-		 
-	{
-		Name = "Boon_Hermes_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_14"
-	}
-	{
-		Name = "Boon_Hermes_14_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_14"
-	}
-		 
-	{
-		Name = "Boon_Hermes_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_15"
-	}
-	{
-		Name = "Boon_Hermes_15_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_15"
-	}
-		 
-	{
-		Name = "Boon_Hermes_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_16"
-	}
-	{
-		Name = "Boon_Hermes_16_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_16"
-	}
-		 
-	{
-		Name = "Boon_Hermes_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_17"
-	}
-	{
-		Name = "Boon_Hermes_17_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_17"
-	}
-		 
-	{
-		Name = "Boon_Hermes_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_18"
-	}
-	{
-		Name = "Boon_Hermes_18_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_18"
-	}
-		 
-	{
-		Name = "Boon_Hermes_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_19"
-	}
-	{
-		Name = "Boon_Hermes_19_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_19"
-	}
-		 
-	{
-		Name = "Boon_Hermes_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_20"
-	}
-	{
-		Name = "Boon_Hermes_20_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_20"
-	}
-		 
-	{
-		Name = "Boon_Hermes_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_21"
-	}
-	{
-		Name = "Boon_Hermes_21_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_21"
-	}
-		 
-	{
-		Name = "Boon_Hermes_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_22"
-	}
-	{
-		Name = "Boon_Hermes_22_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_22"
-	}
-		 
-	{
-		Name = "Boon_Hermes_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_23"
-	}
-	{
-		Name = "Boon_Hermes_23_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_23"
-	}
-		 
-	{
-		Name = "Boon_Hermes_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_24"
-	}
-	{
-		Name = "Boon_Hermes_24_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_24"
-	}
-		 
-	{
-		Name = "Boon_Hermes_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_25"
-	}
-	{
-		Name = "Boon_Hermes_25_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_25"
-	}
-		 
-	{
-		Name = "Boon_Hermes_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_26"
-	}
-	{
-		Name = "Boon_Hermes_26_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hermes_26"
-	}
 
 	{
 		Name = "Boon_Hermes_27"
@@ -5333,292 +2646,6 @@
 		Name = "Boon_Hermes_42"
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\Hermes_42"
-	}
-
-	{
-		Name = "Boon_Hestia_01"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_01"
-	}
-	{
-		Name = "Boon_Hestia_01_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_01"
-	}
-		 
-	{
-		Name = "Boon_Hestia_02"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_02"
-	}
-	{
-		Name = "Boon_Hestia_02_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_02"
-	}
-		 
-	{
-		Name = "Boon_Hestia_03"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_03"
-	}
-	{
-		Name = "Boon_Hestia_03_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_03"
-	}
-		 
-	{
-		Name = "Boon_Hestia_04"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_04"
-	}
-	{
-		Name = "Boon_Hestia_04_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_04"
-	}
-		 
-	{
-		Name = "Boon_Hestia_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_05"
-	}
-	{
-		Name = "Boon_Hestia_05_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_05"
-	}
-		 
-	{
-		Name = "Boon_Hestia_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_06"
-	}
-	{
-		Name = "Boon_Hestia_06_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_06"
-	}
-		 
-	{
-		Name = "Boon_Hestia_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_07"
-	}
-	{
-		Name = "Boon_Hestia_07_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_07"
-	}
-		 
-	{
-		Name = "Boon_Hestia_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_08"
-	}
-	{
-		Name = "Boon_Hestia_08_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_08"
-	}
-		 
-	{
-		Name = "Boon_Hestia_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_09"
-	}
-	{
-		Name = "Boon_Hestia_09_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_09"
-	}
-		 
-	{
-		Name = "Boon_Hestia_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_10"
-	}
-	{
-		Name = "Boon_Hestia_10_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_10"
-	}
-		 
-	{
-		Name = "Boon_Hestia_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_11"
-	}
-	{
-		Name = "Boon_Hestia_11_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_11"
-	}
-		 
-	{
-		Name = "Boon_Hestia_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_12"
-	}
-	{
-		Name = "Boon_Hestia_12_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_12"
-	}
-		 
-	{
-		Name = "Boon_Hestia_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_13"
-	}
-	{
-		Name = "Boon_Hestia_13_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_13"
-	}
-		 
-	{
-		Name = "Boon_Hestia_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_14"
-	}
-	{
-		Name = "Boon_Hestia_14_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_14"
-	}
-		 
-	{
-		Name = "Boon_Hestia_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_15"
-	}
-	{
-		Name = "Boon_Hestia_15_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_15"
-	}
-		 
-	{
-		Name = "Boon_Hestia_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_16"
-	}
-	{
-		Name = "Boon_Hestia_16_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_16"
-	}
-		 
-	{
-		Name = "Boon_Hestia_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_17"
-	}
-	{
-		Name = "Boon_Hestia_17_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_17"
-	}
-		 
-	{
-		Name = "Boon_Hestia_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_18"
-	}
-	{
-		Name = "Boon_Hestia_18_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_18"
-	}
-		 
-	{
-		Name = "Boon_Hestia_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_19"
-	}
-	{
-		Name = "Boon_Hestia_19_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_19"
-	}
-		 
-	{
-		Name = "Boon_Hestia_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_20"
-	}
-	{
-		Name = "Boon_Hestia_20_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_20"
-	}
-		 
-	{
-		Name = "Boon_Hestia_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_21"
-	}
-	{
-		Name = "Boon_Hestia_21_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_21"
-	}
-		 
-	{
-		Name = "Boon_Hestia_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_22"
-	}
-	{
-		Name = "Boon_Hestia_22_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_22"
-	}
-		 
-	{
-		Name = "Boon_Hestia_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_23"
-	}
-	{
-		Name = "Boon_Hestia_23_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_23"
-	}
-		 
-	{
-		Name = "Boon_Hestia_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_24"
-	}
-	{
-		Name = "Boon_Hestia_24_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_24"
-	}
-		 
-	{
-		Name = "Boon_Hestia_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_25"
-	}
-	{
-		Name = "Boon_Hestia_25_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_25"
-	}
-		 
-	{
-		Name = "Boon_Hestia_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_26"
-	}
-	{
-		Name = "Boon_Hestia_26_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Hestia_26"
 	}
 
 	{
@@ -5789,6 +2816,12 @@
 	}
 
 	{
+		Name = "Boon_Icarus_08"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Icarus_08"
+	}
+
+	{
 		Name = "Boon_Medea_01"
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\Medea_01"
@@ -5828,6 +2861,12 @@
 		Name = "Boon_Medea_07"
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\Medea_07"
+	}
+
+	{
+		Name = "Boon_Medea_08"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Medea_08"
 	}
 
 	{
@@ -5876,292 +2915,6 @@
 		FilePath = "GUI\Screens\BoonIcons\Narcissus_09"
 	}
 		 
-	{
-		Name = "Boon_Poseidon_01"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_01"
-	}
-	{
-		Name = "Boon_Poseidon_01_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_01"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_02"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_02"
-	}
-	{
-		Name = "Boon_Poseidon_02_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_02"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_03"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_03"
-	}
-	{
-		Name = "Boon_Poseidon_03_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_03"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_04"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_04"
-	}
-	{
-		Name = "Boon_Poseidon_04_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_04"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_05"
-	}
-	{
-		Name = "Boon_Poseidon_05_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_05"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_06"
-	}
-	{
-		Name = "Boon_Poseidon_06_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_06"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_07"
-	}
-	{
-		Name = "Boon_Poseidon_07_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_07"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_08"
-	}
-	{
-		Name = "Boon_Poseidon_08_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_08"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_09"
-	}
-	{
-		Name = "Boon_Poseidon_09_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_09"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_10"
-	}
-	{
-		Name = "Boon_Poseidon_10_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_10"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_11"
-	}
-	{
-		Name = "Boon_Poseidon_11_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_11"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_12"
-	}
-	{
-		Name = "Boon_Poseidon_12_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_12"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_13"
-	}
-	{
-		Name = "Boon_Poseidon_13_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_13"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_14"
-	}
-	{
-		Name = "Boon_Poseidon_14_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_14"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_15"
-	}
-	{
-		Name = "Boon_Poseidon_15_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_15"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_16"
-	}
-	{
-		Name = "Boon_Poseidon_16_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_16"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_17"
-	}
-	{
-		Name = "Boon_Poseidon_17_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_17"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_18"
-	}
-	{
-		Name = "Boon_Poseidon_18_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_18"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_19"
-	}
-	{
-		Name = "Boon_Poseidon_19_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_19"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_20"
-	}
-	{
-		Name = "Boon_Poseidon_20_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_20"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_21"
-	}
-	{
-		Name = "Boon_Poseidon_21_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_21"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_22"
-	}
-	{
-		Name = "Boon_Poseidon_22_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_22"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_23"
-	}
-	{
-		Name = "Boon_Poseidon_23_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_23"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_24"
-	}
-	{
-		Name = "Boon_Poseidon_24_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_24"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_25"
-	}
-	{
-		Name = "Boon_Poseidon_25_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_25"
-	}
-		 
-	{
-		Name = "Boon_Poseidon_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_26"
-	}
-	{
-		Name = "Boon_Poseidon_26_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Poseidon_26"
-	}
-
 	{
 		Name = "Boon_Poseidon_27"
 		InheritFrom = "BoonIcon"
@@ -6264,292 +3017,6 @@
 		FilePath = "GUI\Screens\BoonIcons\Poseidon_46"
 	}
 		 
-	{
-		Name = "Boon_Selene_01"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_01"
-	}
-	{
-		Name = "Boon_Selene_01_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_01"
-	}
-		 
-	{
-		Name = "Boon_Selene_02"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_02"
-	}
-	{
-		Name = "Boon_Selene_02_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_02"
-	}
-		 
-	{
-		Name = "Boon_Selene_03"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_03"
-	}
-	{
-		Name = "Boon_Selene_03_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_03"
-	}
-		 
-	{
-		Name = "Boon_Selene_04"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_04"
-	}
-	{
-		Name = "Boon_Selene_04_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_04"
-	}
-		 
-	{
-		Name = "Boon_Selene_05"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_05"
-	}
-	{
-		Name = "Boon_Selene_05_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_05"
-	}
-		 
-	{
-		Name = "Boon_Selene_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_06"
-	}
-	{
-		Name = "Boon_Selene_06_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_06"
-	}
-		 
-	{
-		Name = "Boon_Selene_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_07"
-	}
-	{
-		Name = "Boon_Selene_07_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_07"
-	}
-		 
-	{
-		Name = "Boon_Selene_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_08"
-	}
-	{
-		Name = "Boon_Selene_08_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_08"
-	}
-		 
-	{
-		Name = "Boon_Selene_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_09"
-	}
-	{
-		Name = "Boon_Selene_09_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_09"
-	}
-		 
-	{
-		Name = "Boon_Selene_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_10"
-	}
-	{
-		Name = "Boon_Selene_10_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_10"
-	}
-		 
-	{
-		Name = "Boon_Selene_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_11"
-	}
-	{
-		Name = "Boon_Selene_11_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_11"
-	}
-		 
-	{
-		Name = "Boon_Selene_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_12"
-	}
-	{
-		Name = "Boon_Selene_12_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_12"
-	}
-		 
-	{
-		Name = "Boon_Selene_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_13"
-	}
-	{
-		Name = "Boon_Selene_13_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_13"
-	}
-		 
-	{
-		Name = "Boon_Selene_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_14"
-	}
-	{
-		Name = "Boon_Selene_14_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_14"
-	}
-		 
-	{
-		Name = "Boon_Selene_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_15"
-	}
-	{
-		Name = "Boon_Selene_15_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_15"
-	}
-		 
-	{
-		Name = "Boon_Selene_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_16"
-	}
-	{
-		Name = "Boon_Selene_16_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_16"
-	}
-		 
-	{
-		Name = "Boon_Selene_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_17"
-	}
-	{
-		Name = "Boon_Selene_17_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_17"
-	}
-		 
-	{
-		Name = "Boon_Selene_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_18"
-	}
-	{
-		Name = "Boon_Selene_18_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_18"
-	}
-		 
-	{
-		Name = "Boon_Selene_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_19"
-	}
-	{
-		Name = "Boon_Selene_19_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_19"
-	}
-		 
-	{
-		Name = "Boon_Selene_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_20"
-	}
-	{
-		Name = "Boon_Selene_20_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_20"
-	}
-		 
-	{
-		Name = "Boon_Selene_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_21"
-	}
-	{
-		Name = "Boon_Selene_21_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_21"
-	}
-		 
-	{
-		Name = "Boon_Selene_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_22"
-	}
-	{
-		Name = "Boon_Selene_22_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_22"
-	}
-		 
-	{
-		Name = "Boon_Selene_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_23"
-	}
-	{
-		Name = "Boon_Selene_23_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_23"
-	}
-		 
-	{
-		Name = "Boon_Selene_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_24"
-	}
-	{
-		Name = "Boon_Selene_24_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_24"
-	}
-		 
-	{
-		Name = "Boon_Selene_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_25"
-	}
-	{
-		Name = "Boon_Selene_25_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_25"
-	}
-		 
-	{
-		Name = "Boon_Selene_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_26"
-	}
-	{
-		Name = "Boon_Selene_26_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_26"
-	}
-
 	{
 		Name = "Boon_Selene_27"
 		InheritFrom = "BoonIcon"
@@ -6951,11 +3418,6 @@
 		FilePath = "GUI\Screens\BoonIcons\Selene_106"
 	}
 	{
-		Name = "Boon_Selene_107"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Selene_107"
-	}
-	{
 		Name = "Boon_Selene_108"
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\Selene_108"
@@ -7030,293 +3492,57 @@
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\Selene_122"
 	}
-		 
 	{
-		Name = "Boon_Zeus_01"
+		Name = "Boon_Selene_123"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_01"
+		FilePath = "GUI\Screens\BoonIcons\Selene_123"
 	}
 	{
-		Name = "Boon_Zeus_01_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_01"
-	}
-		 
-	{
-		Name = "Boon_Zeus_02"
+		Name = "Boon_Selene_124"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_02"
+		FilePath = "GUI\Screens\BoonIcons\Selene_124"
 	}
 	{
-		Name = "Boon_Zeus_02_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_02"
-	}
-		 
-	{
-		Name = "Boon_Zeus_03"
+		Name = "Boon_Selene_125"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_03"
+		FilePath = "GUI\Screens\BoonIcons\Selene_125"
 	}
 	{
-		Name = "Boon_Zeus_03_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_03"
-	}
-		 
-	{
-		Name = "Boon_Zeus_04"
+		Name = "Boon_Selene_126"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_04"
+		FilePath = "GUI\Screens\BoonIcons\Selene_126"
 	}
 	{
-		Name = "Boon_Zeus_04_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_04"
-	}
-		 
-	{
-		Name = "Boon_Zeus_05"
+		Name = "Boon_Selene_127"
 		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_05"
+		FilePath = "GUI\Screens\BoonIcons\Selene_127"
 	}
 	{
-		Name = "Boon_Zeus_05_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_05"
+		Name = "Boon_Selene_128"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Selene_128"
+	}
+	{
+		Name = "Boon_Selene_129"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Selene_129"
+	}
+	{
+		Name = "Boon_Selene_130"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Selene_130"
+	}
+	{
+		Name = "Boon_Selene_131"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Selene_131"
+	}
+	{
+		Name = "Boon_Selene_132"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Selene_132"
 	}
 		 
-	{
-		Name = "Boon_Zeus_06"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_06"
-	}
-	{
-		Name = "Boon_Zeus_06_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_06"
-	}
-		 
-	{
-		Name = "Boon_Zeus_07"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_07"
-	}
-	{
-		Name = "Boon_Zeus_07_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_07"
-	}
-		 
-	{
-		Name = "Boon_Zeus_08"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_08"
-	}
-	{
-		Name = "Boon_Zeus_08_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_08"
-	}
-		 
-	{
-		Name = "Boon_Zeus_09"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_09"
-	}
-	{
-		Name = "Boon_Zeus_09_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_09"
-	}
-		 
-	{
-		Name = "Boon_Zeus_10"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_10"
-	}
-	{
-		Name = "Boon_Zeus_10_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_10"
-	}
-		 
-	{
-		Name = "Boon_Zeus_11"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_11"
-	}
-	{
-		Name = "Boon_Zeus_11_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_11"
-	}
-		 
-	{
-		Name = "Boon_Zeus_12"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_12"
-	}
-	{
-		Name = "Boon_Zeus_12_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_12"
-	}
-		 
-	{
-		Name = "Boon_Zeus_13"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_13"
-	}
-	{
-		Name = "Boon_Zeus_13_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_13"
-	}
-		 
-	{
-		Name = "Boon_Zeus_14"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_14"
-	}
-	{
-		Name = "Boon_Zeus_14_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_14"
-	}
-		 
-	{
-		Name = "Boon_Zeus_15"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_15"
-	}
-	{
-		Name = "Boon_Zeus_15_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_15"
-	}
-		 
-	{
-		Name = "Boon_Zeus_16"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_16"
-	}
-	{
-		Name = "Boon_Zeus_16_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_16"
-	}
-		 
-	{
-		Name = "Boon_Zeus_17"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_17"
-	}
-	{
-		Name = "Boon_Zeus_17_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_17"
-	}
-		 
-	{
-		Name = "Boon_Zeus_18"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_18"
-	}
-	{
-		Name = "Boon_Zeus_18_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_18"
-	}
-		 
-	{
-		Name = "Boon_Zeus_19"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_19"
-	}
-	{
-		Name = "Boon_Zeus_19_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_19"
-	}
-		 
-	{
-		Name = "Boon_Zeus_20"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_20"
-	}
-	{
-		Name = "Boon_Zeus_20_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_20"
-	}
-		 
-	{
-		Name = "Boon_Zeus_21"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_21"
-	}
-	{
-		Name = "Boon_Zeus_21_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_21"
-	}
-		 
-	{
-		Name = "Boon_Zeus_22"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_22"
-	}
-	{
-		Name = "Boon_Zeus_22_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_22"
-	}
-		 
-	{
-		Name = "Boon_Zeus_23"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_23"
-	}
-	{
-		Name = "Boon_Zeus_23_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_23"
-	}
-		 
-	{
-		Name = "Boon_Zeus_24"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_24"
-	}
-	{
-		Name = "Boon_Zeus_24_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_24"
-	}
-		 
-	{
-		Name = "Boon_Zeus_25"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_25"
-	}
-	{
-		Name = "Boon_Zeus_25_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_25"
-	}
-		 
-	{
-		Name = "Boon_Zeus_26"
-		InheritFrom = "BoonIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_26"
-	}
-	{
-		Name = "Boon_Zeus_26_Small"
-		InheritFrom = "BoonTrayIcon"
-		FilePath = "GUI\Screens\BoonIcons\Zeus_26"
-	}
-
 	{
 		Name = "Boon_Zeus_27"
 		InheritFrom = "BoonIcon"
@@ -7453,7 +3679,11 @@
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\Trait_UnusedWeaponBonus"
 	}
-
+	{
+		Name = "Trait_UnusedWeaponBonus2"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Trait_UnusedWeaponBonus2"
+	}
 	{
 		Name = "Trait_SurfacePenalty"
 		InheritFrom = "BoonIcon"
@@ -7463,5 +3693,10 @@
 		Name = "Trait_StorePendingDeliveryItem"
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\Trait_StorePendingDeliveryItem"
+	}
+	{
+		Name = "Trait_InfernalContract"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\Trait_InfernalContract"
 	}
 ]}

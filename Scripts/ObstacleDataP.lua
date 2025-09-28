@@ -46,6 +46,28 @@ OverwriteTableKeys( ObstacleData, {
 
 		NemesisTeleport = true,
 
+		SetupEvents =
+		{
+			Append = true,
+			{
+				FunctionName = "OverwriteSelf",
+				Args =
+				{
+					ExitFunctionName = "OlympusChronosPortalExitPresentation",
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsAny = { "P_PostBoss01" },
+					},
+				},
+			},
+		},
+
 		ChooseRoomArgs =
 		{
 			RequireTags = { "Outdoor" },
@@ -93,7 +115,7 @@ OverwriteTableKeys( ObstacleData, {
 			},
 		},
 
-		ValueOptions =
+		BreakableValueOptions =
         {
 			{
                 Chance = 0.05,
@@ -349,6 +371,107 @@ OverwriteTableKeys( ObstacleData, {
 		},
 	},
 
+	NPC_SatyrGuest_Drink =
+	{
+		OnHitFunctionName = "SatyrGuestHitPresentation",
+		OnHitFunctionArgs =
+		{
+			OnHitAnimation = "NPCSatyr_Drink_OnHit",
+		},
+		OnHitVoiceLines =
+		{
+			{ GlobalVoiceLines = "SatyrGuestOnHitVoiceLines" },
+		},
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 50,
+			VoiceLines =
+			{
+				{ GlobalVoiceLines = "SatyrGuestSmallTalkVoiceLines" },
+			},
+		},
+	},
+	NPC_SatyrGuest_Sit =
+	{
+		OnHitVoiceLines =
+		{
+			{ GlobalVoiceLines = "SatyrGuestOnHitVoiceLines" },
+		},
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 50,
+			VoiceLines =
+			{
+				{ GlobalVoiceLines = "SatyrGuestSmallTalkVoiceLines" },
+			},
+		},
+	},
+	NPC_SatyrGuest_HandsBehindBack =
+	{
+		OnHitFunctionName = "SatyrGuestHitPresentation",
+		OnHitFunctionArgs =
+		{
+			OnHitAnimation = "NPCSatyr_Idle5_OnHit",
+		},
+		OnHitVoiceLines =
+		{
+			{ GlobalVoiceLines = "SatyrGuestOnHitVoiceLines" },
+		},
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 50,
+			VoiceLines =
+			{
+				{ GlobalVoiceLines = "SatyrGuestSmallTalkVoiceLines" },
+			},
+		},
+	},
+	NPC_SatyrGuest_Stand =
+	{
+		OnHitFunctionName = "SatyrGuestHitPresentation",
+		OnHitFunctionArgs =
+		{
+			OnHitAnimation = "NPCSatyr_Idle_OnHit",
+		},
+		OnHitVoiceLines =
+		{
+			{ GlobalVoiceLines = "SatyrGuestOnHitVoiceLines" },
+		},
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 50,
+			VoiceLines =
+			{
+				{ GlobalVoiceLines = "SatyrGuestSmallTalkVoiceLines" },
+			},
+		},
+	},
+	NPC_SatyrGuest_Dance =
+	{
+		OnHitFunctionName = "SatyrGuestHitPresentation",
+		OnHitFunctionArgs =
+		{
+			OnHitAnimation = "NPCSatyr_Dance_OnHit",
+		},
+		OnHitVoiceLines =
+		{
+			{ GlobalVoiceLines = "SatyrGuestOnHitVoiceLines" },
+		},
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 50,
+			VoiceLines =
+			{
+				{ GlobalVoiceLines = "SatyrGuestSmallTalkVoiceLines" },
+			},
+		},
+	},
+
 	OlympusCharoncrow01 =
 	{
 		InheritFrom = { "BaseIndestructibleHitFx" },
@@ -401,136 +524,526 @@ OverwriteTableKeys( ObstacleData, {
 				},
 			},
 		},
-
 	},
+
+	OlympusPalaceAthena01 =
+	{
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 250,
+			VoiceLines =
+			{
+				Queue = "Never",
+				{
+					UsePlayerSource = true,
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.33,
+					SkipCooldownCheckIfNonePlayed = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+					},
+
+					{ Cue = "/VO/MelinoeField_4253", Text = "Lady Athena..." },
+				},
+				{ GlobalVoiceLines = "PalaceObservationVoiceLines" },
+			},
+		},
+	},
+	OlympusPalaceDionysus01 =
+	{
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 250,
+			VoiceLines =
+			{
+				Queue = "Never",
+				{
+					UsePlayerSource = true,
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.33,
+					SkipCooldownCheckIfNonePlayed = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+					},
+
+					{ Cue = "/VO/MelinoeField_4254", Text = "Lord Dionysus..." },
+				},
+				{ GlobalVoiceLines = "PalaceObservationVoiceLines" },
+			},
+		},
+	},
+	-- spelled like the obstacle
+	OlympusPalaceAres =
+	{
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 250,
+			VoiceLines =
+			{
+				Queue = "Never",
+				{
+					UsePlayerSource = true,
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.33,
+					SkipCooldownCheckIfNonePlayed = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+					},
+
+					{ Cue = "/VO/MelinoeField_4255", Text = "Lord Ares..." },
+				},
+				{ GlobalVoiceLines = "PalaceObservationVoiceLines" },
+			},
+		},
+	},
+	-- spelled like the obstacle
+	OlympusPalaceHaephestus01 =
+	{
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 250,
+			VoiceLines =
+			{
+				Queue = "Never",
+				{
+					UsePlayerSource = true,
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.33,
+					SkipCooldownCheckIfNonePlayed = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+					},
+
+					{ Cue = "/VO/MelinoeField_4256", Text = "Lord Hephaestus..." },
+				},
+				{ GlobalVoiceLines = "PalaceObservationVoiceLines" },
+			},
+		},
+	},
+	OlympusPalaceAphrodite01 =
+	{
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 250,
+			VoiceLines =
+			{
+				Queue = "Never",
+				{
+					UsePlayerSource = true,
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.33,
+					SkipCooldownCheckIfNonePlayed = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+					},
+
+					{ Cue = "/VO/MelinoeField_4257", Text = "Lady Aphrodite..." },
+				},
+				{ GlobalVoiceLines = "PalaceObservationVoiceLines" },
+			},
+		},
+	},
+	OlympusPalaceArtemis01 =
+	{
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 250,
+			VoiceLines =
+			{
+				Queue = "Never",
+				{
+					UsePlayerSource = true,
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.33,
+					SkipCooldownCheckIfNonePlayed = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+					},
+
+					{ Cue = "/VO/MelinoeField_4258", Text = "Artemis..." },
+				},
+				{ GlobalVoiceLines = "PalaceObservationVoiceLines" },
+			},
+		},
+	},
+	OlympusPalaceApollo01 =
+	{
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 250,
+			VoiceLines =
+			{
+				Queue = "Never",
+				{
+					UsePlayerSource = true,
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.33,
+					SkipCooldownCheckIfNonePlayed = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+					},
+
+					{ Cue = "/VO/MelinoeField_4259", Text = "Lord Apollo..." },
+				},
+				{ GlobalVoiceLines = "PalaceObservationVoiceLines" },
+			},
+		},
+	},
+	OlympusPalaceHermes01 =
+	{
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 250,
+			VoiceLines =
+			{
+				Queue = "Never",
+				{
+					UsePlayerSource = true,
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.33,
+					SkipCooldownCheckIfNonePlayed = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+					},
+
+					{ Cue = "/VO/MelinoeField_4260", Text = "Lord Hermes..." },
+				},
+				{ GlobalVoiceLines = "PalaceObservationVoiceLines" },
+			},
+		},
+	},
+	OlympusPalaceDemeter01 =
+	{
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 250,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+					IsNone = { "I" },
+				},
+			},
+			VoiceLines =
+			{
+				Queue = "Never",
+				{
+					UsePlayerSource = true,
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.33,
+					SkipCooldownCheckIfNonePlayed = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+					},
+
+					{ Cue = "/VO/MelinoeField_4261", Text = "Grandmother..." },
+				},
+				-- { GlobalVoiceLines = "PalaceObservationVoiceLines" },
+			},
+		},
+	},
+	OlympusPalacePoseidon01 =
+	{
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 250,
+			VoiceLines =
+			{
+				Queue = "Never",
+				{
+					UsePlayerSource = true,
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.33,
+					SkipCooldownCheckIfNonePlayed = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+					},
+
+					{ Cue = "/VO/MelinoeField_4262", Text = "Uncle Poseidon..." },
+				},
+				-- { GlobalVoiceLines = "PalaceObservationVoiceLines" },
+			},
+		},
+	},
+	OlympusPalaceHestia01 =
+	{
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 250,
+			VoiceLines =
+			{
+				Queue = "Never",
+				{
+					UsePlayerSource = true,
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.33,
+					SkipCooldownCheckIfNonePlayed = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+					},
+
+					{ Cue = "/VO/MelinoeField_4263", Text = "Great-Auntie Hestia..." },
+				},
+				-- { GlobalVoiceLines = "PalaceObservationVoiceLines" },
+			},
+		},
+	},
+	OlympusPalaceZeus01 =
+	{
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 250,
+			VoiceLines =
+			{
+				Queue = "Never",
+				{
+					UsePlayerSource = true,
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.33,
+					SkipCooldownCheckIfNonePlayed = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+					},
+
+					{ Cue = "/VO/MelinoeField_4264", Text = "Lord Uncle Zeus..." },
+				},
+				-- { GlobalVoiceLines = "PalaceObservationVoiceLines" },
+			},
+		},
+	},
+	OlympusPalaceHera01 =
+	{
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 250,
+			VoiceLines =
+			{
+				Queue = "Never",
+				{
+					UsePlayerSource = true,
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.33,
+					SkipCooldownCheckIfNonePlayed = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
+					},
+
+					{ Cue = "/VO/MelinoeField_4265", Text = "Queen Hera..." },
+				},
+				-- { GlobalVoiceLines = "PalaceObservationVoiceLines" },
+			},
+		},
+	},
+
 
 	-- Olympus Traps
 	StatueTrap_Zeus =
 	{
-		--[[InheritFrom = { "BaseTrap" },
-		
-		WakeUpDelayMin = 10.0,
-		WakeUpDelayMax = 15.0,
-
-		DefaultAIData = {
-			DeepInheritance = true,
-			
-			IdleAnimation = "ZeusStatueIdle",
-			DisabledAnimation = "ZeusStatueIdle",
-			
-			AttackDistance = 9999,
-			MoveWithinRange = false,
-		},
-
-		WeaponOptions =
+		OnUsedGameStateRequirements =
 		{
-			"ZeusStatueLightningStorm2"
+			{
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeOlympusStatues" },
+			}
 		},
 
-		AIOptions =
+		PlayerTrap = true,
+		OnUsedFunctionName = "UseGodStatueTrap",
+		UseText = "UseStatue",
+
+		DefaultAIData = {},
+
+		WeaponName = "ZeusStatueChasingStorm",
+		MaxUses = 1,
+		DepletedAnimation = "ZeusStatueDepleted",
+		SetupEvents =
 		{
-			"EmptyAI",
+			{
+				FunctionName = "SetDepletedAnimIfUnuseable",
+			},
 		},
-		ToggleTrap = true,]]
 
 		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15 },
 		OnHitShakeRequireAttackerGroup = "ChronosForces",
+
+		InteractVoiceLines =
+		{
+			Cooldowns =
+			{
+				{ Name = "UsedOlympusStatueRecently", Time = 20 },
+			},
+			{
+				-- RandomRemaining = true,
+				-- PlayOnceFromTableThisRun = true,
+				SuccessiveChanceToPlay = 0.75,
+				BreakIfPlayed = true,
+				PreLineWait = 0.2,
+
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
+
+				{ Cue = "/VO/MelinoeField_2994", Text = "Lord Zeus!" },
+			},
+			{ GlobalVoiceLines = "StatueActivatedVoiceLines" },
+		},
+
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 650,
+			RecheckRequirementsPostWait = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeOlympusStatues" },
+				},
+				{
+					PathFalse = { "GameState", "SpeechRecord", "/VO/MelinoeField_2993" }
+				},
+				{
+					Path = { "RequiredKillEnemies" },
+					UseLength = true,
+					Comparison = ">",
+					Value = 0,
+				},
+			},
+			VoiceLines = { GlobalVoiceLines = "ActiveStatueSpottedVoiceLines" },
+		},
+
 	},
 
 	StatueTrap_Hestia =
 	{
-		--[[InheritFrom = { "BaseTrap" },
-		
-		WakeUpDelayMin = 10.0,
-		WakeUpDelayMax = 15.0,
+		InheritFrom = { "StatueTrap_Zeus" },
 
-		DefaultAIData = {
-			DeepInheritance = true,
-			
-			IdleAnimation = "HestiaStatueIdle",
-			DisabledAnimation = "HestiaStatueIdle",
-			
-			AttackDistance = 9999,
-			MoveWithinRange = false,
-		},
+		WeaponName = "HestiaStatueFireballs",
+		DepletedAnimation = "HestiaStatueDepleted",
 
-		WeaponOptions =
+		InteractVoiceLines =
 		{
-			"HestiaStatueFireBalls",
-		},
+			Cooldowns =
+			{
+				{ Name = "UsedOlympusStatueRecently", Time = 20 },
+			},
+			{
+				-- RandomRemaining = true,
+				-- PlayOnceFromTableThisRun = true,
+				SuccessiveChanceToPlay = 0.75,
+				BreakIfPlayed = true,
+				PreLineWait = 0.2,
 
-		AIOptions =
-		{
-			"EmptyAI",
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
+
+				{ Cue = "/VO/MelinoeField_2997", Text = "Lady Hestia!" },
+			},
+			{ GlobalVoiceLines = "StatueActivatedVoiceLines" },
 		},
-		ToggleTrap = true,]]
-		
-		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15 },
-		OnHitShakeRequireAttackerGroup = "ChronosForces",
 	},
 
 	StatueTrap_Demeter =
 	{
-		--[[InheritFrom = { "BaseTrap" },
-		
-		WakeUpDelayMin = 10.0,
-		WakeUpDelayMax = 15.0,
+		InheritFrom = { "StatueTrap_Zeus" },
 
-		DefaultAIData = {
-			DeepInheritance = true,
+		WeaponName = "DemeterStatueFrostStorm",
+		DepletedAnimation = "DemeterStatueDepleted",
 
-			IdleAnimation = "DemeterStatueIdle",
-			DisabledAnimation = "DemeterStatueIdle",
-			
-			AttackDistance = 9999,
-			MoveWithinRange = false,
-		},
-
-		WeaponOptions =
+		InteractVoiceLines =
 		{
-			"DemeterStatueFrostStorm",
-		},
+			Cooldowns =
+			{
+				{ Name = "UsedOlympusStatueRecently", Time = 20 },
+			},
+			{
+				-- RandomRemaining = true,
+				-- PlayOnceFromTableThisRun = true,
+				SuccessiveChanceToPlay = 0.75,
+				BreakIfPlayed = true,
+				PreLineWait = 0.2,
 
-		AIOptions =
-		{
-			"EmptyAI",
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
+
+				{ Cue = "/VO/MelinoeField_2996", Text = "Lady Demeter!" },
+			},
+			{ GlobalVoiceLines = "StatueActivatedVoiceLines" },
 		},
-		ToggleTrap = true,]]
-		
-		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15 },
-		OnHitShakeRequireAttackerGroup = "ChronosForces",
 	},
 
 	StatueTrap_Poseidon =
 	{
-		--[[InheritFrom = { "BaseTrap" },
+		InheritFrom = { "StatueTrap_Zeus" },
 		
-		WakeUpDelayMin = 10.0,
-		WakeUpDelayMax = 15.0,
+		WeaponName = "PoseidonStatueWave",
+		DepletedAnimation = "PoseidonStatueDepleted",
 
-		DefaultAIData = {
-			DeepInheritance = true,
-
-			IdleAnimation = "PoseidonStatueIdle",
-			DisabledAnimation = "PoseidonStatueIdle",
-			
-			AttackDistance = 9999,
-			MoveWithinRange = false,
-		},
-
-		WeaponOptions =
+		InteractVoiceLines =
 		{
-			"PoseidonStatueWave",
-		},
+			Cooldowns =
+			{
+				{ Name = "UsedOlympusStatueRecently", Time = 20 },
+			},
+			{
+				-- RandomRemaining = true,
+				-- PlayOnceFromTableThisRun = true,
+				SuccessiveChanceToPlay = 0.75,
+				BreakIfPlayed = true,
+				PreLineWait = 0.2,
 
-		AIOptions =
-		{
-			"EmptyAI",
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
+
+				{ Cue = "/VO/MelinoeField_2995", Text = "Lord Poseidon!" },
+			},
+			{ GlobalVoiceLines = "StatueActivatedVoiceLines" },
 		},
-		ToggleTrap = true,]]
-		
-		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15 },
-		OnHitShakeRequireAttackerGroup = "ChronosForces",
 	},
 
 })

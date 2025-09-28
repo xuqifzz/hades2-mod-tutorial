@@ -3,22 +3,22 @@ function KillHero( victim, triggerArgs )
 	
 	local killer = triggerArgs.AttackerTable
 
-	thread( CheckOnDeathPowers, victim, killer, triggerArgs.SourceWeapon )
-
 	for k, spawnThreadName in pairs( CurrentRun.CurrentRoom.SpawnThreads ) do
 		killTaggedThreads( spawnThreadName )
 	end
 	for wakeThreadName in pairs(SessionMapState.EnemySpawnDelays) do
 		killTaggedThreads( wakeThreadName )
 	end
+	MapState.BlockSpawns = true
 	CurrentRun.CurrentRoom.SpawnThreads = {}
 	killWaitUntilThreads( "RequiredKillEnemyKilledOrSpawned" )
 	killWaitUntilThreads( "AllRequiredKillEnemiesDead" )
-	killWaitUntilThreads( "AllEncounterEnemiesDead" )
+	killWaitUntilThreads( "RequiredEncounterEnemiesDead" )
 	killWaitUntilThreads( "RequiredEnemyKilled" )
 	killWaitUntilThreads( UIData.BoonMenuId )
 	ClearGameplayElapsedTimeMultipliers()
 	ClearPauseMenuTakeover()
+	Destroy({ Ids = GetIdsByType({ Names = { "ManaDropZeus", "PowerDrinkDrop" }})})
 
 	EndAmbience( 0.5 )
 	EndMusic( AudioState.MusicId, AudioState.MusicName, triggerArgs.MusicEndTime or 0.0 )
@@ -36,26 +36,28 @@ function KillHero( victim, triggerArgs )
 	GameState.LastKilledByName = killedByName or GameState.LastKilledByName
 
 	if GetConfigOptionValue({ Name = "EditingMode" }) then
-		SetAnimation({ Name = "ZagreusDeadStartBlood", DestinationId = CurrentRun.Hero.ObjectId })
 		return
 	end
 
 	AddTimerBlock( CurrentRun, "HandleDeath" )
 	if ActiveScreens.TraitTrayScreen ~= nil then
-		TraitTrayScreenClose( ActiveScreens.TraitTrayScreen )
+		TraitTrayScreenClose( ActiveScreens.TraitTrayScreen, nil, { IgnoreHUDShow = true } )
 	end
 	ClearHealthShroud()
-	if SessionMapState.SpellWorldReadyFxId then
-		Destroy({ Id = SessionMapState.SpellWorldReadyFxId })
+	if SessionMapState.SpellWorldReadyFx then
+		SessionMapState.SpellWorldReadyFx = nil
+		StopAnimation({ Names = { "SorceryReadyMoonLoopIn", "SorceryReadyMoonLoop" }, DestinationId = CurrentRun.Hero.ObjectId, PreventChain = true })
 	end
 	SessionMapState.HandlingDeath = true
 	CurrentRun.Hero.IsDead = true
 	CurrentRun.ActiveBiomeTimer = false
-	CurrentRun.ActiveBiomeTimerKeepsake = false
 	CurrentRun.SaveFirstKeepsakeSwapped = false
 
-	if ShouldIncrementEasyMode() then
+	if ShouldIncrementEasyMode() and not EasyModeIsAtCap() then
 		GameState.EasyModeLevel = GameState.EasyModeLevel + 1
+		CurrentRun.EasyModeIncremented = true
+		GameState.EasyModeHadMaxPresentation = false
+		SetConfigOption({ Name = "EasyModeIncremented", Value = true })
 	end
 	if not CurrentRun.Cleared then -- Already recorded if cleared
 		RecordRunStats()
@@ -67,34 +69,54 @@ function KillHero( victim, triggerArgs )
 
 	ResetObjectives()
 
-	if killer.Name ~= nil and killer.ObjectId ~= nil and not killer.SkipModifiers and not killer.ExcludeCauseOfDeath then
-		GameState.CauseOfDeath = GetGenusName( killer )
+	if not CurrentRun.BountyCleared then
+		if CurrentRun.ActiveBounty ~= nil then
+			GameState.PackagedBountyClearStreak[CurrentRun.ActiveBounty] = 0
+			if BountyData[CurrentRun.ActiveBounty].RandomBountyStreakEligible then
+				GameState.RandomBountyClearStreak = 0
+			end
+		end
+		if not CurrentRun.Cleared  then
+			if CurrentRun.CurrentRoom.BackupCauseOfDeath ~= nil then
+				GameState.CauseOfDeath = CurrentRun.CurrentRoom.BackupCauseOfDeath
+				GameState.CauseOfDeathDisplay = CurrentRun.CurrentRoom.BackupCauseOfDeath
+				if CurrentRun.CurrentRoom.CauseOfDeathDisplayData and IsGameStateEligible(CurrentRun.CurrentRoom, CurrentRun.CurrentRoom.CauseOfDeathDisplayData.GameStateRequirements ) then
+					GameState.CauseOfDeathDisplay = CurrentRun.CurrentRoom.CauseOfDeathDisplayData.Name
+				end
+			elseif killer.Name ~= nil and killer.ObjectId ~= nil and not killer.SkipModifiers and not killer.ExcludeCauseOfDeath then
+				GameState.CauseOfDeath = GetGenusName( killer )
+				GameState.CauseOfDeathDisplay = GameState.CauseOfDeath
+				if killer.CauseOfDeathDisplayData and IsGameStateEligible(killer, killer.CauseOfDeathDisplayData.GameStateRequirements ) then
+					GameState.CauseOfDeathDisplay = killer.CauseOfDeathDisplayData.Name
+				end
+			end
+		end
 	end
 
-	local deathPresentationFunctionName = "DeathPresentation"
-	CallFunctionName( deathPresentationFunctionName, CurrentRun, killer, triggerArgs )
+	if not CurrentRun.PlayedTrueEnding then -- @ ending
+		DeathPresentation( CurrentRun, killer, triggerArgs )
+	end
 
 	AddInputBlock({ Name = "MapLoad" })
 
-	if CurrentRun.Cleared then
+	--[[ Early Access is complete! Thank you to all those who played, as your feedback and support were essential to the creation of Hades II.
+	if CurrentRun.Cleared and not CurrentRun.ActiveBounty and not CurrentRun.PlayedTrueEnding then -- @ ending
 		wait(0.5)
-		-- PlaySound({ Name = "/Music/IrisVictoryStingerLARGE" })
-		if ConfigOptionCache.DemoMode then
-			PlaySound({ Name = "/Music/IrisVictoryStingerSMALL" })
-			OpenMenu({ Name = "AnnouncementScreen", MessageId = "RunCleared_MessageTechTest", SignatureId = "AnnouncementSignature" })
-		elseif CurrentRun.BiomesReached.F then
+		if CurrentRun.BiomesReached.F then
 			PlaySound({ Name = "/Music/IrisVictoryStingerMEDIUM" })
-			if not GameState.EnemyKills.Prometheus then
+			if not GameState.EnemyKills.TyphonHead then
 				OpenMenu({ Name = "AnnouncementScreen", MessageId = "RunCleared_Message01B", SignatureId = "AnnouncementSignature" })
 			else
 				OpenMenu({ Name = "AnnouncementScreen", MessageId = "RunCleared_Message01", SignatureId = "AnnouncementSignature" })
 			end
 		else
 			PlaySound({ Name = "/Music/IrisVictoryStingerSMALL" })
+			--[[ Early Access is complete!
 			OpenMenu({ Name = "AnnouncementScreen", MessageId = "RunCleared_Message02", SignatureId = "AnnouncementSignature" })
 		end
-		waitUntil( "AnnouncementScreen" )
+		-- waitUntil( "AnnouncementScreen" )
 	end
+	]]--
 
 	CurrentRun.CurrentRoom.EndingHealth = CurrentRun.Hero.Health
 	table.insert( CurrentRun.RoomHistory, CurrentRun.CurrentRoom )
@@ -105,12 +127,29 @@ function KillHero( victim, triggerArgs )
 	CurrentRun.NumTalentPoints = GetTotalHeroTraitValue("TalentPointCount")
 	CurrentRun.ShrineUpgradesDisabled = {}
 
-	GamePhaseTick( { Ticks = GetDeathGamePhaseTicks(), SkipGarden = true })
+	GameState.GamePhaseRunsRemaining = GameState.GamePhaseRunsRemaining - 1
+	if GameState.GamePhaseRunsRemaining <= 0 then
+		GameState.GamePhaseRunsRemaining = GetRunsUntilNextGamePhase()
+		GameState.GamePhase = GameState.GamePhase + 1
+		if GameState.GamePhase > #GamePhaseData.GamePhases then
+			GameState.GamePhase = 1
+		end
+	end
+
 	SessionMapState.HandlingDeath = false
 	CurrentRun.Hero.Health = CurrentRun.Hero.MaxHealth
 	CurrentRun.Hero.HealthBuffer = 0
 	CurrentRun.Hero.Mana = CurrentRun.Hero.MaxMana
 	CurrentRun.Hero.ReserveManaSources = {}
+	CurrentRun.Hero.ReserveHealthSources = {}
+	CurrentRun.Hero.ReserveHealthExtra = 0
+
+	for i=1, #GameState.StoreItemPins do
+		if GameState.StoreItemPins[i].StoreName == "TraitData" then
+			GameState.StoreItemPins[i] = nil
+		end
+	end
+	GameState.StoreItemPins = CollapseTable( GameState.StoreItemPins )
 	
 	if CurrentRun.Hero.Weapons.WeaponLob then
 		ReloadAmmo({Name = "WeaponLob"})
@@ -134,11 +173,14 @@ function KillHero( victim, triggerArgs )
 			end
 		end
 	end
-	CurrentRun.Hero.PreDeathTraits = CurrentRun.Hero.Traits
+	if CurrentRun.Hero.PreDeathTraits == nil then
+		-- used for save analysis
+		CurrentRun.Hero.PreDeathTraits = CurrentRun.Hero.Traits
+	end
 	RequestSave({ StartNextMap = deathMap, DevSaveName = CreateDevSaveName( CurrentRun, { StartNextMap = deathMap, PostDeath = true, } ), SendSave = true })
 	ClearUpgrades()
 	SetConfigOption({ Name = "FlipMapThings", Value = false })
-
+	UnloadPackages({ Names = PortraitPackages })
 	LoadMap({ Name = deathMap, ResetBinks = true })
 end
 
@@ -149,28 +191,33 @@ function ShouldIncrementEasyMode()
 	return false
 end
 
-function StartDeathLoop( currentRun )
-	UnloadVoiceBanks({ Name = "MelinoeField" })
+function EasyModeIsAtCap()
+	local multiplierCap = 1 - ConfigOptionCache.EasyModeResistanceCap
+	--DebugPrint({ Text = "multiplierCap = "..multiplierCap })
+	local currentMultiplier = CalcEasyModeMultiplier( GameState.EasyModeLevel )
+	--DebugPrint({ Text = "currentMultiplier = "..currentMultiplier })
+	if currentMultiplier <= multiplierCap + 0.001 then -- Epsilon to cover floating point rounding
+		return true
+	end
+	return false
+end
+
+function StartDeathLoop( source, args )
 	ToggleCombatControl( CombatControlsDefaults, false, "DeathLoopStart" )
-	RestorePackagedBountyGameState()
 	
 	local hubBiomeName = "Hub"
 	GameState.BiomeVisits[hubBiomeName] = (GameState.BiomeVisits[hubBiomeName] or 0) + 1
-	currentRun.BiomesReached[hubBiomeName] = true
+	CurrentRun.BiomesReached[hubBiomeName] = true
 	
-	currentRun.BlockDeathAreaTransitions = true
+	CurrentRun.BlockDeathAreaTransitions = true
 	DeathAreaRoomTransition( HubRoomData[GameData.HubMapName] )
 
-	if currentRun.ReturnedByBoat then
-		StartDeathLoopFromBoatPresentation( currentRun )
-	else
-		StartDeathLoopPresentation( currentRun )
-	end
+	CallFunctionName( args.PresentationFunctionName, CurrentRun, args.PresentationFunctionArgs )
 
 	local notifyName = "ReattachCameraOnInput"
 	NotifyOnPlayerInput({ Notify = notifyName })
 	waitUntil( notifyName )
-	PanCamera({ Id = currentRun.Hero.ObjectId, Duration = 2.0, FromCurrentLocation = true, })
+	PanCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 2.0, FromCurrentLocation = true, })
 	
 	ToggleCombatControl( CombatControlsDefaults, true, "DeathLoopStart" )
 	ShowCombatUI()
@@ -199,15 +246,22 @@ function DeathAreaSwitchRoom( source, args )
 	if not SessionState.InFlashback then
 		RequestSave({ StartNextMap = args.Name, DevSaveName = CreateDevSaveName( CurrentRun, { StartNextMap = args.Name } ) })
 	end
-	SetVolume({ Id = AudioState.AmbientMusicId, Value = 0.2, Duration = 0.1 })
-	SetSoundSource({ Id = AudioState.AmbientMusicId }) -- Remove until new source is created in the next room
 
 	if args.PreLoadFunctionName ~= nil then
 		CallFunctionName( args.PreLoadFunctionName, source, args )
 	end
 
-	local nextRoomData = HubRoomData[args.Name]
 	RemoveInputBlock({ Name = "DeathAreaSwitchRoom" })
+	local portraitCount = 0
+	for id, unit in pairs( ActiveEnemies ) do
+		if unit.LoadPackages ~= nil then
+			portraitCount = portraitCount + 1
+		end
+	end
+	CurrentRun.HubPortraitCount = math.max( (CurrentRun.HubPortraitCount or 0), portraitCount )
+	if CurrentRun.HubPortraitCount >= 8 then
+		UnloadPackages({ Names = PortraitPackages })
+	end
 	LoadMap({ Name = args.Name })
 end
 
@@ -245,6 +299,7 @@ function DeathAreaRoomTransition( source, args )
 	SwitchActiveUnit({ Id = currentRun.Hero.ObjectId })
 
 	LoadVoiceBanks( CurrentHubRoom.SpeakerName )
+	LoadPackages({ Names = CurrentHubRoom.LoadPackages })
 
 	ResetObjectives()
 	RunEventsGeneric( CurrentHubRoom.StartUnthreadedEvents, CurrentHubRoom )
@@ -258,10 +313,6 @@ function DeathAreaRoomTransition( source, args )
 	AssignObstacles( CurrentHubRoom )
 	CheckInspectPoints( currentRun, CurrentHubRoom )
 	StartTriggers( CurrentHubRoom, CurrentHubRoom.DistanceTriggers )
-
-	if CurrentHubRoom.RemoveDashFireFx then
-		SetWeaponProperty({ WeaponName = "RushWeapon", DestinationId = CurrentRun.Hero.ObjectId, Property = "UnblockedBlinkFx", Value = "null", ValueChangeType = "Absolute" })
-	end
 
 	if currentRun.BlockDeathAreaTransitions then
 		currentRun.BlockDeathAreaTransitions = false
@@ -281,6 +332,58 @@ function DeathAreaRoomTransition( source, args )
 	CheckAutoObjectiveSets(currentRun, "RoomStart")
 end
 
+function HubPostBountyLoad( source, args )
+
+	args = args or {}
+	AddInputBlock({ Name = "DeathAreaTransition" })
+	PreviousDeathAreaRoom = CurrentHubRoom
+	CurrentHubRoom = source
+	SetConfigOption({ Name = "BlockGameplayTimer", Value = true })
+	RestorePackagedBountyGameState()
+
+	UpdateTraitSummary()
+
+	SetupHeroObject( CurrentHubRoom )
+
+	if CurrentHubRoom.RichPresence ~= nil then
+		SetRichPresence({ Key = "status", Value = CurrentHubRoom.RichPresence })
+		SetRichPresence({ Key = "steam_display", Value = CurrentHubRoom.RichPresence })
+	end
+
+	FadeOut({ Color = Color.Black, Duration = 0 })
+	SetupCamera( CurrentHubRoom )
+	SwitchActiveUnit({ Id = CurrentRun.Hero.ObjectId })
+
+	LoadVoiceBanks( CurrentHubRoom.SpeakerName )
+
+	ResetObjectives()
+	local bountyBoardId = 561146
+	CurrentRun.FamiliarSpawnNearId = bountyBoardId
+	RunEventsGeneric( CurrentHubRoom.StartUnthreadedEvents, CurrentHubRoom )
+
+	StartRoomPreLoadBinks({
+		Run = CurrentRun,
+		Room = CurrentHubRoom
+	})
+
+	RunEvents( CurrentHubRoom )
+	AssignObstacles( CurrentHubRoom )
+	CheckInspectPoints( CurrentRun, CurrentHubRoom )
+	StartTriggers( CurrentHubRoom, CurrentHubRoom.DistanceTriggers )
+
+	HubPostBountyStartPresentation( CurrentHubRoom )
+
+	RemoveInputBlock({ Name = "DeathAreaTransition" })
+
+	if CurrentHubRoom.CheckObjectives ~= nil then
+		for k, objectiveName in pairs( CurrentHubRoom.CheckObjectives ) do
+			CheckObjectiveSet( objectiveName )
+		end
+	end
+
+	CheckAutoObjectiveSets( CurrentRun, "RoomStart" )
+end
+
 function UnlockDeathAreaInteractables()
 
 	local shopIds = { 50056 }
@@ -297,13 +400,6 @@ function UnlockDeathAreaInteractables()
 end
 
 function UseEscapeDoor( usee, args )
-	if GetNumShrineUpgrades( "LimitGraspShrineUpgrade" ) >= 1 then
-		local graspPercent = (GameState.MetaUpgradeCostCache / GameState.MaxMetaUpgradeCostCache) * 100
-		if graspPercent > MetaUpgradeData.LimitGraspShrineUpgrade.ChangeValue then
-			thread( CannotExitDueToShrinePresentation, usee, args )
-			return
-		end
-	end
 	AddInputBlock({ Name = "UseEscapeDoor" })
 	if args.MarkObjectiveComplete ~= nil then
 		MarkObjectiveComplete( args.MarkObjectiveComplete )
@@ -317,6 +413,11 @@ function StartOver( args )
 
 	AddInputBlock({ Name = "StartOver" })
 
+	-- Silence the world
+	ExpireProjectiles({ Silent = true, BlockSpawns = true })
+	Destroy({ Ids = GetIdsByType({ Name = "LobAmmoPack"}) })
+	killTaggedThreads( "CheckRoomExitsReady" )
+
 	for index, familiarName in ipairs( FamiliarOrderData ) do
 		local familiarData = FamiliarData[familiarName]
 		local familiar = familiarData.Unit
@@ -326,11 +427,28 @@ function StartOver( args )
 		end
 	end
 
+	WaitForSpeechFinished()
+
 	local currentRun = CurrentRun
 	EndRun( currentRun )
 	CurrentHubRoom = nil
 	PreviousDeathAreaRoom = nil
-	currentRun = StartNewRun( currentRun, { StartingBiome = args.StartingBiome or "F", ForcedRewards = args.ForcedRewards, ActiveBounty = args.ActiveBounty, RunOverrides = args.RunOverrides, StartingRoomOverrides = args.StartingRoomOverrides } )
+
+	if GameState.NextRunSeed ~= nil then
+		RandomSetNextInitSeed( { Seed = GameState.NextRunSeed } )
+		GameState.NextRunSeed = nil
+	end
+	
+	HideCombatUI( "StartOver" )
+	currentRun = StartNewRun( currentRun,
+		{
+			StartingBiome = args.StartingBiome or "F",
+			RandomOffset = args.RandomOffset,
+			ForcedRewards = args.ForcedRewards,
+			ActiveBounty = args.ActiveBounty,
+			RunOverrides = args.RunOverrides,
+			StartingRoomOverrides = args.StartingRoomOverrides,
+		})
 	StopMusicianMusic( { Duration = 1.0 } )
 	ResetObjectives()
 
@@ -341,7 +459,8 @@ function StartOver( args )
 	
 	RequestSave({ StartNextMap = currentRun.CurrentRoom.Name, SaveName = "_Temp", DevSaveName = CreateDevSaveName( currentRun ) })
 	ValidateCheckpoint({ Value = true })
-
+	
+	UnblockCombatUI( "StartOver" )
 	RemoveInputBlock({ Name = "StartOver" })
 	RemoveTimerBlock( currentRun, "StartOver" )
 	AddInputBlock({ Name = "MapLoad" })
@@ -357,11 +476,10 @@ function SpawnSkelly( waitTime )
 		return
 	end
 	MapState.SkellySpawned = true
-	wait( waitTime or 3.0, RoomThreadName )
+	wait( waitTime or 3.0, "SpawnSkelly" )
 	ActivatePrePlaced( nil, { LegalTypes = { "NPC_Skelly_01" }, IgnorePackages = true } )
-	CurrentRun.SkellySpawned = true
-	wait( 2.5, RoomThreadName )
-	CheckConversations()
+	wait( 2.5, "SpawnSkelly" )
+	CheckConversations( nil, { RequireNoPartner = true } )
 
 end
 
@@ -394,9 +512,9 @@ function NPCLittering( source, args )
 		CurrentRun.NewErisLitterCreated = true
 	end
 
-	if ( TableLength( GameState.ActiveLitter ) or 0 ) < args.MaxLitterForToss then
-		thread( CheckDistanceTrigger, args.UnitDistanceTrigger, source )
-	end
+	wait( args.PreWaitForDistanceTrigger )
+
+	thread( CheckDistanceTrigger, args.UnitDistanceTrigger, source )
 
 end
 
@@ -424,27 +542,45 @@ end
 
 function UseTrashPoint( source, args, user )
 	AddInputBlock({ Name = "UseTrashPoint" })
-	HarvestStartPresentation( source, args, user )
 
-	for resourceName, count in pairs( source.AddResources ) do
-		AddResource( resourceName, count, source.Name )
+	local trashPointIds = nil
+	if GameState.WorldUpgradesAdded.WorldUpgradeErisTrashPickup then
+		trashPointIds = GetIdsByType({ Name = "TrashPointsDrop" })
+		-- make sure the trash you picked up is collected first
+		for i, id in ipairs( trashPointIds ) do
+			if id == source.ObjectId and i > 1 then
+				local otherId = trashPointIds[1]
+				trashPointIds[1] = source.ObjectId
+				trashPointIds[i] = otherId
+				break
+			end
+		end
+	else
+		trashPointIds = { source.ObjectId }
+	end
+	for i, trashPointId in ipairs( trashPointIds ) do
+		local trashPoint = MapState.ActiveObstacles[trashPointId]
+		GameState.ActiveLitter[trashPoint.SpawnPointId] = nil
+		GameState.ActiveLitter[trashPoint.ObjectId] = nil
 	end
 
-	GameState.ActiveLitter[source.SpawnPointId] = nil
-	GameState.ActiveLitter[source.ObjectId] = nil
+	HarvestStartPresentation( source, { PresentationFunctionName = "UsedTrashPointPresentation", TrashPointIds = trashPointIds }, user )
 
-	UseableOff({ Id = source.ObjectId })
-	--RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "Animation", "Blank" )
-	--RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "UseableOff", true )
+	local trashPointCount = #trashPointIds
+	for resourceName, count in pairs( source.AddResources ) do
+		AddResource( resourceName, count * trashPointCount, source.Name )
+	end
+
+	UseableOff({ Ids = trashPointIds })
 	HarvestEndPresentation( source, args, user )
 	RemoveInputBlock({ Name = "UseTrashPoint" })
-	Destroy({ Id = source.ObjectId })
+	Destroy({ Ids = trashPointIds })
 	UpdateAffordabilityStatus()
 end
 
 function UpdateAffordabilityStatus()
 	for objectId, obstacle in pairs( ShallowCopyTable( MapState.ActiveObstacles ) ) do
-		if HasSetupFunction( obstacle, "PlayStatusAnimation" ) then
+		if HasEventFunctionName( obstacle.SetupEvents, "PlayStatusAnimation" ) then
 			StopStatusAnimation( obstacle )
 			CheckSetupFunction( obstacle, "PlayStatusAnimation" )
 		end
@@ -469,4 +605,43 @@ function RequestPreRunLoadoutChangeSave()
 	-- Remove once saved
 	CurrentRun.StoredHeroLocation = nil
 	CurrentRun.StoredHeroAngle = nil
+end
+
+function HideAmbientCritters( source, args )
+	local allCritterGroups = {}
+	for i, event in ipairs( source.StartUnthreadedEvents ) do
+		if event.FunctionName == "ActivateAmbientCritters" then
+			allCritterGroups = CombineTables( allCritterGroups, event.Args.Groups )
+		end
+	end
+	local ids = GetIds({ Names = allCritterGroups })
+	SetAlpha({ Ids = ids, Fraction = 0 })
+end
+
+function ActivateAmbientCritters( source, args )
+	local allGroups = ShallowCopyTable( args.Groups )
+	local numGroupsToActivate = RandomInt( args.MinGroupsToActivate, args.MaxGroupsToActivate )
+	for i=1, math.min( numGroupsToActivate, #allGroups ) do
+		local group = RemoveRandomValue( allGroups )
+		local ids = GetIds({ Name = group })
+		-- Make the critter visible
+		SetAlpha({ Ids = ids, Fraction = 1 })
+		-- Randomize its animation, if applicable
+		for _, id in ipairs( ids ) do
+			if MapState.ActiveObstacles[id] ~= nil and MapState.ActiveObstacles[id].AmbientAnimations ~= nil then
+				SetAnimation({ DestinationId = id, Name = GetRandomValue( MapState.ActiveObstacles[id].AmbientAnimations ) })
+			end
+		end
+	end
+end
+
+function GamePhaseTick( args )
+	args = args or {}
+	GardenTimeTick( args )
+	CookTimeTick( args )
+	MailboxTimeTick( args )
+end
+
+function GetRunsUntilNextGamePhase()
+	return RandomInt( GamePhaseData.MinRunsPerPhase, GamePhaseData.MaxRunsPerPhase )
 end

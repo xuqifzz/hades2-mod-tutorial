@@ -29,9 +29,9 @@ function GetEquippedWeaponValue( key )
 	return nil
 end
 
-function PlayWeaponEquipAnimation( weaponKit )
+function PickupWeaponKitInteractPresentation( weaponKit )
 	AddInputBlock({ Name = "MelinoeInteractEquip" })
-	SetAnimation({ Name = weaponKit.OwnerEquipAnimation or GetEquippedWeaponValue( "InteractAnimation" ) or "MelinoeSpellFire", DestinationId = CurrentRun.Hero.ObjectId })
+	SetAnimation({ Name = "Melinoe_InteractToEquip", DestinationId = CurrentRun.Hero.ObjectId })
 	--CreateAnimation({ Name = "ItemGet_Weapon", DestinationId = CurrentRun.Hero.ObjectId })
 	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = weaponKit.ObjectId })
 	thread( DoRumble, { { ScreenPreWait = 0.02, RightFraction = 0.17, Duration = 0.2 }, } )
@@ -56,13 +56,11 @@ function PlayUnequipAnimation( args )
 end
 
 function PreNarrativeUnequipAnimation()
-	local requirements =
-	{
-		NamedRequirements = { "WeaponsNotAllowed" },
-	}
-	if IsGameStateEligible( nil, requirements ) then
+	if SessionMapState.WeaponsDisabled then
 		return false
 	end
+	Halt({ Id = CurrentRun.Hero.ObjectId })
+	EndRamWeapons({ Id = CurrentRun.Hero.ObjectId })
 	local animation = GetEquippedWeaponValue( "UnequipAnimation" )
 	if animation ~= nil then
 		SetAnimation({ Name = animation, DestinationId = CurrentRun.Hero.ObjectId })
@@ -77,50 +75,6 @@ function RemoveInteractAnimationInputBlock()
 	RemoveTimerBlock( CurrentRun, "MelinoeInteractEquip" )
 end
 
-function CantAffordWeaponKitPresentation( weaponKit )
-	PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo", Id = weaponKit.ObjectId })
-	Flash({ Id =  weaponKit.TextAnchorId, Speed = 2, MinFraction = 1, MaxFraction = 0.0, Color = Color.CostUnaffordable, ExpireAfterCycle = true })
-	Shake({ Id = weaponKit.ObjectId, Distance = 6, Speed = 300, Duration = 0.2 })
-	Shake({ Id = weaponKit.TextAnchorId, Distance = 6, Speed = 300, Duration = 0.2 })
-	thread( PlayVoiceLines, HeroVoiceLines.NotEnoughLockKeysVoiceLines, true )
-end
-
-function PreWeaponKitUnlockPresentation( weaponKit )
-	HideUseButton( weaponKit.ObjectId, weaponKit )
-	SetAnimation({ DestinationId = weaponKit.TextAnchorId, Name = "LockedIconRelease" })
-	Shake({ Id = weaponKit.ObjectId, Distance = 3, Speed = 500, Duration = 0.65 })
-	thread( PlayVoiceLines, HeroVoiceLines.WeaponKitUnlockedVoiceLines, true )
-	PlayInteractAnimation( weaponKit.ObjectId )
-	DestroyTextBox({ Id = weaponKit.TextAnchorId })
-	wait(0.8)
-	PlaySound({ Name = "/SFX/Menu Sounds/WeaponUnlockPoof", Id = weaponKit.ObjectId  })
-	thread( WeaponUnlockedPresentation, weaponKit.Name )
-end
-
-function WeaponUnlockedPresentation( weaponName )
-
-	thread( DoRumble, { { ScreenPreWait = 0.02, RightFraction = 0.17, Duration = 0.4 }, } )
-	local weaponData = GetWeaponData( CurrentRun.Hero, weaponName )
-	DisplayInfoBanner( nil, {
-		TitleText = "WeaponUnlocked_Title",
-		SubtitleText = "WeaponUnlocked_Subtitle",
-		SubtitleData = { LuaKey = "TempTextData", LuaValue = { Name = weaponData.UnlockName or weaponName }},
-		FontScale = 0.85,
-		AnimationName = "LocationTextBGGeneric_WeaponUnlock",
-		AnimationOutName = "LocationTextBGGenericOut_WeaponUnlock"
-	})
-
-end
-
-function PostWeaponKitUnlockPresentation( weaponKit )
-	wait( 1.5 )
-	for k, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
-		if enemy.WeaponUnlockReactionVoiceLines ~= nil then
-			thread( PlayVoiceLines, enemy.WeaponUnlockReactionVoiceLines, true, enemy )
-		end
-	end
-end
-
 function SpecialInteractSaluteInterrupt( usee, args )
 	ActivityInterrupt( usee, args )
 	SpecialInteractSalute( usee, args )
@@ -130,7 +84,7 @@ function SpecialInteractSalute( usee, args )
 	HideUseButton( usee.ObjectId, usee )
 	AddInputBlock({ Name = "SpecialInteractSalute" })
 
-	if CurrentHubRoom ~= nil and not CurrentHubRoom.AllowWeapons then
+	if SessionMapState.WeaponsDisabled then
 		wait( 0.10 )
 		AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = usee.ObjectId })
 	else
@@ -161,14 +115,40 @@ function SpecialInteractSaluteBroker( usee, args )
 	SetAnimation({ Name = "MelinoeSalute", DestinationId = CurrentRun.Hero.ObjectId })
 	-- PlaySound({ Name = "/VO/MelinoeEmotes/EmoteEvading", Id = CurrentRun.Hero.ObjectId })
 	thread( PlayVoiceLines, usee.InteractVoiceLines or GlobalVoiceLines.SaluteVoiceLines, true, usee )
+	local emoteName = "StatusIconSmile"
 	if RandomChance( 0.25 ) then
-		thread( PlayEmoteSimple, usee, { AnimationName = "StatusIconEmbarrassed", OffsetZ = 150, Delay = 1.15 } )
-	else
-		thread( PlayEmoteSimple, usee, { AnimationName = "StatusIconSmile", OffsetZ = 150, Delay = 1.15 } )
+		emoteName = "StatusIconEmbarrassed"
 	end
+	thread( PlayEmoteSimple, usee, { AnimationName = emoteName, OffsetZ = usee.EmoteOffsetZ, Group = "Combat_UI_Backing", Delay = 1.15, BlockIfSourceHasStatusAnimation = true } )
 	wait( 1.15 )
 	PlaySound({ Name = usee.SaluteSound or "/SFX/Enemy Sounds/PunchingBag/EmoteDizzy", Id = usee.ObjectId })
 	wait( 0.15 )
+	RemoveInputBlock({ Name = "SpecialInteractSalute" })
+end
+
+function SpecialInteractThreatenChronos( usee, args )
+	HideUseButton( usee.ObjectId, usee )
+	AddInputBlock({ Name = "SpecialInteractSalute" })
+
+	if SessionMapState.WeaponsDisabled then
+		wait( 0.10 )
+		AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = usee.ObjectId })
+	else
+		local unequipAnimation = GetEquippedWeaponValue("UnequipAnimation") or "MelinoeIdleWeaponless"
+		SetAnimation({ Name = unequipAnimation, DestinationId = CurrentRun.Hero.ObjectId })
+		AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = usee.ObjectId })
+		wait( 0.65 )
+	end
+	--SetAnimation({ Name = "Familiar_Frog_Greet", DestinationId = usee.ObjectId })
+	SetAnimation({ Name = "MelTalkBroodingFull01", DestinationId = CurrentRun.Hero.ObjectId })
+	-- PlaySound({ Name = "/VO/MelinoeEmotes/EmoteEvading", Id = CurrentRun.Hero.ObjectId })
+	thread( PlayVoiceLines, usee.InteractVoiceLines, true, usee )
+
+	wait( 0.5 )
+	if usee.TurnInPlaceAnimation ~= nil then
+		AngleNPCToHero( usee )
+	end
+	wait( 1.25 )
 	RemoveInputBlock({ Name = "SpecialInteractSalute" })
 end
 
@@ -192,6 +172,29 @@ function SpecialInteractShade( usee, args )
 	if not usee.UseableToggleBlocked then
 		UseableOn({ Id = usee.ObjectId })
 	end
+end
+
+function SpecialInteractDieHardFanShade( usee, args )
+	UseableOff({ Id = usee.ObjectId })
+	HideUseButton( usee.ObjectId, usee )
+	AddInputBlock({ Name = "SpecialInteractShade" })
+
+	local unequipAnimation = GetEquippedWeaponValue("UnequipAnimation") or "MelinoeIdleWeaponless"
+	SetAnimation({ Name = unequipAnimation, DestinationId = CurrentRun.Hero.ObjectId })
+	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = usee.ObjectId })
+	thread( PlayVoiceLines, HeroVoiceLines.ShadeEavesdropVoiceLines, true, usee )
+
+	wait( 0.65 )
+
+	SetAnimation({ Name = "MelinoeSalute", DestinationId = CurrentRun.Hero.ObjectId })
+	-- PlaySound({ Name = "/VO/MelinoeEmotes/EmoteEvading", Id = CurrentRun.Hero.ObjectId })
+	if GameState.SpecialInteractRecord.DieHardFanShade == 1 then
+		thread( PlayEmoteSimple, usee, { AnimationName = "StatusIconSmileRed", OffsetZ = usee.EmoteOffsetZ, Delay = 2.0 } )
+	else
+		thread( PlayEmoteSimple, usee, { AnimationName = "StatusIconSmileRed", OffsetZ = usee.EmoteOffsetZ, Delay = 0.6 } )
+	end
+	wait( 1.25 )
+	RemoveInputBlock({ Name = "SpecialInteractShade" })
 end
 
 function SpecialInteractLightRanged( usee, args )
@@ -252,13 +255,128 @@ function SpecialInteractSirenFan( source, args )
 	PlaySound({ Name = source.SaluteSound or "/SFX/Enemy Sounds/PunchingBag/EmoteDizzy", Id = reactionId })
 end
 
+function HugZagreus( usee, args )
+
+	args = args or {}
+	AddInteractBlock( usee, "Hugging" )
+	AddInputBlock({ Name = "HugZagreus" })
+	SetupMelWalk( usee, args )
+
+	-- Move to hugging position
+	Stop({ Id = CurrentRun.Hero.ObjectId })
+	Halt({ Id = CurrentRun.Hero.ObjectId })
+	SetAnimation({ Name = "MelinoeIdle", DestinationId = CurrentRun.Hero.ObjectId })
+	CancelWeaponFireRequests({ Id = CurrentRun.Hero.ObjectId })
+	local angle = GetAngle({ Id = usee.ObjectId })
+	local offset = CalcOffset( math.rad(angle), 70 )
+	offset.Y = offset.Y * 0.5
+	local offsetPointId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = usee.ObjectId, OffsetX = offset.X, OffsetY = offset.Y })
+	local notifyDistance = 10
+	if GetDistance({ Id = CurrentRun.Hero.ObjectId, DestinationId = offsetPointId }) > notifyDistance then
+		MoveHeroToRoomPosition( { DestinationId = offsetPointId, DisableCollision = true, SuccessDistance = 32, NotifyDistance = notifyDistance, ContinueToGoal = true } )
+		wait( 0.3 )
+	end
+	Destroy({ Id = offsetPointId })
+	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = usee.ObjectId, Duration = 0 })
+	wait( 0.3 )
+	SetAnimation({ Name = "Zagreus_Hug_Start", DestinationId = usee.ObjectId })
+	SetAnimation({ Name = "Melinoe_Hug_Start", DestinationId = CurrentRun.Hero.ObjectId })
+	if not args.Silent then
+		thread( PlayVoiceLines, usee.InteractVoiceLines )
+	end
+	wait( 2.5 )
+	SetAnimation({ Name = "Zagreus_Hug_End", DestinationId = usee.ObjectId })
+	SetAnimation({ Name = "Melinoe_Hug_End", DestinationId = CurrentRun.Hero.ObjectId })
+
+	RestoreMelRun( usee, { SkipWalkStopAnimation = true } )
+	RemoveInputBlock({ Name = "HugZagreus" })
+
+	-- allow hugging again after a brief cooldown
+	wait( 2.0, RoomThreadName )
+	RemoveInteractBlock( usee, "Hugging" )
+
+end
+
+function HugHecate( usee )
+
+	AddInputBlock({ Name = "HugHecate" })
+
+	-- Move to hugging position
+	Stop({ Id = CurrentRun.Hero.ObjectId })
+	Halt({ Id = CurrentRun.Hero.ObjectId })
+	CancelWeaponFireRequests({ Id = CurrentRun.Hero.ObjectId })
+	local angle = GetAngle({ Id = usee.ObjectId })
+	local offset = CalcOffset( math.rad(angle), 50 )
+	offset.Y = offset.Y * 0.5
+	local offsetPointId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = usee.ObjectId, OffsetX = offset.X, OffsetY = offset.Y })
+	local notifyDistance = 10
+	if GetDistance({ Id = CurrentRun.Hero.ObjectId, DestinationId = offsetPointId }) > notifyDistance then
+		MoveHeroToRoomPosition( { DestinationId = offsetPointId, DisableCollision = true, SuccessDistance = 32, NotifyDistance = notifyDistance, ContinueToGoal = true } )
+		wait( 0.3 )
+	end
+	Destroy({ Id = offsetPointId })
+	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = usee.ObjectId, Duration = 0 })
+	wait( 0.3 )
+	SetAnimation({ Name = "Hecate_Hub_Hug_Start", DestinationId = usee.ObjectId })
+	SetAnimation({ Name = "Melinoe_Hug_Start", DestinationId = CurrentRun.Hero.ObjectId })
+	wait( 4.0 )
+	SetAnimation({ Name = "Hecate_Hub_Hug_End", DestinationId = usee.ObjectId })
+	SetAnimation({ Name = "Melinoe_Hug_End", DestinationId = CurrentRun.Hero.ObjectId })
+
+	RemoveInputBlock({ Name = "HugHecate" })
+
+end
+
+function HugPersephone( usee, args )
+
+	args = args or {}
+
+	AddInteractBlock( usee, "Hugging" )
+	AddInputBlock({ Name = "HugPersephone" })
+	SetupMelWalk( usee, args )
+
+	-- Move to hugging position
+	Stop({ Id = CurrentRun.Hero.ObjectId })
+	Halt({ Id = CurrentRun.Hero.ObjectId })
+	SetAnimation({ Name = "MelinoeIdle", DestinationId = CurrentRun.Hero.ObjectId })
+	CancelWeaponFireRequests({ Id = CurrentRun.Hero.ObjectId })
+	local angle = GetAngle({ Id = usee.ObjectId })
+	local offset = CalcOffset( math.rad(angle), 70 )
+	offset.Y = offset.Y * 0.5
+	local offsetPointId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = usee.ObjectId, OffsetX = offset.X, OffsetY = offset.Y })
+	local notifyDistance = 10
+	if GetDistance({ Id = CurrentRun.Hero.ObjectId, DestinationId = offsetPointId }) > notifyDistance then
+		MoveHeroToRoomPosition( { DestinationId = offsetPointId, DisableCollision = true, SuccessDistance = 32, NotifyDistance = notifyDistance, ContinueToGoal = true } )
+		wait( 0.3 )
+	end
+	Destroy({ Id = offsetPointId })
+	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = usee.ObjectId, Duration = 0 })
+	wait( 0.3 )
+	SetAnimation({ Name = "Persephone_Hug_Start", DestinationId = usee.ObjectId })
+	SetAnimation({ Name = "Melinoe_Hug_Start", DestinationId = CurrentRun.Hero.ObjectId })
+	if not args.Silent then
+		thread( PlayVoiceLines, usee.InteractVoiceLines )
+	end
+	wait( 2.5 )
+	SetAnimation({ Name = "Persephone_Hug_End", DestinationId = usee.ObjectId })
+	SetAnimation({ Name = "Melinoe_Hug_End", DestinationId = CurrentRun.Hero.ObjectId })
+
+	RestoreMelRun( usee, { SkipWalkStopAnimation = true } )
+	RemoveInputBlock({ Name = "HugPersephone" })
+
+	-- allow hugging again after a brief cooldown
+	wait( 2.0, RoomThreadName )
+	RemoveInteractBlock( usee, "Hugging" )
+
+end
+
 function PlantAdmirePresentation( usee, args )
 	HideUseButton( usee.ObjectId, usee )
 	AddInputBlock({ Name = "PlantAdmirePresentation" })
 
 	--SetAnimation({ Name = "MelinoeGatherStart", DestinationId = CurrentRun.Hero.ObjectId })
 	--AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = usee.ObjectId })
-	PlaySound({ Name = "/Leftovers/Menu Sounds/RobesInteract", DestinationId = CurrentRun.Hero.ObjectId })
+	-- PlaySound({ Name = "/Leftovers/Menu Sounds/RobesInteract", DestinationId = CurrentRun.Hero.ObjectId })
 	wait( 0.1 )
 	thread( PlayVoiceLines, HeroVoiceLines.PlantInteractVoiceLines, true, usee )
 	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = usee.ObjectId })
@@ -270,7 +388,7 @@ end
 function GhostRecruitSpecialInteractPresentation( ghost, user )
 	UseableOff({ Id = ghost.ObjectId })
 	AddInputBlock({ Name = "GhostRecruitSpecialInteractPresentation" })
-	if CurrentHubRoom ~= nil and not CurrentHubRoom.AllowWeapons then
+	if SessionMapState.WeaponsDisabled then
 		wait( 0.10 )
 		AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = ghost.ObjectId })
 	else
@@ -294,11 +412,6 @@ function GhostRecruitSpecialInteractPresentation( ghost, user )
 	end
 end
 
-function NarcissusPreDropPresentation( source, args )
-	--PanCamera({ Ids = args.DropSourceId, Duration = 2.0, EaseIn = 0.05, EaseOut = 0.3 })
-	--wait(2.0)
-	--LockCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 6.0 })
-end
 function NarcissusDropPresentation( consumable, args )
 	CreateAnimation({ Name = "MoneyShowerLarge", DestinationId = args.DestinationId})
 	SetScale({ Id = consumable.ObjectId, Fraction = 1.5, Duration = 0.5 })
@@ -306,7 +419,8 @@ function NarcissusDropPresentation( consumable, args )
 	SetScale({ Id = consumable.ObjectId, Fraction = 1.0, Duration = 0.5 })
 end
 
-function SpellPotionRefillPresentation( fountain, user, potionTrait )
+function SpellPotionRefillPresentation( fountain, user, potionTrait, delay )
+	wait(delay)
 	CreateAnimation({ Name = "SpellPotionRefill", DestinationId = fountain.ObjectId, })
 	thread( InCombatText, CurrentRun.Hero.ObjectId, "SpellPotionRefilled", 1.0 )
 end
@@ -320,7 +434,12 @@ function ManaDropUsePresentation( args, consumable )
 	if CurrentRun.Hero.Mana < CurrentRun.Hero.MaxMana then
 		CreateAnimation({ Name = "ManaRegenFlashFx", DestinationId = CurrentRun.Hero.ObjectId })
 	end
-	PlaySound({ Name = "/SFX/BloodstoneAmmoPickup", Id = CurrentRun.Hero.ObjectId })
+	PlaySound({ Name = "/SFX/ManaDropSFX", Id = CurrentRun.Hero.ObjectId })
 	Move({ Id = consumable.ObjectId, DestinationId = CurrentRun.Hero.ObjectId, SuccessDistance = 50, Duration = 0.2 })
 	wait ( 0.15 )
+end
+
+function BloodDropUsePresentation( args, consumable )
+	PlaySound({ Name = "/SFX/Player Sounds/AresBlooddropPickup", Id = CurrentRun.Hero.ObjectId })
+	Move({ Id = consumable.ObjectId, DestinationId = CurrentRun.Hero.ObjectId, SuccessDistance = 50, Duration = 0.2 })
 end

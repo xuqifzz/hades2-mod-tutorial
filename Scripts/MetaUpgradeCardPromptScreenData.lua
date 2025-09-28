@@ -7,13 +7,13 @@
 
 	ComponentData = 
 	{
-		DefaultGroup = "Combat_Menu_TraitTray_Backing",
+		DefaultGroup = "Combat_Menu_TraitTray",
 		UseNativeScreenCenter = true,
 
 		BackgroundTint = 
 		{
 			Graphic = "rectangle01",
-			GroupName = "Combat_Menu_TraitTray_Backing",
+			GroupName = "Combat_Menu_TraitTray",
 			Scale = 10,
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
@@ -22,7 +22,7 @@
 		Background = 
 		{
 			AnimationName = "MythmakerBoxDefault",
-			GroupName = "Combat_Menu_TraitTray",
+			GroupName = "Combat_Menu_TraitTray_Overlay",
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
 			Scale = 1.15,
@@ -41,7 +41,7 @@
 				ConfirmButton = 
 				{
 					Graphic = "ButtonDefault",
-					GroupName = "Combat_Menu_TraitTray",
+					GroupName = "Combat_Menu_TraitTray_Overlay",
 					Scale = 1.0,
 					OffsetX = 200,
 					OffsetY = 300,
@@ -57,14 +57,14 @@
 					Data =
 					{
 						OnPressedFunctionName = "ConfirmExitMetaUpgradeCardPrompt",
-						PressSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+						PressSound = "/SFX/Menu Sounds/IrisMenuBack",
 					}
 				},
 
 				CenteredButton = 
 				{
 					Graphic = "ButtonDefault",
-					GroupName = "Combat_Menu_TraitTray",
+					GroupName = "Combat_Menu_TraitTray_Overlay",
 					OffsetX = 0,
 					OffsetY = 300,
 					Scale = 1.0,
@@ -79,14 +79,14 @@
 					Data =
 					{
 						OnPressedFunctionName = "CancelExitMetaUpgradeCardPrompt",
-						PressSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+						PressSound = "/SFX/Menu Sounds/IrisMenuBack",
 					}
 				},
 
 				CloseButton = 
 				{
 					Graphic = "ButtonDefault",
-					GroupName = "Combat_Menu_TraitTray",
+					GroupName = "Combat_Menu_TraitTray_Overlay",
 					Scale = 1.0,
 					OffsetX = -200,
 					OffsetY = 300,
@@ -102,7 +102,7 @@
 					Data =
 					{
 						OnPressedFunctionName = "CancelExitMetaUpgradeCardPrompt",
-						PressSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+						PressSound = "/SFX/Menu Sounds/IrisMenuBack",
 					}
 				},
 			}
@@ -115,17 +115,17 @@ ScreenData.GraspLimitLayout =
 	Components = {},
 
 	OpenSound = "/SFX/Menu Sounds/HadesLocationTextAppear",
-	CloseSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+	CloseSound = "/SFX/Menu Sounds/IrisMenuBack",
 
 	ComponentData = 
 	{
-		DefaultGroup = "Combat_Menu_TraitTray_Backing",
+		DefaultGroup = "Combat_Menu_TraitTray",
 		UseNativeScreenCenter = true,
 
 		BackgroundTint = 
 		{
 			Graphic = "rectangle01",
-			GroupName = "Combat_Menu_TraitTray_Backing",
+			GroupName = "Combat_Menu_TraitTray",
 			Scale = 10,
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
@@ -134,7 +134,7 @@ ScreenData.GraspLimitLayout =
 		Background = 
 		{
 			AnimationName = "MythmakerBoxDefault",
-			GroupName = "Combat_Menu_TraitTray",
+			GroupName = "Combat_Menu_TraitTray_Overlay",
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
 			Scale = 1.15,
@@ -144,8 +144,8 @@ ScreenData.GraspLimitLayout =
 				{
 
 					Text = "MetaUpgradeTable_UnableToEquip",
-					GroupName = "Combat_Menu_TraitTray",
-					OffsetY = -300,
+					GroupName = "Combat_Menu_TraitTray_Overlay",
+					OffsetY = -335,
 					TextArgs =
 					{
 						Justification = "Center",
@@ -163,8 +163,8 @@ ScreenData.GraspLimitLayout =
 				DescriptionText = 
 				{
 					Text = "MetaUpgradeTable_UnableToEquip",
-					GroupName = "Combat_Menu_TraitTray",
-					OffsetY = -100,
+					GroupName = "Combat_Menu_TraitTray_Overlay",
+					OffsetY = -155,
 					TextArgs =
 					{
 						UseDescription = true,
@@ -185,7 +185,7 @@ ScreenData.GraspLimitLayout =
 				CloseButton = 
 				{
 					Graphic = "ShellButtonBack",
-					GroupName = "Combat_Menu_TraitTray",
+					GroupName = "Combat_Menu_TraitTray_Overlay",
 					OffsetX = 0,
 					OffsetY = 300,
 					Scale = 1.0,
@@ -201,7 +201,7 @@ ScreenData.GraspLimitLayout =
 					Data =
 					{
 						OnPressedFunctionName = "CloseGraspLimitScreen",
-						PressSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+						PressSound = "/SFX/Menu Sounds/IrisMenuBack",
 					}
 				},
 			}
@@ -214,17 +214,17 @@ ScreenData.BelowLimitLayout =
 	Components = {},
 
 	OpenSound = "/SFX/Menu Sounds/HadesLocationTextAppear",
-	CloseSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+	CloseSound = "/SFX/Menu Sounds/IrisMenuBack",
 
 	ComponentData = 
 	{
-		DefaultGroup = "Combat_Menu_TraitTray_Backing",
+		DefaultGroup = "Combat_Menu_TraitTray",
 		UseNativeScreenCenter = true,
 
 		BackgroundTint = 
 		{
 			Graphic = "rectangle01",
-			GroupName = "Combat_Menu_TraitTray_Backing",
+			GroupName = "Combat_Menu_TraitTray",
 			Scale = 10,
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
@@ -233,7 +233,7 @@ ScreenData.BelowLimitLayout =
 		Background = 
 		{
 			AnimationName = "MythmakerBoxDefault",
-			GroupName = "Combat_Menu_TraitTray",
+			GroupName = "Combat_Menu_TraitTray_Overlay",
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
 			Scale = 1.15,
@@ -243,7 +243,7 @@ ScreenData.BelowLimitLayout =
 				{
 
 					Text = "MetaUpgrade_EquipAvailable",
-					GroupName = "Combat_Menu_TraitTray",
+					GroupName = "Combat_Menu_TraitTray_Overlay",
 					OffsetY = -300,
 					TextArgs =
 					{
@@ -262,7 +262,7 @@ ScreenData.BelowLimitLayout =
 				DescriptionText = 
 				{
 					Text = "MetaUpgrade_EquipAvailable",
-					GroupName = "Combat_Menu_TraitTray",
+					GroupName = "Combat_Menu_TraitTray_Overlay",
 					OffsetY = -100,
 					TextArgs =
 					{
@@ -285,7 +285,7 @@ ScreenData.BelowLimitLayout =
 				ConfirmButton = 
 				{
 					Graphic = "ButtonDefault",
-					GroupName = "Combat_Menu_TraitTray",
+					GroupName = "Combat_Menu_TraitTray_Overlay",
 					Scale = 1.0,
 					OffsetX = 200,
 					OffsetY = 200,
@@ -301,13 +301,13 @@ ScreenData.BelowLimitLayout =
 					Data =
 					{
 						OnPressedFunctionName = "ConfirmExitBelowLimitScreen",
-						PressSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+						PressSound = "/SFX/Menu Sounds/IrisMenuBack",
 					}
 				},
 				CloseButton = 
 				{
 					Graphic = "ButtonDefault",
-					GroupName = "Combat_Menu_TraitTray",
+					GroupName = "Combat_Menu_TraitTray_Overlay",
 					Scale = 1.0,
 					OffsetX = -200,
 					OffsetY = 200,
@@ -323,7 +323,7 @@ ScreenData.BelowLimitLayout =
 					Data =
 					{
 						OnPressedFunctionName = "CancelExitBelowLimitScreen",
-						PressSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+						PressSound = "/SFX/Menu Sounds/IrisMenuBack",
 					}
 				},
 			}
@@ -336,16 +336,16 @@ ScreenData.NoUpgradeInfoLayout =
 	Components = {},
 
 	OpenSound = "/SFX/Menu Sounds/HadesLocationTextAppear",
-	CloseSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+	CloseSound = "/SFX/Menu Sounds/IrisMenuBack",
 	ComponentData = 
 	{
-		DefaultGroup = "Combat_Menu_TraitTray_Backing",
+		DefaultGroup = "Combat_Menu_TraitTray",
 		UseNativeScreenCenter = true,
 
 		BackgroundTint = 
 		{
 			Graphic = "rectangle01",
-			GroupName = "Combat_Menu_TraitTray_Backing",
+			GroupName = "Combat_Menu_TraitTray",
 			Scale = 10,
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
@@ -354,7 +354,7 @@ ScreenData.NoUpgradeInfoLayout =
 		Background = 
 		{
 			AnimationName = "MythmakerBoxDefault",
-			GroupName = "Combat_Menu_TraitTray",
+			GroupName = "Combat_Menu_TraitTray_Overlay",
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
 			Scale = 1.15,
@@ -364,7 +364,7 @@ ScreenData.NoUpgradeInfoLayout =
 				{
 
 					Text = "MetaUpgrade_CardUnlocksAvailable",
-					GroupName = "Combat_Menu_TraitTray",
+					GroupName = "Combat_Menu_TraitTray_Overlay",
 					OffsetY = -300,
 					TextArgs =
 					{
@@ -383,7 +383,7 @@ ScreenData.NoUpgradeInfoLayout =
 				DescriptionText = 
 				{
 					Text = "MetaUpgrade_CardUnlocksAvailable",
-					GroupName = "Combat_Menu_TraitTray",
+					GroupName = "Combat_Menu_TraitTray_Overlay",
 					OffsetY = -100,
 					TextArgs =
 					{
@@ -406,7 +406,7 @@ ScreenData.NoUpgradeInfoLayout =
 				ConfirmButton =
 				{
 					Graphic = "ButtonDefault",
-					GroupName = "Combat_Menu_TraitTray",
+					GroupName = "Combat_Menu_TraitTray_Overlay",
 					Scale = 1.0,
 					OffsetX = 200,
 					OffsetY = 200,
@@ -422,14 +422,14 @@ ScreenData.NoUpgradeInfoLayout =
 					Data =
 					{
 						OnPressedFunctionName = "ConfirmExitNoUpgradeInfoScreen",
-						PressSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+						PressSound = "/SFX/Menu Sounds/IrisMenuBack",
 					}
 				},
 
 				CloseButton = 
 				{
 					Graphic = "ButtonDefault",
-					GroupName = "Combat_Menu_TraitTray",
+					GroupName = "Combat_Menu_TraitTray_Overlay",
 					Scale = 1.0,
 					OffsetX = -200,
 					OffsetY = 200,
@@ -445,7 +445,7 @@ ScreenData.NoUpgradeInfoLayout =
 					Data =
 					{
 						OnPressedFunctionName = "CancelExitNoUpgradeInfoScreen",
-						PressSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+						PressSound = "/SFX/Menu Sounds/IrisMenuBack",
 					}
 				},
 			}
@@ -458,17 +458,17 @@ ScreenData.CardUpgradeInfoLayout =
 	Components = {},
 
 	OpenSound = "/SFX/Menu Sounds/HadesLocationTextAppear",
-	CloseSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+	CloseSound = "/SFX/Menu Sounds/IrisMenuBack",
 
 	ComponentData = 
 	{
-		DefaultGroup = "Combat_Menu_TraitTray_Backing",
+		DefaultGroup = "Combat_Menu_TraitTray",
 		UseNativeScreenCenter = true,
 
 		BackgroundTint = 
 		{
 			Graphic = "rectangle01",
-			GroupName = "Combat_Menu_TraitTray_Backing",
+			GroupName = "Combat_Menu_TraitTray",
 			Scale = 10,
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
@@ -477,7 +477,7 @@ ScreenData.CardUpgradeInfoLayout =
 		Background = 
 		{
 			AnimationName = "MythmakerBoxDefault",
-			GroupName = "Combat_Menu_TraitTray",
+			GroupName = "Combat_Menu_TraitTray_Overlay",
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
 			Scale = 1.15,
@@ -487,7 +487,7 @@ ScreenData.CardUpgradeInfoLayout =
 				{
 
 					Text = "MetaUpgrade_UpgradesAvailable",
-					GroupName = "Combat_Menu_TraitTray",
+					GroupName = "Combat_Menu_TraitTray_Overlay",
 					OffsetY = -300,
 					TextArgs =
 					{
@@ -506,7 +506,7 @@ ScreenData.CardUpgradeInfoLayout =
 				DescriptionText = 
 				{
 					Text = "MetaUpgrade_UpgradesAvailable",
-					GroupName = "Combat_Menu_TraitTray",
+					GroupName = "Combat_Menu_TraitTray_Overlay",
 					OffsetY = -100,
 					TextArgs =
 					{
@@ -529,7 +529,7 @@ ScreenData.CardUpgradeInfoLayout =
 				CloseButton = 
 				{
 					Graphic = "ShellButtonBack",
-					GroupName = "Combat_Menu_TraitTray",
+					GroupName = "Combat_Menu_TraitTray_Overlay",
 					Scale = 1.0,
 					OffsetX = 0,
 					OffsetY = 300,
@@ -545,7 +545,7 @@ ScreenData.CardUpgradeInfoLayout =
 					Data =
 					{
 						OnPressedFunctionName = "CancelExitCardUpgradeInfoScreen",
-						PressSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+						PressSound = "/SFX/Menu Sounds/IrisMenuBack",
 					}
 				},
 			}

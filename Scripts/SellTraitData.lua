@@ -27,8 +27,8 @@ ScreenData.SellTraits =
 
 	SellAmountFormat =
 	{
-		OffsetX = 1000,
-		OffsetY = 120,
+		OffsetX = 496,
+		OffsetY = 66,
 		FontSize = 28,
 		Font = "P22UndergroundSCMedium",
 		Justification = "Right",
@@ -38,17 +38,21 @@ ScreenData.SellTraits =
 	ComponentData =
 	{
 		DefaultGroup = "Combat_Menu",
+		UseNativeScreenCenter = true,
 
 		Order =
 		{
 			"BackgroundTint",
 			"ShopBackground",
+			"ActionBarBackground",
 		},
 		
 		BackgroundTint = 
 		{
 			Graphic = "rectangle01",
-			Scale = 10,
+			Scale = 4.0,
+			UseScreenScaleX = true,
+			UseScreenScaleY = true,
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
 			Color = {0.15, 0.15, 0.15, 0.85}
@@ -59,8 +63,6 @@ ScreenData.SellTraits =
 			AnimationName = "SellShopIn",
 			OffsetX = 0, 
 			OffsetY = 190,
-			ScaleX = 1.3,
-			ScaleY = 1.3,
 			Children = 
 			{
 				ShopSubtitle = 
@@ -87,7 +89,7 @@ ScreenData.SellTraits =
 		{
 			AnimationName = "GUI\\ActionBar",
 			X = ScreenCenterX,
-			BottomOffset = UIData.ActionBarBottomOffset,
+			Y = UIData.ActionBarY,
 			UseScreenScaleX = true,
 		},
 
@@ -95,7 +97,6 @@ ScreenData.SellTraits =
 		{
 			X = UIData.ContextualButtonXRight,
 			Y = UIData.ContextualButtonY,
-			BottomOffset = UIData.ContextualButtonBottomOffset,
 			AutoAlignContextualButtons = true,
 			AutoAlignJustification = "Right",
 

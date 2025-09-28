@@ -30,10 +30,13 @@ WeaponSetData =
 			--PreAttackEndDuration = 0.4,
 
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
+			PreAttackStop = true,
 			TrackTargetDuringCharge = true,
-			PreAttackRotationDampening = 0.01,
-			AngleTowardsTargetWhileFiring = true,
+			PreAttackRotationDampening = 0.05,
+			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.11,
+			PostAttackStop = true,
 
 			AttackDistance = 400,
 			LoSBuffer = 200,
@@ -53,12 +56,22 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Mourner/EmoteAttacking" },
 			},
 		},
+	},
 
-		HitScreenshake = { Distance = 3, Speed = 700, Duration = 0.07, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
+	MournerRampage_Elite =
+	{
+		InheritFrom = {"MournerRampage"},
+		AIData =
 		{
-			{ ScreenPreWait = 0.02, Fraction = 0.2, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.1 },
+			DeepInheritance = true,
+
+			FireTickSelfVelocity = 800,
+
+			NumProjectiles = 30,
+			ProjectileInterval = 0.0733,
+			PostAttackDurationMin = 3.1,
+			PostAttackDurationMax = 4.0,
+			PreAttackEndStop = false,
 		},
 	},
 
@@ -98,7 +111,16 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Mourner/EmoteAttackingRanged" },
 			},
 		},
+	},
 
+	MournerCast_Elite =
+	{
+		InheritFrom = {"MournerCast"},
+		AIData =
+		{
+			DeepInheritance = true,
+			PostAttackDuration = 2.0,
+		},
 	},
 
 	MournerScream =
@@ -128,31 +150,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/HeavyRangedSplitterMiniboss/CrystalBeamFireStartBIG" },
 				{ Name = "/SFX/Enemy Sounds/Mourner/EmoteAttackingRanged" },
 			},
-		},
-	},
-
-	MournerRampage_Elite =
-	{
-		InheritFrom = {"MournerRampage"},
-		AIData =
-		{
-			DeepInheritance = true,
-
-			FireTickSelfVelocity = 900,
-
-			PostAttackDurationMin = 3.1,
-			PostAttackDurationMax = 4.0,
-			PreAttackEndStop = false,
-		},
-	},
-
-	MournerCast_Elite =
-	{
-		InheritFrom = {"MournerCast"},
-		AIData =
-		{
-			DeepInheritance = true,
-			PostAttackDuration = 2.0,
 		},
 	},
 }

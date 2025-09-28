@@ -3,12 +3,12 @@ GameData.RunClearMessageData =
 	DefaultMessage =
 	{
 		DebugOnly = true,
-		Icon = "Shop_BedroomDecor",
 	},
 
 	ClearUnderworldNumOne =
 	{
 		InheritFrom = { "DefaultMessage" },
+		PlayOnce = true,
 		GameStateRequirements =
 		{
 			{
@@ -16,7 +16,7 @@ GameData.RunClearMessageData =
 			},
 			{
 				Path = { "GameState", "ClearedUnderworldRunsCache" },
-				Comparison = "==",
+				Comparison = ">=",
 				Value = 1,
 			},
 		},
@@ -24,6 +24,7 @@ GameData.RunClearMessageData =
 	ClearUnderworldNumTen =
 	{
 		InheritFrom = { "DefaultMessage" },
+		PlayOnce = true,
 		GameStateRequirements =
 		{
 			{
@@ -31,7 +32,7 @@ GameData.RunClearMessageData =
 			},
 			{
 				Path = { "GameState", "ClearedUnderworldRunsCache" },
-				Comparison = "==",
+				Comparison = ">=",
 				Value = 10,
 			},
 		},
@@ -39,6 +40,7 @@ GameData.RunClearMessageData =
 	ClearUnderworldNumFifty =
 	{
 		InheritFrom = { "DefaultMessage" },
+		PlayOnce = true,
 		GameStateRequirements =
 		{
 			{
@@ -46,7 +48,7 @@ GameData.RunClearMessageData =
 			},
 			{
 				Path = { "GameState", "ClearedUnderworldRunsCache" },
-				Comparison = "==",
+				Comparison = ">=",
 				Value = 50,
 			},
 		},
@@ -54,6 +56,7 @@ GameData.RunClearMessageData =
 	ClearUnderworldNumOneHundred =
 	{
 		InheritFrom = { "DefaultMessage" },
+		PlayOnce = true,
 		GameStateRequirements =
 		{
 			{
@@ -61,7 +64,7 @@ GameData.RunClearMessageData =
 			},
 			{
 				Path = { "GameState", "ClearedUnderworldRunsCache" },
-				Comparison = "==",
+				Comparison = ">=",
 				Value = 100,
 			},
 		},
@@ -69,6 +72,7 @@ GameData.RunClearMessageData =
 	ClearUnderworldNumTwoFifty =
 	{
 		InheritFrom = { "DefaultMessage" },
+		PlayOnce = true,
 		GameStateRequirements =
 		{
 			{
@@ -76,7 +80,7 @@ GameData.RunClearMessageData =
 			},
 			{
 				Path = { "GameState", "ClearedUnderworldRunsCache" },
-				Comparison = "==",
+				Comparison = ">=",
 				Value = 250,
 			},
 		},
@@ -84,6 +88,7 @@ GameData.RunClearMessageData =
 	ClearUnderworldNumFiveHundred =
 	{
 		InheritFrom = { "DefaultMessage" },
+		PlayOnce = true,
 		GameStateRequirements =
 		{
 			{
@@ -91,7 +96,7 @@ GameData.RunClearMessageData =
 			},
 			{
 				Path = { "GameState", "ClearedUnderworldRunsCache" },
-				Comparison = "==",
+				Comparison = ">=",
 				Value = 500,
 			},
 		},
@@ -100,6 +105,7 @@ GameData.RunClearMessageData =
 	ClearSurfaceNumOne =
 	{
 		InheritFrom = { "DefaultMessage" },
+		PlayOnce = true,
 		GameStateRequirements =
 		{
 			{
@@ -107,7 +113,7 @@ GameData.RunClearMessageData =
 			},
 			{
 				Path = { "GameState", "ClearedSurfaceRunsCache" },
-				Comparison = "==",
+				Comparison = ">=",
 				Value = 1,
 			},
 		},
@@ -115,6 +121,7 @@ GameData.RunClearMessageData =
 	ClearSurfaceNumTen =
 	{
 		InheritFrom = { "DefaultMessage" },
+		PlayOnce = true,
 		GameStateRequirements =
 		{
 			{
@@ -122,7 +129,7 @@ GameData.RunClearMessageData =
 			},
 			{
 				Path = { "GameState", "ClearedSurfaceRunsCache" },
-				Comparison = "==",
+				Comparison = ">=",
 				Value = 10,
 			},
 		},
@@ -130,6 +137,7 @@ GameData.RunClearMessageData =
 	ClearSurfaceNumFifty =
 	{
 		InheritFrom = { "DefaultMessage" },
+		PlayOnce = true,
 		GameStateRequirements =
 		{
 			{
@@ -137,7 +145,7 @@ GameData.RunClearMessageData =
 			},
 			{
 				Path = { "GameState", "ClearedSurfaceRunsCache" },
-				Comparison = "==",
+				Comparison = ">=",
 				Value = 50,
 			},
 		},
@@ -145,6 +153,7 @@ GameData.RunClearMessageData =
 	ClearSurfaceNumOneHundred =
 	{
 		InheritFrom = { "DefaultMessage" },
+		PlayOnce = true,
 		GameStateRequirements =
 		{
 			{
@@ -152,7 +161,7 @@ GameData.RunClearMessageData =
 			},
 			{
 				Path = { "GameState", "ClearedSurfaceRunsCache" },
-				Comparison = "==",
+				Comparison = ">=",
 				Value = 100,
 			},
 		},
@@ -160,6 +169,7 @@ GameData.RunClearMessageData =
 	ClearSurfaceNumTwoFifty =
 	{
 		InheritFrom = { "DefaultMessage" },
+		PlayOnce = true,
 		GameStateRequirements =
 		{
 			{
@@ -167,7 +177,7 @@ GameData.RunClearMessageData =
 			},
 			{
 				Path = { "GameState", "ClearedSurfaceRunsCache" },
-				Comparison = "==",
+				Comparison = ">=",
 				Value = 250,
 			},
 		},
@@ -175,6 +185,7 @@ GameData.RunClearMessageData =
 	ClearSurfaceNumFiveHundred =
 	{
 		InheritFrom = { "DefaultMessage" },
+		PlayOnce = true,
 		GameStateRequirements =
 		{
 			{
@@ -182,7 +193,7 @@ GameData.RunClearMessageData =
 			},
 			{
 				Path = { "GameState", "ClearedSurfaceRunsCache" },
-				Comparison = "==",
+				Comparison = ">=",
 				Value = 500,
 			},
 		},
@@ -229,7 +240,33 @@ GameData.RunClearMessageData =
 			{
 				Path = { "CurrentRun", "Hero", "MaxHealth" },
 				Comparison = ">=",
-				Value = 400,
+				Value = 550,
+			},
+		},
+	},
+
+	ClearHighMaxMana =
+	{
+		InheritFrom = { "DefaultMessage" },
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "MaxMana" },
+				Comparison = ">=",
+				Value = 550,
+			},
+		},
+	},
+
+	ClearHighArmor =
+	{
+		InheritFrom = { "DefaultMessage" },
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "HealthBuffer" },
+				Comparison = ">=",
+				Value = 100,
 			},
 		},
 	},
@@ -239,10 +276,17 @@ GameData.RunClearMessageData =
 		InheritFrom = { "DefaultMessage" },
 		GameStateRequirements =
 		{
+			-- Fast...
 			{
 				Path = { "CurrentRun", "GameplayTime" },
 				Comparison = "<=",
-				Value = 900,
+				Value = 720,
+			},
+			-- ...but not Very Fast
+			{
+				Path = { "CurrentRun", "GameplayTime" },
+				Comparison = ">",
+				Value = 600,
 			},
 		},
 	},
@@ -255,7 +299,7 @@ GameData.RunClearMessageData =
 			{
 				Path = { "CurrentRun", "GameplayTime" },
 				Comparison = "<=",
-				Value = 720,
+				Value = 600,
 			},
 		},
 	},
@@ -272,7 +316,33 @@ GameData.RunClearMessageData =
 			},
 		},
 	},
-
+	
+	ClearLowMetaUpgradeTraits =
+	{
+		InheritFrom = { "DefaultMessage" },
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				CountOf = GameData.AllMetaUpgradeTraits,
+				Comparison = "<=",
+				Value = 3,
+			},
+		},
+	},
+	ClearHighMetaUpgradeTraits =
+	{
+		InheritFrom = { "DefaultMessage" },
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				CountOf = GameData.AllMetaUpgradeTraits,
+				Comparison = ">=",
+				Value = 25,
+			},
+		},
+	},
 	ClearMoneyNone =
 	{
 		InheritFrom = { "DefaultMessage" },
@@ -299,17 +369,6 @@ GameData.RunClearMessageData =
 		},
 	},
 
-	--[[
-	ClearNoOlympianBoons =
-	{
-		InheritFrom = { "DefaultMessage" },
-		GameStateRequirements =
-		{
-			-- Reimplement
-		},
-	},
-	]]
-
 	ClearAllUnderworldStoryRooms =
 	{
 		InheritFrom = { "DefaultMessage" },
@@ -321,7 +380,7 @@ GameData.RunClearMessageData =
 			},
 			{
 				Path = { "CurrentRun", "EncountersCompletedCache", },
-				HasAny = { "NemesisCombatIntro", "NemesisCombatF", "NemesisCombatG", "NemesisCombatH", "NemesisRandomEvent" },
+				HasAny = { "NemesisCombatIntro", "NemesisCombatF", "NemesisCombatG", "NemesisCombatH", "NemesisCombatI", "NemesisRandomEvent" },
 			},
 			{
 				Path = { "CurrentRun", "EncountersCompletedCache", },
@@ -378,6 +437,43 @@ GameData.RunClearMessageData =
 		},
 	},
 
+	ClearRequiredIntactArachneDress =
+	{
+		InheritFrom = { "DefaultMessage" },
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasAny =
+				{
+					"AgilityCostume",
+					"ManaCostume",
+					"VitalityCostume",
+					"HighArmorCostume",
+					"CastDamageCostume",
+					"IncomeCostume",
+					"SpellCostume",
+					"EscalatingCostume",
+				},
+			},
+		},
+	},
+
+	ClearRequiredIntactIcarusArmor =
+	{
+		InheritFrom = { "DefaultMessage" },
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasAny =
+				{
+					"BreakExplosiveArmorBoon",
+					"BreakInvincibleArmorBoon",
+				},
+			},
+		},
+	},
 
 	ClearRequiredTraitsZeus =
 	{
@@ -619,6 +715,37 @@ GameData.RunClearMessageData =
 			},
 		},
 	},
+	ClearRequiredTraitsAres =
+	{
+		InheritFrom = { "DefaultMessage" },
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "DoubleBloodDropBoon" },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				CountOf =
+				{
+					"AresWeaponBoon", 
+					"AresSpecialBoon", 
+					"AresCastBoon", 
+					"AresSprintBoon", 
+					"AresManaBoon",
+					"AresExCastBoon",
+					"RendBloodDropBoon",
+					"AresStatusDoubleDamageBoon",
+					"BloodDropRevengeBoon",
+					"MissingHealthCritBoon",
+					"AloneDamageBoon",
+					"LowHealthLifestealBoon",
+					"OmegaDelayedDamageBoon",
+				},
+				Comparison = ">=",
+				Value = 6,
+			},
+		},
+	},
 	ClearRequiredTraitsHermes =
 	{
 		InheritFrom = { "DefaultMessage" },
@@ -669,39 +796,7 @@ GameData.RunClearMessageData =
 		{
 			{
 				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				-- CountOf = GameData.AllDuoBoons, -- simpler check
-				CountOf =
-				{
-					"ManaShieldBoon",
-					"RaiseDeadBoon",
-					"MoneyDamageBoon",
-					"RootStrikeBoon",
-					"KeepsakeLevelBoon",
-					"GoodStuffBoon",
-					"ApolloSecondStageCastBoon",
-					"PoseidonSplashSprintBoon",
-					"StormSpawnBoon",
-					"SprintEchoBoon",
-					"CharmCrowdBoon",
-					"MaxHealthDamageBoon",
-					"ManaBurstCountBoon",
-					"EchoBurnBoon",
-					"ManaRestoreDamageBoon",
-					"SteamBoon",
-					"BurnConsumeBoon",
-					"CoverRegenerationBoon",
-					"BurnRefreshBoon",
-					"ReboundingSparkBoon",
-					"MassiveCastBoon",
-					"ClearRootBoon",
-					"BlindClearBoon",
-					"SlamManaBurstBoon",
-					"DoubleMassiveAttackBoon",
-					"SuperSacrificeBoonZeus",
-					"SuperSacrificeBoonHera",
-					"LightningVulnerabilityBoon",
-					"AllCloseBoon",
-				},
+				CountOf = GameData.AllDuoBoons,
 				Comparison = ">=",
 				Value = 3,
 			},
@@ -714,155 +809,176 @@ GameData.RunClearMessageData =
 		{
 			{
 				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				CountOf =
-				{
-					"RandomStatusBoon",
-					"DoubleExManaBoon",
-					"InstantRootKill",
-					"WeaponUpgradeBoon",
-					"AllElementalBoon",
-					"BurnStackBoon",
-					"AmplifyConeBoon",
-					"SpawnKillBoon",
-				},
+				CountOf = GameData.AllLegendaryBoons,
 				Comparison = ">=",
 				Value = 3,
 			},
 		},
 	},
-
-	--[[
-	ClearChallengeSwitches =
+	ClearElementalTraits =
 	{
 		InheritFrom = { "DefaultMessage" },
 		GameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				CountOf = GameData.AllElementalBoons,
+				Comparison = ">=",
+				Value = 7,
+			},
 		},
 	},
 
-	ClearDevotionEncounters =
+	ClearNoDamageTakenFromBosses =
 	{
 		InheritFrom = { "DefaultMessage" },
 		GameStateRequirements =
 		{
-			-- Reimplement
+			{
+				FunctionName = "ClearedBossEncountersWithNoDamage",
+				FunctionArgs =
+				{
+					Encounters =
+					{
+						"BossHecate01",
+						"BossHecate02",
+						"BossPolyphemus01",
+						"BossPolyphemus02",
+						"BossScylla01",
+						"BossScylla02",
+						"BossEris01",
+						"BossEris02",
+						"BossInfestedCerberus01",
+						"BossInfestedCerberus02",
+						"BossPrometheus01",
+						"BossPrometheus02",
+						"BossChronos01",
+						"BossChronos02",
+						"BossTyphonHead01",
+						"BossTyphonHead02",
+					},
+				},
+			},
 		},
 	},
 
-	ClearShrineChallengeEncounters =
-	{
-		InheritFrom = { "DefaultMessage" },
-	},
-
-	ClearMiniBossEncounters =
-	{
-		InheritFrom = { "DefaultMessage" },
-		GameStateRequirements =
-		{
-			-- Reimplement
-		},
-	},
-
-	ClearWeaponsFiredWrath =
-	{
-		InheritFrom = { "DefaultMessage" },
-		GameStateRequirements =
-		{
-			-- Reimplement
-		},
-	},
-
-	ClearWeaponsFiredRanged =
-	{
-		InheritFrom = { "DefaultMessage" },
-		GameStateRequirements =
-		{
-			-- Reimplement
-		},
-	},
-
-	ClearFishCaught =
+	ClearNoOlympianBoons =
 	{
 		InheritFrom = { "DefaultMessage" },
 		GameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "CurrentRun", "Hero", "OlympianBoonCount" },
+				Comparison = "==",
+				Value = 0,
+			},
 		},
 	},
 
-	ClearConsecutiveHigh =
+	ClearHighOlympianBoons =
 	{
 		InheritFrom = { "DefaultMessage" },
 		GameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "CurrentRun", "Hero", "UniqueGodCount" },
+				Comparison = ">=",
+				Value = 9,
+			},
 		},
 	},
 
-	ClearHealItems =
+	ClearHighSacrificeBoons =
 	{
 		InheritFrom = { "DefaultMessage" },
 		GameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "CurrentRun", "SacrificeTraitCount" },
+				Comparison = ">=",
+				Value = 6,
+			},
 		},
 	},
 
-	ClearStackUpgrades =
+	ClearHighSpentLastStands =
 	{
 		InheritFrom = { "DefaultMessage" },
 		GameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "CurrentRun", "Hero", "LastStandsUsed" },
+				Comparison = ">=",
+				Value = 9,
+			},
 		},
 	},
 
-	ClearGiftDrops =
+	ClearHighHammerCount =
 	{
 		InheritFrom = { "DefaultMessage" },
 		GameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "CurrentRun", "Hero", "HammerCount" },
+				Comparison = ">=",
+				Value = 5,
+			},
 		},
 	},
 
-	ClearConsolationPrizes =
+	ClearNoNPCs =
 	{
 		InheritFrom = { "DefaultMessage" },
 		GameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "CurrentRun", "EncountersCompletedCache", },
+				HasNone = { "Story_Arachne_01", "Story_Narcissus_01", "Story_Echo_01", "Story_Hades_01" },
+			},
+			{
+				Path = { "CurrentRun", "EncountersCompletedCache", },
+				HasNone = { "NemesisCombatIntro", "NemesisCombatF", "NemesisCombatG", "NemesisCombatH", "NemesisCombatI", "NemesisRandomEvent" },
+			},
+			{
+				Path = { "CurrentRun", "EncountersCompletedCache", },
+				HasNone = { "ArtemisCombatIntro", "ArtemisCombatF", "ArtemisCombatF2", "ArtemisCombatG", "ArtemisCombatG2" },
+			},
+			{
+				Path = { "CurrentRun", "EncountersCompletedCache", },
+				HasNone = { "Story_Medea_01", "Story_Circe_01", "Story_Dionysus_01" },
+			},
+			{
+				Path = { "CurrentRun", "EncountersCompletedCache", },
+				HasNone = { "HeraclesCombatIntro", "HeraclesCombatN", "HeraclesCombatN2", "HeraclesCombatO", "HeraclesCombatO2", "HeraclesCombatP", "HeraclesCombatP2", "ArtemisCombatN", "ArtemisCombatN2" },
+			},
+			{
+				Path = { "CurrentRun", "EncountersCompletedCache", },
+				HasNone = { "IcarusCombatIntro", "IcarusCombatO", "IcarusCombatO2", "IcarusCombatP", "IcarusCombatP2" },
+			},
+			{
+				Path = { "CurrentRun", "EncountersCompletedCache", },
+				HasNone = { "AthenaCombatIntro", "AthenaCombatP", "AthenaCombatP02", },
+			},
+			{
+				PathFalse = { "CurrentRun", "ExpiredKeepsakes", "AthenaEncounterKeepsake" },
+			},
 		},
 	},
 
-	ClearManyLastStands =
+	ClearHighFear =
 	{
 		InheritFrom = { "DefaultMessage" },
+		PlayOnce = true,
 		GameStateRequirements =
 		{
-			-- Reimplement
+			{
+				Path = { "GameState", "SpentShrinePointsCache" },
+				Comparison = ">=",
+				Value = 40,
+			},
 		},
 	},
-
-	ClearShutDownThanatos =
-	{
-		InheritFrom = { "DefaultMessage" },
-		GameStateRequirements =
-		{
-			-- Reimplement
-		},
-	},
-
-	ClearManyTraitsSold =
-	{
-		InheritFrom = { "DefaultMessage" },
-		GameStateRequirements =
-		{
-			-- Reimplement
-		},
-	},
-	]]
 }
 
 ScreenData.RunClear =
@@ -882,14 +998,20 @@ ScreenData.RunClear =
 		"ClearSurfaceNumTwoFifty",
 		"ClearSurfaceNumFiveHundred",
 
+		"ClearNoDamageTakenFromBosses",
+
 		"ClearTimeVeryFast",
 		"ClearTimeFast",
 		"ClearTimeSlow",
 
+		"ClearLowMetaUpgradeTraits",
+		"ClearHighMetaUpgradeTraits",
 		{
 			"ClearNearDeath",
 			"ClearFullHealth",
 			"ClearHighMaxHealth",
+			"ClearHighMaxMana",
+			"ClearHighArmor",
 
 			"ClearMoneyNone",
 			"ClearMoneyHigh",
@@ -898,6 +1020,7 @@ ScreenData.RunClear =
 			"ClearAllSurfaceStoryRooms",
 			"ClearAllUnderworldReprieveRooms",
 			"ClearAllUnderworldShopRooms",
+			"ClearNoNPCs",
 
 			"ClearRequiredTraitsZeus",
 			"ClearRequiredTraitsPoseidon",
@@ -907,10 +1030,21 @@ ScreenData.RunClear =
 			"ClearRequiredTraitsApollo",
 			"ClearRequiredTraitsHephaestus",
 			"ClearRequiredTraitsHestia",
+			"ClearRequiredTraitsAres",
 			"ClearRequiredTraitsHermes",
 			"ClearRequiredTraitsChaos",
 			"ClearSynergyTraits",
 			"ClearLegendaryTraits",
+			"ClearElementalTraits",
+			"ClearRequiredIntactArachneDress",
+			"ClearRequiredIntactIcarusArmor",
+		
+			"ClearNoOlympianBoons",
+			"ClearHighOlympianBoons",
+			"ClearHighHammerCount",
+			"ClearHighSacrificeBoons",
+			"ClearHighSpentLastStands",
+			"ClearHighFear",
 		},		
 	},
 
@@ -940,6 +1074,13 @@ ScreenData.RunClear =
 	{
 		Font = "LatoMedium",
 		FontSize = 20,
+		LangFontSize = {
+			{ Code = "ja", Value = 17.5 },
+		},
+		OffsetX = 0,
+		LangOffsetX = {
+			{ Code = "ja", Value = -10 },
+		},
 		Color = {241,241,241,255},
 		ShadowBlur = 0,
 		ShadowColor = { 0, 0, 0, 0 },
@@ -968,94 +1109,171 @@ ScreenData.RunClear =
 
 	DamageSourceMap =
 	{
+		-- Cast
 		ProjectileCast = "WeaponCast",
+		DemeterCastBlast = "WeaponCast",
+		ZeusCastStrike = "WeaponCast",
+		WeaponAnywhereCast = "WeaponCast",
+		ProjectileCastFireball = "WeaponCast",
+		PoseidonCast = "WeaponCast",
+		ApolloSingleCastStrike = "WeaponCast",
+		ApolloCast = "WeaponCast",
+		ApolloCastRapid = "WeaponCast",
+		IcarusHazardExplosion = "WeaponCast",
+		HeraCastSummonProjectile = "WeaponCast",
+		HeraCastDamageProjectile = "WeaponCast",
+		HephCastBlast = "WeaponCast",
+		AphroditeCastProjectile = "WeaponCast",
+		ProjectileAresSwordCast = "WeaponCast",
+		AresProjectile = "WeaponCast",
+		ArtemisCastVolley = "WeaponCast",
+		WeaponCastProjectileHades = "WeaponCast",
+		ProjectileCastLob = "WeaponCast",
+		AthenaCastProjectile = "WeaponCast",
+		MassiveSlamBlastCast = "WeaponCast",
 
-		WeaponStaffSwing2 = "WeaponStaffSwing",	
-		WeaponStaffSwing3 = "WeaponStaffSwing",	
+		-- Blink / Sprint
+		AphroditeRushProjectile = "WeaponBlink",
+		HestiaSprintPuddle = "WeaponBlink",
+		HephSprintBlast = "WeaponBlink",
+		ZeusSprintStrike = "WeaponBlink",
+		PoseidonSprintBlast = "WeaponBlink",
+		PoseidonSprintSecondaryBlast = "WeaponBlink",
+		HeraSprintProjectile = "WeaponBlink",
+		ProjectileAresSwordWake = "WeaponBlink",
+
+		-- Staff
+		WeaponStaffSwing2 = "WeaponStaffSwing",
+		WeaponStaffSwing3 = "WeaponStaffSwing",
+		ProjectileSwing5 = "WeaponStaffSwing5",
 		ProjectileStaffBall = "WeaponStaffBall",
+		ShadeMercAspectSpiritball = "ShadeMerc",
+		FamiliarLinkLaser = "FamiliarBuff",
 
+		-- Dagger
 		WeaponDagger2 = "WeaponDagger",
 		WeaponDaggerMultiStab = "WeaponDagger",
 		WeaponDaggerDouble = "WeaponDagger",
+		WomboStrike = "TripleAspectStrike",
 
+		-- Axe
 		WeaponAxe2 = "WeaponAxe",
-		WeaponAxe3 = "WeaponAxe",
+		ProjectileAxeOverhead = "WeaponAxe",
 		ProjectileAxeSpecial = "WeaponAxeSpecial",
 		ProjectileAxeBlock2 = "WeaponAxeSpecialSwing",
+		HammerAxeNova = "WeaponAxe",
+		ProjectileAxeNergalSlow = "WeaponAxe",
+		ProjectileAxeNergalFast = "WeaponAxe",
 
+		-- Torch
 		ProjectileTorchBall = "WeaponTorch",
-		ProjectileTorchSpiral = "WeaponTorchSpecial",
-		ProjectileTorchExplosion = "WeaponTorch",
-		ProjectileTorchExplosionLarge = "ProjectileTorchBallLarge",
-		ProjectileTorchRepeatStrike = "WeaponTorch",
-		ProjectileTorchRepeatStrikeLarge = "ProjectileTorchBallLarge",
+		ProjectileTorchOrbit = "WeaponTorchSpecial",
+		ProjectileTorchGhost = "WeaponTorch",
+		ProjectileTorchGhostExplosion = "WeaponTorch",
+		ProjectileTorchGhostLarge = "ProjectileTorchWave",
+		ProjectileTorchGhostLargeExplosion = "ProjectileTorchWave",
+		ProjectileTorchBallEos = "ProjectileTorchWave",
+		ProjectileTorchRepeatStrike = "ProjectileTorchWave",
+		ProjectileTorchSupayBallEx = "ProjectileTorchWave",
 
+		-- Lob
 		ProjectileLob = "WeaponLob",
 		WeaponLobPulse = "WeaponLob",
-		WeaponLobChargedPulse = "WeaponLob",
-		WeaponSkullImpulse = "ProjectileThrowCharged", -- LobImpulseAspect
-		ProjectileSkullImpulseWave = "ProjectileThrowCharged",
+		WeaponLobChargedPulse = "ProjectileLobCharged",
+		ProjectileLobOverheat = "ProjectileLobCharged",
+		ProjectileGunThrowCharged = "ProjectileThrowCharged",
 
-		WeaponSuit2 = "WeaponSuit",
+		-- Suit
 		ProjectileSuit = "WeaponSuit",
 		ProjectileSuit2 = "WeaponSuit",
+		ProjectileSuitCharged = "WeaponSuitCharged",
 		ProjectileSuitDash = "WeaponSuitDash",
-		ProjectileSuitRangedCharged = "WeaponSuitRanged",
 		ProjectileSuitRangedGuided = "WeaponSuitRanged",
+		WeaponSuitDouble = "WeaponSuit",
+		ProjectileSuitGrenade = "WeaponSuitRanged",
+		ProjectileSuitBomb = "ProjectileSuitRangedCharged",
 		NyxSprintBlast = "NyxSprint",
+		ProjectileSuitGrenadeStraight = "WeaponSuitRanged",
+		ProjectileSuitBombStraight = "ProjectileSuitRangedCharged",
 
+		-- Spells
 		WeaponTransformAttack = "WeaponSpellTransform",
 		WeaponTransformSpecial = "WeaponSpellTransform",
-		WeaponTransformCast = "WeaponSpellTransform",
-
 		SpellSummonMelee = "WeaponSpellSummon",
-		SpellSummonRanged = "WeaponSpellSummon",
 		SummonDeathWeapon = "WeaponSpellSummon",
+		SpellLaserStartAoE = "WeaponSpellLaser",
+		ProjectileSpellMiniMeteor = "WeaponSpellMeteor",
+		PolymorphNova = "WeaponSpellPolymorph",
+		MorphDamageProjectile = "WeaponSpellPolymorph",
+		ZeusPolymorphStrike = "WeaponSpellPolymorph",
+		DemeterTickEffect = "WeaponSpellTimeSlow",
+		HephLeapBlast = "WeaponSpellLeap",
 
-		-- WeaponMorphedAttack = "", Mel attacks when poly'd as a sheep
+		WeaponMorphedAttack_Rat = "WeaponMorphedAttack",
+		WeaponMorphedAttack_Pig = "WeaponMorphedAttack",
 		-- HeroSkyTouchdown = "", Mel Olympus jump pad attack
 		
-		-- Boons / Traits
-		ZeusCastStrike = "WeaponCast",
-		ProjectileCastFireball = "WeaponCast",
-		PoseidonCast = "WeaponCast",
-		WeaponAnywhereCast = "WeaponCast",
-		ApolloCast = "WeaponCast",
-		IcarusHazardExplosion = "WeaponCast",
+		--Aphrodite
+		AphroditeBurst = "HeartBurstPlural",
 
-		AphroditeRushProjectile = "WeaponBlink",
-		HestiaSprintPuddle = "Sprint",
-		HephSprintBlast = "Sprint",
-		ZeusSprintStrike = "Sprint",
-		PoseidonSprintBlast = "Sprint",
+		--Apollo
+		ApolloRetaliateStrike = "ApolloRetaliateBoon",
 
-		BurnEffect = "Burn",
+		--Ares
+		ProjectileAresSwordEx = "OmegaDelayedDamageBoon",
+
+		--Demeter
 		DemeterSprintStorm = "SlowField",
+		DemeterCastStorm = "SlowField",
+		DemeterMiniStorm = "StormSpawnBoon",
+		DemeterChillKill = "InstantRootKill",
+
+		--Hephaestus
 		MassiveSlamBlast = "MassiveSlam_Name",
+		DelayedKnockbackEffect = "MassiveKnockupBoon",
+
+		--Hera
+		HeraDamageShareProjectile = "DamageShareRetaliateBoon",
+		DamageShareDeath = "LinkedDeathDamageBoon",
+		ProjectileHeraOmega = "OmegaHeraProjectileBoon",
+
+		--Hestia
+		BurnEffect = "Burn",
+		ProjectileFireball = "FireballManaSpecialBoon",
+		BurnNova = "BurnExplodeBoon",
+
+		--Poseidon
 		PoseidonSplashSplinter = "PoseidonSplash_Name",
 		PoseidonCastSplashSplinter = "PoseidonSplash_Name",
-		ProjectileZeusSpark = "ChainLightning_Name",
+		PoseidonOmegaWave = "OmegaPoseidonProjectileBoon",
+		PoseidonEffectFont = "KnockbackAmplify",
 
-		ProjectileFireball = "FireballManaSpecialBoon",
-		ArtemisSupportingFire = "SupportingFireBoon",
-		ArtemisCastVolley = "OmegaCastVolleyBoon",
+		--Zeus
+		ProjectileZeusSpark = "ChainLightning_Name",
 		ZeusZeroManaStrike = "ZeusManaBoltBoon",
-		HeraDamageShareProjectile = "DamageShareRetaliateBoon",
-		DelayedKnockbackEffect = "MassiveKnockupBoon",
-		DamageShareDeath = "HeraCastBoon",
-		WeaponCastProjectileHades = "HadesCastProjectileBoon",
-		AphroditeBurst = "ManaBurstBoon",
-		BurnNova = "BurnExplodeBoon",
-		HestiaBurnConsumeStrike = "BurnConsumeBoon",
-		ProjectileSprintBall = "PoseidonSplashSprintBoon",
+		ZeusRetaliateStrike = "BoltRetaliateBoon",
+
+		-- Duos
 		ZeusRootStrike = "RootStrikeBoon",
-		PoseidonCollisionBlast = "SlamExplosionBoon",
-		ProjectileHeraOmega = "OmegaHeraProjectileBoon",
-		PoseidonOmegaProjectile = "OmegaPoseidonProjectileBoon",
-		DemeterMiniStorm = "StormSpawnBoon",
+		HestiaBurnConsumeStrike = "BurnConsumeBoon",
+		ManaRestoreBlast = "ManaRestoreDamageBoon",
+		SteamBlast = "SteamBoon",
+		ProjectileSprintBall = "PoseidonSplashSprintBoon",
+
+		-- NPCs
+		ArtemisSupportingFire = "SupportingFireBoon",
+		HadesUrnDeath = "HadesManaUrnBoon",
+		SpearWeaponSpin = "HadesDashSweepBoon",
+		AthenaDeflectingProjectile = "AthenaProjectileBoon",
+		ProjectileAthenaManaSpear = "ManaSpearBoon",
+		IcarusArmorExplosion = "BreakExplosiveArmorBoon",
+		IcarusExplosion = "OmegaExplodeBoon",
+		MedeaStatusStrike = "NewStatusDamage",
 
 		-- Traps
-		ShadeMercSpiritball = "WorldUpgradeShadeMercs",
+		ShadeMercSpiritball = "ShadeMerc",
+		ShovelPointTrap = "Traps",
+		ShovelPointBomb = "Traps",
 		DestructibleTreeSplinter = "Traps",
 		SteamWallBlast = "Traps",
 		SteamWallTrap = "Traps",
@@ -1066,8 +1284,11 @@ ScreenData.RunClear =
 		FireBarrelExplosion = "Traps",
 		FireBarrel = "Traps",
 		FireBarrelShips = "Traps",
+		FireBarrelExplosionShips = "Traps",
+		FireBarrelFireLob = "Traps",
 		BlastCubeExplosion = "Traps",
 		SpikeTrapClockwork = "Traps",
+		SpikeTrapWeapon = "Traps",
 		BeamTrap = "Traps",
 		RubbleFall = "Traps",
 		FieldsDestructiblePillarDestruction = "Traps",
@@ -1079,6 +1300,8 @@ ScreenData.RunClear =
 		OilPuddleFire02 = "Traps",
 		OilPuddleFire03 = "Traps",
 		OilPuddleFire04 = "Traps",
+		DestructibleMastSplinter = "Traps",
+		GunBombImmolation = "Traps",
 		LavaTile = "Traps",
 		LavaTileTriangle01 = "Traps",
 		LavaTileTriangle02 = "Traps",
@@ -1086,24 +1309,31 @@ ScreenData.RunClear =
 		LavaTileTriangle01Weapon = "Traps",
 		LavaTileTriangle02Weapon = "Traps",
 		RubbleFallOlympus = "Traps",
+		PolyphemusBoulders = "Traps",
 		PolyphemusBoulderSky = "Traps",
+		ThornTreeThorn = "Traps",
 		BrambleTrap = "Traps",
 		BrambleTrapBush = "Traps",
 		BloodMinePreFused = "Traps",
-
-		-- Allies
-		ArtemisSniperBolt = "NPC_Artemis_Field_01",
-		NemesisSpecial = "NPC_Nemesis_01",
-		NemesisAttack1 = "NPC_Nemesis_01",
-		NemesisAttack2 = "NPC_Nemesis_01",
-		NemesisAttack3 = "NPC_Nemesis_01",
-		HeraclesArcRight = "NPC_Heracles_01",
-		HeraclesLeap = "NPC_Heracles_01",
+		IcicleSplinter = "Traps",
+		TyphonSpike = "Traps",
+		TyphonSpikeSplinter = "Traps",
+		TyphonEggExplosion = "Traps",
+		TyphonEgg = "Traps",
+		TyphonEggLarge = "Traps",
+		TyphonMine = "Traps",
+		HestiaStatueFireball = "Traps",
+		HestiaStatueFireRing = "Traps",
+		DemeterStatueFrostStorm = "Traps",
+		PoseidonStatueWave = "Traps",
+		ZeusStatueChasingStorm = "Traps",
 
 		-- Familiars
 		CatFamiliarPounce = "CatFamiliar",
 		FrogFamiliarLand = "FrogFamiliar",
 		RavenFamiliarMelee = "RavenFamiliar",
+		RavenFamiliarMelee_Crit = "RavenFamiliar",
+		PolecatFamiliarMelee = "PolecatFamiliar",
 
 		-- Devotions
 		ZeusUpgradeRoomWeapon = "NPC_Zeus_01",
@@ -1114,12 +1344,17 @@ ScreenData.RunClear =
 		DemeterUpgradeRoomWeapon = "NPC_Demeter_01",
 		AphroditeUpgradeRoomWeapon = "NPC_Aphrodite_01",
 		HephaestusUpgradeRoomWeapon = "NPC_Hephaestus_01",
+		AresUpgradeRoomWeapon = "NPC_Ares_01",
+
+		-- Misc
+		SurfaceHealthPenalty = "SurfacePenalty",
+		BiomeTimer = "BiomeSpeedShrineUpgrade",
 	},
 
 	DamageSourceTextOverrides =
 	{
 		WeaponCast = "CastSet",
-		WeaponBlink = "Dash",
+		WeaponBlink = "DashSet",
 
 		WeaponStaffSwing = "Attack",
 		WeaponStaffSwing5 = "AttackEX",
@@ -1130,7 +1365,8 @@ ScreenData.RunClear =
 		WeaponDagger = "Attack",
 		WeaponDaggerDash = "DashStrike",
 		WeaponDagger5 = "AttackEX",
-		WeaponDaggerThrow = "SpecialSet",
+		WeaponDaggerThrow = "Special",
+		ProjectileDaggerThrowCharged = "SpecialEX",
 
 		WeaponAxe = "Attack",
 		WeaponAxeDash = "DashStrike",
@@ -1139,9 +1375,9 @@ ScreenData.RunClear =
 		WeaponAxeSpecialSwing = "SpecialEX",
 
 		WeaponTorch = "Attack",
-		ProjectileTorchBallLarge = "AttackEX",
+		ProjectileTorchWave = "AttackEX",
 		WeaponTorchSpecial = "Special",
-		ProjectileTorchOrbit = "SpecialEX",
+		ProjectileTorchOrbitEx = "SpecialEX",
 
 		WeaponLob =  "Attack",
 		ProjectileLobCharged = "AttackEX",
@@ -1151,7 +1387,8 @@ ScreenData.RunClear =
 		WeaponSuit = "Attack",
 		WeaponSuitDash = "DashStrike",
 		WeaponSuitCharged = "AttackEX",
-		WeaponSuitRanged = "SpecialSet",
+		WeaponSuitRanged = "Special",
+		ProjectileSuitRangedCharged = "SpecialEX",
 
 		WeaponSpellTransform = "SpellTransformTrait",
 		WeaponSpellMeteor = "SpellMeteorTrait",
@@ -1159,6 +1396,7 @@ ScreenData.RunClear =
 		WeaponSpellSummon = "SpellSummonTrait",
 		WeaponSpellLeap = "SpellLeapTrait",
 		WeaponSpellPolymorph = "SpellPolymorphTrait",
+		WeaponSpellTimeSlow = "SpellTimeSlowTrait",
 		WeaponSpellMoonBeam = "SpellMoonBeamTrait",
 	},
 	
@@ -1170,7 +1408,11 @@ ScreenData.RunClear =
 		Order =
 		{
 			"BackgroundDim",
-			"ShopBackground",
+			"VictoryBackground",
+			"ActionBarBackground",
+			
+			"StatsBacking",
+			"BadgeRankIcon",
 		},
 
 		BackgroundDim = 
@@ -1183,27 +1425,45 @@ ScreenData.RunClear =
 			Y = ScreenCenterY,
 		},
 
-		TitleText =
+		VictoryBackground =
+		{
+			Animation = "VictoryScreenIllustration_Underworld",
+			GroupName = "Combat_Menu",
+			X = ScreenCenterX,
+			Y = ScreenCenterY,
+			Alpha = 0.0,
+			AlphaTarget = 1.0,
+			AlphaTargetDuration = 0.3,
+		},
+
+		ActionBarBackground =
+		{
+			AnimationName = "GUI\\ActionBar",
+			GroupName = "HUD_Backing",
+			X = ScreenCenterX,
+			BottomOffset = UIData.ActionBarBottomOffset,
+			UseScreenScaleX = true,
+		},
+
+		UnderworldTitleText =
 		{
 			Text = "RunClearScreen_Title",
 			X = ScreenCenterX,
 			Y = 70,
-			Graphic = "VictoryTextBacking",
 			GroupName = "Combat_Menu_TraitTray_Overlay",
 			TextArgs =
 			{
-				FontSize = 40,
-				OffsetY = 6,
-				Font = "SpectralSCLightTitling",
-				Color = Color.White,
-				Font = "P22UndergroundSCLightTitling",
-				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 3},
-				OutlineThickness = 3,
+				FontSize = 50,
+				OffsetY = -21,
+				Color = {245,255,225,255},
+				Font = "P22UndergroundSCMedium",
+				ShadowBlur = 0, ShadowColor = {0,50,30,255}, ShadowOffset={0, 3},
+				OutlineThickness = 0,
 				Justification = "Center",
 			},
 		},
 
-		RunClearMessageText =
+		UnderworldRunClearMessageText =
 		{
 			GroupName = "Combat_Menu_TraitTray_Overlay",
 			X = ScreenCenterX,
@@ -1212,11 +1472,58 @@ ScreenData.RunClear =
 			{
 				Color = { 141, 253, 240, 255 },
 				FontSize = 23,
+				OffsetY = -10,
 				Font = "P22UndergroundSCLight",
 				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
 				OutlineThickness = 2, OutlineColor = {0,0,0,1},
 				Justification = "Center",
 			},
+		},
+
+		SurfaceTitleText =
+		{
+			Text = "RunClearScreen_Title_Surface",
+			X = ScreenCenterX,
+			Y = 70,
+			GroupName = "Combat_Menu_TraitTray_Overlay",
+			TextArgs =
+			{
+				FontSize = 50,
+				OffsetY = -21,
+				Color = {255,255,215,255},
+				Font = "P22UndergroundSCMedium",
+				ShadowBlur = 0, ShadowColor = {80,40,0,255}, ShadowOffset={0, 3},
+				OutlineThickness = 0,
+				Justification = "Center",
+			},
+		},
+
+		SurfaceRunClearMessageText =
+		{
+			GroupName = "Combat_Menu_TraitTray_Overlay",
+			X = ScreenCenterX,
+			Y = 120,
+			TextArgs =
+			{
+				Color = { 253, 240, 141, 255 },
+				FontSize = 23,
+				OffsetY = -10,
+				Font = "P22UndergroundSCLight",
+				ShadowBlur = 0, ShadowColor = {80,40,0,255}, ShadowOffset={0, 2},
+				OutlineThickness = 2, OutlineColor = {80,40,0,255},
+				Justification = "Center",
+			},
+		},
+
+		BadgeRankIcon =
+		{
+			GroupName = "Combat_Menu_TraitTray_Overlay",
+			RightOffset = 223,
+			BottomOffset = 122,
+			Alpha = 0.0,
+			AlphaTarget = 1.0,
+			AlphaTargetDuration = 0.6,
+			Scale = 0.50
 		},
 
 		StatsBacking = 
@@ -1225,14 +1532,13 @@ ScreenData.RunClear =
 			GroupName = "Combat_Menu_TraitTray_Overlay",
 			Scale = 0.5,
 			RightOffset = 225,
-			Y = ScreenCenterY,
+			BottomOffset = 540,
 		},
-
 
 		RunStatsLabel =
 		{
 			RightOffset = 225,
-			Y = 170,
+			BottomOffset = 910,
 			GroupName = "Combat_Menu_TraitTray_Overlay_Text",
 			Text = "RunClearScreen_RunStats",
 			TextArgs =
@@ -1249,7 +1555,7 @@ ScreenData.RunClear =
 		ClearTimeLabel =
 		{
 			RightOffset = 415,
-			Y = 235,
+			BottomOffset = 845,
 			Text = "RunClearScreen_ClearTime",
 			GroupName = "Combat_Menu_TraitTray_Overlay_Text",
 			TextArgs =
@@ -1265,7 +1571,7 @@ ScreenData.RunClear =
 		ClearTimeValue =
 		{
 			RightOffset = 30,
-			Y = 228,
+			BottomOffset = 852,
 			GroupName = "Combat_Menu_TraitTray_Overlay_Text",
 			TextArgs =
 			{
@@ -1280,7 +1586,7 @@ ScreenData.RunClear =
 		ClearTimeRecord =
 		{
 			RightOffset = 428,
-			Y = 233,
+			BottomOffset = 847,
 			Alpha = 0.0,
 			GroupName = "Combat_Menu_TraitTray_Overlay_Text",
 			Graphic = "VictoryScreenNewRecordMedal",
@@ -1298,7 +1604,7 @@ ScreenData.RunClear =
 		ShrinePointsLabel =
 		{
 			RightOffset = 415,
-			Y = 275,
+			BottomOffset = 805,
 			Text = "RunClearScreen_ShrinePoints",
 			Alpha = 0.0,
 			GroupName = "Combat_Menu_TraitTray_Overlay_Text",
@@ -1316,7 +1622,7 @@ ScreenData.RunClear =
 		ShrinePointsValue =
 		{
 			RightOffset = 30,
-			Y = 275,
+			BottomOffset = 810,
 			Alpha = 0.0,
 			GroupName = "Combat_Menu_TraitTray_Overlay_Text",
 			TextArgs =
@@ -1332,7 +1638,7 @@ ScreenData.RunClear =
 		ShrinePointsRecord =
 		{
 			RightOffset = 428,
-			Y = 276,
+			BottomOffset = 804,
 			Alpha = 0.0,
 			GroupName = "Combat_Menu_TraitTray_Overlay_Text",
 			Graphic = "VictoryScreenNewRecordMedal",
@@ -1350,10 +1656,9 @@ ScreenData.RunClear =
 		DamageDealtLabel =
 		{
 			RightOffset = 225,
-			Y = 355,
+			BottomOffset = 725,
 			GroupName = "Combat_Menu_TraitTray_Overlay_Text",
 			Text = "RunClearScreen_DamageDealt",
-			GroupName = "Combat_Menu_TraitTray_Overlay_Text",
 			TextArgs =
 			{
 				Color = {79,255,154,255},
@@ -1372,10 +1677,9 @@ ScreenData.RunClear =
 		DamageTakenLabel =
 		{
 			RightOffset = 225,
-			Y = 670,
+			BottomOffset = 410,
 			GroupName = "Combat_Menu_TraitTray_Overlay_Text",
 			Text = "RunClearScreen_DamageTaken",
-			GroupName = "Combat_Menu_TraitTray_Overlay_Text",
 			TextArgs =
 			{
 				Color = {199,74,49,255},

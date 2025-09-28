@@ -16,6 +16,10 @@
 		CreateAnimation = "LobSkullGlow"
 	}
 	{
+		Name = "WeaponLob_Hel"
+		GrannyModel = "WeaponLob_Hel_Mesh"
+	}
+	{
 		Name = "WeaponLob_Medea"
 		GrannyModel = "WeaponLob_Medea_Mesh"
 	}
@@ -25,10 +29,10 @@
 	}
 	{
 		Name = "WeaponLobBase"
-		Disable3DSpotlight = true
 		GrannyModel = "WeaponLob_Mesh"
 		ExtraGrannyAnimations = 
 		[
+			{ Name = "WeaponLob_Hel" }
 			{ Name = "WeaponLob_Medea" }
 			{ Name = "WeaponLob_Persephone" }
 		]
@@ -104,6 +108,9 @@
 			{ Name = "Melinoe_Lob_Special1Ex_StartTransition" }
 			{ Name = "Melinoe_Lob_Special1Ex_StartLoop" }
 			{ Name = "Melinoe_Lob_Special1Ex_Fire" }
+			{ Name = "Melinoe_Lob_Hel_Attack1_Start" }
+			{ Name = "Melinoe_Lob_Hel_Attack1_Fire" }
+			{ Name = "Melinoe_Lob_Hel_AttackEx1_Fire" }
 			{ Name = "Melinoe_Lob_Cast_Start" }
 			{ Name = "Melinoe_Lob_Cast_QuickCompleteFire" }
 			{ Name = "Melinoe_Lob_Cast_Fire2" }
@@ -125,6 +132,51 @@
 			{
 				Name = "Lob_GetHit"
 				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+	{
+		Name = "Lob_GetHit_LastStand"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_GetHit_C_00"
+		TimeModifierFraction = 0
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 10
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Lob_GetHit_LastStand"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_GetHit_C_00"
+		DisableOwnerManualInteract = true
+		TimeModifierFraction = 0
+		ChainTo = "Melinoe_Lob_Idle"
+
+		Attachments =
+		[
+			{
+				Name = "Lob_GetHit_LastStand"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 10
 			}
 		]
 	}
@@ -424,6 +476,13 @@
 			{
 				Name = "Lob_Equip"
 				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_InteractToEquip"
+				Duration = 6
 			}
 		]
 	}

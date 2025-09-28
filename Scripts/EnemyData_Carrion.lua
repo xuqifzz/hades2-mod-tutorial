@@ -6,12 +6,9 @@ UnitSetData.Carrion =
 		InheritFrom = { "BaseVulnerableEnemy" },
 
 		Groups = { "FlyingEnemies" },
-		Material = "Bone",
-		--ActivateFx = "TeleportDisappearSmall",
 
 		MaxHealth = 60,
 		HealthBarOffsetY = -175,
-		HitSparkScale = 1.0,
 		HitSparkOffsetZ = 30,
 
 		AggroReactionTime = 0.5,
@@ -109,6 +106,7 @@ UnitSetData.Carrion =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_0443", Text = "Bronzebeaks." },
@@ -123,6 +121,8 @@ UnitSetData.Carrion =
 		InheritFrom = { "Carrion" },
 
 		AIOptions = { "IdleAI" },
+		CanBeAggroed = true,
+		CanBeChainAggroed = false,
 		OnDamagedFunctionName = "AggroUnit",
 		WakeUpDelayMin = 0.0,
 		WakeUpDelayMax = 0.5,

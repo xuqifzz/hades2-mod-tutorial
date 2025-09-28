@@ -10,7 +10,7 @@ WeaponSetData =
 			WaitForAngleTowardTarget = false, -- causes a lot of rotation in place
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.10,
-			PreAttackEndStop = true,
+			StopBeforeFire = true,
 
 			FireSelfVelocity = 1600,
 			ApplyEffectsOnWeaponFire =
@@ -50,13 +50,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/HeavyMelee/EmoteAttacking" },
 				-- { Name = "/SFX/Enemy Sounds/WretchedThug/EmoteAttackingShove" }
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.15, LerpTime = 0 },
-			{ ScreenPreWait = 0.09, Fraction = 1.0, LerpTime = 0.1 },
 		},
 	},
 
@@ -165,7 +158,7 @@ WeaponSetData =
 			ChainedWeapon = "ThugSlamReverse",
 
 			-- Blink ban
-			TeleportToSpawnPoints = false,
+			PreMoveTeleport = false,
 			-- Rifts ban
 			DumbFireWeapons = {},
 		}
@@ -199,7 +192,7 @@ WeaponSetData =
 			DoNotRepeatOnAttackFail = true,
 
 			-- Blink ban
-			TeleportToSpawnPoints = false,
+			PreMoveTeleport = false,
 			-- Rifts ban
 			DumbFireWeapons = {},
 		},
@@ -221,7 +214,13 @@ WeaponSetData =
 			FireProjectileStartDelay = 0.07,
 
 			PreAttackEndShake = true,
-			PreAttackDuration = 1.2,
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.3,
+			TrackTargetDuringCharge = true,
+			PreAttackRotationDampening = 0.05,
+			StopBeforeFire = true,
+
+			PreAttackDuration = 1.0,
 			FireDuration = 0.4,
 			PostAttackDuration = 2.45,
 			PreAttackSound = "/SFX/Enemy Sounds/WretchedThug/EmoteChargingLong",
@@ -229,10 +228,9 @@ WeaponSetData =
 			FireAnimation = "Enemy_CWHeavyMelee_SwipeFire",
 			PostAttackAnimation = "Enemy_CWHeavyMelee_SwipePostFire",
 
-			--AttackDistance = 390,
-			AttackDistance = 530,
-			AttackDistanceScaleY = 0.9,
-			SkipAttackAfterMoveTimeout = true,
+			AttackDistance = 580,
+			AttackDistanceScaleY = 0.6,
+			SkipAttackIfMoveTimeout = true,
 
 			RequireProjectileLoS = true,
 			LoSBuffer = 80,
@@ -250,13 +248,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/WretchedThug/EmoteAttackingSlam" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.02, LerpTime = 0 },
-			{ ScreenPreWait = 0.13, Fraction = 1.0, LerpTime = 0.1 },
-		},
 		
 		Requirements =
 		{
@@ -270,7 +261,7 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-			PostAttackDuration = 0.26,
+			PostAttackDuration = 0.1,
 			PostAttackAnimation = "Enemy_CWHeavyMelee_SwipePostFire_Alt",
 			ChainedWeapon = "ThugSwipeCombo_Elite",
 		},
@@ -290,8 +281,7 @@ WeaponSetData =
 			PreAttackAnimation = "Enemy_CWHeavyMelee_SwipePreFire_Alt",
 			AttackDistance = 9999,
 			MoveWithinRange = false,
-			PreAttackAnimationSpeed = 1.4,
-			PreAttackDuration = 0.9,
+			PreAttackDuration = 0.5,
 		},
 	},
 }

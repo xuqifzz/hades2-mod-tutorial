@@ -2,13 +2,13 @@
   PauseScreen =
   {
     Platform = "default"
-    OpenSound = "/SFX/Menu Sounds/GeneralWhooshMENULoud"
-    CloseSound = "/SFX/Menu Sounds/GodBoonMenuClose"
-    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    OpenSound = "/SFX/Menu Sounds/IrisMenuOpenSmall"
+    CloseSound = "/SFX/Menu Sounds/IrisMenuBack"
+    SelectionSound = "/SFX/Menu Sounds/IrisMenuToggle2"
     Music = "/VO/ChronosLaughSingle"
     GamepadCursorControl = true
     TransitionOnTime = 0.1
-    TransitionOffTime = 0.15
+    TransitionOffTime = 0.2
     ForceShowCursor = true
     GamepadSelectionStyle = "VerticalCycle"
     FreeFormSelectWrapping = true
@@ -16,7 +16,7 @@
     Back =
     {
       Width = 5120
-      Height = 1440
+      Height = 1920
       Justification = "Left"
       VerticalJustification = "Top"
       Red = 0
@@ -34,7 +34,7 @@
       Blue = 0
       Alpha = 0.9
       Width = 5120
-      Height = 1440
+      Height = 1920
       FadeSpeed = 2.0
     }
 
@@ -42,7 +42,7 @@
     {
       X = 960
       Y = 540
-      Graphic = "GUI\Shell\Box_Pause"
+      Graphic = "PauseScreenIn"
       Justification = "Center"
       VerticalJustification = "Center"
     }
@@ -54,8 +54,7 @@
       Justification = "Center"
       VerticalJustification = "Center"
       HelpTextId = "PauseScreen_Title"
-      Font = "P22UndergroundSCLightTitling"
-      
+      Font = "P22UndergroundSCLightTitling"      
       FontSize = 32
       TextRed = 1
       TextGreen = 1
@@ -94,11 +93,10 @@
       SelectedTextBlue = 0.714
       DisabledTextRed = 0.25
       DisabledTextGreen = 0.25
-      DisabledTextBlue = 0.25
-      
+      DisabledTextBlue = 0.25      
       TextJustification = "Center"
       SelectedTextScale = 1.0
-      NonEnglishScaleModifier = 1.0
+      
       TextOutlineRed = 0
       TextOutlineGreen = 0
       TextOutlineBlue = 0
@@ -117,7 +115,7 @@
       InheritFrom = "ResumeGameButton"
       AttachTo = "ResumeGameButton"
       OffsetY = 60
-      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+      PressSound = "/SFX/Menu Sounds/IrisMenuBack"
       HelpTextId = "PauseScreen_Settings"
     }
 
@@ -142,9 +140,9 @@
     LastSaveTimeHint =
     {
       X = 965
-      Y = 685
+      Y = 662
       Justification = "Center"
-      VerticalJustification = "Center"
+      VerticalJustification = "Top"
       Font = "P22UndergroundSCMedium"
       FontSize = 22
       TextRed = 0.33
@@ -155,8 +153,7 @@
       SelectedTextBlue = 0.4
       DisabledTextRed = 0.2
       DisabledTextGreen = 0.2
-      DisabledTextBlue = 0.2
-      
+      DisabledTextBlue = 0.2      
       TextSymbolScale = 0.4
       TextOutlineRed = 0
       TextOutlineGreen = 0
@@ -168,11 +165,9 @@
       ShadowOffsetY = 2
       ShadowAlpha = 1
       ShadowBlur = 0
-      Width = 650
+      Width = 660
       Height = 100
-      NonEnglishScaleModifier = 1.0
-      LangEsScaleModifier = 1.0,
-      LangDeScaleModifier = 1.0
+      
     }
 
   }

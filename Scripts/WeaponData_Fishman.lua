@@ -9,22 +9,27 @@ WeaponSetData =
 			ChainedWeapon = "FishmanDrag",
 			DoNotRepeatOnAttackFail = false,
 
-			--CancelChainedWeaponOnHitStun = true,
-			--AttackFailWeapon = "FishmanMeleeSlam",
+			CancelChainedWeaponOnHitStun = true,
+			AttackFailWeapon = "FishmanMeleeSlam",
+			AttackFailWeaponRequirements =
+			{
+				HasEffectFalse = "ImpactSlow"
+			},
 
 			ProjectileName = "FishmanImpale",
 			BarrelLength = 50,
 			FireProjectileStartDelay = 0.04,
 
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.5,
 			TrackTargetDuringCharge = true,
-			PreAttackRotationDampening = 0.03,
+			PreAttackRotationDampening = 0.04,
 			StopBeforeFire = true,
 
 			PreAttackSound = "/SFX/Enemy Sounds/FishmanMelee/EmotePowerCharging",
 			PreAttackEndShake = true,
 
-			PreAttackDuration = 1.35,
+			PreAttackDuration = 1.0,
 			PreAttackEndDuration = 0.4,
 			FireDuration = 0.35,
 			PostAttackDuration = 0.0,
@@ -34,14 +39,6 @@ WeaponSetData =
 			PreAttackAnimation = "Enemy_FishmanMelee_ImpaleCharge",
 			FireAnimation = "Enemy_FishmanMelee_ImpaleFire",
 			PostAttackAnimation = "Enemy_FishmanMelee_ImpaleReturnToIdle",
-		},
-
-		HitScreenshake = { Distance = 8, Speed = 1000, Duration = 0.17, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.02, LerpTime = 0 },
-			{ ScreenPreWait = 0.04, Fraction = 0.05, LerpTime = 0 },
-			{ ScreenPreWait = 0.13, Fraction = 1.0, LerpTime = 0.07 },
 		},
 
 		Sounds =
@@ -65,6 +62,33 @@ WeaponSetData =
 		},
 	},
 
+	Fishman2Impale =
+	{
+		InheritFrom = { "FishmanImpale" },
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "Fishman2Impale",
+
+			ChainedWeapon = "FishmanMelee2Drag",
+			FireDuration = 0.2,
+		},
+	},
+
+	Fishman2Impale_Ally =
+	{
+		InheritFrom = { "Fishman2Impale" },
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "Fishman2Impale",
+
+			AttackDistance = 600,
+		},
+	},
+
 	FishmanDrag =
 	{
 		AIData =
@@ -73,8 +97,9 @@ WeaponSetData =
 
 			ProjectileName = "FishmanDrag",
 			FireProjectileStartDelay = 0.22,
+			FireProjectileAngleRelative = 180,
 
-			BarrelLength = 430,
+			BarrelLength = -430,
 			PreAttackAngleTowardTarget = false,
 			PreAttackStop = true,
 			MoveWithinRange = false,
@@ -89,14 +114,7 @@ WeaponSetData =
 			PostAttackAnimation = "Enemy_FishmanMelee_PullSwingReturnToIdle",
 
 			-- Blink ban
-			TeleportToSpawnPoints = false,
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.07 },
+			PreMoveTeleport = false,
 		},
 
 		Sounds =
@@ -124,11 +142,30 @@ WeaponSetData =
 			FireAnimation = "Enemy_FishmanMelee_Elite_PullSwing_Fire",
 		},
 
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
+		Sounds =
 		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.07 },
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/FishmanMelee/EmoteAttacking" },
+				{ Name = "/SFX/Enemy Sounds/WrechPunchSwing" },
+			},
+		},
+	},
+
+	FishmanMelee2Drag =
+	{
+		InheritFrom = {"FishmanDrag"},
+		AIData =
+		{
+			DeepInheritance = true,
+
+			FireProjectileStartDelay = 0.05,
+			ProjectileName = "Fishman2Drag",
+			ChainedWeapon = "FishmanMeleeSlam",
+			
+			PostAttackDuration = 0,
+
+			FireAnimation = "Enemy_FishmanMelee_Elite_PullSwing_Fire",
 		},
 
 		Sounds =
@@ -204,13 +241,6 @@ WeaponSetData =
 			PostAttackAnimation = "Enemy_FishmanMelee_Slam_End",
 		},
 
-		FireScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000, Angle = 90 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.07 },
-		},
-
 		Sounds =
 		{
 			FireSounds =
@@ -219,6 +249,8 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/WrechPunchSwing" },
 			},
 		},
+
+		FireScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000, Angle = 90 },
 	},
 
 	FishmanRanged =
@@ -284,9 +316,9 @@ WeaponSetData =
 			AttackDistance = 1200,
 
 			NumProjectiles = 3,
-			FireProjectileStartDelay = 0.20,
-			ProjectileInterval = 0.29,
-			FireDuration = 0.9,
+			FireProjectileStartDelay = 0.25,
+			ProjectileInterval = 0.4,
+			FireDuration = 1.2,
 			PostAttackDuration = 1.2,
 
 			PreAttackAnimation = "Enemy_FishmanRanged_AttackSpitCharge",
@@ -311,7 +343,7 @@ WeaponSetData =
 			PreAttackEndShake = true,
 			PreAttackSound = "/SFX/Enemy Sounds/FishmanRanged/EmoteAboutToExplode",
 
-			PreAttackDuration = 1.3,
+			PreAttackDuration = 1.0,
 			FireDuration = 0.0,
 			PostAttackDuration = 0.0,
 

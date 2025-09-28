@@ -8,6 +8,8 @@
 		Scale = 1.0
 		Loop = false
 		Enable3DShadow = true
+		OwnerNoInvulnerableCoverage = true
+		LargeObstacle3DModel = true
 	}
 
 	/*Idle and Move*/
@@ -127,10 +129,50 @@
 		]
 	}
 
+	// Block
+	{
+		Name = "Enemy_InfestedCerberus_BlockStart"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_BlockStart_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_InfestedCerberus_BlockLoop"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_BlockLoop_00"
+		OwnerNoInvulnerableCoverage = false
+		Loop = true
+	}
+	{
+		Name = "Enemy_InfestedCerberus_BlockEnd"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_BlockReturn_00"
+		GrannyAnimationSpeed = 2
+		ChainTo = "Enemy_InfestedCerberus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_BlockLoop"
+				Duration = 6
+			}
+		]
+	}
+
+
+	// Swipe
+
 	{
 		Name = "Enemy_InfestedCerberus_SwipePreFire"
 		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
 		GrannyAnimation = "InfestedCerberus_Base_SwipeAntic_C_00"
+		GrannyAnimationSpeed = 1.4
 		HoldLastFrame = true
 		Blends =
 		[	
@@ -156,6 +198,7 @@
 		ChainTo = "Enemy_InfestedCerberus_Idle"
 	}
 
+	// Forward Bite
 	{
 		Name = "Enemy_InfestedCerberus_ForwardBitePreFire"
 		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
@@ -216,6 +259,8 @@
 			}
 		]
 	}
+
+	// Lunge Turn
 	{
 		Name = "Enemy_InfestedCerberus_LungeTurn"
 		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
@@ -247,6 +292,7 @@
 		ChainTo = "Enemy_InfestedCerberus_Idle"
 	}
 
+	// Pound Left
 	{
 		Name = "Enemy_InfestedCerberus_PoundLPreFire"
 		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
@@ -261,6 +307,10 @@
 			{
 				BlendTransitionFrom = "Enemy_InfestedCerberus_PoundRPostFire"
 				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_BlockEnd"
+				Duration = 6
 			}
 		]
 
@@ -291,6 +341,7 @@
 		ChainTo = "Enemy_InfestedCerberus_Idle"
 	}
 
+	// Pound Right
 	{
 		Name = "Enemy_InfestedCerberus_PoundRPreFire"
 		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
@@ -305,6 +356,10 @@
 			{
 				BlendTransitionFrom = "Enemy_InfestedCerberus_PoundLPostFire"
 				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_BlockEnd"
+				Duration = 6
 			}
 		]
 
@@ -335,6 +390,7 @@
 		ChainTo = "Enemy_InfestedCerberus_Idle"
 	}
 
+	// Vacuum
 	{
 		Name = "Enemy_InfestedCerberus_VacuumPreFire"
 		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
@@ -378,6 +434,7 @@
 		]
 	}
 
+	// Howl
 	{
 		Name = "Enemy_InfestedCerberus_Howl"
 		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
@@ -398,6 +455,7 @@
 		CreateAnimation = "CerberusSummonHowlFx"
 	}
 
+	// Bark
 	{
 		Name = "Enemy_InfestedCerberus_BarkPreFire"
 		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
@@ -468,6 +526,63 @@
 		]
 	}
 
+	// Back Swipe Right
+	{
+		Name = "Enemy_InfestedCerberus_BackSwipeRPreFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_SwipeBackRightAntic_C_00"
+		HoldLastFrame = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_InfestedCerberus_BackSwipeRFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_SwipeBackRightFire_C_00"
+		ChainTo = "Enemy_InfestedCerberus_BackSwipeRPostFire"
+		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/CerberusSwipe"
+	}
+	{
+		Name = "Enemy_InfestedCerberus_BackSwipeRPostFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_SwipeBackRightReturn_C_00"
+		ChainTo = "Enemy_InfestedCerberus_Idle"
+	}
+
+	// Back Swipe Left
+	{
+		Name = "Enemy_InfestedCerberus_BackSwipeLPreFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_SwipeBackLeftAntic_C_00"
+		HoldLastFrame = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_InfestedCerberus_BackSwipeLFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_SwipeBackLeftFire_C_00"
+		ChainTo = "Enemy_InfestedCerberus_BackSwipeLPostFire"
+		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/CerberusSwipe"
+	}
+	{
+		Name = "Enemy_InfestedCerberus_BackSwipeLPostFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_SwipeBackLeftReturn_C_00"
+		ChainTo = "Enemy_InfestedCerberus_Idle"
+	}
+
+	// Shake
 	{
 		Name = "Enemy_InfestedCerberus_Shake"
 		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
@@ -574,6 +689,7 @@
 		EaseIn = 0
 		EaseOut = 0.1
 		Duration = 1.66
+		VerticalMaskInModelSpace = true
 		Frames =
 		[
 			{
@@ -630,15 +746,13 @@
 		OwnerImmobile = true
 		GrannyAnimationSpeed = 1.0
 		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_Emerge"
+		VerticalMaskInModelSpace = true
+		LargeObstacle3DModel = true
 		Frames =
 		[
 			{
 				Frame = 0
 				VerticalMask = 0.0
-			}
-			{
-				Frame = 1
-
 			}
 			{
 				Frame = 10
@@ -649,11 +763,19 @@
 				FootstepFxR = "CerberusEmergeFx"
 			}
 			{
-				Frame = 18
-				VerticalMask = 0.7
+				Frame = 16
+				VerticalMask = 0.6
 			}
 			{
-				Frame = 24
+				Frame = 18
+				VerticalMask = 0.75
+			}
+			{
+				Frame = 23
+				VerticalMask = 0.85
+			}
+			{
+				Frame = 34
 				VerticalMask = 1.0
 			}
 		]
@@ -662,7 +784,62 @@
 		Name = "Enemy_InfestedCerberus_BurrowEmerge_Intro"
 		InheritFrom = "Enemy_InfestedCerberus_BurrowEmerge"
 		GrannyAnimationSpeed = 0.6
+		ChainTo = "Enemy_InfestedCerberus_BurrowEmerge_Intro2"
+		VerticalMaskInModelSpace = true
+		Enable3DShadow = false
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 10
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 14
+				FootstepFxR = "CerberusEmergeFx"
+			}
+			{
+				Frame = 16
+				VerticalMask = 0.6
+			}
+			{
+				Frame = 18
+				VerticalMask = 0.75
+				FrameSpeed = 0.0
+			}
+		]
+	}
+	{
+		Name = "Enemy_InfestedCerberus_BurrowEmerge_Intro2"
+		InheritFrom = "Enemy_InfestedCerberus_BurrowEmerge"
+		GrannyAnimationSpeed = 0.6
 		ChainTo = "Enemy_InfestedCerberus_BurrowToIdle_Intro"
+		VerticalMaskInModelSpace = true
+		Enable3DShadow = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+				VerticalMask = 0.75
+			}
+			{
+				Frame = 18
+				FrameSpeed = 1.0
+				VerticalMask = 0.75
+			}
+			{
+				Frame = 23
+				VerticalMask = 0.85
+			}
+			{
+				Frame = 34
+				VerticalMask = 1.0
+			}
+		]
 	}
 
 	{

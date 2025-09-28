@@ -80,6 +80,7 @@ OverwriteTableKeys( EncounterData,
 			RequireCompletedIntro = true,
 		},
 		SpawnThreadName = "SurvivalSpawnThread",
+		Using = { SpawnObstacle = "CapturePoint", },
 	},
 
 	CapturePointF =
@@ -94,6 +95,10 @@ OverwriteTableKeys( EncounterData,
 		GroupReinforcements = false,
 		PreSpawnEnemies = false,
 		SpawnAggroed = true,
+
+		CanEncounterSkip = false,
+		BlockAthenaEncounterKeepsake = true,
+		BlockDionysusEncounterKeepsake = true,
 
 		-- for GameStateRequirements, search AnomalyDoorRequirements =
 
@@ -119,6 +124,7 @@ OverwriteTableKeys( EncounterData,
 				Args =
 				{
 					OverlayAnim = "ChronosOverlay",
+					OverlayDeathFx = true,
 					BlockScreenshake = true,
 					VoiceLines = { GlobalVoiceLines = "ChronosDeathTauntVoiceLines" },
 				},
@@ -223,6 +229,7 @@ OverwriteTableKeys( EncounterData,
 		SpawnAggroed = true,
 
 		CanEncounterSkip = false,
+		BlockAthenaEncounterKeepsake = true,
 
 		StartSound = "/Leftovers/Menu Sounds/EmoteAscendedLuciferChoir",
 		
@@ -236,11 +243,6 @@ OverwriteTableKeys( EncounterData,
 
 		Spawns = {},
 		DestroyEnemyInterval = 0.05,
-
-		StartGlobalVoiceLines = "PerfectClearStartVoiceLines",
-		EncounterResolvedGlobalVoiceLines = "PerfectClearCompleteVoiceLines",
-
-		FastClearThreshold = 90,
 
 		MinRoomsBetweenType = 0,
 		MinTypes = 3,
@@ -264,6 +266,7 @@ OverwriteTableKeys( EncounterData,
 	PerfectClearChallenge =
 	{
 		InheritFrom = { "PerfectClear" },
+		NextRoomResumeMusic = true, -- In case the player leaves before the music resumes
 		UnthreadedEvents = EncounterSets.EncounterEventsPerfectClearChallenge,
 	},
 
@@ -343,11 +346,12 @@ OverwriteTableKeys( EncounterData,
 	PerfectClearChallengeO =
 	{
 		InheritFrom = { "PerfectClearChallenge", "GeneratedO" },
+		DelayedStart = false,
 		EnemySet = EnemySets.BiomeO,
 		
 		ActiveEnemyCapBase = 2.3,
 		ActiveEnemyCapMax = 8,
-		ActiveEnemyCapDepthRamp = 0.35,
+		ActiveEnemyCapDepthRamp = 0.55,
 
 		HardEncounterOverrideValues =
 		{
@@ -368,6 +372,20 @@ OverwriteTableKeys( EncounterData,
 		},
 	},
 
+	PerfectClearChallengeQ =
+	{
+		InheritFrom = { "PerfectClearChallenge", "GeneratedQ" },
+		EnemySet = EnemySets.BiomeQ,
+		
+		ActiveEnemyCapBase = 2.3,
+		ActiveEnemyCapMax = 8,
+		ActiveEnemyCapDepthRamp = 0.35,
+
+		HardEncounterOverrideValues =
+		{
+		},
+	},
+
 	EliteChallenge =
 	{
 		EncounterType = "EliteChallenge",
@@ -376,14 +394,16 @@ OverwriteTableKeys( EncounterData,
 		SpawnAggroed = true,
 		
 		CanEncounterSkip = false,
+		BlockAthenaEncounterKeepsake = true,
 
 		StartSound = "/Leftovers/Menu Sounds/EmoteAscendedGilgameshFlute",
+		NextRoomResumeMusic = true, -- In case the player leaves before the music resumes
 
 		ExitsDontRequireCompleted = true,
 		UnthreadedEvents = EncounterSets.EncounterEventsEliteChallenge,
 
 		ForceEliteAttrubuteCount = 2,
-		BannedEliteAttributes = { "Metallic", "SpreadHitShields" },
+		BannedEliteAttributes = { "Metallic", "SpreadHitShields", "StasisDeath", "HeavyArmor", },
 
 		SpawnIntervalMin = 0.175,
 		SpawnIntervalMax = 0.225,
@@ -426,7 +446,8 @@ OverwriteTableKeys( EncounterData,
 
 		SpawnOverrides =
 		{
-			HealthBufferMultiplier = 3.5,
+			HealthBufferMultiplier = 4,
+			HealthBufferBonus = 2000,
 			HealthBarType = "ExtraLarge",
 
 			SpawnEvents =
@@ -494,6 +515,7 @@ OverwriteTableKeys( EncounterData,
 	EliteChallengeO =
 	{
 		InheritFrom = { "EliteChallenge", "GeneratedO" },
+		DelayedStart = false,
 		EnemySet = EnemySets.BiomeO_EliteChallenge,
 		BaseDifficulty = 300,
 	},
@@ -503,5 +525,11 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "EliteChallenge", "GeneratedP" },
 		EnemySet = EnemySets.BiomeP_EliteChallenge,
 		BaseDifficulty = 400,
+	},
+
+	EliteChallengeQ =
+	{
+		InheritFrom = { "EliteChallenge", "GeneratedQ" },
+		EnemySet = EnemySets.BiomeQ_EliteChallenge,
 	},
 })

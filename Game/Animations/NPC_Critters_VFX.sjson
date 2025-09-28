@@ -1,0 +1,74 @@
+{ Animations = [
+ /* _______________________________________________Raven Fidget_______________________________________________ */
+
+    {
+      Name = "CritterRavenBlackFidget"
+      FilePath = "Animations\Critters\CritterRavenBlack\Fidget\CritterRavenBlackFidget"
+      
+      OnlyWhenVisible = true
+      EndFrame = 29
+      NumAngles = 8
+      NumFrames = 29
+      OffsetZ = 25.0 
+      Scale = 1.0
+      Slides = [
+        { DurationFrames = 1 RandomDurationFramesMax = 250 RandomDurationFramesMin = 50 }
+        { DurationFrames = 4 } 
+        { DurationFrames = 1 RandomDurationFramesMax = 150 RandomDurationFramesMin = 30 }
+        { DurationFrames = 2 } 
+        { DurationFrames = 2 } 
+        { DurationFrames = 2 } 
+        { DurationFrames = 2 Sound = "/SFX/Pecks" } 
+        { DurationFrames = 4 }
+        { DurationFrames = 1 RandomDurationFramesMax = 50 RandomDurationFramesMin = 10 Sound = "/SFX/Pecks" }  
+        { DurationFrames = 2 } 
+        { DurationFrames = 1 RandomDurationFramesMax = 80 RandomDurationFramesMin = 20} 
+        { DurationFrames = 2 }
+        { DurationFrames = 2 Sound = "/SFX/Pecks" }
+        { DurationFrames = 1 RandomDurationFramesMax = 60 RandomDurationFramesMin = 20} 
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 1 RandomDurationFramesMax = 80 RandomDurationFramesMin = 20 Sound = "/SFX/Pecks" } 
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 1 RandomDurationFramesMax = 150 RandomDurationFramesMin = 30 }
+        { DurationFrames = 2 }
+        { DurationFrames = 1 RandomDurationFramesMax = 250 RandomDurationFramesMin = 50 }
+        { DurationFrames = 4 }
+        { DurationFrames = 1 RandomDurationFramesMax = 150 RandomDurationFramesMin = 30 }
+        { DurationFrames = 2 }
+        { DurationFrames = 1 RandomDurationFramesMax = 80 RandomDurationFramesMin = 20}
+        { DurationFrames = 1 RandomDurationFramesMax = 50 RandomDurationFramesMin = 10 }
+        { DurationFrames = 2 }
+        { DurationFrames = 1 RandomDurationFramesMax = 50 RandomDurationFramesMin = 10 }  
+
+      ]
+    }
+
+    {
+      Name = "CritterRavenBeigeFidget"
+      InheritFrom = "CritterRavenBlackFidget"
+      FilePath = "Animations\Critters\CritterRavenBeige\Fidget\CritterRavenBeigeFidget"
+    }
+
+    {
+      Name = "CritterRavenBicolorFidget"
+      InheritFrom = "CritterRavenBlackFidget"
+      FilePath = "Animations\Critters\CritterRavenBicolor\Fidget\CritterRavenBicolorFidget"
+    }
+
+    {
+      Name = "CritterRavenBrownFidget"
+      InheritFrom = "CritterRavenBlackFidget"
+      FilePath = "Animations\Critters\CritterRavenBrown\Fidget\CritterRavenBrownFidget"
+    }
+    
+    {
+      Name = "CritterRavenWhiteFidget"
+      InheritFrom = "CritterRavenBlackFidget"
+      FilePath = "Animations\Critters\CritterRavenWhite\Fidget\CritterRavenWhiteFidget"
+    }
+
+
+
+]}

@@ -2028,7 +2028,6 @@
     {
       Name = "StyxDestructiblePillar"
       InheritFrom = "1_BaseInvulnerableObstacle"
-      AllowStoppingImpacts = false
       DisplayInEditor = true
       ReflectLobProjectiles = false
       Life = 
@@ -2160,88 +2159,7 @@
           { Name = "TartarusRubble02c" Scale = 0.4 }
         ]
       }
-    }
-    
-    {
-      Name = "HeavyRangedForkedCrystal1"
-      InheritFrom = "1_BaseInvulnerablePassableObstacle"
-      DisplayInEditor = true
-      Life = 
-      {
-        DieOnCollision = true
-        HitFx = "null"
-        Invulnerable = false
-        ProjectilesAlwaysPenetrate = true
-      }
-      Thing = 
-      {
-        AttachedAnim = "LootShadowStatic"
-        DieOnTouchdown = true
-        EditorOutlineDrawBounds = false
-        Graphic = "HeavyRangedForkedCrystal1"
-        Grip = 3000.0
-        OffsetZ = 84.0
-        Tallness = 50.0
-        TouchdownSound = "/Leftovers/SFX/BallImpact"
-        Points = [
-          { X = 0 Y = 16 }
-          { X = 32 Y = 0 }
-          { X = 0 Y = -16 }
-          { X = -32 Y = 0 }
-        ]
-      }
-    }
-    
-    {
-      Name = "HeavyRangedForkedCrystal2"
-      InheritFrom = "HeavyRangedForkedCrystal1"
-      DisplayInEditor = true
-      Thing = 
-      {
-        AttachedAnim = "LootShadowStaticSmall"
-        EditorOutlineDrawBounds = false
-        Graphic = "HeavyRangedForkedCrystal2"
-        Points = [
-          { X = 0 Y = 8 }
-          { X = 16 Y = 0 }
-          { X = 0 Y = -8 }
-          { X = -16 Y = 0 }
-        ]
-      }
-    }
-    
-    {
-      Name = "HeavyRangedForkedCrystal3"
-      InheritFrom = "HeavyRangedForkedCrystal2"
-      DisplayInEditor = true
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "HeavyRangedForkedCrystal3"
-        Points = [
-          { X = 0 Y = 8 }
-          { X = 16 Y = 0 }
-          { X = 0 Y = -8 }
-          { X = -16 Y = 0 }
-        ]
-      }
-    }
-    
-    {
-      Name = "HeavyRangedForkedCrystal4"
-      InheritFrom = "HeavyRangedForkedCrystal2"
-      DisplayInEditor = true
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "HeavyRangedForkedCrystal4"
-        Points = [
-          { X = 0 Y = 8 }
-          { X = 16 Y = 0 }
-          { X = 0 Y = -8 }
-          { X = -16 Y = 0 }
-        ]
-      }
-    }
+    }    
+ 
   ]
 }

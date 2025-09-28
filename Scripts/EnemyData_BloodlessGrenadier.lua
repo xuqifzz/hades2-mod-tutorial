@@ -13,7 +13,6 @@ UnitSetData.BloodlessGrenadier =
 		AttachedAnimationOffsetZ = 0,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/Bloodless02/EmoteTaunting",
-		DeathSound = "/SFX/Enemy Sounds/Bloodless02/EmoteDying",
 
 		DamagedFxStyles =
 		{

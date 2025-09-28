@@ -184,19 +184,6 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
-      "Id": "Terrain_02",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "MapArt",
-      "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
       "Id": "Terrain_03",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -211,6 +198,19 @@
       "BlendMode": 0,
       "ChildGroups": [],
       "Id": "Terrain_04",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "Terrain_02",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -302,19 +302,6 @@
       "BlendMode": 0,
       "ChildGroups": [],
       "Id": "Terrain_Shadow_01",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "MapArt",
-      "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
-      "Id": "FX_Terrain_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -509,6 +496,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Foreground_05",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "FX_Foreground_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -523,6 +523,7 @@
       "BlendMode": 0,
       "ChildGroups": [
         "FX_Foreground_01",
+        "Foreground_05",
         "Foreground_04",
         "Foreground_03",
         "Foreground_02",
@@ -537,7 +538,6 @@
         "Terrain_Overlay_01",
         "Terrain_Lightercolor_01",
         "Terrain_Gameplay",
-        "FX_Terrain_01",
         "Terrain_Shadow_01",
         "Terrain_Decor_05",
         "Terrain_Decor_04",
@@ -545,9 +545,9 @@
         "Terrain_Decor_02",
         "Terrain_Decor_01",
         "Terrain_05",
+        "Terrain_02",
         "Terrain_04",
         "Terrain_03",
-        "Terrain_02",
         "Terrain_01",
         "Terrain_Base",
         "Terrain_BeneathAdditive_01",
@@ -757,5 +757,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

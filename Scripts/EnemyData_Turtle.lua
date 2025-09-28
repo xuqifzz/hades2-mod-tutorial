@@ -6,6 +6,15 @@ UnitSetData.Turtle =
 		InheritFrom = { "OceanusUnitData", "BaseVulnerableEnemy" },
 		IntroEncounterName = "TurtleIntro",
 
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "RoomCountCache", "G_Intro" },
+				Comparison = ">=",
+				Value = 2,
+			},
+		},
+
 		ActivateAnimation = "Enemy_Turtle_Spawn",
 
 		MaxHealth = 240,
@@ -78,6 +87,7 @@ UnitSetData.Turtle =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_0544", Text = "Shellbacks." },

@@ -43,12 +43,14 @@ OverwriteTableKeys( ObstacleData, {
 		RewardPreviewOffsetX = -40,
 		RewardPreviewOffsetY = 0,
 		IconSortMode = "Isometric",
+		SkipResourcePinIcons = true,
 
 		UnlockedSound = "/SFX/DartTrapEmitterActivateSlide",
 		LockedUseSound = "/Leftovers/SFX/OutOfAmmo2",
 		UnlockedUseSound = "/SFX/Menu Sounds/GeneralWhooshMENULoudLow",
 
 		UsingSpawn = { "ShipsGustSpawnerLeft", "ShipsGustSpawnerRight" },
+		Using = { "ShipsSteeringWheelBreak" },
 
 		--UnlockedAnimation = "ShipsSteeringWheelActivate",
 		--UsedAnimation = "ShipsSteeringWheelDeactivate",
@@ -75,6 +77,7 @@ OverwriteTableKeys( ObstacleData, {
 		RewardPreviewOffsetZ = 120,
 		RewardPreviewOffsetY = 0,
 		IconSortMode = "Isometric",
+		SkipResourcePinIcons = true,
 
 		UnlockedSound = "/SFX/DartTrapEmitterActivateSlide",
 		LockedUseSound = "/Leftovers/SFX/OutOfAmmo2",
@@ -105,6 +108,7 @@ OverwriteTableKeys( ObstacleData, {
 		RewardPreviewOffsetZ = 120,
 		RewardPreviewOffsetY = 0,
 		IconSortMode = "Isometric",
+		SkipResourcePinIcons = true,
 
 		UnlockedSound = "/SFX/DartTrapEmitterActivateSlide",
 		LockedUseSound = "/Leftovers/SFX/OutOfAmmo2",
@@ -167,6 +171,35 @@ OverwriteTableKeys( ObstacleData, {
 			Animation = "ShipsStatueDestroyed",
 			SwapData = "ShipsStatue01_Destroyed",
 			RequiredHitsForImpactReaction = 1,
+			ReactionEvents =
+			{
+				{
+					FunctionName = "GenericPresentation",
+					Threaded = true,
+					Args =
+					{
+						VoiceLines =
+						{
+							RandomRemaining = true,
+							BreakIfPlayed = true,
+							PreLineWait = 0.5,
+							SuccessiveChanceToPlay = 0.33,
+							ObjectType = "Eris",
+							Cooldowns =
+							{
+								{ Name = "ErisSpokeRecently", Time = 8 },
+							},
+
+							{ Cue = "/VO/ErisField_0285", Text = "There goes your cover!", PlayFirst = true },
+							{ Cue = "/VO/ErisField_0286", Text = "So much for your hiding spot!" },
+							{ Cue = "/VO/ErisField_0287", Text = "One less place to hide!" },
+							{ Cue = "/VO/ErisField_0288", Text = "We'll fix that later." },
+							{ Cue = "/VO/ErisField_0289", Text = "Collateral damage!" },
+							{ Cue = "/VO/ErisField_0290", Text = "{#Emph}Oopsie!" },
+						},
+					},
+				},
+			},
 		},
 	},
 
@@ -273,27 +306,27 @@ OverwriteTableKeys( ObstacleData, {
 		HealingSpentAnimation = "HealthFountainO_Empty",
 	},
 
-	ShadeShipsFiveIdle01=
+	ShadeShipsFiveIdle01 =
 	{
 		InheritFrom = { "BaseGhost", "SmallEmotes" },
 	},
-	ShadeShipsFiveSwaySW01=
+	ShadeShipsFiveSwaySW01 =
 	{
 		InheritFrom = { "BaseGhost", "SmallEmotes" },
 	},
-	ShadeShipsThreeIdle01=
+	ShadeShipsThreeIdle01 =
 	{
 		InheritFrom = { "BaseGhost", "SmallEmotes" },
 	},
-	ShadeShipsThreeSwaySW01=
+	ShadeShipsThreeSwaySW01 =
 	{
 		InheritFrom = { "BaseGhost", "SmallEmotes" },
 	},
-	ShadeShipsOneIdle01=
+	ShadeShipsOneIdle01 =
 	{
 		InheritFrom = { "BaseGhost", "SmallEmotes" },
 	},
-	ShadeShipsOneSwaySW01=
+	ShadeShipsOneSwaySW01 =
 	{
 		InheritFrom = { "BaseGhost", "SmallEmotes" },
 	},

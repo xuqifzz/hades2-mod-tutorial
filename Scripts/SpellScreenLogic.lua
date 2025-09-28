@@ -13,7 +13,7 @@
 	if HasResourceCost(spellItem.ResourceCosts) then
 		spellItem.Purchased = true
 		SpendResources( spellItem.ResourceCosts, spellItem.Name or "Loot" )
-		RemoveStoreItem( { Id = spellItem.ObjectId, Name = spellItem.Name } )
+		RemoveStoreItem( { Id = spellItem.ObjectId, Name = spellItem.Name, ScreenName = UIData.SpellMenuId } )
 		if (spellItem.ResourceCosts.Money or 0) > 0 then
 			HandleCharonPurchase( "UseLoot", spellItem.ResourceCosts.Money )
 		end
@@ -100,10 +100,6 @@
 	local components = screen.Components
 	CreateScreenFromData( screen, screen.ComponentData )
 	
-	SetColor({ Id = components.BackgroundTint.Id, Color = Color.Black })
-	SetAlpha({ Id = components.BackgroundTint.Id, Fraction = 0.0, Duration = 0 })
-	SetAlpha({ Id = components.BackgroundTint.Id, Fraction = 0.9, Duration = 0.5 })
-	
 	if spellItem ~= nil then
 		ModifyTextBox({ Id = components.TitleText.Id, Text = spellItem.MenuTitle, UseDescription = true, LuaKey = "TooltipData", LuaValue = traitData })
 	
@@ -138,6 +134,9 @@ function ChooseSpell( room, args )
 end
 
 function GetEligibleSpells( screen, args )
+	if not IsEmpty(SessionMapState.SelectedSpells) then
+		return SessionMapState.SelectedSpells
+	end
 	args = args or {}
 	local eligibleSpells = {}
 	for spellName, spellData in pairs( SpellData ) do
@@ -177,6 +176,11 @@ function CreateSpellButtons( screen )
 	
 		local purchaseButtonTitleKey = "PurchaseButtonTitle"..itemIndex
 		components[purchaseButtonTitleKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", Scale = 1, X = itemLocationX, Y = itemLocationY })
+
+		local highlight = ShallowCopyTable( ScreenData.UpgradeChoice.Highlight )
+		highlight.X = purchaseButton.X
+		highlight.Y = purchaseButton.Y
+		components[purchaseButtonKey.."Highlight"] = CreateScreenComponent( highlight )
 			
 		if traitData.Icon ~= nil then
 			local icon = DeepCopyTable( ScreenData.UpgradeChoice.Icon )
@@ -199,35 +203,33 @@ function CreateSpellButtons( screen )
 		descriptionText.LuaKey = "TooltipData"
 		descriptionText.LuaValue = traitData
 		CreateTextBoxWithFormat( descriptionText )
-			
+		
 		SetInteractProperty({ DestinationId = components[purchaseButtonKey].Id, Property = "TooltipOffsetX", Value = ScreenData.UpgradeChoice.TooltipOffsetX })
-			
-		if traitData.StatLines ~= nil then
-			local appendToId = nil
-			if #traitData.StatLines <= 1 then
-				appendToId = descriptionText.Id
-			end
-			for lineNum, statLine in ipairs(traitData.StatLines) do
+
+		local statLines = traitData.StatLines
+		if traitData.CustomStatLinesWithShrineUpgrade ~= nil and GetNumShrineUpgrades( traitData.CustomStatLinesWithShrineUpgrade.ShrineUpgradeName ) > 0 then
+			statLines = traitData.CustomStatLinesWithShrineUpgrade.StatLines
+		end
+		if statLines ~= nil then
+			local appendToId = descriptionText.Id
+			for lineNum, statLine in ipairs( statLines ) do
 				if statLine ~= "" then
 
 					local offsetY = (lineNum - 1) * ScreenData.UpgradeChoice.LineHeight
-					if traitData.ExtraDescriptionLine then
-						offsetY = offsetY + ScreenData.UpgradeChoice.LineHeight
-					end
-
-					local statLineLeft = DeepCopyTable(ScreenData.UpgradeChoice.StatLineLeft)
+				
+					local statLineLeft = ShallowCopyTable( ScreenData.UpgradeChoice.StatLineLeft )
 					statLineLeft.Id = components[purchaseButtonKey].Id
-					statLineLeft.AppendToId = appendToId
 					statLineLeft.Text = statLine
 					statLineLeft.OffsetY = offsetY
+					statLineLeft.AppendToId = appendToId
 					statLineLeft.LuaValue = traitData
 					CreateTextBoxWithFormat( statLineLeft )
 
-					local statLineRight = DeepCopyTable(ScreenData.UpgradeChoice.StatLineRight)
+					local statLineRight = ShallowCopyTable( ScreenData.UpgradeChoice.StatLineRight )
 					statLineRight.Id = components[purchaseButtonKey].Id
-					statLineRight.AppendToId = appendToId
 					statLineRight.Text = statLine
 					statLineRight.OffsetY = offsetY
+					statLineRight.AppendToId = appendToId
 					statLineRight.LuaValue = traitData
 					CreateTextBoxWithFormat( statLineRight )
 
@@ -254,6 +256,11 @@ function CreateSpellButtons( screen )
 		frame.Y = itemLocationY + ScreenData.UpgradeChoice.IconOffsetY
 		frame.Animation = GetTraitFrame( traitData )
 		components[purchaseButtonKey.."Frame"] = CreateScreenComponent( frame )
+		
+		local duoOverlay = DeepCopyTable( ScreenData.UpgradeChoice.Icon )
+		duoOverlay.X = itemLocationX + ScreenData.UpgradeChoice.IconOffsetX
+		duoOverlay.Y = itemLocationY + ScreenData.UpgradeChoice.IconOffsetY 
+		components["DuoOverlay"..itemIndex] = CreateScreenComponent( duoOverlay )
 
 		local button = components[purchaseButtonKey]
 		button.Screen = screen
@@ -264,6 +271,7 @@ function CreateSpellButtons( screen )
 		button.OnPressedFunctionName = "AcceptAndCloseSpellScreen"
 		button.OnMouseOverFunctionName = "MouseOverSpellButton"
 		button.OnMouseOffFunctionName = "MouseOffSpellButton"
+		button.Highlight = components[purchaseButtonKey.."Highlight"]
 		if not firstUseable then
 			TeleportCursor({ OffsetX = itemLocationX, OffsetY = itemLocationY, ForceUseCheck = true })
 			firstUseable = true
@@ -281,6 +289,20 @@ function CreateSpellButtons( screen )
 		
 			button.BonusTalentPoints = bonusData.BonusPoints or 0
 		end
+
+		for _, traitName in pairs( SpellData[spellName].Talents.Legendary) do
+			if TraitData[traitName].IsDuoBoon and IsGameStateEligible( spellItem, TraitData[traitName].GameStateRequirements ) then
+				CreateAnimation({ Name = "BoonEntranceDuo", DestinationId = components[purchaseButtonKey].Id })
+				
+				components[purchaseButtonKey.."OlympianDuo"] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", 
+					X = itemLocationX + ScreenData.UpgradeChoice.SpellDuoIconOffsetX - ScreenData.UpgradeChoice.ButtonOffsetX,
+					Y = itemLocationY + ScreenData.UpgradeChoice.SpellDuoIconOffsetY  })
+				SetAnimation({ DestinationId = components[purchaseButtonKey.."OlympianDuo"].Id, Name = "OlympianDuo_MenuIcon" })
+				CreateTextBox({ Id = components[purchaseButtonKey].Id, TextSymbolScale = 0, Text = "FirstTimeSpell_Tooltip2", Color = Color.Transparent })
+				break
+			end
+		end
+			
 		itemLocationY = itemLocationY + itemLocationYSpacer
 		itemIndex = itemIndex + 1
 	end
@@ -289,17 +311,24 @@ end
 function MouseOverSpellButton( component )
 	local screen = component.Screen
 	SetAlpha({ Id = screen.Components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
-	SetAnimation({ DestinationId = component.Id, Name = "BoonSlotHighlight" })
+	SetAnimation({ DestinationId = component.Highlight.Id, Name = "BoonSlotHighlight" })
 end
 
 function MouseOffSpellButton( component )
 	local screen = component.Screen
 	SetAlpha({ Id = screen.Components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
-	SetAnimation({ DestinationId = component.Id, Name = component.BackingAnim or "BoonSlotBase" })
+	SetAnimation({ DestinationId = component.Highlight.Id, Name = "BoonHighlightOut" })
 end
 
 function AcceptAndCloseSpellScreen( screen, button )
 	AddInputBlock({ Name = "AcceptAndCloseSpellScreen" })
+	for index = 1, 3 do
+		if screen.Components["PurchaseButton"..index] and screen.Components["PurchaseButton"..index].Id then
+			SetAnimation({ DestinationId = screen.Components["PurchaseButton"..index].Id, Name = "BoonSlotOut" })
+			SetAlpha({ Id = screen.Components["PurchaseButton"..index.."MoonIcon"].Id, Fraction = 0, Duration = 0.2, EaseIn = 0, EaseOut = 1 })
+			SetAlpha({ Id = screen.Components["PurchaseButtonTitle"..index].Id, Fraction = 0, Duration = 0.06, EaseIn = 0, EaseOut = 1 })
+		end
+	end
 	local buttonId = button.Id
 	SelectSpellPresentation( screen, button )
 
@@ -323,13 +352,16 @@ function AcceptAndCloseSpellScreen( screen, button )
 	RemoveInputBlock({ Name = "AcceptAndCloseSpellScreen" })
 	
 	ShowCombatUI( screen.Name )	
+	
+	notifyExistingWaiters( UIData.SpellMenuId )
 
 	local traitData = AddTraitToHero({ TraitName = button.TraitName, SkipNewTraitHighlight = true })
 	CurrentRun.Hero.SlottedSpell = DeepCopyTable( SpellData[button.SpellName] )
+	CurrentRun.Hero.SlottedSpell.HasDuoTalent = SessionMapState.DuoTalentEligibleSpell[button.SpellName]
 	CurrentRun.Hero.SlottedSpell.Talents = DeepCopyTable( CreateTalentTree( SpellData[button.SpellName] ) )
 	local spellData = CurrentRun.Hero.SlottedSpell
 	UpdateTalentPointInvestedCache()
-	for i, traitData in pairs( CurrentRun.Hero.Traits ) do
+	for i, traitData in ipairs( CurrentRun.Hero.Traits ) do
 		if traitData.TalentRarityBonus and traitData.Uses > 0 then
 
 			local availableTalents = {}

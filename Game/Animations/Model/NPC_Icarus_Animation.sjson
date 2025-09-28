@@ -29,6 +29,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Icarus_Idle"
 				Duration = 3
 			}
@@ -115,6 +119,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Icarus_Idle"
 				Duration = 6
 			}
@@ -141,6 +149,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Icarus_Idle"
 				Duration = 6
 			}
@@ -155,6 +167,10 @@
 		ChainTo = "Icarus_Explaining_FireLoop"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Icarus_Idle"
 				Duration = 6
@@ -175,6 +191,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "Icarus_Explaining_Start"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Icarus_Explaining_FireLoop"
 				Duration = 6
 			}
@@ -189,6 +209,10 @@
 		ChainTo = "Icarus_Flustered_FireLoop"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Icarus_Idle"
 				Duration = 6
@@ -209,6 +233,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "Icarus_Flustered_Start"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Icarus_Flustered_FireLoop"
 				Duration = 6
 			}
@@ -223,6 +251,10 @@
 		ChainTo = "Icarus_Pensive_FireLoop"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Icarus_Idle"
 				Duration = 6
@@ -243,6 +275,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "Icarus_Pensive_Start"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Icarus_Pensive_FireLoop"
 				Duration = 6
 			}
@@ -257,6 +293,10 @@
 		ChainTo = "Icarus_Offer_FireLoop"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Icarus_Idle"
 				Duration = 6
@@ -277,6 +317,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "Icarus_Offer_Start"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Icarus_Offer_FireLoop"
 				Duration = 6
 			}
@@ -291,6 +335,10 @@
 		ChainTo = "Icarus_Hover_FireLoop"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Icarus_Idle"
 				Duration = 6
@@ -311,6 +359,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "Icarus_Hover_Start"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Icarus_Hover_FireLoop"
 				Duration = 6
 			}
@@ -323,6 +375,7 @@
 		InheritFrom = "NPCIcarusBaseAnimation"
 		GrannyAnimation = "Icarus_Base_FlyForwardStart_C_00"
 		ChainTo = "Icarus_Fly_FireLoop"
+		OwnerHasNoCollision = true
 		Blends =
 		[
 			{
@@ -335,7 +388,11 @@
 		Name = "Icarus_Fly_FireLoop"
 		InheritFrom = "NPCIcarusBaseAnimation"
 		GrannyAnimation = "Icarus_Base_FlyForwardLoop_C_00"
+		ModelCosmeticRotationSpeed = 1400
 		Loop = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
 	}
 	{
 		Name = "Icarus_Fly_End"
@@ -344,6 +401,10 @@
 		ChainTo = "Icarus_Hover_FireLoop"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "Icarus_Fly_Start"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Icarus_Fly_FireLoop"
 				Duration = 6
@@ -378,6 +439,10 @@
 		ChainTo = "Icarus_Fly_FireLoop"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "Icarus_Bomb_Start"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Icarus_Bomb_FireLoop"
 				Duration = 6

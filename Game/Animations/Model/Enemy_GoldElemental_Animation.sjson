@@ -192,6 +192,10 @@
 		Frames =
 		[
 			{
+				Frame = 0
+				FrameSpeed = 0.75
+			}
+			{
 				Frame = 63
 				FrameSpeed = 0
 			}

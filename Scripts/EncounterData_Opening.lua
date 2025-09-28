@@ -9,6 +9,7 @@ OverwriteTableKeys( EncounterData,
 	{
 		InheritFrom = { "GeneratedN" },
 		CanEncounterSkip = true,
+		BlockAthenaEncounterKeepsake = false,
 		RequireCompletedIntro = true,
 		GroupReinforcements = false,
 		MaxWaves = 1,
@@ -108,6 +109,9 @@ OverwriteTableKeys( EncounterData,
 		AlwaysForce = true,
 		CountsForRoomEncounterDepth = true,
 		DifficultyModifier = 100,
+
+		BlockAthenaEncounterKeepsake = true,
+		CanEncounterSkip = false,
 		
 		ActiveEnemyCapBase = 1.0,
 		ActiveEnemyCapMax = 8.0,
@@ -124,8 +128,24 @@ OverwriteTableKeys( EncounterData,
 		ThreadedEvents =
 		{
 			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+				},
 				FunctionName = "HadesSpeakingPresentation",
-				Args = { SubtitleColor = Color.ChronosVoice, BlockColorGrade = true, OverlayAnim = "ChronosOverlay", VoiceLines = { GlobalVoiceLines = "ChronosAlertVoiceLines" }, StartSound = "/SFX/TimeSlowStart", UseSurvivalPresentation = true, StartDelay = 1.0 },
+				Args = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice, BlockColorGrade = true, OverlayAnim = "ChronosOverlay", VoiceLines = { GlobalVoiceLines = "ChronosAlertVoiceLines" }, StartSound = "/SFX/TimeSlowStart", UseSurvivalPresentation = true, StartDelay = 1.0 },
+			},
+			{
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				FunctionName = "HadesSpeakingPresentation",
+				Args = { LineHistoryName = "NPC_LordHades_01", SubtitleColor = Color.HadesVoice, BlockColorGrade = true, OverlayAnim = "HadesOverlay", VoiceLines = { GlobalVoiceLines = "ChronosAlertVoiceLines" }, StartSound = "/SFX/SurvivalChallengeStart", UseSurvivalPresentation = true, StartDelay = 1.0 },
 			},
 		},
 
@@ -191,10 +211,13 @@ OverwriteTableKeys( EncounterData,
 		Generated = false,
 		AlwaysForce = true,
 		DifficultyModifier = 100,
+
+		BlockAthenaEncounterKeepsake = true,
+		CanEncounterSkip = false,
 		
 		ActiveEnemyCapBase = 1.0,
 		ActiveEnemyCapMax = 8.0,
-		ActiveEnemyCapDepthRamp = 1.0,
+		ActiveEnemyCapDepthRamp = 1.5,
 
 		GameStateRequirements =
 		{
@@ -254,30 +277,6 @@ OverwriteTableKeys( EncounterData,
 	BaseHubReturn =
 	{
 		UnthreadedEvents = EncounterSets.EncounterEventsDefault,
-		ThreadedEvents =
-		{
-			{
-				FunctionName = "GenericPresentation",
-				GameStateRequirements =
-				{
-					-- None
-				},
-				Args =
-				{
-					SetSoundCueValues =
-					{
-						{
-							Name = "Drums",
-							Value = 0.0,
-							AudioStateId = "MusicId",
-							Duration = 1.0,
-						}
-					},
-				},
-			},
-		},
-		OnDamageEnemyFunctionName = "ArachneCombatDrumCheck",
-		OnKillFunctionName = "ArachneCombatDrumCheck",
 		BlockNextBiomeEnemyShrineUpgrade = true,
 
 		ExitsDontRequireCompleted = true,
@@ -293,6 +292,7 @@ OverwriteTableKeys( EncounterData,
 		SpawnOverrides =
 		{
 			UseActivatePresentation = false,
+			RequiredKill = false,
 		},		
 
 		GameStateRequirements =
@@ -729,8 +729,8 @@ OverwriteTableKeys( EncounterData,
 						SpawnOnIds = { 660477, 660470, },
 						SpawnOverrides =
 						{
+							AIOptions = { "IdleAI" },
 							PreferredSpawnPoint = "nil",
-							AIAggroRange = 400,
 						},
 					},			
 				},
@@ -762,6 +762,8 @@ OverwriteTableKeys( EncounterData,
 							PreferredSpawnPoint = "nil",
 							AIOptions = { "IdleAI" },
 							OnDamagedFunctionName = "AggroUnit",
+							CanBeAggroed = true,
+							CanBeChainAggroed = false,
 							SpawnAngleMin = 250,
 							SpawnAngleMax = 290,
 						},
@@ -773,7 +775,7 @@ OverwriteTableKeys( EncounterData,
 						SpawnOverrides =
 						{
 							PreferredSpawnPoint = "nil",
-							AIOptions = { "AggroAI" },
+							AIOptions = { "IdleAI" },
 							PostAggroAI = "AttackAndDie",
 							AIAggroRange = 200,
 						},
@@ -807,6 +809,8 @@ OverwriteTableKeys( EncounterData,
 							PreferredSpawnPoint = "nil",
 							AIOptions = { "IdleAI" },
 							OnDamagedFunctionName = "AggroUnit",
+							CanBeAggroed = true,
+							CanBeChainAggroed = false,
 							SpawnAngleMin = 250,
 							SpawnAngleMax = 290,
 						},
@@ -818,7 +822,7 @@ OverwriteTableKeys( EncounterData,
 						SpawnOverrides =
 						{
 							PreferredSpawnPoint = "nil",
-							AIOptions = { "AggroAI" },
+							AIOptions = { "IdleAI" },
 							PostAggroAI = "AttackAndDie",
 							AIAggroRange = 200,
 						},
@@ -852,6 +856,8 @@ OverwriteTableKeys( EncounterData,
 							PreferredSpawnPoint = "nil",
 							AIOptions = { "IdleAI" },
 							OnDamagedFunctionName = "AggroUnit",
+							CanBeAggroed = true,
+							CanBeChainAggroed = false,
 						},
 					},
 				},
@@ -883,6 +889,8 @@ OverwriteTableKeys( EncounterData,
 							PreferredSpawnPoint = "nil",
 							AIOptions = { "IdleAI" },
 							OnDamagedFunctionName = "AggroUnit",
+							CanBeAggroed = true,
+							CanBeChainAggroed = false,
 						},
 					},
 					{
@@ -903,45 +911,13 @@ OverwriteTableKeys( EncounterData,
 		},
 	},
 
-	HubReturnZombieHeavyRanged01 =
-	{
-		InheritFrom = { "BaseHubReturn" },
-		GameStateRequirements =
-		{
-			Append = true,
-			{
-				PathTrue = { "GameState", "EncountersCompletedCache", "ZombieHeavyRangedIntro" }
-			}
-		},
-		SpawnWaves =
-		{
-			{
-				Spawns =
-				{
-					{
-						Name = "ZombieHeavyRanged",
-						TotalCount = 1,
-						SpawnOnIds = { 664454, },
-						SpawnOverrides =
-						{
-							PreferredSpawnPoint = "nil",
-							AIAggroRange = 9999,
-							WeaponOptions = { "ZombieHeavyRangedToss_Hub" },
-						},
-					},			
-				},
-			},
-		},
-	},
-
-
 	BasePIntroEncounters =
 	{
 		UnthreadedEvents = EncounterSets.EncounterEventsDefault,
 
 		PreUnthreadedEvents =
 		{
-			{ FunctionName = "WaitForWithinDistance", Args = { DestinationId = 750675, Distance = 800 } }
+			{ FunctionName = "WaitForWithinDistance", Args = { DestinationId = 750675, Distance = 1600, DistanceScaleY = 0.6 } }
 		},
 
 		CountsForRoomEncounterDepth = false,
@@ -956,7 +932,7 @@ OverwriteTableKeys( EncounterData,
 			UseActivatePresentation = false,
 
 			AIOptions = { "AmbientBattleAggroAI" },
-			AmbientBattleAggroRange = 75,
+			AmbientBattleAggroRange = 400,
 			WakeUpDelay = 0.3,
 			AggroReactionTimeMin = 0.15,
 			AggroReactionTimeMax = 0.45,
@@ -987,7 +963,7 @@ OverwriteTableKeys( EncounterData,
 
 		PreUnthreadedEvents =
 		{
-			{ FunctionName = "WaitForWithinDistance", Args = { DestinationId = 750481, Distance = 800 } }
+			{ FunctionName = "WaitForWithinDistance", Args = { DestinationId = 750481, Distance = 1350, DistanceScaleY = 0.6 } }
 		},
 		
 		SpawnWaves =
@@ -1040,7 +1016,7 @@ OverwriteTableKeys( EncounterData,
 
 		PreUnthreadedEvents =
 		{
-			{ FunctionName = "WaitForWithinDistance", Args = { DestinationId = 750481, Distance = 800 } }
+			{ FunctionName = "WaitForWithinDistance", Args = { DestinationId = 750481, Distance = 1350, DistanceScaleY = 0.6 } }
 		},
 
 		SpawnWaves =
@@ -1069,7 +1045,7 @@ OverwriteTableKeys( EncounterData,
 
 		PreUnthreadedEvents =
 		{
-			{ FunctionName = "WaitForWithinDistance", Args = { DestinationId = 750481, Distance = 800 } }
+			{ FunctionName = "WaitForWithinDistance", Args = { DestinationId = 750481, Distance = 1350, DistanceScaleY = 0.6 } }
 		},
 
 		SpawnWaves =
@@ -1095,6 +1071,12 @@ OverwriteTableKeys( EncounterData,
 	PIntroCombat05 =
 	{
 		InheritFrom = { "BasePIntroEncounters" },
+
+		PreUnthreadedEvents =
+		{
+			{ FunctionName = "WaitForWithinDistance", Args = { DestinationId = 750481, Distance = 1350, DistanceScaleY = 0.6 } }
+		},
+		
 		SpawnWaves =
 		{
 			{
@@ -1151,7 +1133,7 @@ OverwriteTableKeys( EncounterData,
 
 		PreUnthreadedEvents =
 		{
-			{ FunctionName = "WaitForWithinDistance", Args = { DestinationId = 750481, Distance = 800 } }
+			{ FunctionName = "WaitForWithinDistance", Args = { DestinationId = 750481, Distance = 1350, DistanceScaleY = 0.6 } }
 		},
 
 		SpawnWaves =
@@ -1203,7 +1185,7 @@ OverwriteTableKeys( EncounterData,
 
 		PreUnthreadedEvents =
 		{
-			{ FunctionName = "WaitForWithinDistance", Args = { DestinationId = 750481, Distance = 800 } }
+			{ FunctionName = "WaitForWithinDistance", Args = { DestinationId = 750481, Distance = 1350, DistanceScaleY = 0.6 } }
 		},
 
 		SpawnWaves =
@@ -1360,7 +1342,7 @@ OverwriteTableKeys( EncounterData,
 						SpawnOnIds = { 750674, 744499, 750673, },
 						SpawnOverrides =
 						{
-							AmbientBattleAggroRange = 100,
+							AmbientBattleAggroRange = 600,
 							AggroReactionTimeMin = 10.15,
 							AggroReactionTimeMax = 10.45,
 							WakeUpDelay = 0.3,
@@ -1383,7 +1365,7 @@ OverwriteTableKeys( EncounterData,
 
 		PreUnthreadedEvents =
 		{
-			{ FunctionName = "WaitForWithinDistance", Args = { DestinationId = 750481, Distance = 800 } }
+			{ FunctionName = "WaitForWithinDistance", Args = { DestinationId = 750481, Distance = 1350, DistanceScaleY = 0.6 } }
 		},
 
 		SpawnWaves =
@@ -1397,7 +1379,7 @@ OverwriteTableKeys( EncounterData,
 						SpawnOnIds = { 750612, 750614, 750621, },
 						SpawnOverrides =
 						{
-							AmbientBattleAggroRange = 100,
+							AmbientBattleAggroRange = 600,
 							AggroReactionTimeMin = 10.15,
 							AggroReactionTimeMax = 10.45,
 							WakeUpDelay = 0.3,
@@ -1428,24 +1410,17 @@ OverwriteTableKeys( EncounterData,
 					{
 						Name = "SatyrSapper",
 						TotalCount = 3,
-						SpawnOnIds = { 750626, 750674, 744498, },
+						SpawnOnIds = { 750624, 750626, 744498, 744499, 750674, },
 						SpawnOverrides =
 						{
-							AmbientBattleAggroRange = 100,
+							AmbientBattleAggroRange = 600,
 							AggroReactionTimeMin = 10.15,
 							AggroReactionTimeMax = 10.45,
 							WakeUpDelay = 0.3,
 						},
-						SpawnOverrides =
-						{
-							WeaponOptions =
-							{
-								"SatyrSapperLob_PreCombat"
-							},
-						},
 						SpawnDefaultAIDataOverrides =
 						{
-							AmbientBattlePickClosestTargetIds = { 750625, 750624, 750623, 750627, 744499, 750673, 750611, 744503, 744501, },
+							AmbientBattlePickClosestTargetIds = { 750676, 744496, 750675, 557839, },
 						},
 
 					},
@@ -1497,13 +1472,10 @@ OverwriteTableKeys( EncounterData,
 						SpawnOnIds = { 750622, 750614, 750619, 750612, },
 						SpawnOverrides =
 						{
-							AmbientBattleAggroRange = 100,
+							AmbientBattleAggroRange = 500,
 							AggroReactionTimeMin = 10.15,
 							AggroReactionTimeMax = 10.45,
 							WakeUpDelay = 0.3,
-						},
-						SpawnOverrides =
-						{
 							WeaponOptions =
 							{
 								"SatyrCrossbowFadeBolt_PreCombat"
@@ -1609,6 +1581,54 @@ OverwriteTableKeys( EncounterData,
 		},
 	},
 
+	P_Combat01_PreCombat03 = -- Automaton Defense
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "SentryBot",
+						TotalCount = 8,
+						SpawnOnIds = { 762873, 762872, 762871, 762932, 762933, 776247, 762934, 762916, },
+					},
+					{
+						Name = "ZombieOlympus",
+						TotalCount = 8,
+						SpawnOnIds = { 762870, 762858, 762927, 762901, 762903, 762904, 776239, 762865, 762879, 776241, 762909, 776245, 776244, 776243, 762862, 762868, 762900, },
+					},
+				},
+			},
+		},
+	},
+
+	P_Combat01_PreCombat04 = -- Harpy Attack
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "HarpyDropper",
+						TotalCount = 3,
+						SpawnOnIds = { 762879, 776242, 762939, },
+					},
+					{
+						Name = "AutomatonBeamer_Elite",
+						TotalCount = 1,
+						SpawnOnIds = { 762932 },
+					},
+				},
+			},
+		},
+	},
+
 	P_Combat02_PreCombat01 = -- SentryBot Defensive formation
 	{
 		InheritFrom = { "P_BaseVignette" },
@@ -1665,7 +1685,31 @@ OverwriteTableKeys( EncounterData,
 		},
 	},
 
-	P_Combat03_PreCombat01 = -- Sappers lobbing the foreground
+	P_Combat02_PreCombat03 = -- Beamer defense
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "AutomatonBeamer_Elite",
+						TotalCount = 1,
+						SpawnOnIds = { 763019 },
+					},
+					{
+						Name = "SatyrCrossbow2",
+						TotalCount = 3,
+						SpawnOnIds = { 768165, 768167, 762919, 768168, 762923, 763033, },
+					},
+				},
+			},
+		},
+	},
+
+	P_Combat03_PreCombat01 = -- Sappers
 	{
 		InheritFrom = { "P_BaseVignette" },
 
@@ -1695,7 +1739,65 @@ OverwriteTableKeys( EncounterData,
 		},
 	},
 
-	P_Combat04_PreCombat01 =
+	P_Combat03_PreCombat02 = -- Zeus Statue
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		AmbientBattleDamagePerGroup =
+		{
+			ChronosForces = { Min = 0.05, Max = 0.2 },
+			Automatons = { Min = 0.8, Max = 0.9 },
+		},
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "SatyrCrossbow2",
+						TotalCount = 3,
+						SpawnOnIds = { 763074, 763087, 763077, },
+						SpawnDefaultAIDataOverrides =
+						{
+							AmbientBattleTargetId = 763096,
+						},	
+					},
+				},
+			},
+		},
+	},
+
+	P_Combat03_PreCombat03 = -- Door
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		AmbientBattleDamagePerGroup =
+		{
+			ChronosForces = { Min = 0.05, Max = 0.2 },
+			Automatons = { Min = 0.8, Max = 0.9 },
+		},
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "SatyrLancer2_Elite",
+						TotalCount = 3,
+						SpawnOnIds = { 763077, 763068, },
+						SpawnDefaultAIDataOverrides =
+						{
+							AmbientBattleTargetId = 763020,
+						},	
+					},
+				},
+			},
+		},
+	},
+
+	P_Combat04_PreCombat01 = -- Zeus statue
 	{
 		InheritFrom = { "P_BaseVignette" },
 
@@ -1712,6 +1814,58 @@ OverwriteTableKeys( EncounterData,
 						{
 							AmbientBattleTargetId = 723596,
 						},	
+
+					},
+				},
+			},
+		},
+	},
+
+	P_Combat04_PreCombat02 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "AutomatonEnforcer",
+						TotalCount = 3,
+						SpawnOnIds = { 763113, 763094, },
+
+					},
+					{
+						Name = "ZombieOlympus_Elite",
+						TotalCount = 8,
+						SpawnOnIds = { 763164, 763153, 763165, 763152, 763166, 763151, 763167, 763150, 763148, 763145, 763144, 763143, 763142, 763123, 763128, 763125, 763130, 763131, 763133, 763134, 763137, 763138, },
+
+					},
+				},
+			},
+		},
+	},
+
+	P_Combat04_PreCombat03 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "SentryBot",
+						TotalCount = 4,
+						SpawnOnIds = { 763105, 763104, 763100, 763101, },
+
+					},
+					{
+						Name = "HarpyDropper",
+						TotalCount = 2,
+						SpawnOnIds = { 763111, 763095, },
 
 					},
 				},
@@ -1779,6 +1933,42 @@ OverwriteTableKeys( EncounterData,
 		},
 	},
 
+	P_Combat05_PreCombat03 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "AutomatonBeamer",
+						TotalCount = 2,
+						SpawnOnIds = { 762869, 762867, },
+					},
+					{
+						Name = "SatyrLancer2",
+						TotalCount = 3,
+						SpawnOnIds = { 762823, 762822, 762821, 762820, 762819, 762879, },
+					},
+					{
+						Name = "SatyrSapper",
+						TotalCount = 1,
+						SpawnOnIds = { 762828, 762830, },
+					},
+				},
+			},
+		},
+
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersCompletedCache", "DragonIntro" },
+			},
+		},
+	},
+
 	P_Combat06_PreCombat01 =
 	{
 		InheritFrom = { "P_BaseVignette" },
@@ -1826,6 +2016,61 @@ OverwriteTableKeys( EncounterData,
 		},
 	},
 
+	P_Combat06_PreCombat03 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "Dragon_Elite",
+						TotalCount = 1,
+						SpawnOnIds = { 763208 },
+					},
+					{
+						Name = "SentryBot",
+						TotalCount = 1,
+						SpawnOnIds = { 775742, 775743, 763259, 763186, 763185, },
+					},
+				},
+			},
+		},
+
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersCompletedCache", "DragonIntro" },
+			},
+		},
+	},
+
+	P_Combat06_PreCombat04 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "AutomatonEnforcer_Elite",
+						TotalCount = 2,
+						SpawnOnIds = { 763229, 763187, },
+					},
+					{
+						Name = "SatyrLancer2",
+						TotalCount = 3,
+						SpawnOnIds = { 763219, 763202, 763223, 763231, 763232, 763239, 763218, 763213, },
+					},
+				},
+			},
+		},
+	},
+
 	P_Combat07_PreCombat01 =
 	{
 		InheritFrom = { "P_BaseVignette" },
@@ -1849,6 +2094,53 @@ OverwriteTableKeys( EncounterData,
 						Name = "AutomatonEnforcer_Elite",
 						TotalCount = 1,
 						SpawnOnIds = { 763294, },
+					},
+				},
+			},
+		},
+	},
+
+	P_Combat07_PreCombat02 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "AutomatonBeamer",
+						TotalCount = 2,
+						SpawnOnIds = { 763235, 763238, },
+					},
+					{
+						Name = "ZombieOlympus_Elite",
+						TotalCount = 8,
+						SpawnOnIds = { 763229, 763255, 763256, 763233, 763230, 763254, 763257, 763242, 763240, 763300, 763299, 763251, 763250, 763309, 763301, 763302, 763303, },
+					},
+				},
+			},
+		},
+	},
+
+	P_Combat07_PreCombat03 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "SatyrSapper",
+						TotalCount = 3,
+						SpawnOnIds = { 763294, 763236, 763237, 763252, 763293, 763250, },
+						SpawnDefaultAIDataOverrides =
+						{
+							AmbientBattlePickClosestTargetIds = { 561194, 560830, },
+						},
 					},
 				},
 			},
@@ -1895,6 +2187,30 @@ OverwriteTableKeys( EncounterData,
 						{
 							AmbientBattlePickClosestTargetIds = { 723167, },
 						},
+					},
+				},
+			},
+		},
+	},
+
+	P_Combat08_PreCombat03 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "AutomatonEnforcer_Elite",
+						TotalCount = 1,
+						SpawnOnIds = { 768398 },
+					},
+					{
+						Name = "SatyrLancer2",
+						TotalCount = 4,
+						SpawnOnIds = { 768413, 768451, 768420, 768472, },
 					},
 				},
 			},
@@ -1948,6 +2264,29 @@ OverwriteTableKeys( EncounterData,
 		},
 	},
 
+	P_Combat09_PreCombat03 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "SatyrCrossbow2",
+						TotalCount = 3,
+						SpawnOnIds = { 763019, 763025, 763036, 763029, 763015, 763021, },
+						SpawnDefaultAIDataOverrides =
+						{
+							AmbientBattlePickClosestTargetIds = { 776359, 776358, },
+						},
+					},
+				},
+			},
+		},
+	},
+
 	P_Combat10_PreCombat01 =
 	{
 		InheritFrom = { "P_BaseVignette" },
@@ -1974,6 +2313,54 @@ OverwriteTableKeys( EncounterData,
 						{
 							AmbientBattlePickClosestTargetIds = { 767989, },
 						},
+					},
+				},
+			},
+		},
+	},
+
+	P_Combat10_PreCombat02 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "AutomatonEnforcer",
+						TotalCount = 3,
+						SpawnOnIds = { 768057, 768037, 768047, },
+					},
+					{
+						Name = "ZombieOlympus",
+						TotalCount = 7,
+						SpawnOnIds = { 768091, 768051, 768052, 768021, 768019, 768062, 768061, },
+					},
+				},
+			},
+		},
+	},
+
+	P_Combat10_PreCombat03 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "SatyrSapper",
+						TotalCount = 2,
+						SpawnOnIds = { 768018, 768061, },
+					},
+					{
+						Name = "SentryBot_Elite",
+						TotalCount = 7,
+						SpawnOnIds = { 768054, 768055, 768056, 768057, 768053, 768051, 768052, },
 					},
 				},
 			},
@@ -2029,6 +2416,66 @@ OverwriteTableKeys( EncounterData,
 						},
 					},
 				},
+			},
+		},
+	},
+
+	P_Combat11_PreCombat03 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "AutomatonBeamer",
+						TotalCount = 1,
+						SpawnOnIds = { 723664 },
+					},
+					{
+						Name = "SentryBot_Elite",
+						TotalCount = 3,
+						SpawnOnIds = { 723666, 723671, 723676, },
+					},
+					{
+						Name = "SatyrLancer2",
+						TotalCount = 3,
+						SpawnOnIds = { 723656, 723673, 723659, 723655, 723683, },
+					},
+				},
+			},
+		},
+	},
+
+	P_Combat11_PreCombat04 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "Dragon_Elite",
+						TotalCount = 1,
+						SpawnOnIds = { 723662 },
+					},
+					{
+						Name = "SentryBot",
+						TotalCount = 6,
+						SpawnOnIds = { 723657, 723658, 743629, 723655, 723666, 723663, 723656, 723661, 723668, },
+					},
+				},
+			},
+		},
+
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersCompletedCache", "DragonIntro" },
 			},
 		},
 	},
@@ -2102,6 +2549,30 @@ OverwriteTableKeys( EncounterData,
 					}
 				}
 			}
+		},
+	},
+
+	P_Combat12_PreCombat03 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "AutomatonEnforcer",
+						TotalCount = 2,
+						SpawnOnIds = { 768680, 768623, },
+					},
+					{
+						Name = "SatyrLancer2_Elite",
+						TotalCount = 3,
+						SpawnOnIds = { 768685, 768687, 768699, 768659, 768658, 768688, },
+					},
+				},
+			},
 		},
 	},
 
@@ -2269,6 +2740,35 @@ OverwriteTableKeys( EncounterData,
 		},
 	},
 
+	P_Combat14_PreCombat03 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "AutomatonEnforcer_Elite",
+						TotalCount = 1,
+						SpawnOnIds = { 763400, },
+					},
+					{
+						Name = "SentryBot",
+						TotalCount = 4,
+						SpawnOnIds = { 763350, 763413, 763404, 763409, },
+					},
+					{
+						Name = "HarpyDropper_Elite",
+						TotalCount = 3,
+						SpawnOnIds = { 763375, 763418, 763373, 763384, 763390, 763395, 763393, 763354, 763357, },
+					},
+				},
+			},
+		},
+	},
+
 	P_Combat15_PreCombat01 =
 	{
 		InheritFrom = { "P_BaseVignette" },
@@ -2322,6 +2822,54 @@ OverwriteTableKeys( EncounterData,
 		},
 	},
 
+	P_Combat15_PreCombat03 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "ZombieOlympus",
+						TotalCount = 8,
+						SpawnOnIds = { 763535, 763504, 763532, 763537, 763534, 763533, 763489, 763494, 763539, 763536, 763491, 763551, 763490, 763528, 763531, 763538, 763429, 763432, 763462, 763459, 763447, 763427, 763463, 763457, 763430, 763433, 763450, 763456, 763454, 763507, 763428, 763458, 763455, 763508, 763431, },
+					},
+					{
+						Name = "AutomatonEnforcer",
+						TotalCount = 2,
+						SpawnOnIds = { 763439, 763445, },
+					},
+				},
+			},
+		},
+	},
+
+	P_Combat15_PreCombat04 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "SatyrSapper",
+						TotalCount = 3,
+						SpawnOnIds = { 763459, 763452, 763531, 763455, },
+					},
+					{
+						Name = "SentryBot_Elite",
+						TotalCount = 5,
+						SpawnOnIds = { 763446, 763447, 763448, 763449, 763445, },
+					},
+				},
+			},
+		},
+	},
+
 	P_Combat16_PreCombat01 =
 	{
 		InheritFrom = { "P_BaseVignette" },
@@ -2350,6 +2898,61 @@ OverwriteTableKeys( EncounterData,
 						},
 					},
 				},
+			},
+		},
+	},
+
+	P_Combat16_PreCombat02 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "AutomatonBeamer",
+						TotalCount = 2,
+						SpawnOnIds = { 763602, 763603, },
+					},
+					{
+						Name = "SatyrLancer2",
+						TotalCount = 4,
+						SpawnOnIds = { 763535, 763524, 763523, 763537, 763607, 763608, 763541, 763484, 763485, 763477, 763478, 763598, 763599, },
+					},
+				},
+			},
+		},
+	},
+
+	P_Combat16_PreCombat03 =
+	{
+		InheritFrom = { "P_BaseVignette" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "Dragon",
+						TotalCount = 2,
+						SpawnOnIds = { 763602, 763603, },
+					},
+					{
+						Name = "SentryBot",
+						TotalCount = 6,
+						SpawnOnIds = { 763525, 763524, 763536, 763535, 763479, 763598, 763478, },
+					},
+				},
+			},
+		},
+
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersCompletedCache", "DragonIntro" },
 			},
 		},
 	},

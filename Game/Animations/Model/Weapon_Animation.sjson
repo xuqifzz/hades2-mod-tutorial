@@ -20,6 +20,7 @@
 		ExtraGrannyAnimations = 
 		[
 			{ Name = "Melinoe_Axe_Charon" }
+			{ Name = "Melinoe_Axe_Nergal" }
 			{ Name = "Melinoe_Axe_Thanatos" }
 		]
 		OffsetZ = 120
@@ -55,13 +56,24 @@
 	{
 		Name = "WeaponAxeIdle_Thanatos"
 		InheritFrom = "WeaponAxeIdle"
-		Scale = 0.8
+		Scale = 1.0
 		OffsetX = 0
+		OffsetZ = -10
+	}
+	{
+		Name = "WeaponAxeIdle_Nergal"
+		InheritFrom = "WeaponAxeIdle"
+		GrannyRotationX = 180
+		GrannyRotationZ = 135
 	}
 
 	{
 		Name = "WeaponTorchMultiple_Eos"
 		GrannyModel = "WeaponTorchMultiple_Eos_Mesh"
+	}
+	{
+		Name = "WeaponTorchMultiple_Supay"
+		GrannyModel = "WeaponTorchMultiple_Supay_Mesh"
 	}
 	{
 		Name = "WeaponTorchMultiple_Moros"
@@ -72,10 +84,11 @@
 		InheritFrom = "BaseWeaponKit"
 		GrannyModel = "WeaponHecateMultiple_Mesh"
 		Scale = 0.8
-		OffsetZ = 20
+		OffsetZ = 40
 		ExtraGrannyAnimations = 
 		[
 			{ Name = "WeaponTorchMultiple_Eos" }
+			{ Name = "WeaponTorchMultiple_Supay" }
 			{ Name = "WeaponTorchMultiple_Moros" }
 		]
 	}
@@ -102,9 +115,15 @@
 		ZWobbleDistance = 0
 		OffsetZ = 0
 
-		Scale = 1.3
-		OffsetY = -350
+		Scale = 1.2
+		OffsetY = -430
 		GrannyRotationY = -45
+	}
+	{
+		Name = "WeaponTorchIdle_Aspect"
+		InheritFrom = "WeaponTorchIdle"
+		Scale = 1.3
+		OffsetY = -375
 	}
 
 	{
@@ -113,16 +132,18 @@
 		GrannyModel = "WeaponLob_Mesh"
 		ExtraGrannyAnimations = 
 		[
+			{ Name = "WeaponLob_Hel" }
 			{ Name = "WeaponLob_Medea" }
 			{ Name = "WeaponLob_Persephone" }
 		]
-		OffsetZ = 70
+		OffsetZ = 110
 		Scale = 2
 	}
 	{
 		Name = "WeaponLobFloatingIdleVertical"
 		InheritFrom = "WeaponLobFloatingIdle"
 		GrannyRotationX = -26.5 //Remove camera's isometric angle
+		GrannyRotationY = 180
 		OffsetZ = 150
 	}
 	{
@@ -142,14 +163,26 @@
 		ZWobbleDistance = 0
 		OffsetZ = 0
 
-		Scale = 3
-		OffsetY = 10
+		Scale = 3.5
+		OffsetY = 0
 		GrannyRotationY = 150
 	}
 	{
 		Name = "WeaponLobIdle_Medea"
 		InheritFrom = "WeaponLobIdle"
 		Scale = 2.4
+	}
+	{
+		Name = "WeaponLobIdle_Persephone"
+		InheritFrom = "WeaponLobIdle"
+		Scale = 3.0
+	}
+	{
+		Name = "WeaponLobIdle_Hel"
+		InheritFrom = "WeaponLobIdle"
+		Scale = 3.0
+		OffsetX = -20
+		OffsetY = -10
 	}
  
 	{
@@ -184,15 +217,26 @@
 		RandomRotationSpeedMax = 0
 		ZWobbleSpeed = 0
 		ZWobbleDistance = 0
-		OffsetZ = 0
-
-		OffsetX = -25
+		Scale = 1.1
+		OffsetZ = -25
+		OffsetX = -20
 		GrannyRotationZ = 45
+	}
+	{
+		Name = "WeaponStaffIdle_Momus"
+		InheritFrom = "WeaponStaffIdle"
+		GrannyRotationX = 75
+		GrannyRotationY = 43
+		GrannyRotationZ = 90
 	}
 
 	{
 		Name = "WeaponDaggerMultiple_Artemis"
 		GrannyModel = "WeaponDaggerMultiple_Artemis_Mesh"
+	}
+	{
+		Name = "WeaponDaggerMultiple_Morrigan"
+		GrannyModel = "WeaponDaggerMultiple_Morrigan_Mesh"
 	}
 	{
 		Name = "WeaponDaggerMultiple_Pan"
@@ -202,10 +246,11 @@
 		Name = "WeaponDaggerFloatingIdle"
 		InheritFrom = "BaseWeaponKit"
 		GrannyModel = "WeaponDagger_Mesh"
-		OffsetZ = 20
+		OffsetZ = 70
 		ExtraGrannyAnimations = 
 		[
 			{ Name = "WeaponDaggerMultiple_Artemis" }
+			{ Name = "WeaponDaggerMultiple_Morrigan" }
 			{ Name = "WeaponDaggerMultiple_Pan" }
 		]
 		Scale = 1.2
@@ -213,7 +258,9 @@
 	{
 		Name = "WeaponDaggerFloatingIdleVertical"
 		InheritFrom = "WeaponDaggerFloatingIdle"
+		OffsetZ = 20
 		GrannyRotationX = -26.5 //Remove camera's isometric angle
+		GrannyRotationY = 90
 	}
 	{
 		Name = "WeaponDaggerFloatingIdleOff"
@@ -232,9 +279,10 @@
 		ZWobbleDistance = 0
 		OffsetZ = 0
 
-		OffsetY = -50
+		OffsetX = -10
+		OffsetY = -65
 		GrannyRotationY = 70
-		Scale = 1.8
+		Scale = 2
 	}
 
 	{

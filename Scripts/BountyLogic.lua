@@ -19,47 +19,12 @@ function OpenBountyBoardScreen( openedFrom, args )
 	CreateScreenFromData( screen, screen.ComponentData )
 	screen.ActiveCategoryIndex = args.DefaultCategoryIndex or 1
 
-	local categoryTitleX = screen.CategoryStartX
-	for categoryIndex, category in ipairs( screen.ItemCategories ) do
-		if category.GameStateRequirements == nil or IsGameStateEligible( category, category.GameStateRequirements ) then
-			--[[
-			local slotName = category.Name
-			screen.Components["Category"..slotName] = CreateScreenComponent({ Name = "ResourceShopTab", X = categoryTitleX, Y = screen.CategoryStartY, Scale = 1.0, Sound = "/SFX/Menu Sounds/GeneralWhooshMENU", Group = "Combat_Menu_Overlay" })
-			screen.Components["Category"..slotName].OnPressedFunctionName = "BountyBoardScreenSelectCategory"
-			screen.Components["Category"..slotName].Category = slotName
-			screen.Components["Category"..slotName].CategoryIndex = categoryIndex
-			CreateTextBox({ Id = screen.Components["Category"..slotName].Id,
-				Text = slotName,
-				FontSize = 22,
-				Color = Color.CodexTitleUnselected,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
-				Justification = "Center"
-			})
-			if categoryIndex ~= screen.ActiveCategoryIndex and HasUnviewedBounty( category ) then
-				-- New icon
-				local newButtonKey = "NewIcon"..slotName
-				components[newButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_Overlay" })
-				SetAnimation({ DestinationId = components[newButtonKey].Id , Name = "NewTabStar" })
-				Attach({ Id = components[newButtonKey].Id, DestinationId = screen.Components["Category"..slotName].Id, OffsetX = 0, OffsetY = -34 })
-			end
-			]]
-		else
-			category.Locked = true
-			if categoryIndex == screen.ActiveCategoryIndex then
-				screen.ActiveCategoryIndex = screen.ActiveCategoryIndex + 1
-			end
-		end
-
-		categoryTitleX = categoryTitleX + screen.CategorySpacingX
-	end
-
 	wait(0.1)
 
 	BountyBoardScreenDisplayCategory( screen, screen.ActiveCategoryIndex )
 	WeaponShopUpdateVisibility( screen )
 
-	BountyBoardOpenedPresentation( screen )
+	thread( BountyBoardOpenedPresentation, screen )
 
 	wait(0.1)
 	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY, ForceUseCheck = true })
@@ -98,34 +63,8 @@ end
 function BountyBoardScreenDisplayCategory( screen, categoryIndex )
 
 	local components = screen.Components
-
-	local slotName = screen.ItemCategories[categoryIndex].Name
-	--ModifyTextBox({ Id = components["Category"..slotName].Id, Color = Color.White })
-	--DestroyTextBox({ Id = components.BackgroundDim.Id })
-
-	--[[
-	local newButtonKey = "NewIcon"..slotName
-	if components[newButtonKey] ~= nil then
-		SetAlpha({ Id = components[newButtonKey].Id, Fraction = 0.0, Duration = 0.1 })
-	end
-	]]
-
-	-- Cleanup prev category
-	--[[
-	local prevCategory = screen.ItemCategories[screen.ActiveCategoryIndex]
-	for i, resourceName in ipairs( prevCategory ) do
-		if components[resourceName] ~= nil then
-			Destroy({ Id = components[resourceName].Id })
-		end
-	end
-	ModifyTextBox({ Id = screen.Components["Category"..prevCategory.Name].Id, Color = Color.CodexTitleUnselected })
-	]]
-
 	local category = screen.ItemCategories[categoryIndex]
 	local slotName = category.Name
-
-	-- Highlight new category
-	--ModifyTextBox({ Id = components["Category"..slotName].Id, Color = Color.White })
 
 	screen.ActiveCategoryIndex = categoryIndex
 
@@ -137,17 +76,14 @@ function BountyBoardScreenDisplayCategory( screen, categoryIndex )
 
 	local activeBounties = {}
 	local completedBounties = {}
-	local ineligibleBounties = {}
 
 	for i, bountyName in ipairs( screen.ItemCategories[screen.ActiveCategoryIndex] ) do
 		local bountyData = BountyData[bountyName]
 		if not bountyData.DebugOnly then
-			if GameState.BountiesCompleted[bountyName] then
+			if GameState.PackagedBountyClears[bountyName] ~= nil then
 				table.insert( completedBounties, bountyData )
 			elseif IsGameStateEligible( bountyData, bountyData.UnlockGameStateRequirements ) then
 				table.insert( activeBounties, bountyData )
-			else
-				table.insert( ineligibleBounties, bountyData )
 			end
 		end
 	end
@@ -160,7 +96,7 @@ function BountyBoardScreenDisplayCategory( screen, categoryIndex )
 		-- BountyButton
 		screen.NumItems = screen.NumItems + 1
 		local button = CreateScreenComponent({ Name = "BlankInteractableObstacle", X = itemLocationX, Y = itemLocationY, Group = screen.ComponentData.DefaultGroup })
-		button.MouseOverSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+		button.MouseOverSound = "/SFX/Menu Sounds/MirrorMenuToggle"
 		button.OnPressedFunctionName = "StartPackagedBounty"
 		button.OnMouseOverFunctionName = "MouseOverBounty"
 		button.OnMouseOffFunctionName = "MouseOffBounty"
@@ -195,41 +131,12 @@ function BountyBoardScreenDisplayCategory( screen, categoryIndex )
 		itemLocationY = itemLocationY + screen.ItemSpacingY
 	end
 
-	--[[
-	for k, bountyData in ipairs( ineligibleBounties ) do
-
-		-- BountyButton
-		screen.NumItems = screen.NumItems + 1
-		local button = CreateScreenComponent({ Name = "BlankInteractableObstacle", X = itemLocationX, Y = itemLocationY, Group = screen.ComponentData.DefaultGroup })
-		button.MouseOverSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
-		button.OnMouseOverFunctionName = "MouseOverBounty"
-		button.OnMouseOffFunctionName = "MouseOffBounty"
-		button.OnPressedFunctionName = "BountyBoardIneligiblePresentation"
-		button.Data = bountyData
-		button.Index = screen.NumItems
-		button.Screen = screen
-		AttachLua({ Id = button.Id, Table = button })
-		local bountyButtonKey = screen.ButtonName..screen.NumItems
-		components[bountyButtonKey] = button
-
-		local ineligibleFormat = screen.IneligibleFormat
-		ineligibleFormat.Id = button.Id
-		ineligibleFormat.Text = bountyData.Text or bountyData.Name
-		ineligibleFormat.LuaKey = "TempTextData"
-		ineligibleFormat.LuaValue = bountyData
-		CreateTextBox( ineligibleFormat )
-
-		itemLocationY = itemLocationY + screen.ItemSpacingY
-
-	end
-	]]
-
 	for k, bountyData in ipairs( completedBounties ) do
 
 		-- BountyButton
 		screen.NumItems = screen.NumItems + 1
 		local button = CreateScreenComponent({ Name = "BlankInteractableObstacle", X = itemLocationX, Y = itemLocationY, Group = screen.ComponentData.DefaultGroup })
-		button.MouseOverSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+		button.MouseOverSound = "/SFX/Menu Sounds/MirrorMenuToggle"
 		if GameState.WorldUpgrades.WorldUpgradeBountyBoardRepeat then
 			button.OnPressedFunctionName = "StartPackagedBounty"
 		else
@@ -257,83 +164,42 @@ function BountyBoardScreenDisplayCategory( screen, categoryIndex )
 
 end
 
-function BountyBoardScreenSelectCategory( screen, button )
-	WeaponShopScreenSelectCategoryPresentation( screen, button )
-	if button.CategoryIndex == screen.ActiveCategoryIndex then
-		return
-	end
-	AddInputBlock({ Name = "WeaponShopScreenSelectCategory" })
-	WeaponShopScreenHideItems( screen )
-	wait( 0.1 )
-	screen.ScrollOffset = 0
-	BountyBoardScreenDisplayCategory( screen, button.CategoryIndex )
-	WeaponShopUpdateVisibility( screen )
-	wait(0.02)
-	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY, ForceUseCheck = true })
-	RemoveInputBlock({ Name = "WeaponShopScreenSelectCategory" })
-end
-
-function BountyBoardScreenNextCategory( screen, button )
-	WeaponShopScreenSelectCategoryPresentation( screen, button )
-	local nextCategoryIndex = screen.ActiveCategoryIndex
-	for i = 1, #screen.ItemCategories do
-		nextCategoryIndex = nextCategoryIndex + 1
-		if nextCategoryIndex > #screen.ItemCategories then
-			nextCategoryIndex = 1
-		end
-		if not screen.ItemCategories[nextCategoryIndex].Locked then
-			break
-		end
-	end
-	if nextCategoryIndex == screen.ActiveCategoryIndex then
-		return
-	end
-	AddInputBlock({ Name = "WeaponShopScreenSelectCategory" })
-	WeaponShopScreenHideItems( screen )
-	wait( 0.1 )
-	screen.ScrollOffset = 0
-	BountyBoardScreenDisplayCategory( screen, nextCategoryIndex )
-	WeaponShopUpdateVisibility( screen )
-	wait(0.02)
-	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY, ForceUseCheck = true })
-	RemoveInputBlock({ Name = "WeaponShopScreenSelectCategory" })
-end
-
-function BountyBoardScreenPrevCategory( screen, button )
-	WeaponShopScreenSelectCategoryPresentation( screen, button )
-	local nextCategoryIndex = screen.ActiveCategoryIndex
-	for i = 1, #screen.ItemCategories do
-		nextCategoryIndex = nextCategoryIndex - 1
-		if nextCategoryIndex < 1 then
-			nextCategoryIndex =  #screen.ItemCategories
-		end
-		if not screen.ItemCategories[nextCategoryIndex].Locked then
-			break
-		end
-	end
-	if nextCategoryIndex == screen.ActiveCategoryIndex then
-		return
-	end
-	AddInputBlock({ Name = "WeaponShopScreenSelectCategory" })
-	WeaponShopScreenHideItems( screen )
-	wait( 0.1 )
-	screen.ScrollOffset = 0
-	BountyBoardScreenDisplayCategory( screen, nextCategoryIndex )
-	WeaponShopUpdateVisibility( screen )
-	wait(0.02)
-	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY, ForceUseCheck = true })
-	RemoveInputBlock({ Name = "WeaponShopScreenSelectCategory" })
-end
-
 function CloseBountyBoardScreen( screen, button )
-	if screen.CloseAnimation ~= nil then
-		SetAnimation({ DestinationId = screen.Components.ShopBackground.Id, Name = screen.CloseAnimation })
-	end
+	SetAnimation({ DestinationId = screen.Components.ShopBackground.Id, Name = "ChaosTrialOut" })
+	CreateAnimation({ DestinationId = button.Id, Name = "ChaosTrialMousePress" }) --nopkg
 	OnScreenCloseStarted( screen )
 	CloseScreen( GetAllIds( screen.Components ), 0.1 )
 	OnScreenCloseFinished( screen )
 	ShowCombatUI( screen.Name )
-	thread( CheckProgressAchievements )
+end
+
+function BountyScreenUpdateIntensityEyes( screen )
+
+	local threadName = "BountyScreenUpdateIntensityEyes"
+	local delay = 0.3
+	if SetThreadWait( threadName, delay ) then
+		return
+	end
+	wait( delay, threadName )
+
+	local button = screen.MouseOverButton
+	for i = 1, 5 do
+		local intensityComponent = screen.Components["IntensityEye"..i]
+		if button ~= nil and (button.Data.DifficultyRating or 0) >= i then
+			SetAnimation({ DestinationId = intensityComponent.Id, Name = intensityComponent.Data.ActiveAnimationName })
+			if i >= 2 then
+				local intensityFlameComponent = screen.Components["IntensityEye"..i.."Flame"]
+				SetAlpha({ Id = intensityFlameComponent.Id, Fraction = 1.0, Duration = 0.3 })
+			end
+		else
+			SetAnimation({ DestinationId = intensityComponent.Id, Name = intensityComponent.Data.AnimationName })
+			if i >= 2 then
+				local intensityFlameComponent = screen.Components["IntensityEye"..i.."Flame"]
+				SetAlpha({ Id = intensityFlameComponent.Id, Fraction = 0.0, Duration = 0.3 })
+			end
+		end
+		wait( 0.04 )
+	end
 
 end
 
@@ -343,12 +209,14 @@ function MouseOverBounty( button )
 	screen.MouseOverButton = button
 
 	local bountyName = button.Data.Name
-	local bountyComplete = GameState.BountiesCompleted[bountyName]
+	screen.ClipboardText = bountyName
+	local bountyComplete = (GameState.PackagedBountyClears[bountyName] ~= nil)
 
 	ModifyTextBox({ Id = button.Id, ScaleTarget = screen.MouseOverScaleTarget, ScaleDuration = screen.MouseOverScaleDuration })
 
 	Teleport({ Id = screen.Components.SelectionMarker.Id, DestinationId = button.Id, OffsetX = screen.Components.SelectionMarker.Data.ButtonOffsetX, OffsetY = screen.Components.SelectionMarker.Data.ButtonOffsetY })
 	SetAlpha({ Id = screen.Components.SelectionMarker.Id, Fraction = 1.0, Duration = 0.2 })
+	SetAnimation({ DestinationId = screen.Components.SelectionMarker.Id, Name = "ChaosTrialMouseHighlightIn" }) --nopkg
 
 	GenericMouseOverPresentation( button )
 
@@ -358,18 +226,10 @@ function MouseOverBounty( button )
 	SetAlpha({ Id = button.Screen.Components.DescriptionText.Id, Fraction = 1.0, Duration = 0.2 })
 	ModifyTextBox({ Id = button.Screen.Components.DescriptionText.Id, Text = bountyName, UseDescription = true, })
 
-	for i = 1, 5 do
-		local intensityComponent = screen.Components["IntensityEye"..i]
-		if (button.Data.DifficultyRating or 0) >= i then
-			SetAnimation({ DestinationId = intensityComponent.Id, Name = intensityComponent.Data.ActiveAnimationName })
-		else
-			SetAnimation({ DestinationId = intensityComponent.Id, Name = intensityComponent.Data.AnimationName })
-		end
-	end
-
 	-- Location
 	if button.Data.StartingBiome ~= nil then
 		SetAlpha({ Id = button.Screen.Components.LocationIconBacking.Id, Fraction = 1.0, Duration = 0.2 })
+		CreateAnimation({ DestinationId = button.Screen.Components.LocationIconOverlay.Id, Name = "ChaosTrialDetailCardWipe" }) --nopkg
 		SetAlpha({ Id = button.Screen.Components.LocationIcon.Id, Fraction = 1.0, Duration = 0.2 })
 		local baseRoomData = RoomSetData[button.Data.StartingBiome]["Base"..button.Data.StartingBiome]
 		SetAnimation({ DestinationId = button.Screen.Components.LocationIcon.Id, Name = button.Data.BiomeIcon or baseRoomData.Icon })
@@ -379,6 +239,7 @@ function MouseOverBounty( button )
 	-- Weapon
 	if button.Data.WeaponKitName ~= nil then
 		SetAlpha({ Id = button.Screen.Components.WeaponIconBacking.Id, Fraction = 1.0, Duration = 0.2 })
+		CreateAnimation({ DestinationId = button.Screen.Components.WeaponIconOverlay.Id, Name = "ChaosTrialDetailCardWipe2" }) --nopkg
 		SetAlpha({ Id = button.Screen.Components.WeaponIcon.Id, Fraction = 1.0, Duration = 0.2 })
 		local weaponKitName = button.Data.WeaponKitName
 		local weaponUpgradeName = button.Data.WeaponUpgradeName
@@ -392,21 +253,24 @@ function MouseOverBounty( button )
 		ModifyTextBox({ Id = button.Screen.Components.WeaponIconBacking.Id, Text = weaponName })
 	elseif button.Data.RandomWeaponKitNames ~= nil then
 		SetAlpha({ Id = button.Screen.Components.WeaponIconBacking.Id, Fraction = 1.0, Duration = 0.2 })
+		CreateAnimation({ DestinationId = button.Screen.Components.WeaponIconOverlay.Id, Name = "ChaosTrialDetailCardWipe2" }) --nopkg
 		SetAlpha({ Id = button.Screen.Components.WeaponIcon.Id, Fraction = 1.0, Duration = 0.2 })
-		SetAnimation({ DestinationId = button.Screen.Components.WeaponIcon.Id, Name = "Weapon_Random" })
-		ModifyTextBox({ Id = button.Screen.Components.WeaponIcon.Id, Text = "BountyBoard_RandomWeapon" })
+		SetAnimation({ DestinationId = button.Screen.Components.WeaponIcon.Id, Name = "Weapon_Random" }) --nopkg
+		ModifyTextBox({ Id = button.Screen.Components.WeaponIconBacking.Id, Text = "BountyBoard_RandomWeapon" })
 	end
 
 	-- Keepsake
 	if button.Data.KeepsakeName ~= nil then
 		SetAlpha({ Id = button.Screen.Components.KeepsakeIconBacking.Id, Fraction = 1.0, Duration = 0.2 })
+		CreateAnimation({ DestinationId = button.Screen.Components.KeepsakeIconOverlay.Id, Name = "ChaosTrialDetailCardWipe3" }) --nopkg
 		SetAlpha({ Id = button.Screen.Components.KeepsakeIcon.Id, Fraction = 1.0, Duration = 0.2 })
 		SetAnimation({ DestinationId = button.Screen.Components.KeepsakeIcon.Id, Name = TraitData[button.Data.KeepsakeName].Icon })
 		ModifyTextBox({ Id = button.Screen.Components.KeepsakeIcon.Id, Text = button.Data.KeepsakeName })
 	elseif button.Data.RandomKeepsakeNames ~= nil then
 		SetAlpha({ Id = button.Screen.Components.KeepsakeIconBacking.Id, Fraction = 1.0, Duration = 0.2 })
+		CreateAnimation({ DestinationId = button.Screen.Components.KeepsakeIconOverlay.Id, Name = "ChaosTrialDetailCardWipe3" }) --nopkg
 		SetAlpha({ Id = button.Screen.Components.KeepsakeIcon.Id, Fraction = 1.0, Duration = 0.2 })
-		SetAnimation({ DestinationId = button.Screen.Components.KeepsakeIcon.Id, Name = "Keepsake_Random" })
+		SetAnimation({ DestinationId = button.Screen.Components.KeepsakeIcon.Id, Name = "Keepsake_Random" }) --nopkg
 		ModifyTextBox({ Id = button.Screen.Components.KeepsakeIcon.Id, Text = "BountyBoard_RandomKeepsake" })
 	end
 
@@ -419,18 +283,21 @@ function MouseOverBounty( button )
 	end
 
 	-- Reward string
-	local dropName = nil
-	if bountyComplete and GameState.WorldUpgrades.WorldUpgradeBountyBoardRepeat then
-		dropName = button.Data.ForcedRewardRepeat
+	local dropData = nil
+	if button.Data.LootOptions ~= nil then
+		local loot = button.Data.LootOptions[1]
+		if loot.Overrides ~= nil and loot.Overrides.AddResources ~= nil then
+			dropData = loot.Overrides
+		else
+			dropData = ConsumableData[loot.Name]
+		end
+	elseif bountyComplete and GameState.WorldUpgrades.WorldUpgradeBountyBoardRepeat then
+		dropData = ConsumableData[button.Data.ForcedRewardRepeat]
 	else
-		dropName = button.Data.ForcedReward or button.Data.LootOptions[1].Name
+		dropData = ConsumableData[button.Data.ForcedReward]
 	end
-	local dropData = ConsumableData[dropName]
 	local resourceName = GetFirstKey( dropData.AddResources )
 	local resourceAmount = dropData.AddResources[resourceName]
-	if not bountyComplete and BountyData[bountyName].LootOptions ~= nil then
-		resourceAmount = BountyData[bountyName].LootOptions[1].Overrides.AddResources[resourceName]
-	end
 	local resourceData = ResourceData[resourceName]
 	SetAlpha({ Id = button.Screen.Components.RewardText.Id, Fraction = 1.0, Duration = 0.2 })
 	ModifyTextBox({ Id = button.Screen.Components.RewardText.Id, 
@@ -446,40 +313,41 @@ function MouseOverBounty( button )
 	end
 	GameState.QuestsViewed[button.Data.Name] = true
 
-	-- Unlock hint / requirements
-	if not IsGameStateEligible( button.Data, button.Data.UnlockGameStateRequirements ) and not GameState.BountiesCompleted[bountyName] then
-		SetAlpha({ Id = button.Screen.Components.UnlockHint.Id, Fraction = 1.0, Duration = 0.2 })	
-		--ShowQuestProgress( button.Screen, button.Data, button.Data.UnlockGameStateRequirements )
-	end
-
 	-- Clear hint / clear message
-	if GameState.BountiesCompleted[bountyName] then
+	if bountyComplete then
 		SetAlpha({ Id = button.Screen.Components.ClearMessage.Id, Fraction = 1.0, Duration = 0.2 })
 		if GameState.WorldUpgrades.WorldUpgradeBountyBoardRepeat then
-			local clearData = { BestClearTimeString = GetTimerString( GameState.PackagedBountyClearRecordTime[bountyName], 2 ), ClearCount = GameState.PackagedBountyClears[bountyName] }
-			ModifyTextBox({ Id = button.Screen.Components.ClearMessage.Id, Text = "BountyBoard_ClearMessage", LuaKey = "TempTextData", LuaValue = clearData })
+			if BountyData[bountyName].RandomWeaponKitNames ~= nil then
+				local clearData = { CurrentStreak = GameState.PackagedBountyClearStreak[bountyName], BestStreak = GameState.PackagedBountyHighestClearStreak[bountyName] }
+				ModifyTextBox({ Id = button.Screen.Components.ClearMessage.Id, Text = "BountyBoard_ClearMessageStreaks", LuaKey = "TempTextData", LuaValue = clearData })
+			else
+				local clearData = { BestClearTimeString = GetTimerString( GameState.PackagedBountyClearRecordTime[bountyName], 2 ), ClearCount = GameState.PackagedBountyClears[bountyName] }
+				ModifyTextBox({ Id = button.Screen.Components.ClearMessage.Id, Text = "BountyBoard_ClearMessage", LuaKey = "TempTextData", LuaValue = clearData })
+			end
 		else
 			ModifyTextBox({ Id = button.Screen.Components.ClearMessage.Id, Text = "BountyBoard_ClearMessage_NonRepeatable" })
 		end
-		--ShowQuestProgress( button.Screen, button.Data, button.Data.UnlockGameStateRequirements )
 	end
 
 	-- Select button
 	if not bountyComplete or GameState.WorldUpgrades.WorldUpgradeBountyBoardRepeat then
-		if IsGameStateEligible( button.Data, button.Data.UnlockGameStateRequirements ) and IsGameStateEligible( button.Data, button.Data.CompleteGameStateRequirements ) then
-			SetAlpha({ Id = button.Screen.Components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
-			if bountyComplete then
-				ModifyTextBox({ Id = button.Screen.Components.SelectButton.Id, Text = "BountyBoard_RepeatChallenge" })
-			else
-				ModifyTextBox({ Id = button.Screen.Components.SelectButton.Id, Text = "BountyBoard_StartChallenge" })
-			end
+		SetAlpha({ Id = button.Screen.Components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
+		if bountyComplete then
+			ModifyTextBox({ Id = button.Screen.Components.SelectButton.Id, Text = "BountyBoard_RepeatChallenge" })
+		else
+			ModifyTextBox({ Id = button.Screen.Components.SelectButton.Id, Text = "BountyBoard_StartChallenge" })
 		end
 	end
+
+	thread( BountyScreenUpdateIntensityEyes, screen )
 
 end
 
 function MouseOffBounty( button )
 	local screen = button.Screen
+	if screen.MouseOverButton ~= button then
+		return
+	end
 	screen.MouseOverButton = nil
 
 	ModifyTextBox({ Id = button.Id, ScaleTarget = 1.0, ScaleDuration = 0.2 })
@@ -496,18 +364,22 @@ function MouseOffBounty( button )
 	SetAlpha({ Id = button.Screen.Components.KeepsakeIconBacking.Id, Fraction = 0.0, Duration = 0.2 })
 	SetAlpha({ Id = button.Screen.Components.KeepsakeIcon.Id, Fraction = 0.0, Duration = 0.2 })
 
-	--SetAlpha({ Id = button.Screen.Components.DifficultyText.Id, Fraction = 0.0, Duration = 0.2 })
 	for i = 1, 5 do
 		local intensityComponent = screen.Components["IntensityEye"..i]
 		SetAnimation({ DestinationId = intensityComponent.Id, Name = intensityComponent.Data.AnimationName })
+		if i >= 2 then
+			local intensityFlameComponent = screen.Components["IntensityEye"..i.."Flame"]
+			SetAlpha({ Id = intensityFlameComponent.Id, Fraction = 0.0, Duration = 0.3 })
+		end
 	end
 	
 	SetAlpha({ Id = button.Screen.Components.RewardText.Id, Fraction = 0.0, Duration = 0.2 })
-	SetAlpha({ Id = button.Screen.Components.UnlockHint.Id, Fraction = 0.0, Duration = 0.2 })
 	SetAlpha({ Id = button.Screen.Components.ClearMessage.Id, Fraction = 0.0, Duration = 0.2 })
 	SetAlpha({ Id = button.Screen.Components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
 
-	SetAlpha({ Id = screen.Components.SelectionMarker.Id, Fraction = 0.0, Duration = 0.2 })
+	SetAnimation({ DestinationId = screen.Components.SelectionMarker.Id, Name = "ChaosTrialMouseHighlightOut" }) --nopkg
+
+	thread( BountyScreenUpdateIntensityEyes, screen )
 
 	wait( 0.2 )
 	if screen.MouseOverButton == nil then
@@ -519,106 +391,155 @@ function MouseOffBounty( button )
 	
 end
 
-function CheckBounties( source, args )
-	args = args or {}
-
-	local endingRun = false
-
-	local bountyName = CurrentRun.ActiveBounty or GameState.ActiveShrineBounty
-	local bountyData = BountyData[bountyName]
-	if bountyData ~= nil then
-		if bountyData.Encounter == CurrentRun.CurrentRoom.Encounter.Name then
-			if IsGameStateEligible( source, bountyData.UnlockGameStateRequirements ) and IsGameStateEligible( source, bountyData.CompleteGameStateRequirements ) then
-				if GameState.BountiesCompleted[bountyData.Name] then
-					-- Previously completed
-					AddInputBlock({ Name = "PreviouslyCompleteBounty" })
-					BountyEarnedPresentation( bountyData, args )
-					MarkBountyComplete( source, { BountyName = bountyData.Name } )
-					RemoveInputBlock({ Name = "PreviouslyCompleteBounty" })
-				else
-					if bountyData.LootOptions ~= nil then
-						args.LootOptions = bountyData.LootOptions
-						args.AddUnthreadedOnUseEvent =
-						{
-							FunctionName = "MarkBountyComplete",
-							Args = { BountyName = bountyData.Name },
-						}
-						args.Delay = bountyData.LootDelay
-						args.ForceToValidLocation = true
-						args.KeepCollision = true
-						thread( GiveRandomConsumables, args )
-						BountyEarnedPresentation( bountyData, args )
-					else
-						AddInputBlock({ Name = "BountyComplete" })
-						BountyEarnedPresentation( bountyData, args )
-						MarkBountyComplete( source, { BountyName = bountyData.Name } )
-						RemoveInputBlock({ Name = "BountyComplete" })
-					end
-				end
-				if bountyData.EndRunOnCompletion then
-					endingRun = true
-				end
-			end
-		end
+function BountyScreenScrollUp( screen, button )
+	if screen.ScrollOffset <= 0 then
+		return
 	end
-	
+	screen.ScrollOffset = screen.ScrollOffset - screen.ItemsPerPage
+	WeaponShopUpdateVisibility( screen )
+	GenericScrollPresentation( screen, button )
+	wait( 0.02 )
+	TeleportCursor({ OffsetX = screen.ItemStartX, OffsetY = screen.ItemStartY + ((screen.ItemsPerPage - 1) * screen.ItemSpacingY), ForceUseCheck = true })
+end
+
+function BountyScreenScrollDown( screen, button )
+	if screen.ScrollOffset + screen.ItemsPerPage >= screen.NumItems then
+		return
+	end
+	screen.ScrollOffset = screen.ScrollOffset + screen.ItemsPerPage
+	WeaponShopUpdateVisibility( screen )
+	GenericScrollPresentation( screen, button )
+	wait( 0.02 )
+	TeleportCursor({ OffsetX = screen.ItemStartX, OffsetY = screen.ItemStartY, ForceUseCheck = true })
+end
+
+function CheckShrineBounties()
+	local bountyData = BountyData[GameState.ActiveShrineBounty]
+	if bountyData == nil or not Contains( bountyData.Encounters, CurrentRun.CurrentRoom.Encounter.Name ) then
+		return
+	end
+	if not IsGameStateEligible( bountyData, bountyData.UnlockGameStateRequirements ) or not IsGameStateEligible( bountyData, bountyData.CompleteGameStateRequirements ) then
+		return
+	end
+
+	wait( 0.5, RoomThreadName )
+	thread( ShrineBountyEarnedPresentation, bountyData )
+	GiveRandomConsumables(
+	{
+		LootOptions = bountyData.LootOptions,
+		AddUnthreadedOnUseEvent =
+		{
+			FunctionName = "MarkShrineBountyComplete",
+			Args = { BountyName = bountyData.Name },
+		},
+		ForceToValidLocation = true,
+		KeepCollision = true,
+	})
 	thread( CheckQuestStatus )
-	return endingRun
-
+	wait( 0.5, RoomThreadName )
 end
 
-function MarkBountyComplete( source, args )
-	CurrentRun.BountiesCompleted[args.BountyName] = true
-	GameState.BountiesCompleted[args.BountyName] = true
-	local bountyData = BountyData[args.BountyName]
-	if bountyData ~= nil then
-		if bountyData.IsPackagedBounty then
-			GameState.PackagedBountyClears[args.BountyName] = (GameState.PackagedBountyClears[args.BountyName] or 0) + 1
-			if args.BountyName == CurrentRun.ActiveBounty then
-				CurrentRun.ActiveBountyClears = (CurrentRun.ActiveBountyClears or 0) + 1
-				local prevBestClearTime = GameState.PackagedBountyClearRecordTime[args.BountyName] or 999999
-				if CurrentRun.GameplayTime < prevBestClearTime then
-					GameState.PackagedBountyClearRecordTime[args.BountyName] = CurrentRun.GameplayTime
-				end
-			end
-		end
-		if bountyData.EndRunOnCompletion then
-			thread( EndBountyRunPresentation, bountyData )
-		end
-	end
-	if args.BountyName == GameState.ActiveShrineBounty then
-		GameState.ActiveShrineBounty = nil
-	end
-end
+function CheckPackagedBountyCompletion()
 
-function HasEligibleBounty( source, args )
-	if not GameState.ScreensViewed.BountyBoard then
+	local bountyData = BountyData[CurrentRun.ActiveBounty]
+	if bountyData == nil or not Contains( bountyData.Encounters, CurrentRun.CurrentRoom.Encounter.Name ) then
 		return false
 	end
-	
-	for bountyName, bountyData in pairs( BountyData ) do
-		if not GameState.BountiesCompleted[bountyName] or bountyData.Repeatable then
-			if (bountyData.Encounter == CurrentRun.CurrentRoom.Encounter.Name or bountyData.Room == CurrentRun.CurrentRoom.Name) and not bountyData.DebugOnly and
-				IsGameStateEligible( source, bountyData.UnlockGameStateRequirements) and IsGameStateEligible( source, bountyData.CompleteGameStateRequirements ) then
-					return true
-			end
+
+	AddInputBlock({ Name = "BountyComplete" })
+	SetPlayerInvulnerable( "BountyComplete" )
+	SetThingProperty({ DestinationId = CurrentRun.Hero.ObjectId, Property = "StopsProjectiles", Value = false })
+
+	PackagedBountyEarnedPresentation( bountyData )
+
+	GameState.PackagedBountyClears[bountyData.Name] = (GameState.PackagedBountyClears[bountyData.Name] or 0) + 1
+	CurrentRun.ActiveBountyClears = (CurrentRun.ActiveBountyClears or 0) + 1
+
+	local currentStreak = (GameState.PackagedBountyClearStreak[bountyData.Name] or 0) + 1
+	GameState.PackagedBountyClearStreak[bountyData.Name] = currentStreak
+	local prevBestStreak = GameState.PackagedBountyHighestClearStreak[bountyData.Name] or 0
+	if currentStreak > prevBestStreak then
+		GameState.PackagedBountyHighestClearStreak[bountyData.Name] = currentStreak
+	end
+
+	if bountyData.RandomBountyStreakEligible then
+		GameState.RandomBountyClearStreak = GameState.RandomBountyClearStreak + 1
+		if GameState.RandomBountyClearStreak > GameState.RandomBountyHighestClearStreak then
+			GameState.RandomBountyHighestClearStreak = GameState.RandomBountyClearStreak
 		end
 	end
-	return false
+
+	local prevBestClearTime = GameState.PackagedBountyClearRecordTime[bountyData.Name] or 999999
+	if CurrentRun.GameplayTime < prevBestClearTime then
+		GameState.PackagedBountyClearRecordTime[bountyData.Name] = CurrentRun.GameplayTime
+	end
+
+	SetPlayerVulnerable( "BountyComplete" )
+	RemoveInputBlock({ Name = "BountyComplete" })
+
+	thread( EndBountyRunPresentation )
+	thread( CheckQuestStatus )
+	return true
+
+end
+
+function CheckRandomBounties()
+	local bountyData = BountyData[CurrentRun.ActiveBounty]
+	if bountyData == nil or bountyData.LootOptions == nil or not Contains( bountyData.Encounters, CurrentRun.CurrentRoom.Encounter.Name ) then
+		return
+	end
+	wait( 0.5, RoomThreadName )
+	GiveRandomConsumables(
+	{
+		LootOptions = bountyData.LootOptions,
+		ForceToValidLocation = true,
+		KeepCollision = true,
+	})
+end
+
+function MarkShrineBountyComplete( source, args )
+	CurrentRun.ShrineBountiesCompleted[args.BountyName] = true
+	GameState.ShrineBountiesCompleted[args.BountyName] = true
+	GameState.ActiveShrineBounty = nil
+end
+
+function StoredGameStateInit( originalState )
+	StoredGameState = {}
+	StoredGameState.PrimaryWeaponName = originalState.PrimaryWeaponName
+	StoredGameState.LastWeaponUpgradeName = originalState.LastWeaponUpgradeName
+	StoredGameState.LastAwardTrait = originalState.LastAwardTrait
+	StoredGameState.EquippedFamiliar = originalState.EquippedFamiliar
+	StoredGameState.ShrineUpgrades = ShallowCopyTable( originalState.ShrineUpgrades ) or {}
+	StoredGameState.ActiveShrineBounty = originalState.ActiveShrineBounty
+	StoredGameState.MetaUpgradeState = DeepCopyTable( originalState.MetaUpgradeState ) or {}
 end
 
 function StartPackagedBounty( screen, button )
 	AddInputBlock({ Name = "StartPackagedBounty" })
+	SetAnimation({ DestinationId = CurrentRun.Hero.ObjectId, Name = "MelinoeIdleWeaponless" })
 	CloseBountyBoardScreen( screen, button )
 
 	local bountyData = button.Data
 
-	StoredGameState = DeepCopyTable( GameState )	
+	StoredGameStateInit( GameState )
+
+	if GameState.NextRunSeed ~= nil then
+		RandomSetNextInitSeed( { Seed = GameState.NextRunSeed } )
+		GameState.NextRunSeed = nil
+	end
+	RandomSynchronize()
+
+	if not bountyData.RandomBountyStreakEligible then
+		GameState.RandomBountyClearStreak = 0
+	end
 	
 	if bountyData.WeaponKitName ~= nil then
 		EquipPlayerWeapon( WeaponData[bountyData.WeaponKitName], { SkipPresentation = true } )
 	elseif bountyData.RandomWeaponKitNames ~= nil then
-		local randomWeaponName = GetRandomValue( bountyData.RandomWeaponKitNames )
+		local eligibleWeaponKitNames = ShallowCopyTable( bountyData.RandomWeaponKitNames )
+		RemoveValueAndCollapse( eligibleWeaponKitNames, GameState.LastRandomBountyWeaponName )
+		local randomWeaponName = GetRandomValue( eligibleWeaponKitNames )
+		GameState.LastRandomBountyWeaponName = randomWeaponName
 		EquipPlayerWeapon( WeaponData[randomWeaponName], { SkipPresentation = true } )
 	end
 	if bountyData.WeaponUpgradeName ~= nil then
@@ -626,12 +547,18 @@ function StartPackagedBounty( screen, button )
 		if HasAnyAspectUnlocked( weaponName ) then
 			GameState.LastWeaponUpgradeName[weaponName] = bountyData.WeaponUpgradeName
 		end
+	elseif bountyData.UseRandomWeaponUpgrade then
+		local weaponName = GetEquippedWeapon()
+		GameState.LastWeaponUpgradeName[weaponName] = GetRandomValue( ScreenData.WeaponUpgradeScreen.DisplayOrder[weaponName] )
 	end
 	
 	if bountyData.KeepsakeName ~= nil then
 		GameState.LastAwardTrait = bountyData.KeepsakeName
 	elseif bountyData.RandomKeepsakeNames ~= nil then
-		GameState.LastAwardTrait = GetRandomValue( bountyData.RandomKeepsakeNames )
+		local eligibleKeepsakeNames = CombineTables( bountyData.RandomKeepsakeNames, bountyData.RandomFatedKeepsakeNames )
+		RemoveValueAndCollapse( eligibleKeepsakeNames, GameState.LastRandomBountyKeepsakeName )
+		GameState.LastAwardTrait = GetRandomValue( eligibleKeepsakeNames )
+		GameState.LastRandomBountyKeepsakeName = GameState.LastAwardTrait
 	end
 
 	if bountyData.RemoveFamiliar then
@@ -642,6 +569,143 @@ function StartPackagedBounty( screen, button )
 		GameState.EquippedFamiliar = GetRandomValue( bountyData.RandomFamiliarNames )
 	end
 
+	-- Clear all non-specified ShrineUpgrades
+	for shrineUpgradeName, shrineUpgradeLevel in pairs( GameState.ShrineUpgrades ) do
+		GameState.ShrineUpgrades[shrineUpgradeName] = 0
+	end
+	if bountyData.ShrineUpgradesActive ~= nil then
+		for shrineUpgradeName, shrineUpgradeLevel in pairs( bountyData.ShrineUpgradesActive ) do
+			GameState.ShrineUpgrades[shrineUpgradeName] = shrineUpgradeLevel
+		end
+	elseif bountyData.RandomShrineUpgradePointTotal ~= nil then
+		-- For now, mark all purely 1-pointer upgrades as reserved.
+		-- We may need them later to fill in gaps.
+		local reservedShrineUpgrades = {}
+		local totalReservedPoints = 0
+		for i, name in ipairs( ShrineUpgradeOrder ) do
+			local shrineUpgradeData = MetaUpgradeData[name]
+			if not shrineUpgradeData.IgnoredByRandomBounties then
+				local pointSum = 0
+				for j, rank in ipairs( shrineUpgradeData.Ranks ) do
+					if rank.Points == 1 then
+						pointSum = pointSum + 1
+					end
+				end
+				if pointSum == #shrineUpgradeData.Ranks then
+					reservedShrineUpgrades[name] = pointSum
+					totalReservedPoints = totalReservedPoints + pointSum
+				end
+			end
+		end
+
+		-- We only need to reserve 3 shrine points, so let's whittle down the list.
+		local maxPointsPerRank = 3
+		DebugAssert({ Condition = totalReservedPoints >= maxPointsPerRank, Text = "Not enough potential reserves!", Owner = "Caleb" })
+		while totalReservedPoints > maxPointsPerRank do
+			local shrineUpgrade = GetRandomKey( reservedShrineUpgrades )
+			reservedShrineUpgrades[shrineUpgrade] = reservedShrineUpgrades[shrineUpgrade] - 1
+			totalReservedPoints = totalReservedPoints - 1
+			if reservedShrineUpgrades[shrineUpgrade] <= 0 then
+				reservedShrineUpgrades[shrineUpgrade] = nil
+			end
+		end
+
+		-- Determine the available list of shrine upgrades (excluding reserved ranks)
+		local availableShrineUpgradeRanks = {}
+		for i, name in ipairs( ShrineUpgradeOrder ) do
+			local shrineUpgradeData = MetaUpgradeData[name]
+			if not shrineUpgradeData.IgnoredByRandomBounties then
+				local maxRank = GetShrineUpgradeMaxRank( shrineUpgradeData ) - (reservedShrineUpgrades[name] or 0)
+				if maxRank > 0 then
+					availableShrineUpgradeRanks[name] = maxRank
+				end
+			end
+		end
+
+		local budget = bountyData.RandomShrineUpgradePointTotal
+		local currentCostTotal = 0
+		while currentCostTotal < budget do
+			local outOfOptions = IsEmpty( availableShrineUpgradeRanks )
+			if outOfOptions and reservedShrineUpgrades == nil then
+				-- This should never happen, but just in case, prevent an infinite loop...
+				DebugAssert({ Condition = false, Text = "Ran completely out of shrine point options!", Owner = "Caleb" })
+				break
+			end
+
+			-- If we're out of affordable options, or if we're close to the budget, add the reserves to the pool.
+			if reservedShrineUpgrades ~= nil and ( outOfOptions or (budget - currentCostTotal) <= maxPointsPerRank ) then
+				for name, ranks in pairs( reservedShrineUpgrades ) do
+					availableShrineUpgradeRanks[name] = (availableShrineUpgradeRanks[name] or 0) + ranks
+				end
+				reservedShrineUpgrades = nil
+			end
+
+			-- Pick a random upgrade to level up.
+			-- If we can't afford it, we'll remove it from the pool and pick something else.
+			local randomUpgradeName = GetRandomKey( availableShrineUpgradeRanks )
+			local currentLevel = GameState.ShrineUpgrades[randomUpgradeName] or 0
+			local nextCost = MetaUpgradeData[randomUpgradeName].Ranks[currentLevel + 1].Points
+			if currentCostTotal + nextCost > budget then
+				-- priced out, remove the upgrade from the pool!
+				availableShrineUpgradeRanks[randomUpgradeName] = nil
+			else
+				-- purchased!
+				availableShrineUpgradeRanks[randomUpgradeName] = availableShrineUpgradeRanks[randomUpgradeName] - 1
+				if availableShrineUpgradeRanks[randomUpgradeName] <= 0 then
+					-- maxed out, remove the upgrade from the pool!
+					availableShrineUpgradeRanks[randomUpgradeName] = nil
+				end
+				GameState.ShrineUpgrades[randomUpgradeName] = (GameState.ShrineUpgrades[randomUpgradeName] or 0) + 1
+				currentCostTotal = currentCostTotal + nextCost
+			end
+		end
+	end
+	GameState.SpentShrinePointsCache = GetTotalSpentShrinePoints()
+	GameState.ActiveShrineBounty = nil
+
+	-- Clear all non-specified MetaUpgrades
+	for metaUpgradeName, metaUpgradeState in pairs( GameState.MetaUpgradeState ) do
+		GameState.MetaUpgradeState[metaUpgradeName].Equipped = false
+	end
+	if bountyData.MetaUpgradeStateEquipped ~= nil then
+		for k, metaUpgradeName in pairs( bountyData.MetaUpgradeStateEquipped ) do
+			GameState.MetaUpgradeState[metaUpgradeName].Equipped = true
+		end
+	elseif bountyData.RandomMetaUpgradeCostTotal ~= nil then
+		-- Gather all non-AutoEquip cards that don't conflict with the keepsake
+		local metaUpgradeNames = {}
+		for rowNum, upgradeNames in pairs( MetaUpgradeDefaultCardLayout ) do
+			for i, upgradeName in ipairs( upgradeNames ) do
+				if MetaUpgradeCardData[upgradeName].AutoEquipRequirements == nil then
+					if not FatedEnableKeepsakes[GameState.LastAwardTrait] or not FatedDisableMetaUpgrades[upgradeName] then
+						table.insert( metaUpgradeNames, upgradeName )
+					end
+				end
+			end
+		end
+
+		-- Sum up their Grasp costs
+		local totalGraspCost = 0
+		for i, upgradeName in ipairs( metaUpgradeNames ) do
+			totalGraspCost = totalGraspCost + MetaUpgradeCardData[upgradeName].Cost
+		end
+
+		-- Use a recursive subset-sum algorithm to determine a random combination of cards summing up to the budget
+		local budget = bountyData.RandomMetaUpgradeCostTotal
+		local cardState = {}
+		local equippedGraspCost = 0
+		RandomBountyProcessMetaUpgrades( 0, totalGraspCost, 0, budget, metaUpgradeNames, cardState )
+		for i, enabled in ipairs( cardState ) do
+			if enabled then
+				GameState.MetaUpgradeState[metaUpgradeNames[i]].Equipped = true
+				equippedGraspCost = equippedGraspCost + MetaUpgradeCardData[metaUpgradeNames[i]].Cost
+			end
+		end
+		DebugAssert({ Condition = (equippedGraspCost == budget), Text = "Equipped grasp for random Arcana does not match budget!", Owner = "Caleb" })
+		CheckAutoEquipCards()
+	end
+	GetCurrentMetaUpgradeCost()
+
 	-- Bounties shouldn't have biome states unless explicitly provided
 	if GameState.NextBiomeStateName ~= nil then
 		local biomeStateData = BiomeStateData.BiomeStates[GameState.NextBiomeStateName]
@@ -650,70 +714,6 @@ function StartPackagedBounty( screen, button )
 		end
 	end
 	GameState.NextBiomeStateName = bountyData.ForcedBiomeState or BiomeStateData.DefaultBiomeState
-
-	if bountyData.MetaUpgradeStateEquipped ~= nil then
-		-- Clear all non-specified MetaUpgrades
-		for metaUpgradeName, metaUpgradeState in pairs( GameState.MetaUpgradeState ) do
-			GameState.MetaUpgradeState[metaUpgradeName].Equipped = false
-		end
-		for k, metaUpgradeName in pairs( bountyData.MetaUpgradeStateEquipped ) do
-			GameState.MetaUpgradeState[metaUpgradeName].Equipped = true
-		end
-	elseif bountyData.RandomMetaUpgradeCostTotal ~= nil then
-		-- Clear all non-specified MetaUpgrades
-		for metaUpgradeName, metaUpgradeState in pairs( GameState.MetaUpgradeState ) do
-			GameState.MetaUpgradeState[metaUpgradeName].Equipped = false
-		end
-		local currentCostTotal = 0
-		local allMetaUpgradeNames = {}
-		for rowNum, upgradeNames in pairs ( MetaUpgradeDefaultCardLayout ) do
-			ConcatTableValues( allMetaUpgradeNames, upgradeNames )
-		end
-		--DebugPrint({ Text = "#allMetaUpgradeNames = "..tostring(#allMetaUpgradeNames) })
-		while currentCostTotal < bountyData.RandomMetaUpgradeCostTotal and not IsEmpty( allMetaUpgradeNames ) do
-			local randomUpgradeName = RemoveRandomValue( allMetaUpgradeNames )
-			if currentCostTotal + MetaUpgradeCardData[randomUpgradeName].Cost <= bountyData.RandomMetaUpgradeCostTotal then
-				GameState.MetaUpgradeState[randomUpgradeName].Equipped = true
-				currentCostTotal = currentCostTotal + MetaUpgradeCardData[randomUpgradeName].Cost
-				--DebugPrint({ Text = "randomUpgradeName = "..randomUpgradeName })
-				--DebugPrint({ Text = "currentCostTotal = "..currentCostTotal })
-			end
-		end
-	end
-	GetCurrentMetaUpgradeCost()
-
-	-- Clear all non-specified ShrineUpgrades
-	for metaUpgradeName, metaUpgradeLevel in pairs( GameState.ShrineUpgrades ) do
-		GameState.ShrineUpgrades[metaUpgradeName] = 0
-	end
-	if bountyData.ShrineUpgradesActive ~= nil then
-		for metaUpgradeName, metaUpgradeLevel in pairs( bountyData.ShrineUpgradesActive ) do
-			GameState.ShrineUpgrades[metaUpgradeName] = metaUpgradeLevel
-		end
-	elseif bountyData.RandomShrineUpgradePointTotal ~= nil then
-		local currentCostTotal = 0
-		local allShrineUpgradeNames = ShallowCopyTable( ShrineUpgradeOrder )
-		--DebugPrint({ Text = "#allShrineUpgradeNames = "..tostring(#allShrineUpgradeNames) })
-		while currentCostTotal < bountyData.RandomShrineUpgradePointTotal and not IsEmpty( allShrineUpgradeNames ) do
-			local randomUpgradeName = GetRandomValue( allShrineUpgradeNames )
-			--DebugPrint({ Text = "randomUpgradeName = "..randomUpgradeName })
-			local currentLevel = GameState.ShrineUpgrades[randomUpgradeName] or 0
-			--DebugPrint({ Text = "currentLevel = "..currentLevel })
-			local maxLevel = #MetaUpgradeData[randomUpgradeName].Ranks
-			--DebugPrint({ Text = "maxLevel = "..maxLevel })
-			if currentLevel < maxLevel then
-				local nextCost = MetaUpgradeData[randomUpgradeName].Ranks[currentLevel + 1].Points
-				--DebugPrint({ Text = "nextCost = "..nextCost })
-				if currentCostTotal + nextCost <= bountyData.RandomShrineUpgradePointTotal then
-					GameState.ShrineUpgrades[randomUpgradeName] = (GameState.ShrineUpgrades[randomUpgradeName] or 0) + 1
-					currentCostTotal = currentCostTotal + nextCost
-					--DebugPrint({ Text = "currentCostTotal = "..currentCostTotal })
-				end
-			end
-		end
-	end
-	GameState.SpentShrinePointsCache = GetTotalSpentShrinePoints()
-	GameState.ActiveShrineBounty = nil
 
 	GameState.PackagedBountyAttempts[bountyData.Name] = (GameState.PackagedBountyAttempts[bountyData.Name] or 0) + 1
 	
@@ -730,12 +730,12 @@ function RestorePackagedBountyGameState()
 	end
 
 	EquipPlayerWeapon( WeaponData[StoredGameState.PrimaryWeaponName], { SkipPresentation = true, SkipAnimSwap = true, } )
+	GameState.LastWeaponUpgradeName = StoredGameState.LastWeaponUpgradeName
 	GameState.LastAwardTrait = StoredGameState.LastAwardTrait
 	GameState.EquippedFamiliar = StoredGameState.EquippedFamiliar
-	GameState.MetaUpgrades = ShallowCopyTable( StoredGameState.MetaUpgrades ) or {}
-	GameState.ShrineUpgrades = ShallowCopyTable( StoredGameState.ShrineUpgrades ) or {}
+	GameState.ShrineUpgrades = StoredGameState.ShrineUpgrades
 	GameState.ActiveShrineBounty = StoredGameState.ActiveShrineBounty
-	GameState.MetaUpgradeState = ShallowCopyTable( StoredGameState.MetaUpgradeState ) or {}
+	GameState.MetaUpgradeState = StoredGameState.MetaUpgradeState
 
 	GetCurrentMetaUpgradeCost()
 	GameState.SpentShrinePointsCache = GetTotalSpentShrinePoints()
@@ -743,22 +743,37 @@ function RestorePackagedBountyGameState()
 	StoredGameState = nil
 end
 
-function BountyInfoBanner( source, args )
-	args.Text = CurrentRun.ActiveBounty
-	DisplayInfoBanner( source, args )
-end
-
-function GetBountyClearRecordTime( bountyName )
-	local bestTime = 999999
-	for i, runData in ipairs( GameState.RunHistory ) do
-		if runData.ActiveBounty == bountyName and runData.BountyCleared and runData.GameplayTime < bestTime then
-			bestTime = runData.GameplayTime
+function RandomBountyProcessMetaUpgrades( sum, remaining, index, budget, candidates, cardState )
+	if sum > budget or (sum+remaining) < budget then
+		return false
+	end
+	if sum == budget then
+		return true
+	end
+	if index < #candidates then
+		local nextCost = MetaUpgradeCardData[candidates[index + 1]].Cost
+		if CoinFlip() then
+			cardState[index + 1] = true
+			if RandomBountyProcessMetaUpgrades( sum + nextCost, remaining - nextCost, index + 1, budget, candidates, cardState ) then
+				return true
+			end
+			cardState[index + 1] = false
+			if RandomBountyProcessMetaUpgrades( sum, remaining - nextCost, index + 1, budget, candidates, cardState ) then
+				return true
+			end
+		else
+			cardState[index + 1] = false
+			if RandomBountyProcessMetaUpgrades( sum, remaining - nextCost, index + 1, budget, candidates, cardState ) then
+				return true
+			end
+			cardState[index + 1] = true
+			if RandomBountyProcessMetaUpgrades( sum + nextCost, remaining - nextCost, index + 1, budget, candidates, cardState ) then
+				return true
+			end
+			cardState[index + 1] = false
 		end
 	end
-	if CurrentRun.ActiveBounty == bountyName and CurrentRun.BountyCleared and CurrentRun.GameplayTime < bestTime then
-		bestTime = CurrentRun.GameplayTime
-	end
-	return bestTime
+	return false
 end
 
 function LoadActiveBountyPackages()
@@ -776,8 +791,7 @@ function LoadActiveBountyPackages()
 			end
 		end
 		for sourceLootName, v in pairs( lootSources ) do
-			LoadPackages({ Name = sourceLootName })
+			LoadPackages({ Name = sourceLootName, IgnoreAssert = true })
 		end
-		LoadVoiceBanks({ Name = "Chaos" })
 	end
 end

@@ -45,13 +45,6 @@ WeaponSetData =
 				{ Name = "/SFX/PlayerHammerExplosionsTight" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.05, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	LamiaShockwave_Miniboss =
@@ -81,8 +74,8 @@ WeaponSetData =
 			ForceUseIfReady = true,
 
 			RetreatAfterAttack = true,
-			RetreatBufferDistance = 1100,
-			RetreatTimeout = 1.5,
+			RetreatBufferDistance = 1600,
+			RetreatTimeout = 1.65,
 		},
 
 		Sounds =
@@ -93,13 +86,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Lamia/LamiaBlast" },
 				{ Name = "/SFX/PlayerHammerExplosionsTight" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.05, Fraction = 1.0, LerpTime = 0.1 },
 		},
 	},
 
@@ -149,13 +135,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/FreezeShotWeaponFire" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	LamiaSkyCast_Elite =
@@ -187,6 +166,10 @@ WeaponSetData =
 
 			PostAttackDurationMin = 2.5,
 			PostAttackDurationMax = 4.5,
+
+			RetreatBeforeAttack = true,
+			RetreatBufferDistance = 610,
+			RetreatTimeout = 1.3,
 		},
 	},
 
@@ -221,8 +204,10 @@ WeaponSetData =
 			BarrelLength = 160,
 			FireProjectileStartDelay = 0.25,
 
-			AngleTowardsTargetWhileFiring = true,
+			PreAttackStop = true,
 			TrackTargetDuringCharge = true,
+			TrackTargetDuringFire = true,
+			PostAttackStop = true,
 
 			ExpireProjectilesOnHitStun = true,
 
@@ -247,13 +232,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Lamia/EmoteAttackingRanged" },
 				{ Name = "/SFX/ArcherTrapProjectileFireShoot" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.06, Fraction = 1.0, LerpTime = 0.1 },
 		},
 	},
 }

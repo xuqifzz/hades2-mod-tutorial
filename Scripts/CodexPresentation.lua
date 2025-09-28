@@ -5,8 +5,7 @@ function CodexUnlockPresentation( args )
 	thread( ShowCodexUpdate )
 end
 
-function ShowCodexUpdate( args )
-	args = args or {}
+function ShowCodexUpdate()
 	if not ConfigOptionCache.ShowUIAnimations then
 		return
 	end
@@ -22,8 +21,8 @@ function ShowCodexUpdate( args )
 	end
 
 	local toastAnchor = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX, Y = 770, Group = "Combat_UI", })
-	SetAnimation({ Name = args.Animation or "CodexUpdateIn", DestinationId = toastAnchor })
-	PlaySound({ Name = "/SFX/Menu Sounds/CodexUpdatedShk", Id = toastAnchor })
+	SetAnimation({ Name = "CodexUpdateIn", DestinationId = toastAnchor })
+	PlaySound({ Name = "/SFX/Menu Sounds/CodexUpdatedShkFlash", Id = toastAnchor })
 
 	CreateTextBox({
 		Id = toastAnchor,
@@ -52,6 +51,7 @@ function ShowCodexUpdate( args )
 
 	wait(2.0)
 
+	SetAnimation({ Name = "CodexUpdateOut", DestinationId = toastAnchor })
 	ModifyTextBox({ Id = toastAnchor, FadeTarget = 0.0, FadeDuration = 1.0 })
 
 	wait(1.0)
@@ -62,7 +62,7 @@ function ShowCodexUpdate( args )
 end
 
 function CannotOpenCodexPresentation()
-	if not IsEmpty( ActiveScreens ) then
+	if not IsEmpty( ActiveScreens ) or SessionState.InFlashback then
 		return
 	end
 	if CheckCooldown( "CanOpenCodex", 5 ) then
@@ -96,9 +96,13 @@ end
 
 function MouseOverCodexEntry( button )
 	local screen = button.Screen
+	if screen.CloseTriggered then
+		return
+	end
 	TriggerCooldown( "MouseOverCodexEntry"..button.Id )
 	PlaySound({ Name = "/SFX/Menu Sounds/DialoguePanelOutMenu", Id = button.Id })
 	ModifyTextBox({ Id = button.Id, ScaleTarget = screen.MouseOverScaleTarget, ScaleDuration = screen.MouseOverScaleDuration })
+	CodexOpenEntry( screen, button )
 end
 
 function MouseOffCodexEntry( button )
@@ -110,8 +114,38 @@ function CodexScreenOpenChapterPresentation( screen, button )
 	PlaySound({ Name = "/SFX/Menu Sounds/GeneralWhooshMENU", Id = button.Id })
 end
 
-function CodexScreenOpenEntryPresentation( screen, button, args )
-	if not args.AutoOpen and CheckCooldown( "MouseOverCodexEntry"..button.Id, 0.03 ) then
-		PlaySound({ Name = "/SFX/Menu Sounds/GeneralWhooshMENU", Id = button.Id })
+function CodexScreenSwapPortraitPresentation( screen, button )
+	SetAlpha({ Ids = { screen.Components.Pin.Id, screen.Components.Image.Id }, Fraction = 1.0  })
+	SetAnimation({ DestinationId = screen.Components.ImageTransition.Id, Name = "CodexPortraitTransition" })
+	SetAnimation({ DestinationId = screen.Components.Image.Id, Name = button.Portrait })
+end
+
+function CodexScreenOpenedPresentation( screen )
+
+	wait( 0.08 )
+
+	SetAlpha({ Id = screen.Components.Background.Id, Fraction = 1.0, Duration = 0.0 })
+
+	local tabIds = {}
+	for _, name in ipairs( screen.UnlockedChapterNames ) do
+		table.insert( tabIds, screen.Components[name].Id )
+		table.insert( tabIds, screen.Components["CategoryIcon"..name].Id )
 	end
+	SetAlpha({ Ids = tabIds, Fraction = 1.0, Duration = 0.1 })
+	
+end
+
+function CodexScreenClosedPresentation( screen, button )
+	SetAnimation({ Name = "CodexOut", DestinationId = screen.Components.BackgroundBack.Id })
+	SetAlpha({ Id = screen.Components.Image.Id, Fraction = 0, Duration = 0.1 })
+	SetAlpha({ Id = screen.Components.ImageTransition.Id, Fraction = 0 })
+	SetAlpha({ Id = screen.Components.Pin.Id, Fraction = 0, Duration = 0.1 })
+	SetAlpha({ Id = screen.Components.Background.Id, Fraction = 0, Duration = 0.1 })
+	local tabIds = {}
+	for _, name in ipairs( screen.UnlockedChapterNames ) do
+		table.insert( tabIds, screen.Components[name].Id )
+		table.insert( tabIds, screen.Components["CategoryIcon"..name].Id )
+		table.insert( tabIds, screen.Components["CategoryActiveOverlay"..name].Id )
+	end
+	SetAlpha({ Ids = tabIds, Fraction = 0.0, Duration = 0.05 })
 end

@@ -11,7 +11,7 @@ WaveDifficultyPatterns =
 
 TimerBlockCombatExcludes = 
 {
-	"ThanatosEncounter", "SurvivalEncounter", "ArtemisEncounter",
+	"ThanatosEncounter", "SurvivalEncounter", "ArtemisEncounter", "IcarusEncounter",
 }
 
 BaseWaveOverrideValues =
@@ -57,7 +57,7 @@ EncounterData =
 				{
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsNone = { "O_PostBoss01", },
+						IsNone = { "O_PostBoss01", "Q_Intro" },
 					},
 				},
 				Args =
@@ -124,6 +124,9 @@ EncounterData =
 			},
 		},
 
+		WaveRequiredRemainingCount = 1,
+		AggroRemainingEnemiesOnWaveStart = true,
+
 		SpawnIntervalMin = 0.175,
 		SpawnIntervalMax = 0.225,
 		ActiveEnemyCapBase = 2.3,
@@ -133,11 +136,10 @@ EncounterData =
 		MaxTypes = 2,
 		MinWaves = 1,
 		MaxWaves = 3,
-		MaxTypesCap = 4,
+		MaxTypesCap = 3,
 		TypeCountDepthRamp = 0.20,
 		BaseDifficulty = 30,
 		DepthDifficultyRamp = 10,
-		MetaPointStoreRamp = 0.5,
 		MoneyDropCapMin = 10,
 		MoneyDropCapMax = 15,
 		MoneyDropCapDepthRamp = 0.5,
@@ -154,7 +156,7 @@ EncounterData =
 
 			},
 			OverrideValues = BaseWaveOverrideValues,
-			StartDelay = 1.0
+			StartDelay = 0.5,
 		},
 		NoFirstWaveStartDelay = true,
 
@@ -171,6 +173,7 @@ EncounterData =
 			--AggroReactionTimeMax = 1.35,
 			AggroReactionTimeMin = 0.15,
 			AggroReactionTimeMax = 0.45,
+			IgnoreCurseDamage = true,
 		},
 	},
 
@@ -178,10 +181,11 @@ EncounterData =
 	{
 		InheritFrom = { "Generated" },
 		CanEncounterSkip = true,
+		BlockAthenaEncounterKeepsake = false,
 		EnemySet = EnemySets.BiomeF,
 		SpawnIntervalMin = 0.200,
 		SpawnIntervalMax = 0.400,
-		ActiveEnemyCapBase = 3.0,
+		ActiveEnemyCapBase = 4.0,
 		ActiveEnemyCapMax = 10,
 		ActiveEnemyCapDepthRamp = 0.35,
 		MinTypes = 2,
@@ -189,7 +193,7 @@ EncounterData =
 		MinWaves = 1,
 		--TypeCountDepthRamp = 0.10,
 		TypeCountDepthRamp = 0.20,
-		MaxTypesCap = 4,
+		MaxTypesCap = 3,
 		BaseDifficulty = 55,
 		DepthDifficultyRamp = 15,
 		MaxEliteTypes = 1,
@@ -262,7 +266,7 @@ EncounterData =
 	RadiatorIntro =
 	{
 		InheritFrom = { "BaseIntroEncounter", "GeneratedF" },
-		DifficultyModifier = 30,
+		DifficultyModifier = 25,
 
 		SpawnWaves =
 		{
@@ -271,8 +275,8 @@ EncounterData =
 				{
 					{
 						Name = "Radiator",
-						CountMin = 3,
-						CountMax = 3,
+						CountMin = 5,
+						CountMax = 5,
 					},
 				},
 				StartDelay = 0
@@ -289,7 +293,16 @@ EncounterData =
 				}
 			},
 			StartDelay = 1,
-			OverrideValues = IntroWaveOverrideValues,
+			OverrideValues =
+			{
+				ActiveEnemyCapBase = 8,
+				ActiveEnemyCapMax = 8,
+				SpawnIntervalMin = 0.175,
+				SpawnIntervalMax = 0.225,
+				RequireNearPlayerDistance = 750,
+				SpawnAggroed = true,
+				IgnoreSpawnPreferences = true,
+			},
 			RequireCompletedIntro = true,
 		},
 	},
@@ -419,6 +432,8 @@ EncounterData =
 		InheritFrom = { "GeneratedF" },
 		RequireCompletedIntro = true,
 		CanEncounterSkip = false,
+		BlockAthenaEncounterKeepsake = true,
+		CatFamiliarTeleportToHero = true,
 		GameStateRequirements =
 		{
 			{
@@ -615,6 +630,12 @@ EncounterData =
 			PreLineWait = 2.6,
 			PlayOnce = true,
 			PlayOnceContext = "FCastTutorialVO",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "CurrentRun", "CurrentRoom", "/VO/Melinoe_0635" },
+				},
+			},
 
 			{ Cue = "/VO/MelinoeField_2061", Text = "All of you, gather 'round..." },
 		},
@@ -650,8 +671,8 @@ EncounterData =
 		TypeCountDepthRamp = 0,
 		EnemyCountDepthRamp = 0,
 		MaxEliteTypes = 2,
-		ActiveEnemyCapBase = 3,
-		ActiveEnemyCapMax = 3,
+		ActiveEnemyCapBase = 5,
+		ActiveEnemyCapMax = 5,
 
 		SpawnIntervalMin = 0.05,
 		SpawnIntervalMax = 0.05,
@@ -778,11 +799,11 @@ EncounterData =
 				{
 					{
 						Name = "SiegeVine",
-						TotalCount = 2,
+						TotalCount = 3,
 						SpawnOnIds = { 558168, 558195, 558169, 558165, 558194, 558166, },
 					},
 				},
-				StartDelay = 3.0,
+				StartDelay = 1.2,
 			},
 		},
 
@@ -851,6 +872,7 @@ EncounterData =
 		UnthreadedEvents = EncounterSets.EncounterEventsDefault,
 
 		BlockAthenaEncounterKeepsake = true,
+		RecordClearStats = true,
 	},
 
 	BossHecate01 =
@@ -859,11 +881,22 @@ EncounterData =
 		DelayedStart = true,
 		WipeEnemiesOnKill = "Hecate",
 		SkipLastKillPresentation = true,
+
+		-- @ ending
+		GameStateRequirements =
+		{
+			NamedRequirementsFalse = { "NearTrueEnding", "HecateMissing" },
+		},
 		
 		StartRoomUnthreadedEvents =
 		{
 			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "Hecate" }, IgnoreAI = true, SkipPresentation = true, } },
 		},
+	},
+
+	BossHecate02 =
+	{
+		InheritFrom = { "BossHecate01" },
 	},
 
 	HecateSpawns01 =
@@ -881,7 +914,6 @@ EncounterData =
 
 		WaveStartPresentationFunction = "StartWavePresentation",
 		SkipNextWaveVoicelines = true,
-		-- AllAddsDeadGlobalVoiceLines = "HecateAddsDeadVoiceLines",
 
 		SpawnWaves =
 		{
@@ -902,19 +934,9 @@ EncounterData =
 
 	HecateSpawns02 =
 	{
-		SpawnIntervalMin = 0.05,
-		SpawnIntervalMax = 0.1,
+		InheritFrom = { "HecateSpawns01" },
+
 		ActiveEnemyCapBase = 10,
-		BlockSpawnMultipliers = true,
-
-		SkipCleanupRaiseDead = true,
-
-		UnthreadedEvents = EncounterSets.EncounterEventsBossSpawnedEncounter,
-
-		UseRoomEncounterEnemySet = true,
-
-		WaveStartPresentationFunction = "StartWavePresentation",
-		SkipNextWaveVoicelines = true,
 		AllAddsDeadGlobalVoiceLines = "HecateAddsDeadVoiceLines",
 
 		SpawnWaves =
@@ -931,6 +953,116 @@ EncounterData =
 				StartDelay = 4.0, -- Need to give time for HecateCopys to clear (bones budget)
 				StartGlobalVoiceLines = "HecateBossSpawnWaveVoiceLines",
 			},
+		},
+	},
+
+	HecateEMSpawns01 =
+	{
+		InheritFrom = { "HecateSpawns01" },
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "LightRanged_Elite",
+						TotalCount = 4,
+						SpawnOnIds = { 594262, 594260, 594254, 594264, 594257, 594259, 594255, 594261, 594253, 594258, 594265, 594266, 594263, 594256, },
+					},
+				},
+				StartDelay = 4.0, -- Need to give time for HecateCopys to clear (bones budget)
+				StartGlobalVoiceLines = "HecateBossSpawnWaveVoiceLines",
+			},
+		},
+	},
+
+	HecateEMSpawns02 =
+	{
+		InheritFrom = { "HecateSpawns01" },
+
+		ActiveEnemyCapBase = 10,
+		AllAddsDeadGlobalVoiceLines = "HecateAddsDeadVoiceLines",
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "LightRanged_Elite",
+						TotalCount = 6,
+						SpawnOnIds = { 594262, 594260, 594254, 594264, 594257, 594259, 594255, 594261, 594253, 594258, 594265, 594266, 594263, 594256, },
+					},
+				},
+				StartDelay = 4.0, -- Need to give time for HecateCopys to clear (bones budget)
+				StartGlobalVoiceLines = "HecateBossSpawnWaveVoiceLines",
+			},
+		},
+	},
+
+	-- @ ending
+
+	BossHecateKidnapping =
+	{
+		InheritFrom = { "Empty" },
+		SkipBossTraits = true,
+		GameStateRequirements =
+		{
+			NamedRequirements = { "NearTrueEnding" },
+			NamedRequirementsFalse = { "HecateMissing" },
+		},
+
+		StartRoomUnthreadedEvents =
+		{
+			{
+				FunctionName = "ActivatePrePlaced",
+				Args =
+				{
+					Types = { "Hecate" },
+					IgnoreAI = true,
+					SkipPresentation = true,
+				},
+			},
+			{
+				FunctionName = "ActivatePrePlaced",
+				Args =
+				{
+					Types = { "NPC_Chronos_01" },
+					IgnoreAI = true,
+					SkipPresentation = true,
+				},
+			},
+			{ FunctionName = "HecateKidnappingEntrancePresentation", },
+		},
+
+		UnthreadedEvents =
+		{
+			{ FunctionName = "EncounterAudio" },
+			{ FunctionName = "CheckForAllEnemiesDead" },
+			{ FunctionName = "PostCombatAudio" },
+			{
+				FunctionName = "GenericPresentation",
+				Args =
+				{
+					PreWait = 1.0,
+				},
+			},
+		},
+	},
+
+	-- @ ending
+	BossHecateMissing =
+	{
+		InheritFrom = { "Empty" },
+
+		GameStateRequirements =
+		{
+			NamedRequirements = { "HecateMissing" },
+		},
+
+		UnthreadedEvents =
+		{
 		},
 	},
 

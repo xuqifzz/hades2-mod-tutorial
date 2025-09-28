@@ -142,6 +142,7 @@ WeaponSetData =
 			PreAttackTeleport = true,
 			TeleportMaxDistance = 400,
 			TeleportPreWaitAnimation = "Enemy_Scimiterror_SlashLeftPreFire",
+			TeleportStartFx = "ScimiterrorTeleportFx",
 			TeleportEndFx = "ScimiterrorTeleportFx",
 			PreTeleportWait = 0.05,
 
@@ -161,13 +162,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Scimiterror/EmoteAttacking" },
 				{ Name = "/SFX/Player Sounds/ZagreusSwordSwipe" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.17, Fraction = 1.00, LerpTime = 0 },
 		},
 	},
 

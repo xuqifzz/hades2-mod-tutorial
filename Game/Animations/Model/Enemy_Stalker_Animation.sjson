@@ -1,0 +1,542 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyStalkerBaseAnimation"
+		
+		GrannyModel = "TyphonSupport_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 0.45
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_Stalker_Idle"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Stalker_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Stalker_MoveStart"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_Move_Start_C_00"
+		NativeMoveSpeed = 375
+		ChainTo = "Enemy_Stalker_Move"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Stalker_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Stalker_Move"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_Move_C_00"
+		NativeMoveSpeed = 375
+		Loop = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Stalker_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Stalker_MoveStop"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_Move_Stop_C_00"
+		NativeMoveSpeed = 375
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Stalker_Idle"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Stalker_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Stalker_OnHit"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_OnHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Stalker_Idle"
+		Sound = "/SFX/Enemy Sounds/TyphonStalker/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 2.66
+			}
+			{
+				Frame = 18
+				FrameSpeed = 1.15
+			}
+		]
+	}
+	{
+		Name = "Enemy_Stalker_OnHit_Heavy"
+		InheritFrom = "Enemy_Stalker_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_Stalker_Spawn"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_Spawn_C_00"
+		VerticalMaskInModelSpace = true
+		Sound = "/SFX/Enemy Sounds/TyphonStalker/StalkerEmerge"
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 1
+				VerticalMask = 0.3
+				Sound = "/SFX/Enemy Sounds/TyphonStalker/EmoteUnburrow"
+			}
+			{
+				Frame = 10
+				VerticalMask = 0.4
+			}
+			{
+				Frame = 20
+				VerticalMask = 0.25
+			}
+			{
+				Frame = 30
+				VerticalMask = 0.45
+			}
+			{
+				Frame = 37
+				VerticalMask = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Stalker_Burrow"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_Burrow_C_00"
+		ChainTo = "Enemy_Stalker_BurrowMove"
+		VerticalMaskInModelSpace = true
+		Enable3DShadow = false
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 8
+				VerticalMask = 1.0
+				FootstepFxR = "TyphonStalkerBurrowFx"
+				Sound = "/SFX/Enemy Sounds/TyphonStalker/EmoteBurrow"
+			}
+			{
+				Frame = 20
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 30
+				VerticalMask = 0.23
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Stalker_BurrowMove"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_BurrowMove_C_00"
+		Loop = true
+		Sound = "/Leftovers/SFX/WyrmSprintBurrowLoop"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "StalkerDirtTrail"
+		VisualFxDistanceMax = 90.0
+		VisualFxDistanceMin = 80.0
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoUnitCollision = true
+		Enable3DShadow = false
+		VerticalMaskInModelSpace = true
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.23
+			}
+			{
+				Frame = 60
+				VerticalMask = 0.23
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Stalker_BurrowOut"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_BurrowOut_C_00"
+		VerticalMaskInModelSpace = true
+		CreateAnimation = "TyphonStalkerBurrowOutFx"
+		Sound = "/SFX/Enemy Sounds/Treant/TreantEmergeSwipe"
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.23
+				FrameSpeed = 2
+			}
+			{
+				Frame = 2
+				VerticalMask = 0.1
+				FrameSpeed = 2
+				Sound = "/SFX/Enemy Sounds/TyphonStalker/EmoteUnburrow"
+			}
+			{
+				Frame = 12
+				VerticalMask = 0.8
+				FrameSpeed = 2
+			}
+			{
+				Frame = 16
+				VerticalMask = 0.8
+				FrameSpeed = 2
+			}
+			{
+				Frame = 25
+				VerticalMask = 1.0
+				FrameSpeed = 2
+			}
+			{
+				Frame = 35
+				VerticalMask = 1.0
+				FrameSpeed = 1
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Stalker_BurrowMove"
+				Duration = 3
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Stalker_Leap_Start"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_EvisceratePreFire_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.3
+			}
+			{
+				Frame = 14
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Stalker_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_OnHit_Heavy"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_MoveStop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Stalker_Leap_PreFire"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_EvisceratePreFire_C_00"
+		ChainTo = "Enemy_Stalker_Leap_Fire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 14
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Stalker_Leap_Fire"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_EviscerateFire_C_00"
+		ChainTo = "Enemy_Stalker_Leap_End"
+		//Frames =
+		//[
+		//	{
+		//		Frame = 0
+		//		FrameSpeed = 0
+		//	}
+		//	{
+		//		Frame = 10
+		//		FrameSpeed = 1
+		//	}
+		//	{
+		//		Frame = 30
+		//		FrameSpeed = 0
+		//	}
+		//]
+	}
+
+	{
+		Name = "Enemy_Stalker_Leap_End"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_EvisceratePostFire_C_00"
+		ChainTo = "Enemy_Stalker_Idle"
+	}
+
+	{
+		Name = "Enemy_Stalker_EvisceratePreFire"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_EvisceratePreFire_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/WretchedThug/ThugChargeUp"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Stalker_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_OnHit_Heavy"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stalker_MoveStop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Stalker_EviscerateFire"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_EviscerateFire_C_00"
+		ChainTo = "Enemy_Stalker_EvisceratePostFire"
+		Sound = "/SFX/Enemy Sounds/TyphonStalker/StalkerGroundStab"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Stalker_EvisceratePostFire"
+				Duration = 3
+			}
+		]
+
+		Frames = [
+			{
+				Frame = 3
+				FootstepFxR = "TyphonStalkerClawSwipeR"
+			}
+			{
+				Frame = 4
+				FootstepFxR = "TyphonStalkerClawSwipeL"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Stalker_EvisceratePostFire"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_EvisceratePostFire_C_00"
+		ChainTo = "Enemy_Stalker_Idle"
+	}
+
+	{
+		Name = "Enemy_Stalker_Intro"
+		InheritFrom = "Enemy_Stalker_EvisceratePreFire"
+		HoldLastFrame = false
+		ChainTo = "Enemy_Stalker_EviscerateFire"
+	}
+
+
+	{
+		Name = "Enemy_Stalker_Death"
+		InheritFrom = "Enemy_Stalker_OnHit"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 1.0
+		GrannyAnimationSpeed = 0.25
+		DeathFxFrameDuration = 52
+		DeathFxColor = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+
+	{
+		Name = "Enemy_Stalker_Miniboss_Death"
+		InheritFrom = "EnemyStalkerBaseAnimation"
+		GrannyAnimation = "TyphonSupport_Base_OnHit_C_00"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2Flip"
+		Duration = 6.0
+		GrannyAnimationSpeed = 0.25
+		DeathFxFrameDuration = 360
+		DeathFxColor = { Red = 0.5 Green = 0.0 Blue = 0.0 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0.2
+		EndGreen = 0.05
+		EndBlue = 0.05
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.01
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/TheseusMinotaurDeathSFX"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		VisualFx = "BossDeathParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 36
+		CreateAnimations =
+		[
+			{ Name = "EnemyDeathFxTyphon" }
+			{ Name = "EnemyDeathFxTyphon" }
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 8
+				FrameSpeed = 0.3
+			}		
+			{
+				Frame = 13
+				FrameSpeed = 0.1
+			}
+		]
+	}
+]}

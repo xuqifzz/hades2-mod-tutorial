@@ -1,0 +1,1630 @@
+{ Animations = [
+
+	{
+		Name = "TyphonExitDoor"
+		FilePath = "Tilesets\Typhon\Typhon_ExitDoor_01"
+		Scale = 0.35
+	}
+	{
+		Name = "TyphonExitDoorCrumble"
+		FilePath = "Fx\Typhon_ExitDoor_01_Crumble\Typhon_ExitDoor_01_Crumble"
+		NumFrames = 32
+		PlaySpeed = 30
+		Scale = 1.00
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		HoldLastFrame = true
+		VisualFx = "TyphonGroundDebris"
+		VisualFxIntervalMin = 0.02
+		VisualFxIntervalMax = 0.04
+		VisualFxCap = 16
+		Sound = "/SFX/TyphonBiomeDoorOpen"
+		CreateAnimations = [
+			{ Name = "TyphonExitDoorCrumbleDustFront" }
+			{ Name = "TyphonExitDoorCrumbleDustBack" }
+		]
+	}
+
+
+	{
+		Name = "TyphonExitDoorCrumbleDustFront"
+		FilePath = "Fx\ShipsDustFront\ShipsDustFront"
+		NumFrames = 45
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		CreateAnimation = "ShipsDustBack"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		StartAlpha = 0.1
+		EndAlpha = 0.5
+		Scale = 2
+		Hue = 0.4
+		Value = -0.3
+	}
+
+	{
+		Name = "TyphonExitDoorCrumbleDustBack"
+		InheritFrom = "TyphonExitDoorCrumbleDustFront"
+		FilePath = "Fx\ShipsDustBack\ShipsDustBack"
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+	}
+
+	{
+		Name = "TyphonEntranceDoorClose"
+		FilePath = "Fx\Typhon_EntrancePit_Close\Typhon_EntrancePit_Close0001"
+		Duration = 1
+		ChainTo = "TyphonEntranceDoorCloseB"
+		Scale = 4
+	}
+
+	{
+		Name = "TyphonEntranceDoorCloseB"
+		FilePath = "Fx\Typhon_EntrancePit_Close\Typhon_EntrancePit_Close"
+		NumFrames = 16
+		Scale = 4
+		HoldLastFrame = true
+		PlaySpeed = 30
+		Sound = "/SFX/TyphonFloorDoorClose"
+	}
+
+	{
+		Name = "TyphonEntranceDoorClosed"
+		FilePath = "Tilesets\Typhon\Typhon_EntrancePit_01a"
+		Loop = true
+		Scale = 0.25
+	}
+
+	{
+		Name = "FortressMainDoorClosed"
+		FilePath = "Tilesets\Typhon\Typhon_FortressDoor_01"
+	}
+
+	{
+		Name = "FortressMainDoorOpen"
+		InheritFrom = "FortressMainDoorClosed"
+		Duration = 4
+		StartOffsetZ = 0
+		EndOffsetZ = 550
+		EaseIn = 0.0
+		EaseOut = 1
+		HoldLastFrame = true
+		CreateAnimation = "FortressMainDoorOpenAnim"
+	}
+
+	{
+		Name = "FortressMainDoorOpenAnim"
+		FilePath = "Fx\Typhon_FortressDoor_Open\Typhon_FortressDoor_Open"
+		NumFrames = 66
+		PlaySpeed = 30
+		Duration = 2.83
+		Scale = 3
+		OffsetY = -812
+		ChainTo = "FortressMainDoorOpened"
+		VisualFx = "FortressMainDoorOpenDebris"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.06
+		VisualFxCap = 48
+	}
+	{
+		Name = "FortressMainDoorOpened"
+		FilePath = "Tilesets\Typhon\Typhon_FortressDoor_01"
+		Alpha = 0.0
+		OwnerHasNoCollision = true
+	}
+
+	{
+		Name = "FortressMainDoorOpenDebris"
+		Random = [
+			{ Name = "FortressMainDoorOpenDebrisA" }
+			{ Name = "FortressMainDoorOpenDebrisB" }
+			{ Name = "FortressMainDoorOpenDebrisC" }
+			{ Name = "FortressMainDoorOpenDebrisD" }
+			{ Name = "FortressMainDoorOpenDebrisE" }
+			{ Name = "FortressMainDoorOpenDebrisF" }
+			{ Name = "FortressMainDoorOpenDebrisG" }			
+			{ Name = "FortressMainDoorOpenDebrisA1" }
+			{ Name = "FortressMainDoorOpenDebrisB1" }
+			{ Name = "FortressMainDoorOpenDebrisC1" }
+			{ Name = "FortressMainDoorOpenDebrisD1" }
+			{ Name = "FortressMainDoorOpenDebrisE1" }
+			{ Name = "FortressMainDoorOpenDebrisF1" }
+			{ Name = "FortressMainDoorOpenDebrisG1" }
+		]
+	}
+
+	{
+		Name = "FortressMainDoorOpenDebrisA"
+		FilePath = "Particles\particle_typhonDebris_01"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		GroupName = "FX_Standing"
+		RandomDurationMin = 0.7
+		RandomDurationMax = 1.2
+		RandomOffsetX = 400
+		RandomOffsetY = 20
+		AngleFromOwner = "Ignore"
+		Gravity = 600
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.0
+		EaseOut = 1.0
+		AngleMin = 70
+		AngleMax = 110
+		Acceleration = -400
+		ScaleMin = 0.2
+		ScaleMax = 0.6
+		ScaleFromOwner = "Ignore"
+		Scale = 2
+		OffsetZ = 150
+		RandomRotation = true
+		RandomRotationSpeedMin = -720
+		RandomRotationSpeedMax = 720
+	}
+	{
+		Name = "FortressMainDoorOpenDebrisB"
+		InheritFrom = "FortressMainDoorOpenDebrisA"
+		FilePath = "Particles\particle_typhonDebris_02"
+	}
+	{
+		Name = "FortressMainDoorOpenDebrisC"
+		InheritFrom = "FortressMainDoorOpenDebrisA"
+		FilePath = "Particles\particle_typhonDebris_03"
+	}
+	{
+		Name = "FortressMainDoorOpenDebrisD"
+		InheritFrom = "FortressMainDoorOpenDebrisA"
+		FilePath = "Particles\particle_typhonDebris_04"
+	}
+	{
+		Name = "FortressMainDoorOpenDebrisE"
+		InheritFrom = "FortressMainDoorOpenDebrisA"
+		FilePath = "Particles\particle_typhonDebris_05"
+	}
+	{
+		Name = "FortressMainDoorOpenDebrisF"
+		InheritFrom = "FortressMainDoorOpenDebrisA"
+		FilePath = "Particles\particle_typhonDebris_06"
+	}
+	{
+		Name = "FortressMainDoorOpenDebrisG"
+		InheritFrom = "FortressMainDoorOpenDebrisA"
+		FilePath = "Particles\particle_typhonDebris_07"
+	}	
+
+	{
+		Name = "FortressMainDoorOpenDebrisA1"
+		InheritFrom = "FortressMainDoorOpenDebrisA"
+		GroupName = "FX_Terrain"
+	}	
+
+	{
+		Name = "FortressMainDoorOpenDebrisB1"
+		InheritFrom = "FortressMainDoorOpenDebrisA1"
+		FilePath = "Particles\particle_typhonDebris_02"
+	}
+	{
+		Name = "FortressMainDoorOpenDebrisC1"
+		InheritFrom = "FortressMainDoorOpenDebrisA1"
+		FilePath = "Particles\particle_typhonDebris_03"
+	}
+	{
+		Name = "FortressMainDoorOpenDebrisD1"
+		InheritFrom = "FortressMainDoorOpenDebrisA1"
+		FilePath = "Particles\particle_typhonDebris_04"
+	}
+	{
+		Name = "FortressMainDoorOpenDebrisE1"
+		InheritFrom = "FortressMainDoorOpenDebrisA1"
+		FilePath = "Particles\particle_typhonDebris_05"
+	}
+	{
+		Name = "FortressMainDoorOpenDebrisF1"
+		InheritFrom = "FortressMainDoorOpenDebrisA1"
+		FilePath = "Particles\particle_typhonDebris_06"
+	}
+	{
+		Name = "FortressMainDoorOpenDebrisG1"
+		InheritFrom = "FortressMainDoorOpenDebrisA1"
+		FilePath = "Particles\particle_typhonDebris_07"
+	}
+
+	{
+		Name = "TyphonDestructiblePillar01_Idle"
+		FilePath = "Tilesets\Typhon\Typhon_DestruciblePillar_01"
+		OffsetY = -45.0
+		Scale = 0.5
+	}
+
+	{
+		Name = "TyphonDestructiblePillar01_Destroyed"
+		FilePath = "Tilesets\Typhon\Typhon_DestruciblePillar_01a"
+		InheritFrom = "TyphonDestructiblePillar01_Idle"
+		CreateAnimation = "Typhon_DestruciblePillar_01_Transition"
+	}
+
+	{
+		Name = "TyphonDestructiblePillar02_Idle"
+		FilePath = "Tilesets\Typhon\Typhon_DestruciblePillar_02"
+		OffsetY = -45.0
+		Scale = 0.5
+	}
+	{
+		Name = "TyphonDestructiblePillar02_Destroyed"
+		FilePath = "Tilesets\Typhon\Typhon_DestruciblePillar_02a"
+		InheritFrom = "TyphonDestructiblePillar02_Idle"
+		OffsetY = -45.0
+		CreateAnimation = "Typhon_DestruciblePillar_02_Transition"
+	}
+
+	{
+		Name = "TyphonDestructiblePillar03_Idle"
+		FilePath = "Tilesets\Typhon\Typhon_DestruciblePillar_03"
+		OffsetY = -45.0
+		Scale = 0.5
+	}
+	{
+		Name = "TyphonDestructiblePillar03_Destroyed"
+		FilePath = "Tilesets\Typhon\Typhon_DestruciblePillar_03a"
+		InheritFrom = "TyphonDestructiblePillar03_Idle"
+		OffsetY = 100.0
+		CreateAnimation = "Typhon_DestruciblePillar_03_Transition"
+	}
+
+	{
+		Name = "TyphonDestructiblePillar04_Idle"
+		FilePath = "Tilesets\Typhon\Typhon_DestruciblePillar_04"
+		OffsetY = -10.0
+		Scale = 1.0
+	}
+	{
+		Name = "TyphonDestructiblePillar04_Destroyed"
+		FilePath = "Tilesets\Typhon\Typhon_DestruciblePillar_04a"
+		InheritFrom = "TyphonDestructiblePillar04_Idle"
+		OffsetY = 100.0
+		Scale = 0.5
+		CreateAnimation = "Typhon_DestruciblePillar_04_Transition"
+	}
+
+	{
+		Name = "Breakable_Q01"
+		FilePath = "Tilesets\Typhon\Typhon_Vase_01"
+		OffsetY = -55.0
+		Scale = 0.25
+	}
+
+	{
+		Name = "Breakable_Q02"
+		FilePath = "Tilesets\Typhon\Typhon_Vase_02"
+		OffsetY = -55.0
+		Scale = 0.25
+	}
+
+	{
+		Name = "Breakable_Q03"
+		FilePath = "Tilesets\Typhon\Typhon_Vase_03"
+		OffsetY = -55.0
+		Scale = 0.25
+	}
+
+	{
+		Name = "Breakable_Q_HighValue"
+		FilePath = "Fx\Typhon_Vase_04_Shine\Typhon_Vase_04_Shine"
+		NumFrames = 20
+		OffsetY = -55.0
+		Scale = 1
+		Loop = true
+		Slides = [
+			{ RandomDurationFramesMin = 10 RandomDurationFramesMax = 24 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+		]
+	}
+
+	{
+		Name = "TyphonEgg"
+		FilePath = "Animations\Enemies\TyphonEgg\TyphonEggObstacle0001"
+		Random =
+		[
+			{ Name = "TyphonEgg_01_In" }
+			{ Name = "TyphonEgg_02_In" }
+			{ Name = "TyphonEgg_03_In" }
+		]
+	}
+
+	{
+		Name = "TyphonEgg_01"
+		FilePath = "Animations\Enemies\TyphonEgg\TyphonEggObstacle0001\TyphonEggObstacle0001"
+		NumFrames = 30
+		Saturation = -0.2
+		Scale = 1
+		Material = "Unlit"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		TransferFrameToThis = true
+		//RandomFlipHorizontal = true
+	}
+	{
+		Name = "TyphonEgg_02"
+		InheritFrom = "TyphonEgg_01"
+		FilePath = "Animations\Enemies\TyphonEgg\TyphonEggObstacle0002\TyphonEggObstacle0002"
+	}
+	{
+		Name = "TyphonEgg_03"
+		InheritFrom = "TyphonEgg_01"
+		FilePath = "Animations\Enemies\TyphonEgg\TyphonEggObstacle0003\TyphonEggObstacle0003"
+	}
+
+	{
+		Name = "TyphonEgg_01_In"
+		InheritFrom = "TyphonEgg_01"
+		ChainTo = "TyphonEgg_01"
+		TransferFrameFromThis = true
+		LoopFramesOnly = true
+		Loop = false
+		Duration = 0.33
+		StartScale = 0
+		EndScale = 1
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "TyphonEgg_02_In"
+		InheritFrom = "TyphonEgg_01_In"
+		FilePath = "Animations\Enemies\TyphonEgg\TyphonEggObstacle0002\TyphonEggObstacle0002"
+		ChainTo = "TyphonEgg_02"
+	}
+	{
+		Name = "TyphonEgg_03_In"
+		InheritFrom = "TyphonEgg_01_In"
+		FilePath = "Animations\Enemies\TyphonEgg\TyphonEggObstacle0003\TyphonEggObstacle0003"
+		ChainTo = "TyphonEgg_03"
+	}
+
+	{
+		Name = "TyphonSnakeHighlightA"
+		FilePath = "Fx\TyphonSnakeHighlightA\TyphonSnakeHighlightA"
+		NumFrames = 80
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		PlaySpeed = 30
+		Material = "Unlit"
+	}
+
+	{
+		Name = "TyphonSnakeHighlightB"
+		InheritFrom = "TyphonSnakeHighlightA"
+		FilePath = "Fx\TyphonSnakeHighlightB\TyphonSnakeHighlightB"
+	}
+
+
+	{
+		Name = "TyphonSquiggleWorms01"
+		FilePath = "Fx\TyphonSquiggleWorms01\TyphonSquiggleWorms01"
+		NumFrames = 70
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		PlaySpeed = 30
+	}
+
+	{
+		Name = "TyphonSquiggleWorms02"
+		InheritFrom = "TyphonSquiggleWorms01"
+		FilePath = "Fx\TyphonSquiggleWorms02\TyphonSquiggleWorms02"
+	}
+
+	{
+		Name = "TyphonWallSnake01"
+		FilePath = "Fx\TyphonWallSnake01\TyphonWallSnake01"
+		NumFrames = 80
+		Loop = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+	}
+
+	{
+		Name = "TyphonWallSnake01a"
+		InheritFrom = "TyphonWallSnake01"
+		FilePath = "Fx\TyphonWallSnake01a\TyphonWallSnake01a"
+	}
+
+	{
+		Name = "TyphonWallSnakeBricks"
+		FilePath = "Fx\TyphonWallSnakeBricks\TyphonWallSnakeBricks"
+		NumFrames = 80
+		Loop = true
+		Slides = [
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			// Random hold on crack frame
+			{ RandomDurationFramesMin = 30 RandomDurationFramesMax = 120 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			// Random hold on end frame
+			{ RandomDurationFramesMin = 60 RandomDurationFramesMax = 240 }
+		]
+	}
+
+	{
+		Name = "TyphonWallSnakeBricksFill"
+		InheritFrom = "TyphonWallSnakeBricks"
+		FilePath = "Fx\TyphonWallSnakeBricksFill\TyphonWallSnakeBricksFill"
+	}
+
+	{
+		Name = "TyphonTopWormsA"
+		FilePath = "Fx\TyphonTopWormsA\TyphonTopWormsA"
+		NumFrames = 40
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		PlaySpeed = 30
+		Loop = true
+	}
+
+	{
+		Name = "TyphonTopWormsB"
+		InheritFrom = "TyphonTopWormsA"
+		FilePath = "Fx\TyphonTopWormsB\TyphonTopWormsB"
+	}
+
+	{
+		Name = "TyphonTopWormsC"
+		InheritFrom = "TyphonTopWormsA"
+		FilePath = "Fx\TyphonTopWormsC\TyphonTopWormsC"
+	}
+
+	{
+		Name = "TyphonTerrainStoneRubbleEdge01A"
+		FilePath = "Fx\TyphonTerrainStoneRubbleEdge01A\TyphonTerrainStoneRubbleEdge01A"
+		NumFrames = 40
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+	}
+
+	{
+		Name = "TyphonTerrainStoneRubbleEdge01B"
+		InheritFrom = "TyphonTerrainStoneRubbleEdge01A"
+		FilePath = "Fx\TyphonTerrainStoneRubbleEdge01B\TyphonTerrainStoneRubbleEdge01B"
+		NumFrames = 33
+		RandomPlaySpeedMax = 31
+	}
+
+
+	{
+		Name = "TyphonStormSpawner"
+		FilePath = "Backgrounds\rectangle_01"
+		VisualFx = "TyphonStorm"
+		Alpha = 0.0
+		DisableInvisibleAnimRender = true
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 4.0
+		VisualFxIntervalMax = 0.04
+		VisualFxIntervalMin = 0.03
+		VisualFxManagerCap = 200
+		VisualFxManagerFrameCap = 10
+		OnlyWhenVisible = true
+	}	
+
+	{
+		Name = "TyphonStormSpawnerLite"
+		InheritFrom = "TyphonStormSpawner"
+		VisualFxIntervalMax = 0.08
+		VisualFxIntervalMin = 0.06
+	}
+
+	{
+		Name = "TyphonStorm"
+		Random = [
+			{ Name = "TyphonStormA" }
+			{ Name = "TyphonStormB" }
+			{ Name = "TyphonStormA" }
+			{ Name = "TyphonStormB" }
+			{ Name = "TyphonStormC" }
+		]
+	}
+
+	{
+		Name = "TyphonStormA"
+		FilePath = "Fx\TyphonStormCloudsAir\TyphonStormCloudsAir"
+		NumFrames = 8
+		PlaySpeed = 0.00001
+		RandomStartFrame = true
+		Loop = false
+		AngleChangeSpeedMin = 50.0
+		AngleChangeSpeedMax = 60.0
+		UseOwnAngle = false
+		AngleFromOwner = "Take"
+		StartAlpha = 0.0
+		EndAlpha = 1.0
+		PingPongColor = true
+		RandomDurationMax = 1.5
+		RandomDurationMin = 2.0
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomOffsetX = 480.0
+		RandomOffsetY = 270.0
+		OffsetX = 480
+		OffsetY = -270
+		LocationFromOwner = "Take"
+		VelocityMin = 500.0
+		VelocityMax = 700.0
+		ScaleMax = 0.7
+		ScaleMin = 0.4
+		StartScale = 0.9
+		EndScale = 1.1
+		Scale = 1
+		ScaleX = 1.2
+		Ambient = 0.0
+		OnlyWhenVisible = true
+		ReRandomizeOnLoop = false
+		EaseIn = 0
+		EaseOut = 1
+		DisableInvisibleAnimRender = true
+	}
+
+	{
+		Name = "TyphonStormB"
+		InheritFrom = "TyphonStormA"
+		FilePath = "Fx\TyphonStormCloudsGround\TyphonStormCloudsGround"
+		GroupName = "FX_Terrain"
+		VelocityMin = 250.0
+		VelocityMax = 350.0
+		RandomAccelerationMin = -200
+		RandomAccelerationMax = -50
+	}
+
+	{
+		Name = "TyphonStormC"
+		InheritFrom = "TyphonStormA"
+		VelocityMin = 800
+		VelocityMax = 1300
+		GroupName = "FX_Standing_Top"
+		Scale = 2
+		RandomDurationMax = 0.75
+		RandomDurationMin = 1.0
+	}
+
+	{
+		Name = "TyphonStormComp"
+		FilePath = "Fx\TyphonStormComp\TyphonStormComp"
+		NumFrames = 60
+		RandomPlaySpeedMin = 28
+		RandomPlaySpeedMax = 32
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Loop = true
+	}
+
+	{
+		Name = "TyphonStormCompFast"
+		InheritFrom = "TyphonStormComp"
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 60
+	}
+
+	{
+		Name = "TyphonRainSpawner"
+		FilePath = "Backgrounds\rectangle_01"
+		VisualFx = "TyphonRain"
+		Alpha = 0.0
+		DisableInvisibleAnimRender = true
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 4.0
+		VisualFxIntervalMax = 0.01
+		VisualFxIntervalMin = 0.01
+		VisualFxManagerCap = 200
+		VisualFxManagerFrameCap = 10
+		OnlyWhenVisible = true
+	}
+
+	{
+		Name = "TyphonRain"
+		Random = [
+			{ Name = "TyphonRainA" }
+			{ Name = "TyphonRainA" }
+			{ Name = "TyphonRainA" }
+			//{ Name = "TyphonRainB" }
+			{ Name = "TyphonRainC" }
+		]
+	}
+
+	{
+		Name = "TyphonRainA"
+		FilePath = "Fx\TyphonStormRain\TyphonStormRain"
+		NumFrames = 8
+		PlaySpeed = 0.00001
+		RandomStartFrame = true
+		Loop = false
+		UseOwnAngle = true
+		AngleFromOwner = "Take"
+		StartAlpha = 0.0
+		EndAlpha = 1.0
+		PingPongColor = true
+		RandomDurationMax = 0.5
+		RandomDurationMin = 0.9
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomOffsetX = 960.0
+		RandomOffsetY = 540.0
+		LocationFromOwner = "Take"
+		VelocityMin = 3600.0
+		VelocityMax = 4800.0
+		ScaleMax = 0.9
+		ScaleMin = 0.4
+		StartScale = 0.9
+		EndScale = 1.1
+		Scale = 0.66
+		ScaleX = 1
+		ScaleY = 2
+		Ambient = 0.0
+		OnlyWhenVisible = true
+		ReRandomizeOnLoop = false
+		EaseIn = 0
+		EaseOut = 1
+		OriginX = 360
+		OriginY = 180
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		AngleMin = -3
+		AngleMax = 3
+	}
+
+	{
+		Name = "TyphonRainB"
+		InheritFrom = "TyphonRainA"
+		Scale = 1.5
+		VelocityMin = 4800.0
+		VelocityMax = 9600.0
+		AlphaMax = 0.5
+	}
+
+	{
+		Name = "TyphonRainC"
+		InheritFrom = "TyphonRainA"
+		ScaleX = 2
+		VelocityMin = 2400.0
+		VelocityMax = 3600.0
+		RandomDurationMax = 1.0
+		RandomDurationMin = 1.8
+	}
+
+	{
+		Name = "TyphonDebrisSpawner"
+		FilePath = "Backgrounds\rectangle_01"
+		VisualFx = "TyphonStormDebris"
+		DisableInvisibleAnimRender = true
+		Alpha = 0.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 4.0
+		VisualFxIntervalMax = 0.03
+		VisualFxIntervalMin = 0.04
+		VisualFxManagerCap = 200
+		VisualFxManagerFrameCap = 10
+		OnlyWhenVisible = true
+	}
+
+
+	{
+		Name = "TyphonStormDebris"
+		Random = [
+			{ Name = "TyphonStormDebrisA" }
+			{ Name = "TyphonStormDebrisB" }
+			{ Name = "TyphonStormDebrisC" }
+		]
+	}
+
+	{
+		Name = "TyphonStormDebrisA"
+		FilePath = "Fx\TyphonStormDebris\TyphonStormDebris"
+		NumFrames = 8
+		PlaySpeed = 0.00001
+		RandomStartFrame = true
+		Loop = false
+		UseOwnAngle = true
+		AngleFromOwner = "Take"
+		StartAlpha = 0.0
+		EndAlpha = 1.0
+		AngleMin = -5
+		AngleMax = 5
+		PingPongColor = true
+		RandomDurationMax = 0.8
+		RandomDurationMin = 0.9
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomOffsetX = 480.0
+		RandomOffsetY = 360.0
+		LocationFromOwner = "Take"
+		VelocityMin = 1200.0
+		VelocityMax = 4800.0
+		ScaleMax = 0.9
+		ScaleMin = 0.2
+		StartScale = 0.9
+		EndScale = 1.1
+		Scale = 0.25
+		ScaleX = 3
+		Ambient = 0.0
+		OnlyWhenVisible = true
+		ReRandomizeOnLoop = false
+		EaseIn = 0.9
+		EaseOut = 1
+
+		AngleChangeSpeedMin = 50.0
+		AngleChangeSpeedMax = 60.0
+
+	}
+
+	{
+		Name = "TyphonStormDebrisB"
+		InheritFrom = "TyphonStormDebrisA"
+		Value = -0.15
+		VelocityMin = 600.0
+		VelocityMax = 2400.0
+		Scale = 0.17
+		ScaleX = 1.5
+	}	
+
+	{
+		Name = "TyphonStormDebrisC"
+		InheritFrom = "TyphonStormDebrisA"
+		ScaleX = 1
+		RandomRotationSpeedMin = -1400
+		RandomRotationSpeedMax = 1400
+	}
+
+	{
+		Name = "TyphonStormTerrainRainSpawner"
+		FilePath = "Backgrounds\rectangle_01"
+		VisualFx = "TyphonStormTerrainRain"
+		DisableInvisibleAnimRender = true
+		Alpha = 0.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 4.0
+		VisualFxIntervalMax = 0.03
+		VisualFxIntervalMin = 0.04
+		VisualFxManagerCap = 200
+		VisualFxManagerFrameCap = 10
+		OnlyWhenVisible = true
+	}
+
+
+	{
+		Name = "TyphonStormTerrainRain"
+		Random = [
+			{ Name = "TyphonStormTerrainRainA" }
+			{ Name = "TyphonStormTerrainRainB" }
+			{ Name = "TyphonStormTerrainRainC" }
+		]
+	}
+
+
+	{
+		Name = "TyphonStormTerrainRainA"
+		FilePath = "Fx\TyphonStormTerrainRainA\TyphonStormTerrainRainA"
+		GroupName = "FX_Terrain"			
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		EndFrame = 45
+		NumFrames = 45
+		RandomPlaySpeedMin = 30.0
+		RandomPlaySpeedMax = 60.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomOffsetX = 720.0
+		RandomOffsetY = 360.0
+		LocationFromOwner = "Ignore"
+		ScaleMax = 1.2
+		ScaleMin = 0.5
+		UseAttachedFlasher = false
+		RequiresUnblocked = true
+		ColorFromOwner = "Ignore"
+		VelocityMin = 100
+		VelocityMax = 220
+		Acceleration = -100
+		Scale = 0.25
+
+	}
+
+	{
+		Name = "TyphonStormTerrainRainB"
+		InheritFrom = "TyphonStormTerrainRainA"
+		FilePath = "Fx\TyphonStormTerrainRainB\TyphonStormTerrainRainB"
+	}
+	
+	{
+		Name = "TyphonStormTerrainRainC"
+		InheritFrom = "TyphonStormTerrainRainA"
+		FilePath = "Fx\TyphonStormTerrainRainC\TyphonStormTerrainRainC"
+	}
+
+	{
+		Name = "TyphonTreeSwayA"
+		FilePath = "Fx\TyphonTreeSwayA\TyphonTreeSwayA"
+		NumFrames = 60
+		PlaySpeed = 30
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Loop = true
+		Scale = 2
+	}
+
+	{
+		Name = "TyphonTreeSwayB"
+		InheritFrom = "TyphonTreeSwayA"
+		FilePath = "Fx\TyphonTreeSwayB\TyphonTreeSwayB"
+	}
+
+	{
+		Name = "TyphonBanner"
+		FilePath = "Fx\TyphonBanner\TyphonBanner"
+		NumFrames = 60
+		NumAngles = 5
+		Loop = true
+		RandomStartFrame = true
+		PlaySpeed = 30
+		ReRandomizeOnLoop = false
+	}
+
+	{
+		Name = "TyphonWindA"
+		FilePath = "Fx\TyphonWindA\TyphonWindA"
+		NumFrames = 45
+		Loop = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 34
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		DisableInvisibleAnimRender = true
+	}
+
+	{
+		Name = "TyphonWindB"
+		InheritFrom = "TyphonWindA"
+		FilePath = "Fx\TyphonWindB\TyphonWindB"
+	}
+
+	{
+		Name = "TyphonStormCloud"
+		FilePath = "Fx\TyphonCloudBase\TyphonCloudBase"
+		NumFrames = 90
+		Loop = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		ChildAnimation = "TyphonStormCloudLightningDelay"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 1.0
+	}	
+
+	{
+		Name = "TyphonStormCloudNoLightning"
+		FilePath = "Fx\TyphonCloudBase\TyphonCloudBase"
+		NumFrames = 90
+		Loop = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 1.0
+	}
+
+	{
+		Name = "TyphonStormCloudLightningDelay"
+		FilePath = "Dev\blank_invisible"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 12
+		ChainTo = "TyphonStormCloudLightningRandom"
+	}
+
+	{
+		Name = "TyphonStormCloudLightningDelayB"
+		InheritFrom = "TyphonStormCloudLightningDelay"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 4
+		ChainTo = "TyphonStormCloudLightningRandomB"
+	}
+
+	{
+		Name = "TyphonStormCloudLightningDelayC"
+		InheritFrom = "TyphonStormCloudLightningDelay"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 2
+		ChainTo = "TyphonStormCloudLightningRandomC"
+	}
+
+	{
+		Name = "TyphonStormCloudB"
+		InheritFrom= "TyphonStormCloud"
+		ChildAnimation = "TyphonStormCloudLightningDelayB"
+	}
+
+	{
+		Name = "TyphonStormCloudC"
+		InheritFrom= "TyphonStormCloud"
+		ChildAnimation = "TyphonStormCloudLightningDelayC"
+	}
+
+	{
+		Name = "TyphonStormCloudLightningRandom"
+		Random = [
+			{ Name = "TyphonStormCloudLightningA" }
+			{ Name = "TyphonStormCloudLightningB" }
+		]
+	}
+
+	{
+		Name = "TyphonStormCloudLightningRandomB"
+		Random = [
+			{ Name = "TyphonStormCloudLightningAB" }
+			{ Name = "TyphonStormCloudLightningBB" }
+		]
+	}
+
+	{
+		Name = "TyphonStormCloudLightningRandomC"
+		Random = [
+			{ Name = "TyphonStormCloudLightningAC" }
+			{ Name = "TyphonStormCloudLightningBC" }
+		]
+	}
+
+	{
+		Name = "TyphonStormCloudLightningA"
+		FilePath = "Fx\TyphonCloudLightningA\TyphonCloudLightningA"
+		NumFrames = 30
+		Material = "Unlit"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		ColorFromOwner = "Ignore"
+		ChainTo = "TyphonStormCloudLightningDelay"
+	}
+
+	{
+		Name = "TyphonStormCloudLightningB"
+		InheritFrom = "TyphonStormCloudLightningA"
+		FilePath = "Fx\TyphonCloudLightningB\TyphonCloudLightningB"
+		ChainTo = "TyphonStormCloudLightningDelay"
+	}
+
+	{
+		Name = "TyphonStormCloudLightningAB"
+		InheritFrom = "TyphonStormCloudLightningA"
+		ChainTo  = "TyphonStormCloudLightningDelayB"
+	}
+	{
+		Name = "TyphonStormCloudLightningBB"
+		InheritFrom = "TyphonStormCloudLightningB"
+		ChainTo  = "TyphonStormCloudLightningDelayB"
+	}	
+	{
+		Name = "TyphonStormCloudLightningAC"
+		InheritFrom = "TyphonStormCloudLightningA"
+		ChainTo  = "TyphonStormCloudLightningDelayC"
+	}
+	{
+		Name = "TyphonStormCloudLightningBC"
+		InheritFrom = "TyphonStormCloudLightningB"
+		ChainTo  = "TyphonStormCloudLightningDelayC"
+	}
+
+	{
+		Name = "TyphonLightningRandom"
+		Random = [
+			{ Name = "TyphonLightningA" }
+			{ Name = "TyphonLightningB" }
+		]
+	}
+
+	{
+		Name = "TyphonLightningA"
+		FilePath = "Fx\TyphonLightningA\TyphonLightningA"
+		NumFrames = 25
+		Material = "Unlit"
+		Angle = 90
+		PlaySpeed = 30
+		RandomFlipHorizontal = true
+		ChainTo = "TyphonLightningDelay"
+		Sound = "/Ambience/OverlookThunder"
+	}
+
+	{
+		Name = "TyphonLightningB"
+		InheritFrom = "TyphonLightningA"
+		FilePath = "Fx\TyphonLightningB\TyphonLightningB"
+	}
+
+	{
+		Name = "TyphonLightningDelay"
+		FilePath = "Backgrounds\rectangle_01"
+		RandomDurationMin = 10
+		RandomDurationMax = 50
+		ChainTo = "TyphonLightningRandom"
+		Alpha = 0
+		Angle = 90
+	}
+
+	{
+		Name = "TyphonLightningC"
+		FilePath = "Fx\TyphonLightningC\TyphonLightningC"
+		NumFrames = 20
+		PlaySpeed = 30
+		Material = "Unlit"
+		Angle = 270
+		RandomFlipVertical = true
+		ChainTo = "TyphonLightningCDelay"
+		Sound = "/Ambience/OverlookThunder"
+	}
+
+
+	{
+		Name = "TyphonLightningCDelay"
+		InheritFrom = "TyphonLightningDelay"
+		FilePath = "Backgrounds\rectangle_01"
+		RandomDurationMin = 10
+		RandomDurationMax = 50
+		ChainTo = "TyphonLightningC"
+		Alpha = 0
+		Angle = 90
+	}
+
+	{
+		Name = "TyphonScreenWaterDropletBase"
+		FilePath = "Fx\TyphonScreenWaterDropletsDisplace\TyphonScreenWaterDropletsDisplace0001"
+		Duration = 3
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.5
+		UseOwnAngle = false
+		VelocityMin = 0
+		VelocityMax = 40
+		Acceleration = -20
+		Angle = 270
+		Material = "Unlit"
+		GroupName = "FX_Displacement"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AlphaMin = 0.3
+		AlphaMax = 0.5
+		StartScaleX = 1
+		StartScaleY = 1
+		EndScaleX = 0.6
+		EndScaleY = 2
+	}
+
+	{
+		Name = "TyphonScreenWaterDropletHighlightBase"
+		InheritFrom = "TyphonScreenWaterDropletBase"
+		FilePath = "Fx\TyphonScreenWaterDropletsHighlight\TyphonScreenWaterDropletsHighlight0001"
+		AlphaMin = 0.3
+		AlphaMax = 0.5
+		GroupName = "Combat_UI_World"
+	}
+
+	{
+		Name = "TyphonScreenWaterDroplet01"
+		InheritFrom = "TyphonScreenWaterDropletBase"
+	}
+	{
+		Name = "TyphonScreenWaterDroplet02"
+		InheritFrom = "TyphonScreenWaterDropletBase"
+		FilePath = "Fx\TyphonScreenWaterDropletsDisplace\TyphonScreenWaterDropletsDisplace0002"
+	}
+	{
+		Name = "TyphonScreenWaterDroplet03"
+		InheritFrom = "TyphonScreenWaterDropletBase"
+		FilePath = "Fx\TyphonScreenWaterDropletsDisplace\TyphonScreenWaterDropletsDisplace0003"
+	}
+	{
+		Name = "TyphonScreenWaterDroplet04"
+		InheritFrom = "TyphonScreenWaterDropletBase"
+		FilePath = "Fx\TyphonScreenWaterDropletsDisplace\TyphonScreenWaterDropletsDisplace0004"
+	}
+	{
+		Name = "TyphonScreenWaterDroplet05"
+		InheritFrom = "TyphonScreenWaterDropletBase"
+		FilePath = "Fx\TyphonScreenWaterDropletsDisplace\TyphonScreenWaterDropletsDisplace0005"
+	}
+	{
+		Name = "TyphonScreenWaterDroplet06"
+		InheritFrom = "TyphonScreenWaterDropletBase"
+		FilePath = "Fx\TyphonScreenWaterDropletsDisplace\TyphonScreenWaterDropletsDisplace0006"
+	}
+	{
+		Name = "TyphonScreenWaterDroplet07"
+		InheritFrom = "TyphonScreenWaterDropletBase"
+		FilePath = "Fx\TyphonScreenWaterDropletsDisplace\TyphonScreenWaterDropletsDisplace0007"
+	}
+	{
+		Name = "TyphonScreenWaterDroplet08"
+		InheritFrom = "TyphonScreenWaterDropletBase"
+		FilePath = "Fx\TyphonScreenWaterDropletsDisplace\TyphonScreenWaterDropletsDisplace0008"
+	}
+
+	{
+		Name = "TyphonScreenWaterDropletHighlight01"
+		InheritFrom = "TyphonScreenWaterDropletHighlightBase"
+	}
+	{
+		Name = "TyphonScreenWaterDropletHighlight02"
+		InheritFrom = "TyphonScreenWaterDropletHighlightBase"
+		FilePath = "Fx\TyphonScreenWaterDropletsHighlight\TyphonScreenWaterDropletsHighlight0002"
+	}
+	{
+		Name = "TyphonScreenWaterDropletHighlight03"
+		InheritFrom = "TyphonScreenWaterDropletHighlightBase"
+		FilePath = "Fx\TyphonScreenWaterDropletsHighlight\TyphonScreenWaterDropletsHighlight0003"
+	}
+	{
+		Name = "TyphonScreenWaterDropletHighlight04"
+		InheritFrom = "TyphonScreenWaterDropletHighlightBase"
+		FilePath = "Fx\TyphonScreenWaterDropletsHighlight\TyphonScreenWaterDropletsHighlight0004"
+	}
+	{
+		Name = "TyphonScreenWaterDropletHighlight05"
+		InheritFrom = "TyphonScreenWaterDropletHighlightBase"
+		FilePath = "Fx\TyphonScreenWaterDropletsHighlight\TyphonScreenWaterDropletsHighlight0005"
+	}
+	{
+		Name = "TyphonScreenWaterDropletHighlight06"
+		InheritFrom = "TyphonScreenWaterDropletHighlightBase"
+		FilePath = "Fx\TyphonScreenWaterDropletsHighlight\TyphonScreenWaterDropletsHighlight0006"
+	}
+	{
+		Name = "TyphonScreenWaterDropletHighlight07"
+		InheritFrom = "TyphonScreenWaterDropletHighlightBase"
+		FilePath = "Fx\TyphonScreenWaterDropletsHighlight\TyphonScreenWaterDropletsHighlight0007"
+	}
+	{
+		Name = "TyphonScreenWaterDropletHighlight08"
+		InheritFrom = "TyphonScreenWaterDropletHighlightBase"
+		FilePath = "Fx\TyphonScreenWaterDropletsHighlight\TyphonScreenWaterDropletsHighlight0008"
+	}
+
+	{
+		Name = "TyphonMineIdle"
+		FilePath = "Fx\Typhon_Mine_01_Loop\Typhon_Mine_01_Loop"
+		NumFrames = 30
+		PlaySpeed = 30
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		GroupName = "Terrain_Gameplay"
+		Scale = 1.0
+	}
+	{
+		Name = "TyphonMinePreFire"
+		FilePath = "Fx\Typhon_Mine_01_PreAttack\Typhon_Mine_01_PreAttack"
+		NumFrames = 12
+		PlaySpeed = 60
+		GroupName = "Terrain_Gameplay"
+		Scale = 1.0
+	}
+	{
+		Name = "TyphonMineFire"
+		FilePath = "Tilesets\Typhon\Typhon_Mine_01b"
+		GroupName = "Terrain_Gameplay"
+		Scale = 0.4
+		CreateAnimation = "TyphonMineFireTerrainFx"
+	}
+
+	{
+		Name = "TyphonMineFireTerrainFx"
+		FilePath = "Fx\Typhon_Mine_01b_Fire_Terrain\Typhon_Mine_01b_Fire_Terrain"
+		NumFrames = 30
+		PlaySpeed = 30
+	}
+
+	{
+		Name = "TyphonMineDepleted"
+		FilePath = "Tilesets\Typhon\Typhon_Mine_01b"
+		GroupName = "Terrain_Gameplay"
+		Scale = 0.4
+		Saturation = 0.0
+		Loop = true
+		OwnerHasNoCollision = true
+	}
+	{
+		Name = "TyphonMineSpike"
+		FilePath = "Fx\Typhon_Mine_01b_Fire\Typhon_Mine_01b_Fire"
+		NumFrames = 30
+		Material = "Unlit"
+		HoldLastFrame = true
+		AngleFromOwner = "Ignore"
+		OffsetZ = -20
+		CreateAnimations = [
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+	{
+		Name = "EyeBombIdle"
+        FilePath = "Tilesets\Typhon\Typhon_EyeBomb_01"
+		Scale = 0.1
+		Duration = 2.0
+		StartOffsetZ = 0
+		EndOffsetZ = 50
+		EaseOut = 1.0
+		PingPongShiftOverDuration = true
+		Loop = true
+	}
+	{
+		Name = "EyeBombExploding"
+        FilePath = "Tilesets\Typhon\Typhon_EyeBomb_01"
+		Scale = 0.1
+		Hue = 0.05
+		StartScale = 1.0
+		EndScale = 1.5
+		Duration = 1.5
+	}
+
+
+	{
+		Name = "Typhon_Vase01_Shatter"
+		FilePath = "Fx\Typhon_Vase_01_Shatter\Typhon_Vase_01_Shatter"
+		NumFrames = 36
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		UseOwnAngle = false
+		HoldLastFrame = true
+		OffsetY = -45
+		CreateAnimations =
+		[
+			{ Name = "Typhon_Vase01_Shatter_Shadow" }
+		]
+	}
+
+	{
+		Name = "Typhon_Vase02_Shatter"
+		InheritFrom = "Typhon_Vase01_Shatter"
+		FilePath = "Fx\Typhon_Vase_02_Shatter\Typhon_Vase_02_Shatter"
+		NumFrames = 30
+		CreateAnimations =
+		[
+			{ Name = "Typhon_Vase02_Shatter_Shadow" }
+		]
+	}
+
+	{
+		Name = "Typhon_Vase03_Shatter"
+		InheritFrom = "Typhon_Vase01_Shatter"
+		FilePath = "Fx\Typhon_Vase_03_Shatter\Typhon_Vase_03_Shatter"
+		NumFrames = 30
+		CreateAnimations =
+		[
+			{ Name = "Typhon_Vase03_Shatter_Shadow" }
+		]
+	}
+
+	{
+		Name = "Typhon_Vase04_Shatter"
+		InheritFrom = "Typhon_Vase01_Shatter"
+		FilePath = "Fx\Typhon_Vase_04_Shatter\Typhon_Vase_04_Shatter"
+		NumFrames = 30
+		CreateAnimations =
+		[
+			{ Name = "Typhon_Vase04_Shatter_Shadow" }
+		]
+	}
+
+	{
+		Name = "Typhon_Vase01_Shatter_Shadow"
+		InheritFrom = "Typhon_Vase01_Shatter"
+		ClearCreateAnimations = true
+		GroupName = "Shadows"
+		Alpha = 0.6
+		PostRotateScaleY = 0.5
+		Red = 0
+		Green = 0
+		Blue = 0
+		UseAttachedFlasher = false
+		OffsetY = 0
+		OffsetZ = 0
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "Typhon_Vase02_Shatter_Shadow"
+		InheritFrom = "Typhon_Vase01_Shatter_Shadow"
+		FilePath = "Fx\Typhon_Vase_02_Shatter\Typhon_Vase_02_Shatter"
+		NumFrames = 30
+	}	
+	{
+		Name = "Typhon_Vase03_Shatter_Shadow"
+		InheritFrom = "Typhon_Vase01_Shatter_Shadow"
+		FilePath = "Fx\Typhon_Vase_03_Shatter\Typhon_Vase_03_Shatter"
+		NumFrames = 30
+	}
+	{
+		Name = "Typhon_Vase04_Shatter_Shadow"
+		InheritFrom = "Typhon_Vase01_Shatter_Shadow"
+		FilePath = "Fx\Typhon_Vase_04_Shatter\Typhon_Vase_04_Shatter"
+		NumFrames = 30
+	}
+
+	{
+		Name = "TyphonSpikeSplinterFxCone"
+		FilePath = "Fx\Cone90\Cone90"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		EndFrame = 27
+		NumFrames = 27
+		PlaySpeed = 120.0
+		StartFrame = 1
+		ScaleX = 2.5
+		ScaleY = 1.5
+		Color = { Red = 1.0 Green = 0.5 Blue = 0.2 }
+	}
+
+	{
+		Name = "TyphonSpikeSplinterFx"
+		FilePath = "Fx\DestructibleTreeSplinters\DestructibleTreeSplinters"
+		LocationZFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		EndFrame = 29
+		NumFrames = 29
+		PlaySpeed = 45.0
+		StartFrame = 1
+		OffsetZ = 60.0
+		OriginX = 60.0
+		OriginY = 338.0
+		Hue = 0.0
+		Value = 0.4
+		Saturation = -0.5
+		Red = 0.9
+		Green = 0.96
+		Blue = 0.45
+		SortMode = "FromParent"
+		OverlayVfx = true
+		DieWithOwner = false
+	}
+
+	{
+		Name = "TyphonSpikeSplinterFxSpawner"
+		FilePath = "Dev\blank_invisible"
+		DurationFrames = 2
+		CreateAnimations = [
+			{ Name = "TyphonSpikeSplinterFx" }
+			{ Name = "TyphonSpikeSplinterFxCone" }
+		]
+	}
+	
+	{
+		Name = "EnemyFogCloudA"
+		FilePath = "Fx\FogCloud\FogCloud"
+		NumFrames = 30
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		Loop = true
+	}
+
+	{
+		Name = "EnemyFogCloudB"
+		InheritFrom = "EnemyFogCloudA"
+		FilePath = "Fx\FogCloudB\FogCloudB"
+		NumFrames = 45
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomRotation = true
+	}
+
+	{
+		Name = "Typhon_DestruciblePillar_01_Transition"
+		FilePath = "Fx\Typhon_DestruciblePillar_01_Transition\Typhon_DestruciblePillar_01_Transition"
+		NumFrames = 36
+		Scale = 2
+		GroupName = "Standing"
+		Material = "Unlit"
+		OffsetY = -90
+		Sound = "/SFX/PillarDestroyedBIG2"
+		CreateAnimations = [
+			{ Name = "TyphonDustRingFront" }
+			{ Name = "TyphonDustRingBack" }
+			{ Name = "TyphonGroundDebrisStalkerTrail" }
+			{ Name = "TyphonGroundDebrisStalkerTrail" }
+			{ Name = "TyphonGroundDebrisStalkerTrail" }
+			{ Name = "TyphonGroundDebrisStalkerTrail" }
+			{ Name = "TyphonGroundDebrisStalkerTrail" }
+			{ Name = "TyphonGroundDebrisStalkerTrail" }
+			{ Name = "TyphonGroundDebrisStalkerTrail" }
+			{ Name = "TyphonGroundDebrisStalkerTrail" }
+			{ Name = "TyphonGroundDebrisStalkerTrail" }
+			{ Name = "TyphonGroundDebrisStalkerTrail" }
+			{ Name = "TyphonGroundDebrisStalkerTrail" }
+			{ Name = "TyphonGroundDebrisStalkerTrail" }
+		]
+		Slides = [
+			
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+		]
+	}
+
+	{
+		Name = "Typhon_DestruciblePillar_02_Transition"
+		InheritFrom = "Typhon_DestruciblePillar_01_Transition"
+		FilePath = "Fx\Typhon_DestruciblePillar_02_Transition\Typhon_DestruciblePillar_02_Transition"
+	}	
+
+	{
+		Name = "Typhon_DestruciblePillar_03_Transition"
+		InheritFrom = "Typhon_DestruciblePillar_01_Transition"
+		FilePath = "Fx\Typhon_DestruciblePillar_03_Transition\Typhon_DestruciblePillar_03_Transition"
+	}
+
+	{
+		Name = "Typhon_DestruciblePillar_04_Transition"
+		InheritFrom = "Typhon_DestruciblePillar_01_Transition"
+		FilePath = "Fx\Typhon_DestruciblePillar_04_Transition\Typhon_DestruciblePillar_04_Transition"
+	}
+
+]}

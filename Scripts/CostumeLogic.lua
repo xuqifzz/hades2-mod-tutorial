@@ -6,9 +6,6 @@ function SetupCostume( skipCostume )
 			end
 			if item.GrannyTexture ~= nil then
 				SetThingProperty({ Property = "GrannyTexture", Value = item.GrannyTexture, DestinationId = CurrentRun.Hero.ObjectId })
-			end 
-			if item.ActiveGrannyAttachment ~= nil then
-				SetThingProperty({ Property = "ActiveGrannyAttachment", Value = item.ActiveGrannyAttachment, DestinationId = CurrentRun.Hero.ObjectId })
 			end
 		end
 	end
@@ -24,7 +21,7 @@ function CheckDoorArmorTrait( currentRun )
 		return
 	end
 	local hasText = false
-	for i, trait in pairs(currentRun.Hero.Traits) do
+	for i, trait in ipairs( CurrentRun.Hero.Traits ) do
 		if trait.DoorArmor then
 			trait.CurrentArmor = trait.CurrentArmor + trait.DoorArmor
 			thread(OnPlayerArmorGain, {Amount = trait.DoorArmor, Delay = SessionMapState.DoorTextCount * UIData.DoorTextCumulativeDelay})
@@ -55,6 +52,9 @@ function AddHealthBuffer( amount, source, args )
 	for armorSource, value in pairs( MapState.HealthBufferSources ) do
 		totalHealthBuffer = totalHealthBuffer + value 
 	end
+	if args.Temporary then
+		MapState.TemporaryHealthBufferSources[ source ] = true
+	end
 	CurrentRun.Hero.HealthBuffer = totalHealthBuffer
 	thread(OnPlayerArmorGain, {Amount = amount, Silent = args.Silent, Delay = args.Delay} )
 end
@@ -66,14 +66,39 @@ function RemoveHealthBufferSource( source )
 	for armorSource, value in pairs( MapState.HealthBufferSources ) do
 		totalHealthBuffer = totalHealthBuffer + value 
 	end
+	MapState.TemporaryHealthBufferSources[ source ] = nil
 	CurrentRun.Hero.HealthBuffer = totalHealthBuffer
-	thread( UpdateHealthUI )
+	FrameState.RequestUpdateHealthUI = true
+end
+
+function RemoveHealthBufferOnDelay( traitName, delay )
+	if HasThread(traitName) then
+		SetThreadWait( traitName, delay - 1 ) 
+		return
+	elseif HasThread(traitName.."Final" ) then
+		killTaggedThreads( traitName )
+	end
+	if delay > 1 then
+		wait( delay - 1, traitName )
+		CheckPlayerTempArmorFalloffPresentation(traitName)
+		wait( 1, traitName.."Final")	
+	else
+		wait( delay, traitName )
+	end
+	if HeroHasTrait(traitName) then
+		local trait = GetHeroTrait(traitName)
+		trait.CurrentArmor = 0
+	end
+	RemoveHealthBufferSource( traitName )
+	RemovePlayerTempArmorPresentation( traitName )
 end
 
 function HealthBufferTraitSort( itemA, itemB )
 	local slotA = nil
 	local slotB = nil
-	if itemA.SetupFunction then
+	if itemA.IsRenewableArmor then
+		slotA  = "Temporary"
+	elseif itemA.SetupFunction then
 		slotA = itemA.SetupFunction.Args.Source
 	elseif itemA.SetupFunctions then
 		for i, setupFunction in pairs(itemA.SetupFunctions) do
@@ -82,7 +107,9 @@ function HealthBufferTraitSort( itemA, itemB )
 			end
 		end
 	end
-	if itemB.SetupFunction then
+	if itemB.IsRenewableArmor then
+		slotB = "Temporary"
+	elseif itemB.SetupFunction then
 		slotB = itemB.SetupFunction.Args.Source
 	elseif itemB.SetupFunctions then
 		for i, setupFunction in pairs(itemB.SetupFunctions) do
@@ -99,8 +126,8 @@ function HealthBufferTraitSort( itemA, itemB )
 	elseif not slotA and not slotB then
 		return itemA.Name < itemB.Name
 	end
-	local indexA = GetKey( { "Renewable", "Tradeoff", "Essence", "Keepsake", "Robe" }, slotA )
-	local indexB = GetKey( { "Renewable", "Tradeoff", "Essence", "Keepsake", "Robe" }, slotB )
+	local indexA = GetKey( { "Temporary", "Renewable", "Tradeoff", "Essence", "Keepsake", "Robe", "Icarus" }, slotA )
+	local indexB = GetKey( { "Temporary", "Renewable", "Tradeoff", "Essence", "Keepsake", "Robe", "Icarus" }, slotB )
 	if indexA and not indexB then
 		return false
 	end
@@ -116,8 +143,8 @@ end
 
 function OnHealthBufferDamage( hero, damageTaken )
 	local sourceTraits = {}
-	for i, traitData in pairs(CurrentRun.Hero.Traits) do
-		if traitData.CostumeTrait and (traitData.CurrentArmor or 0) > 0 then
+	for i, traitData in ipairs( CurrentRun.Hero.Traits ) do
+		if traitData.CostumeTrait and (traitData.CurrentArmor or 0) > 0 and MapState.HealthBufferSources[traitData.Name] then
 			table.insert(sourceTraits, traitData)
 		end
 	end
@@ -127,30 +154,40 @@ function OnHealthBufferDamage( hero, damageTaken )
 	table.sort( sourceTraits, HealthBufferTraitSort )
 	local armorBroken = false
 	local topSourceTrait = sourceTraits[1]
+	local removedTraits = {}
 	while not IsEmpty(sourceTraits) and damageTaken > 0 do
 		topSourceTrait = sourceTraits[1]
-		topSourceTrait.CurrentArmor = topSourceTrait.CurrentArmor - damageTaken
+		if topSourceTrait.CurrentArmor > damageTaken then
+			topSourceTrait.CurrentArmor = topSourceTrait.CurrentArmor - damageTaken
+			damageTaken = 0
+		else
+			damageTaken = damageTaken - topSourceTrait.CurrentArmor
+			topSourceTrait.CurrentArmor = 0
+		end
 		if MapState.HealthBufferSources[ topSourceTrait.Name ] then
 			MapState.HealthBufferSources[ topSourceTrait.Name ] = topSourceTrait.CurrentArmor
 		end
 		if topSourceTrait.CurrentArmor <= 0 then
 			RemoveValueAndCollapse( sourceTraits, topSourceTrait )
-			damageTaken = math.abs(topSourceTrait.CurrentArmor)
 			armorBroken = true
 			if not topSourceTrait.Invincible and not HeroHasTrait("InvulnerableArmor") then
-				RemoveTraitData( CurrentRun.Hero, topSourceTrait)
+				table.insert( removedTraits, topSourceTrait )
 			else
 				topSourceTrait.CurrentArmor = 0
 				if MapState.HealthBufferSources[ topSourceTrait.Name ] then
 					MapState.HealthBufferSources[ topSourceTrait.Name ] = 0
 				end
 			end
-		else
-			damageTaken = 0
 		end
 	end
-
+	for _, traitData in pairs( removedTraits ) do
+		RemoveTraitData( CurrentRun.Hero, traitData )
+	end
 	if armorBroken and CurrentRun.Hero.HealthBuffer == 0 then
+		
+		if IsEmpty(SessionMapState.TempArmorPresentation) then
+			StopAnimation({ Name = HeroData.TempArmorVfx, DestinationId = CurrentRun.Hero.ObjectId })
+		end
 		for i, functionData in pairs( GetHeroTraitValues("OnArmorBreakFunction") ) do
 			CallFunctionName( functionData.Name, functionData.Args)
 		end
@@ -164,7 +201,7 @@ end
 function CostumeArmor( hero, args, roomArgs )
 	roomArgs = roomArgs or {}
 	local sourceTrait = nil
-	for i, traitData in pairs(CurrentRun.Hero.Traits) do
+	for i, traitData in ipairs( CurrentRun.Hero.Traits ) do
 		if traitData.CostumeTrait and traitData.SetupFunction and traitData.SetupFunction.Args and traitData.SetupFunction.Args.Source == args.Source then
 			sourceTrait = traitData
 			break
@@ -186,5 +223,5 @@ function CostumeArmor( hero, args, roomArgs )
 		sourceTrait.CurrentArmor = args.BaseAmount
 	end
 	AddHealthBuffer( sourceTrait.CurrentArmor, sourceTrait.Name, { Silent = roomArgs.Grouped or args.Silent, Delay = args.Delay  })
-	thread( UpdateHealthUI )
+	FrameState.RequestUpdateHealthUI = true
 end

@@ -1,4 +1,4 @@
-UnitSetData.NPC_Narcissus =
+﻿UnitSetData.NPC_Narcissus =
 {
 	-- Narcissus, Id = TKTK
 	NPC_Narcissus_01 =
@@ -8,14 +8,15 @@ UnitSetData.NPC_Narcissus =
 		Portrait = "Portrait_Narcissus_Default_01",
 		Groups = { "NPCs" },
 		SpeakerName = "Narcissus",
+		LoadPackages = { "Narcissus" },
 		SubtitleColor = Color.NarcissusVoice,
-		EmoteOffsetY = -230,
-		EmoteOffsetX = 70,
-		AnimOffsetZ = 250,
+		EmoteOffsetY = -285,
+		EmoteOffsetX = 130,
+		AnimOffsetZ = -25,
 		RequiredRoomInteraction = true,
 
 		UpgradeScreenOpenSound = "/SFX/Menu Sounds/PortraitEmoteCheerfulSFX",
-		UpgradeSelectedSound = "/Leftovers/Menu Sounds/TalismanPaperEquipLEGENDARY",
+		UpgradeSelectedSound = "/SFX/Menu Sounds/KeepsakeNarcissusVial2",
 		MenuTitle = "NarcissusGiftsMenu_Title",
 		BoonInfoTitleText = "Codex_BoonInfo_Narcissus",
 		FlavorTextIds =
@@ -31,9 +32,10 @@ UnitSetData.NPC_Narcissus =
 			"NarcissusD",
 			"NarcissusE",
 			"NarcissusF",
-			"NarcissusG",
 			"NarcissusH",
 			"NarcissusI",
+
+			"NarcissusG",
 		},
 		ActivateRequirements =
 		{
@@ -44,7 +46,7 @@ UnitSetData.NPC_Narcissus =
 		SpecialInteractGameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "TextLinesRecord", "NarcissusGift03" },
+				PathTrue = { "GameState", "TextLinesRecord", "NarcissusGift01" },
 			},
 		},
 		SpecialInteractCooldown = 60,
@@ -186,7 +188,7 @@ UnitSetData.NPC_Narcissus =
 					Emote = "PortraitEmoteSparkly",
 					Text = "Well, would you look at that. Another would-be suitor journeyed far and wide, just to gaze upon me, not that I blame you... and get totally rejected! {#Emph}Fine. {#Prev}Ogle if you {#Emph}must." },
 				{ Cue = "/VO/Melinoe_2047", UsePlayerSource = true,
-					Portrait = "Portrait_Mel_Vulnerable_01",
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You have the wrong idea. I'm not seeking a mate. I don't even know who you are." },
@@ -258,6 +260,34 @@ UnitSetData.NPC_Narcissus =
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
 			},
 
+			NarcissusAboutSuitors01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					-- back compat
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutEcho03" }
+					},
+				},
+				OnQueuedThreadedFunctionName = "AmbientChatting",
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
+
+				{ Cue = "/VO/Narcissus_0260",
+					Emote = "PortraitEmoteSurprise",
+					Text = "Cutting to the front of the line! Whoever you are, at least you've got more guts than all my other would-be suitors back there. Though you still don't have a {#Emph}chance." },
+				{ Cue = "/VO/MelinoeField_3503", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "These Shades must have felt strongly for you in life if they've been lingering nearby. But it wasn't my intent to be out of turn, merely to thank you for your gift the other night." },
+				{ Cue = "/VO/Narcissus_0261",
+					Text = "Oh I know every opening line there is, and {#Emph}merely to thank you {#Prev}is one of the classics. Acting all demure! Well I know what you really want, and you're not getting it. Just {#Emph}this." },
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
+				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
+			},
+
 			NarcissusAboutLooks01 =
 			{
 				PlayOnce = true,
@@ -308,6 +338,33 @@ UnitSetData.NPC_Narcissus =
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
 			},
 
+			NarcissusAboutChamber01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NarcissusGift03" }
+					},
+				},
+				OnQueuedThreadedFunctionName = "AmbientChatting",
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
+
+				{ Cue = "/VO/Narcissus_0264",
+					Text = "Sure is nice here, isn't it? The air is thick, the waters, crystal clear. And there's no rain! I couldn't see myself at all when it would rain." },
+				{ Cue = "/VO/MelinoeField_3505", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I'm pleased to know that the untended outer reaches of the Underworld exceed your expectations. Surely Lord Hades would want all his subjects to be well accommodated here." },
+				{ Cue = "/VO/Narcissus_0265",
+					Text = "Come on I know not everybody's gonna get a spot as sweet as {#Emph}this. {#Prev}The best spots in all the Underworld go to those who earned those spots in life, right? Well no wonder!" },
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
+				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
+			},
+
 			NarcissusAboutBeauty01 =
 			{
 				PlayOnce = true,
@@ -315,17 +372,22 @@ UnitSetData.NPC_Narcissus =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship06" },
 					},
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",
 				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
 
-				{ Cue = "/VO/Narcissus_0090",
-					Text = "Here comes Laurel or whatever her name is. I was just thinking about the time we met. I mean, the time I first gazed upon my reflection. Up till that point, man, I had {#Emph}no idea..." },
+				{ Cue = "/VO/Narcissus_0258",
+					Portrait = "Portrait_Narcissus_Averted_01",
+					Text = "Here comes Laurel, or whatever her name is. I was just thinking about the time we met. I looked down into the shimmering waters... and there he was. Our eyes locked; like he could see {#Emph}my soul. {#Prev}We've been together ever since." },
+
 				{ Cue = "/VO/MelinoeField_1160", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I have to say, I don't think I've met anyone who's quite so taken with themselves as you, Narcissus. I'm a little envious. When I see myself... I see so many flaws." },
+
 				{ Cue = "/VO/Narcissus_0091",
 					Text = "{#Emph}Oof{#Prev}, I know what you mean. Not everybody's born with perfect skin... lustrous hair... total package. But everybody's beautiful in their own way! {#Emph}Even you." },
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
@@ -340,7 +402,7 @@ UnitSetData.NPC_Narcissus =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "NarcissusGift03" }
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusGift01" }
 					},
 					NamedRequirementsFalse = { "NarcissusDirtyWater" },
 				},
@@ -348,6 +410,7 @@ UnitSetData.NPC_Narcissus =
 				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
 
 				{ Cue = "/VO/MelinoeField_1992", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineThreadedFunctionName = "PlayCharacterAnim",
 					PreLineThreadedFunctionArgs = { Name = "MelTalkExplaining01", WaitTime = 1, UsePlayerSource = true },
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
@@ -355,6 +418,7 @@ UnitSetData.NPC_Narcissus =
 				{ Cue = "/VO/Narcissus_0197",
 					Text = "What, are you kidding? How could you possibly improve on {#Emph}this? {#Prev}Though, I definitely see your point. In your case." },
 				{ Cue = "/VO/MelinoeField_1993", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Was that a bit of ridicule, or do you in fact have some keen bit of insight or feedback about me you're willing to share?" },
@@ -372,12 +436,11 @@ UnitSetData.NPC_Narcissus =
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "NarcissusGrantsReward01", "NarcissusGift04" }
+						HasAll = { "NarcissusGrantsReward01" }
 					},
-					-- @ update with additional requirements
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAny = { "ArachneGift06", "MorosGift06", "NemesisGift06" },
+						HasAny = { "MorosGift08", "NemesisGift08", "ErisGift08", "IcarusGift08" },
 					},
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",
@@ -405,7 +468,7 @@ UnitSetData.NPC_Narcissus =
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "NarcissusGrantsReward01", "NarcissusGift04" }
+						HasAll = { "NarcissusGrantsReward01" }
 					},
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",
@@ -433,7 +496,8 @@ UnitSetData.NPC_Narcissus =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutLove03" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NarcissusAboutLove03", "NarcissusAboutBeauty01" },
 					},
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",
@@ -452,6 +516,317 @@ UnitSetData.NPC_Narcissus =
 				{ Cue = "/VO/Narcissus_0257",
 					Emote = "PortraitEmoteSparkly",
 					Text = "Not for me! But probably for everybody else. Anyway, true friendship's just another type of love, and should be able to go through a rough patch every now and then." },
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
+				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
+			},
+			NarcissusAboutFriendship02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NarcissusGift06", "NarcissusAboutFriendship01", "NarcissusAboutBeauty01" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "NarcissusGrantsReward01" }, Min = 5 },
+					},
+				},
+				OnQueuedThreadedFunctionName = "AmbientChatting",
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
+
+				{ Cue = "/VO/Narcissus_0266",
+					Text = "Hey wait, you're kind of like a {#Emph}friend {#Prev}of mine by now, aren't you? Unless you're playing the long game... make me let my guard down then go in for the {#Emph}kill! {#Prev}The {#Emph}ultimate suitor..." },
+
+				{ Cue = "/VO/MelinoeField_3508", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I understand your need to remain guarded when so many have attempted to win your affections even though you've made quite clear that you're not interested. But that's not me." },
+
+				{ Cue = "/VO/Narcissus_0267",
+					Text = "Can't be too careful these days. So like, no sudden movements or anything, OK? If you're not here for me... must be for one of {#Emph}these." },
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
+				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
+			},
+			NarcissusAboutFriendship03 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship02" },
+					},
+				},
+				OnQueuedThreadedFunctionName = "AmbientChatting",
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
+
+				{ Cue = "/VO/Narcissus_0268",
+					Text = "Hey I wanted you to know, I've come to the conclusion that you really aren't here to sweep me off my feet. Instead, I've come to a conclusion that's... {#Emph}more disturbing." },
+
+				{ Cue = "/VO/MelinoeField_3509", UsePlayerSource = true,
+					Emote = "PortraitEmoteSurprise",
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "{#Emph}More {#Prev}disturbing? Very well, I've braced myself. What's your conclusion about me, Narcissus? After all this time." },
+
+				{ Cue = "/VO/Narcissus_0269",
+					Text = "My conclusion is you're only here for the free gifts I offer you repeatedly without a second thought. If I weren't so selfless, then no one would like me... for {#Emph}who I am." },
+
+				{ Cue = "/VO/MelinoeField_3510", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Don't you think I'm capable of appreciating your company as well as your gifts? Your generosity is part of who you are. Though, why not put it to the test if you're uncertain?" },
+
+				{ Cue = "/VO/Narcissus_0270",
+					PreLineWait = 0.25,
+					Portrait = "Portrait_Narcissus_Averted_01",
+					Emote = "PortraitEmoteSurprise",
+					Text = "{#Emph}...No! {#Prev}No, or... maybe. Look I'd not considered that before. The ramifications, {#Emph}augh! {#Prev}Please leave me to consider what this means. But first..." },
+
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
+				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
+			},
+
+			NarcissusAboutFriendship04 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship03" },
+					},
+				},
+				OnQueuedThreadedFunctionName = "AmbientChatting",
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
+
+				{ Cue = "/VO/Narcissus_0271",
+					Emote = "PortraitEmoteFiredUp",
+					Text = "What if I didn't give you any gift this time, what would you think about that, {#Emph}huh? {#Prev}I'm warning you, I'll do it!" },
+
+				{ Cue = "/VO/MelinoeField_3511", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Go right ahead, if it makes you feel better or lets you put your inhibitions to rest! I've little need for most resources that you offer at this point anyhow." },
+
+				{ Cue = "/VO/Narcissus_0272",
+					PreLineWait = 0.25,
+					Emote = "PortraitEmoteSurprise",
+					PostLineAnim = "Narcissus_Look_End",
+					Text = "You're {#Emph}bluffing! {#Prev}You {#Emph}want {#Prev}me to bestow one of my numerous offerings. Well I'll show {#Emph}you! {#Prev}I'm really gonna do it! This time... you get... {#Emph}nothing! {#Prev}How do you like that? {#Emph}Yeah!" },
+
+				--[[ gift intentionally not given
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
+				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
+				]]--
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.38,
+						UsePlayerSource = true,
+						{ Cue = "/VO/MelinoeField_3649", Text = "It's quite all right. See you around!" },
+					},
+				},
+			},
+
+			NarcissusAboutFriendship05 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship04" },
+					},
+				},
+				OnQueuedThreadedFunctionName = "AmbientChatting",
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
+
+				{ Cue = "/VO/Narcissus_0273",
+					PreLineWait = 0.35,
+					Emote = "PortraitEmoteDepressed",
+					Text = "...What are you doing here, Laurel? I'm not in search of suitors, I'm no longer giving anything away, and I know I'm not friendship material. Leave me {#Emph}be..." },
+
+				{ Cue = "/VO/MelinoeField_3512", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "If your newfound concern is to become friendship material, you could start by getting my name right. I'm called Melinoë. Although, I'm getting used to Laurel more and more..." },
+
+				{ Cue = "/VO/Narcissus_0274",
+					PreLineWait = 0.25,
+					Emote = "PortraitEmoteFiredUp",
+					PostLineAnim = "Narcissus_Look_End",
+					Text = "...And just for {#Emph}that{#Prev}, no gift from me {#Emph}this {#Prev}time either! Some friend I am, right? Now let me get back to giving my undivided attention to the only one I {#Emph}really {#Prev}care about." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.38,
+						UsePlayerSource = true,
+						{ Cue = "/VO/MelinoeField_3650", Text = "Suit yourself." },
+					},
+				},
+			},
+
+			NarcissusAboutFriendship06 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship05" },
+					},
+				},
+				OnQueuedThreadedFunctionName = "AmbientChatting",
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringContinuous,
+
+				{ Cue = "/VO/Narcissus_0275",
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Narcissus_Averted_01",
+					Text = "...You're a good friend, man. And much more. Always here for me, you know? Except that time the waters got all murky, but then Laurel, um... {#Emph}Melinoë... {#Prev}she really helped us out." },
+
+				{ Cue = "/VO/MelinoeField_3513", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Yet now you've taken to ignoring me because for some reason you find it difficult to fathom that I value your companionship, not just your numerous unwanted gifts." },
+
+				{ Cue = "/VO/Narcissus_0276",
+					PreLineWait = 0.25,
+					Emote = "PortraitEmoteFiredUp",
+					Portrait = "Portrait_Narcissus_Averted_01",
+					PostLineAnim = "Narcissus_Look_End",
+					Text = "Not listening! And if my gifts are so unwanted, then I'm sure you wouldn't mind it if I didn't give another one to you {#Emph}again." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						{ Cue = "/VO/MelinoeField_3651", Text = "I don't mind, no." },
+					},
+				},
+			},
+
+			NarcissusAboutFriendship07 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship06" },
+					},
+				},
+				OnQueuedThreadedFunctionName = "AmbientChatting",
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
+
+				{ Cue = "/VO/Narcissus_0277",
+					PreLineWait = 0.35,
+					Text = "...Sometimes I think about how Echo's doing... how {#Emph}you're {#Prev}doing, meaning {#Emph}you {#Prev}not {#Emph}me... {#Prev}and then I start to wonder do you think about how {#Emph}I'm {#Prev}doing, too. It's messed up." },
+
+				{ Cue = "/VO/MelinoeField_3514", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Pleased_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I assure you it's perfectly fine. But you don't have to wonder what I think; you can just ask! Since I'll keep visiting from time to time, as long as that's all right." },
+
+				{ Cue = "/VO/Narcissus_0278",
+					Emote = "PortraitEmoteSurprise",
+					Text = "You'll keep visiting even though I've ceased to offer you my gifts, so that your only reason to stop by is to see me?" },
+
+				{ Cue = "/VO/MelinoeField_3515", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Pleased_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Either you, or some Sea-Serpent, or some such." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						ObjectType = "NPC_Narcissus_01",
+						PostLineAnim = "Narcissus_Look_End",
+						{ Cue = "/VO/Narcissus_0279", Text = "Yeah..." },
+					},
+				},
+			},
+
+			NarcissusAboutFriendship08 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship07" },
+					},
+				},
+				OnQueuedThreadedFunctionName = "AmbientChatting",
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
+
+				{ Cue = "/VO/Narcissus_0280",
+					Text = "You know, ever since I stopped giving you your choice of unwanted gifts, they really piled up... I've got some pretty {#Emph}good {#Prev}ones back there, too..." },
+
+				{ Cue = "/VO/MelinoeField_3516", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "They're meant for {#Emph}you {#Prev}and no one else, Narcissus. I'm certain that your would-be suitors would prefer you keep them anyhow." },
+
+				{ Cue = "/VO/Narcissus_0281",
+					Text = "Well funny thing about that is, some of these Shades, sounds like they've heard of you! But they are {#Emph}way {#Prev}too insecure to give you stuff directly, so... they hand it off to {#Emph}me." },
+
+				{ Cue = "/VO/MelinoeField_3517", UsePlayerSource = true,
+					Emote = "PortraitEmoteSurprise",
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "What? So then some of those Verdure Samplers, Ancestral Offerings, and such... they were for me in the first place?" },
+
+				{ Cue = "/VO/Narcissus_0282",
+					Text = "Probably most of them lately but I definitely lost count. So anyway, {#Emph}uh... {#Prev}here." },
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
+				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
+			},
+
+			NarcissusAboutFriendship09 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship08" },
+					},
+				},
+				OnQueuedThreadedFunctionName = "AmbientChatting",
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
+
+				{ Cue = "/VO/Narcissus_0283",
+					Emote = "PortraitEmoteSparkly",
+					Text = "Hey, thanks for stopping by. I thought you'd definitely go away once I held out on giving you free stuff. Especially since a bunch of it was yours. But you didn't give up on me." },
+
+				{ Cue = "/VO/MelinoeField_3518", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Pleased_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "You seemed as though you were just going through a phase, and not the sort an incantation could alleviate. It's true I didn't always think of you as a friend, Narcissus; but I do now." },
+
+				{ Cue = "/VO/Narcissus_0284",
+					Text = "It's funny, I... {#Emph}believe you. {#Prev}And since friends help each other out, why don't you take your pick of one of these. Those Shades back there brought plenty for the both of us." },
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
@@ -566,7 +941,7 @@ UnitSetData.NPC_Narcissus =
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "NarcissusAboutOceanus01", "NarcissusGift02" },
+						HasAll = { "NarcissusGift01" },
 					},
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",
@@ -601,6 +976,7 @@ UnitSetData.NPC_Narcissus =
 
 				{ Cue = "/VO/Narcissus_0053",
 					PreLineWait = 0.35,
+					Portrait = "Portrait_Narcissus_Averted_01",
 					Text = "...Don't worry, man, she's not so bad, she doesn't stay for long. Soon it'll just be you and me again... and all those {#Emph}Shades {#Prev}back there." },
 				{ Cue = "/VO/MelinoeField_0030", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -627,6 +1003,7 @@ UnitSetData.NPC_Narcissus =
 
 				{ Cue = "/VO/Narcissus_0084",
 					PreLineWait = 0.35,
+					Portrait = "Portrait_Narcissus_Averted_01",
 					Text = "...What would you say is your best quality, if you had to choose? The one thing you most adore... what drives everyone around you {#Emph}wild...?" },
 				{ Cue = "/VO/MelinoeField_1157", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
@@ -651,11 +1028,12 @@ UnitSetData.NPC_Narcissus =
 					NamedRequirementsFalse = { "NarcissusDirtyWater" },
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",
-				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringContinuous,
 
 				{ Cue = "/VO/Narcissus_0086",
 					PreLineWait = 0.35,
 					Emote = "PortraitEmoteAffection",
+					Portrait = "Portrait_Narcissus_Averted_01",
 					Text = "...Got to say, your hair is looking {#Emph}awesome {#Prev}lately, you know? Whole wet-look thing! Must be all the humidity and brine. {#Emph}Keep it up." },
 				{ Cue = "/VO/MelinoeField_1158", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
@@ -679,10 +1057,11 @@ UnitSetData.NPC_Narcissus =
 					NamedRequirementsFalse = { "NarcissusDirtyWater" },
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",
-				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringContinuous,
 
 				{ Cue = "/VO/Narcissus_0088",
 					PreLineWait = 0.35,
+					Portrait = "Portrait_Narcissus_Averted_01",
 					Text = "...Hey remember the time you were, like, checking yourself out, and then a bee or something lands right on your face, so you swat it, {#Emph}bam! {#Prev}Your eye was swollen shut for like a week. You looked {#Emph}terrible{#Prev}, man!" },
 				{ Cue = "/VO/MelinoeField_1159", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
@@ -829,7 +1208,8 @@ UnitSetData.NPC_Narcissus =
 				GameStateRequirements =
 				{
 					{
-						Path = { "GameState", "RoomsEntered", "G_Boss01" },
+						Path = { "GameState", "RoomsEntered" },
+						SumOf = { "G_Boss01", "G_Boss02" },
 						Comparison = ">=",
 						Value = 5,
 					},
@@ -844,6 +1224,7 @@ UnitSetData.NPC_Narcissus =
 				{ Cue = "/VO/MelinoeField_1991", UsePlayerSource = true,
 					PreLineThreadedFunctionName = "PlayCharacterAnim",
 					PreLineThreadedFunctionArgs = { Name = "MelTalkExplaining01", WaitTime = 1, UsePlayerSource = true },
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Ever been to one of the local shows around here? Scylla and the Sirens keep playing night after night, much as I'd hoped they'd move on to the next stage of their tour by now..." },
 				{ Cue = "/VO/Narcissus_0196",
@@ -862,6 +1243,12 @@ UnitSetData.NPC_Narcissus =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutReflection01" }
 					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship06" },
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
 					NamedRequirementsFalse = { "NarcissusDirtyWater" },
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",
@@ -874,6 +1261,38 @@ UnitSetData.NPC_Narcissus =
 					Text = "Nothing gets to you! A war rages between the Titan Chronos and the gods, but you've shown not even the slightest concern. What's your secret?" },
 				{ Cue = "/VO/Narcissus_0195",
 					Text = "I don't keep secrets, Laurel. It's just that... {#Emph}I don't care. {#Prev}If it doesn't affect me, it doesn't affect me. Got enough problems of my own... such as, how best to get rid of all {#Emph}these." },
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
+				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
+			},
+
+			NarcissusAboutSurface01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					-- Surface run on PrevRun, the run before that, and the run before that; CurrentRun is ignored (would return false)
+					{
+						SumPrevRuns = 4,
+						IgnoreCurrentRun = true,
+						Path = { "BiomesReached", "N" },
+						CountPathTrue = true,
+						Comparison = ">=",
+						Value = 3,
+					},
+				},
+				OnQueuedThreadedFunctionName = "AmbientChatting",
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
+
+				{ Cue = "/VO/Narcissus_0262",
+					Text = "Not seen you too much lately. I figured you'd moved on. But then I figured, that's impossible. {#Emph}They always come back." },
+				{ Cue = "/VO/MelinoeField_3504", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I've had a few things to take care of on the surface recently, so I've been spending more evenings up top. Though I appreciate you noting my absence." },
+				{ Cue = "/VO/Narcissus_0263",
+					Text = "I mostly noted more unwanted gifts piling up! Get rid of one of these for me, would ya? Maybe someone you know could use it... way up {#Emph}there." },
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
@@ -981,6 +1400,7 @@ UnitSetData.NPC_Narcissus =
 					Emote = "PortraitEmoteSurprise",
 					Text = "Repeats whatever you say to her! I knew a Nymph like that one time. Nice girl. But she didn't get me! Only ever talked about {#Emph}herself. {#Prev}I had to cut her off." },
 				{ Cue = "/VO/MelinoeField_1147", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "So you do know Echo, the Mountain Nymph! She's languishing in the Fields even now. Apparently because of you. I can hardly get through to her..." },
@@ -1011,6 +1431,7 @@ UnitSetData.NPC_Narcissus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I spoke to Echo about you. Said you didn't mean to hurt her, though perhaps I shouldn't have. She responded in her usual way but I could tell something happened. You broke her heart?" },
 				{ Cue = "/VO/Narcissus_0068",
+					Emote = "PortraitEmoteFiredUp",
 					Text = "She broke her {#Emph}own {#Prev}heart! They always fall for people who don't love them back. Anyway, I'm sure she'll find someone who thinks she's... {#Emph}awesome. {#Prev}Plenty of fish... {#Emph}in the sea!" },
 				{ Cue = "/VO/MelinoeField_1149", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -1086,22 +1507,23 @@ UnitSetData.NPC_Narcissus =
 				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
 
 				{ Cue = "/VO/Narcissus_0247",
-					Text = "You know the strangest thing happened lately... I found myself thinking about Echo. As a friend. You said we're cursed. But I {#Emph}like {#Prev}mine, I'm {#Emph}blessed! {#Prev}But what about her?" },
+					Text = "You know the strangest thing happened lately... I found myself thinking about Echo... as a friend. You said we're cursed but, I {#Emph}like {#Prev}mine. I'm {#Emph}blessed! {#Prev}But what about her?" },
 
 				{ Cue = "/VO/MelinoeField_2849", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "Good question! Why don't you visit her again and ask, yourself? You spoke to her of friendship. Friends share each other's burdens." },
+					Text = "Good question! Why don't you visit her again and ask yourself? You spoke to her of friendship. Friends share each other's burdens." },
 
 				{ Cue = "/VO/Narcissus_0248",
-					Text = "Sort of like how {#Emph}you {#Prev}share the burden of this limitless supply of gifts, right? Here's the thing, though: I don't think I can leave this place again... now that the waters here are clear." },
+					Text = "Sort of like how you share the burden of this limitless supply of gifts, right? Here's the thing, though: I don't think I can leave this place again... now that the waters here are clear." },
 
 				{ Cue = "/VO/MelinoeField_2850", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You'd be leaving only temporarily. And the love of your life is always with you, even if you can't always gaze longingly into his eyes." },
 
-				{ Cue = "/VO/Narcissus_0249",					Emote = "PortraitEmoteFiredUp",
+				{ Cue = "/VO/Narcissus_0249",
+					Emote = "PortraitEmoteFiredUp",
 					Text = "{#Emph}All right{#Prev}, all right, stop pushing me around! But if you do see Echo, tell her that her {#Emph}friend {#Prev}said hi, OK?" },
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
@@ -1219,7 +1641,7 @@ UnitSetData.NPC_Narcissus =
 					Text = "These waters are still filthy. I know all sorts of purification rites. You've aided me so often, the least I can do is help sort this out." },
 				{ Cue = "/VO/Narcissus_0074",
 					Emote = "PortraitEmoteFiredUp",
-					Text = "And what exactly do you have in mind, a bunch of soap? I don't think that's gonna work. It's a big sea out there. {#Emph}Nah{#Prev}, I think... I think I'm just gonna have to move on." },
+					Text = "And what exactly do you have in mind, a bunch of soap? I don't think that's gonna work. It's a big sea out there! {#Emph}Nah{#Prev}, I think... I think I'm just gonna have to move on." },
 				{ Cue = "/VO/MelinoeField_2846", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
@@ -1245,7 +1667,7 @@ UnitSetData.NPC_Narcissus =
 				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
 
 				{ Cue = "/VO/Narcissus_0076",
-					Text = "Oh, hey. Yeah I'm still here and everything. Though I've been thinking of a visit to the Fields one of these days. Nights? I dunno." },
+					Text = "Oh, hey. Yeah I'm still here and everything. Though I've been thinking of a visit to the Fields one of these days... nights? I dunno." },
 				{ Cue = "/VO/MelinoeField_1154", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
@@ -1338,8 +1760,8 @@ UnitSetData.NPC_Narcissus =
 					Text = "You're still wallowing in misery trying to see your reflection in a muddy pool. Why not just relocate? The waters aren't like this everywhere." },
 				{ Cue = "/VO/Narcissus_0194",
 					PreLineWait = 0.35,
+					Portrait = "Portrait_Narcissus_Averted_01",
 					Text = "...I'll never leave you, man. I got us into this, I'll find a way to get us out, OK? So don't you quit on me! We'll figure something out, just need to stay focused. No distractions!" },
-				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
 			},
@@ -1359,7 +1781,7 @@ UnitSetData.NPC_Narcissus =
 
 				{ Cue = "/VO/Narcissus_0082",
 					Emote = "PortraitEmoteFiredUp",
-					Text = "Laurel, look! The waters are all clear! You don't know how glad I am to see {#Emph}me. {#Prev}You must have done your thing! I'd give you a hug or something, but... I wouldn't want you to take it the wrong way." },
+					Text = "Laurel, look! The waters are all clear! You don't know how glad I am to see {#Emph}me. {#Prev}You must have done your {#Emph}thing! {#Prev}I'd give you a hug or something, but... I wouldn't want you to take it the wrong way." },
 				{ Cue = "/VO/MelinoeField_1156", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Pleased_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
@@ -1367,8 +1789,14 @@ UnitSetData.NPC_Narcissus =
 					Text = "Excellent. So then the purification worked out after all. Echo must have taken whatever you said to heart. Perhaps you're not as hopelessly self-absorbed as I feared." },
 				{ Cue = "/VO/Narcissus_0083",
 					PreLineWait = 0.35,
+					Portrait = "Portrait_Narcissus_Averted_01",
 					Emote = "PortraitEmoteAffection",
 					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "PortraitEmoteAffection", WaitTime = 4 },
+
+					-- heart unlock
+					PostLineFunctionName = "RelationshipAdvancedPresentation",
+					PostLineFunctionArgs = { Delay = 0.5 },
+
 					Text = "...Say what? Sorry, I was just... yeah, I mean, just {#Emph}look {#Prev}at this, the {#Emph}chin{#Prev}, the turn of the {#Emph}cheek... {#Prev}have you ever seen anything like it? Tell Echo I said hi. But as a {#Emph}friend." },
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
@@ -1393,10 +1821,11 @@ UnitSetData.NPC_Narcissus =
 				OnQueuedThreadedFunctionName = "AmbientChatting",
 				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
 
-				{ Cue = "/VO/Narcissus_0191",
+				{ Cue = "/VO/Narcissus_0259",
 					Emote = "PortraitEmoteSparkly",
-					Text = "Don't know how to thank you for the water-cleaning thing! Look at how crisp my reflection is! And the color contrast, {#Emph}ungh! {#Prev}You've got a real future in water sanitation!" },
+					Text = "Don't know how to thank you for the water-cleaning thing. So crisp and {#Emph}clear! {#Prev}I can see every perfect feature on this face. You've got a real future in water sanitation!" },
 				{ Cue = "/VO/MelinoeField_1986", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Perhaps the improved image quality will help you start to notice details other than yourself. The effect of the purification should last longer if you do." },
@@ -1503,11 +1932,12 @@ UnitSetData.NPC_Narcissus =
 				},
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
 				OnQueuedThreadedFunctionName = "AmbientChatting",
-				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringRepeatable,
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringContinuousRepeatable,
 
 				{ Cue = "/VO/Narcissus_0010",
 					PreLineWait = 0.35,
 					Emote = "PortraitEmoteAffection",
+					Portrait = "Portrait_Narcissus_Averted_01",
 					Text = "...Those eyes... that jawline... the hair... oh man, the hair..." },
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
@@ -1521,11 +1951,12 @@ UnitSetData.NPC_Narcissus =
 				},
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
 				OnQueuedThreadedFunctionName = "AmbientChatting",
-				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringRepeatable,
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringContinuousRepeatable,
 
 				{ Cue = "/VO/Narcissus_0011",
 					PreLineWait = 0.35,
 					Emote = "PortraitEmoteAffection",
+					Portrait = "Portrait_Narcissus_Averted_01",
 					Text = "...Wow, you know you really do look great tonight, man..." },
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
@@ -1609,11 +2040,12 @@ UnitSetData.NPC_Narcissus =
 				},
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
 				OnQueuedThreadedFunctionName = "AmbientChatting",
-				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringRepeatable,
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringContinuousRepeatable,
 
 				{ Cue = "/VO/Narcissus_0042",
 					PreLineWait = 0.35,
 					Emote = "PortraitEmoteSparkly",
+					Portrait = "Portrait_Narcissus_Averted_01",
 					Text = "...Good to see your face again, man! Don't even worry about her." },
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
@@ -1627,11 +2059,12 @@ UnitSetData.NPC_Narcissus =
 				},
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
 				OnQueuedThreadedFunctionName = "AmbientChatting",
-				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringRepeatable,
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringContinuousRepeatable,
 
 				{ Cue = "/VO/Narcissus_0043",
 					PreLineWait = 0.35,
 					Emote = "PortraitEmoteAffection",
+					Portrait = "Portrait_Narcissus_Averted_01",
 					Text = "...Look at yourself, man! You're too good for any of these dummies." },
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
@@ -1686,7 +2119,7 @@ UnitSetData.NPC_Narcissus =
 
 				{ Cue = "/VO/Narcissus_0047",
 					Emote = "PortraitEmoteSparkly",
-					Text = "You're always looking out for me, and you found me, so {#Emph}good job." },
+					Text = "You're always looking out for me! And you found me. So {#Emph}good job." },
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
 			},
@@ -1706,10 +2139,17 @@ UnitSetData.NPC_Narcissus =
 
 			NarcissusChat21 =
 			{
+				PlayFirst = true,
 				UseableOffSource = true,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
 				OnQueuedThreadedFunctionName = "AmbientChatting",
 				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringRepeatable,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship09" }
+					},
+				},
 
 				{ Cue = "/VO/Narcissus_0215",
 					Emote = "PortraitEmoteSparkly",
@@ -1731,10 +2171,17 @@ UnitSetData.NPC_Narcissus =
 			},
 			NarcissusChat23 =
 			{
+				PlayFirst = true,
 				UseableOffSource = true,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
 				OnQueuedThreadedFunctionName = "AmbientChatting",
 				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringRepeatable,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship09" }
+					},
+				},
 
 				{ Cue = "/VO/Narcissus_0217",
 					Text = "Why don't you take one of these away from me, then {#Emph}go away yourself." },
@@ -1754,7 +2201,7 @@ UnitSetData.NPC_Narcissus =
 
 				{ Cue = "/VO/Narcissus_0218",
 					Emote = "PortraitEmoteFiredUp",
-					Text = "Get your own reflective pool, and choice of complimentary gift!" },
+					Text = "Get your {#Emph}own {#Prev}reflective pool and choice of complimentary gift!" },
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
 			},
@@ -1766,6 +2213,7 @@ UnitSetData.NPC_Narcissus =
 				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringRepeatable,
 
 				{ Cue = "/VO/Narcissus_0219",
+					Portrait = "Portrait_Narcissus_Averted_01",
 					Text = "{#Emph}Ungh{#Prev}, still not a single dent in my stockpile of stuff to give away..." },
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
@@ -1791,11 +2239,15 @@ UnitSetData.NPC_Narcissus =
 			},
 			NarcissusChat27 =
 			{
+				PlayFirst = true,
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutReflection01" }
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship06" }
 					},
 				},
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
@@ -1809,10 +2261,17 @@ UnitSetData.NPC_Narcissus =
 			},
 			NarcissusChat28 =
 			{
+				PlayFirst = true,
 				UseableOffSource = true,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
 				OnQueuedThreadedFunctionName = "AmbientChatting",
 				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringRepeatable,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship09" }
+					},
+				},
 
 				{ Cue = "/VO/Narcissus_0222",
 					Text = "I know you're still kind of obsessed with me, but I get it, believe me I {#Emph}do." },
@@ -1828,11 +2287,12 @@ UnitSetData.NPC_Narcissus =
 				},
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
 				OnQueuedThreadedFunctionName = "AmbientChatting",
-				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringRepeatable,
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringContinuousRepeatable,
 
 				{ Cue = "/VO/Narcissus_0223",
 					PreLineWait = 0.35,
 					Emote = "PortraitEmoteAffection",
+					Portrait = "Portrait_Narcissus_Averted_01",
 					Text = "...Look at the definition in the chin... the hue of the eyes... the curl of the lip..." },
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
@@ -1846,11 +2306,12 @@ UnitSetData.NPC_Narcissus =
 				},
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
 				OnQueuedThreadedFunctionName = "AmbientChatting",
-				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringRepeatable,
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringContinuousRepeatable,
 
 				{ Cue = "/VO/Narcissus_0224",
 					PreLineWait = 0.35,
 					Emote = "PortraitEmoteAffection",
+					Portrait = "Portrait_Narcissus_Averted_01",
 					Text = "...When our eyes meet like this, nothing else matters... and they meet like this {#Emph}a lot." },
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
@@ -1884,10 +2345,11 @@ UnitSetData.NPC_Narcissus =
 				},
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Narcissus",
 				OnQueuedThreadedFunctionName = "AmbientChatting",
-				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringRepeatable,
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringContinuousRepeatable,
 
 				{ Cue = "/VO/Narcissus_0210",
 					Emote = "PortraitEmoteDepressed",
+					Portrait = "Portrait_Narcissus_Averted_01",
 					Text = "{#Emph}Ugh{#Prev}, why did this have to happen to me? To {#Emph}us? {#Prev}It isn't {#Emph}fair!" },
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
@@ -1924,6 +2386,7 @@ UnitSetData.NPC_Narcissus =
 
 				{ Cue = "/VO/Narcissus_0212",
 					Emote = "PortraitEmoteDepressed",
+					Portrait = "Portrait_Narcissus_Averted_01",
 					Text = "Man... this is the worst thing that's ever happened to {#Emph}anyone..." },
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
@@ -1941,6 +2404,7 @@ UnitSetData.NPC_Narcissus =
 				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringRepeatable,
 
 				{ Cue = "/VO/Narcissus_0213",
+					Portrait = "Portrait_Narcissus_Averted_01",
 					Text = "Still can't see anything in here... but if I {#Emph}squint, or tilt my head a certain way..." },
 				PrePortraitExitFunctionName = "NarcissusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
@@ -1986,6 +2450,7 @@ UnitSetData.NPC_Narcissus =
 					},
 				},
 				{ Cue = "/VO/Melinoe_2053", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "As you've made no attempt to snap my head from my shoulders unlike many other things lurking about, I'm compelled to give you this. Just as a casual acquaintance, to be clear." },
@@ -1997,6 +2462,8 @@ UnitSetData.NPC_Narcissus =
 				PlayOnce = true,
 				OnGiftTrack = true,
 				SkipGiftPresentationPost = true,
+				UnfilledIcon = "EmptyHeartWithProphecyIcon",
+				FilledIcon = "FilledHeartWithProphecyIcon",
 				Cost =
 				{
 					GiftPoints = 1,
@@ -2008,7 +2475,7 @@ UnitSetData.NPC_Narcissus =
 					},
 				},
 				{ Cue = "/VO/Narcissus_0060",
-					Text = "Whoa, a present, you're so thoughtful and all that. Don't mean to be rude about it, just... don't get the wrong idea, OK?" },
+					Text = "{#Emph}Whoa{#Prev}, a {#Emph}present{#Prev}, you're so thoughtful and all that. Don't mean to be rude about it... just don't get the wrong idea, OK?" },
 				{ Cue = "/VO/Melinoe_2054", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
@@ -2030,8 +2497,10 @@ UnitSetData.NPC_Narcissus =
 					},
 				},
 				{ Cue = "/VO/Narcissus_0061",
-					Text = "Oh! How thoughtful, and all that. You dummy, though! Don't you realize I'm just going to add this to the pile with the rest, so that some other would-be suitor ends up taking it?" },
+					Emote = "PortraitEmoteSurprise",
+					Text = "{#Emph}Oh! How thoughtful{#Prev}, and all that. You dummy, though! Don't you realize I'm just going to add this to the pile with the rest, so that some other would-be suitor ends up taking it?" },
 				{ Cue = "/VO/MelinoeField_0735", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Sure, it's a gift! You get to decide what to do with it. Perhaps one of those other would-be suitors would enjoy it, if that's what you want." },
@@ -2041,6 +2510,7 @@ UnitSetData.NPC_Narcissus =
 				PlayOnce = true,
 				OnGiftTrack = true,
 				SkipGiftPresentationPost = true,
+				LockedHintId = "Codex_NarcissusUnlockHint01",
 				Cost =
 				{
 					GiftPoints = 1,
@@ -2055,26 +2525,116 @@ UnitSetData.NPC_Narcissus =
 				{ Cue = "/VO/Narcissus_0062",
 					Text = "Oh whoa, for {#Emph}me{#Prev}, how thoughtful. Look: Try all you like, I can't requite your {#Emph}love. {#Prev}Thought I'd make myself about as clear as these waters, just in case you've got the wrong idea {#Emph}again." },
 				{ Cue = "/VO/MelinoeField_0736", UsePlayerSource = true,
-					Portrait = "Portrait_Mel_Pleased_01",
+					Portrait = "Portrait_Mel_Casual_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Not every gesture needs to be interpreted as having some romantic overtones, does it? You've made your feelings unambiguous, and I appreciate that. {#Emph}As a friend." },
 			},
-
-			-- placeholder
-			NarcissusGiftTemp =
+			NarcissusGift05 =
 			{
 				PlayOnce = true,
-				UseableOffSource = true,
 				OnGiftTrack = true,
-				UnfilledIcon = "UnavailableHeartIcon",
-				HintId = "Codex_UnavailableHint",
+				SkipGiftPresentationPost = true,
+				LockedHintId = "Codex_NarcissusUnlockHint01",
 				Cost =
 				{
-					MysteryResource = 1,
+					GiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "NPC_Narcissus_01" },
+					},
+					NamedRequirementsFalse = { "NarcissusDirtyWater" },
+				},
+				{ Cue = "/VO/Narcissus_0199",
+					Emote = "PortraitEmoteSparkly",
+					Text = "Hey, some Nectar, how thoughtful! I used to mean it when I said it, but... there comes a point you get so many gifts you don't know what to say anymore. But you stick to {#Emph}how thoughtful {#Prev}anyway..." },
+				{ Cue = "/VO/MelinoeField_2247", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "In my family, the act of giving is a social custom, and a simple show of courtesy if nothing else. It {#Emph}should {#Prev}be thoughtful, as you say. But it can also be reflexive I suppose." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.38,
+						ObjectType = "NPC_Narcissus_01",
+						{ Cue = "/VO/Narcissus_0200", Text = "{#Emph}Huh?" },
+					},
 				},
 			},
+			NarcissusGift06 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				SkipGiftPresentationPost = true,
+				LockedHintId = "Codex_NarcissusUnlockHint01",
+				Cost =
+				{
+					GiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "NPC_Narcissus_01" },
+					},
+					NamedRequirementsFalse = { "NarcissusDirtyWater" },
+				},
+				{ Cue = "/VO/Narcissus_0201",
+					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "PortraitEmoteFiredUp", DoShake = true, WaitTime = 4. },
+					Text = "You really want to hear me say it again, huh? All right {#Emph}fine! {#Prev}How thoughtful! {#Emph}How. Thoughtful!! {#Prev}That's my {#Emph}line! {#Prev}But you know what? I'm starting to think {#Emph}you {#Prev}might not be so thoughtful after all!" },
+				{ Cue = "/VO/MelinoeField_2248", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Narcissus, please, it's not my wish to offend. You don't have to take the Nectar if you don't want it. I just noticed you don't seem to have much of it around! Have you even tried it?" },
+				{ Cue = "/VO/Narcissus_0202",
+					Portrait = "Portrait_Narcissus_Averted_01",
+					Text = "What do you mean, tried it? Tried it {#Emph}how? {#Prev}All I've tried to do, Laurel, is look into these longing eyes in {#Emph}peace. {#Prev}Though I'll accept your Nectar, just this once, for the last time, OK?" },
+			},
+			-- bond forged
+			NarcissusGift07 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				SkipGiftPresentationPost = true,
+				LockedHintId = "Codex_NarcissusUnlockHint01",
+				CompletedHintId = "Codex_BondForgedNarcissus",
+				UnfilledIcon = "EmptyHeartWithAmbrosiaIcon",
+				FilledIcon = "FilledHeartWithAmbrosiaIcon",
+				Cost =
+				{
+					SuperGiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NarcissusGift06", "NarcissusAboutWaters05" },
+					},
+					NamedRequirementsFalse = { "NarcissusDirtyWater" },
+				},
+				{ Cue = "/VO/MelinoeField_3519", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "I know you said that you're not interested in Nectar anymore, but I did want to give you {#Emph}this. {#Prev}To our continued friendship, and for all you've done for me these many nights!" },
+				{ Cue = "/VO/Narcissus_0307",
+					Emote = "PortraitEmoteSurprise",
+					Text = "This is Ambrosia, {#Emph}whoa... {#Prev}this stuff is for the gods, not river spirits, no matter how uncommonly attractive they may be! What's the {#Emph}catch?" },
+				{ Cue = "/VO/MelinoeField_3520", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Casual_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "The only {#Emph}catch {#Prev}is that you have to stop misreading my intentions whenever I occasionally give you things. Far less often than you give me things, I might add!" },
+				{ Cue = "/VO/Narcissus_0308",
 
+					PostLineThreadedFunctionName = "MaxedRelationshipPresentation",
+					PostLineThreadedFunctionArgs = { Text = "NPC_Narcissus_01", Icon = "Keepsake_Narcissus" },
+
+					Text = "Well I don't know... but having given it some extra thought, I will accept. But just this once, OK? Maybe I'll share this... with {#Emph}me." },
+			},
 		},
 		GiftGivenVoiceLines =
 		{
@@ -2165,6 +2725,12 @@ UnitSetData.NPC_Narcissus =
 				PlayOnce = true,
 				CopyDataFromPartner = true,
 			},
+			NarcissusWithEcho03 =
+			{
+				Partner = "NPC_Echo_01",
+				PlayOnce = true,
+				CopyDataFromPartner = true,
+			},
 		}
 	}
 }
@@ -2176,11 +2742,12 @@ GlobalVoiceLines.NarcissusGreetingLines =
 	{
 		{
 			BreakIfPlayed = true,
+			PreLineAnim = "Narcissus_Look_Start",
 			GameStateRequirements =
 			{
 				{
 					FunctionName = "RequiredQueuedTextLine",
-					FunctionArgs = { IsAny = { "NarcissusGrantsReward01" },  },
+					FunctionArgs = { IsAny = { "NarcissusGrantsReward01" }, },
 				},
 			},
 			ObjectType = "NPC_Narcissus_01",
@@ -2189,6 +2756,7 @@ GlobalVoiceLines.NarcissusGreetingLines =
 		},
 		{
 			RandomRemaining = true,
+			PreLineAnim = "Narcissus_Look_Start",
 			GameStateRequirements =
 			{
 				{
@@ -2210,28 +2778,207 @@ GlobalVoiceLines.NarcissusGreetingLines =
 			
 			{ Cue = "/VO/Narcissus_0023", Text = "Yeah?", PlayFirst = true },
 			{ Cue = "/VO/Narcissus_0024", Text = "What?" },
-			{ Cue = "/VO/Narcissus_0025", Text = "'Scuse me?", PlayFirst = true },
 			{ Cue = "/VO/Narcissus_0026", Text = "Oh, it's you." },
-			{ Cue = "/VO/Narcissus_0112", Text = "Oh." },
 			{ Cue = "/VO/Narcissus_0113", Text = "Hey..." },
 			{ Cue = "/VO/Narcissus_0114", Text = "Hey." },
 			{ Cue = "/VO/Narcissus_0115", Text = "Yeah...?" },
-			{ Cue = "/VO/Narcissus_0116", Text = "You again." },
-			{ Cue = "/VO/Narcissus_0117", Text = "Back huh." },
-			{ Cue = "/VO/Narcissus_0121", Text = "Suitors..." },
-			{ Cue = "/VO/Narcissus_0122", Text = "Suitors!" },
-			{ Cue = "/VO/Narcissus_0123", Text = "Here we go again." },
-			{ Cue = "/VO/Narcissus_0231", Text = "{#Emph}Ahem." },
-			{ Cue = "/VO/Narcissus_0232", Text = "Rude..." },
-			{ Cue = "/VO/Narcissus_0233", Text = "{#Emph}Again..." },
 			{ Cue = "/VO/Narcissus_0234", Text = "Be right back." },
 			{ Cue = "/VO/Narcissus_0235", Text = "Wha?" },
-			{ Cue = "/VO/Narcissus_0236", Text = "{#Emph}Eh..." },
+			{ Cue = "/VO/Narcissus_0117", Text = "Back huh." },
+			{ Cue = "/VO/Narcissus_0025", Text = "'Scuse me?", PlayFirst = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutWaters05" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0112", Text = "Oh.",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "NarcissusAboutWaters05", "NarcissusGift04" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0116", Text = "You again.",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "NarcissusAboutWaters05", "NarcissusGift04" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0121", Text = "Suitors...",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "NarcissusAboutWaters05", "NarcissusGift04" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0122", Text = "Suitors!",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "NarcissusAboutWaters05", "NarcissusGift04" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0123", Text = "Here we go again.",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "NarcissusAboutWaters05", "NarcissusGift04" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0231", Text = "{#Emph}Ahem.",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "NarcissusAboutWaters05", "NarcissusGift04" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0232", Text = "Rude...",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "NarcissusAboutWaters05", "NarcissusGift04" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0233", Text = "{#Emph}Again...",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "NarcissusAboutWaters05", "NarcissusGift04" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0236", Text = "{#Emph}Eh...",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "NarcissusAboutWaters05", "NarcissusGift04" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0296", Text = "Oh hey!",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutWaters05" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0297", Text = "Laurel?",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutWaters05" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship06" }
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0298", Text = "Laurel!",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutWaters05" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship06" }
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0299", Text = "Hello.",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutWaters05" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0300", Text = "It's you!",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutWaters05" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0301", Text = "Hey there.",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutWaters05" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0302", Text = "What do you know.",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutWaters05" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0303", Text = "Look at that.",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutWaters05" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0304", Text = "Hey Laur— Melinoë.",
+				PlayFirst = true,
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship05" },
+					},
+				},
+			},				
+			{ Cue = "/VO/Narcissus_0305", Text = "Hey, Melinoë.",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship06" },
+					},
+				},
+			},
+			{ Cue = "/VO/Narcissus_0306", Text = "Melinoë!",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship06" },
+					},
+				},
+			},
+
 			{ Cue = "/VO/Narcissus_0118", Text = "Laurel, right?",
 				GameStateRequirements =
 				{
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutReflection01" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship06" }
 					},
 				},
 			},
@@ -2244,6 +2991,9 @@ GlobalVoiceLines.NarcissusGreetingLines =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "NarcissusGift02" }
 					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship06" }
+					},
 				},
 			},
 			{ Cue = "/VO/Narcissus_0120", Text = "Laurel!",
@@ -2254,6 +3004,9 @@ GlobalVoiceLines.NarcissusGreetingLines =
 					},
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "NarcissusGift03" }
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship06" }
 					},
 				},
 			},
@@ -2331,7 +3084,7 @@ GlobalVoiceLines.NarcissusMutteringLines =
 			},
 			{
 				FunctionName = "RequiredQueuedTextLine",
-				FunctionArgs = { IsNone = { "NarcissusAboutFriendship01", },  },
+				FunctionArgs = { IsNone = { "NarcissusAboutFriendship01", }, },
 			},
 			NamedRequirementsFalse = { "NarcissusDirtyWater" },
 		},
@@ -2486,6 +3239,31 @@ GlobalVoiceLines.MiscEndVoiceLines_Narcissus =
 		PreLineWait = 0.45,
 		-- SuccessiveChanceToPlay = 0.75,
 		ObjectType = "NPC_Narcissus_01",
+		PreLineAnim = "Narcissus_Look_End",
+		GameStateRequirements =
+		{
+			OrRequirements =
+			{
+				{
+					{
+						Path = { "CurrentRun", "TextLinesRecord" },
+						HasAny = { "NarcissusAboutWaters01" },
+					},
+				},
+				{
+					NamedRequirements = { "NarcissusDirtyWater" },
+				},
+			},
+		},
+
+		{ Cue = "/VO/Narcissus_0159", Text = "{#Emph}Eugh..." },
+	},	
+	{
+		RandomRemaining = true,
+		PreLineWait = 0.45,
+		-- SuccessiveChanceToPlay = 0.75,
+		ObjectType = "NPC_Narcissus_01",
+		PreLineAnim = "Narcissus_Look_End",
 		GameStateRequirements =
 		{
 			{
@@ -2504,14 +3282,6 @@ GlobalVoiceLines.MiscEndVoiceLines_Narcissus =
 		{ Cue = "/VO/Narcissus_0124", Text = "Help yourself." },
 		{ Cue = "/VO/Narcissus_0125", Text = "Regards." },
 		{ Cue = "/VO/Narcissus_0126", Text = "Sure thing." },
-		{ Cue = "/VO/Narcissus_0127", Text = "Anytime.",
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "TextLinesRecord", "NarcissusGift03" },
-				},
-			},
-		},
 		{ Cue = "/VO/Narcissus_0128", Text = "For you." },
 		{ Cue = "/VO/Narcissus_0129", Text = "Take care." },
 		{ Cue = "/VO/Narcissus_0130", Text = "There." },
@@ -2523,6 +3293,16 @@ GlobalVoiceLines.MiscEndVoiceLines_Narcissus =
 		{ Cue = "/VO/Narcissus_0136", Text = "See you soon." },
 		{ Cue = "/VO/Narcissus_0137", Text = "See you around." },
 		{ Cue = "/VO/Narcissus_0138", Text = "Have a great day." },
+		{ Cue = "/VO/Narcissus_0140", Text = "Thanks for coming by." },
+		{ Cue = "/VO/Narcissus_0141", Text = "Hope this helps." },
+		{ Cue = "/VO/Narcissus_0127", Text = "Anytime.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "TextLinesRecord", "NarcissusGift03" },
+				},
+			},
+		},
 		{ Cue = "/VO/Narcissus_0139", Text = "Have a great day. Or night?",
 			GameStateRequirements =
 			{
@@ -2531,10 +3311,9 @@ GlobalVoiceLines.MiscEndVoiceLines_Narcissus =
 				}
 			}
 		},
-		{ Cue = "/VO/Narcissus_0140", Text = "Thanks for coming by." },
-		{ Cue = "/VO/Narcissus_0141", Text = "Hope this helps." },
 	},
 	{
+		BreakIfPlayed = true,
 		RandomRemaining = true,
 		PreLineWait = 0.4,
 		UsePlayerSource = true,
@@ -2542,6 +3321,16 @@ GlobalVoiceLines.MiscEndVoiceLines_Narcissus =
 
 		{ Cue = "/VO/Melinoe_2152", Text = "Thanks...?" },
 		{ Cue = "/VO/Melinoe_2153", Text = "{#Emph}Erm{#Prev}, thanks...", PlayFirst = true },
+		{ Cue = "/VO/MelinoeField_3648", Text = "Bye, Narcissus...",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship03" },
+				},
+			},
+		},
+
 	},
 	{ GlobalVoiceLines = "ThankingCharacterVoiceLines" },
 }

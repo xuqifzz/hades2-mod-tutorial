@@ -12,20 +12,18 @@ OverwriteTableKeys( EncounterData,
 			},
 			{
 				Path = { "CurrentRun", "EncountersOccurredCache" },
-				HasNone = { "NemesisCombatIntro", "NemesisCombatF", "NemesisCombatG", "NemesisCombatH" },
+				HasNone = { "NemesisCombatIntro", "NemesisCombatF", "NemesisCombatG", "NemesisCombatH", "NemesisCombatI" },
 			},			
 			{
 				Path = { "CurrentRun", "BiomeDepthCache" },
 				Comparison = ">=",
 				Value = 4,
 			},
-			{
-				PathFalse = { "CurrentRun", "ActiveBounty" },
-			},
 			NamedRequirements = { "NoRecentNemesisEncounter", "NoRecentFieldNPCEncounter" },
+			NamedRequirementsFalse = { "StandardPackageBountyActive", "HecateMissing", },
 		},
 
-		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade", "StackUpgrade", "ManaUpgrade", "TalentDrop" },
+		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade", "StackUpgrade", "TalentDrop" },
 
 		SkipExitReadyCheckpoint = true,
 
@@ -36,7 +34,6 @@ OverwriteTableKeys( EncounterData,
 		-- SkipCombatBeginsVoiceLines = true,
 		RequireCompletedIntro = true,
 		PreSpawnEnemies = false,
-		FastClearThreshold = 65,
 		TimerBlock = "ArtemisEncounter",
 		BlockHighlightEliteTypes = true,
 
@@ -45,6 +42,7 @@ OverwriteTableKeys( EncounterData,
 
 		UnthreadedEvents = EncounterSets.EncounterEventsNemesisCombat,
 		Using = { "NPC_Nemesis_01" },
+		LoadPackages = { "Nemesis", },
 
 		StartRoomThreadedEvents =
 		{
@@ -75,8 +73,8 @@ OverwriteTableKeys( EncounterData,
 				FunctionName = "NemesisTakeRoomExit",
 				Args =
 				{
-					RandomWaitMin = 0.5,
-					RandomWaitMax = 0.6,
+					RandomWaitMin = 0.1,
+					RandomWaitMax = 0.5,
 				},
 				GameStateRequirements =
 				{
@@ -90,8 +88,8 @@ OverwriteTableKeys( EncounterData,
 				FunctionName = "NemesisTakeRoomExit",
 				Args =
 				{
-					RandomWaitMin = 1.0,
-					RandomWaitMax = 5.0,
+					RandomWaitMin = 0.5,
+					RandomWaitMax = 2.0,
 				},
 				GameStateRequirements =
 				{
@@ -132,6 +130,10 @@ OverwriteTableKeys( EncounterData,
 		GameStateRequirements =
 		{
 			{
+				Path = { "CurrentRun", "EncountersOccurredCache" },
+				HasNone = { "NemesisCombatIntro", "NemesisCombatF", "NemesisCombatG", "NemesisCombatH", "NemesisCombatI" },
+			},	
+			{
 				PathTrue = { "GameState", "EncountersCompletedCache", "NemesisCombatIntro" },
 			},
 			{
@@ -145,10 +147,8 @@ OverwriteTableKeys( EncounterData,
 				Comparison = ">=",
 				Value = 4,
 			},
-			{
-				PathFalse = { "CurrentRun", "ActiveBounty" },
-			},
 			NamedRequirements = { "NoRecentNemesisEncounter", "NoRecentFieldNPCEncounter" },
+			NamedRequirementsFalse = { "StandardPackageBountyActive" },
 		},
 	},
 
@@ -159,13 +159,15 @@ OverwriteTableKeys( EncounterData,
 		ForceEncounterStart = false,
 
 		UnthreadedEvents = EncounterSets.EncounterEventsNemesisCombatFields,
-		SpawnRadius = 500,
-		SpawnRadiusMin = 200,
 
 		ActiveEnemyCapMax = 4, -- has to be lower to account for Nemesis herself
 
 		GameStateRequirements =
 		{
+			{
+				Path = { "CurrentRun", "EncountersOccurredCache" },
+				HasNone = { "NemesisCombatIntro", "NemesisCombatF", "NemesisCombatG", "NemesisCombatH", "NemesisCombatI" },
+			},	
 			{
 				PathTrue = { "GameState", "EncountersCompletedCache", "NemesisCombatIntro" },
 			},
@@ -177,17 +179,46 @@ OverwriteTableKeys( EncounterData,
 				Comparison = ">=",
 				Value = 1,
 			},
-			{
-				PathFalse = { "CurrentRun", "ActiveBounty" },
-			},
 			NamedRequirements = { "NoRecentNemesisEncounter", "NoRecentFieldNPCEncounter" },
+			NamedRequirementsFalse = { "StandardPackageBountyActive" },
 		},
 
 		--UnthreadedEvents = EncounterSets.EncounterEventsNemesisCombatFields,
 
 		SpawnPresentationFunction = "NemesisSpawnPresentationFields",
-		SpawnRadius = 600,
-		SpawnRadiusMin = 150,
+		NemesisSpawnRadius = 600,
+		NemesisSpawnRadiusMin = 150,
+	},
+
+	NemesisCombatI =
+	{
+		InheritFrom = { "BaseNemesisCombat", "GeneratedI" },
+		CanEncounterSkip = false,
+		ForceEncounterStart = false,
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "EncountersOccurredCache" },
+				HasNone = { "NemesisCombatIntro", "NemesisCombatF", "NemesisCombatG", "NemesisCombatH", "NemesisCombatI" },
+			},	
+			{
+				PathTrue = { "GameState", "EncountersCompletedCache", "NemesisCombatIntro" },
+			},
+			{
+				Path = { "GameState", "TextLinesRecord" },
+				HasAll = { "NemesisGetFreeItemIntro01", "NemesisPostCombatAboutTartarus02" },
+			},
+			{
+				Path = { "CurrentRun", "BiomeDepthCache" },
+				Comparison = ">=",
+				Value = 4,
+			},
+			NamedRequirements = { "NoRecentNemesisEncounter", "NoRecentFieldNPCEncounter" },
+			NamedRequirementsFalse = { "StandardPackageBountyActive" },
+		},
+		NemesisSpawnRadius = 1500,
+		NemesisSpawnRadiusMin = 800,
 	},
 
 	-- like default encounter but occurs only once, with a higher chance

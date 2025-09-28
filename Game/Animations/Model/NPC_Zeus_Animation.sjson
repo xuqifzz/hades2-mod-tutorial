@@ -1,0 +1,290 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCZeusBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Zeus_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "NPCZeusBaseTyphonAnimation"
+		InheritFrom = "NPCZeusBaseAnimation"
+		LargeObstacle3DModel = true
+		Enable3DShadow = false
+		Angle = 180
+	}
+
+	// Idle
+	{
+		Name = "Zeus_Idle"
+		InheritFrom = "NPCZeusBaseAnimation"
+		GrannyAnimation = "Zeus_Base_Idle_C_00"
+		Loop = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Zeus_Explaining"
+				Duration = 18
+			}
+		]
+	}
+
+	{
+		Name = "Zeus_Hidden"
+		InheritFrom = "NPCZeusBaseTyphonAnimation"
+		GrannyAnimation = "Zeus_Base_EnterAndDestroyExit_C_00"
+		HoldLastFrame = true
+		Alpha = 0
+	}
+
+	// Greet
+	{
+		Name = "Zeus_Greet"
+		InheritFrom = "NPCZeusBaseAnimation"
+		GrannyAnimation = "Zeus_Base_Greet_C_00"
+		ChainTo = "Zeus_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Zeus_Idle"
+				Duration = 8
+			}
+		]
+	}
+
+	// Explaining
+	{
+		Name = "Zeus_Explaining"
+		InheritFrom = "NPCZeusBaseAnimation"
+		GrannyAnimation = "Zeus_Base_Explaining_C_00"
+		ChainTo = "Zeus_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 220
+				FrameSpeed = 0
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Zeus_Idle"
+				Duration = 8
+			}
+		]
+	}
+
+
+	// TyphonAttack
+	{
+		Name = "Zeus_TyphonAttack_Start"
+		InheritFrom = "NPCZeusBaseTyphonAnimation"
+		GrannyAnimation = "Zeus_Base_EnterAndDestroyIntro_C_00"
+		ChainTo = "Zeus_TyphonAttack_FireLoop"
+		Frames =
+		[
+			{
+				Frame = 10
+				Sound = "/SFX/ZeusSlam1"
+			}
+			{
+				Frame = 160
+				CreateAnimation = "ZeusTyphonAttackHandFxEmitter_L"
+			}
+			{
+				Frame = 161
+				CreateAnimation = "ZeusTyphonAttackHandFxEmitter_R"
+			}
+		]
+	}
+	{
+		Name = "Zeus_TyphonAttack_FireLoop"
+		InheritFrom = "NPCZeusBaseTyphonAnimation"
+		GrannyAnimation = "Zeus_Base_EnterAndDestroyFireLoop_C_00"
+		Loop = true
+		LargeObstacle3DModel = true
+		Enable3DShadow = false
+		Angle = 180
+		CreateAnimations = [
+			{ Name = "ZeusTyphonAttackHandFxEmitter_L" }
+			{ Name = "ZeusTyphonAttackHandFxEmitter_R" }
+		]
+	}
+	{
+		Name = "Zeus_TyphonAttack_End"
+		InheritFrom = "NPCZeusBaseTyphonAnimation"
+		GrannyAnimation = "Zeus_Base_EnterAndDestroyExit_C_00"
+		ChainTo = "Zeus_Hidden"
+		LargeObstacle3DModel = true
+		Enable3DShadow = false
+		Angle = 180
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Zeus_TyphonAttack_Start"
+				Duration = 18
+			}
+			{
+				BlendTransitionFrom = "Zeus_TyphonAttack_FireLoop"
+				Duration = 18
+			}
+		]
+	}
+
+	// TyphonAttack VFX
+	{
+		Name = "ZeusTyphonAttackHandFxEmitter_L"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		DieWithOwner = true
+		GrannyAttachedMarkerLocation = "Zeus_Rig:weaponHand_00_L_JNT"
+		VisualFx = "ZeusTyphonAttackHandFxL"
+		VisualFxIntervalMin = 0.15
+		VisualFxIntervalMax = 0.2
+	}
+
+	{
+		Name = "ZeusTyphonAttackHandFxEmitter_R"
+		InheritFrom = "ZeusTyphonAttackHandFxEmitter_L"
+		GrannyAttachedMarkerLocation = "Zeus_Rig:weaponHand_00_R_JNT"
+		VisualFx = "ZeusTyphonAttackHandFxR"
+	}
+
+	{
+		Name = "ZeusTyphonAttackHandFxL"
+		FilePath = "Fx\Zeus\ZeusCircle\ZeusCircle"
+		NumFrames = 71
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		IsometricSkew = "X"
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		SortMode = "Id"
+		LocationFromOwner = "Maintain"
+		LocationZFromOwner = "Maintain"
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		StartScale = 1
+		EndScale = 3
+		EaseIn = 0.0
+		EaseOut = 0.1
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		OffsetY = -10
+		GrannyAttachedMarkerLocation = "Zeus_Rig:weaponHand_00_L_JNT"
+		CreateAnimations = [
+			{ Name = "ZeusTyphonAttackHandGlowL" }
+		]
+	}
+
+	{
+		Name = "ZeusTyphonAttackHandFxR"
+		InheritFrom = "ZeusTyphonAttackHandFxL"
+		GrannyAttachedMarkerLocation = "Zeus_Rig:weaponHand_00_R_JNT"
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "ZeusTyphonAttackHandGlowR" }
+		]
+	}
+
+	{
+		Name = "ZeusTyphonAttackHandGlowL"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		Scale = 3
+		RandomDurationMin = 2
+		RandomDurationMax = 3
+		ScaleFromOwner = "Ignore"
+		StartAlpha = 0
+		EndAlpha = 1
+		Alpha = 0.5
+		StartRed = 0.999
+		StartGreen = 0.5
+		StartBlue = 0
+		EndRed = 1.0
+		EndGreen = 0.7
+		EndBlue = 0.2
+		PingPongColor = true
+		GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
+		GrannyAttachedMarkerLocation = "Zeus_Rig:weaponHand_00_L_JNT"
+		VisualFx = "ZeusTyphonAttackHandLightningFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+	}
+
+	{
+		Name = "ZeusTyphonAttackHandGlowR"
+		InheritFrom = "ZeusTyphonAttackHandGlowL"
+		GrannyAttachedMarkerLocation = "Zeus_Rig:weaponHand_00_R_JNT"
+		VisualFx = "ZeusTyphonAttackHandLightningFx"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.8
+	}
+
+	{
+		Name = "ZeusTyphonAttackHandLightningFx"
+		Random = [
+			{ Name = "ZeusTyphonAttackHandLightningFxA" }
+			{ Name = "ZeusTyphonAttackHandLightningFxB" }
+			{ Name = "ZeusTyphonAttackHandLightningFxC" }
+		]
+	}
+
+	{
+		Name = "ZeusTyphonAttackHandLightningFxA"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailA\ZeusDirectionalTrailA"
+		NumFrames = 45
+		Material = "Unlit"
+		OriginX = 400
+		OriginY = 84
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		ScaleMin = 0.2
+		ScaleMax = 1.5
+		ScaleX = 2
+		RandomPlaySpeedMin = 100
+		RandomPlaySpeedMax = 140
+		ScaleFromOwner = "Ignore"
+		RandomFlipVertical = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		GroupName = "FX_Standing"
+	}
+
+	{
+		Name = "ZeusTyphonAttackHandLightningFxB"
+		InheritFrom = "ZeusTyphonAttackHandLightningFxA"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailB\ZeusDirectionalTrailB"
+	}
+
+	{
+		Name = "ZeusTyphonAttackHandLightningFxC"
+		InheritFrom = "ZeusTyphonAttackHandLightningFxA"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailC\ZeusDirectionalTrailC"
+	}
+
+
+]}

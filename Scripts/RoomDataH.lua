@@ -3,6 +3,7 @@ RoomSetData.H =
 	BaseH =
 	{
 		DebugOnly = true,
+		RichPresence = "#RichPresence_H",
 		Icon = "GUI\\Screens\\BountyBoard\\Biome_Fields",
 		ResultText = "RunHistoryScreenResult_Fields",
 		
@@ -15,28 +16,297 @@ RoomSetData.H =
 		SecretSpawnChance = 0.0,
 		WellShopSpawnChance = 0.35,
 
-		HarvestPointChances =
-		{
-			0.30,
-			--0.1,
-			--0.15,
-		},
-		
-		ShovelPointChance = 0.45,
-		PickaxePointChance = 0.40,
-		ExorcismPointChance = 0.35,
+		HarvestPointChances = { 0.30, },
+		ShovelPointChance = 0.24,
+		PickaxePointChance = 0.36,
+		ExorcismPointChance = 0.24,
+		FishingPointChance = 0.18,
 
-		--[[
-		HarvestPointRequirements = { },
-		ShovelPointRequirements = { },
-		PickaxePointRequirements = { },
-		ExorcismPointRequirements = { },
-		]]
+		LocationAnimName = "InfoBannerFieldsIn",
+		LocationAnimOutName = "InfoBannerFieldsOut",
+
+		HarvestPointRequirements =
+		{
+			{
+				SumPrevRooms = 1,
+				Path = { "NumHarvestPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantHMyrtle" },
+						Comparison = "<",
+						Value = 8,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+				},
+			},
+		},
+		ShovelPointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeToolsShop" },
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "PlantGCattailSeed" },
+				Comparison = ">=",
+				Value = 2,
+			},
+			{
+				SumPrevRooms = 2,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantHWheatSeed" },
+						Comparison = "<",
+						Value = 8,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 1,
+						Path = { "NumPickaxePoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
+		},
+		PickaxePointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "OreGLime" },
+				Comparison = ">=",
+				Value = 6,
+			},
+			{
+				SumPrevRooms = 2,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "OreHGlassrock" },
+						Comparison = "<",
+						Value = 30,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 1,
+						Path = { "NumShovelPoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
+		},
+		ExorcismPointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 2,
+			},
+			{
+				Path = { "CurrentRun", "BiomeDepthCache" },
+				Comparison = ">=",
+				Value = 2,
+			},
+			{
+				Path = { "GameState", "ExorcisedNames", "ShadeOceanusSIdle" },
+				Comparison = ">=",
+				Value = 2,
+			},
+			{
+				SumPrevRooms = 2,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					OrRequirements =
+					{
+						{
+							{
+								Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+								Comparison = "<=",
+								Value = 1500,
+							},
+						},
+						{
+							{
+								Path = { "GameState", "ExorcisedNames", "ShadeFieldsGreyIdle" },
+								Comparison = "<",
+								Value = 2,
+							},
+						},
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 1,
+						Path = { "NumFishingPoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
+		},
+		FishingPointRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeToolsShop" },
+			},
+			{
+				SumPrevRooms = 2,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", },
+						NotHasAll = { "FishHCommon", "FishHRare", "FishHLegendary" },
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 1,
+						Path = { "NumExorcismPoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
+		},
+
+		IntroSequenceDuration = 0.0,
 
 		SuppressRewardSpawnSounds = true,
 
 		ChallengeSpawnRequirements =
 		{
+			{
+				PathFalse = { "CurrentRun", "ActiveBounty" },
+			},
 			{
 				Path = { "CurrentRun", "BiomeDepthCache", },
 				Comparison = ">=",
@@ -57,7 +327,6 @@ RoomSetData.H =
 		IneligibleRewards = { "Devotion" },
 		ZoomFraction = 0.75,
 		SoftClamp = 0.75,
-		--TargetMetaRewardsRatio = 0.30,
 		TargetMetaRewardsRatio = 0.0,
 		IndividualRewardStore = "RunProgress",
 
@@ -65,6 +334,11 @@ RoomSetData.H =
 
 		-- LocationText = "BiomeH",
 		SaveProfileLocationText = "BiomeH_Short",
+
+		NarrativeContextArt = "DialogueBackground_Fields",
+		NarrativeContextArtFlippable = false,
+
+		NemesisRewardMoveDistance = 200,
 
 		CloseTalentScreenGlobalVoiceLines = "FieldsRewardClaimedVoiceLines",
 
@@ -86,14 +360,7 @@ RoomSetData.H =
 				Args = RoomEventData.BountyInfoBannerArgs,
 				GameStateRequirements =
 				{
-					{
-						PathTrue = { "CurrentRun", "ActiveBounty" },
-					},
-					{
-						Path = { "SessionState", "MapLoads" },
-						Comparison = "<=",
-						Value = 1,
-					},
+					NamedRequirements = { "ShouldShowBountyInfoBanner" },
 				},
 			},
 		},
@@ -104,16 +371,16 @@ RoomSetData.H =
 				Args = RoomEventData.BountyInfoBannerArgs,
 				GameStateRequirements =
 				{
-					{
-						PathTrue = { "CurrentRun", "ActiveBounty" },
-					},
-					{
-						Path = { "SessionState", "MapLoads" },
-						Comparison = "<=",
-						Value = 1,
-					},
+					NamedRequirements = { "ShouldShowBountyInfoBanner" },
 				},
 			},
+		},
+
+		PostCombatReloadEvents =
+		{
+			{
+				FunctionName = "H_ReloadHideGhostWalls"
+			}
 		},
 
 		SwapSounds =
@@ -138,7 +405,7 @@ RoomSetData.H =
 			{
 				{
 					Path = { "CurrentRun", "CurrentRoom", "Name" },
-					IsNone = { "H_Bridge01", "H_MiniBoss01", "H_MiniBoss02", "H_PreBoss01" },
+					IsNone = { "H_Bridge01", "H_MiniBoss01", "H_MiniBoss02", "H_PreBoss01", "H_Combat15" },
 				},
 			},
 			TriggerCooldowns = { "MelFieldsMusingVoiceLines", "MelinoeAnyQuipSpeech" },
@@ -160,7 +427,7 @@ RoomSetData.H =
 				{
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsNone = { "H_Intro", "H_Bridge01", "H_Boss01" },
+						IsNone = { "H_Intro", "H_Bridge01", "H_Boss01", "H_Boss02", "H_MiniBoss01", "H_MiniBoss02" },
 					},
 					{
 						PathEmpty = { "MapState", "AggroedUnits" },
@@ -242,15 +509,11 @@ RoomSetData.H =
 		FamiliarsPreferSpawnPointMovement = true,
 		FrogFamiliarMaxLeapDistance = 900,
 
-		HarvestPointChances =
-		{
-			0,
-			0,
-			0,
-		},
-		ShovelPointChance = 0.0,
-		PickaxePointChance = 0.0,
-		ExorcismPointChance = 0.0,
+		HarvestPointChances = { 0.02, },
+		ShovelPointChance = 0.02,
+		PickaxePointChance = 0.02,
+		--ExorcismPointChance = 0.02,
+		FishingPointChance = 0.02,
 
 		StartUnthreadedEvents =
 		{
@@ -340,12 +603,16 @@ RoomSetData.H =
 			Threaded = true,
 			{
 				FunctionName = "DisplayInfoBanner",
-				Args = { Text = "Location_BiomeH", Delay = 1.5, },
+				Args =
+				{
+					Text = "Location_BiomeH",
+					AnimationName = "InfoBannerFieldsIn",
+					AnimationOutName = "InfoBannerFieldsOut",
+					Delay = 2.0,
+				},
 				GameStateRequirements =
 				{
-					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
-					},
+					NamedRequirementsFalse = { "ShouldShowBountyInfoBanner" },
 				},
 			},
 			{
@@ -353,9 +620,7 @@ RoomSetData.H =
 				Args = RoomEventData.BountyInfoBannerArgs,
 				GameStateRequirements =
 				{
-					{
-						PathTrue = { "CurrentRun", "ActiveBounty" },
-					},
+					NamedRequirements = { "ShouldShowBountyInfoBanner" },
 				},
 			},
 			{
@@ -363,12 +628,6 @@ RoomSetData.H =
 				Args =
 				{
 					ObjectiveSetName = "BountyAdvancedTooltip",
-				},
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "CurrentRun", "ActiveBounty" },
-					},
 				},
 			},
 		},
@@ -412,6 +671,8 @@ RoomSetData.H =
 							PreLineWait = 0.4,
 							UsePlayerSource = true,
 							RequiredMinElapsedTime = 3,
+							TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
 							{ Cue = "/VO/Melinoe_1115", Text = "Such a dreadful place..." },
 						},
 					},
@@ -443,6 +704,8 @@ RoomSetData.H =
 							PreLineWait = 0.4,
 							UsePlayerSource = true,
 							RequiredMinElapsedTime = 3,
+							TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
 							{ Cue = "/VO/MelinoeField_0816", Text = "It's rather bleak down here..." },
 						},
 					},
@@ -461,14 +724,13 @@ RoomSetData.H =
 		EnterVoiceLines =
 		{
 			TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
-			[1] = { GlobalVoiceLines = "StartPackagedBountyRunVoiceLines" },
-			[2] = { GlobalVoiceLines = "BiomeStateChangeStartVoiceLines" },
-			[3] =
+			{ GlobalVoiceLines = "StartPackagedBountyRunVoiceLines" },
+			{ GlobalVoiceLines = "BiomeStateChangeStartVoiceLines" },
 			{
 				RandomRemaining = true,
 				PreLineWait = 2.65,
 				SuccessiveChanceToPlayAll = 0.25,
-				TriggerCooldowns = { "MelinoeFieldsStartSpeech" },
+				TriggerCooldowns = { "MelinoeFieldsStartSpeech", "MelinoeAnyQuipSpeech" },
 
 				{ Cue = "/VO/MelinoeField_1055", Text = "Don't lose your way here, Mel...", PlayFirst = true, PlayOnce = true },
 				{ Cue = "/VO/MelinoeField_1056", Text = "There's no clear path in sight..." },
@@ -497,8 +759,6 @@ RoomSetData.H =
 		DisableRewardMagnetisim = true,
 		NoReroll = true,
 		TimerBlock = "StoryRoom",
-		AllowExorcismPreExitsUnlock = true,
-		AllowFishingPreExitsUnlock = true,
 		SkipNemesisSpawnPresentation = true,
 
 		ForcedRewards =
@@ -511,8 +771,9 @@ RoomSetData.H =
 						PathTrue = { "GameState", "RoomsEntered", "H_Boss01" },
 					},
 					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
+						PathFalse = { "CurrentRun", "Hero", "MutePermanent" },
 					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 			},
 			{
@@ -548,6 +809,17 @@ RoomSetData.H =
 				Comparison = ">=",
 				Value = 2,
 			},
+			{ -- Don't be the room before PreBoss
+				Path = { "CurrentRun", "RoomsEntered" },
+				SumOf =
+				{
+					"H_Combat01", "H_Combat02", "H_Combat03", "H_Combat04", "H_Combat05", "H_Combat06", "H_Combat07", "H_Combat08",
+					"H_Combat09", "H_Combat10", "H_Combat11", "H_Combat12", "H_Combat13", "H_Combat14", "H_Combat15",
+					"H_MiniBoss01", "H_MiniBoss02",
+				},
+				Comparison = "<",
+				Value = 3,
+			},
 		},
 
 		MaxCreationsThisRun = 1,
@@ -555,13 +827,91 @@ RoomSetData.H =
 
 		SecretSpawnChance = 0,
 
-		HarvestPointChances =
+		HarvestPointChances = { 0.75 },
+		ShovelPointChance = 0.5,
+		PickaxePointChance = 0.5,
+		ExorcismPointChance = 0.5,
+		FishingPointChance = 0.5,
+
+		HarvestPointRequirements =
 		{
-			0.5,
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantHMyrtle" },
+						Comparison = "<",
+						Value = 8,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+				},
+			},
 		},
-		ShovelPointChance = 0.75,
-		PickaxePointChance = 0.75,
-		ExorcismPointChance = 0.75,
+		ShovelPointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeToolsShop" },
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "PlantGCattailSeed" },
+				Comparison = ">=",
+				Value = 2,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantHWheatSeed" },
+						Comparison = "<",
+						Value = 6,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+				},
+			},
+		},
+		PickaxePointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "OreGLime" },
+				Comparison = ">=",
+				Value = 6,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "OreHGlassrock" },
+						Comparison = "<",
+						Value = 30,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+				},
+			},
+		},
 
 		ZoomFraction = 0.7,
 
@@ -573,7 +923,7 @@ RoomSetData.H =
 				FunctionName = "ActivateFamiliar",
 				GameStateRequirements =
 				{
-					-- hecuba appearance requirements; requires HecataGrantsFamiliars01 to be recruited
+					-- hecuba appearance requirements; requires HecateGrantsFamiliars01 to be recruited
 					{
 						PathFalse = { "GameState", "FamiliarsUnlocked", "HoundFamiliar" },
 					},
@@ -582,19 +932,18 @@ RoomSetData.H =
 						FunctionArgs = { Units = { "NPC_Nemesis_01", }, Alive = false },
 					},
 					{
-						Path = { "GameState", "EquippedFamiliar" },
-						IsAny = { "FrogFamiliar", "RavenFamiliar", "CatFamiliar" },
-					},
-					{
-						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeFamiliarUpgradeSystem" }
+						-- PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeFamiliarUpgradeSystem" }
 					},
 					{
 						Path = { "GameState", "LifetimeResourcesSpent", "FamiliarPoints" },
 						Comparison = ">=",
-						Value = 3,
+						Value = 2,
 					},
-					NamedRequirementsFalse = { "HecateFamiliarsInHub" },
-					ChanceToPlay = 0.75,
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
+					NamedRequirementsFalse = { "HecateFamiliarsInHub", "HecateMissing" },
+					ChanceToPlay = 0.8,
 				},
 				Args =
 				{
@@ -616,7 +965,7 @@ RoomSetData.H =
 									PreWait = 0.0,
 									AngleTowardHero = true,
 									SetAnimation = "Familiar_Hound_Greet",
-									Sound = "/VO/CerberusBarks",
+									Sound = "/SFX/Familiars/DogBarkDiscovery",
 									VoiceLines = { GlobalVoiceLines = "HoundReactionVoiceLines" },
 								},
 							},
@@ -635,7 +984,27 @@ RoomSetData.H =
 				Args =
 				{
 					ActivateUnitsByType = { "NPC_Charon_01", },
-					ActivateIdsByType = { "Shop", "Boat" },
+					ActivateIdsByGroup = { "Shop", "Boat" },
+				},
+			},
+			{
+				FunctionName = "ActivatePrePlacedObstacles",
+				Args = { Groups = { "RockFaces1" } },
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "EchoAboutNarcissus07" }
+					},
+				},
+			},
+			{
+				FunctionName = "ActivatePrePlacedObstacles",
+				Args = { Groups = { "RockFaces2", "EchoGhosts" } },
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "EchoAboutNarcissus07" }
+					},
 				},
 			},
 		},
@@ -802,6 +1171,8 @@ RoomSetData.H =
 		PickaxePointChance = 0.45,
 		ExorcismPointChance = 0.40,
 
+		HoundFamiliarMovementRequiresLineOfSight = true,
+
 		ForcedRewardStore = "RunProgress",
 		EligibleRewards = { "Boon" },
 		-- BoonRaritiesOverride = { Legendary = 0.1, Epic = 0.25, Rare = 0.90 },
@@ -859,7 +1230,7 @@ RoomSetData.H =
 	{
 		InheritFrom = { "BaseH" },
 	
-		LinkedRoom = "H_Boss01",
+		LinkedRooms = { "H_Boss01", "H_Boss02" },
 
 		ZoomFraction = 0.7,
 
@@ -879,14 +1250,8 @@ RoomSetData.H =
 				Value = 4,
 			},
 		},
-
-		HarvestPointChances =
-		{
-			0.4,
-		},
-		ShovelPointChance = 0.50,
-		PickaxePointChance = 0.45,
-		ExorcismPointChance = 0.40,
+		
+		ZagContractRewardDestinationId = 776337,
 
 		FamiliarsPreferSpawnPointMovement = true,
 		FrogFamiliarMaxLeapDistance = 800,
@@ -910,6 +1275,12 @@ RoomSetData.H =
 
 		IgnoreStemMixer = true,
 		MusicMutedStems = { "Drums", "Bass", "Guitar", },
+
+		HarvestPointChances = { 0.33 },
+		ShovelPointChance = 0.33,
+		PickaxePointChance = 0.33,
+		ExorcismPointChance = 0.33,
+		FishingPointChance = 0.33,
 
 		InspectPoints =
 		{
@@ -949,6 +1320,12 @@ RoomSetData.H =
 					{
 						PathTrue = { "GameState", "EnemyKills", "InfestedCerberus" }
 					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "I_Story01" },
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" }
+					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
@@ -974,14 +1351,31 @@ RoomSetData.H =
 	H_Boss01 =
 	{
 		InheritFrom = { "BaseH" },
+		GameStateRequirements =
+		{
+			{
+				FunctionName = "RequiredShrineLevel",
+				FunctionArgs =
+				{
+					ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+					Comparison = "<",
+					Value = 3,
+				},
+			},
+		},
 
 		HasFishingPoint = false,
+
+		BackupCauseOfDeath = "InfestedCerberus",
 
 		RequiresLinked = true,
 		LinkedRoom = "H_PostBoss01",
 		ExitPreviewAnim = "ExitDownPreview",
+		RewardPreviewIcon = "RoomRewardSubIcon_Boss",
 		ExitFunctionName = "LeaveRoomHBossPresentation",
 		NoReroll = true,
+		NarrativeContextArt = "nil",
+		SuppressRewardSpawnSounds = false,
 
 		ResetBinksOnEnter = true,
 		ResetBinksOnExit = true,
@@ -1013,77 +1407,14 @@ RoomSetData.H =
 		{
 			{
 				FunctionName = "H_BossReloadCleanup"
+			},
+			{
+				FunctionName = "H_ReloadHideGhostWalls"
 			}
 		},
 
 		EntranceDirection = "Right",
 		FlipHorizontalChance = 0.0,
-
-		ObstacleData =
-		{
-			-- Supportive Shade: fear not for the good Shade, who is doing well, comparatively speaking, but not yet ready to come forth
-			[723309] =
-			{
-				Name = "DieHardFanShade",
-				EmoteOffsetZ = 10,
-				SetupGameStateRequirements =
-				{
-					-- currently out on leave exploring the fields
-					{
-						Path = { "GameState", "UseRecord", "DieHardFanShade" },
-						Comparison = ">=",
-						Value = 9999,
-					},
-				},
-				DestroyIfNotSetup = true,
-
-				SpecialInteractFunctionName = "SpecialInteractShade",
-				UseTextSpecial = "SpecialInteractShade",
-
-				-- UseSound = "/Leftovers/World Sounds/CaravanCreak",
-				-- ShakeSelf = true,
-				InteractDistance = 200,
-				DistanceTriggers =
-				{
-					{
-						WithinDistance = 1300,
-						ChanceToPlay = 0.25,
-						TriggerOnceThisRun = true,
-						FunctionName = "PlayEmoteSimple",
-						Args =
-						{
-							TargetId = 555807,
-							AnimationName = "StatusIconGrief",
-						},
-					},
-					--[[
-					{
-						WithinDistance = 100,
-						ChanceToPlay = 0.25,
-						VoiceLines =
-						{
-							BreakIfPlayed = true,
-							RandomRemaining = true,
-							UsePlayerSource = true,
-							PlayOnceFromTableThisRun = true,
-							PreLineThreadedFunctionName = "PlayEmoteSimple",
-							PreLineThreadedFunctionArgs =
-							{
-								TargetId = 555807,
-								Delay = 2.1,
-								AnimationName = "StatusIconSmile",
-							},
-
-							-- { Cue = "/VO/Melinoe_0342", Text = "Shades of the Crossroads, greetings." },
-							-- { Cue = "/VO/Melinoe_0344", Text = "Hail, Shades!" },
-							-- { Cue = "/VO/Melinoe_0346", Text = "Stay strong, my friends.", PlayFirst = true },
-						},
-					},
-					]]--
-				},
-			},
-		},
-
 
 		LeavePostPresentationEvents =
 		{
@@ -1147,7 +1478,9 @@ RoomSetData.H =
 				SetupGameStateRequirements =
 				{
 					{
-						--
+						Path = { "GameState", "EnemyKills", "InfestedCerberus" },
+						Comparison = ">=",
+						Value = 2,
 					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
@@ -1162,6 +1495,13 @@ RoomSetData.H =
 							PreLineWait = 0.4,
 							UsePlayerSource = true,
 							RequiredMinElapsedTime = 3,
+							GameStateRequirements =
+							{
+								{
+									PathFalse = { "GameState", "ReachedTrueEnding" }
+								},
+							},
+
 							{ Cue = "/VO/MelinoeField_0821", Text = "Only the most wretched, serving Chronos..." },
 						},
 					},
@@ -1176,6 +1516,9 @@ RoomSetData.H =
 				{
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "Inspect_H_Boss_02" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" }
 					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
@@ -1222,16 +1565,197 @@ RoomSetData.H =
 
 	},
 
+	H_Boss02 =
+	{
+		InheritFrom = { "BaseH" },
+		Ambience = "/Leftovers/Ambience/BurningAmbience",
+
+		GameStateRequirements =
+		{
+			{
+				FunctionName = "RequiredShrineLevel",
+				FunctionArgs =
+				{
+					ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+					Comparison = ">=",
+					Value = 3,
+				},
+			},
+		},
+
+		HasFishingPoint = false,
+		HasHarvestPoint = false,
+		HasShovelPoint = false,
+		HasPickaxePoint = false,
+
+		BackupCauseOfDeath = "InfestedCerberus",
+
+		RequiresLinked = true,
+		LinkedRoom = "H_PostBoss01",
+		ExitPreviewAnim = "ExitDownPreview",
+		RewardPreviewIcon = "RoomRewardSubIcon_Boss",
+		ExitFunctionName = "LeaveRoomHBossPresentation",
+		NoReroll = true,
+		NarrativeContextArt = "nil",
+		SuppressRewardSpawnSounds = false,
+
+		ResetBinksOnEnter = true,
+		ResetBinksOnExit = true,
+		LegalEncounters = { "BossInfestedCerberus02", },
+		ForcedReward = "MixerHBossDrop",
+
+		EntranceFunctionName = "RoomEntranceBossFields",
+		EntranceFunctionArgs = { AngleTowardsIdOnEnd = 738212 },
+		IntroSequenceDuration = 0.95,
+		BlockCameraReattach = true,
+		ZoomFraction = 0.69,
+		ThreadEnterVoiceLines = true,
+
+		UnthreadedEvents =
+		{
+			{
+				FunctionName = "BossIntro",
+				Args =
+				{
+					ProcessTextLinesIds = { 738212 },
+					SetupBossIds = { 738212 },
+					UnlockDelay = 3.0,
+					DelayedStart = true,
+				},
+			},
+		},
+
+		LeavePostPresentationEvents =
+		{
+			{
+				FunctionName = "BiomeMapPresentation",
+				Args =
+				{
+					HeroStartOffsetX = 40 + 670 - 60,
+					HeroStartOffsetY = 880 + 210,
+
+					FamiliarStartOffsetX = -75 + 670 + 155,
+					FamiliarStartOffsetY = 880 + 210 - 40,
+
+					HeroMoveOffsetX = -600,
+					HeroMoveOffsetY = 440,
+					HeroMoveDuration = 1.4,
+
+					FamiliarMoveOffsetX = -600,
+					FamiliarMoveOffsetY = 440,
+					FamiliarMoveDuration = 1.4,
+
+					MoveEaseIn = 0.5,
+					MoveEaseOut = 1.0,
+
+					CameraEndOffsetY = -160,
+
+					BiomeStart = "BiomeH",
+					BiomeEnd = "BiomeI",
+					PreviousBiomes = { "BiomeF", "BiomeG" },
+
+					ShrineBounty = "BossChronos01",
+					
+					CrossroadsStart = false,
+
+					ExtraObjects =
+					{
+						{
+							Name = "BlankObstacle3D",
+							Model = "BannerMarker_Mesh",
+							Animation = "BannerMarkerIdle",
+							OffsetX = 10,
+							OffsetY = 1520,
+							Angle = 305,
+						},
+					},
+					
+				},
+				GameStateRequirements =
+				{
+					-- None
+				}
+			},
+		},
+
+		PostCombatReloadEvents =
+		{
+			{
+				FunctionName = "H_BossReloadCleanup"
+			},
+			{
+				FunctionName = "H_ReloadHideGhostWalls"
+			}
+		},
+
+		EntranceDirection = "Right",
+		FlipHorizontalChance = 0.0,
+
+		InspectPoints =
+		{
+			[792151] =
+			{
+				PlayOnce = true,
+				UseText = "UseExamineMisc",
+				SetupGameStateRequirements =
+				{
+					NamedRequirements = { "NoRecentInspectPointUsed" },
+				},
+				InteractTextLineSets =
+				{
+					Inspect_H_Boss02_01 =
+					{
+						{ Cue = "/VO/Storyteller_0421",
+							Text = "{#Emph}The fear-invoking greater daemons that took hold of Cerberus have scattered into dark recesses, terrified perhaps by the sheer might of our Princess." },
+						EndVoiceLines =
+						{
+							PreLineWait = 0.4,
+							UsePlayerSource = true,
+							RequiredMinElapsedTime = 3,
+							{ Cue = "/VO/MelinoeField_3614", Text = "I don't even really mind the heat." },
+						},
+					},
+				},
+			},
+			[793949] =
+			{
+				PlayOnce = true,
+				UseText = "UseExamineMisc",
+				SetupGameStateRequirements =
+				{
+					NamedRequirements = { "NoRecentInspectPointUsed" },
+				},
+				InteractTextLineSets =
+				{
+					Inspect_H_Boss02_02 =
+					{
+						{ Cue = "/VO/Storyteller_0456",
+							Text = "{#Emph}Apocalyptic hellfire for which the triple-headed monster Cerberus is known engulfs this portion of the miserable Fields; the Fear yet hanging in the air providing fuel." },
+						EndVoiceLines =
+						{
+							PreLineWait = 0.4,
+							UsePlayerSource = true,
+							RequiredMinElapsedTime = 3,
+							{ Cue = "/VO/MelinoeField_3654", Text = "Heard Asphodel would overflow like this." },
+						},
+					},
+				},
+			},
+		},
+	},
+
 	H_PostBoss01 =
 	{
 		InheritFrom = { "BaseH" },
+		RichPresence = "#RichPresence_PostBossUnderworld",
 		LegalEncounters = { "Empty" },
 		HasFishingPoint = false,
 		HasHarvestPoint = false,
 		HasShovelPoint = false,
 		HasPickaxePoint = false,
+		HasExorcismPoint = false,
 		Ambience = "/Ambience/ClockworkTartarusAmbience",
-		ChallengeSwitchCannotUseText = "ExitBlockedByReprieve",
+		ChallengeSwitchCannotUseText = "nil",
 		SellShopSpawnChance = 1.0,
 		SellShopRequirements =
 		{
@@ -1251,7 +1775,6 @@ RoomSetData.H =
 		NextRoomSet = { "I", },
 		LinkedRoom = "I_Intro",
 		ExitPreviewAnim = "ExitDownPreview",
-		RichPresence = "#RichPresence_PostBoss",
 		IgnoreMusic = true,
 		BlockRunProgressUI = true,
 		EntranceDirection = "Right",
@@ -1289,11 +1812,17 @@ RoomSetData.H =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlay = 0.5,
-				GameStateRequirements =
-				{
-					-- { FunctionName = "RequiredAlive", FunctionArgs = { Ids = { 561902 }, Alive = false }, },
-				},
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
 
+				{ Cue = "/VO/MelinoeField_3507", Text = "That Pool of Purging is restored.", PlayFirst = true, PlayOnce = true,
+					PreLineWait = 1.3,
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeRestoreSellTraitShop" },
+						},
+					},
+				},
 				{ Cue = "/VO/MelinoeField_1257", Text = "The old service hall..." },
 				{ Cue = "/VO/MelinoeField_1258", Text = "Made it back here..." },
 				{ Cue = "/VO/MelinoeField_1259", Text = "So much dust..." },
@@ -1352,10 +1881,26 @@ RoomSetData.H =
 			{
 				Template = "ChallengeSwitchBase",
 				Activate = true,
-				ActivateIds = { 486371 },
 				SetupGameStateRequirements =
 				{
 					-- None
+				},
+				SetupEvents =
+				{
+					{
+						FunctionName = "GenericPresentation",
+						Args =
+						{
+							ActivateIds = { 755099 },
+						},
+						GameStateRequirements =
+						{
+							{
+								Path = { "GameState", "WorldUpgrades" },
+								HasAny = { "WorldUpgradeRestoreSellTraitShop", "WorldUpgradePostBossSellTraitShops" },
+							},
+						},
+					},
 				},
 			},
 

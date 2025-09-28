@@ -1,0 +1,533 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyBoarBaseAnimation"
+		
+		GrannyModel = "ErymanthianBoar_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	// IDLE
+	{
+		Name = "Enemy_Boar_Idle"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_Idle_00_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Boar_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Boar_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	// MOVE
+	{
+		Name = "Enemy_Boar_MoveStart"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_Move_Start_00_C_00"
+		NativeMoveSpeed = 450
+		ChainTo = "Enemy_Boar_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Boar_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Boar_MoveStop"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Boar_Move"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_Move_00_C_00"
+		NativeMoveSpeed = 450
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 6
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+			{
+				Frame = 12
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+			{
+				Frame = 42
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Boar_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Boar_MoveStop"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_Move_Stop_00_C_00"
+		NativeMoveSpeed = 450
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Boar_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Boar_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Boar_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	/*
+	{
+		Name = "Enemy_Boar_OnHit"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_OnHit_00_C_00"
+		CancelOnOwnerMove = true
+		AllowRestart = true
+		ChainTo = "Enemy_Boar_Idle"
+	}
+	*/
+
+	{
+		Name = "Enemy_Boar_Roar"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_Roar_00_C_00"
+		GrannyAnimationSpeed = 1.1
+		CancelOnOwnerMove = true
+		Frames =
+		[
+			{
+				Frame = 40
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+			{
+				Frame = 82
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Boar_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	// BACK KICK
+	{
+		Name = "Enemy_Boar_BackKickPreFire"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_BackKickPreFire_00_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 25
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Boar_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Boar_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Boar_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Boar_MoveStop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Boar_BackKickFire"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_BackKickFire_00_C_00"
+		ChainTo = "Enemy_Boar_BackKickPostFire"
+	}
+
+	{
+		Name = "Enemy_Boar_BackKickPostFire"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_BackKickPostFire_00_C_00"
+		ChainTo = "Enemy_Boar_Idle"
+	}
+
+	// POUND
+	{
+		Name = "Enemy_Boar_PoundPreFire"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_PoundPreFire_00_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 10
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+			{
+				Frame = 42
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Boar_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Boar_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Boar_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Boar_MoveStop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Boar_PoundFire"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_PoundFire_00_C_00"
+		ChainTo = "Enemy_Boar_PoundPostFire"
+	}
+
+	{
+		Name = "Enemy_Boar_PoundPostFire"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_PoundPostFire_00_C_00"
+		ChainTo = "Enemy_Boar_Idle"
+		Frames =
+		[
+			{
+				Frame = 33
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+			{
+				Frame = 39
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+		]
+	}
+
+	// RUSH
+	{
+		Name = "Enemy_Boar_RushPreFire"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_RushPreFire_00_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/EmoteCharging1"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Boar_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Boar_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Boar_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Boar_MoveStop"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Boar_RushPreFireFast"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_RushPreFire_00_C_00"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 2.0
+	}
+
+	{
+		Name = "Enemy_Boar_RushFire"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_RushFire_00_C_00"
+		NativeMoveSpeed = 600
+		ChainTo = "Enemy_Boar_RushMoveLoop"
+	}
+
+	{
+		Name = "Enemy_Boar_RushMoveLoop"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_Rush_Move_00_C_00"
+		NativeMoveSpeed = 600
+		Loop = true
+		CancelOnOwnerMove = false
+		Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/EmoteChargingLoop2"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "Enemy_Boar_RushPostFire"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_RushPostFire_00_C_00"
+		OwnerImmobile = true
+		DisableOwnerRotation = true
+		ChainTo = "Enemy_Boar_Idle"
+		Frames =
+		[
+			{
+				Frame = 20
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+			{
+				Frame = 38
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+			{
+				Frame = 45
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+			{
+				Frame = 52
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFallFlop"
+			}
+			{
+				Frame = 117
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+			{
+				Frame = 144
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Boar_RushPreFire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Boar_RushFire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Boar_RushMoveLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Boar_RushWallSlam"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_RushWallSlam_00_C_00"
+		OwnerImmobile = true
+		DisableOwnerRotation = true
+		ChainTo = "Enemy_Boar_Idle"
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/EmoteGrunting"
+			}
+			{
+				Frame = 34
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFallFlop"
+			}
+			{
+				Frame = 128
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+			{
+				Frame = 130
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/EmoteAttacking1"
+			}
+			{
+				Frame = 150
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+			{
+				Frame = 169
+				Sound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarFootstep"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Boar_RushPreFire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Boar_RushFire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Boar_RushMoveLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Boar_Miniboss_Death"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_RushWallSlam_00_C_00"
+		Duration = 6.0
+		DeathFxFrameDuration = 360
+		DeathFxColor = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/TheseusMinotaurDeathSFX"
+		VisualFx = "BossDeathParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 36
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		DisableOwnerRotation = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 20
+				FrameSpeed = 0.6
+			}
+			{
+				Frame = 30
+				FrameSpeed = 1
+			}
+			{
+				Frame = 90
+				FrameSpeed = 0.001
+			}
+		]
+	}
+
+	// DEATH
+	{
+		Name = "Enemy_Boar_Death"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_OnHit_00_C_00"
+		AngleFromOwner = "Take"
+		RequireCurrentAnimationNotContains = null
+		AllowRestart = true
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear3"
+		Duration = 1.0
+		GrannyAnimationSpeed = 0.1
+		DeathFxFrameDuration = 90
+		DeathFxColor = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.0
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.01
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		ChainTo = null
+		VisualFx = "EnemyDeathPopUndeadLarge"
+		VisualFxCap = 6
+		VisualFxIntervalMin = 0.04
+		VisualFxIntervalMax = 0.08
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 18
+			}
+		]
+	}
+
+	/*
+	{
+		Name = "Enemy_Boar_RushOnHit"
+		InheritFrom = "EnemyBoarBaseAnimation"
+		GrannyAnimation = "ErymanthianBoar_Base_Rush_OnHit_00_C_00"
+		OwnerImmobile = true
+	}
+	*/
+]}

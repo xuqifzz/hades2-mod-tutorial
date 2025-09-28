@@ -51,6 +51,8 @@
 		VisualFxManagerCap = 200
 		VisualFxManagerFrameCap = 10
 		OnlyWhenVisible = true
+		DisableInvisibleAnimRender = true
+
 	}
 	
 	{
@@ -363,6 +365,7 @@
 		VisualFxIntervalMax = 0.06
 		VisualFxIntervalMin = 0.05
 		OnlyWhenVisible = true
+		DisableInvisibleAnimRender = true
 	}
 	{
 		Name = "RosePetals"
@@ -386,7 +389,7 @@
 		AngleFromOwner = "Take"
 		AngleMax = -85.0
 		AngleMin = -95.0
-		ColorFromOwner = "Take"
+		ColorFromOwner = "Maintain"
 		EndFrame = 90
 		NumFrames = 90
 		RandomDurationMax = 4.0
@@ -1318,7 +1321,7 @@
 		//ChildAnimation = "PerfectClearSwitchFx_Unlocked"
 		Duration = 1
 		Loop = true
-		Sound = "/Ambience/ExitDoorAmbienceSmall"
+		Sound = "/SFX/PerfectClearUnlockedAmbientLoop"
 		StopSoundOnFinishFade = 0.25
 	}
 	
@@ -1378,7 +1381,7 @@
 		ChainTo = null
 		Loop = true
 		NumFrames = 60
-		Sound = "/Ambience/ExitDoorAmbienceSmall"
+		Sound = "/SFX/PerfectClearUnlockedAmbientLoop"
 		StopSoundOnFinishFade = 0.2
 	}
 	
@@ -1430,7 +1433,7 @@
 		//ChildAnimation = "EliteChallengeSwitchFx_Unlocked"
 		Duration = 1
 		Loop = true
-		Sound = "/Leftovers/Ambience/StarPickerAmbienceLoop"
+		Sound = "/SFX/EliteChallengeUnlockedAmbientLoop"
 		StopSoundOnFinishFade = 0.25
 	}
 
@@ -1528,7 +1531,7 @@
 		ChainTo = null
 		NumFrames = 60
 		FilePath = "Fx\ChallengeSwitch\EliteChallengeSwitchOpenLoop\EliteChallengeSwitchOpenLoop"
-		Sound = "/Leftovers/Ambience/StarPickerAmbienceLoop"
+		Sound = "/SFX/EliteChallengeUnlockedAmbientLoop"
 		StopSoundOnFinishFade = 0.2
 	}
 	
@@ -1712,6 +1715,178 @@
       Sound = "/SFX/SellTraitShopBloodFountainLoop"
       StopSoundOnFinishFade = 0.3
     }
+	{
+	  Name = "SellTraitShopUnusable"
+	  FilePath = "Tilesets\Gameplay\Gameplay_SellTraitShop_01_Empty"
+	  Scale = 0.25
+	  OffsetY = -50
+	}
+
+	{
+	  Name = "MetaRewardStandLocked"
+	  FilePath = "Tilesets\Gameplay\Gameplay_MetaRewardStandLocked"
+	  Scale = 0.5
+	  CreateAnimation = "MetaRewardStandLockedFx"
+	}
+
+	{
+		Name = "MetaRewardStandItemShadow"
+		FilePath = "Fx\LootShadow\LootShadow"
+		Duration = 2
+		StartAlpha = 0.9
+		EndAlpha = 0.8
+		EaseIn = 0
+		EaseOut = 1
+		Loop = true
+		PingPongColor = true
+		OffsetZ = -45
+		Scale = 1.25
+		AddColor = true
+		Red = 0.025
+		Green = 0
+		Blue = 0.05
+		DrawBehindOwner = true
+		DieWithOwner = true
+	}
+
+	{
+		Name = "MetaRewardStandLockedFx"
+		FilePath = "Fx\MetaRewardStandLockedFx\MetaRewardStandLockedFx"
+		NumFrames = 45
+		GroupName = "FX_Standing_Add"
+		PlaySpeed = 30
+		Loop = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OriginX = 170
+		OriginY = 170
+		OffsetZ = 90
+		DieWithOwner = true
+		TransferFrameFromThis = true
+		ChainTo = "MetaRewardStandLockedFxFade"
+	}
+
+	{
+		Name = "MetaRewardStandLockedFxFade"
+		InheritFrom = "MetaRewardStandLockedFx"
+		StartAlpha = 1
+		EndAlpha = 0
+		TransferFrameToThis = true
+		Duration = 0.3
+		EaseIn = 0
+		EaseOut = 1
+		Loop = false
+		LoopFramesOnly = true
+		ChainTo = null
+	}
+
+	{
+		Name = "MetaRewardStandUnlocked"
+		FilePath = "Fx\Gameplay_MetaRewardStandUnlock\Gameplay_MetaRewardStandUnlock"
+		NumFrames = 15
+		PlaySpeed = 30
+		HoldLastFrame = true
+		VisualFx = "MetaRewardStandUnlockedParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 32
+		CreateAnimations = [
+			{ Name = "MetaRewardStandUnlockedDust" }
+		]
+		Slides =
+		[
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			// Frame 10
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			// Frame 15
+		]
+	}
+
+	{
+		Name = "MetaRewardStandUnlockedParticles"
+		Random = [
+			{ Name = "MetaRewardStandUnlockedParticleA" }
+			{ Name = "MetaRewardStandUnlockedParticleB" }
+		]
+	}
+
+	{
+		Name = "MetaRewardStandUnlockedParticleA"
+		FilePath = "Particles\particle_addFlake2"
+		StartRed = 0.7
+		StartGreen = 0.01
+		StartBlue = 1.0
+		EndRed = 0.0
+		EndGreen = 0
+		EndBlue = 0.99
+		RandomDurationMin = 1.4
+		RandomDurationMax = 1.8
+		Angle = 90
+		RandomOffsetX = 80
+		RandomOffsetY = 40
+		VelocityMin = 230
+		VelocityMax = 400
+		Acceleration = -300
+		OffsetZ = 100
+		Material = "Unlit"
+		GroupName = "FX_Add_Top"
+		SortMode = "FromParent"
+		ScaleMin = 0.5
+		ScaleMax = 1.2
+		Scale = 0.4
+		EaseIn = 0.9
+		EaseOut = 1
+		StartScale = 1
+		EndScale = 0
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		RandomRotation = true
+	}
+
+	{
+		Name = "MetaRewardStandUnlockedParticleB"
+		InheritFrom = "MetaRewardStandUnlockedParticleA"
+		AddColor = false
+	}
+
+	{
+		Name = "MetaRewardStandUnlockedDust"
+		FilePath = "Fx\ShipsDustTerrain\ShipsDustTerrain"
+		NumFrames = 42
+		PlaySpeed = 50
+		Alpha = 0.33
+		RandomFlipHorizontal = true
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Terrain"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+	}
+
+	{
+	  Name = "MetaRewardStandUnlockedStatic"
+	  InheritFrom = "MetaRewardStandLocked"
+	  CreateAnimation = null
+	  Duration = 1
+	  Loop = true
+	  FilePath = "Tilesets\Gameplay\Gameplay_MetaRewardStandUnlocked"
+	}
 
 	{
 		Name = "ChaosShiftFx"
@@ -1769,34 +1944,6 @@
 	{
 		Name = "SecretDoor_RevealedWalkable"
 		InheritFrom = "SecretDoor_Revealed"
-		OwnerHasNoCollision = true
-	}
-
-	{
-		Name = "ShrinePointDoor_Closed"
-		InheritFrom = "SecretDoor_Closed"
-		FilePath = "Tilesets\Tartarus\Tartarus_ShrinePointClosed_01"
-	}
-	
-	{
-		Name = "ShrinePointDoor_Default"
-		InheritFrom = "ShrinePointDoor_Closed"
-		ChainTo = "ShrinePointDoor_Closed"
-		Duration = 0.01
-		OwnerHasNoCollision = false
-	}
-	
-	{
-		Name = "ShrinePointDoor_Revealed"
-		InheritFrom = "SecretDoor_Revealed"
-		CreateAnimation = "ShrineDoorOpen"
-		FilePath = "Tilesets\Tartarus\Tartarus_ShrinePointOpen_01"
-		Sound = "/SFX/HeatGateAmbientLoop"
-	}
-	
-	{
-		Name = "ShrinePointDoor_RevealedWalkable"
-		InheritFrom = "ShrinePointDoor_Revealed"
 		OwnerHasNoCollision = true
 	}
 
@@ -1980,6 +2127,12 @@
 	}
 
 	{
+		Name = "SingleBatWhite"
+		InheritFrom = "SingleBat"
+		AddColor = true
+	}
+
+	{
 		Name = "PillarHitFx"
 		InheritFrom = "InvincibleHitSpark"
 		VisualFx = "PillarHitDustA"
@@ -2055,6 +2208,60 @@
 		NumFrames = 50
 		RandomPlaySpeedMax = 40.0
 		RandomPlaySpeedMin = 30.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		OriginX = 30.0
+		OriginY = 54.0
+		Ambient = 0.0
+		OnlyWhenVisible = true
+	}
+
+	{
+		Name = "ScribbleA"
+		FilePath = "Fx\ScribbleA\Scribble"
+		
+		EndFrame = 3
+		Loop = true
+		NumFrames = 3
+		RandomPlaySpeedMax = 15
+		RandomPlaySpeedMin = 11
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		OriginX = 30.0
+		OriginY = 54.0
+		Ambient = 0.0
+		OnlyWhenVisible = true
+	}
+
+	{
+		Name = "ScribbleB"
+		FilePath = "Fx\ScribbleB\Scribble"
+		
+		EndFrame = 4
+		Loop = true
+		NumFrames = 4
+		RandomPlaySpeedMax = 10
+		RandomPlaySpeedMin = 8
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		OriginX = 30.0
+		OriginY = 54.0
+		Ambient = 0.0
+		OnlyWhenVisible = true
+	}
+
+	{
+		Name = "ScribbleC"
+		FilePath = "Fx\ScribbleC\Scribble"
+		
+		EndFrame = 10
+		Loop = true
+		NumFrames = 10
+		RandomPlaySpeedMax = 10
+		RandomPlaySpeedMin = 8
 		RandomStartFrame = true
 		ReRandomizeOnLoop = false
 		StartFrame = 1
@@ -2307,6 +2514,7 @@
 		VisualFxManagerCap = 200
 		VisualFxManagerFrameCap = 10
 		OnlyWhenVisible = true
+		DisableInvisibleAnimRender = true
 	}
 	
 	{
@@ -2789,10 +2997,34 @@
 	}
 
 	{
+		Name = "ManaFountainUsedFx"
+		FilePath = "Particles\particle_glow_egg"
+		StartRed = 0.5
+		StartGreen = 0.9
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0.5
+		EndBlue = 0.999
+		Duration = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		ScaleFromOwner = "Ignore"
+		OffsetZ = 60
+		CreateAnimations = [
+			{ Name = "ManaFountainRefillFlare" }
+			{ Name = "ManaFountainRefillFlare2" }
+		]
+	}
+
+	{
 		Name = "ManaFountainFullStart"
-		ChildAnimation = "ManaFountainSmoke"
 		FilePath = "Tilesets\Gameplay\Gameplay_ManaFountain_On01"
-		
 		Sound = "/SFX/Object Ambiences/MoneyChimeLoop"
 		StopSoundOnFinishFade = 0.3
 		EndFrame = 1
@@ -2802,11 +3034,152 @@
 		Scale = 0.5
 		SoundAllowedAfterFrame = -1
 		Material = "Emissive"
+		Duration = 1
+		Loop = true
+		ChildAnimation = "ManaFountainTabletFull"
+		CreateAnimations = [
+			{ Name = "ManaFountainSmokeBase" }
+			{ Name = "ManaFountainRefillFx" }
+		]
+	}
+
+	{
+		Name = "ManaFountainRefillFx"
+		FilePath = "Fx\ManaFountainTabletShine\ManaFountainTabletShine"
+		NumFrames = 25
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		ScaleY = 2
+		OffsetZ = 120
+		EaseIn = 0.9
+		EaseOut = 1.0
+		PlaySpeed = 120
+		CreateAnimations = [
+			{ Name = "ManaFountainRefillFlare" }
+			{ Name = "ManaFountainRefillFlare2" }
+			{ Name = "ManaFountainRefillSmoke" }
+		]
+	}
+
+	{
+		Name = "ManaFountainRefillFlare"
+		FilePath = "Particles\particle_addFlare"
+		Material = "Unlit"
+		Duration = 0.25
+		EaseIn = 0.9
+		EaseOut = 1.0
+		GroupName = "FX_Standing_Add"
+		RandomRotation = true
+		AddColor = true
+		StartRed = 0.8
+		StartGreen = 1.0
+		StartBlue = 0.9
+		EndRed = 0
+		EndGreen = 0.5
+		EndBlue = 1.0
+		ScaleFromOwner = "Ignore"
+		StartScale = 1.2
+		EndScale = 0
+		OffsetZ = 55
+	}
+
+	{
+		Name = "ManaFountainRefillFlare2"
+		InheritFrom = "ManaFountainRefillFlare"
+		FilePath = "Particles\particle_flareSpike"
+		Angle = 270
+		AngleFromOwner = "Ignore"
+		RandomRotation = false
+		Scale = 0.66
+		OriginX = 600
+		OriginY = 128
+		OffsetZ = 55
+	}
+
+	{
+		Name = "ManaFountainRefillSmoke"
+		FilePath = "Fx\ManaFountainSmoke\ManaFountainSmoke"
+		NumFrames = 45
+		LoopFramesOnly = true
+		PlaySpeed = 30
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Loop = false
+		Duration = 1.5
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.5
+		EaseOut = 1.0
+		ScaleX = 0.5
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		Scale = 1
+		ScaleFromOwner = "Ignore"
+		OffsetZ = 120
+		StartOffsetZ = 0
+		EndOffsetZ = 200
+		StartScaleY = 1
+		EndScaleY = 2
+	}
+
+	{
+		Name = "ManaFountainTabletFull"
+		FilePath = "Tilesets\Gameplay\Gameplay_ManaFountain_Tablet"
+		Duration = 2
+		Loop = true
+		Material = "Unlit"
+		Scale = 0.5
+		OffsetZ = 140
+		StartOffsetZ = -10
+		EndOffsetZ = 5
+		PingPongShiftOverDuration = true
+		EaseIn = 0
+		EaseOut = 1
+		OffsetX = 10
+		HoldLastFrame = false
+	}
+
+	{
+		Name = "ManaFountainTabletEmpty"
+		InheritFrom = "ManaFountainTabletFull"
+		VisualFx = null
+		StartOffsetZ = -10
+		EndOffsetZ = -5
+		Material = "Default"
+		ChildAnimation = null
+	}
+
+	{
+		Name = "ManaFountainTabletShine"
+		FilePath = "Fx\ManaFountainTabletShine\ManaFountainTabletShine"
+		NumFrames = 25
+		PlaySpeed = 45
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Scale = 12
+		OffsetX = 10
+		OffsetZ = -10
+	}
+
+	{
+		Name = "ManaFountainEmpty"
+		InheritFrom = "ManaFountainFullStart"
+		ClearCreateAnimations = true
+		FilePath = "Tilesets\Gameplay\Gameplay_ManaFountain_Off01"
+		Sound = "/EmptyCue"
+		ChildAnimation = "ManaFountainTabletEmpty"
 	}
 
 	{
 		Name = "ManaFountainSmokeBase"
-		
 		FilePath = "Fx\ManaFountainSmoke\ManaFountainSmoke"
 		NumFrames = 45
 		PlaySpeed = 30
@@ -2815,46 +3188,100 @@
 		ScaleFromOwner = "Ignore"
 		GroupName = "FX_Standing_Add"
 		OriginX = 100
-		OriginY = 273
-		ChildAnimation = "ManaFountainRainbow"
+		OriginY = 310
+		Scale = 0.66
+		Alpha = 0.5
+		Material = "Unlit"
+		VisualFx = "ManaFountainSparklesRandom"
+		VisualFxIntervalMin = 0.08
+		VisualFxIntervalMax = 0.12
+		CreateAnimations = [
+			{ Name = "ManaFountainRainbow" }
+			{ Name = "ManaFountainGlow" }
+		]
+	}
+
+	{
+		Name = "ManaFountainGlow"
+		FilePath = "Particles\particle_glow_egg"
+		Red = 0.4
+		Green = 0.85
+		Blue = 1.0
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.3
+		EndAlpha = 1
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 2
+		Alpha = 0.5
+		Scale = 4
+		OffsetZ = 60
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Loop = true
 	}
 
 	{
 		Name = "ManaFountainRainbow"
-		
 		FilePath = "Particles\particle_spectral_shimmer_02"
 		Material = "Unlit"
 		StartAlpha = 0
 		EndAlpha = 0.33
 		StartScaleY = 1
 		EndScaleY = 4
-		RandomDurationMin = 3
-		RandomDurationMax = 5
+		RandomDurationMin = 2
+		RandomDurationMax = 3
 		RandomFlipHorizontal = true
 		EaseIn = 0
 		EaseOut = 1
-		Loop = true
+		Loop = false
 		PingPongColor = true
 	}
 
 	{
 		Name = "ManaFountainSmoke"
+		DieWithOwner = true
+		FilePath = "Dev\blank_invisible"
+		Red = 0.7
+		Green = 0.85
+		Blue = 1.0
+		Scale = 1.5
+		OffsetY = -120
+		Material = "Unlit"
+		Duration = 1
+		Loop = true
+		DrawBehindOwner = false
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+	}
+
+	{
+		Name = "ManaFountainSmokeNoLoop"
 		InheritFrom = "ManaFountainSmokeBase"
+		Loop = false
+		RandomDurationMin = 3 
+		RandomDurationMax = 5
+		LoopFramesOnly = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		ChainTo = null
 		PlaySpeed = 24
-		Alpha = 1.0
-		StartAlpha = 0.25
+		StartAlpha = 0
 		EndAlpha = 0.66
 		PingPongColor = true
+		RandomFlipHorizontal = true
 		EaseIn = 0
 		EaseOut = 1
 		Scale = 1.0
 		LocationZFromOwner = "Ignore"
-		OffsetY = 120
-		ScaleY = 1.33
+		OffsetY = 60
+		StartScaleY = 0.6
+		EndScaleY = 1.33
 		VisualFx = "ManaFountainSparklesRandom"
-		VisualFxIntervalMin = 0.2
-		VisualFxIntervalMax = 0.3
-		DrawBehindOwner = false
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.5
 	}
 
 	{
@@ -2874,12 +3301,12 @@
 		FilePath = "Particles\particle_sparkle_glow"
 		Material = "Unlit"
 		AddColor = true
-		StartRed = 1
+		StartRed = 0
 		StartGreen = 0.5
-		StartBlue = 0
-		EndRed = 0
-		EndGreen = 0.7
-		EndBlue = 1.0
+		StartBlue = 1
+		EndRed = 0.001
+		EndGreen = 1
+		EndBlue = 0.8
 		PingPongColor = true
 		StartScale = 0
 		EndScale = 1
@@ -2892,9 +3319,10 @@
 		Angle = 90
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
-		VelocityMin = 5
-		VelocityMax = 30
-		ScaleMin = 0.2
+		VelocityMin = 10
+		VelocityMax = 60
+		Acceleration = -10
+		ScaleMin = 0.1
 		ScaleMax = 0.6
 		GroupName = "FX_Standing_Add"
 		RandomDurationMin = 1
@@ -2907,63 +3335,130 @@
 	{
 		Name = "ManaFountainSparklesB"
 		InheritFrom = "ManaFountainSparklesA"
-		FilePath = "Particles\particle_glow_add"
-		Scale = 2
+		FilePath = "Particles\particle_sparkle_glow"
 	}
 
 	{
 		Name = "ManaFountainSparklesC"
 		InheritFrom = "ManaFountainSparklesA"
-		FilePath = "Particles\particle_circle"
+		AddColor = true
+		FilePath = "Particles\particle_addSparkle_02"
 		Scale = 0.5
 		StartScale = 0.8
 		StartAlpha = 0
 		EndAlpha = 1
 		PingPongColor = true
-		StartRed = 0.5
-		StartGreen = 0.75
+		StartRed = 0.9
+		StartGreen = 0.1
 		StartBlue = 1
 		EndRed = 0
-		EndGreen = 0.1
-		EndBlue = 0.999
-	}
-
-	{
-		Name = "ManaFountainEmpty"
-		InheritFrom = "ManaFountainFullStart"
-		ChildAnimation = "null"
-		FilePath = "Tilesets\Gameplay\Gameplay_ManaFountain_Off01"
-		Sound = "/EmptyCue"
+		EndGreen = 0.5
+		EndBlue = 1.0
 	}
 
 	{
 		Name = "SurfaceShopUnlocked"
-		FilePath = "Tilesets\Gameplay\Gameplay_WellShop_02"
+		FilePath = "Fx\Wellshop02Available\Wellshop02Available"
+		PlaySpeed = 30
+		NumFrames = 24
+		Loop = false
 		ScaleFromOwner = "Ignore"
-		Scale = 0.3
+		Scale = 1.0
 		OffsetY = -100
-		Sound = "/Leftovers/Object Ambiences/ChimesAmbientLoop_StarMap"
-		VisualFx = "WellShopSparkles"
+		Sound = "/SFX/HermesShopLoop"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "SurfaceShopSparkles"
 		VisualFxIntervalMax = 0.2
 		VisualFxIntervalMin = 0.1
 		VisualFxOffsetY = -120.0
+		ChainTo = "SurfaceShopUnlockedLoop"
 		CreateAnimations =
 		[
-			{ Name = "WellShopStreaks" }
-			{ Name = "WellShopStreaks" }
-			{ Name = "WellShopStreaks" }
-			{ Name = "WellShopStreaks" }
-			{ Name = "WellShopStreaks" }
+			{ Name = "SurfaceShopStreaks" }
+			{ Name = "SurfaceShopStreaks" }
+			{ Name = "SurfaceShopStreaks" }
+			{ Name = "SurfaceShopStreaks" }
+			{ Name = "SurfaceShopStreaks" }
 		]
 	}
+
+	{
+		Name = "SurfaceShopUnlockedLoop"
+		InheritFrom = "SurfaceShopUnlocked"
+		FilePath = "Fx\Wellshop02AvailableLoop\Wellshop02AvailableLoop"
+		NumFrames = 60
+		Loop = true
+		ClearCreateAnimations = true
+	}
+
 	{
 		Name = "SurfaceShopLocked"
-		InheritFrom = "SurfaceShopUnlocked"
+		InheritFrom = "SurfaceShopUnlockedLoop"
+		FilePath = "Fx\Wellshop02Unavailable\Wellshop02Unavailable"
 		Sound = "/EmptyCue"
-		Saturation = -0.2
-		Color = { Red = 0.6 Green = 0.70 Blue = 0.8 }
 		ClearCreateAnimations = true
 		VisualFx = "null"
+	}
+
+	{
+		Name = "SurfaceShopSparkles"
+		FilePath = "Particles\particle_addFlake"
+		GroupName = "FX_Standing_Add"		
+		Angle = 90.0
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		StartAlpha = 1.0
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.5
+		RandomDurationMin = 1.0
+		StartFrame = 1
+		RandomOffsetX = 30.0
+		RandomOffsetY = 25.0
+		LocationFromOwner = "Ignore"
+		SortMode = "Id"
+		Acceleration = -60.0
+		VelocityMax = 150.0
+		VelocityMin = 50.0
+		RandomRotation = true
+		PingPongScale = true
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 0.45
+		ScaleMin = 0.1
+		StartScale = 0.0
+		Ambient = 0.0
+		OnlyWhenVisible = true
+		Color = { Red = 1.0 Green = 0.8 Blue = 0.4 }
+	}
+
+	{
+		Name = "SurfaceShopStreaks"
+		FilePath = "Particles\particle_streak"
+		GroupName = "FX_Standing_Add"		
+		Angle = 90.0
+		AddColor = true
+		AlphaMax = 0.2
+		AlphaMin = 0.05
+		EndAlpha = 1.0
+		PingPongColor = true
+		EaseOut = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		RandomDurationMax = 3.0
+		RandomDurationMin = 1.4
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		EndOffsetY = -60.0
+		OffsetZ = 280.0
+		RandomOffsetX = 25.0
+		SortMode = "Id"
+		EndScaleY = 1.3
+		ScaleMax = 1.0
+		ScaleMin = 0.8
+		Color = { Red = 1.0 Green = 0.85 Blue = 0.35 }
 	}
 
 ]}

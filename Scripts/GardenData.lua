@@ -1,6 +1,15 @@
 GardenData =
 {
 	JustPlantedAnimation = "GardenPlotJustPlanted",
+	PlotOrder =
+	{
+		583640, -- top-left
+		583641, -- top-right
+		558335, -- middle-left
+		583642, -- middle-right
+		558337, -- bottom-left
+		583643, -- bottom-right
+	},
 
 	Seeds =
 	{
@@ -18,6 +27,7 @@ GardenData =
 					},
 					SproutedAnimation = "PlantFNightshadeSprouted",
 					ReadyToHarvestAnimation = "PlantFNightshadeReadyToHarvest",
+					BonusSeedName = "PlantFNightshadeSeed",
 				},
 				{
 					GameStateRequirements =
@@ -35,6 +45,7 @@ GardenData =
 					},
 					SproutedAnimation = "PlantGCattailSprouted",
 					ReadyToHarvestAnimation = "PlantGCattailReadyToHarvest",
+					BonusSeedName = "PlantGCattailSeed",
 				},
 				{
 					GameStateRequirements =
@@ -52,6 +63,7 @@ GardenData =
 					},
 					SproutedAnimation = "PlantHWheatSprouted",
 					ReadyToHarvestAnimation = "PlantHWheatReadyToHarvest",
+					BonusSeedName = "PlantHWheatSeed",
 				},
 				{
 					GameStateRequirements =
@@ -69,6 +81,7 @@ GardenData =
 					},
 					SproutedAnimation = "PlantIPoppySprouted",
 					ReadyToHarvestAnimation = "PlantIPoppyReadyToHarvest",
+					BonusSeedName = "PlantIPoppySeed",
 				},
 				{
 					GameStateRequirements =
@@ -79,13 +92,14 @@ GardenData =
 							Value = 1,
 						},
 					},
-					Weight = 3,
+					Weight = 4,
 					AddResources =
 					{
 						PlantNGarlic = 1,
 					},
 					SproutedAnimation = "PlantNGarlicSprouted",
 					ReadyToHarvestAnimation = "PlantNGarlicReadyToHarvest",
+					BonusSeedName = "PlantNGarlicSeed",
 				},
 				{
 					GameStateRequirements =
@@ -96,13 +110,14 @@ GardenData =
 							Value = 1,
 						},
 					},
-					Weight = 2,
+					Weight = 3,
 					AddResources =
 					{
 						PlantOMandrake = 1,
 					},
 					SproutedAnimation = "PlantOMandrakeSprouted",
 					ReadyToHarvestAnimation = "PlantOMandrakeReadyToHarvest",
+					BonusSeedName = "PlantOMandrakeSeed",
 				},
 				{
 					GameStateRequirements =
@@ -113,13 +128,32 @@ GardenData =
 							Value = 1,
 						},
 					},
-					Weight = 1,
+					Weight = 2,
 					AddResources =
 					{
 						PlantPOlive = 1,
 					},
 					SproutedAnimation = "PlantPOliveSprouted",
 					ReadyToHarvestAnimation = "PlantPOliveReadyToHarvest",
+					BonusSeedName = "PlantPOliveSeed",
+				},
+				{
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "LifetimeResourcesGained", "PlantQSnakereedSeed" },
+							Comparison = ">=",
+							Value = 1,
+						},
+					},
+					Weight = 1,
+					AddResources =
+					{
+						PlantQSnakereed = 1,
+					},
+					SproutedAnimation = "PlantQSnakereedSprouted",
+					ReadyToHarvestAnimation = "PlantQSnakereedReadyToHarvest",
+					BonusSeedName = "PlantQSnakereedSeed",
 				},
 			}
 		},
@@ -180,8 +214,8 @@ GardenData =
 
 		PlantIPoppySeed =
 		{
-			GrowTimeMin = 21,
-			GrowTimeMax = 21,
+			GrowTimeMin = 41,
+			GrowTimeMax = 41,
 			RandomOutcomes =
 			{
 				{
@@ -197,8 +231,8 @@ GardenData =
 		},
 		PlantNGarlicSeed =
 		{
-			GrowTimeMin = 8,
-			GrowTimeMax = 8,
+			GrowTimeMin = 5,
+			GrowTimeMax = 5,
 			RandomOutcomes =
 			{
 				{
@@ -215,8 +249,8 @@ GardenData =
 
 		PlantOMandrakeSeed =
 		{
-			GrowTimeMin = 17,
-			GrowTimeMax = 17,
+			GrowTimeMin = 19,
+			GrowTimeMax = 19,
 			RandomOutcomes =
 			{
 				{
@@ -233,8 +267,8 @@ GardenData =
 
 		PlantPOliveSeed =
 		{
-			GrowTimeMin = 24,
-			GrowTimeMax = 24,
+			GrowTimeMin = 53,
+			GrowTimeMax = 53,
 			RandomOutcomes =
 			{
 				{
@@ -245,6 +279,24 @@ GardenData =
 					},
 					SproutedAnimation = "PlantPOliveSprouted",
 					ReadyToHarvestAnimation = "PlantPOliveReadyToHarvest",
+				},
+			},
+		},
+
+		PlantQSnakereedSeed =
+		{
+			GrowTimeMin = 77,
+			GrowTimeMax = 77,
+			RandomOutcomes =
+			{
+				{
+					Weight = 1,
+					AddResources =
+					{
+						PlantQSnakereed = 1,
+					},
+					SproutedAnimation = "PlantQSnakereedSprouted",
+					ReadyToHarvestAnimation = "PlantQSnakereedReadyToHarvest",
 				},
 			},
 		},

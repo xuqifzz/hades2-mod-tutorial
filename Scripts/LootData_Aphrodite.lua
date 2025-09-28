@@ -4,7 +4,6 @@ LootSetData.Aphrodite =
 	AphroditeUpgrade = 
 	{
 		InheritFrom = { "BaseLoot", "BaseSoundPackage" },
-		OffersElementalTrait = {"Air", "Water"},
 		GameStateRequirements =
 		{
 			{
@@ -18,8 +17,6 @@ LootSetData.Aphrodite =
 		AlwaysShowDefaultUseText = true,
 		GodLoot = true,
 		Weight = 10,
-		SurfaceShopText = "AphroditeUpgrade_Store",
-		SurfaceShopIcon = "BoonInfoSymbolAphroditeIcon",
 		BoonInfoIcon = "BoonInfoSymbolAphroditeIcon",
 		MenuTitle = "UpgradeChoiceMenu_Title_AphroditeUpgrade",
 		EchoLastRewardId = "EchoLastRewardBoon_AphroditeUpgrade",
@@ -40,7 +37,9 @@ LootSetData.Aphrodite =
 
 		SpeakerName = "Aphrodite",
 		Speaker = "NPC_Aphrodite_01",
+		LoadPackages = { "Aphrodite", },
 		Portrait = "Portrait_Aphrodite_Default_01",
+		WrathPortrait = "Portrait_Aphrodite_Default_01_Wrath",
 		OverlayAnim = "AphroditeOverlay",
 		Gender = "Female",
 		FlavorTextIds =
@@ -113,14 +112,15 @@ LootSetData.Aphrodite =
 			"ManaBurstCountBoon",
 			"BurnRefreshBoon",
 			"SlamManaBurstBoon",
+			"BloodManaBurstBoon",
 		},
 
 		Consumables = { },
 
 		UpgradeMenuOpenVoiceLines =
 		{
-			[1] = { GlobalVoiceLines = "HeraclesBoonReactionVoiceLines" },
-			[2] = { GlobalVoiceLines = "FoundRareBoonVoiceLines" },
+			{ GlobalVoiceLines = "HeraclesBoonReactionVoiceLines" },
+			{ GlobalVoiceLines = "FoundRareBoonVoiceLines" },
 		},
 
 		DuoPickupTextLines =
@@ -270,6 +270,26 @@ LootSetData.Aphrodite =
 					Text = "Careful with that line of reasoning there, Aphrodite. You don't have much inner beauty to speak of, and your {#Emph}outer {#Prev}beauty I can melt off in a {#Emph}snap. {#Prev}And growing all those lustrous tresses back would take a while, by my reckoning..." },
 			},
 
+			AphroditeWithAres01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "BloodManaBurstBoon" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0213",
+					Text = "I've always been something of a fighter, as Lord Ares here knows. But I keep telling him, the great conquests of love are more thrilling than the great conquests of war!" },
+				{ Cue = "/VO/Ares_0165",
+					PortraitExitWait = 0.35,
+					PreLineFunctionName = "BoonInteractPresentation", PreLineWait = 0.5,
+					Source = "AresUpgrade",
+					Text = "I do enjoy a good protracted fight, my Lady Aphrodite. To me, conquest is conquest; whether on the battlefield or in the heart, it matters not. And I find all of it quite moving." },
+			},
+
 		},
 
 		InteractTextLineSets =
@@ -290,7 +310,7 @@ LootSetData.Aphrodite =
 					PostLineFunctionName = "BoonInteractPresentation",
 					BoxAnimation = "DialogueSpeechBubble",
 					BoxExitAnimation = "DialogueSpeechBubbleOut",
-					NarrativeContextArt = "DialogueBackground_Erebus",
+					UseRoomContextArt = true,
 					PostLineRemoveContextArt = true,
 					TextColor = Color.DialogueText,
 					Text = "Doubtless this one knows hatred, not just love. {#Emph}In the name of Hades! Olympus, I accept this message!" },
@@ -299,7 +319,7 @@ LootSetData.Aphrodite =
 					NarrativeContextArt = "DialogueBackground_Olympus",
 					PreContentSound = "/Leftovers/Menu Sounds/TextReveal2",
 					Emote = "PortraitEmoteAffection",
-					Text = "Why, {#Emph}hello{#Prev}, gorgeous! You look like you can break some hearts even {#Emph}without {#Prev}my aid! Oh, your brother would be so proud, knowing you're fighting for your kin!" },
+					Text = "Why, {#Emph}hello{#Prev}, gorgeous! {#Emph}You {#Prev}look like you can break some hearts even {#Emph}without {#Prev}my aid! Oh, your brother would be so proud, knowing you're fighting for your kin!" },
 			},
 
 			-- low health
@@ -452,6 +472,9 @@ LootSetData.Aphrodite =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						Path = { "CurrentRun", "CurrentRoom", "Name", },
 						IsAny = { "F_Opening01", "F_Opening02", "F_Opening03", "N_Opening01" },
 					},
@@ -516,10 +539,13 @@ LootSetData.Aphrodite =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0036",
-					
+					Portrait = "Portrait_Aphrodite_Displeased_01",
 					Text = "We goddesses always get swept up in these family affairs through no fault of our own. {#Emph}I {#Prev}had no prior qualm with Chronos, yet here I am now, well at war with him!" },
 			},
 			AphroditeAboutChronos02 =
@@ -530,11 +556,14 @@ LootSetData.Aphrodite =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0037",
 					
-					Text = "Between us? I have been around quite a bit longer than appearances suggest. The so-called {#Emph}Golden Age {#Prev}that Chronos would restore... it was the dullest time, like you would not {#Emph}believe!" },
+					Text = "Between us? I have been around {#Emph}quite {#Prev}a bit longer than appearances suggest. The so-called {#Emph}Golden Age {#Prev}that Chronos would restore... it was the dullest time, like you would not {#Emph}believe!" },
 			},
 
 			AphroditeAboutMelinoe01 =
@@ -546,13 +575,13 @@ LootSetData.Aphrodite =
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "AphroditeGift01", },
+						PathTrue = { "GameState", "TextLinesRecord", "AphroditeGift06" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0039",
 					
-					Text = "You've been {#Emph}so {#Prev}sheltered there, sweetness! Why, mortals, they don't even know your {#Emph}name! {#Prev} Not one temple erected in your {#Emph}honor! {#Prev}Not {#Emph}yet{#Prev}, at least, so you just stick with me!" },
+					Text = "You've been {#Emph}so {#Prev}sheltered there, sweetness! Why, mortals, they don't even know your {#Emph}name! {#Prev}Not one temple erected in your {#Emph}honor! {#Prev}Not {#Emph}yet{#Prev}, at least, so you just stick with me!" },
 			},
 
 			AphroditeAboutLove01 =
@@ -603,6 +632,40 @@ LootSetData.Aphrodite =
 				{ Cue = "/VO/Aphrodite_0122",
 					
 					Text = "You fight with the ferocity of one whose love is on the line! Yet that is not what's driving you, is it. No, you've found a wellspring of motivation in something else! What could it {#Emph}be?" },
+			},
+			AphroditeAboutLove04 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "AphroditeGift06" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						CountOf =
+						{
+							"MorosBecomingCloser01",
+							"ErisBecomingCloser01",
+							"NemesisPostCombatBecomingCloser01",
+							"IcarusBecomingCloser01",
+						},
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0201",
+					Emote = "PortraitEmoteAffection",
+
+					-- heart unlock
+					PostLineFunctionName = "RelationshipAdvancedPresentation",
+					PostLineFunctionArgs = { Delay = 0.5 },
+
+					Text = "I can see why you became the star pupil of the Witch of the Crossroads, sweetness... because you've learned much of love in a short time, and with only a {#Emph}bit {#Prev}of guidance! Your heart is certainly in the right place." },
 			},
 
 			AphroditeAboutBoons01 =
@@ -701,7 +764,7 @@ LootSetData.Aphrodite =
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0083",
-					
+					Portrait = "Portrait_Aphrodite_Displeased_01",
 					Text = "Shame that the cursed city of Ephyra is your first exposure to the splendors of the surface, love. It stood in tribute to your mother and your father, until Chronos had his way! I still grow angry when I think on it." },
 			},
 
@@ -714,13 +777,16 @@ LootSetData.Aphrodite =
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "AphroditeAboutSurface03", },
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "AphroditeAboutSurface03" },
 					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0080",
-					
+					Portrait = "Portrait_Aphrodite_Displeased_01",
 					Text = "I'd urge you visit us, though since we're under siege and all, perhaps it isn't worth the trip. Olympus sure takes on a different feel when you're {#Emph}stuck{#Prev}. We've cut back on the feasting and the frolicking a lot. Oh, how I miss those days..." },
 			},
 			AphroditeAboutOlympus02 =
@@ -804,12 +870,15 @@ LootSetData.Aphrodite =
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "GameState", "TextLinesRecord", "HermesAboutFates01" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0075",
-					
+					Portrait = "Portrait_Aphrodite_Displeased_01",
 					Text = "A little birdie told me something's happened to the Fates... they're not around to complicate our lives? No wonder my days have become so {#Emph}predictable! {#Prev}Though if Chronos truly is behind this, then perhaps we ought to be concerned..." },
 			},
 
@@ -821,13 +890,19 @@ LootSetData.Aphrodite =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
-					-- @ update with real requirements
 					{
-						PathTrue = { "GameState", "RoomCountCache", "O_Boss01" },
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "O_Intro" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0077",
+					Portrait = "Portrait_Aphrodite_Displeased_01",
 					Text = "What shall become of our fair mountain, love? Just recently we felt such tremors as I'd not experienced before. At first I thought it was Poseidon shaking up the earth again, but one look at {#Emph}him{#Prev}, and I knew it wasn't so..." },
 			},
 
@@ -860,7 +935,7 @@ LootSetData.Aphrodite =
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "AphroditeGift01", },
+						PathTrue = { "GameState", "TextLinesRecord", "AphroditeGift01" },
 					},
 					{
 						Path = { "GameState", "TextLinesRecord" },
@@ -925,7 +1000,7 @@ LootSetData.Aphrodite =
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0041",
 					
-					Emote = "PortraitEmoteAffection",					
+					Emote = "PortraitEmoteAffection",
 					Text = "So {#Emph}you're {#Prev}the star student of great Hecate! A little birdie told me she'd been training up a real prodigy. Imagine my surprise when it turned out to be the missing Princess of the Underworld! How positively {#Emph}scandalous!" },
 			},
 
@@ -949,6 +1024,78 @@ LootSetData.Aphrodite =
 				{ Cue = "/VO/Aphrodite_0042",
 					Text = "A little birdie told me {#Emph}Doom himself {#Prev}showed up where you reside...? While that bodes ill for you, and perhaps for us all... at least he's quite the looker, isn't he?" },
 			},
+			AphroditeAboutMoros02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						Path = { "GameState", "TextLinesChoiceRecord", "MorosBecomingCloser01", },
+						IsAny = { "Choice_MorosAccept" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "MorosBecomingCloser01" }, Min = 2 },
+					},
+					{
+						SumPrevRuns = 2,
+						Path = { "UseRecord", "NPC_Moros_01" },
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0223",
+					Emote = "PortraitEmoteAffection",
+					Text = "I must say, you and Doom have been extraordinarily discreet in whatever you have going on. My little birdies have seen {#Emph}barely {#Prev}a trace of it! But I still have a feeling about you two, and my feelings are {#Emph}never {#Prev}wrong." },
+			},
+
+			AphroditeAboutNemesis01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisPostCombatFirstMeeting", "NemesisGift06" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0218",
+					Emote = "PortraitEmoteAffection",
+					Text = "You've quite a partner in Nemesis, gorgeous! She's big, she's brash, she's everything you're not! I'm relieved you're standing by each other rather than at each other's throats!" },
+			},
+			AphroditeAboutNemesis02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "AphroditeAboutNemesis01" },
+					},
+					{
+						Path = { "GameState", "TextLinesChoiceRecord", "NemesisPostCombatBecomingCloser01", },
+						IsAny = { "Choice_NemesisAccept" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "NemesisPostCombatBecomingCloser01" }, Min = 2 },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0219",
+					Emote = "PortraitEmoteAffection",
+					Text = "I'm so pleased you and Nemesis settled your differences! {#Emph}Oh {#Prev}no one told me, gorgeous, this is all knowledge I obtain as part of being who I am! And as long as you each be yourselves, I think you'll even out." },
+			},
 
 			AphroditeAboutArachne01 =
 			{
@@ -969,6 +1116,33 @@ LootSetData.Aphrodite =
 					
 					Text = "You dwell in Erebus, don't you, sweetness? Last I had heard, the silk-weaver Arachne dwells down there. Such fineries she made, but never showed her face up here again after she and Athena had a little spat!" },
 			},
+			AphroditeAboutArachne02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ArachneAboutCurseQuest01" }
+					},
+					{
+						SumPrevRuns = 2,
+						Path = { "TextLinesRecord", "ArachneAboutCurseQuest01" },
+						CountPathTrue = true,
+						Comparison = "==",
+						Value = 0,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0224",
+					Portrait = "Portrait_Aphrodite_Default_01",
+					
+					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "PortraitEmoteAffection", WaitTime = 4.0 },
+
+					Text = "It's such a shame about Arachne and Athena. My little birdies told me everything. But there's beauty to be found in {#Emph}every {#Prev}form, even that of a delicate little spider! Perhaps she'll come to accept it as I think {#Emph}you {#Prev}have!" },
+			},
 
 			AphroditeAboutArtemis01 =
 			{
@@ -979,16 +1153,27 @@ LootSetData.Aphrodite =
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						Path = { "GameState", "TextLinesRecord", },
 						HasAll = { "ZeusFirstPickUp", "PoseidonFirstPickUp", "DemeterFirstPickUp", "HestiaFirstPickUp", "HephaestusFirstPickUp" },
 					},
 					{
-						Path = { "GameState", "TextLinesRecord", },
-						HasAny = { "HeraFirstPickUp", "HeraFirstPickUpAlt" },
+						-- SumPrevRuns = 1 is the same as CurrentRun, SumPrevRuns = 2 is checking PrevRun, etc.
+						SumPrevRuns = 3,
+						Path = { "UseRecord", "NPC_Artemis_Field_01" },
+						IgnoreCurrentRun = true,
+						CountPathTrue = true,
+						Comparison = ">=",
+						Value = 1,
 					},
+					--[[
 					{
-						PathTrue = { "GameState", "UseRecord", "NPC_Artemis_Field_01", },
+						Path = { "CurrentRun", "TextLinesRecord" },
+						HasNone = GameData.GodAboutGodEvents,
 					},
+					]]--
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0043",
@@ -1018,6 +1203,9 @@ LootSetData.Aphrodite =
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChronosNightmare01" },
 					},
 				},
@@ -1026,6 +1214,29 @@ LootSetData.Aphrodite =
 					
 					Emote = "PortraitEmoteDepressed",
 					Text = "I wonder what exactly Chronos did to cut your brother off, and all your family. Perhaps he {#Emph}bound them! {#Prev}In any case, don't worry overmuch. They're gods! They're probably all right." },
+			},
+			AphroditeAboutZagreus03 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						SumPrevRuns = 3,
+						Path = { "RoomsEntered", "C_Boss01" },
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0208",
+					Emote = "PortraitEmoteCheerful",
+					Text = "Your little godling brother, I am hearing he's all right! And back to battling out of that hell he calls home, or at least {#Emph}partially {#Prev}until the Underworld's restored. I hope you get to see him again {#Emph}soon!" },
 			},
 
 			AphroditeAboutHephaestusRelationship01 =
@@ -1062,13 +1273,12 @@ LootSetData.Aphrodite =
 						HasAll = { "ZeusFirstPickUp", "PoseidonFirstPickUp", "DemeterFirstPickUp", "HestiaFirstPickUp", "HephaestusFirstPickUp" },
 					},
 					{
-						Path = { "GameState", "TextLinesRecord" },
-						HasAny = { "HeraFirstPickUp", "HeraFirstPickUpAlt" },
-					},
-					{
 						Path = { "GameState", "UseRecord", "NPC_Athena_01" },
 						Comparison = "<=",
-						Value = 4,
+						Value = 2,
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "AphroditeAboutAthena02" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1076,7 +1286,7 @@ LootSetData.Aphrodite =
 					
 					Text = "You've met many of us now, but not yet proud Athena, I presume? Apparently she's too busy defending our front lines. Take no offense; she's not the goddess of good manners, after all." },
 			},
-			AphroditeAboutAres01 =
+			AphroditeAboutAthena02 =
 			{
 				PlayOnce = true,
 				GameStateRequirements =
@@ -1085,19 +1295,18 @@ LootSetData.Aphrodite =
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
 					{
-						Path = { "GameState", "TextLinesRecord", },
-						HasAll = { "ZeusFirstPickUp", "PoseidonFirstPickUp", "DemeterFirstPickUp", "HestiaFirstPickUp", "HephaestusFirstPickUp" },
-					},
-					{
-						Path = { "GameState", "TextLinesRecord" },
-						HasAny = { "HeraFirstPickUp", "HeraFirstPickUpAlt" },
+						SumPrevRuns = 2,
+						Path = { "UseRecord", "NPC_Athena_01" },
+						Comparison = ">=",
+						Value = 1,
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
-				{ Cue = "/VO/Aphrodite_0085",
+				{ Cue = "/VO/Aphrodite_0192",
 					
-					Text = "Among all of Lord Zeus' kin, you've still yet to encounter Ares, {#Emph}hm? {#Prev}The god of war has been quite busy, what with everything of late. There are those who question his motives, but not I. I long simply to find out where he is." },
+					Text = "You've paid witness to some of Athena's dramatic entrances on the battlefield. I have to say, she isn't bad in that regard! Probably because she's having so much practice with all of our unwelcome visitors!" },
 			},
+
 			AphroditeAboutDionysus01 =
 			{
 				PlayOnce = true,
@@ -1105,10 +1314,6 @@ LootSetData.Aphrodite =
 				{
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
-					},
-					{
-						Path = { "GameState", "TextLinesRecord", },
-						HasAll = { "ZeusFirstPickUp", "HeraFirstPickUp", "PoseidonFirstPickUp", "DemeterFirstPickUp", "HestiaFirstPickUp", "HephaestusFirstPickUp" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1126,12 +1331,37 @@ LootSetData.Aphrodite =
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
 					{
-						PathTrue = { "PrevRun", "RoomCountCache", "G_Boss01" },
+						Path = { "PrevRun", "RoomCountCache" },
+						HasAny = { "G_Boss01", "G_Boss02" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0121",
 					Text = "A little birdie told me you faced the Sirens at the bottom of the sea? I know them and their entrancing song only too well. They must have grown bored of dooming sailors to the deep!" },
+			},
+			AphroditeAboutSirens02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ScyllaAboutBallad01" }
+					},
+					{
+						SumPrevRuns = 2,
+						Path = { "RoomsEntered" },
+						TableValuesToCount = { "G_Boss01", "G_Boss02" },
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0230",
+					Emote = "PortraitEmoteAffection",
+					Text = "Those Sirens down where {#Emph}you {#Prev}are sure have been singing their hearts out! Perhaps they've found another wellspring of inspiration besides all the sailors they like so much." },
 			},
 
 			AphroditeAboutNarcissus01 =
@@ -1143,10 +1373,10 @@ LootSetData.Aphrodite =
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
 					{
-						PathTrue = { "PrevRun", "UseRecord", "NPC_Narcissus_01" },
-					},
-					{
-						PathTrue = { "GameState", "UseRecord", "NPC_Narcissus_01" },
+						SumPrevRuns = 2,
+						Path = { "UseRecord", "NPC_Narcissus_01" },
+						Comparison = ">=",
+						Value = 1,
 					},
 					{
 						FunctionName = "RequireRunsSinceTextLines",
@@ -1169,11 +1399,15 @@ LootSetData.Aphrodite =
 						PathTrue = { "GameState", "TextLinesRecord", "AphroditeAboutNarcissus01" },
 					},
 					{
-						PathTrue = { "PrevRun", "UseRecord", "NPC_Narcissus_01" },
+						SumPrevRuns = 2,
+						Path = { "UseRecord", "NPC_Narcissus_01" },
+						Comparison = ">=",
+						Value = 1,
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0126",
+					Portrait = "Portrait_Aphrodite_Displeased_01",
 					Text = "I hope for your sake you avoid that no-good Narcissus. His suitors {#Emph}begged {#Prev}me to do something about his love of his own reflection, but who am I to break up such a harmonious relationship? As far as I'm concerned, he finally met his match!" },
 			},
 
@@ -1200,16 +1434,113 @@ LootSetData.Aphrodite =
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
 					{
-						PathTrue = { "GameState", "UseRecord", "NPC_Eris_01", },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ErisFirstMeeting", "ErisFirstMeeting_B", "ErisBossFirstMeeting" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "AphroditeAboutEris02" },
 					},
 					{
 						FunctionName = "RequireRunsSinceTextLines",
-						FunctionArgs = { TextLines = { "ErisFirstMeeting" }, Min = 2 },
+						FunctionArgs = { TextLines = { "ErisFirstMeeting", "ErisFirstMeeting_B", "ErisBossFirstMeeting" }, Min = 2 },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0132",
+					Portrait = "Portrait_Aphrodite_Displeased_01",
 					Text = "A little birdie said that {#Emph}awful Eris {#Prev}has been fluttering about, getting her nose in everybody's business, instead of minding her own! We stopped inviting her to {#Emph}any {#Prev}of our feasts up here even before all this!" },
+			},
+			AphroditeAboutEris02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						Path = { "GameState", "TextLinesChoiceRecord", "ErisBecomingCloser01", },
+						IsAny = { "Choice_ErisAccept" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ErisBecomingCloser01" }, Min = 2 },
+					},
+					OrRequirements =
+					{
+						{
+							{
+								SumPrevRuns = 2,
+								Path = { "UseRecord", "NPC_Eris_01" },
+								Comparison = ">=",
+								Value = 1,
+							},
+						},
+						{
+							{
+								SumPrevRuns = 2,
+								Path = { "RoomsEntered" },
+								TableValuesToCount = { "O_Boss01", "O_Boss02" },
+								Comparison = ">=",
+								Value = 1,
+							},
+						},
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0220",
+					Text = "You {#Emph}like {#Prev}having Strife in your life, {#Emph}hm? {#Prev}The more you fought with Eris, the more I could tell {#Emph}something {#Prev}was going on, and sure enough! She didn't seem your type at all, but that's {#Emph}exactly {#Prev}how it goes!" },
+			},
+			AphroditeAboutIcarus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						SumPrevRuns = 2,
+						Path = { "UseRecord", "NPC_Icarus_01" },
+						Comparison = ">=",
+						Value = 1,
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "IcarusGift03" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0221",
+					Emote = "PortraitEmoteAffection",
+					Text = "That dashing young Shade with the fancy wings, is Icarus his name? I almost mistook him for one of my little birdies! He didn't get much chance at love while he drew breath, but it's never too late...!" },
+			},
+			AphroditeAboutIcarus02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						Path = { "GameState", "TextLinesChoiceRecord", "IcarusBecomingCloser01", },
+						IsAny = { "Choice_IcarusAccept" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "IcarusBecomingCloser01" }, Min = 2 },
+					},
+					{
+						SumPrevRuns = 2,
+						Path = { "UseRecord", "NPC_Moros_01" },
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0222",
+					Emote = "PortraitEmoteAffection",
+					Text = "I am {#Emph}so {#Prev}pleased by what you've done for Icarus! {#Emph}Oh{#Prev}, he's been practically over the {#Emph}moon{#Prev}, and who can blame him? He got to truly {#Emph}feel... {#Prev}most mortals aren't so fortunate, let alone most {#Emph}Shades!" },
 			},
 
 			AphroditeAboutHeracles01 =
@@ -1236,6 +1567,180 @@ LootSetData.Aphrodite =
 					Text = "So, lumbering old Heracles is storming around down there, massing bodies of the dead in the name of the gods, is he? That one's as moody as a bull, and probably reeks even more. At least we have {#Emph}good {#Prev}help to lean upon!" },
 			},
 
+			AphroditeAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						SumPrevRuns = 2,
+						Path = { "RoomsEntered", "P_Boss01" },
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0194",
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					Text = "Though I admit to having some {#Emph}small {#Prev}weakness for the tall, dark, and brooding types, Prometheus has been getting on my {#Emph}nerves. {#Prev}He's defacing our beautiful {#Emph}mountain! {#Prev}Who is he trying to impress?" },
+			},
+			AphroditeAboutPrometheus02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "AphroditeAboutPrometheus01" },
+					},
+					{
+						SumPrevRuns = 2,
+						Path = { "RoomsEntered", "P_Boss01" },
+						Comparison = ">=",
+						Value = 1,
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0195",
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					Text = "If Prometheus isn't more careful, he might burn right up from all his {#Emph}smoldering! {#Prev}He keeps saying how he doesn't {#Emph}care {#Prev}for any of us goddesses or gods, but {#Emph}I {#Prev}think he's just playing hard-to-get!" },
+			},
+			AphroditeAboutPrometheus03 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "AphroditeAboutPrometheus02" },
+					},
+					{
+						SumPrevRuns = 2,
+						Path = { "RoomsEntered", "P_Boss01" },
+						Comparison = ">=",
+						Value = 1,
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0232",
+					Text = "How nice for Prometheus that he gets to keep venting his anger out on all of us like it's {#Emph}officially {#Prev}his job. How come he thinks we're all so mean to mortals anyhow? I break some hearts, it's true, but fill so many more!" },
+			},
+
+			AphroditeAboutTyphon01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" },
+					},
+					{
+						SumPrevRuns = 2,
+						Path = { "RoomsEntered", "Q_Intro" },
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0196",
+					Emote = "PortraitEmoteDepressed",
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					Text = "What are we ever going to do about our poor summit? That ugly Typhon made it all the way up here, and he's been ruining {#Emph}everything. {#Prev}Well we are {#Emph}not {#Prev}going to let him walk all over us." },
+			},
+			AphroditeAboutTyphon02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" },
+					},
+					{
+						SumPrevRuns = 2,
+						Path = { "RoomsEntered", "Q_Intro" },
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0197",
+					Emote = "PortraitEmoteDepressed",
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					Text = "{#Emph}Eugh{#Prev}, that ugly Typhon! Not only is he getting all the attention lately, he's resisted all my {#Emph}charms. {#Prev}That {#Emph}never {#Prev}happens! But all he wants is this mountain, and not in a loving way." },
+			},
+			AphroditeAboutTyphonW01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
+						PathTrue = { "GameState", "EnemyKills", "TyphonHead" },
+					},
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "Q_Story01" }
+					},
+					{
+						Path = { "GameState", "UseRecord", "Q_Story01" },
+						Comparison = ">=",
+						Value = 2,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0199",
+					Emote = "PortraitEmoteAffection",
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					Text = "You saw our beautiful Palace grounds again! I'm sorry I missed you but no ugly monsters are ever getting in there if {#Emph}I {#Prev}can help it. Although they {#Emph}have {#Prev}been getting pretty close. They {#Emph}just {#Prev}won't take the hint!" },
+			},
+			AphroditeAboutTyphonDeath01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0200",
+					Emote = "PortraitEmoteAffection",
+					-- Portrait = "Portrait_Aphrodite_Displeased_01",
+					Text = "You really did it, gorgeous! That ugly monster's finally gone! I never could tell if he even {#Emph}had {#Prev}a heart, as there was not a trace of love in him at all, only the worst intentions and desires. So much for {#Emph}those!" },
+			},
+
 			-- about other gods
 			AphroditeAboutZeus01 =
 			{
@@ -1250,7 +1755,7 @@ LootSetData.Aphrodite =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 
@@ -1273,7 +1778,7 @@ LootSetData.Aphrodite =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 
@@ -1296,7 +1801,7 @@ LootSetData.Aphrodite =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 
@@ -1319,7 +1824,7 @@ LootSetData.Aphrodite =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 
@@ -1342,7 +1847,7 @@ LootSetData.Aphrodite =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 
@@ -1365,7 +1870,7 @@ LootSetData.Aphrodite =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 
@@ -1388,7 +1893,7 @@ LootSetData.Aphrodite =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 
@@ -1414,7 +1919,7 @@ LootSetData.Aphrodite =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 					{
 						FunctionName = "RequireRunsSinceTextLines",
@@ -1427,6 +1932,48 @@ LootSetData.Aphrodite =
 				{ Cue = "/VO/Aphrodite_0061",
 					
 					Text = "I've heard many a hero claim the next best thing to arms forged by Hephaestus is his blessing! Though I think they'd all rather have mine." },
+			},
+			AphroditeAboutAres01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						Path = { "GameState", "TextLinesRecord", },
+						HasAll = { "ZeusFirstPickUp", "PoseidonFirstPickUp", "DemeterFirstPickUp", "HestiaFirstPickUp", "HephaestusFirstPickUp" },
+					},
+					{
+						PathFalse = { "GameState", "UseRecord", "AresUpgrade" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0085",
+					
+					Text = "Among all of Lord Zeus' kin, you've still yet to encounter Ares, {#Emph}hm? {#Prev}The god of war has been quite busy, what with everything of late. There are those who question his motives, but not I. I long simply to find out where he is." },
+			},
+			AphroditeAboutAres02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "UseRecord", "AresUpgrade" }
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "AresFirstPickUp" }, Max = 9 },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0193",
+					Emote = "PortraitEmoteCheerful",
+					Text = "Lord Ares is finally back! Nothing makes a war official like when {#Emph}he {#Prev}shows up. Things haven't always gone our way when we've fought together, but this time just about {#Emph}everybody's {#Prev}here!" },
 			},
 
 			AphroditeAboutHermes01 =
@@ -1442,7 +1989,7 @@ LootSetData.Aphrodite =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 
@@ -1466,7 +2013,7 @@ LootSetData.Aphrodite =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
+						HasNone = GameData.GodAboutGodEvents,
 					},
 				},
 
@@ -1479,6 +2026,105 @@ LootSetData.Aphrodite =
 			},
 
 			-- other reactions
+			AphroditePackageBountyIntro01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						Path = { "CurrentRun", "ActiveBounty" },
+						IsAny = { "PackageBountyPolyphemus" },
+					},
+				},
+
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Aphrodite_0225",
+					Emote = "PortraitEmoteDepressed",
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					Text = "{#Emph}Eugh{#Prev}, there's something very {#Emph}odd {#Prev}about this night, and {#Emph}certainly {#Prev}that ugly city of {#Emph}Ephyra {#Prev}doesn't help. But between my dear Hephaestus and Lord Ares and myself, I think you'll more than manage to get by." },
+			},
+			AphroditeAboutPackageBounty01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "O" },
+					},
+					{
+						Path = { "CurrentRun", "ActiveBounty" },
+						IsAny = GameData.LateStartPackagedBounties,
+					},
+				},
+
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Aphrodite_0226",
+					Emote = "PortraitEmoteAffection",
+					Text = "Sailing can be so romantic, but the mood tonight is {#Emph}definitely {#Prev}off... how did you even {#Emph}get {#Prev}so far so {#Emph}soon? {#Prev}Well even if we're not feeling our best, we can still {#Emph}look {#Prev}our best!" },
+			},
+
+			AphroditeAboutRelationship01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						CountOf =
+						{
+							"MorosGift08",
+							"NemesisGift08",
+							"IcarusGift08",
+							"ErisGift08",
+						},
+						Comparison = ">=",
+						Value = 1,
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						CountOf =
+						{
+							"MorosGift07",
+							"NemesisGift07",
+							"IcarusGift07",
+							"ErisGift07",
+						},
+						Comparison = ">=",
+						Value = 2,
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						CountOf =
+						{
+							"MorosBecomingCloser01",
+							"NemesisPostCombatBecomingCloser01",
+							"IcarusBecomingCloser01",
+							"ErisBecomingCloser01",
+						},
+						Comparison = "<=",
+						Value = 3,
+					},
+				},
+
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Aphrodite_0234",
+					Emote = "PortraitEmoteAffection",
+					Text = "So many suitors from whom to choose, {#Emph}hm? {#Prev}Well just remember that you needn't choose at all, unless you so desire as do they. Your heart, your relationships. Make of them what you will!" },
+			},
+
 			AphroditeAboutKeepsake01 =
 			{
 				PlayOnce = true,
@@ -1497,6 +2143,26 @@ LootSetData.Aphrodite =
 					Emote = "PortraitEmoteAffection",
 					Text = "Oh, you bear my Beautiful Mirror! You'll always look gorgeous in it, but its real power is to help me quickly seek you out. And bestow on you the very best I can!" },
 			},
+
+			AphroditeAboutEros01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "FirstHitHealTrait" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Aphrodite_0217",
+					Emote = "PortraitEmoteAffection",
+					Text = "{#Emph}Mm{#Prev}, you have the Breath of Eros on you, if my senses don't deceive! Isn't it a beautiful thought, knowing Love is one of the most {#Emph}ancient {#Prev}forces in this entire world? Life would be {#Emph}nothing {#Prev}without it!" },
+			},
+
 			AphroditeAboutApples01 =
 			{
 				PlayOnce = true,
@@ -1509,7 +2175,13 @@ LootSetData.Aphrodite =
 						Path = { "GameState", "Resources", "MixerOBoss" },
 						Comparison = ">=",
 						Value = 1,
-					},					
+					},
+					{
+						SumPrevRuns = 3,
+						Path = { "EnemyKills", "Eris" },
+						Comparison = ">=",
+						Value = 1,
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1527,7 +2199,8 @@ LootSetData.Aphrodite =
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "AphroditeAboutApples01" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "AphroditeAboutApples01", "AphroditeGift01" },
 					},
 					NamedRequirements = { "AlchemyUnlocked" },
 				},
@@ -1577,6 +2250,33 @@ LootSetData.Aphrodite =
 				{ Cue = "/VO/Aphrodite_0174",
 					Emote = "PortraitEmoteSurprise",
 					Text = "Now what is that fabulous set of {#Emph}flames {#Prev}you're wielding there? It's as though they shine with the first light of morning; I'd not have thought they'd fit your style, but you're {#Emph}really {#Prev}pulling it off!" },
+			},
+
+			AphroditeAboutChronosBossW01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "PrevRun", "EnemyKills", "Chronos" }
+					},
+					{
+						Path = { "GameState", "EnemyKills", "Chronos" },
+						Comparison = ">=",
+						Value = 3,
+					},
+				},
+
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0203",
+					Portrait = "Portrait_Aphrodite_Displeased_01",		
+					Text = "So besides whatever innate satisfaction there may be in beating up that nasty old Titan, is there a grander plan in all of this for what we're going to do? Your little godling brother, is he going to be all right...?" },
 			},
 
 			AphroditeUnderworldRunCleared01 =
@@ -1632,9 +2332,9 @@ LootSetData.Aphrodite =
 					{
 						PathTrue = { "PrevRun", "Cleared" }
 					},
-					-- @ update based on last boss chamber
 					{
-						PathTrue = { "PrevRun", "RoomCountCache", "P_Boss01" },
+						Path = { "PrevRun", "RoomsEntered" },
+						HasAny = { "Q_Boss01", "Q_Boss02" },
 					},
 				},
 
@@ -1652,16 +2352,8 @@ LootSetData.Aphrodite =
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
 					{
-						Path = { "GameState", "TextLinesRecord", },
-						HasAny = { "DoraBathHouse01", "HecateBathHouse01", "OdysseusBathHouse01", "MorosBathHouse01" },
-					},
-					{
-						Path = { "PrevRun", "TextLinesRecord" },
-						HasNone = { "HecateBathHouseDecline01",
-							"OdysseusBathHouseDecline01",
-							"NemesisBathHouseDecline01",
-							"ErisBathHouseDecline01",
-						},
+						Path = { "PrevRun", "TextLinesRecord", },
+						HasAny = GameData.AllBathHouseEvents,
 					},
 				},
 
@@ -1683,8 +2375,8 @@ LootSetData.Aphrodite =
 						PathTrue = { "GameState", "TextLinesRecord", "AphroditeAboutBathHouse01", },
 					},
 					{
-						Path = { "GameState", "TextLinesRecord", },
-						HasAny = { "DoraBathHouse02", "HecateBathHouse02", "OdysseusBathHouse02", "MorosBathHouse02" },
+						Path = { "PrevRun", "TextLinesRecord", },
+						HasAny = GameData.AllBathHouseEvents,
 					},
 				},
 
@@ -1705,7 +2397,7 @@ LootSetData.Aphrodite =
 					},
 					{
 						Path = { "GameState", "EquippedFamiliar" },
-						IsAny = { "CatFamiliar", "FrogFamiliar", "RavenFamiliar" },
+						IsAny = { "CatFamiliar", "FrogFamiliar", "RavenFamiliar", "HoundFamiliar", "PolecatFamiliar" },
 					},
 				},
 
@@ -1724,11 +2416,11 @@ LootSetData.Aphrodite =
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "ArachneGift01" },
+						PathTrue = { "GameState", "TextLinesRecord", "ArachneGift03" },
 					},
 					{
 						Path = { "CurrentRun", "Hero", "TraitDictionary" },
-						HasAny = { "ArmorGainKeepsake", "VitalityCostume", "ManaCostume", "AgilityCostume", "CastDamageCostume", "IncomeCostume", "HighArmorCostume" },
+						HasAny = GameData.AllArachneCostumes,
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1754,7 +2446,7 @@ LootSetData.Aphrodite =
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0054",
-					
+					Emote = "PortraitEmoteAffection",					
 					Text = "Passion strikes at the unlikeliest of times, spurring us past the limits that we know! Pray welcome it as I, and go with all my blessings, from the bottom of my heart!" },
 			},
 			AphroditeLegendaryPickUp02 =
@@ -1775,6 +2467,96 @@ LootSetData.Aphrodite =
 					
 					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "PortraitEmoteAffection", WaitTime = 10.7 },
 					Text = "You know, gorgeous, I like getting my way. And right now I would like for you to cut a bloody little path through every single wretch and traitor that dares get in yours. {#Emph}Please?" },
+			},
+
+			AphroditePostTrueEnding01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0204",
+					Emote = "PortraitEmoteAffection",
+					Text = "Gorgeous, you won the {#Emph}war {#Prev}for us! At least I think we won? Perhaps we didn't if these ugly Satyrs and the like are not about to leave yet, but you definitely did do {#Emph}something! Oh {#Prev}this is all too {#Emph}much!" },
+			},
+			AphroditePostTrueEnding02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "NeoChronosAboutOlympus02", "NeoChronosAboutTartarus02" }
+					},
+					{
+						Path = { "PrevRun", "RoomsEntered" },
+						HasAny = { "I_Boss01", "Q_Boss01", "Q_Boss01" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0205",
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					Text = "That two-timing Chronos is on our side now? Against nasty versions of his older self, and invisible bits of Typhon we shouldn't fear {#Emph}too {#Prev}much but ought to heed. Not the strangest predicament I've been in, but it's {#Emph}close!" },
+			},
+
+			AphroditePostEpilogue01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					NamedRequirements = { "ReachedEpilogue" },
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0209",
+					Emote = "PortraitEmoteSparkly",
+					Text = "{#Emph}Ohh{#Prev}, the Three Fates {#Emph}finally {#Prev}decided to make an appearance, just as we were getting used to not having them around. What grand prophecy do they have in store for us now, {#Emph}hm? {#Prev}Whatever it is, we'll handle it I'm sure!" },
+			},
+			AphroditePostEpilogue02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					NamedRequirements = { "ReachedEpilogue" },
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0210",
+					Emote = "PortraitEmoteSparkly",
+					Text = "If there really is another age that's coming up, then I say bring it on! True love never changes or goes out of style, no matter how much everything else does. Just stick with me and we'll be {#Emph}fine!" },
+			},
+
+			AphroditeAboutSayingLittle01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "AphroditeGift07" }
+					},
+					NamedRequirements = { "ReachedEpilogue" },
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0235",
+					Emote = "PortraitEmoteAffection",
+					Text = "The language of love transcends boundaries... we needn't even exchange words to understand each other's feelings and desires. How about we try it for a while, {#Emph}hm?" },
 			},
 
 			-- repeatable lines
@@ -1799,6 +2581,11 @@ LootSetData.Aphrodite =
 				{
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						Path = { "GameState", "GamePhase", },
+						Comparison = "~=",
+						Value = 5,
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1989,20 +2776,8 @@ LootSetData.Aphrodite =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
-				},
-				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
-
-				{ Cue = "/VO/Aphrodite_0017",
-					
-					Emote = "PortraitEmoteCheerful",
-					Text = "We're just two lovely goddesses together having a night out!" },
-			},
-			AphroditeChat15 =
-			{
-				GameStateRequirements =
-				{
 					{
-						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+						PathTrue = { "GameState", "TextLinesRecord", "AphroditeGift07" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -2136,11 +2911,11 @@ LootSetData.Aphrodite =
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
 					{
-						SumPrevRuns = 4,
+						SumPrevRuns = 3,
 						Path = { "UseRecord", "AphroditeUpgrade" },
 						Comparison = "<=",
 						Value = 0,
-					}
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -2252,11 +3027,195 @@ LootSetData.Aphrodite =
 					Emote = "PortraitEmoteAffection",
 					Text = "We're in this together, sweetness, and don't you forget it, {#Emph}hm?" },
 			},
+			AphroditeChat32 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
+				{ Cue = "/VO/Aphrodite_0182",
+					Text = "Just remember, our war against ugliness is without end! Now let's fight on!" },
+			},
+			AphroditeChat33 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Aphrodite_0183",
+					Emote = "PortraitEmoteAffection",
+					Text = "Anything that's worth doing is worth doing with passion! So come on, perk up!" },
+			},
+			AphroditeChat34 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "N" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Aphrodite_0184",
+					Text = "Time again for another {#Emph}exciting {#Prev}night on the town! Lead the way, gorgeous!" },
+			},
+			AphroditeChat35 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Aphrodite_0185",
+					Text = "We'll make them all go weak in the knees. And everywhere else, just in case." },
+			},
+			AphroditeChat36 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Aphrodite_0186",
+					Text = "So much beauty in this world, and if we don't fight to protect it, who shall?" },
+			},
+			AphroditeChat37 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Aphrodite_0187",
+					Emote = "PortraitEmoteAffection",
+					Text = "I love what I do, especially when I get to take matters into my own hands." },
+			},
+			AphroditeChat38 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathTrue = { "PrevRun", "BiomesReached", "N" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "F" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Aphrodite_0188",
+					Text = "Back to the comfort of the Underworld for the night? We'll pretty it up in no time!" },
+			},
+			AphroditeChat39 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+					{
+						PathTrue = { "PrevRun", "BiomesReached", "F" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Aphrodite_0189",
+					Emote = "PortraitEmoteAffection",
+					Text = "You're headed {#Emph}our {#Prev}way again! My heart beats faster at the very thought!" },
+			},
+			AphroditeChat40 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
+					},
+					{
+						PathTrue = { "PrevRun", "Cleared" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Aphrodite_0190",
+					Text = "Can this night possibly go even better than the last? Let's go find out!" },
+			},
 		},
 
 		BoughtTextLines =
 		{
+			AphroditeBlindBox01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFromSource = true,
+						PathTrue = { "WasRandomLoot" },
+					},
+					{
+						SumPrevRooms = 6,
+						Path = { "UseRecord", "AphroditeUpgrade" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0180",
+					Emote = "PortraitEmoteAffection",
+					Text = "I wanted this to be a surprise, love! Who could possibly ask for a better outcome opening up some plain old bag, only to find {#Emph}me {#Prev}waiting there with outstretched arms?" },
+			},
+			AphroditeBlindBox02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFromSource = true,
+						PathTrue = { "WasRandomLoot" },
+					},
+					{
+						SumPrevRooms = 6,
+						Path = { "UseRecord", "AphroditeUpgrade" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Aphrodite_0181",
+					Emote = "PortraitEmoteAffection",
+					Text = "Were you expecting someone far less beautiful, or did you somehow know it was {#Emph}me? {#Prev}Perhaps you could hear my heart beating all the way from where {#Emph}you {#Prev}are!" },
+			},
+
+
 			AphroditeLootBought01 =
 			{
 				PlayOnce = true,
@@ -2266,6 +3225,13 @@ LootSetData.Aphrodite =
 						FunctionName = "RequiredAlive",
 						FunctionArgs = { Units = { "NPC_Charon_01" }, },
 					},
+					{
+						SumPrevRooms = 6,
+						Path = { "UseRecord", "AphroditeUpgrade" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0136",
@@ -2280,9 +3246,17 @@ LootSetData.Aphrodite =
 						FunctionName = "RequiredAlive",
 						FunctionArgs = { Units = { "NPC_Charon_01" }, },
 					},
+					{
+						SumPrevRooms = 6,
+						Path = { "UseRecord", "AphroditeUpgrade" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0137",
+					Emote = "PortraitEmoteAffection",
 					Text = "{#Emph}Oh{#Prev}, to be an urgent bit of battlefield relief delivered courtesy of the feared Boatman himself, {#Emph}hah! {#Prev}Come on, we all have fantasies, gorgeous!" },
 			},
 			AphroditeLootBought03 =
@@ -2291,12 +3265,19 @@ LootSetData.Aphrodite =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "CharonGift01" },
+						PathTrue = { "GameState", "TextLinesRecord", "CharonGift04" },
 					},
 					{
 						FunctionName = "RequiredAlive",
 						FunctionArgs = { Units = { "NPC_Charon_01" }, },
 					},
+					{
+						SumPrevRooms = 6,
+						Path = { "UseRecord", "AphroditeUpgrade" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0138",
@@ -2309,12 +3290,19 @@ LootSetData.Aphrodite =
 				{
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsAny = { "F_PreBoss01", "G_PreBoss01", "H_PreBoss01", "I_PreBoss01", "N_PreBoss01", "O_PreBoss01", "P_PreBoss01" },
+						IsAny = { "F_PreBoss01", "G_PreBoss01", "H_PreBoss01", "I_PreBoss01", "I_PreBoss02", "N_PreBoss01", "O_PreBoss01", "P_PreBoss01" },
 					},
 					{
 						FunctionName = "RequiredAlive",
 						FunctionArgs = { Units = { "NPC_Charon_01" }, },
 					},
+					{
+						SumPrevRooms = 6,
+						Path = { "UseRecord", "AphroditeUpgrade" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0139",
@@ -2327,65 +3315,73 @@ LootSetData.Aphrodite =
 			AphroditeRejection01 =
 			{
 				{ Cue = "/VO/Aphrodite_0150",
-				PreLineFunctionName = "BoonInteractPresentation",
-				PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
-				PreLineWait = 1.0,
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					PreLineFunctionName = "BoonInteractPresentation",
+					PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
+					PreLineWait = 1.0,
 					Text = "Our world can be such an ugly place! Filled with such terrible misunderstandings as can veil the beauty we so often {#Emph}don't appreciate enough." },
 			},
 			AphroditeRejection02 =
 			{
 				{ Cue = "/VO/Aphrodite_0151",
-				PreLineFunctionName = "BoonInteractPresentation",
-				PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
-				PreLineWait = 1.0,
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					PreLineFunctionName = "BoonInteractPresentation",
+					PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
+					PreLineWait = 1.0,
 					Text = "Oh, gorgeous. If pride and vanity are truly weaknesses, then I'm about to let myself be very vulnerable with you here..." },
 			},
 			AphroditeRejection03 =
 			{
 				{ Cue = "/VO/Aphrodite_0152",
-				PreLineFunctionName = "BoonInteractPresentation",
-				PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
-				PreLineWait = 1.0,
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					PreLineFunctionName = "BoonInteractPresentation",
+					PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
+					PreLineWait = 1.0,
 					Text = "I truly thought we ladies had a special connection, but then you do such things and make me feel unsure! And just a bit upset." },
 			},
 			AphroditeRejection04 =
 			{
 				{ Cue = "/VO/Aphrodite_0153",
-				PreLineFunctionName = "BoonInteractPresentation",
-				PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
-				PreLineWait = 1.0,
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					PreLineFunctionName = "BoonInteractPresentation",
+					PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
+					PreLineWait = 1.0,
 					Text = "I don't offer you my blessings so you can just save them for later like some sort of snack! You want something else, fine! You can {#Emph}have {#Prev}it." },
 			},
 			AphroditeRejection05 =
 			{
 				{ Cue = "/VO/Aphrodite_0154",
-				PreLineFunctionName = "BoonInteractPresentation",
-				PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
-				PreLineWait = 1.0,
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					PreLineFunctionName = "BoonInteractPresentation",
+					PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
+					PreLineWait = 1.0,
 					Text = "Try as I might, I just can't help but feel the sting of being spurned. And I don't like it, not a little bit. So now I have to sting you back!" },
 			},
 			AphroditeRejection06 =
 			{
 				{ Cue = "/VO/Aphrodite_0155",
-				PreLineFunctionName = "BoonInteractPresentation",
-				PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
-				PreLineWait = 1.0,
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					PreLineFunctionName = "BoonInteractPresentation",
+					PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
+					PreLineWait = 1.0,
 					Text = "There may be those who can make peace with being brushed aside, but that's not something {#Emph}I {#Prev}can do, sweetness! No matter how hard I try." },
 			},
 			AphroditeRejection07 =
 			{
 				{ Cue = "/VO/Aphrodite_0156",
-				PreLineFunctionName = "BoonInteractPresentation",
-				PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
-				PreLineWait = 1.0,
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					PreLineFunctionName = "BoonInteractPresentation",
+					PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
+					PreLineWait = 1.0,
 					Text = "Oh, don't be such a {#Emph}tease {#Prev}with me! When I bestow my blessings, take them graciously next time. But now...?" },
 			},
 			AphroditeRejection08 =
 			{
 				{ Cue = "/VO/Aphrodite_0157",
-				PreLineFunctionName = "BoonInteractPresentation",
-				PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
-				PreLineWait = 1.0,
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					PreLineFunctionName = "BoonInteractPresentation",
+					PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
+					PreLineWait = 1.0,
 					Text = "Sometimes I think we shouldn't force you to play favorites, but we shouldn't do a lot of things, I'm sure! Such as get angry with {#Emph}you!" },
 			},
 			AphroditeRejection09 =
@@ -2394,14 +3390,15 @@ LootSetData.Aphrodite =
 				GameStateRequirements =
 				{
 					{
-						Path = { "MapState", "RejectedLoot", "Name" },
+						Path = { "CurrentLootData", "Name" },
 						IsAny = { "HephaestusUpgrade" },
 					},
 				},
 				{ Cue = "/VO/Aphrodite_0158",
-				PreLineFunctionName = "BoonInteractPresentation",
-				PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
-				PreLineWait = 1.0,
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					PreLineFunctionName = "BoonInteractPresentation",
+					PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
+					PreLineWait = 1.0,
 					Text = "You'd side with dear Hephaestus over {#Emph}me? {#Prev}There must be some mistake, sweetness! Which means there too must be some sort of {#Emph}punishment..." },
 			},
 			AphroditeRejection10 =
@@ -2410,14 +3407,15 @@ LootSetData.Aphrodite =
 				GameStateRequirements =
 				{
 					{
-						Path = { "MapState", "RejectedLoot", "Name" },
+						Path = { "CurrentLootData", "Name" },
 						IsAny = { "HephaestusUpgrade" },
 					},
 				},
 				{ Cue = "/VO/Aphrodite_0159",
-				PreLineFunctionName = "BoonInteractPresentation",
-				PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
-				PreLineWait = 1.0,
+					Portrait = "Portrait_Aphrodite_Displeased_01",
+					PreLineFunctionName = "BoonInteractPresentation",
+					PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
+					PreLineWait = 1.0,
 					Text = "You {#Emph}could {#Prev}stay out of these infrequent little spats I have with my hard-working Hephaestus. But if you {#Emph}really {#Prev}want to get involved, why, {#Emph}sure!" },
 			},
 
@@ -2500,11 +3498,12 @@ LootSetData.Aphrodite =
 						PathTrue = { "GameState", "UseRecord", "AphroditeUpgrade" },
 					},
 					{
-						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/Melinoe_0948", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					PostLineFunctionName = "BoonInteractPresentation",
@@ -2515,14 +3514,14 @@ LootSetData.Aphrodite =
 					PortraitExitWait = 1.0,
 					NarrativeContextArt = "DialogueBackground_Olympus",
 					Emote = "PortraitEmoteAffection",
-					Text = "Why, this is wonderful, and also quite impressive you already know our ways! I must return the gesture, so please take this; I insist!" },
+					Text = "Why, this is {#Emph}wonderful{#Prev}, and also quite impressive you already know our ways! I {#Emph}must {#Prev}return the gesture, so please, take {#Emph}this. {#Prev}I {#Emph}insist!" },
 			},
 			AphroditeGift02 =
 			{
 				PlayOnce = true,
 				OnGiftTrack = true,
-				-- UnfilledIcon = "EmptyHeartWithGiftIcon",
-				-- FilledIcon = "FilledHeartWithGiftIcon",
+				UnfilledIcon = "EmptyHeartWithProphecyIcon",
+				FilledIcon = "FilledHeartWithProphecyIcon",
 				Cost =
 				{
 					GiftPoints = 1,
@@ -2533,7 +3532,7 @@ LootSetData.Aphrodite =
 						PathTrue = { "GameState", "UseRecord", "AphroditeUpgrade" },
 					},
 					{
-						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
 				},
@@ -2548,7 +3547,7 @@ LootSetData.Aphrodite =
 					PortraitExitWait = 1.0,
 					NarrativeContextArt = "DialogueBackground_Olympus",
 					Emote = "PortraitEmoteAffection",
-					Text = "Your offering is more than welcome, love! And come to think, it's been entirely too long since someone showered me with praise!" },
+					Text = "Your offering is {#Emph}more {#Prev}than welcome, love! And come to think, it's been entirely too long since someone showered me with praise!" },
 			},
 			AphroditeGift03 =
 			{
@@ -2566,11 +3565,12 @@ LootSetData.Aphrodite =
 						PathTrue = { "GameState", "UseRecord", "AphroditeUpgrade" },
 					},
 					{
-						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/Melinoe_0950", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					PostLineFunctionName = "BoonInteractPresentation",
@@ -2581,7 +3581,7 @@ LootSetData.Aphrodite =
 					PortraitExitWait = 1.0,
 					NarrativeContextArt = "DialogueBackground_Olympus",
 					Emote = "PortraitEmoteAffection",
-					Text = "Oh, sweetness, the honor is all mine! For matters of the heart, the key is openness. So you're well on your way towards the understanding you desire!" },
+					Text = "Oh, sweetness, the honor is {#Emph}all {#Prev}mine! For matters of the heart, the key is openness. So you're well on your way towards the understanding you desire!" },
 			},
 			AphroditeGift04 =
 			{
@@ -2599,11 +3599,12 @@ LootSetData.Aphrodite =
 						PathTrue = { "GameState", "UseRecord", "AphroditeUpgrade" },
 					},
 					{
-						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/MelinoeField_1766", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					PostLineFunctionName = "BoonInteractPresentation",
@@ -2614,23 +3615,121 @@ LootSetData.Aphrodite =
 					PortraitExitWait = 1.0,
 					NarrativeContextArt = "DialogueBackground_Olympus",
 					Emote = "PortraitEmoteAffection",
-					Text = "My heart, you're truly something, you know that? You're generous, selective with your words, and gorgeous, too! I don't know whether to be flattered or a little envious!" },
+					Text = "My heart, you're {#Emph}truly {#Prev}something, you know that? You're generous, selective with your words, and {#Emph}gorgeous{#Prev}, too! I don't know whether to be flattered or a little envious!" },
 			},
-
-			-- placeholder
-			AphroditeGiftTemp =
+			AphroditeGift05 =
 			{
 				PlayOnce = true,
-				UseableOffSource = true,
 				OnGiftTrack = true,
-				UnfilledIcon = "UnavailableHeartIcon",
-				HintId = "Codex_UnavailableHint",
+				-- UnfilledIcon = "EmptyHeartWithGiftIcon",
+				-- FilledIcon = "FilledHeartWithGiftIcon",
 				Cost =
 				{
-					MysteryResource = 1,
+					GiftPoints = 1,
 				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "AphroditeUpgrade" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_1767", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineFunctionName = "BoonInteractPresentation",
+					PostLineFunctionArgs = { SkipAnim = true },
+					PostLineRemoveContextArt = true,
+					Text = "Glorious Aphrodite! You are truly stunning, yet your courage and confidence inspire me still more. I'm humbled to be in your presence, and to be worthy of your favor." },
+				{ Cue = "/VO/Aphrodite_0178",
+					PortraitExitWait = 1.0,
+					NarrativeContextArt = "DialogueBackground_Olympus",
+					Emote = "PortraitEmoteAffection",
+					Text = "I didn't know what to expect from you. A sister-in-arms, at best? And I scarcely know you, save for glimpses from these messages, but despite all that... I've come to think of you as a friend! Someone to talk to. Thank you, love!" },
 			},
+			AphroditeGift06 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				-- UnfilledIcon = "EmptyHeartWithGiftIcon",
+				-- FilledIcon = "FilledHeartWithGiftIcon",
+				Cost =
+				{
+					GiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "AphroditeUpgrade" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_1768", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineFunctionName = "BoonInteractPresentation",
+					PostLineFunctionArgs = { SkipAnim = true },
+					PostLineRemoveContextArt = true,
+					Text = "I've always thought the world beautiful... it's everywhere around us, even in times of strife. And I know that's because of {#Emph}you{#Prev}, Aphrodite. Thank you for helping me perceive it all." },
+				{ Cue = "/VO/Aphrodite_0179",
+					PortraitExitWait = 1.0,
+					NarrativeContextArt = "DialogueBackground_Olympus",
+					Emote = "PortraitEmoteAffection",
+					Text = "From you, this Nectar surely shall be sweeter than the rest! So when the clouds begin to darken overhead, and I feel my hope begin to wane, I'll drink to us. And I shall bounce right back!" },
+			},
+			-- bond forged
+			AphroditeGift07 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				LockedHintId = "Codex_AphroditeGiftHint01",
+				CompletedHintId = "Codex_BondForgedAphrodite",
+				UnfilledIcon = "EmptyHeartWithAmbrosiaIcon",
+				FilledIcon = "FilledHeartWithAmbrosiaIcon",
+				Cost =
+				{
+					SuperGiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "AphroditeUpgrade" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "AphroditeAboutLove04", "AphroditeGift06" }
+					},
+				},
+				{ Cue = "/VO/MelinoeField_4347", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PostLineFunctionName = "BoonInteractPresentation",
+					PostLineFunctionArgs = { SkipAnim = true },
+					PostLineRemoveContextArt = true,
+					Text = "Aphrodite, your genuine enthusiasm even in the face of such hardship is so much of what makes you beautiful and inspirational beyond compare. I feel as though Ambrosia such as this symbolizes all the love you have to give." },
+				{ Cue = "/VO/Aphrodite_0202",
+					PortraitExitWait = 1.0,
+					NarrativeContextArt = "DialogueBackground_Olympus",
+					Emote = "PortraitEmoteAffection",
 
+					PostLineThreadedFunctionName = "MaxedRelationshipPresentation",
+					PostLineThreadedFunctionArgs = { Text = "NPC_Aphrodite_01", Icon = "Keepsake_Aphrodite" },
+
+					Text = "{#Emph}Oh{#Prev}, you're {#Emph}so {#Prev}very kind! Though it never gets old. I'm {#Emph}used {#Prev}to everybody fawning over my {#Emph}looks! {#Prev}But if you can see past that, the {#Emph}inner beauty {#Prev}I possess, then you know {#Emph}far {#Prev}more of love and beauty than {#Emph}most." },
+			},
 		},
 
 		GiftGivenVoiceLines =
@@ -2659,24 +3758,116 @@ LootSetData.Aphrodite =
 
 		RarityUpgradeVoiceLines =
 		{
-			RandomRemaining = true,
-			BreakIfPlayed = true,
-			PreLineWait = 0.3,
-			Source = { LineHistoryName = "NPC_Aphrodite_01", SubtitleColor = Color.AphroditeVoice },
-			Cooldowns =
+			{ GlobalVoiceLines = "ZagreusRarifyVoiceLines" },
 			{
-				{ Name = "BoonRarifiedSpeech", Time = 60 },
-			},
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				PreLineWait = 0.3,
+				Source = { LineHistoryName = "NPC_Aphrodite_01", SubtitleColor = Color.AphroditeVoice },
+				Cooldowns =
+				{
+					{ Name = "BoonRarifiedSpeech", Time = 240 },
+				},
 
-			{ Cue = "/VO/Aphrodite_0105", Text = "Mm-{#Emph}hmm!" },
-			{ Cue = "/VO/Aphrodite_0106", Text = "My pleasure." },
-			{ Cue = "/VO/Aphrodite_0109", Text = "Follow your heart." },
-			{ Cue = "/VO/Aphrodite_0168", Text = "Done!" },
-			{ Cue = "/VO/Aphrodite_0169", Text = "Sure!" },
-			{ Cue = "/VO/Aphrodite_0170", Text = "Of course!" },
-			{ Cue = "/VO/Aphrodite_0171", Text = "Here!" },
-			{ Cue = "/VO/Aphrodite_0172", Text = "Anything for you!" },
-			{ Cue = "/VO/Aphrodite_0173", Text = "Certainly!", PlayFirst = true },
+				{ Cue = "/VO/Aphrodite_0105", Text = "Mm-{#Emph}hmm!" },
+				{ Cue = "/VO/Aphrodite_0106", Text = "My pleasure." },
+				{ Cue = "/VO/Aphrodite_0109", Text = "Follow your heart." },
+				{ Cue = "/VO/Aphrodite_0168", Text = "Done!" },
+				{ Cue = "/VO/Aphrodite_0169", Text = "Sure!" },
+				{ Cue = "/VO/Aphrodite_0170", Text = "Of course!" },
+				{ Cue = "/VO/Aphrodite_0171", Text = "Here!" },
+				{ Cue = "/VO/Aphrodite_0172", Text = "Anything for you!" },
+				{ Cue = "/VO/Aphrodite_0173", Text = "Certainly!", PlayFirst = true },
+			},
+		},
+
+		FullSuperActivatedVoiceLines =
+		{
+			Queue = "Interrupt",
+			{
+				RandomRemaining = true,
+				Source = { LineHistoryName = "NPC_Aphrodite_01", SubtitleColor = Color.AphroditeVoice },
+				GameStateRequirements =
+				{
+					OrRequirements =
+					{
+						{
+							{
+								Path = { "CurrentRun", "CurrentRoom", "Encounter", "SpurnedGodName" },
+								IsNone = { "AphroditeUpgrade" },
+							},
+						},
+						{
+							{
+								PathTrue = { "CurrentRun", "CurrentRoom", "Encounter", "Completed" },
+							},
+						},
+					},
+					NamedRequirements = { "FullSuperVoiceLinesEligible" },
+				},
+
+				{ Cue = "/VO/Aphrodite_0099", Text = "They're going to love {#Emph}this!", PlayFirst = true },
+				{ Cue = "/VO/Aphrodite_0100", Text = "I'm here for you, gorgeous!" },
+				{ Cue = "/VO/Aphrodite_0101", Text = "No heart that cannot break!" },
+				{ Cue = "/VO/Aphrodite_0242", Text = "Anything for you, love!" },
+				{ Cue = "/VO/Aphrodite_0243", Text = "Feast your eyes on {#Emph}this!", PlayFirst = true },
+				{ Cue = "/VO/Aphrodite_0244", Text = "It'll be a thing of beauty!" },
+			},
+			{
+				RandomRemaining = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "SpurnedGodName" },
+						IsAny = { "AphroditeUpgrade" },
+					},
+					{
+						PathFalse = { "CurrentRun", "CurrentRoom", "Encounter", "Completed" },
+					},
+					NamedRequirements = { "FullSuperVoiceLinesEligible" },
+				},
+
+				{ Cue = "/VO/Aphrodite_0245", Text = "Anything for {#Emph}you{#Prev}, love!" },
+				{ Cue = "/VO/Aphrodite_0246", Text = "Who do you think you {#Emph}are?", PlayFirst = true },
+				{ Cue = "/VO/Aphrodite_0247", Text = "Quit playing with my heart!" },
+			},
+			{
+				PlayOnceFromTableThisRun = true,
+				RandomRemaining = true,
+				ObjectTypes = { "Chronos", "Chronos_TyphonFight" },
+				PreLineWait = 0.35,
+				SuccessiveChanceToPlayAll = 0.33,
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "ChronosSpokeRecently", Time = 8 },
+				},
+
+				{ Cue = "/VO/Chronos_1263", Text = "I would {#Emph}love {#Prev}for you to {#Emph}leave!", PlayFirst = true },
+				{ Cue = "/VO/Chronos_1264", Text = "I am not so {#Emph}easily {#Prev}distracted." },
+			},
+			{
+				PlayOnceFromTableThisRun = true,
+				RandomRemaining = true,
+				ObjectTypes = { "Zagreus" },
+				PreLineWait = 0.35,
+				SuccessiveChanceToPlayAll = 0.33,
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "ZagreusSpokeRecently", Time = 6 },
+				},
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsAny = { "C_Boss01" },
+					},
+				},
+
+				{ Cue = "/VO/Zagreus_0362", Text = "Lady Aphrodite...!", PlayFirst = true },
+				{ Cue = "/VO/Zagreus_0363", Text = "Aphrodite?!" },
+			},
 		},
 
 		DeathTauntVoiceLines =
@@ -2698,7 +3889,7 @@ LootSetData.Aphrodite =
 			BreakIfPlayed = true,
 			PreLineWait = 0.3,
 			Source = { LineHistoryName = "NPC_Aphrodite_01", SubtitleColor = Color.AphroditeVoice },
-			TriggerCooldowns = { "AphroditeBoonTakenSpeech" },
+			TriggerCooldowns = { "AphroditeBoonTakenSpeech", "MelinoeBoonTakenSpeech" },
 
 			{ Cue = "/VO/Aphrodite_0102", Text = "Well, well!", PlayFirst = true },
 			{ Cue = "/VO/Aphrodite_0103", Text = "{#Emph}Ah, ha-hah!" },

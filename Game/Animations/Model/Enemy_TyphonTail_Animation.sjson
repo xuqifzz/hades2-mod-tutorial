@@ -1,0 +1,753 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyTyphonTailBaseAnimation"
+		LargeObstacle3DModel = true
+		GrannyModel = "TyphonTail_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = false
+		OffsetZ = 1750
+	}
+
+	{
+		Name = "Enemy_TyphonTail_Idle"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_Idle_C_00"
+		Loop = true
+		OwnerHasNoUnitCollision = true
+		OffsetZ = 1450
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_DrillPostFire2"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_ImpalePostFire2"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_RampagePostFire2"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_CannonPostFire2"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_Overlook"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_Overlook_C_00"
+		ChainTo = "Enemy_TyphonTail_Hidden"
+		Sound = "/SFX/Enemy Sounds/Typhon/EmoteJumpScareMuffled"
+	}
+
+	{
+		Name = "Enemy_TyphonTail_Hidden"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_Idle_C_00"
+		Loop = true
+		OwnerHasNoCollision = true
+		Alpha = 0.0
+	}
+
+	{
+		Name = "Enemy_TyphonTail_Retreat"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_Retreat_C_00"
+		OwnerHasNoCollision = true
+		HoldLastFrame = true
+		OffsetZ = 1450
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_FlyUp"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_Retreat_C_00"
+		GrannyAnimationSpeed = 2.0
+		OwnerHasNoCollision = true
+		OffsetZ = 1450
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_ImpalePostFire2"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_FlyDown"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_Retreat_C_00"
+		PlayBackwards = true
+		GrannyAnimationSpeed = 2.0
+		OwnerHasNoCollision = true
+		OffsetZ = 1450
+	}
+
+	{
+		Name = "Enemy_TyphonTail_DrillPreFire"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_DrillStart_C_00"
+		ChainTo = "Enemy_TyphonTail_DrillFire"
+		Sound = "/SFX/Enemy Sounds/Typhon/TailProjectileCharge"
+		OwnerHasNoCollision = true
+		StopSoundOnFinishFade = 0.2
+		OffsetZ = null
+		StartOffsetZ = 1450
+		EndOffsetZ = 1750
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_DrillPostFire2"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_ImpalePostFire2"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_RampagePostFire2"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_CannonPostFire2"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_DrillFire"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_DrillFire_C_00"
+		VerticalMaskInModelSpace = true
+		ChainTo = "Enemy_TyphonTail_DrillFire2"
+		Frames =
+		[
+			{
+				Frame = 1
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 0.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_DrillFire2"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_DrillFire_C_00"
+		HoldLastFrame = true
+		VerticalMaskInModelSpace = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 11
+				FrameSpeed = 1.0
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 13
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 20
+				VerticalMask = 0.93
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_DrillFireLoop"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_DrillLoop_C_00"
+		Loop = true
+		Sound = "/SFX/Enemy Sounds/Typhon/TailCorkscrewAttack"
+		StopSoundOnFinishFade = 0.2
+		VerticalMaskInModelSpace = true
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.93
+			}
+			{
+				Frame = 30
+				VerticalMask = 0.93
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_DrillPostFire"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_DrillReturn_C_00"
+		VerticalMaskInModelSpace = true
+		ChainTo = "Enemy_TyphonTail_DrillPostFire2"
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.93
+			}
+			{
+				Frame = 3
+				VerticalMask = 0.93
+				Sound = "/SFX/Enemy Sounds/Typhon/TailRockDebris"
+			}
+			{
+				Frame = 20
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 21
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_DrillFireLoop"
+				Duration = 3
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonTail_DrillPostFire2"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_DrillReturn_C_00"
+		OwnerHasNoUnitCollision = true
+		ChainTo = "Enemy_TyphonTail_Idle"
+		OffsetZ = null
+		StartOffsetZ = 1750
+		EndOffsetZ = 1450
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 22
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_ImpalePreFire"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_ImpaleStart_C_00"
+		HoldLastFrame = true
+		OwnerHasNoCollision = true
+		OffsetZ = null
+		StartOffsetZ = 1450
+		EndOffsetZ = 1750
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_DrillPostFire2"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_ImpalePostFire2"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_RampagePostFire2"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_CannonPostFire2"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_ImpaleFireA"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_ImpaleFireA_C_00"
+		ChainTo = "Enemy_TyphonTail_ImpaleFireA2"
+		OwnerImmobile = true
+		OwnerHasNoUnitCollision = true
+		Frames =
+		[
+			{
+				Frame = 13
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonTail_ImpaleFireA2"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_ImpaleFireA_C_00"
+		ChainTo = "Enemy_TyphonTail_ImpaleFireB"
+		VerticalMaskInModelSpace = true
+		OwnerImmobile = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 13
+				FrameSpeed = 1
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 16
+				VerticalMask = 0.95
+			}
+			{
+				Frame = 40
+				VerticalMask = 0.95
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_ImpaleFireB"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_ImpaleFireB_C_00"
+		ChainTo = "Enemy_TyphonTail_ImpaleFireStuck"
+		VerticalMaskInModelSpace = true
+		OwnerImmobile = true
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.95
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/Typhon/TailRockDebris"
+				VerticalMask = 0.95
+			}
+			{
+				Frame = 3
+				VerticalMask = 0.95
+			}
+			{
+				Frame = 5
+				VerticalMask = 1
+			}
+			{
+				Frame = 7
+				VerticalMask = 1
+			}
+			{
+				Frame = 9
+				VerticalMask = 0.935
+			}
+			{
+				Frame = 30
+				VerticalMask = 0.935
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_ImpaleFireStuck"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_ImpaleStuckLoop_C_00"
+		Loop = true
+		VerticalMaskInModelSpace = true
+		OwnerImmobile = true
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.935
+			}
+			{
+				Frame = 28
+				VerticalMask = 0.935
+				Sound = "/SFX/PillarBoulderDestroyed"
+			}
+			{
+				Frame = 50
+				VerticalMask = 0.935
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_ImpalePostFire"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_ImpaleReturn_C_00"
+		VerticalMaskInModelSpace = true
+		ChainTo = "Enemy_TyphonTail_ImpalePostFire2"
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.935
+			}
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Typhon/TailRockDebris"
+				VerticalMask = 0.935
+			}
+			{
+				Frame = 11
+				VerticalMask = 0.9
+			}
+			{
+				Frame = 17
+				VerticalMask = 0.96
+			}
+			{
+				Frame = 19
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 20
+				FrameSpeed = 0
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_ImpaleFireStuck"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonTail_ImpalePostFire2"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_ImpaleReturn_C_00"
+		OwnerHasNoUnitCollision = true
+		ChainTo = "Enemy_TyphonTail_Idle"
+		OffsetZ = null
+		StartOffsetZ = 1750
+		EndOffsetZ = 1450
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 21
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_RampagePreFire"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_RampageStart_C_00"
+		ChainTo = "Enemy_TyphonTail_RampagePreFire2"
+		Sound = "/SFX/Enemy Sounds/Typhon/TailPreAttack"
+		OffsetZ = null
+		StartOffsetZ = 1450
+		EndOffsetZ = 1750
+		Frames =
+		[
+			{
+				Frame = 70
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_DrillPostFire2"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_ImpalePostFire2"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_RampagePostFire2"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_CannonPostFire2"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonTail_RampagePreFire2"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_RampageStart_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 70
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_RampageFire"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_RampageFireFirst_C_00"
+		ChainTo = "Enemy_TyphonTail_RampageFireLoop"
+		CreateAnimation = "TyphonTailRampageStreak"
+	}
+
+	{
+		Name = "Enemy_TyphonTail_RampageFireLoop"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_RampageFireLoop_C_00"
+		Loop = true
+		CreateAnimation = "TyphonTailRampageStreak"
+	}
+
+	{
+		Name = "Enemy_TyphonTail_RampagePostFire"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_RampageReturn_C_00"
+		ChainTo = "Enemy_TyphonTail_RampagePostFire2"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.2
+			}
+			{
+				Frame = 10
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonTail_RampagePostFire2"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_RampageReturn_C_00"
+		OwnerHasNoUnitCollision = true
+		ChainTo = "Enemy_TyphonTail_Idle"
+		Sound = "/SFX/Enemy Sounds/Typhon/TailPreAttack"
+		OffsetZ = null
+		StartOffsetZ = 1750
+		EndOffsetZ = 1450
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 11
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_CannonPreFire"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_RampageStart_C_00"
+		ChainTo = "Enemy_TyphonTail_CannonPreFire2"
+		OffsetZ = null
+		StartOffsetZ = 1450
+		EndOffsetZ = 1750
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 70
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_DrillPostFire2"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_ImpalePostFire2"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_RampagePostFire2"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_CannonPostFire2"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_CannonPreFire2"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_RampageStart_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 70
+				FrameSpeed = 1
+			}
+			{
+				Frame = 77
+				FrameSpeed = 0.1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_CannonFire"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_RampageFireFirst_C_00"
+		ChainTo = "Enemy_TyphonTail_CannonPostFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.3
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_CannonPostFire"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_RampageReturn_C_00"
+		ChainTo = "Enemy_TyphonTail_CannonPostFire2"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.2
+			}
+			{
+				Frame = 10
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonTail_CannonPostFire2"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_RampageReturn_C_00"
+		OwnerHasNoUnitCollision = true
+		ChainTo = "Enemy_TyphonTail_Idle"
+		OffsetZ = null
+		StartOffsetZ = 1750
+		EndOffsetZ = 1450
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 11
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonTail_Death"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_RampageStart_C_00"
+		ChainTo = "Enemy_TyphonTail_Death2"
+		Sound = "/SFX/Enemy Sounds/Typhon/TyphonDeathQuake2"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 60
+				FrameSpeed = 1
+			}
+			{
+				Frame = 75
+				FrameSpeed = 0.2
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 12
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonTail_Death2"
+		InheritFrom = "EnemyTyphonTailBaseAnimation"
+		GrannyAnimation = "TyphonTail_Base_Retreat_C_00"
+		OwnerHasNoCollision = true
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonTail_Death"
+				Duration = 24
+			}
+		]
+	}
+
+] }

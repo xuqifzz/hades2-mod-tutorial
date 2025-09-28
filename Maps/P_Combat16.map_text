@@ -288,6 +288,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Standing_Foreground_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Standing_FX_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -414,6 +427,7 @@
         "Overlay_01",
         "Stars_01",
         "Standing_FX_01",
+        "Standing_Foreground_01",
         "Standing",
         "Terrain_Gameplay",
         "Terrain_Lighting_01",
@@ -619,5 +633,5 @@
     "Y": 0.000
   },
   "TimeLapseCameraZoom": 1.000,
-  "ShadowPlaneDepth": 0.000
+  "ShadowPlaneDepth": 0.980
 }

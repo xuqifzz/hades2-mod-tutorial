@@ -156,9 +156,14 @@
 		Name = "Enemy_SentryBot_Shutdown"
 		InheritFrom = "EnemySentryBotBaseAnimation"
 		GrannyAnimation = "SentryBot_Base_Shutdown_C_00"
-		HoldLastFrame = true
 		Sound = "/SFX/BloodMineBeepRising"
 		StopSoundOnFinishFade = 0.2
+		ChainTo = "Enemy_SentryBot_Death"
+		CancelOnOwnerMove = false
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
 		Blends =
 		[
 			{
@@ -188,6 +193,71 @@
 			{
 				BlendTransitionFrom = "Enemy_SentryBot_OnHit_Heavy"
 				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+			}
+			{
+				Frame = 59
+				Sound = "/SFX/LuciferBombExplosion"
+			}
+		]
+	}
+
+
+	{
+		Name = "Enemy_SentryBot_Death"
+		InheritFrom = "EnemySentryBotBaseAnimation"
+		GrannyAnimation = "SentryBot_Base_Shutdown_C_00"
+		GrannyAnimationSpeed = 1
+		VerticalMaskInModelSpace = false
+		StartOffsetZ = 0
+		EndOffsetZ = -25
+		Duration = 0.4
+		DeathFxFrameDuration = 36
+		DeathFxColor = { Red = 0.85 Green = 0.95 Blue = 1.0 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0
+		DeathFxEaseOut = 1
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskRadial"
+		DeathFxReverse = false
+		VisualFx = "EnemyEnforcerDeathArcs"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 20
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AddColor = true
+		HoldLastFrame = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		CreateAnimation = "EnemySentryBotDeathFx"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 59
+				FrameSpeed = 0.01
 			}
 		]
 	}

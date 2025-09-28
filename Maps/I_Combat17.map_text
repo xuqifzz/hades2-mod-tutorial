@@ -106,6 +106,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Terrain_FX_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Terrain_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -353,6 +366,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "FX_Foreground_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Foreground_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -395,6 +421,7 @@
         "Foreground_03",
         "Foreground_02",
         "Foreground_01",
+        "FX_Foreground_01",
         "Shading_01",
         "ColorBurn_01",
         "Overlay_01",
@@ -414,6 +441,7 @@
         "Terrain_03",
         "Terrain_02",
         "Terrain_01",
+        "Terrain_FX_01",
         "Terrain_Base",
         "FX_River_03",
         "Terrain_Beneath_03",
@@ -604,5 +632,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.920
 }

@@ -3,13 +3,59 @@
 	/* Cast */
 
 	{
+		Name = "MelinoeBaseAxeCastAnimations"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		RequireCurrentAnimationNotContains =
+		[
+			// Axe
+			{ Name = "Melinoe_Axe_Attack1_Start" }
+			{ Name = "Melinoe_Axe_Attack1_Start_Fast" }
+			{ Name = "Melinoe_Axe_Attack1_Fire" }
+			{ Name = "Melinoe_Axe_Attack2_Start" }
+			{ Name = "Melinoe_Axe_Attack2_Start_Fast" }
+			{ Name = "Melinoe_Axe_Attack2_Fire" }
+			{ Name = "Melinoe_Axe_Attack3_Start" }
+			{ Name = "Melinoe_Axe_Attack3_Start_Fast" }
+			{ Name = "Melinoe_Axe_Attack3_Fire" }
+			{ Name = "Melinoe_Axe_Attack4_Start" }
+			{ Name = "Melinoe_Axe_Attack4_Start_Fast" }
+			{ Name = "Melinoe_Axe_Attack4_Fire" }
+			{ Name = "Melinoe_Axe_Nergal_Attack1_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Attack1_Fire" }
+			{ Name = "Melinoe_Axe_Nergal_Attack2_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Attack2_Fire" }
+			{ Name = "Melinoe_Axe_Nergal_Attack3_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Attack3_Fire" }
+			{ Name = "Melinoe_Axe_Nergal_Attack4_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Attack4_Fire" }
+			{ Name = "Melinoe_Axe_Nergal_Attack5_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Attack5_Fire" }
+			{ Name = "Melinoe_Axe_Nergal_AttackDash_Start" }
+			{ Name = "Melinoe_Axe_Nergal_AttackDash_Fire" }
+			{ Name = "Melinoe_Axe_Nergal_Special_Start" }
+			{ Name = "Melinoe_Axe_Nergal_Special_Fire" }
+			{ Name = "Melinoe_Axe_Nergal_SpecialEx_Start" }
+			{ Name = "Melinoe_Axe_Nergal_SpecialEx_Fire" }
+			{ Name = "Melinoe_Axe_Special1_Start" }
+			{ Name = "Melinoe_Axe_Special1_Fire" }
+			{ Name = "Melinoe_Axe_SpecialEx1_Start" }
+			{ Name = "Melinoe_Axe_SpecialEx1_Start_Fast" }
+			{ Name = "Melinoe_Axe_SpecialEx1_Fire" }
+			{ Name = "Melinoe_Axe_SpecialEx1_Fire_Fast" }
+			{ Name = "Melinoe_Axe_AttackEx1_Start" }
+			{ Name = "Melinoe_Axe_AttackEx1_Fire" }
+			{ Name = "Melinoe_Axe_AttackEx1_FireLoop" }
+			{ Name = "Melinoe_Axe_AttackEx1_FireLoop_Slow" }
+		]
+	}
+	{
 		Name = "Axe_Cast_Start"
 		InheritFrom = "WeaponAxeBase"
 		GrannyAnimation = "Axe_Weapon_Base_DragIdle_C_00"
 	}
 	{
 		Name = "Melinoe_Axe_Cast_Start"
-		InheritFrom = "MelinoeBaseAxeAnimations"
+		InheritFrom = "MelinoeBaseAxeCastAnimations"
 		GrannyAnimation = "Melinoe_Axe_Base_CastCharge_C_00"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Axe_Cast_StartLoop"
@@ -63,7 +109,7 @@
 	}
 	{
 		Name = "Melinoe_Axe_Cast_Fire"
-		InheritFrom = "MelinoeBaseAxeAnimations"
+		InheritFrom = "MelinoeBaseAxeCastAnimations"
 		GrannyAnimation = "Melinoe_Axe_Base_Cast_C_00"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Axe_Cast_End"
@@ -80,6 +126,10 @@
 			{
 				BlendTransitionFrom = "Melinoe_Axe_Cast_StartLoop"
 				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 3
 			}
 		]
 	}

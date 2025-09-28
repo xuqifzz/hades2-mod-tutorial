@@ -126,6 +126,10 @@
 				Duration = 3
 			}
 			{
+				BlendTransitionFrom = "Medea_Casting_FireLoop"
+				Duration = 24
+			}
+			{
 				BlendTransitionFrom = "BlendTransitionFromAll"
 				Duration = 12
 			}
@@ -198,11 +202,167 @@
 		GrannyAnimation = "Medea_Base_CastingLoop_End_C_00"
 		ChainTo = "Medea_Idle"
 		Blends = 
-		[	
+		[
+			{
+				BlendTransitionFrom = "Medea_Casting_Start"
+				Duration = 24
+			}
 			{
 				BlendTransitionFrom = "Medea_Casting_FireLoop"
 				Duration = 24
 			}
 		]
+	}
+
+
+	// COMBAT ANIMATIONS
+	// Dagger
+	{
+		Name = "Enemy_Medea_DaggerPreFire"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_DaggerPreFire_C_00"
+		CreateAnimation = "MedeaChargeFx"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 1.66
+		Sound = "/SFX/Enemy Sounds/Medea/EmoteCharging"
+		StopSoundOnFinishFade = 0.2
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Medea_TeleportIn"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Medea_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Medea_DaggerFire"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_DaggerFire_C_00"
+		ChainTo = "Enemy_Medea_DaggerPostFire"
+		Sound = "/SFX/Enemy Sounds/Medea/EmoteAttacking"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 18
+				FrameSpeed = 3
+			}
+		]
+	}
+	{
+		Name = "Enemy_Medea_DaggerPostFire"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_DaggerPostFire_C_00"
+		GrannyAnimationSpeed = 2
+		ChainTo = "Medea_Idle"
+	}
+
+	// Cast
+	{
+		Name = "Enemy_Medea_CastPreFire"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_CastPreFire_C_01"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 2.0
+		CreateAnimation = "MedeaChargeFx"
+		Sound = "/SFX/Enemy Sounds/Medea/EmoteCharging2"
+		StopSoundOnFinishFade = 0.2
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Medea_TeleportIn"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Medea_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Medea_CastFire"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_CastFire_C_01"
+		ChainTo = "Enemy_Medea_CastFireLoop"
+		Sound = "/SFX/Enemy Sounds/Medea/EmoteCasting"
+	}
+	{
+		Name = "Enemy_Medea_CastFire_Fast"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_CastFire_C_01"
+		GrannyAnimationSpeed = 2
+		ChainTo = "Enemy_Medea_CastPostFire"
+		Sound = "/SFX/Enemy Sounds/Medea/EmotePowerAttacking"
+	}
+	{
+		Name = "Enemy_Medea_CastFireLoop"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_CastFireLoop_C_01"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Medea_CastPostFire"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_CastPostFire_C_01"
+		GrannyAnimationSpeed = 2
+		ChainTo = "Medea_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Medea_CastFireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// Teleport
+	{
+		Name = "Enemy_Medea_TeleportOut"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_Teleport_Out_C_00"
+		ChainTo = "Enemy_Medea_Invisible"
+		GrannyAnimationSpeed = 2.0
+		Sound = "/SFX/Enemy Sounds/Medea/EmoteChuckle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Medea_DaggerPostFire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Medea_CastPostFire"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Medea_TeleportIn"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_Teleport_In_C_00"
+		GrannyAnimationSpeed = 2.0
+		Sound = "/SFX/Enemy Sounds/Medea/EmoteEvading"
+		ChainTo = "Medea_Idle"
+	}
+	{
+		Name = "Enemy_Medea_TeleportIn_Slow"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_Teleport_In_C_00"
+		ChainTo = "Medea_Idle"
+	}
+	{
+		Name = "Enemy_Medea_Invisible"
+		InheritFrom = "Medea_Idle"
+		Alpha = 0.0
+		OwnerHasNoCollision = true
+		OwnerUntargetable = true
+		OwnerInvulnerable = true
+		OwnerImmobile = true
 	}
 ]}

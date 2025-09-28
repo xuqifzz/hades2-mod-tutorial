@@ -11,6 +11,7 @@ WeaponSetData =
 			BarrelLength = 175,
 
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.04,
 			StopBeforeFire = true,
@@ -28,26 +29,18 @@ WeaponSetData =
 			PostAttackAnimation = "Enemy_Stickler_ThrowPostFire",
 			PreAttackDuration = 1.0,
 			FireDuration = 0.32,
-			PostAttackDurationMin = 0.65, -- animation is 0.65
-			PostAttackDurationMax = 1.3,
+			PostAttackDuration = 1.5,
 			PreAttackCancelSound = "/Leftovers/SFX/ImpRef02_GoDown",
 			PreAttackEndShakeSound = "/Leftovers/SFX/SprintChargeUp",
 
-			AttackDistance = 900,
+			AttackDistance = 800,
 			AttackDistanceScaleY = 0.6,
 		},
 
 		Requirements =
 		{
 			RequireProjectileLoS = true,
-			MaxAttackers = 3,
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0 },
+			MaxAttackers = 2,
 		},
 
 		Sounds =
@@ -91,6 +84,7 @@ WeaponSetData =
 			DeepInheritance = true,
 
 			PreMoveLeap = true,
+			LeapAgainIfBlocked = true,
 			RequireLeapTargetLoS = true,
 			AttackDistance = 1000,
 

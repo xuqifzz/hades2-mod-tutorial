@@ -1,0 +1,264 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyEarthElementalBaseAnimation"
+		
+		GrannyModel = "EarthElemental_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		CreateAnimation = "EarthElementalGlow"
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_EarthElemental_Idle"
+		InheritFrom = "EnemyEarthElementalBaseAnimation"
+		GrannyAnimation = "EarthElemental_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_BoltPostFire"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_EarthElemental_Move"
+		InheritFrom = "EnemyEarthElementalBaseAnimation"
+		GrannyAnimation = "EarthElemental_Base_Move_C_00"
+		NativeMoveSpeed = 400
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_EarthElemental_MoveStart"
+		InheritFrom = "EnemyEarthElementalBaseAnimation"
+		GrannyAnimation = "EarthElemental_Base_Move_Start_C_00"
+		NativeMoveSpeed = 400
+		ChainTo = "Enemy_EarthElemental_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_EarthElemental_MoveStop"
+		InheritFrom = "EnemyEarthElementalBaseAnimation"
+		GrannyAnimation = "EarthElemental_Base_Move_Stop_C_00"
+		NativeMoveSpeed = 400
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_EarthElemental_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_EarthElemental_Spawn"
+		InheritFrom = "EnemyEarthElementalBaseAnimation"
+		GrannyAnimation = "EarthElemental_Base_Spawn_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 8
+				VerticalMask = 0.15
+				Sound = "/Leftovers/World Sounds/TrainingMontageWhoosh"
+			}
+			{
+				Frame = 16
+				VerticalMask = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_EarthElemental_OnHit"
+		InheritFrom = "EnemyEarthElementalBaseAnimation"
+		GrannyAnimation = "EarthElemental_Base_GetHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_EarthElemental_Idle"
+		Sound = "/SFX/Enemy Sounds/EarthElemental/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2.5
+			}
+			{
+				Frame = 15
+				FrameSpeed = 1.3
+			}
+		]
+	}
+	{
+		Name = "Enemy_EarthElemental_OnHit_Heavy"
+		InheritFrom = "Enemy_EarthElemental_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_EarthElemental_BoltPreFire"
+		InheritFrom = "EnemyEarthElementalBaseAnimation"
+		GrannyAnimation = "EarthElemental_Base_BoltPreFire_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_OnHit_Heavy"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_MoveStop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_EarthElemental_BoltFire"
+		InheritFrom = "EnemyEarthElementalBaseAnimation"
+		GrannyAnimation = "EarthElemental_Base_BoltFire_C_00"
+		ChainTo = "Enemy_EarthElemental_BoltFireLoop"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 12
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_EarthElemental_BoltFireLoop"
+		InheritFrom = "EnemyEarthElementalBaseAnimation"
+		GrannyAnimation = "EarthElemental_Base_BoltFire_C_00"
+		ChainTo = "Enemy_EarthElemental_BoltFireLoop2"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 12
+				FrameSpeed = 0.5
+			}
+		]
+	}
+	{
+		Name = "Enemy_EarthElemental_BoltFireLoop2"
+		InheritFrom = "EnemyEarthElementalBaseAnimation"
+		GrannyAnimation = "EarthElemental_Base_BoltFire_C_00"
+		PlayBackwards = true
+		ChainTo = "Enemy_EarthElemental_BoltFireLoop"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.5
+			}
+			{
+				Frame = 16
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_EarthElemental_BoltPostFire"
+		InheritFrom = "EnemyEarthElementalBaseAnimation"
+		GrannyAnimation = "EarthElemental_Base_BoltPostFire_C_00"
+		ChainTo = "Enemy_EarthElemental_Idle"
+		GrannyAnimationSpeed = 0.5
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_BoltFireLoop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_EarthElemental_BoltFireLoop2"
+				Duration = 6
+			}
+		]
+	}
+
+]}

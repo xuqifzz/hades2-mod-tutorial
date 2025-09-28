@@ -7,8 +7,6 @@ UnitSetData.DespairElemental =
 
 		HealthBarOffsetY = -260,
 
-		ActiveCapWeight = 0.35,
-
 		IsAggroedSound = "/SFX/Enemy Sounds/DespairElementalRegular/EmoteAlerted",
 		DeathSound = "/SFX/Enemy Sounds/DespairElementalRegular/EmoteDying",
 
@@ -25,7 +23,6 @@ UnitSetData.DespairElemental =
 		ActivateTintDuration = 0.5,
 		ActivateStartAlpha = 0, 
 		ActivateDuration = 0.75,
-		ActiveCapWeight = 0.30,
 
 		DeathAnimation = "Enemy_DespairElemental_Death",
 		DeathFx = "EnemyDeathFxIris",
@@ -35,8 +32,7 @@ UnitSetData.DespairElemental =
 		PreferredSpawnPoint = "EnemyPointMelee",
 		Material = "Bone",
 
-		IsAggroedSound = "/SFX/Enemy Sounds/Screamer/EmoteAlerted",
-		DeathSound = "/SFX/Enemy Sounds/Screamer/EmoteDying",
+		SkipUnitHitFlash = true,
 
 		StunAnimations = 
 		{
@@ -63,6 +59,10 @@ UnitSetData.DespairElemental =
 		},
 
 		WeaponOptions = { "DespairElementalChase" },
+		SpellSummonDataOverrides =
+		{
+			WeaponOptions = { "DespairElementalChase_Ally" },
+		},
 
 		ActiveCapWeight = 0.25,
 		GeneratorData =
@@ -71,6 +71,7 @@ UnitSetData.DespairElemental =
 			BlockEnemyTypes = {"DespairElemental_Elite"}
 		},
 	},
+	
 	DespairElemental_Elite =
 	{
 		InheritFrom = { "DespairElemental" },
@@ -93,63 +94,6 @@ UnitSetData.DespairElemental =
 			},
 		},
 	},
-
-	DespairElementalLarge =
-	{
-		InheritFrom = { "DespairElemental" },
-		MaxHealth = 600,
-		HealthBarOffsetY = -350,
-
-		IsAggroedSound = "/SFX/Enemy Sounds/DespairElementalHuge/EmoteAlerted",
-		DeathSound = "/SFX/Enemy Sounds/DespairElementalHuge/EmoteDying",
-
-		--WeaponOptions = { "DespairElementalLargeChase" },
-		DumbFireWeapons = { "DespairElementalLargeRam" },
-
-		GeneratorData =
-		{
-			DifficultyRating = 300,
-			BlockEnemyTypes = {"DespairElementalLarge_Elite"}
-		},
-
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "BiomeDepthCache", },
-				Comparison = ">=",
-				Value = 4,
-			},
-		},
-	},
-	DespairElementalLarge_Elite =
-	{
-		InheritFrom = { "DespairElementalLarge" },
-		HealthBuffer = 500,
-
-		IsAggroedSound = "/SFX/Enemy Sounds/DespairElementalHuge/EmoteTaunting",
-
-		GeneratorData =
-		{
-			DifficultyRating = 480,
-			BlockEnemyTypes = {"DespairElementalLarge"}
-		},
-	},
-
-	DespairElemental_Passive =
-	{
-		InheritFrom = { "BaseVulnerableEnemy" },
-		MaxHealth = 999999,
-
-		IsAggroedSound = "/SFX/Enemy Sounds/DespairElementalHuge/EmoteAlerted",
-		DeathSound = "/SFX/Enemy Sounds/DespairElementalHuge/EmoteDying",
-
-		AIOptions = { "AggroAI" },
-		AIAggroRange = 1,
-		AIWanderDistance = 2000,
-		AggroAIRefreshDuration = 5.0,
-		AggroIfLastAlive = false,
-	},
-
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.DespairElemental )

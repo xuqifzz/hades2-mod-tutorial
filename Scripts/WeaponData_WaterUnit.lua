@@ -5,7 +5,6 @@ WeaponSetData =
 		Requirements =
 		{
 			MinPlayerDistance = 330,
-			MaxPlayerDistance = 900,
 			MaxAttackers = 3,
 		},
 		AIData =
@@ -40,13 +39,6 @@ WeaponSetData =
 			MoveWithinRange = false,
 
 			--ForceFirst = true,
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.3, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.03 },
 		},
 
 		Sounds =
@@ -149,13 +141,6 @@ WeaponSetData =
 			--ForceFirst = true,
 		},
 
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.03 },
-		},
-
 		Sounds =
 		{
 			FireSounds =
@@ -212,13 +197,6 @@ WeaponSetData =
 			PreAttackSound = "/SFX/Enemy Sounds/WaterUnitMiniboss/EmoteCharging",
 		},
 
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.00, LerpTime = 0 },
-		},
-
 		Sounds =
 		{
 			FireSounds =
@@ -261,13 +239,6 @@ WeaponSetData =
 			{
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.17, Fraction = 1.00, LerpTime = 0 },
-		},
 	},
 
 	WaterUnitDive =
@@ -286,7 +257,7 @@ WeaponSetData =
 			PostAttackAlpha = 0,
 			PostAttackDuration = 0.0,
 
-			PostAttackTeleportToSpawnPoints = true,
+			PostAttackEndTeleport = true,
 			TeleportMinDistance = 400,
 			TeleportMaxDistance = 99999,
 			TeleportToSpawnPointType = "EnemyPointRanged",
@@ -313,13 +284,6 @@ WeaponSetData =
 			FireSounds =
 			{
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.17, Fraction = 1.00, LerpTime = 0 },
 		},
 	},
 
@@ -354,7 +318,6 @@ WeaponSetData =
 			AttackDistance = 9999,
 			MoveWithinRange = false,
 
-			MoveWithinRange = false,
 			NoProjectile = true,
 			PreAttackStop = true,
 			PreAttackAngleTowardTarget = false,
@@ -364,49 +327,6 @@ WeaponSetData =
 			PostAttackAnimation = "Enemy_WaterUnit_Roar_End",
 
 			SkipSurroundAICount = true,
-		},
-	},
-
-	WaterUnitRoar =
-	{
-		AIData =
-		{
-			PreAttackDuration = 0.27,
-			FireDuration = 1.77,
-			PostAttackDuration = 0.6,
-			AttackDistance = 9999,
-			MoveWithinRange = false,
-
-			MoveWithinRange = false,
-			NoProjectile = true,
-			PreAttackStop = true,
-			PreAttackAngleTowardTarget = false,
-
-			PreAttackAnimation = "Enemy_WaterUnit_Roar_Start",
-			FireAnimation = "Enemy_WaterUnit_Roar_Fire",
-			PostAttackAnimation = "Enemy_WaterUnit_Roar_End",
-
-			FireFx = "CrawlerSpawnsHowl",
-
-			SpawnBurstOnFire = true,
-			SpawnOnSpawnPoints = true,
-			SpawnsPerBurstMin = 2,
-			SpawnsPerBurstMax = 3,
-			SpawnRadiusMin = 250,
-			SpawnRadiusMax = 9999,
-			SpawnRate = 0.85,
-			MaxActiveSpawns = 5,
-
-			SkipSurroundAICount = true,
-			
-			SpawnerOptions =
-			{
-				"Radiator2_Elite",
-			},
-		},
-		Requirements =
-		{
-			MinAttacksBetweenUse = 7,
 		},
 	},
 
@@ -453,13 +373,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Charon/CharonBigSwipe1" },
 			},
 		},
-
-		HitScreenshake = { Distance = 4, Speed = 600, Duration = 0.08, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.05, LerpTime = 0.0 },
-			{ ScreenPreWait = 0.06, Fraction = 1.00, LerpTime = 0.08 },
-		},
 	},
 
 	WaterUnitSwipeMiniboss =
@@ -487,13 +400,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/WaterUnitMiniboss/EmoteAttacking" },
 				{ Name = "/SFX/Enemy Sounds/Charon/CharonBigSwipe2" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.04, Fraction = 0.03, LerpTime = 0.0 },
-			{ ScreenPreWait = 0.09, Fraction = 1.00, LerpTime = 0.08 },
 		},
 	},
 }

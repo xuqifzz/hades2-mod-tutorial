@@ -232,6 +232,7 @@
 		UseAttachedFlasher = false
 		TransferFrameFromThis = true
 		Sound = "/SFX/Player Sounds/AphroditeWeakLoop"
+		SoundManagerCap = 38
 		StopSoundOnFinishFade = 0.2
 	}
 
@@ -244,6 +245,18 @@
 		Sound = null
 	}
 
+	{
+		Name = "AphroditeWeakFxFront_In"
+		InheritFrom = "AphroditeWeakFxFront"
+		TransferFrameToThis = true
+		ChainTo = "AphroditeWeakFxFront"
+		StartAlpha = 0.0
+		EndAlpha = 1.0
+		Duration = 0.1
+		Loop = false
+		LoopFramesOnly = true
+		Sound = null
+	}
 	{
 		Name = "AphroditeWeakFxFront_Out"
 		InheritFrom = "AphroditeWeakFxFront"
@@ -261,6 +274,12 @@
 		Name = "AphroditeWeakFxBack_Out"
 		InheritFrom = "AphroditeWeakFxFront_Out"
 		FilePath = "Fx\Aphrodite\AphroditeStatusFxLoopBack\AphroditeStatusFxLoopBack"
+	}
+	{
+		Name = "AphroditeWeakFxBack_In"
+		InheritFrom = "AphroditeWeakFxFront_In"
+		FilePath = "Fx\Aphrodite\AphroditeStatusFxLoopBack\AphroditeStatusFxLoopBack"
+		ChainTo = "AphroditeWeakFxBack"
 	}
 
 	{
@@ -318,7 +337,7 @@
 		StartFrame = 1
 		RandomOffsetX = 50.0
 		RandomOffsetY = 25.0
-		LocationFromOwner = "Take"
+		LocationFromOwner = "Ignore"
 		LocationZFromOwner = "Take"
 		SortMode = "FromParent"
 		SortFromOwner = "Take"
@@ -450,8 +469,8 @@
 		EndScale = 1.0
 		ScaleX = 0.8
 		ScaleY = 0.5
-		RandomPlaySpeedMin = 45
-		RandomPlaySpeedMax = 90
+		RandomPlaySpeedMin = 90
+		RandomPlaySpeedMax = 140
 		EaseIn = 0.9
 		EaseOut = 1.0
 		FlipHorizontal = true
@@ -476,8 +495,8 @@
 		ScaleY = 0.85
 		StartScaleY = 0.75
 		EndScaleY = 1.0
-		RandomPlaySpeedMin = 70
-		RandomPlaySpeedMax = 71
+		RandomPlaySpeedMin = 120
+		RandomPlaySpeedMax = 150
 		CreateAnimation = "AphroditeStaffDirectionalTrailC_Back"
 		FilePath = "Fx\Aphrodite\AphroditeDirectionalTrailC_Front\AphroditeDirectionalTrailC_Front"
 	}
@@ -539,12 +558,14 @@
 	{
 		Name = "AphroditeProjectileExplosionCharged"
 		InheritFrom = "AphroditeProjectileExplosion"
+		LocationZFromOwner = "Take"
 		Scale = 1.5
 	}
 
 	{
 		Name = "AphroditeHeartLinesLarge"
 		InheritFrom = "AphroditeHeartLinesSmall"
+		LocationZFromOwner = "Take"
 		PlaySpeed = 75
 		Scale = 1.0
 		StartScale = 1

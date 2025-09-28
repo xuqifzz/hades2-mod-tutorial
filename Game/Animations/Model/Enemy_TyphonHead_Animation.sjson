@@ -1,0 +1,1037 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyTyphonHeadBaseAnimation"		
+		GrannyModel = "TyphonHead_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		LargeObstacle3DModel = true
+		UseAttachedFlasher = false
+		ColorFromOwner = "Maintain"
+		MaintainAlphaOnly = true
+	}
+
+	{
+		Name = "Enemy_TyphonHead_Idle"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_Idle_C_00"
+		Loop = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_RamPostFire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_Intro_Entrance_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_TonguePostFire"
+				Duration = 3
+			}
+
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_Invisible"
+		InheritFrom = "Enemy_TyphonHead_Idle"
+		ColorFromOwner = "Maintain"
+		Alpha = 0.0
+	}
+
+	{
+		Name = "Enemy_TyphonHead_Death"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_Death_C_00"
+		VerticalMaskInModelSpace = true
+		ChainTo = "Enemy_TyphonHead_Invisible"
+		Sound = "/SFX/Enemy Sounds/Typhon/TailSlimeSplode"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.25
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/Typhon/TyphonDeathQuake1"
+			}
+			{
+				Frame = 56
+				FrameSpeed = 0.25
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 80
+				FrameSpeed = 0.25
+				VerticalMask = 0.999
+			}
+			{
+				Frame = 116
+				Sound = "/SFX/Enemy Sounds/Typhon/TyphonDeathQuake2"
+			}
+			{
+				Frame = 120
+				FrameSpeed = 0.25
+				VerticalMask = 0.999
+			}
+		]
+
+		CreateAnimations = [
+			{ Name = "TyphonDeathParticleEmitterBody01" }
+			{ Name = "TyphonDeathParticleEmitterBody02" }
+			{ Name = "TyphonDeathParticleEmitterBody03" }
+			{ Name = "TyphonDeathParticleEmitterBody04" }
+			{ Name = "TyphonDeathParticleEmitterBody05" }
+			{ Name = "TyphonDeathParticleEmitterBody06" }
+			{ Name = "TyphonDeathParticleEmitterBody07" }
+			{ Name = "TyphonDeathParticleEmitterBody08" }
+			{ Name = "TyphonDeathParticleEmitterBody09" }			
+
+			{ Name = "TyphonDeathParticleEmitterEye01" }
+			{ Name = "TyphonDeathParticleEmitterEye02" }
+			{ Name = "TyphonDeathParticleEmitterEye03" }
+			{ Name = "TyphonDeathParticleEmitterEye04" }			
+
+			{ Name = "TyphonDeathParticleEmitterEyeB01" }
+			{ Name = "TyphonDeathParticleEmitterEyeB02" }
+			{ Name = "TyphonDeathParticleEmitterEyeB03" }
+			{ Name = "TyphonDeathParticleEmitterEyeB04" }
+
+			{ Name = "TyphonDeathDarknessEmitter" }
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_Death_Final"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_DeathFinal_C_00"
+		ChainTo = "Enemy_TyphonHead_Invisible"
+		Sound = "/SFX/Enemy Sounds/Typhon/TyphonMelt"
+
+		Duration = 6.0
+
+		VerticalMaskInModelSpace = true
+		
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.3
+		EndGreen = 0
+		EndBlue = 0
+		
+		EaseIn = 0
+		EaseOut = 0.2
+
+		//Sound = "/SFX/Enemy Sounds/Typhon/TailSlimeSplode"
+		
+		CreateAnimations = [
+			{ Name = "TyphonDeathParticleEmitterBodyFinal01" }
+			{ Name = "TyphonDeathParticleEmitterBodyFinal02" }
+			{ Name = "TyphonDeathParticleEmitterBodyFinal03" }
+			{ Name = "TyphonDeathParticleEmitterBodyFinal04" }
+			{ Name = "TyphonDeathParticleEmitterBodyFinal05" }
+			{ Name = "TyphonDeathParticleEmitterBodyFinal06" }
+			{ Name = "TyphonDeathParticleEmitterBodyFinal07" }
+			{ Name = "TyphonDeathParticleEmitterBodyFinal08" }
+			{ Name = "TyphonDeathParticleEmitterBodyFinal09" }
+
+		
+			{ Name = "TyphonDeathParticleEmitterEye01" }
+			{ Name = "TyphonDeathParticleEmitterEye02" }
+			{ Name = "TyphonDeathParticleEmitterEye03" }
+			{ Name = "TyphonDeathParticleEmitterEye04" }
+
+			{ Name = "TyphonDeathParticleEmitterEyeB01" }
+			{ Name = "TyphonDeathParticleEmitterEyeB02" }
+			{ Name = "TyphonDeathParticleEmitterEyeB03" }
+			{ Name = "TyphonDeathParticleEmitterEyeB04" }
+
+			{ Name = "TyphonDeathDarknessEmitterLeft" }
+			{ Name = "TyphonDeathDarknessEmitterRight" }
+
+			{ Name = "TyphonDeathExplosionEmitter" }
+		]
+		
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_Stunned"
+				Duration = 18
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 1.0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 208
+				FrameSpeed = 0.2
+			}
+			{
+				Frame = 260
+				VerticalMask = 0.05
+			}
+		]
+	}
+
+	// Stunned
+	{
+		Name = "Enemy_TyphonHead_Stunned"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_StunnedLoop_C_00"
+		Loop = true
+		OwnerImmobile = true
+		DisableOwnerRotation = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_StunnedOnHit"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_StunnedStart"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_StunnedStart_C_00"
+		ChainTo = "Enemy_TyphonHead_Stunned"
+		GrannyAnimationSpeed = 0.5
+		OwnerImmobile = true
+		DisableOwnerRotation = true
+		Sound = "/SFX/Enemy Sounds/Typhon/EmoteStaggered"
+		Frames =
+		[
+			{
+				Frame = 44
+				Sound = "/SFX/Enemy Sounds/Typhon/TyphonCollapse"
+			}
+			{
+				Frame = 75
+				Sound = "/SFX/ZeusLeave1"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_StunnedEnd"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_StunnedReturn_C_00"
+		OwnerImmobile = true
+		DisableOwnerRotation = true
+		Sound = "/Leftovers/SFX/AnnouncementThunder"
+		Frames =
+		[
+			{
+				Frame = 10
+				Sound = "/SFX/Enemy Sounds/Typhon/EmoteRecovered"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_StunnedOnHit"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_StunnedGetHit_C_00"
+		ChainTo = "Enemy_TyphonHead_Stunned"
+		AllowRestart = true
+		OwnerImmobile = true
+		DisableOwnerRotation = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_Stunned"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_StunnedOnHit"
+				Duration = 6
+			}
+		]
+	}
+
+	// Ram
+	{
+		Name = "Enemy_TyphonHead_RamPreFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_AttackRamAntic_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Typhon/EmoteCharging"
+		StopSoundOnFinishFade = 0.5
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_RamFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_AttackRamFire_C_00"
+		ChainTo = "Enemy_TyphonHead_RamPostFire"
+	}
+
+	{
+		Name = "Enemy_TyphonHead_RamPostFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_AttackRamReturn_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 72 // This animation is longer but static for some reason
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	// Cast
+	{
+		Name = "Enemy_TyphonHead_CastPreFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_CastStart_C_00"
+		HoldLastFrame = true
+		OwnerInvulnerable = true
+		OwnerHasNoCollision = true
+		Sound = "/SFX/Enemy Sounds/Typhon/EmoteChargingRanged"
+		StopSoundOnFinishFade = 0.5
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_CastFireLoop"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_CastLoop_C_00"
+		Loop = true
+		OwnerInvulnerable = true
+		OwnerHasNoCollision = true
+		Sound = "/SFX/Enemy Sounds/Typhon/EmotePowerAttacking"
+	}
+
+	{
+		Name = "Enemy_TyphonHead_CastPostFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_CastReturn_C_00"
+		OwnerInvulnerable = true
+		OwnerHasNoCollision = true
+	}
+
+	// Roar
+	{
+		Name = "Enemy_TyphonHead_RoarPreFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_RoarStart_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Typhon/EmotePowerAttacking"
+		StopSoundOnFinishFade = 0.5
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_RoarFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_RoarFire_C_00"
+		ChainTo = "Enemy_TyphonHead_RoarPostFire"
+		VisualFx = "TyphonHeadRoarFx"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.2
+	}
+
+	{
+		Name = "Enemy_TyphonHead_RoarFire_Fast"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_RoarFire_C_00"
+		ChainTo = "Enemy_TyphonHead_RoarPostFire"
+		VisualFx = "TyphonHeadRoarFx"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.2
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_RoarPostFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_RoarReturn_C_00"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_RoarFire"
+				Duration = 6
+			}
+		]
+	}
+
+	// Tornado
+	{
+		Name = "Enemy_TyphonHead_Tornado_Start"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_AttackTornadoAntic_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Typhon/EmotePowerAttacking"
+		StopSoundOnFinishFade = 0.5
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonHead_Tornado_Start_Fast"
+		InheritFrom = "Enemy_TyphonHead_Tornado_Start"
+		GrannyAnimationSpeed = 2.0
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 18
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_Tornado_Fire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_AttackTornadoFire_C_00"
+		ChainTo = "Enemy_TyphonHead_Tornado_End"
+		VisualFx = "TyphonHeadRoarFx"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.2
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 25
+				FrameSpeed = 0.35
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonHead_Tornado_Fire_Fast"
+		InheritFrom = "Enemy_TyphonHead_Tornado_Fire"
+		GrannyAnimationSpeed = 2.0
+	}
+
+	{
+		Name = "Enemy_TyphonHead_Tornado_End"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_AttackTornadoReturn_C_00"
+		ChainTo = "Enemy_TyphonHead_Idle"
+	}
+	{
+		Name = "Enemy_TyphonHead_Tornado_End_Fast"
+		InheritFrom = "Enemy_TyphonHead_Tornado_End"
+		GrannyAnimationSpeed = 2.0
+	}
+
+	// Enrage
+	{
+		Name = "Enemy_TyphonHead_EnragePreFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_RoarStart_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_EnrageFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_RoarFire_C_00"
+		ChainTo = "Enemy_TyphonHead_EnrageFireLoop"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Enemy_TyphonHead_EnrageFireLoop" }
+			{ Name = "Enemy_TyphonHead_EnrageFireLoop2" }
+		]
+	}
+	{
+		Name = "Enemy_TyphonHead_EnrageFireLoop"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_RoarFire_C_00"
+		ChainTo = "Enemy_TyphonHead_EnrageFireLoop2"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 60
+				FrameSpeed = 1
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_EnrageFire"
+				Duration = 24
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_EnrageFireLoop2"
+				Duration = 24
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonHead_EnrageFireLoop2"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_RoarFire_C_00"
+		ChainTo = "Enemy_TyphonHead_EnrageFireLoop"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 60
+				FrameSpeed = 1
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_EnrageFireLoop"
+				Duration = 24
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_EnragePostFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_RoarReturn_C_00"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_EnrageFireLoop"
+				Duration = 24
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_EnrageFireLoop2"
+				Duration = 24
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_EnrageFire"
+				Duration = 24
+			}
+		]
+	}
+
+	// Tongue
+	{
+		Name = "Enemy_TyphonHead_TonguePreFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_TongueStart_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Typhon/EmoteChargingRanged"
+		StopSoundOnFinishFade = 0.3
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_TongueFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_TongueFire_C_00"
+		ChainTo = "Enemy_TyphonHead_TonguePostFire"
+		StopSoundOnFinishFade = 0.5
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 12
+				FrameSpeed = 0.4
+			}
+			{
+				Frame = 22
+				Sound = "/SFX/Enemy Sounds/Typhon/TyphonTongueFire"
+				FrameSpeed = 0.4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_TongueFire_Weak"
+		InheritFrom = "Enemy_TyphonHead_TongueFire"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_TongueSlam_PostFire_Slow"
+				Duration = 24
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 12
+				FrameSpeed = 0.4
+			}
+			{
+				Frame = 22
+				FrameSpeed = 0.4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_TonguePostFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_TongueReturn_C_00"
+		ChainTo = "Enemy_TyphonHead_Idle"
+		Frames =
+		[
+			{
+				Frame = 14
+				Sound = "/SFX/Enemy Sounds/DragonMiniboss/DragonTailWhipWhoosh"
+			}
+		]
+	}
+
+	/*
+	{
+		Name = "Enemy_TyphonHead_TongueReversePreFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_TongueLeftToRightStart_C_00"
+		HoldLastFrame = true
+	}
+	*/
+	{
+		Name = "Enemy_TyphonHead_TongueReverseFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_TongueLeftToRightFire_C_00"
+		ChainTo = "Enemy_TyphonHead_TongueReversePostFire"
+		Sound = "/SFX/Enemy Sounds/Typhon/TyphonTongueFire"
+		StopSoundOnFinishFade = 0.5
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_TongueFire"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_TongueSlam_PostFire_Slow"
+				Duration = 24
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonHead_TongueReverseFire_Weak"
+		InheritFrom = "Enemy_TyphonHead_TongueReverseFire"
+		Sound = null
+		GrannyAnimationSpeed = 0.66
+	}
+	{
+		Name = "Enemy_TyphonHead_TongueReversePostFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_TongueLeftToRightReturn_C_00"
+		ChainTo = "Enemy_TyphonHead_Idle"
+	}
+
+	// Center Eye
+	{
+		Name = "Enemy_TyphonHead_CenterEyePreFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_CenterEyeAttackStart_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Typhon/TyphonEyeballCharge"
+		StopSoundOnFinishFade = 0.2
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.79
+			}
+			{
+				Frame = 4
+				Sound = "/SFX/Enemy Sounds/Typhon/EmotePowerCharging"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_CenterEyeFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_CenterEyeAttackFire_C_00"
+		ChainTo = "Enemy_TyphonHead_CenterEyePostFire"
+		Sound = "/SFX/Enemy Sounds/Typhon/TailProjectileFire"
+	}
+
+	{
+		Name = "Enemy_TyphonHead_CenterEyePostFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_CenterEyeAttackReturn_C_00"
+	}
+
+	// Volley
+	{
+		Name = "Enemy_TyphonHead_VolleyEyePreFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_VolleyStart_C_00"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 0.5
+		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_InvertedDecal"
+		StopSoundOnFinishFade = 0.2
+		Frames =
+		[
+			{
+				Frame = 4
+				Sound = "/SFX/Enemy Sounds/Typhon/EmoteCharging"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_VolleyEyeFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_VolleyFire_C_00"
+		ChainTo = "Enemy_TyphonHead_VolleyPostFire"
+		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_PlagueRoar"
+		Frames =
+		[
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/Typhon/EmoteAttacking"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonHead_VolleyPostFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_VolleyReturn_C_00"
+	}
+
+	// Intro, Entrance
+	{
+		Name = "Enemy_TyphonHead_Intro_Entrance_Start"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_TongueStart_C_00"
+		ChainTo = "Enemy_TyphonHead_Intro_Entrance_Fire"
+		ColorFromOwner = "Maintain"
+		Sound = "/SFX/ZeusWrathThunder"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonHead_Intro_Entrance_Fire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_TongueFire_C_00"
+		ChainTo = "Enemy_TyphonHead_Intro_Entrance_End"
+		Sound = "/SFX/Enemy Sounds/Typhon/EmoteHurt"
+		ColorFromOwner = "Maintain"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 10
+				Sound = "/Leftovers/SFX/MeteorStrike"
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonHead_Intro_Entrance_End"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_TongueReturn_C_00"
+		ChainTo = "Enemy_TyphonHead_Idle"
+		Sound = "/SFX/Enemy Sounds/DragonMiniboss/DragonTailWhipWhoosh"
+		ColorFromOwner = "Maintain"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.5
+			}
+		]
+	}
+
+	// Intro, Roar
+	{
+		Name = "Enemy_TyphonHead_Intro_Roar_Start"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_RoarStart_C_00"
+		ChainTo = "Enemy_TyphonHead_Intro_Roar_Fire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.5
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_Idle"
+				Duration = 30
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonHead_Intro_Roar_Fire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_RoarFire_C_00"
+		ChainTo = "Enemy_TyphonHead_Intro_Roar_End"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonHead_Intro_Roar_End"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_RoarReturn_C_00"
+		GrannyAnimationSpeed = 1.23
+		ChainTo = "Enemy_TyphonHead_Idle"
+	}
+
+	// Laugh
+	{
+		Name = "Enemy_TyphonHead_Laugh"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_Laugh_C_00"
+		ChainTo = "Enemy_TyphonHead_Idle"
+		Sound = "/SFX/Enemy Sounds/Typhon/EmoteLaugh"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_Death"
+				Duration = 10
+			}
+		]
+	}
+
+	// Tongue Slam
+	{
+		Name = "Enemy_TyphonHead_TongueSlamA_PreFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_SlamTongueAttackAAntic_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_TongueSlam_PostFire_Slow"
+				Duration = 24
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_TonguePostFire"
+				Duration = 24
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_TongueFire_Weak"
+				Duration = 24
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_TongueReverseFire_Weak"
+				Duration = 24
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_TongueReversePostFire"
+				Duration = 24
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonHead_TongueSlamA_PreFire_Slow"
+		InheritFrom = "Enemy_TyphonHead_TongueSlamA_PreFire"
+		GrannyAnimationSpeed = 0.66
+	}
+	{
+		Name = "Enemy_TyphonHead_TongueSlamA_PreFire_SlowCombo"
+		InheritFrom = "Enemy_TyphonHead_TongueSlamA_PreFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 40
+				FrameSpeed = 0.5
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonHead_TongueSlamA_Fire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_SlamTongueAttackAFire_C_00"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Enemy_TyphonHead_TongueSlamA_Fire_Slow"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_SlamTongueAttackAFire_C_00"
+		//ChainTo = "Enemy_TyphonHead_TongueSlam_PostFire"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.7
+			}
+			{
+				Frame = 21
+				FrameSpeed = 0.3
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonHead_TongueSlamB_PreFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_SlamTongueAttackBAntic_C_00"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Enemy_TyphonHead_TongueSlamB_Fire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_SlamTongueAttackBFire_C_00"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Enemy_TyphonHead_TongueSlamC_PreFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_SlamTongueAttackCAntic_C_00"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Enemy_TyphonHead_TongueSlamC_Fire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_SlamTongueAttackCFire_C_00"
+		ChainTo = "Enemy_TyphonHead_TongueSlam_PostFire"
+	}
+	{
+		Name = "Enemy_TyphonHead_TongueSlam_PostFire"
+		InheritFrom = "EnemyTyphonHeadBaseAnimation"
+		GrannyAnimation = "TyphonHead_Base_SlamTongueAttackCReturn_C_00"
+		ChainTo = "Enemy_TyphonHead_Idle"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_TongueSlamA_Fire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_TongueSlamA_Fire_Slow"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonHead_TongueSlamB_Fire"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_TyphonHead_TongueSlam_PostFire_Slow"
+		InheritFrom = "Enemy_TyphonHead_TongueSlam_PostFire"
+		GrannyAnimationSpeed = 0.5
+	}
+
+
+] }

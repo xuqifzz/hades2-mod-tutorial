@@ -1,10 +1,10 @@
 ﻿MetaUpgradeDefaultCardLayout = 
 {
-	{ "ChanneledCast",			"HealthRegen",			"LowManaDamageBonus",	"CastCount",			"SorceryRegenUpgrade", },
-	{ "CastBuff",				"BonusHealth",			"BonusDodge",			"ManaOverTime",		"MagicCrit" },
-	{ "SprintShield",			"LastStand",			"MaxHealthPerRoom",		"StatusVulnerability",	"ChanneledBlock" },
-	{ "DoorReroll",				"StartingGold",			"MetaToRunUpgrade",	"RarityBoost", 			"BonusRarity" },
-	{ "TradeOff",				"ScreenReroll",			"LowHealthBonus",		"EpicRarityBoost",		"CardDraw" },
+	{ "ChanneledCast",			"HealthRegen",			"LowManaDamageBonus",	"CastCount",			"SorceryRegenUpgrade", 	},
+	{ "CastBuff",				"BonusHealth",			"BonusDodge",			"ManaOverTime",			"MagicCrit" 			},
+	{ "SprintShield",			"LastStand",			"MaxHealthPerRoom",		"StatusVulnerability",	"ChanneledBlock" 		},
+	{ "DoorReroll",				"StartingGold",			"MetaToRunUpgrade",		"RarityBoost", 			"BonusRarity" 			},
+	{ "TradeOff",				"ScreenReroll",			"LowHealthBonus",		"EpicRarityBoost",		"CardDraw" 				},
 }
 
 MetaUpgradeSaveLayoutData = 
@@ -31,21 +31,21 @@ MetaUpgradeCostData =
 	StartingMetaUpgradeLimit = 10,		-- Base metaupgrade 'MEM' limit
 	MetaUpgradeLevelData = 
 	{
-		{ CostIncrease = 2, ResourceCost = { MemPointsCommon = 40 }},
+		{ CostIncrease = 2, ResourceCost = { MemPointsCommon = 30 }},
 		{ CostIncrease = 2, ResourceCost = { MemPointsCommon = 45 }},
-		{ CostIncrease = 2, ResourceCost = { MemPointsCommon = 50 }},
+		{ CostIncrease = 2, ResourceCost = { MemPointsCommon = 60 }},
 		{ CostIncrease = 2, ResourceCost = { MemPointsCommon = 100 }},
 		{ CostIncrease = 2, ResourceCost = { MemPointsCommon = 120 }},
 
+		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 140 }},
 		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 150 }},
+		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 160 }},
 		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 170 }},
+		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 180 }},
+		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 190 }},
 		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 200 }},
-		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 230 }},
-		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 240 }},
-		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 260 }},
-		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 290 }},
-		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 320 }},
-		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 350 }},
+		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 250 }},
+		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 300 }},
 
 		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 500, Mixer6Common = 2, MixerShadow = 2 }},
 	}
@@ -87,9 +87,8 @@ MetaUpgradeCardData =
 		},
 	},
 
-	----------------------------------
-
-	ChanneledCast = 
+	------------ ROW 1 ----------------
+	ChanneledCast = -- Sorceress, Medea
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
 		StartUnlocked = false,
@@ -106,7 +105,7 @@ MetaUpgradeCardData =
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 1 },
-			{ CardUpgradePoints = 3, PlantFMoly = 1 },
+			{ CardUpgradePoints = 3, MixerHBoss = 1 },
 		},
 
 		UnlockedCardVoiceLines =
@@ -130,6 +129,7 @@ MetaUpgradeCardData =
 
 				{ Cue = "/VO/Melinoe_0781", Text = "The Sorceress." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		FlavorTextData = 
@@ -145,14 +145,18 @@ MetaUpgradeCardData =
 			}
 		},
 	},
-
-	HealthRegen =
+	HealthRegen = -- Wayward Son, Zagreus
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
 		StartUnlocked = false,
 		Image = "CardArt_02",
 		TraitName = "DoorHealMetaUpgrade",
 		CustomTrayText = "DodgeBonusMetaUpgrade_Tray",
+		CustomTextWithShrineUpgrade = 
+		{
+			ShrineUpgradeName = "HealingReductionShrineUpgrade",
+			CardTitle = "HealthRegen_Vow",
+		},
 		Type = "Life",
 
 		ResourceCost = 
@@ -163,7 +167,7 @@ MetaUpgradeCardData =
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 2 },
-			{ CardUpgradePoints = 3, OreFSilver = 3, },
+			{ CardUpgradePoints = 3, MixerFBoss = 1, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -188,6 +192,7 @@ MetaUpgradeCardData =
 
 				{ Cue = "/VO/Melinoe_2983", Text = "The Wayward Son." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		FlavorTextData = 
@@ -203,8 +208,7 @@ MetaUpgradeCardData =
 			}
 		},
 	},
-
-	LowManaDamageBonus = 
+	LowManaDamageBonus = -- Huntress, Artemis
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
 		TraitName = "LowManaDamageMetaupgrade",
@@ -213,13 +217,13 @@ MetaUpgradeCardData =
 		Cost = 2,
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 10,
+			MetaCardPointsCommon = 15,
 		},
 
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 2 },
-			{ CardUpgradePoints = 3, PlantGLotus = 3, },
+			{ CardUpgradePoints = 3, MixerNBoss = 2, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -243,6 +247,7 @@ MetaUpgradeCardData =
 
 				{ Cue = "/VO/Melinoe_1147", Text = "The Huntress." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		FlavorTextData = 
@@ -258,32 +263,32 @@ MetaUpgradeCardData =
 			}
 		},
 	},
-
-	MagicCrit = 
+	CastCount = -- Eternity, Chronos
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
-		TraitName = "MagicCritMetaUpgrade",
+		TraitName = "CastDamageMetaUpgrade",
 		Cost = 3,
-		
-
-		Image = "CardArt_10",
+		RandomDrawChance = 0.1,
+		Image = "CardArt_12",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 30,
+			MetaCardPointsCommon = 25,
 		},
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 3, },
-			{ CardUpgradePoints = 5, OreGLime = 3 },
+			{ CardUpgradePoints = 2 },
+			{ CardUpgradePoints = 3, MixerHBoss = 2 },
 		},
 
 		UnlockedCardVoiceLines =
 		{
+			RandomRemaining = true,
 			PreLineWait = 0.65,
 			UsePlayerSource = true,
 			SkipAnim = true,
 
-			{ Cue = "/VO/Melinoe_1455", Text = "Death." },
+			{ Cue = "/VO/Melinoe_0997", Text = "Eternity." },
+			{ Cue = "/VO/Melinoe_0785", Text = "Eternity." },
 		},
 		EquipVoiceLines =
 		{
@@ -296,14 +301,16 @@ MetaUpgradeCardData =
 					{ Name = "MelinoeAnyQuipSpeech" },
 				},
 
-				{ Cue = "/VO/Melinoe_1455", Text = "Death." },
+				{ Cue = "/VO/Melinoe_0997", Text = "Eternity." },
+				{ Cue = "/VO/Melinoe_0785", Text = "Eternity." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		FlavorTextData = 
 		{
 			{
-				Name = "MagicCrit_FlavorText01",
+				Name = "CastCount_FlavorText01",
 				GameStateRequirements =
 				{
 					{
@@ -313,8 +320,183 @@ MetaUpgradeCardData =
 			}
 		},
 	},
+	SorceryRegenUpgrade = -- Moon, Selene
+	{
+		InheritFrom = { "BaseMetaUpgrade" },
+		TraitName = "SorceryRegenMetaUpgrade",
+		Cost = 0,
+		Image = "CardArt_05",
+		ResourceCost = 
+		{
+			MetaCardPointsCommon = 30,
+			MixerGBoss = 1,
+		},
+		UpgradeResourceCost = 
+		{
+			{ CardUpgradePoints = 3 },
+			{ CardUpgradePoints = 6, MixerGBoss = 2, },
+		},
 
-	BonusDodge = 
+		UnlockedCardVoiceLines =
+		{
+			RandomRemaining = true,
+			PreLineWait = 0.65,
+			UsePlayerSource = true,
+			SkipAnim = true,
+
+			{ Cue = "/VO/Melinoe_2791", Text = "The Moon." },
+		},
+		EquipVoiceLines =
+		{
+			{
+				PreLineWait = 0.3,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.2,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+
+				{ Cue = "/VO/Melinoe_1145", Text = "The Moon." },
+				{ Cue = "/VO/Melinoe_2791", Text = "The Moon." },
+			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
+		},
+
+		AutoEquipRequirements = 
+		{
+			SurroundEquipped = true,
+			MetaUpgradeName = "SorceryRegenUpgrade"
+		},
+		AutoEquipText = "SorceryRegenUpgrade_AutoEquip",
+
+		FlavorTextData = 
+		{
+			{
+				Name = "SorceryRegenUpgrade_FlavorText01",
+				GameStateRequirements =
+				{
+					{
+						--
+					}
+				},
+			}
+		},
+	},
+	------------ ROW 2 ----------------
+	CastBuff = -- Furies, Megaera, Alecto, & Tisiphone
+	{
+		InheritFrom = { "BaseMetaUpgrade" },
+		Cost = 2,
+		Image = "CardArt_06",
+		StartUnlocked = false,
+		TraitName = "InsideCastBuffMetaUpgrade",
+		Type = "Death",
+
+		ResourceCost = 
+		{
+			MetaCardPointsCommon = 3,
+		},
+
+		UpgradeResourceCost = 
+		{
+			{ CardUpgradePoints = 2 },
+			{ CardUpgradePoints = 3, MixerFBoss = 1, },
+		},
+
+		UnlockedCardVoiceLines =
+		{
+			RandomRemaining = true,
+			PreLineWait = 0.65,
+			UsePlayerSource = true,
+			SkipAnim = true,
+
+			{ Cue = "/VO/Melinoe_2984", Text = "The Furies." },
+		},
+		EquipVoiceLines =
+		{
+			{
+				PreLineWait = 0.3,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.2,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+
+				{ Cue = "/VO/Melinoe_2984", Text = "The Furies." },
+			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
+		},
+
+		FlavorTextData = 
+		{
+			{
+				Name = "CastBuff_FlavorText01",
+				GameStateRequirements =
+				{
+					{
+						--
+					}
+				},
+			}
+		},
+	},
+	BonusHealth = -- Persistence, Prometheus
+	{
+		InheritFrom = { "BaseBonusMetaUpgrade" },
+		Cost = 2,
+		Image = "CardArt_07",
+		ResourceCost = 
+		{
+			MetaCardPointsCommon = 10,
+		},
+		UpgradeResourceCost = 
+		{
+			{ CardUpgradePoints = 2 },
+			{ CardUpgradePoints = 4, MixerPBoss = 1 },
+		},
+		TraitName = "HealthManaBonusMetaUpgrade",
+		CustomTrayText = "HealthManaBonusMetaUpgrade_Tray",
+
+		UnlockedCardVoiceLines =
+		{
+			PreLineWait = 0.65,
+			UsePlayerSource = true,
+			SkipAnim = true,
+
+			{ Cue = "/VO/Melinoe_4022", Text = "Persistence." },
+		},
+		EquipVoiceLines =
+		{
+			{
+				PreLineWait = 0.3,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.2,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+
+				{ Cue = "/VO/Melinoe_4022", Text = "Persistence." },
+			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
+		},
+
+		FlavorTextData = 
+		{
+			{
+				Name = "BonusHealth_FlavorText01",
+				GameStateRequirements =
+				{
+					{
+						--
+					}
+				},
+			}
+		},
+	},
+	BonusDodge = -- Messenger, Hermes
 	{
 		InheritFrom = { "BaseBonusMetaUpgrade" },
 		Cost = 1,
@@ -327,7 +509,7 @@ MetaUpgradeCardData =
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 1 },
-			{ CardUpgradePoints = 3, PlantGCattail = 3, },
+			{ CardUpgradePoints = 3, MixerPBoss = 1, },
 		},
 		--[[
 		AutoEquipRequirements = 
@@ -360,6 +542,7 @@ MetaUpgradeCardData =
 
 				{ Cue = "/VO/Melinoe_0998", Text = "The Messenger." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		--AutoEquipText = "BonusDodge_AutoEquip",
@@ -376,122 +559,7 @@ MetaUpgradeCardData =
 			}
 		},
 	},
-
-	----------------------------------
-
-	CastBuff =
-	{
-		InheritFrom = { "BaseMetaUpgrade" },
-		Cost = 2,
-		Image = "CardArt_06",
-		StartUnlocked = false,
-		TraitName = "InsideCastBuffMetaUpgrade",
-		Type = "Death",
-
-		ResourceCost = 
-		{
-			MetaCardPointsCommon = 3,
-		},
-
-		UpgradeResourceCost = 
-		{
-			{ CardUpgradePoints = 2 },
-			{ CardUpgradePoints = 3, PlantFNightshade = 3, },
-		},
-
-		UnlockedCardVoiceLines =
-		{
-			RandomRemaining = true,
-			PreLineWait = 0.65,
-			UsePlayerSource = true,
-			SkipAnim = true,
-
-			{ Cue = "/VO/Melinoe_2984", Text = "The Furies." },
-		},
-		EquipVoiceLines =
-		{
-			{
-				PreLineWait = 0.3,
-				BreakIfPlayed = true,
-				SuccessiveChanceToPlay = 0.2,
-				Cooldowns =
-				{
-					{ Name = "MelinoeAnyQuipSpeech" },
-				},
-
-				{ Cue = "/VO/Melinoe_2984", Text = "The Furies." },
-			},
-		},
-
-		FlavorTextData = 
-		{
-			{
-				Name = "CastBuff_FlavorText01",
-				GameStateRequirements =
-				{
-					{
-						--
-					}
-				},
-			}
-		},
-	},
-
-	BonusHealth = 
-	{
-		InheritFrom = { "BaseBonusMetaUpgrade" },
-		Cost = 2,
-		Image = "CardArt_07",
-		ResourceCost = 
-		{
-			MetaCardPointsCommon = 7,
-		},
-		UpgradeResourceCost = 
-		{
-			{ CardUpgradePoints = 2 },
-			{ CardUpgradePoints = 4, OreNBronze = 3 },
-		},
-		TraitName = "HealthManaBonusMetaUpgrade",
-		CustomTrayText = "HealthManaBonusMetaUpgrade_Tray",
-
-		UnlockedCardVoiceLines =
-		{
-			PreLineWait = 0.65,
-			UsePlayerSource = true,
-			SkipAnim = true,
-
-			{ Cue = "/VO/Melinoe_1998", Text = "The Titan." },
-		},
-		EquipVoiceLines =
-		{
-			{
-				PreLineWait = 0.3,
-				BreakIfPlayed = true,
-				SuccessiveChanceToPlay = 0.2,
-				Cooldowns =
-				{
-					{ Name = "MelinoeAnyQuipSpeech" },
-				},
-
-				{ Cue = "/VO/Melinoe_1998", Text = "The Titan." },
-			},
-		},
-
-		FlavorTextData = 
-		{
-			{
-				Name = "BonusHealth_FlavorText01",
-				GameStateRequirements =
-				{
-					{
-						--
-					}
-				},
-			}
-		},
-	},
-
-	ManaOverTime = 
+	ManaOverTime = -- Unseen, Hecate
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
 		TraitName = "ManaOverTimeMetaUpgrade",
@@ -500,12 +568,12 @@ MetaUpgradeCardData =
 		Image = "CardArt_09",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 25,
+			MetaCardPointsCommon = 30,
 		},
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 5 },
-			{ CardUpgradePoints = 10, PlantHMyrtle = 3, },
+			{ CardUpgradePoints = 10, MixerHBoss = 2, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -530,6 +598,7 @@ MetaUpgradeCardData =
 
 				{ Cue = "/VO/Melinoe_2985", Text = "The Unseen." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		FlavorTextData = 
@@ -545,22 +614,22 @@ MetaUpgradeCardData =
 			}
 		},
 	},
-
-	SorceryRegenUpgrade =
+	MagicCrit = -- Night, Nyx
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
-		TraitName = "SorceryRegenMetaUpgrade",
-		Cost = 0,
-		Image = "CardArt_05",
+		TraitName = "MagicCritMetaUpgrade",
+		Cost = 2,
+		
+
+		Image = "CardArt_04",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 20,
-			MixerGBoss = 1,
+			MetaCardPointsCommon = 35,
 		},
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 6, MixerGBoss = 3, },
+			{ CardUpgradePoints = 2, },
+			{ CardUpgradePoints = 4, Mixer6Common = 1 },
 		},
 
 		UnlockedCardVoiceLines =
@@ -570,7 +639,7 @@ MetaUpgradeCardData =
 			UsePlayerSource = true,
 			SkipAnim = true,
 
-			{ Cue = "/VO/Melinoe_2791", Text = "The Moon." },
+			{ Cue = "/VO/Melinoe_2987", Text = "Night." },
 		},
 		EquipVoiceLines =
 		{
@@ -583,22 +652,15 @@ MetaUpgradeCardData =
 					{ Name = "MelinoeAnyQuipSpeech" },
 				},
 
-				{ Cue = "/VO/Melinoe_1145", Text = "The Moon." },
-				{ Cue = "/VO/Melinoe_2791", Text = "The Moon." },
+				{ Cue = "/VO/Melinoe_2987", Text = "Night." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
-
-		AutoEquipRequirements = 
-		{
-			SurroundEquipped = true,
-			MetaUpgradeName = "SorceryRegenUpgrade"
-		},
-		AutoEquipText = "SorceryRegenUpgrade_AutoEquip",
 
 		FlavorTextData = 
 		{
 			{
-				Name = "SorceryRegenUpgrade_FlavorText01",
+				Name = "MagicCrit_FlavorText01",
 				GameStateRequirements =
 				{
 					{
@@ -608,76 +670,22 @@ MetaUpgradeCardData =
 			}
 		},
 	},
-
-	ChanneledBlock =
-	{
-		InheritFrom = { "BaseMetaUpgrade" },
-		TraitName = "BossShieldMetaUpgrade",
-		Cost = 3,
-		Image = "CardArt_15",
-		ResourceCost = 
-		{
-			MetaCardPointsCommon = 35,
-		},
-		UpgradeResourceCost = 
-		{
-			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 5, OreOIron = 3 },
-		},
-		UnlockedCardVoiceLines =
-		{
-			PreLineWait = 0.65,
-			UsePlayerSource = true,
-			SkipAnim = true,
-
-			{ Cue = "/VO/Melinoe_1459", Text = "The Lovers." },
-		},
-		EquipVoiceLines =
-		{
-			{
-				PreLineWait = 0.3,
-				BreakIfPlayed = true,
-				SuccessiveChanceToPlay = 0.2,
-				Cooldowns =
-				{
-					{ Name = "MelinoeAnyQuipSpeech" },
-				},
-
-				{ Cue = "/VO/Melinoe_1459", Text = "The Lovers." },
-			},
-		},
-
-		FlavorTextData = 
-		{
-			{
-				Name = "ChanneledBlock_FlavorText01",
-				GameStateRequirements =
-				{
-					{
-						--
-					}
-				},
-			}
-		},
-	},
-
-	----------------------------------
-
-	SprintShield =
+	------------ ROW 3 ----------------
+	SprintShield = -- Swift Runner, Achilles
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
 		Cost = 1,
 		Image = "CardArt_11",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 10,
+			MetaCardPointsCommon = 15,
 		},
 		TraitName = "SprintShieldMetaUpgrade",
 		ActiveWhileDead = true,
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 1, },
-			{ CardUpgradePoints = 3, MixerNBoss = 3 },
+			{ CardUpgradePoints = 3, MixerFBoss = 1 },
 		},
 
 		UnlockedCardVoiceLines =
@@ -704,6 +712,7 @@ MetaUpgradeCardData =
 				{ Cue = "/VO/Melinoe_0996", Text = "The Swift Runner." },
 				{ Cue = "/VO/Melinoe_0784", Text = "The Swift Runner." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		FlavorTextData = 
@@ -719,15 +728,14 @@ MetaUpgradeCardData =
 			}
 		},
 	},
-
-	LastStand = 
+	LastStand = -- Death, Thanatos
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
 		Cost = 4,
-		Image = "CardArt_12",
+		Image = "CardArt_10",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 20,
+			MetaCardPointsCommon = 25,
 		},
 		UpgradeResourceCost = 
 		{
@@ -737,15 +745,14 @@ MetaUpgradeCardData =
 		TraitName = "LastStandSlowTimeMetaUpgrade",
 		OnGrantedFunctionName = "GrantMetaUpgradeLastStands",
 		OnUpgradedFunctionName = "UpgradeMetaUpgradeLastStands",
+
 		UnlockedCardVoiceLines =
 		{
-			RandomRemaining = true,
 			PreLineWait = 0.65,
 			UsePlayerSource = true,
 			SkipAnim = true,
 
-			{ Cue = "/VO/Melinoe_0997", Text = "Eternity." },
-			{ Cue = "/VO/Melinoe_0785", Text = "Eternity." },
+			{ Cue = "/VO/Melinoe_1455", Text = "Death." },
 		},
 		EquipVoiceLines =
 		{
@@ -758,9 +765,9 @@ MetaUpgradeCardData =
 					{ Name = "MelinoeAnyQuipSpeech" },
 				},
 
-				{ Cue = "/VO/Melinoe_0997", Text = "Eternity." },
-				{ Cue = "/VO/Melinoe_0785", Text = "Eternity." },
+				{ Cue = "/VO/Melinoe_1455", Text = "Death." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		FlavorTextData = 
@@ -776,22 +783,21 @@ MetaUpgradeCardData =
 			}
 		},
 	},
-
-	MaxHealthPerRoom =
+	MaxHealthPerRoom = -- Centaur, Chiron
 	{
 		InheritFrom = { "BaseBonusMetaUpgrade" },
 		Cost = 0,
 		Image = "CardArt_13",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 25,
+			MetaCardPointsCommon = 30,
 			MixerFBoss = 1,
 		},
 
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 2, },
-			{ CardUpgradePoints = 4, OreHGlassrock = 3 },
+			{ CardUpgradePoints = 3, },
+			{ CardUpgradePoints = 6, MixerOBoss = 1 },
 		},
 
 		AutoEquipRequirements = 
@@ -824,6 +830,7 @@ MetaUpgradeCardData =
 
 				{ Cue = "/VO/Melinoe_2986", Text = "The Centaur." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		FlavorTextData = 
@@ -839,67 +846,12 @@ MetaUpgradeCardData =
 			}
 		},
 	},
-
-	CastCount = 
+	StatusVulnerability = -- Origination, Chaos
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
-		TraitName = "CastDamageMetaUpgrade",
-		Cost = 2,
-		Image = "CardArt_04",
-		ResourceCost = 
-		{
-			MetaCardPointsCommon = 15,
-		},
-		UpgradeResourceCost = 
-		{
-			{ CardUpgradePoints = 2 },
-			{ CardUpgradePoints = 3, PlantNMoss = 3 },
-		},
-
-		UnlockedCardVoiceLines =
-		{
-			RandomRemaining = true,
-			PreLineWait = 0.65,
-			UsePlayerSource = true,
-			SkipAnim = true,
-
-			{ Cue = "/VO/Melinoe_2987", Text = "Night." },
-		},
-		EquipVoiceLines =
-		{
-			{
-				PreLineWait = 0.3,
-				BreakIfPlayed = true,
-				SuccessiveChanceToPlay = 0.2,
-				Cooldowns =
-				{
-					{ Name = "MelinoeAnyQuipSpeech" },
-				},
-
-				{ Cue = "/VO/Melinoe_2987", Text = "Night." },
-			},
-		},
-
-		FlavorTextData = 
-		{
-			{
-				Name = "CastCount_FlavorText01",
-				GameStateRequirements =
-				{
-					{
-						--
-					}
-				},
-			}
-		},
-	},
-
-	LowHealthBonus =
-	{
-		InheritFrom = { "BaseMetaUpgrade" },
-		TraitName = "LowHealthBuffMetaUpgrade",
-		Cost = 4,
-		Image = "CardArt_23",
+		TraitName = "EffectVulnerabilityMetaUpgrade",
+		Cost = 5,
+		Image = "CardArt_14",
 		ResourceCost = 
 		{
 			MetaCardPointsCommon = 35,
@@ -908,175 +860,7 @@ MetaUpgradeCardData =
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 5 },
-			{ CardUpgradePoints = 10, PlantNGarlic = 3 },
-		},
-
-		UnlockedCardVoiceLines =
-		{
-			RandomRemaining = true,
-			PreLineWait = 0.65,
-			UsePlayerSource = true,
-			SkipAnim = true,
-
-			{ Cue = "/VO/Melinoe_2988", Text = "Strength." },
-		},
-		EquipVoiceLines =
-		{
-			{
-				PreLineWait = 0.3,
-				BreakIfPlayed = true,
-				SuccessiveChanceToPlay = 0.2,
-				Cooldowns =
-				{
-					{ Name = "MelinoeAnyQuipSpeech" },
-				},
-
-				{ Cue = "/VO/Melinoe_2988", Text = "Strength." },
-			},
-		},
-
-		FlavorTextData = 
-		{
-			{
-				Name = "LowHealthBonus_FlavorText01",
-				GameStateRequirements =
-				{
-					{
-						--
-					}
-				},
-			}
-		},
-	},
-
-	----------------------------------
-	
-	DoorReroll =
-	{
-		InheritFrom = { "BaseMetaUpgrade" },
-		Cost = 3,
-		Image = "CardArt_16",
-		ResourceCost = 
-		{
-			MetaCardPointsCommon = 15,
-		},
-		TraitName = "DoorRerollMetaUpgrade",
-		OnGrantedFunctionName = "GrantMetaUpgradeRerolls",
-		OnUpgradedFunctionName = "UpgradeMetaUpgradeRerolls",
-		UpgradeResourceCost = 
-		{
-			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 5, MetaFabric = 3 },
-		},
-
-		UnlockedCardVoiceLines =
-		{
-			PreLineWait = 0.65,
-			UsePlayerSource = true,
-			SkipAnim = true,
-
-			{ Cue = "/VO/Melinoe_1456", Text = "The Fates." },
-		},
-		EquipVoiceLines =
-		{
-			{
-				PreLineWait = 0.3,
-				BreakIfPlayed = true,
-				SuccessiveChanceToPlay = 0.2,
-				Cooldowns =
-				{
-					{ Name = "MelinoeAnyQuipSpeech" },
-				},
-
-				{ Cue = "/VO/Melinoe_1456", Text = "The Fates." },
-			},
-		},
-
-		FlavorTextData = 
-		{
-			{
-				Name = "DoorReroll_FlavorText01",
-				GameStateRequirements =
-				{
-					{
-						--
-					}
-				},
-			}
-		},
-	},
-
-	StartingGold =
-	{
-		InheritFrom = { "BaseMetaUpgrade" },
-		Cost = 5,
-		Image = "CardArt_17",
-		ResourceCost = 
-		{
-			MetaCardPointsCommon = 25,
-		},
-		TraitName = "StartingGoldMetaUpgrade",
-		OnGrantedFunctionName = "GrantMetaUpgradeCurrency",
-		OnUpgradedFunctionName = "UpgradeMetaUpgradeCurrency",
-
-		UpgradeResourceCost = 
-		{
-			{ CardUpgradePoints = 5 },
-			{ CardUpgradePoints = 10, OrePAdamant = 3 },
-		},
-
-		UnlockedCardVoiceLines =
-		{
-			PreLineWait = 0.65,
-			UsePlayerSource = true,
-			SkipAnim = true,
-
-			{ Cue = "/VO/Melinoe_2792", Text = "The Boatman." },
-		},
-		EquipVoiceLines =
-		{
-			{
-				PreLineWait = 0.3,
-				BreakIfPlayed = true,
-				SuccessiveChanceToPlay = 0.2,
-				Cooldowns =
-				{
-					{ Name = "MelinoeAnyQuipSpeech" },
-				},
-
-				{ Cue = "/VO/Melinoe_2792", Text = "The Boatman." },
-			},
-		},
-
-		FlavorTextData = 
-		{
-			{
-				Name = "StartingGold_FlavorText01",
-				GameStateRequirements =
-				{
-					{
-						--
-					}
-				},
-			}
-		},
-	},
-
-	StatusVulnerability =
-	{
-		InheritFrom = { "BaseMetaUpgrade" },
-		TraitName = "EffectVulnerabilityMetaUpgrade",
-		Cost = 5,
-		Image = "CardArt_14",
-		ResourceCost = 
-		{
-			MetaCardPointsCommon = 30,
-		},
-
-		UpgradeResourceCost = 
-		{
-			{ CardUpgradePoints = 5 },
-			{ CardUpgradePoints = 10, PlantPOlive = 3, },
+			{ CardUpgradePoints = 10, MixerShadow = 1, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -1100,6 +884,7 @@ MetaUpgradeCardData =
 
 				{ Cue = "/VO/Melinoe_2789", Text = "Origination." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		FlavorTextData = 
@@ -1115,21 +900,240 @@ MetaUpgradeCardData =
 			}
 		},		
 	},
+	ChanneledBlock = -- Lovers, Orpheus & Eurydice
+	{
+		InheritFrom = { "BaseMetaUpgrade" },
+		TraitName = "BossShieldMetaUpgrade",
+		Cost = 3,
+		Image = "CardArt_15",
+		ResourceCost = 
+		{
+			MetaCardPointsCommon = 40,
+		},
+		UpgradeResourceCost = 
+		{
+			{ CardUpgradePoints = 3 },
+			{ CardUpgradePoints = 5, MixerHBoss = 2 },
+		},
+		UnlockedCardVoiceLines =
+		{
+			PreLineWait = 0.65,
+			UsePlayerSource = true,
+			SkipAnim = true,
 
-	RarityBoost =
+			{ Cue = "/VO/Melinoe_1459", Text = "The Lovers." },
+		},
+		EquipVoiceLines =
+		{
+			{
+				PreLineWait = 0.3,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.2,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+
+				{ Cue = "/VO/Melinoe_1459", Text = "The Lovers." },
+			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
+		},
+
+		FlavorTextData = 
+		{
+			{
+				Name = "ChanneledBlock_FlavorText01",
+				GameStateRequirements =
+				{
+					{
+						--
+					}
+				},
+			}
+		},
+	},
+	------------ ROW 4 ----------------
+	DoorReroll = -- The Enchantress, Circe
+	{
+		InheritFrom = { "BaseMetaUpgrade" },
+		Cost = 3,
+		Image = "CardArt_21",
+
+		ResourceCost = 
+		{
+			MetaCardPointsCommon = 25,
+		},
+		TraitName = "DoorRerollMetaUpgrade",
+		OnGrantedFunctionName = "GrantMetaUpgradeRerolls",
+		OnUpgradedFunctionName = "UpgradeMetaUpgradeRerolls",
+		UpgradeResourceCost = 
+		{
+			{ CardUpgradePoints = 3 },
+			{ CardUpgradePoints = 5, MixerGBoss = 2 },
+		},
+
+		UnlockedCardVoiceLines =
+		{
+			PreLineWait = 0.65,
+			UsePlayerSource = true,
+			SkipAnim = true,
+
+			{ Cue = "/VO/Melinoe_4067", Text = "The Enchantress." },
+		},
+		EquipVoiceLines =
+		{
+			{
+				PreLineWait = 0.3,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.2,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+
+				{ Cue = "/VO/Melinoe_4067", Text = "The Enchantress." },
+			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
+		},
+
+		FlavorTextData = 
+		{
+			{
+				Name = "DoorReroll_FlavorText01",
+				GameStateRequirements =
+				{
+					{
+						--
+					}
+				},
+			}
+		},
+	},
+	StartingGold = -- Boatman, Charon
+	{
+		InheritFrom = { "BaseMetaUpgrade" },
+		Cost = 5,
+		Image = "CardArt_17",
+		ResourceCost = 
+		{
+			MetaCardPointsCommon = 30,
+		},
+		TraitName = "StartingGoldMetaUpgrade",
+		OnGrantedFunctionName = "GrantMetaUpgradeCurrency",
+		OnUpgradedFunctionName = "UpgradeMetaUpgradeCurrency",
+
+		UpgradeResourceCost = 
+		{
+			{ CardUpgradePoints = 5 },
+			{ CardUpgradePoints = 10, CharonPoints = 1 },
+		},
+
+		UnlockedCardVoiceLines =
+		{
+			PreLineWait = 0.65,
+			UsePlayerSource = true,
+			SkipAnim = true,
+
+			{ Cue = "/VO/Melinoe_2792", Text = "The Boatman." },
+		},
+		EquipVoiceLines =
+		{
+			{
+				PreLineWait = 0.3,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.2,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+
+				{ Cue = "/VO/Melinoe_2792", Text = "The Boatman." },
+			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
+		},
+
+		FlavorTextData = 
+		{
+			{
+				Name = "StartingGold_FlavorText01",
+				GameStateRequirements =
+				{
+					{
+						--
+					}
+				},
+			}
+		},
+	},
+	MetaToRunUpgrade = -- Artificer, Daedalus
+	{
+		InheritFrom = { "BaseMetaUpgrade" },
+		TraitName = "MetaToRunMetaUpgrade",
+		Cost = 3,
+		Image = "CardArt_18",
+		ResourceCost = 
+		{
+			MetaCardPointsCommon = 35,
+		},
+		UpgradeResourceCost = 
+		{
+			{ CardUpgradePoints = 3 },
+			{ CardUpgradePoints = 5, MixerNBoss = 2 },
+		},
+
+
+		UnlockedCardVoiceLines =
+		{
+			RandomRemaining = true,
+			PreLineWait = 0.65,
+			UsePlayerSource = true,
+			SkipAnim = true,
+
+			{ Cue = "/VO/Melinoe_2989", Text = "The Artificer." },
+		},
+		EquipVoiceLines =
+		{
+			{
+				PreLineWait = 0.3,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.2,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+
+				{ Cue = "/VO/Melinoe_2989", Text = "The Artificer." },
+			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
+		},
+
+		FlavorTextData = 
+		{
+			{
+				Name = "MetaToRunUpgrade_FlavorText01",
+				GameStateRequirements =
+				{
+					{
+						--
+					}
+				},
+			}
+		},
+	},
+	RarityBoost = -- Excellence, Patroclus
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
 		Cost = 5,
 		Image = "CardArt_19",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 35,
+			MetaCardPointsCommon = 40,
 		},
 
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 4 },
-			{ CardUpgradePoints = 6, MetaFabric = 3 },
+			{ CardUpgradePoints = 6, MixerNBoss = 2 },
 		},
 
 		TraitName = "RarityBoostMetaUpgrade",
@@ -1155,6 +1159,7 @@ MetaUpgradeCardData =
 
 				{ Cue = "/VO/Melinoe_1460", Text = "Excellence." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		FlavorTextData = 
@@ -1170,21 +1175,20 @@ MetaUpgradeCardData =
 			}
 		},
 	},
-
-	BonusRarity =
+	BonusRarity = -- Queen, Persephone
 	{
 		InheritFrom = { "BaseBonusMetaUpgrade" },
 		Cost = 0,
 		Image = "CardArt_20",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 40,
+			MetaCardPointsCommon = 45,
 			MixerHBoss = 1,
 		},
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 2 },
-			{ CardUpgradePoints = 4, PlantPIris = 3, },
+			{ CardUpgradePoints = 4, MixerGBoss = 2, },
 		},
 		AutoEquipRequirements = 
 		{
@@ -1215,6 +1219,7 @@ MetaUpgradeCardData =
 
 				{ Cue = "/VO/Melinoe_2790", Text = "The Queen." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		AutoEquipText = "BonusRarity_AutoEquip",
@@ -1231,24 +1236,23 @@ MetaUpgradeCardData =
 			}
 		},
 	},
-
-	----------------------------------
-
-	TradeOff = 
+	------------ ROW 5 ----------------
+	TradeOff = -- The Fates, Three Fates
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
 		Cost = 0,
-		Image = "CardArt_21",
+		Image = "CardArt_16",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 20,
+			MetaCardPointsCommon = 30,
 			MixerNBoss = 1,
 		},
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 6, MixerIBoss = 2, },
+			{ CardUpgradePoints = 6, MixerNBoss = 2, },
 		},
+		RequiredCardNames = { "ScreenReroll", "DoorReroll" },
 		TraitName = "RerollTradeOffMetaUpgrade",
 		OnGrantedFunctionName = "GrantMetaUpgradeRerolls",
 		OnUpgradedFunctionName = "UpgradeMetaUpgradeRerolls",
@@ -1259,7 +1263,7 @@ MetaUpgradeCardData =
 			UsePlayerSource = true,
 			SkipAnim = true,
 
-			{ Cue = "/VO/Melinoe_0783", Text = "The Seer." },
+			{ Cue = "/VO/Melinoe_1456", Text = "The Fates." },
 		},
 		EquipVoiceLines =
 		{
@@ -1272,8 +1276,9 @@ MetaUpgradeCardData =
 					{ Name = "MelinoeAnyQuipSpeech" },
 				},
 
-				{ Cue = "/VO/Melinoe_0783", Text = "The Seer." },
+				{ Cue = "/VO/Melinoe_1456", Text = "The Fates." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		AutoEquipRequirements = 
@@ -1296,15 +1301,14 @@ MetaUpgradeCardData =
 			}
 		},
 	},
-
-	ScreenReroll =
+	ScreenReroll = -- Champions, Theseus & Asterius
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
 		Cost = 4,
 		Image = "CardArt_22",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 30,
+			MetaCardPointsCommon = 35,
 		},
 		TraitName = "PanelRerollMetaUpgrade",
 		OnGrantedFunctionName = "GrantMetaUpgradeRerolls",
@@ -1313,7 +1317,7 @@ MetaUpgradeCardData =
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 5 },
-			{ CardUpgradePoints = 10, PlantIShaderot = 3, },
+			{ CardUpgradePoints = 10, MixerOBoss = 2, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -1337,6 +1341,7 @@ MetaUpgradeCardData =
 
 				{ Cue = "/VO/Melinoe_1457", Text = "The Champions." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		FlavorTextData = 
@@ -1352,23 +1357,24 @@ MetaUpgradeCardData =
 			}
 		},
 	},
-
-	MetaToRunUpgrade =
+	LowHealthBonus = -- Strength, Heracles
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
-		TraitName = "MetaToRunMetaUpgrade",
-		Cost = 3,
-		Image = "CardArt_18",
+		TraitName = "LowHealthBuffMetaUpgrade",
+		Cost = 4,
+		Image = "CardArt_23",
+		ShowLastStandWarning = true,
+		OnGrantedFunctionName = "GrantedLowHealthBonusBuffStatePresentation",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 30,
-		},
-		UpgradeResourceCost = 
-		{
-			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 5, PlantOMandrake = 3 },
+			MetaCardPointsCommon = 40,
 		},
 
+		UpgradeResourceCost = 
+		{
+			{ CardUpgradePoints = 6 },
+			{ CardUpgradePoints = 12, MixerPBoss = 2 },
+		},
 
 		UnlockedCardVoiceLines =
 		{
@@ -1377,7 +1383,7 @@ MetaUpgradeCardData =
 			UsePlayerSource = true,
 			SkipAnim = true,
 
-			{ Cue = "/VO/Melinoe_2989", Text = "The Artificer." },
+			{ Cue = "/VO/Melinoe_2988", Text = "Strength." },
 		},
 		EquipVoiceLines =
 		{
@@ -1390,14 +1396,15 @@ MetaUpgradeCardData =
 					{ Name = "MelinoeAnyQuipSpeech" },
 				},
 
-				{ Cue = "/VO/Melinoe_2989", Text = "The Artificer." },
+				{ Cue = "/VO/Melinoe_2988", Text = "Strength." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		FlavorTextData = 
 		{
 			{
-				Name = "MetaToRunUpgrade_FlavorText01",
+				Name = "LowHealthBonus_FlavorText01",
 				GameStateRequirements =
 				{
 					{
@@ -1407,14 +1414,13 @@ MetaUpgradeCardData =
 			}
 		},
 	},
-
-	EpicRarityBoost =
+	EpicRarityBoost = -- Divinity, Zeus & Hera
 	{
 		InheritFrom = { "BaseBonusMetaUpgrade" },
 		Image = "CardArt_24",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 40,
+			MetaCardPointsCommon = 45,
 			MixerOBoss = 1,
 		},
 		TraitName = "EpicRarityBoostMetaUpgrade",
@@ -1429,8 +1435,8 @@ MetaUpgradeCardData =
 
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 2 },
-			{ CardUpgradePoints = 4, MixerHBoss = 3, },
+			{ CardUpgradePoints = 5 },
+			{ CardUpgradePoints = 10, MixerPBoss = 2, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -1455,6 +1461,7 @@ MetaUpgradeCardData =
 
 				{ Cue = "/VO/Melinoe_2990", Text = "Divinity." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		FlavorTextData = 
@@ -1470,8 +1477,7 @@ MetaUpgradeCardData =
 			}
 		},
 	},
-
-	CardDraw =
+	CardDraw = -- Judgment, Hades
 	{
 		InheritFrom = { "BaseBonusMetaUpgrade" },
 		Image = "CardArt_25",
@@ -1491,8 +1497,8 @@ MetaUpgradeCardData =
 
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 10, MixerPBoss = 2 },
-			{ CardUpgradePoints = 20, MixerPBoss = 3 },
+			{ CardUpgradePoints = 10, },
+			{ CardUpgradePoints = 20, MetaFabric = 20 },
 		},
 
 		UnlockedCardVoiceLines =
@@ -1517,6 +1523,7 @@ MetaUpgradeCardData =
 
 				{ Cue = "/VO/Melinoe_2991", Text = "Judgment." },
 			},
+			{ GlobalVoiceLines = "CardInspectVoiceLines" },
 		},
 
 		FlavorTextData = 
@@ -1553,6 +1560,11 @@ MetaUpgradeData =
 				Property = "ChangeValue",
 				Multiply = 100,
 				NewProperty = "DisplayValue",
+			},
+			{
+				Property = "ChangeValue",
+				NegativePercentDelta = true,
+				NewProperty = "HealingReductionValue",
 			},
 		},
 		Ranks =
@@ -1629,6 +1641,7 @@ MetaUpgradeData =
 			{ Points = 2, ChangeValue = 1.6 },
 			{ Points = 2, ChangeValue = 2.0 },
 		},
+		OnDisabledFunctionName = "RemoveEnemyDamageShrineUpgrade",
 		SelectedVoiceLines =
 		{
 			PlayOnceFromTableThisRun = true,
@@ -1767,14 +1780,15 @@ MetaUpgradeData =
 			H = EnemySets.BiomeI,
 			N = EnemySets.BiomeO,
 			O = EnemySets.BiomeP,
+			P = EnemySets.BiomeQ,
 		},
 		SwapMap =
 		{
 			-- Erebus
 			Guard = { Name = "Guard2", },
 			Guard_Elite = { Name = "Guard2_Elite", },
-			Brawler = { Name = "FishmanMelee", },
-			Brawler_Elite = { Name = "FishmanMelee_Elite", },
+			Brawler = { Name = "FishmanMelee", ActiveCapWeight = 1.3, },
+			Brawler_Elite = { Name = "FishmanMelee_Elite", ActiveCapWeight = 1.3 },
 			Radiator = { Name = "Radiator2", },
 			Radiator_Elite = { Name = "Radiator2_Elite", },
 			Screamer = { Name = "FishSwarmerSquad", },
@@ -1845,7 +1859,22 @@ MetaUpgradeData =
 			WaterElemental_Elite = { Name = "SentryBot_Elite" },
 			Mage2 = { Name = "SatyrLancer2" },
 			Mage2_Elite = { Name = "SatyrLancer2_Elite" },
-			-- Zombie_Crewman banned
+
+			-- Olympus
+			-- SentryBot is banned
+			-- AutomatonBeamer is banned
+			-- AutomatonEnforcer is banned
+			Dragon = { Name = "Brute" },
+			Dragon_Elite = { Name = "Brute_Elite" },
+			HarpyDropper = { Name = "Stalker" },
+			HarpyDropper_Elite = { Name = "Stalker_Elite" },
+			-- SatyrSapper is banned
+			SatyrLancer2 = { Name = "Mati" },
+			SatyrLancer2_Elite = { Name = "Mati_Elite" },
+			SatyrCrossbow2 = { Name = "DragonBurrower" },
+			SatyrCrossbow2_Elite = { Name = "DragonBurrower_Elite" },
+			ZombieOlympus = { Name = "Simple" },
+			ZombieOlympus_Elite = { Name = "Simple_Elite" },
 		},
 		FlavorText = "NextBiomeEnemyShrineUpgrade_Flavor",
 	},
@@ -1887,26 +1916,61 @@ MetaUpgradeData =
 		FlavorText = "MinibossCountShrineUpgrade_Flavor",
 	},
 
-	--[[
 	BossDifficultyShrineUpgrade =
 	{
 		InheritFrom = { "BaseMetaUpgrade", },
 		Icon = "ShrineIcon_BossDifficulty",
-		Starting = true,
-		CostTable = { 1, 2, 3, 4 },
-		ShortTotal = "BossDifficultyShrineUpgrade_ShortTotal",
-		ChangeValue = 1,
-		GameStateRequirements =
+		InactiveChangeValue = 0,
+		IneligibleForCirceRemoval = true,
+		UseWideAnimations = true,
+		RankRevealedFunctionName = "BossDifficultyShrineUpgradeRankRevealed",
+		Ranks =
 		{
-			--RequiredTextLines = { "Fury2FirstAppearance", "Fury3FirstAppearance" }
-		},
-		RankGameStateRequirements = 
-		{
-			[4] = { RequiredCosmetics = { "HadesEMFight"}}
+			{
+				Points = 2,
+				ChangeValue = 1,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "HecateBossGrantsShrineUpgrade01", "HecateGrantsShrineUpgrade01" }
+					},
+				},
+			},
+			{
+				Points = 3,
+				ChangeValue = 2,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBossDifficultyT2" },
+					},
+				},
+			},
+			{
+				Points = 3,
+				ChangeValue = 3,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBossDifficultyT3" },
+					},
+				},
+			},
+			{
+				Points = 4,
+				ChangeValue = 4,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBossDifficultyT4" },
+					},
+				},
+			},
 		},
 		FlavorText = "BossDifficultyShrineUpgrade_Flavor",
+		UsePluralizedForm = true,
 	},
-	]]
 
 	BoonSkipShrineUpgrade =
 	{
@@ -1931,6 +1995,8 @@ MetaUpgradeData =
 			{ Points = 1, ChangeValue = 6 },
 		},
 		FlavorText = "BoonManaReserveShrineUpgrade_Flavor",
+		
+		OnDisabledFunctionName = "RemoveBoonManaReserve",
 	},
 
 	BanUnpickedBoonsShrineUpgrade =
@@ -1951,6 +2017,7 @@ MetaUpgradeData =
 		InheritFrom = { "BaseMetaUpgrade", },
 		Icon = "ShrineIcon_NoMetaUpgrades",
 		InactiveChangeValue = 100,
+		IgnoredByRandomBounties = true,
 		Ranks =
 		{
 			{ Points = 1, ChangeValue = 60 },
@@ -1997,4 +2064,32 @@ MetaUpgradeCardRarityIcons =
 	Rare = "MetaRank2",
 	Epic = "MetaRank3",
 	Heroic = "MetaRank4",
+}
+
+FatedEnableKeepsakes = 
+{
+	RarifyKeepsake = true,
+	HadesAndPersephoneKeepsake = true,
+	GoldifyKeepsake = true,
+}
+
+FatedDisableKeepsakes = 
+{
+	ForceApolloBoonKeepsake = true,
+	ForceZeusBoonKeepsake = true,
+	ForceHeraBoonKeepsake = true,
+	ForceHephaestusBoonKeepsake = true,
+	ForceAphroditeBoonKeepsake = true,
+	ForceDemeterBoonKeepsake = true,
+	ForceAresBoonKeepsake = true,
+	ForcePoseidonBoonKeepsake = true,
+	ForceHestiaBoonKeepsake = true,
+	AthenaEncounterKeepsake = true,
+}
+
+FatedDisableMetaUpgrades = 
+{
+	DoorReroll = true,
+	ScreenReroll = true,
+	TradeOff = true,
 }

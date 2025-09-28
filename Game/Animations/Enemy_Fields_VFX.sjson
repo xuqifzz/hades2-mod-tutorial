@@ -465,7 +465,7 @@
 		DurationFrames = 1
 		SortMode = "FromParent"
 		SortFromOwner = "Maintain"
-
+		IgnoreIfMinConfigPreset = true
 	}
 
 	{
@@ -675,6 +675,8 @@
 		VisualFxCap = 8
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.011
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
 	}
 
 	{
@@ -722,6 +724,8 @@
 		VisualFxCap = 8
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.011
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
 		CreateAnimations =
 		[
 			{ Name = "MageProjectileExplosionGlow" }
@@ -2094,6 +2098,8 @@
 		VisualFxIntervalMin = 0.01
 		OverlayVfx = true
 		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 		CreateAnimations =
 		[
 			{ Name = "LamiaLightningDark" }
@@ -2163,6 +2169,9 @@
 		ClearCreateAnimations = true
 		VisualFx = null
 		ChildAnimation = null
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false		
 	}
 	
 	{
@@ -2185,6 +2194,9 @@
 		StartFrame = 1
 		Scale = 2.0
 		Ambient = 0.0
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 		ScaleFromOwner = "Ignore"
 		CreateAnimations =
 		[
@@ -2220,9 +2232,14 @@
 	{
 		Name = "LamiaLightningFlash"
 		InheritFrom = "LamiaLightningLight"
-		StartAlpha = 1.0
+		StartAlpha = 0.5
 		Duration = 0.1
-		Scale = 4.0
+		Scale = 3.0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 		CreateAnimations = []
 	}
 	
@@ -2235,7 +2252,7 @@
 		OriginX = 256.0
 		OriginY = 484.0
 		EndScale = 1.2
-		Scale = 2.0
+		Scale = 1.0
 		StartRed = 1.0
 		StartGreen = 0.01
 		StartBlue = 0.2
@@ -2244,6 +2261,12 @@
 		EndBlue = 0.1
 		StartAlpha = 1
 		EndAlpha = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 		CreateAnimations = []
 	}
 	
@@ -2563,6 +2586,8 @@
 		VisualFx = "MiasmaWorm"
 		VisualFxDistanceMin = 30
 		VisualFxDistanceMax = 30
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
 		Sound = "/SFX/Enemy Sounds/InvincibleProjectileLoop"
 		StopSoundOnFinishFade = 0.2
 		CreateAnimations =
@@ -2629,6 +2654,7 @@
 		LocationZFromOwner = "Take"
 		CreateAnimation = "LamiaMinibossMiasmaProjectileCenterDissipate"
 		OffsetZ = 45
+		Sound = null
 	}
 
 	{
@@ -2664,6 +2690,7 @@
 		PingPongColor = false
 		Scale = 1.0
 		ClearCreateAnimations = true
+		Sound = null
 	}
 
 	{
@@ -3077,6 +3104,7 @@
 		FilePath = "GUI\LovesickHeartMineDecal"
 		Material = "Unlit"
 		GroupName = "FX_Terrain"
+		ScaleRadius = 350
 		Loop = false
 		PostRotateScaleY = 0.5
 		ColorFromOwner = "Ignore"
@@ -3177,6 +3205,7 @@
 		NumFrames = 30
 		Loop = true
 		ChainTo = null
+		SoundManagerCap = 32
 		Slides =
 		[
 			{ DurationFrames = 2 Sound = "/SFX/Enemy Sounds/Heartless/HeartBeatSquishy" }
@@ -3348,6 +3377,11 @@
 			{ DurationFrames = 2 }
 			{ DurationFrames = 2 }
 		]
+	}
+	{
+		Name = "LovesickHeartExplosionSmall"
+		InheritFrom = "LovesickHeartExplosion"
+		Scale = 0.75
 	}
 
 
@@ -4553,6 +4587,137 @@
 	}
 
 	{
+		Name = "InfestedCerberusBackSwipeR"
+		FilePath = "Particles\particle_quickFlashIris"
+		Red = 1
+		Green = 0.5
+		Blue = 0.1
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.33
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleFromOwner = "Ignore"
+		Scale = 2
+		GroupName = "FX_Add_Top"
+		GrannyAttachedMarkerLocation = "InfestedCerberus_Rig:hand_00_R_JNT"
+		VisualFx = "InfestedCerberusWorms"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		CreateAnimations =
+		[
+			{ Name = "InfestedCerberusBackSwipeRBright" }
+			{ Name = "InfestedCerberusBackSwipeRDark" }
+		]
+	}
+
+	{
+		Name = "InfestedCerberusBackSwipeL"
+		InheritFrom = "InfestedCerberusBackSwipeR"
+		FilePath = "Particles\particle_quickFlashIris"
+		GrannyAttachedMarkerLocation = "InfestedCerberus_Rig:hand_00_L_JNT"
+		CreateAnimations =
+		[
+			{ Name = "InfestedCerberusBackSwipeLBright" }
+			{ Name = "InfestedCerberusBackSwipeLDark" }
+		]
+	}
+
+	{
+		Name = "InfestedCerberusBackSwipeRBright"
+		FilePath = "Fx\Cerb\CerbSwipe\CerbSwipe"
+		NumFrames = 33
+		Material = "Unlit"
+		PostRotateScaleY = 0.6
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		Scale = 2
+		ScaleX = 0.66
+		DieWithOwner = false
+		AngleFromOwner = "Take"
+		StartAngle = 0
+		EndAngle = -60
+		EaseIn = 0.99
+		EaseOut = 1.0
+		OriginX = 800
+		OriginY = 120
+		LocationZFromOwner = "Ignore"
+		FlipHorizontal = true
+		StartScale = 1.1
+		EndScale = 0.8
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+		]
+	}
+
+	{
+		Name = "InfestedCerberusBackSwipeLBright"
+		InheritFrom = "InfestedCerberusBackSwipeRBright"
+		StartAngle = 180
+		EndAngle = 240
+		FlipHorizontal = false
+	}
+
+	{
+		Name = "InfestedCerberusBackSwipeRDark"
+		InheritFrom = "InfestedCerberusBackSwipeRBright"
+		ClearCreateAnimations = true
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		VisualFx = null
+	}
+
+	{
+		Name = "InfestedCerberusBackSwipeLDark"
+		InheritFrom = "InfestedCerberusBackSwipeLBright"
+		ClearCreateAnimations = true
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		VisualFx = null
+	}
+
+	{
 		Name = "InfestedCerberusWorms"
 		Random =
 		[
@@ -4734,7 +4899,8 @@
 	{
 		Name = "InfestedCerberusFireball"
 		FilePath = "Fx\Cerb\CerbFireball\CerbFireball"
-		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_RadialFireBlast"
+		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_FireballLoop"
+		StopSoundOnFinishFade = 0.2
 		NumFrames = 30
 		NumAngles = 16
 		Material = "Unlit"
@@ -4754,7 +4920,7 @@
 		Name = "InfestedCerberusFireballOut"
 		InheritFrom = "InfestedCerberusFireball"
 		CreateAnimation = null
-		Sound = "null"
+		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_RadialFireBlast"
 		VisualFx = "null"
 		StartScale = 1
 		EndScale = 0
@@ -4793,6 +4959,7 @@
 		EndRed = 0
 		EndGreen = 0
 		EndBlue = 0
+		Sound = null
 		Material = "Unlit"
 		CreateAnimations =
 		[
@@ -5109,9 +5276,8 @@
 	{
 		Name = "CerbFireballDetonateFront"
 		FilePath = "Fx\Cerb\CerbFireballDetonateFront\CerbFireballDetonateFront"
-		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_RadialFireBlast"
 		NumFrames = 40
-		PlaySpeed = 30
+		
 		Material = "Unlit"
 		UseOwnAngle = false
 		AngleFromOwner = "Ignore"
@@ -5124,16 +5290,125 @@
 		VisualFxManagerCap = 400
 		VisualFxManagerFrameCap = 18
 		VisualFxCap = 36
-		OriginX = 500
-		OriginY = 260
-		ScaleRadius = 270
+		OriginX = 640
+		OriginY = 360
+		ScaleRadius = 420
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.66
+		EndBlue = 0.3
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
 		CreateAnimations =
 		[
 			{ Name = "CerbFireballDetonateBack" }
 			{ Name = "CerbFireballDetonateBack_Dark" }
 			{ Name = "CerbFireballDetonateFront_Dark" }
 			{ Name = "CerbFireballDetonateFlare" }
+			{ Name = "CerbFireballDetonateFx" }
+			{ Name = "CerbFireballDetonateGlow" }
+			{ Name = "CerbFireballDetonateFxDisplacement" }
 		]
+	}
+
+	{
+		Name = "CerbFireballDetonateGlow"
+		FilePath = "Fx\AxeNovaGlow\AxeNovaGlow"
+		NumFrames = 29
+		Red = 1
+		Green = 0.3
+		Blue = 0
+		PostRotateScaleY = 0.5
+		ScaleRadius = 65
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		RandomRotation = true
+		LocationZFromOwner = "Ignore"
+		OffsetZ = -60
+		PlaySpeed = 30
+	}
+
+	{
+		Name = "CerbFireballDetonateFx"
+		FilePath = "Fx\Cerb\CerbSlamNova"
+		ScaleRadius = 500
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.66
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.7
+		StartBlue = 0.5
+		EndRed = 0.99
+		EndGreen = 0.1
+		EndBlue = 0
+		PostRotateScaleY = 0.5
+		Material = "Unlit"
+	}
+
+	{
+		Name = "CerbFireballDetonateFxDisplacement"
+		FilePath = "Fx\EnemyNova\EnemyNova"
+		GroupName = "FX_Displacement"
+		ScaleRadius = 160
+		NumFrames = 52
+		StartFrame = 8
+		PlaySpeed = 60
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomRotation = true
+		StartAlpha = 0.1
+		EndAlpha = 0.6
+		PingPongColor = true
 	}
 
 	{
@@ -5161,12 +5436,71 @@
 	{
 		Name = "CerbFireballDetonateBack"
 		InheritFrom = "CerbFireballDetonateFront"
-		VisualFx = null
+		VisualFx = "CerbFireballDetonateFlames"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
 		Sound = null
 		ClearCreateAnimations = true
 		FilePath = "Fx\Cerb\CerbFireballDetonateBack\CerbFireballDetonateBack"
 		DrawBehindOwner = true
 		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "CerbFireballDetonateFlames"
+		Random = [
+			{ Name = "CerbFireballDetonateFlameA" }
+			{ Name = "CerbFireballDetonateFlameB" }
+		]
+	}
+
+	{
+		Name = "CerbFireballDetonateFlameA"
+		FilePath = "Fx\Cerb\CerbFireballBreathTrail\CerbFireballBreathTrail"
+		NumFrames = 41
+		ScaleFromOwner = "Ignore"
+		RadialOffsetMin = 90
+		RadialOffsetMax = 100
+		RadialOffsetScaleRadius = 120
+		RadialOffsetScaleY = 0.5
+		ScaleMin = 0.7
+		ScaleMax = 1.5
+		GroupName = "FX_Standing_Add"
+		ScaleY = 1.5
+		RandomFlipVertical = true
+		PostRotateScaleY = 0.6
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 75
+		VelocityMin = 300
+		VelocityMax = 400
+		Acceleration = -400
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		Material = "Unlit"
+		AddColor = false
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.99
+		EndGreen = 0.15
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "CerbFireballDetonateFlameB"
+		InheritFrom = "CerbFireballDetonateFlameA"
+		GroupName = "FX_Dark"
+		AddColor = false
+		ScaleMax = 1.0
+		ScaleMin = 0.5
+		ScaleY = 1.1
+		EndRed = 0
+		EndGreen = 0
 	}
 
 	{
@@ -5219,8 +5553,8 @@
 		EndRed = 0.4
 		EndGreen = 0.1
 		EndBlue = 0
-		RadialOffsetMin = 100
-		RadialOffsetMax = 200
+		RadialOffsetMin = 200
+		RadialOffsetMax = 400
 		VelocityMin = 100
 		VelocityMax = 300
 		Acceleration = -100
@@ -5505,8 +5839,7 @@
 		RandomPlaySpeedMax = 36
 		OffsetZ = 100
 		Scale = 1.5
-		SortMode = "FromParent"
-		SortFromOwner = "Maintain"
+		SortMode = "Isometric"
 		VisualFx = "CerbFireballDetonateWorms"
 		VisualFxIntervalMin = 0.001
 		VisualFxIntervalMax = 0.001
@@ -5515,6 +5848,7 @@
 		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_HeadAttackEmerge"
 		VisualFxCap = 24
 		DieWithOwner = false
+		GroupName = "FX_Standing"
 		CreateAnimations =
 		[
 			{ Name = "CerbAoEBack" }
@@ -7021,6 +7355,7 @@
 		Material = "Unlit"
 		GroupName = "FX_Terrain_Top"
 		VisualFx = "CerbInvertedCircleFx"
+		AngleFromOwner = "Ignore"
 		VisualFxIntervalMin = 0.1
 		VisualFxIntervalMax = 0.1
 		StartAlpha = 0
@@ -7030,11 +7365,12 @@
 		EndScale = 1.0
 		EaseIn = 0
 		EaseOut = 1
-		Scale = 3.2
+		Scale = 4.3
 		HoldLastFrame = true
 		UseAttachedFlasher = false
 		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_InvertedDecal"
 		StopSoundOnFinishFade = 0.2
+		ColorFromOwner = "Ignore"
 		CreateAnimations =
 		[
 			{ Name = "CerbInvertedCircleDarken" }
@@ -7054,12 +7390,14 @@
 		StartAlpha = 0
 		EndAlpha = 1
 		FilePath = "Fx\SirenDrummerCircle\SirenDrummerCircleInvert"
-		Duration = 1.5
+		Duration = 1.1
 		PostRotateScaleY = 0.5
-		Scale = 12
+		Scale = 15
 		HoldLastFrame = false
 		DieWithOwner = true
 		UseAttachedFlasher = false
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
 		ChainTo = "CerbInvertedCircleDarkenHold"
 	}
 
@@ -7074,6 +7412,7 @@
 		EndRed = 1
 		EndGreen = 0.2
 		EndBlue = 0.1
+		ColorFromOwner = "Ignore"
 	}
 
 	{
@@ -7107,7 +7446,7 @@
 		HoldLastFrame = false
 		LocationZFromOwner = "Ignore"
 		SortMode = "Id"
-		Scale = 4
+		Scale = 5.5
 		ScaleFromOwner = "Ignore"
 		VisualFxIntervalMax = 0.04
 		VisualFxIntervalMin = 0.02
@@ -7149,7 +7488,7 @@
 		ColorFromOwner = "Ignore"
 		LocationZFromOwner = "Ignore"
 		SortMode = "Id"
-		Scale = 13
+		Scale = 15
 		ScaleFromOwner = "Ignore"
 		Ambient = 0.0
 		UseAttachedFlasher = false
@@ -7266,8 +7605,8 @@
 		ScaleY = 1.0
 		StartScaleX = 2.5
 		EndScaleX = 1
-		RadialOffsetMin = -950
-		RadialOffsetMax = -1100
+		RadialOffsetMin = -1100
+		RadialOffsetMax = -1350
 		RadialOffsetScaleY = 0.5
 		PostRotateScaleY = 0.5
 		AngleFromOwner = "Ignore"
@@ -7685,6 +8024,33 @@
 	}
 
 	{
+		Name = "CerbMagmaPuddle"
+		CreateAnimation = "LavaHeatWavesPuddle"
+		FilePath = "Fx\LavaPuddleIn\LavaPuddleIn"
+		GroupName = "FX_Terrain"			
+		VisualFx = "LavaPuddleParticles"
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndFrame = 17
+		HoldLastFrame = true
+		NumFrames = 17
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OriginX = 320.0
+		OriginY = 330.0
+		ScaleRadius = 165
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.2
+		VisualFxIntervalMin = 0.1
+		Sound = "/SFX/LavaPuddleAmbientLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+
+	{
 		Name = "LycanFootstep"
 		FilePath = "Fx\LycanFootstep\LycanFootstep"
 		Material = "Unlit"
@@ -7744,6 +8110,9 @@
 		OffsetZ = -20
 		GroupName = "FX_Terrain"
 		ColorFromOwner = "Ignore"
+		ElapsedTimeMultiplierFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 	}
 	{
 		Name = "FieldsDustPuffBackSmall"
@@ -7755,6 +8124,9 @@
 		LocationFromOwner = "Ignore"
 		GroupName = "FX_Terrain"
 		ColorFromOwner = "Ignore"
+		ElapsedTimeMultiplierFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 	}
 
 	{
@@ -7926,6 +8298,7 @@
 		Value = 0.2
 		UseAttachedFlasher = false
 		UseAttachedShake = false
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 		CreateAnimations =
 		[
 			{ Name = "LycanPounceStreaksDark" }
@@ -7965,6 +8338,7 @@
 		RadialOffsetMin = -100
 		RadialOffsetMax = -50
 		OffsetZ = 100
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 	}
 
 
@@ -8149,26 +8523,24 @@
 	{
 		Name = "CerberusTeleportCloud"
 		FilePath = "Fx\ShadeTeleportCloudStraight\ShadeTeleportCloudStraight"
-		
 		Angle = 90.0
-		AngleFromOwner = "Take"
-		ColorFromOwner = "Ignore"
 		EndFrame = 12
 		NumFrames = 12
 		PlaySpeed = 50.0
 		StartFrame = 1
 		FlipHorizontal = true
+		ScaleX = 1.5
 		OffsetZ = 30.0
 		OriginX = 160.0
 		OriginY = 68.0
+		AngleFromOwner = "Take"
+		ColorFromOwner = "Ignore"
 		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
 		SortMode = "FromParent"
 		IsometricSkew = "Y"
-		ScaleFromOwner = "Ignore"
-		ScaleX = 1.5
 		Ambient = 0.0
 		UseVelocityAngleFromOwner = true
-		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_TransformPoof"
 	}
 
 	{
@@ -8286,6 +8658,9 @@
 		VisualFx = "ThornTreeProjectileTrail"
 		VisualFxDistanceMin = 50
 		VisualFxDistanceMax = 50
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		VisualFxFrameCap = 10
 		Loop = true
 		AddColor = true
 		StartRed = 1
@@ -8626,5 +9001,319 @@
 	}
 
 
+	{
+		Name = "CerberusTransformFur"
+		Random = [
+			{ Name = "CerberusTransformFurA" }
+			{ Name = "CerberusTransformFurB" }
+			{ Name = "CerberusTransformFurC" }
+			{ Name = "CerberusTransformFurD" }
+			{ Name = "CerberusTransformFurE" }
+			{ Name = "CerberusTransformFurF" }
+		]
+	}	
+
+	{
+		Name = "CerberusTransformFurA"
+		FilePath = "Particles\particle_cerbFur_01"
+		AngleMin = 0
+		AngleMax = 180
+		RadialOffsetMin = 100
+		RadialOffsetMax = 300
+		RadialOffsetScaleY = 2
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		VelocityMin = 400
+		VelocityMax = 800
+		RandomAccelerationMax = -400
+		RandomAccelerationMin = -1200
+		RandomDurationMin = 0.7
+		RandomDurationMax = 1.5
+		Gravity = 200
+		RandomRotation = true
+		RandomRotationSpeedMin = -480
+		RandomRotationSpeedMax = 480
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		EaseIn = 0
+		EaseOut = 0.5
+		StartScale = 1
+		EndScale = 0
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "CerberusTransformFurB"
+		InheritFrom = "CerberusTransformFurA"
+		FilePath = "Particles\particle_cerbFur_02"
+	}
+
+	{
+		Name = "CerberusTransformFurC"
+		InheritFrom = "CerberusTransformFurA"
+		Value = -0.1
+		IsometricSkew = "X"
+	}
+
+	{
+		Name = "CerberusTransformFurD"
+		InheritFrom = "CerberusTransformFurB"
+		Value = -0.1
+		IsometricSkew = "X"
+	}	
+
+	{
+		Name = "CerberusTransformFurE"
+		InheritFrom = "CerberusTransformFurA"
+		Value = -0.2
+		PostRotateScaleY = 0.66
+	}
+
+	{
+		Name = "CerberusTransformFurF"
+		InheritFrom = "CerberusTransformFurB"
+		Value = -0.2
+		PostRotateScaleY = 0.66
+	}
+
+	{ 
+		Name = "CerbDeathTransitionFx"
+		FilePath = "Fx\Sorcery\SorceryVignetteSoft"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		UseAttachedAddColor = false
+		UseAttachedFlasher = false
+		Scale = 15
+		Hue = 0.4
+		Value = -0.5
+		OffsetX = -150
+		OffsetY = -250
+		VisualFx = "CerberusTransformDarkness"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		ChildAnimation = "CerbDeathTransitionWormEmitter"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Duration = 0.25
+		StartAlpha = 0
+		EndAlpha = 1
+		HoldLastFrame = true
+		EaseIn = 0.0
+		EaseOut = 1
+
+	}
+
+	{
+		Name = "CerbDeathTransitionWormEmitter"
+		FilePath = "Dev\blank_invisible"
+		Duration = 2
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFx = "CerbDeathWorms"
+	}
+
+	{
+		Name = "CerbDeathWorms"
+		Random = [
+			{ Name = "CerbDeathWormA" }
+			{ Name = "CerbDeathWormB" }
+			{ Name = "CerbDeathWormC" }
+			{ Name = "CerbDeathWormD" }
+			{ Name = "CerbDeathWormE" }
+		]
+	}
+
+	{
+		Name = "CerbDeathWormA"
+		FilePath = "Fx\Cerb\CerbWormA\CerbWormA"
+		NumFrames = 30
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ScaleMin = 0.5
+		ScaleMax = 1
+		EaseIn = 0.9
+		EaseOut = 1
+		VelocityMin = 450
+		VelocityMax = 900
+		RandomAccelerationMin = -1000
+		RandomAccelerationMax = -500
+		Gravity = 400
+		LocationFromOwner = "Ignore"
+		RadialOffsetMin = 150
+		RadialOffsetMax = 400
+		OffsetX = -200
+		AngleMin = 0
+		AngleMax = 160
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+	}
+
+	{
+		Name = "CerbDeathWormB"
+		InheritFrom = "CerbDeathWormA"
+		FilePath = "Fx\Cerb\CerbWormB\CerbWormB"
+	}
+	{
+		Name = "CerbDeathWormC"
+		InheritFrom = "CerbDeathWormA"
+		FilePath = "Fx\Cerb\CerbWormC\CerbWormC"
+	}
+	{
+		Name = "CerbDeathWormD"
+		InheritFrom = "CerbDeathWormA"
+		FilePath = "Fx\Cerb\CerbWormD\CerbWormD"
+	}
+	{
+		Name = "CerbDeathWormE"
+		InheritFrom = "CerbDeathWormA"
+		FilePath = "Fx\Cerb\CerbWormE\CerbWormE"
+	}
+
+	{
+		Name = "CerberusTransformDarkness"
+		Random = [
+			{ Name = "CerberusTransformDarknessA" }
+			{ Name = "CerberusTransformDarknessB" }
+			{ Name = "CerberusTransformDarknessC" }
+			{ Name = "CerberusTransformDarknessD" }
+			{ Name = "CerberusTransformDarknessE" }
+		]
+	}
+
+	{
+		Name = "CerberusTransformDarknessA"
+		FilePath = "Fx\FogCloudB\FogCloudB"
+		GroupName = "Combat_Menu_TraitTray_Backing"
+		NumFrames = 45
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ScaleMin = 0.5
+		ScaleMax = 1
+		StartScale = 0.3
+		EndScale = 1
+		Scale = 1
+		ScaleX = 2.5
+		ScaleY = 0.75
+		EaseIn = 0.9
+		EaseOut = 1
+		VelocityMin = 900
+		VelocityMax = 1800
+		Acceleration = -1000
+		LocationFromOwner = "Ignore"
+		RadialOffsetMin = 200
+		RadialOffsetMax = 400
+		OffsetX = -250
+		OffsetY = 150
+		AngleMin = 0
+		AngleMax = 160
+		AngleChangeSpeedMin = -60
+		AngleChangeSpeedMax = 60
+		AngleFromOwner = "Ignore"
+		AddColor = false
+		Red = 0
+		Green = 0
+		Blue = 0
+		StartAlpha = 0.9
+		EndAlpha = 1
+		ScaleFromOwner = "Ignore"
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+		Hue = 0.06
+		OnlyWhenVisible = true
+	}
+
+	{
+		Name = "CerberusTransformDarknessB"
+		InheritFrom = "CerberusTransformDarknessA"
+		AddColor = true
+		StartRed = 0.0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.3
+		EndGreen = 0
+		EndBlue = 0
+	}
+	{
+		Name = "CerberusTransformDarknessC"
+		InheritFrom = "CerberusTransformDarknessA"
+	}
+	{
+		Name = "CerberusTransformDarknessD"
+		InheritFrom = "CerberusTransformDarknessA"
+	}	
+	{
+		Name = "CerberusTransformDarknessE"
+		InheritFrom = "CerberusTransformDarknessA"
+		FilePath = "Fx\Cerb\CerbSwipeWaveTopDissipate\CerbSwipeWaveTopDissipate"
+		NumFrames = 15
+		VelocityMin = 450
+		VelocityMax = 900
+		Acceleration = -1000
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0
+		EndBlue = 0
+		AngleMax = 120
+		ScaleX = 6
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartAlpha = 0.99
+		AlphaMin = 0.99
+		Hue = 0
+		RandomFlipHorizontal = false
+		//StartScale = 0.99
+	}	
+
+	{
+		Name = "CerbTransitionEndStreak"
+		FilePath = "Fx\Cerb\CerbSwipeWaveBottomDissipate\CerbSwipeWaveBottomDissipate"
+		NumFrames = 15
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 160
+		IsometricSkew = "X"
+		AddColor = true
+		Red = 0.7
+		Green = 0.1
+		Blue = 0.12
+		OriginX = 400
+		OriginY = 360
+		RandomFlipVertical = true
+		StartScaleX = 4
+		EndScaleX = 1
+		VelocityMin = 400
+		VelocityMax = 600
+		RadialOffsetMin = 300
+		RadialOffsetMax = 400
+		RadialOffsetScaleY = 1.5
+		LocationFromOwner = "Ignore"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AlphaMin = 0.3
+		AlphaMax = 1.0
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+	}
 
 ]}

@@ -32,7 +32,7 @@
 		Loop = true
 		NumFrames = 19
 		StartFrame = 1
-		Sound = "/SFX/SelfDamageBuffLoopSFX"
+		Sound = "/SFX/SelfDamageBuffLoopSFX2"
 		StopSoundOnFinishFade = 0.2
 	}
 	{
@@ -130,6 +130,42 @@
 		OverlayVfx = true
 	}
 	{
+		Name = "RakiCritVulnerabilityStatus"
+		FilePath = "GUI/Icons/RakiCrit"
+		GroupName = "Combat_UI"
+
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Duration = 0.5
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		OffsetZ = 80.0
+		EndScale = 1.1
+		PingPongScale = true
+		ScaleFromOwner = "Ignore"
+		StartScale = 0.9
+		Ambient = 0.0
+		Sound = "/SFX/SelfDamageBuffLoopSFX2"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimationOnEnd = "DebuffStatusComplete"
+		UseAttachedFlasher = false
+	}
+	{
+		Name = "RakiCritVulnerabilityStatusIn"
+		InheritFrom = "RakiCritVulnerabilityStatus"
+		ChainTo = "RakiCritVulnerabilityStatus"
+		Duration = 0.4
+		StartAlpha = 0
+		EndAlpha = 1
+		StartScale = 5
+		EndScale = 0.9
+		PingPongScale = false
+		Loop = false
+		CreateAnimationOnEnd = "null"
+	}
+	{
 		Name = "ArtemisCritVulnerabilityStatus"
 		FilePath = "Fx\ArtemisCritReticle\ArtemisCritReticle"
 		GroupName = "Combat_UI"
@@ -147,7 +183,7 @@
 		ScaleFromOwner = "Ignore"
 		StartScale = 0.9
 		Ambient = 0.0
-		Sound = "/SFX/SelfDamageBuffLoopSFX"
+		Sound = "/SFX/SelfDamageBuffLoopSFX2"
 		StopSoundOnFinishFade = 0.2
 		CreateAnimationOnEnd = "DebuffStatusComplete"
 		UseAttachedFlasher = false
@@ -230,6 +266,8 @@
 		EaseIn = 0.99
 		EaseOut = 1.0
 		GroupName = "FX_Standing"
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
 		CreateAnimations =
 		[
 			{ Name = "ArtemisHelixRandom" }

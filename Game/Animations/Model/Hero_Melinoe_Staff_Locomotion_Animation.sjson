@@ -487,6 +487,10 @@
 				Duration = 5
 			}
 			{
+				BlendTransitionFrom = "Melinoe_Staff_Interact"
+				Duration = 5
+			}
+			{
 				BlendTransitionFrom = "MelinoeBoonInteractPowerUp"
 				Duration = 5
 			}
@@ -496,6 +500,10 @@
 			}
 			{
 				BlendTransitionFrom = "Melinoe_Staff_Equip"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_ForwardCast_End"
 				Duration = 5
 			}
 		]
@@ -611,9 +619,87 @@
 				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
 			}
 		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Run_FireLoop"
+				Duration = 6
+			}
+		]
 	}
 
 	// Melinoe Staff Sprint
+
+	{
+		Name = "Staff_SprintTurn_180"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_RunSprintDirectionChange180_N_01"
+	}
+	{
+		Name = "Melinoe_Staff_SprintTurn_180"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		GrannyAnimation = "Melinoe_Staff_Base_RunSprintDirectionChange180_N_00"
+		CancelOnRestart = true
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 740
+		CreateAnimation = "StaffOrbGlowWithTrail"
+		ChainTo = "Melinoe_Staff_Sprint_FireLoop"
+		Attachments =
+		[
+			{
+				Name = "Staff_SprintTurn_180"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+	}
+
+	{
+		Name = "Staff_SprintTurn_E90"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_RunSprintDirectionChangeE90_N_01"
+	}
+	{
+		Name = "Melinoe_Staff_SprintTurn_E90"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		GrannyAnimation = "Melinoe_Staff_Base_RunSprintDirectionChangeE90_N_00"
+		GrannyRotationY = 90
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 740
+		CreateAnimation = "StaffOrbGlowWithTrail"
+		ChainTo = "Melinoe_Staff_Sprint_FireLoop"
+		Attachments =
+		[
+			{
+				Name = "Staff_SprintTurn_E90"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Staff_SprintTurn_W90"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_RunSprintDirectionChangeW90_N_01"
+	}
+	{
+		Name = "Melinoe_Staff_SprintTurn_W90"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		GrannyAnimation = "Melinoe_Staff_Base_RunSprintDirectionChangeW90_N_00"
+		GrannyRotationY = -90
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 740
+		CreateAnimation = "StaffOrbGlowWithTrail"
+		ChainTo = "Melinoe_Staff_Sprint_FireLoop"
+		Attachments =
+		[
+			{
+				Name = "Staff_SprintTurn_W90"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+
 	{
 		Name = "Staff_Sprint_FireLoop"
 		InheritFrom = "WeaponStaffBase"
@@ -623,14 +709,18 @@
 	}
 	{
 		Name = "Melinoe_Staff_Sprint_FireLoop"
-		InheritFrom = "MelinoeBaseStaffAnimationsWithTurns"
+		InheritFrom = "MelinoeBaseStaffAnimations"
 		GrannyAnimation = "Melinoe_Staff_Base_RunSprint_01"
 		NativeMoveSpeed = 740
 		CreateAnimation = "StaffOrbGlowWithTrail"
 		Loop = true
+		DirectionChange180 = "Melinoe_Staff_SprintTurn_180"
+		DirectionChange90R = "Melinoe_Staff_SprintTurn_E90"
+		DirectionChange90L = "Melinoe_Staff_SprintTurn_W90"
 		RequireCurrentAnimationNotContains =
 		[
 			{ Name = "Melinoe_Staff_Dash_Fire" }
+			{ Name = "Melinoe_Staff_Cast_Start" }
 		]
 		Attachments =
 		[

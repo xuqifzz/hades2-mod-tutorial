@@ -1,8 +1,8 @@
 {
   "AmbientLightColor": {
-    "X": 1.000,
-    "Y": 0.859,
-    "Z": 0.794
+    "X": 0.888,
+    "Y": 0.788,
+    "Z": 0.939
   },
   "BackdropColor": {
     "R": 0,
@@ -597,24 +597,12 @@
       "NumThingsVisible": 0,
       "ParentGroup": "",
       "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
-      "Id": "tile",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "",
-      "Visible": true
     }
   ],
   "TimeLapseCameraLocation": {
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

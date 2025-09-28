@@ -338,6 +338,19 @@
       "Visible": true
     },
     {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "FX_Standing_02",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
       "BlendMode": 2,
       "ChildGroups": [],
       "Id": "Additive_01",
@@ -424,6 +437,7 @@
         "Lightercolor_01",
         "FX_Standing_01",
         "Additive_01",
+        "FX_Standing_02",
         "Standing",
         "Terrain_LighterColor_01",
         "Terrain_Overlay_01",
@@ -631,5 +645,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

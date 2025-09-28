@@ -206,6 +206,67 @@
 		]
 	}
 
+	// Intro
+	{
+		Name = "Enemy_Dragon_IntroRoar"
+		InheritFrom = "EnemyDragonBaseAnimation"
+		GrannyAnimation = "Dragon_Base_BreathPreFire_C_00"
+		ChainTo = "Enemy_Dragon_IntroRoarFire"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 8
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 10
+				FootstepFxR = "DragonFlapDust"
+				Sound = "/SFX/Enemy Sounds/Megaera/MegaeraWingFlap"
+				FrameSpeed = 1.5
+			}
+		]
+	}
+	{
+		Name = "Enemy_Dragon_IntroRoarFire"
+		InheritFrom = "EnemyDragonBaseAnimation"
+		GrannyAnimation = "Dragon_Base_BreathFireLoop_C_00"
+		Sound = "/SFX/Enemy Sounds/DragonMiniboss/DragonRushRoar"
+		ChainTo = "Enemy_Dragon_IntroRoar_End"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 3
+			}
+			{
+				Frame = 1
+				FootstepFxR = "DragonFlapDust"
+				FrameSpeed = 3
+			}
+		]
+	}
+	{
+		Name = "Enemy_Dragon_IntroRoar_End"
+		InheritFrom = "EnemyDragonBaseAnimation"
+		GrannyAnimation = "Dragon_Base_BreathPostFire_C_00"
+		ChainTo = "Enemy_Dragon_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2.1
+			}
+		]
+	}
+
+	// Glide
 	{
 		Name = "Enemy_Dragon_GlidePreFire"
 		InheritFrom = "EnemyDragonBaseAnimation"

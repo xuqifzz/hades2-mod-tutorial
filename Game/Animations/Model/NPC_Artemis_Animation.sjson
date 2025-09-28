@@ -37,12 +37,12 @@
 		Blends =
 		[
 			{
-				BlendTransitionFrom = "Artemis_Idle"
-				Duration = 4
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
 			}
 			{
-				BlendTransitionFrom = "Artemis_Turn"
-				Duration = 8
+				BlendTransitionFrom = "Artemis_Idle"
+				Duration = 4
 			}
 		]
 	}
@@ -55,12 +55,12 @@
 		Blends =
 		[
 			{
-				BlendTransitionFrom = "Artemis_Idle"
-				Duration = 4
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
 			}
 			{
-				BlendTransitionFrom = "Artemis_Turn"
-				Duration = 8
+				BlendTransitionFrom = "Artemis_Idle"
+				Duration = 4
 			}
 		]
 	}
@@ -72,12 +72,12 @@
 		Blends =
 		[
 			{
-				BlendTransitionFrom = "Artemis_Idle"
-				Duration = 4
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
 			}
 			{
-				BlendTransitionFrom = "Artemis_Turn"
-				Duration = 8
+				BlendTransitionFrom = "Artemis_Idle"
+				Duration = 4
 			}
 		]
 	}
@@ -90,6 +90,10 @@
 		GrannyAnimationSpeed = 1.1
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Artemis_Idle"
 				Duration = 10
@@ -142,6 +146,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Artemis_Idle"
 				Duration = 4
 			}
@@ -161,4 +169,71 @@
 		OwnerHasNoCollision = true
 	}
 
+
+	// Singing
+
+	{
+		Name = "Artemis_Sitting_Idle"
+		InheritFrom = "NPCArtemisBaseAnimation"
+		GrannyAnimation = "Artemis_Base_Sitting_Idle_C_00"
+		Enable3DShadow = false
+		Loop = true
+	}
+	{
+		Name = "Artemis_Singing_Start"
+		InheritFrom = "NPCArtemisBaseAnimation"
+		GrannyAnimation = "Artemis_Base_Singing_Start_C_00"
+		Enable3DShadow = false
+		ChainTo = "Artemis_Singing_FireLoop"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Artemis_Sitting_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Artemis_Singing_FireLoop"
+		InheritFrom = "NPCArtemisBaseAnimation"
+		GrannyAnimation = "Artemis_Base_Singing_Loop_C_00"
+		Enable3DShadow = false
+		Loop = true
+		GrannyRandomLoopCountMin = 3
+		GrannyRandomLoopCountMax = 6
+		ChainTo = "Artemis_Singing_Fidget"
+	}
+	{
+		Name = "Artemis_Singing_Fidget"
+		InheritFrom = "NPCArtemisBaseAnimation"
+		GrannyAnimation = "Artemis_Base_Singing_Fidget_C_00"
+		Enable3DShadow = false
+		ChainTo = "Artemis_Singing_FireLoop"
+	}
+	{
+		Name = "Artemis_Singing_End"
+		InheritFrom = "NPCArtemisBaseAnimation"
+		GrannyAnimation = "Artemis_Base_Singing_End_C_00"
+		Enable3DShadow = false
+		ChainTo = "Artemis_Sitting_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Artemis_Singing_Start"
+				Duration = 30
+			}
+			{
+				BlendTransitionFrom = "Artemis_Singing_Fidget"
+				Duration = 30
+			}
+			{
+				BlendTransitionFrom = "Artemis_Singing_FireLoop"
+				Duration = 30
+			}
+		]
+	}
 ]}

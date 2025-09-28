@@ -4,7 +4,6 @@
     {
       Name = "CWTartarusDestructiblePillar"
       InheritFrom = "1_BaseVulnerableObstacle"
-      AllowStoppingImpacts = false
       DisplayInEditor = true
       ReflectLobProjectiles = false
       Life = 
@@ -127,7 +126,6 @@
     {
       Name = "TimeTrap"
       InheritFrom = "1_BaseVulnerableObstacle"
-      AllowStoppingImpacts = false
       DisplayInEditor = true
       ReflectLobProjectiles = false
       Life = 
@@ -380,6 +378,7 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\ClockworkTartarus\CW_WallBrick_01"
+        UseBoundsForSortDrawArea = true
         Tallness = 466
         Offset = { X = 0 Y = -186 }
         Points = [
@@ -1507,6 +1506,63 @@
     }
     
     {
+      Name = "CWSanctumTerrainDecor01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Sanctum_TerrainDecor_01"
+        Tallness = 12.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -422 Y = -15 }
+          { X = 43 Y = 223 }
+          { X = 414 Y = 39 }
+          { X = -39 Y = -202 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWSanctumTerrainDecor02"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Sanctum_TerrainDecor_02"
+        Tallness = 12.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -422 Y = -15 }
+          { X = 43 Y = 223 }
+          { X = 414 Y = 39 }
+          { X = -39 Y = -202 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWSanctumTerrainDecor03"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Sanctum_TerrainDecor_03"
+        Tallness = 12.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -422 Y = -15 }
+          { X = 43 Y = 223 }
+          { X = 414 Y = 39 }
+          { X = -39 Y = -202 }
+        ]
+      }
+    }
+    
+    {
       Name = "CWTerrainFlourish06"
       InheritFrom = "1_BaseTerrainDecalObstacle"
       DisplayInEditor = true
@@ -1635,6 +1691,175 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_TimeSpiral_01"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWTerrainTimeSpiral01a"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_TimeSpiral_01a"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWClockface01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockface_01"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWClockface02"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockface_02"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWClockface03"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockface_03"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWClockface04"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockface_04"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWClockface05"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockface_05"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWClockface06"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockface_06"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWClockface07"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockface_07"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWClockface08"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockface_08"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWClockface09"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockface_09"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWClockface10"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockface_10"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWClockface11"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockface_11"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWClockface12"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockface_12"
         Tallness = 12
         Offset = { X = 0 Y = 7 }
       }
@@ -1790,13 +2015,14 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\ClockworkTartarus\CW_FencePost_04"
-        Tallness = 954
+        UseBoundsForSortDrawArea = true
+        Tallness = 817
         Offset = { X = 0 Y = -402 }
         Points = [
-          { X = -114 Y = 3 }
-          { X = 19 Y = 71 }
-          { X = 128 Y = 3 }
-          { X = 10 Y = -61 }
+          { X = -136 Y = -32 }
+          { X = 11 Y = 41 }
+          { X = 135 Y = -21 }
+          { X = -11 Y = -94 }
         ]
       }
     }
@@ -2644,7 +2870,7 @@
         StopsLight = true
         Tallness = 114.0
         UseBoundsForSortDrawArea = true
-        Offset = { X = 0 Y = -105 }
+        Offset = { X = 0 Y = -140 }
         Points = [
           { X = 0 Y = 16 }
           { X = 32 Y = 0 }
@@ -2701,70 +2927,76 @@
       Thing = 
       {
         EditorOutlineDrawBounds = false
-        FootstepSound = "/Leftovers/SFX/FootstepsSlimeSmall"
+        FootstepSound = "/Leftovers/SFX/FootstepsGlass"
         Graphic = "Tilesets\Tartarus\Tartarus_BlankIsoTile_01"
         Tallness = 50.0
         Offset = { X = 0 Y = -2 }
       }
     }
 
-{
-Name = "ShadeClockworkIdle01"
+    {
+      Name = "ShadeClockworkIdle01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+      IgnoredByPathfinders = true
       Life = 
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
+        TriggerOnHit = false
       }
-      Thing = 
+      Thing =   
       {
-        AttachedAnim = "ShadeShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeClockworkIdle"
         StopsLight = false
-        Tallness = 193
+        UseBoundsForSortDrawArea = true
+        Tallness = 180
         Offset = { X = 0 Y = -46 }
         Points = [
-          { X = 40 Y = -9 }
-          { X = 12 Y = -26 }
-          { X = -26 Y = -23 }
-          { X = -43 Y = -3 }
-          { X = -18 Y = 22 }
-          { X = 30 Y = 19 }
+          { X = 24 Y = -9 }
+          { X = 15 Y = -22 }
+          { X = -19 Y = -22 }
+          { X = -33 Y = -8 }
+          { X = -20 Y = 7 }
+          { X = 15 Y = 7 }
         ]
       }
-}
-{
-Name = "ShadeClockworkSwaySW01"
+    }
+    {
+      Name = "ShadeClockworkSwaySW01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+      IgnoredByPathfinders = true
       Life = 
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
+        TriggerOnHit = false
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeClockworkSwaySW"
         StopsLight = false
+        UseBoundsForSortDrawArea = true
         Tallness = 193
         Offset = { X = 0 Y = -46 }
         Points = [
-          { X = 40 Y = -9 }
-          { X = 12 Y = -26 }
-          { X = -26 Y = -23 }
-          { X = -43 Y = -3 }
-          { X = -18 Y = 22 }
-          { X = 30 Y = 19 }
+          { X = 21 Y = -7 }
+          { X = 11 Y = -18 }
+          { X = -18 Y = -18 }
+          { X = -29 Y = -7 }
+          { X = -15 Y = 5 }
+          { X = 12 Y = 5 }
         ]
       }
     }

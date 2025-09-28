@@ -50,7 +50,7 @@
 		PlaySpeed = 30
 		StartFrame = 1
 		Scale = 1.5
-		Sound = "/SFX/ChallengeChestUnlocked"
+		Sound = "/SFX/ChallengeChestUnlocked2"
 		SoundAllowedAfterFrame = 4
 		CreateAnimation = "EphyraSubRoomDoorOpenGlow"
 	}
@@ -67,8 +67,8 @@
 		ChainTo = "EphyraSubRoomDoorOpenGlowLoop"
 		CreateAnimation = "EphyraSubRoomDoorOpenGlowSoft"
 		ColorFromOwner = "Ignore"
-		SortMode = "FromParent"
-		SortFromOwner = "Take"
+		SortMode = "Secondary"
+		SortFromOwner = "Ignore"
 		Sound = "null"
 	}
 
@@ -108,8 +108,8 @@
 		Material = "Unlit"
 		DieWithOwner = true
 		CreateAnimation = null
-		SortMode = "FromParent"
-		SortFromOwner = "Take"
+		SortMode = "Secondary"
+		SortFromOwner = "Ignore"
 		ColorFromOwner = "Ignore"
 		Sound = "null"
 	}
@@ -722,6 +722,7 @@
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.02
 		VisualFxCap = 4
+		ColorFromOwner = "Take"
 		CreateAnimations =
 		[
 			{ Name = "EphyraDustPuffB" }
@@ -1153,6 +1154,7 @@
 		Ambient = 0.0
 		ScaleMin = 0.8
 		ScaleMax = 1.0
+		OnlyWhenVisible = true
 	}
 
 	{
@@ -1499,8 +1501,6 @@
 	{
 		Name = "EphyraZoomOutObject01"
 		FilePath = "Tilesets\House\House_Cage_02"
-		
-		ChildAnimation = "ZoomOutSparkleEmitter"
 	}
 
 	{
@@ -1511,4 +1511,221 @@
 		ColorFromOwner = "Ignore"
 	}
 
+	{
+		Name = "PoisonCureFull"
+		FilePath = "Tilesets\Styx\Styx_PoisonCure_01"
+		Sound = "/SFX/PoisonCureFountainBubbleLoop"
+		StopSoundOnFinishFade = 0.2
+		SoundAllowedAfterFrame = -1
+		Scale = 0.175
+		ChildAnimation = "PoisonCureFullTransitionIn"
+		VisualFx = "PoisonCureParticles"
+		VisualFxIntervalMin = 0.12
+		VisualFxIntervalMax = 0.16
+	}
+
+	{
+		Name = "PoisonCureParticles"
+		Random = [
+			{ Name = "PoisonCureParticleA" }
+			{ Name = "PoisonCureParticleB" }
+			{ Name = "PoisonCureParticleC" }
+		]
+	}
+
+	{
+		Name = "PoisonCureParticleA"
+		FilePath = "Particles\particle_cauldronBubble"
+		Material = "Unlit"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 0.8
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		RandomOffsetX = 40
+		RandomOffsetY = 20
+		OffsetZ = 60
+		ScaleFromOwner = "Ignore"
+		Hue = -0.25
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		Scale = 0.5
+		Value = 0.4
+		Saturation = -0.4
+		Angle = 90
+		VelocityMin = 60
+		VelocityMax = 100
+		Acceleration = -40
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "PoisonCureParticleB"
+		InheritFrom = "PoisonCureParticleA"
+		FilePath = "Particles\particle_ember_03_glow_add"
+		AddColor = true
+		Value = 0
+		Red = 0.6
+		Green = 1.0
+		Blue = 0.4
+		Scale = 0.7
+		GroupName = "FX_Standing_Add"
+		RandomRotation = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+	}
+
+	{
+		Name = "PoisonCureParticleC"
+		InheritFrom = "PoisonCureParticleA"
+		FilePath = "Particles\particle_harvest_glint"
+		UseOwnAngle = false
+		StartScale = 0.999
+		StartScaleX = 0
+		EndScaleX = 1
+		VelocityMin = 0
+		VelocityMax = 1
+		Red = 0.99
+		Green = 1.0
+		Blue = 0.6
+		ScaleY = 1.5
+		OriginX = 29
+		OriginY = 270
+		AlphaMin = 0.3
+		AlphaMax = 0.8
+		StartAlpha = 0
+		EndAlpha = 1
+	}
+
+	{
+		Name = "PoisonCureFullTransitionOut"
+		InheritFrom = "PoisonCureFull"
+		ChildAnimation = null
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.3
+		Sound = null
+		OffsetY = -60
+		VisualFx = null
+	}
+
+	{
+		Name = "PoisonCureEmpty"
+		FilePath = "Tilesets\Styx\Styx_PoisonCure_01b"
+		Scale = 0.175
+		ChildAnimation = "PoisonCureFullTransitionOut"
+		Saturation = -0.3
+		Value = -0.2
+	}
+
+	{
+		Name = "PoisonCureFullTransitionIn"
+		InheritFrom = "PoisonCureFullTransitionOut"
+		FilePath = "Tilesets\Styx\Styx_PoisonCure_01b"
+		Saturation = -0.3
+		Duration = 0.2
+		Value = -0.2
+	}
+
+	{
+		Name = "PoisonCureDestroyed"
+		FilePath = "Tilesets\Gameplay\Gameplay_PoisonPool_Destroyed01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Loop = true
+		Scale = 0.175
+		Sound = "/SFX/WallSlamMeatyRocks"
+		CreateAnimation = "PoisonCureTransition"
+	}
+
+	{
+		Name = "PoisonCureTransition"
+		FilePath = "Fx\Styx_PoisonCure_01_Transition\Styx_PoisonCure_01_Transition"
+		NumFrames = 28
+		PlaySpeed = 30
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Scale = 1.142
+		OffsetY = -60
+		VisualFx = "PoisonCureTransitionClouds"
+		VisualFxCap = 7
+	 	VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		CreateAnimations = [
+			{ Name = "PoisonCureTransitionRipple" }
+			{ Name = "PoisonCureTransitionRipple" }
+			{ Name = "PoisonCureTransitionRipple" }
+			{ Name = "PoisonCureTransitionRipple" }
+			{ Name = "PoisonCureTransitionRipple" }
+			{ Name = "PoisonCureTransitionRipple" }
+			{ Name = "PoisonCureTransitionRipple" }
+			{ Name = "PoisonCureTransitionRipple" }
+			{ Name = "PoisonCureTransitionRipple" }
+
+		]
+	}
+
+	{
+		Name = "PoisonCureTransitionRipple"
+		FilePath = "Fx\WaterSplashRipple\WaterSplashRipple"
+		NumFrames = 30
+		PostRotateScaleY = 0.5
+		Red =1.0
+		Green = 1.0
+		Blue = 0.3
+		Alpha = 0.7
+		OffsetZ = 0
+		OffsetY = 0
+		RandomRotation = true
+		RandomOffsetX = 120
+		RandomOffsetY = 60
+		RandomPlaySpeedMin = 12
+		RandomPlaySpeedMax = 14
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+		GroupName = "FX_Terrain"
+		ScaleMin = 1.5
+		ScaleMax = 2.0
+		StartScale = 0.4
+		EndScale = 1.1
+		EaseIn = 0.5
+		StartAlpha = 1
+		EndAlpha = 0.5
+		EaseOut = 1.0
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+
+	}
+
+	{
+		Name = "PoisonCureTransitionClouds"
+		FilePath = "Particles\particle_frost"
+		Hue = -0.45
+		Value = 0.1
+		RandomDurationMin = 1
+		RandomDurationMax = 3
+		StartAlpha = 1
+		EndAlpha = 0
+		AngleMin = 60
+		AngleMax = 120
+		VelocityMin = 60
+		VelocityMax = 120
+		Acceleration = -30
+		RandomRotation = true
+		GroupName = "FX_Standing"
+		LocationZFromOwner = "Take"
+		OffsetZ = 60
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ScaleMin = 0.3
+		ScaleMax = 0.7
+	}
 ]}

@@ -1,0 +1,20 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCSeleneBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Selene_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Selene_Idle"
+		InheritFrom = "NPCSeleneBaseAnimation"
+		GrannyAnimation = "Selene_Base_ChariotHubIdle_C_00"
+		Loop = true
+	}
+]}

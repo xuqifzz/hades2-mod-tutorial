@@ -1,0 +1,59 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCDemeterBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Demeter_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	// Idle
+	{
+		Name = "Demeter_Idle"
+		InheritFrom = "NPCDemeterBaseAnimation"
+		GrannyAnimation = "Demeter_Base_Idle_C_00"
+		Loop = true
+	}
+
+	// Moved
+	{
+		Name = "Demeter_Moved"
+		InheritFrom = "NPCDemeterBaseAnimation"
+		GrannyAnimation = "Demeter_Base_Moved_C_00"
+		ChainTo = "Demeter_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Demeter_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	// Scoff
+	{
+		Name = "Demeter_Scoff"
+		InheritFrom = "NPCDemeterBaseAnimation"
+		GrannyAnimation = "Demeter_Base_Scoff_C_00"
+		ChainTo = "Demeter_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Demeter_Idle"
+				Duration = 6
+			}
+		]
+	}
+]}

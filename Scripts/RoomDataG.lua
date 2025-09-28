@@ -3,6 +3,7 @@ RoomSetData.G =
 	BaseG =
 	{
 		DebugOnly = true,
+		RichPresence = "#RichPresence_G",
 		Icon = "GUI\\Screens\\BountyBoard\\Biome_Oceanus",
 		ResultText = "RunHistoryScreenResult_Oceanus",
 		
@@ -14,14 +15,295 @@ RoomSetData.G =
 		HasExorcismPoint = true,
 		HarvestPointBase = "DrownedChambersHarvestPointBase01",
 
+		HarvestPointRequirements =
+		{
+			{
+				SumPrevRooms = 3,
+				Path = { "NumHarvestPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantGLotus" },
+						Comparison = "<",
+						Value = 13,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+				},
+			},
+		},
+		ShovelPointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeToolsShop" },
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "PlantFNightshadeSeed" },
+				Comparison = ">=",
+				Value = 3,
+			},
+			{
+				SumPrevRooms = 4,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantGCattailSeed" },
+						Comparison = "<",
+						Value = 12,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 2,
+						Path = { "NumPickaxePoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
+		},
+		PickaxePointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "OreFSilver" },
+				Comparison = ">=",
+				Value = 6,
+			},
+			{
+				SumPrevRooms = 4,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "OreGLime" },
+						Comparison = "<",
+						Value = 36,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 2,
+						Path = { "NumShovelPoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
+		},
+		ExorcismPointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 2,
+			},
+			{
+				Path = { "CurrentRun", "BiomeDepthCache" },
+				Comparison = ">=",
+				Value = 2,
+			},
+			{
+				Path = { "GameState", "ExorcisedNames", "ShadeErebusIdle" },
+				Comparison = ">=",
+				Value = 2,
+			},
+			{
+				SumPrevRooms = 6,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					OrRequirements =
+					{
+						{
+							{
+								Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+								Comparison = "<=",
+								Value = 1500,
+							},
+						},
+						{
+							{
+								Path = { "GameState", "ExorcisedNames", "ShadeOceanusSIdle" },
+								Comparison = "<",
+								Value = 2,
+							},
+						},
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 2,
+						Path = { "NumFishingPoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
+		},
+		FishingPointRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeToolsShop" },
+			},
+			{
+				SumPrevRooms = 5,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 1,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", },
+						NotHasAll = { "FishGCommon", "FishGRare", "FishGLegendary" },
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 2,
+						Path = { "NumExorcismPoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
+		},
+
 		BreakableValueOptions = { MaxHighValueBreakables = 3 },
 		TimeChallengeEncounterOptions = { "TimeChallengeG" },
 		PerfectClearEncounterOptions = { "PerfectClearChallengeG" },
 		EliteChallengeEncounterOptions = { "EliteChallengeG" },
 
+		SaveWhitelist =
+		{
+			-- for fates quest
+			UsedBlockDeath = true,
+		},
+
+		LeavePrevRoomWipeAnimation = "RoomTransitionIn_Down",
+		EnterWipeAnimation = "RoomTransitionOut_Down",
+
 		LegalEncounters = EncounterSets.GEncountersDefault,
 		DevotionEncounters = {"DevotionTestG"},
-		TargetMetaRewardsRatio = 0.40,
+		TargetMetaRewardsRatio = 0.35,
 
 		SecretSpawnChance = 0.12,
 		WellShopSpawnChance = 0.30,
@@ -42,6 +324,8 @@ RoomSetData.G =
 		EntranceFunctionName = "EnterBiomeGRoomPresentation",
 		NextRoomEntranceFunctionName = "EnterBiomeGRoomPresentation",
 		EntranceAnimation = "MelinoeIdle",
+		LocationAnimName = "InfoBannerOceanusIn",
+		LocationAnimOutName = "InfoBannerOceanusOut",
 
 		HeroCreateAnimation = "WaterIdleFootRippleR-Spawner",
 		FootstepAnimationR = "WaterSplashFootstepR-Spawner",
@@ -62,6 +346,7 @@ RoomSetData.G =
 			["SuitExhaustBase_Sprint_L"] = "SuitExhaustBase_Sprint_L_Water",
 			["DeathSplats"] = "DeathSplatsBlackSoft",
 			["OlympusSnowExplosionDecal"] = "ExplosionScorchDecal",
+			["FrogFamiliarLandDust"] = "FrogFamiliarLandSplashOceanus",
 		},
 
 		SwapSounds =
@@ -73,7 +358,7 @@ RoomSetData.G =
 		StartThreadedEvents =
 		{
 			--{ FunctionName = "FloodManager", GameStateRequirements = { ChanceToPlay = 0.5, }, Args = { Types = { "FloodTrap" }, IntervalMin = 12.0, IntervalMax = 25.0, FirstIntervalMin = 6.0, FirstIntervalMax = 12.0 } },
-			{ FunctionName = "ShadeMercManager", GameStateRequirements = { ChanceToPlay = 0.5 }, Args = { StartingCountMin = 0, StartingCountMax = 12, ObjectNames = { "ShadeMerc" }, MaxActive = 12 } },
+			{ FunctionName = "ShadeMercManager", GameStateRequirements = { ChanceToPlay = 0.15 }, Args = { StartingCountMin = 0, StartingCountMax = 8, ObjectNames = { "ShadeMerc" }, MaxActive = 12 } },
 		},
 
 		ThreadedEvents =
@@ -83,14 +368,7 @@ RoomSetData.G =
 				Args = RoomEventData.BountyInfoBannerArgs,
 				GameStateRequirements =
 				{
-					{
-						PathTrue = { "CurrentRun", "ActiveBounty" },
-					},
-					{
-						Path = { "SessionState", "MapLoads" },
-						Comparison = "<=",
-						Value = 1,
-					},
+					NamedRequirements = { "ShouldShowBountyInfoBanner" },
 				},
 			},
 		},
@@ -101,14 +379,7 @@ RoomSetData.G =
 				Args = RoomEventData.BountyInfoBannerArgs,
 				GameStateRequirements =
 				{
-					{
-						PathTrue = { "CurrentRun", "ActiveBounty" },
-					},
-					{
-						Path = { "SessionState", "MapLoads" },
-						Comparison = "<=",
-						Value = 1,
-					},
+					NamedRequirements = { "ShouldShowBountyInfoBanner" },
 				},
 			},
 		},
@@ -133,7 +404,7 @@ RoomSetData.G =
 
 		ForceAtBiomeDepthMin = 8,
 		ForceAtBiomeDepthMax = 8,
-		LinkedRoom = "G_Boss01",
+		LinkedRooms = { "G_Boss01", "G_Boss02" },
 
 		RushMaxRangeOverride = 475,
 
@@ -144,7 +415,17 @@ RoomSetData.G =
 		
 		SecretSpawnChance = 0.0,
 
+		ShovelPointChance = 0.4,
+		PickaxePointChance = 0.4,
+		ExorcismPointChance = 0.3,
+		FishingPointChance = 0.3,
+
+		WellShopSpawnChance = 0.0,
+		ChallengeSpawnChance = 0.0,
+
 		SkipLastKillPresentation = true,
+		
+		ZagContractRewardDestinationId = 776334,
 
 		LegalEncounters = { "Shop" },
 		ForcedFirstReward = "Shop",
@@ -158,6 +439,8 @@ RoomSetData.G =
 
 		FamiliarsPreferSpawnPointMovement = true,
 		FrogFamiliarMaxLeapDistance = 800,
+		HoundFamiliarMovementRequiresLineOfSight = true,
+		PolecatFamiliarShouldNotFollow = true,
 
 		FlipHorizontalChance = 1.0,
 
@@ -190,6 +473,10 @@ RoomSetData.G =
 							UsePlayerSource = true,
 							PlayOnceFromTableThisRun = true,
 							SuccessiveChanceToPlayAll = 0.25,
+							Cooldowns =
+							{
+								{ Name = "MelinoeAnyQuipSpeech" },
+							},
 
 							{ Cue = "/VO/MelinoeField_0257", Text = "What's everybody queuing for...?", PlayFirst = true },
 							{ Cue = "/VO/MelinoeField_0258", Text = "Here for the show?" },
@@ -223,45 +510,33 @@ RoomSetData.G =
 							Text = "{#Emph}An ever-present song compels the nightmare-bringing Princess ever forward, towards the beauty, deeper into the abyss." },
 						EndVoiceLines =
 						{
-							PreLineWait = 0.4,
-							UsePlayerSource = true,
-							RequiredMinElapsedTime = 3,
-							{ Cue = "/VO/Melinoe_0855", Text = "It's very pretty..." },
+							{
+								PreLineWait = 0.4,
+								UsePlayerSource = true,
+								RequiredMinElapsedTime = 3,
+								GameStateRequirements =
+								{
+									{
+										PathTrue = { "GameState", "RoomsEntered", "G_Boss01" },
+									},
+								},
+
+								{ Cue = "/VO/MelinoeField_3820", Text = "Right onto Scylla's stage..." },
+							},
+							{
+								PreLineWait = 0.4,
+								UsePlayerSource = true,
+								RequiredMinElapsedTime = 3,
+								GameStateRequirements =
+								{
+									{
+										PathFalse = { "GameState", "RoomsEntered", "G_Boss01" },
+									},
+								},
+
+								{ Cue = "/VO/Melinoe_0855", Text = "It's very pretty..." },
+							},
 						},
-					},
-				},
-			},
-		},
-
-		ExitVoiceLines =
-		{
-			PreLineWait = 0.5,
-			RandomRemaining = true,
-			BreakIfPlayed = true,
-			SuccessiveChanceToPlay = 0.5,
-			SuccessiveChanceToPlayAll = 0.25,
-			GameStateRequirements =
-			{
-				{
-				},
-			},
-			Cooldowns =
-			{
-				{ Name = "MelinoeAnyQuipSpeech" },
-			},
-
-			{ Cue = "/VO/MelinoeField_0977", Text = "Almost out of here...", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_0978", Text = "Showtime..." },
-			{ Cue = "/VO/MelinoeField_0979", Text = "To the stage..." },
-			{ Cue = "/VO/MelinoeField_0980", Text = "On with the show..." },
-			{ Cue = "/VO/MelinoeField_0981", Text = "All right, Scylla..." },
-			{ Cue = "/VO/MelinoeField_0982", Text = "The old song-and-dance...",
-				GameStateRequirements =
-				{
-					{
-						Path = { "GameState", "RoomCountCache", "G_Boss01" },
-						Comparison = ">=",
-						Value = 5,
 					},
 				},
 			},
@@ -275,6 +550,20 @@ RoomSetData.G =
 	G_Boss01 =
 	{
 		InheritFrom = { "BaseG" },
+		GameStateRequirements =
+		{
+			{
+				FunctionName = "RequiredShrineLevel",
+				FunctionArgs =
+				{
+					ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+					Comparison = "<",
+					Value = 2,
+				},
+			},
+		},
+
+		BackupCauseOfDeath = "Scylla",
 
 		ValidateSecretData = false,
 		RequiresLinked = true,
@@ -294,7 +583,7 @@ RoomSetData.G =
 		NoReroll = true,
 
 		EntranceFunctionName = "RoomEntranceBossBiomeG",
-		EntranceFunctionArgs = { AngleTowardsIdOnEnd = 557843 },
+		EntranceFunctionArgs = { ScyllaId = 557843 },
 		IntroSequenceDuration = 2.7,
 		BlockCameraReattach = true,
 		ZoomFraction = 0.68,
@@ -302,6 +591,12 @@ RoomSetData.G =
 
 		FamiliarsPreferSpawnPointMovement = true,
 		FrogFamiliarMaxLeapDistance = 800,
+
+		HasHarvestPoint = false,
+		HasShovelPoint = false,
+		HasPickaxePoint = false,
+		HasFishingPoint = false,
+		HasExorcismPoint = false,
 
 		UnthreadedEvents =
 		{
@@ -326,126 +621,7 @@ RoomSetData.G =
 
 		EnterVoiceLines =
 		{
-			{
-				BreakIfPlayed = true,
-				RandomRemaining = true,
-				PreLineWait = 1.0,
-				SuccessiveChanceToPlay = 0.75,
-				ObjectType = "Scylla",
-
-				{ Cue = "/VO/Scylla_0058", Text = "{#Emph}Oohh....", PlayFirst = true },
-				{ Cue = "/VO/Scylla_0059", Text = "{#Emph}Hello..." },
-				{ Cue = "/VO/Scylla_0060", Text = "{#Emph}Hello...!" },
-				{ Cue = "/VO/Scylla_0061", Text = "She came...!" },
-				{ Cue = "/VO/Scylla_0062", Text = "Hey {#Emph}gals!" },
-				{ Cue = "/VO/Scylla_0063", Text = "She's {#Emph}back." },
-				{ Cue = "/VO/Scylla_0064", Text = "{#Emph}Aw{#Prev}, look who!" },
-				{ Cue = "/VO/Scylla_0065", Text = "{#Emph}Showtime..." },
-				{ Cue = "/VO/Scylla_0066", Text = "{#Emph}Lookit {#Prev}here..." },
-				{ Cue = "/VO/Scylla_0067", Text = "You again..." },
-				{ Cue = "/VO/Scylla_0068", Text = "{#Emph}Hmm..." },
-				{ Cue = "/VO/Scylla_0069", Text = "{#Emph}Hoh!" },
-				{ Cue = "/VO/Scylla_0070", Text = "{#Emph}Mmm, hmhmhmhm!" },
-				{ Cue = "/VO/Scylla_0271", Text = "Excuse me?" },
-				{ Cue = "/VO/Scylla_0272", Text = "How's everyone doing tonight?!" },
-				{ Cue = "/VO/Scylla_0273", Text = "Check it out, gals!" },
-				{ Cue = "/VO/Scylla_0274", Text = "All {#Emph}right..." },
-				{ Cue = "/VO/Scylla_0275", Text = "We're on...!" },
-				{ Cue = "/VO/Scylla_0276", Text = "{#Emph}Now {#Prev}we're ready!" },
-				{ Cue = "/VO/Scylla_0277", Text = "You called it, Rox!" },
-				{ Cue = "/VO/Scylla_0278", Text = "You followed our {#Emph}song!" },
-
-				{ Cue = "/VO/Scylla_0215", Text = "Whoa, what is she {#Emph}wearing?",
-					PlayFirst = true,
-					GameStateRequirements =
-					{
-						{
-							PathTrue = { "GameState", "SpeechRecord", "/VO/Scylla_0058" }
-						},
-						{
-							Path = { "CurrentRun", "Hero", "TraitDictionary" },
-							HasAny = {
-								"AgilityCostume",
-								"ManaCostume",
-								"VitalityCostume",
-								"HighArmorCostume",
-								"CastDamageCostume",
-								"IncomeCostume",
-							},
-						},
-					},
-				},
-				{ Cue = "/VO/Scylla_0216", Text = "Well {#Emph}that's {#Prev}a fashion choice...",
-					PlayFirst = true,
-					GameStateRequirements =
-					{
-						{
-							PathTrue = { "GameState", "SpeechRecord", "/VO/Scylla_0058" }
-						},
-						{
-							Path = { "CurrentRun", "Hero", "TraitDictionary" },
-							HasAny = {
-								"AgilityCostume",
-								"ManaCostume",
-								"VitalityCostume",
-								"HighArmorCostume",
-								"CastDamageCostume",
-								"IncomeCostume",
-							},
-						},
-					},
-				},
-				{ Cue = "/VO/Scylla_0217", Text = "I like your outfit!",
-					PlayFirst = true,
-					GameStateRequirements =
-					{
-						{
-							PathTrue = { "GameState", "SpeechRecord", "/VO/Scylla_0058" }
-						},
-						{
-							Path = { "CurrentRun", "Hero", "TraitDictionary" },
-							HasAny = {
-								"AgilityCostume",
-								"ManaCostume",
-								"VitalityCostume",
-								"HighArmorCostume",
-								"CastDamageCostume",
-								"IncomeCostume",
-							},
-						},
-					},
-				},
-				{ Cue = "/VO/Scylla_0270", Text = "Our number-one fan.",
-					GameStateRequirements =
-					{
-						{
-							Path = { "GameState", "RoomsEntered", "G_PostBoss01" },
-							Comparison = ">=",
-							Value = 10,
-						}
-					},
-				},
-			},
-			{
-				BreakIfPlayed = true,
-				RandomRemaining = true,
-				PreLineWait = 1.35,
-				SuccessiveChanceToPlayAll = 0.33,
-				UsePlayerSource = true,
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "TextLinesRecord", "ScyllaFirstMeeting" },
-					},
-					NamedRequirementsFalse = { "NoGreetingToScylla" },
-				},
-
-				{ Cue = "/VO/Melinoe_1447", Text = "Still practicing, are we?" },
-				{ Cue = "/VO/Melinoe_1448", Text = "I beat the crowds, did I?" },
-				{ Cue = "/VO/Melinoe_1449", Text = "On with the show?", PlayFirst = true },
-				{ Cue = "/VO/Melinoe_1450", Text = "From the top, then?" },
-			},
-
+			{ GlobalVoiceLines = "ScyllaGreetingLines" },
 		},
 
 		ObstacleData =
@@ -476,6 +652,10 @@ RoomSetData.G =
 							{
 								{
 									PathEmpty = { "RequiredKillEnemies" },
+								},
+								{
+									FunctionName = "RequiredHealthFraction",
+									FunctionArgs = { Comparison = ">", Value = 0.2, },
 								},
 							},
 
@@ -510,6 +690,31 @@ RoomSetData.G =
 
 		InspectPoints =
 		{
+			[736957] =
+			{
+				PlayOnce = true,
+				UseText = "UseExamineMisc",
+				SetupGameStateRequirements =
+				{
+					NamedRequirements = { "NoRecentInspectPointUsed" },
+				},
+				InteractTextLineSets =
+				{
+					Inspect_G_Boss01_02 =
+					{
+						{ Cue = "/VO/Storyteller_0474",
+							Text = "{#Emph}The alluring Siren song fades finally to nothingness, leaving the Princess of the Dead to contemplate the pathways plunging deeper toward forbidden regions of the realm." },
+						EndVoiceLines =
+						{
+							PreLineWait = 0.4,
+							UsePlayerSource = true,
+							RequiredMinElapsedTime = 3,
+							{ Cue = "/VO/MelinoeField_3821", Text = "We're almost to the Fields." },
+						},
+					},
+				},
+			},
+
 			[595118] =
 			{
 				PlayOnce = true,
@@ -517,7 +722,7 @@ RoomSetData.G =
 				SetupGameStateRequirements =
 				{
 					{
-						-- PathTrue = { "GameState", "TextLinesRecord", "InspectHomerReveal01", },
+						PathTrue = { "GameState", "TextLinesRecord", "Inspect_G_Boss01_02", },
 					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
@@ -542,9 +747,156 @@ RoomSetData.G =
 
 	},
 
+	G_Boss02 =
+	{
+		InheritFrom = { "BaseG" },
+		GameStateRequirements =
+		{
+			{
+				FunctionName = "RequiredShrineLevel",
+				FunctionArgs =
+				{
+					ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+					Comparison = ">=",
+					Value = 2,
+				},
+			},
+		},
+
+		BackupCauseOfDeath = "Scylla",
+
+		SpeakerName = { "Selene" },
+
+		ValidateSecretData = false,
+		RequiresLinked = true,
+		LinkedRoom = "G_PostBoss01",
+		ExitPreviewAnim = "ExitDownPreview",
+		RewardPreviewIcon = "RoomRewardSubIcon_Boss",
+		-- IgnoreMusic = true,
+		MusicActiveStems = { "Drums" },
+		-- Vocals handled in Scylla's EndTextLinesThreadedFunctionName
+		DefaultMusicParams = { "Guitar", "Drums", },
+		Ambience = "/Ambience/ScyllaFightAmbience",
+
+		ResetBinksOnEnter = true,
+		ResetBinksOnExit = true,
+		LegalEncounters = { "BossScylla02", },
+		ForcedReward = "MixerGBossDrop",
+		NoReroll = true,
+
+		EntranceFunctionName = "RoomEntranceBoss02BiomeG",
+		EntranceFunctionArgs =
+		{
+			ScyllaId = 609649,
+			TentacleIdsOrdered = { 737568, 737569, 737572, 737573, 737571, 737570 },
+		},
+		IntroSequenceDuration = 2.7,
+		BlockCameraReattach = true,
+		ZoomFraction = 0.63,
+		FlipHorizontalChance = 0.0,
+
+		FamiliarsPreferSpawnPointMovement = true,
+		FrogFamiliarMaxLeapDistance = 800,
+
+		HasHarvestPoint = false,
+		HasShovelPoint = false,
+		HasPickaxePoint = false,
+		HasFishingPoint = false,
+		HasExorcismPoint = false,
+
+		UnthreadedEvents =
+		{
+			{
+				FunctionName = "SetupStageLights"
+			},
+			{
+				FunctionName = "BossIntro",
+				Args =
+				{
+					ProcessTextLinesIds = { 609649 },
+					SetupBossIds = { 609649, 609648, 609650, },
+					SetupUnitIdAIs = { 737569, 737572, 737573, 737571, 737568, 737570, 737136 },
+					--SkipAngleTowardTarget = true,
+					-- Vocals handled in Scylla's EndTextLinesThreadedFunctionName
+					SkipBossMusic = true,
+					DelayedStart = true,
+				},
+			},
+		},
+		PostCombatReloadEvents =
+		{
+			{
+				FunctionName = "SetupStageLights"
+			},
+		},
+
+		StartThreadedEvents =
+		{
+			--{ FunctionName = "FloodManager", GameStateRequirements = { ChanceToPlay = 0.0, }, Args = { Types = { "FloodTrap" }, IntervalMin = 7.0, IntervalMax = 15.0, FirstIntervalMin = 2.0, FirstIntervalMax = 3.0 } },
+		},
+
+		InspectPoints =
+		{
+			[793947] =
+			{
+				PlayOnce = true,
+				UseText = "UseExamineMisc",
+				SetupGameStateRequirements =
+				{
+					NamedRequirements = { "NoRecentInspectPointUsed" },
+				},
+				InteractTextLineSets =
+				{
+					Inspect_G_Boss02_01 =
+					{
+						{ Cue = "/VO/Storyteller_0420",
+							Text = "{#Emph}Though bolstered by colossal Charybdis, Scylla and those monstrous songstresses from the abyssal sea yet prove unable to complete their deadly act." },
+						EndVoiceLines =
+						{
+							PreLineWait = 0.4,
+							UsePlayerSource = true,
+							RequiredMinElapsedTime = 3,
+
+							{ Cue = "/VO/MelinoeField_3613", Text = "In the end, a normal night for them." },
+						},
+					},
+				},
+			},
+			[793948] =
+			{
+				PlayOnce = true,
+				UseText = "UseExamineMisc",
+				SetupGameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "Inspect_G_Boss02_01" }
+					},
+					NamedRequirements = { "NoRecentInspectPointUsed" },
+				},
+				InteractTextLineSets =
+				{
+					Inspect_G_Boss02_02 =
+					{
+						{ Cue = "/VO/Storyteller_0455",
+							Text = "{#Emph}With such a rousing show abruptly ended all too soon, the Shades there in attendance are left to wonder whether to await an encore, or a refund." },
+						EndVoiceLines =
+						{
+							PreLineWait = 0.4,
+							UsePlayerSource = true,
+							RequiredMinElapsedTime = 3,
+							{ Cue = "/VO/MelinoeField_3653", Text = "Passes are nonrefundable I think..." },
+						},
+					},
+				},
+			},
+		},
+
+	},
+
 	G_PostBoss01 =
 	{
 		InheritFrom = { "BaseG" },
+		RichPresence = "#RichPresence_PostBossUnderworld",
 		LegalEncounters = { "Empty" },
 
 		UnthreadedEvents = EncounterSets.EncounterEventsNonCombat,
@@ -559,7 +911,6 @@ RoomSetData.G =
 		RequiresLinked = true,
 		NextRoomSet = { "H", },
 		ExitPreviewAnim = "ExitDownPreview",
-		RichPresence = "#RichPresence_PostBoss",
 		IgnoreMusic = true,
 		BlockRunProgressUI = true,
 		NoReward = true,
@@ -663,6 +1014,8 @@ RoomSetData.G =
 					FamiliarMoveOffsetY = 210,
 					FamiliarMoveDuration = 1.4,
 
+					CameraEndOffsetX = -60,
+
 					MoveEaseIn = 0.5,
 					MoveEaseOut = 1.0,
 
@@ -754,16 +1107,12 @@ RoomSetData.G =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlay = 0.5,
-				GameStateRequirements =
-				{
-					-- { FunctionName = "RequiredAlive", FunctionArgs = { Ids = { 561902 }, Alive = false }, },
-				},
 
-				{ Cue = "/VO/MelinoeField_0983", Text = "First tunnel to my right..." },
+				{ Cue = "/VO/MelinoeField_0983", Text = "First tunnel to my right...", PlayFirst = true },
 				{ Cue = "/VO/MelinoeField_0984", Text = "The Sirens' ready-room..." },
 				{ Cue = "/VO/MelinoeField_0985", Text = "No Sirens, thank the gods..." },
 				{ Cue = "/VO/MelinoeField_0986", Text = "Best get out before Scylla comes back." },
-				{ Cue = "/VO/MelinoeField_0987", Text = "The edge of Oceanus...", PlayFirst = true },
+				{ Cue = "/VO/MelinoeField_0987", Text = "The edge of Oceanus..." },
 				{ Cue = "/VO/MelinoeField_0988", Text = "The very bottom of the sea..." },
 				{ Cue = "/VO/MelinoeField_0989", Text = "Reeks in here..." },
 				{ Cue = "/VO/MelinoeField_0990", Text = "No more crowds..." },
@@ -771,29 +1120,44 @@ RoomSetData.G =
 		},
 		ExitVoiceLines =
 		{
-			PreLineWait = 0.5,
-			RandomRemaining = true,
-			BreakIfPlayed = true,
-			GameStateRequirements =
-			{
-				{
-				},
-			},
 			Cooldowns =
 			{
 				{ Name = "LeftBiomeSpeech", Time = 6 },
 			},
+			{
+				PlayOnce = true,
+				BreakIfPlayed = true,
+				PreLineWait = 0.5,
+				TriggerCooldowns = { "MelinoeFieldsStartSpeech" },
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
 
-			{ Cue = "/VO/MelinoeField_0991", Text = "Big drop...", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_0992", Text = "Closer now..." },
-			{ Cue = "/VO/MelinoeField_0993", Text = "To the Fields..." },
-			{ Cue = "/VO/MelinoeField_0994", Text = "{#Emph}<Inhale>" },
-			{ Cue = "/VO/MelinoeField_0995", Text = "Out of here." },
-			{ Cue = "/VO/MelinoeField_0996", Text = "Long way down..." },
-			{ Cue = "/VO/MelinoeField_0997", Text = "Time to dry off." },
-			{ Cue = "/VO/MelinoeField_0998", Text = "To firmer ground." },
+				{ Cue = "/VO/MelinoeField_4585", Text = "Back to the Fields then..." },
+			},
+			{
+				PreLineWait = 0.5,
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				GameStateRequirements =
+				{
+					{
+					},
+				},
+
+				{ Cue = "/VO/MelinoeField_0991", Text = "Big drop...", PlayFirst = true },
+				{ Cue = "/VO/MelinoeField_0992", Text = "Closer now..." },
+				{ Cue = "/VO/MelinoeField_0993", Text = "To the Fields..." },
+				{ Cue = "/VO/MelinoeField_0994", Text = "{#Emph}<Inhale>" },
+				{ Cue = "/VO/MelinoeField_0995", Text = "Out of here." },
+				{ Cue = "/VO/MelinoeField_0996", Text = "Long way down..." },
+				{ Cue = "/VO/MelinoeField_0997", Text = "Time to dry off." },
+				{ Cue = "/VO/MelinoeField_0998", Text = "To firmer ground." },
+			},
 		},
-
 	},
 
 	G_Intro =
@@ -820,12 +1184,11 @@ RoomSetData.G =
 		FamiliarsPreferSpawnPointMovement = true,
 		FrogFamiliarMaxLeapDistance = 800,
 
-		HarvestPointChances =
-		{
-			0,
-			0,
-			0,
-		},
+		HarvestPointChances = { 0.02, },
+		ShovelPointChance = 0.02,
+		PickaxePointChance = 0.02,
+		--ExorcismPointChance = 0.02,
+		FishingPointChance = 0.02,
 
 		ZoomFraction = 0.75,
 		CameraZoomWeights =
@@ -837,7 +1200,7 @@ RoomSetData.G =
 		StartUnthreadedEvents =
 		{
 			{ FunctionName = "EndBiomeRecords", },
-			{ FunctionName = "EndAllBiomeStates" },
+			{ FunctionName = "EndAllBiomeStates" }, -- back-compat for saves with rain in F_PostBoss
 			{
 				FunctionName = "SpawnErisForCurse",
 				Args =
@@ -923,12 +1286,16 @@ RoomSetData.G =
 			Threaded = true,
 			{
 				FunctionName = "DisplayInfoBanner",
-				Args = { Text = "Location_BiomeG", Delay = 2.0, },
+				Args =
+				{
+					Text = "Location_BiomeG",
+					AnimationName = "InfoBannerOceanusIn",
+					AnimationOutName = "InfoBannerOceanusOut",
+					Delay = 2.0,
+				},
 				GameStateRequirements =
 				{
-					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
-					},
+					NamedRequirementsFalse = { "ShouldShowBountyInfoBanner" },
 				},
 			},
 			{
@@ -936,9 +1303,7 @@ RoomSetData.G =
 				Args = RoomEventData.BountyInfoBannerArgs,
 				GameStateRequirements =
 				{
-					{
-						PathTrue = { "CurrentRun", "ActiveBounty" },
-					},
+					NamedRequirements = { "ShouldShowBountyInfoBanner" },
 				},
 			},
 			{
@@ -946,12 +1311,6 @@ RoomSetData.G =
 				Args =
 				{
 					ObjectiveSetName = "BountyAdvancedTooltip",
-				},
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "CurrentRun", "ActiveBounty" },
-					},
 				},
 			},
 		},
@@ -1070,9 +1429,22 @@ RoomSetData.G =
 		EnterVoiceLines =
 		{
 			TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
-			[1] = { GlobalVoiceLines = "StartPackagedBountyRunVoiceLines" },
-			[2] = { GlobalVoiceLines = "BiomeStateChangeStartVoiceLines" },
-			[3] =
+			{ GlobalVoiceLines = "StartPackagedBountyRunVoiceLines" },
+			{ GlobalVoiceLines = "BiomeStateChangeStartVoiceLines" },
+			{
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				PreLineWait = 1.65,
+				SuccessiveChanceToPlayAll = 0.25,
+				GameStateRequirements =
+				{
+					NamedRequirements = { "TrueFatesQuestCanBeCompleted" },
+					NamedRequirementsFalse = { "ReachedEpilogue" },
+				},
+
+				{ Cue = "/VO/MelinoeField_5026", Text = "All right, Fates, where are you...?", PlayFirst = true },
+				{ Cue = "/VO/Melinoe_5692", Text = "Fear not, you three... we'll find you..." },
+			},
 			{
 				RandomRemaining = true,
 				PreLineWait = 1.65,
@@ -1080,6 +1452,57 @@ RoomSetData.G =
 				PreLineFunctionArgs = { PreWait = 1.0 },
 				SuccessiveChanceToPlayAll = 0.5,
 
+				{ Cue = "/VO/MelinoeField_4601", Text = "Is this a different song...?",
+					PlayFirst = true,
+					PlayOnce = true,
+					PreLineWait = 3.5,
+					GameStateRequirements =
+					{
+						{
+							Path = { "AudioState", "MusicName" },
+							IsAny = { "/Music/IrisMusicScylla2_MC" },
+						},
+						{
+							Path = { "GameState", "MusicRecord", "/Music/IrisMusicScylla2_MC" },
+							Comparison = "<=",
+							Value = 1,
+						},
+					},
+				},
+				{ Cue = "/VO/MelinoeField_4602", Text = "An unfamiliar tune...",
+					PlayFirst = true,
+					PlayOnce = true,
+					PreLineWait = 2.65,
+					GameStateRequirements =
+					{
+						{
+							Path = { "AudioState", "MusicName" },
+							IsAny = { "/Music/IrisMusicScylla3_MC" },
+						},
+						{
+							Path = { "GameState", "MusicRecord", "/Music/IrisMusicScylla3_MC" },
+							Comparison = "<=",
+							Value = 1,
+						},
+					},
+				},
+				{ Cue = "/VO/MelinoeField_4600", Text = "Not heard this one before...",
+					PlayFirst = true,
+					PlayOnce = true,
+					PreLineWait = 2.65,
+					GameStateRequirements =
+					{
+						{
+							Path = { "AudioState", "MusicName" },
+							IsAny = { "/Music/IrisMusicScylla4_MC" },
+						},
+						{
+							Path = { "GameState", "MusicRecord", "/Music/IrisMusicScylla4_MC" },
+							Comparison = "<=",
+							Value = 1,
+						},
+					},
+				},
 				{ Cue = "/VO/Melinoe_0802", Text = "That singing...",
 					PlayFirst = true, PreLineWait = 6.65,
 					RecheckRequirementsPostWait = true,
@@ -1117,10 +1540,57 @@ RoomSetData.G =
 							FunctionName = "RequiredAlive",
 							FunctionArgs = { Units = { "NPC_Eris_01" }, Alive = false },
 						},
+						OrRequirements =
+						{
+							{
+								{
+									Path = { "AudioState", "MusicName" },
+									IsAny = { "/Music/IrisMusicScylla1_MC" },
+								},
+								{
+									Path = { "GameState", "MusicRecord", "/Music/IrisMusicScylla1_MC" },
+									Comparison = ">",
+									Value = 1,
+								},
+							},
+							{
+								{
+									Path = { "AudioState", "MusicName" },
+									IsAny = { "/Music/IrisMusicScylla2_MC" },
+								},
+								{
+									Path = { "GameState", "MusicRecord", "/Music/IrisMusicScylla2_MC" },
+									Comparison = ">",
+									Value = 1,
+								},
+							},
+							{
+								{
+									Path = { "AudioState", "MusicName" },
+									IsAny = { "/Music/IrisMusicScylla3_MC" },
+								},
+								{
+									Path = { "GameState", "MusicRecord", "/Music/IrisMusicScylla3_MC" },
+									Comparison = ">",
+									Value = 1,
+								},
+							},
+							{
+								{
+									Path = { "AudioState", "MusicName" },
+									IsAny = { "/Music/IrisMusicScylla4_MC" },
+								},
+								{
+									Path = { "GameState", "MusicRecord", "/Music/IrisMusicScylla4_MC" },
+									Comparison = ">",
+									Value = 1,
+								},
+							},
+						},
 					},
 				},
 				{ Cue = "/VO/MelinoeField_0131", Text = "Keep practicing, Scylla...",
-					PreLineWait = 6.65,
+					PreLineWait = 2.65,
 					RecheckRequirementsPostWait = true,
 					GameStateRequirements =
 					{
@@ -1140,6 +1610,7 @@ RoomSetData.G =
 							FunctionName = "RequiredAlive",
 							FunctionArgs = { Units = { "NPC_Eris_01" }, Alive = false },
 						},
+						NamedRequirementsFalse = { "HecateMissing" },
 					},
 				},
 				{ Cue = "/VO/MelinoeField_0127", Text = "The rim of Oceanus..." },
@@ -1178,6 +1649,7 @@ RoomSetData.G =
 			},
 		},
 
+		Using = { AdditionalAnimations = { "TrueEndingBannerFx", "EpilogueOutro", }, },
 	},
 
 	G_Shop01 =
@@ -1207,9 +1679,12 @@ RoomSetData.G =
 			},
 		},
 
+		ZagContractDestinationId = 776330,	
+
 		ShovelPointChance = 0.4,
 		PickaxePointChance = 0.4,
-		ExorcismPointChance = 0.4,
+		ExorcismPointChance = 0.3,
+		FishingPointChance = 0.3,
 
 		FamiliarsPreferSpawnPointMovement = true,
 		FrogFamiliarMaxLeapDistance = 800,
@@ -1265,6 +1740,9 @@ RoomSetData.G =
 		{
 			{
 				PathFalse = { "CurrentRun", "RoomsEntered", "G_MiniBoss02" },
+			},
+			{
+				PathFalse = { "CurrentRun", "RoomsEntered", "G_MiniBoss03" },
 			},
 		},
 
@@ -1337,17 +1815,13 @@ RoomSetData.G =
 				PathFalse = { "CurrentRun", "RoomsEntered", "G_MiniBoss01" },
 			},
 			{
+				PathFalse = { "CurrentRun", "RoomsEntered", "G_MiniBoss03" },
+			},
+			{
 				PathTrue = { "GameState", "EncountersCompletedCache", "MiniBossWaterUnit" },
 			},
 			{
-				Path = { "CurrentRun", "BiomeDepthCache" },
-				Comparison = ">=",
-				Value = 4,
-			},
-			{
-				Path = { "CurrentRun", "BiomeDepthCache" },
-				Comparison = "<=",
-				Value = 8,
+				PathTrue = { "GameState", "EncountersCompletedCache", "MiniBossJellyfish" },
 			},
 		},
 
@@ -1362,8 +1836,8 @@ RoomSetData.G =
 		BoonRaritiesOverride = { Legendary = 0.05, Epic = 0.10, Rare = 0.90 },
 
 		MaxCreationsThisRun = 1,
-		--ForceAtBiomeDepthMin = 5,
-		--ForceAtBiomeDepthMax = 8,
+		ForceAtBiomeDepthMin = 4,
+		ForceAtBiomeDepthMax = 7,
 		MaxAppearancesThisBiome = 1,
 
 		InspectPoints =
@@ -1402,7 +1876,6 @@ RoomSetData.G =
 
 	G_MiniBoss03 =
 	{
-		DebugOnly = true,
 		InheritFrom = { "BaseG", },
 		RewardPreviewIcon = "RoomRewardSubIcon_Miniboss",
 
@@ -1412,13 +1885,16 @@ RoomSetData.G =
 		GameStateRequirements =
 		{
 			{
+				PathFalse = { "CurrentRun", "RoomsEntered", "G_MiniBoss01" },
+			},
+			{
 				PathFalse = { "CurrentRun", "RoomsEntered", "G_MiniBoss02" },
 			},
 		},
 
 		LegalEncounters = { "MiniBossJellyfish" },
 		FlipHorizontalChance = 0.0,
-		ZoomFraction = 0.82,
+		ZoomFraction = 0.85,
 
 		ForcedRewardStore = "RunProgress",
 		EligibleRewards = { "Boon" },
@@ -1428,6 +1904,43 @@ RoomSetData.G =
 		ForceAtBiomeDepthMin = 4,
 		ForceAtBiomeDepthMax = 7,
 		MaxAppearancesThisBiome = 1,
+
+		CombatResolvedVoiceLines =
+		{
+			{ GlobalVoiceLines = "MiniBossEncounterEndVoiceLines" },
+		},
+
+		InspectPoints =
+		{
+			[745536] =
+			{
+				PlayOnce = true,
+				UseText = "UseExamineMisc",
+				SetupGameStateRequirements =
+				{
+					{
+						-- PathTrue = { "GameState", "TextLinesRecord", "InspectHomerReveal01", },
+					},
+					NamedRequirements = { "NoRecentInspectPointUsed" },
+				},
+				InteractTextLineSets =
+				{
+					Inspect_G_MiniBoss03_01 =
+					{
+						{ Cue = "/VO/Storyteller_0358",
+							Text = "{#Emph}There are such creatures born of nightmare and the sea, which float eternally toward death and decay, and so invariably find themselves exactly here." },
+						EndVoiceLines =
+						{
+							PreLineWait = 0.4,
+							UsePlayerSource = true,
+							RequiredMinElapsedTime = 3,
+							{ Cue = "/VO/MelinoeField_3260", Text = "Think I just stepped in one..." },
+						},
+					},
+				},
+			},
+		},
+
 	},
 
 	BaseG_Combat =
@@ -1512,13 +2025,6 @@ RoomSetData.G =
 				Value = 3,
 			},
 		},
-	},
-
-	G_Combat05Backup =
-	{
-		InheritFrom = { "BaseG_Combat" },
-		DebugOnly = true,
-
 	},
 
 	G_Combat06 =
@@ -1689,6 +2195,88 @@ RoomSetData.G =
 		},
 	},
 
+	G_Combat16 =
+	{
+		InheritFrom = { "BaseG_Combat" },
+		ZoomFraction = 0.8,
+		
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BiomeEncounterDepth" },
+				Comparison = ">=",
+				Value = 3,
+			},
+		},
+	},
+
+	G_Combat17 =
+	{
+		InheritFrom = { "BaseG_Combat" },
+		ZoomFraction = 0.8,
+		
+		RushMaxRangeOverride = 525,
+		
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BiomeEncounterDepth" },
+				Comparison = ">=",
+				Value = 3,
+			},
+		},
+	},
+
+	G_Combat18 =
+	{
+		InheritFrom = { "BaseG_Combat" },
+		ZoomFraction = 0.8,
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BiomeEncounterDepth" },
+				Comparison = "<=",
+				Value = 2,
+			},
+			{
+				Path = { "CurrentRun", "BiomeDepthCache" },
+				Comparison = "<=",
+				Value = 3,
+			},
+		},
+	},
+
+	G_Combat19 =
+	{
+		InheritFrom = { "BaseG_Combat" },
+		ZoomFraction = 0.8,
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BiomeEncounterDepth" },
+				Comparison = "<=",
+				Value = 3,
+			},
+		},
+	},
+
+	G_Combat20 =
+	{
+		InheritFrom = { "BaseG_Combat" },
+		ZoomFraction = 0.8,
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BiomeEncounterDepth" },
+				Comparison = "<=",
+				Value = 3,
+			},
+		},
+	},
+
 	G_Reprieve01 =
 	{
 		InheritFrom = { "BaseG" },
@@ -1706,22 +2294,16 @@ RoomSetData.G =
 		DisableRewardMagnetisim = true,
 		IntroSequenceDuration = 0.02,
 		EntranceFunctionName = "EnterBiomeGRoomPresentation",
+		HoundFamiliarMovementRequiresLineOfSight = true,
+		PolecatFamiliarShouldNotFollow = true,
 
-		HarvestPointChances =
-		{
-			0.8,
-			0.4,
-			0.1,
-		},
+		HarvestPointChances = { 0.6, 0.4, },
+		ShovelPointChance = 0.24,
+		PickaxePointChance = 0.36,
+		ExorcismPointChance = 0.24,
+		FishingPointChance = 0.18,
 
-		ShovelPointChance = 0.35,
-		PickaxePointChance = 0.35,
-		ExorcismPointChance = 0,
-
-		HarvestPointRequirements = { },
-		ShovelPointRequirements = { },
-		--PickaxePointRequirements = { },
-		ExorcismPointRequirements = { },
+		IgnoreHarvestBiomeSpawnLimit = true,
 
 		StartThreadedEvents =
 		{			
@@ -1791,10 +2373,6 @@ RoomSetData.G =
 		NoReroll = true,
 		MaxCreationsThisRun = 1,
 		ForceIfUnseenForRuns = 6,
-		RichPresence = "#RichPresence_GStory01",
-		HarvestBlockedText = "ExitBlockedByNPC",
-		AllowExorcismPreExitsUnlock = true,
-		AllowFishingPreExitsUnlock = true,
 
 		SkipLastKillPresentation = true, 
 
@@ -1813,12 +2391,9 @@ RoomSetData.G =
 			{
 				PathTrue = { "GameState", "RoomsEntered", "G_Boss01" },
 			},
-			{
-				PathFalse = { "CurrentRun", "ActiveBounty" },
-			},
+			NamedRequirementsFalse = { "StandardPackageBountyActive" },
 		},
 
-		ZoomFraction = 0.8,
 		--[[
 		CameraZoomWeights =
 		{
@@ -1829,26 +2404,110 @@ RoomSetData.G =
 		},
 		]]--
 
-		HarvestPointChances =
+		HarvestPointChances = { 0.5, 0.1, },
+		ShovelPointChance = 0.4,
+		PickaxePointChance = 0.4,
+		ExorcismPointChance = 0.4,
+		FishingPointChance = 0.1,
+
+		HarvestPointRequirements =
 		{
-			0.9,
-			0.5,
-			0.1,
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantGLotus" },
+						Comparison = "<",
+						Value = 8,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+				},
+			},
 		},
-		ShovelPointChance = 0.5,
-		PickaxePointChance = 0.5,
-		ExorcismPointChance = 0.5,
+		ShovelPointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeToolsShop" },
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "PlantFNightshadeSeed" },
+				Comparison = ">=",
+				Value = 3,
+			},
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantGCattailSeed" },
+						Comparison = "<",
+						Value = 6,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+				},
+			},
+		},
+		PickaxePointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "OreFSilver" },
+				Comparison = ">=",
+				Value = 6,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "OreGLime" },
+						Comparison = "<",
+						Value = 36,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+				},
+			},
+		},
+
+		IgnoreHarvestBiomeSpawnLimit = true,
 
 		FamiliarsPreferSpawnPointMovement = true,
 		FrogFamiliarMaxLeapDistance = 800,
 
-		HarvestPointRequirements = { },
-		ShovelPointRequirements = { },
-		--PickaxePointRequirements = { },
-		ExorcismPointRequirements = { },
+		SecretMusic = "/Music/NarcissusTheme",
+		SecretMusicSectionRandomizer =
+		{
+			Sections = { 1, 2, 3 },
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "RoomCountCache", "G_Story01" },
+					Comparison = ">=",
+					Value = 1,
+				},
+			},
+		},
 
-		-- SecretMusic = "/Music/MusicPlayer/OrpheusSong2MusicPlayer",
-		-- ZoomFraction = 0.85,
 		ZoomFraction = 0.85,
 		TimerBlock = "StoryRoom",
 
@@ -1867,6 +2526,24 @@ RoomSetData.G =
 					NamedRequirements = { "NarcissusDirtyWater" },
 				},
 				DestroyIfNotSetup = true,
+			},
+			-- dirty fountain
+			[772219] =
+			{
+				SetupEvents =
+				{
+					{
+						GameStateRequirements =
+						{
+							NamedRequirements = { "NarcissusDirtyWater" },
+						},
+						FunctionName = "OverwriteSelf",
+						Args =
+						{
+							Animation = "Tilesets/DrownedChambers/DrownedChambers_Narcissus_Bowl_01b"
+						},
+					},
+				},
 			},
 			-- narcissus reflection
 			[563373] =
@@ -1926,6 +2603,58 @@ RoomSetData.G =
 				{
 					Id = 623530,
 					Color = { 124, 109, 25, 255 },
+					SetBase = true,
+				},
+				GameStateRequirements =
+				{
+					NamedRequirements = { "NarcissusDirtyWater" },
+				},
+			},
+			{
+				FunctionName = "GenericPresentation",
+				Args =
+				{
+					Id = 800426,
+					Color = { 96, 88, 38, 255 },
+					SetBase = true,
+				},
+				GameStateRequirements =
+				{
+					NamedRequirements = { "NarcissusDirtyWater" },
+				},
+			},
+			{
+				FunctionName = "GenericPresentation",
+				Args =
+				{
+					Ids = { 800410, 800425, 800443, 800411, 800444, 800412, 800414, 800415, },
+					Color = { 136, 104, 45, 255 },
+					SetBase = true,
+				},
+				GameStateRequirements =
+				{
+					NamedRequirements = { "NarcissusDirtyWater" },
+				},
+			},
+			{
+				FunctionName = "GenericPresentation",
+				Args =
+				{
+					Ids = { 800429, 800421, 800428, 800427, 800423, 800420, 800418, 800424, 800419, },
+					Color = { 106, 88, 29, 255 },
+					SetBase = true,
+				},
+				GameStateRequirements =
+				{
+					NamedRequirements = { "NarcissusDirtyWater" },
+				},
+			},
+			{
+				FunctionName = "GenericPresentation",
+				Args =
+				{
+					Id = 800445,
+					Color = { 207, 223, 67, 255 },
 					SetBase = true,
 				},
 				GameStateRequirements =

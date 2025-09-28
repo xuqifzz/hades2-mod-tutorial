@@ -16,7 +16,7 @@
 		VisualFxDistanceMin = 50.0
 		ScaleFromOwner = "Ignore"
 	}
-	
+
 	{
 		Name = "StaffProjectileGlow"
 		FilePath = "Particles\particle_warm_flare"
@@ -96,9 +96,8 @@
 
 	{
 		Name = "StaffProjectileStartFlash"
-		FilePath = "Particles\particle_quickflashIris"
-		GroupName = "FX_Add_Top"
-		
+		FilePath = "Particles\particle_quickFlashIris"
+		GroupName = "FX_Add_Top"		
 		AddColor = true
 		ColorFromOwner = "Ignore"
 		StartAlpha = 1.0
@@ -512,6 +511,7 @@
 	{
 		Name = "StaffProjectileFireFx2Close"
 		InheritFrom = "StaffProjectileFireFx2"
+		Alpha = 0.3
 		RadialOffsetMin = 0
 		RadialOffsetMax = 0
 		CreateAnimation = "StaffProjectileFireFxRingClose"
@@ -532,6 +532,7 @@
 	{
 		Name = "StaffProjectileFireFx2Close_Apollo"
 		InheritFrom = "StaffProjectileFireFx2_Apollo"
+		Alpha = 0.3
 		RadialOffsetMin = 0
 		RadialOffsetMax = 0
 		CreateAnimation = "StaffProjectileFireFxRingClose_Apollo"
@@ -554,6 +555,7 @@
 		InheritFrom = "StaffProjectileFireFx2_Hestia"
 		RadialOffsetMin = 0
 		RadialOffsetMax = 0
+		Alpha = 0.3
 		CreateAnimation = "StaffProjectileFireFxRingClose_Hestia"
 	}
 
@@ -575,6 +577,7 @@
 		InheritFrom = "StaffProjectileFireFx2_Hera"
 		RadialOffsetMin = 0
 		RadialOffsetMax = 0
+		Alpha = 0.3
 		CreateAnimation = "StaffProjectileFireFxRingClose_Hera"
 	}
 
@@ -601,6 +604,7 @@
 		InheritFrom = "StaffProjectileFireFx2_Demeter"
 		RadialOffsetMin = 0
 		RadialOffsetMax = 0
+		Alpha = 0.3
 		CreateAnimation = "StaffProjectileFireFxRingClose_Demeter"
 	}
 
@@ -621,6 +625,7 @@
 		InheritFrom = "StaffProjectileFireFx2_Aphrodite"
 		RadialOffsetMin = 0
 		RadialOffsetMax = 0
+		Alpha = 0.3
 		CreateAnimation = "StaffProjectileFireFxRingClose_Aphrodite"
 	}	
 
@@ -641,6 +646,7 @@
 		InheritFrom = "StaffProjectileFireFx2_Poseidon"
 		RadialOffsetMin = 0
 		RadialOffsetMax = 0
+		Alpha = 0.3
 		CreateAnimation = "StaffProjectileFireFxRingClose_Poseidon"
 	}	
 
@@ -665,6 +671,7 @@
 		InheritFrom = "StaffProjectileFireFx2_Zeus"
 		RadialOffsetMin = 0
 		RadialOffsetMax = 0
+		Alpha = 0.3
 		CreateAnimation = "StaffProjectileFireFxRingClose_Zeus"
 	}	
 
@@ -689,8 +696,56 @@
 		InheritFrom = "StaffProjectileFireFx2_Hephaestus"
 		RadialOffsetMin = 0
 		RadialOffsetMax = 0
+		Alpha = 0.3
 		CreateAnimation = "StaffProjectileFireFxRingClose_Hephaestus"
 	}
+
+	{
+		Name = "StaffProjectileFireFx2_Ares"
+		InheritFrom = "StaffProjectileFireFx2"
+		Material = "Unlit"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		CreateAnimation = null
+		CreateAnimations = [
+			{ Name = "AresAttackGlow" }
+			{ Name = "StaffProjectileFireFx2AresCircle" }
+		]
+	}
+
+	{
+		Name = "StaffProjectileFireFx2AresCircle"
+		FilePath = "Fx\Ares\AresCircle\AresCircle"
+		NumFrames = 17
+		StartFrame = 32
+		Material = "Unlit"
+		IsometricSkew = "Y"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		Scale = 0.66
+		RadialOffsetMin = -10
+		RadialOffsetMax = -10
+		Red = 0
+		Green = 0
+		Blue = 0
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+	}
+
+	{
+		Name = "StaffProjectileFireFx2Close_Ares"
+		InheritFrom = "StaffProjectileFireFx2_Ares"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		Alpha = 0.3
+		CreateAnimation = "StaffProjectileFireFxRingClose_Ares"
+	}
+
 
 	{
 		Name = "StaffProjectileFireFx3"
@@ -715,7 +770,20 @@
 		EndGreen = 0.6
 		EndBlue = 0.3
 		CreateAnimation = "StaffProjectileFireFxRing_Apollo"
-	}
+	}	
+
+/*
+	{
+		Name = "StaffProjectileFireFx3_Anubis"
+		InheritFrom = "StaffProjectileFireFx3"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.999
+		EndGreen = 0.6
+		EndBlue = 0.3
+		CreateAnimation = "StaffProjectileFireFxRing_Anubis"
+	} */
 
 	{
 		Name = "StaffProjectileFireFx3_Hestia"
@@ -728,6 +796,7 @@
 		EndBlue = 0.0
 		ClearCreateAnimations = true
 		CreateAnimation = null
+		Sound = "/SFX/Player Sounds/HestiaSwipeSFX"
 		CreateAnimations =
 		[
 			{ Name = "StaffProjectileFireFxRing_Hestia" }
@@ -746,6 +815,7 @@
 		EndBlue = 1.0
 		ClearCreateAnimations = true
 		CreateAnimation = null
+		Sound = "/SFX/Player Sounds/HeraSwipeSFXCombo"
 		CreateAnimations =
 		[
 			{ Name = "StaffProjectileFireFxRing_Hera" }
@@ -757,14 +827,15 @@
 	{
 		Name = "StaffProjectileFireFx3_Demeter"
 		InheritFrom = "StaffProjectileFireFx3"
-		StartRed = 0.7
-		StartGreen = 0.85
-		StartBlue = 1.0
-		EndRed = 0.85
-		EndGreen = 0.7
-		EndBlue = 0.999
+		StartRed = 0.35
+		StartGreen = 0.425
+		StartBlue = 0.5
+		EndRed = 0.425
+		EndGreen = 0.35
+		EndBlue = 0.4999
 		ClearCreateAnimations = true
 		CreateAnimation = null
+		Sound = "/SFX/Player Sounds/DemeterColdSwipe1"
 		CreateAnimations =
 		[
 			{ Name = "StaffProjectileFireFxRing_Demeter" }
@@ -783,6 +854,7 @@
 		EndBlue = 0.99
 		ClearCreateAnimations = true
 		CreateAnimation = null
+		Sound = "/SFX/Player Sounds/AphroditeLoveSwipe"
 		CreateAnimations =
 		[
 			{ Name = "StaffProjectileFireFxRing_Aphrodite" }
@@ -801,6 +873,7 @@
 		EndBlue = 1.0
 		ClearCreateAnimations = true
 		CreateAnimation = null
+		Sound = "/SFX/Player Sounds/PoseidonWaterArrowFire"
 		CreateAnimations =
 		[
 			{ Name = "StaffProjectileFireFxRing_Poseidon" }
@@ -811,18 +884,70 @@
 	{
 		Name = "StaffProjectileFireFx3_Zeus"
 		InheritFrom = "StaffProjectileFireFx3"
-				StartRed = 1.0
-				StartGreen = 0.95
-				StartBlue = 0.7
-				EndRed = 0.9999
-				EndGreen = 0.7
-				EndBlue = 0.5
+		StartRed = 1.0
+		StartGreen = 0.95
+		StartBlue = 0.7
+		EndRed = 0.9999
+		EndGreen = 0.7
+		EndBlue = 0.5
+		Sound = "/SFX/Player Sounds/ZeusLightningSlash"
 		ClearCreateAnimations = true
 		CreateAnimation = null
 		CreateAnimations =
 		[
 			{ Name = "StaffProjectileFireFxRing_Zeus" }
 			{ Name = "StaffProjectileFireFx1_Zeus" }
+		]
+	}	
+
+
+	{
+		Name = "StaffProjectileFireFx1_Anubis"
+		InheritFrom = "StaffProjectileFireFx1"
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.75
+		EndBlue = 0.2
+	}
+
+	{
+		Name = "StaffProjectileFireFx3_Anubis"
+		InheritFrom = "StaffProjectileFireFx3"
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.75
+		EndBlue = 0.2
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "StaffProjectileFireFxRing_Anubis" }
+			{ Name = "StaffProjectileFireFx1_Anubis" }
+		]
+	}
+
+	{
+		Name = "StaffProjectileFireFx3_Ares"
+		InheritFrom = "StaffProjectileFireFx3"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		Sound = "/SFX/Player Sounds/AresBladeSwipe"
+		CreateAnimations =
+		[
+			{ Name = "StaffProjectileFireFxRing_Ares" }
+			{ Name = "StaffProjectileFireFx1_Ares" }
+			{ Name = "StaffProjectileFireFx2AresCircle" }
 		]
 	}	
 
@@ -837,6 +962,7 @@
 		EndBlue = 0
 		ClearCreateAnimations = true
 		CreateAnimation = null
+		Sound = "/SFX/Player Sounds/HephaestusSwipeWhoosh"
 		CreateAnimations =
 		[
 			{ Name = "StaffProjectileFireFxRing_Hephaestus" }
@@ -855,7 +981,6 @@
 		EndRed = 0.1
 		EndGreen = 0.999
 		EndBlue = 0.5
-		Sound = "/SFX/Player Sounds/MelStaffFissureCOMBINED"
 		CreateAnimation = null
 		CreateAnimations =
 		[
@@ -923,6 +1048,7 @@
 	{
 		Name = "StaffProjectileFireFxRingClose"
 		InheritFrom = "StaffProjectileFireFxRing"
+		Alpha = 0.3
 		Scale = 1.25
 		RadialOffsetMin = 30
 		RadialOffsetMax = 30
@@ -969,7 +1095,6 @@
 		EndBlue = 0.1
 		ClearCreateAnimations = true
 		CreateAnimation = "StaffProjectileFireFxRing_Apollo"
-		Sound = "/SFX/Player Sounds/ApolloSwipeSFX"
 	}
 
 	{
@@ -1016,7 +1141,9 @@
 	{
 		Name = "StaffProjectileFireFxRingClose_Apollo"
 		InheritFrom = "StaffProjectileFireFxRing_Apollo"
+		CreateAnimation = null
 		Scale = 1.25
+		Alpha = 0.3
 		RadialOffsetMin = 30
 		RadialOffsetMax = 30
 	}		
@@ -1053,8 +1180,9 @@
 		GroupName = "FX_Standing_Add"
 		Material = "Unlit"
 		Scale = 0.66
-		Sound = "/SFX/Player Sounds/HestiaSwipeSFX"
 		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 	}
 
 	{
@@ -1089,6 +1217,7 @@
 		Name = "StaffProjectileFireFxRingClose_Hestia"
 		InheritFrom = "StaffProjectileFireFxRing_Hestia"
 		Scale = 1.25
+		Alpha = 0.3
 		RadialOffsetMin = 30
 		RadialOffsetMax = 30
 	}
@@ -1113,7 +1242,6 @@
 		Scale = 0.66
 		PlaySpeed = 60
 		ColorFromOwner = "Ignore"
-		Sound = "/SFX/Player Sounds/HeraSwipeSFXCombo"
 		CreateAnimations =
 		[
 			{ Name = "StaffProjectileFireFxRing_Hera" }
@@ -1152,6 +1280,7 @@
 		Name = "StaffProjectileFireFxRingClose_Hera"
 		InheritFrom = "StaffProjectileFireFxRing_Hera"
 		Scale = 1.25
+		Alpha = 0.3
 		RadialOffsetMin = 30
 		RadialOffsetMax = 30
 	}
@@ -1211,19 +1340,20 @@
 	{
 		Name = "StaffProjectileFireFx1_Demeter"
 		InheritFrom = "StaffProjectileFireFx1"
-		StartRed = 1
-		StartGreen = 1
-		StartBlue = 1
-		EndRed = 0.5
-		EndGreen = 0.3
-		EndBlue = 0.999
+		StartRed = 0.5
+		StartGreen = 0.5
+		StartBlue = 0.5
+		EndRed = 0.25
+		EndGreen = 0.15
+		EndBlue = 0.499
+		StartAlpha = 0.5
+		EndAlpha = 0
 		ClearCreateAnimations = true
 		CreateAnimation = null
 		VisualFx = null
 		ChildAnimation = null
 		RadialOffsetMin = 140
 		RadialOffsetMax = 140
-		Sound = "/SFX/Player Sounds/DemeterColdSwipe1"
 		CreateAnimations =
 		[
 			{ Name = "StaffProjectileFireFxRing_Demeter" }
@@ -1335,6 +1465,7 @@
 		Green = 1
 		Blue = 1
 		Scale = 1.25
+		Alpha = 0.5
 	}
 
 	{
@@ -1348,6 +1479,7 @@
 		Name = "StaffProjectileFireFxRingClose_Demeter"
 		InheritFrom = "StaffProjectileFireFxRing_Demeter"
 		Scale = 1.25
+		Alpha = 0.3
 		RadialOffsetMin = 30
 		RadialOffsetMax = 30
 	}
@@ -1381,7 +1513,8 @@
 		Scale = 0.66
 		EaseIn = 0.999
 		ColorFromOwner = "Ignore"
-		Sound = "/SFX/Player Sounds/AphroditeLoveSwipe"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 		CreateAnimations =
 		[
 			{ Name = "AphroditeParticleSparkleDirectional" }
@@ -1450,6 +1583,114 @@
 		Name = "StaffProjectileFireFxRingClose_Aphrodite"
 		InheritFrom = "StaffProjectileFireFxRing_Aphrodite"
 		Scale = 1.25
+		Alpha = 0.3
+		RadialOffsetMin = 30
+		RadialOffsetMax = 30
+	}
+
+
+	{
+		Name = "StaffProjectileFireFx1_Ares"
+		InheritFrom = "StaffProjectileFireFx1"
+		FilePath = "Fx\Ares\AresCircle\AresCircle"
+		GroupName = "Standing"
+		Red = 1
+		Green = 1
+		Blue = 1
+		Hue = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		EndAlpha = 0.999
+		AddColor = false
+		NumFrames = 17
+		PlaySpeed = 60
+		StartFrame = 32
+		DieWithOwner = false
+		ClearCreateAnimations = true
+		CreateAnimation = "StaffProjectileFireFxRing_Ares"
+		Material = "Unlit"
+		Scale = 0.66
+		StartScale = 0.9
+		EndScale = 1.1
+		EaseIn = 0.999
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+		ColorFromOwner = "Ignore"
+		CreateAnimations =
+		[
+		 /*
+			{ Name = "AresParticleSparkleDirectional" }
+			{ Name = "AresParticleSparkleDirectional" }
+			{ Name = "AresParticleSparkleDirectional" }
+			{ Name = "AresParticleSparkleDirectional" }
+			{ Name = "AresParticleSparkleDirectional" }
+			*/
+		]
+	}
+
+	{
+		Name = "StaffProjectileFireFxRing_Ares"
+		InheritFrom = "StaffProjectileFireFxRing"
+		CreateAnimation = "StaffGlow1_Ares"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		Red = 1
+		Green = 0
+		Blue = 0
+		Saturation = -1
+	}
+
+	{
+		Name = "StaffGlow1_Ares"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Terrain_Add"
+		RandomRotation = false
+		ScaleY = 0.5
+		Scale = 3
+		StartAlpha = 0.5
+		EndAlpha = 0
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Material = "Unlit"
+		Duration = 0.5
+		EaseIn = 0.5
+		EaseOut = 1.0
+		OriginX = 32
+		OriginY = 128
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "StaffProjectileFireFxRingSlow_Ares"
+		InheritFrom = "StaffProjectileFireFxRing_Ares"
+		Sound = null
+		PlaySpeed = 45
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "StaffProjectileFireFxRingClose_Ares"
+		InheritFrom = "StaffProjectileFireFxRing_Ares"
+		Scale = 1.25
+		Alpha = 0.3
 		RadialOffsetMin = 30
 		RadialOffsetMax = 30
 	}
@@ -1481,7 +1722,8 @@
 		Scale = 0.6
 		EaseIn = 0.999
 		ColorFromOwner = "Ignore"
-		Sound = "/SFX/Player Sounds/PoseidonWaterArrowFire"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 		CreateAnimations = []
 	}
 
@@ -1508,7 +1750,7 @@
 		RandomRotation = false
 		ScaleY = 0.5
 		Scale = 3
-		StartAlpha = 0.5
+		StartAlpha = 0.25
 		EndAlpha = 0
 		StartRed = 0.1
 		StartGreen = 1.0
@@ -1542,6 +1784,7 @@
 	{
 		Name = "StaffProjectileFireFxRingClose_Poseidon"
 		InheritFrom = "StaffProjectileFireFxRing_Poseidon"
+		Alpha = 0.3
 		Red = 1
 		Green = 1
 		Blue = 1
@@ -1557,6 +1800,8 @@
 		FilePath = "Fx\Poseidon\PoseidonCircle\PoseidonCircle"
 		NumFrames = 30
 		StartFrame = 45
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 	}
 
 	{
@@ -1591,9 +1836,10 @@
 		Material = "Unlit"
 		Scale = 0.6
 		EaseIn = 0.999
-		Sound = "/SFX/Player Sounds/ZeusLightningSlash"
 		ColorFromOwner = "Ignore"
 		CreateAnimations = []
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 	}
 
 	{
@@ -1614,6 +1860,12 @@
 	}
 
 	{
+		Name = "StaffProjectileFireFxRing_Anubis"
+		InheritFrom = "StaffProjectileFireFxRing_Zeus"
+		CreateAnimation = "StaffGlow1_Anubis"
+	}
+
+	{
 		Name = "StaffGlow1_Zeus"
 		FilePath = "Particles\particle_glow"
 		GroupName = "FX_Terrain_Add"
@@ -1622,12 +1874,12 @@
 		Scale = 3
 		StartAlpha = 0.25
 		EndAlpha = 0
-				StartRed = 1.0
-				StartGreen = 0.95
-				StartBlue = 0.7
-				EndRed = 0.9999
-				EndGreen = 0.5
-				EndBlue = 0.3
+		StartRed = 1.0
+		StartGreen = 0.95
+		StartBlue = 0.7
+		EndRed = 0.9999
+		EndGreen = 0.5
+		EndBlue = 0.3
 		Material = "Unlit"
 		Duration = 0.5
 		EaseIn = 0.5
@@ -1636,6 +1888,17 @@
 		OriginY = 128
 		LocationFromOwner = "Take"
 		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "StaffGlow1_Anubis"
+		InheritFrom = "StaffGlow1_Zeus"
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.75
+		EndBlue = 0.2
 	}
 
 	{
@@ -1655,6 +1918,7 @@
 		Name = "StaffProjectileFireFxRingClose_Zeus"
 		InheritFrom = "StaffProjectileFireFxRing_Zeus"
 		Hue = 0
+		Alpha = 0.3
 		Saturation = 0
 		Material = "Unlit"
 		GroupName = "FX_Standing"
@@ -1673,6 +1937,8 @@
 		FilePath = "Fx\Zeus\ZeusCircle\ZeusCircle"
 		NumFrames = 36
 		StartFrame = 35
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false		
 	}
 
 
@@ -1703,10 +1969,11 @@
 		CreateAnimation = "StaffProjectileFireFxRing_Hephaestus"
 		GroupName = "FX_Standing_Add"
 		Material = "Unlit"
-		Scale = 0.6
+		Scale = 0.4
 		EaseIn = 0.999
 		ColorFromOwner = "Ignore"
-		Sound = "/SFX/Player Sounds/HephaestusSwipeWhoosh"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 		CreateAnimations = []
 	}
 
@@ -1769,6 +2036,7 @@
 		Name = "StaffProjectileFireFxRingClose_Hephaestus"
 		InheritFrom = "StaffProjectileFireFxRing_Hephaestus"
 		Hue = 0
+		Alpha = 0.3
 		Saturation = 0
 		Material = "Unlit"
 		GroupName = "FX_Standing"
@@ -1781,12 +2049,14 @@
 		EndRed = 0.999
 		EndGreen = 0.999
 		EndBlue = 0.999
-		Scale = 0.75
+		Scale = 0.5
 		RadialOffsetMin = 30
 		RadialOffsetMax = 30
 		FilePath = "Fx\Hephaestus\HephaestusCircle\HephaestusCircle"
 		NumFrames = 25
 		StartFrame = 31
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 	}
 
 
@@ -1871,8 +2141,18 @@
 		VisualFx = "StaffOrbSparkle"
 		VisualFxIntervalMin = 0.4
 		VisualFxIntervalMax = 0.8
-		ColorFromOwner = "Ignore"
 		UseAttachedAddColor = false
+	}
+
+	{
+		Name = "StaffOrbGlow_Anubis"
+		InheritFrom = "StaffOrbGlow"
+		StartRed = 1.0
+		StartGreen = 0.7
+		StartBlue = 0.5
+		EndRed = 0.999
+		EndGreen = 0.8
+		EndBlue = 0.7
 	}
 
 	{
@@ -1939,6 +2219,14 @@
 	}
 
 	{
+		Name = "StaffOrbGlowWithTrail_Anubis"
+		InheritFrom = "StaffOrbGlow_Anubis"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFx = "StaffOrbTrail_Anubis"
+	}
+
+	{
 		Name = "StaffOrbTrail"
 		Material = "Unlit"
 		GroupName = "FX_Standing_Add"
@@ -1966,6 +2254,17 @@
 		EaseIn = 0.9
 		EaseOut = 1.0
 		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "StaffOrbTrail_Anubis"
+		InheritFrom = "StaffOrbTrail"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.4
+		EndRed = 0.99
+		EndGreen = 0.3
+		EndBlue = 0.0
 	}
 
 	{
@@ -2051,6 +2350,7 @@
 		UseOwnAngle = false
 		ScaleMin = 0.1
 		ScaleMax = 0.75
+		LocationFromOwner = "Ignore"
 	}
 
 	{
@@ -2073,6 +2373,7 @@
 		UseOwnAngle = false
 		AngleFromOwner = "Ignore"
 		OffsetZ = 80
+		LocationFromOwner = "Ignore"
 	}
 
 	{
@@ -2180,6 +2481,23 @@
 		Hue = 0
 	}
 
+	{
+		Name = "StaffMagicGlow_Ares"
+		InheritFrom = "StaffMagicGlow"
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartRed = 1
+		StartGreen = 0.04
+		StartBlue = 0.01
+		EndRed = 0.99
+		EndGreen = 0
+		EndBlue = 0
+		Hue = 0
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
 
 	{
 		Name = "StaffBoltCharge"
@@ -2285,7 +2603,7 @@
 		VisualFx = "StaffProjectileTrailLine"
 		VisualFxDistanceMin = 100
 		VisualFxDistanceMax = 100
-		ScaleX = 1.2
+		ScaleX = 1.8
 		ScaleFromOwner = "Ignore"
 		ChildAnimation = "StaffBallProjectileGlow"
 		TransferFrameToThis = true
@@ -2297,13 +2615,60 @@
 		PingPongScale = true
 		Sound = "/SFX/Player Sounds/MelProjectileLoop"
 		StopSoundOnFinishFade = 0.2
+		ChainTo = "StaffBallProjectile_Out"
+	}
+
+	{
+		Name = "StaffProjectileShadow"
+		FilePath = "Fx\Staff\StaffProjectileSpike\StaffProjectileSpike"
+		NumFrames = 15
+		PlaySpeed = 30
+		GroupName = "Shadows"
+		Red = 0
+		Green = 0
+		Blue = 0
+		DieWithOwner = true
+		Alpha = 0.5
+		VisualFx = null
+		CreateAnimation = null
+		LocationZFromOwner = "Ignore"
+		ScaleX = 1.5
+	}
+
+	{
+		Name = "StaffBallProjectile_Out"
+		TransferFrameToThis = true
+		InheritFrom = "StaffBallProjectile"
+		ChildAnimation = null
+		Loop = false
+		LoopFramesOnly = true
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1
+		Duration = 0.2
+		ChainTo = null
+		CreateAnimation = null
+		VisualFx = null
+		ClearCreateAnimations = true
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		PingPongScale = false
+		OffsetY = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.0
+		EndGreen = 0.85
+		EndBlue = 0.7
+		Velocity = 900
+		Acceleration = -7200
 	}
 
 	{
 		Name = "StaffBallProjectile_Apollo"
 		InheritFrom = "StaffBallProjectile"
 		FilePath = "Fx\Apollo\ApolloStaffProjectileA\ApolloStaffProjectileA"
-		ChildAnimation = null
 		NumFrames = 30
 		Material = "Unlit"
 		ScaleX = 1
@@ -2312,8 +2677,71 @@
 		OriginX = 240
 		OriginY = 100
 		CreateAnimation = "ApolloGroundGlow"
-		Sound = "/SFX/Player Sounds/ApolloBoltLoop"
-		StopSoundOnFinishFade = 0.3
+		ChainTo = "StaffBallProjectile_Apollo_Out"
+		TransferFrameFromThis = true
+		ChildAnimation = "StaffBallProjectile_Apollo_Trail_Emitter"
+	}
+
+	{
+		Name = "StaffBallProjectile_Apollo_Trail_Emitter"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFxDistanceMin = 10
+		VisualFxDistanceMax = 10
+		VisualFx = "StaffBallProjectileApolloTrail"
+	}
+
+	{
+		Name = "StaffBallProjectileApolloTrail"
+		FilePath = "Fx\FadeTrailHard\FadeTrailHard"
+		PlaySpeed = 200
+		NumFrames = 28
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.5
+		EndBlue = 0.1
+		StartAlpha = 0.05
+		EndAlpha = 0.02
+		Velocity = 600
+		ScaleX = 2
+		Acceleration = -300
+		AngleFromOwner = "Take"
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "StaffBallProjectile_Apollo_Out"
+		TransferFrameToThis = true
+		InheritFrom = "StaffBallProjectile_Apollo"
+		ChildAnimation = null
+		Loop = false
+		LoopFramesOnly = true
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1
+		Duration = 0.2
+		ChainTo = null
+		CreateAnimation = null
+		VisualFx = null
+		ClearCreateAnimations = true
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		PingPongScale = false
+		OffsetY = -60
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0.85
+		EndBlue = 0.7
+		Velocity = 900
+		Acceleration = -7200
 	}
 
 	{
@@ -2321,7 +2749,7 @@
 		InheritFrom = "StaffBallProjectile"
 		FilePath = "Fx\Hestia\HestiaProjectile\HestiaProjectile"
 		ChildAnimation = null
-		NumFrames = 24
+		NumFrames = 50
 		Material = "Unlit"
 		ScaleX = 1
 		PlaySpeed = 45
@@ -2330,9 +2758,7 @@
 		OriginY = 100
 		RandomFlipVertical = true
 		ClearCreateAnimations = true
-		Sound = "/SFX/Player Sounds/HestiaSpecialLoop"
-		StopSoundOnFinishFade = 0.3
-		Scale = 0.75
+		Scale = 0.6
 	}
 
 	{
@@ -2350,13 +2776,44 @@
 		RandomFlipVertical = false
 		OffsetZ = -10
 		ChildAnimation = "StaffProjectileHeraFeatherEmitter"
-		Sound = "/SFX/Player Sounds/HeraProjectileLoop"
-		StopSoundOnFinishFade = 0.3
+		ChainTo = "StaffBallProjectile_Hera_Out"
+		TransferFrameFromThis = true
 		CreateAnimations =
 		[
 			{ Name = "HeraProjectileShine" }
 			{ Name = "HeraProjectileFeather" }
 		]
+	}
+
+
+	{
+		Name = "StaffBallProjectile_Hera_Out"
+		TransferFrameToThis = true
+		InheritFrom = "StaffBallProjectile_Hera"
+		ChildAnimation = null
+		Loop = false
+		LoopFramesOnly = true
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1
+		Duration = 0.2
+		ChainTo = null
+		CreateAnimation = null
+		VisualFx = null
+		ClearCreateAnimations = true
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		PingPongScale = false
+		OffsetY = -60
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0.85
+		EndBlue = 0.7
+		Velocity = 900
+		Acceleration = -7200
 	}
 
 	{
@@ -2441,8 +2898,6 @@
 		ClearCreateAnimations = true
 		OffsetZ = -10
 		// ChildAnimation = "StaffProjectileHeraFeatherEmitter"
-		Sound = "/SFX/Player Sounds/DemeterProjectileLoop"
-		StopSoundOnFinishFade = 0.3
 		CreateAnimations =
 		[
 			// { Name = "HeraProjectileShine" }
@@ -2471,28 +2926,90 @@
 	{
 		Name = "StaffBallProjectile_Aphrodite"
 		InheritFrom = "StaffBallProjectile"
+		LocationZFromOwner = "Take"
 		Red = 1
 		Green = 1
 		Blue = 1
 		Saturation = -0.15
 		Scale = 0.8
 		FilePath = "Fx\Aphrodite\AphroditeProjectileLoop\AphroditeProjectileLoop"
-		ChildAnimation = null
 		NumFrames = 15
 		Material = "Unlit"
 		PlaySpeed = 60
 		VisualFx = "StaffProjectileTrailLine_Aphrodite"
+		VisualFxDistanceMin = 175
+		VisualFxDistanceMax = 175
 		RandomFlipVertical = true
 		ClearCreateAnimations = true
 		OriginX = 120
 		OriginY = 90
-		Sound = "/SFX/Player Sounds/AphroditeProjectileLoop"
-		StopSoundOnFinishFade = 0.3
+		ScaleX = 1.6
+		ChainTo = "StaffBallProjectile_Aphrodite_Out"
+		ChildAnimation = "StaffBallProjectile_Aphrodite_Trail_Emitter"
 		CreateAnimations =
 		[
 			{ Name = "StaffBallProjectile_AphroditeGlow" }
 			{ Name = "StaffBallProjectile_AphroditeSparkle" }
 		]
+	}
+
+
+	{
+		Name = "StaffBallProjectile_Aphrodite_Trail_Emitter"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFxDistanceMin = 10
+		VisualFxDistanceMax = 10
+		VisualFx = "StaffBallProjectileAphroditeTrail"
+	}
+
+	{
+		Name = "StaffBallProjectileAphroditeTrail"
+		FilePath = "Fx\FadeTrailHard\FadeTrailHard"
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+		PlaySpeed = 400
+		NumFrames = 28
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		StartRed = 1.0
+		StartGreen = 0.3
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+		StartAlpha = 0.03
+		EndAlpha = 0.01
+		Velocity = 600
+		ScaleX = 2
+		Acceleration = -300
+		AngleFromOwner = "Take"
+		GroupName = "FX_Standing_Add"
+	}
+
+
+	{
+		Name = "StaffBallProjectile_Aphrodite_Out"
+		TransferFrameToThis = true
+		InheritFrom = "StaffBallProjectile_Aphrodite"
+		ChildAnimation = null
+		Loop = false
+		LoopFramesOnly = true
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1
+		Duration = 0.2
+		ChainTo = null
+		CreateAnimation = null
+		VisualFx = null
+		ClearCreateAnimations = true
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		PingPongScale = false
+		Velocity = 900
+		Acceleration = -7200
 	}
 
 	{
@@ -2562,8 +3079,6 @@
 		PlaySpeed = 60
 		VisualFx = "StaffProjectileTrailLine_Poseidon"
 		ClearCreateAnimations = true
-		Sound = "/SFX/Player Sounds/PoseidonWaterProjectileLoop"
-		StopSoundOnFinishFade = 0.3
 		CreateAnimations =
 		[
 			{ Name = "StaffBallProjectile_PoseidonGlow" }
@@ -2620,12 +3135,36 @@
 		PlaySpeed = 60
 		VisualFx = "StaffProjectileTrailLine_Zeus"
 		ClearCreateAnimations = true
-		Sound = "/SFX/Player Sounds/ZeusLightningProjectileLoop"
+		CreateAnimations =
+		[
+			{ Name = "StaffBallProjectile_ZeusGlow" }
+		]
+	}	
+
+	{
+		Name = "StaffBallProjectile_Anubis"
+		InheritFrom = "StaffBallProjectile"
+		ChainTo = "StaffBallProjectile_Anubis_Out"
+		ChildAnimation = "StaffBallProjectileGlow_Apollo"
+		VisualFx = "StaffProjectileTrailLine_Anubis"
+		ClearCreateAnimations = true
 		StopSoundOnFinishFade = 0.3
 		CreateAnimations =
 		[
 			{ Name = "StaffBallProjectile_ZeusGlow" }
 		]
+	}
+
+	{
+		Name = "StaffBallProjectile_Anubis_Out"
+		InheritFrom = "StaffBallProjectile_Out"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.999
+		EndGreen = 0.6
+		EndBlue = 0.3
+
 	}
 
 	{
@@ -2678,8 +3217,6 @@
 		PlaySpeed = 60
 		VisualFx = "StaffProjectileTrailLine_Hephaestus"
 		ClearCreateAnimations = true
-		Sound = "/SFX/Player Sounds/HephaestusLoop"
-		StopSoundOnFinishFade = 0.3
 		CreateAnimations =
 		[
 			{ Name = "StaffBallProjectile_HephaestusGlow" }
@@ -2704,9 +3241,9 @@
 	{
 		Name = "StaffBallProjectile_HephaestusGlow"
 		FilePath = "Particles\particle_glow_egg_horizontal"
-				Red = 0.5
-				Green = 0.8
-				Blue = 1.0
+		Red = 0.5
+		Green = 0.8
+		Blue = 1.0
 		Material = "Unlit"
 		Duration = 0.5
 		Loop = true
@@ -2723,18 +3260,88 @@
 	}
 
 	{
+		Name = "StaffBallProjectile_Ares"
+		InheritFrom = "StaffBallProjectile"
+		ChildAnimation = "StaffBallProjectileGlow_Ares"
+		Red = 1
+		Green = 1
+		Blue = 1
+		Scale = 0.85
+		FilePath = "Fx\Ares\AresStaffProjectile\AresStaffProjectile"
+		NumFrames = 80
+		Material = "Unlit"
+		PlaySpeed = 60
+		VisualFx = "StaffProjectileTrailLine_Ares"
+		ClearCreateAnimations = true
+		ChainTo = "StaffBallProjectile_Ares_Out"
+		CreateAnimations =
+		[
+			{ Name = "StaffBallProjectile_AresGlow" }
+		]
+	}
+
+	{
+		Name = "StaffBallProjectile_Ares_Out"
+		InheritFrom = "StaffBallProjectile_Out"
+		FilePath = "Fx\Ares\AresStaffProjectile\AresStaffProjectile"
+		NumFrames = 80
+		PlaySpeed = 60
+		EndRed = 0.5
+		EndGreen = 0.5
+		EndBlue = 0.5
+	}
+
+	{
+		Name = "AresStaffProjectileShadow"
+		InheritFrom = "StaffBallProjectile_Ares"
+		GroupName = "Shadows"
+		Red = 0
+		Green = 0
+		Blue = 0
+		PostRotateScaleY = 0.5
+		LocationZFromOwner = "Ignore"
+		VisualFx = null
+		ClearCreateAnimations = true
+		DieWithOwner = true
+		Alpha = 0.5
+	}
+
+	{
+		Name = "StaffBallProjectile_AresGlow"
+		FilePath = "Particles\particle_glow_egg_horizontal"
+		Red = 1.0
+		Green = 0.0
+		Blue = 0.0
+		Material = "Unlit"
+		Duration = 0.5
+		Loop = true
+		DieWithOwner = true
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		StartAlpha = 0.05
+		EndAlpha = 0.15
+		Scale = 2
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		FlipHorizontal = true
+	}
+
+	{
 		Name = "StaffBallProjectileIn"
 		InheritFrom = "StaffBallProjectile"
 		ChainTo = "StaffBallProjectile"
 		PingPongScale = false
 		Loop = false
-		DurationFrames = 10
+		DurationFrames = 2
 		StartScale = 0
 		EndScale = 1
 		EaseIn = 0
 		EaseOut = 1
 		ChildAnimation = null
 		TransferFrameFromThis = true
+		Sound = "null"
 	}
 
 	{
@@ -2743,7 +3350,7 @@
 		ChainTo = "StaffBallProjectile_Apollo"
 		Loop = false
 		PingPongScale = false
-		DurationFrames = 10
+		DurationFrames = 2
 		StartScale = 0
 		EndScale = 1
 		EaseIn = 0
@@ -2752,6 +3359,7 @@
 		TransferFrameFromThis = true
 		CreateAnimation = null
 		VisualFx = null
+		Sound = "/SFX/Player Sounds/ApolloSwipeSFX"
 	}
 
 	{
@@ -2760,7 +3368,7 @@
 		ChainTo = "StaffBallProjectile_Hestia"
 		Loop = false
 		PingPongScale = false
-		DurationFrames = 10
+		DurationFrames = 2
 		StartScale = 0
 		EndScale = 1
 		EaseIn = 0
@@ -2770,7 +3378,7 @@
 		CreateAnimation = null
 		VisualFx = null
 		OverlayVfx = true
-		Sound = "/SFX/Player Sounds/HestiaSpecialLaunch"
+		Sound = "/SFX/Player Sounds/HestiaSwipeDaggerFlurry"
 	}
 
 	{
@@ -2779,7 +3387,7 @@
 		ChainTo = "StaffBallProjectile_Hera"
 		Loop = false
 		PingPongScale = false
-		DurationFrames = 10
+		DurationFrames = 2
 		StartScale = 0
 		EndScale = 1
 		EaseIn = 0
@@ -2789,7 +3397,7 @@
 		CreateAnimation = null
 		VisualFx = null
 		OverlayVfx = true
-		Sound = "/SFX/Player Sounds/HeraSwipeSFXCombo"
+		Sound = "/SFX/Player Sounds/HeraSwipeSFXComboDagger"
 	}		
 
 	{
@@ -2798,7 +3406,7 @@
 		ChainTo = "StaffBallProjectile_Demeter"
 		Loop = false
 		PingPongScale = false
-		DurationFrames = 10
+		DurationFrames = 2
 		StartScale = 0
 		EndScale = 1
 		EaseIn = 0
@@ -2808,6 +3416,7 @@
 		CreateAnimation = null
 		VisualFx = null
 		OverlayVfx = true
+		Sound = "/SFX/Player Sounds/DemeterColdDaggerSwipe"
 	}		
 
 	{
@@ -2817,7 +3426,7 @@
 		ChainTo = "StaffBallProjectile_Aphrodite"
 		Loop = false
 		PingPongScale = false
-		DurationFrames = 10
+		DurationFrames = 2
 		StartScale = 0
 		EndScale = 1
 		EaseIn = 0
@@ -2827,7 +3436,7 @@
 		CreateAnimation = null
 		VisualFx = null
 		OverlayVfx = true
-		Sound = null
+		Sound = "/SFX/Player Sounds/AphroditeLoveSwipeFast"
 	}	
 
 	{
@@ -2837,7 +3446,7 @@
 		ChainTo = "StaffBallProjectile_Poseidon"
 		Loop = false
 		PingPongScale = false
-		DurationFrames = 10
+		DurationFrames = 2
 		StartScale = 0
 		EndScale = 1
 		EaseIn = 0
@@ -2847,6 +3456,7 @@
 		CreateAnimation = null
 		VisualFx = null
 		OverlayVfx = true
+		Sound = "/SFX/Player Sounds/PoseidonWaterArrowFireLong"
 	}
 
 	{
@@ -2856,7 +3466,7 @@
 		ChainTo = "StaffBallProjectile_Zeus"
 		Loop = false
 		PingPongScale = false
-		DurationFrames = 10
+		DurationFrames = 2
 		StartScale = 0
 		EndScale = 1
 		EaseIn = 0
@@ -2866,6 +3476,7 @@
 		CreateAnimation = null
 		VisualFx = null
 		OverlayVfx = true
+		Sound = "/SFX/Player Sounds/ZeusLightningSlash"
 	}	
 
 	{
@@ -2875,7 +3486,7 @@
 		ChainTo = "StaffBallProjectile_Hephaestus"
 		Loop = false
 		PingPongScale = false
-		DurationFrames = 10
+		DurationFrames = 2
 		StartScale = 0
 		EndScale = 1
 		EaseIn = 0
@@ -2885,7 +3496,46 @@
 		CreateAnimation = null
 		VisualFx = null
 		OverlayVfx = true
+		Sound = "/SFX/Player Sounds/HephaestusSwipeMedium"
 	}
+
+	{
+		Name = "StaffBallProjectileIn_Ares"
+		InheritFrom = "StaffBallProjectile_Ares"
+		ChainTo = "StaffBallProjectile_Ares"
+		Loop = false
+		PingPongScale = false
+		DurationFrames = 2
+		StartScale = 0
+		EndScale = 1
+		EaseIn = 0
+		EaseOut = 1
+		ChildAnimation = null
+		TransferFrameFromThis = true
+		CreateAnimation = null
+		VisualFx = null
+		OverlayVfx = true
+		Sound = "/SFX/Player Sounds/AresProjectileFire"
+	}		
+
+	{
+		Name = "StaffBallProjectileIn_Anubis"
+		InheritFrom = "StaffBallProjectile_Anubis"
+		ChainTo = "StaffBallProjectile_Anubis"
+		Loop = false
+		PingPongScale = false
+		DurationFrames = 2
+		StartScale = 0
+		EndScale = 1
+		EaseIn = 0
+		EaseOut = 1
+		ChildAnimation = null
+		TransferFrameFromThis = true
+		CreateAnimation = null
+		VisualFx = null
+		OverlayVfx = true
+		Sound = "null"
+	}		
 
 	{
 		Name = "StaffBallProjectileCharged"
@@ -2914,6 +3564,74 @@
 	}
 
 	{
+		Name = "StaffBallProjectileCharged_Anubis"
+		Red = 0.9
+		Green = 0.7
+		Blue = 0.4
+		Hue = -0.45
+		InheritFrom = "StaffBallProjectileCharged"
+		VisualFx = "StaffChargedAttackFxBall_Anubis"
+		CreateAnimations = [
+			{ Name = "StaffBallProjectileChargedAnubisGlowA" }
+			{ Name = "StaffBallProjectileChargedAnubisGlowB" }
+			{ Name = "StaffBallProjectileChargedAnubisGlowC" }
+		]
+	}
+
+	{
+		Name = "StaffBallProjectileChargedAnubisGlowA"
+		FilePath = "Particles\particle_eagleProjectile"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.8
+		EndBlue = 0.6
+		StartAlpha = 0.5
+		EndAlpha = 0.8
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 1
+		Scale = 1.1
+		OffsetZ = 10
+		Loop = true
+		DieWithOwner = true
+		LocationZFromOwner = "Maintain"
+		LocationFromOwner = "Maintain"
+	}
+
+	{
+		Name = "StaffBallProjectileChargedAnubisGlowB"
+		InheritFrom = "StaffBallProjectileChargedAnubisGlowA"
+		FilePath = "Particles\particle_glintFlare"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.6
+		EndRed = 0.99
+		EndGreen = 0.5
+		EndBlue = 0.3
+		StartAlpha = 1.0
+		EndAlpha = 0.99
+		RotationSpeed = 90
+		Scale = 0.3
+		StartScale = 1
+		EndScale = 0.5
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "StaffBallProjectileChargedAnubisGlowC"
+		InheritFrom = "StaffBallProjectileChargedAnubisGlowB"
+		RotationSpeed = -90
+	}
+
+	{
 		Name = "StaffBallProjectileCharged_Apollo"
 		InheritFrom = "StaffBallProjectileCharged"
 		FilePath = "Fx\Apollo\ApolloStaffProjectileB\ApolloStaffProjectileB"
@@ -2922,7 +3640,7 @@
 		Material = "Unlit"
 		Scale = 1.5
 		ChainTo = null
-		VisualFx = "StaffChargedAttackFxBall_Apollo"
+		VisualFx = null
 		LocationZFromOwner = "Take"
 		OffsetZ = 0
 		OffsetY = 0
@@ -2939,12 +3657,12 @@
 		InheritFrom = "StaffBallProjectile_Hestia"
 		ChildAnimation = "HestiaChargedCircleEmitter"
 		PlaySpeed = 30
-		VisualFx = "StaffProjectileTrailLine_Hestia"
+		VisualFx = "StaffProjectileTrailLineFade_Hestia"
 		OriginX = 240
 		OriginY = 100
 		RandomFlipVertical = true
 		ClearCreateAnimations = true
-		Scale = 1.1
+		Scale = 0.6
 	}
 
 	{
@@ -3196,7 +3914,7 @@
 	{
 		Name = "HestiaChargedCircleEmitter"
 		FilePath = "Dev\blank_invisible"
-		VisualFx = "StaffChargedAttackFxBall_Hestia"
+		VisualFx = null
 		VisualFxDistanceMin = 120
 		VisualFxDistanceMax = 120
 	}
@@ -3204,7 +3922,7 @@
 	{
 		Name = "HeraChargedCircleEmitter"
 		FilePath = "Dev\blank_invisible"
-		VisualFx = "StaffChargedAttackFxBall_Hera"
+		VisualFx = null
 		VisualFxDistanceMin = 120
 		VisualFxDistanceMax = 120
 	}		
@@ -3212,7 +3930,7 @@
 	{
 		Name = "DemeterChargedCircleEmitter"
 		FilePath = "Dev\blank_invisible"
-		VisualFx = "StaffChargedAttackFxBall_Demeter"
+		VisualFx = null
 		VisualFxDistanceMin = 120
 		VisualFxDistanceMax = 120
 	}
@@ -3232,6 +3950,7 @@
 	{
 		Name = "StaffBallProjectileChargedFade"
 		InheritFrom = "StaffBallProjectileCharged"
+		LocationZFromOwner = "Take"
 		CreateAnimation = null
 		ChildAnimation = null
 		Loop = false
@@ -3246,7 +3965,8 @@
 		PingPongScale = false
 		EaseIn = 0.9
 		EaseOut = 1.0
-		OffsetZ = 120
+		OffsetZ = 60
+		OffsetY = 0
 	}
 
 	{
@@ -3273,6 +3993,7 @@
 		Scale = 1.3
 		Velocity = 0
 		Sound = "null"
+		ChainTo = null
 	}
 
 	{
@@ -3281,7 +4002,7 @@
 		GroupName = "FX_Terrain_Add"
 		RandomRotation = false
 		ScaleY = 0.5
-		Scale = 3
+		Scale = 2
 		StartAlpha = 0.5
 		EndAlpha = 0
 		StartRed = 0.2
@@ -3303,12 +4024,12 @@
 	{
 		Name = "StaffGlow1_Demeter"
 		InheritFrom = "StaffGlow1"
-		StartRed = 0.3
-		StartGreen = 0.7
-		StartBlue = 1
-		EndRed = 0.5
-		EndGreen = 0.3
-		EndBlue = 0.9999
+		StartRed = 0.15
+		StartGreen = 0.35
+		StartBlue = 0.5
+		EndRed = 0.25
+		EndGreen = 0.15
+		EndBlue = 0.499
 	}
 
 	{
@@ -3325,6 +4046,7 @@
 		OriginX = 90
 		OriginY = 60
 		AngleFromOwner = "Maintain"
+		Sound = "/SFX/Player Sounds/ApolloSwipeSFX"
 		CreateAnimations =
 		[
 			{ Name = "StaffComboAttack1CircleA_Apollo" }
@@ -3346,6 +4068,7 @@
 		OriginX = 90
 		OriginY = 60
 		AngleFromOwner = "Maintain"
+		Sound = "/SFX/Player Sounds/HestiaSwipeSFX"
 		CreateAnimations =
 		[
 			{ Name = "StaffComboAttack1CircleA_Hestia" }
@@ -3377,6 +4100,7 @@
 		EndGreen = 0
 		EndBlue = 0
 		ColorFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/HeraSwipeSFXCombo"
 		CreateAnimations =
 		[
 			{ Name = "StaffComboAttack1CircleA_Hera" }
@@ -3411,6 +4135,7 @@
 		Saturation = 0.1
 		OverlayVfx = true
 		RandomFlipVertical = true
+		Sound = "/SFX/Player Sounds/DemeterColdSwipe1"
 		CreateAnimations =
 		[
 			{ Name = "StaffComboAttack1CircleA_Demeter" }
@@ -3444,6 +4169,7 @@
 		RandomFlipVertical = true
 		StartScaleY = 1
 		EndScaleY = 1.25
+		Sound = null
 	}
 
 	{
@@ -3459,6 +4185,7 @@
 		OriginX = 90
 		OriginY = 60
 		AngleFromOwner = "Maintain"
+		Sound = "/SFX/Player Sounds/AphroditeLoveSwipe"
 		CreateAnimations =
 		[
 			{ Name = "StaffComboAttack1CircleA_Aphrodite" }
@@ -3519,6 +4246,7 @@
 		Green = 0
 		Blue = 0
 		Velocity = 0
+		Scale = 0.6
 	}
 	{
 		Name = "AphroditeDirectionalTrailStaffB_Dark"
@@ -3546,6 +4274,7 @@
 		StartAlpha = 1
 		EndAlpha = 0.99
 		StartScaleY = 0.9
+		Scale = 0.6
 	}		
 	{
 		Name = "AphroditeDirectionalTrailStaffDashB"
@@ -3566,6 +4295,7 @@
 		OriginX = 90
 		OriginY = 60
 		AngleFromOwner = "Maintain"
+		Sound = "/SFX/Player Sounds/PoseidonWaterArrowFire"
 		CreateAnimations =
 		[
 			{ Name = "StaffComboAttack1CircleA_Poseidon" }
@@ -3667,6 +4397,7 @@
 		StartAlpha = 1
 		EndAlpha = 0.99
 		StartScaleY = 0.9
+		ScaleFromOwner = "Ignore"
 	}
 	{
 		Name = "PoseidonDirectionalTrailStaffDashB"
@@ -3692,6 +4423,7 @@
 		OriginX = 90
 		OriginY = 60
 		AngleFromOwner = "Maintain"
+		Sound = "/SFX/Player Sounds/ZeusLightningSlash"
 		CreateAnimations =
 		[
 			{ Name = "StaffComboAttack1CircleA_Zeus" }
@@ -3818,6 +4550,7 @@
 		OriginX = 90
 		OriginY = 60
 		AngleFromOwner = "Maintain"
+		Sound = "/SFX/Player Sounds/HephaestusSwipeWhoosh"
 		CreateAnimations =
 		[
 			{ Name = "StaffComboAttack1CircleA_Hephaestus" }
@@ -3913,6 +4646,128 @@
 	}
 
 
+
+	{
+		Name = "StaffComboAttack1_Ares"
+		InheritFrom = "StaffComboAttack1"
+		VisualFx = "StaffProjectileTrailLineAttack1_Ares"
+		NumFrames = 12
+		PlaySpeed = 30
+		VisualFxIntervalMin = 0.03
+		VisualFxIntervalMax = 0.031
+		VisualFxCap = 2
+		ChildAnimation = "StaffBallProjectileGlow_Ares"
+		OriginX = 90
+		OriginY = 60
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 1
+		EndGreen = 0
+		EndBlue = 0
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Maintain"
+		Sound = "/SFX/Player Sounds/AresBladeSwipe"
+		CreateAnimations =
+		[
+			{ Name = "StaffComboAttack1CircleA_Ares" }
+			{ Name = "StaffComboAttack1CircleB_Ares" }
+			{ Name = "StaffComboAttack1CircleD_Ares" }
+			{ Name = "AresDirectionalTrailStaff" }
+		]
+	}
+
+	{
+		Name = "AresDirectionalTrailStaff"
+		Random =
+		[
+			{ Name = "AresDirectionalTrailStaffA" }
+			{ Name = "AresDirectionalTrailStaffB" }
+		]
+	}
+
+	{
+		Name = "AresDirectionalTrailStaffA"
+		FilePath = "Fx\Ares\AresDirectionalTrailA\AresDirectionalTrailA"
+		NumFrames = 36
+		Material = "Unlit"
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RadialOffsetMin = 125
+		RadialOffsetMax = 125
+		FlipHorizontal = true
+		PlaySpeed = 90
+		StartScaleY = 0.05
+		EndScaleY = 0.5
+		ScaleX = 2
+		EaseIn = 0.99
+		EaseOut= 1.0
+		OverlayVfx = true
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		UseBoundsForSortDrawArea = true
+		GroupName = "FX_Standing_Add"
+		Velocity = 900
+		Acceleration = -900
+		CreateAnimation = "AresDirectionalTrailStaffA_Dark"
+	}
+
+	{
+		Name = "AresDirectionalTrailStaffB"
+		InheritFrom = "AresDirectionalTrailStaffA"
+		FilePath = "Fx\Ares\AresDirectionalTrailB\AresDirectionalTrailB"
+		CreateAnimation = "AresDirectionalTrailStaffB_Dark"
+	}
+
+	{
+		Name = "AresDirectionalTrailStaffA_Dark"
+		InheritFrom = "AresDirectionalTrailStaffA"
+		GroupName = "FX_Dark"
+		CreateAnimation = null
+		Red = 0
+		Green = 0
+		Blue = 0
+		Velocity = 0
+	}
+	{
+		Name = "AresDirectionalTrailStaffB_Dark"
+		InheritFrom = "AresDirectionalTrailStaffA_Dark"
+		FilePath = "Fx\Ares\AresDirectionalTrailB\AresDirectionalTrailB"
+	}
+
+	{
+		Name = "AresDirectionalTrailStaffDash"
+		Random =
+		[
+			{ Name = "AresDirectionalTrailStaffDashA" }
+			{ Name = "AresDirectionalTrailStaffDashB" }
+		]
+	}
+	{
+		Name = "AresDirectionalTrailStaffDashA"
+		InheritFrom = "AresDirectionalTrailStaffA"
+		FilePath = "Fx\Ares\AresDirectionalTrailA\AresDirectionalTrailA"
+		GroupName = "FX_Dark"
+		VisualFx = null
+		ClearCreateAnimations = true
+		PlaySpeed = 120
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		Velocity = 1
+		StartAlpha = 1
+		EndAlpha = 0.99
+		StartScaleY = 0.9
+		ScaleX = 1
+		CreateAnimation = null
+	}		
+	{
+		Name = "AresDirectionalTrailStaffDashB"
+		InheritFrom = "AresDirectionalTrailStaffDashA"
+		FilePath = "Fx\Ares\AresDirectionalTrailB\AresDirectionalTrailB"
+	}
+
+
 	{
 		Name = "StaffComboAttack1Dash"
 		InheritFrom = "StaffComboAttack1"
@@ -3927,36 +4782,42 @@
 		Name = "StaffComboAttack1Dash_Apollo"
 		InheritFrom = "StaffComboAttack1Dash"
 		VisualFx = "StaffProjectileTrailLineAttack1_Apollo"
+		Sound = "/SFX/Player Sounds/ApolloSwipeSFX"
 	}
 
 	{
 		Name = "StaffComboAttack1Dash_Hestia"
 		InheritFrom = "StaffComboAttack1Dash"
 		VisualFx = "StaffProjectileTrailLineAttack1_Hestia"
+		Sound = "/SFX/Player Sounds/HestiaSwipeSFX"
 	}		
 
 	{
 		Name = "StaffComboAttack1Dash_Aphrodite"
 		InheritFrom = "StaffComboAttack1Dash"
 		VisualFx = "StaffProjectileTrailLineAttack1Dash_Aphrodite"
+		Sound = "/SFX/Player Sounds/AphroditeLoveSwipe"
 	}	
 
 	{
 		Name = "StaffComboAttack1Dash_Poseidon"
 		InheritFrom = "StaffComboAttack1Dash"
 		VisualFx = "StaffProjectileTrailLineAttack1Dash_Poseidon"
+		Sound = "/SFX/Player Sounds/PoseidonWaterArrowFire"
 	}	
 
 	{
 		Name = "StaffComboAttack1Dash_Zeus"
 		InheritFrom = "StaffComboAttack1Dash"
 		VisualFx = "StaffProjectileTrailLineAttack1Dash_Zeus"
+		Sound = "/SFX/Player Sounds/ZeusLightningSlash"
 	}	
 
 	{
 		Name = "StaffComboAttack1Dash_Hephaestus"
 		InheritFrom = "StaffComboAttack1Dash"
 		VisualFx = "StaffProjectileTrailLineAttack1Dash_Hephaestus"
+		Sound = "/SFX/Player Sounds/HephaestusSwipeWhoosh"
 	}
 
 	{
@@ -3965,6 +4826,16 @@
 		VisualFxIntervalMin = 0.02
 		VisualFxIntervalMax = 0.02
 		VisualFx = "StaffProjectileTrailLineAttack1_Hera"
+		Sound = "/SFX/Player Sounds/HeraSwipeSFXCombo"
+	}
+
+	{
+		Name = "StaffComboAttack1Dash_Ares"
+		InheritFrom = "StaffComboAttack1Dash"
+		VisualFxIntervalMin = 0.02
+		VisualFxIntervalMax = 0.02
+		VisualFx = "StaffProjectileTrailLineAttack1Dash_Ares"
+		Sound = "/SFX/Player Sounds/AresBladeSwipe"
 	}
 
 	{
@@ -4267,12 +5138,12 @@
 		InheritFrom = "StaffComboAttack1CircleA"
 		Hue = 0.5
 		Saturation = 0.25
-				StartRed = 1.0
-				StartGreen = 0.95
-				StartBlue = 0.3
-				EndRed = 0.9999
-				EndGreen = 0.5
-				EndBlue = 0
+		StartRed = 1.0
+		StartGreen = 0.95
+		StartBlue = 0.3
+		EndRed = 0.9999
+		EndGreen = 0.5
+		EndBlue = 0
 	}
 
 	{
@@ -4280,12 +5151,12 @@
 		InheritFrom = "StaffComboAttack1CircleB"
 		Hue = 0.5
 		Saturation = 0.25
-				StartRed = 1.0
-				StartGreen = 0.95
-				StartBlue = 0.3
-				EndRed = 0.9999
-				EndGreen = 0.5
-				EndBlue = 0
+		StartRed = 1.0
+		StartGreen = 0.95
+		StartBlue = 0.3
+		EndRed = 0.9999
+		EndGreen = 0.5
+		EndBlue = 0
 	}
 
 	{
@@ -4293,12 +5164,12 @@
 		InheritFrom = "StaffComboAttack1CircleD"
 		Hue = 0.5
 		Saturation = 0.25
-				StartRed = 1.0
-				StartGreen = 0.95
-				StartBlue = 0.3
-				EndRed = 0.9999
-				EndGreen = 0.5
-				EndBlue = 0
+		StartRed = 1.0
+		StartGreen = 0.95
+		StartBlue = 0.3
+		EndRed = 0.9999
+		EndGreen = 0.5
+		EndBlue = 0
 	}
 
 	{
@@ -4339,6 +5210,43 @@
 		EndBlue = 0
 		Value = 0.5
 	}
+
+	{
+		Name = "StaffComboAttack1CircleA_Ares"
+		InheritFrom = "StaffComboAttack1CircleA"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Hue = 0.0
+	}
+
+	{
+		Name = "StaffComboAttack1CircleB_Ares"
+		InheritFrom = "StaffComboAttack1CircleB"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Hue = 0.0
+	}
+
+	{
+		Name = "StaffComboAttack1CircleD_Ares"
+		InheritFrom = "StaffComboAttack1CircleD"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Hue = 0.0
+	}
+
 
 	{
 		Name = "StaffComboAttack1Dissipate"
@@ -4383,6 +5291,7 @@
 		CreateAnimation = null
 		ChildAnimation = null
 		VisualFx = null
+		Sound = null
 	}
 
 	{
@@ -4411,6 +5320,7 @@
 		CreateAnimation = null
 		ChildAnimation = null
 		VisualFx = null
+		Sound = null
 	}	
 
 	{
@@ -4426,6 +5336,7 @@
 		CreateAnimation = null
 		ChildAnimation = null
 		VisualFx = null
+		Sound = null
 	}	
 
 	{
@@ -4441,6 +5352,7 @@
 		CreateAnimation = null
 		ChildAnimation = null
 		VisualFx = null
+		Sound = null
 	}	
 
 	{
@@ -4456,6 +5368,23 @@
 		CreateAnimation = null
 		ChildAnimation = null
 		VisualFx = null
+		Sound = null
+	}
+
+	{
+		Name = "StaffComboAttack1Dissipate_Ares"
+		InheritFrom = "StaffComboAttack1_Ares"
+		PingPongScale = false
+		ChainTo = null
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.125
+		Loop = false
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ChildAnimation = null
+		VisualFx = null
+		Sound = null
 	}
 
 	{
@@ -4588,6 +5517,7 @@
 		Scale = 2
 		Alpha = 0.2
 		VisualFx = "StaffCombo2Stars_Apollo"
+		Sound = "/SFX/Player Sounds/ApolloSwipeSFX"
 	}
 
 	{
@@ -4709,6 +5639,7 @@
 		Scale = 2
 		Alpha = 0.2
 		VisualFx = "StaffCombo2Stars_Hestia"
+		Sound = "/SFX/Player Sounds/HestiaSwipeSFX"
 	}
 
 	{
@@ -4741,6 +5672,7 @@
 		Scale = 2
 		Alpha = 0.2
 		VisualFx = "StaffCombo2Stars_Hera"
+		Sound = "/SFX/Player Sounds/HeraSwipeSFXCombo"
 	}
 
 	{
@@ -4773,6 +5705,7 @@
 		Scale = 2
 		Alpha = 0.2
 		VisualFx = "StaffCombo2Stars_Demeter"
+		Sound = "/SFX/Player Sounds/DemeterColdSwipe1"
 	}
 
 	{
@@ -4802,6 +5735,7 @@
 		Scale = 2
 		Alpha = 0.2
 		VisualFx = "StaffCombo2Stars_Aphrodite"
+		Sound = "/SFX/Player Sounds/AphroditeLoveSwipe"
 	}
 
 	{
@@ -4878,6 +5812,7 @@
 		Scale = 2
 		Alpha = 0.2
 		VisualFx = "StaffCombo2Stars_Poseidon"
+		Sound = "/SFX/Player Sounds/PoseidonWaterArrowFire"
 	}
 
 	{
@@ -4993,6 +5928,7 @@
 		Scale = 2
 		Alpha = 0.2
 		VisualFx = "StaffCombo2Stars_Zeus"
+		Sound = "/SFX/Player Sounds/ZeusLightningSlash"
 	}
 
 	{
@@ -5048,12 +5984,12 @@
 		Red = 1
 		Green = 1
 		Blue = 1
-				StartRed = 1.0
-				StartGreen = 0.95
-				StartBlue = 0.7
-				EndRed = 0.9999
-				EndGreen = 0.5
-				EndBlue = 0.3
+		StartRed = 1.0
+		StartGreen = 0.95
+		StartBlue = 0.7
+		EndRed = 0.9999
+		EndGreen = 0.5
+		EndBlue = 0.3
 	}	
 
 
@@ -5061,12 +5997,13 @@
 		Name = "StaffComboAttack2_Hephaestus"
 		InheritFrom = "StaffComboAttack2"
 		FilePath = "Particles\particle_glow"
-				Red = 0.51
-				Green = 0.82
-				Blue = 1.0
+		Red = 0.51
+		Green = 0.82
+		Blue = 1.0
 		Scale = 2
 		Alpha = 0.2
 		VisualFx = "StaffCombo2Stars_Hephaestus"
+		Sound = "/SFX/Player Sounds/HephaestusSwipeWhoosh"
 	}
 
 	{
@@ -5175,6 +6112,89 @@
 		EndGreen = 0
 		EndBlue = 0
 	}
+
+
+
+	{
+		Name = "StaffComboAttack2_Ares"
+		InheritFrom = "StaffComboAttack2"
+		FilePath = "Particles\particle_glow"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Red = 1
+		Green = 1
+		Blue = 1
+		Scale = 2
+		Alpha = 0.2
+		VisualFx = "StaffCombo2Stars_Ares"
+		Sound = "/SFX/Player Sounds/AresBladeSwipe"
+	}
+
+	{
+		Name = "StaffCombo2Stars_Ares"
+		InheritFrom = "StaffCombo2Stars"
+		VisualFx = "StaffCombo2StarParticles_Ares"
+		VisualFxCap = 1
+		CreateAnimation = null
+		Hue = 0.55
+		Saturation = 1
+		ScaleMin = 0.1
+		ScaleMax = 1.0
+	}
+
+	{
+		Name = "StaffCombo2StarParticles_Ares"
+		FilePath = "Fx\Ares\AresProjectileDirectional\AresProjectileDirectional"
+		NumFrames = 30
+		GroupName = "Standing"
+		Material = "Unlit"
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		RandomOffsetX = 10
+		RandomOffsetY = 5
+		VelocityMin = 200
+		VelocityMax = 400
+		Acceleration = -400
+		RadialOffsetMin = 100
+		RadialOffsetMax = 300
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		RandomFlipHorizontal = false
+		UseOwnAngle = true
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 0.4
+		ScaleMax = 0.7
+		ScaleX = 0.76
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "StaffComboAttack2Dissipate_Ares"
+		InheritFrom = "StaffComboAttack2Dissipate"
+		FilePath = "Particles\particle_glow"
+		Alpha = 0.05
+		Scale = 2
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
 
 	{
 		Name = "StaffCombo2Stars_Hera"
@@ -5635,6 +6655,8 @@
 		LocationFromOwner = "Maintain"
 		OriginX = 0
 		OriginY = 160
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 	}
 
 	{
@@ -5988,12 +7010,12 @@
 		StartScale = 1.0
 		EndScale = 1.1
 		Saturation = -1
-		StartRed = 0.7
-		StartGreen = 0.8
-		StartBlue = 1.0
-		EndRed = 0.5
-		EndGreen = 0.3
-		EndBlue = 0.999
+		StartRed = 0.35
+		StartGreen = 0.4
+		StartBlue = 0.5
+		EndRed = 0.25
+		EndGreen = 0.15
+		EndBlue = 0.4999
 		StartAlpha = 1
 		EndAlpha = 0
 	}
@@ -6003,13 +7025,13 @@
 		FilePath = "Particles\particle_glow"
 		GroupName = "FX_Standing_Add"
 		Material = "Unlit"
-		StartRed = 0.0
-		StartGreen = 1.0
-		StartBlue = 0.1
-		EndRed = 0.1
+		StartRed = 0.7
+		StartGreen = 0.8
+		StartBlue = 1.0
+		EndRed = 0.5
 		EndGreen = 0.3
-		EndBlue = 1.0
-		Alpha = 0.8
+		EndBlue = 0.999
+		Alpha = 0.4
 		Scale = 4
 		ScaleY = 0.5
 		StartAlpha = 1
@@ -6116,6 +7138,8 @@
 		IsometricSkew = "X"
 		LocationZFromOwner = "Take"
 		LocationFromOwner = "Maintain"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 	}
 
 	{
@@ -6161,6 +7185,7 @@
 		VisualFxIntervalMin = 0.03
 		VisualFxIntervalMax = 0.031
 		VisualFxCap = 4
+		Sound = "/SFX/Player Sounds/AphroditeLoveShotgunBlastSmall"
 	}
 
 	{
@@ -6307,6 +7332,8 @@
 		IsometricSkew = "X"
 		LocationZFromOwner = "Take"
 		LocationFromOwner = "Maintain"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 	}
 
 	{
@@ -6500,6 +7527,8 @@
 		IsometricSkew = "X"
 		LocationZFromOwner = "Take"
 		LocationFromOwner = "Maintain"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 	}
 
 	{
@@ -6679,10 +7708,12 @@
 		PlaySpeed = 80
 		StartFrame = 31
 		Material = "Unlit"
-		Scale = 0.6
+		Scale = 0.4
 		IsometricSkew = "X"
 		LocationZFromOwner = "Take"
 		LocationFromOwner = "Maintain"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 	}
 
 	{
@@ -6730,6 +7761,265 @@
 		VisualFxCap = 4
 		Sound = "/SFX/Player Sounds/HephaestusSwipeMedium"
 	}
+
+
+
+	{
+		Name = "StaffComboAttack3_Ares"
+		FilePath = "Fx\Staff\StaffCircleA"
+		IsometricSkew = "Y"
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+		VisualFx = "StaffComboAttack3_Ares_Particles"
+		VisualFxDistanceMin = 80
+		VisualFxDistanceMax = 80
+		VisualFxCap = 8
+		LocationZFromOwner = "Take"
+		Scale = 1
+		Saturation = -1
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0.15
+		EndBlue = 0.05
+		DurationFrames = 7
+		EaseIn = 0
+		EaseOut = 0.1
+		HoldLastFrame = true
+		CreateAnimations =
+		[
+			{ Name = "StaffComboAttack3Glow_Ares" }
+			{ Name = "StaffComboAttack3IsoFade_Ares" }
+			{ Name = "StaffTrailDarkSmearAttack3"}
+			{ Name = "StaffComboAttack3Trail_Ares"}
+		]
+		
+	}
+
+	{
+		Name = "StaffComboAttack3_Ares_Particles"
+		Random = [
+			{ Name = "StaffComboAttack3Particle_AresA" }
+			{ Name = "StaffComboAttack3Particle_AresB" }
+			{ Name = "StaffComboAttack3Particle_AresC" }			
+		]
+	}
+
+	{
+		Name = "StaffComboAttack3Particle_AresA"
+		FilePath = "Fx\Ares\AresParticleA\AresParticleA"
+		StartFrame = 30
+		NumFrames = 50
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		Material = "Unlit"
+		GroupName = "FX_Standing"
+		AngleFromOwner = "Take"
+		RandomFlipVertical = true
+		FlipHorizontal = false
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		OriginX = 0
+		OriginY = 75
+		AngleMin = -5
+		AngleMax = 5
+		VelocityMin = 200
+		VelocityMax = 400
+		Acceleration = -500
+		StartScaleY = 0.1
+		EndScaleY = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		CreateAnimation = "StaffComboAttack3_Ares_ParticlesSecondary"
+	}
+
+	{
+		Name = "StaffComboAttack3Particle_AresB"
+		InheritFrom = "StaffComboAttack3Particle_AresA"
+		FilePath = "Fx\Ares\AresParticleB\AresParticleB"
+	}
+
+	{
+		Name = "StaffComboAttack3Particle_AresC"
+		InheritFrom = "StaffComboAttack3Particle_AresA"
+		FilePath = "Fx\Ares\AresParticleC\AresParticleC"
+	}	
+
+
+	{
+		Name = "StaffComboAttack3_Ares_ParticlesSecondary"
+		Random = [
+			{ Name = "StaffComboAttack3Particle_AresD" }
+			{ Name = "StaffComboAttack3Particle_AresE" }
+		]
+	}
+
+
+	{
+		Name = "StaffComboAttack3Particle_AresD"
+		InheritFrom = "StaffComboAttack3Particle_AresA"
+		FilePath = "Fx\Ares\AresDirectionalTrailA\AresDirectionalTrailA"
+		NumFrames = 36
+		CreateAnimation = null
+		FlipHorizontal = true
+		GroupName = "FX_Dark"
+		AngleMin = 0
+		AngleMax = 0.01
+		Red = 1
+		Green = 0
+		Blue = 0
+		ScaleX = 1.25
+		RandomPlaySpeedMin = 70
+		RandomPlaySpeedMax = 100
+	}
+
+	{
+		Name = "StaffComboAttack3Particle_AresE"
+		InheritFrom = "StaffComboAttack3Particle_AresD"
+		FilePath = "Fx\Ares\AresDirectionalTrailB\AresDirectionalTrailB"
+	}
+
+	{
+		Name = "StaffComboAttack3Trail_Ares"
+		FilePath = "Fx\Staff\StaffTrail\StaffTrail"
+		NumFrames = 30
+		Material = "Unlit"
+		OffsetZ = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartScaleY = 0.5
+		EndScaleY = 0.2
+		LocationZFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		VisualFx = null
+		VisualFxIntervalMin = 0.03
+		VisualFxIntervalMax = 0.031
+		VisualFxCap = 4
+		Sound = "/SFX/Player Sounds/AresSwipeBig"
+	}
+
+	{
+		Name = "StaffComboAttack3Iso_Ares"
+		FilePath = "Fx\Staff\StaffComboFlat"
+		PostRotateScaleY = 0.5
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		OriginX = 371
+		OriginY = 128
+		IsometricSkew = "X"
+		ChainTo = "StaffComboAttack3IsoFade_Ares"
+		Duration = 0.1
+		Hue = 0
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Saturation = -1
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "StaffComboAttack3IsoFade_Ares"
+		FilePath = "Fx\Staff\StaffComboFlatOut\StaffComboFlatOut"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		NumFrames = 14
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Maintain"
+		IsometricSkew = "X"
+		OriginX = 250
+		OriginY = 128
+		OffsetZ = 0
+		ColorFromOwner = "Ignore"
+		ChildAnimation = "AresCircleFade"
+		CreateAnimation = null
+		PlaySpeed = 45
+		Red = 1
+		Green = 0
+		Blue = 0
+	}
+
+	{
+		Name = "AresCircleFade"
+		FilePath = "Fx\Ares\AresCircle\AresCircle"
+		NumFrames = 19
+		StartFrame = 30
+		PlaySpeed = 60
+		Material = "Unlit"
+		IsometricSkew = "X"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Maintain"
+		OriginY = 200
+		OriginX = 100
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+	}
+
+	{
+		Name = "StaffComboAttack3Dissipate_Ares"
+		FilePath = "Fx\Staff\StaffCircleAOut\StaffCircleAOut"
+		StartRed = 1.0
+		StartGreen = 0.5
+		StartBlue = 0.3
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		//Saturation = -1
+		Hue = 0.0
+		NumFrames = 12
+		PlaySpeed = 60
+		IsometricSkew = "Y"
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScale = 1.0
+		EndScale = 1.1
+	}
+
+	{
+		Name = "StaffComboAttack3Glow_Ares"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Alpha = 0.5
+		Scale = 4
+		ScaleY = 0.5
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		DieWithOwner = false
+	}
+
+	{
+		Name = "StaffComboAttack3GlowFade_Ares"
+		InheritFrom = "StaffComboAttack3Glow_Ares"
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.15
+	}
+
 
 	{
 		Name = "StaffBallProjectileGlow"
@@ -6815,12 +8105,12 @@
 		Red = 1
 		Green = 1
 		Blue = 1
-				StartRed = 1.0
-				StartGreen = 0.95
-				StartBlue = 0.8
-				EndRed = 0.9999
-				EndGreen = 0.5
-				EndBlue = 0.4
+		StartRed = 1.0
+		StartGreen = 0.95
+		StartBlue = 0.8
+		EndRed = 0.9999
+		EndGreen = 0.5
+		EndBlue = 0.4
 	}	
 
 	{
@@ -6836,6 +8126,22 @@
 		EndGreen = 0
 		EndBlue = 0
 	}
+
+
+	{
+		Name = "StaffBallProjectileGlow_Ares"
+		InheritFrom = "StaffBallProjectileGlow"
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0	
+	}
+
 
 	{
 		Name = "StaffBallProjectileGlowCharged"
@@ -7038,6 +8344,30 @@
 		VisualFxDistanceMax = 150
 	}
 
+
+
+	{
+		Name = "StaffBallProjectileGlowCharged_Ares"
+		InheritFrom = "StaffBallProjectileGlow"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.5
+		Scale = 2
+		Loop = true
+		VisualFx = "StaffProjectileTrailLineCharged_Ares"
+		VisualFxDistanceMin = 150
+		VisualFxDistanceMax = 150
+		CreateAnimations =
+		[
+
+		]
+	}		
 
 	{
 		Name = "StaffCircleTrail"
@@ -7271,6 +8601,72 @@
 	}
 
 	{
+		Name = "StaffProjectileTrailLine_Anubis"
+		InheritFrom = "StaffProjectileTrailLine"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.999
+		EndGreen = 0.6
+		EndBlue = 0.3
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "StaffTrailSpectral_Anubis" }
+			{ Name = "StaffTrailDarkSmearBall" }
+			{ Name = "StaffTrailSparkle_Anubis" }
+			{ Name = "StaffCurlDark" }
+			{ Name = "StaffTrailAnubisFx" }
+			//{ Name = "StaffTrailMoonSmall" }
+		]
+	}
+
+	{
+		Name = "StaffTrailAnubisFx"
+		Random = [
+			{ Name = "StaffTrailAnubisFxA" }
+			{ Name = "StaffTrailAnubisFxB" }
+		]
+	}
+
+	{
+		Name = "StaffTrailAnubisFxA"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisWallGroundParticleA\AnubisWallGroundParticleA"
+		NumFrames = 45
+		StartFrame = 15
+		RandomPlaySpeedMin = 90
+		RandomPlaySpeedMax = 120
+		StartScaleY = 1
+		EndScaleY = 1.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		ScaleY = 1.5
+		AngleFromOwner = "Take"
+		Angle = -90
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		Material = "Unlit"
+		AddColor = true
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.999
+		EndGreen = 0.6
+		EndBlue = 0.3
+		RandomOffsetY = 25
+		RandomOffsetX = 50
+		RandomFlipHorizontal = true
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+	}
+
+	{
+		Name = "StaffTrailAnubisFxB"
+		InheritFrom = "StaffTrailAnubisFxA"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisWallGroundParticleB\AnubisWallGroundParticleB"
+	}
+
+	{
 		Name = "StaffProjectileTrailLineCharged"
 		InheritFrom = "StaffProjectileTrailLine"
 		Red = 0
@@ -7385,6 +8781,22 @@
 		CreateAnimations =
 		[
 			{ Name = "StaffTrailDarkSmearBallCharged" }
+		]
+	}	
+
+	{
+		Name = "StaffProjectileTrailLineCharged_Ares"
+		InheritFrom = "StaffProjectileTrailLineCharged"
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 100
+		Red = 0
+		Green = 0
+		Blue = 0
+		ClearCreateAnimations = true
+		Scale = 0
+		CreateAnimations =
+		[
+			{ Name = "StaffTrailDarkSmearBallCharged_Ares" }
 		]
 	}
 
@@ -7570,10 +8982,6 @@
 		ClearCreateAnimations = true
 		GroupName = "FX_Standing_Add"
 		AddColor = true
-		CreateAnimations =
-		[
-			// { Name = "AphroditeDirectionalTrailStaffDash" }
-		]
 	}		
 
 	{
@@ -7664,6 +9072,32 @@
 		]
 	}
 
+	{
+		Name = "StaffProjectileTrailLineAttack1_Ares"
+		InheritFrom = "StaffProjectileTrailLineAttack1"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		OriginX = 330
+		ClearCreateAnimations = true
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+	}		
+
+	{
+		Name = "StaffProjectileTrailLineAttack1Dash_Ares"
+		InheritFrom = "StaffProjectileTrailLineAttack1_Ares"
+		VisualFx = null
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "AresDirectionalTrailStaffDash" }
+			{ Name = "StaffComboAttack3_Ares_Particles" }
+		]
+	}	
 
 	{
 		Name = "HeraGoldStreak"
@@ -7750,8 +9184,7 @@
 		PlaySpeed = 75
 		Velocity = 3500
 		Acceleration = -12000
-
-	}
+	}	
 
 	{
 		Name = "StaffProjectileTrailLine_Apollo"
@@ -7782,6 +9215,16 @@
 		CreateAnimations =
 		[
 			{ Name = "HestiaDirectionalFlameStaffProjectile" }
+		]
+	}
+
+	{
+		Name = "StaffProjectileTrailLineFade_Hestia"
+		InheritFrom = "StaffProjectileTrailLine_Hestia"
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "HestiaDirectionalFlameStaffProjectileFadeIn" }
 		]
 	}
 
@@ -7856,12 +9299,12 @@
 		Name = "StaffProjectileTrailLine_Zeus"
 		InheritFrom = "StaffProjectileTrailLine"
 		ClearCreateAnimations = true
-				StartRed = 1.0
-				StartGreen = 0.95
-				StartBlue = 0.7
-				EndRed = 0.9999
-				EndGreen = 0.7
-				EndBlue = 0.5
+		StartRed = 1.0
+		StartGreen = 0.95
+		StartBlue = 0.7
+		EndRed = 0.9999
+		EndGreen = 0.7
+		EndBlue = 0.5
 		CreateAnimations =
 		[
 			{ Name = "ZeusStaffProjectileTrail" }
@@ -7881,6 +9324,22 @@
 		CreateAnimations =
 		[
 			{ Name = "HephaestusStaffProjectileTrail" }
+		]
+	}		
+
+	{
+		Name = "StaffProjectileTrailLine_Ares"
+		InheritFrom = "StaffProjectileTrailLine"
+		ClearCreateAnimations = true
+		EndRed = 0.5
+		EndGreen = 0
+		EndBlue = 0
+		StartRed = 0.82
+		StartGreen = 0.81
+		StartBlue = 0.80
+		CreateAnimations =
+		[
+			{ Name = "AresStaffProjectileTrail" }
 		]
 	}		
 	
@@ -8018,8 +9477,8 @@
 		Name = "HeraTwistTrailStaff"
 		FilePath = "Fx\Hera\HeraTwistTrail\HeraTwistTrail"
 		NumFrames = 30
-		RandomPlaySpeedMin = 36
-		RandomPlaySpeedMax = 40
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 100
 		LocationZFromOwner = "Take"
 		LocationFromOwner = "Ignore"
 		Material = "Unlit"
@@ -8029,6 +9488,7 @@
 		OriginX = 90
 		OriginY = 120
 		RandomFlipVertical = false
+		AngleFromOwner = "Take"
 	}
 
 	{
@@ -8037,6 +9497,14 @@
 		Scale = 1.2
 		GroupName = "FX_Dark"
 		OffsetZ = 60
+		OriginX = 160
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		StartScaleY = 2
+		EndScaleY = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		PingPongScale = false
 	}
 
 	{
@@ -8052,11 +9520,13 @@
 		Name = "HeraTwistTrailStaffLight"
 		InheritFrom = "HeraTwistTrailStaff"
 		FilePath = "Fx\Hera\HeraTwistTrailLight\HeraTwistTrailLight"
-		RandomPlaySpeedMin = 30
-		RandomPlaySpeedMax = 45
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
 		Scale = 1.0
 		ScaleX = 2
 		ScaleY = 1.0
+		StartScale = 1
+		EndScale = 1.5
 		NumFrames = 22
 		StartAlpha = 1
 		EndAlpha = 0
@@ -8153,12 +9623,15 @@
 		InheritFrom = "StaffTrailDarkSmear"
 		ScaleY = 0.5
 		StartScaleY = 0.25
-		EndScaleY = 2
+		EndScaleY = 1.5
 		RandomFlipVertical = true
-		ScaleMin = 0.7
-		ScaleMax = 1.3
-		RandomPlaySpeedMin = 24
-		RandomPlaySpeedMax = 30
+		ScaleMin = 0.9
+		ScaleMax = 1.0
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		VelocityMin = 200
+		VelocityMax = 220
+		Acceleration = -100
 	}
 
 	{
@@ -8178,6 +9651,13 @@
 		Material = "Unlit"
 		LocationZFromOwner = "Take"
 		OffsetZ = 0
+		VelocityMin = 0
+		VelocityMax = 1
+	}
+
+	{
+		Name = "StaffTrailDarkSmearBallCharged_Ares"
+		InheritFrom = "StaffTrailDarkSmearBallCharged"
 	}
 
 	{
@@ -8334,6 +9814,17 @@
 	}
 
 	{
+		Name = "StaffTrailSpectral_Anubis"
+		InheritFrom = "StaffTrailSpectral"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.999
+		EndGreen = 0.85
+		EndBlue = 0.2
+	}
+
+	{
 		Name = "StaffTrailSpectralCharged"
 		InheritFrom = "StaffTrailSpectral"
 		EndScaleY = 1.0
@@ -8439,24 +9930,40 @@
 		RandomRotation = true
 		RandomFlipVertical = true
 		RandomFlipHorizontal = true
-		AngleMin = 0
-		AngleMax = 360
-		RadialOffsetMin = 10
-		RadialOffsetMax = 20
-		VelocityMin = 30
-		VelocityMax = 100
-		Acceleration = -100
-		RandomPlaySpeedMin = 24
-		RandomPlaySpeedMax = 48
+		//AngleMin = 0
+		//AngleMax = 360
+		RandomOffsetX = 50
+		RandomOffsetY = 25
+		VelocityMin = 150
+		VelocityMax = 200
+		Acceleration = -200
+		RandomPlaySpeedMin = 48
+		RandomPlaySpeedMax = 60
 		ScaleMin = 0.1
 		ScaleMax = 0.5
-		RandomOffsetX = 15
-		RandomOffsetY = 7
 		LocationFromOwner = "Ignore"
-		AngleFromOwner = "Ignore"
+		AngleFromOwner = "Take"
 		LocationZFromOwner = "Take"
 		Material = "Unlit"
 		ColorFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		StartRed = 0.5
+		StartGreen = 1
+		StartBlue = 0.7
+		EndRed = 0.2
+		EndGreen = 0.7
+		EndBlue = 0.99
+	}
+
+	{
+		Name = "StaffTrailSparkle_Anubis"
+		InheritFrom = "StaffTrailSparkle"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.999
+		EndGreen = 0.6
+		EndBlue = 0.3
 	}
 
 	{
@@ -8479,6 +9986,13 @@
 		VelocityMin = 60
 		VelocityMax = 400
 		Acceleration = -800
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+
 	}
 
 	{
@@ -8491,18 +10005,24 @@
 		Name = "StaffTrailMoonCharged"
 		InheritFrom = "StaffTrailMoon"
 		OffsetZ = 60
-		GroupName = "FX_Standing_Add"
+		GroupName = "FX_Dark"
 		RandomPlaySpeedMin = 15
 		RandomPlaySpeedMax = 30
 		VelocityMin = 60
 		VelocityMax = 200
-		Acceleration = -200
+		Acceleration = -1200
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
 	}
 
 	{
 		Name = "StaffTrailMoonSmall"
 		InheritFrom = "StaffTrailMoon"
-		GroupName = "Standing"
+		GroupName = "FX_Standing_Add"
 		ScaleMin = 0.20
 		ScaleMax = 0.40
 		VelocityMax = 200
@@ -8528,6 +10048,106 @@
 		LocationFromOwner = "Ignore"
 		Material = "Unlit"
 		RandomFlipHorizontal = true
+	}
+	{
+		Name = "StaffChargedAttackFxEmitter"
+		FilePath = "Dev\blank_invisible"
+        Material = "Unlit"
+        VisualFxDistanceMin = 120
+        VisualFxDistanceMax = 120
+        LocationZFromOwner = "Ignore"
+        OffsetZ = 0
+        OffsetY = -60
+        PingPongScale = true
+        EaseIn = 0
+        EaseOut = 1.0
+        Scale = 0.75
+        AngleFromOwner = "Ignore"
+        VisualFx = "StaffChargedAttackFx"
+        ScaleFromOwner = "Ignore"
+		CreateAnimation = "StaffChargedAttackFx"
+	}
+	{
+		Name = "StaffChargedAttackFxEmitter_Apollo"
+		InheritFrom = "StaffChargedAttackFxEmitter"
+		
+		ClearCreateAnimations = true
+		CreateAnimation = "StaffChargedAttackFx_Apollo"
+        VisualFx = "StaffChargedAttackFx_Apollo"
+	}
+	{
+		Name = "StaffChargedAttackFxEmitter_Hestia"
+		InheritFrom = "StaffChargedAttackFxEmitter"
+		
+		ClearCreateAnimations = true
+		CreateAnimation = "StaffChargedAttackFx_Hestia"
+        VisualFx = "StaffChargedAttackFx_Hestia"
+	}
+	{
+		Name = "StaffChargedAttackFxEmitter_Hera"
+		InheritFrom = "StaffChargedAttackFxEmitter"
+		
+		ClearCreateAnimations = true
+		CreateAnimation = "StaffChargedAttackFx_Hera"
+        VisualFx = "StaffChargedAttackFx_Hera"
+	}
+	{
+		Name = "StaffChargedAttackFxEmitter_Demeter"
+		InheritFrom = "StaffChargedAttackFxEmitter"
+		
+		ClearCreateAnimations = true
+		CreateAnimation = "StaffChargedAttackFx_Demeter"
+        VisualFx = "StaffChargedAttackFx_Demeter"
+	}
+	{
+		Name = "StaffChargedAttackFxEmitter_Aphrodite"
+		InheritFrom = "StaffChargedAttackFxEmitter"
+		
+		ClearCreateAnimations = true
+		CreateAnimation = "StaffChargedAttackFx_Aphrodite"
+        VisualFx = "StaffChargedAttackFx_Aphrodite"
+	}
+	{
+		Name = "StaffChargedAttackFxEmitter_Poseidon"
+		InheritFrom = "StaffChargedAttackFxEmitter"
+		
+		ClearCreateAnimations = true
+		CreateAnimation = "StaffChargedAttackFx_Poseidon"
+        VisualFx = "StaffChargedAttackFx_Poseidon"
+	}
+	{
+		Name = "StaffChargedAttackFxEmitter_Zeus"
+		InheritFrom = "StaffChargedAttackFxEmitter"
+		
+		ClearCreateAnimations = true
+		CreateAnimation = "StaffChargedAttackFx_Zeus"
+        VisualFx = "StaffChargedAttackFx_Zeus"
+	}	
+	{
+		Name = "StaffChargedAttackFxEmitter_Anubis"
+		InheritFrom = "StaffChargedAttackFxEmitter"
+		
+		ClearCreateAnimations = true
+		CreateAnimation = "StaffChargedAttackFx_Anubis"
+        VisualFx = "StaffChargedAttackFx_Zeus"
+	}
+	{
+		Name = "StaffChargedAttackFxEmitter_Hephaestus"
+		InheritFrom = "StaffChargedAttackFxEmitter"
+		
+		ClearCreateAnimations = true
+		CreateAnimation = "StaffChargedAttackFx_Hephaestus"
+        VisualFx = "StaffChargedAttackFx_Hephaestus"
+        Sound = "/SFX/Player Sounds/MelStaffFissureHephaestus"
+	}
+	
+	{
+		Name = "StaffChargedAttackFxEmitter_Ares"
+		InheritFrom = "StaffChargedAttackFxEmitter"
+		
+		ClearCreateAnimations = true
+		CreateAnimation = "StaffChargedAttackFx_Ares"
+        VisualFx = "StaffChargedAttackFx_Ares"
 	}
 
 	{
@@ -8616,6 +10236,17 @@
 			{ Name = "StaffTerrainCircleC_Zeus" }
 			{ Name = "StaffTerrainCircleD_Zeus" }
 		]
+	}	
+
+	{
+		Name = "StaffChargedAttackFx_Anubis"
+		Random =
+		[
+			{ Name = "StaffTerrainCircleA_Anubis" }
+			{ Name = "StaffTerrainCircleB_Anubis" }
+			{ Name = "StaffTerrainCircleC_Anubis" }
+			{ Name = "StaffTerrainCircleD_Anubis" }
+		]
 	}
 
 	{
@@ -8630,6 +10261,17 @@
 	}
 
 	{
+		Name = "StaffChargedAttackFx_Ares"
+		Random =
+		[
+			{ Name = "StaffTerrainCircleA_Ares" }
+			{ Name = "StaffTerrainCircleB_Ares" }
+			{ Name = "StaffTerrainCircleC_Ares" }
+			{ Name = "StaffTerrainCircleD_Ares" }
+		]
+	}
+
+	{
 		Name = "StaffChargedAttackFxBall"
 		Random =
 		[
@@ -8637,6 +10279,17 @@
 			{ Name = "StaffTerrainCircleBallB" }
 			{ Name = "StaffTerrainCircleBallC" }
 			{ Name = "StaffTerrainCircleBallD" }
+		]
+	}	
+
+	{
+		Name = "StaffChargedAttackFxBall_Anubis"
+		Random =
+		[
+			{ Name = "StaffTerrainCircleBallA_Anubis" }
+			{ Name = "StaffTerrainCircleBallB_Anubis" }
+			{ Name = "StaffTerrainCircleBallC_Anubis" }
+			{ Name = "StaffTerrainCircleBallD_Anubis" }
 		]
 	}
 
@@ -8716,7 +10369,7 @@
 		LocationZFromOwner = "Ignore"
 		OffsetZ = 0
 		ScaleFromOwner = "Ignore"
-		ScaleRadius = 110
+		ScaleRadius = 0
 		CreateAnimations =
 		[
 			{ Name = "StaffMagicDark" }
@@ -8761,7 +10414,7 @@
 		EndScale = 0.95
 		RandomDurationMin = 0.8
 		RandomDurationMax = 1
-		Scale = 1.0
+		Scale = 1.4
 		Material = "Unlit"
 		GroupName = "FX_Terrain_Add"
 		PostRotateScaleY = 0.5
@@ -8776,12 +10429,11 @@
 		LocationZFromOwner = "Ignore"
 		OffsetZ = 0
 		ScaleFromOwner = "Ignore"
-		ScaleRadius = 110
 		CreateAnimations =
 		[
 			{ Name = "StaffMagicDark" }
 			{ Name = "StaffMagicGlow_Apollo" }
-			{ Name = "ApolloGroundFlare" }
+			{ Name = "StaffApolloGroundFlare" }
 		]
 	}
 
@@ -8833,18 +10485,17 @@
 		VisualFx = "HestiaSparksGroundFlame"
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.02
-		VisualFxCap = 6
+		VisualFxCap = 3
 		LocationFromOwner = "Ignore"
 		LocationZFromOwner = "Ignore"
 		OffsetZ = 0
 		ScaleFromOwner = "Ignore"
-		ScaleRadius = 110
 		CreateAnimations =
 		[
-			{ Name = "StaffMagicDark" }
+			// { Name = "StaffMagicDark" }
 			{ Name = "StaffMagicGlow_Hestia" }
-			{ Name = "HestiaGroundCoalsRadial"}
-			{ Name = "HestiaGroundFlame"}
+			{ Name = "HestiaGroundCoalsRadial_StaffOmega"}
+			{ Name = "HestiaGroundFlame_StaffOmega"}
 		]
 	}
 
@@ -8901,7 +10552,6 @@
 		LocationZFromOwner = "Ignore"
 		OffsetZ = 0
 		ScaleFromOwner = "Ignore"
-		ScaleRadius = 110
 		CreateAnimations =
 		[
 			{ Name = "StaffMagicDark" }
@@ -8935,6 +10585,8 @@
 		RandomPlaySpeedMax = 45
 		GroupName = "FX_Terrain_Add"
 		Scale = 1.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
 	}
 
 	{
@@ -8990,7 +10642,6 @@
 		LocationZFromOwner = "Ignore"
 		OffsetZ = 0
 		ScaleFromOwner = "Ignore"
-		ScaleRadius = 110
 		CreateAnimations =
 		[
 			{ Name = "StaffMagicDark" }
@@ -9010,7 +10661,6 @@
 		AngleFromOwner = "Ignore"
 		NumFrames = 45
 		Material = "Unlit"
-		LocationZFromOwner = "Take"
 		GroupName = "Standing"
 		ScaleY = 1.5
 		ScaleMin = 1
@@ -9024,6 +10674,8 @@
 		EndScale = 1.5
 		EaseIn = 0.99
 		EaseOut = 1.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
 
 	}
 
@@ -9060,6 +10712,8 @@
 		Red = 0
 		Green = 0
 		Blue = 0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
 	}
 
 	{
@@ -9130,6 +10784,7 @@
 		Saturation = 0.125
 		RandomOffsetX = 120
 		RandomOffsetY = 60
+		LocationFromOwner = "Ignore"
 	}
 
 	{
@@ -9178,7 +10833,6 @@
 		LocationZFromOwner = "Ignore"
 		OffsetZ = 0
 		ScaleFromOwner = "Ignore"
-		ScaleRadius = 110
 		CreateAnimations =
 		[
 			{ Name = "StaffMagicDark" }
@@ -9210,6 +10864,7 @@
 		IsometricSkew = "X"
 		AngleMin = 0
 		AngleMax = 360
+		
 	}
 
 	{
@@ -9256,7 +10911,7 @@
 		AngleFromOwner = "Take"
 		RandomFlipVertical = true
 		RandomFlipHorizontal = true
-		VisualFx = "PoseidonParticlesUpward"
+		VisualFx = "PoseidonParticlesUpward_IgnoreLocation"
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.02
 		VisualFxCap = 1
@@ -9264,7 +10919,6 @@
 		LocationZFromOwner = "Ignore"
 		OffsetZ = 0
 		ScaleFromOwner = "Ignore"
-		ScaleRadius = 110
 		CreateAnimations =
 		[
 			{ Name = "StaffMagicDark" }
@@ -9318,7 +10972,7 @@
 		AngleFromOwner = "Take"
 		RandomFlipVertical = true
 		RandomFlipHorizontal = true
-		VisualFx = "ZeusParticlesUpward"
+		VisualFx = "ZeusParticlesUpward_IgnoreLocation"
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.02
 		VisualFxCap = 1
@@ -9326,7 +10980,6 @@
 		LocationZFromOwner = "Ignore"
 		OffsetZ = 0
 		ScaleFromOwner = "Ignore"
-		ScaleRadius = 110
 		CreateAnimations =
 		[
 			{ Name = "StaffMagicDark" }
@@ -9352,6 +11005,95 @@
 		InheritFrom = "StaffTerrainCircleA_Zeus"
 		FilePath = "Fx\Staff\StaffTerrainCircleD"
 		Sound = "/SFX/Player Sounds/ZeusLightningImpactSecondarySingle"
+	}
+
+
+	{
+		Name = "StaffTerrainCircleA_Anubis"
+		FilePath = "Fx\Staff\StaffTerrainCircleA"
+		StartAlpha = 0.6
+		Hue = 0.73
+		Saturation = -0.3
+		EndAlpha = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		EaseIn = 0
+		EaseOut = 0.1
+		StartScale = 1
+		EndScale = 0.95
+		RandomDurationMin = 0.8
+		RandomDurationMax = 1
+		Scale = 1.0
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		PostRotateScaleY = 0.5
+		AngleFromOwner = "Take"
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		VisualFx = null
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 1
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 0
+		ScaleFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "StaffMagicDark" }
+			{ Name = "StaffMagicGlow_Anubis" }
+
+		]
+	}
+
+	{
+		Name = "StaffTerrainCircleB_Anubis"
+		InheritFrom = "StaffTerrainCircleA_Anubis"
+		FilePath = "Fx\Staff\StaffTerrainCircleB"
+	}
+
+	{
+		Name = "StaffTerrainCircleC_Anubis"
+		InheritFrom = "StaffTerrainCircleA_Anubis"
+		FilePath = "Fx\Staff\StaffTerrainCircleC"
+	}
+
+	{
+		Name = "StaffTerrainCircleD_Anubis"
+		InheritFrom = "StaffTerrainCircleA_Anubis"
+		FilePath = "Fx\Staff\StaffTerrainCircleD"
+	}
+
+	{
+		Name = "StaffTerrainCircleBallA_Anubis"
+		InheritFrom = "StaffTerrainCircleA_Anubis"
+		ClearCreateAnimations = true
+		ScaleRadius = 0
+	}
+
+	{
+		Name = "StaffTerrainCircleBallB_Anubis"
+		InheritFrom = "StaffTerrainCircleB_Anubis"
+		ClearCreateAnimations = true
+		ScaleRadius = 0
+	}
+
+	{
+		Name = "StaffTerrainCircleBallC_Anubis"
+		InheritFrom = "StaffTerrainCircleC_Anubis"
+		ClearCreateAnimations = true
+		ScaleRadius = 0
+	}
+
+	{
+		Name = "StaffTerrainCircleBallD_Anubis"
+		InheritFrom = "StaffTerrainCircleD_Anubis"
+		ClearCreateAnimations = true
+		ScaleRadius = 0
 	}
 
 	{
@@ -9389,10 +11131,9 @@
 		LocationZFromOwner = "Ignore"
 		OffsetZ = 0
 		ScaleFromOwner = "Ignore"
-		ScaleRadius = 110
 		CreateAnimations =
 		[
-			{ Name = "HephMassiveHitTerrain"}
+			{ Name = "HephMassiveHitTerrainStaff"}
 			{ Name = "StaffMagicDark" }
 			{ Name = "StaffMagicGlow_Hephaestus" }
 		]
@@ -9451,6 +11192,7 @@
 		VisualFxIntervalMax = 0.01
 		VisualFxManagerCap = 300
 		VisualFxManagerFrameCap = 14
+		LocationFromOwner = "Ignore"
 	}
 
 	{
@@ -9484,6 +11226,7 @@
 		RandomFlipHorizontal = true
 		RandomPlaySpeedMin = 30
 		RandomPlaySpeedMax = 60
+		LocationFromOwner = "Ignore"
 	}	
 
 	{
@@ -9496,6 +11239,127 @@
 		Name = "HephStaffCircleSparkC"
 		InheritFrom = "HephStaffCircleSparkA"
 		FilePath = "Fx\Hephaestus\HephSparkParticleC\HephSparkParticleC"
+	}
+
+
+
+	{
+		Name = "StaffTerrainCircleA_Ares"
+		FilePath = "Fx\Staff\StaffTerrainCircleA"
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 1.0
+		StartGreen = 0.05
+		StartBlue = 0.001
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0
+		EaseOut = 0.1
+		Saturation = -0.5
+		StartScale = 1
+		EndScale = 0.95
+		RandomDurationMin = 0.8
+		RandomDurationMax = 1
+		Scale = 1.0
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		PostRotateScaleY = 0.5
+		AngleFromOwner = "Take"
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		VisualFx = null
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		VisualFxCap = 3
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 0
+		ScaleFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "AresStaffCircleUpwardFxA" }
+			{ Name = "AresStaffCircleUpwardFxB" }
+			{ Name = "StaffMagicDark" }
+			{ Name = "StaffMagicGlow_Ares" }
+		]
+	}
+
+	{
+		Name = "StaffTerrainCircleB_Ares"
+		InheritFrom = "StaffTerrainCircleA_Ares"
+		FilePath = "Fx\Staff\StaffTerrainCircleB"
+	}
+
+	{
+		Name = "StaffTerrainCircleC_Ares"
+		InheritFrom = "StaffTerrainCircleA_Ares"
+		FilePath = "Fx\Staff\StaffTerrainCircleC"
+	}
+
+	{
+		Name = "StaffTerrainCircleD_Ares"
+		InheritFrom = "StaffTerrainCircleA_Ares"
+		FilePath = "Fx\Staff\StaffTerrainCircleD"
+		Sound = "/SFX/Player Sounds/AresStaffFissureSFX"
+	}
+
+	{
+		Name = "AresStaffCircleUpwardFxA"
+		FilePath = "Fx\Ares\AresProjectileDirectional\AresProjectileDirectional"
+		NumFrames = 30
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		GroupName = "Standing"
+		RandomFlipVertical = true
+		AngleFromOwner = "Ignore"
+		OriginX = 150
+		OriginY = 66.5
+		Material = "Unlit"
+		ScaleX = 0.5
+		AngleMin = 70
+		AngleMax = 110
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		RandomOffsetX = 80
+		RandomOffsetY = 40
+		LocationFromOwner = "Ignore"
+	}
+
+	{
+		Name = "AresStaffCircleUpwardFxB"
+		Random = [
+			{ Name = "AresStaffCircleUpwardFxB1" }
+			{ Name = "AresStaffCircleUpwardFxB2" }
+			{ Name = "AresStaffCircleUpwardFxB3" }
+		]
+	}
+
+	{
+		Name = "AresStaffCircleUpwardFxB1"
+		InheritFrom = "AresStaffCircleUpwardFxA"
+		FilePath = "Fx\Ares\AresParticleA\AresParticleA"
+		NumFrames = 80
+		OriginX = 60
+		OriginY = 75
+		ScaleX = 1
+		ScaleY = 1
+		ScaleMax = 0.5
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "AresStaffCircleUpwardFxB2"
+		InheritFrom = "AresStaffCircleUpwardFxB1"
+		FilePath = "Fx\Ares\AresParticleB\AresParticleB"
+	}
+
+	{
+		Name = "AresStaffCircleUpwardFxB3"
+		InheritFrom = "AresStaffCircleUpwardFxB1"
+		FilePath = "Fx\Ares\AresParticleC\AresParticleC"
 	}
 
 	{
@@ -10023,7 +11887,7 @@
 	{
 		Name = "WeaponStaffBallFireSFX"
 		FilePath = "Dev\blank_invisible"
-		Sound = "/SFX/Enemy Sounds/Hades/HadesReappear"
+		Sound = null
 	}
 	
 	// Aspect of Circe
@@ -10322,6 +12186,3045 @@
 		ChainTo = "CirceCrystalRotateBack1_Loop"
 		StartFrame = 180
 		NumFrames = 1
+	}
+
+	{
+		Name = "FamiliarLinkLaser"
+		InheritFrom = "EnemyLaser"
+		ScaleY = 2
+		CreateAnimations = [
+			{ Name = "FamiliarLinkLaser_Dark" }
+			{ Name = "FamiliarLinkLaser_Glow" }
+		]
+	}
+	{
+		Name = "FamiliarLinkLaser_Glow"
+		FilePath = "Particles\particle_laserGlow"
+		Red = 1
+		Green = 0.0
+		Blue = 0.1
+		ScaleY = 3
+		StartAlpha = 1
+		EndAlpha = 0.6
+		Alpha = 0.5
+		PingPongColor = true
+		ScaleX = 2
+		Duration = 0.5
+		GroupName = "FX_Terrain_Add"
+		DieWithOwner = true
+		Loop = true
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Maintain"
+		OriginX = 0
+		OriginY = 27
+		ScaleLength = 226.0
+	}
+
+	{
+		Name = "FamiliarLinkLaser_Dark"
+		InheritFrom = "EnemyLaser"
+		ChainTo = null
+		CreateAnimation = null
+		Sound = "/EmptyCue"
+		ChildAnimation = null
+		VisualFx = null
+		ClearCreateAnimations = true
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		DieWithOwner = true
+		ScaleY = 0.5
+	}
+	{
+		Name = "FamiliarLinkLaserOriginFlare"
+		FilePath = "Fx\ProjectileFlare\ProjectileFlare"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		Duration = 0.2
+		EndFrame = 60
+		Loop = true
+		LoopFramesOnly = true
+		NumFrames = 60
+		PlaySpeed = 60.0
+		StartFrame = 1
+		DieWithOwner = true
+		SortMode = "FromParent"
+		EndScale = 1.2
+		PingPongScale = true
+		ScaleFromOwner = "Ignore"
+		StartScale = 0.8
+		Color = { Red = 1.0 Green = 0.01 Blue = 0.90 }
+		VisualFx = "EnemyLaserTipParticles"
+		Sound = "/SFX/Enemy Sounds/Brimstone/CrystalBeamFireStart"
+		Scale = 0.5
+		VisualFxIntervalMax = 0.04
+		VisualFxIntervalMin = 0.02
+		LocationFromOwner = "Ignore"
+	}
+	{
+		Name = "FamiliarLinkLaserOriginFlareLarge"
+		FilePath = "Fx\BeamTrapOriginFlare\BeamTrapOriginFlare"
+		NumFrames = 20
+		Loop = true
+		PlaySpeed = 45
+		Material = "Unlit"
+		DieWithOwner = true
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		GroupName = "FX_Add_Top"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		OffsetZ = 0
+		Hue = -0.05
+		CreateAnimation = "BeamTrapOriginFlareGlow"
+		Scale = 0.66
+	}
+
+	{
+		Name = "StaffWall_Base"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisGroundWallA\AnubisGroundWallA"
+		NumFrames = 30
+		Loop = true
+		Material = "Unlit"
+		OriginX = 180
+		OriginY = 320
+		PostRotateScaleY = 0.6
+		PlaySpeed = 30
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.75
+		EndBlue = 0.2
+		PingPongColor = true
+		ScaleY = 1.6
+		Scale = 1.2
+		AngleFromOwner = "Take"
+		ChainTo = "StaffWall_Base_Fade"
+		TransferFrameFromThis = true
+		TransferFrameToThis = true
+		TransferAngle = true
+		GroupName = "FX_Terrain_Add"
+		Sound = "/SFX/Player Sounds/StaffAnubisWallLoop"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "StaffWallParticles_Base"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.06
+	}
+
+	{
+		Name = "StaffWallIn_Base"
+		InheritFrom = "StaffWall_Base"
+		StartScaleY = 0
+		EndScaleY = 1
+		EaseIn = 0.9
+		EaseOut = 1
+		LoopFramesOnly = true
+		Loop = false
+		ChainTo = "StaffWall_Base"
+		Duration = 0.2
+		ClearCreateAnimations = true
+		VisualFx = null
+		Sound = null
+		CreateAnimations = [
+			{ Name = "QuickFlashCyan" }
+			{ Name = "StaffWall_Dark" }
+		]
+	}
+
+	{
+		Name = "StaffWall_Dark"
+		InheritFrom = "StaffWall_Base"
+		GroupName = "FX_Terrain_Dark"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisGroundWallB\AnubisGroundWallB"
+		ClearCreateAnimations = true
+		VisualFx = null
+		Sound = null
+		DieWithOwner = true
+		ChainTo = "StaffWall_Dark_Fade"
+		AddColor = false
+		OriginX = 180
+		OriginY = 200
+	}
+
+	{
+		Name = "StaffWall_Base_Fade"
+		InheritFrom = "StaffWall_Base"
+		PingPongColor = false
+		ClearCreateAnimations = true
+		VisualFx = null
+		Sound = null
+		ChainTo = null
+		StartAlpha = 1
+		EndAlpha = 0
+		TransferFrameToThis = true
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "StaffWall_Dark_Fade"
+		InheritFrom = "StaffWall_Base_Fade"
+		LocationZFromOwner = "Take"
+		GroupName = "FX_Terrain_Dark"
+		AddColor = false
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisGroundWallB\AnubisGroundWallB"
+	}
+
+	{
+		Name = "StaffWallParticles_Base"
+		Random = [
+			{ Name = "StaffWallParticleA_Base" }
+			{ Name = "StaffWallParticleB_Base" }
+		]
+	}
+
+	{
+		Name = "StaffWallParticleA_Base"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisWallGroundParticleA\AnubisWallGroundParticleA"
+		NumFrames = 60
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		Material = "Unlit"
+		RandomFlipHorizontal = true
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		GroupName = "FX_Standing_Add"
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.75
+		EndBlue = 0.2
+		RadialOffsetMin = -360
+		RadialOffsetMax = 360
+		RadialOffsetScaleY = 0.6
+		AddColor = true
+		UseOwnAngle = false
+		AngleFromOwner = "Take"
+		Angle = 90
+		RandomOffsetX = 60
+		RandomOffsetY = 30
+		StartScaleY = 0.5
+		EndScaleY = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OriginX = 60
+		OriginY = 200
+	}
+
+	{
+		Name = "StaffWallParticleB_Base"
+		InheritFrom = "StaffWallParticleA_Base"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisWallGroundParticleB\AnubisWallGroundParticleB"
+	}
+
+	{
+		Name = "AnubisWallImpactFx_Base"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisWallImpactFx\AnubisWallImpactFx"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		EaseIn = 0.99
+		EaseOut = 1.0
+		EndFrame = 18
+		NumFrames = 18
+		RandomPlaySpeedMax = 70.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		Scale = 1
+		ScaleX = 1.3
+		ScaleMin = 0.6
+		ScaleMax = 1.2
+		RandomFlipHorizontal = true
+		OffsetZ = 30.0
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		AddColor = true
+		StartRed = 0
+		StartGreen = 1
+		StartBlue = 0.6
+		EndRed = 0.1
+		EndGreen = 1.0
+		EndBlue = 0.8
+		CreateAnimations =
+		[
+
+		]
+	}
+
+	{
+		Name = "AnubisVacuumFxFront_Base"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisVacuumFxFront\AnubisVacuumFxFront"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndFrame = 20
+		NumFrames = 20
+		RandomFlipHorizontal = true
+		PlaySpeed = 60
+		Scale = 1.0
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.75
+		EndBlue = 0.2
+		OffsetZ = 60
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		CreateAnimations =
+		[
+			{ Name = "AnubisVacuumFxSmoke_Base" }
+			{ Name = "AnubisVacuumFxBack_Base" }
+			{ Name = "AnubisVacuumFxDisplacement" }
+		]
+	}
+
+	{
+		Name = "AnubisVacuumFxBack_Base"
+		InheritFrom = "AnubisVacuumFxFront_Base"
+		DrawBehindOwner = true
+		GroupName = "FX_Terrain_Add"
+		ClearCreateAnimations = true
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisVacuumFxBack\AnubisVacuumFxBack"
+	}
+
+	{
+		Name = "AnubisExVacuumFxFront_Base" 
+		InheritFrom = "AnubisVacuumFxFront_Base"
+		Scale = 1.57
+		CreateAnimations =
+		[
+			{ Name = "AnubisExVacuumFxBack_Base" }
+		]
+	}
+
+	{
+		Name = "AnubisExVacuumFxBack_Base"
+		InheritFrom = "AnubisExVacuumFxFront_Base"
+		ClearCreateAnimations = true
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisVacuumFxBack\AnubisVacuumFxBack"
+	}
+
+
+	{
+		Name = "AnubisVacuumFxSmoke_Base"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisVacuumSmoke"
+		Material = "Unlit"
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.75
+		EndBlue = 0.2
+		StartScale = 1
+		EndScale = 0.4
+		EaseIn = 0.9
+		EaseOut = 1
+		StartAlpha = 0.75
+		EndAlpha = 0
+		Duration = 1.0
+		RandomRotation = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		GroupName = "FX_Standing_Add"
+		OffsetZ = 60
+		Scale = 1.5
+		AddColor = true
+		PostRotateScaleY = 0.5
+	}
+
+	{
+		Name = "AnubisVacuumFxDisplacement"
+		FilePath = "Fx\RadialDisplacement\RadialDisplacement"
+		NumFrames = 60
+		PlayBackwards = true
+		AngleFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Displacement"
+		Material = "Unlit"
+		PlaySpeed = 120
+		Alpha = 0.5
+		Scale = 1.5
+		OffsetZ = 60
+		UseOwnAngle = false
+	}
+
+	{
+		Name = "AnubisRingFxBright_Base"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisRingA\AnubisRingA"
+		NumFrames = 30
+		ScaleRadius = 345
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseOwnAngle = false
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		RandomFlipHorizontal = true
+		AddColor = true
+		Loop = false
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.75
+		EndBlue = 0.2
+		GroupName = "FX_Terrain_Add"
+		CreateAnimation = "AnubisRingFxSmoke_Base"
+		VisualFx = "AnubisRingFxParticles_Base"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+		VisualFxManagerCap = 500
+		VisualFxManagerFrameCap = 20
+		DieWithOwner = false
+	}
+
+	{
+		Name = "AnubisRingFxSmoke_Base"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisRingSmoke"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		Scale = 1
+		ScaleMin = 0.98
+		ScaleMax = 1.02
+		PostRotateScaleY = 0.6
+		AddColor = true
+		StartAlpha = 0
+		EndAlpha = 0.5
+		PingPongColor = true
+		StartScale = 1
+		EndScale = 1.1
+		EaseIn = 0
+		EaseOut = 1
+		RandomDurationMin = 1
+		RandomDurationMax = 1.5
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomRotation = true
+		RandomRotationSpeedMin = -5
+		RandomRotationSpeedMax = 5
+		MultiplicativeScaleRadius = true
+		ScaleRadius = 230
+		EndRed = 1
+		EndGreen = 0.8
+		EndBlue = 0.3
+		StartRed = 0.99
+		StartGreen = 0.75
+		StartBlue = 0.2
+
+	}
+
+	{
+		Name = "AnubisRingFxParticles_Base"
+		Random = [
+			{ Name = "AnubisRingFxParticleA_Base" }
+			{ Name = "AnubisRingFxParticleB_Base" }
+		]
+	}
+
+	{
+		Name = "AnubisRingFxParticleA_Base"
+		FilePath = "Particles\particle_circle_04"
+		DieWithOwner = false
+		Material = "Unlit"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.75
+		EndBlue = 0.2
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetScaleY = 0.6
+		RadialOffsetMin = 250
+		RadialOffsetMax = 550
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		ScaleMin = 0.5
+		ScaleMax = 1.25
+		VelocityMin = 25
+		VelocityMax = 100
+		Acceleration = -50
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "AnubisRingFxParticleB_Base"
+		InheritFrom = "AnubisRingFxParticleA_Base"
+		FilePath = "Particles\particle_addSparkle_02"
+		Scale = 0.12
+	}
+
+	{
+		Name = "AnubisRingFxDark"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisRingB\AnubisRingB"
+		NumFrames = 1
+		ScaleRadius = 460
+		PostRotateScaleY = 0.6
+		Loop = false
+		GroupName = "FX_Terrain_Dark"
+		DieWithOwner = true
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseOwnAngle = false
+		RotationSpeed = 30
+		Duration = 6.0
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		EaseIn = 0.0
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "AnubisRingFx_Base"
+		FilePath = "Dev\blank_invisible"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleRadius = 380
+		Alpha = 0
+		Sound = "/SFX/Player Sounds/StaffAnubisGroundLoop"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "AnubisRingFxBright_Base"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
+		PostRotateScaleY = 0.5
+		RandomRotation = true
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		CreateAnimations =
+		[
+			{ Name = "AnubisRingFxBright_Base" }
+			{ Name = "QuickFlashCyan" }
+			{ Name = "AnubisRingFxDisplacement" }
+			{ Name = "AnubisRingFxDark" }
+		]
+	}
+
+	{
+		Name = "AnubisRingFxDisplacement"
+		FilePath = "Fx\RadialDisplacement\RadialDisplacement"
+		NumFrames = 30
+		StartFrame = 30
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		PostRotateScaleY = 0.7
+		ScaleRadius = 135
+		PingPongColor = true
+		Loop = true
+		PlaySpeed = 24
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Displacement"
+		Angle = 0
+		Alpha = 0.75
+		FlipHorizontal = true
+		FlipVertical = true
+		ColorFromOwner = "Ignore"
+		DieWithOwner = true
+	}
+
+
+	// Anubis x Apollo
+
+	{
+		Name = "StaffWall_Apollo"
+		InheritFrom = "StaffWall_Base"
+		ChainTo = "StaffWall_Apollo_Fade"
+		VisualFx = "StaffWallParticles_Apollo"
+		Sound = "/SFX/Player Sounds/StaffAnubisWallLoop_Apollo"
+		StopSoundOnFinishFade = 0.2
+		StartRed = 1.0
+		StartGreen = 0.8
+		StartBlue = 0.5
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0.1
+	}
+
+	{
+		Name = "StaffWallIn_Apollo"
+		InheritFrom = "StaffWallIn_Base"
+		ChainTo = "StaffWall_Apollo"
+		StartRed = 1.0
+		StartGreen = 0.8
+		StartBlue = 0.5
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0.1
+		Sound = "/SFX/Player Sounds/StaffAnubisSlamWallSpawn_Apollo"
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "QuickFlashGold" }
+			{ Name = "StaffWall_Dark" }
+		]
+	}
+
+	{
+		Name = "StaffWall_Apollo_Fade"
+		InheritFrom = "StaffWall_Apollo"
+		PingPongColor = false
+		ClearCreateAnimations = true
+		VisualFx = null
+		ChainTo = null
+		StartAlpha = 1
+		EndAlpha = 0
+		TransferFrameToThis = true
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 1
+		Sound = null
+	}
+
+	{
+		Name = "StaffWallParticles_Apollo"
+		Random = [
+			{ Name = "StaffWallParticleA_Apollo" }
+			{ Name = "StaffWallParticleB_Apollo" }
+		]
+	}
+
+	{
+		Name = "StaffWallParticleA_Apollo"
+		InheritFrom = "StaffWallParticleA_Base"
+		StartRed = 1.0
+		StartGreen = 0.8
+		StartBlue = 0.5
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0.1
+	}
+
+	{
+		Name = "StaffWallParticleB_Apollo"
+		InheritFrom = "StaffWallParticleA_Apollo"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisWallGroundParticleB\AnubisWallGroundParticleB"
+	}
+
+	{
+		Name = "AnubisWallImpactFx_Apollo"
+		InheritFrom = "AnubisWallImpactFx_Base"
+		StartRed = 1.0
+		StartGreen = 0.8
+		StartBlue = 0.5
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0.1
+	}
+
+	{
+		Name = "AnubisVacuumFxFront_Apollo"
+		InheritFrom = "AnubisVacuumFxFront_Base"
+		StartRed = 1.0
+		StartGreen = 0.8
+		StartBlue = 0.5
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0.1
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "AnubisVacuumFxSmoke_Apollo" }
+			{ Name = "AnubisVacuumFxBack_Apollo" }
+			{ Name = "AnubisVacuumFxDisplacement" }
+		]
+	}
+
+	{
+		Name = "AnubisVacuumFxBack_Apollo"
+		InheritFrom = "AnubisVacuumFxBack_Base"
+		StartRed = 1.0
+		StartGreen = 0.8
+		StartBlue = 0.5
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0.1
+	}
+
+	{
+		Name = "AnubisExVacuumFxFront_Apollo" 
+		InheritFrom = "AnubisVacuumFxFront_Apollo"
+		Scale = 1.57
+		CreateAnimations =
+		[
+			{ Name = "AnubisExVacuumFxBack_Apollo" }
+		]
+	}
+
+	{
+		Name = "AnubisExVacuumFxBack_Apollo"
+		InheritFrom = "AnubisExVacuumFxFront_Apollo"
+		ClearCreateAnimations = true
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisVacuumFxBack\AnubisVacuumFxBack"
+	}
+
+	{
+		Name = "AnubisVacuumFxSmoke_Apollo"
+		InheritFrom = "AnubisVacuumFxSmoke_Base"
+		StartRed = 1.0
+		StartGreen = 0.8
+		StartBlue = 0.5
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0.1
+	}
+
+	{
+		Name = "AnubisRingFxBright_Apollo"
+		InheritFrom = "AnubisRingFxBright_Base"
+		VisualFx = "AnubisRingFxParticles_Apollo"
+		CreateAnimation = "AnubisRingFxSmoke_Apollo"
+		StartRed = 1.0
+		StartGreen = 0.8
+		StartBlue = 0.5
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0.1
+	}
+
+	{
+		Name = "AnubisRingFxSmoke_Apollo"
+		InheritFrom = "AnubisRingFxSmoke_Base"
+		StartRed = 1.0
+		StartGreen = 0.8
+		StartBlue = 0.5
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0.1
+	}
+
+	{
+		Name = "AnubisRingFxParticles_Apollo"
+		Random = [
+			{ Name = "AnubisRingFxParticleA_Apollo" }
+			{ Name = "AnubisRingFxParticleB_Apollo" }
+			{ Name = "AnubisRingFxParticleC_Apollo" }
+			{ Name = "AnubisRingFxParticleD_Apollo" }
+		]
+	}
+
+	{
+		Name = "AnubisRingFxParticleA_Apollo"
+		FilePath = "Particles\particle_apollo"
+		DieWithOwner = false
+		Material = "Unlit"
+		AddColor = false
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+
+		Red = 1
+		Green = 0.2
+		Blue = 0
+
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetScaleY = 0.6
+		StartScale = 0.9999
+		EndScale = 1
+		StartAlpha = 0
+		PingPongColor = true
+		EndAlpha = 1
+		PingPongScale = true
+		AlphaMin = 0.05
+		AlphaMax = 0.2
+		EaseIn = 0 
+		EaseOut = 1
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		ScaleMin = 0.4
+		ScaleMax = 0.7
+		VelocityMin = 25
+		VelocityMax = 100
+		Acceleration = -50
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		UseOwnAngle = true
+		AngleFromOwner = "Take"
+
+		RadialOffsetMin = 450 // 250
+		RadialOffsetMax = 750 // 550
+	}
+
+	{
+		Name = "AnubisRingFxParticleB_Apollo"
+		InheritFrom = "AnubisRingFxParticleA_Apollo"
+		Red = 1
+		Green = 0.8
+		Blue = 0
+	}
+	{
+		Name = "AnubisRingFxParticleC_Apollo"
+		InheritFrom = "AnubisRingFxParticleA_Apollo"
+		AlphaMin = 0.5
+		AlphaMax = 0.9
+		ScaleMin = 0.05
+		ScaleMax = 0.1
+	}
+	{
+		Name = "AnubisRingFxParticleD_Apollo"
+		InheritFrom = "AnubisRingFxParticleC_Apollo"
+		Red = 1
+		Green = 0.8
+		Blue = 0
+	}
+
+
+	{
+		Name = "AnubisRingFx_Apollo"
+		InheritFrom = "AnubisRingFx_Base"
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/StaffAnubisGroundLoop_Apollo"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "AnubisRingFxBright_Apollo"
+		CreateAnimations =
+		[
+			{ Name = "AnubisRingFxBright_Apollo" }
+			{ Name = "QuickFlashGold" }
+			{ Name = "AnubisRingFxDisplacement" }
+			{ Name = "AnubisRingFxDark" }
+		]
+	}	
+
+
+	// Anubis x Aphrodite
+
+	{
+		Name = "StaffWall_Aphrodite"
+		InheritFrom = "StaffWall_Base"
+		ChainTo = "StaffWall_Aphrodite_Fade"
+		VisualFx = "StaffWallParticles_Aphrodite"
+		Sound = "/SFX/Player Sounds/StaffAnubisWallLoop_Aphrodite"
+		StopSoundOnFinishFade = 0.2
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}
+
+	{
+		Name = "StaffWallIn_Aphrodite"
+		InheritFrom = "StaffWallIn_Base"
+		ChainTo = "StaffWall_Aphrodite"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+		Sound = "/SFX/Player Sounds/StaffAnubisSlamWallSpawn_Aphrodite"
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "QuickFlashPink" }
+			{ Name = "StaffWall_Dark" }
+		]
+	}
+
+	{
+		Name = "StaffWall_Aphrodite_Fade"
+		InheritFrom = "StaffWall_Aphrodite"
+		PingPongColor = false
+		ClearCreateAnimations = true
+		VisualFx = null
+		ChainTo = null
+		StartAlpha = 1
+		EndAlpha = 0
+		TransferFrameToThis = true
+		Sound = null
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "StaffWallParticles_Aphrodite"
+		Random = [
+			{ Name = "StaffWallParticleA_Aphrodite" }
+			{ Name = "StaffWallParticleB_Aphrodite" }
+		]
+	}
+
+	{
+		Name = "StaffWallParticleA_Aphrodite"
+		InheritFrom = "StaffWallParticleA_Base"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}
+
+	{
+		Name = "StaffWallParticleB_Aphrodite"
+		InheritFrom = "StaffWallParticleA_Aphrodite"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisWallGroundParticleB\AnubisWallGroundParticleB"
+	}
+
+	{
+		Name = "AnubisWallImpactFx_Aphrodite"
+		InheritFrom = "AnubisWallImpactFx_Base"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}
+
+	{
+		Name = "AnubisVacuumFxFront_Aphrodite"
+		InheritFrom = "AnubisVacuumFxFront_Base"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "AnubisVacuumFxSmoke_Aphrodite" }
+			{ Name = "AnubisVacuumFxBack_Aphrodite" }
+			{ Name = "AnubisVacuumFxDisplacement" }
+		]
+	}
+
+	{
+		Name = "AnubisVacuumFxBack_Aphrodite"
+		InheritFrom = "AnubisVacuumFxBack_Base"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}
+
+	{
+		Name = "AnubisExVacuumFxFront_Aphrodite" 
+		InheritFrom = "AnubisVacuumFxFront_Aphrodite"
+		Scale = 1.57
+		CreateAnimations =
+		[
+			{ Name = "AnubisExVacuumFxBack_Aphrodite" }
+		]
+	}
+
+	{
+		Name = "AnubisExVacuumFxBack_Aphrodite"
+		InheritFrom = "AnubisExVacuumFxFront_Aphrodite"
+		ClearCreateAnimations = true
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisVacuumFxBack\AnubisVacuumFxBack"
+	}
+
+	{
+		Name = "AnubisVacuumFxSmoke_Aphrodite"
+		InheritFrom = "AnubisVacuumFxSmoke_Base"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}
+
+	{
+		Name = "AnubisRingFxBright_Aphrodite"
+		InheritFrom = "AnubisRingFxBright_Base"
+		VisualFx = "AnubisRingFxParticles_Aphrodite"
+		VisualFxIntervalMin = 0.15
+		VisualFxIntervalMax = 0.15
+		CreateAnimation = "AnubisRingFxSmoke_Aphrodite"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}
+
+	{
+		Name = "AnubisRingFxSmoke_Aphrodite"
+		InheritFrom = "AnubisRingFxSmoke_Base"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}
+
+	{
+		Name = "AnubisRingFxParticles_Aphrodite"
+		Random = [
+			{ Name = "AnubisRingFxParticleA_Aphrodite" }
+			{ Name = "AnubisRingFxParticleB_Aphrodite" }
+			// { Name = "AnubisRingFxParticleC_Aphrodite" }
+		]
+	}
+
+	{
+		Name = "AnubisRingFxParticleA_Aphrodite"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		DieWithOwner = false
+		Material = "Unlit"
+		AddColor = false
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetScaleY = 0.6
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		EaseIn = 0 
+		EaseOut = 1
+		RandomDurationMin = 0.7
+		RandomDurationMax = 1.2
+		ScaleMin = 0.25
+		ScaleMax = 0.45
+		VelocityMin = 60
+		VelocityMax = 120
+		Acceleration = -50
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		RadialOffsetMin = 250 // 250
+		RadialOffsetMax = 550 // 550
+	}
+
+	{
+		Name = "AnubisRingFxParticleB_Aphrodite"
+		InheritFrom = "AnubisRingFxParticleA_Aphrodite"
+		FilePath = "Particles\particle_aphrodite_heart"
+	}
+	{
+		Name = "AnubisRingFxParticleC_Aphrodite"
+		InheritFrom = "AnubisRingFxParticleA_Aphrodite"
+		FilePath = "Fx\Aphrodite\AphroditeGoldHeartParticle\AphroditeGoldHeartParticle"
+		NumFrames = 42
+		RandomFlipHorizontal = true
+		GroupName = "FX_Standing"
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 72
+		StartScale = 0.999
+		EndScale = 1.0
+	}
+	
+	{
+		Name = "AnubisRingFx_Aphrodite"
+		InheritFrom = "AnubisRingFx_Base"
+		ClearCreateAnimations = true
+		VisualFx = "AnubisRingFxBright_Aphrodite"
+		Sound = "/SFX/Player Sounds/StaffAnubisGroundLoop_Aphrodite"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "AnubisRingFxBright_Aphrodite" }
+			{ Name = "QuickFlashPink" }
+			{ Name = "AnubisRingFxDisplacement" }
+			{ Name = "AnubisRingFxDark" }
+		]
+	}
+
+
+	// Anubis x Ares
+
+	{
+		Name = "StaffWall_Ares"
+		InheritFrom = "StaffWall_Base"
+		ChainTo = "StaffWall_Ares_Fade"
+		VisualFx = "StaffWallParticles_Ares"
+		Sound = "/SFX/Player Sounds/StaffAnubisWallLoop_Ares"
+		StopSoundOnFinishFade = 0.2
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "StaffWallIn_Ares"
+		InheritFrom = "StaffWallIn_Base"
+		ChainTo = "StaffWall_Ares"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Sound = "/SFX/Player Sounds/StaffAnubisSlamWallSpawn_Ares"
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "QuickFlashPink" }
+			{ Name = "StaffWall_Dark" }
+		]
+	}
+
+	{
+		Name = "StaffWall_Ares_Fade"
+		InheritFrom = "StaffWall_Ares"
+		PingPongColor = false
+		ClearCreateAnimations = true
+		VisualFx = null
+		ChainTo = null
+		Sound = null
+		StartAlpha = 1
+		EndAlpha = 0
+		TransferFrameToThis = true
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "StaffWallParticles_Ares"
+		Random = [
+			{ Name = "StaffWallParticleA_Ares" }
+			{ Name = "StaffWallParticleB_Ares" }
+		]
+	}
+
+	{
+		Name = "StaffWallParticleA_Ares"
+		InheritFrom = "StaffWallParticleA_Base"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "StaffWallParticleB_Ares"
+		InheritFrom = "StaffWallParticleA_Ares"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisWallGroundParticleB\AnubisWallGroundParticleB"
+	}
+
+	{
+		Name = "AnubisWallImpactFx_Ares"
+		InheritFrom = "AnubisWallImpactFx_Base"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "AnubisVacuumFxFront_Ares"
+		InheritFrom = "AnubisVacuumFxFront_Base"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "AnubisVacuumFxSmoke_Ares" }
+			{ Name = "AnubisVacuumFxBack_Ares" }
+			{ Name = "AnubisVacuumFxDisplacement" }
+		]
+	}
+
+	{
+		Name = "AnubisVacuumFxBack_Ares"
+		InheritFrom = "AnubisVacuumFxBack_Base"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "AnubisExVacuumFxFront_Ares" 
+		InheritFrom = "AnubisVacuumFxFront_Ares"
+		Scale = 1.57
+		CreateAnimations =
+		[
+			{ Name = "AnubisExVacuumFxBack_Ares" }
+		]
+	}
+
+	{
+		Name = "AnubisExVacuumFxBack_Ares"
+		InheritFrom = "AnubisExVacuumFxFront_Ares"
+		ClearCreateAnimations = true
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisVacuumFxBack\AnubisVacuumFxBack"
+	}
+
+	{
+		Name = "AnubisVacuumFxSmoke_Ares"
+		InheritFrom = "AnubisVacuumFxSmoke_Base"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "AnubisRingFxBright_Ares"
+		InheritFrom = "AnubisRingFxBright_Base"
+		VisualFx = "AnubisRingFxParticles_Ares"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+		CreateAnimation = "AnubisRingFxSmoke_Ares"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "AnubisRingFxSmoke_Ares"
+		InheritFrom = "AnubisRingFxSmoke_Base"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "AnubisRingFxParticles_Ares"
+		Random = [
+			{ Name = "AnubisRingFxParticleA_Ares" }
+			{ Name = "AnubisRingFxParticleB_Ares" }
+			{ Name = "AnubisRingFxParticleC_Ares" }
+			/*	
+			{ Name = "AnubisRingFxParticleA2_Ares" }
+			{ Name = "AnubisRingFxParticleB2_Ares" }
+			{ Name = "AnubisRingFxParticleC2_Ares" }
+			*/
+		]
+	}
+
+	{
+		Name = "AnubisRingFxParticleA_Ares"
+		FilePath = "Fx\Ares\AresParticleA\AresParticleA"
+		DieWithOwner = false
+		Material = "Unlit"
+		NumFrames = 80
+		AngleMin = 0
+		AngleMax = 360
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		RadialOffsetScaleY = 0.6
+		EaseIn = 0 
+		EaseOut = 1
+		ScaleMin = 0.4
+		ScaleMax = 0.8
+		VelocityMin = 60
+		VelocityMax = 120
+		Acceleration = -50
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		UseOwnAngle = true
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Terrain_Add"
+		FlipHorizontal = true
+		RadialOffsetMin = 300 // 250
+		RadialOffsetMax = 550 // 550
+		RandomFlipVertical = true
+		ScaleX = 0.66
+		ScaleY = 1.5
+		OriginX = 300
+		OriginY = 75
+		StartScale = 1
+		EndScale = 0.5
+		Red = 0.5
+		Green = 0
+		Blue = 0
+		PostRotateScaleY = 0.6
+	}
+
+	{
+		Name = "AnubisRingFxParticleB_Ares"
+		InheritFrom = "AnubisRingFxParticleA_Ares"
+		FilePath = "Fx\Ares\AresParticleB\AresParticleB"
+	}
+	{
+		Name = "AnubisRingFxParticleC_Ares"
+		InheritFrom = "AnubisRingFxParticleA_Ares"
+		FilePath = "Fx\Ares\AresParticleC\AresParticleC"
+	}	
+
+	{
+		Name = "AnubisRingFxParticleA2_Ares"
+		InheritFrom = "AnubisRingFxParticleA_Ares"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+	}
+	{
+		Name = "AnubisRingFxParticleB2_Ares"
+		InheritFrom = "AnubisRingFxParticleA2_Ares"
+		FilePath = "Fx\Ares\AresParticleB\AresParticleB"
+	}
+	{
+		Name = "AnubisRingFxParticleC2_Ares"
+		InheritFrom = "AnubisRingFxParticleA2_Ares"
+		FilePath = "Fx\Ares\AresParticleC\AresParticleC"
+	}
+	
+	{
+		Name = "AnubisRingFx_Ares"
+		InheritFrom = "AnubisRingFx_Base"
+		ClearCreateAnimations = true
+		VisualFx = "AnubisRingFxBright_Ares"
+		Sound = "/SFX/Player Sounds/StaffAnubisGroundLoop_Ares"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "AnubisRingFxBright_Ares" }
+			{ Name = "QuickFlashRed" }
+			{ Name = "AnubisRingFxDisplacement" }
+			{ Name = "AnubisRingFxDark" }
+		]
+	}
+
+	// Anubis x Demeter
+
+	{
+		Name = "StaffWall_Demeter"
+		InheritFrom = "StaffWall_Base"
+		ChainTo = "StaffWall_Demeter_Fade"
+		VisualFx = "StaffWallParticles_Demeter"
+		Sound = "/SFX/Player Sounds/StaffAnubisWallLoop_Demeter"
+		StopSoundOnFinishFade = 0.2
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "StaffWallIn_Demeter"
+		InheritFrom = "StaffWallIn_Base"
+		ChainTo = "StaffWall_Demeter"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/StaffAnubisSlamWallSpawn_Demeter"
+		CreateAnimations = [
+			{ Name = "QuickFlashPink" }
+			{ Name = "StaffWall_Dark" }
+		]
+	}
+
+	{
+		Name = "StaffWall_Demeter_Fade"
+		InheritFrom = "StaffWall_Demeter"
+		PingPongColor = false
+		ClearCreateAnimations = true
+		VisualFx = null
+		ChainTo = null
+		Sound = null
+		StartAlpha = 1
+		EndAlpha = 0
+		TransferFrameToThis = true
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "StaffWallParticles_Demeter"
+		Random = [
+			{ Name = "StaffWallParticleA_Demeter" }
+			{ Name = "StaffWallParticleB_Demeter" }
+		]
+	}
+
+	{
+		Name = "StaffWallParticleA_Demeter"
+		InheritFrom = "StaffWallParticleA_Base"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "StaffWallParticleB_Demeter"
+		InheritFrom = "StaffWallParticleA_Demeter"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisWallGroundParticleB\AnubisWallGroundParticleB"
+	}
+
+	{
+		Name = "AnubisWallImpactFx_Demeter"
+		InheritFrom = "AnubisWallImpactFx_Base"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "AnubisVacuumFxFront_Demeter"
+		InheritFrom = "AnubisVacuumFxFront_Base"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "AnubisVacuumFxSmoke_Demeter" }
+			{ Name = "AnubisVacuumFxBack_Demeter" }
+			{ Name = "AnubisVacuumFxDisplacement" }
+		]
+	}
+
+	{
+		Name = "AnubisVacuumFxBack_Demeter"
+		InheritFrom = "AnubisVacuumFxBack_Base"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "AnubisExVacuumFxFront_Demeter" 
+		InheritFrom = "AnubisVacuumFxFront_Demeter"
+		Scale = 1.57
+		CreateAnimations =
+		[
+			{ Name = "AnubisExVacuumFxBack_Demeter" }
+		]
+	}
+
+	{
+		Name = "AnubisExVacuumFxBack_Demeter"
+		InheritFrom = "AnubisExVacuumFxFront_Demeter"
+		ClearCreateAnimations = true
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisVacuumFxBack\AnubisVacuumFxBack"
+	}
+
+	{
+		Name = "AnubisVacuumFxSmoke_Demeter"
+		InheritFrom = "AnubisVacuumFxSmoke_Base"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "AnubisRingFxBright_Demeter"
+		InheritFrom = "AnubisRingFxBright_Base"
+		VisualFx = "AnubisRingFxParticles_Demeter"
+		VisualFxIntervalMin = 0.15
+		VisualFxIntervalMax = 0.15
+		CreateAnimation = "AnubisRingFxSmoke_Demeter"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "AnubisRingFxSmoke_Demeter"
+		InheritFrom = "AnubisRingFxSmoke_Base"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "AnubisRingFxParticles_Demeter"
+		Random = [
+			{ Name = "AnubisRingFxParticleA_Demeter" }
+			{ Name = "AnubisRingFxParticleB_Demeter" }
+			{ Name = "AnubisRingFxParticleC_Demeter" }
+		]
+	}
+
+	{
+		Name = "AnubisRingFxParticleA_Demeter"
+		FilePath = "Particles\particle_addSparkle_02"
+		DieWithOwner = false
+		Material = "Unlit"
+		AddColor = true
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetScaleY = 0.6
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		EaseIn = 0 
+		EaseOut = 1
+		RandomDurationMin = 0.7
+		RandomDurationMax = 1.2
+		ScaleMin = 0.06
+		ScaleMax = 0.125
+		VelocityMin = 60
+		VelocityMax = 120
+		Acceleration = -50
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		RadialOffsetMin = 250 // 250
+		RadialOffsetMax = 550 // 550
+	}
+
+	{
+		Name = "AnubisRingFxParticleB_Demeter"
+		InheritFrom = "AnubisRingFxParticleA_Demeter"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		StartScale = 0.999
+		ScaleMin = 0.25
+		ScaleMax = 0.5
+		AddColor = false
+		FilePath = "Fx\Demeter\DemeterIceParticleB\DemeterIceParticleB"
+		NumFrames = 45
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomRotation = true
+	}
+
+	{
+		Name = "AnubisRingFxParticleC_Demeter"
+		InheritFrom = "AnubisRingFxParticleB_Demeter"
+		FilePath = "Fx\Demeter\DemeterIceCloudB\DemeterIceCloudB"
+		NumFrames = 45
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		AlphaMin = 0.3
+		AlphaMax = 0.85
+		StartScale = 1
+		EndScale = 1.5
+	}
+
+	
+	{
+		Name = "AnubisRingFx_Demeter"
+		InheritFrom = "AnubisRingFx_Base"
+		ClearCreateAnimations = true
+		VisualFx = "AnubisRingFxBright_Demeter"
+		Sound = "/SFX/Player Sounds/StaffAnubisGroundLoop_Demeter"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "AnubisRingFxBright_Demeter" }
+			{ Name = "QuickFlashIce" }
+			{ Name = "AnubisRingFxDisplacement" }
+			{ Name = "AnubisRingFxDark" }
+		]
+	}
+
+	// Anubis x Hephaestus
+
+	{
+		Name = "StaffWall_Hephaestus"
+		InheritFrom = "StaffWall_Base"
+		ChainTo = "StaffWall_Hephaestus_Fade"
+		VisualFx = "StaffWallParticles_Hephaestus"
+		Sound = "/SFX/Player Sounds/StaffAnubisWallLoop_Hephaestus"
+		StopSoundOnFinishFade = 0.2
+		StartRed = 0.88
+		StartGreen = 0.83
+		StartBlue = 0.90
+		EndRed = 0.45
+		EndGreen = 0.4
+		EndBlue = 0.42
+	}
+
+	{
+		Name = "StaffWallIn_Hephaestus"
+		InheritFrom = "StaffWallIn_Base"
+		ChainTo = "StaffWall_Hephaestus"
+		StartRed = 0.88
+		StartGreen = 0.83
+		StartBlue = 0.90
+		EndRed = 0.45
+		EndGreen = 0.4
+		EndBlue = 0.42
+		Sound = "/SFX/Player Sounds/StaffAnubisSlamWallSpawn_Hephaestus"
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "QuickFlashPink" }
+			{ Name = "StaffWall_Dark" }
+		]
+	}
+
+	{
+		Name = "StaffWall_Hephaestus_Fade"
+		InheritFrom = "StaffWall_Hephaestus"
+		PingPongColor = false
+		ClearCreateAnimations = true
+		VisualFx = null
+		ChainTo = null
+		Sound = null
+		StartAlpha = 1
+		EndAlpha = 0
+		TransferFrameToThis = true
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "StaffWallParticles_Hephaestus"
+		Random = [
+			{ Name = "StaffWallParticleA_Hephaestus" }
+			{ Name = "StaffWallParticleB_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "StaffWallParticleA_Hephaestus"
+		InheritFrom = "StaffWallParticleA_Base"
+		StartRed = 0.88
+		StartGreen = 0.83
+		StartBlue = 0.90
+		EndRed = 0.45
+		EndGreen = 0.4
+		EndBlue = 0.42
+	}
+
+	{
+		Name = "StaffWallParticleB_Hephaestus"
+		InheritFrom = "StaffWallParticleA_Hephaestus"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisWallGroundParticleB\AnubisWallGroundParticleB"
+	}
+
+	{
+		Name = "AnubisWallImpactFx_Hephaestus"
+		InheritFrom = "AnubisWallImpactFx_Base"
+		StartRed = 0.88
+		StartGreen = 0.83
+		StartBlue = 0.90
+		EndRed = 0.45
+		EndGreen = 0.4
+		EndBlue = 0.42
+	}
+
+	{
+		Name = "AnubisVacuumFxFront_Hephaestus"
+		InheritFrom = "AnubisVacuumFxFront_Base"
+		StartRed = 0.88
+		StartGreen = 0.83
+		StartBlue = 0.90
+		EndRed = 0.45
+		EndGreen = 0.4
+		EndBlue = 0.42
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "AnubisVacuumFxSmoke_Hephaestus" }
+			{ Name = "AnubisVacuumFxBack_Hephaestus" }
+			{ Name = "AnubisVacuumFxDisplacement" }
+		]
+	}
+
+	{
+		Name = "AnubisVacuumFxBack_Hephaestus"
+		InheritFrom = "AnubisVacuumFxBack_Base"
+		StartRed = 0.88
+		StartGreen = 0.83
+		StartBlue = 0.90
+		EndRed = 0.45
+		EndGreen = 0.4
+		EndBlue = 0.42
+	}
+
+	{
+		Name = "AnubisExVacuumFxFront_Hephaestus" 
+		InheritFrom = "AnubisVacuumFxFront_Hephaestus"
+		Scale = 1.57
+		CreateAnimations =
+		[
+			{ Name = "AnubisExVacuumFxBack_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "AnubisExVacuumFxBack_Hephaestus"
+		InheritFrom = "AnubisExVacuumFxFront_Hephaestus"
+		ClearCreateAnimations = true
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisVacuumFxBack\AnubisVacuumFxBack"
+	}
+
+	{
+		Name = "AnubisVacuumFxSmoke_Hephaestus"
+		InheritFrom = "AnubisVacuumFxSmoke_Base"
+		StartRed = 0.88
+		StartGreen = 0.83
+		StartBlue = 0.90
+		EndRed = 0.45
+		EndGreen = 0.4
+		EndBlue = 0.42
+	}
+
+	{
+		Name = "AnubisRingFxBright_Hephaestus"
+		InheritFrom = "AnubisRingFxBright_Base"
+		VisualFx = "AnubisRingFxParticles_Hephaestus"
+		VisualFxIntervalMin = 0.15
+		VisualFxIntervalMax = 0.15
+		CreateAnimation = "AnubisRingFxSmoke_Hephaestus"
+		StartRed = 0.88
+		StartGreen = 0.83
+		StartBlue = 0.90
+		EndRed = 0.45
+		EndGreen = 0.4
+		EndBlue = 0.42
+	}
+
+	{
+		Name = "AnubisRingFxSmoke_Hephaestus"
+		InheritFrom = "AnubisRingFxSmoke_Base"
+		StartRed = 0.88
+		StartGreen = 0.83
+		StartBlue = 0.90
+		EndRed = 0.45
+		EndGreen = 0.4
+		EndBlue = 0.42
+	}
+
+	{
+		Name = "AnubisRingFxParticles_Hephaestus"
+		Random = [
+			{ Name = "AnubisRingFxParticleA_Hephaestus" }
+			{ Name = "AnubisRingFxParticleB_Hephaestus" }
+			{ Name = "AnubisRingFxParticleC_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "AnubisRingFxParticleA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
+		DieWithOwner = false
+		NumFrames = 38
+		Material = "Unlit"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetScaleY = 0.6
+		EaseIn = 0.9
+		EaseOut = 1
+		RandomDurationMin = 0.7
+		RandomDurationMax = 1.2
+		ScaleMin = 0.125
+		ScaleMax = 0.5
+		VelocityMin = 300
+		VelocityMax = 500
+		Acceleration = -1500
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		RadialOffsetMin = 250 // 250
+		RadialOffsetMax = 550 // 550
+		GroupName = "FX_Standing_Add"
+		RandomFlipVertical = true
+	}
+
+	{
+		Name = "AnubisRingFxParticleB_Hephaestus"
+		InheritFrom = "AnubisRingFxParticleA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleB\HephSparkParticleB"
+	}
+
+	{
+		Name = "AnubisRingFxParticleC_Hephaestus"
+		InheritFrom = "AnubisRingFxParticleB_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephDirectionalProjectileA\HephDirectionalProjectileA"
+		NumFrames = 37
+		UseOwnAngle = true
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 120
+		Acceleration = -15000
+		StartScaleY = 0.3
+		EndScaleY = 1.0
+	}
+
+	
+	{
+		Name = "AnubisRingFx_Hephaestus"
+		InheritFrom = "AnubisRingFx_Base"
+		ClearCreateAnimations = true
+		VisualFx = "AnubisRingFxBright_Hephaestus"
+		Sound = "/SFX/Player Sounds/StaffAnubisGroundLoop_Hephaestus"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "AnubisRingFxBright_Hephaestus" }
+			{ Name = "QuickFlashIce" }
+			{ Name = "AnubisRingFxDisplacement" }
+			{ Name = "AnubisRingFxDark" }
+		]
+	}
+
+	// Anubis x Hera
+
+	{
+		Name = "StaffWall_Hera"
+		InheritFrom = "StaffWall_Base"
+		ChainTo = "StaffWall_Hera_Fade"
+		VisualFx = "StaffWallParticles_Hera"
+		Sound = "/SFX/Player Sounds/StaffAnubisWallLoop_Hera"
+		StopSoundOnFinishFade = 0.2
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0.2
+		EndGreen = 0.7
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "StaffWallIn_Hera"
+		InheritFrom = "StaffWallIn_Base"
+		ChainTo = "StaffWall_Hera"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0.2
+		EndGreen = 0.7
+		EndBlue = 1.0
+		Sound = "/SFX/Player Sounds/StaffAnubisSlamWallSpawn_Hera"
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "QuickFlashPink" }
+			{ Name = "StaffWall_Dark" }
+		]
+	}
+
+	{
+		Name = "StaffWall_Hera_Fade"
+		InheritFrom = "StaffWall_Hera"
+		PingPongColor = false
+		ClearCreateAnimations = true
+		VisualFx = null
+		ChainTo = null
+		Sound = null
+		StartAlpha = 1
+		EndAlpha = 0
+		TransferFrameToThis = true
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "StaffWallParticles_Hera"
+		Random = [
+			{ Name = "StaffWallParticleA_Hera" }
+			{ Name = "StaffWallParticleB_Hera" }
+		]
+	}
+
+	{
+		Name = "StaffWallParticleA_Hera"
+		InheritFrom = "StaffWallParticleA_Base"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.5
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "StaffWallParticleB_Hera"
+		InheritFrom = "StaffWallParticleA_Hera"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisWallGroundParticleB\AnubisWallGroundParticleB"
+	}
+
+	{
+		Name = "AnubisWallImpactFx_Hera"
+		InheritFrom = "AnubisWallImpactFx_Base"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.5
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "AnubisVacuumFxFront_Hera"
+		InheritFrom = "AnubisVacuumFxFront_Base"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.5
+		EndBlue = 1.0
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "AnubisVacuumFxSmoke_Hera" }
+			{ Name = "AnubisVacuumFxBack_Hera" }
+			{ Name = "AnubisVacuumFxDisplacement" }
+		]
+	}
+
+	{
+		Name = "AnubisVacuumFxBack_Hera"
+		InheritFrom = "AnubisVacuumFxBack_Base"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.5
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "AnubisExVacuumFxFront_Hera" 
+		InheritFrom = "AnubisVacuumFxFront_Hera"
+		Scale = 1.57
+		CreateAnimations =
+		[
+			{ Name = "AnubisExVacuumFxBack_Hera" }
+		]
+	}
+
+	{
+		Name = "AnubisExVacuumFxBack_Hera"
+		InheritFrom = "AnubisExVacuumFxFront_Hera"
+		ClearCreateAnimations = true
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisVacuumFxBack\AnubisVacuumFxBack"
+	}
+
+	{
+		Name = "AnubisVacuumFxSmoke_Hera"
+		InheritFrom = "AnubisVacuumFxSmoke_Base"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.5
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "AnubisRingFxBright_Hera"
+		InheritFrom = "AnubisRingFxBright_Base"
+		VisualFx = "AnubisRingFxParticles_Hera"
+		VisualFxIntervalMin = 0.12
+		VisualFxIntervalMax = 0.12
+		CreateAnimation = "AnubisRingFxSmoke_Hera"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.5
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "AnubisRingFxSmoke_Hera"
+		InheritFrom = "AnubisRingFxSmoke_Base"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "AnubisRingFxParticles_Hera"
+		Random = [
+			{ Name = "AnubisRingFxParticleA_Hera" }
+			{ Name = "AnubisRingFxParticleB_Hera" }
+			{ Name = "AnubisRingFxParticleC_Hera" }
+			{ Name = "AnubisRingFxParticleD_Hera" }
+			{ Name = "AnubisRingFxParticleE_Hera" }
+			{ Name = "AnubisRingFxParticleE_Hera" }			
+			{ Name = "AnubisRingFxParticleE_Hera" }
+			{ Name = "AnubisRingFxParticleE_Hera" }
+		]
+	}
+
+	{
+		Name = "AnubisRingFxParticleA_Hera"
+		FilePath = "Fx\Hera\HeraSwipeParticleA\HeraSwipeParticleA"
+		DieWithOwner = false
+		NumFrames = 26
+		Material = "Unlit"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetScaleY = 0.6
+		EaseIn = 0.9
+		EaseOut = 1
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.6
+		ScaleMin = 0.25
+		ScaleMax = 0.5
+		VelocityMin = 50
+		VelocityMax = 150
+		Acceleration = -40
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		RadialOffsetMin = 250 // 250
+		RadialOffsetMax = 550 // 550
+		GroupName = "FX_Standing_Add"
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomRotation = true
+		RandomRotationSpeedMin = -120
+		RandomRotationSpeedMax = 120
+		PostRotateScaleY = 0.6
+	}
+
+	{
+		Name = "AnubisRingFxParticleB_Hera"
+		InheritFrom = "AnubisRingFxParticleA_Hera"
+		FilePath = "Fx\Hera\HeraSwipeParticleB\HeraSwipeParticleB"
+		NumFrames = 25
+	}
+	{
+		Name = "AnubisRingFxParticleC_Hera"
+		InheritFrom = "AnubisRingFxParticleA_Hera"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+	}
+	{
+		Name = "AnubisRingFxParticleD_Hera"
+		InheritFrom = "AnubisRingFxParticleC_Hera"
+		FilePath = "Fx\Hera\HeraSwipeParticleB\HeraSwipeParticleB"
+		NumFrames = 25
+	}
+
+
+	{
+		Name = "AnubisRingFxParticleE_Hera"
+		FilePath = "Particles\particle_gold_streak"
+		DieWithOwner = false
+		Material = "Unlit"
+		AddColor = false
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetScaleY = 0.6
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		EaseIn = 0 
+		EaseOut = 1
+		RandomDurationMin = 0.7
+		RandomDurationMax = 1.2
+		ScaleMin = 0.06
+		ScaleMax = 0.25
+		VelocityMin = 60
+		VelocityMax = 120
+		Acceleration = -50
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		RadialOffsetMin = 250 // 250
+		RadialOffsetMax = 550 // 550
+		GroupName = "FX_Standing_Add"
+	}
+	
+	{
+		Name = "AnubisRingFx_Hera"
+		InheritFrom = "AnubisRingFx_Base"
+		ClearCreateAnimations = true
+		VisualFx = "AnubisRingFxBright_Hera"
+		Sound = "/SFX/Player Sounds/StaffAnubisGroundLoop_Hera"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "AnubisRingFxBright_Hera" }
+			{ Name = "QuickFlashBlueGreen" }
+			{ Name = "AnubisRingFxDisplacement" }
+			{ Name = "AnubisRingFxDark" }
+		]
+	}
+
+
+	// Anubis x Hestia
+
+	{
+		Name = "StaffWall_Hestia"
+		InheritFrom = "StaffWall_Base"
+		ChainTo = "StaffWall_Hestia_Fade"
+		VisualFx = "StaffWallParticles_Hestia"
+		Sound = "/SFX/Player Sounds/StaffAnubisWallLoop_Hestia"
+		StopSoundOnFinishFade = 0.2
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.2
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "StaffWallIn_Hestia"
+		InheritFrom = "StaffWallIn_Base"
+		ChainTo = "StaffWall_Hestia"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.2
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+		Sound = "/SFX/Player Sounds/StaffAnubisSlamWallSpawn_Hestia"
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "QuickFlashPink" }
+			{ Name = "StaffWall_Dark" }
+		]
+	}
+
+	{
+		Name = "StaffWall_Hestia_Fade"
+		InheritFrom = "StaffWall_Hestia"
+		PingPongColor = false
+		ClearCreateAnimations = true
+		VisualFx = null
+		ChainTo = null
+		Sound = null
+		StartAlpha = 1
+		EndAlpha = 0
+		TransferFrameToThis = true
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "StaffWallParticles_Hestia"
+		Random = [
+			{ Name = "StaffWallParticleA_Hestia" }
+			{ Name = "StaffWallParticleB_Hestia" }
+		]
+	}
+
+	{
+		Name = "StaffWallParticleA_Hestia"
+		InheritFrom = "StaffWallParticleA_Base"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.2
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "StaffWallParticleB_Hestia"
+		InheritFrom = "StaffWallParticleA_Hestia"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisWallGroundParticleB\AnubisWallGroundParticleB"
+	}
+
+	{
+		Name = "AnubisWallImpactFx_Hestia"
+		InheritFrom = "AnubisWallImpactFx_Base"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.2
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "AnubisVacuumFxFront_Hestia"
+		InheritFrom = "AnubisVacuumFxFront_Base"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.2
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "AnubisVacuumFxSmoke_Hestia" }
+			{ Name = "AnubisVacuumFxBack_Hestia" }
+			{ Name = "AnubisVacuumFxDisplacement" }
+		]
+	}
+
+	{
+		Name = "AnubisVacuumFxBack_Hestia"
+		InheritFrom = "AnubisVacuumFxBack_Base"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.2
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "AnubisExVacuumFxFront_Hestia" 
+		InheritFrom = "AnubisVacuumFxFront_Hestia"
+		Scale = 1.57
+		CreateAnimations =
+		[
+			{ Name = "AnubisExVacuumFxBack_Hestia" }
+		]
+	}
+
+	{
+		Name = "AnubisExVacuumFxBack_Hestia"
+		InheritFrom = "AnubisExVacuumFxFront_Hestia"
+		ClearCreateAnimations = true
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisVacuumFxBack\AnubisVacuumFxBack"
+	}
+
+	{
+		Name = "AnubisVacuumFxSmoke_Hestia"
+		InheritFrom = "AnubisVacuumFxSmoke_Base"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.2
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "AnubisRingFxBright_Hestia"
+		InheritFrom = "AnubisRingFxBright_Base"
+		VisualFx = "AnubisRingFxParticles_Hestia"
+		VisualFxIntervalMin = 0.12
+		VisualFxIntervalMax = 0.24
+		CreateAnimation = "AnubisRingFxSmoke_Hestia"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.2
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "AnubisRingFxSmoke_Hestia"
+		InheritFrom = "AnubisRingFxSmoke_Base"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.2
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "AnubisRingFxParticles_Hestia"
+		Random = [
+			{ Name = "AnubisRingFxParticleA_Hestia" }
+			{ Name = "AnubisRingFxParticleB_Hestia" }
+			{ Name = "AnubisRingFxParticleC_Hestia" }			
+			{ Name = "AnubisRingFxParticleD_Hestia" }
+			{ Name = "AnubisRingFxParticleE_Hestia" }
+			{ Name = "AnubisRingFxHestiaSpark" }
+			{ Name = "AnubisRingFxHestiaSpark" }
+			{ Name = "AnubisRingFxHestiaSpark" }
+			{ Name = "AnubisRingFxHestiaSpark" }
+			{ Name = "AnubisRingFxHestiaSpark" }
+		]
+	}
+
+	{
+		Name = "AnubisRingFxParticleA_Hestia"
+		FilePath = "Fx\Hestia\HestiaFlameA\HestiaFlameA"
+		NumFrames = 16
+		DieWithOwner = false
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		Material = "Unlit"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetScaleY = 0.6
+		EaseIn = 0.9
+		EaseOut = 1
+		ScaleMin = 0.25
+		ScaleMax = 0.5
+		VelocityMin = 200
+		VelocityMax = 400
+		Acceleration = -720
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		UseOwnAngle = true
+		AngleFromOwner = "Ignore"
+		RadialOffsetMin = 300 // 250
+		RadialOffsetMax = 450 // 550
+		GroupName = "FX_Terrain_Add"
+		RandomFlipVertical = true
+		StartRed = 1
+		StartGreen = 0.7
+		StartBlue = 0.5
+		EndRed = 0.99
+		EndGreen = 0.5
+		EndBlue = 0
+		PostRotateScaleY = 1
+		StartScaleY = 1
+		EndScaleY = 1.75
+		RandomOffsetY = 30
+		AlphaMin = 0.3
+		AlphaMax = 1.0
+	}
+
+	{
+		Name = "AnubisRingFxParticleB_Hestia"
+		InheritFrom = "AnubisRingFxParticleA_Hestia"
+		FilePath = "Fx\Hestia\HestiaFlameB\HestiaFlameB"
+	}
+	{
+		Name = "AnubisRingFxParticleC_Hestia"
+		InheritFrom = "AnubisRingFxParticleA_Hestia"
+		FilePath = "Fx\Hestia\HestiaFlameC\HestiaFlameC"
+	}
+	{
+		Name = "AnubisRingFxParticleD_Hestia"
+		InheritFrom = "AnubisRingFxParticleA_Hestia"
+		FilePath = "Fx\Hestia\HestiaDirectionalFlameA\HestiaDirectionalFlameA"
+		NumFrames = 38
+		ScaleY = 1
+	}
+	{
+		Name = "AnubisRingFxParticleE_Hestia"
+		InheritFrom = "AnubisRingFxParticleD_Hestia"
+		FilePath = "Fx\Hestia\HestiaDirectionalFlameB\HestiaDirectionalFlameB"
+		NumFrames = 38
+	}
+	{
+		Name = "AnubisRingFxHestiaSpark"
+		InheritFrom = "AnubisRingFxParticleA_Hestia"
+		FilePath = "Fx\Hestia\HestiaSparks\HestiaSparks"
+		NumFrames = 10
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.2
+		EndRed = 0.9
+		EndGreen = 0.3
+		EndBlue = 0
+		GroupName = "FX_Standing_Add"
+		LoopFramesOnly = true
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.7
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		CreateAnimation = null
+		StartScale = 1
+		EndScale = 0
+		ScaleMin = 0.3
+		ScaleMax = 0.7
+		ScaleX = 1.5
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		AlphaMin = 0.99
+		AlphaMax = 1.00
+		VelocityMin = 200
+		VelocityMax = 400
+		Acceleration = -1200
+	}
+	
+	{
+		Name = "AnubisRingFx_Hestia"
+		InheritFrom = "AnubisRingFx_Base"
+		ClearCreateAnimations = true
+		VisualFx = "AnubisRingFxBright_Hestia"
+		Sound = "/SFX/Player Sounds/StaffAnubisGroundLoop_Hestia"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "AnubisRingFxBright_Hestia" }
+			{ Name = "QuickFlashRed" }
+			{ Name = "AnubisRingFxDisplacement" }
+			{ Name = "AnubisRingFxDark" }
+		]
+	}
+
+	// Anubis x Poseidon
+
+	{
+		Name = "StaffWall_Poseidon"
+		InheritFrom = "StaffWall_Base"
+		ChainTo = "StaffWall_Poseidon_Fade"
+		VisualFx = "StaffWallParticles_Poseidon"
+		Sound = "/SFX/Player Sounds/StaffAnubisWallLoop_Poseidon"
+		StopSoundOnFinishFade = 0.2
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "StaffWallIn_Poseidon"
+		InheritFrom = "StaffWallIn_Base"
+		ChainTo = "StaffWall_Poseidon"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+		Sound = "/SFX/Player Sounds/StaffAnubisSlamWallSpawn_Poseidon"
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "QuickFlashPink" }
+			{ Name = "StaffWall_Dark" }
+		]
+	}
+
+	{
+		Name = "StaffWall_Poseidon_Fade"
+		InheritFrom = "StaffWall_Poseidon"
+		PingPongColor = false
+		ClearCreateAnimations = true
+		VisualFx = null
+		ChainTo = null
+		Sound = null
+		StartAlpha = 1
+		EndAlpha = 0
+		TransferFrameToThis = true
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "StaffWallParticles_Poseidon"
+		Random = [
+			{ Name = "StaffWallParticleA_Poseidon" }
+			{ Name = "StaffWallParticleB_Poseidon" }
+		]
+	}
+
+	{
+		Name = "StaffWallParticleA_Poseidon"
+		InheritFrom = "StaffWallParticleA_Base"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "StaffWallParticleB_Poseidon"
+		InheritFrom = "StaffWallParticleA_Poseidon"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisWallGroundParticleB\AnubisWallGroundParticleB"
+	}
+
+	{
+		Name = "AnubisWallImpactFx_Poseidon"
+		InheritFrom = "AnubisWallImpactFx_Base"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "AnubisVacuumFxFront_Poseidon"
+		InheritFrom = "AnubisVacuumFxFront_Base"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "AnubisVacuumFxSmoke_Poseidon" }
+			{ Name = "AnubisVacuumFxBack_Poseidon" }
+			{ Name = "AnubisVacuumFxDisplacement" }
+		]
+	}
+
+	{
+		Name = "AnubisVacuumFxBack_Poseidon"
+		InheritFrom = "AnubisVacuumFxBack_Base"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "AnubisExVacuumFxFront_Poseidon" 
+		InheritFrom = "AnubisVacuumFxFront_Poseidon"
+		Scale = 1.57
+		CreateAnimations =
+		[
+			{ Name = "AnubisExVacuumFxBack_Poseidon" }
+		]
+	}
+
+	{
+		Name = "AnubisExVacuumFxBack_Poseidon"
+		InheritFrom = "AnubisExVacuumFxFront_Poseidon"
+		ClearCreateAnimations = true
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisVacuumFxBack\AnubisVacuumFxBack"
+	}
+
+	{
+		Name = "AnubisVacuumFxSmoke_Poseidon"
+		InheritFrom = "AnubisVacuumFxSmoke_Base"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "AnubisRingFxBright_Poseidon"
+		InheritFrom = "AnubisRingFxBright_Base"
+		VisualFx = "AnubisRingFxParticles_Poseidon"
+		VisualFxIntervalMin = 0.12
+		VisualFxIntervalMax = 0.24
+		CreateAnimation = "AnubisRingFxSmoke_Poseidon"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "AnubisRingFxSmoke_Poseidon"
+		InheritFrom = "AnubisRingFxSmoke_Base"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "AnubisRingFxParticles_Poseidon"
+		Random = [
+			{ Name = "AnubisRingFxParticleA_Poseidon" }
+			{ Name = "AnubisRingFxParticleB_Poseidon" }	
+		]
+	}
+
+	{
+		Name = "AnubisRingFxParticleA_Poseidon"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleA\PoseidonSplashParticleA"
+		NumFrames = 60
+		DieWithOwner = false
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		Material = "Unlit"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetScaleY = 0.6
+		EaseIn = 0.9
+		EaseOut = 1
+		ScaleMin = 0.25
+		ScaleMax = 0.5
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -360
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		UseOwnAngle = true
+		AngleFromOwner = "Ignore"
+		RadialOffsetMin = 250 // 250
+		RadialOffsetMax = 550 // 550
+		GroupName = "FX_Standing"
+		StartAlpha = 1
+		EndAlpha = 0.5
+		Gravity = 200
+		IsometricSkew = "X"
+		StartScaleX = 2
+		EndScaleX = 1.25
+	}
+
+	{
+		Name = "AnubisRingFxParticleB_Poseidon"
+		InheritFrom = "AnubisRingFxParticleA_Poseidon"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleB\PoseidonSplashParticleB"
+	}
+	
+	{
+		Name = "AnubisRingFx_Poseidon"
+		InheritFrom = "AnubisRingFx_Base"
+		ClearCreateAnimations = true
+		VisualFx = "AnubisRingFxBright_Poseidon"
+		Sound = "/SFX/Player Sounds/StaffAnubisGroundLoop_Poseidon"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "AnubisRingFxBright_Poseidon" }
+			{ Name = "QuickFlashBlue" }
+			{ Name = "AnubisRingFxDisplacement" }
+			{ Name = "AnubisRingFxDark" }
+		]
+	}	
+
+
+	// Anubis x Zeus
+
+	{
+		Name = "StaffWall_Zeus"
+		InheritFrom = "StaffWall_Base"
+		ChainTo = "StaffWall_Zeus_Fade"
+		VisualFx = "StaffWallParticles_Zeus"
+		Sound = "/SFX/Player Sounds/StaffAnubisWallLoop_Zeus"
+		StopSoundOnFinishFade = 0.2
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+	}
+
+	{
+		Name = "StaffWallIn_Zeus"
+		InheritFrom = "StaffWallIn_Base"
+		ChainTo = "StaffWall_Zeus"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+        Sound = "/SFX/Player Sounds/StaffAnubisSlamWallSpawn_Zeus"
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "QuickFlashPink" }
+			{ Name = "StaffWall_Dark" }
+		]
+	}
+
+	{
+		Name = "StaffWall_Zeus_Fade"
+		InheritFrom = "StaffWall_Zeus"
+		PingPongColor = false
+		ClearCreateAnimations = true
+		VisualFx = null
+		ChainTo = null
+		Sound = null
+		StartAlpha = 1
+		EndAlpha = 0
+		TransferFrameToThis = true
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "StaffWallParticles_Zeus"
+		Random = [
+			{ Name = "StaffWallParticleA_Zeus" }
+			{ Name = "StaffWallParticleB_Zeus" }
+		]
+	}
+
+	{
+		Name = "StaffWallParticleA_Zeus"
+		InheritFrom = "StaffWallParticleA_Base"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+	}
+
+	{
+		Name = "StaffWallParticleB_Zeus"
+		InheritFrom = "StaffWallParticleA_Zeus"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisWallGroundParticleB\AnubisWallGroundParticleB"
+	}
+
+	{
+		Name = "AnubisWallImpactFx_Zeus"
+		InheritFrom = "AnubisWallImpactFx_Base"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+	}
+
+	{
+		Name = "AnubisVacuumFxFront_Zeus"
+		InheritFrom = "AnubisVacuumFxFront_Base"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "AnubisVacuumFxSmoke_Zeus" }
+			{ Name = "AnubisVacuumFxBack_Zeus" }
+			{ Name = "AnubisVacuumFxDisplacement" }
+		]
+	}
+
+	{
+		Name = "AnubisVacuumFxBack_Zeus"
+		InheritFrom = "AnubisVacuumFxBack_Base"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+	}
+
+	{
+		Name = "AnubisExVacuumFxFront_Zeus" 
+		InheritFrom = "AnubisVacuumFxFront_Zeus"
+		Scale = 1.57
+		CreateAnimations =
+		[
+			{ Name = "AnubisExVacuumFxBack_Zeus" }
+		]
+	}
+
+	{
+		Name = "AnubisExVacuumFxBack_Zeus"
+		InheritFrom = "AnubisExVacuumFxFront_Zeus"
+		ClearCreateAnimations = true
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisVacuumFxBack\AnubisVacuumFxBack"
+	}
+
+	{
+		Name = "AnubisVacuumFxSmoke_Zeus"
+		InheritFrom = "AnubisVacuumFxSmoke_Base"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+	}
+
+	{
+		Name = "AnubisRingFxBright_Zeus"
+		InheritFrom = "AnubisRingFxBright_Base"
+		VisualFx = "AnubisRingFxParticles_Zeus"
+		VisualFxIntervalMin = 0.12
+		VisualFxIntervalMax = 0.24
+		CreateAnimation = "AnubisRingFxSmoke_Zeus"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.66
+        EndRed = 0.9999
+        EndGreen = 0.85
+        EndBlue = 0.5
+	}
+
+	{
+		Name = "AnubisRingFxSmoke_Zeus"
+		InheritFrom = "AnubisRingFxSmoke_Base"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+	}
+
+	{
+		Name = "AnubisRingFxParticles_Zeus"
+		Random = [
+			{ Name = "AnubisRingFxParticleA_Zeus" }
+			{ Name = "AnubisRingFxParticleB_Zeus" }	
+		]
+	}
+
+	{
+		Name = "AnubisRingFxParticleA_Zeus"
+		FilePath = "Fx\ZeusStaticArcA\ZeusStaticArcA"
+		NumFrames = 15
+		DieWithOwner = false
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 75
+		RandomRotation = true
+		Material = "Unlit"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetScaleY = 0.6
+		EaseIn = 0.9
+		EaseOut = 1
+		ScaleMin = 0.25
+		ScaleMax = 1
+		VelocityMin = 10
+		VelocityMax = 20
+		Acceleration = -360
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		UseOwnAngle = true
+		AngleFromOwner = "Ignore"
+		RadialOffsetMin = 250 // 250
+		RadialOffsetMax = 550 // 550
+		GroupName = "FX_Standing_Add"
+		ScaleX = 1
+	}
+
+	{
+		Name = "AnubisRingFxParticleB_Zeus"
+		InheritFrom = "AnubisRingFxParticleA_Zeus"
+		FilePath = "Fx\ZeusStaticArcB\ZeusStaticArcB"
+	}
+
+	{
+		Name = "AnubisRingFxParticleC_Zeus"
+		InheritFrom = "AnubisRingFxParticleA_Zeus"
+		FilePath = "Fx\ZeusStaticArcC\ZeusStaticArcC"
+	}
+	
+	{
+		Name = "AnubisRingFx_Zeus"
+		InheritFrom = "AnubisRingFx_Base"
+		ClearCreateAnimations = true
+		VisualFx = "AnubisRingFxBright_Zeus"
+		Sound = "/SFX/Player Sounds/StaffAnubisGroundLoop_Zeus"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "AnubisRingFxBright_Zeus" }
+			{ Name = "QuickFlashYellow" }
+			{ Name = "AnubisRingFxDisplacement" }
+			{ Name = "AnubisRingFxDark" }
+		]
+	}
+
+	{
+		Name = "RadialNovaPentagramCharged_Anubis"
+		InheritFrom = "RadialNovaPentagram"
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.75
+		EndBlue = 0.2
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 60
+		ClearCreateAnimations = true
+		VisualFx = "RadialNovaAnubisFxB"
+		VisualFxCap = 16
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		CreateAnimations =
+		[
+			//{ Name = "ZeusProjectileExplosionCharged" }
+			{ Name = "RadialNovaPentagramDark" }
+			{ Name = "RadialNovaPentagramFlareCharged_Zeus" }
+			{ Name = "RadialNovaPentagramGlowCharged_Zeus" }
+			{ Name = "RadialNovaPentagramSecondary" }
+			{ Name = "CastCircleOutDisplacement" }
+			{ Name = "RadialNovaPentagramChargedZeusGlowLarge"}
+			{ Name = "RadialNovaAnubisFx" }
+			{ Name = "RadialNovaAnubisFx" }
+			{ Name = "RadialNovaAnubisFx" }
+			{ Name = "RadialNovaAnubisFx" }
+		]
+	}
+
+	{
+		Name = "RadialNovaAnubisFxB"
+		Random = [	
+			{ Name = "RadialNovaAnubisFxB1" }
+			{ Name = "RadialNovaAnubisFxB2" }
+		]
+	}
+
+	{
+		Name = "RadialNovaAnubisFxB1"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisWallGroundParticleA\AnubisWallGroundParticleA"
+		NumFrames = 45
+		StartFrame = 15
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RadialOffsetMin = 280
+		RadialOffsetMax = 320
+		RadialOffsetScaleY = 0.5
+		AngleMin = 0
+		AngleMax = 360
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.75
+		EndBlue = 0.2
+		RandomFlipHorizontal = true
+		GroupName = "FX_Standing_Add"
+		OffsetZ = 60
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+	}
+
+	{
+		Name = "RadialNovaAnubisFxB2"
+		InheritFrom = "RadialNovaAnubisFxB1"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisWallGroundParticleB\AnubisWallGroundParticleB"
+	}
+
+	{
+		Name = "RadialNovaAnubisFx"
+		FilePath = "Fx\WeaponAspects\Anubis\AnubisVacuumFxFront\AnubisVacuumFxFront"
+		NumFrames = 20
+		Material = "Unlit"
+		AddColor = true
+		PlayBackwards = true
+		RandomFlipHorizontal = true
+		EndRed = 1
+		EndGreen = 0.8
+		EndBlue = 0.3
+		StartRed = 0.99
+		StartGreen = 0.75
+		StartBlue = 0.2
+		GroupName = "FX_Standing_Add"
+		FlipVertical = true
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleY = 1.5
+		AngleMin = -22
+		AngleMax = 22
+		ScaleMin = 0.7
+		ScaleMax = 1.1
+		Scale = 1.5
+		OffsetZ = 120
 	}
 
 ]}

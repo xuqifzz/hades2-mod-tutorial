@@ -4,9 +4,38 @@
 		GrannyModel = "CritterCat_Mesh"
 	}
 	{
+		Name = "FamiliarCatWild"
+		GrannyModel = "CatFamiliar_Wild_Mesh"
+	}
+	{
+		Name = "FamiliarCatChthonic"
+		GrannyModel = "CatFamiliar_Chthonic_Mesh"
+	}
+	{
+		Name = "FamiliarCatHell"
+		GrannyModel = "CatFamiliar_Hell_Mesh"
+	}
+	{
+		Name = "FamiliarCatMoon"
+		GrannyModel = "CatFamiliar_Moon_Mesh"
+	}
+	{
+		Name = "FamiliarCatNightmare"
+		GrannyModel = "CatFamiliar_Nightmare_Mesh"
+	}
+
+	{
 		Name = "FamiliarCatBaseAnimation"
 		GrannyModel = "CatFamiliar_Mesh"
-		ExtraGrannyAnimations = [{ Name = "CritterCat" }]
+		ExtraGrannyAnimations =
+		[
+			{ Name = "CritterCat" }
+			{ Name = "FamiliarCatWild" }
+			{ Name = "FamiliarCatChthonic" }
+			{ Name = "FamiliarCatHell" }
+			{ Name = "FamiliarCatMoon" }
+			{ Name = "FamiliarCatNightmare" }
+		]
 		GrannyAnimation = "null"
 		GrannyAnimationSpeed = 1.0
 		Scale = 1.0
@@ -17,7 +46,7 @@
 		[
 			{
 				BlendTransitionFrom = "BlendTransitionFromAll"
-				Duration = 8
+				Duration = 4
 			}
 		]
 	}
@@ -172,7 +201,12 @@
 		Frames =
 		[
 			{
+				Frame = 0
+				FrameSpeed = 1.5
+			}
+			{
 				Frame = 60
+				FrameSpeed = 1.5
 				Sound = "/Leftovers/World Sounds/CaravanCreak"
 			}
 		]
@@ -194,6 +228,24 @@
 		GrannyAnimation = "Cat_Familiar_Base_Sleep_Awaken_C_00"
 		ChainTo = "Familiar_Cat_Idle"
 	}
+	{
+		Name = "Familiar_Cat_Sleep_Start_Quick"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Sleep_Start_C_00"
+		ChainTo = "Familiar_Cat_Sleep_Loop"
+		CancelOnOwnerMove = true
+		Frames =
+		[
+			{
+				Frame = 1
+				FrameSpeed = 0
+			}
+			{
+				Frame = 120
+				FrameSpeed = 1.5
+			}
+		]
+	}
 
 	{
 		Name = "Familiar_Cat_DropIn_Enter"
@@ -201,6 +253,7 @@
 		GrannyAnimation = "Cat_Familiar_Base_DropIn_Enter_C_00"
 		ChainTo = "Familiar_Cat_Idle"
 		CancelOnOwnerMove = true
+		Blends = null
 	}
 	{
 		Name = "Familiar_Cat_DropIn_Exit"

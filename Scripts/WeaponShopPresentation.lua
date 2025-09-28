@@ -1,9 +1,27 @@
-function WeaponShopScreenOpenedPresentation( screen, args )
-	if not args.IgnoreCamera then
-		LockCamera({ Id = screen.OpenedFrom.ObjectId, Duration = 1.0 })
+function UsedWeaponShopPresentation( usee, args )
+	AddInputBlock({ Name = "UsedWeaponShopPresentation" })
+	LockCamera({ Id = usee.ObjectId, Duration = 1.0 })
+	for itemName, itemData in pairs( WeaponShopItemData ) do
+		if itemData.PreOpenRevealVoiceLines ~= nil and IsGameStateEligible( itemData, itemData.GameStateRequirements ) and not GameState.WorldUpgradesRevealed[itemName] then
+			wait(0.75)
+			SetAnimation({ Name = "MelinoeCauldronIncantationWeaponShop", DestinationId = CurrentRun.Hero.ObjectId, })
+			PlayVoiceLines( itemData.PreOpenRevealVoiceLines, true )
+			local categoryIndex = nil
+			for i, data in ipairs( ScreenData.WeaponShop.ItemCategories ) do
+				if Contains( data, itemName ) then
+					categoryIndex = i
+					break
+				end
+			end
+			args.DefaultCategoryIndex = categoryIndex
+		end
 	end
-	PlaySound({ Name = "/SFX/Menu Sounds/WellShopOpenNew" })
-	-- SetAnimation({ Name = "MelinoeGatherStart", DestinationId = CurrentRun.Hero.ObjectId })
+	RemoveInputBlock({ Name = "UsedWeaponShopPresentation" })
+end
+
+function WeaponShopScreenOpenedPresentation( screen, args )
+	-- moved to animation
+	-- PlaySound({ Name = "/SFX/Menu Sounds/SilverPoolOpen" })
 end
 
 function WeaponShopScreenOpenFinishedPresentation( screen )
@@ -27,39 +45,24 @@ function WeaponShopScreenOpenFinishedPresentation( screen )
 end
 
 function WeaponShopScreenSelectCategoryPresentation( screen, button )
-
-	PlaySound({ Name = "/SFX/Menu Sounds/DialoguePanelOutMenu" })
-
+	PlaySound({ Name = "/SFX/Menu Sounds/IrisMenuSwitch" })
 end
 
-function WeaponShopScreenScrollPresentation( screen, button )
-	PlaySound({ Name = "/SFX/Menu Sounds/GodBoonMenuToggle" })
-end
-
-function WeaponShopScreenCloseStartPresentation( screen )
+function WeaponShopScreenCloseStartPresentation( screen, args )
+	args = args or {}
 	PlaySound({ Name = "/SFX/Menu Sounds/WellShopCloseNew" })
+	SetAnimation({ DestinationId = screen.Components.WeaponShopBackground.Id, Name = screen.CloseAnimation })
+	if not args.Purchasing then
+		if screen.CurrentKit ~= nil and GetEquippedWeapon() == screen.CurrentKit.Name then
+			SetAnimation({ DestinationId = screen.CurrentKit.ObjectId, Name = screen.CurrentKit.EquippedKitAnimation, CopyFromPrev = true })
+		end
+	end
 end
 
 function WeaponShopScreenCloseFinishedPresentation( screen, button )
 	if button.Id == screen.Components.CloseButton.Id then
+		SetAnimation({ DestinationId = CurrentRun.Hero.ObjectId, Name = "MelinoeEquip" })
 		PanCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 1.0, FromCurrentLocation = true, Retarget = true, EaseIn = 0 })
-	end
-	thread( PlayVoiceLines, GlobalVoiceLines.WeaponShopClosedVoiceLines, true )
-end
-
-
-function WeaponShopSessionCompletePresentation( usee, screen )
-	if screen == nil then
-		return
-	end
-	if screen.NumSales == 0 then
-		if CheckCooldown( "MarketNoSale", 60 ) then
-			PlayEmote( { TargetId = usee.NoSaleEmoteTargetId or usee.ObjectId, AnimationName = usee.NoSaleEmote, OffsetZ = usee.EmoteOffsetZ } )
-		end
-	else
-		if CheckCooldown( "MarketMadeSale", 60 ) then
-			PlayEmote( { TargetId = usee.MadeSaleEmoteTargetId or usee.ObjectId, AnimationName = usee.MadeSaleEmote, OffsetZ = usee.EmoteOffsetZ } )
-		end
 	end
 end
 
@@ -73,29 +76,34 @@ end
 
 function WeaponShopPurchaseNoEquipPresentation( screen, button, saleData, weaponData )
 	AddInputBlock({ Name = "WeaponShopPurchaseNoEquipPresentation" })
+	HideCombatUI( "WeaponShopPurchaseNoEquipPresentation" )
 
 	UseableOff({ Id = button.Id, ForceHighlightOff = true })
 	thread( PlayVoiceLines, saleData.PreRevealVoiceLines or GlobalVoiceLines[saleData.PreRevealGlobalVoiceLines] or GlobalVoiceLines.WeaponUnlockGlobalVoiceLines )
 
+	SetAnimation({ Name = "MelTalkGifting01", DestinationId = CurrentRun.Hero.ObjectId, })
+
 	wait( 0.3 )
+
 
 	PlaySound({ Name = "/SFX/Menu Sounds/WeaponUnlockPoof" })
 	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteAscendedDark" })
-	local weaponKit = GetWeaponOrToolKit( button.Data.ToolName or button.Data.WeaponName or button.Data.Name )
+	local weaponKit = GetWeaponKit( button.Data.WeaponName or button.Data.Name )
 	if weaponKit ~= nil then
 		ShakeScreen({ Speed = 100, Distance = 2, Duration = 0.5, FalloffSpeed = 2000 })
-		Flash({ Id = weaponKit.ObjectId, Speed = 0.85, MinFraction = 0.2, MaxFraction = 0.5, Color = Color.White, Duration = 1.5 })
- 		CreateAnimation({ Name = "ManaSparkleShower", DestinationId = weaponKit.ObjectId, Scale = 1.5 })
+		Flash({ Id = weaponKit.ObjectId, Speed = 0.6, MinFraction = 0.0, MaxFraction = 1, Color = Color.White, Duration = 1.5 })
+ 		CreateAnimation({ Name = "ManaSparkleShowerWeaponKit", DestinationId = weaponKit.ObjectId, Scale = 1.5 })
 		CreateAnimation({ Name = "PowerUpComboReadyWeaponKit", DestinationId = weaponKit.ObjectId, Scale = 1.5 })	
-		if weaponKit.Name == GetEquippedWeapon() then
-			SetAnimation({ Name = weaponKit.EquippedKitAnimation, GrannyModel = button.TraitData.WeaponKitGrannyModel, DestinationId = weaponKit.ObjectId })
-		else
-			SetAnimation({ Name = weaponKit.UnequippedKitAnimation, GrannyModel = button.TraitData.WeaponKitGrannyModel, DestinationId = weaponKit.ObjectId })
-		end
+		SetAnimation({ Name = weaponKit.UnequippedKitAnimation, GrannyModel = button.TraitData.WeaponKitGrannyModel, DestinationId = weaponKit.ObjectId, CopyFromPrev = true })
 	end
 
-	wait( 0.8 )
+	wait( 0.3 )
 
+	SetAnimation({ Name = "MelTalkGifting01ReturnToIdle", DestinationId = CurrentRun.Hero.ObjectId, })
+
+	wait( 0.5 )
+
+	ShowCombatUI( "WeaponShopPurchaseNoEquipPresentation" )
 	RemoveInputBlock({ Name = "WeaponShopPurchaseNoEquipPresentation" })
 	FocusCamera({ Fraction = CurrentHubRoom.ZoomFraction, Duration = 0.3 })
 
@@ -104,15 +112,18 @@ end
 function WeaponShopPurchasePreActivatePresentation( screen, button, saleData, weaponData )
 
 	FreezePlayerUnit( "WeaponShopActivate" )
+	HideCombatUI( "WeaponShopActivate" )
 	AddInputBlock({ Name = "WeaponShopActivate" })
 	MapState.CosmeticPresentationActive = true
 
 	local focusId = screen.OpenedFrom.ObjectId
 	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteThoughtful" })
 
-	local weaponKit = GetWeaponOrToolKit( button.Data.ToolName or button.Data.WeaponName or button.Data.Name )
+	local weaponKit = GetWeaponKit( button.Data.WeaponName or button.Data.Name )
 	if weaponKit ~= nil then
 		PanCamera({ Id = weaponKit.ObjectId, Duration = 1.0, Retarget = true, OffsetX = 0, OffsetY = -60, FromCurrentLocation = true })
+	else
+		PanCamera({ Id = focusId, Duration = 1.0, Retarget = true, OffsetX = 30, OffsetY = -200, FromCurrentLocation = true })
 	end
 	
 	AdjustFullscreenBloom({ Name = "SaturatedLight", Duration = 0.5 })
@@ -131,9 +142,6 @@ function WeaponShopPurchasePreActivatePresentation( screen, button, saleData, we
 	
 	if weaponKit ~= nil then
 		CreateAnimation({ Name = saleData.ItemPreActivationVfx or "CosmeticUnlockFx", DestinationId = weaponKit.ObjectId })
-		if weaponKit.UpgradeTextures ~= nil and weaponKit.UpgradeTextures[saleData.Name] ~= nil then
-			SetThingProperty({ Property = "GrannyTexture", Value = weaponKit.UpgradeTextures[saleData.Name], DestinationId = weaponKit.ObjectId })
-		end
 	end
 
 	thread( PlayVoiceLines, GlobalVoiceLines.PostRevealGlobalVoiceLines, true )
@@ -158,15 +166,27 @@ function WeaponShopPurchasePostActivatePresentation( button, saleData, weaponKit
 	thread( DisplayInfoBanner, nil, {
 		TitleText = saleData.UnlockTextId or "WeaponShopUnlock",
 		SubtitleText = saleData.Name,
-		-- No icon, the identical WeaponKit animation is directly below centered on camera
+		SubtitleOffsetY = 20,
+		TextFadeColor = {160,165,180,255},
+		Color = {160,165,180,255},
 		FontScale = 0.76,
-		IconScale = 0.7,
-		IconMoveSpeed = 0.00001,
-		IconOffsetY = 6,
+		-- No icon, the identical WeaponKit animation is directly below centered on camera
 		Duration = 3.0,
+		AnimationName = "InfoBannerWeaponUnlockIn",
+		AnimationOutName = "InfoBannerWeaponUnlockOut",
+		IconBackingAnimationName = "LocationBackingIrisSubtitleStarIn",
+		IconBackingAnimationOutName = "LocationBackingIrisSubtitleStarOut",
+		IconBackingOffsetY = -12,
+
 	} )
 
-	wait( 3.25 )
+	wait( 1.5 )
+
+	if saleData.PostActivateFunctionName ~= nil then
+		CallFunctionName( saleData.PostActivateFunctionName )
+	else
+		wait( 1.75 )
+	end
 
 	PlaySound({ Name = saleData.ItemActivationSound or "/Leftovers/Menu Sounds/EmoteExcitement" })
 
@@ -188,17 +208,13 @@ function WeaponShopPurchasePostActivatePresentation( button, saleData, weaponKit
 		end
 
 		wait( 0.25 )
-		SetAnimation({ Name = weaponKit.EquippedKitAnimation or GetWeaponKitAnimation( weaponKit.Name, "Unequipped" ), DestinationId =  weaponKit.ObjectId })
+		SetAnimation({ Name = weaponKit.EquippedKitAnimation or GetWeaponKitAnimation( weaponKit.Name, "Unequipped" ), DestinationId =  weaponKit.ObjectId, CopyFromPrev = true })
 		wait( 0.7 )
 
-		if weaponKit.ShopPurchasaeFunctionName ~= nil then
-			CallFunctionName( weaponKit.ShopPurchasaeFunctionName, weaponKit )
-		else
-			CheckAutoObjectiveSets( CurrentRun, "WeaponPickup" )
-		end
-
+		CheckAutoObjectiveSets( CurrentRun, "WeaponPickup" )
 	end
 
+	ShowCombatUI( "WeaponShopActivate" )
 	RemoveInputBlock({ Name = "WeaponShopActivate" })
 	MapState.CosmeticPresentationActive = false
 	UnfreezePlayerUnit( "WeaponShopActivate" )
@@ -212,6 +228,7 @@ function MouseOverWeaponShopItem( button )
 	local screen = button.Screen
 	local components = screen.Components
 	screen.SelectedItem = button
+	screen.ClipboardText = button.Data.Name
 
 	SetAnimation({ DestinationId = button.Id, Name = button.HighlightAnimation })
 	PlaySound({ Id = button.Id, Name = "/SFX/Menu Sounds/DialoguePanelOutMenu" })
@@ -227,21 +244,7 @@ function MouseOverWeaponShopItem( button )
 		SetAlpha({ Id = components.InfoBoxFrame.Id, Fraction = 1.0, Duration = 0.2 })
 	end
 
-	local weaponKit = GetWeaponOrToolKit( button.Data.WeaponName or button.Data.ToolName or button.Data.Name )
-	if weaponKit ~= nil then
-		if weaponKit.InfoBackingAnimation ~= nil then
-			SetAnimation({ DestinationId = components.InfoBoxBacking.Id, Name = weaponKit.InfoBackingAnimation })
-		end
-		if weaponKit.UnequippedKitAnimation ~= nil then
-			if not IsWeaponUnlocked( weaponKit.Name ) then
-				SetAlpha({ Id = weaponKit.ObjectId, Fraction = 0.5, Duration = 0.2 })
-				PlaySound({ Name = weaponKit.MouseOverSound, Id = weaponKit.ObjectId })
-			end
-		end
-		PanCamera({ Id = weaponKit.ObjectId, Duration = 1.0, Retarget = false, OffsetX = screen.KitCameraOffsetX, OffsetY = 50, FromCurrentLocation = true })
-	elseif button.Data.MouseOverViewHero then
-		PanCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 1.0, Retarget = false, OffsetX = 0, FromCurrentLocation = true })
-	end
+	WeaponShopPanToKit( screen, button.Data.WeaponName or button.Data.Name )
 
 	local text = button.Data.Name
 	local upgradedRarity = nil
@@ -306,10 +309,7 @@ function MouseOverWeaponShopItem( button )
 
 	if button.TraitData then
 		local traitData = button.TraitData
-		local appendToId = nil
-		if #traitData.StatLines <= 1 then
-			appendToId = components.InfoBoxDescription.Id
-		end
+		local appendToId = components.InfoBoxDescription.Id
 		local statLine = traitData.StatLines[1]
 		ModifyTextBox({ Id = components.InfoBoxStatLineLeft.Id, Text = statLine, LuaKey = "TooltipData", LuaValue = traitData, FadeTarget = 1.0, AppendToId = appendToId })
 		ModifyTextBox({ Id = components.InfoBoxStatLineRight.Id, Text = statLine, UseDescription = true, LuaKey = "TooltipData", LuaValue = traitData, FadeTarget = 1.0, AppendToId = appendToId })
@@ -325,6 +325,7 @@ function MouseOverWeaponShopItem( button )
 	local newButtonKey = "NewIcon"..button.Index
 	SetAlpha({ Id = button.NewButtonId, Fraction = 0, Duration = 0.2 })
 	GameState.WorldUpgradesViewed[button.Data.Name] = true
+	CurrentRun.WorldUpgradesViewed[button.Data.Name] = true
 	UpdateWeaponShopInteractionText( button.Screen, button )
 end
 
@@ -348,13 +349,43 @@ function MouseOffWeaponShopItem( button )
 	SetAlpha({ Id = components.InfoBoxIcon.Id, Fraction = 0.0, Duration = 0.2 })
 	SetAlpha({ Id = components.InfoBoxFrame.Id, Fraction = 0.0, Duration = 0.2 })
 
-	local weaponKit = GetWeaponOrToolKit( button.Data.Name )
+	local weaponKit = GetWeaponKit( button.Data.Name )
 	if weaponKit ~= nil and not IsWeaponUnlocked( button.Data.Name ) then
 		SetAlpha({ Id = weaponKit.ObjectId, Fraction = 0.0, Duration = 0.2 })
 	end
 
 	SetAlpha({ Ids = screen.CostIds, Fraction = 0, Duration = 0.1 })
 	DestroyTextBox({ Ids = screen.CostIds })
+
+	UpdateWeaponShopInteractionText( screen )
+end
+
+function WeaponShopPanToKit( screen, kitName )
+	local weaponKit = GetWeaponKit( kitName )
+	if weaponKit ~= nil then
+		if weaponKit.InfoBackingAnimation ~= nil then
+			SetAnimation({ DestinationId = screen.Components.InfoBoxBacking.Id, Name = weaponKit.InfoBackingAnimation })
+		end
+		if weaponKit.UnequippedKitAnimation ~= nil then
+			if not IsWeaponUnlocked( weaponKit.Name ) then
+				SetAlpha({ Id = weaponKit.ObjectId, Fraction = 0.5, Duration = 0.2 })
+				PlaySound({ Name = weaponKit.MouseOverSound, Id = weaponKit.ObjectId })
+			end
+		end
+		PanCamera({ Id = weaponKit.ObjectId, Duration = 0.5, Retarget = false, OffsetX = screen.KitCameraOffsetX, OffsetY = 50, FromCurrentLocation = true })
+	else
+		PanCamera({ Id = screen.OpenedFrom.ObjectId, Duration = 0.5, Retarget = false, OffsetX = 0, FromCurrentLocation = true })
+	end
+
+	if weaponKit ~= screen.CurrentKit then
+		if screen.CurrentKit ~= nil and GetEquippedWeapon() == screen.CurrentKit.Name then
+			SetAnimation({ DestinationId = screen.CurrentKit.ObjectId, Name = screen.CurrentKit.EquippedKitAnimation, CopyFromPrev = true })
+		end
+		screen.CurrentKit = weaponKit
+		if weaponKit ~= nil then
+			SetAnimation({ DestinationId = weaponKit.ObjectId, Name = weaponKit.UnequippedKitAnimation, CopyFromPrev = true })
+		end
+	end
 end
 
 function WeaponShopCloseCategory( screen, button )
@@ -362,7 +393,7 @@ function WeaponShopCloseCategory( screen, button )
 		return
 	end
 	for k, itemName in pairs( screen.ItemNames ) do
-		local weaponKit = GetWeaponOrToolKit( itemName )
+		local weaponKit = GetWeaponKit( itemName )
 		if weaponKit ~= nil and not IsWeaponUnlocked( itemName ) then
 			SetAlpha({ Id = weaponKit.ObjectId, Fraction = 0.0, Duration = 0.2 })
 		end
@@ -391,22 +422,16 @@ end
 function UpdateWeaponShopInteractionText( screen, button )
 	
 	local components = screen.Components
-	
-	if button ~= nil and not button.Purchased then
-		if button.Data ~= nil and button.Data.Cost ~= nil and HasResources( button.Data.Cost ) then
-			SetAlpha({ Id = components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
-		else
-			SetAlpha({ Id = components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
-		end
-		if GameState.WorldUpgrades.WorldUpgradePinning then
-			SetAlpha({ Id = components.PinButton.Id, Fraction = 1.0, Duration = 0.2 })
-		else
-			SetAlpha({ Id = components.PinButton.Id, Fraction = 0.0, Duration = 0.2 })
-		end
-	else
+
+	if button == nil or button.Data == nil or button.Purchased then
 		SetAlpha({ Id = components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
 		SetAlpha({ Id = components.PinButton.Id, Fraction = 0.0, Duration = 0.2 })
-	end		
+	else
+		SetAlpha({ Id = components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
+		if GameState.WorldUpgrades.WorldUpgradePinning then
+			SetAlpha({ Id = components.PinButton.Id, Fraction = 1.0, Duration = 0.2 })
+		end
+	end
 	
 	if screen.NumCategories >= 2 then
 		SetAlpha({ Id = components.ScrollLeft.Id, Fraction = 1.0, Duration = 0.0 })
@@ -415,5 +440,93 @@ function UpdateWeaponShopInteractionText( screen, button )
 		SetAlpha({ Id = components.ScrollLeft.Id, Fraction = 0.0, Duration = 0.0 })
 		SetAlpha({ Id = components.ScrollRight.Id, Fraction = 0.0, Duration = 0.0 })
 	end	
+
+end
+
+function ToolExorcismBookUnlockedPresentation()
+
+	local heroId = CurrentRun.Hero.ObjectId
+
+	PlaySound({ Name = "/Leftovers/SFX/AuraOnLoud", Id = heroId })
+	PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo", Id = heroId })
+	SetAnimation({ Name = "Melinoe_Tablet_Intro", DestinationId = heroId })
+	waitUnmodified( 1.5 )
+
+	PlaySound({ Name = "/SFX/Menu Sounds/WeaponUnlockPoof", Delay = 0.25 })
+	SetAnimation({ Name = "Melinoe_Tablet_ReturnToIdle", DestinationId = heroId })
+	waitUnmodified( 0.5 )
+
+end
+
+function ToolPickaxeUnlockedPresentation()
+
+	local heroId = CurrentRun.Hero.ObjectId
+
+	SetAnimation({ Name = "MelinoePickAxeMineStart", DestinationId = heroId })
+	PlaySound({ Name = "/VO/MelinoeEmotes/EmoteEvading", Id = heroId })
+
+	waitUnmodified( 0.06 )
+	PlaySound({ Name = "/SFX/Player Sounds/WeaponSwing", Id = heroId })
+
+	SetAnimation({ Name = "MelinoePickAxeMineSwing", DestinationId = heroId })
+	waitUnmodified( 0.1 )
+	CreateAnimation({ Name = "HarvestPickaxeSwing", DestinationId = heroId })
+	waitUnmodified( 0.1 )
+
+	local offset = CalcOffset( math.rad( GetAngle({ Id = heroId }) ), 150 )
+	local strikePointId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = heroId, OffsetX = offset.X, OffsetY = offset.Y })
+
+	CreateAnimation({ Name = "OreHarvestSpark", DestinationId = strikePointId })
+	CreateAnimation({ Name = "OreHarvestSpike", DestinationId = strikePointId, Group = "FX_Standing_Add" })
+	PlaySound({ Name = "/SFX/PickaxeHitSFX", Id = strikePointId })
+
+	waitUnmodified( 1.0 )
+
+	Destroy({ Id = strikePointId })
+
+end
+
+function ToolShovelUnlockedPresentation()
+
+	local heroId = CurrentRun.Hero.ObjectId
+
+	SetAnimation({ Name = "Melinoe_Shovel_Start", DestinationId = heroId })
+	waitUnmodified( 0.5 )
+	CreateAnimation({ Name = "ShovelDirtIn", DestinationId = heroId })
+	waitUnmodified( 0.17 )
+
+	SetAnimation({ Name = "Melinoe_Shovel_FireLoop", DestinationId = heroId })
+	thread( DoRumble, { { ScreenPreWait = 0.02, Fraction = 0.7, Duration = 0.2 }, } )	
+	ShakeScreen({ Speed = 300, Distance = 6, Duration = 0.1, FalloffSpeed = 10000, Angle = 90 })
+	waitUnmodified( 0.3 )
+
+	Shake({ Id = heroId, Speed = 100, Distance = 1, Duration = 0.3 })
+	thread( DoRumble, { { ScreenPreWait = 0.02, Fraction = 0.5, Duration = 0.5 }, } )
+	waitUnmodified( 0.3 )
+
+	Shake({ Id = heroId, Speed = 200, Distance = 2, Duration = 0.2 })
+	waitUnmodified( 0.2 )
+
+	SetAnimation({ Name = "Melinoe_Shovel_End", DestinationId = heroId })
+	waitUnmodified( 0.1 )
+
+	ShakeScreen({ Speed = 300, Distance = 6, Duration = 0.1, FalloffSpeed = 10000, Angle = 90 })	
+	CreateAnimation({ Name = "ShovelDirtOutSpray", DestinationId = heroId })
+	waitUnmodified( 0.8 )
+
+end
+
+function ToolFishingRodUnlockedPresentation()
+
+	local heroId = CurrentRun.Hero.ObjectId
+
+	SetAnimation({ Name = "Melinoe_Fishing_Start", DestinationId = heroId })
+	waitUnmodified( 1.5 )
+
+	PlaySound({ Name = "/SFX/CriticalHit" })
+	SetAnimation({ Name = "Melinoe_Fishing_Success", DestinationId = heroId })
+	waitUnmodified( 1.0 )
+
+	SetAnimation({ Name = "MelinoeEquip", DestinationId = heroId })
 
 end

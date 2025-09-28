@@ -339,6 +339,7 @@
 		StartFrame = 1
 		Scale = 0.45
 		OwnerHasNoCollision = true
+		OffsetY = -3
 	}
 	{
 		Name = "FieldsBossExitDoorUnlocked"
@@ -348,6 +349,7 @@
 		StartFrame = 1
 		Scale = 0.45
 		OwnerHasNoCollision = false
+		OffsetY = -3
 	}
 	
 	{
@@ -599,12 +601,14 @@
 		Name = "WheatFootstepL-Spawner"
 		InheritFrom = "GroupChange"
 		CreateAnimation = "WheatUnitFxEmitter"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:toe_00_L_JNT"
 	}
 	
 	{
 		Name = "WheatFootstepR-Spawner"
 		InheritFrom = "GroupChange"
 		CreateAnimation = "WheatUnitFxEmitter"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:toe_00_R_JNT"
 	}
 	
 	{
@@ -633,11 +637,13 @@
 		ScaleMin = 0.9
 		VisualFxDistanceMax = 71.0
 		VisualFxDistanceMin = 70.0
+		VisualFxFrameCap = 10
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
 	}
 	
 	{
-		Name = "WheatClusterRandom"
-		
+		Name = "WheatClusterRandom"		
 		Random =
 		[
 			{ Name = "WheatClusterA" }
@@ -648,8 +654,7 @@
 	}
 	
 	{
-		Name = "WheatUnitFxFront"
-		
+		Name = "WheatUnitFxFront"		
 		Random =
 		[
 			{ Name = "WheatUnitFxFrontA" }
@@ -689,6 +694,7 @@
 		Name = "WheatUnitFxFrontB"
 		InheritFrom = "WheatUnitFxFrontA"
 		CreateAnimation = "WheatUnitFxBackB"
+		Sound = null
 	}
 	
 	{
@@ -696,6 +702,7 @@
 		InheritFrom = "WheatUnitFxFrontA"
 		CreateAnimation = "WheatUnitFxBackC"
 		FilePath = "Fx\WheatUnitFxFrontC\WheatUnitFxFrontC"
+		Sound = null
 	}
 	
 	{
@@ -713,6 +720,7 @@
 		OffsetZ = 55.0
 		DrawBehindOwner = true
 		Scale = 0.8
+		Sound = null
 	}
 	
 	{
@@ -882,7 +890,7 @@
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
 		OffsetY = -550
-		Sound = "/SFX/PillarDestroyed"
+		Sound = "/SFX/PillarDestroyedBIG3"
 		CreateAnimations =
 		[
 			{ Name = "FieldsDustPuffFrontPillar" }
@@ -894,7 +902,6 @@
 		Name = "FieldsDestructiblePillarTransitionB"
 		InheritFrom = "FieldsDestructiblePillarTransitionA"
 		FilePath = "Fx\FieldsDestructiblePillarTransitionB\FieldsDestructiblePillarTransitionB"
-		Sound = "/SFX/PillarDestroyedBIG"
 	}
 	
 	{
@@ -1726,6 +1733,12 @@
 	{
 		Name = "FieldsExitRewardFinder"
 		FilePath = "Items\Loot\PreviewOnly\Bough"
+		AngleFromOwner = "Ignore"
+		Scale = 0.5
+	}
+	{
+		Name = "FieldsChaosExitRewardFinder"
+		FilePath = "Items\Loot\PreviewOnly\ChaosGate"
 		AngleFromOwner = "Ignore"
 		Scale = 0.5
 	}

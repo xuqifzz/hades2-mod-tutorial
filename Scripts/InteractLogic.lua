@@ -1,6 +1,6 @@
 
 function UseWeaponKit( weaponKit, args, user )
-
+	args = args or {}
 	if CurrentRun.Hero.Weapons[weaponKit.Name] ~= nil then
 		if not HasAnyAspectUnlocked( weaponKit.Name ) then
 			return
@@ -9,43 +9,35 @@ function UseWeaponKit( weaponKit, args, user )
 			OpenWeaponUpgradeScreen({ WeaponName = weaponKit.Name })
 			thread( SpawnSkelly, 1.0 )
 		end
-	elseif IsWeaponUnlocked( weaponKit.Name ) then
-		PickupWeaponKit( weaponKit )
+	else
+		PickupWeaponKit( weaponKit, args )
 		SetWeaponKitUseText( weaponKit )
 		RefreshUseButton( weaponKit.ObjectId, weaponKit )
-		wait( 0.3 )
+		if args.BonusUnusedWeapon then
+			wait( 1.8 )
+		else
+			wait( 0.3 )
+		end
 		if not HasAnyAspectUnlocked( weaponKit.Name ) then
 			CheckAutoObjectiveSets( CurrentRun, "WeaponPickup" )
-		end
-	else
-		if HasResources( weaponKit.UnlockResourceCost ) then
-			AddInputBlock({ Name = "UnlockingWeaponKit" })
-			thread( MarkObjectiveComplete, "UnlockWeapon" )	
-			SpendResources( weaponKit.UnlockResourceCost, weaponKit.Name, { Delay = 0.65, StaggerDelay = 0.45 })
-			PreWeaponKitUnlockPresentation( weaponKit )
-			PickupWeaponKit( weaponKit )
-			RemoveInputBlock({ Name = "UnlockingWeaponKit" })
-			SetWeaponKitUseText( weaponKit )
-			RefreshUseButton( weaponKit.ObjectId, weaponKit )
-			PostWeaponKitUnlockPresentation( weaponKit )
-			CheckAutoObjectiveSets( CurrentRun, "WeaponPickup" )
-		else
-			CantAffordWeaponKitPresentation( weaponKit )
 		end
 	end
 end
 
-function PickupWeaponKit( weaponKit )
+function PickupWeaponKit( weaponKit, args )
+	args = args or {}
 	AddInputBlock({ Name = "PickupWeaponKit" })
-	ClearObjectives()
+	if GameState.ActiveObjectiveSet == nil or ObjectiveSetData[GameState.ActiveObjectiveSet] == nil or not ObjectiveSetData[GameState.ActiveObjectiveSet].BlockWeaponObjectives then
+		ClearObjectives()
+	end
 	Halt({ Id = CurrentRun.Hero.ObjectId })
 	EndRamWeapons({ Id = CurrentRun.Hero.ObjectId })
-	PlayWeaponEquipAnimation( weaponKit )
+	wait( 0.02 )
+	PickupWeaponKitInteractPresentation( weaponKit )
 	local weaponUntouched = IsWeaponUntouched( weaponKit.Name )
-	local weaponEquipArgs = {}
 	UnequipWeaponUpgrade()
 	wait( 0.02 )-- Distribute workload
-	EquipPlayerWeapon( weaponKit, weaponEquipArgs )
+	EquipPlayerWeapon( weaponKit, args )
 	wait( 0.02 )-- Distribute workload
 	EquipWeaponUpgrade( CurrentRun.Hero )
 	SelectCodexEntry( weaponKit.Name )
@@ -98,77 +90,83 @@ function UseNPC( npc, args, user )
 		end
 	end
 
-	if npc.NextInteractLines ~= nil then
-		AngleTowardTarget({ Id = user.ObjectId, DestinationId = npc.ObjectId })
-		local npcName = GetGenusName(npc)
-		local checkingMeterUnlock = GiftData[npcName] and GiftData[npcName].UnlockGameStateRequirements ~= nil and not IsGameStateEligible( npc, GiftData[npcName].UnlockGameStateRequirements )
+	if npc.NextInteractLines == nil then
+		return
+	end
 
-		-- Cancel all partner conversations immediately
-		local source = npc
-		local partner = nil
-		local textLinesToPlay = npc.NextInteractLines
-		for id, unit in pairs( ShallowCopyTable( ActiveEnemies ) ) do
-			if unit ~= npc and unit.NextInteractLines ~= nil and unit.NextInteractLines.Name == npc.NextInteractLines.Name then
-				if textLinesToPlay[1] == nil and unit.NextInteractLines[1] ~= nil then
-					-- Actually lines are contained on the partner
-					textLinesToPlay = unit.NextInteractLines
-					source = unit
-					partner = npc
-				else
-					partner = unit
-				end
-				break
+	args = args or {}
+
+	if npc.ManualRecordUse then
+		RecordUse( npc.ObjectId, npc.Name )
+	end
+
+	local angleTowardTargetId = args.AngleTowardTargetId or npc.ObjectId
+	if CalcArcDistance( GetAngleBetween({ Id = user.ObjectId, DestinationId = angleTowardTargetId }), GetAngle({ Id = user.ObjectId })) > ( user.TurnInPlaceAngleMin or 0 ) then
+		AngleTowardTarget({ Id = user.ObjectId, DestinationId = angleTowardTargetId })
+	end
+
+	-- Cancel all partner conversations immediately
+	local source = npc
+	local partner = nil
+	local textLinesToPlay = npc.NextInteractLines
+	for id, unit in pairs( ShallowCopyTable( ActiveEnemies ) ) do
+		if unit ~= npc and unit.NextInteractLines ~= nil and unit.NextInteractLines.Name == npc.NextInteractLines.Name then
+			if textLinesToPlay[1] == nil and unit.NextInteractLines[1] ~= nil then
+				-- Actually lines are contained on the partner
+				textLinesToPlay = unit.NextInteractLines
+				source = unit
+				partner = npc
+			else
+				partner = unit
 			end
-		end
-		if partner ~= nil then
-			StopStatusAnimation( partner, StatusAnimations.WantsToTalk )
-		end
-
-		if partner == nil and not IsTextLineEligible( CurrentRun, source, textLinesToPlay ) then
-			npc.NextInteractLines = nil
-			CheckAvailableTextLines( npc, { RequireNoPartner = true } )
-			textLinesToPlay = npc.NextInteractLines
-		end
-
-		if textLinesToPlay == nil then
-			return
-		end
-
-		PlayTextLines( source, textLinesToPlay, { PreLineFunctionName = "StartedEndVoiceLines", FinishedFunctionName = "FinishedEndVoiceLines", NPCSource = source, } )
-		npc.NextInteractLines = nil
-		npc.ActiveNarrativeTeleportId = nil
-		npc.FieldsRewardFinderIgnores = true
-		RemoveScreenEdgeIndicator( npc )
-		if not npc.SkipNextTextLinesCheck and not textLinesToPlay.SkipNextTextLinesCheck then
-			CheckAvailableTextLines( npc, { RequireNoPartner = true } )
-		end
-		if partner ~= nil then
-			partner.NextInteractLines = nil
-			CheckAvailableTextLines( partner, { RequireNoPartner = true } )
-			StopStatusAnimation( partner, StatusAnimations.WantsToTalk )
-			RefreshUseButton( partner.ObjectId, partner )
-			AddInteractBlock( partner, "SetAvailableUseText" ) -- Will get unblocked by SetAvailableUseText() below if needed
-		end
-
-		UseNPCPostTextLines( source, partner, textLinesToPlay )
-		if partner == nil then
-
-			local sourceName = GetGenusName( source )
-				
-			CheckCodexUnlock( "ChthonicGods", sourceName )
-			CheckCodexUnlock( "OtherDenizens", sourceName )
-			CheckCodexUnlock( "EnemiesUW", sourceName )
-			CheckCodexUnlock( "EnemiesSF", sourceName )
-			if checkingMeterUnlock and ( GiftData[sourceName].UnlockGameStateRequirements == nil or IsGameStateEligible( npc, GiftData[sourceName].UnlockGameStateRequirements ) ) then
-				thread( GiftTrackUnlockedPresentation, sourceName )
-			end
-		end
-
-		SetAvailableUseText( npc )
-		if partner ~= nil then
-			SetAvailableUseText( partner )
+			break
 		end
 	end
+	if partner ~= nil then
+		StopStatusAnimation( partner, StatusAnimations.WantsToTalk )
+	end
+
+	if partner == nil and not IsTextLineEligible( CurrentRun, source, textLinesToPlay ) then
+		-- Previously selected conversation is no longer eligible, pick a different one just-in-time
+		npc.NextInteractLines = nil
+		CheckAvailableTextLines( npc, { RequireNoPartner = true, RequireNoTeleportToId = true, } )
+		textLinesToPlay = npc.NextInteractLines
+	end
+
+	if textLinesToPlay == nil then
+		return
+	end
+
+	PlayTextLines( source, textLinesToPlay, { PreLineFunctionName = "StartedEndVoiceLines", FinishedFunctionName = "FinishedEndVoiceLines", NPCSource = source, } )
+	npc.NextInteractLines = nil
+	npc.ActiveNarrativeTeleportId = nil
+	npc.FieldsRewardFinderIgnores = true
+	RemoveScreenEdgeIndicator( npc )
+	if not npc.SkipNextTextLinesCheck and not textLinesToPlay.SkipNextTextLinesCheck then
+		CheckAvailableTextLines( npc, { RequireNoPartner = true } )
+	end
+	if partner ~= nil then
+		partner.NextInteractLines = nil
+		CheckAvailableTextLines( partner, { RequireNoPartner = true } )
+		StopStatusAnimation( partner, StatusAnimations.WantsToTalk )
+		RefreshUseButton( partner.ObjectId, partner )
+		AddInteractBlock( partner, "SetAvailableUseText" ) -- Will get unblocked by SetAvailableUseText() below if needed
+	end
+
+	UseNPCPostTextLines( source, partner, textLinesToPlay )
+	if partner == nil then
+		local sourceName = GetGenusName( source )
+		CheckCodexUnlock( "ChthonicGods", sourceName )
+		CheckCodexUnlock( "OtherDenizens", sourceName )
+		CheckCodexUnlock( "EnemiesUW", sourceName )
+		CheckCodexUnlock( "EnemiesSF", sourceName )
+	end
+
+	SetAvailableUseText( npc )
+	if partner ~= nil then
+		SetAvailableUseText( partner )
+	end
+
 end
 
 function StartedEndVoiceLines( source, args, contextArgs )
@@ -194,7 +192,6 @@ end
 
 function UseInspectPoint( inspectPoint, args, user )
 
-	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = inspectPoint.ObjectId })
 	UseableOff({ Id = inspectPoint.ObjectId })
 	SetAlpha({ Id = inspectPoint.ObjectId, Fraction = 0.0, Duration = 0.25 })
 	BlockVfx({ DestinationId = inspectPoint.ObjectId })
@@ -206,7 +203,7 @@ function AttemptUseChallengeSwitch( challengeSwitch, args, user )
 
 	-- Same requirements as exit doors
 	if not challengeSwitch.ReadyToUse or not CheckRoomExitsReady( CurrentRun.CurrentRoom ) then
-		challengeSwitch.CannotUseTextOverride = RoomData[CurrentRun.CurrentRoom.Name].ChallengeSwitchCannotUseText or CurrentRun.CurrentRoom.ChallengeSwitchCannotUseText
+		challengeSwitch.CannotUseTextOverride = RoomData[CurrentRun.CurrentRoom.Name].ChallengeSwitchCannotUseText
 		thread( CannotUseDoorPresentation, challengeSwitch )
 		return
 	end
@@ -283,6 +280,15 @@ function UseWellShop( challengeSwitch )
 	StartUpStore()
 end
 
+function UseMetaRewardStand( challengeSwitch )
+	PlayInteractAnimation( challengeSwitch.ObjectId )
+	thread( PlayVoiceLines, GlobalVoiceLines.MetaRewardStandUsedVoiceLines, true )
+	PlaySound({ Name = challengeSwitch.ResourceData.MetaRewardStandPickupSound, Id = challengeSwitch.DisplayItemId })
+	AddResource( challengeSwitch.ResourceData.Name, challengeSwitch.RewardAmount, "MetaRewardStand" )
+	Destroy({ Ids = { challengeSwitch.DisplayItemId, challengeSwitch.TextAnchorId } })
+	UseableOff({ Id = challengeSwitch.ObjectId })
+end
+
 function RecordUse( id, name )
 
 	if name ~= nil then
@@ -310,9 +316,7 @@ OnUsed{
 		end
 		
 		if not triggerArgs.DidAutoActivate and SessionMapState.SprintActive and SessionMapState.WaitUntilAutoSprintInput then
-			EndAutoSprint()
-			EndRamWeapons({ Id = CurrentRun.Hero.ObjectId })
-			Halt({ Id = CurrentRun.Hero.ObjectId })
+			EndAutoSprint({ Halt = true, EndWeapon = true })
 		end
 
 		RunEventsGeneric( usee.OnUseEvents, usee )
@@ -356,7 +360,7 @@ function UseNPCPostTextLines( npc, partner, textLinesPlayed )
 		CallFunctionName( npc.PostTextLinesFunctionName, npc, partner, textLinesPlayed, npc.PostTextLinesFunctionArgs )
 	end
 	if npc.PostTextLineEvents ~= nil then
-		RunEventsGeneric( npc.PostTextLineEvents, npc, partner, textLinesPlayed )
+		RunEventsGeneric( npc.PostTextLineEvents, npc, { Partner = partner } )
 	end
 
 	if not textLinesPlayed.SkipClearRoomRequiredObject then
@@ -538,6 +542,8 @@ function HandleNemesisEncounterReward( eventSource, args )
 		return
 	end
 
+	thread( PlayVoiceLines, nemesis.EncounterEndVoiceLines, nil, nemesis )
+
 	wait(2.0, RoomThreadName)
 
 	local betAmount = nemesis.MaxBetAmount or 100
@@ -563,6 +569,7 @@ function HandleNemesisEncounterReward( eventSource, args )
 			local moneyMultiplier = GetTotalHeroTraitValue( "MoneyMultiplier", { IsMultiplier = true } )
 			local amount = round( betAmount * moneyMultiplier )
 			AddResource( "Money", amount , "NemesisBet" )
+			GameState.NemesisBetWinnings = (GameState.NemesisBetWinnings or 0) + amount
 		end
 		thread( NemesisBetPresentation, eventSource, { Sum = -betAmount, Result = "playerwin" } )
 
@@ -571,6 +578,8 @@ function HandleNemesisEncounterReward( eventSource, args )
 		else
 			PlayVoiceLines( nemesis.EncounterWonVoiceLines, nil, nemesis )
 		end
+
+		CheckAchievement( nemesis, { Name = "AchNemesisCombat" } )
 	else
 		-- Tie
 		thread( MarkObjectiveComplete, "NemesisKills" )
@@ -625,7 +634,7 @@ function UseLoot( usee, args, user )
 			usee.Purchased = true
 			DestroyTextBox({ Id = usee.ObjectId })
 			SpendResources( usee.ResourceCosts, usee.Name or "Loot" )
-			RemoveStoreItem( { Id = usee.ObjectId, Name = usee.Name, IsBoon = true, BoonRaritiesOverride = usee.BoonRaritiesOverride, StackNum = usee.StackNum } )
+			RemoveStoreItem( { Id = usee.ObjectId, Name = usee.Name, IsBoon = true, BoonRaritiesOverride = usee.BoonRaritiesOverride, StackNum = usee.StackNum, ScreenName = UIData.BoonMenuId } )
 			if (usee.ResourceCosts.Money or 0) > 0 then
 				HandleCharonPurchase( "UseLoot", usee.ResourceCosts.Money )
 			end
@@ -669,7 +678,7 @@ function UseLoot( usee, args, user )
 end
 
 function HandleLootPickup( currentRun, loot, args )
-	local checkingMeterUnlock = GiftData[loot.Name] and ( GiftData[loot.Name].UnlockGameStateRequirements ~= nil and not IsGameStateEligible( loot, GiftData[loot.Name].UnlockGameStateRequirements ) ) 
+
 	SetPlayerInvulnerable( "HandleLootPickup" )
 	AddTimerBlock( currentRun, "HandleLootPickup" )
 
@@ -708,18 +717,14 @@ function HandleLootPickup( currentRun, loot, args )
 	RemoveInputBlock({ Name = "HandleLootPickup" })
 	RemoveTimerBlock( currentRun, "HandleLootPickup" )
 	
-
-	OpenUpgradeChoiceMenu( loot )
+	OpenUpgradeChoiceMenu( loot, args )
 
 	if loot.PostPickupFunctionName ~= nil then
 		CallFunctionName( loot.PostPickupFunctionName, loot, loot.PostPickupFunctionArgs )
 	end
-	
+	CheckAndAddOlympianDuo()
 	SetPlayerVulnerable( "HandleLootPickup" )
-	
-	if checkingMeterUnlock and ( GiftData[loot.Name].UnlockGameStateRequirements == nil or IsGameStateEligible( loot, GiftData[loot.Name].UnlockGameStateRequirements ) ) then
-		thread( GiftTrackUnlockedPresentation, loot.Name )
-	end
+
 end
 
 function UseHealthFountain( used, user )
@@ -740,6 +745,39 @@ function UseHealthFountain( used, user )
 	Destroy({ Ids = GetIds({ Name = used.DestroyGroupOnUse or "WellLightsGroup"}) })
 
 	MapState.RoomRequiredObjects[used.ObjectId] = nil
+	
+	local hasDamageBonus = false
+	local fountainRarityTraits = {}
+	local delay = 0
+	for k, traitData in ipairs( CurrentRun.Hero.Traits ) do
+		if traitData.FountainDamageBonus then
+			hasDamageBonus = true
+			traitData.AccumulatedFountainDamageBonus = traitData.AccumulatedFountainDamageBonus + (traitData.FountainDamageBonus - 1)
+			ExtractValues( CurrentRun.Hero, traitData, traitData )
+		end
+		if traitData.FountainRarity and traitData.Uses > 0 and HasRarifiableTraits( traitData.FountainRarity ) then
+			ReduceTraitUses( traitData )
+			local args = ShallowCopyTable( traitData.FountainRarity )
+			args.Delay = delay
+			thread( AddRarityToTraits, traitData, args )
+			delay = delay + 1
+		end
+		if traitData.FountainRefreshUses then
+			thread ( SpellPotionRefillPresentation, used, user, traitData, 0.2, delay)
+			if HasHeroTraitValue("RolloverSpellUses") then
+				traitData.RemainingUses = traitData.RemainingUses + traitData.MaxUses + GetTotalHeroTraitValue("BonusSpellUses")
+			else
+				traitData.RemainingUses = traitData.MaxUses + GetTotalHeroTraitValue("BonusSpellUses")
+			end
+			SetWeaponProperty({ WeaponName = traitData.PreEquipWeapons[1], DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = true })
+			UpdateTraitNumber(traitData)
+			TraitUIDeactivateTrait(traitData)
+			delay = delay + 1
+		end
+	end
+	if hasDamageBonus then
+		FountainDamagePresentation()
+	end
 
 	wait(0.4)
 
@@ -757,40 +795,13 @@ function UseHealthFountain( used, user )
 
 	healFraction = healFraction * CalculateHealingMultiplier()
 	Heal( CurrentRun.Hero, { HealFraction = healFraction, SourceName = "HealthFountain" } )
-	thread(UpdateHealthUI)
+	FrameState.RequestUpdateHealthUI = true
 
 	wait( 0.2, RoomThreadName )
 	if CheckRoomExitsReady( CurrentRun.CurrentRoom ) then
 		UnlockRoomExits( CurrentRun, CurrentRun.CurrentRoom )
 	end
 
-	local hasDamageBonus = false
-	local fountainRarityTraits = {}
-	for k, traitData in pairs(CurrentRun.Hero.Traits) do
-		if traitData.FountainDamageBonus then
-			hasDamageBonus = true
-			traitData.AccumulatedFountainDamageBonus = traitData.AccumulatedFountainDamageBonus + (traitData.FountainDamageBonus - 1)
-			ExtractValues( CurrentRun.Hero, traitData, traitData )
-		end
-		if traitData.FountainRarity and traitData.Uses > 0 and HasRarifiableTraits( traitData.FountainRarity ) then
-			ReduceTraitUses( traitData )
-			thread( AddRarityToTraits, traitData, traitData.FountainRarity )
-		end
-		if traitData.FountainRefreshUses then
-			thread ( SpellPotionRefillPresentation, used, user, traitData )
-			if HasHeroTraitValue("RolloverSpellUses") then
-				traitData.RemainingUses = traitData.RemainingUses + traitData.MaxUses + GetTotalHeroTraitValue("BonusSpellUses")
-			else
-				traitData.RemainingUses = traitData.MaxUses + GetTotalHeroTraitValue("BonusSpellUses")
-			end
-			SetWeaponProperty({ WeaponName = traitData.PreEquipWeapons[1], DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = true })
-			UpdateTraitNumber(traitData)
-			TraitUIDeactivateTrait(traitData)
-		end
-	end
-	if hasDamageBonus then
-		FountainDamagePresentation()
-	end
 
 end
 
@@ -807,7 +818,7 @@ function CreateConsumableItem( consumableId, consumableName, costOverride, args 
 	if args.AutoLoadPackages and consumableData.SpeakerName ~= nil then
 		LoadVoiceBanks( consumableData.SpeakerName, nil, args.IgnoreAssert )
 	end
-	local consumableItem = GetRampedConsumableData( consumableData )
+	local consumableItem = GetRampedConsumableData( consumableData, args )
 	if consumableData ~= nil and consumableData.SpawnSound ~= nil and not args.IgnoreSounds then
 		PlaySound({ Name = consumableData.SpawnSound, Id = consumableId })
 	end
@@ -854,13 +865,13 @@ function CreateConsumableItemFromData( consumableId, consumableItem, costOverrid
 	if costOverride then
 		consumableItem.ResourceCosts = { Money = costOverride }
 	end
+	consumableItem.BaseResourceCosts = ShallowCopyTable( consumableItem.ResourceCosts )
 
 	if consumableItem.AddResources ~= nil then
 		SetupResourceText( consumableItem )
 	end
 
-	local costMultiplier = 1 + ( MetaUpgradeData.ShopPricesShrineUpgrade.ChangeValue - 1 )
-	costMultiplier = costMultiplier * GetTotalHeroTraitValue("StoreCostMultiplier", {IsMultiplier = true, Multiplicative = true})
+	local costMultiplier = GetShopCostMultiplier()
 	if consumableItem.ResourceCosts ~= nil and costMultiplier ~= 1 and ( consumableItem.IgnoreCostIncrease == nil or costMultiplier < 1 ) then
 		for resourceName, resourceAmount in pairs( consumableItem.ResourceCosts ) do
 			consumableItem.ResourceCosts[resourceName] = round( consumableItem.ResourceCosts[resourceName] * costMultiplier )
@@ -876,6 +887,9 @@ function CreateConsumableItemFromData( consumableId, consumableItem, costOverrid
 	if args.AutoLoadPackages then
 		if consumableItem.SpeakerName ~= nil then
 			LoadVoiceBanks( consumableItem.SpeakerName, nil, args.IgnoreAssert )
+		end
+		if consumableItem.LoadPackages ~= nil then
+			LoadPackages( { Names = consumableItem.LoadPackages, IgnoreAssert = args.IgnoreAssert } )
 		end
 	end
 
@@ -970,6 +984,15 @@ function UseConsumableItem( consumableItem, args, user )
 		return
 	end
 
+	if consumableItem.EnemiesBlockInteraction and not CurrentRun.CurrentRoom.AlwaysAllowLootInteraction then
+		for enemyId, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
+			if enemy.BlocksLootInteraction then
+				thread( InteractBlockedByEnemiesPresentation, consumableItem, args, user )
+				return false
+			end
+		end
+	end
+
 	if consumableItem.ManualRecordUse then
 		RecordUse( consumableItem.ObjectId, consumableItem.Name )
 	end
@@ -977,7 +1000,8 @@ function UseConsumableItem( consumableItem, args, user )
 	
 	ConsumableUsedPresentation( currentRun, consumableItem, args )
 	if not consumableItem.IgnorePurchase then
-		RemoveStoreItem( { Id = consumableItem.ObjectId, Name = consumableItem.Name } )
+		local screenName = consumableItem.ScreenNameOnUse
+		RemoveStoreItem( { Id = consumableItem.ObjectId, Name = consumableItem.Name, ScreenName = screenName } )
 		RecordConsumableItem( consumableItem )
 
 		SpendResources( consumableItem.ResourceCosts, consumableItem.Name )
@@ -996,14 +1020,14 @@ function UseConsumableItem( consumableItem, args, user )
 		local healFraction = consumableItem.HealFraction
 		healFraction = healFraction * CalculateHealingMultiplier()
 		Heal( CurrentRun.Hero, { HealFraction = healFraction, SourceName = consumableItem.Name or "Item" } )
-		thread( UpdateHealthUI )
+		FrameState.RequestUpdateHealthUI = true
 	end
 
 	if consumableItem.HealFixed ~= nil then
 		local healAmount = consumableItem.HealFixed * CalculateHealingMultiplier()
 		healAmount = round( healAmount * GetTotalHeroTraitValue("MaxHealthMultiplier", { IsMultiplier = true }) )
 		Heal( CurrentRun.Hero, { HealAmount = healAmount, SourceName = consumableItem.Name or "Item" } )
-		thread( UpdateHealthUI )
+		FrameState.RequestUpdateHealthUI = true
 	end
 
 	if consumableItem.AddMana ~= nil then
@@ -1012,8 +1036,8 @@ function UseConsumableItem( consumableItem, args, user )
 
 	if consumableItem.DestroyOnPickupId ~= nil and ActiveEnemies[consumableItem.DestroyOnPickupId] then
 		thread( Kill, ActiveEnemies[consumableItem.DestroyOnPickupId], { ImpactAngle = 0, AttackerTable = CurrentRun.Hero, AttackerId = CurrentRun.Hero.ObjectId })
-		RemoveScreenEdgeIndicator( consumableItem )
 	end
+	RemoveScreenEdgeIndicator( consumableItem )
 
 	if consumableItem.AddMaxHealth ~= nil then
 		AddMaxHealth( consumableItem.AddMaxHealth, consumableItem, consumableItem.AddMaxHealthArgs )
@@ -1032,25 +1056,30 @@ function UseConsumableItem( consumableItem, args, user )
 
 	if consumableItem.HealthCost ~= nil then
 		SacrificeHealth({ SacrificeHealth = consumableItem.HealthCost, MinHealth = 1, DeductHealth = true})
-		UpdateHealthUI()
+		FrameState.RequestUpdateHealthUI = true
 	end
 
 	if consumableItem.DropMoney ~= nil then
 		if consumableItem.DropMoneyDelay == 0 then
 			AddResource( "Money", consumableItem.DropMoney, consumableItem.Name, { Silent = false } )
+			if CurrentRun.CurrentRoom.Store and not IsEmpty(CurrentRun.CurrentRoom.Store.Buttons) then
+				for i, button in pairs(CurrentRun.CurrentRoom.Store.Buttons) do
+					UpdateCostButton( button )
+				end
+			end
 		else
-			thread( GushMoney, { Amount = consumableItem.DropMoney, LocationId = consumableItem.ObjectId, Source = consumableItem.Name, Delay = consumableItem.DropMoneyDelay, Radius = consumableItem.DropMoneyRadius } )
+			thread( GushMoney, { Amount = consumableItem.DropMoney, LocationId = consumableItem.ObjectId, Source = consumableItem.Name, Delay = consumableItem.DropMoneyDelay, Radius = consumableItem.DropMoneyRadius, PickupDelay = consumableItem.DropMoneyPickupDelay } )
 		end
 	end
 
 	if consumableItem.AddResources ~= nil then
 		for resourceName, count in pairs( consumableItem.AddResources ) do
-			AddResource( resourceName, count, consumableItem.Name, { Silent = false, ApplyMultiplier = not consumableItem.PreApplyMetaPointMultiplier } )
+			AddResource( resourceName, count, consumableItem.Name, { Silent = false, ApplyMultiplier = true } )
 		end
 	end
 
 	if consumableItem.AddStackTraits ~= nil then
-		AddStackToTraits( consumableItem, { NumTraits = consumableItem.AddStackTraits, NumStacks = 1, Thread = consumableItem.AddStackTraitsThread, Delay = consumableItem.AddStackTraitsDelay } )
+		thread(AddStackToTraits, consumableItem, { NumTraits = consumableItem.AddStackTraits, NumStacks = 1, Thread = consumableItem.AddStackTraitsThread, Delay = consumableItem.AddStackTraitsDelay } )
 	end
 
 	if consumableItem.GiveObjectiveSet ~= nil then
@@ -1070,7 +1099,7 @@ function UseConsumableItem( consumableItem, args, user )
 	end
 
 	if consumableItem.ReplaceWithRandomLoot ~= nil then
-		thread( UnwrapRandomLoot, consumableItem.ObjectId )
+		thread( UnwrapRandomLoot, consumableItem )
 	end
 
 	if consumableItem.UseFunctionNames ~= nil then
@@ -1084,7 +1113,7 @@ function UseConsumableItem( consumableItem, args, user )
 			thread( CallFunctionName, functionName, consumableItem, consumableItem.UseThreadedFunctionArgs[i] )
 		end
 	end
-	if (consumableItem.CanDuplicate and RandomChance( GetTotalHeroTraitValue("DoubleRewardChance"))) or consumableItem.RespawnAfterUse then
+	if (consumableItem.CanDuplicate and RandomChance( GetTotalHeroTraitValue("DoubleRewardChance") * GetTotalHeroTraitValue( "LuckMultiplier", { IsMultiplier = true }))) or consumableItem.RespawnAfterUse then
 		UseableOn({ Id = consumableItem.ObjectId })
 		SetAlpha({ Id = consumableItem.ObjectId, Fraction = 1, Duration = 0 })
 		thread( DoubleRewardPresentation, consumableItem.ObjectId )
@@ -1104,15 +1133,17 @@ function UseConsumableItem( consumableItem, args, user )
 			displayName = ResourceData[GetFirstKey(consumableItem.AddResources)].TooltipId
 		end
 		CurrentRun.LastReward = { Type = "Consumable", Name = consumableItem.Name, DisplayName = displayName }
+		--[[
 		DebugAssert({ 
 			Condition = HasDisplayName({ Text = consumableItem.Name }) or HasDisplayName({ Text = displayName }), 
 			Text = "Consumable is LastRewardEligible, but is missing DisplayName for "..displayName, 
 			Owner = "Dexter" 
 		})
+		]]
 	end
 
-	wait( 0.2, RoomThreadName )
-	if CheckRoomExitsReady( CurrentRun.CurrentRoom ) then
+	wait( 0.2, "CheckRoomExitsReady" )
+	if not consumableItem.SkipCheckRoomExitsReady and CheckRoomExitsReady( CurrentRun.CurrentRoom ) then
 		UnlockRoomExits( CurrentRun, CurrentRun.CurrentRoom, consumableItem.ExitUnlockDelay )
 	end
 
@@ -1157,19 +1188,19 @@ function GetSecretDoorCost()
 	return math.ceil( multiplier * ( costBase + costRamp ) )
 end
 
-function GetRampedConsumableData( consumableData, rarity, args )
+function GetRampedConsumableData( consumableData, args )
 	if consumableData == nil then
 		return
 	end
 	args = args or {}
 	local rampedData = DeepCopyTable( consumableData )
 	local rarityMultiplier = 1
-	if rarity ~= nil and rampedData.RarityLevels[rarity] then
-		local rarityData = rampedData.RarityLevels[rarity]
-		if rarityData.Multiplier ~= nil then
-			rarityMultiplier = rarityData.Multiplier
-		else
-			rarityMultiplier = RandomFloat(rarityData.MinMultiplier, rarityData.MaxMultiplier)
+
+	if args.DataOverrides ~= nil then
+		for key, value in pairs( args.DataOverrides ) do
+			if rampedData[key] ~= nil then
+				rampedData[key] = value
+			end
 		end
 	end
 
@@ -1196,9 +1227,6 @@ function GetRampedConsumableData( consumableData, rarity, args )
 	end
 	if rampedData.CostPerSeedMystery ~= nil then
 		rampedData.ResourceCosts = { Money = round(rampedData.CostPerSeedMystery * rampedData.AddResources.SeedMystery) }
-	end
-	if rampedData.CostPerGem ~= nil then
-		rampedData.ResourceCosts = { Money = round(rampedData.CostPerGem * rampedData.AddResources.Gems) }
 	end
 	if rampedData.PayoutPerHealthPoint ~= nil then
 		if HasHeroTraitValue("BlockMoney") then
@@ -1230,11 +1258,6 @@ function GetRampedConsumableData( consumableData, rarity, args )
 	return rampedData
 end
 
-function DelayedHeal( delay, amount, source )
-	wait( delay )
-	Heal( CurrentRun.Hero, { HealAmount = amount, SourceName = source } )
-end
-
 function SacrificeHealth( args )
 	args = args or {}
 	args.MinHealth = args.MinHealth or 1
@@ -1254,8 +1277,11 @@ function SacrificeHealth( args )
 		if CurrentRun.Hero.Health < args.MinHealth then
 			CurrentRun.Hero.Health = args.MinHealth
 		end
+		if args.AttackerName ~= nil then
+			CurrentRun.DamageTakenFromRecord[args.AttackerName] = (CurrentRun.DamageTakenFromRecord[args.AttackerName] or 0) + randomDamageValue
+		end
 	else
-		Damage( CurrentRun.Hero, { triggeredById = CurrentRun.Hero.ObjectId, DamageAmount = randomDamageValue, MinHealth = args.MinHealth, PureDamage = true, Silent = args.Silent, IgnoreCap = args.IgnoreCap } )
+		Damage( CurrentRun.Hero, { triggeredById = CurrentRun.Hero.ObjectId, DamageAmount = randomDamageValue, MinHealth = args.MinHealth, PureDamage = true, Silent = args.Silent, IgnoreCap = args.IgnoreCap, IgnoreHealthBuffer = args.IgnoreHealthBuffer, ManuallyTriggered = args.ManuallyTriggered, AttackerName = args.AttackerName } )
 	end
 	if not args.Silent and not CurrentRun.Hero.IsDead then
 		CreateAnimation({ Name = "SacrificeHealthFx", DestinationId = CurrentRun.Hero.ObjectId })
@@ -1270,7 +1296,7 @@ function SacrificeHealthAndHeal( args )
 	if currentHealthFraction < 1.0 then
 		Heal( CurrentRun.Hero, { HealAmount = healAmount, SourceName = "SacrificeHealthAndHeal" } )
 		thread( InCombatText, CurrentRun.Hero.ObjectId, "PlayerHealed_Amount", 1.5 , { LuaKey = "TempTextData", LuaValue = {Amount = healAmount} })
-		thread(UpdateHealthUI)
+		FrameState.RequestUpdateHealthUI = true
 	end
 end
 
@@ -1280,6 +1306,10 @@ function AttemptPanelReroll( screen, button )
 	if not cost then
 		return
 	end
+
+	if ScreenState.InTransition then
+		return
+	end
 	
 	if (CurrentRun.NumRerolls or 0) < cost or cost < 0 then
 		CannotRerollPanelPresentation( button )
@@ -1287,7 +1317,7 @@ function AttemptPanelReroll( screen, button )
 	end
 
 	AddInputBlock({ Name = "AttemptPanelReroll" })
-	HideTopMenuScreenTooltips({ Id = button.Id })
+	HideTopMenuScreenTooltips({ })
 	CurrentRun.NumRerolls = CurrentRun.NumRerolls - cost
 	CurrentRun.CurrentRoom.SpentRerolls = CurrentRun.CurrentRoom.SpentRerolls or {}
 	if button.RerollId then
@@ -1299,11 +1329,15 @@ function AttemptPanelReroll( screen, button )
 	InvalidateCheckpoint()
 
 	if button and button.RerollFunctionName ~= nil then
-		RerollPanelPresentation( screen, button )
+		ScreenState.InTransition = true
+		PreRerollPanelPresentation( screen, button )
 		CallFunctionName( button.RerollFunctionName, screen, button )
+		PostRerollPanelPresentation( screen, button )
 	end
 	wait( 0.1 )
 	RemoveInputBlock({ Name = "AttemptPanelReroll" })
+	wait( 0.95 )
+	ScreenState.InTransition = false
 end
 
 function AttemptReroll( run, target )
@@ -1320,8 +1354,10 @@ function AttemptReroll( run, target )
 		return
 	end
 
-	run.NumRerolls = run.NumRerolls - 1
+	local cost = 1
+	run.NumRerolls = run.NumRerolls - cost
 	UpdateRerollUI( run.NumRerolls )
+	thread( RerollSpendPresentation, cost )
 
 	RandomSynchronize( run.NumRerolls )
 
@@ -1453,18 +1489,6 @@ function AddKeepsakeCharge( args )
 		return
 	end
 	wait( args.Delay )
-
-	local numCharges = args.NumCharges or 1
-
-	for i, traitData in pairs( CurrentRun.Hero.Traits ) do
-		if traitData.AddAssist then
-			AddKeepsakeChargePresentation( traitData )
-			traitData.RemainingUses = traitData.RemainingUses or 0
-			traitData.RemainingUses = traitData.RemainingUses + numCharges
-			UpdateTraitNumber(traitData)
-			break
-		end
-	end
 end
 
 function AddControlBlock( controlName, flag )
@@ -1492,6 +1516,16 @@ function ClearCombatControlBlock( flag )
 	if not IsEmpty( enabledControls ) then
 		ToggleCombatControl( enabledControls, true, flag )
 	end
+end
+
+function IsAggroedUnitBlockingInteract()
+	for id, v  in pairs( ShallowCopyTable( MapState.AggroedUnits ) ) do
+		local unit = ActiveEnemies[id]
+		if unit ~= nil and not unit.AllowInteractWhileAggroed and not unit.AlwaysTraitor then
+			return true
+		end
+	end
+	return false
 end
 
 function TogglePlayerMove( enabled, flag )
@@ -1539,15 +1573,45 @@ function ToggleCombatControl( controlNames, enabled, flag )
 end
 
 function AddInteractBlock( object, flag )
+	if object == nil then
+		return
+	end
 	object.InteractBlocks = object.InteractBlocks or {}
 	object.InteractBlocks[flag] = true
 	UseableOff({ Id = object.ObjectId or object.Id })
 end
 
 function RemoveInteractBlock( object, flag )
+	if object == nil then
+		return
+	end
 	object.InteractBlocks = object.InteractBlocks or {}
 	object.InteractBlocks[flag] = nil
 	if IsEmpty( object.InteractBlocks ) then
 		UseableOn({ Id = object.ObjectId or object.Id })
 	end
+end
+
+function UsePoisonCure( fountain, args )
+	if CheckCooldown(fountain.CooldownNamePrefix..fountain.ObjectId, fountain.CooldownDuration) then
+		ClearEffect({ Id = CurrentRun.Hero.ObjectId, Name = "MedeaPoison" })
+		ExpireProjectiles({ Names = { "PoisonPuddle", "PoisonPuddleSmall" }, Range = fountain.ExpirePoisonPuddleRadius or 0, Id = fountain.ObjectId })
+		CreateAnimation({ DestinationId = CurrentRun.Hero.ObjectId, Name = fountain.OnUsedConsumeFx })
+		-- @ this should be in a presentation function
+		if CurrentRun.Hero.CurrentlyPoisoned then
+			PlaySound({ Name = "/Leftovers/SFX/StaminaRefilled", Id = CurrentRun.Hero.ObjectId })
+			thread( PlayVoiceLines, HeroVoiceLines.PoisonCuredVoiceLines, true )
+		end
+		--BlockEffect({ Id = CurrentRun.Hero.ObjectId, Name = "MedeaPoison", Duration = 0.75 })
+		SetAnimation({ DestinationId = fountain.ObjectId, Name = fountain.OnCooldownAnimation })
+		UseableOff({ Id = fountain.ObjectId })
+		PoisonCureReady( fountain )
+	end
+end
+
+
+function PoisonCureReady(fountain)
+	wait( fountain.CooldownDuration, RoomThreadName )
+	SetAnimation({ DestinationId = fountain.ObjectId, Name = fountain.IdleAnimation })
+	UseableOn({ Id = fountain.ObjectId })
 end

@@ -39,13 +39,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Caster/EmoteAttacking" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 	LightRangedBolt_Elite =
 	{
@@ -54,6 +47,9 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 			FireTicks = 3,
+
+			PostAttackDurationMin = 0.9,
+			PostAttackDurationMax = 1.1,
 		},
 	},
 

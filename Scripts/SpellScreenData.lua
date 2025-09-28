@@ -1,19 +1,10 @@
-﻿TalentTreeUIData = 
-{
-	DefaultStartX = 400,
-	DefaultStartY = 340,
-	DefaultTalentXSpacer = 165,
-	DefaultTalentYSpacer = 70,
-	DefaultTalentScale= 0.3,
-	DefaultOverlayScale= 0.5,
-}
-
-ScreenData.SpellScreen = 
+﻿ScreenData.SpellScreen = 
 {
 	Components = {}, 
 	FreezePlayerArgs = { DisableTray = false,},
 	AllowAdvancedTooltip = false, -- Block the normal hotkey, works through TraitTrayButton
 	BlockPause = true,
+	BlockExitsReady = true,
 
 	StartX = ScreenCenterX,
 	SpacerY = 240,
@@ -27,17 +18,21 @@ ScreenData.SpellScreen =
 
 		Order =
 		{
-			"BackgroundTint",
+			"BackgroundDim",
+			"MoonBackground",
 			"Background",
 			"ActionBarBackground",
 		},
-
-		BackgroundTint = 
+		BackgroundDim = 
 		{
 			Graphic = "rectangle01",
-			Scale = 10,
+			Scale = 10.0,
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
+			Color = Color.Black,
+			Alpha = 0.0,
+			AlphaTarget = 0.34,
+			AlphaTargetDuration = 0.3,
 		},
 
 		Background = 
@@ -47,10 +42,17 @@ ScreenData.SpellScreen =
 			Y = ScreenCenterY,
 			Children = 
 			{
+				SpellTopGradient = 
+				{
+					AnimationName = "SpellScreenTopGradient",
+					X = ScreenCenterX,
+					Y = ScreenCenterY,
+				},
 				TitleText = 
 				{
 					Text = "SpellScreenMenu_Title",
-					TextArgs = {
+					TextArgs =
+					{
 						FontSize = 32,
 						OffsetX = 0, OffsetY = -455,
 						Color = Color.White,
@@ -58,11 +60,10 @@ ScreenData.SpellScreen =
 						ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 3},
 						OutlineThickness = 3,
 						Justification = "Center",
-					}
+					},
 				},
 				FlavorText = 
 				{
-					Text = "SpellScreen_FlavorText01",
 					TextArgs =
 					{
 						FontSize = 19,
@@ -81,8 +82,7 @@ ScreenData.SpellScreen =
 		{
 			AnimationName = "GUI\\ActionBar",
 			X = ScreenCenterX,
-			BottomOffset = UIData.ActionBarBottomOffset,
-			UseScreenScaleX = true,
+			Y = UIData.ActionBarY,
 		},
 
 		ActionBarLeft =
@@ -156,7 +156,6 @@ ScreenData.SpellScreen =
 					Alpha = 1.0,
 					Data =
 					{
-						OnPressedFunctionName = "AcceptAndCloseSpellScreen",
 						OnMouseOverFunctionName = "MouseOverContextualAction",
 						OnMouseOffFunctionName = "MouseOffContextualAction",
 					},

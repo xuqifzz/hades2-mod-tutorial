@@ -5,15 +5,14 @@ UnitSetData.ZombieSpawner =
 		InheritFrom = { "BaseVulnerableEnemy" },
 		IntroEncounterName = "ZombieSpawnerIntro",
 		PreferredSpawnPoint = "EnemyPointSupport",
-		Material = "Stone",
 
 		MaxHealth = 400,
 		HealthBarOffsetY = -250,
-		HitSparkScale = 2.4,
+		ArmorSparkAnimation = "HitSparkArmor_Large",
 		ActivateAnimation = "Enemy_ZombieSpawner_Spawn",
 		ActivateFx = "EphyraZombieSpawnerHoleIn",
 		ActivateFx2 = "EphyraZombieSpawnerSpawnMask",
-		ActivateFxPreSpawn = "Blank",
+		ActivateFxPreSpawn = "nil",
 		ActivateFadeIn = false,
 		ActivateTint = false,
 		ActivateStartAlpha = 1, 
@@ -42,8 +41,6 @@ UnitSetData.ZombieSpawner =
 		DeathSound = "/SFX/Enemy Sounds/ZombieSpawner/EmoteDying",
 
 		SpawnAwayFromTypes = { "ZombieSpawner", "ZombieSpawner_Elite" },
-
-		BlockAttributes = { "Metallic" },
 
 		DefaultAIData =
 		{
@@ -93,6 +90,7 @@ UnitSetData.ZombieSpawner =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_0463", Text = "A Tombstone." },
@@ -109,7 +107,13 @@ UnitSetData.ZombieSpawner =
 
 		IsAggroedSound = "/SFX/Enemy Sounds/ZombieSpawner/EmoteTaunting",
 
-		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Radial" }),
+		EliteAttributeOptions =
+		{
+			"Fog",
+			"HeavyArmor",
+			"Orbit",
+			"Radial",
+		},
 
 		DefaultAIData =
 		{

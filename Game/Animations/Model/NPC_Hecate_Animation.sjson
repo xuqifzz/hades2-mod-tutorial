@@ -42,6 +42,7 @@
 		GrannyAnimation = "TorchR_Weapon_Base_IdleHUB_C_00"
 		Loop = true
 		GrannyAnimationSpeed = 1.0
+		Enable3DShadow = false
 		Scale = 1.0
 		CreateAnimations =
 		[
@@ -67,8 +68,33 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "HecateHubIdle"
 				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "HecateHubTorchBattleIdle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Hecate_Hub_Hide_End"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "HecateHubGreet_Battle"
+		InheritFrom = "HecateHubGreet"
+		
+		ChainTo = "HecateHubTorchBattleIdle"
+		Attachments =
+		[
+			{
+				Name = "HecateTorchMultipleHubBattleIdle"
+				ToBone = "Hecate_Rig:animRoot_00_M_JNT"
 			}
 		]
 	}
@@ -79,6 +105,10 @@
 		ChainTo = "HecateHubIdle"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "HecateHubIdle"
 				Duration = 6
@@ -93,6 +123,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "HecateHubIdle"
 				Duration = 6
 			}
@@ -105,6 +139,10 @@
 		ChainTo = "HecateHubIdle"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "HecateHubIdle"
 				Duration = 6
@@ -119,6 +157,10 @@
 		ChainTo = "Hecate_Hub_Explaining_FireLoop"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "HecateHubIdle"
 				Duration = 6
@@ -139,6 +181,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "Hecate_Hub_Explaining_Start"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Hecate_Hub_Explaining_FireLoop"
 				Duration = 6
 			}
@@ -152,6 +198,10 @@
 		ChainTo = "Hecate_Hub_Stern_FireLoop"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "HecateHubIdle"
 				Duration = 6
@@ -172,6 +222,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "Hecate_Hub_Stern_Start"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Hecate_Hub_Stern_FireLoop"
 				Duration = 6
 			}
@@ -186,6 +240,10 @@
 		ChainTo = "Hecate_Hub_Hide_FireLoop"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "HecateHubIdle"
 				Duration = 6
@@ -217,6 +275,18 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "Hecate_Hub_Hide_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Hecate_Hub_Hide_Fidget"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Hecate_Hub_Hide_Fidget2"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Hecate_Hub_Hide_FireLoop"
 				Duration = 6
 			}
@@ -243,6 +313,13 @@
 				FrameSpeed = 0
 			}
 		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Hecate_Hub_Hide_FireLoop"
+				Duration = 6
+			}
+		]
 	}
 	{
 		Name = "Hecate_Hub_Hide_Fidget2"
@@ -263,6 +340,49 @@
 			{
 				Frame = 80
 				FrameSpeed = 0.7
+			}
+		]
+	}
+
+
+	// Hug
+	{
+		Name = "Hecate_Hub_Hug_Start"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "HecateHub_Torch_Base_HugStart_C_00"
+		ChainTo = "Hecate_Hub_Hug_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "HecateHubIdle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Hecate_Hub_Hug_FireLoop"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "HecateHub_Torch_Base_HugLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Hecate_Hub_Hug_End"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "HecateHub_Torch_Base_HugEnd_C_00"
+		ChainTo = "HecateHubIdle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Hecate_Hub_Hug_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Hecate_Hub_Hug_FireLoop"
+				Duration = 6
 			}
 		]
 	}

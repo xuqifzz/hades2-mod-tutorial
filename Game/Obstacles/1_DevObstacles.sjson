@@ -505,17 +505,6 @@
     }
 
     {
-      Name = "19x10RatioBox"
-      InheritFrom = "InvisibleTarget"
-      DisplayInEditor = true
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "Dev\19x10RatioBox"
-      }
-    }
-
-    {
       Name = "VisibleTarget"
       InheritFrom = "InvisibleTarget"
       DisplayInEditor = true
@@ -639,6 +628,27 @@
           CursorOnly = true
           UseExtents = true
         }
+      }
+    }
+    
+    {
+      Name = "MagmaCircle"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Life = 
+      {
+        HitFx = "InvincibleHitSpark"
+        Invulnerable = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\House\House_PlatformCircle_01"
+        Grip = 999999.0
+        MeshType = "Vertical"
+        TouchdownSound = "/EmptyCue"
+        Offset = { X = 0 Y = 55 }
+        Color = { Red = 0.75 Green = 0.25 Blue = 0.25 }
       }
     }
   ]

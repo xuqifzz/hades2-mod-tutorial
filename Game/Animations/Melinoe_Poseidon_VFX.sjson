@@ -490,32 +490,23 @@
 		PlaySpeed = 30
 		Material = "Unlit"
 		Loop = true
+		ChainTo = "PoseidonElementalStatusFrontLoop_Out"
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
 		SortMode = "FromParent"
-		SortFromOwner = "Maintain"
+		SortFromOwner = "Take"
 		ScaleFromOwner = "Ignore"
 		Sound = "/Leftovers/Object Ambiences/RiverWaterAmbience3"
 		StopSoundOnFinishFade = 0.2
 		Scale = 1.0
 		DieWithOwner = true
-		Color = { Red = 1 Green = 0.2 Blue = 0 }
-	}
-
-	{
-		Name = "PoseidonElementalStatusFront"
-		InheritFrom = "PoseidonElementalStatusFrontLoop"
-		FilePath = "Fx\Poseidon\PoseidonElementalStatusFrontIn\PoseidonElementalStatusFrontIn"
-		NumFrames = 4
-		Loop = false
-		ChainTo = "PoseidonElementalStatusFrontLoop"
-		Sound = "/EmptyCue"
 	}
 
 	{
 		Name = "PoseidonElementalStatusBackLoop"
 		InheritFrom = "PoseidonElementalStatusFrontLoop"
 		FilePath = "Fx\Poseidon\PoseidonElementalStatusBack\PoseidonElementalStatusBack"
+		ChainTo = "PoseidonElementalStatusBackLoop_Out"
 		VisualFx = null
 		CreateAnimation = null
 		ClearCreateAnimations = true
@@ -523,17 +514,25 @@
 		DieWithOwner = true
 		Sound = null
 	}
-
+	
 	{
-		Name = "PoseidonElementalStatusBack"
-		InheritFrom = "PoseidonElementalStatusBackLoop"
-		FilePath = "Fx\Poseidon\PoseidonElementalStatusBackIn\PoseidonElementalStatusBackIn"
-		NumFrames = 4
+		Name = "PoseidonElementalStatusFrontLoop_Out"
+		InheritFrom = "PoseidonElementalStatusFrontLoop"
+		ChainTo = null
+		Duration = 0.1
+		StartAlpha = 1
+		EndAlpha = 0
 		Loop = false
-		ChainTo = "PoseidonElementalStatusBackLoop"
-		Sound = "/EmptyCue"
 	}
-
+	{
+		Name = "PoseidonElementalStatusBackLoop_Out"
+		InheritFrom = "PoseidonElementalStatusBackLoop"
+		ChainTo = null
+		Duration = 0.1
+		StartAlpha = 1
+		EndAlpha = 0
+		Loop = false
+	}
 
 	{
 		Name = "PoseidonElementalKnockbackSecondarySplash"
@@ -565,7 +564,7 @@
 		Name = "PoseidonElementalKnockupFx"
 		FilePath = "Fx\Poseidon\PoseidonKnockupFront\PoseidonKnockupFront"
 		NumFrames = 30
-		PlaySpeed = 30
+		PlaySpeed = 45
 		Material = "Unlit"
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
@@ -598,6 +597,8 @@
 		LocationFromOwner = "Ignore"
 		LocationZFromOwner = "Ignore"
 		Sound = "/SFX/Enemy Sounds/WaterUnit/WaterUnitSpawnSplash"
+		GroupName = "FX_Add_Top"
+		Scale = 1.5
 		CreateAnimations =
 		[
 			{ Name = "PoseidonElementalKnockupFxBackAlt" }
@@ -609,6 +610,7 @@
 		Name = "PoseidonElementalKnockupFxBack"
 		InheritFrom = "PoseidonElementalKnockupFx"
 		FilePath = "Fx\Poseidon\PoseidonKnockupBack\PoseidonKnockupBack"
+		GroupName = "FX_Dark"
 		ClearCreateAnimations = true
 		ScaleFromOwner = "Take"
 		Color = { Red = 1 Green = 0.2 Blue = 0 }
@@ -667,8 +669,8 @@
 		LocationFromOwner = "Ignore"
 		AngleFromOwner = "Take"
 		Material = "Unlit"
-		RandomPlaySpeedMin = 40
-		RandomPlaySpeedMax = 50
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
 		EaseIn = 0.9
 		EaseOut = 1.0
 		FlipHorizontal = true
@@ -681,6 +683,8 @@
 		EndScale = 0.75
 		StartScaleX = 1.5
 		EndScaleX = 1.0
+		StartScaleY = 1
+		EndScaleY = 1.1
 		DrawBehindOwner = true
 		StartRed = 1
 		StartGreen = 1
@@ -769,7 +773,7 @@
 		SortFromOwner = "Take"
 		RandomFlipHorizontal = true
 		RandomPlaySpeedMin = 60
-		RandomPlaySpeedMax = 70
+		RandomPlaySpeedMax = 70 
 		ScaleMin = 1
 		ScaleMax = 1.1
 	}
@@ -876,7 +880,7 @@
 		EndBlue = 0.6
 		Material = "Unlit"
 		Scale = 3
-		StartAlpha = 1
+		StartAlpha = 0.4
 		EndAlpha = 0
 		EaseIn = 0.9
 		EaseOut = 1.0
@@ -963,10 +967,26 @@
 	}
 
 	{
+		Name = "PoseidonParticlesUpward_IgnoreLocation"
+		Random = [
+			{ Name = "PoseidonParticlesUpwardA_IgnoreLocation" }
+			{ Name = "PoseidonParticlesUpwardB_IgnoreLocation" }
+			{ Name = "PoseidonParticlesUpwardC_IgnoreLocation" }
+		]
+	}
+
+	{
 		Name = "PoseidonParticlesUpwardSecondary"
 		Random = [
 			{ Name = "PoseidonParticlesUpwardSecondaryA" }
 			{ Name = "PoseidonParticlesUpwardSecondaryB" }
+		]
+	}
+	{
+		Name = "PoseidonParticlesUpwardSecondary_IgnoreLocation"
+		Random = [
+			{ Name = "PoseidonParticlesUpwardSecondaryA_IgnoreLocation" }
+			{ Name = "PoseidonParticlesUpwardSecondaryB_IgnoreLocation" }
 		]
 	}
 
@@ -1009,6 +1029,47 @@
 		InheritFrom = "PoseidonParticlesUpwardA"
 		FilePath = "Fx\Poseidon\PoseidonDirectionalTrailC\PoseidonDirectionalTrailC"
 	}
+	
+	{
+		Name = "PoseidonParticlesUpwardA_IgnoreLocation"
+		FilePath = "Fx\Poseidon\PoseidonDirectionalTrailA\PoseidonDirectionalTrailA"
+		NumFrames = 30
+		Hue = -0.07
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		OriginX = 0
+		OriginY = 80
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScaleY = 0.5
+		EndScaleY = 1.0
+		ScaleX = 0.75
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		GroupName = "FX_Standing_Add"
+		Gravity = 500
+		LocationFromOwner = "Ignore"
+		CreateAnimations = [
+			{ Name = "PoseidonParticlesUpwardSecondary_IgnoreLocation" }
+			{ Name = "PoseidonStaffCircleRise_IgnoreLocation" }
+		]
+	}
+	{
+		Name = "PoseidonParticlesUpwardB_IgnoreLocation"
+		InheritFrom = "PoseidonParticlesUpwardA_IgnoreLocation"
+		FilePath = "Fx\Poseidon\PoseidonDirectionalTrailB\PoseidonDirectionalTrailB"
+	}
+	{
+		Name = "PoseidonParticlesUpwardC_IgnoreLocation"
+		InheritFrom = "PoseidonParticlesUpwardA_IgnoreLocation"
+		FilePath = "Fx\Poseidon\PoseidonDirectionalTrailC\PoseidonDirectionalTrailC"
+	}
 
 	{
 		Name = "PoseidonParticlesUpwardSecondaryA"
@@ -1036,6 +1097,16 @@
 		InheritFrom = "PoseidonParticlesUpwardSecondaryA"
 		FilePath = "Fx\Poseidon\PoseidonSplashParticleB\PoseidonSplashParticleB"
 	}
+	{
+		Name = "PoseidonParticlesUpwardSecondaryA_IgnoreLocation"
+		InheritFrom = "PoseidonParticlesUpwardSecondaryA"
+		LocationFromOwner = "Ignore"
+	}
+	{
+		Name = "PoseidonParticlesUpwardSecondaryB_IgnoreLocation"
+		InheritFrom = "PoseidonParticlesUpwardSecondaryA_IgnoreLocation"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleB\PoseidonSplashParticleB"
+	}
 
 	{
 		Name = "PoseidonStaffCircleRise"
@@ -1056,6 +1127,12 @@
 		RandomRotation = true
 		RandomFlipVertical = true
 		RandomFlipHorizontal = true
+	}
+	
+	{
+		Name = "PoseidonStaffCircleRise_IgnoreLocation"
+		InheritFrom = "PoseidonStaffCircleRise"
+		LocationFromOwner = "Ignore"
 	}
 
 	{
@@ -1593,6 +1670,58 @@
 		EaseIn = 0.9
 		EaseOut = 1.0
 	}
+	{
+		Name = "PoseidonPotionBall"
+		InheritFrom = "PoseidonSprintBall"
+		Scale = 1.7
+	}
+	{
+		Name = "PoseidonPotionBallIn"
+		InheritFrom = "PoseidonPotionBall"
+		StartScale = 0
+		EndScale = 1
+		DurationFrames = 5
+		ChainTo = "PoseidonPotionBall"
+		CreateAnimation = "PoseidonSprintBallEmitter"
+		Loop = false
+		PingPongScale = false
+	}
+	{
+		Name = "PoseidonCastBallIn"
+		FilePath = "Fx\Poseidon\PoseidonStaffBall\PoseidonStaffBall"
+		NumFrames = 60
+		LoopFramesOnly = true
+		PlaySpeed = 60
+		OffsetZ = 20
+		Material = "Unlit"
+		Sound = "/SFX/Player Sounds/PoseidonWaterRangedAttack"
+		StopSoundOnFinishFade = 0.2
+		StartScale = 0
+		EndScale = 2.2
+		Duration = 2.8
+		AddColor = true
+		StartRed = 0
+		EndRed = 0.99
+		StartGreen = 0
+		EndGreen = 0.99
+		StartBlue = 0
+		EndBlue = 0.99
+	}
+	{
+		Name = "PoseidonCastBallOut"
+		InheritFrom = "PoseidonCastBallIn"
+		Duration = 0.1
+		StartAlpha = 1
+		EndAlpha = 0
+		ScaleFromOwner = "Take"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 0
+		StartRed = 0.99
+		StartGreen = 0.99
+		StartBlue = 0.99
+	}
 
 	{
 		Name = "PoseidonSprintBallEmitter"
@@ -1690,6 +1819,8 @@
 		FilePath = "Fx\Poseidon\PoseidonSlipStatusFx\PoseidonSlipStatusFx"
 		NumFrames = 60
 		Loop = true
+		Sound = "/Leftovers/Object Ambiences/WaterRushingBloodRiver"
+		StopSoundOnFinishFade = 0.2
 		RandomStartFrame = true
 		RandomRotation = true
 		PostRotateScaleY = 0.5
@@ -2076,6 +2207,15 @@
 		]
 	}
 
+	{
+		Name = "PoseidonConeFxEmitterLargeCast"
+		InheritFrom = "PoseidonConeFxEmitterLarge"
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "PoseidonConeFxLarge" }
+		]
+	}
 
 	{
 		Name = "PoseidonConeFxLarge"
@@ -2103,19 +2243,536 @@
 		StartScaleX = 1.1
 		EndScaleX = 0.9
 		PlaySpeed = 70
+		Material = "Unlit"
 	}
-
 
 	{
 		Name = "PoseidonConeFxDarkLarge"
 		InheritFrom = "PoseidonConeFxLarge"
 		ClearCreateAnimations = true
 		Red = 0
-		Green = 0
-		Blue = 0
+		Green = 0.15
+		Blue = 0.3
+		Alpha = 0.5
 		GroupName = "FX_Dark"
 		PlaySpeed = 60
 		Sound = null
+	}
+	{
+		Name = "PoseidonRedConeFxEmitterLarge"
+		InheritFrom = "PoseidonConeFxEmitterLarge"
+		CreateAnimations =
+		[
+			{ Name = "PoseidonRedConeFxLarge" }
+			{ Name = "PoseidonConeFxDarkLarge" }
+		]
+	}
+	{
+		Name = "PoseidonRedConeFxLarge"
+		InheritFrom = "PoseidonConeFxLarge",
+		Hue = 0.45
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.01
+		EndRed = 0.7
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "SteamBlastFxEmitter"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		DieWithOwner = true
+		VisualFx = "SteamBlastFx"
+		VisualFxIntervalMin = 0.03
+		VisualFxIntervalMax = 0.1
+		Sound = "/SFX/GasBomb"
+	}
+
+	{
+		Name = "SteamBlastFx"
+		Random = [
+			{ Name = "SteamBlastFxA" }
+			{ Name = "SteamBlastFxB" }
+			{ Name = "SteamBlastFxC" }			
+			{ Name = "SteamBlastFxD" }
+			{ Name = "SteamBlastFxE" }
+			{ Name = "SteamBlastFxF" }			
+			{ Name = "SteamBlastFxD" }
+			{ Name = "SteamBlastFxE" }
+			{ Name = "SteamBlastFxF" }
+			{ Name = "SteamBlastFxG" }
+			{ Name = "SteamBlastFxH" }
+			{ Name = "SteamBlastFxI" }
+		]
+	}
+
+	{
+		Name = "SteamBlastFxA"
+		FilePath = "Fx\SteamBlastFxA\SteamBlastFxA"
+		NumFrames = 50
+		Material = "Unlit"
+		AngleMin = -15
+		AngleMax = 195
+		AngleFromOwner = "Ignore"
+		RadialOffsetMin = 2
+		RadialOffsetMax = 50
+		OriginX = 40
+		OriginY = 55
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		OffsetZ = 60
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+		ColorFromOwner = "Ignore"
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		Scale = 1.5
+		StartScaleX = 1.25
+		EndScaleX = 0.9
+		StartScaleY = 0.5
+		EndScaleY = 1.0
+		ScaleFromOwner = "Ignore"
+		UseAttachedShake = false
+		StartAlpha = 1
+		EndAlpha = 0.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		VelocityMin = 250
+		VelocityMax = 500
+		Acceleration = -1000
+	}
+
+	{
+		Name = "SteamBlastFxB"
+		InheritFrom = "SteamBlastFxA"
+		FilePath = "Fx\SteamBlastFxB\SteamBlastFxB"
+	}
+
+	{
+		Name = "SteamBlastFxC"
+		InheritFrom = "SteamBlastFxA"
+		FilePath = "Fx\SteamBlastFxC\SteamBlastFxC"
+	}
+
+	{
+		Name = "SteamBlastFxD"
+		InheritFrom = "SteamBlastFxA"
+		GroupName = "FX_Dark"
+		EndAlpha = 0.1
+	}
+	{
+		Name = "SteamBlastFxE"
+		InheritFrom = "SteamBlastFxD"
+		FilePath = "Fx\SteamBlastFxB\SteamBlastFxB"
+	}
+
+	{
+		Name = "SteamBlastFxF"
+		InheritFrom = "SteamBlastFxD"
+		FilePath = "Fx\SteamBlastFxC\SteamBlastFxC"
+	}
+
+
+	{
+		Name = "SteamBlastFxG"
+		InheritFrom = "SteamBlastFxA"
+		ScaleY = 0.5
+		ScaleX = 1.25
+	}
+	{
+		Name = "SteamBlastFxH"
+		InheritFrom = "SteamBlastFxG"
+		FilePath = "Fx\SteamBlastFxB\SteamBlastFxB"
+	}
+
+	{
+		Name = "SteamBlastFxI"
+		InheritFrom = "SteamBlastFxG"
+		FilePath = "Fx\SteamBlastFxC\SteamBlastFxC"
+	}
+
+	{
+		Name = "PoseidonClearCastFx"
+		FilePath = "Fx\Poseidon\PoseidonCircle\PoseidonCircle"
+		NumFrames = 30
+		StartFrame = 45
+		PlaySpeed = 45
+		Scale = 1.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.5
+		EndBlue = 0.999
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartScale = 0.8
+		EndScale = 1.1
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		OffsetZ = 60
+		PostRotateScaleY = 0.5
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		LocationZFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/PoseidonWaterArrowFire"
+	}
+	{
+		Name = "PoseidonClearCastParticles"
+		Random =
+		[
+			{ Name = "PoseidonClearCastParticlesA" }
+			{ Name = "PoseidonClearCastParticlesB" }
+		]
+	}
+	{
+		Name = "PoseidonClearCastParticlesA"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleA\PoseidonSplashParticleA"
+		NumFrames = 60
+		AngleMin = 20
+		AngleMax = 160
+		AngleFromOwner = "Ignore"
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 90
+		Material = "Unlit"
+		OriginX = 0
+		OriginY = 80
+		ScaleY = 1.0
+		ScaleX = 0.9
+		Scale = 2.5
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		GroupName = "FX_Standing"
+		Gravity = 200
+	}
+	{
+		Name = "PoseidonClearCastParticlesB"
+		InheritFrom = "PoseidonClearCastParticlesA"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleB\PoseidonSplashParticleB"
+	}
+
+	{
+		Name = "PoseidonOceanSwellFx"
+		FilePath = "Fx\Poseidon\PoseidonOceanSwell\PoseidonOceanSwell"
+		NumFrames = 15
+		Loop = true
+		PlaySpeed = 60
+		Scale = 2
+		PostRotateScaleY = 0.5
+		Material = "Unlit"
+		GroupName = "FX_Terrain"
+		UseAttachedFlasher = false
+		ColorFromOwner = "Ignore"
+		ChainTo = "PoseidonOceanSwellDissipateFx"
+		VisualFx = "PoseidonOceanSwellSplashes"
+		VisualFxIntervalMin = 0.04
+		VisualFxIntervalMax = 0.06
+		ScaleX = 1.1
+		ScaleY = 1.1
+		OriginX = 165.5
+		OriginY = 178
+		TransferFrameToThis = true
+		CreateAnimations = [
+			{ Name = "PoseidonOceanSwellFxDark" }
+			{ Name = "QuickFlashCyan" }
+			/*
+			{ Name = "PoseidonOceanSwellStartFx" }
+			{ Name = "PoseidonOceanSwellStartFx" }
+			{ Name = "PoseidonOceanSwellStartFx" }
+			{ Name = "PoseidonOceanSwellStartFx" }
+			{ Name = "PoseidonOceanSwellStartFx" }
+			*/
+		]
+	}
+
+	{
+		Name = "PoseidonOceanSwellFxIn"
+		InheritFrom = "PoseidonOceanSwellFx"
+		ClearCreateAnimations = true
+		TransferFrameFromThis = true
+		Loop = false
+		StartScale = 0
+		EndScale = 1
+		Duration = 0.1
+		EaseIn = 0.9
+		EaseOut = 1
+		ChainTo = "PoseidonOceanSwellFx"
+	}
+
+	{
+		Name = "PoseidonOceanSwellFxDark"
+		InheritFrom = "PoseidonOceanSwellFx"
+		ClearCreateAnimations = true
+		VisualFx = "PoseidonOceanSwellFxWaterTrail"
+		GroupName = "FX_Terrain_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0.0
+		ScaleX = 1.2
+		DieWithOwner = true
+		ChainTo = null
+		Sound = "/SFX/Player Sounds/PoseidonOceanSwellSFX"
+	}
+
+	{
+		Name = "PoseidonOceanSwellFxWaterTrail"
+		FilePath = "Fx\WaterSplashRipple\WaterSplashRipple"
+		NumFrames = 30
+		GroupName = "FX_Terrain_Liquid"
+		StartAlpha = 0.5
+		EndAlpha = 0
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 20
+		RandomPlaySpeedMax = 24
+		RandomOffsetX = 200
+		RandomOffsetY = 100
+		PostRotateScaleY = 0.5
+		RandomRotation = true
+		StartRed = 0.6
+		StartGreen = 1
+		StartBlue = 0.9
+		EndRed = 0.1
+		EndGreen = 0.25
+		EndBlue = 0.5
+		VelocityMin = 150
+		VelocityMax = 300
+		Acceleration = -400
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "PoseidonOceanSwellStartFx"
+		FilePath = "Fx\Poseidon\PoseidonVerticalSplashA\PoseidonVerticalSplashA"
+		NumFrames = 30
+		Material = "Unlit"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		OriginX = 80
+		OriginY = 300
+		GroupName = "Standing"
+		RadialOffsetMin = 50
+		RadialOffsetMax = 350
+		AngleMin = -45
+		AngleMax = 45
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		RandomFlipHorizontal = true
+	}
+
+	{
+		Name = "PoseidonOmegaWaveImpactFx"
+		Random = [
+			{ Name = "PoseidonOmegaWaveImpactFxA" }
+			{ Name = "PoseidonOmegaWaveImpactFxB" }
+		]
+	}
+
+	{
+		Name = "PoseidonOmegaWaveImpactFxA"
+		FilePath = "Fx\Poseidon\PoseidonVerticalSplashA\PoseidonVerticalSplashA"
+		NumFrames = 30
+		Material = "Unlit"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		OriginX = 80
+		OriginY = 300
+		GroupName = "FX_Standing"
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		Scale = 1.5
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "PoseidonOmegaWaveImpactFxB"
+		InheritFrom = "PoseidonOmegaWaveImpactFxA"
+		FilePath = "Fx\Poseidon\PoseidonVerticalSplashB\PoseidonVerticalSplashB"
+
+	}
+
+	{
+		Name = "PoseidonOceanSwellDissipateFx"
+		TransferFrameToThis = false
+		NumFrames = 8
+		PlaySpeed = 30
+		InheritFrom = "PoseidonOceanSwellFx"
+		ClearCreateAnimations = true
+		FilePath = "Fx\Poseidon\PoseidonOceanSwellDissipate\PoseidonOceanSwellDissipate"
+		Loop = false
+		ScaleFromOwner = "Ignore"
+		ChainTo = null
+		VisualFx = null
+	}
+
+	{
+		Name = "PoseidonOceanSwellSplashes"
+		Random = [
+			{ Name = "PoseidonOceanSwellSplashA" }
+			{ Name = "PoseidonOceanSwellSplashB" }
+		]
+	}
+
+	{
+		Name = "PoseidonOceanSwellSplashA"
+		FilePath = "Fx\PoseidonDirectionalSplashA\PoseidonDirectionalSplashA"
+		NumFrames = 34
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RandomOffsetX = 100
+		RandomOffsetY = 100
+		Material = "Unlit"
+		AngleFromOwner = "Take"
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		Scale = 0.5
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		VelocityMin = 450
+		VelocityMax = 600
+		Acceleration = -1600
+		AngleMin = -20
+		AngleMax = 20
+		Gravity = 100
+		Hue = -0.025
+		IsometricSkew = "X"
+		//PostRotateScaleY = 0.6
+	}
+
+	{
+		Name = "PoseidonOceanSwellSplashB"
+		InheritFrom = "PoseidonOceanSwellSplashA"
+		NumFrames = 34
+		FilePath = "Fx\PoseidonDirectionalSplashB\PoseidonDirectionalSplashB"
+	}
+
+
+	{
+		Name = "PoseidonManaBoonFxEmitter"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFx = "PoseidonManaBoonFx"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+		Sound = "/SFX/Player Sounds/PoseidonManaBoonRegenSFX"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "PoseidonManaBoonFx"
+		FilePath = "Particles\particle_glow_egg"
+		StartRed = 0.05
+		StartGreen = 0.4
+		StartBlue = 0.999
+		EndRed = 0
+		EndGreen = 0.1
+		EndBlue = 1.0
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.33
+		EndAlpha = 0
+		Duration = 1.2
+		EaseIn = 0.0
+		EaseOut = 1.0
+		Scale = 2
+		OffsetZ = 60
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Material = "Unlit"
+		VisualFx = "PoseidonManaBoonFxSparkles"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.3
+		CreateAnimations = [
+			{ Name = "PoseidonManaBoonFxFront" }
+			{ Name = "PoseidonManaBoonFxBack" }
+		]
+	}
+
+	{
+		Name = "PoseidonManaBoonFxSparkles"
+		FilePath = "Particles\particle_addSparkle_02"
+		AddColor = true
+		Red = 0
+		Green = 0.2
+		Blue = 1.0
+		StartScale = 0
+		EndScale = 1
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		Scale = 0.2
+		RandomOffsetY = 80
+		RandomOffsetX = 40
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		VelocityMin = 20
+		VelocityMax = 60
+		RandomDurationMin = 0.4
+		RandomDurationMax = 1.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		PingPongScale = true
+		OffsetZ = 60
+	}
+
+	{
+		Name = "PoseidonManaBoonFxFront"
+		FilePath = "Fx\Poseidon\PoseidonManaBoonFxFront\PoseidonManaBoonFxFront"
+		NumFrames = 43
+		PlaySpeed = 30
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		Scale = 1.8
+		OffsetZ = 30
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.6
+		EndGreen = 0.8
+		EndBlue = 1.0
+		StartAlpha = 1
+		EndAlpha = 0.8
+		ScaleMin = 0.9
+		ScaleMax = 1.1
+		StartOffsetZ = -10
+		EndOffsetZ = 10
+		ScaleX = 1.1
+	}
+
+	{
+		Name = "PoseidonManaBoonFxBack"
+		InheritFrom = "PoseidonManaBoonFxFront"
+		FilePath = "Fx\Poseidon\PoseidonManaBoonFxBack\PoseidonManaBoonFxBack"
+		NumFrames = 41
+		DrawBehindOwner = true
+		GroupName = "Standing_Back"
+		StartRed = 0.6
+		StartGreen = 0.8
+		StartBlue = 1.0
+		EndRed = 0.4
+		EndGreen = 0.6
+		EndBlue = 0.8
 	}
 
 ]}

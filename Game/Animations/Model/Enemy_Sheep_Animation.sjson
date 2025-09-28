@@ -31,6 +31,7 @@
 		Scale = 1.0
 		Loop = false
 		Enable3DShadow = true
+		DisableOwnerManualInteract = true
 	}
 
 	/*Idle and Move*/
@@ -85,12 +86,18 @@
 		ChainTo = "Enemy_Sheep_Idle"
 		CancelOnOwnerMove = true
 		AllowRestart = true
+		Sound = "/SFX/Enemy Sounds/Sheep/EmoteEvading"
 	}
 	{
 		Name = "Enemy_Sheep_OnHit_Heavy"
 		InheritFrom = "Enemy_Sheep_OnHit"
 		GrannyAnimationSpeed = 0.5
 	}	
+	{
+		Name = "Enemy_Sheep_OnHit_Mel"
+		InheritFrom = "Enemy_Sheep_OnHit"
+		Sound = "/VO/MelinoeEmotes/EmoteSheepHit"
+	}
 
 	{
 		Name = "Enemy_Sheep_DashPreFire"

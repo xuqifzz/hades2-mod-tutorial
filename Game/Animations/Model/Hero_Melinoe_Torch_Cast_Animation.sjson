@@ -2,8 +2,36 @@
 
 	/* Cast */
 	{
-		Name = "Melinoe_Torch_Cast_Start"
+		Name = "MelinoeBaseTorchCastAnimations"
 		InheritFrom = "MelinoeBaseTorchAnimations"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Torch_Attack1_StartSequence" }
+			{ Name = "Melinoe_Torch_Attack1_Start" }
+			{ Name = "Melinoe_Torch_Attack1_Fire" }
+			{ Name = "Melinoe_Torch_Attack2_Start" }
+			{ Name = "Melinoe_Torch_Attack2_Fire" }
+			{ Name = "Melinoe_Torch_Attack3_Start" }
+			{ Name = "Melinoe_Torch_Attack3_Fire" }
+			{ Name = "Melinoe_Torch_Attack4_Start" }
+			{ Name = "Melinoe_Torch_Attack4_Fire" }
+			{ Name = "Melinoe_Torch_Attack4_FireSingle" }
+			{ Name = "Melinoe_Torch_Attack5_Start" }
+			{ Name = "Melinoe_Torch_Attack5_Fire" }
+			{ Name = "Melinoe_Torch_Attack_EndSequence" }
+			{ Name = "Melinoe_Torch_Special1_Start" }
+			{ Name = "Melinoe_Torch_Special1_StartLoop" }
+			{ Name = "Melinoe_Torch_Special1_Fire" }
+			{ Name = "Melinoe_Torch_Special1Ex_Fire" }
+			{ Name = "Melinoe_Torch_Supay_AttackEx1_Fire" }
+			{ Name = "Melinoe_Torch_Supay_AttackEx1_FireAlt" }
+			{ Name = "Melinoe_Torch_Supay_AttackEx1_End" }
+		]
+	}
+
+	{
+		Name = "Melinoe_Torch_Cast_Start"
+		InheritFrom = "MelinoeBaseTorchCastAnimations"
 		GrannyAnimation = "Melinoe_Torch_Base_CastCharge_C_00"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Torch_Cast_StartLoop"
@@ -33,7 +61,7 @@
 
 	{
 		Name = "Melinoe_Torch_Cast_Fire"
-		InheritFrom = "MelinoeBaseTorchAnimations"
+		InheritFrom = "MelinoeBaseTorchCastAnimations"
 		GrannyAnimation = "Melinoe_Torch_Base_Cast_C_00"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Torch_Cast_End"
@@ -43,6 +71,10 @@
 			{
 				BlendTransitionFrom = "Melinoe_Torch_Cast_StartLoop"
 				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 3
 			}
 		]
 	}

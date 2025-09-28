@@ -106,6 +106,11 @@
 				BlendTransitionFrom = "MelinoeSpellFireReturn"
 				Duration = 15
 			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Special1_End"
+				Duration = 8
+			}
 		]
 	}	
 	
@@ -155,6 +160,14 @@
 			{ Name = "Melinoe_Staff_Special1_Start" }
 			{ Name = "Melinoe_Staff_Special1_StartLoop" }
 			{ Name = "Melinoe_Staff_Special1_Fire" }
+			{ Name = "Melinoe_Staff_Anubis_AttackSlam_Start" }
+			{ Name = "Melinoe_Staff_Anubis_AttackSlam_Fire" }
+			{ Name = "Melinoe_Staff_Anubis_AttackWall_Start" }
+			{ Name = "Melinoe_Staff_Anubis_AttackWall_StartLoop" }
+			{ Name = "Melinoe_Staff_Anubis_AttackWall_Fire" }
+			{ Name = "Melinoe_Staff_Anubis_Special1_Start" }
+			{ Name = "Melinoe_Staff_Anubis_Special1_StartLoop" }
+			{ Name = "Melinoe_Staff_Anubis_Special1_Fire" }
 			{ Name = "Melinoe_Staff_Cast_Start" }
 			{ Name = "Melinoe_Staff_Cast_StartLoop" }
 			{ Name = "Melinoe_Staff_Cast_Fire" }
@@ -190,43 +203,36 @@
 		]
 	}
 
-	// GetHitFinal currently not in use
 	{
-		Name = "WeaponStaffGetHitFinal"
-		
+		Name = "Staff_GetHit_LastStand"
 		InheritFrom = "WeaponStaffBase"
 		GrannyAnimation = "Staff_Weapon_Base_GetHit_C_00"
-		GrannyAnimationSpeed = 0.05
 		TimeModifierFraction = 0
-		HoldLastFrame = true
-
 		Frames = 
 		[
 			{
 				Frame = 0
-				FrameSpeed = 0.0
+				FrameSpeed = 0
 			}
 			{
 				Frame = 3
-				FrameSpeed = 1.0
-			}
-			{
-				Frame = 8
-				FrameSpeed = 0.0
+				FrameSpeed = 8
 			}
 		]
 	}
 	{
-		Name = "MelinoeStaffGetHitFinal"
-		InheritFrom = "Melinoe_Staff_GetHit"
-		GrannyAnimationSpeed = 0.05
-		HoldLastFrame = true
+		Name = "Melinoe_Staff_GetHit_LastStand"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		GrannyAnimation = "Melinoe_Staff_Base_GetHit_C_00"
+		DisableOwnerManualInteract = true
+		TimeModifierFraction = 0
+		ChainTo = "Melinoe_Staff_Idle"
 
 		Attachments =
 		[
 			{
-				Name = "WeaponStaffGetHitFinal"
-				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+				Name = "Staff_GetHit_LastStand"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
 			}
 		]
 
@@ -234,36 +240,13 @@
 		[
 			{
 				Frame = 0
-				FrameSpeed = 0.0
+				FrameSpeed = 0
 			}
 			{
 				Frame = 3
-				FrameSpeed = 1.0
-			}
-			{
-				Frame = 8
-				FrameSpeed = 0.0
+				FrameSpeed = 8
 			}
 		]
-
-		DeathFxTexture = "EffectHelpers/DeathFx/DeathAlphaMaskBase"
-		DeathFxFrameDuration = 6000
-		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
-		DeathFxThickness = 0.03
-		DeathFxEaseIn = 0.9
-		DeathFxEaseOut = 1.0
-		StartRed = 1.0
-		StartGreen = 1.0
-		StartBlue = 1.0
-		EndRed = 1.0
-		EndGreen = 0
-		EndBlue = 0
-		EaseIn = 0.999
-		EaseOut = 1.0
-
-		LocationZFromOwner = "Take"
-		LocationFromOwner = "Take"
-		ColorFromOwner = "Ignore"
 	}
 
 	/* Staff Interact */
@@ -317,6 +300,13 @@
 			{
 				Name = "Staff_Equip"
 				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_InteractToEquip"
+				Duration = 6
 			}
 		]
 	}

@@ -1,0 +1,183 @@
+﻿{ Animations = [
+
+	{
+		Name = "ZagreusBaseAnimation"
+		GrannyModel = "ZagreusPast_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Loop = false
+		Enable3DShadow = true
+		ExtraGrannyAnimations =
+		[
+			{ Name = "ZagreusPresent" }
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "ZagreusPresent"
+		GrannyModel = "ZagreusPresent_Mesh"
+	}
+
+	{
+		Name = "Zagreus_Idle"
+		InheritFrom = "ZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_Idle_Credits_C_00"
+		Loop = true
+	}
+
+	// Greet
+	{
+		Name = "Zagreus_Greet"
+		InheritFrom = "ZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_Greet_C_01"
+		ChainTo = "Zagreus_Idle"
+	}
+
+	// Talk
+	{
+		Name = "Zagreus_Talk_Start"
+		InheritFrom = "ZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_InteractingTalkStart_C_02"
+		ChainTo = "Zagreus_Talk_Fire"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Zagreus_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Zagreus_Talk_Fire"
+		InheritFrom = "ZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_InteractingTalkLoop_C_02"
+		ChainTo = "Zagreus_Talk_End"
+	}
+
+	{
+		Name = "Zagreus_Talk_End"
+		InheritFrom = "ZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_InteractingTalkStart_C_02"
+		ChainTo = "Zagreus_Idle"
+		PlayBackwards = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Zagreus_Talk_Start"
+				Duration = 18
+			}
+			{
+				BlendTransitionFrom = "Zagreus_Talk_Fire"
+				Duration = 18
+			}
+		]
+	}
+
+	// Knocked Down
+	{
+		Name = "Zagreus_KnockedDown_Start"
+		InheritFrom = "ZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_KnockedDown_Start_C_01"
+		ChainTo = "Zagreus_KnockedDown_Loop"
+		Frames =
+		[
+			{
+				Frame = 18
+				Sound = "/SFX/Enemy Sounds/Hades/HadesCollapse"
+				FootstepFxR = "CWDustPuffFront"
+				FootstepFxL = "CWDustPuffBack"
+			}
+			{
+				Frame = 20
+				Sound = "/Leftovers/SFX/RobeFlutterInScene"
+			}
+			{
+				Frame = 31
+				Sound = "/Leftovers/World Sounds/QuickSnap2"
+			}
+		]
+	}
+	{
+		Name = "Zagreus_KnockedDown_Loop"
+		InheritFrom = "ZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_KnockedDown_BreatheLoop_C_01"
+		Loop = true
+	}
+	{
+		Name = "Zagreus_KnockedDown_End"
+		InheritFrom = "ZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_KnockedDown_End_C_01"
+		ChainTo = "Zagreus_Idle"
+	}
+
+
+	// Hug
+	{
+		Name = "Zagreus_Hug_Start"
+		InheritFrom = "ZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_HugStart_C_00"
+		ChainTo = "Zagreus_Hug_FireLoop"
+	}
+	{
+		Name = "Zagreus_Hug_FireLoop"
+		InheritFrom = "ZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_HugLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Zagreus_Hug_End"
+		InheritFrom = "ZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_HugEnd_C_00"
+		ChainTo = "Zagreus_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Zagreus_Hug_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Zagreus_Hug_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+
+	// Frozen
+
+	{
+		Name = "Zagreus_Frozen"
+		InheritFrom = "ZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_KnockedDown_Start_C_01"
+		HoldLastFrame = true
+		CreateAnimation = "NightmareStasisFxZagreus"
+		VisualFx = "FrozenZagFx_DeathAreaRestored"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.11
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.1
+			}
+			{
+				Frame = 1
+				FrameSpeed = 0
+			}
+		]
+	}
+
+]}

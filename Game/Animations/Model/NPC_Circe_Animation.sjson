@@ -1,0 +1,250 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCCirceBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Circe_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	// Idle
+	{
+		Name = "Circe_Idle"
+		InheritFrom = "NPCCirceBaseAnimation"
+		GrannyAnimation = "Circe_Base_Idle_C_00"
+		Loop = true
+	}
+
+	// Salute
+	{
+		Name = "Circe_Salute"
+		InheritFrom = "NPCCirceBaseAnimation"
+		GrannyAnimation = "Circe_Base_Salute_C_00"
+		ChainTo = "Circe_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Circe_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	// Greet
+	{
+		Name = "Circe_Greet"
+		InheritFrom = "NPCCirceBaseAnimation"
+		GrannyAnimation = "Circe_Base_Greet_C_00"
+		ChainTo = "Circe_Idle"
+		Frames =
+		[
+			{
+				Frame = 15
+				CreateAnimation = "CirceCrystalSparkle_Blue"
+			}
+			{
+				Frame = 18
+				CreateAnimation = "CirceCrystalSparkle_Green"
+			}
+			{
+				Frame = 22
+				CreateAnimation = "CirceCrystalSparkle_Red"
+			}
+			{
+				Frame = 150
+				CreateAnimation = "CirceCrystalSparkle_Blue"
+			}
+			{
+				Frame = 153
+				CreateAnimation = "CirceCrystalSparkle_Green"
+			}
+			{
+				Frame = 155
+				CreateAnimation = "CirceCrystalSparkle_Red"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Circe_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	// Bless
+	{
+		Name = "Circe_Bless"
+		InheritFrom = "NPCCirceBaseAnimation"
+		GrannyAnimation = "Circe_Base_Bless_C_00"
+		ChainTo = "Circe_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Circe_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	// Explaining
+	{
+		Name = "Circe_Casting_Start"
+		InheritFrom = "NPCCirceBaseAnimation"
+		GrannyAnimation = "Circe_Base_CastStart_C_00"
+		ChainTo = "Circe_Casting_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Circe_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Circe_Casting_FireLoop"
+		InheritFrom = "NPCCirceBaseAnimation"
+		GrannyAnimation = "Circe_Base_CastLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Circe_Casting_End"
+		InheritFrom = "NPCCirceBaseAnimation"
+		GrannyAnimation = "Circe_Base_CastReturn_C_00"
+		ChainTo = "Circe_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Circe_Casting_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Circe_Casting_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// Explaining
+	{
+		Name = "Circe_Explaining_Start"
+		InheritFrom = "NPCCirceBaseAnimation"
+		GrannyAnimation = "Circe_Base_ExplainingStart_C_00"
+		ChainTo = "Circe_Explaining_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Circe_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Circe_Explaining_FireLoop"
+		InheritFrom = "NPCCirceBaseAnimation"
+		GrannyAnimation = "Circe_Base_ExplainingLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Circe_Explaining_End"
+		InheritFrom = "NPCCirceBaseAnimation"
+		GrannyAnimation = "Circe_Base_ExplainingReturn_C_00"
+		ChainTo = "Circe_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Circe_Explaining_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Circe_Explaining_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// Pensive
+	{
+		Name = "Circe_Pensive_Start"
+		InheritFrom = "NPCCirceBaseAnimation"
+		GrannyAnimation = "Circe_Base_PensiveStart_C_00"
+		ChainTo = "Circe_Pensive_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Circe_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Circe_Pensive_FireLoop"
+		InheritFrom = "NPCCirceBaseAnimation"
+		GrannyAnimation = "Circe_Base_PensiveLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Circe_Pensive_End"
+		InheritFrom = "NPCCirceBaseAnimation"
+		GrannyAnimation = "Circe_Base_PensiveReturn_C_00"
+		ChainTo = "Circe_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Circe_Pensive_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Circe_Pensive_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// Turn
+	{
+		Name = "Circe_Turn"
+		InheritFrom = "NPCCirceBaseAnimation"
+		GrannyAnimation = "Circe_Base_Turn_C_00"
+		ChainTo = "Circe_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Circe_Idle"
+				Duration = 6
+			}
+		]
+	}
+]}

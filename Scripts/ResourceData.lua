@@ -29,15 +29,16 @@ ResourceData =
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
-					{ Name = "MelinoeAnyQuipSpeech" },
+					{ Name = "MelinoeAnyQuipSpeech", Time = 5 },
 				},
 
 				{ Cue = "/VO/Melinoe_0703", Text = "Cinder.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_0704", Text = "Some Cinder." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -63,15 +64,16 @@ ResourceData =
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
-					{ Name = "MelinoeAnyQuipSpeech" },
+					{ Name = "MelinoeAnyQuipSpeech", Time = 5 },
 				},
 
 				{ Cue = "/VO/Melinoe_2736", Text = "A Pearl.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_2737", Text = "Another Pearl." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -83,6 +85,8 @@ ResourceData =
 		TextIconPath = "Items\\Resources\\Boss\\MixerHBoss_Text",
 		TooltipId = "MixerHBossIcon",
 		CostTextId = "MixerHBoss_Short",
+
+		OnAddedFunctionName = "OnMixerHBossAdded",
 
 		OnAddVoiceLines =
 		{
@@ -97,15 +101,16 @@ ResourceData =
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
-					{ Name = "MelinoeAnyQuipSpeech" },
+					{ Name = "MelinoeAnyQuipSpeech", Time = 5 },
 				},
 
 				{ Cue = "/VO/Melinoe_2732", Text = "Tears...", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_2733", Text = "Some Tears." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -138,9 +143,10 @@ ResourceData =
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
-					{ Name = "MelinoeAnyQuipSpeech" },
+					{ Name = "MelinoeAnyQuipSpeech", Time = 5 },
 				},
 
 				{ Cue = "/VO/Melinoe_2832", Text = "Nothing but sand.", PlayFirst = true },
@@ -148,7 +154,7 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2834", Text = "Remains of Chronos..." },
 				{ Cue = "/VO/Melinoe_2835", Text = "More of this Sand..." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -178,15 +184,16 @@ ResourceData =
 						HasNone = { "SurfacePenalty" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
-					{ Name = "MelinoeAnyQuipSpeech" },
+					{ Name = "MelinoeAnyQuipSpeech", Time = 5 },
 				},
 
 				{ Cue = "/VO/Melinoe_2533", Text = "Wool." },
 				{ Cue = "/VO/Melinoe_2534", Text = "Some Wool.", PlayFirst = true },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -212,9 +219,10 @@ ResourceData =
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
-					{ Name = "MelinoeAnyQuipSpeech" },
+					{ Name = "MelinoeAnyQuipSpeech", Time = 5 },
 				},
 
 				{ Cue = "/VO/Melinoe_0713", Text = "Golden Apple...!", PlayFirst = true },
@@ -239,7 +247,7 @@ ResourceData =
 					},
 				},
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -269,16 +277,57 @@ ResourceData =
 						HasNone = { "SurfacePenalty" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
-					{ Name = "MelinoeAnyQuipSpeech" },
+					{ Name = "MelinoeAnyQuipSpeech", Time = 5 },
 				},
 
 				{ Cue = "/VO/Melinoe_3628", Text = "A Feather...", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_3629", Text = "Eagle's Feather..." },
 				{ Cue = "/VO/Melinoe_3630", Text = "Feather." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
+		},
+	},
+
+	MixerQBoss =
+	{
+		InheritFrom = { "BaseResource" },
+
+		IconPath = "Items\\Resources\\Boss\\MixerQBoss",
+		TextIconPath = "Items\\Resources\\Boss\\MixerQBoss_Text",
+		TooltipId = "MixerQBossIcon",
+		CostTextId = "MixerQBoss_Short",
+
+		OnAddVoiceLines =
+		{
+			{
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.25,
+				PreLineWait = 0.35,
+				GameStateRequirements =
+				{
+					{
+						PathEmpty = { "RequiredKillEnemies" },
+					},
+					{
+						Path = { "CurrentRun", "Hero", "TraitDictionary" },
+						HasNone = { "SurfacePenalty" },
+					},
+				},
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech", Time = 5 },
+				},
+
+				{ Cue = "/VO/Melinoe_3939", Text = "A Void Lens...", PlayFirst = true },
+				{ Cue = "/VO/Melinoe_3940", Text = "Another Void Lens." },
+				{ Cue = "/VO/Melinoe_3941", Text = "See that, Typhon?" },
+			},
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -299,9 +348,15 @@ ResourceData =
 	},
 
 	-- Plant (Collect)
+	BasePlant =
+	{
+		DebugOnly = true,
+		AutoHarvestSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+	},
+
 	PlantFMoly =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BasePlant" },
 		IconPath = "Items\\Resources\\Plant\\PlantFMoly",
 		TextIconPath = "Items\\Resources\\Plant\\PlantFMoly_Text",
 		TooltipId = "PlantFMolyIcon",
@@ -313,13 +368,14 @@ ResourceData =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlay = 0.25,
-				PreLineWait = 0.35,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -328,15 +384,15 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_0707", Text = "Moly.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_0708", Text = "Another Moly." },
 				{ Cue = "/VO/Melinoe_1906", Text = "More will grow in its stead." },
-				{ Cue = "/VO/Melinoe_1907", Text = "For the Cauldron." },
+				{ Cue = "/VO/Melinoe_1907", Text = "For the cauldron." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	PlantGLotus =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BasePlant" },
 		IconPath = "Items\\Resources\\Plant\\PlantGLotus",
 		TextIconPath = "Items\\Resources\\Plant\\PlantGLotus_Text",
 		TooltipId = "PlantGLotusIcon",
@@ -348,13 +404,14 @@ ResourceData =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlay = 0.25,
-				PreLineWait = 0.35,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -363,13 +420,13 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2375", Text = "A Lotus flower." },
 				{ Cue = "/VO/Melinoe_2376", Text = "Lotus." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	PlantHMyrtle =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BasePlant" },
 		IconPath = "Items\\Resources\\Plant\\PlantHMyrtle",
 		TextIconPath = "Items\\Resources\\Plant\\PlantHMyrtle_Text",
 		TooltipId = "PlantHMyrtleIcon",
@@ -381,13 +438,18 @@ ResourceData =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlay = 0.25,
-				PreLineWait = 0.35,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" }
+					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -396,13 +458,13 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2725", Text = "Myrtle.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_2726", Text = "Some Myrtle." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	PlantIShaderot =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BasePlant" },
 		IconPath = "Items\\Resources\\Plant\\PlantIShaderot",
 		TextIconPath = "Items\\Resources\\Plant\\PlantIShaderot_Text",
 		TooltipId = "PlantIShaderotIcon",
@@ -414,13 +476,14 @@ ResourceData =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlay = 0.25,
-				PreLineWait = 0.35,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -429,13 +492,13 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2824", Text = "Shaderot.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_2825", Text = "Some Shaderot." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	PlantNMoss =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BasePlant" },
 		IconPath = "Items\\Resources\\Plant\\PlantNMoss",
 		TextIconPath = "Items\\Resources\\Plant\\PlantNMoss_Text",
 		TooltipId = "PlantNMossIcon",
@@ -504,7 +567,7 @@ ResourceData =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlay = 0.25,
-				PreLineWait = 0.35,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
@@ -515,6 +578,7 @@ ResourceData =
 						HasNone = { "SurfacePenalty" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -523,13 +587,28 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2478", Text = "Moss." },
 				{ Cue = "/VO/Melinoe_2479", Text = "Some Moss." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				PreLineWait = 0.45,
+				SuccessiveChanceToPlayAll = 0.15,
+				ObjectTypes = { "NPC_Medea_01", "Medea" },
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "MedeaSpokeRecently", Time = 12 },
+				},
+
+				{ Cue = "/VO/Medea_0311", Text = "Moss, was it?" },
+				{ Cue = "/VO/Medea_0312", Text = "Fresh Moss..." },
+			},
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	PlantODriftwood =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BasePlant" },
 		IconPath = "Items\\Resources\\Plant\\PlantODriftwood",
 		TextIconPath = "Items\\Resources\\Plant\\PlantODriftwood_Text",
 		TooltipId = "PlantODriftwoodIcon",
@@ -541,13 +620,14 @@ ResourceData =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlay = 0.25,
-				PreLineWait = 0.35,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -556,13 +636,13 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_3245", Text = "Driftwood." },
 				{ Cue = "/VO/Melinoe_3246", Text = "Some Driftwood." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	PlantPIris =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BasePlant" },
 		IconPath = "Items\\Resources\\Plant\\PlantPIris",
 		TextIconPath = "Items\\Resources\\Plant\\PlantPIris_Text",
 		TooltipId = "PlantPIrisIcon",
@@ -574,13 +654,14 @@ ResourceData =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlay = 0.25,
-				PreLineWait = 0.35,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -589,17 +670,17 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_3620", Text = "Iris." },
 				{ Cue = "/VO/Melinoe_3621", Text = "An Iris.", PlayFirst = true },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
-	PlantMoney =
+	PlantQFang =
 	{
-		InheritFrom = { "BaseResource" },
-		IconPath = "Items\\Resources\\Plant\\PlantMoney",
-		TextIconPath = "Items\\Resources\\Plant\\PlantMoney_Text",
-		TooltipId = "PlantMoneyIcon",
-		CostTextId = "PlantMoney_Short",
+		InheritFrom = { "BaseResource", "BasePlant" },
+		IconPath = "Items\\Resources\\Plant\\PlantQFang",
+		TextIconPath = "Items\\Resources\\Plant\\PlantQFang_Text",
+		TooltipId = "PlantQFangIcon",
+		CostTextId = "PlantQFang_Short",
 
 		OnAddVoiceLines =
 		{
@@ -607,33 +688,36 @@ ResourceData =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlay = 0.25,
-				PreLineWait = 0.35,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
-					{
-						Path = { "CurrentRun", "Hero", "TraitDictionary" },
-						HasNone = { "SurfacePenalty" },
-					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
 				},
 
-				{ Cue = "/VO/Melinoe_2742", Text = "A Deathcap..." },
-				{ Cue = "/VO/Melinoe_2743", Text = "It's a Deathcap...", PlayFirst = true },
+				{ Cue = "/VO/Melinoe_3931", Text = "A Fang...!", PlayFirst = true },
+				{ Cue = "/VO/Melinoe_3932", Text = "Another Fang." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	-- Plant (Grown)
+	BaseSeed =
+	{
+		DebugOnly = true,
+		AutoHarvestSound = "/SFX/ResourceGatherSFX",
+	},
+
 	PlantFNightshadeSeed =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseSeed" },
 		IconPath = "Items\\Resources\\Plant\\PlantFNightshadeSeed",
 		TextIconPath = "Items\\Resources\\Plant\\PlantFNightshadeSeed_Text",
 		TooltipId = "PlantFNightshadeSeedIcon",
@@ -645,13 +729,14 @@ ResourceData =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlay = 0.25,
-				PreLineWait = 0.35,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -659,8 +744,8 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2779", Text = "Nightshade Seeds.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_2780", Text = "Some Nightshade Seeds." },
 			},
-			[2] = { GlobalVoiceLines = "FoundSeedVoiceLines" },
-			[3] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "FoundSeedVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -677,14 +762,15 @@ ResourceData =
 			{
 				BreakIfPlayed = true,
 				RandomRemaining = true,
-				SuccessiveChanceToPlay = 0.33,
-				PreLineWait = 0.35,
+				SuccessiveChanceToPlay = 0.25,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -693,13 +779,13 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2781", Text = "Nightshade." },
 				{ Cue = "/VO/Melinoe_2782", Text = "Some Nightshade." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	PlantGCattailSeed =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseSeed" },
 		IconPath = "Items\\Resources\\Plant\\PlantGCattailSeed",
 		TextIconPath = "Items\\Resources\\Plant\\PlantGCattailSeed_Text",
 		TooltipId = "PlantGCattailSeedIcon",
@@ -709,14 +795,15 @@ ResourceData =
 			{
 				RandomRemaining = true,
 				BreakIfPlayed = true,
-				SuccessiveChanceToPlay = 0.25,
-				PreLineWait = 0.35,
+				SuccessiveChanceToPlay = 0.2,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -724,8 +811,8 @@ ResourceData =
 
 				{ Cue = "/VO/Melinoe_2384", Text = "Cattail seeds." },
 			},
-			[2] = { GlobalVoiceLines = "FoundSeedVoiceLines" },
-			[3] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "FoundSeedVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -738,13 +825,13 @@ ResourceData =
 		CostTextId = "PlantGCattail_Short",
 		OnAddVoiceLines =
 		{
-			[1] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 	
 	PlantHWheatSeed =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseSeed" },
 		IconPath = "Items\\Resources\\Plant\\PlantHWheatSeed",
 		TextIconPath = "Items\\Resources\\Plant\\PlantHWheatSeed_Text",
 		TooltipId = "PlantHWheatSeedIcon",
@@ -754,14 +841,19 @@ ResourceData =
 			{
 				RandomRemaining = true,
 				BreakIfPlayed = true,
-				SuccessiveChanceToPlay = 0.25,
-				PreLineWait = 0.35,
+				SuccessiveChanceToPlay = 0.2,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" }
+					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -769,8 +861,8 @@ ResourceData =
 
 				{ Cue = "/VO/Melinoe_2727", Text = "Wheat Seeds." },
 			},
-			[2] = { GlobalVoiceLines = "FoundSeedVoiceLines" },
-			[3] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "FoundSeedVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -786,14 +878,19 @@ ResourceData =
 			{
 				BreakIfPlayed = true,
 				RandomRemaining = true,
-				SuccessiveChanceToPlay = 0.33,
-				PreLineWait = 0.35,
+				SuccessiveChanceToPlay = 0.25,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" }
+					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -802,13 +899,13 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2728", Text = "Some Wheat.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_2729", Text = "Wheat for the harvest." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	PlantIPoppySeed =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseSeed" },
 		IconPath = "Items\\Resources\\Plant\\PlantIPoppySeed",
 		TextIconPath = "Items\\Resources\\Plant\\PlantIPoppySeed_Text",
 		TooltipId = "PlantIPoppySeedIcon",
@@ -819,23 +916,24 @@ ResourceData =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlay = 0.25,
-				PreLineWait = 0.35,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
 				},
 
-				{ Cue = "/VO/Melinoe_2826", Text = "Poppy-flower seeds..." },
+				{ Cue = "/VO/Melinoe_2826", Text = "Poppy-flower seeds...", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_2827", Text = "Seeds of the Poppy..." },
 			},
-			[2] = { GlobalVoiceLines = "FoundSeedVoiceLines" },
-			[3] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "FoundSeedVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -851,14 +949,15 @@ ResourceData =
 			{
 				BreakIfPlayed = true,
 				RandomRemaining = true,
-				SuccessiveChanceToPlay = 0.33,
-				PreLineWait = 0.35,
+				SuccessiveChanceToPlay = 0.25,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -867,13 +966,13 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2828", Text = "Poppies.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_2829", Text = "Fresh Poppies." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	PlantNGarlicSeed =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseSeed" },
 		IconPath = "Items\\Resources\\Plant\\PlantNGarlicSeed",
 		TextIconPath = "Items\\Resources\\Plant\\PlantNGarlicSeed_Text",
 		TooltipId = "PlantNGarlicSeedIcon",
@@ -889,8 +988,23 @@ ResourceData =
 
 		OnAddVoiceLines =
 		{
-			[1] = { GlobalVoiceLines = "FoundSeedVoiceLines" },
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				PreLineWait = 0.45,
+				SuccessiveChanceToPlayAll = 0.15,
+				ObjectTypes = { "NPC_Medea_01", "Medea" },
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "MedeaSpokeRecently", Time = 12 },
+				},
+
+				{ Cue = "/VO/Medea_0309", Text = "Garlic, I think..." },
+				{ Cue = "/VO/Medea_0310", Text = "{#Emph}Ooh{#Prev}, Garlic...", PlayFirst = true },
+			},
+			{ GlobalVoiceLines = "FoundSeedVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -915,14 +1029,15 @@ ResourceData =
 			{
 				BreakIfPlayed = true,
 				RandomRemaining = true,
-				SuccessiveChanceToPlay = 0.33,
-				PreLineWait = 0.35,
+				SuccessiveChanceToPlay = 0.25,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -931,13 +1046,13 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2476", Text = "Garlic." },
 				{ Cue = "/VO/Melinoe_2477", Text = "Some Garlic." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	PlantOMandrakeSeed =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseSeed" },
 		IconPath = "Items\\Resources\\Plant\\PlantOMandrakeSeed",
 		TextIconPath = "Items\\Resources\\Plant\\PlantOMandrakeSeed_Text",
 		TooltipId = "PlantOMandrakeSeedIcon",
@@ -961,13 +1076,14 @@ ResourceData =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlay = 0.25,
-				PreLineWait = 0.35,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -976,8 +1092,8 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_3247", Text = "Mandrake Seeds." },
 				{ Cue = "/VO/Melinoe_3248", Text = "Some Mandrake Seeds." },
 			},
-			[2] = { GlobalVoiceLines = "FoundSeedVoiceLines" },
-			[3] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "FoundSeedVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -1007,13 +1123,14 @@ ResourceData =
 				BreakIfPlayed = true,
 				RandomRemaining = true,
 				SuccessiveChanceToPlay = 0.33,
-				PreLineWait = 0.35,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -1023,13 +1140,13 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_3249", Text = "Mandrake Root." },
 				{ Cue = "/VO/Melinoe_3250", Text = "Some Mandrake Root." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	PlantPOliveSeed =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseSeed" },
 		IconPath = "Items\\Resources\\Plant\\PlantPOliveSeed",
 		TextIconPath = "Items\\Resources\\Plant\\PlantPOliveSeed_Text",
 		TooltipId = "PlantPOliveSeedIcon",
@@ -1053,13 +1170,14 @@ ResourceData =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlay = 0.25,
-				PreLineWait = 0.35,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -1068,7 +1186,7 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_3622", Text = "An Olive Branch...", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_3623", Text = "Another Branch..." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -1097,14 +1215,15 @@ ResourceData =
 			{
 				BreakIfPlayed = true,
 				RandomRemaining = true,
-				SuccessiveChanceToPlay = 0.33,
-				PreLineWait = 0.35,
+				SuccessiveChanceToPlay = 0.25,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -1113,13 +1232,106 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_3624", Text = "Olives." },
 				{ Cue = "/VO/Melinoe_3625", Text = "Some Olives." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
+		},
+	},
+
+	PlantQSnakereedSeed =
+	{
+		InheritFrom = { "BaseResource", "BaseSeed" },
+		IconPath = "Items\\Resources\\Plant\\PlantQSnakereedSeed",
+		TextIconPath = "Items\\Resources\\Plant\\PlantQSnakereedSeed_Text",
+		TooltipId = "PlantQSnakereedSeedIcon",
+		CostTextId = "PlantQSnakereedSeed_Short",
+
+		RevealGameStateRequirements =
+		{
+			{
+				Path = { "GameState", "WorldUpgradesAdded" },
+				HasAny = { "WorldUpgradeErebusSafeZones", "WorldUpgradeBoonList" },
+			},
+			{
+				Path = { "GameState", "WorldUpgradesRevealed" },
+				HasAll = { "WorldUpgradeAltRunDoor" },
+			},
+		},
+
+		OnAddVoiceLines =
+		{
+			{
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.25,
+				PreLineWait = 0.1,
+				GameStateRequirements =
+				{
+					{
+						PathEmpty = { "RequiredKillEnemies" },
+					},
+				},
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+
+				{ Cue = "/VO/MelinoeField_2950", Text = "What is all this...?", PlayFirst = true, PlayOnce = true, PlayOnceContext = "TyphonFirstResourceVO" },
+				{ Cue = "/VO/Melinoe_3933", Text = "Plankton..." },
+				{ Cue = "/VO/Melinoe_3934", Text = "Some Plankton..." },
+			},
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
+		},
+	},
+
+	PlantQSnakereed =
+	{
+		InheritFrom = { "BaseResource" },
+		IconPath = "Items\\Resources\\Plant\\PlantQSnakereed",
+		TextIconPath = "Items\\Resources\\Plant\\PlantQSnakereed_Text",
+		TooltipId = "PlantQSnakereedIcon",
+		CostTextId = "PlantQSnakereed_Short",
+
+		RevealGameStateRequirements =
+		{
+			{
+				Path = { "GameState", "WorldUpgradesAdded" },
+				HasAny = { "WorldUpgradeErebusSafeZones", "WorldUpgradeBoonList" },
+			},
+			{
+				Path = { "GameState", "WorldUpgradesRevealed" },
+				HasAll = { "WorldUpgradeAltRunDoor" },
+			},
+		},
+
+		OnAddVoiceLines =
+		{
+			{
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				SuccessiveChanceToPlay = 0.25,
+				PreLineWait = 0.1,
+				GameStateRequirements =
+				{
+					{
+						PathEmpty = { "RequiredKillEnemies" },
+					},
+				},
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+
+				{ Cue = "/VO/Melinoe_3935", Text = "A Snake-reed...", PlayFirst = true },
+				{ Cue = "/VO/Melinoe_3936", Text = "Out, Snake-reed." },
+			},
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	PlantChaosThalamusSeed =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseSeed" },
 		IconPath = "Items\\Resources\\Plant\\PlantChaosThalamusSeed",
 		TextIconPath = "Items\\Resources\\Plant\\PlantChaosThalamusSeed_Text",
 		TooltipId = "PlantChaosThalamusSeedIcon",
@@ -1144,8 +1356,8 @@ ResourceData =
 					},
 					{
 						Path = { "GameState", "LifetimeResourcesGained", "PlantChaosThalamusSeed" },
-						Comparison = "<=",
-						Value = 6,
+						Comparison = "==",
+						Value = 0,
 					},
 					{
 						PathTrue = { "GameState", "UseRecord", "TrialUpgrade" },
@@ -1182,13 +1394,14 @@ ResourceData =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlay = 0.25,
-				PreLineWait = 0.35,
+				PreLineWait = 0.1,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -1197,8 +1410,8 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2738", Text = "An Origin Seed..." },
 				{ Cue = "/VO/Melinoe_2739", Text = "Some sort of Seed...", PlayFirst = true },
 			},
-			[2] = { GlobalVoiceLines = "FoundSeedVoiceLines" },
-			[3] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "FoundSeedVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -1280,14 +1493,15 @@ ResourceData =
 			{
 				BreakIfPlayed = true,
 				RandomRemaining = true,
-				SuccessiveChanceToPlay = 0.33,
-				PreLineWait = 0.35,
+				SuccessiveChanceToPlay = 0.2,
+				PreLineWait = 0.2,
 				GameStateRequirements =
 				{
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -1296,28 +1510,17 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2740", Text = "Thalamus..." },
 				{ Cue = "/VO/Melinoe_2741", Text = "Born of Chaos...", PlayFirst = true },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
-		},
-	},
-
-	PlantGrowthAccelerant =
-	{
-		InheritFrom = { "BaseResource" },
-		IconPath = "Items\\Resources\\Plant\\PlantGrowthAccelerant",
-		TextIconPath = "Items\\Resources\\Plant\\PlantGrowthAccelerant_Text",
-		TooltipId = "SeedEpicIcon",		OnAddVoiceLines =
-		{
-			[1] = { GlobalVoiceLines = "FoundSeedVoiceLines" },
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	SeedMystery =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseSeed" },
 		IconPath = "Items\\Resources\\Plant\\PlantMysterySeed",
 		TextIconPath = "Items\\Resources\\Plant\\PlantMysterySeed_Text",
 		TooltipId = "SeedMysteryIcon",
+		CostTextId = "SeedMystery_Short",
 
 		ExtraDescriptions =
 		{
@@ -1338,15 +1541,21 @@ ResourceData =
 
 		OnAddVoiceLines =
 		{
-			[1] = { GlobalVoiceLines = "FoundSeedVoiceLines" },
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "FoundSeedVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	-- Ores
+	BaseOre =
+	{
+		DebugOnly = true,
+		AutoHarvestSound = "/SFX/PickaxeHitSFX",
+	},
+
 	OreFSilver =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseOre" },
 
 		IconPath = "Items\\Resources\\Ore\\OreFSilver",
 		TextIconPath = "Items\\Resources\\Ore\\OreFSilver_Text",
@@ -1387,6 +1596,7 @@ ResourceData =
 						IsNone = { "F_Story01" },
 					},
 				},
+				-- SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -1395,13 +1605,13 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_0701", Text = "Silver.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_0702", Text = "Some Silver." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	OreGLime =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseOre" },
 
 		IconPath = "Items\\Resources\\Ore\\OreGLime",
 		TextIconPath = "Items\\Resources\\Ore\\OreGLime_Text",
@@ -1421,6 +1631,7 @@ ResourceData =
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				-- SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -1429,13 +1640,13 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2377", Text = "Limestone." },
 				{ Cue = "/VO/Melinoe_2378", Text = "Some Limestone." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	OreHGlassrock =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseOre" },
 
 		IconPath = "Items\\Resources\\Ore\\OreHGlassrock",
 		TextIconPath = "Items\\Resources\\Ore\\OreHGlassrock_Text",
@@ -1454,7 +1665,12 @@ ResourceData =
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" }
+					},
 				},
+				-- SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -1463,13 +1679,13 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2730", Text = "Glassrock...", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_2731", Text = "Some Glassrock..." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	OreIMarble =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseOre" },
 
 		IconPath = "Items\\Resources\\Ore\\OreIMarble",
 		TextIconPath = "Items\\Resources\\Ore\\OreIMarble_Text",
@@ -1489,6 +1705,7 @@ ResourceData =
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -1497,13 +1714,13 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2830", Text = "Marble.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_2831", Text = "Some Marble." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	OreNBronze =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseOre" },
 
 		IconPath = "Items\\Resources\\Ore\\OreNBronze",
 		TextIconPath = "Items\\Resources\\Ore\\OreNBronze_Text",
@@ -1554,6 +1771,7 @@ ResourceData =
 						HasNone = { "SurfacePenalty" },
 					},
 				},
+				-- SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -1563,13 +1781,28 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_0795", Text = "Bronze.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_0706", Text = "Some Bronze." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				PreLineWait = 0.45,
+				SuccessiveChanceToPlayAll = 0.15,
+				ObjectTypes = { "NPC_Medea_01", "Medea" },
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "MedeaSpokeRecently", Time = 12 },
+				},
+
+				{ Cue = "/VO/Medea_0313", Text = "The Bronze of the fallen...", PlayFirst = true },
+				{ Cue = "/VO/Medea_0314", Text = "Leftover Bronze..." },
+			},
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},		
 	},
 
 	OreOIron =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseOre" },
 
 		IconPath = "Items\\Resources\\Ore\\OreOIron",
 		TextIconPath = "Items\\Resources\\Ore\\OreOIron_Text",
@@ -1589,6 +1822,7 @@ ResourceData =
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				-- SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -1597,13 +1831,13 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_3251", Text = "Iron." },
 				{ Cue = "/VO/Melinoe_3252", Text = "Some Iron." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	OrePAdamant =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseOre" },
 
 		IconPath = "Items\\Resources\\Ore\\OrePAdamant",
 		TextIconPath = "Items\\Resources\\Ore\\OrePAdamant_Text",
@@ -1623,6 +1857,7 @@ ResourceData =
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				-- SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -1631,13 +1866,49 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_3626", Text = "Adamant." },
 				{ Cue = "/VO/Melinoe_3627", Text = "Some Adamant." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
+		},
+	},
+
+	OreQScales =
+	{
+		InheritFrom = { "BaseResource", "BaseOre" },
+
+		IconPath = "Items\\Resources\\Ore\\OreQScales",
+		TextIconPath = "Items\\Resources\\Ore\\OreQScales_Text",
+		TooltipId = "OreQScalesIcon",
+		CostTextId = "OreQScales_Short",
+
+		OnAddVoiceLines =
+		{
+			{
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.25,
+				PreLineWait = 0.35,
+				GameStateRequirements =
+				{
+					{
+						PathEmpty = { "RequiredKillEnemies" },
+					},
+				},
+				-- SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+
+				{ Cue = "/VO/MelinoeField_2950", Text = "What is all this...?", PlayFirst = true, PlayOnce = true, PlayOnceContext = "TyphonFirstResourceVO" },
+				{ Cue = "/VO/Melinoe_3937", Text = "Serpent Scales." },
+				{ Cue = "/VO/Melinoe_3938", Text = "More Scales." },
+			},
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
 	OreChaosProtoplasm =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseOre" },
 
 		IconPath = "Items\\Resources\\Ore\\OreChaosProtoplasm",
 		TextIconPath = "Items\\Resources\\Ore\\OreChaosProtoplasm_Text",
@@ -1657,15 +1928,16 @@ ResourceData =
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
 				},
 
-				{ Cue = "/VO/Melinoe_2734", Text = "Plasma...", PlayFirst = true },
-				{ Cue = "/VO/Melinoe_2735", Text = "Some Plasma..." },
+				{ Cue = "/VO/Melinoe_4652", Text = "Flux.", PlayFirst = true },
+				{ Cue = "/VO/Melinoe_4653", Text = "Some Flux." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -1684,20 +1956,20 @@ ResourceData =
 		ExtraDescriptions =
 		{
 			{
-				TextId = "MetaCurrency_ExtraDetails1",
-				Requirements =
-				{
-					{
-						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeMarket" },
-					},
-				},
-			},
-			{
 				TextId = "MetaCurrency_ExtraDetails2",
 				Requirements =
 				{
 					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeUnusedWeaponBonus" },
+					},
+				},
+			},
+			{
+				TextId = "MetaCurrency_ExtraDetails1",
+				Requirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeMarket" },
 					},
 				},
 			},
@@ -1749,6 +2021,24 @@ ResourceData =
 					},
 				},
 			},
+			{
+				TextId = "ResourceDetails_Mailbox",
+				Requirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "Mailbox" }
+					},
+				},
+			},
+			{
+				TextId = "MetaCardPointsCommon_ExtraDetails2",
+				Requirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeUnusedWeaponBonus" },
+					},
+				},
+			},
 		},
 
 		InventoryVoiceLines =
@@ -1781,6 +2071,9 @@ ResourceData =
 						Comparison = "<=",
 						Value = 5,
 					},
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
 				},
 				{ Cue = "/VO/Melinoe_1903", Text = "I'll need these soon enough." },
 			},
@@ -1800,14 +2093,18 @@ ResourceData =
 						PathEmpty = { "RequiredKillEnemies" },
 					},
 				},
-				TriggerCooldowns = { "MelinoePurchasedConsumableSpeech", "MelinoeAnyQuipSpeech" },
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+				TriggerCooldowns = { "MelinoePurchasedConsumableSpeech" },
 
 				{ Cue = "/VO/Melinoe_1661", Text = "Ash of the Dead.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_1662", Text = "Ashes." },
 				{ Cue = "/VO/Melinoe_1663", Text = "More Ashes." },
 				{ Cue = "/VO/Melinoe_1664", Text = "Ash for my Arcana." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -1819,6 +2116,7 @@ ResourceData =
 		TextIconPath = "Items\\Resources\\Common\\MemPointsCommon_Text",
 		TooltipId = "MemPointsCommonIcon",
 		CostTextId = "MemPointsCommon_Short",
+		AutoHarvestSound = "/SFX/GhostEvaporate",
 
 		ExtraDescriptions =
 		{
@@ -1827,7 +2125,16 @@ ResourceData =
 				Requirements =
 				{
 					{
-						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeToolsShop" },
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeMarket" },
+					},
+				},
+			},
+			{
+				TextId = "ResourceDetails_Mailbox",
+				Requirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "Mailbox" }
 					},
 				},
 			},
@@ -1836,7 +2143,11 @@ ResourceData =
 				Requirements =
 				{
 					{
-						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeMarket" },
+						Path = { "GameState", "TraitsTaken" },
+						HasAll =
+						{
+							"NarcissusD",
+						},
 					},
 				},
 			},
@@ -1895,14 +2206,18 @@ ResourceData =
 						IsNone = { "ArtemisCombatIntro", "ArtemisCombatF", "ArtemisCombatG", "ArtemisCombatN", "HeraclesCombatN" },
 					},
 				},
-				TriggerCooldowns = { "MelinoePurchasedConsumableSpeech", "MelinoeAnyQuipSpeech" },
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+				TriggerCooldowns = { "MelinoePurchasedConsumableSpeech" },
 
 				{ Cue = "/VO/Melinoe_1657", Text = "Psyche.", PlayFirst = true, },
 				{ Cue = "/VO/Melinoe_1658", Text = "More Psyche." },
 				{ Cue = "/VO/Melinoe_1904", Text = "I'll just stash this away.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_1660", Text = "The Spirits of the Dead..." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -1917,6 +2232,15 @@ ResourceData =
 
 		ExtraDescriptions =
 		{
+			{
+				TextId = "ResourceDetails_Mailbox",
+				Requirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "Mailbox" }
+					},
+				},
+			},
 			{
 				TextId = "MetaFabric_ExtraDetails1",
 				Requirements =
@@ -1954,7 +2278,7 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_1064", Text = "Fate Fabric.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_1065", Text = "Some Fate Fabric." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -1966,16 +2290,31 @@ ResourceData =
 		TextIconPath = "Items\\Resources\\Other\\CardUpgradePoints_Text",
 		TooltipId = "CardUpgradePointsIcon",
 		CostTextId = "CardUpgradePoints_Short",
+		MetaRewardStandPickupSound = "/Leftovers/Menu Sounds/TalismanRockUpLEGENDARY",
 
 		ExtraDescriptions =
 		{
+			{
+				TextId = "ResourceDetails_Mailbox",
+				Requirements =
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "CardUpgradePoints" },
+						Comparison = ">=",
+						Value = 8,
+					},
+					{
+						PathTrue = { "GameState", "UseRecord", "Mailbox" }
+					},
+				},
+			},
 			{
 				TextId = "CardUpgradePoints_ExtraDetails1",
 				Requirements =
 				{
 					{
-						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBountyBoard" },
-					},
+						PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeCardUpgradePoints2" },
+					}
 				},
 			},
 		},
@@ -1999,7 +2338,7 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_1066", Text = "Moon Dust.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_1067", Text = "Some Moon Dust." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -2014,17 +2353,6 @@ ResourceData =
 		CostTextId = "GiftPoints_Short",
 
 		OnAddedFunctionName = "OnGiftPointsAdded",
-
-		SpendSound = "/SFX/GiftAmbrosiaBottlePickup",
-		BrokerSpentVoiceLines =
-		{
-			[1] = { GlobalVoiceLines = "SpentGiftPointsVoiceLines" },
-		},
-		BrokerPurchaseVoiceLines =
-		{
-			[1] = { GlobalVoiceLines = "PurchasedGiftPointsVoiceLines" },
-		},
-
 
 		ExtraDescriptions =
 		{
@@ -2066,7 +2394,7 @@ ResourceData =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = { "ErisGiftDecline01", "NemesisGiftDecline01", "NemesisGift02" },
+						HasNone = { "ErisGiftDecline01", "NemesisGiftDecline01", "NemesisGift02", "NyxGift02" },
 					},
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
@@ -2100,7 +2428,7 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_1989", Text = "Could make a lovely gift.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_1990", Text = "Who shall I give this to?", PlayFirst = true },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -2128,7 +2456,7 @@ ResourceData =
 					},
 					{
 						Path = { "CurrentRun", "HubTextLinesRecord" },
-						HasNone = { "HecateBathHouseDecline01", "OdysseusBathHouseDecline01", "NemesisBathHouseDecline01", "ErisBathHouseDecline01", "MorosBathHouseDecline01", "SkellyBathHouseDecline01", "DoraBathHouseDecline01" },
+						HasNone = { "HecateBathHouseDecline01", "OdysseusBathHouseDecline01", "NemesisBathHouseDecline01", "ErisBathHouseDecline01", "MorosBathHouseDecline01", "SkellyBathHouseDecline01", "DoraBathHouseDecline01", "IcarusBathHouseDecline01" },
 					},
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
@@ -2147,7 +2475,7 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_0796", Text = "Salt." },
 				{ Cue = "/VO/Melinoe_0797", Text = "Some Salt.", PlayFirst = true },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -2175,7 +2503,7 @@ ResourceData =
 					},
 					{
 						Path = { "CurrentRun", "HubTextLinesRecord" },
-						HasNone = { "ErisFishingDecline01", "HecateFishingDecline01", "NemesisFishingDecline01", "ErisFishingDecline01", "MorosFishingDecline01", "SkellyFishingDecline01", "DoraFishingDecline01" },
+						HasNone = { "HecateFishingDecline01", "OdysseusFishingDecline01", "NemesisFishingDecline01", "ErisFishingDecline01", "MorosFishingDecline01", "SkellyFishingDecline01", "DoraFishingDecline01", "IcarusFishingDecline01" },
 					},
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
@@ -2194,7 +2522,7 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_0798", Text = "Lures." },
 				{ Cue = "/VO/Melinoe_0799", Text = "A set of Lures.", PlayFirst = true },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -2208,6 +2536,152 @@ ResourceData =
 		-- CostTextId = "HypnosPoints_Short",
 		AddTimerTicks = 16, -- used for text
 
+		RevealGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeWakeHypnos" },
+			},
+		},
+
+		ExtraDescriptions =
+		{
+			{
+				TextId = "HypnosPoints_ExtraDetails1",
+				Requirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "MedeaGrantsHypnosSpell01" },
+					},
+				},
+			},
+			{
+				TextId = "HypnosPoints_ExtraDetails2",
+				Requirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "MedeaGrantsHypnosSpell02" },
+					},
+				},
+			},
+		},
+
+		OnAddVoiceLines =
+		{
+			--
+		},
+	},
+
+	MedeaPoints =
+	{
+		InheritFrom = { "BaseResource" },
+
+		IconPath = "Items\\Resources\\Alchemy\\MedeaPoints",
+		TextIconPath = "Items\\Resources\\Alchemy\\MedeaPoints_Text",
+		TooltipId = "MedeaPointsIcon",
+		CostTextId = "MedeaPoints_Short",
+	},
+
+	IcarusPoints =
+	{
+		InheritFrom = { "BaseResource" },
+
+		IconPath = "Items\\Resources\\Other\\IcarusPoints",
+		TextIconPath = "Items\\Resources\\Other\\IcarusPoints_Text",
+		TooltipId = "IcarusPointsIcon",
+		CostTextId = "IcarusPoints_Short",
+
+		RevealGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeReviveIcarus" },
+			},
+		},
+
+		OnAddVoiceLines =
+		{
+			--
+		},
+	},
+
+	-- @ ending
+	HadesSpearPoints =
+	{
+		InheritFrom = { "BaseResource" },
+
+		IconPath = "Items\\Resources\\Other\\HadesSpearPoints",
+		TextIconPath = "Items\\Resources\\Other\\HadesSpearPoints_Text",
+		TooltipId = "HadesSpearPointsIcon",
+		-- CostTextId = "HadesSpearPoints_Short",
+		AddTimerTicks = 16, -- used for text
+		CostRevealRequirements =
+		{
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "HadesSpearPoints" },
+				Comparison = ">=",
+				Value = 1,
+			},
+		},
+
+		InventoryVoiceLines =
+		{
+			PlayOnce = true,
+			BreakIfPlayed = true,
+			PreLineWait = 0.35,
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "GameState", "TextLinesRecord", "ZagreusPastMeeting06" }
+				},
+			},
+			Cooldowns =
+			{
+				{ Name = "MelinoeAnyQuipSpeech", Time = 5 },
+			},
+			{ Cue = "/VO/Melinoe_5711", Text = "Father's spear... it has to work..." },
+		},
+
+		OnAddVoiceLines =
+		{
+			--
+		},
+	},
+	DeathAreaPoints =
+	{
+		InheritFrom = { "BaseResource" },
+
+		IconPath = "Items\\Resources\\Other\\DeathAreaPoints",
+		TextIconPath = "Items\\Resources\\Other\\DeathAreaPoints_Text",
+		TooltipId = "DeathAreaPointsIcon",
+		CostTextId = "DeathAreaPoints_Short",
+
+		RevealGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeWakeHypnosT3" },
+			},
+		},
+		CostRevealRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeWakeHypnosT3" }
+			},
+		},
+
+		InventoryVoiceLines =
+		{
+			PlayOnce = true,
+			PreLineWait = 0.55,
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "DeathAreaPoints" },
+					Comparison = "<",
+					Value = 1,
+				},
+			},
+			{ Cue = "/VO/Melinoe_5713", Text = "No use searching for this now..." },
+		},
+
 		OnAddVoiceLines =
 		{
 			--
@@ -2215,23 +2689,29 @@ ResourceData =
 	},
 
 	-- Fish
+	BaseFish =
+	{
+		DebugOnly = true,
+		AutoHarvestSound = "/Leftovers/SFX/FishSpawnSplash",
+	},
+
 	FishFCommon =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishFCommon",
 		TextIconPath = "Items\\Resources\\Fish\\FishFCommon_Text",
 		CostTextId = "FishFCommon_Short",
 	},
 	FishFRare =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishFRare",
 		TextIconPath = "Items\\Resources\\Fish\\FishFRare_Text",
 		CostTextId = "FishFRare_Short",
 	},
 	FishFLegendary =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishFLegendary",
 		TextIconPath = "Items\\Resources\\Fish\\FishFLegendary_Text",
 		CostTextId = "FishFLegendary_Short",
@@ -2239,21 +2719,21 @@ ResourceData =
 
 	FishGCommon =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishGCommon",
 		TextIconPath = "Items\\Resources\\Fish\\FishGCommon_Text",
 		CostTextId = "FishGCommon_Short",
 	},
 	FishGRare =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishGRare",
 		TextIconPath = "Items\\Resources\\Fish\\FishGRare_Text",
 		CostTextId = "FishGRare_Short",
 	},
 	FishGLegendary =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishGLegendary",
 		TextIconPath = "Items\\Resources\\Fish\\FishGLegendary_Text",
 		CostTextId = "FishGLegendary_Short",
@@ -2261,21 +2741,21 @@ ResourceData =
 
 	FishHCommon =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishHCommon",
 		TextIconPath = "Items\\Resources\\Fish\\FishHCommon_Text",
 		CostTextId = "FishHCommon_Short",
 	},
 	FishHRare =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishHRare",
 		TextIconPath = "Items\\Resources\\Fish\\FishHRare_Text",
 		CostTextId = "FishHRare_Short",
 	},
 	FishHLegendary =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishHLegendary",
 		TextIconPath = "Items\\Resources\\Fish\\FishHLegendary_Text",
 		CostTextId = "FishHLegendary_Short",
@@ -2283,21 +2763,21 @@ ResourceData =
 
 	FishICommon =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishICommon",
 		TextIconPath = "Items\\Resources\\Fish\\FishICommon_Text",
 		CostTextId = "FishICommon_Short",
 	},
 	FishIRare =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishIRare",
 		TextIconPath = "Items\\Resources\\Fish\\FishIRare_Text",
 		CostTextId = "FishIRare_Short",
 	},
 	FishILegendary =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishILegendary",
 		TextIconPath = "Items\\Resources\\Fish\\FishILegendary_Text",
 		CostTextId = "FishILegendary_Short",
@@ -2305,21 +2785,21 @@ ResourceData =
 
 	FishNCommon =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishNCommon",
 		TextIconPath = "Items\\Resources\\Fish\\FishNCommon_Text",
 		CostTextId = "FishNCommon_Short",
 	},
 	FishNRare =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishNRare",
 		TextIconPath = "Items\\Resources\\Fish\\FishNRare_Text",
 		CostTextId = "FishNRare_Short",
 	},
 	FishNLegendary =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishNLegendary",
 		TextIconPath = "Items\\Resources\\Fish\\FishNLegendary_Text",
 		CostTextId = "FishNLegendary_Short",
@@ -2327,21 +2807,21 @@ ResourceData =
 
 	FishOCommon =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishOCommon",
 		TextIconPath = "Items\\Resources\\Fish\\FishOCommon_Text",
 		CostTextId = "FishOCommon_Short",
 	},
 	FishORare =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishORare",
 		TextIconPath = "Items\\Resources\\Fish\\FishORare_Text",
 		CostTextId = "FishORare_Short",
 	},
 	FishOLegendary =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishOLegendary",
 		TextIconPath = "Items\\Resources\\Fish\\FishOLegendary_Text",
 		CostTextId = "FishOLegendary_Short",
@@ -2349,65 +2829,65 @@ ResourceData =
 
 	FishPCommon =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishPCommon",
 		TextIconPath = "Items\\Resources\\Fish\\FishPCommon_Text",
 		CostTextId = "FishPCommon_Short",
 	},
 	FishPRare =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishPRare",
 		TextIconPath = "Items\\Resources\\Fish\\FishPRare_Text",
 		CostTextId = "FishPRare_Short",
 	},
 	FishPLegendary =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishPLegendary",
 		TextIconPath = "Items\\Resources\\Fish\\FishPLegendary_Text",
 		CostTextId = "FishPLegendary_Short",
 	},
 
-	FishBCommon =
+	FishQCommon =
 	{
-		InheritFrom = { "BaseResource" },
-		IconPath = "Items\\Resources\\Fish\\FishBCommon",
-		TextIconPath = "Items\\Resources\\Fish\\FishBCommon_Text",
-		CostTextId = "FishBCommon_Short",
+		InheritFrom = { "BaseResource", "BaseFish" },
+		IconPath = "Items\\Resources\\Fish\\FishQCommon",
+		TextIconPath = "Items\\Resources\\Fish\\FishQCommon_Text",
+		CostTextId = "FishQCommon_Short",
 	},
-	FishBRare =
+	FishQRare =
 	{
-		InheritFrom = { "BaseResource" },
-		IconPath = "Items\\Resources\\Fish\\FishBRare",
-		TextIconPath = "Items\\Resources\\Fish\\FishBRare_Text",
-		CostTextId = "FishBRare_Short",
+		InheritFrom = { "BaseResource", "BaseFish" },
+		IconPath = "Items\\Resources\\Fish\\FishQRare",
+		TextIconPath = "Items\\Resources\\Fish\\FishQRare_Text",
+		CostTextId = "FishQRare_Short",
 	},
-	FishBLegendary =
+	FishQLegendary =
 	{
-		InheritFrom = { "BaseResource" },
-		IconPath = "Items\\Resources\\Fish\\FishBLegendary",
-		TextIconPath = "Items\\Resources\\Fish\\FishBLegendary_Text",
-		CostTextId = "FishBLegendary_Short",
+		InheritFrom = { "BaseResource", "BaseFish" },
+		IconPath = "Items\\Resources\\Fish\\FishQLegendary",
+		TextIconPath = "Items\\Resources\\Fish\\FishQLegendary_Text",
+		CostTextId = "FishQLegendary_Short",
 	},
 
 	FishChaosCommon =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishChaosCommon",
 		TextIconPath = "Items\\Resources\\Fish\\FishChaosCommon_Text",
 		CostTextId = "FishChaosCommon_Short",
 	},
 	FishChaosRare =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishChaosRare",
 		TextIconPath = "Items\\Resources\\Fish\\FishChaosRare_Text",
 		CostTextId = "FishChaosRare_Short",
 	},
 	FishChaosLegendary =
 	{
-		InheritFrom = { "BaseResource" },
+		InheritFrom = { "BaseResource", "BaseFish" },
 		IconPath = "Items\\Resources\\Fish\\FishChaosLegendary",
 		TextIconPath = "Items\\Resources\\Fish\\FishChaosLegendary_Text",
 		CostTextId = "FishChaosLegendary_Short",
@@ -2422,16 +2902,7 @@ ResourceData =
 		TextIconPath = "Items\\Resources\\Other\\WeaponPointsRare_Text",
 		TooltipId = "WeaponPointsRareIcon",
 		CostTextId = "WeaponPointsRare_Short",
-
-		SpendSound = "/SFX/TitanBloodPickupSFX",
-		BrokerSpentVoiceLines =
-		{
-			[1] = { GlobalVoiceLines = "SpentSuperLockKeysVoiceLines" },
-		},
-		BrokerPurchaseVoiceLines =
-		{
-			[1] = { GlobalVoiceLines = "PurchasedSuperLockKeysVoiceLines" },
-		},
+		MetaRewardStandPickupSound = "/SFX/TitanBloodPickupSFX",
 
 		RevealGameStateRequirements =
 		{
@@ -2462,6 +2933,18 @@ ResourceData =
 					},
 				},
 			},
+			{
+				TextId = "ResourceDetails_Mailbox",
+				Requirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "CharonAboutCharonPoints01" },
+					},
+					{
+						PathTrue = { "GameState", "UseRecord", "Mailbox" }
+					},
+				},
+			},
 		},
 
 		OnAddVoiceLines =
@@ -2469,7 +2952,7 @@ ResourceData =
 			{
 				RandomRemaining = true,
 				BreakIfPlayed = true,
-				SuccessiveChanceToPlay = 0.25,
+				SuccessiveChanceToPlayAll = 0.25,
 				PreLineWait = 0.45,
 				GameStateRequirements =
 				{
@@ -2481,10 +2964,28 @@ ResourceData =
 
 				{ Cue = "/VO/Melinoe_2952", Text = "Nightmare." },
 				{ Cue = "/VO/Melinoe_2953", Text = "Some Nightmare." },
-				{ Cue = "/VO/Melinoe_2954", Text = "From the Oath." },
-				{ Cue = "/VO/Melinoe_2955", Text = "A gift from Night.", PlayFirst = true },
+				{ Cue = "/VO/Melinoe_2954", Text = "From the Oath.",
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "CurrentRun", "Hero", "IsDead" }
+						},
+						{
+							Path = { "CurrentRun", "CurrentRoom", "Name" },
+							IsNone = { "I_PreBoss01", "I_PreBoss02", "Q_PreBoss01" },
+						},
+					},
+				},
+				{ Cue = "/VO/Melinoe_2955", Text = "A gift from Night.", PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "CurrentRun", "Hero", "IsDead" }
+						},
+					},
+				},
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -2496,6 +2997,7 @@ ResourceData =
 		TextIconPath = "Items\\Resources\\Other\\Mixer5Common_Text",
 		TooltipId = "Mixer5CommonIcon",
 		CostTextId = "Mixer5Common_Short",
+		MetaRewardStandPickupSound = "/Leftovers/Menu Sounds/TalismanRockUpLEGENDARY",
 
 		ExtraDescriptions =
 		{
@@ -2506,7 +3008,7 @@ ResourceData =
 					{
 						Path = { "GameState", "LifetimeResourcesGained", "Mixer5Common" },
 						Comparison = ">=",
-						Value = 3,
+						Value = 9,
 					},
 				},
 			},
@@ -2546,7 +3048,7 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2381", Text = "Star Dust." },
 				{ Cue = "/VO/Melinoe_2382", Text = "Some Star Dust." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -2558,6 +3060,7 @@ ResourceData =
 		TextIconPath = "Items\\Resources\\Ore\\Mixer6Common_Text",
 		TooltipId = "Mixer6CommonIcon",
 		CostTextId = "Mixer6Common_Short",
+		AutoHarvestSound = "/SFX/KeyPickup",
 
 		ExtraDescriptions =
 		{
@@ -2566,7 +3069,8 @@ ResourceData =
 				Requirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "ChaosGrantsDarkness01" },
+						Path = { "GameState", "TextLinesRecord", },
+						HasAny = { "ChaosGrantsDarkness01", "ChaosGrantsDarkness01_B" },
 					},
 				},
 			}
@@ -2579,6 +3083,7 @@ ResourceData =
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlay = 0.25,
 				PreLineWait = 0.35,
+				SkipCooldownCheckIfNonePlayed = true,
 				GameStateRequirements =
 				{
 					{
@@ -2593,7 +3098,7 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_0699", Text = "Darkness." },
 				{ Cue = "/VO/Melinoe_0700", Text = "Some Darkness." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -2662,7 +3167,7 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_2535", Text = "Shadow." },
 				{ Cue = "/VO/Melinoe_2536", Text = "Some Shadow." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -2678,27 +3183,63 @@ ResourceData =
 		RevealGameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeTimeStop" },
+				Path = { "GameState", "LifetimeResourcesGained", "HadesSpearPoints" },
+				Comparison = ">=",
+				Value = 1,
+			},
+		},
+
+		CostRevealRequirements =
+		{
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "HadesSpearPoints" },
+				Comparison = ">=",
+				Value = 1,
 			},
 		},
 
 		InventoryVoiceLines =
 		{
 			PlayOnce = true,
-			PreLineWait = 0.55,
+			BreakIfPlayed = true,
+			PreLineWait = 0.35,
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "LifetimeResourcesGained", "MixerMythic" },
-					Comparison = "<",
-					Value = 1,
+					PathFalse = { "GameState", "ReachedTrueEnding" }
 				},
 			},
-			-- { Cue = "/VO/Melinoe_2622", Text = "Must be a way I can extract pure Shadow..." },
+			Cooldowns =
+			{
+				{ Name = "MelinoeAnyQuipSpeech", Time = 5 },
+			},
+			{ Cue = "/VO/Melinoe_5712", Text = "Negation from the present... for unraveling the past." },
 		},
 
 		OnAddVoiceLines =
 		{
+			{
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.25,
+				PreLineWait = 0.35,
+				GameStateRequirements =
+				{
+					{
+						PathEmpty = { "RequiredKillEnemies" },
+					},
+				},
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech", Time = 5 },
+				},
+
+				{ Cue = "/VO/MelinoeField_4182", Text = "Typhon's essence... the power to stop Time...", PlayFirst = true },
+				{ Cue = "/VO/MelinoeField_4180", Text = "Entropy..." },
+				{ Cue = "/VO/MelinoeField_4181", Text = "This is Entropy..." },
+			},
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -2710,6 +3251,7 @@ ResourceData =
 		TextIconPath = "Items\\Resources\\Alchemy\\FamiliarPoints_Text",
 		TooltipId = "FamiliarPointsIcon",
 		CostTextId = "FamiliarPoints_Short",
+		MetaRewardStandPickupSound = "/Leftovers/Menu Sounds/TalismanRockUpLEGENDARY",
 
 		RevealGameStateRequirements =
 		{
@@ -2763,15 +3305,14 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_1068", Text = "Witch's Delight.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_1069", Text = "Some Witch's Delight." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},		
 	},
 
 	MysteryResource =
 	{
 		InheritFrom = { "BaseResource" },
-
-		IconPath = "GUI\\Icons\\Status\\Startled",
+		IconPath = "Items\\Loot\\MysteryResource",
 		TooltipId = "MysteryResourceIcon",
 	},
 
@@ -2785,14 +3326,17 @@ ResourceData =
 		CostTextId = "SuperGiftPoints_Short",
 		AddTimerTicks = 20, -- used for text
 
-		SpendSound = "/SFX/SuperGiftAmbrosiaBottlePickup",
-		BrokerSpentVoiceLines =
+		ExtraDescriptions =
 		{
-			[1] = { GlobalVoiceLines = "SpentSuperGiftPointsVoiceLines" },
-		},
-		BrokerPurchaseVoiceLines =
-		{
-			[1] = { GlobalVoiceLines = "PurchasedSuperGiftPointsVoiceLines" },
+			{
+				TextId = "SuperGiftPoints_ExtraDetails1",
+				Requirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeAmbrosia" },
+					}
+				},
+			},
 		},
 
 		OnAddVoiceLines =
@@ -2810,6 +3354,10 @@ ResourceData =
 					{
 						PathFalse = { "CurrentRun", "WorldUpgradesAdded", "WorldUpgradeTaverna" },
 					},
+					{
+						Path = { "CurrentRun", "HubTextLinesRecord" },
+						HasNone = { "HecateTavernaDecline01", "OdysseusTavernaDecline01", "NemesisTavernaDecline01", "ErisTavernaDecline01", "MorosTavernaDecline01", "SkellyTavernaDecline01", "DoraTavernaDecline01", "IcarusTavernaDecline01", "HermesFieldGiftDecline01" },
+					},
 				},
 				Cooldowns =
 				{
@@ -2819,7 +3367,7 @@ ResourceData =
 
 				{ Cue = "/VO/Melinoe_0800", Text = "Ambrosia." },
 			},
-			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
 
@@ -2848,6 +3396,58 @@ ResourceData =
 		},
 	},
 
+	GemPoints =
+	{
+		InheritFrom = { "BaseResource" },
+
+		IconPath = "Items\\Resources\\Other\\GemPoints",
+		TextIconPath = "Items\\Resources\\Other\\GemPoints_Text",
+		TooltipId = "MysteryResourceIcon",
+		CostTextId = "GemPoints_Short",
+		MetaRewardStandPickupSound = "/SFX/GemPickup",
+
+		ExtraDescriptions =
+		{
+			{
+				TextId = "GemPoints_ExtraDetails1",
+				Requirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeMetaRewardStands" },
+					}
+				},
+			},
+		},
+
+		OnAddVoiceLines =
+		{
+			{
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.35,
+				PreLineWait = 0.35,
+				GameStateRequirements =
+				{
+					{
+						PathEmpty = { "RequiredKillEnemies" },
+					},
+				},
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+
+				{ Cue = "/VO/Melinoe_4408", Text = "Gemstones.", PlayFirst = true },
+				{ Cue = "/VO/Melinoe_4409", Text = "Some Gemstones." },
+				{ Cue = "/VO/Melinoe_4410", Text = "More Gemstones." },
+				{ Cue = "/VO/Melinoe_4411", Text = "Gemstones from the Earth." },
+			},
+			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
+		},
+
+	},
+
 	TrashPoints =
 	{
 		InheritFrom = { "BaseResource" },
@@ -2859,23 +3459,21 @@ ResourceData =
 
 		OnAddVoiceLines =
 		{
-			ObjectType = "NPC_Eris_01",
 			{
 				RandomRemaining = true,
 				PreLineWait = 0.35,
 				SuccessiveChanceToPlay = 0.25,
-				UsePlayerSource = true,
-				Cooldowns =
-				{
-					{ Name = "MelinoeAnyQuipSpeech" },
-				},
 				GameStateRequirements =
 				{
 					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" }
 					},
 				},
-
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech", Time = 8 },
+				},
+				
 				{ Cue = "/VO/Melinoe_2440", Text = "Disgusting...", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_2441", Text = "{#Emph}Eugh..." },
 				{ Cue = "/VO/Melinoe_2442", Text = "Such a mess..." },
@@ -2911,30 +3509,76 @@ ResourceData =
 							FunctionName = "RequiredAlive",
 							FunctionArgs = { Ids = { 585573, }, },
 						},
+						{
+							FunctionName = "RequiredQueuedTextLine",
+							FunctionArgs = { IsNone = { "MorosWithEris01", "MorosWithEris02", "NemesisWithEris01", "NemesisWithEris02" }, },
+						},
 					},
 				},
 				{ Cue = "/VO/Melinoe_2446", Text = "I'll just clean this up..." },
 			},
 			{
 				PreLineWait = 0.25,
+				BreakIfPlayed = true,
+				PlayOnce = true,
+				PlayOnceContext = "ErisMassTrashRemovalFirstVO",
+				ObjectType = "NPC_Eris_01",
+				RecheckRequirementsPostWait = true, -- force a requirement recheck once Eris is the VO "source"
+				RequiredSourceValueFalse = "InPartnerConversation",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeErisTrashPickup" },
+					},
+				},
+				TriggerCooldowns = { "ErisSpokeRecently" },
+
+				{ Cue = "/VO/Eris_0443", Text = "No...!" },
+			},
+			{
+				PreLineWait = 0.25,
+				RandomRemaining = true,
 				PlayOnceFromTableThisRun = true,
-				SuccessiveChanceToPlay = 0.05,
+				SuccessiveChanceToPlay = 0.2,
+				ObjectType = "NPC_Eris_01",
+				RecheckRequirementsPostWait = true, -- force a requirement recheck once Eris is the VO "source"
+				RequiredSourceValueFalse = "InPartnerConversation",
 				GameStateRequirements =
 				{
 					{
 						FunctionName = "RequiredQueuedTextLine",
-						FunctionArgs = { IsNone = { "ErisAboutWeaponGun01", }, },
-					},
-					{
-						FunctionName = "RequiredDistanceFromHero",
-						FunctionArgs = { MaxDistance = 400, },
+						FunctionArgs = { IsNone = { "ErisAboutWeaponGun01", "ErisAboutRelationship01" }, },
 					},
 				},
 				Cooldowns =
 				{
 					{ Name = "ErisSpokeRecently", Time = 6 },
 				},
-				{ Cue = "/VO/Eris_0079", Text = "Don't bother!" },
+				TriggerCooldowns = { "MelinoeShadeInteractVoiceLines" },
+
+				{ Cue = "/VO/Eris_0079", Text = "Don't bother!", PlayFirst = true },
+				{ Cue = "/VO/Eris_0446", Text = "Help yourself!" },
+				{ Cue = "/VO/Eris_0447", Text = "All yours." },
+				{ Cue = "/VO/Eris_0449", Text = "Just leave it." },
+				{ Cue = "/VO/Eris_0452", Text = "How'd {#Emph}that {#Prev}get there?" },
+				{ Cue = "/VO/Eris_0453", Text = "How many is that?" },
+				{ Cue = "/VO/Eris_0450", Text = "Leave it!",
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "SpeechRecord" },
+							HasAll = { "/VO/Eris_0449" },
+						},
+					},
+				},
+				{ Cue = "/VO/Eris_0448", Text = "Missed a spot!",
+					GameStateRequirements =
+					{
+						{
+							PathNotEmpty = { "GameState", "ActiveLitter" },
+						},
+					},
+				},
 			},
 		},
 
@@ -2943,6 +3587,7 @@ ResourceData =
 	Money =
 	{
 		IconPath = "GUI\\Icons\\Currency",
+		TradeIcon = "CurrencyIconTrade",
 		TooltipId = "Currency",
 		CostTextId = "Money_Short",
 		RunResource = true,
@@ -2964,7 +3609,6 @@ ResourceDisplayOrderData =
 	"MemPointsCommon",
 	"MetaCurrency",
 
-	"PlantMoney",
 	"SeedMystery",
 	"PlantFMoly",
 	"PlantFNightshadeSeed",
@@ -2979,7 +3623,6 @@ ResourceDisplayOrderData =
 	"GiftPointsRare",
 	"GiftPointsEpic",
 	"SuperGiftPoints",
-	"PlantGrowthAccelerant",
 
 	"MixerFBoss",
 
@@ -3000,10 +3643,6 @@ ResourceDisplayOrderData =
 	"FishGRare",
 	"FishGLegendary",
 	"MixerGBoss",
-
-	"FishBCommon",
-	"FishBRare",
-	"FishBLegendary",
 
 	"PlantHMyrtle",
 	"PlantHWheatSeed",
@@ -3041,6 +3680,15 @@ ResourceDisplayOrderData =
 	"FishILegendary",
 	"MixerIBoss",
 
+	"PlantQFang",
+	"PlantQSnakereedSeed",
+	"PlantQSnakereed",
+	"OreQScales",
+	"FishQCommon",
+	"FishQRare",
+	"FishQLegendary",
+	"MixerQBoss",
+
 	"OreChaosProtoplasm",
 	"PlantChaosThalamusSeed",
 	"PlantChaosThalamus",
@@ -3053,9 +3701,16 @@ ResourceDisplayOrderData =
 	"CardUpgradePoints",
 	"Mixer5Common",
 	"Mixer6Common",
+	"IcarusPoints",
+	"MedeaPoints",
 	"HypnosPoints",
+	"DeathAreaPoints",
 	"MixerShadow",
 	"WeaponPointsRare",
+	"GemPoints",
+
+	-- @ ending
+	"HadesSpearPoints",
 	"MixerMythic",
 
 	"MysteryResource",
@@ -3065,6 +3720,7 @@ ScreenData.InventoryScreen =
 {
 	Components = {},
 	BlockPause = true,
+	SkipQuestStatusCheck = true,
 
 	CategoryStartX = 162,
 	CategoryStartY = 149,
@@ -3080,31 +3736,63 @@ ScreenData.InventoryScreen =
 	GridSpacingY = 143,
 	GridWidth = 8,
 
-	PinStartX = 637,
+	PinStartX = 614,
 	PinStartY = 267,
 	PinSpacingY = 116,
 	PinResourcesOffsetX = 600,
 	PinResourcesOffsetY = 0,
-	PinIconOffsetX = -438,
+	PinIconOffsetX = -415,
 	PinIconOffsetY = 0,
 	PinIconScale = 0.7,
+	PinTraitIconScale = 0.55,
 	PinsPerPage = 6,
 	ScrollOffset = 0,
 	NumItems = 0,
 	PinButtons = {},
 
-	TabStarScale = 0.75,
-	TabStarOffsetY = -25,
+	NoResourceIconAlpha = 0.15,
+
+	SeedPinIconScale = 0.8,
+	SeedPinIconOffsetX = -40,
+	SeedPinIconOffsetY = -20,
+
+	TabStarScale = 0.48,
+	TabStarOffsetX = 28,
+	TabStarOffsetY = -22,
 
 	NewItemStarScale = 0.8,
-	NewItemStarOffsetX = -42,
+	NewItemStarOffsetX = 42,
 	NewItemStarOffsetY = -33,
 
 	LineHistorySpacingY = 250,
 	LineHistoryScrollbarSliderTopY = 280,
 	LineHistoryScrollbarSliderBottomY = 844,
 
+	NoRequirementsOffsetX = 224,
+
 	IconMouseOverScale = 1.33,
+
+	CloseAnimation = "InventoryScreenOutGrid",
+	TransitionAnimationMap =
+	{
+		InventoryScreenOutGrid =
+		{
+			InventoryScreenOutLog = "InventoryScreenTransitionGridToLog",
+			InventoryScreenOutBlank = "InventoryScreenTransitionGridToBlank",
+		},
+		InventoryScreenOutLog =
+		{
+			InventoryScreenOutGrid = "InventoryScreenTransitionLogToGrid",
+			InventoryScreenOutBlank = "InventoryScreenTransitionLogToBlank",
+		},
+		InventoryScreenOutBlank =
+		{
+			InventoryScreenOutLog = "InventoryScreenTransitionBlankToLog",
+			InventoryScreenOutGrid = "InventoryScreenTransitionBlankToGrid",
+		},
+	},
+	FadeOutTime = 0.10,
+	CloseDestroyWait = 0.35,
 	
 	GamepadNavigation =
 	{
@@ -3118,6 +3806,7 @@ ScreenData.InventoryScreen =
 	},
 
 	LineHistoryScrollSpeed = 600,
+	LineHistoryScrollTick = 100,
 	UpdateFunctionName = "InventoryScreenUpdate",
 
 	ItemCategories =
@@ -3125,6 +3814,8 @@ ScreenData.InventoryScreen =
 		{
 			Name = "InventoryScreen_ResourcesTab",
 			Icon = "GUI\\Screens\\Inventory\\Icon-Resources",
+			OpenAnimation = "InventoryScreenInGrid",
+			CloseAnimation = "InventoryScreenOutGrid",
 			GameStateRequirements =
 			{
 				-- None
@@ -3133,6 +3824,7 @@ ScreenData.InventoryScreen =
 			"MetaCardPointsCommon",
 			"MemPointsCommon",
 			"MetaFabric",
+			"GemPoints",
 
 			"OreFSilver",
 			"OreGLime",
@@ -3141,6 +3833,8 @@ ScreenData.InventoryScreen =
 			"OreNBronze",
 			"OreOIron",
 			"OrePAdamant",
+			"PlantQFang",
+			"OreQScales",
 			"OreChaosProtoplasm",
 
 			"MixerFBoss",
@@ -3149,10 +3843,10 @@ ScreenData.InventoryScreen =
 			"MixerIBoss",
 			"MixerNBoss",
 			"MixerPBoss",
+			"MixerQBoss",
 
 			"Mixer6Common",
 			"MixerShadow",
-			"MixerMythic",
 
 			"CardUpgradePoints",
 			"Mixer5Common",
@@ -3160,17 +3854,23 @@ ScreenData.InventoryScreen =
 
 			"TrashPoints",
 			"MysteryResource",
+
+			-- @ ending
+			"HadesSpearPoints",
+			"MixerMythic",
+			"DeathAreaPoints",
 		},
 		{
 			Name = "InventoryScreen_GardenTab",
 			Icon = "GUI\\Screens\\Inventory\\Icon-Reagents",
+			OpenAnimation = "InventoryScreenInGrid",
+			CloseAnimation = "InventoryScreenOutGrid",
 			GameStateRequirements =
 			{
 				{
 					Path = { "GameState", "LifetimeResourcesGained" },
 					HasAny =
 					{
-						"PlantMoney",
 						"PlantFNightshadeSeed",
 						"PlantGCattailSeed",
 						"PlantHWheatSeed",
@@ -3178,14 +3878,15 @@ ScreenData.InventoryScreen =
 						"PlantNGarlicSeed",
 						"PlantOMandrakeSeed",
 						"PlantPOliveSeed",
+						"PlantQSnakereedSeed",
 						"PlantChaosThalamusSeed",
-						"PlantGrowthAccelerant",
 						"PlantFMoly",
 						"SeedMystery",
 						"PlantGLotus",
 						"PlantNMoss",
 						"PlantODriftwood",
 						"PlantPIris",
+						"PlantQFang",
 						"PlantHMyrtle",
 						"PlantIShaderot",
 						"PlantFNightshade",
@@ -3195,15 +3896,15 @@ ScreenData.InventoryScreen =
 						"PlantNGarlic",
 						"PlantOMandrake",
 						"PlantPOlive",
+						"PlantQSnakereed",
 						"PlantChaosThalamus",
 					},
 				}
 			},
+			"SeedMystery",
 			"PlantFMoly",
 			"PlantFNightshadeSeed",
 			"PlantFNightshade",
-			"PlantMoney",
-			"SeedMystery",
 
 			"PlantGLotus",
 			"PlantGCattailSeed",
@@ -3225,19 +3926,23 @@ ScreenData.InventoryScreen =
 			"PlantOMandrakeSeed",
 			"PlantOMandrake",
 
+			"MixerOBoss",
+
 			"PlantPIris",
 			"PlantPOliveSeed",
 			"PlantPOlive",
 
+			"PlantQSnakereedSeed",
+			"PlantQSnakereed",
+
 			"PlantChaosThalamusSeed",
 			"PlantChaosThalamus",
-			"PlantGrowthAccelerant",
-
-			"MixerOBoss",
 		},
 		{
 			Name = "InventoryScreen_GiftsTab",
 			Icon = "GUI\\Screens\\Inventory\\Icon-Gifts",
+			OpenAnimation = "InventoryScreenInGrid",
+			CloseAnimation = "InventoryScreenOutGrid",
 			GameStateRequirements =
 			{
 				{
@@ -3251,17 +3956,22 @@ ScreenData.InventoryScreen =
 			"SuperGiftPoints",
 			"FamiliarPoints",
 			"CharonPoints",
+			"MedeaPoints",
+			"IcarusPoints",
 			"HypnosPoints",
 			"CosmeticsPoints",
 		},
 		{
 			Name = "InventoryScreen_FishTab",
 			Icon = "GUI\\Screens\\Inventory\\Icon-Fish",
+			OpenAnimation = "InventoryScreenInGrid",
+			CloseAnimation = "InventoryScreenOutGrid",
 			GameStateRequirements =
 			{
 				{
 					Path = { "GameState", "LifetimeResourcesGained" },
-					HasAny = { "FishFCommon", "FishFRare", "FishFLegendary", "FishGCommon", "FishGRare", "FishGLegendary", "FishHCommon", "FishHRare", "FishHLegendary", "FishICommon", "FishIRare", "FishILegendary", "FishNCommon", "FishNRare", "FishNLegendary", "FishOCommon", "FishORare", "FishOLegendary", "FishPCommon", "FishPRare", "FishPLegendary", "FishBCommon", "FishBRare", "FishBLegendary", "FishChaosCommon", "FishChaosRare", "FishChaosLegendary", },		}
+					HasAny = { "FishFCommon", "FishFRare", "FishFLegendary", "FishGCommon", "FishGRare", "FishGLegendary", "FishHCommon", "FishHRare", "FishHLegendary", "FishICommon", "FishIRare", "FishILegendary", "FishNCommon", "FishNRare", "FishNLegendary", "FishOCommon", "FishORare", "FishOLegendary", "FishPCommon", "FishPRare", "FishPLegendary", "FishQCommon", "FishQRare", "FishQLegendary", "FishChaosCommon", "FishChaosRare", "FishChaosLegendary", },	
+				},
 			},
 			"FishFCommon",
 			"FishFRare",
@@ -3284,9 +3994,9 @@ ScreenData.InventoryScreen =
 			"FishPCommon",
 			"FishPRare",
 			"FishPLegendary",
-			"FishBCommon",
-			"FishBRare",
-			"FishBLegendary",
+			"FishQCommon",
+			"FishQRare",
+			"FishQLegendary",
 			"FishChaosCommon",
 			"FishChaosRare",
 			"FishChaosLegendary",
@@ -3294,15 +4004,17 @@ ScreenData.InventoryScreen =
 		{
 			Name = "InventoryScreen_PinTab",
 			Icon = "GUI\\Screens\\Inventory\\Icon-ForgetMeNots",
+			OpenAnimation = "InventoryScreenInBlank",
+			CloseAnimation = "InventoryScreenOutBlank",
 			GameStateRequirements =
 			{
 				{
 					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradePinning", },
 				},
 			},
-			Background = "GUI\\Screens\\Inventory\\Backing_ForgetMeNots",
 			OpenFunctionName = "InventoryScreenDisplayPins",
 			CloseFunctionName = "InventoryScreenHidePins",
+			ShowPins = true,
 			GamepadNavigation =
 			{
 				ExclusiveInteractGroup = "Combat_Menu_Overlay",
@@ -3317,13 +4029,14 @@ ScreenData.InventoryScreen =
 		{
 			Name = "InventoryScreen_LineHistoryTab",
 			Icon = "GUI\\Screens\\Inventory\\Icon-Log",
+			OpenAnimation = "InventoryScreenInLog",
+			CloseAnimation = "InventoryScreenOutLog",
 			GameStateRequirements =
 			{
 				{
 					--PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradePinning", },
 				},
 			},
-			Background = "GUI\\Screens\\Inventory\\Backing_Log",
 			OpenFunctionName = "InventoryScreenDisplayLineHistory",
 			CloseFunctionName = "InventoryScreenHideLineHistory",
 			AlwaysShowScrollArrows = true,
@@ -3360,10 +4073,10 @@ ScreenData.InventoryScreen =
 	{
 		Font = "P22UndergroundSCMedium",
 		FontSize = 26,
-		Color = Color.CostAffordableShop,
+		Color = {85,202,152,255},
 		ShadowColor = {0, 0, 0, 128}, ShadowOffset = {0, 2}, ShadowBlur = 0,
 		OutlineThickness = 0, OutlineColor = {1, 1, 1, 1},
-		OffsetX = -350, OffsetY = 0,
+		OffsetX = -320, OffsetY = 0,
 		Justification = "Left",
 		FadeTarget = 1.0, FadeOpacity = 1.0,
 		DataProperties =
@@ -3376,12 +4089,58 @@ ScreenData.InventoryScreen =
 	{
 		Font = "P22UndergroundSCMedium",
 		FontSize = 26,
-		Color = Color.CostUnaffordable,
+		Color = Color.CostUnffordableShop,
 		ShadowColor = {0, 0, 0, 128}, ShadowOffset = {0, 2}, ShadowBlur = 0,
 		OutlineThickness = 0, OutlineColor = {1, 1, 1, 1},
-		OffsetX = -350, OffsetY = 0,
+		OffsetX = -320, OffsetY = 0,
 		Justification = "Left",
 		FadeTarget = 1.0, FadeOpacity = 1.0,
+		DataProperties =
+		{
+			OpacityWithOwner = true,
+		},
+	},
+
+	ListRequirementUnacquiredFormat =
+	{
+		Text = "BoonInfo_BulletPoint",
+		FontSize = 22,
+		OffsetX = 30,
+		Color = { 72, 68, 78, 255 },
+		Font = "P22UndergroundSCMedium",
+		ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 0},
+		Justification = "Left",
+		LuaKey = "TempTextData",
+		DataProperties =
+		{
+			OpacityWithOwner = true,
+		},
+	},
+
+	CountRequirementUnacquiredFormat =
+	{
+		Text = "BoonInfo_CountRequirement",
+		FontSize = 22,
+		OffsetX = 30,
+		Font = "P22UndergroundSCMedium",
+		Color = { 72, 68, 78, 255 },
+		ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 0},
+		Justification = "Left",
+		LuaKey = "TempTextData",
+		DataProperties =
+		{
+			OpacityWithOwner = true,
+		},
+	},
+
+	NoRequirementsFormat =
+	{
+		Text = "BoonInfo_NoRequirements",
+		FontSize = 24,
+		Color = { 62, 58, 68, 255 },
+		Font = "P22UndergroundSCMedium",
+		ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 0},
+		Justification = "Center",
 		DataProperties =
 		{
 			OpacityWithOwner = true,
@@ -3402,7 +4161,7 @@ ScreenData.InventoryScreen =
 		InventoryIconScale = 0.45,
 	},
 
-	FreeFormSelectOffsetX = -530,
+	FreeFormSelectOffsetX = -507,
 	FreeFormSelectOffsetY = 0,
 
 	ComponentData =
@@ -3420,6 +4179,7 @@ ScreenData.InventoryScreen =
 			"LineHistoryGradient",
 			"LineHistoryScrollbar",
 			"LineHistoryScrollbarSlider",
+			"BadgeRankIcon",
 		},
 
 		UseNativeScreenCenter = true,
@@ -3428,8 +4188,8 @@ ScreenData.InventoryScreen =
 		{
 			Graphic = "rectangle01",
 			Scale = 10,
-			X = ScreenCenterX,
-			Y = ScreenCenterY,
+			X = NativeScreenCenterX,
+			Y = NativeScreenCenterY,
 			Color = Color.Black,
 			Alpha = 0.0,
 			AlphaTarget = 0.75,
@@ -3438,9 +4198,9 @@ ScreenData.InventoryScreen =
 
 		Background = 
 		{
-			AnimationName = "GUI\\Screens\\Inventory\\Backing",
-			X = ScreenCenterX,
-			Y = ScreenCenterY,
+			AnimationName = "InventoryScreenInGrid",
+			X = NativeScreenCenterX,
+			Y = NativeScreenCenterY,
 			Children = 
 			{
 				CategoryTitleText = 
@@ -3472,7 +4232,7 @@ ScreenData.InventoryScreen =
 						ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
 						Justification = "Left",
 						VerticalJustification = "Top",
-						Width = 475,
+						Width = 476,
 						FadeOpacity = 0.0,
 						FadeTarget = 0.0,
 					}
@@ -3530,7 +4290,6 @@ ScreenData.InventoryScreen =
 						Color = Color.FlavorTextPurple,
 						Font = "LatoItalic",
 						ShadowBlur = 0, ShadowColor = {0, 0, 0, 1}, ShadowOffset = {0, 2},
-						Justification = "Left",
 						FadeOpacity = 0.0,
 						FadeTarget = 0.0,
 					}
@@ -3543,6 +4302,9 @@ ScreenData.InventoryScreen =
 					Scale = 0.5,
 					OffsetX = 100,
 					OffsetY = -435,
+					Alpha  = 0.0,
+					AlphaTarget = 1.0,
+					AlphaTargetDuration = 0.6,
 					Data =
 					{
 						OnMouseOverFunctionName = "InventoryScreenMoonPhaseButtonMouseOver",
@@ -3552,11 +4314,6 @@ ScreenData.InventoryScreen =
 					TextArgs =
 					{
 						Hide = true,
-					},
-					InteractProperties =
-					{
-						TooltipOffsetX = -300,
-						TooltipOffsetY = 50,
 					},
 				},
 
@@ -3568,6 +4325,16 @@ ScreenData.InventoryScreen =
 					AnimationName = "GUI\\Screens\\MoonPhases\\MoonPhase_Highlight",
 				},
 			},
+		},
+
+		BadgeRankIcon =
+		{
+			X = 1565,
+			Y = 70,
+			Alpha = 0.0,
+			AlphaTarget = 1.0,
+			AlphaTargetDuration = 0.6,
+			Scale = 0.67
 		},
 
 		EmptyCategoryHint =
@@ -3587,6 +4354,12 @@ ScreenData.InventoryScreen =
 				FadeOpacity = 0.0,
 				FadeTarget = 0.0,
 			}
+		},
+
+		RequirementsText =
+		{
+			X = 1330,
+			Y = 260,
 		},
 
 		LineHistory =
@@ -3623,8 +4396,8 @@ ScreenData.InventoryScreen =
 
 		LineHistoryScrollbar =
 		{
-			AnimationName = "PageScrollbar",
-			--GroupName = "Combat_Menu_Overlay",
+			Graphic = "DraggableScrollBar",
+			--AnimationName = "PageScrollbar",
 			X = 96,
 			Y = 556,
 			ScaleY = 1.2,
@@ -3634,7 +4407,6 @@ ScreenData.InventoryScreen =
 		LineHistoryScrollbarSlider =
 		{
 			AnimationName = "PageScrollbarSlider",
-			--GroupName = "Combat_Menu_Overlay",
 			X = 96,
 			Y = 560,
 			Alpha = 0.0,
@@ -3651,7 +4423,6 @@ ScreenData.InventoryScreen =
 			{
 				OnPressedFunctionName = "InventoryScreenScrollUp",
 				ControlHotkey = "MenuUp",
-				Sound = "/SFX/Menu Sounds/GeneralWhooshMENU",
 			},
 			InteractProperties =
 			{
@@ -3670,7 +4441,6 @@ ScreenData.InventoryScreen =
 			{
 				OnPressedFunctionName = "InventoryScreenScrollDown",
 				ControlHotkey = "MenuDown",
-				Sound = "/SFX/Menu Sounds/GeneralWhooshMENU",
 			},
 			InteractProperties =
 			{
@@ -3681,7 +4451,7 @@ ScreenData.InventoryScreen =
 		ActionBarBackground =
 		{
 			AnimationName = "GUI\\ActionBar",
-			X = ScreenCenterX,
+			X = NativeScreenCenterX,
 			BottomOffset = UIData.ActionBarBottomOffset,
 			UseScreenScaleX = true,
 		},
@@ -3718,6 +4488,13 @@ ScreenData.InventoryScreen =
 					},
 					Text = "Menu_PrevCategory",
 					TextArgs = UIData.ContextualButtonFormatRight,
+					Requirements =
+					{
+						{
+							PathFromSource = true,
+							PathFalse = { "Args", "CategoryLocked" },
+						},
+					},
 				},
 
 				ScrollRight = 
@@ -3733,6 +4510,13 @@ ScreenData.InventoryScreen =
 					},
 					Text = "Menu_NextCategory",
 					TextArgs = UIData.ContextualButtonFormatRight,
+					Requirements =
+					{
+						{
+							PathFromSource = true,
+							PathFalse = { "Args", "CategoryLocked" },
+						},
+					},
 				},
 
 				SelectButton =
@@ -3744,6 +4528,13 @@ ScreenData.InventoryScreen =
 						-- Dummy button
 					},
 					TextArgs = UIData.ContextualButtonFormatRight,
+					Requirements =
+					{
+						{
+							PathFromSource = true,
+							PathTrue = { "Args", "CategoryLocked" },
+						},
+					},
 				},
 
 				PinButton = 
@@ -3754,7 +4545,7 @@ ScreenData.InventoryScreen =
 					Data =
 					{
 						-- Hotkey only
-						OnPressedFunctionName = "InvenotryScreenRemovePin",
+						OnPressedFunctionName = "InventoryScreenRemovePin",
 						ControlHotkeys = { "ItemPin", },
 					},
 					Text = "InventoryScreen_RemovePin",

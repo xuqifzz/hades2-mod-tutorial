@@ -3,13 +3,14 @@ OverwriteTableKeys( TraitData, {
 	BaseCurse = 
 	{
 		IsCurse = true,
+		DebugOnly = true,
 	},
 	HealingOnDeathCurse = 
 	{
 		InheritFrom = {"BaseCurse"},
 		Icon = "Boon_Medea_03",
 		DropOnKill = {
-			Chance = { BaseValue = 0.05 },
+			Chance = { BaseValue = 0.2 },
 			DropCap = 1,
 			Name = "HealDropMinor",
 			ReportValues = 
@@ -18,12 +19,21 @@ OverwriteTableKeys( TraitData, {
 				ReportedCap = "DropCap",
 			},
 		},
+		StatLines = {},
+		CustomStatLinesWithShrineUpgrade = 
+		{
+			ShrineUpgradeName = "HealingReductionShrineUpgrade",
+			StatLines = 
+			{
+				"HealingReductionNotice",
+			},
+		},
 		ExtractValues =
 		{
 			{
 				Key = "ReportedDropRate",
 				ExtractAs = "TooltipDropChance",
-				Format = "Percent"
+				Format = "LuckModifiedPercent"
 			},
 			{
 				Key = "ReportedCap",
@@ -35,6 +45,7 @@ OverwriteTableKeys( TraitData, {
 				BaseType = "ConsumableData",
 				BaseName = "HealDropMinor",
 				BaseProperty = "HealFixed",
+				Format = "FlatHeal",
 				ExtractAs = "Heal",
 				SkipAutoExtract = true,
 			}
@@ -47,7 +58,7 @@ OverwriteTableKeys( TraitData, {
 		DropOnKill = {
 			Chance = { BaseValue = 0.10 },
 			DropCap = 2,
-			Name = "RoomMoneyTinyDrop",
+			Name = "MedeaMoneyTinyDrop",
 			ReportValues = 
 			{ 
 				ReportedDropRate = "Chance",
@@ -59,7 +70,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedDropRate",
 				ExtractAs = "TooltipDropChance",
-				Format = "Percent"
+				Format = "LuckModifiedPercent"
 			},
 			{
 				Key = "ReportedDropCount",
@@ -69,7 +80,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				External = true,
 				BaseType = "ConsumableData",
-				BaseName = "RoomMoneyTinyDrop",
+				BaseName = "MedeaMoneyTinyDrop",
 				BaseProperty = "DropMoney",
 				ExtractAs = "Money",
 				SkipAutoExtract = true,
@@ -111,11 +122,12 @@ OverwriteTableKeys( TraitData, {
 			Args = 
 			{
 				Vfx = "ThanatosDeathsHead_Small",
+				SkipOnDamagedPowers = true,
 				DamageArgs =
 				{
 					-- Rolls chances from top down
 					{
-						Chance = 0.005,
+						Chance = 0.04,
 						MinDamage = 999,
 						MaxDamage = 999,
 						ReportValues = 
@@ -124,7 +136,7 @@ OverwriteTableKeys( TraitData, {
 						}
 					},
 					{
-						Chance = 0.01,
+						Chance = 0.08,
 						MinDamage = 100,
 						MaxDamage = 998,
 					},
@@ -196,15 +208,6 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = {"BaseCurse"},
 		Icon = "Boon_Medea_02",
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "Hero", "LastStands", },
-				UseLength = true,
-				Comparison = ">",
-				Value = 0,
-			},
-		},
 		OnLastStandFunction = 
 		{
 			Name = "CurseRetaliate",
@@ -241,4 +244,45 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+	NewStatusDamage = 
+	{
+		InheritFrom = { "BaseCurse"},
+		Icon = "Boon_Medea_08",
+		ShowInHUD = true,
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "MedeaAboutConcoctionQuestComplete01" },
+			},
+		},
+
+		OnEffectApplyFunction = 
+		{
+			FunctionName = "CheckNewStatusDamage",
+			FunctionArgs = 
+			{
+				ProjectileName = "MedeaStatusStrike",
+				Cooldown = 1,
+				ReportValues = { ReportedInterval = "Cooldown" }
+			},
+		},
+		
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedInterval",
+				ExtractAs = "Interval",
+				SkipAutoExtract = true,
+			},
+			{
+				ExtractAs = "Damage",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "MedeaStatusStrike",
+				BaseProperty = "Damage",
+			},
+		},
+		FlavorText = "NewStatusDamage_FlavorText",
+	}
 })

@@ -49,12 +49,219 @@ OnKeyPressed{ "ControlAlt V", Name = "ToggleVfx",
 OnKeyPressed{ "Alt H", Name = "TestCombatText",
 	function( triggerArgs )
 		thread( InCombatText, CurrentRun.Hero.ObjectId, "Hint_ExtraChance", 0.9, { ShadowScaleX = 1.5 } )
-		-- thread( DisplayInfoBanner, nil, {
-		-- 	SupertitleText = "Store_CosmeticUnlocked_Supertitle",
-		-- 	TitleText = "Store_CosmeticUnlocked_Title",
-		-- 	SubtitleText = "Store_CosmeticUnlocked_Subtitle",
-		-- 	SubtitleData = { LuaKey = "TempTextData", LuaValue = { Name = "Cosmetic_TentMoodcrystal01" }}
-		-- })
+	end
+}
+
+local languages = {
+	"de",
+	"el",
+	"es",
+	"fr",
+	"it",
+	"ja",
+	"ko",
+	"pt-BR",
+	"pl",
+	"ru",
+	"tr",
+	"uk",
+	"zh-CN",
+	"zh-TW",
+}
+
+OnKeyPressed{ "Alt L", Name = "TestAllLanguages", Safe = true,
+	function( triggerArgs )
+		thread(function( args )
+			local startLang = GetLanguage({})
+
+			for langIndex, lang in ipairs(languages) do
+				DebugPrint({ Text="Testing Language: "..lang })
+				SetLanguage(lang)
+				wait(0.75)
+			end
+
+			SetLanguage(startLang)
+		end)
+	end
+}
+
+OnKeyPressed{ "Control L", Name = "LocTestDialogLineBreak",
+	function( triggerArgs )
+		thread(function( args )
+			local startLang = GetLanguage({})
+			local testCases = {
+				["el"] = {
+					"MelinoeField_0312",	
+					"Polyphemus_0008",	-- {#Emph}«Δε
+				},
+				["en"] = {
+					"Scylla_0036",
+				},
+				["fr"] = {
+					"Scylla_0002",
+					"Eris_0251",		-- {#Emph} « + space near end of line
+					"Hecate_0627",
+				},
+				["ja"] = {
+					"Hestia_0069",		-- Hard-coded '2' in line assert
+					"Arachne_0112",		-- Arachne, lots of ellipses
+				},
+				["ko"] = {
+					"Arachne_0112",		-- Arachne, lots of ellipses
+				},
+				["ru"] = {
+					"ErisField_0154",	-- Em-dash
+				},
+				["zh-CN"] = { 
+					"Arachne_0046",		-- {#Emph} + quote
+					"Arachne_0112",		-- Arachne, lots of ellipses
+					"Dora_0054",		-- Dora angle brackets (though they were removed)
+				},
+				["zh-TW"] = {
+					"Arachne_0112",		-- Arachne, lots of ellipses
+				},
+			}
+
+			if ActiveScreens ~= nil and not IsScreenOpen( "Dialog" ) then
+				DebugAssert({ Condition=false, Owner="Dexter", Text="Please open an NPC dialog before running the line break tests. You may dimiss this assert." })
+				return
+			end
+
+			DebugPrint({ Text="Beginning Line Break Tests!" })
+			DebugPrint({ Text="---------------------------------" })
+
+			for langIndex, lang in ipairs(languages) do
+				local langTestCases = testCases[lang]
+				if langTestCases ~= nil then
+					SetLanguage(lang)
+					DebugPrint({ Text="Testing Language: "..lang })
+					DebugPrint({ Text=" " })
+					wait(0.75)
+					for caseIndex, case in ipairs(langTestCases) do
+						local textId = case
+						DebugPrint({ Text="CASE: "..case })
+						if ActiveScreens ~= nil and IsScreenOpen( "Dialog" ) then
+							local screen = ActiveScreens["Dialog"]
+							if screen.BackgroundId ~= nil then
+								ModifyTextBox({ 
+									Id = screen.BackgroundId, 
+									Text = case,
+									UseLastHelpTextIdOrDefaultText = true,
+									UseDefaultFont = true,
+									UseDefaultScale = true,
+									ReReadTextImmediately = true,
+								})
+
+								-- If desired, can test in LineHistory view as well
+								-- table.insert(CurrentRun.LineHistory, {
+								-- 	SpeakerName = "TestLineBreak",
+								-- 	Text = case,
+								-- 	SubtitleColor = Color.NarratorVoice
+								-- })
+							end
+						end
+						wait(1.5)
+					end
+				end
+			end
+			
+			DebugPrint({ Text="---------------------------------" })
+			DebugPrint({ Text="Line Break Tests Complete!" })
+			DebugPrint({ Text="---------------------------------" })
+			SetLanguage(startLang)
+
+		end)
+	end
+}
+
+OnKeyPressed{ "ControlAlt L", Name = "Loc Gauntlet", --Safe = true,
+	function( triggerArgs )
+		thread(function( args )
+			local startLang = GetLanguage({})
+
+			if ActiveScreens ~= nil and not IsScreenOpen( "Dialog" ) and TextLinesCache ~= nil then
+				DebugAssert({ Condition=false, Owner="Dexter", Text="Please open an NPC dialog before running the Loc Gauntlet. You may dimiss this assert." })
+				return
+			end
+
+			DebugPrint({ Text="Beginning Loc Gauntlet for: "..startLang.."!" })
+			DebugPrint({ Text="---------------------------------" })
+
+			-- for langIndex, lang in ipairs(languages) do
+				-- DebugPrint({ Text="Testing Language: "..lang })
+				-- if lang ~= "en" then
+				-- SetLanguage(lang)
+				wait(0.05)
+
+				local waitTime = 2 * 16.67 / 1000 -- wait 2 frames
+				local ordered = CollapseTableOrdered(TextLinesCache)
+				local total = TableLength(ordered)
+				local linesTested = 0
+				for caseIndex, case in ipairs(ordered) do
+					if case ~= nil and case[1] ~= nil then
+
+						for lineIndex, line in ipairs(case) do
+							local helpTextId = nil
+							local text = nil
+							local rawText = line.Text
+							if line.Cue ~= nil then
+								if line.Cue ~= "/EmptyCue" then
+									helpTextId = string.sub( line.Cue, 5 )
+								end
+								rawText = nil
+								text = helpTextId
+								if not HasDisplayName({ Text = helpTextId }) then
+									rawText = line.Text
+									text = nil
+								end
+							elseif line.IgnoreRawText then
+								rawText = nil
+								text = line.Text
+							end
+
+							if text ~= nil then
+								local screen = ActiveScreens["Dialog"]
+								if screen.BackgroundId ~= nil then
+									ModifyTextBox({ 
+										Id = screen.BackgroundId, 
+										Text = text,
+										UseLastHelpTextIdOrDefaultText = true,
+										UseDefaultFont = true,
+										UseDefaultScale = true,
+										ReReadTextImmediately = true,
+									})
+									linesTested = linesTested + 1
+								end
+								wait(waitTime)
+							end
+						end
+					end
+
+					if caseIndex % 250 == 0 then
+						DebugPrint({ Text="Tested: "..tostring(linesTested).." lines from "..tostring(caseIndex).." of "..tostring(total).." events" })
+					end
+				end
+				DebugPrint({ Text="Done! : "..tostring(linesTested).." lines from "..tostring(caseIndex).." of "..tostring(total).." events" })
+			-- end
+
+			SetLanguage(startLang)
+		end)
+	end
+}
+
+OnKeyPressed{ "ControlAlt O", Name = "TyphonIncursion",
+	function( triggerArgs )
+		thread( TyphonIncursion, CurrentRun.CurrentRoom.Encounter,
+		{
+			DelayMin = 2.0, DelayMax = 9.0,
+			CameraMotion = true,
+			IncursionOptions =
+			{
+				TyphonIncursionTailImpale = { SpawnGroup = "TyphonTailIncursion" },
+				TyphonIncursionArmSlam = { SpawnGroup = "TyphonArmIncursion" },
+				TyphonIncursionArmFlick = { SpawnGroup = "TyphonArmIncursion" },
+			},
+		} )
 	end
 }
 
@@ -112,7 +319,7 @@ function ToggleConfigOption( name )
 		newValue = true
 	end
 	SetConfigOption({ Name = name, Value = newValue })
-	DebugPrint({ Text = name.." = "..tostring(newValue) })
+	DebugPrint({ Text = name.." = "..tostring(newValue), Priority = true })
 	return newValue
 end
 
@@ -153,6 +360,7 @@ end
 
 function AutoPlayOff()
 	SetConfigOption({ Name = "FastForward", Value = false })
+	SetConfigOption({ Name = "UseAutoPlaySaveQueue", Value = false })
 	SetConfigOption({ Name = "RequireFocusToUpdate", Value = true })
 	SetConfigOption({ Name = "DamageMultiplier", Value = 1.0 })
 	SetConfigOption({ Name = "DamageTakenMultiplier", Value = 1.0 })
@@ -308,9 +516,10 @@ OnKeyPressed{ "Shift C", Name = "Spawn Consumable",
 	end
 }
 
-OnKeyPressed{ "Alt R", Name = "Add Rerolls", Safe = true,
+OnKeyPressed{ "Alt R", Name = "Add Rerolls & TalentPoints", Safe = true,
 	function(triggerArgs)
 		AddRerolls( nil, { Amount = 99 } )
+		CurrentRun.NumTalentPoints = CurrentRun.NumTalentPoints + 9
 	end
 }
 
@@ -333,6 +542,40 @@ OnKeyPressed{ "ControlAltShift C", Name = "Fully Unlock GhostAdmin",
 		for cosmeticName, cosmeticData in pairs( WorldUpgradeData ) do
 			cosmeticData.GameStateRequirements = nil
 		end
+		CurrentRun.ViewableWorldUpgrades = {}
+		CurrentRun.AllowedRevealsThisRun = 9999
+		CurrentRun.ScreenViewRecord.WorldUpgradeScreen_Critical = 0
+		CurrentRun.ScreenViewRecord.WorldUpgradeScreen_Repeatable = 0
+		CurrentRun.ScreenViewRecord.CosmeticsShop_Tent = 0
+		CurrentRun.ScreenViewRecord.CosmeticsShop_Main = 0
+		CurrentRun.ScreenViewRecord.CosmeticsShop_Taverna = 0
+		CurrentRun.ScreenViewRecord.CosmeticsShop_PreRun = 0
+	end
+}
+
+OnKeyPressed{ "ControlShift G", Name = "Dump WorldUpgrade Costs",
+	function(triggerArgs)
+		local costs = {}
+		for cosmeticName, cosmeticData in pairs( WorldUpgradeData ) do
+			if cosmeticData.Cost ~= nil then
+				for resource, amount in pairs( cosmeticData.Cost ) do
+					costs[resource] = (costs[resource] or 0) + amount
+				end
+			end
+		end
+		for weaponName, weaponData in pairs( WeaponShopItemData ) do
+			if weaponData.Cost ~= nil then
+				for resource, amount in pairs( weaponData.Cost ) do
+					costs[resource] = (costs[resource] or 0) + amount
+				end
+			end
+		end
+		local costString = ""
+		for resource, total in pairs( costs ) do
+			costString = costString.."\n"..resource..": "..total
+		end
+		costString = costString.."\n"
+		DebugPrint({ Text = "WORLDUPGRADE COST DUMP: "..costString })
 	end
 }
 
@@ -340,6 +583,15 @@ OnKeyPressed{ "ControlAltShift L", Name = "Unlock Surface",
 	function(triggerArgs)
 		AddWorldUpgrade("WorldUpgradeAltRunDoor")
 		AddWorldUpgrade("WorldUpgradeSurfacePenaltyCure")
+	end
+}
+
+OnKeyPressed{ "ControlAlt B", Name = "Add Badge Rank",
+	function(triggerArgs)
+		if (GameState.BadgeRank or 0) < #BadgeOrderData then
+			GameState.BadgeRank = (GameState.BadgeRank or 0) + 1
+		end
+		DebugPrint({ Text = "GameState.BadgeRank = "..GameState.BadgeRank, Priority = true })
 	end
 }
 
@@ -566,16 +818,6 @@ function CreateDebugEnemySpawnPage( screen, page )
 
 end
 
-function DebugBiomeSpawnButton( screen, button )
-	PlaySound({ Name = "/SFX/Menu Sounds/VictoryScreenBoonToggle", Id = button.Id })
-	Flash({ Id = button.Id, Speed = 2, MinFraction = 0, MaxFraction = 0.8, Color = Color.Black, Duration = 0.1 })
-	for enemyIndex, enemyName in ipairs( EnemySets[button.BiomeName] ) do
-		if not string.match( enemyName, "_Elite" ) then
-			thread( DebugSpawnEnemy, screen, { Name = enemyName, Active = true } )
-		end
-	end
-end
-
 function DebugEnemySpawnButton( screen, button )
 	thread( DebugSpawnEnemy, screen, { Name = button.EnemyName, Active = true } )
 	PlaySound({ Name = "/SFX/Menu Sounds/VictoryScreenBoonToggle", Id = button.Id })
@@ -614,7 +856,7 @@ OnKeyPressed{ "Alt B", Name = "Set Summon Trait Enemy",
 	function(triggerArgs)
 		AddTraitToHero( { FromLoot = true, TraitData = GetProcessedTraitData( { Unit = CurrentRun.Hero, TraitName = "SpellSummonTrait", Rarity = "Rare" } ) } )
 		ChargeSpell( -1000, {Force = true} )
-		thread( UpdateHealthUI, triggerArgs )
+		FrameState.RequestUpdateHealthUI = true
 		thread( UpdateManaMeterUI, triggerArgs )
 		PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteExcitement" })
 		CurrentRun.CurrentRoom.SummonEnemyName = "Mage2"
@@ -636,13 +878,28 @@ OnKeyPressed{ "Alt K", Name = "Clear Encounter",
 	end
 }
 
+OnKeyPressed{ "ControlAltShift K", Name = "Max Cheat Damage Multiplier",
+	function(triggerArgs)
+		SetConfigOption({ Name = "DamageMultiplier", Value = 100.0 })
+		UpdateConfigOptionCache()
+	end
+}
+
+OnKeyPressed{ "ControlAltShift J", Name = "Reset Cheat Damage Multiplier",
+	function(triggerArgs)
+		SetConfigOption({ Name = "DamageMultiplier", Value = 1.0 })
+		UpdateConfigOptionCache()
+	end
+}
+
 OnKeyPressed{ "Control M", Name = "Add Resources", Safe = true,
 	function( triggerArgs )
 		if HasThread( "ResourceCheat" ) then
 			return
 		end
-		for k, resourceName in ipairs( ResourceDisplayOrderData ) do
-			AddResource( resourceName, 999, "Debug" )
+		-- skipping MysteryResource, the last item in ResourceDisplayOrderData
+		for i = 1, (#ResourceDisplayOrderData - 1) do
+			AddResource( ResourceDisplayOrderData[i], 99999, "Debug" )
 			wait( 0.01, "ResourceCheat" )
 		end
 		PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteExcitement" })
@@ -657,7 +914,7 @@ OnKeyPressed{ "Alt U", Name = "Boost Life and Mana",
 		CurrentRun.Hero.Mana = CurrentRun.Hero.Mana + 100
 		
 		ChargeSpell( -1000, {Force = true} )
-		thread( UpdateHealthUI, triggerArgs )
+		FrameState.RequestUpdateHealthUI = true
 		thread( UpdateManaMeterUI, triggerArgs )
 		PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteExcitement" })
 	end
@@ -669,6 +926,12 @@ OnKeyPressed{ "ControlAlt T", Name = "DebugConversations", Safe = true,
 	end
 }
 
+OnKeyPressed{ "ControlShift M", Name = "Activate Extreme Measures",
+	function(triggerArgs)
+		GameState.ShrineUpgrades.BossDifficultyShrineUpgrade = 4
+	end
+}
+
 function OpenDebugConversationScreen()
 
 	local screen = DeepCopyTable( ScreenData.DebugConversations )
@@ -677,6 +940,7 @@ function OpenDebugConversationScreen()
 		return
 	end
 
+	SessionState.BlockSpawns = true
 	RemoveInputBlock({ All = true })
 
 	OnScreenOpened( screen )
@@ -702,6 +966,9 @@ function OpenDebugConversationScreen()
 		for k, unitName in ipairs( NarrativeData.ConversationOrder ) do
 			local textColor = Color.White
 			local source = EnemyData[unitName]
+			if source == nil then
+				DebugAssert({ Condition = false, Text = "unitName "..unitName.." does not exist" })
+			end
 			for enemyId, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 				if enemy.Name == unitName then
 					source = enemy
@@ -729,9 +996,10 @@ function OpenDebugConversationScreen()
 			end
 		end
 	else
-		for objectId, object in pairs( MapState.RoomRequiredObjects ) do
-			if not IsEmpty( object.InteractTextLineSets ) then
-				local textColor = Color.White
+		local allSources = MergeTables( MapState.RoomRequiredObjects, ActiveEnemies )
+		for objectId, object in pairs( allSources ) do
+			if not IsEmpty( object.BossIntroTextLineSets ) or not IsEmpty( object.InteractTextLineSets ) then
+				local textColor = Color.Yellow
 				local button = CreateScreenComponent({ Name = "ButtonGhostAdminTab", Group = screen.ComponentData.DefaultGroup,
 					X = buttonLocationX + (screen.SpacingX * (count % screen.ColumnsPerRow)), Y = buttonLocationY + (screen.SpacingY * math.floor(count / screen.ColumnsPerRow)),
 					Scale = 1.0, ScaleY = screen.ButtonScaleY, Sound = "/SFX/Menu Sounds/GeneralWhooshMENU" })
@@ -740,26 +1008,6 @@ function OpenDebugConversationScreen()
 				button.Source = object
 				CreateTextBox({ Id = button.Id,
 					Text = object.Name,
-					FontSize = 20,
-					Color = textColor,
-					Font = "LatoMedium",
-					ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
-					Justification = "Center"
-				})
-				count = count + 1
-			end
-		end
-		for enemyId, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
-			if not IsEmpty( enemy.BossIntroTextLineSets ) then
-				local textColor = Color.Yellow
-				local button = CreateScreenComponent({ Name = "ButtonGhostAdminTab", Group = screen.ComponentData.DefaultGroup,
-					X = buttonLocationX + (screen.SpacingX * (count % screen.ColumnsPerRow)), Y = buttonLocationY + (screen.SpacingY * math.floor(count / screen.ColumnsPerRow)),
-					Scale = 1.0, ScaleY = screen.ButtonScaleY, Sound = "/SFX/Menu Sounds/GeneralWhooshMENU", })
-				screen.Components["Spawn"..enemy.Name] = button
-				button.OnPressedFunctionName = "DebugConversationsEnemyButton"
-				button.Source = enemy
-				CreateTextBox({ Id = button.Id,
-					Text = enemy.Name,
 					FontSize = 20,
 					Color = textColor,
 					Font = "LatoMedium",
@@ -787,8 +1035,12 @@ function DebugConversationsEnemyButton( screen, button )
 	local count = 0
 	if screen.ContentListButtons ~= nil then
 	end
-	Destroy({ Ids = GetAllKeys( screen.ContentListButtons ) })
+	local toggleButtonIds = GetAllKeys( screen.ContentListButtons )
+	DestroyTextBox({ Ids = toggleButtonIds })
+	Destroy({ Ids = toggleButtonIds })
 	screen.ContentListButtons = {}
+	screen.ColumnOffset = 0
+	screen.NumColumns = 1
 
 	local textLineSet = enemyData.InteractTextLineSets or enemyData.BossIntroTextLineSets
 	local textLineSetPriorities = GetNarrativeDataValue( enemyData, enemyData.InteractTextLinePriorities or "InteractTextLinePriorities" ) or GetNarrativeDataValue( enemyData, "BossIntroTextLinePriorities" )
@@ -808,6 +1060,7 @@ function DebugConversationsEnemyButton( screen, button )
 					if screen.ButtonLocationY > screen.ListMaxY then
 						screen.ButtonLocationX = screen.ButtonLocationX + screen.ListSpacingX
 						screen.ButtonLocationY = screen.ListStartY
+						screen.NumColumns = screen.NumColumns + 1
 					end
 					count = count + 1
 				end
@@ -821,6 +1074,7 @@ function DebugConversationsEnemyButton( screen, button )
 				if screen.ButtonLocationY > screen.ListMaxY then
 					screen.ButtonLocationX = screen.ButtonLocationX + screen.ListSpacingX
 					screen.ButtonLocationY = screen.ListStartY
+					screen.NumColumns = screen.NumColumns + 1
 				end
 				count = count + 1
 			end
@@ -849,6 +1103,7 @@ function DebugConversationsEnemyButton( screen, button )
 		if screen.ButtonLocationY > screen.ListMaxY then
 			screen.ButtonLocationX = screen.ButtonLocationX + screen.ListSpacingX
 			screen.ButtonLocationY = screen.ListStartY
+			screen.NumColumns = screen.NumColumns + 1
 		end
 		count = count + 1
 	end
@@ -862,7 +1117,7 @@ function DebugConversationsEnemyButton( screen, button )
 
 	screen.ButtonLocationX = screen.ButtonLocationX + screen.ListSpacingX
 	screen.ButtonLocationY = screen.ListStartY
-	count = 0
+	screen.NumColumns = screen.NumColumns + 1
 
 	if textLineSetPriorities ~= nil then
 		for k, priority in ipairs( textLineSetPriorities ) do
@@ -873,6 +1128,11 @@ function DebugConversationsEnemyButton( screen, button )
 					allConversationKeys[textLinesData.Name] = true
 					SetupDebugConversationsTextLinesButton( screen, button, textLinesData, count, { OffsetX = screen.OffsetXBucket } )
 					screen.ButtonLocationY = screen.ButtonLocationY + screen.ListSpacingYBucket
+					if screen.ButtonLocationY > screen.ListMaxY then
+						screen.ButtonLocationX = screen.ButtonLocationX + screen.ListSpacingX
+						screen.ButtonLocationY = screen.ListStartY
+						screen.NumColumns = screen.NumColumns + 1
+					end
 					count = count + 1
 				end
 			else
@@ -880,7 +1140,12 @@ function DebugConversationsEnemyButton( screen, button )
 				local textLinesData = textLineSet[priority]
 				allConversationKeys[textLinesData.Name] = true
 				SetupDebugConversationsTextLinesButton( screen, button, textLinesData, count )
-				screen.ButtonLocationY = screen.ButtonLocationY + screen.ListSpacingY
+				screen.ButtonLocationY = screen.ButtonLocationY + screen.ListSpacingYBucket
+				if screen.ButtonLocationY > screen.ListMaxY then
+					screen.ButtonLocationX = screen.ButtonLocationX + screen.ListSpacingX
+					screen.ButtonLocationY = screen.ListStartY
+					screen.NumColumns = screen.NumColumns + 1
+				end
 				count = count + 1
 			end
 		end
@@ -910,7 +1175,12 @@ function DebugConversationsEnemyButton( screen, button )
 		local textLinesData = textLineSet[textLinesName]
 		allConversationKeys[textLinesData.Name] = true
 		SetupDebugConversationsTextLinesButton( screen, button, textLinesData, count )
-		screen.ButtonLocationY = screen.ButtonLocationY + screen.ListSpacingY
+		screen.ButtonLocationY = screen.ButtonLocationY + screen.ListSpacingYBucket
+		if screen.ButtonLocationY > screen.ListMaxY then
+			screen.ButtonLocationX = screen.ButtonLocationX + screen.ListSpacingX
+			screen.ButtonLocationY = screen.ListStartY
+			screen.NumColumns = screen.NumColumns + 1
+		end
 		count = count + 1
 	end
 
@@ -923,7 +1193,12 @@ function DebugConversationsEnemyButton( screen, button )
 		local textLinesData = textLineSet[textLinesName]
 		allConversationKeys[textLinesData.Name] = true
 		SetupDebugConversationsTextLinesButton( screen, button, textLinesData, count )
-		screen.ButtonLocationY = screen.ButtonLocationY + screen.ListSpacingY
+		screen.ButtonLocationY = screen.ButtonLocationY + screen.ListSpacingYBucket
+		if screen.ButtonLocationY > screen.ListMaxY then
+			screen.ButtonLocationX = screen.ButtonLocationX + screen.ListSpacingX
+			screen.ButtonLocationY = screen.ListStartY
+			screen.NumColumns = screen.NumColumns + 1
+		end
 		count = count + 1
 	end
 
@@ -939,6 +1214,8 @@ function DebugConversationsEnemyButton( screen, button )
 			end
 		end
 	end
+
+	DebugConversationsUpdateVisibility( screen, button )
 	
 end
 
@@ -947,12 +1224,15 @@ function SetupDebugConversationsTextLinesButton( screen, unitButton, textLinesDa
 	if textLinesData.Partner ~= nil and textLinesData[1] == nil then
 		-- Actual data is on Partner
 		local partnerData = EnemyData[textLinesData.Partner]
+		if textLinesData.PartnerVariant ~= nil then
+			partnerData = NPCVariantData[textLinesData.PartnerVariant]
+		end
 		textLinesData = partnerData.InteractTextLineSets[textLinesData.Name]
 		--DebugPrint({ Text = "PartnerData = ".. textLinesData.Name })
 	end
 
 	args = args or {}
-	local button = CreateScreenComponent({ Name = "ToggleButton", X = screen.ButtonLocationX + (args.OffsetX or 0), Y = screen.ButtonLocationY,
+	local button = CreateScreenComponent({ Name = "ToggleButton", X = screen.ButtonLocationX, Y = screen.ButtonLocationY,
 			Scale = 0.5, Sound = "/SFX/Menu Sounds/GeneralWhooshMENU", Group = screen.ComponentData.DefaultGroup })
 	screen.ContentListButtons[button.Id] = button
 	screen.Components["TextLines"..textLinesData.Name] = button
@@ -960,15 +1240,15 @@ function SetupDebugConversationsTextLinesButton( screen, unitButton, textLinesDa
 	button.OnPressedFunctionName = "DebugConversationsTextLinesButton"
 	button.OnMouseOverFunctionName = "DebugConversationMouseOver"
 	button.OnMouseOffFunctionName = "DebugConversationMouseOff"
-	if screen.ButtonLocationX > 1400 then
-		button.MouseOverJustification = "Right"
-		button.MouseOverOffseX = 120
-		button.MouseOverOffseY = -30
-	end
+	button.LocationX = screen.ButtonLocationX
+	button.LocationY = screen.ButtonLocationY
+	button.ColumnNum = screen.NumColumns
 	AttachLua({ Id = button.Id, Table = button })
 	button.TextLinesName = textLinesData.Name
 	button.Source = unitButton.Source
+	local color = Color.Red
 	if GameState.TextLinesRecord[button.TextLinesName] then
+		color = Color.Cyan
 		SetAnimation({ DestinationId = button.Id, Name = "GUI\\Shell\\settings_toggle_on" })
 		local lastRunOccured = GetLastRunTextLinesOccured( textLinesData.Name )
 		local color = Color.White
@@ -989,12 +1269,19 @@ function SetupDebugConversationsTextLinesButton( screen, unitButton, textLinesDa
 		SetAnimation({ DestinationId = button.Id, Name = "GUI\\Shell\\settings_toggle_off" })
 	end
 
-	local color = Color.Red
-	local args = { IgnoreDebugFilter = true }
-	if IsTextLineEligible( CurrentRun, button.Source, textLinesData, nil, nil, args ) then
+	if textLinesData.GameStateRequirements ~= nil then
+		DebugTestAllRequirements( textLinesData, textLinesData.GameStateRequirements )
+	end
+
+	local requirementsArgs = {}
+	if IsTextLineEligible( CurrentRun, button.Source, textLinesData, nil, nil, requirementsArgs ) then
 		color = Color.LimeGreen
 	else
-		button.FirstFailedRequirement = args.FirstFailedRequirement
+		button.FirstFailedRequirement = requirementsArgs.FirstFailedRequirement
+	end
+	--local filter = GetConfigOptionValue({ Name = "ScriptDebugFilter" })
+	if textLinesData.DebugHighlight then --or string.find( button.TextLinesName, filter ) then
+		color = Color.DeepPink
 	end
 
 	local typeIds = GetIdsByType({ Name = button.Source.Name })
@@ -1008,7 +1295,7 @@ function SetupDebugConversationsTextLinesButton( screen, unitButton, textLinesDa
 
 	CreateTextBox({ Id = button.Id,
 		Text = textLinesData.Name,
-		FontSize = 20,
+		FontSize = 19,
 		Color = color,
 		Font = "LatoMedium",
 		ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
@@ -1025,6 +1312,7 @@ function DebugConversationsTextLinesButton( screen, button )
 		local textLinesData = nil
 		if source.BossIntroTextLineSets ~= nil and source.BossIntroTextLineSets[button.TextLinesName] then
 			textLinesData = source.BossIntroTextLineSets[button.TextLinesName]
+			source.QueuedBossIntroTextLines = nil
 			if NarrativeData[source.Name] ~= nil then
 				NarrativeData[source.Name].BossIntroTextLinePriorities = { button.TextLinesName }
 			end
@@ -1043,7 +1331,7 @@ function DebugConversationsTextLinesButton( screen, button )
 			if prevTextLinesData ~= nil then
 				prevTextLinesData.Force = false
 				local color = Color.Red
-				if IsTextLineEligible( CurrentRun, button.Source, prevTextLinesData, nil, nil, { IgnoreDebugFilter = true } ) then
+				if IsTextLineEligible( CurrentRun, button.Source, prevTextLinesData, nil, nil, nil ) then
 					color = Color.LimeGreen
 				end
 				ModifyTextBox({ Id = screen.ActiveConversationButton.Id, AffectText = prevTextLinesData.Name, Color = color })
@@ -1056,24 +1344,23 @@ end
 
 function DebugConversationMouseOver( button )
 	if button.FirstFailedRequirement ~= nil then
-		Teleport({ Id = button.TooltipId, DestinationId = button.Id, OffsetX = 380, OffsetY = -26 })
-		SetAlpha({ Id = button.TooltipId, Fraction = 1.0 })
-		local width = nil
-		if button.MouseOverJustification == "Right" then
-			width = 520
+		if button.LocationX < 1400 then
+			Teleport({ Id = button.TooltipId, DestinationId = button.Id, OffsetX = 200, OffsetY = -60 })
+		else
+			Teleport({ Id = button.TooltipId, DestinationId = button.Id, OffsetX = -200, OffsetY = -60 })
 		end
+		
+		SetAlpha({ Id = button.TooltipId, Fraction = 1.0 })
 		CreateTextBox({ Id = button.TooltipId,
 			Text = "Failed: "..button.FirstFailedRequirement,
 			FontSize = 15,
 			Color = Color.Pink,
 			Font = "MonospaceTypewriterBold",
-			ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
-			Justification = button.MouseOverJustification or "Left",
-			Width = width,
-			OffsetX = -352,
-			FadeOpacity = 1.0,
+			ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset = {0, 2},
+			Justification = "Center",
 		})
 	end
+	ClipboardText = button.TextLinesName
 end
 
 function DebugConversationMouseOff( button )
@@ -1081,11 +1368,71 @@ function DebugConversationMouseOff( button )
 		SetAlpha({ Id = button.TooltipId, Fraction = 0.0 })
 		DestroyTextBox({ Id = button.TooltipId, AffectText = "Failed: "..button.FirstFailedRequirement })
 	end
+	ClipboardText = nil
+end
+
+function DebugConversationsPageLeft( screen, button )
+	if screen.ColumnOffset <= 0 then
+		return
+	end
+	screen.ColumnOffset = screen.ColumnOffset - screen.ListColumnsPerScreen
+	for id, button in pairs( screen.ContentListButtons ) do
+		button.LocationX = button.LocationX + (screen.ListSpacingX * screen.ListColumnsPerScreen)
+		Teleport({ Id = id, OffsetX = button.LocationX, OffsetY = button.LocationY })
+	end
+	DebugConversationsUpdateVisibility( screen, button )
+end
+
+function DebugConversationsPageRight( screen, button )
+	if screen.ColumnOffset + screen.ListColumnsPerScreen >= screen.NumColumns then
+		return
+	end
+	screen.ColumnOffset = screen.ColumnOffset + screen.ListColumnsPerScreen
+	for id, button in pairs( screen.ContentListButtons ) do
+		button.LocationX = button.LocationX - (screen.ListSpacingX * screen.ListColumnsPerScreen)
+		Teleport({ Id = id, OffsetX = button.LocationX, OffsetY = button.LocationY })
+	end
+	DebugConversationsUpdateVisibility( screen, button )
+end
+
+function DebugConversationsUpdateVisibility( screen, button )
+	if screen.ColumnOffset <= 0 then
+		SetAlpha({ Id = screen.Components.PageLeft.Id, Fraction = 0.0, Duration = 0.1 })
+	else
+		SetAlpha({ Id = screen.Components.PageLeft.Id, Fraction = 1.0, Duration = 0.1 })
+	end
+	if screen.ColumnOffset >= screen.NumColumns - screen.ListColumnsPerScreen then
+		SetAlpha({ Id = screen.Components.PageRight.Id, Fraction = 0.0, Duration = 0.1 })
+	else
+		SetAlpha({ Id = screen.Components.PageRight.Id, Fraction = 1.0, Duration = 0.1 })
+	end
+	for id, button in pairs( screen.ContentListButtons ) do
+		if button.ColumnNum <= screen.ColumnOffset then
+			SetAlpha({ Id = id, Fraction = 0.0, Duration = 0.1 })
+		else
+			SetAlpha({ Id = id, Fraction = 1.0, Duration = 0.1 })
+		end
+	end
+end
+
+function DebugConversationsClose( screen, button )
+	CloseScreenButton( screen, button )
+	SessionState.BlockSpawns = false
+	notify( "BlockSpawnsOff" )
 end
 
 OnKeyPressed{ "ControlShift Y", Name = "Show RunClearScreen",
 	function( triggerArgs )
 		OpenRunClearScreen()
+	end
+}
+
+OnKeyPressed{ "ControlShift T", Name = "Show Epilogue Interstitial",
+	function( triggerArgs )
+		PostEpiloguePresentation( nil , { SkipInitialWait = true, Title = "EpilogueReached", Stinger = "/Music/IrisVictoryStingerSMALL" } )
+		--DisplayTrueEndingInfoBanner( nil, { Title = "TrueEndingReached", Stinger = "/Music/IrisVictoryStingerLARGE" })
+		--wait( 1.0 )
+		--DisplayTrueEndingInfoBanner( nil, { Title = "EpilogueReached", Stinger = "/Music/IrisVictoryStingerSMALL" })
 	end
 }
 
@@ -1097,7 +1444,6 @@ OnKeyPressed{ "Alt P", Name = "HubTimeTick",
 		thread( GardenTimeTick, { Ticks = 5, UpdatePlotPresentation = true, PanDuration = 0.0, SkipCameraPan = true, SkipSound = true, TickInterval = 0.1 } )
 		thread( CookTimeTick, { Ticks = 8, UpdatePresentation = true, TickInterval = 0.2, } )
 		thread( MailboxTimeTick, { Ticks = 21, UpdatePresentation = true, TickInterval = 0.03, } )
-		thread( FamiliarTimeTick, { Ticks = 21, UpdatePresentation = true, TickInterval = 0.03, } )
 	end
 }
 
@@ -1109,7 +1455,14 @@ function CreateDevSaveName( currentRun, args )
 	if args ~= nil and args.StartNextMap ~= nil then
 		name = name.."Dead, "..args.StartNextMap
 		if args.PostDeath then
-			name = name.." (TentRevive)"
+			if currentRun.ActiveBounty then
+				name = name.." (BountyRevive)"
+			-- @ ending
+			elseif currentRun.PlayedTrueEnding then
+				name = name.." (PostCredits)"
+			else
+				name = name.." (TentRevive)"
+			end
 		end
 	else
 		name = name.."Depth "..GetRunDepth( currentRun )..", "
@@ -1189,6 +1542,11 @@ function OnHotLoadLua( fileName )
 		end
 	end
 
+	if fileName == "UIData.lua" then
+		DebugPrint({ Text="Reloading TextFormats from UIData.lua" })
+		SetupFormatContainers({ HotLoad = true })
+	end
+
 end
 
 OnKeyPressed{ "ControlAlt K", Name = "Unlock All Keepsakes",
@@ -1200,6 +1558,11 @@ OnKeyPressed{ "ControlAlt K", Name = "Unlock All Keepsakes",
 	end
 }
 
+OnKeyPressed{ "ControlShift R", Name = "SkipCreditsPreamble",
+	function(triggerArgs)
+		SessionMapState.SkipCreditsPreamble = true
+	end
+}
 
 OnKeyPressed{ "ControlShift C", Name = "UnlockEntireCodex",
 	function(triggerArgs)
@@ -1218,238 +1581,6 @@ end
 function UnlockElementalIcons()
 	UnlockWorldUpgrade( "WorldUpgradeElementalBoons" )
 	GameState.Flags.SeenElementalIcons = true
-end
-
-function GetRewardsTaken( room, rewardsTakenTotals )
-	if room.ChosenRewardType ~= nil then
-		if rewardsTakenTotals[room.ChosenRewardType] == nil then
-			rewardsTakenTotals[room.ChosenRewardType] = 0
-		end
-		rewardsTakenTotals[room.ChosenRewardType] = rewardsTakenTotals[room.ChosenRewardType] + 1
-
-		-- Track boons individually as well, whereas "Boon" is the sum of all boons
-		--if room.ChosenRewardType == "Boon" and room.ForceLootName ~= nil then
-			--rewardsTakenTotals[room.ForceLootName] = (rewardsTakenTotals[room.ForceLootName] or 0) + 1
-		--end
-	end
-
-	if room.ChosenRewardType == "Boon" and room.ForceLootName ~= nil then
-		return tostring(room.ForceLootName)
-	else
-		return tostring(room.ChosenRewardType)
-	end
-end
-
-function GetRewardsOffered( room, rewardsOfferedTotals, sep )
-	local rewardsOfferedStr = nil
-	if sep == nil then
-		sep = ", "
-	end
-	if room.OfferedRewards ~= nil then
-		for doorId, offeredReward in pairs( room.OfferedRewards ) do
-			local rewardType = offeredReward.Type
-			if rewardType ~= nil then
-				if rewardsOfferedStr == nil then
-					rewardsOfferedStr = rewardType
-				else
-					rewardsOfferedStr = rewardsOfferedStr..sep..rewardType
-				end
-				if MapState.OfferedExitDoors[doorId] ~= nil and MapState.OfferedExitDoors[doorId].Room ~= nil then
-					rewardsOfferedStr = rewardsOfferedStr.." ("..MapState.OfferedExitDoors[doorId].Room.Name..")"
-				end
-				rewardsOfferedTotals[rewardType] = (rewardsOfferedTotals[rewardType] or 0) + 1
-			end
-		end
-	end
-	return tostring(rewardsOfferedStr)
-end
-
-OnKeyPressed{ "ControlAlt G", Name = "DumpGameStateStats", Safe = true,
-	function(triggerArgs)
-		DumpGameStateStats()
-	end
-}
-
-OnKeyPressed{ "ControlShift CapsLock", Name = "DumpGameStateToFile",
-	function(triggerArgs)
-		DumpGameStateToFile()
-	end
-}
-
-function DumpGameStateStats()
-	local runs = TableLength( GameState.RunHistory ) + 1
-	DebugPrint({ Text = "GameState:" })
-	DebugPrint({ Text = "  Runs: "..runs })
-	DebugPrint({ Text = "  Collected MetaPoints: "..GetTotalAccumulatedMetaPoints() })
-	DebugPrint({ Text = "  Spent MetaPoints: "..GetTotalAccumulatedMetaPoints() - (GameState.Resources.MetaPoints or 0) })
-
-	DebugPrint({ Text = "  Damage Dealers: " })
-	for name, count in pairs( GameState.EnemySpawns ) do
-		if GameState.EnemyDamage[name] ~= nil then
-			DebugPrint({ Text = "    Name: "..name..", Spawns: "..count..", Kills: "..tostring(GameState.EnemyKills[name]).." Damage: "..tostring(GameState.EnemyDamage[name]) })
-		end
-	end
-
-	DumpRunStats( CurrentRun, runs )
-end
-
-function DumpGameStateToFile()
-
-	local gameData =
-	{
-		CurrentRun = CurrentRun,
-		GameState =
-		{
-			MetaUpgrades = GameState.MetaUpgrades,
-			GiftPoints = GameState.Resources.GiftPoints,
-			ShrinePoints = GameState.Resources.ShrinePoints,
-			SpentShrinePointsCache = GameState.SpentShrinePointsCache,
-			CompletedRunsCache = GameState.CompletedRunsCache,
-		}
-	}
-	local json = TableToJSONString(gameData, {}, "GameData")
-	DebugPrint({ File = "GameData.json", Text = json })
-
-end
-
-function DumpRunHistoryStats()
-
-	local runs = TableLength( GameState.RunHistory ) + 1
-	local outFileBuf = ""
-
-	outFileBuf = DebugPrintf({ File = outFileBuf, Text = "GameState:" })
-	outFileBuf = DebugPrintf({ File = outFileBuf, Text = "  Runs: "..runs })
-	outFileBuf = DebugPrintf({ File = outFileBuf, Text = "  Collected MetaPoints: "..GetTotalAccumulatedMetaPoints() })
-	outFileBuf = DebugPrintf({ File = outFileBuf, Text = "  Spent MetaPoints: "..GetTotalAccumulatedMetaPoints() - GameState.Resources.MetaPoints })
-
-	-- Full room history of all runs
-	local gameStatsCsvBuf = DebugWriteCsvRow("", { "Room", "Depth", "Chosen Reward", "Reward Taken", "Next Rewards Offered" })
-	local csvFile = "GameStatsDump.csv"
-	local rewardsOfferedTotals = {}
-	local rewardsTakenTotals = {}
-	local roomDists = {}
-	local runDepthHistogram = {}
-	local runsSampled = 0
-	local allRunHistory = CollapseTableOrdered( GameState.RunHistory )
-	table.insert(allRunHistory, CurrentRun)
-	if runs > 1 then
-		for runIndex, run in pairs(allRunHistory) do
-			outFileBuf = DumpRunStats( run, runIndex, outFileBuf )
-			if run.RoomHistory ~= nil then
-				for depth, room in ipairs(run.RoomHistory) do
-					if room ~= nil then
-						local row = {}
-						-- Track room distributions
-						if roomDists[room.Name] == nil then
-							roomDists[room.Name] = { 1 }
-						else
-							roomDists[room.Name] = { roomDists[room.Name][1] + 1 }
-						end
-						table.insert(row, room.Name)
-						table.insert(row, depth)
-						table.insert(row, room.ChosenRewardType)
-						table.insert(row, GetRewardsTaken(room, rewardsTakenTotals))
-						table.insert(row, '"'..GetRewardsOffered(room, rewardsOfferedTotals)..'"')
-						gameStatsCsvBuf = DebugWriteCsvRow(gameStatsCsvBuf, row)
-					end
-				end
-				local depth = GetRunDepth(run)
-				runDepthHistogram[depth] = (runDepthHistogram[depth] or 0) + 1
-				runsSampled = runsSampled + 1
-			end
-		end
-		--DebugPrint({ File = csvFile, Text = gameStatsCsvBuf })
-		--DebugPrint({ File = "RunHistoryFullDump.txt", Text = outFileBuf })
-	end
-
-	-- RunDepthHistogram.csv
-	-- We want this sorted by KEY, so use orderedPairs
-	local depthHistogramCsv = "RunDepthHistogram.csv"
-	local depthHistogramCsvBuf = DebugWriteCsvRow("", { "Depth", "# of runs at depth", "% of total runs sampled" })
-	for depth, instances in pairs(runDepthHistogram) do
-		local percentage = "0%"
-		if runsSampled > 0 then
-			percentage = tostring( instances / runsSampled * 100 ).."%"
-		end
-		depthHistogramCsvBuf = DebugWriteCsvRow(depthHistogramCsvBuf, { depth, instances, percentage })
-	end
-	--DebugPrint({ File = depthHistogramCsv, Text = depthHistogramCsvBuf })
-
-	-- Room.csv aggregation
-	local roomsCsv = "RoomDistributions.csv"
-	local roomsCsvBuf = DebugWriteCsvRow("", { "Room Name", "Times Seen", "% Seen" })
-	local totalRoomsSeen = 0
-	roomDists = CollapseTableAsOrderedKeyValuePairs( roomDists )
-	for i, kvp in ipairs(roomDists) do
-		local timesSeen = kvp.Value[1]
-		totalRoomsSeen = totalRoomsSeen + timesSeen
-	end
-	if totalRoomsSeen > 0 then
-		for i, kvp in ipairs(roomDists) do
-			local roomName = kvp.Key
-			local timesSeen = kvp.Value[1]
-			roomsCsvBuf = DebugWriteCsvRow(roomsCsvBuf, { kvp.Key, timesSeen, tostring(timesSeen / totalRoomsSeen * 100).."%" })
-		end
-	end
-	--DebugPrint({ File = roomCsv, Text = roomsCsvBuf })
-
-	-- Rewards taken/offered aggregation
-	rewardsTakenTotals = CollapseTableAsOrderedKeyValuePairs(rewardsTakenTotals)
-	rewardsOfferedTotals = CollapseTableAsOrderedKeyValuePairs(rewardsOfferedTotals)
-
-	local rewardsCsv = "RewardsData.csv"
-	local rewardsCsvBuf = ""
-	header = { "Reward Name", "Times Taken", "Times Offered", "% Taken", "% Offered" }
-	local rows = {}
-	local totalRewardsTaken = 0
-	local totalRewardsOffered = 0
-	for i, kvp in ipairs(rewardsOfferedTotals) do
-		local rewardName = kvp.Key
-		local timesTaken = 0
-		local timesOffered = kvp.Value
-		for j, takenKvp in ipairs(rewardsTakenTotals) do
-			if takenKvp.Key == rewardName then
-				timesTaken = takenKvp.Value
-				totalRewardsTaken = totalRewardsTaken + (timesTaken or 0)
-			end
-		end
-		totalRewardsOffered = totalRewardsOffered + (timesOffered or 0)
-		local row = { rewardName, timesTaken, timesOffered }
-		table.insert(rows, row)
-	end
-	table.sort(rows, function (a, b)
-		-- Sort by most taken, then by most offered
-		if a[2] > b[2] == 0 then
-			return a[3] > b[3]
-		end
-		return a[2] > b[2]
-	end)
-	if totalRewardsTaken > 0 then
-		rewardsCsvBuf = DebugWriteCsvRow(rewardsCsvBuf, header)
-		for i, row in ipairs(rows) do
-			table.insert(row, tostring(row[2] / totalRewardsTaken * 100).."%")
-			table.insert(row, tostring(row[3] / totalRewardsOffered * 100).."%")
-			rewardsCsvBuf = DebugWriteCsvRow(rewardsCsvBuf, row)
-		end
-	end
-	--DebugPrint({ File = rewardsCsv, Text = rewardsCsvBuf })
-end
-
-function DebugWriteCsvRow(buffer, row)
-	return DebugWriteLine(buffer, table.concat(row, ","))
-end
-
-function DebugWriteLine(buffer, appendString)
-	buffer = buffer..appendString.."\r\n"
-	return buffer
-end
-
-function DebugPrintf(args)
-	if args.File == nil then
-		DebugPrint(args)
-	else
-		return DebugWriteLine(args.File, args.Text)
-	end
 end
 
 function DebugPrintTable( printTable, deepPrint, depth )
@@ -1486,168 +1617,6 @@ function DebugPrintTable( printTable, deepPrint, depth )
 		end
 	end
 	DebugPrint({ Text = indent.."}" })
-end
-
-function DumpRunStats( currentRun, runIndex, outFile )
-
-	if runIndex == nil then
-		runIndex = 1
-	end
-	if currentRun == nil then
-		return outFile
-	end
-	if currentRun.RoomHistory == nil then
-		return outFile
-	end
-
-	local runDepth = GetRunDepth(currentRun)
-
-	outFile = DebugPrintf({ File = outFile, Text = "Run #"..runIndex..":" })
-
-	outFile = DebugPrintf({ File = outFile, Text = "  Damage Sources: " })
-	if currentRun.DamageTakenFromRecord ~= nil then
-		for source, amount in pairs( currentRun.DamageTakenFromRecord ) do
-			outFile = DebugPrintf({ File = outFile, Text = "      "..source..": "..amount })
-		end
-	end
-
-	local totalUseTime = {}
-	for depth, room in ipairs( currentRun.RoomHistory ) do
-		if room.Encounter.FirstDamageTime ~= nil and room.Encounter.ClearTime ~= nil then
-			for sourceName, firstDamageTime in pairs( room.Encounter.FirstDamageTime ) do
-				totalUseTime[sourceName] = (totalUseTime[sourceName] or 0) + (room.Encounter.ClearTime - firstDamageTime)
-			end
-		end
-	end
-	local dpsRecord = {}
-	for sourceName, damageAmount in pairs( currentRun.DamageDealtByHeroRecord ) do
-		if totalUseTime[sourceName] ~= nil then
-			local dps = round( damageAmount / totalUseTime[sourceName], 2 )
-			local dpsEntry = { SourceName = sourceName, Dps = dps }
-			table.insert( dpsRecord, dpsEntry )
-		end
-	end
-	table.sort( dpsRecord, DpsSort )
-	outFile = DebugPrintf({ File = outFile, Text = "  DPS: " })
-	for index, dpsEntry in ipairs( dpsRecord ) do
-		outFile = DebugPrintf({ File = outFile, Text = "      "..dpsEntry.SourceName..": "..dpsEntry.Dps })
-	end
-
-	outFile = DebugPrintf({ File = outFile, Text = "  Health Sources: " })
-	if currentRun.HealthRecord ~= nil then
-		for source, amount in pairs( currentRun.HealthRecord ) do
-			outFile = DebugPrintf({ File = outFile, Text = "      "..source..": "..amount })
-		end
-	end
-	outFile = DebugPrintf({ File = outFile, Text = "  Actual Health Sources: " })
-	if currentRun.ActualHealthRecord then
-		for source, amount in pairs( currentRun.ActualHealthRecord ) do
-			outFile = DebugPrintf({ File = outFile, Text = "      "..source..": "..amount })
-		end
-	end
-	outFile = DebugPrintf({ File = outFile, Text = "  Hero Traits (Depth "..runDepth.."):" })
-	if currentRun.Hero ~= nil and currentRun.Hero.Traits ~= nil then
-		local collapsedTraits = {}
-		local traitTxt = "traits_run "..runIndex.."_depth_"..runDepth..".txt"
-		local traitTxtBuf = ""
-		for k, traitData in pairs( currentRun.Hero.Traits ) do
-			collapsedTraits[traitData.Name] = traitData
-			if not currentRun.Hero.IsDead then
-				traitTxtBuf = DebugPrintf({ File = traitTxtBuf, Text = traitData.Name..", Depth: "..runDepth })
-			end
-		end
-		DebugPrint({ File = traitTxt, Text = traitTxtBuf })
-		collapsedTraits = CollapseTableOrdered(collapsedTraits)
-
-		-- No sense logging traits if the player is dead
-		if not currentRun.Hero.IsDead then
-			local traitsCsv = "Traits at Run "..runIndex..", Depth "..runDepth..".csv"
-			local traitsCsvBuf = DebugWriteCsvRow( "", { "Trait", "Level", "Rarity", "God", "RemainingUses", "RemainingRooms" })
-			local traitsCsvRows = {}
-
-			for k, traitData in ipairs( collapsedTraits ) do
-				local level = nil
-				if currentRun.Hero.TraitDictionary ~= nil then
-					level = TableLength( currentRun.Hero.TraitDictionary[traitData.Name] )
-				end
-				if level == nil then
-					level = 1
-				end
-				table.insert( traitsCsvRows, { traitData.Name, level, tostring(traitData.Rarity), tostring(traitData.God), tostring(traitData.RemainingUses), tostring(traitData.RemainingRooms) })
-				outFile = DebugPrintf({ File = outFile, Text = "      Trait: "..traitData.Name.." ("..tostring(traitData.Rarity)..", level "..level..") God: "..tostring(traitData.God) })
-			end
-
-			-- Sort by most upgraded, then Rarity
-			table.sort(traitsCsvRows, function (a, b)
-				if a[2] == b[2] then
-					local rarityTable = {
-						Common = 0,
-						Rare = 1,
-						Epic = 2,
-						Legendary = 3
-					}
-					local aRarity = rarityTable[a[3]]
-					local bRarity = rarityTable[b[3]]
-					if aRarity == nil then
-						aRarity = -1
-					end
-					if bRarity == nil then
-						bRarity = -1
-					end
-					return aRarity > bRarity
-				end
-				return a[2] > b[2]
-			end)
-			for i, row in ipairs(traitsCsvRows) do
-				traitsCsvBuf = DebugWriteCsvRow( traitsCsvBuf, row )
-			end
-			DebugPrint({ File = traitsCsv, Text = traitsCsvBuf })
-		end
-	end
-
-	outFile = DebugPrintf({ File = outFile, Text = "    Room History:" })
-	local rewardsOfferedTotals = {}
-	local rewardsTakenTotals = {}
-	for depth, room in ipairs( currentRun.RoomHistory ) do
-		if room ~= nil then
-			local rewardStr = GetRewardsTaken( room, rewardsTakenTotals )
-			local rewardsOfferedStr = GetRewardsOffered( room, rewardsOfferedTotals )
-			outFile = DebugPrintf({ File = outFile, Text = "      Depth: "..depth.." | Room: "..room.Name.." | Encounter: "..room.Encounter.Name.." | Reward: "..rewardStr.." | Next Rewards Offered: "..rewardsOfferedStr })
-		end
-	end
-	if currentRun.CurrentRoom ~= nil then
-		local rewardStr = GetRewardsTaken( currentRun.CurrentRoom, rewardsTakenTotals )
-		local rewardsOfferedStr = GetRewardsOffered( currentRun.CurrentRoom, rewardsOfferedTotals )
-		outFile = DebugPrintf({ File = outFile, Text = "      Current Depth: "..runDepth.." | Room: "..currentRun.CurrentRoom.Name.." | Reward: "..rewardStr.." | Next Rewards Offered: "..rewardsOfferedStr })
-	else
-		outFile = DebugPrintf({ File = outFile, Text = "      Current Depth:  (DeathArea)"})
-	end
-
-	outFile = DebugPrintf({ File = outFile, Text = "    Rewards Offered Totals:" })
-	for rewardType, rewardCount in pairs( rewardsOfferedTotals ) do
-		outFile = DebugPrintf({ File = outFile, Text = "      "..rewardType..": "..rewardCount })
-	end
-
-	outFile = DebugPrintf({ File = outFile, Text = "    Rewards Taken Totals:" })
-	for rewardType, rewardCount in pairs( rewardsTakenTotals ) do
-		outFile = DebugPrintf({ File = outFile, Text = "      "..rewardType..": "..rewardCount })
-	end
-
-	if currentRun.RewardStores ~= nil then
-		for storeName, rewardStore in pairs( currentRun.RewardStores ) do
-			local storeStr = ""
-			for j, reward in pairs( rewardStore ) do
-				storeStr = storeStr..tostring(reward.Name)..", "
-			end
-			outFile = DebugPrintf({ File = outFile, Text = "    Upcoming Rewards ("..storeName.."): "..storeStr })
-		end
-	end
-
-	return outFile
-end
-
-function DpsSort( itemA, itemB )
-	return itemA.Dps > itemB.Dps
 end
 
 function AnimateOnDistance(eventSource, args)
@@ -1734,6 +1703,12 @@ end
 function PreEditingModeOn()
 	EditorActivateAllHarvestPoints()
 	SetupHarvestPoints( CurrentRun.CurrentRoom )
+
+	local objectNames = { "ShadeMerc" }
+	local room = CurrentRun.CurrentRoom
+	room.ShadeMercInactiveIds = GetInactiveIdsByType({ Names = objectNames })
+	room.ShadeMercActiveIds = {}
+	DoShadeMercActivations( room, { StartingCountMin = 99, StartingCountMax = 99, ObjectNames = objectNames, MaxActive = 99 } )
 end
 
 function EditingModeOn()	
@@ -1744,8 +1719,17 @@ function EditingModeOn()
 		if CurrentHubRoom.Name == "Hub_Main" then
 			ActivateConditionalItems( nil, { CosmeticsShopCategoryIndex = 1, GhostAdminCategoryIndex = 1 } )
 			ActivateConditionalItems( nil, { CosmeticsShopCategoryIndex = 2 } )
-		else
 			ActivateConditionalItems( nil, { CosmeticsShopCategoryIndex = 3 } )
+			local critterGroups = GetGroupWithSubGroups({ Name = "Critters" })
+			for _, critterGroup in ipairs( critterGroups ) do
+				local critterIds = GetIds({ Name = critterGroup })
+				for _, critterId in ipairs( critterIds ) do
+					SetAlpha({ Ids = critterIds, Fraction = 1 })
+					SetThingProperty({ Property = "StopsLight", Value = true, DestinationIds = ids })
+				end
+			end
+		else
+			ActivateConditionalItems( nil, { CosmeticsShopCategoryIndex = 4 } )
 		end
 	end
 	SafeModeOn()
@@ -1778,11 +1762,17 @@ OnKeyPressed{ "Alt E", Name = "ToggleBlockSpawns",
 	end
 }
 
+OnKeyPressed{ "ControlAltShift F", Name = "Toggle ForceUnflipMapThings",
+	function( triggerArgs )
+		ToggleConfigOption( "ForceUnflipMapThings" )
+	end
+}
+
 function ReloadAllTraits()
 	-- Remove all traits, then readd them in order
 	local weaponName = GetEquippedWeapon()
 	local removedTraitData = {}
-	for i, traitData in pairs( CurrentRun.Hero.Traits ) do
+	for i, traitData in ipairs( CurrentRun.Hero.Traits ) do
 		table.insert(removedTraitData, { Name = traitData.Name, Rarity = traitData.Rarity })
 		DebugPrint({Text = "Reloading trait" .. traitData.Name })
 	end
@@ -1793,17 +1783,21 @@ function ReloadAllTraits()
 	-- re-equip all weapons to flush Absolute change values
 
 	UnequipWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = weaponName })
+	MapState.EquippedWeapons[weaponName] = nil
 	local weaponSetNames = WeaponSets.HeroWeaponSets[weaponName]
 	if weaponSetNames ~= nil then
 		for k, linkedWeaponName in pairs( weaponSetNames ) do
 			UnequipWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = linkedWeaponName })
+			MapState.EquippedWeapons[linkedWeaponName] = nil
 		end
 	end
 
 	EquipWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = weaponName })
+	MapState.EquippedWeapons[weaponName] = true
 	if weaponSetNames ~= nil then
 		for k, linkedWeaponName in pairs( weaponSetNames ) do
 			EquipWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = linkedWeaponName })
+			MapState.EquippedWeapons[linkedWeaponName] = true
 		end
 	end
 
@@ -1824,44 +1818,22 @@ end
 
 OnKeyPressed{ "ControlAlt N", Name = "AnimationTest",
 	function( triggerArgs )
- 		CreateAnimation({ Name = "HephMassiveHit", DestinationId = CurrentRun.Hero.ObjectId })
- 		
- 		--[[
- 		SetAnimation({ Name = "WheatClusterC", DestinationIds = {566182,566173,566146,566185} })
- 		wait(0.25)
- 		SetAnimation({ Name = "WheatClusterC_Burning", DestinationIds = {566182,566173,566146,566185} })
- 		]]
+
+		-- AllAIStop()
+ 		CreateAnimation({ Name = "SpellMeteorDetonateImpactFx", DestinationId = CurrentRun.Hero.ObjectId })
 	end
 }
-
-function DumpTableInfo( object )
-	local string = tostring(object)
-	if type(object) == "table" then
-		string = "(TABLE VALUE)"
-	end
-	if object ~= nil then
-		if object.Name then
-			string = string .. ":Name " .. object.Name
-		end
-		local displayed = 0
-		for i, key in pairs(object) do
-			string = string.." ".. tostring(i) .. ":" .. tostring(key)
-			displayed = displayed + 1
-			if displayed > 4 then
-				break
-			end
-		end
-	end
-	DebugPrint({Text = string })
-end
 
 function DebugSpawnConsumables( eventSource, args )
 	local spawnPointIds = GetIds({ Name = "ConsumablePoints" })
 	table.sort( spawnPointIds )
 	for k, name in ipairs( args.Names ) do
+		DebugAssert({ Condition = spawnPointIds[k] ~= nil, Text = "Not enough ConsumablePoints for all items", Owner = "Gavin", })
 		local consumableId = SpawnObstacle({ Name = name, DestinationId = spawnPointIds[k], Group = "Standing" })
 		local rampedData = GetRampedConsumableData( ConsumableData[name] )
 		local consumable = CreateConsumableItemFromData( consumableId, rampedData, 0, args )
+		--CreateTextBox({ Id = consumableId, Text = name, FontSize = 19, OffsetY = 70, Color = Color.White, OutlineColor = Color.Black, OutlineThickness = 1, Justification = "CENTER" })
+		--CreateTextBox({ Id = consumableId, RawText = name, FontSize = 15, OffsetY = 100, Color = Color.DarkGray, OutlineColor = Color.Black, OutlineThickness = 1, Justification = "CENTER" })
 		SetObstacleProperty({ Property = "MagnetismWhileBlocked", Value = 0, DestinationId = consumable.ObjectId })
 		if args.StopAnimations ~= nil then
 			StopAnimation({ Names = args.StopAnimations, DestinationId = consumable.ObjectId })

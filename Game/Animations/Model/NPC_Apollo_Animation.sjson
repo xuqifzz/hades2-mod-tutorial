@@ -1,0 +1,82 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCApolloBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Apollo_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Apollo_Idle"
+		InheritFrom = "NPCApolloBaseAnimation"
+		GrannyAnimation = "Apollo_Base_SingIdle_End_Loop_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Apollo_Flourish"
+		InheritFrom = "NPCApolloBaseAnimation"
+		GrannyAnimation = "Apollo_Base_SingIdle_End_Flourish_C_00"
+		ChainTo = "Apollo_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Apollo_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+
+	{
+		Name = "Apollo_Singing_Start"
+		InheritFrom = "NPCApolloBaseAnimation"
+		GrannyAnimation = "Apollo_Base_SingIdle_End_ToSing_C_00"
+		ChainTo = "Apollo_Singing_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Apollo_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Apollo_Singing_FireLoop"
+		InheritFrom = "NPCApolloBaseAnimation"
+		GrannyAnimation = "Apollo_Base_SingIdle_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Apollo_Singing_End"
+		InheritFrom = "NPCApolloBaseAnimation"
+		GrannyAnimation = "Apollo_Base_SingIdle_End_C_00"
+		ChainTo = "Apollo_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Apollo_Singing_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Apollo_Singing_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+]}

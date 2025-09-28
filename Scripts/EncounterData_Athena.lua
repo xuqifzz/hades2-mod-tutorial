@@ -17,18 +17,17 @@ OverwriteTableKeys( EncounterData,
 				Value = 4,
 			},
 			{
-				PathFalse ={ "CurrentRun", "ExpiredKeepsakes", "AthenaEncounterKeepsake" },
-			},
-			{
-				PathFalse = { "CurrentRun", "ActiveBounty" },
+				PathFalse = { "CurrentRun", "ExpiredKeepsakes", "AthenaEncounterKeepsake" },
 			},
 			NamedRequirements = { "NoRecentFieldNPCEncounter" },
+			NamedRequirementsFalse = { "StandardPackageBountyActive", "SurfaceRouteLockedByTyphonKill" },
 		},
 
-		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade", "StackUpgrade", "TalentDrop" },
+		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade", },
 
 		BlockAthenaEncounterKeepsake = true,
 		BlockDionysusEncounterKeepsake = true,
+		ExpireTrait = "AthenaEncounterKeepsake",
 
 		BlockCodexBeforeStart = true,
 		BlockLocationText = true,
@@ -36,8 +35,6 @@ OverwriteTableKeys( EncounterData,
 		-- SkipCombatBeginsVoiceLines = true,
 		RequireCompletedIntro = true,
 		PreSpawnEnemies = false,
-		FastClearThreshold = 65,
-		TimerBlock = "ArtemisEncounter",
 		BlockHighlightEliteTypes = true,
 
 		MuteSecretMusicDrumsOnCombatOver = true,
@@ -46,7 +43,7 @@ OverwriteTableKeys( EncounterData,
 		UnthreadedEvents = EncounterSets.EncounterEventsAthenaCombat,
 		Using = { "NPC_Athena_01" },
 		SpeakerNames = { "Athena", },
-		LoadPackages = { "NPC_Athena_01", },
+		LoadPackages = { "NPC_Athena_01", "Athena" },
 
 		BaseDifficulty = 680,
 		DepthDifficultyRamp = 180,
@@ -67,6 +64,7 @@ OverwriteTableKeys( EncounterData,
 		{
 			{
 				FunctionName = "HandleAthenaSpawn",
+				Args = { Force = true },
 			},
 		},
 
@@ -89,10 +87,13 @@ OverwriteTableKeys( EncounterData,
 			Append = true,
 			{
 				SumPrevRuns = 4,
-				Path = { "SpawnRecord", "NPC_Heracles_01" },
+				Path = { "SpawnRecord", "NPC_Athena_01" },
 				Comparison = "<=",
 				Value = 2,
 			},
+			{
+				PathFalse = { "PrevRun", "SpecialInteractRecord", "Shrine" },
+			}
 		},
 	},	
 

@@ -3,6 +3,7 @@ OverwriteTableKeys( TraitData, {
 	BaseEcho = 
 	{
 		IsEchoBoon = true,
+		DebugOnly = true,
 	},
 	
 	EchoLastReward =
@@ -40,6 +41,9 @@ OverwriteTableKeys( TraitData, {
 				Comparison = ">",
 				Value = 0,
 			},
+			{
+				PathFalse = { "PrevRun", "SpecialInteractRecord", "Shrine" },
+			},
 		},
 		Hidden = true,
 		AcquireFunctionName = "EchoLastRunBoon",
@@ -52,19 +56,6 @@ OverwriteTableKeys( TraitData, {
 		Hidden = true,
 		MultiplierValue = 2, -- used only for text
 		AcquireFunctionName = "EchoDoubleLevelBoon",
-	},
-
-	EchoRepeatKeepsakeBoon = 
-	{
-		InheritFrom = { "BaseEcho" },
-		Icon = "Boon_Echo_07",
-		TrayStatLines = 
-		{
-			"RepeatKeepsakeStatDisplay",
-		},
-		ActivatedTrayText = "EchoRepeatKeepsakeBoon_Inactive",
-		RepeatedKeepsake = "",
-		AcquireFunctionName = "EchoRepeatKeepsake",
 	},
 
 	EchoDeathDefianceRefill = 
@@ -213,5 +204,48 @@ OverwriteTableKeys( TraitData, {
 				Format = "Percent"
 			},
 		}
+	},
+
+	EchoDoubleShop = 
+	{
+		InheritFrom = { "BaseEcho" },
+		Icon = "Boon_Echo_08",
+		RemainingUses = 1,
+		DuplicateWorldShopItem = true,
+	},
+	-- Legendary
+	EchoRepeatKeepsakeBoon = 
+	{
+		InheritFrom = { "BaseEcho" },
+		Icon = "Boon_Echo_07",
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "EchoAboutNarcissus07" },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasNone = { "AthenaEncounterKeepsake", "HadesAndPersephoneKeepsake", "EscalatingKeepsake", "FountainRarityKeepsake" },
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "EchoAboutNarcissus07" },
+			},
+		},
+		CustomTrayText = "EchoRepeatKeepsakeBoon_Tray",
+		ActivatedTrayText = "EchoRepeatKeepsakeBoon_Inactive",
+		RepeatedKeepsake = "",
+		AcquireFunctionName = "EchoRepeatKeepsake",
+		ExtractValues =
+		{
+			{
+				Format = "SlottedBoon",
+				Slot = "Keepsake",
+				ExtractAs = "CurrentKeepsake",
+			},
+		},
+		FlavorText = "EchoRepeatKeepsakeBoon_FlavorText",
 	},
 })

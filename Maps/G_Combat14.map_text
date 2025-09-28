@@ -119,6 +119,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Terrain_03",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Terrain_Decor_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -385,6 +398,7 @@
         "Terrain_Shadow_01",
         "Terrain_Decor_02",
         "Terrain_Decor_01",
+        "Terrain_03",
         "Terrain_02",
         "Terrain_01",
         "Water_01",
@@ -575,5 +589,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

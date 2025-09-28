@@ -76,6 +76,7 @@ UnitSetData.Lamia =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_1038", Text = "Lamiai...!", PlayFirst = true },
@@ -115,6 +116,7 @@ UnitSetData.Lamia =
 	Lamia_Support =
 	{
 		InheritFrom = { "Elite", "Lamia" },
+		GenusName = "Lamia_Elite",
 		HealthBuffer = 270,
 
 		DefaultAIData =
@@ -142,9 +144,10 @@ UnitSetData.Lamia =
 	Lamia_Miniboss =
 	{
 		InheritFrom = { "Elite", "Lamia" },
-		HealthBuffer = 3800,
+		HealthBuffer = 3950,
 
-		HealthBarOffsetY = -340,
+		HealthBarAttachToMarkerName = "head_fxMarker_00_M_JNT",
+		HealthBarOffsetY = -160,
 		HealthBarType = "Large",
 
 		WakeUpDelayMin = 0.5,
@@ -176,6 +179,14 @@ UnitSetData.Lamia =
 		{
 		--	RequiredMinBiomeDepth = 4,
 		},
+	},
+
+	Lamia_SuperElite =
+	{
+		InheritFrom = { "SuperElite", "Lamia_Miniboss" },
+		MaxHealth = 1000,
+		HealthBuffer = 5000,
+		BlockRaiseDead = false,
 	}
 
 }

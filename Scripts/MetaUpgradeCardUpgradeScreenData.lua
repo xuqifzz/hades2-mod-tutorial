@@ -7,11 +7,17 @@
 		},
 	},
 
+	InspectLocationX = ScreenCenterX,
+	InspectLocationY = ScreenCenterY,
+	InspectBackgroundAlpha = 0.7,
+	InspectCardScale = 1.4,
+
 	Components = {},
 	BlockPause = true,
 
 	DefaultStartX = ScreenData.MetaUpgradeCardLayout.DefaultStartX,
 	DefaultStartY = ScreenData.MetaUpgradeCardLayout.DefaultStartY,
+	ScaledStartY = ScreenData.MetaUpgradeCardLayout.ScaledStartY,
 	DefaultTalentXSpacer = ScreenData.MetaUpgradeCardLayout.DefaultTalentXSpacer,
 	DefaultTalentYSpacer = ScreenData.MetaUpgradeCardLayout.DefaultTalentYSpacer,
 	CostStartX = ScreenData.MetaUpgradeCardLayout.CostStartX,
@@ -19,11 +25,17 @@
 	DefaultArtScale = ScreenData.MetaUpgradeCardLayout.DefaultArtScale,
 	TooltipX = ScreenData.MetaUpgradeCardLayout.TooltipX,
 	TooltipY = ScreenData.MetaUpgradeCardLayout.TooltipY,
+	
+	CardMemCostOffsetX = ScreenData.MetaUpgradeCardLayout.CardMemCostOffsetX,
+	CardMemCostOffsetY = ScreenData.MetaUpgradeCardLayout.CardMemCostOffsetY,
+
+	DefaultCardCostTitleArgs = ScreenData.MetaUpgradeCardLayout.DefaultCardCostTitleArgs,
+	LockedCardCostTitleArgs = ScreenData.MetaUpgradeCardLayout.LockedCardCostTitleArgs,
 
 	DefaultCardTitleTextArgs =
 	{
 		FontSize = 18, 
-		Color = Color.DefaultText,
+		Color = Color.Transparent,
 		Width = 485,
 		Justification = "Center",
 		VerticalJustification = "Center",
@@ -31,45 +43,11 @@
 		Font = "LatoMedium",
 		OffsetX = 100,
 		OffsetY = 100,
-		Color = Color.Transparent,
 	},
-
-	DefaultCardCostTitleArgs =
-	{
-		FontSize = 21, 
-		Color = Color.White,
-		OffsetX = 50,
-		OffsetY = -74,
-		Width = 485,
-		Justification = "Center",
-		VerticalJustification = "Center",
-		LineSpacingBottom = 6,
-		Font = "P22UndergroundSCMedium",
-		OutlineThickness = 4,
-		OutlineColor = {0,0,0,1},
-		ShadowBlur = 4, ShadowColor = {0,0,0,1}, ShadowOffset={0, 3},
-	},
-
-	LockedCardCostTitleArgs =
-	{
-		FontSize = 21, 
-		Color = Color.CodexLocked,
-		OffsetX = 50,
-		OffsetY = -74,
-		Width = 485,
-		Justification = "Center",
-		VerticalJustification = "Center",
-		LineSpacingBottom = 6,
-		Font = "P22UndergroundSCMedium",
-		OutlineThickness = 4,
-		OutlineColor = {0,0,0,1},
-		ShadowBlur = 4, ShadowColor = {0,0,0,1}, ShadowOffset={0, 3},
-	},
-
 	LockedCardTitleTextArgs =
 	{
 		FontSize = 18, 
-		Color = Color.CodexLocked,
+		Color = Color.Transparent,
 		Width = 485,
 		Justification = "Center",
 		VerticalJustification = "Center",
@@ -77,7 +55,6 @@
 		Font = "LatoMedium",
 		OffsetX = 100,
 		OffsetY = 100,
-		Color = Color.Transparent,
 	},
 
 	LockedCardResourceTextArgs =
@@ -118,12 +95,11 @@
 
 	CardFlavorTextArgs = 
 	{
-		FontSize = 14,
+		FontSize = 20,
 		OffsetY = 340, 
 		OffsetX = -25,
 		Width = 480,
 		LineSpacingBottom = 3,
-		FontSize = 20,
 		Color = Color.FlavorText,
 		Font = "LatoSemiboldItalic",
 		ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 1},
@@ -134,7 +110,7 @@
 
 	CostDisplay =
 	{
-		StartX = 1110,
+		StartX = 1045,
 		StartY = 880,
 		SpacerX = 160,
 		InventoryAmountOffsetY = 90,
@@ -149,6 +125,13 @@
 ScreenData.MetaUpgradeCardUpgradeLayout.ComponentData = 
 {
 	DefaultGroup = "Combat_Menu_Overlay",
+	DefaultHighlightGroup = "Combat_Menu_Overlay_Additive",
+	DefaultCornerGroup = "HUD_Backing",
+
+	MouseOverGroup = "HUD_Main",
+	MouseOverHighlightGroup = "Combat_UI_Additive",
+	MouseOverCornerGroup = "Combat_Menu_TraitTray_Backing",
+
 	UseNativeScreenCenter = true,
 
 	BackgroundTint = 
@@ -164,16 +147,8 @@ ScreenData.MetaUpgradeCardUpgradeLayout.ComponentData =
 	{
 		AnimationName = "DevCard_Hover",
 		GroupName = "Combat_Menu_Overlay",
-		X = -200,
-		Y = -200,
-	},
-
-	CardSwapFrame = 
-	{
-		AnimationName = "DevCard_SwapHover",
-		GroupName = "Combat_Menu_Overlay",
-		X = -200,
-		Y = -200,
+		X = -2000,
+		Y = -2000,
 	},
 
 	UpgradeVignette =
@@ -182,125 +157,107 @@ ScreenData.MetaUpgradeCardUpgradeLayout.ComponentData =
 		GroupName = "Combat_Menu_Overlay_Additive",
 	},
 
+	InspectBackground =
+	{
+		Graphic = "rectangle01",
+		GroupName = "HUD_Main",
+		Scale = 10,
+		X = ScreenCenterX,
+		Y = ScreenCenterY,
+		Alpha = 0.0,
+		AlphaTarget = 0.0,
+		Color = Color.Black,
+	},
+
+	MetaUpgradeCardArt = 
+	{
+		GroupName = "HUD_Overlay",
+		AnimationName = "Blank",
+		X = 1040,
+		Y = 268,
+		Scale = 0.84,
+		Alpha = 0.0,
+		Children = 
+		{
+			MetaUpgradeCardArtPatch = 
+			{
+				GroupName = "HUD_Overlay",
+				Scale = 0.84,
+			}
+		}
+	},
+
+	InspectName =
+	{
+		GroupName = "HUD_Main",
+		X = ScreenCenterX,
+		Y = 90,
+		Alpha = 0.0,
+		AlphaTarget = 0.0,
+		TextArgs =
+		{
+			FontSize = 32,
+			Width = 545,
+			Height = 150,
+			LineSpacingBottom = -10,
+			Color = {1,1,1,1},
+			Font = "P22UndergroundSCLight",
+			ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
+			Justification = "CENTER",
+			VerticalJustification = "CENTER",
+		},
+	},
+	InspectFlavorText =
+	{
+		GroupName = "HUD_Main",
+		X = ScreenCenterX,
+		Y = 1010,
+		Alpha = 0.0,
+		AlphaTarget = 0.0,
+		TextArgs =
+		{
+			FontSize = 20,
+			Width = 560,
+			LineSpacingBottom = 3,
+			Color = Color.FlavorTextPurple,
+			Font = "LatoItalic",
+			ShadowBlur = 0, ShadowColor = {0, 0, 0, 1}, ShadowOffset = {0, 1},
+			Justification = "CENTER",
+			VerticalJustification = "CENTER",
+			Graft = true,
+		},
+	},
+
 	Background = 
 	{
 		Graphic = "MetaUpgradeCardBackground",
-		GroupName = "Combat_Menu",
+		GroupName = "Combat_Menu_Backing",
 		X = ScreenCenterX,
 		Y = ScreenCenterY,
 		Children = 
 		{
-			MemCostModule = 
+			InsightModeAdditiveBackgroundLayer = 
 			{
-				GroupName = "Combat_Menu_Overlay_Backing",
-				Graphic = "MetaUpgradeMemCostBacking",
-				OffsetY = ScreenData.MetaUpgradeCardLayout.CostStartY - 105, 
-				OffsetX = ScreenData.MetaUpgradeCardLayout.CostStartX,
-				TooltipOffsetY = 340,
-				Children = 
-				{			
-					CostTextRingTarget= 
-					{
-						GroupName = "Combat_Menu_Overlay_Backing",
-						OffsetY = -5,
-						OffsetX = 2,
-					},
-					MemNotifyUpgradeAvailableFrame = 
-					{
-						GroupName = "Combat_Menu_Overlay_Backing",
-						AnimationName = "MemNotifyUpgradeAvailableFrame",
-						Alpha = 0,						
-						Children = 
-						{
-							MemHighlightFrame = 
-							{
-								GroupName = "Combat_Menu_Overlay_Backing",
-								AnimationName = "MetaUpgradeMemHighlightFrame",
-								Alpha = 0,
-
-							}
-						}
-					}
-				},
-				Data =
-				{
-					Name = "MemCostModule",
-					OnPressedFunctionName = "IncreaseMetaUpgradeCardLimit",
-					OnMouseOverFunctionName = "MouseOverMetaUpgradeCardLimit",
-					OnMouseOffFunctionName = "MouseOffMetaUpgradeCardLimit",
-					MouseOverSound = "/SFX/Menu Sounds/VictoryScreenBoonToggle",
-				},
+				Graphic = "MetaUpgradeCardUpgradeBackground",
+				GroupName = "Combat_Menu_Backing_Add",	
 			},
-
-			CostTextPrefix = 
+			InsightModeMoonBackgroundLayer = 
 			{
-				GroupName = "Combat_Menu_Overlay",
-				Text = "MetaUpgrade_CostPrefix",
-				TextArgs = {
-					FontSize = 32,
-					OffsetY = ScreenData.MetaUpgradeCardLayout.CostStartY, 
-					OffsetX = ScreenData.MetaUpgradeCardLayout.CostStartX,
-					Width = 1040,
-					Color = Color.Transparent,
-					Font = "P22UndergroundSCHeavy",
-					ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-					Justification = "RIGHT" 
-				}
+				Graphic = "MetaUpgradeUpgradeScreenBackgroundMoons",
+				GroupName = "Portrait_FX_Behind",	
 			},
-
-			CurrentCostText = 
+			MemCostModuleBacking = 
 			{
-				GroupName = "Combat_Menu_Overlay",
-				Text = "MEM_COST",
-				TextArgs = {
-					FontSize = 28,
-					OffsetY = ScreenData.MetaUpgradeCardLayout.CostStartY,
-					OffsetX = ScreenData.MetaUpgradeCardLayout.CostStartX - 48,
-					Width = 1040,
-					Color = Color.LightGreen,
-					Font = "LatoBold",
-					ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-					Justification = "CENTER" 
-				}
-			},
-
-			SlashText = 
-			{
-				GroupName = "Combat_Menu_Overlay",
-				Text = "MetaUpgrade_Slash",
-				TextArgs = {
-					FontSize = 24,
-					OffsetY = ScreenData.MetaUpgradeCardLayout.CostStartY,
-					OffsetX = ScreenData.MetaUpgradeCardLayout.CostStartX - 14,
-					Width = 1040,
-					Color = Color.LightGreen,
-					Font = "LatoBold",
-					ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-					Justification = "CENTER" 
-				}
-			},
-
-			MaxCostText = 
-			{
-				GroupName = "Combat_Menu_Overlay",
-				Text = "MEM_COST",
-				OffsetY = ScreenData.MetaUpgradeCardLayout.CostStartY, 
-				OffsetX = ScreenData.MetaUpgradeCardLayout.CostStartX - 4,
-				TextArgs = {
-					FontSize = 28,
-					Width = 1040,
-					Color = Color.LightGreen,
-					Font = "LatoBold",
-					ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-					Justification = "LEFT",
-				}
+				GroupName = "Combat_Menu",
+				AnimationName = "MetaUpgradeUpgradeHand",
+				OffsetY = ScreenData.MetaUpgradeCardLayout.CostStartY - 130, 
 			},
 
 			InfoPane = 
 			{
 				GroupName = "Combat_Menu_Overlay_Backing",
-				OffsetX = 180,
-				OffsetY = 0,
+				OffsetX = 110,
+				OffsetY = 65,
 				Scale = 1.0,
 				Alpha = 1.0,
 				Children = 
@@ -308,12 +265,12 @@ ScreenData.MetaUpgradeCardUpgradeLayout.ComponentData =
 					MetaUpgradeCardTitle = 
 					{
 						GroupName = "Combat_Menu_Overlay",
-						Text = "TESTEXT 2",
+						Text = " ",
 						TextArgs =
 						{
 							FontSize = 32,
-							OffsetY = 20, 
-							OffsetX = -25,
+							OffsetY = -45, 
+							OffsetX = -30,
 							Width = 545,
 							Height = 150,
 							LineSpacingBottom = -10,
@@ -325,53 +282,17 @@ ScreenData.MetaUpgradeCardUpgradeLayout.ComponentData =
 						}
 					},
 
-					MetaUpgradeCardType = 
-					{
-						GroupName = "Combat_Menu_Overlay",
-						OffsetY = -370, 
-						OffsetX = 0,
-					},
-
-					MetaUpgradeCardArt = 
-					{
-						GroupName = "Combat_Menu_Overlay",
-						AnimationName = "Blank",
-						OffsetX = 57,
-						OffsetY = -107,
-						Scale = 1.0,
-						Children = 
-						{
-							MetaUpgradeCardArtHighlight = 
-							{
-								GroupName = "Combat_Menu_Overlay",
-							},
-
-							MetaUpgradeCardArtPatch = 
-							{
-								GroupName = "Combat_Menu_Overlay",
-								OffsetX = -233,
-								OffsetY = -361,
-							}
-						}
-					},
-
 					MetaUpgradeCardText = 
 					{
 						GroupName = "Combat_Menu_Overlay",
-						Text = "TESTEXT 3",
+						Text = " ",
 						TextArgs =
 						{
 							FontSize = 22,
 							TextSymbolScale = 0.75,
-							OffsetY = 65, 
+							OffsetY = 0, 
 							OffsetX = -35,
-							Width = 550,
-							LangOffsetY = 
-							{
-								{ Code = "ko", Value = 50 },
-								{ Code = "zh-CN", Value = 50 },
-								{ Code = "zh-TW", Value = 50 },
-							},
+							Width = 570,
 							LineSpacingBottom = 6,
 							Color = {0.8, 0.8, 0.8, 1.0},
 							Font = "LatoMedium",
@@ -385,20 +306,13 @@ ScreenData.MetaUpgradeCardUpgradeLayout.ComponentData =
 					MetaUpgradeCardAutoEquipText =
 					{
 						GroupName = "Combat_Menu_Overlay",
-						Text = "AutoEquip Text Placeholder!",
+						Text = " ",
 						TextArgs =
 						{
 							FontSize = 22,
 							TextSymbolScale = 0.75,
-							OffsetY = 180,
-							OffsetX = -35,
-							LangOffsetY = 
-							{
-								{ Code = "ko", Value = 156 },
-								{ Code = "zh-CN", Value = 156 },
-								{ Code = "zh-TW", Value = 156 },
-							},
-							Width = 550,
+							OffsetY = 100,
+							Width = 570,
 							LineSpacingBottom = 6,
 							Color = {0.8, 0.8, 0.8, 1.0},
 							Font = "LatoMedium",
@@ -414,10 +328,18 @@ ScreenData.MetaUpgradeCardUpgradeLayout.ComponentData =
 						}
 					},
 
+					MetaUpgradeMaxRank = 
+					{
+						AnimationName = "MetaUpgradeUpgradeScreenMaxRank",
+						Alpha = 0.0,
+						OffsetX = -30,
+						OffsetY = 280,
+					},
+
 					MetaUpgradeResourceCostBacking = 
 					{
 						Graphic = "MetaUpgradeResourceCostBacking",
-						Alpha = 1.0,
+						Alpha = 0.0,
 						OffsetX = -30,
 						OffsetY = 340,
 					},
@@ -443,6 +365,15 @@ ScreenData.MetaUpgradeCardUpgradeLayout.ComponentData =
 				},
 			},			
 		},		
+	},
+	
+	ActionBarBackground =
+	{
+		AnimationName = "GUI\\ActionBar",
+		GroupName = "Combat_Menu_Overlay",
+		X = ScreenCenterX,
+		Y = UIData.ActionBarY,
+		UseScreenScaleX = true,
 	},
 
 	ActionBar =
@@ -473,7 +404,8 @@ ScreenData.MetaUpgradeCardUpgradeLayout.ComponentData =
 					OnPressedFunctionName = "MetaUpgradeCardUpgradeScreenPinItem",
 					ControlHotkeys = { "ItemPin", },
 				},
-				Text = "Menu_Pin",
+				Text = "MetaUpgrade_Pin",
+				AltTexts = { "MetaUpgradeCard_Inspect" },
 				TextArgs = UIData.ContextualButtonFormatRight,
 			},
 
@@ -520,57 +452,6 @@ ScreenData.MetaUpgradeCardUpgradeLayout.ComponentData =
 				Text = "Menu_Exit",
 				TextArgs = UIData.ContextualButtonFormatRight,
 			},
-		},
-	},
-
-	Letterbox =
-	{
-		X = ScreenCenterX,
-		Y = ScreenCenterY,
-		Animation = "GUI\\Graybox\\NativeAspectRatioFrame",
-		Alpha = 0.0,
-		AlphaTarget = 1.0,
-		AlphaTargetDuration = 0.2,
-		Requirements =
-		{
-			{
-				PathFalse = { "ScreenState", "NativeAspetRatio" },
-			}
-		},
-	},
-
-	PillarboxLeft =
-	{
-		PillarboxLeft = true,
-		Y = ScreenCenterY,
-		GroupName = "Combat_Menu_TraitTray_Overlay",
-		Animation = "GUI\\SideBars_01",
-		FlipHorizontal = true,
-		Alpha = 0.0,
-		AlphaTarget = 1.0,
-		AlphaTargetDuration = 0.2,
-		Requirements =
-		{
-			{
-				PathFalse = { "ScreenState", "NeedsPillarbox" },
-			}
-		},
-	},
-
-	PillarboxRight =
-	{
-		PillarboxRight = true,
-		Y = ScreenCenterY,
-		GroupName = "Combat_Menu_TraitTray_Overlay",
-		Animation = "GUI\\SideBars_01",
-		Alpha = 0.0,
-		AlphaTarget = 1.0,
-		AlphaTargetDuration = 0.2,
-		Requirements =
-		{
-			{
-				PathFalse = { "ScreenState", "NeedsPillarbox" },
-			}
 		},
 	},
 }

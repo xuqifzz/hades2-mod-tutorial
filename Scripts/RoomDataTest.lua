@@ -31,7 +31,6 @@ RoomSetData.Test =
 		},
 		ForceChallengeSwitch = true,
 		ForceSecretDoor = true,
-		ForceShrinePointDoor = true,
 		AllowSuperOutsideEncounter = true,
 		AlwaysInCombat = true,
 		StartUnthreadedEvents =
@@ -226,47 +225,98 @@ RoomSetData.Test =
 				{
 					Names =
 					{
-						"MaxHealthDrop",
-						"MaxManaDrop",
+						-- Money
 						"RoomMoneyDrop",
-						"RoomRewardConsolationPrize",
-						"RoomRewardHealDrop",
-						"HealBigDrop",
-
-						"GiftDrop",
-						"MetaCurrencyDrop",
-						"OreFSilverDrop",
-						"OreNBronzeDrop",
-						"MetaCardPointsCommonDrop",
-						"MemPointsCommonDrop",
-						"PlantFMolyDrop",
-						"MixerFBossDrop",
-						"MetaFabricDrop",
-						"MixerGBossDrop",
-						"MixerHBossDrop",
-						"MixerIBossDrop",
-						"Mixer5CommonDrop",
-						"MixerNBossDrop",
-						"MixerOBossDrop",
-						"MixerPBossDrop",
-						"CardUpgradePointsDrop",
-						"FamiliarPointsDrop",
-						"PlantFNightshadeDrop",
-						"CharonPointsDrop",
-						"TrashPointsDrop",
-						
 						"RoomMoneyBigDrop",
 						"RoomMoneyTripleDrop",
 						"RoomMoneySmallDrop",
 						"RoomMoneyTinyDrop",
+
+						-- Healths
+						"MaxHealthDrop",
 						"MaxHealthDropSmall",
 						"MaxHealthDropBig",
+						"EmptyMaxHealthDrop",
+						"EmptyMaxHealthSmallDrop",
+
+						-- Mana
+						"MaxManaDrop",
 						"MaxManaDropSmall",
 						"MaxManaDropBig",
+
+						-- Talents
+						"TalentDrop",
+						"MinorTalentDrop",
+						"TalentBigDrop",
+
+						-- Healing
+						"RoomRewardHealDrop",
+						"HealBigDrop",
+						"HealDropMajor",
+						"RoomRewardConsolationPrize",
+
+						-- Partial rewards
+						"StoreRewardRandomStack",
+						"RerollDrop",
+						"LastStandDrop",
+						"ArmorBoost",
+						"ArmorBigBoost",
+						"FireBoost",
+						"AirBoost",
+						"EarthBoost",
+						"WaterBoost",
+						"ElementalBoost",
+
+						-- Meta, basic
+						"MetaCardPointsCommonDrop",
+						"MetaCardPointsCommonBigDrop",
+						"MemPointsCommonDrop",
+						"MemPointsCommonBigDrop",
+						"MetaCurrencyDrop",
+						"MetaCurrencyBigDrop",
+						"GiftDrop",
+
+						-- Meta, harvest/misc
+						"OreFSilverDrop",
+						"PlantFMolyDrop",
+						"PlantFNightshadeDrop",
+						"PlantGLotusDrop",
+						"MetaFabricDrop",
+						"TrashPointsDrop",
+
+						-- Meta, boss
+						"MixerFBossDrop",
+						"MixerGBossDrop",
+						"MixerHBossDrop",
+						"MixerIBossDrop",
+						"MixerNBossDrop",
+						"MixerOBossDrop",
+						"MixerPBossDrop",
+						"MixerQBossDrop",
+						"Mixer5CommonDrop",
+						"Mixer6CommonDrop",
+
+						-- Meta, advanced
+						"WeaponPointsRareDrop",
+						"CardUpgradePointsDrop",
+						"FamiliarPointsDrop",
+						"CharonPointsDrop",
+						"GemPointsDrop",
+						"GemPointsBigDrop",
+
+						-- Healing, no interact
 						"HealDrop",
 						"HealDropMinor",
 						"HealDropSuperMinor",
-						
+
+						-- From Traits
+						--"MedeaMoneyTinyDrop",
+						--"PowerDrinkDrop",
+						--"BloodDrop",
+						--"ManaDropMinorPoseidon",
+						--"ManaDropMinor",
+						--"ManaDropZeus",
+						--"ManaDropMinorHound",
 					},
 					HideWorldTextOverride = false,
 				},
@@ -279,6 +329,7 @@ RoomSetData.Test =
 					{
 						568880, 568898, 568864, 568862, 568871, 568890, 568874, 568875, 568873, 568863, 568892, 568877, 568891, 568867, 568861, 568895, 568893, 568885, 568882, 568879,
 						568889, 568872, 568869, 568878, 568886, 568868, 568859, 568896, 568860, 568870, 568876, 568884, 568883, 568887, 568866, 568888, 568897, 568894, 568865, 568881,
+						568903, 568902, 568901, 568900, 568899,
 					},
 					ExcludeNames = { "NPC_Neutral", "NPC_Giftable", "NPC_Familiar" },
 				},

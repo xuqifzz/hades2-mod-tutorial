@@ -179,8 +179,8 @@ function FillInShopOptions( args )
 			if groupData.OptionsData ~= nil then
 				for s, itemData in pairs(groupData.OptionsData) do
 					local upgradeData = DeepCopyTable( ConsumableData[itemData.Name] or LootData[itemData.Name] )
-					if ( itemData.ReplaceRequirements == nil and ( StoreItemEligible(upgradeData, args) or itemData.SkipRequirements )) or ( itemData.ReplaceRequirements and IsGameStateEligible( itemData, itemData.ReplaceRequirements) ) then
-						local itemName = itemData.Name
+					local itemName = itemData.Name
+					if not Contains( args.ExclusionNames, itemName) and (( itemData.ReplaceRequirements == nil and ( StoreItemEligible(upgradeData, args) or itemData.SkipRequirements )) or ( itemData.ReplaceRequirements and IsGameStateEligible( itemData, itemData.ReplaceRequirements) )) then
 						if itemName == "RandomLoot" or itemName == "BoostedRandomLoot" then
 							local pickedGod = GetEligibleInteractedGod()
 							if pickedGod ~= nil then
@@ -307,36 +307,107 @@ function RemoveStoreItem( args )
 	if CurrentRun == nil or CurrentRun.CurrentRoom == nil or CurrentRun.CurrentRoom.Store == nil or IsEmpty( CurrentRun.CurrentRoom.Store.StoreOptions ) then
 		return
 	end
+	local wasFirstPurchase = not CurrentRun.CurrentRoom.FirstPurchase 
+	local removedItem = false
 	for i, data in pairs( CurrentRun.CurrentRoom.Store.StoreOptions ) do
 		local dataArgs = data.Args or {}
 		if args.IsBoon and data.Type == "Boon" and data.Args and data.Args.ForceLootName == args.Name and TableLength(dataArgs.BoonRaritiesOverride) == TableLength(args.BoonRaritiesOverride) then
 			if dataArgs.BoonRaritiesOverride == args.BoonRaritiesOverride then
 				CurrentRun.CurrentRoom.Store.StoreOptions[i] = nil
+				removedItem = true
 				break
 			elseif dataArgs.BoonRaritiesOverride ~= nil and args.BoonRaritiesOverride ~= nil and dataArgs.BoonRaritiesOverride.Epic == args.BoonRaritiesOverride.Epic and  dataArgs.BoonRaritiesOverride.Rare == args.BoonRaritiesOverride.Rare then
 				CurrentRun.CurrentRoom.Store.StoreOptions[i] = nil
+				removedItem = true
 				break
 			end
-		elseif data.Name == ( args.Name .. "Drop" ) then
+		elseif data.Name == ( args.Name .. "Drop" ) or data.Name == ( "Shop" .. args.Name )  then
 			CurrentRun.CurrentRoom.Store.StoreOptions[i] = nil
+			removedItem = true
 			break
 		elseif data.Name == args.Name then
 			CurrentRun.CurrentRoom.Store.StoreOptions[i] = nil
+			removedItem = true
 			break
 		end
 	end
-	if CurrentRun.CurrentRoom.Store.SpawnedStoreItems then
+	if removedItem then
+		CurrentRun.CurrentRoom.FirstPurchase = true
+	end
+	if removedItem and CurrentRun.CurrentRoom.Store.SpawnedStoreItems then
+		local replacedKitId = nil
+		local replacedIndex = nil
+		if HasHeroTraitValue("DuplicateWorldShopItem") and args.Name ~= "SpellDrop" then
+			UseHeroTraitsWithValue("DuplicateWorldShopItem")
+			local allPoints = GetIdsByType ({ Names = {"SecretPoint", "EnemyPoint" }})
+			local spawnTarget = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationIds = allPoints, Distance = 2000 })
+			local spawnedItem = nil
+			if args.IsBoon then
+				spawnedItem = CreateLoot({ Name = args.Name, SpawnPoint = spawnTarget })
+			else	
+				local consumableId = SpawnObstacle({ Name = args.Name, DestinationId = spawnTarget, Group = "Standing" })
+				spawnedItem = CreateConsumableItem( consumableId, args.Name, 0)		
+				ApplyConsumableItemResourceMultiplier( CurrentRun.CurrentRoom, spawnedItem )
+			end
+			if spawnedItem then
+				spawnedItem.CanDuplicate = false
+			end
+		end
 		for i, data in pairs(CurrentRun.CurrentRoom.Store.SpawnedStoreItems ) do
 			if data.ObjectId == args.Id then
 				CurrentRun.CurrentRoom.Store.SpawnedStoreItems[i] = nil
 				if CurrentRun.CurrentRoom.WatchedItemIndex == i then
 					notifyExistingWaiters( "ShopItem" )
-					break
+				end
+				replacedKitId = data.KitId
+				replacedIndex = i
+			elseif wasFirstPurchase and HasHeroTraitValue("FirstPurchaseDiscount") then
+				data.ResourceCosts = ShallowCopyTable(data.OriginalResourceCosts)
+				local costMultiplier = GetShopCostMultiplier()
+				for resourceName, resourceAmount in pairs(data.ResourceCosts) do		
+					data.ResourceCosts[resourceName] = round( resourceAmount * costMultiplier )
+				end
+				local originalObject = MapState.ActiveObstacles[data.ObjectId] or LootObjects[data.ObjectId]
+				if originalObject then
+					originalObject.ResourceCosts = ShallowCopyTable(data.ResourceCosts)
+				end
+				DestroyTextBox({ Id = data.ObjectId })				
+				UpdateCostText( data )
+			end
+		end
+		if replacedKitId and wasFirstPurchase and HasHeroTraitValue("FirstPurchaseDiscount") then
+			local room = CurrentRun.CurrentRoom
+			if room.StoreDataName ~= nil then
+				local storeData = StoreData[room.StoreDataName]
+				if storeData ~= nil then
+					thread( RestockWorldItem, replacedIndex, replacedKitId, args )
 				end
 			end
 		end
 	end
 	CurrentRun.CurrentRoom.StoreItemsPurchased = (CurrentRun.CurrentRoom.StoreItemsPurchased or 0) + 1
+end
+
+function RestockWorldItem(replacedIndex, kitId, args )
+	local room = CurrentRun.CurrentRoom
+	local storeData = StoreData[room.StoreDataName]
+
+	local screenName = args.ScreenName
+	if HeroHasTrait("SuitHexAspect") and screenName =="SpellMenu" then
+		screenName = UIData.TalentMenuId
+	end
+
+	local options = FillInShopOptions({ RoomName = room.Name, StoreData = storeData, ExclusionNames = { args.Name, args.Name.."Drop" } }).StoreOptions
+	if options == nil or not options[replacedIndex] then
+		options = FillInShopOptions({ RoomName = room.Name, StoreData = storeData }).StoreOptions
+	end
+	itemData = options[replacedIndex]
+	if screenName then
+		waitUntil( screenName )
+	end
+	InvalidateCheckpoint()
+	SpawnStoreItemInWorld( itemData, kitId )
+	WorldShopItemRestockPresentation( kitId )
 end
 
 function RunShopGeneration( room )
@@ -368,8 +439,8 @@ function SetupWorldShop( source, args )
 	if args.ActivateUnitsByType ~= nil then
 		ActivatePrePlaced( source, { LegalTypes = args.ActivateUnitsByType } )
 	end
-	if args.ActivateIdsByType ~= nil then
-		local ids = GetInactiveIds({ Names = args.ActivateIdsByType })
+	if args.ActivateIdsByGroup ~= nil then
+		local ids = GetInactiveIds({ Names = args.ActivateIdsByGroup })
 		Activate({ Ids = ids })
 	end
 end
@@ -418,8 +489,6 @@ function CheckHeraclesShoppingEvent( eventSource, args )
 	args.NPCName = "NPC_Heracles_01"
 	args.ShoppingSuccessPresentationFunction = "ShoppingSuccessHeraclesPresentation"
 	eventSource.HeraclesShopping = true
-	-- necessary for HeraclesExit()
-	CurrentRun.CurrentRoom.Encounter.HeraclesId = GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = "NPC_Heracles_01" })
 	CurrentRun.HeraclesShopped = true
 	thread( CheckShoppingEventThread, eventSource, args )
 end
@@ -492,7 +561,7 @@ function CheckShoppingEventThread( eventSource, args )
 		end
 
 		if shoppingNPC.StoreExitFunctionName then
-			CallFunctionName( shoppingNPC.StoreExitFunctionName, shoppingNPC, { DelayMin = eventData.ExitDelayMin, DelayMax = eventData.ExitDelayMax, UseAnim = true } )
+			CallFunctionName( shoppingNPC.StoreExitFunctionName, shoppingNPC, { DelayMin = eventData.ExitDelayMin, DelayMax = eventData.ExitDelayMax, UseAnim = true, SkipObjective = eventData.SkipObjective } )
 		end
 
 		shoppingNPC.Shopping = false
@@ -501,14 +570,14 @@ end
 
 function SpawnStoreItemsInWorld( room, args )
 	
-	if room.StoreDataName ~= nil then
+	if room.StoreDataName ~= nil and room.Store == nil then
 		local storeData = StoreData[room.StoreDataName]
 		if storeData ~= nil then
 			room.Store = FillInShopOptions({ RoomName = room.Name, StoreData = storeData })
 		end
 	end
 
-	if room.Store ~= nil then
+	if room.Store ~= nil and room.Store.StoreOptions ~= nil then
 		local kitIds = GetIdsByType({ Name = "LootPoint" })
 		table.sort( kitIds )
 		room.Store.SpawnedStoreItems = {}
@@ -525,6 +594,9 @@ function SpawnStoreItemsInWorld( room, args )
 end
 
 function SpawnStoreItemInWorld( itemData, kitId )
+	if not itemData then
+		return
+	end
 	local spawnedItem = nil
 	if itemData.Name == "WeaponUpgradeDrop" then
 		spawnedItem = CreateWeaponLoot({ SpawnPoint = kitId, ResourceCosts = itemData.ResourceCosts or GetProcessedValue( ConsumableData[itemData.Name].ResourceCosts ), DoesNotBlockExit = true, SuppressSpawnSounds = true, } )
@@ -554,18 +626,30 @@ function SpawnStoreItemInWorld( itemData, kitId )
 		SetThingProperty({ Property = "SortBoundsScale", Value = 1.0, DestinationId = spawnedItem.ObjectId })
 	end
 	if spawnedItem ~= nil then
+		MapState.RewardPointsUsed[kitId] = spawnedItem.ObjectId
 		spawnedItem.SpawnPointId = kitId
-		if not itemData.PendingShopItem then
+		if not itemData.PendingShopItem and not itemData.ZagContractItem then
 			SetObstacleProperty({ Property = "MagnetismWhileBlocked", Value = 0, DestinationId = spawnedItem.ObjectId })
 			spawnedItem.UseText = spawnedItem.PurchaseText or "Shop_UseText"
 			spawnedItem.IconPath = spawnedItem.TextIconPath or spawnedItem.IconPath
-			table.insert( CurrentRun.CurrentRoom.Store.SpawnedStoreItems, { KitId = kitId, ObjectId = spawnedItem.ObjectId, ResourceCosts = spawnedItem.ResourceCosts} )
+			table.insert( CurrentRun.CurrentRoom.Store.SpawnedStoreItems, { KitId = kitId, ObjectId = spawnedItem.ObjectId, OriginalResourceCosts = spawnedItem.BaseResourceCosts, ResourceCosts = spawnedItem.ResourceCosts} )
 		else
 			MapState.SurfaceShopItems = MapState.SurfaceShopItems or {}
 			table.insert( MapState.SurfaceShopItems, spawnedItem.Name )
 		end
 		return spawnedItem
 	end
+end
+
+
+function GetShopCostMultiplier()
+	local costMultiplier = 1 + ( MetaUpgradeData.ShopPricesShrineUpgrade.ChangeValue - 1 )
+	if not CurrentRun.CurrentRoom.FirstPurchase and HasHeroTraitValue("FirstPurchaseDiscount") then
+		costMultiplier = costMultiplier * (GetTotalHeroTraitValue("StoreCostMultiplier", {IsMultiplier = true, Multiplicative = true}) - (1 - GetTotalHeroTraitValue("FirstPurchaseDiscount")))
+	else
+		costMultiplier = costMultiplier * GetTotalHeroTraitValue("StoreCostMultiplier", {IsMultiplier = true, Multiplicative = true})
+	end
+	return costMultiplier
 end
 
 function UpdateCostText( object, textExists )
@@ -592,20 +676,32 @@ function UpdateCostText( object, textExists )
 			end
 			costAmount = object.HealthCost
 		end
+		
+		if not CurrentRun.CurrentRoom.FirstPurchase and HasHeroTraitValue("FirstPurchaseDiscount") and (costFontColor == Color.CostAffordable or costFontColor == Color.CostAffordableShop ) then
+			costFontColor = Color.CostAffordableDiscount
+		end
 
 		if textExists then
 			ModifyTextBox({ Id = object.ObjectId, ColorTarget = costFontColor, ColorDuration = 0.2 })
 		else
-			CreateTextBox({ Id = object.ObjectId, Text = "Shop_ItemCost", TextSymbolScale = 0.6, LuaKey = "TempTextData", LuaValue = { Amount = costAmount }, FontSize = 24, OffsetY = -75, Color = costFontColor, Justification = "CENTER",
-				Font="NumericP22UndergroundSCMedium",
-				FontSize=36,
+			CreateTextBox(
+			{
+				Id = object.ObjectId,
+				Text = "Shop_ItemCost",
+				TextSymbolScale = 0.6,
+				LuaKey = "TempTextData",
+				LuaValue = { Amount = costAmount },
+				FontSize = 36,
+				OffsetY = -75,
+				Color = costFontColor,
+				Justification = "CENTER",
+				Font = "NumericP22UndergroundSCMedium",
 				ShadowColor = {0,0,0,1},
-				ShadowOffset= {0,2},
-				ShadowAlpha=1,
-				ShadowBlur=0,
-				OutlineColor={0,0,0,1},
-				OutlineThickness=2,
-
+				ShadowOffset = {0,2},
+				ShadowAlpha = 1,
+				ShadowBlur = 0,
+				OutlineColor = {0,0,0,1},
+				OutlineThickness = 2,
 			})
 		end
 	end
@@ -617,6 +713,8 @@ function ShowStoreScreen()
 	if IsScreenOpen( screen.Name ) then
 		return
 	end
+
+	AltAspectRatioFramesShow()
 
 	killTaggedThreads( CombatUI.HideThreadName )
 	SetPlayerInvulnerable( screen.Name )
@@ -634,15 +732,9 @@ function ShowStoreScreen()
 	PlaySound({ Name = "/SFX/Menu Sounds/WellShopOpenNew" })
 	thread( PlayVoiceLines, GlobalVoiceLines.OpenedShopLines, true )
 
-	ScreenAnchors.StoreScreen = screen
 	local components = screen.Components
 
-	-- Flavor Text
-	local flavorTextOptions = { "WellShop_FlavorText01", "WellShop_FlavorText02", "WellShop_FlavorText03" }
-	local flavorText = GetRandomValue( flavorTextOptions )
-	ModifyTextBox({ Id = components.ShopFlavor.Id, Text = flavorText })
-
-	wait( 0.25 )
+	wait( 0.2 )
 	CreateStoreButtons( screen )
 
 	if not IsEmpty( CurrentRun.CurrentRoom.Store.StoreOptions ) then
@@ -653,7 +745,7 @@ function ShowStoreScreen()
 
 end
 
-function CreateStoreButtons( screen )
+function CreateStoreButtons( screen, instant )
 
 	local itemLocationStartY = screen.ShopItemStartY
 	local itemLocationYSpacer = screen.ShopItemSpacerY
@@ -675,11 +767,9 @@ function CreateStoreButtons( screen )
 			numButtons = numButtons + groupData.Offers
 		end
 	end
-
 	local firstUseable = false
 	for itemIndex = 1, numButtons do
 		local upgradeData = CurrentRun.CurrentRoom.Store.StoreOptions[itemIndex]
-
 		if upgradeData ~= nil then
 			if not upgradeData.Processed then
 				if upgradeData.Type == "Trait" then
@@ -690,7 +780,7 @@ function CreateStoreButtons( screen )
 					upgradeData.Type = "Trait"
 					SetTraitTextData( upgradeData )
 				elseif upgradeData.Type == "Consumable" then
-					upgradeData = GetRampedConsumableData( ConsumableData[upgradeData.Name] )
+					upgradeData = GetRampedConsumableData( ConsumableData[upgradeData.Name], { DataOverrides = upgradeData.DataOverrides })
 					upgradeData.Type = "Consumable"
 				elseif upgradeData.Type == "Cosmetic" then
 					upgradeData = DeepCopyTable( WorldUpgradeData[upgradeData.Name] )
@@ -699,10 +789,8 @@ function CreateStoreButtons( screen )
 					upgradeData = DeepCopyTable( LootData[ upgradeData.Args.ForceLootName ])
 					upgradeData.ResourceCosts = DeepCopyTable( ConsumableData.RandomLoot.ResourceCosts )
 				end
-
-				local costMultiplier = 1 + ( MetaUpgradeData.ShopPricesShrineUpgrade.ChangeValue - 1 )
-				costMultiplier = costMultiplier * GetTotalHeroTraitValue("StoreCostMultiplier", {IsMultiplier = true, Multiplicative = true})
-
+				
+				local costMultiplier = GetShopCostMultiplier()
 				if costMultiplier ~= 1 then
 					if HasResourceCost( upgradeData.ResourceCosts ) then
 						for resourceName, resourceAmount in pairs(upgradeData.ResourceCosts) do		
@@ -725,10 +813,14 @@ function CreateStoreButtons( screen )
 
 			local purchaseButtonKey = "PurchaseButton"..itemIndex			
 			local purchaseButton = DeepCopyTable( ScreenData.UpgradeChoice.PurchaseButton )
+			purchaseButton.Animation = upgradeData.InfoBackingAnimation
 			purchaseButton.X = itemLocationX
 			purchaseButton.Y = itemLocationY
 			components[purchaseButtonKey] = CreateScreenComponent( purchaseButton )
-
+			if not instant then
+				SetAlpha({ Id = components[purchaseButtonKey].Id, Fraction = 0.1 })
+				SetAlpha({ Id = components[purchaseButtonKey].Id, Fraction = 1, Duration = 0.05 * itemIndex, EaseIn = 0, EaseOut = 1 })
+			end
 			local highlight = ShallowCopyTable( ScreenData.UpgradeChoice.Highlight )
 			highlight.X = purchaseButton.X
 			highlight.Y = purchaseButton.Y
@@ -759,26 +851,14 @@ function CreateStoreButtons( screen )
 			end
 
 			if HeroHasTrait("ExtendedShopTrait") then
-				local infinityIcon = nil
 				local trait = GetHeroTrait("ExtendedShopTrait")
 				if trait and trait.ValidPermanentItemsLookup[upgradeData.Name] and IsTraitActive(trait) then
 					upgradeData.CloseScreenStore = upgradeData.CloseScreen
 					upgradeData.CloseScreen = true
 					upgradeData.MakePermanent = true
-					infinityIcon = trait.PermanentItemBadgeAnimationName
 				elseif upgradeData.MakePermanent then
 					upgradeData.MakePermanent = false
 					upgradeData.CloseScreen = upgradeData.CloseScreenStore
-				end
-				if infinityIcon then
-					local iconPosX = itemLocationX + ScreenData.UpgradeChoice.QuestIconOffsetX - ScreenData.UpgradeChoice.ButtonOffsetX
-					if needsQuestIcon then
-						iconPosX = iconPosX + 80
-					end
-					components[purchaseButtonKey.."Permafy"] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu",
-						X = iconPosX,
-						Y = itemLocationY + ScreenData.UpgradeChoice.QuestIconOffsetY })
-					SetAnimation({ DestinationId = components[purchaseButtonKey.."Permafy"].Id, Name = infinityIcon, Scale = 0.5 })
 				end
 			end
 			local costString = "@GUI\\Icons\\Currency"
@@ -804,14 +884,18 @@ function CreateStoreButtons( screen )
 				else
 					costColor = Color.CostUnaffordable
 				end
-			end			
+			end	
+			local titleColor = costColor
+			if not CurrentRun.CurrentRoom.FirstPurchase and HasHeroTraitValue("FirstPurchaseDiscount") and ( costColor == Color.CostAffordableShop ) then
+				costColor = Color.CostAffordableDiscount
+			end
 
 			local titleText = DeepCopyTable( ScreenData.UpgradeChoice.TitleText )
 			titleText.Id = components[purchaseButtonTitleKey].Id
 			titleText.Text = GetTraitTooltip( upgradeData )
 			titleText.LuaKey = "TempTextData"
 			titleText.LuaValue = upgradeData
-			titleText.Color = costColor
+			titleText.Color = titleColor
 			CreateTextBox( titleText )
 
 			local descriptionText = DeepCopyTable( ScreenData.UpgradeChoice.DescriptionText )
@@ -822,24 +906,29 @@ function CreateStoreButtons( screen )
 			CreateTextBoxWithFormat( descriptionText )
 			
 			SetInteractProperty({ DestinationId = components[purchaseButtonKey].Id, Property = "TooltipOffsetX", Value = ScreenData.UpgradeChoice.TooltipOffsetX })
-			
-			CreateTextBox(MergeTables({ Id = components[purchaseButtonTitleKey].Id, Text = costString, OffsetX = 410, OffsetY = -60, FontSize = 28, Color = costColor, Font = "P22UndergroundSCMedium", Justification = "Right" },LocalizationData.SellTraitScripts.ShopButton))
+			local costText = DeepCopyTable( ScreenData.UpgradeChoice.CostText )
+			costText.Text = costString
+			costText.Color = costColor
+			costText.Id = components[purchaseButtonTitleKey].Id
+			CreateTextBox( costText )
 
-			local statLines = upgradeData.StatLines
+			local statLines = ShallowCopyTable(upgradeData.StatLines)
+			if upgradeData.CustomStatLinesWithShrineUpgrade ~= nil and GetNumShrineUpgrades( upgradeData.CustomStatLinesWithShrineUpgrade.ShrineUpgradeName ) > 0 then
+				statLines = upgradeData.CustomStatLinesWithShrineUpgrade.StatLines
+			end
 			local statLineData = upgradeData
 			if upgradeData.MakePermanent and HeroHasTrait("ExtendedShopTrait") then
 				local trait = GetHeroTrait("ExtendedShopTrait")
-				statLines = {"ExtendedStoreUsesRemainingDisplay1"}
-				statLineData = { RemainingUses = trait.BossExtension }
+				statLines = statLines or {}
+				statLinesData = statLinesData or {}
+				statLines[1] = "InStoreExtendedStoreUsesRemainingDisplay1"
+				statLineData.RemainingUses = trait.BossExtension 
 			end
 			if statLines then
 				for lineNum, statLine in ipairs(statLines) do
 					if statLine ~= "" then
 
 						local offsetY = (lineNum - 1) * ScreenData.UpgradeChoice.LineHeight
-						if statLineData.ExtraDescriptionLine then
-							offsetY = offsetY + ScreenData.UpgradeChoice.LineHeight
-						end
 
 						local statLineLeft = DeepCopyTable(ScreenData.UpgradeChoice.StatLineLeft)
 						statLineLeft.Id = components[purchaseButtonKey].Id
@@ -875,7 +964,10 @@ function CreateStoreButtons( screen )
 				TeleportCursor({ OffsetX = itemLocationX, OffsetY = itemLocationY, ForceUseCheck = true })
 				firstUseable = true
 			end
-			
+			if instant then
+				ModifyTextBox({ Id = components[purchaseButtonKey].Id, FadeTarget = 1, FadeDuration = 0})
+				ModifyTextBox({ Id = components[purchaseButtonTitleKey].Id, FadeTarget = 1, FadeDuration = 0})
+			end
 			if CurrentRun.CurrentRoom.Store.Buttons == nil then
 				CurrentRun.CurrentRoom.Store.Buttons = {}
 			end
@@ -992,27 +1084,17 @@ function CloseStoreScreen( screen, button )
 		end
 	end
 	UseableOff({ Ids = useableOffButtonIds })
+	AltAspectRatioFramesHide()
 	OnScreenCloseStarted( screen )
 	if screen.CloseAnimationName and components.ShopBackground then
 		SetAnimation({ Name = screen.CloseAnimationName, DestinationId = components.ShopBackground.Id })
 	end
 	CloseScreen( GetAllIds( screen.Components ), 0.15 )
 	CurrentRun.CurrentRoom.Store.Buttons = {}
-	ScreenAnchors.StoreScreen = nil
 	OnScreenCloseFinished( screen )
-	ShowCombatUI( screen.Name, { SkipUpdateTraitSummary = true } )
-	--ShowCombatUI( screen.Name )
+	ShowCombatUI( screen.Name )
 	thread( MarkObjectiveComplete, "ShopPrompt" )
 	SetPlayerVulnerable( screen.Name )
-
-	if CurrentRun.CurrentRoom.Store.CosmeticUnlocked ~= nil then
-		thread( DisplayInfoBanner, nil, {
-			TitleText = "Store_CosmeticUnlocked_Title",
-			SubtitleText = "Store_CosmeticUnlocked_Subtitle",
-			SubtitleData = { LuaKey = "TempTextData", LuaValue = { Name = CurrentRun.CurrentRoom.Store.CosmeticUnlocked }}
-		})
-		CurrentRun.CurrentRoom.Store.CosmeticUnlocked = nil
-	end
 end
 
 function HandleStorePurchase( screen, button )
@@ -1044,8 +1126,10 @@ function HandleStorePurchase( screen, button )
 		return
 	end
 
+	PlaySound({ Name = screen.PurchaseSound })
 	StorePurchasePresentation( screen, button, upgradeData )
-
+	local wasFirstPurchase = not CurrentRun.CurrentRoom.FirstPurchase and HasHeroTraitValue("FirstPurchaseDiscount")
+	CurrentRun.CurrentRoom.FirstPurchase = true
 	CurrentRun.WellPurchases =  (CurrentRun.WellPurchases or 0) + 1
 
 	SpendResources( upgradeData.ResourceCosts, upgradeData.Name or "WeaponUpgrade", { SkipQuestStatusCheck = true, } )
@@ -1056,18 +1140,29 @@ function HandleStorePurchase( screen, button )
 
 	local values = {}
 	local purchaseIndexOffset = 0
-	for i, value in pairs (CurrentRun.CurrentRoom.Store.StoreOptions) do
-		if Contains( CurrentRun.CurrentRoom.IndexesPurchased, i ) then
-			purchaseIndexOffset = purchaseIndexOffset + 1
-			if Contains( CurrentRun.CurrentRoom.IndexesPurchased, i + purchaseIndexOffset ) then
+	if not wasFirstPurchase then
+		for i, value in pairs (CurrentRun.CurrentRoom.Store.StoreOptions) do
+			if Contains( CurrentRun.CurrentRoom.IndexesPurchased, i ) then
 				purchaseIndexOffset = purchaseIndexOffset + 1
+				if Contains( CurrentRun.CurrentRoom.IndexesPurchased, i + purchaseIndexOffset ) then
+					purchaseIndexOffset = purchaseIndexOffset + 1
+				end
+			end
+			if value.Name == upgradeData.Name then
+				table.insert(CurrentRun.CurrentRoom.IndexesPurchased, i + purchaseIndexOffset )
+				table.sort( CurrentRun.CurrentRoom.IndexesPurchased )
+				CurrentRun.CurrentRoom.Store.StoreOptions[i] = nil
 			end
 		end
-		if value.Name == upgradeData.Name then
-			table.insert(CurrentRun.CurrentRoom.IndexesPurchased, i + purchaseIndexOffset )
-			table.sort( CurrentRun.CurrentRoom.IndexesPurchased )
-			CurrentRun.CurrentRoom.Store.StoreOptions[i] = nil
+	else
+		local exclusionNames = {}
+		for i, value in pairs( CurrentRun.CurrentRoom.Store.StoreOptions ) do
+			table.insert(exclusionNames, value.Name )
 		end
+		local newOptions = FillInShopOptions({ StoreData = StoreData.RoomShop, RoomName = CurrentRun.CurrentRoom.Name, ExclusionNames = exclusionNames }).StoreOptions
+		CurrentRun.CurrentRoom.Store.StoreOptions[ button.Index ] = newOptions[ button.Index ]
+		thread( StoreRestockPresentation, button )
+		InvalidateCheckpoint()
 	end
 
 	if upgradeData.Type == "Trait" then
@@ -1089,7 +1184,7 @@ function HandleStorePurchase( screen, button )
 			trait.RemainingUses = trait.RemainingUses + upgradeData.RemainingUses
 			UpdateTraitNumber( trait )
 		else
-		AddTraitToHero({ TraitData = upgradeData, SkipQuestStatusCheck = true, SkipAddToHUD = true})
+			AddTraitToHero({ TraitData = upgradeData, SkipQuestStatusCheck = true, SkipAddToHUD = true})
 		end
 		IncrementTableValue( GameState.ItemInteractions, upgradeData.Name )
 		CheckCodexUnlock( "Items", upgradeData.Name )
@@ -1100,52 +1195,60 @@ function HandleStorePurchase( screen, button )
 		consumable.CanDuplicate = false
 	end
 
+	if upgradeData.StoreCostMultiplier or wasFirstPurchase then
+		for index, currentUpgradeData in pairs (CurrentRun.CurrentRoom.Store.StoreOptions) do
+			currentUpgradeData.Processed = nil
+			currentUpgradeData.DataOverrides = ShallowCopyTable( currentUpgradeData )
+			currentUpgradeData.DataOverrides.ResourceCosts = nil
+		end
+	end
+
 	if upgradeData.CloseScreen then
 		thread( PlayVoiceLines, upgradeData.PurchasedLines, true )
 		SetAnimation({ Name = "WellShopOut", DestinationId = screen.Components.ShopBackground.Id })
 		CloseStoreScreen( screen, button )
 		return
 	end
-	if upgradeData.StoreCostMultiplier then
-		for index, currentUpgradeData in pairs (CurrentRun.CurrentRoom.Store.StoreOptions) do
-			if currentUpgradeData and currentUpgradeData.ResourceCosts then
-				for resourceName, resourceAmount in pairs(currentUpgradeData.ResourceCosts) do		
-					currentUpgradeData.ResourceCosts[resourceName] = round( currentUpgradeData.ResourceCosts[resourceName] * upgradeData.StoreCostMultiplier )
-				end
-			end
-		end
-	end
-	if upgradeData.ValidPermanentItemsLookup or upgradeData.StoreCostMultiplier then
+	if upgradeData.ValidPermanentItemsLookup or upgradeData.StoreCostMultiplier or wasFirstPurchase then
 		DestroyStoreButtons( screen )
-		CreateStoreButtons( screen )
+		CreateStoreButtons( screen, true )
 	end
+	if not wasFirstPurchase then
+		local clearIds = {}
+		if screen.Components["PurchaseButton"..button.Index.."Highlight"] ~= nil then
+			table.insert( clearIds, screen.Components["PurchaseButton"..button.Index.."Highlight"].Id )
+			screen.Components["PurchaseButton"..button.Index.."Highlight"] = nil
+		end
+		if screen.Components["PurchaseButton"..button.Index.."QuestIcon"] ~= nil then
+			table.insert( clearIds, screen.Components["PurchaseButton"..button.Index.."QuestIcon"].Id )
+			screen.Components["PurchaseButton"..button.Index.."QuestIcon"] = nil
+		end
+		if screen.Components["PurchaseButton"..button.Index.."Permafy"] ~= nil then
+			table.insert( clearIds, screen.Components["PurchaseButton"..button.Index.."Permafy"].Id )
+			screen.Components["PurchaseButton"..button.Index.."Permafy"] = nil
+		end
+		
+		table.insert( clearIds, screen.Components["PurchaseButtonTitle".. button.Index].Id )
+		screen.Components["PurchaseButtonTitle".. button.Index] = nil
+		
+		table.insert( clearIds, screen.Components["PurchaseButton".. button.Index].Id )
 
-	if screen.Components["PurchaseButton"..button.Index.."Highlight"] ~= nil then
-		Destroy({ Id = screen.Components["PurchaseButton"..button.Index.."Highlight"].Id })
-		screen.Components["PurchaseButton"..button.Index.."Highlight"] = nil
+		if screen.Components["Icon".. button.Index] then
+			table.insert( clearIds, screen.Components["Icon".. button.Index].Id )
+			screen.Components["Icon".. button.Index] = nil
+		end
+		
+		SetAlpha({ Id = screen.Components.SelectButton.Id, Fraction = 0, Duration = 0.2 })
+		CreateAnimation({ Name = "BoonSlotPurchase", DestinationId = screen.Components["PurchaseButton".. button.Index].Id, OffsetX = 0 })
+		SetColor({ Ids = clearIds, Color = {0,0,0,0}, Duration = 0.15, EaseIn = 0.9, EaseOut = 1 })
+		SetScale({ Id = screen.Components["PurchaseButton".. button.Index].Id, Fraction = 0.9, Duration = 0.15, EaseIn = 0.9, EaseOut = 1.0})
+		
+		screen.Components["PurchaseButton".. button.Index] = nil
+		if not IsEmpty( clearIds ) then
+			thread(DestroyOnDelay, clearIds, 1.25 )
+		end
+
 	end
-	if screen.Components["PurchaseButton"..button.Index.."QuestIcon"] ~= nil then
-		Destroy({ Id = screen.Components["PurchaseButton"..button.Index.."QuestIcon"].Id })
-		screen.Components["PurchaseButton"..button.Index.."QuestIcon"] = nil
-	end
-	if screen.Components["PurchaseButton"..button.Index.."Permafy"] ~= nil then
-		Destroy({ Id = screen.Components["PurchaseButton"..button.Index.."Permafy"].Id })
-		screen.Components["PurchaseButton"..button.Index.."Permafy"] = nil
-	end
-
-	Destroy({ Id = screen.Components["PurchaseButtonTitle".. button.Index].Id })
-	screen.Components["PurchaseButtonTitle".. button.Index] = nil
-
-	--CreateAnimation({ Name = "BoonSlotPurchase", DestinationId = screen.Components["Backing".. button.Index].Id, OffsetX = -380 })
-
-	Destroy({ Id = screen.Components["PurchaseButton".. button.Index].Id })
-	screen.Components["PurchaseButton".. button.Index] = nil
-
-	if screen.Components["Icon".. button.Index] then
-		Destroy({ Id = screen.Components["Icon".. button.Index].Id })
-		screen.Components["Icon".. button.Index] = nil
-	end
-
 	thread( PlayVoiceLines, upgradeData.PurchasedLines, true )
 
 	for i, button in pairs(CurrentRun.CurrentRoom.Store.Buttons) do
@@ -1155,21 +1258,21 @@ function HandleStorePurchase( screen, button )
 end
 
 
-function UpdateCostButton(button)
+function UpdateCostButton(button, resourceCostOverride )
 	if button == nil then
 		return
 	end
 
 	local upgradeData = button.Data
 	local costColor = Color.CostAffordableShop
-	if not IsEmpty( upgradeData.ResourceCosts ) then
+	local resourceCosts = ShallowCopyTable( resourceCostOverride ) or upgradeData.ResourceCosts 
+	if not IsEmpty( resourceCosts ) then
 		local costAmount = 0
-		for name, amount in pairs( upgradeData.ResourceCosts) do
+		for name, amount in pairs( resourceCosts ) do
 			if name == "Money" then
 				costAmount = amount 
 			end
 		end
-
 		if GetResourceAmount( "Money" ) < costAmount then
 			costColor = Color.CostUnaffordable
 		end
@@ -1181,25 +1284,36 @@ function UpdateCostButton(button)
 			costColor = Color.CostUnaffordable
 		end
 	end
-	ModifyTextBox({ Id = button.TitleId, Color = costColor })
+
+	if not CurrentRun.CurrentRoom.FirstPurchase and HasHeroTraitValue("FirstPurchaseDiscount") and ( costColor == Color.CostAffordableShop ) then
+		costColor = Color.CostAffordableDiscount
+	end
+	ModifyTextBox({ Id = button.TitleId, ColorTarget = costColor, ColorDuration = 0.2 })
 	if button.CostId then
-		ModifyTextBox({ Id = button.CostId, Color = costColor })
+		ModifyTextBox({ Id = button.CostId, ColorTarget = costColor, ColorDuration = 0.2 })
 	end
 end
 
-function UnwrapRandomLoot( spawnId )
+function UnwrapRandomLoot( source )
+	local spawnId = source.ObjectId
 	AddInputBlock({ Name = "RandomLoot" })
 	RandomSynchronize()
 	InvalidateCheckpoint()
 	local obstacleId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = spawnId })
 	local reward = GiveLoot({ SpawnPoint = obstacleId }) -- Debug: , ForceLootName = "HestiaUpgrade" })
+	
+	SetObstacleProperty({ Property = "MagnetismWhileBlocked", Value = 0, DestinationId = reward.ObjectId })
+
 	reward.BoughtFromShop = true
+	if source.BlockBoughtTextLines then
+		reward.BoughtTextLines = nil
+	end
 	reward.WasRandomLoot = true
 	reward.MakeUpTextLines = nil
 	UseableOff({ Id = reward.ObjectId })
 	UnwrapLootPresentation( reward )
 	Destroy({ Id = obstacleId })
-	wait(0.7)
+	wait(0.5)
 	UseableOn({ Id = reward.ObjectId })
 	SetInteractProperty({ DestinationId = reward.ObjectId, Property = "AutoActivate", Value = true })
 	SetInteractProperty({ DestinationId = reward.ObjectId, Property = "Distance", Value = 1000 })
@@ -1229,7 +1343,6 @@ function AwardRandomStoreItem( args )
 	if IsEmpty( options ) then
 		return
 	end
-
 	local randomItem = GetRandomValue( options )
 	if randomItem.Type == "Trait" then
 		AddTraitToHero({TraitName = randomItem.Name})
@@ -1246,7 +1359,7 @@ function AwardRandomStoreItem( args )
 	elseif randomItem.Type == "Consumable" then
 		local consumableName = randomItem.Name
 		local playerId = GetIdsByType({ Name = "_PlayerUnit" })
-		local consumableId = SpawnObstacle({ Name = consumableName, DestinationId = playerId, Group = "Standing" })
+		local consumableId = SpawnObstacle({ Name = consumableName, DestinationId = playerId[1], Group = "Standing" })
 		local consumable = CreateConsumableItem( consumableId, consumableName, 0 )
 		consumable.IgnorePurchase = true
 		consumable.CanDuplicate = false
@@ -1257,25 +1370,6 @@ function AwardRandomStoreItem( args )
 
 	thread( RandomStoreItemPresentation, randomItem )
 
-end
-
-function GiveRandomTemporaryKeepsake( args )
-	local validTraits = {}
-
-	for i, traitName in pairs( args.Traits ) do
-		if IsKeepsakeUnlocked( traitName ) and GameState.LastAwardTrait ~= traitName then
-			table.insert( validTraits, traitName )
-		end
-	end
-	local pickedTraitName = GetRandomValue( validTraits )
-	local traitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = pickedTraitName, Rarity = GetRarityKey(GetKeepsakeLevel( pickedTraitName ))})
-	traitData.RemainingUses = 3
-	traitData.UsesAsEncounters = true
-	traitData.Slot = nil
-	traitData.LargeIconOverride = traitData.Icon
-	traitData.CustomName = "TemporaryKeepsake"
-	traitData.CustomTitle = "TemporaryKeepsake"
-	AddTraitToHero({ TraitData = traitData })
 end
 
 function MouseOverWellShopButton( component )

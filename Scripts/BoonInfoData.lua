@@ -38,22 +38,19 @@ ScreenData.BoonInfo =
 	ListRequirementSpacingY = 30,
 	ListRequirementHeaderSpacingY = 40,
 
+	GenericHeaderIcon = "GUI\\Icons\\ObjectiveSeparatorDark",
+	GenericHeaderIconScale = 1.0,
+
 	--TooltipX = 1538,
 	--TooltipY = 320,
 	TooltipOffsetX = 850,
 	TooltipOffsetY = -35,
 
-	HiddenTraitData = 
-	{
-		
-	},
-
 	TraitSortOrder = {},			  -- Populated in RunData
-	CustomSortFunction = {},			  -- Populated in RunData
 	TraitDictionary = {},			  -- Populated in RunData
 	TraitRequirementsDictionary = {}, -- Populated in RunData
 
-	RequirementsStartX = 0,
+	NoRequirementsOffsetX = 250,
 	RequirementsStartY = -100,
 	GodIconScale = 0.37,
 
@@ -61,7 +58,6 @@ ScreenData.BoonInfo =
 	{
 		Text = "BoonInfo_NoRequirements",
 		FontSize = 24,
-		OffsetX = 250,
 		Color = { 42, 38, 48, 255 },
 		Font = "P22UndergroundSCMedium",
 		ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 0},
@@ -117,7 +113,23 @@ ScreenData.BoonInfo =
 		},
 	},
 
-	CountRequirementFormat =
+	CountRequirementUnacquiredFormat =
+	{
+		Text = "BoonInfo_CountRequirement",
+		FontSize = 22,
+		OffsetX = 30,
+		Font = "P22UndergroundSCMedium",
+		Color = { 42, 38, 48, 195 },
+		ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 0},
+		Justification = "Left",
+		LuaKey = "TempTextData",
+		DataProperties =
+		{
+			OpacityWithOwner = true,
+		},
+	},
+
+	CountRequirementAcquiredFormat =
 	{
 		Text = "BoonInfo_CountRequirement",
 		FontSize = 22,
@@ -126,6 +138,20 @@ ScreenData.BoonInfo =
 		ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
 		Justification = "Left",
 		LuaKey = "TempTextData",
+		DataProperties =
+		{
+			OpacityWithOwner = true,
+		},
+	},
+
+	BulletPointFormat =
+	{
+		Text = "BoonInfo_BulletPoint_NoTraitName",
+		FontSize = 22,
+		OffsetX = 30,
+		Font = "P22UndergroundSCMedium",
+		ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 0},
+		Justification = "Left",
 		DataProperties =
 		{
 			OpacityWithOwner = true,
@@ -231,6 +257,7 @@ ScreenData.BoonInfo =
 		{
 			X = UIData.ContextualButtonXRight,
 			Y = UIData.ContextualButtonY,
+			BottomOffset = UIData.ContextualButtonBottomOffset,
 			AutoAlignContextualButtons = true,
 			AutoAlignJustification = "Right",
 
@@ -238,6 +265,7 @@ ScreenData.BoonInfo =
 			{
 				"CloseButton",
 				"ToggleTooltipsButton",
+				"PinButton",
 			},
 
 			Children =
@@ -251,9 +279,25 @@ ScreenData.BoonInfo =
 						OnMouseOverFunctionName = "MouseOverContextualAction",
 						OnMouseOffFunctionName = "MouseOffContextualAction",
 						OnPressedFunctionName = "BoonInfoScreenToggleTooltips",
-						ControlHotkeys = { "MenuInfo", },
+						ControlHotkeys = { "Confirm", },
 					},
 					Text = "BoonInfo_ShowTooltips",
+					AltText = "BoonInfo_ShowRequirements",
+					TextArgs = UIData.ContextualButtonFormatRight,
+				},
+
+				PinButton = 
+				{
+					Graphic = "ContextualActionButton",
+					Alpha = 0.0,
+					Data =
+					{
+						-- Hotkey only
+						OnPressedFunctionName = "BoonInfoPinItem",
+						ControlHotkeys = { "ItemPin", },
+					},
+					Text = "Menu_PinBoon_On",
+					AltText = "Menu_PinBoon_Off",
 					TextArgs = UIData.ContextualButtonFormatRight,
 				},
 
@@ -284,7 +328,7 @@ ScreenData.BoonInfo =
 				FontSize = 28,
 				OffsetX = 0,
 				OffsetY = 0,
-				Font = "P22UndergroundSCMedium",
+				Font = "NumericP22UndergroundSCMedium",
 				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
 				LuaKey = "TempTextData",
 				LuaValue = { CurrentPageNum = 0, NumPages = 0 },
@@ -306,7 +350,6 @@ ScreenData.BoonInfo =
 			{
 				OnPressedFunctionName = "BoonInfoScreenPrevious",
 				ControlHotkey = "MenuUp",
-				Sound = "/SFX/Menu Sounds/GeneralWhooshMENU",
 			},
 			InteractProperties =
 			{
@@ -325,7 +368,6 @@ ScreenData.BoonInfo =
 			{
 				OnPressedFunctionName = "BoonInfoScreenNext",
 				ControlHotkey = "MenuDown",
-				Sound = "/SFX/Menu Sounds/GeneralWhooshMENU",
 			},
 			InteractProperties =
 			{

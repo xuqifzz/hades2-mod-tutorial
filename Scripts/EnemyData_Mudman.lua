@@ -10,7 +10,7 @@ UnitSetData.Mudman =
 		HealthBarType = "MediumLarge",
 
 		ActivateFx = "ZombieAssassinSpawnSmokeA",
-		ActivateFx2 = "Blank",
+		ActivateFx2 = "nil",
 		ActivateFxPreSpawn = "EnemySpawnBurst",
 		ActivateFxPreSound = "/SFX/Enemy Sounds/Mudman/MudmanSpawnFlash",
 		-- DeathAnimation = "Enemy_ZombieAssassin_Death",
@@ -19,7 +19,8 @@ UnitSetData.Mudman =
 		DeathAnimation = "Enemy_Mudman_Death",
 		AttachedAnimationName = "MudmanDrips",
 		
-		OnDeathThreadedFunctionName = "AddPlaceholderEnemyCount",
+		--OnDeathThreadedFunctionName = "AddPlaceholderEnemyCount",
+		--SpawnUnitOnDeath = "MudmanEye",
 
 		DamagedFxStyles =
 		{
@@ -40,17 +41,12 @@ UnitSetData.Mudman =
 		PreferredSpawnPoint = "EnemyPoint",
 		Groups = { "FlyingEnemies" },
 
-		--OnDamagedFunctionName = "ScaleToHealthPercentage",
-		--DefaultScale = 1.0,
-
 		AIOptions =
 		{
 			"AggroAI",
 		},
 		AIAggroRange = 900,
 		PostAggroAI = "SurroundAI",
-
-		SpawnUnitOnDeath = "MudmanEye",
 
 		DefaultAIData =
 		{
@@ -103,12 +99,38 @@ UnitSetData.Mudman =
 				{ Name = "MelinoeAnyQuipSpeech" },
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_0447", Text = "An Eidolon." },
 			{ Cue = "/VO/MelinoeField_0448", Text = "Eidolon!", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_0449", Text = "Eidolon huh?" },
 			{ Cue = "/VO/MelinoeField_0450", Text = "Eidolon there." },
+		},
+	},
+
+	Mudman_Shadow =
+	{
+		InheritFrom = { "Shadow", "Mudman" },
+		GenusName = "Mudman",
+
+		ActivateFx = "nil",
+		ActivateFx2 = "Blank",
+		ActivateFxPreSpawn = "Blank",
+		ActivateFxPreSpawnDelay = 0,
+		ActivateFadeIn = false,
+		ActivateStartAlpha = 1.0,
+		ActivateTint = false,
+		ActivateDuration = 0,
+		ActivateAnimation = "Enemy_Mudman_Idle",
+		WakeUpDelay = 0,
+
+		HealthBuffer = 1200,
+		StartAggroed = true,
+
+		WeaponOptions =
+		{
+			"MudmanStraightThrow_Shadow", "MudmanShove_Elite"
 		},
 	},
 
@@ -122,6 +144,7 @@ UnitSetData.Mudman =
 		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Hex" }),
 
 		SpawnUnitOnDeath = "MudmanEye_Elite",
+		SkipSpawnUnitOnDeathIfLastAlive = true,
 
 		WeaponOptions =
 		{
@@ -148,11 +171,47 @@ UnitSetData.Mudman =
 		},
 	},
 
+	Mudman2 =
+	{
+		InheritFrom = { "Mudman_Elite" },
+		GenusName = "Mudman_Elite",
+		Health = 2650,
+		HealthBuffer = 2650,
 
+		GrannyTexture = "GR2/MudmanTyphon_Color",
+
+		IsAggroedSound = "/SFX/Enemy Sounds/Mudman/EmoteTaunting",
+
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Hex" }),
+
+		SpellSummonDataOverrides =
+		{
+			WeaponOptions =
+			{
+				"Mudman2Throw_NoSpawn"
+			},
+			SpawnUnitOnDeath = "nil",
+		},
+
+		SpawnUnitOnDeath = "MudmanEye_Elite",
+
+		WeaponOptions =
+		{
+			"Mudman2Throw", "Mudman2Shove"
+		},
+
+		ActiveCapWeight = 1.25,
+		GeneratorData =
+		{
+			DifficultyRating = 150,
+			ActiveEnemyCapBonus = 1,
+		},
+	},
 
 	MudmanEye =
 	{
 		InheritFrom = { "BaseVulnerableEnemy","LowPolyEnemy" },
+		RunHistoryKilledByName = "Mudman",
 		MaxHealth = 20,
 		HealthBarOffsetY = -60,
 
@@ -161,9 +220,9 @@ UnitSetData.Mudman =
 		PreferredSpawnPoint = "EnemyPoint",
 		Groups = { "FlyingEnemies" },
 
-		ActivateFx = "Blank",
-		ActivateFx2 = "Blank",
-		ActivateFxPreSpawn = "Blank",
+		ActivateFx = "nil",
+		ActivateFx2 = "nil",
+		ActivateFxPreSpawn = "nil",
 		ActivateDuration = 0.3,
 		ActivateFadeIn = false,
 		ActivateTint = false,
@@ -174,7 +233,7 @@ UnitSetData.Mudman =
 		StunAnimations = 
 		{
 			Default = "Enemy_MudmanEye_OnHit",
-			Default = "Enemy_MudmanEye_OnHit_Heavy",
+			Heavy = "Enemy_MudmanEye_OnHit_Heavy",
 		},
 		IsAggroedSound = "/SFX/Enemy Sounds/MudmanEye/EmoteAlerted",
 		DeathSound = "/SFX/Enemy Sounds/MudmanEye/EmoteDying",
@@ -207,6 +266,8 @@ UnitSetData.Mudman =
 		InheritFrom = { "Elite", "MudmanEye" },
 		HealthBuffer = 20,
 
+		BlockRaiseDead = true,
+
 		IsAggroedSound = "/SFX/Enemy Sounds/MudmanEye/EmoteTaunting",
 
 		HeraclesCombatMoneyValue = 1,
@@ -214,6 +275,20 @@ UnitSetData.Mudman =
 		GeneratorData =
 		{
 			DifficultyRating = 2,
+			BlockEnemyTypes = {"MudmanEye"}
+		},
+	},
+
+	MudmanEye2 =
+	{
+		InheritFrom = { "MudmanEye_Elite" },
+		GenusName = "MudmanEye_Elite",
+		Health = 500,
+		HealthBuffer = 500,
+
+		GeneratorData =
+		{
+			DifficultyRating = 5,
 			BlockEnemyTypes = {"MudmanEye"}
 		},
 	},

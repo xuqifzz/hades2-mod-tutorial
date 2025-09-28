@@ -390,6 +390,19 @@
       "Visible": true
     },
     {
+      "BlendMode": 2,
+      "ChildGroups": [],
+      "Id": "Additive_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
       "BlendMode": 9,
       "ChildGroups": [],
       "Id": "Overlay_01",
@@ -418,6 +431,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Foreground_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Foreground_02",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -431,7 +457,7 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
-      "Id": "Foreground_01",
+      "Id": "Foreground_03",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -444,10 +470,12 @@
     {
       "BlendMode": 0,
       "ChildGroups": [
-        "Foreground_01",
+        "Foreground_03",
         "Foreground_02",
+        "Foreground_01",
         "Shading_01",
         "Overlay_01",
+        "Additive_01",
         "Lighting_01",
         "FX_Standing_01",
         "PoolGlow",
@@ -499,6 +527,19 @@
       "NumThingsSelectable": 0,
       "NumThingsVisible": 0,
       "ParentGroup": "",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "Fountain",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapLogic",
       "Visible": true
     },
     {
@@ -643,7 +684,8 @@
         "Scripting",
         "OverlookIn",
         "OverlookOut",
-        "Breakables"
+        "Breakables",
+        "Fountain"
       ],
       "Id": "MapLogic",
       "NumSelectedAsDraw": 0,
@@ -660,5 +702,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

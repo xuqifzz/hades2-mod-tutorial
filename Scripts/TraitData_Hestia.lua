@@ -13,15 +13,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.34,
+				Multiplier = 1.5,
 			},
 			Epic =
 			{
-				Multiplier = 1.67,
+				Multiplier = 2.0,
 			},
 			Heroic =
 			{
-				Multiplier = 2.00,
+				Multiplier = 2.5,
 			},
 		},
 		OnEnemyDamagedAction = 
@@ -37,11 +37,11 @@ OverwriteTableKeys( TraitData, {
 					MinValue = 1,
 					AbsoluteStackValues =
 					{
-						[1] = 10,
-						[2] = 5,
-						--[3] = 3,
-						--[4] = 2,
-						--[5] = 1,
+						[1] = 15,
+						[2] = 10,
+						[3] = 10,
+						[4] = 10,
+						[5] = 5,
 					},
 					AsInt = true,
 				},
@@ -144,15 +144,49 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponStaffSwing5",
-				ProjectileName = "ProjectileSwing5Magic",
-				ProjectileProperty = "DetonateFx",
-				ChangeValue = "StaffChargedAttackFx_Hestia",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "StaffChargedAttackFxEmitter_Hestia",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponStaffSwing5",
+				TraitName = "StaffRaiseDeadAspect",
+				ProjectileName = "ProjectileStaffWall",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "StaffWallIn_Hestia",
+				ChangeType = "Absolute",
+			},			
+
+			{
+				WeaponName = "WeaponStaffSwing5",
+				TraitName = "StaffRaiseDeadAspect",
+				ProjectileName = "ProjectileStaffWall",
+				ProjectileProperty = "ImpactFx",
+				ChangeValue = "AnubisWallImpactFx_Hestia",
+				ChangeType = "Absolute",
+			},
+
+			{
+				WeaponName = "WeaponStaffSwing",
+				TraitName = "StaffRaiseDeadAspect",
+				ProjectileName = "ProjectileStaffSingle",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "AnubisRingFx_Hestia",
+				ChangeType = "Absolute",
+			},			
+
+			{
+				WeaponName = "WeaponStaffSwing",
+				TraitName = "StaffRaiseDeadAspect",
+				WeaponProperty = "FireFx",
+				ChangeValue = "StaffProjectileFireFx3_Hestia",
+				ChangeType = "Absolute",
 			},
 
 			{
 				WeaponName = "WeaponDagger",
+				FalseTraitName = "DaggerTripleAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "DaggerSwipeFast_Hestia",
 				ChangeType = "Absolute",
@@ -176,6 +210,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponDaggerDash",
+				FalseTraitName = "DaggerTripleAspect",
 				ProjectileName = "ProjectileDaggerDash",
 				WeaponProperty = "FireFx", 
 				ChangeValue = "DaggerSwipeFastFlipDash_Hestia",
@@ -227,9 +262,37 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+			{
+				WeaponName = "WeaponDagger",
+				TraitName = "DaggerTripleAspect",
+				ProjectileName = "ProjectileDaggerSpinMorrigan",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "DaggerMorriganSpin_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponDaggerDash",
+				TraitName = "DaggerTripleAspect",
+				ProjectileName = "ProjectileDaggerSpinMorrigan",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "DaggerMorriganSpin_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponDagger5",
+				TraitName = "DaggerTripleAspect",
+				ProjectileName = "ProjectileDaggerExecuteMorrigan",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "DaggerSwipeDouble_Morrigan_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
 
 			{
 				WeaponName = "WeaponAxe",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSwipe1_Hestia",
 				ChangeType = "Absolute",
@@ -244,6 +307,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponAxe2",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSwipe2_Hestia",
 				ChangeType = "Absolute",
@@ -251,6 +315,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponAxe3",
+				FalseTraitName = "AxeRallyAspect",
 				ProjectileName = "ProjectileAxeOverhead",
 				ProjectileProperty = "DetonateFx",
 				ChangeValue = "AxeNova_Hestia",
@@ -266,6 +331,7 @@ OverwriteTableKeys( TraitData, {
 			},		
 			{
 				WeaponName = "WeaponAxeDash",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSwipeUpper_Hestia",
 				ChangeType = "Absolute",
@@ -279,6 +345,62 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+
+			{
+				WeaponName = "WeaponAxe",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalSlow",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe2",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe3",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe4",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe5",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxeDash",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFastDash",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+
 			{
 				FalseTraitName = "LobCloseAttackAspect",
 				WeaponName = "WeaponLob",
@@ -293,6 +415,32 @@ OverwriteTableKeys( TraitData, {
 				ProjectileName = "ProjectileLob",
 				ProjectileProperty = "BounceFx",
 				ChangeValue = "LobProjectileBounceFx_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobBullet",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobProjectileBullet_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobBullet",
+				ProjectileProperty = "DeathFx",
+				ChangeValue = "LobProjectileBulletFade_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobOverheat",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobSpecialFx_Hel_Hestia",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
@@ -371,26 +519,25 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
-
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBall",
+				ProjectileName = "ProjectileTorchGhost",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchProjectileSmallIn_Hestia",
+				ChangeValue = "TorchProjectileGhostIn_Hestia",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchGhostLarge",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchProjectileLargeIn_Hestia",
+				ChangeValue = "TorchProjectileGhostLargeIn_Hestia",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},			
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBall",
+				ProjectileName = "ProjectileTorchGhost",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "TorchProjectileShadow_Hestia",
 				ChangeType = "Absolute",
@@ -398,7 +545,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchGhostLarge",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "TorchProjectileShadowLarge_Hestia",
 				ChangeType = "Absolute",
@@ -406,7 +553,7 @@ OverwriteTableKeys( TraitData, {
 			},			
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBall",
+				ProjectileName = "ProjectileTorchGhost",
 				ProjectileProperty = "DissipateFx",
 				ChangeValue = "TorchProjectileDissipate_Hestia",
 				ChangeType = "Absolute",
@@ -414,12 +561,79 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchGhostLarge",
 				ProjectileProperty = "DissipateFx",
 				ChangeValue = "TorchProjectileDissipate_Hestia",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchBallIn_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchBallGroundGlow_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchBallDissipate_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchWave",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWave_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchWave",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchBallGroundGlowWave_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},		
+			{
+				TraitName = "TorchEnhancedAttackTrait",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchWave",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWaveReturn_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},	
+			{
+				TraitName = "TorchEnhancedAttackTrait",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchSupayBallEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWaveReturn_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},	
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "ImpactFx",
+				ChangeValue = "TorchImpactFx_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+
 			{
 				WeaponName = "WeaponTorch",
 				ProjectileName = "ProjectileTorchRepeatStrike",
@@ -430,16 +644,8 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchRepeatStrikeLarge",
-				ProjectileProperty = "DetonateFx",
-				ChangeValue = "RadialNovaPentagramCharged_Hestia",
-				ChangeType = "Absolute",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponTorch",
 				TraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchBallEos",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "EosProjectile_Hestia_In",
 				ChangeType = "Absolute",
@@ -447,27 +653,46 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponTorch",
 				TraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchBallEos",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "EosProjectileShadow",
 				ChangeType = "Absolute",
 			},
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchExplosion",
+				ProjectileName = "ProjectileTorchGhostExplosion",
 				ProjectileProperty = "DetonateFx",
-				ChangeValue = "AxeNova_Hestia",
+				ChangeValue = "ProjectileTorchGhostExplosion_Hestia",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},	
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchExplosionLarge",
+				ProjectileName = "ProjectileTorchGhostLargeExplosion",
 				ProjectileProperty = "DetonateFx",
-				ChangeValue = "AxeNova_Hestia",
+				ChangeValue = "ProjectileTorchGhostExplosion_Hestia",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
-			},	
+			},
+			{
+				FalseTraitName = "TorchEnhancedAttackTrait",
+				TraitName = "TorchAutofireAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchSupayBallEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWave_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "TorchAutofireAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchSupayBallEx",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchBallGroundGlowWave_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
 
 			{
 				WeaponName = "WeaponSuit",
@@ -484,13 +709,36 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitDouble",
+				ProjectileName = "ProjectileSuitDouble",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitPunch_Hestia",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitDouble",
+				WeaponProperty = "FireFx",
+				ChangeValue = "SuitPunchFlare_R_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitDouble",
+				WeaponProperty = "FireFx2",
+				ChangeValue = "SuitPunchFlare_L_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
 				WeaponName = "WeaponSuitCharged",
 				ProjectileProperty = "StartFx",
 				ChangeValue = "SuitPunchLarge_Hestia",
 				ChangeType = "Absolute",
 			},
 			{
-				FalseTraitName = "SuitDashAttackTrait",
 				WeaponName = "WeaponSuitDash",
 				ProjectileName = "ProjectileSuitDash",
 				ProjectileProperty = "StartFx",
@@ -502,15 +750,7 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponSuitDash",
 				ProjectileName = "ProjectileSuitDash",
 				ProjectileProperty = "DetonateFx",
-				ChangeValue = "SuitNovaBurn_Hestia",
-				ChangeType = "Absolute",
-			},
-			{
-				TraitName = "SuitDashAttackTrait",
-				WeaponName = "WeaponSuitDash",
-				ProjectileName = "ProjectileSuitDash",
-				ProjectileProperty = "StartFx",
-				ChangeValue = "Null",
+				ChangeValue = "SuitNovaBurnRapid_Hestia",
 				ChangeType = "Absolute",
 			},
 			{
@@ -555,37 +795,34 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.25,
+				Multiplier = 45/35,
 			},
 			Epic =
 			{
-				Multiplier = 1.50,
+				Multiplier = 55/35,
 			},
 			Heroic =
 			{
-				Multiplier = 1.75,
+				Multiplier = 65/35,
 			},
 		},
 		Slot = "Secondary",
 		OnEnemyDamagedAction = 
 		{
 			ValidWeapons = WeaponSets.HeroSecondaryWeapons,	
-			ExcludeProjectiles = {"ProjectileSuitRangedGuidedSplit", "ProjectileSuitSplit", "ProjectileSuitSplit2" },
 			FunctionName = "ApplyBurn",
 			Args = 
 			{
 				EffectName = "BurnEffect",
 				NumStacks = 
 				{
-					BaseValue = 20,
+					BaseValue = 35,
 					MinValue = 1,
 					AbsoluteStackValues =
 					{
 						[1] = 10,
-						[2] = 5,
-						[3] = 3,
-						[4] = 2,
-						--[5] = 1,
+						[2] = 10,
+						[3] = 5,
 					},
 					AsInt = true,
 				},
@@ -606,6 +843,15 @@ OverwriteTableKeys( TraitData, {
 						},
 					},
 				}
+			}
+		},
+		ChargeStageModifiers = 
+		{
+			ValidWeapons = { "WeaponTorchSpecial"},
+			ExcludeLinked = true,
+			AddWeaponProperties = 
+			{
+				FireFx = "TorchOrbitStartSwirl_Hestia",
 			}
 		},
 		PropertyChanges = {
@@ -674,6 +920,7 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				FalseTraitName = "DaggerTripleAspect",
 				WeaponName = "WeaponDaggerThrow",
 				ProjectileName = "ProjectileDaggerThrow",
 				ProjectileProperty = "Graphic",
@@ -681,10 +928,27 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				TraitName = "DaggerTripleAspect",
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrow",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerThrowMorrigan_Hestia",
+				ChangeType = "Absolute",
+			},
+			{
+				FalseTraitName = "DaggerTripleAspect",
 				WeaponName = "WeaponDaggerThrow",
 				ProjectileName = "ProjectileDaggerThrowCharged",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "DaggerProjectileFx_Hestia", 
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "DaggerTripleAspect",
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerThrowMorrigan_Hestia",
 				ChangeType = "Absolute",
 			},
 			{
@@ -708,6 +972,12 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				WeaponName = "WeaponDaggerThrow",
+				WeaponProperty = "FireSound",
+				ChangeValue = "/SFX/Player Sounds/HestiaDaggerThrow",
+				ChangeType = "Absolute",
+			},
+			{
 				WeaponName = "WeaponAxeBlock2",
 				ProjectileProperty = "DetonateFx",
 				ChangeValue = "AxeDeflect_Hestia",
@@ -715,7 +985,7 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 			{
-				FalseTraitName = "AxeBlockEmpowerTrait",
+				FalseTraitNames = { "AxeBlockEmpowerTrait", "AxeRallyAspect", },
 				WeaponName = "WeaponAxeSpecial",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSpinDouble_Hestia",
@@ -723,7 +993,26 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true
 			},
 			{
+				TraitName = "AxeRallyAspect",
+				FalseTraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "null",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
+				TraitName = "AxeRallyAspect",
+				FalseTraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				WeaponProperty = "FireFx",
+				ChangeValue = "AxeSwipeUpper_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
 				TraitName = "AxeBlockEmpowerTrait",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxeSpecial",
 				WeaponProperty = "FireFx",
 				ChangeValue = "null",
@@ -732,9 +1021,18 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				TraitName = "AxeBlockEmpowerTrait",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxeSpecial",
 				ProjectileProperty = "StartFx",
 				ChangeValue = "AxeSpinDouble_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
+				TraitNames = { "AxeBlockEmpowerTrait", "AxeRallyAspect" },
+				WeaponName = "WeaponAxeSpecial",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "AxeSwipeUpper_Hestia",
 				ChangeType = "Absolute",
 				ExcludeLinked = true
 			},
@@ -746,10 +1044,19 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 			{
+				FalseTraitName = "LobGunAspect",
 				WeaponName = "WeaponLobSpecial",
 				ProjectileName = "ProjectileThrowCharged",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "LobSpecialFx_Hestia",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobSpecialFx_Hel_Hestia",
 				ChangeType = "Absolute",
 			},
 			{
@@ -760,17 +1067,18 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileLobGunRift",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobProjectile_Hestia",
+				ChangeType = "Absolute",
+			},
+			{
 				WeaponName = "WeaponSkullImpulse",
 				ProjectileName = "ProjectileSkullImpulse",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "DashLobTrailEmitter_Hestia",
-				ChangeType = "Absolute",
-			},	
-			{
-				WeaponName = "WeaponSkullImpulse",
-				ProjectileName = "ProjectileSkullImpulseWave",
-				ProjectileProperty = "Graphic",
-				ChangeValue = "LobSpecialFx_Hestia",
 				ChangeType = "Absolute",
 			},
 			{
@@ -779,46 +1087,108 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = "LobCharge_Hestia",
 				ChangeType = "Absolute",
 			},
-			{
-				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
-				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchSpecialProjectileIn_Hestia",
-				ChangeType = "Absolute",
-			},			
-			{
-				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
-				ProjectileProperty = "AttachedAnim",
-				ChangeValue = "TorchSpecialProjectileGroundGlow_Hestia",
-				ChangeType = "Absolute",
-			},			
-			{
-				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
-				ProjectileProperty = "DissipateFx",
-				ChangeValue = "TorchSpecialProjectileDissipate_Hestia",
-				ChangeType = "Absolute",
-			},			
+
 			{
 				WeaponName = "WeaponTorchSpecial",
 				ProjectileName = "ProjectileTorchOrbit",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchSpecialProjectileIn_Hestia",
+				ChangeValue = "TorchOrbitIn_Hestia",
 				ChangeType = "Absolute",
-			},			
-			{
-				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchOrbit",
-				ProjectileProperty = "AttachedAnim",
-				ChangeValue = "TorchSpecialProjectileGroundGlow_Hestia",
-				ChangeType = "Absolute",
-			},			
+			},
 			{
 				WeaponName = "WeaponTorchSpecial",
 				ProjectileName = "ProjectileTorchOrbit",
 				ProjectileProperty = "DissipateFx",
-				ChangeValue = "TorchSpecialProjectileDissipate_Hestia",
+				ChangeValue = "TorchOrbitOut_Hestia",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchOrbitOut_Hestia",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchOrbitInEX_Hestia",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponTorchSpecial",
+				WeaponProperty = "FireFx",
+				ChangeValue = "TorchOrbitStartSwirl_Single_Hestia",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "GroupName",
+				ChangeValue = "FX_Standing_Add",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchOrbit",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchOrbitShadow_Hestia",
+				ChangeType = "Absolute",
+			},				
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchOrbitShadow_Hestia_Ex",
+				ChangeType = "Absolute",
+			},	
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbit",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchSpecialProjectileIn_Moros_Hestia",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbit",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchSpecialProjectileGroundGlow_Moros_Hestia",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbit",
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchSpecialProjectileDissipate_Moros_Hestia",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchSpecialProjectileIn_Moros_Hestia",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchSpecialProjectileGroundGlow_Moros_Hestia",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchSpecialProjectileDissipate_Moros_Hestia",
 				ChangeType = "Absolute",
 			},
 			{
@@ -862,6 +1232,78 @@ OverwriteTableKeys( TraitData, {
 				ProjectileProperty = "DetonateFx",
 				ChangeValue = "SuitRocketExplosion_Hestia",
 				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenade",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenade_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenade",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBomb",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenadeBig_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBomb",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenadeStraight",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenade_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenadeStraight",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBombStraight",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenadeBig_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBombStraight",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Hestia",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
 			},
 			{
 				TraitName = "SuitSpecialJumpTrait",
@@ -953,8 +1395,6 @@ OverwriteTableKeys( TraitData, {
 					ArmedGraphic = "CastCircleArmedHestia",
 					GroupName = "FX_Terrain_Add",
 					DetonateFx = "null",
-					ArmedImpactFx = "null",
-					InflictedDamageFx = "GraspingHandsAttack",
 					DissipateFx = "CastCircleOutHestia",
 					HideGraphicOnDetonate = false
 				}
@@ -1024,74 +1464,93 @@ OverwriteTableKeys( TraitData, {
 		{
 			Common =
 			{
-				Multiplier = 1,
+				Multiplier = 1.00,
 			},
 			Rare =
 			{
-				Multiplier = 2,
+				Multiplier = 1.5,
 			},
 			Epic =
 			{
-				Multiplier = 3,
+				Multiplier = 2.0,
 			},
 			Heroic =
 			{
-				Multiplier = 4,
+				Multiplier = 2.5,
 			},
 		},
-		OnBlockDamageFunction = 
+		DamageClamps = 
 		{
-			Name = "HestiaBlockSpend",
-		},
-		OnWeaponFiredFunctions = 
-		{
-			ValidWeapons = {"WeaponSprint"},
-			ExcludeLinked = true,
-			FunctionName = "HestiaSprintDefense",
-			FunctionArgs = 
+			ValidProjectiles = 
 			{
-				ProjectileName = "HestiaSprintDefense",
-				StartDelay = 0.1,
-				EffectArgs = 
-				{
-					EffectName = "BurnEffect",
-					NumStacks = 
-					{
-						BaseValue = 2,
-						MinValue = 1,
-						AbsoluteStackValues =
-						{
-							[1] = 2,
-							[2] = 1,
-						},
-						AsInt = true,
-					},
-					ReportValues = {ReportedDamage = "NumStacks"}
-				},			
-				Vfx = "HestiaFlameParticleDefense",
-				FireSound = "/SFX/BurnDamageSizzle",
-				BuffVfx = "HestiaFlameBuff",
-				ReportValues = { ReportedDamage = "StackCount"}
+				"ZombieHRFire",
+				"GreekFire",
+				"OilPuddleFire",
+				"OilPuddleFire02",
+				"OilPuddleFire03",
+				"OilPuddleFire04",
+				"InfestedCerberusExplosiveFireball",
+				"CerberusMagmaPuddle",
+				"PrometheusFireCircle",
+				"PrometheusFireCircleSmall",
+				"PrometheusFireCircleLarge",
+				"LavaTileWeapon",
+				"LavaTileTriangle01Weapon",
+				"LavaTileTriangle02Weapon"
 			},
+			Value = 1,
+			ReportValues = { ReportedDamage = "Value"},
 		},
 		StatLines =
 		{
-			"ProjectileBurnDamageStatDisplay1",
+			"SprintDamageStatDisplay1",
+		},
+		OnSprintAction = 
+		{
+			FunctionName = "HestiaSprintFlames",
+			RunOnce = true,
+			Args = 
+			{
+				ProjectileName = "HestiaSprintPuddle",
+				Cooldown = 0.2,
+				MinDistance = 150,
+				MaxSpawns = 5,
+				DamageMultiplier =
+				{
+					BaseValue = 1,
+					AbsoluteStackValues =
+					{
+						[1] = 0.5,
+						[2] = 0.3,
+						[3] = 0.2,
+					},
+				},
+			ReportValues = { ReportedMultiplier = "DamageMultiplier"},
+			}
 		},
 		ExtractValues =
 		{
 			{
 				Key = "ReportedDamage",
-				ExtractAs = "TooltipDamage",
+				ExtractAs = "DamageTaken",
+				SkipAutoExtract = true,
 			},
 			{
-				ExtractAs = "BurnRate",
+				ExtractAs = "Fuse",
 				SkipAutoExtract = true,
 				External = true,
-				BaseType = "EffectLuaData",
-				BaseName = "BurnEffect",
-				BaseProperty = "DamagePerSecond",
-				DecimalPlaces = 1,
+				BaseType = "ProjectileBase",
+				BaseName = "HestiaSprintPuddle",
+				BaseProperty = "Fuse",
+				DecimalPlaces = 2,
+			},
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "ReportedDamage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "HestiaSprintPuddle",
+				BaseProperty = "Damage",
 			},
 		}
 	},
@@ -1128,6 +1587,14 @@ OverwriteTableKeys( TraitData, {
 				FirstHitOnly = true,
 				IsNotEx = true,
 				ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,
+				MultihitProjectileWhitelist = 
+				{
+					"ProjectileStaffSingle",
+				},
+				MultihitProjectileConditions = 
+				{
+					ProjectileStaffSingle = { Cooldown = 0.5 },
+				},
 				ManaGain = 
 				{
 					BaseValue = 4,
@@ -1153,85 +1620,61 @@ OverwriteTableKeys( TraitData, {
 			"ManaOnHitStatDisplay1",
 		},
 	},
-
-	SacrificeBoon = 
+	
+	AloneDamageBoon = 
 	{
 		Icon = "Boon_Hestia_36",
 		InheritFrom = { "BaseTrait", "FireBoon" },
-		CodexName = "SacrificeBoon_Codex",
-		AcquireFunctionName = "SacrificeBoon",
-		PrePickSacrificeBoon = true,
-		BlockStacking = true,
-		BoonInfoIgnoreRequirements = true,
-		BlockSacrifice = true,
-		GameStateRequirements = 
-		{
-			{
-				Path = { "CurrentRun", "Hero", "SacrificeTraitCount" },
-				Comparison = ">",
-				Value = 1,
-			}
-		},
+
 		RarityLevels =
 		{
 			Common =
 			{
-				Multiplier = 1.00,
+				Multiplier = 1.0,
 			},
 			Rare =
 			{
-				Multiplier = 1.20,
+				Multiplier = 18/15,
 			},
 			Epic =
 			{
-				Multiplier = 1.40,
+				Multiplier = 21/15,
 			},
 			Heroic =
 			{
-				Multiplier = 1.60,
-			},
-		},	
-		PropertyChanges =
-		{
-			{
-				LuaProperty = "MaxMana",
-				BaseValue = 50,
-				ChangeType = "Add",	
-				AsInt = true,
-				ReportValues = { ReportedManaBonus = "ChangeValue"},
-				IdenticalMultiplier =
-				{
-					Value = DuplicateMultiplier,
-				},
-			},
-			{
-				LuaProperty = "MaxHealth",
-				BaseValue = 50,
-				ChangeType = "Add",
-				AsInt = true,
-				ReportValues = { ReportedHealthBonus = "ChangeValue"},
-				IdenticalMultiplier =
-				{
-					Value = DuplicateMultiplier,
-				},
+				Multiplier = 24/15,
 			},
 		},
-		
-		StatLines =
+
+		AddOutgoingDamageModifiers = 
 		{
-			"MaxLifeManaStatDisplay1",
+			AloneMultiplier =
+			{
+				BaseValue = 1.15,
+				SourceIsMultiplier = true,
+				AbsoluteStackValues =
+				{
+					[1] = 1.03,
+					[2] = 1.02,
+					[3] = 1.01,
+				},
+			},
+			AloneDistance = 3000,
+			ReportValues = 
+			{ 
+				ReportedMultiplier = "AloneMultiplier",
+			}
+		},
+		StatLines = 
+		{
+			"AloneMultiplierStatDisplay1",
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedManaBonus",
-				ExtractAs = "TooltipMana",
-				IncludeSigns = true,
-			},
-			{
-				Key = "ReportedHealthBonus",
-				ExtractAs = "TooltipHealth",
-				IncludeSigns = true,
+				Key = "ReportedMultiplier",
+				ExtractAs = "Chance",
+				Format = "PercentDelta",
 			},
 		}
 	},
@@ -1261,11 +1704,11 @@ OverwriteTableKeys( TraitData, {
 		},
 		BonusFirstTimeBurn = 
 		{
-			BaseValue = 50,
+			BaseValue = 80,
 			AbsoluteStackValues =
 			{
-				[1] = 25,
-				[2] = 15,
+				[1] = 40,
+				[2] = 20,
 				[3] = 10,
 			},
 		},
@@ -1301,7 +1744,7 @@ OverwriteTableKeys( TraitData, {
 		{
 			{
 				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "HadesCastProjectileBoon", "CastAnywhereBoon", "CastAttachBoon", "CastLobBoon" },
+				HasNone = { "HadesCastProjectileBoon", "CastAnywhereBoon", "CastLobBoon", "SelfCastBoon" },
 			},
 		},
 		RarityLevels =
@@ -1493,9 +1936,9 @@ OverwriteTableKeys( TraitData, {
 					AbsoluteStackValues = 
 					{
 						[1] = 0.50,
-						[2] = 0.25,
-						[3] = 0.20,
-						[4] = 0.10,
+						[2] = 0.40,
+						[3] = 0.30,
+						[4] = 0.20,
 					},
 				},
 				ReportValues = 
@@ -1565,7 +2008,7 @@ OverwriteTableKeys( TraitData, {
 					},
 				},
 				ProjectileCap = 8,
-				EffectName = "BurnEffect",
+				--EffectName = "BurnEffect",
 				ReportValues =
 				{
 					ReportedDamageMultiplier = "ProjectileDamageMultiplier"
@@ -1695,9 +2138,9 @@ OverwriteTableKeys( TraitData, {
 			SourceIsMultiplier = true,
 			AbsoluteStackValues =
 			{
-				[1] = 1.25,
-				[2] = 1.15,
-				[3] = 1.10,
+				[1] = 1.50,
+				[2] = 1.25,
+				[3] = 1.20,
 			},
 		},
 		StatLines =
@@ -1727,67 +2170,65 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "LegendaryTrait", "FireBoon" },
 		Icon = "Boon_Hestia_33",
-		DamageClamps = 
+		OnBlockDamageFunction = 
 		{
-			ValidProjectiles = 
+			Name = "HestiaBlockSpend",
+			Args = 
 			{
-				"ZombieHRFire",
-				"GreekFire",
-				"OilPuddleFire",
-				"OilPuddleFire02",
-				"OilPuddleFire03",
-				"OilPuddleFire04",
-				"InfestedCerberusExplosiveFireball",
-				"PrometheusFireCircle",
-				"PrometheusFireCircleSmall",
-				"PrometheusFireCircleLarge",
-				"LavaTileWeapon",
-				"LavaTileTriangle01Weapon",
-				"LavaTileTriangle02Weapon"
+				ProjectileName = "HestiaSprintDefense",
+				EffectArgs = 
+				{
+					EffectName = "BurnEffect",
+					NumStacks = 400,
+					ReportValues = {ReportedDamage = "NumStacks"},
+				},		
+				Vfx = "HestiaFlameParticleDefense",
+				FireSound = "/SFX/BurnDamageSizzle",	
+				Cooldown = 3,
+				ReportValues = {ReportedCooldown = "Cooldown"},
+			}
+		},
+		OnWeaponFiredFunctions =
+		{
+			ValidWeapons =  WeaponSets.HeroNonPhysicalWeapons,
+			FunctionName = "HestiaCastDefense",
+			FunctionArgs = 
+			{
+				ProjectileName = "HestiaSprintDefense",
+				StartDelay = 0.1,
+				BuffVfx = "HestiaFlameBuff",
+				ReportValues = { ReportedDamage = "StackCount"}
 			},
-			Value = 1,
-			ReportValues = { ReportedDamage = "Value"},
+		},
+		OnProjectileDeathFunction = 
+		{
+			ValidProjectiles = { "ProjectileCast" },
+			Name = "RemoveCastDefense",
 		},
 		StatLines =
 		{
-			"SprintDamageStatDisplay1",
-		},
-		OnSprintAction = 
-		{
-			FunctionName = "HestiaSprintFlames",
-			RunOnce = true,
-			Args = 
-			{
-				ProjectileName = "HestiaSprintPuddle",
-				Cooldown = 0.2,
-				MinDistance = 150,
-				MaxSpawns = 5,
-			}
+			"ProjectileBurnDamageStatDisplay1",
 		},
 		ExtractValues =
 		{
 			{
 				Key = "ReportedDamage",
-				ExtractAs = "DamageTaken",
-				SkipAutoExtract = true,
+				ExtractAs = "TooltipDamage",
 			},
 			{
-				ExtractAs = "Fuse",
-				SkipAutoExtract = true,
-				External = true,
-				BaseType = "ProjectileBase",
-				BaseName = "HestiaSprintPuddle",
-				BaseProperty = "Fuse",
-				DecimalPlaces = 2,
+				Key = "ReportedCooldown",
+				ExtractAs = "TooltipCooldown",
 			},
 			{
-				BaseType = "ProjectileBase",
-				BaseName = "HestiaSprintPuddle",
-				BaseProperty = "Damage",
-				ExtractAs = "ReportedDamage",
+				ExtractAs = "BurnRate",
 				SkipAutoExtract = true,
 				External = true,
+				BaseType = "EffectLuaData",
+				BaseName = "BurnEffect",
+				BaseProperty = "DamagePerSecond",
+				DecimalPlaces = 1,
 			},
-		}
+		},
+		FlavorText = "BurnSprintBoon_FlavorText",
 	},
 })

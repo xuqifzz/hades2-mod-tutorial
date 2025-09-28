@@ -2,6 +2,7 @@
 {
 	LegendaryTalent = 
 	{
+		DebugOnly = true,
 		RarityLevels =
 		{
 			Legendary =
@@ -11,6 +12,21 @@
 			},
 		},
 	},
+	
+	OlympianSpellCountTalent  =
+	{
+		InheritFrom = {"SpellTalentTrait"},
+		Icon = "Boon_Selene_132",
+		OlympianSpellCountBossAddition = { BaseValue = 1 },
+		ExtractValues = 
+		{
+			{
+				Key = "OlympianSpellCountBossAddition",
+				ExtractAs = "Charge",
+			},
+		},
+	},
+
 	PreChargeTalent = 
 	{
 		InheritFrom = {"SpellTalentTrait"},
@@ -69,6 +85,7 @@
 				Multiplier = 2.5,
 			},
 		},
+		MaxCount = 1,
 		SetupFunction =
 		{
 			Threaded = true,
@@ -129,156 +146,7 @@
 			},
 		},
 	},
-	
-	MinorManaDiscountTalent = 
-	{
-		InheritFrom = {"SpellTalentTrait"},
-		Icon = "Boon_Selene_43",
-		RarityLevels =
-		{
-			Common =
-			{
-				MinMultiplier = 1.0,
-				MaxMultiplier = 1.0,
-			},
-			Rare =
-			{
-				MinMultiplier = 1.5,
-				MaxMultiplier = 1.5,
-			},
-			Epic =	
-			{
-				MinMultiplier = 2.0,
-				MaxMultiplier = 2.0,
-			},
-			Heroic =
-			{
-				MinMultiplier = 2.5,
-				MaxMultiplier = 2.5,
-			},
-		},
-	
-		ManaSpendCostModifiers = 
-		{
-			Add = { BaseValue = -5 },
-			ReportValues = { ReportedManaCost = "Add" }
-		},
-		ExtractValues = 
-		{
-			{
-				Key = "ReportedManaCost",
-				ExtractAs = "ManaReduction",
-			},
-		}
-	},
-	
-	ManaDiscountTalent = 
-	{
-		InheritFrom = {"SpellTalentTrait"},
-		Icon = "Boon_Selene_35",
-		RarityLevels =
-		{
-			Common =
-			{
-				MinMultiplier = 1.0,
-				MaxMultiplier = 1.0,
-			},
-			Rare =
-			{
-				MinMultiplier = 1.5,
-				MaxMultiplier = 1.5,
-			},
-			Epic =	
-			{
-				MinMultiplier = 2.0,
-				MaxMultiplier = 2.0,
-			},
-			Heroic =
-			{
-				MinMultiplier = 2.5,
-				MaxMultiplier = 2.5,
-			},
-		},
-	
-		ManaSpendCostModifiers = 
-		{
-			Add = { BaseValue = -10 },
-			ReportValues = { ReportedManaCost = "Add" }
-		},
-		ExtractValues = 
-		{
-			{
-				Key = "ReportedManaCost",
-				ExtractAs = "ManaReduction",
-			},
-		}
-	},
 
-	ChargeSpeedTalent = 
-	{
-		InheritFrom = {"SpellTalentTrait"},
-		Icon = "Boon_Selene_10",
-		RarityLevels =
-		{
-			Common =
-			{
-				MinMultiplier = 1.0,
-				MaxMultiplier = 1.0,
-			},
-			Rare =
-			{
-				MinMultiplier = 0.93,
-				MaxMultiplier = 0.93,
-			},
-			Epic =	
-			{
-				MinMultiplier = 0.86,
-				MaxMultiplier = 0.86,
-			},
-			Heroic =
-			{
-				MinMultiplier = 0.79,
-				MaxMultiplier = 0.79,
-			},
-			Legendary =
-			{
-				MinMultiplier = 0.72,
-				MaxMultiplier = 0.72,
-			},
-		},
-		PropertyChanges =
-		{
-			{
-				WeaponNames = WeaponSets.HeroSpellWeapons,
-				WeaponProperty = "ChargeTime",
-				BaseValue = 0.7,
-				ChangeType = "Multiply",
-				ReportValues = { AttackSpeed = "BaseValue" },
-			},
-			{
-				WeaponNames = WeaponSets.HeroSpellWeapons,
-				WeaponProperty = "ClipRegenInterval",
-				BaseValue = 0.7,
-				SourceIsMultiplier = true,
-				ChangeType = "Multiply",
-				ReportValues = { ReportedReduction = "BaseValue" }
-			},
-		},
-		ExtractValues =
-		{
-			{
-				Key = "AttackSpeed",
-				ExtractAs = "ChangeValue",
-				Format = "NegativePercentDelta",
-				HideSigns = true,
-			},
-			{
-				Key = "ReportedReduction",
-				ExtractAs = "TooltipMultiplier",
-				Format = "NegativePercentDelta"
-			},
-		},
-	},
 	PotionManaRestoreTalent = 
 	{
 		InheritFrom = {"SpellTalentTrait"},
@@ -421,7 +289,6 @@
 				ExtractAs = "ManaAddition",
 				SkipAutoExtract = true,
 				IncludeSigns = true,
-				SkipAutoExtract = true,
 			},
 		},
 		Using =
@@ -471,6 +338,14 @@
 				HealWindowDuration = 2.0,
 				ReportValues = { ReportedWindow = "HealWindowDuration"}
 			}
+		},
+		CustomStatLinesWithShrineUpgrade = 
+		{
+			ShrineUpgradeName = "HealingReductionShrineUpgrade",
+			StatLines = 
+			{
+				"HealingReductionNotice",
+			},
 		},
 		ExtractValues =
 		{
@@ -549,10 +424,15 @@
 	{
 		InheritFrom = {"SpellTalentTrait"},
 		Icon = "Boon_Selene_121",
+		CritChance = 100, -- used only for text
 		ManaSpendCostModifiers = 
 		{
 			Add = 20,
 			ReportValues = { ReportedManaCost = "Add" }
+		},
+		AddOutgoingCritModifiers = 
+		{
+			PotionCastCritChance = 1,
 		},
 		PotionExCast = true,
 		StatLines =
@@ -606,7 +486,7 @@
 				WeaponNames = WeaponSets.HeroSpellWeapons,
 				EffectName = "BuffInvulnerable",
 				EffectProperty = "Duration",
-				ChangeValue = 2,
+				ChangeValue = 1,
 				ReportValues = { ReportedDuration = "ChangeValue"}
 			},
 		},
@@ -619,6 +499,77 @@
 			},
 		}
 
+	},
+	
+	PotionPoseidonTalent = 
+	{
+		InheritFrom = {"LegendaryTalent", "SpellTalentTrait"},
+		Icon = "Boon_Selene_130",
+		
+		IsDuoBoon = true,
+		Frame = "Duo",
+		LinkedGod = "PoseidonUpgrade",
+		SpeakerNames = { "Poseidon", },
+
+		GameStateRequirements = 
+		{
+			NamedRequirements = { "SeleneDuosUnlocked" },
+			OrRequirements =
+			{
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "MetGods", "PoseidonUpgrade" },
+					},
+				},
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "ForcePoseidonBoonKeepsake" },
+					},
+				},
+			},
+		},
+		OnWeaponFiredFunctions =
+		{
+			ValidWeapons = {"WeaponSpellPotion" },
+			FunctionName = "PotionPoseidonDrops",
+			FunctionArgs = 
+			{
+				Duration = 10,
+				EffectName = "PotionBuff",
+				HealPerSecond = 4,
+				ManaRegenPerSecond = 50,
+				ReportValues = 
+				{
+					ReportedDuration = "Duration",
+					ReportedHeal = "HealPerSecond",
+					ReportedMana = "ManaRegenPerSecond",
+				}
+			},
+		},
+		CustomStatLinesWithShrineUpgrade = 
+		{
+			ShrineUpgradeName = "HealingReductionShrineUpgrade",
+			StatLines = 
+			{
+				"HealingReductionNotice",
+			},
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedDuration",
+				ExtractAs = "Duration",
+			},
+			{
+				Key = "ReportedHeal",
+				ExtractAs = "Heal",
+				Format = "FlatHeal",
+			},
+			{
+				Key = "ReportedMana",
+				ExtractAs = "Mana",
+			},
+		}
 	},
 	-- Heal Talents = 
 	HealAmountTalent = 
@@ -654,11 +605,20 @@
 				MaxMultiplier = 3.0,
 			},
 		},
+		CustomStatLinesWithShrineUpgrade = 
+		{
+			ShrineUpgradeName = "HealingReductionShrineUpgrade",
+			StatLines = 
+			{
+				"HealingReductionNotice",
+			},
+		},
 		ExtractValues =
 		{
 			{
 				Key = "BonusSpellHeal",
 				ExtractAs = "HealAmount",
+				Format = "FlatHeal",
 			},
 		}
 	},
@@ -689,9 +649,10 @@
 		},
 		AddIncomingDamageModifiers =
 		{
+			HealthOnly = true,
 			SpellUsedMultiplier=
 			{
-				BaseValue = 0.95,
+				BaseValue = 0.98,
 				SourceIsMultiplier = true,
 			},
 			ReportValues = { ReportedDefense = "SpellUsedMultiplier"},
@@ -742,7 +703,7 @@
 		TimeSlowModifiers = 
 		{ 
 			ValidWeapons = WeaponSets.HeroSpellWeapons,
-			AddDuration = { BaseValue = 1 },
+			AddDuration = { BaseValue = 0.5 },
 			ReportValues = { AddDuration = "AddDuration" }
 		},
 		
@@ -802,7 +763,7 @@
 			Name = "StartTimeSlowCrit",
 			Args = 
 			{
-				Chance = 0.2,
+				Chance = 0.1,
 				ReportValues = { ReportedChance = "Chance" }
 			}
 		},
@@ -824,7 +785,7 @@
 			{
 				Key = "ReportedChance",
 				ExtractAs = "CritBonus",
-				Format = "Percent",
+				Format = "LuckModifiedPercent",
 				IncludeSigns = true,
 			},
 			{
@@ -865,40 +826,6 @@
 				ExtractAs = "TimeSlow",
 				Format = "NegativePercentDelta",
 				HideSigns = true,
-			},
-			{
-				Key = "ReportedManaCost",
-				ExtractAs = "ManaAddition",
-				SkipAutoExtract = true,
-				IncludeSigns = true,
-			},
-		},
-	},
-	SpellChargeBonusTalent = 
-	{
-		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
-		Icon = "Boon_Selene_62",
-		SpellChargeModifiers = 
-		{
-			ValidSource = "WeaponCastArm",
-			Multiplier = 1.2,
-			ReportValues = { ReportedMultiplier = "Multiplier" }
-		},
-		ManaSpendCostModifiers = 
-		{
-			Add = 30,
-			ReportValues = { ReportedManaCost = "Add" }
-		},
-		StatLines =
-		{
-			"TalentManaCostAdditionStatline",
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedMultiplier",
-				ExtractAs = "Multiplier",
-				Format = "PercentDelta",
 			},
 			{
 				Key = "ReportedManaCost",
@@ -965,47 +892,81 @@
 			},
 		}
 	},
-	TimeSlowDashTalent = 
+
+	TimeSlowDemeterTalent = 
 	{
-		InheritFrom = {"SpellTalentTrait"},
-		Icon = "Boon_Selene_15",
-		RarityLevels =
+		InheritFrom = {"LegendaryTalent", "SpellTalentTrait"},
+		Icon = "Boon_Selene_127",
+	
+		IsDuoBoon = true,
+		Frame = "Duo",
+		LinkedGod = "DemeterUpgrade",
+		SpeakerNames = { "Demeter", },
+		
+		GameStateRequirements = 
 		{
-			Common =
+			NamedRequirements = { "SeleneDuosUnlocked" },
+			OrRequirements =
 			{
-				Multiplier = 1.00,
-			},
-			Rare =
-			{
-				Multiplier = 2.00,
-			},
-			Epic =
-			{
-				Multiplier = 3.00,
-			},
-			Heroic =
-			{
-				Multiplier = 4.00,
-			},
-			Legendary =
-			{
-				Multiplier = 5.00,
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "MetGods", "DemeterUpgrade" },
+					},
+				},
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "ForceDemeterBoonKeepsake" },
+					},
+				},
 			},
 		},
-		TimeSlowDashes = {BaseValue = 1, AsInt = true },
-		ExtractValues =
+		OnTimeSlowStartFunction = 
+		{
+			Name = "StartTimeSlowFreeze",
+			Args = 
+			{
+				EffectName = "DemeterTickEffect"
+			}
+		},
+		OnTimeSlowEndFunction = 
+		{
+			Name = "EndTimeSlowFreeze",
+			Args = 
+			{
+				EffectName = "DemeterTickEffect"
+			}
+		},
+		OnEnemySpawnFunction =
+		{
+			FunctionName = "CheckSpawnFreeze",
+			Args = 
+			{
+				EffectName = "DemeterTickEffect",
+			}
+		},
+		OnEnemyDamagedAction = 
+		{
+			ValidEffectName = "DemeterTickEffect",
+			EffectName = "LegacyChillEffect",
+		},
+		ExtractValues = 
 		{
 			{
-				Key = "TimeSlowDashes",
-				ExtractAs = "DashAmount",
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "DemeterTickEffect",
+				BaseProperty = "Amount",
+				ExtractAs = "Damage",
+			},
+			{
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "DemeterTickEffect",
+				BaseProperty = "Cooldown",
+				ExtractAs = "Interval",
+				DecimalPlaces = 1,
 			},
 		}
-	},
-
-	TimeSlowProtectionTalent = 
-	{
-		InheritFrom = {"SpellTalentTrait"},
-		Icon = "Boon_Selene_16",
 	},
 
 	-- Laser Talents --
@@ -1052,95 +1013,11 @@
 				ProjectileProperties = 
 				{
 					AttachToOwner = false,
-					MaxAdjustRate = math.rad(20),
+					MaxAdjustRate = math.rad(40),
 					AutoAdjustForTarget = true,
 				},
 			},
 		},
-	},
-	LaserPatienceTalent = 
-	{
-		InheritFrom = {"SpellTalentTrait"},
-		Icon = "Boon_Selene_15",
-		PropertyChanges =
-		{
-			{
-				WeaponName = "WeaponSpellLaser",
-				ProjectileProperty = "TimeThreshold",
-				ChangeValue = 1.0,
-				ReportValues = { ReportedTimeThreshold = "ChangeValue" }
-			},
-			{
-				WeaponName = "WeaponSpellLaser",
-				ProjectileProperty = "ArcSizeTimeThresholdMultiplier",
-				ChangeValue = 5,
-				SourceIsMultiplier = true,
-				ChangeType = "Absolute",
-				ReportValues = { ReportedArcSizeMultiplier = "ChangeValue" }
-			},
-			{
-				WeaponName = "WeaponSpellLaser",
-				ProjectileProperty = "DamageTimeThresholdMultiplier",
-				BaseValue = 2,
-				SourceIsMultiplier = true,
-				ChangeType = "Absolute",
-				ReportValues = { ReportedDamageMultiplier = "ChangeValue" }
-			},
-
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedTimeThreshold",
-				ExtractAs = "TimeThreshold",
-			},
-			{
-				Key = "ReportedArcSizeMultiplier",
-				ExtractAs = "SizeMultiplier",
-				Format = "PercentDelta",
-			},
-			{
-				Key = "ReportedDamageMultiplier",
-				ExtractAs = "DamageMultiplier",
-				Format = "PercentDelta",
-			},
-		}
-	},
-	LaserSpeedTalent = 
-	{
-		InheritFrom = {"SpellTalentTrait"},
-		Icon = "Boon_Selene_16",
-		PropertyChanges =
-		{
-			{
-				WeaponName = "WeaponSpellLaser",
-				WeaponProperty = "ChargeTime",
-				ChangeValue = 0.35,
-				ChangeType = "Multiply"
-			},
-			{
-				WeaponName = "WeaponSpellLaser",
-				ProjectileProperty = "DamagePerConsecutiveHit",
-				BaseValue = 1.0,
-				ChangeType = "Absolute",
-				ReportValues = { ReportedDamageRamp = "ChangeValue" }
-			},
-
-			{
-				WeaponName = "WeaponSpellLaser",
-				ProjectileProperty = "ConsecutiveHitWindow",
-				ChangeValue = 0.15,
-				ChangeType = "Absolute",
-			},
-
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedDamageRamp",
-				ExtractAs = "DamageRamp",
-			},
-		}
 	},
 	LaserTripleTalent = 
 	{
@@ -1157,7 +1034,7 @@
 		},
 		ManaSpendCostModifiers = 
 		{
-			Add = 60,
+			Add = 90,
 			ReportValues = { ReportedManaCost = "Add" }
 		},
 		StatLines =
@@ -1237,8 +1114,14 @@
 		Icon = "Boon_Selene_120",
 		AddOutgoingDamageModifiers = 
 		{
-			FirstHitBaseDamageAddition = 100,
+			ValidWeapons = { "WeaponSpellLaser" },
+			FirstHitBaseDamageAddition = 500,
 			ReportValues = { ReportedAmage = "FirstHitBaseDamageAddition" }
+		},
+		
+		SetupFunction = 
+		{
+			Name = "ResetFirstHitTalent",
 		},
 		ExtractValues = 
 		{
@@ -1328,43 +1211,18 @@
 	{
 		InheritFrom = {"SpellTalentTrait"},
 		Icon = "Boon_Selene_42",
-		DefenseDuringLaser = { BaseValue = 0.1 },
+		DefenseDuringLaser = { BaseValue = 10 },
 		
+		Invincible = true,
+		CostumeTrait = true,
+		IsRenewableArmor = true,
+
 		ExtractValues = 
 		{
 			{
 				Key = "DefenseDuringLaser",
 				ExtractAs = "Defense",
-				Format = "Percent",
 				HideSigns = true,
-			},
-		},
-	},
-	LaserPrimaryTalent = 
-	{
-		InheritFrom = {"SpellTalentTrait"},
-		Icon = "Boon_Selene_76",
-		AddWeaponsToTraits = 
-		{
-			WeaponName = "WeaponSpellLaser",
-			Slot = "Melee",
-		},
-		PropertyChanges = 
-		{
-			{
-				TraitName = "ApolloWeaponBoon",
-				WeaponName = "WeaponSpellLaser",
-				ProjectileProperty = "ArcSize",
-				ChangeValue = 2,
-				ChangeType = "Multiply",
-			},
-		},
-		ExtractValues = 
-		{
-			{
-				ExtractAs = "SlotBoon",
-				Slot = "Melee",
-				Format = "SlottedBoon"
 			},
 		},
 	},
@@ -1381,16 +1239,118 @@
 			},
 		}
 	},
+	--
+	LaserApolloTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
+		Icon = "Boon_Selene_123",
+		IsDuoBoon = true,
+		Frame = "Duo",
+		LinkedGod = "ApolloUpgrade",
+		SpeakerNames = { "Apollo", },
+
+		GameStateRequirements = 
+		{
+			NamedRequirements = { "SeleneDuosUnlocked" },
+			OrRequirements =
+			{
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "MetGods", "ApolloUpgrade" },
+					},
+				},
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "ForceApolloBoonKeepsake" },
+					},
+				},
+			},
+		},
+		OnWeaponChargeFunctions =
+		{
+			ValidWeapons = { "WeaponSpellLaser" },
+			FunctionName = "CheckFirstTimeLaserFire",
+			FunctionArgs = 
+			{
+				AddOutgoingDamageModifiers =
+				{
+					Name = "ApolloLaser",
+					ValidBaseDamageAddition = 50,
+					ValidWeapons = { "WeaponSpellLaser" },
+					ReportValues = { ReportedDamageBoost = "ValidBaseDamageAddition"},
+				},
+				PropertyChanges = 
+				{
+					{
+						WeaponName = "WeaponSpellLaser",
+						ProjectileProperty = "Range",
+						ChangeValue = 200,
+						ChangeType = "Add",
+					},
+					{
+						WeaponName = "WeaponSpellLaser",
+						ProjectileProperty = "Graphic",
+						ChangeValue = "MoonLaserLoop_Apollo",
+					},
+					{
+						WeaponName = "WeaponSpellLaser",
+						ProjectileProperty = "DissipateFx",
+						ChangeValue = "MoonLaserEnd_Apollo",
+					},
+					{
+						WeaponName = "WeaponSpellLaser",
+						ProjectileProperty = "ArcSize",
+						ChangeValue = 75,
+						ChangeType = "Add",
+					},
+				},
+			}
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedDamageBoost",
+				Format = "DamageOverTime",
+				BaseName = "ProjectileSpellLaser",
+				BaseProperty = "Fuse",
+				ExtractAs = "Damage",
+			},
+		},
+	},
 	-- Polymorph Talents --
 	PolymorphBossDamageTalent = 
 	{
 		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
 		Icon = "Boon_Selene_67",
-		PolymorphBossDamage = { BaseValue = 200 },
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 1.0,
+			},
+			Epic =
+			{
+				Multiplier = 1.0,
+			},
+			Heroic =
+			{
+				Multiplier = 1.0,
+			},
+		},
+		AddOutgoingDamageModifiers = 
+		{
+			ValidProjectiles = { "MorphDamageProjectile" },
+			BossBaseDamageAddition = { BaseValue = 400 },
+			ReportValues = { ReportedDamage = "BossBaseDamageAddition"}
+		},
 		ExtractValues = 
 		{
 			{
-				Key = "PolymorphBossDamage",
+				Key = "ReportedDamage",
 				ExtractAs = "Damage",
 			},
 		},
@@ -1406,14 +1366,20 @@
 		},
 		ExtractValues =
 		{
-			{		
+			{
 				External = true,
+				BaseType = "EffectData",
 				BaseName = "PolymorphTag",
-				BaseType = "Effect",
-				WeaponName = "WeaponSpellPolymorph",
 				BaseProperty = "Duration",
+				ExtractAs = "PolymorphDuration",
+			},
+			{
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "MorphDamageProjectile",
+				BaseProperty = "Damage",
+				ExtractAs = "PolymorphDamage",
 				SkipAutoExtract = true,
-				ExtractAs = "Duration",
 			},
 		}
 	},
@@ -1430,83 +1396,20 @@
 				Format = "NegativePercentDelta",
 				HideSigns = true
 			},
-			{		
+			{
 				External = true,
+				BaseType = "EffectData",
 				BaseName = "PolymorphTag",
-				BaseType = "Effect",
-				WeaponName = "WeaponSpellPolymorph",
 				BaseProperty = "Duration",
-				SkipAutoExtract = true,
-				ExtractAs = "Duration",
-			},
-		}
-	},
-	PolymorphAoETalent = 
-	{
-		InheritFrom = {"SpellTalentTrait"},
-		Icon = "Boon_Selene_14",
-	
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.0,
-			},
-			Rare =
-			{
-				Multiplier = 0.8,
-			},
-			Epic =
-			{
-				Multiplier = 0.6,
-			},
-			Heroic =
-			{
-				Multiplier = 0.4,
-			},
-		},
-		PropertyChanges =
-		{
-			{
-				WeaponName = "WeaponSpellPolymorph",
-				WeaponProperties = 
-				{
-					ChargeStartAnimation = "Melinoe_Cast_Fire",
-					ChargeStartFx = "ShieldCharge",
-					ChargeFinishFx = "RadialNova",
-					FireOnRelease = true,
-					ChargeRadiusMultiplier = 50,
-					MinChargeToFire = 0.01,
-				},
+				ExtractAs = "PolymorphDuration",
 			},
 			{
-				WeaponName = "WeaponSpellPolymorph",
-				ProjectileProperties = 
-				{
-					DamageRadius = 10,
-				},
-			},
-			{
-				WeaponName = "WeaponSpellPolymorph",
-				WeaponProperty = "ChargeTime",
-				BaseValue = 3,
-				ReportValues = { ReportedChargeTime = "ChangeValue" }
-			}
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedChargeTime",
-				ExtractAs = "ChargeTime",
-			},
-			{		
 				External = true,
-				BaseName = "PolymorphTag",
-				BaseType = "Effect",
-				WeaponName = "WeaponSpellPolymorph",
-				BaseProperty = "Duration",
+				BaseType = "ProjectileBase",
+				BaseName = "MorphDamageProjectile",
+				BaseProperty = "Damage",
+				ExtractAs = "PolymorphDamage",
 				SkipAutoExtract = true,
-				ExtractAs = "Duration",
 			},
 		}
 	},
@@ -1534,6 +1437,7 @@
 				Multiplier = 2.5,
 			},
 		},
+		PolymorphDamageMultiplier = 1.1,	--For Circe ExPolymorphBoon
 		PropertyChanges =
 		{
 			{
@@ -1552,78 +1456,22 @@
 				ExtractAs = "DamageTaken",
 				Format = "PercentDelta",
 			},
-			{		
+			{
 				External = true,
+				BaseType = "EffectData",
 				BaseName = "PolymorphTag",
-				BaseType = "Effect",
-				WeaponName = "WeaponSpellPolymorph",
 				BaseProperty = "Duration",
+				ExtractAs = "PolymorphDuration",
+			},
+			{
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "MorphDamageProjectile",
+				BaseProperty = "Damage",
+				ExtractAs = "PolymorphDamage",
 				SkipAutoExtract = true,
-				ExtractAs = "Duration",
 			},
 		}
-	
-	},
-	PolymorphManaTalent = 
-	{
-		InheritFrom = {"SpellTalentTrait"},
-		Icon = "Boon_Selene_16",
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.0,
-			},
-			Rare =
-			{
-				Multiplier = 1.5,
-			},
-			Epic =
-			{
-				Multiplier = 2,
-			},
-			Heroic =
-			{
-				Multiplier = 2.5,
-			},
-		},
-		SetupFunction =
-		{
-			Name = "PolymorphManaRegenSetup",
-			Args =
-			{
-				Name = "PolymorphManaTalent",
-				ManaRegenPerSecond = { BaseValue = 2 },
-				RequiredPolymorphTargets = 2,
-				ReportValues = 
-				{ 
-					ReportedManaRecovery = "ManaRegenPerSecond",
-					ReportedTargetRequirement = "RequiredPolymorphTargets" 
-				}
-			},
-			RunOnce = true
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedManaRecovery",
-				ExtractAs = "Mana",
-				DecimalPlaces = 1,
-			},
-			{
-				Key = "ReportedTargetRequirement",
-				ExtractAs = "Targets",
-			},
-			{		
-				External = true,
-				BaseName = "PolymorphTag",
-				BaseType = "Effect",
-				WeaponName = "WeaponSpellPolymorph",
-				BaseProperty = "Duration",
-				SkipAutoExtract = true,
-				ExtractAs = "Duration",
-			},
-		},
 	},
 	PolymorphDeathExplodeTalent = 
 	{
@@ -1669,16 +1517,22 @@
 				BaseName = "PolymorphNova",
 				BaseProperty = "Damage",
 			},
-			{		
+			{
 				External = true,
+				BaseType = "EffectData",
 				BaseName = "PolymorphTag",
-				BaseType = "Effect",
-				WeaponName = "WeaponSpellPolymorph",
 				BaseProperty = "Duration",
-				SkipAutoExtract = true,
-				ExtractAs = "Duration",
+				ExtractAs = "PolymorphDuration",
 			},
-		},
+			{
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "MorphDamageProjectile",
+				BaseProperty = "Damage",
+				ExtractAs = "PolymorphDamage",
+				SkipAutoExtract = true,
+			},
+		}
 	},
 	PolymorphSandwichTalent = 
 	{
@@ -1696,12 +1550,21 @@
 		{
 			"TalentManaCostAdditionStatline",
 		},
+		CustomStatLinesWithShrineUpgrade = 
+		{
+			ShrineUpgradeName = "HealingReductionShrineUpgrade",
+			StatLines = 
+			{
+				"TalentManaCostAdditionStatline",
+				"HealingReductionNotice",
+			},
+		},
 		ExtractValues =
 		{
 			{
 				Key = "PolymorphSandwichChance",
 				ExtractAs = "Chance",
-				Format = "Percent",
+				Format = "LuckModifiedPercent",
 				DecimalPlaces = 2,
 			},
 			{
@@ -1714,20 +1577,26 @@
 				SkipAutoExtract = true,
 				Format = "FlatHeal",
 			},
-			{		
+			{
 				External = true,
+				BaseType = "EffectData",
 				BaseName = "PolymorphTag",
-				BaseType = "Effect",
-				WeaponName = "WeaponSpellPolymorph",
 				BaseProperty = "Duration",
-				SkipAutoExtract = true,
-				ExtractAs = "Duration",
+				ExtractAs = "PolymorphDuration",
 			},
 			{
 				Key = "ReportedManaCost",
 				ExtractAs = "ManaAddition",
 				SkipAutoExtract = true,
 				IncludeSigns = true,
+			},
+			{
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "MorphDamageProjectile",
+				BaseProperty = "Damage",
+				ExtractAs = "PolymorphDamage",
+				SkipAutoExtract = true,
 			},
 		},
 	},
@@ -1752,6 +1621,25 @@
 				SkipAutoExtract = true,
 				IncludeSigns = true,
 			},
+		},
+		SetupFunction = 
+		{
+			Name = "BuildValidEffects",
+			Args = 
+			{
+				StatusTraitNames = 
+				{
+					DamageEchoEffect = LinkedTraitData.ZeusEchoTraits,
+					BurnEffect = LinkedTraitData.HestiaBurnTraits,
+					ChillEffect = LinkedTraitData.DemeterRootTraits,
+					LegacyChillEffect = { "DemeterSprintBoon", "CastNovaBoon", "StormSpawnBoon" },
+					AmplifyKnockbackEffect = { "PoseidonStatusBoon", "PoseidonCastBoon" },
+					WeakEffect = LinkedTraitData.AphroditeWeakTraits,
+					DamageShareEffect = LinkedTraitData.HeraLinkTraits,
+					BlindEffect = LinkedTraitData.ApolloBlindTraits,
+					DelayedKnockbackEffect = { "MassiveKnockupBoon" },
+				},
+			}
 		},
 		OnEffectApplyFunction = 
 		{
@@ -1798,23 +1686,42 @@
 				Multiplier = 1.0,
 			},
 		},
-
-		PolymorphTauntChance = { BaseValue = 0.5 },
+		PropertyChanges = 
+		{
+			{
+				WeaponName = "WeaponSpellPolymorph",
+				ProjectileProperty = "NumJumps",
+				ChangeValue = 10,
+				ChangeType = "Add",
+				ReportValues = { ReportedCount = "ChangeValue" },
+			},
+			{
+				WeaponName = "WeaponSpellPolymorph",
+				ProjectileProperty = "Fuse",
+				ChangeValue = 2,
+				ChangeType = "Add",
+			},
+		},
 		ExtractValues =
 		{
 			{
-				Key = "PolymorphTauntChance",
-				ExtractAs = "Chance",
-				Format = "Percent",
+				Key = "ReportedCount",
+				ExtractAs = "JumpCount",
 			},
-			{		
+			{
 				External = true,
+				BaseType = "EffectData",
 				BaseName = "PolymorphTag",
-				BaseType = "Effect",
-				WeaponName = "WeaponSpellPolymorph",
 				BaseProperty = "Duration",
+				ExtractAs = "PolymorphDuration",
+			},
+			{
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "MorphDamageProjectile",
+				BaseProperty = "Damage",
+				ExtractAs = "PolymorphDamage",
 				SkipAutoExtract = true,
-				ExtractAs = "Duration",
 			},
 		}
 	},
@@ -1843,6 +1750,7 @@
 				Multiplier = 1,
 			},
 		},
+		PolymorphDuration = 2,	--For Circe ExPolymorphBoon
 		PropertyChanges =
 		{
 			{
@@ -1866,6 +1774,97 @@
 			{
 				Key = "ReportedDuration",
 				ExtractAs = "Duration",
+			},
+		}
+	},
+	PolymorphZeusTalent = 
+	{
+		InheritFrom = {"LegendaryTalent", "SpellTalentTrait"},
+		Icon = "Boon_Selene_124",
+		IsDuoBoon = true,
+		Frame = "Duo",
+		LinkedGod = "ZeusUpgrade",
+		SpeakerNames = { "Zeus", },
+
+		GameStateRequirements = 
+		{
+			NamedRequirements = { "SeleneDuosUnlocked" },
+			OrRequirements =
+			{
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "MetGods", "ZeusUpgrade" },
+					},
+				},
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "ForceZeusBoonKeepsake" },
+					},
+				},
+			},
+		},
+		OnProjectileCreationFunction = 
+		{
+			ValidProjectiles = {"ProjectileSpellPolymorph"},
+			Name = "ZeusStrikeNearProjectile",
+			Args = 
+			{
+				ProjectileName = "ZeusPolymorphStrike",
+				Range = 300,
+				Targets = 2,
+				Interval = 0.25,
+				FollowUpDelay = 0.05,
+				ReportValues = { ReportedInterval = "Interval" }
+			},
+		},
+		
+		PropertyChanges =
+		{
+			{
+				WeaponName = "WeaponSpellPolymorph",
+				ProjectileProperty = "JumpType",
+				ChangeValue = "UNIT_PREFERENCE",
+			},
+			{
+				WeaponName = "WeaponSpellPolymorph",
+				ProjectileProperty = "AllowRepeatedJumpHit",
+				ChangeValue = true,
+			},
+			{
+				WeaponName = "WeaponSpellPolymorph",
+				ProjectileProperty = "IgnoreProjectilesNeverJump",
+				ChangeValue = true,
+			},
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedInterval",
+				ExtractAs = "Interval",
+				DecimalPlaces = 1,
+			},
+			{
+				ExtractAs = "Damage",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "ZeusPolymorphStrike",
+				BaseProperty = "Damage",
+			},
+			{
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "PolymorphTag",
+				BaseProperty = "Duration",
+				ExtractAs = "PolymorphDuration",
+			},
+			{
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "MorphDamageProjectile",
+				BaseProperty = "Damage",
+				ExtractAs = "PolymorphDamage",
+				SkipAutoExtract = true,
 			},
 		}
 	},
@@ -1919,7 +1918,7 @@
 		Icon = "Boon_Selene_93",
 		AllyDataModifiers = 
 		{
-			SpeedMultiplier = { BaseValue = 1.5, SourceIsMultiplier = true },
+			SpeedMultiplier = { BaseValue = 1.6, SourceIsMultiplier = true },
 			ReportValues = { ReportedSpeedMultiplier = "SpeedMultiplier"}
 		},
 		ExtractValues = 
@@ -1931,147 +1930,17 @@
 			},
 		}
 	},
-	
-	SummonTurretTalent = 
-	{
-		InheritFrom = {"SpellTalentTrait"},
-		Icon = "Boon_Selene_16",
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1,
-			},
-			Rare =
-			{
-				Multiplier = 2,
-			},
-			Epic =
-			{
-				Multiplier = 3,
-			},
-			Heroic =
-			{
-				Multiplier = 4,
-			},
-		},
-		AllyDataModifiers = 
-		{	
-			AddOutgoingDamageModifiers =
-			{
-				{
-					ValidSummons = { "SwarmerSummon" },
-					NonPlayerMultiplier = { BaseValue = 1.0 },
-					ReportValues = { ReportedDamageBoost = "NonPlayerMultiplier"}
-				},
-			},
-			WeaponOptionsOverride = 
-			{
-					ValidSummons = { "SwarmerSummon" }, 
-					WeaponNames = { "SpellSummonRanged" }
-			},
-		},
-		EnemyPropertyChanges =
-		{
-			{
-				LegalUnits = { "SwarmerSummon" },
-				UnitProperty = "Speed",
-				ChangeValue = 0,
-				ChangeType = "Multiply",
-			},
-		},
-		ExtractValues = 
-		{
-			{
-				Key = "ReportedDamageBoost",
-				ExtractAs = "RangedDamage",
-				Format = "MultiplyByBase",
-				BaseType = "Projectile",
-				BaseName = "SpellSummonRanged",
-				BaseProperty = "Damage",
-				ExtractAs = "RangedDamage",
-
-			},
-		}
-	},
-	
-	SummonSelfDestructTalent = 
-	{
-	
-		InheritFrom = {"SpellTalentTrait"},
-		Icon = "Boon_Selene_17",
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.0,
-			},
-			Rare =
-			{
-				Multiplier = 1.5,
-			},
-			Epic =
-			{
-				Multiplier = 2.0,
-			},
-			Heroic =
-			{
-				Multiplier = 2.5,
-			},
-		},
-
-		AllyDataModifiers = 
-		{	
-			AddOutgoingDamageModifiers =
-			{
-				{
-					ValidSummons = { "SummonSelfDestruct" },
-					NonPlayerMultiplier = { BaseValue = 1.0 },
-					ReportValues = { ReportedDamageBoost = "NonPlayerMultiplier"}
-				},
-			},
-		},
-		WeaponDataOverride =
-		{
-			WeaponSpellSummon =
-			{
-				FullChargeOverride = "SummonSelfDestruct",
-			}
-		},
-		ExtractValues = 
-		{
-			{
-				Key = "ReportedDamageBoost",
-				ExtractAs = "RangedDamage",
-				Format = "MultiplyByBase",
-				BaseType = "Projectile",
-				BaseName = "SummonDeathWeapon",
-				BaseProperty = "Damage",
-				ExtractAs = "Damage",
-
-			},
-		}
-	},
 
 	SummonTeleportTalent = 
 	{
 		InheritFrom = {"SpellTalentTrait", "LegendaryTalent" },
 		Icon = "Boon_Selene_94",
-
-		SprintTeleportAllies = 
+		
+		OnWeaponFiredFunctions =
 		{
-			Count = 1,
-			Delay = 0.2,
-			ReportValues = {ReportedCount = "Count"},
+			ValidWeapons = {"WeaponCast" },
+			FunctionName = "SummonCastTeleport",
 		},
-	
-		ExtractValues = 
-		{
-			{
-				Key = "ReportedCount",
-				ExtractAs = "Allies",
-			},
-		}
 	},
 	SummonRetaliateTalent = 
 	{
@@ -2093,6 +1962,7 @@
 		},
 		OnSelfDamagedFunction = 
 		{
+			NotDamagingRetaliate = true,
 			Name = "SummonTakeDamage",
 			FunctionArgs = 
 			{
@@ -2100,13 +1970,28 @@
 				Multiplier = 0.25, -- Equal to  (1 - multiplier)/multiplier
 			}
 		},
+		ManaSpendCostModifiers = 
+		{
+			Add = 30,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
 		
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
 		ExtractValues = 
 		{
 			{
 				Key = "ReportedMultiplier",
 				ExtractAs = "SummonDefense",
 				Format = "NegativePercentDelta",
+			},
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
 			},
 		}
 	},
@@ -2120,61 +2005,29 @@
 		}
 	},
 
-	SummonSpecialTalent = 
-	{
-		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
-		Icon = "Boon_Selene_96",
-	
-		ExtractValues = 
-		{
-			{
-				Key = "ReportedDamageBoost",
-				ExtractAs = "Damage",
-				Format = "PercentDelta"
-			},
-		},
-		AddSummonWeaponsToTraits = 
-		{
-			Slot = "Secondary",
-		},
-		ManaSpendCostModifiers = 
-		{
-			Add = 10,
-			ReportValues = { ReportedManaCost = "Add" }
-		},
-		StatLines =
-		{
-			"TalentManaCostAdditionStatline",
-		},
-		ExtractValues = 
-		{
-			{
-				ExtractAs = "SlotBoon",
-				Slot = "Secondary",
-				Format = "SlottedBoon"
-			},
-			{
-				Key = "ReportedManaCost",
-				ExtractAs = "ManaAddition",
-				SkipAutoExtract = true,
-				IncludeSigns = true,
-			},
-		},
-	},
-
 	SummonExplodeTalent = 
 	{
 		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
 		Icon = "Boon_Selene_95",
-		OnSummonDeathFunction = 
-		{
-			Name = "DetonateSummon",
-			Args = 
+		AllyDataModifiers = 
+		{			
+			AddOutgoingDamageModifiers =
 			{
-				ProjectileName = "SummonDeathWeapon",
-				DamageMultiplier = 1,
-				ReportValues = { ReportedDamageMultiplier = "DamageMultiplier" }
-			},
+				{
+					FirstSummonHitDamageAddition = 500,
+					FirstSummonHitDamagePresentation = 
+					{
+						FunctionName = "FirstSummonHitPresentation",
+						HitPresentationIgnoresOwnership = true,
+						HitSimSlowParameters =
+						{
+							{ ScreenPreWait = 0.02, Fraction = 0.13, LerpTime = 0 },
+							{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.05 },
+						},
+					},
+					ReportValues = { ReportedBonus = "FirstSummonHitDamageAddition" }
+				}
+			}
 		},
 		ManaSpendCostModifiers = 
 		{
@@ -2188,18 +2041,75 @@
 		ExtractValues = 
 		{
 			{
-				Key = "ReportedDamageMultiplier",
+				Key = "ReportedBonus",
 				ExtractAs = "Damage",
-				Format = "MultiplyByBase",
-				BaseType = "Projectile",
-				BaseName = "SummonDeathWeapon",
-				BaseProperty = "Damage",
 			},
 			{
 				Key = "ReportedManaCost",
 				ExtractAs = "ManaAddition",
 				SkipAutoExtract = true,
 				IncludeSigns = true,
+			},
+		},
+		Using = { "AresMissingDamageFx", },
+	},
+	
+	SummonHeraTalent = 
+	{
+		InheritFrom = {"LegendaryTalent", "SpellTalentTrait"},
+		Icon = "Boon_Selene_125",
+		IsDuoBoon = true,
+		Frame = "Duo",
+		LinkedGod = "HeraUpgrade",
+		SpeakerNames = { "Hera", },
+
+		GameStateRequirements = 
+		{
+			NamedRequirements = { "SeleneDuosUnlocked" },
+			OrRequirements =
+			{
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "MetGods", "HeraUpgrade" },
+					},
+				},
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "ForceHeraBoonKeepsake" },
+					},
+				},
+			},
+		},
+		AllyDataModifiers = 
+		{
+			FirstOnly = true,
+			SpeedMultiplier = 1.25,
+			ScaleMultiplier = 1.1,
+			OutlineColor = Color.HeraDamage,
+			CreateAnimation = "HeraSprintLoop",
+			OutgoingCritModifiers =
+			{
+				{
+					Chance = 0.3,
+					ReportValues = { ReportedCritChance = "Chance" },
+				},
+			},
+			ReportValues = { ReportedSpeedMultiplier = "SpeedMultiplier" },
+		},
+		
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedCritChance",
+				ExtractAs = "CritChance",
+				Format = "Percent",
+				SkipAutoExtract = true,
+			},
+			{
+				Key = "ReportedSpeedMultiplier",
+				ExtractAs = "Speed",
+				Format = "PercentDelta",
+				SkipAutoExtract = true,
 			},
 		},
 	},
@@ -2254,10 +2164,19 @@
 	{
 		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
 		Icon = "Boon_Selene_97",
+		Invincible = true,
+		CostumeTrait = true,
+		IsRenewableArmor = true,
+
 		OnWeaponFiredFunctions = 
 		{
 			ValidWeapons = {"WeaponSpellMeteor"},
 			FunctionName = "MeteorCheckInvulnerability",
+			FunctionArgs = 
+			{
+				Armor = 50,
+				ReportValues = { ReportedArmor = "Armor" }
+			}
 		},
 
 		ManaSpendCostModifiers = 
@@ -2271,6 +2190,10 @@
 		},	
 		ExtractValues = 
 		{
+			{
+				Key = "ReportedArmor",
+				ExtractAs = "ReportedArmor"
+			},
 			{
 				Key = "ReportedManaCost",
 				ExtractAs = "ManaAddition",
@@ -2471,6 +2394,63 @@
 			ValidProjectiles = {"ProjectileSpellMeteor"},
 		},
 	},
+	MeteorHestiaTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
+		Icon = "Boon_Selene_126",
+		IsDuoBoon = true,
+		Frame = "Duo",
+		LinkedGod = "HestiaUpgrade",
+		SpeakerNames = { "Hestia", },
+
+		GameStateRequirements = 
+		{
+			NamedRequirements = { "SeleneDuosUnlocked" },
+			OrRequirements =
+			{
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "MetGods", "HestiaUpgrade" },
+					},
+				},
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "ForceHestiaBoonKeepsake" },
+					},
+				},
+			},
+		},
+		OnEnemySpawnFunction =
+		{
+			FunctionName = "StartReverseBurn",
+			Args = 
+			{
+				StartStacks = 1200,
+			}
+		},
+		OnWeaponFiredFunctions = 
+		{
+			ValidWeapons = {"WeaponSpellMeteor"},
+			FunctionName = "CheckBurnAll",
+			FunctionArgs = 
+			{
+				EffectName = "BurnEffect",
+				StartStacks = 1200,
+			},
+		},
+		ExtractValues = 
+		{
+			{
+				ExtractAs = "BurnRate",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectLuaData",
+				BaseName = "BurnEffect",
+				BaseProperty = "DamagePerSecond",
+				DecimalPlaces = 1,
+			},
+		}
+	},
 	-- Leap
 	
 	LeapCooldownSpeedTalent = 
@@ -2564,7 +2544,11 @@
 	{
 		InheritFrom = { "SpellTalentTrait" },
 		Icon = "Boon_Selene_81",
-		LeapInvulnerability = 1,
+		LeapArmor = 20,
+		LeapArmorDuration = 3,
+		Invincible = true,
+		CostumeTrait = true,
+		IsRenewableArmor = true,
 
 		ManaSpendCostModifiers = 
 		{
@@ -2578,7 +2562,13 @@
 		ExtractValues =
 		{
 			{
-				Key = "LeapInvulnerability",
+				Key = "LeapArmor",
+				ExtractAs = "Armor",
+				DecimalPlaces = 1,
+				SkipAutoExtract = true,
+			},
+			{
+				Key = "LeapArmorDuration",
 				ExtractAs = "Duration",
 				DecimalPlaces = 1,
 			},
@@ -2675,13 +2665,57 @@
 			},
 		},
 	},
+	LeapHephaestusTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
+		Icon = "Boon_Selene_129",
+		IsDuoBoon = true,
+		Frame = "Duo",
+		LinkedGod = "HephaestusUpgrade",
+		SpeakerNames = { "Hephaestus", },
+		
+		GameStateRequirements = 
+		{
+			NamedRequirements = { "SeleneDuosUnlocked" },
+			OrRequirements =
+			{
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "MetGods", "HephaestusUpgrade" },
+					},
+				},
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "ForceHephaestusBoonKeepsake" },
+					},
+				},
+			},
+		},
+		SpellLeapModifiers = 
+		{
+			ProjectileName = "HephLeapBlast",
+			ProjectileStartDelay = 0.5,
+			StartFx = "HephMassiveHitHammerTalent",
+			StartFxDelay = 0.8,
+		},
+		ExtractValues =
+		{
+			{
+				ExtractAs = "Damage",
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "HephLeapBlast",
+				BaseProperty = "Damage",
+			},
+		},
+	},
 
 	-- Transform
 	TransformDurationTalent = 
 	{
 		InheritFrom = {"SpellTalentTrait"},
 		Icon = "Boon_Selene_57",
-		TransformDurationIncrease = { BaseValue = 1 },
+		TransformDurationIncrease = { BaseValue = 0.5 },
 		ExtractValues = 
 		{
 			{
@@ -2704,38 +2738,6 @@
 			},
 			ValidWeapons = WeaponSets.HeroTransformWeapons,
 			ReportValues = { ReportedDamageBoost = "ValidWeaponMultiplier"},
-		},
-		ExtractValues = 
-		{
-			{
-				Key = "ReportedDamageBoost",
-				ExtractAs = "Damage",
-				Format = "PercentDelta"
-			},
-		},
-	},
-	TransformBossDamageTalent  = 
-	{
-		InheritFrom = {"SpellTalentTrait"},
-		Icon = "Boon_Selene_54",
-		TransformFunctionNames = 
-		{
-			StartTransformFunctionName = "AddTransformDamage",
-			EndTransformFunctionName = "RemoveTransformDamage",
-			Args = 
-			{
-				DamageModifier = 
-				{
-					Name = "TransformBossDamage",
-					Temporary = true,
-					BossDamageMultiplier =
-					{
-						BaseValue = 1.1,
-						SourceIsMultiplier = true,
-					},
-					ReportValues = { ReportedDamageBoost = "BossDamageMultiplier"},
-				}
-			},
 		},
 		ExtractValues = 
 		{
@@ -2769,6 +2771,8 @@
 		{
 			TransformedMultiplier = 1.3,
 			ValidWeapons = WeaponSets.HeroRangedWeapons,
+			ValidProjectiles = WeaponSets.CastProjectileNames,
+			WeaponOrProjectileRequirement = true,
 			ReportValues = { ReportedDamageBoost = "TransformedMultiplier"},
 		},
 		
@@ -2793,12 +2797,27 @@
 			DistanceThreshold = 430,
 			ReportValues = { ReportedCritBonus = "DistanceThresholdChance"},
 		},
+		ManaSpendCostModifiers = 
+		{
+			Add = 20,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
 		ExtractValues =
 		{
 			{
 				Key = "ReportedCritBonus",
 				ExtractAs = "CritRate",
 				Format = "Percent",
+			},
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
 			},
 		}
 	},
@@ -2813,7 +2832,7 @@
 			EndTransformFunctionName = "RemoveTransformAttackSpeed",
 			Args = 
 			{
-				AttackSpeed = 1.20,
+				AttackSpeed = 1.25,
 				ReportValues = { ReportedSpeed = "AttackSpeed" },
 			},
 		},
@@ -2897,15 +2916,6 @@
 			WeaponName = "WeaponTransformSpecial",
 			Slot = "Secondary",
 		},
-		ManaSpendCostModifiers = 
-		{
-			Add = 20,
-			ReportValues = { ReportedManaCost = "Add" }
-		},
-		StatLines =
-		{
-			"TalentManaCostAdditionStatline",
-		},
 		PropertyChanges = 
 		{
 			StartTransformFunctionName = "TransformCheckApolloBoon",
@@ -2925,18 +2935,12 @@
 				Slot = "Secondary",
 				Format = "SlottedBoon"
 			},
-			{
-				Key = "ReportedManaCost",
-				ExtractAs = "ManaAddition",
-				SkipAutoExtract = true,
-				IncludeSigns = true,
-			},
 		},
 	},
 	TransformExCastTalent = 
 	{
 		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
-		Icon = "Boon_Selene_107",
+		Icon = "Boon_Selene_62",
 		TransformFunctionNames = 
 		{
 			StartTransformFunctionName = "DisableCastArm",
@@ -2968,11 +2972,86 @@
 		},
 		
 	},
+	TransformAphroditeTalent = 
+	{
+		InheritFrom = {"LegendaryTalent", "SpellTalentTrait"},
+		Icon = "Boon_Selene_128",
+		IsDuoBoon = true,
+		Frame = "Duo",
+		LinkedGod = "AphroditeUpgrade",
+		SpeakerNames = { "Aphrodite", },
+
+		GameStateRequirements = 
+		{
+			NamedRequirements = { "SeleneDuosUnlocked" },
+			OrRequirements =
+			{
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "MetGods", "AphroditeUpgrade" },
+					},
+				},
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "ForceAphroditeBoonKeepsake" },
+					},
+				},
+			},
+		},
+		TransformFunctionNames = 
+		{
+			StartTransformFunctionName = "StartTransformBurst",
+			EndTransformFunctionName = "EndTransformBurst",
+		},
+		OnProjectileDeathFunction = 
+		{
+			Name = "TransformRespawnBurst",
+			ValidProjectiles = {"AphroditeBurst"},
+			Args = 
+			{
+				Delay = 0.15,
+				ProjectileName = "AphroditeBurst",
+				DamageMultiplier = 1.0,
+				ReportValues = 
+				{ 
+					ReportedMultiplier = "DamageMultiplier",
+				}
+			}
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "AphroditeBurst",
+				BaseProperty = "Damage",
+			},
+			{
+				ExtractAs = "Duration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "AphroditeBurst",
+				BaseProperty = "Fuse",
+			},
+		}
+	},
 	-- Moon Beam
+
+	MoonBeamTalentTrait =
+	{
+		CodexGameStateRequirements =
+		{
+			NamedRequirements = { "SuitAspectsRevealed" },
+		},
+		DebugOnly = true,
+	},
 
 	MoonBeamVulnerabilityTalent = 
 	{
-		InheritFrom = {"SpellTalentTrait"},
+		InheritFrom = {"SpellTalentTrait", "MoonBeamTalentTrait"},
 		Icon = "Boon_Selene_113",
 		MoonBeamVulnerabilityBonus = {BaseValue = 0.05},
 		ExtractValues = 
@@ -3003,7 +3082,7 @@
 	},
 	MoonBeamDamageTalent = 
 	{
-		InheritFrom = {"SpellTalentTrait"},
+		InheritFrom = {"SpellTalentTrait", "MoonBeamTalentTrait"},
 		Icon = "Boon_Selene_112",
 
 		AddOutgoingDamageModifiers =
@@ -3025,7 +3104,7 @@
 	},
 	MoonBeamCountTalent = 
 	{
-		InheritFrom = {"SpellTalentTrait"},
+		InheritFrom = {"SpellTalentTrait", "MoonBeamTalentTrait"},
 		Icon = "Boon_Selene_111",
 		MoonBeamCountBonus = { BaseValue = 1 },
 		ExtractValues = 
@@ -3038,11 +3117,12 @@
 	},
 	MoonBeamDefenseTalent = 
 	{
-		InheritFrom = {"SpellTalentTrait"},
+		InheritFrom = {"SpellTalentTrait", "MoonBeamTalentTrait"},
 		Icon = "Boon_Selene_115",
 		AddIncomingDamageModifiers = 
 		{ 
 			MoonBeamActiveMultiplier = 0.8,
+			HealthOnly = true,
 			ReportValues = { ReportedDefense = "MoonBeamActiveMultiplier"},
 		},
 		ExtractValues = 
@@ -3056,7 +3136,7 @@
 	},
 	MoonBeamTargetTalent = 
 	{
-		InheritFrom = {"SpellTalentTrait"},
+		InheritFrom = {"SpellTalentTrait", "MoonBeamTalentTrait"},
 		Icon = "Boon_Selene_116",
 		MoonBeamTargetCountBonus = 2,
 		ManaSpendCostModifiers = 
@@ -3084,25 +3164,25 @@
 	},
 	MoonBeamPrimaryTalent = 
 	{
-		InheritFrom = {"SpellTalentTrait"},
+		InheritFrom = {"SpellTalentTrait", "MoonBeamTalentTrait"},
 		Icon = "Boon_Selene_118",
-		AddWeaponsToTraits = 
+		AddOutgoingDamageModifiers = 
 		{
-			WeaponName = "WeaponSpellMoonBeam",
-			Slot = "Melee",
+			BossDamageMultiplier = 1.3,
+			ReportValues = { ReportedDamageMultiplier = "BossDamageMultiplier"}
 		},
 		ExtractValues = 
 		{
 			{
-				ExtractAs = "SlotBoon",
-				Slot = "Melee",
-				Format = "SlottedBoon"
+				Key = "ReportedDamageMultiplier",
+				ExtractAs = "DamageBonus",
+				Format = "PercentDelta"
 			},
 		}
 	},
 	MoonBeamConsecutiveDamageTalent = 
 	{
-		InheritFrom = {"SpellTalentTrait"},
+		InheritFrom = {"SpellTalentTrait", "MoonBeamTalentTrait"},
 		Icon = "Boon_Selene_114",
 		OnEnemyDamagedAction = 
 		{
@@ -3124,26 +3204,9 @@
 			},
 		}
 	},
-	MoonBeamBonusHammerTalent = 
-	{
-		InheritFrom = {"SpellTalentTrait"},
-		Icon = "Boon_Selene_117",
-		AcquireFunctionName = "GiveRandomConsumables",
-		AcquireFunctionArgs =
-		{ 
-			Delay = 0.2,
-			ForceToValidLocation = true,
-			LootOptions =
-			{
-				{
-					Name = "SeleneWeaponUpgrade",
-				},
-			}
-		},
-	},
 	MoonBeamExBeamBonusTalent = 
 	{
-		InheritFrom = {"SpellTalentTrait"},
+		InheritFrom = {"SpellTalentTrait", "MoonBeamTalentTrait"},
 		Icon = "Boon_Selene_117",
 		
 		OnWeaponFiredFunctions =
@@ -3169,6 +3232,78 @@
 				IncludeSigns = true,
 			},
 		}
+	},
+	MoonBeamAresTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait", "MoonBeamTalentTrait", "LegendaryTalent"},
+		Icon = "Boon_Selene_131",
+
+		IsDuoBoon = true,
+		Frame = "Duo",
+		LinkedGod = "AresUpgrade",
+		SpeakerNames = { "Ares", },
+
+		GameStateRequirements = 
+		{
+			NamedRequirements = { "SeleneDuosUnlocked" },
+			OrRequirements =
+			{
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "MetGods", "AresUpgrade" },
+					},
+				},
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "ForceAresBoonKeepsake" },
+					},
+				},
+			},
+		},
+		ReplaceMoonBeam = 
+		{
+			ProjectileName = "ProjectileBloodMoonBeam"
+		},
+		AddOutgoingDamageModifiers =
+		{
+			ValidBaseDamageAddition = EffectData.AresStatus.BonusBaseDamageOnInflict,
+			ValidProjectiles = { "ProjectileBloodMoonBeam" },
+		},
+		OnEnemyDamagedAction = 
+		{
+			ValidProjectiles = {"ProjectileBloodMoonBeam"},
+			FunctionName = "SpellBloodMoonBeamHitPresentation",
+			Args = 
+			{
+				EffectName = "AresStatus",
+				HitSimSlowParameters =
+				{
+					{ ScreenPreWait = 0.02, Fraction = 0.13, LerpTime = 0 },
+					{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.05 },
+				},
+			},	
+
+		},
+		
+		ExtractValues =
+		{
+			{
+				ExtractAs = "AresCurseDuration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "AresStatus",
+				BaseProperty = "Duration",
+			},
+			{
+				ExtractAs = "AresCursePowerBonus",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectLuaData",
+				BaseName = "AresStatus",
+				BaseProperty = "BonusBaseDamageOnInflict",
+			},
+		},
 	},
 }
 

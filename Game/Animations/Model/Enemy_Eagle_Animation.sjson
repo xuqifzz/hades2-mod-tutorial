@@ -81,15 +81,14 @@
 		]
 	}
 	{
+		Name = "Enemy_Eagle_SweepPreFire_Olympus"
+		InheritFrom = "Enemy_Eagle_SweepPreFire"
+		GrannyAnimationSpeed = 2
+	}
+	{
 		Name = "Enemy_Eagle_SweepPreFire_Fast"
 		InheritFrom = "Enemy_Eagle_SweepPreFire"
-		Frames =
-		[
-			{
-				Frame = 0
-				FrameSpeed = 3
-			}
-		]
+		GrannyAnimationSpeed = 3
 	}
 	{
 		Name = "Enemy_Eagle_SweepFire"
@@ -365,18 +364,21 @@
 		InheritFrom = "EnemyEagleBaseAnimation"
 		GrannyAnimation = "PrometheusEagle_Base_AttackComboSpiralCatchEagle_C_00"
 		ChainTo = "Enemy_Eagle_SpiralLaunchPreFireLoop"
+		Enable3DShadow = false
 	}
 	{
 		Name = "Enemy_Eagle_SpiralLaunchPreFireLoop"
 		InheritFrom = "EnemyEagleBaseAnimation"
 		GrannyAnimation = "PrometheusEagle_Base_AttackComboSpiralReadyLaunchLoop_C_00"
 		Loop = true
+		Enable3DShadow = false
 	}
 	{
 		Name = "Enemy_Eagle_SpiralLaunchPreFire"
 		InheritFrom = "EnemyEagleBaseAnimation"
 		GrannyAnimation = "PrometheusEagle_Base_AttackComboSpiralLaunchEagleAntic_C_00"
 		HoldLastFrame = true
+		Enable3DShadow = false
 		Blends =
 		[
 			{

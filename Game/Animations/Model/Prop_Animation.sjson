@@ -220,4 +220,182 @@
 		GrannyModel = "HoundMarker_Mesh"
 		GrannyAnimation = "MelMarker_Base_Idle_C_00"
 	}
+
+ /* _______________________________________________PolecatMarker_______________________________________________ */
+ {
+	 Name = "PolecatMarkerMove"
+	 InheritFrom = "BaseMarkerKit"
+	 GrannyModel = "PolecatMarker_Mesh"
+	 GrannyAnimation = "MelMarker_Base_Move_C_00"
+	 
+	}
+	
+	{
+		Name = "PolecatMarkerJump"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "PolecatMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Jump_C_00"
+		ChainTo = "PolecatMarkerIdle"
+		Frames =
+		[
+			{
+				Frame = 34
+				Sound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract"
+			}
+		]
+	}
+	
+	{
+		Name = "PolecatMarkerIdle"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "PolecatMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Idle_C_00"
+	}
+	
+	/* _______________________________________________GigarosProp_______________________________________________ */
+
+	{
+		Name = "3DWeaponGigaros_PoseFlat"
+
+		GrannyModel = "WeaponGigaros_Mesh"
+		GrannyAnimation = "WeaponGigaros_Pose_Flat_C_00"
+		Loop = true
+		Enable3DShadow = true
+		VisualFx = "GigarosParticles"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.11
+		VisualFxOffsetX = 100
+		VisualFxOffsetY = -80
+	}
+	/* _______________________________________________PitchBlackStone_______________________________________________ */
+		 {
+		Name = "Crossroads_BountyBoard_On01"
+		GrannyModel = "PitchBlackStone_Mesh"
+		GrannyAnimation = "PitchBlackStone_Base_Active_C_00"
+		Enable3DShadow = true
+		Loop = true
+		Scale = 3.0
+		Angle = 135
+		RandomRotationSpeedMin = 10
+		RandomRotationSpeedMax = 12
+        Sound = "/SFX/Menu Sounds/PitchBlackStoneAmbience"
+		StopSoundOnFinishFade = 0.1
+		SoundAllowedAfterFrame = -1
+		VisualFx = "PitchBlackStoneFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+		CreateAnimation = "PitchBlackStoneReflectionEmitter"
+	}
+
+	{
+		Name = "PitchBlackStoneReflectionEmitter"
+		FilePath = "Dev\blank_invisible"
+		Loop = true
+		VisualFx = "PitchBlackStoneReflections"
+		VisualFxIntervalMin = 3
+		VisualFxIntervalMax = 5
+	}
+
+
+	{
+		Name = "PitchBlackStoneReflections"
+		FilePath = "Fx\PitchBlackStoneReflections\PitchBlackStoneReflections"
+		NumFrames = 75
+		Material = "Unlit"
+		GrannyAttachedMarkerLocation = "PitchBlackStone_Rig:root_00_M_JNT"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		ScaleFromOwner = "Ignore"
+		OffsetX = -15
+		OffsetY = 10
+		Scale = 1.4
+		ScaleY = 2
+		Alpha = 0.2
+	}
+
+
+	{
+		Name = "PitchBlackStoneFx"
+		Random = [
+			{ Name = "PitchBlackStoneFxA" }
+			{ Name = "PitchBlackStoneFxB" }
+			{ Name = "PitchBlackStoneFxC" }
+			{ Name = "PitchBlackStoneFxD" }
+		]
+	}
+
+	{
+		Name = "PitchBlackStoneFxA"
+		FilePath = "Particles\particle_sparkle_glow"
+		AddColor = true
+		StartScale = 0
+		EndScale = 1
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		Scale = 0.5
+		PingPongScale = true
+		RandomDurationMin = 1
+		RandomDurationMax = 1.5
+		RandomOffsetX = 30
+		RandomOffsetY = 100
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		RandomRotation = false
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		OffsetZ = 0
+		StartRed = 0.0
+		StartGreen = 0.01
+		StartBlue = 0.9
+		EndRed = 0.5
+		EndGreen = 0
+		EndBlue = 1
+		PingPongColor = true
+		StartAlpha = 0.5
+		EndAlpha = 1
+		StartOffsetX = 0
+		EndOffsetX = 30
+		EaseIn = 0
+		EaseOut = 1
+		GrannyAttachedMarkerLocation = "PitchBlackStone_Rig:root_00_M_JNT"
+	}
+
+	{
+		Name = "PitchBlackStoneFxB"
+		InheritFrom = "PitchBlackStoneFxA"
+		EndOffsetX = -30
+		Scale = 0.25
+	}
+	{
+		Name = "PitchBlackStoneFxC"
+		InheritFrom = "PitchBlackStoneFxA"
+		FilePath = "Particles\particle_ember_02"
+		RandomRotation = true
+	}
+	{
+		Name = "PitchBlackStoneFxD"
+		InheritFrom = "PitchBlackStoneFxC"
+		EndOffsetX = -30
+	}
+
+	{
+		Name = "Crossroads_BountyBoard_Off01"
+		InheritFrom = "Crossroads_BountyBoard_On01"
+		GrannyAnimation = "PitchBlackStone_Base_Inactive_C_00"
+		Angle = 135
+		RandomRotationSpeedMin = 0
+		RandomRotationSpeedMax = 0
+		Sound = null
+		VisualFx = null
+		CreateAnimation = null
+		Color = { Red = 0.3 Green = 0.3 Blue = 0.3 }
+	}
+
 ]}

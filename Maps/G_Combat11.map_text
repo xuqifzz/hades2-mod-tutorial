@@ -28,6 +28,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Terrain_Darken_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "FX_TerrainBeneath_02",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -130,19 +143,6 @@
       "Visible": true
     },
     {
-      "BlendMode": 0,
-      "ChildGroups": [],
-      "Id": "Terrain_Decor_02",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "MapArt",
-      "Visible": true
-    },
-    {
       "BlendMode": 12,
       "ChildGroups": [],
       "Id": "TerrainPuddle_FX",
@@ -158,7 +158,7 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
-      "Id": "Terrain_Decor_03",
+      "Id": "Terrain_Decor_02",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -171,7 +171,7 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
-      "Id": "Terrain_Decor_04",
+      "Id": "Terrain_Decor_03",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -352,7 +352,35 @@
     },
     {
       "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "Foreground_03",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "Foreground_04",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
       "ChildGroups": [
+        "Foreground_04",
+        "Foreground_03",
         "Foreground_01",
         "Foreground_02",
         "Shading_01",
@@ -366,10 +394,9 @@
         "Terrain_Gameplay",
         "Terrain_Shadow_01",
         "Terrain_FX_01",
-        "Terrain_Decor_04",
         "Terrain_Decor_03",
-        "TerrainPuddle_FX",
         "Terrain_Decor_02",
+        "TerrainPuddle_FX",
         "Terrain_Decor_01",
         "Terrain_01",
         "Terrain_Base",
@@ -378,6 +405,7 @@
         "FX_TerrainBeneath_01",
         "Terrain_Beneath_02",
         "FX_TerrainBeneath_02",
+        "Terrain_Darken_01",
         "Water_02"
       ],
       "Id": "MapArt",
@@ -548,5 +576,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

@@ -137,10 +137,37 @@
       Name = "HistorianGhostIdle"
       FilePath = "Tilesets\Gameplay\Gameplay_GameStatsScreen_Ghost_01"
       OnlyWhenVisible = true
-      RandomDurationMin = 6
-      RandomDurationMax = 8
+      RandomDurationMin = 4
+      RandomDurationMax = 5
       StartAngle = -0.2
       EndAngle = 0.2
+      PingPongAngle = true
+      StartScaleY = 0.95
+      EndScaleY = 0.98
+      StartScaleX = 1.05
+      EndScaleX = 1.0
+      StartOffsetZ = -5
+      EndOffsetZ = 5
+      PingPongScale = true
+      PingPongShiftOverDuration = true
+      Loop = true
+      PhaseOffsetAngle = 90
+      EaseIn = 0
+      EaseOut = 1
+    }
+    {
+      Name = "HistorianGhostCrystalBall"
+      FilePath = "Tilesets\Crossroads\Crossroads_FloatingCrystalBall_01"
+      OnlyWhenVisible = true
+      RandomDurationMin = 2
+      RandomDurationMax = 4
+      StartAngle = -4
+      EndAngle = 3
+      StartScaleY = 0.98
+      EndScaleY = 1.0
+      StartScaleX = 1.03
+      EndScaleX = 1.0
+      PingPongScale = true
       PingPongAngle = true
       StartOffsetZ = -5
       EndOffsetZ = 5
@@ -168,34 +195,16 @@
       EaseIn = 0
       EaseOut = 1
     }
-
-    {
-      Name = "BardGhostIdle"
-      FilePath = "Tilesets\Gameplay\Gameplay_Bard_Ghost_01"
-      OnlyWhenVisible = true
-      RandomDurationMin = 6
-      RandomDurationMax = 8
-      StartAngle = -0.2
-      EndAngle = 0.2
-      PingPongAngle = true
-      StartOffsetZ = -5
-      EndOffsetZ = 5
-      PingPongShiftOverDuration = true
-      Loop = true
-      PhaseOffsetAngle = 90
-      EaseIn = 0
-      EaseOut = 1
-    }
     
     {
       Name = "ElysiumGhostIdle"
       FilePath = "Animations\GhostVariants\Elysium\Idle\ElysiumGhostIdle"
-      
       EndFrame = 1
       NumAngles = 16
       NumFrames = 1
       RandomDurationMax = 3.0
       RandomDurationMin = 2.0
+      Loop = true
       SmoothStep = true
       StartFrame = 1
       UseAttachedSpriteEffects = false
@@ -278,6 +287,12 @@
     }
 
     {
+      Name = "ShadeMercIdle"
+      InheritFrom = "ShadeHubMIdle"
+      FilePath = "Animations\ShadeVariants\ShadeMerc\Idle\ShadeMercIdle"
+    }
+
+    {
       Name = "ShadeHubSIdle"
       InheritFrom = "ShadeHubMIdle"
       FilePath = "Animations\ShadeVariants\ShadeHubS\Idle\ShadeHubSIdle"
@@ -312,6 +327,7 @@
       InheritFrom = "ShadeHubLIdle"
       FilePath = "Animations\ShadeVariants\ShadeHubLNecklace\Idle\ShadeHubLNecklaceIdle"      
       Scale = 0.95
+      OffsetY = -70.0
     }
 
     {
@@ -342,6 +358,16 @@
       NumFrames = 1
 
 
+    }
+    
+    {
+      Name = "ShadeAspectIdle"
+      InheritFrom = "ShadeHubGuardIdle"
+      Scale = 0.8
+      Hue = -0.338
+      Saturation = 0.338
+      Value = 0.394
+      Sound = "/SFX/Player Sounds/StaffAnubisShadeSpawn"
     }
 
     {
@@ -429,6 +455,12 @@
       Name = "ShadeErebusIdle"
       InheritFrom = "ShadeHubIdle"
       FilePath = "Animations\ShadeVariants\ShadeErebus\Idle\ShadeErebusIdle"      
+    } 
+
+    {
+      Name = "ShadeTyphonIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeTyphon\Idle\ShadeTyphonIdle"      
     } 
 
     {
@@ -539,11 +571,34 @@
       PingPongShiftOverDuration = false 
     }
 
-
     {
       Name = "ShadeShipsOneSwaySW"
       InheritFrom = "ShadeShipsFiveSwaySW"
-      FilePath = "Animations\ShadeVariants\ShadeShipsOne\SwaySW\ShadeShipsOneSwaySW"      
+      FilePath = "Animations\ShadeVariants\ShadeShipsOne\SwaySW\ShadeShipsOneSwaySW"
     }
+    {
+      Name = "ShadeShipsOneSwayHubIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeShipsOne\Idle\ShadeShipsOneIdle"
+    }
+
+	{
+		Name = "GhostChefIdle"
+		FilePath = "Animations\GhostVariants\Chef\ChopOnion\ghostChefChopOnion"
+		Loop = true
+		AngleFromOwner = "Ignore"
+		EndFrame = 120
+		NumFrames = 120
+		PlaySpeed = 30.0
+		StartFrame = 1
+		Ambient = 0.0
+		OnlyWhenVisible = true
+		Slides =
+		[
+			{ DurationFrames = 1 Sound = "/SFX/ChefGhostFourChops" Frame = 18 }
+			{ DurationFrames = 1 Sound = "/SFX/ChefGhostFoodScrape" Frame = 85 }
+			{ DurationFrames = 1 Sound = "/SFX/ChefGhostOnionLand2" Frame = 115 }
+		]
+	}
 
 ]}

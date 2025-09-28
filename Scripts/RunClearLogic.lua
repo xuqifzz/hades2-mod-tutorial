@@ -1,7 +1,22 @@
 function OpenRunClearScreen()
 
+	AltAspectRatioFramesShow()
 	AddInputBlock({ Name = "OpenRunClearScreen" })
-	PlaySound({ Name = "/Leftovers/Menu Sounds/AscensionConfirm" })
+	PlaySound({ Name = "/Leftovers/Menu Sounds/AscensionConfirm2" })
+	LoadVoiceBank({ Name = "Chaos", IgnoreAssert = true })
+
+	SessionMapState.PrevShowGameplayTimer = ConfigOptionCache.ShowGameplayTimer
+	SetConfigOption({ Name = "ShowGameplayTimer", Value = false })
+
+	local prevRecordTime = nil
+	local prevRecordShrinePoints = nil
+	if CurrentRun.BiomesReached.F then
+		prevRecordTime = GameState.FastestUnderworldClearTimeCache
+		prevRecordShrinePoints = GameState.HighestShrinePointClearUnderworldCache
+	else
+		prevRecordTime = GameState.FastestSurfaceClearTimeCache
+		prevRecordShrinePoints = GameState.HighestShrinePointClearSurfaceCache
+	end
 
 	RecordRunCleared()
 
@@ -9,32 +24,69 @@ function OpenRunClearScreen()
 
 	local screen = DeepCopyTable( ScreenData.RunClear )
 	screen.DamageDealtStartX = ScreenWidth - screen.DamageDealtRightOffset
-	screen.DamageDealtStartY = screen.DamageDealtStartY + ScreenCenterNativeOffsetY
-	screen.DamageTakenStartY = screen.DamageTakenStartY + ScreenCenterNativeOffsetY
+	screen.DamageDealtStartY = screen.DamageDealtStartY + (ScreenCenterNativeOffsetY * 2)
+	screen.DamageTakenStartY = screen.DamageTakenStartY + (ScreenCenterNativeOffsetY * 2)
+	if CurrentRun.BiomesReached.Q then
+		screen.ComponentData.VictoryBackground.Animation = "VictoryScreenIllustration_Surface"
+		screen.ComponentData.TitleText = screen.ComponentData.SurfaceTitleText
+		screen.ComponentData.RunClearMessageText = screen.ComponentData.SurfaceRunClearMessageText
+	else
+		screen.ComponentData.TitleText = screen.ComponentData.UnderworldTitleText
+		screen.ComponentData.RunClearMessageText = screen.ComponentData.UnderworldRunClearMessageText
+	end
+
+	screen.ComponentData.UnderworldTitleText = nil
+	screen.ComponentData.UnderworldRunClearMessageText = nil
+	screen.ComponentData.SurfaceTitleText = nil
+	screen.ComponentData.SurfaceRunClearMessageText = nil
 
 	local args = {}
 	HideMoneyUI( args )
 	HideRerollUI( args )
 	HideResourceUIs( args )
+	HideObjectivesUI()
+
+	if MapState.FamiliarUnit ~= nil and MapState.FamiliarUnit.StopAIOnRunClear then
+		CallFunctionName( MapState.FamiliarUnit.StopAIFunctionName, MapState.FamiliarUnit )
+	end
 
 	OnScreenOpened( screen )
 	CreateScreenFromData( screen, screen.ComponentData )
 	OnScreenOpened( screen )
-	thread(UpdateHealthUI)
-
-	local traitTrayScreen = OpenTraitTrayScreen( { DontDuckAudio = true, DisableTooltips = true, HideCloseButton = true, HideInfoButton = true, AutoPin = true, SkipInputHandlers = true, OverwriteSelf = { IgnoreOtherScreenInput = false, }, } )
-
-	PlaySound({ Name = "/SFX/Menu Sounds/DialoguePanelIn" })
-	SetConfigOption({ Name = "TooltipShowDelay", Value = 999999 })
+	FrameState.RequestUpdateHealthUI = true
 
 	local components = screen.Components
-	
-	local recordTime = GetFastestRunClearTime( CurrentRun )
-	local prevRecordShrinePoints = GetHighestShrinePointRunClear()
+
+	-- Badge
+	if GameState.BadgeRank ~= nil then
+		local badgeData = BadgeData[BadgeOrderData[GameState.BadgeRank]]
+		if badgeData ~= nil then
+			SetAnimation({ DestinationId = components.BadgeRankIcon.Id, Name = badgeData.Icon })
+		end
+	end
+
+	wait( 0.3 )
+
+	local traitTrayScreen = OpenTraitTrayScreen( {
+		DontDuckAudio = true,
+		DisableTooltips = true,
+		HideCloseButton = true,
+		HideInfoButton = true,
+		HideBounty = true,
+		HideBackgroundTint = true,
+		HideRoomCount = true,
+		HideCategoryTitleText = true,
+		AutoPin = true,
+		SkipInputHandlers = true,
+		OverwriteSelf = { IgnoreOtherScreenInput = false, },
+	} )
+
+	PlaySound({ Name = "/SFX/Menu Sounds/IrisMenuSwitch" })
+	SetConfigOption({ Name = "TooltipShowDelay", Value = 999999 })
 
 	-- ClearTime
 	ModifyTextBox({ Id = components.ClearTimeValue.Id, Text = GetTimerString( CurrentRun.GameplayTime, 2 ), })
-	if CurrentRun.GameplayTime <= recordTime then
+	if CurrentRun.GameplayTime <= prevRecordTime then
 		wait( 0.1 )
 		SetAlpha({ Id = components.ClearTimeRecord.Id, Duration = HUDScreen.FadeOutDuration, Fraction = 1.0 })
 	end
@@ -75,13 +127,15 @@ function OpenRunClearScreen()
 		end
 
 		local damageSourceComponent = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay_Text", X = damageLocationX, Y = damageLocationY })
+		damageSourceComponent.Data = screen.DamageSourceFormat
 		screen.Components["DamageDealtSource"..damageRecordItem.SourceName] = damageSourceComponent
-		local damageSourceFormat = ShallowCopyTable( screen.DamageSourceFormat )
+		local damageSourceFormat = ApplyLocalizedProperties( ShallowCopyTable( screen.DamageSourceFormat ) )
 		damageSourceFormat.Id = damageSourceComponent.Id
 		damageSourceFormat.Text = screen.DamageSourceTextOverrides[damageRecordItem.SourceName] or damageRecordItem.SourceName
 		CreateTextBox( damageSourceFormat )
 
 		local damageAmountComponent = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay_Text", X = damageLocationX + screen.DamageDealtAmountOffsetX, Y = damageLocationY })
+		damageAmountComponent.Data = screen.DamageAmountFormat
 		screen.Components["DamageDealtAmount"..damageRecordItem.SourceName] = damageAmountComponent
 		local damageAmountFormat = ShallowCopyTable( screen.DamageAmountFormat )
 		damageAmountFormat.Id = damageAmountComponent.Id
@@ -119,13 +173,15 @@ function OpenRunClearScreen()
 		end
 
 		local damageSourceComponent = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay_Text", X = damageLocationX, Y = damageLocationY })
+		damageSourceComponent.Data = screen.DamageSourceFormat
 		screen.Components["DamageTakenSource"..damageRecordItem.SourceName] = damageSourceComponent
-		local damageSourceFormat = ShallowCopyTable( screen.DamageSourceFormat )
+		local damageSourceFormat = ApplyLocalizedProperties( ShallowCopyTable( screen.DamageSourceFormat ) )
 		damageSourceFormat.Id = damageSourceComponent.Id
 		damageSourceFormat.Text = screen.DamageSourceTextOverrides[damageRecordItem.SourceName] or damageRecordItem.SourceName
 		CreateTextBox( damageSourceFormat )
 
 		local damageAmountComponent = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay_Text", X = damageLocationX + screen.DamageDealtAmountOffsetX, Y = damageLocationY })
+		damageAmountComponent.Data = screen.DamageAmountFormat
 		screen.Components["DamageTakenAmount"..damageRecordItem.SourceName] = damageAmountComponent
 		local damageAmountFormat = ShallowCopyTable( screen.DamageAmountFormat )
 		damageAmountFormat.Id = damageAmountComponent.Id
@@ -140,11 +196,18 @@ function OpenRunClearScreen()
 	wait(0.05)
 
 	-- Clear Message
-	local messageData = GetRandomEligiblePrioritizedItem( GameData.RunClearMessageData, screen.MessagePriorities, GameState.PlayedRunClearMessages, GameState.RemainingRunClearMessages )
-	if messageData ~= nil then
-		CurrentRun.RunClearMessageName = messageData.Name
-		RunClearMessagePresentation( screen, messageData )
+	local message = nil
+	if CurrentRun.ActiveBounty then
+		message = CurrentRun.ActiveBounty
+	else
+		local messageData = GetRandomEligiblePrioritizedItem( GameData.RunClearMessageData, screen.MessagePriorities, GameState.PlayedRunClearMessages, GameState.RemainingRunClearMessages )
+		if messageData ~= nil then
+			message = messageData.Name
+			GameState.PlayedRunClearMessages[message] = true
+			CurrentRun.VictoryMessage = message
+		end
 	end
+	RunClearMessagePresentation( screen, message )
 
 	killTaggedThreads( CombatUI.HideThreadName )
 	RemoveInputBlock({ Name = "OpenRunClearScreen" })
@@ -160,11 +223,13 @@ end
 function CloseRunClearScreen( screen )
 	AddInputBlock({ Name = "CloseRunClearScreen" })
 	TraitTrayScreenClose( ActiveScreens.TraitTrayScreen )
+	AltAspectRatioFramesHide()
 	OnScreenCloseStarted( screen )
 	CloseScreen( GetAllIds( screen.Components ) )
 	ShowMoneyUI()
 	ShowRerollUI()
 	ShowResourceUIs()
+	SetConfigOption({ Name = "ShowGameplayTimer", Value = SessionMapState.PrevShowGameplayTimer  })
 	SetConfigOption({ Name = "TooltipShowDelay", Value = "Default" })
 	RemoveInputBlock({ Name = "CloseRunClearScreen" })
 	OnScreenCloseFinished( screen )
@@ -172,4 +237,13 @@ end
 
 function DamageRecordSort( itemA, itemB )
 	return itemA.Amount > itemB.Amount
+end
+
+function ClearedBossEncountersWithNoDamage( source, args )
+	for i, encounter in ipairs( args.Encounters ) do
+		if CurrentRun.EncounterClearStats[encounter] ~= nil and CurrentRun.EncounterClearStats[encounter].TookDamage then
+			return false
+		end
+	end
+	return true
 end

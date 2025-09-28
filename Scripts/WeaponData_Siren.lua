@@ -51,7 +51,6 @@ WeaponSetData =
 			DeepInheritance = true,
 
 			ForceUseIfReady = true,
-			MoveWithinRange = false,
 			SkipFireWeapon = true,
 
 			PreMoveFunctionName = "ScyllaFightTrackSpotlight",
@@ -60,7 +59,7 @@ WeaponSetData =
 			FireDuration = 0.0,
 			PostAttackDuration = 5.5,
 
-			PostAttackEndMusicStemVolume = 0.85,
+			PostAttackEndMusicStemVolume = 1.0,
 		},
 	},
 
@@ -71,15 +70,14 @@ WeaponSetData =
 		{
 			WeaponComboOnly = true,
 			SkipFireWeapon = true,
-			MoveWithinRange = false,
 
 		},
 
 		WeaponCombo =
 		{
-			"SirenDrummerCircle",
-			"SirenDrummerCircleInverted",
-			"SirenDrummerCircle",
+			{ WeaponOptions = { "SirenDrummerCircle", "SirenDrummerCircle_EM", }, },
+			{ WeaponOptions = { "SirenDrummerCircleInverted", "SirenDrummerCircleInverted_EM", }, },
+			{ WeaponOptions = { "SirenDrummerCircle", "SirenDrummerCircle_EM", }, },
 		},
 
 		Requirements =
@@ -96,15 +94,13 @@ WeaponSetData =
 		{
 			WeaponComboOnly = true,
 			SkipFireWeapon = true,
-			MoveWithinRange = false,
-
 		},
 
 		WeaponCombo =
 		{
-			"SirenDrummerCircleInverted",
-			"SirenDrummerCircle",
-			"SirenDrummerCircleInverted",
+			{ WeaponOptions = { "SirenDrummerCircleInverted", "SirenDrummerCircleInverted_EM", }, },
+			{ WeaponOptions = { "SirenDrummerCircle", "SirenDrummerCircle_EM", }, },
+			{ WeaponOptions = { "SirenDrummerCircleInverted", "SirenDrummerCircleInverted_EM", }, },
 		},
 
 		Requirements =
@@ -117,11 +113,18 @@ WeaponSetData =
 
 	SirenDrummerCircle =
 	{
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+				Comparison = "<",
+				Value = 2,
+			}
+		},
 		AIData =
 		{
 			DeepInheritance = true,
 
-			MoveWithinRange = false,
 			TargetSelf = true,
 			FireProjectileAtTarget = true,
 
@@ -169,11 +172,6 @@ WeaponSetData =
 			AttackDistance = 9999,
 		},
 
-		Requirements =
-		{
-			MinAttacksBetweenUse = 3,
-		},
-
 		Sounds =
 		{
 			FireSounds =
@@ -184,13 +182,44 @@ WeaponSetData =
 		},
 	},
 
+	SirenDrummerCircle_EM =
+	{
+		InheritFrom = { "SirenDrummerCircle", },
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+				Comparison = ">=",
+				Value = 2,
+			}
+		},
+		AIData =
+		{
+			TargetSelf = "nil",
+			PreAttackFx = "nil",
+			PreAttackFxAtTarget = "SirenDrummerCircleLargePreview",
+			FireProjectileAtTarget = true,
+			FireFromTarget = true,
+			TargetId = 793540,
+		},
+	},
+
 	SirenDrummerCircleInverted =
 	{
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+				Comparison = "<",
+				Value = 2,
+			}
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
 
-			MoveWithinRange = false,
 			TargetSelf = true,
 			FireProjectileAtTarget = true,
 
@@ -232,25 +261,8 @@ WeaponSetData =
 			PostAttackDuration = 0.4,
 
 			PreAttackAnimation = "Enemy_SirenDrummer_RumbleIntroSlow",
-			--FireAnimation = "Enemy_SirenDrummer_RumbleFire",
-			--PostAttackAnimation = "Enemy_SirenDrummer_BeatIntroA",
 
 			AttackDistance = 9999,
-
-			--[[
-			PreAttackVoiceLines =
-			{
-				RandomRemaining = true,
-				BreakIfPlayed = true,
-				PreLineWait = 0.35,
-				ChanceToPlay = 0.1,
-				ObjectType = "Scylla",
-				Cooldowns =
-				{
-					{ Name = "ScyllaSpokeRecently", Time = 20 },
-				},
-			},
-			]]--
 		},
 
 		Sounds =
@@ -261,112 +273,28 @@ WeaponSetData =
 				{ Name = "/Leftovers/Menu Sounds/TextReveal2LOUD" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
-	SirenDrummerBeatBounce =
+	SirenDrummerCircleInverted_EM =
 	{
-		AIData =
-		{
-			DeepInheritance = true,
-
-			ProjectileName = "SirenDrummerLob",
-			MoveWithinRange = false,
-			ImmuneToProjectileSlow = true,
-			
-			AttackSlots =
-			{
-				{ AnchorAngleOffset = 350, OffsetFromAttacker = true, AIDataOverrides = { FireProjectileAngleRelative = -100, FireProjectileAtTarget = true } },
-				{ AnchorAngleOffset = 350, OffsetFromAttacker = true, AIDataOverrides = { FireProjectileAngleRelative = -50, FireProjectileAtTarget = true } },
-				{ AnchorAngleOffset = 350, OffsetFromAttacker = true, AIDataOverrides = { FireProjectileAngleRelative = 5, FireProjectileAtTarget = true } },
-				{ AnchorAngleOffset = 350, OffsetFromAttacker = true, AIDataOverrides = { FireProjectileAngleRelative = 33, FireProjectileAtTarget = true } },
-				{ AnchorAngleOffset = 350, OffsetFromAttacker = true, AIDataOverrides = { FireProjectileAngleRelative = 50, FireProjectileAtTarget = true } },
-				{ AnchorAngleOffset = 350, OffsetFromAttacker = true, AIDataOverrides = { FireProjectileAngleRelative = 80, FireProjectileAtTarget = true } },
-			},
-
-			TargetSelf = true,
-
-			FireTicks = 5,
-			FireInterval = 1,
-
-			PreAttackDuration = 0.3,
-			FireDuration = 0.0,
-			PostAttackDurationMin = 3.5,
-			PostAttackDurationMax = 5.0,
-
-			PreAttackAnimation = "Enemy_SirenDrummer_BeatIntroB",
-			FireAnimation = "Enemy_SirenDrummer_BeatLoopB",
-			PostAttackAnimation = "Enemy_SirenDrummer_BeatIntroA",
-			
-			AttackDistance = 9999,
-		},
-
-		Requirements =
-		{
-			MinAttacksBetweenUse = 2,
-		},
-		GameStateRequirements =
-		{
-			{
-				Path = { "MapState", "Flags", "DrummerBoost" },
-				UseLength = true,
-				Comparison = "<=",
-				Value = 0,
-			},
-		},
-	},
-
-	SirenDrummerBoostedLob =
-	{
-		AIData =
-		{
-			DeepInheritance = true,
-
-			ProjectileName = "SirenDrummerLobBoosted",
-			MoveWithinRange = false,
-			ImmuneToProjectileSlow = true,
-			
-			AttackSlots =
-			{
-				{ AnchorAngleOffset = 350, OffsetFromAttacker = true, AIDataOverrides = { FireProjectileAngleRelative = -100, FireProjectileAtTarget = true } },
-				{ AnchorAngleOffset = 350, OffsetFromAttacker = true, AIDataOverrides = { FireProjectileAngleRelative = -50, FireProjectileAtTarget = true } },
-				{ AnchorAngleOffset = 350, OffsetFromAttacker = true, AIDataOverrides = { FireProjectileAngleRelative = 5, FireProjectileAtTarget = true } },
-				{ AnchorAngleOffset = 350, OffsetFromAttacker = true, AIDataOverrides = { FireProjectileAngleRelative = 33, FireProjectileAtTarget = true } },
-				{ AnchorAngleOffset = 350, OffsetFromAttacker = true, AIDataOverrides = { FireProjectileAngleRelative = 50, FireProjectileAtTarget = true } },
-				{ AnchorAngleOffset = 350, OffsetFromAttacker = true, AIDataOverrides = { FireProjectileAngleRelative = 80, FireProjectileAtTarget = true } },
-			},
-
-			FireTicks = 1,
-			FireInterval = 1,
-
-			TargetSelf = true,
-
-			PreAttackDuration = 0.3,
-			FireDuration = 0.0,
-			PostAttackDurationMin = 2.5,
-			PostAttackDurationMax = 2.5,
-			
-			PreAttackAnimation = "Enemy_SirenDrummer_BeatIntroB",
-			FireAnimation = "Enemy_SirenDrummer_BeatLoopB",
-			PostAttackAnimation = "Enemy_SirenDrummer_BeatIntroA",
-			
-			AttackDistance = 9999,
-		},
+		InheritFrom = { "SirenDrummerCircleInverted", },
 
 		GameStateRequirements =
 		{
 			{
-				Path = { "MapState", "Flags", "DrummerBoost" },
-				UseLength = true,
+				Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
 				Comparison = ">=",
-				Value = 1,
-			},
+				Value = 2,
+			}
+		},
+		AIData =
+		{
+			TargetSelf = "nil",
+			PreAttackFx = "nil",
+			PreAttackFxAtTarget = "SirenDrummerInvertedCircle",
+			FireProjectileAtTarget = true,
+			FireFromTarget = true,
+			TargetId = 793540,
 		},
 	},
 
@@ -409,7 +337,7 @@ WeaponSetData =
 			ConditionalData =
 			{
 				{
-					AIData =
+					Data =
 					{
 						PostAttackDurationMin = 3.5,
 						PostAttackDurationMax = 4.0,
@@ -426,8 +354,6 @@ WeaponSetData =
 					},
 				}
 			},
-
-			MoveWithinRange = false,
 			
 			AttackSlots =
 			{
@@ -462,9 +388,6 @@ WeaponSetData =
 
 			FireProjectileAtTarget = true,
 
-			--NumProjectiles = 7,
-			--ProjectileAngleInterval = 30,
-
 			PreAttackDuration = 0.3,
 			FireDuration = 0.0,
 			PostAttackDurationMin = 6.00,
@@ -489,6 +412,50 @@ WeaponSetData =
 				UseLength = true,
 				Comparison = "<=",
 				Value = 0,
+			},
+		},
+	},
+
+	SirenDrummerBeatConeIn_EM =
+	{
+		InheritFrom = { "SirenDrummerBeatConeIn", },
+		AIData =
+		{
+			DeepInheritance = true,
+			
+			AttackSlots =
+			{
+				{ OffsetAngle = -15, OffsetDistance = 3200, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 0, OffsetDistance = 3200, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 15, OffsetDistance = 3200, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 30, OffsetDistance = 3200, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.759 },
+
+				{ OffsetAngle = -45, OffsetDistance = 2600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = -30, OffsetDistance = 2600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = -15, OffsetDistance = 2600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 0, OffsetDistance = 2600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 15, OffsetDistance = 2600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 30, OffsetDistance = 2600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 45, OffsetDistance = 2600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.759 },
+
+				{ OffsetAngle = -60, OffsetDistance = 1750, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = -30, OffsetDistance = 1750, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 0, OffsetDistance = 1750, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 30, OffsetDistance = 1750, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 60, OffsetDistance = 1750, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.759 },
+
+				{ OffsetAngle = -45, OffsetDistance = 1000, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 0, OffsetDistance = 1000, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 45, OffsetDistance = 1000, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.759 },
+
+				{ OffsetAngle = -60, OffsetDistance = 550, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 0, OffsetDistance = 550, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 60, OffsetDistance = 550, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.759 },
+
+				{ OffsetAngle = 0, OffsetDistance = 300, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true },
+				{ OffsetAngle = 0, OffsetDistance = -300, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true },
+				{ OffsetAngle = -80, OffsetDistance = -600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true },
+				{ OffsetAngle = 80, OffsetDistance = -600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true },
 			},
 		},
 	},
@@ -546,12 +513,56 @@ WeaponSetData =
 		},
 	},
 
+	SirenDrummerBeatConeOut_EM =
+	{
+		InheritFrom = { "SirenDrummerBeatConeOut", },
+		AIData =
+		{
+			DeepInheritance = true,
+			
+			AttackSlots =
+			{
+
+				{ OffsetAngle = 0, OffsetDistance = 300, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true },
+				{ OffsetAngle = 0, OffsetDistance = -300, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true },
+				{ OffsetAngle = -80, OffsetDistance = -600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true },
+				{ OffsetAngle = 80, OffsetDistance = -600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.759 },
+
+				{ OffsetAngle = -60, OffsetDistance = 550, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 0, OffsetDistance = 550, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 60, OffsetDistance = 550, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.759 },
+
+				{ OffsetAngle = -45, OffsetDistance = 1000, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 0, OffsetDistance = 1000, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 45, OffsetDistance = 1000, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.759 },
+
+				{ OffsetAngle = -60, OffsetDistance = 1750, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = -30, OffsetDistance = 1750, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 0, OffsetDistance = 1750, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 30, OffsetDistance = 1750, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 60, OffsetDistance = 1750, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.759 },
+
+				{ OffsetAngle = -45, OffsetDistance = 2600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = -30, OffsetDistance = 2600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = -15, OffsetDistance = 2600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 0, OffsetDistance = 2600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 15, OffsetDistance = 2600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 30, OffsetDistance = 2600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 45, OffsetDistance = 2600, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.759 },
+
+				{ OffsetAngle = -15, OffsetDistance = 3200, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 0, OffsetDistance = 3200, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 15, OffsetDistance = 3200, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 30, OffsetDistance = 3200, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+			},
+		},
+	},
+
 	SirenDrummerBeatCoralClose =
 	{
 		AIData =
 		{
 			DeepInheritance = true,
-			MoveWithinRange = false,
 			ProjectileName = "SirenDrummerBeatBoosted",
 			
 			AttackSlots =
@@ -609,25 +620,24 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-			MoveWithinRange = false,
 			ProjectileName = "SirenDrummerBeatBoosted",
 			
 			AttackSlots =
 			{
-				{ OffsetAngle = 360, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.6 },
+				{ OffsetAngle = -45, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.6 },
 
-				{ OffsetAngle = 336.25, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.05 },
-				{ OffsetAngle = 312.5, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.05 },
-				{ OffsetAngle = 288.75, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.05 },
-				{ OffsetAngle = 265, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.75 },
+				{ OffsetAngle = -25, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.05 },
+				{ OffsetAngle = -5, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.05 },
+				{ OffsetAngle = 15, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.05 },
+				{ OffsetAngle = 35, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.75 },
 
-				{ OffsetAngle = 265, OffsetDistance = 1900, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.2 },
-				{ OffsetAngle = 284, OffsetDistance = 1900, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.40 },
+				{ OffsetAngle = 55, OffsetDistance = 1900, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.2 },
+				{ OffsetAngle = 35, OffsetDistance = 1900, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.40 },
 
-				{ OffsetAngle = 303, OffsetDistance = 1900, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.05 },
-				{ OffsetAngle = 322, OffsetDistance = 1900, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.05 },
-				{ OffsetAngle = 341, OffsetDistance = 1900, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.05 },
-				{ OffsetAngle = 360, OffsetDistance = 1900, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.6 },
+				{ OffsetAngle = 15, OffsetDistance = 1900, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.05 },
+				{ OffsetAngle = -5, OffsetDistance = 1900, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.05 },
+				{ OffsetAngle = -25, OffsetDistance = 1900, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.05 },
+				{ OffsetAngle = -45, OffsetDistance = 1900, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.6 },
 			},
 			AttackSlotInterval = 0.0,
 
@@ -667,7 +677,6 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-			MoveWithinRange = false,
 			ProjectileName = "SirenDrummerBeatBoosted",
 			
 			AttackSlots =
@@ -736,7 +745,6 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-			MoveWithinRange = false,
 			ProjectileName = "SirenDrummerBeatBoosted",
 			
 			AttackSlots =
@@ -803,41 +811,41 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-			MoveWithinRange = false,
 			ProjectileName = "SirenDrummerBeatBoosted",
 			
 			AttackSlots =
 			{
-				{ OffsetAngle = 265, OffsetDistance = 2000, OffsetScaleY = 0.5, OffsetFromAttacker = true },
-				{ OffsetAngle = 360, OffsetDistance = 2000, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.18 },
-				{ OffsetAngle = 265, OffsetDistance = 2500, OffsetScaleY = 0.5, OffsetFromAttacker = true },
-				{ OffsetAngle = 360, OffsetDistance = 2500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.44 },
+				{ OffsetAngle = 55, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true },
+				{ OffsetAngle = -45, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.18 },
+				{ OffsetAngle = 55, OffsetDistance = 2200, OffsetScaleY = 0.5, OffsetFromAttacker = true },
+				{ OffsetAngle = -45, OffsetDistance = 2200, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.44 },
 
-				{ OffsetAngle = 284, OffsetDistance = 2000, OffsetScaleY = 0.5, OffsetFromAttacker = true },
-				{ OffsetAngle = 341, OffsetDistance = 2000, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.18 },
-				{ OffsetAngle = 284, OffsetDistance = 2500, OffsetScaleY = 0.5, OffsetFromAttacker = true },
-				{ OffsetAngle = 341, OffsetDistance = 2500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.44 },
+				{ OffsetAngle = 35, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true },
+				{ OffsetAngle = -25, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.18 },
+				{ OffsetAngle = 35, OffsetDistance = 2200, OffsetScaleY = 0.5, OffsetFromAttacker = true },
+				{ OffsetAngle = -25, OffsetDistance = 2200, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.44 },
 
-				{ OffsetAngle = 303, OffsetDistance = 2000, OffsetScaleY = 0.5, OffsetFromAttacker = true },
-				{ OffsetAngle = 322, OffsetDistance = 2500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.18 },
-				{ OffsetAngle = 303, OffsetDistance = 2500, OffsetScaleY = 0.5, OffsetFromAttacker = true, },
-				{ OffsetAngle = 322, OffsetDistance = 2000, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.44 },
+				{ OffsetAngle = -5, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true },
+				{ OffsetAngle = 15, OffsetDistance = 2200, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.18 },
+				{ OffsetAngle = -5, OffsetDistance = 2200, OffsetScaleY = 0.5, OffsetFromAttacker = true, },
+				{ OffsetAngle = 15, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.44 },
 
-				{ OffsetAngle = 284, OffsetDistance = 2500, OffsetScaleY = 0.5, OffsetFromAttacker = true },
-				{ OffsetAngle = 341, OffsetDistance = 2500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.44 },
-				{ OffsetAngle = 284, OffsetDistance = 2000, OffsetScaleY = 0.5, OffsetFromAttacker = true },
-				{ OffsetAngle = 341, OffsetDistance = 2000, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.18 },
+				{ OffsetAngle = 35, OffsetDistance = 2200, OffsetScaleY = 0.5, OffsetFromAttacker = true },
+				{ OffsetAngle = -25, OffsetDistance = 2200, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.44 },
+				{ OffsetAngle = 35, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true },
+				{ OffsetAngle = -25, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.18 },
 
-				{ OffsetAngle = 265, OffsetDistance = 2500, OffsetScaleY = 0.5, OffsetFromAttacker = true },
-				{ OffsetAngle = 360, OffsetDistance = 2500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.44 },
-				{ OffsetAngle = 265, OffsetDistance = 2000, OffsetScaleY = 0.5, OffsetFromAttacker = true },
-				{ OffsetAngle = 360, OffsetDistance = 2000, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.18 },
+				{ OffsetAngle = 55, OffsetDistance = 2200, OffsetScaleY = 0.5, OffsetFromAttacker = true },
+				{ OffsetAngle = -45, OffsetDistance = 2200, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.44 },
+				{ OffsetAngle = 55, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true },
+				{ OffsetAngle = -45, OffsetDistance = 1500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 1.0 },
 
-				{ OffsetAngle = 265, OffsetDistance = 1750, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 1.0 },
-				{ OffsetAngle = 288.75, OffsetDistance = 1750, OffsetScaleY = 0.5, OffsetFromAttacker = true, },
-				{ OffsetAngle = 312.5, OffsetDistance = 1750, OffsetScaleY = 0.5, OffsetFromAttacker = true, },
-				{ OffsetAngle = 336.25, OffsetDistance = 1750, OffsetScaleY = 0.5, OffsetFromAttacker = true, },
-				{ OffsetAngle = 360, OffsetDistance = 1750, OffsetScaleY = 0.5, OffsetFromAttacker = true, },
+				{ OffsetAngle = 55, OffsetDistance = 1750, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 0.44 },
+				{ OffsetAngle = 35, OffsetDistance = 1750, OffsetScaleY = 0.5, OffsetFromAttacker = true, },
+				{ OffsetAngle = 15, OffsetDistance = 1750, OffsetScaleY = 0.5, OffsetFromAttacker = true, },
+				{ OffsetAngle = -5, OffsetDistance = 1750, OffsetScaleY = 0.5, OffsetFromAttacker = true, },
+				{ OffsetAngle = -25, OffsetDistance = 1750, OffsetScaleY = 0.5, OffsetFromAttacker = true, },
+				{ OffsetAngle = -45, OffsetDistance = 1750, OffsetScaleY = 0.5, OffsetFromAttacker = true, },
 			},
 			AttackSlotInterval = 0.0,
 
@@ -877,7 +885,6 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-			MoveWithinRange = false,
 			ProjectileName = "SirenDrummerBeatBoosted",
 			
 			AttackSlotInterval = 0.05,
@@ -919,9 +926,9 @@ WeaponSetData =
 				{ OffsetAngle = 40, OffsetDistance = 2000, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
 				{ OffsetAngle = 40, OffsetDistance = 2750, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.44 },
 
-				{ OffsetAngle = 60, OffsetDistance = 550, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 1.0 },
+				{ OffsetAngle = 60, OffsetDistance = 550, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
 				{ OffsetAngle = 60, OffsetDistance = 1250, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = 60, OffsetDistance = 2000, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
+				{ OffsetAngle = 60, OffsetDistance = 2000, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.44 },
 
 				{ OffsetAngle = 340, OffsetDistance = 500, OffsetScaleY = 0.5, OffsetFromAttacker = true, PauseDuration = 1.0 },
 				{ OffsetAngle = 280, OffsetDistance = 500, OffsetScaleY = 0.5, OffsetFromAttacker = true, },
@@ -979,7 +986,72 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-			MoveWithinRange = false,
+
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 2,
+							},
+						}
+					},
+					Data =
+					{
+						AttackSlots =
+						{
+							{ OffsetX = 200, OffsetY = -50, OffsetFromAttacker = true, },
+							{ OffsetX = -300, OffsetY = 200, OffsetFromAttacker = true, },
+							{ OffsetX = -800, OffsetY = 450, OffsetFromAttacker = true, },
+							{ OffsetX = -1300, OffsetY = 700, OffsetFromAttacker = true, },
+							{ OffsetX = -1800, OffsetY = 950, OffsetFromAttacker = true, },
+							{ OffsetX = -2300, OffsetY = 1200, OffsetFromAttacker = true, PauseDuration = 1.0 },
+
+							{ OffsetX = 200, OffsetY = -50, OffsetFromAttacker = true, UseMapObjectId = 800463 },
+							{ OffsetX = -300, OffsetY = 200, OffsetFromAttacker = true, UseMapObjectId = 800463 },
+							{ OffsetX = -800, OffsetY = 450, OffsetFromAttacker = true, UseMapObjectId = 800463 },
+							{ OffsetX = -1300, OffsetY = 700, OffsetFromAttacker = true, UseMapObjectId = 800463 },
+							{ OffsetX = -1800, OffsetY = 950, OffsetFromAttacker = true, UseMapObjectId = 800463 },
+							{ OffsetX = -2300, OffsetY = 1200, OffsetFromAttacker = true, UseMapObjectId = 800463 },
+
+							{ OffsetX = 200, OffsetY = -50, OffsetFromAttacker = true, UseMapObjectId = 800464 },
+							{ OffsetX = -300, OffsetY = 200, OffsetFromAttacker = true, UseMapObjectId = 800464 },
+							{ OffsetX = -800, OffsetY = 450, OffsetFromAttacker = true, UseMapObjectId = 800464 },
+							{ OffsetX = -1300, OffsetY = 700, OffsetFromAttacker = true, UseMapObjectId = 800464 },
+							{ OffsetX = -1800, OffsetY = 950, OffsetFromAttacker = true, UseMapObjectId = 800464, },
+							{ OffsetX = -2300, OffsetY = 1200, OffsetFromAttacker = true, UseMapObjectId = 800464, PauseDuration = 1.0 },
+
+							{ OffsetX = 200, OffsetY = -50, OffsetFromAttacker = true, },
+							{ OffsetX = -300, OffsetY = 200, OffsetFromAttacker = true, },
+							{ OffsetX = -800, OffsetY = 450, OffsetFromAttacker = true, },
+							{ OffsetX = -1300, OffsetY = 700, OffsetFromAttacker = true, },
+							{ OffsetX = -1800, OffsetY = 950, OffsetFromAttacker = true, },
+							{ OffsetX = -2300, OffsetY = 1200, OffsetFromAttacker = true, PauseDuration = 1.0 },
+
+							{ OffsetX = 200, OffsetY = -50, OffsetFromAttacker = true, UseMapObjectId = 800463 },
+							{ OffsetX = -300, OffsetY = 200, OffsetFromAttacker = true, UseMapObjectId = 800463 },
+							{ OffsetX = -800, OffsetY = 450, OffsetFromAttacker = true, UseMapObjectId = 800463 },
+							{ OffsetX = -1300, OffsetY = 700, OffsetFromAttacker = true, UseMapObjectId = 800463 },
+							{ OffsetX = -1800, OffsetY = 950, OffsetFromAttacker = true, UseMapObjectId = 800463 },
+							{ OffsetX = -2300, OffsetY = 1200, OffsetFromAttacker = true, UseMapObjectId = 800463 },
+
+							{ OffsetX = 200, OffsetY = -50, OffsetFromAttacker = true, UseMapObjectId = 800464 },
+							{ OffsetX = -300, OffsetY = 200, OffsetFromAttacker = true, UseMapObjectId = 800464 },
+							{ OffsetX = -800, OffsetY = 450, OffsetFromAttacker = true, UseMapObjectId = 800464 },
+							{ OffsetX = -1300, OffsetY = 700, OffsetFromAttacker = true, UseMapObjectId = 800464 },
+							{ OffsetX = -1800, OffsetY = 950, OffsetFromAttacker = true, UseMapObjectId = 800464, },
+							{ OffsetX = -2300, OffsetY = 1200, OffsetFromAttacker = true, UseMapObjectId = 800464, PauseDuration = 1.0 },
+						},
+					},
+				},
+			},
+
 			ProjectileName = "SirenDrummerBeat",
 
 			ChainedWeapon = "SirenDrummerBeatClawFar",
@@ -1040,82 +1112,6 @@ WeaponSetData =
 
 		Requirements =
 		{
-			MinAttacksBetweenUse = 1,
-		},
-
-		GameStateRequirements =
-		{
-			{
-				Path = { "MapState", "Flags", "DrummerBoost" },
-				UseLength = true,
-				Comparison = ">=",
-				Value = 1,
-			},
-		},
-	},
-
-	SirenDrummerBeatSweepLeft =
-	{
-		AIData =
-		{
-			DeepInheritance = true,
-			MoveWithinRange = false,
-			ProjectileName = "SirenDrummerBeat",
-			
-			AttackSlots =
-			{
-				{ OffsetAngle = 60, OffsetDistance = 550, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = 60, OffsetDistance = 1250, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = 60, OffsetDistance = 2000, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.78 },
-
-				{ OffsetAngle = 40, OffsetDistance = 550, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = 40, OffsetDistance = 1250, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = 40, OffsetDistance = 2000, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = 40, OffsetDistance = 2750, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.78 },
-
-				{ OffsetAngle = 20, OffsetDistance = 550, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = 20, OffsetDistance = 1250, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = 20, OffsetDistance = 2000, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = 20, OffsetDistance = 2750, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.78 },
-
-				{ OffsetAngle = 0, OffsetDistance = 550, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = 0, OffsetDistance = 1250, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = 0, OffsetDistance = 2000, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = 0, OffsetDistance = 2500, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.78 },
-
-				{ OffsetAngle = -20, OffsetDistance = 550, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = -20, OffsetDistance = 1250, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = -20, OffsetDistance = 2000, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = -20, OffsetDistance = 2500, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.78 },
-
-				{ OffsetAngle = -40, OffsetDistance = 550, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = -40, OffsetDistance = 1250, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = -40, OffsetDistance = 2000, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = -40, OffsetDistance = 2500, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.78 },
-
-				{ OffsetAngle = -60, OffsetDistance = 550, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = -60, OffsetDistance = 1250, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, },
-				{ OffsetAngle = -60, OffsetDistance = 2000, OffsetScaleY = 0.5, UseAttackerAngle = true, OffsetFromAttacker = true, PauseDuration = 0.78 },
-			},
-			AttackSlotInterval = 0.0,
-
-			FireProjectileAtTarget = true,
-
-			PreAttackDuration = 0.38,
-			FireDuration = 0.6,
-			PostAttackDurationMin = 3.5,
-			PostAttackDurationMax = 4.0,
-
-			PreAttackAnimation = "Enemy_SirenDrummer_BeatIntroC",
-			FireAnimation = "Enemy_SirenDrummer_BeatLoopC",
-			PostAttackAnimation = "Enemy_SirenDrummer_BeatIntroA",
-			
-			AttackDistance = 9999,
-		},
-
-		Requirements =
-		{
-			MinPlayerDistance = 500,
 			MinAttacksBetweenUse = 1,
 		},
 
@@ -1191,13 +1187,14 @@ WeaponSetData =
 			FireDuration = 0.0,
 			PostAttackDuration = 5.5,
 
-			PostAttackEndMusicStemVolume = 0.85,
+			PostAttackEndMusicStemVolume = 1.0,
 		},
 	},
 	
 	SirenKeytaristSurface =
 	{
 		GenusName = "SirenKeytaristDive",
+		BlockInterrupt = true,
 		AIData =
 		{
 			DeepInheritance = true,
@@ -1238,18 +1235,12 @@ WeaponSetData =
 			{
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.17, Fraction = 1.00, LerpTime = 0 },
-		},
 	},
 
 	SirenKeytaristDive =
 	{
 		GenusName = "SirenKeytaristDive",
+		BlockInterrupt = true,
 		AIData =
 		{
 			DeepInheritance = true,
@@ -1269,7 +1260,7 @@ WeaponSetData =
 			PostAttackDuration = 1.0,
 
 			ClearAllEffects = true,
-			PostAttackTeleportToSpawnPoints = true,
+			PostAttackEndTeleport = true,
 			TeleportMinDistance = 500,
 			TeleportMaxDistance = 99999,
 			TeleportToSpawnPointType = "EnemyPointRanged",
@@ -1315,12 +1306,21 @@ WeaponSetData =
 			{
 			},
 		},
+	},
 
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
+
+	SirenKeytaristDiveComboBreaker =
+	{
+		InheritFrom = { "SirenKeytaristDive", },
+		AIData =
 		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.17, Fraction = 1.00, LerpTime = 0 },
+			DeepInheritance = true,
+
+			AttackDistance = 9999,
+			MoveWithinRange = false,
+			WaitForAngleTowardTarget = false,
+			TargetSpawnPoints = false,
+			TargetSelf = true,
 		},
 	},
 
@@ -1374,9 +1374,10 @@ WeaponSetData =
 			PostAttackDuration = 1.2,
 
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.065,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.065,
 			PostAttackStop = true,
 
@@ -1418,173 +1419,6 @@ WeaponSetData =
 				{ Name = "/SFX/Player Sounds/ZagreusBowFire" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
-		},
-	},
-
-	SirenKeytaristBoostedLob =
-	{
-		AIData =
-		{
-			DeepInheritance = true,
-
-			ConditionalProjectiles =
-			{
-				{
-					ProjectileName = "SirenKeytaristSonic",
-
-					GameStateRequirements =
-					{
-						{
-							Path = { "MapState", "Flags", "KeytaristBoost" },
-							UseLength = true,
-							Comparison = "<=",
-							Value = 0,
-						},
-					},
-				},
-				{
-					ProjectileName = "SirenDrummerLobBoosted",
-
-					GameStateRequirements =
-					{
-						{
-							Path = { "MapState", "Flags", "KeytaristBoost" },
-							UseLength = true,
-							Comparison = ">=",
-							Value = 1,
-						},
-					},
-				}
-			},
-
-			ConditionalData =
-			{
-				{
-					AIData =
-					{
-						--TrackTargetDuringCharge = true,
-						--PostAttackDuration = 0.15,
-						--AttackDistance = 810,
-					},
-
-					GameStateRequirements =
-					{
-						{
-							Path = { "MapState", "Flags", "KeytaristBoost" },
-							UseLength = true,
-							Comparison = ">=",
-							Value = 1,
-						},
-					},
-				}
-			},
-
-			ApplyEffectsOnWeaponFire =
-			{
-				{
-					EffectName = "RotationDamp",
-					DataProperties = 
-					{
-						Duration = 999,
-						RotationMultiplier = 0.045,
-					}
-				}
-			},
-			ClearWeaponFireEffectsOnFireEnd = true,
-			ImmuneToProjectileSlow = true,
-
-			BarrelLength = 110,
-			FireTicksMin = 3,
-			FireTicksMax = 3,
-			FireInterval = 0.25,
-			--Spread = 5.0,
-
-			PreAttackDuration = 1.2,
-			PreAttackAnimationSpeed = 0.67,
-			PreAttackEndShake = true,
-			PreAttackEndFlashFraction = 0.65,
-			FireDuration = 0.0,
-			PostAttackDuration = 2.0,
-
-			AngleTowardsTargetWhileFiring = true,
-			TrackTargetDuringCharge = false,
-			--WaitForAngleTowardTarget = true,
-
-			--PreAttackEndShake = true,
-			PreAttackAnimation = "Enemy_SirenKeytar_ShredIntro",
-			FireAnimation = "Enemy_SirenKeytar_ShredLoop",
-			PostAttackAnimation = "Enemy_SirenKeytar_ShredReturnToIdle",
-
-			FireFx = "SirenKeytaristShredFireFx",
-
-			--[[
-			MoveToRandomSpawnPoint = true,
-			MoveToSpawnPointDistanceMin = 900,
-			MoveToSpawnPointDistanceMax = 9999,
-			MoveToSpawnPointType = "EnemyPoint",
-			]]
-
-			RetreatAfterAttack = true,
-			RetreatBufferDistance = 1500,
-			RetreatTimeoutMin = 3.5,
-			RetreatTimeoutMax = 4.5,
-
-			AttackDistance = 410,
-			LoSBuffer = 80,
-			RequireUnitLoS = true,
-
-			--[[
-			PreAttackVoiceLines =
-			{
-				RandomRemaining = true,
-				BreakIfPlayed = true,
-				PreLineWait = 0.35,
-				ChanceToPlay = 0.1,
-				ObjectType = "Scylla",
-				Cooldowns =
-				{
-					{ Name = "ScyllaSpokeRecently", Time = 20 },
-				},
-				--
-			},
-			]]--
-		},
-
-		Requirements =
-		{
-
-		},
-
-		GameStateRequirements =
-		{
-			{
-				Path = { "MapState", "Flags", "KeytaristBoost" },
-				UseLength = true,
-				Comparison = ">=",
-				Value = 1,
-			},
-		},
-
-		Sounds =
-		{
-			FireSounds =
-			{
-				{ Name = "/SFX/Player Sounds/ZagreusBowFire" },
-			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	SirenKeytaristPowerslide =
@@ -1614,7 +1448,7 @@ WeaponSetData =
 			ConditionalData =
 			{
 				{
-					AIData =
+					Data =
 					{
 						FireSelfVelocity = 2000,
 						AttackDistance = 1100,
@@ -1642,6 +1476,8 @@ WeaponSetData =
 			PreAttackEndShake = true,
 			PreAttackEndFlashFraction = 0.6,
 			PreAttackDuration = 0.8,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackStartMinWaitTime = 0.25,
 			FireDuration = 0.6,
 			PostAttackDuration = 0.0,
 
@@ -1719,7 +1555,7 @@ WeaponSetData =
 			ConditionalData =
 			{
 				{
-					AIData =
+					Data =
 					{
 						PostAttackDuration = 5.85,
 					},
@@ -1759,13 +1595,6 @@ WeaponSetData =
 				{ Name = "/SFX/Player Sounds/PoseidonCastSplash" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.03, LerpTime = 0 },
-			{ ScreenPreWait = 0.04, Fraction = 1.0, LerpTime = 0 },
-		},
 	},
 	SirenKeytaristPowerslideEndDumbFire =
 	{
@@ -1776,6 +1605,20 @@ WeaponSetData =
 			DeepInheritance = true,
 
 			PostAttackAnimation = "nil",
+		},
+	},
+
+	SirenKeytaristPowerslideRetreat =
+	{
+		InheritFrom = { "SirenKeytaristPowerslide" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			CreateOwnTarget = true,
+			TargetAngleOffset = 180,
+			TargetOffsetDistance = 300,
 		},
 	},
 
@@ -1820,7 +1663,7 @@ WeaponSetData =
 			ConditionalData =
 			{
 				{
-					AIData =
+					Data =
 					{
 						RetreatAfterAttack = false,
 						PostAttackDurationMin = 1.75,
@@ -1840,6 +1683,7 @@ WeaponSetData =
 			},
 
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.2,
 			StopBeforeFire = true,

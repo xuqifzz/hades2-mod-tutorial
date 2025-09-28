@@ -21,44 +21,41 @@ OnCollisionEnd{
 }
 
 function GhostRecruitsPreRun( source, args )
-	local numSpawns = 0
+	local allExorcisedNames = {}
 	for name, count in pairs( CurrentRun.ExorcisedNames ) do
-		for i = 1, count do
-			numSpawns = numSpawns + 1
-			local spawnType = "GhostRecruit"
-			local spawnPointId = args.SpawnPointIds[numSpawns]
+		if name ~= "DieHardFanShade" then
+			for i = 1, count do
+				table.insert( allExorcisedNames, name )
+			end
+		end
+	end
+	table.sort( allExorcisedNames )
+	RandomSynchronize( 4 )
+	local eligibleSpawnPointIds = {}
+	local spawnPointIds = ShallowCopyTable( args.SpawnPointIds )
+	
+	for i, name in ipairs( allExorcisedNames ) do
+		local spawnType = "GhostRecruit"
+		local spawnPointId = RemoveRandomValue( spawnPointIds )
+		if spawnPointId ~= nil then
 			local spawnId = SpawnObstacle({ Name = spawnType, Group = args.GroupName or "Standing", DestinationId = spawnPointId })
 			local spawn = DeepCopyTable( ObstacleData[spawnType] )
 			spawn.ObjectId = spawnId
-			spawn.Animation = spawn.RecruitedAnimation or name
+			spawn.Animation = args.AnimationSwapMap[name] or name
 			SetupObstacle( spawn )
 			AngleTowardTarget({ Id = spawn.ObjectId, DestinationId = args.TargetId, Duration = 0.1 })
-		end
-	end
-end
-
-function GhostRecruitsMain( source, args )
-	local numSpawns = 0
-	for name, count in pairs( GameState.ExorcisedNames ) do
-		for i = 1, count do
-			if RandomChance( args.SpawnChance ) then
-				local spawnType = "GhostRecruit"
-				local spawnPointId = RemoveRandomValue( args.SpawnPointIds )
-				if spawnPointId == nil then
-					return
-				end
-				local spawnId = SpawnObstacle({ Name = spawnType, Group = args.GroupName or "Standing", DestinationId = spawnPointId })
-				local spawn = DeepCopyTable( ObstacleData[spawnType] )
-				spawn.ObjectId = spawnId
-				spawn.Animation = spawn.RecruitedAnimation or name
-				SetupObstacle( spawn )
-				SetAngle({ Id = spawn.ObjectId, Angle = RandomFloat( 0, 360 ), Duration = 0.1 })
-				numSpawns = numSpawns + 1
-				if numSpawns >= args.MaxSpawns then
-					return
-				end
+			if TableLength( CurrentRun.ExorcisedNames ) <= 1 or name ~= args.IgnoreForInspectPointUnlessOnlyOption then
+				eligibleSpawnPointIds[spawnPointId] = name
 			end
 		end
+	end
+	if not IsEmpty( eligibleSpawnPointIds ) and not CurrentRun.UseExorcisedGhostsPreRun then
+		local inspectPoint = DeepCopyTable( args.InspectPoint )
+		Activate({ Id = inspectPoint.ObjectId })
+		AttachLua({ Id = inspectPoint.ObjectId, Table = inspectPoint })
+		local centralId = GetClosest({ Id = args.TargetId, DestinationIds = GetAllKeys( eligibleSpawnPointIds ) })
+		inspectPoint.GhostType = eligibleSpawnPointIds[centralId]
+		Teleport({ Id = inspectPoint.ObjectId, DestinationId = centralId })
 	end
 end
 
@@ -86,6 +83,8 @@ function PatrolPath( source, args )
 			SetScale({ Fraction = spawn.Scale, Id = spawn.ObjectId })
 		end
 		SetAngle({ Id = spawn.ObjectId, Angle = RandomFloat( 0, 360 ), Duration = 0.1 })
+		SetAlpha({ Id = spawn.ObjectId, Fraction = 0.0, Duration = 0.0 })
+		SetAlpha({ Id = spawn.ObjectId, Fraction = 1.0, Duration = args.FadeInDuration or 0.3 })
 
 		spawn.Speed = RandomFloat( args.SpeedMin, args.SpeedMax )
 		thread( FollowPath, spawn, args.Path, { Loop = true, StartNodeId = startingPathNode.Id } )
@@ -187,7 +186,7 @@ function FollowPath( mover, path, args )
 				end
 				local randomBranchPath = GetRandomValue( eligibleBranchPaths )
 				--DebugPrint({ Text = "randomBranchPath = "..tostring(randomBranchPath.Id) })
-				FollowPath( mover, randomBranchPath )
+				FollowPath( mover, randomBranchPath, { Timeout = args.Timeout } )
 			end
 
 		end

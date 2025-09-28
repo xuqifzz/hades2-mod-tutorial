@@ -72,6 +72,8 @@ WeaponSetData =
 			PreAttackFx = "EnemyChargeFxIn_Screamer",
 			EndPreAttackFx = true,
 
+			WeaponFireLoopingSound = "/SFX/Enemy Sounds/ScreamerAttackLoop",
+
 			--DoNotRepeatOnAttackFail = true,
 		},
 
@@ -109,6 +111,8 @@ WeaponSetData =
 			FireAnimation = "Enemy_Screamer_Fire",
 			PostAttackAnimation = "Enemy_Screamer_EndFire",
 
+			WeaponFireLoopingSound = "/SFX/Enemy Sounds/ScreamerAttackLoop",
+
 			AttackDistance = 430,
 			AttackDistanceScaleY = 0.8,
 			RequireProjectileLoS = true,
@@ -125,13 +129,6 @@ WeaponSetData =
 			{
 				{ Name = "/SFX/Enemy Sounds/Mage/EmoteAttacking" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
 		},
 	},
 
@@ -175,7 +172,7 @@ WeaponSetData =
 			PostAttackDuration = 2.8,
 
 			-- Blink ban
-			TeleportToSpawnPoints = false,
+			PreMoveTeleport = false,
 		},
 	},
 }

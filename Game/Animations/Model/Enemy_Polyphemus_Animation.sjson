@@ -33,6 +33,66 @@
 				BlendTransitionFrom = "Enemy_Polyphemus_MegaLeap_End"
 				Duration = 30
 			}
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Intro_End"
+				Duration = 3
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_Intro_Idle"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_BossIntroKneelingLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Polyphemus_Intro_Idle_Chained"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_BossIntroKneelingLoop_C_00"
+		ChainTo = "Enemy_Polyphemus_Intro_End"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 420
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Polyphemus_Intro_End"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_BossIntroTransitionToIdle_C_00"
+		ChainTo = "Enemy_Polyphemus_Idle"
+		Frames =
+		[
+			{
+				Frame = 82
+				Sound = "/Leftovers/SFX/FootstepsHuge"
+			}
+			{
+				Frame = 100
+				Sound = "/Leftovers/SFX/FootstepsHuge"
+			}
+			{
+				Frame = 142
+				FrameSpeed = 0
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Intro_Idle_Chained"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Intro_Idle"
+				Duration = 6
+			}
 		]
 	}
 
@@ -74,7 +134,7 @@
 		Name = "Enemy_Polyphemus_March_Start"
 		InheritFrom = "EnemyPolyphemusBaseAnimation"
 		GrannyAnimation = "Polyphemus_Base_Taunt_C_02"
-		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Polyphemus_Move"
 		Frames =
 		[
 			{
@@ -217,7 +277,7 @@
 		CreateAnimation = "PolyphemusPreAttackRHand"
 		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGroundSlamCharge"
 		GrannyAnimation = "Polyphemus_Base_DebrisPreFire_C_00"
-		GrannyAnimationSpeed = 0.3
+		GrannyAnimationSpeed = 0.35
 		HoldLastFrame = true
 
 		Frames =
@@ -237,6 +297,10 @@
 			{
 				BlendTransitionFrom = "Enemy_Polyphemus_Idle"
 				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Swipe_Fire"
+				Duration = 12
 			}
 		]
 	}
@@ -319,6 +383,8 @@
 	{
 		Name = "Enemy_Polyphemus_LeapFire"
 		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		Sound = "/Leftovers/World Sounds/AirshipSprint"
+		StopSoundOnFinishFade = 0.2
 		GrannyAnimation = "Polyphemus_Base_LeapFire_C_00"
 		CreateAnimation = "PolyphemusPreAttackBothFeet"
 		CreateAnimations = [
@@ -326,6 +392,12 @@
 			{ Name = "CyclopsDustRingFrontMarch" }
 			{ Name = "CyclopsDustRingBackMarch" }
 		]
+	}
+	{
+		Name = "Enemy_Polyphemus_LeapFire_Fast"
+		InheritFrom = "Enemy_Polyphemus_LeapFire"
+		CreateAnimation = null
+		GrannyAnimationSpeed = 2.0
 	}
 
 	{
@@ -450,8 +522,9 @@
 		InheritFrom = "EnemyPolyphemusBaseAnimation"
 		GrannyAnimation = "Polyphemus_Base_DebrisPreFire_C_00"
 		GrannyAnimationSpeed = 1.8
-		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusRockThrowJumpUp"
 		ChainTo = "Enemy_Polyphemus_BoulderThrow_Start2"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusKickCharge"
+		StopSoundOnFinishFade = 0.2
 		CreateAnimations =
 		[
 			{ Name = "CyclopsRockPullDirtEmitter" }
@@ -462,7 +535,12 @@
 			{
 				Frame = 55
 				CreateAnimation = "CyclopsBoulder_InHand_Start"
-			}		
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrab"
+			}
+			{
+				Frame = 58
+				Sound = "/SFX/Enemy Sounds/Typhon/TailRockDebris"
+			}
 			{
 				Frame = 75
 				FrameSpeed = 0
@@ -509,7 +587,7 @@
 		InheritFrom = "EnemyPolyphemusBaseAnimation"
 		GrannyAnimation = "Polyphemus_Base_LeapFire_C_00"
 		ChainTo = "Enemy_Polyphemus_BoulderThrow_Fire2"
-		Sound = "/SFX/Enemy Sounds/Polyphemus/EmotePowerAttacking"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusRockThrowJumpUp"
 		CreateAnimations =
 		[
 			{ Name = "CyclopsLeapStreakUp" }
@@ -530,6 +608,10 @@
 				FrameSpeed = 0
 			}
 			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteJumpingPlusWhoosh"
+			}
+			{
 				Frame = 3
 				FrameSpeed = 1
 			}
@@ -547,6 +629,8 @@
 		Duration = 0.55
 		StartAlpha = 0.0
 		EndAlpha = 1.0
+
+		Sound = "/SFX/Enemy Sounds/Polyphemus/EmotePowerAttacking"
 
 		Frames = 
 		[
@@ -590,6 +674,14 @@
 		Blends = 
 		[
 			{
+				BlendTransitionFrom = "Enemy_Polyphemus_StompFire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_StompReturnToIdle"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Enemy_Polyphemus_Idle"
 				Duration = 5
 			}
@@ -625,9 +717,9 @@
 		InheritFrom = "EnemyPolyphemusBaseAnimation"
 		GrannyAnimation = "Polyphemus_Base_GrabPreFire_C_00"
 		ChainTo = "Enemy_Polyphemus_GrabFire"
-		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrabCharge"
 		GrannyAnimationSpeed = 0.4
 		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrabCharge"
 		CreateAnimations =
 		[
 			{ Name = "PolyphemusPreAttackRHandBig" }
@@ -640,10 +732,27 @@
 				Duration = 5
 			}
 			{
+				BlendTransitionFrom = "Enemy_Polyphemus_LeapReturnToIdle"
+				Duration = 12
+			}
+			{
 				BlendTransitionFrom = "BlendTransitionFromAll"
 				Duration = 5
 			}
 		]
+		Frames =
+		[
+			{
+				Frame = 5
+				Sound = "/SFX/Enemy Sounds/Polyphemus/EmotePowerCharging"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_GrabPreFire_Fast"
+		InheritFrom = "Enemy_Polyphemus_GrabPreFire"
+		GrannyAnimationSpeed = 0.8
 	}
 
 	{
@@ -657,6 +766,7 @@
 		InheritFrom = "EnemyPolyphemusBaseAnimation"
 		GrannyAnimation = "Polyphemus_Base_GrabFire_C_00"
 		ChainTo = "Enemy_Polyphemus_GrabLoop"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFistPalm"
 		Frames =
 		[
 			{
@@ -666,6 +776,10 @@
 			{
 				Frame = 6
 				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrab"
+			}
+			{
+				Frame = 18
+				Sound = "/SFX/Enemy Sounds/Typhon/TailPincerAttack"
 			}
 		]
 	}
@@ -766,6 +880,18 @@
 				Frame = 10
 				Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteAttacking"
 			}
+			{
+				Frame = 44
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusJumpStart"
+			}
+			{
+				Frame = 68
+				Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteJumpingPlusWhoosh"
+			}
+			{
+				Frame = 130
+				Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteRoaring"
+			}
 		]
 		Blends = 
 		[
@@ -781,7 +907,6 @@
 		InheritFrom = "EnemyPolyphemusBaseAnimation"
 		GrannyAnimation = "Polyphemus_Base_GrabReturnUnstatisfied_C_00"
 		ChainTo = "Enemy_Polyphemus_GrabReturnToss2"
-		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusMelTossWhoosh"
 		OwnerImmobile = true
 		Blends =
 		[
@@ -824,12 +949,48 @@
 			{
 				Frame = 51
 				FrameSpeed = 1.0
+				Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteJumpingPlusWhoosh"
 			}
 			{
 				Frame = 120
 				Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteRoaring"
 			}
 		]
+	}
+
+	// Swipe
+
+	{
+		Name = "Enemy_Polyphemus_Swipe_Start"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_GrabPreFire_C_00"
+		ChainTo = "Enemy_Polyphemus_GrabFire"
+		GrannyAnimationSpeed = 0.5
+		HoldLastFrame = true
+		CreateAnimations =
+		[
+			{ Name = "PolyphemusPreAttackRHandBig" }
+			{ Name = "PolyphemusPreAttackLHandBig" }
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_LeapReturnToIdle"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_Swipe_Fire"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_GrabFire_C_00"
+		GrannyAnimationSpeed = 2.0
+		ChainTo = "Enemy_Polyphemus_Idle"
 	}
 
 	/* Death */
@@ -848,7 +1009,7 @@
 			{
 				Frame = 15
 				FrameSpeed = 0.5
-		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusDeath1"
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusDeath1"
 			}
 			{
 				Frame = 16
@@ -863,12 +1024,25 @@
 		GrannyAnimation = "Polyphemus_Base_Death_C_00"
 		ChainTo = "Enemy_Polyphemus_DeathIdle"
 		OwnerImmobile = true
-		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusDeath2"
 		Frames =
 		[
 			{
-				Frame = 101
+				Frame = 0
+				FrameSpeed = 0.5
+			}
+			{
+				Frame = 18
+				FrameSpeed = 0.5
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusDeath2"
+			}
+			{
+				Frame = 96
+				FrameSpeed = 0.5
 				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusDeath3"
+			}
+			{
+				Frame = 101
+				FrameSpeed = 1
 			}
 		]
 		Blends =

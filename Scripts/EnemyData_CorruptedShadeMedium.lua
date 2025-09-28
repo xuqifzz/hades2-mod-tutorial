@@ -8,8 +8,6 @@ UnitSetData.CorruptedShadeMedium =
 		HealthBarOffsetY = -180,
 		HealthBarType = "Medium",
 
-		ActiveCapWeight = 0.336,
-
 		IsAggroedSound = "/SFX/Enemy Sounds/CorruptedShadeMedium/EmoteAlerted",
 		DeathSound = "/SFX/Enemy Sounds/CorruptedShadeMedium/EmoteDying",
 
@@ -29,6 +27,7 @@ UnitSetData.CorruptedShadeMedium =
 		ActivateStartAlpha = 0, 
 		ActivateDuration = 0.75,
 
+		SkipUnitHitFlash = true,
 
 		StunAnimations = 
 		{

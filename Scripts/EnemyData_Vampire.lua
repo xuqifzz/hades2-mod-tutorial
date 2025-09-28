@@ -8,10 +8,10 @@ UnitSetData.Vampire =
 		Groups = { "FlyingEnemies", "GroundEnemies" },
 		Material = "Bone",
 
-		MaxHealth = 4000,
-		HealthBarOffsetY = -280,
+		MaxHealth = 5100,
+		HealthBarAttachToMarkerName = "head_fxMarker_00_M_JNT",
+		HealthBarOffsetY = -50,
 		HealthBarType = "MediumLarge",
-		HitSparkScale = 3.0,
 
 		BlockRaiseDead = true,
 		BlockRespawnShrineUpgrade = true,
@@ -25,7 +25,7 @@ UnitSetData.Vampire =
 		OutgoingLifestealModifiers =
 		{
 			{
-				ValidMultiplier = 10.0,
+				ValidMultiplier = 80.0,
 			}
 		},
 		
@@ -46,8 +46,6 @@ UnitSetData.Vampire =
 			OrbitAIDurationMax = 6.0,
 
 			RandomOrbitDirection = true,
-
-			PreAttackSound = "/SFX/Enemy Sounds/Vampire/EmoteCharging",
 		},
 
 		AIOptions =
@@ -100,6 +98,13 @@ UnitSetData.Vampire =
 			DifficultyRating = 170,
 			BlockEnemyTypes = {"Vampire"}
 		},
+	},
+
+	Vampire_SuperElite =
+	{
+		InheritFrom = { "SuperElite", "Vampire" },
+		MaxHealth = 7000,
+		BlockRaiseDead = false,
 	},
 
 }

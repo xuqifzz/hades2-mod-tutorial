@@ -19,6 +19,7 @@ UnitSetData.Stickler =
 		ActivateStartAlpha = 1.0,
 		ActivateDuration = 0.45,
 		ActivateStartOffsetZ = 2000,
+		PostActivateScreenshake = { Distance = 3, Speed = 200, FalloffSpeed = 0, Duration = 0.18, Angle = 90, DistanceThreshold = 200 },
 		DeathSound = "/SFX/Enemy Sounds/DeadSeaStickler/EmoteDying",
 		DeathAnimation = "Enemy_Stickler_Death",
 		-- DeathFx = "EnemyDeathFxUndead",
@@ -87,6 +88,7 @@ UnitSetData.Stickler =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_2167", Text = "Sticklers." },

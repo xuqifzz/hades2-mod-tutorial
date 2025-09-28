@@ -1,0 +1,71 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCEchoBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Echo_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 8
+			}
+		]
+	}
+
+	// Idle
+	{
+		Name = "Echo_Idle"
+		InheritFrom = "NPCEchoBaseAnimation"
+		GrannyAnimation = "Echo_Base_Idle_Pray_C_00"
+		Loop = true
+	}
+
+	// Greeting
+	{
+		Name = "Echo_Greeting_Start"
+		InheritFrom = "NPCEchoBaseAnimation"
+		GrannyAnimation = "Echo_Base_Greeting_Awake_C_00"
+		ChainTo = "Echo_Greeting_FireLoop"
+	}
+	{
+		Name = "Echo_Greeting_FireLoop"
+		InheritFrom = "NPCEchoBaseAnimation"
+		GrannyAnimation = "Echo_Base_Idle_Awake_C_00"
+		Loop = true
+	}
+	{
+		Name = "Echo_Greeting_End"
+		InheritFrom = "NPCEchoBaseAnimation"
+		GrannyAnimation = "Echo_Base_Greeting_Pray_C_00"
+		ChainTo = "Echo_Idle"
+	}
+
+	// Blessing
+	{
+		Name = "Echo_Blessing"
+		InheritFrom = "NPCEchoBaseAnimation"
+		GrannyAnimation = "Echo_Base_Bless_C_00"
+		ChainTo = "Echo_Greeting_FireLoop"
+	}
+
+	// Turn
+	{
+		Name = "Echo_Greeting_Turn"
+		InheritFrom = "NPCEchoBaseAnimation"
+		GrannyAnimation = "Echo_Base_Turn_Awake_C_00"
+		ChainTo = "Echo_Greeting_FireLoop"
+	}
+	{
+		Name = "Echo_Idle_Turn"
+		InheritFrom = "NPCEchoBaseAnimation"
+		GrannyAnimation = "Echo_Base_Turn_Pray_C_00"
+		ChainTo = "Echo_Idle"
+	}
+]}

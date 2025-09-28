@@ -28,19 +28,6 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
-      "Id": "Terrain_Base",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "MapArt",
-      "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
       "Id": "Terrain_Beneath_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -405,7 +392,6 @@
         "Terrain_BeneathDecor_02",
         "Terrain_BeneathDecor_01",
         "Terrain_Beneath_01",
-        "Terrain_Base",
         "Water_01"
       ],
       "Id": "MapArt",
@@ -604,5 +590,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

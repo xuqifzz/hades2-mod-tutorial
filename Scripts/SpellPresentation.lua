@@ -1,6 +1,6 @@
 ﻿function SpellReloadPresentation( owner, weaponData )
 	local traitData = nil
-	for i, trait in pairs( CurrentRun.Hero.Traits ) do
+	for i, trait in ipairs( CurrentRun.Hero.Traits ) do
 		if trait.Slot == "Spell" then
 			traitData = trait
 			break
@@ -20,26 +20,24 @@ function SelectSpellPresentation( screen, button )
 	local traitName = button.TraitName
 	local traitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName })
 	local voiceLines = traitData.UpgradePickedVoiceLines
-
-	CreateAnimation({ Name = "BoonGetBlack", DestinationId = buttonId, Scale = 1.0, GroupName = "Combat_Menu" })
-	CreateAnimation({ Name = "BoonGet", DestinationId = buttonId, Scale = 1.0, GroupName = "Combat_Menu_Additive" })
-	PlaySound({ Name = "/SFX/Menu Sounds/GodBoonChoiceConfirm", Id = buttonId })
+	SetAlpha({ Id = buttonId, Fraction = 0 })
+	CreateAnimation({ Name = "BoonGetBlack", DestinationId = buttonId, Scale = 1.0, Group = "Combat_Menu" })
+	CreateAnimation({ Name = "BoonGet", DestinationId = buttonId, Scale = 1.0, Group = "Combat_Menu_Additive" })
+	StopAnimation({ Name = "BoonSlotHighlight", DestinationId = button.Highlight.Id })
+	PlaySound({ Name = "/SFX/Menu Sounds/GodBoonChoiceConfirmMoon", Id = buttonId })
 
 	thread( PlayVoiceLines, voiceLines, true, screen.Source )
 
-	waitUnmodified(0.4, RoomThreadName)
+	waitUnmodified( 0.1 )
+	SetAnimation({ Name = "SpellScreenOut", DestinationId = screen.Components.Background.Id })
 end
 
 function SpellPotionUsedPresentation( owner, weaponData )
 	thread( PlayVoiceLines, GlobalVoiceLines.UsedHealDropVoiceLines, true )
 end
 
-function SpellSummonPresentation( newEnemy )
-	PlaySound({ Name = "/SFX/Menu Sounds/LegendaryBoonShimmer2", Id = newEnemy.ObjectId })
-	CreateAnimation({ Name = "SorcerySummonPresentationFx", DestinationId = newEnemy.ObjectId })
-end
 function TeleportSummonPresentation( enemyId )
-	CreateAnimation({ Name = "TeleportDisappearSmall", DestinationId = enemyId })
+	CreateAnimation({ Name = "TeleportDisappear", DestinationId = enemyId })
 end
 
 function SpellFailToFirePresentation( triggerArgs )
@@ -48,7 +46,7 @@ function SpellFailToFirePresentation( triggerArgs )
 	end
 	
 	local traitData = nil
-	for i, trait in pairs( CurrentRun.Hero.Traits ) do
+	for i, trait in ipairs( CurrentRun.Hero.Traits ) do
 		if trait.Slot == "Spell" then
 			traitData = trait
 			break
@@ -61,7 +59,7 @@ function SpellFailToFirePresentation( triggerArgs )
 		end
 		if existingTraitData and existingTraitData.TraitActiveOverlay then
 			CreateAnimation({ Name = "ActiveTraitCooldownSpellNotReady", DestinationId = existingTraitData.TraitActiveOverlay })
-			PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo", Id = CurrentRun.Hero.ObjectId })
+			PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo", Id = CurrentRun.Hero.ObjectId, ManagerCap = 46 })
 		end
 		if existingTraitData and existingTraitData.TraitInfoCardId then
 			thread( PulseText, { Id = existingTraitData.TraitInfoChargeId, Color = Color.Red, OriginalColor = Color.White, ScaleTarget = 1.2, ScaleDuration = 0.1, HoldDuration = 0.1, PulseBias = 0.1 } )
@@ -69,16 +67,20 @@ function SpellFailToFirePresentation( triggerArgs )
 		local manaSpendCost = GetManaSpendCost(GetWeaponData( CurrentRun.Hero, traitData.PreEquipWeapons[1]))
 		if CheckCountInWindow( "SpellFailedToFire", 1.0, 4 ) and CheckCooldown("AttackNotReady", 1.0) then
 			thread( PlayVoiceLines, HeroVoiceLines.SpellNotReadyVoiceLines, true )
-			if CurrentRun.SpellCharge >= manaSpendCost and ( existingTraitData.Name ~= "SpellSummonTrait" or (existingTraitData.Name == "SpellSummonTrait" and CurrentRun.CurrentRoom.SummonEnemyName)) and SessionMapState.PrometheusMemorySpellBlocked then
-				thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "Spell_NotReady_Prometheus", PreDelay = 0.35, Duration = 1.25, Cooldown = 2.0 } )
+			if SessionMapState.BlockSpellCharge then
+				thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "UseBlockedByMisc", PreDelay = 0.35, Duration = 1.25, Cooldown = 2.0 } )
+			elseif existingTraitData.RemainingUses and existingTraitData.RemainingUses <= 0 then
+				thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "Hint_OutOfPotions", PreDelay = 0.35, Duration = 1.25, Cooldown = 2.0 } )
 			elseif existingTraitData.Name == "SpellSummonTrait" and not CurrentRun.CurrentRoom.SummonEnemyName and CurrentRun.SpellCharge >= manaSpendCost then
 				thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "Spell_NotReady_NoValidSummon", PreDelay = 0.35, Duration = 1.25, Cooldown = 2.0 } )
+			elseif not CanChargeSpell() then
+				thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "UseBlockedByMisc", PreDelay = 0.35, Duration = 1.25, Cooldown = 2.0 } )
 			else
 				thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "Spell_NotReady", PreDelay = 0.35, Duration = 1.25, Cooldown = 2.0 } )
 			end
-			PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo", Id = traitData.AnchorId })
+			PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo", Id = traitData.AnchorId, ManagerCap = 54 })
 		end
-
+		thread( DoRumble, { { RightTriggerStrengthFraction = 0.9, RightTriggerTimeout = 1.0, IgnoreTriggersIfControlNotDefault = "Shout", }, } )
 	end
 end
 
@@ -96,10 +98,9 @@ function SpellReadyPresentation( traitData, delay )
 		CreateAnimation({ Name = "HexReadyFlashLargeA", DestinationId = traitData.AnchorId, GroupName = "Combat_Menu_TraitTray_Overlay_Additive" })	
 		CreateAnimation({ Name = "HexReadyFlashLargeB", DestinationId = traitData.AnchorId, GroupName = "Combat_Menu_TraitTray_Overlay_Additive" })	
 		CreateAnimation({ Name = "HexReadyLoop", DestinationId = traitData.AnchorId, GroupName = "Combat_Menu_TraitTray_Overlay_Additive" })
-		if not SessionMapState.SpellWorldReadyFxId then
-			SessionMapState.SpellWorldReadyFxId = SpawnObstacle({ Name = "BlankObstacle", Destination = CurrentRun.Hero.ObjectId, Group = "Combat_UI_World_Backing" })
-			SetAnimation({ Name = "SorceryReadyMoonLoopIn", DestinationId = SessionMapState.SpellWorldReadyFxId })
-			Attach({ Id = SessionMapState.SpellWorldReadyFxId, DestinationId = CurrentRun.Hero.ObjectId })
+		if not SessionMapState.SpellWorldReadyFx then
+			SessionMapState.SpellWorldReadyFx = true
+			CreateAnimation({ Name = "SorceryReadyMoonLoopIn", DestinationId = CurrentRun.Hero.ObjectId })
 		end
 	end
 end
@@ -142,20 +143,22 @@ function CreateSpellHUD( trait, args )
 	end
 
 	if trait.TraitInfoCardId == nil then
-		trait.TraitInfoCardId = CreateScreenObstacle({ Name = "TraitTray_LevelBacking", Group = "Combat_Menu_TraitTray_Labels" })
-		SetAlpha({ Id = trait.TraitInfoCardId, Fraction = 1, Duration = 0.2 })
-		Attach({ Id = trait.TraitInfoCardId, DestinationId = anchorId, OffsetY = ScreenData.HUD.TraitInfoCardOffsetY })
+		trait.TraitInfoCardId = CreateScreenObstacle({ Name = "TraitTray_LevelBacking", Group = "Combat_Menu_TraitTray",
+			Alpha = 0.0, AlphaTarget = ConfigOptionCache.HUDOpacity, AlphaTargetDuration = 0.2,
+			DestinationId = anchorId, Attach = true, OffsetY = ScreenData.HUD.TraitInfoCardOffsetY,
+		})
 	else
-		SetAlpha({ Id = trait.TraitInfoCardId, Fraction = 1, Duration = 0.2 })	
+		SetAlpha({ Id = trait.TraitInfoCardId, Fraction = ConfigOptionCache.HUDOpacity, Duration = 0.2 })	
 	end
 
 	local data = GetWeaponData( CurrentRun.Hero, trait.PreEquipWeapons[1] )
 	local manaSpend = GetManaSpendCost( data )
 	local remainingSpend = math.max( manaSpend - CurrentRun.SpellCharge, 0 )
 	if trait.TraitInfoChargeId == nil then		
-		trait.TraitInfoChargeId = CreateScreenObstacle({ Name = "TraitTray_LevelBacking", Group = "Combat_Menu_TraitTray_Labels" })
-		SetAlpha({ Id = trait.TraitInfoChargeId, Fraction = 1, Duration = 0.2 })
-		Attach({ Id = trait.TraitInfoChargeId, DestinationId = anchorId, OffsetY = ScreenData.HUD.TraitInfoCardOffsetY })
+		trait.TraitInfoChargeId = CreateScreenObstacle({ Name = "TraitTray_LevelBacking", Group = "Combat_Menu_TraitTray",
+			Alpha = 0.0, AlphaTarget = ConfigOptionCache.HUDOpacity, AlphaTargetDuration = 0.2,
+			DestinationId = anchorId, Attach = true, OffsetY = ScreenData.HUD.TraitInfoCardOffsetY,
+		})
 		CreateTextBox({
 			Id = trait.TraitInfoChargeId,
 			Font = "NumericP22UndergroundSCMedium",
@@ -163,15 +166,12 @@ function CreateSpellHUD( trait, args )
 			ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={1, 2},
 			OffsetX = xOffset - 2, OffsetY = yOffset - 3,
 			Justification = "Center",
-			DataProperties =
-			{
-				OpacityWithOwner = true,
-			},
 		})
 	else	
-		SetAlpha({ Id = trait.TraitInfoChargeId, Fraction = 1, Duration = 0.2 })	
+		SetAlpha({ Id = trait.TraitInfoChargeId, Fraction = ConfigOptionCache.HUDOpacity, Duration = 0.2 })	
 	end
-	if remainingSpend > 0 then
+
+	if remainingSpend > 0 and (trait.RemainingUses == nil or trait.RemainingUses > 0 ) then
 		ModifyTextBox({
 			Id = trait.TraitInfoChargeId,
 			Text = "UI_SpellCharge", 
@@ -180,15 +180,16 @@ function CreateSpellHUD( trait, args )
 		})
 	else	
 		SetAlpha({ Id = trait.TraitInfoChargeId, Fraction = 0, Duration = 0.2 })
+		SetAlpha({ Id = trait.TraitInfoCardId, Fraction = 0, Duration = 0.2 })
 	end
 
-	yOffset = yOffset - 70
 	if ( trait.RemainingUses ~= nil or trait.Uses ~= nil ) and not trait.UsesAsRooms then
 		local time = trait.RemainingUses or trait.Uses
 		if trait.TraitInfoUsesId == nil then
-			trait.TraitInfoUsesId  = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Labels" })
-			SetAlpha({ Id = trait.TraitInfoUsesId , Fraction = 1, Duration = 0.2 })
-			Attach({ Id = trait.TraitInfoUsesId , DestinationId = anchorId, OffsetY = ScreenData.HUD.TraitInfoCardOffsetY })
+			trait.TraitInfoUsesId  = CreateScreenObstacle({ Name = "TraitTray_LevelBacking", Group = "Combat_Menu_TraitTray", Animation = "TraitTray_LevelBacking_Top",
+				Alpha = 0.0, AlphaTarget = ConfigOptionCache.HUDOpacity, AlphaTargetDuration = 0.2,
+				DestinationId = anchorId, Attach = true, OffsetY = -24,
+			})
 			CreateTextBox({
 				Id = trait.TraitInfoUsesId,
 				Text = "UI_Uses",
@@ -196,30 +197,26 @@ function CreateSpellHUD( trait, args )
 				FontSize = 22,
 				Color = Color.White,
 				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={1, 2},
-				OffsetX = xOffset, OffsetY = yOffset,
+				OffsetX = xOffset, OffsetY = 3,
 				Justification = "Center",
 				LuaKey = "TempTextData",
 				LuaValue = { Time = math.floor(time) },
 				DataProperties =
 				{
-					OpacityWithOwner = true,
+					TextSymbolScale = 0.9,
+					TextSymbolOffsetY = 3,
 				},
 			})
 		else
-			SetAlpha({ Id = trait.TraitInfoUsesId, Fraction = 1, Duration = 0.2 })	
+			SetAlpha({ Id = trait.TraitInfoUsesId, Fraction = ConfigOptionCache.HUDOpacity, Duration = 0.2 })	
 			ModifyTextBox({ 
 				Text = "UI_Uses",
 				Id = trait.TraitInfoUsesId,
 				LuaKey = "TempTextData",
 				LuaValue = { Time = math.floor(time) },
-				DataProperties =
-				{
-					OpacityWithOwner = true,
-				},
 			})
 		end
 		
-		xOffset = xOffset + 40
 	end
 end
 
@@ -242,26 +239,24 @@ function SpellActivateTrait( traitData )
 		StopAnimation({ Name = "HexReadyLoop", DestinationId = traitData.AnchorId })
 		CreateAnimation({ Name = "HexReadyLoop", DestinationId = traitData.AnchorId, GroupName = "Combat_Menu_TraitTray_Overlay_Additive" })
 	end
-	if not SessionMapState.SpellWorldReadyFxId then
-		SessionMapState.SpellWorldReadyFxId = SpawnObstacle({ Name = "BlankObstacle", Destination = CurrentRun.Hero.ObjectId, Group = "Combat_UI_World_Backing" })
-		SetAnimation({ Name = "SorceryReadyMoonLoopIn", DestinationId = SessionMapState.SpellWorldReadyFxId })
-		Attach({ Id = SessionMapState.SpellWorldReadyFxId, DestinationId = CurrentRun.Hero.ObjectId })
+	if not SessionMapState.SpellWorldReadyFx then
+		SessionMapState.SpellWorldReadyFx = true
+		CreateAnimation({ Name = "SorceryReadyMoonLoopIn", DestinationId = CurrentRun.Hero.ObjectId })
 	end
 end
 
 function SpellUnreadyPresentation( traitData )
 	-- Stop any looping animations here 
 	StopAnimation({ Name = "HexReadyLoop", DestinationId = traitData.AnchorId })	
-	if SessionMapState.SpellWorldReadyFxId then
-		SetAnimation({ Name = "SorceryReadyMoonLoopOut", DestinationId = SessionMapState.SpellWorldReadyFxId })
-		thread( DestroyOnDelay, { SessionMapState.SpellWorldReadyFxId },  0.5 )
-		SessionMapState.SpellWorldReadyFxId = nil
+	if SessionMapState.SpellWorldReadyFx then
+		SessionMapState.SpellWorldReadyFx = nil
+		StopAnimation({ Names = { "SorceryReadyMoonLoopIn", "SorceryReadyMoonLoop" }, DestinationId = CurrentRun.Hero.ObjectId, PreventChain = true })
 	end
 end
 
 function SpellHasManaPresentation()
 	local traitData = nil
-	for i, trait in pairs( CurrentRun.Hero.Traits ) do
+	for i, trait in ipairs( CurrentRun.Hero.Traits ) do
 		if trait.Slot == "Spell" then
 			traitData = trait
 			break
@@ -287,7 +282,7 @@ end
 function SpellHasNoManaPresentation()
 
 	local traitData = nil
-	for i, trait in pairs( CurrentRun.Hero.Traits ) do
+	for i, trait in ipairs( CurrentRun.Hero.Traits ) do
 		if trait.Slot == "Spell" then
 			traitData = trait
 			break
@@ -319,7 +314,7 @@ function SpellHintPresentation()
 	waitUntil( notifyName )
 	if _eventTimeoutRecord[notifyName] and weaponData and CurrentRun.Hero.Mana >= GetManaCost( weaponData ) and GetHeroMaxAvailableMana() > GetManaReservationCost( weaponData ) then
 		local traitData = nil
-		for i, trait in pairs( CurrentRun.Hero.Traits ) do
+		for i, trait in ipairs( CurrentRun.Hero.Traits ) do
 			if trait.Slot == "Spell" then
 				traitData = trait
 				break
@@ -350,6 +345,11 @@ function SpellTransformWarnPresentation()
 	Flash({ Id = CurrentRun.Hero.ObjectId, Speed = 2, MinFraction = 0, MaxFraction = 0.5, Color = Color.White,  ExpireAfterCycle = true })
 end
 
+function PoseidonPotionWarnPresentation()
+	PlaySound({ Name = "/SFX/HexEndingWarning", Id = CurrentRun.Hero.ObjectId })
+	Flash({ Id = CurrentRun.Hero.ObjectId, Speed = 2, MinFraction = 0, MaxFraction = 0.5, Color = Color.White,  ExpireAfterCycle = true })
+end
+
 function SpellTransformEndPresentation( user, weaponData, functionArgs, triggerArgs )
 
 	SetAudioEffectState({ Name = "Chipmunk", Value = GetTotalHeroTraitValue("BaseChipmunkValue") })
@@ -376,7 +376,11 @@ function SpellMeteorPresentationThreaded( owner, weaponData )
 	AdjustFullscreenBloom({ Name = "MoonDustBloom", Duration = 8 })
 	ShakeScreen({ Speed = 300, Distance = 5, Duration = 0.5, FalloffSpeed = 1400 })
 	wait(4.0)
-	ShakeScreen({ Speed = 800, Distance = 15, Duration = 0.5, FalloffSpeed = 1400, Angle = 90 })
+	local distanceSquared = GetDistance({ Id = meteorLandingSpot, DestinationId = CurrentRun.Hero.ObjectId })^2
+	local distanceThreshold = weaponData.SimSlowDistanceThreshold or 800
+	if distanceSquared ~= -1 and distanceSquared <= ( distanceThreshold * distanceThreshold ) then
+		ShakeScreen({ Speed = 800, Distance = 15, Duration = 0.5, FalloffSpeed = 1400, Angle = 90 })
+	end
 	AdjustColorGrading({ Name = "Off", Duration = 0.3 })
 	AdjustFullscreenBloom({ Name = "Off", Duration = 0.3 })
 	wait(0.5)
@@ -392,7 +396,7 @@ function SpellChargePresentation( triggerArgs, weaponData, args )
 	CurrentRun.Hero.SpellChargeSoundId = PlaySound({ Name = "/VO/MelinoeEmotes/EmoteChargingSpell", Id = CurrentRun.Hero.ObjectId })
 end
 
-function SpellChargeEndPresentation()
+function SpellChargeEndPresentation( isSuper )
 	local spellChargeAnims =
 	{
 		"SpellChargeFx",
@@ -421,5 +425,152 @@ function SpellChargeEndPresentation()
 	CurrentRun.Hero.SpellChargeSoundId = nil
 
 	CreateAnimation({ Name = "SpellFireFx", DestinationId = CurrentRun.Hero.ObjectId })
-	thread( PlayVoiceLines, GlobalVoiceLines.SpellReactionVoiceLines )
+	if not isSuper then
+		thread( PlayVoiceLines, GlobalVoiceLines.SpellReactionVoiceLines )
+	end
+end
+
+function SpellBloodMoonBeamHitPresentation( victim, functionArgs, triggerArgs )
+	if not victim then
+		return
+	end
+	triggerArgs.ImpactAngle = GetAngleBetween({ DestinationId = victim.ObjectId, Id = CurrentRun.Hero.ObjectId })
+	thread( AresRendApplyPresentation, victim, triggerArgs, functionArgs )
+	if functionArgs.EffectName then
+		local dataProperties = MergeTables( EffectData[functionArgs.EffectName].EffectData)
+		ApplyEffect( { DestinationId = victim.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = functionArgs.EffectName, DataProperties = dataProperties })			
+	end
+end
+function DoFullSuperPresentation( godName )
+	local currentRun = CurrentRun
+	SetPlayerInvulnerable( "Super" )
+	HideCombatUI("SuperPresentation")
+
+	thread( DoRumble, { { RightTriggerStart = 2, RightTriggerStrengthFraction = 0.3, RightTriggerFrequencyFraction = 0.15, RightTriggerTimeout = 0.25, }, } )
+
+	SetAnimation({ Name = "MelinoeCrossCast", DestinationId = currentRun.Hero.ObjectId })
+	CreateAnimation({ Name = "WrathFire", DestinationId = CurrentRun.Hero.ObjectId, Color = LootData[godName .. "Upgrade"].LootColor }) --nopkg
+	
+	local dataProperties = EffectData.ShoutSelfSlow.DataProperties
+	ApplyEffect( { DestinationId = CurrentRun.Hero.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = "ShoutSelfSlow", DataProperties = dataProperties })
+	Rumble({ RightFraction = 0.7, Duration = 0.3 })
+
+	if IsEmpty( SessionMapState.LockCameraMotion ) then
+		FocusCamera({ Fraction = 0.9, Duration = 0.02, ZoomType = "Ease" })
+	end
+	
+	-- TODO:Bloom changes here!
+
+	AdjustRadialBlurStrength({ Fraction = 1.5, Duration = 0 })
+	AdjustRadialBlurDistance({ Fraction = 0.125, Duration = 0 })
+	AdjustRadialBlurStrength({ Fraction = 0, Duration = 0.03, Delay= 0 })
+	AdjustRadialBlurDistance({ Fraction = 0, Duration = 0.03, Delay= 0 })
+	-- audio
+	local sourceName = godName.."Upgrade"
+	local sourceData = LootData[sourceName]
+	local dummySource = { Name = sourceName, SubtitleColor = sourceData.SubtitleColor }
+	thread( PlayVoiceLines, sourceData.FullSuperActivatedVoiceLines or HeroVoiceLines.FullSuperActivatedVoiceLines, nil, dummySource )
+	PlaySound({ Name = sourceData.ShoutActivationSound or "/Leftovers/SFX/MeteorStrikeShort" })
+	AudioState.ShoutEffectSoundId = PlaySound({ Name = "/SFX/WrathStartNoEmote", Id = CurrentRun.Hero.ObjectId })
+
+	local wrathPresentationOffsetY = 150
+	local wrathStreak = SpawnObstacle({ Name = "BlankObstacle", DestinationId = currentRun.Hero.ObjectId, Group = "Combat_UI" })
+	SetScaleX({ Id = wrathStreak, Fraction = ScreenScaleX, Duration = 0 })
+	Teleport({ Id = wrathStreak, OffsetX = ScreenCenterX, OffsetY = 800 + wrathPresentationOffsetY })
+	DrawScreenRelative({ Ids = { wrathStreak } })
+	CreateAnimation({ Name = "WrathPresentationStreak", DestinationId = wrathStreak, Color = LootData[godName .. "Upgrade"].LootColor })
+
+	local godImage = SpawnObstacle({ Name = "BlankObstacle", DestinationId = currentRun.Hero.ObjectId, Group = "Combat_Menu" })
+	Teleport({ Id = godImage, OffsetX = -300, OffsetY = (1080/2) + 80 + wrathPresentationOffsetY })
+	DrawScreenRelative({ Ids = { godImage } })
+	SetAnimation({ Name = LootData[godName .. "Upgrade"].WrathPortrait, DestinationId = godImage, Scale = "1.0" })
+
+	local wrathStreakFront = SpawnObstacle({ Name = "BlankObstacle", DestinationId = currentRun.Hero.ObjectId, Group = "Combat_Menu_Overlay" })
+	Teleport({ Id = wrathStreakFront, OffsetX = ScreenCenterX - (ScreenWidth * 0.03125), OffsetY = 1150 + wrathPresentationOffsetY })
+	SetScaleX({ Id = wrathStreakFront, Fraction = ScreenScaleX, Duration = 0 })
+	DrawScreenRelative({ Ids = { wrathStreakFront } })
+	CreateAnimation({ Name = "WrathPresentationBottomDivider", DestinationId = wrathStreakFront, Scale = "1.25", Color = LootData[godName .. "Upgrade"].LootColor })
+
+	local wrathVignette = CreateScreenObstacle({ Name = "BlankObstacle", Group = "FX_Standing_Top", X = ScreenCenterX, Y = ScreenCenterY, ScaleX = ScreenScaleX, ScaleY = ScreenScaleY, })
+	CreateAnimation({ Name = "WrathVignette", DestinationId = wrathVignette, Color = LootData[godName .. "Upgrade"].LootColor })
+
+	thread( ShoutSlow )
+
+	ScreenAnchors.FullscreenAlertFxAnchor = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Scripting", X = ScreenCenterX, Y = ScreenCenterY })
+
+	local fullscreenAlertDisplacementFx = SpawnObstacle({ Name = "FullscreenAlertDisplace", Group = "FX_Displacement", DestinationId = ScreenAnchors.FullscreenAlertFxAnchor})
+	DrawScreenRelative({ Id = fullscreenAlertDisplacementFx })
+
+	Move({ Id = godImage, Angle = 8, Distance = 800, Duration = 0.2, EaseIn = 0.2, EaseOut = 1, TimeModifierFraction = 0 })
+	Move({ Id = wrathStreakFront, Angle = 8, Distance = 200, Duration = 0.5, EaseIn = 0.9, EaseOut = 1, TimeModifierFraction = 0 })
+	Move({ Id = playerImage, Angle = 170, Speed = 50, TimeModifierFraction = 0 })
+
+	SetColor({ Id = godImage, Color = {0, 0, 0, 1}, Duration = 0.05, TimeModifierFraction = 0 })
+	SetColor({ Id = wrathVignette, Color = {0, 0, 0, 0.4}, Duration = 0.05, TimeModifierFraction = 0 })
+
+	waitUnmodified( 0.25, RoomThreadName )
+	AdjustFullscreenBloom({ Name = "Off", Duration = 0.1, Delay = 0 })
+	Move({ Id = godImage, Angle = 8, Distance = 100, Duration = 1, EaseIn = 0.5, EaseOut = 0.5, TimeModifierFraction = 0 })
+	Move({ Id = wrathStreakFront, Angle = 8, Distance = 25, Duration = 1, EaseIn = 0.5, EaseOut = 1, TimeModifierFraction = 0 })
+
+	waitUnmodified( 0.35, RoomThreadName )
+	thread( PlayVoiceLines, LootData[sourceName].ShoutVoiceLines, false, LootData[sourceName] )
+
+	waitUnmodified( 0.35, RoomThreadName )
+
+	if IsEmpty( SessionMapState.LockCameraMotion ) then
+		FocusCamera({ Fraction = currentRun.CurrentRoom.ZoomFraction or 0.75, Duration = 0.25, ZoomType = "Ease" })
+	end
+
+	PlaySound({ Name = "/Leftovers/Menu Sounds/TextReveal3" })
+
+	waitUnmodified( 0.1, RoomThreadName )
+	SetColor({ Id = godImage, Color = {1,1,1,1}, Duration = 0.1, TimeModifierFraction = 0 })
+	waitUnmodified( 0.1, RoomThreadName )
+
+	SetAlpha({ Id = godImage, Fraction = 0, Duration = 0.12, TimeModifierFraction = 0 })
+	SetAlpha({ Id = wrathVignette, Fraction = 0, Duration = 0.06 })
+	SetAlpha({ Id = fullscreenAlertDisplacementFx, Fraction = 0, Duration = 0.06 })
+	thread( CleanUpShoutPresentation, godName, godImage, { godImage, wrathStreak, wrathStreakFront, wrathVignette })
+
+	for k, enemy in pairs( ActiveEnemies ) do
+		if enemy.WrathReactionVoiceLines ~= nil then
+			local currentHealthFraction = enemy.Health / enemy.MaxHealth
+			if enemy.WrathReactionVoiceLines ~= nil and currentHealthFraction > (enemy.WrathReactionVoiceLineMinHealthThreshold or 0) then
+				thread( PlayVoiceLines, enemy.WrathReactionVoiceLines, nil, enemy )
+			end
+		end
+	end
+	
+	SetPlayerVulnerable( "Super" )
+	ShowCombatUI("SuperPresentation")
+end
+
+function ShoutSlow()
+	for k, simData in ipairs( CurrentRun.Hero.ShoutSlowParameters or HeroData.ShoutSlowParameters ) do
+		waitUnmodified(  simData.ScreenPreWait )
+		if simData.Fraction < 1.0 then
+			AddSimSpeedChange( "WeaponHit", { Fraction = simData.Fraction, LerpTime = simData.LerpTime } )
+		else
+			RemoveSimSpeedChange( "WeaponHit", { LerpTime = simData.LerpTime } )
+		end
+	end
+end
+
+function CleanUpShoutPresentation( godName, portraitId, destroyIds )
+	waitUnmodified(  0.08 )
+	StopSound({ Id = AudioState.ShoutEffectSoundId, Duration = 0.2 })
+	AudioState.ShoutEffectSoundId = nil
+	waitUnmodified(0.28)
+	Destroy({ Ids = destroyIds })
+end
+
+function DelayedHephaestusLeapPresentation( delay, animName, destinationId, playSpeed)
+	wait( delay )
+	CreateAnimation({ Name = animName, DestinationId = destinationId, PlaySpeed = playSpeed })
+end
+
+function FirstTimeDuoTalentPresentation( spellBackingId )
+	CreateAnimation({ Name = "BoonEntranceDuo", DestinationId = spellBackingId })
+	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteExcitement" })
 end

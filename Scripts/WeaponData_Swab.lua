@@ -17,8 +17,9 @@ WeaponSetData =
 				{ ProjectileName = "SwabShockwaveWarning", AIDataOverrides = { FireProjectileNoDestination = true, SpawnFromMarker = "DeadSeaSwab_Rig:weoponDn_01_R_JNT" }, PauseDuration = 1.73, },
 				{ ProjectileName = "SwabShockwavePull", AIDataOverrides = { FireProjectileNoDestination = true, SpawnFromMarker = "DeadSeaSwab_Rig:weoponDn_01_R_JNT" }  },
 			},
-			--EndAttackSlotsOnHit = true,
+			EndAttackSlotsOnHit = true,
 			CancelOnPolymorph = true,
+			EndAttackSlotsForcedWeaponInterrupt = true,
 
 			FireStartFunctionName = "WeaponSetImmuneToStun",
 			PostAttackFunctionName = "WeaponRevertStunImmunity",

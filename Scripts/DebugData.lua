@@ -22,9 +22,12 @@ ScreenData.DebugEnemySpawn =
 	
 	FadeOutTime = 0.0,
 
+	OpenSound = "/Leftovers/Menu Sounds/InfoPanelInURSA",
+	CloseSound = "/Leftovers/Menu Sounds/InfoPanelOutURSA",
+
 	Pages =
 	{
-		-- Undwerworld
+		-- Underworld
 		{
 			Name = "BiomeF",
 			Biomes = { "BiomeF", },
@@ -92,6 +95,10 @@ ScreenData.DebugEnemySpawn =
 		{
 			Name = "BiomeP",
 			Biomes = { "BiomeP", },
+		},
+		{
+			Name = "BiomeQ",
+			Biomes = { "BiomeQ", },
 		},
 		{
 			Name = "NPCs",
@@ -265,21 +272,26 @@ ScreenData.DebugConversations =
 	BlockPause = true,
 	Components = {},
 
-	ButtonStartX = 50,
-	ButtonStartY = 75,
+	OpenSound = "/Leftovers/Menu Sounds/InfoPanelInURSA",
+	CloseSound = "/Leftovers/Menu Sounds/InfoPanelOutURSA",
+
+	ButtonStartX = 60,
+	ButtonStartY = 270,
 	ButtonScaleX = 0.5,
 	ButtonScaleY = 0.5,
 	SpacingX = 120,
 	SpacingY = 40,
 	ColumnsPerRow = 2,
 	
-	ListStartX = 290,
+	ListStartX = 320,
 	ListStartY = 100,
-	ListSpacingX = 340,
+	ListSpacingX = 550,
 	ListSpacingY = 50,
 	ListMaxY = 1050,
 	ListSpacingYBucket = 35,
-	OffsetXBucket = 0,
+	ListColumnsPerScreen = 3,
+
+	ColumnOffset = 0,
 
 	GamepadNavigation =
 	{
@@ -311,11 +323,44 @@ ScreenData.DebugConversations =
 
 		TooltipBacking = 
 		{
-			Graphic = "rectangle01",
+			AnimationName = "DebugConversationTooltipBacking",
 			GroupName = "Combat_Menu_TraitTray_Overlay",
-			ScaleX = 1.5,
-			ScaleY = 0.1,
-			Color = Color.TransparentBlack,
+			Alpha = 0.0,
+			AlphaTarget = 0.0,
+		},
+
+		PageLeft = 
+		{
+			Graphic = "BlankInteractableObstacle",
+			AnimationName = "GUI\\Graybox\\Arrow_Left",
+			X = 300,
+			Y = 50,
+			Scale = 0.8,
+			Alpha = 0.0,
+			AlphaTarget = 0.0,
+			Sound = "/SFX/Menu Sounds/DialoguePanelOutMenu",
+			Data =
+			{
+				OnPressedFunctionName = "DebugConversationsPageLeft",
+				ControlHotkey = "MenuLeft",
+			},
+		},
+
+		PageRight = 
+		{
+			Graphic = "BlankInteractableObstacle",
+			AnimationName = "GUI\\Graybox\\Arrow_Right",
+			X = 400,
+			Y = 50,
+			Scale = 0.8,
+			Alpha = 0.0,
+			AlphaTarget = 0.0,
+			Sound = "/SFX/Menu Sounds/DialoguePanelOutMenu",
+			Data =
+			{
+				OnPressedFunctionName = "DebugConversationsPageRight",
+				ControlHotkey = "MenuRight",
+			},
 		},
 
 		CloseButton = 
@@ -327,7 +372,7 @@ ScreenData.DebugConversations =
 			Y = 1080 - 50,
 			Data =
 			{
-				OnPressedFunctionName = "CloseScreenButton",
+				OnPressedFunctionName = "DebugConversationsClose",
 				ControlHotkey = "Cancel",
 			},
 		},
@@ -363,11 +408,48 @@ UserDebugEquip =
 			"IcedEnemyBoon",
 		}		
 	},
-	Josh = 
+	["Josh Barnett"] = 
 	{
 		Traits = 
 		{
-			"MassiveAttackBoon",
+			-- "SpellMeteorTrait",
+			-- "MeteorShowerTalent",
+			"OmegaPoseidonProjectileBoon",
+			-- "ApolloWeaponBoon",
+			-- "AphroditeWeaponBoon",
+			-- "AresWeaponBoon",
+			-- "DemeterWeaponBoon",
+			-- "HeraWeaponBoon",
+			-- "HephaestusWeaponBoon",
+			-- "PoseidonWeaponBoon",
+			-- "ZeusWeaponBoon",
+
+			-- "ApolloSpecialBoon",
+			-- "AphroditeSpecialBoon",
+			-- "AresSpecialBoon",
+			-- "DemeterSpecialBoon",
+			-- "HeraSpecialBoon",
+			-- "HephaestusSpecialBoon",
+			-- "PoseidonSpecialBoon",
+			-- "ZeusSpecialBoon",
+
+			-- "ApolloCastBoon",
+			-- "AphroditeCastBoon",
+			-- "AresCastBoon",
+			-- "DemeterCastBoon",
+			-- "HeraCastBoon",
+			-- "HephaestusCastBoon",
+			-- "PoseidonCastBoon",
+			-- "ZeusCastBoon",
+
+			-- "ApolloSprintBoon",
+			-- "AphroditeSprintBoon",
+			-- "AresSprintBoon",
+			-- "DemeterSprintBoon",
+			-- "HeraSprintBoon",
+			-- "HephaestusSprintBoon",
+			-- "PoseidonSprintBoon",
+			-- "ZeusSprintBoon",
 		}
 	},
 	["Eduardo G"] = 
@@ -383,7 +465,24 @@ UserDebugEquip =
 		-- Weapon = "WeaponAxe",
 		Traits =
 		{
-			"CombatEncounterHealBoon",
+			"SpellPolymorphTrait",
+			"PolymorphZeusTalent",
+			-- "StaffRaiseDeadAspect",
+			-- "DaggerTripleAspect",
+			-- "TorchAutofireAspect",
+			-- "AxeRallyAspect",
+			-- "LobGunAspect",
+			-- "SuitComboAspect",
+
+			-- "ZeusWeaponBoon",
+			-- "HeraWeaponBoon",
+			-- "PoseidonWeaponBoon",
+			-- "DemeterWeaponBoon",
+			-- "ApolloWeaponBoon",
+			-- "AphroditeWeaponBoon",
+			-- "HephaestusWeaponBoon",
+			-- "HestiaWeaponBoon",
+			-- "AresWeaponBoon",
 			-- "SpellLaserTrait",
 			-- "SpellTimeSlowTrait",
 			-- "SpellPotionTrait",

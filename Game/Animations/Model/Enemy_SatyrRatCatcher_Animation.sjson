@@ -374,6 +374,11 @@
 		]
 	}
 	{
+		Name = "Enemy_SatyrRatCatcher_SummonFire_Fast"
+		InheritFrom = "Enemy_SatyrRatCatcher_SummonFire"
+		GrannyAnimationSpeed = 2.0
+	}
+	{
 		Name = "Enemy_SatyrRatCatcher_SummonPostFire"
 		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
 		GrannyAnimation = "SatyrRatcatcher_Base_SummonPostFire_C_00"

@@ -13,7 +13,7 @@
 	Back =
 	{
       Width = 5120
-      Height = 1440
+      Height = 1920
       Justification = "Left"
       VerticalJustification = "Top"
       Red = 0
@@ -50,30 +50,34 @@
     }
 
     LeftArrow =
-	{
+    {
       X = 600
       Y = 50
-      Graphic = "GUI\\Graybox\\Arrow_Left"
-      SelectedGraphic = "GUI\\Graybox\\Arrow_Left_Highlight"
+      Graphic = "Arrow_Left"
+      SelectedGraphic = "Arrow_LeftHighlight"
       SelectedAnimationIsOverlay = false
+      SelectOnMouseOver = true
+      DeselectOnMouseOff = true
       PressSound = "/Leftovers/Menu Sounds/RosterSelection"
       FadeOpacity = 0.0
     }
 
     RightArrow =
-	{
+    {
       InheritFrom = "LeftArrow"
       AttachTo = "LeftArrow"
       OffsetX = 100
-      Graphic = "GUI\\Graybox\\Arrow_Right"
-      SelectedGraphic = "GUI\\Graybox\\Arrow_Right_Highlight"
+      Graphic = "Arrow_Right"
+      SelectedGraphic = "Arrow_RightHighlight"
       SelectedAnimationIsOverlay = false
+      SelectOnMouseOver = true
+      DeselectOnMouseOff = true
       PressSound = "/Leftovers/Menu Sounds/RosterSelection"
       FadeOpacity = 0.0
     }
 
     FileFilter =
-	{
+    {
       X = 50
       Y = 50
       Justification = "Left"
@@ -89,7 +93,7 @@
     }
 
     FileFilterHint =
-	{
+    {
       InheritFrom = "FileFilter"
       AttachTo = "FileFilter"
       TextRed = 0.6
@@ -99,7 +103,7 @@
     }
 
     DeleteHint =
-	{
+    {
       X = 800
       Y = 1030
       Justification = "Left"
@@ -109,12 +113,15 @@
       TextRed = 0.7
       TextGreen = 0.7
       TextBlue = 0.7
+      DisabledTextRed = 0.3
+      DisabledTextGreen = 0.3
+      DisabledTextBlue = 0.3
       ParseTextMarkup = false
       HelpTextId = "LoadSaveScreen_DeleteHint"
     }
 
     OpenInWindowsHint =
-	{
+    {
       X = 50
       Y = 1030
       Justification = "Left"
@@ -129,7 +136,7 @@
     }
 
     CancelButton =
-	{
+    {
       X = 1860
       Y = 1030
       Graphic = "GUI\ExitButton"
@@ -139,10 +146,15 @@
     }
 
     AlphabeticalSortButton =
-	{
+    {
       Graphic = "GUI\\Graybox\\Button_Default"
       SelectedGraphic = "GUI\\Graybox\\Button_Highlight"
       SelectedAnimationIsOverlay = false
+      SelectOnMouseOver = true
+      DeselectOnMouseOff = true
+      SelectedTextRed = 1.0
+      SelectedTextGreen = 1.0
+      SelectedTextBlue = 0.0
       HelpTextId = "LoadSaveScreen_SortAlphabetical"
       Font = "P22UndergroundSCMedium"
       FontSize = 22
@@ -153,10 +165,15 @@
     }
 
     ChronologicalSortButton =
-	{
+    {
       Graphic = "GUI\\Graybox\\Button_Default"
       SelectedGraphic = "GUI\\Graybox\\Button_Highlight"
       SelectedAnimationIsOverlay = false
+      SelectOnMouseOver = true
+      DeselectOnMouseOff = true
+      SelectedTextRed = 1.0
+      SelectedTextGreen = 1.0
+      SelectedTextBlue = 0.0
       HelpTextId = "LoadSaveScreen_SortChronological"
       Font = "P22UndergroundSCMedium"
       FontSize = 22
@@ -166,8 +183,8 @@
       PressSound = "/Leftovers/Menu Sounds/BookInteract"
     }
 
-	LoadSpinner =
-	{
+    LoadSpinner =
+    {
       X = 1800
       Y = 1000
       Graphic = "MoveHintLoop"

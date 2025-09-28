@@ -3,6 +3,7 @@ RoomSetData.Anomaly =
 	BaseAnomaly =
 	{
 		DebugOnly = true,
+		RichPresence = "#RichPresence_Dream",
 		ResultText = "RunHistoryScreenResult_Anomaly",
 
 		ValidateSecretData = false,
@@ -12,7 +13,6 @@ RoomSetData.Anomaly =
 
 		-- for GameStateRequirements, search AnomalyDoorRequirements =
 		SecretSpawnChance = 0.0,
-		ShrinePointDoorSpawnChance = 0.0,
 		ChallengeSpawnChance = 0.0,
 		WellShopSpawnChance = 0.0,
 		SurfaceShopSpawnChance = 0.0,
@@ -38,14 +38,23 @@ RoomSetData.Anomaly =
 		EntranceVfx = "SecretDoorDiveFx",
 		ExitAnimation = "MelinoeSpellFire",
 		ExitVfx = "SecretDoorDiveFx",
+		LocationAnimName = "InfoBannerAsphodelIn",
+		LocationAnimOutName = "InfoBannerAsphodelOut",
 
 		UsePreviousRoomSet = true,
 
-		IneligibleRewards = { "Devotion" },
+		IneligibleRewards = { "Devotion", "SpellDrop" },
 
 		StartThreadedEvents =
 		{
 			{ FunctionName = "AnomalyStartPresentation", },
+		},
+
+		Using =
+		{
+			"ChronosTimeStopFx",
+			"ChronosTimeStopMelFx",
+			"AsphodelSkullDeathFx",
 		},
 	},
 

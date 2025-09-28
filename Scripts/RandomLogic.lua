@@ -31,43 +31,34 @@ function Rng:RandomGaussian()
 	return randomgaussian( self.id )
 end
 
--- NOTE: C# actually uses the Rng at index 0, starting at 1 happens to be convenient for lua
-local Randoms = {
+function GetClockSeed()
+	return math.floor( GetTime({}) * 1000000 )
+end
+
+local Randoms =
+{
 	[1] = Rng:New()
 }
-Randoms[1]:Seed( math.floor(GetTime({}) * 1000000), 1)
+Randoms[1]:Seed( GetClockSeed(), 1 )
 
 function GetGlobalRng()
 	return Randoms[1]
 end
 
+NextSeeds = NextSeeds or {}
+
 function RandomInit( rngId )
-	-- Execution context:  OnPreThingCreation
-	local seed = math.floor(GetTime({}) * 1000000)
 
-	if rngId == nil then
-		rngId = 1
-	else
-		DebugAssert({ Condition = rngId > 0, Text = "rngId parameter to RandomInit was out-of-bounds. Value: "..rngId })
-	end
-
+	rngId = rngId or 1
 	if Randoms[rngId] == nil then
 		Randoms[rngId] = Rng:New()
 	end
-
-	if NextSeeds ~= nil and NextSeeds[rngId] ~= nil then
-		seed = NextSeeds[rngId]
-	else
-		-- Patch this into new saves.
-		DebugPrint({ Text = "RandomInit() could not find a seed in the save file."})
-		if NextSeeds == nil then
-			NextSeeds = {}
-		end
-		NextSeeds[rngId] = seed
+	if NextSeeds[rngId] == nil then
+		NextSeeds[rngId] = GetClockSeed()
 	end
 
-	Randoms[rngId]:Seed(seed, rngId)
-	DebugPrint({ Text = "RandomInit("..rngId..") with seed: "..Randoms[rngId].seed }) -- Display real seed used if DebugRNGSeed enabled
+	Randoms[rngId]:Seed( NextSeeds[rngId], rngId )
+	--DebugPrint({ Text = "RandomInit("..rngId..") with seed: "..Randoms[rngId].seed }) -- Display real seed used if DebugRNGSeed enabled
 
 	return Randoms[rngId]
 end
@@ -105,10 +96,6 @@ function RandomSetNextInitSeed( args )
 	NextSeeds[rngId] = seed
 end
 
-function RandomSeed( seed )
-	GetGlobalRng():Seed( seed )
-end
-
 function RandomInt( low, high, rng )
 
 	local rng = rng or GetGlobalRng()
@@ -131,6 +118,9 @@ function RandomNumber( number, rng )
 end
 
 function RandomChance( chance, rng )
+	if chance == nil then
+		return false
+	end
 	local rng = rng or GetGlobalRng()
 	return rng:Random() <= chance
 end

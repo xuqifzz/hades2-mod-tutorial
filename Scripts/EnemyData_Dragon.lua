@@ -40,6 +40,7 @@ UnitSetData.Dragon =
 
 		DeathAnimation = "Enemy_Dragon_Death",
 		DeathSound = "/SFX/Enemy Sounds/Dragon/EmoteDying",
+		HealthDamageSound = "/SFX/Enemy Sounds/Dragon/EmoteHurt",
 
 		MaxHealth = 1450,
 		HealthBarOffsetY = -380,
@@ -60,6 +61,11 @@ UnitSetData.Dragon =
 			Heavy = "Enemy_Dragon_OnHit_Heavy",
 		},
 
+		UniqueIconAttachments = 
+		{
+			Burn = "Dragon_Rig:root_00_M_JNT",
+		},
+
 		DefaultAIData =
 		{
 			DeepInheritance = true,
@@ -69,7 +75,7 @@ UnitSetData.Dragon =
 
 		WeaponOptions =
 		{
-			"DragonBreath", "DragonTailWhip", "DragonGlide"
+			"DragonTailWhip", "DragonGlide"
 		},
 
 		AIOptions =
@@ -78,10 +84,12 @@ UnitSetData.Dragon =
 		},
 		PostAggroAI = "AttackerAI",
 
+		BlockAttributes = { "Orbit", "Vacuum", },
+
 		HeraclesCombatMoneyValue = 6,
 		GeneratorData =
 		{
-			DifficultyRating = 230,
+			DifficultyRating = 250,
 			BlockEnemyTypes = {"Dragon_Elite"}
 		},
 
@@ -96,7 +104,9 @@ UnitSetData.Dragon =
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
+				{ Name = "OlympusEnemiesSightedVO", Time = 12 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_2710", Text = "Sky-Dracons..." },
@@ -112,7 +122,7 @@ UnitSetData.Dragon =
 		HealthBuffer = 930,
 		IsAggroedSound = "/SFX/Enemy Sounds/Dragon/EmoteTaunting",
 
-		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Hex" }),
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Hex", "Metallic" }),
 
 		DefaultAIData =
 		{
@@ -121,13 +131,13 @@ UnitSetData.Dragon =
 
 		WeaponOptions =
 		{
-			"DragonBreath", "DragonTailWhip", "DragonGlide"
+			"DragonTailWhip", "DragonGlide"
 		},
 
 		HeraclesCombatMoneyValue = 12,
 		GeneratorData =
 		{
-			DifficultyRating = 440,
+			DifficultyRating = 480,
 			BlockEnemyTypes = {"Dragon"}
 		},
 	},
@@ -135,25 +145,28 @@ UnitSetData.Dragon =
 	Dragon_MiniBoss =
 	{
 		InheritFrom = { "Elite", "Dragon" },
-		MaxHealth = 4200,
-		HealthBuffer = 10650,
-		HealthBarOffsetY = -400,
+		MaxHealth = 3850,
+		HealthBuffer = 10150,
+		HealthBarAttachToMarkerName = "head_fxMarker_00_M_JNT",
+		HealthBarOffsetY = -150,
 		HealthBarType = "ExtraLarge",
 		BlockRaiseDead = true,
 		BlockCharm = true,
-		ImmuneToPolymorph = true,
+
+		StartAggroed = true,
 
 		GrannyTexture = "GR2/DragonMiniboss_Color",
 		
 		BlockRespawnShrineUpgrade = true,
 		IsAggroedSound = "/SFX/Enemy Sounds/DragonMiniboss/EmoteDying",
+		HealthDamageSound = "/SFX/Enemy Sounds/DragonMiniboss/EmoteHurt",
 
 		DefaultAIData =
 		{
 			DeepInheritance = true,
 		},
 		AIAggroRange = 1000,
-		WakeUpDelay = 1.5,
+		WakeUpDelay = 1.0,
 
 		WeaponOptions =
 		{
@@ -175,7 +188,6 @@ UnitSetData.Dragon =
 		HealthBuffer = 4000,
 		HealthBarOffsetY = -400,
 		HealthBarType = "ExtraLarge",
-		ImmuneToPolymorph = true,
 		BlockCharm = true,
 
 		StartAggroed = true,
@@ -185,6 +197,43 @@ UnitSetData.Dragon =
 		DefaultAIData =
 		{
 			DeepInheritance = true,
+		},
+
+		WeaponOptions =
+		{
+			"DragonBreath_MiniBoss", "DragonTailWhip", "DragonGlide", "DragonWhirlLeft", "DragonWhirlRight"
+		},
+	},
+
+	Dragon_SuperElite =
+	{
+		InheritFrom = { "SuperElite", "Dragon" },
+		GenusName = "Dragon",
+		MaxHealth = 3000,
+		HealthBuffer = 6000,
+		HealthBarOffsetY = -400,
+		HealthBarType = "ExtraLarge",
+		BlockCharm = true,
+
+		StartAggroed = true,
+
+		UseActivatePresentation = false,
+		WakeUpDelay = 0.0,
+		CreateAnimations = { "EnemyPreSpawnTerrainChronosLarge" },
+
+		GrannyTexture = "GR2/DragonMiniboss_Color",
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+		},
+
+		SpellSummonDataOverrides =
+		{
+			WeaponOptions =
+			{
+				"DragonBreath_MiniBoss_Ally"
+			},
 		},
 
 		WeaponOptions =

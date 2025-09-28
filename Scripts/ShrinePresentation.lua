@@ -1,3 +1,24 @@
+function OpenShrineScreenPrePresentation( menuObjectId, soundCue )
+	PlaySound({ Name = soundCue or "/SFX/Menu Sounds/HadesMainMenuWhoosh", Id = menuObjectId })
+	ZeroMouseTether("MetaupgradeMenuPresentation")
+	AdjustColorGrading({ Name = "Team03", Duration = 0.3 })
+	AdjustFullscreenBloom({ Name = "Default", Duration = 0.3 })
+	PlayInteractAnimation( menuObjectId )
+	wait( 0.12 )
+	AdjustFullscreenBloom({ Name = "Off", Duration = 0.30 })
+	AdjustColorGrading({ Name = "Off", Duration = 0.30 })
+end
+
+function ShrineScreenOpenFinishedPresentation( screen )
+	SetAnimation({ DestinationId = CurrentRun.Hero.ObjectId, Name = "MelinoeEquip" })
+end
+
+function OpenShrineScreenPostPresentation( menuObjectId )
+	UnzeroMouseTether("MetaupgradeMenuPresentation")
+	AdjustColorGrading({ Name = "Off", Duration = 0.3 })
+	AdjustFullscreenBloom({ Name = "Off", Duration = 0.3 })
+end
+
 function ShrinePointSpendPresentation( screen, spend, buttonId )
 	CreateAnimation({ Name = "ShrinePointTransactionHighlight-Refund", GroupName = "Overlay", DestinationId = ScreenAnchors.ShrinePointIconId, OffsetX = -194, OffsetY = -88 })
 	CreateAnimationsBetween({ Animation = "ShrinePointRefundStreak", DestinationId = ScreenAnchors.ShrinePointIconId, Id = buttonId,
@@ -65,7 +86,7 @@ function ShrineScreenUpdateActivePoints( screen, button, args )
 				if excessShrinePoints > highestExcessShrinePoints then
 					highestExcessShrinePoints = excessShrinePoints
 				end
-				SetAnimation({ DestinationId = backing.Id, Name = "GUI\\Screens\\Shrine\\TestamentActive" })
+				SetAnimation({ DestinationId = backing.Id, Name = "ShrineTestamentActiveTarget" })
 				if prevActiveBounty ~= screen.ActiveBounty then
 					PlaySound({ Name = "/SFX/Menu Sounds/MirrorFlash2", Id = backing })
 				end
@@ -116,16 +137,20 @@ function ShrineScreenUpdateActivePoints( screen, button, args )
 
 end
 
-function ShrineScreenMouseOverItem( button )
+function ShrineScreenMouseOverItem( button, noGlintAnimation )
 
 	GenericMouseOverPresentation( button )
 
 	local screen = button.Screen
 	local components = screen.Components
 	screen.SelectedItem = button
+	screen.ClipboardText = button.Data.Name
 
 	SetScale({ Id = button.Id, Fraction = screen.IconMouseOverScale, Duration = 0.1, EaseIn = 0.9, EaseOut = 1.0, SkipGeometryUpdate = true })
-	SetAlpha({ Id = button.Highlight.Id, Fraction = 1.0, Duration = 0.1 })
+	SetAlpha({ Id = button.Highlight.Id, Fraction = 1.0, Duration = 0.1, EaseIn = 0.9, EaseOut = 1.0 })
+	if noGlintAnimation == nil then
+		CreateAnimation({ Name = button.GlintAnimationName, DestinationId = button.Highlight.Id, Group = "Combat_Menu_Additive" })
+	end
 	local selectedFormat = ShallowCopyTable( screen.ShortNameSelectedFormat )
 	selectedFormat.Id = button.Id
 	selectedFormat.AffectText = button.Data.Name.."_Short"
@@ -166,6 +191,9 @@ function ShrineScreenMouseOverItem( button )
 	})
 	
 	SetAlpha({ Id = components.InfoBoxDescription.Id, Fraction = 1.0, Duration = 0.2 })
+	if metaUpgradeData.UsePluralizedForm then
+		text = GetPluralizedForm( text, metaUpgradeData.ChangeValue )
+	end
 	ModifyTextBox({ Id = components.InfoBoxDescription.Id,
 		Text = text,
 		UseDescription = true,
@@ -207,6 +235,10 @@ function ShrineScreenMouseOffItem( button )
 	SetScale({ Id = button.Id, Fraction = screen.IconScale, Duration = 0.1, EaseIn = 0.9, EaseOut = 1.0, SkipGeometryUpdate = true })
 	SetAlpha({ Id = button.Highlight.Id, Fraction = 0.0, Duration = 0.1 })
 	local selectedFormat = ShallowCopyTable( screen.ShortNameFormat )
+	local currentRank = GetNumShrineUpgrades( button.Data.Name )
+	if currentRank > 0 then
+		selectedFormat = ShallowCopyTable( screen.ShortNameActiveFormat )
+	end
 	selectedFormat.Id = button.Id
 	selectedFormat.AffectText = button.Data.Name.."_Short"
 	ModifyTextBox( selectedFormat )
@@ -228,16 +260,23 @@ function ShrineScreenMouseOffItem( button )
 
 end
 
-function ShrineScreenRankDownPresentation( screen, button )
+function ShrineScreenRankDownPresentation( screen, button, args )
+	args = args or {}
 	local components = screen.Components
-	ShrineScreenUpdateItems( screen, button )
 	ShrineScreenUpdateActivePoints( screen )
+	ShrineScreenUpdateItems( screen, button, false )
 	if screen.SelectedItem == button then
-		ShrineScreenMouseOverItem( button )
+		ShrineScreenMouseOverItem( button, true )
 	end
 	ShrineScreenUpdateNextRankText( button )
 	ShrineScreenUpdateRankActions( button )
-	PlaySound({ Name = screen.ToggleOnSound, Id = button.Id })
+	if not args.Silent then
+		PlaySound({ Name = screen.ToggleOnSound, Id = button.Id })
+	end
+end
+
+function ShrineScreenResetPresentation( screen )
+	PlaySound({ Name = screen.ToggleOnSound })
 end
 
 function ShrineScreenAlreadyAtMinPresentation( screen, button )
@@ -247,10 +286,10 @@ end
 
 function ShrineScreenRankUpPresentation( screen, button )
 	local components = screen.Components
-	ShrineScreenUpdateItems( screen, button )
 	ShrineScreenUpdateActivePoints( screen )
+	ShrineScreenUpdateItems( screen, button, true )
 	if screen.SelectedItem == button then
-		ShrineScreenMouseOverItem( button )
+		ShrineScreenMouseOverItem( button, true )
 	end
 	ShrineScreenUpdateNextRankText( button )
 	ShrineScreenUpdateRankActions( button )
@@ -260,19 +299,23 @@ end
 
 function ShrineScreenAlreadyAtMaxPresentation( screen, button )
 	--thread( PulseText, { Id = button.Id, Color = Color.Red, OriginalColor = screen.NextRankMaxColor, ScaleTarget = 1.3, ScaleDuration = 0.1, HoldDuration = 0.15, PulseBias = 0.1 } )
-	Flash({ Id = button.Backing.Id, Speed = 1.5, MinFraction = 0.7, MaxFraction = 0.0, Color = Color.CostUnaffordable, ExpireAfterCycle = true })
+	Flash({ Id = button.Backing.Id, Speed = 3.5, MinFraction = 0.25, MaxFraction = 0.0, Color = {255,128,255,255}, ExpireAfterCycle = true })
+	CreateAnimation({ Name = button.GlintAnimationName, DestinationId = button.Backing.Id, Group = "Combat_Menu_Additive" })
 	PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo", Id = button.Id })
 	if CheckCountInWindow( "ShrineUpgradeMaxed", 2.0, 2 ) then
 		thread( PlayVoiceLines, GlobalVoiceLines.ShrineUpgradeMaxedVoiceLines, true )
 	end
-
 end
 
 function ShrineScreenUpdateRankActions( button )
+	if button.Screen.SelectedItem ~= button then
+		return
+	end
 	local components = button.Screen.Components
 	local upgradeData = button.Data
 	local rank = GetNumShrineUpgrades( upgradeData.Name )
-	if rank < TableLength( upgradeData.Ranks ) then
+	local maxRank = GetShrineUpgradeMaxRank( upgradeData )
+	if rank < maxRank then
 		local text = components.RankUp.Data.AltText
 		if rank >= 1 then
 			text = components.RankUp.Data.Text
@@ -289,71 +332,180 @@ function ShrineScreenUpdateRankActions( button )
 	end
 end
 
-function ShrineScreenUpdateNextRankText( button )
+function ShrineScreenUpdateNextRankText( button, screenFirstOpen )
 	local screen = button.Screen
 	local upgradeData = button.Data
 	local currentRank = GetNumShrineUpgrades( upgradeData.Name )
-	local maxRank = TableLength( upgradeData.Ranks )
+	local maxRank = GetShrineUpgradeMaxRank( upgradeData )
+
 	if currentRank < maxRank then
 		upgradeData.NextRankPoints = upgradeData.Ranks[currentRank + 1].Points
-		ModifyTextBox({ Id = button.Id, LuaKey = "TempTextData", LuaValue = upgradeData, FadeTarget = 1.0, AffectText = screen.NextRankFormat.Text })
+		ModifyTextBox({ Id = button.NextRankBacking.Id, LuaKey = "TempTextData", LuaValue = upgradeData, FadeTarget = 1.0, AffectText = screen.NextRankFormat.Text })
 	else
-		ModifyTextBox({ Id = button.Id, LuaKey = "TempTextData", LuaValue = upgradeData, FadeTarget = 0.0, AffectText = screen.NextRankFormat.Text })
+		ModifyTextBox({ Id = button.NextRankBacking.Id, LuaKey = "TempTextData", LuaValue = upgradeData, FadeTarget = 0.0, AffectText = screen.NextRankFormat.Text })
 	end
 	
 	for rank = 1, maxRank do
 		local rankPip = button.RankPips[rank]
 		if rank <= currentRank then
-			SetAnimation({ DestinationId = rankPip.Id, Name = screen.RankPipFull })
+			SetAnimation({ DestinationId = rankPip.Id, Name = screen.FilledRankPips[rank] })
 		else
 			SetAnimation({ DestinationId = rankPip.Id, Name = screen.RankPipEmpty })
+		end
+		if rank == currentRank and screenFirstOpen == nil then
+			CreateAnimation({ DestinationId = rankPip.Id, Name = screen.RankPipFullFx, Group = "Combat_Menu_Additive" })
 		end
 	end
 	
 end
 
-function ShrineScreenUpdateItems( screen )
+function ShrineScreenUpdateItems( screen, button, shrineRankUp )
+
 	local components = screen.Components
 	for index = 1, screen.NumItems do
 		local backing = components["ItemBacking"..index]
 		local nextRankBacking = components["NextRankBacking"..index]
 		local item = components["ItemButton"..index]
 		local rank = GetNumShrineUpgrades( item.Data.Name )
+		local maxRank = GetShrineUpgradeMaxRank( item.Data )
+		local inactiveAnimation = screen.PactInactiveAnimation
+		local activeAnimation = screen.PactActiveAnimation
+		if item.Data.UseWideAnimations then
+			inactiveAnimation = screen.PactInactiveWideAnimation
+			activeAnimation = screen.PactActiveWideAnimation
+		end
+
 		if rank <= 0 then
-			SetAnimation({ DestinationId = backing.Id, Name = "GUI\\Screens\\Shrine\\PactInactive" })
-			SetAnimation({ DestinationId = nextRankBacking.Id, Name = "GUI\\Screens\\Shrine\\PactBadgeInactive" })
+			SetAnimation({ DestinationId = backing.Id, Name = inactiveAnimation })
+			SetAnimation({ DestinationId = nextRankBacking.Id, Name = screen.PactInactiveBadgeAnimation })
 			SetAlpha({ Id = nextRankBacking.Id, Fraction = 1.0, Duration = 0.1 })
 			SetColor({ Id = item.Id, Color = screen.IconInactiveColor })
-		elseif rank >= TableLength( item.Data.Ranks ) then
-			SetAnimation({ DestinationId = backing.Id, Name = "GUI\\Screens\\Shrine\\PactActiveMax" })
-			SetAnimation({ DestinationId = nextRankBacking.Id, Name = "GUI\\Screens\\Shrine\\PactBadgeActive" })
+		elseif rank >= maxRank then
+			SetAnimation({ DestinationId = backing.Id, Name = activeAnimation })
+			SetAnimation({ DestinationId = nextRankBacking.Id, Name = screen.PactActiveBadgeAnimation })
 			SetAlpha({ Id = nextRankBacking.Id, Fraction = 0.0, Duration = 0.1 })
 			SetColor({ Id = item.Id, Color = screen.IconActiveColor })
 		else
-			SetAnimation({ DestinationId = backing.Id, Name = "GUI\\Screens\\Shrine\\PactActiveMax" })
-			SetAnimation({ DestinationId = nextRankBacking.Id, Name = "GUI\\Screens\\Shrine\\PactBadgeActive" })
+			SetAnimation({ DestinationId = backing.Id, Name = activeAnimation })
+			SetAnimation({ DestinationId = nextRankBacking.Id, Name = screen.PactActiveBadgeAnimation })
 			SetAlpha({ Id = nextRankBacking.Id, Fraction = 1.0, Duration = 0.1 })
 			SetColor({ Id = item.Id, Color = screen.IconActiveColor })
 		end
+
+		if item.Hidden then
+			SetAlpha({ Id = item.Id, Fraction = 0.0 })
+		end
 	end
 	local fraction = GetTotalSpentShrinePoints() / GetMaxShrinePoints()
-	SetAnimationFrameTarget({ Name = "ShrineMeterBarFill", Fraction = fraction, DestinationId = components.ThermometerForeground.Id, Instant = false })
+
+	local thermometerFxAlphaMinFraction = 0.09
+	local thermometerFxAlphaMaxFraction = 0.20
+	local thermometerFxMinX = 225
+	local thermometerFxOffsetX = thermometerFxMinX + (math.floor( fraction * 100 ) * 9.8) + ScreenCenterNativeOffsetX
+	local thermometerFxAlpha = math.min( (fraction - thermometerFxAlphaMinFraction) / (thermometerFxAlphaMaxFraction - thermometerFxAlphaMinFraction), 1 )
+	local thermometerFxColor = Color.Lerp( { 0, 0, 0, thermometerFxAlpha}, { 1, 0.6, 0.1, thermometerFxAlpha }, fraction )
+	SetScaleY({ Id = components.ThermometerFx.Id, Fraction = thermometerFxAlpha })
+	Move({ Id = components.ThermometerFx.Id, OffsetX = thermometerFxOffsetX, OffsetY = 690 + ScreenCenterNativeOffsetY, Duration = 0 })
+	
+	local thermometerFlameAlphaMinFraction = 0.5
+	local thermometerFlameAlphaMaxFraction = 0.75
+	local thermometerFlameMinX = 90
+	local thermometerFlameOffsetX = thermometerFlameMinX + (math.floor( fraction * 100 ) * 9.8) + ScreenCenterNativeOffsetX
+	local thermometerFlameAlpha = math.min(( (fraction - thermometerFlameAlphaMinFraction) / ( thermometerFlameAlphaMaxFraction - thermometerFlameAlphaMinFraction ) ), 1 )
+	SetAlpha({ Id = components.ThermometerFlame.Id, Fraction = thermometerFlameAlpha })
+	Move({ Id = components.ThermometerFlame.Id, OffsetX = thermometerFlameOffsetX, OffsetY = 677 + ScreenCenterNativeOffsetY, Duration = 0 })
+
+	if fraction == 1 then
+		SetAlpha({ Id = components.ThermometerFullFx.Id, Fraction = 1 })
+	else
+		SetAlpha({ Id = components.ThermometerFullFx.Id, Fraction = 0 })
+	end
+
+	local thermometerAnimationName = "ShrineMeterBarFill"
+	if screen.ActiveBounty ~= nil then
+		thermometerAnimationName = "ShrineMeterBarFill_ActiveBounty"
+		SetColor({ Id = components.ThermometerFx.Id, Color = thermometerFxColor })
+	else 
+		thermometerAnimationName = "ShrineMeterBarFill"
+		SetColor({ Id = components.ThermometerFx.Id, Color = {0,0,0,thermometerFxAlpha} })
+	end
+	SetAnimation({ Name = thermometerAnimationName, DestinationId = components.ThermometerForeground.Id })
+	SetAnimationFrameTarget({ Name = thermometerAnimationName, Fraction = fraction, DestinationId = components.ThermometerForeground.Id, Instant = false }) -- nopkg
+	
 	ModifyTextBox({ Id = components.ActiveShrinePoints.Id, ReReadTextImmediately = true, })
-	thread( PulseText, { Id = components.ActiveShrinePoints.Id, Color = Color.GreenYellow, OriginalColor = screen.NextRankMaxColor, ScaleTarget = 1.2, ScaleDuration = 0.1, HoldDuration = 0.15, PulseBias = 0.1 } )
+	thread( PulseText, { Id = components.ActiveShrinePoints.Id, Color = {255, 255, 255, 255}, OriginalColor = {176, 136, 255, 255}, ScaleTarget = 1.2, ScaleDuration = 0.1, HoldDuration = 0.25, PulseBias = 0.1 } )
+
+	if shrineRankUp then
+		local thermometerPulseFx = CreateScreenObstacle({ Name = "BlankObstacle", X = 265 + ScreenCenterNativeOffsetX, Y = 690 + ScreenCenterNativeOffsetY, Group = "Combat_Menu_Additive", })
+		local thermometerPulseFxScale = 1
+		if fraction <= 1 then
+			thermometerPulseFxScale = (math.floor( fraction * 100 ) ) * 0.01 * 10
+		else 
+			thermometerPulseFxScale = (math.floor( fraction * 100 ) ) * 0.01 * 100
+		end
+		-- SetAlpha({ Id = thermometerPulseFx, Fraction = fraction })
+		SetScaleX({ Id = thermometerPulseFx, Fraction = thermometerPulseFxScale })
+		SetAnimation({ Name = "ShrineMeterPulse", DestinationId = thermometerPulseFx })
+		DestroyOnDelay({ Id = thermometerPulseFx, 0.34 })
+	end
 
 end
 
-function BoonSkipShrineUpgradePresentation( reward )
+function BossDifficultyShrineUpgradeRankRevealed( screen, button, args )
+	AddInputBlock({ Name = "BossDifficultyShrineUpgradeRankRevealed" })
+	if args.Rank == 1 then
+		-- initial reveal
+		local ids = { button.Id, button.Backing.Id, button.RankPips[1].Id }
+		local textboxIds = { button.Id, button.NextRankBacking.Id }
+
+		SetAlpha({ Ids = ids, Fraction = 0 })
+		SetScale({ Id = button.Backing.Id, Fraction = 2.0 })
+		ModifyTextBox({ Ids = textboxIds, FadeTarget = 0.0 })
+		button.Hidden = true -- hack to keep ShrineScreenUpdateItems from revealing the icon
+		wait( 0.5 )
+
+		PlaySound({ Name = "/SFX/OlympusJumpSlam" })
+		SetAlpha({ Id = button.Backing.Id, Fraction = 1.0, Duration = 0.3, EaseIn = 0, EaseOut = 1 })
+		ModifyTextBox({ Ids = textboxIds, FadeTarget = 1.0, FadeDuration = 2.0, EaseIn = 0, EaseOut = 1 })
+		Shake({ Id = button.Backing.Id, Distance = 5, Speed = 500, Duration = 0.20 })
+		wait( 0.2 )
+		SetScale({ Id = button.Backing.Id, Fraction = 1.0, Duration = 0.2 })
+		wait( 0.2 )
+
+		button.Hidden = false
+		SetAlpha({ Ids = { button.Id, button.RankPips[1].Id }, Fraction = 1.0, Duration = 0.1, EaseIn = 0, EaseOut = 1 })
+		wait( 0.4 )
+
+		PlaySound({ Name = "/SFX/Menu Sounds/LegendaryBoonShimmer2" })
+		CreateAnimation({ Name = "ShrinePactHighlightLargeReveal", DestinationId = button.Backing.Id, Group = "Combat_Menu_Additive" })
+		wait( 0.5 )
+
+	else
+		-- new rank unlocked
+		wait( 0.5 )
+		PlaySound({ Name = "/Leftovers/World Sounds/ChoirZoomIn" })
+		Flash({ Id = button.Backing.Id, Speed = 2, MinFraction = 0, MaxFraction = 0.85, Color = Color.White, ExpireAfterCycle = true })
+		Shake({ Id = button.Backing.Id, Distance = 5, Speed = 500, Duration = 0.25 })
+		wait( 0.5 )
+	end
+	RemoveInputBlock({ Name = "BossDifficultyShrineUpgradeRankRevealed" })
+end
+
+function BoonSkipShrineUpgradePresentation( reward, args )
 	CreateAnimation({ DestinationId = reward.ObjectId, Name = "CauldronSmokeSmall", OffsetZ = -230 })
 	wait( 0.5 )
-	-- thread( InCombatText, reward.ObjectId, "BoonSkipShrineUpgrade_CombatText", 1.0 )
+	--DebugPrint({ Text = "args.ForceLootName = "..tostring(args.ForceLootName) })
+	--if CurrentRun.CurrentRoom.ForcedBoonNames[args.ForceLootName] then
+		-- Keepsake forced boon has been hit
+		--thread( InCombatText, reward.ObjectId, "BoonSkipShrineUpgrade_CombatText", 1.0 )
+	--end
 end
 
 function RespawnEggCountdownTickPresentation( egg, args )
 	local countdownRatio = (args.Ticks - (egg.TicksRemaining - 1)) / args.Ticks
 	Shake({ Id = egg.ObjectId, Distance = 5 * countdownRatio, Speed = 500 * countdownRatio, Duration = 0.25 })
 	Flash({ Id = egg.ObjectId, Speed = 2, MinFraction = 0, MaxFraction = 0.85 * countdownRatio, Color = Color.White, ExpireAfterCycle = true })
-	PlaySound({ Name = "/Leftovers/SFX/SaplingGrow", Id = egg.ObjectId })
+	PlaySound({ Name = "/SFX/RevenantBeep", Id = egg.ObjectId })
 end
 
 function RespawnEggRespawnPresentation( egg, newEnemy )
@@ -365,12 +517,13 @@ end
 
 function RespawnEggPickedUpPresentation( usee, args, user )	
 	PlaySound({ Name = "/SFX/Enemy Sounds/HydraHead/HydraEggSpit", Id = usee.ObjectId })
-	CreateAnimation({ Name = "ExorcismGhostDissipate", DestinationId = usee.ObjectId, })
+	CreateAnimation({ Name = "RespawnEggDissipateFx", DestinationId = usee.ObjectId, })
 end
 
 function ShrineEliteAttributeManaDrainTickPresentation( args )
 	thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ShrineEliteManaDrain_Tick", Duration = 0.65, PreDelay = 0.1, SkipFlash = true, LuaKey = "TempTextData", LuaValue = args } )
-	PlaySound({ Name = "/Leftovers/Menu Sounds/WaxUp", Id = CurrentRun.Hero.ObjectId })
+	CreateAnimation({ Name = "EliteManaDrainImpactFx", DestinationId = CurrentRun.Hero.ObjectId, })
+	PlaySound({ Name = "/SFX/SafeZoneForcefieldStop", Id = CurrentRun.Hero.ObjectId })
 end
 
 function ErisCurseAppliedPresentation( source, args )
@@ -403,8 +556,6 @@ function ErisCurseAppliedPresentation( source, args )
 
 	wait( 1.0 )
 
-	local preFountainBloom = GetBloomSettingName({ })
-
 	HideCombatUI( "ErisCursePresentation" )
 	
 	Stop({ Id = CurrentRun.Hero.ObjectId })
@@ -419,7 +570,7 @@ function ErisCurseAppliedPresentation( source, args )
 	CreateAnimation({ Name = "PowerUpComboReady", DestinationId = CurrentRun.Hero.ObjectId, Scale = 1.0 })
 	CreateAnimation({ Name = "ErisCurseFx", DestinationId = CurrentRun.Hero.ObjectId, })
 
-	AdjustFullscreenBloom({ Name = "BlurryLight", Duration = 0.5 })
+	BloomRequestStart({ SourceName = "ErisCurseAppliedPresentation", BloomType = "BlurryLight", Duration = 0.5 })
 	FocusCamera({ Fraction = CurrentRun.CurrentRoom.ZoomFraction * 1.15, Duration = 2, ZoomType = "Ease" })
 
 	Rumble({ Duration = 1.0, RightFraction = 0.17 })
@@ -431,7 +582,7 @@ function ErisCurseAppliedPresentation( source, args )
 	PlaySound({ Name = "/VO/MelinoeEmotes/EmoteGasping", Id = CurrentRun.Hero.ObjectId, Delay = 1.1 })
 
 	waitUnmodified( 1.25 )
-	thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ErisCurseApplied", Duration = 1.5, ShadowScaleX = 1.2, PreDelay = 0.1, Duration = 1.5, } )
+	thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ErisCurseApplied", Duration = 1.5, ShadowScaleX = 1.2, PreDelay = 0.1, } )
 	PlaySound({ Name = "/SFX/CrappyRewardDrop", Id = CurrentRun.Hero.ObjectId })
 
 	waitUnmodified( 0.2 )
@@ -441,7 +592,7 @@ function ErisCurseAppliedPresentation( source, args )
 
 	AdjustRadialBlurDistance({ Fraction = 0, Duration = 1. })
 	AdjustRadialBlurStrength({ Fraction = 1.5, Duration = 1.0 })
-	AdjustFullscreenBloom({ Name = preFountainBloom, Duration = 1.0 })
+	BloomRequestEnd({ SourceName = "ErisCurseAppliedPresentation", Duration = 1.0 })
 	AdjustColorGrading({ Name = "Off", Duration = 1.0 })
 
 	FocusCamera({ Fraction = CurrentRun.CurrentRoom.ZoomFraction, Duration = 1, ZoomType = "Ease" })
@@ -480,6 +631,15 @@ function ErisTakeOff( eris )
 
 end
 
+function UpdateShrineAnimation( activeBounty )
+	local shrineId = 589694
+	if activeBounty then
+		SetAnimation({ DestinationId = shrineId, Name = "Crossroads_Shrine_On01_Active" }) -- nopkg
+	else
+		SetAnimation({ DestinationId = shrineId, Name = "Crossroads_Shrine_On01" }) -- nopkg
+	end
+end
+
 function UpdateShrineRunDoorArrow( source, args )
 	args = args or {}
 	GameState.ActiveShrineBounty = nil
@@ -502,14 +662,15 @@ function UpdateShrineRunDoorArrow( source, args )
 					shrinePoints = completeRequirement.Value
 				end
 			end
-			if matchedWeapon and activeShrinePoints >= shrinePoints and not GameState.BountiesCompleted[bountyName] then
+			if matchedWeapon and activeShrinePoints >= shrinePoints and not GameState.ShrineBountiesCompleted[bountyName] then
 				if bountyData.UnlockGameStateRequirements == nil or IsGameStateEligible( bountyData, bountyData.UnlockGameStateRequirements ) then		
 					GameState.ActiveShrineBounty = bountyData.Name
+					UpdateShrineAnimation( bountyData.Name )
 					-- Eligible bounty	
 					--DebugPrint({ Text = "bountyName = "..bountyName })
 					-- Determine which door
-					DebugAssert({ Condition = ScreenData.Shrine.BountyEncounterDoorFlipMap[bountyData.Encounter] ~= nil, Text = "Encounter is missing from BountyEncounterDoorFlipMap: "..bountyData.Encounter, Owner = "James" })
-					local shouldFlip = ScreenData.Shrine.BountyEncounterDoorFlipMap[bountyData.Encounter]
+					DebugAssert({ Condition = ScreenData.Shrine.BountyEncounterDoorFlipMap[bountyData.Encounters[1]] ~= nil, Text = "Encounter is missing from BountyEncounterDoorFlipMap: "..bountyData.Encounters[1], Owner = "James" })
+					local shouldFlip = ScreenData.Shrine.BountyEncounterDoorFlipMap[bountyData.Encounters[1]]
 					local prevShouldFlip = SessionMapState.ShrineRunDoorFlipped or false
 					if shouldFlip ~= prevShouldFlip then
 						if not args.SkipPresentation then
@@ -529,6 +690,7 @@ function UpdateShrineRunDoorArrow( source, args )
 
 	-- None eligible, fade out
 	SetAlpha({ Id = ScreenData.Shrine.ShrineRunDoorArrowId, Fraction = 0.0, Duration = fadeDuration })
+	UpdateShrineAnimation()
 
 end
 
@@ -626,28 +788,12 @@ function SkellyStatueAdmire( source, args )
 
 end
 
-function StatueUnlockedPresentation( source, args, screen, line )
-	wait(1.35)
-
-	DisplayInfoBanner( nil,
-		{
-			Text = args.Text or "SkellyStatue_Unlocked",
-			SubtitleText = args.Subtitle,
-			Delay = 0.75,
-			TextColor = Color.Turquoise,
-			Layer = "Overlay",
-			FontScale = 0.9,
-			AnimationName = "LocationBackingIrisGenericIn",
-			AnimationOutName = "LocationBackingIrisGenericOut",
-			Duration = 3.95
-		}
-	)
-	-- CheckAchievement( { Name = "AchBronzeSkellyTrophy" } )
-	-- CheckAchievement( { Name = "AchSilverSkellyTrophy" } )
-end
-
 function StatueHitPresentation( source, triggerArgs, args )
 	Shake({ Id = source.ObjectId, Distance = 1, Speed = 100, Duration = 0.15, })
 	Shake({ Id = args.DrapeId, Distance = 1, Speed = 100, Duration = 0.15, })
-	thread( PlayVoiceLines, GlobalVoiceLines.TrophyAttackReactionVoiceLines, true, source )
+	thread( PlayVoiceLines, GlobalVoiceLines.TrophyAttackReactionVoiceLines, true, source, triggerArgs )
+end
+
+function CreateShrineScreenDelay()
+	wait( 0.22 )
 end

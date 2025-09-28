@@ -24,10 +24,15 @@ end
 function NemesisDropPresentation( source, args )
 	SetAnimation({ DestinationId = source.ObjectId, Name = "Nemesis_Hub_Toss" })
 	wait( 1.6 )
-	if CurrentRun.CurrentRoom.RoomSetName == "H" then
-		SetAnimation({ DestinationId = source.ObjectId, Name = "Nemesis_Hub_Idle" })
-	else
-		SetAnimation({ DestinationId = source.ObjectId, Name = "Nemesis_Hub_Equip" })
+	SetAnimation({ DestinationId = source.ObjectId, Name = "Nemesis_Hub_Idle" })
+end
+
+function NemesisPostDropPresentation( source, consumable, args )
+	wait( 2.0 )
+	local requiredObjects = ShallowCopyTable( MapState.RoomRequiredObjects )
+	requiredObjects[consumable.ObjectId] = nil
+	if not IsEmpty( requiredObjects ) then
+		NemesisTeleportExitPresentation( source, args )
 	end
 end
 
@@ -59,6 +64,9 @@ function NemesisTakeDamagePreCostPresentation( screen, args )
 end
 
 function NemesisTakeDamagePostCostPresentation( screen, args )
+	if CurrentRun.Hero.IsDead then
+		return
+	end
 	wait(0.1)
 	PlaySound({ Name = "/VO/MelinoeEmotes/EmoteHurt", Id = CurrentRun.Hero.ObjectId })
 	AdjustRadialBlurDistance({ Fraction = 0, Duration = 0.3 })

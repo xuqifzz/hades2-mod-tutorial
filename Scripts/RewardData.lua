@@ -76,7 +76,7 @@ RewardData =
 							},
 							{
 								Path = { "CurrentRun", "CurrentRoom", "Name" },
-								IsNone = { "I_Intro" },
+								IsNone = { "I_Intro", "I_Story01" },
 							},
 							{
 								Path = { "CurrentRun", "RemainingClockworkGoals", },

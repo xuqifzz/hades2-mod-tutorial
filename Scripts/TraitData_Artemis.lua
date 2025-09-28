@@ -39,7 +39,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedCritBonus",
 				ExtractAs = "CritBonus",
-				Format = "Percent"
+				Format = "LuckModifiedPercent"
 			},
 		},
 	},
@@ -55,15 +55,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 40/30,
+				Multiplier = 60/50,
 			},
 			Epic =
 			{
-				Multiplier = 50/30,
+				Multiplier = 70/50,
 			},
 			Heroic =
 			{
-				Multiplier = 60/30,
+				Multiplier = 80/50,
 			},
 		},
 		
@@ -153,7 +153,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedCritBonus",
 				ExtractAs = "CritBonus",
-				Format = "Percent"
+				Format = "LuckModifiedPercent"
 			},
 			{
 				Key = "ReportedThreshold",
@@ -202,7 +202,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedCritBonus",
 				ExtractAs = "CritBonus",
-				Format = "Percent",
+				Format = "LuckModifiedPercent",
 			},
 		},
 	},
@@ -237,7 +237,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				EffectName = "OmegaDamageBuffEffect",
 				EffectArgs = { 
-					Modifier = { BaseValue = 1.20, SourceIsMultiplier = true},
+					Modifier = { BaseValue = 0.08 },
 					Duration = 2,
 					ReportValues = 
 					{
@@ -257,7 +257,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedModifier",
 				ExtractAs = "DamageBonus",
-				Format = "PercentDelta",
+				Format = "LuckModifiedPercent",
 			},
 			{
 				Key = "ReportedDuration",
@@ -293,7 +293,6 @@ OverwriteTableKeys( TraitData, {
 		{
 			FunctionName = "CheckSupportingFire",
 			ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,	
-			FirstHitOnly = true,
 			Args = 
 			{
 				ProjectileName = "ArtemisSupportingFire",
@@ -303,6 +302,14 @@ OverwriteTableKeys( TraitData, {
 				ProjectileCap = 3,
 				StartAngle = 180,
 				Scatter = 20,
+				MultihitProjectileWhitelist = 
+				{
+					"ProjectileStaffSingle",
+				},
+				MultihitProjectileConditions = 
+				{
+					ProjectileStaffSingle = { Window = 0.25, Count = 3, },
+				},
 				ReportValues = 
 				{ 
 					ReportedMultiplier = "DamageMultiplier",
@@ -379,6 +386,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedInterval",
 				ExtractAs = "Interval",
+				Format = "SpeedModifiedDuration",
 			},
 			{
 				External = true,
@@ -398,5 +406,158 @@ OverwriteTableKeys( TraitData, {
 				SkipAutoExtract = true,
 			}
 		}
+	},
+	FocusCritBoon = 
+	{
+		InheritFrom = { "BaseTrait", "AirBoon" },
+		Icon = "Boon_Artemis_34",
+		BlockStacking = true,
+		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 1.2,
+			},
+			Epic =
+			{
+				Multiplier = 1.4,
+			},
+			Heroic =
+			{
+				Multiplier = 1.6,
+			},
+		},
+		SetupFunction =
+		{
+			Name = "TraitReserveMana",
+			Args =
+			{
+				Name = "FocusSpecialCritChance",
+				ManaReservationCost = 40,
+				ReportValues = 
+				{ 
+					ReportedCost = "ManaReservationCost",
+				}
+			},
+		},
+		OnExpire = 
+		{
+			FunctionName = "TraitUnreserveMana",
+			FunctionArgs = { Name = "FocusSpecialCritChance" },
+		},
+		AddOutgoingCritModifiers =
+		{
+			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
+			Chance = { BaseValue = 0.10 },
+			ReportValues = { ReportedCritBonus = "Chance"},
+		},
+		StatLines =
+		{
+			"CriticalSpecialsChanceDisplay1",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedCritBonus",
+				ExtractAs = "CritBonus",
+				Format = "LuckModifiedPercent",
+				IncludeSigns = true,
+			},
+			{
+				Key = "ReportedCost",
+				ExtractAs = "TooltipCost",
+				SkipAutoExtract = true,
+			},
+		}
+	},
+	SorceryCritBoon = 
+	{
+		InheritFrom = { "AirBoon" },
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 0.35/0.3,
+			},
+			Epic =
+			{
+				Multiplier = 0.4/0.3,
+			},
+			Heroic =
+			{
+				Multiplier = 0.45/0.3,
+			},
+		},
+		Icon = "Boon_Artemis_35",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasAny = 
+				{
+					"SpellLaserTrait",
+					"SpellLeapTrait",
+					"SpellSummonTrait",
+					"SpellMeteorTrait",
+					"SpellTransformTrait",
+					"SpellMoonBeamTrait",
+					"SpellPolymorphTrait"
+				},
+			},
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "ArtemisGrantsReward01" },
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "ArtemisGrantsReward01" },
+			},
+		},
+		FirstTimeEntranceAnimation = "BoonEntranceNew",
+		PriorityRequirements =
+		{
+			{
+				PathFalse = { "GameState", "TraitsSeen", "SorceryCritBoon" },
+			},
+		},
+		AllyDataModifiers = 
+		{			
+			OutgoingCritModifiers =
+			{
+				{
+					Chance = {BaseValue = 0.3},
+				},
+			},
+		},
+		AddOutgoingCritModifiers =
+		{
+			-- Match this to above ally data modifier too!
+			ValidProjectiles = WeaponSets.SpellProjectileNames,
+			Chance = {BaseValue = 0.3},
+			ReportValues = { ReportedChance = "Chance"},
+		},
+		StatLines = 
+		{
+			"SorceryCritChanceDisplay1",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedChance",
+				ExtractAs = "Chance",
+				Format = "LuckModifiedPercent",
+			},
+		},
+		FlavorText = "SorceryCritBoon_FlavorText",
 	},
 })

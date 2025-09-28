@@ -1,0 +1,254 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyOctofishBaseAnimation"
+		
+		GrannyModel = "OctoFish_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_Octofish_Idle"
+		InheritFrom = "EnemyOctofishBaseAnimation"
+		GrannyAnimation = "OctoFish_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Octofish_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Octofish_MoveStart"
+		InheritFrom = "EnemyOctofishBaseAnimation"
+		GrannyAnimation = "OctoFish_Base_Move_Start_C_00"
+		NativeMoveSpeed = 250
+		ChainTo = "Enemy_Octofish_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Octofish_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Octofish_Move"
+		InheritFrom = "EnemyOctofishBaseAnimation"
+		GrannyAnimation = "OctoFish_Base_Move_C_00"
+		NativeMoveSpeed = 250
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Octofish_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Octofish_MoveStop"
+		InheritFrom = "EnemyOctofishBaseAnimation"
+		GrannyAnimation = "OctoFish_Base_Move_Stop_C_00"
+		NativeMoveSpeed = 250
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Octofish_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Octofish_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Octofish_OnHit"
+		InheritFrom = "EnemyOctofishBaseAnimation"
+		GrannyAnimation = "OctoFish_Base_OnHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Octofish_Idle"
+		Sound = "/SFX/Enemy Sounds/EarthElemental/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 3
+				FrameSpeed = 1
+			}
+			{
+				Frame = 8
+				FrameSpeed = 0.92
+			}
+		]
+	}
+	{
+		Name = "Enemy_Octofish_OnHit_Heavy"
+		InheritFrom = "Enemy_Octofish_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_Octofish_Spawn"
+		InheritFrom = "EnemyOctofishBaseAnimation"
+		GrannyAnimation = "OctoFish_Base_Spawn_C_00"
+		ChainTo = "Enemy_Octofish_Idle"
+	}
+
+	{
+		Name = "Enemy_Octofish_StingPreFire"
+		InheritFrom = "EnemyOctofishBaseAnimation"
+		GrannyAnimation = "OctoFish_Base_SpinPreFire_C_00"
+		ChainTo = "Enemy_Octofish_StingPreFire2"
+		Sound = "/SFX/Enemy Sounds/CorruptedShadeMedium/ChargeShort"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Octofish_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_OnHit_Heavy"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_MoveStop"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Octofish_StingPreFire2"
+		InheritFrom = "EnemyOctofishBaseAnimation"
+		GrannyAnimation = "OctoFish_Base_SpinFire_C_00"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Enemy_Octofish_StingFireLoop"
+		InheritFrom = "EnemyOctofishBaseAnimation"
+		GrannyAnimation = "OctoFish_Base_SpinFireLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Octofish_StingPostFire"
+		InheritFrom = "EnemyOctofishBaseAnimation"
+		GrannyAnimation = "OctoFish_Base_SpinPostFire_C_00"
+		ChainTo = "Enemy_Octofish_Idle"
+		Sound = "/SFX/Enemy Sounds/Hades/HadesLaserSpin3"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Octofish_StingFireLoop"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Jellyfish/HellifishJump"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Octofish_InkPreFire"
+		InheritFrom = "EnemyOctofishBaseAnimation"
+		GrannyAnimation = "OctoFish_Base_InkPreFire_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Octofish_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_OnHit_Heavy"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Octofish_MoveStop"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Octofish_InkFire"
+		InheritFrom = "EnemyOctofishBaseAnimation"
+		GrannyAnimation = "OctoFish_Base_InkFire_C_00"
+		ChainTo = "Enemy_Octofish_InkPostFire"
+	}
+
+	{
+		Name = "Enemy_Octofish_InkPostFire"
+		InheritFrom = "EnemyOctofishBaseAnimation"
+		GrannyAnimation = "OctoFish_Base_InkPostFire_C_00"
+		ChainTo = "Enemy_Octofish_Idle"
+	}
+
+
+]}

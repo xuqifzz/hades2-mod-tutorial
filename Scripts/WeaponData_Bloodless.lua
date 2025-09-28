@@ -29,18 +29,13 @@ WeaponSetData =
 
 			PreAttackEndShake = true,
 			PreAttackEndDuration = 0.42,
-			PreAttackEndFlashFraction = 0.6,
+			PreAttackEndFlashFraction = 0.8,
 
 			PreAttackAnimation = "Enemy_BloodlessNaked_AttackPreFire",
 			FireAnimation = "Enemy_BloodlessNaked_AttackFire",
 			PostAttackAnimation = "Enemy_BloodlessNaked_AttackPostFire",
-		},
 
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0 },
+			FireFx = "BloodlessMeleeStreaks",
 		},
 
 		Sounds =
@@ -105,7 +100,7 @@ WeaponSetData =
 			AttackDistance = 9999,
 
 			-- Blink ban
-			TeleportToSpawnPoints = false,
+			PreMoveTeleport = false,
 		},
 
 		Sounds =
@@ -115,13 +110,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Bloodless01/EmoteThrustAttacking" },
 				{ Name = "/SFX/Enemy Sounds/WrechPunchSwing" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.14, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 
@@ -133,6 +121,7 @@ WeaponSetData =
 
 			ProjectileName = "BloodlessMeleeBerserker",
 
+			PreAttackAnimationSpeed = 0.4,
 			PreAttackAnimation = "Enemy_BloodlessNaked_WildAttack1_Start",
 			FireAnimation = "Enemy_BloodlessNaked_WildAttack1_Fire",
 
@@ -142,8 +131,6 @@ WeaponSetData =
 			FireFx = "BloodlessBerserkerSwipe",
 
 			PreAttackSound = "/SFX/Enemy Sounds/Bloodless01/EmoteCharging",
-			PreAttackAnimation = "Enemy_BloodlessNaked_WildAttack1_Start",
-			PreAttackAnimationSpeed = 0.4,
 			PreAttackDuration = 0.5,
 			PreAttackEndShake = true,
 			FireDuration = 0.22,
@@ -169,13 +156,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Bloodless01/EmoteThrustAttacking" },
 				{ Name = "/SFX/Enemy Sounds/WrechPunchSwing" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.14, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 
@@ -203,13 +183,6 @@ WeaponSetData =
 			{
 				{ Name = "/SFX/Enemy Sounds/WrechPunchSwing" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.14, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 
@@ -263,13 +236,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/BloodlessWaveFist/EmoteWaveFistAttack" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	BloodlessWaveFistWeaponElite =
@@ -301,7 +267,7 @@ WeaponSetData =
 			LeapWhenTargetOutOfSight = false,
 
 			-- Elite Attribute Blink ban
-			TeleportToSpawnPoints = false,
+			PreMoveTeleport = false,
 		},
 	},
 
@@ -340,14 +306,6 @@ WeaponSetData =
 			PreAttackAnimation = "Enemy_BloodlessGrenadier_LobPreFire",
 			FireAnimation = "Enemy_BloodlessGrenadier_LobFire",
 			PostAttackAnimation = "Enemy_BloodlessGrenadier_LobPostFire",
-
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.3, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.03 },
 		},
 
 		Sounds =
@@ -403,14 +361,7 @@ WeaponSetData =
 			PreAttackAnimation = "Enemy_BloodlessGrenadier_Leap",
 
 			-- Elite Attribute Blink ban
-			TeleportToSpawnPoints = false,
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.1, LerpTime = 0 },
-			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0.1 },
+			PreMoveTeleport = false,
 		},
 	},
 
@@ -435,7 +386,7 @@ WeaponSetData =
 			AttackDistance = 9999999,
 
 			-- Elite Attribute Blink ban
-			TeleportToSpawnPoints = false,
+			PreMoveTeleport = false,
 		},	
 	},
 
@@ -478,13 +429,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Bloodless02/EmoteAttackingMultiMortars" },
 				{ Name = "/SFX/Explosion1" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 
@@ -553,13 +497,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/BloodlessPitcher/EmoteFastBall" }
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
-		},
 	},
 
 	BloodlessPitchCurve =
@@ -578,13 +515,6 @@ WeaponSetData =
 				{ Name = "/Leftovers/World Sounds/TrainingMontageWhoosh" },
 				{ Name = "/SFX/Enemy Sounds/BloodlessPitcher/EmoteCurveBall" }
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.14, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 
@@ -610,13 +540,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/WrechPunchSwing" },
 				{ Name = "/SFX/Enemy Sounds/BloodlessPitcher/EmoteCurveBall" }
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 }

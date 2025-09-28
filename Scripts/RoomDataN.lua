@@ -3,9 +3,12 @@ RoomSetData.N =
 	BaseN =
 	{
 		DebugOnly = true,
+		RichPresence = "#RichPresence_N",
 		Icon = "GUI\\Screens\\BountyBoard\\Biome_Ephyra",
 		ResultText = "RunHistoryScreenResult_Ephyra",
 		IgnoreForRewardStoreCount = true,
+		
+		HarvestPointBase = "DrownedChambersHarvestPointBase01",
 		
 		ValidateSecretData = true,
 		HasHarvestPoint = true,
@@ -13,6 +16,280 @@ RoomSetData.N =
 		HasPickaxePoint = true,
 		HasFishingPoint = false,
 		HasExorcismPoint = true,
+
+		LocationAnimName = "InfoBannerEphyraIn",
+		LocationAnimOutName = "InfoBannerEphyraOut",
+
+		HarvestPointRequirements =
+		{
+			{
+				SumPrevRooms = 12,
+				Path = { "NumHarvestPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantNMoss" },
+						Comparison = "<",
+						Value = 8,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+				},
+			},
+		},
+		ShovelPointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeToolsShop" },
+			},
+			{
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeSurfacePenaltyCure" },
+			},
+			{
+				SumPrevRooms = 12,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 3,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 3,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 3,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantNGarlicSeed" },
+						Comparison = "<",
+						Value = 12,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 5,
+						Path = { "NumPickaxePoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
+		},
+		PickaxePointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeSurfacePenaltyCure" },
+			},
+			{
+				SumPrevRooms = 12,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 3,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 3,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 3,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "OreNBronze" },
+						Comparison = "<",
+						Value = 30,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 5,
+						Path = { "NumShovelPoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
+		},
+		ExorcismPointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 2,
+			},
+			{
+				Path = { "CurrentRun", "BiomeDepthCache" },
+				Comparison = ">=",
+				Value = 2,
+			},
+			{
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeSurfacePenaltyCure" },
+			},
+			{
+				SumPrevRooms = 16,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 3,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 3,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 3,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					OrRequirements =
+					{
+						{
+							{
+								Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+								Comparison = "<=",
+								Value = 1500,
+							},
+						},
+						{
+							{
+								Path = { "GameState", "ExorcisedNames", "ShadeEphyraIdle" },
+								Comparison = "<",
+								Value = 2,
+							},
+						},
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 5,
+						Path = { "NumFishingPoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
+		},
+		FishingPointRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeToolsShop" },
+			},
+			{
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeSurfacePenaltyCure" },
+			},
+			{
+				SumPrevRooms = 14,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 3,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 3,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 3,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", },
+						NotHasAll = { "FishNCommon", "FishNRare", "FishNLegendary" },
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 5,
+						Path = { "NumExorcismPoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
+		},
+
 		SecretSpawnChance = 0.0,
 		SecretDoorRequirements =
 		{
@@ -104,14 +381,7 @@ RoomSetData.N =
 				Args = RoomEventData.BountyInfoBannerArgs,
 				GameStateRequirements =
 				{
-					{
-						PathTrue = { "CurrentRun", "ActiveBounty" },
-					},
-					{
-						Path = { "SessionState", "MapLoads" },
-						Comparison = "<=",
-						Value = 1,
-					},
+					NamedRequirements = { "ShouldShowBountyInfoBanner" },
 				},
 			},
 		},
@@ -122,14 +392,7 @@ RoomSetData.N =
 				Args = RoomEventData.BountyInfoBannerArgs,
 				GameStateRequirements =
 				{
-					{
-						PathTrue = { "CurrentRun", "ActiveBounty" },
-					},
-					{
-						Path = { "SessionState", "MapLoads" },
-						Comparison = "<=",
-						Value = 1,
-					},
+					NamedRequirements = { "ShouldShowBountyInfoBanner" },
 				},
 			},
 		},
@@ -156,30 +419,46 @@ RoomSetData.N =
 		ZoomStartFraction = 0.80,
 
 		DisableRewardMagnetisim = true,
+		TeleportCatFamiliarOnEncounterStart = true,
 		
 		EntranceFunctionName = "RoomEntranceMaterialize",
 		EntranceFunctionArgs = { HeroGoalAngle = 35 },
 
 		MusicStartDelay = 5,
 
-		HarvestPointChances =
-		{
-			1.0,
-			0.4,
-			0.1,
-		},
+		HarvestPointChances = { 0.02, },
+		ShovelPointChance = 0.02,
+		PickaxePointChance = 0.02,
+		--ExorcismPointChance = 0.02,
+		FishingPointChance = 0.27,
 
-		ShovelPointChance = 0,
-		PickaxePointChance = 0,
-		ExorcismPointChance = 0,
-		FishingPointChance = 0.3,
-
-		HarvestPointRequirements = 
+		HarvestPointForceRequirements = 
 		{ 
 			{
 				Path = { "GameState", "LifetimeResourcesGained", "PlantNMoss" },
 				Comparison = "<=",
 				Value = 3,
+			},
+		},
+
+		ThreadedEvents =
+		{
+			Threaded = true,
+			-- Biome banner plays in N_Hub
+			{
+				FunctionName = "DisplayInfoBanner",
+				Args = RoomEventData.BountyInfoBannerArgs,
+				GameStateRequirements =
+				{
+					NamedRequirements = { "ShouldShowBountyInfoBanner" },
+				},
+			},
+			{
+				FunctionName = "CheckObjectiveSetSource",
+				Args =
+				{
+					ObjectiveSetName = "BountyAdvancedTooltip",
+				},
 			},
 		},
 
@@ -253,41 +532,6 @@ RoomSetData.N =
 
 		ObstacleData =
 		{
-			--[[
-			-- City Gates
-			[40055] =
-			{
-				Name = "CityGates",
-				DistanceTriggers =
-				{
-					{
-						WithinDistance = 450,
-						TriggerOnceThisRun = true,
-						FunctionName = "DisplayInfoBanner",
-						Args =
-						{
-							Text = "Location_BiomeN",
-							Delay = 0.65,
-							Color = Color.White,
-							FadeColor = Color.Red,
-							Duration = 2.25,
-						},
-						VoiceLines =
-						{
-							UsePlayerSource = true,
-							Queue = "Always",
-							-- RequiredTextLines = { "Ending01" },
-							Cooldowns =
-							{
-								-- { Name = "ZagreusGardenSpeech", Time = 20 },
-							},
-							-- 	Stand tall. Nothing to be ashamed of.
-							-- { Cue = "/VO/Melinoe_0002_V3", Text = "Stand tall. Nothing to be ashamed of." },
-						},
-					},
-				}
-			},
-			]]--
 		},
 
 		IneligibleRewards = RewardSets.OpeningRoomBans,
@@ -328,6 +572,14 @@ RoomSetData.N =
 			},
 			{
 				Name = "Boon",
+				LootName = "AresUpgrade",
+				GameStateRequirements =
+				{
+					NamedRequirements = { "AresUnlocked" },
+				},
+			},
+			{
+				Name = "Boon",
 				LootName = "PoseidonUpgrade",
 				GameStateRequirements =
 				{
@@ -336,6 +588,92 @@ RoomSetData.N =
 					},
 					NamedRequirements = { "DevotionTestUnlocked" },
 				}
+			},
+			-- special case if you reach Q but not the final confrontation; also in RoomDataF
+			{
+				Name = "Boon",
+				LootName = "PoseidonUpgrade",
+				GameStateRequirements =
+				{
+					{
+						Path = { "PrevRun", "RoomsEntered" },
+						HasAny = { "Q_Intro" },
+					},
+					{
+						Path = { "PrevRun", "RoomsEntered" },
+						HasNone = { "Q_MiniBoss03" },
+					},
+					{
+						PathFalse = { "GameState", "RoomsEntered", "Q_Boss01" }
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "PoseidonAboutSurfaceThreat01" }
+					},
+				},
+			},
+			{
+				Name = "Boon",
+				LootName = "HermesUpgrade",
+				GameStateRequirements =
+				{
+					{
+						Path = { "PrevRun", "RoomsEntered" },
+						HasAny = { "Q_MiniBoss03" },
+					},
+					{
+						Path = { "GameState", "RoomsEntered" },
+						HasNone = { "Q_Boss01" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "HermesAboutTyphonReveal01" }
+					}
+				},
+			},
+			{
+				Name = "Boon",
+				LootName = "ZeusUpgrade",
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ZeusPostTrueEnding01" },
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+			},
+			{
+				Name = "Boon",
+				LootName = "HermesUpgrade",
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "HermesPostEpilogue01" },
+					},
+					NamedRequirements = { "ReachedEpilogue" },
+				},
+			},
+			-- special case for Hermes & Apollo Keepsake; also in RoomDataF
+			{
+				Name = "Boon",
+				LootName = "HermesUpgrade",
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "ForceApolloBoonKeepsake" },
+					},
+					{
+						Path = { "GameState", "TraitUses", "ForceApolloKeepsake" },
+						Comparison = ">=",
+						Value = 4,
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "HermesAboutApolloKeepsake01" }
+					},
+				},
 			},
 		},
 
@@ -378,7 +716,7 @@ RoomSetData.N =
 
 		ExitVoiceLines =
 		{
-			[1] = { GlobalVoiceLines = "StorytellerRunStartVoiceLines" },
+			{ GlobalVoiceLines = "StorytellerRunStartVoiceLines" },
 		},
 
 		InspectPoints =
@@ -402,7 +740,7 @@ RoomSetData.N =
 					Inspect_N_Opening01_01 =
 					{
 						{ Cue = "/VO/Storyteller_0150",
-							Text = "{#Emph}As the ill-fated princess feels her life-force fade with every breath of surface air, her sole recourse is to return from whence she came." },
+							Text = "{#Emph}As the ill-fated princess feels her life-force fade with every breath of surface air, her sole recourse is to return whence she came." },
 						EndVoiceLines =
 						{
 							PreLineWait = 0.4,
@@ -451,6 +789,9 @@ RoomSetData.N =
 					{
 						PathFalse = { "CurrentRun", "ActiveBounty" },
 					},
+					{
+						PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeSurfacePenaltyCure" },
+					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
@@ -489,6 +830,23 @@ RoomSetData.N =
 		IneligibleRewards = RewardSets.OpeningRoomBans,
 
 		StartUnthreadedEvents = {},
+
+		StartThreadedEvents =
+		{
+			{ FunctionName = "ShadeMercManager", GameStateRequirements = { ChanceToPlay = 0.5 }, Args = { StartingCountMin = 0, StartingCountMax = 5, ObjectNames = { "ShadeMerc" }, MaxActive = 5, RequireForExit = false } },
+		},
+
+		PickaxePointForceRequirements = 
+		{ 
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "OreNBronze" },
+				Comparison = "<",
+				Value = 1,
+			},
+			{
+				PathFalse = { "CurrentRun", "ActiveBounty" },
+			},
+		},
 
 		OnUseSetRunData =
 		{
@@ -562,12 +920,18 @@ RoomSetData.N =
 	{
 		InheritFrom = { "BaseN" },
 		LegalEncounters = { "Empty" },
+
+		HasHarvestPoint = false,
+		HasShovelPoint = false,
+		HasPickaxePoint = false,
+		HasFishingPoint = false,
+		HasExorcismPoint = false,
+
 		NoReward = true,
 		HideRewardPreview = true,
 		NoReroll = true,
 		SkipLastKillPresentation = true,
 		CloseDoorsOnUse = true,
-		--FirstAppearanceNumExitOverrides = 2,
 		ReverbValue = 2.0,
 		GlobalEcho = 0.35,
 		RandomStemMixerTimesVisitedLimit = 99,
@@ -578,8 +942,8 @@ RoomSetData.N =
 				{
 					{
 						Name = "Drums",
-						Value = 1.0,
-						Duration = 0.25,
+						Value = 0.0,
+						Duration = 1.0,
 					},
 					{
 						Name = "Guitar",
@@ -598,8 +962,8 @@ RoomSetData.N =
 				{
 					{
 						Name = "Drums",
-						Value = 1.0,
-						Duration = 0.25,
+						Value = 0.0,
+						Duration = 1.0,
 					},
 					{
 						Name = "Guitar",
@@ -618,8 +982,8 @@ RoomSetData.N =
 				{
 					{
 						Name = "Drums",
-						Value = 1.0,
-						Duration = 0.25,
+						Value = 0.0,
+						Duration = 1.0,
 					},
 					{
 						Name = "Guitar",
@@ -648,7 +1012,7 @@ RoomSetData.N =
 			[662609] = 1.65, -- west / bot-high
 			[662592] = 1.40, -- west / mid
 			[660491] = 1.55, -- west / top
-			[660490] = 1.00, -- fountain
+			[660490] = 1.20, -- fountain
 			[660494] = 1.50, -- east / top
 			[660495] = 1.70, -- east / mid
 			[660492] = 1.80, -- east / bot
@@ -667,6 +1031,7 @@ RoomSetData.N =
 
 		FamiliarsPreferSpawnPointMovement = true,
 		FrogFamiliarMaxLeapDistance = 800,
+		HoundFamiliarIgnoreUnitsForPathfinding = true,
 
 		StartRoomPresentationOnReload = true,
 		EncounterCompleteWait = 0.02,
@@ -725,7 +1090,14 @@ RoomSetData.N =
 		ThreadedEvents =
 		{
 			{
-				FunctionName = "DisplayInfoBanner", Args = { Text = "Location_BiomeN", Delay = 2.0, UseBiomeStateSubtitle = true, },
+				FunctionName = "DisplayInfoBanner",
+				Args =
+				{
+					Text = "Location_BiomeN",
+					AnimationName = "InfoBannerEphyraIn",
+					AnimationOutName = "InfoBannerEphyraOut",
+					Delay = 2.0,
+				},
 				GameStateRequirements =
 				{
 					{
@@ -758,6 +1130,7 @@ RoomSetData.N =
 					ProcessTextLinesIds = { 566363 },
 					PreTextLinesWaitTime = 3.0,
 					SkipBossMusic = true,
+					PanTargetIds = { 566363, 50059 },
 					SkipAngleTowardTarget = true,
 					DurationIn = 3.5,
 					DurationOut = 3.5,
@@ -787,12 +1160,11 @@ RoomSetData.N =
 						"HubReturnZombieIsolated03", "Empty", "Empty",
 						"HubReturnZombieCorpses01", "Empty", "Empty",
 						"HubReturnCarrionEating01", "Empty", "Empty",
-						"HubReturnAssassin01", "Empty", "Empty",
-						"HubReturnMudman01", "Empty", "Empty",
-						"HubReturnMudman02", "Empty", "Empty",
+						--"HubReturnAssassin01", "Empty", "Empty",
+						--"HubReturnMudman01", "Empty", "Empty",
+						--"HubReturnMudman02", "Empty", "Empty",
 						"HubReturnSpawners01", "Empty", "Empty",
 						"HubReturnSpawners02", "Empty", "Empty",
-						"HubReturnZombieHeavyRanged01", "Empty", "Empty",
 					},
 				},
 			},
@@ -841,14 +1213,52 @@ RoomSetData.N =
 				},
 			},
 			{
+				FunctionName = "DestroyEphyraBarrier",
+				Args = { Groups = { "HubBarrier_VFX" } },
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "SpawnRecord", "SoulPylon" },
+						Comparison = ">=",
+						Value = 6,
+					}
+				},
+			},
+			{
 				FunctionName = "HandlePylonObjective",
 				Args = {  },
 			},
 		},
 
+		OnFamiliarSpawnEvents =
+		{
+			{
+				FunctionName = "AdjustFamiliarPathfinding",
+				Args =
+				{
+					NodeDistance = 16,
+					NodeSuccessDistance = 8,
+					Points =
+					{
+						{ X = 0, Y = 17 },
+						{ X = -34, Y = 0 },
+						{ X = 0, Y = -17 },
+						{ X = 34, Y = 0 },
+					},
+				},
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "EquippedFamiliar" },
+						IsAny = { "HoundFamiliar", "PolecatFamiliar" },
+					},
+				},
+			},
+		},
+
 		PredeterminedDoorRooms =
 		{
-			[617113] = "N_Combat01", -- SE Lower CHANGE
+			[617113] = "N_Combat01", -- SE Lower
 			[560725] = "N_Combat02", -- SW
 			[560702] = "N_Combat03", -- NW
 			[560707] = "N_Combat04", -- NW
@@ -870,17 +1280,17 @@ RoomSetData.N =
 			[561418] = "N_Combat20", -- NW Upper
 			[560713] = "N_Combat21", -- NE
 			[560776] = "N_Combat22", -- NW
+			[561368] = "N_Combat23", -- NE
 			[617043] = "N_MiniBoss01", -- NE
-			--[560889] = "N_MiniBoss02", -- SE lower
+			[560889] = "N_MiniBoss02", -- SE lower
 			[560848] = "N_Story01", -- SE
-			[561395] = "N_Shop01", -- SW
+			--[561395] = "N_Shop01", -- SW
 
 			--[[ Unassigned
 			[617024] = NW Upper
 			[561380] = NW upper
 			[617144] = NE lower
-			[561368] = NE lower
-			[617113] = SW FLIPPED TO SE
+			[617162] = SW
 			]]
 
 		},
@@ -905,7 +1315,6 @@ RoomSetData.N =
 			Cooldowns =
 			{
 				{ Name = "MelinoeBriefQuipSpeech", Time = 1 },
-
 			},
 			-- main entrance, cursed
 			{
@@ -938,9 +1347,25 @@ RoomSetData.N =
 			},
 			-- main entrance
 			{
+				PlayOnce = true,
+				PlayOnceContext = "LeavingErebusHecateMissingVO",
 				BreakIfPlayed = true,
 				RandomRemaining = true,
 				PreLineWait = 1.15,
+				SkipCooldownCheckIfNonePlayed = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+
+				{ Cue = "/VO/MelinoeField_4578", Text = "Through Ephyra as before..." },
+			},
+			{
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				PreLineWait = 1.35,
 				SuccessiveChanceToPlay = 0.5,
 				SuccessiveChanceToPlayAll = 0.1,
 				PlayOnceFromTableThisRun = true,
@@ -968,6 +1393,21 @@ RoomSetData.N =
 				{ Cue = "/VO/MelinoeField_0368", Text = "Best have a look around..." },
 				{ Cue = "/VO/MelinoeField_0369", Text = "The main square..." },
 				{ Cue = "/VO/Melinoe_1370", Text = "Ephyra's main square...", PlayFirst = true },
+				{ Cue = "/VO/MelinoeField_4578", Text = "Through Ephyra as before...",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "ReachedTrueEnding" },
+						},
+						{
+							SumPrevRuns = 8,
+							Path = { "SpeechRecord", "/VO/MelinoeField_4578" },
+							CountPathTrue = true,
+							Comparison = "<=",
+							Value = 0,
+						},
+					},
+				},
 				{ Cue = "/VO/MelinoeField_0367", Text = "Something's different this time...", PlayFirst = true, PlayOnce = true,
 					GameStateRequirements =
 					{
@@ -1004,7 +1444,7 @@ RoomSetData.N =
 				BreakIfPlayed = true,
 				RandomRemaining = true,
 				PreLineWait = 1.35,
-				SuccessiveChanceToPlay = 0.2,
+				SuccessiveChanceToPlay = 0.15,
 				GameStateRequirements =
 				{
 					{
@@ -1025,6 +1465,11 @@ RoomSetData.N =
 					},
 					{
 						PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_0619" },
+					},
+					{
+						Path = { "GameState", "RoomsEntered", "N_PostBoss01" },
+						Comparison = "<=",
+						Value = 50,
 					},
 				},
 				{ Cue = "/VO/MelinoeField_0618", Text = "Something's changed...", PlayFirst = true },				
@@ -1485,11 +1930,11 @@ RoomSetData.N =
 	{	
 		InheritFrom = { "N_CombatData", "BaseN" },
 		HasFishingPoint = true,
-		FishingPointChance = 0.9,
+		FishingPointChance = 0.8,
 		LegalEncounters = { "Shop" },
 		ForcedReward = "Shop",
 		StoreDataName = "WorldShop",
-		StartUnthreadedEvents = EncounterSets.ShopRoomEvents,
+		StartUnthreadedEvents = EncounterSets.ShopRoomEvents_N,
 		NoReroll = true,
 		ZoomFraction = 0.875,
 		Ambience = "/Ambience/EphyraCityAmbience",
@@ -1502,7 +1947,8 @@ RoomSetData.N =
 				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeSurfacePenaltyCure", },
 			},
 			{
-				PathTrue = { "CurrentRun", "RoomCountCache", "N_Hub" },
+				Path = { "CurrentRun", "RoomCountCache", },
+				HasAny = { "N_PreHub01", "Chaos_01", "Chaos_02", "Chaos_03", "Chaos_04", "Chaos_05", "Chaos_06" },
 			},
 		},
 
@@ -1515,66 +1961,20 @@ RoomSetData.N =
 			}
 		},
 
-		ShovelPointChance = 0.4,
-		PickaxePointChance = 0.4,
-		ExorcismPointChance = 0.4,
-
 		EntranceDirection = "Left",
 		FlipHorizontalChance = 0.0,
 
 		-- Ambience = "/Leftovers/Object Ambiences/ShipwreckAmbience",
 		SpawnRewardGlobalVoiceLines = "FoundShopVoiceLines",
-
-		InspectPoints =
-		{
-			[646284] =
-			{
-				PlayOnce = true,
-				UseText = "UseExamineMisc",
-				SetupGameStateRequirements =
-				{
-					{
-						--
-					},
-					NamedRequirements = { "NoRecentInspectPointUsed" },
-				},
-				InteractTextLineSets =
-				{
-					Inspect_N_Shop01_01 =
-					{
-						{ Cue = "/VO/Storyteller_0154",
-							Text = "{#Emph}Across the River Acheron, the Underworld Boatman travels between realms, through hidden borders, unseen as a shadow in the dark." },
-						EndVoiceLines =
-						{
-							{
-								PreLineWait = 0.4,
-								UsePlayerSource = true,
-								RequiredMinElapsedTime = 3,
-								{ Cue = "/VO/MelinoeField_0484", Text = "Is there anywhere Lord Charon cannot row?" },
-							},
-							{
-								PreLineWait = 0.5,
-								ObjectType = "NPC_Charon_01",
-
-								{ Cue = "/VO/Charon_0051", Text = "{#Emph}Nrrgghhh...." },
-							},
-						},
-					},
-				},
-			},
-		},
 	},
 
 	N_PreBoss01 =
 	{
 		InheritFrom = { "BaseN" },
 		HasFishingPoint = true,
-		FishingPointChance = 0.9,
 		Ambience = "/Ambience/EphyraOutsideAmbience",
 
-		LinkedRoom = "N_Boss01",
-
-		StartUnthreadedEvents = {},
+		LinkedRooms = { "N_Boss01", "N_Boss02" },
 
 		GameStateRequirements =
 		{
@@ -1583,11 +1983,14 @@ RoomSetData.N =
 			},
 		},
 		
+		ZagContractRewardDestinationId = 776338,
+		
 		SecretSpawnChance = 0.0,
 
-		ShovelPointChance = 0.35,
-		PickaxePointChance = 0.35,
-		ExorcismPointChance = 0.35,
+		FishingPointChance = 0.4,
+
+		SurfaceShopSpawnChance = 0.0,
+		ChallengeSpawnChance = 0.0,
 
 		SkipLastKillPresentation = true,
 		LegalEncounters = { "Shop" },
@@ -1674,14 +2077,62 @@ RoomSetData.N =
 				},
 			},
 
-		},
+			[756311] =
+			{
+				PlayOnce = true,
+				UseText = "UseExamineMisc",
+				SetupGameStateRequirements =
+				{
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01", }, Alive = true },
+					},
+					NamedRequirements = { "NoRecentInspectPointUsed" },
+				},
+				InteractTextLineSets =
+				{
+					Inspect_N_PreBoss01_03 =
+					{
+						{ Cue = "/VO/Storyteller_0154",
+							Text = "{#Emph}Across the River Acheron, the Underworld Boatman travels between realms, through hidden borders, unseen as a shadow in the dark." },
+						EndVoiceLines =
+						{
+							{
+								PreLineWait = 0.4,
+								UsePlayerSource = true,
+								RequiredMinElapsedTime = 3,
+								{ Cue = "/VO/MelinoeField_0484", Text = "Is there anywhere Lord Charon cannot row?" },
+							},
+							{
+								PreLineWait = 0.5,
+								ObjectType = "NPC_Charon_01",
 
+								{ Cue = "/VO/Charon_0051", Text = "{#Emph}Nrrgghhh..." },
+							},
+						},
+					},
+				},
+			},
+
+		},
 
 	},
 
 	N_Boss01 =
 	{
 		InheritFrom = { "BaseN" },
+		GameStateRequirements =
+		{
+			{
+				FunctionName = "RequiredShrineLevel",
+				FunctionArgs =
+				{
+					ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+					Comparison = "<",
+					Value = 1,
+				},
+			},
+		},
 
 		FlipHorizontal = false,
 		FlipHorizontalChance = 0,
@@ -1701,11 +2152,15 @@ RoomSetData.N =
 		ForcedReward = "MixerNBossDrop",
 		NoReroll = true,
 
+		BackupCauseOfDeath = "Polyphemus",
+
 		EntranceFunctionName = "RoomEntranceBoss",
 		EntranceFunctionArgs = { AngleTowardsIdOnEnd = 558039 },
 		IntroSequenceDuration = 2.7,
 		BlockCameraReattach = true,
 		ZoomFraction = 0.7,
+
+		SheepExitId = 658446,
 
 		StartUnthreadedEvents = {},
 		
@@ -1717,7 +2172,6 @@ RoomSetData.N =
 				{
 					ProcessTextLinesIds = { 558039 },
 					SetupBossIds = { 558039 },
-					PreTextLinesWaitTime = 0.5,
 					DelayedStart = true,
 				},
 			},
@@ -1777,150 +2231,165 @@ RoomSetData.N =
 					},
 				},
 			},
-
-
 		},
 
 		EnterVoiceLines =
 		{
-			{
-				BreakIfPlayed = true,
-				RandomRemaining = true,
-				PreLineWait = 1.3,
-				SuccessiveChanceToPlay = 0.1,
-				UsePlayerSource = true,			
-				GameStateRequirements =
-				{
-					{
-						Path = { "GameState", "RoomsEntered", "N_Boss01" },
-						Comparison = ">=",
-						Value = 3,
-					},
-				},
-				{ Cue = "/VO/MelinoeField_0529", Text = "Polyphemus!", PlayFirst = true },
-				{ Cue = "/VO/MelinoeField_0530", Text = "Polyphemus..." },
-				{ Cue = "/VO/Melinoe_1451", Text = "You heard that, didn't you..." },
-				{ Cue = "/VO/Melinoe_1452", Text = "Did you enjoy your nap?", PlayFirst = true,
-					GameStateRequirements =
-					{
-						{
-							FunctionName = "RequiredConsecutiveClearsOfRoom",
-							FunctionArgs = { Name = "N_Boss01", Count = 1 },
-						},
-					},
-				 },
-			},
-			{
-				BreakIfPlayed = true,
-				RandomRemaining = true,
-				PreLineWait = 1.0,
-				SuccessiveChanceToPlayAll = 0.33,
-				PostLineWait = 0.0,
-				ObjectType = "Polyphemus",
+			{ GlobalVoiceLines = "PolyphemusGreetingLines" },
+		},
+	},
 
-				{ Cue = "/VO/Polyphemus_0099", Text = "{#Emph}<Sniff> Hrm.", PlayFirst = true },
-				{ Cue = "/VO/Polyphemus_0100", Text = "Got to be kidding." },
-				{ Cue = "/VO/Polyphemus_0101", Text = "Hi!" },
-				{ Cue = "/VO/Polyphemus_0102", Text = "Really." },
-				{ Cue = "/VO/Polyphemus_0103", Text = "You're no sheep." },
-				{ Cue = "/VO/Polyphemus_0104", Text = "What is it now?" },
-				{ Cue = "/VO/Polyphemus_0105", Text = "You again." },
-				{ Cue = "/VO/Polyphemus_0106", Text = "You {#Emph}again?" },
-				{ Cue = "/VO/Polyphemus_0107", Text = "Oh great." },
-				{ Cue = "/VO/Polyphemus_0108", Text = "Somebody's there..." },
-				{ Cue = "/VO/Polyphemus_0109", Text = "Heard you were back..." },
-				{ Cue = "/VO/Polyphemus_0110", Text = "Who? {#Emph}Ohh..." },
-				{ Cue = "/VO/Polyphemus_0192", Text = "Hold it." },
-				{ Cue = "/VO/Polyphemus_0193", Text = "I {#Emph}see {#Prev}you." },
-				{ Cue = "/VO/Polyphemus_0194", Text = "Heard you were in town." },
-				{ Cue = "/VO/Polyphemus_0195", Text = "Chow time..." },
-				{ Cue = "/VO/Polyphemus_0196", Text = "A dinner guest..." },
-				{ Cue = "/VO/Polyphemus_0197", Text = "Let me guess..." },
-				{ Cue = "/VO/Polyphemus_0198", Text = "We doing this?" },
-				{ Cue = "/VO/Polyphemus_0199", Text = "Oh, good." },
-				{ Cue = "/VO/Polyphemus_0349", Text = "{#Emph}<Sniff> Ahh..." },
-				{ Cue = "/VO/Polyphemus_0350", Text = "Company..." },
-				{ Cue = "/VO/Polyphemus_0351", Text = "Here, sheepie..." },
-				{ Cue = "/VO/Polyphemus_0352", Text = "Where you going?" },
-				{ Cue = "/VO/Polyphemus_0353", Text = "Hold up." },
-				{ Cue = "/VO/Polyphemus_0354", Text = "Slow down." },
-				{ Cue = "/VO/Polyphemus_0355", Text = "Wouldn't you know it." },
-				{ Cue = "/VO/Polyphemus_0356", Text = "{#Emph}Tsch. Hrm." },
-				{ Cue = "/VO/Polyphemus_0357", Text = "Step right up." },
-				{ Cue = "/VO/Polyphemus_0358", Text = "Finally back.",
-					GameStateRequirements =
-					{
-						{
-							Path = { "GameState", "RoomsEntered", "N_Boss01" },
-							Comparison = ">=",
-							Value = 8,
-						},
-						{
-							SumPrevRuns = 3,
-							Path = { "BiomesReached", "N" },
-							CountPathTrue = true,
-							Comparison = "==",
-							Value = 0,
-						},
-					}
+	N_Boss02 =
+	{
+		InheritFrom = { "BaseN" },
+		GameStateRequirements =
+		{
+			{
+				FunctionName = "RequiredShrineLevel",
+				FunctionArgs =
+				{
+					ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+					Comparison = ">=",
+					Value = 1,
 				},
-				{ Cue = "/VO/Polyphemus_0359", Text = "'Bout time.",
-					GameStateRequirements =
-					{
-						{
-							Path = { "GameState", "RoomsEntered", "N_Boss01" },
-							Comparison = ">=",
-							Value = 8,
-						},
-						{
-							SumPrevRuns = 2,
-							Path = { "BiomesReached", "N" },
-							CountPathTrue = true,
-							Comparison = "==",
-							Value = 0,
-						},
-					}
-				},
-				{ Cue = "/VO/Polyphemus_0360", Text = "{#Emph}Aw{#Prev}, I missed ya.",
-					GameStateRequirements =
-					{
-						{
-							Path = { "GameState", "RoomsEntered", "N_Boss01" },
-							Comparison = ">=",
-							Value = 10,
-						},
-						{
-							SumPrevRuns = 3,
-							Path = { "BiomesReached", "N" },
-							CountPathTrue = true,
-							Comparison = "==",
-							Value = 0,
-						},
-					}
-				},
-				{ Cue = "/VO/Polyphemus_0200", Text = "Nap time already?",
-					GameStateRequirements =
-					{
-						{
-							Path = { "GameState", "EnemyKills", "Polyphemus" },
-							Comparison = ">=",
-							Value = 5,
-						},
-						{
-							Path = { "GameState", "LastBossHealthBarRecord", "Polyphemus" },
-							Comparison = "<=",
-							Value = 0,
-						},
-					},
-				},
-				{ Cue = "/VO/Polyphemus_0201", Text = "{#Emph}<Sniff> Ah..." },
 			},
 		},
+
+		FlipHorizontal = false,
+		FlipHorizontalChance = 0,
+
+		RequiresLinked = true,
+		LinkedRoom = "N_PostBoss01",
+		ExitPreviewAnim = "ExitAheadPreview",
+		RewardPreviewIcon = "RoomRewardSubIcon_Boss",
+		Ambience = "/Ambience/EphyraOutsideAmbience",
+		ReverbValue = 0.75,
+		GlobalEcho = 0.5,
+		SpeakerName = { "Polyphemus", "Selene" },
+
+		ResetBinksOnEnter = true,
+		ResetBinksOnExit = true,
+		LegalEncounters = { "BossPolyphemus02", },
+		ForcedReward = "MixerNBossDrop",
+		NoReroll = true,
+
+		BackupCauseOfDeath = "Polyphemus",
+		
+		SheepExitId = 737999,
+
+		EntranceFunctionName = "RoomEntranceBoss",
+		EntranceFunctionArgs = { AngleTowardsIdOnEnd = 675068 },
+		IntroSequenceDuration = 2.7,
+		BlockCameraReattach = true,
+		ZoomFraction = 0.7,
+
+		StartUnthreadedEvents = {},
+
+		UnthreadedEvents =
+		{
+			{
+				FunctionName = "BossIntro",
+				Args =
+				{
+					ProcessTextLinesIds = { 675068, },
+					SetupBossIds = { 675068, },
+					SetupUnitIdAIs = { 737907 },
+					DelayedStart = true,
+				},
+			},
+		},
+
+		StartThreadedEvents =
+		{
+			{
+				FunctionName = "ChooseMedeaIntroPresentation",
+				Args =
+				{
+					MedeaId = 737907,
+					Delay = 1.0,
+					Angle = 242,
+					ProcessTextLinesIds = { 675068, },
+					AlreadyPresentRequirements =
+					{
+						{
+							PathFromSource = true,
+							Path = { "QueuedBossIntroTextLines", "Name" },
+							IsAny = {
+								"PolyphemusAboutAltFight02",
+								"PolyphemusAboutAltFight06",
+								"PolyphemusAboutAltFight08",
+								"PolyphemusAboutAltFight09",
+								"PolyphemusAboutAltFight10",
+								"MedeaMiscStart22",
+							},
+						},
+					}
+				},
+			},
+		},
+		InspectPoints =
+		{
+			[793949] =
+			{
+				PlayOnce = true,
+				UseText = "UseExamineMisc",
+				SetupGameStateRequirements =
+				{
+					NamedRequirements = { "NoRecentInspectPointUsed" },
+				},
+				InteractTextLineSets =
+				{
+					Inspect_N_Boss02_01 =
+					{
+						{ Cue = "/VO/Storyteller_0423",
+							Text = "{#Emph}The noxious, death-strewn field beyond the city of Ephyra now lies still once more, although a sense of rising Fear yet lingers with the many restless souls that there reside." },
+						EndVoiceLines =
+						{
+							PreLineWait = 0.4,
+							UsePlayerSource = true,
+							RequiredMinElapsedTime = 3,
+
+							{ Cue = "/VO/MelinoeField_3616", Text = "Lady Medea certainly transformed this place." },
+						},
+					},
+				},
+			},
+			[794211] =
+			{
+				PlayOnce = true,
+				UseText = "UseExamineMisc",
+				SetupGameStateRequirements =
+				{
+					NamedRequirements = { "NoRecentInspectPointUsed" },
+				},
+				InteractTextLineSets =
+				{
+					Inspect_N_Boss02_02 =
+					{
+						{ Cue = "/VO/Storyteller_0458",
+							Text = "{#Emph}On such particularly fearsome nights, the Witch of Shadows is believed to haunt this awfully putrescent field, whilst conducting her profane experiments upon the dead." },
+						EndVoiceLines =
+						{
+							PreLineWait = 0.4,
+							UsePlayerSource = true,
+							RequiredMinElapsedTime = 3,
+							{ Cue = "/VO/MelinoeField_3656", Text = "Still feel a little nauseous after that..." },
+						},
+					},
+				},
+			},
+		},
+
+		EnterVoiceLines =
+		{
+			{ GlobalVoiceLines = "PolyphemusGreetingLines" },
+		},		
 	},
 
 	N_PostBoss01 =
 	{
 		InheritFrom = { "BaseN" },
+		RichPresence = "#RichPresence_PostBossSurface",
 		LegalEncounters = { "Empty" },
 
 		UnthreadedEvents = EncounterSets.EncounterEventsNonCombat,
@@ -1933,7 +2402,6 @@ RoomSetData.N =
 		RequiresLinked = true,
 		NextRoomSet = { "O", },
 		ExitPreviewAnim = "ExitAheadPreview",
-		RichPresence = "#RichPresence_PostBoss",
 		IgnoreMusic = true,
 		BlockRunProgressUI = true,
 		Ambience = "/Ambience/EphyraSmallInteriorAmbience",
@@ -1958,8 +2426,6 @@ RoomSetData.N =
 		ForceWellShop = false,
 		SecretSpawnChance = 0.0,
 		SellTraitShrineUpgrade = true,
-		AllowExorcismPreExitsUnlock = true,
-		AllowFishingPreExitsUnlock = true,
 
 		StartUnthreadedEvents = {},
 
@@ -2145,6 +2611,7 @@ RoomSetData.N =
 				{ Cue = "/VO/MelinoeField_2056", Text = "Filthy here as ever..." },
 				{ Cue = "/VO/MelinoeField_2057", Text = "How does he live like this?" },
 				{ Cue = "/VO/MelinoeField_2058", Text = "That {#Emph}smell..." },
+				{ Cue = "/VO/Melinoe_1721", Text = "Such a mess." },
 			},
 		},
 		--[[
@@ -2174,6 +2641,61 @@ RoomSetData.N =
 		SaveWhitelist =
 		{
 			ObjectStates = true,
+		},
+
+		PickaxePointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				SumPrevRooms = 12,
+				Path = { "NumPickaxePoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 3,
+				Path = { "NumShovelPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 3,
+				Path = { "NumExorcismPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+			{
+				SumPrevRooms = 3,
+				Path = { "NumFishingPoints" },
+				Comparison = "<=",
+				Value = 0,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "OreNBronze" },
+						Comparison = "<",
+						Value = 30,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+					{
+						SumPrevRooms = 5,
+						Path = { "NumShovelPoints" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+			},
 		},
 		
 		CheckObjectStatesOnStartRoom = true,
@@ -2266,11 +2788,35 @@ RoomSetData.N =
 		},
 	},
 
-	N_MiniBoss01 =
+	N_BaseMiniBoss =
 	{
 		InheritFrom = { "N_CombatData", "BaseN" },
-		
+		DebugOnly = true,
+
 		RewardPreviewIcon = "RoomRewardSubIcon_Miniboss",
+
+		ForcedRewardStore = "RunProgress",
+		EligibleRewards = { "Boon" },
+		BoonRaritiesOverride = { Legendary = 0.05, Epic = 0.10, Rare = 0.90 },
+
+		MaxCreationsThisRun = 1,
+		MaxAppearancesThisBiome = 1,
+		FlipHorizontalChance = 0.0,
+
+		CombatResolvedVoiceLines =
+		{
+			{ GlobalVoiceLines = "MiniBossEncounterEndVoiceLines" },
+		},
+		
+		MusicSection = 2,
+		MusicActiveStems = { "Guitar", "Bass", "Drums", },
+		EndMusicOnCombatOver = 20,
+	},
+
+	N_MiniBoss01 =
+	{
+		InheritFrom = { "N_BaseMiniBoss" },
+		
 		Ambience = "/Ambience/EphyraCityAmbience",
 
 		OnUseSetRunData =
@@ -2282,54 +2828,120 @@ RoomSetData.N =
 			}
 		},
 
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "RoomCountCache", },
-				HasAny = { "N_PreHub01", "Chaos_01", "Chaos_02", "Chaos_03", "Chaos_04", "Chaos_05", "Chaos_06" },
-			}
-		},
-
 		LegalEncounters = { "MiniBossSatyrCrossbow" },
-		FlipHorizontalChance = 0.0,
-
-		ForcedRewardStore = "RunProgress",
-		EligibleRewards = { "Boon" },
-		BoonRaritiesOverride = { Legendary = 0.05, Epic = 0.10, Rare = 0.90 },
-
-		MaxCreationsThisRun = 1,
-		MaxAppearancesThisBiome = 1,
 
 		EntranceDirection = "Left",
 		ZoomFraction = 0.85,
+	},
 
-		MusicSection = 2,
-		MusicActiveStems = { "Guitar", "Bass", "Drums", },
-		EndMusicOnCombatOver = 20,
+	N_MiniBoss02 =
+	{
+		InheritFrom = { "N_BaseMiniBoss" },
+		
+		Ambience = "/Ambience/EphyraCityAmbienceOutdoorNoFire",
 
-		-- copied from F_ biome; to be refactored
-		CombatResolvedVoiceLines =
+		IntroSequenceDuration = 1.0,
+
+		OnUseSetRunData =
 		{
-			Cooldowns = { { Name = "LootDroppedSpeech", Time = 30 }, },
+			EphyraExitDoorReturnNE =
 			{
-				RandomRemaining = true,
-				PreLineWait = 2.0,
-				SuccessiveChanceToPlayAll = 0.66,
-				ThreadName = "RoomThread",
-
-				{ Cue = "/VO/MelinoeField_0473", Text = "Your soul be damned, traitor.", PlayFirst = true, },
-				{ Cue = "/VO/MelinoeField_0474", Text = "You chose the wrong side." },
-				{ Cue = "/VO/MelinoeField_0475", Text = "Another night, another Satyr slaughtered." },
-				{ Cue = "/VO/MelinoeField_0476", Text = "I look forward to meeting your replacement." },
-				{ Cue = "/VO/MelinoeField_0477", Text = "For Ephyra." },
-				{ Cue = "/VO/MelinoeField_0478", Text = "For Olympus." },
-
-				{ Cue = "/VO/Melinoe_1009", Text = "One less traitor." },
-				{ Cue = "/VO/Melinoe_0999", Text = "Got you." },
-			},
-			{ GlobalVoiceLines = "StorytellerFightReactionVoiceLines" },
+				NextHeroStartPoint = 560889,
+				NextHeroEndPoint = 561166,
+			}
 		},
 
+		EntranceFunctionName = "RoomEntranceBoss",
+		EntranceFunctionArgs =
+		{
+			AngleTowardsIdOnEnd = 50059,
+			BossType = "Boar",
+			DelayedStart = true,
+			BossIntroSound = "/SFX/Enemy Sounds/ZombieBoarMiniboss/BoarSqueal",
+			BossIntroAnimation = "Enemy_Boar_Roar",
+			--BossIntroDelay = 2.0,
+			EnterWait = 0.75,
+			BossIntroShake = true,
+			BossIntroShakeDuration = 1.8,
+		},
+
+		UnthreadedEvents =
+		{
+			{
+				FunctionName = "BossIntro",
+				Args =
+				{
+					UnlockDelay = 2.0,
+					SetupBossTypes = { "Boar", "Boar_Shadow" },
+				},
+			},
+		},
+
+		LegalEncounters = { "MiniBossBoar" },
+
+		EntranceDirection = "Right",
+		ZoomFraction = 0.85,
+
+		ThreadEnterVoiceLines = true,
+		EnterVoiceLines =
+		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			PreLineWait = 1.65,
+			SuccessiveChanceToPlayAll = 0.33,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+					IsAny = { "MiniBossBoar" },
+				},
+			},
+
+			{ Cue = "/VO/MelinoeField_3707", Text = "The Boar of Erymanthus...", PlayFirst = true },
+			{ Cue = "/VO/MelinoeField_3708", Text = "That rotting boar again." },
+			{ Cue = "/VO/MelinoeField_3710", Text = "You don't remember me, do you?" },
+			{ Cue = "/VO/MelinoeField_3711", Text = "Pure instinct and rage..." },
+			{ Cue = "/VO/MelinoeField_3709", Text = "You don't like staying down for long.",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "EnemyKills", "Boar" },
+						Comparison = ">=",
+						Value = 2,
+					},
+				},
+			},
+		},
+
+		InspectPoints =
+		{
+			[800454] =
+			{
+				PlayOnce = true,
+				UseText = "UseExamineMisc",
+				SetupGameStateRequirements =
+				{
+					NamedRequirements = { "NoRecentInspectPointUsed" },
+				},
+				InteractTextLineSets =
+				{
+					Inspect_N_MiniBoss02_01 =
+					{
+						{ Cue = "/VO/Storyteller_0462",
+							Text = "{#Emph}Too many hunters failed to tame the massive raging Boar of Erymanthus whilst it lived and breathed; and not even Death has been able to still its mighty hooves and tusks." },
+						EndVoiceLines =
+						{
+							{
+								PreLineWait = 0.4,
+								UsePlayerSource = true,
+								RequiredMinElapsedTime = 3,
+								{ Cue = "/VO/MelinoeField_3660", Text = "I did, though! For now." },
+							},
+						},
+					},
+				},
+			},
+		},
 	},
 
 	N_Combat01 =
@@ -2429,7 +3041,7 @@ RoomSetData.N =
 		PredeterminedDoorRooms =
 		{
 			[558354] = "N_Sub02",
-			[558378] = "N_Sub09",--"N_Sub07",
+			[558378] = "N_Sub07",
 			[558379] = "N_Sub03",
 		}
 	},
@@ -2475,6 +3087,7 @@ RoomSetData.N =
 	N_Combat08 =
 	{
 		InheritFrom = { "N_CombatData", "BaseN" },
+		HasExorcismPoint = false,
 		
 		OnUseSetRunData =
 		{
@@ -2580,7 +3193,7 @@ RoomSetData.N =
 		{
 			[558352] = "N_Sub09",
 			[566544] = "N_Sub10",
-			[566545] = "N_Sub09",--"N_Sub07",
+			[566545] = "N_Sub07",
 		},
 	},
 
@@ -2644,7 +3257,7 @@ RoomSetData.N =
 	{
 		InheritFrom = { "N_CombatData", "BaseN" },
 		HasFishingPoint = true,
-		FishingPointChance = 0.9,
+		FishingPointChance = 0.8,
 
 		LegalEncounters = EncounterSets.NEncountersBigger,
 
@@ -2712,7 +3325,6 @@ RoomSetData.N =
 
 	N_Combat19 =
 	{
-		DebugOnly = true,
 		InheritFrom = { "N_CombatData", "BaseN" },
 		ZoomFraction = 0.72,
 		Ambience = "/Ambience/EphyraCityAmbience",
@@ -2731,7 +3343,6 @@ RoomSetData.N =
 
 	N_Combat20 =
 	{
-		DebugOnly = true,
 		InheritFrom = { "N_CombatData", "BaseN" },
 		ZoomFraction = 0.75,
 		HasHarvestPoint = false,
@@ -2755,7 +3366,6 @@ RoomSetData.N =
 
 	N_Combat21 =
 	{
-		DebugOnly = true,
 		InheritFrom = { "N_CombatData", "BaseN" },
 		ZoomFraction = 0.70,
 
@@ -2773,7 +3383,6 @@ RoomSetData.N =
 
 	N_Combat22 =
 	{
-		DebugOnly = true,
 		InheritFrom = { "N_CombatData", "BaseN" },
 		ZoomFraction = 0.785,
 		ReverbValue = 1.0,
@@ -2792,23 +3401,114 @@ RoomSetData.N =
 		},
 	},
 
+	N_Combat23 =
+	{
+		InheritFrom = { "N_CombatData", "BaseN" },
+		ZoomFraction = 0.785,
+		ReverbValue = 1.0,
+		OnUseSetRunData =
+		{
+			EphyraExitDoorReturn =
+			{
+				NextHeroStartPoint = 561383,
+				NextHeroEndPoint = 561378,
+			}
+		},
+		PredeterminedDoorRooms =
+		{
+			[755971] = "N_Sub12",
+			[755184] = "N_Sub13",
+			[755185] = "N_Sub15",
+		},
+	},
+
 	-- NPC room layout 1
 	N_Story01 =
 	{
 		InheritFrom = { "BaseN" },
 		HasFishingPoint = true,
-		FishingPointChance = 0.9,
-		ExorcismPointChance = 0.35,
 		ForcedReward = "Story",
 		NoReroll = true,
 		MaxCreationsThisRun = 1,
-		RichPresence = "#RichPresence_NStory01",
+		ForceIfUnseenForRuns = 3,
 		ReverbValue = 0.5,
+
+		FishingPointChance = 0.40,
+
+		HarvestPointRequirements =
+		{
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantNMoss" },
+						Comparison = "<",
+						Value = 8,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+				},
+			},
+		},
+		ShovelPointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeToolsShop" },
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantNGarlicSeed" },
+						Comparison = "<",
+						Value = 6,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+				},
+			},
+		},
+		PickaxePointRequirements =
+		{
+			{
+				Path = { "GameState", "CompletedRunsCache" },
+				Comparison = ">=",
+				Value = 1,
+			},
+
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "OreNBronze" },
+						Comparison = "<",
+						Value = 18,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.5,
+				},
+			},
+		},
+
+		IgnoreHarvestBiomeSpawnLimit = true,
 
 		FamiliarsPreferSpawnPointMovement = true,
 		FrogFamiliarMaxLeapDistance = 800,
-		AllowExorcismPreExitsUnlock = true,
-		AllowFishingPreExitsUnlock = true,
 
 		OnUseSetRunData =
 		{
@@ -2833,19 +3533,13 @@ RoomSetData.N =
 				PathTrue = { "GameState", "TextLinesRecord", "HeraclesFirstMeeting" },
 			},
 			{
-				PathTrue = { "GameState", "RoomsEntered", "N_Boss01" },
-			},
-			{
 				Path = { "CurrentRun", "RoomCountCache", },
 				HasAny = { "N_PreHub01", "Chaos_01", "Chaos_02", "Chaos_03", "Chaos_04", "Chaos_05", "Chaos_06" },
 			},
-			{
-				PathFalse = { "CurrentRun", "ActiveBounty" },
-			},
+			NamedRequirementsFalse = { "StandardPackageBountyActive" },
 		},
 
 		SecretMusic = "/Music/IrisMusicMedeaTheme_MC",
-		ZoomFraction = 0.85,
 		TimerBlock = "StoryRoom",
 
 		FlipHorizontalChance = 0.0,
@@ -2893,6 +3587,13 @@ RoomSetData.N =
 		ThreadedEvents =
 		{
 			{ FunctionName = "MedeaMusicManager" },
+			{
+				FunctionName = "CheckObjectiveSetSource",
+				Args =
+				{
+					ObjectiveSetName = "GiftMedeaPoints",
+				},
+			},
 		},
 	},	
 
@@ -2911,6 +3612,21 @@ RoomSetData.N_SubRooms =
 
 		SaveProfileLocationText = "BiomeN_Short",
 		MaintainSpellCharge = true,
+		IgnoreEncounterUses = true,
+		SkipRoomsPerUpgrade = true,
+		SkipGamePhaseTick = true,
+
+		HasHarvestPoint = true,
+		HasShovelPoint = true,
+		HasPickaxePoint = true,
+		HasFishingPoint = false,
+		HasExorcismPoint = true,
+
+		HarvestPointRequirements = RoomData.BaseN.HarvestPointRequirements,
+		ShovelPointRequirements = RoomData.BaseN.ShovelPointRequirements,
+		PickaxePointRequirements = RoomData.BaseN.PickaxePointRequirements,
+		FishingPointRequirements = RoomData.BaseN.FishingPointRequirements,
+		ExorcismPointRequirements = RoomData.BaseN.ExorcismPointRequirements,
 
 		LegalEncounters = EncounterSets.NEncountersSubRoom,
 		TimeChallengeEncounterOptions = { "TimeChallengeN" },
@@ -2928,7 +3644,7 @@ RoomSetData.N_SubRooms =
 		ChallengeSpawnChance = 0.0,
 		PerfectClearSwitchSpawnChance = 0.0,
 		EliteSwitchSpawnChance = 0.0,
-		SurfaceShopSpawnChance = 0.15,
+		SurfaceShopSpawnChance = 0.08,
 		CheckObjectStatesOnStartRoom = true,
 		AllowReroll = false,
 		NoReroll = true,
@@ -2947,7 +3663,7 @@ RoomSetData.N_SubRooms =
 					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeShadeMercs" },
 					},
-					ChanceToPlay = 1.0,
+					ChanceToPlay = 0.5,
 				},
 				Args = { StartingCountMin = 0, StartingCountMax = 3, ObjectNames = { "ShadeMerc" }, MaxActive = 3, RequireForExit = false }
 			},
@@ -3022,7 +3738,7 @@ RoomSetData.N_SubRooms =
 	N_Sub07 =
 	{
 		InheritFrom = { "BaseN_SubRooms" },
-		DebugOnly = true,
+		Ambience = "/Ambience/EphyraCityAmbienceOutdoor",
 		
 		RushMaxRangeOverride = 475,
 
@@ -3031,7 +3747,6 @@ RoomSetData.N_SubRooms =
 
 	N_Sub08 =
 	{
-		DebugOnly = true,
 		InheritFrom = { "BaseN_SubRooms" },
 		ZoomFraction = 0.85,
 
@@ -3062,7 +3777,6 @@ RoomSetData.N_SubRooms =
 
 	N_Sub11 =
 	{
-		DebugOnly = true,
 		InheritFrom = { "BaseN_SubRooms" },
 		ZoomFraction = 0.85,
 		Ambience = "/Ambience/EphyraCityAmbience",
@@ -3076,13 +3790,19 @@ RoomSetData.N_SubRooms =
 	N_Sub12 =
 	{
 		InheritFrom = { "BaseN_SubRooms" },
+		ZoomFraction = 0.85,
+		EntranceDirection = "Right",
+	},
 
+	N_Sub13 =
+	{
+		InheritFrom = { "BaseN_SubRooms" },
+		ZoomFraction = 0.85,
 		EntranceDirection = "Right",
 	},
 
 	N_Sub14 =
 	{
-		DebugOnly = true,
 		InheritFrom = { "BaseN_SubRooms" },
 		ReverbValue = 1.0,
 		Ambience = "/Ambience/EphyraCityAmbienceOutdoorNoFire",
@@ -3092,6 +3812,14 @@ RoomSetData.N_SubRooms =
 
 		LegalEncounters = EncounterSets.NEncountersSubRoomHeavy,
 		IndividualRewardStore = "SubRoomRewardsHard",
+	},
+
+	N_Sub15 =
+	{
+		InheritFrom = { "BaseN_SubRooms" },
+		Ambience = "/Ambience/EphyraCityAmbienceOutdoorNoFire",
+		ZoomFraction = 0.85,
+		EntranceDirection = "Right",
 	},
 }
 

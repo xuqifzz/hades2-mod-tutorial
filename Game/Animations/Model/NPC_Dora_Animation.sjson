@@ -39,6 +39,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Dora_Idle"
 				Duration = 8
 			}
@@ -93,6 +97,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Dora_Idle"
 				Duration = 8
 			}
@@ -100,17 +108,77 @@
 	}
 	{
 		Name = "Dora_Invisible"
-		FilePath = "Animations\NPCDora\Dora_01"  
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
+		FilePath = "Animations\NPCDora\GhostDora\GhostDora"
 		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		NumFrames = 60
+		PlaySpeed = 30
+		Loop = true
+		OriginX = 53
+		OriginY = 175
+		Scale = 0.8
+		Saturation = 0.1
+		ChildAnimation = "Dora_Invisible_Shadow"
+		VisualFx = "DoraInvisibleSmoke"
+		VisualFxIntervalMin = 0.25
+		VisualFxIntervalMax = 0.25
+	}
+
+	{
+		Name = "DoraInvisibleSmoke"
+		FilePath = "Particles\particle_steam_01"
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		RandomDurationMin = 1
+		RandomDurationMax = 2
 		Loop = false
-		ZWobbleDistance = 8
-		ZWobbleSpeed = 5
-		ChildAnimation = "InspectPointLoopFxGhost"
-		Scale = 0.0
-		OwnerHasNoCollision = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		AngleMin = 0
+		AngleMax = 180
+		VelocityMin = 30
+		VelocityMax = 60
+		Acceleration = -30
+		StartScale = 1
+		EndScale = 1.5
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 0.5
+		ScaleMax = 0.9
+		LocationFromOwner = "Ignore"
+		PostRotateScaleY = 0.75
+		Red=0.631
+		Green=1.000
+		Blue=0.937
+	}
+
+	{
+		Name = "Dora_Invisible_Shadow"
+		FilePath = "Fx\LootShadow\LootShadow"
+		Red = 0
+		Green = 0
+		Blue = 0
+		Duration = 1
+		StartScale = 1
+		EndScale = 0.8
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+		Loop = true
+		// GroupName = "Shadows"
+		DieWithOwner = true
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		Scale = 0.5
+		Alpha = 0.5
+		OffsetZ = -20
 	}
 
 	/* Scary Dora */
@@ -177,6 +245,7 @@
 		RandomRotation = true
 		RandomRotationSpeedMin = -24
 		RandomRotationSpeedMax = 24
+		SortMode = "FromParent"
 		CreateAnimation = "NPCDoraScaryTendrilFxB"
 	}
 
@@ -225,6 +294,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "DoraScary_Idle"
 				Duration = 8
 			}
@@ -260,6 +333,10 @@
 		]
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "DoraScary_Idle"
 				Duration = 8

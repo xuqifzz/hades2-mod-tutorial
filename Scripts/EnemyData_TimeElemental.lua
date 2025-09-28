@@ -24,6 +24,10 @@ UnitSetData.TimeElemental =
 			DeepInheritance = true,
 
 			MoveSuccessDistance = 125,
+
+			SurroundRetaliateDistance = 550,
+			SurroundRefreshInterval = 0.5,
+			MaxAttackers = 3,
 		},
 		
 		StunAnimations = 
@@ -38,6 +42,7 @@ UnitSetData.TimeElemental =
 		{
 			"AggroAI",
 		},
+		PostAggroAI = "SurroundAI",
 		WanderTowardPlayer = true,
 		AIAggroRange = 850,
 		
@@ -51,7 +56,7 @@ UnitSetData.TimeElemental =
 		ActiveCapWeight = 0.5,
 		GeneratorData =
 		{
-			DifficultyRating = 45,
+			DifficultyRating = 55,
 			BlockEnemyTypes = {"TimeElemental_Elite"},
 			BlockSolo = true,
 		},
@@ -62,13 +67,17 @@ UnitSetData.TimeElemental =
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				-- None
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsNone = { "I_Boss01" },
+				},
 			},
 			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_1651", Text = "Tempii." },
@@ -95,8 +104,94 @@ UnitSetData.TimeElemental =
 
 		GeneratorData =
 		{
-			DifficultyRating = 90,
+			DifficultyRating = 105,
 			BlockEnemyTypes = {"TimeElemental"}
+		},
+	},
+
+	TimeElemental2 =
+	{
+		InheritFrom = { "TimeElemental" },
+		GenusName = "TimeElemental",
+
+		MaxHealth = 445,		
+		GrannyTexture = "GR2/TimeElementalChronos_Color",
+
+		AggroReactionTime = 0,
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+			MoveSuccessDistance = 75,
+			MaxAttackers = 999,
+			TargetMaxDistance = 9999,
+		},
+		PostAggroAI = "AttackerAI",
+
+		WeaponOptions =
+		{
+			"TimeElementalHealBeam",
+		},
+
+		GeneratorData =
+		{
+			DifficultyRating = 90,
+			BlockEnemyTypes = {"TimeElemental2_EM"}
+		},
+		ProjectilesCollideWithGroupsCharmed =
+		{
+			"HeroTeam",
+		},
+	},
+
+	TimeElemental2_EM =
+	{
+		InheritFrom = { "TimeElemental2" },
+		GenusName = "TimeElemental2",
+		MaxHealth = 650,
+
+		HealthBarOffsetY = -190,
+		HealthBarType = "Medium",
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+		},
+
+		WeaponOptions =
+		{
+			"TimeElementalHealBeam_EM"
+		},
+
+		GeneratorData =
+		{
+			DifficultyRating = 90,
+			BlockEnemyTypes = {"TimeElemental2"}
+		},
+	},
+
+	TimeElemental2_Typhon =
+	{
+		InheritFrom = { "TimeElemental2" },
+		GenusName = "TimeElemental2",
+		MaxHealth = 1200,
+
+		HealthBarOffsetY = -210,
+		HealthBarType = "MediumLarge",
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+		},
+
+		WeaponOptions =
+		{
+			"TimeElementalHealBeam_Typhon"
+		},
+
+		GeneratorData =
+		{
+			DifficultyRating = 90,
+			BlockEnemyTypes = {"TimeElemental2"}
 		},
 	},
 }

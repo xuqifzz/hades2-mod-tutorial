@@ -1,0 +1,228 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyWringerBaseAnimation"
+		
+		GrannyModel = "Wringer_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_Wringer_Idle"
+		InheritFrom = "EnemyWringerBaseAnimation"
+		GrannyAnimation = "Wringer_Base_MinosIdle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Wringer_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Wringer_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Wringer_MoveStart"
+		InheritFrom = "EnemyWringerBaseAnimation"
+		GrannyAnimation = "Wringer_Base_MinosMoveStart_C_00"
+		//NativeMoveSpeed = 375
+		ChainTo = "Enemy_Wringer_Move"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Wringer_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Wringer_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Wringer_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Wringer_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Wringer_Move"
+		InheritFrom = "EnemyWringerBaseAnimation"
+		GrannyAnimation = "Wringer_Base_MinosMove_C_00"
+		//NativeMoveSpeed = 375
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Wringer_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Wringer_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Wringer_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Wringer_MoveStop"
+		InheritFrom = "EnemyWringerBaseAnimation"
+		GrannyAnimation = "Wringer_Base_MinosMoveReturnToIdle_C_00"
+		//NativeMoveSpeed = 375
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Wringer_Idle"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Wringer_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Wringer_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Wringer_OnHit"
+		InheritFrom = "EnemyWringerBaseAnimation"
+		GrannyAnimation = "Wringer_Base_MinosOnHitUp_C_00" //Wringer_Base_MinosOnHitDown_C_00
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Wringer_Idle"
+		//Sound = "/SFX/Enemy Sounds/Wringer/EmoteHurt"
+		/*
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 2.66
+			}
+			{
+				Frame = 18
+				FrameSpeed = 1.15
+			}
+		]
+		*/
+	}
+	{
+		Name = "Enemy_Wringer_OnHit_Heavy"
+		InheritFrom = "Enemy_Wringer_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_Wringer_Grab_PreFire"
+		InheritFrom = "EnemyWringerBaseAnimation"
+		GrannyAnimation = "Wringer_Base_MinosAttack_C_00"
+		Sound = "/SFX/Enemy Sounds/Wringer/WringerChargeUp"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Wringer_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Wringer_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Wringer_OnHit_Heavy"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Wringer_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Wringer_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Wringer_MoveStop"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 12
+				FrameSpeed = 0.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Wringer_Grab_Fire"
+		InheritFrom = "EnemyWringerBaseAnimation"
+		GrannyAnimation = "Wringer_Base_MinosAttack_C_00"
+		Sound = "/SFX/Enemy Sounds/Wringer/WringerAttack"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 12
+				FrameSpeed = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Wringer_Death"
+		InheritFrom = "Enemy_Wringer_OnHit"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 1.0
+		GrannyAnimationSpeed = 0.25
+		DeathFxFrameDuration = 52
+		DeathFxColor = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+]}

@@ -169,8 +169,6 @@
 		InheritFrom = "EnemyScreamerBaseAnimation"
 		GrannyAnimation = "Screamer_Base_ScreamFire_C_00"
 		Loop = true
-		Sound = "/SFX/Enemy Sounds/ScreamerAttackLoop"
-		StopSoundOnFinishFade = 0.3
 		Blends = 
 		[
 			{

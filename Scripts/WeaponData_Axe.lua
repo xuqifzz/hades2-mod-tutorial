@@ -17,12 +17,14 @@ OverwriteTableKeys( WeaponData,
 		UnlockName = "WeaponAxe_Unlock",
 		ExpireProjectilesOnFire = {"ProjectileAxeSpin"},
 		DashWeapon = "WeaponAxeDash",
-		PreserveDashWeaponSwapNames = { "WeaponAxe2", "WeaponAxe3" },
 		DamagedAnimation = "Melinoe_Axe_GetHit",
 		ExpireDashWeaponOnDash = true,
 		SecondaryWeapon = "WeaponAxeSpecial",
 		DummyTraitName = "DummyWeaponAxe",
-		Using = { GrannyModel = "WeaponAxeBlurWheel_Mesh" },
+		Using =
+		{
+			Animation = "AxeNovaGlow",
+		},
 
 		SwapAnimations =
 		{
@@ -34,7 +36,7 @@ OverwriteTableKeys( WeaponData,
 			["MelinoeRun"] = "Melinoe_Axe_Run_FireLoop",
 			["MelinoeStop"] = "Melinoe_Axe_Run_End",
 			["MelinoeGetHit"] = "Melinoe_Axe_GetHit",
-			["MelinoeGetHitFinal"] = "Melinoe_Axe_GetHit",
+			["Melinoe_GetHit_LastStand"] = "Melinoe_Axe_GetHit_LastStand",
 
 			
 			["Melinoe_Cast_Start"] = "Melinoe_Axe_Cast_Start",
@@ -99,7 +101,7 @@ OverwriteTableKeys( WeaponData,
 				Bone = "/SFX/MetalBoneSmash",
 				Brick = "/SFX/MetalStoneClang",
 				Stone = "/SFX/MetalStoneClang",
-				Organic = "/SFX/StabSplatterSmall",
+				Organic = "/SFX/MetalOrganicHitSHIELD",
 				StoneObstacle = "/SFX/SwordWallHitClank",
 				BrickObstacle = "/SFX/SwordWallHitClank",
 				MetalObstacle = "/SFX/SwordWallHitClank",
@@ -113,7 +115,7 @@ OverwriteTableKeys( WeaponData,
 		StartingWeapon = false,
 		CauseImpactReaction = true,
 		ExpireProjectilesOnFire = {"ProjectileAxeSpin"},
-		OnFiredFunctionName = "AllowAxeSpin",
+		OnFiredFunctionNames = { "AllowAxeSpin", },
 		DefaultKnockbackForce = 800,
 		DefaultKnockbackScale = 1.0,
 
@@ -143,7 +145,7 @@ OverwriteTableKeys( WeaponData,
 				Bone = "/SFX/MetalBoneSmash",
 				Brick = "/SFX/MetalStoneClang",
 				Stone = "/SFX/MetalStoneClang",
-				Organic = "/SFX/StabSplatterSmall",
+				Organic = "/SFX/MetalOrganicHitSHIELD",
 				StoneObstacle = "/SFX/SwordWallHitClank",
 				BrickObstacle = "/SFX/SwordWallHitClank",
 				MetalObstacle = "/SFX/SwordWallHitClank",
@@ -161,7 +163,7 @@ OverwriteTableKeys( WeaponData,
 		DefaultKnockbackScale = 1.1,
 		
 		DashWeapon = "WeaponAxeDash",
-		OnChargeFunctionName = "BlockDashDisable",
+		OnChargeFunctionNames = { "BlockDashDisable", },
 		EndControlSwapsOnDash = true,
 
 		--FireScreenshake = { Distance = 2, Speed = 300, FalloffSpeed = 0, Duration = 0.1, Angle = 90 },
@@ -199,7 +201,7 @@ OverwriteTableKeys( WeaponData,
 				Bone = "/SFX/MetalBoneSmash",
 				Brick = "/SFX/MetalStoneClang",
 				Stone = "/SFX/MetalStoneClang",
-				Organic = "/SFX/StabSplatterSmall",
+				Organic = "/SFX/MetalOrganicHitSHIELD",
 				StoneObstacle = "/SFX/SwordWallHitClank",
 				BrickObstacle = "/SFX/SwordWallHitClank",
 				MetalObstacle = "/SFX/SwordWallHitClank",
@@ -220,10 +222,13 @@ OverwriteTableKeys( WeaponData,
 		SkipManaIndicatorIfZeroManaCost = true,
 		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 0.96, Duration = 0.8, HoldDuration = 0.1, RestoreDefaultDuration = 0.2 },
 		EndControlSwapsOnDash = true,
+		ManaChanges = { Disabled = {}, Enabled = {} },
+
+
 
 		BlockDashSwapIfCharging = true,
 		DashWeapon = "WeaponAxeDash",
-		OnChargeFunctionName = "BlockDashDisable",
+		OnChargeFunctionNames = { "BlockDashDisable", },
 		ChargeRumbleParameters =
 		{
 			{ ScreenPreWait = 0.02, Fraction = 0.12, Duration = 0.80 },
@@ -269,7 +274,7 @@ OverwriteTableKeys( WeaponData,
 				Bone = "/SFX/MetalBoneSmash",
 				Brick = "/SFX/MetalStoneClang",
 				Stone = "/SFX/MetalStoneClang",
-				Organic = "/SFX/StabSplatterSmall",
+				Organic = "/SFX/MetalOrganicHitSHIELD",
 				StoneObstacle = "/SFX/SwordWallHitClank",
 				BrickObstacle = "/SFX/SwordWallHitClank",
 				MetalObstacle = "/SFX/SwordWallHitClank",
@@ -279,6 +284,24 @@ OverwriteTableKeys( WeaponData,
 		},
 
 		Upgrades = { },
+	},
+	WeaponAxe4 =
+	{
+		FireScreenshake = { Distance = 7, Speed = 600, FalloffSpeed = 3000, Duration = 0.18, Angle = 90, ScreenPreWait = 0.1 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.1, LerpTime = 0 },
+			{ ScreenPreWait = 0.02, Fraction = 1.0, LerpTime = 0.03 },
+		},
+	},
+	WeaponAxe5 =
+	{
+		FireScreenshake = { Distance = 7, Speed = 600, FalloffSpeed = 3000, Duration = 0.18, Angle = 90, ScreenPreWait = 0.1 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.1, LerpTime = 0 },
+			{ ScreenPreWait = 0.02, Fraction = 1.0, LerpTime = 0.03 },
+		},
 	},
 	WeaponAxeSpin =
 	{
@@ -297,9 +320,10 @@ OverwriteTableKeys( WeaponData,
 		UniqueDetonationHits = true,
 		IsExWeapon = true,
 
+		CustomManaIndicatorOffsetY = -190,
 		CompleteObjectivesOnFire = { "WeaponAxeSpin" },
-		OnChargeFunctionName = "DoWeaponCharge",
-		OnFiredFunctionName = "CheckAxeSpinDisable",
+		OnChargeFunctionNames = { "DoWeaponCharge", },
+		OnFiredFunctionNames = { "CheckAxeSpinDisable", },
 		ChargeWeaponData =
 		{
 			EmptyChargeFunctionName = "EmptyAxeCharge",
@@ -354,7 +378,7 @@ OverwriteTableKeys( WeaponData,
 				Bone = "/SFX/MetalBoneSmash",
 				Brick = "/SFX/MetalStoneClang",
 				Stone = "/SFX/MetalStoneClang",
-				Organic = "/SFX/StabSplatterSmall",
+				Organic = "/SFX/MetalOrganicHitSHIELD",
 				StoneObstacle = "/SFX/SwordWallHitClank",
 				BrickObstacle = "/SFX/SwordWallHitClank",
 				MetalObstacle = "/SFX/SwordWallHitClank",
@@ -461,7 +485,7 @@ OverwriteTableKeys( WeaponData,
 				Bone = "/SFX/MetalBoneSmash",
 				Brick = "/SFX/MetalStoneClang",
 				Stone = "/SFX/MetalStoneClang",
-				Organic = "/SFX/StabSplatterSmall",
+				Organic = "/SFX/DaggerImpactOrganic",
 				StoneObstacle = "/SFX/SwordWallHitClank",
 				BrickObstacle = "/SFX/SwordWallHitClank",
 				MetalObstacle = "/SFX/SwordWallHitClank",
@@ -485,6 +509,7 @@ OverwriteTableKeys( WeaponData,
 		DefaultKnockbackForce = 960,
 		DefaultKnockbackScale = 1.2,
 
+		CustomManaIndicatorOffsetY = -320,
 		ChargeRumbleParameters =
 		{
 			{ ScreenPreWait = 0.02, Fraction = 0.09, Duration = 0.75 },
@@ -519,7 +544,7 @@ OverwriteTableKeys( WeaponData,
 				Shell = "/SFX/ShellImpact",
 			},
 		},
-		OnFiredFunctionName = "RevertWeaponChanges",
+		OnFiredFunctionNames = { "RevertWeaponChanges", },
 		Upgrades = { },
 	},	
 })

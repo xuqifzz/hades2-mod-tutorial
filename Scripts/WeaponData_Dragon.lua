@@ -4,7 +4,7 @@ WeaponSetData =
 	{
 		Requirements =
 		{
-			MinPlayerDistance = 700,
+			MaxPlayerDistance = 600,
 		},
 
 		AIData =
@@ -16,25 +16,25 @@ WeaponSetData =
 
 			AttackSlots =
 			{
-				{ OffsetDistance = 250, OffsetFromAttacker = true, UseAttackerAngle = true, PauseDuration = 0.2 },
-				{ OffsetDistance = 400, OffsetFromAttacker = true, UseAttackerAngle = true, PauseDuration = 0.175 },
-				{ OffsetDistance = 600, OffsetFromAttacker = true, UseAttackerAngle = true, PauseDuration = 0.15 },
-				{ OffsetDistance = 800, OffsetFromAttacker = true, UseAttackerAngle = true, PauseDuration = 0.1 },
-				{ OffsetDistance = 1000, OffsetFromAttacker = true, UseAttackerAngle = true, PauseDuration = 0.05 },
-				{ OffsetDistance = 1200, OffsetFromAttacker = true, UseAttackerAngle = true, PauseDuration = 0.025 },
+				{ AIDataOverrides = { ProjectileBlastRadiusMultiplier = 1.0 }, PauseDuration = 0.2 },
+				{ AIDataOverrides = { ProjectileBlastRadiusMultiplier = 1.3 }, PauseDuration = 0.175 },
+				{ AIDataOverrides = { ProjectileBlastRadiusMultiplier = 1.6 }, PauseDuration = 0.15 },
+				{ AIDataOverrides = { ProjectileBlastRadiusMultiplier = 1.9 }, PauseDuration = 0.1 },
+				{ AIDataOverrides = { ProjectileBlastRadiusMultiplier = 2.2 }, PauseDuration = 0.05 },
+				{ AIDataOverrides = { ProjectileBlastRadiusMultiplier = 2.5 }, PauseDuration = 0.025 },
 			},
-			FireInterval = 1.2,
+
+			CreateOwnTarget = true,
+			UseAngleBetweenPlayer = true,
+			TargetOffsetDistance = 220,
+
+			PreAttackStop = true,
 
 			DoNotRepeatOnAttackFail = true,
-			SkipIfInvalidLocation = true,
 
 			MoveWithinRange = true,
-			TrackTargetDuringCharge = true,
-			StopBeforeFire = true,
-			TrackTargetDuringFire = true,
-			PostAttackStop = true,
-			PreAttackRotationDampening = 0.15,
-			FireRotationDampening = 0.07,
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.5,
 
 			PreAttackDuration = 1.5,
 			FireDuration = 0.1,
@@ -69,41 +69,47 @@ WeaponSetData =
 	DragonBreath_MiniBoss =
 	{
 		InheritFrom = { "DragonBreath", },
-		Requirements = { },
+		Requirements = { MaxConsecutiveUses = 1 },
 
 		AIData =
 		{
 			DeepInheritance = true,
 
 			ProjectileName = "DragonBreathGround_Miniboss",
-			PreAttackDuration = 0.75,
-			PreAttackAnimationSpeed = 1.5,
-			PostAttackDuration = 0.5, 
+			PreAttackDuration = 0.65,
+			PreAttackAnimationSpeed = 2,
+			PostAttackDuration = 0.5,
+
+			TargetOffsetDistance = 330,
 
 			AttackSlots =
 			{
-				{ OffsetDistance = 250, OffsetFromAttacker = true, UseAttackerAngle = true, PauseDuration = 0.2 },
-				{ OffsetDistance = 400, OffsetFromAttacker = true, UseAttackerAngle = true, PauseDuration = 0.175 },
-				{ OffsetDistance = 600, OffsetFromAttacker = true, UseAttackerAngle = true, PauseDuration = 0.15 },
-				{ OffsetDistance = 800, OffsetAngle = 0, OffsetFromAttacker = true, UseAttackerAngle = true, },
-				{ OffsetDistance = 800, OffsetAngle = -5, OffsetFromAttacker = true, UseAttackerAngle = true, },
-				{ OffsetDistance = 800, OffsetAngle = 5, OffsetFromAttacker = true, UseAttackerAngle = true, PauseDuration = 0.1 },
-				{ OffsetDistance = 1000, OffsetAngle = 0, OffsetFromAttacker = true, UseAttackerAngle = true, },
-				{ OffsetDistance = 1000, OffsetAngle = -7.5, OffsetFromAttacker = true, UseAttackerAngle = true, },
-				{ OffsetDistance = 1000, OffsetAngle = 7.5, OffsetFromAttacker = true, UseAttackerAngle = true, PauseDuration = 0.1 },
-				{ OffsetDistance = 1200, OffsetAngle = 0, OffsetFromAttacker = true, UseAttackerAngle = true, },
-				{ OffsetDistance = 1200, OffsetAngle = -7.5, OffsetFromAttacker = true, UseAttackerAngle = true, },
-				{ OffsetDistance = 1200, OffsetAngle = 7.5, OffsetFromAttacker = true, UseAttackerAngle = true, PauseDuration = 0.1 },
-				{ OffsetDistance = 1500, OffsetAngle = 0, OffsetFromAttacker = true, UseAttackerAngle = true, },
-				{ OffsetDistance = 1500, OffsetAngle = -10, OffsetFromAttacker = true, UseAttackerAngle = true, },
-				{ OffsetDistance = 1500, OffsetAngle = 10, OffsetFromAttacker = true, UseAttackerAngle = true, PauseDuration = 0.1 },
-				{ OffsetDistance = 1800, OffsetAngle = 0, OffsetFromAttacker = true, UseAttackerAngle = true, },
-				{ OffsetDistance = 1800, OffsetAngle = -12.5, OffsetFromAttacker = true, UseAttackerAngle = true, },
-				{ OffsetDistance = 1800, OffsetAngle = 12.5, OffsetFromAttacker = true, UseAttackerAngle = true, PauseDuration = 0.1 },
-				{ OffsetDistance = 2100, OffsetAngle = 0, OffsetFromAttacker = true, UseAttackerAngle = true, },
-				{ OffsetDistance = 2100, OffsetAngle = -12.5, OffsetFromAttacker = true, UseAttackerAngle = true, },
-				{ OffsetDistance = 2100, OffsetAngle = 12.5, OffsetFromAttacker = true, UseAttackerAngle = true, PauseDuration = 0.1 },
+				{ AIDataOverrides = { ProjectileBlastRadiusMultiplier = 0.8 }, PauseDuration = 0.2 },
+				{ AIDataOverrides = { ProjectileBlastRadiusMultiplier = 1.0 }, PauseDuration = 0.175 },
+				{ AIDataOverrides = { ProjectileBlastRadiusMultiplier = 1.2 }, PauseDuration = 0.15 },
+				{ AIDataOverrides = { ProjectileBlastRadiusMultiplier = 1.4 }, PauseDuration = 0.1 },
+				{ AIDataOverrides = { ProjectileBlastRadiusMultiplier = 1.6 }, PauseDuration = 0.1 },
+				{ AIDataOverrides = { ProjectileBlastRadiusMultiplier = 1.6 }, PauseDuration = 0.1 },
+				{ AIDataOverrides = { ProjectileBlastRadiusMultiplier = 1.6 }, PauseDuration = 0.1 },
+				{ AIDataOverrides = { ProjectileBlastRadiusMultiplier = 1.8 }, PauseDuration = 0.05 },
+				{ AIDataOverrides = { ProjectileBlastRadiusMultiplier = 2.0 }, PauseDuration = 0.025 },
 			},
+		},
+
+		WeaponFireSounds =
+		{
+			{ Name = "/SFX/Enemy Sounds/DragonMiniboss/EmoteAttacking" },
+		}
+	},
+
+	DragonBreath_MiniBoss_Ally =
+	{
+		InheritFrom = { "DragonBreath_MiniBoss", },
+
+		AIData =
+		{
+			DeepInheritance = true,
+			CreateOwnTarget = false,
 		},
 	},
 
@@ -199,6 +205,17 @@ WeaponSetData =
 
 			ProjectileName = "DragonGlideGround_Miniboss",		
 
+			AttackSlots =
+			{
+				{ AnchorAngleOffset = 0, OffsetAngle = 225, OffsetDistance = 360, OffsetScaleY = 0.5, OffsetFromAttacker = true, UseAttackerAngle = true, },
+				{ AnchorAngleOffset = 0, OffsetAngle = 0, OffsetDistance = 0, OffsetScaleY = 0.5, OffsetFromAttacker = true, UseAttackerAngle = true, },
+				{ AnchorAngleOffset = 0, OffsetAngle = -225, OffsetDistance = 360, OffsetScaleY = 0.5, OffsetFromAttacker = true, UseAttackerAngle = true, },
+			},
+
+			WaitForAngleTowardTargetTimeOut = 0.25,
+			PreAttackDuration = 0.65,
+			PreAttackAnimationSpeed = 1.4,
+
 			PostAttackStop = false,
 			PostAttackDuration = 1.64,
 
@@ -254,7 +271,6 @@ WeaponSetData =
 			AngleTowardsTargetWhileFiring = false,
 			PreAttackRotationDampening = 0.01,
 			FireRotationDampening = 0.15,
-			PostAttackStop = false,
 			PreAttackAngleTowardTarget = false,
 			StopMoveWithinRange = false,
 			PostAttackStop = false,
@@ -282,7 +298,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/SatyrLancer/LancerEvade" },
 			},
 		},
-
 	},
 
 	DragonWhirlRight =
@@ -324,7 +339,9 @@ WeaponSetData =
 
 			AttackDistance = 290,
 
+			PreAttackStop = true,
 			TrackTargetDuringCharge = true,
+			StopBeforeFire = true,
 
 			PreAttackSound = "/SFX/Enemy Sounds/Dragon/EmotePowerCharging",
 			PreAttackAnimation = "Enemy_Dragon_TailPreFire",
@@ -360,11 +377,11 @@ WeaponSetData =
 			ProjectileName = "DragonTailWhip_Miniboss",
 			AttackDistance = 380,
 
-			MoveWithinRangeTimeoutMin = 1.5,
-			MoveWithinRangeTimeoutMax = 2.1,
+			FireSelfVelocity = 2000,
 
+			MoveWithinRangeTimeoutMin = 1.0,
+			MoveWithinRangeTimeoutMax = 1.1,
 		},
-
 	},
 }
 

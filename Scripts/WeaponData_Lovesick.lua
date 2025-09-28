@@ -13,26 +13,20 @@ WeaponSetData =
 			DeepInheritance = true,
 			FireProjectileAtTarget = true,
 			SpawnFromMarker = "Lovesick_Rig:frontHole_00_R_JNT",
+			ProjectileName = "LovesickHeartLob",
 
 			DoNotRepeatOnAttackFail = true,
-
-			AttackSlots =
-			{
-				{ ProjectileName = "LovesickHeartLob", AIDataOverrides = { SpawnFromMarker = "Lovesick_Rig:frontHole_00_R_JNT" }, },
-				{ ProjectileName = "LovesickHeartLob2", AIDataOverrides = { SpawnFromMarker = "Lovesick_Rig:frontHole_00_R_JNT" }, PauseDuration = 0.1 },
-				{ ProjectileName = "LovesickHeartLob3", AIDataOverrides = { SpawnFromMarker = "Lovesick_Rig:frontHole_00_R_JNT" }, PauseDuration = 0.1 },
-			},
-			ProjectileName = "LovesickHeartLob",
 
 			FireTickSelfVelocity = 500,
 			FireTickSelfVelocityAngleOffset = 180,
 			ImmuneToProjectileSlow = true,
 
-			AngleTowardsTargetWhileFiring = true,
+			PreAttackStop = true,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.25,
+			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.25,
-			StopBeforeFire = true,
+			PostAttackStop = true,
 
 			PreAttackFx = "LovesickChargeFx",
 			PreAttackDuration = 0.6,
@@ -57,13 +51,6 @@ WeaponSetData =
 			PostAttackAnimation = "Enemy_Lovesick_LauncherPostFire",
 		},
 
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.3, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.03 },
-		},
-
 		Sounds =
 		{
 			FireSounds =
@@ -80,12 +67,7 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-			AttackSlots =
-			{
-				{ ProjectileName = "LovesickHeartLob_Elite", AIDataOverrides = { SpawnFromMarker = "Lovesick_Rig:frontHole_00_R_JNT" }, },
-				{ ProjectileName = "LovesickHeartLob2_Elite", AIDataOverrides = { SpawnFromMarker = "Lovesick_Rig:frontHole_00_R_JNT" }, PauseDuration = 0.1 },
-				{ ProjectileName = "LovesickHeartLob3_Elite", AIDataOverrides = { SpawnFromMarker = "Lovesick_Rig:frontHole_00_R_JNT" }, PauseDuration = 0.1 },
-			},
+
 			ProjectileName = "LovesickHeartLob_Elite",
 		},
 	},
@@ -131,13 +113,6 @@ WeaponSetData =
 			SkipSurroundAICount = true,
 		},
 
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.07 },
-		},
-
 		Sounds =
 		{
 			FireSounds =
@@ -174,13 +149,11 @@ WeaponSetData =
 			FireProjectileStartDelay = 0.125,
 			Spread = 5,
 
+			PreAttackStop = true,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.10,
-			--AngleTowardsTargetWhileFiring = true,
 			StopBeforeFire = true,
-			--FireRotationDampening = 0.08,
 			FireProjectileAtTarget = true,
-			PostAttackStop = true,
 
 			PreAttackWaitForAnimation = true,
 			FireDuration = 0.3,
@@ -214,13 +187,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Heartless/EmoteAttacking" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	LovesickHeartMineBlast =
@@ -240,6 +206,18 @@ WeaponSetData =
 
 			MoveWithinRange = false,
 			AttackDistance = 9999999,
+		},
+	},
+
+	LovesickHeartMineBlast_Elite =
+	{
+		InheritFrom = { "LovesickHeartMineBlast" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "LovesickHeartMineBlast_Elite",
 		},
 	},
 }

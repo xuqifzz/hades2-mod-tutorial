@@ -1,125 +1,157 @@
-function GetGiftIcon( entryName, index, args )
+function RelationshipAdvancedPresentation( source, args )
+
 	args = args or {}
-	local forceLocked = args.ForceLocked or false
-	local giftIconData = GiftIconData.GiftPoints
-	if GiftData[entryName][index] and GiftData[entryName][index].RequiredResource and GiftIconData[GiftData[entryName][index].RequiredResource] then
-		giftIconData = GiftIconData[GiftData[entryName][index].RequiredResource]
-	end
 
-	local name = giftIconData.FilledWithGift
-	if forceLocked then
-		return giftIconData.Locked
-	end
-	local completelyUnlocked = IsGiftBarCompletelyUnlocked( entryName )
-
-	if GameState.Gift[entryName].Value >= index then
-		if GiftData[entryName][index] ~= nil and GiftData[entryName][index].Gift  ~= nil then
-			name = giftIconData.FilledWithGift
-		else
-			name = giftIconData.Filled
-		end
-	else
-		if completelyUnlocked or GameState.Gift[entryName].Value == index - 1 then
-			if index < GetLockedLevel( entryName ) then
-				if GiftData[entryName][index] ~= nil and GiftData[entryName][index].Gift ~= nil then
-					name = giftIconData.EmptyWithGift
-				else
-					name = giftIconData.Empty
-				end
-			else
-				if GiftData[entryName].UnlockGameStateRequirements then
-					name = giftIconData.Locked
-				else
-					name = giftIconData.Unavailable
-				end
-			end
-		else
-			if GameState.Gift[entryName].Value == index - 2 then
-				name = giftIconData.Mystery
-			else
-				name = "Blank"
-			end
-		end
-	end
-	return name
-end
-
-function GiftTrackUnlockedPresentation( entryName )
-
-	local giftData = GiftData[entryName]
-	if not giftData then
+	if args.GameStateRequirements ~= nil and not IsGameStateEligible( source, args.GameStateRequirements ) then
 		return
 	end
 
-	local screen = ScreenData.Codex
+	CurrentRun.RelationshipsAdvanced[source.Name] = true
+	source.InRelationshipAdvancedPresentation = true
 
-	if giftData.TrackUnlockedBlockInput then
-		AddInputBlock({ Name = "GiftTrackUnlockedPresentation" })
-	end
+	AddInputBlock({ Name = "RelationshipAdvancedPresentation" })
+	AddTimerBlock( CurrentRun, "RelationshipAdvancedPresentation" )
+	CurrentRun.Hero.UntargetableFlags.RelationshipAdvancedPresentation = true
+	SetPlayerInvulnerable( "RelationshipAdvancedPresentation" )
+	SetUnitInvulnerable( source, "RelationshipAdvancedPresentation", { Silent = true } )
 
-	wait(0.5)
-	SetAnimation({ Name = "AffinityGaugeBacking", DestinationId = backingId })
+	wait( args.Delay )
 
-	local giftLength = giftData.Maximum
-	local startY = -400
-	local startX = giftLength * screen.SpacerX * -0.5
-	for key, value in pairs( giftData ) do
-		if type(value) == "table" and value.HeartDividerAfter then
-			startX = startX - ( 50 + screen.SpacerX ) + screen.SpacerX * 0.5
-			break
-		end
-	end
-	local xPosition = startX
-	local backingStartYOffset = -325
+	local backgroundDimId = CreateScreenObstacle({ Name = "rectangle01", X = ScreenCenterX, Y = ScreenCenterY, Group = "Combat_Menu_TraitTray", Scale = 4.0, ScaleX = ScreenScaleX, ScaleY = ScreenScaleY })
+	SetColor({ Id = backgroundDimId, Color = Color.Black, Duration = 0 })
+	SetAlpha({ Id = backgroundDimId, Fraction = 0.0, Duration = 0 })
+	SetAlpha({ Id = backgroundDimId, Fraction = 0.8, Duration = 0.3 })
 
-	local backingId = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Combat_Menu", X = ScreenCenterX , Y = ScreenCenterY + backingStartYOffset })
-	SetAnimation({ Name = "AffinityGaugeBacking", DestinationId = backingId, Scale = 0.5 })
 	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteExcitement" })
 
-	local createdIds = CreateGiftTrack({ Name = entryName, LocationX = startX, LocationY = startY, IncludeDividers = true, GroupName = "Combat_Menu" })
+	SessionMapState.BlockInfoBanners = false
+	thread( DisplayInfoBanner, nil, {
+		TitleText = "UnlockedRelationship",
+		FontScale = 1.0,
+		SubtitleOffsetY = 60,
+		Color = {0, 255, 168, 255},
+		TextColor = Color.White,
+		SubTextColor = {23, 255, 187, 255},
+		Duration = 3.0,
+		TitleFont = "SpectralSCLightTitling",
+		SubtitleFont = "SpectralSCLightTitling",
+		Layer = "Combat_Menu_TraitTray_Overlay",
+		AdditionalAnimation = "GodHoodRays",
+		AnimationName = "InfoBannerGiftIn",
+		AnimationOutName = "InfoBannerGiftOut",
+		IconBackingAnimationName = "LocationBackingIrisSmallSubtitleIn",
+		IconBackingAnimationOutName = "LocationBackingIrisSmallSubtitleOut",
+	} )
 
-	for i, id in pairs( createdIds ) do
-		SetAlpha({ Id = id, Fraction = 0, Duration = 0 })
-		SetAlpha({ Id = id, Fraction = 1, Duration = 0.1 })
-		xPosition = xPosition + screen.SpacerX
-		if i >= giftData.Locked then
-			SetAnimation({ Name = GetGiftIcon( entryName, i, { ForceLocked = true }), DestinationId = createdIds[i], Scale = 0.5, OffsetY = startY, OffsetX = xPosition })
-		end
-		if GiftData[entryName][i] and GiftData[entryName][i].HeartDividerAfter then
-			xPosition = xPosition + 40 + screen.SpacerX
-		end
+	wait( 0.3 )
+
+	local heartId = CreateScreenObstacle({
+		Name = "BlankObstacle",
+		Group = "Combat_Menu_TraitTray_Overlay",
+		X = ScreenCenterX,
+		Y = 246,
+		Animation = "LockedHeartIcon",
+		Scale = 1.25,
+		Alpha = 0.0,
+		AlphaTarget = 1.0,
+		AlphaTargetDuration = 0.3
+	})
+	local lockId = CreateScreenObstacle({
+		Name = "BlankObstacle",
+		Group = "Combat_Menu_TraitTray_Overlay",
+		X = ScreenCenterX + 1,
+		Y = 242,
+		Animation = "LockedIconNoKey",
+		Alpha = 0.0,
+		AlphaTarget = 1.0,
+		AlphaTargetDuration = 0.3,
+		Scale = 1.0,
+	})
+
+	PlaySound({ Name = "/SFX/Enemy Sounds/WretchedThug/ThugChargeUp2" })
+	wait( 1.0 )
+	PlaySound({ Name = "/Leftovers/World Sounds/ChainRattle" })
+
+	Shake({ Ids = { heartId, lockId }, Speed = 200, Distance = 3, Duration = 0.5 })
+
+	wait( 0.51 )
+
+	PlaySound({ Name = "/SFX/Menu Sounds/HeartSlotUnlock" })
+	SetAnimation({ DestinationId = heartId, Name = "EmptyHeartIcon" })
+	SetAnimation({ DestinationId = lockId, Name = "LockedIconRelease" })
+
+	wait( 1.5 )
+
+	SetAlpha({ Ids = { heartId, lockId, backgroundDimId }, Fraction = 0, Duration = 0.2 })
+	wait( 0.8 )
+	Destroy({ Id = { heartId, lockId, backgroundDimId } })
+
+	thread( ShowCodexUpdate )
+
+	source.InRelationshipAdvancedPresentation = nil
+
+	CurrentRun.Hero.UntargetableFlags.RelationshipAdvancedPresentation = nil
+	SetPlayerVulnerable( "RelationshipAdvancedPresentation" )
+	SetUnitVulnerable( source, "RelationshipAdvancedPresentation" )
+
+	RemoveTimerBlock( CurrentRun, "RelationshipAdvancedPresentation" )
+	RemoveInputBlock({ Name = "RelationshipAdvancedPresentation" })
+
+end
+
+function MaxedRelationshipPresentation( source, args )
+
+	AddInteractBlock( source, "MaxedRelationshipPresentation" )
+	if args.UseInputBlock then
+		AddInputBlock({ Name = "MaxedRelationshipPresentation" })
 	end
 
-	xPosition = startX + ( giftData.Locked - 1 ) * screen.SpacerX
-	for i = giftData.Locked, giftLength do
-		wait(0.35)
-		xPosition = xPosition + screen.SpacerX
-		CreateAnimation({ Name = "SkillProcFeedbackFx", DestinationId = createdIds[i], GroupName = "Overlay", OffsetX = xPosition, OffsetY = startY })
-		SetAnimation({ Name = GetGiftIcon( entryName, i ), DestinationId = createdIds[i], Scale = 0.5, OffsetY = startY, OffsetX = xPosition})
-		PlaySound({ Name = "/SFX/Menu Sounds/HeartSlotUnlock", Id = createdIds[i] })
-		if GiftData[entryName][i] and GiftData[entryName][i].HeartDividerAfter then
-			xPosition = xPosition + 40 + screen.SpacerX
-		end
+	AddTimerBlock( CurrentRun, "MaxedRelationshipPresentation", { MapState = true } )
+	SessionMapState.BlockCodex = true
+	SessionMapState.BlockInventory = true
+
+	wait( args.Delay or 2.0 )
+
+	DisplayInfoBanner( nil, {
+		TitleText = args.Title or "MaxedRelationship",
+		FontScale = 1.0,
+		SubtitleText = args.Text,
+		TextRevealSound = "/Leftovers/Menu Sounds/EmoteAffection",
+		SubtitleOffsetY = 60,
+		Color = {0, 255, 168, 255},
+		TextColor = args.TextColor or Color.White,
+		SubTextColor = {23, 255, 187, 255},
+		Icon = args.Icon,
+		IconOffsetY = 6,
+		IconScale = 0.5,
+		Duration = 4.35,
+		IconMoveSpeed = 0.00001,
+		TitleFont = "SpectralSCLightTitling",
+		SubtitleFont = "SpectralSCLightTitling",
+		Layer = "Combat_Menu_TraitTray_Overlay",
+		AdditionalAnimation = "GodHoodRays",
+		AnimationName = "InfoBannerGiftIn",
+		AnimationOutName = "InfoBannerGiftOut",
+		IconBackingAnimationName = "LocationBackingIrisSmallSubtitleIn",
+		IconBackingAnimationOutName = "LocationBackingIrisSmallSubtitleOut",
+	} )
+
+	SessionMapState.BlockCodex = nil
+	SessionMapState.BlockInventory = nil
+	RemoveTimerBlock( CurrentRun, "MaxedRelationshipPresentation" )
+	RemoveInteractBlock( source, "MaxedRelationshipPresentation" )
+	if args.UseInputBlock then
+		RemoveInputBlock({ Name = "MaxedRelationshipPresentation" })
 	end
 
-	waitUnmodified(1)
-	for i, id in pairs( createdIds ) do
-		SetAlpha({ Ids = id, Fraction = 0, Duration = 0.33 })
+	if args.EndFunctionName ~= nil then
+		CallFunctionName( args.EndFunctionName, source, args.EndFunctionArgs )
 	end
-	SetAnimation({ Name = "AffinityGaugeBackingFade", DestinationId = backingId })
-	waitUnmodified(0.33)
-	Destroy({ Ids = createdIds })
-	Destroy({ Id = backingId })
-	if giftData.TrackUnlockedBlockInput then
-		RemoveInputBlock({ Name = "GiftTrackUnlockedPresentation" })
-	end
+
 end
 
 function ReceivedGiftPresentation( npc, giftAnimation )
 	PlaySound({ Name = "/Leftovers/SFX/StaminaRefilled" })
-	if GetGiftLevel(npc.Name) == 0 then
-		thread( PlayVoiceLines, HeroVoiceLines.GiftGivenVoiceLines, true )
-	end
 	thread( PlayVoiceLines, GlobalVoiceLines.FamiliarUpgradedGlobalVoiceLines, true, nil, { FamiliarName = npc.Name } )
 
 	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = npc.ObjectId })
@@ -134,7 +166,7 @@ end
 
 function ReceivedGiftPresentationPost( npc )
 	SetAnimation({ Name = "MelinoeSalute", DestinationId = CurrentRun.Hero.ObjectId })
-	thread( PopOverheadText, { TargetId = npc.ObjectId, Amount = 1, Text = "HeartAmount", Color = Color.White, OffsetY = -20, HoldDuration = 1.25 } )
+	thread( PopOverheadText, { TargetId = npc.ObjectId, Amount = 1, Text = "HeartAmount", Color = Color.White, OffsetY = npc.GiftPresentationIconOffsetY or -20, HoldDuration = 1.7, ShadowAnimName = "InCombatTextShadow_GiftBacking" } )
 	PlaySound({ Name = "/SFX/Menu Sounds/HeartGained", Id = npc.ObjectId })
 end
 
@@ -155,15 +187,19 @@ function PlayerReceivedGiftPresentation( npc, giftName )
 	thread( PlayVoiceLines, CurrentRun.Hero.GiftReceivedVoiceLines, true )
 	local npcName = npc.Name
 	DisplayInfoBanner( nil, {
-		TextOffsetY = -20,
 		Icon = TraitData[giftName].Icon,
 		IconScale = 1.0,
 		IconMoveSpeed = 0.0001,
-		IconOffsetY = 0,
+		IconOffsetY = 6,
+		SubtitleOffsetY = 60,
 		HighlightIcon = true,
 		TitleText = "NewTraitUnlocked_Title",
-		AnimationName = "LocationTextBGRelationship",
-		AnimationOutName = "LocationTextBGRelationshipOut",
+		AnimationName = "InfoBannerGiftIn",
+		AnimationOutName = "InfoBannerGiftOut",
+		IconBackingAnimationName = "LocationBackingIrisSmallSubtitleIn",
+		IconBackingAnimationOutName = "LocationBackingIrisSmallSubtitleOut",
+		IconBackingColor = Color.Lavender,
+		IconBackingHSV = { 0.25, -0.2, 0.1},
 		SubtitleText = "NewTraitUnlocked_Subtitle",
 		SubtitleData = { LuaKey = "TempTextData", LuaValue = { Name = npcName, Gift = giftName }},
 	})

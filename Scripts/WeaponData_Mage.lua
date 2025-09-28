@@ -7,6 +7,7 @@ WeaponSetData =
 			DeepInheritance = true,
 
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.08,
 			StopBeforeFire = true,
@@ -20,7 +21,7 @@ WeaponSetData =
 			PostAttackDurationMax = 0.9,
 
 			FireTicks = 3,
-			FireInterval = 0.085,
+			FireInterval = 0.085 * 2.0,
 			FireTickSelfVelocity = 400,
 			FireTickSelfVelocityAngleOffset = 180,
 			FireTickSelfVelocityConsecutiveMultiplier = 0.95,
@@ -47,13 +48,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Mage/EmoteAttacking" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	MageRanged_Elite =
@@ -67,6 +61,7 @@ WeaponSetData =
 			AttackDistance = 1300,
 			AttackDistanceScaleY = 0.5,
 
+			FireDuration = 0.4,
 			FireTicks = 7,
 		},
 	},
@@ -83,18 +78,18 @@ WeaponSetData =
 
 			AttackSlots =
 			{
-				{ ProjectileName = "Mage2Ranged", AIDataOverrides = { FireProjectileAngleRelative = -35, },  },
-				{ ProjectileName = "Mage2Ranged", AIDataOverrides = { FireProjectileAngleRelative = 0, },  },
-				{ ProjectileName = "Mage2Ranged", AIDataOverrides = { FireProjectileAngleRelative = 35, },  },
+				{ ProjectileName = "Mage2Ranged", AIDataOverrides = { FireProjectileAngleRelative = -35, }, },
+				{ ProjectileName = "Mage2Ranged", AIDataOverrides = { FireProjectileAngleRelative = 0, }, },
+				{ ProjectileName = "Mage2Ranged", AIDataOverrides = { FireProjectileAngleRelative = 35, }, },
 			},
 
 			AttackDistance = 1300,
 			AttackDistanceScaleY = 0.5,
 
 			FireTicks = 3,
-			FireInterval = 0.35,
+			FireDuration = 0.2,
 
-			FireAnimation = "Enemy_Mage_CastFire_Slow",
+	--		FireAnimation = "Enemy_Mage_CastFire_Slow",
 		},
 	},
 
@@ -109,8 +104,9 @@ WeaponSetData =
 			AttackDistance = 1300,
 			AttackDistanceScaleY = 0.5,
 
+			FireDuration = 0.4,
 			FireTicks = 7,
-			FireInterval = 0.225,
+
 		},
 	},
 }

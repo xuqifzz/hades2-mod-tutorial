@@ -223,7 +223,7 @@
 		HoldLastFrame = true
 	}
 	{
-		Name = "Staff_Blur_Attack3_Start"		
+		Name = "Staff_Blur_Attack3_Start"
 		GrannyModel = "WeaponBlurWheel_Mesh"
 		GrannyAnimation = "Blur_Effect_Base_Attack3Antic_C_00"
 		GrannyAnimationSpeed = 2.0
@@ -643,6 +643,10 @@
 				BlendTransitionFrom = "Melinoe_Staff_Dash_Fire"
 				Duration = 5
 			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Attack1_Start"
+				Duration = 4
+			}
 		]
 	}
 
@@ -672,16 +676,14 @@
 	{
 		Name = "Staff_Special1_Fire"
 		InheritFrom = "WeaponStaffBase"
-		GrannyAnimation = "Staff_Weapon_Base_SpecialFire_C_00"
-		GrannyAnimationSpeed = 1.0
+		GrannyAnimation = "Staff_Weapon_Base_SpecialRailGunFire_C_00"
 		AllowRestart = true
 	}
 	{
 		Name = "Melinoe_Staff_Special1_Fire"
 		InheritFrom = "MelinoeBaseStaffAnimations"
 		ChainTo = "Melinoe_Staff_Special1_End"
-		GrannyAnimation = "Melinoe_Staff_Base_SpecialFire_C_00"
-		GrannyAnimationSpeed = 1.0
+		GrannyAnimation = "Melinoe_Staff_Base_SpecialRailGunFire_C_00"
 		AllowRestart = true
 		DisableOwnerManualInteract = true
 		Attachments =
@@ -691,18 +693,66 @@
 				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
 			}
 		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Special1_Start"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Special1_StartLoop"
+				Duration = 3
+			}
+		]
+	}
+
+	{
+		Name = "Staff_SpecialEx1_Fire"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_SpecialFire_C_00"
+		GrannyAnimationSpeed = 1.0
+		AllowRestart = true
+	}
+	{
+		Name = "Melinoe_Staff_SpecialEx1_Fire"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		ChainTo = "Melinoe_Staff_SpecialEx1_End"
+		GrannyAnimation = "Melinoe_Staff_Base_SpecialFire_C_00"
+		GrannyAnimationSpeed = 1.0
+		AllowRestart = true
+		DisableOwnerManualInteract = true
+		Attachments =
+		[
+			{
+				Name = "Staff_SpecialEx1_Fire"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Special1_Start"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Special1_StartLoop"
+				Duration = 3
+			}
+		]
 	}
 
 	{
 		Name = "Staff_Special1_End"
 		InheritFrom = "WeaponStaffBase"
-		GrannyAnimation = "Staff_Weapon_Base_SpecialReturnToIdle_C_00"
+		GrannyAnimation = "Staff_Weapon_Base_SpecialRailGunReturn_C_00"
 	}
 	{
 		Name = "Melinoe_Staff_Special1_End"
 		InheritFrom = "MelinoeBaseStaffAnimations"
 		ChainTo = "Melinoe_Staff_Idle"
-		GrannyAnimation = "Melinoe_Staff_Base_SpecialReturnToIdle_C_00"
+		GrannyAnimation = "Melinoe_Staff_Base_SpecialRailGunReturn_C_00"
 		CancelOnOwnerMove = true
 		GrannyAnimationSpeed = 1.0
 		Attachments =
@@ -712,12 +762,446 @@
 				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
 			}
 		]
+	}
+
+	{
+		Name = "Staff_SpecialEx1_End"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_SpecialReturnToIdle_C_00"
+		Frames =
+		[
+			{
+				Frame = 17
+				FrameSpeed = 1.5
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Staff_SpecialEx1_End"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		ChainTo = "Melinoe_Staff_Idle"
+		GrannyAnimation = "Melinoe_Staff_Base_SpecialReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		GrannyAnimationSpeed = 1.0
+		Attachments =
+		[
+			{
+				Name = "Staff_SpecialEx1_End"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
 
 		Frames =
 		[
 			{
 				Frame = 17
 				FrameSpeed = 1.5
+			}
+		]
+	}
+
+	// Anubis Attacks
+	/* Staff Slam */
+	{
+		Name = "Staff_Anubis_AttackSlam_Start"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Anubis_SlamAttackAntic_C_00"
+	}
+
+	{
+		Name = "Staff_Blur_Anubis_AttackSlam_Start"
+		GrannyModel = "WeaponBlurWheel_Mesh"
+		GrannyAnimation = "Blur_Effect_Anubis_SlamAttackAntic_C_00"
+		Enable3DShadow = false
+	}
+	{
+		Name = "Melinoe_Staff_Anubis_AttackSlam_Start"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		GrannyAnimation = "Melinoe_Staff_Anubis_SlamAttackAntic_C_00"
+		GrannyAnimationSpeed = 2.0
+		HoldLastFrame = true
+		DisableOwnerManualInteract = true
+		Sound = "/SFX/ChefGhostKnifeTwirl"
+		Attachments =
+		[
+			{
+				Name = "Staff_Blur_Anubis_AttackSlam_Start"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Staff_Anubis_AttackSlam_Start"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_AttackSlam_End",
+				Duration = 5,
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_AttackWall_Fire",
+				Duration = 5,
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_AttackWall_Fire",
+				Duration = 5,
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_AttackWall_End",
+				Duration = 5,
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_Special1_Fire",
+				Duration = 5,
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_Special1_End",
+				Duration = 5,
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Staff_Anubis_AttackSlam_Start_Fast"
+		InheritFrom = "Melinoe_Staff_Anubis_AttackSlam_Start"
+		GrannyAnimationSpeed = 3.0
+	}
+
+	{
+		Name = "Staff_Anubis_AttackSlam_Fire"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Anubis_SlamAttackFire_C_00"
+	}
+	{
+		Name = "Melinoe_Staff_Anubis_AttackSlam_Fire"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		ChainTo = "Melinoe_Staff_Anubis_AttackSlam_End"
+		GrannyAnimation = "Melinoe_Staff_Anubis_SlamAttackFire_C_00"
+		DisableOwnerManualInteract = true
+		Attachments =
+		[
+			{
+				Name = "Staff_Anubis_AttackSlam_Fire"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Staff_Anubis_AttackSlam_End"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Anubis_SlamAttackReturn_C_00"
+	}
+	{
+		Name = "Melinoe_Staff_Anubis_AttackSlam_End"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		ChainTo = "Melinoe_Staff_Idle"
+		GrannyAnimation = "Melinoe_Staff_Anubis_SlamAttackReturn_C_00"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Staff_Anubis_AttackSlam_End"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	/* Staff Wall */
+	{
+		Name = "Staff_Anubis_AttackWall_Start"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Anubis_WallAttackAntic_C_00"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Melinoe_Staff_Anubis_AttackWall_Start"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		GrannyAnimation = "Melinoe_Staff_Anubis_WallAttackAntic_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Staff_Anubis_AttackWall_StartLoop"
+		Attachments =
+		[
+			{
+				Name = "Staff_Anubis_AttackWall_Start"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Staff_Anubis_AttackWall_StartLoop"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Anubis_WallAttackLoop_C_00"
+	}
+	{
+		Name = "Melinoe_Staff_Anubis_AttackWall_StartLoop"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		GrannyAnimation = "Melinoe_Staff_Anubis_WallAttackLoop_C_00"
+		Loop = true
+		DisableOwnerManualInteract = true
+		Attachments =
+		[
+			{
+				Name = "Staff_Anubis_AttackWall_StartLoop"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Staff_Anubis_AttackWall_Fire"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Anubis_WallAttackFire_C_00"
+	}
+	{
+		Name = "Melinoe_Staff_Anubis_AttackWall_Fire"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		ChainTo = "Melinoe_Staff_Anubis_AttackWall_End"
+		GrannyAnimation = "Melinoe_Staff_Anubis_WallAttackFire_C_00"
+		DisableOwnerManualInteract = true
+		Attachments =
+		[
+			{
+				Name = "Staff_Anubis_AttackWall_Fire"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_AttackWall_StartLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Staff_Anubis_AttackWall_End"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Anubis_WallAttackReturn_C_00"
+	}
+	{
+		Name = "Melinoe_Staff_Anubis_AttackWall_End"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		GrannyAnimation = "Melinoe_Staff_Anubis_WallAttackReturn_C_00"
+		ChainTo = "Melinoe_Staff_Idle"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Staff_Anubis_AttackWall_End"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	/* Staff Special */
+	{
+		Name = "Staff_Anubis_Special1_Start"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_SpecialAntic_C_01"
+		GrannyAnimationSpeed = 0.37
+		AllowRestart = true
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 1
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Staff_Anubis_Special1_Start"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		GrannyAnimation = "Melinoe_Staff_Base_SpecialAntic_C_01"
+		ChainTo = "Melinoe_Staff_Anubis_Special1_StartLoop"
+		GrannyAnimationSpeed = 0.67
+		AllowRestart = true
+		DisableOwnerManualInteract = true
+		Attachments =
+		[
+			{
+				Name = "Staff_Anubis_Special1_Start"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Cast_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Cast_StartLoop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Cast_Fire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Cast_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Special1_Fire"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Special1_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Attack3_Fire"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Attack3_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Special1_Fire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Dash_End1"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Dash_End2"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Dash_Fire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Attack1_Start"
+				Duration = 4
+			}
+
+			/* Anubis Blends */
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_AttackSlam_Start",
+				Duration = 3,
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_AttackSlam_Fire",
+				Duration = 4,
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_AttackSlam_End",
+				Duration = 4,
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_AttackWall_Start",
+				Duration = 4,
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_AttackWall_StartLoop",
+				Duration = 4,
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_AttackWall_Fire",
+				Duration = 4,
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_AttackWall_End",
+				Duration = 4,
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_Special1_Fire",
+				Duration = 4,
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_Special1_End",
+				Duration = 4,
+			}
+		]
+	}
+
+	{
+		Name = "Staff_Anubis_Special1_StartLoop"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_SpecialAnticLoop_C_00"
+		AllowRestart = true
+		Loop = true
+	}
+	{
+		Name = "Melinoe_Staff_Anubis_Special1_StartLoop"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		GrannyAnimation = "Melinoe_Staff_Base_SpecialAnticLoop_C_00"
+		AllowRestart = true
+		Loop = true
+		DisableOwnerManualInteract = true
+		Attachments =
+		[
+			{
+				Name = "Staff_Anubis_Special1_StartLoop"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+	
+	{
+		Name = "Staff_Anubis_Special1_Fire"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_SpecialFire_C_00"
+		AllowRestart = true
+	}
+	{
+		Name = "Melinoe_Staff_Anubis_Special1_Fire"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		ChainTo = "Melinoe_Staff_Anubis_Special1_End"
+		GrannyAnimation = "Melinoe_Staff_Base_SpecialFire_C_00"
+		AllowRestart = true
+		DisableOwnerManualInteract = true
+		Attachments =
+		[
+			{
+				Name = "Staff_Anubis_Special1_Fire"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_Special1_Start"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Anubis_Special1_StartLoop"
+				Duration = 3
+			}
+		]
+	}
+
+	{
+		Name = "Staff_Anubis_Special1_End"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_SpecialReturnToIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Staff_Anubis_Special1_End"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		ChainTo = "Melinoe_Staff_Idle"
+		GrannyAnimation = "Melinoe_Staff_Base_SpecialReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		GrannyAnimationSpeed = 1.0
+		Attachments =
+		[
+			{
+				Name = "Staff_Anubis_Special1_End"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
 			}
 		]
 	}

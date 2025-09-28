@@ -2,8 +2,14 @@ OverwriteTableKeys( EncounterData,
 {
 	BaseHeraclesCombat =
 	{
-		ObjectiveSets = "HeraclesChallenge",
 		RequiredKillFunctionName = "TrackHeraclesChallengeProgress",
+		OnSpawnFunctionName = "CheckHeraclesBounty",
+		ObjectiveSets = "HeraclesChallenge",
+		HeraclesBountyPerWaveMin = 2,
+		HeraclesBountyPerWaveMax = 3,
+		HeraclesBountyValue = 20,
+		HeraclesBountyAttachedAnimation = "HeraclesBountyStatus",
+
 		GameStateRequirements =
 		{
 			-- rule 1: have x or fewer of these encounters
@@ -16,10 +22,8 @@ OverwriteTableKeys( EncounterData,
 			{
 				PathTrue = { "GameState", "EncountersCompletedCache", "HeraclesCombatIntro" },
 			},
-			{
-				PathFalse = { "CurrentRun", "ActiveBounty" },
-			},
 			NamedRequirements = { "NoRecentHeraclesEncounter", "NoRecentFieldNPCEncounter" },
+			NamedRequirementsFalse = { "StandardPackageBountyActive" },
 		},
 
 		RequireNotRoomReward = { "Devotion" },
@@ -31,38 +35,35 @@ OverwriteTableKeys( EncounterData,
 		SkipCombatBeginsVoiceLines = true,
 		RequireCompletedIntro = true,
 		PreSpawnEnemies = false,
-		FastClearThreshold = 65,
 		TimerBlock = "ThanatosEncounter",
 		BlockHighlightEliteTypes = true,
 
 		CanEncounterSkip = false,
 
+		MinTypes = 2,
+		MaxTypes = 3,
+		MaxTypesCap = 3,
+		MaxEliteTypes = 1,
+
+		ActiveEnemyCapMax = 7, -- Give Heracles bone budget room.
+
 		MuteSecretMusicDrumsOnCombatOver = true,
 		NextRoomResumeMusic = true,
 
 		UnthreadedEvents = EncounterSets.EncounterEventsHeraclesCombat,
-		TrackHeraclesMoneyObjective = true,
 
-		BaseDifficulty = 220,
-		DepthDifficultyRamp = 0,
-		ActiveEnemyCapBase = 4,
-		ActiveEnemyCapMax = 7,
-		MinTypes = 3,
-		MaxTypes = 4,
-		MaxTypesCap = 4,
-		MaxEliteTypes = 2,
-		MinWaves = 3,
-		MaxWaves = 3,
-		Using = { "NPC_Heracles_01" },
-		SpeakerNames = { "Heracles", "HeraclesField", },
+		Using = { SpawnUnit = "NPC_Heracles_01", Animation = "HydraTouchdownGroundCracksFade" },
+		SpeakerNames = { "Heracles", },
+		LoadPackages = { "Heracles" },
 	},
 
 	HeraclesCombatN =
 	{
 		InheritFrom = { "BaseHeraclesCombat", "GeneratedN" },
 
-		MoneyDropCapMin = 80,
-		MoneyDropCapMax = 130,
+		DifficultyModifier = 150,
+		MinWaves = 3,
+		MaxWaves = 3,
 
 		HeraclesDummyUnitSet = EnemySets.HeraclesDummyUnitsN,
 	},
@@ -75,11 +76,15 @@ OverwriteTableKeys( EncounterData,
 		{
 			Append = true,
 			{
-				SumPrevRuns = 4,
-				Path = { "SpawnRecord", "NPC_Heracles_01" },
+				SumPrevRuns = 8,
+				Path = { "EncountersOccurredCache" },
+				TableValuesToCount = { "HeraclesCombatIntro", "HeraclesCombatN", "HeraclesCombatN2", "HeraclesCombatO", "HeraclesCombatO2", "HeraclesCombatP", "HeraclesCombatP2" },
 				Comparison = "<=",
 				Value = 0,
 			},
+			{
+				PathFalse = { "PrevRun", "SpecialInteractRecord", "Shrine" },
+			}
 		},
 	},
 
@@ -114,8 +119,6 @@ OverwriteTableKeys( EncounterData,
 		SkipHeraclesSpawnPresentation = true,
 		SkipShipsEncounterSetup = true,
 
-		MoneyDropCapMin = 80,
-		MoneyDropCapMax = 130,
 		HeraclesDummyUnitSet = EnemySets.HeraclesDummyUnitsO,
 
 		StartRoomThreadedEvents =
@@ -124,9 +127,9 @@ OverwriteTableKeys( EncounterData,
 		},
 		HeraclesSpawnWait = 1.0,
 
-		DifficultyModifier = 130,
-		ActiveEnemyCapBase = 5,
-		ActiveEnemyCapMax = 8,
+		DifficultyModifier = 155,
+		MinWaves = 3,
+		MaxWaves = 3,
 
 		GameStateRequirements =
 		{
@@ -151,10 +154,14 @@ OverwriteTableKeys( EncounterData,
 			Append = true,
 			{
 				SumPrevRuns = 4,
-				Path = { "SpawnRecord", "NPC_Heracles_01" },
+				Path = { "EncountersOccurredCache" },
+				TableValuesToCount = { "HeraclesCombatIntro", "HeraclesCombatN", "HeraclesCombatN2", "HeraclesCombatO", "HeraclesCombatO2", "HeraclesCombatP", "HeraclesCombatP2" },
 				Comparison = "<=",
 				Value = 0,
 			},
+			{
+				PathFalse = { "PrevRun", "SpecialInteractRecord", "Shrine" },
+			}
 		},
 	},	
 
@@ -209,10 +216,14 @@ OverwriteTableKeys( EncounterData,
 			Append = true,
 			{
 				SumPrevRuns = 4,
-				Path = { "SpawnRecord", "NPC_Heracles_01" },
+				Path = { "EncountersOccurredCache" },
+				TableValuesToCount = { "HeraclesCombatIntro", "HeraclesCombatN", "HeraclesCombatN2", "HeraclesCombatO", "HeraclesCombatO2", "HeraclesCombatP", "HeraclesCombatP2" },
 				Comparison = "<=",
 				Value = 0,
 			},
+			{
+				PathFalse = { "PrevRun", "SpecialInteractRecord", "Shrine" },
+			}
 		},
 	},
 })

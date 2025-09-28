@@ -1,6 +1,9 @@
 AIThreadName = "AIThread"
 
 function AIWait( duration, enemy, threadName, args )
+	if duration == nil or duration <= 0 then
+		return
+	end
 	wait( CalcEnemyWait( enemy, duration, args ), threadName )
 end
 
@@ -24,14 +27,6 @@ function AllAIFollow( usee, args )
 	wait( 0.02 )
 	for id, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 		thread( SetAI, "FollowAI", enemy, CurrentRun )
-	end
-end
-
-function AllAIFlee( usee, args )
-	AllAIStop( usee, args )
-	wait( 3.02 )
-	for id, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
-		thread(Retreat, enemy, { RetreatBufferDistance = 8000, RetreatDuration = 300, }, CurrentRun.Hero.ObjectId)
 	end
 end
 
@@ -60,6 +55,10 @@ function FollowAI( enemy, followId )
 	end
 end
 
+function DieAI(enemy)
+	Kill(enemy)
+end
+
 function IdleAI( enemy )
 	local aiData = enemy.DefaultAIData
 
@@ -78,23 +77,16 @@ function MinionFollowAI( enemy )
 	local followDistance = aiData.FollowDistance or 300
 
 	while IsAIActive( enemy ) and enemy.LeaderId ~= nil and ActiveEnemies[enemy.LeaderId] ~= nil do
-		--local moveOffset = CalcOffset(math.rad(RandomFloat(0, 360)), aiData.FollowDistance or 50 )
-		Move({ Id = enemy.ObjectId, DestinationId = enemy.LeaderId, SuccessDistance = aiData.FollowSuccessDistance or 100,
-				LiveOffsetFromId = enemy.LeaderId, LiveOffsetDistance = followDistance, LiveOffsetAngle = -180 })
+		Move({ Id = enemy.ObjectId, DestinationId = enemy.LeaderId,
+				LiveOffsetFromId = enemy.LeaderId, LiveOffsetDistance = followDistance })
 
-		enemy.AINotifyName = "WithinDistance_"..enemy.Name.."_"..enemy.ObjectId
-		NotifyWithinDistance({ Id = enemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId, Distance = followDistance, Notify = enemy.AINotifyName, Timeout = 5.0 })
-		waitUntil( enemy.AINotifyName, enemy.AIThreadName )
-
-		Stop({ Id = enemy.ObjectId })
+		wait(aiData.FollowRefreshDuration or 0.25, enemy.AIThreadName)
 
 		if enemy.DoMinionAttack ~= nil then
 			enemy.WeaponName = enemy.DoMinionAttack
 			DoAttack(enemy, GetWeaponAIData(enemy))
 			enemy.DoMinionAttack = nil
 		end
-
-		wait(aiData.FollowRefreshDuration or 0.0, enemy.AIThreadName)
 	end
 
 	if ActiveEnemies[enemy.LeaderId] == nil and IsAIActive( enemy ) then
@@ -122,15 +114,23 @@ function GuardAI( enemy )
 			searchId = searchOffsetId
 		end
 
-		if aiData.IdleAnimation ~= nil then
+		if enemy.DefaultAIData.IdleAnimation ~= nil then
 			SetAnimation({ Name = enemy.DefaultAIData.IdleAnimation, DestinationId = enemy.ObjectId })
 		end
 
-		-- Wait for target to come within range, no timeout
-		enemy.AINotifyName = "WithinDistance_"..enemy.Name.."_"..enemy.ObjectId
+		if aiData.WanderDistance ~= nil then
+			thread(MoveToRandomLocation, enemy, enemy.ObjectId, aiData.WanderDistance, aiData.WanderDistanceMin or 0, aiData.WanderTimout )
+		end
+		local wanderInterval = nil
+		if aiData.WanderIntervalMin ~= nil and aiData.WanderIntervalMax ~= nil then
+			wanderInterval = RandomFloat(aiData.WanderIntervalMin, aiData.WanderIntervalMax)
+		end
+
+		-- Wait for target to come within range
+		enemy.AINotifyName = "WithinDistanceAny_"..enemy.ObjectId
 		NotifyWithinDistanceAny({ Ids = { searchId }, DestinationNames = aiData.TriggerGroups or aiData.TargetGroups,
 									Distance = aiData.AttackDistance, ScaleY = aiData.AttackDistanceScaleY or 0.65,
-									Notify = enemy.AINotifyName, UseLocationZ = true })
+									Notify = enemy.AINotifyName, UseLocationZ = true, Timeout = wanderInterval })
 		waitUntil( enemy.AINotifyName )
 		aiData.TargetId = NotifyResultsTable[enemy.AINotifyName]
 
@@ -149,8 +149,14 @@ function GuardAI( enemy )
 			break
 		end
 
-		DoAttackerAILoop(enemy, aiData)
-		SurroundEnemiesAttacking[aiData.SurroundAIKey or enemy.Name][enemy.ObjectId] = nil
+		if not _eventTimeoutRecord[enemy.AINotifyName] then
+			DoAttackerAILoop(enemy, aiData)
+			SurroundEnemiesAttacking[aiData.SurroundAIKey or enemy.Name][enemy.ObjectId] = nil
+		end
+
+		if aiData.PostAttackEndAI then
+			return
+		end
 	end
 end
 
@@ -225,15 +231,19 @@ function SafeZoneAI( enemy )
 		return
 	end
 
+	enemy.ToggleTrap = false
 	DoAttackerAILoop(enemy, aiData)
 
 	SetAnimation({ DestinationId = enemy.ObjectId, Name = aiData.DisabledAnimation })
-	enemy.ToggleTrap = false
 end
 
 function SentryAI( enemy )
 
-	enemy.SentryTetherId = enemy.SentryTetherId or SpawnObstacle({ Name = "InvisibleTarget", DestinationId = enemy.ObjectId })
+	if enemy.SentryTetherId == nil then
+		enemy.SentryTetherId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = enemy.ObjectId })
+		enemy.DestroyIdsOnDeath = enemy.DestroyIdsOnDeath or {}
+		table.insert( enemy.DestroyIdsOnDeath, enemy.SentryTetherId )
+	end
 
 	enemy.WeaponName = SelectWeapon( enemy )
 	table.insert( enemy.WeaponHistory, enemy.WeaponName )
@@ -313,10 +323,10 @@ end
 function AttackAndDie( enemy )
 	wait( CalcEnemyWait( enemy, 0.1), enemy.AIThreadName )
 
-	enemy.WeaponName = enemy.WeaponName or SelectWeapon(enemy)
+	enemy.WeaponName = SelectWeapon(enemy)
 
 	local aiData = ShallowCopyTable(enemy.DefaultAIData) or {}
-	DebugAssert({ Condition = enemy.DefaultAIData ~= nil, Text = enemy.Name.." has no DefaultAIData", Owner = "Eduardo" })
+	--DebugAssert({ Condition = enemy.DefaultAIData ~= nil, Text = enemy.Name.." has no DefaultAIData", Owner = "Eduardo" })
 	if WeaponData[enemy.WeaponName] ~= nil and WeaponData[enemy.WeaponName].AIData ~= nil then
 		OverwriteTableKeys( aiData, WeaponData[enemy.WeaponName].AIData)
 	end
@@ -324,21 +334,29 @@ function AttackAndDie( enemy )
 
 	local targetId = GetTargetId( enemy, aiData )
 	DoAttackerAILoop( enemy, aiData )
+
+	while enemy.ChainedWeapon ~= nil or enemy.ActiveWeaponCombo ~= nil do
+		enemy.WeaponName = SelectWeapon(enemy)
+		--DebugPrint({ Text=enemy.WeaponName })
+
+		aiData = ShallowCopyTable(enemy.DefaultAIData) or {}
+		--DebugAssert({ Condition = enemy.DefaultAIData ~= nil, Text = enemy.Name.." has no DefaultAIData", Owner = "Eduardo" })
+		if WeaponData[enemy.WeaponName] ~= nil and WeaponData[enemy.WeaponName].AIData ~= nil then
+			OverwriteTableKeys( aiData, WeaponData[enemy.WeaponName].AIData)
+		end
+		aiData.WeaponName = enemy.WeaponName
+		DoAttackerAILoop( enemy, aiData )
+	end
+
+	while enemy.IsPolymorphed do
+		wait(0.5, enemy.AIThreadName )
+	end
+
 	Kill( enemy )
 end
 
-function RetaliateAttackerAILoop( enemy, attacker )
-	if not enemy.Retaliating then
-		enemy.Retaliating = true
-		DoAttackerAILoop( enemy )
-
-		wait(enemy.RetaliateResetDuration)
-		enemy.Retaliating = false
-	end
-end
-
 function DestructibleTreeHit( enemy, attacker, triggerArgs )
-	if attacker == nil or attacker.ObjectId ~= CurrentRun.Hero.ObjectId then
+	if attacker == nil or (attacker.ObjectId ~= CurrentRun.Hero.ObjectId and triggerArgs.AttackerName ~= "ShadeMerc" ) then
 		return
 	end
 
@@ -362,21 +380,46 @@ function DestructibleTreeHit( enemy, attacker, triggerArgs )
 	end
 	
 	if enemy.HitsTaken >= enemy.DefaultAIData.HitsToSplinter then
+		enemy.WeaponHistory = enemy.WeaponHistory or {}
 		if #enemy.WeaponHistory == 0 then
 		 	SetAngle({ Id = enemy.ObjectId, Angle = triggerArgs.ImpactAngle })
 			DoAttackerAILoop( enemy )
 			
-			SetAnimation({ DestinationId = enemy.ObjectId, Name = enemy.DestroyedAnimation })
-			RecordObjectState( CurrentRun.CurrentRoom, enemy.ObjectId, "Animation", enemy.DestroyedAnimation )
+			if enemy.DestroyedAnimation then
+				SetAnimation({ DestinationId = enemy.ObjectId, Name = enemy.DestroyedAnimation })
+			end
+			RecordObjectState( CurrentRun.CurrentRoom, enemy.ObjectId, "Animation", enemy.DestroyedAnimationToRestore or enemy.DestroyedAnimation )
 
 			if not enemy.DestroyedStopsProjectiles then
 				SetThingProperty({ Property = "StopsProjectiles",  DestinationId = enemy.ObjectId, Value = false })
 				RecordObjectState(CurrentRun.CurrentRoom, enemy.ObjectId, "StopsProjectiles", false)
 			end
 		end
-	elseif enemy.HitsTaken <= enemy.DefaultAIData.HitsToSplinter then
+	elseif enemy.HitsTaken <= enemy.DefaultAIData.HitsToSplinter and enemy.SplinterAnimation ~= nil then
 		SetAnimation({ DestinationId = enemy.ObjectId, Name = enemy.SplinterAnimation })
 	end
+end
+
+function TyphonMineAI( enemy )
+
+	enemy.WeaponName = SelectWeapon( enemy )
+	table.insert( enemy.WeaponHistory, enemy.WeaponName )
+	local aiData = GetWeaponAIData(enemy)
+
+	if aiData.IdleAnimation ~= nil then
+		SetAnimation({ Name = enemy.DefaultAIData.IdleAnimation, DestinationId = enemy.ObjectId })
+	end
+
+	-- Wait for target to come within range
+	enemy.AINotifyName = "WithinDistanceAny_"..enemy.ObjectId
+	NotifyWithinDistanceAny({ Ids = { enemy.ObjectId }, DestinationNames = aiData.TriggerGroups or aiData.TargetGroups,
+								Distance = aiData.AttackDistance, ScaleY = aiData.AttackDistanceScaleY or 0.65,
+								Notify = enemy.AINotifyName, UseLocationZ = true })
+	waitUntil( enemy.AINotifyName )
+	aiData.TargetId = NotifyResultsTable[enemy.AINotifyName]
+
+	DoAttackerAILoop(enemy, aiData)
+	Kill(enemy)
 end
 
 function ThornTreeHit( enemy, attacker, triggerArgs )
@@ -397,7 +440,7 @@ function ThornTreeHit( enemy, attacker, triggerArgs )
 	
 	if enemy.HitsTaken >= enemy.DefaultAIData.HitsToSplinter then
 		SetAnimation({ DestinationId = enemy.ObjectId, Name = enemy.DestroyedAnimation })
-		RecordObjectState( CurrentRun.CurrentRoom, enemy.ObjectId, "Animation", enemy.DestroyedAnimation )
+		RecordObjectState( CurrentRun.CurrentRoom, enemy.ObjectId, "Animation", enemy.DestroyedAnimationToRestore or enemy.DestroyedAnimation )
 
 		SetThingProperty({ Property = "StopsProjectiles",  DestinationId = enemy.ObjectId, Value = false })
 		RecordObjectState(CurrentRun.CurrentRoom, enemy.ObjectId, "StopsProjectiles", false)
@@ -408,71 +451,8 @@ function ThornTreeHit( enemy, attacker, triggerArgs )
 	end
 end
 
-function DirectionalShatterAI( enemy, attacker, triggerArgs )
-	SetAngle({ Id = enemy.ObjectId, Angle = triggerArgs.ImpactAngle })
-	DoAttackerAILoop( enemy )
-	if enemy.DefaultAIData.ShatterSpawnObstacle then
-		SpawnObstacle({ Name = enemy.DefaultAIData.ShatterSpawnObstacle, DestinationId = enemy.ObjectId, Group = "Standing" })
-	end
-	Kill( enemy )
-end
-
 function FireAndQuit( enemy )
 	DoAttackerAILoop(enemy)
-	--FireWeaponFromUnit({ Weapon = enemy.WeaponName, Id = enemy.ObjectId, AutoEquip = true, })
-end
-
-function CollisionRetaliateAI( enemy )
-
-	while IsAIActive( enemy ) do
-		enemy.WeaponName = SelectWeapon( enemy )
-		table.insert( enemy.WeaponHistory, enemy.WeaponName )
-		local aiData = GetWeaponAIData(enemy)
-
-		if aiData.IdleAnimation ~= nil then
-			SetAnimation({ Name = enemy.DefaultAIData.IdleAnimation, DestinationId = enemy.ObjectId })
-		end
-
-		-- Wait for collision
-		enemy.AINotifyName = "CollisionWith"..enemy.ObjectId
-		NotifyOnCollide({ Id = enemy.ObjectId, DestinationNames = aiData.TargetGroups, PointOnly = aiData.PointOnlyCollision, Notify = enemy.AINotifyName })
-		waitUntil( enemy.AINotifyName )
-		local colliderId = NotifyResultsTable[enemy.AINotifyName]
-
-		local velocity = GetVelocity({ Id = colliderId })
-		if enemy.RequiredVictimVelocity ~= nil and velocity < enemy.RequiredVictimVelocity then
-			wait( CalcEnemyWait( enemy, 0.1), enemy.AIThreadName )
-		else
-			-- If disabled while waiting
-			if not IsAIActive( enemy ) then
-				if aiData.DisabledAnimation ~= nil then
-					SetAnimation({ DestinationId = enemy.ObjectId, Name = aiData.DisabledAnimation })
-				end
-				return
-			end
-
-			-- Prepare to attack
-			DoAttack(enemy, aiData)
-
-			-- Wait until target leaves before resetting
-			if enemy.AIResetDistance ~= nil then
-				enemy.AINotifyName = "OutsideDistance"..enemy.ObjectId
-				NotifyOutsideDistance({ Id = enemy.ObjectId, DestinationId = nearbyTargetId, Distance = enemy.AIResetDistance, Notify = enemy.AINotifyName })
-				waitUntil( enemy.AINotifyName )
-
-				if not IsAIActive( enemy ) then
-					break
-				end
-
-				if aiData.IdleAnimation ~= nil then
-					SetAnimation({ Name = enemy.IdleAnimation, DestinationId = enemy.ObjectId })
-				end
-				if aiData.ReloadedSound ~= nil then
-					PlaySound({ Name = enemy.ReloadedSound, Id = enemy.ObjectId })
-				end
-			end
-		end
-	end
 end
 
 function PassiveAI( enemy )
@@ -525,90 +505,6 @@ function PassiveAI( enemy )
 
 end
 
-function RemoteAI( enemy )
-
-	while IsAIActive( enemy ) do
-		enemy.WeaponName = SelectWeapon( enemy )
-		table.insert( enemy.WeaponHistory, enemy.WeaponName )
-		local aiData = GetWeaponAIData(enemy)
-
-		if aiData.IdleAnimation ~= nil then
-			SetAnimation({ Name = aiData.IdleAnimation, DestinationId = enemy.ObjectId })
-		end
-
-		-- Wait for target to come within range, no timeout
-		enemy.AINotifyName = "WithinDistance_"..enemy.Name.."_"..enemy.ObjectId
-		NotifyWithinDistanceAny({ Ids = { enemy.ObjectId }, DestinationNames = enemy.TargetGroups, Distance = aiData.AttackDistance, ScaleY = 0.5, MaxZ = aiData.MaxVictimZ, Notify = enemy.AINotifyName })
-		waitUntil( enemy.AINotifyName )
-		aiData.TargetId = NotifyResultsTable[enemy.AINotifyName]
-
-		-- If disabled while waiting
-		if not IsAIActive( enemy ) then
-			SetAnimation({ DestinationId = enemy.ObjectId, Name = aiData.DisabledAnimation })
-			return
-		end
-
-		local linkedEnemy = ActiveEnemies[GetClosestUnitOfType({ Id = enemy.ObjectId, DestinationName = aiData.LinkedEnemy, Distance = 2000 })]
-
-		local trapChainData = nil
-		if CurrentRun.CurrentRoom.RemoteTrapChains ~= nil then
-			trapChainData = CurrentRun.CurrentRoom.RemoteTrapChains[enemy.ObjectId]
-		end
-
-		DoAttack(enemy, aiData)
-
-		if trapChainData ~= nil then
-			for k, chain in ipairs(trapChainData.Chains) do
-				for k, chainedEnemyId in ipairs(chain) do
-					notifyExistingWaiters("WithinDistance"..chainedEnemyId)
-					local chainedEnemy = ActiveEnemies[chainedEnemyId]
-					if chainedEnemy ~= nil then
-						local chainedWeaponAIData = ShallowCopyTable(chainedEnemy.DefaultAIData) or chainedEnemy
-						if WeaponData[chainedEnemy.WeaponName] ~= nil and WeaponData[chainedEnemy.WeaponName].AIData ~= nil then
-							OverwriteTableKeys( chainedWeaponAIData, WeaponData[chainedEnemy.WeaponName].AIData)
-						end
-						chainedWeaponAIData.WeaponName = chainedEnemy.WeaponName
-
-						thread(DoAttack, chainedEnemy, chainedWeaponAIData )
-					end
-				end
-				wait( CalcEnemyWait( enemy, trapChainData.ChainInterval), enemy.AIThreadName )
-			end
-		end
-
-		if linkedEnemy ~= nil then
-			local linkedWeaponAIData = ShallowCopyTable(linkedEnemy.DefaultAIData) or linkedEnemy
-			if WeaponData[linkedEnemy.WeaponName] ~= nil and WeaponData[linkedEnemy.WeaponName].AIData ~= nil then
-				OverwriteTableKeys( linkedWeaponAIData, WeaponData[linkedEnemy.WeaponName].AIData)
-			end
-			linkedWeaponAIData.WeaponName = linkedEnemy.WeaponName
-			thread(DoAttack, linkedEnemy, linkedWeaponAIData )
-		end
-
-		if not IsAIActive( enemy ) then
-			break
-		end
-
-		-- Wait until target leaves before resetting
-		if aiData.AIResetDistance ~= nil then
-			enemy.AINotifyName = "OutsideDistance"..enemy.ObjectId
-			NotifyOutsideDistance({ Id = enemy.ObjectId, DestinationId = aiData.TargetId, Distance = aiData.AIResetDistance, Notify = enemy.AINotifyName })
-			waitUntil( enemy.AINotifyName )
-
-			if not IsAIActive( enemy ) then
-				break
-			end
-
-			if aiData.IdleAnimation ~= nil then
-				SetAnimation({ Name = aiData.IdleAnimation, DestinationId = enemy.ObjectId })
-			end
-			if aiData.ReloadedSound ~= nil then
-				PlaySound({ Name = aiData.ReloadedSound, Id = enemy.ObjectId })
-			end
-		end
-	end
-end
-
 function ShadeMercAI( enemy )
 	local room = CurrentHubRoom or CurrentRun.CurrentRoom
 	room.ShadeMercInactiveIds = room.ShadeMercInactiveIds or {}
@@ -625,7 +521,7 @@ function ShadeMercAI( enemy )
 									Notify = enemy.AINotifyName })
 		waitUntil( enemy.AINotifyName, enemy.AIThreadName )
 
-		if SessionMapState.SprintActive or HasEffect({ Id = CurrentRun.Hero.ObjectId, EffectName = "RushWeaponDisableMove" }) then
+		if SessionMapState.SprintActive or HasEffect({ Id = CurrentRun.Hero.ObjectId, EffectName = "RushWeaponDisableMove" }) or SessionMapState.ForceShadeMercActive then
 
 			local endAI = false
 
@@ -633,24 +529,24 @@ function ShadeMercAI( enemy )
 			enemy.WeaponName = SelectWeapon( enemy )
 			table.insert(enemy.WeaponHistory, enemy.WeaponName)
 			aiData = GetWeaponAIData(enemy)
-			if HeroHasTrait("ShadeMercFireballBoon") then
-				aiData.ProjectileName = "ShadeMercFireball"
-			end
 
 			-- Target skelly in PreRun
 			if CurrentHubRoom ~= nil and CurrentHubRoom.ShadeMercAITarget ~= nil then
 				aiData.TargetId = GetIdsByType({ Name = CurrentHubRoom.ShadeMercAITarget })[1]
 			end
-
 			if aiData.TargetId == nil then
 				aiData.TargetId = GetTargetId(enemy, aiData)
 			end
+			
+			if SessionMapState.ForceShadeMercTargetId then
+				aiData.TargetId = SessionMapState.ForceShadeMercTargetId
+				aiData.TargetIdOverride = SessionMapState.ForceShadeMercTargetId
+			end
 
-			if aiData.TargetId ~= 0 and enemy.WeaponName ~= nil then
+			if aiData.TargetId ~= 0 and enemy.WeaponName ~= nil and not enemy.SkipCanAttack then
 				thread(MarkObjectiveComplete, "ShadeMercSpiritball")
 				endAI = DoAttack( enemy, aiData )
 			end
-
 			if room.CollectShadeMercs then
 				CollectShadeMerc(enemy)
 				return
@@ -679,12 +575,12 @@ function ShadeMercAI( enemy )
 		end
 	end
 
-	if room.ActiveEncounters ~= nil and IsEmpty(room.ActiveEncounters) then
+	if IsEmpty( room.ActiveEncounters ) then
 		return
 	end
 
-	table.insert(room.ShadeMercInactiveIds, enemy.ObjectId)
-	RemoveValue(room.ShadeMercActiveIds, enemy.ObjectId)
+	table.insert( room.ShadeMercInactiveIds, enemy.ObjectId )
+	RemoveValue( room.ShadeMercActiveIds, enemy.ObjectId )
 	notifyExistingWaiters("ShadeMercDeath")
 end
 
@@ -740,35 +636,34 @@ function FogAI( enemy )
 	end
 end
 
-function GroupAI(unitGroup)
-	local followerIds = unitGroup.UnitIds
-	local leaderId = RemoveRandomValue(followerIds)
-
-	local leader = ActiveEnemies[leaderId]
-	leader.MinionIds = followerIds
-	if unitGroup.LeaderFx ~= nil then
+function GroupAI( leader )
+	if leader.UnitGroupData.LeaderFx ~= nil then
 		leader.StopAnimationsOnDeath = leader.StopAnimationsOnDeath or {}
-		table.insert(leader.StopAnimationsOnDeath, unitGroup.LeaderFx)
-		CreateAnimation({ Name = unitGroup.LeaderFx, DestinationId = leaderId })
+		table.insert(leader.StopAnimationsOnDeath, leader.UnitGroupData.LeaderFx)
+		CreateAnimation({ Name = leader.UnitGroupData.LeaderFx, DestinationId = leader.ObjectId })
 	end
-	if unitGroup.DisableLeaderUnitCollision ~= nil then
+	if leader.UnitGroupData.DisableLeaderUnitCollision ~= nil then
 		SetUnitProperty({ Property = "CollideWithUnits",  DestinationId = leader.ObjectId, Value = false })
 	end
 	SetupAI( leader )
 
-	for k, unitId in pairs(followerIds) do
+	for k, unitId in ipairs( leader.UnitGroupData.UnitIds ) do
 		local minion = ActiveEnemies[unitId]
-		minion.DefaultAIData.FollowId = leaderId
-		minion.LeaderId = leaderId
-		minion.MinionAI = minion.MinionAI or "MinionFollowAI"
-		minion.AIOptions = { minion.MinionAI }
-		SetupAI( minion )
+		if minion ~= nil then
+			minion.DefaultAIData.FollowId = leader.ObjectId
+			minion.LeaderId = leader.ObjectId
+			minion.MinionAI = minion.MinionAI or "MinionFollowAI"
+			minion.AIOptions = { minion.MinionAI }
+			SetUnitProperty({ Property = "Speed",  DestinationId = minion.ObjectId, Value = GetUnitDataValue({ Id = minion.ObjectId, Property = "Speed" }) * 1.2 })
+			SetupAI( minion )
+			wait( 0.03 ) -- Space out activation
+		end
 	end
 
 end
 
 function HandleMinionWeapons(leader, aiData)
-	for k, minionId in pairs(leader.MinionIds) do
+	for k, minionId in pairs(leader.UnitGroupData.UnitIds) do
 
 		local minion = ActiveEnemies[minionId]
 		if minion ~= nil then
@@ -777,7 +672,7 @@ function HandleMinionWeapons(leader, aiData)
 			notifyExistingWaiters(minion.AINotifyName)
 			SetThreadWait(minion.AIThreadName, 0.0)
 		else
-			RemoveValue(leader.MinionIds, minionId)
+			RemoveValue(leader.UnitGroupData.UnitIds, minionId)
 		end
 	end
 end
@@ -812,7 +707,7 @@ function DoAttackerAILoop( enemy, aiData )
 	enemy.LastAttackerAIStartTimestamp = _worldTime
 	if aiData == nil then
 		enemy.WeaponName = SelectWeapon( enemy )
-		DebugAssert({ Condition = enemy.WeaponName ~= nil, Text = enemy.Name.." has no eligible weapons.", Owner = "Eduardo" })
+		--DebugAssert({ Condition = enemy.WeaponName ~= nil, Text = enemy.Name.." has no eligible weapons.", Owner = "Eduardo" })
 		aiData = GetWeaponAIData(enemy)
 	end
 	table.insert(enemy.WeaponHistory, enemy.WeaponName)
@@ -843,6 +738,8 @@ function DoAttackerAILoop( enemy, aiData )
 	if aiData.PartnerForceWeaponInterrupt then
 		if enemy.ComboPartnerId ~= nil and ActiveEnemies[enemy.ComboPartnerId] ~= nil and not ActiveEnemies[enemy.ComboPartnerId].IsDead then
 			ActiveEnemies[enemy.ComboPartnerId].ForcedWeaponInterrupt = aiData.PartnerForceWeaponInterrupt
+			ActiveEnemies[enemy.ComboPartnerId].ChainedWeapon = nil
+			SetThreadWait( ActiveEnemies[enemy.ComboPartnerId].AIThreadName, 0.01 )
 		end
 	end
 
@@ -850,28 +747,9 @@ function DoAttackerAILoop( enemy, aiData )
 		aiData.TargetId = GetTargetId(enemy, aiData)
 	end
 
-	if aiData.SkipIfTargetLocationBlocked and IsLocationBlocked({ Id = aiData.TargetId }) then
-		return true
-	end
-
-	if aiData.TeleportToTargetId ~= nil then
-		Teleport({ Id = enemy.ObjectId, DestinationId = aiData.TargetId })
-	end
-
-	if aiData.TeleportToId ~= nil then
-		Teleport({ Id = enemy.ObjectId, DestinationId = aiData.TeleportToId })
-	end
-
-	if aiData.AIPickupTypes ~= nil then
-		local pickupSuccess = DoPickup( enemy, aiData )
-		if aiData.CancelIfFailedPickup and not pickupSuccess then
-			return true
-		end
-	end
-
 	if enemy.IsPolymorphed or (not aiData.SkipCanAttack and not CanAttack({ Id = enemy.ObjectId })) then
-		if aiData.AttackFailWeapon ~= nil and not enemy.IsPolymorphed then
-			DebugAssert({ Condition = aiData.AttackFailWeapon ~= enemy.WeaponName, Text = "Using "..tostring(aiData.WeaponName).." as AttackFailWeapon on itself. This will infinite loop.", Owner = "Eduardo" })
+		if aiData.AttackFailWeapon ~= nil and not enemy.IsPolymorphed and (aiData.AttackFailWeaponRequirements == nil or IsEnemyWeaponEligible(enemy, WeaponData[aiData.AttackFailWeapon], aiData.AttackFailWeaponRequirements)) then
+			--DebugAssert({ Condition = aiData.AttackFailWeapon ~= enemy.WeaponName, Text = "Using "..tostring(aiData.WeaponName).." as AttackFailWeapon on itself. This will infinite loop.", Owner = "Eduardo" })
 			enemy.WeaponName = aiData.AttackFailWeapon
 			local newAIData = GetWeaponAIData(enemy)
 			DoAttackerAILoop(enemy, newAIData)
@@ -882,12 +760,19 @@ function DoAttackerAILoop( enemy, aiData )
 		waitUntil( enemy.AINotifyName )
 	end
 
-	if aiData.TargetId ~= nil and aiData.TargetId ~= 0 then
+	if (aiData.TargetId ~= nil and aiData.TargetId ~= 0) and (not aiData.SkipIfTargetLocationBlocked or not IsLocationBlocked({ Id = aiData.TargetId }) ) then
 
 		-- Pre-Movement
 		if aiData.RetreatBeforeAttack then
 			Retreat(enemy, aiData, aiData.TargetId)
 			AIWait(0.05, enemy, aiData.AIThreadName or enemy.AIThreadName)
+			if ReachedAIStageEnd(enemy) or CurrentRun.CurrentRoom.InStageTransition then
+				return true
+			end
+		end
+
+		if aiData.PreMoveTrackTarget then
+			Track({ Ids = { enemy.ObjectId }, DestinationIds = { aiData.TargetId }, AngleMin = enemy.AngleMin, AngleMax = enemy.AngleMax })
 		end
 
 		if aiData.PreMoveFunctionName then
@@ -899,16 +784,17 @@ function DoAttackerAILoop( enemy, aiData )
 		end
 
 		-- Teleportation
-		if aiData.TeleportToSpawnPoints then
-			HandleEnemyTeleportation(enemy, aiData,aiData.TeleportToId)
-		end
 		if aiData.PreMoveTeleport then
-			HandleEnemyTeleportation(enemy, aiData, aiData.TeleportToId)
+			HandleEnemyTeleportation(enemy, aiData)
 		end
 
 		-- Leap
 		if aiData.PreMoveLeap then
 			Leap( enemy, aiData )
+		end
+
+		if enemy.ForcedWeaponInterrupt ~= nil and (WeaponData[enemy.WeaponName] == nil or not WeaponData[enemy.WeaponName].BlockInterrupt) then
+			return true
 		end
 
 		-- Movement
@@ -954,7 +840,15 @@ function DoAttackerAILoop( enemy, aiData )
 				end
 			end
 
-			if didTimeout and aiData.SkipAttackAfterMoveTimeout then
+			if didTimeout and aiData.SkipAttackIfMoveTimeout then
+				return true
+			end
+
+			if aiData.IsRushWeapon and enemy.RushCollision and aiData.RushCollisionWeapon then
+				enemy.RushCollision = false
+				enemy.WeaponName = aiData.RushCollisionWeapon
+				local rushCollisionWeaponAIData = GetWeaponAIData(enemy)
+				DoAttackerAILoop(enemy, rushCollisionWeaponAIData)
 				return true
 			end
 
@@ -981,7 +875,7 @@ function DoAttackerAILoop( enemy, aiData )
 
 		-- Abort if target died during MoveWithinRange()
 		if aiData.TargetRequiredKillEnemy and aiData.TargetId ~= CurrentRun.Hero.ObjectId and ActiveEnemies[aiData.TargetId] == nil and MapState.ActiveObstacles[aiData.TargetId] then
-			DebugPrint({ Text=enemy.Name.."'s TargetId is dead! Aborting weapon." })
+			--DebugPrint({ Text=enemy.Name.."'s TargetId is dead! Aborting weapon." })
 			aiData.DoNotRepeatOnAttackFail = true
 			return true
 		end
@@ -1036,7 +930,7 @@ function DoAttackerAILoop( enemy, aiData )
 
 		if aiData.PreAttackCreateHealthBar then
 			CreateHealthBar( enemy )
-			thread( UpdateHealthBar, enemy, 0, { Force = true } )
+			UpdateHealthBar( enemy, 0, { Force = true } )
 			for activeEffectName, stacks in pairs( enemy.ActiveEffects ) do
 				UpdateEffectStacks( enemy, activeEffectName )
 			end
@@ -1051,11 +945,17 @@ function DoAttackerAILoop( enemy, aiData )
 				if aiData.InterruptAnimation ~= nil then
 					SetAnimation({ DestinationId = enemy.ObjectId, Name = aiData.InterruptAnimation })
 				end
+				if aiData.PostAttackSetUnitProperties ~= nil then
+					for unitProperty, unitPropertyValue in pairs(aiData.PostAttackSetUnitProperties) do
+						--DebugPrint({ Text="Set "..enemy.Name.." "..unitProperty.." to "..unitPropertyValue })
+						SetUnitProperty({ DestinationId = enemy.ObjectId, Value = unitPropertyValue, Property = unitProperty  })
+					end
+				end
 				return true
 			end
 			if not attackSuccess then
-				if aiData.AttackFailWeapon ~= nil and not enemy.IsPolymorphed then
-					DebugAssert({ Condition = aiData.AttackFailWeapon ~= enemy.WeaponName, Text = "Using "..tostring(enemy.WeaponName).." as AttackFailWeapon on itself. This will infinite loop.", Owner = "Eduardo" })
+				if aiData.AttackFailWeapon ~= nil and not enemy.IsPolymorphed and (aiData.AttackFailWeaponRequirements == nil or IsEnemyWeaponEligible(enemy, WeaponData[aiData.AttackFailWeapon], aiData.AttackFailWeaponRequirements))  then
+					--DebugAssert({ Condition = aiData.AttackFailWeapon ~= enemy.WeaponName, Text = "Using "..tostring(enemy.WeaponName).." as AttackFailWeapon on itself. This will infinite loop.", Owner = "Eduardo" })
 					enemy.WeaponName = aiData.AttackFailWeapon
 					local newAIData = GetWeaponAIData(enemy)
 					DoAttackerAILoop(enemy, newAIData)
@@ -1114,16 +1014,15 @@ function DoAttackerAILoop( enemy, aiData )
 		end
 
 		if aiData.PostAttackCreateHealthBar then
-			CreateHealthBar( enemy )
-			RecreateEffectVfx( enemy )
-			thread( UpdateHealthBar, enemy, 0, { Force = true } )
-			for activeEffectName, stacks in pairs( enemy.ActiveEffects ) do
-				UpdateEffectStacks( enemy, activeEffectName )
-			end
+			RecreateEnemyUI( enemy )
 		end
 
 		if aiData.RetreatAfterAttack then
 			Retreat(enemy, aiData, aiData.TargetId)
+			
+			if ReachedAIStageEnd(enemy) or CurrentRun.CurrentRoom.InStageTransition then
+				return true
+			end
 
 			if aiData.RetreatAfterAttackEndWait ~= nil then
 				Track({ Ids = { enemy.ObjectId }, DestinationIds = { aiData.TargetId } })
@@ -1133,7 +1032,7 @@ function DoAttackerAILoop( enemy, aiData )
 		end
 
 		-- Teleportation
-		if aiData.PostAttackTeleportToSpawnPoints then
+		if aiData.PostAttackEndTeleport then
 			HandleEnemyTeleportation(enemy, aiData)
 		end
 
@@ -1142,15 +1041,14 @@ function DoAttackerAILoop( enemy, aiData )
 			Leap( enemy, aiData )
 		end
 
-		if aiData.PostAttackTeleportToTargetId ~= nil then
-			Teleport({ Id = enemy.ObjectId, DestinationId = aiData.TargetId })
-		end
-
 		if enemy.CreatedOwnTarget then
 			Destroy({ Id = enemy.CreatedOwnTarget })
 			enemy.CreatedOwnTarget = nil
 		end
 
+		if aiData.DeaggroAfterAttack then
+			return SetAI("AggroAI", enemy, CurrentRun)
+		end
 
 		if aiData.PostAttackAI ~= nil then
 			return SetAI( aiData.PostAttackAI, enemy )
@@ -1185,8 +1083,7 @@ function DoAttackerAILoop( enemy, aiData )
 
 end
 
-function HandleEnemyTeleportation( enemy, aiData, teleportToId)
-
+function HandleEnemyTeleportation( enemy, aiData )
 	if enemy.IsPolymorphed or (not aiData.SkipCanAttack and not CanAttack({ Id = enemy.ObjectId })) then
 		return
 	end
@@ -1198,16 +1095,14 @@ function HandleEnemyTeleportation( enemy, aiData, teleportToId)
 	enemy.LastTeleportTime = enemy.LastTeleportTime or 0
 
 	if _worldTime - enemy.LastTeleportTime >= aiData.TeleportationInterval then
-		local targetPointId = teleportToId
+		local targetPointId = aiData.TeleportToId
 
-		if aiData.TeleportToRandomId ~= nil then
-			targetPointId = GetRandomValue(aiData.TeleportToRandomId)
-		elseif aiData.TeleportToTarget then
+		if aiData.TeleportToTarget then
 			targetPointId = aiData.TargetId
 		elseif aiData.TeleportToComboPartner then
 			targetPointId = enemy.ComboPartnerId
-		else
-			targetPointId = SelectSpawnPoint(CurrentRun.CurrentRoom, enemy, { SpawnNearId = aiData.TargetId or CurrentRun.Hero.ObjectId, SpawnRadius = aiData.TeleportMaxDistance or 1000, SpawnRadiusMin = aiData.TeleportMinDistance },
+		elseif targetPointId == nil then
+			targetPointId = SelectSpawnPoint(CurrentRun.CurrentRoom, enemy, { SpawnNearId = aiData.TargetId or CurrentRun.Hero.ObjectId, SpawnRadius = aiData.TeleportMaxDistance or 1000, SpawnRadiusMin = aiData.TeleportMinDistance, MinPlayerArc = aiData.TeleportMinPlayerArc, MaxPlayerArc = aiData.TeleportMaxPlayerArc },
 															{ RequiredSpawnPoint = aiData.TeleportToSpawnPointType, AllowNoSpawnPoint = true, SpawnAwayFromTypes = aiData.SpawnAwayFromTypes, SpawnAwayFromTypesDistance = aiData.SpawnAwayFromTypesDistance, RequireLoS = aiData.RequireTeleportTargetLoS, LoSTarget = aiData.TargetId, PreferredSpawnPoint = aiData.PreferredSpawnPoint, PreferredSpawnPointGroup = aiData.PreferredSpawnPointGroup })
 		end
 		-- spawn a target in case target Id is moving
@@ -1216,9 +1111,15 @@ function HandleEnemyTeleportation( enemy, aiData, teleportToId)
 		end
 
 		if targetPointId == nil then
-			DebugPrint({ Text="NO TELEPORT TARGET" })
+			--DebugPrint({ Text="NO TELEPORT TARGET" })
 			return
 		end
+		
+		if enemy.OccupyingSpawnPointId ~= nil then
+			UnoccupySpawnPoint(enemy.OccupyingSpawnPointId)
+		end
+		enemy.OccupyingSpawnPointId = targetPointId
+		SessionMapState.SpawnPointsUsed[targetPointId] = enemy.ObjectId
 
 		local offset = nil
 		local createdOwnTarget = false
@@ -1252,7 +1153,7 @@ function HandleEnemyTeleportation( enemy, aiData, teleportToId)
 			ShakeScreen( aiData.StartTeleportScreenShake )
 		end
 
-		AIWait(aiData.PreTeleportWait, enemy, aiData.AIThreadName or enemy.AIThreadName)
+		AIWait( aiData.PreTeleportWait, enemy, aiData.AIThreadName or enemy.AIThreadName )
 
 		if enemy.IsPolymorphed or (not aiData.SkipCanAttack and not CanAttack({ Id = enemy.ObjectId })) then
 			return
@@ -1273,8 +1174,13 @@ function HandleEnemyTeleportation( enemy, aiData, teleportToId)
 		end
 
 		if aiData.MidTeleportWait ~= nil then
-			AIWait(aiData.MidTeleportWait, enemy, aiData.AIThreadName or enemy.AIThreadName)
-			StopAnimation({ Name = aiData.TeleportDestinationFx, DestinationId = destinationFxId })
+			AIWait( aiData.MidTeleportWait, enemy, aiData.AIThreadName or enemy.AIThreadName )
+			if aiData.TeleportDestinationFx ~= nil then 
+				StopAnimation({ Name = aiData.TeleportDestinationFx, DestinationId = destinationFxId })
+			end
+			if enemy.ForcedWeaponInterrupt then
+				return
+			end
 			if enemy.IsPolymorphed or (not aiData.SkipCanAttack and not CanAttack({ Id = enemy.ObjectId })) then
 				return
 			end
@@ -1289,15 +1195,13 @@ function HandleEnemyTeleportation( enemy, aiData, teleportToId)
 		if aiData.TeleportAnimation ~= nil then
 			SetAnimation({ DestinationId = enemy.ObjectId, Name = aiData.TeleportAnimation })
 		end
-
-		if enemy.OccupyingSpawnPointId ~= nil then
-			UnoccupySpawnPoint(enemy.OccupyingSpawnPointId)
+		if aiData.TeleportAlpha ~= nil then
+			SetAlpha({ Id = enemy.ObjectId, Fraction = aiData.TeleportAlpha, Duration = aiData.TeleportAlphaDuration or 0 })
 		end
-		Teleport({ Id = enemy.ObjectId, DestinationId = targetPointId })
-		ClearAutoLock({ Id = CurrentRun.Hero.ObjectId, DestinationId = enemy.ObjectId })
 
-		enemy.OccupyingSpawnPointId = targetPointId
-		SessionMapState.SpawnPointsUsed[targetPointId] = enemy.ObjectId
+		ClearAutoLock({ Id = CurrentRun.Hero.ObjectId })
+		Teleport({ Id = enemy.ObjectId, DestinationId = targetPointId })
+
 		thread( UnoccupySpawnPointOnDistance, enemy, targetPointId, 400 )
 
 		if aiData.TeleportEndFx ~= nil then
@@ -1308,12 +1212,16 @@ function HandleEnemyTeleportation( enemy, aiData, teleportToId)
 			ClearAllEffects( enemy ) 
 		end
 
+		if aiData.PostTeleportAngleTowardTarget then
+			AngleTowardTarget({ Id = enemy.ObjectId, DestinationId = aiData.TargetId })
+		end
+
 		enemy.LastTeleportTime = _worldTime
 
 		if aiData.TeleportationIntervalMin ~= nil and aiData.TeleportationIntervalMax ~= nil then
 			aiData.TeleportationInterval = RandomFloat( aiData.TeleportationIntervalMin, aiData.TeleportationIntervalMax )
 		end
-		AIWait(aiData.PostTeleportWait, enemy, aiData.AIThreadName or enemy.AIThreadName)
+		AIWait( aiData.PostTeleportWait, enemy, aiData.AIThreadName or enemy.AIThreadName )
 
 		if createdOwnTarget then
 			Destroy({ Id = teleportPointId })
@@ -1323,26 +1231,27 @@ end
 
 function SelectWeapon( enemy )
 	local nextWeapon = nil
+	enemy.WeaponComboData = nil
+
+	if enemy.ForcedWeaponInterrupt == true then
+		enemy.ForcedWeaponInterrupt = nil
+	end
+
+	-- Weapon Selection
 
 	if enemy.ForcedWeaponInterrupt ~= nil then
-		if enemy.ForcedWeaponInterrupt == true then
-			enemy.ForcedWeaponInterrupt = nil
-		else
-			enemy.WeaponName = enemy.ForcedWeaponInterrupt
-			enemy.ForcedWeaponInterrupt = nil
-			return enemy.WeaponName
-		end
-	end
-
-	if enemy.ForcedNextWeapon ~= nil then
+		enemy.WeaponName = enemy.ForcedWeaponInterrupt
+		enemy.ForcedWeaponInterrupt = nil
+		nextWeapon = enemy.WeaponName
+	elseif enemy.ForcedNextWeapon ~= nil then
 		enemy.WeaponName = enemy.ForcedNextWeapon
 		enemy.ForcedNextWeapon = nil
-		return enemy.WeaponName
-	end
-
-	if enemy.ChainedWeapon ~= nil then
+		nextWeapon = enemy.WeaponName
+	elseif enemy.ChainedWeapon ~= nil then
 		if WeaponData[enemy.ChainedWeapon] ~= nil and WeaponData[enemy.ChainedWeapon].ChainChance ~= nil and not RandomChance(WeaponData[enemy.ChainedWeapon].ChainChance) then
-			DebugPrint({ Text="Failed ChainChance" })
+			--DebugPrint({ Text="Failed ChainChance" })
+			enemy.ChainedWeapon = nil
+			return SelectWeapon(enemy)
 		else
 			enemy.WeaponName = enemy.ChainedWeapon
 			enemy.ChainedWeapon = nil
@@ -1351,47 +1260,78 @@ function SelectWeapon( enemy )
 			elseif WeaponData[enemy.WeaponName] ~= nil and WeaponData[enemy.WeaponName].WeaponComboOnly then
 				enemy.ActiveWeaponCombo = enemy.WeaponName
 				enemy.ActiveWeaponComboIndex = 0
-				return SelectWeapon(enemy)
+				nextWeapon = SelectWeapon( enemy )
 			else
-				return enemy.WeaponName
+				nextWeapon = enemy.WeaponName
 			end
 		end
-	end
-
-	if enemy.ActiveWeaponCombo ~= nil then
+	elseif enemy.ActiveWeaponCombo ~= nil then
 		enemy.ActiveWeaponComboIndex = enemy.ActiveWeaponComboIndex + 1
 		local activeWeaponCombo = WeaponData[enemy.ActiveWeaponCombo].WeaponCombo
-		if enemy.ActiveWeaponComboIndex <= TableLength(WeaponData[enemy.ActiveWeaponCombo].WeaponCombo) then
-			enemy.WeaponName = activeWeaponCombo[enemy.ActiveWeaponComboIndex]
-			return enemy.WeaponName
-		else
+
+		if enemy.ActiveWeaponComboIndex <= #WeaponData[enemy.ActiveWeaponCombo].WeaponCombo then
+			if type(activeWeaponCombo[enemy.ActiveWeaponComboIndex]) == "table" then
+				local weaponComboData = activeWeaponCombo[enemy.ActiveWeaponComboIndex]
+
+				if weaponComboData.GameStateRequirements == nil or IsGameStateEligible(enemy, weaponComboData.GameStateRequirements) then
+					enemy.WeaponComboData = DeepCopyTable(weaponComboData)
+
+					local comboWeaponOptions = ShallowCopyTable(weaponComboData.WeaponOptions) or { weaponComboData.WeaponName }
+					for i, weaponOption in ipairs( comboWeaponOptions ) do
+						if not weaponComboData.IgnoreRequirements and not IsEnemyWeaponEligible( enemy, WeaponData[weaponOption]) then
+							RemoveValue( comboWeaponOptions, weaponOption )
+						end
+					end
+
+					if IsEmpty(comboWeaponOptions) then
+						return SelectWeapon( enemy )
+					end
+
+					enemy.WeaponComboData.WeaponName = GetRandomValue(comboWeaponOptions)
+					enemy.WeaponName = enemy.WeaponComboData.WeaponName
+					nextWeapon = enemy.WeaponName
+				else
+					return SelectWeapon( enemy )
+				end
+			else
+				enemy.WeaponName = activeWeaponCombo[enemy.ActiveWeaponComboIndex]
+				nextWeapon = enemy.WeaponName
+			end
+		end
+		if enemy.ActiveWeaponComboIndex >= #WeaponData[enemy.ActiveWeaponCombo].WeaponCombo then
 			enemy.ActiveWeaponCombo = nil
 		end
-	end
-
-	if nextWeapon == nil and enemy.WeaponOptions then
+	elseif nextWeapon == nil and enemy.WeaponOptions then
 		local eligibleWeaponOptions = {}
 		local forcedWeaponOptions = {}
 
-		for k, weaponName in pairs(enemy.WeaponOptions) do
+		for k, weaponName in ipairs( enemy.WeaponOptions ) do
 			local weaponData = WeaponData[weaponName]
 			if weaponData == nil or weaponData.AIData == nil or IsEnemyWeaponEligible( enemy, weaponData ) then
 				if IsEnemyWeaponForced( enemy, weaponName ) then
-					table.insert(forcedWeaponOptions, weaponName)
+					table.insert( forcedWeaponOptions, weaponName )
 				else
-					table.insert(eligibleWeaponOptions, weaponName)
+					table.insert( eligibleWeaponOptions, weaponName )
 				end
-				--DebugPrint({ Text = "Option "..enemy.WeaponName })
 			end
 		end
 
-		nextWeapon = GetRandomValue(forcedWeaponOptions) or GetRandomValue(eligibleWeaponOptions)
+		nextWeapon = GetRandomArrayValue( forcedWeaponOptions ) or GetRandomArrayValue( eligibleWeaponOptions )
 	end
 
+	-- Conditional Weapon Swaps
 	if nextWeapon == nil then
 		if enemy.DisarmedWeapon ~= nil then
 			--DebugPrint({ Text = "Equiping disarmed weapon" })
 			nextWeapon = enemy.DisarmedWeapon
+		end
+	end
+
+	if WeaponData[nextWeapon] ~= nil and WeaponData[nextWeapon].ConditionalWeaponSwap ~= nil then
+		for k, conditionalData in pairs(WeaponData[nextWeapon].ConditionalWeaponSwap) do
+			if IsGameStateEligible(enemy, conditionalData.GameStateRequirements) then
+				nextWeapon = conditionalData.WeaponName
+			end
 		end
 	end
 
@@ -1403,19 +1343,22 @@ function SelectWeapon( enemy )
 		nextWeapon = WeaponData[nextWeapon].GodUpgradeWeaponSwap[enemy.GodUpgrade]
 	end
 
-	if WeaponData[nextWeapon] ~= nil and WeaponData[nextWeapon].SkipToChainedWeaponIfObstacleExists ~= nil and not IsEmpty(GetIdsByType({ Name = WeaponData[nextWeapon].SkipToChainedWeaponIfObstacleExists })) then
-		nextWeapon = WeaponData[nextWeapon].AIData.ChainedWeapon
-	end
+	if WeaponData[nextWeapon] ~= nil then
+		if WeaponData[nextWeapon].SkipToChainedWeaponIfObstacleExists ~= nil and not IsEmpty(GetIdsByType({ Name = WeaponData[nextWeapon].SkipToChainedWeaponIfObstacleExists })) then
+			nextWeapon = WeaponData[nextWeapon].AIData.ChainedWeapon
+		end
 
-	if WeaponData[nextWeapon] ~= nil and WeaponData[nextWeapon].WeaponSelectorOnly then
-		nextWeapon = GetRandomValue(WeaponData[nextWeapon].SelectorOptions)
-	end
-	if WeaponData[nextWeapon] ~= nil and WeaponData[nextWeapon].WeaponCombo ~= nil then
-		enemy.ActiveWeaponCombo = nextWeapon
-		enemy.ActiveWeaponComboIndex = 0
-		if WeaponData[nextWeapon].WeaponComboOnly then
-			table.insert( enemy.WeaponHistory, nextWeapon )
-			return SelectWeapon(enemy)
+		if WeaponData[nextWeapon].WeaponSelectorOnly then
+			nextWeapon = GetRandomArrayValue( WeaponData[nextWeapon].SelectorOptions )
+		end
+
+		if WeaponData[nextWeapon].WeaponCombo ~= nil then
+			enemy.ActiveWeaponCombo = nextWeapon
+			enemy.ActiveWeaponComboIndex = 0
+			if WeaponData[nextWeapon].WeaponComboOnly then
+				table.insert( enemy.WeaponHistory, nextWeapon )
+				return SelectWeapon( enemy )
+			end
 		end
 	end
 
@@ -1433,10 +1376,6 @@ function IsEnemyWeaponEligible( enemy, weaponData, requirements )
 	if requirements ~= nil then
 		if requirements.SkipRequirementsIfNotAggroed and not enemy.IsAggroed then
 			return true
-		end
-		----
-		if requirements.RequiresNotEnraged and enemy.Enraged then
-			return false
 		end
 
 		if requirements.RequiresNotCharmed and (enemy.Charmed or IsCharmed({ Id = enemy.ObjectId })) then
@@ -1463,6 +1402,18 @@ function IsEnemyWeaponEligible( enemy, weaponData, requirements )
 			return false
 		end
 
+		if requirements.MaxRequiredKillEnemies ~= nil and TableLength(RequiredKillEnemies) >= requirements.MaxRequiredKillEnemies then
+			return false
+		end
+
+		if requirements.MapAggressor ~= nil and MapState.Aggressor ~= nil and requirements.MapAggressor ~= MapState.Aggressor then
+			return false
+		end
+
+		if requirements.RequiresAMapAggressor and MapState.Aggressor == nil then
+			return false
+		end
+
 		if requirements.MinAttacksBetweenUse ~= nil then
 			local attacksSinceWeapon = NumAttacksSinceWeapon( enemy, weaponData.Name )
 			--DebugPrint({ Text = "Attacks Since "..weaponData.Name.." Use: "..attacksSinceWeapon })
@@ -1481,8 +1432,10 @@ function IsEnemyWeaponEligible( enemy, weaponData, requirements )
 
 		if requirements.PreviousWeaponNot ~= nil and enemy.WeaponHistory ~= nil then
 			local prevWeapon = enemy.WeaponHistory[#enemy.WeaponHistory]
-			if prevWeapon == requirements.PreviousWeaponNot then
-				return false
+			for k, weaponReq in ipairs(requirements.PreviousWeaponNot) do
+				if prevWeapon == weaponReq then
+					return false
+				end
 			end
 		end
 
@@ -1532,7 +1485,6 @@ function IsEnemyWeaponEligible( enemy, weaponData, requirements )
 
 		if requirements.MinPlayerArc ~= nil or requirements.MaxPlayerArc ~= nil then
 			local arcDistance = CalcArcDistance( GetAngle({ Id = enemy.ObjectId }), GetAngleBetween({ Id = enemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId }) )
-			
 			if requirements.MinPlayerArc ~= nil and arcDistance < requirements.MinPlayerArc then
 				return false
 			end
@@ -1542,25 +1494,36 @@ function IsEnemyWeaponEligible( enemy, weaponData, requirements )
 			end
 		end
 
-		if requirements.MaxPlayerDistance ~= nil then
-			local distanceToPlayer = GetDistance({ Id = enemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
-			if distanceToPlayer > requirements.MaxPlayerDistance then
+		if requirements.RequirePlayerRightSide or requirements.RequirePlayerLeftSide then
+			local angle = GetAngle({ Id = enemy.ObjectId }) - GetAngleBetween({ Id = enemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
+			if (angle > 0 and angle < 180) or (angle < -180 and angle > -360) then -- If the player is on the right side of the unit
+				if requirements.RequirePlayerLeftSide then
+					return false
+				end
+			else
+				if requirements.RequirePlayerRightSide then
+					return false
+				end
+			end
+		end
+
+		if requirements.MaxPlayerDistance ~= nil and not enemy.IsCharmed then
+			if not IsWithinDistance({ Id = enemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId, Distance = requirements.MaxPlayerDistance, ScaleY = requirements.MaxPlayerDistanceScaleY }) then
 				return false
 			end
 		end
 
-		if requirements.MinPlayerDistance ~= nil then
-			local distanceToPlayer = GetDistance({ Id = enemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
-			if distanceToPlayer < requirements.MinPlayerDistance then
+		if requirements.MinPlayerDistance ~= nil and not enemy.IsCharmed then
+			if IsWithinDistance({ Id = enemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId, Distance = requirements.MinPlayerDistance, ScaleY = requirements.MinPlayerDistanceScaleY }) then
 				return false
 			end
 		end
 
-		if requirements.RequiresPlayerHasEffect ~= nil and not HasEffect({ Id = CurrentRun.Hero.ObjectId, EffectName = requirements.RequiresPlayerHasEffect }) then
+		if requirements.HasEffect ~= nil and enemy.ActiveEffects[requirements.HasEffect] == nil then
 			return false
 		end
 
-		if requirements.RequiresPlayerFalseHasEffect ~= nil and HasEffect({ Id = CurrentRun.Hero.ObjectId, EffectName = requirements.RequiresPlayerFalseHasEffect }) then
+		if requirements.HasEffectFalse ~= nil and enemy.ActiveEffects[requirements.HasEffectFalse] ~= nil then
 			return false
 		end
 
@@ -1590,16 +1553,14 @@ function IsEnemyWeaponEligible( enemy, weaponData, requirements )
 			end
 		end
 
-		if requirements.RequiresMinions and enemy.MinionIds == nil then 
-			return false
-		end
-
-		if requirements.RequiresNotLeader and enemy.MinionIds ~= nil then
-			return false
-		end
-
-		if requirements.RequiresNoLeader and enemy.LeaderId ~= nil then
-			return false
+		if CurrentRun.CurrentRoom.Encounter ~= nil and CurrentRun.CurrentRoom.Encounter.GroupHealth ~= nil then
+			local groupHealthPercent = CurrentRun.CurrentRoom.Encounter.GroupHealth / CurrentRun.CurrentRoom.Encounter.GroupMaxHealth
+			if requirements.GroupHealthPercentMax ~= nil and groupHealthPercent > requirements.GroupHealthPercentMax then
+				return false
+			end
+			if requirements.GroupHealthPercentMin ~= nil and groupHealthPercent < requirements.GroupHealthPercentMin then
+				return false
+			end
 		end
 
 		if requirements.RequireComboPartner and (enemy.ComboPartnerId == 0 or ActiveEnemies[enemy.ComboPartnerId] == nil or ActiveEnemies[enemy.ComboPartnerId].IsDead) then
@@ -1642,15 +1603,27 @@ function IsEnemyWeaponEligible( enemy, weaponData, requirements )
 			return false
 		end
 
-		if requirements.RequireNumIdsOfType ~= nil and #GetIdsByType({ Name = requirements.RequireNumIdsOfType.Name }) == requirements.RequireNumIdsOfType.Count then
+		if requirements.RequireNumIdsOfType ~= nil and #GetIdsByType({ Name = requirements.RequireNumIdsOfType.Name }) ~= requirements.RequireNumIdsOfType.Count then
 			return false
 		end
 
-		if requirements.RequireMaxIdsOfType ~= nil and #GetIdsByType({ Name = requirements.RequireMaxIdsOfType.Name }) >= requirements.RequireMaxIdsOfType.Count then
+		if requirements.RequireMaxIdsOfType ~= nil and #GetIdsByType({ Name = requirements.RequireMaxIdsOfType.Name }) > requirements.RequireMaxIdsOfType.Count then
 			return false
 		end
 
-		if requirements.RequireMinIdsOfType ~= nil and #GetIdsByType({ Name = requirements.RequireMinIdsOfType.Name }) >= requirements.RequireMinIdsOfType.Count then
+		if requirements.RequireMinIdsOfType ~= nil and #GetIdsByType({ Name = requirements.RequireMinIdsOfType.Name }) < requirements.RequireMinIdsOfType.Count then
+			return false
+		end
+
+		if requirements.RequireNumIdsOfTypes ~= nil and #GetIdsByType({ Names = requirements.RequireNumIdsOfTypes.Names }) ~= requirements.RequireNumIdsOfTypes.Count then
+			return false
+		end
+
+		if requirements.RequireMaxIdsOfTypes ~= nil and #GetIdsByType({ Names = requirements.RequireMaxIdsOfTypes.Names }) > requirements.RequireMaxIdsOfTypes.Count then
+			return false
+		end
+
+		if requirements.RequireMinIdsOfTypes ~= nil and #GetIdsByType({ Names = requirements.RequireMinIdsOfTypes.Names }) < requirements.RequireMinIdsOfTypes.Count then
 			return false
 		end
 
@@ -1665,9 +1638,20 @@ function IsEnemyWeaponEligible( enemy, weaponData, requirements )
 			end
 		end
 
+		if requirements.UnitLoSDistanceTowardPlayer ~= nil then
+			local offset = CalcOffset(math.rad(GetAngleBetween({ Id = enemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })), requirements.UnitLoSDistanceTowardPlayer)
+			local destinationMarkerId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = enemy.ObjectId, OffsetX = offset.X, OffsetY = offset.Y })
+			local hasLoS = HasLineOfSight({ Id = enemy.ObjectId, DestinationId = destinationMarkerId, StopsUnits = true })
+			Destroy({ Id = destinationMarkerId })
+			if not hasLoS then
+				--DebugPrint({ Text="INELIGIBLE, UNIT NO LOS USING "..enemy.WeaponName })
+				return
+			end
+		end
+
 		if weaponData.Requirements ~= nil and (weaponData.Requirements.RequireProjectileLoS or weaponData.Requirements.RequireUnitLoS) then
 			local hasLoS = HasLineOfSight({ Id = enemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId,
-							StopsUnits = weaponData.Requirements.RequireUnitLoS, StopsProjectiles = weaponData.Requirements.RequireProjectileLoS,
+							StopsUnits = weaponData.Requirements.LoSStopsUnits or true, StopsProjectiles = weaponData.Requirements.LoSStopsProjectiles or true,
 							LineOfSightBuffer = weaponData.Requirements.LoSBuffer,
 							LineOfSightEndBuffer = weaponData.Requirements.LoSEndBuffer,  })
 			if not hasLoS then
@@ -1721,7 +1705,11 @@ function IsEnemyWeaponForced( enemy, weaponName )
 		return true
 	end
 
-	if aiData.ForceUseIfReady and IsEnemyWeaponEligible( enemy, WeaponData[weaponName] ) then
+	if aiData.AlwaysForce then
+		return true
+	end
+
+	if aiData.ForceUseIfReady then
 		return true
 	end
 
@@ -1762,8 +1750,24 @@ function MoveWithinRange( enemy, moveTargetId, aiData )
 	end
 
 	-- Pre Move
+	if aiData.PreMoveStop then
+		Stop({ Id = enemy.ObjectId })
+	end
 	if aiData.PreMoveAngleTowardTarget then
-		AngleTowardTarget({ Id = enemy.ObjectId, DestinationId = moveTargetId })
+		AngleTowardTarget({ Id = enemy.ObjectId, DestinationId = moveTargetId, AngleMin = enemy.AngleMin, AngleMax = enemy.AngleMax })
+		
+		if aiData.PreMoveWaitForAngleTowardTarget then
+			enemy.AINotifyName = "WaitForRotation"..enemy.ObjectId
+			NotifyOnRotationComplete({ Id = enemy.ObjectId, Cosmetic = true, Notify = enemy.AINotifyName, Timeout = aiData.WaitForAngleTowardTargetTimeOut or 9.0 })
+			waitUntil( enemy.AINotifyName )
+
+			if enemy.IsPolymorphed or (not aiData.SkipCanAttack and not CanAttack({ Id = enemy.ObjectId })) then
+				return false
+			end
+		end
+	end
+	if aiData.MoveLowPass then
+		SetSoundCueValue({ Id = AudioState.MusicId, Names = { "LowPass" }, Value = 1.0, Duration = 1.0 })
 	end
 	if aiData.PreMoveAnimation ~= nil then
 		SetAnimation({ DestinationId = enemy.ObjectId, Name = aiData.PreMoveAnimation })
@@ -1783,6 +1787,9 @@ function MoveWithinRange( enemy, moveTargetId, aiData )
 		aiData.ForcedEarlyExit = true
 		return true
 	end
+	if enemy.IsPolymorphed or (not aiData.SkipCanAttack and not CanAttack({ Id = enemy.ObjectId })) then
+		return false
+	end
 
 	if aiData.ApplyEffectsOnMove ~= nil then
 		for k, effectData in pairs(aiData.ApplyEffectsOnMove) do
@@ -1801,14 +1808,6 @@ function MoveWithinRange( enemy, moveTargetId, aiData )
 		SetUnitProperty({ Property = "StopGraphic", Value = aiData.SetStopGraphicOnMove, DestinationId = enemy.ObjectId })
 	end
 
-	if aiData.MoveDumbFireWeapons ~= nil then
-		for k, weaponName in pairs( aiData.MoveDumbFireWeapons ) do
-			local weaponData = WeaponData[weaponName].AIData or WeaponData[weaponName]
-			weaponData.Name = weaponName
-			thread( DumbFireAttack, enemy, weaponData )
-		end
-	end
-
 	if aiData.SpawnBurstOnMove then
 		thread(HandleSpawnerBurst, enemy, aiData)
 	end
@@ -1817,7 +1816,9 @@ function MoveWithinRange( enemy, moveTargetId, aiData )
 
 	-- Dash
 	if aiData.DashIfOverDistance ~= nil then
-		if distanceToTarget > attackDistance and aiData.DashIfOverDistance < distanceToTarget then
+		if distanceToTarget > attackDistance and aiData.DashIfOverDistance < distanceToTarget
+		and (not aiData.DashRequireLoS or HasLineOfSight({ Id = enemy.ObjectId, DestinationId = aiData.TargetId, StopsUnits = true, CheckUnits = false, LineOfSightBuffer = 50, LineOfSightEndBuffer = 50,  }))
+		then
 			enemy.WeaponName = aiData.DashWeapon or GetRandomValue(aiData.DashWeapons)
 			local dashWeaponAIData = GetWeaponAIData(enemy)
 			dashWeaponAIData.TargetId = aiData.TargetId
@@ -1828,7 +1829,8 @@ function MoveWithinRange( enemy, moveTargetId, aiData )
 	end
 
 	-- If already within range
-	if distanceToTarget <= attackDistance then
+	local isWithinDistanceToTarget = IsWithinDistance({ Id = enemy.ObjectId, DestinationId = moveTargetId, Distance = attackDistance, ScaleY = aiData.AttackDistanceScaleY })
+	if isWithinDistanceToTarget then
 		if aiData.WithinRangeWander then
 			MoveToRandomLocation( enemy, enemy.ObjectId, aiData.WithinRangeWanderDistance or 100, aiData.WithinRangeWanderDistanceMin or 0, aiData.WithinRangeWanderDuration )
 		end
@@ -1849,9 +1851,26 @@ function MoveWithinRange( enemy, moveTargetId, aiData )
 			end
 		end
 	end
+	
+	if aiData.MoveDumbFireWeapons ~= nil then
+		for k, weaponName in pairs( aiData.MoveDumbFireWeapons ) do
+			thread( DumbFireAttack, enemy, weaponName )
+		end
+	end
+
+	if aiData.IsRushWeapon then
+		enemy.Rushing = true
+		enemy.RushStartTime = _worldTime
+	end
 
 	if aiData.MoveAnimation ~= nil then
 		SetAnimation({ DestinationId = enemy.ObjectId, Name = aiData.MoveAnimation })
+	end
+
+	if aiData.MoveStartSelfVelocity then
+		if not aiData.SkipSelfVelocityIfImpactSlow or not HasEffect({ Id = enemy.ObjectId, EffectName = "ImpactSlow" }) then
+			ApplyForce({ Id = enemy.ObjectId, Speed = aiData.MoveStartSelfVelocity, Angle = GetAngle({ Id = enemy.ObjectId }) + (aiData.MoveStartSelfVelocityAngleOffset or 0), SelfApplied = true })
+		end
 	end
 
 	-- Move to target
@@ -1887,21 +1906,30 @@ function MoveWithinRange( enemy, moveTargetId, aiData )
 	if aiData.StopMoveWithinRange then
 		Stop({ Id = enemy.ObjectId })
 	end
+	if aiData.MoveLowPass then
+		SetSoundCueValue({ Id = AudioState.MusicId, Names = { "LowPass" }, Value = 0.0, Duration = 1.0 })
+	end
 
 	if aiData.ApplyEffectsOnMove ~= nil and not aiData.SkipClearEffectsOnMoveEnd then
 		for k, effectData in pairs(aiData.ApplyEffectsOnMove) do
 			ClearEffect({ Id = enemy.ObjectId, Name = effectData.EffectName })
 		end
 	end
+	if aiData.EndMoveDumbFireWeapons and aiData.MoveDumbFireWeapons ~= nil then
+		killWaitUntilThreads(enemy.DumbFireThreadName)
+		killTaggedThreads(enemy.DumbFireThreadName)
+	end
 	if aiData.SetStopGraphicOnMove ~= nil then
 		SetUnitProperty({ Property = "StopGraphic", Value = defaultStopGraphic, DestinationId = enemy.ObjectId })
 	end
 
+	enemy.Rushing = false
 	return didTimeout
 end
 
-function Retreat( enemy, aiData, retreatFromId )
+function Retreat( enemy, aiData, retreatFromId, args )
 
+	args = args or {}
 	if aiData.DontRetreatIfCharmed and IsCharmed({ Id = enemy.ObjectId }) then
 		return
 	end
@@ -1916,7 +1944,7 @@ function Retreat( enemy, aiData, retreatFromId )
 	local retreatAngle = angleBetween + RandomFloat(-0.5, 0.5)
 	local retreatOffset = CalcOffset( math.rad(retreatAngle), retreatDistance)
 
-	local retreatProximity = 100 -- Not important to stop at the retreat point precisely
+	local retreatProximity = aiData.RetreatProximity or 100 -- Not important to stop at the retreat point precisely
 	if retreatDistance <= retreatProximity then
 		return
 	end
@@ -1931,7 +1959,13 @@ function Retreat( enemy, aiData, retreatFromId )
 			spawnNearId = enemy.ObjectId
 		end
 		moveToId = SelectSpawnPoint(CurrentRun.CurrentRoom, { Name = aiData.Name, RequiredSpawnPoint = aiData.RetreatToSpawnPointType }, { SpawnNearId = spawnNearId, SpawnRadius = aiData.RetreatToSpawnPointRadius or 500, SpawnRadiusMin = aiData.RetreatToSpawnPointRadiusMin } )
-		--moveToId = GetClosest({ Id = tempTarget, DestinationName = "SpawnPoints" })
+		if moveToId ~= nil and aiData.RetreatOccupySpawnPoint then
+			if enemy.OccupyingSpawnPointId ~= nil then
+				UnoccupySpawnPoint(enemy.OccupyingSpawnPointId)
+			end
+			enemy.OccupyingSpawnPointId = moveToId
+			SessionMapState.SpawnPointsUsed[moveToId] = enemy.ObjectId
+		end
 	end
 
 	-- Dash
@@ -1953,7 +1987,8 @@ function Retreat( enemy, aiData, retreatFromId )
 		end
 	end
 
-	Move({ Id = enemy.ObjectId, DestinationId = moveToId, SuccessDistance = retreatProximity })
+
+	Move({ Id = enemy.ObjectId, DestinationId = moveToId, SuccessDistance = retreatProximity, Strafe = args.Strafe })
 
 	-- Wait until within range
 	local timeout = aiData.RetreatTimeout
@@ -1972,13 +2007,17 @@ function Retreat( enemy, aiData, retreatFromId )
 	NotifyWithinDistance({ Id = enemy.ObjectId, DestinationId = moveToId, Distance = retreatProximity + 20, Notify = enemy.AINotifyName, Timeout = timeout or 5.0 })
 	waitUntil( enemy.AINotifyName, enemy.AIThreadName )
 
-	Stop({ Id = enemy.ObjectId })
+	if not aiData.SkipRetreatEndStop then
+		Stop({ Id = enemy.ObjectId })
+	end
 
 	if aiData.RetreatSetAngle then
 		SetGoalAngle({ Id = enemy.ObjectId, Angle = aiData.RetreatSetAngle })
 	end
 
-	Destroy({ Id = tempTarget })
+	if tempTarget ~= nil then
+		Destroy({ Id = tempTarget })
+	end
 
 	if aiData.RetreatWaitDuration then
 		AIWait( aiData.RetreatWaitDuration, enemy, aiData.AIThreadName or enemy.AIThreadName )
@@ -1997,11 +2036,14 @@ function DoAttack( enemy, aiData )
 		aiData = enemy
 	end
 
-	if aiData.MinionWeapon and enemy.MinionIds ~= nil then
+	if aiData.MinionWeapon and enemy.UnitGroupData ~= nil and enemy.UnitGroupData.UnitIds ~= nil then
+		if aiData.MinionCatchUpBuffer ~= nil then
+			wait( CalcEnemyWait( enemy, aiData.MinionCatchUpBuffer ), enemy.AIThreadName )
+		end
 		thread(HandleMinionWeapons, enemy, aiData)
 	end
 
-	aiData.TargetId = aiData.TargetId or CurrentRun.Hero.ObjectId
+	aiData.TargetId = aiData.TargetId or GetTargetId(enemy, aiData) or CurrentRun.Hero.ObjectId
 	aiData.LastTargetId = aiData.TargetId
 
 	if aiData.WaitDurationForComboPartnerMove ~= nil then
@@ -2045,6 +2087,9 @@ function DoAttack( enemy, aiData )
 	end
 
 	local preAttackEndDuration = aiData.PreAttackEndDuration or math.min(0.5, preAttackDuration)
+	if aiData.PreAttackEndFullDuration then
+		preAttackEndDuration = preAttackDuration
+	end
 	local preAttackStartDuration = math.max(preAttackDuration - preAttackEndDuration, 0)
 
 	if aiData.TrackKillSteal then
@@ -2052,8 +2097,17 @@ function DoAttack( enemy, aiData )
 		CurrentRun.Hero.KillStealVictimId = aiData.TargetId
 	end
 
+	if aiData.PreAttackSetMapFlags ~= nil then
+		for k, data in pairs(aiData.PreAttackSetMapFlags) do
+			local flagData = ShallowCopyTable(data)
+			flagData.Id = enemy.ObjectId
+			flagData.ThreadName = enemy.AIThreadName
+			thread(SetMapFlag, flagData)
+		end
+	end
+
 	if aiData.PreAttackAngleTowardTarget then
-		AngleTowardTarget({ Id = enemy.ObjectId, DestinationId = aiData.TargetId })
+		AngleTowardTarget({ Id = enemy.ObjectId, DestinationId = aiData.TargetId, AngleMin = enemy.AngleMin, AngleMax = enemy.AngleMax })
 
 		if aiData.WaitForAngleTowardTarget then
 			enemy.AINotifyName = "WaitForRotation"..enemy.ObjectId
@@ -2063,15 +2117,24 @@ function DoAttack( enemy, aiData )
 			if enemy.IsPolymorphed or (not aiData.SkipCanAttack and not CanAttack({ Id = enemy.ObjectId })) then
 				return false
 			end
+			
+			if enemy.ForcedWeaponInterrupt ~= nil and (WeaponData[enemy.WeaponName] == nil or not WeaponData[enemy.WeaponName].BlockInterrupt) then
+				SetAnimation({ DestinationId = enemy.ObjectId, Name = GetThingDataValue({ Id = enemy.ObjectId, Property = "Graphic" }) })
+				return true
+			end
 		end
 	end
 
 	if aiData.PreAttackSelfVelocity then
-		ApplyForce({ Id = enemy.ObjectId, Speed = aiData.PreAttackSelfVelocity, Angle = GetAngle({ Id = enemy.ObjectId }) + (aiData.PreAttackSelfVelocityAngleOffset or 0), SelfApplied = true })
+		if not aiData.SkipSelfVelocityIfImpactSlow or not HasEffect({ Id = enemy.ObjectId, EffectName = "ImpactSlow" }) then
+			ApplyForce({ Id = enemy.ObjectId, Speed = aiData.PreAttackSelfVelocity, Angle = GetAngle({ Id = enemy.ObjectId }) + (aiData.PreAttackSelfVelocityAngleOffset or 0), SelfApplied = true })
+		end
 	end
 
 	if aiData.PreAttackSelfUpwardVelocity then
-		ApplyUpwardForce({ Id = enemy.ObjectId, Speed = aiData.PreAttackSelfUpwardVelocity })
+		if not aiData.SkipSelfVelocityIfImpactSlow or not HasEffect({ Id = enemy.ObjectId, EffectName = "ImpactSlow" }) then
+			ApplyUpwardForce({ Id = enemy.ObjectId, Speed = aiData.PreAttackSelfUpwardVelocity })
+		end
 	end
 
 	if aiData.PreAttackSetZHeight ~= nil then
@@ -2080,7 +2143,9 @@ function DoAttack( enemy, aiData )
 
 	if aiData.PreAttackSound ~= nil then
 		local soundId = PlaySound({ Name = aiData.PreAttackSound, Id = enemy.ObjectId, ManagerCap = aiData.SoundManagerCap or 46 })
-		table.insert(enemy.StopSoundsOnHitStun, soundId)
+		if soundId > 0 then
+			table.insert( enemy.StopSoundsOnHitStun, soundId )
+		end
 	end
 	if aiData.PreAttackLowPass then
 		SetSoundCueValue({ Id = AudioState.MusicId, Names = { "LowPass" }, Value = 1.0, Duration = 1.0 })
@@ -2111,7 +2176,9 @@ function DoAttack( enemy, aiData )
 	end
 	if aiData.PreAttackFx ~= nil then
 		CreateAnimation({ DestinationId = enemy.ObjectId, Name = aiData.PreAttackFx })
-		table.insert(enemy.StopAnimationsOnHitStun, aiData.PreAttackFx)
+		if enemy.StopAnimationsOnHitStun then
+			table.insert(enemy.StopAnimationsOnHitStun, aiData.PreAttackFx)
+		end
 	end
 	if aiData.PreAttackMultiFx ~= nil then
 		for k, name in pairs(aiData.PreAttackMultiFx) do
@@ -2153,17 +2220,10 @@ function DoAttack( enemy, aiData )
 	
 	local weaponData = WeaponData[aiData.WeaponName]
 	if weaponData ~= nil then
-		thread( DoWeaponScreenshake, weaponData, "ChargeScreenshake", { AttackerId = enemy.ObjectId, SourceProjectile = aiData.ProjectileName })
+		DoWeaponScreenshake( weaponData, "ChargeScreenshake", { AttackerId = enemy.ObjectId, SourceProjectile = aiData.ProjectileName } )
 	end
-
 
 	enemy.AttackWarningDestinationId = enemy.ObjectId
-	if aiData.AttackWarningAnimation ~= nil then
-		if aiData.AttackWarningAtTargetLocation then
-			enemy.AttackWarningDestinationId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = aiData.TargetId })
-		end
-		CreateAnimation({ Name = aiData.AttackWarningAnimation, DestinationId = enemy.AttackWarningDestinationId, ScaleRadius = aiData.AttackWarningAnimationRadius })
-	end
 
 	if enemy.TetherIds ~= nil then
 		for k, tetherId in ipairs( enemy.TetherIds ) do
@@ -2171,6 +2231,24 @@ function DoAttack( enemy, aiData )
 				local angleToTarget = GetAngleBetween({ Id = tetherId, DestinationIds = { enemy.ObjectId, aiData.TargetId } })
 				ApplyForce({ Id = tetherId, Speed = enemy.Tethers[k].OwnerPreAttackVelocity, Angle = angleToTarget })
 			end
+		end
+	end
+
+	if aiData.PreAttackSetUnitProperties ~= nil then
+		for unitProperty, unitPropertyValue in pairs(aiData.PreAttackSetUnitProperties) do
+			if aiData.PostAttackResetUnitProperties then
+				aiData.PostAttackSetUnitProperties = aiData.PostAttackSetUnitProperties or {}
+				aiData.PostAttackSetUnitProperties[unitProperty] = GetUnitDataValue({ Property = unitProperty, Id = enemy.ObjectId })
+			end
+			--DebugPrint({ Text="Set "..enemy.Name.." "..unitProperty.." to "..unitPropertyValue })
+			SetUnitProperty({ DestinationId = enemy.ObjectId, Value = unitPropertyValue, Property = unitProperty  })
+		end
+	end
+
+	if aiData.PreAttackSetThingProperties ~= nil then
+		for unitProperty, thingPropertyValue in pairs(aiData.PreAttackSetThingProperties) do
+			--DebugPrint({ Text="Set "..enemy.Name.." "..unitProperty.." to "..unitPropertyValue })
+			SetThingProperty({ DestinationId = enemy.ObjectId, Value = thingPropertyValue, Property = unitProperty  })
 		end
 	end
 
@@ -2183,17 +2261,13 @@ function DoAttack( enemy, aiData )
 
 	if aiData.PreAttackDumbFireWeapons ~= nil then
 		for k, weaponName in pairs( aiData.PreAttackDumbFireWeapons ) do
-			local weaponData = WeaponData[weaponName].AIData or WeaponData[weaponName]
-			weaponData.Name = weaponName
-			thread( DumbFireAttack, enemy, weaponData )
+			thread( DumbFireAttack, enemy, weaponName )
 		end
 	end
 
 	if aiData.PreAttackRandomDumbFireWeapon ~= nil then
 		local weaponName = GetRandomValue(aiData.PreAttackRandomDumbFireWeapon)
-		local weaponData = WeaponData[weaponName].AIData or WeaponData[weaponName]
-		weaponData.Name = weaponName
-		thread( DumbFireAttack, enemy, weaponData )
+		thread( DumbFireAttack, enemy, weaponName )
 	end
 
 	if aiData.SetDumbFireThreadWait ~= nil then
@@ -2202,6 +2276,11 @@ function DoAttack( enemy, aiData )
 
 	if aiData.ExpireProjectilesOnPreAttackStart then
 		ExpireProjectiles({ Names = aiData.ExpireProjectilesOnPreAttackStart })
+	end
+
+	if aiData.ExpireFusedProjectilesOnPreAttackStart then
+		enemy.CancelFusedProjectilesBeforeTime = _worldTime
+		SetThreadWait(enemy.AIThreadName.."Fuse", 0.01)
 	end
 
 	if aiData.SpawnBurstOnPreAttackStart then
@@ -2213,12 +2292,12 @@ function DoAttack( enemy, aiData )
 	end
 
 	if aiData.TrackTargetDuringCharge then
-		Track({ Ids = { enemy.ObjectId }, DestinationIds = { aiData.TargetId } })
+		Track({ Ids = { enemy.ObjectId }, DestinationIds = { aiData.TargetId }, AngleMin = enemy.AngleMin, AngleMax = enemy.AngleMax })
 	end
 
 	if aiData.PreAttackRotationDampening ~= nil then
 		local dampenEffect = { Id = enemy.ObjectId, DestinationId = enemy.ObjectId, EffectName = enemy.Name .. "PreAttackRotationDampening" }
-		dampenEffect.DataProperties = { Duration = preAttackDuration, RotationMultiplier = aiData.PreAttackRotationDampening, TimeModifierFraction = 1 }
+		dampenEffect.DataProperties = { Duration = 10, RotationMultiplier = aiData.PreAttackRotationDampening, TimeModifierFraction = 1 }
 		ApplyEffect(dampenEffect)
 		table.insert(enemy.ClearEffectsOnHitStun, dampenEffect.EffectName)
 	end
@@ -2295,7 +2374,7 @@ function DoAttack( enemy, aiData )
 	end
 	if aiData.PreAttackEndShake then
 		Shake({ Id = enemy.ObjectId, Speed = 400, Distance = 3, Duration = preAttackEndDuration })
-		Flash({ Id = enemy.ObjectId, Speed = 1, MinFraction = 0, MaxFraction = aiData.PreAttackEndFlashFraction or 0.95, Color = Color.White, Duration = preAttackEndDuration })
+		Flash({ Id = enemy.ObjectId, Speed = 1, MinFraction = 0, MaxFraction = aiData.PreAttackEndFlashFraction or 0.95, Color = aiData.PreAttackEndFlashColor or Color.White, Duration = preAttackEndDuration })
 	end
 	if aiData.PreAttackEndShakeSound ~= nil then
 		PlaySound({ Name = aiData.PreAttackEndShakeSound, Id = enemy.ObjectId, ManagerCap = aiData.SoundManagerCap })
@@ -2311,6 +2390,19 @@ function DoAttack( enemy, aiData )
 
 	if aiData.CancelIfTargetIsDead and ActiveEnemies[aiData.TargetId] ~= nil then
 		ActiveEnemies[aiData.TargetId].EndThreadNameWaitOnDeath = aiData.AIThreadName or enemy.AIThreadName
+	end
+
+	if HeroHasTrait("FocusDamageShaveBoon") then
+		for _, data in pairs( GetHeroTraitValues( "OnAttackWindUpAction")) do
+			CallFunctionName( data.FunctionName, enemy, data.Args )
+		end
+	end
+
+	if aiData.PreAttackMoveTowardTarget then
+		-- used on Prometheus only right now, can be data-ified
+		Move({ Id = enemy.ObjectId, DestinationId = aiData.TargetId,
+			SuccessDistance = 50, LookAheadMultiplier = 1.5, TrackAtPathEnd = true,
+			LiveOffsetFromId = enemy.ObjectId, LiveOffsetDistance = aiData.PreAttackMoveTowardTargetLiveOffsetDistance, LiveOffsetAngle = aiData.PreAttackMoveTowardTargetLiveOffsetAngle })
 	end
 
 	--DebugPrint({ Text=enemy.WeaponName.." preAttackEndDuration: "..CalcEnemyWait( enemy, preAttackEndDuration ) })
@@ -2332,16 +2424,16 @@ function DoAttack( enemy, aiData )
 		EndPreAttackFx(enemy, aiData)
 	end
 
+	if aiData.PreAttackRotationDampening ~= nil then
+		ClearEffect({ Id = enemy.ObjectId, Name = enemy.Name .. "PreAttackRotationDampening" })
+	end
+
 	if aiData.PreAttackLoopingSound ~= nil then
 		StopSound({ Id = enemy.PreAttackLoopingSoundId, Duration = 0.2 })
 		enemy.PreAttackLoopingSoundId = nil
 	end
 	if aiData.PreAttackLoopingEndSound ~= nil then
 		PlaySound({ Name = aiData.PreAttackLoopingEndSound, Id = enemy.ObjectId })
-	end
-
-	if aiData.AttackWarningAnimation ~= nil then
-		StopAnimation({ Name = aiData.AttackWarningAnimation, DestinationId = enemy.AttackWarningDestinationId })
 	end
 
 	if enemy.IsPolymorphed or (not aiData.SkipCanAttack and not CanAttack({ Id = enemy.ObjectId })) then
@@ -2367,13 +2459,13 @@ function DoAttack( enemy, aiData )
 	end
 
 	if aiData.FireProjectileAtTarget and not IsAlive({ Id = aiData.TargetId }) then
-		DebugPrint({ Text=enemy.Name.."'s TargetId is dead! Aborting weapon." })
+		--DebugPrint({ Text=enemy.Name.."'s TargetId is dead! Aborting weapon." })
 		aiData.DoNotRepeatOnAttackFail = true
 		return false
 	end
 
 	if aiData.CancelIfTargetIsDead and aiData.TargetId ~= CurrentRun.Hero.ObjectId and ActiveEnemies[aiData.TargetId] == nil then
-		DebugPrint({ Text=enemy.Name.."'s TargetId is dead! Aborting weapon." })
+		--DebugPrint({ Text=enemy.Name.."'s TargetId is dead! Aborting weapon." })
 		aiData.DoNotRepeatOnAttackFail = true
 		return false
 	end
@@ -2409,18 +2501,18 @@ function DoAttack( enemy, aiData )
 
 	if aiData.RageDumbFireWeapons ~= nil and enemy.Enraged then
 		for k, weaponName in pairs( aiData.RageDumbFireWeapons ) do
-			local weaponData = WeaponData[weaponName].AIData or WeaponData[weaponName]
-			weaponData.Name = weaponName
-			thread( DumbFireAttack, enemy, weaponData )
+			thread( DumbFireAttack, enemy, weaponName )
 		end
 	end
 
 	if aiData.DumbFireWeapons ~= nil then
 		for k, weaponName in pairs( aiData.DumbFireWeapons ) do
-			local weaponData = WeaponData[weaponName].AIData or WeaponData[weaponName]
-			weaponData.Name = weaponName
-			thread( DumbFireAttack, enemy, weaponData )
+			thread( DumbFireAttack, enemy, weaponName )
 		end
+	end
+
+	if aiData.AttackVoiceLines ~= nil then
+		thread( PlayVoiceLines, aiData.AttackVoiceLines, nil, enemy )
 	end
 
 	if aiData.RandomSpawnEncounter ~= nil and aiData.SpawnEncounter == nil then
@@ -2476,7 +2568,7 @@ function DoAttack( enemy, aiData )
 	if aiData.FireCreateHealthBar then
 		CreateHealthBar( enemy )
 		RecreateEffectVfx( enemy )
-		thread( UpdateHealthBar, enemy, 0, { Force = true } )
+		UpdateHealthBar( enemy, 0, { Force = true } )
 		for activeEffectName, stacks in pairs( enemy.ActiveEffects ) do
 			UpdateEffectStacks( enemy, activeEffectName )
 		end
@@ -2487,6 +2579,9 @@ function DoAttack( enemy, aiData )
 			return false
 		end
 	end
+	if aiData.SkipFireWeaponSound then
+		PlaySound({ Name = aiData.SkipFireWeaponSound, Id = enemy.ObjectId })
+	end
 
 	if aiData.AIChargeTargetMarker then
 		FinishTargetMarker( enemy )
@@ -2495,27 +2590,34 @@ function DoAttack( enemy, aiData )
 	if aiData.FireFunctionName ~= nil then
 		CallFunctionName( aiData.FireFunctionName, enemy, aiData, CurrentRun, aiData.FireFunctionArgs )
 	end
+	if aiData.FireThreadedFunctionName ~= nil then
+		thread(CallFunctionName, aiData.FireThreadedFunctionName, enemy, aiData, aiData.FireThreadedFunctionArgs )
+	end
+
+	if aiData.EndDumbFireWeapons and aiData.DumbFireWeapons ~= nil then
+		killWaitUntilThreads(enemy.DumbFireThreadName)
+		killTaggedThreads(enemy.DumbFireThreadName)
+	end
+
+	if aiData.FireEndKillThreads then
+		for k, threadName in pairs(aiData.FireEndKillThreads) do
+			killWaitUntilThreads(threadName)
+			killTaggedThreads(threadName)
+		end
+	end
 
 	if aiData.PostAttackDumbFireWeapons ~= nil then
 		for k, weaponName in pairs( aiData.PostAttackDumbFireWeapons ) do
-			local weaponData = WeaponData[weaponName].AIData or WeaponData[weaponName]
-			weaponData.Name = weaponName
-			thread( DumbFireAttack, enemy, weaponData )
+			thread( DumbFireAttack, enemy, weaponName )
 		end
 	end
 
 	if aiData.UnequipWeaponAfterUse then
-		RemoveValue(enemy.WeaponOptions, enemy.WeaponName)
+		RemoveValueAndCollapse( enemy.WeaponOptions, enemy.WeaponName )
 	end
 
 	if aiData.StopAnimationAfterUse and aiData.StopAnimationAfterUse ~= nil then
 		StopAnimation({ DestinationId = enemy.ObjectId, Name = aiData.StopAnimationAfterUse })
-	end
-
-	if aiData.LoseEquipmentOnUse ~= nil then
-		for k, equipment in pairs(aiData.LoseEquipmentOnUse) do
-			RemoveValue(enemy.Equipment, equipment)
-		end
 	end
 
 	if aiData.RetreatLeapAfterUse then
@@ -2558,6 +2660,10 @@ function DoAttack( enemy, aiData )
 		thread(CallFunctionName, aiData.PostAttackThreadedFunctionName, enemy, aiData, CurrentRun, aiData.PostAttackThreadedFunctionArgs )
 	end
 
+	if aiData.PostAttackTeleport then
+		HandleEnemyTeleportation(enemy, aiData)
+	end
+
 	if aiData.PostAttackAlpha ~= nil then
 		SetAlpha({ Id = enemy.ObjectId, Fraction = aiData.PostAttackAlpha, Duration = aiData.PostAttackAlphaDuration or 0 })
 	end
@@ -2578,6 +2684,20 @@ function DoAttack( enemy, aiData )
 		end
 	end
 
+	if aiData.PostAttackSetUnitProperties ~= nil then
+		for unitProperty, unitPropertyValue in pairs(aiData.PostAttackSetUnitProperties) do
+			--DebugPrint({ Text="Set "..enemy.Name.." "..unitProperty.." to "..unitPropertyValue })
+			SetUnitProperty({ DestinationId = enemy.ObjectId, Value = unitPropertyValue, Property = unitProperty  })
+		end
+	end
+
+	if aiData.PostAttackSetThingProperties ~= nil then
+		for unitProperty, thingPropertyValue in pairs(aiData.PostAttackSetThingProperties) do
+			--DebugPrint({ Text="Set "..enemy.Name.." "..unitProperty.." to "..unitPropertyValue })
+			SetThingProperty({ DestinationId = enemy.ObjectId, Value = thingPropertyValue, Property = unitProperty  })
+		end
+	end
+
 	if aiData.PostAttackSetZHeight ~= nil then
 		AdjustZLocation({ Id = enemy.ObjectId, Distance = aiData.PostAttackSetZHeight - GetZLocation({ Id = enemy.ObjectId }), Duration = aiData.PostAttackSetZDuration or 0 })
 	end
@@ -2586,12 +2706,20 @@ function DoAttack( enemy, aiData )
 		PlaySound({ Name = aiData.PostAttackSound, Id = enemy.ObjectId })
 	end
 
-	if aiData.AttackVoiceLines ~= nil then
-		thread( PlayVoiceLines, aiData.AttackVoiceLines, nil, enemy )
+	if aiData.PostAttackSelfVelocity then
+		if not aiData.SkipSelfVelocityIfImpactSlow or not HasEffect({ Id = enemy.ObjectId, EffectName = "ImpactSlow" }) then
+			ApplyForce({ Id = enemy.ObjectId, Speed = aiData.PostAttackSelfVelocity, Angle = GetAngle({ Id = enemy.ObjectId }) + (aiData.PostAttackSelfVelocityAngleOffset or 0), SelfApplied = true })
+		end
+	end
+
+	if aiData.PostAttackSelfUpwardVelocity then
+		if not aiData.SkipSelfVelocityIfImpactSlow or not HasEffect({ Id = enemy.ObjectId, EffectName = "ImpactSlow" }) then
+			ApplyUpwardForce({ Id = enemy.ObjectId, Speed = aiData.PostAttackSelfUpwardVelocity })
+		end
 	end
 
 	if aiData.UnequipWeaponAfterUse then
-		RemoveValue(enemy.WeaponOptions, aiData.WeaponName)
+		RemoveValueAndCollapse( enemy.WeaponOptions, aiData.WeaponName )
 	end
 
 	if aiData.PostAttackDurationMin ~= nil and aiData.PostAttackDurationMax ~= nil then
@@ -2603,6 +2731,13 @@ function DoAttack( enemy, aiData )
 
 	if ReachedAIStageEnd(enemy) or CurrentRun.CurrentRoom.InStageTransition then
 		aiData.ForcedEarlyExit = true
+		return true
+	end
+
+	if enemy.ForcedWeaponInterrupt ~= nil and (WeaponData[enemy.WeaponName] == nil or not WeaponData[enemy.WeaponName].BlockInterrupt) then
+		if not WeaponData[enemy.WeaponName].SkipInterruptIdle then
+			SetAnimation({ DestinationId = enemy.ObjectId, Name = GetThingDataValue({ Id = enemy.ObjectId, Property = "Graphic" }) })
+		end
 		return true
 	end
 
@@ -2628,6 +2763,15 @@ function DoAttack( enemy, aiData )
 	end
 
 	AIWait(postAttackCooldown, enemy, aiData.AIThreadName or enemy.AIThreadName, { MinWaitTime = aiData.PostAttackCooldownMinWaitTime })
+
+	if aiData.PostAttackEndFunctionName ~= nil then
+		CallFunctionName( aiData.PostAttackEndFunctionName, enemy, aiData, CurrentRun)
+	end
+
+	if aiData.PostAttackKillSelf then
+		Kill(enemy, aiData.PostAttackKillSelfArgs)
+		return true
+	end
 
 	if enemy.DisableAIWhenReady then
 		return true
@@ -2666,6 +2810,8 @@ end
 -- Wanders until the player is within aggro range, then switches to PostAggroAI or AttackerAI
 function AggroAI( enemy )
 	enemy.CanBeAggroed = true
+	enemy.IsAggroed = false
+	MapState.AggroedUnits[enemy.ObjectId] = nil
 
 	if enemy.WakeUpDelay ~= nil or (enemy.WakeUpDelayMin ~= nil and enemy.WakeUpDelayMax ~= nil) then
 		local wakeUpDelay = enemy.WakeUpDelay or RandomFloat(enemy.WakeUpDelayMin, enemy.WakeUpDelayMax)
@@ -2676,7 +2822,6 @@ function AggroAI( enemy )
 		AggroUnit( enemy )
 		return
 	end
-	enemy.IsAggroed = false
 
 	-- Return to aggro tether
 	if enemy.AggroTetherId ~= nil and IsAlive({ Id = enemy.AggroTetherId }) then
@@ -2694,9 +2839,8 @@ function AggroAI( enemy )
 		return
 	end
 
+	local randomNewTargetId = nil
 	while IsAIActive( enemy ) and not enemy.IsAggroed do
-		local randomNewTargetId = nil
-		
 		if enemy.WanderTowardTypes ~= nil then
 			local wanderTarget = GetRandomValue( GetIdsByType({ Names = enemy.WanderTowardTypes }) )
 			Move({ Id = enemy.ObjectId, DestinationId = wanderTarget, SuccessDistance = 50 })
@@ -2709,7 +2853,13 @@ function AggroAI( enemy )
 			local wanderTarget = RemoveRandomValue( enemy.WanderSpawnPointsRemaining )
 			Move({ Id = enemy.ObjectId, DestinationId = wanderTarget, SuccessDistance = 50 })
 		elseif enemy.AIWanderDistance ~= nil then
-			randomNewTargetId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = originalPositionId, OffsetX = RandomFloat(-enemy.AIWanderDistance, enemy.AIWanderDistance), OffsetY = RandomFloat(-enemy.AIWanderDistance, enemy.AIWanderDistance), Group = "Standing" })
+			local offsetX = RandomFloat(-enemy.AIWanderDistance, enemy.AIWanderDistance)
+			local offsetY = RandomFloat(-enemy.AIWanderDistance, enemy.AIWanderDistance)
+			if randomNewTargetId == nil then
+				randomNewTargetId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = originalPositionId, OffsetX = offsetX, OffsetY = offsetY, Group = "Standing" })
+			else
+				Teleport({ Id = randomNewTargetId, UseCurrentLocation = true, OffsetX = offsetX, OffsetY = offsetY })
+			end
 			Move({ Id = enemy.ObjectId, DestinationId = randomNewTargetId, SuccessDistance = 50 })
 		end
 
@@ -2751,6 +2901,8 @@ function AggroAI( enemy )
 			waitDuration = RandomFloat(enemy.AggroAIRefreshDurationMin, enemy.AggroAIRefreshDurationMax)
 		end
 		AIWait(waitDuration, enemy, enemy.AIThreadName)
+	end
+	if randomNewTargetId ~= nil then
 		Destroy({ Id = randomNewTargetId })
 	end
 	Destroy({ Id = originalPositionId })
@@ -2806,7 +2958,11 @@ function AmbientBattleAggroAI( enemy )
 	end
 
 	if aiData.TeleportToBattleFoeChance ~= nil and RandomChance(aiData.TeleportToBattleFoeChance) then
-		Teleport({ Id = enemy.ObjectId, DestinationId = battleFoeId, OffsetX = RandomFloat(-75, 75), OffsetY = RandomFloat(-75, 75) })
+		local teleportId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = battleFoeId, OffsetX = RandomFloat(-75, 75), OffsetY = RandomFloat(-75, 75) })
+		if not IsLocationBlocked({ Id = teleportId }) then
+			Teleport({ Id = enemy.ObjectId, DestinationId = teleportId })
+		end
+		Destroy({ Id = teleportId })
 	end
 	AngleTowardTarget({ Id = enemy.ObjectId, DestinationId = battleFoeId })
 
@@ -2823,6 +2979,7 @@ function AmbientBattleAggroAI( enemy )
 
 			if battleFoeId == nil then
 				if not enemy.IsAggroed then
+					SetAnimation({ DestinationId = enemy.ObjectId, Name = GetThingDataValue({ Id = enemy.ObjectId, Property = "Graphic" }) })
 					return SetAI("AggroAI", enemy)
 				end
 			end
@@ -2929,8 +3086,8 @@ function AggroNearbyUnits( enemy, hostileAggro )
 end
 
 function CheckStun( enemy, aiData )
-	if aiData.AttackFailWeapon ~= nil and not CanAttack({ Id = enemy.ObjectId }) and not enemy.IsPolymorphed then
-		DebugAssert({ Condition = aiData.AttackFailWeapon ~= enemy.WeaponName, Text = "Using "..tostring(aiData.WeaponName).." as AttackFailWeapon on itself. This will infinite loop.", Owner = "Eduardo" })
+	if aiData.AttackFailWeapon ~= nil and not CanAttack({ Id = enemy.ObjectId }) and not enemy.IsPolymorphed and (aiData.AttackFailWeaponRequirements == nil or IsEnemyWeaponEligible(enemy, WeaponData[aiData.AttackFailWeapon], aiData.AttackFailWeaponRequirements)) then
+		--DebugAssert({ Condition = aiData.AttackFailWeapon ~= enemy.WeaponName, Text = "Using "..tostring(aiData.WeaponName).." as AttackFailWeapon on itself. This will infinite loop.", Owner = "Eduardo" })
 		enemy.WeaponName = aiData.AttackFailWeapon
 		local newAIData = GetWeaponAIData(enemy)
 		DoAttackerAILoop(enemy, newAIData)
@@ -3057,21 +3214,21 @@ function OrbitId(destinationId, projectileOwnerId, duration, orbitSpeed)
 	local orbitDistance =  GetDistance({ Id = projectileOwnerId, DestinationId = destinationId })
 	local speed = 0.25 / orbitSpeed
 
+	local location = GetLocation({ Id = projectileOwnerId })
 	local offset = CalcOffset(math.rad(orbitAngle), orbitDistance)
 	local offsetPoint = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = projectileOwnerId, OffsetX = offset.X, OffsetY = offset.Y * 0.48 })
 	Teleport({ Id = destinationId, DestinationId = offsetPoint })
+	local notifyName = "OnStopped"..destinationId
 
-	while timeRemaining > 0 do
+	while timeRemaining > 0 and IsAlive({ Id = destinationId }) do
 		local tickDuration = math.min(speed, timeRemaining)
 		orbitAngle = (orbitAngle + 10) % 360
 		offset = CalcOffset(math.rad(orbitAngle), orbitDistance)
-		local movePoint = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = projectileOwnerId, OffsetX = offset.X, OffsetY = offset.Y * 0.48 })
-		Move({ Id = destinationId, DestinationId = movePoint, Duration = tickDuration })
-		local notifyName = "OnStopped"..destinationId
+		local destinationLocation = GetLocation({ Id = destinationId })
+		Move({ Id = destinationId, OffsetX = offset.X + location.X - destinationLocation.X, OffsetY = offset.Y * 0.48 + location.Y - destinationLocation.Y, Duration = tickDuration, ShiftThingsByOffset = true })
 		NotifyOnStopped({ Id = destinationId, Notify = notifyName, Timeout = tickDuration })
-		waitUntil( notifyName)
+		waitUntil( notifyName )
 
-		Destroy({ Id = movePoint })
 		timeRemaining = timeRemaining - tickDuration
 	end
 	
@@ -3149,59 +3306,60 @@ function SurroundAI( enemy )
 				SurroundEnemiesAttacking[surroundAIKey][enemy.ObjectId] = nil
 
 				enemy.LastMoveToId = nil
-			end
-			enemy.DoSurroundAIRetaliate = false
+				enemy.DoSurroundAIRetaliate = false
+			else
 
-			if aiData.TeleportToSpawnPoints then
-				HandleEnemyTeleportation(enemy, aiData)
-			end
-
-			local distanceBuffer = aiData.SurroundDistanceBuffer or 50
-			if aiData.MaintainSurroundDistance then
-				local distanceToTarget = GetDistance({ Id = enemy.ObjectId, DestinationId = aiData.TargetId })
-
-				if distanceToTarget >= aiData.SurroundDistance + distanceBuffer or distanceToTarget <= aiData.SurroundDistance - distanceBuffer then
-					if aiData.SurroundUsingSpawnPoints then
-						local offset = CalcOffset(math.rad(GetAngleBetween({ DestinationId = aiData.TargetId, Id = enemy.ObjectId })), distanceToTarget - aiData.SurroundDistance - distanceBuffer)
-						local offsetPoint = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = enemy.ObjectId, OffsetX = offset.X, OffsetY = offset.Y })
-						local movePoints = GetIdsByType({ Name = aiData.SurroundSpawnPointTypes or "EnemyPoint" })
-						RemoveValue( movePoints, enemy.LastMoveToId )
-						local moveToId = GetClosest({ Id = offsetPoint, DestinationIds = movePoints, Distance = 1000 })
-						Destroy({ Id = offsetPoint })
-						enemy.LastMoveToId = moveToId
-						
-						if moveToId ~= 0 then
-							Move({ Id = enemy.ObjectId, DestinationId = moveToId, SuccessDistance = 60 })
-							enemy.AINotifyName = "WithinDistance_"..enemy.Name.."_"..enemy.ObjectId
-							NotifyWithinDistance({ Id = enemy.ObjectId, DestinationId = moveToId, Distance = 85, Notify = enemy.AINotifyName, Timeout = aiData.SuroundMoveTimeout or 3.0 })
-							waitUntil( enemy.AINotifyName )
-						else
-							wait(0.1)
-						end
-					else
-						Move({ Id = enemy.ObjectId, DestinationId = aiData.TargetId, LiveOffsetFromId = aiData.TargetId, LiveOffsetDistance = aiData.SurroundDistance, LiveOffsetAngle = 180, SuccessDistance = 75 })
-					end
+				if aiData.PreMoveTeleport then
+					HandleEnemyTeleportation(enemy, aiData)
 				end
-			elseif aiData.SurroundDistance ~= nil then
-				Track({ Ids = { enemy.ObjectId }, DestinationIds = { aiData.TargetId } })
 
-				local timeout = aiData.SurroundRefreshInterval or 3.0
-				local minTrackTime = aiData.SurroundMinTrackTime or 1.0
-				wait(minTrackTime, enemy.AIThreadName)
+				local distanceBuffer = aiData.SurroundDistanceBuffer or 50
+				if aiData.MaintainSurroundDistance then
+					local distanceToTarget = GetDistance({ Id = enemy.ObjectId, DestinationId = aiData.TargetId })
 
-				enemy.AINotifyName = "WithinDistance_"..enemy.Name.."_"..enemy.ObjectId
-				NotifyWithinDistance({ Id = enemy.ObjectId, DestinationId = aiData.TargetId, Distance = aiData.SurroundDistance, Notify = enemy.AINotifyName, Timeout = timeout - minTrackTime })
-				waitUntil( enemy.AINotifyName )
+					if distanceToTarget >= aiData.SurroundDistance + distanceBuffer or distanceToTarget <= aiData.SurroundDistance - distanceBuffer then
+						if aiData.SurroundUsingSpawnPoints then
+							local offset = CalcOffset(math.rad(GetAngleBetween({ DestinationId = aiData.TargetId, Id = enemy.ObjectId })), distanceToTarget - aiData.SurroundDistance - distanceBuffer)
+							local offsetPoint = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = enemy.ObjectId, OffsetX = offset.X, OffsetY = offset.Y })
+							local movePoints = GetIdsByType({ Name = aiData.SurroundSpawnPointTypes or "EnemyPoint" })
+							RemoveValue( movePoints, enemy.LastMoveToId )
+							local moveToId = GetClosest({ Id = offsetPoint, DestinationIds = movePoints, Distance = 1000 })
+							Destroy({ Id = offsetPoint })
+							enemy.LastMoveToId = moveToId
+							
+							if moveToId ~= 0 then
+								Move({ Id = enemy.ObjectId, DestinationId = moveToId, SuccessDistance = 60 })
+								enemy.AINotifyName = "WithinDistance_"..enemy.Name.."_"..enemy.ObjectId
+								NotifyWithinDistance({ Id = enemy.ObjectId, DestinationId = moveToId, Distance = 85, Notify = enemy.AINotifyName, Timeout = aiData.SuroundMoveTimeout or 3.0 })
+								waitUntil( enemy.AINotifyName )
+							else
+								wait(0.1)
+							end
+						else
+							Move({ Id = enemy.ObjectId, DestinationId = aiData.TargetId, LiveOffsetFromId = aiData.TargetId, LiveOffsetDistance = aiData.SurroundDistance, LiveOffsetAngle = 180, SuccessDistance = 75 })
+						end
+					end
+				elseif aiData.SurroundDistance ~= nil then
+					Track({ Ids = { enemy.ObjectId }, DestinationIds = { aiData.TargetId } })
 
-			elseif aiData.SurroundRetaliateDistance ~= nil then
-				Track({ Ids = { enemy.ObjectId }, DestinationIds = { aiData.TargetId } })
-				
-				enemy.AINotifyName = "WithinDistance_"..enemy.Name.."_"..enemy.ObjectId
-				NotifyWithinDistance({ Id = enemy.ObjectId, DestinationId = aiData.TargetId, Distance = aiData.SurroundRetaliateDistance, Notify = enemy.AINotifyName, Timeout = aiData.SurroundRefreshInterval or 3.0 })
-				waitUntil( enemy.AINotifyName )
+					local timeout = aiData.SurroundRefreshInterval or 3.0
+					local minTrackTime = aiData.SurroundMinTrackTime or 1.0
+					wait(minTrackTime, enemy.AIThreadName)
 
-				if not _eventTimeoutRecord[enemy.AINotifyName] then
-					enemy.DoSurroundAIRetaliate = true
+					enemy.AINotifyName = "WithinDistance_"..enemy.Name.."_"..enemy.ObjectId
+					NotifyWithinDistance({ Id = enemy.ObjectId, DestinationId = aiData.TargetId, Distance = aiData.SurroundDistance, Notify = enemy.AINotifyName, Timeout = timeout - minTrackTime })
+					waitUntil( enemy.AINotifyName )
+
+				elseif aiData.SurroundRetaliateDistance ~= nil then
+					Track({ Ids = { enemy.ObjectId }, DestinationIds = { aiData.TargetId } })
+					
+					enemy.AINotifyName = "WithinDistance_"..enemy.Name.."_"..enemy.ObjectId
+					NotifyWithinDistance({ Id = enemy.ObjectId, DestinationId = aiData.TargetId, Distance = aiData.SurroundRetaliateDistance, Notify = enemy.AINotifyName, Timeout = aiData.SurroundRefreshInterval or 3.0 })
+					waitUntil( enemy.AINotifyName )
+
+					if not _eventTimeoutRecord[enemy.AINotifyName] then
+						enemy.DoSurroundAIRetaliate = true
+					end
 				end
 			end
 			
@@ -3235,8 +3393,8 @@ function LeapIntoRangeAI( enemy, currentRun )
 			waitUntil( enemy.AINotifyName )
 		end
 
-		if weaponAIData.TeleportToSpawnPoints then
-			HandleEnemyTeleportation(enemy, weaponAIData, currentRun, targetId)
+		if weaponAIData.PreMoveTeleport then
+			HandleEnemyTeleportation(enemy, weaponAIData )
 		end
 
 		if targetId ~= nil and targetId ~= 0 then
@@ -3263,7 +3421,7 @@ function LeapIntoRangeAI( enemy, currentRun )
 				Leap(enemy, weaponAIData, targetId, "Retreat" )
 				enemy.NeedsRetreatLeap = false
 				if weaponAIData.DeaggroAfterRetreat then
-					thread(AggroAI, enemy, currentRun)
+					thread("AggroAI", enemy, currentRun)
 					return
 				end
 			elseif enemy.NeedsFlankLeap then
@@ -3281,7 +3439,7 @@ function LeapIntoRangeAI( enemy, currentRun )
 				Leap(enemy, weaponAIData, targetId, "Retreat" )
 				enemy.NeedsRetreatLeap = false
 				if weaponAIData.DeaggroAfterRetreat then
-					SetAI(AggroAI, enemy, CurrentRun)
+					SetAI("AggroAI", enemy, CurrentRun)
 				end
 			end
 
@@ -3292,6 +3450,9 @@ end
 
 function Leap( enemy, aiData, leapType )
 	if not CanMove({ Id = enemy.ObjectId }) then
+		return
+	end
+	if not enemy.IgnoreCastSlow and enemy.ActiveEffects.ImpactSlow ~= nil and enemy.ActiveEffects.ImpactSlow > 0 then
 		return
 	end
 
@@ -3323,7 +3484,7 @@ function Leap( enemy, aiData, leapType )
 	end
 
 	if leapTargetId == nil or not IsAlive({ Id = leapTargetId }) then
-		DebugPrint({ Text = "No valid leap target found! Aborting leap." })
+		--DebugPrint({ Text = "No valid leap target found! Aborting leap." })
 		return
 	end
 
@@ -3339,9 +3500,7 @@ function Leap( enemy, aiData, leapType )
 	end
 
 	local immuneToForceReset = GetThingDataValue({ Id = enemy.ObjectId, Property = "ImmuneToForce" })
-	--local immuneToStunReset = GetUnitDataValue({ Id = enemy.ObjectId, Property = "ImmuneToStun" })
 	SetThingProperty({ DestinationId = enemy.ObjectId, Property = "ImmuneToForce", Value = true })
-	--SetUnitProperty({ DestinationId = enemy.ObjectId, Property = "ImmuneToStun", Value = true })
 
 	AngleTowardTarget({ Id = enemy.ObjectId, DestinationId = lockedTargetId })
 
@@ -3356,10 +3515,10 @@ function Leap( enemy, aiData, leapType )
 		return false
 	end
 	enemy.ImmuneToPolymorph = true
-	--SetUnitProperty({ DestinationId = enemy.ObjectId, Property = "CollideWithObstacles", Value = false })
-	--SetUnitProperty({ DestinationId = enemy.ObjectId, Property = "CollideWithUnits", Value = false })
 	Stop({ Id = enemy.ObjectId })
-	AngleTowardTarget({ Id = enemy.ObjectId, DestinationId = lockedTargetId })
+	if aiData.AngleTowardTargetDuringLeap then
+		AngleTowardTarget({ Id = enemy.ObjectId, DestinationId = lockedTargetId })
+	end
 	ApplyForce({ Id = enemy.ObjectId, Angle = GetAngleBetween({ Id = enemy.ObjectId, DestinationId = lockedTargetId }), Speed = aiData.LeapSpeed, SelfApplied = true })
 	local distanceToTarget = GetDistance({ Id = enemy.ObjectId, DestinationId = lockedTargetId })
 	local neededHangTime = (distanceToTarget / aiData.LeapSpeed) + 0.05
@@ -3383,14 +3542,16 @@ function Leap( enemy, aiData, leapType )
 		StopAnimation({ Name = aiData.LeapWarningAnimation, DestinationId = lockedTargetId })
 	end
 	Destroy({ Id = lockedTargetId })
-	--SetUnitProperty({ DestinationId = enemy.ObjectId, Property = "CollideWithObstacles", Value = true })
-	--SetUnitProperty({ DestinationId = enemy.ObjectId, Property = "CollideWithUnits", Value = true })
+
 
 	SetThingProperty({ DestinationId = enemy.ObjectId, Property = "ImmuneToForce", Value = immuneToForceReset })
-	--SetUnitProperty({ DestinationId = enemy.ObjectId, Property = "ImmuneToStun", Value = immuneToStunReset })
-	--SetVulnerable({ Id = enemy.ObjectId })
 	enemy.ImmuneToPolymorph = false
-	wait( CalcEnemyWait( enemy, aiData.LeapRecoveryTime), enemy.AIThreadName )
+
+	if aiData.LeapAgainIfBlocked and IsLocationBlocked({ Id = enemy.ObjectId, CheckUnits = false }) then
+		Leap( enemy, aiData, leapType )
+	else
+		wait( CalcEnemyWait( enemy, aiData.LeapRecoveryTime), enemy.AIThreadName )
+	end
 end
 
 function RamAILoop( enemy, aiData )
@@ -3409,7 +3570,7 @@ function RamAILoop( enemy, aiData )
 
 		if not _eventTimeoutRecord[enemy.AINotifyName] then
 			-- Teleportation
-			if aiData.TeleportToSpawnPoints then
+			if aiData.PreMoveTeleport then
 				HandleEnemyTeleportation(enemy, aiData)
 			end
 
@@ -3437,24 +3598,9 @@ function RamAILoop( enemy, aiData )
 			end
 			wait( CalcEnemyWait( enemy, aiData.PreAttackDuration ), enemy.AIThreadName )
 			
-			if HeroHasTrait("LightningDebuffBoon") then
-				for _, data in pairs( GetHeroTraitValues( "OnAttackWindUp")) do
-					local hasRequiredEffects = true
-					for i, effectGenusName in pairs( data.ValidEffectGroups ) do
-						if not HasEffectWithEffectGroup( enemy, genusName ) then
-							hasRequiredEffects = false
-						end
-					end
-					if hasRequiredEffects then
-						CreateZeusBolt({ ProjectileName = data.ProjectileName, TargetId = enemy.ObjectId, DamageMultiplier = data.DamageMultiplier})
-						ClearEffect({ Id = enemy.ObjectId, Name = data.ClearEffectOnHit })
-					end
-				end
-			end
-			if HasEffect({Id = enemy.ObjectId, EffectName = "ZeusAttackPenalty" }) then
-				thread(FireWeaponWithinRange, { TargetId = enemy.ObjectId, WeaponName = "ZeusAttackBolt", InitialDelay = 0, Delay = 0.25, Count = 1, BonusChance = GetTotalHeroTraitValue("BonusBolts") })
-				if not HeroHasTrait("JoltDurationTrait") then
-					ClearEffect({ Id = enemy.ObjectId, Name = "ZeusAttackPenalty" })
+			if HeroHasTrait("FocusDamageShaveBoon") then
+				for _, data in pairs( GetHeroTraitValues( "OnAttackWindUpAction")) do
+					CallFunctionName( data.FunctionName, enemy, data.Args )
 				end
 			end
 			if aiData.RamEffectName ~= nil and WeaponEffectData[aiData.RamEffectName] ~= nil then
@@ -3511,17 +3657,9 @@ function AIFireWeapon( enemy, aiData )
 
 	if aiData.FireRotationDampening ~= nil then
 		local dampenEffect = { Id = enemy.ObjectId, DestinationId = enemy.ObjectId, EffectName = enemy.Name .. "FireRotationDampening" }
-		dampenEffect.DataProperties = { Duration = 999, RotationMultiplier = aiData.FireRotationDampening, TimeModifierFraction = 1 }
+		dampenEffect.DataProperties = { Duration = 99, RotationMultiplier = aiData.FireRotationDampening, TimeModifierFraction = 1 }
 		ApplyEffect(dampenEffect)
 		table.insert(enemy.ClearEffectsOnHitStun, dampenEffect.EffectName)
-	end
-
-	if aiData.FireAddIncomingDamageModifier then
-		AddIncomingDamageModifier( enemy, aiData.FireAddIncomingDamageModifier )
-	end
-
-	if aiData.FireRemoveIncomingDamageModifier then
-		RemoveIncomingDamageModifier( enemy, aiData.FireRemoveIncomingDamageModifier )
 	end
 
 	if aiData.WeaponFireLoopingSound ~= nil then
@@ -3565,7 +3703,7 @@ function AIFireWeapon( enemy, aiData )
 		SetThingProperty({ DestinationId = enemy.ObjectId, Property = "StopsProjectiles", Value = false })
 	end
 	if aiData.FireAlpha ~= nil then
-		SetAlpha({ Id = enemy.ObjectId, Fraction = aiData.FireAlpha })
+		SetAlpha({ Id = enemy.ObjectId, Fraction = aiData.FireAlpha, Duration = aiData.FireAlphaDuration or 0 })
 	end
 
 	local weaponData = WeaponData[aiData.WeaponName]
@@ -3578,24 +3716,22 @@ function AIFireWeapon( enemy, aiData )
 		fireTicks = RandomInt( aiData.FireTicksMin, aiData.FireTicksMax )
 	end
 
+	if aiData.SpawnCountDampenTraits ~= nil and aiData.SpawnCountDampenFireTicks then
+		for traitName in pairs(aiData.SpawnCountDampenTraits) do
+			if HeroHasTrait(traitName) then
+				local traitData = GetHeroTrait( traitName )
+				if traitData and traitData.DebuffValue then
+					fireTicks = math.floor(fireTicks * traitData.DebuffValue) 
+				end
+			end
+		end
+	end
+
 	local fireInterval = aiData.FireInterval
 	if aiData.FireIntervalMin ~= nil and aiData.FireIntervalMax ~= nil then
 		fireInterval = RandomFloat( aiData.FireIntervalMin, aiData.FireIntervalMax )
 	end
-	if HeroHasTrait("LightningDebuffBoon") then
-		for _, data in pairs( GetHeroTraitValues( "OnAttackWindUp")) do
-			local hasRequiredEffects = true
-			for i, effectGenusName in pairs( data.ValidEffectGroups ) do
-				if not HasEffectWithEffectGroup( enemy, effectGenusName ) then
-					hasRequiredEffects = false
-				end
-			end
-			if hasRequiredEffects then
-				CreateZeusBolt({ ProjectileName = data.ProjectileName, TargetId = enemy.ObjectId, DamageMultiplier = data.DamageMultiplier})
-				ClearEffect({ Id = enemy.ObjectId, Name = data.ClearEffectOnHit })
-			end
-		end
-	end
+	
 	if HasEffect({Id = enemy.ObjectId, EffectName = "ZeusAttackPenalty" }) then
 		thread(FireWeaponWithinRange, { TargetId = enemy.ObjectId, WeaponName = "ZeusAttackBolt", InitialDelay = 0, Delay = 0.25, Count = 1, BonusChance = GetTotalHeroTraitValue("BonusBolts") })
 		if not HeroHasTrait("JoltDurationTrait") then
@@ -3604,15 +3740,14 @@ function AIFireWeapon( enemy, aiData )
 	end
 
 	if aiData.FireAtAllTargetsWithinRange ~= nil then
-		local targetIds = GetClosestIds({ Id = enemy.ObjectId, DestinationNames = aiData.TargetGroups, Distance = aiData.FireAtAllTargetsWithinRange })
-		--DebugPrintTable({ TableName = "Target Ids: ", PrintTable = targetIds })
+		local targetIds = GetClosestIds({ Id = enemy.ObjectId, DestinationIds = GetIdsByType({ Name = aiData.TargetTypeNames }), DestinationNames = aiData.TargetGroups, Distance = aiData.FireAtAllTargetsWithinRange })
 		for k, targetId in pairs(targetIds) do
 			if ReachedAIStageEnd(enemy) or CurrentRun.CurrentRoom.InStageTransition then
 				aiData.ForcedEarlyExit = true
 				return true
 			end
 
-			if not aiData.SkipCanAttack and  not CanAttack({ Id = enemy.ObjectId }) then
+			if not aiData.SkipCanAttack and not CanAttack({ Id = enemy.ObjectId }) then
 				return false
 			end
 
@@ -3647,11 +3782,29 @@ function AIFireWeapon( enemy, aiData )
 				return false
 			end
 
+			if aiData.MinTicksBeforeEarlyCancel and fireTick >= aiData.MinTicksBeforeEarlyCancel then
+				if RandomChance(aiData.CancelOnNoLosBetweenTicksChance) then
+					local hasLoS = HasLineOfSight({ Id = enemy.ObjectId, DestinationId = aiData.TargetId, StopsProjectiles = true })
+					if not hasLoS then
+						if aiData.ForceWeaponOnLoSCancel ~= nil then
+							enemy.ForcedNextWeapon = aiData.ForceWeaponOnLoSCancel
+						end
+						if aiData.CancelChainedWeaponOnLoSCancel then
+							enemy.ChainedWeapon = nil
+						end
+						return true
+					end
+				end
+			end
+
 			if aiData.ResetTargetPerTick then
 				if enemy.CreatedOwnTarget ~= nil then
 					Destroy({ Id = enemy.CreatedOwnTarget })
 					enemy.CreatedOwnTarget = nil
 				end
+
+				aiData.TargetIdsUsed = aiData.TargetIdsUsed or {}
+				table.insert(aiData.TargetIdsUsed, aiData.TargetId)
 				
 				aiData.TargetId = GetTargetId(enemy, aiData)
 			end
@@ -3700,6 +3853,10 @@ function AIFireWeapon( enemy, aiData )
 		AIWait(aiData.FireDuration, enemy, aiData.AIThreadName or enemy.AIThreadName, { MinWaitTime = aiData.FireDurationMinWaitTime })
 	end
 
+	if aiData.EndSpawnerThreadOnFireEnd and aiData.SpawnBurstOnFire ~= nil then
+		killWaitUntilThreads(enemy.SpawnerThreadName)
+		killTaggedThreads(enemy.SpawnerThreadName)
+	end
 
 	if aiData.RemoveUnitCollisionDuringAttack or aiData.AddUnitCollisionDuringAttack then
 		SetUnitProperty({ DestinationId = enemy.ObjectId, Property = "CollideWithUnits", Value = defaultCollideWithUnits })
@@ -3714,6 +3871,10 @@ function AIFireWeapon( enemy, aiData )
 	end
 	if aiData.FireFx ~= nil then
 		StopAnimation({ DestinationId = enemy.ObjectId, Name = aiData.FireFx })
+	end
+
+	if aiData.FireRotationDampening ~= nil then
+		ClearEffect({ Id = enemy.ObjectId, Name = enemy.Name .. "FireRotationDampening" })
 	end
 
 	if enemy.IsPolymorphed or (not aiData.SkipCanAttack and not CanAttack({ Id = enemy.ObjectId })) then
@@ -3737,10 +3898,6 @@ function AIFireWeapon( enemy, aiData )
 		enemy.ReloadSoundId = PlaySound({ Name = aiData.ReloadingLoopSound, Id = enemy.ObjectId })
 	end
 
-	if aiData.FireRotationDampening ~= nil then
-		ClearEffect({ Id = enemy.ObjectId, Name = enemy.Name .. "FireRotationDampening" })
-	end
-
 	if aiData.ApplyEffectsOnWeaponFire ~= nil and aiData.ClearWeaponFireEffectsOnFireEnd then
 		for k, effectData in pairs(aiData.ApplyEffectsOnWeaponFire) do
 			ClearEffect({ Id = enemy.ObjectId, Name = effectData.EffectName })
@@ -3751,7 +3908,9 @@ function AIFireWeapon( enemy, aiData )
 			ClearEffect({ Id = enemy.ObjectId, Name = effectData.EffectName })
 		end
 	end
-	StopSound({ Id = enemy.ReloadSoundId, Duration = 0.2 })
+	if enemy.ReloadSoundId ~= nil then
+		StopSound({ Id = enemy.ReloadSoundId, Duration = 0.2 })
+	end
 
 	return true
 
@@ -3776,15 +3935,27 @@ function DoWeaponFire( enemy, aiData )
 	end
 
 	if aiData.ChargeSelfVelocity then
-		ApplyForce({ Id = enemy.ObjectId, Speed = aiData.ChargeSelfVelocity, Angle = GetAngle({ Id = enemy.ObjectId }) + (aiData.ChargeSelfVelocityAngleOffset or 0), SelfApplied = true })
+		if not aiData.SkipSelfVelocityIfImpactSlow or not HasEffect({ Id = enemy.ObjectId, EffectName = "ImpactSlow" }) then
+			ApplyForce({ Id = enemy.ObjectId, Speed = aiData.ChargeSelfVelocity, Angle = GetAngle({ Id = enemy.ObjectId }) + (aiData.ChargeSelfVelocityAngleOffset or 0), SelfApplied = true })
+		end
 	end
 
 	if aiData.ChargeSelfUpwardVelocity then
-		ApplyUpwardForce({ Id = enemy.ObjectId, Speed = aiData.ChargeSelfUpwardVelocity })
+		if not aiData.SkipSelfVelocityIfImpactSlow or not HasEffect({ Id = enemy.ObjectId, EffectName = "ImpactSlow" }) then
+			ApplyUpwardForce({ Id = enemy.ObjectId, Speed = aiData.ChargeSelfUpwardVelocity })
+		end
 	end
 
 	if aiData.FireSetZHeight ~= nil then
 		AdjustZLocation({ Id = enemy.ObjectId, Distance = aiData.FireSetZHeight - GetZLocation({ Id = enemy.ObjectId }), Duration = aiData.FireSetZDuration or 0 })
+	end
+
+	if aiData.FireSetGoalAngleOffset then
+		SetGoalAngle({ Id = enemy.ObjectId, Angle = GetAngle({ Id = enemy.ObjectId }) + aiData.FireSetGoalAngleOffset })
+	end
+
+	if aiData.PreFireTeleport ~= nil then
+		HandleEnemyTeleportation( enemy, aiData )
 	end
 
 	if aiData.PreFireDuration then
@@ -3793,28 +3964,40 @@ function DoWeaponFire( enemy, aiData )
 	
 	local weaponData = WeaponData[aiData.WeaponName]
 	if weaponData ~= nil then
-		thread( DoCameraMotion, weaponData.FireCameraMotion )
+		if weaponData.FireCameraMotion ~= nil then
+			thread( DoCameraMotion, weaponData.FireCameraMotion )
+		end
 		local weaponDistanceSquared = nil
 		if weaponData.FireScreenshake and weaponData.FireScreenshake.DistanceThreshold then
 			weaponDistanceSquared = GetDistance({ Id = enemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })^2
 		end
-		thread( DoWeaponScreenshake, weaponData, "FireScreenshake", { AttackerId = enemy.ObjectId, SourceProjectile = aiData.ProjectileName, DistanceSquared = weaponDistanceSquared })
-		thread( DoWeaponFireSimulationSlow, weaponData )
-		thread( DoWeaponFireRumble, weaponData, ProjectileData[aiData.ProjectileName] )
-		thread( DoWeaponFireRadialBlur, weaponData )
-		if weaponData.FiredHeroVoiceLines ~= nil then
-			thread( PlayVoiceLines, HeroVoiceLines[weaponData.FiredHeroVoiceLines], true )
+		DoWeaponScreenshake( weaponData, "FireScreenshake", { AttackerId = enemy.ObjectId, SourceProjectile = aiData.ProjectileName, DistanceSquared = weaponDistanceSquared })
+		if weaponData.FireSimSlowParameters ~= nil then
+			thread( DoWeaponFireSimulationSlow, weaponData )
+		end
+		local projectileData = ProjectileData[aiData.ProjectileName]
+		if projectileData ~= nil and projectileData.FireRumbleParameters ~= nil then
+			thread( DoRumble, projectileData.FireRumbleParameters )
+		elseif weaponData.FireRumbleParameters ~= nil then
+			thread( DoRumble, weaponData.FireRumbleParameters )
+		end
+		if weaponData.FireRadialBlur ~= nil then
+			thread( DoWeaponFireRadialBlur, weaponData )
 		end
 	else
-		DebugAssert({ Condition = false, Text = "No such WeaponData "..tostring(aiData.WeaponName), Owner = "Eduardo" })
+		--DebugAssert({ Condition = false, Text = "No such WeaponData "..tostring(aiData.WeaponName), Owner = "Eduardo" })
 	end
 
 	if aiData.AngleTowardsTargetWhileFiring then
-		AngleTowardTarget({ Id = enemy.ObjectId, DestinationId = aiData.TargetId })
+		AngleTowardTarget({ Id = enemy.ObjectId, DestinationId = aiData.TargetId, AngleMin = enemy.AngleMin, AngleMax = enemy.AngleMax })
 	end
 
 	if aiData.TrackTargetDuringFire then
-		Track({ Ids = { enemy.ObjectId }, DestinationIds = { aiData.TargetId } })
+		Track({ Ids = { enemy.ObjectId }, DestinationIds = { aiData.TargetId }, AngleMin = enemy.AngleMin, AngleMax = enemy.AngleMax, AngleOffset = aiData.TrackTargetAngleOffset })
+	end
+
+	if aiData.RetreatWhileFiring then
+		thread( Retreat, enemy, aiData, aiData.TargetId, { Strafe = true } )
 	end
 
 	if enemy.IsPolymorphed or (not aiData.SkipCanAttack and not CanAttack({ Id = enemy.ObjectId })) then
@@ -3832,8 +4015,23 @@ function DoWeaponFire( enemy, aiData )
 		CreateAnimation({ DestinationId = aiData.TargetId, Name = aiData.FireFxAtTarget, OffsetX = offset.X, OffsetY = offset.Y })
 	end
 
+	if aiData.SpawnObstacleOnFire ~= nil or aiData.SpawnObstaclesOnFire ~= nil then
+		local obstaclesToSpawn = aiData.SpawnObstaclesOnFire or { aiData.SpawnObstacleOnFire }
+		for k, obstacleName in pairs(obstaclesToSpawn) do
+			local obstacleId = SpawnObstacle({ Name = obstacleName, DestinationId = enemy.ObjectId, Group = "Standing" })
+			if aiData.SpawnedObstaclesSyncFlip and IsHorizontallyFlipped({ Id = enemy.ObjectId }) then
+				FlipHorizontal({ Id = obstacleId })
+			end
+		end
+	end
+
 	if aiData.ExpireProjectilesOnFire then
 		ExpireProjectiles({ Names = aiData.ExpireProjectilesOnFire })
+	end
+
+	if aiData.ExpireFusedProjectilesOnFire then
+		enemy.CancelFusedProjectilesBeforeTime = _worldTime
+		SetThreadWait(enemy.AIThreadName.."Fuse", 0.01)
 	end
 
 	if aiData.ConditionalProjectiles ~= nil then
@@ -3865,12 +4063,27 @@ function DoWeaponFire( enemy, aiData )
 		thread(ProcessFireProjecile, enemy, aiData)
 	end
 
+
+	if aiData.DestroyTargetAfterFire then
+		Destroy({ Id = aiData.TargetId })
+	end
+
 	if aiData.FireSelfVelocity then
-		ApplyForce({ Id = enemy.ObjectId, Speed = aiData.FireSelfVelocity, Angle = GetAngle({ Id = enemy.ObjectId }) + (aiData.FireSelfVelocityAngleOffset or 0), SelfApplied = true })
+		if aiData.FireSelfVelocityIfOverDistance == nil or GetDistance({ Id = enemy.ObjectId, DestinationId = aiData.TargetId }) > aiData.FireSelfVelocityIfOverDistance then
+			if not aiData.SkipSelfVelocityIfImpactSlow or not HasEffect({ Id = enemy.ObjectId, EffectName = "ImpactSlow" }) then
+				ApplyForce({ Id = enemy.ObjectId, Speed = aiData.FireSelfVelocity, Angle = GetAngle({ Id = enemy.ObjectId }) + (aiData.FireSelfVelocityAngleOffset or 0), SelfApplied = true })
+			end
+		end
 	end
 
 	if aiData.FireSelfUpwardVelocity then
-		ApplyUpwardForce({ Id = enemy.ObjectId, Speed = aiData.FireSelfUpwardVelocity })
+		if not aiData.SkipSelfVelocityIfImpactSlow or not HasEffect({ Id = enemy.ObjectId, EffectName = "ImpactSlow" }) then
+			ApplyUpwardForce({ Id = enemy.ObjectId, Speed = aiData.FireSelfUpwardVelocity })
+		end
+	end
+
+	if aiData.DamageSelfOnWeaponFire ~= nil then
+		Damage(enemy, { DamageAmount = aiData.DamageSelfOnWeaponFire, Silent = true, PureDamage = true })
 	end
 end
 
@@ -3878,14 +4091,22 @@ function ProcessFireProjecile(enemy, aiData)
 
 	AIWait(aiData.FireProjectileStartDelay, enemy, aiData.AIThreadName or enemy.AIThreadName)
 
-
 	if (not aiData.SkipCanAttack and not CanAttack({ Id = enemy.ObjectId })) or enemy[aiData.EndOnFlagName] or enemy.IsPolymorphed then
 		return false
 	end
 
-	if aiData.ProjectileName == nil and aiData.NoProjectile == nil then -- Backwards compatibility for xml weapons
-		FireWeaponFromUnit({ Weapon = aiData.WeaponName, Id = enemy.ObjectId, DestinationId = aiData.TargetId, AutoEquip = true })
+	if aiData.SkipFireProjectileIfInTransition and (ReachedAIStageEnd(enemy) or enemy.InTransition) then
+		aiData.ForcedEarlyExit = true
+		return
 	end
+	if aiData.SkipFireProjectileIfInterrupted and (enemy.ForcedWeaponInterrupt ~= nil or enemy.WeaponName ~= aiData.WeaponName) then
+		aiData.ForcedEarlyExit = true
+		return
+	end
+
+	--if aiData.ProjectileName == nil and aiData.NoProjectile == nil then -- Backwards compatibility for xml weapons
+		--DebugAssert({ Condition = false, Text = enemy.Name.." trying to fire "..aiData.WeaponName.." with no Projectile.", Owner = "Eduardo" })
+	--end
 
 	if aiData.ProjectileName == nil or aiData.NoProjectile then
 		return
@@ -3906,6 +4127,11 @@ function ProcessFireProjecile(enemy, aiData)
 			if enemy.IsPolymorphed or (not aiData.SkipCanAttack and not CanAttack({ Id = enemy.ObjectId })) then
 				return
 			end
+			if aiData.CancelProjectilesOnTransition and (enemy.InTransition or CurrentRun.CurrentRoom.InStageTransition) then
+				aiData.ForcedEarlyExit = true
+				return true
+			end
+
 			local projectileData = DeepCopyTable(ProjectileData[aiData.ProjectileName]) or {}
 			local projectileIndexMultiplier = i - math.ceil(aiData.NumProjectiles / 2)
 
@@ -3931,10 +4157,17 @@ function AIFireProjectile( enemy, aiData, projectileData )
 	local projectileOwnerId = aiData.FireFromTargetId or enemy.ObjectId
 	local destinationId = aiData.TargetId
 	local distanceToTarget = nil
-	local angle = projectileData.Angle or GetAngle({ Id = enemy.ObjectId })
+	local angle = projectileData.Angle or aiData.Angle or GetAngle({ Id = enemy.ObjectId })
 
 	if aiData.FireFromTargetIds ~= nil then
 		projectileOwnerId = GetRandomValue(aiData.FireFromTargetIds)
+	end
+
+	if aiData.FireFromSelf then
+		aiData.FireFromId = enemy.ObjectId
+	end
+	if aiData.FireFromIdTargetId then
+		aiData.FireFromId = aiData.TargetId
 	end
 
 	if ProjectileData[aiData.ProjectileName] ~= nil then
@@ -3991,6 +4224,9 @@ function AIFireProjectile( enemy, aiData, projectileData )
 	if aiData.FireProjectileTowardTarget then
 		distanceToTarget = GetDistance({ Id = enemy.ObjectId, DestinationId = aiData.TargetId })
 		angle = GetAngleBetween({ Id = enemy.ObjectId, DestinationId = aiData.TargetId })
+	elseif aiData.FireProjectileTowardSelf then
+		distanceToTarget = GetDistance({ Id = aiData.TargetId, DestinationId = enemy.ObjectId })
+		angle = GetAngleBetween({ Id = aiData.TargetId, DestinationId = enemy.ObjectId })
 	end
 	if aiData.CalculateDistanceToTarget then
 		distanceToTarget = GetDistance({ Id = destinationId or enemy.ObjectId, DestinationId = aiData.TargetId })
@@ -4033,7 +4269,7 @@ function AIFireProjectile( enemy, aiData, projectileData )
 
 		if projectileData.ReticleAnimation ~= nil then
 			local damageRadius = GetBaseDataValue({ Type = "Projectile", Name = aiData.ProjectileName, Property = "DamageRadius" })
-			SetAnimation({ Name = projectileData.ReticleAnimation, DestinationId = destinationId, ScaleRadius = damageRadius, Group = "FX_Terrain_Top" })
+			SetAnimation({ Name = projectileData.ReticleAnimation, DestinationId = destinationId, ScaleRadius = damageRadius })
 			if projectileData.ReticleUseProjectileAngle then
 				if aiData.AttackSlots ~= nil then
 					SetAngle({ Id = destinationId, Angle = aiData.Angle })
@@ -4065,13 +4301,15 @@ function AIFireProjectile( enemy, aiData, projectileData )
 			Attach({ Id = destinationId, DestinationId = aiData.TargetId })
 		end
 
+		local fuseStartTime = _worldTime
+		enemy.AIThreadName = enemy.AIThreadName or "AIThread_"..enemy.Name.."_"..enemy.ObjectId -- If an obstacle tries to fire a projectile it has no AIThread
 		if enemy.IgnoreTimeSlowEffects then
-			waitUnmodified(projectileData.Fuse, enemy.AIThreadName)
+			waitUnmodified(projectileData.Fuse, enemy.AIThreadName.."Fuse")
 		else
-		wait(projectileData.Fuse, enemy.AIThreadName)
+			wait(projectileData.Fuse, enemy.AIThreadName.."Fuse")
 		end
 
-		if projectileData.CancelIfOwnerAIStageEnd and (ReachedAIStageEnd(enemy) or enemy.InTransition) then
+		if (enemy.CancelFusedProjectilesBeforeTime ~= nil and fuseStartTime < enemy.CancelFusedProjectilesBeforeTime) or (projectileData.CancelIfOwnerAIStageEnd and (ReachedAIStageEnd(enemy) or enemy.InTransition)) then
 			if projectileData.ReticleAnimation ~= nil then
 				StopAnimation({ Name = projectileData.ReticleAnimation, DestinationId = destinationId })
 			end
@@ -4085,12 +4323,12 @@ function AIFireProjectile( enemy, aiData, projectileData )
 
 	CurrentRun.ProjectileRecord[aiData.ProjectileName] = (CurrentRun.ProjectileRecord[aiData.ProjectileName] or 0) + 1
 	GameState.ProjectileRecord[aiData.ProjectileName] = (GameState.ProjectileRecord[aiData.ProjectileName] or 0) + 1
-	local projectileSpeedMultiplier = 1
+	local projectileSpeedMultiplier = nil
 	if not enemy.SkipModifiers and not aiData.ImmuneToProjectileSlow and not enemy.AlwaysTraitor then
 		projectileSpeedMultiplier = GetTotalHeroTraitValue("EnemyProjectileSpeedMultiplier", {IsMultiplier = true, Multiplicative = true })
 	end
 
-	local collideWithGroups = enemy.ProjectilesCollideWithGroups
+	local collideWithGroups = projectileData.CollideWithGroups or enemy.ProjectilesCollideWithGroups
 	if enemy.ProjectilesCollideWithGroupsCharmed ~= nil and IsCharmed({ Id = projectileOwnerId }) then
 		collideWithGroups = enemy.ProjectilesCollideWithGroupsCharmed
 	end
@@ -4099,8 +4337,10 @@ function AIFireProjectile( enemy, aiData, projectileData )
 		Id = projectileOwnerId,
 		DestinationId = destinationId,
 		FireFromTarget = aiData.FireFromTarget,
+		FireFromId = aiData.FireFromId,
 		SpeedMultiplier = projectileSpeedMultiplier,
 		FiredByTraitor = aiData.FireAlliedToPlayer,
+		TargetIdOverride = aiData.TargetIdOverride,
 		CollideWithGroups = collideWithGroups,
 		DataProperties = aiData.ProjectileDataOverrides,
 		BarrelLength = aiData.BarrelLength,
@@ -4110,7 +4350,8 @@ function AIFireProjectile( enemy, aiData, projectileData )
 		RequireLoS = aiData.RequireLoS,
 		Range = aiData.Range or distanceToTarget or 0,
 		MarkerPersistsAngleToTarget = aiData.TargetSpawnPoints,
-		Angle = angle })
+		Angle = angle, })
+		--AdjustZLocation = true, UseStartingZLocation = 900, Duration = 0
 
 	if aiData.SaveProjectileId then
 		enemy.ProjectileIds = enemy.ProjectileIds or {}
@@ -4155,6 +4396,11 @@ function AIFireProjectile( enemy, aiData, projectileData )
 		SetProjectileScale({ Id = projectileId, Fraction = aiData.EndScale, Duration = aiData.ScaleDuration })
 	end
 
+	if projectileData.ExpireOnDelay ~= nil then
+		--DebugPrint({ Text="projectileData.ExpireOnDelay" })
+		thread(ExpireOnDelay, { projectileId }, projectileData.ExpireOnDelay)
+	end
+
 	if aiData.ExpireProjectilesOnHitStun then
 		table.insert(enemy.ExpireProjectileIdsOnHitStun, projectileId)
 	end
@@ -4174,7 +4420,10 @@ function AIFireProjectile( enemy, aiData, projectileData )
 		if aiData.FireTick ~= nil and aiData.FireTickSelfVelocityConsecutiveMultiplier then
 			velocityMultiplier = aiData.FireTickSelfVelocityConsecutiveMultiplier ^ aiData.FireTick
 		end
-		ApplyForce({ Id = enemy.ObjectId, Speed = aiData.FireTickSelfVelocity * velocityMultiplier, Angle = GetAngle({ Id = enemy.ObjectId }) + (aiData.FireTickSelfVelocityAngleOffset or 0), SelfApplied = true })
+
+		if not aiData.SkipSelfVelocityIfImpactSlow or not HasEffect({ Id = enemy.ObjectId, EffectName = "ImpactSlow" }) then
+			ApplyForce({ Id = enemy.ObjectId, Speed = aiData.FireTickSelfVelocity * velocityMultiplier, Angle = GetAngle({ Id = enemy.ObjectId }) + (aiData.FireTickSelfVelocityAngleOffset or 0), SelfApplied = true })
+		end
 	end
 
 	if destroyDestinationId then
@@ -4184,8 +4433,9 @@ function AIFireProjectile( enemy, aiData, projectileData )
 end
 
 function ProcessAttackSlots( enemy, aiData )
-	local enemyOriginalPosition = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = enemy.ObjectId, Group = "Scripting" })
-	local targetOriginalPosition = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = aiData.TargetId, Group = "Scripting" })
+	local enemyOriginalPosition = GetLocation({ Id = enemy.ObjectId })
+	local targetOriginalPosition = GetLocation({ Id = aiData.TargetId })
+
 	local numAttacks = #aiData.AttackSlots
 	if aiData.AttackSlotsPerTick ~= nil or (aiData.AttackSlotsPerTickMin ~= nil and aiData.AttackSlotsPerTickMax ~= nil) then
 		numAttacks = aiData.AttackSlotsPerTick or RandomInt(aiData.AttackSlotsPerTickMin, aiData.AttackSlotsPerTickMax)
@@ -4195,7 +4445,8 @@ function ProcessAttackSlots( enemy, aiData )
 	local removeNum = aiData.RemoveAttackSlotCount or TableLength(aiData.AttackSlots) - numAttacks
 	local skipIndexes = {}
 	for k = 1, removeNum, 1 do
-		table.insert(skipIndexes, RemoveRandomKey(attackSlots))
+		local randomAttackSlot = RemoveRandomKey( attackSlots )
+		skipIndexes[randomAttackSlot] = true
 	end
 
 	local randomAngle = nil
@@ -4207,13 +4458,13 @@ function ProcessAttackSlots( enemy, aiData )
 		 FYShuffle(aiData.AttackSlots)
 	end
 	
-	AIWait(aiData.PreAttackSlotsWait, enemy, aiData.AIThreadName or enemy.AIThreadName)
+	AIWait( aiData.PreAttackSlotsWait, enemy, aiData.AIThreadName or enemy.AIThreadName )
 
-	for k, attackSlot in ipairs(aiData.AttackSlots) do
-		if not Contains(skipIndexes, k) then
-			aiData.Angle = attackSlot.Angle or randomAngle or 0
+	for k, attackSlot in ipairs( aiData.AttackSlots ) do
+		if skipIndexes[k] == nil then
+			aiData.Angle = attackSlot.Angle or randomAngle or GetAngle({ Id = enemy.ObjectId })
 			if attackSlot.UseAngleBetween then
-				aiData.Angle = GetAngleBetween({ Id = enemyOriginalPosition, DestinationId = targetOriginalPosition })
+				aiData.Angle = LuaGetAngleBetween( enemyOriginalPosition.X, enemyOriginalPosition.Y, targetOriginalPosition.X, targetOriginalPosition.Y )
 			elseif attackSlot.UseAttackerAngle then
 				aiData.Angle = GetAngle({ Id = enemy.ObjectId })
 			elseif attackSlot.UseRandomAngle then
@@ -4238,40 +4489,48 @@ function ProcessAttackSlots( enemy, aiData )
 			end
 
 			local anchor = targetOriginalPosition
+			local anchorAngle = 0
 			if attackSlot.UseMapObjectId then
 				if type(attackSlot.UseMapObjectId) == "table" then
-					anchor = attackSlot.UseMapObjectId[CurrentRun.CurrentRoom.Name]
+					anchor = GetLocation({ Id = attackSlot.UseMapObjectId[CurrentRun.CurrentRoom.Name] })
+					anchorAngle = GetAngle({ Id = attackSlot.UseMapObjectId[CurrentRun.CurrentRoom.Name] })
 				else
-					anchor = attackSlot.UseMapObjectId
+					anchor = GetLocation({ Id = attackSlot.UseMapObjectId })
+					anchorAngle = GetAngle({ Id = attackSlot.UseMapObjectId })
 				end
 			elseif attackSlot.OffsetFromAttacker then
-				anchor = enemy.ObjectId
+				anchor = GetLocation({ Id = enemy.ObjectId })
+				anchorAngle = GetAngle({ Id = enemy.ObjectId })
 			elseif attackSlot.UseTargetPosition then
-				anchor = aiData.TargetId
+				anchor = GetLocation({ Id = aiData.TargetId })
+				anchorAngle = GetAngle({ Id = aiData.TargetId })
+			elseif attackSlot.OffsetFromOriginalAttackerPosition then
+				anchor = enemyOriginalPosition
+				anchorAngle = GetAngle({ Id = enemy.ObjectId })
+			else
+				anchorAngle = GetAngle({ Id = aiData.TargetId })
 			end
 
 			if attackSlot.AnchorOffset ~= nil then
-				local anchorOffset = CalcOffset(math.rad(GetAngle({ Id = anchor }) + attackSlot.AnchorOffsetAngle), attackSlot.AnchorOffset)
-				anchor = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = anchor, OffsetX = anchorOffset.X, OffsetY = anchorOffset.Y })
+				local anchorOffset = CalcOffset(math.rad(anchorAngle + attackSlot.AnchorOffsetAngle), attackSlot.AnchorOffset)
+				anchor.X = anchor.X + anchorOffset.X
+				anchor.Y = anchor.Y + anchorOffset.Y
 			end
 
-			local angleOffset = CalcOffset(math.rad(aiData.Angle + GetAngle({ Id = anchor })), attackSlot.AnchorAngleOffset or 50)
+			local angleOffset = CalcOffset(math.rad(aiData.Angle + anchorAngle), attackSlot.AnchorAngleOffset or 50)
 			offset.X = offset.X + angleOffset.X
 			offset.Y = offset.Y + angleOffset.Y
 
 			if attackSlot.OffsetScaleY ~= nil then
 				offset.Y = offset.Y * attackSlot.OffsetScaleY
 			end
-			local targetOffset = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = anchor, OffsetX = offset.X, OffsetY = offset.Y })
+			anchor.X = anchor.X or 0
+			anchor.Y = anchor.Y or 0
+			local targetOffset = SpawnObstacle({ Name = "InvisibleTarget", LocationX = anchor.X + offset.X, LocationY = anchor.Y + offset.Y })
 
-			if attackSlot.TeleportToId then
-				Teleport({ Id = enemy.ObjectId, DestinationId = attackSlot.TeleportToId })
+			if attackSlot.InstantTeleportToId then
+				Teleport({ Id = enemy.ObjectId, DestinationId = attackSlot.InstantTeleportToId })
 			end
-			if attackSlot.InstantAngleTowardsTarget then
-				AngleTowardTarget({ Id = enemy.ObjectId, DestinationId = targetOffset })
-			end
-
-			AIWait(aiData.AttackSlotPreFireWait, enemy, aiData.AIThreadName or enemy.AIThreadName)
 
 			if attackSlot.ProjectileName ~= nil or aiData.ProjectileName ~= nil then
 				local projectileAIData = DeepCopyTable(aiData)
@@ -4281,17 +4540,12 @@ function ProcessAttackSlots( enemy, aiData )
 					projectileAIData = DeepCopyTable(projectileAIData)
 					OverwriteTableKeys(projectileAIData, attackSlot.AIDataOverrides)
 				end
-				thread(ProcessFireProjecile, enemy, projectileAIData)
+				thread( ProcessFireProjecile, enemy, projectileAIData )
 			elseif aiData.NoProjectile then
 				--
-			else
-				FireWeaponFromUnit({ Weapon = aiData.WeaponName, Id = enemy.ObjectId, DestinationId = targetOffset, AutoEquip = true })
 			end
 
-			thread( DestroyOnDelay, { targetOffset }, CalcEnemyWait( enemy, aiData.FireProjectileStartDelay) + 0.1 )
-			if attackSlot.AnchorOffset ~= nil then
-				Destroy({ Id = anchor })
-			end
+			thread( DestroyOnDelay, { targetOffset }, CalcEnemyWait( enemy, aiData.FireProjectileStartDelay ) + 0.1 )
 			if attackSlot.PauseDuration then
 				AIWait(attackSlot.PauseDuration, enemy, aiData.AIThreadName or enemy.AIThreadName)
 			end
@@ -4307,6 +4561,10 @@ function ProcessAttackSlots( enemy, aiData )
 			if aiData.EndAttackSlotsOnHit and not CanAttack({ Id = enemy.ObjectId }) then
 				return false
 			end
+
+			if aiData.EndAttackSlotsForcedWeaponInterrupt and enemy.ForcedWeaponInterrupt ~= nil then
+				return false
+			end
 			
 			if enemy[aiData.EndOnFlagName] then
 				return false
@@ -4317,8 +4575,6 @@ function ProcessAttackSlots( enemy, aiData )
 			end
 		end
 	end
-	Destroy({ Id = enemyOriginalPosition })
-	Destroy({ Id = targetOriginalPosition })
 end
 
 function MoveToRandomLocation( enemy, originId, radius, radiusMin, timeout )
@@ -4343,20 +4599,15 @@ function MoveToRandomLocation( enemy, originId, radius, radiusMin, timeout )
 	Destroy({ Id = randomNewTargetId })
 end
 
-function DumbFireAttack( enemy, weaponData )
+function DumbFireAttack( enemy, weaponName )
 	enemy.DumbFireThreadName = "DumbFireThreadName"..enemy.ObjectId
-	local weaponName = weaponData.Name
 
-	local aiData = ShallowCopyTable(enemy.DefaultAIData) or {}
-	DebugAssert({ Condition = enemy.DefaultAIData ~= nil, Text = enemy.Name.." has no DefaultAIData", Owner = "Eduardo" })
-	if weaponData ~= nil then
-		if weaponData.AIData ~= nil then
-			OverwriteTableKeys( aiData, weaponData.AIData)
-		else
-			OverwriteTableKeys( aiData, weaponData)
-		end
+	if weaponName == nil then
+		--DebugAssert({ Condition = weaponName ~= nil, Text = "DumbFireAttack has no weapon name.", Owner = "Eduardo" })
+		return
 	end
-	aiData.WeaponName = weaponName
+
+	local aiData = GetWeaponAIData(enemy, weaponName)
 
 	if aiData.AlwaysUseDumbFireThreadName then
     	aiData.AIThreadName = enemy.DumbFireThreadName
@@ -4396,6 +4647,12 @@ function DumbFireAttack( enemy, weaponData )
 
 		if aiData.PreAttackFx ~= nil then
 			CreateAnimation({ DestinationId = enemy.ObjectId, Name = aiData.PreAttackFx })
+			enemy.CreatedAnimations = enemy.CreatedAnimations or {}
+			table.insert( enemy.CreatedAnimations, aiData.PreAttackFx )
+		end
+		
+		if aiData.PreAttackThreadedFunctionName ~= nil then
+			thread(CallFunctionName, aiData.PreAttackThreadedFunctionName, enemy, aiData, CurrentRun, aiData.PreAttackThreadedFunctionArgs)
 		end
 
 		wait( CalcEnemyWait( enemy, preAttackDuration ), enemy.DumbFireThreadName )
@@ -4435,14 +4692,16 @@ function DumbFireAttack( enemy, weaponData )
 
 				if aiData.DumbFireWeapons ~= nil then
 					for k, weaponName in pairs( aiData.DumbFireWeapons ) do
-						local weaponData = WeaponData[weaponName].AIData or WeaponData[weaponName]
-						weaponData.Name = weaponName
-						thread( DumbFireAttack, enemy, weaponData )
+						thread( DumbFireAttack, enemy, weaponName )
 					end
 				end
 
 				DoWeaponFire( enemy, aiData )
-				wait( CalcEnemyWait( enemy, aiData.FireInterval), enemy.DumbFireThreadName )
+				local fireInterval = aiData.FireInterval
+				if aiData.FireIntervalMin ~= nil and aiData.FireIntervalMax ~= nil then
+					fireInterval = RandomFloat( aiData.FireIntervalMin, aiData.FireIntervalMax )
+				end
+				wait( CalcEnemyWait( enemy, fireInterval), enemy.DumbFireThreadName )
 
 
 				if enemy.CreatedOwnTarget then
@@ -4499,9 +4758,7 @@ function DumbFireAttack( enemy, weaponData )
 		end
 
 		if aiData.ChainedWeapon ~= nil then
-			local newWeaponData = WeaponData[aiData.ChainedWeapon].AIData or WeaponData[aiData.ChainedWeapon]
-			newWeaponData.Name = aiData.ChainedWeapon
-			DumbFireAttack( enemy, newWeaponData )
+			DumbFireAttack( enemy, aiData.ChainedWeapon )
 		end
 	end
 end
@@ -4581,7 +4838,7 @@ function HandleSpawnerBurst(enemy, aiData)
 				OverwriteTableKeys( newEnemy.DefaultAIData, aiData.SpawnDefaultAIDataOverrides)
 			end 
 
-			local offset = { X = 0, Y = 0 }
+			local offset = { X = aiData.SpawnOffsetX or 0, Y = aiData.SpawnOffsetY or 0 }
 			local spawnPointId = aiData.SpawnOnId or RemoveFirstValue(spawnOnIdsOrdered) or RemoveRandomValue(spawnOnIds) or GetRandomValue(GetIds({ Name = aiData.SpawnOnGroupName }))
 			
 			local spawnNearId = enemy.ObjectId
@@ -4591,7 +4848,9 @@ function HandleSpawnerBurst(enemy, aiData)
 
 			if spawnPointId == nil then
 				if aiData.SpawnOnSpawnPoints then
-					local newSpawnPoint = SelectSpawnPoint(CurrentRun.CurrentRoom, newEnemy, {SpawnNearId = spawnNearId, SpawnRadius = aiData.SpawnRadius, SpawnRadiusMin = aiData.SpawnRadiusMin, RequiredSpawnPoint = aiData.RequiredSpawnPointType })
+					local newSpawnPoint = SelectSpawnPoint( CurrentRun.CurrentRoom, newEnemy,
+						{ ForceDistanceCalculation = true, SpawnNearId = spawnNearId, SpawnRadius = aiData.SpawnRadius, SpawnRadiusMin = aiData.SpawnRadiusMin, RequiredSpawnPoint = aiData.RequiredSpawnPointType, RequireMinPlayerDistance = aiData.RequireMinPlayerDistance, PreferredSpawnPointGroup = aiData.PreferredSpawnPointGroup },
+						{ RecursiveWait = 0.03 } )
 					spawnPointId = newSpawnPoint
 				elseif aiData.SpawnTowardSpawnPoints then
 					spawnPointId = spawnNearId
@@ -4599,8 +4858,10 @@ function HandleSpawnerBurst(enemy, aiData)
 					local angle = GetAngleBetween({ Id = spawnNearId, DestinationId = closestSpawnPoint })
 					offset = CalcOffset( math.rad(angle), math.min(110, GetDistance({ Id = spawnNearId, DestinationId = closestSpawnPoint })) )
 				elseif aiData.SpawnRadius ~= nil then
-					offsetX = RandomInt(-aiData.SpawnRadius, aiData.SpawnRadius)
-					offsetY = RandomInt(-aiData.SpawnRadius, aiData.SpawnRadius)
+					--offsetX = RandomInt(-aiData.SpawnRadius, aiData.SpawnRadius)
+					--offsetY = RandomInt(-aiData.SpawnRadius, aiData.SpawnRadius)
+				elseif aiData.SpawnOnRandomId ~= nil then
+					spawnPointId = GetRandomValue(aiData.SpawnOnRandomId)
 				end
 			end
 
@@ -4630,6 +4891,9 @@ function HandleSpawnerBurst(enemy, aiData)
 			if aiData.SpawnFx then
 				CreateAnimation({ DestinationId = newEnemy.ObjectId, Name = aiData.SpawnFx })
 			end
+			if aiData.SpawnForce then
+				thread(DelayedApplyForce, { DelayDuration = 0.16, Id = newEnemy.ObjectId, Speed = aiData.SpawnForce, Angle = GetAngle({ Id = enemy.ObjectId }), SelfApplied = true })
+			end
 			thread(SetupUnit, newEnemy, CurrentRun )
 			AddToGroup({ Id = newEnemy.ObjectId, Name = spawnGroupName })
 			newEnemy.SkipActiveCount = true
@@ -4647,7 +4911,13 @@ function HandleSpawnerBurst(enemy, aiData)
 					}
 				})
 			end
-			wait( CalcEnemyWait( enemy, aiData.SpawnRate), enemy.SpawnerThreadName )
+			local spawnRate = aiData.SpawnRate or 0.3
+			if aiData.SpawnRateMin ~= nil and aiData.SpawnRateMax ~= nil then
+				spawnRate = RandomFloat(aiData.SpawnRateMin, aiData.SpawnRateMax)
+			end
+			wait( CalcEnemyWait( enemy, spawnRate), enemy.SpawnerThreadName )
+		else
+			break
 		end
 	end
 
@@ -4676,7 +4946,7 @@ function BlendInAI( enemy )
 		enemy.ForcedWeaponInterrupt = nil
 		
 		-- Teleportation
-		if aiData.TeleportToSpawnPoints then
+		if aiData.PreMoveTeleport then
 			HandleEnemyTeleportation(enemy, aiData)
 		end
 
@@ -4831,7 +5101,7 @@ function MineAI( enemy )
 		enemy.AINotifyName = "WithinDistance"..enemyId
 
 		NotifyWithinDistanceAny({ Ids = { enemyId }, DestinationNames = enemy.TriggerGroups,
-									Distance = enemy.TriggerDistance, Notify = enemy.AINotifyName, Timeout = enemy.ExpirationDuration })
+									Distance = enemy.TriggerDistance, ScaleY = enemy.TriggerDistanceScaleY, Notify = enemy.AINotifyName, Timeout = enemy.ExpirationDuration })
 
 		waitUntil( enemy.AINotifyName )
 	end
@@ -4849,307 +5119,6 @@ function MineAI( enemy )
 	end
 end
 
-function SkyAttackerAI( enemy, CurrentRun )
-
-	if enemy.WakeUpDelay ~= nil or (enemy.WakeUpDelayMin ~= nil and enemy.WakeUpDelayMax ~= nil) then
-		local wakeUpDelay = enemy.WakeUpDelay or RandomFloat(enemy.WakeUpDelayMin, enemy.WakeUpDelayMax)
-		wait( CalcEnemyWait( enemy, wakeUpDelay ), enemy.AIThreadName )
-	end
-
-	while IsAIActive( enemy ) do
-		if not CanAttack({ Id = enemy.ObjectId }) then
-			enemy.AINotifyName = "CanAttack"..enemy.ObjectId
-			NotifyOnCanAttack({ Id = enemy.ObjectId, Notify = enemy.AINotifyName, Timeout = 9.0 })
-			waitUntil( enemy.AINotifyName )
-		end
-
-		enemy.WeaponName = SelectWeapon( enemy )
-		table.insert(enemy.WeaponHistory, enemy.WeaponName)
-		local aiData = GetWeaponAIData(enemy)
-
-		aiData.TargetId = GetTargetId(enemy, aiData)
-
-		if aiData.TargetId ~= nil and aiData.TargetId ~= 0 then
-			ClearEffect({ Id = enemy.ObjectId, Name = "HermesSlow" })
-			if aiData.ResetSkyAttackSound ~= nil then
-				PlaySound({ Name = aiData.ResetSkyAttackSound, Id = enemy.ObjectId })
-			end
-			if aiData.LaunchAnimation ~= nil then
-				SetAnimation({ DestinationId = enemy.ObjectId, Name = aiData.LaunchAnimation })
-			end
-			if aiData.StopAnimationsOnLaunch ~= nil then
-				StopAnimation({ DestinationId = enemy.ObjectId, Name = aiData.StopAnimationsOnLaunch })
-			end
-			if aiData.ShadowAnimationGroundName ~= nil then
-				StopAnimation({ DestinationId = enemy.ObjectId, Name = aiData.ShadowAnimationGroundName })
-			end
-			CreateAnimation({ DestinationId = enemy.ObjectId, Name = aiData.ShadowAnimationFadeOutName })
-
-			ApplyUpwardForce({ Id = enemy.ObjectId, Speed = 5000 })
-			wait( 0.5, enemy.AIThreadName )
-			enemy.BlockingLocation = false
-			enemy.InSky = true
-			IgnoreGravity({ Id = enemy.ObjectId })
-			SetAlpha({ Id = enemy.ObjectId, Fraction = 0.0 })
-			SetThingProperty({ DestinationId = enemy.ObjectId, Property = "StopsUnits", Value = false })
-			SetThingProperty({ DestinationId = enemy.ObjectId, Property = "StopsProjectiles", Value = false })
-
-			-- Disapear
-			local hideDuration = aiData.PostLaunchHideDuration or RandomFloat(aiData.PostLaunchHideDurationMin, aiData.PostLaunchHideDurationMax)
-			wait( CalcEnemyWait( enemy,aiData.PostLaunchHideDuration, { IgnoreSpeedMultiplier = true }), enemy.AIThreadName )
-			Teleport({ Id = enemy.ObjectId, DestinationId = aiData.TargetId })
-			CreateAnimation({ DestinationId = enemy.ObjectId, Name = aiData.ShadowAnimationFadeInName })
-			wait( CalcEnemyWait( enemy,aiData.PostLaunchHideFadeInDuration, { IgnoreSpeedMultiplier = true }), enemy.AIThreadName )
-
-
-			-- Pre-Attack Movement
-			if aiData.RetreatBeforeAttack then
-				Retreat(enemy, aiData, aiData.TargetId)
-				wait( CalcEnemyWait( enemy, 0.05), enemy.AIThreadName )
-			end
-
-			-- Movement
-			MoveWithinRange( enemy, aiData.MoveToId or aiData.TargetId, aiData )
-
-			while aiData.WaitIfBlockedDistance ~= nil and IsLocationBlockedWithinDistance( enemy, aiData.WaitIfBlockedDistance ) do
-				Retreat( enemy, aiData, aiData.TargetId )
-				wait( CalcEnemyWait( enemy, RandomFloat(aiData.WaitIfBlockedDurationMin or 0.5, aiData.WaitIfBlockedDurationMax or 5.0)), enemy.AIThreadName )
-				MoveWithinRange( enemy, aiData.MoveToId or aiData.TargetId, aiData )
-			end
-
-			if aiData.PreAttackVoiceLines ~= nil then
-				thread( PlayVoiceLines, aiData.PreAttackVoiceLines, nil, enemy )
-			end
-
-			-- Attack
-			local attackSuccess = false
-			while not attackSuccess do
-				enemy.BlockingLocation = true
-				enemy.InSky = false
-				ObeyGravity({ Id = enemy.ObjectId })
-				SetAlpha({ Id = enemy.ObjectId, Fraction = 1.0 })
-				SetThingProperty({ DestinationId = enemy.ObjectId, Property = "StopsUnits", Value = true })
-				SetThingProperty({ DestinationId = enemy.ObjectId, Property = "StopsProjectiles", Value = true })
-
-				-- @experiment Snap isometric
-				local currentAngle = GetAngle({ Id = enemy.ObjectId })
-				if currentAngle > 90 and currentAngle < 270 then
-					SetGoalAngle({ Id = enemy.ObjectId, Angle = 210, CompleteAngle = true })
-				else
-					SetGoalAngle({ Id = enemy.ObjectId, Angle = 330, CompleteAngle = true })
-				end
-
-				Stop({ Id = enemy.ObjectId })
-				Halt({ Id = enemy.ObjectId })
-				attackSuccess = DoAttack( enemy, aiData )
-				if not attackSuccess then
-					enemy.AINotifyName = "CanAttack"..enemy.ObjectId
-					NotifyOnCanAttack({ Id = enemy.ObjectId, Notify = enemy.AINotifyName, Timeout = 9.0 })
-					waitUntil( enemy.AINotifyName )
-				end
-			end
-		else
-			if enemy.NoTargetMoveTowardsPlayer then
-				MoveWithinRange( enemy, CurrentRun.Hero.ObjectId, aiData )
-			end
-			wait( CalcEnemyWait( enemy, enemy.NoTargetWanderDuration or 0.5), enemy.AIThreadName )
-		end
-	end
-end
-
-function IsLocationBlockedWithinDistance( source, distance )
-	for enemyId, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
-		if enemy.BlockingLocation and enemy.ObjectId ~= source.ObjectId then
-			if GetDistance({ Id = enemy.ObjectId, DestinationId = source.ObjectId }) < distance then
-				return true
-			end
-		end
-	end
-	return false
-end
-
-function DoPickup( enemy, aiData, pickupTarget )
-	aiData = aiData or enemy
-	local pickupRange = aiData.AIPickupRange or 100
-	enemy.Pickups = enemy.Pickups or 0
-
-	if pickupTarget == nil then
-		local eligibleTargets = GetIdsByType({ Names = aiData.AIPickupTypes })
-		pickupTarget = GetClosest({ Id = enemy.ObjectId, DestinationIds = eligibleTargets })
-	end
-
-	enemy.PickupTarget = MapState.ActiveObstacles[pickupTarget] or ActiveEnemies[pickupTarget]
-
-	local forceFailTime = nil
-	if aiData.PickupTimeAllowance ~= nil then
-		forceFailTime = _worldTime + aiData.PickupTimeAllowance
-	end
-
-	while IsAlive({ Id = pickupTarget }) and pickupTarget ~= nil do
-		-- Move to target
-		Move({ Id = enemy.ObjectId, DestinationId = pickupTarget, Distance = 10, SuccessDistance = 40 })
-
-		if aiData.MoveToTargetSound ~= nil then
-			PlaySound({ Name = aiData.MoveToTargetSound, Id = enemy.ObjectId })
-		end
-		if aiData.MoveToTargetText ~= nil then
-			thread( InCombatText, enemy.ObjectId, enemy.MoveToTargetText, 1.5 )
-		end
-
-		-- Wait until within range
-		enemy.AINotifyName = "WithinDistance_"..enemy.Name.."_"..enemy.ObjectId
-
-		NotifyWithinDistance({ Id = enemy.ObjectId, DestinationId = pickupTarget, Distance = pickupRange, Notify = enemy.AINotifyName, Timeout = aiData.MoveToPickupTimeout or 5.0 })
-		waitUntil( enemy.AINotifyName )
-		if _eventTimeoutRecord[enemy.AINotifyName] then
-			-- Remove collision for next attempt if timed out
-			DebugPrint({ Text = "Pickup timeout" })
-			SetUnitProperty({ DestinationId = enemy.ObjectId, Property = "CollideWithObstacles", Value = false })
-			SetUnitProperty({ DestinationId = enemy.ObjectId, Property = "CollideWithUnits", Value = false })
-			enemy.PickupTarget = nil
-			return false
-		end
-
-		-- Begin pick up
-		SetThingProperty({ DestinationId = enemy.ObjectId, Property = "ImmuneToForce", Value = true })
-		local endTime = _worldTime + aiData.AIPickupTime
-		if IsAlive({ Id = pickupTarget }) then
-			Stop({ Id = enemy.ObjectId })
-			Shake({ Id = enemy.ObjectId, Distance = 3, Speed = 500, Duration = aiData.AIPickupTime })
-			Flash({ Id = enemy.ObjectId, Speed = 1.0, MinFraction = 0, MaxFraction = 0.8, Color = Color.White, Duration = aiData.AIPickupTime, ExpireAfterCycle = true })
-			thread( PlayVoiceLines, enemy.RespawningVoiceLines, true )
-			if aiData.BeginPickupSound ~= nil then
-				PlaySound({ Name = aiData.BeginPickupSound, Id = aiData.ObjectId })
-			end
-			if aiData.BeginPickupText ~= nil then
-				thread( InCombatText, enemy.ObjectId, aiData.PickupText, aiData.AIPickupTime )
-			end
-			if aiData.BeginPickupAnimation ~= nil then
-				SetAnimation({ Name = aiData.BeginPickupAnimation, DestinationId = enemy.ObjectId })
-			end
-
-			if enemy.PickupTarget ~= nil and enemy.PickupTarget.BeginPickupAnimation then
-				SetAnimation({ Name = enemy.PickupTarget.BeginPickupAnimation, DestinationId = pickupTarget })
-			end
-
-			while _worldTime < endTime do
-				if not IsAlive({ Id = pickupTarget }) or not CanAttack({ Id = enemy.ObjectId }) then
-					StopFlashing({ Id = enemy.ObjectId })
-					if aiData.PickupFailedAnimation ~= nil then
-						SetAnimation({ Name = aiData.PickupFailedAnimation, DestinationId = enemy.ObjectId })
-					end
-					if enemy.PickupTarget ~= nil and enemy.PickupTarget.PickupFailedAnimation then
-						SetAnimation({ Name = enemy.PickupTarget.PickupFailedAnimation, DestinationId = enemy.PickupTarget.ObjectId })
-					end
-					enemy.PickupTarget = nil
-					return false
-				end
-				wait( CalcEnemyWait( enemy, 0.1 ), enemy.AIThreadName )
-			end
-
-			-- Pick up
-			if IsAlive({ Id = pickupTarget }) then
-				if aiData.PickupSound ~= nil then
-					PlaySound({ Name = aiData.PickupSound, Id = enemy.ObjectId })
-				end
-				if aiData.PickupText ~= nil then
-					thread( InCombatText, enemy.ObjectId, aiData.PickupText, 1.75 )
-				end
-				if aiData.PickupFx ~= nil then
-					CreateAnimation({ Name = aiData.PickupFx, DestinationId = enemy.ObjectId })
-				end
-				if aiData.PickupAnimation ~= nil then
-					SetAnimation({ Name = aiData.PickupAnimation, DestinationId = enemy.ObjectId })
-				end
-				Flash({ Id = enemy.ObjectId, Speed = 0.65, MinFraction = 1.0, MaxFraction = 0, Color = Color.Gold, ExpireAfterCycle = true })
-
-				ProcessPickup( enemy, pickupTarget )
-				Destroy({ Id = pickupTarget })
-				enemy.Pickups = enemy.Pickups + 1
-				enemy.PickupTarget = nil
-				return true
-			else
-				SetThingProperty({ DestinationId = enemy.ObjectId, Property = "ImmuneToForce", Value = false })
-			end
-		end
-
-		if forceFailTime ~= nil and _worldTime >= forceFailTime then
-			enemy.PickupTarget = nil
-			return false
-		end
-	end
-
-	enemy.PickupTarget = nil
-	return false
-end
-
-function ProcessPickup(enemy, pickupTarget)
-	if MapState.ActiveObstacles[pickupTarget] == nil then
-		return
-	end
-
-	local pickupType = MapState.ActiveObstacles[pickupTarget].Name
-	local pickupData = ObstacleData[pickupType] or ConsumableData[pickupType]
-
-	if pickupData == nil then
-		DebugPrint({ Text = pickupType.." had no obstacle data" })
-		return
-	end
-
-	if pickupData.SwapToUnitOnPickup ~= nil then
-		local oldEnemy = enemy
-		local newEnemyName = pickupData.SwapToUnitOnPickup
-		if enemy.IsSuperElite and EnemyData[newEnemyName.."SuperElite"] ~= nil then
-			newEnemyName = newEnemyName.."SuperElite"
-		elseif enemy.IsElite and EnemyData[newEnemyName.."Elite"] ~= nil then
-			newEnemyName = newEnemyName.."Elite"
-		end
-		local newEnemy =  DeepCopyTable( EnemyData[newEnemyName] )
-		newEnemy.ObjectId = SpawnUnit({ Name = newEnemyName, InheritGroupNames = true, DestinationId = oldEnemy.ObjectId })
-		thread(SetupUnit, newEnemy, CurrentRun )
-		local charmDuration = GetCharmDuration({ Id = oldEnemy.ObjectId })
-		if charmDuration > 0 then
-			ApplyEffect({ 
-				Id = CurrentRun.Hero.ObjectId, 
-				DestinationId = newEnemy.ObjectId, 
-				EffectName = "Charm",
-				DataProperties = 
-				{
-					Type = "CHARM",
-					Duration = charmDuration,
-					Active = true,
-					TimeModifierFraction = 0,
-				}
-			})
-		end
-		thread( PlayVoiceLines, oldEnemy.RespawnedVoiceLines, true )
-		RemoveOnDeathWeapons( oldEnemy )
-		Kill( oldEnemy )
-	end
-
-	if pickupData.IsEnemyWeapon and SessionMapState.WeaponSpawnPointsUsed ~= nil then
-		SessionMapState.WeaponSpawnPointsUsed[pickupTarget] = nil
-	end
-
-	if pickupData.AddWeaponOptionOnPickup ~= nil then
-		table.insert(enemy.WeaponOptions, pickupData.AddWeaponOptionOnPickup)
-	end
-	if pickupData.AddEquipmentOnPickup ~= nil then
-		table.insert(enemy.Equipment, pickupData.AddEquipmentOnPickup)
-	end
-	if pickupData.AddHealthBuffer ~= nil then
-		if enemy.HealthBuffer == 0 then
-			DoEnemyHealthBuffered( enemy )
-			ArmorRestoredPresentation(enemy)
-		end
-		enemy.HealthBuffer = (enemy.HealthBuffer or 0) + pickupData.AddHealthBuffer
-	end
-
-	if pickupData.AttachAnimation ~= nil then
-		CreateAnimation({ Name = pickupData.AttachAnimation, DestinationId = enemy.ObjectId })
-	end
-end
-
 function UnitSplit( enemy, aiData )
 	local spawnGroupName = "Spawner"..enemy.ObjectId
 
@@ -5158,6 +5127,7 @@ function UnitSplit( enemy, aiData )
 		enemy.HasHealthBar = false
 	end
 	ClearEffect({ Id = enemy.ObjectId, All = true })
+	EffectPostClearAll( enemy )
 
 	enemy.SplitIds = {}
 
@@ -5166,7 +5136,7 @@ function UnitSplit( enemy, aiData )
 		local newEnemy = DeepCopyTable( enemyData )
 		newEnemy.SkipChallengeKillCounts = true
 		local spawnPointId = SelectSpawnPoint(CurrentRun.CurrentRoom, newEnemy, { SpawnNearId = enemy.ObjectId, SpawnRadius = aiData.SpawnRadius, SpawnRadiusMin = aiData.SpawnRadiusMin, },
-																				{ RequiredSpawnPoint = aiData.RequiredSpawnPointType, SpawnAwayFromTypes = aiData.SpawnAwayFromTypes, SpawnAwayFromTypesDistance = aiData.SpawnAwayFromTypesDistance })
+																				{ PreferredSpawnPoint = aiData.PreferredSpawnPointType, RequiredSpawnPoint = aiData.RequiredSpawnPointType, SpawnAwayFromTypes = aiData.SpawnAwayFromTypes, SpawnAwayFromTypesDistance = aiData.SpawnAwayFromTypesDistance })
 		if spawnPointId ~= nil then
 			newEnemy.OccupyingSpawnPointId = spawnPointId
 			SessionMapState.SpawnPointsUsed[spawnPointId] = newEnemy.ObjectId
@@ -5175,12 +5145,14 @@ function UnitSplit( enemy, aiData )
 			newEnemy.ObjectId = SpawnUnit({ Name = aiData.SpawnedUnit, Group = "Standing", DestinationId = spawnPointId, ForceToValidLocation = true })
 			enemy.SplitIds[newEnemy.ObjectId] = true
 
-			thread(SetupUnit, newEnemy, CurrentRun )
+			thread(SetupUnit, newEnemy, CurrentRun, { SkipAISetup = aiData.SkipUnitAISetup } )
 			AddToGroup({ Id = newEnemy.ObjectId, Name = spawnGroupName })
 			newEnemy.SkipActiveCount = true
 
+			AngleTowardTarget({ Id = newEnemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
+
 			if aiData.SyncChainedWeapons then
-				newEnemy.WeaponName = enemy.ChainedWeapon
+				newEnemy.ChainedWeapon = enemy.ChainedWeapon
 			end
 
 			if newEnemy.EliteIcon or ( newEnemy.HealthBuffer ~= nil and newEnemy.HealthBuffer > 0 ) then
@@ -5189,13 +5161,42 @@ function UnitSplit( enemy, aiData )
 				newEnemy.Outline.Id = newEnemy.ObjectId
 				AddOutline( newEnemy.Outline )
 			end
+
+			if aiData.DefaultGrannyTexture then
+				SetThingProperty({ Property = "GrannyModel", Value = "HecateHub_Mesh", DestinationId = newEnemy.ObjectId })
+				SetThingProperty({ Property = "GrannyTexture", Value = "", DestinationId = newEnemy.ObjectId })
+				SetAnimation({ DestinationId = newEnemy.ObjectId, Name = "HecateHubTorchBattleIdle" })
+				newEnemy.AIWakeDelay = 5.0
+			end
 		end
 	end
 end
 
+function HecateComboBreakerSplit(enemy, aiData)
+
+	for id, k in pairs(enemy.SplitIds) do
+		local clone = ActiveEnemies[id]
+		if clone ~= nil then
+			clone.ForcedWeaponInterrupt = "HecateTeleport2"
+			enemy.ChainedWeapon = nil
+			SetThreadWait(clone.AIThreadName, 0.01)
+		end
+	end
+	wait(0.01, enemy.AIThreadName)
+	ClearEffect({ Id = enemy.ObjectId, All = true })
+	EffectPostClearAll( enemy )
+	enemy.ForcedWeaponInterrupt = "HecateTeleport2"
+	enemy.ChainedWeapon = GetRandomValue({"HecateRangedTorchesHoming_Short"})
+end
+
 function ClearAllEffects( enemy ) 
 	ClearEffect({ Id = enemy.ObjectId, All = true })
+	EffectPostClearAll( enemy )
 	ClearEnemySeekStatus( enemy )
+end
+
+function ClearEnemyEffect( enemy, aiData, currentRun, args )
+	ClearEffect({ Id = enemy.ObjectId, Name = args.EffectName })
 end
 
 function ArtemisPostCombat( enemy )
@@ -5257,6 +5258,7 @@ function IcarusPostCombat( enemy )
 	thread( DirectionHintPresentation, enemy )
 	IcarusAppearancePresentation( enemy )
 
+	CheckAvailableTextLines( enemy )
 	UseableOn({ Id = enemy.ObjectId })
 
 	enemy.AINotifyName = "WithinDistance_"..enemy.Name.."_"..enemy.ObjectId
@@ -5267,12 +5269,14 @@ end
 
 function NemesisPostCombat( enemy )
 	enemy.PostCombatTravel = true
+	SetAnimation({ DestinationId = enemy.ObjectId, Name = "Nemesis_Combat_Idle" })
 	local moveToId = SelectLootSpawnPoint(CurrentRun.CurrentRoom) or CurrentRun.Hero.ObjectId
 	local distanceToTarget = GetDistance({ Id = enemy.ObjectId, DestinationId = moveToId })
 
 	Move({ Id = enemy.ObjectId, DestinationId = moveToId, SuccessDistance = 40 })
 	enemy.AINotifyName = "WithinDistance_"..enemy.Name.."_"..enemy.ObjectId
-	NotifyWithinDistance({ Id = enemy.ObjectId, DestinationId = moveToId, Distance = 100, Notify = enemy.AINotifyName, Timeout = 10.0 })
+	local roomData = RoomData[CurrentRun.CurrentRoom.Name] or CurrentRun.CurrentRoom
+	NotifyWithinDistance({ Id = enemy.ObjectId, DestinationId = moveToId, Distance = roomData.NemesisRewardMoveDistance or 100, Notify = enemy.AINotifyName, Timeout = 10.0 })
 	waitUntil( enemy.AINotifyName, enemy.AIThreadName )
 
 	Stop({ Id = enemy.ObjectId })
@@ -5282,6 +5286,7 @@ end
 
 function HeraclesPostCombat( enemy )
 	enemy.PostCombatTravel = true
+	AddTimerBlock( CurrentRun, "HeraclesPostCombat" )
 	local moveToId = SelectLootSpawnPoint(CurrentRun.CurrentRoom) or CurrentRun.Hero.ObjectId
 	local distanceToTarget = GetDistance({ Id = enemy.ObjectId, DestinationId = moveToId })
 
@@ -5293,160 +5298,39 @@ function HeraclesPostCombat( enemy )
 	Stop({ Id = enemy.ObjectId })
 	AngleTowardTarget({ Id = enemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
 	enemy.PostCombatTravel = false
+	enemy.TextLinesUseWeaponIdle = nil
+	RemoveTimerBlock( CurrentRun, "HeraclesPostCombat" )
 	UseableOn({ Id = enemy.ObjectId })
-	thread( HeraclesEncounterEndPresentation, enemy )
-end
+	HeraclesEncounterEndPresentation( enemy )
 
-function EnemyInvisibility( enemy, aiData, args )
-	args = args or {}
+	AddInteractBlock( enemy, "HeraclesPostCombat" )
+	wait(1.3)
 
-	aiData.InvisibilityInterval = aiData.InvisibilityInterval or 0
-	enemy.LastInvisibilityTime = enemy.LastInvisibilityTime or 0
+	HeraclesObjectiveResultPresentation( enemy )
+	if CurrentRun.CurrentRoom.Encounter.PlayerMoneyObjective > 0 then
+		local consumableId = SpawnObstacle({ Name = "RoomMoneyDrop", DestinationId = enemy.ObjectId, Group = "Standing" })
+		local reward = CreateConsumableItem( consumableId, "RoomMoneyDrop", 0 )
+		reward.DropMoney = CurrentRun.CurrentRoom.Encounter.PlayerMoneyObjective
+		MapState.RoomRequiredObjects[reward.ObjectId] = reward
+		ApplyUpwardForce({ Id = consumableId, Speed = 425 })
+		ApplyForce({ Id = consumableId, Speed = 350, Angle = GetAngle({ Id = enemy.ObjectId }), SelfApplied = true })
+	end
 
-	if _worldTime - enemy.LastInvisibilityTime >= aiData.InvisibilityInterval then
-	
-		ClearAllEffects( enemy ) 
-		SetLifeProperty({ DestinationId = enemy.ObjectId, Property = "InvulnerableFx", Value = nil })
-		enemy.SkipInvulnerableOnHitPresentation = true
+	CheckAvailableTextLines( enemy )
+	SetAvailableUseText( enemy )
+	RemoveInteractBlock( enemy, "HeraclesPostCombat" )
 
-		local alpha = args.Alpha or 0.0
-		local color = args.Color or { 0, 0, 0, 0 }
-
-		SetAlpha({ Id = enemy.ObjectId, Fraction = alpha, Duration = aiData.InvisibilityFadeOutDuration })
-		SetColor({ Id = enemy.ObjectId, Color = color, Duration = aiData.InvisibilityFadeOutDuration })
-
-		if args.CreateAnimation then
-			CreateAnimation({ Name = args.CreateAnimation, DestinationId = enemy.ObjectId })
+	if enemy.NextInteractLines == nil then
+		if CanReceiveGift( enemy ) then
+			MapState.RoomRequiredObjects[enemy.ObjectId] = nil
+			wait( 0.2 )
+			if CheckRoomExitsReady( CurrentRun.CurrentRoom ) then
+				UnlockRoomExits( CurrentRun, CurrentRun.CurrentRoom )
+			end
+		else
+			HeraclesExit( enemy, { WaitTime = 1.5 })
 		end
-		if args.Animation then
-			SetAnimation({ Name = args.Animation, DestinationId = enemy.ObjectId })
-		end
-		SetUnitProperty({ DestinationId = enemy.ObjectId, Property = "CollideWithUnits", Value = false })
-		SetThingProperty({ DestinationId = enemy.ObjectId, Property = "StopsProjectiles", Value = false })
-		enemy.PreInvisibilityImmuneToStun = GetUnitDataValue({ Id = enemy.ObjectId, Property = "ImmuneToStun" })
-		SetUnitProperty({ DestinationId = enemy.ObjectId, Property = "ImmuneToStun", Value = true })
-		SetUnitInvulnerable( enemy )
-		wait( aiData.InvisibilityFadeOutDuration, enemy.AIThreadName )
-		if enemy.Phase2VFX ~= nil then
-  			StopAnimation({ Name = enemy.Phase2VFX, DestinationId = enemy.ObjectId })
-		end
-		enemy.IsInvisible = true
-		enemy.LastInvisibilityTime = _worldTime
-		if not enemy.UseBossHealthBar then
-			local enemyId = enemy.ObjectId
-			if EnemyHealthDisplayAnchors[enemyId.."elitebadge"] then
-				Destroy({ Id = EnemyHealthDisplayAnchors[enemyId.."elitebadge"]})
-			end
-			if enemy.EliteAttributes ~= nil then
-				for k, attributeName in pairs(enemy.EliteAttributes) do
-					if EnemyHealthDisplayAnchors[enemyId.."elitebadge"..attributeName] then
-						Destroy({ Id = EnemyHealthDisplayAnchors[enemyId.."elitebadge"..attributeName]})
-					end
-				end
-			end
-
-			local toDestroy = {}
-			table.insert( toDestroy, EnemyHealthDisplayAnchors[enemyId] )
-			table.insert( toDestroy, EnemyHealthDisplayAnchors[enemyId.."back"] )
-			table.insert( toDestroy, EnemyHealthDisplayAnchors[enemyId.."health"] )
-			table.insert( toDestroy, EnemyHealthDisplayAnchors[enemyId.."armorIcon"] )
-			table.insert( toDestroy, EnemyHealthDisplayAnchors[enemyId.."vulnerabilityIndicator"] )
-			table.insert( toDestroy, EnemyHealthDisplayAnchors[enemyId.."falloff"] )
-			table.insert( toDestroy, EnemyHealthDisplayAnchors[enemyId.."scorch"] )
-			if EnemyHealthDisplayAnchors[enemyId.."status"] ~= nil then
-				for k, v in pairs( EnemyHealthDisplayAnchors[enemyId.."status"] ) do
-					table.insert( toDestroy, v )
-				end
-			end
-			if enemy.EffectSuffixNames then
-				for effectName in pairs(enemy.EffectSuffixNames) do
-					table.insert( toDestroy, EnemyHealthDisplayAnchors[enemyId..effectName] )
-				end
-			end
-			EnemyHealthDisplayAnchors[enemyId.."status"] = nil
-			
-			if enemy.EffectSuffixNames then
-				for effectName in pairs(enemy.EffectSuffixNames) do
-					EnemyHealthDisplayAnchors[enemyId..effectName] = nil
-				end
-			end
-
-			if EnemyHealthDisplayAnchors[enemyId.."shieldIcons"] ~= nil then
-				for k, v in pairs( EnemyHealthDisplayAnchors[enemyId.."shieldIcons"] ) do
-					table.insert( toDestroy, v )
-				end
-			end
-			EnemyHealthDisplayAnchors[enemyId.."shieldIcons"] = nil
-
-			DestroyTextBox({ Ids = toDestroy })
-			Destroy({ Ids = toDestroy })
-			enemy.HasHealthBar = false
-		end
-		
-		if aiData.PostInvisibilityFunction ~= nil then
-			CallFunctionName( aiData.PostInvisibilityFunction, enemy, aiData, CurrentRun, args )
-		end
-		AngleTowardTarget({ Id = enemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
-	end
-end
-
-function EnrageUnit(enemy, startDelay)
-	wait( startDelay )
-	if not IsAlive({ Id = enemy.ObjectId }) then
-		return
-	end
-
-	DebugPrint({ Text = "Enraging: "..enemy.Name })
-	if enemy.EnragedMoveSpeedBonus ~= nil then
-		enemy.MoveSpeedReset = GetUnitDataValue({ Id = enemy.ObjectId, Property = "Speed" })
-		local enragedMoveSpeed = enemy.EnragedMoveSpeedBonus + enemy.MoveSpeedReset
-		SetUnitProperty({ DestinationId = enemy.ObjectId, Property = "Speed", Value = enragedMoveSpeed })
-	end
-
-	enemy.Enraged = true
-	if enemy.EnragedPresentation ~= nil then
-		CallFunctionName( enemy.EnragedPresentation, enemy, CurrentRun )
-	end
-
-	wait( enemy.EnragedDuration )
-
-	if enemy.PermanentEnraged then
-		local notifyName = enemy.ObjectId.."PermanentEnraged"
-		NotifyOnAllDead({ Ids = { enemy.ObjectId }, Notify = notifyName })
-		waitUntil( notifyName )
-		AdjustColorGrading({ Name = "Off", Duration = 0.45 })
-	else
-		EndEnemyEnrage(enemy, CurrentRun)
-	end
-end
-
-function EndEnemyEnrage(enemy)
-	local screenId = ScreenAnchors.BossRageFill
-	enemy.Enraged = false
-	StopFlashing({ Id = screenId })
-	AdjustColorGrading({ Name = "Off", Duration = 0.45 })
-	if enemy.RageExpiredSound ~= nil then
-		PlaySound({ Name = enemy.RageExpiredSound })
-	end
-	if enemy.RageExpiredVoiceLines ~= nil then
-		thread( PlayVoiceLines, enemy.RageExpiredVoiceLines, nil, enemy )
-	end
-	SetAnimationFrameTarget({ Name = "EnemyHealthBarFillBoss", Fraction = 1.0, DestinationId = screenId })
-	if enemy.EnragedMoveSpeedBonus ~= nil then
-		SetUnitProperty({ DestinationId = enemy.ObjectId, Property = "Speed", Value = enemy.MoveSpeedReset })
-	end
-end
-
-function SpawnSupportAI( enemy )
-	if IsEmpty(enemy.SupportAINames) then
-		return
-	end
-
-	local supportUnit = DeepCopyTable( EnemyData[enemy.SupportUnitName] )
-	supportUnit.ObjectId = SpawnUnit({ Name = enemy.SupportUnitName, Group = "Standing", DestinationId = CurrentRun.Hero.ObjectId })
-	supportUnit.SupportAINames = enemy.SupportAINames
-	enemy.SupportAIUnitId = supportUnit.ObjectId
-	thread(SetupUnit, supportUnit, CurrentRun )
+	end	
 end
 
 -- Sets and runs an enemy's AIBehavior
@@ -5470,18 +5354,24 @@ function GetTargetId( enemy, aiData )
 
 	if aiData.TargetSelf then
 		targetId = enemy.ObjectId
-
+	elseif aiData.TargetPlayer then
+		targetId = CurrentRun.Hero.ObjectId
+		
 	elseif aiData.UseTargetId then
 		targetId = aiData.UseTargetId
 
 	elseif aiData.TargetFromGroup ~= nil then
 		local eligibleIds = {}
 
+		local targetDistanceId = enemy.ObjectId
+		if aiData.TargetDistanceFromPlayer then
+			targetDistanceId = CurrentRun.Hero.ObjectId
+		end
 		if aiData.TargetRange ~= nil then
-			eligibleIds = GetClosestIds({ Id = enemy.ObjectId, DestinationIds = GetIds({ Name = aiData.TargetFromGroup }), Distance = aiData.TargetRange })
+			eligibleIds = GetClosestIds({ Id = targetDistanceId, DestinationIds = GetIds({ Name = aiData.TargetFromGroup }), Distance = aiData.TargetRange })
 		elseif aiData.TargetMinDistance ~= nil then
 			for k, id in pairs( GetIds({ Name = aiData.TargetFromGroup })) do
-				if GetDistance({ Id = enemy.ObjectId, DestinationId = id }) > aiData.TargetMinDistance then
+				if not IsWithinDistance({ Id = targetDistanceId, DestinationId = id, Distance = aiData.TargetMinDistance, ScaleY = aiData.TargetMinDistanceScaleY }) then
 					table.insert( eligibleIds, id )
 				end
 			end
@@ -5490,7 +5380,7 @@ function GetTargetId( enemy, aiData )
 		end
 
 		if aiData.TargetClosest then
-			targetId = GetClosest({ Id = enemy.ObjectId, DestinationIds = eligibleIds, Distance = 1500, IgnoreInvulnerable = true, IgnoreHomingIneligible = true, IgnoreSelf = true })
+			targetId = GetClosest({ Id = enemy.ObjectId, DestinationIds = eligibleIds })
 		else
 			targetId = GetRandomValue( eligibleIds )
 		end
@@ -5552,6 +5442,8 @@ function GetTargetId( enemy, aiData )
 					--DebugPrint({ Text = "INGORE IgnoreSelfType" })
 				elseif aiData.IgnoreTypes ~= nil and Contains(aiData.IgnoreTypes, requiredKillEnemy.Name) then
 					--DebugPrint({ Text = "INGORE IgnoreTypes" })
+				elseif aiData.TargetTypes ~= nil and not Contains(aiData.TargetTypes, requiredKillEnemy.Name) then
+					--DebugPrint({ Text = "INGORE IgnoreTypes" })
 				elseif aiData.IngoreCursedByThanatos and HasEffect({ Id = requiredKillEnemy.ObjectId, EffectName = "ThanatosCurse" }) then
 					--DebugPrint({ Text = "INGORE IngoreCursedByThanatos" })
 				elseif aiData.IgnoreInvulnerable and IsInvulnerable({ Id = requiredKillEnemy.ObjectId }) then
@@ -5587,10 +5479,10 @@ function GetTargetId( enemy, aiData )
 		end
 
 		if aiData.TargetClosest then
-			targetId = GetClosest({ Id = enemy.ObjectId, DestinationIds = eligibleIds, Distance = 1500, IgnoreInvulnerable = true, IgnoreHomingIneligible = true, IgnoreSelf = true })
+			targetId = GetClosest({ Id = enemy.ObjectId, DestinationIds = eligibleIds, Distance = aiData.TargetMaxDistance or 1500, IgnoreInvulnerable = true, IgnoreHomingIneligible = true, IgnoreSelf = true })
 		
 		elseif aiData.TargetClosestToPlayer then
-			targetId = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationIds = eligibleIds, Distance = 1500, IgnoreInvulnerable = true, IgnoreHomingIneligible = true, IgnoreSelf = true })
+			targetId = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationIds = eligibleIds, Distance = aiData.TargetMaxDistance or 1500, IgnoreInvulnerable = true, IgnoreHomingIneligible = true, IgnoreSelf = true })
 		elseif aiData.TargetName ~= nil then
 			local ids = GetIdsByType({ Name = aiData.TargetName })
 			targetId = GetRandomValue(ids)
@@ -5602,19 +5494,28 @@ function GetTargetId( enemy, aiData )
 			targetId = CurrentRun.Hero.ObjectId
 		end
 	elseif aiData.TargetClosestOfType or aiData.TargetClosestOfTypes then
-		targetId = GetClosest({ Id = enemy.ObjectId, DestinationIds = GetIdsByType({ Name = aiData.TargetClosestOfType, Names = aiData.TargetClosestOfTypes }), Distance = 1500, IgnoreSelf = true })
+		targetId = GetClosest({ Id = enemy.ObjectId, DestinationIds = GetIdsByType({ Name = aiData.TargetClosestOfType, Names = aiData.TargetClosestOfTypes }), Distance = aiData.TargetMaxDistance or 1500, IgnoreSelf = true })
+	elseif aiData.TargetClosestOfTypeToPlayer or aiData.TargetClosestOfTypesToPlayer then
+		targetId = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationIds = GetIdsByType({ Name = aiData.TargetClosestOfTypeToPlayer, Names = aiData.TargetClosestOfTypesToPlayer }), Distance = aiData.TargetMaxDistance or 1500, IgnoreSelf = true })
 	elseif aiData.TargetSpawnPoints then
 		local nearId = CurrentRun.Hero.ObjectId
 		if aiData.TargetSpawnPointsNearSelf then
 			nearId = enemy.ObjectId
 		end
-		targetId = SelectSpawnPoint(CurrentRun.CurrentRoom, { Name = enemy.Name, RequiredSpawnPoint = aiData.TargetSpawnPointsType }, { SpawnNearId = nearId, SpawnRadius = aiData.TargetSpawnPointsRadius or 1000, SpawnRadiusMin = aiData.TargetSpawnPointsRadiusMin } )
+		local ignoreIds = {}
+		if aiData.DoNotRepeatSpawnPointIds then
+			ignoreIds = aiData.TargetIdsUsed
+		end
+		targetId = SelectSpawnPoint(CurrentRun.CurrentRoom, { Name = enemy.Name, RequiredSpawnPoint = aiData.TargetSpawnPointsType }, { SpawnNearId = nearId, SpawnRadius = aiData.TargetSpawnPointsRadius or 1000, SpawnRadiusMin = aiData.TargetSpawnPointsRadiusMin }, { IgnoreIds = ignoreIds, RequireLoS = aiData.TargetSpawnPointsRequireLoS, LoSTarget = enemy.ObjectId } )
 		if targetId ~= nil and aiData.OccupyTargetSpawnPoint then
 			if enemy.OccupyingSpawnPointId ~= nil then
 				UnoccupySpawnPoint(enemy.OccupyingSpawnPointId)
 			end
 			enemy.OccupyingSpawnPointId = targetId
 			SessionMapState.SpawnPointsUsed[targetId] = enemy.ObjectId
+			if aiData.UnoccupySpawnPointOnDistance then
+				thread( UnoccupySpawnPointOnDistance, enemy, targetId, 150 )
+			end
 		end
 
 	elseif aiData.TargetName ~= nil then
@@ -5643,6 +5544,8 @@ function GetTargetId( enemy, aiData )
 		end
 		if aiData.TargetAngleOffset ~= nil then
 			offsetAngle = offsetAngle + aiData.TargetAngleOffset
+		elseif aiData.TargetAngleOffsetMin ~= nil and aiData.TargetAngleOffsetMax ~= nil then
+			offsetAngle = offsetAngle + RandomFloat(aiData.TargetAngleOffsetMin, aiData.TargetAngleOffsetMax)
 		end
 		local offsetDistance = aiData.TargetOffsetDistance or 0
 		if aiData.TargetOffsetDistanceMin ~= nil and aiData.TargetOffsetDistanceMax ~= nil then
@@ -5660,6 +5563,10 @@ function GetTargetId( enemy, aiData )
 		enemy.CreatedOwnTarget = targetId
 	end
 
+	if aiData.TargetPlayerIfNoTarget and (targetId == nil or targetId == 0) then
+		targetId = CurrentRun.Hero.ObjectId
+	end	
+
 	if aiData.AnchorTargetIdAfterFirstTick and aiData.AnchorTargetId == nil then
 		aiData.AnchorTargetId = targetId
 	end
@@ -5676,13 +5583,15 @@ function StagedAI( enemy )
 			return false
 		end
 
-		RandomSynchronize( 3 + k )
+		enemy.InTransition = true
 
-		if aiStage.SelectPactLevelAIStage ~= nil then
-			local shrineLevel = GetNumMetaUpgrades( enemy.ShrineMetaUpgradeName )
-			local newAIStage = enemy[aiStage.SelectPactLevelAIStage][shrineLevel] or enemy[aiStage.SelectPactLevelAIStage].Default
-			if newAIStage ~= nil then
-				OverwriteTableKeys(aiStage, newAIStage)
+		RandomSynchronize( 3 + k )
+		enemy.AIStageActive = k
+
+		if aiStage.EMStageDataOverrides ~= nil then
+			local pactLevel = GetNumShrineUpgrades( enemy.ShrineUpgradeName )
+			if pactLevel >= enemy.BossDifficultyShrineRequiredCount then
+				OverwriteTableKeys(aiStage, aiStage.EMStageDataOverrides)
 			end
 		end
 
@@ -5714,58 +5623,41 @@ function StagedAI( enemy )
 		enemy.ChainedWeapon = nil
 		enemy.ForcedWeaponInterrupt = nil
 
-		if aiStage.UnequipWeapons ~= nil then
-			for k, weaponName in pairs(aiStage.UnequipWeapons) do
-				RemoveValue(enemy.WeaponOptions, weaponName)
-			end
-		end
 		if aiStage.UnequipAllWeapons then
 			enemy.WeaponOptions = {}
 		end
 
 		if aiStage.SetMapFlags ~= nil then
-			for k, flagData in pairs(aiStage.SetMapFlags) do
+			for k, flagData in ipairs( aiStage.SetMapFlags ) do
 				flagData.Id = enemy.ObjectId
-				thread(SetMapFlag, flagData)
+				thread( SetMapFlag, flagData )
 			end
 		end
 
 		if aiStage.EquipWeapons ~= nil then
-			for k, weaponName in pairs(aiStage.EquipWeapons) do
-				table.insert(enemy.WeaponOptions, weaponName)
+			for k, weaponName in ipairs( aiStage.EquipWeapons ) do
+				table.insert( enemy.WeaponOptions, weaponName )
 			end
 		end
 
 		if aiStage.EquipRandomWeapon ~= nil then
 			local eligibleWeapons = {}
-			for k, weaponName in pairs(aiStage.EquipRandomWeapon) do
+			for k, weaponName in ipairs( aiStage.EquipRandomWeapon ) do
 				local weaponData = WeaponData[weaponName]
-				if Contains(enemy.WeaponOptions, weaponName) then
+				if Contains( enemy.WeaponOptions, weaponName ) then
 						-- skip
-				elseif weaponData ~= nil and not IsEnemyWeaponEligible(enemy, weaponData, weaponData.EquipRequirements) then
+				elseif weaponData ~= nil and not IsEnemyWeaponEligible( enemy, weaponData, weaponData.EquipRequirements ) then
 						-- skip
 				else
-					table.insert(eligibleWeapons, weaponName)
+					table.insert( eligibleWeapons, weaponName )
 				end
 			end
-			local weaponName = GetRandomValue( eligibleWeapons )
+			local weaponName = GetRandomArrayValue( eligibleWeapons )
 			if weaponName ~= nil then
-				table.insert(enemy.WeaponOptions, weaponName)
+				table.insert( enemy.WeaponOptions, weaponName )
 			end
 		end
 
-		if aiStage.AddSupportAIWeaponOptions ~= nil then
-			local supportAIUnit = ActiveEnemies[enemy.SupportAIUnitId]
-			if supportAIUnit ~= nil then
-				for supportAIName, addWeaponOptions in pairs(aiStage.AddSupportAIWeaponOptions) do
-					ConcatTableValues( supportAIUnit.SupportAIWeaponOptions[supportAIName], aiStage.AddSupportAIWeaponOptions[supportAIName] )
-				end
-			end
-		end
-
-		if aiStage.SetRageWeapon ~= nil then
-			enemy.RageWeapon = aiStage.SetRageWeapon
-		end
 
 		if aiStage.EnableRoomTraps then
 			EnableRoomTraps()
@@ -5780,19 +5672,20 @@ function StagedAI( enemy )
 			end
 		end
 
-		if aiStage.EndSpawnedEncounter ~= nil then
-			killTaggedThreads(enemy.SpawnedEncounter.SpawnThreadName)
-			enemy.SpawnedEncounter.ForceEnd = true
-		end
-
 		if aiStage.WipeEnemyTypes ~= nil then
-			for k, unitId in pairs(GetIdsByType({ Names = aiStage.WipeEnemyTypes })) do
-				thread(Kill, ActiveEnemies[unitId])
+			for k, unitId in ipairs( GetIdsByType({ Names = aiStage.WipeEnemyTypes }) ) do
+				thread( Kill, ActiveEnemies[unitId] )
 			end
 		end
 
 		if aiStage.ExpireProjectiles ~= nil then
-			ExpireProjectiles({ Names = aiStage.ExpireProjectiles })
+			ExpireProjectiles({ Names = aiStage.ExpireProjectiles, BlockSpawns = true })
+		end
+
+		if aiStage.EndThreadNameWaits then
+			for k, threadName in pairs(aiStage.EndThreadNameWaits) do
+				SetThreadWait(threadName, 0.1)
+			end
 		end
 
 		if aiStage.KillDumbFireThreads then
@@ -5809,18 +5702,14 @@ function StagedAI( enemy )
 		end
 
 		if aiStage.RandomSpawnEncounter ~= nil and aiStage.SpawnEncounter == nil then
-			aiStage.SpawnEncounter = GetRandomValue(aiStage.RandomSpawnEncounter)
+			aiStage.SpawnEncounter = GetRandomArrayValue( aiStage.RandomSpawnEncounter )
 		end
 
-		if aiStage.SpawnEncounter ~= nil or aiStage.SpawnEncounterByPactLevel ~= nil then
+		if aiStage.SpawnEncounter ~= nil then
 			local encounterName = aiStage.SpawnEncounter
-			if aiStage.SpawnEncounterByPactLevel then
-				local shrineLevel = GetNumMetaUpgrades( enemy.ShrineMetaUpgradeName )
-				encounterName = aiStage.SpawnEncounterByPactLevel[shrineLevel]
-			end
 			local encounter = DeepCopyTable( EncounterData[encounterName] )
 			if encounter.Generated then
-				GenerateEncounter(CurrentRun, CurrentRun.CurrentRoom, encounter)
+				GenerateEncounter( CurrentRun, CurrentRun.CurrentRoom, encounter )
 			end
 			enemy.SpawnedEncounter = encounter
 			if encounter.StartGlobalVoiceLines ~= nil then
@@ -5830,14 +5719,7 @@ function StagedAI( enemy )
 		end
 
 		if enemy.AIEndWithSpawnedEncounterTimeout then
-			CheckCooldown(enemy.AIEndWithSpawnedEncounter, enemy.AIEndWithSpawnedEncounterTimeout)
-		end
-
-		-- Transistion
-		if aiStage.ThreadedFunctions ~= nil then
-			for k, aiFunctionName in pairs(aiStage.ThreadedFunctions) do
-				thread( CallFunctionName, aiFunctionName, enemy, CurrentRun )
-			end
+			CheckCooldown( enemy.Name.."AIEndWithSpawnedEncounterTimeout", enemy.AIEndWithSpawnedEncounterTimeout )
 		end
 
 		if aiStage.ThreadedEvents ~= nil then
@@ -5846,24 +5728,18 @@ function StagedAI( enemy )
 
 		CallFunctionName( aiStage.TransitionFunction, enemy, CurrentRun, aiStage )
 
-		if aiStage.ClearObstacleTypes then
-			Destroy({ Ids = GetIdsByType({ Name = aiStage.ClearObstacleTypes }) })
-		end
-
-		if aiStage.DestroyGroup then
-			Destroy({ Ids = GetIds({ Name = aiStage.DestroyGroup }) })
-		end
+		RunEventsGeneric( aiStage.TransitionUnthreadedEvents, enemy )
 
 		if aiStage.DumbFireWeapons ~= nil then
-			for k, weaponName in pairs( aiStage.DumbFireWeapons ) do
-				local weaponData = WeaponData[weaponName].AIData or WeaponData[weaponName]
-				weaponData.Name = weaponName
-				thread( DumbFireAttack, enemy, weaponData )
+			for k, weaponName in ipairs( aiStage.DumbFireWeapons ) do
+				thread( DumbFireAttack, enemy, weaponName )
 			end
 		end
 
+		enemy.InTransition = false
+
 		-- Regular AI
-		local aiFunctionName = GetRandomValue( aiStage.RandomAIFunctionNames )
+		local aiFunctionName = GetRandomArrayValue( aiStage.RandomAIFunctionNames )
 		if aiFunctionName ~= nil then
 			SetAI( aiFunctionName, enemy )
 		end
@@ -5872,11 +5748,6 @@ function StagedAI( enemy )
 			DisableRoomTraps()
 		end
 
-		if aiStage.StageEndEndSpawnEncounter then
-			killTaggedThreads(enemy.SpawnedEncounter.SpawnThreadName)
-			enemy.SpawnedEncounter.ForceEnd = true
-			RemoveValue(CurrentRun.CurrentRoom.ActiveEncounters, enemy.SpawnedEncounter)
-		end
 	end
 
 end
@@ -5908,9 +5779,9 @@ function IsAIActive( enemy )
 		return false
 	end
 
-	if verboseLogging and not IsAlive({ Id = enemy.ObjectId }) then
-		DebugAssert({ false, Text = enemy.Name.." ("..enemy.ObjectId..") doesn't exist but still running AI", Owner = "Eduardo" })
-	end
+	--if verboseLogging and not IsAlive({ Id = enemy.ObjectId }) then
+		--DebugAssert({ false, Text = enemy.Name.." ("..enemy.ObjectId..") doesn't exist but still running AI", Owner = "Eduardo" })
+	--end
 
 	return true
 
@@ -5927,8 +5798,7 @@ function ReachedAIStageEnd(enemy)
 		if enemy.SpawnedEncounter.Completed then
 			return true
 		else
-			if enemy.AIEndWithSpawnedEncounterTimeout ~= nil and CheckCooldown(enemy.AIEndWithSpawnedEncounter, enemy.AIEndWithSpawnedEncounterTimeout) then
-				enemy.AIEndWithSpawnedEncounterTimeout = nil
+			if enemy.AIEndWithSpawnedEncounterTimeout ~= nil and CheckCooldownNoTrigger(enemy.Name.."AIEndWithSpawnedEncounterTimeout", enemy.AIEndWithSpawnedEncounterTimeout) then
 				return true
 			end
 		end
@@ -5955,7 +5825,7 @@ function IdleAIStage(enemy)
 		wait(0.5, enemy.AIThreadName)
 	end
 	
-	MapState.IdleUnits[enemy.ObjectId] = false
+	MapState.IdleUnits[enemy.ObjectId] = nil
 	
 	if enemy.IdleAIEndAnimation ~= nil then
 		SetAnimation({ Name = enemy.IdleAIEndAnimation, DestinationId = enemy.ObjectId })
@@ -6053,23 +5923,23 @@ end
 function GetWeaponAIData(enemy, weaponName)
 	weaponName = weaponName or enemy.WeaponName
 	local aiData = ShallowCopyTable(enemy.DefaultAIData) or {}
-	DebugAssert({ Condition = enemy.DefaultAIData ~= nil, Text = enemy.Name.." has no DefaultAIData", Owner = "Eduardo" })
+	--DebugAssert({ Condition = enemy.DefaultAIData ~= nil, Text = enemy.Name.." has no DefaultAIData", Owner = "Eduardo" })
 	if WeaponData[weaponName] ~= nil and WeaponData[weaponName].AIData ~= nil then
-		local weaponData = ShallowCopyTable(WeaponData[weaponName].AIData)
+		local weaponAIData = ShallowCopyTable(WeaponData[weaponName].AIData)
 
-		if WeaponData[weaponName].ShrineAIDataOverwrites ~= nil and GetNumMetaUpgrades(WeaponData[enemy.WeaponName].ShrineMetaUpgradeName) >= WeaponData[enemy.WeaponName].ShrineMetaUpgradeRequiredLevel then
-			OverwriteTableKeys( weaponData, WeaponData[weaponName].ShrineAIDataOverwrites)
-		end
-
-		if weaponData.ConditionalData ~= nil then
-			for k, conditionalData in pairs(weaponData.ConditionalData) do
+		if weaponAIData.ConditionalData ~= nil then
+			for k, conditionalData in pairs(weaponAIData.ConditionalData) do
 				if IsGameStateEligible( enemy, conditionalData.GameStateRequirements) then
-					OverwriteTableKeys( weaponData, conditionalData.AIData)
+					OverwriteTableKeys( weaponAIData, conditionalData.Data)
 				end
 			end
 		end
 
-		OverwriteTableKeys( aiData, weaponData)
+		if enemy.WeaponComboData ~= nil and enemy.WeaponComboData.DataOverrides ~= nil and weaponName == enemy.WeaponComboData.WeaponName then
+			OverwriteTableKeys( weaponAIData, enemy.WeaponComboData.DataOverrides)
+		end
+
+		OverwriteTableKeys( aiData, weaponAIData)
 	end
 	aiData.WeaponName = weaponName
 
@@ -6088,6 +5958,12 @@ function SheepAI( enemy )
 	local aiData = DeepCopyTable(enemy.DefaultAIData)
 	local polyphemusId = GetClosestUnitOfType({ Id = enemy.ObjectId, DestinationName = "Polyphemus" })
 
+	if enemy.WakeUpDelay ~= nil or (enemy.WakeUpDelayMin ~= nil and enemy.WakeUpDelayMax ~= nil) then
+		local wakeUpDelay = enemy.WakeUpDelay or RandomFloat(enemy.WakeUpDelayMin, enemy.WakeUpDelayMax)
+		wait( wakeUpDelay, enemy.AIThreadName )
+	end
+
+	PlaySound({ Name = enemy.IsAggroedSound or "/Leftovers/SFX/ImpRef01_GoDown", Id = enemy.ObjectId, ManagerCap = 28 })
 	thread( InCombatText, enemy.ObjectId, "Alerted", 0.45, { OffsetY = enemy.HealthBarOffsetY, SkipShadow = true }  )
 
 	local exitTime = 999999
@@ -6108,21 +5984,30 @@ function SheepAI( enemy )
 	end
 
 	while ActiveEnemies[enemy.ObjectId] ~= nil do
-		Move({ Id = enemy.ObjectId, DestinationId = 658446, SuccessDistance = aiData.MoveSuccessDistance or 50, })
+		--local exitId = RoomData[CurrentRun.CurrentRoom.Name].SheepExitId or 658446
+		local exitId = GetClosest({ Id = enemy.ObjectId, DestinationIds = GetIds({ Name = "SheepSpawnPoints" }) })
+		Move({ Id = enemy.ObjectId, DestinationId = exitId, SuccessDistance = aiData.MoveSuccessDistance or 50, })
 		enemy.AINotifyName = "WithinDistance_"..enemy.Name.."_"..enemy.ObjectId
-		NotifyWithinDistance({ Id = enemy.ObjectId, DestinationId = 658446, Distance = 200, Notify = enemy.AINotifyName, Timeout = 5.0 })
+		NotifyWithinDistance({ Id = enemy.ObjectId, DestinationId = exitId, Distance = 75, Notify = enemy.AINotifyName, Timeout = 20.0 })
 		waitUntil( enemy.AINotifyName, enemy.AIThreadName )
 
-		if GetDistance({ Id = enemy.ObjectId, DestinationId = 658446 }) < 250 then
-			Kill(enemy, { Silent = true })
+		Kill(enemy, { Silent = true })
+		if enemy.EscapedVFX ~= nil then
+			CreateAnimation({ DestinationId = enemy.ObjectId, Name = enemy.EscapedVFX })
 		end
 	end
 end
 
 function SheepHit( enemy, attacker, triggerArgs )
- 	SetAngle({ Id = enemy.ObjectId, Angle = triggerArgs.ImpactAngle })
- 	ApplyForce({ Id = enemy.ObjectId, Speed = enemy.SheepHitVelocity or 1500, Angle = triggerArgs.ImpactAngle })
- 	SetAnimation({ DestinationId = enemy.ObjectId, Name = "Enemy_Sheep_DashPreFire" })
+	SetAngle({ Id = enemy.ObjectId, Angle = triggerArgs.ImpactAngle })
+	ApplyForce({ Id = enemy.ObjectId, Speed = enemy.SheepHitVelocity or 1500, Angle = triggerArgs.ImpactAngle })
+	SetAnimation({ DestinationId = enemy.ObjectId, Name = "Enemy_Sheep_DashPreFire" })
+end
+
+function PigHit( enemy, attacker, triggerArgs )
+	SetAngle({ Id = enemy.ObjectId, Angle = triggerArgs.ImpactAngle })
+	ApplyForce({ Id = enemy.ObjectId, Speed = enemy.PigHitVelocity or 1500, Angle = triggerArgs.ImpactAngle })
+	SetAnimation({ DestinationId = enemy.ObjectId, Name = "Enemy_Pig_Dash_Start" })
 end
 
 function PolyphemusPickup( enemy, aiData, args )
@@ -6146,6 +6031,7 @@ function PolyphemusPickup( enemy, aiData, args )
 		PanCamera({ Ids = { enemy.ObjectId, CurrentRun.Hero.ObjectId }, Duration = 1.2, EaseIn = 0.3 })
 		FocusCamera({ Fraction = 0.9, Duration = 1.2, ZoomType = "Ease" })
 		AdjustColorGrading({ Name = "Alert", Duration = 2.5 })
+		enemy.CleanupResetColorGrading = true
 	end
 
 	SetAnimation({ DestinationId = enemy.ObjectId, Name = aiData.BeginPickupAnimation })
@@ -6156,6 +6042,7 @@ function PolyphemusPickup( enemy, aiData, args )
 	if ReachedAIStageEnd(enemy) or CurrentRun.CurrentRoom.InStageTransition then
 		aiData.ForcedEarlyExit = true
 		AdjustColorGrading({ Name = "Off", Duration = 0.3 })
+		enemy.CleanupResetColorGrading = false
 		PanCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 0.3, EaseIn = 0.3 })
 		FocusCamera({ Fraction = CurrentRun.CurrentRoom.ZoomFraction, Duration = 0.3, ZoomType = "Ease" })
 		return true
@@ -6164,27 +6051,30 @@ function PolyphemusPickup( enemy, aiData, args )
 	local arc = aiData.TargetArcRange or 120
 	local facingAngle = GetAngle({ Id = enemy.ObjectId })
 	local angleToTarget = GetAngleBetween({ Id = enemy.ObjectId, DestinationId = aiData.TargetId })
-	local distance = GetDistance({ Id = enemy.ObjectId, DestinationId = aiData.TargetId })
+	local isWithinDistance = IsWithinDistance({ Id = enemy.ObjectId, DestinationId = aiData.TargetId, Distance = aiData.AttackDistance, ScaleY = aiData.AttackDistanceScaleY })
 	local arcDistance = CalcArcDistance( facingAngle, angleToTarget )
 
-	if distance > aiData.AttackDistance or arcDistance > arc or IsInvulnerable({ Id = aiData.TargetId }) then
+	if not isWithinDistance or arcDistance > arc or IsInvulnerable({ Id = aiData.TargetId }) then
 		PanCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 0.8, EaseIn = 0.3 })
 		FocusCamera({ Fraction = CurrentRun.CurrentRoom.ZoomFraction, Duration = 0.8, ZoomType = "Ease" })
 		SetAnimation({ DestinationId = enemy.ObjectId, Name = aiData.PickupFailedAnimation })
 		AdjustColorGrading({ Name = "Off", Duration = 0.8 })
-		thread( InCombatTextArgs, { TargetId = enemy.ObjectId, Text = "PolyphemuGrabTargetFailed", Duration = 1.5, ShadowScale = 0.6, PreDelay = 0.1, Duration = 1.5, OffsetY = 80 } )
+		enemy.CleanupResetColorGrading = false
+		thread( InCombatTextArgs, { TargetId = enemy.ObjectId, Text = "PolyphemuGrabTargetFailed", Duration = 1.5, ShadowScale = 0.6, PreDelay = 0.1, OffsetY = 80 } )
 		return
 	end
 
 	AdjustColorGrading({ Name = "Off", Duration = 0.3 })
+	enemy.CleanupResetColorGrading = false
 
-	AngleTowardTarget({ Id = enemy.ObjectId, DestinationId = 674117 })
+	SetGoalAngle({ Id = enemy.ObjectId, Angle = 90 })
 	SetAnimation({ DestinationId = enemy.ObjectId, Name = aiData.PickupAnimation })
 	
 	PanCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 1.2, EaseIn = 0.3 })
 	FocusCamera({ Fraction = CurrentRun.CurrentRoom.ZoomFraction, Duration = 1.2, ZoomType = "Ease" })
 
-	if aiData.TargetId ~= nil and ActiveEnemies[aiData.TargetId] ~= nil and GetDistance({ Id = enemy.ObjectId, DestinationId = aiData.TargetId }) < 300 then
+	if aiData.TargetId ~= nil and ActiveEnemies[aiData.TargetId] ~= nil then
+		ActiveEnemies[aiData.TargetId].OnDeathThreadedFunctionName = "SpawnSheepGhost"
 		if ActiveEnemies[aiData.TargetId].Name ~= "Sheep" then
 			Kill(ActiveEnemies[aiData.TargetId])
 			ApplyEffect({ DestinationId = enemy.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = "PolyphemusStomachAche", DataProperties = EffectData.PolyphemusStomachAche.EffectData })
@@ -6192,7 +6082,7 @@ function PolyphemusPickup( enemy, aiData, args )
 			wait(aiData.AIPickupDuration or 2.0, enemy.AIThreadName)
 			SetAnimation({ DestinationId = enemy.ObjectId, Name = "Enemy_Polyphemus_GrabReturnUnsatisfied" })
 		else
-			thread( InCombatTextArgs, { TargetId = enemy.ObjectId, Text = "PolyphemuGrabSheepSuccess", Duration = 1.5, ShadowScale = 0.6, PreDelay = 0.1, Duration = 1.5, OffsetY = 80 } )
+			thread( InCombatTextArgs, { TargetId = enemy.ObjectId, Text = "PolyphemuGrabSheepSuccess", Duration = 1.5, ShadowScale = 0.6, PreDelay = 0.1, OffsetY = 80 } )
 			Kill(ActiveEnemies[aiData.TargetId])
 			thread( PlayVoiceLines, enemy.GoodMealVoiceLines, nil, enemy )
 			if ReachedAIStageEnd(enemy) or CurrentRun.CurrentRoom.InStageTransition then
@@ -6218,12 +6108,19 @@ function PolyphemusPickup( enemy, aiData, args )
 				SheepSickAura = true,
 				SheepExplode = true,
 				ZombieMelee = true,
+				MedeaRanged = true,
+				MedeaDaggerMelee = true,
+				PoisonPuddle = true,
+				PoisonPuddleSmall = true,
+				PoisonPuddleLarge = true,
 			},
 			ValidWeaponMultiplier = 0,
 			Temporary = true,
 		})
+		ClearEffect({ Id = CurrentRun.Hero.ObjectId, Name = "MedeaPoison" })
+		AddEffectBlock({ Id = CurrentRun.Hero.ObjectId, Name = "MedeaPoison" })
 		ApplyEffect({ DestinationId = CurrentRun.Hero.ObjectId, Id = enemy.ObjectId, EffectName = "PolyphemusPlayerGrab", DataProperties = EffectData.PolyphemusPlayerGrab.EffectData })
-		SetAnimation({ Name = "MelinoeGetHit", DestinationId = CurrentRun.Hero.ObjectId })
+		SetAnimation({ Name = "MelinoeIdle", DestinationId = CurrentRun.Hero.ObjectId })
 		SetPlayerFade({ Flag = "PolyphemusGrab", Duration = 0.34 })
 		ApplyUpwardForce({ Id = CurrentRun.Hero.ObjectId, Speed = 400 })
 		wait( 0.31, enemy.AIThreadName )
@@ -6237,10 +6134,11 @@ function PolyphemusPickup( enemy, aiData, args )
 		RemoveIncomingDamageModifier( CurrentRun.Hero, "GrabImmunity")
 		SetLifeProperty({ Property = "ConsecutiveHits", Value = 0, ValueChangeType = "Absolute", DestinationId = CurrentRun.Hero.ObjectId, DataValue = false })
 		RemoveInputBlock({ Name = "PolyphemusPlayerPreGrab" })
+		RemoveEffectBlock({ Id = CurrentRun.Hero.ObjectId, Name = "MedeaPoison" })
 		RemoveValue(enemy.ActiveInputBlocks, "PolyphemusPlayerPreGrab")
 		--AdjustFullscreenBloom({ Name = "Off", Duration = AIPickupDuration })
 	else
-		thread( InCombatTextArgs, { TargetId = enemy.ObjectId, Text = "PolyphemuGrabTargetFailed", Duration = 1.5, ShadowScale = 0.6, PreDelay = 0.1, Duration = 1.5, OffsetY = 80 } )
+		thread( InCombatTextArgs, { TargetId = enemy.ObjectId, Text = "PolyphemuGrabTargetFailed", Duration = 1.5, ShadowScale = 0.6, PreDelay = 0.1, OffsetY = 80 } )
 		SetAnimation({ DestinationId = enemy.ObjectId, Name = aiData.PickupFailedAnimation })
 	end
 end
@@ -6278,7 +6176,7 @@ function UnitConsumeHeal( unit, aiData )
 		end
 		Heal( unit, { HealAmount = aiData.HealPerTick, triggeredById = unit.ObjectId, OffsetY = -200 } )
 		CreateAnimation({ Name = "Heal", DestinationId = unit.ObjectId })
-		thread( UpdateHealthBar, unit, 0, { Force = true } )
+		UpdateHealthBar( unit, 0, { Force = true } )
 	end
 	if aiData.StopAnimationsOnConsumeEnd then
 		for k, animationName in pairs(aiData.StopAnimationsOnConsumeEnd) do
@@ -6318,9 +6216,7 @@ function FloodManager( source, args )
 
 	while not encounter.Completed do
 
-		FloodTrapFireStartPresentation()
 		FireFloodTraps( args )
-		thread( FloodTrapFireEndPresentation )
 		
 		local waitTime = RandomFloat( args.IntervalMin, args.IntervalMax )
 		wait( waitTime, RoomThreadName )
@@ -6334,7 +6230,17 @@ function FloodManager( source, args )
 	end
 end
 
-function FireFloodTraps( args )
+function FireFloodTraps( enemy, aiData, currentRun, args)
+	args = args or {}
+	if args.MaxPlayerDistance ~= nil then
+		if GetDistance({ Id = enemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId }) > args.MaxPlayerDistance then
+			return false
+		end
+	end
+
+	--FloodTrapFireStartPresentation()
+
+	args = args or {}
 	for k, typeName in pairs(args.Types or { "FloodTrap" }) do
 		for k, unitId in pairs( GetIdsByType({ Name = typeName }) ) do
 			if ActiveEnemies[unitId] ~= nil then
@@ -6342,11 +6248,13 @@ function FireFloodTraps( args )
 			end
 		end
 	end
+	
+	--thread( FloodTrapFireEndPresentation )
 end
 
 function GetAllAllyIds(unit)
 	local unitFriendly = GetUnitDataValue({ Id = unit.ObjectId, Property = "FriendlyToPlayer" })
-	DebugPrint({ Text=unitFriendly }) -- returning nil
+	--DebugPrint({ Text=unitFriendly }) -- returning nil
 	local unitIds = GetAllKeys(ActiveEnemies)
 
 	local allyIds = {}
@@ -6360,26 +6268,14 @@ function GetAllAllyIds(unit)
 	return allyIds
 end
 
---[[
-function ScyllaArmorBreak(unit)
-
-	ApplyEffect({ Id = unit.ObjectId, DestinationId = unit.ObjectId,
-		EffectName = "ScyllaArmorBreak", Duration = 500.0,
-		DisableMove = true, DisableRotate = true, DisableAttack = true, AddSelfEffect = true })
-    SetAnimation({ DestinationId = unit.ObjectId, Name = "Enemy_MaleGrey_Corpse" })
-	wait(unit.ArmorRestoreDelay or 5.0, unit.AIThreadName)
-
-	DoEnemyHealthBuffered( unit )
-	ArmorRestoredPresentation(unit)
-	AddOutline( unit.Outline )
-	unit.HealthBuffer = unit.ArmorRestoreHealthBuffer
-end 
-]]--
-
 function HecateStageTransition1(enemy, CurrentRun, aiStage)
 
+	ClearEffect({ Id = enemy.ObjectId, Name = "HecateDarkSide" })
+	killTaggedThreads("HecateDarkSideRangedThread")
+	StopAnimation({ DestinationId = enemy.ObjectId, Name = "HecateSpellChargeFx", IncludeCreatedAnimations = true })
+
 	CreateAnimation({ DestinationId = enemy.ObjectId, Name = "HecateTeleportFxFront" })
-	Teleport({ Id = enemy.ObjectId, DestinationId = 510277 })
+	Teleport({ Id = enemy.ObjectId, DestinationId = RoomData[CurrentRun.CurrentRoom.Name].HecateStageTransitionPoint or 510277 })
 	CreateAnimation({ DestinationId = enemy.ObjectId, Name = "HecateTeleportFxFront" })
 	thread( PlayVoiceLines, GlobalVoiceLines.HecatePhaseChangeVoiceLines, nil, enemy )
 
@@ -6396,33 +6292,16 @@ end
 
 function HecateStageTransition2(enemy, CurrentRun, aiStage)
 
+	ClearEffect({ Id = enemy.ObjectId, Name = "HecateDarkSide" })
+	killTaggedThreads("HecateDarkSideRangedThread")
+	StopAnimation({ DestinationId = enemy.ObjectId, Name = "HecateSpellChargeFx", IncludeCreatedAnimations = true })
+
 	CreateAnimation({ DestinationId = enemy.ObjectId, Name = "HecateTeleportFxFront" })
-	Teleport({ Id = enemy.ObjectId, DestinationId = 510277 })
+	Teleport({ Id = enemy.ObjectId, DestinationId = RoomData[CurrentRun.CurrentRoom.Name].HecateStageTransitionPoint or 510277 })
 	CreateAnimation({ DestinationId = enemy.ObjectId, Name = "HecateTeleportFxFront" })
 	thread( PlayVoiceLines, GlobalVoiceLines.HecatePhaseChangeVoiceLines, nil, enemy )
 
 	table.insert(enemy.WeaponOptions, enemy.MidPhaseWeapon)
-end
-
-function OnUseBallista(unit, args)
-	--[[ Press and hold aim
-	unit.WeaponName = SelectWeapon( unit )
-	table.insert(unit.WeaponHistory, unit.WeaponName)
-	aiData = GetWeaponAIData(unit)
-	aiData.TargetId = GetTargetId( enemy, aiData )
-	Track({ Id = unit.ObjectId, DestinationId = aiData.TargetId })
-	while IsControlDown({ Name = "Interact" }) do
-		wait(0.05)
-	end]]
-	-- Fire when released
-	UseableOff({ Id = unit.ObjectId })
-	DoAttackerAILoop(unit, aiData)
-	UseableOn({ Id = unit.ObjectId })
-end
-
-
-function SetupHordeBoss(enemy)
-	return
 end
 
 function TakeAmbientBattleDamage(enemy)
@@ -6455,7 +6334,11 @@ function TakeAmbientBattleDamage(enemy)
 
 	local maxHealth = enemy.MaxHealthBuffer or enemy.MaxHealth
 
-	Damage(enemy, { DamageAmount = maxHealth * amount , Silent = true, PureDamage = true })
+	Damage( enemy, { DamageAmount = maxHealth * amount , Silent = true, PureDamage = true } )
+	if not enemy.IsDead then
+		SetAnimationFrameTarget({ Name = "EnemyHealthBarFillSlow", Fraction = 1 - (enemy.DisplayedHealthFraction or 1.0), DestinationId = EnemyHealthDisplayAnchors[enemy.ObjectId.."falloff"], Instant = true })
+		enemy.HealthBarFalloffShown = true
+	end
 	enemy.TakenAmbientBattleDamage = true
 end
 
@@ -6468,20 +6351,8 @@ function ArtemisHealDrop(projectileData, args)
 
 	wait(1.0)
 	PlaySound({ Name = projectileData.DropSound, Id = consumableId })
-	CreateAnimation({ Name = "RadialNovaDevotion-Artemis", DestinationId = consumableId })
+	CreateAnimation({ Name = "RadialNovaDevotion-Artemis", DestinationId = consumableId }) --nopkg
 	UseableOn({ Id = consumableId })
-end
-
-function PolyphemusWaitForPlayerAction( enemy, aiData, args )
-	Stop({ Id = enemy.ObjectId })
-
-	local notifyName = "PlayerAction"
-	NotifyOnControlPressed({ Names = { "Rush", "Shout", "Attack2", "Attack1", "Attack3", "AutoLock" }, Notify = notifyName })
-	NotifyWithinDistance({ Id = enemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId, Distance = args.TriggerDistance or 200, Notify = notifyName })
-
-	wait(args.ReactionTime)
-	thread( InCombatText, enemy.ObjectId, "Alerted", 0.45, { OffsetY = enemy.HealthBarOffsetY, SkipShadow = true }  )
-	AngleTowardTarget({ Id = enemy.ObjectId, DestinationId = aiData.TargetId })
 end
 
 function CheckWeaponInterrupt( enemy )
@@ -6498,16 +6369,6 @@ function CheckWeaponInterrupt( enemy )
 			SetThreadWait(enemy.AIThreadName, 0.01)
 			notifyExistingWaiters(enemy.AIThreadName)
 		end
-	end
-end
-
-function HandleUnitDefenseApply( enemy )
-	SetUnitVulnerable(enemy)
-	enemy.DefenseReady = false
-	wait( CalcEnemyWait( enemy, enemy.DefenseCooldown) )
-	if IsAIActive( enemy ) then
-		SetUnitInvulnerable(enemy)
-		enemy.DefenseReady = true
 	end
 end
 
@@ -6528,34 +6389,29 @@ function OilPuddleOnHit( enemy, args )
 
 	local attacker = args.AttackerTable
 
+	if not CheckCooldownNoTrigger("NewOilSpawned", 1) then
+		return
+	end
+
 	if not enemy.Lit then
 		local forceIgnite = false
 		if attacker == CurrentRun.Hero and args.SourceWeapon ~= nil  then
 			local weaponName = args.SourceWeapon
-			if WeaponSetLookups.HeroPrimaryWeapons[weaponName] and CurrentRun.Hero.SlottedTraits.Melee and GetLootSourceName(CurrentRun.Hero.SlottedTraits.Melee) == "HestiaUpgrade" then
+			if WeaponSetLookups.HeroPrimaryWeaponsLinked[weaponName] and CurrentRun.Hero.SlottedTraits.Melee and GetLootSourceName(CurrentRun.Hero.SlottedTraits.Melee) == "HestiaUpgrade" then
 				forceIgnite = true
-			elseif WeaponSetLookups.HeroSecondaryWeapons[weaponName] and CurrentRun.Hero.SlottedTraits.Secondary and GetLootSourceName(CurrentRun.Hero.SlottedTraits.Secondary) == "HestiaUpgrade" then
+			elseif WeaponSetLookups.HeroSecondaryWeaponsLinked[weaponName] and CurrentRun.Hero.SlottedTraits.Secondary and GetLootSourceName(CurrentRun.Hero.SlottedTraits.Secondary) == "HestiaUpgrade" then
 				forceIgnite = true
-			elseif WeaponSetLookups.HeroRangedWeapons[weaponName] and CurrentRun.Hero.SlottedTraits.Ranged and GetLootSourceName(CurrentRun.Hero.SlottedTraits.Ranged) == "HestiaUpgrade" then
+			elseif WeaponSetLookups.HeroRangedWeaponsLinked[weaponName] and CurrentRun.Hero.SlottedTraits.Ranged and GetLootSourceName(CurrentRun.Hero.SlottedTraits.Ranged) == "HestiaUpgrade" then
 				forceIgnite = true
 			end
 		end
 		if forceIgnite or ( ProjectileData[args.SourceProjectile] ~= nil and ProjectileData[args.SourceProjectile].CanIgnite ) then
 			enemy.Lit = true
+			SetLifeProperty({ Property = "TriggerOnHit", Value = false, DestinationId = enemy.ObjectId, DataValue = true })
 			DoAttackerAILoop(enemy)
 		end
 	else
 		local douseFire = false
-		--[[if attacker == CurrentRun.Hero and args.SourceWeapon ~= nil then
-			local weaponName = args.SourceWeapon
-			if WeaponSetLookups.HeroPrimaryWeapons[weaponName] and CurrentRun.Hero.SlottedTraits.Melee and GetLootSourceName(CurrentRun.Hero.SlottedTraits.Melee) == "PoseidonUpgrade" then
-				douseFire = true
-			elseif WeaponSetLookups.HeroSecondaryWeapons[weaponName] and CurrentRun.Hero.SlottedTraits.Secondary and GetLootSourceName(CurrentRun.Hero.SlottedTraits.Secondary) == "PoseidonUpgrade" then
-				douseFire = true
-			elseif WeaponSetLookups.HeroRangedWeapons[weaponName] and CurrentRun.Hero.SlottedTraits.Ranged and GetLootSourceName(CurrentRun.Hero.SlottedTraits.Ranged) == "PoseidonUpgrade" then
-				douseFire = true
-			end
-		end]]
 		if douseFire or ( ProjectileData[args.SourceProjectile] ~= nil and ProjectileData[args.SourceProjectile].DouseFire ) then
 			enemy.Lit = false
 			DouseFire(enemy.ObjectId)
@@ -6569,7 +6425,7 @@ function CharybdisTransition( enemy, CurrentRun, aiStage )
 	local defaultZoom = CurrentRun.CurrentRoom.ZoomFraction
 
 	enemy.WeaponName = aiStage.TransitionWeapon
-	DebugAssert({ Condition = enemy.WeaponName ~= nil, Text = enemy.Name.." has no eligible weapons.", Owner = "Eduardo" })
+	--DebugAssert({ Condition = enemy.WeaponName ~= nil, Text = enemy.Name.." has no eligible weapons.", Owner = "Eduardo" })
 	local aiData = GetWeaponAIData(enemy)
 	table.insert(enemy.WeaponHistory, enemy.WeaponName)
 
@@ -6617,6 +6473,7 @@ function ErisOilTransition(enemy, args)
 	ActivatePrePlacedUnits( enemy, { Ids = newOilIds } )
 	SetAlpha({ Ids = newOilIds, Fraction = 0, Duration = 0 })
 	SetAlpha({ Ids = newOilIds, Fraction = 1, Duration = 1.0 })
+	CheckCooldown("NewOilSpawned", 1)
 end
 
 function ScyllaFightTrackSpotlight(enemy)
@@ -6635,6 +6492,29 @@ function EnforcerBoostActivate(unit, aiData, currentRun, args)
 	SetElapsedTimeMultiplier( unit.SpeedMultiplier * args.ElapsedTimeMultiplier, unit.AIThreadName)
 end
 
+function MatiOpenEye( enemy )
+	if not enemy.MatiEyeOpened then
+		if not enemy.IsPolymorphed then
+			SetAnimation({ DestinationId = enemy.ObjectId, Name = "Enemy_Mati_IdlePostEyeClosed" })
+		end
+		enemy.MatiEyeOpened = true
+		AIWait(0.28, enemy, enemy.AIThreadName)
+		RemoveIncomingDamageModifier( enemy, "MatiEyeClosed" )
+		if not enemy.IsElite or (enemy.IsElite and enemy.HealthBuffer <= 0) then
+			SetUnitProperty({ Property = "ImmuneToStun", Value = false, DestinationId = enemy.ObjectId })
+		end
+	end
+end
+
+function MatiCloseEye( enemy, aiData )
+	if enemy.MatiEyeOpened and not enemy.IsPolymorphed then
+		SetAnimation({ DestinationId = enemy.ObjectId, Name = "Enemy_Mati_IdlePreEyeClosed" })
+		AddIncomingDamageModifier( enemy, enemy.CloseEyeAddIncomingDamageModifier )
+		enemy.MatiEyeOpened = false
+		SetUnitProperty({ Property = "ImmuneToStun", Value = true, DestinationId = enemy.ObjectId })
+	end
+end
+
 function CheckEagleRetreat( unit, attacker, TriggerDistance )
 	if unit.Health <= 0 then
 		Stop({ Id = unit.ObjectId })
@@ -6643,7 +6523,7 @@ function CheckEagleRetreat( unit, attacker, TriggerDistance )
 		--thread(LastKillPresentation, unit)
 		PanCamera({ Ids = { unit.ObjectId, CurrentRun.Hero.ObjectId }, Duration = 1.2, EaseIn = 0.3 })
 		FocusCamera({ Fraction = 0.9, Duration = 1.2, ZoomType = "Ease" })
-		SetAnimation({ DestinationId = unit.ObjectId, Name = "Enemy_Eagle_AscendPreFire" })
+		SetAnimation({ DestinationId = unit.ObjectId, Name = "Enemy_Eagle_AscendPreFire" }) --nopkg
 
 		wait(0.7)
 
@@ -6674,7 +6554,7 @@ function EagleAttackAndFlee( enemy )
 
 	waitUntil( "EagleSpawnPresentationEnded" )
 
-	enemy.WeaponName = "EagleDive_Olympus"
+	enemy.WeaponName = enemy.DefaultAIData.OlympusStartWeapon or "EagleDive_Olympus"
 	HandleEnemyTeleportation(enemy, GetWeaponAIData(enemy))
 	DoAttack(enemy, GetWeaponAIData(enemy))
 
@@ -6686,7 +6566,7 @@ function EagleAttackAndFlee( enemy )
 		DoAttackerAILoop(enemy)
 	end
 
-	enemy.WeaponName = "EagleFlyUpWhirlwind"
+	enemy.WeaponName = enemy.DefaultAIData.OlympusEndWeapon or "EagleFlyUpWhirlwind_Olympus"
 	DoAttack(enemy, GetWeaponAIData(enemy))
 
 
@@ -6694,12 +6574,12 @@ function EagleAttackAndFlee( enemy )
 		thread( PlayVoiceLines, enemy.FledVoiceLines, nil, enemy )
 	end
 
-	--SetAnimation({ DestinationId = enemy.ObjectId, Name = "Enemy_Eagle_AscendPreFire" })
+	--SetAnimation({ DestinationId = enemy.ObjectId, Name = "Enemy_Eagle_AscendPreFire" }) --nopkg
 	Kill(enemy, { Silent = true, BlockRespawns = true })
 
 	if enemy.RaiseEncounterActiveEnemyCapBonusOnExit then
 		enemy.Encounter.ActiveEnemyCapMaxModifier = enemy.Encounter.ActiveEnemyCapMaxModifier + enemy.RaiseEncounterActiveEnemyCapBonusOnExit
-		DebugPrint({ Text="Eagle left, raising Encounter ActiveEnemyCap back." })
+		--DebugPrint({ Text="Eagle left, raising Encounter ActiveEnemyCap back." })
 	end
 end
 
@@ -6724,4 +6604,241 @@ function EndPreAttackFx(enemy, aiData)
 			StopAnimation({ DestinationId = aiData.TargetId, Name = name, PreventChain = true })
 		end
 	end
+end
+
+function UseGodStatueTrap( statue, args )
+
+	if IsEmpty(RequiredKillEnemies) then
+		CannotUseObjectPresentation(statue)
+		return
+	end
+
+	UseGodStatueTrapPresentation( statue, args )
+
+	statue.TimesFired = statue.TimesFired or 0
+	if statue.TimesFired < statue.MaxUses then
+		thread(DoAttack, statue, GetWeaponAIData(statue) )
+		statue.TimesFired = statue.TimesFired + 1
+
+		if statue.TimesFired >= statue.MaxUses then
+			SetAnimation({ DestinationId = statue.ObjectId, Name = statue.DepletedAnimation })
+			UseableOff({ Id = statue.ObjectId })
+		end
+	end
+end
+
+function TyphonHeadEggAI(enemy)
+
+	local duration = enemy.DefaultAIData.HatchDuration or 8
+	for i = 1, duration do
+		CreateAnimation({ Name = "TyphonHeadEggPulse", DestinationId = enemy.ObjectId })
+		if i >= duration - 2 then
+			Flash({ Id = enemy.ObjectId, Speed = 6 - ((duration - i) * 2), MinFraction = 0, MaxFraction = 0.35, Color = Color.White, Duration = 1 })
+		end
+		if i == duration then
+			--PlaySound({ Name = "", Id = enemy.ObjectId })
+			Shake({ Id = enemy.ObjectId, Speed = 400, Distance = 4, Duration = 1.0 })
+		end
+		AIWait(1.0, enemy, enemy.AIThreadName)
+	end
+
+	if enemy.DefaultAIData.SpawnFx ~= nil then
+		CreateAnimation({ DestinationId = enemy.ObjectId, Name = enemy.DefaultAIData.SpawnFx })
+	end
+	thread( PlayVoiceLines, enemy.HatchVoiceLines, nil, enemy )
+	local enemyData = EnemyData[GetRandomValue(enemy.DefaultAIData.SpawnOptions)]
+	local newEnemy = DeepCopyTable( enemyData )
+	newEnemy.StartAggroed = true
+	if newEnemy.IsUnitGroup then
+		SpawnUnitGroup( newEnemy, nil, nil, enemy.ObjectId)
+	else
+		newEnemy.ObjectId = SpawnUnit({ Name = newEnemy.Name, Group = "Standing", DestinationId = enemy.ObjectId })
+		thread(SetupUnit, newEnemy, CurrentRun, { SkipPresentation = true } )
+	end
+
+	Kill(enemy)
+end
+
+function PrometheusPostAttackForesight(enemy, aiData, currentRun, args)
+
+	if CheckCooldownNoTrigger( "PrometheusForesight", aiData.ForesightCooldown ) and RandomChance( aiData.ForesightChance ) then
+		if IsEmpty( MapState.ChargedManaWeapons ) then
+			waitUntil("ChargeManaWeaponFire", enemy.AIThreadName)
+		end
+
+		TriggerCooldown("PrometheusForesight")
+
+		SetUnitInvulnerable(enemy, "PrometheusForesight")
+		enemy.ForcedWeaponInterrupt = "PrometheusDashForsight"
+		notifyExistingWaiters( enemy.AINotifyName )
+		SetThreadWait( enemy.AIThreadName, 0.1 )
+	end
+end
+
+function PrometheusCancelPostAttackForesight(enemy, aiData)
+	killWaitUntilThreads("ChargeManaWeaponFire")
+end
+
+function ReapplyProjectileSpeedMultiplier( projectileData, args, triggerArgs )
+	local projectileSpeedMultiplier = GetTotalHeroTraitValue("EnemyProjectileSpeedMultiplier", {IsMultiplier = true, Multiplicative = true })
+	if triggerArgs.ProjectileId and projectileSpeedMultiplier ~= 1 then
+		SetProjectileProperty({ ProjectileId = triggerArgs.ProjectileId, Property = "SpeedMultiplier", Value = projectileSpeedMultiplier })
+	end
+end
+
+function HandleEnemyRushCollision(victim, triggerArgs, args)
+	if victim.Rushing and _worldTime - (victim.RushStartBuffer or 0.3) > victim.RushStartTime then
+		victim.RushCollision = true
+		Stop({ Id = victim.ObjectId })
+		notifyExistingWaiters(victim.AINotifyName)
+	end
+end
+
+function HecateWolfHowl(hecate, aiData)
+	Halt({ Id = hecate.ObjectId })
+	local distanceToTarget = GetDistance({ Id = hecate.ObjectId, DestinationId = aiData.TargetId })
+
+	--SetThingProperty({ DestinationId = CurrentRun.Hero.ObjectId, Property = "ImmuneToForce", Value = true })
+	AngleTowardTarget({ Id = hecate.ObjectId, DestinationId = aiData.TargetId })
+
+	SetAnimation({ Name = aiData.PreLeapAnimation, DestinationId = hecate.ObjectId })
+	wait( aiData.PreLeapTime, hecate.AIThreadName )
+
+	SetUnitProperty({ DestinationId = hecate.ObjectId, Property = "CollideWithObstacles", Value = false })
+	SetUnitProperty({ DestinationId = hecate.ObjectId, Property = "CollideWithUnits", Value = false })
+	CreateAnimation({ Name = "SorceryLeapRiseStreaks", DestinationId = hecate.ObjectId })
+	if aiData.LeapRiseSound then
+		PlaySound({ Name = aiData.LeapRiseSound, Id = hecate.ObjectId })
+	end
+	AdjustZLocation({ Id = hecate.ObjectId, Distance = aiData.RiseDistance, Duration = aiData.RiseTime, EaseIn = 0.85, EaseOut = 1.0 })
+	wait( aiData.RiseTime + aiData.HangTime, hecate.AIThreadName )
+
+	--SetAnimation({ Name = weaponData.LeapFlightAnimation, DestinationId = CurrentRun.Hero.ObjectId })
+	CreateAnimation({ Name = "SorceryLeapFlightStreakEmitter", DestinationId = hecate.ObjectId })
+	CreateAnimation({ Name = "SorceryLeapFlightStreakEmitterBright", DestinationId = hecate.ObjectId })
+	CreateAnimation({ Name = "SorceryLeapFlightStreakEmitterDisplace", DestinationId = hecate.ObjectId })
+	SetAnimation({ Name = aiData.LeapAnimation, DestinationId = hecate.ObjectId })
+
+	if aiData.LeapFlightSound then
+		PlaySound({ Name = aiData.LeapFlightSound, Id = hecate.ObjectId })
+	end
+
+	local landingEaseIn = 0.0
+	local landingEaseOut = 0.1
+
+	AdjustZLocation({Id = hecate.ObjectId, Distance = -GetZLocation({ Id = hecate.ObjectId }), Duration = aiData.LandingTime, EaseIn = landingEaseIn, EaseOut = landingEaseOut })
+	Move({ Id = hecate.ObjectId, 
+		Angle = GetAngleBetween({ Id = hecate.ObjectId, DestinationId = aiData.TargetId }), 
+		Distance = distanceToTarget, 
+		Speed = distanceToTarget / aiData.LandingTime,
+		EaseIn = landingEaseIn, EaseOut = landingEaseOut })
+	
+	--thread( LeapSimSlow, weaponData, weaponData.LandingTime )
+	wait(aiData.LandingTime, hecate.AIThreadName)
+
+	if aiData.LeapLandingSound then
+		PlaySound({ Name = aiData.LeapLandingSound, Id = hecate.ObjectId })
+	end
+	Halt({ Id = hecate.ObjectId })
+	SetUnitProperty({ DestinationId = hecate.ObjectId, Property = "CollideWithObstacles", Value = true })
+	SetUnitProperty({ DestinationId = hecate.ObjectId, Property = "CollideWithUnits", Value = true })
+	--SetThingProperty({ DestinationId = CurrentRun.Hero.ObjectId, Property = "ImmuneToForce", Value = immuneToForceReset })
+end
+
+function CharybdisScyllaFightGroupAI( scylla, args )
+	while CurrentRun.CurrentRoom.Encounter.InProgress do
+		TentacleCoordinatedAttack(scylla, args)
+		wait(args.AttackRate, scylla.AIThreadName)
+	end
+end
+
+function TentacleCoordinatedAttack(scylla, args)
+	local coordinatedWeaponOption = SelectWeapon(ActiveEnemies[args.TentacleIdsOrdered[1]])
+
+	for index, tentacleId in ipairs(args.TentacleIdsOrdered) do
+		local tentacleUnit = ActiveEnemies[tentacleId]
+		if not tentacleUnit.Hiding then
+			tentacleUnit.WeaponName = coordinatedWeaponOption
+			thread(DoAttack, tentacleUnit, GetWeaponAIData(tentacleUnit))
+			wait(RandomFloat(args.AttackTimingVarianceMin, args.AttackTimingVarianceMax), scylla.AIThreadName)
+		end
+	end
+end
+
+function MedeaCorpseExplode(enemy, aiData, CurrentRun, args )
+
+	if ActiveEnemies[aiData.TargetId] == nil or ActiveEnemies[aiData.TargetId].IsDead then
+		return
+	end
+
+	ActiveEnemies[aiData.TargetId].ForcedWeaponInterrupt = "ZombieCorpseExplode"
+	notifyExistingWaiters( ActiveEnemies[aiData.TargetId].AINotifyName )
+	SetThreadWait(ActiveEnemies[aiData.TargetId].AIThreadName, 0.01)
+	thread( InCombatText, aiData.TargetId, "Polymorphed", 1.45, { OffsetY = ActiveEnemies[aiData.TargetId].HealthBarOffsetY, SkipShadow = true }  )
+
+end
+
+function EnemyGainHitShields( enemy, count )
+	if enemy.MaxHitShields == nil then
+		return
+	end
+	count = count or 1
+	enemy.HitShields = enemy.HitShields or 0
+	enemy.HitShields = math.min(enemy.HitShields + count, enemy.MaxHitShields )
+	if not enemy.HasHealthBar then
+		CreateHealthBar( enemy )
+	end
+	UpdateHealthBar( enemy, 0, { Force = true } )
+end
+
+function PrometheusHeraclesRoleSwitcher(encounter, args)
+
+	MapState.Aggressor = "Prometheus"
+	local heracles = ActiveEnemies[GetFirstValue(GetIdsByType({ Name = "Heracles" }))]
+	local prometheus = ActiveEnemies[GetFirstValue(GetIdsByType({ Name = "Prometheus" }))]
+
+	wait(args.Interval or 10, "PrometheusHeraclesRoleSwitcher")
+
+	while encounter.InProgress do
+		if heracles == nil or heracles.IsDead then
+			MapState.Aggressor = nil
+			return
+		end
+
+		if prometheus == nil or prometheus.KnockedOut then
+			MapState.Aggressor = nil
+			thread( PlayVoiceLines, GlobalVoiceLines.PrometheusKnockedOutLines, nil, heracles )
+			return
+		end
+
+		if not MapState.AggressorLock then
+			if MapState.Aggressor == "Prometheus" then
+				MapState.Aggressor = "Heracles"
+				thread( PlayVoiceLines, GlobalVoiceLines.PrometheusTagInLines, nil, prometheus )
+			else
+				MapState.Aggressor = "Prometheus"
+				thread( PlayVoiceLines, GlobalVoiceLines.HeraclesTagInLines, nil, heracles )
+			end
+		end
+
+		wait(args.Interval or 10, "PrometheusHeraclesRoleSwitcher")
+	end
+end
+
+function TentacleDeathCheck(tentacle)
+	for id, enemy in pairs(RequiredKillEnemies) do
+		if id ~= tentacle.ObjectId and enemy.Name == "CharybdisTentacle2" then
+			return
+		end
+	end
+	thread( Kill, ActiveEnemies[737136] ) -- Charybdis
+	thread(LastKillPresentation, tentacle)
+	thread( PlayVoiceLines, GlobalVoiceLines.ScyllaCharybdisDeathReactionVoiceLines )
+end
+
+function ZagreusUseCastAmmo(enemy, aiData, currentRun, args)
+	enemy.CastAmmo = enemy.CastAmmo - 1
+end
+function ZagreusCollectCastAmmo(enemy, aiData, currentRun, args)
+	enemy.CastAmmo = enemy.CastAmmo + 1
 end

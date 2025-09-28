@@ -4,6 +4,7 @@ OverwriteTableKeys( TraitData, {
 	{
 		Icon = "Boon_Hermes_40",
 		InheritFrom = { "BaseTrait", "LegacyTrait", "EarthBoon" },
+		ApplyAfterHammerTraits = true,
 		RarityLevels =
 		{
 			Common =
@@ -55,7 +56,7 @@ OverwriteTableKeys( TraitData, {
 	},
 	HermesSpecialBoon =
 	{
-		Icon = "Boon_Hermes_41",
+		Icon = "Boon_Hermes_35",
 		InheritFrom = { "BaseTrait", "LegacyTrait", "EarthBoon" },
 		RarityLevels =
 		{
@@ -90,7 +91,7 @@ OverwriteTableKeys( TraitData, {
 		PropertyChanges = 
 		{
 			{
-				WeaponNames = { "WeaponStaffSwing5", "WeaponDagger5", "WeaponLobChargedPulse", "WeaponCastArm" },
+				WeaponNames = { "WeaponStaffSwing5", "WeaponDagger5", "WeaponLobChargedPulse", "WeaponCastArm", "WeaponAxeSpecialSwing" },
 				BaseValue = 0.9,
 				SourceIsMultiplier = true,
 				SpeedPropertyChanges = true,
@@ -110,59 +111,10 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
-	HexCooldownBuffBoon = 
-	{
-		InheritFrom = {"AirBoon"},
-		Icon = "Boon_Hermes_32",
-		HexCooldownSpeedBuff = { BaseValue = 0.85, SourceIsMultiplier = true },
-		BoonInfoIgnoreRequirements = true,
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "Hero", "SlottedTraits", "Spell", },
-			},
-			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "SpellPotionTrait" },
-			},
-		},
-		
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.0,
-			},
-			Rare =
-			{
-				Multiplier = 1.34,
-			},
-			Epic =
-			{
-				Multiplier = 1.67,
-			},
-			Heroic =
-			{
-				Multiplier = 2.00,
-			},
-		},
-		StatLines =
-		{
-			"HexCooldownBuffBoonDisplay1",
-		},
-		ExtractValues =
-		{
-			{
-				Key = "HexCooldownSpeedBuff",
-				ExtractAs = "TooltipSpeedBonus",
-				Format = "NegativePercentDelta",
-			},
-		}
-	},
 	SlowProjectileBoon = 
 	{
 		InheritFrom = { "AirBoon" },
-		Icon = "Boon_Hermes_34",
+		Icon = "Boon_Hermes_41",
 		
 		RarityLevels =
 		{
@@ -240,6 +192,7 @@ OverwriteTableKeys( TraitData, {
 			Delay = 0.2,
 			NotRequiredPickup = true,
 			ForceToValidLocation = true,
+			KeepCollision = true,
 			LootOptions =
 			{
 				{
@@ -262,7 +215,7 @@ OverwriteTableKeys( TraitData, {
 	},
 	DodgeChanceBoon =
 	{
-		InheritFrom = { "BaseTrait", "LegacyTrait", "AirBoon" },
+		InheritFrom = { "BaseTrait", "AirBoon" },
 		Icon = "Boon_Hermes_37",
 		RarityLevels =
 		{
@@ -282,75 +235,44 @@ OverwriteTableKeys( TraitData, {
 			{
 				Multiplier = 2.5,
 			}
-		},		
-		PropertyChanges =
+		},
+		CallSetupOnTraitAdded = true,
+		SetupFunction = 
 		{
+			Name = "MultipliedSpeedDodgeSetup",
+			Args =
 			{
-				LifeProperty = "DodgeChance",
-				BaseValue = 0.10,
-				ChangeType = "Add",
-				DataValue = false,
-				ReportValues = { ReportedDodgeChance = "ChangeValue"},
+				SpeedDodgePerBoon = 
+				{
+					BaseValue = 0.005,
+					DecimalPlaces = 4,
+				}, 
+				ReportValues = { ReportedDodgeChance = "SpeedDodgePerBoon" ,}
 			},
 		},
-		
 		StatLines =
 		{
-			"DodgeChanceStatDisplay1",
+			"MultipliedEvasionStatDisplay1",
+		},
+		TrayStatLines =
+		{
+			"MultipliedEvasionStatDisplay2",
 		},
 		ExtractValues =
 		{
 			{
-					Key = "ReportedDodgeChance",
-					ExtractAs = "TooltipDodgeBonus",
-					Format = "Percent",
+				Key = "ReportedDodgeChance",
+				ExtractAs = "TooltipDodgeBonus",
+				Format = "Percent",
+				DecimalPlaces = 2,
+				SkipAutoExtract = true
 			},
-		}
-	},
-	BonusDashBoon =
-	{
-		InheritFrom = { "BaseTrait", "LegacyTrait", "AirBoon" },
-		BlockStacking = true,
-		Icon = "Boon_Hermes_01",
-		RarityLevels =
-		{
-			Common =
 			{
-				Multiplier = 1.00,
-			},
-			Rare =
-			{
-				Multiplier = 2.00,
-			},
-			Epic =
-			{
-				Multiplier = 3.00,
-			},
-			Heroic =
-			{
-				Multiplier = 4.00,
-			}
-		},		
-		PropertyChanges =
-		{
-			{
-				WeaponNames = WeaponSets.HeroBlinkWeapons,
-				WeaponProperty = "ClipSize",
-				BaseValue = 1,
-				ChangeType = "Add",
-				ReportValues = { ReportedBonusSprint = "ChangeValue"},
-			},
-		},
-		
-		StatLines =
-		{
-			"BonusDashStatDisplay1",
-		},
-		ExtractValues =
-		{
-			{
-					Key = "ReportedBonusSprint",
-					ExtractAs = "TooltipSprintBonus",
+				Key = "ReportedDodgeChance",
+				ExtractAs = "TooltipTotalDodgeBonus",
+				Format = "Percent",
+				MultiplyByOlympianBoonCount = true,
+				DecimalPlaces = 2,
 			},
 		}
 	},
@@ -358,54 +280,77 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "BaseTrait", "EarthBoon" },
 		Icon = "Boon_Hermes_31",
+		CastModifier = true,
+		BlockStacking = true,
 		RarityLevels =
 		{
+			-- change the 225/250/275 number to be the percent increase at each rarity
 			Common =
 			{
 				Multiplier = 1.00,
 			},
 			Rare =
 			{
-				Multiplier = 1.20,
+				Multiplier = (1-(100/225))/0.50,
 			},
 			Epic =
 			{
-				Multiplier = 1.40,
+				Multiplier = (1-(100/250))/0.50,
 			},
 			Heroic =
 			{
-				Multiplier = 1.60,
+				Multiplier = (1-(100/275))/0.50,
 			}
 		},
-		--[[
-		PropertyChanges =
+		WeaponDataOverride = 
 		{
+			WeaponCastArm = 
 			{
-				WeaponNames = { "WeaponCastProjectile", "WeaponCast" },
-				WeaponProperty = "ActiveProjectileCap",
-				ChangeValue = 2,
-				ChangeType = "Add",
-				ReportValues = { ReportedBonus = "ChangeValue" },
-			},
+				MinWeaponChargeTime = 0
+			}
 		},
-		]]
-		ManaCostModifiers = 
+		WeaponSpeedMultiplier =
 		{
 			WeaponNames = WeaponSets.HeroRangedWeapons,
-			ManaCostMultiplier = { BaseValue = 0.5, SourceIsMultiplier = true } ,
-			ReportValues = { ReportedManaCost = "ManaCostMultiplier" },
+			Value = 
+			{
+				BaseValue = 0.5,
+				DecimalPlaces = 4,
+				SourceIsMultiplier = true,
+			},
+			ReportValues = { ReportedSpeedMultiplier = "Value" }
+		},
+		PropertyChanges = 
+		{
+			{
+				WeaponName = "WeaponCast",
+				ProjectileProperty = "FuseStart",
+				BaseValue = 0.50,
+				SourceIsMultiplier = true,
+				ChangeType = "Multiply",
+				DeriveSource = "DeriveSource",
+			},
+			{
+				WeaponName = "WeaponCastArm",
+				WeaponProperty = "ChargeTime",
+				DeriveValueFrom = "DeriveSource",
+			},
+			{
+				WeaponName = "WeaponCast",
+				ProjectileProperty = "Fuse",
+				DeriveValueFrom = "DeriveSource",
+			},
 		},
 		StatLines =
 		{
-			"CastManaReductionStatDisplay1",
+			"CastSpeedStatDisplay1",
 		},
 		ExtractValues = 
 		{
 			{
-				Key = "ReportedManaCost",
-				ExtractAs = "ManaReduction",
-				Format = "NegativePercentDelta",
-				HideSigns = true,
+				Key = "ReportedSpeedMultiplier",
+				ExtractAs = "Speed",
+				Format = "PercentReciprocalDelta",
 			},
 			--[[
 			{
@@ -419,19 +364,8 @@ OverwriteTableKeys( TraitData, {
 	SorcerySpeedBoon = 
 	{
 		InheritFrom = { "BaseTrait", "EarthBoon" },
-		Icon = "Boon_Hermes_35",
-		SpellModifier = true,
+		Icon = "Boon_Hermes_28",
 		BoonInfoIgnoreRequirements = true,
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "Hero", "SlottedTraits", "Spell", },
-			},
-			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "SpellPotionTrait" },
-			},
-		},
 
 		RarityLevels =
 		{
@@ -441,84 +375,41 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.34,
+				Multiplier = 1.15384,
 			},
 			Epic =
 			{
-				Multiplier = 1.67,
+				Multiplier = 1.2962,
 			},
 			Heroic =
 			{
-				Multiplier = 2.00,
+				Multiplier = 1.425000,
 			}
 		},
-		ManaSpendCostModifiers = 
+		PropertyChanges =
 		{
-			Multiplier = {BaseValue = 0.85, SourceIsMultiplier = true},
-			ReportValues = {ReportedReduction = "Multiplier"}
+			{
+				WeaponNames = WeaponSets.HeroBlinkWeapons,
+				WeaponProperty = "ClipRegenInterval",
+				BaseValue = 0.8,
+				SourceIsMultiplier = true,
+				DecimalPlaces = 3,
+				ChangeType = "Multiply",
+				ReportValues = { ReportedReduction = "ChangeValue"},
+			},
 		},
 		StatLines =
 		{
-			"SpellSpendStatDisplay1",
+			"DashRechargeStatDisplay",
 		},
 		ExtractValues =
 		{
 			{
 				Key = "ReportedReduction",
 				ExtractAs = "TooltipMultiplier",
-				Format = "PercentDelta",
-				HideSigns = true,
+				Format = "PercentReciprocalDelta",
 			},
 		},
-	},
-	PerfectDodgeSlowBoon = 
-	{
-		Icon = "Boon_Hermes_02",
-		InheritFrom = { "BaseTrait", "AirBoon" },
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.0,
-			},
-			Rare =
-			{
-				Multiplier = 1.5,
-			},
-			Epic =
-			{
-				Multiplier = 2.0,
-			},
-			Heroic =
-			{
-				Multiplier = 2.5,
-			},
-		},
-		AddRush =
-		{
-			FunctionName = "TimeSlowPerfectDash",
-			RunOnce = true,
-			FunctionArgs =
-			{
-				Modifier = 0.1,
-				Cooldown = 4.0,
-				Duration = { BaseValue = 1, },
-				ReportValues = { ReportedDuration = "Duration"},
-			},
-		},
-		StatLines =
-		{
-			"SlowDurationStatDisplay1",
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedDuration",
-				ExtractAs = "TooltipDuration",
-				DecimalPlaces = 1,
-			},
-
-		}
 	},
 	TimedKillBuffBoon = 
 	{
@@ -544,6 +435,10 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 		ShowInHUD = true,
+		SetupFunction = 
+		{
+			Name = "RestoreLastRoomKillBuff",
+		},
 		CustomLabel = 
 		{
 			DisplayType = "SessionMapStateValue",
@@ -553,7 +448,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		AddOutgoingDamageModifiers = 
 		{
-			ValidWeapons = WeaponSets.HeroAllWeapons,
+			ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,
 			UseSessionMapStateValue = "TimedBuff",
 			SessionMapStateMultiplier = {BaseValue = 0.01, DecimalPlaces = 3 },
 			ReportValues = { ReportedMultiplier = "SessionMapStateMultiplier" }
@@ -563,7 +458,7 @@ OverwriteTableKeys( TraitData, {
 			Name = "CheckTimedKillBuff",
 			FunctionArgs = 
 			{
-				Duration = 30,
+				Duration = 45,
 				ReportValues = { ReportedDuration = "Duration" },
 				Fx = "HermesWingsBuff",
 			}
@@ -616,7 +511,7 @@ OverwriteTableKeys( TraitData, {
 			Args =
 			{
 				SprintShields = { BaseValue = 1 },
-				ActiveVfx = "EurydiceDefenseFront",
+				ActiveVfx = "HermesSprintShieldFx",
 				TraitName = "SprintShieldBoon",
 				ReportValues = { ReportedShields = "SprintShields" ,}
 			},
@@ -677,55 +572,166 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
-	TimeStopLastStandBoon = -- Legendary
+	RestockBoon =
 	{
-		InheritFrom = { "LegendaryTrait", "AirBoon" },
-		Icon = "Boon_Hermes_39",
-		
-		AddLastStand =
+		Icon = "Boon_Hermes_32",
+		InheritFrom = { "BaseTrait", "FireBoon"},
+		RarityLevels =
 		{
-			Icon = "ExtraLifeChaos",
-			HealFraction = 0.4,
-			ManaFraction = 0.4,
-			IncreaseMax = true,
-			FunctionName = "LastStandTimeSlow",
-			FunctionArgs = 
+			Common =
 			{
-				Duration = 8,
-				Modifier = 0.1,
-				ReportValues = 
-				{
-					ReportedDuration = "Duration",
-					ReportedModifier = "Modifier",
-				}
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 2.0,
+			},
+			Epic =
+			{
+				Multiplier = 3.0,
+			},
+			Heroic =
+			{
+				Multiplier = 4.0,
 			},
 		},
+		FirstPurchaseDiscount = { BaseValue = 0.95, SourceIsMultiplier = true },
+		
 		StatLines =
 		{
-			"SlowTimeDurationStatDisplay1",
+			"DiscountStatDisplay",
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedDuration",
-				ExtractAs = "Duration",
-			},
-			{
-				Key = "ReportedModifier",
-				ExtractAs = "Modifier",
+				Key = "FirstPurchaseDiscount",
+				ExtractAs = "TooltipDiscount",
 				Format = "NegativePercentDelta",
 				HideSigns = true,
-				SkipAutoExtract = true
-			},
-			{
-				External = true,
-				BaseType = "HeroData",
-				BaseName = "LastStandData",
-				BaseProperty = "Heal",
-				Format = "Percent",
-				ExtractAs = "LastStandHeal",
-				SkipAutoExtract = true,
 			},
 		}
+	},
+
+	LuckyBoon =
+	{
+		Icon = "Boon_Hermes_34",
+		InheritFrom = { "BaseTrait", "WaterBoon"},
+		BlockStacking = true,
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 40/30,
+			},
+			Epic =
+			{
+				Multiplier = 50/30,
+			},
+			Heroic =
+			{
+				Multiplier = 60/30,
+			},
+		},
+		LuckMultiplier =
+		{
+			BaseValue = 1.3,
+			SourceIsMultiplier = true,
+		},
+		StatLines =
+		{
+			"LuckStatDisplay",
+		},
+		PropertyChanges = 
+		{
+			{
+				TraitName = "DoubleStrikeChanceBoon",
+				WeaponNames = 
+				{
+					"WeaponStaffSwing",
+					"WeaponStaffSwing2",
+					"WeaponStaffSwing3",
+					"WeaponStaffDash",
+					
+					"WeaponAxe",
+					"WeaponAxe2",
+					"WeaponAxe3",
+					"WeaponAxeDash",
+					
+					"WeaponDagger",
+					"WeaponDagger2",
+					"WeaponDaggerDouble",
+					"WeaponDaggerMultiStab",
+					"WeaponDaggerDash",
+
+					"WeaponTorch",
+		
+					"WeaponLob",
+
+					"WeaponSuit",
+				},
+				ExcludeLinked = true,
+				WeaponProperty = "AdditionalProjectileWaveChance",
+				BaseValue =  1.3,
+				ChangeType = "Multiply",
+				SourceIsMultiplier = true,
+			}
+		},
+		ExtractValues =
+		{
+			{
+				Key = "LuckMultiplier",
+				ExtractAs = "TooltipLuck",
+				Format = "PercentDelta",
+				HideSigns = true,
+			},
+			{
+				ExtractAs = "BlindChance",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "BlindEffect",
+				BaseProperty = "MissChance",
+				Format = "Percent",
+			},
+			{
+				ExtractAs = "BlindDuration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "BlindEffect",
+				BaseProperty = "Duration",
+			},
+		}
+	},
+
+	TimeStopLastStandBoon = -- Legendary
+	{
+		InheritFrom = { "LegendaryTrait", "AirBoon" },
+		Icon = "Boon_Hermes_39",
+
+		-- see MoneyShieldBlockPresentation
+		MoneyShieldData = 
+		{
+			Multiplier = 3,
+			DamagedFxOverride = "PlayerHitSpark_NoBlood",
+			ReportValues = { ReportedMultiplier = "Multiplier" }
+		},
+		
+		StatLines =
+		{
+			"MoneyDrainStatDisplay1",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "TooltipShields",
+			},
+		},
+		FlavorText = "TimeStopLastStandBoon_FlavorText",
 	},
 })

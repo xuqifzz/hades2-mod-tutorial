@@ -1,0 +1,418 @@
+{ Animations = [
+	{
+		Name = "FamiliarPolecatChthonic"
+		GrannyModel = "PolecatFamiliar_Chthonic_Mesh"
+	}
+	{
+		Name = "FamiliarPolecatCute"
+		GrannyModel = "PolecatFamiliar_Cute_Mesh"
+	}
+	{
+		Name = "FamiliarPolecatHell"
+		GrannyModel = "PolecatFamiliar_Hell_Mesh"
+	}
+	{
+		Name = "FamiliarPolecatNightmare"
+		GrannyModel = "PolecatFamiliar_Nightmare_Mesh"
+	}
+
+	{
+		Name = "FamiliarPolecatBaseAnimation"
+		GrannyModel = "PolecatFamiliar_Mesh"
+		ExtraGrannyAnimations =
+		[
+			{ Name = "FamiliarPolecatChthonic" }
+			{ Name = "FamiliarPolecatCute" }
+			{ Name = "FamiliarPolecatHell" }
+			{ Name = "FamiliarPolecatNightmare" }
+		]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Polecat_Idle"
+		InheritFrom = "FamiliarPolecatBaseAnimation"
+		GrannyAnimation = "Polecat_Familiar_Base_Idle_C_00"
+		CancelOnOwnerMove = true
+		Loop = true
+		GrannyRandomLoopCountMin = 3
+		GrannyRandomLoopCountMax = 6
+		ChainTo = "Familiar_Polecat_Idle_Fidget"
+	}
+	{
+		Name = "Familiar_Polecat_Idle_Fidget"
+		InheritFrom = "FamiliarPolecatBaseAnimation"
+		GrannyAnimation = "Polecat_Familiar_Base_Idle_Fidget_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Familiar_Polecat_Idle"
+	}
+
+	{
+		Name = "Familiar_Polecat_Greet"
+		InheritFrom = "FamiliarPolecatBaseAnimation"
+		GrannyAnimation = "Polecat_Familiar_Base_Greet_C_00"
+		ChainTo = "Familiar_Polecat_Idle"
+		CancelOnOwnerMove = true
+		Sound = "/SFX/Familiars/PolecatChitter2"
+	}
+
+	{
+		Name = "Familiar_Polecat_Move_Start"
+		InheritFrom = "FamiliarPolecatBaseAnimation"
+		GrannyAnimation = "Polecat_Familiar_Base_Move_C_00"
+		NativeMoveSpeed = 700
+		ChainTo = "Familiar_Polecat_Move"
+		Frames =
+		[
+			{
+				Frame = 12
+				FrameSpeed = 0.0
+			}
+		]
+	}
+	{
+		Name = "Familiar_Polecat_Move"
+		InheritFrom = "FamiliarPolecatBaseAnimation"
+		GrannyAnimation = "Polecat_Familiar_Base_Move_C_00"
+		NativeMoveSpeed = 700
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
+			}
+			{
+				Frame = 4
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
+			}
+			{
+				Frame = 8
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
+			}
+			{
+				Frame = 10
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
+			}
+		]
+	}
+	{
+		Name = "Familiar_Polecat_Move_Stop"
+		InheritFrom = "FamiliarPolecatBaseAnimation"
+		GrannyAnimation = "Polecat_Familiar_Base_Idle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Familiar_Polecat_Idle"
+	}
+
+	{
+		Name = "Familiar_Polecat_DropIn_Enter"
+		InheritFrom = "FamiliarPolecatBaseAnimation"
+		GrannyAnimation = "Polecat_Familiar_Base_Teleport_In_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Familiar_Polecat_Idle"
+		Frames =
+		[
+			{
+				Frame = 14
+				Sound = "/SFX/FishSandSplash"
+			}
+			{
+				Frame = 17
+				Sound = "/SFX/FishSandSplash"
+			}
+		]
+		Blends = null
+	}
+	{
+		Name = "Familiar_Polecat_DropIn_Exit"
+		InheritFrom = "FamiliarPolecatBaseAnimation"
+		GrannyAnimation = "Polecat_Familiar_Base_Teleport_Out_C_00"
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "Familiar_Polecat_Guard"
+		InheritFrom = "FamiliarPolecatBaseAnimation"
+		GrannyAnimation = "Polecat_Familiar_Base_Gaurd_C_00"
+		ChainTo = "Familiar_Polecat_Idle"
+		TimeModifierFraction = 0
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.2
+			}
+			{
+				Frame = 36
+				FrameSpeed = 2
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Polecat_Attack"
+		InheritFrom = "FamiliarPolecatBaseAnimation"
+		GrannyAnimation = "Polecat_Familiar_Base_Attack_C_00"
+		ChainTo = "Familiar_Polecat_Idle"
+		TimeModifierFraction = 0
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/SFX/PlayerJumpSmall"
+			}		
+			{
+				Frame = 4
+				Sound = "/SFX/Familiars/PolecatAttack"
+			}
+			{
+				Frame = 8
+				Sound = "/SFX/Enemy Sounds/EnemyDropInWhoosh"
+			}
+			{
+				Frame = 12
+				Sound = "/SFX/Player Sounds/ZagreusClawSwipe"
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Polecat_Burrow"
+		InheritFrom = "FamiliarPolecatBaseAnimation"
+		GrannyAnimation = "Polecat_Familiar_Base_Burrow_C_00"
+		HoldLastFrame = true
+		VerticalMaskInModelSpace = true
+		Frames =
+		[
+			{
+				Frame = 1
+				FrameSpeed = 0.5
+				Sound = "/Leftovers/World Sounds/Caravan Interior/ClothInteract"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/RangedBurrower/DraconSubmerge"
+			}
+			{
+				Frame = 4
+				Sound = "/SFX/Familiars/PolecatSassy2"
+			}
+			{
+				Frame = 19
+				FrameSpeed = 0.5
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 24
+				FrameSpeed = 0.5
+				VerticalMask = 0.45
+			}
+			{
+				Frame = 26
+				FrameSpeed = 0.5
+				VerticalMask = 0.45
+			}
+			{
+				Frame = 30
+				FrameSpeed = 0.5
+				VerticalMask = 0.0
+			}
+		]
+	}
+	{
+		Name = "Familiar_Polecat_Burrow_NoBlocks"
+		InheritFrom = "Familiar_Polecat_Burrow"
+		Frames =
+		[
+			{
+				Frame = 1
+				FrameSpeed = 0.5
+				Sound = "/Leftovers/World Sounds/Caravan Interior/ClothInteract"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/RangedBurrower/DraconSubmerge"
+			}
+			{
+				Frame = 4
+				Sound = "/SFX/Familiars/PolecatCute1"
+			}
+			{
+				Frame = 19
+				FrameSpeed = 0.5
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 24
+				FrameSpeed = 0.5
+				VerticalMask = 0.45
+			}
+			{
+				Frame = 26
+				FrameSpeed = 0.5
+				VerticalMask = 0.45
+			}
+			{
+				Frame = 30
+				FrameSpeed = 0.5
+				VerticalMask = 0.0
+			}
+		]
+	}
+	{
+		Name = "Familiar_Polecat_Burrow_Trail"
+		InheritFrom = "Familiar_Polecat_Burrow"
+
+		// Also see Familiar_Polecat_Burrow_NoBlocks_Trail below!
+		VisualFx = "PolecatFamiliarDirtTrail"
+		VisualFxDistanceMax = 45.0
+		VisualFxDistanceMin = 40.0
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+	}
+	{
+		Name = "Familiar_Polecat_Burrow_NoBlocks_Trail"
+		InheritFrom = "Familiar_Polecat_Burrow_NoBlocks"
+
+		// Also see Familiar_Polecat_Burrow_Trail above!
+		VisualFx = "PolecatFamiliarDirtTrail"
+		VisualFxDistanceMax = 45.0
+		VisualFxDistanceMin = 40.0
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+	}
+	{
+		Name = "Familiar_Polecat_Unburrow"
+		InheritFrom = "FamiliarPolecatBaseAnimation"
+		GrannyAnimation = "Polecat_Familiar_Base_UnBurrow_C_00"
+		AllowRestart = true
+		VerticalMaskInModelSpace = true
+		ChainTo = "Familiar_Polecat_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/RangedBurrower/DraconEmerge"
+			}
+			{
+				Frame = 4
+				Sound = "/SFX/Familiars/PolecatAcknowledged1"
+			}
+			{
+				Frame = 14
+				VerticalMask = 0.2
+			}
+			{
+				Frame = 23
+				VerticalMask = 1.0
+			}
+		]
+		Blends = []
+	}
+
+	{
+		Name = "Familiar_Polecat_Victory"
+		InheritFrom = "FamiliarPolecatBaseAnimation"
+		GrannyAnimation = "Polecat_Familiar_Base_Victory_C_00"
+		ChainTo = "Familiar_Polecat_Idle"
+		CancelOnOwnerMove = true
+		Frames =
+		[
+			{
+				Frame = 4
+				Sound = "/Leftovers/SFX/PlayerJumpSmall"
+			}
+			{
+				Frame = 8
+				Sound = "/Leftovers/World Sounds/TrainingMontageWhoosh"
+			}
+			{
+				Frame = 10
+				Sound = "/SFX/Familiars/PolecatChitter1"
+			}
+			{
+				Frame = 12
+				Sound = "/SFX/Familiars/PolecatChitter1"
+			}
+			{
+				Frame = 80
+				Sound = "/SFX/Familiars/PolecatCute4"
+			}
+			{
+				Frame = 98
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
+			}
+			{
+				Frame = 102
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Polecat_Harvest"
+		InheritFrom = "FamiliarPolecatBaseAnimation"
+		GrannyAnimation = "Polecat_Familiar_Base_Harvest_C_00"
+		GrannyAnimationSpeed = 1.2
+		ChainTo = "Familiar_Polecat_Idle"
+	}
+
+	{
+		Name = "Familiar_Polecat_Pet"
+		InheritFrom = "FamiliarPolecatBaseAnimation"
+		GrannyAnimation = "Polecat_Familiar_Base_Pet_C_00"
+		ChainTo = "Familiar_Polecat_Idle"
+		Frames =
+		[
+			{
+				Frame = 64
+				Sound = "/SFX/Familiars/PolecatChitter2"
+			}
+			{
+				Frame = 110
+				Sound = "/SFX/Familiars/PolecatPlayful"
+			}
+			{
+				Frame = 240
+				Sound = "/SFX/Familiars/PolecatChitter1"
+			}
+			{
+				Frame = 300
+				Sound = "/SFX/Familiars/PolecatSassy2"
+			}
+		]
+	}
+
+]}

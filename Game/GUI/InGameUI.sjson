@@ -76,10 +76,6 @@
     {
       Graphic = "GUI\\Tooltip_Backing_01"
       Scale = 1.0
-      MinX = 460
-      MaxX = 1550
-      MinY = 30
-      MaxY = 950
       Justification = "Center"
       VerticalJustification = "Center"
       SpacingY = 165
@@ -104,6 +100,7 @@
       BlockEmphasizedFont = true
       FontSize = 21
       TextSymbolScale = 0.7
+      TextSymbolOffsetY = -2
       TextOutlineRed = 0.55
       TextOutlineGreen = 0.55
       TextOutlineBlue = 0.55
@@ -131,8 +128,6 @@
       TextRed = 0.85
       TextGreen = 0.85
       TextBlue = 0.85
-      LeftMargin = 0
-      TopMargin = 0
       LineSpacingBottom = 1
       FadeOpacity = 0.0
       FadeTarget = 0.0
@@ -302,7 +297,7 @@
       ShadowOffsetX = 0
       FadeOpacity = 0.0
       FadeTarget = 0.0
-      NonEnglishScaleModifier = 1.0
+      
     }
   }
 }

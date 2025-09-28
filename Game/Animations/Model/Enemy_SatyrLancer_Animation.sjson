@@ -137,7 +137,7 @@
 		CancelOnOwnerMove = true
 		AllowRestart = true
 		ChainTo = "Enemy_SatyrLancer_Idle"
-		Sound = "/SFX/Enemy Sounds/Satyr/EmoteHurt"
+		Sound = "/SFX/Enemy Sounds/SatyrLancer/EmoteHurt"
 		Frames =
 		[
 			{
@@ -459,6 +459,13 @@
 		InheritFrom = "EnemySatyrLancerBaseAnimation"
 		GrannyAnimation = "SatyrLancer_Base_SpearThrowFire_C_00"
 		ChainTo = "Enemy_SatyrLancer_ThrowPostFire"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_ThrowPostFire"
+				Duration = 4
+			}
+		]
 	}
 
 	{
@@ -519,7 +526,7 @@
 		InheritFrom = "EnemySatyrLancerBaseAnimation"
 		GrannyAnimation = "SatyrLancer_Base_ThrustFire_C_00"
 		ChainTo = "Enemy_SatyrLancer_ThrustPostFire"
-
+		OwnerImmobile = true
 		Blends =
 		[
 			{
@@ -636,6 +643,7 @@
 		GrannyAnimation = "SatyrLancer_Base_Spawn_C_00"
 		ChainTo = "Enemy_SatyrLancer_Idle"
 		CreateAnimation = "SatyrSpawnTrail"
+		CancelOnOwnerMove = true
 		Frames =
 		[
 			{
@@ -650,6 +658,28 @@
 				Frame = 3
 				FrameSpeed = 1
 				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFistPalm"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrLancer_Escape"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_Spawn_C_00"
+		HoldLastFrame = true
+		PlayBackwards = true
+		Frames =
+		[
+			{
+				Frame = 50
+				FrameSpeed = 1
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusJumpStart"
+				CreateAnimation = "SatyrLandDust"
+			}
+			{
+				Frame = 51
+				FrameSpeed = 1
+				CreateAnimation = "SatyrEscapeTrail"
 			}
 		]
 	}

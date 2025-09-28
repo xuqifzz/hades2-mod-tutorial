@@ -1,5 +1,4 @@
-{
-  Obstacles = [
+{ Obstacles = [
 
     {
       Name = "DirectionHintArrow"
@@ -21,6 +20,7 @@
         SortMode = "Secondary"
         EditorOutlineDrawBounds = false
         Graphic = "ResourceFinderArrow"
+        AmbientSound = "/Leftovers/Object Ambiences/ShimmeringCrystalAmbience_5"
       }
     }
 
@@ -32,6 +32,28 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "MetaUpgradeScreenBackground"
+      }
+    }
+
+    {
+      Name = "MetaUpgradeCardUpgradeBackground"
+      InheritFrom = "1_BaseGUIObstacle"
+      DisplayInEditor = false
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "MetaUpgradeUpgradeScreenBackground"
+      }
+    }
+    
+    {
+      Name = "MetaUpgradeUpgradeScreenBackgroundMoons"
+      InheritFrom = "1_BaseGUIObstacle"
+      DisplayInEditor = false
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "MetaUpgradeUpgradeScreenBackgroundMoons"
       }
     }
 
@@ -56,26 +78,6 @@
         Graphic = "LevelUpBackground"
       }
     }
-    {
-      Name = "ShrineMeterBarFill"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "ShrineMeterBarFill"
-      }
-    }
-    {
-      Name = "ShrineMeterBar"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "ShrineMeterBar"
-      }
-    }
 
     {
       Name = "DialogueBackground"
@@ -96,6 +98,17 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "DialogueBackgroundBiome_Woods_In"
+      }
+    }
+
+    {
+      Name = "DialogueBackgroundBiome_Oceanus"
+      InheritFrom = "1_BaseGUIObstacle"
+      DisplayInEditor = false
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "DialogueBackgroundBiome_Oceanus_In"
       }
     }
 
@@ -132,16 +145,6 @@
       }
     }
 
-    {
-      Name = "DialogueChoiceBubble"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "DialogueChoiceBubble"
-      }
-    }
 
     {
       Name = "Box_HalfScreen"
@@ -160,8 +163,7 @@
       DisplayInEditor = false
       Thing =
       {
-        EditorOutlineDrawBounds = false
-        
+        EditorOutlineDrawBounds = false        
         Interact =
         {
           CursorOnly = true
@@ -211,6 +213,17 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "FieldsRewardFinderScreenEdgeIndicator"
+      }
+    }    
+
+    {
+      Name = "CodexBackingEntry"
+      InheritFrom = "1_BaseGUIObstacle"
+      DisplayInEditor = true
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CodexBackingEntry"
       }
     }
 
@@ -324,6 +337,22 @@
     }
 
     { 
+      Name = "ButtonKeepsakeItem"
+      InheritFrom = "BaseInteractableButton"
+      DisplayInEditor = true
+      Thing =
+      {
+        Points =
+        [
+		    { X = -90 Y = 160 }
+		    { X = 90 Y = 160 }
+		    { X = 90 Y = -120 }
+		    { X = -90 Y = -120 }
+	    ]
+      }
+    }
+
+    { 
       Name = "ButtonShrineItem"
       InheritFrom = "BaseInteractableButton"
       DisplayInEditor = true
@@ -331,17 +360,32 @@
       {
         Points =
         [
-		    { X = -70 Y = 130 }
-		    { X = 320 Y = 130 }
-		    { X = 320 Y = -130 }
-		    { X = -70 Y = -130 }
+		    { X = -50 Y = 130 }
+		    { X = 390 Y = 130 }
+		    { X = 390 Y = -130 }
+		    { X = -50 Y = -130 }
+	    ]
+      }
+    }
+    { 
+      Name = "ButtonShrineItemWide"
+      InheritFrom = "BaseInteractableButton"
+      DisplayInEditor = true
+      Thing =
+      {
+        Points =
+        [
+		    { X = -845 Y = 150 }
+		    { X = 1005 Y = 150 }
+		    { X = 1005 Y = -130 }
+		    { X = -845 Y = -130 }
 	    ]
       }
     }
     
     {
       Name = "ButtonMoonPhase"
-      InheritFrom = "BaseInteractableButton"
+      InheritFrom = "1_BaseGUIObstacle"
       DisplayInEditor = true
       Thing =
       {
@@ -372,24 +416,13 @@
           HighlightOffAnimation = "CodexButton_Down"
           HighlightOnAnimation = "CodexButton_Down_Highlight"
         }
-      }
-    }
-
-    {
-      Name = "ButtonContractorDown"
-      InheritFrom = "BaseInteractableButton"
-      DisplayInEditor = true
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "CodexButton_Down"
-        Interact =
-        {
-          AutoActivateWithGamepad = true
-          DisabledUseSound = "/Leftovers/SFX/OutOfAmmo"
-          HighlightOffAnimation = "CodexButton_Down"
-          HighlightOnAnimation = "CodexButton_Down_Highlight"
-        }
+        Points =
+        [
+            { X = -25 Y = 25 }
+            { X = 25 Y = 25 }
+            { X = 25 Y = -25 }
+            { X = -25 Y = -25 }
+        ]
       }
     }
 
@@ -408,42 +441,13 @@
           HighlightOffAnimation = "CodexButton_Up"
           HighlightOnAnimation = "CodexButton_Up_Highlight"
         }
-      }
-    }
-
-    {
-      Name = "ButtonCodexLeft"
-      InheritFrom = "BaseInteractableButton"
-      DisplayInEditor = true
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "CodexButton_Left"
-        Interact =
-        {
-          FreeFormSelectable = false
-          DisabledUseSound = "/Leftovers/SFX/OutOfAmmo"
-          HighlightOffAnimation = "CodexButton_Left"
-          HighlightOnAnimation = "CodexButton_Left_Highlight"
-        }
-      }
-    }
-
-    {
-      Name = "ButtonCodexRight"
-      InheritFrom = "BaseInteractableButton"
-      DisplayInEditor = true
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "CodexButton_Right"
-        Interact =
-        {
-          FreeFormSelectable = false
-          DisabledUseSound = "/Leftovers/SFX/OutOfAmmo"
-          HighlightOffAnimation = "CodexButton_Right"
-          HighlightOnAnimation = "CodexButton_Right_Highlight"
-        }
+        Points =
+        [
+            { X = -25 Y = 25 }
+            { X = 25 Y = 25 }
+            { X = 25 Y = -25 }
+            { X = -25 Y = -25 }
+        ]
       }
     }
 
@@ -462,6 +466,13 @@
           HighlightOffAnimation = "BountyButton_Down"
           HighlightOnAnimation = "BountyButton_Down_Highlight"
         }
+        Points =
+        [
+          { X = -25 Y = 25 }
+          { X = 25 Y = 25 }
+          { X = 25 Y = -25 }
+          { X = -25 Y = -25 }
+        ]
       }
     }
 
@@ -479,6 +490,28 @@
           DisabledUseSound = "/Leftovers/SFX/OutOfAmmo"
           HighlightOffAnimation = "BountyButton_Up"
           HighlightOnAnimation = "BountyButton_Up_Highlight"
+        }
+        Points =
+        [
+          { X = -25 Y = 25 }
+          { X = 25 Y = 25 }
+          { X = 25 Y = -25 }
+          { X = -25 Y = -25 }
+        ]
+      }
+    }
+
+    {
+      Name = "DraggableScrollBar"
+      InheritFrom = "BaseInteractableButton"
+      DisplayInEditor = true
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "PageScrollbar"
+        Interact =
+        {
+          AutoActivateWithGamepad = false
         }
       }
     }
@@ -505,6 +538,17 @@
   			}
       }
     }
+    
+    {
+        Name = "GhostAdminScreenPurchasedItemIcon"
+        InheritFrom = "BlankObstacle"
+        DisplayInEditor = false
+        Thing =
+        {
+            Color = { Red = 0.5, Green = 0.5, Blue = 0.5 }
+            Saturation = -0.5
+        }
+    }
 
 	{
 		Name = "MetaUpgradeInvisibleHoverTarget"
@@ -518,7 +562,8 @@
 			{
 				FreeFormSelectable = false
   			}
-			Points = [
+			Points =
+			[
 			  { X = -340 Y = 21 }
 			  { X = 250 Y = 21 }
 			  { X = 250 Y = -21 }
@@ -543,6 +588,8 @@
         }
       }
     }
+
+    
 	
     {
       Name = "ButtonTalent"
@@ -570,15 +617,13 @@
         Interact =
         {
           FreeFormSelectable = true
-          FreeFormSelectOffsetX = 20
-          FreeFormSelectOffsetY = 20
           UseExtents = true
         }
       }
     }
     {
       Name = "MetaUpgradeMemCostBacking"
-      InheritFrom = "BaseInteractableButton"
+      InheritFrom = "BlankObstacle"
       DisplayInEditor = false
       Thing =
       {
@@ -586,12 +631,32 @@
         Graphic = "MetaUpgradeMemCostBacking"
         Interact =
         {
-          FreeFormSelectable = true
-          UseExtents = true
-          FreeFormSelectOffsetY = 200
+          FreeFormSelectable = false
         }
       }
     }
+    {
+      Name = "MetaUpgradeMemCostBackground"
+      InheritFrom = "BaseInteractableButton"
+      DisplayInEditor = false
+      Thing =
+      {
+        EditorOutlineDrawBounds = true
+        Graphic = "MetaUpgradeMemCostBackground"
+        Interact =
+        {
+          FreeFormSelectable = true
+          FreeFormSelectOffsetY = -300
+        }
+        Points =
+        [
+		    { X = -185 Y = 420 }
+		    { X = 190 Y = 420 }
+		    { X = 190 Y = -645 }
+		    { X = -185 Y = -645 }
+	    ]
+      }
+    }    
 
     {
       Name = "Card_InfoCornersBackground"
@@ -601,6 +666,17 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "DevCard_InfoCornersBackground"
+      }
+    }
+    
+    {
+      Name = "Card_RarityIconBackground"
+      InheritFrom = "1_BaseGUIObstacle"
+      DisplayInEditor = true
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "DevCard_RarityIconBackground"
       }
     }
 
@@ -660,24 +736,6 @@
           FreeFormSelectable = true
           HighlightOffAnimation = "Button_Confirm"
           HighlightOnAnimation = "Button_ConfirmHighlight"
-        }
-      }
-    }
-
-    {
-      Name = "ShopRerollButton"
-      InheritFrom = "BaseInteractableButton"
-      DisplayInEditor = true
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "ShopRerollButton"
-		AllowDrawableCache = false
-        Interact =
-        {
-          HighlightOffAnimation = "ShopRerollButton"
-          HighlightOnAnimation = "ShopRerollButtonHighlight"
-          UnuseableAnimation = "ShopRerollDisabled"
         }
       }
     }
@@ -751,17 +809,6 @@
     }
 
     {
-      Name = "CriticalItemShopBackground"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "CriticalItemShopBackground"
-      }
-    }
-
-    {
       Name = "BoonSelectLighting"
       InheritFrom = "1_BaseGUIObstacle"
       DisplayInEditor = false
@@ -769,6 +816,17 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "BoonSelectFxIn"
+      }
+    }
+
+    {
+      Name = "BoonSelectLightingMelFace"
+      InheritFrom = "1_BaseGUIObstacle"
+      DisplayInEditor = false
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "BoonSelectLightingMelFace"
       }
     }
 
@@ -935,24 +993,6 @@
         EditorOutlineDrawBounds = false
         Graphic = "Poison_Small"
 		SortMode = "Id"
-		CausesOcclusion = true
-        OcclusionInterpolateDuration = 0.5
-        OcclusionOpacity = 0.25
-		AllowDrawableCache = false
-      }
-    }
-    {
-      Name = "ChillSmall"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "IconChill"
-		SortMode = "Id"
-		CausesOcclusion = true
-        OcclusionInterpolateDuration = 0.5
-        OcclusionOpacity = 0.25
 		AllowDrawableCache = false
       }
     }
@@ -965,39 +1005,6 @@
         EditorOutlineDrawBounds = false
         Graphic = "StatusIconSlowed"
 		SortMode = "Id"
-		CausesOcclusion = true
-        OcclusionInterpolateDuration = 0.5
-        OcclusionOpacity = 0.25
-		AllowDrawableCache = false
-      }
-    }
-    {
-      Name = "ShockSmall"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "IconShock"
-		SortMode = "Id"
-		CausesOcclusion = true
-        OcclusionInterpolateDuration = 0.5
-        OcclusionOpacity = 0.25
-		AllowDrawableCache = false
-      }
-    }
-    {
-      Name = "AphroditeSmall"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "AphroditeActive"
-		SortMode = "Id"
-		CausesOcclusion = true
-        OcclusionInterpolateDuration = 0.5
-        OcclusionOpacity = 0.25
 		AllowDrawableCache = false
       }
     }
@@ -1056,9 +1063,6 @@
 			EditorOutlineDrawBounds = false
 			Graphic = "ElementIconEarth"
 			SortMode = "Id"
-			CausesOcclusion = true
-			OcclusionInterpolateDuration = 0.5
-			OcclusionOpacity = 0.25
 			AllowDrawableCache = false
 		}
 	}
@@ -1071,9 +1075,6 @@
         EditorOutlineDrawBounds = false
         Graphic = "ElementIconFire"
 		SortMode = "Id"
-		CausesOcclusion = true
-        OcclusionInterpolateDuration = 0.5
-        OcclusionOpacity = 0.25
 		AllowDrawableCache = false
       }
     }
@@ -1089,21 +1090,7 @@
 		AllowDrawableCache = false
       }
     }
-    {
-      Name = "WaterSmall"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "ElementIconWater"
-		SortMode = "Id"
-		CausesOcclusion = true
-        OcclusionInterpolateDuration = 0.5
-        OcclusionOpacity = 0.25
-		AllowDrawableCache = false
-      }
-    }
+    
     {
       Name = "DamageShareSmall"
       InheritFrom = "1_BaseGUIObstacle"
@@ -1113,9 +1100,6 @@
         EditorOutlineDrawBounds = false
         Graphic = "IconHeraDamageShare"
 		SortMode = "Id"
-		CausesOcclusion = true
-        OcclusionInterpolateDuration = 0.5
-        OcclusionOpacity = 0.25
 		AllowDrawableCache = false
       }
     }
@@ -1139,8 +1123,21 @@
       Thing =
       {
         EditorOutlineDrawBounds = false
+        Graphic = "MorriganPip1"
         SortMode = "Id"
 		AllowDrawableCache = false
+      }    
+    }
+    {
+      Name = "HealthBarMarkerExecute"
+      InheritFrom = "1_BaseGUIObstacle"
+      DisplayInEditor = false
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "ShivaExecuteIcon"
+        SortMode = "Id"
+    AllowDrawableCache = false
       }
     }
     {
@@ -1150,17 +1147,31 @@
       Thing =
       {
         EditorOutlineDrawBounds = false
+        Graphic = "MorriganPip2"
         SortMode = "Id"
 		AllowDrawableCache = false
       }
     }
     {
-      Name = "HealthBarMarkerCast"
+      Name = "HealthBarMarkerAttackOmega"
       InheritFrom = "1_BaseGUIObstacle"
       DisplayInEditor = false
       Thing =
       {
         EditorOutlineDrawBounds = false
+        Graphic = "MorriganPip3"
+        SortMode = "Id"
+		AllowDrawableCache = false
+      }
+    }
+    {
+      Name = "HealthBarMarkerSpecialOmega"
+      InheritFrom = "1_BaseGUIObstacle"
+      DisplayInEditor = false
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "ComboIndicatorSpecialOmega"
         SortMode = "Id"
 		AllowDrawableCache = false
       }
@@ -1278,6 +1289,19 @@
 		AllowDrawableCache = false
       }
     }
+
+    {
+      Name = "HeraclesBounty"
+      InheritFrom = "1_BaseGUIObstacle"
+      DisplayInEditor = false
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "HeraclesBountyIcon"
+        AllowDrawableCache = false
+        Scale = 0.5
+      }
+    }
 	
 	
     {
@@ -1330,26 +1354,6 @@
       }
     }
 
-  {
-      Name = "ResourceShopTab"
-      InheritFrom = "BaseInteractableButton"
-      DisplayInEditor = true
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "ResourceShopTab"
-        Interact =
-        {
-          FreeFormSelectable = false
-          FreeFormSelectInputMultiplierX = 0.0
-          FreeFormSelectInputMultiplierY = 0.0
-          DisabledUseSound = "/Leftovers/SFX/OutOfAmmo"
-          HighlightOffAnimation = "ResourceShopTab"
-          HighlightOnAnimation = "ResourceShopTabHighlight"
-        }
-      }
-    }
-
     {
       Name = "CriticalItemShopTab"
       InheritFrom = "BaseInteractableButton"
@@ -1367,22 +1371,18 @@
     }
 
     {
-      Name = "ButtonGhostAdminItem"
-      InheritFrom = "BoonSlotBase"
-      DisplayInEditor = true
+      Name = "GhostAdminItem"
+      InheritFrom = "BaseInteractableButton"
+      DisplayInEditor = false
       Thing =
       {
-        Scale = 1.0
-        EditorOutlineDrawBounds = false
-        Graphic = "ContractorSlot"
-        Interact =
-        {
-			FreeFormSelectOffsetX = -400
-			FreeFormSelectInputMultiplierX = 0.0
-			HighlightOnAnimation = "ContractorSlotHighlight"
-            HighlightOffAnimation = "ContractorSlot"
-        }
-        Points = []
+        Points =
+        [
+            { X = -450, Y = -50 }
+            { X = -450, Y = 50 }
+            { X = 350, Y = 50 }
+            { X = 350, Y = -50 }
+        ]
       }
     }
 
@@ -1490,30 +1490,6 @@
         Graphic = "InventoryScreenBackground"
       }
     }
-    {
-      Name = "InventorySlotHighlight"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "InventorySlotHighlight"
-      }
-    }
-    
-    {
-      Name = "VictoryTextBacking"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "VictoryTextBacking"
-        Material = "Unlit"
-        SortMode = "Id"
-        UseScreenLocation = true
-      }
-    }
     
     {
       Name = "VictoryScreenNewRecordMedal"
@@ -1529,5 +1505,4 @@
       }
     }
 
-  ]
-}
+]}

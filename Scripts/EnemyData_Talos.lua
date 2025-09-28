@@ -9,6 +9,7 @@ UnitSetData.Talos =
 		BlockCharm = true,
 		IgnoreSpeedShrine = true,
 		ImmuneToPolymorph = true,
+		IgnoreSprintPhasingStasisStun = true,
 
 		MaxHealth = 13300,
 		HealthBarTextId = "Talos_Full",
@@ -25,7 +26,8 @@ UnitSetData.Talos =
 
 		Groups = { "FlyingEnemies", "Automatons" },
 
-		Material = "Stone",
+		Material = "Robot",
+		MaterialAlt = "Stone",
 		OnHitFunctionName = "CheckUnitInvulnerableHit",
 		InvulnerableHitFx = "InvincibleHitSpark",
 		InvulnerableHitImpactVelocity = 1000,
@@ -56,25 +58,6 @@ UnitSetData.Talos =
 			DifficultyRating = 500,
 		},
 	},
-
-	--[[
-	Talos_Shadow =
-	{
-		InheritFrom = { "Shadow", "Talos", },
-		GenusName = "Talos",
-
-		MaxHealth = 1000,
-		HealthBuffer = 1500,
-		HealthBarOffsetY = -250,
-		HealthBarType = "Medium",
-
-		WeaponOptions =
-		{
-			"TalosSpin_Shadow",
-		},
-	},
-	]]
-
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.Talos )

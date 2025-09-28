@@ -6,7 +6,7 @@
 		GrannyModel = "Wisp_Mesh"
 		GrannyAnimation = "null"
 		GrannyAnimationSpeed = 1.0
-		Scale = 1.0
+		Scale = 1.5
 		Loop = false
 		Enable3DShadow = true
 	}
@@ -100,6 +100,7 @@
 		InheritFrom = "EnemyWispBaseAnimation"
 		GrannyAnimation = "Wisp_Base_FusePreAttack_C_00"
 		ChainTo = "Enemy_Wisp_Move_FireLoop"
+		StopSoundOnFinishFade = 0.2
 		CancelOnOwnerMove = false
 		Blends = 
 		[
@@ -115,7 +116,18 @@
 		InheritFrom = "EnemyWispBaseAnimation"
 		GrannyAnimation = "Wisp_Base_FuseFire_C_00"
 		GrannyAnimationSpeed = 0.5
-
+		StopSoundOnFinishFade = 0.2
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/BombFusePreExplode"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/Wisp/EmoteAboutToExplode"
+			}
+		]
 		Blends = 
 		[
 			{

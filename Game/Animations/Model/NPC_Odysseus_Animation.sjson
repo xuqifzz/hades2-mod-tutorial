@@ -50,7 +50,10 @@
 
 		Blends =
 		[
-			
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 		]
 	}
 	{
@@ -115,6 +118,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Odysseus_Idle"
 				Duration = 4
 			}
@@ -137,6 +144,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Odysseus_Idle"
 				Duration = 4
 			}
@@ -149,6 +160,10 @@
 		ChainTo = "Odysseus_Idle"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Odysseus_Idle"
 				Duration = 6
@@ -172,6 +187,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Odysseus_Idle"
 				Duration = 4
 			}
@@ -186,6 +205,10 @@
 		ChainTo = "Odysseus_Pensive_FireLoop"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Odysseus_Idle"
 				Duration = 6
@@ -204,7 +227,11 @@
 		GrannyAnimation = "Odysseus_Base_PensiveBackToIdle_C_01"
 		ChainTo = "Odysseus_Idle"
 		Blends = 
-		[	
+		[
+			{
+				BlendTransitionFrom = "Odysseus_Pensive_Start"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Odysseus_Pensive_FireLoop"
 				Duration = 6
@@ -424,6 +451,10 @@
 		ChainTo = "Odysseus_Drinking_Idle1"
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_LemonSpin_Start"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Odysseus_Drinking_LemonSpin_FireLoop"
 				Duration = 6

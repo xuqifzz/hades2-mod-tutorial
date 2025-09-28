@@ -1,8 +1,10 @@
-﻿ConstantsData = { Two = 2 }
+﻿ConstantsData = { Two = 2, OneHundred = 100 }
 
 PercentFormatNamesLookup = 
 {
+	LuckModifiedPercent = true,
 	Percent = true, 
+	PercentHeal = true, 
 	PercentDelta = true, 
 	NegativePercentDelta = true, 
 	PercentOfBase = true, 
@@ -16,6 +18,22 @@ AutomaticExtractProperties =
 	EchoDuration = 
 	{
 		AddHeroValue = "EchoDurationIncrease",
+	},
+	ExecuteThreshold = 
+	{
+		AddHeroValue = "ExecuteThresholdIncrease",
+	},
+	OverheatDuration = 
+	{
+		AddHeroValue = "OverheatDurationIncrease",
+	},
+	FrenzyDuration = 
+	{
+		AddHeroValue = "FrenzyDurationBonus",
+	},
+	FrenzyLifeStealAmount = 
+	{
+		AddHeroValue = "FrenzyLifestealBonus",
 	},
 	LastStandHeal = 
 	{
@@ -37,6 +55,10 @@ AutomaticExtractProperties =
 	{
 		MultiplyHeroValue = "BurnDamageMultiplier",
 	},
+	FontDamage = 
+	{
+		MultiplyHeroValue = "PoseidonFontMultiplier",
+	},
 	MoonBeamDamage = 
 	{
 		AddHeroValue = "ReportedMoonBeamDamageBoost",
@@ -44,6 +66,10 @@ AutomaticExtractProperties =
 	MoonBeamCount = 
 	{
 		AddHeroValue = "MoonBeamCountBonus",
+	},
+	PolymorphDuration = 
+	{
+		AddHeroValue = "PolymorphDuration",
 	},
 	ExDamageMultiplier =
 	{
@@ -103,6 +129,11 @@ TextFormats =
 		Font = "LatoSemiboldItalic",
 		Graft = true,
 	},
+	ItalicBoldFormat =
+	{
+		Font = "LatoBoldItalic",
+		Graft = true,
+	},
 	ItalicLightFormat =
 	{
 		Font = "LatoItalic",
@@ -114,6 +145,14 @@ TextFormats =
 		Font = "LatoSemiboldItalic",
 		Color = {132,83,50,255},
 		Graft = true,
+	},
+
+	LocationBannerSubtitleFormat =
+	{
+		Font = "SpectralSCMedium",
+		Color = {150,180,230,255},
+		FontSize = 24,
+		ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
 	},
 
 	InstructionFormat =
@@ -145,7 +184,28 @@ TextFormats =
 		Color = Color.UpgradeGreen,
 	},
 
+	AltUpgradeFormatGold =
+	{
+		Graft = true,
+		UseEmphasizedFont = true,
+		Color = Color.UpgradeGold,
+	},
+
 	AltPenaltyFormat =
+	{
+		Graft = true,
+		UseEmphasizedFont = true,
+		Color = Color.PenaltyRed,
+	},
+
+	RunHistorySuccessFormat =
+	{
+		Graft = true,
+		UseEmphasizedFont = true,
+		Color = { 155, 255, 180, 255 },
+	},
+
+	RunHistoryFailureFormat =
 	{
 		Graft = true,
 		UseEmphasizedFont = true,
@@ -168,6 +228,12 @@ TextFormats =
 		Graft = true,
 		UseEmphasizedFont = true,
 		Color = Color.LightGold,
+	},
+	MoneyFormatCantAffordBold =
+	{
+		Graft = true,
+		UseEmphasizedFont = true,
+		Color = Color.CostUnaffordable,
 	},
 
 	CommonFormat =
@@ -218,10 +284,29 @@ TextFormats =
 		UseEmphasizedFont = true,
 	},
 
+	VowScreenNightsChampion =
+	{
+		Graft = true,
+		Color = {150, 99, 205, 255},
+		UseEmphasizedFont = true,
+	},
+
 	DialogLegendaryFormat =
 	{
 		Graft = true,
 		Color = Color.BoonPatchLegendary,
+	},
+	DialogLegendaryItalicFormat =
+	{
+		Graft = true,
+		UseEmphasizedFont = true,
+		Color = Color.BoonPatchLegendary,
+	},
+	DialogChoiceInstructionFormat =
+	{
+		Graft = true,
+		UseEmphasizedFont = true,
+		Color = { 94, 94, 94, 255 },
 	},
 
 	MemFormat =
@@ -235,6 +320,7 @@ TextFormats =
 		UseEmphasizedFont = true,
 		Color = Color.MEMBlue,
 	},
+
 	GraspFormat =
 	{
 		Graft = true,
@@ -242,24 +328,61 @@ TextFormats =
 		Color = Color.LightGreen,
 	},
 
+	ResourceFormat =
+	{
+		Graft = true,
+		UseEmphasizedFont = true,
+		Color = Color.MetaUpgradePointsDisplay,
+	},
+	GemstoneFormat =
+	{
+		Graft = true,
+		UseEmphasizedFont = true,
+		Color = Color.ShrinePoint,
+	},
+
 	ShopCostFormat =
 	{
 		Graft = true,
 		Color = Color.CostAffordable,
 	},
+	ShopCostCantAffordFormat =
+	{
+		Graft = true,
+		Color = Color.CostUnaffordable,
+	},
 
 	HighlightFormatGraft =
 	{
 		Graft = true,
-		UseEmphasizedFont = true,
 		Color = Color.Gold,
+	},
+
+	HighlightQuestReward =
+	{
+		Graft = true,
+		UseEmphasizedFont = true,
+		Color = {130, 130, 130, 255},
+	},
+
+	BountyHighlightFormat = 
+	{
+		Graft = true,
+		Color = Color.ChaosVoice,
 	},
 
 	ShrineHighlightFormat =
 	{
 		Graft = true,
 		Font = "LatoBold",
-		Color = Color.Yellow,
+		Color = { 166, 128, 240, 225 },
+	},
+
+	ShrineHighlightInsufficientFormat =
+	{
+		Graft = true,
+		Font = "LatoBold",
+		Color = Color.Red,
 	},
 
 	PropertyFormat =
@@ -405,6 +528,12 @@ TextFormats =
 		Graft = true,
 	},
 
+	AwardMaxFormat =
+	{
+		Color = {0.490, 0.490, 0.714, 1.0},
+		Graft = true,
+	},
+
 	-- Misc
 	CauseOfDeathFormat =
 	{
@@ -440,9 +569,20 @@ TextFormats =
 		LineSpacingBottom = 4,
 		Color = Color.BoonPatchLegendary,
 	},
+	Echo0 =
+	{
+		Graft = true,
+		Color = Color.DefaultText,
+	},
 	Echo1 =
 	{
 		Graft = true,
+		Color = Color.EchoText1,
+	},
+	Echo1Italic =
+	{
+		Graft = true,
+		UseEmphasizedFont = true,
 		Color = Color.EchoText1,
 	},
 	Echo2 =
@@ -450,24 +590,39 @@ TextFormats =
 		Graft = true,
 		Color = Color.EchoText2,
 	},
+	Echo2Italic =
+	{
+		Graft = true,
+		UseEmphasizedFont = true,
+		Color = Color.EchoText2,
+	},
 	Echo3 =
 	{
 		Graft = true,
 		Color = Color.EchoText3,
 	},
+	TyphonFormat =
+	{
+		Font = "LatoBoldItalic",
+		Color = Color.TyphonVoice,
+		FontSize = 28,
+	},
+	ReserveHealthFormat = 
+	{
+		Font = "NumericP22UndergroundSCHeavy",
+		FontSize = 28,
+		Color = { 180, 168, 255, 255 },
+		ShadowRed = 0.1, ShadowBlue = 0.1, ShadowGreen = 0.1,
+		OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 2,
+		ShadowAlpha = 1.0, ShadowBlur = 1, ShadowOffset = {0, 4},
+	},
 
 	-- for Codex
-	-- @Gavin: adding this because {#Prev} did not work for strings such as Codex_Complete. [GK 6/14/18]
 	CodexStandardFormat =
 	{
 		Font = "LatoSemiboldItalic",
 		FontSize = 24,
 		Color = Color.CodexTitleUnselected,
-		LangFrScaleModifier = 1.0,
-		LangRuScaleModifier = 1.0,
-		LangPtBrScaleModifier = 1.0,
-		LangKoScaleModifier = 1.0,
-		LangJaScaleModifier = 1.0,
 		Graft = true,
 	},
 
@@ -494,11 +649,6 @@ TextFormats =
 	{
 		Font = "LatoSemiboldItalic",
 		Color = {0.965, 0.702, 0.031, 1.0},
-		LangFrScaleModifier = 1.0,
-		LangRuScaleModifier = 1.0,
-		LangPtBrScaleModifier = 1.0,
-		LangKoScaleModifier = 1.0,
-		LangJaScaleModifier = 1.0,
 		Graft = true,
 	},
 
@@ -506,11 +656,6 @@ TextFormats =
 	{
 		Font = "LatoSemiboldItalic",
 		Color = {1.000, 0.984, 0.729, 1.0},
-		LangFrScaleModifier = 1.0,
-		LangRuScaleModifier = 1.0,
-		LangPtBrScaleModifier = 1.0,
-		LangKoScaleModifier = 1.0,
-		LangJaScaleModifier = 1.0,
 		Graft = true,
 	},
 
@@ -518,11 +663,14 @@ TextFormats =
 	{
 		Font = "LatoSemiboldItalic",
 		Color = {0.718, 0.596, 0.180, 1.0},
-		LangDeScaleModifier = 1.0,
-		LangRuScaleModifier = 1.0,
-		LangKoScaleModifier = 1.0,
-		LangJaScaleModifier = 1.0,
 		Graft = true,
+	},
+
+	CodexVanquishedFormat =
+	{
+		Graft = true,
+		UseEmphasizedFont = true,
+		Color = { 121, 59, 144, 255},
 	},
 
 	LootFormat =
@@ -712,6 +860,55 @@ TextFormats =
 		Color = Color.Yellow,
 	},
 
+	CodexNameFormat =
+	{
+		Graft = true,
+		UseEmphasizedFont = true,
+		Color = { 72, 58, 105, 255 },
+		TextSymbolScale = 0.7,
+
+	},
+
+	-- End Credits (Shell credits are in AboutScreen.sjson)
+	EndCreditsInlineCreditTitle =
+	{
+		Graft = true,
+		Font = "P22UndergroundSCMedium",
+		FontSize = 22,
+		Color = { 0.55, 0.79, 0.92 },
+	},
+	EndCreditsInlineCreditName =
+	{
+		Graft = true,
+		Font = "CreditsP22UndergroundSCMedium",
+		FontSize = 22,
+		Color = { 0.85, 0.97, 0.97 }, --LIGHT BLUE
+		ShadowColor = { 0, 0, 0, 1 },
+		ShadowOffset = { 0, 2 },
+		ShadowBlur = 0,
+	},
+	EndCreditsInlineCreditNameCJK =
+	{
+		Graft = true,
+		Font = "CreditsP22UndergroundSCMediumCJK",
+		FontSize = 22,
+		Color = { 0.85, 0.97, 0.97 }, --LIGHT BLUE
+		ShadowColor = { 0, 0, 0, 1 },
+		ShadowOffset = { 0, 2 },
+		ShadowBlur = 0,
+	},
+
+	-- Descriptions of Musicians
+	EndCreditsInlineCreditH3 =
+	{
+		Graft = true,
+		Font = "P22UndergroundSCMedium",
+		FontSize = 22,
+		Color = { 0.97, 0.94, 0.73 },
+		ShadowColor = { 0, 0, 0, 1 },
+		ShadowOffset = { 0, 2 },
+	},
+
 	-- Used for translator comments, e.g. {#TODO:harmonize spelling of keyword} or simply {#TODO}
 	TODO =
 	{
@@ -760,15 +957,6 @@ IconData =
 		TexturePath = "Items\\Loot\\TalentDrop\\TalentDrop_Text",
 	},
 
-	PlantMoneyIcon =
-	{
-		TexturePath = "Items\\Resources\\Plant\\PlantMoney_Text",
-	},
-	PlantMoney_NoTooltip =
-	{
-		TexturePath = "Items\\Resources\\Plant\\PlantMoney_Text",
-	},
-
 	RandomLoot = 
 	{
 		TexturePath = "GUI\\Icons\\RandomLoot"
@@ -782,14 +970,49 @@ IconData =
 	{
 		TexturePath = "Items\\Loot\\HealthItem01",
 	},
-
+	HealingItem = 
+	{
+		TexturePath = "GUI\\Icons\\Healing",
+	},
+	HealingItemIcon = 
+	{
+		TexturePath = "GUI\\Icons\\Healing",
+	},
+	ManaItem = 
+	{
+		TexturePath = "GUI\\Icons\\ManaDrop",
+	},
+	ManaItem_Hound = 
+	{
+		TexturePath = "GUI\\Icons\\ManaDrop",
+	},
+	ManaItemIcon = 
+	{
+		TexturePath = "GUI\\Icons\\ManaDrop",
+	},
+	BloodDropNoTooltip =
+	{
+		TexturePath = "GUI\\Icons\\BloodDrop"
+	},
+	BloodDropIcon =
+	{
+		TexturePath = "GUI\\Icons\\BloodDrop"
+	},
+	BloodDropWithCountIcon =
+	{
+		TexturePath = "GUI\\Icons\\BloodDrop"
+	},
 	LastStandGiftItem = 
 	{
-		TexturePath = "Items\\Loot\\LastStand"
+		TexturePath = "GUI\\HUD\\HealthBar_1up",
 	},
 	LastStand_NoTooltip = 
 	{
-		TexturePath = "Items\\Loot\\LastStand"
+		TexturePath = "GUI\\HUD\\HealthBar_1up",
+	},
+	LastStandMoros = 
+	{
+		TexturePath = "GUI\\HUD\\HealthBar_1upRegen"
 	},
 
 	-- Old From Minos
@@ -813,11 +1036,6 @@ IconData =
 		TexturePath = "GUI\\Icons\\Bullet",
 	},
 
-	Div =
-	{
-		TexturePath = "GUI\\HorizontalDivider",
-	},
-
 	DivLong =
 	{
 		TexturePath = "GUI\\HorizontalDividerLong",
@@ -831,15 +1049,23 @@ IconData =
 	{
 		TexturePath = "GUI\\Icons\\Life",
 	},
-
+	Health_NoTooltip =
+	{
+		TexturePath = "GUI\\Icons\\Life",
+	},
 	HealthUp =
 	{
 		TexturePath = "GUI\\Icons\\LifeUp",
 	},
+	HealthUpTotal =
+	{
+		TexturePath = "GUI\\Icons\\LifeUp",
+	},	
 	HealthUpAlt =
 	{
 		TexturePath = "GUI\\Icons\\LifeUp_Empty",
 	},
+
 
 	HealthDown =
 	{
@@ -847,6 +1073,10 @@ IconData =
 	},
 
 	HealthRestore =
+	{
+		TexturePath = "GUI\\Icons\\LifeRestore",
+	},
+	HealthRestoreAlt =
 	{
 		TexturePath = "GUI\\Icons\\LifeRestore",
 	},
@@ -1040,6 +1270,11 @@ IconData =
 		TexturePath = "GUI\\Icons\\Dash",
 	},
 
+	BountyTarget =
+	{
+		TexturePath = "GUI\\Icons\\BountyTarget",
+	},
+
 	UpArrow =
 	{
 		TexturePath = "GUI\\Icons\\UpArrow",
@@ -1063,7 +1298,11 @@ IconData =
 	},
 	ExtraChanceCat =
 	{
-		TexturePath = "GUI\\HUD\\HealthBar_1upEcho",
+		TexturePath = "GUI\\HUD\\HealthBar_1up",
+	},
+	ExtraChanceMisc =
+	{
+		TexturePath = "GUI\\HUD\\HealthBar_1up",
 	},
 	ExtraChanceNoTooltip =
 	{
@@ -1073,11 +1312,6 @@ IconData =
 	Alert =
 	{
 		TexturePath = "GUI\\Icons\\Status\\WantsToFight",
-	},
-
-	Aware =
-	{
-		TexturePath = "GUI\\Icons\\Status\\Aware",
 	},
 
 	Startled  =
@@ -1090,10 +1324,6 @@ IconData =
 		TexturePath = "GUI\\Icons\\Status\\WantsToTalk",
 	},
 
-	Currency =
-	{
-		TexturePath = "GUI\\Icons\\Currency",
-	},
 	
 	RandomPom =
 	{
@@ -1103,11 +1333,6 @@ IconData =
 	RandomHammer =
 	{
 		TexturePath = "GUI\\Icons\\RandomHammer",
-	},
-
-	RandomPom =
-	{
-		TexturePath = "GUI\\Icons\\RandomPom",
 	},
 
 	Pom =
@@ -1134,10 +1359,35 @@ IconData =
 	{
 		TexturePath = "GUI\\Icons\\Hammer",
 	},
+	HammerPlural = 
+	{
+		TexturePath = "GUI\\Icons\\Hammer",
+	},
 
 	FatedChoice =
 	{
 		TexturePath = "GUI\\Screens\\QuestLog\\QuestAdded_Small",
+	},
+	OlympianSpell =
+	{
+		TexturePath = "GUI\\Screens\\OlympianIcon",
+	},
+	ExtendedShopBefore =
+	{
+		TexturePath = "GUI\\Screens\\ShopIcons\\Shop_37_Small",
+	},
+	ExtendedShopAfter =
+	{
+		TexturePath = "GUI\\Screens\\ShopIcons\\Shop_37_Small",
+	},
+	ExtendedShop_NoTooltip =
+	{
+		TexturePath = "GUI\\Screens\\ShopIcons\\Shop_37_Small",
+	},
+
+	NeededResource =
+	{
+		TexturePath = "GUI\\Icons\\CauldronBanner_Text",
 	},
 
 	StoreItemPin =
@@ -1169,6 +1419,11 @@ IconData =
 		TexturePath = "GUI\\Icons\\PoisonIcon",
 	},
 
+	WeaponPointsRareIcon =
+	{
+		TexturePath = "Items\\Resources\\Other\\WeaponPointsRare_Text"
+	},
+
 	GiftPointsIcon =
 	{
 		TexturePath = "GUI\\Icons\\Gift",
@@ -1186,14 +1441,31 @@ IconData =
 		TexturePath = "GUI\\Icons\\SuperGift",
 	},
 
+	CodexEntryCompleteIcon =
+	{
+		TexturePath = "GUI\\Icons\\CodexComplete",
+	},
+	CodexEntryIncompleteIcon =
+	{
+		TexturePath = "GUI\\Icons\\CodexIncomplete",
+	},
+
 	HypnosPointsIcon =
 	{
 		TexturePath = "Items\\Resources\\Other\\HypnosPoints_Text",
+	},
+	IcarusPointsIcon =
+	{
+		TexturePath = "Items\\Resources\\Other\\IcarusPoints_Text",
 	},
 
 	ManaLock =
 	{
 		TexturePath = "GUI\\Icons\\ManaLock",
+	},
+	HealthLock =
+	{
+		TexturePath = "GUI\\Icons\\HealthLock",
 	},
 
 	RunReward =
@@ -1213,6 +1485,10 @@ IconData =
 	LimitedTimeOffer =
 	{
 		TexturePath = "GUI\\Screens\\LimitedTimeOffer",
+	},
+	LimitedTimeOfferBanner =
+	{
+		TexturePath = "GUI\\Icons\\LimitedBanner_Text",
 	},
 	SpecialOffer =
 	{
@@ -1273,36 +1549,9 @@ IconData =
 		TexturePath = "GUI\\Icons\\Contract_01",
 	},
 
-	RewardMetaModifier =
-	{
-		TexturePath = "GUI\\Icons\\RewardMetaModifier",
-	},
-
-	RewardShop =
-	{
-		TexturePath = "GUI\\Icons\\RewardShop",
-	},
-
-	RewardStory =
-	{
-		TexturePath = "GUI\\Icons\\RewardStory",
-	},
-
-	RewardRandom =
-	{
-		TexturePath = "GUI\\Icons\\RewardRandom",
-	},
-
-	RewardUnknown =
-	{
-		TexturePath = "GUI\\Icons\\RewardUnknown",
-	},
-
 	BuffHealing =
 	{
 		TexturePath = "GUI\\Screens\\ShopIcons\\hydralite_05_small",
-		
-
 	},
 	BuffWeapon =
 	{
@@ -1355,6 +1604,16 @@ IconData =
 		TexturePath = "GUI\\HUD\\SlashDark",
 	},
 
+	Percent =
+	{
+		TexturePath = "GUI\\HUD\\Percent",
+	},
+	
+	PercentDark =
+	{
+		TexturePath = "GUI\\HUD\\PercentDark",
+	},
+
 	Clock =
 	{
 		TexturePath = "GUI\\HUD\\TimeIcon",
@@ -1363,6 +1622,11 @@ IconData =
 	Refresh =
 	{
 		TexturePath = "GUI\\HUD\\RefreshIcon",
+	},
+
+	RefreshBoss =
+	{
+		TexturePath = "GUI\\HUD\\RefreshIcon_Boss",
 	},
 
 	Shielded =
@@ -1375,10 +1639,6 @@ IconData =
 		TexturePath = "GUI\\Icons\\Hades_Symbol_01"
 	},
 
-	Elite =
-	{
-		TexturePath = "GUI\\Icons\\Elite_Badge_01"
-	},
 	NoCanDo =
 	{
 		TexturePath = "GUI\\Icons\\NoCanDo",
@@ -1445,25 +1705,21 @@ IconData =
 
 	AwardRank1 =
 	{
-		--TexturePath = "GUI\\Screens\\AwardMenu\\altRank_1",
 		TexturePath = "GUI\\Screens\\AwardMenu\\rank_1",
 	},
 
 	AwardRank2 =
 	{
-		--TexturePath = "GUI\\Screens\\AwardMenu\\altRank_2",
 		TexturePath = "GUI\\Screens\\AwardMenu\\rank_2",
 	},
 
 	AwardRank3 =
 	{
-		--TexturePath = "GUI\\Screens\\AwardMenu\\altRank_3",
 		TexturePath = "GUI\\Screens\\AwardMenu\\rank_3",
 	},
 
 	AwardRank4 =
 	{
-		--TexturePath = "GUI\\Screens\\AwardMenu\\altRank_3",
 		TexturePath = "GUI\\Screens\\AwardMenu\\rank_4",
 	},
 
@@ -1504,12 +1760,12 @@ IconData =
 
 	QuestProgressIncomplete =
 	{
-		TexturePath = "GUI\\Graybox\\RadioButton_Unselected",
+		TexturePath = "Screens\\QuestLogScreen\\RadioButton_Unselected",
 	},
 
 	QuestProgressComplete =
 	{
-		TexturePath = "GUI\\Graybox\\RadioButton_Selected",
+		TexturePath = "Screens\\QuestLogScreen\\RadioButton_Selected",
 	},
 
 	Music =
@@ -1556,6 +1812,10 @@ IconData =
 	HoundHarvest =
 	{
 		TexturePath = "GUI\\Icons\\Tool_Shovel_Hound"
+	},
+	PolecatHarvest =
+	{
+		TexturePath = "GUI\\Icons\\Tool_Harvest_Polecat"
 	},
 
 	Pause =
@@ -1606,7 +1866,15 @@ IconData =
 	{
 		TexturePath = "GUI\\Icons\\Pickaxe",
 	},
+	ToolPickIconNoTooltip =
+	{
+		TexturePath = "GUI\\Icons\\Pickaxe",
+	},
 	ToolBookIcon =
+	{
+		TexturePath = "GUI\\Icons\\ExorcismBook",
+	},
+	ToolBookIconNoTooltip =
 	{
 		TexturePath = "GUI\\Icons\\ExorcismBook",
 	},
@@ -1614,9 +1882,25 @@ IconData =
 	{
 		TexturePath = "GUI\\Icons\\Shovel",
 	},
+	ToolShovelIconNoTooltip =
+	{
+		TexturePath = "GUI\\Icons\\Shovel",
+	},
 	ToolRodIcon =
 	{
 		TexturePath = "GUI\\Icons\\FishingRod",
+	},
+	ToolRodIconNoTooltip =
+	{
+		TexturePath = "GUI\\Icons\\FishingRod",
+	},
+	ToolGatherIcon =
+	{
+		TexturePath = "GUI\\Icons\\Gathering",
+	},
+	ToolGatherIconNoTooltip =
+	{
+		TexturePath = "GUI\\Icons\\Gathering",
 	},
 
 	CurseEarth = 
@@ -1640,6 +1924,10 @@ IconData =
 		TexturePath = "GUI\\Icons\\Element_Fire_Text",
 	},
 	FireBoonAlt = 
+	{
+		TexturePath = "GUI\\Icons\\Element_Fire_Text",
+	},
+	AllElementsBoonHack = 
 	{
 		TexturePath = "GUI\\Icons\\Element_Fire_Text",
 	},
@@ -1696,7 +1984,15 @@ IconData =
 	{
 		TexturePath = "Items\\Resources\\Common\\MetaCardPointsCommon_Text",
 	},
+	MetaCardPointsCommonIconAlt =
+	{
+		TexturePath = "Items\\Resources\\Common\\MetaCardPointsCommon_Text",
+	},
 	MetaCurrencyIcon =
+	{
+		TexturePath = "Items\\Resources\\Common\\MetaCurrency_Text",
+	},
+	MetaCurrencyIconAlt =
 	{
 		TexturePath = "Items\\Resources\\Common\\MetaCurrency_Text",
 	},
@@ -1704,9 +2000,17 @@ IconData =
 	{
 		TexturePath = "Items\\Resources\\Common\\MemPointsCommon_Text",
 	},
+	MemPointsCommonIconAlt =
+	{
+		TexturePath = "Items\\Resources\\Common\\MemPointsCommon_Text",
+	},
 	MemPointsCommon_NoTooltip =
 	{
 		TexturePath = "Items\\Resources\\Common\\MemPointsCommon_Text",
+	},
+	GemPointsIcon =
+	{
+		TexturePath = "Items\\Resources\\Other\\GemPoints_Text",
 	},
 	CosmeticsPointsIcon =
 	{
@@ -1716,11 +2020,31 @@ IconData =
 	{
 		TexturePath = "Items\\Resources\\Plant\\PlantFMoly_Text",
 	},
+	PlantFMolyIconAlt =
+	{
+		TexturePath = "Items\\Resources\\Plant\\PlantFMoly_Text",
+	},
 	PlantFMoly_NoTooltip =
 	{
 		TexturePath = "Items\\Resources\\Plant\\PlantFMoly_Text",
 	},
+	PlantGLotusIcon =
+	{
+		TexturePath = "Items\\Resources\\Plant\\PlantGLotus_Text",
+	},
+	PlantGLotusIconAlt =
+	{
+		TexturePath = "Items\\Resources\\Plant\\PlantGLotus_Text",
+	},
+	PlantGLotus_NoTooltip =
+	{
+		TexturePath = "Items\\Resources\\Plant\\PlantGLotus_Text",
+	},
 	OreFSilverIcon =
+	{
+		TexturePath = "Items\\Resources\\Ore\\OreFSilver_Text",
+	},
+	OreFSilverIconAlt =
 	{
 		TexturePath = "Items\\Resources\\Ore\\OreFSilver_Text",
 	},
@@ -1732,6 +2056,10 @@ IconData =
 	{
 		TexturePath = "Items\\Resources\\Common\\MetaFabric_Text",
 	},
+	MetaFabricIconAlt =
+	{
+		TexturePath = "Items\\Resources\\Common\\MetaFabric_Text",
+	},
 	MetaFabric_NoTooltip =
 	{
 		TexturePath = "Items\\Resources\\Common\\MetaFabric_Text",
@@ -1739,6 +2067,18 @@ IconData =
 	Mixer5CommonIcon =
 	{
 		TexturePath = "Items\\Resources\\Other\\Mixer5Common_Text",
+	},
+	Mixer5CommonIconAlt =
+	{
+		TexturePath = "Items\\Resources\\Other\\Mixer5Common_Text",
+	},
+	MixerHBossIcon =
+	{
+		TexturePath = "Items\\Resources\\Boss\\MixerHBoss_Text",
+	},
+	MixerGBossIcon =
+	{
+		TexturePath = "Items\\Resources\\Boss\\MixerGBoss_Text",
 	},
 	CardUpgradePointsIcon =
 	{
@@ -1751,8 +2091,16 @@ IconData =
 	FamiliarPointsIcon_NoTooltip =
 	{
 		TexturePath = "Items\\Resources\\Alchemy\\FamiliarPoints_Text",
-	},	
+	},
+	TrashPointsIcon =
+	{
+		TexturePath = "Items\\Resources\\Other\\TrashPoints_Text",
+	},
 	PlantFNightshadeIcon =
+	{
+		TexturePath = "Items\\Resources\\Plant\\PlantFNightshade_Text",
+	},
+	PlantFNightshadeIconAlt =
 	{
 		TexturePath = "Items\\Resources\\Plant\\PlantFNightshade_Text",
 	},
@@ -1761,6 +2109,10 @@ IconData =
 		TexturePath = "Items\\Resources\\Plant\\PlantFNightshadeSeed_Text",
 	},
 	SeedMysteryIcon =
+	{
+		TexturePath = "Items\\Resources\\Plant\\PlantMysterySeed_Text",
+	},
+	SeedMysteryIconAlt =
 	{
 		TexturePath = "Items\\Resources\\Plant\\PlantMysterySeed_Text",
 	},
@@ -1796,17 +2148,45 @@ IconData =
 	{
 		TexturePath = "Items\\Resources\\Plant\\PlantPOlive_Text",
 	},
+	PlantQSnakereedSeedIcon =
+	{
+		TexturePath = "GUI\\Icons\\TempIcon",
+	},
+	PlantQSnakereedIcon =
+	{
+		TexturePath = "GUI\\Icons\\TempIcon_Text",
+	},
 	BountyEyeIcon =
 	{
 		TexturePath = "GUI\\Icons\\BountyBoardEye"
+	},
+	ObjectiveSeparator =
+	{
+		TexturePath = "GUI\\Icons\\ObjectiveSeparator",
+	},
+	ObjectiveSeparatorDark =
+	{
+		TexturePath = "GUI\\Icons\\ObjectiveSeparatorDark",
 	},
 	UnderworldIcon =
 	{
 		TexturePath = "GUI\\Screens\\WeaponUpgrade\\Icon-Underworld",
 	},
+	UnderworldFearIcon =
+	{
+		TexturePath = "GUI\\Screens\\GameStats\\Icon-UnderworldFear",
+	},
 	SurfaceIcon =
 	{
 		TexturePath = "GUI\\Screens\\WeaponUpgrade\\Icon-Surface",
+	},
+	SurfaceFearIcon =
+	{
+		TexturePath = "GUI\\Screens\\GameStats\\Icon-SurfaceFear",
+	},
+	ChaosIcon =
+	{
+		TexturePath = "GUI\\Screens\\RunHistory\\Icon-Chaos",
 	},
 }
 
@@ -1831,19 +2211,7 @@ RunIntroData =
 		VoiceLines =
 		{
 			{ Cue = "/VO/Storyteller_0042", Text = "{#Emph}Few tales are told of Hades, whose reign as grim lord of the dead came to a sudden end when, all at once, his past caught up with him.", PreLineWait = 0.72, NoTarget = true },
-			{ Cue = "/VO/Storyteller_0043", Text = "{#Emph}But gods do not go quietly, and history repeats. So this tale was only a matter of Time...", PreLineWait = 0.8, NoTarget = true },
-		},
-		BackgroundAnimation = "Blank",
-		SkipBackgrounds = true,
-		Animations = 
-		{
-			{
-				AnimationName = "RemBGIntro",
-				Delay = 0,
-				X = ScreenCenterX,
-				Y = ScreenCenterY,
-				Group = "Combat_Menu_TraitTray_Overlay",
-			},
+			{ Cue = "/VO/Storyteller_0043", Text = "{#Emph}But gods do not go quietly, and history repeats. \n {#Emph}So this tale was only a matter of Time...", PreLineWait = 0.8, NoTarget = true },
 		},
 	},
 }
@@ -1897,20 +2265,26 @@ CombatUI =
 	MaxDamageDistance = 300,			-- Maximum distance damage numbers can drift from an enemy
 }
 
-ScreenCenterX = 1920/2
-ScreenCenterY = 1080/2
+NativeScreenWidth = 1920
+NativeScreenHeight = 1080
+ScreenWidth = NativeScreenWidth
+ScreenHeight = NativeScreenHeight
 
-ScreenWidth = 1920
-ScreenHeight = 1080
+NativeScreenCenterX = NativeScreenWidth / 2
+NativeScreenCenterY = NativeScreenHeight / 2
+ScreenCenterX = NativeScreenCenterX
+ScreenCenterY = NativeScreenCenterY
 
 UIData =
 {
+	--[[
 	Binks =
 	{
 		"RoomTransition",
 		"RoomTransitionOut",
 		"DeathSequenceMelBG",
 	},
+	]]
 
 	ActionBarY = 984,
 	ActionBarBottomOffset = 96,
@@ -1960,6 +2334,8 @@ UIData =
 	},
 
 	BoonMenuId = "BoonMenu",
+	SpellMenuId = "SpellMenu",
+	TalentMenuId = "TalentMenu",
 	Constants =
 	{
 		PENDING_REVEAL = "pending",
@@ -1988,7 +2364,6 @@ UIData =
 			Color = Color.White,
 			Font = "P22UndergroundSCHeavy",
 			FontSize = 22,
-			LineSpacingTop = 0,
 			LineSpacingBottom = 0,
 			TextSymbolScale = 0.8,
 		}
@@ -2034,23 +2409,13 @@ UIData =
 			Width = 1600,
 			Font = "SpectralSCMedium",
 			FontSize = 30,
-			Color = Color.Gold,
+			Color = {185,190,255,255},
 			ShadowColor = {0, 0, 0, 240}, ShadowOffset = {0, 3}, ShadowBlur = 0,
 			OutlineThickness = 0, OutlineColor = {1, 1, 1, 1},
 			TextSymbolScale = 0.5,
 			CharacterFadeTime = 0, CharacterFadeInterval = 0,
 		},
-		SupertitleTextArgs =
-		{
-			Justification = "CENTER",
-			Width = 1600,
-			Font = "SpectralSCMedium",
-			FontSize = 22,
-			ShadowColor = {0, 0, 0, 240}, ShadowOffset = {0, 3}, ShadowBlur = 0,
-			OutlineThickness = 0, OutlineColor = {1, 1, 1, 1},
-			CharacterFadeTime = 0, CharacterFadeInterval = 0,
-		},
-	}
+	},
 }
 
 ShopUI =
@@ -2069,6 +2434,13 @@ HealthUI =
 	MajorHitThreshold = 0.15,
 }
 
+DoomContextArtLayers =
+{
+	"DialogueBackground_Moros_01",
+	"DialogueBackground_Moros_02",
+	"DialogueBackground_Moros_03",
+}
+
 CombatControlsDefaults = 
 {
 	"Rush", "Shout", "Assist", "Attack2", "Attack1", "Attack3", "AutoLock"
@@ -2084,4 +2456,6 @@ GamepadNavigationDefaults =
 	"FreeFormSelectRepeatInterval",
 	"FreeFormSelecSearchFromId",
 	"ExclusiveInteractGroup",
+	"TooltipHideDelay",
 }
+

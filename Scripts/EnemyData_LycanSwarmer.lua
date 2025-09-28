@@ -98,6 +98,40 @@ UnitSetData.LycanSwarmer =
 		},
 	},
 
+	LycanSwarmer2 =
+	{
+		InheritFrom = { "LycanSwarmer_Elite" },
+		GenusName = "LycanSwarmer_Elite",
+		MaxHealth = 2000,
+		HealthBuffer = 2000,
+
+		GrannyTexture = "GR2/LycanSwarmerTyphon_Color",
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+		},
+
+		SpellSummonDataOverrides =
+		{
+			WeaponOptions =
+			{
+				"LycanSwarmer2Chomp_Ally"
+			},
+		},
+
+		WeaponOptions =
+		{
+			"LycanSwarmer2Chomp", "LycanSwarmerBlink"
+		},
+
+		GeneratorData =
+		{
+			DifficultyRating = 80,
+			BlockEnemyTypes = {"LycanSwarmer"},
+		},
+	},
+
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.LycanSwarmer )

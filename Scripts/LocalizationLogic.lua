@@ -9,6 +9,7 @@ function GetLocalizedValue(default, tbl)
 	local lang = GetLanguage({})
 
 	for i, item in pairs(tbl) do
+		DebugAssert({ Condition = item.Value ~= nil, Owner = "Dexter", Text = "Language-specific property would set value to nil. Data should look like { Code = \"x\", Value = \"yy\" }" })
 		if item.Code == lang then
 			if item.Condition ~= nil and item.Condition == false then
 			else
@@ -66,8 +67,13 @@ function GetPluralizedForm( text, value )
 		else
 			return text.."_Other"
 		end
-		
+
 	else
-		return text
+		if value == 1 then
+			return text
+		else
+			return text.."_Other"
+		end
 	end
+	return text
 end

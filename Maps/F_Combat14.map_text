@@ -562,5 +562,6 @@
     "X": 7221.721,
     "Y": 8656.775
   },
-  "TimeLapseCameraZoom": 0.424
+  "TimeLapseCameraZoom": 0.424,
+  "ShadowPlaneDepth": 0.000
 }

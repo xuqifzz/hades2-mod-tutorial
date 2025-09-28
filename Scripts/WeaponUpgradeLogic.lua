@@ -9,9 +9,12 @@ end
 
 function OpenWeaponUpgradeScreen( args )
 
+	AltAspectRatioFramesShow()
+
 	local screen = DeepCopyTable( ScreenData.WeaponUpgradeScreen )
 	
 	HideCombatUI( screen.Name )
+	wait( 0.1 )
 	OnScreenOpened( screen )
 	CreateScreenFromData( screen, screen.ComponentData )
 	screen.ItemStartX = screen.ItemStartX + ScreenCenterNativeOffsetX
@@ -25,10 +28,16 @@ function OpenWeaponUpgradeScreen( args )
 	ModifyTextBox({ Id = components.TitleText.Id, Text = weaponName.."_Aspects" })
 	ModifyTextBox({ Id = components.TitleFlavorText.Id, Text = weaponName.."_Aspects", UseDescription = true, })
 
-	local weaponKills = GameState.WeaponKills[weaponName]
+	local weaponKills = GameState.WeaponKills[weaponName] or 0
+	for i, linkedWeaponName in ipairs( WeaponSets.HeroWeaponSets[weaponName] ) do
+		weaponKills = weaponKills + (GameState.WeaponKills[linkedWeaponName] or 0)
+	end
+	if weaponKills == 0 then
+		weaponKills = nil
+	end
 	ModifyTextBox({ Id = components.KillsValue.Id, Text = weaponKills })
 
-	local clearStats = GameState.LifetimeWeaponStats[weaponName]
+	local clearStats = WeaponUpgradeScreenGetStats( screen, weaponName )
 	if clearStats ~= nil then
 		if clearStats.ClearCount ~= nil then
 			ModifyTextBox({ Id = components.ClearsValue.Id, Text = clearStats.ClearCount })
@@ -71,6 +80,9 @@ function OpenWeaponUpgradeScreen( args )
 			local locationY = screen.ItemStartY + ( (itemIndex - 1) * screen.ItemSpacingY ) 
 			slotData.X = locationX
 			slotData.Y = locationY
+			slotData.Alpha = 0.0
+			slotData.AlphaTarget = 1.0
+			slotData.AlphaTargetDuration = 0.4
 			slotData.Animation = rawTraitData.InfoBackingAnimation
 
 			local button = CreateComponentFromData( screen, slotData )
@@ -107,8 +119,10 @@ function OpenWeaponUpgradeScreen( args )
 				})
 			end
 
-			components[purchaseButtonKey.."EquippedIcon"] = CreateScreenComponent( screen.EquippedIcon )
-			Attach({ Id = components[purchaseButtonKey.."EquippedIcon"].Id, DestinationId = components[purchaseButtonKey].Id, OffsetX = screen.EquippedIcon.OffsetX, OffsetY = screen.EquippedIcon.OffsetY })
+			local equippedIcon = CreateScreenComponent( screen.EquippedIcon )
+			components[purchaseButtonKey.."EquippedIcon"] = equippedIcon
+			button.EquippedIcon = equippedIcon
+			Attach({ Id = equippedIcon.Id, DestinationId = components[purchaseButtonKey].Id, OffsetX = screen.EquippedIcon.OffsetX, OffsetY = screen.EquippedIcon.OffsetY })
 
 			local childrenNames = GetAllKeys( slotData.Children )
 			for _, name in pairs( childrenNames ) do
@@ -195,6 +209,11 @@ function SelectWeaponUpgrade( screen, weaponName, traitData )
 		-- Already equipped
 		return
 	end
+
+	local weaponUpgradeSwitchFx = CreateScreenObstacle({ Name = "BlankObstacle", X = 200 + ScreenCenterNativeOffsetX, Y = 360 + ScreenCenterNativeOffsetY, Group = "Combat_Menu_Overlay_Additive", })
+	SetAnimation({ Name = "WeaponUpgradeSwitchFx", DestinationId = weaponUpgradeSwitchFx })
+	DestroyOnDelay({ Id = weaponUpgradeSwitchFx, 3 })
+
 	local prevTraitData = GetHeroTrait(GameState.LastWeaponUpgradeName[weaponName])
 	if prevTraitData and prevTraitData.LinkedSpell then
 		UnequipLinkedSpell( prevTraitData )
@@ -206,7 +225,9 @@ function SelectWeaponUpgrade( screen, weaponName, traitData )
 
 	if GameState.LastWeaponUpgradeName[weaponName] ~= nil then
 		-- Unequip previous trait
-		
+		if prevTraitData.OnUnequipFunctionName then
+			thread( CallFunctionName, prevTraitData.OnUnequipFunctionName )
+		end
 		if prevTraitData.StopVfxOnUnequip then
 			StopAnimation({ Name = prevTraitData.StopVfxOnUnequip, DestinationId = CurrentRun.Hero.ObjectId})
 		end
@@ -214,21 +235,26 @@ function SelectWeaponUpgrade( screen, weaponName, traitData )
 	end
 
 	UnequipWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = weaponName, UnloadPackages = false })
+	MapState.EquippedWeapons[weaponName] = nil
 			
 	local weaponSetNames = WeaponSets.HeroWeaponSets[weaponName]
 	if weaponSetNames ~= nil then
 		for k, linkedWeaponName in ipairs( weaponSetNames ) do
 			UnequipWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = linkedWeaponName, UnloadPackages = false })
+			MapState.EquippedWeapons[linkedWeaponName] = nil
 		end
 	end
-
+	
 	EquipWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = weaponName })
-
+	MapState.EquippedWeapons[weaponName] = true
 	if weaponSetNames ~= nil then
 		for k, linkedWeaponName in ipairs( weaponSetNames ) do
 			EquipWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = linkedWeaponName })
+			MapState.EquippedWeapons[linkedWeaponName] = true
 		end
 	end
+	-- Weapon upgrade code blows away all property changes related to the weapon
+	OrderAndApplyPropertyChanges( ToLookup(weaponSetNames) )
 
 	GameState.LastWeaponUpgradeName[weaponName] = traitData.Name
 
@@ -252,25 +278,30 @@ function HandleWeaponUpgradeSelection( screen, button )
 	SelectWeaponUpgrade( screen, weaponName, traitData )
 	UpdateWeaponUpgradeButtons( screen, weaponName )
 	SetAlpha({ Id = screen.Components.SelectButton.Id, Fraction = 0, Duration = 0.1 })
+	SetAnimation({ DestinationId = button.EquippedIcon.Id, Name = "ActiveAspectFlash" }) --nopkg
 
 	local weaponData = WeaponData[weaponName]
 	--SetThingProperty({ Property = "GrannyModel", Value = traitData.WeaponKitGrannyModel, DestinationId = screen.Components.WeaponImage.Id })
-	SetAnimation({ Name = weaponData.UpgradeScreenKitAnimation, GrannyModel = traitData.WeaponKitGrannyModel, DestinationId = screen.Components.WeaponImage.Id, CopyFromPrev = true })	
+	SetScale({ Id = screen.Components.WeaponImage.Id, Fraction = 1.25 })
+	SetScale({ Id = screen.Components.WeaponImage.Id, Fraction = 2.5, Duration = 0.15, EaseIn = 0.9, EaseOut = 1.0 })
+	SetAnimation({ Name = weaponData.UpgradeScreenKitAnimation, GrannyModel = traitData.WeaponKitGrannyModel, DestinationId = screen.Components.WeaponImage.Id, CopyFromPrev = true })
 
 end
 
 function MouseOverWeaponUpgrade( button )
 	local screen = button.Screen
+	screen.ClipboardText = button.TraitData.Name
 	if not HeroHasTrait( button.TraitData.Name ) then
 		SetAlpha({ Id = screen.Components.SelectButton.Id, Fraction = 1, Duration = 0.1 })
 	end
-	SetAnimation({ DestinationId = button.Highlight.Id, Name = "BoonSlotHighlight" })
+	PlaySound({ Name = "/SFX/Menu Sounds/GodBoonMenuToggle", Id = button.Id })
+	SetAnimation({ DestinationId = button.Highlight.Id, Name = "BoonHighlightIn" }) --nopkg
 end
 
 function MouseOffWeaponUpgrade( button )
 	local screen = button.Screen
 	SetAlpha({ Id = screen.Components.SelectButton.Id, Fraction = 0, Duration = 0.1 })
-	SetAnimation({ DestinationId = button.Highlight.Id, Name = "BoonHighlightOut" })
+	SetAnimation({ DestinationId = button.Highlight.Id, Name = "BoonHighlightOut" }) --nopkg
 end
 
 function CloseWeaponUpgradeScreen( screen )
@@ -278,6 +309,7 @@ function CloseWeaponUpgradeScreen( screen )
 		return
 	end
 	screen.CanClose = false
+	SetAnimation({ DestinationId = screen.Components.Background.Id, Name = "WeaponUpgradeOut" })
 	PlaySound({ Name = "/SFX/Menu Sounds/GeneralWhooshMENULoudLow" })
 
 	SetConfigOption({ Name = "ExclusiveInteractGroup", Value = nil })
@@ -289,7 +321,7 @@ function CloseWeaponUpgradeScreen( screen )
 	local closeAnim = weaponData.PostWeaponUpgradeScreenAnimation
 	local closeAngle = weaponData.PostWeaponUpgradeScreenAngle or 290
 	local closeFunctionName = weaponData.PostWeaponUpgradeScreenFunctionName
-	for k, trait in pairs( CurrentRun.Hero.Traits ) do
+	for k, trait in ipairs( CurrentRun.Hero.Traits ) do
 		closeAnim = trait.PostWeaponUpgradeScreenAnimation or closeAnim
 		closeAngle = trait.PostWeaponUpgradeScreenAngle or closeAngle
 		closeFunctionName = trait.PostWeaponUpgradeScreenFunctionName or closeFunctionName
@@ -308,20 +340,10 @@ function CloseWeaponUpgradeScreen( screen )
 
 	OnScreenCloseStarted( screen )
 	CloseScreen( GetAllIds( screen.Components ), 0.15 )
+	AltAspectRatioFramesHide()
 	
-	-- check if player equipped a different trait since opening screen
-	if screen.HasChanges or screen.ChangedEquipment then
+	if screen.AspectChanged then
 		thread( PlayVoiceLines, GlobalVoiceLines.ClosedWeaponUpgradeMenuVoiceLines, false )
-		if MapState.WeaponKits ~= nil then
-			for kitId, kitData in pairs( MapState.WeaponKits ) do
-				if kitData ~= nil and kitData.Name == currentWeaponInSlot then
-					StopAnimation({ Name = "WeaponBonusFxBack", DestinationId = kitId })
-					if GetWeaponKitAnimation( weaponData.Name, "Equipped" ) ~= nil then
-						SetAnimation({ Name = GetWeaponKitAnimation( weaponData.Name, "Equipped" ), DestinationId = kitId })
-					end
-				end
-			end
-		end
 	end
 
 	thread( CloseWeaponUpgradeScreenPresentation, screen )
@@ -329,7 +351,9 @@ function CloseWeaponUpgradeScreen( screen )
 	OnScreenCloseFinished( screen )
 	ShowCombatUI( screen.Name )
 	wait( 0.3 )
-	CheckAutoObjectiveSets( CurrentRun, "WeaponPickup" )
+	if GameState.ActiveObjectiveSet == nil or ObjectiveSetData[GameState.ActiveObjectiveSet] == nil or not ObjectiveSetData[GameState.ActiveObjectiveSet].BlockWeaponObjectives then
+		CheckAutoObjectiveSets( CurrentRun, "WeaponPickup" )
+	end
 end
 
 function EquipLastWeaponUpgrade( eventSource, args )
@@ -366,6 +390,7 @@ function UnequipLinkedSpell( traitData )
 	local spellTrait = GetHeroTrait(traitName)
 	if not IsEmpty(spellTrait.PreEquipWeapons) then
 		UnequipWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = spellTrait.PreEquipWeapons[1], UnloadPackages = true })
+		MapState.EquippedWeapons[spellTrait.PreEquipWeapons[1]] = nil
 	end
 	SpellUnreadyPresentation( spellTrait )
 	TraitUIRemove( spellTrait )
@@ -373,11 +398,12 @@ function UnequipLinkedSpell( traitData )
 	UpdateTalentPointInvestedCache()
 end
 
-function UnequipWeaponUpgrade()
+function UnequipWeaponUpgrade( args )
+	args = args or {}
 	local currentWeaponName = GetEquippedWeapon()
 	local condemnedTraits = {}
 	local parentTraitData = nil
-	for _, traitData in pairs(CurrentRun.Hero.Traits) do
+	for _, traitData in ipairs( CurrentRun.Hero.Traits ) do
 		if traitData.IsWeaponEnchantment then
 			table.insert(condemnedTraits, traitData )
 			if traitData.LinkedSpell then
@@ -385,6 +411,9 @@ function UnequipWeaponUpgrade()
 				local traitName = SpellData[traitData.LinkedSpell].TraitName
 				local spellTrait = GetHeroTrait(traitName)
 				table.insert(condemnedTraits, spellTrait)
+			end
+			if not args.SkipUnequipFunctionName and traitData.OnUnequipFunctionName then
+				thread( CallFunctionName, traitData.OnUnequipFunctionName )
 			end
 			if traitData.StopVfxOnUnequip then
 				StopAnimation({ Name = traitData.StopVfxOnUnequip, DestinationId = CurrentRun.Hero.ObjectId})
@@ -404,7 +433,7 @@ function EquipWeaponUpgrade( hero, args )
 	local traitName = GameState.LastWeaponUpgradeName[currentWeaponName]
 	if traitName == nil then
 		if currentWeaponData ~= nil and currentWeaponData.DummyTraitName ~= nil and not HeroHasTrait( currentWeaponData.DummyTraitName ) then
-			AddTraitToHero({ SkipNewTraitHighlight = args.SkipTraitHighlight, TraitName = currentWeaponData.DummyTraitName, SkipUIUpdate = args.SkipUIUpdate })
+			AddTraitToHero({ SkipNewTraitHighlight = args.SkipTraitHighlight, TraitName = currentWeaponData.DummyTraitName, SkipUIUpdate = args.SkipUIUpdate, SkipQuestStatusCheck = args.SkipQuestStatusCheck })
 			if not args.SkipUIUpdate then
 				UpdateWeaponKitUpgrade( currentWeaponName, traitName )
 			end
@@ -418,11 +447,12 @@ function EquipWeaponUpgrade( hero, args )
 	end
 	local numRanks = GetWeaponUpgradeLevel( traitName )
 	local rarity = TraitRarityData.WeaponRarityUpgradeOrder[numRanks]
-	AddTraitToHero({ SkipNewTraitHighlight = args.SkipTraitHighlight, TraitName = traitName, Rarity = rarity })
+
+	AddTraitToHero({ SkipNewTraitHighlight = args.SkipTraitHighlight, SkipQuestStatusCheck = args.SkipQuestStatusCheck, TraitName = traitName, Rarity = rarity })
 	if TraitData[traitName].LinkedSpell then
 		local spellName = TraitData[traitName].LinkedSpell
 		local traitName = SpellData[TraitData[traitName].LinkedSpell].TraitName
-		local traitData = AddTraitToHero({ TraitName = traitName, SkipNewTraitHighlight = true, SkipUIUpdate = args.SkipUIUpdate })
+		local traitData = AddTraitToHero({ TraitName = traitName, SkipUIUpdate = args.SkipUIUpdate, SkipNewTraitHighlight = args.SkipTraitHighlight, SkipQuestStatusCheck = args.SkipQuestStatusCheck })
 		if traitData.CheckChargeFunctionName then
 			thread( CallFunctionName, traitData.CheckChargeFunctionName, CurrentRun.Hero )
 		end
@@ -431,8 +461,9 @@ function EquipWeaponUpgrade( hero, args )
 		local spellData = CurrentRun.Hero.SlottedSpell
 		UpdateTalentPointInvestedCache()
 		UpdateSpellActiveStatus()
+		UpdateHeroTraitDictionary()
 	end
-	UpdateWeaponKitUpgrade(currentWeaponName, traitName)
+	UpdateWeaponKitUpgrade( currentWeaponName, traitName, args )
 	RefillMana()
 
 	for k, weaponName in ipairs( WeaponSets.HeroPrimaryWeapons ) do
@@ -455,11 +486,36 @@ function GetWeaponUpgradeLevel( traitName )
 	return numRanks
 end
 
-function IsWeaponUpgradeAtMax( traitName )
-	for itemName, itemData in pairs ( WeaponShopItemData ) do
-		if ( itemName == traitName or itemData.TraitUpgrade == traitName ) and not GameState.WeaponsUnlocked[itemName] then
-			return false
+function WeaponUpgradeScreenGetStats( screen, weaponName )
+	local traitNames = {}
+	for i, itemName in ipairs( screen.DisplayOrder[weaponName] ) do
+		table.insert( traitNames, itemName )
+		local dummyName = ScreenData.GameStats.WeaponBaseAspectMapping[itemName]
+		if dummyName ~= nil then
+			table.insert( traitNames, dummyName )
 		end
 	end
-	return true
+
+	local result = {}
+	for i, traitName in ipairs( traitNames ) do
+		local traitStat = GameState.LifetimeTraitStats[traitName]
+		if traitStat ~= nil then
+			if traitStat.ClearCount ~= nil then
+				result.ClearCount = (result.ClearCount or 0) + traitStat.ClearCount
+			end
+			if traitStat.FastestTimeUnderworld ~= nil and traitStat.FastestTimeUnderworld < (result.FastestTimeUnderworld or 999999) then
+				result.FastestTimeUnderworld = traitStat.FastestTimeUnderworld
+			end
+			if traitStat.FastestTimeSurface ~= nil and traitStat.FastestTimeSurface < (result.FastestTimeSurface or 999999) then
+				result.FastestTimeSurface = traitStat.FastestTimeSurface
+			end
+			if traitStat.HighestShrinePointsUnderworld ~= nil and traitStat.HighestShrinePointsUnderworld > (result.HighestShrinePointsUnderworld or 0) then
+				result.HighestShrinePointsUnderworld = traitStat.HighestShrinePointsUnderworld
+			end
+			if traitStat.HighestShrinePointsSurface ~= nil and traitStat.HighestShrinePointsSurface > (result.HighestShrinePointsSurface or 0) then
+				result.HighestShrinePointsSurface = traitStat.HighestShrinePointsSurface
+			end
+		end
+	end
+	return result
 end

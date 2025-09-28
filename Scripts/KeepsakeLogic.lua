@@ -1,4 +1,7 @@
 function GetKeepsakeLevel( traitName, unmodified )
+	if SessionState.AllKeepsakeUnlocked then
+		return 3
+	end
 	local level = 1
 	if not unmodified and HeroHasTrait( traitName ) then
 		local trait = GetHeroTrait( traitName )
@@ -28,10 +31,10 @@ function GetKeepsakeLevel( traitName, unmodified )
 	end
 
 	local threshold = 0
-	for i, value in pairs(traitData .ChamberThresholds ) do
+	for i, value in pairs( traitData.ChamberThresholds ) do
 		threshold = threshold + value
 		if threshold > GameState.KeepsakeChambers[traitName] then
-			break;
+			break
 		end
 		level = level + 1
 	end
@@ -65,7 +68,12 @@ function GetKeepsakeChambersToNextLevel( traitName )
 	if currentLevel > 1 then
 		lastThreshold = TraitData[traitName].ChamberThresholds[currentLevel - 1]
 	end
-	return TraitData[traitName].ChamberThresholds[currentLevel] - ( currentChambers - lastThreshold )
+	local chambersToGo = TraitData[traitName].ChamberThresholds[currentLevel] - ( currentChambers - lastThreshold )
+	local perChamberIncrease = 1
+	if GameState.WorldUpgrades.WorldUpgradeDoubleAdvanceKeepsakes then
+		perChamberIncrease = 2
+	end
+	return math.ceil( chambersToGo / perChamberIncrease )
 end
 
 function KeepsakeHasHeroicRarity( traitName )
@@ -73,6 +81,9 @@ function KeepsakeHasHeroicRarity( traitName )
 end
 
 function IsKeepsakeMaxed( traitName )
+	if SessionState.AllKeepsakeUnlocked then
+		return true
+	end
 	if TraitData[traitName] and TraitData[ traitName ].KeepsakeRarityGameStateRequirements then
 		for i, requirements in ipairs( TraitData[traitName].KeepsakeRarityGameStateRequirements ) do
 			if not IsGameStateEligible( requirements ) then
@@ -99,8 +110,8 @@ function EquipKeepsake( heroUnit, traitName, args )
 	if traitName == nil or HeroHasTrait( traitName ) then
 		return
 	end
-
-	local traitData = AddTrait( unit, traitName, GetRarityKey(GetKeepsakeLevel( traitName )), args)
+	local rarity = args.ForceRarity or GetRarityKey(GetKeepsakeLevel( traitName ))
+	local traitData = AddTrait( unit, traitName, rarity, args)
 	if traitData == nil then
 		return
 	end
@@ -114,7 +125,10 @@ function EquipKeepsake( heroUnit, traitName, args )
 
 	if traitData.CapMaxHealth and not args.SkipSetup then
 		ValidateMaxHealth( true )
-		thread( UpdateHealthUI )
+		FrameState.RequestUpdateHealthUI = true
+	end
+	if traitData.SpeakerNames then
+		LoadVoiceBanks( traitData.SpeakerNames, nil, true )
 	end
 	if traitName == "DecayingBoostKeepsake" then
 		traitData.CurrentKeepsakeDamageBonus = traitData.InitialKeepsakeDamageBonus
@@ -127,15 +141,35 @@ function EquipKeepsake( heroUnit, traitName, args )
 			IncreaseMax = true,
 			Icon = "ExtraLifeSkelly",
 			HealAmount = GetTotalHeroTraitValue( "KeepsakeLastStandHealAmount" ),
+			Silent = true,
 		})
 		RecreateLifePips()
+	end
+	if traitName == "ManaOverTimeRefundKeepsake" then
+		local hasTrait = false
+		for i, trait in ipairs(CurrentRun.Hero.Traits) do
+			if trait.Name == "RoomRewardMaxManaTrait" and trait.Source == traitName then
+				if trait.PropertyChanges[1].ChangeValue ~= traitData.AcquireFunctionArgs.Amount then
+					trait.PropertyChanges[1].ChangeValue = traitData.AcquireFunctionArgs.Amount 
+				end
+				hasTrait = true
+			end
+		end
+		if not hasTrait then
+			if traitData.AcquireFunctionName then
+				thread( CallFunctionName, traitData.AcquireFunctionName, traitData.AcquireFunctionArgs, traitData )
+			end
+		end
 	end
 end
 
 function UnequipKeepsake( heroUnit, traitName, args )
+	if not traitName then
+		return
+	end
 	args = args or {}
+	local reAddTraitToUI = nil
 	local unit = heroUnit or CurrentRun.Hero
-	
 	if traitName == "ArmorGainKeepsake" and MapState.HealthBufferSources and MapState.HealthBufferSources.ArmorGainKeepsake then
 
 		local storedArmor = MapState.HealthBufferSources.ArmorGainKeepsake
@@ -144,11 +178,61 @@ function UnequipKeepsake( heroUnit, traitName, args )
 		if not unit.IsDead then
 			AddArmor( storedArmor, { Silent = true } )
 		end
-		thread( UpdateHealthUI )
+		FrameState.RequestUpdateHealthUI = true
 	end
-
-	RemoveTrait( unit, traitName )
+	if traitName == "ManaOverTimeRefundKeepsake" then
+		local trait = GetHeroTrait(traitName)
+		if trait.AcquireFunctionName == "KeepsakeAddMaxMana" and CurrentRun.Hero.IsDead then
+			AddMaxMana( -trait.AcquireFunctionArgs.Amount, {}, {Silent = true})
+		end
+	end
 	
+	if TraitData[traitName].Permanent and not CanFreeSwapKeepsakes() and not args.AdvanceKeepsakeMoment then 
+		local trait = GetHeroTrait(traitName)
+		local ignorePermafy = false
+		if trait.BoonConversionUses and trait.BoonConversionUses <= 0 then
+			ignorePermafy = true
+		end
+		if trait.RarityUpgradeData and trait.RarityUpgradeData.Uses <= 0 then
+			ignorePermafy = true
+		end
+		if not ignorePermafy then
+			TraitUIRemove( trait )
+
+			trait.Slot = nil
+			trait.ActiveSlotOffsetIndex = nil
+			trait.HideInRunHistory = nil
+			SessionMapState.HUDTraitsShown[trait.Name] = nil
+			
+			local expired = false
+			if GameState.LastAwardTrait and FatedDisableKeepsakes[GameState.LastAwardTrait] then
+				expired = true
+			end
+			if trait.Name == "HadesAndPersephoneKeepsake" or expired then
+				trait.ShowInHUD = nil
+				if trait.Name == "RarifyKeepsake" then
+					trait.RarityUpgradeData.Uses = 0
+				elseif trait.Name == "GoldifyKeepsake" then
+					trait.BoonConversionUses = 0
+				end
+			else
+				trait.Ordered = nil
+				reAddTraitToUI = trait
+			end
+		else
+			RemoveTrait( unit, traitName )
+		end
+	else
+		RemoveTrait( unit, traitName )
+	end
+	if traitName == "RandomBlessingKeepsake" and not args.AdvanceKeepsakeMoment then
+		for i, trait in pairs( CurrentRun.Hero.Traits ) do
+			if trait.FromChaosKeepsake then
+				-- Render ineligible for further transformation
+				trait.FromChaosKeepsake = nil
+			end
+		end
+	end
 	if TraitData[traitName] and TraitData[traitName].CapMaxHealth and not args.SkipValidateHealth then
 		ValidateMaxHealth()
 	end
@@ -157,21 +241,7 @@ function UnequipKeepsake( heroUnit, traitName, args )
 		unit.MaxLastStands = unit.MaxLastStands - 1
 		RecreateLifePips()
 	end
-end
-
-function EquipAssist( heroUnit, traitName, args )
-	local unit = heroUnit or CurrentRun.Hero
-	traitName = traitName or GameState.LastAssistTrait
-	if traitName == nil then
-		return
-	end
-
-	AddTrait( unit, traitName, GetRarityKey(GetKeepsakeLevel( traitName )), args )
-end
-
-function UnequipAssist( heroUnit, traitName )
-	local unit = heroUnit or CurrentRun.Hero
-	RemoveTrait( unit, traitName )
+	return reAddTraitToUI
 end
 
 function AdvanceKeepsake( fromTrait )
@@ -179,78 +249,70 @@ function AdvanceKeepsake( fromTrait )
 	if GameState.LastAwardTrait ~= nil and HeroHasTrait(traitName) then
 		local startingKeepsakeLevel = GetKeepsakeLevel( traitName, true )
 		if not fromTrait then
-			IncrementTableValue( GameState.KeepsakeChambers, traitName )
+			local incrementAmount = 1
+			if GameState.WorldUpgrades.WorldUpgradeDoubleAdvanceKeepsakes then
+				incrementAmount = 2
+			end
+			IncrementTableValue( GameState.KeepsakeChambers, traitName, incrementAmount )
 		end
 		if (CurrentRun and CurrentRun.Hero and startingKeepsakeLevel ~= GetKeepsakeLevel( traitName, true )) or fromTrait then
 			local persistentValues = {}
-			for i, traitData in pairs( CurrentRun.Hero.Traits ) do
+			for i, traitData in ipairs( CurrentRun.Hero.Traits ) do
 				if traitData.Name == traitName then
 					for _, key in pairs( PersistentKeepsakeKeys ) do
-						persistentValues[key] = traitData[key]
+						if key == "DoorHealReserve" and traitData[key] then
+							traitData[key] = round(traitData[key])
+						end
+						persistentValues[key] = traitData[key]					
 					end
 				end
 			end
 			
-			UnequipKeepsake( CurrentRun.Hero, traitName, { SkipValidateHealth = true })			
+			UnequipKeepsake( CurrentRun.Hero, traitName, { SkipValidateHealth = true, AdvanceKeepsakeMoment = true })			
 			EquipKeepsake( CurrentRun.Hero, traitName, { SkipSetup = true } )
 			if traitName == "ReincarnationTrait" then
 				RecreateLifePips()
 			end
-			for i, traitData in pairs( CurrentRun.Hero.Traits ) do
+			if traitName == "ManaOverTimeRefundKeepsake" then
+				ValidateMaxMana()
+			end
+			for i, traitData in ipairs( CurrentRun.Hero.Traits ) do
 				if traitData.Name == traitName then
 					for key, value in pairs( persistentValues ) do
 						traitData[key] = value
-					end
-					
-					if traitData.AccumulatedDodgeBonus then
-						SetLifeProperty({ Property = "DodgeChance", Value = traitData.AccumulatedDodgeBonus, ValueChangeType = "Add", DestinationId = CurrentRun.Hero.ObjectId, DataValue = false })
-						SetUnitProperty({ Property = "Speed", Value = 1 + traitData.AccumulatedDodgeBonus, ValueChangeType = "Multiply", DestinationId = CurrentRun.Hero.ObjectId })
 					end
 
 					if traitData.CostumeTrait and traitData.SetupFunction and traitData.SetupFunction.Name == "CostumeArmor" then
 						if traitData.CurrentArmor ~= 0 then
 							AddHealthBuffer( traitData.CurrentArmor, traitData.Name )
-							thread( UpdateHealthUI )
+							FrameState.RequestUpdateHealthUI = true
 						end
 					end
-
 					if traitData.Name == "LowHealthCritKeepsake" then
 						if not IsTraitActive(traitData) and traitData.PropertyChanges and traitData.PropertyChanges[1] then
 							-- kludge, unfortunately, due to how we assume (correctly) that no one should be tweaking property changes like this
 							traitData.PropertyChanges[1].ChangeValue = 1
 						end
 						ValidateMaxHealth( true )
-						thread( UpdateHealthUI )
+						FrameState.RequestUpdateHealthUI = true
 					end
-
+					if traitData.Name == "ReincarnationKeepsake" or traitData.Name == "GoldifyKeepsake" then
+						traitData.CustomTrayText = nil
+					end
+					if traitData.Name == "RarifyKeepsake" then
+						traitData.CustomName = nil
+					end
+					if traitData.Name == "DecayingBoostKeepsake" then
+						traitData.CurrentKeepsakeDamageBonus = traitData.InitialKeepsakeDamageBonus
+					end
 					UpdateTraitNumber(traitData)
 					break
 				end
 			end
 			if not fromTrait then
 				thread( KeepsakeLevelUpPresentation, traitName )
-				CheckAchievement({ Name = "AchLeveledKeepsakes" })
 			end
 		end
-	end
-end
-
-function SetupDodgeBonus( encounter, dodgeTraitData )
-	if CurrentRun == nil or CurrentRun.Hero == nil or CurrentRun.Hero.IsDead then
-		return
-	end
-	SetLifeProperty({ Property = "DodgeChance", Value = dodgeTraitData.AccumulatedDodgeBonus, ValueChangeType = "Add", DestinationId = CurrentRun.Hero.ObjectId, DataValue = false })
-	SetUnitProperty({ Property = "Speed", Value = 1 + dodgeTraitData.AccumulatedDodgeBonus, ValueChangeType = "Multiply", DestinationId = CurrentRun.Hero.ObjectId })
-	local clearTimeThreshold = encounter.FastClearThreshold or dodgeTraitData.FastClearThreshold
-	FastClearTraitStartPresentation( clearTimeThreshold, dodgeTraitData )
-
-	thread( FastClearThread, clearTimeThreshold, dodgeTraitData )
-end
-
-function FastClearThread( clearTimeThreshold, dodgeTraitData )
-	wait( clearTimeThreshold, RoomThreadName )
-	if CurrentRun and CurrentRun.CurrentRoom and CurrentRun.CurrentRoom.Encounter and not CurrentRun.CurrentRoom.Encounter.Completed and not CurrentRun.CurrentRoom.Encounter.BossKillPresentation then
-		FastClearTraitFailedPresentation(dodgeTraitData)
 	end
 end
 
@@ -276,12 +338,16 @@ function DamageAfterInterval( timer, damage )
 	end
 	local encounterAlreadyCompleted = encounter.Completed
 
+	local dummySource = { LineHistoryName = "NPC_Moros_01", SubtitleColor = Color.MorosVoice },
+
 	SetPlayerInvulnerable( "BlockDeath" )
+	FrameState.RequestUpdateHealthUI = true
 	local tollTimes = math.floor(timer)
 	StartBlockDeathPresentation( tollTimes )
 	while tollTimes > 0 do
 		if encounter.BossKillPresentation or (encounter.Completed and not encounterAlreadyCompleted) or CurrentRun.CurrentRoom.Leaving or encounter.ChronosTransition or not encounter.InProgress then
 			SetPlayerVulnerable( "BlockDeath" )
+			BlockDeathCanceled( dummySource )
 			return
 		end
 		if encounter.RecordActiveEnemies then
@@ -293,29 +359,47 @@ function DamageAfterInterval( timer, damage )
 			end
 			if not hasAliveEnemies then
 				SetPlayerVulnerable( "BlockDeath" )
+				BlockDeathCanceled( dummySource )
 				return
 			end
 		end
-		if PlayingTextLines then
+		if PlayingTextLines or SessionMapState.TyphonStaggerPresentation then
 			wait( 0.3 )
 		else
-			TickBlockDeathPresentation( tollTimes )
+			TickBlockDeathPresentation( dummySource, tollTimes )
 			wait( 1, RoomThreadName )
 			tollTimes = tollTimes - 1
 		end
 	end
 	SetPlayerVulnerable( "BlockDeath" )
 	if encounter.BossKillPresentation or (encounter.Completed and not encounterAlreadyCompleted) or CurrentRun.CurrentRoom.Leaving or encounter.ChronosTransition then
+		BlockDeathCanceled( dummySource )
 		return
 	end
 	if ( encounterAlreadyCompleted and ( not CurrentRun.Hero.InvulnerableFlags or not CurrentRun.Hero.InvulnerableFlags.LeaveRoom)) or ( not encounter.Completed and not encounter.BossKillPresentation and encounter.InProgress ) then
 		CurrentRun.Hero.HealthBuffer = 0
 		SacrificeHealth({SacrificeHealthMin = damage, SacrificeHealthMax = damage, MinHealth = 0, Silent = true, IgnoreCap = true  })
+	else
+		BlockDeathCanceled( dummySource )
 	end
 end
 
+function BlockDeathCanceled( source )
+	Heal( CurrentRun.Hero, { HealAmount = GetTotalHeroTraitValue("BlockDeathHealth") - 1, SourceName = "BlockDeathClear", Silent = true } )
+	OnPlayerHealed( CurrentRun.Hero, { ActualHealAmount = CurrentRun.Hero.Health } )
+	FrameState.RequestUpdateHealthUI = true
+	BlockDeathCanceledPresentation( source )
+end
+
+function KeepsakeAddMaxMana( args )
+	if CurrentRun and CurrentRun.CurrentRoom and CurrentRun.CurrentRoom.BiomeStartRoom then
+		args.PreDelay = CurrentRun.CurrentRoom.IntroSequenceDuration
+	end
+	thread( AddMaxMana, args.Amount, {}, args)
+end
+
 function CheckOverTimeManaRefund( functionArgs, manaDelta )
-	if not IsEmpty(MapState.ClearCastWeapons) then
+	if not IsEmpty(MapState.ClearCastWeapons) or not HeroHasTrait( "ManaOverTimeRefundTrait" ) then
 		return
 	end
 	local manaRestored = math.abs(manaDelta)
@@ -350,6 +434,9 @@ function ManaOverTimeRefund( duration, interval, value, force )
 					manaOverflow = manaOverflow - 1
 					manaRegen = manaRegen + 1
 				end
+				if manaRegen > value then
+					manaRegen = value
+				end
 				ManaRegenPresentation(manaRegen)
 				ManaDelta(manaRegen, { Silent = true })
 				value = value - manaRegen
@@ -362,58 +449,6 @@ function ManaOverTimeRefund( duration, interval, value, force )
 			end
 		else
 			wait( HeroData.ManaData.MinManaTickRate, RoomThreadName)
-		end
-	end
-end
-
-function CheckSpeedKeepsakeTrigger( unit, functionArgs )
-	if not CurrentRun then
-		return
-	end
-		
-	if CurrentRun.Hero.IsDead then
-		return
-	end
-	if CurrentRun and CurrentRun.CurrentRoom and CurrentRun.CurrentRoom.Encounter and CurrentRun.CurrentRoom.Encounter.EncounterType == "Boss" then
-		if CurrentRun.BiomeTimeKeepsake > 0 then
-			local trait = GetHeroTrait("SpeedRunBossKeepsake")
-			thread( SpeedKeepsakeActivatedPresentation, trait)
-			local effectName = trait.BossSpeedTriggerEffect.EffectName
-			local dataProperties = MergeTables( EffectData[effectName].DataProperties, trait.BossSpeedTriggerEffect.DataProperties)
-			ApplyEffect({ DestinationId = CurrentRun.Hero.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = effectName, DataProperties = dataProperties})
-			
-			CurrentRun.SpeedRunBossKeepsakeTriggered = true
-			MapState.MapSpeedMultiplier = trait.BossSpeedTriggerEffect.AttackSpeedMultiplier
-
-			local speedPropertyChange = 		
-			{
-				WeaponNames = WeaponSets.HeroPrimarySecondaryWeapons,
-				ChangeValue = MapState.MapSpeedMultiplier,
-				SpeedPropertyChanges = true,
-			}
-			local allPropertyChanges= {}
-			for q, weaponName in pairs(speedPropertyChange.WeaponNames) do
-					
-				local newPropertyChanges = DeepCopyTable(WeaponData.DefaultWeaponValues.DefaultSpeedPropertyChanges)
-				if WeaponData[weaponName] and WeaponData[weaponName].SpeedPropertyChanges then
-					newPropertyChanges = DeepCopyTable( WeaponData[weaponName].SpeedPropertyChanges)
-				end
-				for s, newPropertyChange in pairs(newPropertyChanges) do
-					newPropertyChange = MergeTables( newPropertyChange, speedPropertyChange )
-					newPropertyChange.WeaponNames = nil
-					newPropertyChange.WeaponName = weaponName
-					newPropertyChange.ChangeType = "Multiply"
-					if newPropertyChange.InvertSource then
-						if newPropertyChange.ChangeValue then
-							newPropertyChange.ChangeValue = 1 / newPropertyChange.ChangeValue
-						end
-					end
-					newPropertyChange.SpeedPropertyChanges = nil
-					table.insert(allPropertyChanges, newPropertyChange )
-				end
-			end
-
-			ApplyUnitPropertyChanges( CurrentRun.Hero, allPropertyChanges )
 		end
 	end
 end
@@ -451,13 +486,6 @@ function UpdateGiftRackShineStatus( obstacle )
 	end
 end
 
-function EquipLastAssistTrait( eventSource, hero )
-	local existingHero = CurrentRun.Hero or hero
-	if GameState.LastAssistTrait ~= nil then
-		EquipAssist( existingHero, GameState.LastAssistTrait )
-	end
-end
-
 function EquipLastAwardTrait( eventSource, hero )
 	local existingHero = CurrentRun.Hero or hero
 	if GameState.SaveFirstKeepsakeName ~= nil and not CurrentRun.SaveFirstKeepsakeSwapped then
@@ -490,7 +518,14 @@ function OpenKeepsakeRackScreen( source )
 	HideCombatUI( screen.Name )
 	OnScreenOpened( screen )
 	CreateScreenFromData( screen, screen.ComponentData )
+	
+	UpdateFateStatus()
 	screen.LastTrait = GameState.LastAwardTrait
+	screen.StartingHasLastStand = HasLastStand( CurrentRun.Hero )
+	
+	screen.StartingHealth = CurrentRun.Hero.MaxHealth
+	screen.StartingMana = CurrentRun.Hero.MaxMana
+	screen.StartingFateValid = PreRunIsFateValid()
 
 	local components = screen.Components
 
@@ -505,6 +540,7 @@ function OpenKeepsakeRackScreen( source )
 	screen.HasUnlocked = false
 	screen.HasNew = false
 	screen.FirstUsable = false
+	wait( 0.2 )
 	for itemIndex, itemName in ipairs( screen.ItemOrder ) do
 
 		local keepsakeData = GetKeepsakeData( itemName )
@@ -534,6 +570,9 @@ function OpenKeepsakeRackScreen( source )
 	else
 		thread( PlayVoiceLines, GlobalVoiceLines.OpenedAwardMenuVoiceLines, false )
 	end
+
+	SetAnimation({ DestinationId = CurrentRun.Hero.ObjectId, Name = "MelinoeEquip" })
+
 	screen.KeepOpen = true
 	HandleScreenInput( screen )
 
@@ -543,32 +582,55 @@ function CreateKeepsakeIcon( screen, components, args )
 	args = args or {}
 	local localx = args.X
 	local localy = args.Y
-	local rankOffsetY = args.RankOffsetY or 70
 	local itemIndex = args.Index
 	local upgradeData = args.UpgradeData
 	local keyAppend = args.KeyAppend or ""
 	local scale = args.Scale or 0.75
 
 	local buttonKey = "UpgradeToggle"..itemIndex..keyAppend
-	components[buttonKey.."Frame"] = CreateScreenComponent({ Name = "BlankObstacle", X = localx, Y = localy + 10, Group = "Combat_Menu_Overlay_Backing" })
-	SetAnimation({ DestinationId = components[buttonKey.."Frame"].Id , Name = "Keepsake_BackingMenu" })
-	SetScale({ Id = components[buttonKey.."Frame"].Id, Fraction = scale })
+	components[buttonKey.."Frame"] = CreateScreenComponent({ Name = "BlankObstacle",
+		X = localx, Y = localy + 10,
+		Group = "Combat_Menu_Overlay_Backing",
+		Animation = "Keepsake_BackingMenu",
+		Scale = scale,
+		Alpha = 0.0,
+		AlphaTarget = 1.0,
+		AlphaTargetDuration = 0.15,
+	})
 
-	components[buttonKey] = CreateScreenComponent({ Name = "BaseInteractableButton", Scale = screen.BaseIconScale, X = localx, Y = localy, Group = "Combat_Menu_Overlay" })
+	components[buttonKey] = CreateScreenComponent({ Name = "ButtonKeepsakeItem",
+		Scale = screen.BaseIconScale,
+		X = localx, Y = localy,
+		Group = "Combat_Menu_Overlay",
+		Alpha = 0.0,
+		AlphaTarget = 1.0,
+		AlphaTargetDuration = 0.15,
+		InteractProperties =
+		{
+			TooltipX = screen.TooltipX + ScreenCenterNativeOffsetX,
+			TooltipY = screen.TooltipY + ScreenCenterNativeOffsetY,
+		},
+	})
 	components[buttonKey].LevelProgressId = components.LevelProgress.Id
 	components[buttonKey].Data = upgradeData
 	components[buttonKey].ButtonKey = buttonKey
-	components[buttonKey].FrameId = components[buttonKey.."Frame"].Id
-	
+	components[buttonKey].FrameId = components[buttonKey.."Frame"].Id	
 	components[buttonKey].OnMouseOverFunctionName = "MouseOverKeepsake"
 	components[buttonKey].OnMouseOffFunctionName = "MouseOffKeepsake"
 	components[buttonKey].Screen = screen
-	AttachLua({ Id = components[buttonKey].Id, Table = components[buttonKey] })
 
 	local traitName = upgradeData.Gift
 	local traitData = nil
 	if HeroHasTrait(traitName) then
-		traitData = GetHeroTrait( traitName )
+		traitData = GetHeroTrait( traitName )		
+		if traitData.SignOffData then
+			for i, data in ipairs( traitData.SignOffData ) do
+				if SessionState.AllKeepsakeUnlocked or data.GameStateRequirements == nil or IsGameStateEligible( traitData, data.GameStateRequirements ) then
+					traitData.SignoffText = data.Text
+					break
+				end
+			end
+		end
 	else
 		traitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName, Rarity = GetRarityKey(GetKeepsakeLevel( traitName )) })
 	end
@@ -576,7 +638,7 @@ function CreateKeepsakeIcon( screen, components, args )
 	components[buttonKey].TraitData = traitData
 
 	if not upgradeData.Unlocked then
-		SetColor({ Id = components[buttonKey].Id, Color = Color.DarkSlateGray })
+		SetColor({ Id = components[buttonKey].Id, Color = Color.White })
 	else
 		-- Hidden description for tooltips
 		
@@ -584,8 +646,6 @@ function CreateKeepsakeIcon( screen, components, args )
 		if HeroHasTrait(traitData.Name) and not CurrentRun.Hero.IsDead and traitData.CustomTrayText then
 			text = traitData.CustomTrayText
 		end
-		SetInteractProperty({ DestinationId = components[buttonKey].Id, Property = "TooltipX", Value = screen.TooltipX + ScreenCenterNativeOffsetX })
-		SetInteractProperty({ DestinationId = components[buttonKey].Id, Property = "TooltipY", Value = screen.TooltipY + ScreenCenterNativeOffsetY })
 		CreateTextBox({ Id = components[buttonKey].Id,
 			Text = text,
 			UseDescription = true,
@@ -595,13 +655,60 @@ function CreateKeepsakeIcon( screen, components, args )
 			LuaValue = traitData,
 		})
 
+		if traitData.ShowLastStandWarning then 
+			local validLastStandState = true
+			if CurrentRun.Hero.IsDead then 
+				validLastStandState = GetNumMetaUpgradeLastStands() == 0 
+			end
+			-- We skip the Engraved Pin or Luckier tooth here because it's mutually exclusive with the Athena keepsake
+			if TableLength( CurrentRun.Hero.LastStands ) > 1 
+				or ( TableLength( CurrentRun.Hero.LastStands ) == 1 and GameState.LastAwardTrait ~= "ReincarnationKeepsake" ) then
+				validLastStandState = false
+			end
+			
+			if  not validLastStandState then
+				CreateTextBox({ Id = components[buttonKey].Id,
+					Text = "ExtraLivesWarning_Tooltip",
+					UseDescription = true,
+					OffsetX = 0, OffsetY = 0,
+					Color = Color.Transparent,
+				})
+			end
+		end
+		
+		if FatedEnableKeepsakes[traitData.Name] then
+			local text = "RandomWarningAlt_Tooltip"
+			local validFateState = IsFateValid()
+			if CurrentRun.Hero.IsDead then
+				validFateState = PreRunIsFateValid()
+				text = "RandomWarning_Tooltip"
+			end
+			if not validFateState then
+				CreateTextBox({ 
+					Id = components[buttonKey].Id,
+					Text = text,
+					UseDescription = true,
+					OffsetX = 0, OffsetY = 0,
+					Color = Color.Transparent,
+				})
+			end
+		end
+
 		screen.HasUnlocked = true
-		components[buttonKey.."Bar"] = CreateScreenComponent({ Name = "KeepsakeBar", X = localx, Y = localy + 80, Group = "Combat_Menu_Overlay" })
-		components[buttonKey.."Rank"] = CreateScreenComponent({ Name = "KeepsakeRank" .. GetKeepsakeLevel( traitData.Name ), X = localx, Y = localy + rankOffsetY, Group = "Combat_Menu_Overlay" })
-		components[buttonKey.."BarFill"] = CreateScreenComponent({ Name = "KeepsakeBarFill", X = localx, Y = localy + 80, Group = "Combat_Menu_Overlay" })
+		local level = GetKeepsakeLevel( traitData.Name )
+		components[buttonKey.."Bar"] = CreateScreenComponent({ Name = "KeepsakeBar", X = localx, Y = localy + 80, Group = "Combat_Menu_Overlay", Alpha = 0.0 })
+		components[buttonKey.."Rank"] = CreateScreenComponent({ Name = "BlankObstacle",
+			Animation = screen.RankAnimations[level],
+			Scale = screen.RankScale,
+			X = localx, Y = localy + screen.RankOffsetY,
+			Group = screen.ComponentData.DefaultGroup,
+			Alpha = 0.0,
+			AlphaTarget = 1.0,
+			AlphaTargetDuration = 0.4,
+		})
+		
+		components[buttonKey.."BarFill"] = CreateScreenComponent({ Name = "KeepsakeBarFill", X = localx, Y = localy + 80, Group = "Combat_Menu_Overlay", Alpha = 0.0 })
 		SetAnimationFrameTarget({ Name = "KeepsakeBarFill", Fraction = GetKeepsakeProgress( traitData.Name ), DestinationId = components[buttonKey.."BarFill"].Id, Instant = true })
-		SetAlpha({ Id = components[buttonKey.."Bar"].Id, Fraction = 0, Duration = 0 })
-		SetAlpha({ Id = components[buttonKey.."BarFill"].Id, Fraction = 0, Duration = 0 })
 		components[buttonKey].BarFillId = components[buttonKey.."BarFill"].Id
 		components[buttonKey].BarId = components[buttonKey.."Bar"].Id
 	end
@@ -611,9 +718,12 @@ function CreateKeepsakeIcon( screen, components, args )
 	if TraitData[upgradeData.Gift].Icon and upgradeData.Unlocked then
 		local icon = TraitData[upgradeData.Gift].InRackIcon or TraitData[upgradeData.Gift].Icon
 		SetAnimation({ DestinationId = components[buttonKey].Id, Name = icon })
-		if not CanFreeSwapKeepsakes() and ( Contains(CurrentRun.BlockedKeepsakes, upgradeData.Gift) or ( HeroSlotFilled("Shout") and not HeroHasTrait("HadesShoutTrait") and upgradeData.Gift == "HadesShoutKeepsake" ) or ( GameState.LastAssistTrait ~= nil and TraitData[upgradeData.Gift].Slot == "Assist" and upgradeData.Gift ~= screen.LastAssist )) then
-			components[buttonKey.."Lock"] = CreateScreenComponent({ Name = "BlankObstacle", X = localx, Y = localy, Group = "Combat_Menu_Overlay" })
-			SetAnimation({ DestinationId = components[buttonKey.."Lock"].Id , Name = "LockedKeepsakeIcon" })
+		local blocked = ( Contains(CurrentRun.BlockedKeepsakes, upgradeData.Gift) or ( CurrentRun.UseRecord.NPC_Athena_01 and not HeroHasTrait("AthenaEncounterKeepsake") and upgradeData.Gift == "AthenaEncounterKeepsake" ) ) 
+		if not IsFateValid() and FatedEnableKeepsakes[upgradeData.Gift] then
+			blocked = true
+		end
+		if not CanFreeSwapKeepsakes() and blocked then
+			components[buttonKey.."Lock"] = CreateScreenComponent({ Name = "BlankObstacle", X = localx, Y = localy, Group = "Combat_Menu_Overlay", Animation = "LockedKeepsakeIcon" })
 			SetColor({ Id = components[buttonKey].Id, Color = Color.DarkSlateGray })
 			if components[buttonKey.."Sticker"] then
 				SetColor({ Id = components[buttonKey.."Sticker"].Id, Color = Color.SlateGray })
@@ -622,13 +732,21 @@ function CreateKeepsakeIcon( screen, components, args )
 			components[buttonKey].Blocked = true
 		elseif not screen.FirstUsable and screen.LastTrait == nil and screen.LastAssist == nil then
 			TeleportCursor({ OffsetX = localx, OffsetY = localy, ForceUseCheck = true })
+			KeepsakeScreenShowInfo( screen, components[buttonKey] )
 			screen.FirstUsable  = true
 		elseif screen.LastTrait == upgradeData.Gift or screen.LastAssist == upgradeData.Gift then
-			SetSelectedFrame( screen, components[buttonKey] )
+			SetSelectedFrame( screen, components[buttonKey], { Duration = 0.4 } )
 			TeleportCursor({ OffsetX = localx, OffsetY = localy, ForceUseCheck = true })
+			KeepsakeScreenShowInfo( screen, components[buttonKey] )
 		end
 	else
 		SetAnimation({ DestinationId = components[buttonKey].Id, Name = "Keepsake_Unknown" })
+	end
+	
+	if SessionState.AllKeepsakeUnlocked or ( GiftData[upgradeData.NPC].MaxedRequirement and IsGameStateEligible( CurrentRun, GiftData[upgradeData.NPC].MaxedRequirement )) then
+		components[buttonKey.."Sticker"] = CreateScreenComponent({ Name = "BlankObstacle", X = localx + 30, Y = localy - 40, Group = "Combat_Menu_Overlay" })
+		SetAnimation({ Name = GiftData[upgradeData.NPC].MaxedIcon, DestinationId = components[buttonKey.."Sticker"].Id })
+		SetAnimation({ DestinationId = components[buttonKey.."Frame"].Id , Name = "Keepsake_BackingMenu_StickerShadow" })
 	end
 
 	if upgradeData.New then
@@ -656,7 +774,9 @@ function MouseOverKeepsake( button )
 		screen.SelectedButton = button
 	end
 
-	PlaySound({ Name = "/SFX/Menu Sounds/MirrorMenuToggleKeepsakes", Id = button.TitleTextBoxId })
+	if CheckCooldown( "MouseOverKeepsakeSound", 0.1 ) then
+		PlaySound({ Name = "/SFX/Menu Sounds/MirrorMenuToggleKeepsakes", Id = button.TitleTextBoxId })
+	end
 	KeepsakeScreenShowInfo( button.Screen, button )
 end
 
@@ -667,7 +787,7 @@ function MouseOffKeepsake( button )
 	local components = screen.Components
 
 	if not button.Blocked then
-		SetScale({ Id = button.Id, Fraction = screen.BaseIconScale, Duration = 0.1, EaseIn = 0, EaseOut = 1 })
+		SetScale({ Id = button.Id, Fraction = screen.BaseIconScale, Duration = 0.1, EaseIn = 0, EaseOut = 1, SkipGeometryUpdate = true })
 	end
 	if button.Data.Unlocked then
 		SetAlpha({ Id = button.BarId, Fraction = 0, Duration = 0.3 })
@@ -699,6 +819,7 @@ function MouseOffKeepsake( button )
 	SetAlpha({ Id = components.InfoBoxBacking.Id, Fraction = 0.0, Duration = 0.2 })
 	SetAlpha({ Id = components.InfoBoxIcon.Id, Fraction = 0.0, Duration = 0.2 })
 	SetAlpha({ Id = components.InfoBoxFrame.Id, Fraction = 0.0, Duration = 0.2 })
+	SetAlpha({ Id = components.Sticker.Id, Fraction = 0.0, Duration = 0.2 })
 	
 	--SetAlpha({ Id = components.RankProgressBox.Id, Fraction = 0.0, Duration = 0.2 })
 	--SetAlpha({ Id = components.CurrentLevel.Id, Fraction = 0.0, Duration = 0.2 })
@@ -716,14 +837,8 @@ function KeepsakeScreenShowInfo( screen, button )
 	if not button.Data.Unlocked then
 		return
 	end
-		--[[
-		if IsGameStateEligible( GiftData[button.Data.NPC].MaxedRequirement ) then
-			SetAnimation({ Name = GiftData[button.Data.NPC].MaxedSticker, DestinationId = components.Sticker.Id })
-		else
-			SetAnimation({Name = "Blank", DestinationId = components.Sticker.Id })
-		end
-		]]
 	screen.SelectedButton = button
+	screen.ClipboardText = button.TraitData.Name
 	SetAlpha({ Id = components.InfoBoxBacking.Id, Fraction = 1.0, Duration = 0.2 })
 	
 	--SetAlpha({ Id = components.RankProgressBox.Id, Fraction = 1.0, Duration = 0.2 })
@@ -746,6 +861,7 @@ function KeepsakeScreenShowInfo( screen, button )
 	if HeroHasTrait(button.TraitData.Name) and not CurrentRun.Hero.IsDead and button.TraitData.CustomTrayText then
 		text = button.TraitData.CustomTrayText
 	end
+	
 	local rarityName = button.TraitData.Rarity
 	local rarityColor = Color["BoonPatch"..rarityName]
 	ModifyTextBox({ Id = components.InfoBoxName.Id,
@@ -761,6 +877,10 @@ function KeepsakeScreenShowInfo( screen, button )
 		Text = button.TraitData.CustomRarityLevels[rarityLevel],
 		FadeTarget = 1.0,
 		Color = rarityColor,
+		DataProperties =
+		{
+			TextSymbolOffsetY = button.TraitData.RarityTextSymbolOffset,
+		},
 	})
 
 	SetAlpha({ Id = components.InfoBoxDescription.Id, Fraction = 1.0, Duration = 0.2 })
@@ -784,8 +904,8 @@ function KeepsakeScreenShowInfo( screen, button )
 		end
 		if statLines ~= nil then
 			local statLine = statLines[1]
-			ModifyTextBox({ Id = components.InfoBoxStatLineLeft.Id, Text = statLine, LuaKey = "TooltipData", LuaValue = traitData, FadeTarget = 1.0 })
-			ModifyTextBox({ Id = components.InfoBoxStatLineRight.Id, Text = statLine, UseDescription = true, LuaKey = "TooltipData", LuaValue = traitData, FadeTarget = 1.0})
+			ModifyTextBox({ Id = components.InfoBoxStatLineLeft.Id, AppendToId = components.InfoBoxDescription.Id, Text = statLine, LuaKey = "TooltipData", LuaValue = traitData, FadeTarget = 1.0 })
+			ModifyTextBox({ Id = components.InfoBoxStatLineRight.Id, AppendToId = components.InfoBoxDescription.Id, Text = statLine, UseDescription = true, LuaKey = "TooltipData", LuaValue = traitData, FadeTarget = 1.0})
 		end
 		if traitData.SignoffText ~= nil then
 			ModifyTextBox({ Id = components.InfoBoxFlavor.Id, Text = traitData.SignoffText, FadeTarget = 1.0 })
@@ -826,18 +946,20 @@ function KeepsakeScreenShowInfo( screen, button )
 			end
 		end
 
+		if SessionState.AllKeepsakeUnlocked or ( GiftData[button.Data.NPC].MaxedRequirement and IsGameStateEligible( CurrentRun, GiftData[button.Data.NPC].MaxedRequirement )) then
+			
+			SetAlpha({ Id = components.Sticker.Id, Fraction = 1.0, Duration = 0.2 })
+			SetAnimation({ Name = GiftData[button.Data.NPC].MaxedSticker, DestinationId = components.Sticker.Id })
+		else
+			SetAnimation({Name = "Blank", DestinationId = components.Sticker.Id })
+		end
+
+
 		if button.Blocked then
 			--
 		else
-			SetScale({ Id = button.Id, Fraction = screen.HoverIconScale, Duration = 0.1, EaseIn = 0, EaseOut = 1 })
-			local upgradeName = button.Data.Gift
-			if GameState.LastAwardTrait ~= upgradeName and GameState.LastAssistTrait ~= upgradeName then
-				--ModifyTextBox({ Id = components.EquipSubtitle.Id, Text = "UnEquipped_Subtitle", ColorTarget = Color.White, ColorDuration = 0 })
-				--ModifyTextBox({ Id = components.EquipSubtitle.Id, Text = " ", ColorTarget = Color.Gold, ColorDuration = 0 })
-			else
-				--ModifyTextBox({ Id = components.EquipSubtitle.Id, Text = "Equipped_Subtitle", ColorTarget = Color.Gold, ColorDuration = 0 })
-			end
-			
+			SetScale({ Id = button.Id, Fraction = screen.HoverIconScale, Duration = 0.1, EaseIn = 0, EaseOut = 1, SkipGeometryUpdate = true })
+			local upgradeName = button.Data.Gift			
 			GameState.NewKeepsakeItem[upgradeName] = nil
 		end
 		if button and button.ButtonKey and components[button.ButtonKey.."Bar"] and TraitData[button.Data.Gift].Slot ~= "Assist" then
@@ -864,7 +986,7 @@ function KeepsakeScreenUpdateActionBar( screen, button )
 
 	if button ~= nil and button.Data.Unlocked then
 		if not button.Blocked then
-			if GameState.LastAwardTrait ~= button.Data.Gift and GameState.LastAssistTrait ~= button.Data.Gift then
+			if GameState.LastAwardTrait ~= button.Data.Gift then
 				SetAlpha({ Id = components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
 			else
 				SetAlpha({ Id = components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
@@ -879,8 +1001,9 @@ function KeepsakeScreenUpdateActionBar( screen, button )
 				ModifyTextBox({Id = components.SaveFirstButton.Id, Text = "Menu_UnSaveKeepsake" })
 			end
 			SetAlpha({ Id = components.SaveFirstButton.Id, Fraction = 1.0, Duration = 0.2 })
+			components.SaveFirstButton.Visible = true
 			if not GameState.Flags.HasUsedSaveFirstSystem and not screen.FirstTimeSaveFirstPresentation then
-				thread( FirstTimeSaveFirstPresentation, components.SaveFirstButton )
+				thread( PulseContextActionPresentation, components.SaveFirstButton, { InitialWait = 2.0, Color = Color.Gold, PulseOnce = true, ThreadName = "FirstTimeSaveFirstPulse" } )
 				screen.FirstTimeSaveFirstPresentation = true
 			end
 		else
@@ -889,12 +1012,17 @@ function KeepsakeScreenUpdateActionBar( screen, button )
 	else
 		SetAlpha({ Id = components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
 		SetAlpha({ Id = components.SaveFirstButton.Id, Fraction = 0.0, Duration = 0.2 })
+		components.SaveFirstButton.Visible = false
 	end
 
 end
 
-function SetSelectedFrame( screen, button )
-	SetAlpha({ Id = screen.Components.EquippedFrame.Id, Fraction = 1.0, Duration = 0.2 })
+function SetSelectedFrame( screen, button, args )
+	args = args or {}
+	if args.RestartAnimation then
+		SetAnimation({ DestinationId = screen.Components.EquippedFrame.Id, Name = screen.Components.EquippedFrame.AnimationName, StartFrameFraction = 0 })
+	end
+	SetAlpha({ Id = screen.Components.EquippedFrame.Id, Fraction = 1.0, Duration = args.Duration or 0.2 })
 	Teleport({ Id = screen.Components.EquippedFrame.Id, DestinationId = button.Id })
 end
 
@@ -922,6 +1050,7 @@ function KeepsakeScreenSaveFirst( screen, button )
 			ClearSaveFirstIcon( screen, screen.SelectedButton )
 		end
 		KeepsakeScreenUpdateActionBar( screen, screen.SelectedButton )
+		killTaggedThreads( "FirstTimeSaveFirstPulse" )
 	end
 end
 
@@ -940,49 +1069,70 @@ function ClearSaveFirstIcon( screen, button )
 end
 
 function KeepsakeScreenClose( screen, button )
+	killTaggedThreads( "FirstTimeSaveFirstPulse" )
 	OnScreenCloseStarted( screen )
 	SetConfigOption({ Name = "FreeFormSelectRepeatDelay", Value = 0.0 })
-	PlaySound({ Name = "/SFX/Menu Sounds/GeneralWhooshMENULoudLow" })
-	PlaySound({ Name = "/Leftovers/World Sounds/Caravan Interior/CabinetClose" })
-	if screen.LastAssist ~= GameState.LastAssistTrait then
-		UnequipAssist( CurrentRun.Hero, screen.LastAssist )
-		EquipAssist( CurrentRun.Hero, GameState.LastAssistTrait )
-		InvalidateCheckpoint()
-	end
-
+	SetAnimation({ DestinationId = screen.Components.ShopBackground.Id, Name = "AwardMenuBackgroundOut" })
+	
 	if screen.LastTrait ~= GameState.LastAwardTrait then
-		UnequipKeepsake( CurrentRun.Hero, screen.LastTrait )
+		local reAddTraitToUI = UnequipKeepsake( CurrentRun.Hero, screen.LastTrait )
 		EquipKeepsake( CurrentRun.Hero, GameState.LastAwardTrait, { FromLoot = true, AddToCache = ( CurrentHubRoom == nil ) } )
-		InvalidateCheckpoint()
+		if reAddTraitToUI ~= nil then
+			TraitUIAdd( reAddTraitToUI )
+		end
+		local trait = GetHeroTrait( GameState.LastAwardTrait )
+		if trait.SwapInvalidateCheckpoint then
+			InvalidateCheckpoint()
+		end
 
 		if not CanFreeSwapKeepsakes() then
-			if CurrentRun.BlockedKeepsakes == nil then
-				CurrentRun.BlockedKeepsakes = {}
-			end
 			CurrentRun.CurrentRoom.BlockKeepsakeMenu = true
 			table.insert( CurrentRun.BlockedKeepsakes, screen.LastTrait )
 
 			if GameState.LastAwardTrait == "BonusMoneyKeepsake" then
-				local traitData = GetHeroTrait(GameState.LastAwardTrait)
-				AddResource( "Money", round(traitData.BonusMoney * GetTotalHeroTraitValue( "MoneyMultiplier", { IsMultiplier = true } )), "BonusMoneyKeepsake" )
+				AddResource( "Money", round(trait.BonusMoney * GetTotalHeroTraitValue( "MoneyMultiplier", { IsMultiplier = true } )), "BonusMoneyKeepsake" )
+			end
+			local delay = 0.5
+			if screen.StartingHasLastStand ~= HasLastStand(CurrentRun.Hero) then
+				thread( LowHealthBonusBuffStatePresentation, delay )
 			end
 
 			if screen.Source ~= nil then
 				screen.Source.UseText = "UseLockedGiftRack"
 				SetAnimation({ Name = "GiftRackClosed", DestinationId = screen.Source.ObjectId })
 			end
+		else
+			local delay = 0.5
+			if screen.StartingHasLastStand ~= HasLastStand(CurrentRun.Hero) then
+				thread( LowHealthBonusBuffStatePresentation, delay )
+				delay = delay + 0.5
+			end
+			-- Only show in prerun and only if you've equipped a fated keepsake			
+			if FatedEnableKeepsakes[GameState.LastAwardTrait] then
+				thread( FatedValidityStatePresentation, delay )
+			end
+
 		end
 		thread( PlayVoiceLines, GlobalVoiceLines.AwardMenuClosedVoiceLines, false )
 		if CurrentHubRoom ~= nil and GameState.CompletedObjectiveSets.KeepsakePrompt then
 			RequestPreRunLoadoutChangeSave()
 		end
+
+		
+		if screen.StartingHealth ~= CurrentRun.Hero.MaxHealth then
+			thread( MaxHealthChangedPresentation, CurrentRun.Hero.MaxHealth > screen.StartingHealth, 0.65)
+		end
+		if screen.StartingMana ~= CurrentRun.Hero.MaxMana then
+			thread( MaxManaChangedPresentation, CurrentRun.Hero.MaxMana > screen.StartingMana, 0.65 )
+		end
 	end
 
-	CloseScreen( GetAllIds( screen.Components ), 0.15 )
+	CloseScreen( GetAllIds( screen.Components ), 0.0, screen, { FadeOutTime = 0.2, CloseDestroyWait = 0.35 } )
 	OnScreenCloseFinished( screen )
 
 	ShowCombatUI( screen.Name )
 	UpdateGiftRackShineStatus( screen.Source )
+	UpdateFateStatus()
 
 	if GameState.LastAwardTrait ~= nil then
 		thread( MarkObjectiveComplete, "KeepsakePrompt" )
@@ -1005,22 +1155,17 @@ function HandleUpgradeToggle( screen, button, textOverride )
 	end
 
 	if changed then
-		SetSelectedFrame( screen, button )
+		SetSelectedFrame( screen, button, { RestartAnimation = true } )
 		PlaySound({ Name = upgradeData.EquipSound or "/Leftovers/Menu Sounds/TalismanPowderDownLEGENDARY" })
 		KeepsakeScreenUpdateActionBar( screen, button )
 		thread( PlayVoiceLines, upgradeData.EquipVoiceLines or GlobalVoiceLines.AwardSelectedVoiceLines, false )
-		--RemoveValue( GameState.Gift[button.Data.NPC].NewTraits, upgradeName )
 	end
-end
-function GetAssistKeepsakeLevel( giftName )
-	local level = 1
-	if GameState.AssistUnlocks and GameState.AssistUnlocks[giftName] then
-		level = GameState.AssistUnlocks[giftName] + 1
-	end
-	return level
 end
 
 function KeepsakeAcquireSpellDrop( args, trait )
+	if not IsGameStateEligible( trait, args.GameStateRequirements) then
+		return
+	end
 	AddTalentPoints( args, trait )
 	if CurrentRun.Hero.SlottedSpell == nil then
 		RewardStoreAddPriority( args, trait )
@@ -1029,4 +1174,77 @@ function KeepsakeAcquireSpellDrop( args, trait )
 		alternateArgs.Name = args.AlternatePriorityRewardName
 		RewardStoreAddPriority( alternateArgs, trait )
 	end
+end
+
+function GiftRackEquipRandomKeepsake( source, args )
+
+	RandomSynchronize()
+
+	-- lock out the gift rack
+	CurrentRun.CurrentRoom.BlockKeepsakeMenu = true
+	source.UseText = "UseLockedGiftRack"
+	SetAnimation({ DestinationId = source.ObjectId, Name = "GiftRackClosed" })
+
+	-- pick a random, non-blocked keepsake to equip
+	local prevKeepsake = GameState.LastAwardTrait
+	table.insert( CurrentRun.BlockedKeepsakes, prevKeepsake )
+	if FatedEnableKeepsakes[prevKeepsake] then
+		for keepsake in pairs( FatedDisableKeepsakes ) do
+			table.insert( CurrentRun.BlockedKeepsakes, keepsake )
+		end
+	end
+	local eligibleKeepsakes = ShallowCopyTable( BountyData[CurrentRun.ActiveBounty].RandomKeepsakeNames )
+	for i, keepsake in ipairs( CurrentRun.BlockedKeepsakes ) do
+		RemoveValueAndCollapse( eligibleKeepsakes, keepsake )
+	end
+
+	UnequipKeepsake( CurrentRun.Hero, prevKeepsake )
+	GameState.LastAwardTrait = GetRandomValue( eligibleKeepsakes )
+	EquipKeepsake( CurrentRun.Hero, GameState.LastAwardTrait, { FromLoot = true, AddToCache = true, TraitAddedPresentationDelay = 1.75 } )
+
+	thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "KeepsakeRandomized", LuaKey = "TempTextData", LuaValue = { Name = GameState.LastAwardTrait }, PreDelay = 1.75, Duration = 1.8 } )
+	PlaySound({ Name = "/SFX/Menu Sounds/ChaosBoonChange", Delay = 1.75 })
+	RunShopGeneration( CurrentRun.CurrentRoom )
+	local trait = GetHeroTrait( GameState.LastAwardTrait )
+	PlaySound({ Name = trait.EquipSound, Delay = 1.75 })
+	if trait.Name == "BonusMoneyKeepsake" then
+		AddResource( "Money", round( trait.BonusMoney * GetTotalHeroTraitValue( "MoneyMultiplier", { IsMultiplier = true } ) ), "BonusMoneyKeepsake" )
+	end
+
+end
+
+function UpdateFateStatus( )
+	for metaUpgradeName in pairs(FatedDisableMetaUpgrades) do
+		if GameState.MetaUpgradeState[metaUpgradeName].Equipped then
+			GameState.FatedStatus = "Unfated"
+			return
+		end
+	end
+	if GameState.LastAwardTrait then
+		if FatedDisableKeepsakes[GameState.LastAwardTrait] then
+			GameState.FatedStatus = "Unfated"
+			return
+		elseif FatedEnableKeepsakes[GameState.LastAwardTrait] and not CurrentRun.Hero.IsDead then
+			GameState.FatedStatus = "Fated"
+			return
+		end
+	end
+	if CurrentRun.Hero.IsDead then
+		GameState.FatedStatus = "Unknown"
+	end
+end
+
+function IsFateValid()
+	return GameState.FatedStatus ~= "Unfated"
+end
+
+function PreRunIsFateValid()
+	if GameState.LastAwardTrait and FatedEnableKeepsakes[GameState.LastAwardTrait] then
+		for metaUpgradeName in pairs(FatedDisableMetaUpgrades) do
+			if GameState.MetaUpgradeState[metaUpgradeName].Equipped then
+				return false
+			end
+		end
+	end
+	return true
 end

@@ -2,8 +2,8 @@
   ResolutionScreen =
   {
     Platform = "default"
-    CloseSound = "/SFX/Menu Sounds/GodBoonMenuClose"
-    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    CloseSound = "/SFX/Menu Sounds/IrisMenuBack"
+    SelectionSound = "/SFX/Menu Sounds/IrisMenuToggle2"
     TransitionOnTime = 0.1
     TransitionOffTime = 0.15
     ForceShowCursor = true
@@ -29,10 +29,10 @@
     AnimatedBackground =
     {
       OffsetX = 0
-      OffsetY = 194
-      Graphic = "GUI\Graybox\Box_Infopanel"
-      ScaleX = 0.26
-      ScaleY = 1.4
+      OffsetY = 180
+      Graphic = "GUI\Shell\setttings_option_on"
+      ScaleX = 1.0
+      ScaleY = 1.0
       Justification = "Center"
       VerticalJustification = "Center"
     }
@@ -40,8 +40,8 @@
     ResolutionButton =
     {
       OffsetX = 0
-      OffsetY = 100
-      Spacing = 28
+      OffsetY = 74
+      Spacing = 30
       Justification = "Center"
       VerticalJustification = "Center"
       TextOffsetX = 0
@@ -64,7 +64,9 @@
       
       TextJustification = "Center"
       SelectedTextScale = 1.0
-      NonEnglishScaleModifier = 1.0
+      FlashTextWhileSelected = false
+      FlashTextWhileSelectedColorChangeSpeed = 4.0
+      
       TextOutlineRed = 0
       TextOutlineGreen = 0
       TextOutlineBlue = 0
@@ -80,7 +82,7 @@
 
     ActiveMarker =
     {
-      OffsetX = -90
+      OffsetX = -120
       Graphic = "GUI\Shell\selector"
       Justification = "Center"
       VerticalJustification = "Center"
@@ -92,10 +94,10 @@
     UpArrow =
     {
       OffsetX = 0
-      OffsetY = 50
-      Graphic = "GUI\Shell\UpArrow_Base"
-      SelectedGraphic = "GUI\Shell\UpArrow_Highlight"
-      Scale = 0.3
+      OffsetY = 40
+      Graphic = "Arrow_Up"
+      SelectedGraphic = "GUI\Shell\settings_arrow_up_highlight"
+      Scale = 0.5
       AutoActivateWithGamepad = true
       FadeOpacity = 0.0
     }
@@ -103,11 +105,11 @@
     DownArrow =
     {
       OffsetX = 0
-      OffsetY = 340
-      Graphic = "GUI\Shell\DownArrow_Base"
-      SelectedGraphic = "GUI\Shell\DownArrow_Highlight"
-      Scale = 0.3
+      OffsetY = 322
+      Graphic = "Arrow_Down"
+      SelectedGraphic = "GUI\Shell\settings_arrow_down_highlight"
       AutoActivateWithGamepad = true
+      Scale = 0.5
       FadeOpacity = 0.0
     }
   }

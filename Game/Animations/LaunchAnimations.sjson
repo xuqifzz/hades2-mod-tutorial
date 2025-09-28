@@ -17,25 +17,4 @@
 		Material = "Unlit"
 	}
 
-	{
-		Name = "AnnouncementBox_CloudSave"
-		InheritFrom = "AnnouncementBox"
-		ChildAnimation = "CloudSaveScreenHorizontalDiv"
-	}
-
-	{
-		Name = "CloudSaveScreenHorizontalDiv"
-		InheritFrom = "AnnouncementBox"
-		FilePath = "GUI\HorizontalDivider"
-		OffsetY = -315
-		ScaleX = 1.25
-		ChildAnimation = "CloudSaveScreenHorizontalDiv_Bottom"
-	}
-
-	{
-		Name = "CloudSaveScreenHorizontalDiv_Bottom"
-		InheritFrom = "CloudSaveScreenHorizontalDiv"
-		ChildAnimation = null
-		OffsetY = 305
-	}
 ]}

@@ -792,6 +792,55 @@
       BaseSaturation = 1.0
     }
 
+    {
+      Name = "Artemis"
+      BloomThreshold = 0.95
+      BlurAmount = 8
+      BloomIntensity = 1
+      BaseIntensity = 1.1
+      BloomSaturation = 0.9
+      BaseSaturation = 1
+    }
+
+    {
+      Name = "EndCreditsBloomIris"
+      BloomThreshold = 0.7
+      BlurAmount = 8
+      BloomIntensity = 1.2
+      BaseIntensity = 1
+      BloomSaturation = 0.4
+      BaseSaturation = 1
+    }
+
+   {
+      Name = "EndingTimeVignetteBloom"
+      BloomThreshold = 0.25
+      BlurAmount = 16
+      BloomIntensity = 1.0
+      BaseIntensity = 1.0
+      BloomSaturation = 1
+      BaseSaturation = 0.5
+    }   
+
+    {
+      Name = "ChronosPhase2Start"
+      BloomThreshold = 0.25
+      BlurAmount = 16
+      BloomIntensity = 1.7
+      BaseIntensity = 1.7
+      BloomSaturation = 1
+      BaseSaturation = 1.3
+    }    
+
+    {
+      Name = "MirrorTransition"
+      BloomThreshold = 0
+      BlurAmount = 1
+      BloomIntensity = 1
+      BaseIntensity = 0
+      BloomSaturation = 1
+      BaseSaturation = 1
+    }
 
   ]
 }

@@ -42,6 +42,10 @@
 				BlendTransitionFrom = "Melinoe_Cast_StartLoop"
 				Duration = 5
 			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 3
+			}
 		]
 	}
 	{
@@ -308,6 +312,7 @@
 		GrannyAnimation = "Melinoe_NoWeapon_Base_ForwardProjectileAntic_C_00"
 		HoldLastFrame = true
 		GrannyAnimationSpeed = 0.25
+		DisableOwnerManualInteract = true
 	}
 	{
 		Name = "Melinoe_ForwardCast_Fire"
@@ -321,12 +326,14 @@
 		GrannyAnimation = "Melinoe_NoWeapon_Base_ForwardProjectileFire_C_00"
 		ChainTo = "Melinoe_ForwardCast_FireLoop2"
 		GrannyAnimationSpeed = 2.0
+		DisableOwnerManualInteract = true
 	}
 	{
 		Name = "Melinoe_ForwardCast_FireLoop2"
 		InheritFrom = "MelinoeBaseAnimation"
 		GrannyAnimation = "Melinoe_NoWeapon_Base_ForwardProjectileFireLoop_C_00"
 		Loop = true
+		DisableOwnerManualInteract = true
 	}
 	{
 		Name = "Melinoe_ForwardCast_End"

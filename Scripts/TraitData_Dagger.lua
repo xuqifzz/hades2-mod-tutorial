@@ -2,22 +2,30 @@ OverwriteTableKeys( TraitData, {
 	-- Dagger
 	DaggerHammerTrait = 
 	{
-		CodexWeapon = "WeaponDagger"
+		CodexWeapon = "WeaponDagger",
+		DebugOnly = true,
 	},
 
 	DaggerBlinkAoETrait = 
 	{
 		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
 		Icon = "Hammer_Daggers_29",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5
+			},
+		},
 		GameStateRequirements =
 		{
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponDagger", },
-			},
-			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "DaggerRapidAttackTrait", },
 			},
 		},
 		ManaCostModifiers = 
@@ -75,6 +83,10 @@ OverwriteTableKeys( TraitData, {
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponDagger", },
 			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponDagger", },
+				IsNone = {"DaggerTripleAspect", }
+			},
 		},
 		
 		OnWeaponFiredFunctions = 
@@ -115,15 +127,22 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
 		Icon = "Hammer_Daggers_32",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 0.55/0.65,
+			},
+		},
 		GameStateRequirements =
 		{
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponDagger", },
-			},
-			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "DaggerBlockAspect", "DaggerBlinkAoETrait", "DaggerFinalHitTrait", "SlowExAttackBoon" },
 			},
 		},
 		PropertyChanges =
@@ -131,7 +150,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponNames = { "WeaponDagger", "WeaponDagger2", "WeaponDaggerDash", "WeaponDaggerMultiStab", "WeaponDaggerDouble", "WeaponDaggerBlink" },
 				WeaponProperty = "ChargeTime",
-				ChangeValue = 0.65,
+				BaseValue = 0.65,
 				ChangeType = "Multiply",
 				ExcludeLinked = true,
 				ReportValues = { ReportedWeaponMultiplier = "ChangeValue" },
@@ -157,9 +176,16 @@ OverwriteTableKeys( TraitData, {
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponDagger", },
 			},
+		},
+		RarityLevels =
+		{
+			Common =
 			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "DaggerSpecialFanTrait", },
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 5/3,
 			},
 		},
 		PropertyChanges =
@@ -169,6 +195,17 @@ OverwriteTableKeys( TraitData, {
 				WeaponProperties = 
 				{ 
 					ProjectileAngleOffset = 0
+				},
+				ExcludeLinked = true
+			},
+			{
+				TraitName = "DaggerTripleAspect",
+				WeaponName = "WeaponDaggerThrow",
+				WeaponProperties = 
+				{ 
+					ProjectileAngleOffset = 0,
+					ProjectileInterval = 0.2,
+					ProjectileIntervalStart = 0.2,
 				},
 				ExcludeLinked = true
 			},
@@ -215,9 +252,16 @@ OverwriteTableKeys( TraitData, {
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponDagger", },
 			},
+		},
+		RarityLevels =
+		{
+			Common =
 			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "DaggerSpecialLineTrait", },
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 2,
 			},
 		},
 		AddOutgoingDamageModifiers =
@@ -231,22 +275,18 @@ OverwriteTableKeys( TraitData, {
 			ReportValues = { ReportedWeaponMultiplier = "ValidWeaponMultiplier"},
 			ExcludeLinked = true,
 		},
-		WeaponDataOverride =
+		ChargeStageModifiers = 
 		{
-			WeaponDaggerThrow = 
+			ValidWeapons = { "WeaponDaggerThrow" },
+			IncreaseNumProjectiles =
 			{
-				ChargeWeaponStages = 
-				{
-						{ ManaCost = 6, WeaponProperties = { Projectile = "ProjectileDaggerThrowCharged", FireGraphic = "Melinoe_Dagger_SpecialEx_Fire", NumProjectiles = 4}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.32, ChannelSlowEventOnEnter = true },
-						{ ManaCost = 8, WeaponProperties = { NumProjectiles = 6 }, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.1, },
-						{ ManaCost = 10, WeaponProperties = { NumProjectiles = 8}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.1, },
-						{ ManaCost = 12, WeaponProperties = { NumProjectiles  = 10}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.1, },
-						{ ManaCost = 14, WeaponProperties = { NumProjectiles  = 12}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.1, },
-						{ ManaCost = 16, WeaponProperties = { NumProjectiles  = 13}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.1, },
-						{ ManaCost = 18, WeaponProperties = { NumProjectiles  = 15}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.1, },
-						{ ManaCost = 20, WeaponProperties = { NumProjectiles  = 16, ReportValues = { ReportedAmount = "NumProjectiles" } }, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.06, },
-				},
-			}
+				NumProjectiles = 3,
+				ReportValues = { ReportedAmount = "NumProjectiles" }
+			},
+			AddWeaponProperties = 
+			{
+				ProjectileInterval = 0.04,
+			},
 		},
 		PropertyChanges =
 		{
@@ -254,8 +294,7 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponDaggerThrow",
 				WeaponProperties = 
 				{ 
-					ProjectileAngleOffset = math.rad(22.5),
-					ProjectileInterval = 0.015,
+					ProjectileInterval = 0.04,
 				},
 				ProjectileProperties = 
 				{
@@ -299,9 +338,9 @@ OverwriteTableKeys( TraitData, {
 				ReportedDamage = "NonExBaseDamageAddition"
 			},
 			]]
-			NonExHealthBufferRemoval = 0.50,
+			NonExFlatDamageToArmor = 500,
 			ValidWeapons = { "WeaponDaggerThrow" },
-			ReportValues = { ReportedWeaponMultiplier = "NonExHealthBufferRemoval" },
+			ReportValues = { ReportedWeaponMultiplier = "NonExFlatDamageToArmor" },
 		},
 		PropertyChanges =
 		{	
@@ -326,7 +365,6 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedWeaponMultiplier",
 				ExtractAs = "ArmorDamageIncrease",
-				Format = "Percent",
 			},
 		}
 	},
@@ -342,14 +380,20 @@ OverwriteTableKeys( TraitData, {
 				HasAll = { "WeaponDagger", },
 			},
 		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 2,
+			},
+		},
 		WeaponDataOverride =
 		{	
-			--[[
-			WeaponDaggerThrow =
-			{
-				ChargeWeaponStages = {},
-			},
-			]]
+			
 		},
 		AddOutgoingDamageModifiers =
 		{
@@ -366,13 +410,6 @@ OverwriteTableKeys( TraitData, {
 		{
 			{
 				WeaponName = "WeaponDaggerThrow",
-				WeaponProperties = 
-				{ 
-					--FireOnRelease = false,
-					--ChargeTime = 0.23,
-					--MinChargeToFire = 1.0,
-					--SwapOnFire = "null"
-				},
 				ProjectileProperties = 
 				{
 					NumJumps = 2,
@@ -384,6 +421,16 @@ OverwriteTableKeys( TraitData, {
 				},
 				ExcludeLinked = true
 			},
+			{
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrow",
+				ProjectileProperties = 
+				{
+					FinalJumpToOwner = true,
+					NumJumps = 3,
+				}
+
+			}
 		},	
 		ExtractValues =
 		{
@@ -409,6 +456,18 @@ OverwriteTableKeys( TraitData, {
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponDagger", },
+			},
+		},
+		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 4/3,
 			},
 		},
 		AddOutgoingDamageModifiers =
@@ -459,10 +518,10 @@ OverwriteTableKeys( TraitData, {
 					{
 						Invulnerable = "/SFX/SwordWallHitClank",
 						Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-						Bone = "/SFX/MetalBoneSmash",
-						Brick = "/SFX/MetalStoneClang",
-						Stone = "/SFX/MetalStoneClang",
-						Organic = "/SFX/StabSplatterSmall",
+						Bone = "/SFX/MetalBoneSmashShort",
+						Brick = "/SFX/MetalStoneClangShort",
+						Stone = "/SFX/MetalStoneClangShort",
+						Organic = "/SFX/MetalOrganicHitSHIELDshort",
 						StoneObstacle = "/SFX/SwordWallHitClank",
 						BrickObstacle = "/SFX/SwordWallHitClank",
 						MetalObstacle = "/SFX/SwordWallHitClank",
@@ -478,6 +537,17 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = {"WeaponTrait", "DaggerHammerTrait"},
 		Icon = "Hammer_Daggers_30",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.25,
+			},
+		},
 		GameStateRequirements =
 		{
 			{
@@ -501,7 +571,7 @@ OverwriteTableKeys( TraitData, {
 		WeaponSpeedMultiplier =
 		{
 			WeaponNames = WeaponSets.HeroSecondaryWeapons,
-			Value = 0.6,
+			Value = { BaseValue = 0.6, SourceIsMultiplier = true },
 			ReportValues = { ReportedSpeedIncrease = "Value" }
 		},	
 		ExtractValues =
@@ -532,42 +602,17 @@ OverwriteTableKeys( TraitData, {
 				HasAll = { "WeaponDagger", },
 			},
 		},
-        --[[
-		AddOutgoingDamageModifiers = 
+		RarityLevels =
 		{
-			ValidWeapons = {"WeaponDagger5"},
-			ValidMapKeyBaseDamageAddition = "DaggerLastHit",
-		},
-		SetupFunction = 
-		{
-			Name = "DaggerLastHitSetup",
-		},
-		OnEnemyDeathFunction = 
-		{
-			Name = "DaggerFinalHitIncrease",
-			FunctionArgs = {
-				RequiredWeapon = "WeaponDagger5",
-				CombatText = "DaggerFinalHit",
-				DamageIncrease = 15,
-				ReportValues = 
-				{ 
-					ReportedDamageBonus = "DamageIncrease",
-				}
-			}
-		},
-		ExtractValues =
-		{
+			Common =
 			{
-				Key = "ReportedDamageBonus",
-				ExtractAs = "DamageBonus",
+				Multiplier = 1,
 			},
+			Legendary = 
 			{
-				Key = "AccumulatedDaggerDamageBonus",
-				ExtractAs = "TooltipAccumulatedBonus",
+				Multiplier = 1.5,
 			},
 		},
-		]]
-
 		PropertyChanges =
 		{
 			{
@@ -600,10 +645,21 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 25/15
+			},
+		},
 		AddOutgoingDamageModifiers = 
 		{	
 			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
-			ValidBaseDamageAddition = 15,
+			ValidBaseDamageAddition = { BaseValue = 15 },
 			ReportValues = 
 			{ 
 				ReportedDamage = "ValidBaseDamageAddition"
@@ -636,6 +692,18 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
 		Icon = "Hammer_Daggers_28",
+		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 2.0/1.5,
+			},
+		},
 		GameStateRequirements =
 		{
 			{
@@ -646,7 +714,7 @@ OverwriteTableKeys( TraitData, {
 		AddOutgoingDamageModifiers =
 		{
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
-			HitVulnerabilityMultiplier = 2.5,
+			HitVulnerabilityMultiplier = { BaseValue = 2.5, SourceIsMultiplier = true },
 			ReportValues = { ReportedWeaponMultiplier = "HitVulnerabilityMultiplier" },
 		},	
 		ExtractValues =
@@ -659,77 +727,145 @@ OverwriteTableKeys( TraitData, {
 		}
 	},
 
-	DaggerSpecialRangeTrait = 
+	-- Morrigan
+	DaggerTripleBuffTrait = 
 	{
-	
 		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
-		Icon = "Hammer_Daggers_37",
+		Icon = "Hammer_Daggers_43",
+		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5,
+			},
+		},
 		GameStateRequirements =
 		{
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponDagger", },
 			},
-		},
-		AddOutgoingDamageModifiers =
-		{
-			ValidWeapons = { "WeaponDaggerThrow" },
-			ExcludeLinked = true,
-			DistanceThreshold = 650,
-			DistanceMultiplier =
 			{
-				BaseValue = 2,
-				SourceIsMultiplier = true,
-			},
-			ReportValues = { ReportedWeaponMultiplier = "DistanceMultiplier"},
-		},
-		ChargeStageModifiers = 
-		{
-			ValidWeapons = { "WeaponDaggerThrow", },
-			RevertProjectileProperties = 
-			{
-				Range = true,
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponDagger", },
+				IsAny = {"DaggerTripleAspect", }
 			},
 		},
-		PropertyChanges =
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "DaggerTripleAspect" }
+			},
+		},
+		WomboDamageBonusMultiplier = { BaseValue = 2 },
+		ExtractValues = 
+		{
+			{
+				Key = "WomboDamageBonusMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "WomboStrike",
+				BaseProperty = "Damage",
+			},
+		}
+	},
+	DaggerTripleRepeatWomboTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
+		Icon = "Hammer_Daggers_44",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 0.44/0.33,
+			},
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponDagger", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponDagger", },
+				IsAny = {"DaggerTripleAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "DaggerTripleAspect" }
+			},
+		},
+		RepeatTripleStrikeChance = {BaseValue = 0.33},
+		ExtractValues =
+		{
+			{
+				Key = "RepeatTripleStrikeChance",
+				ExtractAs = "RepeatChance",
+				Format = "LuckModifiedPercent"
+			},
+		}
+	},
+	DaggerTripleHomingSpecialTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
+		Icon = "Hammer_Daggers_45",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 0.6/0.5,
+			},
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponDagger", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponDagger", },
+				IsAny = {"DaggerTripleAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "DaggerTripleAspect" }
+			},
+		},
+		PropertyChanges = 
 		{
 			{
 				WeaponName = "WeaponDaggerThrow",
-				ProjectileName = "ProjectileDaggerThrow",
-				ProjectileProperties = 
-				{
-					Range = 1400,
-				},
-			},
+				ProjectileProperty = "ImmunityDuration",
+				BaseValue = 0.5,
+				SourceIsMultiplier = true,
+				ChangeType = "Multiply",
+				ReportValues = { ReportedIntervalChange = "ChangeValue" },
+			}
 		},
-	},
-	DaggerRepeatStrikeTrait = 
-	{
-	
-		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
-		Icon = "Hammer_Daggers_37",
-		GameStateRequirements =
+		ExtractValues =
 		{
 			{
-				Path = { "CurrentRun", "Hero", "Weapons", },
-				HasAll = { "WeaponDagger", },
+				Key = "ReportedIntervalChange",
+				ExtractAs = "SpeedChange",
+				Format = "PercentReciprocalDelta"
 			},
-		},
-		PropertyChanges =
-		{
-			{
-				WeaponName = "WeaponDaggerMultiStab",
-				ExcludeLinked = true,
-				WeaponProperties = 
-				{
-					FullyAutomatic = true,
-					ControlWindow = 0.6,
-					SwapOnFire = "WeaponDaggerMultiStab",
-					AddOnFire = "null",
-					LoseControlIfNotCharging = true,
-					ForceReleaseOnSwap = false,
-				}
-			},
-		},
+		}
 	},
 })

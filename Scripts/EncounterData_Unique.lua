@@ -9,85 +9,14 @@ OverwriteTableKeys( EncounterData,
 		{
 			{ FunctionName = "ActivateObjects", Args = { ObjectTypes = { "HealthFountain", "HealthFountainF", "HealthFountainG", "HealthFountainH", "HealthFountainI", "HealthFountainN", "HealthFountainO" } } },
 			{ FunctionName = "SpawnRoomReward" },
-			{
-				FunctionName = "ActivatePrePlaced",
-				GameStateRequirements =
-				{
-					{
-						PathFalse = { "GameState", "TextLinesRecord", "ToulaGift01", },
-					},
-				},
-				Args =
-				{
-					{ FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "Familiar_Cat_01" }, }
-				},
-			},
-		},
-
-		DistanceTriggers =
-		{
-			{
-				TriggerObjectType = "Familiar_Cat_01", WithinDistance = 400,
-				FunctionName = "PlayEmoteSimple",
-				Args =
-				{
-					AnimationName = "StatusIconDisgruntled",
-				},
-			},
-			{
-				TriggerObjectType = "Familiar_Cat_01", WithinDistance = 500,
-				LeaveDistanceBuffer = 60,
-				VoiceLines =
-				{
-					{
-						BreakIfPlayed = true,
-						UsePlayerSource = true,
-						GameStateRequirements =
-						{
-							{
-								Path = { "GameState", "Resources", "FamiliarPoints" },
-								Comparison = ">=",
-								Value = 1,
-							},
-							{
-								Path = { "GameState", "UseRecord", "Familiar_Cat_01", },
-								Comparison = ">=",
-								Value = 1,
-							},
-							-- @ temporary so Frinos is always first
-							{
-								PathTrue = { "GameState", "FamiliarsUnlocked", "FrogFamiliar", },
-							},
-						},
-
-						{ Cue = "/VO/Melinoe_0991", Text = "Little one, I have something for you." },
-					},
-					{
-						BreakIfPlayed = true,
-						UsePlayerSource = true,
-						GameStateRequirements =
-						{
-							--
-						},
-						-- { Cue = "/VO/Melinoe_0827", Text = "Something there." },
-						{ Cue = "/VO/Melinoe_0825", Text = "Over there.",
-							GameStateRequirements =
-							{
-								{
-									PathFalse = { "CurrentRun", "CurrentRoom", "SpeechRecord", "/VO/Melinoe_0825", },
-								}
-							},
-						},
-						-- { Cue = "/VO/Melinoe_0577", Text = "Mm!" },
-					},					
-				}
-			}
 		},
 	},
 
 	Shop =
 	{
 		InheritFrom = { "NonCombat" },
+		SpeakerNames = { "Selene", },
+		LoadPackages = { "Selene", },
 		TimerBlock = "ShopEncounter",
 		TimerBlockRequirements =
 		{
@@ -104,9 +33,6 @@ OverwriteTableKeys( EncounterData,
 				GameStateRequirements = 
 				{
 					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
-					},
-					{
 						PathTrue = { "GameState", "TextLinesRecord", "HeraclesFirstMeeting" },
 					},
 					{
@@ -120,6 +46,7 @@ OverwriteTableKeys( EncounterData,
 						PathFalse = { "PrevRun", "HeraclesShopped" },
 					},
 					NamedRequirements = { "NoRecentFieldNPCEncounter", },
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 					ChanceToPlay = 0.125, 
 				},
 			},
@@ -127,9 +54,6 @@ OverwriteTableKeys( EncounterData,
 				FunctionName = "CheckNemesisShoppingEvent",
 				GameStateRequirements = 
 				{
-					{
-						PathFalse = { "CurrentRun", "ActiveBounty" },
-					},
 					{
 						PathTrue = { "GameState", "EncountersCompletedCache", "NemesisCombatIntro" },
 					},
@@ -144,6 +68,7 @@ OverwriteTableKeys( EncounterData,
 						PathFalse = { "PrevRun", "NemesisShopped" },
 					},
 					NamedRequirements = { "NoRecentNemesisEncounter", },
+					NamedRequirementsFalse = { "StandardPackageBountyActive", "HecateMissing" },
 					ChanceToPlay = 0.125, 
 				},
 				Args =
@@ -176,6 +101,68 @@ OverwriteTableKeys( EncounterData,
 				{ Name = "MelinoeRoomExitVoiceLines", Time = 25 },
 			},
 			{
+				PreLineWait = 0.5,
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.5,
+				SuccessiveChanceToPlayAll = 0.25,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsAny = { "G_PreBoss01" },
+					},
+					{
+						Path = { "GameState", "RoomsEntered" },
+						SumOf = { "G_Boss01", "G_Boss02" },
+						Comparison = ">=",
+						Value = 4,
+					},
+				},
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+
+				{ Cue = "/VO/MelinoeField_0981", Text = "All right, Scylla...", PlayFirst = true },
+				{ Cue = "/VO/MelinoeField_0979", Text = "To the stage..." },
+				{ Cue = "/VO/MelinoeField_0978", Text = "Showtime...",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "EnemyKills", "Scylla" },
+						},
+					},
+				},
+				{ Cue = "/VO/MelinoeField_0980", Text = "On with the show...",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "EnemyKills", "Scylla" },
+						},
+					},
+				},
+				{ Cue = "/VO/MelinoeField_0977", Text = "Almost out of here...",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "EnemyKills", "Scylla" },
+						},
+					},
+				},
+				{ Cue = "/VO/MelinoeField_0982", Text = "The old song-and-dance...",
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "RoomCountCache" },
+							SumOf = { "G_Boss01", "G_Boss02" },
+							Comparison = ">=",
+							Value = 5,
+						},
+					},
+				},
+			},
+			{
 				PreLineWait = 0.25,
 				BreakIfPlayed = true,
 				RandomRemaining = true,
@@ -190,6 +177,8 @@ OverwriteTableKeys( EncounterData,
 					{
 						PathTrue = { "GameState", "RoomsEntered", "F_Boss01" },
 					},
+					-- @ ending
+					NamedRequirementsFalse = { "HecateMissing" },
 				},
 
 				{ Cue = "/VO/MelinoeField_2356", Text = "{#Emph}<Sigh> {#Prev}Here goes...", PlayFirst = true,
@@ -298,4 +287,11 @@ OverwriteTableKeys( EncounterData,
 
 		RequireRoomReward = "Shop",
 	},
+
+	TyphonShop =
+	{
+		InheritFrom = { "Shop" },
+		SpeakerNames = { "Hermes", "Selene", },
+	},
+
 })

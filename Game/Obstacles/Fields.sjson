@@ -190,6 +190,17 @@
     }
     
     {
+      Name = "FieldsTerrainEdge01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Edge_01"
+      }
+    }
+    
+    {
       Name = "FieldsTerrainRiverEdge01c"
       InheritFrom = "1_BaseTerrainTile"
       DisplayInEditor = true
@@ -551,12 +562,12 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Fields\Fields_Overlook_01"
-        Tallness = 85
+        Tallness = 1536
         Offset = { X = 0 Y = 0 }
         Points = [
-          { X = -2 Y = 2 }
-          { X = 2 Y = 2 }
-          { X = 0 Y = -2 }
+          { X = -153 Y = 95 }
+          { X = 132 Y = 91 }
+          { X = -19 Y = 20 }
         ]
       }
     }
@@ -569,12 +580,12 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Fields\Fields_Overlook_02"
-        Tallness = 85
+        Tallness = 317
         Offset = { X = 0 Y = 0 }
         Points = [
-          { X = -2 Y = 2 }
-          { X = 2 Y = 2 }
-          { X = 0 Y = -2 }
+          { X = -70 Y = 12 }
+          { X = 4 Y = -23 }
+          { X = 65 Y = 12 }
         ]
       }
     }
@@ -587,12 +598,12 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Fields\Fields_Overlook_03"
-        Tallness = 85
+        Tallness = 525
         Offset = { X = 0 Y = 0 }
         Points = [
-          { X = -2 Y = 2 }
-          { X = 2 Y = 2 }
-          { X = 0 Y = -2 }
+          { X = -120 Y = 5 }
+          { X = 85 Y = 12 }
+          { X = -12 Y = -38 }
         ]
       }
     }
@@ -605,12 +616,12 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Fields\Fields_Overlook_04"
-        Tallness = 85
+        Tallness = 381
         Offset = { X = 0 Y = 0 }
         Points = [
-          { X = -2 Y = 2 }
-          { X = 2 Y = 2 }
-          { X = 0 Y = -2 }
+          { X = -75 Y = 21 }
+          { X = 78 Y = 21 }
+          { X = -1 Y = -14 }
         ]
       }
     }
@@ -1127,11 +1138,9 @@
           { X = -234 Y = 172 }
           { X = -9 Y = 203 }
           { X = 165 Y = 172 }
-          { X = 368 Y = 61 }
-          { X = 370 Y = 23 }
-          { X = 237 Y = -26 }
-          { X = -25 Y = -53 }
-          { X = -192 Y = -14 }
+          { X = 380 Y = 65 }
+          { X = 201 Y = -19 }
+          { X = -16 Y = -4 }
         ]
       }
     }
@@ -1409,6 +1418,7 @@
       Thing = 
       {
         EditorOutlineDrawBounds = false
+        CausesOcclusion = true
         FootstepFxL = "WheatFootstepL-Spawner"
         FootstepFxR = "WheatFootstepR-Spawner"
         Graphic = "Tilesets\Fields\Fields_WallBrick_01b"
@@ -1667,6 +1677,7 @@
       Thing = 
       {
         EditorOutlineDrawBounds = false
+        CausesOcclusion = true
         FootstepFxL = "WheatFootstepL-Spawner"
         FootstepFxR = "WheatFootstepR-Spawner"
         Graphic = "Tilesets\Fields\Fields_Pillar_01"
@@ -1691,6 +1702,7 @@
       Thing = 
       {
         EditorOutlineDrawBounds = false
+        CausesOcclusion = true
         FootstepFxL = "WheatFootstepL-Spawner"
         FootstepFxR = "WheatFootstepR-Spawner"
         Graphic = "Tilesets\Fields\Fields_Pillar_01a"
@@ -1972,6 +1984,7 @@
       Thing = 
       {
         EditorOutlineDrawBounds = false
+        DrawEmbeddedBehind = true
         FootstepFxL = "WheatFootstepL-Spawner"
         FootstepFxR = "WheatFootstepR-Spawner"
         Graphic = "Tilesets\Fields\Fields_Capital_02"
@@ -2012,6 +2025,38 @@
         ]
       }
     }
+    {
+      Name = "FieldsEchoRock03"
+      InheritFrom = "FieldsEchoRock01"
+      Thing = 
+      {
+        Graphic = "Tilesets\Fields\Fields_EchoRock_03"
+      }
+    }
+    
+    {
+      Name = "FieldsEchoRock01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_EchoRock_01a"
+        Tallness = 306
+        Offset = { X = 0 Y = -109 }
+        Points = [
+          { X = -253 Y = 42 }
+          { X = -45 Y = 164 }
+          { X = 38 Y = 153 }
+          { X = 255 Y = 70 }
+          { X = 240 Y = -4 }
+          { X = 51 Y = -102 }
+          { X = -125 Y = -85 }
+        ]
+      }
+    }
     
     {
       Name = "FieldsEchoRock02"
@@ -2036,11 +2081,20 @@
         ]
       }
     }
+    {
+      Name = "FieldsEchoRock04"
+      InheritFrom = "FieldsEchoRock02"
+      Thing = 
+      {
+        Graphic = "Tilesets\Fields\Fields_EchoRock_04"
+      }
+    }
     
     {
       Name = "H_TallGrass"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life = 
       {
         DieOnCollision = true
@@ -2135,20 +2189,22 @@
     }
 
  {
-Name = "ShadeFieldsGreyIdle01"
+    Name = "ShadeFieldsGreyIdle01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+      IgnoredByPathfinders = true
       Life = 
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
+        TriggerOnHit = false
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeFieldsGreyIdle"
         StopsLight = false
@@ -2165,20 +2221,22 @@ Name = "ShadeFieldsGreyIdle01"
       }
     }
 {
-Name = "ShadeFieldsRedIdle01"
+    Name = "ShadeFieldsRedIdle01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+      IgnoredByPathfinders = true
       Life = 
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
+        TriggerOnHit = false
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeFieldsRedIdle"
         StopsLight = false

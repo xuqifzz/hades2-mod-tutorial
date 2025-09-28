@@ -33,7 +33,7 @@
       SubtitlesBColor = { R = 56, G = 255, B = 108 }
     }
     {
-      Name = "OrpheusSong1VACOUSTIC"
+      Name = "IrisMusicScylla3_MC"
       /*FontA = ""*/
       /*UseSubtitlesA = true*/
       /*SubtitlesAColor = { R = 0, G = 0, B = 255 }*/
@@ -41,10 +41,10 @@
       UseSubtitlesB = true
       VolumeThreshold = 0.6
       VocalsThreshold = 0.1
-      SubtitlesBColor = { R = 108, G = 114, B = 157 }
+      SubtitlesBColor = { R = 56, G = 255, B = 108 }
     }
     {
-      Name = "OrpheusSong2"
+      Name = "IrisMusicScylla4_MC"
       /*FontA = ""*/
       /*UseSubtitlesA = true*/
       /*SubtitlesAColor = { R = 0, G = 0, B = 255 }*/
@@ -52,40 +52,31 @@
       UseSubtitlesB = true
       VolumeThreshold = 0.6
       VocalsThreshold = 0.1
-      SubtitlesBColor = { R = 108, G = 114, B = 157 }
+      SubtitlesBColor = { R = 56, G = 255, B = 108 }
     }
     {
-      Name = "EurydiceSong1_Eurydice"
+      Name = "ApolloSong"
       /*FontA = ""*/
       /*UseSubtitlesA = true*/
       /*SubtitlesAColor = { R = 0, G = 0, B = 255 }*/
       FontB = "LatoBoldItalic"
       UseSubtitlesB = true
       VolumeThreshold = 0.6
-      VocalsThreshold = 0.1
-      SubtitlesBColor = { R = 238, G = 255, B = 100 }
+      VocalsThreshold = 0.7
+      SubtitlesBColor = { R = 255, G = 255, B = 205 } /* ColorData.ApolloVoice */
     }
     {
-      Name = "EurydiceSong1_Orpheus"
-      /*FontA = ""*/
-      /*UseSubtitlesA = true*/
-      /*SubtitlesAColor = { R = 0, G = 0, B = 255 }*/
+      Name = "ArtemisSong_MC"
+      /* Melinoe */
+      FontA = "LatoBoldItalic"
+      UseSubtitlesA = true
+      SubtitlesAColor = { R = 108, G = 114, B = 157 }
+      /* Artemis */
       FontB = "LatoBoldItalic"
       UseSubtitlesB = true
       VolumeThreshold = 0.6
       VocalsThreshold = 0.1
-      SubtitlesBColor = { R = 108, G = 114, B = 157 }
-    }
-    {
-      Name = "EurydiceSong1_Duet"
-      /*FontA = ""*/
-      /*UseSubtitlesA = true*/
-      /*SubtitlesAColor = { R = 0, G = 0, B = 255 }*/
-      FontB = "LatoBoldItalic"
-      UseSubtitlesB = true
-      VolumeThreshold = 0.6
-      VocalsThreshold = 0.1
-      SubtitlesBColor = { R = 193, G = 205, B = 255 }
+      SubtitlesBColor = { R = 15, G = 255, B = 9 }
     }
     {
       Name = "EndTheme"
@@ -97,6 +88,30 @@
       VolumeThreshold = 0.6
       VocalsThreshold = 0.0
       SubtitlesBColor = { R = 193, G = 205, B = 255 }
+    }
+    {
+      Name = "IrisEndTheme"
+      /*FontA = ""*/
+      /*UseSubtitlesA = true*/
+      /*SubtitlesAColor = { R = 0, G = 0, B = 255 }*/
+      FontB = "LatoBoldItalic"
+      UseSubtitlesB = true
+      VolumeThreshold = 0.6
+      VocalsThreshold = 0.0
+      SubtitlesBColor = { R = 193, G = 205, B = 255 }
+    }
+    {
+      Name = "IrisEndThemeCrossroads_MC"
+      /* Melinoe */
+      FontA = "LatoBoldItalic"
+      UseSubtitlesA = true
+      SubtitlesAColor = { R = 108, G = 114, B = 157 }
+      /* Artemis */
+      FontB = "LatoBoldItalic"
+      UseSubtitlesB = true
+      VolumeThreshold = 0.6
+      VocalsThreshold = 0.1
+      SubtitlesBColor = { R = 15, G = 255, B = 9 }
     }
     {
       Name = "EndThemeACOUSTIC"
@@ -142,6 +157,10 @@
     {
       Name = "Hades"
       GUID = "{84b94fdf-b3df-4fd7-b657-68b5153cf5bf}"
+    }
+    {
+      Name = "Typhon"
+      GUID = "{c4d014a5-5ffd-4b98-b150-23411a208eae}"
     }
     {
       Name = "Chronos"
@@ -354,6 +373,10 @@
     {
       Name = "Eurydice"
       GUID = "{4109df74-064d-4f15-9219-c5c3f89a2ed9}"
+    }
+    {
+      Name = "Fates"
+      GUID = "{80d7d8aa-654f-493f-ae6e-a90e85bbfcfb}"
     }
   ]
 }

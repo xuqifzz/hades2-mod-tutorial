@@ -1,8 +1,10 @@
 OverwriteTableKeys( TraitData, {
-		-- Circe
+	-- Circe
 	BaseCirce =
 	{
 		IsCirceBoon = true,
+		DebugOnly = true,
+		PackageName = "NPC_Circe_01",
 	},
 	RandomArcanaTrait = 
 	{
@@ -48,14 +50,26 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = {"BaseCirce"},
 		Icon = "Boon_Circe_04",
-		
+		HideStatLinesInCodex = true,
 		AcquireFunctionName = "CircePetMultiplier",
 		AcquireFunctionArgs = 
 		{
 			BonusMultiplier = 1, 
 			ReportValues = { ReportedBonus = "BonusMultiplier" }
 		},
-		
+		StatLines = 
+		{
+			"FamiliarBoostStatLine",
+		},
+		TrayStatLines = 
+		{
+			"FamiliarBoostTrayStatLine",
+		},
+		MergeTooltipDataFromSession = 
+		{
+			Old = "OldFamiliarTrait",
+			New = "NewFamiliarTrait",
+		},
 		ExtractValues =
 		{
 			{
@@ -63,6 +77,12 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "Bonus",
 				Format = "Percent",
 			},
+			{
+				IsExternal = true,
+				Format = "TotalHeroTraitValue",
+				Key = "FamiliarLastStandHealAmount",
+				ExtractAs = "TooltipLastStandHealth",
+			}
 		}
 	},
 	HealAmplifyTrait = 
@@ -75,6 +95,14 @@ OverwriteTableKeys( TraitData, {
 		{
 			HealFraction = 0.5,
 			ReportValues = { ReportedHeal = "HealFraction" }
+		},
+		CustomStatLinesWithShrineUpgrade = 
+		{
+			ShrineUpgradeName = "HealingReductionShrineUpgrade",
+			StatLines = 
+			{
+				"HealingReductionNotice",
+			},
 		},
 		TraitHealingBonus = 1.25,
 		ExtractValues =
@@ -99,9 +127,16 @@ OverwriteTableKeys( TraitData, {
 		AcquireFunctionName = "CirceMetaUpgradeRarity",
 		AcquireFunctionArgs = 
 		{
-			Count = 1, 
+			Count = 2, 
 			ReportValues = { ReportedCount = "Count" }
 		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedCount",
+				ExtractAs = "Count",
+			},
+		}
 	},
 	CirceEnlargeTrait = 
 	{
@@ -119,10 +154,18 @@ OverwriteTableKeys( TraitData, {
 				{
 					ReportedScale = "Scale",
 				},
+				PortraitOverrides =
+				{
+					Scale = 1.2,
+					OffsetX = -50,
+					OffsetY = -40,
+				},
 			},
 		},
+		MaxHealthMultiplier = 1.15, 
 		AddOutgoingDamageModifiers = 
 		{
+			ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,
 			ValidWeaponMultiplier = 1.15,
 			ReportValues = {ReportedMultiplier = "ValidWeaponMultiplier"}
 		},
@@ -132,6 +175,11 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedMultiplier",
 				ExtractAs = "Bonus",
+				Format = "PercentDelta",
+			},
+			{
+				Key = "MaxHealthMultiplier",
+				ExtractAs = "HealthBonus",
 				Format = "PercentDelta",
 			},
 		}
@@ -152,6 +200,12 @@ OverwriteTableKeys( TraitData, {
 				{
 					ReportedScale = "Scale",
 				},
+				PortraitOverrides =
+				{
+					Scale = 0.75,
+					OffsetX = -20,
+					OffsetY = 105,
+				},
 			},
 		},
 		
@@ -159,7 +213,7 @@ OverwriteTableKeys( TraitData, {
 		{
 			{
 				LifeProperty = "DodgeChance",
-				BaseValue = 0.15,
+				BaseValue = 0.10,
 				ChangeType = "Add",
 				DataValue = false,
 				ReportValues = { ReportedDodgeChance = "ChangeValue"},
@@ -167,7 +221,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				UnitProperty = "Speed",
 				ChangeType = "Multiply",
-				ChangeValue = 1.15,
+				ChangeValue = 1.10,
 				SourceIsMultiplier = true,
 				ReportValues = { ReportedBaseSpeed = "ChangeValue" },
 			},
@@ -185,5 +239,92 @@ OverwriteTableKeys( TraitData, {
 				Format = "Percent",
 			},
 		}
+	},
+	CirceSorceryDamageBoon = 
+	{
+		InheritFrom = {"BaseCirce"},
+		Icon = "Boon_Circe_08",
+		AllyDataModifiers = 
+		{			
+			AddOutgoingDamageModifiers =
+			{
+				{
+					NonPlayerMultiplier = 1.3
+				},
+			},
+		},
+		AddOutgoingDamageModifiers = 
+		{
+			-- Match this to above ally data modifier too!
+			ValidProjectiles = WeaponSets.SpellProjectileNames,
+			ValidWeaponMultiplier = 1.3,
+			ReportValues = { ReportedMultiplier = "ValidWeaponMultiplier"},
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "Bonus",
+				Format = "PercentDelta",
+			},
+		}
+	},
+
+	ExPolymorphBoon = 
+	{
+		InheritFrom = {"BaseCirce"},
+		Icon = "Boon_Circe_09",
+		ShowInHUD = true,
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "CirceAboutScyllaQuestComplete01" },
+			},
+		},
+		OnEnemyDamagedAction = 
+		{
+			ValidWeapons = WeaponSets.HeroAllWeapons,
+			FunctionName = "CircePolymorph",
+			Args = 
+			{
+				Chance = 0.15,
+				Cooldown = 10,
+				ReportValues = 
+				{ 
+					ReportedChance = "Chance", 
+					ReportedCooldown = "Cooldown",
+				}
+			},
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedChance",
+				ExtractAs = "Chance",
+				Format = "Percent",
+			},
+			{
+				Key = "ReportedCooldown",
+				ExtractAs = "Cooldown",
+			},
+			{
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "PolymorphTag",
+				BaseProperty = "Duration",
+				ExtractAs = "PolymorphDuration",
+				SkipAutoExtract = true,
+			},
+			{
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "MorphDamageProjectile",
+				BaseProperty = "Damage",
+				ExtractAs = "PolymorphDamage",
+				SkipAutoExtract = true,
+			},
+		},
+		Using = { Effects = {"PolymorphTag", "PolymorphDamageTaken"}, },
+		FlavorText = "ExPolymorphBoon_FlavorText",
 	},
 })

@@ -1,5 +1,7 @@
 OverwriteTableKeys( TraitData, {
 	-- Elementals
+
+	-- Hermes, all elements
 	ElementalUnifiedBoon = 
 	{
 		InheritFrom = {"UnityTrait"},
@@ -7,54 +9,24 @@ OverwriteTableKeys( TraitData, {
 		ActivationRequirements = 
 		{
 			{
-				Path = { "CurrentRun", "Hero", "Elements", "Fire" },
+				Path = { "CurrentRun", "Hero", "HighestBaseElementCount" },
 				Comparison = ">=",
-				Value = 2,
-			},
-			{
-				Path = { "CurrentRun", "Hero", "Elements", "Earth" },
-				Comparison = ">=",
-				Value = 2,
-			},
-			{
-				Path = { "CurrentRun", "Hero", "Elements", "Air" },
-				Comparison = ">=",
-				Value = 2,
-			},
-			{
-				Path = { "CurrentRun", "Hero", "Elements", "Water" },
-				Comparison = ">=",
-				Value = 2,
+				Value = 8,
 			},
 		},
 		GameStateRequirements = 
 		{
 			{
-				Path = { "CurrentRun", "Hero", "Elements", "Fire" },
+				Path = { "CurrentRun", "Hero", "HighestBaseElementCount" },
 				Comparison = ">=",
-				Value = 1,
-			},
-			{
-				Path = { "CurrentRun", "Hero", "Elements", "Earth" },
-				Comparison = ">=",
-				Value = 1,
-			},
-			{
-				Path = { "CurrentRun", "Hero", "Elements", "Air" },
-				Comparison = ">=",
-				Value = 1,
-			},
-			{
-				Path = { "CurrentRun", "Hero", "Elements", "Water" },
-				Comparison = ">=",
-				Value = 1,
+				Value = 4,
 			},
 		},
 		AddOutgoingDamageModifiers = 
 		{
 			GameStateMultiplier =
 			{
-				BaseValue = 1.20,
+				BaseValue = 1.25,
 				SourceIsMultiplier = true,
 				IdenticalMultiplier =
 				{
@@ -80,6 +52,86 @@ OverwriteTableKeys( TraitData, {
 		},
 	},
 
+	-- Hera, all elements
+	ElementalRarityUpgradeBoon = 
+	{
+		InheritFrom = {"UnityTrait"},
+		Icon = "Boon_Hera_34",
+		BlockStacking = true,
+		DescriptionTextSymbolScale = 0.67,
+		GameStateRequirements = 
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Elements", "Fire" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				Path = { "CurrentRun", "Hero", "Elements", "Earth" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				Path = { "CurrentRun", "Hero", "Elements", "Air" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				Path = { "CurrentRun", "Hero", "Elements", "Water" },
+				Comparison = ">=",
+				Value = 1,
+			},
+		},
+		ActivationRequirements = 
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Elements", "Fire" },
+				Comparison = ">=",
+				Value = 2,
+			},
+			{
+				Path = { "CurrentRun", "Hero", "Elements", "Earth" },
+				Comparison = ">=",
+				Value = 2,
+			},
+			{
+				Path = { "CurrentRun", "Hero", "Elements", "Air" },
+				Comparison = ">=",
+				Value = 2,
+			},
+			{
+				Path = { "CurrentRun", "Hero", "Elements", "Water" },
+				Comparison = ">=",
+				Value = 2,
+			},
+		},
+		OnActivationFunction = 
+		{
+			Name = "UpgradeAllCommon",
+			Args = 
+			{
+				PresentationDelay = 1.5,
+				RarityUpgrade = "Rare",
+				ActivatedValues = 
+				{
+					RarityBonus =
+					{
+						GodLootOnly = true,
+						Rare = 1,
+					},
+				}
+			}
+		},
+		StatLines =
+		{
+			"ElementalRarityStatDisplay",
+		},
+		ExtractValues =
+		{
+		}
+	},
+
+	-- Hephaestus, Earth
 	ElementalDamageBoon = 
 	{
 		InheritFrom = {"UnityTrait"},
@@ -155,6 +207,61 @@ OverwriteTableKeys( TraitData, {
 		},
 	},
 
+	-- Ares, Earth
+	ElementalOlympianDamageBoon = 
+	{
+		InheritFrom = {"UnityTrait"},
+		Icon = "Boon_Ares_40",
+		GameStateRequirements = 
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Elements", "Earth" },
+				Comparison = ">=",
+				Value = 4,
+			},
+		},
+		ActivationRequirements = 
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Elements", "Earth" },
+				Comparison = ">=",
+				Value = 8,
+			},
+		},
+		AddOutgoingDamageModifiersArray = 
+		{
+			{
+				ValidProjectiles = WeaponSets.OlympianProjectileNames,
+				ValidWeaponMultiplier = 1.5,
+				RequiredActivatedTraitName = "ElementalOlympianDamageBoon",
+				ReportValues = { ReportedMultiplier = "ValidWeaponMultiplier"}
+			},
+			{
+				ValidEffects = WeaponSets.OlympianEffectNames,
+				ValidWeaponMultiplier = 1.5,
+				RequiredActivatedTraitName = "ElementalOlympianDamageBoon",
+			}
+		},
+		ActivatedMissingEffectDamageIncrease = 
+		{
+			TraitName = "ElementalOlympianDamageBoon",
+			Amount = 0.5,
+		},
+		StatLines =
+		{
+			"EarthOlympianDamageStatDisplay1",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "Multiplier",
+				Format = "PercentDelta",
+			},
+		}
+	},
+
+	-- Hestia, Fire
 	ElementalBaseDamageBoon = 
 	{
 		InheritFrom = {"UnityTrait"},
@@ -178,22 +285,17 @@ OverwriteTableKeys( TraitData, {
 				Multiplier = 1
 			},
 		},
-		PropertyChanges = 
+		AddOutgoingDamageModifiers = 
 		{
-			{
-				WeaponNames = WeaponSets.HeroPrimarySecondaryWeapons,
-				ProjectileProperty = "Damage",
+			ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,
+			ValidBaseDamageAddition = 
+			{ 
 				BaseValue = 2,
-				ChangeType = "Add",
 				MultipliedByElement = "Fire",
-				IdenticalMultiplier =
-				{
-					Value = DuplicateMultiplier,
-				}, 
-				ReportValues = 
-				{ 
-					ReportedTotalDamageChange = "ChangeValue",
-				},
+			},
+			ReportValues = 
+			{ 
+				ReportedTotalDamageChange = "ValidBaseDamageAddition" 
 			},
 		},
 		-- Display variable only! Match this with the above valid change value!
@@ -227,6 +329,7 @@ OverwriteTableKeys( TraitData, {
 		},
 	},
 
+	-- Apollo, Fire
 	ElementalRallyBoon = 
 	{
 		InheritFrom = {"UnityTrait"},
@@ -282,6 +385,7 @@ OverwriteTableKeys( TraitData, {
 		}
 	},
 
+	-- Zeus, Air
 	ElementalDamageFloorBoon = 
 	{
 		InheritFrom = {"UnityTrait"},
@@ -304,7 +408,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		ActivatedDamageFloor = 
 		{ 
-			BaseValue = 30,
+			BaseValue = 50,
 			AsInt = true,
 			IdenticalMultiplier =
 			{
@@ -324,52 +428,70 @@ OverwriteTableKeys( TraitData, {
 		}
 	},
 
-	ElementalRarityUpgradeBoon = 
+	-- Aphrodite, Air
+	ElementalDodgeBoon = 
 	{
 		InheritFrom = {"UnityTrait"},
-		Icon = "Boon_Hera_34",
-		BlockStacking = true,
+		Icon = "Boon_Aphrodite_33",
 		GameStateRequirements = 
 		{
 			{
-				Path = { "CurrentRun", "Hero", "Elements", "Earth" },
+				Path = { "CurrentRun", "Hero", "Elements", "Air" },
 				Comparison = ">=",
 				Value = 2,
 			},
 		},
-		ActivationRequirements = 
+		ElementalMultipliers = 
 		{
+			Air = true,
+		},		
+		RarityLevels =
+		{
+			Common =
 			{
-				Path = { "CurrentRun", "Hero", "Elements", "Earth" },
-				Comparison = ">=",
-				Value = 3,
+				Multiplier = 1
 			},
 		},
-		OnActivationFunction = 
+		PropertyChanges = 
 		{
-			Name = "UpgradeAllCommon",
-			Args = 
 			{
-				PresentationDelay = 1.5,
-				ActivatedValues = 
-				{
-					RarityBonus =
-					{
-						GodLootOnly = true,
-						Rare = 1,
-					},
-				}
-			}
+				LifeProperty = "DodgeChance",
+				BaseValue = 0.02,
+				ChangeType = "Add",
+				MultipliedByElement = "Air",
+				DataValue = false,
+				ReportValues = 
+				{ 
+					ReportedTotalDodgeBonus = "ChangeValue",
+					ReportedDodgeBonus = "BaseValue",
+				},
+			},
 		},
 		StatLines =
 		{
-			"ElementalRarityStatDisplay",
+			"ElementalDodgeStatDisplay1",
+		},
+		TrayStatLines = 
+		{
+			"TotalDodgeChanceStatDisplay1",
 		},
 		ExtractValues =
 		{
-		}
+			{
+				Key = "ReportedTotalDodgeBonus",
+				ExtractAs = "TooltipTotalDodgeBonus",
+				Format = "Percent",
+				SkipAutoExtract = true,
+			},
+			{
+				Key = "ReportedDodgeBonus",
+				ExtractAs = "TooltipDodgeBonus",
+				Format = "Percent",
+			},
+		},
 	},
 
+	-- Demeter, Water
 	ElementalDamageCapBoon = 
 	{
 		InheritFrom = {"UnityTrait"},
@@ -391,9 +513,10 @@ OverwriteTableKeys( TraitData, {
 				Value = 6,
 			},
 		},
-		ActivatedDamageCap = 
+		ActivatedDamageReductionThreshold = 20,
+		ActivatedDamageReduction = 
 		{ 
-			BaseValue = 20, 
+			BaseValue = 10, 
 			AsInt = true,
 			MinValue = -1,
 			MinMultiplier = -2,
@@ -409,12 +532,18 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues =
 		{
 			{
-				Key = "ActivatedDamageCap",
+				Key = "ActivatedDamageReductionThreshold",
 				ExtractAs = "TooltipCap",
+			},
+			{
+				Key = "ActivatedDamageReduction",
+				ExtractAs = "TooltipReduction",
+				SkipAutoExtract = true
 			},
 		}
 	},
 
+	-- Poseidon, Water
 	ElementalHealthBoon = 
 	{
 		InheritFrom = {"UnityTrait"},
@@ -471,68 +600,6 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedHealthBonus",
 				ExtractAs = "TooltipDamageBonus",
-			},
-		},
-	},
-
-	ElementalDodgeBoon = 
-	{
-		InheritFrom = {"UnityTrait"},
-		Icon = "Boon_Aphrodite_33",
-		GameStateRequirements = 
-		{
-			{
-				Path = { "CurrentRun", "Hero", "Elements", "Air" },
-				Comparison = ">=",
-				Value = 2,
-			},
-		},
-		ElementalMultipliers = 
-		{
-			Air = true,
-		},		
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1
-			},
-		},
-		PropertyChanges = 
-		{
-			{
-				LifeProperty = "DodgeChance",
-				BaseValue = 0.03,
-				ChangeType = "Add",
-				MultipliedByElement = "Air",
-				DataValue = false,
-				ReportValues = 
-				{ 
-					ReportedTotalDodgeBonus = "ChangeValue",
-					ReportedDodgeBonus = "BaseValue",
-				},
-			},
-		},
-		StatLines =
-		{
-			"ElementalDodgeStatDisplay1",
-		},
-		TrayStatLines = 
-		{
-			"TotalDodgeChanceStatDisplay1",
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedTotalDodgeBonus",
-				ExtractAs = "TooltipTotalDodgeBonus",
-				Format = "Percent",
-				SkipAutoExtract = true,
-			},
-			{
-				Key = "ReportedDodgeBonus",
-				ExtractAs = "TooltipDodgeBonus",
-				Format = "Percent",
 			},
 		},
 	},

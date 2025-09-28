@@ -1,10 +1,8 @@
--- used for both Chaos Trials and Night Missions
-function BountyEarnedPresentation( bountyData, args )
+function PackagedBountyEarnedPresentation( bountyData )
 
 	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteAscendedDark" })
 	PlaySound({ Name = "/SFX/Menu Sounds/BiomeMapRewardIcon" })
 
-	thread( PlayVoiceLines, HeroVoiceLines.BountyEarnedVoiceLines, true )
 	thread( PlayVoiceLines, HeroVoiceLines.PackagedBountyClearedVoiceLines )
 
 	DisplayInfoBanner( nil, {
@@ -12,42 +10,85 @@ function BountyEarnedPresentation( bountyData, args )
 		SubtitleText = bountyData.SubtitleText or "BountyCompleteSubtitle",
 		AnimationName = "LocationBackingIrisChaosIn",
 		AnimationOutName = "LocationBackingIrisChaosOut",
-		AppearSound = "/SFX/ChaosBoonChoice",
 		TextRevealSound = "/Leftovers/Menu Sounds/TextReveal2",
 		SubtitleTextRevealSound = "/Leftovers/Menu Sounds/EmoteThoughtful",
 		FontScale = 0.9,
 		Delay = 0.4,
-		Duration = 3.25,
-		Color = {0, 255, 168, 255},
+		Duration = 2.25,
+		Color = {48, 12, 64, 255},
+		TextFadeColor = {200,64,255,0},
 		TextColor = Color.White,
-		SupertitleFont = "P22UndergroundSCMedium",
-		SupertitleTextColor = {190, 190, 190, 255},
-		SupertitleTextDelay = 1.0,
-		SubtitleFont = "SpectralSCLightTitling",
-		SubtitleOffsetY = 25,
+		SubtitleFont = "SpectralSCMedium",
+		SubtitleOffsetY = 10,
+		SubtitleDelay = 0.5,
+		SubTextColor = {180, 80, 230, 255},
+		--Icon = item.Name.."Preview",
+		IconMoveSpeed = 0.00001,
+		IconOffsetY = 0,
+		IconBackingOffsetY = -15,
+		TitleFont = "SpectralSCLightTitling",
+		AdditionalAnimation = "BountySparkles",
+		IconBackingAnimationName = "LocationBackingIrisSubtitleStarIn",
+		IconBackingAnimationOutName = "LocationBackingIrisSubtitleStarOut",
+		SubtitleData = { LuaKey = "TempTextData", LuaValue = bountyData },
+		} )
+
+end
+
+function ShrineBountyEarnedPresentation( bountyData )
+
+	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteAscendedDark" })
+	PlaySound({ Name = "/SFX/Menu Sounds/BiomeMapRewardIcon" })
+
+	thread( PlayVoiceLines, HeroVoiceLines.BountyEarnedVoiceLines, true )
+
+	DisplayInfoBanner( nil, {
+		TitleText = bountyData.TitleText or "BountyCompleteMessage",
+		SubtitleText = bountyData.SubtitleText or "BountyCompleteSubtitle",
+		AnimationName = "LocationBackingIrisGenericIn",
+		AnimationOutName = "LocationBackingIrisGenericOut",
+		AppearSound = "/SFX/Menu Sounds/MirrorCloseWithUpgrade",
+		TextRevealSound = "/Leftovers/Menu Sounds/TextReveal2",
+		SubtitleTextRevealSound = "/Leftovers/Menu Sounds/EmoteThoughtful",
+		FontScale = 0.9,
+		Delay = 0.4,
+		Duration = 2.25,
+		Color = {48, 12, 64, 255},
+		TextColor = Color.White,
+		TextFadeColor = {200,64,255,0},
+		TextOffsetY = 30,
+		SubtitleFont = "SpectralSCMedium",
+		SubtitleOffsetY = -5,
 		SubtitleDelay = 0.75,
 		SubTextColor = {194, 88, 255, 255},
 		--Icon = item.Name.."Preview",
 		IconMoveSpeed = 0.00001,
 		IconOffsetY = 0,
+		IconBackingOffsetY = -10,
 		TitleFont = "SpectralSCLightTitling",
 		AdditionalAnimation = "BountySparkles",
+		IconBackingAnimationName = "LocationBackingIrisSubtitleStarIn",
+		IconBackingAnimationOutName = "LocationBackingIrisSubtitleStarOut",
 		SubtitleData = { LuaKey = "TempTextData", LuaValue = bountyData },
 		} )
+
 end
 
 function BountyBoardOpenedPresentation( screen )
 
 	thread( PlayVoiceLines, HeroVoiceLines.BountyBoardOpenedVoiceLines )
+	wait( 0.5 )
+	for i = 1, 5 do
+		local intensityComponent = screen.Components["IntensityEye"..i]
+		SetAlpha({ Id =	intensityComponent.Id, Fraction = 1.0, Duration = 0.1, EaseIn = 0, EaseOut = 1 })
+	end
+	SetAnimation({ DestinationId = CurrentRun.Hero.ObjectId, Name = "MelinoeEquip" })
 
 end
 
 function BountyBoardIneligiblePresentation( screen, button )
 	PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo" })
 	thread( PlayVoiceLines, HeroVoiceLines.InteractionBlockedVoiceLines, true )
-	ModifyTextBox({ Id = button.Screen.Components.UnlockHint.Id, ColorTarget = Color.Red, ScaleTarget = 1.02, ScaleDuration = 0.1 })
-	wait( 0.1 )
-	ModifyTextBox({ Id = button.Screen.Components.UnlockHint.Id, ColorTarget = { 155, 155, 155, 180 }, ColorDuration = 0.3, ScaleTarget = 1.0, ScaleDuration = 1 })
 end
 
 function BountyPackagePreRunStartPresentation( bountyData, args )
@@ -55,7 +96,6 @@ function BountyPackagePreRunStartPresentation( bountyData, args )
 	PlaySound({ Name = "/SFX/Menu Sounds/ChaosBoonConfirm" })
 	AdjustColorGrading({ Name = "Team03", Duration = 2.4 })
 	AdjustFullscreenBloom({ Name = "GoldBloom", Duration = 2.4 })
-	-- LoadVoiceBanks({ Name = "Chaos" })
 	thread( PlayVoiceLines, GlobalVoiceLines.StartNewPackagedBountyVoiceLines, nil, nil, args )
 	PanCamera({ Id = CurrentRun.Hero.ObjectId, OffsetY = -180, Duration = 6.0, Retarget = true, EaseIn = 0, EaseOut = 0.1 })
 	FocusCamera({ Fraction = 0.775, Duration = 6 })
@@ -68,48 +108,8 @@ function BountyPackagePreRunStartPresentation( bountyData, args )
 
 end
 
-function BountyPackageRunEndPresentation( bountyName )
-
-	--[[
-	local titleText = "BountyCompleteMessage"
-	if not GameState.BountiesCompleted[bountyName] then
-		titleText = "BountyFailedMessage"
-	end
-	]]--
-
-	DisplayInfoBanner( nil, {
-		--SupertitleText = "EasyModeUpgradedSupertitle",
-		TitleText = "PackagedBountyEndedMessage",
-		TextRevealSound = "/Leftovers/Menu Sounds/TextReveal2",
-		SubtitleText = "PackagedBountyEnded_Subtitle",
-		SubtitleTextRevealSound = "/Leftovers/Menu Sounds/EmoteThoughtful",
-
-		AnimationName = "LocationBackingIrisChaosIn",
-		AnimationOutName = "LocationBackingIrisChaosOut",
-		AppearSound = "/SFX/ChaosBoonChoice",
-		TextRevealSound = "/Leftovers/Menu Sounds/TextReveal2",
-		SubtitleTextRevealSound = "/Leftovers/Menu Sounds/EmoteThoughtful",
-
-		Color = {0, 255, 168, 255},
-		--SupertitleTextColor = {190, 190, 190, 255},
-		--SupertitleTextDelay = 1.0,
-		TextColor = Color.White,
-		SubTextColor = {23, 255, 187, 255},
-		SubtitleFont = "SpectralSCLightTitling",
-		SubtitleOffsetY = 25,
-		SubtitleDelay = 0.75,
-		Duration = 4.35,
-		IconMoveSpeed = 0.00001,
-		TitleFont = "SpectralSCLightTitling",
-		--SupertitleFont = "P22UndergroundSCMedium",
-		Layer = "ScreenOverlay",
-		--SubtitleData = { LuaKey = "TempTextData", LuaValue = { Resistance = prevResistance }, LuaValueUpdate = { Resistance = "{#HighlightFormatGraft}" .. resistance}, UpdateDelay = 1.25, },
-		} )
-
-end
-
 -- Chaos Trials
-function EndBountyRunPresentation( bountyData )
+function EndBountyRunPresentation()
 
 	AddInputBlock({ Name = "EndBountyRunPresentation" })
 	SetPlayerInvulnerable( "EndBountyRunPresentation" )
@@ -127,7 +127,6 @@ function EndBountyRunPresentation( bountyData )
 		
 	wait( 0.35 )
 	
-	PlaySound({ Name = "/SFX/Menu Sounds/ChaosSelfDamage", Id = CurrentRun.Hero.ObjectId })
 	CreateAnimation({ Name = "SacrificeHealthFx", DestinationId = CurrentRun.Hero.ObjectId, Scale = 2.0 })
 
 	--CreateAnimation({ Name = "LamiaSkyCast", DestinationId = CurrentRun.Hero.ObjectId, Scale = 2.0 })

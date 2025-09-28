@@ -1,0 +1,205 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyJellyfishBaseAnimation"
+		
+		GrannyModel = "JellyFish_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_Jellyfish_Idle"
+		InheritFrom = "EnemyJellyfishBaseAnimation"
+		GrannyAnimation = "JellyFish_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_MoveStart"
+				Duration = 18
+			}
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_Move"
+				Duration = 18
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Jellyfish_MoveStart"
+		InheritFrom = "EnemyJellyfishBaseAnimation"
+		GrannyAnimation = "JellyFish_Base_Move_Start_C_00"
+		NativeMoveSpeed = 250
+		ChainTo = "Enemy_Jellyfish_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_Idle"
+				Duration = 18
+			}
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_MoveStop"
+				Duration = 18
+			}
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_OnHit"
+				Duration = 18
+			}
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_OnHit_Heavy"
+				Duration = 18
+			}
+		]
+	}
+	{
+		Name = "Enemy_Jellyfish_Move"
+		InheritFrom = "EnemyJellyfishBaseAnimation"
+		GrannyAnimation = "JellyFish_Base_Move_C_00"
+		NativeMoveSpeed = 250
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_Idle"
+				Duration = 18
+			}
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_OnHit"
+				Duration = 18
+			}
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_OnHit_Heavy"
+				Duration = 18
+			}
+		]
+	}
+	{
+		Name = "Enemy_Jellyfish_MoveStop"
+		InheritFrom = "EnemyJellyfishBaseAnimation"
+		GrannyAnimation = "JellyFish_Base_Move_Stop_C_00"
+		NativeMoveSpeed = 250
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Jellyfish_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.2
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_MoveStart"
+				Duration = 18
+			}
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_Move"
+				Duration = 18
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Jellyfish_OnHit"
+		InheritFrom = "EnemyJellyfishBaseAnimation"
+		GrannyAnimation = "JellyFish_Base_OnHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Jellyfish_Idle"
+		Sound = "/SFX/Enemy Sounds/Jellyfish/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 1.16
+			}
+			{
+				Frame = 9
+				FrameSpeed = 0.9
+			}
+		]
+	}
+	{
+		Name = "Enemy_Jellyfish_OnHit_Heavy"
+		InheritFrom = "Enemy_Jellyfish_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_Jellyfish_Spawn"
+		InheritFrom = "EnemyJellyfishBaseAnimation"
+		GrannyAnimation = "JellyFish_Base_Spawn_C_00"
+		ChainTo = "Enemy_Jellyfish_Idle"
+	}
+
+	{
+		Name = "Enemy_Jellyfish_Deflect"
+		InheritFrom = "EnemyJellyfishBaseAnimation"
+		GrannyAnimation = "JellyFish_Base_Deflect_C_00"
+		ChainTo = "Enemy_Jellyfish_Idle"
+	}
+
+	{
+		Name = "Enemy_Jellyfish_StingPreFire"
+		InheritFrom = "EnemyJellyfishBaseAnimation"
+		GrannyAnimation = "JellyFish_Base_StingPreFire_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_MoveStart"
+				Duration = 18
+			}
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_Move"
+				Duration = 18
+			}
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_MoveStop"
+				Duration = 18
+			}
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_Idle"
+				Duration = 18
+			}
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_OnHit"
+				Duration = 18
+			}
+			{
+				BlendTransitionFrom = "Enemy_Jellyfish_OnHit_Heavy"
+				Duration = 18
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Jellyfish/EmoteCharging"
+			}
+		]
+	}
+	{
+		Name = "Enemy_Jellyfish_StingFire"
+		InheritFrom = "EnemyJellyfishBaseAnimation"
+		GrannyAnimation = "JellyFish_Base_StingFire_C_00"
+		ChainTo = "Enemy_Jellyfish_StingPostFire"
+	}
+	{
+		Name = "Enemy_Jellyfish_StingPostFire"
+		InheritFrom = "EnemyJellyfishBaseAnimation"
+		GrannyAnimation = "JellyFish_Base_StingPostFire_C_00"
+		ChainTo = "Enemy_Jellyfish_Idle"
+	}
+
+]}

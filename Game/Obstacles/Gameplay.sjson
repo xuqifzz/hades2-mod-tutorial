@@ -105,6 +105,10 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "HealthFountainG_Full"
+			Using =
+			[
+				{ Name = "HealthFountainG_Empty" }
+			]
 			Tallness = 842
 			Offset = { X = 0 Y = -314 }
 			Points =
@@ -125,6 +129,10 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "HealthFountainH_Full"
+			Using =
+			[
+				{ Name = "HealthFountainH_Empty" }
+			]
 			Tallness = 894
 			Offset = { X = 0 Y = -337 }
 			Scale = 0.56
@@ -148,6 +156,10 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "HealthFountainN_FullStart"
+			Using =
+			[
+				{ Name = "HealthFountainN_Empty" }
+			]
 			Scale = 1.0
 			Tallness = 338
 			Offset = { X = 0 Y = -137 }
@@ -160,7 +172,8 @@
 			]
 			Interact = 
 			{
-				Distance = 340.0
+				Distance = 440
+				DistanceScaleY = 0.6
 				OffsetX = 0.0
 			}
 		}
@@ -174,6 +187,10 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "HealthFountainO_FullStart"
+			Using =
+			[
+				{ Name = "HealthFountainO_Empty" }
+			]
 			Tallness = 1327
 	        Offset = { X = 0 Y = -529 }
 	        Points = [
@@ -194,6 +211,10 @@
 		Thing = 
 		{
       Graphic = "HealthFountainP_Full"
+			Using =
+			[
+				{ Name = "HealthFountainP_Empty" }
+			]
       Tallness = 973
         Offset = { X = 0 Y = -350 }
         Points = [
@@ -220,6 +241,10 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "HealthFountainFullAsphodelStart"
+			Using =
+			[
+				{ Name = "HealthFountainEmptyAsphodel" }
+			]
 			Tallness = 1352.0
 			Offset = { X = 0 Y = -501 }
 			Points =
@@ -228,11 +253,6 @@
 				{ X = 791 Y = 42 }
 				{ X = -22 Y = -352 }
 				{ X = -785 Y = 29 }
-			]
-			Using =
-			[
-				{ Name = "HealthFountainEmpty" }
-				{ Name = "HealthFountainEmptyAsphodel" }
 			]
 		}
 	}
@@ -245,6 +265,10 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "HealthFountainFullElysiumStart"
+			Using =
+			[
+				{ Name = "HealthFountainEmptyElysium" }
+			]
 			Tallness = 300.0
 			Offset = { X = 0 Y = -130 }
 			Points =
@@ -256,11 +280,6 @@
 				{ X = 498 Y = -230 }
 				{ X = -317 Y = -447 }
 				{ X = -542 Y = -276 }
-			]
-			Using =
-			[
-				{ Name = "HealthFountainEmpty" }
-				{ Name = "HealthFountainEmptyElysium" }
 			]
 		}
 	}
@@ -278,11 +297,10 @@
 				Distance = 170.0
 				OffsetX = 0.0
 				OffsetY = -20.0
+				VisualFx = "ManaFountainUsedFx"
 			}
 			Using =
 			[
-				{ Name = "HealthFountainEmpty" }
-				{ Name = "HealthFountainEmptyStyx" }
 				{ Name = "ManaFountainEmpty" }
 			]
 			Tallness = 461
@@ -402,6 +420,11 @@
 				{ X = 207 Y = 1 }
 				{ X = 13 Y = 119 }
 			]
+			Using =
+			[
+				{ Name = "SupplyDropObjectFull" }
+				{ Name = "SupplyDropObjectClosed" }
+			]
 		}
 	}
 	
@@ -474,6 +497,23 @@
 	}
 	
 	{
+		Name = "DummyBoon"
+		InheritFrom = "BaseBoon"
+		DisplayInEditor = true
+		MagnetismSpeedMax = 0
+		MagnetismSpeedMin = 0
+		MagnetismWhileBlocked = 0
+		MaxMagnetismZ = 0
+		MaxCollisionZ = 160
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "BoonDropOlympus"
+			OffsetZ = 160
+		}
+	}
+	
+	{
 		Name = "ZeusUpgrade"
 		InheritFrom = "BaseBoon"
 		DisplayInEditor = true
@@ -481,6 +521,7 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "BoonDropZeus"
+			AmbientSound = "/SFX/Player Sounds/ZeusDropLoop"
 		}
 	}
 	
@@ -492,17 +533,7 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "BoonDropPoseidon"
-		}
-	}
-	
-	{
-		Name = "ArtemisUpgrade"
-		InheritFrom = "BaseBoon"
-		DisplayInEditor = true
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			Graphic = "BoonDropArtemis"
+			AmbientSound = "/SFX/Player Sounds/PoseidonDropLoop"
 		}
 	}
 		
@@ -513,6 +544,7 @@
 		Thing = 
 		{
 			EditorOutlineDrawBounds = false
+			AmbientSound = "/SFX/Player Sounds/AphroditeDropLoop"
 		}
 	}
 	
@@ -524,6 +556,7 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "BoonDropHermes"
+			AmbientSound = "/SFX/Player Sounds/HermesDropLoop"
 		}
 	}
 	
@@ -535,6 +568,19 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "BoonDropHephaestus"
+			AmbientSound = "/SFX/Player Sounds/HephaestusDropLoop"
+		}
+	}
+
+	{
+		Name = "AresUpgrade"
+		InheritFrom = "BaseBoon"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "BoonDropAres"
+			AmbientSound = "/SFX/Player Sounds/AresDropLoop"
 		}
 	}
 	
@@ -546,6 +592,7 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "BoonDropDemeter"
+			AmbientSound = "/SFX/Player Sounds/DemeterDropLoop"
 		}
 	}
 	
@@ -557,6 +604,7 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "BoonDropApollo"
+			AmbientSound = "/SFX/Player Sounds/ApolloDropLoop"
 		}
 	}
 	
@@ -568,6 +616,7 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "BoonDropChaos"
+			AmbientSound = "/SFX/Player Sounds/ChaosDropLoop"
 		}
 	}
 	
@@ -579,6 +628,7 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "BoonDropHera"
+			AmbientSound = "/SFX/Player Sounds/HeraDropLoop"
 		}
 	}
 	
@@ -590,6 +640,7 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "BoonDropHestia"
+			AmbientSound = "/SFX/Player Sounds/HestiaDropLoop"
 		}
 	}
 	
@@ -609,16 +660,6 @@
 			OcclusionOutlineThickness = 2.0
 			OcclusionOutlineThreshold = 0.5
 			Tallness = 10.0
-			Interact = 
-			{
-				AutoActivate = true
-				Cooldown = 1.2
-				DestroyOnUse = true
-				Distance = 9999.0
-				MaxZ = 0.0
-				StartsCoolingDown = true
-				UseableWhileInputDisabled = true
-			}
 			Points =
 			[
 				{ X = -57 Y = 8 }
@@ -633,53 +674,27 @@
 		Name = "MoneySmall"
 		InheritFrom = "Money"
 		DisplayInEditor = true
-		Thing = 
+		Thing =
 		{
-			EditorOutlineDrawBounds = false
 			Graphic = "MoneyPileA"
-			Points =
-			[
-				{ X = -57 Y = 8 }
-				{ X = -1 Y = 35 }
-				{ X = 58 Y = 3 }
-				{ X = -2 Y = -28 }
-			]
 		}
-	}
-	
+	}	
 	{
 		Name = "MoneyMedium"
 		InheritFrom = "Money"
 		DisplayInEditor = true
 		Thing = 
 		{
-			EditorOutlineDrawBounds = false
 			Graphic = "MoneyPileB"
-			Points =
-			[
-				{ X = -57 Y = 8 }
-				{ X = -1 Y = 35 }
-				{ X = 58 Y = 3 }
-				{ X = -2 Y = -28 }
-			]
 		}
-	}
-	
+	}	
 	{
 		Name = "MoneyLarge"
 		InheritFrom = "Money"
 		DisplayInEditor = true
 		Thing = 
 		{
-			EditorOutlineDrawBounds = false
 			Graphic = "MoneyPileC"
-			Points =
-			[
-				{ X = -57 Y = 8 }
-				{ X = -1 Y = 35 }
-				{ X = 58 Y = 3 }
-				{ X = -2 Y = -28 }
-			]
 		}
 	}
 	
@@ -694,7 +709,6 @@
 			Interact = 
 			{
 				AutoActivate = true
-				AutoUseFailedAnimation = "ConsumableCannotUse"
 				DestroyOnUse = true
 				OffsetY = -60.0
 				VisualFx = "Heal"
@@ -824,6 +838,30 @@
 				{ X = -48 Y = 0 }
 			]
 		}
+	}
+
+	{
+		Name = "GemPointsDrop"
+		InheritFrom = "BaseLoot"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "GemPointsDrop"
+			TouchdownSound = "/SFX/BloodstoneAmmoDrop"
+			Scale = 1.0
+			Points =
+			[
+				{ X = 0 Y = 24 }
+				{ X = 48 Y = 0 }
+				{ X = 0 Y = -24 }
+				{ X = -48 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "GemPointsBigDrop"
+		InheritFrom = "GemPointsDrop"
 	}
 
 	{
@@ -1020,7 +1058,6 @@
 			Interact = 
 			{
 				AutoActivate = true
-				AutoUseFailedAnimation = "ConsumableCannotUse"
 				OffsetY = -60.0
 				VisualFx = "Heal"
 			}
@@ -1038,7 +1075,6 @@
 		Name = "HealDropMinor"
 		InheritFrom = "HealDrop1"
 		DisplayInEditor = true
-		VelocityAbsorbtionFraction = 0.5
 		Thing = 
 		{
 			EditorOutlineDrawBounds = false
@@ -1058,7 +1094,6 @@
 		Name = "HealDrop"
 		InheritFrom = "HealDrop1"
 		DisplayInEditor = true
-		VelocityAbsorbtionFraction = 0.5
 		Thing = 
 		{
 			EditorOutlineDrawBounds = false
@@ -1090,7 +1125,6 @@
 		Name = "HealDropSuperMinor"
 		InheritFrom = "HealDrop1"
 		DisplayInEditor = true
-		VelocityAbsorbtionFraction = 0.5
 		Thing = 
 		{
 			EditorOutlineDrawBounds = false
@@ -1128,7 +1162,6 @@
 			Interact = 
 			{
 				AutoActivate = true
-				AutoUseFailedAnimation = "ConsumableCannotUse"
 				OffsetY = -60.0
 			}
 			Points =
@@ -1159,7 +1192,6 @@
 			Interact = 
 			{
 				AutoActivate = true
-				AutoUseFailedAnimation = "ConsumableCannotUse"
 				OffsetY = -60.0
 			}
 			Points =
@@ -1189,7 +1221,6 @@
 			Interact = 
 			{
 				AutoActivate = true
-				AutoUseFailedAnimation = "ConsumableCannotUse"
 				OffsetY = -60.0
 			}
 			Points =
@@ -1247,6 +1278,37 @@
 			{
 				OffsetY = -60.0
 				AutoActivate = true
+			}
+			Points =
+			[
+				{ X = 0 Y = 24 }
+				{ X = 48 Y = 0 }
+				{ X = 0 Y = -24 }
+				{ X = -48 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "BloodDrop"
+		InheritFrom = "BaseLoot"
+		DisplayInEditor = true
+		Magnetism = 1.0
+		MagnetismSpeedMin = 1500.0
+		MagnetismSpeedMax = 1700.0
+		MagnetismWhileBlockedDistance = 9999.0
+		RequiresUsable = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "AresBloodDropletIn"
+			AttachedAnim = "AresBloodDropletShadow"
+			Scale = 1.0
+			StopsProjectiles = false
+			StopsUnits = false
+			Interact = 
+			{
+				AutoActivate = true
+				OffsetY = -60.0
 			}
 			Points =
 			[
@@ -1400,7 +1462,6 @@
 			]
 		}
 	}
-	
 	{
 		Name = "MetaCurrencyDrop"
 		InheritFrom = "BaseLoot"
@@ -1516,7 +1577,24 @@
 				{ X = -48 Y = 0 }
 			]
 		}
-	}		
+	}
+	{
+		Name = "PlantGLotusDrop"
+		InheritFrom = "BaseLoot"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "PlantGLotusDrop"
+			Points =
+			[
+				{ X = 0 Y = 24 }
+				{ X = 48 Y = 0 }
+				{ X = 0 Y = -24 }
+				{ X = -48 Y = 0 }
+			]
+		}
+	}
 	{
 		Name = "MetaCardPointsCommonDrop"
 		InheritFrom = "BaseLoot"
@@ -1570,49 +1648,15 @@
 			Graphic = "MemPointsCommonBigDrop"
 		}
 	}
-	
+
 	{
-		Name = "OreNBronzeDrop"
+		Name = "PlantFNightshadeDrop"
 		InheritFrom = "BaseLoot"
 		DisplayInEditor = true
 		Thing = 
 		{
 			EditorOutlineDrawBounds = false
-			Graphic = "OreNBronzeDrop"
-			Points =
-			[
-				{ X = 0 Y = 24 }
-				{ X = 48 Y = 0 }
-				{ X = 0 Y = -24 }
-				{ X = -48 Y = 0 }
-			]
-		}
-	}
-	{
-		Name = "PlantFNightshadeDrop"
-		InheritFrom = "OreNBronzeDrop"
-		DisplayInEditor = true
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
 			Graphic = "PlantFNightshadeDrop"
-			Points =
-			[
-				{ X = 0 Y = 24 }
-				{ X = 48 Y = 0 }
-				{ X = 0 Y = -24 }
-				{ X = -48 Y = 0 }
-			]
-		}
-	}
-	{
-		Name = "PlantMoneyDrop"
-		InheritFrom = "OreNBronzeDrop"
-		DisplayInEditor = true
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			Graphic = "PlantMoneyDrop"
 			Points =
 			[
 				{ X = 0 Y = 24 }
@@ -1787,7 +1831,6 @@
 		Name = "Mixer6CommonDrop"
 		InheritFrom = "BaseLoot"
 		DisplayInEditor = true
-		VelocityAbsorbtionFraction = 0.5
 		Thing =
 		{
 			AttachedAnim = "LootShadowMetapoint"
@@ -1808,14 +1851,14 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "MixerNBossDrop"
-			Points =
-			[
-				{ X = 0 Y = 24 }
-				{ X = 48 Y = 0 }
-				{ X = 0 Y = -24 }
-				{ X = -48 Y = 0 }
+			Tallness = -50
+			Points = [
+			  { X = 0 Y = 24 }
+			  { X = 48 Y = 0 }
+			  { X = 0 Y = -24 }
+			  { X = -48 Y = 0 }
 			]
-		}
+      }
 	}
 	{
 		Name = "MixerOBossDrop"
@@ -1852,13 +1895,13 @@
 		}
 	}
 	{
-		Name = "GiftPointsRareDrop"
+		Name = "MixerQBossDrop"
 		InheritFrom = "BaseLoot"
 		DisplayInEditor = true
 		Thing = 
 		{
 			EditorOutlineDrawBounds = false
-			Graphic = "GiftPointsRareDrop"
+			Graphic = "MixerQBossDrop"
 			Points =
 			[
 				{ X = 0 Y = 24 }
@@ -1868,15 +1911,14 @@
 			]
 		}
 	}
-	
 	{
-		Name = "GiftPointsEpicDrop"
+		Name = "MixerMythicDrop"
 		InheritFrom = "BaseLoot"
 		DisplayInEditor = true
 		Thing = 
 		{
 			EditorOutlineDrawBounds = false
-			Graphic = "GiftPointsEpicDrop"
+			Graphic = "MixerMythicDrop"
 			Points =
 			[
 				{ X = 0 Y = 24 }
@@ -2050,6 +2092,33 @@
 			]
 		}
 	}
+	{
+		Name = "MedeaMoneyTinyDrop"
+		InheritFrom = "BaseLoot"
+		DisplayInEditor = true
+		Magnetism = 150.0
+		MagnetismSpeedMin = 600.0
+		MagnetismSpeedMax = 800.0
+		Thing = 
+		{
+			AmbientSound = "/SFX/Object Ambiences/MoneyChimeLoop"
+			AttachedAnim = "LootShadowCoin"
+			EditorOutlineDrawBounds = false
+			Graphic = "RoomMoneyTinyDrop"
+			Interact = 
+			{
+				AutoActivate = true
+				Distance = 50.0
+			}
+			Points =
+			[
+				{ X = 0 Y = 24 }
+				{ X = 48 Y = 0 }
+				{ X = 0 Y = -24 }
+				{ X = -48 Y = 0 }
+			]
+		}
+	}
 	
 	{
 		Name = "SpellDrop"
@@ -2101,6 +2170,24 @@
 			EditorOutlineDrawBounds = false
 			Scale = 0.75
 			Graphic = "TalentDropMinor"
+			Points =
+			[
+				{ X = 0 Y = 24 }
+				{ X = 48 Y = 0 }
+				{ X = 0 Y = -24 }
+				{ X = -48 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "TalentBigDrop"
+		InheritFrom = "TalentDrop"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Scale = 1.25
+			Graphic = "TalentBigDrop"
 			Points =
 			[
 				{ X = 0 Y = 24 }
@@ -2330,42 +2417,7 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "WeaponUpgrade"
-			Points =
-			[
-				{ X = 0 Y = 24 }
-				{ X = 48 Y = 0 }
-				{ X = 0 Y = -24 }
-				{ X = -48 Y = 0 }
-			]
-		}
-	}
-	
-	{
-		Name = "SeleneWeaponUpgrade"
-		InheritFrom = "BaseLoot"
-		DisplayInEditor = true
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			Graphic = "WeaponUpgrade"
-			Points =
-			[
-				{ X = 0 Y = 24 }
-				{ X = 48 Y = 0 }
-				{ X = 0 Y = -24 }
-				{ X = -48 Y = 0 }
-			]
-		}
-	}
-	
-	{
-		Name = "ManaUpgrade"
-		InheritFrom = "BaseLoot"
-		DisplayInEditor = true
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			Graphic = "ManaUpgrade"
+			AmbientSound = "/SFX/Player Sounds/HammerDropLoop"
 			Points =
 			[
 				{ X = 0 Y = 24 }
@@ -2436,16 +2488,14 @@
 			OffsetZ = 60.0
 			StopsProjectiles = false
 			StopsUnits = false
-			Tallness = 100.0
+			Tallness = 25.0
 			TouchdownSound = "/SFX/Player Sounds/MelSkullsAmmoBounce"
+			SortBoundsScale = 0.15
 			UseBoundsForSortDrawArea = true
 			Interact = 
 			{
 				AutoActivate = true
-				AutoUseFailedAnimation = "ConsumableCannotUse"
-				Cooldown = 0.75
 				Distance = 50.0
-				StartsCoolingDown = true
 				UseableWhileInputDisabled = true
 			}
 			Points =
@@ -2454,125 +2504,6 @@
 				{ X = 48 Y = 0 }
 				{ X = 0 Y = -24 }
 				{ X = -48 Y = 0 }
-			]
-		}
-	}
-	
-	{
-		Name = "EnemyShadeWeapon"
-		InheritFrom = "1_BaseGameplayStanding"
-		DisplayInEditor = true
-		Life = 
-		{
-			Invulnerable = true
-		}
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			Graphic = "EnemySpearIdleContainer"
-			StopsProjectiles = false
-			StopsUnits = false
-			Tallness = 60.0
-			Points =
-			[
-				{ X = 0 Y = 14 }
-				{ X = 32 Y = -2 }
-				{ X = 1 Y = -18 }
-				{ X = -32 Y = -2 }
-			]
-		}
-	}
-	
-	{
-		Name = "EnemySpear"
-		InheritFrom = "EnemyShadeWeapon"
-		DisplayInEditor = true
-		Thing = 
-		{
-			AttachedAnim = "EnemyShadeWeaponShadow"
-			EditorOutlineDrawBounds = false
-			Tallness = 100.0
-			Points =
-			[
-				{ X = 0 Y = 14 }
-				{ X = 32 Y = -2 }
-				{ X = 1 Y = -18 }
-				{ X = -32 Y = -2 }
-			]
-		}
-	}
-	
-	{
-		Name = "EnemyShield"
-		InheritFrom = "EnemyShadeWeapon"
-		DisplayInEditor = true
-		Thing = 
-		{
-			AttachedAnim = "EnemyShadeWeaponShadow"
-			EditorOutlineDrawBounds = false
-			Graphic = "EnemyShieldIdleContainer"
-			Points =
-			[
-				{ X = 0 Y = 14 }
-				{ X = 32 Y = -2 }
-				{ X = 1 Y = -18 }
-				{ X = -32 Y = -2 }
-			]
-		}
-	}
-	
-	{
-		Name = "EnemyBow"
-		InheritFrom = "EnemyShadeWeapon"
-		DisplayInEditor = true
-		Thing = 
-		{
-			AttachedAnim = "EnemyShadeWeaponShadow"
-			EditorOutlineDrawBounds = false
-			Graphic = "EnemyBowIdleContainer"
-			Points =
-			[
-				{ X = 0 Y = 14 }
-				{ X = 32 Y = -2 }
-				{ X = 1 Y = -18 }
-				{ X = -32 Y = -2 }
-			]
-		}
-	}
-	
-	{
-		Name = "EnemySword"
-		InheritFrom = "EnemyShadeWeapon"
-		DisplayInEditor = true
-		Thing = 
-		{
-			AttachedAnim = "EnemyShadeWeaponShadow"
-			EditorOutlineDrawBounds = false
-			Graphic = "EnemySwordIdleContainer"
-			Points =
-			[
-				{ X = 0 Y = 14 }
-				{ X = 32 Y = -2 }
-				{ X = 1 Y = -18 }
-				{ X = -32 Y = -2 }
-			]
-		}
-	}
-	
-	{
-		Name = "EnemyDagger"
-		InheritFrom = "EnemyShadeWeapon"
-		DisplayInEditor = true
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			Graphic = "EnemyDaggerIdle"
-			Points =
-			[
-				{ X = 0 Y = 14 }
-				{ X = 32 Y = -2 }
-				{ X = 1 Y = -18 }
-				{ X = -32 Y = -2 }
 			]
 		}
 	}
@@ -2687,17 +2618,6 @@
 	}
 	
 	{
-		Name = "MythPointMetaUpgrade"
-		InheritFrom = "BaseMetaUpgrade"
-		DisplayInEditor = true
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			Graphic = "UpgradeMythPoint"
-		}
-	}
-	
-	{
 		Name = "WeaponKit01"
 		InheritFrom = "1_BaseGameplayStanding"
 		DisplayInEditor = true
@@ -2795,30 +2715,18 @@
 	
 	{
 		Name = "GardenPlot"
-		InheritFrom = "1_BaseGameplayLow"
+		InheritFrom = "1_BaseInvulnerableObstacle"
 		DisplayInEditor = true
 		Thing = 
 		{
 			EditorOutlineDrawBounds = false
-			Graphic = "Tilesets\Crossroads\Crossroads_GardenPlot_01"
+			Graphic = "GardenPlot"
+			StopsLight = false
 			Scale = 0.125
 			Interact = 
 			{
 				Distance = 120.0
 			}
-			Points =
-			[
-				{ X = -541 Y = 149 }
-				{ X = -347 Y = 229 }
-				{ X = -18 Y = 289 }
-				{ X = 337 Y = 248 }
-				{ X = 546 Y = 138 }
-				{ X = 546 Y = -67 }
-				{ X = 160 Y = -224 }
-				{ X = -210 Y = -219 }
-				{ X = -427 Y = -119 }
-				{ X = -554 Y = -54 }
-			]
 		}
 	}
 
@@ -2831,11 +2739,12 @@
 			EditorOutlineDrawBounds = false
 			Graphic = "Blank"
 			Tallness = 231
-			Points = [
-				{ X = -47 Y = 1 }
-				{ X = -14 Y = 18 }
-				{ X = 29 Y = -4 }
-				{ X = -4 Y = -21 }
+			Points =
+			[
+				{ X = -40, Y = 0 }
+				{ X = 0 Y = -20 }
+				{ X = 40 Y = 0 }
+				{ X = 0 Y = 20 }
 	        ]
     	}
 	}
@@ -2847,8 +2756,6 @@
 		Thing = 
 		{
 			Ambient = 0.0
-			DrawEmbeddedBehind = true
-			DrawVfxOnTop = true
 			EditorOutlineDrawBounds = false
 			Graphic = "ChallengeSwitchBase"
 			StopsProjectiles = false
@@ -2952,22 +2859,27 @@
 		{
 			Ambient = 0.0
 			AmbientSound = "/SFX/Object Ambiences/MoneyChimeLoop"
+			DrawEmbeddedBehind = true
 			EditorOutlineDrawBounds = false
 			Graphic = "PickaxePointSilver"
 			Interact = 
 			{
 				Distance = 200.0
+				OffsetY = -40
 			}
 			Tallness = 180
-			Offset = { X = 0 Y = -60 }
-			Points =
-			[
-				{ X = 0 Y = 44 }
-				{ X = 76 Y = 10 }
-				{ X = 0 Y = -36 }
-				{ X = -80 Y = 8 }
-			]
-		}
+        Offset = { X = 0 Y = -60 }
+        Points = [
+          { X = 58 Y = -17 }
+          { X = 4 Y = -31 }
+          { X = -52 Y = -25 }
+          { X = -80 Y = 8 }
+          { X = -55 Y = 34 }
+          { X = -3 Y = 43 }
+          { X = 46 Y = 35 }
+          { X = 70 Y = 18 }
+        ]
+      }
 	}
 	
 	{
@@ -2980,22 +2892,22 @@
 			EditorOutlineDrawBounds = false
 			Graphic = "BigGhostIdle"
 			MeshType = "Vertical"
-			Scale = 0.5
+			Scale = 1.0
 			StopsUnits = false
 			StopsProjectiles = false
+			StopsLight = false
 			Interact = 
 			{
 				Distance = 200.0
 			}
-	UseBoundsForSortDrawArea = true
+			UseBoundsForSortDrawArea = true
 			Tallness = 153
 			Offset = { X = 0 Y = 0 }
-			Points =
-			[
-				{ X = -180 Y = 20 }
-				{ X = -28 Y = 96 }
-				{ X = 135 Y = 13 }
-				{ X = -16 Y = -62 }
+			Points = [
+			  { X = -143 Y = 33 }
+			  { X = -39 Y = 85 }
+			  { X = 124 Y = 4 }
+			  { X = 20 Y = -48 }
 			]
 		}
 	}
@@ -3010,13 +2922,10 @@
 			EditorOutlineDrawBounds = false
 			Graphic = "BigGhostIdle"
 			MeshType = "Vertical"
-			Scale = 0.5
+			Scale = 1.0
 			StopsUnits = false
 			StopsProjectiles = false
-			Interact = 
-			{
-				Distance = 200.0
-			}
+			StopsLight = false
 			Tallness = 130
 			Points = [
 			  { X = -166 Y = 12 }
@@ -3183,7 +3092,7 @@
 		Thing = 
 		{
 			EditorOutlineDrawBounds = false
-			Graphic = "CapturePoint"
+			Graphic = "ChronosAnomalyCircle"
 			Points =
 			[
 				{ X = -2 Y = 2 }
@@ -3200,7 +3109,7 @@
 		Thing = 
 		{
 			EditorOutlineDrawBounds = false
-			Graphic = "ChronosRemains"
+			Graphic = "ChronosAnomalyPoint"
 			Interact = 
 			{
 				Distance = 200.0
@@ -3244,6 +3153,76 @@
 				{ X = -18 Y = 22 }
 				{ X = 42 Y = 16 }
 			]
+		}
+	}
+
+	{
+	  Name = "SpearReturnPoint"
+	  DisplayInEditor = true
+	  Life =
+	  {
+	    Invulnerable = true
+	  }
+	  Thing =
+	  {
+	    EditorOutlineDrawBounds = false
+	    Graphic = "SpearReturnPoint"
+	    StopsProjectiles = false
+	    StopsUnits = false
+	    Tallness = 227.0
+	    UseBoundsForSortDrawArea = true
+	    Points = [
+	      { X = 0 Y = 10 }
+	      { X = 10 Y = 5 }
+	      { X = 0 Y = 0 }
+	      { X = -10 Y = 5 }
+	    ]
+	  }
+	}
+
+  {
+    Name = "AmmoPack"
+    InheritFrom = "BaseLoot"
+    DisplayInEditor = true
+    Thing =
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "AmmoPack"
+      OffsetZ = 60.0
+      StopsProjectiles = false
+      StopsUnits = false
+      Tallness = 100.0
+      TouchdownSound = "/SFX/BloodstoneAmmoDrop"
+      UseBoundsForSortDrawArea = true
+    }
+  }
+	
+	{
+		Name = "ZagContract"
+		InheritFrom = "BaseLoot"
+		DisplayInEditor = true
+		MagnetismSpeedMax = 0
+		MagnetismSpeedMin = 0
+		MagnetismWhileBlocked = 0
+		MaxMagnetismZ = 0
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "ZagContract"
+			ExtentScale = 1.5
+			Points =
+			[
+				{ X = 0 Y = 24 }
+				{ X = 48 Y = 0 }
+				{ X = 0 Y = -24 }
+				{ X = -48 Y = 0 }
+			]
+			Interact = 
+			{
+				Distance = 200
+				DistanceScaleY = 0.6
+				OffsetY = 0
+			}
 		}
 	}
 ]}

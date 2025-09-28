@@ -32,37 +32,15 @@
 	}
 
 	{
-		Name = "ManaChargeIndicatorDissipate"
-		
+		Name = "ManaChargeIndicatorDissipate"	
 		FilePath = "GUI\HUD\ManaChargeIndicatorDissipate\ManaChargeIndicatorDissipate"
 		NumFrames = 20
 		Material = "Unlit"
 		Sound = "/Leftovers/SFX/AuraOff"
 	}
 
-
-	{
-		Name = "ManaChargeIndicatorHoldIn"
-		
-		FilePath = "GUI\HUD\ManaChargeIndicatorHoldIn\ManaChargeIndicatorHoldIn"
-		NumFrames = 6
-		Material = "Unlit"
-		ChainTo = "ManaChargeIndicatorHoldFill"
-	}
-
-	{
-		Name = "ManaChargeIndicatorHoldFill"
-		
-		FilePath = "GUI\HUD\ManaChargeIndicatorHoldFill\ManaChargeIndicatorHoldFill"
-		NumFrames = 100
-		PlaySpeed = 100
-		Material = "Unlit"
-		HoldLastFrame = true
-	}
-
 	{
 		Name = "ManaChargeIndicatorHoldComplete"
-		
 		FilePath = "Particles\particle_quickFlashIris"
 		Material = "Unlit"
 		StartAlpha = 1
@@ -87,16 +65,11 @@
 
 	{
 		Name = "ManaChargeIndicatorHoldLoop"
-		
 		FilePath = "GUI\HUD\ManaChargeIndicatorHoldLoop\ManaChargeIndicatorHoldLoop"
+		PlaySpeed = 30
 		NumFrames = 30
 		Material = "Unlit"
 		Loop = true
-		CreateAnimations =
-		[
-			{ Name = "ManaChargeIndicatorHoldComplete" }
-			{ Name = "ManaChargeIndicatorHoldComplete2" }
-		]
 	}
 
 	{
@@ -107,57 +80,17 @@
 		OffsetX = -60
 	}
 
-	{
-		Name = "ManaChargeIndicatorHoldComplete2"
-		InheritFrom = "ManaChargeIndicatorHoldLoop"
-		ClearCreateAnimations = true
-		GroupName = "Combat_Menu_Additive"
-		Loop = false
-		StartScale = 1
-		EndScale = 1.5
-		EaseIn = 0.9
-		EaseOut = 1.0
-		StartAlpha = 1
-		EndAlpha = 0
-		StartRed = 1
-		StartGreen = 1
-		StartBlue = 1
-		EndRed = 0
-		EndGreen = 0
-		EndBlue = 0.9
-		OffsetY = -50
-		DieWithOwner = true
-	}
-
-	{
-		Name = "ManaChargeIndicatorHoldCancel"
-		
-		FilePath = "GUI\HUD\ManaChargeIndicatorHoldCancel\ManaChargeIndicatorHoldCancel"
-		NumFrames = 10
-		Material = "Unlit"
-	}
-
-	{
-		Name = "ManaChargeIndicatorHoldDissipate"
-		
-		FilePath = "GUI\HUD\ManaChargeIndicatorHoldDissipate\ManaChargeIndicatorHoldDissipate"
-		NumFrames = 20
-		Material = "Unlit"
-	}
-
 	/* Minos UI */
 
 	{
 		Name = "NewTraitHighlight"
-		
 		FilePath = "GUI\HUD\NewTrait\NewTrait"
 		NumFrames = 45
 		Material = "Unlit"
 		GroupName = "Combat_Menu_TraitTray_Additive"
 		ScaleFromOwner = "Ignore"
-		ColorFromOwner = "Ignore"
+		MaintainAlphaOnly = true
 		AngleFromOwner = "Ignore"
-
 		Slides =
 		[
 			{ DurationFrames = 2 }
@@ -206,6 +139,12 @@
 			{ DurationFrames = 2 }
 			{ DurationFrames = 2 }
 		]
+	}
+
+	{
+		Name = "NewTraitHighlightKeepsake"
+		InheritFrom = "NewTraitHighlight"
+		Scale = 1.17
 	}
 
 	{
@@ -318,8 +257,7 @@
 	}
 
 	{
-		Name = "EphyraZoomRewardBacking"
-		
+		Name = "EphyraZoomRewardBacking"		
 		FilePath = "GUI\UnlockTextCircleBacking"
 		Material = "Unlit"
 		VisualFx = "BountyEarnedIconBackingStreaks"
@@ -330,8 +268,7 @@
 	}
 
 	{
-		Name = "FishCatchIconBacking"
-		
+		Name = "FishCatchIconBacking"		
 		FilePath = "GUI\UnlockTextCircleBacking"
 		Material = "Unlit"
 		AddColor = true
@@ -341,7 +278,7 @@
 		EndRed = 0
 		EndGreen = 0
 		EndBlue = 0
-		Duration = 1
+		Duration = 3
 		HoldLastFrame = true
 		EaseIn = 0.9
 		EaseOut = 1.0
@@ -553,9 +490,36 @@
 		NumFrames = 1
 		StartFrame = 1
 		EndScale = 1.2
+		Scale = 0.7
 		PingPongScale = true
 		ScaleFromOwner = "Ignore"
 		Material = "Unlit"
+	}
+	{
+		Name = "ComboIndicatorAttack"
+		FilePath = "GUI\Screens\MirrorUnlockedA"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		SortMode = "Id"
+		ScaleX = 0.5
+		ScaleY = 0.5
+		Material = "Unlit"
+	}
+	{
+		Name = "ComboIndicatorSpecial"
+		InheritFrom = "ComboIndicatorAttack"
+		FilePath = "GUI\Screens\MirrorUnlockedB"
+	}
+	{
+		Name = "ComboIndicatorAttackOmega"
+		InheritFrom = "ComboIndicatorAttack"
+		FilePath = "GUI\Screens\MirrorUnlockedC"
+	}
+	{
+		Name = "ComboIndicatorSpecialOmega"
+		InheritFrom = "ComboIndicatorAttack"
+		FilePath = "GUI\Screens\NewStar"
 	}
 
 	{
@@ -612,22 +576,78 @@
 		ColorFromOwner = "Maintain"
 		EndFrame = 1
 		StartFrame = 1
-		ScaleY = 0.5
+		ScaleY = 1
+		OffsetY = 2
 	}
 
 	{
-		Name = "HealthBarArmorIcon"
-		FilePath = "GUI\Icons\Status\Invincible"
-		
-		AngleFromOwner = "Ignore"
-		ColorFromOwner = "Ignore"
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		DieWithOwner = true
-		SortMode = "Id"
-		ScaleFromOwner = "Ignore"
+		Name = "TyphonHeadHealthBarShatterFlare"
+		FilePath = "Fx\AxeNovaFlare\AxeNovaFlare"
+		NumFrames = 11
 		Material = "Unlit"
+		AddColor = true
+		Red = 1
+		Green = 0
+		Blue = 0.06
+		GroupName = "Combat_Menu_Additive"
+		EaseIn = 0.99
+		EaseOut = 1.0
+		PlaySpeed = 60
+		Angle = 90
+		ScaleY = 6
+		StartScaleX = 1
+		EndScaleX = 0.33
+		OffsetY = 10
+		ChildAnimation = "TyphonHeadHealthBarShatterFlareFlip"
+	}
+
+	{
+		Name = "TyphonHeadHealthBarShatterFlareFlip"
+		InheritFrom = "TyphonHeadHealthBarShatterFlare"
+		Angle = 270
+		ChildAnimation = "TyphonHeadHealthBarShatterGlow"
+	}
+
+	{
+		Name = "TyphonHeadHealthBarShatterGlow"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		ScaleX = 10
+		ScaleY = 3
+		Red = 1
+		Green = 0
+		Blue = 0.06
+		StartAlpha = 0.2
+		EndAlpha = 0
+		StartScale = 1
+		EndScale = 1.25
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Duration = 1.25
+		GroupName = "Combat_Menu_Additive"
+	}
+
+	{
+		Name = "TyphonHeadHealthBarShatterGlow2"
+		InheritFrom = "TyphonHeadHealthBarShatterGlow"
+		Scale = 0.33
+		StartAlpha = 0.5
+		Duration = 0.5
+		Green = 0.1
+		Blue = 0.3
+	}
+
+	{
+		Name = "TyphonHeadHealthBarShatter"
+		FilePath = "GUI\HUD\TyphonHealthBarShatter\TyphonHealthBarShatter"
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+		NumFrames = 105
+		PlaySpeed = 60
+		OffsetY = 201
+		Value = 0.1
+		Sound = "/SFX/Enemy Sounds/Typhon/TyphonHealthBarShatter"
+		VideoTexture = "TyphonHeadHealthBarShatter"
 	}
 
 	{
@@ -710,18 +730,37 @@
 
 	{
 		Name = "ExtraLifeCatFamiliar"
-		FilePath = "GUI\HUD\HealthBar_1upEcho"
+		FilePath = "GUI\HUD\HealthBar_1upCat"
 		Material = "Unlit"
 	}
 
 	{
+		Name = "ExtraLifeAthena"
+		FilePath = "GUI\HUD\HealthBar_1upAthena"
+		Material = "Unlit"
+	}
+
+	{
+		Name = "ExtraLifeMel"
+		FilePath = "GUI\HUD\HealthBar_1upMel"
+		Material = "Unlit"
+	}
+
+	{
+		Name = "ExtraLifeMoros"
+		FilePath = "GUI\HUD\HealthBar_1upMoros"
+		Material = "Unlit"
+	}
+
+
+	{
 		Name = "Poison_Small"
-		FilePath = "GUI\HUD\Poison_Small"			
+		FilePath = "GUI\Icons\PoisonIcon"			
 		EndFrame = 1
 		NumFrames = 1
 		StartFrame = 1
 		SortMode = "Id"
-		Scale = 0.75
+		Scale = 0.45
 		Material = "Unlit"
 	}
 	
@@ -767,16 +806,7 @@
 		InheritFrom = "ElementIconFire"
 		FilePath = "GUI\Icons\Element_Aether" 
 	}
-	{
-		Name = "IconChill"
-		InheritFrom = "ElementIconFire"
-		FilePath = "GUI\Icons\Status\Frozen" 
-	}
-	{
-		Name = "IconShock"
-		InheritFrom = "ElementIconFire"
-		FilePath = "GUI\Icons\Super" 
-	}
+	
 	{
 		Name = "IconHeraDamageShare"
 		InheritFrom = "ElementIconFire"
@@ -883,18 +913,6 @@
 	}
 
 	{
-		Name = "HealthBarFlash"
-		FilePath = "GUI\HUD\HealthBarFlash\HealthBarFlash"
-		GroupName = "Overlay"			
-		EndFrame = 13
-		NumFrames = 13
-		PlaySpeed = 60.0
-		StartFrame = 1
-		OriginY = 15.0
-		Material = "Unlit"
-	}
-
-	{
 		Name = "HealthBarFill"
 		FilePath = "GUI\HUD\HealthBarFill\HealthBarFill"			
 		AddColor = true
@@ -928,21 +946,27 @@
 	{
 		Name = "HealthBarLowPulseA"
 		CreateAnimation = "HealthBarLowPulseGlow"
-		FilePath = "GUI\HUD\HealthBarFull"			
+		FilePath = "GUI\HUD\HPBarFill\HPBarFill0001"
+		Scale = 0.5
 		ColorFromOwner = "Ignore"
-		StartAlpha = 0.5
-		Duration = 0.4
+		StartAlpha = 0.6
+		Duration = 0.1
 		EaseIn = 0.9
 		EaseOut = 1.0
-		EndScale = 1.01
+		OffsetX = 20
+		OffsetY = 42
+		//EndScale = 1.01
+		ScaleFromOwner = "Ignore"
 		Material = "Unlit"
+		AddColor = true
 		Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
 	}
 
 	{
 		Name = "HealthBarLowPulseB"
 		InheritFrom = "HealthBarLowPulseA"
-		StartAlpha = 0.4
+		CreateAnimation = "HealthBarLowPulseGlowB"
+		StartAlpha = 0.3
 		Duration = 0.5
 		EndFrame = 1
 		StartFrame = 1
@@ -953,7 +977,7 @@
 		FilePath = "GUI\HUD\LowHealthWarningGlow"
 		GroupName = "Combat_UI_Additive"
 		StartAlpha = 0.66
-		Duration = 0.8
+		Duration = 0.6
 		EaseIn = 0.99
 		EaseOut = 1.0
 		EndFrame = 1
@@ -961,9 +985,17 @@
 		StartFrame = 1
 		EndScale = 1.8
 		OffsetY = 50
-		ScaleX = 2.0
-		ScaleY = 1.5
+		ScaleX = 2.5
+		StartScaleY = 1.0
+		EndScaleY = 1.5
 		Material = "Unlit"
+	}
+
+	{
+		Name = "HealthBarLowPulseGlowB"
+		InheritFrom = "HealthBarLowPulseGlow"
+		StartAlpha = 0.33
+		Duration = 0.8
 	}
 
 	{
@@ -971,7 +1003,8 @@
 		CreateAnimation = "ManaBarLowPulseGlow"
 		FilePath = "GUI\HUD\HealthBarFillTemp\HealthBarFill0001"
 		GroupName = "Combat_UI_Additive"			
-		ColorFromOwner = "Ignore"
+		ColorFromOwner = "Maintain"
+		MaintainAlphaOnly = true
 		ScaleVectorFromOwner = "Ignore"
 		StartAlpha = 1
 		StartScaleY = 1.5
@@ -1068,7 +1101,6 @@
 	{
 		Name = "StatusIconBase"
 		ChildAnimation = "StatusIconFlash"
-		FilePath = "GUI\Icons\Status\Blind"			
 		AngleFromOwner = "Ignore"
 		ColorFromOwner = "Ignore"
 		Duration = 999.0
@@ -1086,9 +1118,6 @@
 	{
 		Name = "StatusIconCharmed"
 		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Charmed"
-		EndFrame = 1
-		StartFrame = 1
 	}
 
 	{
@@ -1119,6 +1148,14 @@
 		ScaleMax = 0.4
 		ScaleMin = 0.2
 		StartScale = 0.0
+	}
+
+	{
+		Name = "StatusIconAdmire"
+		InheritFrom = "StatusIconNPCCharmed"
+		ScaleMax = 0.3
+		ScaleMin = 0.1
+		RandomOffsetY = 0
 	}
 
 	{
@@ -1194,93 +1231,6 @@
 	}
 
 	{
-		Name = "StatusIconEnraged"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Enraged"
-		EndFrame = 1
-		StartFrame = 1
-	}
-
-	{
-		Name = "StatusIconFrozen"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Frozen"
-		EndFrame = 1
-		StartFrame = 1
-	}
-
-	{
-		Name = "StatusIconPetrified"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Petrified"
-		GroupName = "Combat_UI"
-		EndFrame = 1
-		StartFrame = 1
-		OffsetY = -10.0
-		LocationFromOwner = "Maintain"
-		Scale = 0.75
-	}
-
-	{
-		Name = "StatusIconFrozen_Alt"
-		InheritFrom = "StatusIconFrozen"
-		EndFrame = 1
-		StartFrame = 1
-		OffsetY = -10.0
-		LocationFromOwner = "Take"
-		Scale = 0.75
-	}
-
-	{
-		Name = "StatusIconInfected"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Infected"
-		EndFrame = 1
-		StartFrame = 1
-	}
-
-	{
-		Name = "StatusIconDelayedDamage"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\DelayedDamage"
-		EndFrame = 1
-		StartFrame = 1
-	}
-
-	{
-		Name = "StatusIconInvincible"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Invincible"
-		EndFrame = 1
-		StartFrame = 1
-	}
-
-	{
-		Name = "StatusIconShielded"
-		InheritFrom = "StatusIconInvincible"
-		EndFrame = 1
-		StartFrame = 1
-		OffsetY = -260.0
-		Scale = 0.75
-	}
-
-	{
-		Name = "StatusIconPolymorphed"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Polymorphed"
-		EndFrame = 1
-		StartFrame = 1
-	}
-
-	{
-		Name = "StatusIconSilenced"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Silenced"
-		EndFrame = 1
-		StartFrame = 1
-	}
-
-	{
 		Name = "StatusIconSpeaking"
 		InheritFrom = "StatusIconBase"
 		ChildAnimation = "null"
@@ -1293,13 +1243,12 @@
 		StartFrame = 1
 		FlipHorizontal = true
 		OffsetX = -35.0
-		OffsetZ = 50.0
+		OffsetZ = 20.0
 		GrannyAttachedMarkerLocation = "speechBubble_00_M_JNT"
 		Scale = 0.8
 		ColorFromOwner = "Maintain"
 		MaintainAlphaOnly = true
 	}
-
 	{
 		Name = "StatusIconSpeaking_End"
 		InheritFrom = "StatusIconSpeaking"
@@ -1308,6 +1257,67 @@
 		EndFrame = 1
 		HoldLastFrame = false
 		StartFrame = 1
+	}
+
+	{
+		Name = "StatusIconSpeaking_Hero"
+		InheritFrom = "StatusIconSpeaking"
+		OffsetZ = 50.0
+	}
+	{
+		Name = "StatusIconSpeaking_Hero_End"
+		InheritFrom = "StatusIconSpeaking_Hero"
+		EndAlpha = 0.0
+		StartAlpha = 1.0
+		EndFrame = 1
+		HoldLastFrame = false
+		StartFrame = 1
+	}
+
+	{
+		Name = "StatusIconSpeaking_Large"
+		InheritFrom = "StatusIconSpeaking"
+		OffsetZ = 50.0
+		Scale = 1.0
+	}
+	{
+		Name = "StatusIconSpeaking_Large_End"
+		InheritFrom = "StatusIconSpeaking_Large"
+		EndAlpha = 0.0
+		StartAlpha = 1.0
+		EndFrame = 1
+		HoldLastFrame = false
+		StartFrame = 1
+	}
+
+	{
+		Name = "StatusIconSpeaking_Persephone_Falling"
+		InheritFrom = "StatusIconSpeaking"
+		StartOffsetZ = 0
+		EndOffsetZ = -120
+	}
+	{
+		Name = "StatusIconSpeaking_Persephone_Falling_End"
+		InheritFrom = "StatusIconSpeaking_End"
+		OffsetZ = -70
+	}
+	{
+		Name = "StatusIconSpeaking_Zagreus_Suspended"
+		InheritFrom = "StatusIconSpeaking"
+		ChainTo = "StatusIconSpeaking_Zagreus_Falling"
+		HoldLastFrame = false
+	}
+	{
+		Name = "StatusIconSpeaking_Zagreus_Falling"
+		InheritFrom = "StatusIconSpeaking"
+		StartAlpha = 1.0
+		StartOffsetZ = 0
+		EndOffsetZ = -120
+	}
+	{
+		Name = "StatusIconSpeaking_Zagreus_Suspended_End"
+		InheritFrom = "StatusIconSpeaking_End"
+		OffsetZ = -70
 	}
 
 	{
@@ -1389,6 +1399,22 @@
 	}
 
 	{
+		Name = "StatusIconEmbarrassedRed"
+		InheritFrom = "StatusIconEmoteBase"
+		FilePath = "GUI\Icons\GhostEmote\EmbarrassedRed"
+		EndFrame = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "StatusIconEmbarrassedRed_End"
+		InheritFrom = "StatusIconEmote_EndBase"
+		FilePath = "GUI\Icons\GhostEmote\EmbarrassedRed"
+		EndFrame = 1
+		StartFrame = 1
+	}
+
+	{
 		Name = "StatusIconEyeRoll"
 		InheritFrom = "StatusIconEmoteBase"
 		FilePath = "GUI\Icons\GhostEmote\EyeRoll"
@@ -1437,6 +1463,22 @@
 	}
 
 	{
+		Name = "StatusIconGriefRed"
+		InheritFrom = "StatusIconEmoteBase"
+		FilePath = "GUI\Icons\GhostEmote\GriefRed"
+		EndFrame = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "StatusIconGriefRed_End"
+		InheritFrom = "StatusIconEmote_EndBase"
+		FilePath = "GUI\Icons\GhostEmote\GriefRed"
+		EndFrame = 1
+		StartFrame = 1
+	}
+
+	{
 		Name = "StatusIconOhBoy"
 		InheritFrom = "StatusIconEmoteBase"
 		FilePath = "GUI\Icons\GhostEmote\OhBoy"
@@ -1448,6 +1490,22 @@
 		Name = "StatusIconOhBoy_End"
 		InheritFrom = "StatusIconEmote_EndBase"
 		FilePath = "GUI\Icons\GhostEmote\OhBoy"
+		EndFrame = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "StatusIconOhBoyRed"
+		InheritFrom = "StatusIconEmoteBase"
+		FilePath = "GUI\Icons\GhostEmote\OhBoyRed"
+		EndFrame = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "StatusIconOhBoyRed_End"
+		InheritFrom = "StatusIconEmote_EndBase"
+		FilePath = "GUI\Icons\GhostEmote\OhBoyRed"
 		EndFrame = 1
 		StartFrame = 1
 	}
@@ -1500,6 +1558,21 @@
 		StartFrame = 1
 	}
 
+	{
+		Name = "StatusIconVictoryRed"
+		InheritFrom = "StatusIconEmoteBase"
+		FilePath = "GUI\Icons\GhostEmote\VictoriousRed"
+		EndFrame = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "StatusIconVictoryRed_End"
+		InheritFrom = "StatusIconEmote_EndBase"
+		FilePath = "GUI\Icons\GhostEmote\VictoriousRed"
+		EndFrame = 1
+		StartFrame = 1
+	}
 
 	{
 		Name = "StatusIconSmile"
@@ -1513,6 +1586,22 @@
 		Name = "StatusIconSmile_End"
 		InheritFrom = "StatusIconEmote_EndBase"
 		FilePath = "GUI\Icons\GhostEmote\Smile"
+		EndFrame = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "StatusIconSmileRed"
+		InheritFrom = "StatusIconEmoteBase"
+		FilePath = "GUI\Icons\GhostEmote\SmileRed"
+		EndFrame = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "StatusIconSmileRed_End"
+		InheritFrom = "StatusIconEmote_EndBase"
+		FilePath = "GUI\Icons\GhostEmote\SmileRed"
 		EndFrame = 1
 		StartFrame = 1
 	}
@@ -1539,13 +1628,38 @@
 		StartScale = 0.45
 		PingPongShiftOverDuration = true
 		GrannyAttachedMarkerLocation = "speechBubble_00_M_JNT"
+		ChainTo = "StatusIconWantsToTalk_End"
+	}
+	{
+		Name = "StatusIconWantsToTalk_End"
+		InheritFrom = "StatusIconWantsToTalk"
+		EndAlpha = 0.0
+		StartAlpha = 1.0
+		EndScale = 0
+		PingPongColor = false
+		Duration = 0.15
+		RandomDurationMax = 0.0
+		RandomDurationMin = 0.0
+		Loop = false
+		HoldLastFrame = false
+		ChainTo = null
+		AddColor = false
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		StartOffsetZ = 0
+		EndOffsetZ = -10
 	}
 
 	{
 		Name = "StatusIconWantsToTalkImportant"			
 		FilePath = "GUI\Icons\Status\WantsToTalk_Important"
 		AngleFromOwner = "Ignore"
-		ColorFromOwner = "Ignore"
+		ColorFromOwner = "Maintain"
+		MaintainAlphaOnly = true
 		ScaleFromOwner = "Ignore"
 		Material = "Unlit"
 		EaseIn = 0
@@ -1573,7 +1687,61 @@
 		PhaseOffsetScale = 0
 		PingPongAngle = true
 		PingPongShiftOverDuration = true
+		ChainTo = "StatusIconWantsToTalkImportant_End"
 	}
+	{
+		Name = "StatusIconWantsToTalkImportant_End"
+		InheritFrom = "StatusIconWantsToTalk_End"
+		FilePath = "GUI\Icons\Status\WantsToTalk_Important"
+		GrannyAttachedMarkerLocation = null
+	}
+
+	{
+		Name = "StatusIconChatting"
+		FilePath = "GUI\Icons\Status\Chatting"
+		RandomDurationMax = 2.0
+		RandomDurationMin = 2.5
+		StartOffsetZ = 4.0
+		EndOffsetZ = 0.0
+		OffsetX = 40
+		StartScale = 0.7
+		EndScale = 0.8
+		PingPongScale = true		
+		PingPongShiftOverDuration = true
+		Loop = true
+		OffsetZ = 20
+	}
+
+	{
+		Name = "StatusIconNewItemsInStock"
+		InheritFrom = "StatusIconBase"
+		ChildAnimation = "null"
+		FilePath = "GUI\Screens\NewStar"
+		SortFromOwner = "Maintain"
+		ColorFromOwner = "Ignore"
+		OffsetZ = 140
+		Loop = true
+		Duration = 1.2
+		PingPongScale = true
+		StartScale = 0.95
+		EndScale = 0.8
+		StartAngle = -1
+		EndAngle = 1
+		PhaseOffsetAngle = 90
+		PingPongAngle = true
+	}
+	{
+		Name = "StatusIconNewItemsInStock_End"
+		InheritFrom = "StatusIconNewItemsInStock"
+		EndAlpha = 0.0
+		StartAlpha = 1.0
+		StartScale = 0.8
+		EndScale = 0.0
+		Duration = 0.2
+		Loop = false
+		HoldLastFrame = false
+	}
+
 	{
 		Name = "MEMCanAffordBadge"
 		InheritFrom = "StatusIconWantsToTalkImportant"
@@ -1592,7 +1760,42 @@
 	{
 		Name = "StatusIconWantsToTalkImportant_NPC"
 		InheritFrom = "StatusIconWantsToTalkImportant"
+		ChainTo = "StatusIconWantsToTalkImportant_NPC_End"
 		GrannyAttachedMarkerLocation = "speechBubble_00_M_JNT"
+	}
+	{
+		Name = "StatusIconWantsToTalkImportant_Odysseus"
+		InheritFrom = "StatusIconWantsToTalkImportant_NPC"
+		OffsetZ = 20
+	}
+	{
+		Name = "StatusIconWantsToTalkImportant_Skelly"
+		InheritFrom = "StatusIconWantsToTalkImportant_NPC"
+		OffsetZ = 30
+	}
+	{
+		Name = "StatusIconWantsToTalkImportant_ChronosStory"
+		InheritFrom = "StatusIconWantsToTalkImportant_NPC"
+		OffsetZ = 50
+	}
+	{
+		Name = "StatusIconWantsToTalkImportant_Hypnos"
+		InheritFrom = "StatusIconWantsToTalkImportant_NPC"
+		OffsetZ = 30
+	}
+
+	{
+		Name = "StatusIconWantsToTalkImportant_NPC_End"
+		InheritFrom = "StatusIconWantsToTalkImportant_NPC"
+		EndAlpha = 0.0
+		StartAlpha = 1.0
+		PingPongColor = false
+		Duration = 0.2
+		RandomDurationMax = 0.0
+		RandomDurationMin = 0.0
+		Loop = false
+		HoldLastFrame = false
+		ChainTo = null
 	}
 
 	{
@@ -1634,20 +1837,19 @@
 		EndOffsetZ = 20
 	}
 
-
 	{
-		Name = "StatusIconWantsToSmooch"
+		Name = "StatusIconWantsAffection"
 		InheritFrom = "StatusIconWantsToTalk"
-		FilePath = "GUI\Icons\Status\WantsToSmooch"
+		FilePath = "GUI\Icons\Status\WantsAffection"
+		ChainTo = "StatusIconWantsAffection_End"
 	}
 
 	{
-		Name = "StatusIconSleeping"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Sleeping"
-		EndFrame = 1
-		StartFrame = 1
+		Name = "StatusIconWantsAffection_End"
+		InheritFrom = "StatusIconWantsToTalk_End"
+		FilePath = "GUI\Icons\Status\WantsAffection"
 	}
+
 
 	{
 		Name = "StatusSleeping"
@@ -1753,8 +1955,17 @@
 		EaseOut = 1.0
 		EndFrame = 1
 		StartFrame = 1
-		OffsetZ = -70.0
+		OffsetZ = -100.0
+		OffsetX = -45
 		Material = "Unlit"
+		VisualFxIntervalMax = 2.43
+		VisualFxIntervalMin = 2.43
+	}
+	{
+		Name = "StatusSingingMusicPlayer"
+		InheritFrom = "StatusSinging"
+		OffsetZ = -70.0
+		OffsetX = 0
 		VisualFxIntervalMax = 0.5
 		VisualFxIntervalMin = 0.6
 	}
@@ -1781,8 +1992,8 @@
 		GroupName = "FX_Standing_Top"
 		VisualFx = "MusicNoteSparkle"
 		AngleFromOwner = "Ignore"
-		AngleMax = 90.00
-		AngleMin = 45.00
+		AngleMax = 125.00
+		AngleMin = 85.00
 		UseOwnAngle = false
 		AddColor = true
 		ColorFromOwner = "Ignore"
@@ -1796,16 +2007,16 @@
 		RandomDurationMin = 0.8
 		StartFrame = 1
 		UseAttachedSpriteEffects = false
-		RandomOffsetX = 20.0
-		RandomOffsetY = 20.0
+		RandomOffsetX = 10.0
+		RandomOffsetY = 10.0
 		LocationFromOwner = "Ignore"
 		SortMode = "Id"
 		Acceleration = -100.0
 		Gravity = 50.0
 		VelocityMax = 130.0
 		VelocityMin = 100.0
-		EndScale = 1.2
-		StartScale = 0.7
+		StartScale = 0.5
+		EndScale = 0.85
 		Material = "Unlit"
 		VisualFxCap = 1
 		VisualFxIntervalMax = 2.0
@@ -1864,22 +2075,6 @@
 	}
 
 	{
-		Name = "StatusIconStealth"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Stealth"
-		EndFrame = 1
-		StartFrame = 1
-	}
-
-	{
-		Name = "StatusIconStunned"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Stunned"
-		EndFrame = 1
-		StartFrame = 1
-	}
-
-	{
 		Name = "StatusIconStunnedCombat"
 		InheritFrom = "StatusIconBase"
 		FilePath = "GUI\Icons\Status\Stunned"
@@ -1896,89 +2091,6 @@
 	}
 
 	{
-		Name = "StatusIconPlayerStunned"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Stunned"
-		EndFrame = 1
-		StartFrame = 1
-	}
-
-	{
-		Name = "StatusIconBlooded"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Blooded"
-		EndFrame = 1
-		StartFrame = 1
-	}
-
-	{
-		Name = "StatusIconPlayerPoisoned"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Stunned"
-		GroupName = "Overlay"
-		EndFrame = 1
-		StartFrame = 1
-	}
-
-	{
-		Name = "StatusIconTrapSprung"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\TrapSprung"
-		Duration = 1.25
-		EndFrame = 1
-		StartFrame = 1
-		OffsetZ = 150.0
-	}
-
-	{
-		Name = "StatusIconExclamation"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\TrapSprung"
-		EndFrame = 1
-		StartFrame = 1
-	}
-
-	{
-		Name = "StatusIconVulnerable"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Vulnerable"
-		EndFrame = 1
-		StartFrame = 1
-	}
-
-	{
-		Name = "StatusIconVulnerableCombat"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Vulnerable"
-		EndAlpha = 1.0
-		StartAlpha = 0.7
-		Duration = 0.5
-		EndFrame = 1
-		Loop = true
-		PingPong = true
-		StartFrame = 1
-		OffsetZ = 170.0
-		Scale = 0.5
-		StartScale = 0.7
-	}
-
-	{
-		Name = "StatusIconVulnerableArmorShatter"
-		InheritFrom = "StatusIconBase"
-		FilePath = "GUI\Icons\Status\Vulnerable"
-		GroupName = "Combat_UI_World"
-		EndAlpha = 1.0
-		StartAlpha = 0.7
-		Duration = 0.8
-		EndFrame = 1
-		PingPong = true
-		StartFrame = 1
-		OffsetZ = 0.0
-		Scale = 0.45
-		StartScale = 0.7
-	}
-
-	{
 		Name = "CurrencyIcon"
 		FilePath = "GUI\Icons\Currency"			
 		EndFrame = 1
@@ -1986,6 +2098,22 @@
 		NumFrames = 1
 		StartFrame = 1
 		Material = "Unlit"
+	}
+	{
+		Name = "CurrencyIconTrade"
+		FilePath = "GUI\Icons\Currency_Big"			
+		Scale = 0.4
+	}
+
+	{
+		Name = "HeraclesBountyIcon"
+		FilePath = "GUI\Icons\Currency"
+		EndFrame = 1
+		HoldLastFrame = true
+		NumFrames = 1
+		StartFrame = 1
+		Material = "Unlit"
+		Scale = 0.8
 	}
 
 	{
@@ -2078,7 +2206,15 @@
 		ColorFromOwner = "Ignore"
 		LocationZFromOwner = "Ignore"
 		Alpha = 0.66
-		AttachedTextScalarX = 350
+		AttachedTextScalarX = 430
+	}
+
+	{
+		Name = "DebugConversationTooltipBacking"
+		FilePath = "GUI\InCombatTextBacking"
+		ColorFromOwner = "Maintain"
+		Alpha = 1.0
+		AttachedTextScalarX = 430
 	}
 
 	{
@@ -2130,7 +2266,7 @@
 		ScaleX = 0.66
 		ScaleY = 1.2
 		ChildAnimation = "InCombatTextShadowFlash_Short"
-		AttachedTextScalarX = 0
+		AttachedTextScalarX = 150
 	}
 
 	{
@@ -2138,11 +2274,11 @@
 		InheritFrom = "InCombatTextShadowFlash"
 		ScaleX = 0.66
 		ScaleY = 1.2
-		AttachedTextScalarX = 0
+		AttachedTextScalarX = 150
 	}
 
 	{
-		Name = "InCombatTextShadow_ResourceBacking"
+		Name = "InCombatTextShadow_ResourceSpendBacking"
 		InheritFrom = "InCombatTextShadow"
 		FilePath = "GUI\ResourceBacking"
 		Alpha = 1.0
@@ -2151,6 +2287,21 @@
 		ScaleY = 1
 		ChildAnimation = "null"
 		AttachedTextScalarX = 0
+	}
+	{
+		Name = "InCombatTextShadow_ResourceSpendBackingLong"
+		InheritFrom = "InCombatTextShadow_ResourceSpendBacking"
+		FilePath = "GUI\ResourceBacking_Long"
+	}
+
+	{
+		Name = "InCombatTextShadow_ResourceGainBacking"
+		InheritFrom = "InCombatTextShadow"
+		FilePath = "GUI\ResourceBacking_Harvest"
+		Alpha = 1.0
+		ChildAnimation = "null"
+		AttachedTextScalarX = 200
+		OffsetY = 20
 	}
 
 	{
@@ -2361,6 +2512,54 @@
 		HoldLastFrame = true
 	}
 
+	{
+		Name = "TraitPinIn_Arcana"
+		InheritFrom = "TraitPinIn"
+		FilePath = "GUI\Screens\CardPin"
+	}
+	{
+		Name = "TraitPinOut_Arcana"
+		InheritFrom = "TraitPinOut"
+		FilePath = "GUI\Screens\CardPin"
+	}
+
+	{
+		Name = "TraitPinIn_Vow"
+		InheritFrom = "TraitPinIn"
+		FilePath = "GUI\Screens\VowPin"
+	}
+	{
+		Name = "TraitPinOut_Vow"
+		InheritFrom = "TraitPinOut"
+		FilePath = "GUI\Screens\VowPin"
+	}
+
+	{
+		Name = "TraitPinIn_Keepsake"
+		InheritFrom = "TraitPinIn"
+		FilePath = "GUI\Screens\TraitPin"
+		Scale = 1.3
+	}
+	{
+		Name = "TraitPinOut_Keepsake"
+		InheritFrom = "TraitPinOut"
+		FilePath = "GUI\Screens\TraitPin"
+		Scale = 1.3
+	}
+
+	{
+		Name = "TraitPinIn_ShopItem"
+		InheritFrom = "TraitPinIn"
+		FilePath = "GUI\Screens\TraitPin"
+		Scale = 1.3
+	}
+	{
+		Name = "TraitPinOut_ShopItem"
+		InheritFrom = "TraitPinOut"
+		FilePath = "GUI\Screens\TraitPin"
+		Scale = 1.3
+	}
+
 
 	{
 		Name = "TraitPinIn_NoHighlight"
@@ -2386,35 +2585,12 @@
 	{
 		Name = "PortraitRespawnFill10"
 		InheritFrom = "PortraitRespawnFill"
+		Alpha = 0.85
 		EndFrame = 100
 		PlaySpeed = 100.0
 		StartFrame = 1
 	}
 
-
-	{
-		Name = "PortraitRespawnFill10FishingSuccess"
-		InheritFrom = "PortraitRespawnFill"
-		EndFrame = 100
-		PlaySpeed = 100.0
-		StartFrame = 1
-		AngleFromOwner = "Ignore"
-		AddColor = true
-		Scale = 0.75
-		Color = { Red = 0.650 Green = 0.972 Blue = 1.000 }
-	}
-
-	{
-		Name = "PortraitRespawnFill10Red"
-		InheritFrom = "PortraitRespawnFill"
-		AngleFromOwner = "Ignore"
-		EndFrame = 100
-		PlaySpeed = 100.0
-		StartFrame = 1
-		AddColor = true
-		Scale = 0.75
-		Color = { Red = 0.780 Green = 0.185 Blue = 0.185 }
-	}
 	{
 		Name = "ManaTimerIcon"
 		FilePath = "GUI\Icons\Mana"
@@ -2480,44 +2656,30 @@
 	{
 		Name = "ActiveTrait"
 		FilePath = "GUI\ActiveTrait\ActiveTrait"
-		GroupName = "Combat_Menu_Additive"
-		
-		EndFrame = 20
+		EndFrame = 60
 		Loop = true
-		NumFrames = 20
-		PlaySpeed = 45.0
+		NumFrames = 60
+		PlaySpeed = 30.0
 		StartFrame = 1
-		VisualFx = "ActiveTraitPulse"
-		VisualFxIntervalMin = 1.00
-		VisualFxIntervalMax = 1.01
 	}
 
 	{
-		Name = "ActiveTraitPulse"
-		
-		FilePath = "GUI\HUD\ActiveTraitCooldownTimer\ActiveTraitCooldownTimer0001"
-		AddColor = true
-		StartRed = 0
-		StartGreen = 0
-		StartBlue = 0
-		EndRed = 1.0
-		EndGreen = 0.6
-		EndBlue = 0.2
-		PingPongColor = true
-		EaseIn = 0
-		EaseOut = 1
-		Duration = 1
-		GroupName = "Combat_UI_Additive"
-		StartScale = 1
-		EndScale = 1.5
-		Scale = 0.5
+		Name = "ActiveTraitFlash"
+		Material = "Unlit"
+		FilePath = "GUI\ActiveTraitFlash\ActiveTraitFlash"
+		StartFrame = 1
+		EndFrame = 21
+		NumFrames = 21
+		PlaySpeed = 30.0
+		OriginX = 164
+		OriginY = 182
+		Sound = "/SFX/Enemy Sounds/Brimstone/CrystalBeamFireStart"
 	}
 
 	{
 		Name = "ActiveTraitSingle"
 		FilePath = "GUI\HUD\ActiveTraitTimer\ActiveTraitTimer"
-		GroupName = "Combat_Menu_Additive"
-		
+		GroupName = "Combat_Menu_Additive"		
 		EndFrame = 30
 		NumFrames = 30
 		PlaySpeed = 1
@@ -2540,23 +2702,21 @@
 	{
 		Name = "ActiveTraitCooldownNoFlash"
 		FilePath = "GUI\HUD\ActiveTraitCooldownTimer\ActiveTraitCooldownTimer"
-		GroupName = "Combat_Menu"
-		
-		EndFrame = 100
-		NumFrames = 100
+		GroupName = "Combat_Menu"		
+		EndFrame = 200
+		NumFrames = 200
 		PlaySpeed = 1
 		StartFrame = 1
 		Loop = false
 		Alpha = 0.80
 		Scale = 0.5
-		TimeModifierFraction = 0
+		TimeModifierFraction = 1
 	}
 	
 	{
 		Name = "InactiveTrait"
 		FilePath = "GUI\HUD\ActiveTraitCooldownTimer\ActiveTraitCooldownTimer0001"
-		GroupName = "Combat_Menu"
-		
+		GroupName = "Combat_Menu"		
 		EndFrame = 1
 		NumFrames = 1
 		StartFrame = 1
@@ -2564,8 +2724,7 @@
 		Scale = 0.5
 	}
 	{
-		Name = "ActiveTraitCooldownCompleteFlash"
-		
+		Name = "ActiveTraitCooldownCompleteFlash"		
 		FilePath = "GUI\HUD\TraitUpdate\TraitUpdate"
 		NumFrames = 22
 		PlaySpeed = 60
@@ -2593,8 +2752,7 @@
 	}
 
 	{
-		Name = "ActiveTraitCooldownCompleteFlash3"
-		
+		Name = "ActiveTraitCooldownCompleteFlash3"		
 		FilePath = "GUI\HUD\NewTrait\NewTrait"
 		NumFrames = 45
 		PlaySpeed = 30
@@ -2604,8 +2762,7 @@
 	}
 
 	{
-		Name = "ActiveTraitCooldownCompleteFlash4"
-		
+		Name = "ActiveTraitCooldownCompleteFlash4"		
 		FilePath = "Particles\particle_streak_boosted"
 		Material = "Unlit"
 		AddColor = true
@@ -2718,7 +2875,7 @@
 		PlaySpeed = 30
 		Material = "Unlit"
 		ChainTo = "StaffReloadTimerReadyLoop"
-		Sound = "/SFX/Menu Sounds/MenuMagicFlashLong"
+		Sound = "/SFX/Menu Sounds/MenuMagicFlashLongUI"
 	}
 
 	{
@@ -2755,9 +2912,9 @@
 		OriginY = 44
 		ChildAnimation = "RadioButton_Unselected"
 		AddColor = true
-		StartRed = 1
+		StartRed = 0.2
 		StartGreen = 0.5
-		StartBlue = 0.01
+		StartBlue = 1
 		EndRed = 0
 		EndGreen = 0
 		EndBlue = 0
@@ -2765,6 +2922,22 @@
 		Duration = 1
 		EaseIn = 0.9
 		EaseOut = 1.0
+	}
+
+	{
+		Name = "ObjectiveBackgroundComplete"
+		InheritFrom = "ObjectiveBackground"
+		PingPongColor = true
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.2
+		EndGreen = 0.5
+		EndBlue = 1
+		EaseIn = 0
+		Duration = 0.75
+		StartOffsetX = 0.0001
+		ChildAnimation = "RadioButton_Selected"
 	}
 
 	{
@@ -2903,10 +3076,18 @@
 	{
 		Name = "VictoryTextBacking"
 		InheritFrom = "1_BaseStaticGUIAnimation"
-		FilePath = "GUI\LocationBackings\Victory_01"
+		FilePath = "GUI\LocationBackings\VictoryBacking_Underworld"
 		Scale = 0.5
 		OffsetX = 0
 		OffsetY = 0
+	}
+	{
+		Name = "VictoryTextBacking_Surface"
+		InheritFrom = "1_BaseStaticGUIAnimation"
+		FilePath = "GUI\LocationBackings\VictoryBacking_Surface"
+		Scale = 0.5
+		OffsetX = 0
+		OffsetY = 20
 	}
 
 	{
@@ -2947,6 +3128,25 @@
 		GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
 		AngleFromOwner = "Ignore"
 		Sound = "/SFX/SeleneMoonPickup"
+		MaintainAlphaOnly = true
+	}
+
+	{
+		Name = "HexReadyFlashTalent"
+		InheritFrom = "HexReadyFlash"
+		ColorFromOwner = "Ignore"
+		PlaySpeed = 45
+		Scale = 1.25
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.0
+		EndGreen = 0.1
+		EndBlue = 1.0
+		StartAlpha = 1
+		EndAlpha = 0.25
+		EaseIn = 0
+		EaseOut = 0.25
 	}
 	
 	{

@@ -20,7 +20,8 @@ WeaponSetData =
 			PostAttackDuration = 0.0,
 
 			PreAttackEndShake = true,
-			PreAttackEndDuration = 0.3,
+			PreAttackEndFlashFraction = 0.85,
+			--PreAttackEndDuration = 0.3,
 
 			PreAttackAnimation = "Enemy_Carrion_SweepPreAttack",
 			FireAnimation = "Enemy_Carrion_SweepFire",
@@ -28,8 +29,9 @@ WeaponSetData =
 
 			PostAttackAI = "OrbitAI",
 
-			AttackDistance = 600,
-			AttackDistanceMin = 450,
+			AttackDistance = 520,
+			AttackDistanceScaleY = 0.7,
+			AttackDistanceMin = 400,
 			RetreatBufferDistance = 500,
 			RequireUnitLoS = true,
 			LoSBuffer = 80,
@@ -41,12 +43,6 @@ WeaponSetData =
 
 			PreAttackSound = "/SFX/Enemy Sounds/Carrion/EmoteCharging",
 			--PreAttackFlashSound = "/Leftovers/SFX/AuraOnLoud",
-		},
-
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.1, LerpTime = 0 },
-			{ ScreenPreWait = 0.07, Fraction = 1.0, LerpTime = 0.1 },
 		},
 
 		Sounds =
@@ -81,7 +77,7 @@ WeaponSetData =
 			ChainedWeapon = "CarrionSweep3_Elite",
 
 			-- Blink ban
-			TeleportToSpawnPoints = false,
+			PreMoveTeleport = false,
 		},
 	},
 	CarrionSweep3_Elite =
@@ -95,7 +91,7 @@ WeaponSetData =
 			PostAttackAI = "OrbitAI",
 
 			-- Blink ban
-			TeleportToSpawnPoints = false,
+			PreMoveTeleport = false,
 		},
 	},
 }

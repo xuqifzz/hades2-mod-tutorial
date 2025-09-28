@@ -15,7 +15,8 @@ UnitSetData.FogEmitter =
 		BlockRaiseDead = true,
 
 		MaxHealth = 290,
-		HealthBarOffsetY = -300,
+		HealthBarAttachToMarkerName = "head_fxMarker_00_M_JNT",
+		HealthBarOffsetY = -110,
 		HitInvulnerableText = "Blank",
 
 		IsAggroedSound = "/SFX/Enemy Sounds/FogEmitter/EmoteAlerted",
@@ -151,6 +152,9 @@ UnitSetData.FogEmitter =
 		ActivateTintDuration = 0.5,
 		ActivateStartAlpha = 0, 
 		ActivateDuration = 0.75,
+
+		HealthBarAttachToMarkerName = "nil",
+		HealthBarOffsetY = -300,
 
 		BlockNextBiomeEnemyShrineUpgrade = true,
 		AIOptions =

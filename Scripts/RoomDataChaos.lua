@@ -3,6 +3,9 @@ RoomSetData.Chaos =
 	BaseChaos =
 	{
 		DebugOnly = true,
+		RichPresence = "#RichPresence_Chaos",
+		
+		HarvestPointBase = "DrownedChambersHarvestPointBase01",
 
 		ValidateSecretData = true,
 		HasHarvestPoint = true,
@@ -10,24 +13,119 @@ RoomSetData.Chaos =
 		HasPickaxePoint = true,
 		HasFishingPoint = true,
 		HasExorcismPoint = false,
+		AllowOnlyOneToolHarvestableResource = true,
+		ResourcePointsIgnoredByBiomeRequirements = true,
+		IgnoreHarvestBiomeSpawnLimit = true,
+
+		HarvestPointChances =
+		{
+			0.5,
+		},
+		PickaxePointChance = 0.6,
+		ShovelPointChance = 0.6,
+		FishingPointChance = 0.6,
+
+		HarvestPointRequirements =
+		{
+			{
+				Path = { "GameState", "TextLinesRecord", },
+				HasAny = { "ChaosGrantsDarkness01", "ChaosGrantsDarkness01_B" },
+			},
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "Mixer6Common" },
+						Comparison = "<",
+						Value = 6,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.7,
+				},
+			},
+		},
+		ShovelPointRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutSurface01" },
+			},
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantChaosThalamusSeed" },
+						Comparison = "<",
+						Value = 6,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.7,
+				},
+			},
+		},
+		PickaxePointRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutSurface01" },
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "PlantChaosThalamusSeed" },
+				Comparison = ">=",
+				Value = 2, -- Chaos gifts you one as part of ChaosAboutSurface01
+			},
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "OreChaosProtoplasm" },
+						Comparison = "<",
+						Value = 12,
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.7,
+				},
+			},
+		},
+		FishingPointRequirements =
+		{
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "OreChaosProtoplasm" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			OrRequirements =
+			{
+				-- collection
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", },
+						NotHasAll = { "FishChaosCommon", "FishChaosRare", "FishChaosLegendary" },
+					},
+				},
+				-- accumulation
+				{
+					ChanceToPlay = 0.7,
+				},
+			},
+		},
 
 		AnomalyDoorChance = 0.0,
 		AnomalyDoorChanceFirstInstance = 0.0,
 
-		--[[
-		HarvestPointChances =
-		{
-			0.9,
-			0.5,
-			0.1,
-		},
-		ShovelPointChance = 0.5,
-		PickaxePointChance = 0.5,
-		]]--
-
 		SpawnRewardOnId = 561960,
 
 		RushMaxRangeOverride = 475,
+
+		LeavePrevRoomWipeAnimation = "RoomTransitionIn_Down",
+		EnterWipeAnimation = "RoomTransitionOut_Down",
 
 		IgnoreExitDirection = true,
 		EntranceFunctionName = "RoomEntrancePortal",
@@ -42,11 +140,12 @@ RoomSetData.Chaos =
 		UsePromptOffsetY = 120,
 
 		LocationText = "Location_Secret",
+		LocationAnimName = "LocationBackingIrisChaosIn_Biome",
+		LocationAnimOutName = "LocationBackingIrisChaosOut_Biome",
 		SaveProfileLocationText = "Location_Secret",
 		LocationTextColor = { 20, 0, 255, 255 },
 
 		ResultText = "RunHistoryScreenResult_Secret",
-		RichPresence = "#RichPresence_Chaos",
 		BiomeName = "Secrets",
 		PauseBiomeState = true,
 
@@ -56,40 +155,12 @@ RoomSetData.Chaos =
 		UsePreviousRoomSet = true,
 		BlockHeroLight = true,
 		ForcedRewardStore = "Secrets",
-		LegalEncounters = { "Empty" },
+		LegalEncounters = { "Empty_Chaos" },
 
 		ZoomFraction = 0.75,
 		BreakableOptions = { "BreakableIdle1", "BreakableIdle2", "BreakableIdle3" },
 		BreakableValueOptions = { MaxHighValueBreakables = 3 },
 		SoftClamp = 0.75,
-		FishingPointChance = 0.30,
-		PickaxePointChance = 0.35,
-		PickaxePointRequirements = 
-		{
-			{
-				PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutSurface01" },
-			},
-		},
-		ShovelPointChance = 1.0,
-		ShovelPointRequirements = 
-		{
-			{
-				PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutSurface01" },
-			},
-		},
-
-		HarvestPointChances =
-		{
-			0.30,
-			0.05,
-			0.01,
-		},
-		HarvestPointRequirements =
-		{
-			{
-				PathTrue = { "GameState", "TextLinesRecord", "ChaosGrantsDarkness01" },
-			},
-		},
 
 		EnterVoiceLines =
 		{
@@ -141,7 +212,6 @@ RoomSetData.Chaos =
 				{ Cue = "/VO/MelinoeField_0801", Text = "Made it through..." },
 				{ Cue = "/VO/MelinoeField_0802", Text = "It's warm..." },
 				{ Cue = "/VO/MelinoeField_0803", Text = "Chaos..." },
-				{ Cue = "/VO/MelinoeField_0804", Text = "This old place..." },
 				{ Cue = "/VO/MelinoeField_0805", Text = "Good to be back..." },
 				{ Cue = "/VO/MelinoeField_0806", Text = "So serene..." },
 				{ Cue = "/VO/MelinoeField_0807", Text = "Still intact..." },
@@ -149,6 +219,16 @@ RoomSetData.Chaos =
 				{ Cue = "/VO/MelinoeField_0809", Text = "Hail, Chaos!" },
 				{ Cue = "/VO/MelinoeField_0810", Text = "Just me...!" },
 				{ Cue = "/VO/MelinoeField_0811", Text = "You called...?" },
+				{ Cue = "/VO/MelinoeField_0804", Text = "This old place...",
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "UseRecord", "TrialUpgrade" },
+							Comparison = ">=",
+							Value = 10,
+						},
+					},
+				},
 			},
 			{
 				BreakIfPlayed = true,
@@ -184,35 +264,14 @@ RoomSetData.Chaos =
 			},
 
 		},
-		ExitVoiceLines =
-		{
-			NoTarget = true,
-			RandomRemaining = true,
-			SuccessiveChanceToPlay = 0.15,
-			PreLineWait = 0.86,
-			ThreadName = "RoomThread",
-			Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "TextLinesRecord", "ChaosGift01" },
-				},
-			},
-			Cooldowns =
-			{
-				{ Name = "ChaosSpokeRecently", Time = 45 },
-			},
-
-			{ Cue = "/VO/Chaos_0103", Text = "Return now whence you came.", PlayFirst = true },
-			{ Cue = "/VO/Chaos_0104", Text = "You now are changed accordingly." },
-
-		},
 
 	},
 
 	Chaos_01 =
 	{
 		InheritFrom = { "BaseChaos" },
+		HoundFamiliarMovementRequiresLineOfSight = true,
+		PolecatFamiliarShouldNotFollow = true,
 
 		GameStateRequirements =
 		{
@@ -252,6 +311,7 @@ RoomSetData.Chaos =
 			},
 		},
 
+		Using = { Animation = { "Portrait_Chaos_Default_01", }, },
 	},
 	Chaos_02 =
 	{
@@ -302,6 +362,9 @@ RoomSetData.Chaos =
 	Chaos_03 =
 	{
 		InheritFrom = { "BaseChaos" },
+		HoundFamiliarMovementRequiresLineOfSight = true,
+		PolecatFamiliarShouldNotFollow = true,
+
 		GameStateRequirements =
 		{
 			{
@@ -359,6 +422,9 @@ RoomSetData.Chaos =
 	Chaos_05 =
 	{
 		InheritFrom = { "BaseChaos" },
+		HoundFamiliarMovementRequiresLineOfSight = true,
+		PolecatFamiliarShouldNotFollow = true,
+
 		GameStateRequirements =
 		{
 			{
@@ -380,6 +446,11 @@ RoomSetData.Chaos =
 			},
 		},
 
+		FishingPointRadii =
+		{
+			[622181] = 330,
+			[622252] = 250,
+		},
 	},	
 }
 AddTableKeysCheckDupes( RoomData, RoomSetData.Chaos )

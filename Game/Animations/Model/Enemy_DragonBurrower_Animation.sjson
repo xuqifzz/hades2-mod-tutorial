@@ -1,0 +1,295 @@
+{ Animations = [
+	{
+		Name = "EnemyDragonBurrowerBaseAnimation"
+		
+		GrannyModel = "Dracon_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 3.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_DragonBurrower_Idle"
+		InheritFrom = "EnemyDragonBurrowerBaseAnimation"
+		GrannyAnimation = "BoneDracon_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+	{
+		Name = "Enemy_DragonBurrower_Hidden"
+		InheritFrom = "Enemy_DragonBurrower_Idle"
+		OwnerUntargetable = true
+		OwnerInvulnerable = true
+		OwnerHasNoUnitCollision = true
+	}
+
+	{
+		Name = "Enemy_DragonBurrower_OnHit"
+		InheritFrom = "EnemyDragonBurrowerBaseAnimation"
+		GrannyAnimation = "BoneDracon_Base_OnHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_DragonBurrower_Idle"
+		Sound = "/SFX/Enemy Sounds/RangedBurrower/EmoteHurt"
+		/*
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 2.66
+			}
+			{
+				Frame = 18
+				FrameSpeed = 1.15
+			}
+		]
+		*/
+	}
+	{
+		Name = "Enemy_DragonBurrower_OnHit_Heavy"
+		InheritFrom = "Enemy_DragonBurrower_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_DragonBurrower_RangedPreFire"
+		InheritFrom = "EnemyDragonBurrowerBaseAnimation"
+		GrannyAnimation = "BoneDracon_Base_AttackRange_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.2
+			}
+			{
+				Frame = 4
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_DragonBurrower_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_DragonBurrower_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_DragonBurrower_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_DragonBurrower_RangedFire_Single"
+		InheritFrom = "EnemyDragonBurrowerBaseAnimation"
+		GrannyAnimation = "BoneDracon_Base_AttackRange_C_00"
+		ChainTo = "Enemy_DragonBurrower_RangedPostFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 41
+				FrameSpeed = 1
+			}
+			{
+				Frame = 50
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_DragonBurrower_RangedFire_Triple"
+		InheritFrom = "EnemyDragonBurrowerBaseAnimation"
+		GrannyAnimation = "BoneDracon_Base_AttackRange_C_00"
+		ChainTo = "Enemy_DragonBurrower_RangedPostFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1
+			}
+			{
+				Frame = 50
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_DragonBurrower_RangedPostFire"
+		InheritFrom = "EnemyDragonBurrowerBaseAnimation"
+		GrannyAnimation = "BoneDracon_Base_AttackRange_C_00"
+		ChainTo = "Enemy_DragonBurrower_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 50
+				FrameSpeed = 1
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_DragonBurrower_BreathFire"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_DragonBurrower_Burrow"
+		InheritFrom = "EnemyDragonBurrowerBaseAnimation"
+		GrannyAnimation = "BoneDracon_Base_Burrows_C_00"
+		VerticalMaskInModelSpace = true
+		OwnerUntargetable = true
+		OwnerInvulnerable = true
+		OwnerHasNoUnitCollision = true
+		ChainTo = "Enemy_DragonBurrower_Hidden"
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 16
+				FrameSpeed = 1
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 20
+				FrameSpeed = 1
+				VerticalMask = 0.15
+			}
+			{
+				Frame = 21
+				FrameSpeed = 0
+				VerticalMask = 0.0
+			}
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_DragonBurrower_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_DragonBurrower_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_DragonBurrower_OnHit_Heavy"
+				Duration = 6
+			}
+		]	
+	}
+	{
+		Name = "Enemy_DragonBurrower_Unburrow"
+		InheritFrom = "EnemyDragonBurrowerBaseAnimation"
+		GrannyAnimation = "BoneDracon_Base_Burrows_C_00"
+		VerticalMaskInModelSpace = true
+		ChainTo = "Enemy_DragonBurrower_Idle"
+		Sound = "/SFX/Enemy Sounds/RangedBurrower/DraconEmerge"
+		CreateAnimation = "DragonBurrowerBurrowFxIn"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 35
+				FrameSpeed = 1
+				VerticalMask = 0.0
+				Sound = "/SFX/Enemy Sounds/RangedBurrower/EmoteBurrow"
+			}
+			{
+				Frame = 41
+				FrameSpeed = 1
+				VerticalMask = 0.7
+			}
+			{
+				Frame = 43
+				FrameSpeed = 1
+				VerticalMask = 0.9
+			}
+			{
+				Frame = 46
+				FrameSpeed = 1
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 60
+				FrameSpeed = 1
+				VerticalMask = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_DragonBurrower_Spawn"
+		InheritFrom = "EnemyDragonBurrowerBaseAnimation"
+		GrannyAnimation = "BoneDracon_Base_Burrows_C_00"
+		VerticalMaskInModelSpace = true
+		ChainTo = "Enemy_DragonBurrower_Idle"
+		Sound = "/SFX/Enemy Sounds/RangedBurrower/DraconEmerge"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 35
+				FrameSpeed = 1
+				VerticalMask = 0.0
+				Sound = "/SFX/Enemy Sounds/RangedBurrower/EmoteBurrow"
+			}
+			{
+				Frame = 41
+				FrameSpeed = 1
+				VerticalMask = 0.7
+			}
+			{
+				Frame = 43
+				FrameSpeed = 1
+				VerticalMask = 0.9
+			}
+			{
+				Frame = 46
+				FrameSpeed = 1
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 60
+				FrameSpeed = 1
+				VerticalMask = 1.0
+			}
+		]
+	}
+]}

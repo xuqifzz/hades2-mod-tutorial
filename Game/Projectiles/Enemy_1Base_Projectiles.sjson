@@ -1,0 +1,97 @@
+{ Projectiles = [
+
+	{
+		Name = "1_BaseEnemyProjectile"
+		AffectsEnemies = true
+		AffectsFriends = false
+		AffectsSelf = false
+		CanBeReflected = false
+		CanBeProjectileDefenseDestroyed = false
+		CanBeProjectileDefenseDestroyedByName = null
+		CanBeProjectileDefenseDestroyedByName2 = "ExAttackSuitDefense"
+		CanBeProjectileDefenseDestroyedByLayer = null
+		Thing =
+		{
+			Graphic = "null"
+			RotateGeometry = false
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 0
+					Y = 8
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -8
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+	}
+
+	{
+		Name = "1_BaseEnemyProjectileReflectable"
+		InheritFrom = "1_BaseEnemyProjectile"
+		ReflectFx = "AthenaDeflectedFx"
+		CanBeReflected = true
+		CanBeProjectileDefenseDestroyedByName = "SafeZonePulse"
+		CanBeProjectileDefenseDestroyedByLayer = "BoonDefense"
+	}
+	{
+		Name = "1_BaseEnemyProjectileUndestroyable"
+		InheritFrom = "1_BaseEnemyProjectile"
+		CanBeProjectileDefenseDestroyedByName2 = null
+	}
+	{
+		Name = "1_BaseEnemyProjectileUnblockable"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		IgnoreCoverageAngles = true
+	}
+
+	{
+		Name = "1_BaseEnemyMagicProjectile"
+		UseArmor = false
+		UseVulnerability = false
+		ReflectFx = "AthenaDeflectedFx"
+	}
+	{
+		Name = "1_BaseTrapProjectile"
+		UseArmor = false
+		AffectsEnemies = true
+		AffectsFriends = true
+		UseVulnerability = false
+		ReflectFx = "AthenaDeflectedFx"
+		Thing =
+		{
+			RotateGeometry = true
+			Points =
+			[
+				{
+					X = -24
+					Y = 8
+				}
+				{
+					X = 24
+					Y = 8
+				}
+				{
+					X = 24
+					Y = -8
+				}
+				{
+					X = -24
+					Y = -8
+				}
+			]
+		}
+	}
+	
+]}

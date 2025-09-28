@@ -8,6 +8,7 @@ UnitSetData.SatyrLancer =
 		ActivateFx = "EnemyPreSpawnTerrainChronos",
 		ActivateFx2 = "EnemyPreSpawnStandingMediumChronos",
 		ActivateFxPreSpawn = "EnemySpawnBurstMediumChronos",
+		PostActivateScreenshake = { Distance = 6, Speed = 300, FalloffSpeed = 0, Duration = 0.24, Angle = 90, DistanceThreshold = 200 },
 		DeathFx = "EnemyDeathFxChronos",
 		DeathAnimation = "Enemy_SatyrLancer_Death",
 
@@ -117,6 +118,7 @@ UnitSetData.SatyrLancer =
 		},
 	},
 
+
 	SatyrLancer_Shadow =
 	{
 		InheritFrom = { "Shadow", "SatyrLancer" },
@@ -207,6 +209,7 @@ UnitSetData.SatyrLancer =
 				Cooldowns =
 				{
 					{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
+					{ Name = "OlympusEnemiesSightedVO", Time = 12 },
 				},
 				SuccessiveChanceToPlay = 0.1,
 
@@ -244,6 +247,37 @@ UnitSetData.SatyrLancer =
 		{
 			DifficultyRating = 260,
 			BlockEnemyTypes = {"SatyrLancer2"}
+		},
+	},
+
+	SatyrLancer_Prometheus =
+	{
+		InheritFrom = { "SatyrLancer2" },
+		HideHealthBar = true,
+		GenusName = "SatyrLancer",
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+		},
+
+		AIOptions =
+		{
+			"AttackerAI",
+		},
+
+		WeaponOptions =
+		{
+			"SatyrLancerThrow_Prometheus",
+		},
+
+		SpellSummonDataOverrides =
+		{
+			HideHealthBar = false,
+			WeaponOptions =
+			{
+				"SatyrLancerThrow_PrometheusAlly"
+			},
 		},
 	},
 }

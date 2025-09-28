@@ -1,0 +1,1400 @@
+{ Animations = [
+
+	{
+		Name = "AresAttackGlow"
+		FilePath = "Particles\particle_glow"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+		Scale = 3
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.3
+		EndAlpha = 0
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+
+	{
+		Name = "RadialNovaPentagram_Ares"
+		InheritFrom = "RadialNovaPentagram"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		PostRotateScaleY = 2.0
+		ClearSlides = true
+		PlaySpeed = 90
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "RadialNovaPentagramDark_Ares" }
+			{ Name = "RadialNovaPentagramFlare" }
+			{ Name = "RadialNovaPentagramGlow_Ares" }
+			{ Name = "RadialNovaPentagramSecondary_Ares" }
+			{ Name = "AresProjectileExplosion" }
+		]
+	}
+	
+	{
+		Name = "RadialNovaPentagramSecondary_Ares"
+		InheritFrom = "RadialNovaPentagramSecondary"
+		PostRotateScaleY = 1.0
+	}
+
+	{
+		Name = "RadialNovaPentagramCharged_Ares"
+		InheritFrom = "RadialNovaPentagram"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		LocationZFromOwner = "Take"
+		ClearCreateAnimations = true
+		VisualFx = null
+		VisualFxCap = 32
+		VisualFxIntervalMin = 0.001
+		VisualFxIntervalMax = 0.002
+		CreateAnimations =
+		[
+			{ Name = "AresProjectileExplosionChargedA" }
+			{ Name = "AresProjectileExplosionChargedB" }
+			{ Name = "RadialNovaPentagramDark" }
+			{ Name = "RadialNovaPentagramFlareCharged_Ares" }
+			{ Name = "RadialNovaPentagramGlowCharged_Ares" }
+			{ Name = "RadialNovaPentagramSecondary_Ares" }
+			{ Name = "CastCircleOutDisplacement" }
+		]
+	}
+
+	{
+		Name = "RadialNovaPentagramGlow_Ares"
+		InheritFrom = "RadialNovaPentagramGlow"
+		Scale = 2
+		Duration = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "RadialNovaPentagramGlowCharged_Ares"
+		InheritFrom = "RadialNovaPentagramGlowCharged"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartAlpha = 1
+		Scale = 4
+	}
+
+	{
+		Name = "RadialNovaPentagramFlareCharged_Ares"
+		InheritFrom = "RadialNovaPentagramFlareCharged"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "RadialNovaPentagramDark_Ares"
+		InheritFrom = "RadialNovaPentagramDark"
+		PostRotateScaleY = 1.0
+	}
+
+
+	{
+		Name = "AresProjectileExplosion"
+		FilePath = "Fx\Ares\AresProjectileImpact\AresProjectileImpact"
+		NumFrames = 37
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		RandomRotation = true
+		Material = "Unlit"
+		GroupName = "Standing"
+		LocationZFromOwner = "Take"
+		RandomFlipHorizontal = true
+	}
+
+	{
+		Name = "AresProjectileExplosionChargedA"
+		InheritFrom = "AresProjectileExplosion"
+		Scale = 1.5
+		SortMode = "FromParent"
+		OverlayVfx = true
+		Sound = "/SFX/Player Sounds/AresProjectileExplosion"
+	}
+
+	{
+		Name = "AresProjectileExplosionChargedB"
+		InheritFrom = "AresProjectileExplosion"
+		Scale = 1.9
+		SortMode = "FromParent"
+		OverlayVfx = true
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		Sound = null
+	}
+
+
+	{
+		Name = "StaffBallProjectileCharged_Ares"
+		FilePath = "Fx\Ares\AresStaffBall\AresStaffBall"
+		NumFrames = 72
+		Loop = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		Scale = 0.9
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Take"
+		OffsetZ = 10
+		OriginX = 160
+		OriginY = 160
+		VisualFx = null
+		ChildAnimation = null
+		VisualFxDistanceMin = 120
+		VisualFxDistanceMax = 120
+		Sound = "/SFX/Player Sounds/AresBladesSpinLoop"
+		StopSoundOnFinishFade = 0.3
+		CreateAnimation = "StaffBallProjectileGlowCharged_Ares"
+	}
+
+	{
+		Name = "StaffBallProjectileCharged_Ares_Shadow"
+		InheritFrom = "StaffBallProjectileCharged_Ares"
+		VisualFx = null
+		ClearCreateAnimations = true
+		ChildAnimation = null
+		Sound = null
+		PostRotateScaleY = 0.5
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 0
+		Red = 0
+		Green = 0
+		Blue = 0
+		Alpha = 0.5
+		GroupName = "Shadows"
+		DieWithOwner = true
+	}
+
+
+	{
+		Name = "AresStaffProjectileTrail"
+		Random =
+		[
+			{ Name = "AresStaffDirectionalTrailA" }
+			{ Name = "AresStaffDirectionalTrailB" }
+		]
+	}
+
+	{
+		Name = "AresStaffDirectionalTrailA"
+		FilePath = "Fx\Ares\AresParticleA\AresParticleA"
+		NumFrames = 50
+		StartFrame = 30
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		Material = "Unlit"
+
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OverlayVfx = true
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		DrawBehindOwner = true
+		Scale = 0.6
+		ScaleMin = 0.7
+		ScaleMax = 2.0
+		RandomFlipVertical = true
+		StartScaleY = 0.1
+		EndScaleY = 1.0
+		ScaleX = 0.75
+		VelocityMin = 300
+		VelocityMax = 500
+		Acceleration = -700
+		Angle = 180
+	}		
+
+	{
+		Name = "AresStaffDirectionalTrailB"
+		InheritFrom = "AresStaffDirectionalTrailA"
+		FilePath = "Fx\Ares\AresParticleB\AresParticleB"
+	}
+
+
+
+    {
+      Name = "AresSwordHoverDrop"
+      FilePath = "Fx\AresSwordHoverDrop\AresSwordHoverDrop"
+      GroupName = "Combat_UI"
+      AngleFromOwner = "Ignore"
+      Sound = "/SFX/Player Sounds/AresDelayedDamageStab"
+      ColorFromOwner = "Ignore"
+      EndFrame = 26
+      NumFrames = 26
+      PlaySpeed = 75.0
+      StartFrame = 1
+      OffsetZ = 240.0
+      Scale = 0.9
+      ScaleFromOwner = "Ignore"
+      Ambient = 0.0
+      UseAttachedFlasher = false
+      TransferAngle = true
+    }
+
+    {
+    	Name = "AresSwordHoverIn"
+    	Random = [
+    		{ Name = "AresSwordHoverInA" }
+    		{ Name = "AresSwordHoverInB" }
+    	]
+    }
+
+    {
+    	Name = "AresSwordHoverInA"
+    	InheritFrom = "AresSwordHoverDrop"
+    	Sound = null
+    	FilePath = "Fx\AresSwordHoverIn\AresSwordHoverIn"
+    	NumFrames = 22
+    	EndFrame = 22
+    	PlaySpeed = 60
+    	AngleMin = -5
+    	AngleMax = 5
+    	ChainTo = "AresSwordHoverLoopA"
+    	TransferAngle = true
+    }
+
+    {
+    	Name = "AresSwordHoverInB"
+    	InheritFrom = "AresSwordHoverInA"
+    	FlipHorizontal = true
+    	ChainTo = "AresSwordHoverLoopB"
+    }
+
+    {
+      Name = "AresSwordHoverLoopA"
+      InheritFrom = "AresSwordHoverDrop"
+      PlaySpeed = 60
+      FilePath = "Fx\AresSwordHoverLoop\AresSwordHoverLoop"
+      Sound = "/SFX/Player Sounds/AresDelayedDamageLoop"
+      StopSoundOnFinishFade = 0.2
+      EaseOut = 1.0
+      EndFrame = 60
+      ChainTo = null
+      Loop = true
+      NumFrames = 60
+      StartFrame = 1
+      DieWithOwner = true
+      PingPongShiftOverDuration = true
+      UseAttachedFlasher = false
+    }
+
+    {
+    	Name = "AresSwordHoverLoopB"
+    	InheritFrom = "AresSwordHoverLoopA"
+    	FlipHorizontal = true
+    }
+	
+
+    {
+    	Name = "AresSwordHoverSilentIn"
+    	Random = [
+    		{ Name = "AresSwordHoverSilentInA" }
+    		{ Name = "AresSwordHoverSilentInB" }
+    	]
+    }
+
+    {
+    	Name = "AresSwordHoverSilentInA"
+    	InheritFrom = "AresSwordHoverInA"
+    	Sound = null
+    	ChainTo = "AresSwordHoverSilentLoopA"
+    }
+
+    {
+    	Name = "AresSwordHoverSilentInB"
+    	InheritFrom = "AresSwordHoverSilentInA"
+    	FlipHorizontal = true
+    	ChainTo = "AresSwordHoverSilentLoopB"
+    }
+
+    {
+      Name = "AresSwordHoverSilentLoopA"
+      InheritFrom = "AresSwordHoverLoopA"
+      Sound = null
+    }
+
+    {
+    	Name = "AresSwordHoverSilentLoopB"
+    	InheritFrom = "AresSwordHoverSilentLoopA"
+    	FlipHorizontal = true
+    }
+    {
+      Name = "AresSwordHoverSilentDrop"
+	  	InheritFrom = "AresSwordHoverDrop"
+	  	Sound = null
+	  	StartScaleX = 1
+	  	EndScaleX = 0
+	  	AddColor = true
+	  	StartRed = 0
+	  	StartGreen = 0
+	  	StartBlue = 0
+	  	EndRed = 0.9
+	  	EndGreen = 1
+	  	EndBlue = 0.95
+    }
+    {
+      Name = "AresBladeSpin"
+      ChainTo = "AresBladeSpinOut"
+      FilePath = "Fx\AresBladeSpin\AresBladeSpin"
+      GroupName = "Standing"
+	  VisualFxManagerCap = 300
+      VisualFx = "AresBladeSpinParticles"
+      AngleFromOwner = "Ignore"
+      Sound = "/SFX/Player Sounds/AresBladesSpinLoop"
+      StopSoundOnFinishFade = 0.2
+	  OffsetZ = 40
+      EndFrame = 72
+      Loop = true
+      NumFrames = 72
+      PlaySpeed = 45.0
+      ReRandomizeOnLoop = false
+      StartFrame = 1
+      LocationZFromOwner = "Ignore"
+      ScaleFromOwner = "Ignore"
+      ScaleRadius = 120.0
+      Ambient = 0.0
+      VisualFxIntervalMax = 0.06
+      VisualFxIntervalMin = 0.05
+      OverlayVfx = true
+    }
+	 {
+      Name = "AresBladeSpinParticles"
+      FilePath = "Animations\AresBladeSpinParticles\AresBladeSpinParticles"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Random = [
+        { Name = "AresBladeSpinParticleA" }
+        { Name = "AresBladeSpinParticleB" }
+        { Name = "AresBladeSpinParticleC" }
+        { Name = "AresBladeSpinParticleD" }
+      ]
+    }
+
+    {
+      Name = "AresBladeSpinParticleA"
+      FilePath = "Fx\Ares\AresSliceParticleA\AresSliceParticleA"
+	  	OffsetZ = 0
+      GroupName = "FX_Standing_Add"
+      AngleFromOwner = "Ignore"
+      AngleMax = 360.00
+      EaseIn = 0.9
+      EaseOut = 1.0
+      EndFrame = 20
+      NumFrames = 20
+      RandomDurationMax = 0.3
+      RandomDurationMin = 0.2
+      StartFrame = 1
+      RadialOffsetMax = 180.0
+      RadialOffsetMin = 0.0
+      RadialOffsetScaleY = 0.5
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Ignore"
+      Acceleration = -3200.0
+      VelocityMax = 800.0
+      VelocityMin = 600.0
+      RandomRotation = false
+      RandomFlipVertical = true
+      //PostRotateScaleY = 0.5
+      IsometricSkew = "X"
+      ScaleMax = 0.6
+      ScaleMin = 0.2
+      ScaleY = 0.5
+      Ambient = 0.0
+      Color = { Red = 1.0 Green = 0.9 Blue = 0.4 }
+    }
+
+    {
+      Name = "AresBladeSpinParticleB"
+      InheritFrom = "AresBladeSpinParticleA"
+      GroupName = "FX_Dark"
+      Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+      RandomDurationMax = 0.4
+      RandomDurationMin = 0.2
+    }
+
+    {
+    	Name = "AresBladeSpinParticleC"
+    	InheritFrom = "AresBladeSpinParticleA"
+    	FilePath = "Fx\Ares\AresSliceParticleB\AresSliceParticleB"
+    	Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
+    }    
+    {
+    	Name = "AresBladeSpinParticleD"
+    	InheritFrom = "AresBladeSpinParticleB"
+    	FilePath = "Fx\Ares\AresSliceParticleB\AresSliceParticleB"
+    }
+
+    {
+      Name = "AresBladeSpinIn"
+      InheritFrom = "AresBladeSpin"
+      ChainTo = "AresBladeSpin"
+      CreateAnimation = "QuickFlashRed"
+      FilePath = "Fx\AresBladeSpinIn\AresBladeSpinIn"
+      Sound = "/SFX/FlameTrapFire"
+      EndFrame = 12
+      Loop = false
+      NumFrames = 12
+      StartFrame = 1
+    }
+
+    {
+      Name = "AresBladeSpinOut"
+      InheritFrom = "AresBladeSpin"
+      ChainTo = "null"
+      FilePath = "Fx\AresBladeSpinOut\AresBladeSpinOut"
+      Sound = "/SFX/Player Sounds/AresDelayedDamageHit"
+      EndFrame = 21
+      Loop = false
+      NumFrames = 21
+      StartFrame = 1
+      Red = 1
+      Green = 1
+      Blue = 1
+      ClearCreateAnimations = true
+      CreateAnimation = null
+      OverlayVfx = true
+      SortMode = "FromParent"
+    }
+    {
+      Name = "AresBladeSpinShadow"
+      InheritFrom = "AresBladeSpin"
+      Sound = "/EmptyCue"
+      ChainTo = null
+      Red = 0
+      Green = 0
+      Blue = 0
+      GroupName = "Shadows"
+      OffsetZ = 0
+      Alpha = 0.5
+      DieWithOwner = true
+      VisualFx = "AresBladeSpinGlowRing"
+      VisualFxIntervalMin = 0.25
+      VisualFxIntervalMax = 0.40
+    }
+    {
+      Name = "AresBladeSpinGlowRing"
+      FilePath = "Particles\particle_glow_ring"
+      Material = "Unlit"
+      GroupName = "FX_Standing_Add"
+      PostRotateScaleY = 0.5
+      RandomRotationSpeedMin = 720
+      RandomRotationSpeedMax = 1440
+      StartAlpha = 1
+      EndAlpha = 0
+      AlphaMin = 0.5
+      AlphaMax = 1.0
+      PingPongColor = false
+      Loop = false
+      RandomRotation = true
+      ReRandomizeOnLoop = true
+      RandomDurationMin = 0.22
+      RandomDurationMax = 0.40
+      DieWithOwner = true
+      EaseIn = 0.9
+      EaseOut = 1.0
+      ScaleRadius = 64
+      Color = { Red = 1.0 Green = 0.0 Blue = 0.0}
+    }
+    {
+      Name = "AresStatus"
+      FilePath = "Fx\MaimedStatus\MaimedStatus"
+      NumFrames = 24
+      PlaySpeed = 30
+      Scale = 0.5
+      Loop = true
+      Material = "Unlit"
+      ScaleFromOwner = "Ignore"
+      AngleFromOwner = "Ignore"
+      LocationZFromOwner = "Maintain"
+      LocationFromOwner = "Maintain"
+      ColorFromOwner = "Ignore"
+      UseAttachedFlasher = false
+      UseAttachedAddColor = false
+      UseAttachedShake = false
+      Sound = "/SFX/Enemy Sounds/MaimStatusEffectLoop"
+      StopSoundOnFinishFade = 0.2
+    }
+
+	
+	{
+		Name = "AresBloodDroplet"
+		FilePath = "Fx\Ares\AresBloodDrop\AresBloodDrop"
+		NumFrames = 45
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 50
+		StartOffsetZ = -5
+		EndOffsetZ = 5
+		PingPongShiftOverDuration = true
+		Material = "Unlit"
+		VisualFx = "AresBloodDropParticles"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.6
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		CreateAnimation = "AresBloodDropletGlow"
+		EaseIn = 0
+		EaseOut = 1
+		TransferFrameToThis = true
+		Sound = "/SFX/Player Sounds/AresBloodDropLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "AresBloodDropletIn"
+		InheritFrom = "AresBloodDroplet"
+		ChainTo = "AresBloodDroplet"
+		CreateAnimation = null
+		StartScale = 0
+		EndScale = 1
+		LoopFramesOnly = true
+		Duration = 0.4
+		TransferFrameFromThis = true
+		Loop = false
+		Sound = null
+	}
+
+	{
+		Name = "AresBloodDropletDissipate"
+		InheritFrom = "AresBloodDropletIn"
+		Duration = 0.2
+		ChainTo = null
+		TransferFrameFromThis = false
+		TransferFrameToThis = true
+		StartScale = 1
+		EndScale = 0
+		LocationZFromOwner = "Take"
+		Sound = "/SFX/GhostEvaporate"
+		ChildAnimation = "AresBloodDropletGlowDissipate"
+	}
+
+	{
+		Name = "AresBloodDropletGlow"
+		FilePath = "Particles\particle_glow_egg"
+		DieWithOwner = true
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Scale = 0.5
+		UseOwnAngle = false
+		Material = "Unlit"
+		Red = 1
+		Green = 0.9
+		Blue = 0.5
+		StartAlpha = 0.1
+		EndAlpha = 0.3
+		RandomDurationMin = 1
+		RandomDurationMax = 1.5
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Loop = true
+		VisualFx = "AresBloodDropTrailParticle"
+		VisualFxDistanceMin = 6
+		VisualFxDistanceMax = 6
+		VisualFxFrameCap = 10
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+
+	{
+		Name = "AresBloodDropletGlowDissipate"
+		InheritFrom = "AresBloodDropletGlow"
+		LocationZFromOwner = "Take"
+		VisualFx = null
+		StartAlpha = 0.5
+		EndAlpha = 0
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.2
+		PingPongColor = false
+		EaseIn = 0.99
+		Loop = false
+	}
+
+	{
+		Name = "AresBloodDropletShadow"
+		InheritFrom = "AresBloodDroplet"
+		CreateAnimation = null
+		VisualFx = null
+		Red = 0
+		Green = 0
+		Blue = 0
+		LocationZFromOwner = "Ignore"
+		GroupName = "Shadows"
+		PostRotateScaleY = 0.5
+		DieWithOwner = true
+		Alpha = 0.6
+		StartOffsetZ = 0
+		EndOffsetZ = 0.0001
+		Sound = null
+	}
+
+
+	{
+		Name = "AresBloodDropParticles"
+		Random = [
+			{ Name = "AresBloodDropParticleA" }
+			{ Name = "AresBloodDropParticleB" }
+			{ Name = "AresBloodDropParticleC" }
+		]
+	}
+
+	{
+		Name = "AresBloodDropParticleA"
+		FilePath = "Fx\Ares\AresParticleA\AresParticleA"
+		NumFrames = 80
+		Angle = 270
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 60
+		RandomFlipVertical = true
+		AngleFromOwner = "Ignore"
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		Material = "Unlit"
+		GroupName = "FX_Dark"
+		ScaleX = 0.6
+		Red = 0
+		Green = 0
+		Blue = 0
+		LocationZFromOwner = "Maintain"
+	}
+
+	{
+		Name = "AresBloodDropParticleB"
+		InheritFrom = "AresBloodDropParticleA"
+		FilePath = "Fx\Ares\AresParticleB\AresParticleB"
+	}
+
+	{
+		Name = "AresBloodDropParticleC"
+		InheritFrom = "AresBloodDropParticleA"
+		FilePath = "Fx\Ares\AresParticleC\AresParticleC"
+	}
+
+
+
+	{
+		Name = "AresBloodDropTrailParticle"
+		FilePath = "Fx\FadeTrail\FadeTrail"
+		NumFrames = 28
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.01
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		GroupName = "FX_Dark"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		Material = "Unlit"
+		RandomPlaySpeedMin = 120
+		RandomPlaySpeedMax = 180
+		Scale = 0.75
+		Alpha = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "AresMelBuff"
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "AresMelBuffFx"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.5
+		Duration = 1
+		Loop = true
+		CreateAnimations = [
+			{ Name = "AresMelBuffCircle" }
+		]
+	}
+
+	{
+		Name = "AresMelBuffCircle"
+		FilePath = "Fx\Ares\AresCircle\AresCircle"
+		NumFrames = 20
+		StartFrame = 29
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		EaseIn = 0.9
+		EaseOut = 1
+		PostRotateScaleY = 1
+		AngleFromOwner = "Ignore"
+		PlaySpeed = 16
+		Scale = 0.5
+		StartScale = 0
+		EndScale = 1.0
+		Loop = true
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:head_00_M_JNT"
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "AresMelBuffFx"
+		Random = [
+			{ Name = "AresMelBuffFxA1" }
+			{ Name = "AresMelBuffFxB1" }
+			{ Name = "AresMelBuffFxC1" }			
+			{ Name = "AresMelBuffFxA2" }
+			{ Name = "AresMelBuffFxB2" }
+			{ Name = "AresMelBuffFxC2" }
+		]
+	}
+
+	{
+		Name = "AresMelBuffFxA1"
+		FilePath = "Fx\Ares\AresParticleA\AresParticleA"
+		NumFrames = 80
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		AngleMin = 250
+		AngleMax = 290
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		LocationZFromOwner = "Maintain"
+		LocationFromOwner = "Maintain"
+		ScaleX = 0.6
+		OffsetZ = 45
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ScaleMin = 0.5
+		ScaleMax = 1.5
+		EaseIn = 0.99
+		EaseOut = 1.00
+		StartScaleY = 0.5
+		EndScaleY = 1.1
+		RandomFlipVertical = true
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:spine_01_M_JNT"
+
+	}
+
+	{
+		Name = "AresMelBuffFxB1"
+		InheritFrom = "AresMelBuffFxA1"
+		FilePath = "Fx\Ares\AresParticleB\AresParticleB"
+	}
+
+	{
+		Name = "AresMelBuffFxC1"
+		InheritFrom = "AresMelBuffFxA1"
+		FilePath = "Fx\Ares\AresParticleC\AresParticleC"
+	}
+
+
+	{
+		Name = "AresMelBuffFxA2"
+		InheritFrom = "AresMelBuffFxA1"
+		GroupName = "FX_Standing_Add"
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.25
+		EndGreen = 0.01
+		EndBlue = 0.01
+		Red = 1
+		Green = 1
+		Blue = 1
+		AddColor = true
+	}
+	{
+		Name = "AresMelBuffFxB2"
+		InheritFrom = "AresMelBuffFxA2"
+		FilePath = "Fx\Ares\AresParticleB\AresParticleB"
+	}
+	{
+		Name = "AresMelBuffFxC2"
+		InheritFrom = "AresMelBuffFxA2"
+		FilePath = "Fx\Ares\AresParticleC\AresParticleC"
+	}
+
+	{
+		Name = "AresSwordWakeNova"
+		FilePath = "Fx\RadialNova\RadialNova"
+		NumFrames = 44
+		PlaySpeed = 120
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomRotation = true
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		AddColor = false
+		StartRed = 0.5
+		StartGreen = 1.0
+		StartBlue = 0.9
+		EndRed = 0.001
+		EndGreen = 0.7
+		EndBlue = 1
+		PostRotateScaleY = 0.5
+		Scale = 0.5
+		CreateAnimations = [
+			{ Name = "AresSwordWakeNovaDark" }
+			{ Name = "AresSwordWakeNovaCircle" }
+			{ Name = "AresSwordWakeGroundFx"}
+			{ Name = "QuickFlashCyan" }
+		]
+	}
+
+	{
+		Name = "AresSwordWakeNovaDark"
+		InheritFrom = "AresSwordWakeNova"
+		ClearCreateAnimations = true
+		GroupName = "FX_Terrain_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		PlaySpeed = 90
+		StartFrame = 10
+		NumFrames = 34
+	}
+
+	{
+		Name = "AresSwordWakeGroundFx"
+		FilePath = "Fx\Ares\AresGroundFx\AresGroundFx"
+		NumFrames = 50
+		RandomPlaySpeedMin = 90
+		RandomPlaySpeedMax = 120
+		UseOwnAngle = false
+		AngleFromOwner = "Take"
+		LocationFromOwner = "Take"
+		Material = "Unlit"
+		RandomFlipHorizontal = true
+		OriginX = 150
+		OriginY = 307
+		Scale = 1
+		ScaleMin = 0.4
+		ScaleMax = 0.6
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "AresSwordWakeNovaCircle"
+		FilePath = "Fx\Ares\AresCircle\AresCircle"
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+		AngleFromOwner = "Ignore"
+		PlaySpeed = 60
+		NumFrames = 15
+		StartFrame = 34
+		MultiplicativeScaleRadius = true
+		StartScale = 0.85
+		EndScale = 1.0
+		ScaleRadius = 210
+		Scale = 1.0
+		EaseIn = 0.99
+		EaseOut = 1.0
+
+	}
+
+	{
+		Name = "AresMissingDamageBloodStreak"
+		TimeModifierFraction = 0.01
+		Random = [
+			{ Name = "AresMissingDamageBloodStreakA" }
+			{ Name = "AresMissingDamageBloodStreakB" }
+			{ Name = "AresMissingDamageBloodStreakC" }			
+			{ Name = "AresMissingDamageBloodStreakD" }
+			{ Name = "AresMissingDamageBloodStreakE" }
+			{ Name = "AresMissingDamageBloodStreakF" }
+		]
+	}	
+
+	{
+		Name = "AresMissingDamageBloodStreakDark"
+		Random = [
+			{ Name = "AresMissingDamageBloodStreakDarkA" }
+			{ Name = "AresMissingDamageBloodStreakDarkB" }
+			{ Name = "AresMissingDamageBloodStreakDarkC" }
+		]
+	}
+
+	{
+		Name = "AresMissingDamageBloodStreakA"
+		FilePath = "Fx\Ares\AresMissingDamageBloodStreakA\AresMissingDamageBloodStreakA"
+		NumFrames = 45
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 70
+		Material = "Unlit"
+		OriginX = 0
+		OriginY = 64
+		AngleFromOwner = "Take"
+		AngleMin = 160
+		AngleMax = 200
+		OffsetZ = 64
+		ScaleMin = 0.33
+		ScaleMax = 0.95
+		StartScaleX = 1.0
+		EndScaleX = 1.45
+		ScaleFromOwner = "Ignore"
+		RandomFlipVertical = true
+		AddColor = true
+		StartRed = 0.5
+		StartGreen = 0.001
+		StartBlue = 0.001
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.000
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+		TimeModifierFraction = 0.01
+	}
+
+	{
+		Name = "AresMissingDamageBloodStreakB"
+		InheritFrom = "AresMissingDamageBloodStreakA"
+		FilePath = "Fx\Ares\AresMissingDamageBloodStreakB\AresMissingDamageBloodStreakB"
+	}
+
+	{
+		Name = "AresMissingDamageBloodStreakC"
+		InheritFrom = "AresMissingDamageBloodStreakA"
+		FilePath = "Fx\Ares\AresMissingDamageBloodStreakC\AresMissingDamageBloodStreakC"
+	}	
+
+	{
+		Name = "AresMissingDamageBloodStreakD"
+		InheritFrom = "AresMissingDamageBloodStreakA"
+		EndScaleX = 1.001
+	}
+	{
+		Name = "AresMissingDamageBloodStreakE"
+		InheritFrom = "AresMissingDamageBloodStreakB"
+		EndScaleX = 1.001
+	}
+
+	{
+		Name = "AresMissingDamageBloodStreakF"
+		InheritFrom = "AresMissingDamageBloodStreakC"
+		EndScaleX = 1.001
+	}
+
+	{
+		Name = "AresMissingDamageBloodStreakDarkA"
+		InheritFrom = "AresMissingDamageBloodStreakA"
+		Red = 0
+		Green = 0
+		Blue = 0
+		RandomPlaySpeedMin = 100
+		RandomPlaySpeedMax = 140
+		ScaleMax = 0.7
+		ScaleMin = 0.35
+		GroupName = "FX_Dark"
+		AddColor = false
+	}
+
+	{
+		Name = "AresMissingDamageBloodStreakDarkB"
+		InheritFrom = "AresMissingDamageBloodStreakDarkA"
+		FilePath = "Fx\Ares\AresMissingDamageBloodStreakB\AresMissingDamageBloodStreakB"
+	}
+
+	{
+		Name = "AresMissingDamageBloodStreakDarkC"
+		InheritFrom = "AresMissingDamageBloodStreakDarkA"
+		FilePath = "Fx\Ares\AresMissingDamageBloodStreakC\AresMissingDamageBloodStreakC"
+	}
+
+	{
+		Name = "AresMissingDamageFx"
+		FilePath = "Dev\blank_invisible"
+		TimeModifierFraction = 0.01
+		CreateAnimations = [
+			{ Name = "QuickFlashRed" }
+			{ Name = "AresMissingDamageFxSlash" }
+			{ Name = "AresMissingDamageBloodStreak" }
+			{ Name = "AresMissingDamageBloodStreak" }
+			{ Name = "AresMissingDamageBloodStreak" }
+			{ Name = "AresMissingDamageBloodStreak" }
+			{ Name = "AresMissingDamageBloodStreak" }			
+			{ Name = "AresMissingDamageBloodStreakDark" }
+			{ Name = "AresMissingDamageBloodStreakDark" }
+			{ Name = "AresMissingDamageBloodStreakDark" }
+			{ Name = "AresMissingDamageBloodStreakDark" }
+			{ Name = "AresMissingDamageBloodStreakDark" }
+		]
+	}
+
+	{
+		Name = "AresMissingDamageFxSlash"
+		FilePath = "Fx\Ares\AresProjectileImpact\AresProjectileImpact"
+		NumFrames = 37
+		PlaySpeed = 120
+		RandomRotation = true
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		OffsetZ = 64
+		StartScale = 1.5
+		EndScale = 1.0
+		EaseIn = 0.99
+		EaseOut = 1.00
+		LocationZFromOwner = "Take"
+		RandomFlipHorizontal = true
+		TimeModifierFraction = 0.01
+	}
+
+	{
+		Name = "AresDebuffFx"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFx = "AresDebuffFxRandom"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.6
+    Sound = "/SFX/Player Sounds/AresDelayedDamageLoopQuiet"
+    StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "AresDebuffFxRandom"
+		Random = [
+			{ Name = "AresDebuffFxA" }
+			{ Name = "AresDebuffFxB" }
+			{ Name = "AresDebuffFxC" }
+			{ Name = "AresDebuffFxA1" }
+			{ Name = "AresDebuffFxB1" }
+			{ Name = "AresDebuffFxC1" }
+		]
+	}
+
+	{
+		Name = "AresDebuffFxA"
+		FilePath = "Fx\Ares\AresDebuffFxAFront\AresDebuffFxAFront"
+		NumFrames = 27
+		Material = "Unlit"
+		PlaySpeed = 30
+		ScaleFromOwner = "Ignore"
+		EaseIn = 0.99
+		EaseOut = 1.00
+		GroupName = "FX_Standing"
+		CreateAnimation = "AresDebuffFxA_Dark"
+		AngleFromOwner = "Ignore"
+		OffsetZ = 64
+	}
+
+	{
+		Name = "AresDebuffFxB"
+		InheritFrom = "AresDebuffFxA"
+		FilePath = "Fx\Ares\AresDebuffFxBFront\AresDebuffFxBFront"
+		NumFrames = 28
+		CreateAnimation = "AresDebuffFxB_Dark"
+	}
+
+	{
+		Name = "AresDebuffFxC"
+		InheritFrom = "AresDebuffFxA"
+		FilePath = "Fx\Ares\AresDebuffFxCFront\AresDebuffFxCFront"
+		NumFrames = 28
+		CreateAnimation = "AresDebuffFxC_Dark"
+	}
+
+	{
+		Name = "AresDebuffFxA_Dark"
+		InheritFrom = "AresDebuffFxA"
+		FilePath = "Fx\Ares\AresDebuffFxABack\AresDebuffFxABack"
+		CreateAnimation = null
+		GroupName = "FX_Dark"
+
+	}	
+	{
+		Name = "AresDebuffFxB_Dark"
+		InheritFrom = "AresDebuffFxB"
+		FilePath = "Fx\Ares\AresDebuffFxBBack\AresDebuffFxBBack"
+		CreateAnimation = null
+		GroupName = "FX_Dark"
+
+	}
+	{
+		Name = "AresDebuffFxC_Dark"
+		InheritFrom = "AresDebuffFxC"
+		FilePath = "Fx\Ares\AresDebuffFxCBack\AresDebuffFxCBack"
+		CreateAnimation = null
+		GroupName = "FX_Dark"
+
+	}
+
+	{
+		Name = "AresDebuffFxA1"
+		InheritFrom = "AresDebuffFxA"
+		FlipHorizontal = true
+		CreateAnimation = "AresDebuffFxA1_Dark"
+	}
+	{
+		Name = "AresDebuffFxB1"
+		InheritFrom = "AresDebuffFxB"
+		FlipHorizontal = true
+		CreateAnimation = "AresDebuffFxB1_Dark"
+	}
+	{
+		Name = "AresDebuffFxC1"
+		InheritFrom = "AresDebuffFxC"
+		FlipHorizontal = true
+		CreateAnimation = "AresDebuffFxC1_Dark"
+	}
+
+	{
+		Name = "AresDebuffFxA1_Dark"
+		InheritFrom = "AresDebuffFxA"
+		FlipHorizontal = true
+		CreateAnimation = null
+		GroupName = "FX_Dark"
+		FilePath = "Fx\Ares\AresDebuffFxABack\AresDebuffFxABack"
+
+	}	
+	{
+		Name = "AresDebuffFxB1_Dark"
+		InheritFrom = "AresDebuffFxB"
+		FlipHorizontal = true
+		CreateAnimation = null
+		GroupName = "FX_Dark"
+		FilePath = "Fx\Ares\AresDebuffFxBBack\AresDebuffFxBBack"
+
+	}
+	{
+		Name = "AresDebuffFxC1_Dark"
+		InheritFrom = "AresDebuffFxC"
+		FlipHorizontal = true
+		CreateAnimation = null
+		GroupName = "FX_Dark"
+		FilePath = "Fx\Ares\AresDebuffFxCBack\AresDebuffFxCBack"
+
+	}
+
+	{
+		Name = "DevotionAresSwordHoverDrop"
+		FilePath = "Fx\AresSwordHoverDrop\AresSwordHoverDrop"
+		GroupName = "Combat_UI"
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/AresDelayedDamageStab"
+		ColorFromOwner = "Ignore"
+		EndFrame = 26
+		NumFrames = 26
+		PlaySpeed = 150.0
+		StartFrame = 1
+		OffsetZ = 240.0
+		Scale = 0.8
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		UseAttachedFlasher = false
+		TransferAngle = true
+	}
+
+	{
+		Name = "DevotionAresSwordHoverIn"
+		InheritFrom = "DevotionAresSwordHoverDrop"
+		Sound = null
+		FilePath = "Fx\AresSwordHoverIn\AresSwordHoverIn"
+		NumFrames = 22
+		EndFrame = 22
+		PlaySpeed = 60
+		AngleMin = -5
+		AngleMax = 5
+		ChainTo = "DevotionAresSwordHoverOut"
+		TransferAngle = true
+		CreateAnimation = "DevotionAresPreviewDark"
+	}
+
+	{
+		Name = "DevotionAresSwordHoverOut"
+		InheritFrom = "DevotionAresSwordHoverDrop"
+		PlaySpeed = 60
+		FilePath = "Fx\AresSwordHoverLoop\AresSwordHoverLoop"
+		Sound = "/SFX/Player Sounds/AresDelayedDamageLoop"
+		Duration = 0.1
+		StopSoundOnFinishFade = 0.2
+		EaseOut = 1.0
+		EndFrame = 60
+		StartAlpha = 1
+		EndAlpha = 0
+		HoldLastFrame = true
+		NumFrames = 60
+		StartFrame = 1
+		DieWithOwner = true
+		UseAttachedFlasher = false
+	}
+
+	{
+		Name = "DevotionAresSwordWakeNova"
+		FilePath = "Fx\RadialNova\RadialNova"
+		NumFrames = 44
+		PlaySpeed = 120
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomRotation = true
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		AddColor = false
+		Red = 1
+		Green = 0
+		Blue = 0
+		PostRotateScaleY = 0.5
+		Scale = 0.9
+		CreateAnimations =
+		[
+			{ Name = "DevotionAresSwordWakeNovaDark" }
+			{ Name = "DevotionAresSwordWakeNovaCircle" }
+			{ Name = "DevotionAresSwordWakeGroundFx"}
+			{ Name = "QuickFlashRed" }
+		]
+	}
+
+	{
+		Name = "DevotionAresSwordWakeNovaDark"
+		InheritFrom = "DevotionAresSwordWakeNova"
+		ClearCreateAnimations = true
+		GroupName = "FX_Terrain_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		PlaySpeed = 90
+	}
+
+	{
+		Name = "DevotionAresSwordWakeGroundFx"
+		FilePath = "Fx\Ares\AresGroundFx\AresGroundFx"
+		NumFrames = 50
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 120
+		UseOwnAngle = false
+		AngleFromOwner = "Take"
+		LocationFromOwner = "Take"
+		Material = "Unlit"
+		RandomFlipHorizontal = true
+		OriginX = 150
+		OriginY = 307
+		RadialOffsetMin = 200
+		RadialOffsetMax = 200
+		RadialOffsetScaleY = 0.6
+		Scale = 1.4
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		ScaleX = 1.5
+	}
+
+	{
+		Name = "DevotionAresSwordWakeNovaCircle"
+		FilePath = "Fx\Ares\AresCircle\AresCircle"
+		Material = "Unlit"
+		Scale = 1.4
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+		AngleFromOwner = "Ignore"
+		PlaySpeed = 30
+		NumFrames = 17
+		StartFrame = 32
+		StartScale = 1
+		EndScale = 1.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+	}
+
+	{
+		Name = "DevotionAresPreviewDark"
+		CreateAnimation = "DevotionAresPreview"
+		FilePath = "Fx\TheseusGodPowerPreviewDecal\TheseusGodPowerPreviewDecalDark"
+		GroupName = "FX_Terrain"
+
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndAlpha = 0.7
+		EaseOut = 1.0
+		EndFrame = 1
+		HoldLastFrame = true
+		NumFrames = 1
+		RandomDurationMax = 0.15
+		RandomDurationMin = 0.06
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		DieWithOwner = true
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		ScaleFromOwner = "Ignore"
+		ScaleRadius = 200.0
+		StartScale = 0.9
+	}
+
+	{
+		Name = "DevotionAresPreview"
+		FilePath = "Fx\TheseusGodPowerPreviewDecal\TheseusGodPowerPreviewDecal"
+		GroupName = "FX_Terrain_Add"
+
+		AngleFromOwner = "Ignore"
+		EndAlpha = 1.0
+		EaseOut = 1.0
+		EndFrame = 1
+		HoldLastFrame = true
+		NumFrames = 1
+		RandomDurationMax = 0.25
+		RandomDurationMin = 0.06
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		DieWithOwner = true
+		RandomRotation = true
+		RotationSpeed = 5.0
+		PostRotateScaleY = 0.5
+		ScaleRadius = 200.0
+		StartScale = 0.9
+		Saturation = 0.6
+		Value = 1.0
+		Color = { Red = 1.0 Green = 0.2 Blue = 0.6 }
+	}
+
+]}

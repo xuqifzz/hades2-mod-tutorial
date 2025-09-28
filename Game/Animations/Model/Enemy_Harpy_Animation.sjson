@@ -68,6 +68,14 @@
 				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit_Heavy"
 				Duration = 4
 			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_DashLeft"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_DashRight"
+				Duration = 4
+			}
 		]
 	}
 
@@ -99,6 +107,14 @@
 			}
 			{
 				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_DashLeft"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_DashRight"
 				Duration = 4
 			}
 		]
@@ -191,6 +207,7 @@
 		GrannyAnimation = "HarpyTalonCutter_Base_DashLeft_C_00"
 		ChainTo = "Enemy_HarpyCutter_Idle"
 		CreateAnimation = "HarpyDashStreakLeft"
+		AllowRestart = true
 		Frames =
 		[
 			{
@@ -227,6 +244,14 @@
 			}
 			{
 				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_DashLeft"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_DashRight"
 				Duration = 4
 			}
 		]
@@ -238,6 +263,7 @@
 		GrannyAnimation = "HarpyTalonCutter_Base_DashRight_C_00"
 		ChainTo = "Enemy_HarpyCutter_Idle"
 		CreateAnimation = "HarpyDashStreakRight"
+		AllowRestart = true
 		Frames =
 		[
 			{
@@ -274,6 +300,14 @@
 			}
 			{
 				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_DashLeft"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_DashRight"
 				Duration = 4
 			}
 		]
@@ -310,6 +344,14 @@
 			}
 			{
 				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_DashLeft"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_DashRight"
 				Duration = 4
 			}
 		]
@@ -379,6 +421,14 @@
 				BlendTransitionFrom = "Enemy_HarpyCutter_FlapPostFire_Alt"
 				Duration = 8
 			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_DashLeft"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_DashRight"
+				Duration = 4
+			}
 		]
 	}
 
@@ -411,6 +461,13 @@
 		GrannyAnimation = "HarpyTalonCutter_Base_SlicePreFire_C_00"
 		HoldLastFrame = true
 		CreateAnimation = "EnemyChargeFxIn_HarpySlice"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.25
+			}
+		]
 		Blends =
 		[
 			{
@@ -435,6 +492,14 @@
 			}
 			{
 				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_DashLeft"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_DashRight"
 				Duration = 4
 			}
 		]
@@ -490,6 +555,14 @@
 			}
 			{
 				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_DashLeft"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_DashRight"
 				Duration = 4
 			}
 		]

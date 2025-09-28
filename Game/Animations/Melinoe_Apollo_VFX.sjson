@@ -182,6 +182,40 @@
 		]
 	}
 
+	{
+		Name = "ApolloAoEStrike_TorchExplosion"
+		InheritFrom = "ApolloAoEStrikeA"
+		PlaySpeed = 120
+		GroupName = "FX_Standing_Add"
+		VisualFx = null
+		ClearCreateAnimations = true
+		Slides = [
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+		CreateAnimations =
+		[
+			//{ Name = "ApolloAoEDark_AxeNova" }
+			//{ Name = "ApolloAoERadial" }
+			//{ Name = "ApolloAoERingA" }
+			//{ Name = "ApolloAoERingC" }
+			//{ Name = "ApolloAoEGroundBurnA_Fast"}
+			//{ Name = "ApolloAoEGroundBurnB"}
+		]
+	}
+
 
 	{
 		Name = "ApolloAoEGroundBurnA"
@@ -199,6 +233,20 @@
 		RandomRotation = true
 		StartAlpha = 1
 		EndAlpha = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0.3
+		EndBlue = 0
+	}
+
+	{
+		Name = "ApolloAoEGroundBurnA_Fast"
+		InheritFrom = "ApolloAoEGroundBurnA"
+		Duration = 0.33
+		Scale = 0.75
+		EaseIn = 0.999
 	}
 
 	{
@@ -268,6 +316,15 @@
 		Name = "ApolloAoERingB_SuitNovaBurn"
 		InheritFrom = "ApolloAoERingB"
 		Scale = 0.4
+	}
+
+	{
+		Name = "ApolloAoERingD_SuitNovaBurn"
+		InheritFrom = "ApolloAoERingB"
+		Scale = 0.4
+		FilePath = "Fx\Apollo\ApolloCastRingC"
+		RandomRotationSpeedMin = 0
+		RandomRotationSpeedMax = 1
 	}	
 
 	{
@@ -538,6 +595,14 @@
 	}
 	
 	{
+		Name = "InvisibleApolloSoundEmitter"
+		FilePath = "Dev\blank_invisible"
+		Sound = "/SFX/Player Sounds/ApolloCastLoop"
+		StopSoundOnFinishFade = 0.2
+		SoundManagerCap = 54
+	}
+	
+	{
 		Name = "ApolloAoEGlow"
 		FilePath = "Particles\particle_glow"
 		GroupName = "FX_Standing_Add"
@@ -621,6 +686,128 @@
 		VisualFxIntervalMax = 0.8
 		VisualFxIntervalMin = 0.4
 	}
+
+	{
+		Name = "ApolloAoEStrikeRapid"
+		InheritFrom = "ApolloAoEStrikeA"
+		FilePath = "Dev\blank_invisible"
+		NumFrames = 1
+		ClearCreateAnimations = true
+		ChildAnimation = null
+		VisualFx = null
+		CreateAnimations =
+		[
+			//{ Name = "ApolloAoEFlare" }
+			//{ Name = "ApolloAoEFlare2" }
+			//{ Name = "ApolloAoEDark" }
+			//{ Name = "ApolloAoERadial" }
+			{ Name = "ApolloAoEStrikeRapidFlare" }
+			{ Name = "ApolloRapidStrikeRingA" }
+			{ Name = "ApolloRapidStrikeRingB" }
+			{ Name = "ApolloRapidStrikeRingC" }
+			{ Name = "ApolloRapidStrikeRingD" }
+			//{ Name = "ApolloAoEGroundBurnA"}
+			//{ Name = "ApolloAoEGroundBurnB"}
+		]
+	}
+
+	{
+		Name = "ApolloAoEStrikeRapidFlare"
+		FilePath = "Particles\particle_apolloGlow"
+		GroupName = "FX_Add_Top"
+		AngleMin = 220
+		AngleMax = 320
+		Scale = 1.2
+		StartScaleY = 0.3
+		EndScaleY = 0
+		ScaleX = 2
+		EndScaleX = 3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = true
+		Duration = 0.5
+		Red = 1
+		Green = 1
+		Blue = 1
+		OriginX = 120
+		OriginY = 60
+		ScaleMin = 0.7
+		ScaleMax = 1.1
+		OffsetZ = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.6
+		EndBlue = 0.3
+	}
+
+	{
+		Name = "ApolloRapidStrikeRingA"
+		FilePath = "Fx\Apollo\ApolloCastRing"
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+		FlipVertical = false
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		PostRotateScaleY = 0.5
+		RandomRotation = true
+		LocationZFromOwner = "Ignore"
+		GroupName = "FX_Terrain_Add"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 0.7
+		EaseIn = 0.999
+		EaseOut = 1
+		ScaleMin = 0.9
+		ScaleMax = 1.1
+		StartScale = 0.85
+		EndScale = 1.1
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+
+	}
+
+	{
+		Name = "ApolloRapidStrikeRingB"
+		InheritFrom = "ApolloRapidStrikeRingA"
+		FilePath = "Fx\Apollo\ApolloCastRingC"
+		StartScale = 0.5
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.3
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+		GroupName = "FX_Terrain"
+	}	
+
+	{
+		Name = "ApolloRapidStrikeRingC"
+		InheritFrom = "ApolloRapidStrikeRingB"
+		GroupName = "FX_Terrain_Dark"
+		AlphaMin = 0.999
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+	{
+		Name = "ApolloRapidStrikeRingD"
+		InheritFrom = "ApolloRapidStrikeRingA"
+		FilePath = "Fx\AxeNova\AxeNovaDissipate"
+		AddColor = true
+		EndRed = 1
+		EndGreen = 0.8
+		EndBlue = 0.5
+		StartRed = 0.99
+		StartGreen = 0.7
+		StartBlue = 0.2
+		RandomDurationMin = 0.75
+		RandomDurationMax = 1.0
+		Scale = 2
+		ScaleMin = 0.7
+	}
+
 	
 	{
 		Name = "ApolloDevotionStrike"
@@ -1277,7 +1464,15 @@
 		EaseIn = 0.0
 		EaseOut = 0.1
 		OverlayVfx = true
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 		CreateAnimation = "ApolloGroundFlareGlow"
+	}
+
+	{
+		Name = "StaffApolloGroundFlare"
+		InheritFrom = "ApolloGroundFlare"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
 	}
 
 	{
@@ -1399,7 +1594,7 @@
 
 	{
 		Name = "ApolloBlindDebuffFlare"
-		FilePath = "Particles\particle_quickflashIris"
+		FilePath = "Particles\particle_quickFlashIris"
 		Hue = 0.5
 		GroupName = "FX_Standing_Add"
 		Material = "Unlit"
@@ -1467,18 +1662,35 @@
 		EndRed = 0.999
 		EndGreen = 0.85
 		EndBlue = 0.3
-		LocationZFromOwner = "Ignore"
-		OffsetZ = 0
+		LocationZFromOwner = "Take"
 		ClearCreateAnimations = true
 		CreateAnimations =
 		[
 			{ Name = "RadialNovaPentagramDark" }
 			{ Name = "RadialNovaPentagramFlareCharged" }
-			{ Name = "RadialNovaPentagramGlowCharged" }
+			{ Name = "RadialNovaPentagramGlowCharged_Apollo" }
 			{ Name = "RadialNovaPentagramSecondary_Apollo" }
 			{ Name = "CastCircleOutDisplacement" }
 			{ Name = "ApolloExplosionCharged" }
 		]
+	}
+
+	{
+		Name = "RadialNovaPentagramGlowCharged_Apollo"
+		InheritFrom = "RadialNovaPentagramGlowCharged"
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.999
+		EndGreen = 0.85
+		EndBlue = 0.3
+		Scale = 3
+		Alpha = 0.5
+		StartAlpha = 1
+		Material = "Unlit"
 	}
 
 	{
@@ -1488,4 +1700,109 @@
 		Green = 0.9
 		Blue = 0.5
 	}
+
+	{
+		Name = "ApolloManaRegenFxEmitter"
+		FilePath = "Dev\blank_invisible"
+		DieWithOwner = true
+		Duration = 0.2
+		VisualFx = "ApolloManaRegenFx"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.05
+	}
+
+	{
+		Name = "ApolloManaRegenFx"
+		FilePath = "Fx\Apollo\ApolloCastRing"
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		PostRotateScaleY = 0.5
+		StartAlpha = 0
+		EndAlpha = 0.3
+		AlphaMin = 0.7
+		AlphaMax = 1.0
+		Scale = 0.3
+		OffsetZ = 50
+		PingPongColor = true
+		RotationSpeed = 20
+		RandomRotation = true
+		Duration = 0.2
+		EaseIn = 0
+		EaseOut = 1
+		StartOffsetZ = 0
+		EndOffsetZ = 20
+		CreateAnimations =
+		[
+			{ Name = "ApolloManaRegenParticleFx" }
+			{ Name = "ApolloManaRegenParticleFx" }
+			{ Name = "ApolloManaRegenParticleFx" }
+		]
+	}
+
+	{
+		Name = "ApolloManaRegenParticleFx"
+		Random =
+		[
+			{ Name = "ApolloManaRegenParticleFxA" }
+			{ Name = "ApolloManaRegenParticleFxB" }
+		]
+	}
+
+	{
+		Name = "ApolloManaRegenParticleFxA"
+		FilePath = "Particles\particle_gold_streak"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		StartOffsetZ = 0
+		EndOffsetZ = 120
+		EaseIn = 0.0
+		EaseOut = 1.0
+		StartScale = 0
+		EndScale = 1
+		Scale = 0.5
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		PingPongScale = true
+		RadialOffsetMin = 10
+		RadialOffsetMax = 50
+		RadialOffsetScaleY = 0.5
+		AngleMin = 0
+		AngleMax = 360
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.5
+		DieWithOwner = false
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ApolloManaRegenParticleFxB"
+		InheritFrom = "ApolloManaRegenParticleFxA"
+		FilePath = "Particles\particle_apolloGlow"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Scale = 0.5
+		ScaleY = 3
+		StartScaleY = 1
+		EndScaleY = 3
+		ScaleX = 0.3
+		AlphaMin = 0.1
+		AlphaMax = 0.6
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		StartScale = 0.999
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		PingPongScale = false
+		ColorFromOwner = "Ignore"
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.5
+		OriginX = 60
+		OriginY = 90
+		EndOffsetZ = 40
+	}
+
 ]}

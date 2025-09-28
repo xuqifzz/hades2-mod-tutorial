@@ -2,15 +2,15 @@
   RemoteProfileScreen =
   {
     Platform = "default"
-    OpenSound = "null"
-    CloseSound = "null"
-    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    OpenSound = "/SFX/Menu Sounds/IrisMenuOpen"
+    CloseSound = "/SFX/Menu Sounds/IrisMenuBack"
+    SelectionSound = "/SFX/Menu Sounds/IrisMenuToggle2"
     ForceShowCursor = true
-	  FreeFormSelectGridLock = true
-	  FreeFormSelectSuccessDistance = 16
+	FreeFormSelectGridLock = true
+	FreeFormSelectSuccessDistance = 16
     FreeFormSelectSuccessDistanceStep = 0
-    TransitionOnTime = 0.1
-    TransitionOffTime = 0.1
+    TransitionOnTime = 0.3
+    TransitionOffTime = 0.35
 
 	Back =
 	{
@@ -21,7 +21,7 @@
       Blue = 0
       Alpha = 0.0
       Width = 5120
-      Height = 1440
+      Height = 1920
     }
 
     NameHighlightFormat =
@@ -31,31 +31,16 @@
       TextBlue = 0.9
       Font = "LatoBold"
       FontSize = 20
-      LangCnScaleModifier = 1.0
-      LangKoScaleModifier = 1.0
-      LangPlScaleModifier = 1.0
-      LangJaScaleModifier = 1.0
     }
 
     AnimatedBackground =
 	{
       X = 960
       Y = 540
-      Graphic = "GUI\Shell\Box_FullScreen"
+      Graphic = "ShellFullScreenIn"
       Scale = 0.98
       Justification = "Center"
       VerticalJustification = "Center"
-    }
-
-    FullScreenFade =
-	{
-      X = 960
-      Y = 540
-      Graphic = "RoomTransitionIn"
-      Justification = "Center"
-      VerticalJustification = "Center"
-      FadeOpacity = 0.0
-      FadeTarget = 0.0
     }
 
     TitleText =
@@ -86,11 +71,11 @@
     SaveSpinnerHint =
 	{
       X = 960
-      Y = 215
+      Y = 200
       Justification = "Center"
       VerticalJustification = "Center"
       Font = "P22UndergroundSCMedium"
-      FontSize = 16
+      FontSize = 22
       TextRed = 0.75
       TextGreen = 0.75
       TextBlue = 0.75
@@ -111,9 +96,9 @@
       ShadowOffsetY = 0
       ShadowAlpha = 0
       ShadowBlur = 0
-      Width = 900
+      Width = 1200
       Height = 100
-      NonEnglishScaleModifier = 1.0
+      
     }
 
 	InstructionHint =
@@ -152,15 +137,16 @@
   ProfileButton =
   {
       X = 405
-      Y = 260
+      Y = 575
+      Width = 340
+      Height = 550
       SpacingX = 370
       SpacingY = 0
-      Graphic = "GUI\Screens\SaveProfileSlot"
+      Graphic = "SaveProfileSlot"
       Scale = 1
-      ScaleX = 1.1
+      ScaleX = 1
       Justification = "Center"
-      VerticalJustification = "Top"
-      SelectedGraphic = "GUI\Screens\SaveProfileSlotHighlight"
+      VerticalJustification = "Center"
       Font = "P22UndergroundSCMedium"
       TextRed = 0.45
       TextGreen = 0.35
@@ -172,15 +158,16 @@
       DisabledTextRed = 0.2
       DisabledTextGreen = 0.2
       DisabledTextBlue = 0.2
-      ActionSound = "/SFX/Menu Sounds/GodBoonChoiceConfirm"
-      ToggleOnSound = "/SFX/Menu Sounds/TextReveal4"
+      ActionSound = "/SFX/Menu Sounds/IrisMenuConfirmBig"
+      ToggleOnSound = "/SFX/Menu Sounds/IrisMenuGameStart"
       DisabledPressSound = "/Leftovers/SFX/OutOfAmmo2"
       TextJustification = "Left"
       TextOffsetX = -152
-      TextOffsetY = 90
+      TextOffsetY = -20
       SelectOnMouseOver = true
       DeselectOnMouseOff = true
       TextSymbolScale = 1
+      LineSpacingBottom = -6
     }
 
     EasyModeLabel =
@@ -211,7 +198,7 @@
     DeleteButton =
 	{
       X = 405
-      Y = 880
+      Y = 920
       SpacingX = 369
       SpacingY = 0
       Scale = 0.7
@@ -220,13 +207,13 @@
       Graphic = "TrashButtonFlash"
       UnderCursorOnAnimation = "TrashButtonFlashHover"
       UnderCursorOffAnimation = "TrashButtonFlash"
-      ActionSound = "/SFX/Menu Sounds/GodBoonChoiceConfirm"
+      ActionSound = "/SFX/Menu Sounds/IrisMenuConfirmBig"
     }
 
     ActiveMarker =
 	{
       OffsetX = 0
-      OffsetY = 48
+      OffsetY = -274
       Graphic = "GUI\Shell\Selector_Coin"
       Justification = "Center"
       VerticalJustification = "Center"
@@ -236,8 +223,8 @@
 
     CloudMarker =
     {
-      OffsetX = 90
-      OffsetY = 56
+      OffsetX = 120
+      OffsetY = -245
       Graphic = "GUI\Shell\CloudSuccess"
       Justification = "Center"
       VerticalJustification = "Center"
@@ -287,7 +274,6 @@
       FlashGreen = 0.4
       FlashBlue = 0.0
       Scale = 0.8
-      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
     }
 
   }

@@ -25,58 +25,6 @@ OverwriteTableKeys( ObstacleData, {
 		EntranceColorGrade = "SmokeTrap",
 	},
 
-	SoulPylon =
-	{
-		DistanceTrigger =
-		{
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Name" },
-					IsNone = { "N_Story01" },
-				},
-				{
-					Path = { "CurrentRun", "Hero", "TraitDictionary" },
-					HasNone = { "SurfacePenalty" },
-				},
-			},
-			WithinDistance = 750,
-			VoiceLines =
-			{
-				PlayOnce = true,
-				PlayOnceFromTableThisRun = true,
-				RandomRemaining = true,
-				BreakIfPlayed = true,
-				PreLineWait = 0.3,
-				UsePlayerSource = true,
-				SuccessiveChanceToPlayAll = 0.1,
-
-				{ Cue = "/VO/MelinoeField_0387", Text = "Shades are trapped within that Pylon there...!", PlayFirst = true, PlayOnce = true },
-				{ Cue = "/VO/MelinoeField_0388", Text = "That Pylon's powering the barrier out there.", PlayFirst = true, PlayOnce = true,
-					GameStateRequirements =
-					{
-						{
-							PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_0387" },
-						},
-					},
-				},
-				{ Cue = "/VO/MelinoeField_0389", Text = "There's my target." },
-				{ Cue = "/VO/MelinoeField_0390", Text = "Pylon sighted." },
-				{ Cue = "/VO/MelinoeField_0391", Text = "Pylon there." },
-				{ Cue = "/VO/MelinoeField_0392", Text = "Another Pylon.",
-					GameStateRequirements =
-					{
-						{
-							Path = { "CurrentRun", "SpawnRecord", "SoulPylon" },
-							Comparison = ">",
-							Value = 1,
-						},
-					}
-				},
-			}
-		},
-	},
-
 	EphyraExitDoor =
 	{
 		InheritFrom = { "ExitDoor", },
@@ -84,9 +32,12 @@ OverwriteTableKeys( ObstacleData, {
 		RewardPreviewOffsetZ = 140,
 		RewardPreviewOffsetY = 0,
 		RewardPreviewOffsetX = 0,
+		SkipResourcePinIcons = true,
 		ExitThroughCenter = true,
 
 		LockWhenEphyraBossExitReady = true,
+
+		CannotUseTextOverride = "ExitNotActive",
 
 		UnlockedUseTextCannotReroll = "UseLeaveRoom_CannotReroll",
 
@@ -120,7 +71,9 @@ OverwriteTableKeys( ObstacleData, {
 		{
 			{
 				RandomRemaining = true,
-				PreLineWait = 0.25,
+				PreLineWait = 0.35,
+				SuccessiveChanceToPlay = 0.5,
+				SuccessiveChanceToPlayAll = 0.2,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -138,7 +91,7 @@ OverwriteTableKeys( ObstacleData, {
 	{
 		InheritFrom = { "ExitDoor", },
 
-		UnlockedAnimation = "DoorExitLightSoftSW_Ephyra",
+		UnlockedAnimation = "DoorExitLightSoftSW_Unlock_Transition",
 		UnlockedUseSound = "/Leftovers/World Sounds/PostBossLeaveSFX",
 		UnlockedSound = "/Leftovers/World Sounds/MapZoomInTight",
 
@@ -153,7 +106,7 @@ OverwriteTableKeys( ObstacleData, {
 	EphyraExitDoorReturnNE = 
 	{
 		InheritFrom = { "EphyraExitDoorReturn", },
-		UnlockedAnimation = "DoorExitLightSoftNE_Ephyra",
+		UnlockedAnimation = "DoorExitLightSoftNE_Unlock_Transition",
 	},
 
 	EphyraExitBossDoor =
@@ -165,15 +118,15 @@ OverwriteTableKeys( ObstacleData, {
 		RewardPreviewOffsetX = 0,
 		ExitThroughCenter = true,
 
+		ExitBlockedTextOffsetY = -300,
+
+		CannotBeBlockedByEnemies = true,
+
 		UnlockedUseTextCannotReroll = "UseLeaveRoom_CannotReroll",
 
 		UnlockedAnimation = "EphyraBossExitDoorLinesUnlocked",
-		--ExitDoorOpenAnimation = "EphyraExitDoorOpen",
 		ExitDoorCloseAnimation = "Blank",
 
-		--ExitFunctionName = "NHubBossDoorExitPresentation",
-
-		--ExitFunctionName = "FastExitPresentation",
 		NextRoomEntranceFunctionName = "FastEnterPresentation",
 
 		AvailableRequirements =
@@ -232,6 +185,13 @@ OverwriteTableKeys( ObstacleData, {
 				BreakIfPlayed = true,
 				SuccessiveChanceToPlayAll = 0.66,
 				ThreadName = "RoomThread",
+                GameStateRequirements =
+                {
+                    {
+                        FunctionName = "RequiredHealthFraction",
+                        FunctionArgs = { Comparison = ">=", Value = 0.2, },
+                    },
+                },
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
@@ -247,6 +207,25 @@ OverwriteTableKeys( ObstacleData, {
 			}
 		},
 
+		ExitBlockedVoiceLines =
+		{
+			{
+				RandomRemaining = true,
+				PreLineWait = 0.35,
+				SuccessiveChanceToPlay = 0.5,
+				SuccessiveChanceToPlayAll = 0.2,
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+
+				{ Cue = "/VO/MelinoeField_3358", Text = "Might as well take a sip.", PlayFirst = true },
+				{ Cue = "/VO/MelinoeField_3359", Text = "Oh, right..." },
+				{ Cue = "/VO/MelinoeField_3360", Text = "The fountain..." },
+				{ Cue = "/VO/MelinoeField_3361", Text = "A moment to wash up..." },
+			},
+		},
 	},
 
 	EphyraHubExitBarrier =
@@ -283,17 +262,24 @@ OverwriteTableKeys( ObstacleData, {
 				},
 				-- barrier full strength
 				{
+					PlayOnce = true,
 					BreakIfPlayed = true,
 					RandomRemaining = true,
 					UsePlayerSource = true,
-					SuccessiveChanceToPlayAll = 0.2,
+					PreLineWait = 0.35,
+					SkipCooldownCheckIfNonePlayed = true,
 					GameStateRequirements =
 					{
 						{
 							Path = { "CurrentRun", "SpawnRecord", "SoulPylon" },
 							Comparison = "<=",
 							Value = 0,
-						}
+						},
+						{
+							Path = { "GameState", "RoomsEntered", "O_Intro" },
+							Comparison = "<=",
+							Value = 10,
+						},
 					},
 					{ Cue = "/VO/MelinoeField_0370", Text = "Some sort of barrier...", PlayOnce = true, PlayFirst = true },
 					{ Cue = "/VO/MelinoeField_0371", Text = "How to get through...", PlayFirst = true,
@@ -328,7 +314,9 @@ OverwriteTableKeys( ObstacleData, {
 					BreakIfPlayed = true,
 					RandomRemaining = true,
 					UsePlayerSource = true,
-					SuccessiveChanceToPlayAll = 0.33,
+					SuccessiveChanceToPlay = 0.5,
+					SuccessiveChanceToPlayAll = 0.1,
+					SkipCooldownCheckIfNonePlayed = true,
 					GameStateRequirements =
 					{
 						{
@@ -343,6 +331,11 @@ OverwriteTableKeys( ObstacleData, {
 						},
 						{
 							PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_0619" }
+						},
+						{
+							Path = { "GameState", "RoomsEntered", "O_Intro" },
+							Comparison = "<=",
+							Value = 20,
 						},
 					},
 					Cooldowns =
@@ -377,6 +370,14 @@ OverwriteTableKeys( ObstacleData, {
 			},
 		},
 
+		Using =
+		{
+			Sounds =
+			{
+				"/Leftovers/SFX/PlayerKilled_Small",
+				"/SFX/WrathOver2" ,
+			},
+		},
 	},
 
 	N_SubRoomDoor =
@@ -389,19 +390,21 @@ OverwriteTableKeys( ObstacleData, {
 		HideRewardPreview = true,
 		AllowReroll = false,
 
+		--ExitThroughHeroEnd = true,
+
 		SetupEvents =
 		{
 			Prepend = true,
 			{
-				FunctionName = "CheckDoorUnavailable",
+				FunctionName = "CheckN_SubRoomDoorUnavailable",
 				Args =
 				{
-					UnavailableChance = 0.55,
+					MinSubRoomsPerPylon = 0.5,
+					AboveMinAvailableChance = 0.3,
 				},
 			},
 		},
 
-		--ExitDoorOpenAnimation = "EphyraSubRoomDoorOpen",
 		ExitDoorCloseAnimation = "EphyraSubroomDoorClose",
 		ExitFunctionName = "FastExitPresentation",
 		NextRoomEntranceFunctionName = "FastEnterPresentation",
@@ -424,7 +427,7 @@ OverwriteTableKeys( ObstacleData, {
 	{
 		InheritFrom = { "ExitDoor", },
 		UseText = "UseLeaveRoom",
-		UnlockedAnimation = "DoorExitLightSoftSW_Ephyra",
+		UnlockedAnimation = "DoorExitLightSoftSW_Unlock_Transition",
 		UnlockedUseSound = "/Leftovers/World Sounds/PostBossLeaveSFX",
 
 		ReturnToPreviousRoom = true,
@@ -432,8 +435,7 @@ OverwriteTableKeys( ObstacleData, {
 		AllowReroll = false,
 
 		ExitFunctionName = "FastExitPresentation",
-		NextRoomEntranceFunctionName = "FastEnterPresentation",
-		
+		NextRoomEntranceFunctionName = "FastEnterPresentation",		
 
 		OnUseEvents =
 		{
@@ -483,7 +485,7 @@ OverwriteTableKeys( ObstacleData, {
 			},
 		},
 
-		ValueOptions =
+		BreakableValueOptions =
         {
 			{
                 Chance = 0.05,
@@ -546,6 +548,7 @@ OverwriteTableKeys( ObstacleData, {
 		CooldownNamePrefix = "SurfaceShop",
 		BlockDuringChallenge = true,
 		SpeakerName = "Hermes",
+		LoadPackages = { "Hermes", },
 
 		DistanceTrigger =
 		{
@@ -589,7 +592,23 @@ OverwriteTableKeys( ObstacleData, {
 		UsePromptOffsetY = -50,
 		OnUsedVoiceLines =
 		{
-			[1] = { GlobalVoiceLines = "UsedTelescopeVoiceLines" },
+			{ GlobalVoiceLines = "UsedTelescopeVoiceLines" },
+		},
+		SetupEvents =
+		{
+			{
+				FunctionName = "GenericPresentation",
+				Args =
+				{
+					CreateAnimation = "ZoomOutSparkleEmitter",
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeEphyraZoomOut" },
+					},
+				},
+			},
 		},
 		DistanceTrigger =
 		{
@@ -598,12 +617,6 @@ OverwriteTableKeys( ObstacleData, {
 			{
 				{
 					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeEphyraZoomOut" },
-				},
-				{
-					PathFromSource = true,
-					Path = { "Name", },
-					Comparison = "~=",
-					Value = "EphyraZoomObject664259",
 				},
 			},
 			Repeat = false,
@@ -633,7 +646,7 @@ OverwriteTableKeys( ObstacleData, {
 		ScreenLocations =
 		{
 			-- Bat Cages
-			[664259] = { X = 560, Y = 720 }, -- entrance
+			-- [664259] = { X = 560, Y = 720 }, -- entrance [removed]
 			[664261] = { X = 200, Y = 470 },
 			[664258] = { X = 650, Y = 490 },
 			[664262] = { X = 880, Y = 200 },
@@ -835,6 +848,59 @@ OverwriteTableKeys( ObstacleData, {
 		InheritFrom = { "HealthFountain" },
 		HealingSpentAnimation = "HealthFountainN_Empty",
 		BlockExitUntilUsed = false,
+
+		SetupEvents =
+		{
+			{
+				FunctionName = "OverwriteSelf",
+				-- this represents the added +10%
+				DisplayValue = 10,
+				Args =
+				{
+					HealFraction = 0.30,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeFountainUpgrade1" },
+					},
+					{
+						PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeFountainUpgrade2" },
+					},				  
+				},
+			},
+			{
+				FunctionName = "OverwriteSelf",
+				-- this represents the added +10%
+				DisplayValue = 10,
+				Args =
+				{
+					HealFraction = 0.40,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeFountainUpgrade2" },
+					},
+				},
+			},
+			{
+				FunctionName = "HealthFountainNExitCheck",
+				Args = { },
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "SpawnRecord", "SoulPylon" },
+						Comparison = ">=",
+						Value = 6,
+					}
+				}
+			},
+			{
+				FunctionName = "HealthFountainNRestoreState",
+				Args = { },
+			}
+		}
 	},
 
 	ShadeEphyraIdle01=
@@ -879,7 +945,6 @@ OverwriteTableKeys( ObstacleData, {
 		
 		DeathFx = "WallSlamCrumble",
 
-		--FirstOnHitSound = "/Leftovers/SFX/CaravanDamage",
 		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15, },
 
 		CannotDieFromDamage = true,
@@ -1006,5 +1071,63 @@ OverwriteTableKeys( ObstacleData, {
 	{
 		InheritFrom = { "TartarusRubble02", },
 		SpawnScale = 0.25,
+	},
+
+	PoisonCure =
+	{
+		UseText = "UsePoisonCure",
+		UseSound = "/SFX/PoisonCureFountainDrink2",
+		CooldownNamePrefix = "PoisonCureFountain",
+		CooldownDuration = 1.25,
+		OnCooldownAnimation = "PoisonCureEmpty",
+		IdleAnimation = "PoisonCureFull",
+		OnUsedFunctionName = "UsePoisonCure",
+		OnUsedConsumeFx = "HealConsumableFx",
+
+		ExpirePoisonPuddleRadius = 400,
+
+		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15 },
+		--[[ImpactReaction =
+		{
+			RequiredSourceProjectile = { "PolyphemusMegaLeapTouchdown" },
+			DestroySelf = true,
+			SpawnObstacle = "PoisonCure_Destroyed",
+			MaintainHorizontalFlip = true,
+			CombatText = "RubbleSlamKill",
+			ReactionEvents =
+			{
+				{
+					FunctionName = "GenericPresentation",
+					Threaded = true,
+					Args =
+					{
+						VoiceLines =
+						{
+							RandomRemaining = true,
+							BreakIfPlayed = true,
+							PreLineWait = 0.45,
+							ObjectTypes = { "NPC_Medea_01", "Medea" },
+							SkipCooldownCheckIfNonePlayed = true,
+							Cooldowns =
+							{
+								{ Name = "MedeaSpokeRecently", Time = 12 },
+							},
+
+							{ Cue = "/VO/Medea_0444", Text = "Well, there goes that..." },
+							{ Cue = "/VO/Medea_0445", Text = "One less cure." },
+							{ Cue = "/VO/Medea_0446", Text = "There goes a curing pool...", PlayFirst = true },
+							{ Cue = "/VO/Medea_0447", Text = "One fewer curing pool..." },
+							{ Cue = "/VO/Medea_0448", Text = "Curing pool, destroyed..." },
+							{ Cue = "/VO/Medea_0449", Text = "A curing pool, ruined..." },
+						},
+					},
+				},
+			},
+		},]]
+	},
+
+	PoisonCure_Destroyed =
+	{
+		Material = "Stone",
 	},
 })

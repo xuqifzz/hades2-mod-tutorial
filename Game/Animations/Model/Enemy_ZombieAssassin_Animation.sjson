@@ -189,6 +189,10 @@
 				Frame = 2
 				Sound = "/SFX/Enemy Sounds/Assassin/EmoteEvading"
 			}
+			{
+				Frame = 16
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavyTemp"
+			}
 		]
 	}
 
@@ -238,6 +242,27 @@
 		CancelOnOwnerMove = false
 		OwnerUntargetable = true
 		OwnerInvulnerable = true
+		OwnerHasNoUnitCollision = true
+	}
+
+	{
+		Name = "Enemy_ZombieAssassin_StalkIdle"
+		InheritFrom = "EnemyZombieAssassinBaseAnimation"
+		GrannyAnimation = "Assassin_Base_Idle_C_00"
+		Alpha = 0.2
+		Red = 0.25
+		Green = 0.25
+		Blue = 0.25
+		Loop = true
+		CancelOnOwnerMove = false
+		OwnerUntargetable = true
+		OwnerInvulnerable = true
+		OwnerHasNoUnitCollision = true
+	}
+	{
+		Name = "Enemy_ZombieAssassin_StalkIdle_Miniboss"
+		InheritFrom = "Enemy_ZombieAssassin_StalkIdle"
+		Sound = "/SFX/Enemy Sounds/AssassinMiniboss/EmoteTaunting"
 	}
 
 	{
@@ -260,6 +285,8 @@
 		GrannyAnimation = "Assassin_Base_MultiStabPreFire_C_00"
 		CreateAnimation = "ZAssassinStabPreAttackGlow"
 		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/CorruptedShadeMedium/ChargeShort"
+		StopSoundOnFinishFade = 0.2
 		Blends = 
 		[
 			{

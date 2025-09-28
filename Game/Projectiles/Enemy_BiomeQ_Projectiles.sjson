@@ -1,0 +1,2768 @@
+{ Projectiles = [
+
+	// Simple
+	{
+		Name = "SimpleLocust"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "STRAIGHT"
+		DetonateSound = "/Leftovers/SFX/BeaconTeleportSFX"
+		AttachToOwner = true
+		RotateWithOwner = true
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		MultipleUnitCollisions = true
+		Damage = 9
+		ImpactLineOfSight = true
+		TotalFuse = 10.0
+		ImmunityDuration = 0.45
+		DieWithOwner = true
+		GroupName = "FX_Standing_Add"
+		Thing =
+		{
+			Graphic = "SimpleLocustFx"
+			OffsetZ = 58
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 100
+					Y = 50
+				}
+				{
+					X = 100
+					Y = -50
+				}
+				{
+					X = -10
+					Y = -5
+				}
+				{
+					X = -10
+					Y = 5
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = false
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "SimpleLocust_Elite"
+		InheritFrom = "SimpleLocust"
+		Damage = 12
+	}
+	{
+		Name = "Simple2Locust"
+		InheritFrom = "SimpleLocust"
+		Damage = 24
+		Thing =
+		{
+			Scale = 2
+			OffsetZ = 90
+			Points =
+			[
+				{
+					X = 60
+					Y = 30
+				}
+				{
+					X = 60
+					Y = -30
+				}
+				{
+					X = -10
+					Y = -5
+				}
+				{
+					X = -10
+					Y = 5
+				}
+			]
+		}
+	}
+
+	// Stalker
+	{
+		Name = "StalkerGroundWave"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "STRAIGHT"
+		Fuse = 0.7
+		Range = 9999
+		Speed = 2000
+		Acceleration = -1000
+		ImpactVelocity = 0
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		NumPenetrations = 9999
+		UnlimitedUnitPenetration = true
+		SpawnsSpeedModifierScaleY = 0.55
+		Damage = 18
+		GroupName = "Standing"
+		ImmunityDuration = 0.7
+		Thing =
+		{
+			Graphic = "TyphonStalkerWaveSpike"
+			RotateGeometry = true
+			AttachedAnim = "TyphonStalkerWaveGlow"
+			Grip = 999999
+			Scale = 0.7
+			Points =
+			[
+				{
+					X = 25
+					Y = 50
+				}
+				{
+					X = 25
+					Y = -50
+				}
+				{
+					X = -75
+					Y = 0
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "StalkerGroundWave_Elite"
+		InheritFrom = "StalkerGroundWave"
+		Speed = 2500
+	}
+	{
+		Name = "StalkerGroundWave_Miniboss"
+		InheritFrom = "StalkerGroundWave"
+		Type = "HOMING"
+		SpawnsSpeedModifierScaleY = null
+		MaxAdjustRate = 100
+		Damage = 24
+		Speed = 1000
+		Acceleration = -200
+		Fuse = 2.0
+		Thing =
+		{
+			Scale = 1.0
+		}
+	}
+	{
+		Name = "StalkerUnburrow"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		DamageRadius = 375
+		DamageRadiusScaleY = 0.65
+		DetonateFx = "StalkerUnburrowFx"
+		DetonateSound = "null"
+		AttachToOwner = true
+		DieWithOwner = true
+		UseStartLocation = true
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 19
+		UseVulnerability = false
+		Thing =
+		{
+			Graphic = "null"
+			RotateGeometry = true
+			Grip = 999999
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "StalkerUnburrow_Elite"
+		InheritFrom = "StalkerUnburrow"
+		DamageRadius = 450
+		DetonateFx = "StalkerUnburrowEliteFx"
+	}
+	{
+		Name = "StalkerUnburrow_Miniboss"
+		InheritFrom = "StalkerUnburrow"
+		DamageRadius = 500
+		DetonateFx = "StalkerUnburrowEliteFx"
+		Damage = 25
+	}
+	{
+		Name = "StalkerLeap_Miniboss"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		DetonateSound = null
+		Fuse = 0.3
+		StartDelay = 0.02
+		ImpactVelocity = 200
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 29
+		ImpactLineOfSight = true
+		GroupName = "FX_Standing_Add"
+		Thing =
+		{
+			Graphic = "LycanSwipeBase"
+			OffsetZ = 70
+			GeometryScaleY = 0.55
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 380
+					Y = 140
+				}
+				{
+					X = 380
+					Y = -140
+				}
+				{
+					X = -10
+					Y = -40
+				}
+				{
+					X = -10
+					Y = 40
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "MeleeAttackVictimGrip"
+				Type = "GRIP"
+				Duration = 0.3
+				Modifier = 0.05
+				HaltOnEnd = true
+				Active = true
+			}
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+
+	// Mati
+	{
+		Name = "MatiSlowBolt"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "HOMING"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = false
+		Range = 7400
+		Fuse = 1.5
+		Speed = 600
+		MaxAdjustRate = 110
+		Damage = 17
+		ImmunityDuration = 0.2
+		//ImmunityKey = "MatiSlowBolt"
+		GroupName = "FX_Standing_Add"
+		ImpactFx = "MatiProjectileFxImpact"
+		DissipateFx = "MatiProjectileFxFade"
+		SpawnOnDissipate = "MatiSlowBolt2"
+		SpawnCount = 3
+		SpawnsEvenlySpaced = true
+		DieWithOwner = true
+		Thing =
+		{
+			Graphic = "MatiProjectileFxIn"
+			Scale = 1.25
+			OffsetZ = 110
+			Tallness = 60
+			AmbientSound = "/SFX/Enemy Sounds/Mati/MatiProjectileFireAndLoop"
+			AttachedAnim = "MatiProjectileFxIn_Shadow"
+			Grip = 999999
+			UseBoundsForSortDrawArea = true
+			RotateGeometry = true
+			Points =
+			[
+				{ X = 32 Y = 32 }
+				{ X = 32 Y = -32 }
+				{ X = 0 Y = 0 }
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "MatiHypnosisSlow"
+				Duration = 2
+				Type = "SPEED"
+				Modifier = 0.25
+				DisableMove = false
+				DisableRotate = false
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = true
+				FrontFx = "MatiSlowFx"
+				BackFx = "MatiSlowFxBack"
+			}
+		]
+	}
+	{
+		Name = "MatiSlowBolt2"
+		InheritFrom = "MatiSlowBolt"
+		SpawnOnDissipate = null
+		Damage = 10
+		ReturnToOwnerAfterInactiveSeconds = 1.0
+		Fuse = 3.0
+		ImmunityDuration = 0.2
+		//ImmunityKey = "MatiSlowBolt"
+		Thing =
+		{
+			Scale = 1.0
+		}
+	}
+	{
+		Name = "MatiSlowBolt_Elite"
+		InheritFrom = "MatiSlowBolt"
+		Damage = 23
+		SpawnCount = 5
+		SpawnOnDissipate = "MatiSlowBolt2_Elite"
+		Thing =
+		{
+			Scale = 1.25
+		}
+	}
+	{
+		Name = "MatiSlowBolt2_Elite"
+		InheritFrom = "MatiSlowBolt2"
+		Damage = 13
+	}
+
+	// Brute
+	{
+		Name = "BruteChargeHorn"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		DetonateSound = "/Leftovers/SFX/BeaconTeleportSFX"
+		Fuse = 0.2
+		AttachToOwner = true
+		Acceleration = -200
+		ImpactVelocity = 1300
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 25
+		ImpactLineOfSight = true
+		Thing =
+		{
+			Graphic = "BruteChargeHornFx"
+			OffsetZ = 70
+			RotateGeometry = true
+			GeometryScaleY = 0.6
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 440
+					Y = 280
+				}
+				{
+					X = 440
+					Y = -280
+				}
+				{
+					X = -20
+					Y = -120
+				}
+				{
+					X = -20
+					Y = 120
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.8
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = false
+				FrontFx = "DionysusStunnedFx"
+			}
+		]
+	}
+	{
+		Name = "BruteChargeHorn_Miniboss"
+		InheritFrom = "BruteChargeHorn"
+		Damage = 34
+	}
+	{
+		Name = "BruteChargeWave_Miniboss"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		DetonateFx = "EnemyConeAttackLoopEnd"
+		InflictedDamageSound = "/SFX/BurnDamage"
+		DetonateSound = "/SFX/Enemy Sounds/EnemyProjectileDetonateExplode"
+		AttachToOwner = false
+		StartDelay = 0.12
+		Fuse = 2.0
+		Speed = 2500
+		Range = 3000
+		ImpactVelocity = 800
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 31
+		UseRadialImpact = false
+		GroupName = "FX_Terrain_Add"
+		DissipateFx = "TyphonBruteMinibossWaveFxDissipate"
+		Thing =
+		{
+			Graphic = "TyphonBruteMinibossWaveFx"
+			RotateGeometry = true
+			AttachedAnim = "null"
+			GeometryScaleY = 0.5
+			Grip = 999999
+			Scale = 2.0
+			Points =
+			[
+				{
+					X = 0
+					Y = 40
+				}
+				{
+					X = 0
+					Y = -40
+				}
+				{
+					X = -80
+					Y = -105
+			}
+			{
+					X = -80
+					Y = 105
+				}
+			]
+		}
+	}
+	{
+		Name = "BruteChargeRadial"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		Damage = 0
+		DamageRadius = 350
+		BlastSpeed = 3000
+		ImpactVelocity = 1200
+		HollowBlastRadiusBand = 40
+		DamageRadiusScaleY = 0.58
+		MultipleUnitCollisions = true
+		ImmunityDuration = 0.20
+		AffectsFriends = true
+		AffectsEnemies = false
+		UseRadialImpact = true
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		CanHitWithoutDamage = true
+		Thing =
+		{
+			Graphic = null
+			RotateGeometry = false
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 0
+					Y = 8
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -8
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+	}
+	{
+		Name = "BruteChargeRadial_Miniboss"
+		InheritFrom = "BruteChargeRadial"
+		ImpactVelocity = 1200
+		DamageRadius = 400
+	}
+	{
+		Name = "BruteSlamShockwave"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		DetonateFx = "TyphonBruteSlamShockwaveFx"
+		DetonateSound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusDeadStomp"
+		Damage = 26
+		BlastSpeed = 2000
+		DamageRadius = 400
+		DamageRadiusScaleY = 0.5
+		BlastDuration = 0.3
+		AffectsFriends = true
+		UseRadialImpact = true
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		Thing =
+		{
+			Graphic = "null"
+			RotateGeometry = false
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 0
+					Y = 8
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -8
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "BruteSlamShockwave2"
+		InheritFrom = "BruteSlamShockwave"
+		DetonateFx = "TyphonBruteSlamShockwaveFx1"
+		DamageRadius = 800
+		BlastStartRadius = 800
+		HollowBlastRadiusBand = 125
+	}
+	{
+		Name = "BruteSlamShockwave3"
+		InheritFrom = "BruteSlamShockwave"
+		DetonateFx = "TyphonBruteSlamShockwaveFx2"
+		DamageRadius = 1350
+		BlastStartRadius = 1350
+		HollowBlastRadiusBand = 220
+	}
+	{
+		Name = "BruteMelee1"
+		InheritFrom = "1_BaseEnemyProjectile"
+		StartFx = "BruteMeleeSwipe"
+		Type = "ARC"
+		AttachToOwner = true
+		ImpactVelocity = 800
+		ArcStart = -80
+		ArcEnd = 80
+		Speed = 1600
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		CanHitWithoutDamage = true
+		Damage = 24
+		NumPenetrations = 99999
+		UseArmor = true
+		UseVulnerability = false
+		InvulnerableImpactOwnerVelocity = 0
+		ImpactLineOfSightFromOwner = true
+		Thing =
+		{
+			Graphic = "null"
+			GeometryScaleY = 0.6
+			OffsetZ = 40
+			RotateGeometry = true
+			Grip = 999999
+			Scale = 1.5
+			Points =
+			[
+				{
+					X = 0
+					Y = 0
+				}
+				{
+					X = 240
+					Y = 25
+				}
+				{
+					X = 240
+					Y = -25
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "BruteMelee1_Elite"
+		InheritFrom = "BruteMelee1"
+		Damage = 24
+		Thing =
+		{
+			Scale = 2.0
+		}
+	}
+	{
+		Name = "Brute2Melee1"
+		InheritFrom = "BruteMelee1"
+		Damage = 24
+		Thing =
+		{
+			Scale = 2.0
+		}
+	}
+	{
+		Name = "BruteMelee1_Miniboss"
+		InheritFrom = "BruteMelee1"
+		Damage = 30
+		ImpactVelocity = 1200
+		Thing =
+		{
+			Scale = 3.0
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "BruteMelee2"
+		InheritFrom = "1_BaseEnemyProjectile"
+		StartFx = "BruteMelee2Swipe"
+		Type = "ARC"
+		AttachToOwner = true
+		ImpactVelocity = 800
+		ArcStart = 80
+		ArcEnd = -80
+		Speed = 1600
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		CanHitWithoutDamage = true
+		Damage = 24
+		NumPenetrations = 99999
+		UseArmor = true
+		UseVulnerability = false
+		InvulnerableImpactOwnerVelocity = 0
+		ImpactLineOfSightFromOwner = true
+		Thing =
+		{
+			Graphic = "null"
+			GeometryScaleY = 0.6
+			OffsetZ = 40
+			RotateGeometry = true
+			Grip = 999999
+			Scale = 1.5
+			Points =
+			[
+				{
+					X = 0
+					Y = 0
+				}
+				{
+					X = 240
+					Y = 25
+				}
+				{
+					X = 240
+					Y = -25
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "BruteMelee2_Miniboss"
+		InheritFrom = "BruteMelee2"
+		Damage = 30
+		ImpactVelocity = 1200
+		Thing =
+		{
+			Scale = 3.0
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "BruteHeadbutt"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "INSTANT"
+		DetonateSound = "/Leftovers/SFX/BeaconTeleportSFX"
+		DetonateFx = "TyphonBruteSlamShockwaveFx"
+		Damage = 29
+		BlastSpeed = 1500
+		DamageRadius = 700
+		ImpactVelocity = 1200
+		DamageRadiusScaleY = 0.5
+		HollowBlastRadiusBand = 100
+		BlastDuration = 0.3
+		AffectsFriends = true
+		UseRadialImpact = true
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.5
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = false
+				FrontFx = "DionysusStunnedFx"
+			}
+		]
+	}
+	{
+		Name = "BruteHeadbutt_Miniboss"
+		InheritFrom = "BruteHeadbutt"
+		Damage = 35
+	}
+
+	// DragonBurrower
+	{
+		Name = "DragonBurrowerRanged"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "HOMING"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = false
+		ImpactFx = "MageProjectileExplosion"
+		DissipateFx = "DragonBurrowerRangedDissipate"
+		DetonateSound = "/SFX/Enemy Sounds/EnemyProjectileDetonateExplode"
+		Range = 1600
+		Fuse = 1.9
+		Speed = 550
+		MaxAdjustRate = 70
+		Damage = 11
+		Thing =
+		{
+			Graphic = "DragonBurrowerRangedIn"
+			AttachedAnim = "DragonBurrowerRangedGlow"
+			OffsetZ = 50
+			Tallness = 60
+			Grip = 999999
+			UseBoundsForSortDrawArea = true
+			AmbientSound = "/SFX/Enemy Sounds/RangedBurrower/DraconProjectileLoop"
+			RotateGeometry = true
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = -24
+					Y = 0
+				}
+				{
+					X = 24
+					Y = 24
+				}
+				{
+					X = 24
+					Y = -24
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+
+	// EarthElemental
+	{
+		Name = "EarthElementalLaser"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "BEAM"
+      	AutoAdjustForTarget = true
+		SpinRate = 0
+		AffectsFriends = true
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		MultipleObstacleCollisions = true
+		MultipleUnitCollisions = true
+		NumPenetrations = 9999
+		Range = 1200
+		BeamDieOnTargetLost = true
+		Damage = 9
+		Fuse = 3.2
+		ImmunityDuration = 0.25
+		DrawAsBeam = true
+		GroupName = "FX_Standing_Add"
+		TipFx = "EarthElementalBeamOriginFlare"
+		AttachToOwner = true
+		RotateWithOwner = true
+		DieWithOwner = true
+		DissipateFx = "EarthElementalBeamEnd"
+		InflictedDamageSound = "/SFX/BurnDamage"
+		Thing =
+		{
+			Graphic = "EarthElementalBeam"
+			AttachedAnim = "EarthElementalBeamOriginFlareLarge"
+			OffsetZ = 70
+			Grip = 999999
+			Tallness = 10
+			UseBoundsForSortDrawArea = true
+		}
+	}
+	{
+		Name = "EarthElementalLaser_Elite"
+		InheritFrom = "EarthElementalLaser"
+		Damage = 12
+	}
+	{
+		Name = "EarthElementalLaser_Shadow"
+		InheritFrom = "EarthElementalLaser"
+		Damage = 12
+	}
+	{
+		Name = "EarthElementalSelfDestruct"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		StartFx = "null"
+		DetonateFx = "MineExplosionFadeDecal"
+		DetonateSound = "null"
+		DamageRadiusScaleY = 0.58
+		DamageRadius = 290
+		Damage = 10
+		DamageFalloff = 0.1
+		Fuse = 0.0
+		BlastSpeed = 3000
+		ImpactVelocity = 1200.0
+		CheckUnitImpact = true
+		SpawnAtVictimLocation = true
+		DetonateAtVictimLocation = true
+		CheckObstacleImpact = false
+		Thing =
+		{
+			Graphic = "null"
+			Points =
+			[
+				{
+					X = 0
+					Y = 8
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -8
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+
+	// TyphonEgg
+	{
+		Name = "TyphonEggRadial"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = "RadialNovaAres"
+		Type = "INSTANT"
+		Damage = 11
+		DamageRadius = 275.0
+		BlastSpeed = 2000
+		DamageRadiusScaleY = 0.5
+		ImmunityDuration = 0.02
+		ImpactVelocity = 0
+		Fuse = 0.01
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		MaxVictimZ = 9999
+		DieWithOwner = true
+		GroupName = "FX_Terrain"
+		IgnoreDodge = true
+		Thing =
+		{
+			Graphic = null
+			RotateGeometry = false
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+
+	// TyphonEye
+	{
+		Name = "TyphonEyeCannon"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "LOB"
+		Gravity = 900
+		AutoAdjustForTarget = true
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		Speed = 900
+		SpeedVariance = 200
+		DamageRadius = 200
+		DamageRadiusScaleY = 0.58
+		SpinRateVariance = 20
+		Damage = 35
+		Fuse = 3.0
+		ImpactVelocity = 0
+		DetonateFx = "TyphonHeadEyeProjectilePop"
+		BlastSpeed = 2000
+		ImpactFx = null
+		UseDirectionAngle = true
+		SpawnOnDeath = "TyphonHeadBoltChaotic"
+		SpawnType ="PROJECTILE"
+		SpawnCount = 2
+		SpawnsEvenlySpaced = true
+		GroupName = "FX_Standing_Top"
+		Thing =
+		{
+			Graphic = "TyphonHeadEyeProjectile"
+			OffsetZ = 50
+			AttachedAnim = "TyphonHeadEyeProjectileShadow"
+			Grip = 999999
+			Scale = 1.5
+			Points =
+			[
+				{
+					X = 0
+					Y = 32
+				}
+				{
+					X = 64
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -32
+				}
+				{
+					X = -64
+					Y = 0
+				}
+			]
+		}
+	}
+	{
+		Name = "TyphonEyeCannonSmall"
+		InheritFrom = "TyphonEyeCannon"
+		SpawnCount = 2
+		Thing =
+		{
+			Scale = 0.75
+		}
+	}
+
+	{
+		Name = "TyphonEyeSkyCast"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		DetonateFx = "TyphonHeadEyeProjectilePopSkyfall"
+		DetonateSound = "/SFX/Explosion1"
+		DamageRadius = 250
+		DamageRadiusScaleY = 0.5
+		BlastSpeed = 1330
+		Damage = 30
+		AffectsFriends = true
+		AffectsSelf = false
+		AffectsEnemies = true
+		UseRadialImpact = true
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		CanBeReflected = false
+		ImpactVelocity = 1000
+		UnlimitedUnitPenetration = true
+		GroupName = "Dark_FX"
+		SpawnOnDeath = "TyphonHeadBoltChaotic"
+		SpawnType ="PROJECTILE"
+		SpawnCount = 2
+		SpawnsEvenlySpaced = true
+		Thing =
+		{
+			Graphic = null
+			RotateGeometry = false
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 0
+					Y = 8
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -8
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+	}
+	{
+		Name = "EyeballExplode"
+		InheritFrom = "1_BaseTrapProjectile"
+		Type = "INSTANT"
+		UseStartLocation = true
+		DetonateFx = "TyphonEggTrapExplosion"
+		DamageRadius = 500
+		DamageRadiusScaleY = 0.5
+		BlastSpeed = 2000
+		Damage = 40
+		AffectsFriends = true
+		AffectsEnemies = true
+		AffectsSelf = true
+		Fuse = 0
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "EyeballRadial"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		DetonateFx = "TyphonArmSlamShockwaveFx"
+		DetonateSound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusDeadStomp"
+		Damage = 45
+		BlastDuration = 0.65
+		DamageRadius = 500
+		BlastSpeed = 2000
+		BlastSpeedAcceleration = -1500
+		HollowBlastRadiusBand = 40
+		DamageRadiusScaleY = 0.5
+		MultipleUnitCollisions = true
+		ImmunityDuration = 0.8
+		AffectsFriends = true
+		UseRadialImpact = true
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		GroupName = "FX_Terrain"
+		Thing =
+		{
+			Graphic = "null"
+			RotateGeometry = false
+			Points =
+			[
+				{
+					X = 0
+					Y = 8
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -8
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+	}
+	{
+		Name = "EyeballRadialDeath"
+		InheritFrom = "EyeballRadial"
+		DamageRadius = 1000
+	}
+	{
+		Name = "EyeballRam"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		DetonateSound = "/Leftovers/SFX/BeaconTeleportSFX"
+		AttachToOwner = true
+		RotateWithOwner = true
+		ImpactVelocity = 3200
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		MultipleUnitCollisions = true
+		MultipleObstacleCollisions = true
+		Damage = 20
+		ImpactLineOfSight = true
+		TotalFuse = 10.0
+		ImmunityDuration = 1.0
+		DieWithOwner = true
+		Thing =
+		{
+			Graphic = null
+			OffsetZ = 58
+			Grip = 999999
+			ExtentScale = 2.0
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+
+	// TyphonArm
+	{
+		Name = "TyphonArmSlamNova"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		DetonateFx = "TyphonArmSlamShockwaveFx"
+		DetonateSound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusDeadStomp"
+		Damage = 45
+		BlastDuration = 0
+		DamageRadius = 1300
+		BlastSpeed = 2200
+		BlastSpeedAcceleration = -1500
+		HollowBlastRadiusBand = 40
+		DamageRadiusScaleY = 0.5
+		MultipleUnitCollisions = true
+		ImmunityDuration = 0.8
+		AffectsFriends = true
+		UseRadialImpact = true
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		GroupName = "FX_Terrain"
+		Thing =
+		{
+			Graphic = "null"
+			RotateGeometry = false
+			Points =
+			[
+				{
+					X = 0
+					Y = 8
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -8
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+	}
+	{
+		Name = "TyphonFlickWave"
+		InheritFrom = "1_BaseEnemyProjectile"
+		DetonateFx = "null"
+		Type = "STRAIGHT"
+		Fuse = 1.5
+		Speed = 4000
+		Acceleration = -1150
+		Range = 3000
+		ImpactVelocity = 0
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		CanBeReflected = false
+		SpawnsSpeedModifierScaleY = 0.55
+		Damage = 14
+		GroupName = "FX_Terrain_Add"
+		ImmunityDuration = 1.5
+		DissipateFx = null
+		Thing =
+		{
+			Graphic = "ThugSlamWave"
+			RotateGeometry = true
+			AttachedAnim = "null"
+			Grip = 999999
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 50
+					Y = 125
+				}
+				{
+					X = 50
+					Y = -125
+				}
+				{
+					X = -50
+					Y = -125
+				}
+				{
+					X = -50
+					Y = 125
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "TyphonArmFlickWave"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = "null"
+		Type = "STRAIGHT"
+		Fuse = 1.5
+		Speed = 1750
+		Range = 1600
+		ImpactVelocity = 0
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		NumPenetrations = 9999
+		UnlimitedUnitPenetration = true
+		CanBeReflected = false
+		SpawnsSpeedModifierScaleY = 0.55
+		Damage = 35
+		GroupName = "FX_Terrain_Add"
+		ImmunityDuration = 1.5
+		DissipateFx = null
+		Thing =
+		{
+			Graphic = "ThugSlamWave"
+			RotateGeometry = true
+			AttachedAnim = "null"
+			Grip = 999999
+			GeometryScaleY = 0.6
+			Scale = 2.0
+			Points =
+			[
+				{
+					X = 75
+					Y = 200
+				}
+				{
+					X = 75
+					Y = -200
+				}
+				{
+					X = -75
+					Y = -50
+				}
+				{
+					X = -75
+					Y = 50
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+
+	// TyphonTail
+	{
+		Name = "TyphonTailCannon"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = "null"
+		Type = "STRAIGHT"
+		Fuse = 1.5
+		Speed = 2800
+		Range = 4000
+		AffectsFriends = true
+		ImpactVelocity = 0
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		NumPenetrations = 9999
+		UnlimitedUnitPenetration = true
+		CanBeReflected = false
+		SpawnsSpeedModifierScaleY = 0.55
+		Damage = 80
+		GroupName = "FX_Standing_Add"
+		ImmunityDuration = 1.5
+		DissipateFx = null
+		Thing =
+		{
+			Graphic = "TyphonTailCannonProjectileContainer"
+			RotateGeometry = true
+			AttachedAnim = "null"
+			Grip = 999999
+			Scale = 3.0
+			Points =
+			[
+				{
+					X = 0
+					Y = 375
+				}
+				{
+					X = 0
+					Y = -375
+				}
+				{
+					X = -250
+					Y = -375
+				}
+				{
+					X = -250
+					Y = 375
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "TyphonTailMine"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "STRAIGHT"
+		StartFx = "null"
+		DetonateFx = "TyphonTailMineExplosion"
+		DetonateSound = "null"
+		DamageRadiusScaleY = 0.58
+		DamageRadius = 330
+		Damage = 25
+		Fuse = 0.0
+		DetonateOnImpact = true
+		DetonateAtTarget = false
+		UnlimitedUnitPenetration = true
+		FlashBeforeExpireDuration = 1
+		BlastSpeed = 3000
+		ImpactVelocity = 600.0
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		Thing =
+		{
+			Graphic = "LovesickHeartMine"
+			ExtentScale = 3.0
+			Points =
+			[
+				{
+					X = 0
+					Y = 16
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -16
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "TyphonTailShockwave"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "STRAIGHT"
+		AffectsFriends = true
+		Range = 1
+		Fuse = 0.0
+		DamageRadius = 1800
+		BlastSpeed = 100
+		UseRadialImpact = true
+		BlastSpeedAcceleration = 150
+		HollowBlastRadiusBand = 40
+		DamageRadiusScaleY = 0.5
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		MultipleUnitCollisions = true
+		ImmunityDuration = 0.20
+		Damage = 33
+		ImpactVelocity = 300
+		UseArmor = false
+		UseVulnerability = false
+		GroupName = "FX_Dark"
+		Thing =
+		{
+			Graphic = "TyphonTailShockwaveFx"
+			OffsetZ = 70
+			Grip = 999999
+		}
+		Effects =
+		[
+			{
+				Name = "RushGrip"
+				Type = "GRIP"
+				Duration = 0.15
+				Modifier = 1.00
+				HaltOnEnd = true
+				Active = true
+			}
+			{
+				Name = "HeroStompHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = false
+				FrontFx = "DionysusStunnedFx"
+				OnlyAffectName = "_PlayerUnit"
+			}
+		]
+	}
+	{
+		Name = "TyphonTailShockwaveReverse"
+		InheritFrom = "TyphonTailShockwave"
+		Thing =
+		{
+			Graphic = "TyphonTailShockwaveFxReverse"
+			OffsetZ = 70
+			Grip = 999999
+		}
+		BlastSpeedAcceleration = 0
+		BlastSpeed = 600
+		DamageRadius = 2400
+		BlastStartRadius = 2200
+		ReturnToOwnerAfterInactiveSeconds = 0.01
+	}
+	{
+		Name = "TyphonTailImpale"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		StartFx = "TyphonTailImpaleFx"
+		DetonateSound = "/SFX/Enemy Sounds/Typhon/TailSlamSingle"
+		DamageRadiusScaleY = 0.58
+		DamageRadius = 350
+		BlastSpeed = 3000
+		Damage = 45
+		DamageFalloff = 0.1
+		Fuse = 0.01
+		ImpactVelocity = 800.0
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		AffectsFriends = true
+		Thing =
+		{
+			Graphic = null
+			RotateGeometry = false
+			Scale = 1.0
+			Color =
+			{
+				Red = 1.0
+				Green = 1.0
+				Blue = 1.0
+				Opacity = 1.0
+			}
+			Points =
+			[
+				{
+					X = 0
+					Y = 8
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -8
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "TyphonTailDrill"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		Damage = 29
+		DamageRadius = 300
+		BlastSpeed = 800
+		DamageRadiusScaleY = 0.58
+		BlastDuration = 0.25
+		UseRadialImpact = true
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		Thing =
+		{
+			Graphic = "TyphonTailDrillFx"
+			RotateGeometry = false
+			Scale = 1.0
+			Color =
+			{
+				Red = 1.0
+				Green = 1.0
+				Blue = 1.0
+				Opacity = 1.0
+			}
+			Points =
+			[
+				{
+					X = 0
+					Y = 8
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -8
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "TyphonTailRampageRam"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		DetonateSound = "/Leftovers/SFX/BeaconTeleportSFX"
+		AttachToOwner = true
+		AffectsFriends = true
+		ImpactVelocity = 2100
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 33
+		ImpactLineOfSight = true
+		TotalFuse = 0.15
+		DieWithOwner = true
+		GroupName = "FX_Standing_Add"
+		StartFx = "TyphonTailRampageAttackFx"
+		Thing =
+		{
+			Graphic = null
+			OffsetZ = 58
+			GeometryScaleY = 0.6
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{ X = 400 Y = 200 }
+				{ X = 400 Y = -200 }
+				{ X = -50 Y = -50 }
+				{ X = -50 Y = 50 }
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+
+	// Typhon Head
+	{
+		Name = "TyphonRamHorn"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		Fuse = 0.3
+		Speed = 1000
+		Acceleration = -850
+		Range = 200
+		ImpactVelocity = 3000
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		NumPenetrations = 9999
+		UnlimitedUnitPenetration = true
+		CanBeReflected = false
+		SpawnsSpeedModifierScaleY = 0.55
+		Damage = 60
+		GroupName = "FX_Standing_Add"
+		ImmunityDuration = 0.4
+		Thing =
+		{
+			Graphic = "TyphonRamHornFx"
+			RotateGeometry = true
+			Grip = 999999
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 250
+					Y = 300
+				}
+				{
+					X = 250
+					Y = -300
+				}
+				{
+					X = -125
+					Y = -300
+				}
+				{
+					X = -125
+					Y = 300
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.3
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = false
+				FrontFx = "DionysusStunnedFx"
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.2
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "TyphonHeadTongueMelee"
+		InheritFrom = "1_BaseEnemyProjectile"
+		DetonateFx = "null"
+		Type = "ARC"
+		AttachToOwner = true
+		AttachToMarker = "TyphonHead_Rig:snakeMouthSphere_00_M_JNT"
+		ImpactVelocity = 2500
+		ArcStart = -140
+		ArcEnd = 50
+		Speed = 170
+		AffectsFriends = true
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		CanHitWithoutDamage = true
+		Damage = 70
+		NumPenetrations = 99999
+		UseArmor = true
+		UseVulnerability = false
+		InvulnerableImpactOwnerVelocity = 0
+		UseRadialImpact = false
+		ImpactLineOfSightFromOwner = true
+		DissipateFx = "TyphonHeadTongueBeamOut"
+		GroupName = "FX_Standing_Top"
+		ImmunityKey = "TyphonHeadTongueMelee"
+		ImmunityDuration = 0.3
+		Thing =
+		{
+			Graphic = "TyphonHeadTongueBeamIn"
+			AttachedAnim = "TyphonHeadTongueBeamGroundGlow"
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 0
+					Y = 0
+				}
+				{
+					X = 2000
+					Y = 100
+				}
+				{
+					X = 2000
+					Y = -100
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "TyphonHeadTongueMeleeReverse"
+		InheritFrom = "TyphonHeadTongueMelee"
+		ArcStart = 120
+		ArcEnd = -50
+		Speed = -400
+		ImmunityKey = "TyphonHeadTongueMelee"
+		ImmunityDuration = 0.3
+	}
+	{
+		Name = "TyphonHeadTongueKnockback"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "INSTANT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		DamageRadius = 1200
+		DamageRadiusScaleY = 0.58
+		Damage = 0
+		ImpactVelocity = 1400
+		BlastSpeed = 4000
+		BlastStartRadius = 700
+		Thing =
+		{
+			Graphic = null
+		}
+		Effects =
+		[
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.2
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "TyphonHeadCannon"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "HOMING"
+		Fuse = 0.8
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		Speed = 1500
+		Acceleration = 500
+		MaxSpeed = 2000
+		MaxAdjustRate = 130
+		AdjustRateAcceleration = -70
+		DamageRadius = 700
+		DamageRadiusScaleY = 0.58
+		Damage = 40
+		ImpactVelocity = 400
+		DetonateFx = "TyphonHeadCannonDetonateFx"
+		DetonateSound = "/SFX/Explosion1"
+		BlastSpeed = 2500
+		ImpactFx = null
+		UseDirectionAngle = true
+		SpawnOnDetonate = "TyphonHeadCannonLobScatter"
+		SpawnType = "PROJECTILE"
+		SpawnCount = 3
+		SpawnsEvenlySpaced = true
+		Thing =
+		{
+			Graphic = "TyphonHeadCenterEyeLobProjectile"
+			OffsetZ = 140
+			AttachedAnim = "TyphonHeadCenterEyeLobProjectileShadow"
+			Grip = 999999
+			Scale = 1.5
+			Points =
+			[
+				{
+					X = 0
+					Y = 32
+				}
+				{
+					X = 64
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -32
+				}
+				{
+					X = -64
+					Y = 0
+				}
+			]
+		}
+	}
+	{
+		Name = "TyphonHeadCannonStraight"
+		InheritFrom = "TyphonHeadCannon"
+		Type = "STRAIGHT"
+		SpawnOnDetonate = "TyphonHeadCannonLobScatterSmall"
+	}
+	{
+		Name = "TyphonHeadCannonSplit"
+		InheritFrom = "TyphonHeadCannon"
+		DamageRadius = null
+		DamageRadiusScaleY = null
+		BlastSpeed = null
+		ImpactFx = "TyphonHeadCannonDetonateFx"
+		Fuse = 0.25
+		Damage = 40
+		SpawnType ="PROJECTILE"
+		SpawnOnDissipate = "TyphonHeadCannonStraight"
+		SpawnOnDetonate = null
+		SpawnCount = 3
+		SpawnArc = 110
+		SpawnsEvenlySpaced = true
+	}
+	{
+		Name = "TyphonHeadCannonLobScatter"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "LOB"
+		Damage = 30
+		DamageRadius = 480.0
+		DamageRadiusScaleY = 0.6
+		Speed = 800
+		SpeedVariance = 250
+		Gravity = 1250
+		AutoAdjustForTarget = true
+		CheckUnitImpact = false
+		CheckObstacleImpact = true
+		UseVulnerability = false
+		DetonateFx = "TyphonHeadCannonDetonateFx"
+		DetonateSound = "/SFX/Explosion1"
+		DetonateOnTouchdown = true
+		ImmunityDuration = 0.5
+		JumpSpeedMultiplier = 0.95
+		Thing =
+		{
+			Graphic = "TyphonHeadCenterEyeLobProjectile"
+			OffsetZ = 101
+			AttachedAnim = "TyphonHeadCenterEyeLobProjectileShadow"
+			Points =
+			[
+				{
+					X = 0
+					Y = 24
+				}
+				{
+					X = 24
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -24
+				}
+				{
+					X = -24
+					Y = 0
+				}
+			]
+		}
+	}
+	{
+		Name = "TyphonHeadCannonLobScatterSmall"
+		InheritFrom = "TyphonHeadCannonLobScatter"
+		DamageRadius = 360.0
+		Speed = 600
+		Gravity = 1400
+	}
+	{
+		Name = "TyphonHeadCannonLobWeak"
+		InheritFrom = "TyphonHeadCannonLobScatter"
+		AutoAdjustForTarget = false
+		DamageRadius = 360.0
+		Speed = 600
+		Gravity = 700
+		Damage = 10
+		Thing =
+		{
+			OffsetZ = 650
+		}
+	}
+	{
+		Name = "TyphonHeadBoltDirect"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "LOB"
+		Gravity = 300
+		AutoAdjustForTarget = false
+		LaunchAngle = 35
+		LaunchDistanceFraction = 0
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		Speed = 850
+		DamageRadius = 200
+		DamageRadiusScaleY = 0.58
+		SpinRateVariance = 20
+		Damage = 30
+		ImpactVelocity = 0
+		DetonateFx = "TyphonHeadEyeProjectilePop"
+		BlastSpeed = 2000
+		ImpactFx = null
+		UseDirectionAngle = true
+		NumJumps = 1
+		SpawnOnDeath = "TyphonHeadBoltChaotic"
+		SpawnType ="PROJECTILE"
+		SpawnCount = 2
+		SpawnsEvenlySpaced = true
+		GroupName = "FX_Standing_Top"
+		Thing =
+		{
+			Graphic = "TyphonHeadEyeProjectile"
+			OffsetZ = 50
+			AttachedAnim = "TyphonHeadEyeProjectileShadow"
+			Grip = 999999
+			Scale = 1.5
+			Points =
+			[
+				{
+					X = 0
+					Y = 32
+				}
+				{
+					X = 64
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -32
+				}
+				{
+					X = -64
+					Y = 0
+				}
+			]
+		}
+	}
+	{
+		Name = "TyphonHeadBoltDirectEnrage"
+		InheritFrom = "TyphonHeadBoltDirect"
+		SpawnOnDeath = "TyphonHeadBoltChaoticEnrage"
+	}
+	{
+		Name = "TyphonHeadBoltChaotic"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		AutoAdjustForTarget = false
+		Speed = 600
+		SpinRate = 240
+		Acceleration = -20
+		Fuse = 2.0
+		Range = 2600
+		NumPenetrations = 0
+		UseDirectionAngle = true
+		SpawnOnDeath = null
+		DetonateFx = "TyphonHeadEyeProjectilePop"
+		DetonateSound = "/SFX/Player Sounds/MelSkullsAttackExplode"
+		Damage = 30
+		DamageRadius = 160.0
+		DamageRadiusScaleY = 0.6
+		HideGraphicOnDetonate = true
+		NumJumps = 2
+		JumpType = "OBSTACLE_ONLY"
+		Thing =
+		{
+			Graphic = "TyphonHeadEyeProjectileSecondary"
+			OffsetZ = 70
+			AttachedAnim = "TyphonHeadEyeProjectileSecondaryShadow"
+			TouchdownSound = "/SFX/Player Sounds/MelSkullsHopBounce"
+			RotateGeometry = true
+			Points =
+			[
+				{
+					X = 32
+					Y = 24
+				}
+				{
+					X = 32
+					Y = -24
+				}
+				{
+					X = -32
+					Y = -24
+				}
+				{
+					X = -32
+					Y = 24
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = false
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "TyphonHeadBoltChaoticEnrage"
+		InheritFrom = "TyphonHeadBoltChaotic"
+		Fuse = 1.0
+	}
+	{
+		Name = "TyphonHeadSkyfall"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		DetonateSound = "/SFX/Explosion1"
+		DamageRadius = 430
+		DamageRadiusScaleY = 0.5
+		BlastSpeed = 2000
+		Damage = 40
+		UseRadialImpact = true
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		CanBeReflected = false
+		ImmunityDuration = 0.1
+		DetonateFx = "TyphonHeadEyeProjectilePopSkyfall"
+		SpawnOnDeath = "TyphonHeadBoltChaotic"
+		SpawnType ="PROJECTILE"
+		SpawnCount = 2
+		SpawnsEvenlySpaced = true
+		GroupName = "Standing"
+		Thing =
+		{
+			Graphic = "null"
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.5
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+
+	{
+		Name = "TyphonRoarVacuum"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "INSTANT"
+		Damage = 0
+		DamageRadius = 2800.0
+		BlastSpeed = 3000
+		BlastDuration = 0.7
+		DamageRadiusScaleY = 0.55
+		Fuse = 0.233
+		TotalFuse = 0.3
+		StartDelay = 0
+		CheckUnitImpact = false
+		UnlimitedUnitPenetration = true
+		MultipleUnitCollisions = true
+		MultipleObstacleCollisions = true
+		ImmunityDuration = 0.1
+		CanHitWithoutDamage = true
+		CheckObstacleImpact = false
+		ImpactVelocity = 1200
+		ImpactVelocityAngleOffset = -180
+		GroupName = "FX_Displacement"
+		DetonateSound = "/SFX/FlameTrapFire"
+		Thing =
+		{
+			Graphic = null
+			AttachedAnim = null
+			Grip = 999999
+			UseBoundsForSortDrawArea = true
+			RotateGeometry = true
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 0
+					Y = 1
+				}
+				{
+					X = 1
+					Y = 1
+				}
+				{
+					X = 1
+					Y = 0
+				}
+				{
+					X = 0
+					Y = 0
+				}
+			]
+		}
+
+		Effects =
+		[
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.25
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "TyphonRoarPush"
+		InheritFrom = "TyphonRoarVacuum"
+		ImpactVelocityAngleOffset = 0
+		ImpactVelocity = 3000
+		BlastSpeed = 3000
+	}
+	{
+		Name = "TyphonTornado"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "STRAIGHT"
+		ImpactFx = "MageProjectileExplosion_LightRanged"
+		Fuse = 3.0
+		ImmunityDuration = 0.3
+		Range = 9999
+		Speed = 450
+		Acceleration = -25
+		SpinRate = 0
+		SpinRateVariance = 240
+		UseArmor = true
+		UseVulnerability = true
+		Damage = 25
+		DrawDuringPause = false
+		UnpauseResetLocation = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		MultipleUnitCollisions = true
+		NumPenetrations = 999
+		GroupName = "Standing"
+		Thing =
+		{
+			Graphic = "TyphonHeadTornado"
+			AttachedAnim = "TyphonHeadTornadoShadow"
+			Tallness = 60
+			UseBoundsForSortDrawArea = true
+			RotateGeometry = false
+			Scale = 3.0
+			Points =
+			[
+				{
+					X = -60
+					Y = -30
+				}
+				{
+					X = -100
+					Y = 0
+				}
+				{
+					X = -60
+					Y = 30
+				}
+				{
+					X = 60
+					Y = 30
+				}
+				{
+					X = 100
+					Y = 0
+				}
+				{
+					X = 60
+					Y = -30
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = false
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "TyphonTornadoSpin"
+		InheritFrom = "TyphonTornado"
+		Fuse = 1.8
+		SpinRate = 0
+		SpinRateVariance = 20
+		Speed = 650
+		Acceleration = -400
+		SpawnType = "PROJECTILE"
+		SpawnOnDeath = "TyphonTornado"
+		CheckObstacleImpact = true
+		Thing =
+		{
+			Graphic = "TyphonHeadTornadoSpinIn"
+			Scale = 1
+		}
+	}
+	{
+		Name = "TyphonTornadoSpinEnrage"
+		InheritFrom = "TyphonTornadoSpin"
+		Speed = 900
+		SpawnOnDeath = "TyphonTornadoEnrage"
+	}
+	{
+		Name = "TyphonTornadoEnrage"
+		InheritFrom = "TyphonTornado"
+		Fuse = 2.0
+	}
+	{
+		Name = "TyphonHeadGust"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "STRAIGHT"
+		IgnoreDodge = true
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		MultipleUnitCollisions = true
+		CanHitWithoutDamage = true
+		RotateWithOwner = true
+		MultiDetonate = true
+		TotalFuse = 5
+		ImmunityDuration = 0.233
+		Damage = 0
+		ImpactVelocity = 900
+		Thing =
+		{
+			Graphic = null
+			AttachedAnim = "null"
+			Grip = 999999
+			UseBoundsForSortDrawArea = true
+			RotateGeometry = true
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 0
+					Y = 750
+				}
+				{
+					X = 4000
+					Y = 750
+				}
+				{
+					X = 4000
+					Y = -750
+				}
+				{
+					X = 0
+					Y = -750
+				}
+			]
+		}
+	}
+	{
+		Name = "TyphonEggLob01"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "LOB"
+		Damage = 15
+		DamageRadius = 200.0
+		DamageRadiusScaleY = 0.6
+		Speed = 1250
+		Gravity = 1000
+		AutoAdjustForTarget = true
+		CheckUnitImpact = false
+		CheckObstacleImpact = true
+		UseVulnerability = false
+		CanBeReflected = false
+		DetonateFx = "TyphonHeadEggProjectileLandFx"
+		DetonateSound = "/SFX/Enemy Sounds/Typhon/TyphonEggSpawnSFX"
+		DetonateOnTouchdown = true
+		ImmunityDuration = 0.5
+		JumpSpeedMultiplier = 0.95
+		SpawnType = "Unit"
+		SpawnOnDeath = "TyphonHeadEgg01"
+		SkipSpawnsIfBlocked = true
+		Thing =
+		{
+			Graphic = "TyphonHeadEggProjectileIn"
+			Scale = 2.0
+			OffsetZ = 101
+			AttachedAnim = "TyphonHeadEggProjectileShadow"
+			Points =
+			[
+				{
+					X = 0
+					Y = 24
+				}
+				{
+					X = 24
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -24
+				}
+				{
+					X = -24
+					Y = 0
+				}
+			]
+		}
+	}
+	{
+		Name = "TyphonEggLob02"
+		InheritFrom = "TyphonEggLob01"
+		SpawnOnDeath = "TyphonHeadEgg02"
+	}
+	{
+		Name = "TyphonEggLob03"
+		InheritFrom = "TyphonEggLob01"
+		SpawnOnDeath = "TyphonHeadEgg03"
+	}
+	{
+		Name = "TyphonEggLob04"
+		InheritFrom = "TyphonEggLob01"
+		SpawnOnDeath = "TyphonHeadEgg04"
+	}
+	{
+		Name = "TyphonEggLob05"
+		InheritFrom = "TyphonEggLob01"
+		SpawnOnDeath = "TyphonHeadEgg05"
+	}
+	{
+		Name = "TyphonEggLobCaptain"
+		InheritFrom = "TyphonEggLob01"
+		SpawnOnDeath = "TyphonHeadEggCaptain"
+	}
+	{
+		Name = "TyphonEggLobBoar"
+		InheritFrom = "TyphonEggLob01"
+		SpawnOnDeath = "TyphonHeadEggBoar"
+	}
+	{
+		Name = "TyphonEggLobDragon"
+		InheritFrom = "TyphonEggLob01"
+		SpawnOnDeath = "TyphonHeadEggDragon"
+	}
+	{
+		Name = "TyphonHeadAddUnburrow"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		Fuse = 0.65
+		BlastSpeed = 4000
+		DamageRadius = 430
+		DamageRadiusScaleY = 0.5
+		ImpactVelocity = 340
+		DetonateFx = "TyphonHeadAddSwipeFx"
+		DetonateSound = "null"
+		AttachToOwner = true
+		DieWithOwner = true
+		UseStartLocation = true
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 35
+		ImmunityDuration = 0.65
+		UseVulnerability = false
+		Thing =
+		{
+			Graphic = "null"
+			RotateGeometry = true
+			Grip = 999999
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "TyphonHeadTongueSlam"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = "null"
+		Type = "INSTANT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0
+		DamageRadius = 200
+		Damage = 100
+		Range = 1.0
+		DamageRadiusScaleY = 0.6
+		BlastSpeed = 3000
+		AttachToOwner = false
+		UseRadialImpact = true
+		DamageRadiusScaleX = 1.175
+		ProjectileDefenseRadius = 0
+		UseArmor = true
+		UseVulnerability = false
+		ResetCollisionOutsideDetonation = true
+		IgnoreCancelAttachedProjectiles = true
+		ImmunityDuration = 0.5
+		ImmunityKey = "TyphonHeadTongueSlam"
+		GroupName = "FX_Terrain_Add"
+		Thing =
+		{
+			Graphic = "TyphonBruteSlamShockwaveFx"
+			Grip = 999999
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "TyphonHeadTongueSlamWeak"
+		InheritFrom = "TyphonHeadTongueSlam"
+		Damage = 20
+		BlastSpeed = 1000
+		DamageRadius = 400
+	}
+	{
+		Name = "TyphonHeadTongueSlamShockwave"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = "null"
+		Type = "INSTANT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0
+		DamageRadius = 990
+		BlastStartRadius = 0
+		Damage = 50
+		Range = 1.0
+		DamageRadiusScaleY = 0.6
+		BlastSpeed = 900
+		AttachToOwner = false
+		UseRadialImpact = true
+		DamageRadiusScaleX = 1.175
+		ProjectileDefenseRadius = 0
+		UseArmor = true
+		UseVulnerability = false
+		ResetCollisionOutsideDetonation = true
+		HollowBlastRadiusBand = 100
+		IgnoreCancelAttachedProjectiles = true
+		ImmunityKey = "TyphonHeadTongueSlam"
+		ImmunityDuration = 0.65
+		GroupName = "FX_Terrain_Add"
+		Thing =
+		{
+			Graphic = "TyphonTongueSlamShockwaveFx"
+			Grip = 999999
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+]}

@@ -11,7 +11,7 @@ UnitSetData.Zombie =
 		HealthBarOffsetY = -200,
 
 		ActivateFx = "ZombieAssassinSpawnSmokeA",
-		ActivateFx2 = "Blank",
+		ActivateFx2 = "nil",
 		ActivateFxPreSpawn = "EnemySpawnBurst",
 		DeathAnimation = "Enemy_ZombieAssassin_Death",
 		DeathFx = "EnemyDeathFxUndead",
@@ -99,6 +99,7 @@ UnitSetData.Zombie =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_0459", Text = "Cutthroats." },
@@ -141,6 +142,58 @@ UnitSetData.Zombie =
 				"ZombieAssassinStab_Elite", "ZombieAssassinLateralDash", "ZombieAssassinLateralDash"
 			},
 		},
+
+		GeneratorData =
+		{
+			DifficultyRating = 60,
+			BlockEnemyTypes = {"ZombieAssassin"}
+		},
+	},
+
+	ZombieAssassin_Shadow =
+	{
+		InheritFrom = { "Shadow", "ZombieAssassin" },
+		GenusName = "ZombieAssassin",
+		
+		MaxHealth = 230,
+		HealthBuffer = 230,
+	},
+
+	ZombieAssassin_Miniboss =
+	{
+		InheritFrom = { "ZombieAssassin" },
+		MaxHealth = 1615,
+		HealthBarType = "ExtraLarge",
+		HealthBarAttachToMarkerName = "head_fxMarker_00_M_JNT",
+		HealthBarOffsetY = -60,
+
+		DeathSound = "/SFX/Enemy Sounds/AssassinMiniboss/EmoteDying",
+		HealthDamageSound = "/SFX/Enemy Sounds/AssassinMiniboss/EmoteHurt",
+
+		GrannyTexture = "GR2/AssassinMiniboss_Color",
+
+		ActivateFx = "nil",
+		ActivateFx2 = "Blank",
+		ActivateFxPreSpawn = "nil",
+		ActivateAnimation = "Enemy_ZombieAssassin_StalkIdle_Miniboss",
+		SpawnAnimation = "Enemy_ZombieAssassin_StalkExit",
+		SpawnFx = "ZombieAssassinCloakFront_Miniboss",
+		ActivateTint = false,
+		ActivateFadeInDelay = 0.0,
+		ActivateFadeInDuration = 0.7,
+		ActivateDuration = 0.7,
+		WakeUpDelay = 0.5,
+		
+		BlockRespawnShrineUpgrade = true,
+
+		IsAggroedSound = "/SFX/Enemy Sounds/Assassin/EmoteTaunting",
+
+		WeaponOptions =
+		{
+			"ZombieAssassinCombo", "ZombieAssassinStalk_Miniboss",
+		},
+
+		AIOptions = { "AttackerAI" },
 
 		GeneratorData =
 		{

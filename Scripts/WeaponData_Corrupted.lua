@@ -32,13 +32,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/CorruptedShadeSmall/Attack" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	CorruptedShadeSCast_Elite =
@@ -114,70 +107,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/CorruptedShadeMedium/Attack" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0 },
-		},
-	},
-
-	CorruptedShadeLCast =
-	{
-		Requirements =
-		{
-			MinPlayerDistance = 400,
-		},
-		AIData =
-		{
-			DeepInheritance = true,
-
-			ProjectileName = "CorruptedShadeLCast",
-			BarrelLength = 145,
-			FireProjectileStartDelay = 0.035,
-
-			PreAttackDuration = 1.33,
-			FireDuration = 0.3,
-			PostAttackDuration = 0.3,
-			TrackTargetDuringCharge = true,
-			PreAttackEndShake = true,
-			
-			PreAttackAnimation = "Enemy_CorruptedShadeL_CastPreFire",
-			FireAnimation = "Enemy_CorruptedShadeL_CastFire",
-			PostAttackAnimation = "Enemy_CorruptedShadeL_CastPostFire",
-
-			AttackDistance = 1330,
-			RequireProjectileLoS = true,
-			LoSBuffer = 100,
-		},
-
-		Sounds =
-		{
-			FireSounds =
-			{
-				{ Name = "/SFX/Enemy Sounds/Mage/EmoteAttacking" },
-			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
-		},
-	},
-	CorruptedShadeLCast_Elite =
-	{
-		InheritFrom = { "CorruptedShadeLCast" },
-
-		AIData =
-		{
-			DeepInheritance = true,
-			NumProjectiles = 3,
-			ProjectileInterval = 0.1,
-			ProjectileAngleInterval = 30,
-		},
 	},
 
 	CorruptedShadeLVacuum =
@@ -206,10 +135,11 @@ WeaponSetData =
 			FireDuration = 0.80,
 			PostAttackDuration = 0.0,
 
+			PreAttackStop = true,
 			WaitForAngleTowardTarget = true,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.20,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.03,
 			PostAttackStop = true,
 
@@ -236,13 +166,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/CorruptedShadeLarge/EmoteAttacking" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	CorruptedShadeLVacuum_Elite =
@@ -260,7 +183,7 @@ WeaponSetData =
 	{
 		Requirements =
 		{
-			MaxPlayerDistance = 500,
+			MaxPlayerDistance = 300,
 		},
 		AIData =
 		{
@@ -274,7 +197,7 @@ WeaponSetData =
 			PostAttackDuration = 1.1,
 			PreAttackEndShake = true,
 
-			AttackDistance = 225,
+			AttackDistance = 275,
 			LoSBuffer = 85,
 			RequireUnitLoS = true,
 
@@ -286,17 +209,10 @@ WeaponSetData =
 
 			DoNotRepeatOnAttackFail = true,
 			MoveWithinRangeTimeout = 4.0,
-			SkipAttackAfterMoveTimeout = true,
+			SkipAttackIfMoveTimeout = true,
 
 			-- Blink ban
-			TeleportToSpawnPoints = false,
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.07 },
+			PreMoveTeleport = false,
 		},
 
 		Sounds =
@@ -316,6 +232,8 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 			ProjectileName = "CorruptedShadeLNova_Elite",
+
+			AttackDistance = 350,
 		},
 	},
 
@@ -327,6 +245,9 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 			AttackDistance = 9999,
+
+			PreAttackDuration = 0.5,
+			PreAttackAnimationSpeed = 2.0,
 		},
 	},
 	CorruptedShadeLNovaChained_Elite =
@@ -337,6 +258,9 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 			AttackDistance = 9999,
+
+			PreAttackDuration = 0.5,
+			PreAttackAnimationSpeed = 2.0,
 		},
 	},
 }

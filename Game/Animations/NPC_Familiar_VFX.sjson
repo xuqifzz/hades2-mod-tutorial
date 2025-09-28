@@ -47,4 +47,126 @@
 		Sound = "/SFX/Player Sounds/MelDaggerKnifeThrowSwish"
 	}
 
+	{
+		Name = "PolecatFamiliarDirtTrail"
+		Random =
+		[
+			{ Name = "PolecatFamiliarDirtTrailA" }
+			{ Name = "PolecatFamiliarDirtTrailB" }
+			{ Name = "PolecatFamiliarDirtTrailC" }
+			{ Name = "PolecatFamiliarDirtTrailD" }
+		]
+	}
+	{
+		Name = "PolecatFamiliarDirtTrailA"
+		FilePath = "Fx\ErebusDirtTrailA\ErebusDirtTrailA"
+		NumFrames = 24
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		AddColor = true
+		Red = 0.58
+		Green = 0.3
+		Blue = 0
+		ScaleMin = 0.7
+		ScaleMax = 1.3
+		RandomFlipHorizontal = true
+		VisualFx = "ErebusDirtParticle"
+		VisualFxCap = 3
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.15
+		GroupName = "FX_Terrain"
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+		]
+	}
+	{
+		Name = "PolecatFamiliarDirtTrailB"
+		InheritFrom = "PolecatFamiliarDirtTrailA"
+		FilePath = "Fx\ErebusDirtTrailB\ErebusDirtTrailB"
+	}
+	{
+		Name = "PolecatFamiliarDirtTrailC"
+		InheritFrom = "PolecatFamiliarDirtTrailA"
+		FilePath = "Fx\ErebusDirtTrailC\ErebusDirtTrailC"
+	}
+	{
+		Name = "PolecatFamiliarDirtTrailD"
+		InheritFrom = "PolecatFamiliarDirtTrailA"
+		FilePath = "Fx\ErebusDirtTrailD\ErebusDirtTrailD"
+	}
+
+	{
+		Name = "FrogFamiliarLandDust"
+		FilePath = "Fx\ShipsDustFront\ShipsDustFront"
+		NumFrames = 45
+		GroupName = "Standing"
+		SortMode = "FromParent"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		StartAlpha = 0.3
+		EndAlpha = 0.6
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 75
+		Scale = 0.75
+		Value = -0.2
+		Saturation = 0.2
+		CreateAnimations = [
+			{ Name = "FrogFamiliarLandDustBack" }
+			{ Name = "FrogFamiliarLandDustTerrain" }
+		]
+	}
+
+	{
+		Name = "FrogFamiliarLandDustBack"
+		InheritFrom = "FrogFamiliarLandDust"
+		ClearCreateAnimations = true
+		FilePath = "Fx\ShipsDustBack\ShipsDustBack"
+		DrawBehindOwner = true
+		RandomFlipHorizontal = true
+		Value = 0
+	}
+
+	{
+		Name = "FrogFamiliarLandDustTerrain"
+		InheritFrom = "FrogFamiliarLandDust"
+		ClearCreateAnimations = true
+		FilePath = "Fx\ShipsDustTerrain\ShipsDustTerrain"
+		NumFrames = 42
+		GroupName = "FX_Terrain"
+		RandomFlipHorizontal = true
+	}
+
 ]}

@@ -327,6 +327,7 @@
 		InheritFrom = "MelinoeBaseAnimation"
 		Loop = true
 		LocomotionType = "Directional"
+		LocomotionBlendSpeed = 0.01
 		Additives = 
 		[
 			{
@@ -384,6 +385,7 @@
 		InheritFrom = "MelinoeBaseAnimation"
 		Loop = true
 		LocomotionType = "Directional"
+		LocomotionBlendSpeed = 0.01
 		NativeMoveSpeed = 540
 		Additives = 
 		[	
@@ -619,13 +621,12 @@
 
 	{
 		Name = "MelinoeOverlookIdle"
-		
 		GrannyModel = "MelinoeOverlook_Mesh"
 		GrannyAnimationSpeed = 1.0
 		Scale = 1.27
 		Enable3DShadow = false
 		LargeObstacle3DModel = true
-		GrannyAnimation = "Melinoe_NoWeapon_Base_Idle_00"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_IdleOverlook_00"
 		Loop = true
 		CancelOnOwnerMove = true
 		GrannyRotationX = -15
@@ -656,5 +657,83 @@
 		]
 	}
 
+	// Typhon Kill
 
+	{
+		Name = "Gigaros_TyphonKill"
+		GrannyModel = "WeaponGigaros_Mesh"
+		GrannyAnimation = "Weapon_Gigaros_Base_TyphonFinalKill_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+			{
+				Frame = 90
+				FrameSpeed = 1
+			}
+			{
+				Frame = 140
+				FrameSpeed = 0.5
+			}
+			{
+				Frame = 190
+				FrameSpeed = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_TyphonKill"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_TyphonFinalKill_C_00"
+		ChainTo = "MelinoeIdleWeaponless"
+		Attachments =
+		[
+			{
+				Name = "Gigaros_TyphonKill"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+			{
+				Frame = 90
+				FrameSpeed = 1
+			}			
+			{
+				Frame = 129
+				FrameSpeed = 1
+				FootstepFxR = "TyphonSpecialKillMelSpearGrabFlare"
+			}
+			{
+				Frame = 130
+				Sound = "/SFX/Enemy Sounds/Typhon/TyphonGigarosChargeup"
+			}
+			{
+				Frame = 140
+				FrameSpeed = 0.5
+				FootstepFxR = "TyphonSpecialKillMelSpearCharge"
+			}
+			{
+				Frame = 190
+				FrameSpeed = 1.2
+			}
+
+			{
+				Frame = 204
+				FrameSpeed = 0.15
+			}
+
+			{
+				Frame = 210
+				FrameSpeed = 0.8
+			}
+		]
+	}
  ]}

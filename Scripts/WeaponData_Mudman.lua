@@ -8,6 +8,8 @@ WeaponSetData =
 
 			ProjectileName = "MudmanEyeThrow",
 			BarrelLength = 280,
+
+			PreAttackStop = true,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.10,
 			StopBeforeFire = true,
@@ -54,10 +56,46 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 			ProjectileName = "MudmanEyeThrow_Elite",
-
-			NumProjectiles = 3,
-			ProjectileAngleInterval = 15,
 		},
+	},
+
+	MudmanStraightThrow_Shadow =
+	{
+		InheritFrom = { "MudmanStraightThrow" },
+		AIData =
+		{
+			DeepInheritance = true,
+			ProjectileName = "MudmanEyeThrow_Elite",
+		},
+	},
+
+	Mudman2Throw =
+	{
+		InheritFrom = { "MudmanStraightThrow" },
+		AIData =
+		{
+			DeepInheritance = true,
+			ProjectileName = "Mudman2EyeThrow",
+
+			FireTicks = 1,
+			NumProjectiles = 3,
+			ProjectileAngleInterval = 45,
+
+			PreAttackDuration = 3.0,
+			--FireDuration = 3.0,
+		},
+	},
+
+	Mudman2Throw_NoSpawn =
+	{
+		InheritFrom = { "Mudman2Throw" },
+		AIData =
+		{
+			DeepInheritance = true,
+			ProjectileName = "Mudman2EyeThrow_NoSpawn",
+
+			AttackDistance = 900,
+		}
 	},
 
 	MudmanShove =
@@ -106,13 +144,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Mudman/MudmanMeleeAttackFire" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.15, LerpTime = 0 },
-			{ ScreenPreWait = 0.09, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	MudmanShove_Elite =
@@ -126,6 +157,25 @@ WeaponSetData =
 
 			FireSelfVelocity = 200,
 			FireSelfVelocityAngleOffset = 180,
+		},
+	},
+
+	Mudman2Shove =
+	{
+		InheritFrom = { "MudmanShove" },
+		AIData =
+		{
+			DeepInheritance = true,
+			PostAttackDuration = 0.1,
+			ProjectileName = "Mudman2Shove",
+
+			FireSelfVelocity = 200,
+			FireSelfVelocityAngleOffset = 180,
+
+			PreAttackStop = true,
+			TrackTargetDuringCharge = true,
+			TrackTargetDuringFire = true,
+			PostAttackStop = true,
 		},
 	},
 
@@ -144,7 +194,7 @@ WeaponSetData =
 
 			DoNotRepeatOnAttackFail = true,
 			-- Blink ban
-			TeleportToSpawnPoints = false,
+			PreMoveTeleport = false,
 		},
 	},
 
@@ -182,13 +232,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/MudmanEye/MudmanEyeExplode" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.05, Fraction = 1.0, LerpTime = 0.1 },
-		},		
 	},
 }
 

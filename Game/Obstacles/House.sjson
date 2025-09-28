@@ -149,16 +149,18 @@
         AmbientSound = "/SFX/Object Ambiences/CauldronBubbleLocalAmbience"
         EditorOutlineDrawBounds = false
         Graphic = "CriticalItemWorldObject01"
-        Tallness = 335.0
+        SortBoundsScale = 0.75
+        Tallness = 335
         Offset = { X = 0 Y = -112 }
         Points = [
           { X = -415 Y = -159 }
-          { X = -475 Y = 49 }
+          { X = -531 Y = 148 }
           { X = -290 Y = 252 }
           { X = 47 Y = 313 }
-          { X = 415 Y = 263 }
-          { X = 442 Y = -29 }
+          { X = 573 Y = 188 }
+          { X = 503 Y = -45 }
           { X = 33 Y = -230 }
+          { X = -191 Y = -195 }
         ]
       }
     }
@@ -208,6 +210,27 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\House\House_Chair_01"
+        Offset = { X = 0 Y = -174 }
+        Points = [
+          { X = -19 Y = -66 }
+          { X = -149 Y = -6 }
+          { X = 38 Y = 89 }
+          { X = 157 Y = 24 }
+        ]
+        Using = [
+          { Name = "HouseChair03" }
+        ]
+      }
+    }
+    
+    {
+      Name = "HouseChair01Dust"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\House\House_Chair_01_Dust"
         Offset = { X = 0 Y = -174 }
         Points = [
           { X = -19 Y = -66 }
@@ -349,6 +372,27 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\House\House_Couch_02A"
+        Offset = { X = 0 Y = -84 }
+        Points = [
+          { X = 153 Y = -254 }
+          { X = -407 Y = 14 }
+          { X = -447 Y = 130 }
+          { X = -434 Y = 171 }
+          { X = -141 Y = 290 }
+          { X = 382 Y = 8 }
+          { X = 405 Y = -231 }
+        ]
+      }
+    }
+    
+    {
+      Name = "HouseCouch02ADust"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\House\House_Couch_02A_Dust"
         Offset = { X = 0 Y = -84 }
         Points = [
           { X = 153 Y = -254 }
@@ -568,12 +612,30 @@
     
     {
       Name = "HouseDesk01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\House\House_Desk_01"
+        Offset = { X = 0 Y = -154 }
+        Points = [
+          { X = 116 Y = 339 }
+          { X = 458 Y = 156 }
+          { X = -64 Y = -118 }
+          { X = -432 Y = 68 }
+        ]
+      }
+    }
+    
+    {
+      Name = "HouseDesk01Dust"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\House\House_Desk_01_Dust"
         Offset = { X = 0 Y = -154 }
         Points = [
           { X = 116 Y = 339 }
@@ -1320,11 +1382,15 @@
           { X = -246 Y = -42 }
         ]
       }
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
     }
     
     {
       Name = "HouseCushion01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1404,6 +1470,31 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "HouseEmployeeOfMonthThanatos01"
+        Tallness = 152.0
+        Offset = { X = 0 Y = -56 }
+      }
+    }
+    {
+      Name = "HouseEmployeeOfMonthChef01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "HouseEmployeeOfMonthChef01"
+        Tallness = 152.0
+        Offset = { X = 0 Y = -56 }
+      }
+    }
+    
+    {
+      Name = "HouseEmployeeOfMonthMel01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\House\House_EmployeeOfMonth_Mel_01"
         Tallness = 152.0
         Offset = { X = 0 Y = -56 }
       }
@@ -1787,6 +1878,10 @@
           { X = 298 Y = 224 }
         ]
       }
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
     }
     
     {
@@ -1862,7 +1957,7 @@
     
     {
       Name = "HouseWeights01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1885,7 +1980,7 @@
     
     {
       Name = "HouseLyre01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1910,7 +2005,7 @@
     
     {
       Name = "HouseGamingTable01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -2287,7 +2382,7 @@
     
     {
       Name = "HouseDogToy01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -2304,6 +2399,28 @@
           { X = 180 Y = 276 }
           { X = 482 Y = 52 }
           { X = 482 Y = 52 }
+        ]
+      }
+    }
+    
+    {
+      Name = "HouseCerberus01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\House\House_Cerberus_01"
+        Tallness = 432
+        Offset = { X = 0 Y = -52 }
+        Points = [
+          { X = 312 Y = 29 }
+          { X = 216 Y = -152 }
+          { X = -104 Y = -210 }
+          { X = -360 Y = 5 }
+          { X = -283 Y = 205 }
+          { X = 17 Y = 249 }
+          { X = 238 Y = 136 }
         ]
       }
     }
@@ -3148,12 +3265,35 @@
         StopsUnits = true
         Tallness = 263.0
         TouchdownSound = "/EmptyCue"
-        Interact = 
-        {
-          Distance = 250.0
-          OffsetX = -100.0
-          OffsetY = -25.0
-        }
+        Offset = { X = 0 Y = -310 }
+        Points = [
+          { X = 796 Y = -74 }
+          { X = 91 Y = -422 }
+          { X = -784 Y = 31 }
+          { X = -56 Y = 361 }
+        ]
+      }
+    }
+    
+    {
+      Name = "HouseBed01Dust"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Life = 
+      {
+        HitFx = "InvincibleHitSpark"
+        Invulnerable = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\House\House_Bed_01_Dust"
+        Grip = 999999.0
+        MeshType = "Vertical"
+        StopsProjectiles = true
+        StopsUnits = true
+        Tallness = 263.0
+        TouchdownSound = "/EmptyCue"
         Offset = { X = 0 Y = -310 }
         Points = [
           { X = 796 Y = -74 }
@@ -3685,6 +3825,28 @@
     }
     
     {
+      Name = "HouseFireplace01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\House\House_Fireplace_01a"
+        Tallness = 1663.0
+        Offset = { X = 0 Y = -760 }
+        Points = [
+          { X = 325 Y = -276 }
+          { X = -479 Y = 120 }
+          { X = -328 Y = 199 }
+          { X = 473 Y = -211 }
+        ]
+        Using = [
+          { Name = "HousePillar04A" }
+        ]
+      }
+    }
+    
+    {
       Name = "HouseFireplace02"
       InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
@@ -3732,6 +3894,28 @@
     }
     
     {
+      Name = "HouseFireplace03a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\House\House_Fireplace_03a"
+        Tallness = 1699.0
+        Offset = { X = 0 Y = -745 }
+        Points = [
+          { X = -1100 Y = 355 }
+          { X = -670 Y = 561 }
+          { X = 1185 Y = -364 }
+          { X = 751 Y = -579 }
+        ]
+        Using = [
+          { Name = "HousePillar04A" }
+        ]
+      }
+    }
+    
+    {
       Name = "HousePillar05"
       InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
@@ -3758,10 +3942,18 @@
         ]
       }
     }
+    {
+      Name = "HousePillar05_NoOcclusion"
+      InheritFrom = "HousePillar05"
+      Thing =
+      {
+        CausesOcclusion = false
+      }
+    }
     
     {
       Name = "HouseUnderConstruction01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -4967,12 +5159,44 @@
         StopsProjectiles = true
         StopsUnits = true
         TouchdownSound = "/EmptyCue"
+        Tallness = 1418
         Offset = { X = 0 Y = -432 }
         Points = [
-          { X = -576 Y = 199 }
+          { X = -547 Y = 184 }
           { X = -187 Y = 364 }
-          { X = 540 Y = -20 }
+          { X = 550 Y = -4 }
           { X = 200 Y = -179 }
+          { X = 190 Y = -184 }
+          { X = 190 Y = -184 }
+        ]
+      }
+    }
+    
+    {
+      Name = "HouseShelf01Dust"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Life = 
+      {
+        HitFx = "InvincibleHitSpark"
+        Invulnerable = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\House\House_Shelf_01_Dust"
+        Grip = 999999.0
+        MeshType = "Vertical"
+        StopsProjectiles = true
+        StopsUnits = true
+        TouchdownSound = "/EmptyCue"
+        Tallness = 1425
+        Offset = { X = 0 Y = -432 }
+        Points = [
+          { X = -547 Y = 184 }
+          { X = -187 Y = 364 }
+          { X = 550 Y = -4 }
+          { X = 190 Y = -184 }
         ]
       }
     }
@@ -4994,14 +5218,14 @@
         MeshType = "Vertical"
         StopsProjectiles = true
         StopsUnits = true
-        Tallness = 1500.0
         TouchdownSound = "/EmptyCue"
+        Tallness = 1002
         Offset = { X = 0 Y = -474 }
         Points = [
-          { X = -512 Y = 142 }
-          { X = 232 Y = 222 }
-          { X = 587 Y = -93 }
-          { X = 41 Y = -212 }
+          { X = -590 Y = 35 }
+          { X = 7 Y = 334 }
+          { X = 869 Y = -97 }
+          { X = 272 Y = -396 }
         ]
       }
     }
@@ -5019,6 +5243,35 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\House\House_Shelf_02"
+        Grip = 999999.0
+        MeshType = "Vertical"
+        StopsProjectiles = true
+        StopsUnits = true
+        Tallness = 1223.0
+        TouchdownSound = "/EmptyCue"
+        Offset = { X = 0 Y = -542 }
+        Points = [
+          { X = 550 Y = -137 }
+          { X = 221 Y = -280 }
+          { X = -542 Y = 107 }
+          { X = -239 Y = 250 }
+        ]
+      }
+    }
+    
+    {
+      Name = "HouseShelf02Dust"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Life = 
+      {
+        HitFx = "InvincibleHitSpark"
+        Invulnerable = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\House\House_Shelf_02_Dust"
         Grip = 999999.0
         MeshType = "Vertical"
         StopsProjectiles = true
@@ -5167,6 +5420,36 @@
         MeshType = "Vertical"
         StopsProjectiles = true
         StopsUnits = true
+        TouchdownSound = "/EmptyCue"
+        UseBoundsForSortDrawArea = true
+        Tallness = 1000
+        Offset = { X = 0 Y = -438 }
+        Points = [
+          { X = 329 Y = -155 }
+          { X = 287 Y = -176 }
+          { X = -291 Y = 113 }
+          { X = -249 Y = 134 }
+        ]
+      }
+    }
+    
+    {
+      Name = "HouseMirror02Dust"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Life = 
+      {
+        HitFx = "InvincibleHitSpark"
+        Invulnerable = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\House\House_Mirror_02_Dust"
+        Grip = 999999.0
+        MeshType = "Vertical"
+        StopsProjectiles = true
+        StopsUnits = true
         Tallness = 1000.0
         TouchdownSound = "/EmptyCue"
         UseBoundsForSortDrawArea = true
@@ -5182,7 +5465,7 @@
     
     {
       Name = "HouseBooks01"
-      InheritFrom = "1_BaseTerrainTile"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Life = 
       {
@@ -5193,6 +5476,36 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\House\House_Books_01"
+        Grip = 999999.0
+        MeshType = "Vertical"
+        StopsProjectiles = true
+        StopsUnits = true
+        Tallness = 874.0
+        TouchdownSound = "/EmptyCue"
+        Offset = { X = 0 Y = -291 }
+        Points = [
+          { X = 837 Y = 154 }
+          { X = -124 Y = -240 }
+          { X = -871 Y = 29 }
+          { X = -198 Y = 424 }
+          { X = 768 Y = 389 }
+        ]
+      }
+    }
+    
+    {
+      Name = "HouseBooks01Dust"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Life = 
+      {
+        HitFx = "InvincibleHitSpark"
+        Invulnerable = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\House\House_Books_01_Dust"
         Grip = 999999.0
         MeshType = "Vertical"
         StopsProjectiles = true
@@ -5247,6 +5560,27 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\House\House_Chest_01"
+        OcclusionInterpolateDuration = 0.0
+        OcclusionOpacity = 0.0
+        StopsLight = false
+        Offset = { X = 0 Y = -230 }
+        Points = [
+          { X = 810 Y = 186 }
+          { X = -76 Y = -239 }
+          { X = -561 Y = -37 }
+          { X = 366 Y = 415 }
+        ]
+      }
+    }
+    
+    {
+      Name = "HouseChest01Dust"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\House\House_Chest_01_Dust"
         OcclusionInterpolateDuration = 0.0
         OcclusionOpacity = 0.0
         StopsLight = false
@@ -5459,7 +5793,7 @@
     
     {
       Name = "HouseWaterBowl01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -5506,7 +5840,7 @@
     
     {
       Name = "HouseSkullCyclops01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -5524,7 +5858,7 @@
     
     {
       Name = "HouseSkullMedusa01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -5666,6 +6000,10 @@
           { X = 124 Y = -11 }
         ]
       }
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
     }
     
     {
@@ -5733,6 +6071,10 @@
           { X = 204 Y = -241 }
           { X = -138 Y = -233 }
         ]
+      }
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
       }
     }
     
@@ -5858,6 +6200,10 @@
           { X = 82 Y = 41 }
         ]
       }
+      Life =
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
     }
     
     {
@@ -5878,6 +6224,10 @@
           { X = -49 Y = 41 }
           { X = 64 Y = 36 }
         ]
+      }
+      Life =
+      {
+        ConsiderInvulnerableForSilentImpact = true
       }
     }
     
@@ -6660,6 +7010,7 @@
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
       }
       Thing = 
       {
@@ -6701,6 +7052,7 @@
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
       }
       Thing = 
       {
@@ -6796,7 +7148,6 @@
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeHubMIdle"
         StopsLight = false
@@ -6829,7 +7180,6 @@
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Small"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeHubSIdle"
         StopsLight = false
@@ -6861,7 +7211,6 @@
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Big"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeHubLIdle"
         StopsLight = false
@@ -6895,7 +7244,6 @@
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Big"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeHubLNecklaceIdle"
         StopsLight = false
@@ -6926,10 +7274,10 @@
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Tall"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeHubTIdle"
         StopsLight = false
@@ -6961,7 +7309,6 @@
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Tall"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeHubTBowtieIdle"
         StopsLight = false
@@ -6979,39 +7326,48 @@
       }
     }
 
-  {
-      Name = "ShadeHubTChefIdle01"
-      InheritFrom = "1_BaseVulnerableObstacle"
-      CollisionAlphaOutDuration = 0.1
-      CollisionEndedAlphaInDuration = 3.0
-      DisplayInEditor = true
-      UseCollisionShift = false
-      Life = 
-      {
-        JumpTargetEligible = false
-        ProjectilesAlwaysPenetrate = true
-      }
-      Thing = 
-      {
-        AttachedAnim = "ShadeShadow_Tall"
-        EditorOutlineDrawBounds = false
-        Graphic = "ShadeHubTChefIdle"
-        StopsLight = false
-        Tallness = 292
-        Offset = { X = 0 Y = -42 }
-        Points = [
-          { X = 16 Y = -15 }
-          { X = -10 Y = -21 }
-          { X = -28 Y = -8 }
-          { X = -25 Y = 13 }
-          { X = -2 Y = 18 }
-          { X = 22 Y = 12 }
-          { X = 29 Y = -1 }
-        ]
-      }
-    }
+	{
+		Name = "ShadeHubTChefIdle01"
+		InheritFrom = "1_BaseVulnerableObstacle"
+		CollisionAlphaOutDuration = 0.1
+		CollisionEndedAlphaInDuration = 3.0
+		DisplayInEditor = true
+		UseCollisionShift = false
+		Life = 
+		{
+			JumpTargetEligible = false
+			ProjectilesAlwaysPenetrate = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "ShadeHubTChefIdle"
+			StopsLight = false
+			Tallness = 292
+			Offset = { X = 0 Y = -42 }
+			Points =
+			[
+				{ X = 16 Y = -15 }
+				{ X = -10 Y = -21 }
+				{ X = -28 Y = -8 }
+				{ X = -25 Y = 13 }
+				{ X = -2 Y = 18 }
+				{ X = 22 Y = 12 }
+				{ X = 29 Y = -1 }
+			]
+		}
+	}
+	{
+		Name = "ShadeHubTChefIdle02"
+		InheritFrom = "ShadeHubTChefIdle01"
+		Thing = 
+		{
+			Graphic = "GhostChefIdle"
+			Scale = 1.4
+		}
+	}
 
-  {
+	{
       Name = "ShadeHubGuardIdle01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
@@ -7022,10 +7378,10 @@
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Tall"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeHubGuardIdle"
         StopsLight = false
@@ -7054,10 +7410,10 @@
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeHubIdle"
         StopsLight = false
@@ -7085,10 +7441,10 @@
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeHubBerriesIdle"
         StopsLight = false
@@ -7116,10 +7472,10 @@
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeHubBroomIdle"
         StopsLight = false
@@ -7147,10 +7503,10 @@
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeHubGarlicIdle"
         StopsLight = false
@@ -7178,10 +7534,10 @@
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeHubHatIdle"
         StopsLight = false
@@ -7209,10 +7565,10 @@
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeHubTowelIdle"
         StopsLight = false
@@ -7240,10 +7596,10 @@
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeHubWaterIdle"
         StopsLight = false
@@ -7276,7 +7632,66 @@
       }
     }
 
+    {
+      Name = "CritterRavenBlackFidget01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AttachedAnim = "ShadeShadow_Small"
+        EditorOutlineDrawBounds = false
+        Graphic = "CritterRavenBlackFidget"
+        StopsLight = false
+        StopsUnits = false
+        StopsProjectiles = false
+        Tallness = 32
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = 30 Y = 3 }
+          { X = 17 Y = -11 }
+          { X = -11 Y = -14 }
+          { X = -28 Y = 5 }
+          { X = -10 Y = 20 }
+          { X = 12 Y = 20 }
+        ]
+      }
+    }
 
+  {
+      Name = "CritterRavenBeigeFidget01"
+      InheritFrom = "CritterRavenBlackFidget01"
+      Thing = 
+      {
+        Graphic = "CritterRavenBeigeFidget"
+      }
+    }
+ 
+  {
+      Name = "CritterRavenBicolorFidget01"
+      InheritFrom = "CritterRavenBlackFidget01"
+      Thing = 
+      {
+        Graphic = "CritterRavenBicolorFidget"
+      }
+    }
+    
+    {
+      Name = "CritterRavenBrownFidget01"
+      InheritFrom = "CritterRavenBlackFidget01"
+      Thing = 
+      {
+        Graphic = "CritterRavenBrownFidget"
+      }
+    }
+
+    {
+      Name = "CritterRavenWhiteFidget01"
+      InheritFrom = "CritterRavenBlackFidget01"
+      Thing = 
+      {
+        Graphic = "CritterRavenWhiteFidget"
+      }
+    }
     
   ]
 }

@@ -26,7 +26,6 @@
       TextRed = 0.9
       TextGreen = 0.9
       TextBlue = 0.9
-      MaxCursorRadius = 1
       UseTextArea = true
     }
     CollapseButton = {
@@ -41,7 +40,6 @@
       TextRed = 0.9
       TextGreen = 0.9
       TextBlue = 0.9
-      MaxCursorRadius = 1
       UseTextArea = true
     }
     CancelButton = {

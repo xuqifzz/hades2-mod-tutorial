@@ -1,9 +1,12 @@
 { Animations = [
-
+	{
+		Name = "TimeElemental2"
+		GrannyModel = "TimeElementalChronos_Mesh"
+	}
 	{
 		Name = "EnemyTimeElementalBaseAnimation"
-
 		GrannyModel = "TimeElemental_Mesh"
+		ExtraGrannyAnimations = [{ Name = "TimeElemental2" }]
 		GrannyAnimationSpeed = 1.0
 		Scale = 1.0
 		Loop = false
@@ -104,6 +107,7 @@
 		CancelOnOwnerMove = true
 		AllowRestart = true
 		ChainTo = "Enemy_TimeElemental_Idle"
+		Sound = "/SFX/RockStoneImpact"
 		Frames =
 		[
 			{
@@ -201,6 +205,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "Enemy_TimeElemental_Idle"
+				Duration = 4
+			}
+			{
 				BlendTransitionFrom = "Enemy_TimeElemental_Attack"
 				Duration = 4
 			}
@@ -213,6 +221,7 @@
 			}
 			{
 				Frame = 10
+				FrameSpeed = 3
 				Sound = "/Leftovers/World Sounds/CaravanFallWhoosh"
 			}
 			{

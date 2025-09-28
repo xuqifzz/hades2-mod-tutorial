@@ -1376,7 +1376,7 @@
     
     {
       Name = "ElysiumPillar06"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1384,6 +1384,7 @@
         Graphic = "ElysiumPillar06A"
         Tallness = 1473.0
         Offset = { X = 0 Y = -623 }
+        SortBoundsScale = 1.2
         Points = [
           { X = -306 Y = -16 }
           { X = -172 Y = 94 }
@@ -2351,6 +2352,19 @@
     }
     
     {
+      Name = "ElysiumRug01a"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Elysium\Elysium_Rug_01a"
+        Tallness = 2759.0
+        Offset = { X = 0 Y = -31 }
+      }
+    }
+    
+    {
       Name = "ElysiumRug02"
       InheritFrom = "1_BaseDecalObstacle"
       DisplayInEditor = true
@@ -2358,6 +2372,19 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Elysium\Elysium_Rug_02"
+        Tallness = 2759.0
+        Offset = { X = 0 Y = -31 }
+      }
+    }
+    
+    {
+      Name = "ElysiumRug02a"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Elysium\Elysium_Rug_02a"
         Tallness = 2759.0
         Offset = { X = 0 Y = -31 }
       }
@@ -3443,37 +3470,8 @@
     }
     
     {
-      Name = "ArcherTrapBow"
-      InheritFrom = "1_BaseInvulnerablePassableObstacle"
-      DisplayInEditor = true
-      Life = 
-      {
-        DieOnCollision = true
-        Invulnerable = false
-      }
-      Thing = 
-      {
-        AttachedAnim = "LootShadowStatic"
-        DieOnTouchdown = true
-        EditorOutlineDrawBounds = false
-        Graphic = "WeaponBowFloatingIdle"
-        Grip = 3000.0
-        OffsetZ = 84.0
-        Tallness = 50.0
-        TouchdownSound = "/Leftovers/SFX/BallImpact"
-        Points = [
-          { X = 0 Y = 16 }
-          { X = 32 Y = 0 }
-          { X = 0 Y = -16 }
-          { X = -32 Y = 0 }
-        ]
-      }
-    }
-    
-    {
       Name = "ElysiumDestructiblePillar"
       InheritFrom = "1_BaseInvulnerableObstacle"
-      AllowStoppingImpacts = false
       DisplayInEditor = true
       Life = 
       {
@@ -3567,6 +3565,7 @@
       Name = "ElysiumRubble04"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      IgnoredByPathfinders = true
       Life = 
       {
         DieOnCollision = true
@@ -3598,10 +3597,13 @@
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+      IgnoredByPathfinders = true
       Life = 
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        TriggerOnHit = false
+        ConsiderInvulnerableForSilentImpact = true
       }
       Thing = 
       {
@@ -3618,6 +3620,12 @@
         ]
       }
     }
+    {
+      Name = "DieHardFanShade"
+      InheritFrom = "ElysiumGhost01"
+      CollisionAlphaOutDuration = 0.0
+      CollisionEndedAlphaInDuration = 0.0
+    }
     
     {
       Name = "ElysiumGhost01Shadowed"
@@ -3631,20 +3639,22 @@
     }
 
 {
-Name = "ShadeElysiumIdle01"
+    Name = "ShadeElysiumIdle01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+      IgnoredByPathfinders = true
       Life = 
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
+        TriggerOnHit = false
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeElysiumIdle"
         StopsLight = false

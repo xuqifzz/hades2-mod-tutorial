@@ -13,9 +13,18 @@
 		UsePromptOffsetY = 44,
 		DebugOnly = true,
 		GodLoot = true,
+
+		GoldConversionEligible = true,
+		ReplaceSpecialForGoldify = true,
+		GoldifyValue = 400,
+		
 		AnimOffsetZ = 80,
 		TextLinesIgnoreQuests = true,
 		OnUsedFunctionName = "UseLoot",
+		OnUsedFunctionArgs =
+		{
+			PreserveContextArt = true,
+		},
 		UseText = "UseLoot",
 		UseTextTalkAndGift = "UseLootAndGift",
 		UseTextTalkAndSpecial = "UseLootAndSpecial",
@@ -26,6 +35,7 @@
 		BanUnpickedBoonsEligible = true,
 		RequireUseToGift = true,
 
+		BackgroundAnimation = "DialogueBackground_Olympus_BoonScreen",
 		BoxAnimation = "DialogueSpeechBubbleLight",
 		BoxExitAnimation = "DialogueSpeechBubbleLightOut",
 		NarrativeTextColor = Color.DialogueTextLight,
@@ -34,6 +44,28 @@
 		NameplateDescriptionColor = {145, 45, 90, 255},
 		NarrativeContextArtFlippable = false,
 		BlockedLootInteractionText = "UseLootLocked",
+
+
+		DuoPickupTextLinesRequirements =
+		{
+			{
+				PathFalse = { "CurrentRun", "HadDuoConversation" },
+			},
+			{
+				PathFalse = { "CurrentRun", "ActiveBounty" },
+			},
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+				IsNone = { "DevotionTestF", "DevotionTestG", "DevotionTestH", "DevotionTestI", "DevotionTestN", "DevotionTestO", "DevotionTestP", },
+			},
+		},
+
+		BoughtTextLinesRequirements =
+		{
+			{
+				PathFalse = { "CurrentRun", "HadBoughtLootConversation" },
+			},
+		},
 	},
 
 	-- Pom of Power
@@ -46,11 +78,14 @@
 		CanReceiveGift = false,
 		PurchaseText = "Shop_UseStackUpgrade",
 		UseText = "UseStackUpgrade",
+		UseTextTalkAndSpecial = "UseStackUpgradeAndConsume",
 		BlockedLootInteractionText = "UseStackUpgradeLocked",
 		DebugOnly = true,
 		GodLoot = false,
 		Weight = 10,
-		Icon = "StackUpgradeSymbol",
+		Icon = "BoonSymbolPom",
+		DoorIcon = "StackUpgradePreview",
+		TradeIcon = "StackUpgradeTrade",
 		Color = { 255, 255, 255, 255 },
 		LightingColor = {255, 255, 255, 255},
 		LootColor = {255, 255, 255, 255},
@@ -59,9 +94,16 @@
 		MenuTitle = "StackUpgradeChoiceMenu_Title",
 		EchoLastRewardId = "EchoLastRewardBoon_StackUpgrade",
 		SpawnSound = "/SFX/PomegranatePowerUpDrop",
+		PortraitEnterSound = "/SFX/PomegranatePowerUpDrop",
 		UpgradeSelectedSound = "/SFX/PomUpgradeChoice",
+		PickupFunctionName = "StackUpgradePickupPresentation",
 		CanDuplicate = true,
 		BanUnpickedBoonsEligible = false,
+		UseNarrativeContextArt = true,
+
+		GoldConversionEligible = true,
+		ReplaceSpecialForGoldify = true,
+		GoldifyValue = 300,
 
 		FlavorTextIds =
 		{
@@ -117,8 +159,6 @@
 			},
 		},
 
-		PickupSound = "/SFX/PomegranatePowerUpPickup",
-
 		PickupVoiceLines =
 		{
 			RandomRemaining = true,
@@ -141,12 +181,14 @@
 		InheritFrom = { "StackUpgrade", },
 		DoorIcon = "StackUpgradeBigPreview",
 		StackNum = 2,
+		GoldifyValue = 400,
 	},
 	StackUpgradeTriple =
 	{
 		InheritFrom = { "StackUpgrade", },
 		DoorIcon = "StackUpgradeTriplePreview",
 		StackNum = 3,
+		GoldifyValue = 500,
 	},	
 
 	-- Daedalus Hammer
@@ -154,26 +196,37 @@
 	{
 		InheritFrom = { "BaseLoot", "BaseSoundPackage" },
 		-- GameStateRequirements handled in RunProgress table
+		BackgroundAnimation = "HammerScreen_In",
 		GodLoot = false,
 		CanReceiveGift = false,
 		ForceCommon = true,
 		UseText = "UseWeaponUpgrade",
+		UseTextTalkAndSpecial = "UseWeaponUpgradeAndConsume",
 		BlockedLootInteractionText = "UseWeaponUpgradeLocked",
 		PurchaseText = "Shop_UseWeaponUpgrade",
 		DebugOnly = true,
 		Weight = 10,
-		Icon = "WeaponUpgradeSymbol",
-		Color = { 255, 255, 255, 255 },
-		LightingColor = {255, 255, 255, 255},
+		Icon = "BoonSymbolHammer",
+		TradeIcon = "WeaponUpgradeTrade",
+		DoorIcon = "WeaponUpgradePreview",
+		BackgroundColor = { 255, 78, 0, 65 },
+		Color = { 266, 125, 223, 255 },
+		LightingColor = { 29, 84, 175, 255 },
 		LootColor = {255, 255, 255, 255},
 		BoonGetColor = {255, 100, 0, 255},
 		MenuTitle = "WeaponUpgradeChoiceMenu_Title",
 		EchoLastRewardId = "EchoLastRewardBoon_WeaponUpgrade",
+		SurfaceShopText = "WeaponUpgradeDrop_Store",
+		SurfaceShopIcon = "WeaponUpgradeShop",
 		SpawnSound = "/SFX/WeaponUpgradeHammerDrop2",
 		ConfirmSound = "/SFX/WeaponUpgradeHammerPickup",
+		PortraitEnterSound = "/SFX/WeaponUpgradeHammerDrop",
 		UpgradeSelectedSound = "/SFX/HammerBoonChoice",
 		BoonInfoTitleText = "Codex_BoonInfo_Title_Hammer",
 		BanUnpickedBoonsEligible = false,
+		--PickupSound = "/SFX/WeaponUpgradeHammerDrop",
+		GoldConversionEligible = true,
+		GoldifyValue = 500,
 
 		FlavorTextIds =
 		{
@@ -198,6 +251,11 @@
 			"StaffSecondStageTrait",
 			"StaffPowershotTrait",
 			"StaffOneWayAttackTrait",
+			-- Aspect Hammers
+			"StaffRaiseDeadBigTrait",
+			"StaffRaiseDeadDoubleTrait",
+			"StaffLoneShadeRespawnTrait",
+			"StaffLoneShadeRallyTrait",
 
 			"DaggerBlinkAoETrait",
 			"DaggerSpecialJumpTrait",
@@ -211,6 +269,10 @@
 			"DaggerFinalHitTrait",
 			"DaggerChargeStageSkipTrait",
 			"DaggerDashAttackTripleTrait",
+			-- Aspect Hammers
+			"DaggerTripleBuffTrait",
+			"DaggerTripleRepeatWomboTrait",
+			"DaggerTripleHomingSpecialTrait",
 
 			"AxeSpinSpeedTrait",
 			"AxeChargedSpecialTrait",
@@ -224,6 +286,9 @@
 			"AxeSecondStageTrait",
 			"AxeDashAttackTrait",
 			"AxeSturdyTrait",
+			-- Aspect Hammers
+			"AxeRallyFrenzyTrait",
+			"AxeRallyFirstStrikeTrait",
 
 			"TorchExSpecialCountTrait",
 			"TorchSpecialSpeedTrait",
@@ -237,6 +302,8 @@
 			"TorchLongevityTrait",
 			"TorchOrbitPointTrait",
 			"TorchSpinAttackTrait",
+			-- Aspect Hammers
+			"TorchAutofireSprintTrait",
 
 			"LobAmmoTrait",
 			"LobAmmoMagnetismTrait",
@@ -250,6 +317,12 @@
 			"LobPulseAmmoTrait",
 			"LobPulseAmmoCollectTrait",
 			"LobGrowthTrait",
+			-- Aspect Hammers
+			"LobGunOverheatTrait",
+			"LobGunBounceTrait",
+			"LobGunSpecialBounceTrait",
+			"LobGunAttackRangeTrait",
+			"LobGunAttackDoublerTrait",
 
 			"SuitArmorTrait",
 			"SuitAttackSpeedTrait",
@@ -263,6 +336,12 @@
 			"SuitSpecialBlockTrait",
 			"SuitSpecialDiscountTrait",
 			"SuitSpecialConsecutiveHitTrait",
+			-- Aspect Hammers
+			"SuitComboForwardRocketTrait",
+			"SuitComboBlockBuffTrait",
+			"SuitComboDoubleSpecialTrait",
+			"SuitComboDashAttackTrait",
+			"SuitPowershotTrait",
 		},
 		Consumables = {},
 
@@ -305,7 +384,6 @@
 
 		},
 
-		PickupSound = "/SFX/WeaponUpgradeHammerDrop",
 
 		PickupVoiceLines =
 		{
@@ -326,6 +404,7 @@
 				RandomRemaining = true,
 				PreLineWait = 1.05,
 				SuccessiveChanceToPlayAll = 0.33,
+				UsePlayerSource = true,
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
@@ -349,11 +428,16 @@
 				{ Cue = "/VO/MelinoeField_0651", Text = "Fine work as always." },
 
 				{ Cue = "/VO/MelinoeField_2579", Text = "I'm grateful, Icarus.",
+					PlayOnceThisRun = true,
 					GameStateRequirements =
 					{
 						{
 							PathTrue = { "GameState", "TextLinesRecord", "IcarusAboutDaedalus02"}
-						}
+						},
+						{
+							FunctionName = "RequiredAlive",
+							FunctionArgs = { Units = { "NPC_Icarus_01" }, Alive = false },
+						},
 					}
 				},
 				{ Cue = "/VO/MelinoeField_2580", Text = "You out there, Icarus?",
@@ -361,15 +445,23 @@
 					{
 						{
 							PathTrue = { "GameState", "TextLinesRecord", "IcarusAboutDaedalus02"}
-						}
+						},
+						{
+							PathTrue = { "CurrentRun", "BiomesReached", "N" },
+						},
+						{
+							FunctionName = "RequiredAlive",
+							FunctionArgs = { Units = { "NPC_Icarus_01" }, Alive = false },
+						},
 					}
 				},
 				{ Cue = "/VO/MelinoeField_2581", Text = "Cheers, Icarus...",
+					PlayOnceThisRun = true,
 					GameStateRequirements =
 					{
 						{
 							PathTrue = { "GameState", "TextLinesRecord", "IcarusAboutDaedalus02"}
-						}
+						},
 					}
 				},
 				{ Cue = "/VO/MelinoeField_2582", Text = "The work of Icarus apparently...!",
@@ -377,10 +469,9 @@
 					{
 						{
 							PathTrue = { "GameState", "TextLinesRecord", "IcarusAboutDaedalus02"}
-						}
+						},
 					}
 				},
-
 				{ Cue = "/VO/Melinoe_1981", Text = "Descura grows in strength.",
 					GameStateRequirements =
 					{
@@ -589,62 +680,6 @@
 
 		},
 	},
-
-	ManaUpgrade = 
-	{
-		InheritFrom = { "BaseLoot", "BaseSoundPackage" },
-		-- GameStateRequirements handled in RunProgress table
-		UsePromptOffsetX = 80,
-		UsePromptOffsetY = 48,
-		CanReceiveGift = false,
-		PurchaseText = "Shop_UseManaUpgrade",
-		UseText = "UseManaUpgrade",
-		BlockedLootInteractionText = "UseManaUpgradeLocked",
-		DebugOnly = true,
-		GodLoot = false,
-		Weight = 10,
-		Icon = "ManaUpgradePreview",
-		Color = { 255, 255, 255, 255 },
-		LightingColor = {255, 255, 255, 255},
-		LootColor = {255, 255, 255, 255},
-		BoonGetColor = {255, 0, 20, 255},
-		MenuTitle = "ManaUpgradeChoiceMenu_Title",
-		SpawnSound = "/Leftovers/SFX/FieldReviveSFX",
-		UpgradeSelectedSound = "/Leftovers/SFX/WyrmCastAttack",
-		BanUnpickedBoonsEligible = false,
-
-		FlavorTextIds =
-		{
-			"ManaUpgrade_FlavorText01",
-			"ManaUpgrade_FlavorText02",
-			"ManaUpgrade_FlavorText03",
-		},
-
-		OnSpawnVoiceLines =
-		{
-		},
-
-		PickupSound = "/SFX/PomegranatePowerUpPickup",
-		PickupFunctionName = "ManaUpgradeInteractPresentation",
-		PickupGlobalVoiceLines = "ManaDropUsedVoiceLines",
-
-		Traits = { 
-					"ManaOnCastTrait", 
-					"ManaOverTimeTrait", 
-					--"IdleManaOverTimeTrait", 
-					"ManaOnPrimaryTrait", 
-					"ManaOnSecondaryTrait", 
-					--"ManaDropOnKillTrait", 
-					"ManaBonusTrait", 
-					--"RevengeManaTrait" 
-				},
-	},
-
-	SeleneWeaponUpgrade = 
-	{
-		InheritFrom = { "WeaponUpgrade" },
-		DebugOnly = true,
-	},
 }
 
 OverwriteTableKeys( LootData, LootSetData.Loot )
@@ -662,11 +697,15 @@ GlobalVoiceLines.GenericLootGrantedVoiceLines =
 	{
 		{
 			Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-			IsNone = { "MiniBossTreant", "Shop", "ArtemisCombatIntro", "ArtemisCombatF", "ArtemisCombatG", "ArtemisCombatN", "HeraclesCombatN" },
+			IsNone = { "MiniBossTreant", "Shop", "ArtemisCombatIntro", "ArtemisCombatF", "ArtemisCombatG", "ArtemisCombatN", "HeraclesCombatN", "HealthRestore" },
 		},
 		{
 			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
 			IsNone = { "Secrets", "H" },
+		},
+		{
+			Path = { "CurrentRun", "Hero", "TraitDictionary" },
+			HasNone = { "SurfacePenalty" },
 		},
 		{
 			FunctionName = "RequiredRewardTypeInRoom",
@@ -680,7 +719,7 @@ GlobalVoiceLines.GenericLootGrantedVoiceLines =
 
 	{ Cue = "/VO/Melinoe_1465", Text = "Message for me..." },
 	{ Cue = "/VO/Melinoe_1467", Text = "A Boon..." },
-	{ Cue = "/VO/Melinoe_0181", Text = "Olympus calls..." },
+	{ Cue = "/VO/Melinoe_0181", Text = "Olympus calls...", PlayFirst = true },
 	{ Cue = "/VO/Melinoe_1466", Text = "They got through..." },
 	{ Cue = "/VO/Melinoe_0182", Text = "Olympus..." },
 	{ Cue = "/VO/Melinoe_0230", Text = "Olympus..." },
@@ -701,7 +740,7 @@ GlobalVoiceLines.MiscRewardGrantedVoiceLines =
 		{
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Name", },
-				IsNone = { "F_Opening01", "F_Opening02", "F_Opening03", "N_Opening01", "F_Reprieve01", "G_Reprieve01", "I_Reprieve01" },
+				IsNone = { "F_Opening01", "F_Opening02", "F_Opening03", "N_Opening01", "F_Reprieve01", "G_Reprieve01", "I_Reprieve01", "I_Boss01", "O_Reprieve01", "P_Reprieve01", "Q_Boss01", "Q_Boss02" },
 			},
 			{
 				Path = { "CurrentRun", "CurrentRoom", "RoomSetName", },
@@ -710,6 +749,10 @@ GlobalVoiceLines.MiscRewardGrantedVoiceLines =
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
 				IsNone = { "Shop", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasNone = { "SurfacePenalty" },
 			},
 			{
 				FunctionName = "RequiredAlive",
@@ -722,9 +765,15 @@ GlobalVoiceLines.MiscRewardGrantedVoiceLines =
 		},
 	
 		{ Cue = "/VO/Melinoe_0184", Text = "{#Emph}Ah." },
+		{ Cue = "/VO/Melinoe_4348", Text = "{#Emph}Ah." },
 		{ Cue = "/VO/Melinoe_0185", Text = "There." },
+		{ Cue = "/VO/Melinoe_4349", Text = "There." },
 		{ Cue = "/VO/Melinoe_0186", Text = "For me..." },
+		{ Cue = "/VO/Melinoe_4350", Text = "For me?" },
 		{ Cue = "/VO/Melinoe_0187", Text = "A gift..." },
+		{ Cue = "/VO/Melinoe_4345", Text = "My claim." },
+		{ Cue = "/VO/Melinoe_4346", Text = "There it is." },
+		{ Cue = "/VO/Melinoe_4347", Text = "{#Emph}Mm." },
 	},
 }
 
@@ -854,15 +903,43 @@ RewardStoreData =
 		},
 		{
 			Name = "AirBoost",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "WorldUpgrades" },
+					HasAll = { "WorldUpgradeElementalBoons" }
+				},
+			}
 		},
 		{
 			Name = "EarthBoost",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "WorldUpgrades" },
+					HasAll = { "WorldUpgradeElementalBoons" }
+				},
+			}
 		},
 		{
 			Name = "FireBoost",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "WorldUpgrades" },
+					HasAll = { "WorldUpgradeElementalBoons" }
+				},
+			}
 		},
 		{
 			Name = "WaterBoost",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "WorldUpgrades" },
+					HasAll = { "WorldUpgradeElementalBoons" }
+				},
+			}
 		},
 		{
 			Name = "GiftDrop",
@@ -878,12 +955,6 @@ RewardStoreData =
 		},
 		{
 			Name = "MetaCardPointsCommonDrop",
-		},
-		{
-			Name = "MemPointsCommonDrop",
-		},
-		{
-			Name = "MemPointsCommonDrop",
 		},
 
 		-- normal size rewards for bigger subroom encounters
@@ -987,9 +1058,9 @@ RewardStoreData =
 			},
 		},
 	},
-
 	MetaProgress =
 	{
+		-- Nectar
 		{
 			Name = "GiftDrop",
 			GameStateRequirements =
@@ -998,45 +1069,71 @@ RewardStoreData =
 			},
 		},
 
+		-- Bones
 		{
 			Name = "MetaCurrencyDrop",
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
-					Comparison = ">=",
-					Value = 10,
-				},
-				{
 					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
 					Comparison = ">=",
-					Value = 15,
+					Value = 5,
 				},
 				{
 					Path = { "CurrentRun", "ClearedBiomes" },
 					Comparison = "<=",
-					Value = 2,
+					Value = 1,
 				},
 			},
-		},
+		}, 
 		{
 			Name = "MetaCurrencyDrop",
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
-					Comparison = ">=",
-					Value = 10,
-				},
-				{
 					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
 					Comparison = ">=",
-					Value = 15,
+					Value = 5,
 				},
 				{
 					Path = { "CurrentRun", "ClearedBiomes" },
 					Comparison = "<=",
-					Value = 2,
+					Value = 1,
+				},
+			},
+		},
+
+		{
+			Name = "MetaCurrencyDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 5,
+				},
+				OrRequirements =
+				{
+					{
+
+						{
+							Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+							Comparison = "<",
+							Value = 500,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+							Comparison = "<",
+							Value = 100,
+						},
+					},
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
 				},
 			},
 		},
@@ -1045,50 +1142,32 @@ RewardStoreData =
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
-					Comparison = ">=",
-					Value = 10,
-				},
-				{
 					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
 					Comparison = ">=",
-					Value = 15,
+					Value = 5,
 				},
+				OrRequirements =
 				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
-					Comparison = "<",
-					Value = 500,
+					{
+
+						{
+							Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+							Comparison = "<",
+							Value = 500,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+							Comparison = "<",
+							Value = 100,
+						},
+					},
 				},
 				{
 					Path = { "CurrentRun", "ClearedBiomes" },
 					Comparison = ">",
-					Value = 2,
-				},
-			},
-		},
-		{
-			Name = "MetaCurrencyDrop",
-			GameStateRequirements =
-			{
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
-					Comparison = ">=",
-					Value = 10,
-				},
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = ">=",
-					Value = 15,
-				},
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
-					Comparison = "<",
-					Value = 500,
-				},
-				{
-					Path = { "CurrentRun", "ClearedBiomes" },
-					Comparison = ">",
-					Value = 2,
+					Value = 1,
 				},
 			},
 		},
@@ -1097,14 +1176,9 @@ RewardStoreData =
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
-					Comparison = ">=",
-					Value = 10,
-				},
-				{
 					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
 					Comparison = ">=",
-					Value = 15,
+					Value = 5,
 				},
 				{
 					Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
@@ -1112,9 +1186,14 @@ RewardStoreData =
 					Value = 500,
 				},
 				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 100,
+				},
+				{
 					Path = { "CurrentRun", "ClearedBiomes" },
 					Comparison = ">",
-					Value = 2,
+					Value = 1,
 				},
 			},
 		},
@@ -1123,14 +1202,9 @@ RewardStoreData =
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
-					Comparison = ">=",
-					Value = 10,
-				},
-				{
 					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
 					Comparison = ">=",
-					Value = 15,
+					Value = 5,
 				},
 				{
 					Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
@@ -1138,9 +1212,14 @@ RewardStoreData =
 					Value = 500,
 				},
 				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 100,
+				},
+				{
 					Path = { "CurrentRun", "ClearedBiomes" },
 					Comparison = ">",
-					Value = 2,
+					Value = 1,
 				},
 			},
 		},
@@ -1200,10 +1279,23 @@ RewardStoreData =
 					Comparison = ">",
 					Value = 1,
 				},
+				OrRequirements =
 				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = "<",
-					Value = 100,
+					{
+
+						{
+							Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+							Comparison = "<",
+							Value = 500,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+							Comparison = "<",
+							Value = 100,
+						},
+					},
 				},
 			},
 		},
@@ -1216,10 +1308,23 @@ RewardStoreData =
 					Comparison = ">",
 					Value = 1,
 				},
+				OrRequirements =
 				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = "<",
-					Value = 100,
+					{
+
+						{
+							Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+							Comparison = "<",
+							Value = 500,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+							Comparison = "<",
+							Value = 100,
+						},
+					},
 				},
 			},
 		},
@@ -1232,10 +1337,23 @@ RewardStoreData =
 					Comparison = ">",
 					Value = 1,
 				},
+				OrRequirements =
 				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = "<",
-					Value = 100,
+					{
+
+						{
+							Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+							Comparison = "<",
+							Value = 500,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+							Comparison = "<",
+							Value = 100,
+						},
+					},
 				},
 			},
 		},
@@ -1248,310 +1366,107 @@ RewardStoreData =
 					Comparison = ">",
 					Value = 1,
 				},
+				OrRequirements =
 				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = "<",
-					Value = 100,
-				},
-			},
-		},
-		{
-			Name = "MetaCardPointsCommonBigDrop",
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ClearedBiomes" },
-					Comparison = ">",
-					Value = 1,
-				},
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = ">=",
-					Value = 100,
-				},
-			},
-		},
-		{
-			Name = "MetaCardPointsCommonBigDrop",
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ClearedBiomes" },
-					Comparison = ">",
-					Value = 1,
-				},
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = ">=",
-					Value = 100,
-				},
-			},
-		},
-		{
-			Name = "MetaCardPointsCommonBigDrop",
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ClearedBiomes" },
-					Comparison = ">",
-					Value = 1,
-				},
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = ">=",
-					Value = 100,
-				},
-			},
-		},
-		{
-			Name = "MetaCardPointsCommonBigDrop",
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "ClearedBiomes" },
-					Comparison = ">",
-					Value = 1,
-				},
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = ">=",
-					Value = 100,
-				},
-			},
-		},
+					{
 
-		-- Psyche
-		{
-			Name = "MemPointsCommonDrop",
-			GameStateRequirements =
-			{
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = ">=",
-					Value = 5,
-				},
-				{
-					Path = { "CurrentRun", "ClearedBiomes" },
-					Comparison = "<=",
-					Value = 1,
-				},
-			},
-		},
-		{
-			Name = "MemPointsCommonDrop",
-			GameStateRequirements =
-			{
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = ">=",
-					Value = 5,
-				},
-				{
-					Path = { "CurrentRun", "ClearedBiomes" },
-					Comparison = "<=",
-					Value = 1,
+						{
+							Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+							Comparison = "<",
+							Value = 500,
+						},
+					},
+					{
+						{
+							Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+							Comparison = "<",
+							Value = 100,
+						},
+					},
 				},
 			},
 		},
 		{
-			Name = "MemPointsCommonDrop",
+			Name = "MetaCardPointsCommonBigDrop",
 			GameStateRequirements =
 			{
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = ">=",
-					Value = 5,
-				},
-				{
-					Path = { "CurrentRun", "ClearedBiomes" },
-					Comparison = "<=",
-					Value = 1,
-				},
-			},
-		},
-		{
-			Name = "MemPointsCommonDrop",
-			GameStateRequirements =
-			{
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = ">=",
-					Value = 5,
-				},
-				{
-					Path = { "CurrentRun", "ClearedBiomes" },
-					Comparison = "<=",
-					Value = 1,
-				},
-			},
-		},
-
-		{
-			Name = "MemPointsCommonDrop",
-			GameStateRequirements =
-			{
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = ">=",
-					Value = 5,
-				},
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
-					Comparison = "<",
-					Value = 200,
-				},
 				{
 					Path = { "CurrentRun", "ClearedBiomes" },
 					Comparison = ">",
 					Value = 1,
 				},
-			},
-		},
-		{
-			Name = "MemPointsCommonDrop",
-			GameStateRequirements =
-			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+					Comparison = ">=",
+					Value = 500,
+				},
 				{
 					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
 					Comparison = ">=",
-					Value = 5,
+					Value = 100,
 				},
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
-					Comparison = "<",
-					Value = 200,
-				},
+			},
+		},
+		{
+			Name = "MetaCardPointsCommonBigDrop",
+			GameStateRequirements =
+			{
 				{
 					Path = { "CurrentRun", "ClearedBiomes" },
 					Comparison = ">",
 					Value = 1,
 				},
-			},
-		},
-		{
-			Name = "MemPointsCommonDrop",
-			GameStateRequirements =
-			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+					Comparison = ">=",
+					Value = 500,
+				},
 				{
 					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
 					Comparison = ">=",
-					Value = 5,
+					Value = 100,
 				},
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
-					Comparison = "<",
-					Value = 200,
-				},
+			},
+		},
+		{
+			Name = "MetaCardPointsCommonBigDrop",
+			GameStateRequirements =
+			{
 				{
 					Path = { "CurrentRun", "ClearedBiomes" },
 					Comparison = ">",
 					Value = 1,
 				},
-			},
-		},
-		{
-			Name = "MemPointsCommonDrop",
-			GameStateRequirements =
-			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+					Comparison = ">=",
+					Value = 500,
+				},
 				{
 					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
 					Comparison = ">=",
-					Value = 5,
+					Value = 100,
 				},
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
-					Comparison = "<",
-					Value = 200,
-				},
+			},
+		},
+		{
+			Name = "MetaCardPointsCommonBigDrop",
+			GameStateRequirements =
+			{
 				{
 					Path = { "CurrentRun", "ClearedBiomes" },
 					Comparison = ">",
 					Value = 1,
 				},
-			},
-		},
-
-		{
-			Name = "MemPointsCommonBigDrop",
-			GameStateRequirements =
-			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+					Comparison = ">=",
+					Value = 500,
+				},
 				{
 					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
 					Comparison = ">=",
-					Value = 5,
-				},
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
-					Comparison = ">=",
-					Value = 200,
-				},
-				{
-					Path = { "CurrentRun", "ClearedBiomes" },
-					Comparison = ">",
-					Value = 1,
-				},
-			},
-		},
-		{
-			Name = "MemPointsCommonBigDrop",
-			GameStateRequirements =
-			{
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = ">=",
-					Value = 5,
-				},
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
-					Comparison = ">=",
-					Value = 200,
-				},
-				{
-					Path = { "CurrentRun", "ClearedBiomes" },
-					Comparison = ">",
-					Value = 1,
-				},
-			},
-		},
-		{
-			Name = "MemPointsCommonBigDrop",
-			GameStateRequirements =
-			{
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = ">=",
-					Value = 5,
-				},
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
-					Comparison = ">=",
-					Value = 200,
-				},
-				{
-					Path = { "CurrentRun", "ClearedBiomes" },
-					Comparison = ">",
-					Value = 1,
-				},
-			},
-		},
-		{
-			Name = "MemPointsCommonBigDrop",
-			GameStateRequirements =
-			{
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = ">=",
-					Value = 5,
-				},
-				{
-					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
-					Comparison = ">=",
-					Value = 200,
-				},
-				{
-					Path = { "CurrentRun", "ClearedBiomes" },
-					Comparison = ">",
-					Value = 1,
+					Value = 100,
 				},
 			},
 		},
@@ -1563,23 +1478,12 @@ RewardStoreData =
 		-- General
 		{
 			Name = "MaxHealthDrop",
-			GameStateRequirements =
-			{
-				{
-					Path = { "CurrentRun", "Hero", "TraitDictionary" },
-					HasNone = { "GoodStuffBoon" },
-				},
-			},
 		},
 		{
 			Name = "MaxHealthDrop",
 			GameStateRequirements =
 			{
 				{
-					Path = { "CurrentRun", "Hero", "TraitDictionary" },
-					HasNone = { "GoodStuffBoon" },
-				},
-				{
 					Path = { "CurrentRun", "LootTypeHistory" },
 					CountOf =
 					{
@@ -1591,6 +1495,7 @@ RewardStoreData =
 						"HeraUpgrade",
 						"PoseidonUpgrade",
 						"ZeusUpgrade",
+						"AresUpgrade",
 					},
 					Comparison = ">=",
 					Value = 1,
@@ -1601,20 +1506,12 @@ RewardStoreData =
 			Name = "MaxManaDrop",
 			GameStateRequirements =
 			{
-				{
-					Path = { "CurrentRun", "Hero", "TraitDictionary" },
-					HasNone = { "GoodStuffBoon" },
-				},
 			},
 		},
 		{
 			Name = "MaxManaDrop",
 			GameStateRequirements =
 			{
-				{
-					Path = { "CurrentRun", "Hero", "TraitDictionary" },
-					HasNone = { "GoodStuffBoon" },
-				},
 				{
 					Path = { "CurrentRun", "LootTypeHistory" },
 					CountOf =
@@ -1627,6 +1524,7 @@ RewardStoreData =
 						"HeraUpgrade",
 						"PoseidonUpgrade",
 						"ZeusUpgrade",
+						"AresUpgrade",
 					},
 					Comparison = ">=",
 					Value = 1,
@@ -1637,20 +1535,12 @@ RewardStoreData =
 			Name = "RoomMoneyDrop",
 			GameStateRequirements =
 			{
-				{
-					Path = { "CurrentRun", "Hero", "TraitDictionary" },
-					HasNone = { "GoodStuffBoon" },
-				},
 			},
 		},
 		{
 			Name = "RoomMoneyDrop",
 			GameStateRequirements =
 			{
-				{
-					Path = { "CurrentRun", "Hero", "TraitDictionary" },
-					HasNone = { "GoodStuffBoon" },
-				},
 				{
 					Path = { "CurrentRun", "LootTypeHistory" },
 					CountOf =
@@ -1663,6 +1553,7 @@ RewardStoreData =
 						"HeraUpgrade",
 						"PoseidonUpgrade",
 						"ZeusUpgrade",
+						"AresUpgrade",
 					},
 					Comparison = ">=",
 					Value = 1,
@@ -1693,6 +1584,7 @@ RewardStoreData =
 						"HeraUpgrade",
 						"PoseidonUpgrade",
 						"ZeusUpgrade",
+						"AresUpgrade",
 					},
 					Comparison = ">=",
 					Value = 1,
@@ -1822,6 +1714,75 @@ RewardStoreData =
 		},
 	},
 
+	MinorRunProgress =
+	{
+		{
+			Name = "MaxManaDropSmall",
+		},
+		{
+			Name = "MaxManaDropSmall",
+		},
+		{
+			Name = "MaxManaDropSmall",
+		},
+		{
+			Name = "MaxHealthDropSmall",
+		},
+		{
+			Name = "MaxHealthDropSmall",
+		},
+		{
+			Name = "MaxHealthDropSmall",
+		},
+		{
+			Name = "EmptyMaxHealthSmallDrop",
+		},
+		{
+			Name = "EmptyMaxHealthSmallDrop",
+		},
+		{
+			Name = "MinorTalentDrop",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "TalentLegal", },
+			},
+		},
+		{
+			Name = "MinorTalentDrop",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "TalentLegal", },
+			},
+		},
+		{
+			Name = "StoreRewardRandomStack",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "StackUpgradeLegal", },
+			},
+		},
+		{
+			Name = "ElementalBoost",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeElementalBoons", },
+				},
+			},
+		},
+		{
+			Name = "ArmorBoost",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "RoomCountCache", "F_Story01" },
+					Comparison = ">=",
+					Value = 3,
+				},
+			},
+		},
+	},
+
 	FieldsCombatRewards =
 	{
 
@@ -1891,18 +1852,6 @@ RewardStoreData =
 			Name = "MetaCardPointsCommonDrop",
 		},
 		{
-			Name = "MemPointsCommonDrop",
-		},
-		{
-			Name = "MemPointsCommonDrop",
-		},
-		{
-			Name = "MemPointsCommonDrop",
-		},
-		{
-			Name = "MemPointsCommonDrop",
-		},
-		{
 			Name = "MinorTalentDrop",
 			GameStateRequirements =
 			{
@@ -1926,7 +1875,6 @@ RewardStoreData =
 			Name = "RoomMoneyTripleDrop",
 			GameStateRequirements =
 			{
-				-- None
 			},
 		},
 		{
@@ -1987,10 +1935,10 @@ RewardStoreData =
 			}
 		},
 		{
-			Name = "SpellDrop",
+			Name = "TalentBigDrop",
 			GameStateRequirements =
 			{
-				NamedRequirements = { "SpellDropRequirements", },
+				NamedRequirements = { "TalentLegal", },
 			},
 		},
 		{
@@ -2019,4 +1967,83 @@ RewardStoreData =
 		},
 	},
 
+	TyphonBossRewards =
+	{
+		{
+			Name = "Boon",
+			AllowDuplicates = true,
+			GameStateRequirements =
+			{
+				-- None
+			},
+		},
+		{
+			Name = "Boon",
+			AllowDuplicates = true,
+			GameStateRequirements =
+			{
+				-- None
+			},
+		},
+		{
+			Name = "TalentBigDrop",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "TalentLegal", },
+			},
+		},
+		{
+			Name = "StackUpgradeTriple",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "StackUpgradeLegal", },
+			},
+		},
+		{
+			Name = "WeaponUpgrade",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "HammerLootRequirements" },
+			}
+		},
+		{
+			Name = "WeaponUpgrade",
+			GameStateRequirements =
+			{
+				NamedRequirements = { "LateHammerLootRequirements" },
+			}
+		},
+	},
+
+}
+
+MetaRewardStandData =
+{
+	WeightedOptions =
+	{
+		{
+			Name = "CardUpgradePoints",
+			Animation = "CardUpgradePointsDrop",
+			Amount = 1,
+			Weight = 1,
+		},
+		{
+			Name = "WeaponPointsRare",
+			Animation = "WeaponPointsRareDrop",
+			Amount = 1,
+			Weight = 1,
+		},
+		{
+			Name = "Mixer5Common",
+			Animation = "Mixer5CommonDrop",
+			Amount = 1,
+			Weight = 1,
+		},
+		{
+			Name = "FamiliarPoints",
+			Animation = "FamiliarPointsDrop",
+			Amount = 1,
+			Weight = 1,
+		},
+	},
 }

@@ -8,8 +8,10 @@ OverwriteTableKeys( EncounterData,
 		SpawnAggroed = true,
 		
 		CanEncounterSkip = false,
+		BlockAthenaEncounterKeepsake = true,
 
 		ExitsDontRequireCompleted = true,
+		NextRoomResumeMusic = true, -- In case the player leaves before the music resumes
 		UnthreadedEvents = EncounterSets.EncounterEventsTimeChallenge,
 
 		SpawnIntervalMin = 0.175,
@@ -105,6 +107,7 @@ OverwriteTableKeys( EncounterData,
 	TimeChallengeO =
 	{
 		InheritFrom = { "TimeChallenge", "GeneratedO" },
+		DelayedStart = false,
 		BaseDifficulty = 300,
 	},
 
@@ -112,5 +115,11 @@ OverwriteTableKeys( EncounterData,
 	{
 		InheritFrom = { "TimeChallenge", "GeneratedP" },
 		BaseDifficulty = 400,
+	},
+
+	TimeChallengeQ =
+	{
+		InheritFrom = { "TimeChallenge", "GeneratedQ" },
+		BaseDifficulty = 180,
 	},
 })

@@ -55,13 +55,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Radiator/EmoteAttacking" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.04, Fraction = 0.05, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.00, LerpTime = 0.04 },
-		},
 	},
 
 	RadiatorMelee360_Elite =
@@ -85,8 +78,8 @@ WeaponSetData =
 			ImmuneToProjectileSlow = true,
 
 			MoveToRandomSpawnPoint = true,
-			MoveToSpawnPointDistanceMin = 200,
-			MoveToSpawnPointDistanceMax = 600,
+			MoveToSpawnPointDistanceMin = 300,
+			MoveToSpawnPointDistanceMax = 610,
 			MoveToSpawnPointType = "EnemyPoint",
 
 			PreAttackDuration = 1.5,
@@ -102,49 +95,22 @@ WeaponSetData =
 		},
 	},
 
-	RadiatorExplode =
+
+	RadiatorMelee360_AutoFire_Seek =
 	{
+		InheritFrom = { "RadiatorMelee360_AutoFire" },
 		AIData =
 		{
 			DeepInheritance = true,
+			
+			MoveSuccessDistance = 130,
+			MoveWithinRangeTimeout = 2.5,
+			AttackDistance = 430,
 
-			ProjectileName = "RadiatorMelee360",
-			ImmuneToProjectileSlow = true,
+			TargetSpawnPoints = false,
+			TargetSpawnPointsNearSelf = false,
+			MoveToRandomSpawnPoint = false,
 
-			PreAttackDuration = 0.4,
-			FireDuration = 1.6,
-			PostAttackDuration = 0.5,
-			--PreAttackEndShake = true,
-			PreAttackStop = false,
-			StopMoveWithinRange = false,
-
-			AttackDistance = 600,
-
-			FireSelfUpwardVelocity = 1300,
-			FireSelfVelocity = 600,
-
-			PreAttackAnimation = "Enemy_Radiator_360PreAttack",
-			FireAnimation = "Enemy_Radiator_360Fire",
-			PostAttackAnimation = "Enemy_Radiator_360ReturnToIdle",
-
-			FireFx = "EnemyAttackSparkle",
-			FireFxOffset = 50,
-		},
-
-		Sounds =
-		{
-			FireSounds =
-			{
-				{ Name = "/SFX/Enemy Sounds/Radiator/EmoteAttacking" },
-				{ Name = "/SFX/Enemy Sounds/HeavyRangedSplitterMiniboss/CrystalBeamFireStartBIG" },
-			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.04, Fraction = 0.05, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.00, LerpTime = 0.04 },
 		},
 	},
 }

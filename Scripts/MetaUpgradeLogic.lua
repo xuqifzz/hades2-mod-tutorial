@@ -50,11 +50,24 @@ function GetMetaUpgradeLevel( metaUpgradeName )
 	return 1
 end
 
+function HasAffordableMetaUpgradeUpgrade()
+	local count = 0
+	for metaUpgradeName, data in pairs( GameState.MetaUpgradeState ) do
+		if not MetaUpgradeCardData[metaUpgradeName].DebugOnly and data.Unlocked and not MetaUpgradeAtMaxLevel( metaUpgradeName ) and CanUpgradeMetaUpgrade( metaUpgradeName ) then
+			if HasResources(MetaUpgradeCardData[metaUpgradeName].UpgradeResourceCost[GetMetaUpgradeLevel( metaUpgradeName )]) then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 function EquipPreRunMetaUpgrades( eventSource, hero )
 	EquipMetaUpgrades( hero, { SkipTraitHighlight = true })
 	ValidateMaxHealth()
 	ValidateMaxMana()
 	HandleWeaponAnimSwaps()
+	CurrentRun.NumRerolls = GetTotalHeroTraitValue( "RerollCount" )
 end
 
 function UnequipMetaUpgrades( eventSource, hero )
@@ -65,6 +78,11 @@ function UnequipMetaUpgrades( eventSource, hero )
 			RemoveWeaponTrait(	MetaUpgradeCardData[ metaUpgradeName ].TraitName )
 		end
 	end
+end
+
+function ClearPreRunUpgrades( eventSource, hero )
+	UnequipMetaUpgrades( eventSource, hero)
+	UnequipWeaponUpgrade()
 end
 
 function CheckAutoEquipRequirements( requirementData )
@@ -275,12 +293,6 @@ function WeaponCastFired( owner, weaponData, args, triggerArgs)
 	local attachedProjectileIds = {}
 	local baseDuration = GetBaseDataValue({ Type = "Projectile", Name = "ProjectileCast", Property = "FuseStart" })
 	-- TODO: Extracting this data from property changes and/or fired function args are foiled by the way that various boons change every variable separately
-	if HeroHasTrait("AxeArmCastAspect") then
-		local trait = GetHeroTrait("AxeArmCastAspect")
-		if trait.DurationIncrease then
-			baseDuration = baseDuration + trait.DurationIncrease
-		end
-	end
 	for i, traitArgs in pairs(GetHeroTraitValues("CastProjectileModifiers")) do
 		for _, projectileId in pairs( projectileIds ) do
 			SetDamageRadiusMultiplier({ Id = projectileId, Fraction = traitArgs.AreaIncrease, Duration = baseDuration })
@@ -298,9 +310,12 @@ function WeaponCastFired( owner, weaponData, args, triggerArgs)
 		SessionMapState.ArmCast = nil
 		local interestedTraits = 
 		{
-		StaffSelfHitAspect = true,
-		StaffClearCastAspect = true,
-		ClearCastTalent = true,
+			StaffSelfHitAspect = true,
+			PoseidonManaBoon = true,
+			LobGunAspect = true,
+			ClearCastTalent = true,
+			ChaosExAttackCurse = true,
+			MagicCritMetaUpgrade = true,
 		}
 		for traitName in pairs( interestedTraits ) do
 			if HeroHasTrait(traitName) then
@@ -314,50 +329,99 @@ function WeaponCastFired( owner, weaponData, args, triggerArgs)
 		end
 	end
 	if HeroHasTrait("HadesCastProjectileBoon") and triggerArgs.TargetId then
-		AttachProjectiles({ Ids = projectileIds, DestinationId = triggerArgs.TargetId })		
+		AttachProjectiles({ Ids = projectileIds, DestinationId = triggerArgs.TargetId })
+		for _, id in pairs(SessionState.PoseidonExCastTarget) do
+			Attach({ Id = id, DestinationId = triggerArgs.TargetId  })
+		end
 	end
 	notifyExistingWaiters(weaponData.Name .. "Fired")
+end
+
+function CheckChargeCastBuffs()
+	if not HasHeroTraitValue("InvulnerableDuringCastCharge") and not HasHeroTraitValue("CastChargeBuffDuration") then
+		return
+	end
+	SetPlayerPhasing("CastCharge")
+	SetPlayerInvulnerable("CastCharge")
+	local traitData = GetHeroTrait("DodgeBonusMetaUpgrade")
+	local effectName = "CastSpeedBoostEffect"
+	local dataProperties = ShallowCopyTable(EffectData[effectName].DataProperties )
+	dataProperties.Modifier = traitData.CastChargeSpeedMultiplier
+	dataProperties.Duration = traitData.CastChargeBuffDuration
+
+	local baseSpeed = GetBaseDataValue({ Type = "Unit", Name = "_PlayerUnit", Property = "Speed" })
+	local currentSpeed = GetUnitDataValue({ Id = CurrentRun.Hero.ObjectId, Property = "Speed" })
+	local targetSpeed = baseSpeed * traitData.CastChargeSpeedMultiplier
+	SetUnitProperty({ DestinationId = CurrentRun.Hero.ObjectId, Property = "MaxSpeed", Value = targetSpeed })
+
+	ApplyEffect({DestinationId = CurrentRun.Hero.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = effectName, DataProperties = dataProperties })
+
+	local gripEffectName = "CastGripEffect"
+	local dataProperties = ShallowCopyTable(EffectData[gripEffectName].DataProperties )
+	dataProperties.Duration = traitData.CastChargeGripDuration
+	ApplyEffect({DestinationId = CurrentRun.Hero.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = gripEffectName, DataProperties = dataProperties })
+	SetPlayerDarkside("CastCharge")
+	thread(EndCastInvulnerability, traitData.CastInvulnerableDuration)
+end
+
+function EndCastInvulnerability( duration )
+	wait( duration )
+	SetPlayerVulnerable("CastCharge")
+	SetPlayerUnphasing("CastCharge")
+	SetPlayerUnDarkside("CastCharge")
 end
 
 function StartCastSlow( projectileId, duration )
 	local scaleX = GetProjectileDataValue({ Id = projectileId, Property = "DamageRadiusScaleX" })
 	local scaleY = GetProjectileDataValue({ Id = projectileId, Property = "DamageRadiusScaleY" })
+	local impactSlowDataProperties = ShallowCopyTable( EffectData.ImpactSlow.DataProperties )
+	local impactSlowEffect = { Id = CurrentRun.Hero.ObjectId, EffectName = "ImpactSlow", DataProperties = impactSlowDataProperties }
+	local impactGripDataProperties = ShallowCopyTable( EffectData.ImpactGrip.DataProperties )
+	local impactGripEffect = { Id = CurrentRun.Hero.ObjectId, EffectName = "ImpactGrip", DataProperties = impactGripDataProperties }
 	while ProjectileExists({ Id = projectileId }) do
 		local radius = GetProjectileProperty({ ProjectileId = projectileId, Property = "ModifiedDamageRadius" })
-		local location = GetLocation({ Id = projectileId, IsProjectile = true })
-		local destinationId = SpawnObstacle({ Name = "InvisibleTarget", LocationX = location.X, LocationY = location.Y, Group = "Scripting"})
-		local ids = GetClosestIds({ Id = destinationId, Distance = radius, DestinationName = "EnemyTeam", IgnoreInvulnerable = true, ScaleX = scaleX, ScaleY = scaleY, PreciseCollision = true })
+		local ids = GetClosestIds({ ProjectileId = projectileId, Distance = radius, DestinationName = "EnemyTeam", IgnorePermanentlyInvulnerable = true, ScaleX = scaleX, ScaleY = scaleY, PreciseCollision = true })
 		for _, id in pairs( ids ) do
 			local victim = ActiveEnemies[id]
 			if victim ~= nil then
-				local effectNames = { "ImpactSlow", "ImpactGrip" }
-				for _, effectName in pairs( effectNames ) do
-					local dataProperties = ShallowCopyTable(EffectData[effectName].DataProperties)
-					if victim.IgnoreCastSlow then
-						dataProperties.Type = "TAG"
-						dataProperties.HaltOnStart = false
-					end
-					ApplyEffect({ DestinationId = id, Id = CurrentRun.Hero.ObjectId, EffectName = effectName, DataProperties = dataProperties })
+				if victim.IgnoreCastSlow then
+					impactSlowDataProperties.Type = "TAG"
+					impactSlowDataProperties.HaltOnStart = false
+					impactGripDataProperties.Type = "TAG"
+					impactGripDataProperties.HaltOnStart = false
+				else
+					impactSlowDataProperties.Type = EffectData.ImpactSlow.DataProperties.Type
+					impactSlowDataProperties.HaltOnStart = EffectData.ImpactSlow.DataProperties.HaltOnStart
+					impactGripDataProperties.Type = EffectData.ImpactGrip.DataProperties.Type
+					impactGripDataProperties.HaltOnStart = EffectData.ImpactGrip.DataProperties.HaltOnStart
 				end
+				impactSlowEffect.DestinationId = id
+				ApplyEffect( impactSlowEffect )
+				impactGripEffect.DestinationId = id
+				ApplyEffect( impactGripEffect )
 			end
 		end
-		if not IsEmpty( GetInProjectilesBlast({ Id = CurrentRun.Hero.ObjectId, DestinationName = "ProjectileCast", UseDamageRadius = true }) ) then
+		if not IsEmpty( GetInProjectilesBlast({ Id = CurrentRun.Hero.ObjectId, DestinationName = "ProjectileCast", UseDamageRadius = true, ReturnFirst = true }) ) then
 			local effectName = "InsideCastBuff"
 			ApplyEffect({ DestinationId = CurrentRun.Hero.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = effectName, DataProperties = EffectData[effectName].DataProperties })
 		end
-		Destroy ({ Id = destinationId })
-		waitUnmodified( 0.15, RoomThreadName )
+		waitUnmodified( 0.15 )
 	end
 end
 
 function RefreshImpactSlow( victim, victimId, triggerArgs )
+	if not Contains( victim.Groups, "EnemyTeam" ) then
+		return
+	end
 	local effectNames = { "ImpactSlow", "ImpactGrip" }
 	for _, effectName in pairs(effectNames) do
 		local dataProperties = ShallowCopyTable(EffectData[effectName].DataProperties)
 		if victim.IsBoss then
 			dataProperties.HaltOnStart = false
 		end
-		ApplyEffect({ DestinationId = victimId, Id = CurrentRun.Hero.ObjectId, EffectName = effectName, DataProperties = dataProperties })
+		if CurrentRun.Hero.ObjectId ~= nil then
+			ApplyEffect({ DestinationId = victimId, Id = CurrentRun.Hero.ObjectId, EffectName = effectName, DataProperties = dataProperties })
+		end
 	end
 end
 
@@ -369,31 +433,41 @@ end
 function CheckCastCompleteGraphic( weaponData )
 	if not IsControlDown({ Name = "Attack1" }) or not GetWeaponDataValue({ Id = CurrentRun.Hero.ObjectId, WeaponName = "WeaponCastArm", Property = "Enabled"}) then
 		-- Quick tap or OOM presentation
-		if weaponData.UnarmedCastCompleteGraphic ~= "nil" then
-			SetAnimation({ Name = weaponData.UnarmedCastCompleteGraphic, DestinationId = CurrentRun.Hero.ObjectId })
+		if weaponData.UnarmedCastCompleteGraphic ~= "nil" and not MapState.HostilePolymorph then
+			if not ( MapState.WeaponCharge.WeaponLobSpecial and MapState.WeaponCharge.WeaponLobSpecial >= 1 ) then
+				SetAnimation({ Name = weaponData.UnarmedCastCompleteGraphic, DestinationId = CurrentRun.Hero.ObjectId })
+			end
 		end
 	else
 		-- Release during  cast arm presentation
+
 		local notifyName = "ResetAnimation"
 		local frameWait = 0.02
-		wait( frameWait )
-		NotifyOnWeaponCharge({ Id = CurrentRun.Hero.ObjectId, Notify = notifyName, WeaponName = "WeaponCastArm", ChargeFraction = 0.0, Comparison = "<=", Timeout = GetWeaponDataValue({ Id = CurrentRun.Hero.ObjectId, WeaponName = "WeaponCastArm", Property = "ChargeTime" }) - frameWait })
+		waitUnmodified( frameWait )
+		local timeout = GetWeaponDataValue({ Id = CurrentRun.Hero.ObjectId, WeaponName = "WeaponCastArm", Property = "ChargeTime" }) - frameWait
+		-- Brittle, more directly optimized version
+		if HeroHasTrait("ApolloSecondStageCastBoon") then
+			local hasMana = true
+			timeout = 0
+			local trait = GetHeroTrait("ApolloSecondStageCastBoon")
+			for i, chargeStage in pairs( trait.WeaponDataOverride.WeaponCastArm.ChargeWeaponStages) do
+				timeout = timeout + chargeStage.Wait
+				if GetManaCost( weaponData, false, { ManaCostOverride = chargeStage.ManaCost }) > CurrentRun.Hero.Mana then
+					hasMana = false
+				end
+			end
+			if not hasMana then
+				timeout = nil
+			else
+				timeout = timeout * GetLuaWeaponSpeedMultiplier( weaponData.Name )
+			end
+		end
+		NotifyOnWeaponCharge({ Id = CurrentRun.Hero.ObjectId, Notify = notifyName, WeaponName = "WeaponCastArm", ChargeFraction = 0.0, Comparison = "<=", Timeout = timeout })
 		waitUntil( notifyName )
-		if not _eventTimeoutRecord[ notifyName ] and weaponData.UnarmedCastCompleteGraphic ~= "nil" then
-			SetAnimation({ Name = weaponData.UnarmedCastCompleteGraphic, DestinationId = CurrentRun.Hero.ObjectId })
+		if weaponData.UnarmedCastCompleteGraphic ~= "nil" and not MapState.HostilePolymorph then
+			SetAnimation({ Name = weaponData.UnarmedCastCompleteGraphic, DestinationId = CurrentRun.Hero.ObjectId })	
 		end
 	end
-end
-
-function LastStandTimeSlow( unit, args )
-	thread( RunLastStandTimeSlow, unit, args )
-end
-
-function RunLastStandTimeSlow( unit, args )
-	GameplaySetElapsedTimeMultiplier({ ElapsedTimeMultiplier = args.Modifier, Name = "LastStand" })
-	waitUnmodified( args.Duration, RoomThreadName)
-	GameplaySetElapsedTimeMultiplier({ ElapsedTimeMultiplier = args.Modifier, Reverse = true, Name = "LastStand" })
-	
 end
 
 function AddRandomMetaUpgrades( numCards, args )
@@ -402,21 +476,53 @@ function AddRandomMetaUpgrades( numCards, args )
 	numCards = numCards or 3
 	local delay = args.Delay or 3
 	local unequippedUnlockedMetaupgrades = {}
-	
+	local skippedLowPriorityMetaupgrade = {}
+	local equippedMetaUpgrades = {}
+	for cardName, cardData in pairs(GameState.MetaUpgradeState) do
+		if cardData.Equipped then		
+			equippedMetaUpgrades[cardName] = true
+		end
+	end
+
 	for row, rowData in pairs( GameState.MetaUpgradeCardLayout ) do
 		for column, cardName in pairs( rowData ) do
-			if GameState.MetaUpgradeState[cardName] and GameState.MetaUpgradeState[cardName].Unlocked and not GameState.MetaUpgradeState[cardName].Equipped then
-				table.insert(unequippedUnlockedMetaupgrades, cardName)
+			local metaUpgradeData = GameState.MetaUpgradeState[cardName]
+			if metaUpgradeData and metaUpgradeData.Unlocked and not metaUpgradeData.Equipped then
+				local fateConflict = false
+				if GameState.FatedStatus == "Fated" and FatedDisableMetaUpgrades[cardName] then
+					fateConflict = true
+				end
+				if not fateConflict then
+					if MetaUpgradeCardData[cardName].RandomDrawChance then
+						if RandomChance(MetaUpgradeCardData[cardName].RandomDrawChance) then
+							table.insert(unequippedUnlockedMetaupgrades, cardName)
+						else
+							table.insert(skippedLowPriorityMetaupgrade, cardName)
+						end
+					else
+						table.insert(unequippedUnlockedMetaupgrades, cardName)
+					end
+				end
 			end
 		end
 	end
 
 	local addedMetaUpgrades = {}
-	while not IsEmpty( unequippedUnlockedMetaupgrades ) and numCards > 0 do
+	while (not IsEmpty( unequippedUnlockedMetaupgrades ) or not IsEmpty( skippedLowPriorityMetaupgrade )) and numCards > 0 do
 		numCards = numCards - 1
-		local metaUpgradeName = RemoveRandomValue(unequippedUnlockedMetaupgrades)
+		local metaUpgradeName = nil
+		if not IsEmpty( unequippedUnlockedMetaupgrades ) then
+			metaUpgradeName = RemoveRandomValue(unequippedUnlockedMetaupgrades)
+		else
+			metaUpgradeName = RemoveRandomValue(skippedLowPriorityMetaupgrade)
+		end
+		if MetaUpgradeCardData[metaUpgradeName].RequiredCardNames and not ContainsAnyKey( equippedMetaUpgrades, MetaUpgradeCardData[metaUpgradeName].RequiredCardNames ) and not IsEmpty(unequippedUnlockedMetaupgrades) then
+			table.insert( skippedLowPriorityMetaupgrade, metaUpgradeName )
+			metaUpgradeName = RemoveRandomValue( unequippedUnlockedMetaupgrades )
+		end
 		CurrentRun.TemporaryMetaUpgrades[metaUpgradeName] = true
 		GameState.MetaUpgradeState[metaUpgradeName].Equipped = true
+		equippedMetaUpgrades[metaUpgradeName] = true
 
 		table.insert( addedMetaUpgrades, metaUpgradeName )
 		if MetaUpgradeCardData[ metaUpgradeName ].TraitName then
@@ -433,11 +539,13 @@ function AddRandomMetaUpgrades( numCards, args )
 				})
 		end
 		if MetaUpgradeCardData[ metaUpgradeName ].OnGrantedFunctionName then
-			thread( CallFunctionName, MetaUpgradeCardData[ metaUpgradeName ].OnGrantedFunctionName, MetaUpgradeCardData[ metaUpgradeName ].TraitName, MetaUpgradeCardData[ metaUpgradeName ].OnGrantedFunctionArgs )
+			thread( CallFunctionName, MetaUpgradeCardData[ metaUpgradeName ].OnGrantedFunctionName, MetaUpgradeCardData[ metaUpgradeName ].TraitName, MetaUpgradeCardData[ metaUpgradeName ].OnGrantedFunctionArgs, args )
 		end
-
 	end
+	if numCards > 0 and not IsEmpty(lowPriorityMetaupgrades) then
 	
+	end
+
 	thread( AddedMetaUpgradePresentation, addedMetaUpgrades, delay )
 end
 
@@ -475,7 +583,7 @@ function GrantMetaUpgradeLastStands( traitName, args )
 			AddLastStand({
 				Unit = CurrentRun.Hero,
 				IncreaseMax = true,
-				Icon = "ExtraLifeStyx",
+				Icon = "ExtraLifeMel",
 				ManaFraction = 0.4,
 				HealFraction = 0.4,
 			})
@@ -490,7 +598,7 @@ function UpgradeMetaUpgradeLastStands( oldTrait, newTrait )
 		AddLastStand({
 			Unit = CurrentRun.Hero,
 			IncreaseMax = true,
-			Icon = "ExtraLifeStyx",
+			Icon = "ExtraLifeMel",
 			ManaFraction = 0.4,
 			HealFraction = 0.4,
 		})
@@ -527,5 +635,47 @@ function RoomStatGrowth( unit, args )
 				thread(BonusManaPresentation, addedMana )
 			end
 		end
+	end
+end
+
+
+function RemoveSprintBonusVolley( triggerArgs )
+	waitUnmodified(0.1)
+	SessionMapState.SprintBonusProjectiles[ triggerArgs.ProjectileId ] = nil
+	if not IsExWeapon( triggerArgs.WeaponName, {Combat = true}, triggerArgs ) then
+		return
+	end
+	if triggerArgs.WeaponName and SessionMapState.SprintBonusVolleys and SessionMapState.SprintBonusVolleys[triggerArgs.WeaponName] then
+		DecrementTableValue( SessionMapState.SprintBonusVolleys[triggerArgs.WeaponName], triggerArgs.ProjectileVolley )
+		if SessionMapState.SprintBonusVolleys[triggerArgs.WeaponName][triggerArgs.ProjectileVolley] <= 0 then
+			SessionMapState.SprintBonusVolleys[triggerArgs.WeaponName][triggerArgs.ProjectileVolley] = nil
+		end
+	end
+end
+
+function CheckSprintBonusVolley( weaponData, functionArgs, triggerArgs )
+	if weaponData.Name == "WeaponBlink" then
+		SessionMapState.SprintBonusCharge = true
+		return
+	end
+	if not IsExWeapon( weaponData.Name , {Combat = true}, triggerArgs ) then
+		return
+	end
+	if SessionMapState.SprintBonusCharge and (( triggerArgs.ProjectileVolley and triggerArgs.NumProjectiles) or weaponData.Name == "WeaponCastArm") then
+		if weaponData.Name == "WeaponSuitRanged" and not HeroHasTrait("SuitComboAspect") then
+			SessionMapState.SprintBonusVolleys[weaponData.Name] = SessionMapState.SprintBonusVolleys[weaponData.Name] or {}
+			if not IsEmpty(SessionMapState.TargetedEnemies) then
+				IncrementTableValue( SessionMapState.SprintBonusVolleys[weaponData.Name], triggerArgs.ProjectileVolley, TableLength(SessionMapState.TargetedEnemies) * 2 )
+			else
+				IncrementTableValue( SessionMapState.SprintBonusVolleys[weaponData.Name], triggerArgs.ProjectileVolley, 4 )
+			end
+		elseif weaponData.Name == "WeaponCastArm" then
+			SessionMapState.SprintBonusVolleys.WeaponCast = SessionMapState.SprintBonusVolleys.WeaponCast or {}
+			IncrementTableValue( SessionMapState.SprintBonusVolleys.WeaponCast, SessionMapState.LastCastProjectileVolley )
+		else
+			SessionMapState.SprintBonusVolleys[weaponData.Name] = SessionMapState.SprintBonusVolleys[weaponData.Name] or {}
+			IncrementTableValue( SessionMapState.SprintBonusVolleys[weaponData.Name], triggerArgs.ProjectileVolley, triggerArgs.NumProjectiles )
+		end
+		SessionMapState.SprintBonusCharge = nil
 	end
 end

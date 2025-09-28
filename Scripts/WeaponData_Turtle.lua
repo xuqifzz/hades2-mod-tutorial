@@ -55,13 +55,6 @@ WeaponSetData =
 			FireFx = "OceanusEnemySpitFireFx_Turtle"
 		},
 
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.3, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.03 },
-		},
-
 		Sounds =
 		{
 			FireSounds =
@@ -77,13 +70,7 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-
-			--FireRotationDampening = 0.01,
-			--TrackTargetDuringFire = true,
-			--PostAttackStop = true,
-			FireTicks = 3,
-			FireInterval = 0.25,
-			FireDuration = 0.45,
+			ProjectileName = "TurtleBounceElite",
 		},
 	},
 
@@ -142,14 +129,7 @@ WeaponSetData =
 			{
 				{ Name = "/SFX/Enemy Sounds/WrechPunchSwing" },
 			},
-		},	
-
-		HitScreenshake = { Distance = 2, Speed = 600, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.01, Fraction = 0.15, LerpTime = 0 },
-			{ ScreenPreWait = 0.04, Fraction = 1.0, LerpTime = 0.03 },
-		},	
+		},
 	},
 
 	-- Only for when there are too many turtles lobbing and these are out of range of the regular claw

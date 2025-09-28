@@ -2,7 +2,8 @@ OverwriteTableKeys( TraitData, {
 	-- Staff
 	StaffHammerTrait = 
 	{
-		CodexWeapon = "WeaponStaffSwing"
+		CodexWeapon = "WeaponStaffSwing",
+		DebugOnly = true,
 	},
 
 	StaffSecondStageTrait = 
@@ -14,6 +15,17 @@ OverwriteTableKeys( TraitData, {
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponStaffSwing", },
+			},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.333,
 			},
 		},
 		ChargeStageModifiers = 
@@ -38,7 +50,7 @@ OverwriteTableKeys( TraitData, {
 		AddOutgoingDamageModifiers =
 		{
 			ValidProjectiles = { "ProjectileStaffBallCharged" },
-			ChargeStageMultiplier = 4,
+			ChargeStageMultiplier = { BaseValue = 4, SourceIsMultiplier = true},
 			RequiredChargeStage = 2,
 			ReportValues = 
 			{ 
@@ -76,15 +88,23 @@ OverwriteTableKeys( TraitData, {
 	
 		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_31",
+		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 8/5,
+			},
+		},
 		GameStateRequirements =
 		{
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponStaffSwing", },
-			},
-			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "StaffAttackRecoveryTrait" },
 			},
 		},
 		OnEnemyDeathFunction = 
@@ -93,7 +113,7 @@ OverwriteTableKeys( TraitData, {
 			FunctionArgs = {
 				RequiredWeapon = "WeaponStaffSwing5",
 				CombatText = "StaffHeal",
-				HealAmount = 5,
+				HealAmount = { BaseValue = 5 },
 				ReportValues = 
 				{ 
 					ReportedHealAmount = "HealAmount",
@@ -114,11 +134,26 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_29",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 40/30,
+			},
+		},
 		GameStateRequirements =
 		{
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponStaffSwing", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponStaffSwing", },
+				IsNone = {"StaffRaiseDeadAspect", }
 			},
 		},
 	
@@ -145,6 +180,17 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_36",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5,
+			},
+		},
 		GameStateRequirements =
 		{
 			{
@@ -192,11 +238,26 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_34",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5,
+			},
+		},
 		GameStateRequirements =
 		{
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponStaffSwing", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponStaffSwing", },
+				IsNone = {"StaffRaiseDeadAspect", }
 			},
 		},
 		AddOutgoingDamageModifiers =
@@ -281,31 +342,41 @@ OverwriteTableKeys( TraitData, {
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponStaffSwing", },
 			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponStaffSwing", },
+				IsNone = {"StaffRaiseDeadAspect", }
+			},
 		},
 	
 		PropertyChanges =
 		{
 			{
+				FalseTraitName = "StaffRaiseDeadAspect",
 				WeaponName = "WeaponStaffDash",
-				WeaponProperties = 
-				{
-      				ProjectileScaleMultiplier = 2.0,
-				},
 				ExcludeLinked = true,
+				WeaponProperty = "ProjectileScaleMultiplier",
+				ChangeValue = 2
 			},
+			{
+				TraitName = "StaffRaiseDeadAspect",
+				WeaponName = "WeaponStaffDash",
+				ExcludeLinked = true,
+				WeaponProperty = "BlastRadiusMultiplier",
+				ChangeValue = 0.15,
+				ChangeType = "Add",
+			}
 		},
 		AddOutgoingDamageModifiers =
 		{
-			HealthBufferRemoval = 0.60,
+			FlatDamageToArmor = 900,
 			ValidWeapons = { "WeaponStaffDash" },
-			ReportValues = { ReportedWeaponMultiplier = "HealthBufferRemoval"},
+			ReportValues = { ReportedWeaponMultiplier = "FlatDamageToArmor"},
 		},
 		ExtractValues =
 		{
 			{
 				Key = "ReportedWeaponMultiplier",
 				ExtractAs = "DamageIncrease",
-				Format = "Percent",
 			},
 		}
 	},
@@ -314,6 +385,17 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_32",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 0.35/0.25,
+			},
+		},
 		GameStateRequirements =
 		{
 			{
@@ -361,15 +443,22 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_27",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 0.4/0.5,
+			},
+		},
 		GameStateRequirements =
 		{
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponStaffSwing", },
-			},
-			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "StaffOneWayAttackTrait", "StaffExAoETrait", "StaffExHealTrait", "SlowExAttackBoon" },
 			},
 		},
 		PropertyChanges =
@@ -377,7 +466,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponNames = { "WeaponStaffSwing", "WeaponStaffSwing2", "WeaponStaffSwing3", "WeaponStaffDash", "WeaponStaffSwing5" },
 				WeaponProperty = "ChargeTime",
-				ChangeValue = 0.5,
+				BaseValue = 0.5,
 				ChangeType = "Multiply",
 				ExcludeLinked = true,
 				ReportValues = { ReportedSpeedIncrease = "ChangeValue"},
@@ -400,46 +489,21 @@ OverwriteTableKeys( TraitData, {
 		}
 	},
 
-	StaffSlowExTrait = 
-	{
-		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
-		Icon = "Hammer_Staff_01",
-		IsPriorityHammerModifierTrait = true,
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "Hero", "Weapons", },
-				HasAll = { "WeaponStaffSwing", },
-			},
-			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "StaffAttackRecoveryTrait", },
-			},
-		},
-		
-		PropertyChanges = 
-		{
-			{
-				WeaponName = "WeaponStaffSwing5",
-				ProjectileProperty = "Damage",
-				BaseValue = 25,
-				ChangeType = "Add",
-				ReportValues = { ReportedDamageChange = "ChangeValue" },
-			},
-			{
-				WeaponName = "WeaponStaffSwing5",
-				WeaponProperty = "ProjectileInterval",
-				ChangeValue = 0.1,
-				ChangeType = "Absolute",
-				ReportValues = { ReportedDamageChange = "ChangeValue" },
-			},
-		},
-	},
-
 	StaffExAoETrait = 
 	{
 		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_30",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5,
+			},
+		},
 		GameStateRequirements =
 		{
 			{
@@ -447,10 +511,10 @@ OverwriteTableKeys( TraitData, {
 				HasAll = { "WeaponStaffSwing", },
 			},
 			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "StaffAttackRecoveryTrait", },
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponStaffSwing", },
+				IsNone = {"StaffRaiseDeadAspect", }
 			},
-		},
+		}, 
 		IsLastPriorityHammerTrait = true,
 		PropertyChanges =
 		{
@@ -459,17 +523,64 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 				WeaponProperties = 
 				{
-					NumProjectiles = 36,
 					ProjectileAngleOffsetScaleY = 0.6,
 					ProjectileAngleResetCount = 4,
 					ProjectileAngleOffset = math.rad(90),
 					ProjectileAngleStartOffset = 0,
 					ProjectileOffset = 120,
 					ProjectileSpacing = 0,
-					ProjectileInterval = 0.005,
 					AimLineCountOverride = 4,
 					AimLineAngleOffsetOverride = math.rad(90),
 				},
+			},
+			{
+				FalseTraitName = "StaffOneWayAttackTrait",
+				WeaponName = "WeaponStaffSwing5",
+				WeaponProperty = "NumProjectiles",
+				ChangeType = "Absolute",
+				ChangeValue = 4,
+			},
+			{
+				FalseTraitName = "StaffOneWayAttackTrait",
+				WeaponName = "WeaponStaffSwing5",
+				WeaponProperty = "ProjectileInterval",
+				ChangeType = "Absolute",
+				ChangeValue = 0.005,
+			},
+			{
+				FalseTraitName = "StaffOneWayAttackTrait",
+				WeaponName = "WeaponStaffSwing5",
+				WeaponProperty = "ProjectileIntervalStart",
+				ChangeType = "Absolute",
+				ChangeValue = 0.005,
+			},
+			{
+				TraitName = "StaffOneWayAttackTrait",
+				WeaponName = "WeaponStaffSwing5",
+				WeaponProperty = "NumProjectiles",
+				ChangeType = "Absolute",
+				ChangeValue = 8,
+			},
+			{
+				TraitName = "StaffOneWayAttackTrait",
+				WeaponName = "WeaponStaffSwing5",
+				WeaponProperty = "ProjectileIntervalResetCount",
+				ChangeType = "Absolute",
+				ChangeValue = 4,
+			},
+			{
+				TraitName = "StaffOneWayAttackTrait",
+				WeaponName = "WeaponStaffSwing5",
+				WeaponProperty = "ProjectileIntervalResetCountStart",
+				ChangeType = "Absolute",
+				ChangeValue = 1,
+			},
+			{
+				TraitName = "StaffOneWayAttackTrait",
+				WeaponName = "WeaponStaffSwing5",
+				WeaponProperty = "NumProjectiles",
+				ChangeType = "Absolute",
+				ChangeValue = 8,
 			},
 		},
 		
@@ -503,6 +614,10 @@ OverwriteTableKeys( TraitData, {
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponStaffSwing", },
 			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponStaffSwing", },
+				IsNone = {"StaffRaiseDeadAspect", }
+			},
 		},
 		WeaponDataOverride = 
 		{
@@ -517,8 +632,8 @@ OverwriteTableKeys( TraitData, {
 					Enabled = 
 					{
 						NumProjectiles = 2,
-					}
-				}
+					},
+				},
 			},
 			WeaponStaffSwing2 = 
 			{
@@ -531,8 +646,8 @@ OverwriteTableKeys( TraitData, {
 					Enabled = 
 					{
 						NumProjectiles = 2,
-					}
-				}
+					},
+				},
 			},
 			WeaponStaffDash = 
 			{
@@ -545,22 +660,22 @@ OverwriteTableKeys( TraitData, {
 					Enabled = 
 					{
 						NumProjectiles = 2,
-					}
-				}
+					},
+				},
 			},
 			WeaponStaffSwing3 = 
-		{
-				ManaChanges = 
 			{
-					Disabled = 
+				ManaChanges = 
 				{
+					Disabled = 
+					{
 						NumProjectiles = 1,
-				},
+					},
 					Enabled = 
 					{
 						NumProjectiles = 2,
-					}
-				}
+					},
+				},
 			},
 		},
 		ManaCostModifiers = 
@@ -568,7 +683,7 @@ OverwriteTableKeys( TraitData, {
 			WeaponNames = WeaponSets.HeroPrimaryWeapons,
 			ManaCostAdd = 5,
 			ReportValues = { ReportedManaCost = "ManaCostAdd" }
-			},
+		},
 		PropertyChanges =
 		{
 			{
@@ -588,6 +703,20 @@ OverwriteTableKeys( TraitData, {
 				WeaponProperty = "NumProjectileWaves",
 				ChangeValue = 2,
 				ReportValues = { ReportedWaves = "ChangeValue" }
+			},
+			{
+				FalseTraitName = "StaffSelfHitAspect",
+				WeaponName = "WeaponStaffSwing5",
+				ExcludeLinked = true,
+				WeaponProperty = "ProjectileInterval",
+				ChangeValue = 0.12,
+			},
+			{
+				FalseTraitName = "StaffSelfHitAspect",
+				WeaponName = "WeaponStaffSwing5",
+				ExcludeLinked = true,
+				WeaponProperty = "ProjectileIntervalStart",
+				ChangeValue = 0.12,
 			},
 			{
 				TraitName = "StaffSelfHitAspect",
@@ -623,7 +752,18 @@ OverwriteTableKeys( TraitData, {
 				HasAll = { "WeaponStaffSwing", },
 			},
 		},
-
+		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 2,
+			},
+		},
 		WeaponDataOverride =
 		{
 			WeaponStaffBall = 
@@ -635,32 +775,27 @@ OverwriteTableKeys( TraitData, {
 				},
 			}
 		},
-		
+		AddOutgoingDamageModifiers = 
+		{
+			ValidWeapons = {"WeaponStaffBall"},
+			ProjectileName = "ProjectileStaffBall",
+			JumpMultiplier = { BaseValue = 0.1 },
+			ReportValues = { JumpDamageBonus = "JumpMultiplier" }
+		},
 		PropertyChanges =
 		{
 		
 			{
 				WeaponName = "WeaponStaffBall",
-				--ProjectileName = "ProjectileStaffBall",
 				ProjectileProperty  = "NumJumps",
 				ChangeValue = 2,
 				ChangeType = "Add",
-				--ExcludeLinked = true,
 				ReportValues = { Jumps = "ChangeValue" },
 			},
 			{
 				WeaponName = "WeaponStaffBall",
-				--ProjectileName = "ProjectileStaffBall",
-				ProjectileProperty  = "JumpDamageMultiplier",
-				ChangeValue = 1.10,
-				ChangeType = "Absolute",
-			--	ExcludeLinked = true,
-				ReportValues = { JumpDamageBonus = "ChangeValue" },
-			},
-			{
-				WeaponName = "WeaponStaffBall",
 				ProjectileProperty  = "JumpRange",
-				ChangeValue = 400,
+				ChangeValue = 490,
 				ChangeType = "Absolute",
 			},
 			{
@@ -691,7 +826,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "JumpDamageBonus",
 				ExtractAs = "JumpDamage",
-				Format = "PercentDelta",
+				Format = "Percent",
 			},
 		}
 	},
@@ -707,7 +842,6 @@ OverwriteTableKeys( TraitData, {
 				HasAll = { "WeaponStaffSwing", },
 			},
 		},
-	
 		PropertyChanges =
 		{
 			{
@@ -719,6 +853,8 @@ OverwriteTableKeys( TraitData, {
 					ProjectileIntervalStart = 0.12,
 					ProjectileAngleOffsetMin = math.rad(-5),
 					ProjectileAngleOffsetMax = math.rad(5),
+					FireSound = "null",
+					ProjectileIntervalResetSound = "/SFX/Player Sounds/StaffSpecialNew"
 				},
 				ProjectileProperties = 
 				{
@@ -787,21 +923,211 @@ OverwriteTableKeys( TraitData, {
 		}
 	},
 
-	StaffReserveManaBoostTrait = 
+	-- Anubis
+	StaffRaiseDeadBigTrait = 
 	{
 		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
-		Icon = "Hammer_Staff_37",
+		Icon = "Hammer_Staff_43",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 8/5,
+			},
+		},
 		GameStateRequirements =
 		{
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponStaffSwing", },
 			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponStaffSwing", },
+				IsAny = {"StaffRaiseDeadAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "StaffRaiseDeadAspect" },
+			},
 		},
 		AddOutgoingDamageModifiers =
 		{
-			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
-			ExManaReserveConversion = 2,
+			ValidWeapons = { "WeaponStaffSwing", "WeaponStaffDash", "WeaponStaffSwing5"},
+			ValidBaseDamageAddition = { BaseValue = 5 },
+			ReportValues = { ReportedDamage = "ValidBaseDamageAddition" },
 		},
+	
+		PropertyChanges =
+		{
+			{
+				WeaponNames = { "WeaponStaffSwing", "WeaponStaffDash", "WeaponStaffSwing5" },
+				WeaponProperty  = "BlastRadiusMultiplier",
+				ChangeValue = 1.15,
+				ChangeType = "Multiply",
+				ExcludeLinked = true,
+				ReportValues = { RadiusChange = "ChangeValue" },
+			},
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedDamage",
+				ExtractAs = "TooltipDamageBonus",
+			},
+		}
 	},
+	StaffRaiseDeadDoubleTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
+		Icon = "Hammer_Staff_44",
+		
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponStaffSwing", },
+				IsAny = {"StaffRaiseDeadAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "StaffRaiseDeadAspect" },
+			},
+		},
+		OnWeaponFiredFunctions = 
+		{
+			ValidWeapons = { "WeaponStaffSwing5" },
+			FunctionName = "CreateSecondAnubisWall",
+			FunctionArgs = 
+			{
+				Distance = 700,
+			},
+			ExcludeLinked = true,
+
+		}
+	},
+	StaffLoneShadeRespawnTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
+		Icon = "Hammer_Staff_45",
+		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5,
+			},
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponStaffSwing", },
+				IsAny = {"StaffRaiseDeadAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "StaffRaiseDeadAspect" },
+			},
+		},
+		SetupFunction = 
+		{
+			Name = "SetupMercBaseDamageBonus",
+			Args = 
+			{
+				BaseDamageAddition = { BaseValue = 5 },
+				ReportedBaseDamageAddition = { BaseValue = 50 },
+				ReportValues = { DamageIncrease = "ReportedBaseDamageAddition" },
+			}
+		},
+		LoneShadeRespawnChance = 0.75,
+		ExtractValues =
+		{
+			{
+				Key = "DamageIncrease",
+				ExtractAs = "TooltipDamageBonus",
+			},
+			{
+				Key = "LoneShadeRespawnChance",
+				ExtractAs = "RespawnChance",
+				Format = "LuckModifiedPercent",
+			},
+		}
+	},
+	StaffLoneShadeRallyTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
+		Icon = "Hammer_Staff_46",
+		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.8,
+			},
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponStaffSwing", },
+				IsAny = {"StaffRaiseDeadAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "StaffRaiseDeadAspect" },
+			},
+		},
+		SetupFunction = 
+		{
+			Name = "SetupMercDamageBonus",
+			Args = 
+			{
+				DamageMultiplier = { BaseValue = 0.5 },
+				ReportValues = { DamageIncrease = "DamageMultiplier" },
+			}
+		},
+		OnEnemyDamagedAction = 
+		{
+			ValidProjectiles = { "ProjectileStaffBallCharged" },
+			
+			FunctionName = "RallyAnubisShades",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "DamageIncrease",
+				ExtractAs = "TooltipDamageBonus",
+				Format = "Percent"
+			},
+		}
+	}
 })

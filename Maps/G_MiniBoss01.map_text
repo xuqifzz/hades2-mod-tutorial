@@ -314,6 +314,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Foreground_03",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "FX_Foreground_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -328,6 +341,7 @@
       "BlendMode": 0,
       "ChildGroups": [
         "FX_Foreground_01",
+        "Foreground_03",
         "Foreground_01",
         "Foreground_02",
         "Shading_01",
@@ -572,5 +586,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

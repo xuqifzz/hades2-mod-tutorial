@@ -1,26 +1,25 @@
-function ShowBoonInfoScreen( lootName, codexScreen, codexEntryName, codexEntryData )
-
-	if not GameState.ScreensViewed.BoonInfo then
-		-- Default to true now
-		GameState.BoonInfoScreenShowTooltips = true
-	end
+function ShowBoonInfoScreen( args )
 
 	local screen = DeepCopyTable( ScreenData.BoonInfo )
-	screen.LootName = lootName
-	screen.CodexScreen = codexScreen
-	screen.CodexEntryName = codexEntryName
-	screen.CodexEntryData = codexEntryData
+	screen.LootName = args.LootName
+	screen.CodexScreen = args.CodexScreen
+	screen.CodexEntryName = args.CodexEntryName
+	screen.CodexEntryData = args.CodexEntryData
+	if args.CloseFunctionName ~= nil then
+		screen.CloseFunctionName = args.CloseFunctionName
+		screen.CloseFunctionArgs = args.CloseFunctionArgs
+	end
 	OnScreenOpened( screen )
 	CreateScreenFromData( screen, screen.ComponentData )
 
 	local components = screen.Components
 	local sourceData = EnemyData[screen.LootName] or LootData[screen.LootName] or {}
-	ModifyTextBox({ Id = components.TitleText.Id, Text = sourceData.BoonInfoTitleText or codexEntryData.BoonInfoTitle, LuaKey = "TempTextData", LuaValue = { BoonName = lootName, WeaponName = codexEntryName }, })
+	ModifyTextBox({ Id = components.TitleText.Id, Text = sourceData.BoonInfoTitleText or screen.CodexEntryData.BoonInfoTitle, LuaKey = "TempTextData", LuaValue = { BoonName = screen.LootName, WeaponName = screen.CodexEntryName } })
 	
 	PlaySound({ Name = "/SFX/Menu Sounds/GeneralWhooshMENULoud" })	
 
-	if codexScreen ~= nil then
-		codexScreen.Components.CloseButton.OnPressedFunctionName = nil
+	if screen.CodexScreen ~= nil then
+		screen.CodexScreen.Components.CloseButton.OnPressedFunctionName = nil
 	end
 
 	BoonInfoPopulateTraits( screen )
@@ -32,6 +31,7 @@ function ShowBoonInfoScreen( lootName, codexScreen, codexEntryName, codexEntryDa
 	screen.KeepOpen = true
 	screen.CanClose = true
 	HandleScreenInput( screen )
+
 end
 
 function CreateBoonInfoButtons( screen )
@@ -39,13 +39,16 @@ function CreateBoonInfoButtons( screen )
 	-- Destroy previous buttons
 	local ids = {}
 	for i, traitContainer in pairs( screen.TraitContainers ) do
-		ids = ConcatTableValues( ids, { traitContainer.QuestIcon.Id, traitContainer.Highlight.Id, traitContainer.Icon.Id, traitContainer.TitleBox.Id })
+		ids = ConcatTableValues( ids, { traitContainer.QuestIcon.Id, traitContainer.PinIcon.Id, traitContainer.Highlight.Id, traitContainer.Icon.Id, traitContainer.TitleBox.Id })
 		if traitContainer.Frame ~= nil then
 			table.insert( ids, traitContainer.Frame.Id )
 		end
 		for i, component in pairs( traitContainer.Components ) do
 			table.insert( ids, component.Id )
 		end
+	end
+	if screen.SelectedItem ~= nil then
+		MouseOffBoonInfoItem( screen.SelectedItem )
 	end
 	Destroy({ Ids = ids })
 
@@ -76,7 +79,7 @@ function GetBoonRarityFromData( traitData )
 			end
 		elseif traitData.IsDuoBoon then
 			rarity = "Duo"
-		elseif traitData.RarityLevels ~= nil and traitData.RarityLevels.Legendary then
+		elseif traitData.RarityLevels ~= nil and traitData.RarityLevels.Legendary and not traitData.IsHammerTrait then
 			rarity = "Legendary"
 		end
 	end
@@ -114,7 +117,7 @@ function CreateBoonInfoButton( screen, traitName, index )
 	local rarity = GetBoonRarityFromData( traitData )
 	local overrideRarityName = GetBoonOverrideRarityNameFromData( traitData )
 
-	local consumable = GetRampedConsumableData( ConsumableData[traitName], nil, { ForceMin = true } )
+	local consumable = GetRampedConsumableData( ConsumableData[traitName], { ForceMin = true } )
 	local newTraitData = consumable or GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName, Rarity = rarity, ForBoonInfo = true, ForceMin = true })
 	newTraitData.ForBoonInfo = true
 	SetTraitTextData( newTraitData )
@@ -163,30 +166,35 @@ function CreateBoonInfoButton( screen, traitName, index )
 	descriptionText.Id = traitInfo.PurchaseButton.Id
 	CreateTextBoxWithFormat( descriptionText )
 
-	if newTraitData.StatLines ~= nil then
-		local appendToId = nil
-		if #newTraitData.StatLines <= 1 then
-			appendToId = descriptionText.Id
+	if not newTraitData.HideStatLinesInCodex then
+		local statLines = newTraitData.StatLines
+		if newTraitData.CustomStatLinesWithShrineUpgrade ~= nil and GetNumShrineUpgrades( newTraitData.CustomStatLinesWithShrineUpgrade.ShrineUpgradeName ) > 0 then
+			statLines = newTraitData.CustomStatLinesWithShrineUpgrade.StatLines
 		end
-		for lineNum, statLine in ipairs( newTraitData.StatLines ) do
-			if statLine ~= "" then
+		if statLines ~= nil then
+			local appendToId = descriptionText.Id
+			for lineNum, statLine in ipairs( statLines ) do
+				if statLine ~= "" then
+
+					local offsetY = (lineNum - 1) * screenData.LineHeight
 				
-				local statLineLeft = ShallowCopyTable( screenData.StatLineLeft )
-				statLineLeft.Id = traitInfo.PurchaseButton.Id
-				statLineLeft.Text = statLine
-				statLineLeft.OffsetY = (lineNum - 1) * screenData.LineHeight
-				statLineLeft.AppendToId = appendToId
-				statLineLeft.LuaValue = newTraitData
-				CreateTextBoxWithFormat( statLineLeft )
+					local statLineLeft = ShallowCopyTable( screenData.StatLineLeft )
+					statLineLeft.Id = traitInfo.PurchaseButton.Id
+					statLineLeft.Text = statLine
+					statLineLeft.OffsetY = offsetY
+					statLineLeft.AppendToId = appendToId
+					statLineLeft.LuaValue = newTraitData
+					CreateTextBoxWithFormat( statLineLeft )
 
-				local statLineRight = ShallowCopyTable( screenData.StatLineRight )
-				statLineRight.Id = traitInfo.PurchaseButton.Id
-				statLineRight.Text = statLine
-				statLineRight.OffsetY = (lineNum - 1) * screenData.LineHeight
-				statLineRight.AppendToId = appendToId
-				statLineRight.LuaValue = newTraitData
-				CreateTextBoxWithFormat( statLineRight )
+					local statLineRight = ShallowCopyTable( screenData.StatLineRight )
+					statLineRight.Id = traitInfo.PurchaseButton.Id
+					statLineRight.Text = statLine
+					statLineRight.OffsetY = offsetY
+					statLineRight.AppendToId = appendToId
+					statLineRight.LuaValue = newTraitData
+					CreateTextBoxWithFormat( statLineRight )
 
+				end
 			end
 		end
 	end
@@ -226,10 +234,29 @@ function CreateBoonInfoButton( screen, traitName, index )
 		traitInfo.Frame = CreateScreenComponent( frame )
 	end
 
-	traitInfo.QuestIcon = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay",
-		X = offset.X + screenData.QuestIconOffsetX + ScreenCenterNativeOffsetX, Y = offset.Y + screenData.QuestIconOffsetY + ScreenCenterNativeOffsetY })
+	traitInfo.QuestIcon = CreateScreenComponent({
+		Name = "BlankObstacle",
+		Group = "Combat_Menu_TraitTray_Overlay",
+		X = offset.X + screenData.QuestIconOffsetX + ScreenCenterNativeOffsetX,
+		Y = offset.Y + screenData.QuestIconOffsetY + ScreenCenterNativeOffsetY
+	})
 	traitInfo.TraitName = traitName
 	traitInfo.Index = index
+
+	traitInfo.PinIcon = CreateScreenComponent({
+		Name = "BlankObstacle",
+		Group = "Combat_Menu_TraitTray_Overlay",
+		Animation = "StoreItemPin",
+		Alpha = 0.0,
+		X = offset.X + ScreenData.UpgradeChoice.PinOffsetX + ScreenCenterNativeOffsetX,
+		Y = offset.Y + ScreenData.UpgradeChoice.PinOffsetY + ScreenCenterNativeOffsetY
+	})
+	traitInfo.PurchaseButton.PinButtonId = traitInfo.PinIcon.Id
+	if HasStoreItemPin( traitName ) then
+		SetAlpha({ Id = traitInfo.PinIcon.Id, Fraction = 1 })
+		-- Silent toolip
+		CreateTextBox({ Id = button.Id, TextSymbolScale = 0, Text = "NeededPinBoonTooltip_Codex", Color = Color.Transparent })
+	end
 	
 	if IsGameStateEligible( screen, TraitRarityData.ElementalGameStateRequirements ) and not IsEmpty( newTraitData.Elements ) then
 		local elementName = GetFirstValue( newTraitData.Elements )
@@ -281,8 +308,7 @@ function CreateTraitRequirements( screen, traitName )
 	if not traitData then
 		traitData = ConsumableData[traitName]
 	end
-	local startY = screen.RequirementsStartY
-	local startX = screen.RequirementsStartX
+	local startY = ScreenData.BoonInfo.RequirementsStartY
 	local hasRequirement = false
 	
 	local requirementData = TraitRequirements[traitName]
@@ -299,8 +325,14 @@ function CreateTraitRequirements( screen, traitName )
 		end
 	end
 
-	if traitData.GameStateRequirements ~= nil and not traitData.BoonInfoIgnoreRequirements then
+	if traitData.LinkedGod ~= nil then
 		hasRequirement = true
+		startY = CreateLinkedGodRequirementList( screen, traitData, startY )
+	end
+
+	local incompatibleTraits = {}
+
+	if traitData.GameStateRequirements ~= nil and not traitData.BoonInfoIgnoreRequirements then
 		-- Generic requirements
 		for i, requirement in ipairs( traitData.GameStateRequirements ) do
 
@@ -326,46 +358,143 @@ function CreateTraitRequirements( screen, traitName )
 				valueToCheck = count
 			end
 
-			if requirement.Value ~= nil then
+			if traitData.IsHammerTrait then
+				if ( requirement.HasNone ~= nil and #path == 3 and path[1] == "CurrentRun" and path[2] == "Hero" and path[3] == "TraitDictionary" ) or
+					( requirement.IsNone ~= nil and #path == 3 and path[1] == "GameState" and path[2] == "LastWeaponUpgradeName" ) then
+					for i, traitName in ipairs( requirement.HasNone or requirement.IsNone ) do
+						local traitData = TraitData[traitName]
+						if traitData.CodexGameStateRequirements == nil or IsGameStateEligible( traitData, traitData.CodexGameStateRequirements ) then
+							table.insert( incompatibleTraits, traitName )
+						end
+					end
+				end
+				if requirement.IsAny ~= nil and #path == 3 and path[1] == "GameState" and path[2] == "LastWeaponUpgradeName" then
+					local anyRequirementsVisible = false
+					for i, traitName in ipairs( requirement.IsAny ) do
+						local traitData = TraitData[traitName]
+						if traitData.CodexGameStateRequirements == nil or IsGameStateEligible( traitData, traitData.CodexGameStateRequirements ) then
+							anyRequirementsVisible = true
+							break
+						end
+					end
+					if anyRequirementsVisible then
+						hasRequirement = true
+						startY = CreateTraitRequirementList( screen, { Text = "BoonInfo_OneOf", TextSingular = "BoonInfo_OneOf_Singular" }, requirement.IsAny, startY )
+					end
+				end
+			elseif requirement.Value ~= nil then
 				local currentCount = valueToCheck or 0
 				local goalCount = requirement.Value
 				local color = Color.White
+				local requirementMet = false
 				local numKeys = #path
 				local finalKey = path[numKeys]
-				if currentCount >= goalCount then
+				if ( requirement.Comparison == ">=" and currentCount >= goalCount ) or ( requirement.Comparison == "<=" and currentCount <= goalCount ) then
 					color = Color.BoonInfoAcquired
+					requirementMet = true
 				end
 
-				local listRequirementHeaderFormat = ShallowCopyTable( screen.ListRequirementHeaderFormat )
+				local headerText = "BoonInfo_Elements"
+				if numKeys == 4 and path[3] == "GodBoonRarities" then
+					headerText = "BoonInfo_GodBoonRarities"
+				end
+				local listRequirementHeaderFormat = ShallowCopyTable( ScreenData.BoonInfo.ListRequirementHeaderFormat )
 				listRequirementHeaderFormat.Id = screen.Components.RequirementsText.Id
-				listRequirementHeaderFormat.Text = "BoonInfo_Elements"
+				listRequirementHeaderFormat.Text = headerText
 				listRequirementHeaderFormat.Color = color
 				listRequirementHeaderFormat.OffsetY = startY
 				CreateTextBox( listRequirementHeaderFormat )
-				startY = startY + screen.ListRequirementHeaderSpacingY
+				startY = startY + ScreenData.BoonInfo.ListRequirementHeaderSpacingY
 
-				local countRequirementFormat = ShallowCopyTable( screen.CountRequirementFormat )
+				local countRequirementFormat = nil
+				if requirementMet then
+					countRequirementFormat = ShallowCopyTable( ScreenData.BoonInfo.CountRequirementAcquiredFormat )
+				else
+					countRequirementFormat = ShallowCopyTable( screen.CountRequirementUnacquiredFormat )
+				end
 				local icon = nil
-				if screen.IconMap[finalKey] ~= nil then
-					countRequirementFormat.Text = "BoonInfo_CountRequirementIcon"
-					icon = Icons[screen.IconMap[finalKey]]
+				local needBulletIcon = false
+				if finalKey == "HighestBaseElementCount" then
+					countRequirementFormat.Text = "BoonInfo_HighestBaseElementCount"
 					countRequirementFormat.TextSymbolScale = 0.7
+					countRequirementFormat.OffsetX = countRequirementFormat.OffsetX + 20
+					needBulletIcon = true
+				elseif ScreenData.BoonInfo.IconMap[finalKey] ~= nil then
+					countRequirementFormat.Text = "BoonInfo_CountRequirementIcon"
+					icon = Icons[ScreenData.BoonInfo.IconMap[finalKey]]
+					countRequirementFormat.TextSymbolScale = 0.7
+					countRequirementFormat.OffsetX = countRequirementFormat.OffsetX + 20
+					needBulletIcon = true
 				end
 				countRequirementFormat.Id = screen.Components.RequirementsText.Id
 				countRequirementFormat.OffsetY = startY
-				countRequirementFormat.Color = color
 				countRequirementFormat.LuaValue = { FinalKey = finalKey, FinalKeyIcon = icon, Value = requirement.Value }
 				CreateTextBox( countRequirementFormat )
-					
-				startY = startY + screen.ListRequirementSpacingY
+
+				if needBulletIcon then
+					local bulletPointFormat = ShallowCopyTable( ScreenData.BoonInfo.BulletPointFormat )
+					bulletPointFormat.Id = screen.Components.RequirementsText.Id
+					bulletPointFormat.OffsetY = startY
+					CreateTextBox( bulletPointFormat )
+				end
+
+				local godPlate = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray", Animation = ScreenData.BoonInfo.GenericHeaderIcon, Scale = ScreenData.BoonInfo.GenericHeaderIconScale, Alpha = 0.0 })
+				table.insert( screen.TraitRequirements, godPlate.Id )
+				Attach({ Id = godPlate.Id, DestinationId = screen.Components.RequirementsText.Id, OffsetY = listRequirementHeaderFormat.OffsetY })
+				if not screen.ShowTooltips then
+					SetAlpha({ Id = godPlate.Id, Fraction = 1.0, Duration = 0.2 })
+				end
+
+				hasRequirement = true
+				startY = startY + ScreenData.BoonInfo.ListRequirementHeaderSpacingY
 			end
 		end
 
 	end
 
+	if not IsEmpty( incompatibleTraits ) then
+		local metRequirement = true
+		for i, traitName in ipairs( incompatibleTraits ) do
+			if HeroHasTrait( traitName ) then
+				metRequirement = false
+				break
+			end
+		end
+		local color = Color.White
+		if metRequirement then
+			color = Color.BoonInfoAcquired
+		end
+		local listRequirementHeaderFormat = ShallowCopyTable( ScreenData.BoonInfo.ListRequirementHeaderFormat )
+		listRequirementHeaderFormat.Id = screen.Components.RequirementsText.Id
+		listRequirementHeaderFormat.Text = "BoonInfo_NoneOf"
+		listRequirementHeaderFormat.Color = color
+		listRequirementHeaderFormat.OffsetY = startY
+		CreateTextBox( listRequirementHeaderFormat )
+		startY = startY + ScreenData.BoonInfo.ListRequirementHeaderSpacingY
+
+		for i, traitName in ipairs( incompatibleTraits ) do
+			local listRequirementFormat = nil
+			if HeroHasTrait( traitName ) then
+				listRequirementFormat = ShallowCopyTable( ScreenData.BoonInfo.ListRequirementAcquiredFormat )
+			else
+				listRequirementFormat = ShallowCopyTable( screen.ListRequirementUnacquiredFormat )
+			end
+			listRequirementFormat.Id = screen.Components.RequirementsText.Id
+			listRequirementFormat.OffsetY = startY
+			listRequirementFormat.LuaValue = { TraitName = traitName }
+			CreateTextBox( listRequirementFormat )
+
+			startY = startY + ScreenData.BoonInfo.ListRequirementSpacingY
+		end
+
+		hasRequirement = true
+		startY = startY + ScreenData.BoonInfo.ListRequirementHeaderSpacingY
+	end
+
 	if not hasRequirement then
 		local noRequirementsFormat = ShallowCopyTable( screen.NoRequirementsFormat )
 		noRequirementsFormat.Id = screen.Components.RequirementsText.Id
+		noRequirementsFormat.OffsetX = screen.NoRequirementsOffsetX
 		noRequirementsFormat.OffsetY = startY
 		CreateTextBox( noRequirementsFormat )
 	end
@@ -375,7 +504,6 @@ function CreateTraitRequirementList( screen, headerTextArgs, traitList, startY, 
 	if traitList == nil then
 		return
 	end
-	local startX = 0
 	local originalY = startY
 	local headerText = headerTextArgs.Text
 	if TableLength(traitList) == 1 and headerTextArgs.TextSingular then
@@ -395,66 +523,159 @@ function CreateTraitRequirementList( screen, headerTextArgs, traitList, startY, 
 		color = Color.BoonInfoAcquired
 	end
 
-	local listRequirementHeaderFormat = ShallowCopyTable( screen.ListRequirementHeaderFormat )
+	local listRequirementHeaderFormat = ShallowCopyTable( ScreenData.BoonInfo.ListRequirementHeaderFormat )
 	listRequirementHeaderFormat.Id = screen.Components.RequirementsText.Id
 	listRequirementHeaderFormat.Text = headerText
 	listRequirementHeaderFormat.Color = color
 	listRequirementHeaderFormat.OffsetY = startY
 	CreateTextBox( listRequirementHeaderFormat )
 
-	startY = startY + screen.ListRequirementHeaderSpacingY
+	startY = startY + ScreenData.BoonInfo.ListRequirementHeaderSpacingY
 	local sharedGod = nil
 	local allSame = true
 	for i, traitName in ipairs( traitList ) do
-		local lootSourceName = GetLootSourceName( traitName, { ForBoonInfo = true } )
-		if not sharedGod then
-			sharedGod = lootSourceName
-		elseif sharedGod ~= lootSourceName and not LootData[sharedGod].TraitIndex[traitName] then
-			allSame = false
-		end
-		local displayedTraitName = traitName
-		if TraitData[traitName].BoonInfoRequirementText then
-			displayedTraitName = TraitData[traitName].BoonInfoRequirementText 
-		end
+		local traitData = TraitData[traitName]
+		if traitData.CodexGameStateRequirements == nil or IsGameStateEligible( traitData, traitData.CodexGameStateRequirements ) then 
+			local lootSourceName = GetLootSourceName( traitName, { ForBoonInfo = true } )
+			if not sharedGod then
+				sharedGod = lootSourceName
+			elseif sharedGod ~= lootSourceName and not LootData[sharedGod].TraitIndex[traitName] then
+				allSame = false
+			end
 		
-		local listRequirementFormat = ShallowCopyTable( screen.ListRequirementUnacquiredFormat )
-		if HeroHasTrait( traitName ) then
-			listRequirementFormat = ShallowCopyTable( screen.ListRequirementAcquiredFormat )
-		end
-		listRequirementFormat.Id = screen.Components.RequirementsText.Id
-		listRequirementFormat.OffsetY = startY
-		listRequirementFormat.LuaValue = { TraitName = displayedTraitName }
-		CreateTextBox( listRequirementFormat )
+			local listRequirementFormat = nil
+			if HeroHasTrait( traitName ) then
+				listRequirementFormat = ShallowCopyTable( ScreenData.BoonInfo.ListRequirementAcquiredFormat )
+			else
+				listRequirementFormat = ShallowCopyTable( screen.ListRequirementUnacquiredFormat )
+			end
+			listRequirementFormat.Id = screen.Components.RequirementsText.Id
+			listRequirementFormat.OffsetY = startY
+			listRequirementFormat.LuaValue = { TraitName = traitName }
+			CreateTextBox( listRequirementFormat )
 
-		startY = startY + screen.ListRequirementSpacingY
+			startY = startY + ScreenData.BoonInfo.ListRequirementSpacingY
+		end
 	end
+
+	local headerIcon = ScreenData.BoonInfo.GenericHeaderIcon
+	local headerIconScale = ScreenData.BoonInfo.GenericHeaderIconScale
 	if allSame and sharedGod and LootData[sharedGod].BoonInfoIcon then
-		local godPlate = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray", Animation = LootData[sharedGod].BoonInfoIcon, Scale = screen.GodIconScale, Alpha = 0.0 })
+		headerIcon = LootData[sharedGod].BoonInfoIcon
+		headerIconScale = ScreenData.BoonInfo.GodIconScale
+	end
+	local godPlate = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray", Animation = headerIcon, Scale = headerIconScale, Alpha = 0.0 })
+	table.insert( screen.TraitRequirements, godPlate.Id )
+	Attach({ Id = godPlate.Id, DestinationId = screen.Components.RequirementsText.Id, OffsetY = originalY })
+	if not screen.ShowTooltips then
+		SetAlpha({ Id = godPlate.Id, Fraction = 1.0, Duration = 0.2 })
+	end
+
+	startY = startY + ScreenData.BoonInfo.ListRequirementHeaderSpacingY
+	return startY
+end
+
+function CreateLinkedGodRequirementList( screen, traitData, startY )
+
+	local hasMetGod = CurrentRun.Hero.MetGods[traitData.LinkedGod]
+	local keepsakeName = traitData.GameStateRequirements.OrRequirements[2][1].PathTrue[4]
+	local hasKeepsake = CurrentRun.Hero.TraitDictionary[keepsakeName]
+
+	local color = Color.White
+	if hasMetGod or hasKeepsake then
+		color = Color.BoonInfoAcquired
+	end
+
+	local originalY = startY
+
+	-- header
+	local listRequirementHeaderFormat = ShallowCopyTable( ScreenData.BoonInfo.ListRequirementHeaderFormat )
+	listRequirementHeaderFormat.Id = screen.Components.RequirementsText.Id
+	listRequirementHeaderFormat.Text = "BoonInfo_LinkedGod_Header"
+	listRequirementHeaderFormat.Color = color
+	listRequirementHeaderFormat.OffsetY = startY
+	CreateTextBox( listRequirementHeaderFormat )
+
+	startY = startY + ScreenData.BoonInfo.ListRequirementHeaderSpacingY
+
+	-- any boon
+	local listRequirementFormat = nil
+	if hasMetGod then
+		listRequirementFormat = ShallowCopyTable( ScreenData.BoonInfo.ListRequirementAcquiredFormat )
+	else
+		listRequirementFormat = ShallowCopyTable( screen.ListRequirementUnacquiredFormat )
+	end
+	listRequirementFormat.Id = screen.Components.RequirementsText.Id
+	listRequirementFormat.Text = "BoonInfo_LinkedGod_Boon"
+	listRequirementFormat.OffsetY = startY
+	listRequirementFormat.LuaValue = { LinkedGod = traitData.LinkedGod }
+	CreateTextBox( listRequirementFormat )
+
+	startY = startY + ScreenData.BoonInfo.ListRequirementSpacingY
+
+	-- keepsake
+	if hasKeepsake then
+		listRequirementFormat = ShallowCopyTable( ScreenData.BoonInfo.ListRequirementAcquiredFormat )
+	else
+		listRequirementFormat = ShallowCopyTable( screen.ListRequirementUnacquiredFormat )
+	end
+
+	listRequirementFormat.Id = screen.Components.RequirementsText.Id
+	listRequirementFormat.OffsetY = startY
+	listRequirementFormat.LuaValue = { TraitName = keepsakeName }
+	CreateTextBox( listRequirementFormat )
+
+	startY = startY + ScreenData.BoonInfo.ListRequirementSpacingY
+
+	-- icon
+	local boonIcon = LootData[traitData.LinkedGod].BoonInfoIcon
+	if boonIcon then
+		local godPlate = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray", Animation = boonIcon, Scale = ScreenData.BoonInfo.GodIconScale, Alpha = 0.0 })
 		table.insert( screen.TraitRequirements, godPlate.Id )
-		Attach({ Id = godPlate.Id, DestinationId = screen.Components.RequirementsText.Id, OffsetX = startX, OffsetY = originalY })
-		if not GameState.BoonInfoScreenShowTooltips then
+		Attach({ Id = godPlate.Id, DestinationId = screen.Components.RequirementsText.Id, OffsetY = originalY })
+		if not screen.ShowTooltips then
 			SetAlpha({ Id = godPlate.Id, Fraction = 1.0, Duration = 0.2 })
 		end
 	end
 
-	startY = startY + screen.ListRequirementHeaderSpacingY
+	startY = startY + ScreenData.BoonInfo.ListRequirementHeaderSpacingY
+
 	return startY
 end
 
 function MouseOverBoonInfoItem( button )
 	GenericMouseOverPresentation( button )
 	local screen = button.Screen
+	screen.SelectedItem = button
+	screen.ClipboardText = button.TraitData.Name
 	SetAnimation({ DestinationId = button.Highlight.Id, Name = "BoonSlotHighlight" })
 	CreateTraitRequirements( screen, button.TraitData.Name )
+	if GameState.WorldUpgrades.WorldUpgradePinningBoons and screen.CodexEntryData.BoonInfoAllowPinning then
+		screen.Components.PinButton.Visible = true
+		if HasStoreItemPin( button.TraitData.Name ) then
+			ModifyTextBox({ Id = screen.Components.PinButton.Id, Text = screen.Components.PinButton.AltText })
+		else
+			ModifyTextBox({ Id = screen.Components.PinButton.Id, Text = screen.Components.PinButton.Text })
+		end
+		SetAlpha({ Id = screen.Components.PinButton.Id, Fraction = 1.0, Duration = 0.2 })
+		if not GameState.Flags.HasPinnedAnyBoon and not screen.FirstPinPrompt then
+			thread( PulseContextActionPresentation, screen.Components.PinButton, { ThreadName = "BoonPinPulse" } )
+			screen.FirstPinPrompt = true
+		end
+	end
 end
 
 function MouseOffBoonInfoItem( button )
 	local screen = button.Screen
+	screen.SelectedItem = nil
 	SetAnimation({ DestinationId = button.Highlight.Id, Name = "BoonHighlightOut" })
 	
 	DestroyTextBox({ Id = screen.Components.RequirementsText.Id })
 	Destroy({ Ids = screen.TraitRequirements })
 	screen.TraitRequirements = {}
+
+	SetAlpha({ Id = screen.Components.PinButton.Id, Fraction = 0.0, Duration = 0.2 })
+	screen.Components.PinButton.Visible = false
 end
 
 function BoonInfoScreenPrevious( screen, button )
@@ -466,7 +687,7 @@ function BoonInfoScreenPrevious( screen, button )
 	CreateBoonInfoButtons( screen )
 	UpdateBoonInfoPageButtons( screen )
 	TeleportCursor({ DestinationId = screen.Components["BooninfoButton3"].PurchaseButton.Id, ForceUseCheck = true })
-	PlaySound({ Name = "/SFX/Menu Sounds/DialoguePanelOut" })
+	GenericScrollPresentation( screen, button )
 end
 
 function BoonInfoScreenNext( screen, button )
@@ -478,6 +699,7 @@ function BoonInfoScreenNext( screen, button )
 	CreateBoonInfoButtons( screen )
 	UpdateBoonInfoPageButtons( screen )
 	TeleportCursor({ DestinationId = screen.Components["BooninfoButton1"].PurchaseButton.Id, ForceUseCheck = true })
+	GenericScrollPresentation( screen, button )
 end
 
 function UpdateBoonInfoPageButtons( screen )
@@ -487,19 +709,19 @@ function UpdateBoonInfoPageButtons( screen )
 		UseableOn({ Id = components.PageDown.Id })
 	else
 		SetAlpha({ Id = components.PageDown.Id, Fraction = 0, Duration = 0 })
-		UseableOff({ Id = components.PageDown.Id })
+		UseableOff({ Id = components.PageDown.Id, ForceHighlightOff = true })
 	end
 	if screen.TraitList[screen.StartingIndex - screen.NumPerPage] then
 		SetAlpha({ Id = components.PageUp.Id, Fraction = 1, Duration = 0 })
 		UseableOn({ Id = components.PageUp.Id })
 	else
 		SetAlpha({ Id = components.PageUp.Id, Fraction = 0, Duration = 0 })
-		UseableOff({ Id = components.PageUp.Id })
+		UseableOff({ Id = components.PageUp.Id, ForceHighlightOff = true })
 	end
 end
 
 function BoonInfoScreenToggleTooltips( screen, button )
-	GameState.BoonInfoScreenShowTooltips = not GameState.BoonInfoScreenShowTooltips
+	screen.ShowTooltips = not screen.ShowTooltips
 	PlaySound({ Name = "/SFX/Menu Sounds/GeneralWhooshMENU" })
 	BoonInfoScreenUpdateTooltipToggle( screen, button )
 end
@@ -517,10 +739,10 @@ function BoonInfoScreenUpdateTooltipToggle( screen, button )
 
 	for name, component in pairs( screen.Components ) do
 		if component.PurchaseButton ~= nil then
-			ModifyTextBox({ Id = component.PurchaseButton.Id, BlockTooltip = not GameState.BoonInfoScreenShowTooltips })
+			ModifyTextBox({ Id = component.PurchaseButton.Id, BlockTooltip = not screen.ShowTooltips })
 		end
 	end
-	if not GameState.BoonInfoScreenShowTooltips then
+	if not screen.ShowTooltips then
 		SetAlpha({ Id = screen.Components.RequirementsTitle.Id, Fraction = 1.0, Duration = 0.2 })
 		SetAlpha({ Id = screen.Components.RequirementsText.Id, Fraction = 1.0, Duration = 0.2 })
 		ModifyTextBox({ Id = screen.Components.ToggleTooltipsButton.Id, Text = "BoonInfo_ShowTooltips" })
@@ -543,13 +765,14 @@ function CloseBoonInfoScreen( screen, button )
 	end
 	screen.CanClose = false
 	PlaySound({ Name = "/SFX/Menu Sounds/GeneralWhooshMENULoudLow" })
+	killTaggedThreads( "BoonPinPulse" )
 
 	local ids = GetAllIds( screen.Components )
 	for i, traitContainer in pairs( screen.TraitContainers ) do
 		ids = ConcatTableValues( ids,
 			{
-				traitContainer.PurchaseButton.Id, traitContainer.QuestIcon.Id, traitContainer.Highlight.Id, traitContainer.Icon.Id,
-				traitContainer.TitleBox.Id,
+				traitContainer.PurchaseButton.Id, traitContainer.QuestIcon.Id, traitContainer.PinIcon.Id,
+				traitContainer.Highlight.Id, traitContainer.Icon.Id, traitContainer.TitleBox.Id,
 			})
 		if traitContainer.Frame ~= nil then
 			table.insert( ids, traitContainer.Frame.Id )
@@ -561,6 +784,9 @@ function CloseBoonInfoScreen( screen, button )
 	end
 	ids = ConcatTableValues( ids, screen.TraitRequirements )
 	UseableOff({ Ids = ids })
+	if screen.CloseFunctionName ~= nil then
+		CallFunctionName( screen.CloseFunctionName, screen, screen.CloseFunctionArgs )
+	end
 	OnScreenCloseStarted( screen )
 	CloseScreen( ids , 0.15 )
 	OnScreenCloseFinished( screen )
@@ -584,54 +810,9 @@ end
 function BoonInfoPopulateTraits( screen )
 	--screen.HiddenTraits = {}
 
+	DebugAssert({ Condition = screen.TraitSortOrder[screen.LootName] ~= nil, Text = screen.LootName.." doesn't have a defined trait sort order", Owner = "Caleb" })
+
 	screen.TraitList = {}
-
-	local allTraitsList = nil
-	if screen.TraitDictionary[screen.LootName] ~= nil then
-		allTraitsList = GetAllKeys( screen.TraitDictionary[screen.LootName] )
-		if screen.CustomSortFunction[screen.LootName] then
-			table.sort( allTraitsList, _G[screen.CustomSortFunction[screen.LootName]] )
-		else
-			table.sort( allTraitsList,  
-				function ( itemA, itemB )
-
-					local traitA = TraitData[itemA] or ConsumableData[itemA]
-					local traitB = TraitData[itemB] or ConsumableData[itemB]
-					if traitA == nil then
-						return true
-					end
-					if traitB == nil then
-						return false
-					end
-					local aValue = GetKey(ScreenData.BoonInfo.TraitSortOrder[screen.LootName], traitA.Name )
-					local bValue = GetKey(ScreenData.BoonInfo.TraitSortOrder[screen.LootName], traitB.Name )
-					if ScreenData.BoonInfo.TraitSortOrder[screen.LootName] then
-						if not aValue then
-							aValue = 0
-						end
-						if not bValue then
-							bValue = 0
-						end
-					end
-					if aValue ~= bValue then
-						return aValue < bValue
-					elseif traitA.Name ~= traitB.Name then
-						return traitA.Name < traitB.Name
-					end
-					return false
-				end
-			)
-		end
-	else
-		allTraitsList = (EnemyData[screen.LootName] or LootData[screen.LootName]).Traits
-	end
-	--[[
-	for traitName, requirements in pairs( screen.HiddenTraitData ) do
-		if not IsGameStateEligible( requirements ) then
-			screen.HiddenTraits[traitName] = true
-		end
-	end
-	]]
 
 	local codexWeaponName = nil
 	if screen.LootName == "WeaponUpgrade" then
@@ -642,7 +823,7 @@ function BoonInfoPopulateTraits( screen )
 		end
 	end
 
-	for i, traitName in ipairs( allTraitsList ) do
+	for i, traitName in ipairs( screen.TraitSortOrder[screen.LootName] ) do
 		local traitData = TraitData[traitName]
 		if traitData ~= nil and ( not traitData.CodexWeapon or traitData.CodexWeapon == codexWeaponName ) and ( traitData.CodexGameStateRequirements == nil or IsGameStateEligible( traitData, traitData.CodexGameStateRequirements ) ) then
 			table.insert( screen.TraitList, traitName )
@@ -652,53 +833,25 @@ function BoonInfoPopulateTraits( screen )
 	end
 
 end
-function BoonInfoSpellSort( itemA, itemB )
 
-	local traitA = TraitData[itemA] or ConsumableData[itemA]
-	local traitB = TraitData[itemB] or ConsumableData[itemB]
-	if traitA == nil then
-		return true
+function BoonInfoPinItem( screen, button )
+	if screen.SelectedItem == nil then
+		return
 	end
-	if traitB == nil then
-		return false
+	if not GameState.WorldUpgrades.WorldUpgradePinningBoons or not screen.CodexEntryData.BoonInfoAllowPinning then
+		return
 	end
-
-	local talentToInt = 
-		function ( trait )
-			if trait ~= nil then
-				if trait.Slot == "Spell" then
-					return -100 + GetKey(SpellDisplayData.SpellTraitOrdering, trait.Name )
-				end
-				if trait.TalentCategory then
-				if trait.TalentCategory == "Repeatable" then
-					if TraitRequirements[trait.Name] and not IsEmpty(TraitRequirements[trait.Name].OneOf) then
-						if TableLength(TraitRequirements[trait.Name].OneOf) > 1 then 
-							return 10 - TableLength(TraitRequirements[trait.Name].OneOf)
-						else
-							return 11 + GetKey( SpellDisplayData.SpellTraitOrdering, TraitRequirements[trait.Name].OneOf[1] )
-						end
-					end
-					return 0
-				elseif trait.TalentCategory == "Unique" or trait.TalentCategory == "Legendary" then
-					if TraitRequirements[trait.Name] and not IsEmpty(TraitRequirements[trait.Name].OneOf) then
-						local rarityAdjustment = 0
-						if trait.TalentCategory == "Legendary" then
-							rarityAdjustment = 1
-						end
-						return 20 + GetKey( SpellDisplayData.SpellTraitOrdering, TraitRequirements[trait.Name].OneOf[1] ) * 10 + rarityAdjustment
-					end
-					return 90
-				end
-			end
-			end
-			return 99
-		end
-	if talentToInt(traitA) ~= talentToInt(traitB) then
-		return talentToInt(traitA) < talentToInt(traitB)
+	local itemName = screen.SelectedItem.TraitData.Name
+	if HasStoreItemPin( itemName ) then
+		RemoveStoreItemPin( itemName )
+		RemoveStoreItemPinPresentation( screen.SelectedItem, { Text = "NeededPinBoonTooltip_Codex" } )
+		ModifyTextBox({ Id = screen.Components.PinButton.Id, Text = screen.Components.PinButton.Text })
+	else
+		AddStoreItemPin( itemName, "TraitData" )
+		AddStoreItemPinPresentation( screen.SelectedItem, { Text = "NeededPinBoonTooltip_Codex" } )
+		ModifyTextBox({ Id = screen.Components.PinButton.Id, Text = screen.Components.PinButton.AltText })
 	end
-	
-	if traitA.Name ~= traitB.Name then
-		return traitA.Name < traitB.Name
-	end
-	return false
+	BoonInfoScreenUpdateTooltipToggle( screen )
+	GameState.Flags.HasPinnedAnyBoon = true
+	killTaggedThreads( "BoonPinPulse" )
 end

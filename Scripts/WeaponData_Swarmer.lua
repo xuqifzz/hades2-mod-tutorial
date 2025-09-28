@@ -32,12 +32,6 @@ WeaponSetData =
 			LoSBuffer = 80,
 			LoSEndBuffer = 32,
 		},
-
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	SwarmerClockworkMelee =
@@ -64,7 +58,6 @@ WeaponSetData =
 			FireSelfVelocity = 3650,
 			RetreatBufferDistance = 610,
 			RetreatAfterAttackEndWait = 0.75,
-			--DumbFireWeapons = { "SwarmerRushRipple" },
 		},
 	},
 
@@ -97,28 +90,13 @@ WeaponSetData =
 			PreAttackTeleport = true,
 			TeleportMinDistance = 400,
 			TeleportMaxDistance = 1000,
+			TeleportStartFx = "SwarmerTeleportFxFront",
 			TeleportEndFx = "SwarmerTeleportFxFront",
 			PreTeleportWait = 0.05,
 			PostAttackDurationMin = 0.15,
 			PostAttackDurationMax = 0.25,
 		},
 	},
-
-	--[[SwarmerRushRipple =
-	{
-		InheritFrom = { "ChronosRushRipple" },
-
-		AIData =
-		{
-			DeepInheritance = true,
-			AttackSlots =
-			{
-				{ ProjectileName = "SwarmerRushRipple", UseAttackerAngle = true, },
-				{ ProjectileName = "SwarmerRushRipple", UseAttackerAngle = true, AIDataOverrides = { FuseSound = "/SFX/Enemy Sounds/Alecto/AlectoRageGatherLoop" } },
-				{ ProjectileName = "SwarmerRushRipple", UseAttackerAngle = true, },
-			},
-		}
-	},]]
 }
 
 OverwriteTableKeys( WeaponData, WeaponSetData )

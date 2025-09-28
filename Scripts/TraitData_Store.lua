@@ -3,7 +3,14 @@
 	ShopTrait =
 	{
 		NoFrame = true,
+		InfoBackingAnimation = "ShopSlotBase",
+		TrayTextBackingAnimation = "TraitTray_LevelBacking_Alt",
+		TrayTextBackingOffsetY = 9,
+		PinAnimationIn = "TraitPinIn_Keepsake",
+		PinAnimationOut = "TraitPinOut_Keepsake",
+		TrayHighlightAnimScale = 1.2,
 		HideInRunHistory = true,
+		DebugOnly = true,
 	},
 	ExtendedShopTrait = 
 	{
@@ -26,7 +33,6 @@
 			TemporaryEmptySlotDamageTrait = true,
 		},
 		BossExtension = {BaseValue = 2},
-		PermanentItemBadgeAnimationName = "Shop_Seal",
 		ExtractValues = 
 		{
 			{
@@ -58,7 +64,7 @@
 		},
 		StatLines = 
 		{
-			"StoreUsesRemainingDisplay1",
+			"StoreUsesRemainingDisplay2",
 		},
 		ExtractValues =
 		{
@@ -66,37 +72,6 @@
 				Key = "DoorHeal",
 				ExtractAs = "TooltipHeal",
 				Format = "PercentHeal",
-			},
-			{
-				ExtractAs = "HealingReduction",
-				Format = "TotalMetaUpgradeChangeValue",
-				MetaUpgradeName = "HealingReductionShrineUpgrade"
-			}
-		},
-	},
-	TemporaryImprovedWeaponTrait =
-	{
-		InheritFrom = { "ShopTrait" },
-		Icon = "Shop_Jerky",
-		OnPurchaseSound = "/Leftovers/Menu Sounds/WellPurchase_Fabric",
-		ResourceCosts =
-		{
-			Money = 40,
-		},
-		RemainingUses = 5,
-		UsesAsEncounters = true,
-		AddOutgoingDamageModifiers =
-		{
-			ValidWeaponMultiplier = 1.3,
-			ValidWeapons = WeaponSets.HeroPhysicalWeapons,
-			ReportValues = { ReportedWeaponMultiplier = "ValidWeaponMultiplier"}
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedWeaponMultiplier",
-				ExtractAs = "TooltipDamageBonus",
-				Format = "PercentDelta",
 			},
 		},
 	},
@@ -172,6 +147,7 @@
 		UsesAsEncounters = true,
 		AddIncomingDamageModifiers =
 		{
+			HealthOnly = true,
 			ValidWeaponMultiplier = 0.9,
 			ReportValues = 
 			{
@@ -205,7 +181,7 @@
 		AddOutgoingDamageModifiers =
 		{
 			ValidWeaponMultiplier = 1.35,
-			ValidWeapons = WeaponSets.HeroNonPhysicalWeapons,
+			ValidWeapons = WeaponSets.HeroRangedWeapons,
 			ReportValues = { ReportedWeaponMultiplier = "ValidWeaponMultiplier"}
 		},
 		StatLines = 
@@ -379,7 +355,7 @@
 		OnPurchaseSound = "/Leftovers/Menu Sounds/WellPurchase_Fabric",
 		ResourceCosts =
 		{
-			Money = 50,
+			Money = 115,
 		},
 		RemainingUses = 4,
 		UsesAsEncounters = true,
@@ -478,7 +454,6 @@
 		},
 		OnManaSpendAction = 
 		{
-			ManaDrainTriggers = true,
 			FunctionName = "CheckOverTimeManaRefund",
 			FunctionArgs = 
 			{

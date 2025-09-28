@@ -68,8 +68,58 @@ ShrineUpgradeOrder =
 	"BoonManaReserveShrineUpgrade",
 	"BanUnpickedBoonsShrineUpgrade",
 
+	"BossDifficultyShrineUpgrade",	
+}
 
-	--"BossDifficultyShrineUpgrade",	
+BossDifficultyShrineEncounterMap =
+{
+	Hecate =
+	{
+		Encounter = "BossHecate01",
+		AltEncounter = "BossHecate02",
+	},
+
+	Scylla =
+	{
+		Encounter = "BossScylla01",
+		AltEncounter = "BossScylla02",
+	},
+
+	InfestedCerberus =
+	{
+		Encounter = "BossInfestedCerberus01",
+		AltEncounter = "BossInfestedCerberus02",
+	},
+
+	Chronos =
+	{
+		Encounter = "BossChronos01",
+		AltEncounter = "BossChronos02",
+	},
+
+	Polyphemus =
+	{
+		Encounter = "BossPolyphemus01",
+		AltEncounter = "BossPolyphemus02",
+	},
+
+	Eris =
+	{
+		Encounter = "BossEris01",
+		AltEncounter = "BossEris02",
+	},
+
+	Prometheus =
+	{
+		Encounter = "BossPrometheus01",
+		AltEncounter = "BossPrometheus02",
+	},
+
+	TyphonHead =
+	{
+		Encounter = "BossTyphonHead01",
+		AltEncounter = "BossTyphonHead02",
+	},
 }
 
 BiomeTimeLimits =
@@ -81,6 +131,7 @@ BiomeTimeLimits =
 	},
 }
 
+--Conquer the
 UIData.ShrineBountyAvailableTextArgs =
 {
 	FadeTarget = 0.0,
@@ -89,11 +140,18 @@ UIData.ShrineBountyAvailableTextArgs =
 	OffsetX = -683,
 	OffsetY = -290,
 	Width = 840,
-	Color = Color.White,
+	Color = {201, 164, 103, 255},
 	Font = "LatoMedium",
-	ShadowBlur = 0,
-	ShadowColor = {0,0,0,255},
-	ShadowOffset = {0, 1},
+	DataProperties =
+	{
+		ShadowBlur = 0,
+		ShadowRed = 0,
+		ShadowGreen = 0,
+		ShadowBlue = 0,
+		ShadowAlpha = 255,
+		ShadowOffsetX = 0,
+		ShadowOffsetY = 1,
+	},
 	Justification = "Left",
 	TextSymbolScale = 0.8,
 }
@@ -103,72 +161,92 @@ ScreenData.Shrine =
 	BlockPause = true,
 
 	-- Vow Backings
-	ItemStartX = 800,
-	ItemStartY = 115,
+	ItemStartX = 805,
+	ItemStartY = 95,
 	ItemSpacingX = 188,
 	ItemSpacingY = 116,
 	ItemsPerRow = 4,
 	ScrollOffset = 0,
-	
+	WideItemOffsetX = 283,
+	WideIconGroupShiftX = 35,
+
+	PactInactiveAnimation = "ShrinePactInactiveBacking",
+	PactActiveAnimation = "ShrinePactActiveBacking",
+	PactInactiveWideAnimation = "ShrinePactInactiveBackingWide",
+	PactActiveWideAnimation = "ShrinePactActiveBackingWide",
+	PactInactiveBadgeAnimation = "GUI\\Screens\\Shrine\\PactBadgeInactive",
+	PactActiveBadgeAnimation = "GUI\\Screens\\Shrine\\PactBadgeActive",
+	SelectionHighlightAnimation = "ShrinePactHover",
+	SelectionHighlightWideAnimation = "ShrinePactHoverWide",	
+	SelectionHighlightGlintAnimation = "ShrinePactHighlight",
+	SelectionHighlightWideGlintAnimation = "ShrinePactHighlightLarge",
+	CloseAnimation = "ShrineOut",
+
 	BountyOrder =
 	{
-		-- Heat 1 Bounties
-		"BountyStaffHeat1FBoss",
-		"BountyDaggerHeat1GBoss",
-		"BountyTorchHeat1OBoss",
-		"BountyAxeHeat1NBoss",
-		"BountyLobHeat1HBoss",
-		"BountySuitHeat1PBoss",
+		-- Heat 1
+		"BountyShrineStaffFBoss",
+		"BountyShrineDaggerGBoss",
+		"BountyShrineTorchOBoss",
+		"BountyShrineAxeNBoss",
+		"BountyShrineLobHBoss",
+		"BountyShrineSuitPBoss",
 
-		-- Heat 2 Bounties
-		"BountyStaffHeat2GBoss",
-		"BountyDaggerHeat2NBoss",
-		"BountyTorchHeat2HBoss",
-		"BountyAxeHeat2OBoss",
-		"BountyLobHeat2PBoss",
-		"BountySuitHeat2FBoss",
+		-- Heat 2
+		"BountyShrineStaffGBoss",
+		"BountyShrineDaggerNBoss",
+		"BountyShrineTorchHBoss",
+		"BountyShrineAxeOBoss",
+		"BountyShrineLobPBoss",
+		"BountyShrineSuitFBoss",
 
-		-- Heat 4 Bounties
-		"BountyStaffHeat4NBoss",
-		"BountyDaggerHeat4OBoss",
-		"BountyTorchHeat4PBoss",
-		"BountyAxeHeat4HBoss",
-		"BountyLobHeat4FBoss",
-		"BountySuitHeat4GBoss",
+		-- Heat 4
+		"BountyShrineStaffNBoss",
+		"BountyShrineDaggerOBoss",
+		"BountyShrineTorchPBoss",
+		"BountyShrineAxeHBoss",
+		"BountyShrineLobFBoss",
+		"BountyShrineSuitGBoss",
 
-		-- Heat 8 Bounties
-		"BountyStaffHeat8OBoss",
-		"BountyDaggerHeat8HBoss",
-		"BountyTorchHeat8FBoss",
-		"BountyAxeHeat8PBoss",
-		"BountyLobHeat8GBoss",
-		"BountySuitHeat8NBoss",
+		-- Heat 8
+		"BountyShrineStaffOBoss",
+		"BountyShrineDaggerHBoss",
+		"BountyShrineTorchFBoss",
+		"BountyShrineAxePBoss",
+		"BountyShrineLobGBoss",
+		"BountyShrineSuitNBoss",
 
-		-- Heat 12 Bounties
-		"BountyStaffHeat12HBoss",
-		"BountyDaggerHeat12PBoss",
-		"BountyTorchHeat12GBoss",
-		"BountyAxeHeat12FBoss",
-		"BountyLobHeat12NBoss",
-		"BountySuitHeat12OBoss",
+		-- Heat 10
+		"BountyShrineStaffHBoss",
+		"BountyShrineDaggerPBoss",
+		"BountyShrineTorchGBoss",
+		"BountyShrineAxeFBoss",
+		"BountyShrineLobNBoss",
+		"BountyShrineSuitOBoss",
 
-		-- Heat 16 Bounties
-		"BountyStaffHeat16PBoss",
-		"BountyDaggerHeat16FBoss",
-		"BountyTorchHeat16NBoss",
-		"BountyAxeHeat16GBoss",
-		"BountyLobHeat16OBoss",
-		"BountySuitHeat16HBoss",
+		-- Heat 12
+		"BountyShrineStaffPBoss",
+		"BountyShrineDaggerFBoss",
+		"BountyShrineTorchNBoss",
+		"BountyShrineAxeGBoss",
+		"BountyShrineLobOBoss",
+		"BountyShrineSuitHBoss",
 
-		-- Heat 20 Bounties
-		"BountyStaffHeat20IBoss",
-		"BountyAxeHeat20IBoss",
-		"BountyLobHeat20IBoss",
+		-- Heat 16
+		"BountyShrineStaffIBoss",
+		"BountyShrineDaggerQBoss",
+		"BountyShrineTorchQBoss",
+		"BountyShrineAxeIBoss",
+		"BountyShrineLobIBoss",
+		"BountyShrineSuitQBoss",
 
-		-- Heat 24 Bounties
-		"BountyDaggerHeat24IBoss",
-		"BountyTorchHeat24IBoss",
-		"BountySuitHeat24IBoss",
+		-- Heat 20
+		"BountyShrineStaffQBoss",
+		"BountyShrineDaggerIBoss",
+		"BountyShrineTorchIBoss",
+		"BountyShrineAxeQBoss",
+		"BountyShrineLobQBoss",
+		"BountyShrineSuitIBoss",
 	},
 
 	ShrineRunDoorArrowId = 589699,
@@ -181,13 +259,14 @@ ScreenData.Shrine =
 		BossPolyphemus01 = true,
 		BossEris01 = true,
 		BossPrometheus01 = true,
+		BossTyphonHead01 = true,
 	},
 
 	OpenSound = "/SFX/Menu Sounds/PactMenuOpenSFX",
 	CloseSound = "/SFX/Menu Sounds/PactMenuCloseSFX",
-	MouseOverSound = "/SFX/Menu Sounds/DialoguePanelOut",
-    ToggleOnSound = "/SFX/Menu Sounds/MirrorMenuStatIncrease",
-    ToggleOffSound = "/SFX/Menu Sounds/MirrorMenuStatLower",
+	MouseOverSound = "/SFX/Menu Sounds/DialoguePanelOutMenu",
+    ToggleOnSound = "/SFX/Menu Sounds/IrisMenuConfirm",
+    ToggleOffSound = "/SFX/Menu Sounds/IrisMenuBack",
 
 	InfoMessageId = "ShrineIntro",
 
@@ -201,8 +280,9 @@ ScreenData.Shrine =
 	TooltipX = 1670,
 	TooltipY = 850,
 
+	-- Testament fonts
 	IconActiveColor = Color.White,
-	IconInactiveColor = { 169, 169, 169, 128 },
+	IconInactiveColor = { 89, 89, 89, 255 },
 
 	BountyActiveColor = Color.White, --[[{189, 234, 44, 255}]]
 	BountyInactiveColor = {255, 255, 255, 40}, --[[{53, 58, 69, 235}]]
@@ -223,23 +303,28 @@ ScreenData.Shrine =
 	{
 		Font = "NumericP22UndergroundSCHeavy",
 		Text = "ShrineScreen_NextRankPoints",
-		FontSize = 19,
-		OffsetX = 154,
-		OffsetY = -37,
-		ShadowBlur = 0,				
-		ShadowColor = {0,0,0,1},
-		ShadowOffset = {3, 3},
-		Justification = "Right",
-		TextSymbolScale = 0.65,
+		FontSize = 23,
+		OffsetX = 24,
+		OffsetY = 0,
 		DataProperties =
 		{
-			OpacityWithOwner = false,
-		}
+			ShadowBlur = 0,
+			ShadowRed = 0,
+			ShadowGreen = 0,
+			ShadowBlue = 0,
+			ShadowAlpha = 1,
+			ShadowOffsetX = 3,
+			ShadowOffsetY = 3,
+		},
+		Justification = "Right",
+		TextSymbolScale = 0.75,
 	},
 
 	-- Vow Next Rank Backing
 	NextRankBackingOffsetX = 62,
 	NextRankBackingOffsetY = -41,
+	NextRankBackingWideOffsetX = 103,
+	NextRankBackingWideOffsetY = -36,
 
 	-- Vow Name
 	ShortNameFormat = 
@@ -248,43 +333,76 @@ ScreenData.Shrine =
 		FontSize = 17,
 		OffsetX = 37,
 		OffsetY = -6,
-		Color = { 125, 125, 125, 255 },
-		ShadowBlur = 0,				
-		ShadowColor = {0,0,0,1},
-		ShadowOffset = {2, 2},
-		Justification = "Left",
+		Color = { 55, 55, 55, 255 },
 		DataProperties =
 		{
-			OpacityWithOwner = false,
-		}
+			ShadowBlur = 0,
+			ShadowRed = 0,
+			ShadowGreen = 0,
+			ShadowBlue = 0,
+			ShadowAlpha = 1,
+			ShadowOffsetX = 2,
+			ShadowOffsetY = 2,
+		},
+		Justification = "Left",
+	},
+
+	ShortNameActiveFormat = 
+	{
+		Font = "LatoItalic",
+		FontSize = 17,
+		OffsetX = 37,
+		OffsetY = -6,
+		Color = {189,160,255,255},
+		DataProperties =
+		{
+			ShadowBlur = 0,
+			ShadowRed = 0,
+			ShadowGreen = 0,
+			ShadowBlue = 0,
+			ShadowAlpha = 1,
+			ShadowOffsetX = 2,
+			ShadowOffsetY = 2,
+		},
+		Justification = "Left",
 	},
 
 	ShortNameSelectedFormat =
 	{
-		Font = "LatoMedium",
+		Font = "LatoItalic",
 		FontSize = 17,
 		OffsetX = 35,
 		OffsetY = 0,
-		Color = { 255, 255, 255, 255 },
-		ShadowBlur = 0,				
-		ShadowColor = {0,0,0,1},
-		ShadowOffset = {2, 2},
-		Justification = "Center",
+		Color = {189,160,255,255},
 		DataProperties =
 		{
-			OpacityWithOwner = false,
-		}
+			ShadowBlur = 0,
+			ShadowRed = 0,
+			ShadowGreen = 0,
+			ShadowBlue = 0,
+			ShadowAlpha = 1,
+			ShadowOffsetX = 2,
+			ShadowOffsetY = 2,
+		},
+		Justification = "Center",
 	},
 
 	-- Vow Rank Pips
 	RankPipStartOffsetX = -22,
 	RankPipStartOffsetY = 14,
-	RankPipSpacingX = 19,
+	RankPipSpacingX = 26,
 	RankPipSpacingY = 0,
 	RankPipScale = 0.48,
 	RankPipEmpty = "GUI\\Screens\\Shrine\\PipUnfilled",
-	RankPipFull = "GUI\\Screens\\Shrine\\PipFilled",
-
+	FilledRankPips =
+	{
+		"GUI\\Screens\\Shrine\\PipFilled01",
+		"GUI\\Screens\\Shrine\\PipFilled02",
+		"GUI\\Screens\\Shrine\\PipFilled03",
+		"GUI\\Screens\\Shrine\\PipFilled04",
+	},
+	RankPipFullFx = "ShrinePipFilledFx",
+	
 	PointsAddedThisTime = 0,
 
 	Components = {},
@@ -312,12 +430,8 @@ ScreenData.Shrine =
 	},
 	MaxShrinePointsText = "ShrineScreen_BountyAvailable_MaxPoints",
 
-	ShrinePointThresholds =
-	{
-		8,
-		16,
-		32,
-	},
+	UnderworldShrinePointThresholds = { 8, 16, 32 },
+	SurfaceShrinePointThresholds = { 6, 12, 24 },
 
 	MaxBountiesAvailable = 6,
 
@@ -326,9 +440,9 @@ ScreenData.Shrine =
 	BountyItemsPerRow = 3,
 	BountyRowSpacingX = 150,
 	BountyRowSpacingY = 160,
-	BountyShrinePointsOffsetX = 5,
-	BountyShrinePointsOffsetY = -52,
-	BountyWeaponOffsetX = 0,
+	BountyShrinePointsOffsetX = 16,
+	BountyShrinePointsOffsetY = -54,
+	BountyWeaponOffsetX = -3,
 	BountyWeaponOffsetY = 49,
 	BountyTargetOffsetX = 0,
 	BountyTargetOffsetY = 0,
@@ -355,24 +469,21 @@ ScreenData.Shrine =
 		BossPolyphemus01 = "GUI\\Screens\\Shrine\\BossCyclops",
 		BossEris01 = "GUI\\Screens\\Shrine\\BossStrife",
 		BossPrometheus01 = "GUI\\Screens\\Shrine\\BossFlame",
+		BossTyphonHead01 = "GUI\\Screens\\Shrine\\BossSnake",
 	},
 
 	BountyShrinePointsFormat =
 	{
+
 		Font = "P22UndergroundSCMedium",
-		FontSize = 21,
+		FontSize = 24,
 		Justification = "Center",
+
 		TextSymbolScale = 0.85,
 		DataProperties =
 		{
 			OpacityWithOwner = false,
 		}
-	},
-
-	SelectionHighlight =
-	{
-		AnimationName = "GUI\\Screens\\Shrine\\PactHover",
-		Scale = 1,
 	},
 
 	ComponentData =
@@ -383,14 +494,16 @@ ScreenData.Shrine =
 		Order =
 		{
 			"BackgroundDim",
-			"BackgroundSplatter",
 			"Background",
+			"CreateShrineScreenDelay",
 			"ActionBarBackground",
 
 			"SkellyQuestSurface",
 			"SkellyQuestSurfaceStrikethrough",
 			"SkellyQuestUnderworld",
 			"SkellyQuestUnderworldStrikethrough",
+
+			"SkellyQuestCompleteIcon",
 		},
 
 		BackgroundDim = 
@@ -402,18 +515,19 @@ ScreenData.Shrine =
 			Y = ScreenCenterY,
 		},
 
-		BackgroundSplatter = 
-		{
-			Graphic = "LevelUpBackground",
-		},
-
 		Background = 
 		{
-			AnimationName = "GUI\\Screens\\Shrine\\Background",
+			AnimationName = "ShrineIn",
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
 		},
 
+		CreateShrineScreenDelay = 
+		{
+			FunctionName = "CreateShrineScreenDelay",
+		},
+
+		--Testament Header
 		BountyHeader =
 		{
 			X = 365,
@@ -423,30 +537,31 @@ ScreenData.Shrine =
 			{
 				FontSize = 26,
 				Width = 840,
-				Color = Color.White,
+				Color = {10, 22, 17, 255},
 				Font = "P22UndergroundSCHeavy",
-				ShadowBlur = 0,
-				ShadowColor = {0, 0, 0, 255},
-				ShadowOffset = {0, 1},
 				Justification = "Center",
 				TextSymbolScale = 1.0,
+				DataProperties =
+					{
+						TextSymbolUseLineColor = true,
+					},
 			},
 		},
 
 		SkellyHeader =
 		{
 			X = 365,
-			Y = 472,
+			Y = 475,
 			Text = "ShrineScreen_SkellyHeader",
 			TextArgs =
 			{
-				FontSize = 22,
+				FontSize = 23,
 				Width = 840,
-				Color = Color.White,
-				Font = "P22UndergroundSCHeavy",
+				Color = {150, 99, 205, 255},
+				Font = "LatoBoldItalic",
 				ShadowBlur = 0,
 				ShadowColor = {0, 0, 0, 255},
-				ShadowOffset = {0, 1},
+				--ShadowOffset = {0, 1},
 				Justification = "Center",
 				TextSymbolScale = 1.0,
 			},
@@ -467,7 +582,7 @@ ScreenData.Shrine =
 			{
 				FontSize = 22,
 				Width = 840,
-				Color = Color.White,
+				Color = {150, 99, 205, 255},
 				Font = "P22UndergroundSCHeavy",
 				ShadowBlur = 0,
 				ShadowColor = {0, 0, 0, 255},
@@ -491,6 +606,9 @@ ScreenData.Shrine =
 			TextArgs = MergeTables( UIData.ShrineBountyAvailableTextArgs, { FontSize = 18, OffsetX = -225, OffsetY = 0 } ),
 			Requirements = 
 			{
+				{
+					PathFalse = { "GameState", "TextLinesRecord", "TrophyQuestComplete03" },
+				},
 				NamedRequirements = { "TrophyQuestUnlocked" },
 			},
 		},
@@ -504,6 +622,9 @@ ScreenData.Shrine =
 			GroupName = "Combat_Menu_Overlay",
 			Requirements = 
 			{
+				{
+					PathFalse = { "GameState", "TextLinesRecord", "TrophyQuestComplete03" },
+				},
 				NamedRequirements = { "TrophyQuestUnlocked" },
 			},
 		},
@@ -515,6 +636,9 @@ ScreenData.Shrine =
 			TextArgs = MergeTables( UIData.ShrineBountyAvailableTextArgs, { FontSize = 18, OffsetX = -225, OffsetY = 0 } ),
 			Requirements = 
 			{
+				{
+					PathFalse = { "GameState", "TextLinesRecord", "TrophyQuestComplete03" },
+				},
 				NamedRequirements = { "TrophyQuestUnlocked" },
 			},
 		},
@@ -528,15 +652,60 @@ ScreenData.Shrine =
 			GroupName = "Combat_Menu_Overlay",
 			Requirements = 
 			{
+				{
+					PathFalse = { "GameState", "TextLinesRecord", "TrophyQuestComplete03" },
+				},
 				NamedRequirements = { "TrophyQuestUnlocked" },
+			},
+		},
+
+		SkellyQuestCompleteIcon =
+		{
+			X = 350,
+			Y = 575,
+			ScaleX = 0.67,
+			ScaleY = 0.67,
+			Alpha = 0.0,
+			AlphaTarget = 0.0,
+			Animation = "GUI\\Screens\\Shrine\\ReclinedSkellyCarving",
+			GroupName = "Combat_Menu_Overlay",
+			Requirements =
+			{
+				{
+					PathTrue = { "GameState", "TextLinesRecord", "TrophyQuestComplete03" },
+				},
 			},
 		},
 
 		ThermometerForeground =
 		{
-			Graphic = "ShrineMeterBarFill",
+			Animation = "ShrineMeterBarFill", -- nopkg
 			X = 755,
 			Y = 690,
+		},
+
+		ThermometerFx =
+		{
+			Animation = "ShrinePactThermometerFx", -- nopkg
+			X = 755,
+			Y = 690,
+			GroupName = "Combat_Menu_Additive",
+		},
+
+		ThermometerFlame =
+		{
+			Animation = "ShrinePactThermometerFlame", -- nopkg
+			X = 755,
+			Y = 690,
+			GroupName = "Combat_Menu_Additive",
+		},
+
+		ThermometerFullFx = 
+		{
+			Animation = "ShrinePactThermometerFxGlow",
+			X = 1210,
+			Y = 690,
+			GroupName = "Combat_Menu_Additive",
 		},
 
 		ThermometerText = 
@@ -547,7 +716,7 @@ ScreenData.Shrine =
 			TextArgs =
 			{
 				FontSize = 17,
-				Color = {0.300, 1.00, 0.976, 1.0},
+				Color = {176, 136, 255, 255},
 				Font = "LatoItalic",
 				ShadowBlur = 0,
 				ShadowColor = {0,0,0,1},
@@ -558,18 +727,18 @@ ScreenData.Shrine =
 
 		ActiveShrinePoints = 
 		{
-			X = 1295,
+			X = 1275,
 			Y = 687,
 			TextArgs =
 			{
 				Text = "ShrineScreen_ActivePoints",
 				Font = "NumericP22UndergroundSCMedium",
-				FontSize = 24,
+				FontSize = 44,
 				Justification = "Left",
-				ShadowRed = 0.1, ShadowBlue = 0.1, ShadowGreen = 0.1,
-				OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 2,
-				ShadowAlpha = 1.0, ShadowBlur = 1, ShadowOffset = {0, 4},
+				Color = {10, 255, 0, 255},
+				OutlineColor = {0, 0, 0, 1}, OutlineThickness = 2,
 				TextSymbolScale = 0.8,
+				TextSymbolOffsetX = -100,
 				DataProperties =
 				{
 					OpacityWithOwner = true,
@@ -776,6 +945,187 @@ ScreenData.Shrine =
 	OpenVoiceLines = 
 	{
 		{
+			PlayOnce = true,
+			UsePlayerSource = true,
+			BreakIfPlayed = true,
+			PreLineWait = 0.85,
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "TextLinesRecord" },
+					HasAny = { "HecateBossGrantsShrineUpgrade01", "HecateGrantsShrineUpgrade01" }
+				},
+				{
+					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+					Comparison = "<",
+					Value = 1,
+				},
+			},
+			Cooldowns =
+			{
+				{ Name = "ShrineOpenVOPlayedRecently", Time = 60 },
+				{ Name = "ShrineVOQuippedRecently", Time = 4 },
+			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+			{ Cue = "/VO/Melinoe_4404", Text = "The Vow of Rivals..." },
+		},
+		{
+			PlayOnce = true,
+			UsePlayerSource = true,
+			BreakIfPlayed = true,
+			PreLineWait = 0.85,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBossDifficultyT2" },
+				},
+				{
+					Path = { "GameState", "RoomsEntered" },
+					HasNone = { "G_Boss02", "O_Boss02" },
+				},
+				{
+					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+					Comparison = "<",
+					Value = 2,
+				},
+			},
+			Cooldowns =
+			{
+				{ Name = "ShrineOpenVOPlayedRecently", Time = 60 },
+				{ Name = "ShrineVOQuippedRecently", Time = 4 },
+			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+			{ Cue = "/VO/Melinoe_4405", Text = "I can intensify the Vow of Rivals now..." },
+		},
+		{
+			PlayOnce = true,
+			UsePlayerSource = true,
+			BreakIfPlayed = true,
+			PreLineWait = 0.85,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBossDifficultyT3" },
+				},
+				{
+					Path = { "GameState", "RoomsEntered" },
+					HasNone = { "H_Boss02" },
+				},
+				{
+					Path = { "GameState", "TextLinesRecord" },
+					HasNone = { "PrometheusAboutAltFight01", "PrometheusAboutAltFight01_B" },
+				},
+				{
+					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+					Comparison = "<",
+					Value = 3,
+				},
+			},
+			Cooldowns =
+			{
+				{ Name = "ShrineOpenVOPlayedRecently", Time = 60 },
+				{ Name = "ShrineVOQuippedRecently", Time = 4 },
+			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+			{ Cue = "/VO/Melinoe_4406", Text = "More to the Vow of Rivals now..." },
+		},
+		{
+			PlayOnce = true,
+			UsePlayerSource = true,
+			BreakIfPlayed = true,
+			PreLineWait = 0.85,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBossDifficultyT4" },
+				},
+				{
+					Path = { "GameState", "RoomsEntered" },
+					HasNone = { "Q_Boss02" },
+				},
+				{
+					Path = { "GameState", "TextLinesRecord" },
+					HasNone = { "ChronosBossAboutAltFight01" },
+				},
+				{
+					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+					Comparison = "<",
+					Value = 4,
+				},
+			},
+			Cooldowns =
+			{
+				{ Name = "ShrineOpenVOPlayedRecently", Time = 60 },
+				{ Name = "ShrineVOQuippedRecently", Time = 4 },
+			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+			{ Cue = "/VO/Melinoe_4407", Text = "The Vow of Rivals is at full potential now..." },
+		},
+		-- in the darkness listen carefully to hear her
+		{
+			PlayOnce = true,
+			PlayOnceContext = "NyxShrineIntroVO",
+			PreLineWait = 0.85,
+			GameStateRequirements =
+			{
+				-- completed a Shrine Bounty this run
+				{
+					PathNotEmpty = { "CurrentRun", "ShrineBountiesCompleted" },
+				},
+			},
+			{ Cue = "/VO/Nyx_0006", Text = "{#Emph}...My will be done...", Source = { LineHistoryName = "NPC_NyxVoice_01", SubtitleColor = Color.NyxVoice }, },
+			{ Cue = "/VO/Melinoe_1937", Text = "What was that...", PreLineWait = 1.5, BreakIfPlayed = true },
+		},
+		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			PlayOnceFromTableThisRun = true,
+			PreLineWait = 0.85,
+			Source = { LineHistoryName = "NPC_NyxVoice_01", SubtitleColor = Color.NyxVoice },
+			SuccessiveChanceToPlay = 0.5,
+			GameStateRequirements =
+			{
+				-- completed a Shrine Bounty this run
+				{
+					PathNotEmpty = { "CurrentRun", "ShrineBountiesCompleted" },
+				},
+				{
+					PathFalse = { "CurrentRun", "SpeechRecord", "/VO/Nyx_0006" }
+				},
+			},
+
+			{ Cue = "/VO/Nyx_0002", Text = "{#Emph}...Darkness guide you..." },
+			{ Cue = "/VO/Nyx_0003", Text = "{#Emph}...Go unseen..." },
+			{ Cue = "/VO/Nyx_0004", Text = "{#Emph}...Serve in shadow..." },
+			{ Cue = "/VO/Nyx_0005", Text = "{#Emph}...For the realm..." },
+			{ Cue = "/VO/Nyx_0006", Text = "{#Emph}...My will be done..." },
+			{ Cue = "/VO/Nyx_0007", Text = "{#Emph}...Fear spreads..." },
+			{ Cue = "/VO/Nyx_0008", Text = "{#Emph}...By Night and Darkness..." },
+			{ Cue = "/VO/Nyx_0009", Text = "{#Emph}...Shadows conceal you..." },
+			{ Cue = "/VO/Nyx_0010", Text = "{#Emph}...Remain unseen..." },
+			{ Cue = "/VO/Nyx_0011", Text = "{#Emph}...Bring Fear..." },
+			{ Cue = "/VO/Nyx_0013", Text = "{#Emph}...Continue on..." },
+			{ Cue = "/VO/Nyx_0014", Text = "{#Emph}...Spread Fear..." },
+			{ Cue = "/VO/Nyx_0015", Text = "{#Emph}...Move in shadow..." },
+			{ Cue = "/VO/Nyx_0016", Text = "{#Emph}...We shall be feared..." },
+			{ Cue = "/VO/Nyx_0017", Text = "{#Emph}...Let them fear us..." },
+			{ Cue = "/VO/Nyx_0012", Text = "{#Emph}...You have done well...",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "ShrineBountiesCompleted" },
+						UseLength = true,
+						Comparison = ">=",
+						Value = 15,
+					},
+				},
+			},
+		},
+		{
 			UsePlayerSource = true,
 			BreakIfPlayed = true,
 			PreLineWait = 0.85,
@@ -817,7 +1167,12 @@ ScreenData.Shrine =
 			-- { Cue = "/VO/Melinoe_2857", Text = "Should check the Oath..." },
 			{ Cue = "/VO/Melinoe_2858", Text = "The Oath calls to me..." },
 			{ Cue = "/VO/Melinoe_2859", Text = "The Oath beckons..." },
-			{ Cue = "/VO/Melinoe_2860", Text = "Another Testament awaits." },
+			{ Cue = "/VO/Melinoe_2860", Text = "Another Testament awaits.",
+				GameStateRequirements =
+				{
+					NamedRequirementsFalse = { "AllShrineBountiesCompleted" },
+				},
+			},
 			{ Cue = "/VO/Melinoe_2861", Text = "There's Fear in the air..." },
 			{ Cue = "/VO/Melinoe_2864", Text = "The Oath..." },
 			{ Cue = "/VO/Melinoe_2865", Text = "A healthy fear of darkness..." },

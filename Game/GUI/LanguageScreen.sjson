@@ -2,7 +2,7 @@
   LanguageScreen =
   {
     Platform = "default"
-    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    SelectionSound = "/SFX/Menu Sounds/IrisMenuToggle2"
     TransitionOnTime = 0.0
     TransitionOffTime = 0.0
     ForceShowCursor = true
@@ -12,11 +12,12 @@
     FreeFormSelectStepDistance = 16
     FreeFormSelectSuccessDistance = 8
     FreeFormSelectSuccessDistanceStep = 2
+    InteractDelay = 0.1
     
     LanguageButton =
     {
       X = 960
-      Y = 275
+      Y = 245
       Justification = "Center"
       VerticalJustification = "Center"
       TextOffsetX = 0
@@ -26,9 +27,9 @@
       DeselectOnMouseOff = true
       UseTextArea = true
       Font = "Lang"
-      TextRed = 0.75
-      TextGreen = 0.75
-      TextBlue = 0.75
+      TextRed = 0.55
+      TextGreen = 0.55
+      TextBlue = 0.55
       FontSize = 24
       SelectedTextRed = 0.337
       SelectedTextGreen = 1.000
@@ -38,7 +39,7 @@
       DisabledTextBlue = 0.2
       TextJustification = "Center"
       SelectedTextScale = 1.0
-      NonEnglishScaleModifier = 1.0
+      
       TextOutlineRed = 0
       TextOutlineGreen = 0
       TextOutlineBlue = 0
@@ -51,6 +52,9 @@
       ShadowBlur = 0
       PressSound = "/SFX/Menu Sounds/GodBoonInteract"
       Spacing = 45
+
+      FlashTextWhileSelected = false
+      FlashTextWhileSelectedColorChangeSpeed = 4.0
     }
     ActiveMarker =
     {

@@ -1,11 +1,3 @@
-function InitializeGiftData()
-	GameState.Gift = {}
-	for key, value in pairs(GiftData) do
-		GameState.Gift[key] = {}
-		GameState.Gift[key].Value = GiftData[key].Value
-	end
-end
-
 OnControlPressed{ "Gift",
 	function( triggerArgs )
 		local target = triggerArgs.UseTarget
@@ -25,19 +17,31 @@ OnControlPressed{ "Gift",
 				local trait = GetHeroTrait("MetaToRunMetaUpgrade")
 				if trait and trait.MetaConversionUses then
 					trait.MetaConversionUses = trait.MetaConversionUses - 1
-				end
-				CurrentRun.CurrentRoom.ChosenRewardType = ChooseRoomReward( CurrentRun, CurrentRun.CurrentRoom, "RunProgress", { { RewardType = "Devotion" }, { RewardType = "SpellDrop" } }, { IgnoreForcedReward = true } )
+					IncrementTableValue( CurrentRun, "MetaConversionUses" )
+				end 
+				local rewardOverride = ChooseRoomReward( CurrentRun, CurrentRun.CurrentRoom, "RunProgress", { { RewardType = "Devotion" }, { RewardType = "SpellDrop" } }, { IgnoreForcedReward = true } )
 				local previouslyRequired = false
+				local previouslyCanDuplicate = target.CanDuplicate
 				if MapState.RoomRequiredObjects[target.ObjectId] then
 					MapState.RoomRequiredObjects[target.ObjectId] = nil
 					previouslyRequired = true
 				end
-				local newReward = SpawnRoomReward( room, { SpawnRewardOnId = target.ObjectId ,RewardOverride = CurrentRun.CurrentRoom.ChosenRewardType })
-				if previouslyRequired and newReward then
-					MapState.RoomRequiredObjects[newReward.ObjectId] = newReward
+				local newReward = SpawnRoomReward( room, { SpawnRewardOnId = target.ObjectId, RewardOverride = rewardOverride, IgnoreRoomSpawnOnLootPoint = true })
+				if newReward then
+					if previouslyRequired then
+						MapState.RoomRequiredObjects[newReward.ObjectId] = newReward
+					end
+					if newReward.CanDuplicate then
+						newReward.CanDuplicate = previouslyCanDuplicate
+					end
 				end
 				HideUseButton( target.ObjectId, target )
+				if CurrentRun.CurrentRoom.Encounter ~= nil and CurrentRun.CurrentRoom.Encounter.RewardsToRestore ~= nil then
+					CurrentRun.CurrentRoom.Encounter.RewardsToRestore[target.ObjectId] = nil
+				end
 				Destroy({ Id = target.ObjectId })
+			elseif target.ReceiveGiftFunctionName ~= nil then
+				CallFunctionName( target.ReceiveGiftFunctionName, target )
 			else
 				SelectGift( target )
 			end
@@ -81,22 +85,68 @@ OnControlPressed{ "SpecialInteract",
 
 		local target = triggerArgs.UseTarget
 		if target ~= nil and CanSpecialInteract( target ) then
-			GameState.SpecialInteractRecord[target.Name] = (GameState.SpecialInteractRecord[target.Name] or 0) + 1
-			CurrentRun.SpecialInteractRecord[target.Name] = (CurrentRun.SpecialInteractRecord[target.Name] or 0) + 1
-			TriggerCooldown( target.Name..target.ObjectId )
-			CallFunctionName( target.SpecialInteractFunctionName, target )
+			EndAutoSprint({ Halt = true, EndWeapon = true })
+			
+			if CanGoldifyReward( target ) then
+				UseableOff({ Id = target.ObjectId })
+				target.GoldConversionEligible = false
+				local previouslyRequired = false
+				if MapState.RoomRequiredObjects[target.ObjectId] then
+					MapState.RoomRequiredObjects[target.ObjectId] = nil
+					previouslyRequired = true
+				end
+				HideUseButton( target.ObjectId, target )
+				if CurrentRun.CurrentRoom.Encounter ~= nil and CurrentRun.CurrentRoom.Encounter.RewardsToRestore ~= nil then
+					CurrentRun.CurrentRoom.Encounter.RewardsToRestore[target.ObjectId] = nil
+				end
+					
+				local goldGain = GetRewardGoldifyValue(target)
+				GoldifyPresentation( target )
+				thread( GushMoney, { Amount = goldGain, LocationId = target.ObjectId, Radius = 100, Source = "DebugSpawnMoney" } )
+				Destroy({ Id = target.ObjectId })
+				if HeroHasTrait("GoldifyKeepsake") then
+					local trait = GetHeroTrait("GoldifyKeepsake")
+					trait.BoonConversionUses = trait.BoonConversionUses - 1
+					UpdateTraitNumber( trait )
+					if trait.BoonConversionUses <= 0 and trait.ZeroBonusTrayText then
+						trait.CustomTrayText = trait.ZeroBonusTrayText
+						if not trait.Slot then 		
+							RemoveTraitData( CurrentRun.Hero, trait, { SkipActivatedTraitUpdate =  true } )
+						end
+					end
+				end 
+
+				if target.MenuNotify then
+					NotifyResultsTable[ target.MenuNotify ] = target.Name
+					notifyExistingWaiters( target.MenuNotify )
+				end
+				if target.NotifyName then
+					notifyExistingWaiters( target.NotifyName )
+				end
+				wait( 0.2 )
+				if CheckRoomExitsReady( CurrentRun.CurrentRoom ) then
+					UnlockRoomExits( CurrentRun, CurrentRun.CurrentRoom )
+				end
+			else
+				GameState.SpecialInteractRecord[target.Name] = (GameState.SpecialInteractRecord[target.Name] or 0) + 1
+				CurrentRun.SpecialInteractRecord[target.Name] = (CurrentRun.SpecialInteractRecord[target.Name] or 0) + 1
+				TriggerCooldown( target.Name..target.ObjectId )
+				CallFunctionName( target.SpecialInteractFunctionName, target )
+			end
 		end
 
 	end
 }
 
 function SelectGift( target )
+	SetUnitInvulnerable( target, "SelectGift", { Silent = true } )
 	if target.PreSelectGiftFunctionName ~= nil then
 		CallFunctionName( target.PreSelectGiftFunctionName, target )
 	end
 	RunWeaponMethod({ Id = CurrentRun.Hero.ObjectId, Weapon = "All", Method = "cancelCharge" })
 	RunWeaponMethod({ Id = CurrentRun.Hero.ObjectId, Weapon = "All", Method = "ForceControlRelease" })
 	OpenInventoryScreen( { GiftTarget = target, DefaultCategoryIndex = target.GiftCategoryIndex or 3, CategoryLocked = true } )
+	SetUnitVulnerable( target, "SelectGift" )
 end
 
 Using "GiftNPC"
@@ -107,18 +157,28 @@ function GiveGift( target, resourceName, resourceQuantity, textLines )
 	AddTimerBlock( CurrentRun, "Gifting" )
 	AddInputBlock({ Name = "Gifting" })
 	SetPlayerInvulnerable( "Gift" )
+	AddPlayerImmuneToForce( "Gift" )
+	CurrentRun.Hero.UntargetableFlags.Gift = true
+
 	target.ReceivingGift = true
 
 	HideUseButton( target.ObjectId, target )
 	FreezePlayerUnit( "Gift" )
 
 	thread( MarkObjectiveComplete, "GiftPrompt" )
+	if ScreenState.ActiveObjectives ~= nil and ScreenState.ActiveObjectives.GiftMedeaPoints ~= nil then
+		if resourceName == "MedeaPoints" then
+			thread( MarkObjectiveComplete, "GiftMedeaPoints" )
+		else
+			ClearObjectives()
+		end
+	end
 
 	local spending = {}
 	spending[resourceName] = resourceQuantity
 
 	-- Pay the cost
-	SpendResources( spending, name, { SkipUpdateResourceUI = true, ShadowAnimName = "InCombatTextShadow_GiftBacking", } )
+	SpendResources( spending, name, { ShadowAnimName = "InCombatTextShadow_GiftBacking", SkipQuestStatusCheck = true } )
 
 	for resourceName, resourceAmount in pairs( spending ) do
 		-- Total gift amounts
@@ -146,6 +206,11 @@ function GiveGift( target, resourceName, resourceQuantity, textLines )
 		-- Find a conversation with the chosen cost (or use the one previously chosen during resource selection)
 		textLines = textLines or GetRandomEligibleTextLines( target, target.GiftTextLineSets, GetNarrativeDataValue( target, "GiftTextLinePriorities" ), { Spending = spending } )
 		-- Have the conversation - already determined eligibility above and now resources are spent
+
+		-- Gift conversation order per character
+		GameState.GiftTextLinesOrderRecord[name] = GameState.GiftTextLinesOrderRecord[name] or {}
+		table.insert( GameState.GiftTextLinesOrderRecord[name], textLines.Name )
+
 		PlayTextLines( target, textLines, { IgnoreRequirements = true } )
 		if textLines and textLines.OnGiftTrack and not textLines.SkipGiftPresentationPost then
 			ReceivedGiftPresentationPost( target )
@@ -172,13 +237,15 @@ function GiveGift( target, resourceName, resourceQuantity, textLines )
 					GameState.NewKeepsakeItem[giftLevelData.Gift] = true
 					wait( 0.65, RoomThreadName )
 					PlayerReceivedGiftPresentation( target, giftLevelData.Gift )
-					CheckAchievement( { Name = "AchFoundKeepsakes" } )
+					CheckAchievement( target, { Name = "AchAllKeepsakes" } )
 					break
 				end
 			end
 		end
 	end
 
+	CurrentRun.Hero.UntargetableFlags.Gift = nil
+	RemovePlayerImmuneToForce( "Gift" )
 	SetPlayerVulnerable( "Gift" )
 	UnfreezePlayerUnit( "Gift" )
 	RemoveTimerBlock( CurrentRun, "Gifting" )
@@ -187,12 +254,24 @@ function GiveGift( target, resourceName, resourceQuantity, textLines )
 
 end
 
-function GetGiftLevel( npcName )
-	if GameState.Gift[npcName] == nil then
-		return 0
-	end
+function GiveGiftDirectly( source, args )
+	
+	local name = source.GiftName or source.Name
+	ReceivedGiftPresentationPost( source )
 
-	return GameState.Gift[npcName].Value
+	local giftData = GiftData[name]
+	if giftData ~= nil then
+		for giftLevel, giftLevelData in ipairs( giftData ) do
+			if not GameState.GiftPresentation[giftLevelData.Gift] and IsGameStateEligible( giftLevelData, giftLevelData.GameStateRequirements ) then
+				GameState.GiftPresentation[giftLevelData.Gift] = true
+				GameState.NewKeepsakeItem[giftLevelData.Gift] = true
+				wait( 0.65, RoomThreadName )
+				PlayerReceivedGiftPresentation( source, giftLevelData.Gift )
+				CheckAchievement( source, { Name = "AchAllKeepsakes" } )
+				break
+			end
+		end
+	end
 end
 
 function CanReceiveGift( target )
@@ -252,6 +331,10 @@ function CanReceiveGift( target )
 		end
 	end
 
+	if target.ReceiveGiftFunctionName ~= nil then
+		return true
+	end
+
 	if target.UnlimitedGifts ~= nil then
 		for resourceName, value in pairs( target.UnlimitedGifts ) do
 			if HasResource( resourceName, 1 ) then
@@ -267,6 +350,9 @@ function CanSpecialInteract( source )
 	if source.ResourceCosts ~= nil and HasResourceCost( source.ResourceCosts ) then
 		return false
 	end
+	if CanGoldifyReward( source ) then
+		return true
+	end
 	if source.SpecialInteractFunctionName == nil then
 		return false
 	end	
@@ -279,7 +365,7 @@ function CanSpecialInteract( source )
 	if source.NextInteractLines ~= nil and source.NextInteractLines.PreBlockSpecialInteract then
 		return false
 	end
-	if source.InPartnerConversation then
+	if not source.AllowSpecialInteractInPartnerConversation and source.InPartnerConversation then
 		return false
 	end
 	if source.InteractTextLineSets ~= nil then
@@ -292,27 +378,35 @@ function CanSpecialInteract( source )
 	return true
 end
 
-function GetLockedLevel( npcName )
-	if GiftData[npcName] then
-		if ( CurrentRun and CurrentRun.CurrentRoom and string.match( CurrentRun.CurrentRoom.Name, "Test" ) ~= nil ) or ( GiftData[npcName].UnlockGameStateRequirements and IsGameStateEligible( GiftData[npcName].UnlockGameStateRequirements )) then
-			return GiftData[npcName].Maximum + 1
-		end
-		return GiftData[npcName].Locked
-	end
-end
-
-function IsGiftBarCompletelyUnlocked( entryName )
-	return ( GiftData[entryName].UnlockGameStateRequirements and IsGameStateEligible( GiftData[entryName].UnlockGameStateRequirements ))
-end
-
 function GiftActivityFishing( source, args, textLines )
 	RemoveInputBlock({ Name = "PlayTextLines" })
 	RemoveControlBlock( "Use", "Gift" )
 	RemoveControlBlock( "Use", "Dialog" )
 	RemoveControlBlock( "Use", "PlayTextLines" )
+	AddInteractBlock( source, "GiftActivityFishing" )
 	GiftActivityFishingStartPresentation( source, args )
 	args.Difficulty = args.Difficulty or "Gifting"
 	FishingSequence( source, args )
 	GiftActivityFishingEndPresentation( source, args )
+	RemoveInteractBlock( source, "GiftActivityFishing" )
 	AddInputBlock({ Name = "PlayTextLines" })
+end
+
+function RequireGiftTrackProgress( source, args )
+	DebugAssert({ Condition = args.MinGifts ~= nil, Text = "RequireGiftTrackProgress must specify MinGifts", Owner = "Caleb" })
+	for npcName, orderRecord in pairs( GameState.GiftTextLinesOrderRecord ) do
+		local npcData = EnemyData[npcName] or LootData[npcName]
+		if npcData ~= nil and ( args.AnyNPC or Contains( args.AnyOf, npcName ) ) then
+			local total = 0
+			for i, line in ipairs( orderRecord ) do
+				if npcData.GiftTextLineSets[line] ~= nil and npcData.GiftTextLineSets[line].OnGiftTrack then
+					total = total + 1
+				end
+			end
+			if total >= args.MinGifts then
+				return true
+			end
+		end
+	end
+	return false
 end

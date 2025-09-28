@@ -7,15 +7,12 @@ function InventoryScreenOpenPresentation( screen )
 end
 
 function InventoryScreenClosePresentation( screen, button )
-
+	SetAnimation({ DestinationId = screen.Components.Background.Id, Name = screen.CloseAnimation })
 	PlaySound({ Name = "/Leftovers/Menu Sounds/RobesInteract" })
-
 end
 
 function InventoryScreenChangeCategoryPresentation( screen, categoryIndex )
-
-	--PlaySound({ Name = "/SFX/Menu Sounds/DialoguePanelOutMenu" })
-
+	PlaySound({ Name = "/SFX/Menu Sounds/IrisMenuSwitch" })
 end
 
 function MouseOverResourceItem( button )
@@ -37,10 +34,10 @@ function MouseOverResourceItem( button )
 			GameState.ResourcesViewed[button.ResourceData.Name] = true
 		end
 
-		local buttonHighlight = CreateScreenComponent({ Name = "InventorySlotHighlight", Scale = 1.0, Group = "Combat_Menu_Overlay", DestinationId = button.Id })
-		components.InventorySlotHighlight = buttonHighlight
-		button.HighlightId = buttonHighlight.Id
-		Attach({ Id = buttonHighlight.Id, DestinationId = button.Id })
+		screen.ClipboardText = button.ResourceData.Name
+
+		SetAnimation({ DestinationId = button.Highlight.Id, Name = "InventoryScreenSlotIn" })
+		
 		ModifyTextBox({ Id = components.InfoBoxName.Id,
 			Text = button.MouseOverText or button.ResourceData.Name,
 			UseDescription = false,
@@ -108,12 +105,16 @@ function MouseOverResourceItem( button )
 	SetScale({ Id = button.Id, Fraction = (button.ResourceData.IconScale or 1.0) * screen.IconMouseOverScale, Duration = 0.1, EaseIn = 0.9, EaseOut = 1.0, SkipGeometryUpdate = true })
 	--StopFlashing({ Id = button.Id })
 	UpdateResourceInteractionText( screen, button )
+	if screen.Args.PlantTarget ~= nil and not screen.FirstPinPrompt and not GameState.Flags.HasMultiPlanted and GameState.WorldUpgrades.WorldUpgradeGardenMultiPlant and button.OnPressedFunctionName ~= nil then
+		thread( PulseContextActionPresentation, components.PinButton, { ThreadName = "MultiPlantPulse" } )
+		screen.FirstPinPrompt = true
+	end
+	screen.SelectedItem = button
 end
 
 function MouseOffResourceItem( button )
-	Destroy({ Id = button.HighlightId })
+	SetAnimation({ DestinationId = button.Highlight.Id, Name = "InventoryScreenSlotOut" })
 	local components = button.Screen.Components
-	components.InventorySlotHighlight = nil
 	ModifyTextBox({ Id = components.InfoBoxName.Id, FadeTarget = 0.0, })
 	ModifyTextBox({ Id = components.InfoBoxDescription.Id, FadeTarget = 0.0, })
 	ModifyTextBox({ Id = components.InfoBoxDetails.Id, FadeTarget = 0.0, })
@@ -121,33 +122,42 @@ function MouseOffResourceItem( button )
 	SetScale({ Id = button.Id, Fraction = button.ResourceData.IconScale or 1.0, Duration = 0.1, SkipGeometryUpdate = true })
 	StopFlashing({ Id = button.Id })
 	UpdateResourceInteractionText( button.Screen )
+	button.Screen.SelectedItem = nil
 end
 
 function UpdateResourceInteractionText( screen, button )
 
 	local components = screen.Components
 	
-	if button ~= nil and button.ContextualAction ~= nil then
-		ModifyTextBox({ Id = components.SelectButton.Id, Text = button.ContextualAction })
-		SetAlpha({ Id = components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
-	else
-		SetAlpha({ Id = components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
+	if components.SelectButton ~= nil then
+		if button ~= nil and button.ContextualAction ~= nil then
+			ModifyTextBox({ Id = components.SelectButton.Id, Text = button.ContextualAction })
+			SetAlpha({ Id = components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
+		else
+			SetAlpha({ Id = components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
+		end
 	end
 
-	if button ~= nil and button.ContextualAction ~= nil then
-		ModifyTextBox({ Id = components.SelectButton.Id, Text = button.ContextualAction })
-		SetAlpha({ Id = components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
-	else
-		SetAlpha({ Id = components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
+	if components.PinButton ~= nil then
+		if button ~= nil and button.PinContextualAction ~= nil then
+			ModifyTextBox({ Id = components.PinButton.Id, Text = button.PinContextualAction, LuaKey = "TempTextData", LuaValue = button })
+			SetAlpha({ Id = components.PinButton.Id, Fraction = 1.0, Duration = 0.2 })
+			components.PinButton.Visible = true
+		else
+			SetAlpha({ Id = components.PinButton.Id, Fraction = 0.0, Duration = 0.2 })
+			components.PinButton.Visible = false
+		end
 	end
 	
-	if screen.NumCategories >= 2 then
-		SetAlpha({ Id = components.ScrollLeft.Id, Fraction = 1.0, Duration = 0.0 })
-		SetAlpha({ Id = components.ScrollRight.Id, Fraction = 1.0, Duration = 0.0 })
-	else
-		SetAlpha({ Id = components.ScrollLeft.Id, Fraction = 0.0, Duration = 0.0 })
-		SetAlpha({ Id = components.ScrollRight.Id, Fraction = 0.0, Duration = 0.0 })
-	end	
+	if components.ScrollLeft ~= nil and components.ScrollRight ~= nil then
+		if screen.NumCategories >= 2 then
+			SetAlpha({ Id = components.ScrollLeft.Id, Fraction = 1.0, Duration = 0.0 })
+			SetAlpha({ Id = components.ScrollRight.Id, Fraction = 1.0, Duration = 0.0 })
+		else
+			SetAlpha({ Id = components.ScrollLeft.Id, Fraction = 0.0, Duration = 0.0 })
+			SetAlpha({ Id = components.ScrollRight.Id, Fraction = 0.0, Duration = 0.0 })
+		end
+	end
 	
 end
 
@@ -159,36 +169,36 @@ function InventoryScreenMouseOverPin( button )
 
 	local components = screen.Components
 	screen.SelectedPin = button
-	SetAnimation({ Name = "GUI\\Screens\\Inventory\\ForgetMeNotButtonHighlight", DestinationId = button.Id })
+	SetAnimation({ Name = "InventoryScreenButtonForgetMeNotIn", DestinationId = button.Id })
 	SetAlpha({ Id = components.PinButton.Id, Fraction = 1.0, Duration = 0.2 })
+	PlaySound({ Name = "/SFX/Menu Sounds/DialoguePanelOutMenu", Id = button.Id })
 	local itemData = button.ItemData
 	local costDisplay = ShallowCopyTable( screen.CostDisplay )
 	costDisplay.StartX = costDisplay.StartX + ScreenCenterNativeOffsetX
-	AddResourceCostDisplay( screen, itemData.ResourceCost or itemData.Cost, costDisplay, itemData )
+
+	if TraitData[itemData.Name] ~= nil and WeaponShopItemData[itemData.Name] == nil then
+		CreateTraitRequirements( screen, itemData.Name )
+	else
+		AddResourceCostDisplay( screen, itemData.ResourceCost or itemData.Cost, costDisplay, itemData )
+	end
 end
 
 function InventoryScreenMouseOffPin( button )
 	local screen = button.Screen
-	local components = screen.Components
 	screen.SelectedPin = nil
-	SetAnimation({ Name = button.Animation, DestinationId = button.Id })
-	SetAlpha({ Id = components.PinButton.Id, Fraction = 0.0, Duration = 0.2 })
-	SetAlpha({ Ids = screen.CostIds, Fraction = 0, Duration = 0.1 })
-	DestroyTextBox({ Ids = screen.CostIds })
+	SetAnimation({ Name = "InventoryScreenButtonForgetMeNotOut", DestinationId = button.Id })
+	SetAlpha({ Id = screen.Components.PinButton.Id, Fraction = 0.0, Duration = 0.2 })
+	Destroy({ Ids = screen.CostIds })
+	DestroyTextBox({ Id = screen.Components.RequirementsText.Id })
+	Destroy({ Ids = screen.TraitRequirements })
+	screen.TraitRequirements = {}
+end
 
-	--[[
-	for resourceNum = 1, TableLength( itemData.ResourceCost or itemData.Cost ) do
-		local backingKey = "ResourceIconBacking"..itemNum..resourceNum
-		local resourceBacking = screen.Components[backingKey]
-		local iconKey = "ResourceIcon"..itemNum..resourceNum
-		local resourceIcon = screen.Components[iconKey]
-		--Teleport({ Id = buttonBacking.Id, OffsetX = screen.PinStartX, OffsetY = screen.PinStartY + ((visibleIndex - 1) * screen.PinSpacingY) })
-		table.insert( onIds, resourceBacking.Id )
-		--Teleport({ Id = icon.Id, OffsetX = screen.PinStartX + screen.PinIconOffsetX, OffsetY = screen.PinStartY + ((visibleIndex - 1) * screen.PinSpacingY) })
-		table.insert( onIds, resourceIcon.Id )
+function InventoryScreenRemovePinPresentation( screen, button, pinButton )
+	PlaySound({ Name = "/SFX/Menu Sounds/VictoryScreenBoonUnpin", Id = pinButton.Id })
+	if (screen.NumItems - 1) > screen.ScrollOffset or screen.NumItems == 1 then
+		CreateAnimation({ DestinationId = pinButton.Id, Name = "InventoryScreenButtonForgetMeNotRemove" })
 	end
-	]]
-
 end
 
 function MoneyLossPresentation(amount, delta)
@@ -233,19 +243,21 @@ function MoneyGainPresentation(amount, delta)
 		ScreenAnchors.MoneyDelta = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Combat_UI",
 			X = HUDScreen.Components.MoneyIcon.Data.X + MoneyUI.StartSpacer + digitSpacer,
 			Y = HUDScreen.Components.MoneyIcon.Data.Y,
+			Alpha = ConfigOptionCache.HUDOpacity,
 			})
 		CreateTextBox({ Id = ScreenAnchors.MoneyDelta, Text = text,
-				Font = "NumericP22UndergroundSCMedium", FontSize = 28, ShadowColor = { 0.1, 0.1, 0.1, 1.0 },
-				Color = Color.White,
-				OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 3,
-				ShadowBlur = 0, ShadowOffset = { 0, 4 }, Justification = "Right", TextSymbolScale = 0.5,
-				LuaKey = "TempTextData", LuaValue = { Amount = floatingMoney },
-				AutoSetDataProperties = false,
-				})
+			Font = "NumericP22UndergroundSCMedium", FontSize = 28, ShadowColor = { 0.1, 0.1, 0.1, 1.0 },
+			Color = Color.White,
+			OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 3,
+			ShadowBlur = 0, ShadowOffset = { 0, 4 }, Justification = "Right", TextSymbolScale = 0.5,
+			LuaKey = "TempTextData", LuaValue = { Amount = floatingMoney },
+			AutoSetDataProperties = false,
+			FadeTarget = 0.0, FadeOpacity = 0.0,
+			})
 	end
 
 	-- Color pulse
-	ModifyTextBox({ Id = ScreenAnchors.MoneyDelta, Color = lightColor, ColorChangeSpeed = 1.0, FadeTarget = 1, FadeDuration = 0, AutoSetDataProperties = false, })
+	ModifyTextBox({ Id = ScreenAnchors.MoneyDelta, Color = lightColor, ColorChangeSpeed = 1.0, FadeTarget = 1, FadeDuration = 0.1, AutoSetDataProperties = false, })
 	waitUnmodified(0.05)
 	ModifyTextBox({ Id = ScreenAnchors.MoneyDelta, ColorTarget = color, ColorDuration = 1.6, Delay = 0.65, AutoSetDataProperties = false, })
 
@@ -265,6 +277,59 @@ function HideMoneyAfterDelay()
 	if MapState.MoneyUI.RunningThreads == 0 then
 		MapState.MoneyUI.Floating = 0
 	end
+end
+
+function RerollSpendPresentation( amount )
+	if not ShowingCombatUI then
+		return
+	end
+
+	local rerollIcon = HUDScreen.Components.RerollIcon
+
+	local text = "NegativeMoneyAmount"
+	local color = Color.White
+	local lightColor = Color.LightGold
+
+	local digitSpacer = MoneyUI.DigitSpacer
+	if ScreenAnchors.RerollDelta ~= nil then
+		ModifyTextBox({ Id = ScreenAnchors.RerollDelta, Text = text, LuaKey = "TempTextData", LuaValue = { Amount = -amount }, AutoSetDataProperties = false })
+	else
+		ScreenAnchors.RerollDelta = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Combat_UI",
+			X = rerollIcon.Data.X + MoneyUI.StartSpacer + digitSpacer,
+			Y = rerollIcon.Data.Y,
+			Alpha = ConfigOptionCache.HUDOpacity,
+			})
+		CreateTextBox({ Id = ScreenAnchors.RerollDelta,
+			Text = text,
+			OffsetY = -2,
+			Font = "NumericP22UndergroundSCMedium", FontSize = 28, ShadowColor = { 0.1, 0.1, 0.1, 1.0 },
+			Color = Color.White,
+			OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 3,
+			ShadowBlur = 0, ShadowOffset = { 0, 4 }, Justification = "Right", TextSymbolScale = 0.5,
+			LuaKey = "TempTextData", LuaValue = { Amount = -amount },
+			AutoSetDataProperties = false,
+			FadeTarget = 0.0, FadeOpacity = 0.0,
+			})
+	end
+
+	-- Pulse icon
+	ModifyTextBox({ Id = rerollIcon.Id, ScaleTarget = 1.2, ScaleDuration = 0.0, AutoSetDataProperties = false, })
+	ModifyTextBox({ Id = rerollIcon.Id, Color = lightColor, ColorChangeSpeed = 1.0, FadeTarget = 1, FadeDuration = 0, AutoSetDataProperties = false, })
+	waitUnmodified( 0.05 )
+	ModifyTextBox({ Id = rerollIcon.Id, ScaleTarget = 1.0, ScaleDuration = 1.0, Delay = 0.75, AutoSetDataProperties = false, })
+	ModifyTextBox({ Id = rerollIcon.Id, ColorTarget = color, ColorDuration = 0.1, Delay = 0.65, AutoSetDataProperties = false, })
+	waitUnmodified( 0.06 )
+	ModifyTextBox({ Id = rerollIcon.Id, ColorTarget = Color.White, ColorDuration = 2.0, AutoSetDataProperties = false, })
+
+	-- Pulse delta
+	ModifyTextBox({ Id = ScreenAnchors.RerollDelta, Color = lightColor, ColorChangeSpeed = 1.0, FadeTarget = 1, FadeDuration = 0.1, AutoSetDataProperties = false, })
+	waitUnmodified( 0.05 )
+	ModifyTextBox({ Id = ScreenAnchors.RerollDelta, ColorTarget = color, ColorDuration = 1.6, Delay = 0.65, AutoSetDataProperties = false, })
+	waitUnmodified( 0.5 )
+
+	-- Fade out delta
+	ModifyTextBox({ Id = ScreenAnchors.RerollDelta, FadeTarget = 0, FadeDuration = 0.3, AutoSetDataProperties = false, })
+
 end
 
 function FlyTextToUI( source, args )
@@ -297,14 +362,16 @@ function FlyTextToUI( source, args )
 		OffsetX = 0,
 		Scale = 0.6,
 		ScaleTarget = 0.6,
-		ScaleWithOwner = true,
 		LuaKey = "TempTextData",
 		LuaValue = args,
-		AutoSetDataProperties = false,
+		DataProperties =
+		{
+			ScaleWithOwner = true,
+		},
 	})
 
 	if not args.SkipShadow then
-		SetAnimation({  Name = "InCombatTextShadow_Short", DestinationId = textAnchorId, OffsetY = 10 + offsetY, Scale = args.ShadowScale or 0.6, Group = "Combat_UI_World" })
+		SetAnimation({ Name = "InCombatTextShadow_ResourceGainBacking", DestinationId = textAnchorId, OffsetY = 10 + offsetY, Scale = args.ShadowScale or 0.6 })
 		SetScaleX({ Id = textAnchorId, Fraction = args.ShadowScaleX or 1.0 })
 	end
 	waitUnmodified( 0.1 )
@@ -331,7 +398,9 @@ function FlyTextToUI( source, args )
 	Flash({ Id = args.EndId, Speed = 1.5, MinFraction = 0.8, MaxFraction = 0.0, Color = Color.Gold, ExpireAfterCycle = true })
 	waitUnmodified( 0.02 )
 
-	PlaySound({ Name = "/Leftovers/Menu Sounds/RobesInteract", Id = args.EndId })
+	if not args.SkipResourceGainSound then
+		PlaySound({ Name = "/Leftovers/Menu Sounds/RobesInteract", Id = args.EndId })
+	end
 
 	SetScale({ Id = args.EndId, Fraction = 1.0, Duration = 0.35, SmoothStep = true })
 
@@ -345,13 +414,17 @@ function ResourceGainNewTotalPresentation( source, args )
 
 	ScreenState.NewResourceTotalIds = ScreenState.NewResourceTotalIds or {}
 
-	local threadName = "ResourceGainNewTotalPresentationThread"
-
 	if ScreenState.NewResourceTotalIds[args.ResourceName] == nil then
 		local numStacks = TableLength( ScreenState.NewResourceTotalIds )
 		if numStacks < 25 then
 			local offsetY = numStacks * -40
-			ScreenState.NewResourceTotalIds[args.ResourceName] = CreateScreenObstacle({ Name = "BlankObstacle", Group = "HUD_Overlay", X = HUDScreen.Components.InventoryIcon.Data.X - 40, Y = HUDScreen.Components.InventoryIcon.Data.Y + offsetY })
+			ScreenState.NewResourceTotalIds[args.ResourceName] = CreateScreenObstacle({
+					Name = "BlankObstacle",
+					Group = "HUD_Overlay",
+					Alpha = ConfigOptionCache.HUDOpacity,
+					X = HUDScreen.Components.InventoryIcon.Data.X - 40,
+					Y = HUDScreen.Components.InventoryIcon.Data.Y + offsetY
+				})
 			CreateTextBox({
 				Id = ScreenState.NewResourceTotalIds[args.ResourceName],
 				Text = "NewResourceTotal",
@@ -377,17 +450,18 @@ function ResourceGainNewTotalPresentation( source, args )
 		ModifyTextBox({ Id = ScreenState.NewResourceTotalIds[args.ResourceName], Text = "NewResourceTotal", LuaKey = "TempTextData", LuaValue = args })
 	end
 
-	local allIds = GetAllValues( ScreenState.NewResourceTotalIds )
-	SetAlpha({ Ids = allIds, Fraction = 1.0, Duration = 0.25 })
-	local holdDuration = 1.0
-	if SetThreadWait( threadName, holdDuration ) then
-		return
-	end
-	waitUnmodified( holdDuration, threadName )
+	local threadName = "ResourceGainNewTotalPresentationThread"
+	killTaggedThreads( threadName )
+	waitUnmodified( 0.01 )
 
-	if CurrentHubRoom ~= nil and CurrentHubRoom.BlockCombatUI then
+	local allIds = GetAllValues( ScreenState.NewResourceTotalIds )
+	SetAlpha({ Ids = allIds, Fraction = ConfigOptionCache.HUDOpacity, Duration = 0.25 })
+	SetAlpha({ Id = HUDScreen.Components.InventoryIcon.Id, Fraction = ConfigOptionCache.HUDOpacity, Duration = 0.25 })
+	waitUnmodified( 1.0, threadName )
+
+	--if SessionMapState.WeaponsDisabled then
 		SetAlpha({ Id = HUDScreen.Components.InventoryIcon.Id, Fraction = 0.0, Duration = HUDScreen.FadeOutDuration })
-	end
+	--end
 
 	allIds = GetAllValues( ScreenState.NewResourceTotalIds )
 	SetAlpha({ Ids = allIds, Fraction = 0.0, Duration = 0.3 })
@@ -425,69 +499,6 @@ function ResourceGainPresentation( resourceName, delta, args )
 		)
 	end
 
-	if ScreenAnchors.ResourceAnchorIds[resourceName] == nil then
-		return
-	end
-	if not ScreenAnchors.ResourceShowing[resourceName] then
-		return
-	end
-
-	local text = "GainGenericResource"
-	local color = Color.Orange
-	local lightColor = Color.LightGold
-	if not ScreenPresentationData.ResourceFloating[resourceName] then
-		ScreenPresentationData.ResourceFloating[resourceName] = 0
-	end
-
-	ScreenPresentationData.ResourceFloating[resourceName] = ScreenPresentationData.ResourceFloating[resourceName] + delta
-
-	if ScreenPresentationData.ResourceFloating[resourceName] < 0 then
-		text = "SpendGenericResource"
-		color = Color.CostUnaffordableLight
-		lightColor = Color.CostUnaffordableLight
-	end
-	local floatingMoney = ScreenPresentationData.ResourceFloating[resourceName]
-
-	-- Color
-	ModifyTextBox({ Id = ScreenAnchors.ResourceAnchorIds[resourceName], ScaleTarget = 1.8, ScaleDuration = 0.0, ColorChangeSpeed = 1.0, FadeTarget = 1, FadeDuration = 0 })
-	waitUnmodified(0.05)
-	ModifyTextBox({ Id = ScreenAnchors.ResourceAnchorIds[resourceName], ScaleTarget = 1.0, ScaleDuration = 2, ColorTarget = color, ColorDuration = 0.1, AutoSetDataProperties = false, })
-
-	if delta > 0 then
-		CreateAnimation({ Name = "ResourceGainedHighlight", DestinationId = ScreenAnchors.ResourceAnchorIds[resourceName] })
-	end
-
-	waitUnmodified(0.06)
-	if not ShowingCombatUI then
-		return
-	end
-	ModifyTextBox({ Id = ScreenAnchors.ResourceAnchorIds[resourceName], ColorTarget = Color.White, ColorDuration = 2.0, AutoSetDataProperties = false, })
-	local currentAmount = GameState.Resources[resourceName] or 0
-	local digitSpacer = string.len(currentAmount) * MoneyUI.DigitSpacer
-
-	if ScreenAnchors.ResourceDeltaIds[resourceName] ~= nil then
-		Attach({ Id = ScreenAnchors.ResourceDeltaIds[resourceName], DestinationId = ScreenAnchors.ResourceAnchorIds[resourceName], OffsetX = MoneyUI.StartSpacer + digitSpacer, OffsetY = 0 })
-		ModifyTextBox({ Id = ScreenAnchors.ResourceDeltaIds[resourceName], Text = text, LuaKey = "TempTextData", LuaValue = { Amount = math.abs( floatingMoney ) }, AutoSetDataProperties = false })
-	else
-		ScreenAnchors.ResourceDeltaIds[resourceName] = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Combat_UI" })
-		Attach({ Id = ScreenAnchors.ResourceDeltaIds[resourceName], DestinationId = ScreenAnchors.ResourceAnchorIds[resourceName], OffsetX = MoneyUI.StartSpacer + digitSpacer, OffsetY = 0 })
-
-		CreateTextBox({ Id = ScreenAnchors.ResourceDeltaIds[resourceName], Text = text,
-				Font = "P22UndergroundSCMedium", FontSize = 28, ShadowColor = { 0.1, 0.1, 0.1, 1.0 },
-				Color = Color.White,
-				OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 3,
-				ShadowBlur = 0, ShadowOffset = { 0, 4 }, Justification = "Right", TextSymbolScale = 0.5,
-				LuaKey = "TempTextData", LuaValue = { Amount = math.abs( floatingMoney ) },
-				AutoSetDataProperties = false,
-				})
-	end
-
-	-- Color pulse
-	ModifyTextBox({ Id = ScreenAnchors.ResourceDeltaIds[resourceName], Color = lightColor, ColorChangeSpeed = 1.0, FadeTarget = 1, FadeDuration = 0, AutoSetDataProperties = false, })
-	waitUnmodified(0.05)
-	ModifyTextBox({ Id = ScreenAnchors.ResourceDeltaIds[resourceName], ColorTarget = Color.White, ColorDuration = 1.6, AutoSetDataProperties = false, })
-
-	thread( HideResourceAfterDelay, resourceName )
 end
 
 function ResourceSpendPresentation( resourceName, delta, args )
@@ -501,40 +512,31 @@ function ResourceSpendPresentation( resourceName, delta, args )
 	if not args.SkipOverheadText then
 		local text = resourceData.SpendText or "SpendGenericResource"
 		local color = resourceData.Color or Color.White
-		local stackDisplay = args.StackDisplay or false
-		local randomOffsetX = args.NoRandomOffset or true
+		local shadowAnimName = args.ShadowAnimName
+		if shadowAnimName == nil then
+			if delta <= 99 then
+				shadowAnimName = "InCombatTextShadow_ResourceSpendBacking"
+			else
+				shadowAnimName = "InCombatTextShadow_ResourceSpendBackingLong"
+			end
+		end
 
-		thread( PopOverheadText, 
-			{ 
-				Amount = delta, 
-				Text = text, 
-				Color = color, 
-				IconPath = resourceData.TextIconPath or resourceData.IconPath,
-				Delay = args.Delay, 
-				TargetId = args.TargetId, 
-				HoldDuration = args.HoldDuration, 
-				OffsetY = args.OffsetY,
-				TextOffsetY = args.TextOffsetY,
-				NoRandomOffset = randomOffsetX,
-				StackDisplay = stackDisplay,
-				ShadowAnimName = args.ShadowAnimName or "InCombatTextShadow_ResourceBacking",
-			})
-	end
-end
-
-function HideResourceAfterDelay( resourceName )
-	ScreenPresentationData.ResourceRunningThreads[resourceName] = ScreenPresentationData.ResourceRunningThreads[resourceName] or 0
-	ScreenPresentationData.ResourceRunningThreads[resourceName] = ScreenPresentationData.ResourceRunningThreads[resourceName] + 1
-
-	wait(MoneyUI.HideDelay, RoomThreadName )
-	if ScreenAnchors.ResourceDeltaIds[resourceName] ~= nil then
-		ModifyTextBox({ Id = ScreenAnchors.ResourceDeltaIds[resourceName], FadeTarget = 0, FadeDuration = MoneyUI.FadeDuration, AutoSetDataProperties = false, })
-	end
-	wait(MoneyUI.FadeDuration, RoomThreadName )
-
-	ScreenPresentationData.ResourceRunningThreads[resourceName] = ScreenPresentationData.ResourceRunningThreads[resourceName] - 1
-	if ScreenPresentationData.ResourceRunningThreads[resourceName] == 0 then
-		ScreenPresentationData.ResourceFloating[resourceName] = 0
+		PopOverheadText( {
+			Amount = delta,
+			Text = text,
+			Color = color,
+			IconPath = resourceData.TextIconPath or resourceData.IconPath,
+			Delay = args.Delay,
+			TargetId = args.TargetId,
+			HoldDuration = args.HoldDuration,
+			FadeOutDuration = args.FadeOutDuration,
+			OffsetX = args.OffsetX,
+			OffsetY = args.OffsetY,
+			TextOffsetY = args.TextOffsetY,
+			ShadowAnimName = shadowAnimName,
+			UseScreenLocation = args.UseScreenLocation,
+			TextAnchorOffsetY = args.TextAnchorOffsetY,
+		} )
 	end
 end
 
@@ -588,13 +590,16 @@ function AddStoreItemPinPresentation( selectedItem, args )
 		thread( PlayVoiceLines, GlobalVoiceLines.PinnedItemVoiceLines, true )
 	end
 
-	-- Silent toolip if it wasn't already added
-	CreateTextBox({ Id = selectedItem.Id, TextSymbolScale = 0, Text = "StoreItemPinTooltip", Color = Color.Transparent, })
+	if not args.SkipTooltip then
+		-- Silent toolip if it wasn't already added
+		CreateTextBox({ Id = selectedItem.Id, TextSymbolScale = 0, Text = args.Text or "StoreItemPinTooltip", Color = Color.Transparent, })
+	end
 end
 
-function RemoveStoreItemPinPresentation( selectedItem )
+function RemoveStoreItemPinPresentation( selectedItem, args )
+	args = args or {}
 	selectedItem.IsPinned = false
 	SetAlpha({ Id = selectedItem.PinButtonId, Fraction = 0.0, Duration = 0.2 })
 	PlaySound({ Name = "/SFX/Menu Sounds/VictoryScreenBoonUnpin", Id = selectedItem.PinButtonId })
-	DestroyTextBox({ Id = selectedItem.Id, AffectText = "StoreItemPinTooltip", RemoveTooltips = true })
+	DestroyTextBox({ Id = selectedItem.Id, AffectText = args.Text or "StoreItemPinTooltip", RemoveTooltips = true })
 end

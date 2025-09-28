@@ -1,6 +1,34 @@
 { Animations = [
 
 	/* Cast */
+
+	{
+		Name = "MelinoeBaseLobCastAnimations"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Lob_Attack1_Start" }
+			{ Name = "Melinoe_Lob_Attack1_Start_Fast" }
+			{ Name = "Melinoe_Lob_Attack1_Fire" }
+			{ Name = "Melinoe_Lob_Attack1_Fire_Fast" }
+			{ Name = "Melinoe_Lob_Hel_Attack1_Start" }
+			{ Name = "Melinoe_Lob_Hel_Attack1_Fire" }
+			{ Name = "Melinoe_Lob_Hel_AttackEx1_Fire" }
+			{ Name = "Melinoe_Lob_AttackEx1_Start" }
+			{ Name = "Melinoe_Lob_AttackEx1_Start2" }
+			{ Name = "Melinoe_Lob_AttackEx1_StartLoop" }
+			{ Name = "Melinoe_Lob_AttackEx1_Fire" }
+			{ Name = "Melinoe_Lob_Special1_Start" }
+			{ Name = "Melinoe_Lob_Special1_StartLoop" }
+			{ Name = "Melinoe_Lob_Special1_Fire" }
+			{ Name = "Melinoe_Lob_Special1Ex_StartTransition" }
+			{ Name = "Melinoe_Lob_Special1Ex_StartLoop" }
+			{ Name = "Melinoe_Lob_Special1Ex_Fire" }
+			{ Name = "Melinoe_Lob_Special1Ex_Fire_Hel" }
+			{ Name = "Melinoe_Lob_Special1Ex_End" }
+		]
+	}
+
 	{
 		Name = "Lob_Cast_Start"
 		InheritFrom = "WeaponLobBase"
@@ -15,7 +43,7 @@
 	}
 	{
 		Name = "Melinoe_Lob_Cast_Start"
-		InheritFrom = "MelinoeBaseLobAnimations"
+		InheritFrom = "MelinoeBaseLobCastAnimations"
 		GrannyAnimation = "Melinoe_Lob_Base_CastCharge_C_00"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Lob_Cast_StartLoop"
@@ -69,14 +97,10 @@
 	}
 	{
 		Name = "Melinoe_Lob_Cast_Fire"
-		InheritFrom = "MelinoeBaseLobAnimations"
+		InheritFrom = "MelinoeBaseLobCastAnimations"
 		GrannyAnimation = "Melinoe_Lob_Base_Cast_C_00"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Lob_Cast_End"
-		RequireCurrentAnimationNotContains =
-		[
-			{ Name = "Melinoe_Lob_Special1_Start" }
-		]
 		Attachments =
 		[
 			{
@@ -90,6 +114,10 @@
 			{
 				BlendTransitionFrom = "Melinoe_Lob_Cast_StartLoop"
 				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 3
 			}
 		]
 	}

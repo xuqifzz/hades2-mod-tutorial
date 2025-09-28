@@ -4,7 +4,6 @@ function UseCosmeticsShop( usee, args )
 	thread( MarkObjectiveComplete, "DoraDecorationIntroPrompt" )
 	local screen = OpenCosmeticsShopScreen( usee, { DefaultCategoryIndex = usee.DefaultCategoryIndex } )
 	UseableOn({ Id = usee.ObjectId })
-	GhostAdminSessionCompletePresentation( usee, screen )
 end
 
 function OpenCosmeticsShopScreen( openedFrom, args )
@@ -55,7 +54,6 @@ function OpenCosmeticsShopScreen( openedFrom, args )
 	screen.CostDisplay.StartY = screen.CostDisplay.StartY + ScreenCenterNativeOffsetY
 
 	CosmeticShopDisplayCategory( screen, screen.ActiveCategoryIndex )
-	GhostAdminUpdateVisibility( screen )
 
 	UpdateGhostAdminInteractionText( screen )
 	wait( 0.02 )
@@ -70,17 +68,29 @@ function OpenCosmeticsShopScreen( openedFrom, args )
 
 end
 
+function CloseCosmeticsShopScreen( screen, button, args )
+	args = args or {}
+	OnScreenCloseStarted( screen )
+	thread( CosmeticsShopScreenClosedPresentation, screen, button )
+	CloseScreen( GetAllIds( screen.Components ), 0, screen )
+	if not args.KeepAltAspectRatioFrames then
+		AltAspectRatioFramesHide()
+	end
+	OnScreenCloseFinished( screen )
+	ShowCombatUI( screen.Name )
+end
+
 function CosmeticShopDisplayCategory( screen, categoryIndex )
 
 	local components = screen.Components
 
 	screen.ActiveCategoryIndex = categoryIndex
 
-	local itemLocationX = screen.ItemStartX
-	local itemLocationY = screen.ItemStartY
+	SetAnimation({ DestinationId = components.BackgroundBack.Id, Name = screen.ItemCategories[categoryIndex].BackingAnimation })
 
 	screen.AvailableItems = {}
 	screen.PurchasedItems = {}
+	screen.NumItems = 0
 
 	CurrentRun.ViewableWorldUpgrades = CurrentRun.ViewableWorldUpgrades or {}
 	for i, cosmeticName in ipairs( screen.ItemCategories[categoryIndex] ) do
@@ -88,6 +98,9 @@ function CosmeticShopDisplayCategory( screen, categoryIndex )
 		if CosmeticShopAllowViewItem( screen, screen.ItemCategories[categoryIndex], cosmeticData ) then
 			if not cosmeticData.RotateOnly or ContainsAnyKey( GameState.WorldUpgradesAdded, cosmeticData.RemoveCosmetics ) then
 				CurrentRun.ViewableWorldUpgrades[cosmeticName] = true
+				CurrentRun.WorldUpgradesRevealed[cosmeticName] = true
+				GameState.WorldUpgradesRevealed[cosmeticName] = true
+				screen.NumItems = screen.NumItems + 1
 				if GameState.WorldUpgradesAdded[cosmeticName] then
 					table.insert( screen.PurchasedItems, cosmeticData )
 				else
@@ -97,211 +110,164 @@ function CosmeticShopDisplayCategory( screen, categoryIndex )
 		end
 	end
 
-	screen.NumItems = 0
-	screen.NumItemsPurchaseable = 0
-	screen.NumItemsAffordable = 0
+	CosmeticShopUpdateVisibility( screen )
 
-	local firstUseable = false
+end
 
-	-- Available
-	for k, cosmetic in ipairs( screen.AvailableItems ) do
+function CosmeticShopUpdateVisibility( screen, args )
+	args = args or {}
+	local components = screen.Components
 
-		screen.NumItems = screen.NumItems + 1
-		screen.NumItemsPurchaseable = screen.NumItemsPurchaseable + 1
-		if HasResources( cosmetic.Cost ) then
-			screen.NumItemsAffordable = screen.NumItemsAffordable + 1
+	if screen.SelectedItem ~= nil then
+		MouseOffGhostAdminItem( screen.SelectedItem )
+	end
+
+	GhostAdminUpdateScrollbarPresentation( screen, args )
+
+	-- Destroy all the buttons from the last screen
+	Destroy({ Ids = screen.ButtonIds })
+	screen.ButtonIds = {}
+
+	-- Create the new batch of buttons
+	local itemLocationX = screen.ItemStartX
+	local itemLocationY = screen.ItemStartY
+	local firstIndex = screen.ScrollOffset + 1
+	local lastIndex = math.min( screen.NumItems, screen.ScrollOffset + screen.ItemsPerPage )
+	for itemIndex = firstIndex, lastIndex, 1 do
+
+		local purchased = itemIndex > #screen.AvailableItems
+
+		local itemData = nil
+		if purchased then
+			itemData = screen.PurchasedItems[itemIndex - #screen.AvailableItems]
+		else
+			itemData = screen.AvailableItems[itemIndex]
 		end
+		local displayName = itemData.Name
 
-		screen.OfferedVoiceLines = screen.OfferedVoiceLines or cosmetic.OfferedVoiceLines
-
-		local purchaseButtonKey = "PurchaseButton"..screen.NumItems
-		components[purchaseButtonKey] = CreateScreenComponent({ Name = "BlankInteractableObstacle",
+		local button = CreateScreenComponent({
+			Name = "GhostAdminItem",
 			Group = screen.ComponentData.DefaultGroup,
 			X = itemLocationX,
 			Y = itemLocationY,
-			Animation = screen.ItemAvailableAnimation,
-			Alpha = 0.0
+			Alpha = 0.0,
 		})
-		SetInteractProperty({ DestinationId = components[purchaseButtonKey].Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
-		local button = components[purchaseButtonKey]
-		button.Animation = screen.ItemAvailableAnimation
-		button.HighlightAnimation = screen.ItemAvailableHighlightAnimation
-		AttachLua({ Id = button.Id, Table = button })
+		components[displayName.."Button"] = button
+		button.AssociatedIds = {}
 		button.Screen = screen
-		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipX", Value = screen.TooltipX + ScreenCenterNativeOffsetX })
-		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipY", Value = screen.TooltipY })
-
-		local iconKey = "Icon"..screen.NumItems
-		if cosmetic.Icon ~= nil then
-			components[iconKey] = CreateScreenComponent({ Name = "BlankObstacle",
-				X = itemLocationX + screen.IconOffsetX,
-				Y = itemLocationY,
-				Scale = screen.IconScale,
-				Group = screen.ComponentData.DefaultGroup,
-				Animation = cosmetic.Icon,
-				Alpha = 0.0,
-			})
-		end
-
-		local displayName = cosmetic.Name
-		local format = screen.ItemAvailableAffordableNameFormat
-		if not HasResources( cosmetic.Cost ) then
-			format = screen.ItemAvailableUnaffordableNameFormat
-		end
-
-		local itemNameFormat = ShallowCopyTable( format )
-		itemNameFormat.Id = button.Id
-		itemNameFormat.Text = displayName
-		CreateTextBox( itemNameFormat )
-
 		button.OnMouseOverFunctionName = "MouseOverGhostAdminItem"
 		button.OnMouseOffFunctionName = "MouseOffGhostAdminItem"
-		button.OnPressedFunctionName = "HandleCosmeticShopPurchase"
-		if not firstUseable then
-			screen.CursorStartX = itemLocationX
-			screen.CursorStartY = itemLocationY
-			firstUseable = true
+		if not purchased then
+			button.OnPressedFunctionName = "HandleCosmeticShopPurchase"
 		end
+		button.NeutralAnimation = screen.ItemAvailableAnimation
+		button.MouseOverAnimation = screen.ItemAvailableMouseOverAnimation
+		button.MouseOffAnimation = screen.ItemAvailableMouseOffAnimation
+		button.Data = itemData
+		button.Purchased = purchased
+		AttachLua({ Id = button.Id, Table = button })
+		SetAnimation({ DestinationId = button.Id, Name = button.NeutralAnimation })
+		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipX", Value = screen.TooltipX + ScreenCenterNativeOffsetX })
+		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipY", Value = screen.TooltipY + ScreenCenterNativeOffsetY })
+		SetInteractProperty({ DestinationId = button.Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
 
-		button.Data = cosmetic
-		button.Index = screen.NumItems
-		button.DisplayName = displayName
+		local icon = CreateScreenComponent({
+			Name = "BlankObstacle",
+			X = itemLocationX + screen.IconOffsetX,
+			Y = itemLocationY,
+			Scale = screen.IconScale,
+			Group = screen.ComponentData.DefaultGroup,
+			Animation = itemData.Icon,
+			Alpha = 0.0,
+		})
+		table.insert( button.AssociatedIds, icon.Id )
+		components[displayName.."Icon"] = icon
+
+		local formatName = nil
+		if purchased then
+			formatName = "ItemPurchasedNameFormat"
+		elseif HasResources( itemData.Cost ) then
+			formatName = "ItemAvailableAffordableNameFormat"
+		else
+			formatName = "ItemAvailableUnaffordableNameFormat"
+		end
+		CreateTextBoxWithScreenFormat( screen, button, formatName, { Text = displayName } )
 
 		-- Hidden description for tooltip
 		CreateTextBox({ Id = button.Id,
 			Text = displayName,
 			UseDescription = true,
-			OffsetX = -1920, OffsetY = 0,
-			Font = "P22UndergroundSCHeavy",
-			Justification = "LEFT",
 			Color = Color.Transparent,
 			LuaKey = "TooltipData",
-			LuaValue = cosmetic,
+			LuaValue = itemData,
 		})
-		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipX", Value = screen.TooltipX + ScreenCenterNativeOffsetX })
-		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipY", Value = screen.TooltipY })
 
-		-- Pin icon
-		local pinButtonKey = "PinIcon"..screen.NumItems
-		components[pinButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", Alpha = 0.0, })
-		Attach({ Id = components[pinButtonKey].Id, DestinationId = components[purchaseButtonKey].Id, OffsetX = screen.PinOffsetX, OffsetY = UIData.PinIconListOffsetY })
-		components[purchaseButtonKey].PinButtonId = components[pinButtonKey].Id
-		if HasStoreItemPin( button.Data.Name ) then
-			components[purchaseButtonKey].IsPinned = true
-			SetAnimation({ Name = "StoreItemPin", DestinationId = components[purchaseButtonKey].PinButtonId })
-			-- Silent toolip
-			CreateTextBox({ Id = button.Id, TextSymbolScale = 0, Text = "StoreItemPinTooltip", Color = Color.Transparent, })
-		end
+		if purchased then
+			local stateIcon = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = itemLocationX, Y = itemLocationY })
+			table.insert( button.AssociatedIds, stateIcon.Id )
+			components[displayName.."StateIcon"] = stateIcon
 
-		-- New icon
-		if not GameState.WorldUpgradesViewed[cosmetic.Name] then
-			local newIconKey = "NewIcon"..screen.NumItems
-			components[newIconKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", Alpha = 0.0, Animation = "MusicPlayerNewTrack" })
-			Attach({ Id = components[newIconKey].Id, DestinationId = components[purchaseButtonKey].Id, OffsetX = 300, OffsetY = 0 })
-			components[purchaseButtonKey].NewButtonId = components[newIconKey].Id
-		end
-
-		GameState.WorldUpgradesRevealed[cosmetic.Name] = true
-
-		itemLocationY = itemLocationY + screen.ItemSpacingY
-
-	end
-
-	-- Purchased
-	for k, cosmetic in ipairs( screen.PurchasedItems ) do
-
-		screen.NumItems = screen.NumItems + 1
-
-		local purchaseButtonKey = "PurchaseButton"..screen.NumItems
-		components[purchaseButtonKey] = CreateScreenComponent({ Name = "BlankInteractableObstacle",
-			Group = screen.ComponentData.DefaultGroup,
-			X = itemLocationX,
-			Y = itemLocationY,
-			Animation = screen.ItemAvailableAnimation,
-			Alpha = 0.0
-		})
-		SetInteractProperty({ DestinationId = components[purchaseButtonKey].Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
-		local button = components[purchaseButtonKey]
-		button.Animation = screen.ItemAvailableAnimation
-		button.HighlightAnimation = screen.ItemAvailableHighlightAnimation
-		AttachLua({ Id = button.Id, Table = button })
-		button.Screen = screen
-		button.InfoBoxName = components.InfoBoxName
-		button.InfoBoxDescription = components.InfoBoxDescription
-		button.InfoBoxFlavor = components.InfoBoxFlavor
-		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipX", Value = screen.TooltipX + ScreenCenterNativeOffsetX })
-		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipY", Value = screen.TooltipY })
-
-		if cosmetic.Icon ~= nil then
-			local iconKey = "Icon"..screen.NumItems
-			components[iconKey] = CreateScreenComponent({ Name = "BlankObstacle",
-				X = itemLocationX + screen.IconOffsetX,
-				Y = itemLocationY,
-				Scale = screen.IconScale,
-				Group = "Combat_Menu",
-				Animation = cosmetic.Icon,
-				Alpha = 0.0,
-			})
-		end
-
-		local itemNameFormat = ShallowCopyTable( screen.ItemPurchasedNameFormat )
-		itemNameFormat.Id = button.Id
-		itemNameFormat.Text = cosmetic.Name
-		CreateTextBox( itemNameFormat )
-
-		-- Hidden description for tooltip
-		CreateTextBox({ Id = button.Id,
-			Text = cosmetic.Name,
-			UseDescription = true,
-			Color = Color.Transparent,
-			LuaKey = "TooltipData",
-			LuaValue = cosmetic,
-		})
-		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipX", Value = screen.TooltipX + ScreenCenterNativeOffsetX })
-		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipY", Value = screen.TooltipY })
-
-		button.OnMouseOverFunctionName = "MouseOverGhostAdminItem"
-		button.OnMouseOffFunctionName = "MouseOffGhostAdminItem"
-
-		if not firstUseable then
-			screen.CursorStartX = itemLocationX
-			screen.CursorStartY = itemLocationY
-			firstUseable = true
-		end
-
-		button.Data = cosmetic
-		button.Index = screen.NumItems
-		button.DisplayName = cosmetic.Name
-		button.Purchased = true
-
-		-- State
-		local purchaseButtonStateKey = "PurchaseButtonState"..screen.NumItems
-		components[purchaseButtonStateKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", X = itemLocationX, Y = itemLocationY })
-
-		local stateText = "Shop_Purchased"
-		if cosmetic.Removable then
-			if GameState.WorldUpgrades[cosmetic.Name] then
-				if not cosmetic.RotateOnly then
-					components[purchaseButtonKey].OnPressedFunctionName = "HandleCosmeticShopRemoval"
-					stateText = "Shop_Removable"
+			local stateText = "Shop_Purchased"
+			if itemData.Removable then
+				if GameState.WorldUpgrades[displayName] then
+					if not itemData.RotateOnly then
+						button.OnPressedFunctionName = "HandleCosmeticShopRemoval"
+						stateText = "Shop_Removable"
+					end
+				else
+					button.Free = true
+					button.OnPressedFunctionName = "HandleCosmeticShopReAdd"
+					stateText = "Shop_ReAdd"
 				end
-			else
-				components[purchaseButtonKey].Free = true
-				components[purchaseButtonKey].OnPressedFunctionName = "HandleCosmeticShopReAdd"
-				stateText = "Shop_ReAdd"
+			end
+
+			local itemStateFormat = ShallowCopyTable( screen.ItemStateFormat )
+			itemStateFormat.Id = stateIcon.Id
+			itemStateFormat.Text = stateText
+			CreateTextBox( itemStateFormat )
+		else
+			local pinIcon = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, Alpha = 0.0, })
+			components[displayName.."PinIcon"] = pinIcon
+			table.insert( button.AssociatedIds, pinIcon.Id )
+			Attach({ Id = pinIcon.Id, DestinationId = button.Id, OffsetX = screen.PinOffsetX, OffsetY = UIData.PinIconListOffsetY })
+			button.PinButtonId = pinIcon.Id
+			if HasStoreItemPin( displayName ) then
+				button.IsPinned = true
+				SetAnimation({ Name = "StoreItemPin", DestinationId = pinIcon.Id })
+				-- Silent toolip
+				CreateTextBox({ Id = button.Id, TextSymbolScale = 0, Text = "StoreItemPinTooltip", Color = Color.Transparent, })
+			end
+
+			if not GameState.WorldUpgradesViewed[displayName] then
+				local newIcon = CreateScreenComponent({
+					Name = "BlankObstacle",
+					Group = screen.ComponentData.DefaultGroup,
+					Animation = "MusicPlayerNewTrack",
+					Alpha = 0.0,
+				})
+				components[displayName.."NewIcon"] = newIcon
+				table.insert( button.AssociatedIds, newIcon.Id )
+				Attach({ Id = newIcon.Id, DestinationId = button.Id, OffsetX = 300, OffsetY = 0 })
+				button.NewIconId = newIcon.Id
 			end
 		end
 
-		local itemStateFormat = ShallowCopyTable( screen.ItemStateFormat )
-		itemStateFormat.Id = components[purchaseButtonStateKey].Id
-		itemStateFormat.Text = stateText
-		CreateTextBox( itemStateFormat )
+		SetAlpha({ Id = button.Id, Fraction = 1.0, Duration = 0.1 })
+		SetAlpha({ Ids = button.AssociatedIds, Fraction = 1.0, Duration = 0.1 })
+		if args.PlaySequentialFade then
+			wait( 0.05 )
+		end
+
+		if itemIndex == firstIndex then
+			screen.CursorStartX = itemLocationX
+			screen.CursorStartY = itemLocationY
+		end
+
+		table.insert( screen.ButtonIds, button.Id )
+		screen.ButtonIds = CombineTables( screen.ButtonIds, button.AssociatedIds )
 
 		itemLocationY = itemLocationY + screen.ItemSpacingY
-
 	end
-
-	SetAlpha({ Ids = { components.Scrollbar.Id, components.ScrollbarSlider.Id }, Fraction = 1.0, Duration = 0.1 })
 
 end
 
@@ -316,21 +282,19 @@ function HandleCosmeticShopPurchase( screen, button, args )
 	end
 
 	if not IsEmpty( upgradeData.Cost ) ~= nil and upgradeData.PurchaseRequirements ~= nil and not IsGameStateEligible( upgradeData.PurchaseRequirements ) then
-		CantPurchasePresentation( screen.Components["PurchaseButton".. button.Index] )
+		CantPurchasePresentation( button )
 		return
 	end
 
 	GhostAdminItemPurchasedPresentation( button, upgradeData )
 
-	table.insert( screen.SaleData, upgradeData )
-	screen.NumSales = screen.NumSales + 1
+	if not GameState.WorldUpgradesAdded[upgradeData.Name] then
+		local cacheName = screen.ItemCategories[screen.ActiveCategoryIndex].CacheName
+		GameState.CosmeticsPurchasedCountCache[cacheName] = GameState.CosmeticsPurchasedCountCache[cacheName] + 1
+		GameState.CosmeticsPurchasedCountCache.Total = GameState.CosmeticsPurchasedCountCache.Total + 1
+	end
 
 	AddWorldUpgrade( upgradeData.Name )
-	if upgradeData.Names ~= nil then
-		for i, name in pairs( upgradeData.Names ) do
-			AddWorldUpgrade( name )
-		end
-	end
 	if upgradeData.RemoveCosmetics ~= nil then
 		for k, name in pairs( upgradeData.RemoveCosmetics ) do
 			if GameState.WorldUpgrades[name] then
@@ -339,39 +303,29 @@ function HandleCosmeticShopPurchase( screen, button, args )
 			GameState.WorldUpgrades[name] = nil
 		end
 	end
+	if upgradeData.AutoUnlockCosmeticName ~= nil then
+		UnlockWorldUpgrade( upgradeData.AutoUnlockCosmeticName )
+	end
 	RemoveStoreItemPin( upgradeData.Name, { Purchase = true } )
 	CallFunctionName( upgradeData.OnPurchasedFunctionName, upgradeData.OnPurchasedFunctionArgs )
 
-	CreateAnimation({ Name = "ContractorSlotPurchase", DestinationId = screen.Components["PurchaseButton".. button.Index].Id, OffsetX = 0 })
+	CreateAnimation({ Name = "ContractorSlotPurchase", DestinationId = button.Id, OffsetX = 0 })
 
-	Destroy({ Id = screen.Components["PurchaseButton".. button.Index].Id })
-	screen.Components["PurchaseButton".. button.Index] = nil
-
-	if screen.Components["Icon".. button.Index] ~= nil then
-		Destroy({ Id = screen.Components["Icon".. button.Index].Id })
-		screen.Components["Icon".. button.Index] = nil
-	end
-
-	for i, button in pairs( screen.Components ) do
-		if button.Data ~= nil and button.Data.ResourceCost ~= nil then
-			local costColor = Color.CostAffordable
-			if not HasResource( button.Data.ResourceName, button.Data.ResourceCost ) then
-				costColor = Color.CostUnaffordable
-			end
-			ModifyTextBox({ Id = screen.Components["PurchaseButton"..button.Index].Id, Color = costColor })
-		end
-	end
 	-- close screen
-	CloseGhostAdminScreen( screen, button )
+	CloseCosmeticsShopScreen( screen, button )
 
 	thread( DoCosmeticShopPurchase, screen, button, args )
 end
 
 function DoCosmeticShopPurchase( screen, button, args )
 	local itemData = button.Data
+	SessionMapState.CosmeticsPurchased[itemData.Name] = true
 	PreActivateCosmeticPresentation( screen, button, itemData, args )
 	CallFunctionName( itemData.OnActivateFunctionName, itemData.OnActivateFunctionArgs )
 	ActivateConditionalItem( itemData, args )
+	if itemData.AutoUnlockCosmeticName ~= nil then
+		ActivateConditionalItem( WorldUpgradeData[itemData.AutoUnlockCosmeticName] )
+	end
 	PostActivateCosmeticPresentation( button, itemData, args )
 	CallFunctionName( itemData.OnActivateFinishedFunctionName, itemData.OnActivateFinishedFunctionArgs )
 	UpdateAffordabilityStatus()
@@ -387,21 +341,9 @@ function HandleCosmeticShopRemoval( screen, button )
 	
 	GameState.WorldUpgrades[itemData.Name] = nil
 
-	Destroy({ Id = screen.Components["PurchaseButtonState".. button.Index].Id })
-	screen.Components["PurchaseButtonState".. button.Index] = nil
+	CreateAnimation({ Name = "ContractorSlotPurchase", DestinationId = button.Id, OffsetX = 0 })
 
-	CreateAnimation({ Name = "ContractorSlotPurchase", DestinationId = screen.Components["PurchaseButton".. button.Index].Id, OffsetX = 0 })
-
-	Destroy({ Id = screen.Components["PurchaseButton".. button.Index].Id })
-	screen.Components["PurchaseButton".. button.Index] = nil
-
-	if screen.Components["Icon".. button.Index] ~= nil then
-		Destroy({ Id = screen.Components["Icon".. button.Index].Id })
-		screen.Components["Icon".. button.Index] = nil
-	end
-
-	-- close screen
-	CloseGhostAdminScreen( screen, button )
+	CloseCosmeticsShopScreen( screen, button )
 
 	thread( DoCosmeticShopRemoval, screen, button )
 end
@@ -412,6 +354,28 @@ function DoCosmeticShopRemoval( screen, button )
 	DeactivateConditionalItem( itemData )
 	PostActivateCosmeticPresentation( button, itemData, { Removal = true } )
 	OpenCosmeticsShopScreen( screen.OpenedFrom, { DefaultCategoryIndex = screen.ActiveCategoryIndex, SkipSalute = true } )
+end
+
+function CosmeticShopScrollUp( screen, button )
+	if screen.ScrollOffset <= 0 then
+		return
+	end
+	screen.ScrollOffset = screen.ScrollOffset - screen.ItemsPerPage
+	GenericScrollPresentation( screen, button )
+	CosmeticShopUpdateVisibility( screen, { AnimateSlider = true } )
+	wait(0.02)
+	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY + ((screen.ItemsPerPage - 1) * screen.ItemSpacingY), ForceUseCheck = true })
+end
+
+function CosmeticShopScrollDown( screen, button )
+	if screen.ScrollOffset + screen.ItemsPerPage >= screen.NumItems then
+		return
+	end
+	screen.ScrollOffset = screen.ScrollOffset + screen.ItemsPerPage
+	GenericScrollPresentation( screen, button )
+	CosmeticShopUpdateVisibility( screen, { AnimateSlider = true } )
+	wait(0.02)
+	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY, ForceUseCheck = true })
 end
 
 function AnyCosmeticActiveInFamily( itemData )
@@ -468,18 +432,32 @@ function ActivateConditionalItem( itemData, args )
 	if args.RemoveCosmeticName ~= nil then
 		DeactivateConditionalItem( WorldUpgradeData[args.RemoveCosmeticName], { ForceDeactivate = true } )
 	end
+	if itemData.ActivateUniqueIds ~= nil then
+		Activate({ Ids = itemData.ActivateUniqueIds })
+		SetAlpha({ Ids = itemData.ActivateUniqueIds, Fraction = 1 })
+		if itemData.ToggleCollision then
+			SetThingProperty({ Property = "StopsUnits", Value = "Default", DestinationIds = itemData.ActivateUniqueIds })
+		end
+		if itemData.ToggleShadows or itemData.ToggleCollision then
+			SetThingProperty({ Property = "StopsLight", Value = "Default", DestinationIds = itemData.ActivateUniqueIds })
+		end
+	end
 	if itemData.ActivateIds ~= nil then
 		Activate({ Ids = itemData.ActivateIds })
 		SetAlpha({ Ids = itemData.ActivateIds, Fraction = 1 })
 		if itemData.ToggleCollision then
-			SetThingProperty({ Property = "StopsUnits", Value = true, DestinationIds = itemData.ActivateIds })
-			SetThingProperty({ Property = "StopsLight", Value = true, DestinationIds = itemData.ActivateIds })
+			SetThingProperty({ Property = "StopsUnits", Value = "Default", DestinationIds = itemData.ActivateIds })
+		end
+		if itemData.ToggleShadows or itemData.ToggleCollision then
+			SetThingProperty({ Property = "StopsLight", Value = "Default", DestinationIds = itemData.ActivateIds })
 		end
 	end
 	if itemData.DeactivateIds ~= nil and not GetConfigOptionValue({ Name = "EditingMode" }) then
 		SetAlpha({ Ids = itemData.DeactivateIds, Fraction = 0 })
 		if itemData.ToggleCollision then
 			SetThingProperty({ Property = "StopsUnits", Value = false, DestinationIds = itemData.DeactivateIds })
+		end
+		if itemData.ToggleShadows or itemData.ToggleCollision then
 			SetThingProperty({ Property = "StopsLight", Value = false, DestinationIds = itemData.DeactivateIds })
 		end
 	end
@@ -487,8 +465,10 @@ function ActivateConditionalItem( itemData, args )
 		Activate({ Names = itemData.ActivateGroups })
 		SetAlpha({ Ids = GetIds({ Names = itemData.ActivateGroups }), Fraction = 1 })
 		if itemData.ToggleCollision then
-			SetThingProperty({ Property = "StopsUnits", Value = true, DestinationNames = itemData.ActivateGroups })
-			SetThingProperty({ Property = "StopsLight", Value = true, DestinationNames = itemData.ActivateGroups })
+			SetThingProperty({ Property = "StopsUnits", Value = "Default", DestinationNames = itemData.ActivateGroups })
+		end
+		if itemData.ToggleShadows or itemData.ToggleCollision then
+			SetThingProperty({ Property = "StopsLight", Value = "Default", DestinationNames = itemData.ActivateGroups })
 		end
 	end
 	if itemData.ActivateRoomObstacleIds ~= nil then
@@ -523,23 +503,16 @@ function ActivateConditionalItem( itemData, args )
 			UseableOn({ Id = itemData.InspectPointId })
 		end
 	end
-	if itemData.SetAnimationIds ~= nil then
-		for _, id in ipairs( itemData.SetAnimationIds ) do
+	if itemData.SetAnimationValue ~= nil then
+		for _, id in ipairs( itemData.SetAnimationIds or itemData.ActivateIds ) do
 			SetAnimation({ DestinationId = id, Name = itemData.SetAnimationValue })
 		end
 	end
-	if itemData.ActivatedData ~= nil then
-		local obstacle = DeepCopyTable( itemData.ActivatedData )
-		obstacle.ObjectId = obstacle.ObjectId or GetCosmeticFocusId( itemData )
-		obstacle.Name = itemData.Name
-		for i, trigger in ipairs( obstacle.DistanceTriggers ) do
-			trigger.NotifyName = trigger.NotifyName or "Notify_"..itemData.Name..i
-		end
-		SetupObstacle( obstacle )
-		UseableOn({ Id = obstacle.ObjectId })
-	end
 	if itemData.ActivateFunctionName ~= nil then
-		CallFunctionName( itemData.ActivateFunctionName, itemData )
+		CallFunctionName( itemData.ActivateFunctionName, itemData, itemData.ActivateFunctionArgs )
+	end
+	if itemData.ToggleUseable then
+		UseableOn({ Ids = itemData.ActivateIds })
 	end
 end
 
@@ -550,11 +523,22 @@ function DeactivateConditionalItem( itemData, args )
 
 	-- Off
 	args = args or {}
+	if itemData.ActivateUniqueIds ~= nil then
+		SetAlpha({ Ids = itemData.ActivateUniqueIds, Fraction = 0 })
+		if itemData.ToggleCollision then
+			SetThingProperty({ Property = "StopsUnits", Value = false, DestinationIds = itemData.ActivateUniqueIds })
+		end
+		if itemData.ToggleShadows or itemData.ToggleCollision then
+			SetThingProperty({ Property = "StopsLight", Value = false, DestinationIds = itemData.ActivateUniqueIds })
+		end
+	end
 	if itemData.RemoveCosmetics == nil or not ContainsAnyKey( GameState.WorldUpgrades, itemData.RemoveCosmetics ) or args.ForceDeactivate then
 		if itemData.ActivateIds ~= nil then
 			SetAlpha({ Ids = itemData.ActivateIds, Fraction = 0 })
 			if itemData.ToggleCollision then
 				SetThingProperty({ Property = "StopsUnits", Value = false, DestinationIds = itemData.ActivateIds })
+			end
+			if itemData.ToggleShadows or itemData.ToggleCollision then
 				SetThingProperty({ Property = "StopsLight", Value = false, DestinationIds = itemData.ActivateIds })
 			end
 		end
@@ -562,14 +546,18 @@ function DeactivateConditionalItem( itemData, args )
 			SetAlpha({ Ids = GetIds({ Names = itemData.ActivateGroups }), Fraction = 0 })
 			if itemData.ToggleCollision then
 				SetThingProperty({ Property = "StopsUnits", Value = false, DestinationNames = itemData.ActivateGroups })
+			end
+			if itemData.ToggleShadows or itemData.ToggleCollision then
 				SetThingProperty({ Property = "StopsLight", Value = false, DestinationNames = itemData.ActivateGroups })
 			end
 		end
 		if itemData.DeactivateIds ~= nil then
 			SetAlpha({ Ids = itemData.DeactivateIds, Fraction = 1 })
 			if itemData.ToggleCollision then
-				SetThingProperty({ Property = "StopsUnits", Value = true, DestinationIds = itemData.DeactivateIds })
-				SetThingProperty({ Property = "StopsLight", Value = true, DestinationIds = itemData.DeactivateIds })
+				SetThingProperty({ Property = "StopsUnits", Value = "Default", DestinationIds = itemData.DeactivateIds })
+			end
+			if itemData.ToggleShadows or itemData.ToggleCollision then
+				SetThingProperty({ Property = "StopsLight", Value = "Default", DestinationIds = itemData.DeactivateIds })
 			end
 		end
 		if itemData.InspectPointId ~= nil and CurrentHubRoom.InspectPoints[itemData.InspectPointId] ~= nil then
@@ -587,15 +575,11 @@ function DeactivateConditionalItem( itemData, args )
 				SetAlpha({ Id = itemData.InspectPointId, Fraction = 0 })
 			end
 		end
-		if itemData.ActivatedData ~= nil then
-			local obstacleId = itemData.ActivatedData.ObjectId or GetCosmeticFocusId( itemData )
-			UseableOff({ Id = obstacleId })
-			for i, trigger in ipairs( itemData.ActivatedData.DistanceTriggers ) do
-				killWaitUntilThreads( trigger.NotifyName or "Notify_"..itemData.Name..i )
-			end
-		end
 		if itemData.DeactivateFunctionName ~= nil then
-			CallFunctionName( itemData.DeactivateFunctionName, itemData )
+			CallFunctionName( itemData.DeactivateFunctionName, itemData, itemData.DeactivateFunctionArgs )
+		end
+		if itemData.ToggleUseable then
+			UseableOff({ Ids = itemData.ActivateIds })
 		end
 	end
 end
@@ -609,9 +593,10 @@ function HasNewCosmeticsAvailable( source, args )
 	end
 
 	if categoryIndex ~= nil then
-		for k, itemName in ipairs( ScreenData.CosmeticsShop.ItemCategories[categoryIndex] ) do
+		local category = ScreenData.CosmeticsShop.ItemCategories[categoryIndex]
+		for k, itemName in ipairs( category ) do
 			local itemData = WorldUpgradeData[itemName]
-			if itemData ~= nil and not GameState.WorldUpgradesRevealed[itemName] and ( itemData.GameStateRequirements == nil or IsGameStateEligible( itemData, itemData.GameStateRequirements ) ) then
+			if itemData ~= nil and not GameState.WorldUpgradesViewed[itemName] and CosmeticShopAllowViewItem( ScreenData.CosmeticsShop, category, itemData ) then
 				return true
 			end
 		end
@@ -621,6 +606,10 @@ function HasNewCosmeticsAvailable( source, args )
 end
 
 function CosmeticShopAllowViewItem( screen, category, cosmeticData )
+	if cosmeticData.Hidden then
+		return false
+	end
+
 	if CurrentRun.ViewableWorldUpgrades[cosmeticData.Name] then
 		return true
 	end
@@ -655,54 +644,4 @@ function HasUnpurchasedCosmetics( source, args )
 	end
 
 	return false
-end
-
-function ShowAmbientCritters( cosmeticData )
-	local critterType = cosmeticData.Name
-	HideAmbientCritters( cosmeticData ) -- hide all critters by default
-
-	CurrentRun.AmbientCritterVisibleGroups = CurrentRun.AmbientCritterVisibleGroups or {}
-	if CurrentRun.AmbientCritterVisibleGroups[critterType] == nil then
-		CurrentRun.AmbientCritterVisibleGroups[critterType] = {}
-		local eligibleOptions = {}
-		for groupName, groupData in pairs( cosmeticData.CritterGroups ) do
-			if groupData.GameStateRequirements == nil or IsGameStateEligible( groupData, groupData.GameStateRequirements ) then
-				table.insert( eligibleOptions, groupName )
-			end
-		end
-
-		-- TODO: Eventually this should pick a random subset of animals, but for now let's show them all...
-		for i, groupName in ipairs( eligibleOptions ) do
-			table.insert( CurrentRun.AmbientCritterVisibleGroups[critterType], groupName )
-		end
-	end
-
-	for i, groupName in ipairs( CurrentRun.AmbientCritterVisibleGroups[critterType] ) do
-		local ids = GetIds({ Name = groupName })
-		SetAlpha({ Ids = ids, Fraction = 1.0, Duration = 0.0 })
-		for _, id in ipairs( ids ) do
-			local critterData = cosmeticData.CritterGroups[groupName][id]
-			if critterData ~= nil then
-				if critterData.Animations ~= nil then
-					local animName = GetRandomValue( critterData.Animations )
-					SetAnimation({ DestinationId = id, Name = animName })
-					MapState.ActiveObstacles[id].AnimName = animName
-				end
-				-- TODO: Activate distance triggers
-			end
-		end
-	end
-end
-
-function HideAmbientCritters( cosmeticData )
-	for groupName, groupData in pairs( cosmeticData.CritterGroups ) do
-		local ids = GetIds({ Name = groupName })
-		SetAlpha({ Ids = ids, Fraction = 0.0, Duration = 0.0 })
-		for _, id in ipairs( ids ) do
-			local critterData = groupData[id]
-			if critterData ~= nil then
-				-- TODO: Remove distance triggers
-			end
-		end
-	end
 end

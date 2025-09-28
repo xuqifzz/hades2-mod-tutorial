@@ -17,20 +17,14 @@ WeaponSetData =
 			RandomTargetAngle = true,
 			TargetOffsetDistanceMin = 0,
 			TargetOffsetDistanceMax = 230,
-			TeleportToTargetId = true,
+			PreMoveTeleport = true,
+			TeleportToTarget = true,
 
 			FireTicksMin = 9,
 			FireTicksMax = 12,
 			FireInterval = 0.2,
 			ResetTargetPerTick = true,
 			CreateOwnTargetFromOriginalTarget = true,
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 
@@ -52,17 +46,10 @@ WeaponSetData =
 			PostAttackCooldownMin = 3.5,
 			PostAttackCooldownMax = 4.5,
 
-			TeleportToSpawnPoints = true,
+			PreMoveTeleport = true,
 			TeleportMinDistance = 300,
 			TeleportMaxDistance = 1000,
 			TeleportationInterval = 0,
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 
@@ -80,17 +67,11 @@ WeaponSetData =
 			PostAttackCooldownMin = 0,
 			PostAttackCooldownMax = 0,
 			FireProjectileAtTarget = true,
-			PostAttackTeleportToTargetId = true,
+			PostAttackEndTeleport = true,
+			TeleportToTarget = true,
 
 			CreateOwnTargetFromOriginalTarget = true,
 
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 
@@ -105,19 +86,14 @@ WeaponSetData =
 			PreAttackDuration = 0.0,
 			FireDuration = 0.0,
 			PostAttackDuration = 0.0,
-			PostAttackCooldownMin = 2,
-			PostAttackCooldownMax = 4,
+			PostAttackCooldownMin = 1,
+			PostAttackCooldownMax = 2,
 			CreateOwnTargetFromOriginalTarget = true,
 			RandomTargetAngle = true,
-			TargetOffsetDistanceMin = 200,
-			TargetOffsetDistanceMax = 250,
-			TeleportToTargetId = true,
-		},
-
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.04, Fraction = 1.0, LerpTime = 0 },
+			TargetOffsetDistanceMin = 100,
+			TargetOffsetDistanceMax = 300,
+			PreMoveTeleport = true,
+			TeleportToTarget = true,
 		},
 	},
 
@@ -132,28 +108,23 @@ WeaponSetData =
 			FireProjectileTowardTarget = true,
 			PreAttackAngleTowardTarget = true,
 
-			PreAttackDuration = 1.0,
+			PreAttackDuration = 0.0,
 			FireDuration = 0.0,
 			PostAttackDuration = 0.0,
 			PostAttackCooldownMin = 1.5,
 			PostAttackCooldownMax = 3.0,
 
-			FireTicksMin = 1,
-			FireTicksMax = 2,
-			FireInterval = 0.35,
+			FireTicksMin = 3,
+			FireTicksMax = 4,
+			FireInterval = 0.15,
 
-			TargetOffsetDistanceMin = 10,
-			TargetOffsetDistanceMax = 10,
-			TeleportToTargetId = true,
+			CreateOwnTargetFromOriginalTarget = true,
+			TargetOffsetDistanceMin = 50,
+			TargetOffsetDistanceMax = 200,
+			PreMoveTeleport = true,
+			TeleportToTarget = true,
 
-			Spread = 45,
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0 },
+			Spread = 360,
 		},
 	},
 
@@ -171,17 +142,11 @@ WeaponSetData =
 			PostAttackDuration = 0.0,
 			PostAttackCooldownMin = 2.25,
 			PostAttackCooldownMax = 3.0,
-			TeleportToTargetId = true,
+			PreMoveTeleport = true,
+			TeleportToTarget = true,
 
 			TargetSpawnPoints = true,
 			TargetSpawnPointsRadius = 900,
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 
@@ -204,17 +169,11 @@ WeaponSetData =
 			RandomTargetAngle = true,
 			TargetOffsetDistanceMin = 250,
 			TargetOffsetDistanceMax = 350,
-			TeleportToTargetId = true,
+			PreMoveTeleport = true,
+			TeleportToTarget = true,
 
 			FireTicks = 1,
 			FireCooldown = 0.0,
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.40, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 
@@ -226,22 +185,42 @@ WeaponSetData =
 
 			ProjectileName = "DevotionHephaestus",
 
-			PreAttackDuration = 1.0,
+			PreAttackDuration = 0.0,
 			FireDuration = 0.0,
 			PostAttackDuration = 0.0,
-			PostAttackCooldownMin = 1.25,
-			PostAttackCooldownMax = 3.75,
-			TeleportToTargetId = true,
+			PostAttackCooldownMin = 2.0,
+			PostAttackCooldownMax = 3.0,
+			PreMoveTeleport = true,
+			TeleportToTarget = true,
 
 			TargetSpawnPoints = true,
 			TargetSpawnPointsRadius = 250,
 		},
+	},
 
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
+	DevotionAres =
+	{
+		AIData =
 		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
+			DeepInheritance = true,
+
+			ProjectileName = "DevotionAres",
+
+			AttackSlots =
+			{
+				{ AIDataOverrides = { BarrelLength = 0 }, PauseDuration = 0.1 },
+				{ AIDataOverrides = { BarrelLength = 500 }, PauseDuration = 0.1 },
+				{ AIDataOverrides = { BarrelLength = 1000 }, },
+			},
+
+			PreAttackDuration = 0.25,
+			FireDuration = 0.0,
+			PostAttackDuration = 0.0,
+			PostAttackCooldownMin = 1.25,
+			PostAttackCooldownMax = 2.25,
+
+			PreMoveTeleport = true,
+			TeleportMaxDistance = 500,
 		},
 	},
 }

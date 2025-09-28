@@ -340,6 +340,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Standing_FX_04",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Standing_FX_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -410,6 +423,7 @@
         "Overlay_01",
         "Lighting_01",
         "Standing_FX_01",
+        "Standing_FX_04",
         "Standing",
         "Terrain_Overlay_01",
         "Terrain_Lighting_01",
@@ -698,5 +712,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

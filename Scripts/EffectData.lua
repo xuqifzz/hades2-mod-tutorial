@@ -17,18 +17,20 @@
 		DamageTextStartColor = Color.ApolloDamageLight,
 		DamageTextColor = Color.ApolloDamage,
 	},
+
 	VulnerabilityIndicator = 
 	{
-		
 		DisplaySuffix = "VulnerabilityIcon",
 		Icon = "HealthbarVulnerability",
-		AttachIconToHealthbar = true, 
+		AttachIconToHealthbar = true,
+		HideOnHero = true,
 		DataProperties = 
 		{
 			Duration = 3600,
 			Active = true,
 		}
 	},
+
 	Charm = 
 	{
 		Vfx = "AphroditeDebuffStatus",
@@ -42,6 +44,19 @@
 			DisableMove = true,
 			DisableRotate = true,
 			DisableAttack = true,
+			Cancelable = true,
+			RequestTriggerLock = true,
+			Active = true,
+		}
+	},
+	LaserFireEndCancelable = 
+	{
+		DataProperties = 
+		{
+			Duration = 12/60,
+			DisableMove = true,
+			DisableRotate = true,
+			DisableAttack = false,
 			Cancelable = true,
 			RequestTriggerLock = true,
 			Active = true,
@@ -65,7 +80,7 @@
 		InheritFrom = { "ApolloColorProjectile" },
 		DisplaySuffix = "Blind",
 		Vfx = "ApolloBlindDebuffFx",
-		StopVfxes = { "ApolloGroundGlowDebuff" },
+		StopVfxes = { "ApolloGroundGlowDebuff", "ApolloBlindDebuffFlare" },
 		EffectGroup = "Blind",
 		EffectData = {
 			DeepInheritance = true,
@@ -102,6 +117,18 @@
 	{
 		ShowInvincububble = true
 	},
+	ShoutSelfSlow = 
+	{
+		EffectData = 
+		{
+			Type = "SPEED",
+			Duration = 0.4,
+			Modifier = 0.3,
+			Active = true,
+			DisableRotate = true,
+			CanAffectInvulnerable = true,
+		}
+	},
 	BlockEffect = 
 	{
 		BlockEffect = true
@@ -135,7 +162,7 @@
 		DisplaySuffix = "Amplify",
 		Vfx = "ZeusEchoDebuff",
 		EffectData = { 
-			Duration = 3,
+			Duration = 4,
 			DamageThreshold = 120,
 			IsVulnerabilityEffect = true,
 			IgnoreName = "_PlayerUnit"
@@ -205,6 +232,27 @@
 			CanAffectInvulnerable = true,
 		}
 	},
+	CastSpeedBoostEffect = 
+	{
+		DataProperties = 
+		{
+			Type = "SPEED",
+			Duration = 3600,
+			Modifier = 1.5,
+			CanAffectInvulnerable = true,
+		}
+	},
+	CastGripEffect = 
+	{
+		Vfx = "CastSpeedSparkleEmitter",
+		DataProperties = 
+		{
+			Type = "GRIP",
+			Duration = 2,
+			Modifier = 2,
+			CanAffectInvulnerable = true,
+		}
+	},
 	BurnEffect =
 	{
 		InheritFrom = { "NoSlowFrameEffect", "NoShakeEffect", "HestiaColorProjectile" },
@@ -217,6 +265,9 @@
 		DamageRandomOffsetX = 0,
 		DamageTextSizeOffsetY = -15,
 		ShowDuration = false,
+		BlockCrit = true,
+		BlockDoubleDamage = true,
+		BlockDamageFloor = true,
 		DurationAlpha = 0.6,
 		CancelArmorSpark = true,
 		CancelArmorUnitShake = true,
@@ -228,6 +279,7 @@
 		SkipDamageText = true,
 		UpdateStacksOnReapply = true,
 		AttachIconToUnit = true,
+		AttachToMarker = true,
 		IconYOffset = 0,
 		DamageOffsetY = 180,
 		InflictedVfx = "HestiaFlare",
@@ -235,11 +287,12 @@
 		OnClearFunctionName = "BurnEffectClear",
 		CustomStackHandling = true,
 		DamageHoldDuration = 0.15,
-		DamagePerSecond = 80,
+		DamagePerSecond = 100,
 		DamageInterval = 1/6, -- Logical times damage is applied
 		DamagePresentationInterval = 1/40, -- maximum times to pop and update damage text
 		DamageTextDisplayCount = 40,
 		DamageTextDisplayWindow = 1,
+		MaxStacks = 999,
 		EffectData = {
 			Type = "DAMAGE_OVER_TIME",
 			EffectGroup = "Fire",
@@ -248,7 +301,6 @@
 			Amount = 0,
 			IsVulnerabilityEffect = true,
 			Stacks = true,
-			MaxStacks = 500,
 			IgnoreName = "_PlayerUnit"
 		},
 		ScaleArgs = 
@@ -321,6 +373,17 @@
 			RefreshOnExpireWithEffect = "RefreshBurn"
 		},
 	},
+	SprintStasisEffect =
+	{
+		DataProperties = {
+			Duration = 0.315,
+			ElapsedTimeMultiplier = 0.001,
+			ExtendDurationOnReapply = false,
+			IgnoreName = "_PlayerUnit"
+		},
+		OnApplyFunctionName = "TimeSlowApply",
+		OnClearFunctionName = "TimeSlowClear",
+	},
 	ChillEffect =
 	{
 		DisplaySuffix = "Root",
@@ -352,6 +415,10 @@
 	{
 		InheritFrom = {"ChillEffect"},	
 	},
+	ChillStatueEffect = 
+	{
+		InheritFrom = {"ChillEffect"},	
+	},
 	ChillSecondary = 
 	{
 		InheritFrom = {"ChillEffect"},	
@@ -372,7 +439,6 @@
 	{
 		DisplaySuffix = "Chill",
 		EffectGroup = "Chill",
-		Icon = "ChillSmall",
 		Vfx = "DemeterSlowFront",
 		SharedVulnerabilityCategory = "Root",
 		EffectData = {
@@ -438,13 +504,15 @@
 	ReserveManaInvulnerability = 
 	{
 		Vfx = "DemeterHitShieldIn",
+		OffsetZ = 120,
 		EffectData = 
 		{
 			Modifier = 1.0,
 			Duration = 1000,
 			CanAffectInvulnerable = true,
 			OnlyAffectName = "_PlayerUnit"
-		}
+		},
+		OnClearFunctionName = "ClearReserveManaInvulnerability",
 	},
 	DelayedKnockbackEffect = 
 	{
@@ -452,49 +520,41 @@
 		DamageTextColor = Color.HephaestusDamage,
 		DisplaySuffix = "PoseidonWet",
 		EffectGroup = "PoseidonWet",
-		Icon = "EarthSmall",
 		Vfx = "HephaestusVentDecal",
 		-- BackVfx = "PoseidonElementalStatusBackLoop",
-		--StopVfxes = {"PoseidonElementalStatusFront", "PoseidonElementalStatusBack", "PoseidonElementalStatusBackLoop", "PoseidonElementalStatusFrontLoop"},
+		--StopVfxesPreventChain = {"PoseidonElementalStatusFront", "PoseidonElementalStatusBack", "PoseidonElementalStatusBackLoop", "PoseidonElementalStatusFrontLoop"},
 		CreateAnimationOnDamage = "HephaestusVentExplosion",
-		ShowDuration = true,
 		EffectData = {
-			Type = "DELAYED_KNOCKBACK",
-			Duration = 4,					-- Delay before knockback is applied
-			Amount = 0,					-- Force of knockback
-			TriggerDamage = 300,
+			Type = "DAMAGE_TAKEN",
+			Modifier = 1.2,
+			Duration = 5,
 			IsVulnerabilityEffect = true,
 			IgnoreName = "_PlayerUnit",
 		}
 	},
-	WetEffect = 
-	{
-		DisplaySuffix = "Wet",
-		EffectGroup = "PoseidonWet",
-		Icon = "WaterSmall",
-		Vfx = "OlympianStatusFxFront_Poseidon",
-		EffectData = {
-			Type = "DAMAGE_TAKEN",
-			Duration = 9,
-			Modifier = 1.0,
-			IsVulnerabilityEffect = true,
-			IgnoreName = "_PlayerUnit"
-		}
-	},
+
 	AmplifyKnockbackEffect = 
 	{
-		Vfx = "PoseidonSlipStatusFx",
-		-- BackVfx = "PoseidonElementalStatusBack",
+		Vfx = "PoseidonElementalStatusFrontLoop",
+		BackVfx = "PoseidonElementalStatusBackLoop",
+		DisplaySuffix = "Froth",
+		StopVfxes = {"PoseidonElementalStatusFrontLoop", "PoseidonElementalStatusBackLoop" },
+		StopVfxesPreventChainOnCancel = {"PoseidonElementalStatusFrontLoop", "PoseidonElementalStatusBackLoop" },
 		EffectData = {
-			Type = "DAMAGE_TAKEN",
 			Duration = 3,
 			Modifier = 1.05,
 			IsVulnerabilityEffect = true,
 			IgnoreName = "_PlayerUnit"
 		},
-		
-		OnApplyFunctionName = "AmplifyKnockbackApply",
-		OnClearFunctionName = "AmplifyKnockbackClear",
+		OnDamagedFunctionName = "CheckPoseidonFont",
+		ProjectileName = "PoseidonEffectFont",
+		ProjectileNameBlacklist = 
+		{
+			"PoseidonEffectFont",
+			"SteamBlast",
+		},
+		Chance = 0.25,
+		Cooldown = 0.6,
 	},
 	PoseidonStun = 
 	{
@@ -509,10 +569,11 @@
 		InheritFrom = { "StunEffect" },
 		StunAnimationType = "BlockStun",
 		EffectData = {
-			Duration = 2.0,
+			Duration = 0.5,
 		},
 		StunThroughHealthBuffer = true,
 		OnApplyFunctionName = "OnHitStunApply",
+		OnClearFunctionName = "OnHitStunClear",
 		Vfx = "DionysusStunnedFx",
 	},
 	ImpactSlow = 
@@ -573,36 +634,7 @@
 	{
 		InheritFrom = { "BlockEffect" },
 	},
-	WetPrimary = 
-	{
-		InheritFrom = {"WetEffect"},	
-	},
-	WetSecondary = 
-	{
-		InheritFrom = {"WetEffect"},	
-	},
-	WetSprint = 
-	{
-		InheritFrom = {"WetEffect"},	
-	},
-	WetCast= 
-	{
-		InheritFrom = {"WetEffect"},	
-	},
-	WetElectricPuddle = 
-	{
-		InheritFrom = {"WetEffect"},	
-	},
-	WetRain = 
-	{
-		InheritFrom = {"WetEffect"},	
-		EffectData = {
-			Type = "DAMAGE_TAKEN",
-			Duration = 1000,
-			Modifier = 1.2,
-			IsVulnerabilityEffect = true,
-		}
-	},
+
 	ZeusColorProjectile =
 	{
 		DamageTextStartColor = Color.ZeusDamageLight,
@@ -627,67 +659,20 @@
 			IgnoreName = "_PlayerUnit"
 		},
 	},
-	ElectrifiedEffect = 
-	{
-		InheritFrom = { "ZeusColorProjectile" },
-		DisplaySuffix = "Electrify",
-		EffectGroup = "Electrify",
-		Icon = "ShockSmall",
-		Vfx = "ZeusStaticArcEmitter",
-		EffectData = {
-          IgnoreName = "_PlayerUnit",
-          Duration = 10,
-          IsVulnerabilityEffect = true,
-		},
-	},
-	ElectrifiedSprint = 
-	{
-		InheritFrom = {"ElectrifiedEffect"},
-	},
-	ElectrifiedBoon = 
-	{
-		InheritFrom = {"ElectrifiedEffect"},
-	},
-	ElectrifiedPuddle = 
-	{
-		InheritFrom = {"ElectrifiedEffect"},
-	},
 	
-	NearbyVulnerabilityEffect =
-	{
-		DisplaySuffix = "NearbyVulnerability",
-		EffectGroup = "NearbyVulnerability",
-		Icon = "AphroditeSmall",
-		ActiveAnimation = "AphroditeActive",
-		InactiveAnimation = "AphroditeInactive",
-		Vfx = "OlympianStatusFx_Aphrodite",
-		DamageTextStartColor = Color.AphroditeDamageLight,
-		DamageTextColor = Color.AphroditeDamage,
-		
-		OnApplyFunctionName = "NearbyVulnerabilityApply",
-		OnClearFunctionName = "NearbyVulnerabilityClear",
-		DistanceThreshold = 350,
-		EffectData = {
-			Type = "DAMAGE_OUTPUT",
-			Modifier = 0.9,
-            Duration = 3,
-            Amount = 1.3,
-            IsVulnerabilityEffect = true,
-            IgnoreName = "_PlayerUnit"
-		},
-
-	},
 	WeakEffect = 
 	{
 		DisplaySuffix = "Weak",
 		EffectGroup = "Weak",
-		Vfx = "AphroditeWeakFxFront",
-		BackVfx = "AphroditeWeakFxBack",
+		Vfx = "AphroditeWeakFxFront_In",
+		BackVfx = "AphroditeWeakFxBack_In",
+		VfxPreventChainOnStop = true,
 		DamageTextStartColor = Color.AphroditeDamageLight,
 		DamageTextColor = Color.AphroditeDamage,
-		EffectData = {
+		EffectData =
+		{
             Type = "DAMAGE_OUTPUT",
-            Duration = 4,
+            Duration = 1,
             Modifier = 0.7,
             IsVulnerabilityEffect = true,
             IgnoreName = "_PlayerUnit"
@@ -786,7 +771,6 @@
 			Duration = 4,
 			Cooldown = 0.5,
 			Amount = 25,
-			IsVulnerabilityEffect = true,
 			CanAffectInvulnerable = true,
 		},
 	},
@@ -804,10 +788,10 @@
 			TimeModifierFraction = 0
 		}
 	},
-	LavaSlow =
+	LavaVignette =
 	{
-		OnApplyFunctionName = "LavaSlowApply",
-		OnClearFunctionName = "LavaSlowClear",
+		OnApplyFunctionName = "LavaVignetteApply",
+		OnClearFunctionName = "LavaVignetteClear",
 	},
 	SatyrEnlarge =
 	{
@@ -820,6 +804,7 @@
 	OnHitStunHeavy =
 	{
 		OnApplyFunctionName = "OnHitStunApply",
+		OnClearFunctionName = "OnHitStunClear",
 		StunAnimationType = "Heavy",
 	},
 	FreezeStun =
@@ -837,10 +822,25 @@
 		StunAnimationType = "Default",
 		BlockReload = true
 	},
+	OnSprintHitStun = 
+	{
+		InheritFrom = {"OnHitStun"},
+		StunThroughHealthBuffer = true,
+		DataProperties = 
+		{
+			Duration = 0.2,
+			DisableMove = true,
+			DisableRotate = true,
+			DisableAttack = false,
+		},
+		OnApplyFunctionName = "OnHitStunApply",
+		OnClearFunctionName = "OnHitStunClear",
+	},
 	OnHitStunAxeBlock =
 	{
 		InheritFrom = {"OnHitStun"},
 		OnApplyFunctionName = "OnHitStunApply",
+		OnClearFunctionName = "OnHitStunClear",
 	},
 	HeroOnHitStun = 
 	{
@@ -854,14 +854,71 @@
 			Duration = 10,
 		}
 	},
+	MatiHypnosis =
+	{
+		OnApplyFunctionName = "MatiHypnosisApply",
+		OnClearFunctionName = "MatiHypnosisClear",
+
+		DataProperties = 
+		{
+			MoveSpeed = 200,
+		}
+	},
 	HecatePolymorphStun = 
 	{
 		OnApplyFunctionName = "HecatePolymorphApply",
 		OnClearFunctionName = "HecatePolymorphClear",
 	},
+	HostilePolymorphSpeed = 
+	{
+		DataProperties = 
+		{
+			Type = "SPEED",
+			Modifier = 0.35,
+			Duration = 1,
+			Active = true,
+		}
+	},
+	ChronosPolymorphStun = 
+	{
+		OnApplyFunctionName = "ChronosPolymorphApply",
+		OnClearFunctionName = "ChronosPolymorphClear",
+		DataProperties = 
+		{
+			Duration = 9999,
+			Active = true,
+			CanAffectInvulnerable = true,
+		}
+	},
 	PolymorphTag = 
 	{
-		OnApplyFunctionName = "CheckPolymorphApply"
+		EffectName = "PolymorphTag",
+		OnApplyFunctionName = "CheckPolymorphApply",
+		Vfx = "SorceryNightCurseStatusFront",
+		BackVfx = "SorceryNightCurseStatusBack",
+		DataProperties = 
+		{
+			IgnoreExactName = "_PlayerUnit",
+			Duration = 4,
+			Active = true,
+			CanAffectInvulnerable = false,
+		},
+		FireProjectileOnApply = 
+		{
+			WeaponName = "WeaponSpellPolymorph",
+			ProjectileName = "MorphDamageProjectile"
+		}
+	},
+	PolymorphDamageTaken = 
+	{
+		EffectName = "PolymorphDamageTaken",
+		DataProperties = 
+		{	
+			Type = "DAMAGE_TAKEN",
+			Duration = 10,
+			Modifier = 1.5,
+			Active = true,
+		}
 	},
 	PolymorphStun = 
 	{
@@ -881,6 +938,33 @@
 			IsVulnerabilityEffect = true,
 			CanAffectInvulnerable = true,
 		},
+	},
+	MedeaPoison = 
+	{
+		EffectName = "MedeaPoison",
+		CancelCameraShake = true,
+		CancelSlowFrames = true,
+		RapidDamageType = true,
+		IgnoreOnHitEffects = true,
+		IgnoreInvulnerabilityFrameTrigger = true,
+		CancelArmorSpark = true,
+		CancelArmorUnitShake = true,
+		CancelUnitShake = true,
+		CancelHitSpark = true,
+		CancelVulnerabilitySpark = true,
+		CancelRumble = true,
+		DamageTextSize = 25,
+		OnApplyFunctionName = "MedeaPoisonApply",
+		OnClearFunctionName = "MedeaPoisonClear",
+	},
+	MedeaPoisonAllyBoost =
+	{
+		OnApplyFunctionName = "MedeaPoisonAllyBoostApply",
+		OnClearFunctionName = "MedeaPoisonAllyBoostClear",
+	},
+	TimeElementalHeal =
+	{
+		OnApplyFunctionName = "TimeElementalHealApply",
 	},
 	Rooted =
 	{
@@ -947,7 +1031,7 @@
 		OnApplyFunctionName = "ShrineEliteAttributeManaDrain",
 		OnApplyFunctionArgs =
 		{
-			Amount = -3,
+			Amount = -10,
 		}
 	},
 	AutomatonMark =
@@ -982,23 +1066,43 @@
 	RavenFamiliarMark =
 	{
 		EffectName = "RavenFamiliarMark",
-		Vfx = "ArtemisCritVulnerabilityStatusIn",
-		StopVfxesPreventChain = { "ArtemisCritVulnerabilityStatusIn" },
+		Vfx = "RakiCritVulnerabilityStatusIn",
+		StopVfxesPreventChain = { "RakiCritVulnerabilityStatusIn" },
 		CritVulnerability = 0.15,
 		EffectData = 
 		{
 			Duration = 6,
 			Modifier = 1,
 			TimeModifierFraction = 0,
-		}
+		},
 	},
 	ErisSelfBuff = 
 	{
 		Name = "ErisSelfBuff",
 		Vfx = "ErisPowerUpFx",
 		OnApplyFunctionName = "ErisSelfBuffApply",
-		--OnClearFunctionName = "ErisSelfBuffClear",
+		OnClearFunctionName = "ErisSelfBuffClear",
 	},
+
+	HecateDarkSide =
+	{
+		OnApplyFunctionName = "HecateDarkSideApply",
+		OnClearFunctionName = "HecateDarkSideClear",
+		OnApplyFunctionArgs =
+		{
+			AddIncomingDamageModifier =
+			{
+				Name = "HecateDarkSide",
+				PlayerMultiplier = 0.8,
+			},
+			TemporaryWeaponOptions = { "HecateDarkSideRanged", "HecateDarkSideRangedExtended", "HecateDarkSideRing", },
+		},
+		OnClearFunctionArgs =
+		{
+			RemoveIncomingDamageModifier ="HecateDarkSide"
+		},
+	},
+
 	BlockEmpower = 
 	{
 		Name = "BlockEmpower",
@@ -1024,21 +1128,6 @@
 		OnApplyFunctionName = "StaffSelfBuffApply",
 		OnClearFunctionName = "StaffSelfBuffClear"
 	},
-	FastClearBuff = 
-	{
-		Name = "FastClearBuff",
-		Vfx = "ErisPowerUpFx",	
-		DataProperties = 
-		{
-			CanAffectInvulnerable = true,
-			TimeModifierFraction = 0,
-			OnlyAffectName = "_PlayerUnit",
-	  		Type = "SPEED",
-	  		Duration = 3600,
-	  		Modifier = 1.2,
-			DodgeChance = 0.2,
-		},
-	},
 
 	ClearCast = 
 	{
@@ -1055,6 +1144,13 @@
 		OnApplyFunctionName = "ClearCastApply",
 		OnClearFunctionName = "ClearCastClear"
 	},
+	ClearCastPoseidon = 
+	{
+		InheritFrom = { "ClearCast" },
+		Vfx = "PoseidonManaBoonFxEmitter",
+		-- BackVfx = "PoseidonElementalStatusBackLoopBase",
+		StopVfxesPreventChain = {"PoseidonManaBoonFxFront", "PoseidonManaBoonFxBack" },
+	},
 	NyxBlastReady = 
 	{
 		DataProperties = 
@@ -1069,7 +1165,7 @@
 	},
 	NyxHitBuff = 
 	{
-		Vfx = "WeaponBonusFx",
+		Vfx = "WeaponBonusFxNyx",
 		StopVfxes = { "WeaponBonusFx", "WeaponBonusFxBack"},
 		DataProperties = 
 		{
@@ -1179,27 +1275,19 @@
 	AthenaInvulnerable = 
 	{
 		ShowInvincububble = false,
+        Vfx = "AthenaProtectionFront",
+		BackVfx = "AthenaProtectionBack",
+		StopVfxesPreventChainOnCancel = { "AthenaProtectionFront", "AthenaProtectionBack" },
 		DataProperties = {
 			Type = "INVULNERABLE",
 			Duration = 8,
 			Modifier = 1.0,
 			CanAffectInvulnerable = true,
-			FrontFx = "AthenaProtectionFront",
-			BackFx = "AthenaProtectionBack",
 			FlashFrontFxWhenExpiring = false,
 			FlashBackFxWhenExpiring = false,
 		}
 	},
-	HadesInvulnerable = 
-	{
-		InheritFrom = {"InvulnerableEffect"},
-		DataProperties = {
-			Type = "INVULNERABLE",
-			Duration = 1,
-			Modifier = 1.0,
-			CanAffectInvulnerable = true,
-		}
-	},
+
 	AthenaProjectileDefense = 
 	{
 		DataProperties = {
@@ -1243,6 +1331,19 @@
 			CanAffectInvulnerable = true,
 		}
 	},
+	PotionBuff= 
+	{
+		Vfx = "PoseidonElementalStatusFrontLoop",
+		BackVfx = "PoseidonElementalStatusBackLoop",
+		StopVfxes = {"PoseidonElementalStatusFrontLoop", "PoseidonElementalStatusBackLoop" },
+		DataProperties = {
+			Duration = 20,
+			Modifier = 1.0,
+			CanAffectInvulnerable = true,
+		},
+		OnApplyFunctionName = "PotionBuffApply",
+		OnClearFunctionName = "PotionBuffClear"
+	},
 	DaggerBlockInvincibubble = 
 	{
 		InheritFrom = {"InvulnerableEffect"},
@@ -1259,6 +1360,15 @@
 	{
 		AttackSpeedMultiplier = 1.5,
 		SprintSpeedMultiplier = 0.5,
+		OnApplyFunctionName = "MiasmaSlowApply",
+		OnClearFunctionName = "MiasmaSlowClear"
+
+	},
+	SheepSickSlow = 
+	{
+		AttackSpeedMultiplier = 1.0,
+		SprintSpeedMultiplier = 0.5,
+		SkipPresentation = true,
 		OnApplyFunctionName = "MiasmaSlowApply",
 		OnClearFunctionName = "MiasmaSlowClear"
 
@@ -1343,8 +1453,19 @@
 	},
 	SwingDoubleDisable =
 	{
-		OnApplyFunctionName = "BlinkTriggerLockApply",
-		OnClearFunctionName = "BlinkTriggerLockClear",
+		OnApplyFunctionName = "BlinkAndCastTriggerLockApply",
+		OnClearFunctionName = "BlinkAndCastTriggerLockClear",
+	},
+
+	Special1DisableMoveHold =
+	{
+		EffectData =
+		{
+			Duration = 0.35,
+			DisableRotate = true,
+			DisableMove = true,
+			Cancelable = true,
+		},
 	},
 	WeaponDaggerThrowEXDisable =
 	{
@@ -1363,7 +1484,7 @@
 	{
 		EffectData =
 		{
-			Duration = 36/60,
+			Duration = 23/60,
 			DisableMove = true,
 			DisableRotate = true,
 			DisableAttack = true,
@@ -1375,10 +1496,84 @@
 	{
 		EffectData =
 		{
-			Duration = 33/60,
+			Duration = 30/60,
 			DisableRotate = true,
 			DisableMove = true,
 			Cancelable = true,
+		},
+	},
+	WeaponDaggerMorriganThrowEXDisable =
+	{
+		EffectData =
+		{
+			Duration = 14/60,
+			DisableMove = true,
+			DisableRotate = true,
+			DisableAttack = true,
+			RequestTriggerLock = true,
+		},
+		OnApplyFunctionName = "DaggerSpecialTriggerLockApply",
+		OnClearFunctionName = "DaggerSpecialTriggerLockClear",
+	},
+	WeaponDaggerMorriganThrowEXDisableCancellable =
+	{
+		EffectData =
+		{
+			Duration = 21/60,
+			DisableMove = true,
+			DisableRotate = true,
+			DisableAttack = true,
+			RequestTriggerLock = true,
+			Cancelable = true,
+		},
+	},
+	WeaponDaggerMorriganThrowEXDisableMoveHold =
+	{
+		EffectData =
+		{
+			Duration = 30/60,
+			DisableRotate = true,
+			DisableMove = true,
+			Cancelable = true,
+		},
+	},
+	WeaponLobHelAttackEXDisable =
+	{
+		EffectData =
+		{
+			Duration = 18/60,
+			DisableMove = true,
+			DisableRotate = true,
+			DisableAttack = true,
+			RequestTriggerLock = true,
+		},
+	},
+	WeaponLobHelAttackEXDisableCancellable =
+	{
+		EffectData =
+		{
+			Duration = 30/60,
+			DisableMove = true,
+			DisableRotate = true,
+			DisableAttack = true,
+			RequestTriggerLock = true,
+			Cancelable = true,
+		},
+	},
+	DemeterTickEffect =
+	{
+		CancelArmorSpark = true,
+		CancelArmorUnitShake = true,
+		CancelRumble = true,
+		CancelHitSpark = true,
+		CancelUnitHitFlash = true,
+		RapidDamageType = true,
+		DisplaySuffix = "DemeterTick",
+		DataProperties = {
+			Type = "DAMAGE_OVER_TIME",
+			Duration = 3600,
+			Cooldown = 0.2,
+			Amount = 20,
 		},
 	},
 
@@ -1424,7 +1619,7 @@
 	},
 	LobWeaponSpecialDisableCancellable =
 	{
-		MaxDuration = 0.2,
+		MaxDuration = 0.3,
 		EffectData = 
         {
           DisableMove = true,
@@ -1511,6 +1706,112 @@
 		OnApplyFunctionName = "BlinkTriggerLockApply",
 		OnClearFunctionName = "BlinkTriggerLockClear",
 	},
+	ShivaAttackBoost = 
+	{
+		Name = "ShivaAttackBoost",
+		Vfx = "ShivaAttackBoostFx",	
+		DataProperties = 
+		{
+			CanAffectInvulnerable = true,
+			TimeModifierFraction = 0,
+			Duration = 7200,
+			Stacks = true,
+			OnlyAffectName = "_PlayerUnit",
+		},
+		CustomStackHandling = true,
+		OnApplyFunctionName = "ShivaAttackBoostApply",
+		OnClearFunctionName = "ShivaAttackBoostClear",
+	},
+	ExecuteIndicator = 
+	{
+		DisplaySuffix = "ExecuteMarker",
+		Icon = "HealthBarMarkerExecute",
+		--AttachIconToHealthbar = true, 
+		--OffsetX = -75,
+		DataProperties = 
+		{
+			Duration = 3600,
+			Active = true,
+		}
+	},
+	ComboAttackIndicator = 
+	{
+		DisplaySuffix = "ComboAttack",
+		Icon = "HealthBarMarkerAttack",
+		AttachIconToUnit = true,
+		AttachToMarker = true,
+		IgnoreHideHealthBarOnUnits = 
+		{
+			NPC_Nemesis_01 = true,
+			TyphonHead = true,
+		},
+		
+		DataProperties = 
+		{
+			Duration = 3600,
+			Active = true,
+		}
+	},
+	ComboSpecialIndicator = 
+	{
+		DisplaySuffix = "ComboSpecial",
+		Icon = "HealthBarMarkerSpecial",
+		AttachIconToUnit = true,
+		AttachToMarker = true,
+		IgnoreHideHealthBarOnUnits = 
+		{
+			NPC_Nemesis_01 = true,
+			TyphonHead = true,
+		},
+		DataProperties = 
+		{
+			Duration = 3600,
+			Active = true,
+		}
+	},
+	ComboExIndicator = 
+	{
+		DisplaySuffix = "ComboEx",
+		Icon = "HealthBarMarkerAttackOmega",
+		IgnoreHideHealthBarOnUnits = 
+		{
+			NPC_Nemesis_01 = true,
+			TyphonHead = true,
+		},
+		--AttachIconToHealthbar = true, 
+		--OffsetX = -25,
+		AttachIconToUnit = true,
+		AttachToMarker = true,
+		DataProperties = 
+		{
+			Duration = 3600,
+			Active = true,
+		}
+	},
+	ComboAttackExIndicator = 
+	{
+		DisplaySuffix = "ComboAttackEx",
+		Icon = "HealthBarMarkerAttackOmega",
+		AttachIconToHealthbar = true, 
+		OffsetX = -25,
+		DataProperties = 
+		{
+			Duration = 3600,
+			Active = true,
+		}
+	},
+	ComboSpecialExIndicator = 
+	{
+		DisplaySuffix = "ComboSpecialEx",
+		Icon = "HealthBarMarkerSpecialOmega",
+		AttachIconToHealthbar = true, 
+		OffsetX = 0,
+		DataProperties = 
+		{
+			Duration = 3600,
+			Active = true,
+		}
+	},
 	MoonBeamVulnerability = 
 	{ 
 	
@@ -1525,6 +1826,79 @@
 			Modifier = 1.5,
 			FlashFrontFxWhenExpiring = false,
 			FlashBackFxWhenExpiring = false,
+		}
+	},
+	DelayedDamageEffect = 
+	{
+		SharedVulnerabilityCategory = "Curse",
+		DataProperties = 
+		{
+          IgnoreName = "_PlayerUnit",
+		  Type = "DAMAGE_OVER_TIME",
+          Stacks = false,
+          ExtendDurationOnReapply = false,
+          Duration = 1.1,
+          FrontFx = "AresSwordHoverLoopA",
+          Active = true,
+          TimeModifierFraction = 0,
+          ExpiringTimeThreshold = 0.26,
+          ExpiringFrontFx = "AresSwordHoverDrop",
+          DamageOnExpire = true,
+          IsVulnerabilityEffect = true,
+		}
+	},
+	AresStatus = 
+	{
+		DisplaySuffix = "Rend",
+		EffectGroup = "Rend",
+		ShowDuration = false,
+		Vfx = "AresDebuffFx",
+		SharedVulnerabilityCategory = "Curse",
+		BonusBaseDamageOnInflict = 50,
+		EffectData = {
+			Duration = 3,
+			IsVulnerabilityEffect = true,
+			ExtendDurationOnReapply = false,
+			IgnoreName = "_PlayerUnit"
+		},
+	},
+	HelOverheat = 
+	{
+		Vfx = "HelOverheatFx",
+		OnApplyFunctionName = "OverheatApply",
+		OnClearFunctionName = "OverheatClear", 
+		DataProperties = 
+		{
+			Duration = 4,
+			ExtendDurationOnReapply = false,
+			FlashFrontFxWhenExpiring = false,
+			FlashBackFxWhenExpiring = false,
+		}
+	},
+	Frenzy = 
+	{
+		Name = "Frenzy",
+		Vfx = "NergalFrenzyFx",
+		BaseLifeSteal = 1,
+		DataProperties = 
+		{
+			CanAffectInvulnerable = true,
+			TimeModifierFraction = 0,
+			OnlyAffectName = "_PlayerUnit",
+			Modifier = 0.605,
+			Duration = 8,
+		},
+		OnApplyFunctionName = "FrenzyApply",
+		OnClearFunctionName = "FrenzyClear"
+	},
+	HadesSweepEffect = 
+	{
+		Name = "HadesSweep",
+		Vfx = "MarkTargetHades",
+		EffectData = 
+		{
+			Duration = 10,
+			IgnoreName = "_PlayerUnit"
 		}
 	},
 }
@@ -1600,20 +1974,6 @@ WeaponEffectData =
 		}
   },
 
-
-	RamBerserk =
-	{
-		EffectName = "RamBerserk",
-		DataProperties = 
-		{
-			Type = "SPEED",
-			ChangeType = "ADD",
-			Duration = 2.5,
-			Modifier = 1.4,
-			ClearOnCollision = false,
-		}
-	},
-
 	AutomatonDefense = 
 	{
 		EffectName = "AutomatonDefense",
@@ -1622,9 +1982,33 @@ WeaponEffectData =
 		{
 			Type = "DAMAGE_TAKEN",
 			ChangeType = "ADD",
-			Duration = 3.0,
+			Duration = 1.6,
 			Modifier = 0.1,
 			IsVulnerabilityEffect = true,
+		}
+	},
+
+	Inked =
+	{
+		OnApplyFunctionName = "OctofishInkApply",
+		OnApplyFunctionArgs =
+		{
+			AnimationName = "OctofishInkInside"
+		},
+		OnClearFunctionName = "OctofishInkClear",
+		OnClearFunctionArgs =
+		{
+			AnimationName = "OctofishInkInside"
+		},
+	},
+	StalkerBurrowSpeedBoost =
+	{
+		EffectName = "SpeedBoost",
+		DataProperties = 
+		{
+			Type = "SPEED",
+			Modifier = 2.0,
+			Duration = 9999,
 		}
 	},
 }

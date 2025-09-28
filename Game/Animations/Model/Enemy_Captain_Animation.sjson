@@ -1,0 +1,315 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyCaptainBaseAnimation"
+		
+		GrannyModel = "ZombieCaptain_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_Captain_Idle"
+		InheritFrom = "EnemyCaptainBaseAnimation"
+		GrannyAnimation = "ZombieCaptain_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Captain_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Captain_MoveStart"
+		InheritFrom = "EnemyCaptainBaseAnimation"
+		GrannyAnimation = "ZombieCaptain_Base_Move_Start_C_00"
+		NativeMoveSpeed = 450
+		ChainTo = "Enemy_Captain_Move"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Captain_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Captain_Move"
+		InheritFrom = "EnemyCaptainBaseAnimation"
+		GrannyAnimation = "ZombieCaptain_Base_Move_C_00"
+		NativeMoveSpeed = 450
+		Loop = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Captain_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 12
+				Sound = "/Leftovers/SFX/FootstepsSlimeHuge"
+			}
+			{
+				Frame = 30
+				Sound = "/Leftovers/SFX/FootstepsSlimeHuge"
+			}
+		]
+	}
+
+
+	{
+		Name = "Enemy_Captain_MoveStop"
+		InheritFrom = "EnemyCaptainBaseAnimation"
+		GrannyAnimation = "ZombieCaptain_Base_Move_Stop_C_00"
+		NativeMoveSpeed = 450
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Captain_Idle"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Captain_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Captain_OnHit"
+		InheritFrom = "EnemyCaptainBaseAnimation"
+		GrannyAnimation = "ZombieCaptain_Base_OnHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Captain_Idle"
+		Sound = "/SFX/Enemy Sounds/ZombieCaptain/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 2.8
+			}
+			{
+				Frame = 18
+				FrameSpeed = 1.88
+			}
+		]
+	}
+	{
+		Name = "Enemy_Captain_OnHit_Heavy"
+		InheritFrom = "Enemy_Captain_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_Captain_Call"
+		InheritFrom = "EnemyCaptainBaseAnimation"
+		GrannyAnimation = "ZombieCaptain_Base_Call_C_00"
+	}
+
+	{
+		Name = "Enemy_Captain_Reposition"
+		InheritFrom = "EnemyCaptainBaseAnimation"
+		GrannyAnimation = "ZombieCaptain_Base_Call_C_00"
+		GrannyAnimationSpeed = 2.0
+		Sound = "/SFX/Enemy Sounds/ZombieCaptain/EmoteAiming"
+		Frames =
+		[
+			{
+				Frame = 42
+				Sound = "/SFX/Enemy Sounds/ZombieCaptain/GunFireUp"
+			}
+			{
+				Frame = 82
+				Sound = "/SFX/Enemy Sounds/ZombieCaptain/GunFireUp"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Captain_Reload"
+		InheritFrom = "EnemyCaptainBaseAnimation"
+		GrannyAnimation = "ZombieCaptain_Base_Reload_C_00"
+		StopSoundOnFinishFade = 0.2
+		Frames =
+		[
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/ZombieCaptain/EmoteReloading"
+			}
+			{
+				Frame = 38
+				Sound = "/SFX/Enemy Sounds/ZombieCaptain/WeaponJamHit"
+			}
+			{
+				Frame = 53
+				Sound = "/SFX/Enemy Sounds/ZombieCaptain/WeaponJamHit"
+			}
+			{
+				Frame = 75
+				Sound = "/SFX/Enemy Sounds/ZombieCaptain/Reload"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Captain_PistolPreFire"
+		InheritFrom = "EnemyCaptainBaseAnimation"
+		GrannyAnimation = "ZombieCaptain_Base_PistolPreFire_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.56
+			}
+			{
+				Frame = 75
+				FrameSpeed = 0.2
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Captain_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_OnHit_Heavy"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_MoveStop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Captain_PistolFire"
+		InheritFrom = "EnemyCaptainBaseAnimation"
+		GrannyAnimation = "ZombieCaptain_Base_PistolFire_C_00"
+		ChainTo = "Enemy_Captain_PistolPostFire"
+		Sound = "/SFX/Enemy Sounds/ZombieCaptain/GunFireForward"
+	}
+
+	{
+		Name = "Enemy_Captain_PistolPostFire"
+		InheritFrom = "EnemyCaptainBaseAnimation"
+		GrannyAnimation = "ZombieCaptain_Base_PistolPostFire_C_00"
+		ChainTo = "Enemy_Captain_Idle"
+	}
+
+	{
+		Name = "Enemy_Captain_SwordPreFire"
+		InheritFrom = "EnemyCaptainBaseAnimation"
+		GrannyAnimation = "ZombieCaptain_Base_SwordPreFire_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/WretchedThug/ThugChargeUp"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Captain_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_OnHit_Heavy"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Captain_MoveStop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Captain_SwordFire"
+		InheritFrom = "EnemyCaptainBaseAnimation"
+		GrannyAnimation = "ZombieCaptain_Base_SwordFire_C_00"
+		ChainTo = "Enemy_Captain_SwordPostFire"
+		Frames =
+		[
+			{
+				Frame = 5
+				Sound = "/SFX/Enemy Sounds/ZombieCaptain/CaptainSwipe"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Captain_SwordPostFire"
+		InheritFrom = "EnemyCaptainBaseAnimation"
+		GrannyAnimation = "ZombieCaptain_Base_SwordPostFire_C_00"
+		ChainTo = "Enemy_Captain_Idle"
+	}
+
+] }

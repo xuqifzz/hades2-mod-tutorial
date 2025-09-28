@@ -1,0 +1,232 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCPersephoneBaseAnimation"		
+		GrannyAnimation = "null"
+		GrannyModel = "PersephoneEnding_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Persephone_Idle"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "PersephoneEnding_Base_IdleLoop_C_01"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+	// Greet
+	{
+		Name = "Persephone_Greet_Start"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "PersephoneEnding_Base_GreetStart_C_01"
+		ChainTo = "Persephone_Greet_FireLoop"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Persephone_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Persephone_Greet_FireLoop"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "PersephoneEnding_Base_GreetLoop_C_01"
+		Loop = true
+	}
+	{
+		Name = "Persephone_Greet_End"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "PersephoneEnding_Base_GreetReturnToIdle_C_01"
+		ChainTo = "Persephone_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Persephone_Greet_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Persephone_Greet_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	// Dismiss
+	{
+		Name = "Persephone_DismissA_Start"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "PersephoneEnding_Base_DismissStart_C_01"
+		ChainTo = "Persephone_DismissA_FireLoop"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Persephone_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Persephone_DismissA_FireLoop"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "PersephoneEnding_Base_DismissSpeak_C_01"
+		// Loop = true
+		ChainTo = "Persephone_DismissB_Start"
+	}
+	{
+		Name = "Persephone_DismissB_Start"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "PersephoneEnding_Base_DismissSpeakToPoint_C_01"
+		ChainTo = "Persephone_DismissB_FireLoop"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Persephone_DismissA_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Persephone_DismissB_FireLoop"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "PersephoneEnding_Base_DismissPointLoop_C_01"
+		Loop = true
+	}
+	{
+		Name = "Persephone_DismissB_End"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "PersephoneEnding_Base_DismissReturnToIdle_C_01"
+		ChainTo = "Persephone_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Persephone_DismissA_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Persephone_DismissA_FireLoop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Persephone_DismissB_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Persephone_DismissB_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// Hug
+	{
+		Name = "Persephone_Hug_Start"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "PersephoneEnding_Base_HugStart_C_00"
+		ChainTo = "Persephone_Hug_FireLoop"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Persephone_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Persephone_Hug_FireLoop"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "PersephoneEnding_Base_HugLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Persephone_Hug_End"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "PersephoneEnding_Base_HugEnd_C_00"
+		ChainTo = "Persephone_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Persephone_Hug_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Persephone_Hug_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// Frozen
+
+	{
+		Name = "Persephone_Frozen"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "Persephone_Base_Ending_Start_C_00"
+		HoldLastFrame = true
+		CreateAnimation = "NightmareStasisFxPersephone"
+		VisualFx = "FrozenPersephoneFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.11
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 1
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Persephone_Sitting_Start"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "Persephone_Base_Ending_Start_C_00"
+		ChainTo = "Persephone_Sitting_FireLoop"
+		Frames =
+		[
+			{
+				Frame = 14
+				Sound = "/Leftovers/SFX/RobeFlutterInScene"
+			}
+			{
+				Frame = 26
+				Sound = "/SFX/Enemy Sounds/Hades/HadesCollapse"
+				FootstepFxR = "CWDustPuffFront"
+				FootstepFxL = "CWDustPuffBack"
+			}
+			{
+				Frame = 28
+				Sound = "/SFX/Enemy Sounds/Hades/HadesCollapse"
+			}
+		]
+	}
+	{
+		Name = "Persephone_Sitting_FireLoop"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "Persephone_Base_Ending_Loop_C_00"
+		Loop = true
+	}
+
+	
+]}

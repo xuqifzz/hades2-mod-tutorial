@@ -3,24 +3,28 @@ OverwriteTableKeys( TraitData, {
 	BaseIcarus = 
 	{
 		PackageName = "NPC_Icarus_01",
+		DebugOnly = true,
 	},
+	
 	FocusAttackDamageTrait = 
 	{
 		InheritFrom = {"BaseIcarus"},
 		Icon = "Boon_Icarus_04",
-		AddOutgoingDamageModifiers = 
+		AcquireFunctionName = "IcarusUpgradeBoon",
+		AcquireFunctionArgs = 
 		{
-			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
-			ValidBaseDamageAddition = { BaseValue = 10 },
-			ReportValues = { ReportedBonus = "ValidBaseDamageAddition" }
+			Count = 3,
+			Slot = "Melee",
+			ReportValues = { ReportedCount = "Count"}
 		},
+		SelectedTrait = "None_In_Slot",
 		SetupFunction =
 		{
 			Name = "TraitReserveMana",
 			Args =
 			{
 				Name = "FocusAttackDamage",
-				ManaReservationCost = { BaseValue = 20 },
+				ManaReservationCost = { BaseValue = 35 },
 				ReportValues = 
 				{ 
 					ReportedCost = "ManaReservationCost"
@@ -34,8 +38,13 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "TooltipCost",
 			},
 			{
-				Key = "ReportedBonus",
+				Key = "ReportedCount",
 				ExtractAs = "TooltipBonus",
+			},
+			{
+				Format = "SlottedBoon",
+				Slot = "Melee",
+				ExtractAs = "SlotBoon",
 			},
 		}
 	},
@@ -43,19 +52,21 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = {"BaseIcarus"},
 		Icon = "Boon_Icarus_05",
-		AddOutgoingDamageModifiers = 
+		AcquireFunctionName = "IcarusUpgradeBoon",
+		AcquireFunctionArgs = 
 		{
-			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
-			ValidBaseDamageAddition = { BaseValue = 20 },
-			ReportValues = { ReportedBonus = "ValidBaseDamageAddition" }
+			Count = 3,
+			Slot = "Secondary",
+			ReportValues = { ReportedCount = "Count"}
 		},
+		SelectedTrait = "None_In_Slot",
 		SetupFunction =
 		{
 			Name = "TraitReserveMana",
 			Args =
 			{
 				Name = "FocusSpecialDamage",
-				ManaReservationCost = { BaseValue = 40 },
+				ManaReservationCost = { BaseValue = 35 },
 				ReportValues = 
 				{ 
 					ReportedCost = "ManaReservationCost"
@@ -69,8 +80,13 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "TooltipCost",
 			},
 			{
-				Key = "ReportedBonus",
+				Key = "ReportedCount",
 				ExtractAs = "TooltipBonus",
+			},
+			{
+				Format = "SlottedBoon",
+				Slot = "Secondary",
+				ExtractAs = "SlotBoon",
 			},
 		}
 	},
@@ -225,7 +241,7 @@ OverwriteTableKeys( TraitData, {
 				{
 					Source = "Icarus",
 					Delay = 0.75,
-					BaseAmount = { BaseValue = 40 },
+					BaseAmount = { BaseValue = 50 },
 					ReportValues = 
 					{ 
 						ReportedArmor = "BaseAmount",
@@ -277,7 +293,7 @@ OverwriteTableKeys( TraitData, {
 				{
 					Source = "Icarus",
 					Delay = 0.75,
-					BaseAmount = { BaseValue = 80 },
+					BaseAmount = { BaseValue = 100 },
 					ReportValues = 
 					{ 
 						ReportedArmor = "BaseAmount",
@@ -318,12 +334,14 @@ OverwriteTableKeys( TraitData, {
 		CurrentRoom = 0,
 		RoomsPerUpgrade = 
 		{ 
-			Amount = { BaseValue = 5 },
+			Amount = { BaseValue = 7 },
 			DropResources = 
 			{
 				Delay = 0.5,
 				NotRequiredPickup = true,
 				ForceToValidLocation = true,
+				UseSurfaceSpawnPoints = true,
+				KeepCollision = true,
 				LootOptions =
 				{
 					{
@@ -332,7 +350,7 @@ OverwriteTableKeys( TraitData, {
 					},
 					{
 						Name = "StoreRewardRandomStack",
-						Amount = 3,
+						Amount = 2,
 					},
 				}
 			},
@@ -341,12 +359,46 @@ OverwriteTableKeys( TraitData, {
 				ReportedRoomsPerDrop = "Amount" 
 			},
 		},
+		StatLines = {},
+		CustomStatLinesWithShrineUpgrade = 
+		{
+			ShrineUpgradeName = "HealingReductionShrineUpgrade",
+			StatLines = 
+			{
+				"HealingReductionNotice",
+			},
+		},
 		ExtractValues =
 		{
+			{
+				External = true,
+				BaseType = "ConsumableData",
+				BaseName = "HealDropMinor",
+				Format = "FlatHeal",
+				BaseProperty = "HealFixed",
+				ExtractAs = "HealDropAmount"
+			},
 			{
 				Key = "ReportedRoomsPerDrop",
 				ExtractAs = "TooltipAmount",
 			},
 		}
+	},
+
+	UpgradeHammerBoon = 
+	{
+		InheritFrom = { "BaseIcarus"},
+		Icon = "Boon_Icarus_08",
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "IcarusGrantsReward01" },
+			},
+		},
+		AcquireFunctionName = "UpgradeHammers",
+		AcquireFunctionArgs =
+		{ 
+		},
+		FlavorText = "UpgradeHammerBoon_FlavorText",
 	},
 })

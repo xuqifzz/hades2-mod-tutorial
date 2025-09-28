@@ -21,7 +21,6 @@
       DeselectOnMouseOff = true
       Width = 300
       Height = 50
-      MaxCursorRadius = 8
       TextScale = 0.66
       Font = "P22UndergroundSCMedium"
       TextRed = 0.87

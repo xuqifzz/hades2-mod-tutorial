@@ -210,6 +210,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Terrain_ZagContract_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Terrain_Shadow_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -250,6 +263,19 @@
       "BlendMode": 0,
       "ChildGroups": [],
       "Id": "Terrain_WaterOverlay_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 9,
+      "ChildGroups": [],
+      "Id": "Terrain_Overlay_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -378,7 +404,21 @@
     },
     {
       "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "Foreground_03",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
       "ChildGroups": [
+        "Foreground_03",
         "Foreground_02",
         "Foreground_01",
         "Shading_01",
@@ -388,10 +428,12 @@
         "FX_Standing_01",
         "Standing",
         "Terrain_Lighting_01",
+        "Terrain_Overlay_01",
         "Terrain_WaterOverlay_01",
         "Terrain_Gameplay",
         "TerrainPuddle_FX",
         "Terrain_Shadow_01",
+        "Terrain_ZagContract_01",
         "Terrain_Decor_05",
         "Terrain_Decor_Border",
         "Terrain_Decor_04",
@@ -454,52 +496,13 @@
       "NumThingsFrozen": 0,
       "NumThingsSelectable": 0,
       "NumThingsVisible": 0,
-      "ParentGroup": "",
-      "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
-      "Id": "NewShop",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
       "ParentGroup": "MapLogic",
       "Visible": true
     },
     {
       "BlendMode": 0,
       "ChildGroups": [],
-      "Id": "Shops",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "MapLogic",
-      "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
-      "Id": "OtherSide",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "MapLogic",
-      "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
-      "Id": "UnderFloor",
+      "Id": "Contract",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -624,10 +627,8 @@
         "Scripting",
         "Traps",
         "Breakables",
-        "UnderFloor",
-        "OtherSide",
-        "Shops",
-        "NewShop"
+        "Contract",
+        "Shop"
       ],
       "Id": "MapLogic",
       "NumSelectedAsDraw": 0,
@@ -657,5 +658,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

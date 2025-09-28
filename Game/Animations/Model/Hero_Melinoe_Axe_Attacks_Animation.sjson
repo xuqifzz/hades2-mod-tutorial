@@ -132,6 +132,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "Melinoe_Axe_Attack1_Fire"
+				Duration = 8
+			}
+			{
 				BlendTransitionFrom = "Melinoe_Axe_Attack1_End"
 				Duration = 8
 			}
@@ -344,6 +348,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "Melinoe_Axe_Attack2_Fire"
+				Duration = 8
+			}
+			{
 				BlendTransitionFrom = "Melinoe_Axe_Attack2_End"
 				Duration = 8
 			}
@@ -466,6 +474,1091 @@
 			}
 		]
 	}
+
+
+	/* Nergal Attacks*/
+	/* Axe Attack 1 */
+	{
+		Name = "Axe_Nergal_Attack1_Start"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_JumpSlamAntic_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Attack1_Start"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_JumpSlamAntic_C_00"
+		DisableOwnerManualInteract = true
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/ImpulseMineLayer/ImpulseMineLobWhooshAscend"
+		StopSoundOnFinishFade = 0.2
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Attack1_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_AttackDash_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_AttackDash_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Special_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Special_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Special_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_SpecialEx_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_SpecialEx_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_SpecialEx_End"
+				Duration = 4
+			}
+
+			
+		]
+	}
+	
+	{
+		Name = "Axe_Nergal_Attack1_Fire"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_JumpSlamFire_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Attack1_Fire"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_JumpSlamFire_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Axe_Nergal_Attack1_End"
+		GrannyAnimationSpeed = 1
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Attack1_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+	
+	{
+		Name = "Axe_Nergal_Attack1_End"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_JumpSlamReturn_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Attack1_End"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_JumpSlamReturn_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Axe_Idle"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Attack1_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		/*
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 14
+				Sound = "/SFX/Player Sounds/MelinoeAxeGroudPull"
+			}
+			{
+				Frame = 50
+				Sound = "/SFX/Object Ambiences/MoneySpinWhoosh"
+			}
+			{
+				Frame = 57
+				FrameSpeed = 0
+			}
+		]
+		*/
+	}
+
+	{
+		Name = "Axe_Nergal_Attack1_Cancel"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_JumpSlamReturn_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 35
+				FrameSpeed = 2
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Attack1_Cancel"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_JumpSlamReturn_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Axe_Idle"
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Attack1_Cancel"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 35
+				FrameSpeed = 2
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack1_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack1_Fire"
+				Duration = 6
+			}
+		]
+	}
+
+	/* Axe Attack 2 */
+	{
+		Name = "Axe_Nergal_Attack2_Start"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_QuickSlamFirstAntic_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Attack2_Start"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_QuickSlamFirstAntic_C_00"
+		DisableOwnerManualInteract = true
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/ImpulseMineLayer/ImpulseMineLobWhooshAscend"
+		StopSoundOnFinishFade = 0.2
+		GrannyAnimationSpeed = 1.3
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Attack2_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_AttackDash_Fire"
+				Duration = 11
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_AttackDash_End"
+				Duration = 11
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack1_Fire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack1_End"
+				Duration = 6
+			}
+		]
+	}
+	
+	{
+		Name = "Axe_Nergal_Attack2_Fire"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_QuickSlamFirstFire_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Attack2_Fire"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_QuickSlamFirstFire_C_00"
+		DisableOwnerManualInteract = true
+		GrannyAnimationSpeed = 1.2
+		ChainTo = "Melinoe_Axe_Nergal_Attack2_End"
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Attack2_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}	
+	
+	{
+		Name = "Axe_Nergal_Attack2_End"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_QuickSlamCReturn_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Attack2_End"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_QuickSlamCReturn_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Axe_Idle"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Attack2_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		/*
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 14
+				Sound = "/SFX/Player Sounds/MelinoeAxeGroudPull"
+			}
+			{
+				Frame = 50
+				Sound = "/SFX/Object Ambiences/MoneySpinWhoosh"
+			}
+			{
+				Frame = 57
+				FrameSpeed = 0
+			}
+		]
+		*/
+	}
+
+	/* Axe Attack 3 */
+	{
+		Name = "Axe_Nergal_Attack3_Start"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_QuickSlamAAntic_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Attack3_Start"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_QuickSlamAAntic_C_00"
+		DisableOwnerManualInteract = true
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/ImpulseMineLayer/ImpulseMineLobWhooshAscend"
+		StopSoundOnFinishFade = 0.2
+		GrannyAnimationSpeed = 1.2
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Attack3_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack2_Fire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack2_End"
+				Duration = 6
+			}
+		]
+	}
+	
+	{
+		Name = "Axe_Nergal_Attack3_Fire"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_QuickSlamAFire_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Attack3_Fire"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_QuickSlamAFire_C_00"
+		DisableOwnerManualInteract = true
+		GrannyAnimationSpeed = 1.2
+		ChainTo = "Melinoe_Axe_Nergal_Attack3_End"
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Attack3_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}	
+	
+	{
+		Name = "Axe_Nergal_Attack3_End"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_QuickSlamCReturn_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Attack3_End"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_QuickSlamCReturn_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Axe_Idle"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Attack3_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		/*
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 14
+				Sound = "/SFX/Player Sounds/MelinoeAxeGroudPull"
+			}
+			{
+				Frame = 50
+				Sound = "/SFX/Object Ambiences/MoneySpinWhoosh"
+			}
+			{
+				Frame = 57
+				FrameSpeed = 0
+			}
+		]
+		*/
+	}
+
+	/* Axe Attack 4 */
+	{
+		Name = "Axe_Nergal_Attack4_Start"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_QuickSlamBAntic_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Attack4_Start"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_QuickSlamBAntic_C_00"
+		DisableOwnerManualInteract = true
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/ImpulseMineLayer/ImpulseMineLobWhooshAscend"
+		StopSoundOnFinishFade = 0.2
+		GrannyAnimationSpeed = 1.1
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Attack4_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack3_Fire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack3_End"
+				Duration = 6
+			}
+		]
+	}
+	
+	{
+		Name = "Axe_Nergal_Attack4_Fire"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_QuickSlamBFire_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Attack4_Fire"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_QuickSlamBFire_C_00"
+		DisableOwnerManualInteract = true
+		GrannyAnimationSpeed = 1.2
+		ChainTo = "Melinoe_Axe_Nergal_Attack4_End"
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Attack4_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}	
+	
+	{
+		Name = "Axe_Nergal_Attack4_End"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_QuickSlamCReturn_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Attack4_End"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_QuickSlamCReturn_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Axe_Idle"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Attack4_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		/*
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 14
+				Sound = "/SFX/Player Sounds/MelinoeAxeGroudPull"
+			}
+			{
+				Frame = 50
+				Sound = "/SFX/Object Ambiences/MoneySpinWhoosh"
+			}
+			{
+				Frame = 57
+				FrameSpeed = 0
+			}
+		]
+		*/
+	}
+
+	/* Axe Attack 5 */
+	{
+		Name = "Axe_Nergal_Attack5_Start"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_QuickSlamCAntic_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Attack5_Start"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_QuickSlamCAntic_C_00"
+		DisableOwnerManualInteract = true
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/ImpulseMineLayer/ImpulseMineLobWhooshAscend"
+		StopSoundOnFinishFade = 0.2
+		GrannyAnimationSpeed = 0.9
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Attack5_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack4_Fire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack4_End"
+				Duration = 6
+			}
+		]
+	}
+	
+	{
+		Name = "Axe_Nergal_Attack5_Fire"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_QuickSlamCFire_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Attack5_Fire"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_QuickSlamCFire_C_00"
+		DisableOwnerManualInteract = true
+		GrannyAnimationSpeed = 1.2
+		ChainTo = "Melinoe_Axe_Nergal_Attack5_End"
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Attack5_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}	
+	
+	{
+		Name = "Axe_Nergal_Attack5_End"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_QuickSlamCReturn_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Attack5_End"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_QuickSlamCReturn_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Axe_Idle"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Attack5_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		/*
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 14
+				Sound = "/SFX/Player Sounds/MelinoeAxeGroudPull"
+			}
+			{
+				Frame = 50
+				Sound = "/SFX/Object Ambiences/MoneySpinWhoosh"
+			}
+			{
+				Frame = 57
+				FrameSpeed = 0
+			}
+		]
+		*/
+	}
+	/* Axe Attack Dash */
+	{
+		Name = "Axe_Nergal_AttackDash_Start"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_AttackDashSlamAntic_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_AttackDash_Start"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_AttackDashSlamAntic_C_00"
+		DisableOwnerManualInteract = true
+		HoldLastFrame = true
+		Sound = "/VO/MelinoeEmotes/EmoteChargingAxe"
+		StopSoundOnFinishFade = 0.2
+		GrannyAnimationSpeed = 1.5
+
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_AttackDash_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack1_Start"
+				Duration = 12
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/SFX/PlayerJump"
+			}
+		]
+	}
+	
+	{
+		Name = "Axe_Nergal_AttackDash_Fire"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_AttackDashSlamFire_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_AttackDash_Fire"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_AttackDashSlamFire_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Axe_Nergal_AttackDash_End"
+		GrannyAnimationSpeed = 1.15
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_AttackDash_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}	
+	
+	{
+		Name = "Axe_Nergal_AttackDash_End"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_AttackDashSlamReturn_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_AttackDash_End"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_AttackDashSlamReturn_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Axe_Idle"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_AttackDash_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 27
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat"
+			}
+			{
+				Frame = 34
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat"
+			}
+		]
+		/*
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 14
+				Sound = "/SFX/Player Sounds/MelinoeAxeGroudPull"
+			}
+			{
+				Frame = 50
+				Sound = "/SFX/Object Ambiences/MoneySpinWhoosh"
+			}
+			{
+				Frame = 57
+				FrameSpeed = 0
+			}
+		]
+		*/
+	}
+
+
+	{
+		Name = "Axe_Nergal_AttackDash_Cancel"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_AttackDashSlamReturn_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 25
+				FrameSpeed = 2
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_AttackDash_Cancel"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_AttackDashSlamReturn_C_00"
+		ChainTo = "Melinoe_Axe_Idle"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_AttackDash_Cancel"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 25
+				FrameSpeed = 2
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_AttackDash_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_AttackDash_Fire"
+				Duration = 6
+			}
+		]
+	}
+
+	/* Melinoe Axe Special */
+	{
+		Name = "Axe_Nergal_Special_Start"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_OmegaUpstrikeSlamAntic_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Special_Start"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_OmegaUpstrikeSlamAntic_C_00"
+		DisableOwnerManualInteract = true
+		GrannyAnimationSpeed = 1.0
+		HoldLastFrame = true
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Special_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 3
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 23
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Axe_Nergal_Special_Fire"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_OmegaUpstrikeSlamFireA_C_00"
+		GrannyAnimationSpeed = 2.0
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Special_Fire"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_OmegaUpstrikeSlamFireA_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Axe_Nergal_Special_End"
+		Sound = "/SFX/Player Sounds/MelinoeHugeAxeSwing"
+		GrannyAnimationSpeed = 2.0
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Special_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1
+			}
+		]
+	}	
+
+	{
+		Name = "Axe_Nergal_Special_End"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_OmegaUpstrikeSlamFireACancel_C_00"
+		Frames =
+		[
+			{
+				Frame = 8
+				FrameSpeed = 2
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_Special_End"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_OmegaUpstrikeSlamFireACancel_C_00"
+		ChainTo = "Melinoe_Axe_Idle"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_Special_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Blends =
+		[
+		]
+		Frames =
+		[
+			{
+				Frame = 8
+				FrameSpeed = 2
+			}
+			{
+				Frame = 10
+				Sound = "/SFX/Player Sounds/MelinoeAxeGroudClunk"
+				FrameSpeed = 2
+			}
+			{
+				Frame = 24
+				Sound = "/Leftovers/World Sounds/QuickSnap3"
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	/* Axe Special EX */
+	{
+		Name = "Axe_Nergal_SpecialEx_Start"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_OmegaUpstrikeSlamAnticB_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_SpecialEx_Start"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_OmegaUpstrikeSlamAnticB_C_00"
+		DisableOwnerManualInteract = true
+		GrannyAnimationSpeed = 0.5
+		HoldLastFrame = true
+		Sound = "/SFX/Player Sounds/ZagreusBowChargeup"
+		StopSoundOnFinishFade = 0.2
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_SpecialEx_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 2
+				Sound = "/VO/MelinoeEmotes/AnubisEmoteCharging2"
+			}
+		]
+		/*
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Special_End"
+				Duration = 14
+			}
+		]
+		*/
+	}
+
+	{
+		Name = "Axe_Nergal_SpecialEx_Fire"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_OmegaUpstrikeSlamFireB_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_SpecialEx_Fire"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_OmegaUpstrikeSlamFireB_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Axe_Nergal_SpecialEx_End"
+		GrannyAnimationSpeed = 1.0
+		Sound = "/SFX/Player Sounds/NergalSlamSFX"
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_SpecialEx_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/VO/MelinoeEmotes/NergalEmoteSpecial2"
+			}
+			{
+				Frame = 4
+				Sound = "/SFX/Player Sounds/MelinoeHugeAxeSwing"
+			}
+		]
+	}	
+	
+	{
+		Name = "Axe_Nergal_SpecialEx_End"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_OmegaUpstrikeSlamReturn_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_SpecialEx_End"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_OmegaUpstrikeSlamReturn_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Axe_Idle"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_SpecialEx_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		/*
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 14
+				Sound = "/SFX/Player Sounds/MelinoeAxeGroudPull"
+			}
+			{
+				Frame = 50
+				Sound = "/SFX/Object Ambiences/MoneySpinWhoosh"
+			}
+			{
+				Frame = 57
+				FrameSpeed = 0
+			}
+		]
+		*/
+	}
+
+	{
+		Name = "Axe_Nergal_SpecialEx_Cancel"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_OmegaUpstrikeSlamFireACancel_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+			{
+				Frame = 8
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_SpecialEx_Cancel"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_OmegaUpstrikeSlamFireACancel_C_00"
+		ChainTo = "Melinoe_Axe_Nergal_SpecialEx_Cancel2"
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_SpecialEx_Cancel"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+			{
+				Frame = 8
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Axe_Nergal_SpecialEx_Cancel2"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Nergal_OmegaUpstrikeSlamFireACancel_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 2
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Axe_Nergal_SpecialEx_Cancel2"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Nergal_OmegaUpstrikeSlamFireACancel_C_00"
+		ChainTo = "Melinoe_Axe_Idle"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Axe_Nergal_SpecialEx_Cancel2"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	/* Nergal Axe Special */
+
+
 
 	/* Melinoe Axe Special1 (Block) */
 	/*
@@ -677,7 +1770,7 @@
 		[
 			{
 				Frame = 0
-				FrameSpeed = 0.75
+				FrameSpeed = 1.0
 			}
 		]
 		Attachments =
@@ -692,7 +1785,7 @@
 		[
 			{
 				BlendTransitionFrom = "BlendTransitionFromAll"
-				Duration = 9
+				Duration = 6
 			}
 		]
 	}
@@ -939,7 +2032,7 @@
 				FrameSpeed = 3.0
 			}
 			{
-				Frame = 33
+				Frame = 27
 				FrameSpeed = 0.05
 			}
 			{
@@ -975,12 +2068,10 @@
 				Frame = 0
 				FrameSpeed = 3.0
 			}
-
 			{
-				Frame = 33
+				Frame = 27
 				FrameSpeed = 0.05
 			}
-
 			{
 				Frame = 36
 				FrameSpeed = 0
@@ -1029,6 +2120,78 @@
 			{
 				BlendTransitionFrom = "Melinoe_Axe_Special1_End"
 				Duration = 10
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_AttackDash_End"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_AttackDash_Fire"
+				Duration = 15
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack1_End"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack1_Fire"
+				Duration = 15
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack2_End"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack2_Fire"
+				Duration = 15
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack3_End"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack3_Fire"
+				Duration = 15
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack4_End"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack4_Fire"
+				Duration = 15
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack5_End"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Attack5_Fire"
+				Duration = 15
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Special_Fire"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_Special_End"
+				Duration = 15
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_SpecialEx_Fire"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Nergal_SpecialEx_End"
+				Duration = 15
 			}
 		]
 	}
@@ -1082,6 +2245,12 @@
 			}
 		]
 	}
+	{
+		Name = "Melinoe_Axe_AttackEx1_Fire_Slow"
+		InheritFrom = "Melinoe_Axe_AttackEx1_Fire"
+		GrannyAnimationSpeed = 0.7
+		ChainTo = "Melinoe_Axe_AttackEx1_FireLoop_Slow"
+	}
 
 	{
 		Name = "Axe_AttackEx1_FireLoop"
@@ -1102,6 +2271,18 @@
 				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
 			}
 
+		]
+	}
+	{
+		Name = "Melinoe_Axe_AttackEx1_FireLoop_Slow"
+		InheritFrom = "Melinoe_Axe_AttackEx1_FireLoop"
+		GrannyAnimationSpeed = 0.7
+		Frames =
+		[
+			{
+				Frame = 8
+				Sound = "/VO/MelinoeEmotes/NergalEmoteAttacking2"
+			}
 		]
 	}
 

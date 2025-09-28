@@ -1,0 +1,164 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyTyphonArmBaseAnimation"
+		
+		GrannyModel = "TyphonArm_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = false
+		OwnerInvulnerable = true
+		OwnerHasNoCollision = true
+		LargeObstacle3DModel = true
+	}
+
+	{
+		Name = "Enemy_TyphonArm_Idle"
+		InheritFrom = "EnemyTyphonArmBaseAnimation"
+		GrannyAnimation = "TyphonArm_Base_Idle_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_TyphonArm_Entrance"
+		InheritFrom = "EnemyTyphonArmBaseAnimation"
+		GrannyAnimation = "TyphonArm_Base_Entrance_C_00"
+	}
+
+	{
+		Name = "Enemy_TyphonArm_Death"
+		InheritFrom = "EnemyTyphonArmBaseAnimation"
+		GrannyAnimation = "TyphonArm_Base_Death_C_00"
+	}
+
+	{
+		Name = "Enemy_TyphonArm_Move"
+		InheritFrom = "EnemyTyphonArmBaseAnimation"
+		GrannyAnimation = "TyphonArm_Base_Idle_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_TyphonArm_SlamPreFire"
+		InheritFrom = "EnemyTyphonArmBaseAnimation"
+		GrannyAnimation = "TyphonArm_Base_SlamStart_C_00"
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "Enemy_TyphonArm_SlamFire"
+		InheritFrom = "EnemyTyphonArmBaseAnimation"
+		GrannyAnimation = "TyphonArm_Base_SlamFire_C_00"
+		ChainTo = "Enemy_TyphonArm_SlamFireLoop"
+		OwnerImmobile = true
+	}
+
+	{
+		Name = "Enemy_TyphonArm_Exit"
+		InheritFrom = "EnemyTyphonArmBaseAnimation"
+		GrannyAnimation = "TyphonArm_Base_SlamStart_C_00"
+		PlayBackwards = true
+		HoldLastFrame = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonArm_SlamPostFire"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_TyphonArm_FlickPostFire"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonArm_SlamFireLoop"
+		InheritFrom = "EnemyTyphonArmBaseAnimation"
+		GrannyAnimation = "TyphonArm_Base_SlamLoop_C_00"
+		Loop = true
+		OwnerImmobile = true
+		OwnerInvulnerable = false
+		OwnerHasNoCollision = false
+	}
+
+	{
+		Name = "Enemy_TyphonArm_SlamPostFire"
+		InheritFrom = "EnemyTyphonArmBaseAnimation"
+		GrannyAnimation = "TyphonArm_Base_SlamReturn_C_00"
+		OwnerInvulnerable = false
+		OwnerHasNoCollision = false
+	}
+
+	{
+		Name = "Enemy_TyphonArm_CastPreFire"
+		InheritFrom = "EnemyTyphonArmBaseAnimation"
+		GrannyAnimation = "TyphonArm_Base_CastStart_C_00"
+		HoldLastFrame = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_TyphonArm_SlamPostFire"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TyphonArm_CastFire"
+		InheritFrom = "EnemyTyphonArmBaseAnimation"
+		GrannyAnimation = "TyphonArm_Base_CastFire_C_00"
+		ChainTo = "Enemy_TyphonArm_CastFireLoop"
+		OwnerImmobile = true
+	}
+
+	{
+		Name = "Enemy_TyphonArm_CastFireLoop"
+		InheritFrom = "EnemyTyphonArmBaseAnimation"
+		GrannyAnimation = "TyphonArm_Base_CastLoop_C_00"
+		Loop = true
+		OwnerImmobile = true
+		OwnerInvulnerable = false
+		OwnerHasNoCollision = false
+		DisableOwnerRotation = true
+	}
+
+	{
+		Name = "Enemy_TyphonArm_CastPostFire"
+		InheritFrom = "EnemyTyphonArmBaseAnimation"
+		GrannyAnimation = "TyphonArm_Base_CastReturn_C_00"
+		OwnerInvulnerable = false
+		OwnerHasNoCollision = false
+	}
+
+	{
+		Name = "Enemy_TyphonArm_FlickPreFire"
+		InheritFrom = "EnemyTyphonArmBaseAnimation"
+		GrannyAnimation = "TyphonArm_Base_FlickStart_C_00"
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "Enemy_TyphonArm_FlickFire"
+		InheritFrom = "EnemyTyphonArmBaseAnimation"
+		GrannyAnimation = "TyphonArm_Base_FlickFire_C_00"
+		ChainTo = "Enemy_TyphonArm_FlickPostFire"
+		OwnerInvulnerable = false
+		OwnerHasNoCollision = false
+	}
+
+	{
+		Name = "Enemy_TyphonArm_FlickPostFire"
+		InheritFrom = "EnemyTyphonArmBaseAnimation"
+		GrannyAnimation = "TyphonArm_Base_FlickReturn_C_00"
+		OwnerInvulnerable = false
+		OwnerHasNoCollision = false
+	}
+
+] }

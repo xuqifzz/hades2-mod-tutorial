@@ -9,7 +9,7 @@
 		Scale = 1.0
 		Loop = false
 		Enable3DShadow = true
-		
+		LargeObstacle3DModel = true
 		OwnerInvulnerable = true
 		OwnerUntargetable = true
 		OwnerHasNoCollision = true
@@ -55,8 +55,21 @@
 		VisualFx = "CharybdisDisappearFx"
 		VisualFxIntervalMin = 0.03
 		VisualFxIntervalMax = 0.03
+		Enable3DShadow = false
 		VerticalMaskInModelSpace = true
 		Sound = "/SFX/Enemy Sounds/Charybdis/EmoteRetreating"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.4
+		EndGreen = 0.6
+		EndBlue = 0.99
+		Duration = 2.0
+		StartScale = 1
+		EndScale = 0.85
+		EaseIn = 0
+		EaseOut = 0.1
+		CreateAnimation = "CharybdisRetreatSpitEmitter"
 		Frames =
 		[
 			{
@@ -109,6 +122,11 @@
 				Duration = 12
 			}
 		]
+	}
+	{
+		Name = "Enemy_Charybdis_SpitPreFire_Fast"
+		InheritFrom = "Enemy_Charybdis_SpitPreFire"
+		GrannyAnimationSpeed = 2.0
 	}
 
 	{

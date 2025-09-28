@@ -116,6 +116,22 @@ GamePadModelId Table:
 		RumbleMultiplier	= 0.8
 	}
 
+	// Horipad for Steam
+	HoripadForSteam =
+	{
+		RequiredVendorId	= "0x0F0D"
+		RequiredProductId	= "0x01AB"
+		GamePadModelId		= 4
+	}
+
+	// Steam Deck
+	SteamDeck =
+	{
+		RequiredVendorId    = "0x28DE"
+		RequiredProductId   = "0x1205"
+		GamePadModelId      = 4
+	}
+
 	// Nintendo Controllers
 	SwitchPro = 
 	{

@@ -23,11 +23,24 @@ function AddResource( name, amount, source, args )
 		local traitValues = GetHeroTraitValues("OnResourceMaxHealth")
 		for i, traitData in pairs (traitValues) do
 			if traitData.ResourceNamesLookup[name] then
-				healthGained = healthGained + traitData.Amount
+				healthGained = healthGained + traitData.Amount * roundedAmount
 			end
 		end
-		if healthGained > 0 then
+		local manaGained = 0
+		local traitValues = GetHeroTraitValues("OnResourceMaxMana")
+		for i, traitData in pairs (traitValues) do
+			if traitData.ResourceNamesLookup[name] then
+				manaGained = manaGained + traitData.Amount * roundedAmount
+			end
+		end
+		if healthGained > 0 and manaGained > 0 then
+			AddMaxHealth( healthGained, "ResourceMaxHealth", { Silent = true })
+			AddMaxMana( manaGained, "ResourceMaxMana", { Silent = true })
+			thread( BonusHealthAndManaPresentation, healthGained, manaGained , 0.5 )
+		elseif healthGained > 0 then
 			AddMaxHealth( healthGained, "ResourceMaxHealth" )
+		elseif manaGained > 0 then
+			AddMaxMana( manaGained, "ResourceMaxMana" )
 		end
 	end
 	GameState.Resources[name] = (GameState.Resources[name] or 0) + roundedAmount
@@ -52,15 +65,13 @@ function AddResource( name, amount, source, args )
 	if resourceData.OnAddVoiceLines ~= nil and not args.SkipVoiceLines then
 		thread( PlayVoiceLines, resourceData.OnAddVoiceLines, true )
 	end
-	if not resourceData.SkipInventoryObjective then
+	if not resourceData.SkipInventoryObjective and not args.SkipInventoryObjective then
 		if CurrentRun.CurrentRoom.Encounter ~= nil and not IsEmpty(RequiredKillEnemies) then
 			CurrentRun.CurrentRoom.Encounter.CheckInventoryObjective = true
 		else
 			CheckObjectiveSet( "OpenInventory" )
 		end
 	end
-
-	UpdateResourceUI( name, GameState.Resources[name] )
 
 	if args.PresentationFunctionName ~= nil then
 		args.ResourceName = name
@@ -108,16 +119,12 @@ function SpendResource( name, amount, source, args )
 	if not args.SkipQuestStatusCheck then
 		thread( CheckQuestStatus )
 	end
-
-	if not args.SkipUpdateResourceUI then
-		UpdateResourceUI( name, GameState.Resources[name] )
-	end
 	
 	local resourceData = ResourceData[name]
 	if resourceData and resourceData.OnSpentFunctionName ~= nil then
 		CallFunctionName( resourceData.OnSpentFunctionName , name, amount, source, args )
 	end
-	if not resourceData.SkipResourceSpendPresentation then
+	if not resourceData.SkipResourceSpendPresentation and not args.SkipResourceSpendPresentation then
 		thread( ResourceSpendPresentation, name, amount, args )
 	end
 	return true
@@ -205,37 +212,43 @@ OnControlPressed{ "Inventory",
 }
 
 function CanOpenInventoryScreen()
-	if not IsEmpty( ActiveScreens ) then
+	if SessionState.InFlashback or SessionMapState.BlockInventory then
 		return false
 	end
-	if not IsInputAllowed({}) then
-		return false
-	end
-	if not CurrentRun.Hero.IsDead then
-		if not CurrentRun.CurrentRoom.AllowInventoryInCombat and ( IsCombatEncounterActive( CurrentRun, { IgnoreMainEncounter = CurrentRun.CurrentRoom.IgnoreMainEncounterForInventory } ) or not IsEmpty( RequiredKillEnemies ) or not IsEmpty( MapState.AggroedUnits ) ) then
+
+	if not CurrentRun.Hero.IsDead and not CurrentRun.CurrentRoom.AllowInventoryInCombat then
+		if IsCombatEncounterActive( CurrentRun, { IgnoreMainEncounter = CurrentRun.CurrentRoom.IgnoreMainEncounterForInventory, CheckBlockCodexBeforeStart = true } ) then
 			return false
 		end
-		if CurrentRun.CurrentRoom.StartedChallengeEncounter and not CurrentRun.CurrentRoom.ChallengeEncounter.Completed then
+		if not IsEmpty( RequiredKillEnemies ) then
 			return false
 		end
-		if CurrentRun.CurrentRoom.Encounter ~= nil then
-			local encounterData = EncounterData[CurrentRun.CurrentRoom.Encounter.Name] or CurrentRun.CurrentRoom.Encounter
-			if encounterData.BlockCodexBeforeStart and not CurrentRun.CurrentRoom.Encounter.Completed then
-				return false
-			end
+		if IsAggroedUnitBlockingInteract() then
+			return false
 		end
 	end
-	return true
+	return not AreScreensActive() and IsInputAllowed({})
 end
 
 function OpenInventoryScreen( args )
-	
+
 	local screenData = ScreenData.InventoryScreen
 	if IsScreenOpen( screenData.Name ) then
 		return
 	end
 
 	args = args or {}
+
+	AddInputBlock({ Name = "OpenInventoryScreen" })
+
+	SetPlayerInvulnerable( "Inventory" )
+	AddPlayerImmuneToForce( "Inventory" )
+	CurrentRun.Hero.UntargetableFlags.Inventory = true
+
+	SessionMapState.BlockInfoBanners = true
+	if SetThreadWait( "InfoBanner", 0.01 ) then
+		wait( 0.2 )
+	end
 
 	local screen = DeepCopyTable( screenData )
 	local components = screen.Components
@@ -250,9 +263,15 @@ function OpenInventoryScreen( args )
 	screen.PinStartX = screen.PinStartX + ScreenCenterNativeOffsetX
 	screen.PinStartY = screen.PinStartY + ScreenCenterNativeOffsetY
 
-	if GameState.GamePhase and GamePhaseData.GamePhases[ GameState.GamePhase ] then
-		SetAnimation({ DestinationId = components.MoonPhaseButton.Id, Name = GamePhaseData.GamePhases[ GameState.GamePhase ].Graphic })
-		ModifyTextBox({ Id = components.MoonPhaseButton.Id, Text = GamePhaseData.GamePhases[ GameState.GamePhase ].Text  })
+	if GameState.GamePhase and GamePhaseData.GamePhases[GameState.GamePhase] then
+		SetAnimation({ DestinationId = components.MoonPhaseButton.Id, Name = GamePhaseData.GamePhases[GameState.GamePhase].Graphic })
+		ModifyTextBox({ Id = components.MoonPhaseButton.Id, Text = GamePhaseData.GamePhases[GameState.GamePhase].Text  })
+	end
+	if GameState.BadgeRank ~= nil then
+		local badgeData = BadgeData[BadgeOrderData[GameState.BadgeRank]]
+		if badgeData ~= nil then
+			SetAnimation({ DestinationId = components.BadgeRankIcon.Id, Name = badgeData.Icon })
+		end
 	end
 	screen.ActiveCategoryIndex = args.DefaultCategoryIndex or 1
 	if screen.ActiveCategoryIndex > #screen.ItemCategories then
@@ -271,14 +290,28 @@ function OpenInventoryScreen( args )
 		if category.GameStateRequirements == nil or IsGameStateEligible( category, category.GameStateRequirements ) then
 			if not args.CategoryLocked or slotIndex == screen.ActiveCategoryIndex then
 				local slotName = category.Name
-				local categoryButton = CreateScreenComponent({ Name = "ButtonInventoryTab", X = categoryTitleX, Y = screen.CategoryStartY, Group = "Combat_Menu_Overlay" })
+				local categoryButton = CreateScreenComponent({ Name = "ButtonInventoryTab",
+					Group = "Combat_Menu_Overlay",
+					X = categoryTitleX,
+					Y = screen.CategoryStartY,
+					Alpha = 0.0,
+					AlphaTarget = 1.0,
+					AlphaTargetDuration = 0.6,
+				})
 				categoryButton.OnPressedFunctionName = "InventoryScreenSelectCategory"
 				categoryButton.Category = slotName
 				categoryButton.CategoryIndex = slotIndex
 				screen.Components["Category"..slotName] = categoryButton
 
-				local categoryButtonIcon = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_Overlay", Scale = screen.CategoryIconScale,
-					X = categoryTitleX + screen.CategoryIconOffsetX, Y = screen.CategoryStartY + screen.CategoryIconOffsetY })
+				local categoryButtonIcon = CreateScreenComponent({ Name = "BlankObstacle",
+					Group = "Combat_Menu_Overlay",
+					Scale = screen.CategoryIconScale,
+					X = categoryTitleX + screen.CategoryIconOffsetX,
+					Y = screen.CategoryStartY + screen.CategoryIconOffsetY,
+					Alpha = 0.0,
+					AlphaTarget = 1.0,
+					AlphaTargetDuration = 0.6,
+				})
 				SetAnimation({ DestinationId = categoryButtonIcon.Id, Name = category.Icon })
 				screen.Components["CategoryIcon"..slotName] = categoryButtonIcon
 
@@ -301,8 +334,15 @@ function OpenInventoryScreen( args )
 					if hasNewItem then
 						-- New icon
 						local newButtonKey = "NewIcon"..slotName
-						components[newButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Animation = "NewTabStar", Group = screen.ComponentData.DefaultGroup, Alpha = 0.0, AlphaTarget = 1.0, AlphaTargetDuration = 0.1, Scale = screen.TabStarScale, })
-						Attach({ Id = components[newButtonKey].Id, DestinationId = categoryButton.Id, OffsetX = 0, OffsetY = screen.TabStarOffsetY })
+						components[newButtonKey] = CreateScreenComponent({ Name = "BlankObstacle",
+							Animation = "NewTabStar",
+							Group = screen.ComponentData.DefaultGroup,
+							Alpha = 0.0,
+							AlphaTarget = 1.0,
+							AlphaTargetDuration = 0.6,
+							Scale = screen.TabStarScale,
+						})
+						Attach({ Id = components[newButtonKey].Id, DestinationId = categoryButton.Id, OffsetX = screen.TabStarOffsetX, OffsetY = screen.TabStarOffsetY })
 					end
 				end
 
@@ -312,23 +352,35 @@ function OpenInventoryScreen( args )
 		else
 			category.Locked = true
 		end
-
+		  
 		if locked then
-			local categoryButton = CreateScreenComponent({ Name = "BlankObstacle", X = categoryTitleX, Y = screen.CategoryStartY, Group = "Combat_Menu_Overlay", Animation = "GUI/Screens/Inventory/CategoryTabInactive", Scale = 0.5 })
+			local categoryButton = CreateScreenComponent({ Name = "BlankObstacle",
+				X = categoryTitleX, Y = screen.CategoryStartY, Group = "Combat_Menu_Overlay",
+				Animation = "GUI/Screens/Inventory/CategoryTabInactive",
+				Scale = 0.5,
+				Alpha = 0.0,
+				AlphaTarget = 1.0,
+				AlphaTargetDuration = 0.6,
+			})
 			screen.Components["InactiveCategory"..category.Name] = categoryButton
 		end
 
 		categoryTitleX = categoryTitleX + screen.CategorySpacingX
 	end
 
-	if args.CategoryLocked then
-		components.ScrollLeft.OnPressedFunctionName = nil
-		components.ScrollRight.OnPressedFunctionName = nil
-	end
-
 	-- Resource Grid
+	args.FirstOpen = true
 	InventoryScreenDisplayCategory( screen, screen.ActiveCategoryIndex, args )
-	if not screen.CursorSet then
+
+	InventoryScreenOpenPresentation( screen )
+	InventoryScreenUpdateVisibility( screen )
+	UpdateResourceInteractionText( screen )
+	thread( MarkObjectivesComplete, { "OpenInventory", "OpenInventorySkelly" } )
+	wait( 0.02 )
+
+	if screen.CursorStartX ~= nil and screen.CursorStartY ~= nil then
+		TeleportCursor({ OffsetX = screen.CursorStartX, OffsetY = screen.CursorStartY, ForceUseCheck = true })
+	else
 		local category = screen.ItemCategories[screen.ActiveCategoryIndex]
 		if category.OpenFunctionName == nil then
 			TeleportCursor({ OffsetX = screen.GridStartX, OffsetY = screen.GridStartY, ForceUseCheck = true })
@@ -336,12 +388,7 @@ function OpenInventoryScreen( args )
 			TeleportCursor({ OffsetX = screen.PinStartX, OffsetY = screen.PinStartY, ForceUseCheck = true })
 		end
 	end
-
-	InventoryScreenOpenPresentation( screen )
-	InventoryScreenUpdateVisibility( screen )
-	UpdateResourceInteractionText( screen )
-	thread( MarkObjectivesComplete, { "OpenInventory", "OpenInventorySkelly" } )
-	wait( 0.02 )
+	RemoveInputBlock({ Name = "OpenInventoryScreen" })
 
 	screen.KeepOpen = true
 	HandleScreenInput( screen )
@@ -360,11 +407,13 @@ function InventoryScreenDisplayCategory( screen, categoryIndex, args )
 		CallFunctionName( prevCategory.CloseFunctionName, screen )
 	else
 		for i, resourceName in ipairs( prevCategory ) do
-			if components[resourceName] ~= nil then
-				if components[resourceName].NewIcon ~= nil then
-					Destroy({ Id = components[resourceName].NewIcon.Id })
+			local resourceComponent = components[resourceName]
+			if resourceComponent ~= nil then
+				if resourceComponent.NewIcon ~= nil then
+					Destroy({ Id = resourceComponent.NewIcon.Id })
 				end
-				Destroy({ Id = components[resourceName].Id })
+				Destroy({ Id = resourceComponent.Highlight.Id })
+				Destroy({ Id = resourceComponent.Id })
 			end
 		end
 	end
@@ -394,7 +443,16 @@ function InventoryScreenDisplayCategory( screen, categoryIndex, args )
 
 	screen.ActiveCategoryIndex = categoryIndex
 
-	SetAnimation({ DestinationId = components.Background.Id, Name = category.Background or screen.ComponentData.Background.AnimationName })
+	screen.CloseAnimation = category.CloseAnimation
+	if args.FirstOpen then
+		SetAnimation({ DestinationId = components.Background.Id, Name = category.OpenAnimation })
+	else
+		local fromMap = screen.TransitionAnimationMap[prevCategory.CloseAnimation]
+		local transitionAnimationName = fromMap[category.CloseAnimation]
+		if transitionAnimationName ~= nil then
+			SetAnimation({ DestinationId = components.Background.Id, Name = transitionAnimationName })
+		end
+	end
 
 	if category.GamepadNavigation ~= nil then
 		SetGamepadNavigation( category )
@@ -405,6 +463,10 @@ function InventoryScreenDisplayCategory( screen, categoryIndex, args )
 	if category.OpenFunctionName ~= nil then
 		CallFunctionName( category.OpenFunctionName, screen )
 		return
+	end
+
+	if screen.Args.PlantTarget ~= nil and GameState.WorldUpgrades.WorldUpgradeGardenMultiPlant then
+		components.PinButton.OnPressedFunctionName = "GardenMultiPlantSeed"
 	end
 	
 	local resourceLocation = { X = screen.GridStartX, Y = screen.GridStartY }
@@ -417,6 +479,7 @@ function InventoryScreenDisplayCategory( screen, categoryIndex, args )
 			local textLines = nil
 			local canBeGifted = false
 			local canBePlanted = false
+			local spending = nil
 			if screen.Args.PlantTarget ~= nil then
 				if GardenData.Seeds[resourceName] then
 					canBePlanted = true
@@ -425,44 +488,107 @@ function InventoryScreenDisplayCategory( screen, categoryIndex, args )
 				if screen.Args.GiftTarget.UnlimitedGifts ~= nil and screen.Args.GiftTarget.UnlimitedGifts[resourceName] then
 					canBeGifted = true
 				else
-					local spending = {}
+					spending = {}
 					spending[resourceName] = 1
 					textLines = GetRandomEligibleTextLines( screen.Args.GiftTarget, screen.Args.GiftTarget.GiftTextLineSets, GetNarrativeDataValue( screen.Args.GiftTarget, "GiftTextLinePriorities" ), { Spending = spending } )
 					if textLines ~= nil then
 						canBeGifted = true
+						spending = textLines.Cost
 					end
 				end
 			end
 
-			local button = CreateScreenComponent({ Name = "ButtonInventoryItem", Scale = resourceData.IconScale or 1.0, Sound = "/SFX/Menu Sounds/GodBoonMenuClose", Group = "Combat_Menu_Overlay", X = resourceLocation.X, Y = resourceLocation.Y })
-			AttachLua({ Id = button.Id, Table = button })
+			local alphaTarget = 1.0
+			local alphaTargetDuration = 0.2
+			if not HasResource( resourceName, 1 ) then
+				alphaTarget = screen.NoResourceIconAlpha
+			end
+			if args.FirstOpen then
+				alphaTargetDuration = 0.6
+			end
+
+			local button = CreateScreenComponent({ Name = "ButtonInventoryItem",
+				Scale = resourceData.IconScale or 1.0,
+				Sound = "/SFX/Menu Sounds/IrisMenuBack",
+				Group = "Combat_Menu_Overlay",
+				X = resourceLocation.X,
+				Y = resourceLocation.Y,
+				Alpha = 0.0,
+				AlphaTarget = alphaTarget,
+				AlphaTargetDuration = alphaTargetDuration,
+			})
+			
 			button.Screen = screen
 			button.ResourceData = resourceData
 			components[resourceName] = button
 			SetAnimation({ DestinationId = button.Id, Name = resourceData.IconPath or resourceData.Icon })
+
+			local buttonHighlight = CreateScreenComponent({ Name = "BlankObstacle",
+				Group = "Combat_Menu_Overlay_Additive",
+				X = resourceLocation.X,
+				Y = resourceLocation.Y,
+				Alpha = 0.0,
+				AlphaTarget = 1.0,
+				AlphaTargetDuration = alphaTargetDuration,
+			})
+			components[resourceName.."Highlight"] = buttonHighlight
+			button.Highlight = buttonHighlight
 		
 			if canBePlanted then
 				if HasResource( resourceName, 1 ) then
 					button.ContextualAction = "Menu_Plant"
 					button.OnPressedFunctionName = "GardenPlantSeed"
+
+					if GameState.WorldUpgrades.WorldUpgradeGardenMultiPlant then
+						local numEmptyPlots = 0
+						for id, plot in pairs( GameState.GardenPlots ) do
+							if plot.SeedName == nil then
+								numEmptyPlots = numEmptyPlots + 1
+							end
+						end
+						if numEmptyPlots > 1 and HasResource( resourceName, 2 ) then
+							button.PinContextualAction = "Menu_MultiPlant"
+							button.PlantAmount = math.min( numEmptyPlots, GameState.Resources[resourceName] )
+						end
+					end
+
+					if #GardenData.Seeds[resourceName].RandomOutcomes == 1 then
+						local growsIntoName = GetFirstKey( GardenData.Seeds[resourceName].RandomOutcomes[1].AddResources )
+						local amountNeededByPins = GetResourceAmountNeededByPins( growsIntoName )
+						if amountNeededByPins > 0 then
+							local pinAnimation = "StoreItemPin"
+							if HasResource( growsIntoName, amountNeededByPins ) then
+								pinAnimation = "StoreItemPin_Complete"
+							end
+							button.PinIcon = CreateScreenComponent({
+								Name = "BlankObstacle",
+								Group = "Combat_Menu_Overlay",
+								Scale = screen.SeedPinIconScale,
+								X = resourceLocation.X + screen.SeedPinIconOffsetX,
+								Y = resourceLocation.Y + screen.SeedPinIconOffsetY,
+								Animation = pinAnimation,
+							})
+							components[resourceName.."PinIcon"] = button.PinIcon
+						end
+					end
 				else
-					SetColor({ Id = button.Id, Color = Color.Black })
+					SetRGB({ Id = button.Id, Color = Color.Black })
 					button.MouseOverText = "InventoryScreen_SeedNotAvailable"
 				end
 			elseif canBeGifted then
-				if HasResource( resourceName, 1 ) then
+				if HasResources( spending ) then
 					button.ContextualAction = "Menu_Gift"
 					button.OnPressedFunctionName = "GiveSelectedGift"
 					button.TextLines = textLines
 				else
-					SetColor({ Id = button.Id, Color = Color.Black })
+					SetRGB({ Id = button.Id, Color = Color.Black })
 					button.MouseOverText = "InventoryScreen_GiftNotAvailable"
 				end				
 			elseif screen.Args.PlantTarget ~= nil then
-				SetColor({ Id = button.Id, Color = Color.Black })
+				SetRGB({ Id = button.Id, Color = Color.Black })
 				button.MouseOverText = "InventoryScreen_SeedNotWanted"
 			elseif screen.Args.GiftTarget ~= nil then
-				SetColor({ Id = button.Id, Color = Color.Black })
+				SetRGB({ Id = button.Id, Color = Color.Black })
 				button.MouseOverText = "InventoryScreen_GiftNotWanted"
 			end
 
@@ -474,20 +600,27 @@ function InventoryScreenDisplayCategory( screen, categoryIndex, args )
 
 			button.Viewable = not screen.Args.CategoryLocked or button.OnPressedFunctionName ~= nil
 			if button.Viewable then
-				-- highlight the last resource you collected
-				if resourceName == (args.InitialSelection or GameState.UnviewedLastResourceGained) then
+				-- highlight the initial selection, or the last resource you collected
+				if resourceName == args.InitialSelection then
+					screen.CursorStartX = resourceLocation.X
+					screen.CursorStartY = resourceLocation.Y
+				elseif resourceName == GameState.UnviewedLastResourceGained then
 					UnviewedLastResourceGainedPresentation( screen, button )
 					GameState.UnviewedLastResourceGained = nil
-					TeleportCursor({ OffsetX = resourceLocation.X, OffsetY = resourceLocation.Y, ForceUseCheck = true })
-					screen.CursorSet = true
+					screen.CursorStartX = resourceLocation.X
+					screen.CursorStartY = resourceLocation.Y
 				end
 
 				-- mark unviewed resources as "new"
 				if not GameState.ResourcesViewed[resourceName] then
-					local newIconKey = "NewIcon"..resourceName
-					components[newIconKey] = CreateScreenComponent({ Name = "BlankObstacle", Animation = "MusicPlayerNewTrack", Group = screen.ComponentData.DefaultGroup, Scale = screen.NewItemStarScale, })
-					Attach({ Id = components[newIconKey].Id, DestinationId = button.Id, OffsetX = screen.NewItemStarOffsetX, OffsetY = screen.NewItemStarOffsetY })
-					button.NewIcon = components[newIconKey]
+					local newIcon = CreateScreenComponent({ Name = "BlankObstacle", Animation = "MusicPlayerNewTrack", Group = screen.ComponentData.DefaultGroup, Scale = screen.NewItemStarScale, })
+					if args.FirstOpen then
+						SetAlpha({ Id = newIcon.Id, Fraction = 0.0 })
+						SetAlpha({ Id = newIcon.Id, Fraction = 1.0, Duration = 0.6 })
+					end
+					Attach({ Id = newIcon.Id, DestinationId = button.Id, OffsetX = screen.NewItemStarOffsetX, OffsetY = screen.NewItemStarOffsetY })
+					button.NewIcon = newIcon
+					components["NewIcon"..resourceName] = newIcon
 				end
 			end
 
@@ -556,11 +689,24 @@ function InventoryScreenPrevCategory( screen, button )
 end
 
 function InventoryScreenSelectCategory( screen, button )
-	InventoryScreenChangeCategoryPresentation( screen, button.CategoryIndex )
-	InventoryScreenDisplayCategory( screen, button.CategoryIndex )
+	if button.CategoryIndex ~= screen.ActiveCategoryIndex then
+		InventoryScreenChangeCategoryPresentation( screen, button.CategoryIndex )
+		InventoryScreenDisplayCategory( screen, button.CategoryIndex )
+	end
 end
 
 function CloseInventoryScreen( screen, button )
+	killTaggedThreads( "MultiPlantPulse" )
+
+	SetPlayerVulnerable( "Inventory" )
+	RemovePlayerImmuneToForce( "Inventory" )
+	CurrentRun.Hero.UntargetableFlags.Inventory = nil
+
+	SessionMapState.BlockInfoBanners = false
+	local currentCategory = screen.ItemCategories[screen.ActiveCategoryIndex]
+	if currentCategory.CloseFunctionName ~= nil then
+		CallFunctionName( currentCategory.CloseFunctionName, screen )
+	end
 	InventoryScreenClosePresentation( screen, button )
 	CloseScreenButton( screen, button )
 	ShowCombatUI( screen.Name )
@@ -573,7 +719,11 @@ function GiveSelectedGift( screen, button )
 	HideCombatUI( "GiveSelectedGift" )
 	CloseInventoryScreen( screen, button )
 	RemoveInputBlock({ Name = "GiveSelectedGift" })
-	GiveGift( screen.Args.GiftTarget, button.ResourceData.Name, 1, button.TextLines )
+	local amount = 1
+	if button.TextLines ~= nil then
+		amount = button.TextLines.Cost[button.ResourceData.Name]
+	end
+	GiveGift( screen.Args.GiftTarget, button.ResourceData.Name, amount, button.TextLines )
 end
 
 function AddStoreItemPin( name, storeName )
@@ -612,7 +762,7 @@ function GetResourceAmountNeededByPins( resourceName )
 	local totalCost = 0
 	for index, pin in ipairs( GameState.StoreItemPins ) do
 		local store = _G[pin.StoreName]
-		if store ~= nil then
+		if store ~= nil and store ~= TraitData then
 			local itemData = store[pin.Name]
 			if itemData ~= nil then
 				local cost = itemData.ResourceCost or itemData.Cost
@@ -626,75 +776,12 @@ function GetResourceAmountNeededByPins( resourceName )
 end
 
 function InventoryScreenDisplayPins( screen )
-	local locationX = screen.PinStartX
-	local locationY = screen.PinStartY
 	local components = screen.Components
-	screen.PinIds = screen.PinIds or {}
-	if IsEmpty( GameState.StoreItemPins ) then
-		ModifyTextBox({ Id = components.EmptyCategoryHint.Id, FadeTarget = 1.0, Duration = 0.2 })
-	else
-		ModifyTextBox({ Id = components.EmptyCategoryHint.Id, FadeTarget = 0.0, Duration = 0.2 })
+	screen.NumItems = #GameState.StoreItemPins
+	if screen.NumItems <= 0 then
+		ModifyTextBox({ Id = screen.Components.EmptyCategoryHint.Id, FadeTarget = 1.0, FadeDuration = 0.2 })
 	end
-	screen.NumItems = 0
-	screen.PinButtons = {}
-	for index, pin in ipairs( GameState.StoreItemPins ) do
-		local store = _G[pin.StoreName]
-		if store ~= nil then
-			local itemData = store[pin.Name]
-			if itemData ~= nil and itemData.Name ~= nil then
-
-				screen.NumItems = screen.NumItems + 1
-				
-				local buttonBacking = CreateScreenComponent({ Name = "BlankInteractableObstacle", Group = screen.ComponentData.DefaultGroup,
-					Animation = "InventoryScreenForgetMeNotButton",
-					X = locationX,
-					Y = locationY })
-				SetInteractProperty({ DestinationId = buttonBacking.Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
-				SetInteractProperty({ DestinationId = buttonBacking.Id, Property = "FreeFormSelectOffsetY", Value = screen.FreeFormSelectOffsetY })
-				table.insert( screen.PinIds, buttonBacking.Id )
-				buttonBacking.OnMouseOverFunctionName = "InventoryScreenMouseOverPin"
-				buttonBacking.OnMouseOffFunctionName = "InventoryScreenMouseOffPin"
-				AttachLua({ Id = buttonBacking.Id, Table = buttonBacking })
-				buttonBacking.Screen = screen
-				buttonBacking.ItemData = itemData
-				components[itemData.Name.."Backing"] = buttonBacking
-				table.insert( screen.PinButtons, buttonBacking )
-				
-				local icon = CreateScreenComponent({ Name = "BlankObstacle", Scale = (pin.IconScale or itemData.IconScale or 1.0) * screen.PinIconScale, Group = screen.ComponentData.DefaultGroup,
-					X = locationX + screen.PinIconOffsetX,
-					Y = locationY + screen.PinIconOffsetY,
-					})
-				table.insert( screen.PinIds, icon.Id )
-				components[itemData.Name.."Icon"] = icon
-				
-				local iconData = TraitData[itemData.TraitUpgrade or itemData.Name] or itemData
-				local iconName = iconData.Icon or itemData.Image
-				if iconName ~= nil then
-					SetAnimation({ DestinationId = icon.Id, Name = iconName })
-				end
-
-				local displayName = itemData.DisplayName or itemData.HelpTextId or itemData.Name
-				local tooltipData = {}
-				local traitName = itemData.TraitUpgrade or itemData.Name
-				if itemData.TraitUpgrade ~= nil then
-					displayName = itemData.TraitUpgrade.."_Upgrade"
-					tooltipData.NextLevel = GetWeaponUpgradeLevel( traitName ) + 1
-					tooltipData.AspectRarityText = TraitRarityData.AspectRarityText[tooltipData.NextLevel]
-				end
-
-				local nameFormat = "PinNameAffordableFormat"
-				if not HasResources( itemData.UpgradeResoureCost or itemData.ResourceCost or itemData.Cost ) then
-					nameFormat = "PinNameUnaffordableFormat"
-				end
-				CreateTextBoxWithScreenFormat( screen, buttonBacking, nameFormat, { Text = displayName, LuaKey = "TooltipData", LuaValue = tooltipData } )
-
-				locationY = locationY + screen.PinSpacingY
-				if screen.NumItems % screen.PinsPerPage == 0 then
-					locationY = screen.PinStartY
-				end
-			end
-		end
-	end
+	screen.ScrollOffset = 0
 	InventoryScreenUpdateVisibility( screen )
 end
 
@@ -702,8 +789,11 @@ function InventoryScreenHidePins( screen )
 	Destroy({ Ids = screen.PinIds })
 	Destroy({ Ids = screen.CostIds })
 	SetAlpha({ Id = screen.Components.PinButton.Id, Fraction = 0.0, Duration = 0.2 })
-	ModifyTextBox({ Id = screen.Components.EmptyCategoryHint.Id, FadeTarget = 0.0, Duration = 0.2 })
+	ModifyTextBox({ Id = screen.Components.EmptyCategoryHint.Id, FadeTarget = 0.0, FadeDuration = 0.0 })
 	screen.NumItems = 0
+	DestroyTextBox({ Id = screen.Components.RequirementsText.Id })
+	Destroy({ Ids = screen.TraitRequirements })
+	screen.TraitRequirements = {}
 	InventoryScreenUpdateVisibility( screen )
 end
 
@@ -724,9 +814,10 @@ function InventoryScreenDisplayLineHistory( screen )
 
 			local source = EnemyData[textLineEntry.SourceName] or LootData[textLineEntry.SourceName] or { Name = "NPC_Unnamed_01" } 
 			local sourceName = textLineEntry.SpeakerName or source.Speaker or source.Name
-			local formatName = "LineHistoryFormat"..sourceName
+			local color = textLineEntry.SubtitleColor or source.NarrativeFadeInColor or source.SubtitleColor or Color.NarratorVoice
+			local formatName = string.format("LineHistoryFormat_R%d_G%d_B%d", color[1], color[2], color[3])
 			if TextFormats[formatName] == nil then
-				local newFormat = { Name = formatName, Color = textLineEntry.SubtitleColor or source.NarrativeFadeInColor or source.SubtitleColor, Graft = true, AutoSetDataProperties = true }
+				local newFormat = { Name = formatName, Color = color, Graft = true, AutoSetDataProperties = true }
 				CreateFormatContainer( newFormat )
 				TextFormats[formatName] = newFormat
 			end
@@ -783,61 +874,133 @@ function InventoryScreenHideLineHistory( screen )
 end
 
 function InventoryScreenScrollUp( screen, button )
-	--ModifyTextBox({ Id = screen.Components.LineHistory.Id, ScrollAmount = 100 })
+	local category = screen.ItemCategories[screen.ActiveCategoryIndex]
+	if category.AlwaysShowScrollArrows then
+		ModifyTextBox({ Id = screen.Components.LineHistory.Id, ScrollAmount = screen.LineHistoryScrollTick })
+		InventoryScreenUpdateVisibility( screen )
+		return
+	end
 	if screen.ScrollOffset <= 0 then
 		return
 	end
 	screen.ScrollOffset = screen.ScrollOffset - screen.PinsPerPage
+	GenericScrollPresentation( screen, button )
 	InventoryScreenUpdateVisibility( screen, { AnimateSlider = true } )
+	wait( 0.02 )
 	TeleportCursor({ OffsetX = screen.PinStartX - 30, OffsetY = screen.PinStartY + ((screen.PinsPerPage - 1) * screen.PinSpacingY), ForceUseCheck = true })
-	--WeaponShopScreenScrollPresentation( screen, button )
 end
 
 function InventoryScreenScrollDown( screen, button )
-	--ModifyTextBox({ Id = screen.Components.LineHistory.Id, ScrollAmount = -100 })
+	local category = screen.ItemCategories[screen.ActiveCategoryIndex]
+	if category.AlwaysShowScrollArrows then
+		ModifyTextBox({ Id = screen.Components.LineHistory.Id, ScrollAmount = -screen.LineHistoryScrollTick })
+		InventoryScreenUpdateVisibility( screen )
+		return
+	end
 	if screen.ScrollOffset + screen.PinsPerPage >= screen.NumItems then
 		return
 	end
 	screen.ScrollOffset = screen.ScrollOffset + screen.PinsPerPage
+	GenericScrollPresentation( screen, button )
 	InventoryScreenUpdateVisibility( screen, { AnimateSlider = true } )
+	wait( 0.02 )
 	TeleportCursor({ OffsetX = screen.PinStartX - 30, OffsetY = screen.PinStartY, ForceUseCheck = true })
-	--WeaponShopScreenScrollPresentation( screen, button )
 end
 
 function InventoryScreenUpdateVisibility( screen, args )
 
 	args = args or {}
 	local components = screen.Components
-	local offIds = {}
-	local onIds = {}
+	local category = screen.ItemCategories[screen.ActiveCategoryIndex]
 
-	for itemNum, button in ipairs( screen.PinButtons ) do		
-		local itemData = button.ItemData
-		local visibleIndex = itemNum - screen.ScrollOffset
-		local buttonBacking = components[itemData.Name.."Backing"]
-		local icon = components[itemData.Name.."Icon"]
-		if visibleIndex >= 1 and visibleIndex <= screen.PinsPerPage and not buttonBacking.Removed then
-			-- Page in view
-			Teleport({ Id = buttonBacking.Id, OffsetX = screen.PinStartX, OffsetY = screen.PinStartY + ((visibleIndex - 1) * screen.PinSpacingY) })
-			table.insert( onIds, buttonBacking.Id )
+	if category.ShowPins then
 
-			Teleport({ Id = icon.Id, OffsetX = screen.PinStartX + screen.PinIconOffsetX, OffsetY = screen.PinStartY + ((visibleIndex - 1) * screen.PinSpacingY) })
-			table.insert( onIds, icon.Id )
-
-		else
-			-- Page out of view
-			table.insert( offIds, buttonBacking.Id )
-			table.insert( offIds, icon.Id )
+		if screen.SelectedPin ~= nil then
+			InventoryScreenMouseOffPin( screen.SelectedPin )
 		end
+
+		-- Destroy all the buttons from the last screen
+		Destroy({ Ids = screen.PinIds })
+		screen.PinIds = {}
+
+		-- Create the new batch of buttons
+		local itemLocationY = screen.PinStartY
+		local firstIndex = screen.NumItems - screen.ScrollOffset
+		local lastIndex = math.max( 1, firstIndex - screen.PinsPerPage + 1 )
+		for pinIndex = firstIndex, lastIndex, -1 do
+
+			local pin = GameState.StoreItemPins[pinIndex]
+			local store = _G[pin.StoreName]
+			local itemData = store[pin.Name]
+
+			local button = CreateScreenComponent({
+				Name = "BlankInteractableObstacle",
+				X = screen.PinStartX,
+				Y = itemLocationY,
+				Group = screen.ComponentData.DefaultGroup,
+				Animation = "InventoryScreenForgetMeNotButton",
+			})
+			components[itemData.Name.."Backing"] = button
+			table.insert( screen.PinIds, button.Id )
+			button.Screen = screen
+			button.MouseOverSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+			button.OnMouseOverFunctionName = "InventoryScreenMouseOverPin"
+			button.OnMouseOffFunctionName = "InventoryScreenMouseOffPin"
+			button.ItemData = itemData
+			if pinIndex == 1 then
+				button.IsLastInList = true
+			end
+			AttachLua({ Id = button.Id, Table = button })
+			SetInteractProperty({ DestinationId = button.Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
+
+			local iconData = TraitData[itemData.TraitUpgrade or itemData.Name] or itemData
+			local iconName = iconData.Icon or itemData.Image
+			local iconScaleFactor = screen.PinIconScale
+			if store == TraitData then
+				iconScaleFactor = screen.PinTraitIconScale
+			end
+			local icon = CreateScreenComponent({
+				Name = "BlankObstacle",
+				X = screen.PinStartX + screen.PinIconOffsetX,
+				Y = itemLocationY + screen.PinIconOffsetY,
+				Scale = (pin.IconScale or itemData.IconScale or 1.0) * iconScaleFactor,
+				Group = screen.ComponentData.DefaultGroup,
+				Animation = iconName,
+			})
+			table.insert( screen.PinIds, icon.Id )
+			components[itemData.Name.."Icon"] = icon
+
+			local displayName = itemData.DisplayName or itemData.HelpTextId or itemData.Name
+			local tooltipData = {}
+			local traitName = itemData.TraitUpgrade or itemData.Name
+			if itemData.TraitUpgrade ~= nil then
+				displayName = itemData.TraitUpgrade.."_Upgrade"
+				tooltipData.NextLevel = GetWeaponUpgradeLevel( traitName ) + 1
+				tooltipData.AspectRarityText = TraitRarityData.AspectRarityText[tooltipData.NextLevel]
+			end
+			if itemData.CostIncrease ~= nil then
+				tooltipData.CurrentValue = GameState.MaxMetaUpgradeCostCache
+				tooltipData.NextValue = GameState.MaxMetaUpgradeCostCache + itemData.CostIncrease
+			end
+
+			local nameFormat = "PinNameAffordableFormat"
+			if store == TraitData then
+				if TraitRequirements[itemData.Name] ~= nil and not HasTraitRequirements( itemData.Name ) then
+					nameFormat = "PinNameUnaffordableFormat"
+				end
+			else
+				if not HasResources( itemData.UpgradeResoureCost or itemData.ResourceCost or itemData.Cost ) then
+					nameFormat = "PinNameUnaffordableFormat"
+				end
+			end
+			CreateTextBoxWithScreenFormat( screen, button, nameFormat, { Text = displayName, LuaKey = "TooltipData", LuaValue = tooltipData } )
+
+			itemLocationY = itemLocationY + screen.PinSpacingY
+
+		end
+
 	end
 
-	SetAlpha({ Ids = onIds, Fraction = 1.0 })
-	UseableOn({ Ids = onIds })
-
-	SetAlpha({ Ids = offIds, Fraction = 0.0 })
-	UseableOff({ Ids = offIds, ForceHighlightOff = true })
-
-	local category = screen.ItemCategories[screen.ActiveCategoryIndex]
 	local scrollFraction = GetScrollOffsetFraction({ Id = screen.Components.LineHistory.Id })
 
 	if category.AlwaysShowScrollArrows then
@@ -850,6 +1013,7 @@ function InventoryScreenUpdateVisibility( screen, args )
 		Move({ Id = components.LineHistoryScrollbarSlider.Id, OffsetX = components.LineHistoryScrollbarSlider.X, OffsetY = sliderTargetY, Duration = slideDuration, EaseIn = 0.0, EaseOut = 1.0 })
 
 		SetInteractProperty({ DestinationIds = { components.ScrollUp.Id, components.ScrollDown.Id }, Property = "FreeFormSelectable", Value = false })
+		SetInteractProperty({ DestinationId = components.LineHistoryScrollbar.Id, Property = "FreeFormSelectable", Value = true })
 		if scrollFraction <= 0.0 then
 			SetAlpha({ Id = components.ScrollUp.Id, Fraction = 0, Duration = 0.1 })
 			SetAlpha({ Id = components.LineHistoryGradient.Id, Fraction = 0, Duration = 0.1 })
@@ -861,6 +1025,7 @@ function InventoryScreenUpdateVisibility( screen, args )
 		end
 	else
 		SetInteractProperty({ DestinationIds = { components.ScrollUp.Id, components.ScrollDown.Id }, Property = "FreeFormSelectable", Value = true })
+		SetInteractProperty({ DestinationId = components.LineHistoryScrollbar.Id, Property = "FreeFormSelectable", Value = false })
 		SetAlpha({ Id = components.LineHistoryGradient.Id, Fraction = 0, Duration = 0.1 })
 		if screen.ScrollOffset <= 0 or screen.NumItems == 0 then
 			SetAlpha({ Id = components.ScrollUp.Id, Fraction = 0, Duration = 0.1 })
@@ -891,19 +1056,33 @@ function InventoryScreenUpdateVisibility( screen, args )
 
 end
 
-function InvenotryScreenRemovePin( screen, button )
-	if screen.SelectedPin == nil or screen.SelectedPin.Removed then
+function InventoryScreenRemovePin( screen, button )
+	if screen.SelectedPin == nil then
 		return
 	end
+	InventoryScreenRemovePinPresentation( screen, button, screen.SelectedPin )
 	RemoveStoreItemPin( screen.SelectedPin.ItemData.Name )
-	UpdateToolKitPins()
-	screen.SelectedPin.Removed = true
-	InventoryScreenUpdateVisibility( screen )
+	screen.NumItems = screen.NumItems - 1
+	if screen.NumItems <= 0 then
+		ModifyTextBox({ Id = screen.Components.EmptyCategoryHint.Id, FadeTarget = 1.0, FadeDuration = 0.2 })
+	end
+	if screen.SelectedPin.IsLastInList and screen.NumItems > 0 then
+		TeleportCursor({ DestinationId = screen.SelectedPin.Id, OffsetY = -screen.PinSpacingY, ForceUseCheck = true })
+	end
+	InventoryScreenMouseOffPin( screen.SelectedPin )
+
+	-- Auto-scroll up if needed
+	if screen.NumItems > 0 and screen.ScrollOffset >= screen.NumItems then
+		InventoryScreenScrollUp( screen )
+	else
+		InventoryScreenUpdateVisibility( screen )
+	end
 end
 
 function AddRerolls( source, args )
 	args = args or {}
 	CurrentRun.NumRerolls = CurrentRun.NumRerolls + args.Amount
+	ShowRerollUI()
 	UpdateRerollUI( CurrentRun.NumRerolls )
 end
 
@@ -918,6 +1097,9 @@ function InventoryScreenMoonPhaseButtonMouseOff( button )
 end
 
 function InventoryScreenUpdate( screen, args, elapsed )
+	if screen.Closing then
+		return
+	end
 	local category = screen.ItemCategories[screen.ActiveCategoryIndex]
 	if category.AlwaysShowScrollArrows then
 		if IsControlDown({ Name = "Up" }) or ( IsControlDown({ Name = "Select" }) and GetUseTargetId({ }) == screen.Components.ScrollUp.Id ) then
@@ -926,6 +1108,16 @@ function InventoryScreenUpdate( screen, args, elapsed )
 		elseif IsControlDown({ Name = "Down" }) or ( IsControlDown({ Name = "Select" }) and GetUseTargetId({ }) == screen.Components.ScrollDown.Id ) then
 			ModifyTextBox({ Id = screen.Components.LineHistory.Id, ScrollAmount = -screen.LineHistoryScrollSpeed * elapsed })
 			InventoryScreenUpdateVisibility( screen )
+		elseif IsControlDown({ Name = "Select" }) and ( GetUseTargetId({ }) == screen.Components.LineHistoryScrollbar.Id or screen.DraggingScrollbar ) then
+			screen.DraggingScrollbar = true
+			local cursorLocation = GetCursorScreenLocation({ })
+			local sliderTopY = screen.LineHistoryScrollbarSliderTopY + ScreenCenterNativeOffsetY
+			local sliderBottomY = screen.LineHistoryScrollbarSliderBottomY + ScreenCenterNativeOffsetY
+			local fraction = (cursorLocation.Y - sliderTopY) / (sliderBottomY - sliderTopY)
+			ModifyTextBox({ Id = screen.Components.LineHistory.Id, ScrollToFraction = fraction })
+			InventoryScreenUpdateVisibility( screen )
+		else
+			screen.DraggingScrollbar = false
 		end
 	end
 end

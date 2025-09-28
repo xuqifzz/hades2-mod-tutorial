@@ -1,0 +1,48 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCArachneBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Arachne_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = false
+	}
+
+	{
+		Name = "Arachne_Idle"
+		InheritFrom = "NPCArachneBaseAnimation"
+		GrannyAnimation = "Arachne_Base_IdleGround_C_00"
+		Loop = true
+	}
+	
+	{
+		Name = "Arachne_Idle_Shadow"
+		InheritFrom = "Arachne_Idle"
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Arachne_Weaving"
+		InheritFrom = "NPCArachneBaseAnimation"
+		GrannyAnimation = "Arachne_Base_WeavingLoop_C_00"
+		Loop = true
+	}
+
+
+	{
+		Name = "Arachne_Greet"
+		InheritFrom = "NPCArachneBaseAnimation"
+		GrannyAnimation = "Arachne_Base_Greet_C_00"
+		ChainTo = "Arachne_Weaving"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Arachne_Weaving"
+				Duration = 12
+			}
+		]
+	}
+]}

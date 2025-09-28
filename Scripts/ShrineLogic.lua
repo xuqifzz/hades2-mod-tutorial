@@ -24,6 +24,7 @@ function OpenShrineScreen( args )
 
 	HideCombatUI( screen.Name )
 	OnScreenOpened( screen )
+
 	CreateScreenFromData( screen, screen.ComponentData )
 
 	OverwriteTableKeys( screen, args )
@@ -46,94 +47,173 @@ function OpenShrineScreen( args )
 	local firstUseable = false
 	for index, upgradeName in ipairs( ShrineUpgradeOrder ) do
 		local upgradeData = MetaUpgradeData[upgradeName]
+		local maxRank = GetShrineUpgradeMaxRank( upgradeData )
+		if maxRank > 0 then
+			if upgradeData.UseWideAnimations then
+				itemLocationX = screen.ItemStartX + screen.WideItemOffsetX
+			end
 
-		local backing = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = itemLocationX, Y = itemLocationY, Scale = screen.IconBackingScale })
-		components["ItemBacking"..index] = backing
-		AttachLua({ Id = backing.Id, Table = backing })
-		backing.Screen = screen
-		backing.Data = upgradeData
+			local startOffsetY = 10
 
-		local button = CreateScreenComponent({ Name = "ButtonShrineItem", Group = screen.ComponentData.DefaultGroup,
-			X = itemLocationX + screen.IconOffsetX, Y = itemLocationY + screen.IconOffsetY,
-			Animation = upgradeData.Icon, Scale = screen.IconScale })
-		components["ItemButton"..index] = button
-		AttachLua({ Id = button.Id, Table = button })
-		button.Screen = screen
-		button.Data = upgradeData
-		button.Backing = backing
-		button.OnMouseOverFunctionName = "ShrineScreenMouseOverItem"
-		button.OnMouseOffFunctionName = "ShrineScreenMouseOffItem"
-		button.OnPressedFunctionName = "ShrineScreenRankUp"
+			local backing = CreateScreenComponent({
+				Name = "BlankObstacle", 
+				Group = screen.ComponentData.DefaultGroup,
+				X = itemLocationX,
+				Y = itemLocationY + startOffsetY,
+				Scale = screen.IconBackingScale
+			})
 
-		local highlight = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = itemLocationX, Y = itemLocationY,
-			Animation = screen.SelectionHighlight.AnimationName, Scale = screen.SelectionHighlight.Scale, Alpha = 0.0 })
-		components["ItemHighlight"..index] = highlight
-		AttachLua({ Id = highlight.Id, Table = highlight })
-		highlight.Screen = screen
-		button.Highlight = highlight
+			local fadeDuration = index * 0.018
+			Move({ Id = backing.Id, Duration = fadeDuration * 1.2 + 0.24, OffsetX = itemLocationX, OffsetY = itemLocationY, EaseIn = 0.9, EaseOut = 1})
+			SetAlpha({ Id = backing.Id, Fraction = 0 })
+			SetAlpha({ Id = backing.Id, Fraction = 1, Duration = fadeDuration, EaseIn = 0, EaseOut = 1 })
+			SetScale({ Id = backing.Id, Fraction = 0.8 })
+			SetScale({ Id = backing.Id, Fraction = 1, Duration = fadeDuration, EaseIn = 0, EaseOut = 1 })
+			components["ItemBacking"..index] = backing
+			AttachLua({ Id = backing.Id, Table = backing })
+			backing.Screen = screen
+			backing.Data = upgradeData
 
-		local nextRankBacking = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = itemLocationX + screen.NextRankBackingOffsetX, Y = itemLocationY + screen.NextRankBackingOffsetY, Alpha = 0.0 })
-		components["NextRankBacking"..index] = nextRankBacking
-		AttachLua({ Id = nextRankBacking.Id, Table = nextRankBacking })
-		nextRankBacking.Screen = screen
-		button.NextRankBacking = nextRankBacking
+			local highlightAnimation = screen.SelectionHighlightAnimation
+			if upgradeData.UseWideAnimations then
+				highlightAnimation = screen.SelectionHighlightWideAnimation
+			end
+			local highlight = CreateScreenComponent({
+				Name = "BlankObstacle",
+				Group = screen.ComponentData.DefaultGroup,
+				X = itemLocationX,
+				Y = itemLocationY,
+				Animation = highlightAnimation,
+				Alpha = 0.0
+			})
+			components["ItemHighlight"..index] = highlight
+			AttachLua({ Id = highlight.Id, Table = highlight })
+			highlight.Screen = screen
 
-		local maxRank = TableLength( upgradeData.Ranks )
-		button.RankPips = {}
-		local offsetX = screen.RankPipStartOffsetX
-		local offsetY = screen.RankPipStartOffsetY
-		for rank = 1, maxRank do
-			local rankPip = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, Scale = screen.RankPipScale, X = itemLocationX + offsetX, Y = itemLocationY + offsetY })
-			components["RankPips"..rank..index] = rankPip
-			AttachLua({ Id = rankPip.Id, Table = rankPip })
-			rankPip.Screen = screen
-			button.RankPips[rank] = rankPip
+			local buttonName = "ButtonShrineItem"
+			local iconOffsetX = screen.IconOffsetX
+			local iconOffsetY = screen.IconOffsetY
+			if upgradeData.UseWideAnimations then
+				buttonName = "ButtonShrineItemWide"
+				iconOffsetX = iconOffsetX + screen.WideIconGroupShiftX
+			end
+			local button = CreateScreenComponent({
+				Name = buttonName,
+				Group = screen.ComponentData.DefaultGroup,
+				X = itemLocationX + iconOffsetX,
+				Y = itemLocationY + iconOffsetY,
+				Animation = upgradeData.Icon,
+				Scale = screen.IconScale
+			})
+			components["ItemButton"..index] = button
+			AttachLua({ Id = button.Id, Table = button })
+			button.Screen = screen
+			button.Data = upgradeData
+			button.Backing = backing
+			button.Highlight = highlight
+			if upgradeData.UseWideAnimations then
+				button.GlintAnimationName = screen.SelectionHighlightWideGlintAnimation
+			else
+				button.GlintAnimationName = screen.SelectionHighlightGlintAnimation
+			end
+			button.OnMouseOverFunctionName = "ShrineScreenMouseOverItem"
+			button.OnMouseOffFunctionName = "ShrineScreenMouseOffItem"
+			button.OnPressedFunctionName = "ShrineScreenRankUp"
 
-			offsetX = offsetX + screen.RankPipSpacingX
-			offsetY = offsetY + screen.RankPipSpacingY
+			local nextRankBackingOffsetX = screen.NextRankBackingOffsetX
+			local nextRankBackingOffsetY = screen.NextRankBackingOffsetY
+			if upgradeData.UseWideAnimations then
+				nextRankBackingOffsetX = screen.NextRankBackingWideOffsetX
+				nextRankBackingOffsetY = screen.NextRankBackingWideOffsetY
+			end
+			local nextRankBacking = CreateScreenComponent({
+				Name = "BlankObstacle",
+				Group = screen.ComponentData.DefaultGroup,
+				X = itemLocationX + nextRankBackingOffsetX,
+				Y = itemLocationY + nextRankBackingOffsetY,
+				Alpha = 0.0
+			})
+			components["NextRankBacking"..index] = nextRankBacking
+			AttachLua({ Id = nextRankBacking.Id, Table = nextRankBacking })
+			nextRankBacking.Screen = screen
+			nextRankBacking.Button = button
+			button.NextRankBacking = nextRankBacking
+
+			local nextRankFormat = ShallowCopyTable( screen.NextRankFormat )
+			nextRankFormat.Id = nextRankBacking.Id
+			CreateTextBox( nextRankFormat )
+
+			button.RankPips = {}
+			local pipOffsetX = screen.RankPipStartOffsetX
+			local pipOffsetY = screen.RankPipStartOffsetY
+			if upgradeData.UseWideAnimations then
+				pipOffsetX = pipOffsetX + screen.WideIconGroupShiftX
+			end
+			for rank = 1, maxRank do
+				local rankPip = CreateScreenComponent({
+					Name = "BlankObstacle",
+					Group = screen.ComponentData.DefaultGroup,
+					Scale = screen.RankPipScale,
+					X = itemLocationX + pipOffsetX,
+					Y = itemLocationY + pipOffsetY
+				})
+				components["RankPips"..rank..index] = rankPip
+				AttachLua({ Id = rankPip.Id, Table = rankPip })
+				rankPip.Screen = screen
+				button.RankPips[rank] = rankPip
+
+				pipOffsetX = pipOffsetX + screen.RankPipSpacingX
+				pipOffsetY = pipOffsetY + screen.RankPipSpacingY
+			end
+
+			ShrineScreenUpdateNextRankText( button, true )
+
+			ShrineUpgradeExtractValues( upgradeName )
+
+			local shortNameFormat = ShallowCopyTable( screen.ShortNameFormat )
+			local currentRank = GetNumShrineUpgrades( upgradeData.Name )
+			if currentRank > 0 then
+				shortNameFormat = ShallowCopyTable( screen.ShortNameActiveFormat )
+			end
+			shortNameFormat.Id = button.Id
+			shortNameFormat.Text = upgradeData.Name.."_Short"
+			CreateTextBox( shortNameFormat )
+
+			-- Hidden description for tooltips
+			SetInteractProperty({ DestinationId = button.Id, Property = "TooltipX", Value = screen.TooltipX + ScreenCenterNativeOffsetX })
+			SetInteractProperty({ DestinationId = button.Id, Property = "TooltipY", Value = screen.TooltipY + ScreenCenterNativeOffsetY })
+			CreateTextBox({ Id = button.Id,
+				Text = upgradeName,
+				UseDescription = true,
+				Color = Color.Transparent,
+				LuaKey = "TooltipData",
+				LuaValue = upgradeData,
+			})
+
+			if index == 1 then
+				TeleportCursor({ DestinationId = button.Id, ForceUseCheck = true })
+			end
+
+			if upgradeData.RankRevealedFunctionName ~= nil then
+				local worldUpgradeName = upgradeName.."Rank"..maxRank
+				if not GameState.WorldUpgradesRevealed[worldUpgradeName] then
+					thread( CallFunctionName, upgradeData.RankRevealedFunctionName, screen, button, { Rank = maxRank } )
+				end
+				GameState.WorldUpgradesRevealed[worldUpgradeName] = true
+			end
+
+			if index % screen.ItemsPerRow == 0 then
+				itemLocationX = screen.ItemStartX
+				itemLocationY = itemLocationY + screen.ItemSpacingY
+			else
+				itemLocationX = itemLocationX + screen.ItemSpacingX
+			end		
+
+			screen.NumItems = screen.NumItems + 1
 		end
-
-		ShrineUpgradeExtractValues( upgradeName )
-
-		local nextRankFormat = ShallowCopyTable( screen.NextRankFormat )
-		nextRankFormat.Id = button.Id
-		CreateTextBox( nextRankFormat )
-		ShrineScreenUpdateNextRankText( button )
-
-		local shortNameFormat = ShallowCopyTable( screen.ShortNameFormat )
-		shortNameFormat.Id = button.Id
-		shortNameFormat.Text = upgradeData.Name.."_Short"
-		CreateTextBox( shortNameFormat )
-
-		-- Hidden description for tooltips
-		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipX", Value = screen.TooltipX + ScreenCenterNativeOffsetX })
-		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipY", Value = screen.TooltipY + ScreenCenterNativeOffsetY })
-		CreateTextBox({ Id = button.Id,
-			Text = upgradeName,
-			UseDescription = true,
-			Color = Color.Transparent,
-			LuaKey = "TooltipData",
-			LuaValue = upgradeData,
-		})
-
-		if index == 1 and not showHint then
-			TeleportCursor({ OffsetX = itemLocationX, OffsetY = itemLocationY, ForceUseCheck = true })
-		end
-
-		if index % screen.ItemsPerRow == 0 then
-			itemLocationX = screen.ItemStartX
-			itemLocationY = itemLocationY + screen.ItemSpacingY
-		else
-			itemLocationX = itemLocationX + screen.ItemSpacingX
-		end		
-
-		screen.NumItems = screen.NumItems + 1
-		
 	end
 
 	screen.PrevShrineUpgrades = ShallowCopyTable( GameState.ShrineUpgrades )
-
-	ShrineScreenUpdateItems( screen )
 
 	local currentWeaponName = GetEquippedWeapon()
 
@@ -161,7 +241,7 @@ function OpenShrineScreen( args )
 			end
 			
 			totalBountyNum = totalBountyNum + 1
-			if GameState.BountiesCompleted[bountyName] then
+			if GameState.ShrineBountiesCompleted[bountyName] then
 				completeBountyNum = completeBountyNum + 1
 			else
 				if bountyData.UnlockGameStateRequirements ~= nil and IsGameStateEligible( bountyData, bountyData.UnlockGameStateRequirements ) then		
@@ -169,19 +249,32 @@ function OpenShrineScreen( args )
 					local key = "BountyAvailable"..availableBountyNum
 					if availableBountyNum <= screen.MaxBountiesAvailable then
 
-						local targetItem = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup,
-							X = itemLocationX + screen.BountyTargetOffsetX, Y = itemLocationY + screen.BountyTargetOffsetY,
-							Animation = screen.BountyTargetIcons[bountyData.Encounter], Scale = screen.BountyBossIconScale })
+						local targetItem = CreateScreenComponent({
+							Name = "BlankObstacle",
+							Group = screen.ComponentData.DefaultGroup,
+							X = itemLocationX + screen.BountyTargetOffsetX,
+							Y = itemLocationY + screen.BountyTargetOffsetY,
+							Animation = screen.BountyTargetIcons[bountyData.Encounters[1]],
+							Scale = screen.BountyBossIconScale
+						})
 						components[key.."Target"] = targetItem
 
-						local bountyBacking = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup,
-							X = itemLocationX, Y = itemLocationY,
+						local bountyBacking = CreateScreenComponent({
+							Name = "BlankObstacle",
+							Group = screen.ComponentData.DefaultGroup,
+							X = itemLocationX,
+							Y = itemLocationY,
 							Animation = "GUI\\Screens\\Shrine\\Testament",
-							Scale = 1.0 })
+							Scale = 1.0
+						})
 						components[key.."Backing"] = bountyBacking
 
-						local shrinePointItem = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup,
-							X = itemLocationX + screen.BountyShrinePointsOffsetX, Y = itemLocationY + screen.BountyShrinePointsOffsetY })
+						local shrinePointItem = CreateScreenComponent({
+							Name = "BlankObstacle",
+							Group = screen.ComponentData.DefaultGroup,
+							X = itemLocationX + screen.BountyShrinePointsOffsetX,
+							Y = itemLocationY + screen.BountyShrinePointsOffsetY
+						})
 						shrinePointItem.BountyData = bountyData
 						shrinePointItem.MatchedWeapon = matchedWeapon
 						shrinePointItem.WeaponName = weaponName
@@ -194,9 +287,14 @@ function OpenShrineScreen( args )
 						bountyShrinePointsFormat.LuaValue = { RequiredShrinePoints = shrinePoints }
 						CreateTextBox( bountyShrinePointsFormat )
 
-						local weaponItem = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup,
-							X = itemLocationX + screen.BountyWeaponOffsetX, Y = itemLocationY + screen.BountyWeaponOffsetY,
-							Animation = screen.BountyWeaponIcons[weaponName], Scale = screen.BountyWeaponIconScale })
+						local weaponItem = CreateScreenComponent({
+							Name = "BlankObstacle",
+							Group = screen.ComponentData.DefaultGroup,
+							X = itemLocationX + screen.BountyWeaponOffsetX,
+							Y = itemLocationY + screen.BountyWeaponOffsetY,
+							Animation = screen.BountyWeaponIcons[weaponName],
+							Scale = screen.BountyWeaponIconScale
+						})
 						components[key.."Weapon"] = weaponItem
 
 						if availableBountyNum % screen.BountyItemsPerRow == 0 then
@@ -216,41 +314,50 @@ function OpenShrineScreen( args )
 	ModifyTextBox({ Id = components.BountyHeader.Id, LuaKey = "TempTextData", LuaValue = { WeaponName = currentWeaponName, Completed = completeBountyNum, Total = totalBountyNum, }, })
 
 	if components.SkellyQuestSurface ~= nil then
-		local surfaceShrinePointRecord = GetHighestShrinePointRunClear( CurrentRun, { RequiredBiome = "N" } )
-		DebugPrint({ Text = "surfaceShrinePointRecord = "..surfaceShrinePointRecord })
-		local underworldShrinePointRecord = GetHighestShrinePointRunClear( CurrentRun, { RequiredBiome = "F" } )
-		DebugPrint({ Text = "underworldShrinePointRecord = "..underworldShrinePointRecord })
-		for i, shrinePointThreshold in ipairs( screen.ShrinePointThresholds ) do
-			if surfaceShrinePointRecord >= shrinePointThreshold and underworldShrinePointRecord >= shrinePointThreshold and i < #screen.ShrinePointThresholds then
+		local surfaceShrinePointRecord = GameState.HighestShrinePointClearSurfaceCache
+		local underworldShrinePointRecord = GameState.HighestShrinePointClearUnderworldCache
+		DebugAssert({ Condition = (#screen.UnderworldShrinePointThresholds == #screen.SurfaceShrinePointThresholds), Text = "Underworld and Surface do not have the same number of shrine point thresholds!", Owner = "Caleb" })
+		for i=1,#screen.UnderworldShrinePointThresholds do
+			local underworldThreshold = screen.UnderworldShrinePointThresholds[i]
+			local surfaceThreshold = screen.SurfaceShrinePointThresholds[i]
+			if surfaceShrinePointRecord >= surfaceThreshold and underworldShrinePointRecord >= underworldThreshold then
 				-- Both runs complete, move to next threshold
 			else
-				screen.NextSkellyShrinePointGoal = shrinePointThreshold
-				if surfaceShrinePointRecord >= shrinePointThreshold then
+				screen.NextSurfaceSkellyShrinePointGoal = surfaceThreshold
+				if surfaceShrinePointRecord >= surfaceThreshold then
 					SetAnimation({ DestinationId = components.SkellyQuestSurface.Id, Name = "GUI\\Screens\\Shrine\\SkellyComplete" })
 					ModifyTextBox({ Id = components.SkellyQuestSurface.Id, Text = "ShrineScreen_SkellyStatueSurface_Complete", FadeTarget = 1.0 })
 					SetAlpha({ Id = components.SkellyQuestSurfaceStrikethrough.Id, Fraction = 1.0, Duration = 0.2 })
-				else
-					ModifyTextBox({ Id = components.SkellyQuestSurface.Id, Text = "ShrineScreen_SkellyStatueSurface_Incomplete", FadeTarget = 1.0 })
 				end
-				if underworldShrinePointRecord >= shrinePointThreshold then
+
+				screen.NextUnderworldSkellyShrinePointGoal = underworldThreshold
+				if underworldShrinePointRecord >= underworldThreshold then
 					SetAnimation({ DestinationId = components.SkellyQuestUnderworld.Id, Name = "GUI\\Screens\\Shrine\\SkellyComplete" })
 					ModifyTextBox({ Id = components.SkellyQuestUnderworld.Id, Text = "ShrineScreen_SkellyStatueUnderworld_Complete", FadeTarget = 1.0 })
 					SetAlpha({ Id = components.SkellyQuestUnderworldStrikethrough.Id, Fraction = 1.0, Duration = 0.2 })
-				else
-					ModifyTextBox({ Id = components.SkellyQuestUnderworld.Id, Text = "ShrineScreen_SkellyStatueUnderworld_Incomplete", FadeTarget = 1.0 })
 				end
 				break
 			end
 		end
+		if GameState.TyphonDefeatedWithStormStop and not GameState.ReachedTrueEnding then
+			SetAlpha({ Ids = { components.SkellyQuestSurface.Id, components.SkellyQuestSurfaceStrikethrough.Id }, Fraction = 0 })
+		end
+		ShrineScreenUpdateSkellyText( screen )
+	end
+
+	if components.SkellyQuestCompleteIcon ~= nil then
+		SetAlpha({ Id = components.SkellyQuestCompleteIcon.Id, Fraction = 1.0, Duration = 0.3 })
 	end
 
 	ShrineScreenUpdateActivePoints( screen, nil, { Duration = 0.0 } )
 	screen.StartingBounty = screen.ActiveBounty
-
+	ShrineScreenUpdateItems( screen )
+	
 	if showHint then
 		GenericInfoPresentation( screen )
-		TeleportCursor({ OffsetX = 1470, OffsetY = 280, ForceUseCheck = true })
 	end
+
+	ShrineScreenOpenFinishedPresentation( screen )
 
 	screen.KeepOpen = true
 	HandleScreenInput( screen )
@@ -259,19 +366,25 @@ end
 
 function CloseShrineUpgradeScreen( screen, button )
 
-	UpdateSeenMetaUpgrades()
+	UpdateShrineAnimation( screen.ActiveBounty )
+	UpdateEscapeDoorForLimitGraspShrineUpgrade( nil, { EscapeDoorIds = { 420947, 555784 } } )
 	if screen.AnyChangeMade then
 		RequestPreRunLoadoutChangeSave()
 	end
 	if screen.CloseAnimation ~= nil then
-		SetAnimation({ DestinationId = screen.Components.ShopBackground.Id, Name = screen.CloseAnimation })
+		SetAnimation({ DestinationId = screen.Components.Background.Id, Name = screen.CloseAnimation })
 	end
+	StopAnimation({ Name = "ShrinePactThermometerFxGlow", DestinationId = screen.Components.ThermometerFullFx.Id })
+	StopAnimation({ Name = "ShrinePactThermometerFullGlints", DestinationId = screen.Components.ThermometerFullFx.Id })
 	OnScreenCloseStarted( screen )
-	CloseScreen( GetAllIds( screen.Components ), 0.1 )
+	CloseScreen( GetAllIds( screen.Components ) )
 	AltAspectRatioFramesHide()
 	ShowCombatUI( screen.Name )
 	OnScreenCloseFinished( screen )
 
+	if screen.AnyChangeMade then
+		thread( PlayVoiceLines, screen.ChangeMadeCloseVoiceLines, true )
+	end
 	thread( MarkObjectiveComplete, "UseShrinePrompt" )
 
 	ModifyFormatContainer({ Name = "ShrinePenaltyFormat", Color = screen.ActiveVariableColor })
@@ -280,6 +393,16 @@ function CloseShrineUpgradeScreen( screen, button )
 		thread( BountyReadyConfirmPresentation, screen, button )
 	end
 
+end
+
+function GetShrineUpgradeMaxRank( upgradeData )
+	local maxRank = 0
+	for i, rankData in ipairs( upgradeData.Ranks ) do
+		if rankData.GameStateRequirements == nil or IsGameStateEligible( upgradeData, rankData.GameStateRequirements ) then
+			maxRank = i
+		end
+	end
+	return maxRank
 end
 
 function GetTotalSpentShrinePoints()
@@ -295,19 +418,6 @@ function GetTotalSpentShrinePoints()
 			end
 		end
 	end
-	--[[
-	for name, activeRank in pairs( CurrentRun.ShrineUpgrades ) do
-		local upgradeData = MetaUpgradeData[name]
-		if upgradeData ~= nil then
-			for rank = 1, activeRank do
-				local rankData = upgradeData.Ranks[rank]
-				if rankData ~= nil then
-					total = total + rankData.Points
-				end
-			end
-		end
-	end
-	]]
 	return total
 end
 
@@ -317,7 +427,9 @@ function GetMaxShrinePoints()
 		local upgradeData = MetaUpgradeData[name]
 		if upgradeData ~= nil then
 			for rank, rankData in ipairs( upgradeData.Ranks ) do
-				total = total + rankData.Points
+				if rankData.GameStateRequirements == nil or IsGameStateEligible( rankData, rankData.GameStateRequirements ) then
+					total = total + rankData.Points
+				end
 			end
 		end
 	end
@@ -342,6 +454,7 @@ function ShrineScreenRankDown( screen, button )
 	ShrineUpgradeExtractValues( upgradeName )
 	GameState.SpentShrinePointsCache = GetTotalSpentShrinePoints()
 	screen.AnyChangeMade = true
+	ShrineScreenUpdateSkellyText( screen )
 	ShrineScreenRankDownPresentation( screen, screen.SelectedItem )
 end
 
@@ -351,19 +464,20 @@ function ShrineScreenRankUp( screen, button )
 	end
 	local upgradeData = screen.SelectedItem.Data
 	local upgradeName = upgradeData.Name
-	local maxRank = TableLength( upgradeData.Ranks )
+	local maxRank = GetShrineUpgradeMaxRank( upgradeData )
 	if (GameState.ShrineUpgrades[upgradeName] or 0) >= maxRank then
 		ShrineScreenAlreadyAtMaxPresentation( screen, screen.SelectedItem )
 		return
 	end
 
-	GameState.ShrineUpgrades[upgradeName] = (GameState.ShrineUpgrades[upgradeName] or 0) + 1	
+	GameState.ShrineUpgrades[upgradeName] = (GameState.ShrineUpgrades[upgradeName] or 0) + 1
 	if GameState.ShrineUpgrades[upgradeName] > maxRank then
 		GameState.ShrineUpgrades[upgradeName] = maxRank
 	end
 	ShrineUpgradeExtractValues( upgradeName )
 	GameState.SpentShrinePointsCache = GetTotalSpentShrinePoints()
 	screen.AnyChangeMade = true
+	ShrineScreenUpdateSkellyText( screen )
 	ShrineScreenRankUpPresentation( screen, screen.SelectedItem )
 end
 
@@ -423,10 +537,8 @@ function CheckEggRespawn( victim, triggerArgs )
 		egg.SpawnedFromName = victim.Name
 		egg.ObjectId = eggId
 		SetupObstacle( egg )
-		-- Would be better to instead iterate a copy of ActiveEnemies or RequiredKillEnemies but hard to track down all the places that can happen that can trigger this function
-		table.insert( SessionMapState.DeferredTableWrite, { TableName = "RequiredKillEnemies", Key = egg.ObjectId, Value = egg } )
-		table.insert( SessionMapState.DeferredTableWrite, { TableName = "ActiveEnemies", Key = egg.ObjectId, Value = egg } )
-		SessionMapState.DeferredRequiredKillEnemy = true
+		RequiredKillEnemies[egg.ObjectId] = egg
+		ActiveEnemies[egg.ObjectId] = egg
 		if victim.Encounter ~= nil then
 			victim.Encounter.ActiveSpawns[egg.ObjectId] = true
 			egg.Encounter = victim.Encounter
@@ -488,13 +600,8 @@ function RespawnEggPickedUp( usee, args, user )
 	end
 	
 	Destroy({ Id = egg.ObjectId })
-	if IsEmpty( RequiredKillEnemies ) and IsEmpty( SessionMapState.ProjectilesCarryingSpawns ) then
-		notifyExistingWaiters( "AllRequiredKillEnemiesDead" )
-		DebugPrint({ Text = "AllRequiredKillEnemiesDead" })
-	end
-	if egg.Encounter ~= nil and IsEmpty( egg.Encounter.ActiveSpawns ) then
-		notifyExistingWaiters( "AllEncounterEnemiesDead"..egg.Encounter.Name )
-	end
+	CheckAllRequiredKillEnemiesDead( egg.Encounter )
+
 end
 
 function ApplyEliteAttribute( enemy, attributeName )
@@ -545,6 +652,13 @@ function ApplyEliteAttribute( enemy, attributeName )
 
 	if attributeData.UnitPropertyChanges then
 		ApplyUnitPropertyChanges(enemy, attributeData.UnitPropertyChanges)
+	end
+
+	if attributeData.AddAdditionalAIFunctions ~= nil then
+		enemy.AdditionalAIFunctions = enemy.AdditionalAIFunctions or {}
+		for k, functionName in pairs(attributeData.AddAdditionalAIFunctions) do
+			table.insert(enemy.AdditionalAIFunctions, functionName)
+		end
 	end
 
 	if attributeData.AddDumbFireWeaponsOnSpawn ~= nil then
@@ -659,8 +773,11 @@ function EliteSpreadHitShields( triggerArgs )
 	if victim.Groups ~= nil and Contains(victim.Groups, "HeroTeam") then
 		return
 	end
+	if victim.MaxHitShields == nil then
+		return
+	end
 	local count = 1
-	victim.HitShields = victim.HitShields  or 0
+	victim.HitShields = victim.HitShields or 0
 	victim.HitShields = math.min(victim.HitShields + count, victim.MaxHitShields )
 	if not victim.HasHealthBar then
 		CreateHealthBar( victim )
@@ -691,56 +808,26 @@ function ErisCurseUpdate( trait, args )
 	CurrentRun.ErisCurseDamageMultiplierDisplay = (CurrentRun.ErisCurseDamageMultiplier - 1.0) * 100
 end
 
-function ErisCurseBackCompatSpawnDrops( source, args )
-	local spawnPointIds = ShallowCopyTable( args.SpawnPointIds )
-	for runIndex, run in ipairs( GameState.RunHistory ) do
-		for curseConversationName, curseConversation in pairs( VariantSetData.NPC_Eris_01.ErisCurseGiver.InteractTextLineSets ) do
-			if run.TextLinesRecord ~= nil and run.TextLinesRecord[curseConversationName] and not GameState.ErisCurseRewardTaken[runIndex] then
-				local spawnPointId = RemoveRandomValue( spawnPointIds ) or source.ObjectId
-				if runIndex <= 3 then	
-					local giveConsumablesArgs = ShallowCopyTable( args.OceanusRandomConsumables )
-					giveConsumablesArgs.DestinationId = spawnPointId
-					giveConsumablesArgs.AddUnthreadedOnUseEvent =
-					{
-						FunctionName = "ErisCurseRewardTaken",
-						Args = { RunNum = runIndex },
-					}
-					GiveRandomConsumables( giveConsumablesArgs )
-				elseif runIndex <= 7 then
-					local giveConsumablesArgs = ShallowCopyTable( args.FieldsRandomConsumables )
-					giveConsumablesArgs.DestinationId = spawnPointId
-					giveConsumablesArgs.AddUnthreadedOnUseEvent =
-					{
-						FunctionName = "ErisCurseRewardTaken",
-						Args = { RunNum = runIndex },
-					}
-					GiveRandomConsumables( giveConsumablesArgs )
-				else
-					local giveConsumablesArgs = ShallowCopyTable( args.TartarusGiveRandomConsumables )
-					giveConsumablesArgs.DestinationId = spawnPointId
-					giveConsumablesArgs.AddUnthreadedOnUseEvent =
-					{
-						FunctionName = "ErisCurseRewardTaken",
-						Args = { RunNum = runIndex },
-					}
-					GiveRandomConsumables( giveConsumablesArgs )
-				end
-			end
-		end
-	end
-end
-
 function ErisCurseRewardTaken( source, args )
 	GameState.ErisCurseRewardTaken[args.RunNum] = true
 end
 
 function CheckNewTraitManaReserveShrineUpgrade( newTrait, args )
+	if CurrentRun.ShrineUpgradesDisabled and CurrentRun.ShrineUpgradesDisabled.BoonManaReserveShrineUpgrade then
+		return
+	end
 	if newTrait == nil then
+		return
+	end
+	if not args.IsGodLoot then
 		return
 	end
 	local manaReservePerRarity = MetaUpgradeData.BoonManaReserveShrineUpgrade.ChangeValue
 	if manaReservePerRarity > 0 then
 		local getRarityRank = TraitRarityData.RarityValues[newTrait.Rarity] or 0
+		if newTrait.IsElementalTrait then
+			getRarityRank = 1
+		end
 		if getRarityRank >= 2 then
 			local manaReserveAmount = manaReservePerRarity * (getRarityRank - 1)
 			newTrait.ShrineManaReserve = manaReserveAmount
@@ -751,6 +838,9 @@ function CheckNewTraitManaReserveShrineUpgrade( newTrait, args )
 end
 
 function CheckPrevTraitsManaReserveShrineUpgrade( hero )
+	if CurrentRun.ShrineUpgradesDisabled and CurrentRun.ShrineUpgradesDisabled.BoonManaReserveShrineUpgrade then
+		return
+	end
 	local totalManaReserve = 0
 	for traitIndex, trait in ipairs( hero.Traits ) do
 		totalManaReserve = totalManaReserve + (trait.ShrineManaReserve or 0)
@@ -760,35 +850,62 @@ function CheckPrevTraitsManaReserveShrineUpgrade( hero )
 	end
 end
 
+function RemoveBoonManaReserve()
+	UnreserveMana("BoonManaReserveShrineUpgrade")
+	UpdateManaMeterUI()
+end
+
 function ShrineLogicResetAll( screen, button )
+	if GameState.SpentShrinePointsCache == 0 then
+		return
+	end
 	local components = screen.Components
 	for itemIndex = 1, screen.NumItems do
 		local button = components["ItemButton"..itemIndex]
 		if (GameState.ShrineUpgrades[button.Data.Name] or 0) >= 1 then
 			GameState.ShrineUpgrades[button.Data.Name] = 0
-			ShrineScreenRankDownPresentation( screen, button )
+			ShrineScreenRankDownPresentation( screen, button, { Silent = true } )
 			ShrineUpgradeExtractValues( button.Data.Name )
 		end
 	end
 	screen.AnyChangeMade = true
 	GameState.SpentShrinePointsCache = GetTotalSpentShrinePoints()
 	SetAlpha({ Id = components.ResetAllButton.Id, Fraction = 0.0, Duration = 0.2 })
+	ShrineScreenUpdateSkellyText( screen )
+	ShrineScreenResetPresentation( screen )
+end
+
+function ShrineScreenUpdateSkellyText( screen )
+	local components = screen.Components
+	if components.SkellyQuestSurface == nil or screen.NextSurfaceSkellyShrinePointGoal == nil then
+		return
+	end
+
+	if GameState.HighestShrinePointClearSurfaceCache < screen.NextSurfaceSkellyShrinePointGoal then
+		if GameState.SpentShrinePointsCache < screen.NextSurfaceSkellyShrinePointGoal then
+			ModifyTextBox({ Id = components.SkellyQuestSurface.Id, Text = "ShrineScreen_SkellyStatueSurface_Insufficient", FadeTarget = 1.0 })
+		else
+			ModifyTextBox({ Id = components.SkellyQuestSurface.Id, Text = "ShrineScreen_SkellyStatueSurface_Incomplete", FadeTarget = 1.0 })
+		end
+	end
+
+	if GameState.HighestShrinePointClearUnderworldCache < screen.NextUnderworldSkellyShrinePointGoal then
+		if GameState.SpentShrinePointsCache < screen.NextUnderworldSkellyShrinePointGoal then
+			ModifyTextBox({ Id = components.SkellyQuestUnderworld.Id, Text = "ShrineScreen_SkellyStatueUnderworld_Insufficient", FadeTarget = 1.0 })
+		else
+			ModifyTextBox({ Id = components.SkellyQuestUnderworld.Id, Text = "ShrineScreen_SkellyStatueUnderworld_Incomplete", FadeTarget = 1.0 })
+		end
+	end
 end
 
 function CheckBoonSkipShrineUpgrade( source, args )
 	local currentRoom = CurrentRun.CurrentRoom
-	local boonSkipRank = GetNumShrineUpgrades( "BoonSkipShrineUpgrade" )
-	local roomSetName = currentRoom.RoomSetName
-	if currentRoom.UsePreviousRoomSet then
-		local previousRoom = GetPreviousRoom( CurrentRun ) or currentRoom
-		roomSetName = previousRoom.RoomSetName
-	end
-	if boonSkipRank > (CurrentRun.BiomeBoonSkips[roomSetName] or 0) then
-		CurrentRun.BiomeBoonSkips[roomSetName] = (CurrentRun.BiomeBoonSkips[roomSetName] or 0) + 1
+	if GetNumShrineUpgrades( "BoonSkipShrineUpgrade" ) > CurrentRun.BiomeBoonSkipCount then
+		CurrentRun.BiomeBoonSkipCount = CurrentRun.BiomeBoonSkipCount + 1
 		local consumableId = SpawnObstacle({ Name = "RoomRewardConsolationPrize", DestinationId = args.LootPointId, Group = "Standing", OffsetX = args.LootOffset.X, OffsetY = args.LootOffset.Y })
 		local reward = CreateConsumableItem( consumableId, "RoomRewardConsolationPrize", 0, { IgnoreSounds = currentRoom.SuppressRewardSpawnSounds } )
 		MapState.RoomRequiredObjects[reward.ObjectId] = reward
-		thread( BoonSkipShrineUpgradePresentation, reward )
+		thread( BoonSkipShrineUpgradePresentation, reward, args )
 		return reward
 	end
 	return nil
@@ -796,4 +913,8 @@ end
 
 function DisableBiomeSpeedShrineUpgrade( source, args )
 	CurrentRun.ActiveBiomeTimer = false
+end
+
+function RemoveEnemyDamageShrineUpgrade( source, args )
+	RemoveIncomingDamageModifier( CurrentRun.Hero, "EnemyDamageShrineUpgrade" )
 end

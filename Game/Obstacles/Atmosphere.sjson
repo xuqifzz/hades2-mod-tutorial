@@ -36,6 +36,40 @@
     }
     
     {
+      Name = "AtmospherePillarofLight01"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        Ambient = 0.0
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Atmosphere\Atmosphere_PillarofLight_01"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "AtmospherePillarofLight01a"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        Ambient = 0.0
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Atmosphere\Atmosphere_PillarofLight_01a"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
       Name = "AtmosphereStageLight01"
       InheritFrom = "1_BaseDecalObstacle"
       DisplayInEditor = true
@@ -89,6 +123,23 @@
         Ambient = 0.0
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Atmosphere\Atmosphere_Stroke_ShortMulti_02"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "AtmosphereStrokeShortMulti02a"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        Ambient = 0.0
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Atmosphere\Atmosphere_Stroke_ShortMulti_02a"
         Points = [
           { X = -2 Y = 2 }
           { X = 2 Y = 2 }
@@ -284,6 +335,18 @@
     }
     
     {
+      Name = "AtmosphereDappledLight01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Atmosphere\Atmosphere_DappledLight_01"
+        Offset = { X = 0 Y = -155 }
+      }
+    }
+    
+    {
       Name = "AtmosphereShadowBrickWall01"
       InheritFrom = "1_BaseInvulnerableObstacle"
       DisplayInEditor = true
@@ -449,7 +512,6 @@
     {
       Name = "AtmosphereShadowCorner03"
       InheritFrom = "1_BaseInvulnerableObstacle"
-      AllowStoppingImpacts = false
       CollidesWithObstacles = false
       DisplayInEditor = true
       Thing = 
@@ -580,6 +642,34 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Atmosphere\Atmosphere_Shadow_Rectangle_04"
+        Grip = 999999.0
+        MeshType = "Vertical"
+        OcclusionInterpolateDuration = 0.5
+        OcclusionOpacity = 0.5
+        TouchdownSound = "/EmptyCue"
+        Offset = { X = 0 Y = 14 }
+        Points = [
+          { X = 656 Y = 463 }
+          { X = 902 Y = 340 }
+          { X = -682 Y = -452 }
+          { X = -936 Y = -326 }
+        ]
+      }
+    }
+    
+    {
+      Name = "AtmosphereShadowRectangle04a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Life = 
+      {
+        HitFx = "InvincibleHitSpark"
+        Invulnerable = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Atmosphere\Atmosphere_Shadow_Rectangle_04a"
         Grip = 999999.0
         MeshType = "Vertical"
         OcclusionInterpolateDuration = 0.5

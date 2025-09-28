@@ -7,7 +7,7 @@ OverwriteTableKeys( TraitData, {
 		Costume = "Models/Melinoe/Melinoe_ArachneArmorC",
 		WeaponSpeedMultiplier =
 		{
-			WeaponNames = { "WeaponTorch", "WeaponTorchSpecial", "WeaponLob", "WeaponLobSpecial", "WeaponAxeBlock2", "WeaponAxeSpin", "WeaponCastArm", "WeaponStaffBall", "WeaponStaffSwing5", "WeaponDaggerThrow", "WeaponDagger5" },
+			WeaponNames = WeaponSets.HeroAllWeaponsAndSprint,
 			Value = 
 			{
 				BaseValue = 0.60,
@@ -18,10 +18,11 @@ OverwriteTableKeys( TraitData, {
 		PropertyChanges = 
 		{
 			{
-				WeaponNames = { "WeaponLobSpecial", "WeaponCastArm", "WeaponStaffBall", "WeaponStaffSwing5", "WeaponDaggerThrow", "WeaponDagger5" },
+				WeaponNames = { "WeaponCastArm", "WeaponStaffSwing5", "WeaponDagger5", "WeaponAxeSpecialSwing" },
 				BaseValue = 0.6,
 				SourceIsMultiplier = true,
 				SpeedPropertyChanges = true,
+				ExcludeLinked = true,
 			}
 		},
 		SetupFunction =
@@ -54,11 +55,13 @@ OverwriteTableKeys( TraitData, {
 	CastDamageCostume = 
 	{
 		InheritFrom = { "CostumeTrait" },
-		Icon = "Boon_Arachne_04",
+		Icon = "Boon_Arachne_07",
 		Costume = "Models/Melinoe/Melinoe_ArachneArmorD",
 		AddOutgoingDamageModifiers = 
 		{
 			ValidWeapons = WeaponSets.HeroRangedWeapons,
+			ValidProjectiles = WeaponSets.CastProjectileNames,
+			WeaponOrProjectileRequirement = true,
 			ValidWeaponMultiplier = 2,
 			ReportValues = 
 			{ 
@@ -71,7 +74,7 @@ OverwriteTableKeys( TraitData, {
 			Args =
 			{
 				Source = "Robe",
-				BaseAmount = 10,
+				BaseAmount = 20,
 				Delay = 0.75,
 				ReportValues = 
 				{ 
@@ -157,6 +160,14 @@ OverwriteTableKeys( TraitData, {
 				}
 			},
 		},
+		CustomStatLinesWithShrineUpgrade = 
+		{
+			ShrineUpgradeName = "HealingReductionShrineUpgrade",
+			StatLines = 
+			{
+				"HealingReductionNotice",
+			},
+		},
 		ExtractValues =
 		{
 			{
@@ -166,6 +177,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "DoorHealFixed",
 				ExtractAs = "TooltipHeal",
+				Format = "FlatHeal",
 			},
 		}
 	},
@@ -219,7 +231,7 @@ OverwriteTableKeys( TraitData, {
 	IncomeCostume = 
 	{
 		InheritFrom = { "CostumeTrait" },
-		Icon = "Boon_Arachne_05",
+		Icon = "Boon_Arachne_08",
 		Costume = "Models/Melinoe/Melinoe_ArachneArmorE",
 		DoorCash = { BaseValue = 5 },
 		SetupFunction =
@@ -229,7 +241,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Source = "Robe",
 				Delay = 0.75,
-				BaseAmount = 20,
+				BaseAmount = 10,
 				ReportValues = 
 				{ 
 					ReportedArmor = "BaseAmount",
@@ -247,5 +259,106 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "TooltipCash",
 			},
 		}
+	},
+
+	SpellCostume =
+	{
+		InheritFrom = { "CostumeTrait" },
+		Icon = "Boon_Arachne_05",
+		Costume = "Models/Melinoe/Melinoe_ArachneArmorG",
+		SetupFunction =
+		{
+			Name = "CostumeArmor",
+			Args =
+			{
+				Source = "Robe",
+				Delay = 0.75,
+				BaseAmount = 55,
+				ReportValues = 
+				{ 
+					ReportedArmor = "BaseAmount",
+				}
+			},
+		},
+		ManaSpendCostModifiers =
+		{
+			Multiplier = 0.70,
+			ReportValues = 
+			{
+				ReportedMultiplier = "Multiplier"
+			}
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedArmor",
+				ExtractAs = "TooltipAmount",
+			},
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "Multiplier",
+				Format = "PercentDelta",
+			},
+		}
+	},
+	-- Legendary
+	EscalatingCostume = 
+	{
+		InheritFrom = { "CostumeTrait" },
+		Icon = "Boon_Arachne_04",
+		Costume = "Models/Melinoe/Melinoe_ArachneArmorH",
+		TrayStatLines = 
+		{
+			"EscalatingCostumeStatDisplay1",
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "ArachneGrantsReward01" },
+			},
+		},
+		SetupFunction =
+		{
+			Name = "CostumeArmor",
+			Args =
+			{
+				Source = "Robe",
+				Delay = 0.75,
+				BaseAmount = 5,
+				ReportValues = 
+				{ 
+					ReportedArmor = "BaseAmount",
+				}
+			},
+		},
+		AddOutgoingDamageModifiers =
+		{
+			UseTraitValue = "EscalatingCostumeValue",
+			IsMultiplier = true,
+		},
+		EscalatingCostumeValueGrowthPerRoom = 0.03,
+		EscalatingCostumeValue = 1.0,
+		ExtractValues =
+		{
+			{
+				Key = "ReportedArmor",
+				ExtractAs = "TooltipAmount",
+				SkipAutoExtract = true
+			},
+			{
+				Key = "EscalatingCostumeValueGrowthPerRoom",
+				ExtractAs = "IncreasePerRoom",
+				Format = "Percent",
+				DecimalPlaces = 1,
+				SkipAutoExtract = true
+			},
+			{
+				Key = "EscalatingCostumeValue",
+				ExtractAs = "CurrentBonus",
+				Format = "PercentDelta",
+				DecimalPlaces = 1,
+			},
+		},
+		FlavorText = "EscalatingCostume_FlavorText",
 	},
 })

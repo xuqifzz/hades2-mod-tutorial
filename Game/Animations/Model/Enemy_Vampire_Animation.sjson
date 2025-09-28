@@ -123,22 +123,25 @@
 	{
 		Name = "Enemy_Vampire_Teleport_Disappear"
 		InheritFrom = "EnemyVampireBaseAnimation"
-		GrannyAnimation = "Vampire_Base_BlinkOut_C_02"
-		HoldLastFrame = true
+		GrannyAnimation = "Vampire_Base_BlinkOut_C_03"
 		Sound = "/SFX/Enemy Sounds/Vampire/VampireDisappear"
+		VerticalMaskInModelSpace = true
+		HoldLastFrame = true
+		Enable3DShadow = false
 
 		Frames =
 		[
 			{
-				Frame = 23
-				VerticalMask = 1
+				Frame = 15
+				VerticalMask = 1.0
+				Sound = "/SFX/Enemy Sounds/Vampire/EmoteEvading"
 			}
 			{
-				Frame = 24
+				Frame = 29
 				VerticalMask = 0.0
 			}
 			{
-				Frame = 27
+				Frame = 40
 				VerticalMask = 0.0
 			}
 		]
@@ -174,8 +177,10 @@
 	{
 		Name = "Enemy_Vampire_Teleport_Appear"
 		InheritFrom = "EnemyVampireBaseAnimation"
-		GrannyAnimation = "Vampire_Base_BlinkIn_C_01"
+		GrannyAnimation = "Vampire_Base_BlinkIn_C_03"
 		Sound = "/SFX/Enemy Sounds/Vampire/VampireReappear"
+		VerticalMaskInModelSpace = true
+		//Enable3DShadow = false
 		ChainTo = "Enemy_Vampire_Idle"
 		
 		Frames =
@@ -185,12 +190,19 @@
 				VerticalMask = 0.0
 			}
 			{
-				Frame = 1
-				VerticalMask = 0.3
-				CreateAnimation = "TeleportDisappear"
+				Frame = 3
+				VerticalMask = 0.0
 			}
 			{
-				Frame = 23
+				Frame = 10
+				VerticalMask = 0.75
+			}
+			{
+				Frame = 15
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 48
 				VerticalMask = 1.0
 			}
 		]
@@ -203,6 +215,13 @@
 		GrannyAnimation = "Vampire_Base_SwipePreFire_C_03"
 		HoldLastFrame = true
 		Sound = "/SFX/Enemy Sounds/Vampire/VampireCharge"
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Vampire/EmoteCharging"
+			}
+		]
 		Blends = 
 		[
 			{
@@ -239,6 +258,10 @@
 		ChainTo = "Enemy_Vampire_Swipe_End"
 		Frames =
 		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Vampire/EmoteAttacking"
+			}
 			{
 				Frame = 13
 				Sound = "/SFX/Enemy Sounds/Vampire/VampireSwipe"
@@ -361,6 +384,7 @@
 		InheritFrom = "EnemyVampireBaseAnimation"
 		GrannyAnimation = "Vampire_Base_SwipeSingleFire_C_01"
 		ChainTo = "Enemy_Vampire_Sweep_End"
+		Sound = "/SFX/Enemy Sounds/TyphonBrute/BruteHandSwipe"
 		Frames =
 		[
 		]
@@ -379,6 +403,13 @@
 		GrannyAnimation = "Vampire_Base_SwipeComboPreFire_C_01"
 		HoldLastFrame = true
 		Sound = "/SFX/Enemy Sounds/Vampire/VampireCharge"
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Vampire/EmoteCharging"
+			}
+		]
 		Blends = 
 		[
 			{
@@ -412,6 +443,7 @@
 		InheritFrom = "EnemyVampireBaseAnimation"
 		GrannyAnimation = "Vampire_Base_SwipeComboFire_C_01"
 		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Vampire/VampireSwipe"
 		Frames =
 		[
 			{
@@ -429,6 +461,7 @@
 		InheritFrom = "EnemyVampireBaseAnimation"
 		GrannyAnimation = "Vampire_Base_SwipeComboFire_C_01"
 		ChainTo = "Enemy_Vampire_Combo_End"
+		Sound = "/SFX/Enemy Sounds/Vampire/VampireSwipe"
 		Frames =
 		[
 			{
@@ -454,7 +487,15 @@
 		InheritFrom = "EnemyVampireBaseAnimation"
 		GrannyAnimation = "Vampire_Base_SwipeUppercutPreFire_C_01"
 		HoldLastFrame = true
-		Sound = "/SFX/Enemy Sounds/Vampire/VampireCharge"
+		Sound = "/SFX/Enemy Sounds/CorruptedShadeLarge/Charge"
+		StopSoundOnFinishFade = 0.2
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Vampire/EmoteChargingRanged"
+			}
+		]
 		Blends = 
 		[
 			{
@@ -488,8 +529,13 @@
 		InheritFrom = "EnemyVampireBaseAnimation"
 		GrannyAnimation = "Vampire_Base_SwipeUppercutFire_C_01"
 		ChainTo = "Enemy_Vampire_Uppercut_End"
+		Sound = "/SFX/Enemy Sounds/TyphonBrute/BruteHeadSwipe"
 		Frames =
 		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Vampire/EmoteAttacking"
+			}
 		]
 	}
 	{

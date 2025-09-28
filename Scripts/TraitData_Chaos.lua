@@ -1,11 +1,11 @@
 ﻿
 TraitSetData.Chaos =
 {
-
 	ChaosCurse =
 	{
 		Icon = "Shop_Vial",
 		SpeakerNames = { "Chaos" },
+		DebugOnly = true,
 	},
 
 	ChaosCurseRemainingEncounters =
@@ -17,10 +17,12 @@ TraitSetData.Chaos =
 			AsInt = true,
 		},
 		UsesAsEncounters = true,
+		DebugOnly = true,
 	},
 
 	ChaosBlessing =
 	{
+		DebugOnly = true,
 		RarityLevels =
 		{
 			Common =
@@ -53,6 +55,7 @@ TraitSetData.Chaos =
 		{
 			NamedRequirements = { "ChaosLegacyTraitsAvailable" },
 		},
+		DebugOnly = true,
 	},
 	
 	ChaosWeaponBlessing =
@@ -105,6 +108,8 @@ TraitSetData.Chaos =
 		{
 			ValidWeaponMultiplier = { BaseMin = 1.2, BaseMax = 1.5, SourceIsMultiplier = true },
 			ValidWeapons = WeaponSets.HeroRangedWeapons,
+			ValidProjectiles = WeaponSets.CastProjectileNames,
+			WeaponOrProjectileRequirement = true,
 			ReportValues = { ReportedMultiplier = "ValidWeaponMultiplier"}
 		},
 		ExtractValues =
@@ -407,7 +412,7 @@ TraitSetData.Chaos =
 		PropertyChanges = 
 		{
 			{
-				WeaponNames = { "WeaponLobSpecial", "WeaponCastArm", "WeaponStaffBall", "WeaponStaffSwing5", "WeaponDaggerThrow", "WeaponDagger5" },
+				WeaponNames = { "WeaponLobSpecial", "WeaponCastArm", "WeaponStaffBall", "WeaponStaffSwing5", "WeaponDaggerThrow", "WeaponDagger5", "WeaponAxeSpecialSwing" },
 				BaseMin = 0.85,
 				BaseMax = 0.90,
 				SourceIsMultiplier = true,
@@ -416,7 +421,7 @@ TraitSetData.Chaos =
 		},
 		WeaponSpeedMultiplier =
 		{
-			WeaponNames = { "WeaponTorch", "WeaponTorchSpecial", "WeaponLob", "WeaponLobSpecial", "WeaponAxeBlock2", "WeaponAxeSpin", "WeaponCastArm", "WeaponStaffBall", "WeaponStaffSwing5", "WeaponDaggerThrow", "WeaponDagger5", "WeaponSprintEx" },
+			WeaponNames = WeaponSets.HeroAllWeaponsAndSprint,
 			Value = 
 			{
 				BaseMin = 0.85,
@@ -439,6 +444,12 @@ TraitSetData.Chaos =
 	ChaosElementalBlessing = 
 	{
 		InheritFrom = { "ChaosBlessing" },
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeElementalBoons", },
+			},
+		},
 		
 		RarityLevels =
 		{
@@ -591,7 +602,7 @@ TraitSetData.Chaos =
 		InheritFrom = { "ChaosBlessing" },
 		Icon = "Boon_Chaos_56",
 		CustomName = "ChaosDoorHealBlessing_Complete",
-		DoorHealFixed = { BaseMin = 3, BaseMax = 4, AsInt = true },
+		DoorHealIgnorePenaltyFixed = { BaseMin = 3, BaseMax = 4, AsInt = true },
 		RarityLevels =
 		{
 			Common =
@@ -614,14 +625,21 @@ TraitSetData.Chaos =
 		ExtractValues =
 		{
 			{
-				Key = "DoorHealFixed",
+				Key = "DoorHealIgnorePenaltyFixed",
 				ExtractAs = "TooltipHeal",
+				Format = "FlatHealBonusOnly",
 			},
 		}
 	},
 	ChaosHarvestBlessing =
 	{
 		InheritFrom = { "ChaosBlessing" },
+		GameStateRequirements =
+		{
+			{
+				PathFalse = { "CurrentRun", "ActiveBounty" },
+			},
+		},
 		Icon = "Boon_Chaos_57",
 		CustomName = "ChaosHarvestBlessing_Complete",
 		DoubleToolRewardChance = { BaseMin = 0.40, BaseMax = 0.50, MaximumValue = 1},
@@ -650,7 +668,7 @@ TraitSetData.Chaos =
 			{
 				Key = "DoubleToolRewardChance",
 				ExtractAs = "TooltipBonus",
-				Format = "Percent",
+				Format = "LuckModifiedPercent",
 			},
 		}
 	},
@@ -825,6 +843,12 @@ TraitSetData.Chaos =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters", "ChaosLegacyTrait" },
 		Icon = "Boon_Chaos_31",
+		GameStateRequirements =
+		{
+			{
+				PathFalse = { "CurrentRun", "Hero", "TraitDictionary", "TorchAutofireAspect" },
+			},
+		},
 		DamageOnFireWeapons =
 		{
 			WeaponNames = WeaponSets.HeroPrimaryWeapons,
@@ -852,6 +876,12 @@ TraitSetData.Chaos =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters", "ChaosLegacyTrait" },
 		Icon = "Boon_Chaos_32",
+		GameStateRequirements =
+		{
+			{
+				PathFalse = { "CurrentRun", "Hero", "TraitDictionary", "TorchAutofireAspect" },
+			},
+		},
 		DamageOnFireWeapons =
 		{
 			WeaponNames = WeaponSets.HeroSecondaryWeapons,
@@ -894,30 +924,7 @@ TraitSetData.Chaos =
 		PropertyChanges = 
 		{
 			{
-				WeaponNames = { "WeaponSprint" },
-				WeaponProperty = "SelfVelocity",
-				ChangeValue = 0.9,
-				ChangeType = "Multiply",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponNames = { "WeaponSprint" },
-				WeaponProperty = "SelfVelocityCap",
-				ChangeValue = 0.8,
-				ChangeType = "Multiply",
-				ExcludeLinked = true,
-			},
-			{
 				TraitName = "ApolloSprintBoon",
-				WeaponNames = { "WeaponSprint" },
-				WeaponProperty = "SelfVelocity",
-				ChangeValue = 0.9, 
-				ChangeType = "Multiply",
-				ExcludeLinked = true,
-			},
-			{
-				TraitName = "ApolloSprintBoon",
-	
 				WeaponNames = { "WeaponSprint" },
 				WeaponProperty = "SelfVelocityCap",
 				ChangeValue = 0.9,
@@ -930,7 +937,24 @@ TraitSetData.Chaos =
 				BaseMin = 0.40,
 				BaseMax = 0.60,
 				SourceIsMultiplier = true,
+				DeriveSource = "DeriveSource",
 				ReportValues = { ReportedBaseSpeed = "ChangeValue" },
+			},
+			{
+				WeaponNames = { "WeaponSprint" },
+				WeaponProperty = "SelfVelocity",
+				ChangeType = "Multiply",
+				ExcludeLinked = true,
+				DeriveValueFrom = "DeriveSource",
+				DeriveValueFromMultiplier = 0.25,
+			},
+			{
+				WeaponNames = { "WeaponSprint" },
+				WeaponProperty = "SelfVelocityCap",
+				ChangeType = "Multiply",
+				ExcludeLinked = true,
+				DeriveValueFrom = "DeriveSource",
+				DeriveValueFromMultiplier = 0.5,
 			},
 		},
 		
@@ -948,19 +972,23 @@ TraitSetData.Chaos =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters" },
 		Icon = "Boon_Chaos_35",
-		DamageOnFireWeapons =
+		OnWeaponFiredFunctions =
 		{
 			WeaponNames = WeaponSets.HeroAllWeapons,
-			IsEx = true,
-			Damage =
+			FunctionName = "ChaosCurseDamage",
+			FunctionArgs =
 			{
-				BaseMin = 5,
-				BaseMax = 8,
-				AsInt = true,
-			},
-			ReportValues = 
-			{
-				ReportedDamage = "Damage"
+				IsEx = true,
+				Damage =
+				{
+					BaseMin = 5,
+					BaseMax = 8,
+					AsInt = true,
+				},
+				ReportValues = 
+				{
+					ReportedDamage = "Damage"
+				},
 			},
 		},
 		ExtractValues =
@@ -991,19 +1019,24 @@ TraitSetData.Chaos =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters" },
 		Icon = "Boon_Chaos_37",
-		DamageOnFireWeapons =
+		OnWeaponFiredFunctions =
 		{
-			WeaponNames = WeaponSets.HeroRangedWeapons,
+			ValidWeapons = {"WeaponCast"},
 			ExcludeLinked = true,
-			Damage =
+			FunctionName = "ChaosCurseDamage",
+			FunctionArgs =
 			{
-				BaseMin = 3,
-				BaseMax = 6,
-				AsInt = true,
-			},
-			ReportValues = 
-			{
-				ReportedDamage = "Damage"
+
+				Damage =
+				{
+					BaseMin = 3,
+					BaseMax = 6,
+					AsInt = true,
+				},
+				ReportValues = 
+				{
+					ReportedDamage = "Damage"
+				},
 			},
 		},
 		ExtractValues =
@@ -1025,7 +1058,7 @@ TraitSetData.Chaos =
 			FunctionName = "ChaosManaDrain",
 			FunctionArgs =
 			{
-				Cost = { BaseMin = 3, BaseMax = 6, AsInt = true},
+				Cost = { BaseMin = 10, BaseMax = 20, AsInt = true},
 				ReportValues = 
 				{
 					ReportedDrain = "Cost"
@@ -1045,6 +1078,11 @@ TraitSetData.Chaos =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters" },
 		Icon = "Boon_Chaos_39",
+		
+		OnExpire = 
+		{
+			RemoveReservedMana = "ManaFocusCurse",
+		}
 	},
 
 	ChaosRestrictBoonCurse = 
@@ -1134,14 +1172,14 @@ TraitSetData.Chaos =
 		AcquireFunctionName = "RemoveArcana",
 		RemainingUses =
 		{
-			BaseMin = 7,
-			BaseMax = 11,
+			BaseMin = 3,
+			BaseMax = 6,
 			AsInt = true,
 		},
 		OnExpire = 
 		{
 			AddMetaUpgrades = true
-		}
+		},
 	}
 }
 

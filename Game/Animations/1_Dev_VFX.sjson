@@ -10,6 +10,14 @@
 		OwnerHasNoCollision = true
 		OwnerImmobile = true
 	}
+	{
+		Name = "BlankVulnerable"
+		FilePath = "Dev\blank_invisible"
+		OwnerInvulnerable = false
+		OwnerUntargetable = false
+		OwnerHasNoCollision = false
+		OwnerImmobile = true
+	}
 
 	{
 		Name = "Blank3D"
@@ -412,47 +420,6 @@
 	}
 	
 	{
-		Name = "N_Block_Long"
-		
-		Random =
-		[
-			{ Name = "N_Block_LongA" }
-			{ Name = "N_Block_LongB" }
-			{ Name = "N_Block_LongC" }
-		]
-	}
-	
-	{
-		Name = "N_Block_LongA"
-		FilePath = "Tilesets\Tartarus\Tartarus_WallBrick_05"
-		
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		Scale = 0.0665
-	}
-	
-	{
-		Name = "N_Block_LongB"
-		FilePath = "Tilesets\Tartarus\Tartarus_WallBrick_05a"
-		
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		Scale = 0.0665
-	}
-	
-	{
-		Name = "N_Block_LongC"
-		FilePath = "Tilesets\Tartarus\Tartarus_WallBrick_05b"
-		
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		Scale = 0.0665
-	}
-	
-	{
 		Name = "F_Block_Long"
 		FilePath = "Tilesets\Graybox\F_Block_Long"
 		
@@ -663,31 +630,29 @@
 	}
 	{
 		Name = "ErebusRiverGhost_Reveal"
-		FilePath = "Fx\ErebusRiverGhost\ErebusRiverGhost"
+		FilePath = "Fx\ErebusRiverGhostIn\ErebusRiverGhostIn"
+		NumFrames = 45
+		PlaySpeed = 30
 		ChainTo = "ErebusRiverGhost_Idle"
-		StartFrame = 1
-		EndFrame = 25
-		StartAlpha = 0.0
-		EndAlpha = 1.0
 		Material = "Unlit"
+		Alpha = 1
 	}
 	{
 		Name = "ErebusRiverGhost_Idle"
-		FilePath = "Fx\ErebusRiverGhost\ErebusRiverGhost"
-		StartFrame = 25
-		EndFrame = 95
+		FilePath = "Fx\ErebusRiverGhostLoop\ErebusRiverGhostLoop"
+		NumFrames = 45
+		PlaySpeed = 30
 		Loop = true
 		Material = "Unlit"
+		Alpha = 1
 	}
 	{
 		Name = "ErebusRiverGhost_Hide"
-		FilePath = "Fx\ErebusRiverGhost\ErebusRiverGhost"
+		FilePath = "Fx\ErebusRiverGhostOut\ErebusRiverGhostOut"
 		ChainTo = "ErebusRiverGhost_Hidden"
-		StartFrame = 95
-		EndFrame = 120
-		StartAlpha = 1.0
-		EndAlpha = 0.0
+		NumFrames = 30
 		Material = "Unlit"
+		Alpha = 1
 	}
 
 	{

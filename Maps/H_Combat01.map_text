@@ -184,6 +184,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Standing_Background01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Standing_Impassable",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -296,6 +309,7 @@
         "FX_Standing_01",
         "Standing",
         "Standing_Impassable",
+        "Standing_Background01",
         "Terrain_Lighting_01",
         "Terrain_Gameplay",
         "Terrain_Decor_05",
@@ -548,5 +562,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

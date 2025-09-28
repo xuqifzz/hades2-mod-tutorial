@@ -127,7 +127,11 @@
 		GrannyAnimation = "Skelly_Base_Greeting_C_00"
 		ChainTo = "Skelly_Idle"
 		Blends = 
-		[	
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Skelly_Idle"
 				Duration = 4
@@ -141,7 +145,11 @@
 		GrannyAnimation = "Skelly_Base_Babbling_C_00"
 		ChainTo = "Skelly_Idle"
 		Blends = 
-		[	
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Skelly_Idle"
 				Duration = 4
@@ -156,6 +164,10 @@
 		ChainTo = "Skelly_Idle"
 		Blends = 
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Skelly_Idle"
 				Duration = 4
@@ -177,6 +189,10 @@
 		]
 		Blends = 
 		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Skelly_Idle"
 				Duration = 4

@@ -8,7 +8,7 @@ WeaponSetData =
 
 			ProjectileName = "CrawlerRush",
 
-			FireSelfVelocity = 3250,
+			FireSelfVelocity = 2600,
 			FireProjectileStartDelay = 0.03,
 
 			PreAttackSound = "/SFX/Enemy Sounds/RatThug/EmoteCharging",
@@ -16,13 +16,14 @@ WeaponSetData =
 			FireAnimation = "Enemy_SatyrRat_RushFire",
 			PostAttackAnimation = "Enemy_SatyrRat_RushPostFire",
 
-			PreAttackDuration = 0.1,
+			PreAttackDuration = 0.7,
+			PreAttackEndShake = true,
 			FireDuration = 0.3,
 			PostAttackDuration = 0.0,
 
 			WaitForAngleTowardTarget = false,
 
-			AttackDistance = 525,
+			AttackDistance = 300,
 			RetreatBufferDistance = 650,
 			RetreatAfterAttack = true,
 
@@ -42,27 +43,66 @@ WeaponSetData =
 
 	CrawlerRush_Miniboss =
 	{
-		InheritFrom = { "CrawlerRush" },
+		Requirements =
+		{
+			MaxConsecutiveUses = 2,
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
 
+			ProjectileName = "CrawlerMinibossRush",
+
+			FireSelfVelocity = 3250,
+			FireProjectileStartDelay = 0.03,
+
+			LoSBuffer = 25,
+			LoSEndBuffer = 32,
+			RequireUnitLoS = true,
+
+			AttackDistance = 750,
 			WaitForAngleTowardTarget = true,
 			WaitForAngleTowardTargetTimeOut = 0.8,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.08,
 			StopBeforeFire = true,
 
-			PreAttackDuration = 1.5,
+			PreAttackDuration = 0.675,
 			PreAttackEndShake = true,
-			PreAttackAnimationSpeed = 0.75,
-			FireDuration = 1.0,
-			PostAttackDuration = 0.5,
+			FireDuration = 0.27,
+			PostAttackDuration = 0.4,
 
+			RetreatAfterAttack = true,
+			RetreatBufferDistance = 450,
+			RetreatTimeout = 1.0,
+
+			PreAttackSound = "/SFX/Enemy Sounds/RatThug/EmoteCharging",
 			PreAttackAnimation = "Enemy_Crawler_RushAntic",
 			FireAnimation = "Enemy_Crawler_RushFire",
 			PostAttackAnimation = "Enemy_Crawler_RushToIdle",
-			ProjectileName = "CrawlerMinibossRush",
+		},
+	},
+
+	CrawlerRush_Shadow =
+	{
+		InheritFrom = { "CrawlerRush_Miniboss" },
+		Requirements =
+		{
+
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			AttackDistance = 400,
+			FireSelfVelocity = 2000,
+			ProjectileName = "CrawlerShadowRush",
+
+			PreAttackAnimation = "Enemy_CrawlerShadow_RushAntic",
+			FireAnimation = "Enemy_CrawlerShadow_RushFire",
+			PostAttackAnimation = "Enemy_CrawlerShadow_RushToIdle",
 		},
 	},
 
@@ -71,7 +111,7 @@ WeaponSetData =
 		AIData =
 		{
 			PreAttackDuration = 0.5,
-			FireDuration = 2.5,
+			FireDuration = 1.0,
 			PostAttackDuration = 0.5,
 			AttackDistance = 9999,
 
@@ -89,10 +129,10 @@ WeaponSetData =
 			SpawnBurstOnFire = true,
 			SpawnOnSpawnPoints = true,
 			SpawnsPerBurstMin = 5,
-			SpawnsPerBurstMax = 7,
+			SpawnsPerBurstMax = 5,
 			SpawnRadiusMin = 250,
 			SpawnRadiusMax = 9999,
-			SpawnRate = 0.85,
+			SpawnRate = 0.55,
 			MaxActiveSpawns = 15,
 			
 			SpawnerOptions =
@@ -125,6 +165,10 @@ WeaponSetData =
 
 	CrawlerMinibossSlam =
 	{
+		Requirements =
+		{
+			MaxConsecutiveUses = 2,
+		},
 		AIData =
 		{
 			DeepInheritance = true,
@@ -133,15 +177,39 @@ WeaponSetData =
 			FireProjectileStartDelay = 0.15,
 			FireProjectileAtSelf = true,
 
-			AttackDistance = 200,
+			LoSBuffer = 25,
+			RequireUnitLoS = true,
+
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
+			AttackDistance = 500,
 			AttackDistanceScaleY = 0.85,
 			MoveWithinRange = true,
 			PreAttackStop = true,
 
-			PreAttackDuration = 0.9,
-			PreAttackAnimationSpeed = 0.5,
+			ChargeSelfVelocity = 700,
+			ApplyEffectsOnWeaponFire =
+			{
+				{
+					EffectName = "AttackLowGrip",
+					DataProperties = 
+					{
+						Type = "GRIP",
+						Duration = 0.6,
+						Modifier = 0.1,
+						HaltOnEnd = true,
+					}
+				}
+			},
+
+			PreAttackDuration = 0.4,
+			PreFireDuration = 0.5,
 			FireDuration = 0.5,
 			PostAttackDuration = 0.5,
+
+			RetreatAfterAttack = true,
+			RetreatBufferDistance = 450,
+			RetreatTimeout = 1.0,
 
 			PreAttackSound = "/SFX/Enemy Sounds/FogEmitter/EmoteCharging",
 			PreAttackAnimation = "Enemy_Crawler_GroundPoundAntic",
@@ -157,13 +225,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/RatThug/EmoteCharging" },
 				{ Name = "/SFX/Enemy Sounds/Crawler/EmoteAlerted" }
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.04, Fraction = 0.05, LerpTime = 0.0 },
-			{ ScreenPreWait = 0.09, Fraction = 1.00, LerpTime = 0.04 },
 		},
 	},
 
@@ -194,7 +255,7 @@ WeaponSetData =
 			TeleportPreWaitAnimation = "Enemy_SatyrRat_Burrow",
 			TeleportAnimation = "Enemy_SatyrRat_Unburrow",
 
-			TeleportToSpawnPoints = true,
+			PreMoveTeleport = true,
 			TeleportMaxDistance = 900,
 			TeleportationInterval = 0,
 			TeleportPreWaitFx = "BurrowHoleIn",
@@ -203,13 +264,6 @@ WeaponSetData =
 			PostTeleportWait = 0.5,
 			StopBeforeTeleport = true,
 			TeleportToSpawnPointType = "EnemyPoint",
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.17, Fraction = 1.00, LerpTime = 0 },
 		},
 	},
 

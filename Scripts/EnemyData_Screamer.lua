@@ -37,7 +37,6 @@ UnitSetData.Screamer =
 			RetreatAfterAttack = true,
 			RetreatToSpawnPoints = true,
 			RetreatBufferDistance = 700,
-			RetreatAfterAttack = true,
 			RetreatDurationMin = 1.5,
 			RetreatDurationMax = 1.75,
 			--RetreatAfterAttackEndWait = 0.3,
@@ -58,7 +57,7 @@ UnitSetData.Screamer =
 		OnDamagedFunctionName = "SurroundAIRetaliate",
 		EndAIThreadWaitOnFreezeEnd = true,
 
-		BlockAttributes = { "Tracking" },
+		BlockAttributes = { "Tracking", },
 
 		WeaponOptions =
 		{
@@ -134,7 +133,7 @@ UnitSetData.Screamer =
 		HealthBuffer = 1250,
 
 		HealthBarType = "Medium",
-		HealthBarOffsetY = -235,
+		HealthBarOffsetY = -265,
 
 		ActivateAnimation = "Enemy_Screamer_Spawn_Quick",
 		ActivateFx = "EnemyPreSpawnTerrainQuick",
@@ -177,6 +176,23 @@ UnitSetData.Screamer =
 		GeneratorData =
 		{
 			DifficultyRating = 405,
+		},
+	},
+
+	Screamer2_SuperElite =
+	{
+		InheritFrom = { "SuperElite", "Screamer2" },
+		GenusName = "Screamer",
+
+		MaxHealth = 1000,
+		HealthBuffer = 5000,
+
+		StartAggroed = true,
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+			MaxAttackers = 4,
 		},
 	},
 

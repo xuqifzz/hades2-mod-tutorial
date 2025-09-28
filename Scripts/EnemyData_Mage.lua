@@ -61,6 +61,8 @@
 			"MageRanged",
 		},
 
+		BlockAttributes = { "ExtraDamage", },
+
 		GeneratorData =
 		{
 			DifficultyRating = 12,
@@ -82,6 +84,7 @@
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/Melinoe_1443", Text = "Caskets." },
@@ -132,8 +135,8 @@
 
 		ActivateAnimation = "Enemy_Mage_Idle",
 		ActivateFx = "WaterUnitSurfaceLargeWithSound",
-		ActivateFxPreSpawn = "Blank",
-		ActivateFx2 = "Blank",
+		ActivateFxPreSpawn = "nil",
+		ActivateFx2 = "nil",
 		ActivateFadeIn = false,
 		ActivateTint = false,
 		ActivateDuration = 0.4,
@@ -176,6 +179,7 @@
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_2183", Text = "Blaskets." },

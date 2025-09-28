@@ -301,6 +301,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Terrain_Shadow_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Terrain_Gameplay",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -469,6 +482,7 @@
         "Standing",
         "Terrain_Lighting",
         "Terrain_Gameplay",
+        "Terrain_Shadow_01",
         "Terrain_Decor_01",
         "Terrain_Lightercolor_01",
         "Terrain_Decor_06",
@@ -518,7 +532,46 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "TrueEndingDeactivated",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapLogic",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "TrueEndingActivated",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapLogic",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "AmbienceGenerators",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapLogic",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "Cerberus",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -643,7 +696,10 @@
         "Breakables",
         "GhostPatrols",
         "Scripting",
-        "AmbienceGenerators"
+        "Cerberus",
+        "AmbienceGenerators",
+        "TrueEndingActivated",
+        "TrueEndingDeactivated"
       ],
       "Id": "MapLogic",
       "NumSelectedAsDraw": 0,
@@ -673,5 +729,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

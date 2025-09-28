@@ -5,7 +5,6 @@ function UseMailboxObject( usee, args )
 	StopStatusAnimation( usee )
 	local screen = OpenMailboxScreen( nil, usee )
 	UseableOn({ Id = usee.ObjectId })
-	MailboxSessionCompletePresentation( usee, screen )
 end
 
 function GenerateMailboxItems( args )
@@ -70,27 +69,6 @@ function OpenMailboxScreen( args, openedFrom )
 	for categoryIndex, category in ipairs( screen.ItemCategories ) do
 		if category.GameStateRequirements == nil or IsGameStateEligible( category, category.GameStateRequirements ) then
 			local slotName = category.Name
-			--[[
-			screen.Components["Category"..slotName] = CreateScreenComponent({ Name = "ResourceShopTab", X = categoryTitleX, Y = screen.CategoryStartY, Scale = 1.0, Group = "Combat_Menu_Overlay" })
-			screen.Components["Category"..slotName].OnPressedFunctionName = "MailboxScreenSelectCategory"
-			screen.Components["Category"..slotName].Category = slotName
-			screen.Components["Category"..slotName].CategoryIndex = categoryIndex
-			CreateTextBox({ Id = screen.Components["Category"..slotName].Id,
-				Text = slotName,
-				FontSize = 22,
-				Color = Color.CodexTitleUnselected,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
-				Justification = "Center"
-			})
-			if categoryIndex ~= screen.ActiveCategoryIndex and not GameState.ItemsViewed[category.Name] then
-				-- New icon
-				local newButtonKey = "NewIcon"..slotName
-				components[newButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_Overlay" })
-				SetAnimation({ DestinationId = components[newButtonKey].Id , Name = "NewTabStar" })
-				Attach({ Id = components[newButtonKey].Id, DestinationId = screen.Components["Category"..slotName].Id, OffsetX = -85, OffsetY = 0 })
-			end
-			]]
 			screen.NumCategories = screen.NumCategories + 1
 		else
 			category.Locked = true
@@ -118,26 +96,11 @@ function MailboxScreenDisplayCategory( screen, categoryIndex )
 	local components = screen.Components
 
 	local slotName = screen.ItemCategories[categoryIndex].Name
-	--ModifyTextBox({ Id = components["Category"..slotName].Id, Color = Color.White })
-
-	-- Cleanup prev category
-	--[[
-	local prevCategory = screen.ItemCategories[screen.ActiveCategoryIndex]
-	for i, resourceName in ipairs( prevCategory ) do
-		if components[resourceName] ~= nil then
-			Destroy({ Id = components[resourceName].Id })
-		end
-	end
-	ModifyTextBox({ Id = screen.Components["Category"..prevCategory.Name].Id, Color = Color.CodexTitleUnselected })
-	]]
 
 	local category = screen.ItemCategories[categoryIndex]
 	local slotName = category.Name
 
 	GameState.ItemsViewed[category.Name] = true
-
-	-- Highlight new category
-	--ModifyTextBox({ Id = components["Category"..slotName].Id, Color = Color.White })
 
 	screen.ActiveCategoryIndex = categoryIndex
 
@@ -161,22 +124,6 @@ function MailboxScreenDisplayCategory( screen, categoryIndex )
 			local costDisplay = item.Cost
 			local costText = "ResourceCost"
 			local unaffordableColor = nil
-			-- ModifyTextBox({ Id = screen.Components.OperationHeader.Id, Text = "MarketScreen_BuyingHeader" })
-			--[[
-			if category.FlipSides then
-				for resourceName, resourceAmount in pairs( item.Cost ) do
-					buyResourceData = ResourceData[resourceName]
-					item.LeftDisplayName = resourceName
-					item.LeftDisplayAmount = resourceAmount
-					costDisplay = {}
-					costDisplay[item.BuyName] = item.BuyAmount
-					costText = "ResourceCostSelling"
-					unaffordableColor = Color.White
-					--ModifyTextBox({ Id = screen.Components.OperationHeader.Id, Text = "MarketScreen_SellingHeader" })
-					break
-				end
-			end
-			]]
 
 			local costColor = Color.CostAffordableShop
 			item.Showing = true
@@ -192,11 +139,19 @@ function MailboxScreenDisplayCategory( screen, categoryIndex )
 				screen.NumItems = screen.NumItems + 1
 
 				local purchaseButtonKey = "PurchaseButton"..screen.NumItems
-				local button = CreateScreenComponent({ Name = "BlankInteractableObstacle", Group = "Combat_Menu_Overlay", X = itemLocationX, Y = itemLocationY, Animation = screen.ItemAnimation })
+				local button = CreateScreenComponent({ Name = "BlankInteractableObstacle", Group = "Combat_Menu_Overlay",
+					X = itemLocationX,
+					Y = itemLocationY,
+					Animation = screen.ItemAnimation,
+					Alpha = 0.0,
+					AlphaTarget = 1.0,
+					AlphaTargetDuration = 0.3,
+				})
 				components[purchaseButtonKey] = button
 				SetInteractProperty({ DestinationId = components[purchaseButtonKey].Id, Property = "TooltipOffsetX", Value = 665 })
 				AttachLua({ Id = button.Id, Table = button })
 				button.Screen = screen
+				button.WorldUpgradeName = "Mailbox_"..item.BuyName
 
 				local purchaseButtonTitleKey = "PurchaseButtonTitle"..screen.NumItems
 				components[purchaseButtonTitleKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_Overlay", X = itemLocationX, Y = itemLocationY })
@@ -248,6 +203,18 @@ function MailboxScreenDisplayCategory( screen, categoryIndex )
 				itemAmountFormat.LuaValue = { InventoryAmount = GameState.Resources[buyResourceData.Name] or 0 }
 				CreateTextBox( itemAmountFormat )
 
+				if not GameState.WorldUpgradesViewed[button.WorldUpgradeName] then
+					local newIconKey = "NewIcon"..screen.NumItems
+					components[newIconKey] = CreateScreenComponent({
+						Name = "BlankObstacle",
+						Group = screen.ComponentData.DefaultGroup,
+						Animation = "MusicPlayerNewTrack",
+						Alpha = 0.0,
+					})
+					Attach({ Id = components[newIconKey].Id, DestinationId = button.Id, OffsetX = 235, OffsetY = 0 })
+					button.NewIconId = components[newIconKey].Id
+				end
+
 				local amountNeededByPins = GetResourceAmountNeededByPins( item.BuyName )
 				if amountNeededByPins > 0 then
 					local pinButtonKey = "PinIcon"..screen.NumItems
@@ -263,10 +230,6 @@ function MailboxScreenDisplayCategory( screen, categoryIndex )
 					components[purchaseButtonTitleKey].PinTooltip = pinTooltip
 					-- Silent toolip
 					CreateTextBox({ Id = components[purchaseButtonKey].Id, TextSymbolScale = 0, Text = pinTooltip, Color = Color.Transparent })
-				end
-
-				if not item.Priority then
-					CreateTextBox({ Id = components[purchaseButtonKey].Id, Text = "Market_LimitedTimeOffer", OffsetX = 250, OffsetY = 0, FontSize = 28, Color = costColor, Font = "P22UndergroundSCMedium", Justification = "Left", TextSymbolScale = textSymbolScale })
 				end
 
 				-- Right Column
@@ -310,7 +273,6 @@ function HandleMailboxPurchase( screen, button )
 		return
 	end
 
-	screen.NumSales = screen.NumSales + 1
 	GameState.MailboxSales = (GameState.MailboxSales or 0) + 1
 
 	local category = screen.ItemCategories[screen.ActiveCategoryIndex]
@@ -325,14 +287,14 @@ function HandleMailboxPurchase( screen, button )
 		screen.Components["CurrentAmount"..button.Index],
 	})
 
-	MailboxPurchaseSuccessPresentation( screen, item )
+	MailboxPurchaseSuccessPresentation( screen, button, item )
 	item.SoldOut = true
 	UseableOff({ Ids = buttonIds })
 	SetAlpha({ Ids = buttonIds, Fraction = 0, Duration = 0.2 })
 	ModifyTextBox({ Ids = buttonIds, FadeTarget = 0 })
 	UpdateMailboxScreenInteractionText( screen )
 	
-	local resourceArgs = { ApplyMultiplier = false, OffsetX = 600 }
+	local resourceArgs = { ApplyMultiplier = false, OffsetX = 600, TextOffsetY = 11, Delay = 1.0, }
 	SpendResources( item.Cost, "ResourceShop", resourceArgs )
 	ModifyTextBox({ Id = screen.Components.BasicResourceButton.Id, Text = GameState.Resources[screen.Components.BasicResourceButton.ResourceName] or 0, })
 
@@ -353,9 +315,8 @@ function HandleMailboxPurchase( screen, button )
 	MailboxScreenUpdateResourceStatus( screen, button )
 	UpdateAffordabilityStatus()
 
-	MailboxScreenPurchaseFinishPresentation( screen, button, item )
-	CloseMailboxScreen( screen, button )
 	SetupMailboxStatus( screen.OpenedFrom )
+	CloseMailboxScreen( screen, button )
 
 end
 
@@ -395,27 +356,14 @@ function MailboxScreenUpdateResourceStatus( screen, button )
 	end
 end
 
-function MailboxScreenSelectCategory( screen, button )
-	WeaponShopScreenSelectCategoryPresentation( screen, button )
-	WeaponShopScreenHideItems( screen )
-	wait( 0.1 )
-	screen.ScrollOffset = 0
-	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY })
-	MailboxScreenDisplayCategory( screen, button.CategoryIndex )
-	WeaponShopUpdateVisibility( screen )
-end
-
 function UpdateMailboxScreenInteractionText( screen, button )
-
 	local components = screen.Components
-
 	local category = screen.ItemCategories[screen.ActiveCategoryIndex]
-	if button ~= nil and button.Data ~= nil and button.Data.Cost ~= nil and HasResources( button.Data.Cost ) then
+	if button ~= nil and button.Data ~= nil then
 		SetAlpha({ Id = components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
 	else
 		SetAlpha({ Id = components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
 	end
-
 end
 
 function SetupCharonPoints( sourceName )
@@ -477,15 +425,13 @@ function SetupMailboxStatus( source, args )
 		return
 	end
 	args = args or {}
-	UseableOff({ Id = source.ObjectId })
 	local mailboxStatus = GameState.MailboxStatus[source.ObjectId]
 	if mailboxStatus == nil then
 		local defaultData = HubRoomData.Hub_Main.ObstacleData[source.ObjectId]
 		source.UseText = defaultData.UseText
 		source.OnUsedFunctionName = defaultData.OnUsedFunctionName
-		DestroyTextBox({ Id = source.ObjectId })
-		SessionMapState.MailboxTextBoxCreated = nil
-		UseableOn({ Id = source.ObjectId })
+		Destroy({ Id = SessionMapState.MailboxTimerId })
+		SessionMapState.MailboxTimerId = nil
 		return
 	end
 	if mailboxStatus.TimeRemaining >= 1 then
@@ -496,7 +442,6 @@ function SetupMailboxStatus( source, args )
 		source.OnUsedFunctionName = "UseMailboxDeliveryReady"
 	end
 	SetupMailboxDeliveryPendingPresentation( source, args )
-	UseableOn({ Id = source.ObjectId })
 end
 
 function UseMailboxDeliveryReady( source, args )
@@ -510,4 +455,46 @@ function UseMailboxDeliveryReady( source, args )
 	SetupMailboxStatus( source, args )
 	wait(0.1)
 	RemoveInputBlock({ Name = "UseMailboxDeliveryReady" })
+end
+
+function ShouldShowMailboxWantsToTalkIndicator( source, args )
+	if not IsEmpty( GameState.MailboxStatus ) then
+		return false
+	end
+
+	if CurrentRun.UseRecord.Mailbox then
+		return false
+	end
+
+	-- Always notify until you purchase something
+	if (GameState.MailboxSales or 0) <= 0 and GameState.Resources.CharonPoints >= 1 then
+		return true
+	end
+
+	local lastEligibleItem = nil
+	for i, item in ipairs( ScreenData.MailboxScreen.ItemCategories[1] ) do
+		if item.GameStateRequirements == nil or IsGameStateEligible( item, item.GameStateRequirements ) then
+			lastEligibleItem = item
+			-- Check for unviewed items
+			if not GameState.WorldUpgradesViewed["Mailbox_"..item.BuyName] then
+				return true
+			end
+		end
+	end
+
+	if lastEligibleItem ~= nil and HasResources( lastEligibleItem.Cost ) then
+		return true
+	end
+
+	return false
+end
+
+function IsMailboxItemInStock( source, args )
+	DebugAssert({ Condition = CurrentRun.MailboxItems ~= nil, Text = "Checking Mailbox stock before it has been initialized!", Owner = "Caleb" })
+	for i, itemData in ipairs( CurrentRun.MailboxItems[1] ) do
+		if itemData.BuyName == args.Name then
+			return true
+		end
+	end
+	return false
 end

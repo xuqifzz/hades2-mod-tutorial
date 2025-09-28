@@ -5,6 +5,10 @@
       FilePath = "ColorGrading\Alert"
     }
     {
+      Name = "CrossroadsFlashback"
+      FilePath = "ColorGrading\CrossroadsFlashback"
+    }
+    {
       Name = "Test"
       FilePath = "ColorGrading\Test"
     }
@@ -301,6 +305,11 @@
     {
       Name = "ChronosSand"
       FilePath = "ColorGrading\ChronosSand"
+    }
+
+    {
+      Name = "Artemis"
+      FilePath = "ColorGrading\Artemis"
     }
 
     /*Room Specific*/

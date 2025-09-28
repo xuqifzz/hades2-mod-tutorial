@@ -112,7 +112,7 @@
 		PlaySpeed = 60.0
 		StartFrame = 1
 		RandomFlipHorizontal = true
-		Scale = 0.75
+		Scale = 0.9
 		Ambient = 0.0
 		VisualFxDistanceMax = 61.0
 		VisualFxDistanceMin = 60.0
@@ -452,6 +452,150 @@
 	{
 		Name = "AthenaDivineSpearC"
 		InheritFrom = "AthenaDivineSpearA"
+		FilePath = "Fx\Athena\AthenaDivineSpearC\AthenaDivineSpearC"
+	}
+
+	{
+		Name = "AthenaManaSpearFx"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.999
+		EndGreen = 0.8
+		EndBlue = 0.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Duration = 0.1
+		VisualFx = "AthenaDivineManaSpear"
+		VisualFxIntervalMin = 0.03
+		VisualFxIntervalMax = 0.05
+		VisualFxCap = 3
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		CreateAnimation = "AthenaDivineManaSpear"
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Terrain_Add"
+		PostRotateScaleY = 0.5
+		Scale = 2.5
+		StartAlpha = 1
+		EndAlpha = 0
+		DieWithOwner = false
+	}
+
+	{
+		Name = "AthenaDivineManaSpear"
+		Random = [
+			{ Name = "AthenaDivineManaSpearA" }
+			{ Name = "AthenaDivineManaSpearB" }
+			{ Name = "AthenaDivineManaSpearC" }
+		]
+	}
+
+	{
+		Name = "AthenaDivineManaSpearA"
+		FilePath = "Fx\Athena\AthenaDivineSpearA\AthenaDivineSpearA"
+		GroupName = "FX_Standing_Top"
+		NumFrames = 60
+		Material = "Unlit"
+		OriginX = 77
+		OriginY = 397
+		AngleFromOwner = "Ignore"
+		AngleMin = -20
+		AngleMax = 20
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		ScaleMin = 0.8
+		ScaleMax = 1.1
+		Scale = 1.9
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		CreateAnimation = "AthenaDivineSpearSparkle"
+		DieWithOwner = false
+		Slides = [
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 15 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+		]
+	}
+
+	{
+		Name = "AthenaDivineManaSpearB"
+		InheritFrom = "AthenaDivineManaSpearA"
+		FilePath = "Fx\Athena\AthenaDivineSpearB\AthenaDivineSpearB"
+	}
+
+	{
+		Name = "AthenaDivineManaSpearC"
+		InheritFrom = "AthenaDivineManaSpearA"
 		FilePath = "Fx\Athena\AthenaDivineSpearC\AthenaDivineSpearC"
 	}
 

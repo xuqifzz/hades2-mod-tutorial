@@ -34,14 +34,14 @@
       {
         Ambient = 0.0
         EditorOutlineDrawBounds = false
-        Graphic = "DoorExitLightSoftSW_Ephyra_Locked"
+        Graphic = "DoorExitLightSoftSW_Ephyra_Locked_In"
         StopsLight = false
         StopsUnits = false
         MeshType = "Vertical"
         Interact = 
         {
-          Distance = 300.0
-          OffsetY = 130.0
+          Distance = 285.0
+          OffsetY = 0.0
           OffsetX = 0.0
         }
         Points = [
@@ -58,7 +58,7 @@
       InheritFrom = "EphyraExitDoorReturn"
       Thing = 
       {
-        Graphic = "DoorExitLightSoftNE_Ephyra_Locked"
+        Graphic = "DoorExitLightSoftNE_Ephyra_Locked_In"
         Tallness = 85
         Offset = { X = 0 Y = 0 }
         Points = [
@@ -82,17 +82,19 @@
       MeshType = "Vertical"
       Interact = 
       {
-        Distance = 250.0
-        OffsetY = 200.0
+        Distance = 125.0
+        OffsetY = 300.0
       }
-      Points =
-      [
-        { X = -29 Y = 337 }
-        { X = 76 Y = 285 }
-        { X = -120 Y = 186 }
-        { X = -229 Y = 238 }
-      ]
-    }
+      UseBoundsForSortDrawArea = true
+      Tallness = 138
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -46 Y = 328 }
+          { X = 47 Y = 282 }
+          { X = 38 Y = 277 }
+          { X = -55 Y = 323 }
+        ]
+      }
   }
   
   {
@@ -103,13 +105,15 @@
     {
       Ambient = 0.0
       EditorOutlineDrawBounds = false
-      Graphic = "DoorExitLightSoftSW_Ephyra_Locked" 
+      Graphic = "DoorExitLightSoftSW_Ephyra_Locked_In" 
       MeshType = "Vertical"
       Interact = 
       {
         Distance = 250.0
         OffsetY = 200.0
       }
+      UseBoundsForSortDrawArea = true
+      Tallness = 400
       Points =
       [
         { X = -29 Y = 337 }
@@ -126,6 +130,12 @@
       Thing = 
       {
         Graphic = "EphyraBossExitDoorLocked"
+        Interact = 
+        {
+          Distance = 290.0
+          OffsetX = -165
+          OffsetY = -5
+        }
       }
     }
 
@@ -141,6 +151,9 @@
       {
         Graphic = "Tilesets\Ephyra\Ephyra_PylonGate_01"
         EditorOutlineDrawBounds = false
+        DrawEmbeddedBehind = true
+        UseBoundsForSortDrawArea = true
+        SortBoundsScale = 0.5
         Interact = 
         {
           Distance = 425.0
@@ -150,12 +163,16 @@
         Tallness = 987
         Offset = { X = 0 Y = -196 }
         Points = [
-          { X = 759 Y = 300 }
-          { X = -410 Y = -288 }
-          { X = -839 Y = -20 }
-          { X = -767 Y = 283 }
-          { X = -308 Y = 509 }
-          { X = 434 Y = 526 }
+          { X = 886 Y = 223 }
+          { X = -377 Y = -394 }
+          { X = -627 Y = -345 }
+          { X = -832 Y = -140 }
+          { X = -828 Y = 26 }
+          { X = -759 Y = 225 }
+          { X = -612 Y = 388 }
+          { X = -322 Y = 502 }
+          { X = 106 Y = 502 }
+          { X = 505 Y = 448 }
         ]
       }
     }
@@ -171,6 +188,8 @@
         AmbientSound = "/SFX/EphyraExitGateLoop"
         AmbientSoundDistanceCheck = true
         Hue = 0.2
+        UseBoundsForSortDrawArea = true
+        SortBoundsScale = 0.75
         Tallness = 896
         Offset = { X = 0 Y = -382 }
         Points = [
@@ -224,6 +243,15 @@
           { X = -96 Y = 12 }
           { X = -32 Y = 44 }
         ]
+      }
+    }
+
+    {
+      Name = "SoulPylonDestroyedFinished"
+      InheritFrom = "SoulPylonDestroyed"
+      Thing = 
+      {
+        Graphic = "SoulPylonDestroyedFinished"
       }
     }
     
@@ -490,6 +518,10 @@
       Name = "EphyraBarrelShelf01"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
       Thing = 
       {
         EditorOutlineDrawBounds = false
@@ -547,6 +579,10 @@
       Name = "EphyraFishTraps01"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
       Thing = 
       {
         EditorOutlineDrawBounds = false
@@ -569,6 +605,10 @@
       Name = "EphyraFishBasket01"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
       Thing = 
       {
         EditorOutlineDrawBounds = false
@@ -636,6 +676,10 @@
       Name = "EphyraBrazier01"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
       Thing = 
       {
         EditorOutlineDrawBounds = false
@@ -774,6 +818,7 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Ephyra\Ephyra_Wall_06"
+        RotateGeometry = true
         Tallness = 583
         Offset = { X = 0 Y = -208 }
         Points = [
@@ -1131,7 +1176,8 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Ephyra\Ephyra_CorpsePile_01"
-        Tallness = 48
+        SortBoundsScale = 0.35
+        Tallness = 150
         Offset = { X = 0 Y = -50 }
         Points = [
           { X = -432 Y = -256 }
@@ -1307,6 +1353,10 @@
           { X = 547 Y = -20 }
           { X = 291 Y = -375 }
         ]
+      }
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
       }
     }
     
@@ -1767,6 +1817,7 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Ephyra\Ephyra_DoorFrame_01"
+        UseBoundsForSortDrawArea = true
         Tallness = 1567
         Offset = { X = 0 Y = -664 }
         Points = [
@@ -2050,7 +2101,7 @@
     
     {
       Name = "EphyraRoofRafters01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -2082,6 +2133,25 @@
           { X = -359 Y = 232 }
           { X = 433 Y = -163 }
           { X = 315 Y = -209 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRoofRafters02a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Roof_Rafters_02a"
+        Tallness = 693
+        Offset = { X = 0 Y = -40 }
+        Points = [
+          { X = 583 Y = 236 }
+          { X = 447 Y = 307 }
+          { X = -539 Y = -190 }
+          { X = -382 Y = -255 }
         ]
       }
     }
@@ -2128,6 +2198,10 @@
       Name = "EphyraWeaponrack01"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
       Thing = 
       {
         EditorOutlineDrawBounds = false
@@ -2164,12 +2238,20 @@
           { X = 179 Y = -192 }
         ]
       }
+      Life =
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
     }
     
     {
       Name = "EphyraBarricade01"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
       Thing = 
       {
         EditorOutlineDrawBounds = false
@@ -2203,6 +2285,10 @@
           { X = 213 Y = -144 }
           { X = -316 Y = 51 }
         ]
+      }
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
       }
     }
     
@@ -2298,6 +2384,10 @@
           { X = -94 Y = -184 }
         ]
       }
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
     }
     
     {
@@ -2322,6 +2412,10 @@
       Name = "EphyraWheelBarrow01"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
       Thing = 
       {
         EditorOutlineDrawBounds = false
@@ -2480,10 +2574,15 @@
       Name = "EphyraCentaurChariot01"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
       Thing = 
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Ephyra\Ephyra_CentaurChariot_01"
+        SortBoundsScale = 0.5
         Tallness = 526
         Offset = { X = 0 Y = -256 }
         Points = [
@@ -2492,6 +2591,7 @@
           { X = 603 Y = 91 }
           { X = 666 Y = -139 }
           { X = 451 Y = -355 }
+          { X = 5 Y = -578 }
           { X = -404 Y = -380 }
           { X = -651 Y = -214 }
         ]
@@ -2978,6 +3078,10 @@
       Name = "EphyraVase01"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
       Thing = 
       {
         EditorOutlineDrawBounds = false
@@ -3070,6 +3174,10 @@
       Name = "EphyraCrate01"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
       Thing = 
       {
         EditorOutlineDrawBounds = false
@@ -3089,6 +3197,10 @@
       Name = "EphyraBarrel01"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
       Thing = 
       {
         EditorOutlineDrawBounds = false
@@ -3353,6 +3465,10 @@
       Name = "EphyraVase02"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
       Thing = 
       {
         EditorOutlineDrawBounds = false
@@ -3395,6 +3511,10 @@
       Name = "EphyraSacks01"
       InheritFrom = "1_BaseVulnerableObstacle"
       DisplayInEditor = true
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
       Thing = 
       {
         EditorOutlineDrawBounds = false
@@ -4299,6 +4419,25 @@
     }
     
     {
+      Name = "EphyraMedeaCircle01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_MedeaCircle_01"
+        Tallness = 87.0
+        Offset = { X = 0 Y = -80 }
+        Points = [
+          { X = -575 Y = -37 }
+          { X = 1 Y = 254 }
+          { X = 575 Y = -40 }
+          { X = 9 Y = -332 }
+        ]
+      }
+    }
+    
+    {
       Name = "EphyraTerrainBase02"
       InheritFrom = "1_BaseTerrainTile"
       DisplayInEditor = true
@@ -4351,23 +4490,26 @@
     }
 
 {
-Name = "ShadeEphyraIdle01"
+    Name = "ShadeEphyraIdle01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
       CollisionEndedAlphaInDuration = 3.0
       DisplayInEditor = true
       UseCollisionShift = false
+      IgnoredByPathfinders = true
       Life = 
       {
         JumpTargetEligible = false
         ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
+        TriggerOnHit = false
       }
       Thing = 
       {
-        AttachedAnim = "ShadeShadow_Mid"
         EditorOutlineDrawBounds = false
         Graphic = "ShadeEphyraIdle"
         StopsLight = false
+      StopsUnits = false
         Tallness = 183
         Offset = { X = 0 Y = -41 }
         Points = [
@@ -4380,8 +4522,53 @@ Name = "ShadeEphyraIdle01"
         ]
       }
     }
-
-
     
+    {
+      Name = "PoisonCure"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Life = 
+      {
+        TriggerOnHit = true
+      }
+      Thing = 
+      {
+        Interact = 
+        {
+          Distance = 285.0
+          OffsetY = 0.0
+          OffsetX = 0.0
+        }
+        EditorOutlineDrawBounds = false
+        Graphic = "PoisonCureFull"
+        Tallness = 669.0
+        Offset = { X = 0 Y = -60 }
+        ExtentScale = 0.175
+        Points = [
+          { X = -585 Y = 14 }
+          { X = -133 Y = 216 }
+          { X = 368 Y = 106 }
+          { X = 502 Y = -193 }
+          { X = 2 Y = -358 }
+          { X = -409 Y = -216 }
+        ]
+      }
+    }
+    {
+      Name = "PoisonCure_Destroyed"
+      InheritFrom = "PoisonCure"
+      Thing = 
+      {
+        Interact = 
+        {
+          Distance = 0.0
+        }
+        EditorOutlineDrawBounds = false
+        Graphic = "PoisonCureDestroyed"
+        Tallness = 20.0
+        StopsProjectiles = false,
+        DrawVfxOnTop = true,
+      }
+    }
   ]
 }

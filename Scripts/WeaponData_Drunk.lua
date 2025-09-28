@@ -4,7 +4,7 @@ WeaponSetData =
 	{
 		Requirements =
 		{
- 			MaxPlayerDistance = 2000,
+ 			MaxPlayerDistance = 600,
  			MinAttacksBetweenUse = 4,
 			RequireTotalAttacks = 3,
 		},
@@ -26,10 +26,13 @@ WeaponSetData =
 			},
 
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.8,
+			PreAttackStop = true,
 			TrackTargetDuringCharge = true,
-			PreAttackRotationDampening = 0.15,
-			AngleTowardsTargetWhileFiring = true,
-			FireRotationDampening = 0.05,
+			PreAttackRotationDampening = 0.025,
+			TrackTargetDuringFire = true,
+			FireRotationDampening = 0.025,
+			PostAttackStop = true,
 
 			RequireUnitLoS = true,
 			LoSBuffer = 50,
@@ -56,13 +59,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/DeadSeaDrunk/EmoteAttackingStab" },
 				{ Name = "/SFX/Player Sounds/ZagreusSpearSwipe" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.17, Fraction = 1.00, LerpTime = 0 },
 		},
 	},
 	DrunkStab_Elite =
@@ -129,14 +125,8 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/DeadSeaDrunk/EmoteAttacking" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.17, Fraction = 1.00, LerpTime = 0 },
-		},
 	},
+
 	DrunkSwingLeft_Elite =
 	{
 		InheritFrom = { "DrunkSwingLeft" },
@@ -194,14 +184,8 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/DeadSeaDrunk/EmoteAttacking" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.17, Fraction = 1.00, LerpTime = 0 },
-		},
 	},
+
 	DrunkSwingRight_Elite =
 	{
 		InheritFrom = { "DrunkSwingRight" },
@@ -247,13 +231,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/DeadSeaDrunk/EmoteAttackingStab" },
 				{ Name = "/SFX/Player Sounds/ZagreusSpearSwipe" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.17, Fraction = 1.00, LerpTime = 0 },
 		},
 	},
 }

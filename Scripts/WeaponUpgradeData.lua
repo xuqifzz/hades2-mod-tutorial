@@ -3,7 +3,7 @@ ScreenData.WeaponUpgradeScreen =
 	Components = {},
 
 	OpenSound = "/SFX/Menu Sounds/MirrorMenuOpen",
-	CloseSound = "/SFX/Menu Sounds/MirrorCloseNoUpgrade",
+	CloseSound = "/SFX/Menu Sounds/AspectMenuClose",
 
 	GamepadNavigation =
 	{
@@ -25,12 +25,12 @@ ScreenData.WeaponUpgradeScreen =
 	EquippedIcon =
 	{
 		Name = "BlankObstacle",
-		Animation = "GUI\\Screens\\WeaponUpgrade\\Select",
-		Group = "Combat_Menu",
+		Animation = "ActiveAspectLoop",
+		Group = "Combat_Menu_Additive",
 		Alpha = 0.0,
-		Scale = 1.0,
-		OffsetX = -500,
-		OffsetY = -55,
+		Scale = 1.2,
+		OffsetX = -504,
+		OffsetY = -54,
 	},
 	
 	TooltipOffsetX = 710,
@@ -56,36 +56,42 @@ ScreenData.WeaponUpgradeScreen =
 			"BaseStaffAspect",
 			"StaffClearCastAspect",
 			"StaffSelfHitAspect",
+			"StaffRaiseDeadAspect",
 		},
 		WeaponDagger =
 		{
 			"DaggerBackstabAspect",
 			"DaggerBlockAspect",
 			"DaggerHomingThrowAspect",
+			"DaggerTripleAspect",
 		},
 		WeaponTorch = 
 		{
 			"TorchSpecialDurationAspect",
 			"TorchDetonateAspect",
 			"TorchSprintRecallAspect",
+			"TorchAutofireAspect",
 		},
 		WeaponAxe = 
 		{
 			"AxeRecoveryAspect",
 			"AxeArmCastAspect",
-			"AxePerfectCriticalAspect"
+			"AxePerfectCriticalAspect",
+			"AxeRallyAspect",
 		},
 		WeaponLob = 
 		{
 			"LobAmmoBoostAspect",
 			"LobCloseAttackAspect",
 			"LobImpulseAspect",
+			"LobGunAspect"
 		},
 		WeaponSuit = 
 		{
 			"BaseSuitAspect",
 			"SuitHexAspect",
 			"SuitMarkCritAspect",
+			"SuitComboAspect",
 		}
 	},
 
@@ -116,6 +122,10 @@ ScreenData.WeaponUpgradeScreen =
 				Scale = ScreenData.UpgradeChoice.Icon.Scale,
 				OffsetX = ScreenData.UpgradeChoice.IconOffsetX,
 				OffsetY = ScreenData.UpgradeChoice.IconOffsetY,
+				Alpha = 0.0,
+				AlphaTarget = 1.0,
+				AlphaTargetDuration = 0.4,
+
 			},
 
 			InfoBoxFrame = 
@@ -125,6 +135,9 @@ ScreenData.WeaponUpgradeScreen =
 				Scale = ScreenData.UpgradeChoice.Frame.Scale,
 				OffsetX = ScreenData.UpgradeChoice.IconOffsetX,
 				OffsetY = ScreenData.UpgradeChoice.IconOffsetY,
+				Alpha = 0.0,
+				AlphaTarget = 1.0,
+				AlphaTargetDuration = 0.4,
 			},
 
 			InfoBoxName =
@@ -181,7 +194,7 @@ ScreenData.WeaponUpgradeScreen =
 
 		Background = 
 		{
-			AnimationName = "GUI\\Screens\\WeaponUpgrade\\Background",
+			AnimationName = "WeaponUpgradeIn",
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
 			Alpha = 1,
@@ -229,15 +242,20 @@ ScreenData.WeaponUpgradeScreen =
 			X = 200,
 			Y = 500,
 			Scale = 2.5,
+			Alpha = 0.0,
+			AlphaTarget = 1.0,
+			AlphaTargetDuration = 0.4,
+			Group = "Combat_Menu_Overlay",
 		},
 
 		StatsBox =
 		{
 			AnimationName = "GUI\\Screens\\WeaponUpgrade\\StatsBacking",
-			ScaleX = 0.9,
-			ScaleY = 0.96,
 			X = 215,
 			Y = 808,
+			Alpha = 0.0,
+			AlphaTarget = 1.0,
+			AlphaTargetDuration = 0.4,
 		},
 
 		KillsLabel =		
@@ -428,7 +446,7 @@ ScreenData.WeaponUpgradeScreen =
 		{
 			AnimationName = "GUI\\ActionBar",
 			X = ScreenCenterX,
-			BottomOffset = UIData.ActionBarBottomOffset,
+			Y = UIData.ActionBarY,
 			UseScreenScaleX = true,
 		},
 
@@ -436,7 +454,6 @@ ScreenData.WeaponUpgradeScreen =
 		{
 			X = UIData.ContextualButtonXRight,
 			Y = UIData.ContextualButtonY,
-			BottomOffset = UIData.ContextualButtonBottomOffset,
 			AutoAlignContextualButtons = true,
 			AutoAlignJustification = "Right",
 
@@ -477,4 +494,380 @@ ScreenData.WeaponUpgradeScreen =
 			},
 		},
 	},
+}
+
+-- Aspects Screen
+GlobalVoiceLines.OpenedWeaponUpgradeMenuVoiceLines =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.45,
+		UsePlayerSource = true,
+		SuccessiveChanceToPlay = 0.75,
+		Cooldowns =
+		{
+			{ Name = "MelinoeAnyQuipSpeech" },
+		},
+
+		{ Cue = "/VO/Melinoe_2541", Text = "The Aspects of the Nocturnal Arms..." },
+		{ Cue = "/VO/Melinoe_0728", Text = "Descura.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponStaffSwing" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3428", Text = "Descura.",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponStaffSwing" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3429", Text = "Descura.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponStaffSwing" },
+				},
+				{
+					Path = { "GameState", "WeaponsUnlocked" },
+					HasAll =
+					{ 
+						"StaffClearCastAspect",
+						"StaffSelfHitAspect",
+						"StaffRaiseDeadAspect"
+					},
+				},
+			},
+		},		
+		{ Cue = "/VO/Melinoe_0730", Text = "Lim and Oros.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponDagger" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3430", Text = "Lim and Oros.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponDagger" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3431", Text = "Lim. Oros.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponDagger" },
+				},
+				{
+					Path = { "GameState", "WeaponsUnlocked" },
+					HasAll =
+					{ 
+						"DaggerBlockAspect",
+						"DaggerHomingThrowAspect",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_0736", Text = "Ygnium.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponTorch" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3432", Text = "Ygnium.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponTorch" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3433", Text = "Ygnium.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponTorch" },
+				},
+				{
+					Path = { "GameState", "WeaponsUnlocked" },
+					HasAll =
+					{ 
+						"TorchDetonateAspect",
+						"TorchSprintRecallAspect",
+						"TorchAutofireAspect",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3032", Text = "Zorephet.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponAxe" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3434", Text = "Zorephet.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponAxe" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3435", Text = "Zorephet.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponAxe" },
+				},
+				{
+					Path = { "GameState", "WeaponsUnlocked" },
+					HasAll =
+					{ 
+						"AxeArmCastAspect",
+						"AxePerfectCriticalAspect",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_0734", Text = "Revaal.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponLob" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3436", Text = "Revaal.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponLob" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3437", Text = "Revaal.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponLob" },
+				},
+				{
+					Path = { "GameState", "WeaponsUnlocked" },
+					HasAll =
+					{ 
+						"LobCloseAttackAspect",
+						"LobImpulseAspect",
+						"LobGunAspect",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3617", Text = "Xinth.",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponSuit" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3618", Text = "Xinth.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponSuit" },
+				},
+				{
+					Path = { "GameState", "WeaponsUnlocked" },
+					HasAll =
+					{ 
+						-- "LobCloseAttackAspect",
+						-- "LobImpulseAspect",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3619", Text = "Xinth.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponSuit" },
+				},
+				{
+					Path = { "GameState", "WeaponsUnlocked" },
+					HasAll =
+					{ 
+						-- "LobCloseAttackAspect",
+						-- "LobImpulseAspect",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3416", Text = "I have returned." },
+		{ Cue = "/VO/Melinoe_3417", Text = "Such intricate work..." },
+		{ Cue = "/VO/Melinoe_3418", Text = "Still not even a scratch..." },
+		-- single-weapon lines
+		{ Cue = "/VO/Melinoe_3415", Text = "Show me what you can do.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsNone = { "WeaponDagger", "WeaponTorch" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3420", Text = "I'm honored as your bearer.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsNone = { "WeaponDagger", "WeaponTorch" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3422", Text = "Show me your past.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsNone = { "WeaponDagger", "WeaponTorch" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3423", Text = "Show me our future.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsNone = { "WeaponDagger", "WeaponTorch" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3425", Text = "In service to the realm.",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsNone = { "WeaponDagger", "WeaponTorch" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3426", Text = "Can hear me, can't you...?",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsNone = { "WeaponDagger", "WeaponTorch" },
+				},
+			},
+		},
+		-- dual-weapon lines
+		{ Cue = "/VO/Melinoe_3421", Text = "Who else shall wield you?",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponDagger", "WeaponTorch" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3419", Text = "What secrets do you keep...?",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponDagger", "WeaponTorch" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3424", Text = "Forged by the Fates...",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponDagger", "WeaponTorch" },
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_3427", Text = "What form suits you tonight?",
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "WeaponName" },
+					IsAny = { "WeaponDagger", "WeaponTorch" },
+				},
+			},
+		},
+	},
+}
+
+GlobalVoiceLines.AspectMaxedVoiceLines =
+{
+	RandomRemaining = true,
+	PreLineWait = 0.35,
+	UsePlayerSource = true,
+	TriggerCooldowns = { "MelinoeMiscWeaponEquipSpeech" },
+
+	{ Cue = "/VO/Melinoe_2619", Text = "My bond with this Aspect is complete." },
+	{ Cue = "/VO/Melinoe_2620", Text = "Our bond is now complete." },
+	{ Cue = "/VO/Melinoe_2621", Text = "We are inseparable now." },
 }

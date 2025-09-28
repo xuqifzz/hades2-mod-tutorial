@@ -4,7 +4,7 @@
       Name = "HadesTombstoneSpawn"
       FilePath = "Fx\HadesStunTotemSpawn\HadesStunTotemSpawn"
       ChainTo = "HadesStunTotemStatic"
-      Scale = 4
+      Scale = 1.4
       NumFrames = 60
       PlaySpeed = 30
       Material = "Unlit"
@@ -12,12 +12,14 @@
       Sound = "/SFX/Enemy Sounds/Zombie/ZombieEmerge"
       OwnerInvulnerable = true
       ChildAnimation = "HadesStunTotemFlameSpawn"
+      OriginX = 70.5
+      OriginY = 191
     }
 
     {
       Name = "HadesTombstoneExplode"
       FilePath = "Fx\HadesStunTotemExplode\HadesStunTotemExplode"
-      Scale = 4
+      Scale = 1.4
       NumFrames = 47
       RandomPlaySpeedMin = 30
       RandomPlaySpeedMax = 40
@@ -26,6 +28,8 @@
       CreateAnimation = "QuickFlashGreen"
       Sound = "/Leftovers/Menu Sounds/PlayerKilledLong_Small"
       HoldLastFrame = true
+      OriginX = 120
+      OriginY = 253
     }
 
     {
@@ -39,7 +43,7 @@
       Material = "Unlit"
       ScaleFromOwner = "Ignore"
       SortMode = "FromParent"
-      OffsetY = -490
+      OffsetY = -310
       Scale = 1.25
       LocationZFromOwner = "Ignore"
     }
@@ -53,7 +57,7 @@
       Material = "Unlit"
       ScaleFromOwner = "Ignore"
       SortMode = "FromParent"
-      OffsetY = -490
+      OffsetY = -310
       Scale = 1.25
       StartAlpha = 0
       EndAlpha = 1
@@ -64,8 +68,11 @@
     {
       Name = "HadesStunTotemStatic"
       FilePath = "Fx\HadesStunTotemStatic\Surface_Gravemarker_01Active"
+      Scale = 0.35
       Material = "Unlit"
       ChildAnimation = "HadesStunTotemFlame"
+      OriginX = 212.5
+      OriginY = 650
     }
 
 ]}

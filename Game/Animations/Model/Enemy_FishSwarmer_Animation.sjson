@@ -196,9 +196,9 @@
 		Name = "Enemy_FishSwarmer_Death"
 		InheritFrom = "Enemy_FishSwarmer_HitStun"
 		HoldLastFrame = true
-		Duration = 2.0
+		Duration = 1.0
 		GrannyAnimationSpeed = 0.01
-		DeathFxFrameDuration = 100
+		DeathFxFrameDuration = 50
 		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
 		DeathFxThickness = 0.06
 		DeathFxEaseIn = 0.9
@@ -217,6 +217,7 @@
 		LocationFromOwner = "Take"
 		ColorFromOwner = "Ignore"
 		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2FlipThin"
 		BlockNewOwnerAnims = true
 		OwnerInvulnerable = true
 		OwnerUntargetable = true

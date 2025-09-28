@@ -32,7 +32,7 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = {"SynergyTrait"},
 		AddOutgoingDamageModifiers = 
 		{
-			ValidWeapons = WeaponSets.HeroAllWeapons,
+			ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,
 			MaxHealthMultiplier = 0.0010,
 			ReportValues = {ReportedMultiplier = "MaxHealthMultiplier"}
 		},
@@ -57,12 +57,12 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "SynergyTrait" },
 		OnProjectileCreationFunction = 
 		{
-			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast", "MassiveSlamBlastCast"  },
+			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast", "MassiveSlamBlastCast", "HephLeapBlast" },
 			Name = "QueueManaBurst",
 			Args = 
 			{
 				ProjectileName = "AphroditeBurst",
-				DamageMultiplier = 1.5,
+				DamageMultiplier = 2.0,
 				StartDelay = 0.15,
 				ReportValues = 
 				{ 
@@ -178,6 +178,7 @@ OverwriteTableKeys( TraitData, {
 		Icon = "Boon_Poseidon_41",
 		AddIncomingDamageModifiers =
 		{
+			HealthOnly = true,
 			ValidWeaponMultiplier = 0.85,
 			ReportValues = { DamageTakenMultiplier = "ValidWeaponMultiplier"},
 		},
@@ -205,7 +206,7 @@ OverwriteTableKeys( TraitData, {
 			FunctionArgs = 
 			{
 				Range = 280,
-				DamageMultiplier = 2,
+				DamageMultiplier = 1.8,
 				ReportValues = {ReportedMultiplier = "DamageMultiplier" }
 			}
 		},
@@ -253,9 +254,9 @@ OverwriteTableKeys( TraitData, {
 			Args =
 			{
 				SpawnInterval = 0.3,
-				TargetProjectileName = "DemeterSprintStorm",
+				TargetProjectileNames = { "DemeterSprintStorm", "DemeterCastStorm" },
 				ProjectileName = "DemeterMiniStorm",
-				ProjectileCap = 6,
+				ProjectileCap = 2,
 				ReportValues = {ReportedInterval= "SpawnInterval" }
 			},
 		},
@@ -337,9 +338,9 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = {"SynergyTrait"},
 		AddOutgoingDamageModifiers = 
 		{
-			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast", "MassiveSlamBlastCast"  },
+			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast", "MassiveSlamBlastCast", "HephLeapBlast"  },
 			ValidActiveEffects = {"BlindEffect"},
-			ValidBaseDamageAddition = 220,
+			ValidBaseDamageAddition = 300,
 			ReportValues = { ReportedDamageAddition = "ValidBaseDamageAddition"}
 		},
 		StatLines =
@@ -348,7 +349,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		OnEnemyDamagedAction = 
 		{
-			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast", "MassiveSlamBlastCast"  },
+			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast", "MassiveSlamBlastCast", "HephLeapBlast"  },
 			FunctionName = "ClearBlindEffect",
 		},
 		ExtractValues = 
@@ -411,35 +412,14 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = {"SynergyTrait"},
 		Icon = "Boon_Hestia_42",
 		
-		OnEnemyDamagedAction = 
+		OnDodgeFunction = 
 		{
-			ValidWeapons = WeaponSets.HeroAllWeapons,
-			FunctionName = "InterruptRegen",
-		},
-		SetupFunction = 
-		{
-			Name = "OutOfCombatRegenSetup",
-			Args = 
+			FunctionName = "DodgeHeal",
+			RunOnce = true,
+			FunctionArgs =
 			{
-				Timeout = 3, -- Time before regen kicks in
-				Regen = 3, -- Per second regen
-				RegenStartFx = nil,
-				RegenStartSound = nil,
-				ReportValues =
-				{
-					ReportedTimeout = "Timeout",
-					ReportedRegen = "Regen",
-				}
-			}
-		},
-		PropertyChanges =
-		{
-			{
-				LuaProperty = "MaxHealth",
-				ChangeValue = -100,
-				ChangeType = "Add",
-				AsInt = true,
-				ReportValues = { ReportedHealthPenalty = "ChangeValue"},
+				Amount = 10,
+				ReportValues = { ReportedHeal = "Amount" }
 			},
 		},
 		StatLines = 
@@ -458,20 +438,26 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues = 
 		{
 			{
-				Key = "ReportedRegen",
-				ExtractAs = "Regen",
+				Key = "ReportedHeal",
+				ExtractAs = "Heal",
 				Format = "FlatHeal",
 			},
 			{
-				Key = "ReportedTimeout",
-				ExtractAs = "Timeout",
+				ExtractAs = "BlindDuration",
 				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "BlindEffect",
+				BaseProperty = "Duration",
 			},
 			{
-				Key = "ReportedHealthPenalty",
-				ExtractAs = "MaxHealthReduction",
-				AbsoluteValue = true,
+				ExtractAs = "BlindChance",
 				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "BlindEffect",
+				BaseProperty = "MissChance",
+				Format = "Percent"
 			},
 		}
 	},
@@ -490,7 +476,7 @@ OverwriteTableKeys( TraitData, {
 				StartingDamageMultiplier = 0.30,
 				DamageMultiplier = 1,
 				ChargeRadiusTime = 1.5,
-				Speed = 1000, -- Maximum speed of orb while following
+				Speed = 1550, -- Maximum speed of orb while following
 				Offset = 80, -- How far behind the player the orb trails
 				StartScale = 0.1,
 				EndScale = 1.0,
@@ -507,6 +493,10 @@ OverwriteTableKeys( TraitData, {
 					ReportedTime = "ChargeRadiusTime",	
 				}
 			},
+		},
+		OnSprintEndAction = 
+		{
+			FunctionName = "PoseidonSprintBlastDetach",
 		},
 		StatLines = 
 		{
@@ -563,7 +553,7 @@ OverwriteTableKeys( TraitData, {
 					{ 
 						RequiredTraitName = "ApolloExCastBoon",
 						ManaCost = 45,
-						Wait = 1.5,
+						Wait = 1.2,
 						ForceRelease = true,
 						ResetIndicator = true,
 					}
@@ -585,7 +575,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		OnEnemyDamagedAction = 
 		{
-			ValidProjectiles = { "ApolloCast",},	
+			ValidProjectiles = { "ApolloCastRapid",},	
 			FunctionName = "RecordSecondStageApolloCast",
 			Args = 
 			{
@@ -643,15 +633,11 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "SynergyTrait", },
 		Icon = "Boon_Demeter_43",
-		OnEnemyDamagedAction = 
+		AddOutgoingDamageModifiers = 
 		{
-			ValidProjectiles = { "MassiveSlamBlast", "HephSprintBlast", "MassiveSlamBlastCast" },
-			FunctionName = "ClearRoot",
-			Args = 
-			{
-				EffectName = "ChillEffect",
-			},
-
+			ValidProjectiles = { "MassiveSlamBlast", "HephSprintBlast", "MassiveSlamBlastCast", "HephLeapBlast" },
+			ActiveRootMultiplier = 1.5,
+			ReportValues = { ReportedWeaponMultiplier = "ActiveRootMultiplier"},
 		},
 		StatLines =
 		{
@@ -659,6 +645,11 @@ OverwriteTableKeys( TraitData, {
 		},
 		ExtractValues =
 		{
+			{
+				Key = "ReportedWeaponMultiplier",
+				ExtractAs = "TooltipDamageBonus",
+				Format = "PercentDelta",
+			},
 			{
 				ExtractAs = "ChillDuration",
 				SkipAutoExtract = true,
@@ -682,6 +673,7 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = {"SynergyTrait"},
 		Icon = "Boon_Demeter_41",
+		BlockOfferIfPreviouslyPicked = true,
 		KeepsakeLevelBonus =  1,
 		AcquireFunctionName = "AttemptAdvanceKeepsake",
 		StatLines =
@@ -710,6 +702,7 @@ OverwriteTableKeys( TraitData, {
 				EffectName = "ChillEffect",
 				ClearEffectName = "BurnEffect",
 				ConsumptionDamage = 2, -- Multiplier
+				EffectBlockDuration = 2,
 				ProjectileName = "HestiaBurnConsumeStrike",
 				ReportValues = 
 				{
@@ -755,20 +748,35 @@ OverwriteTableKeys( TraitData, {
 				BaseProperty = "ActiveDuration",
 			},
 		},
-
-		PackageName = "DemeterUpgrade"
 	},
+
 	GoodStuffBoon = -- Demeter x Poseidon
 	{
 		Icon = "Boon_Poseidon_42",
 		InheritFrom = { "SynergyTrait" },
-		
-		RarityBonus =
+		GameStateRequirements =
 		{
-			Rare = 0.45,
-			Epic = 0.20,
-			Legendary = 0.15,
-			ReportValues = { ReportedRarity = "Rare"}
+			{
+				FunctionName = "PommableSlottedTraitCountAtLeast",
+				FunctionArgs = { 
+					Count = 1, 
+					Slots = 
+					{ 
+						Secondary = true,
+						Rush = true, 
+						Ranged = true, 
+						Melee = true, 
+						Mana = true, 
+					}
+				},
+			},
+		},
+		AcquireFunctionName = "DistributeLevels",
+		AcquireFunctionArgs = 
+		{
+			Slots = { "Secondary", "Rush", "Ranged", "Melee", "Mana" },
+			LevelBonus = 8,
+			ReportValues = { ReportedLevelBonus = "LevelBonus" }
 		},
 		StatLines =
 		{
@@ -777,9 +785,8 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues =
 		{
 			{
-				Key = "ReportedRarity",
-				ExtractAs = "Rarity",
-				Format = "Percent",
+				Key = "ReportedLevelBonus",
+				ExtractAs = "Level",
 			},
 		}
 	},
@@ -842,8 +849,8 @@ OverwriteTableKeys( TraitData, {
 		Icon = "Boon_Hephaestus_41",
 		ManaShieldData = 
 		{
-			DamageBlocked = 0.5,					 --Percent of damage that is redirected
-			ManaPerDamageBlocked =	5,			-- Amount of mana burned per damage blocked
+			DamageBlocked = 0.3,					 --Percent of damage that is redirected
+			ManaPerDamageBlocked =	10,			-- Amount of mana burned per damage blocked
 			ReportValues = 
 			{ 
 				ReportedDamageBlocked = "DamageBlocked",
@@ -892,63 +899,19 @@ OverwriteTableKeys( TraitData, {
 	{
 		Icon = "Boon_Poseidon_43",
 		InheritFrom = {"SynergyTrait"},
-		
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "PoseidonCastBoon" },
-			}
-		},
-		SetupFunction =
-		{
-			Name = "MassiveAttackSetup",
-			Args = 
-			{
-				TraitName = "PoseidonCastBoon",
-			},
-		},
-		OnEnemyDamagedAction = 
-		{
-			ValidWeapons = WeaponSets.HeroNonPhysicalWeapons,
-			FunctionName = "CheckMassiveAttack",
-			Args = 
-			{
-				ExcludeLinked = true,
-				Name = "MassiveCast",
-				TraitName = "PoseidonCastBoon",
-				ProjectileName = "MassiveSlamBlastCast",
-				Cooldown = 6,
-				BlastDelay = 0.26,
-				DamageMultiplier = 2.5,
-				ReportValues = 
-				{ 
-					ReportedMultiplier = "DamageMultiplier",
-					ReportedCooldown = "Cooldown"
-				},
-			}
-		},
+		OlympianRechargeMultiplier = 1/1.35,
 		StatLines =
 		{
-			"CooldownAltStatDisplay1",
+			"RechargeSpeedStatDisplay",
 		},
 		ExtractValues =
 		{
 			{
-					Key = "ReportedCooldown",
-					ExtractAs = "Cooldown",
-			},
-			{
-				Key = "ReportedMultiplier",
-				ExtractAs = "Damage",
-				Format = "MultiplyByBase",
-				BaseType = "Projectile",
-				BaseName = "MassiveSlamBlast",
-				BaseProperty = "Damage",
-				DecimalPlaces = 1,
-				SkipAutoExtract = true,
+				Key = "OlympianRechargeMultiplier",
+				ExtractAs = "RechargeMultiplier",
+				Format = "PercentReciprocalDelta",
 			},
 		},
-		PackageName = "PoseidonUpgrade",
 	},
 	ReboundingSparkBoon = -- Hephaestus x Zeus
 	{
@@ -958,7 +921,7 @@ OverwriteTableKeys( TraitData, {
 		AddOutgoingDamageModifiers = 
 		{
 			ProjectileName = "ProjectileZeusSpark",
-			JumpMultiplier = 0.20,
+			JumpMultiplier = 0.15,
 			ReportValues = { ReportedWeaponMultiplier = "JumpMultiplier"},
 		},
 		StatLines =
@@ -978,12 +941,8 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = {"SynergyTrait"},
 		Icon = "Boon_Poseidon_44",
-		AddOutgoingDamageModifiers = 
-		{
-			GoldMultiplier = 0.03,
-			ReportValues = {ReportedMultiplier = "GoldMultiplier"}
-		},
-		InflationIndex = 100,
+		DoubleOlympianProjectileChance = 0.30,
+		DoubleOlympianProjectileInterval = 0.15,
 		StatLines =
 		{
 			"GoldDamageStatDisplay",
@@ -991,9 +950,9 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues =
 		{
 			{
-				Key = "ReportedMultiplier",
+				Key = "DoubleOlympianProjectileChance",
 				ExtractAs = "TooltipPercentIncrease",
-				Format = "TimesOneHundred",
+				Format = "LuckModifiedPercent",
 			}
 		}
 	},
@@ -1003,6 +962,15 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = {"SynergyTrait"},
 		CustomTrayText = "SuperSacrificeBoonHera_Tray",
 		AcquireFunctionName = "SacrificeAllBoon",
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "Hero", "MetGods", "HeraUpgrade" },
+			},
+			{
+				PathTrue = { "CurrentRun", "Hero", "MetGods", "ZeusUpgrade" },
+			}
+		},
 		AcquireFunctionArgs = 
 		{
 			RemoveGod = "ZeusUpgrade",
@@ -1033,6 +1001,15 @@ OverwriteTableKeys( TraitData, {
 		Icon = "Boon_Zeus_47",
 		InheritFrom = {"SynergyTrait"},
 		CustomTrayText = "SuperSacrificeBoonZeus_Tray",
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "Hero", "MetGods", "HeraUpgrade" },
+			},
+			{
+				PathTrue = { "CurrentRun", "Hero", "MetGods", "ZeusUpgrade" },
+			}
+		},
 		AcquireFunctionName = "SacrificeAllBoon",
 		AcquireFunctionArgs = 
 		{
@@ -1065,7 +1042,7 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = {"SynergyTrait"},
 		OnEnemyDamagedAction = 
 		{
-			ValidProjectiles = {"ProjectileCastFireball", "ProjectileFireball", "ShadeMercFireball", "HestiaSprintPuddle" },
+			ValidProjectiles = {"ProjectileCastFireball", "ProjectileFireball", "HestiaSprintPuddle" },
 			AllEffectsTrigger = true,
 			FunctionName = "CheckSteam",
 			Args = 
@@ -1073,7 +1050,7 @@ OverwriteTableKeys( TraitData, {
 				ValidEffect = "BurnEffect",
 				EffectName = "AmplifyKnockbackEffect",
 				ProjectileName = "SteamBlast",
-				DamageMultiplier = 1.2,
+				DamageMultiplier = 1.0,
 				ReportValues = 
 				{ 
 					ReportedMultiplier = "DamageMultiplier",
@@ -1110,7 +1087,7 @@ OverwriteTableKeys( TraitData, {
 				External = true,
 				BaseType = "ProjectileBase",
 				BaseName = "SteamBlast",
-				BaseProperty = "BlastDuration",
+				BaseProperty = "TotalFuse",
 			},
 			{
 				ExtractAs = "KnockbackAmplifyDuration",
@@ -1121,8 +1098,23 @@ OverwriteTableKeys( TraitData, {
 				BaseProperty = "Duration",
 				DecimalPlaces = 1,
 			},
+			{
+				ExtractAs = "FontChance",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectLuaData",
+				BaseName = "AmplifyKnockbackEffect",
+				BaseProperty = "Chance",
+				Format = "LuckModifiedPercent"
+			},
+			{
+				External = true,
+				ExtractAs = "FontDamage",
+				BaseType = "ProjectileBase",
+				BaseName = "PoseidonEffectFont",
+				BaseProperty = "Damage",
+			},
 		},
-		PackageName = "HestiaUpgrade",
 	},
 	EchoBurnBoon = -- Hestia x Zeus
 	{
@@ -1136,7 +1128,7 @@ OverwriteTableKeys( TraitData, {
 			Args = 
 			{
 				EffectName = "BurnEffect",
-				NumStacks = 80,
+				NumStacks = 160,
 				ReportValues = {ReportedDamage = "NumStacks"}
 			},	
 		},
@@ -1178,7 +1170,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		PackageName = "HestiaUpgrade",
 	},
-	LightningVulnerabilityBoon = -- Poseidon x Zeus
+	LightningVulnerabilityBoon = -- Zeus x Poseidon
 	{
 		InheritFrom = {"SynergyTrait"},
 		Icon = "Boon_Zeus_44",
@@ -1218,6 +1210,22 @@ OverwriteTableKeys( TraitData, {
 				BaseProperty = "Duration",
 				DecimalPlaces = 1,
 			},
+			{
+				ExtractAs = "FontChance",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectLuaData",
+				BaseName = "AmplifyKnockbackEffect",
+				BaseProperty = "Chance",
+				Format = "LuckModifiedPercent"
+			},
+			{
+				External = true,
+				ExtractAs = "FontDamage",
+				BaseType = "ProjectileBase",
+				BaseName = "PoseidonEffectFont",
+				BaseProperty = "Damage",
+			},
 		},
 		PackageName = "ZeusUpgrade",
 	},
@@ -1234,11 +1242,9 @@ OverwriteTableKeys( TraitData, {
 			Args =
 			{
 				ProjectileName = "ManaRestoreBlast",
+				EffectName = "DamageShareEffect",
 				Interval = 0.2,			-- Highest rate of fire
 				ManaThreshold = 5,		-- How much mana regen to 'accumulate' before firing.
-				MinRadius = 0.6,		-- Base blast radius modifier
-				MaxRadius = 1,			-- Max blast radius modifier
-				MaxRadiusThreshold = 15,-- Amount of mana restored to hit the max blast radius
 				DamageMultiplier = 5,	-- Mana regenerated to damage conversion
 				ReportValues = 
 				{ 
@@ -1264,8 +1270,378 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "Interval",
 				DecimalPlaces = 1,
 				SkipAutoExtract = true,
+			},
+			{
+				ExtractAs = "DamageShareDuration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "DamageShareEffect",
+				BaseProperty = "Duration",
+			},
+			{
+				ExtractAs = "DamageShareAmount",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "DamageShareEffect",
+				BaseProperty = "Amount",
+				Format = "Percent",
+			},
+		},
+	},
+
+	SelfCastBoon = -- Demeter x Ares
+	{
+		InheritFrom = {"SynergyTrait"},
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "CastProjectileBoon", "CastAnywhereBoon", "HadesCastProjectileBoon", "CastLobBoon" },
+			},
+		},
+		Icon = "Boon_Ares_42",
+		OnProjectileArmFunction =
+		{
+			FunctionName = "OnDemeterCastArmed",
+			FunctionArgs = 
+			{
+				Speed = 1000,
+				ReportValues = { ReportedMultiplier = "DamageMultiplier"},
 			}
 		},
+		OnWeaponFiredFunctions = 
+		{
+			ValidWeapons = {"WeaponCast"},
+			FunctionName = "CheckArmImput",
+		},
+		OnWeaponChargeCanceledFunctions = 
+		{
+			ValidWeapons = {"WeaponCastArm"},
+			FunctionName = "CheckCastDetach",
+		},
+		PropertyChanges = 
+		{
+			{
+				WeaponName = "WeaponCast",
+				ProjectileProperty = "AttachToOwner",
+				ChangeValue = true,
+			},
+			{
+				WeaponName = "WeaponCast",
+				ProjectileProperty = "IgnoreCancelAttachedProjectiles",
+				ChangeValue = true,
+			}
+		},
+		AddOutgoingDamageModifiers =
+		{
+			ValidProjectiles = {"ProjectileCast"},
+			ValidWeaponMultiplier =
+			{
+				BaseValue = 2.00,
+				SourceIsMultiplier = true,
+			},
+			
+			ReportValues = 
+			{ 
+				ReportedDamageBonus = "ValidWeaponMultiplier" 
+			},
+		},
+		StatLines = 
+		{
+			"ExCastDamageStatDisplay1",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedDamageBonus",
+				ExtractAs = "TooltipDamage",
+				Format = "PercentDelta",
+			},
+		},
+	},
 
+	AutoRevengeBoon = -- Zeus x Ares
+	{
+		InheritFrom = {"SynergyTrait"},
+		Icon = "Boon_Ares_43",
+		
+		OnEffectApplyFunction = 
+		{
+			FunctionName = "CheckAutoRevenge",
+			FunctionArgs = 
+			{
+				EffectName = "AresStatus",
+				Cooldown = 6,
+				ReportValues = {ReportedInterval = "Cooldown"}
+			},
+		},
+		StatLines = 
+		{
+			"RevengeTimerStatDisplay1",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedInterval",
+				ExtractAs = "Interval",
+				DecimalPlaces = 1,
+				Format = "SpeedModifiedDuration",
+			},
+			{
+				ExtractAs = "AresCurseDuration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "AresStatus",
+				BaseProperty = "Duration",
+			},
+			{
+				ExtractAs = "AresCursePowerBonus",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectLuaData",
+				BaseName = "AresStatus",
+				BaseProperty = "BonusBaseDamageOnInflict",
+			},
+		},
+		PackageName = "AresUpgrade",
+	},
+
+	BloodRetentionBoon = -- Hera x Ares
+	{
+		InheritFrom = {"SynergyTrait"},
+		Icon = "Boon_Ares_44",
+		CustomTrayText = "BloodRetentionBoon_Tray",
+		SetupFunction =
+		{
+			Threaded = true,
+			RequiredContext = "StartRoom",
+			Name = "CarryOverBloodDropBonus",
+			Args =
+			{
+				Multiplier = 1,
+				Cap = 20,
+				ReportValues = { ReportedValue = "Cap"},
+			}
+		},
+		StatLines = 
+		{
+			"BloodRetainStatDisplay1",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedValue",
+				ExtractAs = "BloodCount",
+			},
+		},
+	},
+
+	RapidSwordBoon = -- Hephaestus x Ares
+	{
+		InheritFrom = {"SynergyTrait"},
+		Icon = "Boon_Ares_45",
+		AresSwordModifiers = 
+		{
+			Fuse = 0.35,
+		},
+		AddOutgoingDamageModifiers = 
+		{
+			ValidProjectiles = { "ProjectileAresSwordWake", "ProjectileAresSwordCast", "ProjectileAresSwordEx" },
+			ValidBaseDamageAddition = 25,
+			ReportValues = { ReportedDamageAddition = "ValidBaseDamageAddition"}
+		},
+		PropertyChanges = 
+		{
+			{
+				TraitName = "AresSprintBoon",
+				WeaponName = "WeaponBlink",
+				ProjectileName = "ProjectileAresSwordWake",
+				ProjectileProperty = "FuseStart",
+				ChangeValue = 0.35,
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "AresSprintBoon",
+				WeaponName = "WeaponBlink",
+				ProjectileName = "ProjectileAresSwordWake",
+				ProjectileProperty = "Fuse",
+				ChangeValue = 0.35,
+				ExcludeLinked = true,
+			},
+		},
+		StatLines =
+		{
+			"FallSwordDamageStatDisplay",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedDamageAddition",
+				ExtractAs = "DamageAddition",
+				IncludeSigns = true,
+			},
+		}
+	},
+
+	DoubleSplashBoon = -- Poseidon x Ares
+	{
+		InheritFrom = {"SynergyTrait"},
+		Icon = "Boon_Ares_46",
+		NumHits = 2, -- used only for text
+		ConeModifier = 
+		{
+			DoubleWaveChance = 0.25,
+			DoubleWaveGraphic = "PoseidonRedConeFxEmitterLarge",
+			ReportValues = {ReportedChance = "DoubleWaveChance"}
+		},
+		StatLines =
+		{
+			"DoubleSplashStatDisplay",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedChance",
+				ExtractAs = "Chance",
+				Format = "LuckModifiedPercent",
+				HideSigns = true
+			},
+		}
+	},
+
+	DoubleSwordBoon = -- Apollo x Ares
+	{
+		InheritFrom = {"SynergyTrait"},
+		Icon = "Boon_Ares_47",
+		AresSwordModifiers = 
+		{
+			AoEMuliplier = 1.5,
+			AddCount = 1,
+			ReportValues = {ReportedAoEIncrease = "AoEMuliplier"}
+		},
+		StatLines =
+		{
+			"FallSwordAoEStatDisplay",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedAoEIncrease",
+				ExtractAs = "Increase",
+				Format = "PercentDelta",
+			},
+		}
+	},
+
+	FireballRendBoon = -- Hestia x Ares
+	{
+		InheritFrom = {"SynergyTrait"},
+		Icon = "Boon_Ares_48",
+		AddOutgoingDamageModifiers =
+		{
+			ValidProjectiles = {"ProjectileCastFireball", "ProjectileFireball" },
+			MissingEffectDamage = EffectData.AresStatus.BonusBaseDamageOnInflict * 6,
+			MissingEffectName = "AresStatus",
+			MissingDamagePresentation = 
+			{
+				TextStartColor = Color.AresDamageLight,
+				TextColor = Color.AresDamage,
+				FunctionName = "AresRendApplyPresentation",
+				SimSlowDistanceThreshold = 400,
+				HitSimSlowCooldown = 0.8,
+				HitSimSlowParameters =
+				{
+					{ ScreenPreWait = 0.02, Fraction = 0.13, LerpTime = 0 },
+					{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.05 },
+				},
+			},
+		},
+		OnEnemyDamagedAction = 
+		{
+			ValidProjectiles = {"ProjectileCastFireball", "ProjectileFireball" },
+			EffectName = "AresStatus",
+		},
+		ReportedRendBonus = 250,		-- Display variable, matches multiplier above to MissingEffectDamage
+		StatLines =
+		{
+			"FireballRendStatDisplay1",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedRendBonus",
+				ExtractAs = "RendBonus",
+				IncludeSigns = true,
+			},
+			{
+				ExtractAs = "AresCurseDuration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "AresStatus",
+				BaseProperty = "Duration",
+			},
+			{
+				ExtractAs = "AresCursePowerBonus",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectLuaData",
+				BaseName = "AresStatus",
+				BaseProperty = "BonusBaseDamageOnInflict",
+			},
+		},
+	},
+
+	BloodManaBurstBoon = -- Aphrodite x Ares
+	{
+		Icon = "Boon_Ares_49",
+		InheritFrom = { "SynergyTrait" },
+		DropManaBurstChance = 0.25,
+		ManaBurstArgs = 
+		{
+			ProjectileName = "AphroditeBurst",
+			DamageMultiplier = 1.0,
+			StartDelay = 0.15,
+			ReportValues = 
+			{ 
+				ReportedMultiplier = "DamageMultiplier",
+			}
+		},
+		
+		StatLines =
+		{
+			"ManaBurstChanceStatDisplay1",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "DropManaBurstChance",
+				ExtractAs = "Chance",
+				Format = "LuckModifiedPercent",
+				HideSigns = true,
+			},
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "AphroditeBurst",
+				BaseProperty = "Damage",
+				SkipAutoExtract = true,
+			},
+			{
+				ExtractAs = "Duration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "AphroditeBurst",
+				BaseProperty = "Fuse",
+			},
+		},
+
+		PackageName = "AphroditeUpgrade"
 	}
 })

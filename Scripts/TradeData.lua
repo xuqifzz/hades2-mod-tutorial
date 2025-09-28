@@ -23,7 +23,7 @@
 
 	ComponentData =
 	{
-		DefaultGroup = "Combat_Menu",
+		DefaultGroup = "Combat_Menu_Overlay",
 		UseNativeScreenCenter = true,
 
 		Order =
@@ -44,14 +44,12 @@
 			AlphaTargetDuration = 0.3,
 		},
 
-		--[[
 		Background = 
 		{
-			Graphic = "SpellScreenBackground",
+			Animation = "TradeScreenBackground",
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
 		},
-		]]
 
 		TitleText = 
 		{
@@ -89,13 +87,13 @@
 		GiveHintText = 
 		{
 			Text = "TradeScreen_GiveHint",
-			X = 480,
-			Y = 260,
+			X = 540,
+			Y = 365,
 			TextArgs =
 			{
 				FontSize = 24,
 				OffsetX = 0, OffsetY = 0,
-				-- Color = Color.PenaltyRed,
+				Color = Color.PenaltyRed,
 				Font = "P22UndergroundSCMedium",
 				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 3},
 				Justification = "Left",
@@ -104,10 +102,24 @@
 
 		GiveInfoBoxBacking =
 		{
-			Graphic = ScreenData.UpgradeChoice.PurchaseButton.Name,
 			X = ScreenCenterX,
-			Y = 400,
-			TextArgs = ScreenData.UpgradeChoice.DescriptionText,
+			Y = ScreenCenterY,
+			-- Description
+			TextArgs =
+			{
+				OffsetX = -520,
+				OffsetY = 120,
+				Width = 420,
+				Justification = "Left",
+				VerticalJustification = "Top",
+				LineSpacingBottom = 5,
+				LuaKey = "TooltipData",
+				LuaValue = {},
+				Format = "BaseFormat",
+				UseDescription = true,
+				VariableAutoFormat = "BoldFormatGraft",
+				TextSymbolScale = 0.8,
+			},
 			InteractProperties =
 			{
 				TooltipOffsetX = ScreenData.UpgradeChoice.TooltipOffsetX,
@@ -127,28 +139,59 @@
 			{
 				GiveInfoBoxIcon = 
 				{
-					Graphic = "BlankObstacle",
-					Scale = ScreenData.UpgradeChoice.Icon.Scale,
-					OffsetX = ScreenData.UpgradeChoice.IconOffsetX,
-					OffsetY = ScreenData.UpgradeChoice.IconOffsetY,
+					Scale = 0.9,
+					OffsetX = -332,
+					OffsetY = -40,
 					Alpha = 0.0,
 				},
 
 				GiveInfoBoxFrame = 
 				{
-					Graphic = "BlankObstacle",
 					Animation = "Frame_Boon_Menu_Common",
-					Scale = ScreenData.UpgradeChoice.Frame.Scale,
-					OffsetX = ScreenData.UpgradeChoice.IconOffsetX,
-					OffsetY = ScreenData.UpgradeChoice.IconOffsetY,
+					Scale = 0.6,
+					OffsetX = -332,
+					OffsetY = -40,
 					Alpha = 0.0,
 				},
 
 				GiveInfoBoxName =
 				{
-					TextArgs = ScreenData.UpgradeChoice.TitleText,
+					TextArgs =
+					{
+						OffsetX = -520,
+						OffsetY = 80,
+						FontSize = 27,						
+						Font = "P22UndergroundSCMedium",
+						ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
+						Justification = "Left",
+						LuaKey = "TooltipData",
+						LuaValue = {},
+					},
+				},
+
+				GiveInfoBoxSubText =
+				{
+					TextArgs =
+					{
+						OffsetX = -320,
+						OffsetY = 265,
+						Font = "P22UndergroundSCMedium",
+						FontSize = 22,
+						ShadowRed = 0.1, ShadowBlue = 0.1, ShadowGreen = 0.1,
+						OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 3,
+						ShadowAlpha = 1.0, ShadowBlur = 0, ShadowOffsetY = 2, ShadowOffsetX = 0,
+						Justification = "Center",
+						LuaKey = "TooltipData",
+						LuaValue = {},
+						TextSymbolScale = 0.8,
+						DataProperties =
+						{
+							TextSymbolOffsetY = 3,
+						},
+					},
 				},
 				
+				--[[
 				GiveInfoBoxStatLineLeft =
 				{ 
 					TextArgs = ScreenData.UpgradeChoice.StatLineLeft,
@@ -163,14 +206,15 @@
 				{
 					TextArgs = ScreenData.UpgradeChoice.RarityText,
 				},
+				]]
 			},
 		},
 
 		GetHintText = 
 		{
 			Text = "TradeScreen_GetHint",
-			X = 480,
-			Y = 610,
+			X = 1050,
+			Y = 365,
 			TextArgs =
 			{
 				FontSize = 24,
@@ -184,10 +228,24 @@
 
 		GetInfoBoxBacking =
 		{
-			Graphic = ScreenData.UpgradeChoice.PurchaseButton.Name,
 			X = ScreenCenterX,
-			Y = 750,
-			TextArgs = ScreenData.UpgradeChoice.DescriptionText,
+			Y = ScreenCenterY,
+			-- Description
+			TextArgs =
+			{
+				OffsetX = 90,
+				OffsetY = 120,
+				Width = 420,
+				Justification = "Left",
+				VerticalJustification = "Top",
+				LineSpacingBottom = 5,
+				LuaKey = "TooltipData",
+				LuaValue = {},
+				Format = "BaseFormat",
+				UseDescription = true,
+				VariableAutoFormat = "BoldFormatGraft",
+				TextSymbolScale = 0.8,
+			},
 			InteractProperties =
 			{
 				TooltipOffsetX = ScreenData.UpgradeChoice.TooltipOffsetX,
@@ -208,9 +266,9 @@
 				GetInfoBoxIcon = 
 				{
 					Graphic = "BlankObstacle",
-					Scale = ScreenData.UpgradeChoice.Icon.Scale,
-					OffsetX = ScreenData.UpgradeChoice.IconOffsetX,
-					OffsetY = ScreenData.UpgradeChoice.IconOffsetY,
+					Scale = 0.9,
+					OffsetX = 333,
+					OffsetY = -40,
 					Alpha = 0.0,
 				},
 
@@ -218,17 +276,50 @@
 				{
 					Graphic = "BlankObstacle",
 					Animation = "Frame_Boon_Menu_Common",
-					Scale = ScreenData.UpgradeChoice.Frame.Scale,
-					OffsetX = ScreenData.UpgradeChoice.IconOffsetX,
-					OffsetY = ScreenData.UpgradeChoice.IconOffsetY,
+					Scale = 0.6,
+					OffsetX = 0,
+					OffsetY = 0,
 					Alpha = 0.0,
 				},
 
 				GetInfoBoxName =
 				{
-					TextArgs = ScreenData.UpgradeChoice.TitleText,
+					TextArgs =
+					{
+						OffsetX = 90,
+						OffsetY = 80,
+						FontSize = 27,						
+						Font = "P22UndergroundSCMedium",
+						ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
+						Justification = "Left",
+						LuaKey = "TooltipData",
+						LuaValue = {},
+					},
+				},
+
+				GetInfoBoxSubText =
+				{
+					TextArgs =
+					{
+						OffsetX = 280,
+						OffsetY = 265,
+						Font = "P22UndergroundSCMedium",
+						FontSize = 22,
+						ShadowRed = 0.1, ShadowBlue = 0.1, ShadowGreen = 0.1,
+						OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 3,
+						ShadowAlpha = 1.0, ShadowBlur = 0, ShadowOffsetY = 2, ShadowOffsetX = 0,
+						Justification = "Center",
+						LuaKey = "TooltipData",
+						LuaValue = {},
+						TextSymbolScale = 0.8,
+						DataProperties =
+						{
+							TextSymbolOffsetY = 3,
+						},
+					},
 				},
 				
+				--[[
 				GetInfoBoxStatLineLeft =
 				{ 
 					TextArgs = ScreenData.UpgradeChoice.StatLineLeft,
@@ -238,6 +329,7 @@
 				{ 
 					TextArgs = ScreenData.UpgradeChoice.StatLineRight,
 				},
+				]]
 			},
 		},
 
@@ -270,36 +362,68 @@
 					Text = "Menu_OpenTraitTray",
 					TextArgs = UIData.ContextualButtonFormatRight,
 				},
+			},
+		},
 
-				AcceptButton =
-				{
-					Graphic = "ContextualActionButton",
-					Data =
-					{
-						OnMouseOverFunctionName = "MouseOverContextualAction",
-						OnMouseOffFunctionName = "MouseOffContextualAction",
-						OnPressedFunctionName = "TradeScreenAccept",
-						Sound = "/SFX/Menu Sounds/GodBoonInteract",
-						ControlHotkeys = { "Confirm", },
-					},
-					Text = "TradeScreen_Accept",
-					TextArgs = UIData.ContextualButtonFormatRight,
-				},
+		AcceptButton =
+		{
+			Graphic = "ContextualActionButton",
+			Animation = "TradeScreenAccept",
+			X = 1190,
+			Y = 950,
+			Data =
+			{
+				OnMouseOverFunctionName = "MouseOverContextualAction",
+				OnMouseOffFunctionName = "MouseOffContextualAction",
+				OnPressedFunctionName = "TradeScreenAccept",
+				Sound = "/SFX/Menu Sounds/GodBoonInteract",
+				ControlHotkeys = { "Confirm", },
+			},
+			Text = "TradeScreen_Accept",
+			TextArgs =
+			{
+				OffsetY = -3,
+				OffsetX = -5,
+				FontSize = 20,
+				Width = 415,
+				LineSpacingBottom = 0,
+				Color = { 1.0, 1.0, 1.0, 1.0 },
+				Font = "LatoBold",
+				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
+				Justification = "CENTER",
+				VerticalJustification = "CENTER",
+				TextSymbolScale = 0.8,
+			},
+		},
 
-				CloseButton =
-				{
-					Graphic = "ContextualActionButton",
-					Data =
-					{
-						OnMouseOverFunctionName = "MouseOverContextualAction",
-						OnMouseOffFunctionName = "MouseOffContextualAction",
-						OnPressedFunctionName = "TradeScreenDecline",
-						Sound = "/SFX/Menu Sounds/GodBoonMenuClose",
-						ControlHotkeys = { "Cancel", },
-					},
-					Text = "TradeScreen_Decline",
-					TextArgs = UIData.ContextualButtonFormatRight,
-				},
+		CloseButton =
+		{
+			Graphic = "ContextualActionButton",
+			Animation = "TradeScreenDecline",
+			X = 735,
+			Y = 950,
+			Data =
+			{
+				OnMouseOverFunctionName = "MouseOverContextualAction",
+				OnMouseOffFunctionName = "MouseOffContextualAction",
+				OnPressedFunctionName = "TradeScreenDecline",
+				Sound = "/SFX/Menu Sounds/IrisMenuBack",
+				ControlHotkeys = { "Cancel", },
+			},
+			Text = "TradeScreen_Decline",
+			TextArgs =
+			{
+				OffsetY = -3,
+				OffsetX = -5,
+				FontSize = 20,
+				Width = 415,
+				LineSpacingBottom = 0,
+				Color = { 1.0, 1.0, 1.0, 1.0 },
+				Font = "LatoBold",
+				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
+				Justification = "CENTER",
+				VerticalJustification = "CENTER",
+				TextSymbolScale = 0.8,
 			},
 		},
 	},

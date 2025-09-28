@@ -15,19 +15,6 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
-      "Id": "Terrain",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "MapArt",
-      "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
       "Id": "River_02",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -260,6 +247,19 @@
       "Visible": true
     },
     {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "FX_Standing_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
       "BlendMode": 11,
       "ChildGroups": [],
       "Id": "Lightercolor_01",
@@ -360,6 +360,7 @@
         "Lighting_01",
         "Fog_01",
         "Lightercolor_01",
+        "FX_Standing_01",
         "Standing",
         "Terrain_Lighting_01",
         "Terrain_Overlay_01",
@@ -377,8 +378,7 @@
         "Terrain_Base",
         "River_FX",
         "River_01",
-        "River_02",
-        "Terrain"
+        "River_02"
       ],
       "Id": "MapArt",
       "NumSelectedAsDraw": 0,
@@ -401,19 +401,6 @@
       "NumThingsSelectable": 0,
       "NumThingsVisible": 0,
       "ParentGroup": "",
-      "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
-      "Id": "ArtemisSpawnPoints",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "MapLogic",
       "Visible": true
     },
     {
@@ -497,6 +484,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "ArtemisSpawnPoints",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapLogic",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "ExitDoors",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -548,5 +548,6 @@
     "X": 7221.721,
     "Y": 8656.775
   },
-  "TimeLapseCameraZoom": 0.423
+  "TimeLapseCameraZoom": 0.423,
+  "ShadowPlaneDepth": 0.000
 }

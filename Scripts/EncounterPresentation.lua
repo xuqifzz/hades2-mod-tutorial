@@ -50,7 +50,7 @@ function PerfectClearEncounterStartPresentation( eventSource )
 
 	thread( PlayVoiceLines, GlobalVoiceLines.PerfectClearEncounterInitiatedLines, true )
 
-	SurvivalEncounterStartPresentation( encounter, 0, "PerfectClear", "FullscreenAlertColorDark", "PerfectClearAboutToStartVoiceLines", "PerfectClearEncounterStartVoiceLines" )
+	SurvivalEncounterStartPresentation( encounter, "PerfectClear", "FullscreenAlertColorDark", "PerfectClearAboutToStartVoiceLines", "PerfectClearEncounterStartVoiceLines" )
 
 end
 
@@ -73,12 +73,12 @@ function EliteEncounterStartPresentation( eventSource )
 
 	thread( PlayVoiceLines, GlobalVoiceLines.EliteEncounterInitiatedLines, true )
 
-	SurvivalEncounterStartPresentation( encounter, 0, "PerfectClear", "FullscreenAlertColorDark", "PerfectClearAboutToStartVoiceLines", "PerfectClearEncounterStartVoiceLines" )
+	SurvivalEncounterStartPresentation( encounter, "PerfectClear", "FullscreenAlertColorDark", "PerfectClearAboutToStartVoiceLines", "PerfectClearEncounterStartVoiceLines" )
 end
 
 function EliteChallengeSpawnPresentation( unit )
 	
-	SetInvulnerable({ Id = unit.ObjectId })
+	SetUnitInvulnerable( unit, "EliteChallengeSpawnPresentation" )
 	-- camera
 	FocusCamera({ Fraction = 1.03, Duration = 0.5, ZoomType = "Ease" })
 	PanCamera({ Id = unit.ObjectId, Duration = 0.5, EaseIn = 0, EaseOut = 0.1 })
@@ -108,7 +108,7 @@ function EliteChallengeSpawnPresentation( unit )
 	PanCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 0.5, EaseIn = 0, EaseOut = 0.1 })
 	FocusCamera({ Fraction = CurrentRun.CurrentRoom.ZoomFraction or 1.0, Duration = 0.4, ZoomType = "Ease" })
 	
-	SetVulnerable({ Id = unit.ObjectId })
+	SetUnitVulnerable( unit, "EliteChallengeSpawnPresentation" )
 end
 
 -- some of this is in StartChallengeEncounter()
@@ -124,7 +124,7 @@ function ChallengeEncounterStartPresentation( eventSource )
 	PlaySound({ Name = "/Leftovers/Menu Sounds/TextReveal3" })
 	thread( DoRumble, { { ScreenPreWait = 0.02, Fraction = 0.17, Duration = 0.4 }, } )
 
-	SurvivalEncounterStartPresentation( challengeEncounter, 0 )
+	SurvivalEncounterStartPresentation( challengeEncounter )
 	thread( TrackTimeChallengeProgress, challengeEncounter )
 end
 
@@ -179,7 +179,7 @@ function ChallengeEncounterEndPresentation( eventSource )
 	StopSound({ Id = AudioState.EliteEncounterMusicId, Duration = 0.5 })
 	AudioState.EliteEncounterMusicId = nil
 
-	thread( ResumeMusic, { Duration = 0.2, Delay = 1.0 } )
+	thread( ResumeMusic, { Duration = 0.2, Delay = 5.0 } )
 end
 
 function HadesSpeakingPresentation( eventSource, args )
@@ -192,12 +192,14 @@ end
 
 function DoHadesSpeakingPresentation( eventSource, args )
 
+	if args.RequireNonPlayerSource and eventSource == CurrentRun.Hero then
+		return
+	end
 	if not args.BlockColorGrade then
 		AdjustColorGrading({ Name = args.ColorGrade or "Alert", Duration = 0 })
 	end
 	if args.UseSurvivalPresentation then
 		thread( SurvivalEncounterStartPresentation )
-		-- wait(1)
 	end
 
 	ScreenAnchors.FullscreenAlertFxAnchor = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Scripting", X = ScreenCenterX, Y = ScreenCenterY })
@@ -215,10 +217,25 @@ function DoHadesSpeakingPresentation( eventSource, args )
 		ShakeScreen({ Speed = 100, Distance = 2, FalloffSpeed = 2000, Duration = 0.3 })
 	end
 
-	local hadesOverlay = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX - 420, Y = ScreenCenterY, Group = "Overlay" })
+	local hadesOverlayOffsetX = -420
+	if args.OverlayDeathFx then
+		hadesOverlayOffsetX = 0
+	end
+
+	local hadesOverlay = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX + hadesOverlayOffsetX, Y = ScreenCenterY, Group = "Combat_Menu" })
 	SetScale({ Id = hadesOverlay, Fraction = 1 })
 	SetAlpha({ Id = hadesOverlay, Fraction = 0.0, Duration = 0 })
-	Move({ Id = hadesOverlay, Angle = 270, Speed = 5 })
+
+	if args.OverlayDeathFx then
+		ScreenAnchors.DeathPortraitOverlayFxEmitter = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay",
+			Animation = "DeathPortraitOverlayFxEmitter",
+			X = ScreenCenterX,
+			Y = ScreenCenterY - 80,
+			ScaleX = ScreenScaleX,
+			ScaleY = ScreenScaleY,
+		})
+	end
+
 	if args.OverlayAnim then
 		SetAnimation({ Name = args.OverlayAnim, DestinationId = hadesOverlay })
 	end
@@ -260,8 +277,8 @@ function ArtemisPreSpawnPresentation( eventSource, args )
 
 	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteAscendedArthurChoir" })
 
-	AdjustColorGrading({ Name = "Team05", Duration = 1.0 })
-	AdjustFullscreenBloom({ Name = "Subtle", Duration = 0.5 })
+	AdjustColorGrading({ Name = "Artemis", Duration = 1.0, EaseIn = 0, EaseOut = 1 })
+	AdjustFullscreenBloom({ Name = "Subtle", Duration = 0.5, EaseIn = 0, EaseOut = 1 })
 
 	for k, unit in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 		if unit.EncounterStartVoiceLines ~= nil then
@@ -269,7 +286,13 @@ function ArtemisPreSpawnPresentation( eventSource, args )
 		end
 	end
 
-	thread( DisplayInfoBanner, nil, { Text = "ArtemisMessage", Delay = 0.2, FadeColor = {0, 1, 0.7, 1} } )
+	thread( DisplayInfoBanner, nil, { 
+		Text = "ArtemisMessage", 
+		Delay = 0.2, 
+		TextFadeColor = {0.4, 0.9, 0.6, 1},
+		AnimationName = "InfoBannerArtemisIn",
+		AnimationOutName = "InfoBannerArtemisOut", 
+	} )
 
 	wait( 0.5, RoomThreadName )
 
@@ -278,8 +301,8 @@ function ArtemisPreSpawnPresentation( eventSource, args )
 
 	thread( function()
 		wait( 0.5 )
-		AdjustFullscreenBloom({ Name = "Off", Duration = 0.5 })
-		AdjustColorGrading({ Name = "Off", Duration = 3.0 })	
+		AdjustFullscreenBloom({ Name = "Off", Duration = 1.5, EaseIn = 0, EaseOut = 1 })
+		AdjustColorGrading({ Name = "Off", Duration = 3.0, EaseIn = 0, EaseOut = 1 })	
 	end )
 end
 
@@ -289,16 +312,22 @@ function ArtemisAppearancePresentation( artemis )
 	SetSoundCueValue({ Names = { "Drums" }, Id = AudioState.SecretMusicId, Value = 0 })
 	
 	AngleTowardTarget({ Id = artemis.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
-	CreateAnimation({ Name = "TeleportDisappear", DestinationId = artemis.ObjectId })
 	
 	wait( 0.1, RoomThreadName )
 
-	SetAlpha({ Id = artemis.ObjectId, Fraction = 1.0, Duration = 0 })
 	thread( PlayVoiceLines, artemis.EncounterEndVoiceLines, nil, artemis )
 
-	wait( 0.4, RoomThreadName )
+	wait( 0.35, RoomThreadName )
+
+	CreateAnimation({ Name = "TeleportDisappear", DestinationId = artemis.ObjectId })
+
+	wait( 0.05, RoomThreadName)
 	
+	SetAlpha({ Id = artemis.ObjectId, Fraction = 1.0, Duration = 0 })
 	SetAnimation({ Name = "Artemis_Appear", DestinationId = artemis.ObjectId })
+
+	local textLines = GetRandomEligibleTextLines( artemis, artemis.InteractTextLineSets, GetNarrativeDataValue( artemis, "InteractTextLinePriorities" ) )
+	SetNextInteractLines( artemis, textLines )
 
 	wait( 1.0, RoomThreadName )	
 
@@ -311,27 +340,29 @@ function ArtemisFirstAppearancePresentation( artemis )
 
 	HideCombatUI( "ArtemisFirstAppearancePresentation" )
 	CutsceneAddLetterbox()
-	PlaySound({ Name = "/SFX/Menu Sounds/GeneralWhooshMENULoudLow" })
 
 
 	-- SetSoundCueValue({ Names = { "Section" }, Id = AudioState.SecretMusicId, Value = 1 })
 	SetSoundCueValue({ Names = { "Drums" }, Id = AudioState.SecretMusicId, Value = 0 })
 
-	PanCamera({ Ids = artemis.ObjectId, Duration = 1.95, EaseIn = 0.05, EaseOut = 0.3 })
+	PanCamera({ Ids = artemis.ObjectId, Duration = 1.95, EaseIn = 0.05, EaseOut = 0.03 })
 	PlaySound({ Name = "/Leftovers/World Sounds/MapZoomSlow" })
 
 	wait( 1.0, RoomThreadName )
 	
 	AngleTowardTarget({ Id = artemis.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
-	CreateAnimation({ Name = "TeleportDisappear", DestinationId = artemis.ObjectId })
 	
 	wait( 0.1, RoomThreadName )
 
-	SetAlpha({ Id = artemis.ObjectId, Fraction = 1.0, Duration = 0 })
 	thread( PlayVoiceLines, artemis.EncounterEndVoiceLines, nil, artemis )
 
-	wait( 0.4, RoomThreadName )
+	wait( 0.35, RoomThreadName )
+
+	CreateAnimation({ Name = "TeleportDisappear", DestinationId = artemis.ObjectId })
+
+	wait( 0.05, RoomThreadName)
 	
+	SetAlpha({ Id = artemis.ObjectId, Fraction = 1.0, Duration = 0 })
 	SetAnimation({ Name = "Artemis_Appear", DestinationId = artemis.ObjectId })
 
 	wait( 2.1, RoomThreadName )
@@ -377,7 +408,7 @@ function ArtemisExitPresentation( source, args )
 		wait ( 1.65 )
 	end
 	CreateAnimation({ Name = "TeleportDisappear", DestinationId = source.ObjectId })
-	SetAlpha({ Id = source.ObjectId, Fraction = 0.0, Duration = 0.35 })
+	SetAlpha({ Id = source.ObjectId, Fraction = 0.0, Duration = 0.1 })
 
 	wait( 0.5, RoomThreadName )
 
@@ -462,15 +493,6 @@ function ShoppingFidgetPresentation( unit )
 	end
 end
 
-function ShoppingSuccessPresentation( unit, args )
-	args = args or {}
-	thread( PlayVoiceLines, unit.PurchasedVoiceLines, true )
-	if args.InstantPurchase then
-		thread( PlayVoiceLines, GlobalVoiceLines.FrustratedVoiceLines, true )
-	end
-	DebugPrint({ Text = "Shopping success!" })
-end
-
 function ShoppingSuccessHeraclesPresentation( unit, args )
 	args = args or {}
 	thread( PlayVoiceLines, unit.PurchasedVoiceLines, true )
@@ -543,51 +565,23 @@ function SetHeroAngleWithMoveOrder( args )
 	Stop({ Id = CurrentRun.Hero.ObjectId })
 end
 
-
-function MoveHeroToNPCFrontAngle( args )
-	if args == nil then
-		return
-	end
-	local offsetAngle = GetAngle({ Id = args.ObjectId })
-	local offset = CalcOffset( math.rad (offsetAngle), args.Distance or 300)
-	local targetId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = targetId, Group = "Scripting", OffsetX = offset.X, OffsetY = offset.Y })
-	local notifyName = "HeroAngleWithMoveOrder"
-	Move({ Id = CurrentRun.Hero.ObjectId, DestinationId = targetId, SuccessDistance = 32 })
-	NotifyWithinDistance({ Id = CurrentRun.Hero.ObjectId, DestinationId = targetId, Distance = 32, Notify = notifyName, Timeout = args.Timeout })
-	waitUntil( notifyName )
-	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = args.ObjectId })
-	Stop({ Id = CurrentRun.Hero.ObjectId })
-end
-
-
-function MoveHeroToArtemisFrontAngle( args )
-	if args == nil then
-		args = { }
-	end
-	local targetIdGroup = GetIdsByType({ Name = "NPC_Artemis_Field_01" })  
-	local artemisId = targetIdGroup[1]
-	local offsetAngle = GetAngle({ Id = artemisId })
-	local offset = CalcOffset( math.rad (offsetAngle), args.Distance or 150 )
-	local targetId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = artemisId, Group = "Scripting", OffsetX = offset.X, OffsetY = offset.Y })
-	local notifyName = "HeroAngleWithMoveOrder"
-	--CreateAnimation({ Name = "InspectPointLoop", DestinationId = targetId })
-	Move({ Id = CurrentRun.Hero.ObjectId, DestinationId = targetId, SuccessDistance = 32 })
-	NotifyWithinDistance({ Id = CurrentRun.Hero.ObjectId, DestinationId = targetId, Distance = 32, Notify = notifyName, Timeout = args.Timeout or 3.5 })
-	waitUntil( notifyName )
-	wait( 0.040 )
-	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = artemisId })
-	wait( 0.885 )
-end
-
 function AngleNPCToHero( source )
 	local npcId = source.ObjectId
-	local arcThreshold = 50
+	local arcThreshold = source.TurnInPlaceAngleMin or 50
 	local facingAngle = GetAngle({ Id = npcId })
 	local angleToTarget = GetAngleBetween({ Id = npcId, DestinationId = CurrentRun.Hero.ObjectId })
 	local arcDistance = CalcArcDistance( facingAngle, angleToTarget )
-	if arcDistance > arcThreshold then
-		AngleTowardTarget({ Id = npcId, DestinationId = CurrentRun.Hero.ObjectId })
-		if source.TurnInPlaceAnimation ~= nil then
+	if source.TurnInPlaceAnimation ~= nil then
+		local playTurnAnimation = source.AlwaysPlayTurnInPlaceAnimation
+		if arcDistance > arcThreshold then
+			if source.TurnInPlaceDelay ~= nil then
+				thread( GenericPresentation, source, { PreWait = source.TurnInPlaceDelay, AngleTowardHero = true } )
+			else
+				AngleTowardTarget({ Id = npcId, DestinationId = CurrentRun.Hero.ObjectId })
+			end
+			playTurnAnimation = true
+		end
+		if playTurnAnimation then
 			SetAnimation({ Name = source.TurnInPlaceAnimation, DestinationId = npcId })
 		end
 	end
@@ -603,10 +597,20 @@ function CheckEnemySightedVoiceLines( source, args, contextArgs )
 	end
 end
 
-function DevotionTestPresentation()
+function DevotionTestPresentation( source, args )
+
+	args = args or {}
+
+	if args.PresentationGameStateRequirements ~= nil and not IsGameStateEligible( source, args.PresentationGameStateRequirements ) then
+		return
+	end
 
 	HideCombatUI("Devotion")
-	thread( DisplayInfoBanner, nil, { AnimationName = "LocationBackingIrisGenericIn", AnimationOutName = "LocationBackingIrisGenericOut", Text = "DevotionMessage", Delay = 0.95 } )
+	thread( DisplayInfoBanner, nil,
+		{
+			AnimationName = "LocationBackingIrisGenericIn", AnimationOutName = "LocationBackingIrisGenericOut",
+			Text = "DevotionMessage", Delay = 0.95,
+		} )
 	PlaySound({ Name = "/Leftovers/Menu Sounds/TextReveal2" })
 	AdjustColorGrading({ Name = "Devotion", Duration = 1.0 })
 	local devotionSoundId = PlaySound({ Name = "/SFX/GodFavorBattleStart" })
@@ -619,72 +623,7 @@ function DevotionTestPresentation()
 	ShowCombatUI("Devotion")
 end
 
-function InvasionEncounterStartPresentation( eventSource, tollTimes, colorGrade, colorFx, playerGlobalVoiceLines, opponentGlobalVoiceLines )
-	local survivalEncounter = eventSource
-
-	AdjustColorGrading({ Name = colorGrade or "Alert", Duration = 0 })
-	ScreenAnchors.FullscreenAlertFxAnchor = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Scripting", X = ScreenCenterX, Y = ScreenCenterY })
-
-	local fullscreenAlertDisplacementFx = SpawnObstacle({ Name = "FullscreenAlertDisplace", Group = "FX_Displacement", DestinationId = ScreenAnchors.FullscreenAlertFxAnchor})
-	SetScaleX({ Id = fullscreenAlertDisplacementFx, Fraction = ScreenScaleX, Duration = 0 })
-	SetScaleY({ Id = fullscreenAlertDisplacementFx, Fraction = ScreenScaleY, Duration = 0 })
-	DrawScreenRelative({ Id = fullscreenAlertDisplacementFx })
-
-	local fullscreenAlertColorFx = SpawnObstacle({ Name = colorFx or "FullscreenAlertColor", Group = "FX_Standing_Top", DestinationId = ScreenAnchors.FullscreenAlertFxAnchor})
-	DrawScreenRelative({ Id = fullscreenAlertColorFx })
-
-	AdjustFullscreenBloom({ Name = "AlertBloom", Duration = 0.25 })
-
-	PlaySound({ Name = "/Leftovers/World Sounds/ThunderHuge" })
-	ShakeScreen({ Speed = 600, Distance = 6, FalloffSpeed = 2000, Duration = 0.3 })
-
-	local chronosOverlay = CreateScreenObstacle({ Name = "rectangle01", X = ScreenCenterX - 420, Y = ScreenCenterY, Group = "Events" })
-	SetScale({ Id = chronosOverlay, Fraction = 1 })
-	SetAlpha({ Id = chronosOverlay, Fraction = 0.0, Duration = 0 })
-	Move({ Id = chronosOverlay, Angle = 270, Speed = 5 })
-
-	SetAnimation({ Name = "ChronosOverlay", DestinationId = chronosOverlay })
-
-	if not CurrentRun.CurrentRoom.BlockHadesOverlay then
-		SetAlpha({ Id = chronosOverlay, Fraction = 1.0, Duration = 0 })
-	end
-
-	wait( 0.4, RoomThreadName )
-
-	if playerGlobalVoiceLines ~= nil then
-		thread( PlayVoiceLines, GlobalVoiceLines[playerGlobalVoiceLines], true )
-	else
-		thread( PlayVoiceLines, GlobalVoiceLines.InvasionAboutToStartVoiceLines, true )
-	end
-
-	wait( 1.4, RoomThreadName )
-	local source = {} -- Dummy source for disembodied voice
-	source.SubtitleColor = Color.ChronosVoice
-	if opponentGlobalVoiceLines ~= nil then
-		thread( PlayVoiceLines, GlobalVoiceLines[opponentGlobalVoiceLines], false, source )
-	else
-		thread( PlayVoiceLines, GlobalVoiceLines.InvasionEncounterStartVoiceLines, false, source )
-	end
-
-	thread( HadesVoicelineBlur )
-	AdjustFullscreenBloom({ Name = "NewType10", Duration = 1.4 })
-	PlaySound({ Name = "/SFX/SurvivalChallengeStart" })
-	thread( DoRumble, { { ScreenPreWait = 0.02, Fraction = 0.17, Duration = 0.4 }, } )
-
-	local activeStemTable = { "Guitar", "Bass", "Drums" }
-	SetSoundCueValue({ Names = activeStemTable, Id = AudioState.MusicId, Value = 1, Duration = 0.75 })
-
-	AdjustColorGrading({ Name = "Off", Duration = 0.45 })
-	AdjustFullscreenBloom({ Name = "Off", Duration = 0.45 })
-	SetAlpha({ Id = fullscreenAlertColorFx, Fraction = 0, Duration = 0.45 })
-	SetAlpha({ Id = fullscreenAlertDisplacementFx, Fraction = 0, Duration = 0.45 })
-	SetAlpha({ Id = chronosOverlay, Fraction = 0.0, Duration = 1 })
-	wait( 1.0, RoomThreadName )
-	Destroy({ Id = chronosOverlay })
-	Destroy({ Ids = { fullscreenAlertColorFx, fullscreenAlertDisplacementFx } })
-end
-
-function SurvivalEncounterStartPresentation( eventSource, tollTimes, colorGrade, colorFx, playerGlobalVoiceLines, opponentGlobalVoiceLines )
+function SurvivalEncounterStartPresentation( eventSource, colorGrade, colorFx, playerGlobalVoiceLines, opponentGlobalVoiceLines )
 	eventSource = eventSource or {}
 
 	AdjustColorGrading({ Name = colorGrade or "Alert", Duration = 0 })
@@ -698,112 +637,31 @@ function SurvivalEncounterStartPresentation( eventSource, tollTimes, colorGrade,
 	local fullscreenAlertColorFx = SpawnObstacle({ Name = colorFx or "FullscreenAlertColor", Group = "FX_Standing_Top", DestinationId = ScreenAnchors.FullscreenAlertFxAnchor})
 	DrawScreenRelative({ Id = fullscreenAlertColorFx })
 
-	AdjustFullscreenBloom({ Name = "AlertBloom", Duration = 0.25 })
-
 	PlaySound({ Name = "/Leftovers/World Sounds/ThunderHuge" })
 	ShakeScreen({ Speed = 600, Distance = 6, FalloffSpeed = 2000, Duration = 0.3 })
 
-	--[[local hadesOverlay = CreateScreenObstacle({ Name = "rectangle01", X = ScreenCenterX - 420, Y = ScreenCenterY, Group = "Events" })
-	SetScale({ Id = hadesOverlay, Fraction = 1 })
-	SetAlpha({ Id = hadesOverlay, Fraction = 0.0, Duration = 0 })
-	Move({ Id = hadesOverlay, Angle = 270, Speed = 5 })
-
-	SetAnimation({ Name = "HadesOverlay", DestinationId = hadesOverlay })
-
-	if not CurrentRun.CurrentRoom.BlockHadesOverlay then
-		SetAlpha({ Id = hadesOverlay, Fraction = 1.0, Duration = 0 })
-	end]]
-
-	-- wait( 0.4, RoomThreadName )
-
 	thread( PlayVoiceLines, GlobalVoiceLines.ChallengeEncounterEnemySightedVoiceLines, true )
 
-	--[[wait( 1.4, RoomThreadName )
-	local source = {} -- Dummy source for disembodied voice
-	source.SubtitleColor = Color.HadesVoice
-	if opponentGlobalVoiceLines ~= nil then
-		thread( PlayVoiceLines, GlobalVoiceLines[opponentGlobalVoiceLines], false, source )
-	else
-		thread( PlayVoiceLines, GlobalVoiceLines.SurvivalEncounterStartVoiceLines, false, source )
-	end]]
-
-	--thread( HadesVoicelineBlur )
-	for index = 1, tollTimes or 3, 1 do
-		SurvivalTollPulse()
-	end
-	AdjustFullscreenBloom({ Name = "NewType10", Duration = 1.4 })
+	BloomRequestStart({ SourceName = "SurvivalEncounterStartPresentation", BloomType = "NewType10", Duration = 1.4 })
 
 	PlaySound({ Name = eventSource.StartSound or "/SFX/SurvivalChallengeStart" })
 
 	thread( DoRumble, { { ScreenPreWait = 0.02, Fraction = 0.17, Duration = 0.4 }, } )
 
-	if tollTimes == 0 then
-		wait( 1.0, RoomThreadName )
-	else
-		wait( 0.5, RoomThreadName )
-	end
+	wait( 1.0, RoomThreadName )
 
 	local activeStemTable = { "Guitar", "Bass", "Drums" }
 	SetSoundCueValue({ Names = activeStemTable, Id = AudioState.MusicId, Value = 1, Duration = 0.75 })
 
 	AdjustColorGrading({ Name = "Off", Duration = 0.45 })
-	AdjustFullscreenBloom({ Name = "Off", Duration = 0.45 })
+	BloomRequestEnd({ SourceName = "SurvivalEncounterStartPresentation", Duration = 0.45 })
 	SetAlpha({ Id = fullscreenAlertColorFx, Fraction = 0, Duration = 0.45 })
 	SetAlpha({ Id = fullscreenAlertDisplacementFx, Fraction = 0, Duration = 0.45 })
-	--SetAlpha({ Id = hadesOverlay, Fraction = 0.0, Duration = 1 })
 	wait( 1.0, RoomThreadName )
-	--Destroy({ Id = hadesOverlay })
 	Destroy({ Ids = { fullscreenAlertColorFx, fullscreenAlertDisplacementFx } })
 end
 
-function FloodEncounterStartPresentation( eventSource, encounter )
 
-	if AudioState.FloodSoundId == nil then
-		AudioState.FloodSoundId = PlaySound({ Name = "/Leftovers/Object Ambiences/WaterRushingLarge" })
-	end
-
-	wait( 2.0, RoomThreadName )
-	if encounter.Completed then
-		if AudioState.FloodSoundId ~= nil then
-			StopSound({ Id = AudioState.FloodSoundId, Duration = 5.0 })
-			AudioState.FloodSoundId = nil
-		end
-		return
-	end
-
-	thread( PlayVoiceLines, HeroVoiceLines.TrapsActivatedVoiceLines, true )
-
-	thread( DoRumble, { { ScreenPreWait = 0.02, Fraction = 0.17, Duration = 0.4 }, } )
-	thread( FloodEncounterStartEndAudio )
-end
-
-function FloodEncounterStartEndAudio()
-	wait( 5.0, RoomThreadName )
-	if AudioState.FloodSoundId ~= nil then
-		StopSound({ Id = AudioState.FloodSoundId, Duration = 5.0 })
-		AudioState.FloodSoundId = nil
-	end
-end
-
-function FloodTrapFireStartPresentation()
-	ShakeScreen({ Speed = 900, Distance = 1, FalloffSpeed = 2000, Duration = 5.8 })
-	thread( DoRumble, { { ScreenPreWait = 0.02, RightFraction = 0.15, Duration = 7.1 }, } )
-	PlaySound({ Name = "/SFX/FloodTrapPreFire" })
-
-	local floodTraps = GetIdsByType({ Name =  "FloodTrap" })
-	for k, unitId in pairs( floodTraps ) do
-		if ActiveEnemies[unitId] ~= nil then
-			Shake({ Id = unitId, Distance = 3, Speed = 300, Duration = 2.0 })
-			Flash({ Id = unitId, MinFraction = 0, MaxFraction = 1.0, Speed = 4, Duration = 2.0, Color = Color.Red })
-			PlaySound({ Id = unitId, Name = "/SFX/DusaHiss"})
-		end
-	end
-	wait(2.0)
-end
-
-function FloodTrapFireEndPresentation()
-	-- nothing yet!
-end
 
 function HadesVoicelineBlur( args )
 	wait( 0.85, RoomThreadName )
@@ -816,18 +674,6 @@ function HadesVoicelineBlur( args )
 	wait( 1.3, RoomThreadName )
 	AdjustRadialBlurDistance({ Fraction = 0, Duration = 0.2 })
 	AdjustRadialBlurStrength({ Fraction = 0, Duration = 0.2 })
-end
-
-function SurvivalTollPulse()
-	PlaySound({ Name = "/Leftovers/SFX/TeamWipedPulse" })
-	ShakeScreen({ Speed = 300, Distance = 3, FalloffSpeed = 2000, Duration = 0.3 })
-	AdjustColorGrading({ Name = "Alert", Duration = 0.02 })
-	AdjustFullscreenBloom({ Name = "AlertBloom", Duration = 0.02 })
-	thread( DoRumble, { { ScreenPreWait = 0.02, Fraction = 0.15, Duration = 0.2 }, } )
-	wait( 0.02, RoomThreadName )
-	AdjustColorGrading({ Name = "Alert", Duration = 1.0 })
-	AdjustFullscreenBloom({ Name = "Off", Duration = 1.0 })
-	wait( 1.0, RoomThreadName )
 end
 
 function HeroicStandPulse( remainingPulses )
@@ -870,7 +716,8 @@ end
 function CapturePointEncounterStartPresentation( encounter, capturePointSwitch )
 
 	SetAnimation({ Name = "MelinoeBoonInteractPowerUp", DestinationId = CurrentRun.Hero.ObjectId, AnimationSpeed = 0.5 })
-	SetScale({ Id = capturePointSwitch.ObjectId, Fraction = 0.01, Duration = 0.75 })
+	SetScale({ Id = capturePointSwitch.ObjectId, Fraction = 0.01, Duration = 0.25, EaseIn = 0, EaseOut = 1 })
+	CreateAnimation({ DestinationId = capturePointSwitch.ObjectId, Name = "CapturePointOutFx" })
 
 	thread( PlayVoiceLines, HeroVoiceLines.AnomalyCombatBeginsVoiceLines, true )
 
@@ -896,40 +743,159 @@ function CapturePointEncounterEndPresentation( encounter )
 	NotifyWithinDistance({ Id = encounter.CapturePointId, DestinationId = CurrentRun.CurrentRoom.SpawnRewardOnId, Distance = 100, Notify = "CapturePointEnd" })
 	waitUntil( "CapturePointEnd" )
 
-	SetScale({ Id = encounter.CapturePointId, Fraction = 0.01, Duration = 1.0, EaseIn = 0.05 })
+	SetScale({ Id = encounter.CapturePointId, Fraction = 0.8, Duration = 1.0, EaseIn = 0.0, EaseOut = 1.0 })
+	SetAlpha({ Id = encounter.CapturePointId, Fraction = 0.0, Duration = 1.0, EaseIn = 0.0, EaseOut = 1.0 })
 	wait(1.0)
 end
 
-function HandleWrapping( eventSource )
+function ChronosPolymorphChallengeStartPresentation( encounter, capturePointSwitch )
+	thread( DoRumble, { { ScreenPreWait = 0.02, Fraction = 0.17, Duration = 0.4 }, } )
+end
+
+function ChronosPolymorphChallengeEndPresentation( encounter )
+	local chronosId = GetIdsByType({ Name = "Chronos_TyphonFight" })[1]
+	local chronos = ActiveEnemies[chronosId]
+	local typhonId = GetIdsByType({ Name = "TyphonHead" })[1]
+	local typhon = ActiveEnemies[typhonId]
+
+	if CurrentRun.Hero.IsDead then
+		return
+	end
+
+	AddInputBlock({ Name = "ChronosPolymorphChallengeEndPresentation" })
+	SetPlayerInvulnerable("ChronosPolymorphChallengeEndPresentation")
+	HideCombatUI( "ChronosPolymorphChallengeEndPresentation" )
+
+	SetColor({ Id = encounter.CapturePointId, Color = { 0.5, 0.5, 1.0, 1.0 } })
+	SetScale({ Id = encounter.CapturePointId, Fraction = 0.8, Duration = 1.0, EaseIn = 0.0, EaseOut = 1.0 })
+	SetAlpha({ Id = encounter.CapturePointId, Fraction = 0.0, Duration = 1.0, EaseIn = 0.0, EaseOut = 1.0 })
+	thread(MarkObjectiveComplete, "CapturePointProgress")
+
+	-- stop all Chronos AI
+	if chronos ~= nil then
+		killTaggedThreads(chronos.AIThreadName)
+		killWaitUntilThreads(chronos.AIThreadName)
+		chronos.AIBehavior = nil
+		chronos.ActiveWeaponCombo = nil
+		chronos.ChainedWeapon = nil
+		chronos.ChainedWeaponOptions = nil
+		chronos.ForcedWeaponInterrupt = nil
+	end
+
+	-- pause Typhon
+	typhon.ForcedWeaponInterrupt = "TyphonHeadWait"
+	notifyExistingWaiters(typhon.AIThreadName)
+	SetThreadWait(typhon.AIThreadName, 0.01)
+
+	-- music
+	SetVolume({ Id = AudioState.MusicId, Value = 0.5, Duration = 1.0 })
+	SetSoundCueValue({ Names = { "Drums" }, Id = AudioState.MusicId, Value = 0 })
+
+	wait ( 0.05 )
+
+	SetGoalAngle({ Id = typhonId, Angle = 265 })
+	AngleTowardTarget({ Id = chronosId, DestinationId = CurrentRun.Hero.ObjectId })
+	thread( PlayVoiceLines, GlobalVoiceLines.ClearedBabalityVoiceLines )
+
+	ClearCameraClamp({ LerpTime = 0.0 })
+	AdjustZoom({ Fraction = 0.8, LerpTime = 0.1, })
+	LockCamera({ Ids = { CurrentRun.Hero.ObjectId, chronosId }, Duration = 0.6 })
+
+	wait( 0.5 )
+
+	AddSimSpeedChange( "ChronosPolymorphChallengeEndPresentation", { Fraction = 0.2, LerpTime = 0.01, Priority = true } )
+
+	-- Mel detonate nova and clear effect
+	PlaySound({ Name = "/VO/MelinoeEmotes/EmotePoweringUp", DestinationId = CurrentRun.Hero.ObjectId })
+	CreateAnimation({ Name = "MelinoeChronosPolymorphNovaFx", DestinationId = CurrentRun.Hero.ObjectId })
+	ClearEffect({ Id = CurrentRun.Hero.ObjectId, Name = "ChronosPolymorphStun" })
+	SetAnimation({ Name = "MelinoeCrossCast", DestinationId = CurrentRun.Hero.ObjectId })
+
+	PlaySound({ Name = "/SFX/Menu Sounds/MenuMagicFlashMainMenu" })
+	PlaySound({ Name = "/Leftovers/SFX/PlayerFullWipe" })
+
+	Destroy({ Id = encounter.CapturePointId })
+	encounter.CapturePointId = nil
+
+	wait( 0.05 )
+
+	-- knock Chronos  down
+
+	Stop({ Id = chronosId })
+	SetAnimation({ Name = "Enemy_Chronos_Knockdown_Start", DestinationId = chronosId })
+	Stop({ Id = typhonId })
+	SetAnimation({ Name = "Enemy_TyphonHead_StunnedStart", DestinationId = typhonId })
+
+	wait( 0.2 )
+
+	RemoveSimSpeedChange( "ChronosPolymorphChallengeEndPresentation", { LerpTime = 0.4 } )
+
+	wait( 1.0 )
+
+	SetVolume({ Id = AudioState.MusicId, Value = 1.0, Duration = 2.0 })
+	SetSoundCueValue({ Names = { "Drums" }, Id = AudioState.MusicId, Value = 1 })
+
+	--thread( PlayVoiceLines, Chronos.CriticalHealthVoiceLines, nil )
+
+	wait( 1.0 )
+
+	-- clear out Chronos
+	SetAlpha({ Id = chronosId, Fraction = 0, Duration = 0.3 })
+	CreateAnimation({ Name = "ChronosTeleportFxFront", DestinationId = chronosId })
+
+	wait( 0.3 )
+
+	if chronosId ~= nil then
+		ActiveEnemies[chronosId].CannotDieFromDamage = false
+		thread( Kill, ActiveEnemies[chronosId] ) -- Kill Chronos
+	end
+
+	SetAnimation({ Name = "Enemy_TyphonHead_StunnedEnd", DestinationId = typhonId })
+
+	wait( 1.0 )
+
+	LockCamera({ Ids = { CurrentRun.Hero.ObjectId, 768121 }, Duration = 1.0 })
+	AdjustZoom({ Fraction = CurrentRun.CurrentRoom.ZoomFraction, LerpTime = 1.0, Duration = 999999 })
+
+	wait( 2.0 )
+
+	ShowCombatUI( "ChronosPolymorphChallengeEndPresentation" )
+	RemoveInputBlock({ Name = "ChronosPolymorphChallengeEndPresentation" })
+	SetPlayerVulnerable( "ChronosPolymorphChallengeEndPresentation" )
+	SetUnitVulnerable( typhon, "TyphonHeadChronosCurse" )
+	
+	local roomData = RoomData[CurrentRun.CurrentRoom.Name] or CurrentRun.CurrentRoom
+	local cameraClamps = roomData.CameraClamps or GetDefaultClampIds()
+	DebugAssert({ Condition = #cameraClamps ~= 1, Text = "Exactly one camera clamp on a map is nonsensical" })
+	SetCameraClamp({ Ids = cameraClamps, SoftClamp = roomData.SoftClamp })
+	LockCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 1.0 })
+
+	-- resume Typhon
+	typhon.ForcedWeaponInterrupt = "TyphonHeadCenterEye"
+	typhon.ChainedWeapon = nil
+	typhon.ChainedWeaponOptions = nil
+	SetThreadWait(typhon.AIThreadName, 0.01)
+end
+
+function HandleWrapping( eventSource, args )
 	if GetConfigOptionValue({ Name = "EditingMode" }) then
 		return
 	end
+
+	args = args or {}
 	
 	local room = eventSource
 	local encounter = room.Encounter
 	local wrappingData = RoomData[room.Name].WrappingData or encounter.WrappingData
-	wrappingData.StartingIds = GetIds({ Name = wrappingData.StartingGroupName })
-	wrappingData.EndingIds = GetIds({ Name = wrappingData.EndingGroupName })
-
-	local offset = CalcOffset(math.rad(-155), -2000)
-	Teleport({ Ids = wrappingData.EndingIds, DestinationIds = wrappingData.EndingIds, OffsetX = offset.X, OffsetY = offset.Y, ShiftThingsByOffset = true })
-
-	--wait( 3.0, RoomThreadName )
-
-	Move({ Ids = wrappingData.StartingIds, Angle = -155, Speed = 300, EaseIn = 0.5 })
-	thread( DestroyOnDelay, wrappingData.StartingIds, 5.0 )
+	local angle = args.Angle or -155
 
 	if wrappingData.ObstacleWrapData ~= nil then
 		for k, obstacleWrapData in pairs( wrappingData.ObstacleWrapData ) do
-			if obstacleWrapData.Destroy then
-				Destroy({ Ids = obstacleWrapData.Ids })
-			else
-				for k, id in pairs( obstacleWrapData.Ids ) do
-					offset = CalcOffset(math.rad(-155), obstacleWrapData.ResetOffsetDistance)
-					local resetTargetId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = id, OffsetX = offset.X, OffsetY = offset.Y })
-					obstacleWrapData.WrapCount = 0
-					thread( WrapObstacle, id, obstacleWrapData, encounter, resetTargetId )
-				end
+			for k, id in pairs( obstacleWrapData.Ids ) do
+				local offset = CalcOffset(math.rad(angle), obstacleWrapData.ResetOffsetDistance)
+				local resetTargetId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = id, OffsetX = offset.X, OffsetY = offset.Y })
+				obstacleWrapData.WrapCount = 0
+				thread( WrapObstacle, id, obstacleWrapData, { ResetTargetId = resetTargetId, Angle = angle } )
 			end
 		end
 	end
@@ -941,7 +907,7 @@ function HandleWrapping( eventSource )
 				local nextObstacleName = GetRandomValue(spawnData.ObstacleNames)
 				local nextSpawnDestination = GetRandomValue(spawnData.SpawnPoints)
 				if not nextSpawnDestination.SkipPreSpawn then
-					local offset = CalcOffset(math.rad(-155), i * 1750)
+					local offset = CalcOffset(math.rad(angle), i * 1750)
 					local newObstacleId = SpawnObstacle({ Name = nextObstacleName, DestinationId = nextSpawnDestination.Id, Group = nextSpawnDestination.GroupName, OffsetX = offset.X, OffsetY = offset.Y })
 					SetThingProperty({ Property = "StopsLight", Value = false, DestinationId = newObstacleId })
 					SetThingProperty({ Property = "StopsUnits", Value = false, DestinationId = newObstacleId })
@@ -952,7 +918,7 @@ function HandleWrapping( eventSource )
 						SetColor({ Id = newObstacleId, Color = nextSpawnDestination.ObstacleColorOverrides[nextObstacleName], ValueChangeType = "Absolute" })
 					end
 
-					Move({ Id = newObstacleId, Angle = -155, Speed = spawnData.MoveSpeed or 500 })
+					Move({ Id = newObstacleId, Angle = angle, Speed = spawnData.MoveSpeed or 500 })
 					thread( DestroyOnDelay, { newObstacleId }, spawnData.MoveTime or 10 )
 				end
 			end
@@ -974,7 +940,7 @@ function HandleWrapping( eventSource )
 			if nextSpawnDestination.ObstacleColorOverrides ~= nil and nextSpawnDestination.ObstacleColorOverrides[nextObstacleName] ~= nil then
 				SetColor({ Id = newObstacleId, Color = nextSpawnDestination.ObstacleColorOverrides[nextObstacleName], ValueChangeType = "Absolute" })
 			end
-			Move({ Id = newObstacleId, Angle = -155, Speed = spawnData.MoveSpeed or 500 })
+			Move({ Id = newObstacleId, Angle = angle, Speed = spawnData.MoveSpeed or 500 })
 			thread( DestroyOnDelay, { newObstacleId }, spawnData.MoveTime or 10 )
 
 			local nextSpawnInterval = RandomFloat( spawnData.SpawnIntervalMin, spawnData.SpawnIntervalMax )
@@ -983,28 +949,52 @@ function HandleWrapping( eventSource )
 	end
 end
 
-function WrapObstacle( id, obstacleWrapData, encounter, resetTargetId )
+function WrapObstacle( id, obstacleWrapData, args )
 
-	local moveTime = obstacleWrapData.MoveTime
-	if obstacleWrapData.WrapCount == 0 then
-		wait( obstacleWrapData.FirstWrapDelay, RoomThreadName )
-		moveTime = obstacleWrapData.FirstMoveTime or moveTime
-	else
-		Teleport({ Id = id, DestinationId = resetTargetId })
+	if obstacleWrapData.WrapCount > 0 then
+		Teleport({ Id = id, DestinationId = args.ResetTargetId, OffsetX = args.OvershootOffsetX })
 	end
 
-	Move({ Id = id, Angle = -155, Speed = obstacleWrapData.MoveSpeed or 500 })
-	wait( moveTime, RoomThreadName )
+	Move({ Id = id, Angle = args.Angle, Speed = SessionMapState.WrappingMoveSpeed[id] or obstacleWrapData.MoveSpeed or 500 })
 
+	if obstacleWrapData.MoveDistance ~= nil then
+		local notifyName = "WrapObstacle"..id
+		NotifyOutsideDistance({ Id = id, DestinationId = args.ResetTargetId, Distance = obstacleWrapData.MoveDistance, Notify = notifyName })
+		waitUntil( notifyName )
+		local distance = GetDistance({ Id = id, DestinationId = args.ResetTargetId })
+		args.OvershootOffsetX = distance - obstacleWrapData.MoveDistance -- assuming movement only on the X axis...
+	else
+		wait( obstacleWrapData.MoveTime, RoomThreadName )
+	end
 
 	obstacleWrapData.WrapCount = obstacleWrapData.WrapCount + 1
-	thread( WrapObstacle, id, obstacleWrapData, encounter, resetTargetId )
+	thread( WrapObstacle, id, obstacleWrapData, args )
 
 end
 
 function IcarusPreChoicePresentation( source, args )
+
+	wait( 1.0 )
+
 	SetAnimation({ Name = "Icarus_Offer_Start", DestinationId = source.ObjectId })
 end
+
+function IcarusPostChoicePresentation( screen, args )
+	
+	thread( PlayVoiceLines, GlobalVoiceLines.MiscEndVoiceLines_Icarus, nil )
+
+	PlaySound({ Name = screen.Source.ConfirmSound or "/SFX/Menu Sounds/GodBoonChoiceConfirm" })
+
+	wait( 0.02 )
+	AdjustColorGrading({ Name = screen.Source.ColorGrade or "ItemGet", Duration = 0.2 })
+	SetAnimation({ Name = screen.Source.UpgradeAcquiredAnimation or "MelinoeEquip", DestinationId = CurrentRun.Hero.ObjectId })
+	CreateAnimation({ Name = "ItemGet", DestinationId = CurrentRun.Hero.ObjectId, Scale = 2.0 })
+	CreateAnimation({ Name = "ItemGetVignette", OffsetX = ScreenCenterX, OffsetY = ScreenCenterY, Scale = 2.0, UseScreenLocation = true })
+	wait( screen.Source.UpgradeAcquiredAnimationDelay or 0.25 )
+	AdjustColorGrading({ Name = "Off", Duration = 0.5 })
+
+end
+
 function IcarusExitPresentation( source, args )
 
 	if not CurrentRun.Hero.IsDead and CurrentRun.CurrentRoom.Encounter.IcarusId == nil then
@@ -1017,6 +1007,7 @@ function IcarusExitPresentation( source, args )
 	source.SpecialInteractFunctionName = nil
 	source.CanReceiveGift = false
 	source.NextInteractLines = nil
+	source.BlockChatting = true
 	RefreshUseButton( source.ObjectId, source )
 
 	wait( 1 )
@@ -1072,6 +1063,9 @@ function IcarusPreSpawnPresentation( icarus, eventSource, args )
 			thread( PlayVoiceLines, unit.EncounterStartVoiceLines, nil, unit )
 		end
 	end
+	SessionMapState.IcarusPlayedEncounterStartLines = true
+
+	IcarusFlyByPresentation( icarus, { TargetId = CurrentRun.Hero.ObjectId }, CurrentRun, { FlyByZHeight = 450, FlyByDuration = 1.0, FlyBySpeed = 4500, FlyByScale = 1.8, })
 
 	-- thread( DisplayInfoBanner, nil, { Text = "IcarusMessage", Delay = 0.2, FadeColor = {1, 0, 0.7, 1} } )
 
@@ -1094,19 +1088,73 @@ function IcarusAppearancePresentation( icarus )
 	AngleTowardTarget({ Id = icarus.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
 	SetAnimation({ Name = "Icarus_FlyExit_Landing", DestinationId = icarus.ObjectId })
 
-	AdjustZLocation({ Id = icarus.ObjectId, Distance = 800, Duration = 0 })
+	SetScale({ Id = icarus.ObjectId, Fraction = 1.0, Duration = 0 })
+	AddToGroup({ Id = icarus.ObjectId, Name = "Standing", DrawGroup = true })
+	RemoveFromGroup({ Id = icarus.ObjectId, Names = { "Combat_Menu_TraitTray_Overlay_Text" } })
+	icarus.SkipInvulnerableOnHitPresentation = false
+
+	AdjustZLocation({ Id = icarus.ObjectId, Distance = 800 - GetZLocation({ Id = icarus.ObjectId }), Duration = 0 })
 	IgnoreGravity({ Id = icarus.ObjectId })
 
-	AdjustZLocation({ Id = icarus.ObjectId, Distance = -800, Duration = 0.22 })
+	AdjustZLocation({ Id = icarus.ObjectId, Distance = 0 - GetZLocation({ Id = icarus.ObjectId }), Duration = 0.22 })
 	SetAlpha({ Id = icarus.ObjectId, Fraction = 1.0, Duration = 0.08 })
 
 	wait( 0.22, RoomThreadName )
 
 	ObeyGravity({ Id = icarus.ObjectId })
+	SetUnitProperty({ DestinationId = icarus.ObjectId, Property = "CollideWithObstacles", Value = true })
 	thread( PlayVoiceLines, icarus.EncounterEndVoiceLines, nil, icarus )
 
 	wait( 1.4, RoomThreadName )
 end
+
+function IcarusFlyByPresentation( icarus, aiData, currentRun, args )
+
+	if args.ReverseDirection then
+		Teleport({ Id = icarus.ObjectId, DestinationId = aiData.TargetId, OffsetX = 2100, OffsetY = -1200 })
+	else
+		Teleport({ Id = icarus.ObjectId, DestinationId = aiData.TargetId, OffsetX = -2100, OffsetY = 1200 })
+	end
+
+	icarus.SkipInvulnerableOnHitPresentation = true
+	local zHeight = args.FlyByZHeight or 500
+	AdjustZLocation({ Id = icarus.ObjectId, Distance = zHeight - GetZLocation({ Id = icarus.ObjectId }) })
+	IgnoreGravity({ Id = icarus.ObjectId })
+	SetAnimation({ DestinationId = icarus.ObjectId, Name = "Icarus_Fly_FireLoop" })
+	SetUnitProperty({ DestinationId = icarus.ObjectId, Property = "CollideWithObstacles", Value = false })
+
+	local scale = args.FlyByScale or 1.0
+	local prevScale = GetThingDataValue({ Id = icarus.ObjectId, Property = "Scale" })
+	SetScale({ Id = icarus.ObjectId, Fraction = scale, Duration = 0.1 })
+	SetAlpha({ Id = icarus.ObjectId, Fraction = 1.0, Duration = 0.3 })
+
+	RemoveFromGroup({ Id = icarus.ObjectId, Names = { "Standing" } })
+	AddToGroup({ Id = icarus.ObjectId, Name = "Combat_Menu_TraitTray_Overlay_Text", DrawGroup = true })
+
+	local angle = 30
+	if args.ReverseDirection then
+		angle = 210
+	end
+
+	SetGoalAngle({ Id = icarus.ObjectId, Angle = angle, Duration = 0 })
+	Move({ Id = icarus.ObjectId, Angle = angle, Speed = args.FlyBySpeed or 5000 })
+
+	AIWait((args.FlyByDuration or 1.0) - 0.1, icarus, icarus.AIThreadName)
+
+	SetAlpha({ Id = icarus.ObjectId, Fraction = 0.0, Duration = 0.1 })
+
+	wait( 0.1, icarus, icarus.AIThreadName )
+
+	Stop({ Id = icarus.ObjectId })
+	ObeyGravity({ Id = icarus.ObjectId })
+	AdjustZLocation({ Id = icarus.ObjectId, Distance = 0 - GetZLocation({ Id = icarus.ObjectId }) })
+	SetScale({ Id = icarus.ObjectId, Fraction = prevScale, Duration = 0.5 })
+	icarus.SkipInvulnerableOnHitPresentation = false
+	SetUnitProperty({ DestinationId = icarus.ObjectId, Property = "CollideWithObstacles", Value = true })
+	AddToGroup({ Id = icarus.ObjectId, Name = "Standing", DrawGroup = true })
+	RemoveFromGroup({ Id = icarus.ObjectId, Names = { "Combat_Menu_TraitTray_Overlay_Text" } })
+end
+
 
 function HeraclesPreSpawnPresentation( heracles )
 
@@ -1122,10 +1170,15 @@ function HeraclesSpawnPresentation( )
 	local dummyTarget = ActiveEnemies[encounter.DummyTargetId]
 
 	-- before arrival
-	-- PlaySound({ Name = "/Leftovers/SFX/GoalScored" })
 
 	local encounterData = EncounterData[encounter.Name]
-	wait(encounterData.HeraclesSpawnWait or 1.5)
+	local spawnWaitDuration = encounterData.HeraclesSpawnWait or 1.5
+	
+	wait(spawnWaitDuration/2.5)
+	AngleTowardTarget({ Id = dummyTarget.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
+	thread( InCombatText, dummyTarget.ObjectId, "Alerted", 0.45, { OffsetY = dummyTarget.HealthBarOffsetY, SkipShadow = true }  )
+	PlaySound({ Name = dummyTarget.IsAggroedSound or "/EmptyCue", Id = dummyTarget.ObjectId, ManagerCap = 28 })
+	wait(spawnWaitDuration/2.5)
 
 	local teleportId = nil
 	if ActiveEnemies[dummyTarget.ObjectId] == nil then
@@ -1139,15 +1192,12 @@ function HeraclesSpawnPresentation( )
 	Teleport({ Id = heracles.ObjectId, DestinationId = teleportId })
 	SetAnimation({ DestinationId = heracles.ObjectId, Name = "Heracles_Combat_Taunt" })
 
-	-- wait( 0.2 )
-
 	ObeyGravity({ Id = heracles.ObjectId })
 	ApplyUpwardForce({ Id = heracles.ObjectId, Speed = -3500 })
 
 	PlaySound({ Name = "/SFX/Enemy Sounds/Heracles/EmotePowerCharging", Id = heracles.ObjectId })
 
-	local preBloom = GetBloomSettingName({ })
-	AdjustFullscreenBloom({ Name = "BlurryLight", Duration = 0.5 })
+	BloomRequestStart({ SourceName = "HeraclesSpawnPresentation", BloomType = "BlurryLight", Duration = 0.5 })
 
 	Rumble({ Duration = 0.3, RightFraction = 0.17 })
 
@@ -1168,31 +1218,22 @@ function HeraclesSpawnPresentation( )
 
 	PlaySound({ Name = "/SFX/StabSplatterEndSequence", Id = heracles.ObjectId })
 	PlaySound({ Name = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGroundSlam", Id = heracles.ObjectId })
-	CreateAnimation({ Name = "HydraTouchdownFx", DestinationId = heracles.ObjectId })
+	CreateAnimation({ Name = "HydraTouchdownFx", DestinationId = heracles.ObjectId }) --nopkg
 
 	AdjustRadialBlurDistance({ Fraction = 0, Duration = 1.5 })
 	AdjustRadialBlurStrength({ Fraction = 1.5, Duration = 1.5 })
-	AdjustFullscreenBloom({ Name = preBloom, Duration = 1.5 })
+	BloomRequestEnd({ SourceName = "HeraclesSpawnPresentation", Duration = 1.5 })
 
 	ShakeScreen({ Speed = 500, Distance = 4, FalloffSpeed = 1000, Duration = 1.5 })
 
 	AddInputBlock({ Name = "HeraclesSpawnPresentation" })
+	EndAutoSprint({ Halt = true, EndWeapon = true })
 	SetPlayerInvulnerable( "HeraclesSpawnPresentation" )
-
-	-- thread( PlayVoiceLines, HeroVoiceLines.HeraclesSpawningVoiceLines, true )
 
 	-- after arrival
 
-	PanCamera({ Ids = heracles.ObjectId, Duration = 1.5, EaseIn = 0.05, EaseOut = 0.3 })
+	PanCamera({ Ids = heracles.ObjectId, Duration = 1.5, EaseIn = 0.05, EaseOut = 0.03 })
 	PlaySound({ Name = "/Leftovers/World Sounds/MapZoomSlow" })
-
-	--[[
-	SecretMusicPlayer( "/Music/IrisMusicShips1_MC" )
-	SetSoundCueValue({ Names = { "Keys" }, Id = AudioState.SecretMusicId, Value = 1 })
-	SetSoundCueValue({ Names = { "Drums" }, Id = AudioState.SecretMusicId, Value = 0 })
-	]]--
-
-	-- thread( DisplayInfoBanner, nil, { Text = "HeraclesMessage", Delay = 0.25, Duration = 1.8, FadeColor = {0, 1, 0.7, 1} } )
 	PlaySound({ Name = "/Leftovers/SFX/GoalScoredNEW" })
 
 	AngleTowardTarget({ Id = heracles.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
@@ -1201,22 +1242,16 @@ function HeraclesSpawnPresentation( )
 
 	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = heracles.ObjectId })
 
-	thread( PlayVoiceLines, heracles.EntranceVoiceLines, nil, heracles )
+	PlayVoiceLines( heracles.EntranceVoiceLines, nil, heracles )
 
 	wait( 0.1, RoomThreadName )
 
-	PanCamera({ Ids = heracles.ObjectId, Duration = 1.5, EaseIn = 0.05, EaseOut = 0.3 })
+	PanCamera({ Ids = heracles.ObjectId, Duration = 1.5, EaseIn = 0.05, EaseOut = 0.03 })
 	PlaySound({ Name = "/Leftovers/World Sounds/MapZoomSlow" })
 
-	wait( 0.2, RoomThreadName )
+	wait( 0.5, RoomThreadName )
 
 	ProcessTextLines( heracles, heracles.BossIntroTextLineSets )
-
-	if GameState.TextLinesRecord.HeraclesCombat01 then
-		wait( 2.2, RoomThreadName )
-	else
-		wait( 2.7, RoomThreadName )
-	end
 
 	RemoveInputBlock({ Name = "HeraclesSpawnPresentation" })
 	SetPlayerVulnerable( "HeraclesSpawnPresentation" )
@@ -1226,9 +1261,6 @@ function HeraclesSpawnPresentation( )
 
 	SetSoundCueValue({ Names = { "Keys" }, Id = AudioState.SecretMusicId, Value = 1 })
 	SetSoundCueValue({ Names = { "Drums" }, Id = AudioState.SecretMusicId, Value = 1 })
-
-	-- SetSoundCueValue({ Names = { "Keys" }, Id = AudioState.SecretMusicId, Value = 1 })
-	-- SetSoundCueValue({ Names = { "Drums" }, Id = AudioState.SecretMusicId, Value = 0 })
 
 	ShowCombatUI("HeraclesIntro")
 
@@ -1262,61 +1294,35 @@ function HeraclesEncounterEndPresentation( heracles )
 	SetAnimation({ DestinationId = heracles.ObjectId, Name = "Heracles_Hub_Idle_Start" })
 
 	SetSoundCueValue({ Names = { "Section" }, Id = AudioState.SecretMusicId, Value = 1 })
-
-	AddInteractBlock( heracles, "HeraclesEncounterEndPresentation" )
-	wait(0.25)
-	HeraclesObjectiveResultPresentation( heracles )
-
-	CheckAvailableTextLines( heracles )
-	SetAvailableUseText( heracles )
-	RemoveInteractBlock( heracles, "HeraclesEncounterEndPresentation" )
-
-	if heracles.NextInteractLines == nil then
-		if CanReceiveGift( heracles ) then
-			MapState.RoomRequiredObjects[heracles.ObjectId] = nil
-			wait( 0.2 )
-			if CheckRoomExitsReady( CurrentRun.CurrentRoom ) then
-				UnlockRoomExits( CurrentRun, CurrentRun.CurrentRoom )
-			end
-		else
-			HeraclesExit( heracles, { WaitTime = 1.5 })
-		end
-	end	
-
 end
 
 function HeraclesObjectiveResultPresentation( heracles )
 	local encounter = CurrentRun.CurrentRoom.Encounter
-	wait(2.0)
 	if encounter.PlayerMoneyObjective ~= nil and encounter.PlayerMoneyObjective > 0 then
-		thread( PlayVoiceLines, heracles.EncounterLostVoiceLines, nil, heracles )
+		thread( PlayVoiceLines, heracles.DuesPaidVoiceLines, nil, heracles )
+		SetAnimation({ Name = "Heracles_Hub_Granting", DestinationId = heracles.ObjectId })
 	end
 	wait(1.5)
-	if (encounter.HeraclesMoneyObjective or 0) > (encounter.PlayerMoneyObjective or 0) then
-		-- Player loss
-		thread( MarkObjectiveComplete, "HeraclesMoney" )
-		wait(1.2)
-		thread( MarkObjectiveComplete, "PlayerMoney" )
-	else
-		-- Player win
-		thread( MarkObjectiveComplete, "PlayerMoney" )
-		wait(1.2)
-		thread( MarkObjectiveComplete, "HeraclesMoney" )
-	end
+	thread( MarkObjectiveComplete, "PlayerMoney" )
 end
 
 function HeraclesExit( source, args )
 
-	if not CurrentRun.Hero.IsDead and CurrentRun.CurrentRoom.Encounter.HeraclesId == nil then
+	local heraclesId = GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = "NPC_Heracles_01" })
+
+	if not CurrentRun.Hero.IsDead and heraclesId == nil then
 		return
 	end
 
 	args = args or {}
 
-	local heraclesId = GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = "NPC_Heracles_01" })
 	local heracles = ActiveEnemies[heraclesId]
 
 	if heracles == nil then
+		return
+	end
+
+	if heracles.Exiting then
 		return
 	end
 
@@ -1338,6 +1344,7 @@ function HeraclesExit( source, args )
 	UseableOff({ Id = heracles.ObjectId })
 	heracles.SpecialInteractFunctionName = nil
 	heracles.CanReceiveGift = false
+	heracles.Exiting = true
 
 	thread( PlayVoiceLines, heracles.ExitVoiceLines )
 	wait( args.WaitTime or 3.0 )
@@ -1380,6 +1387,10 @@ function HeraclesExit( source, args )
 		CurrentRun.AnimationState[heracles.ObjectId] = args.AnimationState
 	end
 
+	if not args.SkipObjective then
+		thread( HandlePylonObjective, CurrentRun.CurrentRoom, args)
+	end
+
 	if CheckRoomExitsReady( CurrentRun.CurrentRoom ) then
 		UnlockRoomExits( CurrentRun, CurrentRun.CurrentRoom )
 	end
@@ -1387,46 +1398,38 @@ function HeraclesExit( source, args )
 end
 
 function HeraclesRequiredKillPresentation ( encounter, victim, killer )
-	if CurrentRun.ActiveObjectives.HeraclesMoney == nil then
+	if ScreenState.ActiveObjectives.PlayerMoney == nil then
 		CheckObjectiveSet( "HeraclesChallenge" )
 	end
-	--InCombatText( victim.ObjectId, "HeraclesKillBounty", 0.8, { LuaKey = "Amount", LuaValue = victim.HeraclesCombatMoneyValue }  )
-	local objectiveId = CurrentRun.ActiveObjectives.HeraclesMoney.ObjectId
-	local objectiveValue = encounter.HeraclesMoneyObjective
-	if killer == CurrentRun.Hero then
-		objectiveId = CurrentRun.ActiveObjectives.PlayerMoney.ObjectId
-		objectiveValue = encounter.PlayerMoneyObjective
+	if ScreenState.ActiveObjectives.PlayerMoney ~= nil then
+		local objectiveId = ScreenState.ActiveObjectives.PlayerMoney.ObjectId
+		FlyTextToUI(
+			encounter,
+			{
+				Amount = victim.HeraclesBounty,
+				Text = "HeraclesKillBounty",
+				IconPath = ResourceData.Money.IconPath,
+				StartId = victim.ObjectId,
+				EndId = objectiveId,
+				SkipShadow = true,
+				OffsetY = 150,
+				OffsetX = 0,
+				PopDuration = 0.4,
+				EndOffsetX = 350,
+			}
+		)
 	end
-
-	FlyTextToUI(
-		encounter,
-		{
-			Amount = victim.HeraclesCombatMoneyValue,
-			Text = "HeraclesKillBounty",
-			IconPath = ResourceData.Money.IconPath,
-			StartId = victim.ObjectId,
-			EndId = objectiveId,
-			SkipShadow = true,
-			OffsetY = 150,
-			OffsetX = 0,
-			PopDuration = 0.4,
-			EndOffsetX = 350,
-		}
-	)
 	
-	if killer == CurrentRun.Hero then
-		UpdateObjectiveDescription( "PlayerMoney", "Objective_PlayerMoney", "PlayerMoney", objectiveValue )
-	else
-		UpdateObjectiveDescription( "HeraclesMoney", "Objective_HeraclesMoney", "HeraclesMoney", objectiveValue )
-	end
-	PulseText( {Id = objectiveId, ScaleOriginal = 0.4, ScaleTarget = 0.42, ScaleDuration = 0.1, HoldDuration = 0.0})
+	local objectiveValue = encounter.PlayerMoneyObjective
+	UpdateObjectiveDescription( "PlayerMoney", "Objective_PlayerMoney", "PlayerMoney", objectiveValue )
+	UpdateObjective( "Objective_PlayerMoney", "PlayerMoney", objectiveValue )
 end
 
 function AthenaSpawnPresentation(encounter, args)
-
 	local encounterData = EncounterData[encounter.Name]
 	args = args or {}
-
+	
+	SetPlayerInvulnerable( "AthenaSpawnPresentation" )
 	AddTimerBlock( CurrentRun, "AthenaPresence", { MapState = true } )
 	local athena = DeepCopyTable( EnemyData.NPC_Athena_01 )
 	local spawnPointId = SelectSpawnPoint( CurrentRun.CurrentRoom, athena, { SpawnNearId = CurrentRun.Hero.ObjectId, SpawnRadius = 700, SpawnRadiusMin = 400 })
@@ -1450,14 +1453,19 @@ function AthenaSpawnPresentation(encounter, args)
 
 	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteAscendedArthurChoir" })
 
-	thread( DisplayInfoBanner, nil, { Text = "AthenaMessage", Delay = 0.2, AnimationName = "LocationBackingIrisGenericIn", AnimationOutName = "LocationBackingIrisGenericOut",FadeColor = {0, 1, 0.7, 1} } )
+	thread( DisplayInfoBanner, nil, { 
+		Text = "AthenaMessage", 
+		Delay = 0.2,
+		TextFadeColor = {1, 0.8, 0.4, 1},
+		AnimationName = "InfoBannerAthenaIn",
+		AnimationOutName = "InfoBannerAthenaOut", 
+		FontScale = 0.9,
+	} )
 
 	wait( 1.2 )
 
-	local preBloom = GetBloomSettingName({ })
-	--AdjustFullscreenBloom({ Name = "BlurryLight", Duration = 2.5 })
 	AdjustColorGrading({ Name = "Gold", Duration = 2.5 })
-	AdjustFullscreenBloom({ Name = "AthenaDivineInterventionBloom", Duration = 2.5 })
+	BloomRequestStart({ SourceName = "AthenaSpawnPresentation", BloomType = "AthenaDivineInterventionBloom", Duration = 2.5 })
 
 	AdjustRadialBlurDistance({ Fraction = 0.5, Duration = 2.0 })
 	AdjustRadialBlurStrength({ Fraction = 1.5, Duration = 2.0 })
@@ -1468,9 +1476,8 @@ function AthenaSpawnPresentation(encounter, args)
 	Rumble({ Duration = 0.3, RightFraction = 0.17 })
 
 	HideCombatUI("AthenaIntro")
-	SetPlayerInvulnerable( "AthenaSpawnPresentation" )
 
-	PanCamera({ Ids = athena.ObjectId, Duration = 1.0, EaseIn = 0.05, EaseOut = 0.3 })
+	PanCamera({ Ids = athena.ObjectId, Duration = 1.0, EaseIn = 0.05, EaseOut = 0.03 })
 
 	wait( 0.4, RoomThreadName )
 	AngleTowardTarget({ Id = athena.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
@@ -1479,25 +1486,31 @@ function AthenaSpawnPresentation(encounter, args)
 	AdjustZLocation({ Id = athena.ObjectId, Distance = 0 - GetZLocation({ Id = athena.ObjectId }), Duration = 0.1 })
 	wait( 0.1, RoomThreadName )
 
-	--PlaySound({ Name = "/SFX/Player Sounds/MeteorTraitImpact", Id = athena.ObjectId })
-	--CreateAnimation({ Name = "SpellMeteorDetonateImpactFx", DestinationId = athena.ObjectId })
+	MapState.BlockRespawns = true
+	MapState.BlockSpawns = true
 	CreateProjectileFromUnit({ Name = "AthenaLandingNova", Id = athena.ObjectId, })
 	ShakeScreen({ Speed = 500, Distance = 4, FalloffSpeed = 1000, Duration = 0.75 })
 
 	AdjustRadialBlurDistance({ Fraction = 0, Duration = 0.25 })
 	AdjustRadialBlurStrength({ Fraction = 1.5, Duration = 0.25 })
-	AdjustFullscreenBloom({ Name = preBloom, Duration = 0.25 })
+	BloomRequestEnd({ SourceName = "AthenaSpawnPresentation", Duration = 0.25 })
 	AdjustColorGrading({ Name = "Off", Duration = 0.5 })
 
 	wait(1.0)
 
 	ObeyGravity({ Id = athena.ObjectId })
 
-	MapState.BlockRespawns = true
 	for id, enemy in pairs( ShallowCopyTable( RequiredKillEnemies ) ) do -- Avoid modification while iterating
 		thread( DisplayDamageText, enemy, { DamageAmount = 9999, SourceProjectile = "Athena", IsCrit = true } )
 		thread( Kill, enemy, { BlockRespawns = true } )
 		waitUnmodified(0.01)
+	end
+	for id, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do -- Get aggroed, but not required enemies as well.
+		if enemy.IsAggroed then
+			thread( DisplayDamageText, enemy, { DamageAmount = 9999, SourceProjectile = "Athena", IsCrit = true } )
+			thread( Kill, enemy, { BlockRespawns = true } )
+			waitUnmodified(0.01)
+		end
 	end
 
 	ExpireProjectiles({ ExcludeNames = WeaponSets.ExpireProjectileExcludeProjectileNames, BlockSpawns = true })
@@ -1539,9 +1552,8 @@ function AthenaExitPresentation( source, args )
 
 	thread( PlayVoiceLines, source.ExitVoiceLines )
 
-	local preBloom = GetBloomSettingName({ })
 	AdjustColorGrading({ Name = "Gold", Duration = 1.5 })
-	AdjustFullscreenBloom({ Name = "AthenaDivineInterventionBloom", Duration = 1.5 })
+	BloomRequestStart({ SourceName = "AthenaExitPresentation", BloomType = "AthenaDivineInterventionBloom", Duration = 1.5 })
 
 	AdjustRadialBlurDistance({ Fraction = 0.3, Duration = 0.5 })
 	AdjustRadialBlurStrength({ Fraction = 1.2, Duration = 0.5 })
@@ -1559,7 +1571,7 @@ function AthenaExitPresentation( source, args )
 
 	AdjustRadialBlurDistance({ Fraction = 0, Duration = 0.25 })
 	AdjustRadialBlurStrength({ Fraction = 0, Duration = 0.25 })
-	AdjustFullscreenBloom({ Name = preBloom, Duration = 0.25 })
+	BloomRequestEnd({ SourceName = "AthenaExitPresentation", Duration = 0.25 })
 	AdjustColorGrading({ Name = "Off", Duration = 0.5 })
 
 	source.NextInteractLines = nil
@@ -1571,6 +1583,7 @@ function AthenaExitPresentation( source, args )
 	SetThingProperty({ DestinationId = source.ObjectId, Property = "StopsProjectiles", Value = false })
 	RefreshUseButton( source.ObjectId, source )
 	StopStatusAnimation( source )
+	RemoveScreenEdgeIndicator( source )
 	
 	RemoveTimerBlock( CurrentRun, "AthenaPresence" )
 end
@@ -1585,46 +1598,28 @@ function MedeaMusicManager( eventSource, args )
 
 end
 
-function DionysusMusicManager( eventSource, args )
-
-	args = args or {}
-	
-	-- SetSoundCueValue({ Names = { "Section" }, Id = AudioState.SecretMusicId, Value = args.SecretMusicSection or 0 })
-	-- SetSoundCueValue({ Names = { "Keys" }, Id = AudioState.SecretMusicId, Value = 1 })
-	SetSoundCueValue({ Names = { "Sax" }, Id = AudioState.SecretMusicId, Value = 0 })
-
-end
-function DionysusChoiceScreenPresentation( source, args )
-
-	args = args or {}
-
-	SetSoundCueValue({ Names = { "Sax" }, Id = AudioState.SecretMusicId, Value = 1.0, Duration = 1.0 })
-end
-
-function DionysusRandomizeLeopards( source, args )
-	local leopardIds = GetIdsByType({ Name = "NPC_LeopardGuest" })
-	local leopardAnims = ShallowCopyTable( args.LeopardAnimations )
-	for _, id in ipairs( leopardIds ) do
-		SetAnimation({ DestinationId = id, Name = RemoveRandomValue( leopardAnims ) })
-	end
-end
-
 function NemesisSpawnPresentation( eventSource, nemesis )
+
+	AddInputBlock({ Name = "NemesisSpawnPresentation" })
+
+	if ActiveScreens.TraitTrayScreen ~= nil then
+		TraitTrayScreenClose( ActiveScreens.TraitTrayScreen )
+	end
 
 	local encounter = eventSource
 	SetAnimation({ Name = "Nemesis_Hub_Idle", DestinationId = nemesis.ObjectId })
 
-	wait( 0.5, RoomThreadName )
+	wait( 0.6, RoomThreadName )
 
-	AddInputBlock({ Name = "NemesisSpawnPresentation" })
 	SetPlayerInvulnerable( "NemesisSpawnPresentation" )
+	AddPlayerImmuneToForce( "NemesisSpawnPresentation" )
 
 	-- this specifically affects NemesisCombat
 	NemesisThemePresentation( eventSource, nemesis, { SkipBanner = true } )
 
 	SetAnimation({ Name = "Nemesis_Hub_Equip", DestinationId = nemesis.ObjectId })
 	AngleTowardTarget({ Id = nemesis.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
-	PanCamera({ Ids = nemesis.ObjectId, Duration = 1.5, EaseIn = 0.05, EaseOut = 0.3, Retarget = true })
+	PanCamera({ Ids = nemesis.ObjectId, Duration = 1.5, EaseIn = 0.05, EaseOut = 0.03, Retarget = true })
 	PlaySound({ Name = "/Leftovers/World Sounds/MapZoomSlow" })
 
 	wait( 0.35, RoomThreadName )
@@ -1635,59 +1630,73 @@ function NemesisSpawnPresentation( eventSource, nemesis )
 
 	RemoveInputBlock({ Name = "NemesisSpawnPresentation" })
 	SetPlayerVulnerable( "NemesisSpawnPresentation" )
+	RemovePlayerImmuneToForce( "NemesisSpawnPresentation" )
+	
 	ProcessTextLines( nemesis, nemesis.CombatIntroTextLineSets )
 	nemesis.TextLinesUseWeaponIdle = true
-	PlayRandomRemainingTextLines( nemesis, nemesis.CombatIntroTextLineSets )
+	local textLines = GetRandomEligibleTextLines( nemesis, nemesis.CombatIntroTextLineSets, GetNarrativeDataValue( nemesis, "CombatIntroTextLinePriorities" ) )
+	PlayTextLines( nemesis, textLines )
+
 end
+
 function NemesisSpawnPresentationFields( eventSource )
 
 	local nemesis = ActiveEnemies[eventSource.NemesisId]
 
 	--HideCombatUI("NemesisIntro")
 	SetPlayerInvulnerable( "NemesisSpawnPresentation" )
+	AddPlayerImmuneToForce( "NemesisSpawnPresentation" )
 
-	SetAnimation({ DestinationId = nemesis.ObjectId, Name = "Nemesis_Combat_Idle" })
-
-	AdjustZLocation({ Id = nemesis.ObjectId, Distance = 2500 })
+	AdjustZLocation({ Id = nemesis.ObjectId, Distance = 1500 })
 	IgnoreGravity({ Id = nemesis.ObjectId })
+	SetAlpha({ Id = nemesis.ObjectId, Fraction = 0.0, Duration = 0.0 })
 
 	--PlaySound({ Name = "/SFX/Enemy Sounds/Heracles/EmotePowerCharging", Id = nemesis.ObjectId })
 
-	local preBloom = GetBloomSettingName({ })
-	AdjustFullscreenBloom({ Name = "BlurryLight", Duration = 0.5 })
+	BloomRequestStart({ SourceName = "NemesisSpawnPresentationFields", BloomType = "BlurryLight", Duration = 0.5 })
 
 	Rumble({ Duration = 0.3, RightFraction = 0.17 })
 
 	AdjustRadialBlurDistance({ Fraction = 1.5, Duration = 0.35 })
 	AdjustRadialBlurStrength({ Fraction = 1.5, Duration = 0.35 })
 
-	wait( 0.5, RoomThreadName )
+	if not IsEmpty( SessionMapState.SkipEncounterIds ) then
+		thread( SkipEncounterEndPresentation )
+	end
+
+	wait( 1.0, RoomThreadName )
 
 	-- this specifically affects NemesisCombat
 	NemesisThemePresentation( eventSource, nemesis, { SkipBanner = true } )
 	
 	ObeyGravity({ Id = nemesis.ObjectId })
-	ApplyUpwardForce({ Id = nemesis.ObjectId, Speed = -3500 })
+	ApplyUpwardForce({ Id = nemesis.ObjectId, Speed = -2000 })
+	SetAlpha({ Id = nemesis.ObjectId, Fraction = 1.0, Duration = 0.2 })
+	SetAnimation({ DestinationId = nemesis.ObjectId, Name = "Nemesis_Combat_Entrance" })
 	PlaySound({ Name = "/SFX/Player Sounds/MelWhooshDropIn", Id = nemesis.ObjectId })
 
-	AdjustRadialBlurDistance({ Fraction = 0, Duration = 1.5 })
-	AdjustRadialBlurStrength({ Fraction = 1.5, Duration = 1.5 })
-	AdjustFullscreenBloom({ Name = preBloom, Duration = 1.5 })
+	AdjustRadialBlurDistance({ Fraction = 0, Duration = 0.5 })
+	AdjustRadialBlurStrength({ Fraction = 0, Duration = 0.5 })
+	BloomRequestEnd({ SourceName = "NemesisSpawnPresentationFields", Duration = 1.5 })
 
 	ShakeScreen({ Speed = 500, Distance = 4, FalloffSpeed = 1000, Duration = 1.5 })
 
 	AddInputBlock({ Name = "NemesisSpawnPresentation" })
 
+	if ActiveScreens.TraitTrayScreen ~= nil then
+		TraitTrayScreenClose( ActiveScreens.TraitTrayScreen )
+	end
+
 	-- after arrival
 
-	PanCamera({ Ids = nemesis.ObjectId, Duration = 1.5, EaseIn = 0.05, EaseOut = 0.3 })
+	PanCamera({ Ids = nemesis.ObjectId, Duration = 1.5, EaseIn = 0.03, EaseOut = 0.03 })
 	PlaySound({ Name = "/Leftovers/World Sounds/MapZoomSlow" })
 
 	PlaySound({ Name = "/Leftovers/SFX/GoalScoredNEW" })
 
 	wait( 0.5, RoomThreadName )
 
-	PanCamera({ Ids = nemesis.ObjectId, Duration = 1.5, EaseIn = 0.05, EaseOut = 0.3 })
+	PanCamera({ Ids = nemesis.ObjectId, Duration = 1.5, EaseIn = 0.03, EaseOut = 0.03 })
 	PlaySound({ Name = "/Leftovers/World Sounds/MapZoomSlow" })
 
 	AngleTowardTarget({ Id = nemesis.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
@@ -1699,11 +1708,14 @@ function NemesisSpawnPresentationFields( eventSource )
 	wait( 2.8, RoomThreadName )
 
 	RemoveInputBlock({ Name = "NemesisSpawnPresentation" })
-	SetPlayerVulnerable( "NemesisSpawnPresentation" )
 
 	ProcessTextLines( nemesis, nemesis.CombatIntroTextLineSets )
 	nemesis.TextLinesUseWeaponIdle = true
-	PlayRandomRemainingTextLines( nemesis, nemesis.CombatIntroTextLineSets )
+	local textLines = GetRandomEligibleTextLines( nemesis, nemesis.CombatIntroTextLineSets, GetNarrativeDataValue( nemesis, "CombatIntroTextLinePriorities" ) )
+	PlayTextLines( nemesis, textLines )
+	
+	SetPlayerVulnerable( "NemesisSpawnPresentation" )
+	RemovePlayerImmuneToForce( "NemesisSpawnPresentation" )
 
 	LockCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 1.25 })
 	PlaySound({ Name = "/Leftovers/World Sounds/MapZoomSlow" })
@@ -1722,8 +1734,6 @@ function NemesisThemePresentation( eventSource, nemesis, args )
 
 		AdjustColorGrading({ Name = "Team03", Duration = 1.0 })
 		AdjustFullscreenBloom({ Name = "Subtle", Duration = 0.5 })
-
-		-- thread( DisplayInfoBanner, nil, { Text = "NemesisMessage", Delay = 0.2, TextColor = Color.Fuchsia, FadeColor = {0, 1, 0.7, 1}, AnimationName = "LocationBackingIrisGenericIn", AnimationOutName = "LocationBackingIrisGenericOut", FontScale = 0.9 } )
 	end
 	thread( PlayVoiceLines, nemesis.SpawnVoiceLines, nil, nemesis )
 	
@@ -1805,6 +1815,7 @@ function NemesisEncounterStartPresentation( eventSource )
 	CallFunctionName(encounter.SpawnPresentationFunction or "NemesisSpawnPresentation", encounter, nemesis)
 	SetupAI( nemesis )
 
+	CurrentRun.CurrentRoom.CancelReattachCameraOnInput = true
 	LockCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 1.25 })
 	PlaySound({ Name = "/Leftovers/World Sounds/MapZoomSlow" })
 	SetSoundCueValue({ Names = { "Drums" }, Id = AudioState.SecretMusicId, Value = 1 })
@@ -1823,6 +1834,9 @@ function NemesisEncounterEndPresentation( eventSource )
 	if nemesis == nil then -- Most likely if the player died during reward sequence
 		return
 	end
+
+	nemesis.TextLinesUseWeaponIdle = nil
+	nemesis.BlocksLootInteraction = false -- For Fields
 	
 	killTaggedThreads( nemesis.AIThreadName )
 	killWaitUntilThreads( nemesis.AINotifyName )
@@ -1842,25 +1856,33 @@ function NemesisBetPresentation( eventSource, args )
 
 	if args.Result == "playerwin" then
 
-		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "BetWinner", Duration = 1.5, ShadowScale = 0.6, PreDelay = 0.1, Duration = 1.5 } )
+		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "BetWinner", Duration = 1.5, ShadowScale = 0.6, PreDelay = 0.1, } )
 		CreateAnimation({ Name = "MoneyShower", DestinationId = CurrentRun.Hero.ObjectId })
 
 	elseif args.Result == "playerloss" then
 
-		thread( InCombatTextArgs, { TargetId = nemesis.ObjectId, Text = "BetWinner", Duration = 1.5, ShadowScale = 0.6, PreDelay = 0.1, Duration = 1.5 } )
+		thread( InCombatTextArgs, { TargetId = nemesis.ObjectId, Text = "BetWinner", Duration = 1.5, ShadowScale = 0.6, PreDelay = 0.1, } )
 		CreateAnimation({ Name = "MoneyShower", DestinationId = nemesis.ObjectId })
 
 	end
 
 end
 
--- see also: NemesisLeaveRoomPresentation / function NemesisExit
+-- see also: NemesisLeaveRoomPresentation
 function NemesisTeleportExitPresentation( nemesis, args )
 	args = args or {}
+
+	if nemesis.Exiting then
+		return
+	end
 
 	local nemesisId = GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = "NPC_Nemesis_01" })
 	local nemesis = nemesis or ActiveEnemies[nemesisId]
 	nemesis.Exiting = true
+
+	while nemesis.InRelationshipAdvancedPresentation do
+		wait( 0.2 )
+	end
 
 	if not args.SkipVoice then
 		thread( PlayVoiceLines, nemesis.ExitVoiceLines, nil, nemesis, { IgnoreMute = true } )
@@ -1900,335 +1922,6 @@ function NemesisTeleportExitPresentation( nemesis, args )
 
 end
 
-function CrowdReactionPresentation( args )
-
-	if args.Chance ~= nil and RandomChance(args.Chance) then
-		return
-	end
-
-	if not CheckCooldown( "CrowdReactionPresentationPlaying", 8.0 ) and not args.SkipCooldown then
-		return
-	end
-
-	if args.Requirements ~= nil and not IsGameStateEligible( args, args.Requirements ) then
-		return
-	end
-
-	local reactionIds = nil
-	if args.Ids ~= nil then
-		reactionIds = args.Ids
-	elseif args.Groups then
-		reactionIds = GetIds({ Names = args.Groups })
-	else
-		reactionIds = GetIds({ Name = args.Group or "CrowdReaction" })
-	end
-
-	wait(args.Delay, RoomThreadName)
-
-	if args.Sound ~= nil then
-		PlaySound({ Name = args.Sound })
-	end
-	for k, id in pairs(reactionIds) do
-		if RandomChance(args.ReactionChance) then
-			local animationName = args.AnimationName
-			if args.AnimationNames ~= nil then
-				animationName = GetRandomValue(args.AnimationNames)
-			end
-			thread(PlayEmote, { TargetId = id, AnimationName = animationName, Shake = args.Shake } )
-		end
-	end
-
-	if args.RadialBlur then
-		AdjustRadialBlurDistance({ Fraction = 0.25, Duration = 0.1 })
-		AdjustRadialBlurStrength({ Fraction = 0.45, Duration = 0.1 })
-	end
-
-	wait(args.Duration or 0.8, RoomThreadName)
-
-	if args.RadialBlur then
-		AdjustRadialBlurDistance({ Fraction = 0, Duration = 0.1 })
-		AdjustRadialBlurStrength({ Fraction = 0, Duration = 0.1 })
-	end
-
-	for k, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
-		if enemy.CrowdReactionVoiceLines ~= nil then
-			thread( PlayVoiceLines, enemy.CrowdReactionVoiceLines, true, enemy )
-		end
-	end
-
-end
-
-function CrowdReactionPresentationEventSource( eventSource, args )
-	CrowdReactionPresentation( args )
-end
-
-function ScyllaBoostPresentation( enemy, aiData )
-	--[[AdjustColorGrading({ Name = colorGrade or "Alert", Duration = 0 })
-	ScreenAnchors.FullscreenAlertFxAnchor = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Scripting", X = ScreenCenterX, Y = ScreenCenterY })
-
-	local fullscreenAlertDisplacementFx = SpawnObstacle({ Name = "FullscreenAlertDisplace", Group = "FX_Displacement", DestinationId = ScreenAnchors.FullscreenAlertFxAnchor})
-	DrawScreenRelative({ Id = fullscreenAlertDisplacementFx })
-
-	local fullscreenAlertColorFx = SpawnObstacle({ Name = colorFx or "FullscreenAlertColor", Group = "FX_Standing_Top", DestinationId = ScreenAnchors.FullscreenAlertFxAnchor})
-	DrawScreenRelative({ Id = fullscreenAlertColorFx })
-
-	AdjustFullscreenBloom({ Name = "AlertBloom", Duration = 0.25 })
-	ShakeScreen({ Speed = 600, Distance = 6, FalloffSpeed = 2000, Duration = 0.6 })
-
-	wait( 0.5, RoomThreadName )
-	AdjustColorGrading({ Name = "AlectoRage", Duration = 0.45 })
-	AdjustFullscreenBloom({ Name = "Off", Duration = 0.45 })
-	SetAlpha({ Id = fullscreenAlertDisplacementFx, Fraction = 0, Duration = 0.45 })
-	thread( DoRumble, { { ScreenPreWait = 0.02, Fraction = 0.17, Duration = 0.4 }, } )
-	Destroy({ Ids = { fullscreenAlertColorFx, fullscreenAlertDisplacementFx } })]]
-
-	local allyIds = GetIdsByType({ Names = { "SirenDrummer", "SirenKeytarist" } })
-	for k, id in pairs(allyIds) do
-		CreateAnimation({ DestinationId = id, Name = aiData.AllyBoostFx })
-	end
-	--[[AdjustColorGrading({ Name = "Off", Duration = 0.45 })
-	SetAlpha({ Id = fullscreenAlertColorFx, Fraction = 0, Duration = 0.45 })]]
-end
-
-function ScyllaBoostEndPresentation(enemy, aiData)
-	local allyIds = GetIdsByType({ Names = { "SirenDrummer", "SirenKeytarist" } })
-	for k, id in pairs(allyIds) do
-		StopAnimation({ DestinationId = id, Name = aiData.AllyBoostFx })
-	end
-end
-
-function FieldsEncounterActivatedPresentation( rewardCage, args )
-	args = args or {}
-	PlayInteractAnimation( rewardCage.ObjectId, { Animation = GetEquippedWeaponValue( "WeaponInteractAnimation" ) })
-	local extraArgs = ShallowCopyTable( args )
-	extraArgs.Encounter = rewardCage.Encounter
-	thread( PlayVoiceLines, HeroVoiceLines.FieldsEncounterStartedVoiceLines, true, nil, extraArgs )
-	thread( FieldsEncounterStartPresentation )
-	if MapState.FamiliarUnit ~= nil and MapState.FamiliarUnit.OnFieldsEncounterActivatedFunctionName ~= nil then
-		thread( CallFunctionName, MapState.FamiliarUnit.OnFieldsEncounterActivatedFunctionName, MapState.FamiliarUnit )
-	end
-end
-
-function FieldsEncounterStartPresentation( eventSource, args )
-	local survivalEncounter = eventSource
-
-	AdjustColorGrading({ Name = colorGrade or "Alert", Duration = 0 })
-	ScreenAnchors.FullscreenAlertFxAnchor = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Scripting", X = ScreenCenterX, Y = ScreenCenterY })
-
-	local fullscreenAlertDisplacementFx = SpawnObstacle({ Name = "FullscreenAlertDisplace", Group = "FX_Displacement", DestinationId = ScreenAnchors.FullscreenAlertFxAnchor})
-	SetScaleX({ Id = fullscreenAlertDisplacementFx, Fraction = ScreenScaleX, Duration = 0 })
-	SetScaleY({ Id = fullscreenAlertDisplacementFx, Fraction = ScreenScaleY, Duration = 0 })
-	DrawScreenRelative({ Id = fullscreenAlertDisplacementFx })
-
-	local fullscreenAlertColorFx = SpawnObstacle({ Name = colorFx or "FullscreenAlertColor", Group = "FX_Standing_Top", DestinationId = ScreenAnchors.FullscreenAlertFxAnchor})
-	DrawScreenRelative({ Id = fullscreenAlertColorFx })
-
-	AdjustFullscreenBloom({ Name = "AlertBloom", Duration = 0.25 })
-
-	PlaySound({ Name = "/Leftovers/World Sounds/ThunderHuge" })
-	ShakeScreen({ Speed = 600, Distance = 6, FalloffSpeed = 2000, Duration = 0.3 })
-
-	wait( 0.2, RoomThreadName )
-
-	AdjustFullscreenBloom({ Name = "NewType10", Duration = 1.4 })
-	PlaySound({ Name = "/SFX/SurvivalChallengeStart" })
-	thread( DoRumble, { { ScreenPreWait = 0.02, Fraction = 0.17, Duration = 0.4 }, } )
-	
-	wait( 0.2 )
-
-	local roomData = RoomData[CurrentRun.CurrentRoom.Name]
-
-	local musicSetup = RandomInt( 1, 3 )
-	local randomStems = nil
-	if musicSetup == 1 then
-		randomStems = { "Drums", "Guitar" }
-	elseif musicSetup == 2 then
-		randomStems = { "Drums", "Bass", }
-	elseif musicSetup == 3 then
-		randomStems = { "Drums", "Guitar", "Bass", }
-	end
-	if AudioState.SecretMusicId == nil then
-		ResumeMusic()
-	end
-	SetSoundCueValue({ Names = randomStems, Id = AudioState.MusicId, Value = 1, Duration = 0.75 })
-	if AudioState.MusicSection == 0 then
-		SetSoundCueValue({ Names = { "Section", }, Id = AudioState.MusicId, Value = 1 })
-	end
-
-	AdjustColorGrading({ Name = "Off", Duration = 0.45 })
-	AdjustFullscreenBloom({ Name = "Off", Duration = 0.45 })
-	SetAlpha({ Id = fullscreenAlertColorFx, Fraction = 0, Duration = 0.45 })
-	SetAlpha({ Id = fullscreenAlertDisplacementFx, Fraction = 0, Duration = 0.45 })
-	wait( 0.2, RoomThreadName )
-	Destroy({ Ids = { fullscreenAlertColorFx, fullscreenAlertDisplacementFx } })
-end
-
-function InfestedCerberusSetupPresentation( enemy )
-	SetAlpha({ Id = enemy.ObjectId, Fraction = 0, Duration = 0 })
-end
-
-function InfestedCerberusSpawnPresentation( enemy )
-	PanCamera({ Id = enemy.ObjectId, Duration = 2.0 })
-	ShakeScreen({ Speed = 550, Distance = 7, FalloffSpeed = 800, Duration = 1.1, Angle = 0 })
-	thread( DoRumble, { { ScreenPreWait = 0.04, LeftFraction = 0.17, Duration = 1.3 }, { ScreenPreWait = 1.5, RightFraction = 0.5, Duration = 0.6 } } )
-	SetAlpha({ Id = enemy.ObjectId, Fraction = 1, Duration = 0.3 })
-	SetAnimation({ DestinationId = enemy.ObjectId, Name = "Enemy_InfestedCerberus_BurrowEmerge_Intro" })
-	AdjustRadialBlurDistance({ Fraction = 10, Duration = 3.0 })
-	AdjustRadialBlurStrength({ Fraction = 2, Duration = 3.0 })
-	wait(1.5)
-	ShakeScreen({ Speed = 900, Distance = 12, FalloffSpeed = 600, Duration = 0.45, Angle = 90 })
-	wait(1.5)
-	PanCamera({ Ids = CurrentRun.Hero.ObjectId, Duration = 1.5 })
-	AdjustRadialBlurDistance({ Fraction = 0, Duration = 1.0 })
-	AdjustRadialBlurStrength({ Fraction = 0, Duration = 1.0 })
-end
-
-function ChronosMinorStageTransition( boss, currentRun, aiStage )
-	wait(0.05) -- Don't overlap with the same frame as AIHealthThresholdReached() so threads don't get killed
-	Stop({ Id = boss.ObjectId })
-	SetAnimation({ DestinationId = boss.ObjectId, Name = "Enemy_Chronos_Idle" })
-	ClearEffect({ Id = boss.ObjectId, Name = "ChronosFireRotationDampening" })
-	ClearEffect({ Id = boss.ObjectId, Name = "ChronosFireRotationDampening" })
-	ExpireProjectiles({ Names = { "ChronosGrindWall", "ChronosGrindVacuum", } })
-	BossStageTransition( boss, currentRun, aiStage )
-end
-
-function ChronosPhaseTransition( boss, currentRun, aiStage )
-	boss.InTransition = true
-	currentRun.CurrentRoom.Encounter.ChronosTransition = true
-
-	-- this needs to be above the CurrentPhase transition
-	thread( PlayVoiceLines, boss.PhaseEndedVoiceLines, nil, boss )
-
-	boss.CurrentPhase = boss.CurrentPhase + 1
-
-	Stop({ Id = boss.ObjectId })
-
-	SetPlayerInvulnerable( "ChronosPhaseTransition" )
-	AddInputBlock({ Name = "ChronosPhaseTransition" })
-	HideCombatUI("ChronosPhaseTransition")
-
-	DestroyRequiredKills( { BlockLoot = true, SkipIds = { boss.ObjectId }, BlockDeathWeapons = true } )
-	ExpireProjectiles({ ExcludeNames = WeaponSets.ExpireProjectileExcludeProjectileNames, BlockSpawns = true })
-	ClearAllEffects( boss ) 
-	if not IsEmpty( boss.StopAnimationsOnHitStun ) then
-		StopAnimation({ Names = boss.StopAnimationsOnHitStun, DestinationId = boss.ObjectId, PreventChain = true })
-	end
-	SetAnimation({ Name = "Enemy_Chronos_Knockdown_Start", DestinationId = boss.ObjectId })
-	SetGoalAngle({ Id = boss.ObjectId, Angle = 270 })
-	thread( LastKillPresentation, boss )
-
-	SetMusicSection( 1 )
-
-	PanCamera({ Id = boss.ObjectId, Duration = 1.20 })
-
-	thread( SetHeroAngleWithMoveOrder, { ObjectId = boss.ObjectId, Timeout = 0.405 } )
-
-	wait( 1.25, boss.AIThreadName )
-
-	local textLines = GetRandomEligibleTextLines( boss, boss.BossPhaseChangeTextLineSets, GetNarrativeDataValue( boss, "BossPhaseChangeTextLinePriorities" ) )
-	boss.TextLinesUseWeaponIdle = true
-	PlayTextLines( boss, textLines )
-
-	thread( PlayVoiceLines, boss.NextPhaseVoiceLines, nil, boss )
-
-	wait( 1.12, RoomThreadName )
-
-	SetAnimation({ Name = "Enemy_Chronos_Teleport_Disappear", DestinationId = boss.ObjectId })
-
-	wait( 1.1, RoomThreadName )
-	PlaySound({ Name = "/Leftovers/Menu Sounds/TextReveal3Distance" })
-
-	ScreenAnchors.PhaseTransitionBG = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Combat_UI_World_Backing", X = ScreenCenterX, Y = ScreenCenterY })
-	local uniformAspectScale = ScreenScaleX
-	if ScreenScaleY > ScreenScaleX then 
-		uniformAspectScale = ScreenScaleY
-	end
-	if not ScreenState.NativeAspetRatio then
-		uniformAspectScale = uniformAspectScale + 0.1 -- Scaling isn't pixel-perfect, add some buffer
-	end
-	SetScale({ Id = ScreenAnchors.PhaseTransitionBG, Fraction = uniformAspectScale })
-	SetAnimation({ DestinationId = ScreenAnchors.PhaseTransitionBG, Name = "RoomTransitionIn" })
-
-	RemoveFromGroup({ Id = boss.ObjectId, Names = { "Standing" } })
-	AddToGroup({ Id = boss.ObjectId, Name = "Combat_Menu", DrawGroup = true })
-
-	wait( 0.8, RoomThreadName )
-
-	if boss.CurrentPhase == 2 then
-		if CurrentRun.Hero.Weapons.WeaponLob then
-			ReloadAmmo({Name = "WeaponLob"})
-			UpdateWeaponAmmo( "WeaponLob", 0 )
-			thread( UpdateAmmoUI )
-			ExpireProjectiles({ Names = {"ProjectileLobCharged", "ProjectileLob"}, BlockSpawns = true})
-			Destroy({ Ids = GetIdsByType({ Name = "LobAmmoPack"})  })
-		end
-
-		if SessionMapState.ManaDropId then
-			Destroy({ Id = SessionMapState.ManaDropId })
-			SessionMapState.ManaDropId = nil
-		end
-
-		Activate({ Name = "SpawnPointsPhase2" })
-		AddToGroup({ Ids = GetIds({ Name = "SpawnPointsPhase1" }), Name = "InactiveSpawnPoints", DrawGroup = true })
-		CurrentRun.CurrentRoom.SpawnPoints = {}
-		MapState.SpawnPoints = GetIds({ Name = "SpawnPoints" })
-		Teleport({ Id = boss.ObjectId, DestinationId = 625757 })
-		Teleport({ Id = CurrentRun.Hero.ObjectId, DestinationId = 645921 })
-		if CurrentRun.CurrentRoom.DestroyAssistUnitOnEncounterEndId then
-			Teleport({ Id = CurrentRun.CurrentRoom.DestroyAssistUnitOnEncounterEndId , DestinationId = 645975 })
-			AngleTowardTarget({ Id = CurrentRun.CurrentRoom.DestroyAssistUnitOnEncounterEndId , DestinationId = boss.ObjectId })
-		end
-		if MapState.FamiliarUnit ~= nil then
-			Teleport({ Id = MapState.FamiliarUnit.ObjectId, DestinationId = 645983 })
-			AngleTowardTarget({ Id = MapState.FamiliarUnit.ObjectId, DestinationId = boss.ObjectId })
-		end
-		SetCameraClamp({ Ids = GetIds({ Name = "CameraClamps2" }), SoftClamp = 0.75 })
-	end
-
-	wait( 0.5, boss.AIThreadName )
-
-	SetMusicSection( 2 )
-
-	SetAnimation({ Name = "MelinoeIdle", DestinationId = CurrentRun.Hero.ObjectId })
-	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = boss.ObjectId })
-
-	SetAnimation({ DestinationId = ScreenAnchors.PhaseTransitionBG, Name = "RoomTransitionOut" })
-
-	wait(0.3, boss.AIThreadName)
-
-	boss.MaxHealth = aiStage.NewMaxHealth or boss.MaxHealth
-	boss.Health = boss.MaxHealth
-	if aiStage.SetHealthPercent ~= nil then
-		boss.Health = boss.Health * aiStage.SetHealthPercent
-	end
-	BossHealthBarPresentation( boss )
-
-	wait(1.0, boss.AIThreadName)
-
-	LockCamera({ Id = currentRun.Hero.ObjectId, Duration = 1.0 })
-	RemoveInputBlock({ Name = "ChronosPhaseTransition" })
-	SetPlayerVulnerable( "ChronosPhaseTransition" )
-	ShowCombatUI("ChronosPhaseTransition")
-	
-	RemoveFromGroup({ Id = boss.ObjectId, Names = { "Combat_Menu" } })
-	AddToGroup({ Id = boss.ObjectId, Name = "Standing", DrawGroup = true })
-	
-	--[[ Fire passive weapons
-	if aiStage.DumbFireWeapons ~= nil then
-		for k, weaponName in pairs(aiStage.DumbFireWeapons) do
-			local weaponData = WeaponData[weaponName].AIData or WeaponData[weaponName]
-			weaponData.Name = weaponName
-			thread( DumbFireAttack, boss, currentRun, weaponData )
-		end
-	end]]
-	SetThingProperty({ Property = "GrannyMaskAlpha", Value = 1.0, DestinationId = boss.ObjectId })
-	SetUnitVulnerable( boss )
-	wait(0.5, boss.AIThreadName)
-	boss.InTransition = false
-	currentRun.CurrentRoom.Encounter.ChronosTransition = nil
-end
-
 function ArachneExit( source, args )
 
 	args = args or {}
@@ -2248,9 +1941,12 @@ function ArachneExit( source, args )
 	wait( args.WaitTime or 2.6 )
 
 	CreateAnimation({ Name = "TeleportDisappearSmall", DestinationId = arachne.ObjectId })
-	SetAlpha({ Id = arachne.ObjectId, Fraction = 0.0, Duration = 0.35 })
+	PlaySound({ Name = "/SFX/Player Sounds/FamiliarAppearPoof", Id = arachne.ObjectId })
+	PlaySound({ Name = "/Leftovers/World Sounds/Caravan Interior/SpiderSkitter", Id = arachne.ObjectId })
+	SetAlpha({ Id = arachne.ObjectId, Fraction = 0.0, Duration = 0.1 })
+	SetAlpha({ Id = args.WebObstacle, Fraction = 0.0, Duration = 0.1 })
 
-	wait( 0.35 )
+	wait( 0.1 )
 
 	arachne.NextInteractLines = nil
 	arachne.Mute = true
@@ -2269,3 +1965,20 @@ function ArachneExit( source, args )
 
 end
 
+function HeraclesBountySpawnPresentation( unit, bountyCount )
+	local encounter = unit.Encounter
+	if encounter == nil then
+		return
+	end
+	local encounterData = EncounterData[encounter.Name] or encounter
+	
+	CreateAnimation({ Name = encounterData.HeraclesBountyAttachedAnimation, DestinationId = unit.ObjectId })
+
+	if CheckCooldown( "HeraclesObjectiveText", 300 ) and bountyCount == 1 then 
+		thread( InCombatTextArgs, { PreDelay = 0.5, Text = "BountyTarget", TargetId = CurrentRun.Hero.ObjectId, Duration = 2.5, OffsetY = -180, SkipRise = true } )
+	end
+	PlaySound({ Name = "/SFX/Enemy Sounds/GoldElemental/GoldElementalDeathSFX", Id = CurrentRun.Hero.ObjectId })
+
+	unit.StopAnimationsOnDeath = unit.StopAnimationsOnDeath or {}
+	table.insert(unit.StopAnimationsOnDeath, encounterData.HeraclesBountyAttachedAnimation)
+end

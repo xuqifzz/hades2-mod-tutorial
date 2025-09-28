@@ -2,7 +2,8 @@ OverwriteTableKeys( TraitData, {
 	-- Axe
 	AxeHammerTrait = 
 	{
-		CodexWeapon = "WeaponAxe"
+		CodexWeapon = "WeaponAxe",
+		DebugOnly = true,
 	},
 	AxeSturdyTrait = 
 	{
@@ -13,6 +14,17 @@ OverwriteTableKeys( TraitData, {
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponAxe", },
+			},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5,
 			},
 		},
 		OnWeaponChargeFunctions = 
@@ -64,31 +76,7 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
-	AxeComboSwingTrait = 
-	{
-		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
-		Icon = "Hammer_Axe_32",
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "Hero", "Weapons", },
-				HasAll = { "WeaponAxe", },
-			},
-		},
-		OnWeaponFiredFunctions = 
-		{
-			ValidWeapons = { "WeaponAxe2" },
-			ExcludeLinked = true,
-			FunctionName = "SpeedUpSpecial",
-			FunctionArgs = 
-			{
-				ChargeMultiplier = 0.1,
-				Window = 0.8,
-			}
 
-		},
-
-	},
 	AxeDashAttackTrait = 
 	{
 		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
@@ -204,75 +192,25 @@ OverwriteTableKeys( TraitData, {
 				ReportedCost = "ManaCostAdd" 
 			},
 		},
-		
-		--[[
-		WeaponDataOverride =
+
+		NumWaves = 2, -- used only for text
+		PropertyChanges =
 		{
-			WeaponAxeSpecialSwing = 
 			{
-				OnFiredFunctionName = "RevertWeaponChanges",
+				WeaponName = "WeaponAxeSpecialSwing",
+				WeaponProperty = "NumProjectileWaves",
+				ChangeValue = 1,
+				ChangeType = "Add",
+				ReportValues = { ReportedChange = "ChangeValue" }
 			},
-			WeaponAxeBlock2 = 
 			{
-				OnChargeFunctionNames = { "DoWeaponCharge", "CheckAxeBlockThread" },
-				ChargeWeaponStages = 
-				{
-					{ 
-						ManaCost = 25,
-						Wait = 1.25,
-						SwapWeapon = "null",
-						SkipManaSpendOnFire = true,
-						DeferSwap = "WeaponAxeSpecialSwing",
-						ChannelSlowEventOnStart = true,
-						ForceRelease = false,
-						ForceReleaseWithoutMana = true,
-						ReportValues = 
-						{
-							ReportedBaseManaCost = "ManaCost",
-						}					
-					},
-					{ 
-						ManaCost = 40,
-						Wait = 0.6,
-						ResetIndicator = true,
-						SkipManaSpendOnFire = true,
-						SwapWeapon = "null",
-						DeferSwap = "WeaponAxeSpecialSwing",
-						ForceRelease = true,
-						WeaponProperties = {
-							NumProjectileWaves = 2,
-							ProjectileWaveInterval = 0.2,
-												
-							ReportValues = 
-							{
-								ReportedWeaponWaves = "NumProjectileWaves",
-							}
-						},					
-						ReportValues = 
-						{
-							ReportedManaCost = "ManaCost",
-						}
-					}
-				},
-			}
-			]]
-			NumWaves = 2, -- used only for text
-			PropertyChanges =
-			{
-				{
-					WeaponName = "WeaponAxeSpecialSwing",
-					WeaponProperty = "NumProjectileWaves",
-					ChangeValue = 1,
-					ChangeType = "Add",
-					ReportValues = { ReportedChange = "ChangeValue" }
-				},
-				{
-					WeaponName = "WeaponAxeSpecialSwing",
-					WeaponProperty = "ProjectileWaveInterval",
-					ChangeValue = 0.2,
-					ChangeType = "Absolute",
-				},
+				WeaponName = "WeaponAxeSpecialSwing",
+				WeaponProperty = "ProjectileWaveInterval",
+				ChangeValue = 0.2,
+				ChangeType = "Absolute",
 			},
+		},
+
 		ExtractValues =
 		{
 			{
@@ -299,15 +237,27 @@ OverwriteTableKeys( TraitData, {
 				HasAll = { "WeaponAxe", },
 			},
 		},
+		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 2.0/1.5,
+			},
+		},
 		AddOutgoingDamageModifiers =
 		{
-			ValidWeaponMultiplier =
+			NonExMultiplier =
 			{
 				BaseValue = 2.5,
 				SourceIsMultiplier = true,
 			},
 			ValidWeapons = { "WeaponAxeSpecial"},
-			ReportValues = { ReportedWeaponMultiplier = "ValidWeaponMultiplier"},
+			ReportValues = { ReportedWeaponMultiplier = "NonExMultiplier"},
 		},
 		PropertyChanges =
 		{
@@ -337,42 +287,6 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
-	AxeConsecutiveStrikeTrait = 
-	{
-		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
-		Icon = "Hammer_Axe_31",	
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "Hero", "Weapons", },
-				HasAll = { "WeaponAxe", },
-			},
-			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "AxeAttackRecoveryTrait" },
-			},
-		},
-		PropertyChanges =
-		{
-			{
-				WeaponName = "WeaponAxeSpin",
-				ProjectileProperties = 
-				{
-					ConsecutiveHitWindow = 0.25,
-					DamagePerConsecutiveHit = 2,
-					ReportValues = { ReportedDamage = "DamagePerConsecutiveHit"},
-				},
-			}
-		},
-		
-		ExtractValues =
-		{
-			{
-				Key = "ReportedDamage",
-				ExtractAs = "Damage",
-			},
-		}
-	},
 	AxeArmorTrait = 
 	{
 		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
@@ -386,16 +300,15 @@ OverwriteTableKeys( TraitData, {
 		},
 		AddOutgoingDamageModifiers =
 		{
-			NonExHealthBufferRemoval = 0.35,
+			NonExFlatDamageToArmor = 300,
 			ValidWeapons = { "WeaponAxeSpecial" },
-			ReportValues = { ReportedWeaponMultiplier = "NonExHealthBufferRemoval"},
+			ReportValues = { ReportedWeaponMultiplier = "NonExFlatDamageToArmor"},
 		},
 		ExtractValues =
 		{
 			{
 				Key = "ReportedWeaponMultiplier",
 				ExtractAs = "ArmorDamageIncrease",
-				Format = "Percent",
 			},
 		}
 	},
@@ -408,10 +321,6 @@ OverwriteTableKeys( TraitData, {
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponAxe", },
-			},
-			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "AxeAttackRecoveryTrait" },
 			},
 		},
 		WeaponDataOverride = 
@@ -436,6 +345,10 @@ OverwriteTableKeys( TraitData, {
 			{
 				ExpireProjectilesOnFire = {},
 			},
+			WeaponAxe5 = 
+			{
+				ExpireProjectilesOnFire = {},
+			},
 			WeaponAxeBlock2 = 
 			{
 				ExpireProjectilesOnFire = {},
@@ -444,6 +357,10 @@ OverwriteTableKeys( TraitData, {
 			{
 				ExpireProjectilesOnFire = {},
 			},
+			WeaponAxeSpin = 
+			{
+				ExpireProjectilesOnFire = {"ProjectileAxeSpin"},
+			},
 			WeaponSpellLeap = 
 			{
 				ExpireProjectilesOnFire = {},
@@ -451,19 +368,19 @@ OverwriteTableKeys( TraitData, {
 		},
 		ChargeStageModifiers = 
 		{
+			FalseTraitName = "AxeRallyAspect",
 			WeaponNames = { "WeaponAxeSpin"},
 			ChangeNumProjectilesToFuse = true,
+			AddWeaponProperties = 
+			{
+					FireEndGraphic = "null",
+			}
 		},
 		PropertyChanges =
 		{
 			{
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperties = 
-				{
-					FireGraphic = "Melinoe_Axe_AttackEx1_End",
-					FireEndGraphic = "null",
-					RemoveControlOnCharge = "null"
-				},
 				ProjectileProperties = 
 				{
 					ExpandBlastDuringDetonation = true,
@@ -471,8 +388,21 @@ OverwriteTableKeys( TraitData, {
 					FuseStart = 0,
 					TotalFuse = 20,
 					Fuse = 0.22,
-					IgnoreCancelAttachedProjectiles = true,
 				},
+			},
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperties = 
+				{
+					FireGraphic = "Melinoe_Axe_AttackEx1_End",
+					RemoveControlOnCharge = "null",
+					RemoveControlOnCharge2 = "null",
+				},
+			},
+			{
+				WeaponName = "WeaponAxeSpin",
+				ProjectileProperty = "IgnoreCancelAttachedProjectiles",
+				ChangeValue = true,
 			},
 			{
 				WeaponName = "WeaponAxeSpin",
@@ -537,14 +467,26 @@ OverwriteTableKeys( TraitData, {
 				HasAll = { "WeaponAxe", },
 			},
 		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 80/60,
+			},
+		},
 		OnWeaponFiredFunctions =
 		{
-			ValidWeapons = { "WeaponAxe", "WeaponAxe2", "WeaponAxe3" },
+			ValidWeapons = { "WeaponAxe", "WeaponAxe2", "WeaponAxe3", "WeaponAxe4" , "WeaponAxe5"  },
 			ExcludeLinked = true,
 			FunctionName = "CheckAxeNova",
 			FunctionArgs = 
 			{
 				ProjectileName = "HammerAxeNova",
+				DamageMultiplier = { BaseValue = 1 },
 			}
 		},
 		OnProjectileCreationFunction = 
@@ -554,15 +496,26 @@ OverwriteTableKeys( TraitData, {
 			Args = 
 			{
 				ProjectileName = "HammerAxeNova",
+				DamageMultiplier = { BaseValue = 1 },
+				ReportValues = { ReportedMultiplier = "DamageMultiplier" }
 			}
 		},
-		ExtractValues =
+		PropertyChanges = 
 		{
 			{
+				TraitName = "AxeFreeSpinTrait",
+				WeaponName = "WeaponAxeSpin",
+				ProjectileProperty = "SpawnOnDetonate",
+				ChangeValue = "HammerAxeNova",
+			},
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedMultiplier",
 				ExtractAs = "Damage",
-				SkipAutoExtract = true,
-				External = true,
-				BaseType = "ProjectileBase",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
 				BaseName = "HammerAxeNova",
 				BaseProperty = "Damage",
 			},
@@ -579,9 +532,16 @@ OverwriteTableKeys( TraitData, {
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponAxe", },
 			},
+		},
+		RarityLevels =
+		{
+			Common =
 			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "AxeAttackRecoveryTrait" },
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 0.6/0.5,
 			},
 		},
 		WeaponSpeedMultiplier =
@@ -600,7 +560,8 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponAxeSpin",
 				EffectName = "AxeSpinSelfFireSlow",
 				EffectProperty = "Modifier",
-				ChangeValue = 1.5,
+				BaseValue = 1.5,
+				SourceIsMultiplier = true,
 				ChangeType = "Multiply",
 				ReportValues = { ReportedSpeedIncrease = "ChangeValue" },
 			},
@@ -608,7 +569,8 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponAxeSpin",
 				EffectName = "IndependentAxeSpinSelfFireSlow",
 				EffectProperty = "Modifier",
-				ChangeValue = 1.5,
+				BaseValue = 1.5,
+				SourceIsMultiplier = true,
 				ChangeType = "Multiply",
 			},
 		},
@@ -651,28 +613,41 @@ OverwriteTableKeys( TraitData, {
 			ReportValues = { ReportedSpeedIncrease = "Value" }
 		},
 		]]
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1
+			},
+			Legendary = 
+			{
+				Multiplier = 0.70/0.75,
+			},
+		},
 		PropertyChanges = 
 		{
 			{
 				WeaponName = "WeaponAxeSpecialSwing",
 				WeaponProperty = "ChargeTime",
-				ChangeValue = 0.75,
+				BaseValue = 0.75,
 				ChangeType = "Multiply",
 				ReportValues = { ReportedSpeedIncrease = "ChangeValue"},
 			},
 			{
 				WeaponName = "WeaponAxeSpecialSwing",
 				WeaponProperty = "ProjectileInterval",
-				ChangeValue = 0.75,
+				BaseValue = 0.75,
 				ChangeType = "Multiply",
 			},
 			{
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxeSpecialSwing",
 				WeaponProperty = "ChargeStartAnimation",
 				ChangeValue = "Melinoe_Axe_SpecialEx1_Start_Fast",
 				ChangeType = "Absolute",
 			},
 			{
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxeSpecialSwing",
 				WeaponProperty = "FireGraphic",
 				ChangeValue = "Melinoe_Axe_SpecialEx1_Fire_Fast",
@@ -698,9 +673,16 @@ OverwriteTableKeys( TraitData, {
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponAxe", },
 			},
+		},
+		RarityLevels =
+		{
+			Common =
 			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "AxeConsecutiveStrikeTrait", "AxeFreeSpinTrait", "AxeSpinSpeedTrait", "AxeRangedWhirlwindTrait", "SlowExAttackBoon" },
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 0.6/0.7,
 			},
 		},
 		IsLastPriorityHammerTrait = true,
@@ -709,11 +691,12 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponNames = { "WeaponAxe", "WeaponAxe2", "WeaponAxe3", "WeaponAxeDash" },
 				WeaponProperty = "ChargeTime",
-				ChangeValue = 0.7,
+				BaseValue = 0.7,
 				ChangeType = "Multiply",
 				ReportValues = { ReportedSpeedIncrease = "ChangeValue"},
 			},
 			{
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxe",
 				WeaponProperty = "ChargeStartAnimation",
 				ChangeValue = "Melinoe_Axe_Attack1_Start_Fast",
@@ -721,6 +704,7 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 			{
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxe2",
 				WeaponProperty = "ChargeStartAnimation",
 				ChangeValue = "Melinoe_Axe_Attack2_Start_Fast",
@@ -728,6 +712,7 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 			{
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxe3",
 				WeaponProperty = "ChargeStartAnimation",
 				ChangeValue = "Melinoe_Axe_Attack4_Start_Fast",
@@ -735,6 +720,7 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 			{
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxeDash",
 				WeaponProperty = "ChargeStartAnimation",
 				ChangeValue = "Melinoe_Axe_Attack3_Start_Fast",
@@ -773,12 +759,27 @@ OverwriteTableKeys( TraitData, {
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponAxe", },
 			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponAxe", },
+				IsNone = {"AxeRallyAspect", }
+			},
 		},
 		SetupFunction =
 		{
 			Name = "PermanentSwitchWeapon",
 			Args = "WeaponAxe3",
 			RunOnce = true
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 400/300,
+			},
 		},
 		ReplaceMeleeWeapon = "WeaponAxe3",
 		PrevNumStrikes = 3, -- used only for text
@@ -792,11 +793,13 @@ OverwriteTableKeys( TraitData, {
 					FullyAutomatic = false,
 				    AddOnFire = "WeaponAxeSpin"
 				},
-				ProjectileProperties = 
-				{
-					Damage = 300,
-					ReportValues = { ReportedDamage = "Damage" },
-				}
+			},
+			{
+				WeaponName = "WeaponAxe3",
+				ProjectileProperty = "Damage",
+				BaseValue = "300",
+				ExcludeLinked = true,
+				ReportValues = { ReportedDamage = "ChangeValue" },
 			},
 			{
 				WeaponName = "WeaponAxeDash",
@@ -822,6 +825,10 @@ OverwriteTableKeys( TraitData, {
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponAxe", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponAxe", },
+				IsNone = {"AxeRallyAspect", }
 			},
 		},
 		WeaponDataOverride = 
@@ -873,6 +880,107 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedManaCost",
 				ExtractAs = "Mana",
+			},
+		}
+	},
+
+	AxeRallyFirstStrikeTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
+		Icon = "Hammer_Axe_45",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponAxe", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponAxe", },
+				IsAny = {"AxeRallyAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "AxeRallyAspect" }
+			},
+		},
+		PropertyChanges =
+		{
+			{
+				WeaponName = "WeaponAxe",
+				WeaponProperties = 
+				{
+					NumProjectiles = 2,
+					ProjectileIntervalStart = 0.08,
+					ProjectileInterval = 0.08,
+					SwapOnFire = "null"
+				},
+				ExcludeLinked = true,
+			},
+		},
+		PrevNumStrikes = 5,
+	},
+	AxeRallyFrenzyTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
+		Icon = "Hammer_Axe_44",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponAxe", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponAxe", },
+				IsAny = {"AxeRallyAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "AxeRallyAspect" }
+			},
+		},
+		ReportedBaseLifeStealAmount = 1,
+		FrenzyDurationBonus = { BaseValue = 2 },
+		FrenzyLifestealBonus = { BaseValue = 1 },
+		ExtractValues =
+		{
+			{
+				Key = "FrenzyLifestealBonus",
+				ExtractAs = "ReportedFrenzyBonusLifeStealAmount",
+				SkipAutoExtract = true,
+			},
+			{
+				Key = "FrenzyDurationBonus",
+				ExtractAs = "ReportedBonusDuration",
+				SkipAutoExtract = true,
+			},
+			{
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectLuaData",
+				BaseName = "Frenzy",
+				BaseProperty = "BaseLifeSteal",
+				ExtractAs = "FrenzyLifeStealAmount",
+			},
+			{
+				ExtractAs = "FrenzyDuration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "Frenzy",
+				BaseProperty = "Duration",
+			},
+			{
+				ExtractAs = "ReportedSpeed",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "Frenzy",
+				Format = "PercentReciprocalDelta",
+				BaseProperty = "Modifier",
 			},
 		}
 	},

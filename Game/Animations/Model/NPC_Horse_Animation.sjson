@@ -1,0 +1,1100 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCHorseBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "HorseAndChariot_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+
+	}
+	
+	{
+		Name = "NPCHorseChariotBaseAnimation"
+		InheritFrom = "NPCHorseBaseAnimation"
+		GrannyRotationX = -30
+		Enable3DShadow = false
+		VisualFx = "SeleneChariotDressFx"
+		VisualFxIntervalMin = 0.04
+		VisualFxIntervalMax = 0.04
+
+		Frames = 
+		[
+			{
+				Frame = 13
+				Sound = "/Leftovers/SFX/WingFlapLargeEnding"
+			}
+			{
+				Frame = 90
+				Sound = "/Leftovers/SFX/WingFlapLargeEnding"
+			}
+			{
+				Frame = 170
+				Sound = "/Leftovers/SFX/WingFlapLargeEnding"
+			}
+		]
+	}
+
+	{
+		Name = "Horse_Idle"
+		InheritFrom = "NPCHorseBaseAnimation"
+		GrannyAnimation = "Horse_Base_HubIdle_C_00"
+		Loop = true
+		Enable3DShadow = false
+	}
+
+	// Melinoe
+	{
+		Name = "MelinoeChariotBaseAnimation"
+		GrannyModel = "Melinoe_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Loop = false
+		Scale = 1.27
+		GrannyRotationX = -30
+		Enable3DShadow = false
+	}
+	{
+		Name = "Melinoe_Chariot_Idle"
+		InheritFrom = "MelinoeChariotBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_ChariotFlying_Idle_C_00"
+		Loop = true
+	}
+	{
+		Name = "Melinoe_Chariot_Fidget_Start"
+		InheritFrom = "MelinoeChariotBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_ChariotFlying_FidgetStart_C_00"
+	}
+	{
+		Name = "Melinoe_Chariot_Fidget_FireLoop"
+		InheritFrom = "MelinoeChariotBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_ChariotFlying_FidgetLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Melinoe_Chariot_Fidget_End"
+		InheritFrom = "MelinoeChariotBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_ChariotFlying_FidgetReturn_C_00"
+	}
+
+	// Chronos
+	{
+		Name = "ChronosChariotBaseAnimation"
+		GrannyModel = "ChronosReformed_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		GrannyRotationX = -30
+		Enable3DShadow = false
+	}
+	{
+		Name = "Chronos_Chariot_Idle"
+		InheritFrom = "ChronosChariotBaseAnimation"
+		GrannyAnimation = "Chronos_ChariotFlying_Idle_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Chronos_Chariot_Teleport_Out"
+		InheritFrom = "Chronos_Chariot_Idle"
+		/*
+		DeathFxTexture = "EffectHelpers/DeathFx/ChronosTeleportMaskFlip"
+		DeathFxFrameDuration = 45
+		Duration = 2
+		DeathFxColor = { Red = 0.82 Green = 0.70 Blue = 0.42 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1.0
+		AddColor = true
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.82
+		EndGreen = 0.7
+		EndBlue = 0.42
+		*/
+		CreateAnimations = [
+			{ Name = "EndCreditsChronosTeleportFxA" }
+			{ Name = "EndCreditsChronosTeleportFxB" }
+			{ Name = "EndCreditsChronosTeleportFxC" }
+			{ Name = "EndCreditsChronosTeleportFxD" }
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				Alpha = 1.0
+			}
+			{
+				Frame = 30
+				Alpha = 0.0
+			}
+			{
+				Frame = 240
+				Alpha = 0.0
+			}
+		]
+	}
+
+	{
+		Name = "EndCreditsChronosTeleportFxA"
+		FilePath = "Fx\Chronos\ChronosTeleportFxFront\ChronosTeleportFxFront"
+		NumFrames = 60
+		PlaySpeed = 30
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		GroupName = "Combat_UI_World_Add"
+		OffsetX = 512
+		OffsetY = -100
+		ScaleY = 1.25
+		StartOffsetY = 60
+		EndOffsetY = -60
+		EaseIn = 0.99
+		EaseOut = 1.00
+	}
+
+	{
+		Name = "EndCreditsChronosTeleportFxB"
+		InheritFrom = "EndCreditsChronosTeleportFxA"
+		FilePath = "Fx\Chronos\ChronosTeleportFxBack\ChronosTeleportFxBack"
+		NumFrames = 19
+		GroupName = "Standing"
+		OffsetY = 0
+		EndOffsetY = 0
+	}
+
+	{
+		Name = "EndCreditsChronosTeleportFxC"
+		FilePath = "Fx\Chronos\ChronosGoldRing\ChronosGoldRing"
+		NumFrames = 90
+		PlaySpeed = 90
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		Scale = 0.66
+		OffsetX = 512
+		OffsetY = -230
+	}
+
+	{
+		Name = "EndCreditsChronosTeleportFxD"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0.85
+		Blue = 0.51
+		PingPongColor = true
+		StartAlpha = 0
+		EndAlpha = 0.66
+		Duration = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Scale = 2
+		ScaleY = 1.5
+		GroupName = "Combat_UI_World_Add"
+		OffsetX = 512
+		OffsetY = -100
+		ScaleX = 0.6
+	}
+
+	// Apollo
+	{
+		Name = "NPCApolloChariotBaseAnimation"
+		GrannyModel = "Apollo_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		GrannyRotationX = -30
+		Enable3DShadow = false
+	}
+	{
+		Name = "Apollo_Chariot_Idle"
+		InheritFrom = "NPCApolloChariotBaseAnimation"
+		GrannyAnimation = "Apollo_ChariotFlying_Idle_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Apollo_Chariot_Singing_Start"
+		InheritFrom = "NPCApolloChariotBaseAnimation"
+		GrannyAnimation = "Apollo_ChariotFlying_SingingStart_C_00"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Apollo_Chariot_Singing_Loop"
+		InheritFrom = "NPCApolloChariotBaseAnimation"
+		GrannyAnimation = "Apollo_ChariotFlying_SingingLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Apollo_Chariot_Singing_End"
+		InheritFrom = "NPCApolloChariotBaseAnimation"
+		GrannyAnimation = "Apollo_ChariotFlying_SingingReturn_C_00"
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "Apollo_Chariot_Teleport_In"
+		InheritFrom = "Apollo_Chariot_Idle"
+		/*
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2Flip"
+		DeathFxFrameDuration = 90
+		DeathFxColor = { Red = 1 Green = 0.7 Blue = 0.5 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		DeathFxReverse = true
+		Duration = 2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.7
+		StartBlue = 0.5
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		*/
+		CreateAnimations = [
+			{ Name = "EndCreditsTeleportGlowA_Apollo" }
+			{ Name = "EndCreditsTeleportGlowB_Apollo" }
+			{ Name = "EndCreditsTeleportStreaks_Apollo" }
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				Alpha = 0
+			}
+			{
+				Frame = 30
+				Alpha = 1
+			}
+		]
+	}
+
+
+	{
+		Name = "EndCreditsTeleportStreaks_Apollo"
+		FilePath = "GUI\Screens\OlympianDialogueEntrance\OlympianDialogueEntranceStreak\OlympianDialogueEntranceStreak"
+		NumFrames = 19
+		ScaleX = 0.33
+		ScaleY = 20
+		Scale = 0.25
+		OffsetY = -76
+		OriginX = 715
+		OriginY = 108
+
+		OffsetX = 475
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		AddColor = true
+		GroupName = "FX_Add_Top"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0.2
+		VisualFx = "EndCreditsTeleportParticles_Apollo"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		Slides = 
+		[
+			{ DurationFrames = 3 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "EndCreditsTeleportGlowA_Apollo"
+		FilePath = "Particles\particle_glow"
+		GroupName = "Combat_UI_Additive"
+		Material = "Unlit"
+		Duration = 1
+		EaseIn = 0.99
+		EaseOut = 1
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Maintain"
+		LocationZFromOwner = "Maintain"
+		ColorFromOwner = "Ignore"
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0.2
+		OffsetX = 475
+		OffsetY = -300
+		ScaleY = 6
+		StartScaleX = 1
+		EndScaleX = 0.15
+	}
+
+	{
+		Name = "EndCreditsTeleportGlowB_Apollo"
+		InheritFrom = "EndCreditsTeleportGlowA_Apollo"
+		StartScaleX = 6
+		EndScaleX = 5
+		StartAlpha = 0.4
+	}
+
+	{
+		Name = "EndCreditsTeleportParticles_Apollo"
+		FilePath = "Particles\particle_addFlake2"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0.2
+		AddColor = true
+		RandomRotation = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		RandomOffsetX = 40
+		RandomOffsetY = 240
+		StartScale = 1
+		EndScale = 0
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AngleFromOwner = "Ignore"
+		Angle = 270
+		GroupName = "Combat_UI_World"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		DieWithOwner = false
+		VelocityMin = 40
+		VelocityMax = 500
+		AngleChangeSpeedMin = -10
+		AngleChangeSpeedMax = 10
+		Acceleration = -400
+		OffsetX = 475
+		OffsetY = -340
+		Material = "Unlit"
+		Scale = 0.4
+	}
+
+	// Artemis
+	{
+		Name = "NPCArtemisChariotBaseAnimation"
+		GrannyModel = "Artemis_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		GrannyRotationX = -30
+		Enable3DShadow = false
+	}
+
+	{
+		Name = "Artemis_Chariot_Idle"
+		InheritFrom = "NPCArtemisChariotBaseAnimation"
+		GrannyAnimation = "Artemis_ChariotFlying_Idle_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Artemis_Chariot_Singing_Start"
+		InheritFrom = "NPCArtemisChariotBaseAnimation"
+		GrannyAnimation = "Artemis_ChariotFlying_SingingStart_C_00"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Artemis_Chariot_Singing_Loop"
+		InheritFrom = "NPCArtemisChariotBaseAnimation"
+		GrannyAnimation = "Artemis_ChariotFlying_SingingLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Artemis_Chariot_Singing_End"
+		InheritFrom = "NPCArtemisChariotBaseAnimation"
+		GrannyAnimation = "Artemis_ChariotFlying_SingingReturn_C_00"
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "Artemis_Chariot_Teleport_In"
+		InheritFrom = "Artemis_Chariot_Idle"
+		/*
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2Flip"
+		DeathFxFrameDuration = 90
+		DeathFxColor = { Red = 1 Green = 0.7 Blue = 0.5 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		DeathFxReverse = true
+		Duration = 2
+		EaseIn = 0.99
+		EaseOut = 1.0
+		AddColor = true
+		StartRed = 0.6
+		StartGreen = 1.0
+		StartBlue = 0.6
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		*/
+		CreateAnimation = "EndCreditsTeleportDelay_Artemis"
+		Frames =
+		[
+			{
+				Frame = 0
+				Alpha = 0
+			}
+			{
+				Frame = 120
+				Alpha = 0
+				
+			}
+			{
+				Frame = 150
+				Alpha = 1
+			}
+		]
+	}
+
+	{
+		Name = "EndCreditsTeleportDelay_Artemis"
+		FilePath = "Dev\blank_invisible"
+		Duration = 2.0
+		ChainTo = "EndCreditsTeleport_Artemis"
+	}
+
+	{
+		Name = "EndCreditsTeleport_Artemis"
+		FilePath = "Dev\blank_invisible"
+		CreateAnimations =
+		[
+			{ Name = "EndCreditsTeleportGlowA_Artemis" }
+			{ Name = "EndCreditsTeleportGlowB_Artemis" }
+			{ Name = "EndCreditsTeleportStreaks_Artemis" }
+		]
+	}
+
+	{
+		Name = "EndCreditsTeleportStreaks_Artemis"
+		FilePath = "GUI\Screens\OlympianDialogueEntrance\OlympianDialogueEntranceStreak\OlympianDialogueEntranceStreak"
+		NumFrames = 19
+		ScaleX = 0.33
+		ScaleY = 20
+		Scale = 0.25
+		OffsetX = 450
+		OffsetY = -76
+		OriginX = 715
+		OriginY = 108
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		AddColor = true
+		GroupName = "FX_Add_Top"
+		StartRed = 0.6
+		StartGreen = 1.0
+		StartBlue = 0.2
+		EndRed = 0.3
+		EndGreen = 0.999
+		EndBlue = 0.8
+		VisualFx = "EndCreditsTeleportParticles_Artemis"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		Slides = 
+		[
+			{ DurationFrames = 3 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "EndCreditsTeleportGlowA_Artemis"
+		FilePath = "Particles\particle_glow"
+		GroupName = "Combat_UI_Additive"
+		Material = "Unlit"
+		Duration = 1
+		EaseIn = 0.99
+		EaseOut = 1
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Maintain"
+		LocationZFromOwner = "Maintain"
+		ColorFromOwner = "Ignore"
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 0.5
+		StartGreen = 1.0
+		StartBlue = 0.2
+		EndRed = 0.3
+		EndGreen = 0.999
+		EndBlue = 0.8
+		OffsetX = 450
+		OffsetY = -300
+		ScaleY = 6
+		StartScaleX = 1
+		EndScaleX = 0.15
+	}
+
+	{
+		Name = "EndCreditsTeleportGlowB_Artemis"
+		InheritFrom = "EndCreditsTeleportGlowA_Artemis"
+		StartScaleX = 6
+		EndScaleX = 5
+		StartAlpha = 0.4
+	}
+
+	{
+		Name = "EndCreditsTeleportParticles_Artemis"
+		FilePath = "Particles\particle_addFlake2"
+		StartRed = 0.6
+		StartGreen = 1.0
+		StartBlue = 0.2
+		EndRed = 0.3
+		EndGreen = 0.999
+		EndBlue = 0.8
+		AddColor = true
+		RandomRotation = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		RandomOffsetX = 40
+		RandomOffsetY = 240
+		StartScale = 1
+		EndScale = 0
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AngleFromOwner = "Ignore"
+		Angle = 270
+		GroupName = "Combat_UI_World"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		DieWithOwner = false
+		VelocityMin = 40
+		VelocityMax = 500
+		AngleChangeSpeedMin = -10
+		AngleChangeSpeedMax = 10
+		Acceleration = -400
+		OffsetX = 450
+		OffsetY = -340
+		Material = "Unlit"
+		Scale = 0.4
+	}
+
+	// Hecate
+	{
+		Name = "NPCHecateChariotBaseAnimations"
+		GrannyModel = "HecateHub_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		GrannyRotationX = -30
+		Enable3DShadow = false
+	}
+
+	{
+		Name = "Hecate_Chariot_Idle"
+		InheritFrom = "NPCHecateChariotBaseAnimations"
+		GrannyAnimation = "Hecate_ChariotFlying_Idle_C_00"
+		Loop = true
+	}
+	{
+		Name = "Hecate_Chariot_Fidget"
+		InheritFrom = "NPCHecateChariotBaseAnimations"
+		GrannyAnimation = "Hecate_ChariotFlying_Fidget_C_00"
+	}
+
+	// Selene
+	{
+		Name = "NPCSeleneChariotBaseAnimation"
+		GrannyModel = "Selene_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		GrannyRotationX = -30
+		Enable3DShadow = false
+	}
+	{
+		Name = "Selene_Chariot_Idle"
+		InheritFrom = "NPCSeleneChariotBaseAnimation"
+		GrannyAnimation = "Selene_ChariotFlying_Idle_C_00"
+		Loop = true
+	}
+
+	// Chariot
+
+	{
+		Name = "Horse_FlyingIdle_AllCharacters"
+		InheritFrom = "NPCHorseChariotBaseAnimation"
+		GrannyAnimation = "Horse_ChariotFlying_Idle_C_00"
+		ChainTo = "Horse_FlyingIdle_Chronos"
+
+		Attachments =
+		[
+			{
+				Name = "Selene_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Melinoe_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Hecate_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Artemis_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Apollo_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Chronos_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Horse_FlyingIdle_Chronos_Idle"
+		InheritFrom = "NPCHorseChariotBaseAnimation"
+		GrannyAnimation = "Horse_ChariotFlying_Idle_C_00"
+		Loop = true
+
+		Attachments =
+		[
+			{
+				Name = "Selene_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Melinoe_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Hecate_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Chronos_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Horse_FlyingIdle_Chronos_Out"
+		InheritFrom = "NPCHorseChariotBaseAnimation"
+		GrannyAnimation = "Horse_ChariotFlying_Idle_C_00"
+		ChainTo = "Horse_FlyingIdle_Twins_In"
+
+		Attachments =
+		[
+			{
+				Name = "Selene_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Melinoe_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Hecate_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Chronos_Chariot_Teleport_Out"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Horse_FlyingIdle_Chronos_Idle"
+				Duration = 2
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 4
+				Sound = "/SFX/Enemy Sounds/Chronos/ChronosTeleport"
+			}
+		]
+	}
+
+	{
+		Name = "Horse_FlyingIdle_Twins_In"
+		InheritFrom = "NPCHorseChariotBaseAnimation"
+		GrannyAnimation = "Horse_ChariotFlying_Idle_C_00"
+		ChainTo = "Horse_FlyingIdle_Twins_Idle"
+		Attachments =
+		[
+			{
+				Name = "Selene_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Melinoe_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Hecate_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Artemis_Chariot_Teleport_In"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Apollo_Chariot_Teleport_In"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 6
+				Sound = "/SFX/Player Sounds/ApolloStaffFissureSFX"
+			}
+			{
+				Frame = 112
+				Sound = "/SFX/Player Sounds/ApolloSwipeSFX"
+			}
+		]
+	}
+
+	{
+		Name = "Horse_FlyingIdle_Twins_Idle"
+		InheritFrom = "NPCHorseChariotBaseAnimation"
+		GrannyAnimation = "Horse_ChariotFlying_Idle_C_00"
+		Loop = true
+
+		Attachments =
+		[
+			{
+				Name = "Selene_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Melinoe_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Hecate_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Artemis_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Apollo_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Horse_FlyingIdle_Twins_Singing_Start"
+		InheritFrom = "NPCHorseChariotBaseAnimation"
+		GrannyAnimation = "Horse_ChariotFlying_Idle_C_00"
+		ChainTo = "Horse_FlyingIdle_Twins_Singing_MelNormal_Loop"
+
+		Attachments =
+		[
+			{
+				Name = "Selene_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Melinoe_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Hecate_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Artemis_Chariot_Singing_Start"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Apollo_Chariot_Singing_Start"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+		]
+		
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Horse_FlyingIdle_Twins_Idle"
+				Duration = 2
+			}
+		]
+	}
+	{
+		Name = "Horse_FlyingIdle_Twins_Singing_MelNormal_Loop"
+		InheritFrom = "NPCHorseChariotBaseAnimation"
+		GrannyAnimation = "Horse_ChariotFlying_Idle_C_00"
+		Loop = true
+		GrannyRandomLoopCountMin = 2
+		GrannyRandomLoopCountMax = 4
+		ChainTo = "Horse_FlyingIdle_Twins_Singing_MelNormal_Random"
+		AllowRestart = true
+
+		Attachments =
+		[
+			{
+				Name = "Selene_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Melinoe_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Hecate_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Artemis_Chariot_Singing_Loop"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Apollo_Chariot_Singing_Loop"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+
+	{
+		Name = "Horse_FlyingIdle_Twins_Singing_MelNormal_Random"
+		Random =
+		[
+			{ Name = "Horse_FlyingIdle_Twins_Singing_MelNormal_Loop" }
+			{ Name = "Horse_FlyingIdle_Twins_Singing_MelNormal_HecFidget" }
+			{ Name = "Horse_FlyingIdle_Twins_Singing_MelFidget_Start" }
+		]
+	}
+
+
+	{
+		Name = "Horse_FlyingIdle_Twins_Singing_MelNormal_HecFidget"
+		InheritFrom = "NPCHorseChariotBaseAnimation"
+		GrannyAnimation = "Horse_ChariotFlying_Idle_C_00"
+		ChainTo = "Horse_FlyingIdle_Twins_Singing_MelNormal_Loop"
+		Attachments =
+		[
+			{
+				Name = "Selene_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Melinoe_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Hecate_Chariot_Fidget"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Artemis_Chariot_Singing_Loop"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Apollo_Chariot_Singing_Loop"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Horse_FlyingIdle_Twins_Singing_MelFidget_Start"
+		InheritFrom = "NPCHorseChariotBaseAnimation"
+		GrannyAnimation = "Horse_ChariotFlying_Idle_C_00"
+		ChainTo = "Horse_FlyingIdle_Twins_Singing_MelFidget_Loop"
+		Attachments =
+		[
+			{
+				Name = "Selene_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Melinoe_Chariot_Fidget_Start"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Hecate_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Artemis_Chariot_Singing_Loop"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Apollo_Chariot_Singing_Loop"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Horse_FlyingIdle_Twins_Singing_MelFidget_Loop"
+		InheritFrom = "NPCHorseChariotBaseAnimation"
+		GrannyAnimation = "Horse_ChariotFlying_Idle_C_00"
+		Loop = true
+		GrannyRandomLoopCountMin = 2
+		GrannyRandomLoopCountMax = 4
+		ChainTo = "Horse_FlyingIdle_Twins_Singing_MelFidget_Random"
+		AllowRestart = true
+
+		Attachments =
+		[
+			{
+				Name = "Selene_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Melinoe_Chariot_Fidget_FireLoop"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Hecate_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Artemis_Chariot_Singing_Loop"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Apollo_Chariot_Singing_Loop"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+	{
+		Name = "Horse_FlyingIdle_Twins_Singing_MelFidget_Random"
+		Random =
+		[
+			{ Name = "Horse_FlyingIdle_Twins_Singing_MelFidget_Loop" }
+			{ Name = "Horse_FlyingIdle_Twins_Singing_MelFidget_HecFidget" }
+			{ Name = "Horse_FlyingIdle_Twins_Singing_MelFidget_End" }
+		]
+	}
+
+	{
+		Name = "Horse_FlyingIdle_Twins_Singing_MelFidget_HecFidget"
+		InheritFrom = "NPCHorseChariotBaseAnimation"
+		GrannyAnimation = "Horse_ChariotFlying_Idle_C_00"
+		ChainTo = "Horse_FlyingIdle_Twins_Singing_MelFidget_Loop"
+		Attachments =
+		[
+			{
+				Name = "Selene_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Melinoe_Chariot_Fidget_FireLoop"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Hecate_Chariot_Fidget"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Artemis_Chariot_Singing_Loop"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Apollo_Chariot_Singing_Loop"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Horse_FlyingIdle_Twins_Singing_MelFidget_End"
+		InheritFrom = "NPCHorseChariotBaseAnimation"
+		GrannyAnimation = "Horse_ChariotFlying_Idle_C_00"
+		ChainTo = "Horse_FlyingIdle_Twins_Singing_MelNormal_Loop"
+		Attachments =
+		[
+			{
+				Name = "Selene_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Melinoe_Chariot_Fidget_End"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Hecate_Chariot_Idle"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Artemis_Chariot_Singing_Loop"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "Apollo_Chariot_Singing_Loop"
+				ToBone = "Horse_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+]}

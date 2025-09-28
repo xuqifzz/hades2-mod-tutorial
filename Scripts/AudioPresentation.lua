@@ -64,3 +64,18 @@ function AmbientChatting( source, args )
 	PlayVoiceLines( args.VoiceLines, nil, source )
 	wait( 1.5 )
 end
+
+function ArtemisStartSingingPresentation( source )
+	if CurrentRun.SuppressAmbientMusic == "Artemis" then
+		return
+	end
+	CreateAnimation({ Name = "StatusSinging", DestinationId = source.ObjectId, OffsetX = -55, OffsetY = -150, OffsetZ = 128 })
+	SetAnimation({ Name = "Artemis_Singing_Start", DestinationId = source.ObjectId })
+	SetSoundCueValue({ Name = "Vocals", Id = AudioState.AmbientMusicId, Value = CurrentHubRoom.AmbientMusicParams.Vocals, Duration = 0.5 })
+end
+
+function ArtemisStopSingingPresentation( source )
+	StopAnimation({ DestinationId = source.ObjectId, Name = "StatusSinging" })
+	SetAnimation({ Name = "Artemis_Singing_End", DestinationId = source.ObjectId })
+	SetSoundCueValue({ Name = "Vocals", Id = AudioState.AmbientMusicId, Value = 0.0, Duration = 0.0 })
+end

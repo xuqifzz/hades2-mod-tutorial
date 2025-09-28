@@ -6,7 +6,7 @@ UnitSetData.ClockworkHeavyMelee =
 
 		MaxHealth = 1650,
 		HealthBarOffsetY = -250,
-		HitSparkScale = 1.5,
+		ArmorSparkAnimation = "HitSparkArmor_Large",
 
 		ActivateAnimation = "Enemy_CWHeavyMelee_Spawn",
 		ActivateStartAlpha = 1.0,
@@ -43,6 +43,8 @@ UnitSetData.ClockworkHeavyMelee =
 		{
 			"ThugShove", "ThugSwipe"
 		},
+		
+		BlockAttributes = { "Orbit", "Vacuum", },
 
 		ActiveCapWeight = 1,
 		GeneratorData =
@@ -64,6 +66,7 @@ UnitSetData.ClockworkHeavyMelee =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_1643", Text = "Wretches..." },
@@ -79,7 +82,7 @@ UnitSetData.ClockworkHeavyMelee =
 		HealthBuffer = 1050,
 		IsAggroedSound = "/SFX/Enemy Sounds/Brawler/EmoteTaunting",
 
-		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Rifts" }),
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Rifts", "Metallic" }),
 
 		DefaultAIData =
 		{
@@ -100,6 +103,13 @@ UnitSetData.ClockworkHeavyMelee =
 			DifficultyRating = 305,
 			BlockEnemyTypes = {"ClockworkHeavyMelee"}
 		},
+	},
+
+	ClockworkHeavyMelee_SuperElite =
+	{
+		InheritFrom = { "SuperElite", "ClockworkHeavyMelee_Elite" },
+		MaxHealth = 1000,
+		HealthBuffer = 5000,
 	},
 }
 

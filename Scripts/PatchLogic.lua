@@ -1,6 +1,9 @@
 function DoPatches()
 
 	Revision = Revision or 0
+	if Revision > 0 and RevisionFirstSave == nil then
+		RevisionFirstSave = Revision
+	end
 
 	if GameState ~= nil then
 
@@ -17,34 +20,15 @@ function DoPatches()
 		for i = #GameState.RunHistory, math.max( #GameState.RunHistory - 10, 1 ), -1 do
 			local prevRun = GameState.RunHistory[i]
 			prevRun.BiomeStateChangeCount = prevRun.BiomeStateChangeCount or 0
-			prevRun.BiomesReached = prevRun.BiomesReached or {}
-			for keyName, v in pairs( RecentRunSaveWhitelist ) do
+			for keyName, v in pairs( RecentRunTablesSaveWhitelist ) do
 				prevRun[keyName] = prevRun[keyName] or {}
 			end
 		end
 
-		if not GameState.BountyBackCompatChecked then
-			for i = #GameState.RunHistory, 1, -1 do
-				local run = GameState.RunHistory[i]
-				if run.ActiveBounty ~= nil then
-					if not DoesRunMatchBounty(run, run.ActiveBounty) then
-						-- This bounty is bogus! Is it actually using the bounty from the last run?
-						local prevActiveBounty = GameState.RunHistory[i-1].ActiveBounty
-						if prevActiveBounty ~= nil and DoesRunMatchBounty(run, prevActiveBounty) then
-							run.ActiveBounty = prevActiveBounty
-						else
-							-- Nope, it's just a regular run!
-							run.ActiveBounty = nil
-						end
-					end
-				end
-			end
-			GameState.BountyBackCompatChecked = true
-		end
-
 		GameState.CompletedRunsCache = GetCompletedRuns()
-		if GameState.EquippedFamiliar and not GameState.FamiliarResourceSpawnChance then
-			GameState.FamiliarResourceSpawnChance = FamiliarData[GameState.EquippedFamiliar].BaseResourceSpawnChance + GetFamiliarBonusResourceSpawnChance( GameState.EquippedFamiliar )
+
+		if GameState.FamiliarResourceSpawnChance then
+			GameState.FamiliarResourceSpawnChance = nil
 		end
 
 		for itemName, value in pairs( GameState.WorldUpgrades ) do
@@ -59,42 +43,95 @@ function DoPatches()
 			GameState.WorldUpgradesRevealed[itemName] = true
 		end
 
+		for name, status in pairs( GameState.QuestStatus ) do
+			if status == "Complete" or status == "CashedOut" then
+				GameState.QuestsCompleted[name] = true
+			end
+		end
+
 		for id, plot in pairs( GameState.GardenPlots ) do
+			if plot.StoredGrows ~= nil then
+				plot.ReadyForHarvest = (plot.StoredGrows >= 1)
+				plot.StoredGrows = nil
+			end
+
+			if plot.TimesUsed == nil then
+				if plot.SeedName ~= nil then
+					plot.TimesUsed = 1
+				else
+					plot.TimesUsed = 0
+				end
+			end
+
+			if plot.PlayedRevealStatus == nil then
+				plot.PlayedRevealStatus = (plot.StatusAnimation ~= nil)
+			end
+
 			local plotData = ObstacleData[plot.Name]
 			if plotData ~= nil then
 				plot.SpecialInteractFunctionName = plotData.SpecialInteractFunctionName
+				plot.UnlimitedGifts = plotData.UnlimitedGifts
 			end
+
 			local seedData = GardenData.Seeds[plot.SeedName]
 			if seedData == nil then
-				plot.StoredGrows = 0
-				plot.StoredResources = 0
+				plot.GrowTimeRemaining = nil
+				plot.ReadyForHarvest = false
 				plot.SeedName = nil
 				plot.UseText = "UseGardenPlotPlant"
 				plot.TalkOnlyIfNoGiftOrSpecial = true
 			end
 		end
 
-		for bountyName, v in pairs( GameState.BountiesCompleted ) do
-			local bountyData = BountyData[bountyName]
-			if bountyData ~= nil and bountyData.IsPackagedBounty then
-				GameState.PackagedBountyClears[bountyName] = GameState.PackagedBountyClears[bountyName] or 1
-				GameState.PackagedBountyAttempts[bountyName] = GameState.PackagedBountyAttempts[bountyName] or 1
-				GameState.PackagedBountyClearRecordTime[bountyName] = GameState.PackagedBountyClearRecordTime[bountyName] or GetBountyClearRecordTime( bountyName )
+		if GameState.BountiesCompleted ~= nil then
+			for bountyName, v in pairs( GameState.BountiesCompleted ) do
+				local bountyData = BountyData[bountyName]
+				if bountyData ~= nil then
+					if bountyData.IsPackagedBounty then
+						-- These were not being recorded on old saves for some reason.
+						if GameState.PackagedBountyClearRecordTime[bountyName] == nil then
+							local bestTime = 999999
+							for i, runData in ipairs( GameState.RunHistory ) do
+								if runData.ActiveBounty == bountyName and runData.BountyCleared and runData.GameplayTime < bestTime then
+									bestTime = runData.GameplayTime
+								end
+							end
+							if CurrentRun ~= nil and CurrentRun.ActiveBounty == bountyName and CurrentRun.BountyCleared and CurrentRun.GameplayTime < bestTime then
+								bestTime = CurrentRun.GameplayTime
+							end
+							GameState.PackagedBountyClearRecordTime[bountyName] = bestTime
+						end
+					else
+						GameState.ShrineBountiesCompleted[bountyName] = true
+					end
+				end
 			end
+			GameState.BountiesCompleted = nil
 		end
 
-		local foundDupes = false
+		local swappedBountiesCompleted = {}
+		for bountyName, v in pairs( GameState.ShrineBountiesCompleted ) do
+			local newBountyName = BountyData.ShrineBountyNameSwapMap[bountyName] or bountyName
+			swappedBountiesCompleted[newBountyName] = v
+		end
+		GameState.ShrineBountiesCompleted = swappedBountiesCompleted
+
+		local modifiedStoreItemPins = false
 		local pinNames = {}
 		for index, pin in pairs( GameState.StoreItemPins ) do
 			if pinNames[pin.Name] then
 				-- Found dupe
-				foundDupes = true
+				modifiedStoreItemPins = true
 				GameState.StoreItemPins[index] = nil
 			else
 				pinNames[pin.Name] = true
+				if _G[pin.StoreName] == nil or _G[pin.StoreName][pin.Name] == nil then
+					modifiedStoreItemPins = true
+					GameState.StoreItemPins[index] = nil
+				end
 			end
 		end
-		if foundDupes then
+		if modifiedStoreItemPins then
 			GameState.StoreItemPins = CollapseTable( GameState.StoreItemPins )
 		end
 
@@ -129,12 +166,16 @@ function DoPatches()
 			end
 		end
 
-		GameState.WorldUpgrades.WorldUpgradePauseChronosFight = nil
-		GameState.WorldUpgradesAdded.WorldUpgradePauseChronosFight = nil
-
+		local worldUpgradesToRemove =
+		{
+			"WorldUpgradeMemPointsCommonRunProgress",
+		}
 		if GameState.TextLinesRecord.DoraGrantsCosmeticsShop01 == nil then
-			GameState.WorldUpgrades.Cosmetic_TentBlanket01b = nil
-			GameState.WorldUpgradesAdded.Cosmetic_TentBlanket01b = nil
+			table.insert( worldUpgradesToRemove, "Cosmetic_TentBlanket01b" )
+		end
+		for i, upgradeName in ipairs( worldUpgradesToRemove ) do
+			GameState.WorldUpgrades[upgradeName] = nil
+			GameState.WorldUpgradesAdded[upgradeName] = nil
 		end
 
 		GameState.ShrineUpgrades.FirstDamageShrineUpgrade = nil
@@ -177,10 +218,10 @@ function DoPatches()
 				UpdateLifetimeTraitRecords( run )
 			end
 
-			GameState.RemovedPreOlympusSurfaceRecords = true
+			GameState.RemovedPreTyphonSurfaceRecords = true
 		end
 		
-		if not GameState.RemovedPreOlympusSurfaceRecords then
+		if not GameState.RemovedPreTyphonSurfaceRecords then
 			for _, stat in pairs( GameState.LifetimeTraitStats ) do
 				if stat.ClearCountSurface ~= nil then
 					stat.ClearCount = stat.ClearCount - stat.ClearCountSurface
@@ -189,15 +230,7 @@ function DoPatches()
 					stat.HighestShrinePointsSurface = nil
 				end
 			end
-			for _, stat in pairs( GameState.LifetimeWeaponStats ) do
-				if stat.ClearCountSurface ~= nil then
-					stat.ClearCount = stat.ClearCount - stat.ClearCountSurface
-					stat.ClearCountSurface = nil
-					stat.FastestTimeSurface = nil
-					stat.HighestShrinePointsSurface = nil
-				end
-			end
-			GameState.RemovedPreOlympusSurfaceRecords = true
+			GameState.RemovedPreTyphonSurfaceRecords = true
 		end
 
 		if PrevRun ~= nil and PrevRun.KeepsakeCache == nil then
@@ -214,13 +247,360 @@ function DoPatches()
 			for familiarName, familiarStatus in pairs( GameState.FamiliarStatus ) do
 				if familiarStatus.Unlocked then
 					GameState.FamiliarsUnlocked[familiarName] = true
-					GameState.FamiliarRestTicks[familiarName] = familiarStatus.RestTicks
 				end
 			end
 			GameState.FamiliarUses = nil
 			GameState.FamiliarStatus = nil
 		end
 
+		-- Remove pins for cards / grasp level that were already at max rank
+		if not GameState.RemovedMaxRankMetaUpgradePins then
+			local maxRankGraspName = "MetaUpgradeLevelData"..(#MetaUpgradeCostData.MetaUpgradeLevelData + 1)
+			if HasStoreItemPin( maxRankGraspName ) then
+				RemoveStoreItemPin( maxRankGraspName )
+			end
+			for cardName, cardData in pairs( MetaUpgradeCardData ) do
+				local maxRankCardName = cardName..(#cardData.UpgradeResourceCost + 1)
+				if HasStoreItemPin( maxRankCardName ) then
+					RemoveStoreItemPin( maxRankCardName )
+				end
+			end
+			GameState.RemovedMaxRankMetaUpgradePins = true
+		end
+
+		if not GameState.PatchedSpeechRecords2 then
+			for cue, value in pairs( ShallowCopyTable( GameState.SpeechRecord ) ) do
+				if type(value) == "boolean" then
+					GameState.SpeechRecord[cue] = 1
+				end
+			end
+			if CurrentRun ~= nil then
+				for cue, value in pairs( ShallowCopyTable( CurrentRun.SpeechRecord ) ) do
+					if type(value) == "boolean" then
+						CurrentRun.SpeechRecord[cue] = 1
+					end
+				end
+				if CurrentRun.CurrentRoom ~= nil and CurrentRun.CurrentRoom.SpeechRecord ~= nil then
+					for cue, value in pairs( ShallowCopyTable( CurrentRun.CurrentRoom.SpeechRecord ) ) do
+						if type(value) == "boolean" then
+							CurrentRun.CurrentRoom.SpeechRecord[cue] = 1
+						end
+					end
+				end
+			end
+			GameState.PatchedSpeechRecords2 = true
+		end
+
+		if GameState.TextLinesRecord.ErisGift01_B then
+			GameState.TextLinesRecord.ErisGift01_B = nil
+			GameState.TextLinesRecord.ErisGift01 = true
+		end
+
+		for sourceName, giftRecordOrder in pairs( GameState.GiftRecord ) do
+			local giftSource = LootData[sourceName] or EnemyData[sourceName]
+			local narrativeData = NarrativeData[sourceName]
+			if giftSource ~= nil and narrativeData ~= nil then
+				local missingFirstGiftEvent = false
+				if IsEmpty( GameState.GiftTextLinesOrderRecord[sourceName] ) then
+					missingFirstGiftEvent = true
+				else
+					for i, eventName in ipairs( GameState.GiftTextLinesOrderRecord[sourceName] ) do
+						local eventData = giftSource.GiftTextLineSets[eventName]
+						if eventData ~= nil and eventData.OnGiftTrack then
+							if eventName ~= narrativeData.GiftTextLinePriorities[1] then
+								missingFirstGiftEvent = true
+							end
+							break
+						end
+					end
+				end
+				if missingFirstGiftEvent then
+					GameState.GiftTextLinesOrderRecord[sourceName] = {}
+					local giftEvents = narrativeData.GiftTextLinePriorities
+					if giftEvents ~= nil then
+						--DebugPrint({ Text = "sourceName = "..sourceName })
+						local completedEvents = {}
+						for i, eventName in ipairs( giftEvents ) do
+							--DebugPrint({ Text = "eventName = "..eventName })
+							local giftEventData = giftSource.GiftTextLineSets[eventName]
+							if giftEventData.OnGiftTrack and GameState.TextLinesRecord[giftEventData.Name] then
+								table.insert( completedEvents, giftEventData )
+								--DebugPrint({ Text = "completedEvents = "..eventName })
+							end
+						end
+						for i, resourceName in ipairs( giftRecordOrder ) do
+							local giftEventData = RemoveNextEventWithResource( completedEvents, resourceName )
+							if giftEventData ~= nil then
+								table.insert( GameState.GiftTextLinesOrderRecord[sourceName], giftEventData.Name )
+							end
+						end
+					end
+				end
+			end
+		end
+
+		if IsEmpty( GameState.UnlockedMusicPlayerSongs ) then
+			for i, songName in ipairs( ScreenData.MusicPlayer.Songs ) do
+				if GameState.WorldUpgrades[songName] then
+					table.insert( GameState.UnlockedMusicPlayerSongs, songName )
+				end
+			end
+		else
+			local songsToRemove = {}
+			for i, songName in ipairs( GameState.UnlockedMusicPlayerSongs ) do
+				if WorldUpgradeData[songName] == nil then
+					table.insert( songsToRemove, songName )
+				end
+			end
+			if not IsEmpty( songsToRemove ) then
+				for i, songName in ipairs( songsToRemove ) do
+					RemoveValueAndCollapse( GameState.UnlockedMusicPlayerSongs, songName )
+				end
+				if GameState.MusicPlayerPlaylist ~= nil then
+					GameState.MusicPlayerPlaylist = MusicPlayerGetShuffledPlaylist()
+				end
+			end
+		end
+
+		if GameState.EasyModeLevel >= 2 then
+			SetConfigOption({ Name = "EasyModeIncremented", Value = true })
+		end
+
+		GameState.LifetimeWeaponStats = nil
+
+		if StoredGameState ~= nil and StoredGameState.RunHistory ~= nil then
+			StoredGameStateInit( StoredGameState )
+		end
+
+		if GameState.HighestRunDepthCache == 0 then
+			local highestDepth = 1
+			if CurrentRun ~= nil and CurrentRun.RunDepthCache ~= nil and highestDepth < CurrentRun.RunDepthCache then
+				highestDepth = CurrentRun.RunDepthCache
+			end
+			for _, run in ipairs( GameState.RunHistory ) do
+				if run.RunDepthCache ~= nil and highestDepth < run.RunDepthCache then
+					highestDepth = run.RunDepthCache
+				end
+			end
+			GameState.HighestRunDepthCache = highestDepth
+		end
+
+		if GameState.FastestUnderworldClearTimeCache == 0 or GameState.FastestSurfaceClearTimeCache == 0 then
+			local fastestTimeUnderworld = 999999
+			local fastestTimeSurface = 999999
+			if CurrentRun ~= nil and CurrentRun.Cleared and CurrentRun.GameplayTime ~= nil then
+				if (CurrentRun.BiomesReached == nil or CurrentRun.BiomesReached.F) then
+					if fastestTimeUnderworld > CurrentRun.GameplayTime then
+						fastestTimeUnderworld = CurrentRun.GameplayTime
+					end
+				else
+					if fastestTimeSurface > CurrentRun.GameplayTime then
+						fastestTimeSurface = CurrentRun.GameplayTime
+					end
+				end
+			end
+			for _, run in ipairs( GameState.RunHistory ) do
+				if run.Cleared and run.GameplayTime ~= nil then
+					if run.BiomesReached == nil or run.BiomesReached.F then
+						if fastestTimeUnderworld > run.GameplayTime then
+							fastestTimeUnderworld = run.GameplayTime
+						end
+					else
+						if fastestTimeSurface > run.GameplayTime then
+							fastestTimeSurface = run.GameplayTime
+						end
+					end
+				end
+			end
+			GameState.FastestUnderworldClearTimeCache = fastestTimeUnderworld
+			GameState.FastestSurfaceClearTimeCache = fastestTimeSurface
+		end
+
+		if not GameState.PatchedRunResults3 then
+			for _, run in ipairs( GameState.RunHistory ) do
+				if run.RunResult == nil then
+					run.RunResult = GetRunResult( run )
+				end
+			end
+			if CurrentRun ~= nil and CurrentRun.RunResult == nil and CurrentRun.Hero ~= nil and ( CurrentRun.Hero.IsDead or CurrentRun.Cleared ) then
+				CurrentRun.RunResult = GetRunResult( CurrentRun )
+			end
+			GameState.PatchedRunResults3 = true
+		end
+
+		if not GameState.PatchedShrineBountyRewards then
+			for bountyName, bountyData in pairs( BountyData ) do
+				if not bountyData.IsPackagedBounty then
+					if bountyData.LootOptions ~= nil and bountyData.LootOptions[1] ~= nil and bountyData.LootOptions[1].Overrides ~= nil and bountyData.LootOptions[1].Overrides.AddResources ~= nil then
+						local reward = bountyData.LootOptions[1].Overrides.AddResources.WeaponPointsRare or 0
+						if GameState.ShrineBountiesCompleted[bountyName] and reward > 1 then
+							AddResource( "WeaponPointsRare", reward - 1, "Patch", { Silent = true, SkipVoiceLines = true } )
+						end
+					end
+				end
+			end
+			GameState.PatchedShrineBountyRewards = true
+		end
+
+		if GameState.LastBossHealthBarRecord.BossScylla01 ~= nil then
+			GameState.LastBossHealthBarRecord.Scylla = GameState.LastBossHealthBarRecord.BossScylla01
+			GameState.LastBossHealthBarRecord.BossScylla01 = nil
+			GameState.LastBossHealthBarRecord.BossScylla02 = nil
+		end
+
+		if GameState.LastBossDifficultyRecord.BossScylla01 ~= nil then
+			GameState.LastBossDifficultyRecord.Scylla = GameState.LastBossDifficultyRecord.BossScylla01
+			GameState.LastBossDifficultyRecord.BossScylla01 = nil
+		end
+
+		if GameState.Resources.MysteryResource ~= nil then
+			GameState.Resources.MysteryResource = nil
+			GameState.LifetimeResourcesGained.MysteryResource = nil
+		end
+
+		GameState.Resources.CosmeticsPointsCommon = nil
+		GameState.LifetimeResourcesGained.CosmeticsPointsCommon = nil
+
+		if GameState.CosmeticsPurchasedCountCache.Total == nil then
+			local totalPurchased = 0
+			for i, category in ipairs( ScreenData.CosmeticsShop.ItemCategories ) do
+				local categoryCount = 0
+				for j, itemName in ipairs( category ) do
+					if GameState.WorldUpgradesAdded[itemName] and not Contains( GameData.WorldUpgradeAutomaticUnlocks, itemName ) then
+						categoryCount = categoryCount + 1
+						totalPurchased = totalPurchased + 1
+					end
+				end
+				GameState.CosmeticsPurchasedCountCache[category.CacheName] = categoryCount
+			end
+			GameState.CosmeticsPurchasedCountCache.Total = totalPurchased
+		end
+
+		if GameState.ClearedRunsCache > 0 and IsEmpty( GameState.PlayedRunClearMessages ) then
+			GameState.ClearedUnderworldRunsCache = GameState.ClearedUnderworldRunsCache or 0
+			if GameState.ClearedUnderworldRunsCache >= 1 then
+				GameState.PlayedRunClearMessages.ClearUnderworldNumOne = true
+			end
+			if GameState.ClearedUnderworldRunsCache >= 10 then
+				GameState.PlayedRunClearMessages.ClearUnderworldNumTen = true
+			end
+			if GameState.ClearedUnderworldRunsCache >= 50 then
+				GameState.PlayedRunClearMessages.ClearUnderworldNumFifty = true
+			end
+			if GameState.ClearedUnderworldRunsCache >= 100 then
+				GameState.PlayedRunClearMessages.ClearUnderworldNumOneHundred = true
+			end
+			if GameState.ClearedUnderworldRunsCache >= 250 then
+				GameState.PlayedRunClearMessages.ClearUnderworldNumTwoFifty = true
+			end
+			if GameState.ClearedUnderworldRunsCache >= 500 then
+				GameState.PlayedRunClearMessages.ClearUnderworldNumFiveHundred = true
+			end
+
+			GameState.ClearedSurfaceRunsCache = GameState.ClearedSurfaceRunsCache or 0
+			if GameState.ClearedSurfaceRunsCache >= 1 then
+				GameState.PlayedRunClearMessages.ClearSurfaceNumOne = true
+			end
+			if GameState.ClearedSurfaceRunsCache >= 10 then
+				GameState.PlayedRunClearMessages.ClearSurfaceNumTen = true
+			end
+			if GameState.ClearedSurfaceRunsCache >= 50 then
+				GameState.PlayedRunClearMessages.ClearSurfaceNumFifty = true
+			end
+			if GameState.ClearedSurfaceRunsCache >= 100 then
+				GameState.PlayedRunClearMessages.ClearSurfaceNumOneHundred = true
+			end
+			if GameState.ClearedSurfaceRunsCache >= 250 then
+				GameState.PlayedRunClearMessages.ClearSurfaceNumTwoFifty = true
+			end
+			if GameState.ClearedSurfaceRunsCache >= 500 then
+				GameState.PlayedRunClearMessages.ClearSurfaceNumFiveHundred = true
+			end
+		end
+
+		if GameState.WorldUpgradesViewed.WeaponShop_Tools then
+			GameState.Flags.HasUsedWeaponShopNavigation = true
+		end
+
+		if not GameState.PatchedFinalBossMixers then
+			local mixerIAmount = GameState.Resources.MixerIBoss or 0
+			local mixerQAmount = GameState.Resources.MixerQBoss or 0
+			local mixerIReserve = 0
+			local mixerQReserve = 0
+			if CurrentRun ~= nil and CurrentRun.Hero ~= nil and not CurrentRun.Hero.IsDead and CurrentRun.Cleared then
+				if CurrentRun.BiomesReached.I then
+					mixerIReserve = 1
+				elseif CurrentRun.BiomesReached.Q then
+					mixerQReserve = 1
+				end
+			end
+			local mixerICashOutValue = (mixerIAmount - mixerIReserve) * 50
+			local mixerQCashOutValue = (mixerQAmount - mixerQReserve) * 100
+			AddResource( "CosmeticsPoints", mixerICashOutValue + mixerQCashOutValue, "Patch", { Silent = true, SkipVoiceLines = true, SkipInventoryObjective = true } )
+			GameState.Resources.MixerIBoss = mixerIReserve
+			GameState.Resources.MixerQBoss = mixerQReserve
+			GameState.PatchedFinalBossMixers = true
+		end
+
+		if not GameState.PatchedClearedWithRecords then
+			if GameState.ClearedWithWeapons.I ~= nil then
+				for weaponName in pairs( GameState.ClearedWithWeapons.I ) do
+					GameState.ClearedWithWeapons[weaponName] = true
+				end
+			end
+			if GameState.ClearedWithWeapons.Q ~= nil then
+				for weaponName in pairs( GameState.ClearedWithWeapons.Q ) do
+					GameState.ClearedWithWeapons[weaponName] = true
+				end
+			end
+			for traitName, traitData in pairs( TraitData ) do
+				if traitData.Slot == "Aspect" then
+					if GameState.LifetimeTraitStats[traitName] ~= nil and (GameState.LifetimeTraitStats[traitName].ClearCount or 0) > 0 then
+						local actualTraitName = GetKey( ScreenData.GameStats.WeaponBaseAspectMapping, traitName ) or traitName
+						GameState.ClearedWithAspects[actualTraitName] = true
+					end
+				end
+			end
+			for familiarName, familiarData in pairs( FamiliarData ) do
+				if familiarData.TraitNames ~= nil then
+					local traitName = familiarData.TraitNames[1]
+					if GameState.LifetimeTraitStats[traitName] ~= nil and (GameState.LifetimeTraitStats[traitName].ClearCount or 0) > 0 then
+						GameState.ClearedWithFamiliars[familiarName] = true
+					end
+				end
+			end
+			GameState.PatchedClearedWithRecords = true
+		end
+
+		if not GameState.PatchedHecateAboutChronosBossW01 then
+			GameState.TextLinesRecord.HecateAboutChronosBossW01 = nil
+			GameState.PatchedHecateAboutChronosBossW01 = true
+		end
+		if GameState.TextLinesRecord.HecateAboutTyphonFight03 and not GameState.TextLinesRecord.ZeusPalaceFirstMeeting then
+			GameState.TextLinesRecord.HecateAboutTyphonFight03 = nil
+		end
+
+		if GameState.TraitsTaken then
+			if Revision <= 127486 then
+				if not GameState.TextLinesRecord.MedeaAboutConcoctionQuestComplete01 then
+					GameState.TraitsTaken.NewStatusDamage = nil
+				end
+				if not GameState.TextLinesRecord.CirceAboutScyllaQuestcomplete01 then
+					GameState.TraitsTaken.ExPolymorphBoon = nil
+				end
+				if not GameState.TextLinesRecord.DionysusPostTrueEnding then
+					GameState.TraitsTaken.RandomBaseDamageBoon = nil
+				end
+			end
+		end
+
+		local cauldronCookStatus = GameState.CookStatus[558175]
+		if cauldronCookStatus ~= nil and cauldronCookStatus.ItemName == "WorldUpgradeCardUpgradePoints" then
+			cauldronCookStatus.ItemName = "WorldUpgradeCardUpgradePoints2"
+		end
+
+		GameState.AchievementsUnlocked.AchExorciseShades = nil
+		
 	end
 
 	if CurrentRun ~= nil then
@@ -233,36 +613,14 @@ function DoPatches()
 					CurrentRun.RoomHistory[i].Store.SpawnedStoreItems[s] =  { ObjectId = spawnedItemData.ObjectId, ResourceCost = spawnedItemData.ResourceCost }
 				end
 			end
-			room.NumHarvestPoints = room.NumHarvestPoints or 0
-			room.NumShovelPoints = room.NumShovelPoints or 0
-			room.NumPickaxePoints = room.NumPickaxePoints or 0
-			room.NumExorcismPoints = room.NumExorcismPoints or 0
-			room.NumFishingPoints = room.NumFishingPoints or 0
-			room.EncountersOccurredCache = room.EncountersOccurredCache or {}
+			RoomInit( room )
 		end
 		CurrentRun.SpellCharge = CurrentRun.SpellCharge or 5000
 		CurrentRun.BiomeStateChangeCount = CurrentRun.BiomeStateChangeCount or 0
-		CurrentRun.ResourceNodesSeen = CurrentRun.ResourceNodesSeen or {}
-		CurrentRun.ToolElementsSpawned = CurrentRun.ToolElementsSpawned or {}
 
 		if CurrentRun.CurrentRoom ~= nil then
 			RoomInit( CurrentRun.CurrentRoom )
-			CurrentRun.CurrentRoom.SpawnThreads = CurrentRun.CurrentRoom.SpawnThreads or {}
-			CurrentRun.CurrentRoom.ActiveEncounters = CurrentRun.CurrentRoom.ActiveEncounters or {}
-			CurrentRun.CurrentRoom.SpeechRecord = CurrentRun.CurrentRoom.SpeechRecord or {}
-			CurrentRun.CurrentRoom.Kills = CurrentRun.CurrentRoom.Kills or {}
-			CurrentRun.CurrentRoom.RoomCreations = CurrentRun.CurrentRoom.RoomCreations or {}
-			CurrentRun.CurrentRoom.EncountersOccurredCache = CurrentRun.CurrentRoom.EncountersOccurredCache or {}
-			CurrentRun.CurrentRoom.NemesisTakeExitRecord = CurrentRun.CurrentRoom.NemesisTakeExitRecord or {}
-			CurrentRun.CurrentRoom.TraitUses = CurrentRun.CurrentRoom.TraitUses or {}
-			CurrentRun.CurrentRoom.UnavailableDoors = CurrentRun.CurrentRoom.UnavailableDoors or {}
-			local room = CurrentRun.CurrentRoom
-			room.NumHarvestPoints = room.NumHarvestPoints or 0
-			room.NumShovelPoints = room.NumShovelPoints or 0
-			room.NumPickaxePoints = room.NumPickaxePoints or 0
-			room.NumExorcismPoints = room.NumExorcismPoints or 0
-			room.NumFishingPoints = room.NumFishingPoints or 0
-			room.UseRecord = room.UseRecord or {}
+			
 			if CurrentRun.CurrentRoom.ChallengeSwitch ~= nil and CurrentRun.CurrentRoom.ChallengeSwitch.RewardType == nil then
 				CurrentRun.CurrentRoom.ChallengeSwitch = DeepCopyTable( ObstacleData.ChallengeSwitch )
 			end
@@ -292,13 +650,16 @@ function DoPatches()
 					end
 				end
 			end
-			CurrentRun.CurrentRoom.StoreDataName = CurrentRun.CurrentRoom.StoreDataName or RoomData[CurrentRun.CurrentRoom.Name].StoreDataName
 
 			DebugAssert({ Condition = RoomData[CurrentRun.CurrentRoom.Name] ~= nil, Text = "Missing Room: "..tostring(CurrentRun.CurrentRoom.Name) })
 
+			CurrentRun.CurrentRoom.StoreDataName = CurrentRun.CurrentRoom.StoreDataName or RoomData[CurrentRun.CurrentRoom.Name].StoreDataName
+
 			CurrentRun.CurrentRoom.SpawnRewardOnId = RoomData[CurrentRun.CurrentRoom.Name].SpawnRewardOnId
+			CurrentRun.CurrentRoom.ZeusManaSpawnPoints = RoomData[CurrentRun.CurrentRoom.Name].ZeusManaSpawnPoints
+			CurrentRun.CurrentRoom.SkipUnusedWeaponBonusReward = RoomData[CurrentRun.CurrentRoom.Name].SkipUnusedWeaponBonusReward
+			CurrentRun.CurrentRoom.SkipTimedDropResources = RoomData[CurrentRun.CurrentRoom.Name].SkipTimedDropResources
 			CurrentRun.CurrentRoom.DisableRewardMagnetisim = RoomData[CurrentRun.CurrentRoom.Name].DisableRewardMagnetisim
-			CurrentRun.CurrentRoom.FadeOutAnimation = RoomData[CurrentRun.CurrentRoom.Name].FadeOutAnimation
 			CurrentRun.CurrentRoom.SkipLoadNextMap = RoomData[CurrentRun.CurrentRoom.Name].SkipLoadNextMap
 			CurrentRun.CurrentRoom.ExitFunctionName = RoomData[CurrentRun.CurrentRoom.Name].ExitFunctionName
 			CurrentRun.CurrentRoom.ZoomFraction = RoomData[CurrentRun.CurrentRoom.Name].ZoomFraction
@@ -317,12 +678,15 @@ function DoPatches()
 			CurrentRun.CurrentRoom.EntranceAnimation = RoomData[CurrentRun.CurrentRoom.Name].EntranceAnimation
 			CurrentRun.CurrentRoom.ExitAnimation = RoomData[CurrentRun.CurrentRoom.Name].ExitAnimation
 			CurrentRun.CurrentRoom.MaintainSpellCharge = RoomData[CurrentRun.CurrentRoom.Name].MaintainSpellCharge
+			CurrentRun.CurrentRoom.IgnoreEncounterUses = RoomData[CurrentRun.CurrentRoom.Name].IgnoreEncounterUses
+			CurrentRun.CurrentRoom.SkipRoomsPerUpgrade = RoomData[CurrentRun.CurrentRoom.Name].SkipRoomsPerUpgrade
+			CurrentRun.CurrentRoom.CauseOfDeathDisplayData = RoomData[CurrentRun.CurrentRoom.Name].CauseOfDeathDisplayData
 			
 			CurrentRun.CurrentRoom.LockExtraExitsWithEncounter = RoomData[CurrentRun.CurrentRoom.Name].LockExtraExitsWithEncounter
+			CurrentRun.CurrentRoom.ZagContractRewardDestinationId = RoomData[CurrentRun.CurrentRoom.Name].ZagContractRewardDestinationId
 
 			CurrentRun.CurrentRoom.ObstacleData = DeepCopyTable(RoomData[CurrentRun.CurrentRoom.Name].ObstacleData)
 			CurrentRun.CurrentRoom.WrappingData = DeepCopyTable(RoomData[CurrentRun.CurrentRoom.Name].WrappingData)
-			CurrentRun.CurrentRoom.OnUseSetRunData = DeepCopyTable(RoomData[CurrentRun.CurrentRoom.Name].OnUseSetRunData)
 
 			if CurrentRun.CurrentRoom.ObjectStates ~= nil then
 				for k, objectState in pairs( CurrentRun.CurrentRoom.ObjectStates ) do
@@ -359,6 +723,24 @@ function DoPatches()
 					CurrentRun.CurrentRoom.ForcedReward.ForcedUpgradeOptions[index] = nil
 				end
 				CurrentRun.CurrentRoom.ForcedReward.ForcedUpgradeOptions = CollapseTable( CurrentRun.CurrentRoom.ForcedReward.ForcedUpgradeOptions )
+			end
+
+			if CurrentRun.CurrentRoom.ChosenExorcismPointData ~= nil and CurrentRun.CurrentRoom.ChosenExorcismPointData.Animation == "ExorcismPointGhost" then
+				CurrentRun.CurrentRoom.ChosenExorcismPointData = nil
+			end
+
+
+			if CurrentRun.CurrentRoom.ChosenPickaxePointData ~= nil and CurrentRun.CurrentRoom.ChosenPickaxePointData.Geometry == nil then
+				for k, option in pairs( PickaxePointData.WeightedOptions ) do
+					if option.ResourceName == CurrentRun.CurrentRoom.ChosenPickaxePointData.ResourceName and option.Geometry ~= nil then
+						CurrentRun.CurrentRoom.ChosenPickaxePointData.Geometry = option.Geometry
+					end					
+				end			
+			end
+
+			-- Removing PlantMoney invalidated stored indices, so reroll the harvest points
+			if Revision <= 107534 then
+				CurrentRun.CurrentRoom.HarvestPointChoicesOptions = {}
 			end
 
 		end
@@ -416,6 +798,7 @@ function DoPatches()
 			GameState.ExorcisedNames[ghostName] = nil
 			CurrentRun.ExorcisedNames[ghostName] = nil
 		end
+		CurrentRun.ExorcisedNames.ExorcismPointGhost = nil
 		GameState.ExorcisedNames.ExorcismPoint = nil
 		CurrentRun.ExorcisedNames.ExorcismPoint = nil
 
@@ -430,17 +813,26 @@ function DoPatches()
 			CurrentRun.Hero.MaxMana = CurrentRun.Hero.MaxMana or HeroData.MaxMana
 			CurrentRun.Hero.Mana = CurrentRun.Hero.Mana or CurrentRun.Hero.Mana
 			CurrentRun.Hero.Mana = math.ceil(CurrentRun.Hero.Mana)
+			CurrentRun.Hero.ManaRegenSources = CurrentRun.Hero.ManaRegenSources or {}
 			CurrentRun.Hero.Ammo = CurrentRun.Hero.Ammo or {}
 			CurrentRun.Hero.WeaponDataOverride = CurrentRun.Hero.WeaponDataOverride or {}
+			CurrentRun.Hero.HeroTraitValuesCache = CurrentRun.Hero.HeroTraitValuesCache or {}
+			CurrentRun.Hero.FirstTraitWithPropertyCache = CurrentRun.Hero.FirstTraitWithPropertyCache or {}
 			CurrentRun.Hero.ManaDrain = {}
 			CurrentRun.Hero.AnimOffsetZ = HeroData.AnimOffsetZ
 			CurrentRun.Hero.LineHistoryName = CurrentRun.Hero.LineHistoryName or HeroData.LineHistoryName
+			CurrentRun.Hero.Outline = CurrentRun.Hero.Outline or HeroData.Outline
+			CurrentRun.Hero.SpeakingStatusAnimation = CurrentRun.Hero.SpeakingStatusAnimation or HeroData.SpeakingStatusAnimation
 
 			CurrentRun.Hero.VisibleTraitCount = CurrentRun.Hero.VisibleTraitCount or 0
+			CurrentRun.Hero.TraitDictionary = CurrentRun.Hero.TraitDictionary or {}
 
 			CurrentRun.Hero.Speaker = CurrentRun.Hero.Speaker or HeroData.Speaker
 			CurrentRun.Hero.Portrait = CurrentRun.Hero.Portrait or HeroData.Portrait
-
+			CurrentRun.Hero.EmoteOffsetX = CurrentRun.Hero.EmoteOffsetX or HeroData.EmoteOffsetX
+			CurrentRun.Hero.EmoteOffsetY = CurrentRun.Hero.EmoteOffsetY or HeroData.EmoteOffsetY
+			CurrentRun.Hero.LastStandTimeMultiplier = nil
+			
 			local removedWeapons = {}
 			local validWeapons = ToLookup( WeaponSets.HeroAllWeapons )
 			for weaponName in pairs( CurrentRun.Hero.Weapons ) do
@@ -457,6 +849,20 @@ function DoPatches()
 			end
 			for weaponName in pairs(HeroData.Weapons ) do
 				CurrentRun.Hero.Weapons[weaponName] = true
+			end
+
+			if CurrentRun.Hero.SlottedSpell and CurrentRun.Hero.SlottedSpell.Talents then
+				if not SpellData[CurrentRun.Hero.SlottedSpell.Name] then
+					CurrentRun.Hero.SlottedSpell = nil
+				else
+					for _, columnData in ipairs( CurrentRun.Hero.SlottedSpell.Talents ) do
+						for i, data in pairs( columnData ) do
+							if not TraitData[data.Name] then
+								data.Name = GetRandomValue( SpellData[CurrentRun.Hero.SlottedSpell.Name].Talents.Repeatable )
+							end
+						end
+					end
+				end
 			end
 
 			local weaponDataOverride = CurrentRun.Hero.WeaponDataOverride
@@ -476,26 +882,41 @@ function DoPatches()
 						weaponData.OnProjectileDeathFunctionArgs = DeepCopyTable(WeaponData[weaponName].OnProjectileDeathFunctionArgs)
 					end
 				end
+				if weaponDataOverride.WeaponCast and Revision <= 105535 then
+					weaponDataOverride.WeaponCast.OnChargeCancelFunctionName = nil
+					weaponDataOverride.WeaponCast.OnChargeFunctionName = nil
+				end
 			end
 
 			CurrentRun.Hero.DashManeuverTimeThreshold = CurrentRun.Hero.DashManeuverTimeThreshold or HeroData.DashManeuverTimeThreshold
 			CurrentRun.Hero.InvulnerableFrameMinDamage = CurrentRun.Hero.InvulnerableFrameMinDamage or HeroData.InvulnerableFrameMinDamage
 			CurrentRun.Hero.StackData.AllowRarityOverride  = HeroData.StackData.AllowRarityOverride
 
-			if not IsEmpty(CurrentRun.Hero.ManaRegenSources) then
-				for key in pairs(CurrentRun.Hero.ManaRegenSources) do
+			if CurrentRun.Hero.ManaRegenSources ~= nil then
+				for key in pairs( CurrentRun.Hero.ManaRegenSources ) do
 					if not CurrentRun.Hero.ManaRegenSources[key] or type(CurrentRun.Hero.ManaRegenSources[key]) ~= "table" then
 						CurrentRun.Hero.ManaRegenSources[key] = { Value = CurrentRun.Hero.ManaRegenSources[key] or 0 }
 					end
 				end
 			end
-
+			if not IsEmpty( CurrentRun.Hero.LastStands ) then
+				local priorityLastStand = nil
+				for i, lastStand in ipairs( CurrentRun.Hero.LastStands ) do
+					if i ~= #CurrentRun.Hero.LastStands and (lastStand.Priority or lastStand.Name == "Athena") then
+						priorityLastStand = lastStand
+					end
+				end
+				if priorityLastStand then
+					RemoveValueAndCollapse( CurrentRun.Hero.LastStands, priorityLastStand )
+					table.insert( CurrentRun.Hero.LastStands, priorityLastStand )
+				end
+			end
 			if CurrentRun.Hero.IsDead and CurrentRun.ActiveBiomeTimer then
 				CurrentRun.ActiveBiomeTimer = false
 			end
 			if CurrentRun.Hero.OutgoingCritModifiers then
 				local condemnedIds = {}
-				for i, modifierData in pairs(CurrentRun.Hero.OutgoingCritModifiers) do
+				for i, modifierData in ipairs( CurrentRun.Hero.OutgoingCritModifiers ) do
 					if modifierData.ValidWeapons and not modifierData.ValidWeaponsLookup then
 						modifierData.ValidWeaponsLookup = ToLookup( modifierData.ValidWeapons )
 					end
@@ -508,12 +929,12 @@ function DoPatches()
 					for i, index in pairs(condemnedIds) do
 						CurrentRun.Hero.OutgoingCritModifiers[index] = nil
 					end
-					CurrentRun.Hero.OutgoingCritModifiers = CollapseTable(CurrentRun.Hero.OutgoingCritModifiers)
+					CurrentRun.Hero.OutgoingCritModifiers = CollapseTable( CurrentRun.Hero.OutgoingCritModifiers )
 				end
 			end
 			if CurrentRun.Hero.OutgoingDamageModifiers then
 				local condemnedIds = {}
-				for i, modifierData in pairs(CurrentRun.Hero.OutgoingDamageModifiers) do
+				for i, modifierData in ipairs( CurrentRun.Hero.OutgoingDamageModifiers ) do
 					if modifierData.ValidWeapons and not modifierData.ValidWeaponsLookup then
 						modifierData.ValidWeaponsLookup = ToLookup( modifierData.ValidWeapons )
 					end
@@ -521,17 +942,16 @@ function DoPatches()
 						table.insert(condemnedIds, i)
 					end
 				end
-				if not IsEmpty(condemnedIds) then
-				
+				if not IsEmpty(condemnedIds) then				
 					for i, index in pairs(condemnedIds) do
 						CurrentRun.Hero.OutgoingDamageModifiers[index] = nil
 					end
-					CurrentRun.Hero.OutgoingDamageModifiers = CollapseTable(CurrentRun.Hero.OutgoingDamageModifiers)
+					CurrentRun.Hero.OutgoingDamageModifiers = CollapseTable( CurrentRun.Hero.OutgoingDamageModifiers )
 				end
 			end
-			if CurrentRun.Hero.IncomingDamageModifiers then
+			if CurrentRun.Hero.IncomingDamageModifiers ~= nil then
 				local condemnedIds = {}
-				for i, modifierData in pairs(CurrentRun.Hero.IncomingDamageModifiers) do
+				for i, modifierData in ipairs( CurrentRun.Hero.IncomingDamageModifiers ) do
 					if modifierData.ValidWeapons and not modifierData.ValidWeaponsLookup then
 						modifierData.ValidWeaponsLookup = ToLookup( modifierData.ValidWeapons )
 					end
@@ -550,23 +970,19 @@ function DoPatches()
 				CurrentRun.Hero.BoonData.GameStateRequirements = HeroData.BoonData.GameStateRequirements or CurrentRun.Hero.BoonData.GameStateRequirements
 			end
 
-			if CurrentRun.Hero.RecentTraits ~= nil then
-				if type(CurrentRun.Hero.RecentTraits[1]) ~= "table" then
-					CurrentRun.Hero.RecentTraits = {}
-				end
-			else
-				CurrentRun.Hero.RecentTraits = {}
-			end
-
 			local traitsToAdd = {}
 			local traitsToRemove = {}
 			SessionState.PatchingTraits = true
 
+			MapState = MapState or {}
+			MapState.EquippedWeapons = {}
+			MapState.WeaponCharge = {}
+			MapState.TemporaryHealthBufferSources = MapState.TemporaryHealthBufferSources or {}
 			if TableLength( CurrentRun.Hero.Traits ) ~= #CurrentRun.Hero.Traits then
 				CurrentRun.Hero.Traits = CollapseTable( CurrentRun.Hero.Traits )
 			end
 
-			for i, trait in pairs(CurrentRun.Hero.Traits) do
+			for i, trait in ipairs( CurrentRun.Hero.Traits ) do
 				local traitData = TraitData[trait.Name]
 				trait.AnchorId = nil
 				trait.TraitIconOverlay = nil
@@ -578,11 +994,14 @@ function DoPatches()
 				trait.AdvancedTooltipFrame = nil
 				trait.AdvancedTooltipIcon = nil
 				trait.Id = trait.Id or GetTraitUniqueId()
+				if trait.DoorHealReserve then
+					trait.DoorHealReserve = round( trait.DoorHealReserve )
+				end
 				local addTraitToUpdate = function ( trait )
 					if trait.OnExpire then
 						trait.OnExpire = nil
 						IncrementTableValue( traitsToRemove, trait.Name )
-					else
+					elseif not traitsToRemove[trait.Name] then
 						traitsToAdd[trait.Name] = { Rarity = trait.Rarity or "Common", StackCount = trait.StackNum or 1 }
 					end
 
@@ -592,9 +1011,9 @@ function DoPatches()
 					trait.Icon = TraitData[trait.Name].Icon 
 				end
 				if traitData == nil then
+					traitsToAdd[trait.Name] = nil
 					IncrementTableValue(traitsToRemove, trait.Name)
 				elseif TableLength(trait.PropertyChanges, true) ~= TableLength(TraitData[trait.Name].PropertyChanges, true) or
-				   TableLength(trait.EnemyPropertyChanges, true) ~= TableLength(TraitData[trait.Name].EnemyPropertyChanges, true) or
 				   TableLength( trait.LoadBinks, true) ~= TableLength( TraitData[trait.Name].LoadBinks, true) or 
 				   TableLength( trait.PreEquipWeapons, true) ~= TableLength( TraitData[trait.Name].PreEquipWeapons, true) or
 				   TableLength( trait.ExtractValues, true) ~= TableLength( TraitData[trait.Name].ExtractValues, true) then
@@ -605,8 +1024,24 @@ function DoPatches()
 					addTraitToUpdate( trait )
 				elseif trait.Name == "DemeterManaBoon" and trait.SetupFunction and trait.SetupFunction.Args and not trait.SetupFunction.Args.PercentManaRegenPerSecond then
 					addTraitToUpdate( trait )
+				elseif trait.Name == "StaffClearCastAspect" and Revision <= 113307 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "SuitComboAspect" and Revision <= 123655 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "PoseidonSprintBoon" and Revision <= 109231 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "PoseidonWeaponBoon" and Revision <= 121817 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "SupportingFireBoon" and Revision <= 125940 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "PoseidonManaBoon" and Revision <= 121402 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "LobCloseAttackAspect" and Revision <= 113005 then
+					traitsToAdd[trait.Name] = { Rarity = trait.Rarity or "Common", StackCount = trait.StackNum or 1 }
 				elseif trait.Name == "StaffSelfHitAspect" and Revision <= 95285 then
 					traitsToAdd[trait.Name] = { Rarity = trait.Rarity or "Common", StackCount = trait.StackNum or 1 }
+				elseif trait.Name == "HeraSpecialBoon" and Revision <= 113544 then
+					addTraitToUpdate( trait )
 				elseif trait.Name == "HephaestusCastBoon" and Revision <= 98200 then
 					addTraitToUpdate( trait )
 				elseif trait.Name == "ChannelSlowMetaUpgrade" and Revision <= 94115 then
@@ -617,13 +1052,37 @@ function DoPatches()
 					addTraitToUpdate( trait )
 				elseif trait.Name == "AthenaEncounterKeepsake" and Revision <= 102718 then
 					addTraitToUpdate( trait )
+				elseif trait.Name == "DodgeFamiliar" and Revision <= 108751 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "TimeSlowDemeterTalent" and Revision <= 123498 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "SpawnDamageCurse" and Revision <= 111100 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "SummonDamageSplitTalent" and Revision <= 121907 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "CirceEnlargeTrait" and Revision <= 116074 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "CirceShrinkTrait" and Revision <= 116074 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "LobGunAspect" and Revision <= 118920 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "SpawnKillBoon" and Revision <= 124923 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "DoubleExManaBoon" and Revision <= 123614 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "PotionPoseidonTalent" and Revision <= 122512 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "ChaosManaFocusCurse" and trait.OnExpire and not trait.OnExpire.RemoveReservedMana then
+					trait.OnExpire.RemoveReservedMana = TraitData[trait.Name].OnExpire.RemoveReservedMana
+				elseif trait.Name == "UnusedWeaponBonusTrait2" and trait.BossEncounterEndFunctionName ~= nil then
+					addTraitToUpdate( trait )
 				elseif trait.Name == "DemeterSprintBoon" and trait.OnWeaponFiredFunctions and trait.OnWeaponFiredFunctions.FunctionArgs and IsEmpty( trait.OnWeaponFiredFunctions.FunctionArgs.ProjectileNames ) then
 					addTraitToUpdate( trait )
 				elseif trait.SetupFunction ~= nil and traitData.SetupFunction == nil then
 					addTraitToUpdate( trait )
 				else
 					for key, data in pairs (TraitData[trait.Name]) do
-						if trait[key] == nil and key ~= "RemainingUses" and key ~= "Slot" and key ~= "ActiveSlotOffsetIndex" then
+						if trait[key] == nil and not PatchIgnoreTraitKeys[key] then
 							addTraitToUpdate(  trait )
 							break
 						end
@@ -660,33 +1119,12 @@ function DoPatches()
 				end
 
 				if trait.RoomsPerUpgrade and IsTraitActive(trait) then
-					if trait.RoomsPerUpgrade and trait.RoomsPerUpgrade.Rarity and not IsEmpty(trait.HarvestBoons) then
-						if not CurrentRun.Hero.UpgradeableTraitCountCache then
-							local traitCount = 0
-							if trait.DowngradeTraitNames ~= nil then
-								for _, traitName in pairs( trait.DowngradeTraitNames ) do
-									local targetTrait = GetHeroTrait( traitName )
-									if GetUpgradedRarity(targetTrait.Rarity) ~= nil and targetTrait.RarityLevels[GetUpgradedRarity(targetTrait.Rarity)] ~= nil then
-										traitCount = traitCount + 1
-									end
-								end
+					if trait.RoomsPerUpgrade and trait.RoomsPerUpgrade.Rarity then
+						local traitCount = 0
+							for _, targetTrait in pairs( CurrentRun.Hero.Traits ) do
+							if GetUpgradedRarity(targetTrait.Rarity) ~= nil and targetTrait.RarityLevels ~= nil and targetTrait.RarityLevels[GetUpgradedRarity(targetTrait.Rarity)] ~= nil then
+								traitCount = traitCount + 1
 							end
-							CurrentRun.Hero.UpgradeableTraitCountCache = traitCount	
-						elseif CurrentRun.Hero.UpgradeableTraitCountCache == 0 then
-							trait.CurrentRoom = 0
-						end
-					elseif trait.RoomsPerUpgrade and trait.RoomsPerUpgrade.DowngradeRarity and not IsEmpty(trait.DowngradeTraitNames) then
-						if not CurrentRun.Hero.DowngradableTraitCountCache then
-							local traitCount = 0
-							for _, traitName in pairs( trait.DowngradeTraitNames ) do
-								local targetTrait = GetHeroTrait( traitName )
-								if GetDowngradedRarity(targetTrait.Rarity) ~= nil and targetTrait.RarityLevels[GetDowngradedRarity(targetTrait.Rarity)] ~= nil then
-									traitCount = traitCount + 1
-								end
-							end
-							CurrentRun.Hero.DowngradableTraitCountCache = traitCount
-						elseif CurrentRun.Hero.DowngradableTraitCountCache == 0 then
-							trait.CurrentRoom = 0
 						end
 					end
 				end
@@ -695,12 +1133,22 @@ function DoPatches()
 					addTraitToUpdate( trait )
 				end
 
+				if trait.FamiliarTrait and GameState.EquippedFamiliar ~= nil and Revision <= 107666 then
+					for _, familiarTraitName in ipairs( FamiliarData[GameState.EquippedFamiliar].TraitNames ) do
+						addTraitToUpdate( { Name = familiarTraitName, StackNum = GetFamiliarTraitStacks( familiarTraitName ) } )
+					end
+				end
+
 				if trait.PrePickSacrificeBoon and not trait.SacrificedTraitName then
 					trait.SacrificedTraitName = "None_In_Slot"
 				end
 				
 				if not traitsToRemove[trait.Name] and not traitsToAdd[trait.Name] then			
 					ExtractValues( CurrentRun.Hero, trait, trait )
+				end
+
+				if trait.OnWeaponFiredFunctions and trait.OnWeaponFiredFunctions.ValidWeapons and not trait.OnWeaponFiredFunctions.ValidWeaponsLookup then
+					addTraitToUpdate( trait )
 				end
 
 				if trait.Slot == "Spell" then
@@ -730,7 +1178,11 @@ function DoPatches()
 				local traitData = TraitData[traitName] or trait
 				DebugPrint({Text = " Updating " .. traitName })
 				RemoveWeaponTrait( traitName, { Silent = true, SkipActivatedTraitUpdate = true })
-				AddTraitToHero({ TraitName = traitName, Rarity = trait.Rarity, StackNum = trait.StackCount, SkipActivatedTraitUpdate = true, FromLoot = traitData.FromLootOnUpdate })
+				local trait = AddTraitToHero({ TraitName = traitName, Rarity = trait.Rarity, StackNum = trait.StackCount, SkipActivatedTraitUpdate = true, FromLoot = traitData.FromLootOnUpdate })
+				if trait.MergeTooltipDataFromSession then
+					trait.StatLines = {}
+					trait.TrayStatLines = {}
+				end
 			end
 
 			local orderedTraitsToRemove = CollapseTableAsOrderedKeyValuePairs(traitsToRemove)
@@ -752,14 +1204,16 @@ function DoPatches()
 				end
 				CurrentRun.Hero.VisibleNonHUDTraitCount = nonHUDTraitCount
 			end
+			
+			CurrentRun.Hero.HealthBuffer = 0
 
 			ValidateMaxHealth()
 			ValidateMaxMana()
-			CleanRecentTraitsRecord()
 			UpdateTalentPointInvestedCache()
 			
 			SessionState.PatchingTraits = false
 			CurrentRun.Hero.TargetMetaRewardsRatio = CurrentRun.Hero.TargetMetaRewardsRatio or HeroData.TargetMetaRewardsRatio
+			CurrentRun.Hero.TargetMetaRewardsAdjustSpeed = CurrentRun.Hero.TargetMetaRewardsAdjustSpeed or HeroData.TargetMetaRewardsAdjustSpeed
 			CurrentRun.Hero.CanBeFrozen = CurrentRun.Hero.CanBeFrozen or HeroData.CanBeFrozen
 			CurrentRun.Hero.LowHealthVoiceLines = HeroData.LowHealthVoiceLines or CurrentRun.Hero.LowHealthVoiceLines
 
@@ -772,6 +1226,10 @@ function DoPatches()
 				CurrentRun.CurrentRoom.Encounter.RequireNearPlayerDistance = encounterData.RequireNearPlayerDistance
 				CurrentRun.CurrentRoom.Encounter.NeverDelaySpellCharge = encounterData.NeverDelaySpellCharge
 				CurrentRun.CurrentRoom.Encounter.NeverDelayManaRegen = encounterData.NeverDelayManaRegen
+			end
+
+			if CurrentRun.CurrentRoom.Encounter.Name == "O_Empty" then
+				CurrentRun.CurrentRoom.Encounter.StartRoomUnthreadedEvents = nil
 			end
 		end
 
@@ -789,56 +1247,63 @@ function DoPatches()
 			GameState.LifetimeRecordsBackCompatChecked = true
 		end
 
-		--[[
-		if not GameState.PatchedDuplicatedStats then
-			local totalRuns = #GameState.RunHistory
-			if CurrentRun.Hero ~= nil and CurrentRun.Hero.IsDead then
-				totalRuns = totalRuns + 1
-			end
-
-			local totalWeaponUses = 0
-			for weaponName, stat in pairs( GameState.LifetimeWeaponStats ) do
-				totalWeaponUses = totalWeaponUses + (stat.UseCount or 0)
-			end
-
-			local duplicatedRuns = totalWeaponUses - totalRuns
-			if duplicatedRuns > 0 then
-				if CurrentRun.Hero ~= nil and CurrentRun.Hero.IsDead then
-					if DeduplicateRunStats( CurrentRun ) then
-						duplicatedRuns = duplicatedRuns - 1
-					end
-				end
-
-				for i=#GameState.RunHistory, 1, -1 do
-					if duplicatedRuns <= 0 then
-						break
-					end
-					if DeduplicateRunStats( GameState.RunHistory[i] ) then
-						duplicatedRuns = duplicatedRuns - 1
-					end
-				end
-			end
-
-			GameState.PatchedDuplicatedStats = true
-		end
-		]]
-
 		if CurrentRun.EndingKeepsakeName ~= nil then
 			table.insert( CurrentRun.KeepsakeCache, CurrentRun.EndingKeepsakeName )
 			CurrentRun.EndingKeepsakeName = nil
 		end
 
-		if CurrentRun.LootTypeHistory ~= nil then
-			for lootName, i in pairs(CurrentRun.LootTypeHistory) do
+		if CurrentRun.BiomeBoonSkips ~= nil then
+			local room = RoomData[CurrentRun.CurrentRoom.Name] or CurrentRun.CurrentRoom
+			local roomSetName = room.RoomSetName
+			if roomSetName == "N_SubRooms" then
+				roomSetName = "N"
+			elseif room.UsePreviousRoomSet then
+				local previousRoom = GetPreviousRoom( CurrentRun ) or room
+				roomSetName = previousRoom.RoomSetName
+			end
+			CurrentRun.BiomeBoonSkipCount = CurrentRun.BiomeBoonSkips[roomSetName] or 0
+			CurrentRun.BiomeBoonSkips = nil
+		end
+
+		if CurrentRun.Cleared and CurrentRun.CurrentRoom.RoomSetName == "P" then
+			CurrentRun.Cleared = nil
+		end
+
+		if CurrentRun.BountiesCompleted ~= nil then
+			for bountyName,v in pairs( CurrentRun.BountiesCompleted ) do
+				local bountyData = BountyData[bountyName]
+				if bountyData ~= nil and not bountyData.IsPackagedBounty then
+					CurrentRun.ShrineBountiesCompleted[bountyName] = true
+				end
+			end
+			CurrentRun.BountiesCompleted = nil
+		end
+
+		if CurrentRun.BossHealthBarRecord.BossScylla01 ~= nil then
+			CurrentRun.BossHealthBarRecord.Scylla = CurrentRun.BossHealthBarRecord.BossScylla01
+			CurrentRun.BossHealthBarRecord.BossScylla01 = nil
+		elseif CurrentRun.BossHealthBarRecord.BossScylla02 ~= nil then
+			CurrentRun.BossHealthBarRecord.Scylla = CurrentRun.BossHealthBarRecord.BossScylla02
+			CurrentRun.BossHealthBarRecord.BossScylla02 = nil
+		end
+
+		if CurrentRun.ArtemisSingingInHub then
+			CurrentRun.ArtemisHubSong = "/Music/ArtemisSong_MC"
+			CurrentRun.ArtemisSingingInHub = nil
+		end
+
+		if CurrentRun.LootTypeHistory ~= nil and not CurrentRun.Hero.IsDead then
+			for lootName, i in pairs( CurrentRun.LootTypeHistory ) do
 				if not GameData.MissingPackages[lootName] then
 					LoadPackages({ Name = lootName })
 				end
 			end
 		end
 		local traitPackageNames = {}
-		for i, trait in pairs( CurrentRun.Hero.Traits ) do
-			if trait.PackageName ~= nil and not GameData.MissingPackages[trait.PackageName] then
-				traitPackageNames[trait.PackageName] = true
+		for i, trait in ipairs( CurrentRun.Hero.Traits ) do
+			local traitData = TraitData[trait.Name]
+			if traitData ~= nil and traitData.PackageName ~= nil and not GameData.MissingPackages[traitData.PackageName] then
+				traitPackageNames[traitData.PackageName] = true
 			end
 		end
 		for packageName, v in pairs( traitPackageNames ) do
@@ -846,6 +1311,7 @@ function DoPatches()
 		end
 
 	end
+
 	DebugPrint({ Text = "Done patching." })
 end
 
@@ -894,6 +1360,7 @@ function SplitUpDamageDealtRecord( state )
 	local friendlyNPCDamageSources =
 	{
 		"ArtemisSniperBolt",
+		"AthenaLandingNova",
 		"IcarusBombardment",
 		"IcarusBombardment_Large",
 		"NemesisAttack1",
@@ -912,36 +1379,3 @@ function SplitUpDamageDealtRecord( state )
 	end
 
 end
-
---[[
-function DeduplicateRunStats( run )
-	if not run.Cleared then
-		return false
-	end
-	if run.TraitCache ~= nil then
-		for traitName in pairs( run.TraitCache ) do
-			GameState.LifetimeTraitStats[traitName].UseCount = GameState.LifetimeTraitStats[traitName].UseCount - 1
-			GameState.LifetimeTraitStats[traitName].ClearCount = GameState.LifetimeTraitStats[traitName].ClearCount - 1
-			if run.BiomesReached == nil or run.BiomesReached.F then
-				GameState.LifetimeTraitStats[traitName].ClearCountUnderworld = GameState.LifetimeTraitStats[traitName].ClearCountUnderworld - 1
-			else
-				GameState.LifetimeTraitStats[traitName].ClearCountSurface = GameState.LifetimeTraitStats[traitName].ClearCountSurface - 1
-			end
-		end
-	end
-	if run.WeaponsCache ~= nil then
-		for weaponName in pairs( run.WeaponsCache ) do
-			if Contains( WeaponSets.HeroPrimaryWeapons, weaponName ) then
-				GameState.LifetimeWeaponStats[weaponName].UseCount = GameState.LifetimeWeaponStats[weaponName].UseCount - 1
-				GameState.LifetimeWeaponStats[weaponName].ClearCount = GameState.LifetimeWeaponStats[weaponName].ClearCount - 1
-				if run.BiomesReached == nil or run.BiomesReached.F then
-					GameState.LifetimeWeaponStats[weaponName].ClearCountUnderworld = GameState.LifetimeWeaponStats[weaponName].ClearCountUnderworld - 1
-				else
-					GameState.LifetimeWeaponStats[weaponName].ClearCountSurface = GameState.LifetimeWeaponStats[weaponName].ClearCountSurface - 1
-				end
-			end
-		end
-	end
-	return true
-end
-]]

@@ -25,6 +25,15 @@
 
 		Blends =
 		[
+			
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Attack1_Fire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Attack1_End"
+				Duration = 5
+			}
 			{
 				BlendTransitionFrom = "Melinoe_Lob_Dash_End1"
 				Duration = 3
@@ -47,13 +56,12 @@
 			}
 		]
 	}
-
+	// Medea version
 	{
-		Name = "Melinoe_Lob_Attack1_Start_Aspect"
+		Name = "Melinoe_Lob_Attack1_Start_Fast"
 		InheritFrom = "Melinoe_Lob_Attack1_Start"
 		AllowRestart = true
 		GrannyAnimationSpeed = 2.0
-
 		Frames =
 		[
 			{
@@ -74,6 +82,7 @@
 			}
 		]
 	}
+
 
 	{
 		Name = "Lob_Attack1_Fire"
@@ -103,13 +112,13 @@
 			}
 		]
 	}
-
+	// Medea version
 	{
-		Name = "Melinoe_Lob_Attack1_Fire_Aspect"
+		Name = "Melinoe_Lob_Attack1_Fire_Fast"
 		InheritFrom = "Melinoe_Lob_Attack1_Fire"
 		AllowRestart = true
 		GrannyAnimationSpeed = 2.0
-		ChainTo = "Melinoe_Lob_Attack1_End_Aspect"
+		ChainTo = "Melinoe_Lob_Attack1_End_Fast"
 
 		Blends =
 		[
@@ -141,13 +150,162 @@
 			}
 		]
 	}
-
+	// Medea version
 	{
-		Name = "Melinoe_Lob_Attack1_End_Aspect"
+		Name = "Melinoe_Lob_Attack1_End_Fast"
 		InheritFrom = "Melinoe_Lob_Attack1_End"
 		AllowRestart = true
 		GrannyAnimationSpeed = 2.0
 	}	
+
+	// Hel Attack
+	{
+		Name = "Lob_Hel_Attack1_Start"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Hel_AttackRapidFireStart_C_00"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Melinoe_Lob_Hel_Attack1_Start"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Hel_AttackRapidFireStart_C_00"
+		HoldLastFrame = true
+		DisableOwnerManualInteract = true
+		Sound = "/VO/MelinoeEmotes/HelEmoteAttacking2"
+
+		Attachments =
+		[
+			{
+				Name = "Lob_Hel_Attack1_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 8
+				FrameSpeed = 1
+			}
+		]
+
+		Blends =
+		[
+			
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Attack1_Fire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Attack1_End"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Dash_End1"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Dash_End2"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Dash_Fire"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Special1_Fire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Special1_End"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Lob_Hel_Attack1_Fire"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Hel_AttackRapidFireLoop_C_00"
+	}
+	{
+		Name = "Melinoe_Lob_Hel_Attack1_Fire"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Hel_AttackRapidFireLoop_C_00"
+		AllowRestart = true
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Lob_Hel_Attack1_End"
+		Attachments =
+		[
+			{
+				Name = "Lob_Hel_Attack1_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Lob_Hel_AttackEx1_Fire"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Hel_AttackRapidFireOverheatBlast_C_00"
+	}
+	{
+		Name = "Melinoe_Lob_Hel_AttackEx1_Fire"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Hel_AttackRapidFireOverheatBlast_C_00"
+		//GrannyAnimationSpeed = 1.5
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Lob_Hel_Attack1_End"
+		Attachments =
+		[
+			{
+				Name = "Lob_Hel_AttackEx1_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Blends =
+		[
+			
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Hel_Attack1_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Hel_Attack1_Fire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Hel_Attack1_End"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Lob_Hel_Attack1_End"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_Idle_C_01"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Melinoe_Lob_Hel_Attack1_End"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Hel_AttackRapidFireReturn_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Lob_Idle"
+		Attachments =
+		[
+			{
+				Name = "Lob_Hel_Attack1_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
 
 	// Lob Attack EX
 
@@ -200,7 +358,7 @@
 		CreateAnimation = "LobCharge"
 
 		Attachments =
-		[
+		[ 
 			{
 				Name = "Lob_AttackEx1_Start"
 				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
@@ -376,6 +534,30 @@
 				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
 			}
 		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Dash_End1"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Dash_End2"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Dash_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Special1_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Special1_End"
+				Duration = 4
+			}
+		]
 	}
 
 	{
@@ -438,7 +620,7 @@
 		[
 			{
 				Name = "Lob_Special1Ex_StartTransition"
-				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
 			}
 		]
 
@@ -535,7 +717,7 @@
 		[
 			{
 				Name = "Lob_Special1Ex_Fire"
-				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
 			}
 		]
 
@@ -559,12 +741,107 @@
 	}
 
 	{
+		Name = "Lob_Special1Ex_Fire_Hel"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_AttackSuperSpecialFire_C_00"
+		GrannyAnimationSpeed = 0.5
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 7
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Lob_Special1Ex_Fire_Hel"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_AttackSuperSpecialFire_C_00"
+		DisableOwnerManualInteract = true
+		Sound = "/SFX/Enemy Sounds/Hades/HadesSkullLaunchAndLoop"
+		StopSoundOnFinishFade = 0.2
+		ChainTo = "Melinoe_Lob_Special1Ex_End_Hel"
+		AllowRestart = true
+		GrannyAnimationSpeed = 0.5
+
+		Attachments =
+		[
+			{
+				Name = "Lob_Special1Ex_Fire_Hel"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		Blends =
+		[
+			
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Special1Ex_Fire_Hel"
+				Duration = 5
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 7
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
 		Name = "Lob_Special1Ex_End"
 		InheritFrom = "WeaponLobBase"
 		GrannyAnimation = "Lob_Weapon_Base_AttackSuperSpecialReturnToIdle_C_00"
 	}
 	{
 		Name = "Melinoe_Lob_Special1Ex_End"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_AttackSuperSpecialReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Lob_Idle"
+		
+		Attachments =
+		[
+			{
+				Name = "Lob_Special1Ex_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 5
+				Sound = "/SFX/Player Sounds/MelinoeSkullsTransformChunk2"
+			}
+			{
+				Frame = 10
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 11
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+
+		]
+	}
+
+	{
+		Name = "Melinoe_Lob_Special1Ex_End_Hel"
 		InheritFrom = "MelinoeBaseLobAnimations"
 		GrannyAnimation = "Melinoe_Lob_Base_AttackSuperSpecialReturnToIdle_C_00"
 		CancelOnOwnerMove = true
@@ -596,6 +873,15 @@
 				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
 			}
 
+		]
+
+			Blends =
+		[
+			
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Special1Ex_Fire_Hel"
+				Duration = 10
+			}
 		]
 	}
 	

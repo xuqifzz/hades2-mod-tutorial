@@ -299,9 +299,9 @@
       "Visible": true
     },
     {
-      "BlendMode": 9,
+      "BlendMode": 0,
       "ChildGroups": [],
-      "Id": "Terrain_Overlay_01",
+      "Id": "Terrain_Gameplay",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -312,9 +312,9 @@
       "Visible": true
     },
     {
-      "BlendMode": 0,
+      "BlendMode": 9,
       "ChildGroups": [],
-      "Id": "Terrain_Gameplay",
+      "Id": "Terrain_Overlay_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -416,6 +416,19 @@
       "Visible": true
     },
     {
+      "BlendMode": 2,
+      "ChildGroups": [],
+      "Id": "Additive_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
       "BlendMode": 0,
       "ChildGroups": [],
       "Id": "Shading_01",
@@ -488,6 +501,7 @@
         "Foreground_03",
         "FX_Foreground_01",
         "Shading_01",
+        "Additive_01",
         "Overlay_01",
         "Lighting_01",
         "Foreground_02",
@@ -495,8 +509,8 @@
         "FX_Standing_01",
         "Standing",
         "Terrain_Lighting_01",
-        "Terrain_Gameplay",
         "Terrain_Overlay_01",
+        "Terrain_Gameplay",
         "Terrain_Decor_07",
         "Terrain_Shadow_01",
         "Terrain_Lightercolor_01",
@@ -728,5 +742,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

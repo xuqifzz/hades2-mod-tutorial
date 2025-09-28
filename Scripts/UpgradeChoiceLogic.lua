@@ -12,28 +12,56 @@ function OpenUpgradeChoiceMenu( source, args )
 	if args.OverwriteTableKeys ~= nil then
 		OverwriteTableKeys( screen, args.OverwriteTableKeys )
 	end
+	if args.ContextArtId ~= nil then
+		screen.ComponentData.OlympusBackground = nil
+	else
+		local animationName = source.BackgroundAnimation
+		if args.UseNarrativeContextArt or source.UseNarrativeContextArt then
+			local roomData = RoomData[CurrentRun.CurrentRoom.Name] or CurrentRun.CurrentRoom
+			if roomData.NarrativeContextArt ~= nil then
+				animationName = roomData.NarrativeContextArt.."_In"
+			end
+		end
+		screen.ComponentData.OlympusBackground.AnimationName = animationName
+	end
 	screen.Source = source
 	ScreenAnchors.ChoiceScreen = screen
+	if not IsEmpty( screen.CombatUIShowGroups ) then
+		for i, flagName in pairs( screen.CombatUIShowGroups ) do
+			ShowCombatUI( flagName )
+		end
+	end
 	HideCombatUI( screen.Name )
 	UnblockCombatUI( "PlayTextLines" )
+	
 	OnScreenOpened( screen )
 	CreateScreenFromData( screen, screen.ComponentData, args )
-
+	
+	local components = screen.Components
 	if source.Icon or source.DoorIcon then
-		SetAnimation({ DestinationId = screen.Components.SourceIcon.Id, Name = source.DoorIcon or source.Icon })
+		SetAnimation({ DestinationId = screen.Components.SourceIcon.Id, Name = source.Icon or source.DoorIcon })
+	end
+
+	if args.ContextArtId ~= nil then
+		components.OlympusBackground = { Id = args.ContextArtId }
 	end
 	
-	if HeroHasTrait( "PanelRerollMetaUpgrade" ) then
+	if HeroHasTrait( "PanelRerollMetaUpgrade" ) and not source.BlockReroll then
 		screen.MovedRerollUIGroup = true
 		RemoveFromGroup({ Id = ScreenAnchors.Reroll, Name = "Combat_UI" })
 		AddToGroup({ Id = ScreenAnchors.Reroll, Name = "Combat_Menu_Overlay", DrawGroup = true })
+		
+		ModifyTextBox({ Id = components.RerollIcon.Id, Text = CurrentRun.NumRerolls, AutoSetDataProperties = false, })
+		SetAlpha({ Id = components.RerollIcon.Id, Duration = HUDScreen.FadeInDuration, Fraction = ConfigOptionCache.HUDOpacity })
+
 	end
 	source.HasExchange = HasExchangeOnLoot( source )
 	UpgradeChoiceScreenOpenStartPresentation( screen, source )
 	ToggleCombatControl({"Attack3"}, true, screen.Name )
-	local validWeapons = ConcatTableValues( ShallowCopyTable(WeaponSets.HeroSecondaryWeapons), AddLinkedWeapons( WeaponSets.HeroSecondaryWeapons ))
-	for _, weaponName in pairs( validWeapons ) do
-		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
+	for weaponName, v in pairs( WeaponSetLookups.HeroSecondaryWeaponsLinked ) do
+		if MapState.EquippedWeapons[weaponName] then
+			SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
+		end
 	end
 	
 	SetPlayerInvulnerable("BoonMenuOpen")
@@ -41,16 +69,22 @@ function OpenUpgradeChoiceMenu( source, args )
 	SetConfigOption({ Name = "UseOcclusion", Value = false })
 	SetConfigOption({ Name = "ExclusiveInteractGroup", Value = nil })
 
-	local components = screen.Components
-
 	screen.SubjectName = upgradeName
+	screen.ButtonGroupName = args.ButtonGroupName
+	screen.PurchaseAnimationGroupName = args.PurchaseAnimationGroupName
 
 	waitUnmodified(0.25)
 
 	if components.ShopLighting ~= nil then
 		SetColor({ Id = components.ShopLighting.Id, Color = source.LightingColor })
 	end
+	if components.ShopLightingMelFace ~= nil then
+		SetColor({ Id = components.ShopLightingMelFace.Id, Color = source.LightingColor })
+	end
 	SetColor({ Id = components.ShopBackgroundGradient.Id, Color = source.LightingColor })
+	if source.BackgroundColor ~= nil then
+		SetColor({ Id = components.ShopBackgroundDim.Id, Color = source.BackgroundColor })
+	end
 
 	ModifyTextBox({ Id = components.TitleText.Id, Text = source.MenuTitle })
 
@@ -67,7 +101,7 @@ function OpenUpgradeChoiceMenu( source, args )
 	end
 	
 	screen.KeepOpen = true
-	CreateBoonLootButtons( screen, source )
+	CreateBoonLootButtons( screen, source, nil, args )
 	
 	-- Short delay to let animations finish and prevent accidental input
 	waitUnmodified(0.5)
@@ -76,7 +110,7 @@ function OpenUpgradeChoiceMenu( source, args )
 
 end
 
-function CreateBoonLootButtons( screen, lootData, reroll )
+function CreateBoonLootButtons( screen, lootData, reroll, args )
 
 	local components = screen.Components
 	local upgradeName = lootData.Name
@@ -102,7 +136,11 @@ function CreateBoonLootButtons( screen, lootData, reroll )
 		lootData.StackNum = 1
 	end
 	if not reroll then
-		lootData.StackNum = lootData.StackNum + GetTotalHeroTraitValue("PomLevelBonus")
+		lootData.StackNum = lootData.StackNum
+		
+		if IsFateValid() then 
+			lootData.StackNum = lootData.StackNum + GetTotalHeroTraitValue("FatedPomLevelBonus")
+		end
 	end
 	local tooltipData = {}
 
@@ -117,7 +155,7 @@ function CreateBoonLootButtons( screen, lootData, reroll )
 		table.insert( blockedIndexes, i )
 	end
 	
-	for i = 1, CalcNumLootChoices( lootData.GodLoot, lootData.TreatAsGodLootByShops ) do
+	for i = 1, CalcNumLootChoices( lootData ) do
 		RemoveRandomValue( blockedIndexes )
 	end
 	
@@ -151,7 +189,7 @@ function CreateBoonLootButtons( screen, lootData, reroll )
 
 	screen.UpgradeButtons = {}
 	for itemIndex, itemData in ipairs( upgradeOptions ) do
-		local button = CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
+		local button = CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData, args )
 
 		if firstOption then
 			TeleportCursor({ DestinationId = button.Id, ForceUseCheck = true, })
@@ -167,7 +205,7 @@ function CreateBoonLootButtons( screen, lootData, reroll )
 		waitUnmodified( 0.06 )
 	end
 	
-	if not GameState.Flags.SeenElementalIcons and IsGameStateEligible( screen, TraitRarityData.ElementalGameStateRequirements ) and lootData.GodLoot then
+	if not GameState.Flags.SeenElementalIcons and IsGameStateEligible( screen, TraitRarityData.ElementalGameStateRequirements ) and ( lootData.GodLoot or lootData.TreatAsGodLootByShops) then
 		waitUnmodified(0.2)
 		for itemIndex, itemData in ipairs( upgradeOptions ) do
 			local elementIconKey = "PurchaseButton"..itemIndex.."ElementIcon"
@@ -239,7 +277,8 @@ function CreateBoonLootButtons( screen, lootData, reroll )
 	end
 end
 
-function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
+function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData, args )
+	args = args or {}
 	local components = screen.Components
 	local upgradeName = lootData.Name
 	local upgradeChoiceData = lootData
@@ -251,7 +290,24 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 	local upgradeDescription = nil
 	local upgradeDescription2 = nil
 	local tooltipData = nil
+	local stackNum = 0
 	upgradeData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = itemData.ItemName, Rarity = itemData.Rarity })
+	if not upgradeData.BlockStacking and IsGodTrait(itemData.ItemName) then
+		if itemData.StackNum then
+			stackNum = itemData.StackNum
+		else
+			local maxRank = GetTotalHeroTraitValue("MaxBonusBoonRankWeighted")
+			local distribution = GetHeroTraitValues("MaxBonusBoonRankDistribution", { First = true })[1]
+			if not IsEmpty( distribution ) and not IsEmpty(distribution[maxRank] ) then
+				stackNum = GetRandomValueFromWeightedList( distribution[maxRank] )
+			else
+				stackNum = RandomInt( 0, maxRank )
+			end
+			if IsFateValid() and GetTotalHeroTraitValue("FatedBoonLevelBonus") > 0 then
+				stackNum = stackNum + GetTotalHeroTraitValue("FatedBoonLevelBonus") + 1
+			end
+		end
+	end
 	local traitNum = GetTraitCount(CurrentRun.Hero, { TraitData = upgradeData })
 	if lootData.StackOnly and HeroHasTrait(itemData.ItemName) and not TraitData[itemData.ItemName].Hidden then
 		upgradeTitle = "TraitLevel_Upgrade"
@@ -274,6 +330,13 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 			upgradeData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = itemData.ItemName, StackNum = newNum, Rarity = itemData.Rarity, RarityMultiplier = upgradeData.RarityMultiplier})
 			upgradeData.TraitToReplace = itemData.TraitToReplace
 		end
+		SetTraitTextData( tooltipData )
+	elseif stackNum > 0 and not lootData.StackOnly then
+		tooltipData =  GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = itemData.ItemName, StackNum = stackNum, RarityMultiplier = upgradeData.RarityMultiplier})
+		upgradeData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = itemData.ItemName, Rarity = itemData.Rarity, StackNum = stackNum })
+		upgradeTitle = "TraitLevel_Exchange"
+		tooltipData.Title = GetTraitTooltipTitle( TraitData[upgradeData.Name])
+		tooltipData.Level = stackNum
 		SetTraitTextData( tooltipData )
 	elseif lootData.StackOnly and upgradeData.Name ~= "FallbackGold" then
 		tooltipData = GetHeroTrait( upgradeData.Name )
@@ -321,8 +384,23 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 		tooltipData = upgradeData
 		SetTraitTextData( tooltipData )
 	end
-	if not upgradeDescription2 then
+
+	if itemData.Type ~= "TransformingTrait" then
 		upgradeDescription = GetTraitTooltip( tooltipData , { Default = upgradeData.Title })
+	end
+
+	if tooltipData.MergeTooltipDataFromSession then
+		local newData = {}
+		for key, sessionKey in pairs( tooltipData.MergeTooltipDataFromSession ) do
+			newData[key] = SessionMapState[sessionKey]
+			upgradeData.StatLine = SessionMapState.StatLine
+			upgradeData[key] = {}
+			upgradeData[key].ExtractData = {}
+			for extractAs, value in pairs( SessionMapState[sessionKey].ExtractData) do
+				upgradeData[key].ExtractData[extractAs] = value
+			end
+		end
+		tooltipData = MergeTables( tooltipData, newData ) 
 	end
 
 	-- Setting button graphic based on boon type
@@ -339,11 +417,14 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 		--DebugPrint({ Text = "backingAnim = "..backingAnim })
 		purchaseButton.Animation = backingAnim
 	end
+	purchaseButton.Group = args.ButtonGroupName or purchaseButton.Group
 	components[purchaseButtonKey] = CreateScreenComponent( purchaseButton )
 	components[purchaseButtonKey].BackingAnim = backingAnim
 	
 	if itemData.SlotEntranceAnimation ~= nil then
 		CreateAnimation({ Name = itemData.SlotEntranceAnimation, DestinationId = components[purchaseButtonKey].Id })
+	elseif TraitData[upgradeData.Name] and TraitData[upgradeData.Name].FirstTimeEntranceAnimation and not GameState.TraitsSeen[upgradeData.Name] then
+		CreateAnimation({ Name = TraitData[upgradeData.Name].FirstTimeEntranceAnimation, DestinationId = components[purchaseButtonKey].Id })
 	elseif upgradeData.Rarity == "Legendary" or upgradeData.Rarity == "Duo" then
 		if TraitData[upgradeData.Name].IsDuoBoon then
 			CreateAnimation({ Name = "BoonEntranceDuo", DestinationId = components[purchaseButtonKey].Id })
@@ -351,6 +432,8 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 			CreateAnimation({ Name = "BoonEntranceLegendary", DestinationId = components[purchaseButtonKey].Id }) 
 		end
 	end
+
+	GameState.TraitsSeen[upgradeData.Name] = true
 
 	local highlight = ShallowCopyTable( screen.Highlight )
 	highlight.X = purchaseButton.X
@@ -362,15 +445,19 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 		ModifyTextBox({ Id = components[purchaseButtonKey].Id, BlockTooltip = true })
 		thread( TraitLockedPresentation, { Screen = screen, Components = components, HighlightKey = purchaseButtonKey.."Highlight", Id = purchaseButtonKey, OffsetX = highlight.X, OffsetY = highlight.Y, TooltipOffsetX = screen.TooltipOffsetX } )
 	end
+	highlight.Group = args.ButtonGroupName or highlight.Group
 	components[purchaseButtonKey.."Highlight"] = CreateScreenComponent( highlight )
 
 	if upgradeData.Icon ~= nil then
-		local icon = screen.Icon
+		local icon = ShallowCopyTable( screen.Icon )
 		icon.X = screen.IconOffsetX + itemLocationX + screen.ButtonOffsetX
 		icon.Y = screen.IconOffsetY + itemLocationY
 		icon.Animation = upgradeData.Icon
+		icon.Group = args.ButtonGroupName or icon.Group
 		components[purchaseButtonKey.."Icon"] = CreateScreenComponent( icon )
 	end
+
+	components[purchaseButtonKey.."PinIcon"] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_Overlay", Animation = "StoreItemPin", Alpha = 0, X = screen.PinOffsetX + itemLocationX, Y = screen.PinOffsetY + itemLocationY })
 
 	if upgradeData.TraitToReplace ~= nil then
 
@@ -402,10 +489,11 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 
 	end
 
-	local frame = screen.Frame
+	local frame = ShallowCopyTable( screen.Frame )
 	frame.X = screen.IconOffsetX + itemLocationX + screen.ButtonOffsetX
 	frame.Y = screen.IconOffsetY + itemLocationY
 	frame.Animation = GetTraitFrame( upgradeData )
+	frame.Group = args.ButtonGroupName or frame.Group
 	components[purchaseButtonKey.."Frame"] = CreateScreenComponent( frame )
 
 	-- Button data setup
@@ -421,7 +509,10 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 	button.LootColor = upgradeChoiceData.LootColor
 	button.BoonGetColor = upgradeChoiceData.BoonGetColor
 	button.Highlight = components[purchaseButtonKey.."Highlight"]
-	
+	button.PinIcon = components[purchaseButtonKey.."PinIcon"]
+	button.StackNum = stackNum
+	button.Index = itemIndex
+
 	if screen.Source and screen.Source.OnPressedFunctionNameOverride then
 		button.OnPressedFunctionName = screen.Source.OnPressedFunctionNameOverride 
 	end
@@ -472,27 +563,26 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 	CreateTextBoxWithFormat( descriptionText )
 
 	if upgradeDescription2 then
-		local descriptionText2 = ShallowCopyTable( screen.DescriptionText )
+		local descriptionText2 = DeepCopyTable( screen.DescriptionText )
 		descriptionText2.Id = button.Id
 		descriptionText2.Text = upgradeDescription2
 		descriptionText2.LuaValue = tooltipData
-		descriptionText2.OffsetY = offsetY
+		descriptionText2.OffsetY = 0
+		descriptionText2.LangOffsetY = nil
 		descriptionText2.AppendToId = descriptionText.Id
 		CreateTextBoxWithFormat( descriptionText2 )
 	end
 
-	if traitData.StatLines ~= nil then
-		local appendToId = nil
-		if #traitData.StatLines <= 1 then
-			appendToId = descriptionText.Id
-		end
-		for lineNum, statLine in ipairs( traitData.StatLines ) do
+	local statLines = traitData.StatLines
+	if traitData.CustomStatLinesWithShrineUpgrade ~= nil and GetNumShrineUpgrades( traitData.CustomStatLinesWithShrineUpgrade.ShrineUpgradeName ) > 0 then
+		statLines = traitData.CustomStatLinesWithShrineUpgrade.StatLines
+	end
+	if statLines ~= nil then
+		local appendToId = descriptionText.Id
+		for lineNum, statLine in ipairs( statLines ) do
 			if statLine ~= "" then
 
 				local offsetY = (lineNum - 1) * screen.LineHeight
-				if upgradeData.ExtraDescriptionLine then
-					offsetY = offsetY + screen.LineHeight
-				end
 
 				local statLineLeft = ShallowCopyTable( screen.StatLineLeft )
 				statLineLeft.Id = button.Id
@@ -529,10 +619,40 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 	end
 
 	if needsQuestIcon then
-		components[purchaseButtonKey.."QuestIcon"] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", X = itemLocationX + screen.QuestIconOffsetX, Y = itemLocationY + screen.QuestIconOffsetY })
+		components[purchaseButtonKey.."QuestIcon"] = CreateScreenComponent({ Name = "BlankObstacle", Group = args.ButtonGroupName or "Combat_Menu", X = itemLocationX + screen.QuestIconOffsetX, Y = itemLocationY + screen.QuestIconOffsetY })
 		SetAnimation({ DestinationId = components[purchaseButtonKey.."QuestIcon"].Id, Name = "QuestItemFound" })
 		-- Silent toolip
 		CreateTextBox({ Id = components[purchaseButtonKey].Id, TextSymbolScale = 0, Text = "TraitQuestItem", Color = Color.Transparent, LuaKey = "TooltipData", LuaValue = tooltipData, })
+	end
+
+	if not lootData.StackOnly and IsBoonRequiredForPins( upgradeData.Name ) then
+		SetAlpha({ Id = components[purchaseButtonKey.."PinIcon"].Id, Fraction = 1 })
+		-- Silent toolip
+		local tooltipText = "NeededPinBoonTooltip"
+		if IsBoonPinned( upgradeData.Name) then
+			tooltipText = "NeededPinBoonTooltip_Pinned"
+		end
+		CreateTextBox({ Id = components[purchaseButtonKey].Id, TextSymbolScale = 0, Text = tooltipText, Color = Color.Transparent })
+	end
+
+	if tooltipData.AddLuckTooltip then
+		CreateTextBox({
+			Text = "BoostedLuck_Tooltip",
+			Id = components[purchaseButtonKey].Id,
+			UseDescription = true,
+			TextSymbolScale = 0,
+			Color = Color.Transparent,
+		})
+	end
+
+	if tooltipData.AddSpeedTooltip then
+		CreateTextBox({
+			Text = "BoostedSpeed_Tooltip",
+			Id = components[purchaseButtonKey].Id,
+			UseDescription = true,
+			TextSymbolScale = 0,
+			Color = Color.Transparent,
+		})
 	end
 
 	if not IsEmpty( upgradeData.Elements ) then
@@ -550,27 +670,32 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 end
 
 function DestroyBoonLootButtons( screen, lootData )
+	for index = 1, 3 do
+		DestroyBoonLootButton( screen, index )
+	end
+end
+
+function DestroyBoonLootButton( screen, index )
 	local components = screen.Components
 	local toDestroy = {}
-	for index = 1, 3 do
-		local destroyIndexes = {
-		"PurchaseButton"..index,
-		"PurchaseButton"..index.. "Lock",
-		"PurchaseButton"..index.. "Highlight",
-		"PurchaseButton"..index.. "Icon",
-		"PurchaseButton"..index.. "ExchangeIcon",
-		"PurchaseButton"..index.. "ExchangeIconFrame",
-		"PurchaseButton"..index.. "QuestIcon",
-		"PurchaseButton"..index.. "ElementIcon",
-		"Backing"..index,
-		"PurchaseButton"..index.. "Frame",
-		"PurchaseButton"..index.. "Patch",
-		}
-		for i, indexName in pairs( destroyIndexes ) do
-			if components[indexName] then
-				table.insert(toDestroy, components[indexName].Id)
-				components[indexName] = nil
-			end
+	local destroyIndexes = {
+	"PurchaseButton"..index,
+	"PurchaseButton"..index.. "Lock",
+	"PurchaseButton"..index.. "Highlight",
+	"PurchaseButton"..index.. "Icon",
+	"PurchaseButton"..index.. "ExchangeIcon",
+	"PurchaseButton"..index.. "ExchangeIconFrame",
+	"PurchaseButton"..index.. "QuestIcon",
+	"PurchaseButton"..index.. "PinIcon",
+	"PurchaseButton"..index.. "ElementIcon",
+	"Backing"..index,
+	"PurchaseButton"..index.. "Frame",
+	"PurchaseButton"..index.. "Patch",
+	}
+	for i, indexName in pairs( destroyIndexes ) do
+		if components[indexName] then
+			table.insert(toDestroy, components[indexName].Id)
+			components[indexName] = nil
 		end
 	end
 	Destroy({ Ids = toDestroy })
@@ -583,7 +708,9 @@ function RerollBoonLoot( screen, button )
 	for i, value in pairs( lootData.UpgradeOptions ) do
 		table.insert( itemNames, value.ItemName )
 	end
-	SetTraitsOnLoot( lootData, { BoonRaritiesOverride = lootData.RarityChances, IgnoreAllRarityBonus = true, ExclusionNames = { GetRandomValue( itemNames )}})
+	SetTraitsOnLoot( lootData, { BoonRaritiesOverride = lootData.RarityChances, IgnoreAllRarityBonus = true, IgnoreRoomRarityBonus = true, ExclusionNames = { GetRandomValue( itemNames )}})
+	
+	ModifyTextBox({ Id = screen.Components.RerollIcon.Id, Text = CurrentRun.NumRerolls, AutoSetDataProperties = false, })
 	CreateBoonLootButtons( screen, lootData, true )
 end
 
@@ -600,24 +727,9 @@ end
 function GetUpgradedRarity( baseRarity, rarityUpgradeOrder )
 	local rarityTable = rarityUpgradeOrder or TraitRarityData.RarityUpgradeOrder
 	baseRarity = baseRarity or "Common"
-	if HasHeroTraitValue("ReplaceUpgradedRarityTable") then
-		rarityTable = GetHeroTraitValues("ReplaceUpgradedRarityTable")[1]
-	end
 	local key = GetKey( rarityTable, baseRarity )
 	if key and rarityTable[key + 1] then
 		return rarityTable[key + 1]
-	end
-end
-
-function GetDowngradedRarity( baseRarity )
-	local rarityTable = TraitRarityData.RarityUpgradeOrder
-
-	if HasHeroTraitValue("ReplaceUpgradedRarityTable") then
-		rarityTable = GetHeroTraitValues("ReplaceUpgradedRarityTable")[1]
-	end
-	local key = GetKey( rarityTable, baseRarity )
-	if key and rarityTable[key - 1] then
-		return rarityTable[key - 1]
 	end
 end
 
@@ -633,7 +745,7 @@ function GetPriorityTraits( traitNames, lootData, args )
 	local guaranteedSlots = {"Melee", "Secondary"} 
 	local traitsWithGuaranteedSlot = {}
 
-	for i, traitData in pairs(CurrentRun.Hero.Traits ) do
+	for i, traitData in ipairs( CurrentRun.Hero.Traits ) do
 		if traitData.Slot then
 			occupiedSlots[traitData.Slot] = true
 		end
@@ -685,7 +797,7 @@ function GetReplacementTraits( traitNames, onlyFromLootName )
 	local priorityOptions = {}
 	local occupiedSlots = {}
 
-	for i, traitData in pairs(CurrentRun.Hero.Traits ) do
+	for i, traitData in ipairs( CurrentRun.Hero.Traits ) do
 		if traitData.Slot then
 			if not occupiedSlots[traitData.Slot] then
 				occupiedSlots[traitData.Slot] = { TraitName = traitData.Name, Rarity = "Common" }
@@ -712,7 +824,7 @@ function GetEligibleWeaponTraits( traitNames )
 	end
 	local ineligibleTraits = {}
 
-	for i, traitData in pairs( CurrentRun.Hero.Traits ) do
+	for i, traitData in ipairs( CurrentRun.Hero.Traits ) do
 		local traitSlot = traitData.Slot
 		if traitSlot  ~= nil then
 			-- If the traits overlap type and aren't the same name then that slot is taken
@@ -777,17 +889,6 @@ function GetEligibleTraitUpgrades ( lootData )
 			table.insert( linkedTraits, traitName )
 		end
 	end
-	if not IsEmpty(lootData.OffersElementalTrait) then
-		for _, elementName in pairs( lootData.OffersElementalTrait ) do
-			if IsGameStateEligible( lootData, TraitElementData[elementName].GameStateRequirements ) then
-				local orderedElementalUpgrades = CollapseTableAsOrderedKeyValuePairs( TraitElementData[elementName].Traits )
-				for i, kvp in ipairs( orderedElementalUpgrades ) do
-					local traitName = kvp.Value
-					table.insert( linkedTraits, traitName )
-				end
-			end
-		end
-	end
 
 	return CombineTablesIPairs(eligibleTraits, linkedTraits )
 end
@@ -849,6 +950,7 @@ function HandleUpgradeChoiceSelection( screen, button, args )
 		RemoveWeaponTrait( upgradeData.TraitToReplace )
 		newTrait = AddTraitToHero({ TraitData = upgradeData, FromLoot = true })
 		currentRun.CurrentRoom.ReplacedTraitSource = GetLootSourceName(upgradeData.TraitToReplace)
+		IncrementTableValue(CurrentRun, "SacrificeTraitCount" )
 	else
 		if button.LootData.StackOnly and upgradeData.Name ~= "FallbackGold" then
 			local traitData = CurrentRun.Hero.TraitDictionary[upgradeData.Name][1]
@@ -882,28 +984,36 @@ function HandleUpgradeChoiceSelection( screen, button, args )
 			end
 		end
 	end
-	LogUpgradeChoice( button )
+	if not args.DoubleBoonChance then
+		LogUpgradeChoice( button )
+	end
+	CurrentRun.PickedTraits[upgradeData.Name] = true
+	SessionMapState.LastUpgradeChoice = upgradeData.Name
 	PlaySound({ Name = button.LootData.UpgradeSelectedSound or "/SFX/HeatRewardDrop", Id = buttonId })
-	CreateAnimation({ Name = "BoonGetBlack", DestinationId = buttonId, Scale = 1.0, GroupName = "Combat_Menu" })
-	CreateAnimation({ Name = "BoonGet", DestinationId = buttonId, Scale = 1.0, GroupName = "Combat_Menu_Additive", Color = button.BoonGetColor or button.LootColor })
+	SetAlpha({ Id = buttonId, Fraction = 0 })
+	
+	CreateAnimation({ Name = "BoonGetBlack", DestinationId = buttonId, Scale = 1.0, Group = screen.ButtonGroupName or "Combat_Menu" })
+	CreateAnimation({ Name = "BoonGet", DestinationId = buttonId, Scale = 1.0, Group = screen.PurchaseAnimationGroupName or "Combat_Menu_Additive", Color = button.BoonGetColor or button.LootColor })
+
 	--wait( 0.4, RoomThreadName )
 	local doubleBoonTrait = HasHeroTraitValue("DoubleBoonChance")
-	if doubleBoonTrait and doubleBoonTrait.Uses > 0 and ( button.LootData.GodLoot or button.LootData.TreatAsGodLootByShops) and not button.LootData.BlockDoubleBoon and RandomChance(doubleBoonTrait.DoubleBoonChance) then
-		local validOtherChoices = {}
+	if doubleBoonTrait and doubleBoonTrait.Uses > 0 and ( button.LootData.GodLoot or button.LootData.TreatAsGodLootByShops) and not button.LootData.BlockDoubleBoon and RandomChance(doubleBoonTrait.DoubleBoonChance * GetTotalHeroTraitValue( "LuckMultiplier", { IsMultiplier = true })) then
+		local validOtherChoices = {} 
 		for i, lootbutton in pairs( screen.UpgradeButtons ) do
 			if lootbutton ~= button and not lootbutton.Data.TraitToReplace then
 				table.insert( validOtherChoices, lootbutton )
 			end
 		end
 		if not IsEmpty( validOtherChoices ) then
+			DestroyBoonLootButton( screen, button.Index )
 			waitUnmodified(0.8)
 			local nextButton = GetRandomValue( validOtherChoices )
 			ReduceTraitUses( doubleBoonTrait )
 			DoubleBoonPresentation( screen, nextButton )
-			CheckNewTraitManaReserveShrineUpgrade( newTrait )
+			CheckNewTraitManaReserveShrineUpgrade( newTrait, { IsGodLoot = true } )
 			if HeroHasTrait("ElementalRarityUpgradeBoon") then
 				local trait = GetHeroTrait("ElementalRarityUpgradeBoon")
-				if trait.Activated then
+				if trait.Activated and nextButton.Data.Rarity and nextButton.Data.Rarity == "Common" then
 					nextButton.LootData.UpgradeOnPick = true
 				end
 			end
@@ -915,7 +1025,7 @@ function HandleUpgradeChoiceSelection( screen, button, args )
 	local spawnTarget = nil
 	local duplicateOnClose = false
 	local name = source.Name
-	if source.CanDuplicate and RandomChance( GetTotalHeroTraitValue("DoubleRewardChance")) then
+	if source.CanDuplicate and RandomChance( GetTotalHeroTraitValue("DoubleRewardChance") * GetTotalHeroTraitValue( "LuckMultiplier", { IsMultiplier = true })) then
 		duplicateOnClose = true
 		spawnTarget = SpawnObstacle({ Name = "InvisibleTarget", Group = "Standing", DestinationId = source.ObjectId })
 	end
@@ -936,7 +1046,7 @@ function HandleUpgradeChoiceSelection( screen, button, args )
 	if not screen.SkipUpgradePresentationAndExitUnlock then
 		UpgradeAcquiredPresentation( screen, button.LootData )
 	end
-	CheckNewTraitManaReserveShrineUpgrade( newTrait )
+	CheckNewTraitManaReserveShrineUpgrade( newTrait, { IsGodLoot = ( button.LootData.GodLoot or button.LootData.TreatAsGodLootByShops ) } )
 	if duplicateOnClose and spawnTarget then
 		local newLoot = CreateLoot({ Name = name, SpawnPoint = spawnTarget })
 		newLoot.CanDuplicate = false
@@ -959,6 +1069,9 @@ function CloseUpgradeChoiceScreen( screen, button )
 	if screen.Components.ShopBackground ~= nil then
 		SetAnimation({ DestinationId = screen.Components.ShopBackground.Id, Name = "BoonSelectMelOut" })
 	end
+	if screen.Components.ShopLightingMelFace ~= nil then
+		SetAlpha({ Id = screen.Components.ShopLightingMelFace.Id, Fraction = 0.0, Duration = 0.125, EaseIn = 0.9, EaseOut = 1 })
+	end
 	if screen.Components.ShopLighting ~= nil then
 		SetAnimation({ DestinationId = screen.Components.ShopLighting.Id, Name = "BoonSelectFxOut" })
 	end
@@ -975,6 +1088,7 @@ function CloseUpgradeChoiceScreen( screen, button )
 		end
 	end
 	UseableOff({ Ids = useableOffButtonIds, ForceHighlightOff = true })
+	killTaggedThreads( "RarifyPulse" )
 	OnScreenCloseStarted( screen )
 	CloseScreen( GetAllIds( screen.Components ), 0.25 )
 	AltAspectRatioFramesHide()
@@ -983,9 +1097,10 @@ function CloseUpgradeChoiceScreen( screen, button )
 	else
 		PlaySound({ Name = button.LootData.SelectionSound })
 	end
-	local validWeapons = ConcatTableValues( ShallowCopyTable(WeaponSets.HeroSecondaryWeapons), AddLinkedWeapons( WeaponSets.HeroSecondaryWeapons ))
-	for _, weaponName in pairs( validWeapons ) do
-		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = true  })
+	for weaponName, v in pairs( WeaponSetLookups.HeroSecondaryWeaponsLinked ) do
+		if MapState.EquippedWeapons[weaponName] then
+			SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = true  })
+		end
 	end
 	if screen.MovedRerollUIGroup then
 		screen.MovedRerollUIGroup = nil
@@ -1007,7 +1122,7 @@ function CloseUpgradeChoiceScreen( screen, button )
 		UseHeroTraitsWithValue("RarityBonus", true )
 	end
 
-	if screen.Source.GodLoot or screen.Source.TreatAsGodLootByShops then
+	if ( screen.Source.GodLoot or screen.Source.TreatAsGodLootByShops ) and not screen.Source.IgnoreRestrictBoonChoices then
 		UseHeroTraitsWithValue( "RestrictBoonChoices", true )
 	end
 	if screen.Source.UseSwapTrait then
@@ -1082,22 +1197,29 @@ function UpgradeMouseOverUpgradeChoice( screen, button )
 	if screen.MouseOverButton == nil then
 		return
 	end
-	if screen.UpgradedRarity then
-		return
-	end
 	local lootData = screen.Source
-	if not lootData.GodLoot then
+
+	if not lootData.GodLoot and not lootData.TreatAsGodLootByShops then
 		return
 	end
-
 	local components = screen.Components
 	local button = screen.MouseOverButton
 
 	local upgradeTraitData = nil
-	for _, traitData in pairs( CurrentRun.Hero.Traits ) do
-		if traitData.RarityUpgradeData and lootData.Name == traitData.RarityUpgradeData.LootName then
-			upgradeTraitData = traitData
-			break
+	for _, traitData in ipairs( CurrentRun.Hero.Traits ) do
+		if traitData.RarityUpgradeData then
+			if not traitData.RarityUpgradeData.LootName and ( button.LootData.GodLoot or button.LootData.TreatAsGodLootByShops) and (not traitData.RarityUpgradeData.RequireNotExcludeFromLastRunBoon or not button.LootData.ExcludeFromLastRunBoon ) then
+				if not traitData.RarityUpgradeData.RequireFated  or ( traitData.RarityUpgradeData.RequireFated and IsFateValid()) then 
+					upgradeTraitData = traitData
+				end
+			end
+			if lootData.Name == traitData.RarityUpgradeData.LootName then
+				-- More specific upgrades always take priority over general ones
+				if not traitData.RarityUpgradeData.RequireFated  or ( traitData.RarityUpgradeData.RequireFated and IsFateValid()) then 
+					upgradeTraitData = traitData
+				end
+				break
+			end
 		end
 	end
 	
@@ -1108,31 +1230,48 @@ function UpgradeMouseOverUpgradeChoice( screen, button )
 	if not traitData or ( upgradeTraitData.RarityUpgradeData.MaxRarity and GetRarityValue( traitData.Rarity ) > upgradeTraitData.RarityUpgradeData.MaxRarity ) then
 		return
 	end
+	
+	if screen.UpgradedRarity and not upgradeTraitData.RarityUpgradeData.MultiUse then
+		return
+	end
 
 	if TryUpgradeBoon( lootData, screen, button ) then
+		if not IsEmpty(upgradeTraitData.RarityUpgradeData.RarifyVoiceLines) then
+			thread( PlayVoiceLines, upgradeTraitData.RarityUpgradeData.RarifyVoiceLines, true )
+		end
 		upgradeTraitData.RarityUpgradeData.Uses = upgradeTraitData.RarityUpgradeData.Uses - 1
+		TraitUIUpdateText( GetHeroTrait( upgradeTraitData.Name ) )	
 		if upgradeTraitData.RarityUpgradeData.Uses <= 0 then
-			ReduceTraitUses( upgradeTraitData, { Force = true })
+			if not upgradeTraitData.Slot then
+				RemoveTraitData( CurrentRun.Hero, upgradeTraitData )
+			else
+				ReduceTraitUses( upgradeTraitData, { Force = true })
+			end
+			if not upgradeTraitData.LootName and upgradeTraitData.ZeroBonusTrayText then
+				upgradeTraitData.CustomName = upgradeTraitData.ZeroBonusTrayText
+			end
 		end
 		screen.UpgradedRarity = true
-		TraitUIUpdateText( GetHeroTrait( upgradeTraitData.Name ) )	
 		local notifyName = "ScreenInput"
 		if screen.Name ~= nil then
 			notifyName = notifyName..screen.Name
 		end
 		TeleportCursor({ DestinationId = button.Id, ForceUseCheck = true, })
+		killTaggedThreads( "RarifyPulse" )
 	end
 end
 
 function TryUpgradeBoon( lootData, screen, button )
-
+	if not CheckCooldown("RarifyInputCooldown", 0.45) then
+		return
+	end
 	local components = screen.Components
 
 	local traitData = button.Data
 	local sacrificeTrait = traitData.SacrificedTraitName
 	local validUpgradeIndex = false
 	for i, upgradeData in pairs(lootData.UpgradeOptions) do
-		if traitData.Name == upgradeData.ItemName and GetUpgradedRarity(traitData.Rarity) ~= nil and traitData.RarityLevels[GetUpgradedRarity(traitData.Rarity)] ~= nil then
+		if not traitData.BlockMenuRarify and traitData.Name == upgradeData.ItemName and GetUpgradedRarity(traitData.Rarity) ~= nil and traitData.RarityLevels[GetUpgradedRarity(traitData.Rarity)] ~= nil then
 			upgradeData.Rarity = GetUpgradedRarity(traitData.Rarity)
 			validUpgradeIndex = i
 		end
@@ -1148,6 +1287,7 @@ function TryUpgradeBoon( lootData, screen, button )
 		"PurchaseButton"..validUpgradeIndex.. "ExchangeIcon",
 		"PurchaseButton"..validUpgradeIndex.. "ExchangeIconFrame",
 		"PurchaseButton"..validUpgradeIndex.. "QuestIcon",
+		"PurchaseButton"..validUpgradeIndex.. "PinIcon",
 		"PurchaseButton"..validUpgradeIndex.. "ElementIcon",
 		"Backing"..validUpgradeIndex,
 		"PurchaseButton"..validUpgradeIndex.. "Frame",
@@ -1161,6 +1301,7 @@ function TryUpgradeBoon( lootData, screen, button )
 		end
 		Destroy({ Ids = toDestroy })
 		UpgradeBoonRarityPresentation( button )
+		lootData.UpgradeOptions[validUpgradeIndex].StackNum = button.StackNum
 		local newButton = CreateUpgradeChoiceButton( screen, lootData, validUpgradeIndex, lootData.UpgradeOptions[validUpgradeIndex])
 		if newButton.Data and sacrificeTrait then
 			newButton.Data.SacrificedTraitName = sacrificeTrait
@@ -1168,6 +1309,9 @@ function TryUpgradeBoon( lootData, screen, button )
 		local notifyName = "ScreenInput"
 		if screen.Name ~= nil then
 			notifyName = notifyName..screen.Name
+		end
+		if screen.UpgradeButtons then
+			screen.UpgradeButtons[validUpgradeIndex] = newButton  
 		end
 		NotifyOnInteract({ Ids = { newButton.Id }, Notify = notifyName })
 		return newButton
@@ -1197,6 +1341,7 @@ function MouseOverBoonButton( component )
 
 	PlaySound({ Name = "/SFX/Menu Sounds/GodBoonMenuToggle", Id = component.Id })
 	screen.MouseOverButton = component
+	screen.ClipboardText = component.Data.Name
 	SetAlpha({ Id = screen.Components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
 	SetAnimation({ DestinationId = component.Highlight.Id, Name = "BoonSlotHighlight" })
 	if screen.Source and screen.Source.ChoiceTextOverride then
@@ -1223,34 +1368,55 @@ end
 function UpgradeChoiceScreenCheckRarifyButton( screen, button )
 	local textData = {}
 	local lootData = button.LootData
-	
+
 	local upgradeTraitData = nil
-	for _, traitData in pairs( CurrentRun.Hero.Traits ) do
-		if traitData.RarityUpgradeData and lootData.Name == traitData.RarityUpgradeData.LootName then
-			upgradeTraitData = traitData
-			break
+	local multiUse = false
+	for _, traitData in ipairs( CurrentRun.Hero.Traits ) do
+		if traitData.RarityUpgradeData then
+			if not traitData.RarityUpgradeData.LootName and ( button.LootData.GodLoot or button.LootData.TreatAsGodLootByShops) and (not traitData.RarityUpgradeData.RequireNotExcludeFromLastRunBoon or not button.LootData.ExcludeFromLastRunBoon ) then
+				upgradeTraitData = traitData
+			end
+			if lootData.Name == traitData.RarityUpgradeData.LootName then
+				-- More specific upgrades always take priority over general ones
+				upgradeTraitData = traitData
+				break
+			end
 		end
 	end
 	
 	local validUpgradeIndex = false
-	if  upgradeTraitData and upgradeTraitData.RarityUpgradeData.Uses and upgradeTraitData.RarityUpgradeData.Uses > 0 then
-		local traitData = button.Data
-		for i, upgradeData in pairs(lootData.UpgradeOptions) do
-			if traitData.Name == upgradeData.ItemName and GetUpgradedRarity(traitData.Rarity) ~= nil and traitData.RarityLevels[GetUpgradedRarity(traitData.Rarity)] ~= nil and GetRarityValue( traitData.Rarity ) <= upgradeTraitData.RarityUpgradeData.MaxRarity then
-				upgradeData.Rarity = GetUpgradedRarity(traitData.Rarity)
-				validUpgradeIndex = true
+	if  upgradeTraitData and upgradeTraitData.RarityUpgradeData.Uses then
+		local uses = upgradeTraitData.RarityUpgradeData.Uses
+		if upgradeTraitData.RarityUpgradeData.RequireFated and not IsFateValid() then
+			uses = 0
+		end
+		if uses > 0 then
+			local traitData = button.Data
+			if traitData.MultiUse then
+				multiUse = true
+			end
+			for i, upgradeData in pairs(lootData.UpgradeOptions) do
+				if not traitData.BlockMenuRarify and traitData.Name == upgradeData.ItemName and GetUpgradedRarity(traitData.Rarity) ~= nil and traitData.RarityLevels[GetUpgradedRarity(traitData.Rarity)] ~= nil and GetRarityValue( traitData.Rarity ) <= upgradeTraitData.RarityUpgradeData.MaxRarity then
+					upgradeData.Rarity = GetUpgradedRarity(traitData.Rarity)
+					validUpgradeIndex = true
+				end
 			end
 		end
-
 	end
-	
-	if validUpgradeIndex and not screen.UpgradedRarity and not screen.TraitTrayOpened then
-	
+	local multiUse = false
+	if upgradeTraitData and upgradeTraitData.RarityUpgradeData.MultiUse then
+		multiUse = true
+	end
+	if validUpgradeIndex and (not screen.UpgradedRarity or multiUse) and not screen.TraitTrayOpened then
+		local text = "Boon_Upgrade"
+		if multiUse then
+			text = "Boon_Upgrade_Count"
+		end
 		screen.Components.RarifyButton.Visible = true
 		SetAlpha({ Id = screen.Components.RarifyButton.Id, Fraction = 1.0, Duration = 0.2 })
-		ModifyTextBox({ Id = screen.Components.RarifyButton.Id, Text = "Boon_Upgrade", LuaKey = "TempTextData", LuaValue = { Amount = upgradeTraitData.RarityUpgradeData.Uses, MaxAmount = upgradeTraitData.RarityMultiplier } } )
+		ModifyTextBox({ Id = screen.Components.RarifyButton.Id, Text = text, LuaKey = "TempTextData", LuaValue = { Amount = upgradeTraitData.RarityUpgradeData.Uses, MaxAmount = upgradeTraitData.RarityMultiplier } } )
 		if not screen.FirstRarifyPrompt then
-			thread( OncePerMenuRarifyPresentation, screen.Components.RarifyButton, baseColor )
+			thread( PulseContextActionPresentation, screen.Components.RarifyButton, { ThreadName = "RarifyPulse" } )
 			screen.FirstRarifyPrompt = true
 		end
 	else
@@ -1274,6 +1440,9 @@ function UpgradeChoiceScreenOpenTraitTray( screen, button )
 	end
 	if screen.Components.BoonListButton then
 		SetAlpha({ Id = screen.Components.BoonListButton.Id, Fraction = 0.0, Duration = 0.2 })
+	end
+	if screen.Components.RerollIcon then
+		SetAlpha({ Id = screen.Components.RerollIcon.Id, Fraction = 0.0, Duration = 0.2 })
 	end
 	if screen.Components.AcceptButton then
 		SetAlpha({ Id = screen.Components.AcceptButton.Id, Fraction = 0.0, Duration = 0.2 })
@@ -1327,6 +1496,31 @@ function UpgradeChoiceScreenCloseTraitTray( screen, args )
 	if upgradeChoiceScreenComponents.CloseButton then
 		SetAlpha({ Id = upgradeChoiceScreenComponents.CloseButton.Id, Fraction = 1.0, Duration = 0.2 })
 	end
+	if HeroHasTrait( "PanelRerollMetaUpgrade" ) and args.Screen.Source and not args.Screen.Source.BlockReroll and upgradeChoiceScreenComponents.RerollIcon then
+		ModifyTextBox({ Id = upgradeChoiceScreenComponents.RerollIcon.Id, Text = CurrentRun.NumRerolls, AutoSetDataProperties = false, })
+		SetAlpha({ Id = upgradeChoiceScreenComponents.RerollIcon.Id, Duration = HUDScreen.FadeInDuration, Fraction = ConfigOptionCache.HUDOpacity })
+
+	end
+end
+
+function UpgradeChoiceScreenCloseBoonInfo( screen, args )
+	local upgradeChoiceScreen = args.Screen
+	if upgradeChoiceScreen.UpgradeButtons ~= nil then
+		for i, button in ipairs( upgradeChoiceScreen.UpgradeButtons ) do
+			DestroyTextBox({ Id = button.Id, AffectText = "NeededPinBoonTooltip" })
+			DestroyTextBox({ Id = button.Id, AffectText = "NeededPinBoonTooltip_Pinned" })
+			if IsBoonRequiredForPins( button.Data.Name ) then
+				SetAlpha({ Id = button.PinIcon.Id, Fraction = 1 })
+				local tooltipText = "NeededPinBoonTooltip"
+				if IsBoonPinned( button.Data.Name ) then
+					tooltipText = "NeededPinBoonTooltip_Pinned"
+				end
+				CreateTextBox({ Id = button.Id, TextSymbolScale = 0, Text = tooltipText, Color = Color.Transparent })
+			else
+				SetAlpha({ Id = button.PinIcon.Id, Fraction = 0 })
+			end
+		end
+	end
 end
 
 function UpgradeChoiceRetaliate( victim, triggerArgs )
@@ -1365,6 +1559,53 @@ function AttemptOpenUpgradeChoiceBoonInfo( screen, button )
 	end
 
 	HideTopMenuScreenTooltips({ })
-	ShowBoonInfoScreen( sourceName, nil, entryName, entryData )
+	ShowBoonInfoScreen( { LootName = sourceName, CodexEntryName = entryName, CodexEntryData = entryData, CloseFunctionName = "UpgradeChoiceScreenCloseBoonInfo", CloseFunctionArgs = { Screen = screen } } )
 
+end
+
+function IsBoonRequiredForPins( traitName )
+	for i, pin in ipairs( GameState.StoreItemPins ) do
+		if pin.Name == traitName then
+			return true
+		end
+
+		local requirements = TraitRequirements[pin.Name]
+		if requirements ~= nil then
+			if requirements.OneOf ~= nil then
+				if Contains( requirements.OneOf, traitName ) and not ContainsAnyKey( CurrentRun.Hero.TraitDictionary, requirements.OneOf ) then
+					return true
+				end
+			end
+			if requirements.TwoOf ~= nil then
+				if Contains( requirements.TwoOf, traitName ) then
+					local haveCount = 0
+					for existingTraitName in pairs( CurrentRun.Hero.TraitDictionary ) do
+						if Contains( requirements.TwoOf, existingTraitName ) then
+							haveCount = haveCount + 1
+						end
+					end
+					if haveCount < 2 then
+						return true
+					end
+				end
+			end
+			if requirements.OneFromEachSet ~= nil then
+				for j, set in ipairs( requirements.OneFromEachSet ) do
+					if Contains( set, traitName ) and not ContainsAnyKey( CurrentRun.Hero.TraitDictionary, set )  then
+						return true
+					end
+				end
+			end
+		end
+	end
+	return false
+end
+
+function IsBoonPinned( traitName )
+	for i, pin in ipairs( GameState.StoreItemPins ) do
+		if pin.Name == traitName then
+			return true
+		end
+	end
+	return false
 end

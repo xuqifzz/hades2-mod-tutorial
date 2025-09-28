@@ -486,5 +486,123 @@
 		GrannyModel = "SirensInstrumentKeytar_Mesh"
 		GrannyAnimation = "Keytar_Base_ShredReturnToIdle_C_00"
 	}
-	
+
+	// New Song
+	{
+		Name = "Keytar_NewSong_Start"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_ShredAntic_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 35
+				FrameSpeed = 1
+			}
+			{
+				Frame = 44
+				FrameSpeed = 0.2
+			}
+		]
+	}
+	{
+		Name = "Enemy_SirenKeytar_NewSong_Start"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_ShredAntic_C_00"
+		ChainTo = "Enemy_SirenKeytar_NewSong_FireLoop"
+		Attachments =
+		[
+			{
+				Name = "Keytar_NewSong_Start"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 35
+				FrameSpeed = 1
+			}
+			{
+				Frame = 44
+				FrameSpeed = 0.2
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SirenKeytar_Idle"
+				Duration = 24
+			}
+		]
+	}
+
+	{
+		Name = "Keytar_NewSong_FireLoop"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_ShredLoop_C_00"
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.4
+			}
+		]
+	}
+	{
+		Name = "Enemy_SirenKeytar_NewSong_FireLoop"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_ShredLoop_C_00"
+		Loop = true
+		Attachments =
+		[
+			{
+				Name = "Keytar_NewSong_FireLoop"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.4
+			}
+		]
+	}
+
+
+	/*Return*/
+	{
+		Name = "Keytar_NewSong_End"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_ShredReturnToIdle_C_00"
+	}
+	{
+		Name = "Enemy_SirenKeytar_NewSong_End"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_ShredReturnToIdle_C_00"
+		ChainTo = "Enemy_SirenKeytar_Idle"
+		Attachments =
+		[
+			{
+				Name = "Keytar_NewSong_End"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_SirenKeytar_NewSong_FireLoop"
+				Duration = 12
+			}
+		]
+	}
 ]}

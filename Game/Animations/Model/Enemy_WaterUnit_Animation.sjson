@@ -10,7 +10,7 @@
 		ExtraGrannyAnimations = [{ Name = "MegaWaterUnit" }]
 		GrannyAnimation = "null"
 		GrannyAnimationSpeed = 1.0
-		Scale = 0.75
+		Scale = 1
 		Loop = false
 		Enable3DShadow = false
 		VisualFx = "EnemyWaterUnitRipples"
@@ -62,7 +62,11 @@
 		OwnerUntargetable = true
 		OwnerInvulnerable = true
 		OwnerHasNoUnitCollision = true
-		VisualFx = null
+		VisualFx = "OceanusEnemySplash"
+		VisualFxIntervalMin = 0.25
+		VisualFxIntervalMax = 0.25
+		VisualFxCap = 1
+
 		Frames =
 		[
 			{
@@ -85,7 +89,8 @@
 	{
 		Name = "Enemy_WaterUnit_Dive_Large"
 		InheritFrom = "Enemy_WaterUnit_Dive"
-		CreateAnimation = "WaterUnitDiveLarge"
+		CreateAnimation = null
+		VisualFx = "OceanusEnemySplashLarge"
 		Sound = "/SFX/Enemy Sounds/WaterUnit/EmoteDiving"
 	}
 	{
@@ -387,8 +392,8 @@
 		NumFrames = 41
 		RandomFlipHorizontal = true
 		Scale = 0.35
-		ScaleMin = 0.8
-		ScaleMax = 1.2
+		ScaleMin = 0.6
+		ScaleMax = 0.8
 		StartScale = 0.9
 		EndScale = 1.2
 		EaseIn = 0.9
@@ -403,6 +408,26 @@
 		Hue = 0.1
 		Alpha = 0.5
 		UseAttachedFlasher = false
+		CreateAnimation = "EnemyWaterUnitRipplesDisplace"
+	}
+
+	{
+		Name = "EnemyWaterUnitRipplesDisplace"
+		InheritFrom = "EnemyWaterUnitRipples"
+		StartFrame = 16
+		NumFrames = 25
+		FlipVertical = true
+		CreateAnimation = null
+		GroupName = "FX_Displacement"
+		RandomPlaySpeedMin = 20
+		RandomPlaySpeedMax = 24
+		StartAlpha = 0
+		EndAlpha = 0.5
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		EaseIn = 0
+		OffsetZ = 0
+		PingPongColor = true
 	}
 
 ]}

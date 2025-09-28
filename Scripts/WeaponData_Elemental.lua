@@ -16,7 +16,7 @@ WeaponSetData =
 					DataProperties = 
 					{
 						Duration = 9999,
-						RotationMultiplier = 0.50,
+						RotationMultiplier = 0.7,
 					}
 				},
 
@@ -27,13 +27,12 @@ WeaponSetData =
 					{
 						Type = "Speed",
 						Duration = 9999,
-						Modifier = 1.2,
+						Modifier = 1.4,
 					}
 				},
 			},
 
 			ClearWeaponFireEffectsOnFireEnd = true,
-			ExpireProjectilesOnHitStun = true,
 
 			PreAttackStop = true,
 			PreAttackDuration = 0.8,
@@ -68,72 +67,31 @@ WeaponSetData =
 			},
 		},
 	},
-
-	DespairElementalRam =
+	DespairElementalChase_Ally =
 	{
-		ProjectileName = "DespairElementalRam",
-
-		SkipCanAttack = true,
-		CancelOnPolymorph = true,
-		ExpireProjectilesOnPolymorph = true,
-
-		DumbFireInterval = 10.0,
-	},
-
-	DespairElementalLargeRam =
-	{
-		ProjectileName = "DespairElementalLargeRam",
-
-		SkipCanAttack = true,
-		CancelOnPolymorph = true,
-		ExpireProjectilesOnPolymorph = true,
-
-		DumbFireInterval = 10.0,
-	},
-
-
-	TimeElementalBuff =
-	{
+		InheritFrom = { "DespairElementalChase" },
 		AIData =
 		{
 			DeepInheritance = true,
 
-			ProjectileName = "TimeElementalBuff",
-			FireProjectileAtSelf = true,
-			TargetRequiredKillEnemy = true,
-
-			PreAttackDuration = 1.6,
-			FireDuration = 1.25,
-			PostAttackDuration = 1.1,
-
-			MoveWithinRange = true,
-			AttackDistance = 250,
-
-			RetreatBufferDistance = 1200,
-			RetreatAfterAttack = true,
-			RetreatTimeoutMin = 4.0,
-			RetreatTimeoutMax = 5.0,
-			
-			PreAttackAnimation = "Enemy_TimeElemental_PreAttack",
-			FireAnimation = "Enemy_TimeElemental_Attack",
-			PostAttackAnimation = "Enemy_TimeElemental_AttackPostFire",
+			FireDuration = 8.0,
 		},
+	},
 
-		Sounds =
+	DespairElementalRam =
+	{
+		AIData =
 		{
-			FireSounds =
-			{
-				{ Name = "/SFX/Enemy Sounds/CorruptedShadeSmall/EmoteAttacking" },
-				{ Name = "/SFX/Enemy Sounds/CorruptedShadeSmall/Attack" },
-			},
-		},
+			ProjectileName = "DespairElementalRam",
 
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
-		},
+			SkipCanAttack = true,
+			CancelOnPolymorph = true,
+			RestartOnHitStunClear = true,
+			ExpireProjectilesOnPolymorph = true,
+			ExpireProjectilesOnHitStun = true,
+
+			DumbFireInterval = 10.0,
+		}
 	},
 
 	TimeElementalOrbit =
@@ -166,7 +124,7 @@ WeaponSetData =
 
 			PreAttackEndShake = true,
 			PreAttackEndDuration = 0.5,
-			PreAttackDuration = 2.5,
+			PreAttackDuration = 1.75,
 			PreAttackEndStop = true,
 			PreAttackSound = "/SFX/Enemy Sounds/TimeElemental/TimeElementalChargeUp",
 			PreAttackFx = "TimeElementalOrbitPreAttackFx",
@@ -178,7 +136,7 @@ WeaponSetData =
 			RetreatTimeoutMax = 6,
 
 			MoveWithinRange = true,
-			MoveSuccessDistance = 630,
+			MoveSuccessDistance = 410,
 			AttackDistance = 9999,
 			StopMoveWithinRange = false,
 			
@@ -192,13 +150,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/CorruptedShadeSmall/EmoteAttacking" },
 				{ Name = "/SFX/Enemy Sounds/TimeElemental/TimeElementalProjectileFire" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0.1 },
 		},
 	},
 
@@ -224,6 +175,12 @@ WeaponSetData =
 
 			ProjectileName = "TimeElementalDeathRadial",
 			FireProjectileAtSelf = true,
+			
+			PreAttackFunctionName = "WeaponSetImmuneToStun",
+			PreAttackSetThingProperties =
+			{
+				ImmuneToForce = true
+			},
 
 			PreAttackEndShake = true,
 			PreAttackEndFlashFraction = 0.6,
@@ -244,15 +201,134 @@ WeaponSetData =
 		{
 			FireSounds =
 			{
-				{ Name = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrab" },
+				{ Name = "/SFX/Enemy Sounds/Chronos/ChronosTock" },
 			},
 		},
+	},
 
-		HitScreenshake = { Distance = 5, Speed = 1000, Duration = 0.5, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
+	TimeElementalHealBeam =
+	{
+		AIData =
 		{
-			{ ScreenPreWait = 0.02, Fraction = 0.03, LerpTime = 0 },
-			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0 },
+			DeepInheritance = true,
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							PathFromSource = true,
+							PathTrue = { "Charmed" },
+						},
+					},
+					Data =
+					{
+						TargetClosestOfTypes = "nil",
+						TargetPlayer = true,
+						ProjectileName = "TimeElementalHealBeam_Ally",
+					},
+				},
+			},
+			TargetClosestOfTypes = { "Chronos", },
+
+			ApplyEffectsOnWeaponFire =
+			{
+				{
+					EffectName = "FireSpeedDamp",
+					ClearEffectOnHit = true,
+					DataProperties = 
+					{
+						Type = "SPEED",
+						Duration = 3.4,
+						Modifier = 0.25,
+					}
+				},
+			},
+
+			ProjectileName = "TimeElementalHealBeam",
+			BarrelLength = 0,
+			FireProjectileStartDelay = 0.12,
+			ExpireProjectilesOnHitStun = true,
+			ExpireProjectilesOnFreeze = true,
+			ExpireProjectilesOnPolymorph = true,
+
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
+			TrackTargetDuringCharge = true,
+			StopBeforeFire = true,
+			TrackTargetDuringFire = true,
+			PostAttackStop = true,
+			SkipRetreatEndStop = true,
+
+			PreAttackEndShake = true,
+			PreAttackEndDuration = 0.35,
+
+			PreAttackSound = "/SFX/Enemy Sounds/EarthElemental/EmoteCharging",
+			PreAttackAnimation = "Enemy_TimeElemental_PreAttack",
+			FireAnimation = "Enemy_TimeElemental_AttackPostFire",
+			PreAttackFx = "TimeElementalBeamPreview",
+			EndPreAttackFx = true,
+
+			PreAttackDuration = 1.0,
+			FireDuration = 3.4,
+			PostAttackDurationMin = 1.3, -- anim is 0.65
+			PostAttackDurationMax = 1.8,
+
+			RetreatWhileFiring = true,
+			RetreatToSpawnPoints = true,
+			RetreatBufferDistance = 1000,
+			RetreatProximity = 50,
+			RetreatOccupySpawnPoint = true,
+
+			AttackDistance = 150,
+			AttackDistanceScaleY = 0.5,
+
+			MoveToClosestSpawnPoint = true,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/EarthElemental/EmoteAttacking" },
+				{ Name = "/SFX/Player Sounds/ZagreusBloodshotFire" },
+			},
+		},
+	},
+
+	TimeElementalHealBeam_EM =
+	{
+		InheritFrom = { "TimeElementalHealBeam" },
+		AIData =
+		{
+			DeepInheritance = true,
+			
+			ProjectileName = "TimeElementalHealBeam_EM",
+		},
+	},
+
+	TimeElementalHealBeam_Typhon =
+	{
+		InheritFrom = { "TimeElementalHealBeam" },
+		AIData =
+		{
+			DeepInheritance = true,
+			
+			ProjectileName = "TimeElementalHealBeam_Typhon",
+			TargetClosestOfTypes = { "TyphonHead", },
+		},
+	},
+
+	TimeElementalHealBeam_Ally =
+	{
+		InheritFrom = { "TimeElementalHealBeam" },
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "TimeElementalHealBeam_Ally",
+			TargetClosestOfTypes = "nil",
+			TargetPlayerIfNoTarget = true,
 		},
 	},
 
@@ -284,8 +360,7 @@ WeaponSetData =
 			PreAttackAngleTowardTarget = true,
 			PreAttackEndShake = true,
 
-			PreAttackDuration = 2.12,
-			PreAttackAnimationSpeed = 0.5,
+			PreAttackDuration = 1.41,
 			FireDuration = 0.95,
 			PostAttackDuration = 1.15,
 
@@ -304,12 +379,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/GoldElemental/EmoteAttackingRanged" },
 			},
 		},
-
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	GoldElementalBeam_Elite =
@@ -318,8 +387,6 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-
-			MaxAttackers = 5,
 
 			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.007,
@@ -334,6 +401,12 @@ WeaponSetData =
 	GoldElementalBeam_MiniBoss =
 	{
 		InheritFrom = { "GoldElementalBeam" },
+
+		Requirements =
+		{
+			MinPlayerDistance = 800,
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
@@ -344,7 +417,11 @@ WeaponSetData =
 				WeaponEffectData.AttackLowGripLong,
 			},
 
+			AttackDistance = 9999,
+			MoveWithinRange = false,
+
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.3,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.036,
 			StopBeforeFire = true,
@@ -358,6 +435,73 @@ WeaponSetData =
 		},
 	},
 
+	GoldElementalGround =
+	{
+		Requirements =
+		{
+			MaxConsecutiveUses = 1
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ImmuneToProjectileSlow = true,
+
+			ProjectileName = "GoldElementalGround",
+			FireProjectileAtSelf = true,
+			FireProjectileTowardTarget = true,
+			FireTicksMin = 15,
+			FireTicksMax = 20,
+			FireIntervalMin = 0.1,
+			FireIntervalMax = 0.2,
+			Spread = 90,
+
+			AttackDistance = 9999,
+
+			PreAttackDuration = 1.03,
+			FireDuration = 0.3,
+			PostAttackDuration = 0.65,
+
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.2,
+
+			PreAttackSound = "/SFX/Enemy Sounds/GoldElementalMiniboss/EmoteChargingMelee",
+			PreAttackAnimation = "Enemy_GoldElemental_GroundPreFire",
+			FireAnimation = "Enemy_GoldElemental_GroundFire",
+			PostAttackAnimation = "Enemy_GoldElemental_GroundPostFire",
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/GoldElementalMiniboss/EmoteAttackingMelee" },
+			},
+		},
+	},
+
+
+	GoldElementalJumpCombo =
+	{
+		Requirements =
+		{
+			MaxPlayerDistance = 800,
+			MinAttacksBetweenUse = 3,
+		},
+
+		WeaponComboOnly = true,
+		AIData =
+		{
+			SkipFireWeapon = true,
+		},
+
+		WeaponCombo =
+		{
+			{ WeaponName = "GoldElementalSky", },
+			{ WeaponName = "GoldElementalSky", DataOverrides = { TargetSpawnPoints = false, PreAttackAngleTowardTarget = false, WaitForAngleTowardTarget = false, }},
+		},
+	},
+
 	GoldElementalSky =
 	{
 		AIData =
@@ -367,33 +511,32 @@ WeaponSetData =
 			ProjectileName = "GoldElementalSky",
 			FireProjectileStartDelay = 0.3,
 
-			CreateOwnTarget = true,
-			TargetSelf = true,
+			TargetSpawnPoints = true,
+			TargetSpawnPointsRadius = 9999,
+			TargetSpawnPointsRadiusMin = 1400,
+			TargetSpawnPointsRequireLoS = true,
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
+
 			FireProjectileAtSelf = true,
 			TargetOffsetDistance = 100,
 
-			FireSelfVelocity = 1600,
-			FireSelfUpwardVelocity = 0,
+			FireSelfVelocity = 1800,
 
 			MoveWithinRange = false,
 			AttackDistance = 9999,
 
 			PreAttackDuration = 0.28,
-			FireDuration = 0,
-			PostAttackDuration = 0.5,
+			FireDuration = 0.3,
+			PostAttackDuration = 0.1,
 
 			TrackTargetDuringCharge = false,
 			AngleTowardsTargetWhileFiring = false,
 
 			PreAttackSound = "/SFX/Enemy Sounds/Wringer/WringerChargeUp",
 			PreAttackAnimation = "Enemy_GoldElemental_SkyPreFire",
-			--FireAnimation = "Enemy_GoldElemental_SkyFire",
-			PostAttackAnimation = "Enemy_GoldElemental_SkyFire",
-		},
-
-		Requirements =
-		{
-			MaxConsecutiveUses = 2
+			FireAnimation = "Enemy_GoldElemental_SkyFire",
+			--PostAttackAnimation = "Enemy_GoldElemental_SkyFire",
 		},
 
 		Sounds =
@@ -402,56 +545,6 @@ WeaponSetData =
 			{
 				{ Name = "/SFX/Enemy Sounds/GoldElementalMiniboss/GoldElementalSlam" },
 				{ Name = "/SFX/Enemy Sounds/GoldElementalMiniboss/EmoteAttackingRanged" },
-			},
-		},
-	},
-
-	GoldElementalGround =
-	{
-		AIData =
-		{
-			DeepInheritance = true,
-			ImmuneToProjectileSlow = true,
-
-			ProjectileName = "GoldElementalGround",
-			FireProjectileAtSelf = true,
-			FireTicksMin = 16,
-			FireTicksMax = 20,
-			FireIntervalMin = 0.1,
-			FireIntervalMax = 0.2,
-			Spread = 360,
-
-			AttackDistance = 9999,
-
-			PreAttackDuration = 1.03,
-			FireDuration = 0.3,
-			PostAttackDuration = 0.65,
-
-			TrackTargetDuringCharge = false,
-			AngleTowardsTargetWhileFiring = false,
-
-			PreAttackSound = "/SFX/Enemy Sounds/GoldElementalMiniboss/EmoteChargingMelee",
-			PreAttackAnimation = "Enemy_GoldElemental_GroundPreFire",
-			FireAnimation = "Enemy_GoldElemental_GroundFire",
-			PostAttackAnimation = "Enemy_GoldElemental_GroundPostFire",
-		},
-
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.06, LerpTime = 0 },
-			{ ScreenPreWait = 0.18, Fraction = 1.0, LerpTime = 0.1 },
-		},
-
-		Requirements =
-		{
-			MaxConsecutiveUses = 2
-		},
-
-		Sounds =
-		{
-			FireSounds =
-			{
-				{ Name = "/SFX/Enemy Sounds/GoldElementalMiniboss/EmoteAttackingMelee" },
 			},
 		},
 	},

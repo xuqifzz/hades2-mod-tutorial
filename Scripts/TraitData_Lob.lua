@@ -2,18 +2,34 @@ OverwriteTableKeys( TraitData, {
 	-- Lob
 	LobHammerTrait = 
 	{
-		CodexWeapon = "WeaponLob"
+		CodexWeapon = "WeaponLob",
+		DebugOnly = true,
 	},
 
 	LobAmmoTrait = 
 	{
 		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
 		Icon = "Hammer_Lob_02",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5
+			},
+		},
 		GameStateRequirements =
 		{
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponLob", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponLob", },
+				IsNone = {"LobGunAspect", }
 			},
 		},
 		WeaponAmmoModification = 
@@ -35,6 +51,18 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
 		Icon = "Hammer_Lob_01",
+		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 2,
+			},
+		},
 		GameStateRequirements =
 		{
 			{
@@ -45,27 +73,20 @@ OverwriteTableKeys( TraitData, {
 				Path = { "CurrentRun", "Hero", "TraitDictionary", },
 				HasNone = { "LobPulseAmmoTrait" },
 			},
-		},
-		AmmoMagnetismMultiplier = 100,
-		PropertyChanges =
-		{
 			{
-				UnitProperty = "MagnetismFx",
-				ChangeValue = "LobAmmoMagnetismFx",
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponLob", },
+				IsNone = {"LobGunAspect", }
 			}
 		},
-		WeaponAmmoModification = 
-		{
-			Name = "WeaponLob",
-			ReduceMaxAmmo = 1,
-			ReportValues = { ReportedAmmoPenalty = "ReduceMaxAmmo"},
-		},
-		ExtractValues =
+		MagnetismSpeedMultiplier = { BaseValue = 2, SourceIsMultiplier = true},
+		AmmoMagnetismMultiplier = 100,
+		ExtractValues = 
 		{
 			{
-				Key = "ReportedAmmoPenalty",
-				ExtractAs = "AmmoPenalty",
-			},
+				Key = "MagnetismSpeedMultiplier",
+				ExtractAs = "TooltipSpeed",
+				Format = "PercentDelta",
+			}
 		}
 	},
 
@@ -82,16 +103,15 @@ OverwriteTableKeys( TraitData, {
 		},
 		AddOutgoingDamageModifiers =
 		{
-			NonExHealthBufferRemoval = 0.50,
+			NonExFlatDamageToArmor = 600,
 			ValidWeapons = { "WeaponLobSpecial" },
-			ReportValues = { ReportedWeaponMultiplier = "NonExHealthBufferRemoval"},
+			ReportValues = { ReportedWeaponMultiplier = "NonExFlatDamageToArmor"},
 		},
 		ExtractValues =
 		{
 			{
 				Key = "ReportedWeaponMultiplier",
 				ExtractAs = "ArmorDamageIncrease",
-				Format = "Percent",
 			},
 		}
 	},
@@ -105,6 +125,10 @@ OverwriteTableKeys( TraitData, {
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponLob", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponLob", },
+				IsNone = {"LobGunAspect", }
 			},
 		},
 		ForceWeaponRefreshOnRemove = "WeaponLob",
@@ -135,18 +159,33 @@ OverwriteTableKeys( TraitData, {
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponLob", },
 			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponLob", },
+				IsNone = {"LobGunAspect", }
+			},
 		},
 		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5,
+			},
+		},
 		AddOutgoingDamageModifiers =
 		{
 			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
 
-			ExMultiplier =
+			ValidWeaponMultiplier =
 			{
 				BaseValue = 1.5,
 				SourceIsMultiplier = true,
 			},
-			ReportValues = { ReportedWeaponMultiplier = "ExMultiplier"},
+			ReportValues = { ReportedWeaponMultiplier = "ValidWeaponMultiplier"},
 		},
 		
 		PropertyChanges = 
@@ -167,33 +206,23 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = 2.5,
 				ChangeType = "Multiply",
 			},
-			{
-				WeaponName = "WeaponSkullImpulse",
-				ProjectileName = "ProjectileSkullImpulseWave",
-				ProjectileProperty = "Fuse",
-				ChangeValue = 2.5,
-				ChangeType = "Multiply",
-			},
-			{
-				WeaponName = "WeaponSkullImpulse",
-				ProjectileName = "ProjectileSkullImpulseWave",
-				ProjectileProperty = "Speed",
-				ChangeValue = 2.5,
-				ChangeType = "Multiply",
-			},
-			{
-				WeaponName = "WeaponSkullImpulse",
-				ProjectileName = "ProjectileSkullImpulse",
-				ProjectileProperty = "SpawnCount",
-				ChangeValue = 1,
-				ChangeType = "Absolute",
-			}
 			]]
-
+			{
+				WeaponName = "WeaponSkullImpulse",
+				WeaponProperty = "SelfVelocity",
+				ChangeValue = 1.25,
+				ChangeType = "Multiply",
+			},
+			{
+				WeaponName = "WeaponSkullImpulse",
+				WeaponProperty = "SelfVelocityCap",
+				ChangeValue = 1.25,
+				ChangeType = "Multiply",
+			},
 			{
 				WeaponName = "WeaponLobSpecial",
-				WeaponProperty = "ChargeRangeMultiplier",
-				ChangeValue = 1.1,
+				WeaponProperty = "BlinkSpeed",
+				ChangeValue = 1.5,
 				ChangeType = "Multiply",
 			},
 		},
@@ -218,6 +247,17 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 40/30,
+			},
+		},
 		OnWeaponFiredFunctions = 
 		{
 			ValidWeapons = { "WeaponLobSpecial" },
@@ -231,20 +271,6 @@ OverwriteTableKeys( TraitData, {
 				},
 			},
 		},
-		--[[
-		AddOutgoingDamageModifiers = 
-		{
-			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
-			NonExBaseDamageAddition = 
-			{ 
-				BaseValue = 45,
-			},
-			ReportValues = 
-			{ 
-				ReportedDamageBonus = "NonExBaseDamageAddition" 
-			},
-		},
-		]]
 		AddOutgoingDamageModifiers = 
 		{
 			ValidWeapons = { "WeaponLobSpecial" },
@@ -283,12 +309,24 @@ OverwriteTableKeys( TraitData, {
 				HasAll = { "WeaponLob", },
 			},
 		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 0.45/0.35,
+			},
+		},
 		PropertyChanges = 
 		{
 			{
 				WeaponName = "WeaponLobSpecial",
 				WeaponProperty = "ChargeTime",
 				ChangeValue = 0.65,
+				SourceIsMultiplier = true,
 				ChangeType = "Multiply",
 			},
 		},
@@ -346,6 +384,21 @@ OverwriteTableKeys( TraitData, {
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponLob", },
 			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponLob", },
+				IsNone = {"LobGunAspect", }
+			},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 20/25,
+			},
 		},
 		PreEquipWeapons = { "WeaponLobChargedPulse" },
 		OnCollectAmmoFunctionName = 
@@ -355,7 +408,7 @@ OverwriteTableKeys( TraitData, {
 			FunctionArgs = 
 			{
 				PulseWeaponName = "WeaponLobChargedPulse",
-				ManaCost = 10,
+				ManaCost = { BaseValue = 25 },
 				ReportValues = { ReportedCost = "ManaCost" }
 			}
 		},
@@ -382,19 +435,43 @@ OverwriteTableKeys( TraitData, {
 				Path = { "CurrentRun", "Hero", "TraitDictionary", },
 				HasNone = { "LobAmmoMagnetismTrait" },
 			},
+
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponLob", },
+				IsNone = {"LobGunAspect", }
+			},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5,
+			},
 		},
 		PreEquipWeapons = { "WeaponLobPulse" },
 		OnTouchdownFunction =
 		{
 			Name = "CheckLobPulse",
 		},
+		PropertyChanges = 
+		{
+			{
+				WeaponName = "WeaponLobPulse",
+				ProjectileProperty = "Damage",
+				BaseValue = 1,
+				ChangeType = "Multiply",
+			},
+		},
+		
+		LobBaseDamageBonusMultiplier = { BaseValue = 0.5 },
 		ExtractValues =
 		{
 			{
-				External = true,
-				BaseType = "WeaponData",
-				BaseName = "WeaponLobPulse",
-				BaseProperty = "BaseDamageBonusMultiplier",
+				Key = "LobBaseDamageBonusMultiplier",
 				ExtractAs = "TooltipDamage",
 				Format = "Percent",
 			},
@@ -411,6 +488,21 @@ OverwriteTableKeys( TraitData, {
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponLob", },
 			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponLob", },
+				IsNone = {"LobGunAspect", }
+			},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 1.5,
+			},
 		},
 		PropertyChanges = 
 		{
@@ -418,18 +510,29 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponLob",
 				ProjectileProperties = 
 				{
-					MaxSize = 3,				-- Size of projectile
-					SizeDuration = 2,
-					MaxBlastModifier = 1.5,		-- Size of explosion
-					BlastModifierDuration = 2,
+					MaxSize = 2,				-- Size of projectile
+					SizeDuration = 0.7,
+					BlastModifierDuration = 0.7,
 				},
 				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLob",
+				ProjectileProperty = "MaxBlastModifier",
+				ChangeValue = 1.75,
+			},
+			{
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobCharged",
+				ProjectileProperty = "MaxBlastModifier",
+				ChangeValue = 1.25,
 			},
 		},
 		AddOutgoingDamageModifiers = 
 		{
 			ValidWeapons = { "WeaponLob" },
-			LifetimeNonExMultiplier = 0.50,
+			LifetimeNonExMultiplier = { BaseValue = 0.50 },
 			ReportValues = 
 			{ 
 				LifetimeMultiplier = "LifetimeNonExMultiplier" 
@@ -457,107 +560,381 @@ OverwriteTableKeys( TraitData, {
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponLob", },
 			},
-		},
-		ChargeStageModifiers = 
-		{
-			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
-			AddWeaponProperties = 
 			{
-				AimLineAnimation = "AuraAimLine",
-				ManualAiming = "null",
-				TargetReticleAnimation = "null",
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponLob", },
+				IsNone = {"LobGunAspect", }
 			},
 		},
-
-		PropertyChanges =
-		{	
-			{
-				WeaponName = "WeaponLob",
-				ProjectileName = "ProjectileLobCharged",
-				ProjectileProperties = 
-				{
-					CheckUnitImpact = true,
-					ObstacleCollisionCheck = "PolygonContainsPoint",
-					Type = "STRAIGHT",
-					SpinRate = 0,
-					Speed = 2300,
-				}
-			},
-		},
-		AddOutgoingDamageModifiers = 
+		RarityLevels =
 		{
-			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
-			ExBaseDamageAddition = 
-			{ 
-				BaseValue = 60,
+			Common =
+			{
+				Multiplier = 1,
 			},
-			ReportValues = 
-			{ 
-				ReportedDamageBonus = "ExBaseDamageAddition" 
+			Legendary = 
+			{
+				Multiplier = 20/15,
 			},
+		},
+		OnWeaponFiredFunctions = 
+		{
+			ValidWeapons = {"WeaponBlink", "WeaponLob", "WeaponLobSpecial"},
+			FunctionName = "CheckDashVolley",
+			FunctionArgs = 
+			{
+				SpeedMultiplier =  4,
+				ReportValues = { ReportedSpeedMultiplier = "SpeedMultiplier"},
+			},
+			ExcludeLinked = true
+		},
+		AddOutgoingDamageModifiers =
+		{
+			ValidWeapons = {"WeaponLob"},
+			DashVolleyBaseDamageAddition = { BaseValue = 15 },
+			ReportValues = { ReportedWeaponMultiplier = "DashVolleyBaseDamageAddition"},
+		},
+		OnProjectileDeathDashVolley = 
+		{
+			Name = "RemoveDashVolley",
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedDamageBonus",
+				Key = "ReportedWeaponMultiplier",
 				ExtractAs = "DamageIncrease",
+				IncludeSigns = true
 			},
-		},
-
-		WeaponDataOverride =
-		{
-			WeaponLob =
 			{
-				Sounds =
-				{
-					ChargeSounds =
-					{
-						{
-							Name = "/SFX/Player Sounds/MelinoeSkullsChargeLoop",
-							StoppedBy = { "ChargeCancel", "Fired" }
-						},
-					},			
-					FireSounds =
-					{
-						{ Name = "/VO/MelinoeEmotes/EmoteAttackingBombLob" },
-					},
-					FireStageSounds = 
-					{
-						{ Name = "/VO/MelinoeEmotes/EmotePowerAttackingStaff" },
-						{ Name = "/SFX/Player Sounds/MelSkullsOmegaAttackExplode" },
-					},
-					ImpactSounds =
-					{
-						Invulnerable = "/SFX/Player Sounds/ZagreusShieldRicochet",
-						Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-						Bone = "/SFX/ArrowMetalBoneSmash",
-						Brick = "/SFX/ArrowMetalStoneClang",
-						Stone = "/SFX/ArrowMetalStoneClang",
-						Organic = "/SFX/GunBulletOrganicImpact",
-						StoneObstacle = "/SFX/ArrowWallHitClankSmall",
-						BrickObstacle = "/SFX/ArrowWallHitClankSmall",
-						MetalObstacle = "/SFX/ArrowWallHitClankSmall",
-						BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
-						Shell = "/SFX/ShellImpact",
-					},
-				},
-
+				Key = "ReportedSpeedMultiplier",
+				ExtractAs = "SpeedIncrease",
+				Format = "PercentDelta"
 			},
 		},
-
 	},
-	
-	LobSpecialAspect = 
+	LobGunOverheatTrait = 
 	{
 		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
-		Icon = "Hammer_Torch_01",
+		Icon = "Hammer_Lob_17",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 4/3,
+			},
+		},
 		GameStateRequirements =
 		{
 			{
 				Path = { "CurrentRun", "Hero", "Weapons", },
 				HasAll = { "WeaponLob", },
 			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponLob", },
+				IsAny = {"LobGunAspect", }
+			},
 		},
-		LobExSpecialRecall = true,
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "LobGunAspect" },
+			},
+		},
+		OverheatDurationIncrease = { BaseValue = 3 },
+		
+		ExtractValues =
+		{
+			{
+				Key = "OverheatDurationIncrease",
+				ExtractAs = "DurationIncrease",
+				IncludeSigns = true
+			},
+			
+			{
+				External  = true,
+				BaseType = "TraitData",
+				BaseName = "LobGunAspect",
+				BaseProperty = { "OnWeaponFiredFunctions", "FunctionArgs", "EffectData", "Duration" }, 
+				ExtractAs = "OverheatDuration",
+				SkipAutoExtract = true,
+			},
+		}
 	},
+	LobGunBounceTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
+		Icon = "Hammer_Lob_18",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 25/15,
+			},
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponLob", },
+				IsAny = {"LobGunAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "LobGunAspect" },
+			},
+		},
+		AddOutgoingDamageModifiers =
+		{
+			ValidWeapons = {"WeaponLob"},
+			JumpMultiplier = { BaseValue = 0.15 },
+			ReportValues = { ReportedWeaponMultiplier = "JumpMultiplier"},
+		},
+		PropertyChanges =
+		{
+			{
+				WeaponName = "WeaponLob",
+				ProjectileProperties = 
+				{
+					NumJumps = 1,
+	  				JumpType = "UNIT_PREFERENCE",
+      				JumpRange = 620,
+      				JumpSpeedMultiplier = 1.1,
+					NoJumpTargetRandomSpread = 90,
+					ReportValues = { Jumps = "NumJumps"},
+				},
+				ExcludeLinked = true
+			},
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedWeaponMultiplier",
+				ExtractAs = "Increase",
+				Format = "Percent"
+			},
+		}
+	},
+	LobGunSpecialBounceTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
+		Icon = "Hammer_Lob_20",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponLob", },
+				IsAny = {"LobGunAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "LobGunAspect" },
+			},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 25/15,
+			},
+		},
+		AddOutgoingDamageModifiersArray =
+		{
+			{
+				ValidWeapons = {"WeaponLobSpecial"},
+				JumpMultiplier = { BaseValue = 0.15 },
+				ReportValues = { ReportedWeaponMultiplier = "JumpMultiplier"},
+			},
+			{
+				ValidWeapons = {"WeaponLobSpecial"},
+				ValidProjectiles = {"ProjectileLobGunRift", "ProjectileThrowCharged"},
+				LobGunSpecialHitMultiplier = { BaseValue = 0.15 },
+			},
+		},
+		OnProjectileCreationFunction = 
+		{
+			ValidProjectiles = { "ProjectileLobGunRift" },
+			Name = "OnGunRiftCreated",
+		},
+		OnProjectileDeathFunction = 
+		{
+			ValidProjectiles = { "ProjectileLobGunRift" },
+			Name = "OnGunRiftDeath",
+		},
+		OnEnemyDamagedAction = 
+		{
+			ValidProjectiles = {"ProjectileLobGunRift", "ProjectileThrowCharged"},
+			FunctionName = "OnGunRiftDamage",
+		},
+		PropertyChanges =
+		{
+			{
+				WeaponName = "WeaponLobSpecial",
+				ProjectileProperties = 
+				{
+					JumpSpeedMultiplier = 1.1,
+				},
+				ExcludeLinked = true
+			},
+			{
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileLobSpecialBounce",
+				ProjectileProperty = "Speed",
+				ChangeValue = 300,
+				ChangeType = "Add",
+			},
+			{
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileLobGunRift",
+				ProjectileProperty = "Speed",
+				ChangeValue = 200,
+				ChangeType = "Add",
+			}
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedWeaponMultiplier",
+				ExtractAs = "Increase",
+				Format = "Percent"
+			},
+		}
+	},
+	LobGunAttackRangeTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
+		Icon = "Hammer_Lob_21",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponLob", },
+				IsAny = {"LobGunAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "LobGunAspect" },
+			},
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Legendary = 
+			{
+				Multiplier = 0.35/0.25,
+			},
+		},
+		AddOutgoingDamageModifiers =
+		{
+			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
+			ValidWeaponMultiplier = { BaseValue = 1.25, SourceIsMultiplier = true},
+			ReportValues = { ReportedWeaponMultiplier = "ValidWeaponMultiplier"},
+		},
+		PropertyChanges =
+		{
+			{
+				WeaponNames = WeaponSets.HeroPrimaryWeapons,
+				ProjectileName = "ProjectileLobBullet",
+				ProjectileProperty = "Range",
+				ChangeValue = 200,
+				ChangeType = "Add",
+			},
+			{
+				WeaponNames = WeaponSets.HeroPrimaryWeapons,
+				ProjectileName = "ProjectileLobBullet",
+				WeaponProperty = "AutoLockRange",
+				ChangeValue = 130,
+				ChangeType = "Add",
+			},
+			{
+				WeaponNames = WeaponSets.HeroPrimaryWeapons,
+				ProjectileName = "ProjectileLobOverheat",
+				ProjectileProperty = "Fuse",
+				ChangeValue = 0.1,
+				ChangeType = "Add",
+			},
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedWeaponMultiplier",
+				ExtractAs = "Increase",
+				Format = "PercentDelta"
+			},
+		}
+	},
+	LobGunAttackDoublerTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
+		Icon = "Hammer_Lob_22",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+			{
+				Path = { "GameState", "LastWeaponUpgradeName", "WeaponLob", },
+				IsAny = {"LobGunAspect", }
+			},
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "LobGunAspect" },
+			},
+		},
+		ReportedCountIncrease = 2,
+		ChargeStageModifiersArray = 
+		{
+			{
+				ValidTrait = "DoubleExManaBoon",
+				ValidWeapons = WeaponSets.HeroPrimaryWeapons,
+				ExWeapons = true,
+				AddWeaponProperties = 
+				{
+					NumProjectileWaves = 4,
+					ProjectileWaveInterval = 0.15,
+				},
+			},
+			{
+				FalseTraitName = "DoubleExManaBoon",
+				ValidWeapons = WeaponSets.HeroPrimaryWeapons,
+				ExWeapons = true,
+				AddWeaponProperties = 
+				{
+					NumProjectileWaves = 3,
+					ProjectileWaveInterval = 0.15
+				},
+			},
+		}
+	}
 })

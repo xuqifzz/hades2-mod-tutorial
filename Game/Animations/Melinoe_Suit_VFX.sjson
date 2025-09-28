@@ -23,6 +23,7 @@
 		RandomFlipHorizontal = true
 		LocationFromOwner = "Maintain"
 		LocationZFromOwner = "Maintain"
+		//LocationZFromOwnerAnimation = "Maintain"
 		Sound = "/SFX/Player Sounds/MelinoeSuitOmegaSpecialLockOn"
 	}
 	{
@@ -645,6 +646,8 @@
 		VisualFxIntervalMin = 0.05
 		VisualFxIntervalMax = 0.06
 		VisualFxUse3DAngle = true
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
 		Duration = 0.4
 		DieWithOwner = true
 	}
@@ -873,26 +876,35 @@
 
 	{
 		Name = "SuitRocketExplosion"
-		FilePath = "Fx\FireballExplosion\FireballExplosion"
-		NumFrames = 39
+		FilePath = "Fx\SuitRocketExplosion\SuitRocketExplosion"
+		NumFrames = 40
 		Material = "Unlit"
 		AngleFromOwner = "Take"
-		Angle = 90
+		// Angle = 90
+		AngleMin = 85
+		AngleMax = 95
 		LocationZFromOwner = "Take"
 		LocationFromOwner = "Ignore"
 		ScaleFromOwner = "Ignore"
 		ColorFromOwner = "Ignore"
 		SortMode = "FromParent"
 		SortFromOwner = "Maintain"
-		Scale = 0.5
+		Scale = 0.75
 		ScaleMin = 0.8
 		ScaleMax = 1.2
-		RandomPlaySpeedMin = 50
-		RandomPlaySpeedMax = 60
+		RandomFlipHorizontal = true
+		StartScaleX = 0.8
+		EndScaleX = 1.0
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 80
+		RadialOffsetMin = 0
+		RadialOffsetMax = 20
 		VisualFx = "SuitRocketExplosionSparks"
 		VisualFxCap = 7
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.02
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
 		CreateAnimations = [
 			{ Name = "SuitRocketExplosionB" }
 			{ Name = "SuitRocketExplosionGlow" }
@@ -930,18 +942,20 @@
 		Gravity = 300
 		ScaleMin = 0.4
 		ScaleMax = 1.0
-		Scale = 1.5
+		Scale = 1.0
 		GroupName = "FX_Standing_Add"
-		StartScale = 1
-		EndScale = 0
+		StartScaleY = 1
+		EndScaleY = 0
 		StartScaleX = 3
 		EndScaleX = 1
-		RotateWithGravity = true
+		//RotateWithGravity = true
 		LocationZFromOwner = "Take"
 		LocationFromOwner = "Ignore"
 		AngleFromOwner = "Take"
 		ScaleFromOwner = "Ignore"
 		OffsetZ = -80
+		EaseIn = 0.9
+		EaseOut = 1.0
 	}
 
 	{
@@ -962,15 +976,18 @@
 		FilePath = "Fx\SmallExplosion\SmallExplosion"
 		NumFrames = 40
 		RandomPlaySpeedMin = 70
-		RandomPlaySpeedMax = 80
+		RandomPlaySpeedMax = 120
+		Scale = 0.45
+		StartScaleX = 0.3
+		EndScaleX = 1
 		ClearCreateAnimations = true
-		GroupName = "FX_Standing_Add"
+		//GroupName = "FX_Standing_Add"
 	}
 
 	{
 		Name = "SuitRocketExplosionGlow"
 		FilePath = "Particles\particle_glow"
-		Duration = 0.8
+		Duration = 0.4
 		EaseIn = 0.99
 		EaseOut = 1.0
 		StartAlpha = 1
@@ -1137,6 +1154,263 @@
 		OriginY = 128
 		Scale = 0.6
 	}
+
+	// Shiva Grenade
+	{
+		Name = "GrenadeExplosionBase"
+		FilePath = "Fx\LobExplosionDark\LobExplosionDark"
+		NumFrames = 30
+		Material = "Unlit"
+		StartRed = 0.5
+		StartGreen = 0.1
+		StartBlue = 1.0
+		EndRed = 0.2
+		EndGreen = 0.05
+		EndBlue = 0.8
+		UseOwnAngle = false
+		AddColor = false
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		VisualFx = "GrenadeExplosionParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.011
+		VisualFxCap = 8
+		ScaleRadius = 250
+		LocationZFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "GrenadeExplosionBrightBase" }
+			{ Name = "GrenadeExplosionGlowBase" }
+			{ Name = "GrenadeExplosionSmoke" }
+			{ Name = "GrenadeExplosionSmoke" }
+			{ Name = "GrenadeExplosionFlare" }
+			{ Name = "QuickFlashRed" }
+			{ Name = "GrenadeExplosionCrater" }
+			{ Name = "GrenadeExplosionScorchMark" }
+		]
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+	{
+		Name = "GrenadeExplosionBrightBase"
+		InheritFrom = "GrenadeExplosionBase"
+		VisualFx = null
+		StartRed = 1.0
+		StartGreen = 0.5
+		StartBlue = 0.2
+		EndRed = 0.5
+		EndGreen = 0.0
+		EndBlue = 1.0
+		ClearCreateAnimations = true
+		FilePath = "Fx\LobExplosionBright\LobExplosionBright"
+		NumFrames = 25
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		ClearSlides = true
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+	{
+		Name = "GrenadeExplosionGlowBase"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		ScaleFromOwner = "Ignore"
+		StartRed = 1.0
+		StartGreen = 0.5
+		StartBlue = 0.2
+		EndRed = 0.5
+		EndGreen = 0.0
+		EndBlue = 1.0
+		Duration = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		PostRotateScaleY = 0.5
+		Scale = 5
+	}
+	{
+		Name = "GrenadeExplosionParticles"
+		FilePath = "Particles\particle_ember_02_glow_add"
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		AddColor = true
+		StartRed = 1.0
+		StartGreen = 0.5
+		StartBlue = 0.2
+		EndRed = 0.5
+		EndGreen = 0.0
+		EndBlue = 1.0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		AngleFromOwner = "Ignore"
+		AngleMin = -30
+		AngleMax = 210
+		VelocityMin = 100
+		VelocityMax = 800
+		Acceleration = -1200
+		RandomDurationMin = 0.6
+		RandomDurationMax = 0.9
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		StartScale = 1
+		EndScale = 0
+		ScaleMin = 0.3
+		ScaleMax = 0.8
+		StartScaleX = 5
+		EndScaleX = 1
+	}
+	{
+		Name = "GrenadeExplosionSmoke"
+		Random =
+		[
+			{ Name = "GrenadeExplosionSmokeA" }
+			{ Name = "GrenadeExplosionSmokeB" }
+		]
+	}
+	{
+		Name = "GrenadeExplosionSmokeA"
+		FilePath = "Fx\LobExplosionBright\LobExplosionSmokeA"
+		StartRed = 1.0
+		StartGreen = 0.5
+		StartBlue = 0.2
+		EndRed = 0.5
+		EndGreen = 0.0
+		EndBlue = 1.0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Material = "Unlit"
+		RandomDurationMin = 1.5
+		RandomDurationMax = 2.5
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 1
+		EndScale = 1.3
+		Scale = 1.5
+		OffsetZ = 60
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+	}
+	{
+		Name = "GrenadeExplosionSmokeB"
+		InheritFrom = "GrenadeExplosionSmokeA"
+		FilePath = "Fx\LobExplosionBright\LobExplosionSmokeB"
+	}
+	{
+		Name = "GrenadeExplosionFlare"
+		FilePath = "Particles\particle_castFlare"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		Duration = 0.1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		StartScale = 2
+		EndScale = 0
+		AddColor = true
+		StartRed = 1.0
+		StartGreen = 0.5
+		StartBlue = 0.2
+		EndRed = 0.5
+		EndGreen = 0.0
+		EndBlue = 1.0
+		ScaleFromOwner = "Ignore"
+		OriginX = 180
+		OriginY = 240
+	}
+	{
+		Name = "GrenadeExplosionCrater"
+		FilePath = "Fx\LobExplosionCrater\LobExplosionCrater"
+		NumFrames = 3
+		RandomFlipHorizontal = true
+		PlaySpeed = 0.0000001
+		RandomStartFrame = true
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		Scale = 0.8
+		RandomDurationMin = 6
+		RandomDurationMax = 8
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.001
+		GroupName = "FX_Terrain"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+	}
+	{
+		Name = "GrenadeExplosionScorchMark"
+		FilePath = "Fx\LobExplosionBright\LobExplosionScorchMark"
+		PostRotateScaleY = 0.5
+		RandomRotation = true
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		Scale = 0.8
+		RandomDurationMin = 6
+		RandomDurationMax = 8
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.001
+		GroupName = "FX_Terrain"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+	}
+
 
 
 	// Suit Deflect
@@ -1501,7 +1775,7 @@
 		EndBlue = 0
 		EaseIn = 0.99
 		EaseOut = 1.0
-		AngleFromOwner = "Take"
+		AngleFromOwner = "Maintain"
 		GroupName = "FX_Standing_Add"
 		RandomFlipVertical = true
 		LocationZFromOwner = "Take"
@@ -1518,6 +1792,7 @@
 			{ Name = "SuitPunchLargeDisplacement" }
 			{ Name = "SuitPunchLargeGlow_Base" }
 			{ Name = "SuitPunchFlareLarge_Base" }
+			{ Name = "SuitPunchFlareSpikeLarge_Base"}
 			{ Name = "SuitPunchLargeParticles" }
 			{ Name = "SuitPunchLargeParticles" }
 			{ Name = "SuitPunchLargeParticles" }
@@ -1555,6 +1830,15 @@
 		PostRotateScaleY = 0.6
 		LocationZFromOwner = "Ignore"
 		LocationFromOwner = "Ignore"
+	}
+
+
+	{
+		Name = "SuitPunchFlareSpikeLarge_Base"
+		InheritFrom = "SuitPunchFlareSpike_Base"
+		Duration = 0.33
+		Scale = 2
+		OffsetZ = 60
 	}
 
 	{
@@ -1607,7 +1891,7 @@
 		EndGreen = 0.5
 		EndBlue = 0
 		Scale = 1
-		Duration = 0.33
+		Duration = 0.15
 		LocationZFromOwner = "Take"
 		LocationFromOwner = "Ignore"
 		AngleFromOwner = "Take"
@@ -1702,7 +1986,6 @@
 		LocationZFromOwner = "Ignore"
 	}
 
-
 	{
 		Name = "SuitNovaBurnFlare"
 		FilePath = "Particles\particle_flareSpike"
@@ -1731,6 +2014,42 @@
 		EndBlue = 0
 	}
 
+	{
+		Name = "SuitNovaBurnRapid"
+		InheritFrom = "SuitNovaBurn"
+		RandomFlipHorizontal = true
+		ClearCreateAnimations = true
+		GroupName = "FX_Terrain_Add"
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		NumFrames = 30
+		StartFrame = 31
+		MultiplicativeScaleRadius = true
+		ScaleMin = 0.9
+		ScaleMax = 1.1
+		StartScale = 1
+		EndScale = 1.1
+		CreateAnimations = [
+			{ Name = "SuitNovaBurnRapidDisplacement" }
+		]
+	}
+
+	{
+		Name = "SuitNovaBurnRapidDisplacement"
+		FilePath = "Fx\RadialDisplacement\RadialDisplacement"
+		NumFrames = 20
+		StartFrame = 40
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Displacement"
+		Scale = 2
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+	}
 
 	// Suit x Aphrodite
 
@@ -1847,6 +2166,7 @@
 			{ Name = "SuitPunchLargeDisplacement" }
 			{ Name = "SuitPunchLargeGlow_Aphrodite" }
 			{ Name = "SuitPunchFlareLarge_Aphrodite" }
+			{ Name = "SuitPunchFlareSpikeLarge_Aphrodite" }
 			{ Name = "SuitPunchLargeParticles_Aphrodite" }
 			{ Name = "SuitPunchLargeParticles_Aphrodite" }
 			{ Name = "SuitPunchLargeParticles_Aphrodite" }
@@ -1864,6 +2184,13 @@
 			{ Name = "SuitPunchLarge_AphroditeFxA" }
 			{ Name = "SuitPunchLarge_AphroditeFxB" }
 		]
+	}
+
+	{
+		Name = "SuitPunchFlareSpikeLarge_Aphrodite"
+		InheritFrom = "SuitPunchFlareSpike_Aphrodite"
+		Scale = 2
+		OffsetZ = 60
 	}
 
 	{
@@ -2124,7 +2451,7 @@
 		ClearCreateAnimations = true
 		CreateAnimations = [
 			{ Name = "SuitRocketTrailFx_Aphrodite" }
-			{ Name = "SuitRocketTrailFx_Aphrodite" }
+			//{ Name = "SuitRocketTrailFx_Aphrodite" }
 		]
 	}
 
@@ -2150,10 +2477,10 @@
 		LocationZFromOwner = "Take"
 		Sound = "/SFX/Player Sounds/AphroditeLoveDashHeart"
 		CreateAnimations = [
-			{ Name = "SuitRocketExplosionB_Aphrodite" }
+			//{ Name = "SuitRocketExplosionB_Aphrodite" }
 			{ Name = "SuitRocketExplosionGlow_Aphrodite" }
 			{ Name = "SuitRocketExplosionFx_Aphrodite" }
-			{ Name = "SuitRocketExplosionFxB_Aphrodite" }
+			//{ Name = "SuitRocketExplosionFxB_Aphrodite" }
 		]
 	}
 
@@ -2166,14 +2493,14 @@
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
 		ColorFromOwner = "Ignore"
-		Scale = 1.0
+		Scale = 0.9
 		OffsetZ = 0
 		OverlayVfx = true
 		SortMode = "FromParent"
 		SortFromOwner = "Take"
 		RandomFlipHorizontal = true
-		RandomPlaySpeedMin = 60
-		RandomPlaySpeedMax = 70
+		RandomPlaySpeedMin = 120
+		RandomPlaySpeedMax = 150
 		ScaleMin = 1
 		ScaleMax = 1.1
 		LocationZFromOwner = "Take"
@@ -2191,7 +2518,10 @@
 		ScaleMin = 0.5
 		ScaleMax = 1.0
 		RandomFlipHorizontal = true
-		UseOwnAngle = false
+		//UseOwnAngle = false
+		IsometricSkew = "X"
+		RadialOffsetMin = -20
+		RadialOffsetMax = 20
 	}
 
 	{
@@ -2229,14 +2559,16 @@
 		Name = "SuitRocketExplosionB_Aphrodite"
 		InheritFrom = "SuitRocketExplosion_Aphrodite"
 		FilePath = "Fx\SmallExplosion\SmallExplosion"
-		Hue = -0.16
-		Saturation = -0.4
+		Hue = -0.12
+		Saturation = -0.2
 		NumFrames = 40
 		RandomPlaySpeedMin = 70
-		RandomPlaySpeedMax = 80
+		RandomPlaySpeedMax = 120
 		Sound = "null"
+		Scale = 0.45
+		StartScaleX = 0.3
+		EndScaleX = 1
 		ClearCreateAnimations = true
-		GroupName = "FX_Standing_Add"
 	}
 
 	{
@@ -2278,12 +2610,12 @@
 		LocationFromOwner = "Ignore"
 		AngleFromOwner = "Take"
 		Scale = 0.5
-		RandomPlaySpeedMin = 50
-		RandomPlaySpeedMax = 70
+		RandomPlaySpeedMin = 90
+		RandomPlaySpeedMax = 120
 		ScaleMin = 0.5
 		ScaleMax = 1.0
 		StartScaleY = 0.6
-		EndScaleY = 1.4
+		EndScaleY = 1.7
 		EaseIn = 0.9
 		EaseOut = 1.0
 	}
@@ -2415,6 +2747,20 @@
 	}
 
 	{
+		Name = "SuitNovaBurnRapid_Aphrodite"
+		InheritFrom = "SuitNovaBurnRapid"
+		Saturation = -0.35
+		Hue = -0.2
+		VisualFxIntervalMax = 0.011
+		VisualFxIntervalMin = 0.01
+		VisualFx = "AphroditeHeartDashParticles"
+		VisualFxCap = 3
+		CreateAnimations = [
+			{ Name = "SuitNovaBurnRapidDisplacement" }
+		]
+	}
+
+	{
 		Name = "SuitNovaBurnGlow_Aphrodite"
 		InheritFrom = "SuitNovaBurnGlow"
 		StartRed = 1.0
@@ -2467,6 +2813,168 @@
 		EndRed = 0.99
 		EndGreen = 0.05
 		EndBlue = 0.99
+	}
+
+	{
+		Name = "GrenadeExplosion_Aphrodite"
+		InheritFrom = "GrenadeExplosionBase"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+		VisualFx = "GrenadeExplosionParticles_Aphrodite"
+		VisualFxCap = 16
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/AphroditeLoveShotgunBlast"
+		CreateAnimations =
+		[
+			{ Name = "GrenadeExplosionBright_Aphrodite" }
+			{ Name = "GrenadeExplosionGlow_Aphrodite" }
+			{ Name = "GrenadeExplosionSmoke_Aphrodite" }
+			{ Name = "GrenadeExplosionSmoke_Aphrodite" }
+			{ Name = "GrenadeExplosionFlare_Aphrodite" }
+			{ Name = "QuickFlashPink" }
+			{ Name = "GrenadeExplosionCrater" }
+			{ Name = "GrenadeExplosionScorchMark_Aphrodite" }
+		]
+	}
+	{
+		Name = "GrenadeExplosionScorchMark_Aphrodite"
+		FilePath = "Fx\Aphrodite\AphroditeScorchMark"
+		PostRotateScaleY = 0.5
+		RandomRotation = false
+		AngleMin = -20
+		AngleMax = 20
+		RandomFlipHorizontal = true
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		Scale = 0.9
+		RandomDurationMin = 6
+		RandomDurationMax = 8
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.001
+		GroupName = "FX_Terrain"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+	}
+	{
+		Name = "GrenadeExplosionBright_Aphrodite"
+		InheritFrom = "GrenadeExplosionBrightBase"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}
+	{
+		Name = "GrenadeExplosionGlow_Aphrodite"
+		InheritFrom = "GrenadeExplosionGlowBase"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}
+	{
+		Name = "GrenadeExplosionFlare_Aphrodite"
+		InheritFrom = "GrenadeExplosionFlare"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}
+	{
+		Name = "GrenadeExplosionParticles_Aphrodite"
+		Random =
+		[
+			{ Name = "GrenadeExplosionSparkles_Aphrodite" }
+			{ Name = "GrenadeExplosionHearts" }
+		]
+	}
+	{
+		Name = "GrenadeExplosionHearts"
+		FilePath = "Fx\Aphrodite\AphroditeAxeHeartParticle\AphroditeAxeHeartParticle"
+		NumFrames = 17
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 300
+		RadialOffsetMax = 300
+		RadialOffsetScaleY = 0.5
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		VelocityMin = 400 
+		VelocityMax = 500
+		Acceleration = -1200
+		ScaleFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Standing_Add"
+		StartScaleX = 1
+		EndScaleX = 0.5
+		DieWithOwner = false
+	}
+	{
+		Name = "GrenadeExplosionSparkles_Aphrodite"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		Material = "Unlit"
+		AddColor = false
+		GroupName = "FX_Standing_Add"
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 80
+		RadialOffsetMax = 100
+		RadialOffsetScaleRadius = 100
+		RadialOffsetScaleY = 0.5
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		VelocityMin = 300 
+		VelocityMax = 600
+		Acceleration = -1200
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.2
+		ScaleFromOwner = "Ignore"
+		StartScale = 1
+		EndScale = 0
+		UseOwnAngle = false
+		DieWithOwner = false
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+	{
+		Name = "GrenadeExplosionSmoke_Aphrodite"
+		Random =
+		[
+			{ Name = "GrenadeExplosionSmokeA_Aphrodite" }
+			{ Name = "GrenadeExplosionSmokeB_Aphrodite" }
+		]
+	}
+	{
+		Name = "GrenadeExplosionSmokeA_Aphrodite"
+		InheritFrom = "GrenadeExplosionSmokeA"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}
+	{
+		Name = "GrenadeExplosionSmokeB_Aphrodite"
+		InheritFrom = "GrenadeExplosionSmokeA_Aphrodite"
+		FilePath = "Fx\LobExplosionBright\LobExplosionSmokeB"
 	}
 
 
@@ -2629,6 +3137,7 @@
 			{ Name = "SuitPunchLargeDisplacement" }
 			{ Name = "SuitPunchLargeGlow_Apollo" }
 			{ Name = "SuitPunchFlareLarge_Apollo" }
+			{ Name = "SuitPunchFlareSpikeLarge_Apollo" }
 			{ Name = "SuitPunchLargeParticles_Apollo" }
 			{ Name = "SuitPunchLargeParticles_Apollo" }
 			{ Name = "SuitPunchLargeParticles_Apollo" }
@@ -2666,7 +3175,11 @@
 		Angle = 90
 	}
 
-
+	{
+		Name = "SuitPunchFlareSpikeLarge_Apollo"
+		InheritFrom = "SuitPunchFlareSpike_Apollo"
+		Scale = 2
+	}
 
 	{
 		Name = "SuitPunchLargeGlow_Apollo"
@@ -2910,15 +3423,16 @@
 		InheritFrom = "SuitRocketExplosion"
 		Hue = 0
 		Saturation = -0.4
+		ScaleRadius = 200
 		VisualFx = "SuitRocketExplosionSparks_Apollo"
 		ClearCreateAnimations = true
 		Sound = "/SFX/Player Sounds/ApolloSwipeSFX"
 		LocationZFromOwner = "Take"
 		CreateAnimations = [
-			{ Name = "SuitRocketExplosionB_Apollo" }
+			// { Name = "SuitRocketExplosionB_Apollo" }
 			{ Name = "SuitRocketExplosionGlow_Apollo" }
 			{ Name = "SuitRocketExplosionFx_Apollo" }
-			{ Name = "QuickFlashYellow" }
+			// { Name = "QuickFlashYellow" }
 		]
 	}
 
@@ -2931,7 +3445,8 @@
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
 		ColorFromOwner = "Ignore"
-		Scale = 1.25
+		Scale = 0.6
+		ScaleRadius = 150
 		OffsetZ = 0
 		OverlayVfx = true
 		SortMode = "FromParent"
@@ -3171,6 +3686,22 @@
 	}
 
 	{
+		Name = "SuitNovaBurnRapid_Apollo"
+		InheritFrom = "SuitNovaBurnRapid"
+		Saturation = -0.5
+		VisualFx = "ApolloDotsRadial"
+		VisualFxCap = 3
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		Scale = 0.5
+		CreateAnimations = [
+			{ Name = "SuitNovaBurnRapidDisplacement" }
+			{ Name = "ApolloAoERingD_SuitNovaBurn" }
+			{ Name = "ApolloAoERingC_SuitNovaBurn" }
+		]
+	}
+
+	{
 		Name = "SuitNovaBurnGlow_Apollo"
 		InheritFrom = "SuitNovaBurnGlow"
 		StartRed = 1.0
@@ -3225,6 +3756,133 @@
 		EndBlue = 0.1
 	}
 
+	{
+		Name = "GrenadeExplosion_Apollo"
+		InheritFrom = "GrenadeExplosionBase"
+		StartRed = 1.0
+		StartGreen = 0.8
+		StartBlue = 0.7
+		EndRed = 0.999
+		EndGreen = 0.6
+		EndBlue = 0.4
+		VisualFx = "GrenadeExplosionParticles_Apollo"
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/ApolloSpecialDetonateSFX"
+		CreateAnimations =
+		[
+			{ Name = "GrenadeExplosionBright_Apollo" }
+			{ Name = "GrenadeExplosionGlow_Apollo" }
+			{ Name = "GrenadeExplosionSmoke_Apollo" }
+			{ Name = "GrenadeExplosionSmoke_Apollo" }
+			{ Name = "GrenadeExplosionFlare_Apollo" }
+			{ Name = "QuickFlashYellow" }
+			{ Name = "GrenadeExplosionCrater" }
+			{ Name = "GrenadeExplosionScorchMark" }
+			{ Name = "GrenadeExplosionApolloHaloA"}
+			{ Name = "GrenadeExplosionApolloHaloB"}
+			{ Name = "ApolloGroundFlare" }
+			{ Name = "ApolloDotsRadialLonger" }
+			{ Name = "ApolloDotsRadialLonger" }
+			{ Name = "ApolloDotsRadialLonger" }
+			{ Name = "ApolloDotsRadialLonger" }
+			{ Name = "ApolloDotsRadialLonger" }				
+		]
+	}
+
+	{
+		Name = "GrenadeExplosionApolloHaloA"
+		FilePath = "Particles\particle_spectral_shimmer_02"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		Duration = 0.66
+		EaseIn = 0.999
+		EaseOut = 1.0
+		AngleFromOwner = "Ignore"
+		Scale = 1.5
+		StartScale = 1.0
+		EndScale = 1.25
+		StartAlpha = 1
+		EndAlpha = 0
+		Saturation = -0.15
+	}		
+
+	{
+		Name = "GrenadeExplosionApolloHaloB"
+		InheritFrom = "GrenadeExplosionApolloHaloA"
+		FilePath = "Particles\particle_spectral_shimmer_03"
+		Angle = 90
+		StartScale = 0.75
+	}
+
+	{
+		Name = "GrenadeExplosionBright_Apollo"
+		InheritFrom = "GrenadeExplosionBrightBase"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.7
+		EndRed = 0.999
+		EndGreen = 0.8
+		EndBlue = 0.4
+	}
+
+	{
+		Name = "GrenadeExplosionGlow_Apollo"
+		InheritFrom = "GrenadeExplosionGlowBase"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.7
+		EndRed = 0.999
+		EndGreen = 0.8
+		EndBlue = 0.4
+	}
+
+	{
+		Name = "GrenadeExplosionFlare_Apollo"
+		InheritFrom = "GrenadeExplosionFlare"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.7
+		EndRed = 0.999
+		EndGreen = 0.8
+		EndBlue = 0.4
+	}
+
+	{
+		Name = "GrenadeExplosionParticles_Apollo"
+		InheritFrom = "GrenadeExplosionParticles"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.7
+		EndRed = 0.999
+		EndGreen = 0.8
+		EndBlue = 0.4
+	}
+
+	{
+		Name = "GrenadeExplosionSmoke_Apollo"
+		Random =
+		[
+			{ Name = "GrenadeExplosionSmokeA_Apollo" }
+			{ Name = "GrenadeExplosionSmokeB_Apollo" }
+		]
+	}
+
+	{
+		Name = "GrenadeExplosionSmokeA_Apollo"
+		InheritFrom = "GrenadeExplosionSmokeA"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.5
+		EndBlue = 0.2
+	}
+
+	{
+		Name = "GrenadeExplosionSmokeB_Apollo"
+		InheritFrom = "GrenadeExplosionSmokeA_Apollo"
+		FilePath = "Fx\LobExplosionBright\LobExplosionSmokeB"
+	}
 
 	// Suit x Demeter
 
@@ -3239,12 +3897,12 @@
 	{
 		Name = "SuitPunchA_Demeter"
 		InheritFrom = "SuitPunchA_Base"
-		StartRed = 0.5
-		StartGreen = 0.7
-		StartBlue = 1
-		EndRed = 0.7
-		EndGreen = 0.5
-		EndBlue = 0.999
+		StartRed = 0.25
+		StartGreen = 0.35
+		StartBlue = 0.5
+		EndRed = 0.35
+		EndGreen = 0.25
+		EndBlue = 0.499
 		ClearCreateAnimations = true
 		Sound = "/SFX/Player Sounds/DemeterColdSwipe1"
 		CreateAnimations = [
@@ -3287,34 +3945,34 @@
 	{
 		Name = "SuitPunchGlow_Demeter"
 		InheritFrom = "SuitPunchGlow_Base"
-		StartRed = 0.5
-		StartGreen = 0.7
-		StartBlue = 1
-		EndRed = 0.7
-		EndGreen = 0.5
-		EndBlue = 0.999
+		StartRed = 0.25
+		StartGreen = 0.35
+		StartBlue = 0.5
+		EndRed = 0.35
+		EndGreen = 0.25
+		EndBlue = 0.499
 	}
 
 	{
 		Name = "SuitPunchFlareSpike_Demeter"
 		InheritFrom = "SuitPunchFlareSpike_Base"
-		StartRed = 0.5
-		StartGreen = 0.7
-		StartBlue = 1
-		EndRed = 0.7
-		EndGreen = 0.5
-		EndBlue = 0.999
+		StartRed = 0.25
+		StartGreen = 0.35
+		StartBlue = 0.5
+		EndRed = 0.35
+		EndGreen = 0.25
+		EndBlue = 0.499
 	}
 
 	{
 		Name = "SuitPunchFlare_L_Demeter"
 		InheritFrom = "SuitPunchFlare_L"
-		StartRed = 0.5
-		StartGreen = 0.7
-		StartBlue = 1
-		EndRed = 0.7
-		EndGreen = 0.5
-		EndBlue = 0.999
+		StartRed = 0.25
+		StartGreen = 0.35
+		StartBlue = 0.5
+		EndRed = 0.35
+		EndGreen = 0.25
+		EndBlue = 0.499
 	}
 
 	{
@@ -3327,18 +3985,19 @@
 	{
 		Name = "SuitPunchLarge_Demeter"
 		InheritFrom = "SuitPunchLarge_Base"
-		StartRed = 0.5
-		StartGreen = 0.7
-		StartBlue = 1
-		EndRed = 0.7
-		EndGreen = 0.5
-		EndBlue = 0.999
+		StartRed = 0.25
+		StartGreen = 0.35
+		StartBlue = 0.5
+		EndRed = 0.35
+		EndGreen = 0.25
+		EndBlue = 0.499
 		ClearCreateAnimations = true
 		CreateAnimations = [
 			{ Name = "SuitPunchLargeDark" }
 			{ Name = "SuitPunchLargeDisplacement" }
 			{ Name = "SuitPunchLargeGlow_Demeter" }
 			{ Name = "SuitPunchFlareLarge_Demeter" }
+			{ Name = "SuitPunchFlareSpikeLarge_Demeter" }
 			{ Name = "SuitPunchLargeParticles_Demeter" }
 			{ Name = "SuitPunchLargeParticles_Demeter" }
 			{ Name = "SuitPunchLargeParticles_Demeter" }
@@ -3358,26 +4017,32 @@
 	{
 		Name = "SuitPunchLargeGlow_Demeter"
 		InheritFrom = "SuitPunchLargeGlow_Base"
-		StartRed = 0.5
-		StartGreen = 0.7
-		StartBlue = 1
-		EndRed = 0.7
-		EndGreen = 0.5
-		EndBlue = 0.999
+		StartRed = 0.25
+		StartGreen = 0.35
+		StartBlue = 0.5
+		EndRed = 0.35
+		EndGreen = 0.25
+		EndBlue = 0.499
 	}
 
 	{
 		Name = "SuitPunchFlareLarge_Demeter"
 		InheritFrom = "SuitPunchFlareLarge_Base"
-		StartRed = 0.5
-		StartGreen = 0.7
-		StartBlue = 1
-		EndRed = 0.7
-		EndGreen = 0.5
-		EndBlue = 0.999
+		StartRed = 0.25
+		StartGreen = 0.35
+		StartBlue = 0.5
+		EndRed = 0.35
+		EndGreen = 0.25
+		EndBlue = 0.499
 		Sound = "/SFX/Player Sounds/DemeterColdNova"
 	}
 
+	{
+		Name = "SuitPunchFlareSpikeLarge_Demeter"
+		InheritFrom = "SuitPunchFlareSpike_Demeter"
+		Scale = 2
+		OffsetZ = 90
+	}
 
 	{ 
 		Name = "SuitPunchLargeParticles_Demeter"
@@ -3431,12 +4096,12 @@
 	{
 		Name = "SuitDeflect_Demeter"
 		InheritFrom = "SuitDeflectBase"
-		StartRed = 0.5
-		StartGreen = 0.7
-		StartBlue = 1
-		EndRed = 0.7
-		EndGreen = 0.5
-		EndBlue = 0.999
+		StartRed = 0.25
+		StartGreen = 0.35
+		StartBlue = 0.5
+		EndRed = 0.35
+		EndGreen = 0.25
+		EndBlue = 0.499
 		ChainTo = "SuitDeflect_DemeterFade"
 		ChildAnimation = "SuitDeflect_DemeterGlow"
 	}
@@ -3444,12 +4109,12 @@
 	{
 		Name = "SuitDeflect_DemeterGlow"
 		InheritFrom = "SuitDeflectBaseGlow"
-		StartRed = 0.5
-		StartGreen = 0.7
-		StartBlue = 1
-		EndRed = 0.7
-		EndGreen = 0.5
-		EndBlue = 0.999
+		StartRed = 0.25
+		StartGreen = 0.35
+		StartBlue = 0.5
+		EndRed = 0.35
+		EndGreen = 0.25
+		EndBlue = 0.499
 	}
 
 	{
@@ -3557,18 +4222,18 @@
 	{ 
 		Name = "SuitRocketGlow_Demeter"
 		InheritFrom = "SuitRocketGlow"
-		Red = 0.6
-		Green = 0.7
-		Blue = 1.0
+		Red = 0.3
+		Green = 0.35
+		Blue = 0.5
 		Alpha = 0.4
 	}
 
 	{
 		Name = "SuitRocketFlare_Demeter"
 		InheritFrom = "SuitRocketFlare"
-		Red = 0.6
-		Green = 0.7
-		Blue = 1.0
+		Red = 0.3
+		Green = 0.35
+		Blue = 0.5
 	}
 
 	{
@@ -3615,6 +4280,7 @@
 		InheritFrom = "SuitRocketExplosion"
 		Hue = 0.6
 		Saturation = -0.5
+		VisualFxCap = 3
 		VisualFx = "SuitRocketExplosionSparks_Demeter"
 		ClearCreateAnimations = true
 		LocationZFromOwner = "Take"
@@ -3636,7 +4302,7 @@
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
 		ColorFromOwner = "Ignore"
-		Scale = 1.0
+		Scale = 0.3
 		OffsetZ = 0
 		OverlayVfx = true
 		SortMode = "FromParent"
@@ -3654,7 +4320,9 @@
 		FilePath = "Fx\Demeter\DemeterIceCloudB\DemeterIceCloudB"
 		NumFrames = 45
 		Material = "Unlit"
-		Scale = 2
+		Scale = 1
+		AlphaMin = 0.2
+		AlphaMax = 0.6
 		PlaySpeed = 30
 	}
 
@@ -3693,25 +4361,27 @@
 		Name = "SuitRocketExplosionB_Demeter"
 		InheritFrom = "SuitRocketExplosion_Demeter"
 		FilePath = "Fx\SmallExplosion\SmallExplosion"
-		Hue = 0.5
+		Hue = 0.6
 		Saturation = -0.3
 		NumFrames = 40
 		RandomPlaySpeedMin = 70
-		RandomPlaySpeedMax = 80
+		RandomPlaySpeedMax = 120
+		Scale = 0.45
+		StartScaleX = 0.3
+		EndScaleX = 1
 		Sound = "null"
 		ClearCreateAnimations = true
-		GroupName = "FX_Standing_Add"
 	}
 
 	{
 		Name = "SuitRocketExplosionGlow_Demeter"
 		InheritFrom = "SuitRocketExplosionGlow"
-		StartRed = 0.5
-		StartGreen = 0.7
-		StartBlue = 1
-		EndRed = 0.7
-		EndGreen = 0.5
-		EndBlue = 0.999
+		StartRed = 0.25
+		StartGreen = 0.35
+		StartBlue = 0.5
+		EndRed = 0.35
+		EndGreen = 0.25
+		EndBlue = 0.499
 	}
 
 	{
@@ -3775,12 +4445,12 @@
 		InheritFrom = "SuitRocketFireFx"
 		Hue = 0.1
 		Saturation = -0.5
-		StartRed = 0.5
-		StartGreen = 0.7
-		StartBlue = 1
-		EndRed = 0.7
-		EndGreen = 0.5
-		EndBlue = 0.999
+		StartRed = 0.25
+		StartGreen = 0.35
+		StartBlue = 0.5
+		EndRed = 0.35
+		EndGreen = 0.25
+		EndBlue = 0.499
 		ClearCreateAnimations = true
 		CreateAnimations = [
 			{ Name = "SuitRocketFireFxFlare_Demeter" }
@@ -3790,12 +4460,12 @@
 	{
 		Name = "SuitRocketFireFxFlare_Demeter"
 		InheritFrom = "SuitRocketFireFxFlare"
-		StartRed = 0.5
-		StartGreen = 0.7
-		StartBlue = 1
-		EndRed = 0.7
-		EndGreen = 0.5
-		EndBlue = 0.999
+		StartRed = 0.25
+		StartGreen = 0.35
+		StartBlue = 0.5
+		EndRed = 0.35
+		EndGreen = 0.25
+		EndBlue = 0.499
 	}
 
 
@@ -3803,12 +4473,12 @@
 	{
 		Name = "SuitDeflectBase_Demeter"
 		InheritFrom = "SuitDeflectBase"
-		StartRed = 0.5
-		StartGreen = 0.7
-		StartBlue = 1
-		EndRed = 0.7
-		EndGreen = 0.5
-		EndBlue = 0.999
+		StartRed = 0.25
+		StartGreen = 0.35
+		StartBlue = 0.5
+		EndRed = 0.35
+		EndGreen = 0.25
+		EndBlue = 0.499
 		ChainTo = "SuitDeflectBaseFade_Demeter"
 		ChildAnimation = "SuitDeflectBaseGlow_Demeter"
 	}
@@ -3816,12 +4486,12 @@
 	{
 		Name = "SuitDeflectBaseGlow_Demeter"
 		InheritFrom = "SuitDeflectBaseGlow"
-		StartRed = 0.5
-		StartGreen = 0.7
-		StartBlue = 1
-		EndRed = 0.7
-		EndGreen = 0.5
-		EndBlue = 0.999
+		StartRed = 0.25
+		StartGreen = 0.35
+		StartBlue = 0.5
+		EndRed = 0.35
+		EndGreen = 0.25
+		EndBlue = 0.499
 	}
 
 	{
@@ -3846,11 +4516,16 @@
 	{
 		Name = "SuitNovaBurn_Demeter"
 		InheritFrom = "SuitNovaBurn"
-		Saturation = -0.45
-		Hue = 0.65
-		Red = 0.6
-		Green = 1
-		Blue = 1
+		Hue = 0.6
+		Saturation = -0.75
+		StartRed = 0.5
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.4
+		EndGreen = 0.5
+		EndBlue = 0.7
+		EaseIn = 0.99
+		EaseOut = 1.0
 		VisualFxIntervalMax = 0.011
 		VisualFxIntervalMin = 0.01
 		VisualFx = "SuitNovaBurnParticles_Demeter"
@@ -3862,6 +4537,22 @@
 		]
 	}
 
+	{
+		Name = "SuitNovaBurnRapid_Demeter"
+		InheritFrom = "SuitNovaBurnRapid"
+		Saturation = -0.45
+		Hue = 0.65
+		Red = 0.3
+		Green = 0.55
+		Blue = 0.6
+		VisualFxIntervalMax = 0.011
+		VisualFxIntervalMin = 0.01
+		VisualFx = "SuitNovaBurnParticles_Demeter"
+		VisualFxCap = 2
+		CreateAnimations = [
+			{ Name = "SuitNovaBurnRapidDisplacement" }
+		]
+	}
 
 	{
 		Name = "SuitNovaBurnParticles_Demeter"
@@ -4020,7 +4711,130 @@
 		EndBlue = 0.999
 	}
 
-// Suit x Hephaestus
+	{
+		Name = "GrenadeExplosion_Demeter"
+		InheritFrom = "GrenadeExplosionBase"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+		VisualFx = "GrenadeExplosionParticles_Demeter"
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/DemeterColdNova"
+		CreateAnimations =
+		[
+			{ Name = "GrenadeExplosionBright_Demeter" }
+			{ Name = "GrenadeExplosionGlow_Demeter" }
+			{ Name = "GrenadeExplosionSmoke" }
+			{ Name = "GrenadeExplosionSmoke" }
+			{ Name = "GrenadeExplosionFlare_Demeter" }
+			{ Name = "QuickFlashIce" }
+			{ Name = "GrenadeExplosionCrater" }
+			{ Name = "GrenadeExplosionScorchMark" }
+			{ Name = "GrenadeDemeterBranchRingLob" }	
+			{ Name = "GrenadeDemeterGroundFrost" }
+		]
+	}
+	{
+		Name = "GrenadeDemeterGroundFrost"
+		FilePath = "Particles\particle_frost"
+		Material = "Unlit"
+		GroupName = "FX_Terrain"
+		Duration = 2.5
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.1
+		RandomRotation = true
+		Scale = 1
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+	}
+	{
+		Name = "GrenadeDemeterBranchRingLob"
+		FilePath = "Fx\Demeter\DemeterBranchRing\DemeterBranchRing"
+		NumFrames = 39
+		Scale = 1.5
+		PostRotateScaleY = 0.5
+		RandomFlipHorizontal = false
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Terrain"
+		OverlayVfx = true
+		StartAlpha = 1
+		EndAlpha = 0
+		CreateAnimation = "GrenadeDemeterBranchRingLobGlow"
+	}
+	{
+		Name = "GrenadeDemeterBranchRingLobGlow"
+		FilePath = "Particles\particle_glow_egg"
+		Red = 0.6
+		Green = 0.7
+		Blue = 1.0
+		Material = "Unlit"
+		StartAlpha = 0.5
+		EndAlpha = 0
+		Duration = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		GroupName = "FX_Standing_Add"
+		StartScaleY = 1
+		EndScaleY = 2
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetZ = 200
+	}
+	{
+		Name = "GrenadeExplosionBright_Demeter"
+		InheritFrom = "GrenadeExplosionBrightBase"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}
+	{
+		Name = "GrenadeExplosionGlow_Demeter"
+		InheritFrom = "GrenadeExplosionGlowBase"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}
+	{
+		Name = "GrenadeExplosionFlare_Demeter"
+		InheritFrom = "GrenadeExplosionFlare"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}
+	{
+		Name = "GrenadeExplosionParticles_Demeter"
+		InheritFrom = "GrenadeExplosionParticles"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}
+
+
+	// Suit x Hephaestus
 
 	{
 		Name = "SuitPunch_Hephaestus"
@@ -4138,6 +4952,7 @@
 			{ Name = "SuitPunchLargeDisplacement" }
 			{ Name = "SuitPunchLargeGlow_Hephaestus" }
 			{ Name = "SuitPunchFlareLarge_Hephaestus" }
+			{ Name = "SuitPunchFlareSpikeLarge_Hephaestus" }
 			{ Name = "SuitPunchLargeParticles_Hephaestus" }
 			{ Name = "SuitPunchLargeParticles_Hephaestus" }
 			{ Name = "SuitPunchLargeParticles_Hephaestus" }
@@ -4173,6 +4988,12 @@
 		EaseOut = 1.0
 	}
 
+	{
+		Name = "SuitPunchFlareSpikeLarge_Hephaestus"
+		InheritFrom = "SuitPunchFlareSpike_Hephaestus"
+		Scale = 2
+		OffsetZ = 70
+	}
 
 	{
 		Name = "SuitPunchLarge_HephaestusFxA"
@@ -4303,14 +5124,14 @@
 		ChainTo = "SuitRocketTravel_Hephaestus"
 		Material = "Unlit"
 		CreateAnimation = "SuitRocketStartTrailEmitter_Hephaestus"
-		Hue = -0.1
+		Hue = 0.4
+		Saturation = -0.7
 	}
 
 	{
 		Name = "SuitRocketUnguided_Hephaestus"
 		InheritFrom = "SuitRocket_Hephaestus"
 		ChainTo = "SuitRocketTravelUnguided_Hephaestus"
-		Hue = -0.1
 	}
 
 	{
@@ -4328,7 +5149,8 @@
 		Name = "SuitRocketTravel_Hephaestus"
 		InheritFrom = "SuitRocketTravel"
 		AddColor = false
-		Hue = -0.1
+		Hue = -0.4
+		Saturation = -0.7
 		Red = 1
 		Green = 1
 		Blue = 1
@@ -4358,7 +5180,8 @@
 		DurationFrames = 60
 		PlaySpeed = 60
 		AddColor = false
-		Hue = -0.1
+		Hue = 0.4
+		Saturation = -0.7
 		StartRed = 1
 		StartGreen = 1
 		StartBlue = 1
@@ -4458,8 +5281,8 @@
 		RandomFlipVertical = true
 		RandomPlaySpeedMin = 60
 		RandomPlaySpeedMax = 70
-		ScaleMin = 1
-		ScaleMax = 1.1
+		ScaleMin = 0.5
+		ScaleMax = 0.6
 		LocationZFromOwner = "Take"
 	}
 
@@ -4501,10 +5324,12 @@
 		Hue = -0.08
 		NumFrames = 40
 		RandomPlaySpeedMin = 70
-		RandomPlaySpeedMax = 80
-		Sound = "null"
+		RandomPlaySpeedMax = 120
+		Scale = 0.45
+		StartScaleX = 0.3
+		EndScaleX = 1
 		ClearCreateAnimations = true
-		GroupName = "FX_Standing_Add"
+		Sound = "null"
 	}
 
 	{
@@ -4654,6 +5479,26 @@
 			{ Name = "SuitNovaBurnGlow_Hephaestus" }
 			{ Name = "SuitNovaBurnFlare_Hephaestus" }
 		]
+	}	
+
+	{
+		Name = "SuitNovaBurnRapid_Hephaestus"
+		InheritFrom = "SuitNovaBurnRapid"
+		Hue = -0.1
+		Saturation = -0.8
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		VisualFxIntervalMax = 0.011
+		VisualFxIntervalMin = 0.01
+		VisualFx = "HephaestusNovaBurnDashParticles"
+		VisualFxCap = 1
+		CreateAnimations = [
+			{ Name = "SuitNovaBurnRapidDisplacement" }
+		]
 	}
 
 	{
@@ -4661,46 +5506,42 @@
 		Random = [
 			{ Name = "HephaestusNovaBurnDashParticleA" }
 			{ Name = "HephaestusNovaBurnDashParticleB" }
-			{ Name = "HephaestusNovaBurnDashParticleC" }
 		]
 	}
 
 	{
 		Name = "HephaestusNovaBurnDashParticleA"
-		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
-		GroupName = "FX_Standing"
-		NumFrames = 38
+		FilePath = "Fx\Hephaestus\HephDirectionalSparkA\HephDirectionalSparkA"
+		GroupName = "FX_Standing_Add"
+		PostRotateScaleY = 0.5
+		NumFrames = 32
 		RandomFlipVertical = true
-		RandomFlipHorizontal = true
-		RandomRotation = true
+		RandomFlipHorizontal = false
+		FlipHorizontal = false
 		Material = "Unlit"
 		AngleMin = 0
 		AngleMax = 360
-		RadialOffsetMin = 10
-		RadialOffsetMax = 100
-		RadialOffsetScaleRadius = 0.5
-		ScaleMin = 0.4
-		ScaleMax = 1.0
-		RandomPlaySpeedMin = 30
-		RandomPlaySpeedMax = 60
+		RadialOffsetMin = 80
+		RadialOffsetMax = 85
+		RadialOffsetScaleY = 0.5
+		ScaleMin = 0.2
+		ScaleMax = 0.4
+		RandomPlaySpeedMin = 90
+		RandomPlaySpeedMax = 120
 		LocationFromOwner = "Ignore"
 		LocationZFromOwner = "Ignore"
 		AngleFromOwner = "Ignore"
-		UseOwnAngle = false
+		UseOwnAngle = true
 		ColorFromOwner = "Ignore"
+		OriginX = 0
+		OriginY = 96
 	}
 
 
 	{
 		Name = "HephaestusNovaBurnDashParticleB"
 		InheritFrom = "HephaestusNovaBurnDashParticleA"
-		FilePath = "Fx\Hephaestus\HephSparkParticleB\HephSparkParticleB"
-	}
-
-	{
-		Name = "HephaestusNovaBurnDashParticleC"
-		InheritFrom = "HephaestusNovaBurnDashParticleA"
-		FilePath = "Fx\Hephaestus\HephSparkParticleC\HephSparkParticleC"
+		FilePath = "Fx\Hephaestus\HephDirectionalSparkB\HephDirectionalSparkB"
 	}
 
 	{
@@ -4757,6 +5598,138 @@
 		EndGreen = 0
 		EndBlue = 0
 	}
+
+	{
+		Name = "GrenadeExplosion_Hephaestus"
+		InheritFrom = "GrenadeExplosionBase"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		VisualFx = "GrenadeExplosionParticles_Hephaestus"
+		VisualFxCap = 16
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/HephaestusExplode"
+		CreateAnimations =
+		[
+			{ Name = "GrenadeExplosionBright_Hephaestus" }
+			{ Name = "GrenadeExplosionGlow_Hephaestus" }
+			{ Name = "GrenadeExplosionSmoke_Hephaestus" }
+			{ Name = "GrenadeExplosionSmoke_Hephaestus" }
+			{ Name = "GrenadeExplosionFlare_Hephaestus" }
+			{ Name = "QuickFlashPink" }
+			{ Name = "GrenadeExplosionCrater" }
+			{ Name = "GrenadeExplosionScorchMark" }
+		]
+	}
+
+	{
+		Name = "GrenadeExplosionBright_Hephaestus"
+		InheritFrom = "GrenadeExplosionBrightBase"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "GrenadeExplosionGlow_Hephaestus"
+		InheritFrom = "GrenadeExplosionGlowBase"
+		StartAlpha = 0.4
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "GrenadeExplosionFlare_Hephaestus"
+		InheritFrom = "GrenadeExplosionFlare"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+
+	{
+		Name = "GrenadeExplosionParticles_Hephaestus"
+		Random = [
+			{ Name = "GrenadeExplosionParticle_HephaestusA" }
+			{ Name = "GrenadeExplosionParticle_HephaestusB" }
+			{ Name = "GrenadeExplosionParticle_HephaestusC" }
+		]
+	}
+	{
+		Name = "GrenadeExplosionParticle_HephaestusA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
+		NumFrames = 38
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = false
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		Scale = 2
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 100
+		RadialOffsetMax = 110
+		RadialOffsetScaleRadius = 100
+		RadialOffsetScaleY = 0.5
+		DieWithOwner = false
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+	}
+	{
+		Name = "GrenadeExplosionParticle_HephaestusB"
+		InheritFrom = "GrenadeExplosionParticle_HephaestusA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleB\HephSparkParticleB"
+	}
+	{
+		Name = "GrenadeExplosionParticle_HephaestusC"
+		InheritFrom = "GrenadeExplosionParticle_HephaestusA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleC\HephSparkParticleC"
+	}
+	{
+		Name = "GrenadeExplosionSmoke_Hephaestus"
+		Random =
+		[
+			{ Name = "GrenadeExplosionSmokeA_Hephaestus" }
+			{ Name = "GrenadeExplosionSmokeB_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "GrenadeExplosionSmokeA_Hephaestus"
+		InheritFrom = "GrenadeExplosionSmokeA"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "GrenadeExplosionSmokeB_Hephaestus"
+		InheritFrom = "GrenadeExplosionSmokeA_Hephaestus"
+		FilePath = "Fx\LobExplosionBright\LobExplosionSmokeB"
+	}
+
 
 	// Suit x Hera
 
@@ -4906,6 +5879,8 @@
 			{ Name = "SuitPunchLargeDisplacement" }
 			{ Name = "SuitPunchLargeGlow_Hera" }
 			{ Name = "SuitPunchFlareLarge_Hera" }
+			{ Name = "SuitPunchFlareLarge_Hera" }
+			{ Name = "SuitPunchFlareSpikeLarge_Hera"}
 			{ Name = "SuitPunchLargeParticles_Hera" }
 			{ Name = "SuitPunchLargeParticles_Hera" }
 			{ Name = "SuitPunchLargeParticles_Hera" }
@@ -4948,6 +5923,12 @@
 		RadialOffsetMax = -60
 	}
 
+	{
+		Name = "SuitPunchFlareSpikeLarge_Hera"
+		InheritFrom = "SuitPunchFlareSpike_Hera"
+		Scale = 2
+		OffsetZ = 75
+	}
 
 	{
 		Name = "SuitPunchLarge_HeraFxA"
@@ -5253,7 +6234,7 @@
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
 		ColorFromOwner = "Ignore"
-		Scale = 1.0
+		Scale = 0.3
 		OffsetZ = 0
 		OverlayVfx = true
 		SortMode = "FromParent"
@@ -5333,12 +6314,14 @@
 		InheritFrom = "SuitRocketExplosion_Hera"
 		FilePath = "Fx\SmallExplosion\SmallExplosion"
 		NumFrames = 40
-		Hue = 0.3
 		RandomPlaySpeedMin = 70
-		RandomPlaySpeedMax = 80
-		Sound = "null"
+		RandomPlaySpeedMax = 120
+		Scale = 0.45
+		StartScaleX = 0.3
+		EndScaleX = 1
 		ClearCreateAnimations = true
-		GroupName = "FX_Standing_Add"
+		Hue = 0.3
+		Sound = "null"
 	}
 
 	{
@@ -5522,15 +6505,87 @@
 		Hue = 0.4
 		VisualFxIntervalMax = 0.011
 		VisualFxIntervalMin = 0.01
-		//VisualFx = "AxeNovaParticles_Hera"
-		VisualFx = null
-		VisualFxCap = 12
+		VisualFx = "SuitNovaSparkles_Hera"
+		VisualFxCap = 4
 		CreateAnimations = [
 			{ Name = "SuitNovaBurnDark" }
 			{ Name = "SuitNovaBurnGlow_Hera" }
 			{ Name = "SuitNovaBurnFlare_Hera" }
 			{ Name = "SuitNovaRing_Gold" }
 		]
+	}
+
+	{
+		Name = "SuitNovaBurnRapid_Hera"
+		InheritFrom = "SuitNovaBurnRapid"
+		Hue = 0.4
+		VisualFxIntervalMax = 0.011
+		VisualFxIntervalMin = 0.01
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.5
+		EndBlue = 0.999
+		VisualFx = "SuitNovaSparkles_Hera"
+		VisualFxCap = 1
+		CreateAnimations = [
+			{ Name = "SuitNovaBurnRapidDisplacement"}
+		]
+	}
+
+
+	{
+		Name = "SuitNovaSparkles_Hera"
+		FilePath = "Particles\particle_sparkle_glow"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.7
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.5
+		EndBlue = 0.1
+		ScaleMin = 0.15
+		ScaleMax = 0.33
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 200
+		RadialOffsetMax = 210
+		RadialOffsetScaleY = 0.5
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		VelocityMin = 150
+		VelocityMax = 300
+		Acceleration = -600
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.5
+		ScaleFromOwner = "Ignore"
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 1
+		UseOwnAngle = false
+		CreateAnimation = "SuitNovaSparkles_Hera2"
+	}
+
+	{
+		Name = "SuitNovaSparkles_Hera2"
+		InheritFrom = "SuitNovaSparkles_Hera"
+		CreateAnimation = null
+		ChildAnimation = null
+		FilePath = "Particles\particle_gold_streak"
+		StartScale = 1.5
+		AddColor = false
+		StartRed = 1
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+
 	}
 
 	{
@@ -5605,6 +6660,154 @@
 		EndRed = 0.1
 		EndGreen = 0.3
 		EndBlue = 1.0
+	}
+
+	{
+		Name = "GrenadeExplosion_Hera"
+		InheritFrom = "GrenadeExplosionBase"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+		VisualFx = "GrenadeExplosionParticles_Hera"
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/HeraSwipeSFX3"
+		CreateAnimations =
+		[
+			{ Name = "GrenadeExplosionBright_Hera" }
+			{ Name = "GrenadeExplosionGlow_Hera" }
+			{ Name = "GrenadeExplosionSmoke" }
+			{ Name = "GrenadeExplosionSmoke" }
+			{ Name = "GrenadeExplosionFlare_Hera" }
+			{ Name = "QuickFlashYellow" }
+			{ Name = "GrenadeExplosionCrater" }
+			{ Name = "GrenadeExplosionScorchMark" }
+			{ Name = "GrenadeHeraMagicCircle" }	
+			{ Name = "GrenadeHeraMagicCircleB" }
+		]
+	}
+
+	{
+		Name = "GrenadeHeraMagicCircle"
+		FilePath = "Fx\Hera\HeraStaffCircleMagic\HeraStaffCircleMagic"
+		PostRotateScaleY = 0.5
+		PlaySpeed = 45
+		NumFrames = 15
+		RandomFlipHorizontal = false
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Terrain_Add"
+		EaseIn = 0.0
+		EaseOut = 0.1
+		Scale = 2
+		OverlayVfx = true
+	}
+
+	{
+		Name = "GrenadeHeraMagicCircleB"
+		FilePath = "Fx\Hera\HeraCast\HeraCastCircleA"
+		Material = "Unlit"
+		Duration = 0.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartScale = 0.7
+		EndScale = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Terrain_Add"
+	}
+
+	{
+		Name = "GrenadeExplosionBright_Hera"
+		InheritFrom = "GrenadeExplosionBrightBase"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 0.3
+		EndRed = 0.999
+		EndGreen = 0.8
+		EndBlue = 0.1
+	}
+
+	{
+		Name = "GrenadeExplosionGlow_Hera"
+		InheritFrom = "GrenadeExplosionGlowBase"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 0.3
+		EndRed = 0.999
+		EndGreen = 0.8
+		EndBlue = 0.1
+	}
+
+	{
+		Name = "GrenadeExplosionFlare_Hera"
+		InheritFrom = "GrenadeExplosionFlare"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 0.3
+		EndRed = 0.999
+		EndGreen = 0.8
+		EndBlue = 0.1
+	}
+
+	{
+		Name = "GrenadeExplosionParticles_Hera"
+		InheritFrom = "GrenadeExplosionParticles"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+		CreateAnimation = "GrenadeExplosionHeraSwipeParticles"
+	}
+
+	{
+		Name = "GrenadeExplosionHeraSwipeParticles"
+		Random =
+		[
+			{ Name = "GrenadeExplosionHeraSwipeParticleA" }
+			{ Name = "GrenadeExplosionHeraSwipeParticleB" }
+		]
+	}
+
+	{
+		Name = "GrenadeExplosionHeraSwipeParticleA"
+		FilePath = "Fx\Hera\HeraSwipeParticleA\HeraSwipeParticleA"
+		Material = "Unlit"
+		NumFrames = 26
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		RandomRotation = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		ScaleMin = 0.3
+		ScaleMax = 0.7
+		RadialOffsetMin = 200
+		RadialOffsetMax = 220
+		RadialOffsetScaleY = 0.5
+		AngleMin = 0
+		AngleMax = 360
+		AngleFromOwner = "Ignore"
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -300
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+	}
+
+	{
+		Name = "GrenadeExplosionHeraSwipeParticleB"
+		InheritFrom = "GrenadeExplosionHeraSwipeParticleA"
+		FilePath = "Fx\Hera\HeraSwipeParticleB\HeraSwipeParticleB"
+		NumFrames = 25
 	}
 
 	// Suit x Hestia
@@ -5739,6 +6942,7 @@
 			{ Name = "SuitPunchLargeDisplacement" }
 			{ Name = "SuitPunchLargeGlow_Hestia" }
 			{ Name = "SuitPunchFlareLarge_Hestia" }
+			{ Name = "SuitPunchFlareSpikeLarge_Hestia"}
 			{ Name = "SuitPunchLargeParticles_Hestia" }
 			{ Name = "SuitPunchLargeParticles_Hestia" }
 			{ Name = "SuitPunchLargeParticles_Hestia" }
@@ -5772,6 +6976,12 @@
 		RadialOffsetMax = 40
 	}
 
+	{
+		Name = "SuitPunchFlareSpikeLarge_Hestia"
+		InheritFrom = "SuitPunchFlareSpike_Hestia"
+		Scale = 2
+		OffsetZ = 75
+	}
 
 	{
 		Name = "SuitPunchLarge_HestiaFxA"
@@ -6299,8 +7509,22 @@
 			{ Name = "SuitNovaBurnFlare_Hestia" }
 			{ Name = "HestiaGroundCoalsRadial_SuitNovaBurn" }
 		]
-	}
+	}	
 
+	{
+		Name = "SuitNovaBurnRapid_Hestia"
+		InheritFrom = "SuitNovaBurnRapid"
+		Hue = -0.02
+		VisualFxIntervalMax = 0.011
+		VisualFxIntervalMin = 0.01
+		VisualFx = "HestiaFlameParticleSuitNovaBurn"
+		VisualFxCap = 5
+		Sound = "/SFX/Player Sounds/HestiaSwipeBig"		
+		CreateAnimations = [
+			{ Name = "SuitNovaBurnRapidDisplacement" }
+			{ Name = "HestiaGroundCoalsRadial_SuitNovaBurnRapid" }
+		]
+	}
 
 	{
 		Name = "HestiaFlameParticleSuitNovaBurn"
@@ -6324,7 +7548,7 @@
 		LocationFromOwner = "Ignore"
 		ScaleMin = 0.6
 		ScaleMax = 1.0
-		Scale = 0.7
+		Scale = 0.5
 		AngleFromOwner = "Ignore"
 		AngleMin = 0
 		AngleMax = 360
@@ -6366,6 +7590,19 @@
 		OffsetZ = 30
 		StartAlpha = 1
 		EndAlpha = 0
+	}
+
+	{
+		Name = "HestiaGroundCoalsRadial_SuitNovaBurnRapid"
+		InheritFrom = "HestiaGroundCoalsRadial_SuitNovaBurn"
+		EndAlpha = 0.999
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		MultiplicativeScaleRadius = true
+		ScaleMin = 0.9
+		ScaleMax = 1.0
+		NumFrames = 15
+		StartFrame = 13
 	}
 
 	{
@@ -6422,6 +7659,145 @@
 		EndBlue = 0.0
 	}
 
+	{
+		Name = "GrenadeExplosion_Hestia"
+		InheritFrom = "GrenadeExplosionBase"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+		VisualFx = "GrenadeExplosionParticles_Hestia"
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/HestiaFireballImpact"
+		CreateAnimations =
+		[
+			{ Name = "GrenadeExplosionBright_Hestia" }
+			{ Name = "GrenadeExplosionGlow_Hestia" }
+			{ Name = "GrenadeExplosionSmoke_Hestia" }
+			{ Name = "GrenadeExplosionSmoke_Hestia" }
+			{ Name = "GrenadeExplosionFlare_Hestia" }
+			{ Name = "QuickFlashRed" }
+			{ Name = "GrenadeExplosionCrater" }
+			{ Name = "GrenadeExplosionScorchMark" }
+			{ Name = "GrenadeHestiaGroundFlame" }	
+			{ Name = "HestiaScorchMark" }
+		]
+	}
+
+
+	{
+		Name = "GrenadeHestiaGroundFlame"
+		FilePath = "Fx\Hestia\HestiaGroundFlame\HestiaGroundFlame"
+		NumFrames = 30
+		RandomFlipHorizontal = false
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		ScaleFromOwner = "Ignore"
+		GroupName = "Standing"
+		OriginX = 240
+		OriginY = 320
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		EaseIn = 0.0
+		EaseOut = 0.1
+		OverlayVfx = true
+		CreateAnimation = "GrenadeHestiaGroundFlameGlow"
+	}
+
+	{
+		Name = "GrenadeHestiaGroundFlameGlow"
+		FilePath = "Particles\particle_glow_egg"
+		Red = 1
+		Green = 0.4
+		Blue = 0
+		Material = "Unlit"
+		StartAlpha = 0.5
+		EndAlpha = 0
+		Duration = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		GroupName = "FX_Standing_Add"
+		StartScaleY = 1
+		EndScaleY = 2
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetZ = 200
+	}
+
+	{
+		Name = "GrenadeExplosionBright_Hestia"
+		InheritFrom = "GrenadeExplosionBrightBase"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "GrenadeExplosionGlow_Hestia"
+		InheritFrom = "GrenadeExplosionGlowBase"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "GrenadeExplosionFlare_Hestia"
+		InheritFrom = "GrenadeExplosionFlare"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "GrenadeExplosionParticles_Hestia"
+		InheritFrom = "GrenadeExplosionParticles"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "GrenadeExplosionSmoke_Hestia"
+		Random =
+		[
+			{ Name = "GrenadeExplosionSmokeA_Hestia" }
+			{ Name = "GrenadeExplosionSmokeB_Hestia" }
+		]
+	}
+
+	{
+		Name = "GrenadeExplosionSmokeA_Hestia"
+		InheritFrom = "GrenadeExplosionSmokeA"
+		StartRed = 1
+		StartGreen = 0.3
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "GrenadeExplosionSmokeB_Hestia"
+		InheritFrom = "GrenadeExplosionSmokeA_Hestia"
+		FilePath = "Fx\LobExplosionBright\LobExplosionSmokeB"
+	}
 
 	// Suit x Poseidon
 
@@ -6552,6 +7928,7 @@
 			{ Name = "SuitPunchLargeDisplacement" }
 			{ Name = "SuitPunchLargeGlow_Poseidon" }
 			{ Name = "SuitPunchFlareLarge_Poseidon" }
+			{ Name = "SuitPunchFlareSpikeLarge_Poseidon" }
 			{ Name = "SuitPunchLargeParticles_Poseidon" }
 			{ Name = "SuitPunchLargeParticles_Poseidon" }
 			{ Name = "SuitPunchLargeParticles_Poseidon" }
@@ -6591,6 +7968,12 @@
 		EaseOut = 1.0
 	}
 
+	{
+		Name = "SuitPunchFlareSpikeLarge_Poseidon"
+		InheritFrom = "SuitPunchFlareSpike_Poseidon"
+		Scale = 2
+		OffsetZ = 75
+	}
 
 	{
 		Name = "SuitPunchLarge_PoseidonFxA"
@@ -6906,7 +8289,7 @@
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
 		ColorFromOwner = "Ignore"
-		Scale = 1.0
+		Scale = 0.5
 		OffsetZ = 0
 		OverlayVfx = true
 		SortMode = "FromParent"
@@ -6957,10 +8340,12 @@
 		Hue = 0.5
 		NumFrames = 40
 		RandomPlaySpeedMin = 70
-		RandomPlaySpeedMax = 80
+		RandomPlaySpeedMax = 120
+		Scale = 0.45
+		StartScaleX = 0.3
+		EndScaleX = 1
 		ClearCreateAnimations = true
 		Sound = "null"
-		GroupName = "FX_Standing_Add"
 	}
 
 	{
@@ -7008,6 +8393,7 @@
 		EndBlue = 1.0
 		ScaleX = 2
 		Gravity = 300
+		Alpha = 0.5
 		GroupName = "FX_Standing"
 	}
 
@@ -7133,6 +8519,21 @@
 	}
 
 	{
+		Name = "SuitNovaBurnRapid_Poseidon"
+		InheritFrom = "SuitNovaBurnRapid"
+		Saturation = -0.1
+		Hue = 0.5
+		VisualFxIntervalMax = 0.011
+		VisualFxIntervalMin = 0.01
+		VisualFx = "SuitNovaBurnParticles_Poseidon"
+		VisualFxCap = 3
+		CreateAnimations = [
+			{ Name = "SuitNovaBurnParticles_Poseidon" }
+			{ Name = "SuitNovaBurnParticles_Poseidon" }
+		]
+	}
+
+	{
 		Name = "SuitNovaBurnGlow_Poseidon"
 		InheritFrom = "SuitNovaBurnGlow"
 		StartRed = 0.1
@@ -7196,6 +8597,8 @@
 			{ Name = "PoseidonSuitNovaBurnSplashParticleB" }
 			{ Name = "PoseidonSuitNovaBurnSplashParticleC" }
 			{ Name = "PoseidonSuitNovaBurnSplashParticleD" }
+			{ Name = "PoseidonSuitNovaBurnSplashParticleE" }
+			{ Name = "PoseidonSuitNovaBurnSplashParticleF" }
 		]
 	}
 
@@ -7209,7 +8612,7 @@
 		RandomPlaySpeedMax = 120
 		AngleMin = 0
 		AngleMax = 360
-		RadialOffsetMin = 100
+		RadialOffsetMin = 50
 		RadialOffsetMax = 100
 		RadialOffsetScaleY = 0.5
 		AngleFromOwner = "Ignore"
@@ -7222,12 +8625,15 @@
 		GroupName = "FX_Standing_Add"
 		DieWithOwner = false
 		ColorFromOwner = "Ignore"
-		Gravity = 200
-		ScaleMin = 0.5
-		ScaleMax = 1.0
+		Gravity = 400
+		ScaleMin = 0.33
+		ScaleMax = 0.6
 		StartAlpha = 1
 		EndAlpha = 0.5
 		Hue = -0.05
+		OriginX = 0
+		OriginY = 119
+		ScaleY = 1.5
 	}
 
 	{
@@ -7249,6 +8655,190 @@
 		Name = "PoseidonSuitNovaBurnSplashParticleD"
 		InheritFrom = "PoseidonSuitNovaBurnSplashParticleC"
 		FilePath = "Fx\Poseidon\PoseidonDirectionalTrailB\PoseidonDirectionalTrailB"
+	}	
+
+	{
+		Name = "PoseidonSuitNovaBurnSplashParticleE"
+		InheritFrom = "PoseidonSuitNovaBurnSplashParticleA"
+		IsometricSkew = "None"
+		PostRotateScaleY = 0.5
+	}	
+
+	{
+		Name = "PoseidonSuitNovaBurnSplashParticleF"
+		InheritFrom = "PoseidonSuitNovaBurnSplashParticleE"
+		NumFrames = 30
+		FilePath = "Fx\Poseidon\PoseidonDirectionalTrailB\PoseidonDirectionalTrailB"
+	}
+
+	{
+		Name = "GrenadeExplosion_Poseidon"
+		InheritFrom = "GrenadeExplosionBase"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+		VisualFx = "GrenadeExplosionParticles_Poseidon"
+		VisualFxCap = 16
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/PoseidonWaterImpactDetonate"
+		CreateAnimations =
+		[
+			{ Name = "GrenadeExplosionPoseidonSplashNova" }
+			{ Name = "GrenadeExplosionParticles_Poseidon" }
+			{ Name = "GrenadeExplosionParticles_Poseidon" }
+			{ Name = "GrenadeExplosionParticles_Poseidon" }
+			{ Name = "GrenadeExplosionParticles_Poseidon" }
+			{ Name = "GrenadeExplosionParticles_Poseidon" }
+			{ Name = "GrenadeExplosionParticles_Poseidon" }
+			{ Name = "GrenadeExplosionParticles_Poseidon" }
+			{ Name = "GrenadeExplosionParticles_Poseidon" }
+			{ Name = "GrenadeExplosionBright_Poseidon" }
+			{ Name = "GrenadeExplosionGlow_Poseidon" }
+			{ Name = "GrenadeExplosionSmoke_Poseidon" }
+			{ Name = "GrenadeExplosionSmoke_Poseidon" }
+			{ Name = "GrenadeExplosionFlare_Poseidon" }
+			{ Name = "QuickFlashCyan" }
+			{ Name = "GrenadeExplosionCrater" }
+			{ Name = "GrenadeExplosionScorchMark" }
+		]
+	}
+
+	{
+		Name = "GrenadeExplosionPoseidonSplashNova"
+		FilePath = "Fx\Poseidon\PoseidonCastNova\PoseidonCastNova"
+		NumFrames = 54
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		PlaySpeed = 50
+		StartAlpha = 1
+		EndAlpha = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetZ = 0
+		Scale = 1.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.8
+		EndBlue = 1.0
+		ScaleRadius = 280
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "GrenadeExplosionBright_Poseidon"
+		InheritFrom = "GrenadeExplosionBrightBase"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "GrenadeExplosionGlow_Poseidon"
+		InheritFrom = "GrenadeExplosionGlowBase"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "GrenadeExplosionFlare_Poseidon"
+		InheritFrom = "GrenadeExplosionFlare"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+
+
+	{
+		Name = "GrenadeExplosionParticles_Poseidon"
+		Random =
+		[
+			{ Name = "GrenadeExplosionParticles_Poseidon_SplashA" }
+			{ Name = "GrenadeExplosionParticles_Poseidon_SplashB" }
+		]
+	}
+
+	{
+		Name = "GrenadeExplosionParticles_Poseidon_SplashA"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleA\PoseidonSplashParticleA"
+		NumFrames = 60
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = true
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Gravity = 250
+		GroupName = "FX_Standing"
+		RadialOffsetMin = 300
+		RadialOffsetMax = 320
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -300
+		RadialOffsetScaleY = 0.5
+		RadialOffsetScaleRadius = 300
+		Scale = 0.66
+		StartScaleX = 1.5
+		EndScaleX = 2
+		Material = "Unlit"
+		IsometricSkew = "X"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "GrenadeExplosionParticles_Poseidon_SplashB"
+		InheritFrom = "GrenadeExplosionParticles_Poseidon_SplashA"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleB\PoseidonSplashParticleB"
+	}
+	{
+		Name = "GrenadeExplosionSmoke_Poseidon"
+		Random =
+		[
+			{ Name = "GrenadeExplosionSmokeA_Poseidon" }
+			{ Name = "GrenadeExplosionSmokeB_Poseidon" }
+		]
+	}
+
+	{
+		Name = "GrenadeExplosionSmokeA_Poseidon"
+		InheritFrom = "GrenadeExplosionSmokeA"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "GrenadeExplosionSmokeB_Poseidon"
+		InheritFrom = "GrenadeExplosionSmokeA_Poseidon"
+		FilePath = "Fx\LobExplosionBright\LobExplosionSmokeB"
 	}
 
 	// Suit x Zeus
@@ -7384,6 +8974,7 @@
 			{ Name = "SuitPunchLargeDisplacement" }
 			{ Name = "SuitPunchLargeGlow_Zeus" }
 			{ Name = "SuitPunchFlareLarge_Zeus" }
+			{ Name = "SuitPunchFlareSpikeLarge_Zeus" }
 			{ Name = "SuitPunchLargeParticles_Zeus" }
 			{ Name = "SuitPunchLargeParticles_Zeus" }
 			{ Name = "SuitPunchLargeParticles_Zeus" }
@@ -7397,7 +8988,7 @@
 			{ Name = "SuitPunchLargeParticles_Zeus" }
 			{ Name = "SuitPunchLargeParticles_Zeus" }
 
-			{ Name = "SuitPunchLarge_ZeusFx" }
+			// { Name = "SuitPunchLarge_ZeusFx" }
 			{ Name = "SuitPunchLarge_ZeusFxA" }
 			{ Name = "SuitPunchLarge_ZeusFxB" }
 			{ Name = "SuitPunchLarge_ZeusFxB" }
@@ -7428,6 +9019,12 @@
 		EaseOut = 1.0
 	}
 
+	{
+		Name = "SuitPunchFlareSpikeLarge_Zeus"
+		InheritFrom = "SuitPunchFlareSpike_Zeus"
+		Scale = 2
+		OffsetZ = 75
+	}
 
 	{
 		Name = "SuitPunchLarge_ZeusFxA"
@@ -7692,6 +9289,7 @@
 	{
 		Name = "SuitRocketExplosion_Zeus"
 		InheritFrom = "SuitRocketExplosion"
+		Value = 0.5
 		Hue = 0.07
 		Saturation = -0.3
 		VisualFx = "SuitRocketExplosionSparks_Zeus"
@@ -7699,7 +9297,7 @@
 		Sound = "/SFX/Player Sounds/ZeusLightningWrathImpact"
 		LocationZFromOwner = "Take"
 		CreateAnimations = [
-			{ Name = "SuitRocketExplosionB_Zeus" }
+			// { Name = "SuitRocketExplosionB_Zeus" }
 			{ Name = "SuitRocketExplosionGlow_Zeus" }
 			{ Name = "SuitRocketExplosionFx_Zeus" }
 		]
@@ -7714,7 +9312,7 @@
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
 		ColorFromOwner = "Ignore"
-		Scale = 1.25
+		Scale = 0.75
 		OffsetZ = 0
 		OverlayVfx = true
 		SortMode = "FromParent"
@@ -7768,10 +9366,12 @@
 		Saturation = -0.3
 		NumFrames = 40
 		RandomPlaySpeedMin = 70
-		RandomPlaySpeedMax = 80
-		Sound = "null"
+		RandomPlaySpeedMax = 120
+		Scale = 0.45
+		StartScaleX = 0.3
+		EndScaleX = 1
 		ClearCreateAnimations = true
-		GroupName = "FX_Standing_Add"
+		Sound = "null"
 	}
 
 	{
@@ -7970,6 +9570,20 @@
 	}
 
 	{
+		Name = "SuitNovaBurnRapid_Zeus"
+		InheritFrom = "SuitNovaBurnRapid"
+		Hue = 0.1
+		Saturation = -0.5
+		VisualFxIntervalMax = 0.011
+		VisualFxIntervalMin = 0.01
+		VisualFx = "SuitBurnNovaParticlesRapid_Zeus"
+		VisualFxCap = 3
+		CreateAnimations = [
+			{ Name = "SuitNovaBurnRapidDisplacement" }
+		]
+	}
+
+	{
 		Name = "SuitNovaBurnGlow_Zeus"
 		InheritFrom = "SuitNovaBurnGlow"
         StartRed = 1.0
@@ -8041,14 +9655,14 @@
 		NumFrames = 15
 		Material = "Unlit"
 		GroupName = "FX_Standing_Add"
-		RandomPlaySpeedMin = 24
-		RandomPlaySpeedMax = 31
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
 		RandomFlipHorizontal = true
 		RandomFlipVertical = true
 		RandomRotation = true
 		ScaleMin = 0.3
 		ScaleMax = 1.0
-		Scale = 2
+		Scale = 1.5
 		ScaleX = 0.5
 		LocationZFromOwner = "Ignore"
 		LocationFromOwner = "Ignore"
@@ -8084,6 +9698,1445 @@
 		Scale = 0.5
 		RandomRotation = true
 	}
+
+
+	{
+		Name = "SuitBurnNovaParticlesRapid_Zeus"
+		Random = [
+			{ Name = "SuitBurnNovaParticleRapid_ZeusA" }
+			{ Name = "SuitBurnNovaParticleRapid_ZeusB" }
+			{ Name = "SuitBurnNovaParticleRapid_ZeusC" }
+		]
+	}
+
+	{
+		Name = "SuitBurnNovaParticleRapid_ZeusA"
+		FilePath = "Fx\ZeusStaticArcA\ZeusStaticArcA"
+		NumFrames = 15
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 60
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = true
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		Scale = 2
+		ScaleX = 0.5
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 200
+		RadialOffsetMax = 300
+		RadialOffsetScaleY = 0.5
+		DieWithOwner = false
+		Saturation = -0.3
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SuitBurnNovaParticleRapid_ZeusB"
+		InheritFrom = "SuitBurnNovaParticleRapid_ZeusA"
+		FilePath = "Fx\ZeusStaticArcB\ZeusStaticArcB"
+	}
+	{
+		Name = "SuitBurnNovaParticleRapid_ZeusC"
+		InheritFrom = "SuitBurnNovaParticleRapid_ZeusA"
+		FilePath = "Fx\ZeusStaticArcC\ZeusStaticArcC"
+	}
+
+	{
+		Name = "GrenadeExplosion_Zeus"
+		InheritFrom = "GrenadeExplosionBase"
+		StartRed = 1.0
+		StartGreen = 0.95
+		StartBlue = 0.7
+		EndRed = 0.9999
+		EndGreen = 0.8
+		EndBlue = 0.5
+		VisualFx = "GrenadeExplosionParticles_Zeus"
+		VisualFxCap = 16
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/ZeusLightningImpactSecondary"
+		CreateAnimations =
+		[
+			{ Name = "GrenadeExplosionBright_Zeus" }
+			{ Name = "GrenadeExplosionGlow_Zeus" }
+			{ Name = "GrenadeExplosionSmoke_Zeus" }
+			{ Name = "GrenadeExplosionSmoke_Zeus" }
+			{ Name = "GrenadeExplosionFlare_Zeus" }
+			{ Name = "QuickFlashPink" }
+			{ Name = "GrenadeExplosionCrater" }
+			{ Name = "GrenadeExplosionScorchMark" }
+		]
+	}
+
+	{
+		Name = "GrenadeExplosionBright_Zeus"
+		InheritFrom = "GrenadeExplosionBrightBase"
+		StartRed = 1.0
+		StartGreen = 0.95
+		StartBlue = 0.7
+		EndRed = 0.9999
+		EndGreen = 0.8
+		EndBlue = 0.5
+	}
+
+	{
+		Name = "GrenadeExplosionGlow_Zeus"
+		InheritFrom = "GrenadeExplosionGlowBase"
+		StartAlpha = 0.4
+		StartRed = 1.0
+		StartGreen = 0.95
+		StartBlue = 0.7
+		EndRed = 0.9999
+		EndGreen = 0.8
+		EndBlue = 0.5
+	}
+
+	{
+		Name = "GrenadeExplosionFlare_Zeus"
+		InheritFrom = "GrenadeExplosionFlare"
+		StartRed = 1.0
+		StartGreen = 0.95
+		StartBlue = 0.7
+		EndRed = 0.9999
+		EndGreen = 0.8
+		EndBlue = 0.5
+	}
+
+
+	{
+		Name = "GrenadeExplosionParticles_Zeus"
+		Random = [
+			{ Name = "GrenadeExplosionParticle_ZeusA" }
+			{ Name = "GrenadeExplosionParticle_ZeusB" }
+			{ Name = "GrenadeExplosionParticle_ZeusC" }
+			{ Name = "GrenadeExplosionParticle_ZeusD" }
+		]
+	}
+
+	{
+		Name = "GrenadeExplosionParticle_ZeusA"
+		FilePath = "Fx\ZeusStaticArcA\ZeusStaticArcA"
+		NumFrames = 15
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 31
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = true
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		Scale = 2
+		ScaleX = 0.5
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 100
+		RadialOffsetMax = 110
+		RadialOffsetScaleRadius = 100
+		RadialOffsetScaleY = 0.5
+		DieWithOwner = false
+		Saturation = -0.3
+	}
+
+	{
+		Name = "GrenadeExplosionParticle_ZeusB"
+		InheritFrom = "GrenadeExplosionParticle_ZeusA"
+		FilePath = "Fx\ZeusStaticArcB\ZeusStaticArcB"
+	}
+	{
+		Name = "GrenadeExplosionParticle_ZeusC"
+		InheritFrom = "GrenadeExplosionParticle_ZeusA"
+		FilePath = "Fx\ZeusStaticArcC\ZeusStaticArcC"
+	}
+
+	{
+		Name = "GrenadeExplosionParticle_ZeusD"
+		InheritFrom = "GrenadeExplosionParticle_ZeusA"
+		FilePath = "Fx\ZeusSpark\ZeusSpark"
+		NumFrames = 60
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -300
+		Scale = 0.5
+		RandomRotation = true
+	}
+	{
+		Name = "GrenadeExplosionSmoke_Zeus"
+		Random =
+		[
+			{ Name = "GrenadeExplosionSmokeA_Zeus" }
+			{ Name = "GrenadeExplosionSmokeB_Zeus" }
+		]
+	}
+
+	{
+		Name = "GrenadeExplosionSmokeA_Zeus"
+		InheritFrom = "GrenadeExplosionSmokeA"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+	}
+
+	{
+		Name = "GrenadeExplosionSmokeB_Zeus"
+		InheritFrom = "GrenadeExplosionSmokeA_Zeus"
+		FilePath = "Fx\LobExplosionBright\LobExplosionSmokeB"
+	}
+
+
+	// Suit x Ares
+
+	{
+		Name = "SuitPunch_Ares"
+		Random = [
+			{ Name = "SuitPunchA_Ares" }
+			{ Name = "SuitPunchB_Ares" }
+		]
+	}
+
+	{
+		Name = "SuitPunchA_Ares"
+		InheritFrom = "SuitPunchA_Base"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		AddColor = false
+		GroupName = "Standing"
+		Sound = "/SFX/Player Sounds/AresBladeSwipe"
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "SuitPunchDark" }
+			{ Name = "SuitPunchDisplacement" }
+			{ Name = "SuitPunchGlow_Ares" }
+			{ Name = "SuitPunchFlareSpike_Ares" }
+			{ Name = "SuitPunch_AresFxA" }
+			{ Name = "SuitPunch_AresFxB" }
+			{ Name = "SuitPunchA_AresFxBright" }
+		]
+	}
+
+	{
+		Name = "SuitPunchA_AresFxBright"
+		InheritFrom = "SuitPunchA_Ares"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		ClearCreateAnimations = true
+		VisualFx = null
+		PlaySpeed = 120
+	}
+
+	{
+		Name = "SuitPunchB_Ares"
+		InheritFrom = "SuitPunchA_Ares"
+		FilePath = "Fx\Suit\SuitPunchB\SuitPunchB"
+	}
+
+	{
+		Name = "SuitPunch_AresFxA"
+		FilePath = "Fx\Ares\AresDirectionalTrailA\AresDirectionalTrailA"
+		NumFrames = 36
+		PlaySpeed = 120
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		Velocity = 300
+		Acceleration = -1200
+		RandomFlipVertical = true
+		FlipHorizontal = true
+		GroupName = "Standing_Back"
+		Scale = 1.5
+	}	
+
+	{
+		Name = "SuitPunch_AresFxB"
+		Random = [
+			{ Name = "SuitPunch_AresFxB1" }
+			{ Name = "SuitPunch_AresFxB2" }
+			{ Name = "SuitPunch_AresFxB3" }
+		]
+	}
+
+	{
+		Name = "SuitPunch_AresFxB1"
+		InheritFrom = "SuitPunch_AresFxA"
+		FilePath = "Fx\Ares\AresParticleA\AresParticleA"
+		NumFrames = 80
+		RandomPlaySpeedMin = 120
+		RandomPlaySpeedMax = 180
+		AngleFromOwner = "Take"
+		GroupName = "Standing"
+		FlipHorizontal = true
+		EaseIn = 0
+		EaseOut = 0.01
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		ScaleY = 0.5
+		ScaleX = 0.8
+	}
+
+	{
+		Name = "SuitPunch_AresFxB2"
+		InheritFrom = "SuitPunch_AresFxB1"
+		FilePath = "Fx\Ares\AresParticleB\AresParticleB"
+	}
+	{
+		Name = "SuitPunch_AresFxB3"
+		InheritFrom = "SuitPunch_AresFxB1"
+		FilePath = "Fx\Ares\AresParticleC\AresParticleC"
+	}
+
+	{
+		Name = "SuitPunchGlow_Ares"
+		InheritFrom = "SuitPunchGlow_Base"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Alpha = 1
+		StartAlpha = 0.75
+	}
+
+	{
+		Name = "SuitPunchFlareSpike_Ares"
+		InheritFrom = "SuitPunchFlareSpike_Base"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Scale = 1
+	}
+
+	{
+		Name = "SuitPunchFlare_L_Ares"
+		InheritFrom = "SuitPunchFlare_L"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "SuitPunchFlare_R_Ares"
+		InheritFrom = "SuitPunchFlare_L_Ares"
+		GrannyAttachedMarkerLocation = "WeaponSuitR_Rig:weaponMiddle_00_R_JNT"
+	}
+
+
+	{
+		Name = "SuitPunchLarge_Ares"
+		InheritFrom = "SuitPunchLarge_Base"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		AddColor = false
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "SuitPunchLargeDark" }
+			{ Name = "SuitPunchLargeDisplacement" }
+			{ Name = "SuitPunchLargeGlow_Ares" }
+			{ Name = "SuitPunchLargeBright_Ares" }
+			{ Name = "SuitPunchFlareLarge_Ares" }
+			{ Name = "SuitPunchFlareSpikeLarge_Ares" }
+			{ Name = "SuitPunchLargeParticles_Ares" }
+			{ Name = "SuitPunchLargeParticles_Ares" }
+			{ Name = "SuitPunchLargeParticles_Ares" }
+			{ Name = "SuitPunchLargeParticles_Ares" }
+			{ Name = "SuitPunchLargeParticles_Ares" }
+			{ Name = "SuitPunchLargeParticles_Ares" }
+			{ Name = "SuitPunchLargeParticles_Ares" }
+			{ Name = "SuitPunchLargeParticles_Ares" }
+			{ Name = "SuitPunchLargeParticles_Ares" }
+			{ Name = "SuitPunchLargeParticles_Ares" }
+			{ Name = "SuitPunchLargeParticles_Ares" }
+			{ Name = "SuitPunchLargeParticles_Ares" }
+
+			{ Name = "SuitPunchLarge_AresFx" }
+			{ Name = "SuitPunchLarge_AresFxA" }
+			{ Name = "SuitPunchLarge_AresFxC" }
+			{ Name = "SuitPunchLarge_AresFxD" }
+		]
+	}
+
+
+	{
+		Name = "SuitPunchFlareSpikeLarge_Ares"
+		InheritFrom = "SuitPunchFlareSpike_Ares"
+		Scale = 2
+	}
+
+
+	{
+		Name = "SuitPunchLargeBright_Ares"
+		InheritFrom = "SuitPunchLarge_Ares"
+		ClearCreateAnimations = true
+		AddColor = true
+		LoopFramesOnly = true
+		DurationFrames = 12
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
+	{
+		Name = "SuitPunchLarge_AresFx"
+		FilePath = "Fx\Ares\AresCircle\AresCircle"
+		NumFrames = 20
+		StartFrame = 28
+		PlaySpeed = 60
+		Material = "Unlit"
+		IsometricSkew = "Y"
+		GroupName = "FX_Dark"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		OffsetZ = 60
+		DieWithOwner = false
+		AngleFromOwner = "Take"
+		EaseIn = 0.99
+		EaseOut = 1.0
+	}
+
+
+	{
+		Name = "SuitPunchLarge_AresFxA"
+		InheritFrom = "SuitPunch_AresFxA"
+		Scale = 1.25
+		ScaleX = 1.5
+		OffsetZ = 60
+		PlaySpeed = 60
+		Velocity = 200
+		GroupName = "FX_Dark"
+		FlipHorizontal = false
+		OriginX = 200
+		OriginY = 50
+	}
+
+	{
+		Name = "SuitPunchLarge_AresFxC"
+		InheritFrom = "SuitPunchLarge_AresFxA"
+		FilePath = "Fx\Ares\AresDirectionalTrailB\AresDirectionalTrailB"
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "SuitPunchLarge_AresFxB"
+		InheritFrom = "SuitPunch_AresFxB"
+		Scale = 1.5
+	}
+
+	{ 
+		Name = "SuitPunchLarge_AresFxD" 
+		FilePath = "Fx\Ares\AresGroundFx\AresGroundFx"
+		NumFrames = 45
+		Material = "Unlit"
+		AngleFromOwner = "Take"
+		Scale = 1.25
+		GroupName = "FX_Standing"
+		Angle = 90
+		OriginX = 150
+		OriginY = 307
+		OffsetZ = 60
+		LocationZFromOwner = "Take"
+	}
+
+	{
+		Name = "SuitPunchLargeGlow_Ares"
+		InheritFrom = "SuitPunchLargeGlow_Base"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "SuitPunchFlareLarge_Ares"
+		InheritFrom = "SuitPunchFlareLarge_Base"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Sound = "/SFX/Player Sounds/AresProjectileExplosion"
+	}
+
+	{
+		Name = "SuitPunchLargeParticles_Ares"
+		Random = [
+			{ Name = "SuitPunchLargeParticles_AresA" }
+			{ Name = "SuitPunchLargeParticles_AresB" }
+			{ Name = "SuitPunchLargeParticles_AresC" }
+		]
+	}
+
+	{
+		Name = "SuitPunchLargeParticles_AresA"
+		FilePath = "Fx\Ares\AresSliceParticleA\AresSliceParticleA"
+		NumFrames = 20
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.01
+		EndRed = 0.0
+		EndGreen = 0
+		EndBlue = 0
+		ScaleMin = 0.3
+		ScaleMax = 1.2
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomRotation = true
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.6
+		GroupName = "FX_Dark"
+		RandomOffsetX = 70
+		RandomOffsetY = 35
+		VelocityMin = 50
+		VelocityMax = 1000
+		Acceleration = -2600
+		AngleMin = 160
+		AngleMax = 200
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		EaseIn = 0.99
+		EaseOut = 1.0
+		OffsetZ = 60
+		IsometricSkew = "Y"
+	}
+
+	{
+		Name = "SuitPunchLargeParticles_AresB"
+		InheritFrom = "SuitPunchLargeParticles_AresA"
+		EndRed = 0.99
+	}
+
+	{
+		Name = "SuitPunchLargeParticles_AresC"
+		InheritFrom = "SuitPunchLargeParticles_AresA"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+
+	{
+		Name = "SuitDeflect_Ares"
+		InheritFrom = "SuitDeflectBase"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		ChainTo = "SuitDeflect_AresFade"
+		ChildAnimation = "SuitDeflect_AresGlow"
+	}
+
+	{
+		Name = "SuitDeflect_AresGlow"
+		InheritFrom = "SuitDeflectBaseGlow"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "SuitDeflect_AresFade"
+		InheritFrom = "SuitDeflect_Ares"
+		Sound = null
+		Loop = false
+		TransferAngle = true
+		ChainTo = null
+		StartAlpha = 1
+		EndAlpha = 0
+		AddColor = false
+		CreateAnimation = null
+		ClearCreateAnimations = true
+		Duration = 0.1
+		PlaySpeed = 90
+		StartScale = 1
+		EndScale = 0
+	}
+
+
+	{
+		Name = "SuitRocket_Ares"
+		InheritFrom = "SuitRocket"
+		ChainTo = "SuitRocketTravel_Ares"
+		Material = "Unlit"
+		CreateAnimation = "SuitRocketStartTrailEmitter_Ares"
+		Hue = -0.1
+		Saturation = 0.2
+	}
+
+	{
+		Name = "SuitRocketUnguided_Ares"
+		InheritFrom = "SuitRocket_Ares"
+		ChainTo = "SuitRocketTravelUnguided_Ares"
+		Hue = -0.1
+		Saturation = 0.2
+	}
+
+	{
+		Name = "SuitRocketStartTrailEmitter_Ares"
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "SuitRocketTrail_Ares"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.06
+		VisualFxUse3DAngle = true
+		Duration = 0.4
+		DieWithOwner = true
+	}
+
+	{
+		Name = "SuitRocketTravel_Ares"
+		InheritFrom = "SuitRocketTravel"
+		AddColor = false
+		Hue = -0.1
+		Saturation = 0.2
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		VisualFx = "SuitRocketTrail_Ares"
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "SuitRocketStartSmoke" }
+			{ Name = "SuitRocketFlare_Ares" }
+			{ Name = "SuitRocketGlow_Ares" }
+		]
+	}
+
+	{
+		Name = "SuitRocketTravelUnguided_Ares"
+		InheritFrom = "SuitRocketTravel_Ares"
+		FilePath = "Fx\Suit\SuitRocketUnguided\SuitRocketUnguided"
+		VisualFx = "SuitRocketTrail_Ares"
+		NumAngles = 1
+		NumFrames = 60
+		HoldLastFrame = false
+		DurationFrames = 60
+		PlaySpeed = 60
+		AddColor = false
+		Hue = -0.1
+		Saturation = 0.2
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.99
+		EndBlue = 0.999
+		Red = 1
+		Green = 1
+		Blue = 1
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "SuitRocketStartSmoke" }
+			{ Name = "SuitRocketFlare_Ares" }
+			{ Name = "SuitRocketGlow_Ares" }
+		]
+	}
+
+	{ 
+		Name = "SuitRocketGlow_Ares"
+		InheritFrom = "SuitRocketGlow"
+		Red = 1
+		Green = 0.0
+		Blue = 0.0
+		Alpha = 0.6
+	}
+
+	{
+		Name = "SuitRocketFlare_Ares"
+		InheritFrom = "SuitRocketFlare"
+		Red = 1
+		Green = 0.0
+		Blue = 0.0
+	}
+
+	{
+		Name = "SuitRocketTrail_Ares"
+		Random = [
+			{ Name = "SuitRocketTrailA_Ares" }
+			{ Name = "SuitRocketTrailB_Ares" }
+			{ Name = "SuitRocketTrailC_Ares" }
+		]
+	}
+
+	{ 
+		Name = "SuitRocketTrailA_Ares" 
+		InheritFrom = "SuitRocketTrailA"
+		Hue = -0.05
+		Saturation = 0.5
+		Value = -0.3
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "SuitRocketTrailFx_Ares" }
+			{ Name = "SuitRocketTrailFx_Ares" }
+		]
+	}
+
+	{
+		Name = "SuitRocketTrailB_Ares"
+		InheritFrom = "SuitRocketTrailA_Ares"
+		FilePath = "Fx\Suit\SuitRocketTrailB\SuitRocketTrailB"
+	}
+
+	{
+		Name = "SuitRocketTrailC_Ares"
+		InheritFrom = "SuitRocketTrailA_Ares"
+		FilePath = "Fx\Suit\SuitRocketTrailC\SuitRocketTrailC"
+	}
+
+	{
+		Name = "SuitRocketExplosion_Ares"
+		InheritFrom = "SuitRocketExplosion"
+		Hue = -0.07
+		Saturation = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.0
+		EndGreen = 0.0
+		EndBlue = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		VisualFx = "SuitRocketExplosionSparks_Ares"
+		Sound = "/SFX/Player Sounds/AresProjectileFire"
+		ClearCreateAnimations = true
+		LocationZFromOwner = "Take"
+		CreateAnimations = [
+			{ Name = "SuitRocketExplosionB_Ares" }
+			{ Name = "SuitRocketExplosionGlow_Ares" }
+			// { Name = "SuitRocketExplosionFx_Ares" }
+		]
+	}
+
+	{
+		Name = "SuitRocketExplosionFx_Ares"
+		FilePath = "Fx\Ares\AresProjectileImpact\AresProjectileImpact"
+		NumFrames = 37
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		Scale = 1.25
+		OffsetZ = 0
+		OverlayVfx = true
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		ScaleMin = 1
+		ScaleMax = 1.1
+		LocationZFromOwner = "Take"
+	}
+
+	{
+		Name = "SuitRocketExplosionSparks_Ares"
+		Random = [
+			{ Name = "SuitRocketExplosionSparkA_Ares" }
+			{ Name = "SuitRocketExplosionSparkB_Ares" }
+		]
+	}
+
+	{
+		Name = "SuitRocketExplosionSparkA_Ares"
+		FilePath = "Fx\Ares\AresSliceParticleA\AresSliceParticleA"
+		NumFrames = 20
+		Material = "Unlit"
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		VelocityMin = 300
+		VelocityMax = 600
+		Acceleration = -600
+		AngleMin = -90
+		AngleMax = 90
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		IsometricSkew = "X"
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.01
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "SuitRocketExplosionSparkB_Ares"
+		InheritFrom = "SuitRocketExplosionSparkA_Ares"
+		FilePath = "Fx\Ares\AresSliceParticleA\AresSliceParticleA"
+	}
+
+
+	{
+		Name = "SuitRocketExplosionB_Ares"
+		InheritFrom = "SuitRocketExplosion_Ares"
+		FilePath = "Fx\SmallExplosion\SmallExplosion"
+		Hue = 0
+		Saturation = 0
+		NumFrames = 40
+		RandomPlaySpeedMin = 70
+		RandomPlaySpeedMax = 120
+		Scale = 0.45
+		StartScaleX = 0.3
+		EndScaleX = 1
+		Sound = "null"
+		ClearCreateAnimations = true
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "SuitRocketExplosionGlow_Ares"
+		InheritFrom = "SuitRocketExplosionGlow"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "SuitRocketTrailFx_Ares"
+		Random = [
+			//{ Name = "SuitRocketTrailFxA_Ares" }
+			{ Name = "SuitRocketTrailFxB_Ares" }
+			{ Name = "SuitRocketTrailFxC_Ares" }
+			//{ Name = "SuitRocketTrailFxD_Ares" }
+			//{ Name = "SuitRocketTrailFxE_Ares" }
+		]
+	}
+
+	{
+		Name = "SuitRocketTrailFxA_Ares"
+		Random = [
+			{ Name = "SuitRocketTrailFxA_Ares01" }
+			{ Name = "SuitRocketTrailFxA_Ares02" }
+		]
+	}
+
+	{
+		Name = "SuitRocketTrailFxA_Ares01"
+		FilePath = "Fx\Ares\AresDirectionalTrailA\AresDirectionalTrailA"
+		NumFrames = 36
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		StartScale = 0.5
+		EndScale = 1.0
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		StartScaleY = 0.6
+		EndScaleY = 1.4
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomFlipVertical = true
+	}
+
+	{
+		Name = "SuitRocketTrailFxA_Ares02"
+		InheritFrom = "SuitRocketTrailFxA_Ares01"
+		FilePath = "Fx\Ares\AresDirectionalTrailB\AresDirectionalTrailB"
+	}	
+
+	{
+		Name = "SuitRocketTrailFxB_Ares"
+		Random = [
+			{ Name = "SuitRocketTrailFxB1_Ares" }
+			{ Name = "SuitRocketTrailFxB2_Ares" }
+			{ Name = "SuitRocketTrailFxB3_Ares" }
+			{ Name = "SuitRocketTrailFxB4_Ares" }
+		]
+	}
+
+	{
+		Name = "SuitRocketTrailFxB1_Ares"
+		NumFrames = 20
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		FilePath = "Fx\Ares\AresSliceParticleB\AresSliceParticleB"
+		IsometricSkew = "X"
+		RandomRotation = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		AddColor = false
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		ScaleMin = 0.3
+		ScaleMax = 0.7
+		StartScale = 0.7
+		EndScale = 1.0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		GroupName = "FX_Standing"
+	}
+
+	{
+		Name = "SuitRocketTrailFxB2_Ares"
+		InheritFrom = "SuitRocketTrailFxB1_Ares"
+		PostRotateScaleY = 0.5
+		IsometricSkew = "None"
+	}
+
+	{
+		Name = "SuitRocketTrailFxB3_Ares"
+		InheritFrom = "SuitRocketTrailFxB1_Ares"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+	{
+		Name = "SuitRocketTrailFxB4_Ares"
+		InheritFrom = "SuitRocketTrailFxB2_Ares"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+	{
+		Name = "SuitRocketTrailFxC_Ares"
+		Random = [
+			{ Name = "SuitRocketTrailFxC1_Ares" }
+			{ Name = "SuitRocketTrailFxC2_Ares" }
+			{ Name = "SuitRocketTrailFxC3_Ares" }			
+			{ Name = "SuitRocketTrailFxC4_Ares" }
+			{ Name = "SuitRocketTrailFxC5_Ares" }
+			{ Name = "SuitRocketTrailFxC6_Ares" }
+		]
+	}
+
+	{
+		Name = "SuitRocketTrailFxC1_Ares"
+		InheritFrom = "SuitRocketTrailFxA_Ares01"
+		FilePath = "Fx\Ares\AresParticleA\AresParticleA"
+		RandomFlipVertical = true
+		NumFrames = 80
+		StartScaleY = 0.7
+		EndScaleY = 1.0
+		ScaleMin = 0.2
+		ScaleMax = 0.6
+		RandomPlaySpeedMin = 90
+		RandomPlaySpeedMax = 160
+	}	
+
+	{
+		Name = "SuitRocketTrailFxC2_Ares"
+		InheritFrom = "SuitRocketTrailFxC_Ares"
+		FilePath = "Fx\Ares\AresParticleB\AresParticleB"
+	}	
+	{
+		Name = "SuitRocketTrailFxC3_Ares"
+		InheritFrom = "SuitRocketTrailFxC_Ares"
+		FilePath = "Fx\Ares\AresParticleC\AresParticleC"
+	}	
+	{
+		Name = "SuitRocketTrailFxC4_Ares"
+		InheritFrom = "SuitRocketTrailFxC1_Ares"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}	
+
+	{
+		Name = "SuitRocketTrailFxC5_Ares"
+		InheritFrom = "SuitRocketTrailFxC4_Ares"
+		FilePath = "Fx\Ares\AresParticleB\AresParticleB"
+	}	
+	{
+		Name = "SuitRocketTrailFxC6_Ares"
+		InheritFrom = "SuitRocketTrailFxC4_Ares"
+		FilePath = "Fx\Ares\AresParticleC\AresParticleC"
+	}	
+
+
+	{
+		Name = "SuitRocketFireFx_Ares"
+		InheritFrom = "SuitRocketFireFx"
+		Hue = 0.5
+		Saturation = 0.8
+		Red = 1
+		Green = 0.1
+		Blue = 0
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "SuitRocketFireFxFlare_Ares" }
+		]
+	}
+
+	{
+		Name = "SuitRocketFireFxFlare_Ares"
+		InheritFrom = "SuitRocketFireFxFlare"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "SuitDeflectBase_Ares"
+		InheritFrom = "SuitDeflectBase"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		ChainTo = "SuitDeflectBaseFade_Ares"
+		ChildAnimation = "SuitDeflectBaseGlow_Ares"
+	}
+
+	{
+		Name = "SuitDeflectBaseGlow_Ares"
+		InheritFrom = "SuitDeflectBaseGlow"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "SuitDeflectBaseFade_Ares"
+		InheritFrom = "SuitDeflectBase_Ares"
+		Sound = null
+		Loop = false
+		TransferAngle = true
+		ChainTo = null
+		StartAlpha = 1
+		EndAlpha = 0
+		AddColor = false
+		CreateAnimation = null
+		ClearCreateAnimations = true
+		Duration = 0.1
+		PlaySpeed = 90
+		StartScale = 1
+		EndScale = 0
+	}
+
+	{
+		Name = "SuitNovaBurn_Ares"
+		InheritFrom = "SuitNovaBurn"
+		Saturation = -1
+		Red = 1
+		Green = 0
+		Blue = 0
+		PlaySpeed = 105
+		VisualFxIntervalMax = 0.011
+		VisualFxIntervalMin = 0.01
+		VisualFx = "SuitBurnNovaParticles_Ares"
+		VisualFxCap = 12		
+		CreateAnimations = [
+			{ Name = "SuitNovaBurnDark" }
+			{ Name = "SuitNovaBurnFx_Ares" }
+			{ Name = "SuitNovaBurnGlow_Ares" }
+			{ Name = "SuitNovaBurnFlare_Ares" }
+		]
+	}
+
+	{
+		Name = "SuitNovaBurnRapid_Ares"
+		InheritFrom = "SuitNovaBurnRapid"
+		Saturation = -1
+		StartRed = 1
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.5
+		EndGreen = 0.001
+		EndBlue = 0.001
+		EaseIn = 0.5
+		EaseOut = 1.0
+		VisualFxIntervalMax = 0.011
+		VisualFxIntervalMin = 0.01
+		GroupName = "FX_Terrain"
+		VisualFx = "SuitBurnNovaParticles_Ares"
+		VisualFxCap = 3
+		CreateAnimations = [
+			{ Name = "SuitNovaBurnRapidDisplacement" }
+		]
+	}
+	{
+		Name = "SuitNovaBurnFx_Ares"
+		FilePath = "Fx\Ares\AresCircle\AresCircle"
+		PostRotateScaleY = 0.5
+		LocationZFromOwner = "Ignore"
+		Material = "Unlit"
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 2
+		NumFrames = 49
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+
+
+		]
+	}
+
+	{
+		Name = "SuitNovaBurnGlow_Ares"
+		InheritFrom = "SuitNovaBurnGlow"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "SuitNovaBurnFlare_Ares"
+		InheritFrom = "SuitNovaBurnFlare"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Sound = "/SFX/Player Sounds/AresProjectileFire"
+	}
+
+
+	{
+		Name = "SuitExhaustDashTrail_R_Spawner_Ares"
+		InheritFrom = "SuitExhaustDashTrail_R_Spawner"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		VisualFx = "SuitExhaustDashTrail_Ares"
+		CreateAnimation = "SuitExhaustDashTrail_L_Spawner_Ares"
+	}
+
+	{
+		Name = "SuitExhaustDashTrail_L_Spawner_Ares"
+		InheritFrom = "SuitExhaustDashTrail_R_Spawner_Ares"
+		CreateAnimation = null
+		GrannyAttachedMarkerLocation = "WeaponSuitB_Rig:backpackJetExtra_01_L_JNT"
+	}
+
+	{
+		Name = "SuitExhaustDashTrail_Ares"
+		InheritFrom = "SuitExhaustDashTrail"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+
+	{
+		Name = "SuitBurnNovaParticles_Ares"
+		Random = [
+			{ Name = "SuitBurnNovaParticle_AresA" }
+			{ Name = "SuitBurnNovaParticle_AresB" }
+			{ Name = "SuitBurnNovaParticle_AresC" }
+			{ Name = "SuitBurnNovaParticle_AresD" }
+		]
+	}
+
+	{
+		Name = "SuitBurnNovaParticle_AresA"
+		FilePath = "Fx\Ares\AresSliceParticleA\AresSliceParticleA"
+		NumFrames = 20
+		Material = "Unlit"
+		GroupName = "FX_Dark"
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 60
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = true
+		ScaleMin = 0.3
+		ScaleMax = 0.7
+		Scale = 0.5
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 120
+		RadialOffsetMax = 200
+		RadialOffsetScaleY = 0.5
+		DieWithOwner = false
+		AngleFromOwner = "Ignore"
+		Red = 1
+		Green = 0
+		Blue = 0
+		VelocityMin = 500
+		VelocityMax = 700
+		Acceleration = -2400
+	}
+
+	{
+		Name = "SuitBurnNovaParticle_AresB"
+		InheritFrom = "SuitBurnNovaParticle_AresA"
+		FilePath = "Fx\Ares\AresSliceParticleB\AresSliceParticleB"
+	}
+	{
+		Name = "SuitBurnNovaParticle_AresC"
+		InheritFrom = "SuitBurnNovaParticle_AresA"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}	
+	{
+		Name = "SuitBurnNovaParticle_AresD"
+		InheritFrom = "SuitBurnNovaParticle_AresB"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+	{
+		Name = "GrenadeExplosion_Ares"
+		InheritFrom = "GrenadeExplosionBase"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+		VisualFx = "GrenadeExplosionParticles_Ares"
+		VisualFxCap = 16
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/AresProjectileExplosion"
+		CreateAnimations =
+		[
+			{ Name = "GrenadeExplosionBright_Ares" }
+			{ Name = "GrenadeExplosionGlow_Ares" }
+			{ Name = "GrenadeExplosionSmoke_Ares" }
+			{ Name = "GrenadeExplosionSmoke_Ares" }
+			{ Name = "GrenadeExplosionFlare_Ares" }
+			{ Name = "QuickFlashPink" }
+			{ Name = "GrenadeExplosionCrater" }
+			{ Name = "GrenadeExplosionScorchMark" }
+		]
+	}
+	{
+		Name = "GrenadeExplosionBright_Ares"
+		InheritFrom = "GrenadeExplosionBrightBase"
+		AddColor = false
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+	{
+		Name = "GrenadeExplosionGlow_Ares"
+		InheritFrom = "GrenadeExplosionGlowBase"
+		StartAlpha = 0.4
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+	{
+		Name = "GrenadeExplosionFlare_Ares"
+		InheritFrom = "GrenadeExplosionFlare"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+	{
+		Name = "GrenadeExplosionParticles_Ares"
+		Random = [
+			{ Name = "GrenadeExplosionParticle_AresA" }
+			{ Name = "GrenadeExplosionParticle_AresB" }
+			{ Name = "GrenadeExplosionParticle_AresC" }
+			{ Name = "GrenadeExplosionParticle_AresD" }
+		]
+	}
+	{
+		Name = "GrenadeExplosionParticle_AresA"
+		FilePath = "Fx\Ares\AresSliceParticleA\AresSliceParticleA"
+		NumFrames = 20
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = true
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		IsometricSkew = "X"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 100
+		RadialOffsetMax = 110
+		RadialOffsetScaleRadius = 100
+		RadialOffsetScaleY = 0.5
+		DieWithOwner = false
+		StartRed = 1
+		StartGreen = 0.04
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0
+		EndBlue = 0
+	}
+	{
+		Name = "GrenadeExplosionParticle_AresB"
+		InheritFrom = "GrenadeExplosionParticle_AresA"
+		FilePath = "Fx\Ares\AresSliceParticleB\AresSliceParticleB"
+	}
+	{
+		Name = "GrenadeExplosionParticle_AresC"
+		InheritFrom = "GrenadeExplosionParticle_AresA"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+	}
+	{
+		Name = "GrenadeExplosionParticle_AresD"
+		InheritFrom = "GrenadeExplosionParticle_AresB"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+
+	}
+	{
+		Name = "GrenadeExplosionSmoke_Ares"
+		Random =
+		[
+			{ Name = "GrenadeExplosionSmokeA_Ares" }
+			{ Name = "GrenadeExplosionSmokeB_Ares" }
+		]
+	}
+	{
+		Name = "GrenadeExplosionSmokeA_Ares"
+		InheritFrom = "GrenadeExplosionSmokeA"
+		StartRed = 1.0
+		StartGreen = 0.04
+		StartBlue = 0.001
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+	{
+		Name = "GrenadeExplosionSmokeB_Ares"
+		InheritFrom = "GrenadeExplosionSmokeA_Ares"
+		FilePath = "Fx\LobExplosionBright\LobExplosionSmokeB"
+	}
+
+	// -------------------------------------------------------
 
 	{
 		Name = "MelUnequipSparkleSuitB"
@@ -8198,4 +11251,1784 @@
 	}
 	*/
 
+	{
+		Name = "ShivaExecuteFxBright"
+		FilePath = "Fx\WeaponAspects\Shiva\ShivaExecuteFxBright\ShivaExecuteFxBright"
+		NumFrames = 60
+		PlaySpeed = 60
+		RandomFlipHorizontal = true
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+		Scale = 1.5
+		TimeModifierFraction = 0
+		CreateAnimations = [
+			// { Name = "ShivaExecuteFxGlow" }
+			{ Name = "ShivaExecuteFxDisplacement" }
+			{ Name = "ShivaExecuteFxFlareA" }
+			{ Name = "ShivaExecuteFxFlareB" }
+			{ Name = "ShivaExecuteParticle" }
+			{ Name = "ShivaExecuteParticle" }
+			{ Name = "ShivaExecuteParticle" }
+			{ Name = "ShivaExecuteParticle" }
+			{ Name = "ShivaExecuteParticle" }
+			{ Name = "ShivaExecuteParticle" }
+			{ Name = "ShivaExecuteParticle" }
+		]
+	}
+
+	{
+		Name = "ShivaExecuteParticle"
+		FilePath = "Particles\particle_glow_add"
+		Material = "Unlit"
+		StartRed = 1
+		StartGreen = 0.33
+		StartBlue = 0.05
+		EndRed = 0.4
+		EndGreen = 0
+		EndBlue = 1.0
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = true
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		AddColor = true
+		GroupName = "FX_Standing_Add"
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		AngleMin = 10
+		AngleMax = 170
+		VelocityMin = 100
+		VelocityMax = 300
+		Acceleration = -200
+		StartScale = 1
+		EndScale = 0
+		StartScaleX = 3
+		EndScaleX = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RadialOffsetMin = 100
+		RadialOffsetMax = 200
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		DieWithOwner = false
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ShivaExecuteFxFlareA"
+		FilePath = "Fx\AxeNovaFlare\AxeNovaFlare"
+		NumFrames = 11
+		Material = "Unlit"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.33
+		StartBlue = 0.05
+		EndRed = 0.4
+		EndGreen = 0
+		EndBlue = 1.0
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Standing_Add"
+		Scale = 2
+		ScaleY = 2
+		StartScaleX = 1
+		EndScaleX = 0.2
+		EaseIn = 0.99
+		EaseOut= 1.0
+	}
+
+	{
+		Name = "ShivaExecuteFxFlareB"
+		InheritFrom = "ShivaExecuteFxFlareA"
+		NumFrames = 1
+		FilePath = "Particles\particle_skyprojectile"
+		Duration = 0.2
+		StartScale = 1
+		EndScale = 0
+		StartOffsetZ = 0
+		EndOffsetZ = 300
+	}
+
+	{
+		Name = "ShivaExecuteFxDisplacement"
+		FilePath = "Fx\DisplaceShockwaveHemi\DisplaceShockwaveHemi"
+		NumFrames = 16
+		PlaySpeed = 45
+		FlipHorizontal = true
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Scale = 2
+		GroupName = "FX_Displacement"
+		OffsetZ = 60
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "ShivaExecuteFxGlow"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		Duration = 0.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		GroupName = "FX_Standing_Add"
+		Scale = 2
+		StartScale = 1
+		EndScale = 1.2
+		StartRed = 1
+		StartGreen = 0.33
+		StartBlue = 0.05
+		EndRed = 0.4
+		EndGreen = 0
+		EndBlue = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ShivaExecuteFxDark"
+		InheritFrom = "ShivaExecuteFxBright"
+		NumFrames = 24
+		PlaySpeed = 60
+		Scale = 2
+		FilePath = "Fx\WeaponAspects\Shiva\ShivaExecuteFxDark\ShivaExecuteFxDark"
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "ShivaAttackBoostFx"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		CreateAnimations = [
+			{ Name = "ShivaStatusFx_L" }
+			{ Name = "ShivaStatusFx_R" }
+			{ Name = "ShivaStatusFx_L_Dark" }
+			{ Name = "ShivaStatusFx_R_Dark" }
+		]
+	}
+
+	{
+		Name = "ShivaStatusFxBase"
+		FilePath = "Fx\OlympianGenericStatusFx\OlympianGenericStatusFx"
+		NumFrames = 60
+		Material = "Unlit"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.3
+		StartBlue = 0
+		EndRed = 0.4
+		EndGreen = 0
+		EndBlue = 1
+		PingPongColor = true
+		Loop = true
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		IsometricSkew = "Y"
+		PlaySpeed = 45
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Scale = 1.33
+		VisualFx = "ShivaStatusFxBaseTrail"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+		DieWithOwner = true
+	}
+
+	{
+		Name = "ShivaStatusFxBaseTrail"
+		Random = [
+			{ Name = "ShivaStatusFxBaseTrailA" }
+			{ Name = "ShivaStatusFxBaseTrailB" }
+			{ Name = "ShivaStatusFxBaseTrailC" }
+		]
+	}
+
+	{
+		Name = "ShivaStatusFxBaseTrailA"
+		InheritFrom = "ShivaStatusFxBase"
+		VisualFx = null
+		GroupName = "FX_Standing_Add"
+		IsometricSkew = "None"
+		PostRotateScaleY = 0.5
+		StartAlpha = 0
+		EndAlpha = 1
+		Alpha = 0.4
+		Scale = 2.4
+		EaseIn = 0
+		EaseOut = 1
+		LoopFramesOnly = true
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.6
+		StartScale = 0.4
+		EndScale = 1.0
+		ScaleMin = 1
+		ScaleMax = 1.6
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		Loop = false
+		OwnerVelocityFraction = 0.7
+		Acceleration = -400
+		AngleFromOwner = "Take"
+		DieWithOwner = false
+	}
+
+	{
+		Name = "ShivaStatusFxBaseTrailB"
+		InheritFrom = "ShivaStatusFxBaseTrailA"
+		PostRotateScaleY = 1.0
+		IsometricSkew = "X"
+	}
+
+	{
+		Name = "ShivaStatusFxBaseTrailC"
+		InheritFrom = "ShivaStatusFxBaseTrailB"
+		IsometricSkew = "Y"
+	}
+
+	{
+		Name = "ShivaStatusFxSparkleBase"
+		FilePath = "Particles\particle_sparkle_glow"
+		Material = "Unlit"
+		StartRed = 1
+		StartGreen = 0.3
+		StartBlue = 0
+		EndRed = 0.4
+		EndGreen = 0
+		EndBlue = 1
+		PingPongColor = true
+		Duration = 1
+		EaseIn = 0
+		EaseOut = 1
+		StartScale = 0.6
+		EndScale = 1
+		ScaleY = 2
+		PingPongScale = true
+		Loop = true
+		AddColor = true
+		Scale = 0.3
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ShivaStatusFx_L"
+		InheritFrom = "ShivaStatusFxBase"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_L_JNT"
+		FlipHorizontal = true
+		ChildAnimation = "ShivaStatusFxSparkle_L"
+		Sound = "/SFX/Player Sounds/MelShivaStatusLoop"
+		StopSoundOnFinishFade = 0.2
+	}	
+
+	{
+		Name = "ShivaStatusFxSparkle_L"
+		InheritFrom = "ShivaStatusFxSparkleBase"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_L_JNT"
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ShivaStatusFx_R"
+		InheritFrom = "ShivaStatusFxBase"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+		ChildAnimation = "ShivaStatusFxSparkle_R"
+	}
+
+	{
+		Name = "ShivaStatusFxSparkle_R"
+		InheritFrom = "ShivaStatusFxSparkleBase"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+	}
+
+	{
+		Name = "ShivaStatusFxDarkBase"
+		FilePath = "Fx\LuciferBombDark\LuciferBombDark"
+		NumFrames = 35
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 50
+		GroupName = "FX_Dark"
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		AngleFromOwner = "Ignore"
+		RandomRotation = true
+	}
+
+	{
+		Name = "ShivaStatusFx_L_Dark"
+		InheritFrom = "ShivaStatusFxDarkBase"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_L_JNT"
+		ChainTo = "ShivaStatusFx_L_Dark_Out"
+	}
+
+	{
+		Name = "ShivaStatusFx_R_Dark"
+		InheritFrom = "ShivaStatusFxDarkBase"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+		ChainTo = "ShivaStatusFx_R_Dark_Out"
+	}
+
+	{
+		Name = "ShivaStatusFx_L_Dark_Out"
+		InheritFrom = "ShivaStatusFx_L_Dark"
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.25
+		ChainTo = null
+		LoopFramesOnly = true
+		Loop = false
+	}
+
+	{
+		Name = "ShivaStatusFx_R_Dark_Out"
+		InheritFrom = "ShivaStatusFx_L_Dark_Out"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+	}
+
+	{
+		Name = "ShivaExecuteIcon"
+		FilePath = "Fx\WeaponAspects\Shiva\ShivaExecuteIcon\ShivaExecuteIcon"
+		NumFrames = 30
+		Loop = true
+		PlaySpeed = 30
+		Material = "Unlit"
+		Sound = "/SFX/Player Sounds/MelShivaInstaKillSFX"
+		Scale = 0.85
+	}
+
+	{
+		Name = "ShivaGrenade"
+		FilePath = "Fx\WeaponAspects\Shiva\ShivaGrenade\ShivaGrenade"
+		NumFrames = 45
+		PlaySpeed = 45
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		Material = "Unlit"
+		Loop = true
+		RandomStartFrame = true
+		VisualFx = "ShivaGrenadeTrailDark"
+		VisualFxUse3DAngle = true
+		VisualFxDistanceMin = 8
+		VisualFxDistanceMax = 32
+		Sound = "/SFX/Player Sounds/ShivaLaunchCrackleLoop"
+		StopSoundOnFinishFade = 0.2
+		OffsetZ = 30
+		CreateAnimations = [
+			{ Name = "ShivaGrenadeGlowA" }
+			{ Name = "ShivaGrenadeGlowB" }
+			{ Name = "ShivaGrenadeGlowC" }
+		]
+	}
+
+	{
+		Name = "ShivaGrenadeBig"
+		InheritFrom = "ShivaGrenade"
+		FilePath = "Fx\WeaponAspects\Shiva\ShivaGrenade\ShivaGrenade"
+		Scale = 1.45
+	}
+
+	{
+		Name = "ShivaGrenadeGlowA"
+		FilePath = "Particles\particle_glow"
+		Red = 0.5
+		Green = 0
+		Blue = 1
+		GroupName = "FX_Standing_Add"
+		DieWithOwner = true
+		Scale = 1
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.4
+		ReRandomizeOnLoop = true
+		Loop = true
+		StartAlpha = 0.3
+		EndAlpha = 0.6
+		PingPongColor = true
+		OffsetZ = 30
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+	}
+
+	{
+		Name = "ShivaGrenadeGlowB"
+		InheritFrom = "ShivaGrenadeGlowA"
+		Red = 1
+		Green = 0.5
+		Blue = 0
+		Scale = 0.2
+		EndAlpha = 1
+	}	
+
+	{
+		Name = "ShivaGrenadeGlowC"
+		InheritFrom = "ShivaGrenadeGlowA"
+		FilePath = "Particles\particle_flare_boon"
+		AddColor = true
+		UseOwnAngle = true
+		AngleFromOwner = "Ignore"
+		Scale = 0.5
+		EndAlpha = 0.33
+		StartAlpha = 0.05
+	}
+
+	{
+		Name = "ShivaGrenadeShadow"
+		InheritFrom = "ShivaGrenade"
+		ClearCreateAnimations = true
+		Red = 0
+		Green = 0
+		Blue = 0
+		LocationZFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		GroupName = "Shadows"
+		DieWithOwner = true
+		Scale = 1
+		Alpha = 0.6
+		VisualFx = null
+		OffsetZ = 0
+		Sound = null
+	}
+
+
+	{
+		Name = "ShivaGrenadeTrailDark"
+		FilePath = "Fx\FadeTrail\FadeTrail"
+		NumFrames = 28
+		Material = "Unlit"
+		Scale = 0.5
+		StartRed = 0.25
+		StartGreen = 0.01
+		StartBlue = 0.5
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		Alpha = 1
+		EaseIn= 0.9
+		EaseOut = 1.0
+		PlaySpeed = 90
+		GroupName = "FX_Dark"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		CreateAnimation = "ShivaGrenadeTrailLight"
+	}
+
+	{
+		Name = "ShivaGrenadeTrailLight"
+		InheritFrom = "ShivaGrenadeTrailDark"
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 240
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.5
+		EndRed = 0.5
+		EndGreen = 0
+		EndBlue = 1.0
+		Scale = 0.125
+		GroupName = "FX_Standing_Add"
+		CreateAnimation = "ShivaGrenadeTrailSpark"
+	}
+
+	{
+		Name = "ShivaGrenadeTrailSpark"
+		Random = [
+			{ Name = "ShivaGrenadeTrailSparkA" }
+			{ Name = "ShivaGrenadeTrailSparkB" }
+			{ Name = "ShivaGrenadeTrailSparkB" }
+		]
+	}
+
+	{
+		Name = "ShivaGrenadeTrailSparkA"
+		FilePath = "Particles\particle_dagger_trail_color"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.1
+		EndRed = 0.5
+		EndGreen = 0
+		EndBlue = 1
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.4
+		EaseIn = 0.99
+		EaseOut = 1.0
+		AngleMin = 0
+		AngleMax = 360
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		VelocityMin = 1000
+		VelocityMax = 2000
+		Acceleration = -12000
+		Scale = 0.25
+		ScaleY = 1
+		StartScaleX = 1
+		EndScaleX = 0
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		Material = "Unlit"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+	}
+
+	{
+		Name = "ShivaGrenadeTrailSparkB"
+		InheritFrom = "ShivaGrenadeTrailSparkA"
+		AddColor = false
+	}
+
+	// God Grenades / Bomb
+
+	// Aphrodite
+	{
+		Name = "ShivaGrenade_Aphrodite"
+		InheritFrom = "ShivaGrenade"
+		Hue = 0.1
+		Saturation = -0.4
+		VisualFx = "ShivaGrenadeTrailDark_Aphrodite"
+		Sound = "/SFX/Player Sounds/AphroditeTorchProjectileLoop"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "ShivaGrenadeGlowA_Aphrodite" }
+			{ Name = "ShivaGrenadeGlowB_Aphrodite" }
+			{ Name = "ShivaGrenadeGlowC_Aphrodite" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeBig_Aphrodite"
+		InheritFrom = "ShivaGrenade_Aphrodite"
+		FilePath = "Fx\WeaponAspects\Shiva\ShivaGrenade\ShivaGrenade"
+		Scale = 1.45
+	}
+	{
+		Name = "ShivaGrenadeGlowA_Aphrodite"
+		InheritFrom = "ShivaGrenadeGlowA"
+		Red = 1.0
+		Green = 0.3
+		Blue = 0.7
+	}
+	{
+		Name = "ShivaGrenadeGlowB_Aphrodite"
+		InheritFrom = "ShivaGrenadeGlowA_Aphrodite"
+		Red = 0.4
+		Green = 0.5
+		Blue = 1.0
+		Scale = 0.2
+		EndAlpha = 1
+	}	
+	{
+		Name = "ShivaGrenadeGlowC_Aphrodite"
+		InheritFrom = "ShivaGrenadeGlowA_Aphrodite"
+		FilePath = "Particles\particle_flare_boon"
+		AddColor = true
+		UseOwnAngle = true
+		AngleFromOwner = "Ignore"
+		Scale = 0.5
+		EndAlpha = 0.33
+		StartAlpha = 0.05
+	}
+	{
+		Name = "ShivaGrenadeTrailDark_Aphrodite"
+		InheritFrom = "ShivaGrenadeTrailDark"
+		StartRed = 0.5
+		StartGreen = 0.15
+		StartBlue = 0.35
+		EndRed = 0.1
+		EndGreen = 0.03
+		EndBlue = 0.07
+		CreateAnimation = "ShivaGrenadeTrailLight_Aphrodite"
+	}
+	{
+		Name = "ShivaGrenadeTrailLight_Aphrodite"
+		InheritFrom = "ShivaGrenadeTrailDark_Aphrodite"
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 240
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.5
+		EndRed = 0.5
+		EndGreen = 0
+		EndBlue = 1.0
+		Scale = 0.125
+		GroupName = "FX_Standing_Add"
+		CreateAnimation = "ShivaGrenadeTrailSpark_Aphrodite"
+	}
+	{
+		Name = "ShivaGrenadeTrailSpark_Aphrodite"
+		Random =
+		[
+			{ Name = "ShivaGrenadeTrailSparkA_Aphrodite" }
+			{ Name = "ShivaGrenadeTrailSparkB_Aphrodite" }
+			{ Name = "ShivaGrenadeTrailSparkB_Aphrodite" }
+			{ Name = "ShivaGrenadeTrailSparkC_Aphrodite" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkA_Aphrodite"
+		InheritFrom = "ShivaGrenadeTrailSparkA"
+		StartRed = 1.0
+		StartGreen = 0.3
+		StartBlue = 0.7
+		EndRed = 0.4
+		EndGreen = 0.5
+		EndBlue = 1.0
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkB_Aphrodite"
+		InheritFrom = "ShivaGrenadeTrailSparkA_Aphrodite"
+		AddColor = false
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkC_Aphrodite"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		UseOwnAngle = false
+		AngleFromOwner = "Take"
+		RandomDurationMin = 0.9
+		RandomDurationMax = 1.2
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Scale = 1.5
+		RandomOffsetX = 10
+		RandomOffsetY = 5
+		AngleMin = -10
+		AngleMax = 10
+		OffsetZ = 30
+		OverlayVfx = true
+		GroupName = "FX_Standing_Add"
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -100
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	// Apollo
+	{
+		Name = "ShivaGrenade_Apollo"
+		InheritFrom = "ShivaGrenade"
+		Red = 1.0
+		Green = 0.95
+		Blue = 0.3
+		Value = 0.3
+		Saturation = -0.5
+		VisualFx = "ShivaGrenadeTrailDark_Apollo"
+		Sound = "/SFX/Player Sounds/ApolloTorchAttackLoop"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "ShivaGrenadeGlowA_Apollo" }
+			{ Name = "ShivaGrenadeGlowB_Apollo" }
+			{ Name = "ShivaGrenadeGlowC_Apollo" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeBig_Apollo"
+		InheritFrom = "ShivaGrenade_Apollo"
+		FilePath = "Fx\WeaponAspects\Shiva\ShivaGrenade\ShivaGrenade"
+		Scale = 1.45
+	}
+	{
+		Name = "ShivaGrenadeGlowA_Apollo"
+		InheritFrom = "ShivaGrenadeGlowA"
+		Red = 1.0
+		Green = 0.6
+		Blue = 0.2
+	}
+	{
+		Name = "ShivaGrenadeGlowB_Apollo"
+		InheritFrom = "ShivaGrenadeGlowA_Apollo"
+		Red = 1.0
+		Green = 0.9
+		Blue = 0.0
+		Scale = 0.2
+		EndAlpha = 1
+	}	
+	{
+		Name = "ShivaGrenadeGlowC_Apollo"
+		InheritFrom = "ShivaGrenadeGlowA_Apollo"
+		FilePath = "Particles\particle_flare_boon"
+		AddColor = true
+		UseOwnAngle = true
+		AngleFromOwner = "Ignore"
+		Scale = 0.5
+		EndAlpha = 0.33
+		StartAlpha = 0.05
+	}
+	{
+		Name = "ShivaGrenadeTrailDark_Apollo"
+		InheritFrom = "ShivaGrenadeTrailDark"
+		Red = 1.0
+		Green = 0.9
+		Blue = 0.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.25
+		EndGreen = 0.2
+		EndBlue = 0.0
+		CreateAnimation = "ShivaGrenadeTrailLight_Apollo"
+	}
+	{
+		Name = "ShivaGrenadeTrailLight_Apollo"
+		InheritFrom = "ShivaGrenadeTrailDark_Apollo"
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 240
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.5
+		EndRed = 0.5
+		EndGreen = 0
+		EndBlue = 1.0
+		Scale = 0.125
+		GroupName = "FX_Standing_Add"
+		CreateAnimation = "ShivaGrenadeTrailSpark_Apollo"
+	}
+	{
+		Name = "ShivaGrenadeTrailSpark_Apollo"
+		Random =
+		[
+			{ Name = "ShivaGrenadeTrailSparkA_Apollo" }
+			{ Name = "ShivaGrenadeTrailSparkB_Apollo" }
+			{ Name = "ShivaGrenadeTrailSparkB_Apollo" }
+			{ Name = "ShivaGrenadeTrailSparkC_Apollo" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkA_Apollo"
+		InheritFrom = "ShivaGrenadeTrailSparkA"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.0
+		EndRed = 1.0
+		EndGreen = 0.6
+		EndBlue = 0.2
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkB_Apollo"
+		InheritFrom = "ShivaGrenadeTrailSparkA_Apollo"
+		AddColor = false
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkC_Apollo"
+		FilePath = "Fx\Apollo\ApolloSwirlDirectionalB\ApolloSwirlDirectionalB"
+		NumFrames = 24
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		AngleFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 0.2
+		ScaleMax = 0.7
+		RadialOffsetMin = -20
+		RadialOffsetMax = -20
+		OffsetZ = 30
+	}
+
+	// Ares
+	{
+		Name = "ShivaGrenade_Ares"
+		InheritFrom = "ShivaGrenade"
+		Red = 0.4
+		Green = 0.0
+		Blue = 0.0
+		Value = -0.5
+		Saturation = -1
+		VisualFxDistanceMin = 42
+		VisualFxDistanceMax = 48
+		VisualFx = "ShivaGrenadeTrailDark_Ares"
+		Sound = "/SFX/Player Sounds/MelTorchSpecialLoop_Ares2"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "ShivaGrenadeGlowA_Ares" }
+			{ Name = "ShivaGrenadeGlowB_Ares" }
+			{ Name = "ShivaGrenadeGlowC_Ares" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeBig_Ares"
+		InheritFrom = "ShivaGrenade_Ares"
+		FilePath = "Fx\WeaponAspects\Shiva\ShivaGrenade\ShivaGrenade"
+		Scale = 1.45
+	}
+	{
+		Name = "ShivaGrenadeGlowA_Ares"
+		InheritFrom = "ShivaGrenadeGlowA"
+		Red = 0.5
+		Green = 0.0
+		Blue = 0.0
+	}
+	{
+		Name = "ShivaGrenadeGlowB_Ares"
+		InheritFrom = "ShivaGrenadeGlowA_Ares"
+		Red = 0.5
+		Green = 0.18
+		Blue = 0.06
+		Scale = 0.2
+		EndAlpha = 1
+	}	
+	{
+		Name = "ShivaGrenadeGlowC_Ares"
+		InheritFrom = "ShivaGrenadeGlowA_Ares"
+		FilePath = "Particles\particle_flare_boon"
+		AddColor = true
+		UseOwnAngle = true
+		AngleFromOwner = "Ignore"
+		Scale = 0.5
+		EndAlpha = 0.33
+		StartAlpha = 0.05
+	}
+	{
+		Name = "ShivaGrenadeTrailDark_Ares"
+		InheritFrom = "ShivaGrenadeTrailDark"
+		NumFrames = 36
+		FilePath = "Fx\Ares\AresDirectionalTrailA\AresDirectionalTrailA"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.5
+		EndGreen = 0.5
+		EndBlue = 0.5
+		StartScaleY = 3
+		EndScaleY = 1
+		CreateAnimation = "ShivaGrenadeTrailLight_Ares"
+	}
+	{
+		Name = "ShivaGrenadeTrailLight_Ares"
+		InheritFrom = "ShivaGrenadeTrailDark_Ares"
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 240
+		StartRed = 0.5
+		StartGreen = 0.0
+		StartBlue = 0.0
+		EndRed = 0.7
+		EndGreen = 0.25
+		EndBlue = 0.06
+		Scale = 0.125
+		GroupName = "FX_Standing_Add"
+		CreateAnimation = "ShivaGrenadeTrailSpark_Ares"
+	}
+	{
+		Name = "ShivaGrenadeTrailSpark_Ares"
+		Random =
+		[
+			{ Name = "ShivaGrenadeTrailSparkA_Ares" }
+			{ Name = "ShivaGrenadeTrailSparkB_Ares" }
+			{ Name = "ShivaGrenadeTrailSparkB_Ares" }
+			{ Name = "ShivaGrenadeTrailSparkC_Ares" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkA_Ares"
+		InheritFrom = "ShivaGrenadeTrailSparkA"
+		StartRed = 0.5
+		StartGreen = 0.0
+		StartBlue = 0.0
+		EndRed = 0.7
+		EndGreen = 0.25
+		EndBlue = 0.06
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkB_Ares"
+		InheritFrom = "ShivaGrenadeTrailSparkA_Ares"
+		AddColor = false
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkC_Ares"
+		FilePath = "Fx\Ares\AresParticleA\AresParticleA"
+		GroupName = "FX_Dark"
+		NumFrames = 80
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleMin = 170
+		AngleMax = 190
+		AngleFromOwner = "Take"
+		VelocityMin = 300
+		VelocityMax = 600
+		Acceleration = -800
+		Material = "Unlit"
+		OverlayVfx = true
+		OffsetZ = 0
+		RandomOffsetX = 30
+		RandomOffsetY = 15
+		ScaleMin = 0.25
+		ScaleMax = 0.5
+		ScaleFromOwner = "Ignore"
+		OriginX = 400
+		OriginY = 75
+		StartScaleX = 1.1
+		EndScaleX = 0.9
+		ScaleY = 1.25
+		StartRed = 1
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.2
+		EndGreen = 0.01
+		EndBlue = 0.01
+		EaseIn = 0.99
+		EaseOut = 1.0
+	}
+
+	// Demeter
+	{
+		Name = "ShivaGrenade_Demeter"
+		InheritFrom = "ShivaGrenade"
+		AddColor = true
+		Red = 0.1
+		Green = 0.15
+		Blue = 0.7
+		Saturation = -0.5
+		VisualFx = "ShivaGrenadeTrailDark_Demeter"
+		Sound = "/SFX/Player Sounds/MelTorchSpecialLoop_Demeter2"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "ShivaGrenadeGlowA_Demeter" }
+			{ Name = "ShivaGrenadeGlowB_Demeter" }
+			{ Name = "ShivaGrenadeGlowC_Demeter" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeBig_Demeter"
+		InheritFrom = "ShivaGrenade_Demeter"
+		FilePath = "Fx\WeaponAspects\Shiva\ShivaGrenade\ShivaGrenade"
+		Scale = 1.45
+	}
+	{
+		Name = "ShivaGrenadeGlowA_Demeter"
+		InheritFrom = "ShivaGrenadeGlowA"
+		Red = 0.7
+		Green = 0.8
+		Blue = 0.9
+	}
+	{
+		Name = "ShivaGrenadeGlowB_Demeter"
+		InheritFrom = "ShivaGrenadeGlowA_Demeter"
+		Red = 0.7
+		Green = 0.6
+		Blue = 1.0
+		Scale = 0.2
+		EndAlpha = 1
+	}	
+	{
+		Name = "ShivaGrenadeGlowC_Demeter"
+		InheritFrom = "ShivaGrenadeGlowA_Demeter"
+		FilePath = "Particles\particle_flare_boon"
+		AddColor = true
+		UseOwnAngle = true
+		AngleFromOwner = "Ignore"
+		Scale = 0.5
+		EndAlpha = 0.33
+		StartAlpha = 0.05
+	}
+	{
+		Name = "ShivaGrenadeTrailDark_Demeter"
+		InheritFrom = "ShivaGrenadeTrailDark"
+		Red = 0.7
+		Green = 0.8
+		Blue = 0.9
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.05
+		EndGreen = 0.1
+		EndBlue = 0.4
+		CreateAnimation = "ShivaGrenadeTrailLight_Demeter"
+	}
+	{
+		Name = "ShivaGrenadeTrailLight_Demeter"
+		InheritFrom = "ShivaGrenadeTrailDark_Demeter"
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 240
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.5
+		EndRed = 0.5
+		EndGreen = 0
+		EndBlue = 1.0
+		Scale = 0.125
+		GroupName = "FX_Standing_Add"
+		CreateAnimation = "ShivaGrenadeTrailSpark_Demeter"
+	}
+	{
+		Name = "ShivaGrenadeTrailSpark_Demeter"
+		Random =
+		[
+			{ Name = "ShivaGrenadeTrailSparkA_Demeter" }
+			{ Name = "ShivaGrenadeTrailSparkB_Demeter" }
+			{ Name = "ShivaGrenadeTrailSparkB_Demeter" }
+			{ Name = "ShivaGrenadeTrailSparkC_Demeter" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkA_Demeter"
+		InheritFrom = "ShivaGrenadeTrailSparkA"
+		StartRed = 0.7
+		StartGreen = 0.8
+		StartBlue = 0.9
+		EndRed = 0.7
+		EndGreen = 0.6
+		EndBlue = 1.0 
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkB_Demeter"
+		InheritFrom = "ShivaGrenadeTrailSparkA_Demeter"
+		AddColor = false
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkC_Demeter"
+		FilePath = "Fx\Demeter\DemeterIceParticleA\DemeterIceParticleA"
+		NumFrames = 45
+		Material = "Unlit"
+		RandomRotation = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		ScaleMin = 0.5
+		ScaleMax = 0.75
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		GroupName = "FX_Standing_Add"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 90
+		AngleFromOwner = "Take"
+		StartScale = 1
+		EndScale = 0
+		Saturation = 0.25
+		Gravity = 200
+		LoopFramesOnly = true
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.0
+		EaseIn = 0
+		EaseOut = 1
+		OffsetZ = 40
+	}
+
+	// Hephaestus
+	{
+		Name = "ShivaGrenade_Hephaestus"
+		InheritFrom = "ShivaGrenade"
+		Value = 0.1
+		Saturation = -1.0
+		VisualFx = "ShivaGrenadeTrailDark_Hephaestus"
+		Sound = "/SFX/Player Sounds/MelTorchSpecialLoop_Hephaestus2"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "ShivaGrenadeGlowA_Hephaestus" }
+			{ Name = "ShivaGrenadeGlowB_Hephaestus" }
+			{ Name = "ShivaGrenadeGlowC_Hephaestus" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeBig_Hephaestus"
+		InheritFrom = "ShivaGrenade_Hephaestus"
+		FilePath = "Fx\WeaponAspects\Shiva\ShivaGrenade\ShivaGrenade"
+		Scale = 1.45
+	}
+	{
+		Name = "ShivaGrenadeGlowA_Hephaestus"
+		InheritFrom = "ShivaGrenadeGlowA"
+		Red = 0.6
+		Green = 0.4
+		Blue = 0.4
+	}
+	{
+		Name = "ShivaGrenadeGlowB_Hephaestus"
+		InheritFrom = "ShivaGrenadeGlowA_Hephaestus"
+		Red = 1.0
+		Green = 0
+		Blue = 0
+		Scale = 0.2
+		EndAlpha = 1
+	}
+	{
+		Name = "ShivaGrenadeGlowC_Hephaestus"
+		InheritFrom = "ShivaGrenadeGlowA_Hephaestus"
+		FilePath = "Particles\particle_flare_boon"
+		AddColor = true
+		UseOwnAngle = true
+		AngleFromOwner = "Ignore"
+		Scale = 0.5
+		EndAlpha = 0.33
+		StartAlpha = 0.05
+	}
+	{
+		Name = "ShivaGrenadeTrailDark_Hephaestus"
+		InheritFrom = "ShivaGrenadeTrailDark"
+		Red = 0.6
+		Green = 0.4
+		Blue = 0.4
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.2
+		EndGreen = 0.0
+		EndBlue = 0.0
+		CreateAnimation = "ShivaGrenadeTrailLight_Hephaestus"
+	}
+	{
+		Name = "ShivaGrenadeTrailLight_Hephaestus"
+		InheritFrom = "ShivaGrenadeTrailDark_Hephaestus"
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 240
+		StartRed = 1.0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.6
+		EndGreen = 0.4
+		EndBlue = 0.4
+		Scale = 0.125
+		GroupName = "FX_Standing_Add"
+		CreateAnimation = "ShivaGrenadeTrailSpark_Hephaestus"
+	}
+	{
+		Name = "ShivaGrenadeTrailSpark_Hephaestus"
+		Random =
+		[
+			{ Name = "ShivaGrenadeTrailSparkA_Hephaestus" }
+			{ Name = "ShivaGrenadeTrailSparkB_Hephaestus" }
+			{ Name = "ShivaGrenadeTrailSparkB_Hephaestus" }
+			{ Name = "ShivaGrenadeTrailSparkC_Hephaestus" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkA_Hephaestus"
+		InheritFrom = "ShivaGrenadeTrailSparkA"
+		StartRed = 0.6
+		StartGreen = 0.4
+		StartBlue = 0.4
+		EndRed = 1.0
+		EndGreen = 0
+		EndBlue = 0
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkB_Hephaestus"
+		InheritFrom = "ShivaGrenadeTrailSparkA_Hephaestus"
+		AddColor = false
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkC_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
+		NumFrames = 38
+		Material = "Unlit"
+		RandomRotation = false
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		GroupName = "FX_Standing_Add"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 70
+		VelocityMin = 1
+		VelocityMax = 600
+		Acceleration = -1200
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetZ = 20
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Ignore"
+	}
+
+	// Hera
+	{
+		Name = "ShivaGrenade_Hera"
+		InheritFrom = "ShivaGrenade"
+		AddColor = true
+		Red = 0
+		Green = 0.20
+		Blue = 0.28
+		Value = -0.1
+		Saturation = -0.5
+		VisualFx = "ShivaGrenadeTrailDark_Hera"
+		Sound = "/SFX/Player Sounds/HeraProjectileLoop2"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "ShivaGrenadeGlowA_Hera" }
+			{ Name = "ShivaGrenadeGlowB_Hera" }
+			{ Name = "ShivaGrenadeGlowC_Hera" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeBig_Hera"
+		InheritFrom = "ShivaGrenade_Hera"
+		FilePath = "Fx\WeaponAspects\Shiva\ShivaGrenade\ShivaGrenade"
+		Scale = 1.45
+	}
+	{
+		Name = "ShivaGrenadeGlowA_Hera"
+		InheritFrom = "ShivaGrenadeGlowA"
+		Red = 0
+		Green = 0.9
+		Blue = 1.0
+	}
+	{
+		Name = "ShivaGrenadeGlowB_Hera"
+		InheritFrom = "ShivaGrenadeGlowA_Hera"
+		Red = 0.31
+		Green = 1.0
+		Blue = 0.54
+		Scale = 0.2
+		EndAlpha = 1
+	}
+	{
+		Name = "ShivaGrenadeGlowC_Hera"
+		InheritFrom = "ShivaGrenadeGlowA_Hera"
+		FilePath = "Particles\particle_flare_boon"
+		AddColor = true
+		UseOwnAngle = true
+		AngleFromOwner = "Ignore"
+		Scale = 0.5
+		EndAlpha = 0.33
+		StartAlpha = 0.05
+	}
+	{
+		Name = "ShivaGrenadeTrailDark_Hera"
+		InheritFrom = "ShivaGrenadeTrailDark"
+		Red = 0
+		Green = 0.9
+		Blue = 1.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.0
+		EndGreen = 0.08
+		EndBlue = 0.1
+		CreateAnimation = "ShivaGrenadeTrailLight_Hera"
+	}
+	{
+		Name = "ShivaGrenadeTrailLight_Hera"
+		InheritFrom = "ShivaGrenadeTrailDark_Hera"
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 240
+		StartRed = 1.0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.6
+		EndGreen = 0.4
+		EndBlue = 0.4
+		Scale = 0.125
+		GroupName = "FX_Standing_Add"
+		CreateAnimation = "ShivaGrenadeTrailSpark_Hera"
+	}
+	{
+		Name = "ShivaGrenadeTrailSpark_Hera"
+		Random =
+		[
+			{ Name = "ShivaGrenadeTrailSparkA_Hera" }
+			{ Name = "ShivaGrenadeTrailSparkB_Hera" }
+			{ Name = "ShivaGrenadeTrailSparkB_Hera" }
+			{ Name = "ShivaGrenadeTrailSparkC_Hera" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkA_Hera"
+		InheritFrom = "ShivaGrenadeTrailSparkA"
+		StartRed = 0.31
+		StartGreen = 1.0
+		StartBlue = 0.54
+		EndRed = 0
+		EndGreen = 0.9
+		EndBlue = 1.0
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkB_Hera"
+		InheritFrom = "ShivaGrenadeTrailSparkA_Hera"
+		AddColor = false
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkC_Hera"
+		FilePath = "Fx\Hera\HeraSwipeParticleA\HeraSwipeParticleA"
+		Material = "Unlit"
+		NumFrames = 26
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ScaleFromOwner = "Ignore"
+		VelocityMin = 20
+		VelocityMax = 40
+		Acceleration = -40
+		RandomRotation = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		ScaleMin = 0.3
+		ScaleMax = 0.7
+	}
+
+	// Hestia
+	{
+		Name = "ShivaGrenade_Hestia"
+		InheritFrom = "ShivaGrenade"
+		AddColor = true
+		Red = 1.0
+		Green = 0.25
+		Blue = 0.0
+		Value = -0.3
+		Saturation = -0.5
+		VisualFx = "ShivaGrenadeTrailDark_Hestia"
+		Sound = "/SFX/Player Sounds/MelTorchSpecialLoop_Hestia2"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "ShivaGrenadeGlowA_Hestia" }
+			{ Name = "ShivaGrenadeGlowB_Hestia" }
+			{ Name = "ShivaGrenadeGlowC_Hestia" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeBig_Hestia"
+		InheritFrom = "ShivaGrenade_Hestia"
+		FilePath = "Fx\WeaponAspects\Shiva\ShivaGrenade\ShivaGrenade"
+		Scale = 1.45
+	}
+	{
+		Name = "ShivaGrenadeGlowA_Hestia"
+		InheritFrom = "ShivaGrenadeGlowA"
+		Red = 1
+		Green = 0.25
+		Blue = 0
+	}
+	{
+		Name = "ShivaGrenadeGlowB_Hestia"
+		InheritFrom = "ShivaGrenadeGlowA_Hestia"
+		Red = 1
+		Green = 1
+		Blue = 0.3
+		Scale = 0.2
+		EndAlpha = 1
+	}
+	{
+		Name = "ShivaGrenadeGlowC_Hestia"
+		InheritFrom = "ShivaGrenadeGlowA_Hestia"
+		FilePath = "Particles\particle_flare_boon"
+		AddColor = true
+		UseOwnAngle = true
+		AngleFromOwner = "Ignore"
+		Scale = 0.5
+		EndAlpha = 0.33
+		StartAlpha = 0.05
+	}
+	{
+		Name = "ShivaGrenadeTrailDark_Hestia"
+		InheritFrom = "ShivaGrenadeTrailDark"
+		Red = 1
+		Green = 0.6
+		Blue = 0.1
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.2
+		EndGreen = 0.1
+		EndBlue = 0.0
+		CreateAnimation = "ShivaGrenadeTrailLight_Hestia"
+	}
+	{
+		Name = "ShivaGrenadeTrailLight_Hestia"
+		InheritFrom = "ShivaGrenadeTrailDark_Hestia"
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 240
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 0.3
+		EndRed = 1.0
+		EndGreen = 0.25
+		EndBlue = 0.0
+		Scale = 0.125
+		GroupName = "FX_Standing_Add"
+		CreateAnimation = "ShivaGrenadeTrailSpark_Hestia"
+	}
+	{
+		Name = "ShivaGrenadeTrailSpark_Hestia"
+		Random =
+		[
+			{ Name = "ShivaGrenadeTrailSparkA_Hestia" }
+			{ Name = "ShivaGrenadeTrailSparkB_Hestia" }
+			{ Name = "ShivaGrenadeTrailSparkB_Hestia" }
+			{ Name = "ShivaGrenadeTrailSparkC_Hestia" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkA_Hestia"
+		InheritFrom = "ShivaGrenadeTrailSparkA"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 0.3
+		EndRed = 1.0
+		EndGreen = 0.25
+		EndBlue = 0.0
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkB_Hestia"
+		InheritFrom = "ShivaGrenadeTrailSparkA_Hestia"
+		AddColor = false
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkC_Hestia"
+		FilePath = "Fx\Hestia\HestiaFlameA\HestiaFlameA"
+		GroupName = "FX_Dark"
+		NumFrames = 16
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 70
+		ScaleX = 1
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleMin = 170
+		AngleMax = 180
+		AngleFromOwner = "Take"
+		VelocityMin = 300
+		VelocityMax = 500
+		Acceleration = -600
+		Material = "Unlit"
+		OverlayVfx = true
+		OffsetZ = 25
+		RandomOffsetX = 30
+		RandomOffsetY = 15
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		ScaleFromOwner = "Ignore"
+		OriginX = 120
+		OriginY = 80
+		StartScaleX = 1.1
+		EndScaleX = 0.9
+		StartScaleY = 1.2
+		EndScaleY = 0.7
+		EaseIn = 0.99
+		EaseOut = 1.0
+	}
+
+	// Poseidon
+	{
+		Name = "ShivaGrenade_Poseidon"
+		InheritFrom = "ShivaGrenade"
+		AddColor = true
+		Red = 0.0
+		Green = 0.2
+		Blue = 0.4
+		Value = -0.1
+		Saturation = -1.0
+		VisualFx = "ShivaGrenadeTrailDark_Poseidon"
+		Sound = "/SFX/Player Sounds/PoseidonWaterProjectileLoop"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "ShivaGrenadeGlowA_Poseidon" }
+			{ Name = "ShivaGrenadeGlowB_Poseidon" }
+			{ Name = "ShivaGrenadeGlowC_Poseidon" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeBig_Poseidon"
+		InheritFrom = "ShivaGrenade_Poseidon"
+		FilePath = "Fx\WeaponAspects\Shiva\ShivaGrenade\ShivaGrenade"
+		Scale = 1.45
+	}
+	{
+		Name = "ShivaGrenadeGlowA_Poseidon"
+		InheritFrom = "ShivaGrenadeGlowA"
+		Red = 0
+		Green = 0.3
+		Blue = 0.6
+	}
+	{
+		Name = "ShivaGrenadeGlowB_Poseidon"
+		InheritFrom = "ShivaGrenadeGlowA_Poseidon"
+		Red = 0
+		Green = 0.55
+		Blue = 0.8
+		Scale = 0.2
+		EndAlpha = 1
+	}
+	{
+		Name = "ShivaGrenadeGlowC_Poseidon"
+		InheritFrom = "ShivaGrenadeGlowA_Poseidon"
+		FilePath = "Particles\particle_flare_boon"
+		AddColor = true
+		UseOwnAngle = true
+		AngleFromOwner = "Ignore"
+		Scale = 0.5
+		EndAlpha = 0.33
+		StartAlpha = 0.05
+	}
+	{
+		Name = "ShivaGrenadeTrailDark_Poseidon"
+		InheritFrom = "ShivaGrenadeTrailDark"
+		Red = 0
+		Green = 0.55
+		Blue = 0.8
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.0
+		EndGreen = 0.1
+		EndBlue = 0.2
+		CreateAnimation = "ShivaGrenadeTrailLight_Poseidon"
+	}
+	{
+		Name = "ShivaGrenadeTrailLight_Poseidon"
+		InheritFrom = "ShivaGrenadeTrailDark_Poseidon"
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 240
+		StartRed = 0
+		StartGreen = 0.55
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.3
+		EndBlue = 0.6
+		Scale = 0.125
+		GroupName = "FX_Standing_Add"
+		CreateAnimation = "ShivaGrenadeTrailSpark_Poseidon"
+	}
+	{
+		Name = "ShivaGrenadeTrailSpark_Poseidon"
+		Random =
+		[
+			{ Name = "ShivaGrenadeTrailSparkA_Poseidon" }
+			{ Name = "ShivaGrenadeTrailSparkB_Poseidon" }
+			{ Name = "ShivaGrenadeTrailSparkB_Poseidon" }
+			{ Name = "ShivaGrenadeTrailSparkC_Poseidon" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkA_Poseidon"
+		InheritFrom = "ShivaGrenadeTrailSparkA"
+		Red = 0.2
+		Green = 0.9
+		Blue = 1.0
+		StartRed = 0
+		StartGreen = 0.6
+		StartBlue = 0.9
+		EndRed = 0
+		EndGreen = 0.2
+		EndBlue = 0.4
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkB_Poseidon"
+		InheritFrom = "ShivaGrenadeTrailSparkA_Poseidon"
+		AddColor = false
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkC_Poseidon"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleA\PoseidonSplashParticleA"
+		UseOwnAngle = true
+		NumFrames = 60
+		RandomPlaySpeedMin = 70
+		RandomPlaySpeedMax = 100
+		Scale = 0.7
+		ScaleX = 1.1
+		AngleFromOwner = "Take"
+		AngleMin = 150
+		AngleMax = 210
+		RandomFlipVertical = true
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ScaleMax = 1.0
+		ScaleMin = 0.7
+		StartScaleY = 0.5
+		EndScaleY = 1.0
+		Ambient = 0.0
+		OffsetZ = 30
+		EaseIn = 0.95
+		EaseOut = 1.0
+		Gravity = 200
+		OriginX = 60
+		OriginY = 120
+		StartAlpha = 1
+		EndAlpha = 0.5
+	}
+
+	// Zeus
+	{
+		Name = "ShivaGrenade_Zeus"
+		InheritFrom = "ShivaGrenade"
+		AddColor = true
+		Red = 0.6
+		Green = 0.5
+		Blue = 0.1
+		Value = -0.3
+		Saturation = -1.0
+		VisualFx = "ShivaGrenadeTrailDark_Zeus"
+		Sound = "/SFX/Player Sounds/ZeusLightningProjectileLoop"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "ShivaGrenadeGlowA_Zeus" }
+			{ Name = "ShivaGrenadeGlowB_Zeus" }
+			{ Name = "ShivaGrenadeGlowC_Zeus" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeBig_Zeus"
+		InheritFrom = "ShivaGrenade_Zeus"
+		FilePath = "Fx\WeaponAspects\Shiva\ShivaGrenade\ShivaGrenade"
+		Scale = 1.45
+	}
+	{
+		Name = "ShivaGrenadeGlowA_Zeus"
+		InheritFrom = "ShivaGrenadeGlowA"
+		Red = 0.7
+		Green = 0.6
+		Blue = 0.3
+	}
+	{
+		Name = "ShivaGrenadeGlowB_Zeus"
+		InheritFrom = "ShivaGrenadeGlowA_Zeus"
+		Red = 0.9
+		Green = 0.9
+		Blue = 0.4
+		Scale = 0.2
+		EndAlpha = 1
+	}
+	{
+		Name = "ShivaGrenadeGlowC_Zeus"
+		InheritFrom = "ShivaGrenadeGlowA_Zeus"
+		FilePath = "Particles\particle_flare_boon"
+		AddColor = true
+		UseOwnAngle = true
+		AngleFromOwner = "Ignore"
+		Scale = 0.5
+		EndAlpha = 0.33
+		StartAlpha = 0.05
+	}
+	{
+		Name = "ShivaGrenadeTrailDark_Zeus"
+		InheritFrom = "ShivaGrenadeTrailDark"
+		Red = 0.9
+		Green = 0.9
+		Blue = 0.4
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.1
+		EndGreen = 0.1
+		EndBlue = 0.0
+		CreateAnimation = "ShivaGrenadeTrailLight_Zeus"
+	}
+	{
+		Name = "ShivaGrenadeTrailLight_Zeus"
+		InheritFrom = "ShivaGrenadeTrailDark_Zeus"
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 240
+		StartRed = 0.9
+		StartGreen = 0.9
+		StartBlue = 0.4
+		EndRed = 0.7
+		EndGreen = 0.6
+		EndBlue = 0.3
+		Scale = 0.125
+		GroupName = "FX_Standing_Add"
+		CreateAnimation =  "ShivaGrenadeTrailSpark_Zeus"
+	}
+	{
+		Name = "ShivaGrenadeTrailSpark_Zeus"
+		Random =
+		[
+			{ Name = "ShivaGrenadeTrailSparkA_Zeus" }
+			{ Name = "ShivaGrenadeTrailSparkB_Zeus" }
+			{ Name = "ShivaGrenadeTrailSparkB_Zeus" }
+			{ Name = "ShivaGrenadeTrailSparkC_Zeus" }
+		]
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkA_Zeus"
+		InheritFrom = "ShivaGrenadeTrailSparkA"
+		StartRed = 0.9
+		StartGreen = 0.9
+		StartBlue = 0.4
+		EndRed = 0.7
+		EndGreen = 0.6
+		EndBlue = 0.3
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkB_Zeus"
+		InheritFrom = "ShivaGrenadeTrailSparkA_Zeus"
+		AddColor = false
+	}
+	{
+		Name = "ShivaGrenadeTrailSparkC_Zeus"
+		FilePath = "Fx\ZeusStaticArcB\ZeusStaticArcB"
+		UseOwnAngle = true
+		NumFrames = 15
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		Scale = 0.6
+		ScaleX = 1.5
+		AngleFromOwner = "Take"
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		Acceleration = -600.0
+		VelocityMax = 300.0
+		VelocityMin = 150.0
+		AngleMin = 120
+		AngleMax = 240
+		ScaleMax = 1.0
+		ScaleMin = 0.7
+		Ambient = 0.0
+		OffsetZ = 30
+		RadialOffsetMin = 30
+		RadialOffsetMax = 60
+		EaseIn = 0.95
+		EaseOut = 1.0
+	}
 ]}

@@ -12,7 +12,7 @@
 		GrannyAnimationSpeed = 1.0
 		Scale = 3.0
 		Loop = false
-		Enable3DShadow = false
+		Enable3DShadow = true
 	}
 
 	/*Idle and Move*/
@@ -130,6 +130,7 @@
 		CancelOnOwnerMove = true
 		ChainTo = "Enemy_Swarmer_HitStun2"
 		PlayBackwards = true
+		Sound = "/SFX/Enemy Sounds/Swarmer/EmoteHurt"
 		Frames =
 		[
 			{

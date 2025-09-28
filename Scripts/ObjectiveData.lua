@@ -10,6 +10,15 @@ ObjectiveData =
 	WeaponLobCharged = { Description = "Objective_WeaponLobCharged" },
 	
 	WeaponSuitRangedCharged = { Description = "Objective_WeaponSuitRangedCharged" },
+
+	WeaponStaffSwing_Anubis = { Description = "Objective_WeaponStaffSwing_Anubis" },
+	WeaponStaffBall_Anubis = { Description = "Objective_WeaponStaffBall_Anubis" },
+	WeaponDaggerWombo = { Description = "Objective_WeaponDaggerWombo" },
+	WeaponTorchCharged_Supay = { Description = "Objective_WeaponTorchCharged_Supay" },
+	WeaponLob_Hel = { Description = "Objective_WeaponLob_Hel" },
+	WeaponLobCharged_Hel = { Description = "Objective_WeaponLobCharged_Hel" },
+	WeaponLobSpecial_Hel = { Description = "Objective_WeaponLobSpecial_Hel" },
+	WeaponSuitRangedCharged_Shiva = { Description = "Objective_WeaponSuitRangedCharged_Shiva" };
 	
 	-- Spells
 	SpellPolymorphPrompt = { Description = "Objective_UseSpellPolymorph" },
@@ -33,8 +42,8 @@ ObjectiveData =
 	KeepsakePrompt = { Description = "Objective_UseKeepsakeRack", StartingScaleTarget = 0.7, PostDisplayWait = 1.5 },
 	BountyPrompt = { Description = "Objective_BountyPrompt", StartingScaleTarget = 0.7, PostDisplayWait = 1.5 },
 	FamiliarPrompt = { Description = "Objective_FamiliarPrompt", StartingScaleTarget = 0.7, PostDisplayWait = 1.5 },
-	ToolPrompt = { Description = "Objective_ToolPrompt", StartingScaleTarget = 0.7, PostDisplayWait = 1.5 },
 	HitSkelly = { Description = "Objective_HitSkelly", LuaKey = "SkellyHits", StartingLuaValue = "0", GoalValue = 20 },
+	KillSkelly = { Description = "Objective_KillSkelly" },
 	OpenInventorySkelly = { Description = "Objective_OpenInventorySkelly" },
 	OpenInventory = { Description = "Objective_OpenInventory", },
 	AdvancedTooltipPrompt = { Description = "Objective_AdvancedTooltip" },
@@ -76,6 +85,12 @@ ObjectiveData =
 	NemesisDamageContest = { Description = "Objective_NemesisDamageContest", LuaKey = "TempTextData", StartingLuaValue = { DamageContestAmount = 0, DamageGoal = PresetEventArgs.NemesisDamageContestArgs.DamageGoal }  },
 
 	SkyEntranceInput = { Description = "Objective_SkyEntranceInput" },
+
+	GiftMedeaPoints = { Description = "Objective_GiftMedeaPoints" },
+
+	KillTyphon = { Description = "Objective_KillTyphon" },
+	KillChronos = { Description = "Objective_KillChronos" },
+	PostCreditsStartNewRun = { Description = "Objective_PostCreditsStartNewRun" },
 }
 
 ObjectiveSetData =
@@ -120,7 +135,11 @@ ObjectiveSetData =
 			{
 				PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponStaffSwing", },
 			},
+			{
+				PathFalse = { "CurrentRun", "Hero", "TraitDictionary", "StaffRaiseDeadAspect"},
+			},
 		},
+		StartY = 45,
 		AllowRepeat = true,
 		OverrideExistingObjective = false,
 		RequiredFalseObjectiveTriggers = { "RoomStart" },
@@ -140,6 +159,34 @@ ObjectiveSetData =
 		},
 	},
 
+	StaffTutorial_Anubis =
+	{
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "StaffRaiseDeadAspect"},
+			},
+		},
+		StartY = 45,
+		AllowRepeat = true,
+		OverrideExistingObjective = false,
+		RequiredFalseObjectiveTriggers = { "RoomStart" },
+		RevealCompletedObjectives = true,
+		Objectives =
+		{
+			{
+				"WeaponStaffSwing_Anubis",
+				"WeaponStaffBall_Anubis",
+				"WeaponCast",
+				"WeaponBlink",
+				"WeaponStaffDash",
+				"WeaponStaffSwing5",
+				"WeaponStaffBall2",
+				"WeaponCastArm",
+			}
+		},
+	},
+
 	DaggerTutorial =
 	{
 		GameStateRequirements =
@@ -147,7 +194,11 @@ ObjectiveSetData =
 			{
 				PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponDagger", },
 			},
+			{
+				PathFalse = { "CurrentRun", "Hero", "TraitDictionary", "DaggerTripleAspect"},
+			},
 		},
+		StartY = 45,
 		AllowRepeat = true,
 		OverrideExistingObjective = false,
 		RequiredFalseObjectiveTriggers = { "RoomStart" },
@@ -167,6 +218,35 @@ ObjectiveSetData =
 		},
 	},
 
+	DaggerTutorial_Morrigan =
+	{
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "DaggerTripleAspect"},
+			},
+		},
+		StartY = 45,
+		AllowRepeat = true,
+		OverrideExistingObjective = false,
+		RequiredFalseObjectiveTriggers = { "RoomStart" },
+		RevealCompletedObjectives = true,
+		Objectives =
+		{
+			{
+				"WeaponDagger",
+				"WeaponDaggerThrow",
+				"WeaponCast",
+				"WeaponBlink",
+				"WeaponDaggerDash",
+				"WeaponDagger5",
+				"WeaponDaggerThrowCharged",
+				"WeaponCastArm",
+				"WeaponDaggerWombo",
+			}
+		},
+	},
+
 	SuitTutorial =
 	{
 		GameStateRequirements =
@@ -174,7 +254,11 @@ ObjectiveSetData =
 			{
 				PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponSuit", },
 			},
+			{
+				PathFalse = { "CurrentRun", "Hero", "TraitDictionary", "SuitComboAspect"},
+			},
 		},
+		StartY = 45,
 		AllowRepeat = true,
 		OverrideExistingObjective = false,
 		RequiredFalseObjectiveTriggers = { "RoomStart" },
@@ -194,28 +278,32 @@ ObjectiveSetData =
 		},
 	},
 
-	ToolPrompt =
+	SuitTutorial_Shiva =
 	{
-		Objectives =
-		{
-			{ "ToolPrompt" }
-		},
 		GameStateRequirements =
 		{
-			-- @ temporarily disabled, tools autoequip currently...
 			{
-				Path = { "MapState", "ToolKits" },
-				UseLength = true,
-				Comparison = ">=",
-				Value = 9999,
-			},
-			{
-				Path = { "CurrentHubRoom", "Name" },
-				Comparison = "==",
-				Value = "Hub_PreRun"
+				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "SuitComboAspect"},
 			},
 		},
-		StartDelay = 1.25,
+		StartY = 45,
+		AllowRepeat = true,
+		OverrideExistingObjective = false,
+		RequiredFalseObjectiveTriggers = { "RoomStart" },
+		RevealCompletedObjectives = true,
+		Objectives =
+		{
+			{
+				"WeaponSuit",
+				"WeaponSuitRanged",
+				"WeaponCast",
+				"WeaponBlink",
+				"WeaponSuitDash",
+				"WeaponSuitCharged",
+				"WeaponSuitRangedCharged_Shiva",
+				"WeaponCastArm",
+			}
+		},
 	},
 
 	CardPrompt =
@@ -330,6 +418,17 @@ ObjectiveSetData =
 		Objectives =
 		{
 			{ "OpenInventorySkelly" }
+		},
+		StartDelay = 1.0,
+	},
+	SkellyKillQuest =
+	{
+		ManualActivationOnly = true,
+
+		OverrideExistingObjective = true,
+		Objectives =
+		{
+			{ "KillSkelly" }
 		},
 		StartDelay = 1.0,
 	},
@@ -500,12 +599,23 @@ ObjectiveSetData =
 		},
 		GameStateRequirements =
 		{
+			OrRequirements =
 			{
-				PathFalse = { "CurrentRun", "CurrentRoom", "Encounter", "ObjectiveSets" },
+				{
+					{
+						PathFalse = { "CurrentRun", "CurrentRoom", "Encounter", "ObjectiveSets" },
+					},
+				},
+				{
+					{
+						PathTrue = { "CurrentRun", "CurrentRoom", "Encounter", "Completed" },
+					},
+				},
 			},
 			{
 				PathFalse = { "ActiveScreens", "Dialog" },
 			},
+			NamedRequirementsFalse = { "MedeaPointsGiftable" },
 		}
 	},
 	
@@ -539,7 +649,6 @@ ObjectiveSetData =
 		{
 			{ "AnomalyStart" },
 		},
-		StartDelay = 5,
 	},
 
 	TimeChallenge =
@@ -594,7 +703,7 @@ ObjectiveSetData =
 		OverrideExistingObjective = true,
 		Objectives =
 		{
-			{ "HeraclesMoney", "PlayerMoney" },
+			{ "PlayerMoney" },
 		},
 	},
 	
@@ -605,7 +714,11 @@ ObjectiveSetData =
 			{
 				PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponTorch", },
 			},
+			{
+				PathFalse = { "CurrentRun", "Hero", "TraitDictionary", "TorchAutofireAspect", },
+			},
 		},
+		StartY = 45,
 		AllowRepeat = true,
 		OverrideExistingObjective = false,
 		RequiredFalseObjectiveTriggers = { "RoomStart" },
@@ -623,6 +736,33 @@ ObjectiveSetData =
 			}
 		},
 	},
+	AutofireTorchTutorial =
+	{
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponTorch", },
+			},
+			{
+				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "TorchAutofireAspect", },
+			},
+		},
+		StartY = 45,
+		AllowRepeat = true,
+		OverrideExistingObjective = false,
+		RequiredFalseObjectiveTriggers = { "RoomStart" },
+		RevealCompletedObjectives = true,
+		Objectives =
+		{
+			{
+				"WeaponCast",
+				"WeaponBlink",
+				"WeaponTorchCharged_Supay",
+				"WeaponTorchSpecialCharged",
+				"WeaponCastArm",
+			}
+		},
+	},
 	AxeTutorial =
 	{
 		GameStateRequirements =
@@ -631,6 +771,7 @@ ObjectiveSetData =
 				PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponAxe", },
 			},
 		},
+		StartY = 45,
 		AllowRepeat = true,
 		OverrideExistingObjective = false,
 		RequiredFalseObjectiveTriggers = { "RoomStart" },
@@ -656,7 +797,11 @@ ObjectiveSetData =
 			{
 				PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponLob", },
 			},
+			{
+				PathFalse = { "CurrentRun", "Hero", "TraitDictionary", "LobGunAspect", },
+			},
 		},
+		StartY = 45,
 		AllowRepeat = true,
 		OverrideExistingObjective = false,
 		RequiredFalseObjectiveTriggers = { "RoomStart" },
@@ -670,6 +815,32 @@ ObjectiveSetData =
 				"WeaponBlink",
 				"WeaponLobPickup",
 				"WeaponLobCharged",
+				"WeaponLobSpecialCharged",
+				"WeaponCastArm",
+			}
+		},
+	},
+	LobTutorial_Hel =
+	{
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "LobGunAspect", },
+			},
+		},
+		StartY = 45,
+		AllowRepeat = true,
+		OverrideExistingObjective = false,
+		RequiredFalseObjectiveTriggers = { "RoomStart" },
+		RevealCompletedObjectives = true,
+		Objectives =
+		{
+			{
+				"WeaponLob_Hel",
+				"WeaponLobSpecial_Hel",
+				"WeaponCast",
+				"WeaponBlink",
+				"WeaponLobCharged_Hel",
 				"WeaponLobSpecialCharged",
 				"WeaponCastArm",
 			}
@@ -842,8 +1013,19 @@ ObjectiveSetData =
 		GameStateRequirements =
 		{
 			{
+				PathTrue = { "CurrentRun", "ActiveBounty" },
+			},
+			{
 				Path = { "CurrentRun", "ActiveBounty" },
-				IsNone = { "PackageBountyChaosIntro" }
+				IsNone = { "PackageBountyChaosIntro" },
+			},
+			{
+				Path = { "CurrentRun", "RunDepthCache" },
+				Comparison = "<=",
+				Value = 1,
+			},
+			{
+				PathFalse = { "CurrentRun", "ScreenViewRecord", "TraitTrayScreen" },
 			},
 		},		
 	},
@@ -899,6 +1081,71 @@ ObjectiveSetData =
 		Objectives =
 		{
 			{ "SkyEntranceInput" }
+		},
+	},
+
+	GiftMedeaPoints =
+	{
+		ManualActivationOnly = true,
+		StartDelay = 1.0,
+		GameStateRequirements =
+		{
+			NamedRequirements = { "MedeaPointsGiftable" },
+		},
+		Objectives =
+		{
+			{ "GiftMedeaPoints" },
+		},
+	},
+
+	KillTyphon =
+	{
+		ManualActivationOnly = true,
+		StartDelay = 1.0,
+		BlockWeaponObjectives = true,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "WorldUpgradesAdded", "WorldUpgradeStormStop" }
+			},
+			{
+				PathFalse = { "GameState", "TyphonDefeatedWithStormStop" }
+			},
+		},
+		Objectives =
+		{
+			{ "KillTyphon" },
+		},
+	},
+
+	KillChronos =
+	{
+		ManualActivationOnly = true,
+		StartDelay = 1.0,
+		BlockWeaponObjectives = true,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "WorldUpgradesAdded", "WorldUpgradeTimeStop" }
+			},
+			{
+				PathFalse = { "GameState", "ReachedTrueEnding" },
+			},
+		},
+		Objectives =
+		{
+			{ "KillChronos" },
+		},
+	},
+
+	PostCreditsStartNewRun =
+	{
+		ManualActivationOnly = true,
+		StartDelay = 1.0,
+		BlockWeaponObjectives = true,
+		Objectives =
+		{
+			{ "PostCreditsStartNewRun" },
 		},
 	},
 }

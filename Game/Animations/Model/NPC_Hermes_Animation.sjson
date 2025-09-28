@@ -19,4 +19,88 @@
 		Loop = true
 	}
 
+	// Enter
+	{
+		Name = "Hermes_Enter"
+		InheritFrom = "NPCHermesBaseAnimation"
+		GrannyAnimation = "Hermes_Base_Enter_C_00"
+		ChainTo = "Hermes_Idle"
+	}
+
+	// Exit
+	{
+		Name = "Hermes_Exit"
+		InheritFrom = "NPCHermesBaseAnimation"
+		GrannyAnimation = "Hermes_Base_Exit_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Hermes_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	// Greeting
+	{
+		Name = "Hermes_Greeting"
+		InheritFrom = "NPCHermesBaseAnimation"
+		GrannyAnimation = "Hermes_Base_Greeting_C_00"
+		ChainTo = "Hermes_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Hermes_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	// Explaining
+	{
+		Name = "Hermes_Explaining"
+		InheritFrom = "NPCHermesBaseAnimation"
+		GrannyAnimation = "Hermes_Base_Explaining_C_00"
+		ChainTo = "Hermes_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Hermes_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	// Turn
+	{
+		Name = "Hermes_Turn"
+		InheritFrom = "NPCHermesBaseAnimation"
+		GrannyAnimation = "Hermes_Base_Turn_C_00"
+		ChainTo = "Hermes_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Hermes_Idle"
+				Duration = 6
+			}
+		]
+	}
+
 ]}

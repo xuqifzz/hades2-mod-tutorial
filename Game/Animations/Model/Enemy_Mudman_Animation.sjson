@@ -325,7 +325,15 @@
 		GrannyAnimation = "Mudman_Base_ThrowFire_C_00"
 		ChainTo = "Enemy_Mudman_ThrowReturnToIdle"
 		GrannyAnimationSpeed = 0.75
+		AllowRestart = true
 		
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mudman_ThrowFire"
+				Duration = 8
+			}
+		]
 		Attachments =
 		[
 			{

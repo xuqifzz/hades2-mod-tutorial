@@ -7,7 +7,22 @@
 		GrannyAnimation = "Melinoe_Torch_Base_DashAntic_N_01"
 		DisableOwnerManualInteract = true
 		HoldLastFrame = true
-
+		
+		
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Torch_Attack1_StartSequence" }
+			{ Name = "Melinoe_Torch_Attack1_Start" }
+			{ Name = "Melinoe_Torch_Attack1_Fire" }
+			{ Name = "Melinoe_Torch_Attack2_Start" }
+			{ Name = "Melinoe_Torch_Attack2_Fire" }
+			{ Name = "Melinoe_Torch_Attack3_Start" }
+			{ Name = "Melinoe_Torch_Attack3_Fire" }
+			{ Name = "Melinoe_Torch_Attack4_Start" }
+			{ Name = "Melinoe_Torch_Attack4_Fire" }
+			{ Name = "Melinoe_Torch_Attack5_Start" }
+			{ Name = "Melinoe_Torch_Attack5_Fire" }
+		]
 
 		Blends = 
 		[
@@ -36,6 +51,20 @@
 		GrannyAnimation = "Melinoe_Torch_Base_Dash_N_01"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Torch_Dash_End1"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Torch_Attack1_StartSequence" }
+			{ Name = "Melinoe_Torch_Attack1_Start" }
+			{ Name = "Melinoe_Torch_Attack1_Fire" }
+			{ Name = "Melinoe_Torch_Attack2_Start" }
+			{ Name = "Melinoe_Torch_Attack2_Fire" }
+			{ Name = "Melinoe_Torch_Attack3_Start" }
+			{ Name = "Melinoe_Torch_Attack3_Fire" }
+			{ Name = "Melinoe_Torch_Attack4_Start" }
+			{ Name = "Melinoe_Torch_Attack4_Fire" }
+			{ Name = "Melinoe_Torch_Attack5_Start" }
+			{ Name = "Melinoe_Torch_Attack5_Fire" }
+		]
 	}
 
 	{
@@ -74,8 +103,121 @@
 		]
 	}
 
-	// Torch Turn
+	{
+		Name = "TorchR_Supay_Dash_Start"
+		InheritFrom = "WeaponTorchRBase"
+		GrannyAnimation = "TorchR_Weapon_Supay_DashAntic_N_00"
+	}
 
+	{
+		Name = "TorchL_Supay_Dash_Start"
+		InheritFrom = "WeaponTorchLBase"
+		GrannyAnimation = "TorchL_Weapon_Supay_DashAntic_N_00"
+	}		
+
+	{
+		Name = "Melinoe_Torch_Supay_Dash_Start"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Supay_DashAntic_N_00"
+		DisableOwnerManualInteract = true
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 2.0
+
+		Attachments =
+		[
+			{
+				Name = "TorchR_Supay_Dash_Start"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "TorchL_Supay_Dash_Start"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+		
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Torch_Supay_AttackEx1_Fire" }
+
+		]
+	}
+
+	{
+		Name = "TorchR_Supay_Dash_Fire"
+		InheritFrom = "WeaponTorchRBase"
+		GrannyAnimation = "TorchR_Weapon_Supay_Dash_N_00"
+	}
+	{
+		Name = "TorchL_Supay_Dash_Fire"
+		InheritFrom = "WeaponTorchLBase"
+		GrannyAnimation = "TorchL_Weapon_Supay_Dash_N_00"
+	}
+	{
+		Name = "Melinoe_Torch_Supay_Dash_Fire"
+		InheritFrom = "MelinoeBaseTorchAnimationsWithTurns_Supay"
+		GrannyAnimation = "Melinoe_Torch_Supay_Dash_N_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Torch_Supay_Dash_End"
+		GrannyAnimationSpeed = 0.8
+
+		Attachments =
+		[
+			{
+				Name = "TorchR_Supay_Dash_Fire"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "TorchL_Supay_Dash_Fire"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Torch_Supay_AttackEx1_Fire" }
+		]
+	}
+
+
+	{
+		Name = "TorchR_Supay_Dash_End"
+		InheritFrom = "WeaponTorchRBase"
+		GrannyAnimation = "TorchR_Weapon_Supay_DashReturn_N_00"
+	}
+
+	{
+		Name = "TorchL_Supay_Dash_End"
+		InheritFrom = "WeaponTorchLBase"
+		GrannyAnimation = "TorchL_Weapon_Supay_DashReturn_N_00"
+	}
+
+	{
+		Name = "Melinoe_Torch_Supay_Dash_End"
+		InheritFrom = "MelinoeBaseTorchAnimationsWithTurns_Supay"
+		GrannyAnimation = "Melinoe_Torch_Supay_DashReturn_N_00"
+		CancelOnOwnerMove = false
+		ChainTo = "Melinoe_Torch_Supay_Idle"
+		GrannyAnimationSpeed = 1.3
+
+		Attachments =
+		[
+			{
+				Name = "TorchR_Supay_Dash_End"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "TorchL_Supay_Dash_End"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Torch_Supay_AttackEx1_Fire" }
+		]
+	}
+
+	// Torch Turn
 	{
 		Name = "Melinoe_Torch_Turn_180"
 		InheritFrom = "MelinoeBaseTorchAnimations"
@@ -86,7 +228,6 @@
 		CancelOnRestart = true
 		AllowTransitionBlend = false
 	}
-
 	{
 		Name = "Melinoe_Torch_Turn_E90"
 		InheritFrom = "MelinoeBaseTorchAnimations"
@@ -105,6 +246,108 @@
 		GrannyRotationY = -90
 		AllowTransitionBlend = false
 	}
+
+
+	// Supay 180
+	{
+		Name = "TorchR_Supay_Turn_180"
+		InheritFrom = "WeaponTorchRBase"
+		GrannyAnimation = "TorchR_Weapon_Supay_RunDirectionChange180_N_01"
+	}
+	{
+		Name = "TorchL_Supay_Turn_180"
+		InheritFrom = "WeaponTorchLBase"
+		GrannyAnimation = "TorchL_Weapon_Supay_RunDirectionChange180_N_01"
+	}
+	{
+		Name = "Melinoe_Torch_Supay_Turn_180"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Supay_RunDirectionChange180_N_01"
+		NativeMoveSpeed = 540
+		GrannyAnimationSpeed = 1.0
+		ChainTo = "Melinoe_Torch_Supay_Run_FireLoop"
+		CancelOnRestart = true
+		AllowTransitionBlend = false
+
+		Attachments =
+		[
+			{
+				Name = "TorchR_Supay_Turn_180"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "TorchL_Supay_Turn_180"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+
+	// Supay 90E
+	{
+		Name = "TorchR_Supay_Turn_90E"
+		InheritFrom = "WeaponTorchRBase"
+		GrannyAnimation = "TorchR_Weapon_Supay_RunDirectionChangeE90_N_01"
+	}
+	{
+		Name = "TorchL_Supay_Turn_90E"
+		InheritFrom = "WeaponTorchLBase"
+		GrannyAnimation = "TorchL_Weapon_Supay_RunDirectionChangeE90_N_01"
+	}
+	{
+		Name = "Melinoe_Supay_Torch_Turn_E90"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Supay_RunDirectionChangeE90_N_01"
+		NativeMoveSpeed = 540
+		ChainTo = "Melinoe_Torch_Supay_Run_FireLoop"
+		GrannyRotationY = 90
+		AllowTransitionBlend = false
+
+		Attachments =
+		[
+			{
+				Name = "TorchR_Supay_Turn_90E"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "TorchL_Supay_Turn_90E"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+
+	// Supay 90W
+	{
+		Name = "TorchR_Supay_Turn_90W"
+		InheritFrom = "WeaponTorchRBase"
+		GrannyAnimation = "TorchR_Weapon_Supay_RunDirectionChangeW90_N_01"
+	}
+	{
+		Name = "TorchL_Supay_Turn_90W"
+		InheritFrom = "WeaponTorchLBase"
+		GrannyAnimation = "TorchL_Weapon_Supay_RunDirectionChangeW90_N_01"
+	}
+	{
+		Name = "Melinoe_Supay_Torch_Turn_W90"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Supay_RunDirectionChangeW90_N_01"
+		NativeMoveSpeed = 540
+		ChainTo = "Melinoe_Torch_Supay_Run_FireLoop"
+		GrannyRotationY = -90
+		AllowTransitionBlend = false
+
+		Attachments =
+		[
+			{
+				Name = "TorchR_Supay_Turn_90W"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "TorchL_Supay_Turn_90W"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+
 
 	// Torch Run
 
@@ -188,13 +431,65 @@
 		]
 	}
 
+	// Supay RunStart
+	{
+		Name = "TorchR_Supay_Run_Start"
+		InheritFrom = "WeaponTorchRBase"
+		GrannyAnimation = "TorchR_Weapon_Supay_RunStart_N_00"
+	}
+	{
+		Name = "TorchL_Supay_Run_Start"
+		InheritFrom = "WeaponTorchLBase"
+		GrannyAnimation = "TorchL_Weapon_Supay_RunStart_N_00"
+	}
+	{
+		Name = "Melinoe_Torch_Supay_Run_Start"
+		InheritFrom = "MelinoeBaseTorchAnimationsWithTurns_Supay"
+		GrannyAnimation = "Melinoe_Torch_Supay_RunStart_N_00"
+		ChainTo = "Melinoe_Torch_Supay_Run_FireLoop"
+		NativeMoveSpeed = 540
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 4
+			}
+		]
+		Attachments =
+		[
+			{
+				Name = "TorchR_Supay_Run_Start"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "TorchL_Supay_Run_Start"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+
 	{
 		Name = "Melinoe_Torch_Run_FireLoop"
 		InheritFrom = "MelinoeBaseTorchAnimationsWithTurns"
 		GrannyAnimation = "Melinoe_Torch_Base_Run_N_01"
 		NativeMoveSpeed = 540
 		Loop = true
-
+		
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Torch_Attack1_StartSequence" }
+			{ Name = "Melinoe_Torch_Attack1_Start" }
+			{ Name = "Melinoe_Torch_Attack1_Fire" }
+			{ Name = "Melinoe_Torch_Attack2_Start" }
+			{ Name = "Melinoe_Torch_Attack2_Fire" }
+			{ Name = "Melinoe_Torch_Attack3_Start" }
+			{ Name = "Melinoe_Torch_Attack3_Fire" }
+			{ Name = "Melinoe_Torch_Attack4_Start" }
+			{ Name = "Melinoe_Torch_Attack4_Fire" }
+			{ Name = "Melinoe_Torch_Attack5_Start" }
+			{ Name = "Melinoe_Torch_Attack5_Fire" }
+		]
 		Frames =
 		[
 			{
@@ -223,6 +518,10 @@
 			}
 			{
 				BlendTransitionFrom = "MelinoeInteract"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Interact"
 				Duration = 5
 			}
 			{
@@ -327,7 +626,65 @@
 				BlendTransitionFrom = "Melinoe_Torch_Equip"
 				Duration = 5
 			}
+			{
+				BlendTransitionFrom = "Melinoe_ForwardCast_End"
+				Duration = 5
+			}
 		
+		]
+	}
+
+	// Supay RunFire
+	{
+		Name = "TorchR_Supay_Run_FireLoop"
+		InheritFrom = "WeaponTorchRBase"
+		GrannyAnimation = "TorchR_Weapon_Supay_Run_N_00"
+	}
+	{
+		Name = "TorchL_Supay_Run_FireLoop"
+		InheritFrom = "WeaponTorchLBase"
+		GrannyAnimation = "TorchL_Weapon_Supay_Run_N_00"
+	}
+	{
+		Name = "Melinoe_Torch_Supay_Run_FireLoop"
+		InheritFrom = "MelinoeBaseTorchAnimationsWithTurns_Supay"
+		GrannyAnimation = "Melinoe_Torch_Supay_Run_N_00"
+		NativeMoveSpeed = 540
+		Loop = true
+		
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Torch_Attack1_StartSequence" }
+			{ Name = "Melinoe_Torch_Attack1_Start" }
+			{ Name = "Melinoe_Torch_Attack1_Fire" }
+			{ Name = "Melinoe_Torch_Attack2_Start" }
+			{ Name = "Melinoe_Torch_Attack2_Fire" }
+			{ Name = "Melinoe_Torch_Attack3_Start" }
+			{ Name = "Melinoe_Torch_Attack3_Fire" }
+			{ Name = "Melinoe_Torch_Attack4_Start" }
+			{ Name = "Melinoe_Torch_Attack4_Fire" }
+			{ Name = "Melinoe_Torch_Attack5_Start" }
+			{ Name = "Melinoe_Torch_Attack5_Fire" }
+		]
+
+		Attachments =
+		[
+			{
+				Name = "TorchR_Supay_Run_FireLoop"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "TorchL_Supay_Run_FireLoop"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+		
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 5
+			}		
 		]
 	}
 
@@ -343,21 +700,96 @@
 		[
 			{
 				BlendTransitionFrom = "Melinoe_Torch_Run_FireLoop"
-				Duration = 10
+				Duration = 6
+			}
+		]
+	}
+
+	// Supay RunEnd
+	{
+		Name = "TorchR_Supay_Run_End"
+		InheritFrom = "WeaponTorchRBase"
+		GrannyAnimation = "TorchR_Weapon_Supay_RunStop_N_00"
+	}
+	{
+		Name = "TorchL_Supay_Run_End"
+		InheritFrom = "WeaponTorchLBase"
+		GrannyAnimation = "TorchL_Weapon_Supay_RunStop_N_00"
+	}
+	{
+		Name = "Melinoe_Torch_Supay_Run_End"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Supay_RunStop_N_00"
+		NativeMoveSpeed = 540
+		ChainTo = "Melinoe_Torch_Supay_Idle"
+		CancelOnOwnerMove = true
+
+		Attachments =
+		[
+			{
+				Name = "TorchR_Supay_Run_End"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "TorchL_Supay_Run_End"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 4
 			}
 		]
 	}
 
 	// Torch Sprint
 	{
+		Name = "Melinoe_Torch_SprintTurn_180"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Base_RunSprintDirectionChange180_N_01"
+		CancelOnRestart = true
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 740
+		ChainTo = "Melinoe_Torch_Sprint_FireLoop"
+
+	}
+
+	{
+		Name = "Melinoe_Torch_SprintTurn_E90"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Base_RunSprintDirectionChangeE90_N_01"
+		GrannyRotationY = 90
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 740
+		ChainTo = "Melinoe_Torch_Sprint_FireLoop"
+	}
+
+	{
+		Name = "Melinoe_Torch_SprintTurn_W90"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Base_RunSprintDirectionChangeW90_N_01"
+		GrannyRotationY = -90
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 740
+		ChainTo = "Melinoe_Torch_Sprint_FireLoop"
+	}
+
+	{
 		Name = "Melinoe_Torch_Sprint_FireLoop"
-		InheritFrom = "MelinoeBaseTorchAnimationsWithTurns"
+		InheritFrom = "MelinoeBaseTorchAnimations"
 		GrannyAnimation = "Melinoe_Torch_Base_RunSprint_N_01"
 		NativeMoveSpeed = 740
 		Loop = true
+		DirectionChange180 = "Melinoe_Torch_SprintTurn_180"
+		DirectionChange90R = "Melinoe_Torch_SprintTurn_E90"
+		DirectionChange90L = "Melinoe_Torch_SprintTurn_W90"
 		RequireCurrentAnimationNotContains =
 		[
 			{ Name = "Melinoe_Torch_Dash_Fire" }
+			{ Name = "Melinoe_Torch_Cast_Start" }
 		]
 		Frames = 
 		[
@@ -379,6 +811,53 @@
 			{
 				BlendTransitionFrom = "Melinoe_Torch_Dash_End1"
 				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "TorchR_Supay_Sprint_R"
+		InheritFrom = "WeaponTorchRBase"
+		GrannyAnimation = "TorchR_Weapon_Supay_Sprint_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "TorchR_Supay_Sprint_L"
+		InheritFrom = "WeaponTorchLBase"
+		GrannyAnimation = "TorchL_Weapon_Supay_Sprint_C_00"
+		Loop = true
+	}		
+
+	{
+		Name = "Melinoe_Supay_Torch_Sprint_FireLoop"
+		InheritFrom = "MelinoeBaseTorchAnimationsWithTurns_Supay"
+		GrannyAnimation = "Melinoe_Torch_Supay_Sprint_N_00"
+		NativeMoveSpeed = 740
+		Loop = true
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Torch_Supay_Dash_Fire" }
+			{ Name = "Melinoe_Torch_Cast_Start" }
+		]
+
+		Attachments =
+		[
+			{
+				Name = "TorchR_Supay_Sprint_R"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+			{
+				Name = "TorchR_Supay_Sprint_L"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 8
 			}
 		]
 	}

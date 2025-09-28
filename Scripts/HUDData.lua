@@ -1,68 +1,4 @@
-﻿TraitUI =
-{
-	RecentTraitSize = 5,
-	StartX = 40,
-	StartY = ScreenCenterY - 7,
-	SpacerX = 0,
-	OddSpacerX = 35,
-	IconStartY = ScreenCenterY - 240,
-	IconStartX = 27 + 64 - 40,
-	SpacerY = 93.5,
-	SpacerX = 128,
- 	PipOffsetX = 12,
-	PipOffsetY = 12,
-	NEW_TRAIT_TOKEN = "NEW",
-}
-
-ConsumableUI =
-{
-	StartY = ScreenHeight - 20,
-	SpacerY = 36,
-	StartX = ScreenWidth - 30,
-	SpacerX = 0,
-	FloatingCountSpacerX = -120
-}
-
-AmmoUI =
-{
-	StartX = -20,
-	StartY = 60,
-	HideDelay = 3,
-}
-
-StaffUI =
-{
-	StartX = 658,
-	--StartY = 980,
-	BottomOffset = 85,
-	HideDelay = 3,
-}
-
-DaggerUI =
-{
-	StartX = 658,
-	--StartY = 980,
-	BottomOffset = 85,
-	HideDelay = 3,
-}
-
-AxeUI =
-{
-	StartX = 658,
-	--StartY = 980,
-	BottomOffset = 85,
-	HideDelay = 3,
-}
-
-TorchUI =
-{
-	StartX = 750,
-	BottomOffset = 100,
-	
-	HideDelay = 3,
-}
-
-MoneyUI =
+﻿MoneyUI =
 {
 	HideDelay = 2.2,
 	FadeDuration = 0.4,
@@ -78,16 +14,17 @@ ScreenData.HUD =
 	ObjectiveStartY = 150,
 	ObjectiveSpacingY = 40,
 
-	TraitInfoCardOffsetY = 40,
+	TraitInfoCardOffsetY = 22,
 
-	AmmoX = 630,
-	--AmmoY = 980,
-	AmmoBottomOffset = 100,
+	AmmoX = 643,
+	AmmoBottomOffset = 84,
 
 	FadeInDuration = 0.5,
 	FadeOutDuration = 0.2,
-	
-	LastStandX = 610,
+
+	CooldownTimerFrames = 201,
+	ReloadTimerFrames = 101,
+	LastStandX = 595,
 	LastStandBottomOffset = 36,
 	LastStandSpacingX = 48,
 	LastStandScale = 0.8,
@@ -96,8 +33,8 @@ ScreenData.HUD =
 		Font = "NumericP22UndergroundSCMedium", 
 		FontSize = 22,
 		Color = Color.White,
-		ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={1, 2},
-		OffsetX = 5, OffsetY = 9,
+		ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={-1, 2},
+		OffsetX = 18, OffsetY = 9,
 		Justification = "Center",
 		DataProperties =
 		{
@@ -111,7 +48,7 @@ ScreenData.HUD =
 	ActiveTraitComponents = {},
 	--ActiveTraitStartX = 80,
 	ActiveTraitStartY = 900,
-	ActiveTraitBottomOffset = 160,
+	ActiveTraitBottomOffset = 155,
 	--ActiveTraitSpacingX = 100,
 
 	ActiveTraitGroup = "Combat_Menu_TraitTray",
@@ -124,6 +61,7 @@ ScreenData.HUD =
 		{ Name = "Combat_UI_Backing" },
 		{ Name = "Combat_UI" },
 		{ Name = "Combat_Menu_Backing" },
+		{ Name = "Combat_Menu_Backing_Add", BlendMode = "Additive"  },
 		{ Name = "Portrait_FX_Behind" },
 		{ Name = "Portrait_FX_Behind_Add", BlendMode = "Additive" },
 		{ Name = "Combat_Menu" },
@@ -146,7 +84,6 @@ ScreenData.HUD =
 		{ Name = "TraitTrayHover7" },
 		{ Name = "TraitTrayHover8" },
 		{ Name = "Combat_Menu_TraitTray_Additive", BlendMode = "Additive" },
-		{ Name = "Combat_Menu_TraitTray_Labels" },
 		{ Name = "Combat_Menu_TraitTray_Overlay" },
 		{ Name = "Combat_Menu_TraitTray_Overlay_Text" },
 		{ Name = "Combat_Menu_TraitTray_Overlay_Additive", BlendMode = "Additive" },
@@ -177,13 +114,12 @@ ScreenData.HUD =
 		Order =
 		{
 			"HealthBack",
-			"HealthRally",
 			"HealthFalloff",
 			"HealthFill",
+			"HealthReserve",
 			"HealthBuffer",
 			"HealthHighIndicator",
 			"HealthLowIndicator",
-			"HealthFlash",
 
 			"ManaMeterBack",
 			"ManaMeterFill",
@@ -212,7 +148,7 @@ ScreenData.HUD =
 			Y = 40,
 			Animation = "GUI\\Icons\\Boon",
 			GroupName = "HUD_Overlay",
-			Scale = 0.6,
+			Scale = 0.51,
 			Alpha = 0.0,
 			AlphaTarget = 0.0,
 			TextArgs =
@@ -222,7 +158,7 @@ ScreenData.HUD =
 				FontSize = 24,
 				Justification = "Left",
 				OffsetX = 20,
-				OffsetY = 0,
+				OffsetY = -2,
 				ShadowRed = 0.1, ShadowBlue = 0.1, ShadowGreen = 0.1,
 				OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 2,
 				ShadowAlpha = 1.0, ShadowBlur = 1, ShadowOffset = {0, 4},
@@ -234,7 +170,7 @@ ScreenData.HUD =
 			X = 120,
 			Y = 40,
 			Animation = "GUI\\Icons\\ManaCrystal",
-			Scale = 0.6,
+			Scale = 0.58,
 			GroupName = "HUD_Overlay",
 			Alpha = 0.0,
 			AlphaTarget = 0.0,
@@ -245,7 +181,7 @@ ScreenData.HUD =
 				FontSize = 24,
 				Justification = "Left",
 				OffsetX = 20,
-				OffsetY = 0,
+				OffsetY = -2,
 				ShadowRed = 0.1, ShadowBlue = 0.1, ShadowGreen = 0.1,
 				OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 2,
 				ShadowAlpha = 1.0, ShadowBlur = 1, ShadowOffset = {0, 4},
@@ -256,8 +192,8 @@ ScreenData.HUD =
 		{
 			X = 200,
 			Y = 40,
-			Animation = "GUI\\Icons\\ShrinePoint",
-			Scale = 0.6,
+			Animation = "GUI\\Icons\\ShrinePoint_HUD",
+			Scale = 0.52,
 			GroupName = "HUD_Overlay",
 			Alpha = 0.0,
 			AlphaTarget = 0.0,
@@ -268,7 +204,7 @@ ScreenData.HUD =
 				FontSize = 24,
 				Justification = "Left",
 				OffsetX = 20,
-				OffsetY = 0,
+				OffsetY = -2,
 				ShadowRed = 0.1, ShadowBlue = 0.1, ShadowGreen = 0.1,
 				OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 2,
 				ShadowAlpha = 1.0, ShadowBlur = 1, ShadowOffset = {0, 4},
@@ -284,6 +220,7 @@ ScreenData.HUD =
 			GroupName = "HUD_Overlay",
 			Alpha = 0.0,
 			AlphaTarget = 0.0,
+			OffsetX = 0, -- used for dynamic positioning
 			TextArgs =
 			{
 				Font = "P22UndergroundSCMedium",
@@ -318,7 +255,7 @@ ScreenData.HUD =
 				Justification = "Left",
 				OffsetX = 0,
 				OffsetY = 0,
-				Color = Color.Yellow,
+				Color ={189,160,255,255},
 				ShadowRed = 0.1, ShadowBlue = 0.1, ShadowGreen = 0.1,
 				OutlineColor = Color.Black, OutlineThickness = 4,
 				ShadowAlpha = 1.0, ShadowBlur = 2, ShadowOffset = {0, 4},
@@ -343,7 +280,7 @@ ScreenData.HUD =
 			X = ScreenData.TraitTrayScreen.TraitStartX,
 			BottomOffset = ScreenData.TraitTrayScreen.TraitStartBottomOffset - (ScreenData.TraitTrayScreen.TraitSpacingY * 1),
 			GroupName = ScreenData.TraitTrayScreen.ComponentData.DefaultGroup,
-			Animation = "GUI\\HUD\\PrimaryBoons\\SlotIcon_Wrath",
+			Animation = "GUI\\HUD\\PrimaryBoons\\SlotIcon_Familiar",
 			Alpha = 0.0,
 			AlphaTarget = 0.0,
 			Scale = 0.5, 
@@ -442,22 +379,8 @@ ScreenData.HUD =
 			Scale = 0.5,
 			UpdateDelay = 0.4,
 			UpdateDuration = 0.4,
-			UpdateEaseIn = 0.66,
-			UpdateEaseOut = 0.88,
-		},
-
-		HealthRally = 
-		{
-			Animation = "HPBarFalloff",
-			X = 325,
-			BottomOffset = 39,
-			Alpha = 0.0,
-			AlphaTarget = 0.0,
-			Scale = 0.5,
-			UpdateDelay = 0.4,
-			UpdateDuration = 0.4,
-			UpdateEaseIn = 0.66,
-			UpdateEaseOut = 0.88,
+			UpdateEaseIn = 0.0,
+			UpdateEaseOut = 1.0,
 		},
 
 		HealthFill = 
@@ -468,9 +391,36 @@ ScreenData.HUD =
 			Alpha = 0.0,
 			AlphaTarget = 0.0,
 			Scale = 0.5,
-			UpdateDuration = 0.0,
-			UpdateEaseIn = 0.0,
-			UpdateEaseOut = 0.0,
+			UpdateDuration = 0.1,
+			UpdateEaseIn = 0.9,
+			UpdateEaseOut = 1.0,
+		},
+		HealthReserve = 
+		{
+			Graphic = "BlankObstacle",
+			Animation = "ManaBarReserveFill",
+			X = 325,
+			BottomOffset = 39,
+			Alpha = 0.0,
+			AlphaTarget = 0.0,
+			Scale = 0.5,
+			TextArgs =
+			{
+				--Text = "UI_HealthBuffer",
+				OffsetX = 200,
+				OffsetY = -4,
+				Font = "NumericP22UndergroundSCHeavy",
+				FontSize = 28,
+				Color = { 180, 168, 255, 255 },
+				ShadowRed = 0.1, ShadowBlue = 0.1, ShadowGreen = 0.1,
+				OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 2,
+				ShadowAlpha = 1.0, ShadowBlur = 1, ShadowOffset = {0, 4},
+				Justification = "Right",
+				DataProperties = 
+				{
+					OpacityWithOwner = true,
+				},
+			},
 		},
 
 		HealthBuffer = 
@@ -484,7 +434,7 @@ ScreenData.HUD =
 			TextArgs =
 			{
 				--Text = "UI_HealthBuffer",
-				OffsetX = 225,
+				OffsetX = 235,
 				OffsetY = -4,
 				Font = "NumericP22UndergroundSCHeavy",
 				FontSize = 28,
@@ -497,19 +447,6 @@ ScreenData.HUD =
 					OpacityWithOwner = true,
 				},
 			},
-		},
-
-		HealthFlash = 
-		{
-			Graphic = "BlankObstacle",
-			Animation = "HealthBarBlank",
-			X = 36,
-			BottomOffset = 45,
-			Alpha = 0.0,
-			AlphaTarget = 0.0,
-			--ScaleX = 2.0,
-			--ScaleY = 1.5,
-			Color = Color.Purple,
 		},
 
 		HealthHighIndicator = 
@@ -570,7 +507,10 @@ ScreenData.HUD =
 			BottomOffset = 82,
 			Alpha = 0.0,
 			AlphaTarget = 0.0,
-			Scale = 0.5
+			Scale = 0.5,
+			UpdateDuration = 0.2,
+			UpdateEaseIn = 0.85,
+			UpdateEaseOut = 1.0,
 		},
 
 		ManaMeterReserve = 
@@ -668,13 +608,6 @@ ScreenData.HUD =
 			Animation = "GUI\\Screens\\Inventory\\Icon-Inventory",
 			Alpha = 0.0,
 			AlphaTarget = 0.0,
-		},
-
-		ToolIcon =
-		{
-			RightOffset = 50,
-			BottomOffset = 183,
-			Scale = 0.7,
 		},
 
 		Letterbox =

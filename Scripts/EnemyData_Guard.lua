@@ -16,7 +16,6 @@ UnitSetData.Guard =
 		DeathFx = "EnemyDeathFxIris",
 
 		MaxHealth = 60,
-		--ActivateFx = "TeleportDisappearSmall",
 
 		IsAggroedSound = "/SFX/Enemy Sounds/Guard/EmoteAlerted",
 		DeathSound = "/SFX/Enemy Sounds/Guard/EmoteDying",
@@ -80,6 +79,7 @@ UnitSetData.Guard =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/Melinoe_1653", Text = "Whispers.", },
@@ -160,50 +160,6 @@ UnitSetData.Guard =
 		{
 			DifficultyRating = 29,
 			BlockEnemyTypes = {"Guard2"}
-		},
-	},
-
-	Guard3 =
-	{
-		InheritFrom = { "Guard" },
-		IsAggroedSound = "/SFX/Enemy Sounds/Guard/EmoteTaunting",
-		MaxHealth = 460,
-		
-		DefaultAIData =
-		{
-			DeepInheritance = true,
-		},
-
-		WeaponOptions =
-		{
-			"GuardHyperSpin",
-		},
-
-		GeneratorData =
-		{
-			DifficultyRating = 40,
-		},
-	},
-
-	Guard4 =
-	{
-		InheritFrom = { "Guard" },
-		IsAggroedSound = "/SFX/Enemy Sounds/Guard/EmoteTaunting",
-		MaxHealth = 560,
-		
-		DefaultAIData =
-		{
-			DeepInheritance = true,
-		},
-
-		WeaponOptions =
-		{
-			"GuardRanged",
-		},
-
-		GeneratorData =
-		{
-			DifficultyRating = 50,
 		},
 	},
 }

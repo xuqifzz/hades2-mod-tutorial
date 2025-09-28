@@ -16,11 +16,14 @@ ManaIndicatorPresentation = {
 	},
 	Hold = 
 	{
-		TransitionIn = "ManaChargeIndicatorHoldIn",
-		Fill = "ManaChargeIndicatorHoldFill",
+		TransitionIn = "ManaChargeIndicatorIn",
+		Fill = "ManaChargeIndicatorFill",
 		Loop = "ManaChargeIndicatorHoldLoop",
-		Cancel = "ManaChargeIndicatorHoldCancel",
-		Dissipate = "ManaChargeIndicatorHoldDissipate",
+		Cancel = "ManaChargeIndicatorCancel",
+		Dissipate = "ManaChargeIndicatorDissipate",
 	},
+	SprintPowerBadge = "ManaChargeIndicatorDifferentMove",
 	DifferentMoveBadge = "ManaChargeIndicatorDifferentMove",
+	PerfectChargeBadge = "ManaChargeIndicatorDifferentMove",
+	LastMomentManaRestoreEligibleHSV = {-0.2, 0, 0}
 }

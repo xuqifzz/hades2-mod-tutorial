@@ -54,6 +54,19 @@
     }
     
     {
+      Name = "LightPillarofLight01"
+      InheritFrom = "1_BaseFlyingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Lights\Light_PillarofLight_01"
+        Invisible = true
+        Light = "Lights\Light_PillarofLight_01"
+      }
+    }
+    
+    {
       Name = "LightInkedTerrain01"
       InheritFrom = "1_BaseFlyingDecalObstacle"
       DisplayInEditor = true

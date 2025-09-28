@@ -1,0 +1,3160 @@
+{ Projectiles = [
+
+	// ClockworkHeavyMelee
+	{
+		Name = "ThugSlam"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		Fuse = 0.20
+		StartDelay = 0.02
+		AttachToOwner = true
+		ImpactVelocity = 200
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 10
+		ImpactLineOfSight = true
+		Thing =
+		{
+			Graphic = "ThugSlamAxeArcSpawner"
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 520
+					Y = 100
+				}
+				{
+					X = 520
+					Y = -100
+				}
+				{
+					X = -10
+					Y = -40
+				}
+				{
+					X = -10
+					Y = 40
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "MeleeAttackVictimGrip"
+				Type = "GRIP"
+				Duration = 0.3
+				Modifier = 0.05
+				HaltOnEnd = true
+				Active = true
+			}
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "ThugSlamWave"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		Fuse = 3.5
+		Speed = 1000
+		Acceleration = 500
+		Range = 2000
+		ImpactVelocity = 1600
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 9999
+		SpawnsSpeedModifierScaleY = 0.55
+		Damage = 15
+		GroupName = "FX_Terrain_Add"
+		ImmunityDuration = 1.5
+		DissipateFx = null
+		Thing =
+		{
+			Graphic = "ThugSlamWave"
+			RotateGeometry = true
+			AttachedAnim = "null"
+			Grip = 999999
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 50
+					Y = 125
+				}
+				{
+					X = 50
+					Y = -125
+				}
+				{
+					X = -50
+					Y = -125
+				}
+				{
+					X = -50
+					Y = 125
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "ThugSwipe"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "ARC"
+		AttachToOwner = true
+		ImpactVelocity = 1600
+		ArcStart = -80
+		ArcEnd = 105
+		Speed = 1200
+		StartDelay = 0.0
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		CanHitWithoutDamage = true
+		Damage = 21
+		NumPenetrations = 99999
+		UseArmor = true
+		UseVulnerability = false
+		InvulnerableImpactOwnerVelocity = 0
+		UseRadialImpact = false
+		ImpactLineOfSightFromOwner = true
+		GroupName = "FX_Add_Top"
+		Thing =
+		{
+			Graphic = "ThugMeleeSwipeSpawner"
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			GeometryScaleY = 0.6
+			Points =
+			[
+				{
+					X = 0
+					Y = 0
+				}
+				{
+					X = 500
+					Y = 200
+				}
+				{
+					X = 550
+					Y = 0
+				}
+				{
+					X = 500
+					Y = -200
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "ThugShove"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		Fuse = 0.20
+		StartDelay = 0.02
+		AttachToOwner = true
+		ImpactVelocity = 1500
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 18
+		ImpactLineOfSight = true
+		GroupName = "FX_Standing_Add"
+		ImpactFx = "MudmanShoveImpactFx"
+		Thing =
+		{
+			Graphic = "ThugShoveFx"
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 320
+					Y = 70
+				}
+				{
+					X = 320
+					Y = -70
+				}
+				{
+					X = -10
+					Y = -40
+				}
+				{
+					X = -10
+					Y = 40
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "ThugSlamNova"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0.05
+		DamageRadius = 320
+		Damage = 24
+		Range = 1.0
+		DamageRadiusScaleY = 0.6
+		BlastSpeed = 800
+		AttachToOwner = false
+		UseRadialImpact = true
+		DamageRadiusScaleX = 1.175
+		ProjectileDefenseRadius = 0
+		UseArmor = true
+		UseVulnerability = false
+		ResetCollisionOutsideDetonation = true
+		HollowBlastRadiusBand = 20
+		IgnoreCancelAttachedProjectiles = true
+		ImmunityDuration = 0.65
+		GroupName = "FX_Standing_Add"
+		Thing =
+		{
+			Graphic = "ThugSlamNova"
+			Grip = 999999
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+
+	// GoldElemental
+	{
+		Name = "GoldElementalBeam"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "BEAM"
+		AutoAdjustForTarget = true
+		DieWithOwner = true
+		RotateWithOwner = true
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		MultipleUnitCollisions = true
+		MultipleObstacleCollisions = true
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Range = 3000
+		Speed = 0
+		Damage = 10
+		MultiDetonate = true
+		ImmunityDuration = 0.3
+		Fuse = 0.3
+		TotalFuse = 0.9
+		DrawAsBeam = true
+		GroupName = "FX_Standing_Add"
+		TipFx = "GoldElementalTipFlare"
+		AttachToOwner = true
+		DissipateFx = "GoldElementalBeamEnd"
+		Thing =
+		{
+			Graphic = "GoldElementalBeam"
+			AttachedAnim = "GoldElementalBeamGroundGlow"
+			OffsetZ = 40
+			Grip = 999999
+			Tallness = 10
+			UseBoundsForSortDrawArea = true
+		}
+	}
+	{
+		Name = "GoldElementalBeam_Elite"
+		InheritFrom = "GoldElementalBeam"
+		Damage = 10
+		TotalFuse = 1.8
+	}
+
+	// TimeElemental
+	{
+		Name = "TimeElementalOrbit"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "STRAIGHT"
+		UnlimitedUnitPenetration = true
+		UnlimitedObstaclePenetration = true
+		Fuse = 5.1
+		Speed = 420
+		Acceleration = 330
+		SpinRate = -120
+		UseArmor = true
+		SpeedScaleY = 0.6
+		UseVulnerability = true
+		Damage = 9
+		StartDelay = 0.15
+		GroupName = "Standing"
+		DissipateFx = "TimeElementalProjectileDissipate"
+		ImmunityDuration = 0.30
+		MultipleUnitCollisions = true
+		DetonateOnImpact = false
+		Thing =
+		{
+			Graphic = "TimeElementalProjectileIn"
+			OffsetZ = 112
+			AttachedAnim = "TimeElementalProjectileGroundGlow"
+			RotateGeometry = true
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 40
+					Y = 40
+				}
+				{
+					X = 40
+					Y = -40
+				}
+				{
+					X = -40
+					Y = -40
+				}
+				{
+					X = -40
+					Y = 40
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "TimeElementalDeathRadial"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = "ChronosRadialExplosionA"
+		Type = "INSTANT"
+		Damage = 5
+		DamageRadius = 295
+		DamageRadiusScaleY = 0.5
+		Fuse = 1.38
+		AffectsFriends = false
+		AffectsSelf = false
+		AffectsEnemies = true
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		DetonateSound = "/Leftovers/SFX/BeaconTeleportSFX"
+		MaxVictimZ = 9999
+		SpawnRadius = 0
+		GroupName = "FX_Terrain"
+		SpawnOnDetonate = "TimeElementalDeath"
+		SpawnCount = 1
+		SpawnType = "PROJECTILE"
+		Thing =
+		{
+			Graphic = "ChronosRadialPreviewA_In"
+			RotateGeometry = false
+			Scale = 3.0
+			Points =
+			[
+				{
+					X = 4
+					Y = 0
+				}
+				{ 
+					X = 0
+					Y = -2
+				}
+				{
+					X = -4
+					Y = 0
+				}
+				{
+					X = 0
+					Y = 2
+				}
+			]
+		}
+	}
+	{
+		Name = "TimeElementalDeath"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		DetonateFx = "null"
+		Type = "STRAIGHT"
+		AffectsEnemies = true
+		AffectsFriends = true
+		AffectsSelf = true
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		AttachToOwner = false
+		NumPenetrations = 99999
+		TotalFuse = 1.5
+		BlastDuration = 1.5
+		Fuse = 0.2
+		FlashBeforeExpireDuration = 1
+		DamageRadiusScaleY = 0.6
+		DamageRadiusScaleX = 1.1
+		Damage = 0
+		DamageRadius = 295
+		BlastSpeed = 3000
+		ExpandBlastDuringDetonation = true
+		AnimIgnoreBlastRadius = true
+		UseDetonationForProjectileDefense = true
+		ResetCollisionOutsideDetonation = true
+		IgnoreCancelAttachedProjectiles = true
+		MultipleUnitCollisions = true
+		MultipleObstacleCollisions = true
+		ImmunityDuration = 0.1
+		DissipateFx = "TimeTrapSandBubbleOut"
+		MultiDetonate = true
+		Thing =
+		{
+			Graphic = "TimeElementalSandBubble"
+			Grip = 999999
+			ExtentScale = 3.5
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "StasisStun"
+				Duration = 0.3
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				HaltOnStart = true
+				ImmuneToForce = true
+				Active = true
+				CanAffectInvulnerable = true
+				Cancelable = false
+				FrontFx = "TimeTrapStasisFrontFx"
+				ExtendDurationOnReapply = true
+				IgnoreImmuneToStun = true
+				IgnoreName = "Chronos"
+			}
+		]
+	}
+	{
+		Name = "TimeElementalHealBeam"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "BEAM"
+		AutoAdjustForTarget = true
+		SpinRate = 0
+		AffectsFriends = true
+		AffectsEnemies = false
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		MultipleObstacleCollisions = true
+		MultipleUnitCollisions = true
+		NumPenetrations = 9999
+		Range = 2000
+		BeamDieOnTargetLost = true
+		Damage = 0
+		Fuse = 3.2
+		ImmunityDuration = 0.25
+		DrawAsBeam = true
+		GroupName = "FX_Standing_Add"
+		TipFx = "TimeElementalBeamOriginFlare"
+		AttachToOwner = true
+		RotateWithOwner = true
+		DieWithOwner = true
+		IgnoreDodge = true
+		DissipateFx = "TimeElementalBeamEnd"
+		InflictedDamageSound = "/SFX/BurnDamage"
+		Thing =
+		{
+			Graphic = "TimeElementalBeam"
+			AttachedAnim = "TimeElementalBeamOriginFlare"
+			AmbientSound = "/SFX/Enemy Sounds/Hades/HadesHealingLoop"
+			OffsetZ = 70
+			Grip = 999999
+			Tallness = 10
+			UseBoundsForSortDrawArea = true
+		}
+		Effect =
+		{
+			Name = "TimeElementalHeal"
+			Duration = 0.01
+			Amount = 50
+		}
+	}
+	{
+		Name = "TimeElementalHealBeam_EM"
+		InheritFrom = "TimeElementalHealBeam"
+		Effect =
+		{
+			Name = "TimeElementalHeal"
+			Duration = 0.01
+			Amount = 100
+		}
+	}
+	{
+		Name = "TimeElementalHealBeam_Typhon"
+		InheritFrom = "TimeElementalHealBeam"
+		Effect =
+		{
+			Name = "TimeElementalHeal"
+			Duration = 0.01
+			Amount = 200
+		}
+	}
+	{
+		Name = "TimeElementalHealBeam_Ally"
+		InheritFrom = "TimeElementalHealBeam"
+		AffectsFriends = true
+		AffectsEnemies = true
+		CanHitWithoutDamage = true
+		Effect =
+		{
+			Name = "TimeElementalHeal"
+			Duration = 0.01
+			Amount = 1
+			OnlyAffectName = "_PlayerUnit"
+		}
+	}
+
+	// SatyrRatCatcher
+	{
+		Name = "SatyrCast"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "HOMING"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		AllowTargetInvulnerable = true
+		UnlimitedUnitPenetration = false
+		DissipateFx = "SatyrCastFireballDissipate"
+		ImpactFx = "SatyrCastFireballDissipate"
+		Range = 3000
+		MultiDetonate = true
+		TotalFuse = 2.1
+		Fuse = 0.20
+		Speed = 595
+		MaxAdjustRate = 115
+		AdjustRateAcceleration = -18
+		Damage = 16
+		UnpauseResetLocation = true
+		GroupName = "FX_Standing_Add"
+		SpawnOnDetonate = "SatyrFire"
+		SpawnType = "PROJECTILE"
+		Thing =
+		{
+			Graphic = "SatyrCastFireballIn"
+			OffsetZ = 50
+			Tallness = 60
+			AttachedAnim = "null"
+			AmbientSound = "/SFX/Enemy Sounds/CorruptedShadeSmall/AttackLoop"
+			Grip = 999999
+			UseBoundsForSortDrawArea = true
+			RotateGeometry = true
+			Points =
+			[
+				{
+					X = -64
+					Y = 0
+				}
+				{
+					X = 0
+					Y = 48
+				}
+				{
+					X = 0
+					Y = -48
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = false
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "SatyrFire"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "INSTANT"
+		GroupName = "FX_Terrain"
+		Range = 0
+		CheckObstacleImpact = false
+		CheckObstacleImpactOnDetonation = false
+		UnlimitedUnitPenetration = true
+		DamageRadius = 100
+		DamageRadiusScaleX = 1.0
+		DamageRadiusScaleY = 0.6
+		TotalFuse = 1.0
+		Fuse = 0.25
+		InflictedDamageSound = "/SFX/BurnDamageSizzle"
+		InflictedDamageFx = "Immolation_SatyrFire"
+		ImmunityKey = "LavaTileWeapon"
+		IgnoreDodge = true
+		ImmunityDuration = 0.24
+		Damage = 7
+		MoveInterval = 0.19
+		MaxVictimZ = 1
+		MultiDetonate = true
+		Effects =
+		[
+			{
+				Name = "LavaVignette"
+				Duration = 0.5
+				Active = true
+				CanAffectInvulnerable = false
+			}
+			{
+				Name = "LavaSlow"
+				Type = "SPEED"
+				Duration = 0.5
+				Modifier = 1
+				Active = true
+				CanAffectInvulnerable = false
+				FrontFx = "null"
+			}
+		]
+		Thing =
+		{
+			Graphic = "SatyrFireIn"
+			AmbientSound = "/Leftovers/Object Ambiences/FireAmbientLoop"
+			Points =
+			[
+				{
+					X = 4
+					Y = 0
+				}
+				{ 
+					X = 0
+					Y = -2
+				}
+				{
+					X = -4
+					Y = 0
+				}
+				{
+					X = 0
+					Y = 2
+				}
+			]
+		}
+	}
+	{
+		Name = "SatyrRatCatcherMelee"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "INSTANT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0.05
+		DamageRadius = 370
+		Damage = 13
+		Range = 1.0
+		DamageRadiusScaleY = 0.6
+		BlastSpeed = 1100
+		AttachToOwner = false
+		UseRadialImpact = true
+		ImpactVelocity = 2200
+		DamageRadiusScaleX = 1.175
+		ProjectileDefenseRadius = 0
+		UseArmor = true
+		UseVulnerability = false
+		ResetCollisionOutsideDetonation = true
+		HollowBlastRadiusBand = 20
+		IgnoreCancelAttachedProjectiles = true
+		ImmunityDuration = 0.65
+		GroupName = "FX_Terrain_Add"
+		Thing =
+		{
+			Graphic = "SatyrRatCatcherMeleeFx"
+			Grip = 999999
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "SatyrRatCatcherMelee_Miniboss"
+		InheritFrom = "SatyrRatCatcherMelee"
+		DamageRadius = 680
+		ImpactVelocity = 2600
+		Damage = 18
+	}
+	{
+		Name = "SatyrRatCatcherSpellBuff"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "INSTANT"
+		AffectsEnemies = false
+		AffectsFriends = true
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0.05
+		DamageRadius = 300
+		BlastSpeed = 3000
+		Damage = 0
+		Range = 1.0
+		DamageRadiusScaleY = 0.6
+		AttachToOwner = false
+		UseRadialImpact = true
+		DamageRadiusScaleX = 1.175
+		GroupName = "FX_Terrain_Add"
+		Thing =
+		{
+			Graphic = "null"
+			Grip = 999999
+		}
+		Effect =
+		{
+			Name = "SatyrEnlarge"
+			IgnoreName = "SatyrLancer_Shadow"
+			Duration = 0.1
+			Active = true
+			CanAffectInvulnerable = true
+			Cancelable = true
+			ExtendDurationOnReapply = true
+		}
+	}
+	{
+		Name = "SatyrRatCatcherSpellKnockback"
+		InheritFrom = "1_BaseEnemyProjectile"
+		DetonateFx = "SatyrRatCatcherSpellKnockbackNova"
+		Type = "INSTANT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0.05
+		DamageRadius = 300
+		Damage = 0
+		Range = 1.0
+		DamageRadiusScaleY = 0.6
+		AttachToOwner = false
+		UseRadialImpact = true
+		ImpactVelocity = 2200
+		DamageRadiusScaleX = 1.175
+		GroupName = "FX_Terrain_Add"
+		Thing =
+		{
+			Graphic = "null"
+			Grip = 999999
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+
+	// Crawler
+	{
+		Name = "CrawlerRush"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		DetonateFx = "RatSwipe"
+		DetonateSound = "/SFX/Enemy Sounds/Crawler/EmoteAttacking"
+		AttachToOwner = true
+		Fuse = 0.3
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 1
+		Thing =
+		{
+			Graphic = "null"
+			RotateGeometry = true
+			Grip = 999999
+			ExtentScale = 1.5
+			Points =
+			[
+				{
+					X = 80
+					Y = 40
+				}
+				{
+					X = 80
+					Y = -40
+				}
+				{
+					X = 10
+					Y = -40
+				}
+				{
+					X = 10
+					Y = 40
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+
+	// Cultist
+	{
+		Name = "SatyrCultistMelee"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		DetonateFx = "RatSwipe"
+		DetonateSound = null
+		AttachToOwner = true
+		Fuse = 0.3
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 13
+		Thing =
+		{
+			Graphic = "null"
+			RotateGeometry = true
+			Grip = 999999
+			Scale = 2.5
+			Points =
+			[
+				{
+					X = 80
+					Y = 40
+				}
+				{
+					X = 80
+					Y = -40
+				}
+				{
+					X = 10
+					Y = -40
+				}
+				{
+					X = 10
+					Y = 40
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "SatyrCultistMelee_Elite"
+		InheritFrom = "SatyrCultistMelee"
+		Damage = 16
+	}
+	{
+		Name = "SatyrCultistMeleeRadial"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0.05
+		DamageRadius = 410
+		Damage = 16
+		Range = 1.0
+		DamageRadiusScaleY = 0.6
+		BlastSpeed = 2200
+		UseRadialImpact = true
+		ImpactVelocity = 2200
+		DamageRadiusScaleX = 1.175
+		ProjectileDefenseRadius = 0
+		UseArmor = true
+		UseVulnerability = false
+		ResetCollisionOutsideDetonation = true
+		HollowBlastRadiusBand = 20
+		IgnoreCancelAttachedProjectiles = true
+		ImmunityDuration = 0.65
+		GroupName = "FX_Terrain_Add"
+		Thing =
+		{
+			Graphic = "SatyrRatCatcherMeleeFx"
+			Grip = 999999
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "SatyrCultistMeleeRadial_Elite"
+		InheritFrom = "SatyrCultistMeleeRadial"
+		Damage = 19
+		DamageRadius = 570
+	}
+	{
+		Name = "SatyrCultistCast"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "HOMING"
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		MaxVictimZ = 9999
+		UnlimitedUnitPenetration = true
+		Damage = 15
+		MaxAdjustRate = 200
+		AdjustRateAcceleration = 20
+		Acceleration = 27
+		SpeedVariance = 27
+		MaxSpeed = 440
+		Speed = 220
+		Range = 999999
+		DieWithOwner = true
+		GroupName = "FX_Standing_Add"
+		ImpactFx = "LamiaLightning"
+		TotalFuse = 12.0
+		ImmunityDuration = 0.3
+		AllowRepeatedJumpHit = true
+		ResetCollisionOutsideImpact = true
+		StartDelay = 0.0
+		AllowTargetInvulnerable = true
+		Thing =
+		{
+			Graphic = "LamiaSkyCast"
+			Points =
+			[
+				{
+					X = 10
+					Y = 10
+				}
+				{
+					X = -10
+					Y = 10
+				}
+				{
+					X = -10
+					Y = -10
+				}
+				{
+					X = 10
+					Y = -10
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "CultistShockwave"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "STRAIGHT"
+		DetonateSound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGroundSlam"
+		AffectsFriends = true
+		Range = 1
+		Fuse = 0.0
+		DamageRadius = 880
+		BlastSpeed = 300
+		UseRadialImpact = true
+		BlastSpeedAcceleration = 150
+		HollowBlastRadiusBand = 40
+		DamageRadiusScaleY = 0.5
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		MultipleUnitCollisions = true
+		ImmunityDuration = 0.20
+		Damage = 22
+		ImpactVelocity = 300
+		UseArmor = false
+		UseVulnerability = false
+		GroupName = "FX_Dark"
+		Thing =
+		{
+			Graphic = "SatyrCultistRitualFx"
+			AmbientSound = "/Leftovers/Ambience/StatueAmbienceLoop"
+			OffsetZ = 70
+			Grip = 999999
+		}
+		Effects =
+		[
+			{
+				Name = "RushGrip"
+				Type = "GRIP"
+				Duration = 0.15
+				Modifier = 1.00
+				HaltOnEnd = true
+				Active = true
+			}
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = false
+				FrontFx = "DionysusStunnedFx"
+				OnlyAffectName = "_PlayerUnit"
+			}
+		]
+	}
+	{
+		Name = "CultistThrow"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "STRAIGHT"
+		Fuse = 1.0
+		Speed = 1900
+		ImpactVelocity = 200
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 11
+		ImpactLineOfSight = true
+		UseRadialImpact = false
+		GroupName = "FX_Standing_Add"
+		Thing =
+		{
+			Graphic = "CharybdisTentacleSpikeIn"
+			AttachedAnim = "CharybdisTentacleSpikeShadow"
+			AmbientSound = "/SFX/SawTrapProjectileLoop"
+			GeometryScaleY = 0.6
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			Scale = 0.66
+			Color =
+			{
+				Red = 1.0
+				Green = 0.75
+				Blue = 0.25
+				Opacity = 1.0
+			}
+			Points =
+			[
+				{
+					X = 210
+					Y = 30
+				}
+				{
+					X = 210
+					Y = -30
+				}
+				{
+					X = -10
+					Y = -40
+				}
+				{
+					X = -10
+					Y = 40
+				}
+			]
+		}
+	}
+
+	// SatyrLancer
+	{
+		Name = "SatyrLancerThrust"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		Fuse = 0.20
+		StartDelay = 0.02
+		AttachToOwner = true
+		ImpactVelocity = 200
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 19
+		ImpactLineOfSight = true
+		GroupName = "FX_Standing_Add"
+		Thing =
+		{
+			Graphic = "SatyrSpearThrust"
+			OffsetZ = 100
+			RotateGeometry = true
+			GeometryScaleY = 0.6
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 550
+					Y = 90
+				}
+				{
+					X = 550
+					Y = -90
+				}
+				{
+					X = -10
+					Y = -60
+				}
+				{
+					X = -10
+					Y = 60
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "MeleeAttackVictimGrip"
+				Type = "GRIP"
+				Duration = 0.3
+				Modifier = 0.05
+				HaltOnEnd = true
+				Active = true
+			}
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "SatyrLancerThrow"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "HOMING"
+		ImpactFx = "SatyrLanceImpact"
+		DissipateFx = "SatyrLanceDissipate"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = false
+		Range = 1600
+		Speed = 1100
+		Damage = 17
+		Thing =
+		{
+			Graphic = "SatyrSpearProjectile"
+			OffsetZ = 140
+			AttachedAnim = "SatyrSpearProjectileShadow"
+			Grip = 999999
+			Scale = 0.5
+			RotateGeometry = true
+			Points =
+			[
+				{
+					X = 0
+					Y = 60
+				}
+				{
+					X = 0
+					Y = -60
+				}
+				{
+					X = -200
+					Y = 0
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+
+	// SwarmerClockwork
+	{
+		Name = "SwarmerClockworkMelee"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		AttachToOwner = true
+		Fuse = 0.3
+		Damage = 8
+		UseArmor = true
+		UseVulnerability = true
+		InflictedDamageFx = "SwarmerBiteFx"
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = true
+			Cancelable = true
+		}
+		Thing =
+		{
+			Graphic = "null"
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 90
+					Y = 40
+				}
+				{
+					X = 90
+					Y = -40
+				}
+				{
+					X = -10
+					Y = 0
+				}
+			]
+		}
+	}
+
+	// GoldElementalMiniBoss
+	{
+		Name = "GoldElementalBeam_MiniBoss"
+		InheritFrom = "GoldElementalBeam"
+		Damage = 15
+		TotalFuse = 1.8
+	}
+	{
+		Name = "GoldElementalSky"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = "GoldElementalSkyNova"
+		Type = "INSTANT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0.05
+		DamageRadius = 230
+		Damage = 0
+		Range = 1.0
+		BlastSpeed = 1000
+		DamageRadiusScaleY = 0.6
+		AttachToOwner = false
+		UseRadialImpact = true
+		ImpactVelocity = 2200
+		DamageRadiusScaleX = 1.175
+		GroupName = "FX_Terrain_Add"
+		Thing =
+		{
+			Graphic = "null"
+			Grip = 999999
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "GoldElementalGround"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "STRAIGHT"
+		Damage = 20
+		DamageRadius = 150.0
+		DamageRadiusScaleY = 0.6
+		Speed = 200
+		SpeedVariance = 100
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UseVulnerability = false
+		DetonateSound = "/SFX/Enemy Sounds/GoldElementalMiniboss/GoldAttackBounce"
+		ReflectFx = "GrenadeBounceSpark"
+		NumJumps = 2
+		JumpType = "OBSTACLE_ONLY"
+		DissipateFx = "GoldElementalCoinBounceOut"
+		Fuse = 5.0
+		Thing =
+		{
+			Graphic = "GoldElementalCoinBounce"
+			OffsetZ = 101
+			AttachedAnim = "GoldElementalCoinBounceShadow"
+			Points =
+			[
+				{
+					X = 0
+					Y = 24
+				}
+				{
+					X = 24
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -24
+				}
+				{
+					X = -24
+					Y = 0
+				}
+			]
+		}
+	}
+
+	// Chronos
+	{
+		Name = "ChronosSwingRight"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "ARC"
+		AttachToOwner = true
+		ImpactVelocity = 500
+		ArcStart = 85
+		ArcEnd = -75
+		Speed = -1200
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 29
+		NumPenetrations = 99999
+		UseArmor = true
+		UseVulnerability = false
+		InvulnerableImpactOwnerVelocity = 0
+		UseRadialImpact = false
+		ImpactLineOfSightFromOwner = true
+		Thing =
+		{
+			Graphic = "ChronosSwingRight"
+			Scale = 1.0
+			GeometryScaleY = 0.5
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 0
+					Y = 0
+				}
+				{
+					X = 700
+					Y = 150
+				}
+				{
+					X = 700
+					Y = -150
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "RushGrip"
+				Type = "GRIP"
+				Duration = 0.35
+				Modifier = 0.1
+				HaltOnEnd = true
+				Active = false
+			}
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = true
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "ChronosTelescopeSwingRight"
+		InheritFrom = "ChronosSwingRight"
+		Thing =
+		{
+			Scale = 2.0
+		}
+	}
+	{
+		Name = "ChronosSwingLeft"
+		InheritFrom = "ChronosSwingRight"
+		ArcStart = -85
+		ArcEnd = 75
+		Speed = 1200
+		Thing =
+		{
+			Graphic = "ChronosSwingLeft"
+			Scale = 1.0
+			GeometryScaleY = 0.5
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 0
+					Y = 0
+				}
+				{
+					X = 700
+					Y = 150
+				}
+				{
+					X = 700
+					Y = -150
+				}
+			]
+		}
+	}
+	{
+		Name = "ChronosRadial"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		DetonateFx = "ChronosRadialExplosionA"
+		Type = "INSTANT"
+		Damage = 24
+		DamageRadius = 300
+		DamageRadiusScaleY = 0.5
+		Fuse = 1.38
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		DetonateSound = "/Leftovers/SFX/BeaconTeleportSFX"
+		MaxVictimZ = 9999
+		SpawnRadius = 0
+		GroupName = "FX_Terrain"
+		SpawnOnDetonate = "ChronosMiniRiftStasis"
+		SpawnCount = 1
+		SpawnType = "PROJECTILE"
+		Thing =
+		{
+			Graphic = "ChronosRadialPreviewA_In"
+			RotateGeometry = false
+			Scale = 3.0
+			Points =
+			[
+				{
+					X = 4
+					Y = 0
+				}
+				{ 
+					X = 0
+					Y = -2
+				}
+				{
+					X = -4
+					Y = 0
+				}
+				{
+					X = 0
+					Y = 2
+				}
+			]
+		}
+	}
+	{
+		Name = "ChronosRadialExtended"
+		InheritFrom = "ChronosRadial"
+		SpawnOnDetonate = "ChronosMiniRiftStasisExtended"
+	}
+
+	{
+		Name = "ChronosDashRadial"
+		InheritFrom = "ChronosRadial"
+		DetonateFx = "ChronosRadialExplosionA"
+		DamageRadius = 500
+		DamageRadiusScaleY = 0.5
+		Fuse = 1.38
+		SpawnOnDetonate = null
+		
+		Thing =
+		{
+			Graphic = "ChronosRadialPreviewA_In"
+			RotateGeometry = false
+			Scale = 3.0
+			Points =
+			[
+				{
+					X = 4
+					Y = 0
+				}
+				{ 
+					X = 0
+					Y = -2
+				}
+				{
+					X = -4
+					Y = 0
+				}
+				{
+					X = 0
+					Y = 2
+				}
+			]
+		}
+	}
+	{
+		Name = "ChronosRadialSmall"
+		InheritFrom = "ChronosRadial"
+		DamageRadius = 200
+		SpawnOnDetonate = "ChronosMiniRiftStasisSmall"
+		Thing =
+		{
+			Scale = 2.0
+		}
+	}
+	{
+		Name = "ChronosCircle"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "STRAIGHT"
+		IgnoreDodge = true
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		InheritOwnerElapsedTimeMultiplier = false
+		Fuse = 0.15
+		BlastDuration = 0.15
+		DamageRadius = 400
+		Damage = 999
+		Range = 1.0
+		DamageRadiusScaleX = 1.175
+		DamageRadiusScaleY = 0.6
+		UseRadialImpact = true
+		UseVulnerability = false
+		ResetCollisionOutsideDetonation = true
+		GroupName = "FX_Standing_Add"
+		Thing =
+		{
+			Graphic = "ChronosRadial2Detonate"
+			Grip = 999999
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "ChronosCircleInverted"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "STRAIGHT"
+		IgnoreDodge = true
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		CheckObstacleImpactOnDetonation = false
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0.15
+		BlastDuration = 0.15
+		DamageRadius = 9000
+		Damage = 999
+		Range = 1.0
+		DamageRadiusScaleY = 0.6
+		UseRadialImpact = true
+		DamageRadiusScaleX = 1.175
+		ProjectileDefenseRadius = 0
+		UseVulnerability = false
+		InheritOwnerElapsedTimeMultiplier = false
+		HollowBlastRadiusBand = 8300
+		GroupName = "FX_Terrain"
+		Thing =
+		{
+			Graphic = "ChronosCircleInverseNova"
+			Grip = 999999
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "ChronosCircleInvertedSmall"
+		InheritFrom = "ChronosCircleInverted"
+		DamageRadius = 9000
+		HollowBlastRadiusBand = 8850
+		Thing =
+		{
+			Graphic = "ChronosCircleInvertSmallBlast"
+			Points =
+			[
+				{
+					X = 0
+					Y = 1
+				}
+				{
+					X = 1
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -1
+				}
+				{
+					X = -1
+					Y = 0
+				}
+			]
+		}
+	}
+	{
+		Name = "SatyrCultistRitualBlast"
+		InheritFrom = "ChronosCircleInverted"
+
+	}
+	{
+		Name = "ChronosRift"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		Range = 0.0
+		StartDelay = 2.3
+		Fuse = 0.1
+		Damage = 33
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		UnlimitedObstaclePenetration = true
+		ImpactFx = "HeraUnitFx"
+		UseVulnerability = false
+		DetonateFx = "ChronosRiftBaseOut"
+		DetonateSound = "/Leftovers/SFX/MeteorStrikeShort"
+		GroupName = "FX_Terrain"
+		UseStartLocation = true
+		SpawnType = "PROJECTILE"
+		DrawDuringPause = true
+		UnitCollisionCheck = "PointInPolygon"
+		SilentImpactOnInvulnerable = true
+		Thing =
+		{
+			Graphic = "ChronosRiftBase"
+			OffsetZ = 0
+			Tallness = 50
+			AttachedAnim = "ChronosRiftAdditiveIn"
+			Grip = 999999
+			RotateGeometry = true
+			GeometryScaleY = 0.55
+			Points =
+			[
+				{
+					X = -1350
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -124
+				}
+				{
+					X = 1350
+					Y = 0
+				}
+				{
+					X = 0
+					Y = 124
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.5
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "ChronosRiftSpin"
+		InheritFrom = "ChronosRift"
+		Type = "ARC"
+		UseStartLocation = false
+		StartDelay = 0.0
+		AttachToOwner = false
+		ArcStart = 0
+		ArcEnd = -365
+		Speed = 370
+		Fuse = 3.0
+	}
+	{
+		Name = "ChronosClockArm"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "STRAIGHT"
+		Range = 1
+		Speed = 0
+		Fuse = 1.0
+		StartDelay = 0.07
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		CanHitWithoutDamage = true
+		Damage = 44
+		NumPenetrations = 99999
+		ImmunityDuration = 1.0
+		UseArmor = true
+		UseVulnerability = false
+		InvulnerableImpactOwnerVelocity = 0
+		UseRadialImpact = false
+		ImpactLineOfSightFromOwner = true
+		GroupName = "FX_Terrain"
+		Thing =
+		{
+			Graphic = "ChronosClockHandBase"
+			AttachedAnim = "ChronosClockHandAdditive"
+			RotateGeometry = true
+			Grip = 999999
+			GeometryScaleY = 0.5
+			Points =
+			[
+				{
+					X = 150
+					Y = 0
+				}
+				{
+					X = 1500
+					Y = 30
+				}
+				{
+					X = 1500
+					Y = -30
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "RushGrip"
+				Type = "GRIP"
+				Duration = 0.35
+				Modifier = 0.1
+				HaltOnEnd = true
+				Active = false
+			}
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = true
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "ChronosClockArmBolt"
+		InheritFrom = "ChronosClockArm"
+		Speed = 0
+		Range = 3000
+		Fuse = 3.55
+		StartDelay = 0.0
+		UseOwnerAngle = true
+		GroupName = "FX_Terrain"
+		MultipleUnitCollisions = true
+		ImmunityDuration = 0.5
+		ResetCollisionOutsideImpact = true
+		Thing =
+		{
+			Graphic = "ChronosClockHandBaseNoYScale"
+			AttachedAnim = "ChronosClockHandAdditiveNoYScale"
+			Scale = 2
+			GeometryScaleY = 1.0
+			AmbientSound = "/SFX/Enemy Sounds/GoldElemental/GoldElementalLaserAttack"
+		}
+	}
+	{
+		Name = "ChronosClockArm30"
+		InheritFrom = "ChronosClockArm"
+		Type = "ARC"
+		Range = 1
+		ArcStart = 30
+		ArcEnd = 0
+		Speed = -125
+		Damage = 0
+	}
+	{
+		Name = "ChronosClockArmPreview"
+		InheritFrom = "ChronosClockArm"
+		Damage = 0
+		Fuse = 3.0
+		ClearEffects = true
+		Thing =
+		{
+			Graphic = "ChronosClockHandBase"
+			AttachedAnim = null
+			Color =
+			{
+				Red = 1.0
+				Green = 0.0
+				Blue = 0.0
+				Opacity = 1.0
+			}
+		}
+	}
+	{
+		Name = "ChronosClockArmShort"
+		InheritFrom = "ChronosClockArm"
+		Damage = 22
+		Thing =
+		{
+			Graphic = "ChronosClockHandBaseShort"
+			AttachedAnim = "ChronosClockHandAdditiveShort"
+			Points =
+			[
+				{
+					X = 0
+					Y = 0
+				}
+				{
+					X = 750
+					Y = 30
+				}
+				{
+					X = 750
+					Y = -30
+				}
+			]
+		}
+	}
+	{
+		Name = "ChronosClockArmShortPreview"
+		InheritFrom = "ChronosClockArmShort"
+		Damage = 0
+		Fuse = 3.0
+		ClearEffects = true
+		Thing =
+		{
+			Graphic = "ChronosClockHandBaseShort"
+			AttachedAnim = "ChronosClockHandAdditiveShort"
+			Color =
+			{
+				Red = 1.0
+				Green = 0.0
+				Blue = 0.0
+				Opacity = 1.0
+			}
+		}
+	}
+	{
+		Name = "ChronosClockArm30Short"
+		InheritFrom = "ChronosClockArm"
+		Type = "ARC"
+		Range = 1
+		ArcStart = 30
+		ArcEnd = 0
+		Speed = -125
+		Thing =
+		{
+			Graphic = "ChronosClockHandBaseShort"
+			AttachedAnim = "ChronosClockHandAdditiveShort"
+			Points =
+			[
+				{
+					X = 0
+					Y = 0
+				}
+				{
+					X = 750
+					Y = 30
+				}
+				{
+					X = 750
+					Y = -30
+				}
+			]
+		}
+	}
+	{
+		Name = "ChronosClockArm360Preview"
+		InheritFrom = "ChronosClockArmPreview"
+		Fuse = 1.0
+	}
+	{
+		Name = "ChronosClockArm360"
+		InheritFrom = "ChronosClockArm"
+		Type = "ARC"
+		Range = 1
+		Damage = 22
+		Fuse = 6
+		ArcStart = 360
+		ArcEnd = 0
+		Speed = 75
+		MultipleUnitCollisions = true
+		ImmunityDuration = 0.5
+		Thing =
+		{
+			AmbientSound = "/SFX/Enemy Sounds/GoldElemental/GoldElementalLaserAttack"
+		}
+	}
+	{
+		Name = "ChronosClockArm360Slow"
+		InheritFrom = "ChronosClockArm360"
+		ArcStart = 180
+		ArcEnd = 0
+		Speed = 100
+		Fuse = 3
+	}
+	{
+		Name = "ChronosRush"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		Fuse = 0.25
+		AttachToOwner = true
+		AffectsFriends = true
+		ImpactVelocity = 2600
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 23
+		ImpactLineOfSight = true
+		StartFx = "ChronosSwingRush"
+		Thing =
+		{
+			Graphic = null
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 180
+					Y = 200
+				}
+				{
+					X = 180
+					Y = -200
+				}
+				{
+					X = -10
+					Y = -100
+				}
+				{
+					X = -10
+					Y = 100
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "ChronosRushKnockback"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "INSTANT"
+		Damage = 0
+		ImpactVelocity = 2600
+		ImmunityDuration = 1.10
+		AttachToOwner = true
+		DamageRadius = 500
+		BlastSpeed = 3000
+		DamageRadiusScaleY = 0.58
+		AffectsFriends = true
+		UseRadialImpact = true
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		Thing =
+		{
+			Graphic = "null"
+			RotateGeometry = false
+			Scale = 1.0
+			Color =
+			{
+				Red = 1.0
+				Green = 1.0
+				Blue = 1.0
+				Opacity = 1.0
+			}
+			Points =
+			[
+				{
+					X = 0
+					Y = 8
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -8
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "ChronosRipple"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "INSTANT"
+		DetonateFx = "ChronosRippleExplosion"
+		DetonateSound = "/SFX/Enemy Sounds/Chronos/ChronosBallFireLow"
+		DamageRadiusScaleY = 0.7
+		DamageRadius = 230
+		Damage = 25
+		Fuse = 0.0
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		UseStartLocation = true
+		ImmunityDuration = 0.25
+		Thing =
+		{
+			Graphic = "null"
+			RotateGeometry = true
+			Points =
+			[
+				{
+					X = 0
+					Y = 8
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -8
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "ChronosRushRipple"
+		InheritFrom = "ChronosRipple"
+		DetonateFx = "ChronosRippleExplosionStraight"
+		UseStartLocation = false
+	}
+	{
+		Name = "ChronosRushRippleFast"
+		InheritFrom = "ChronosRushRipple"
+	}
+	{
+		Name = "ChronosRadialIn"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "STRAIGHT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0.0
+		DamageRadius = 2100
+		Damage = 31
+		Range = 1.0
+		DamageRadiusScaleY = 0.6
+		BlastSpeed = 400
+		BlastStartRadius = 2000
+		UseRadialImpact = true
+		DamageRadiusScaleX = 1.175
+		ProjectileDefenseRadius = 0
+		UseArmor = true
+		UseVulnerability = false
+		ResetCollisionOutsideDetonation = true
+		HollowBlastRadiusBand = 20
+		ReturnToOwnerAfterInactiveSeconds = 0.1
+		IgnoreCancelAttachedProjectiles = true
+		DoesNotAffectName = "Chronos"
+		ImmunityDuration = 0.35
+		GroupName = "FX_Terrain"
+		InheritOwnerElapsedTimeMultiplier = false
+		Thing =
+		{
+			Graphic = "ChronosRadialInRing_Dark"
+			Grip = 999999
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "ChronosRadialOut"
+		InheritFrom = "ChronosRadialIn"
+		BlastStartRadius = null
+		ReturnToOwnerAfterInactiveSeconds = null
+		InheritOwnerElapsedTimeMultiplier = true
+		Thing =
+		{
+			AmbientSound = "/SFX/Enemy Sounds/Chronos/ChronosClockHand"
+		}
+	}
+	{
+		Name = "ChronosBoltOrbit1"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "ARC"
+		DissipateFx = "ChronosOrbitProjectileOut"
+		DeathFx = "ChronosOrbitProjectileOut"
+		ImpactFx = "ChronosOrbitProjectileImpact"
+		Fuse = 6
+		Range = 350
+		ArcStart = 0
+		ArcEnd = -3240
+		ArcScaleY = 0.5
+		Speed = 110
+		UseStartLocation = true
+		UseArmor = true
+		UseVulnerability = true
+		Damage = 13
+		StartDelay = 0.03
+		DrawDuringPause = false
+		UnpauseResetLocation = true
+		CheckObstacleImpact = true
+		GroupName = "Standing"
+		Thing =
+		{
+			Graphic = "ChronosOrbitProjectileIn"
+			OffsetZ = 50
+			Tallness = 60
+			AttachedAnim = null
+			UseBoundsForSortDrawArea = true
+			RotateGeometry = false
+			Scale = 1.5
+			Points =
+			[
+				{
+					X = -24
+					Y = 0
+				}
+				{
+					X = 24
+					Y = 24
+				}
+				{
+					X = 24
+					Y = -24
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = false
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "ChronosBoltOrbit2"
+		InheritFrom = "ChronosBoltOrbit1"
+		Range = 780
+		Speed = 30
+		Fuse = 6.0
+	}
+	{
+		Name = "ChronosBoltOrbit3"
+		InheritFrom = "ChronosBoltOrbit1"
+		Range = 1360
+		Speed = 10
+		Fuse = 6.0
+	}
+	{
+		Name = "ChronosBoltOrbit1_Fast"
+		InheritFrom = "ChronosBoltOrbit1"
+		Range = 350
+		Speed = 220
+		Fuse = 3.0
+	}
+	{
+		Name = "ChronosBoltOrbit2_Fast"
+		InheritFrom = "ChronosBoltOrbit1"
+		Range = 780
+		Speed = 60
+		Fuse = 3.0
+	}
+	{
+		Name = "ChronosBoltOrbit3_Fast"
+		InheritFrom = "ChronosBoltOrbit1"
+		Range = 1360
+		Speed = 20
+		Fuse = 3.0
+	}
+	{
+		Name = "ChronosBoltOrbit1_Curse"
+		InheritFrom = "ChronosBoltOrbit1"
+		Range = 350
+		Speed = 200
+		Fuse = 6
+	}
+	{
+		Name = "ChronosBoltOrbit1Reverse_Curse"
+		InheritFrom = "ChronosBoltOrbit1_Curse"
+		ArcEnd = 3240
+	}
+	{
+		Name = "ChronosBoltOrbit2_Curse"
+		InheritFrom = "ChronosBoltOrbit1"
+		Range = 700
+		Speed = 150
+		Fuse = 6
+	}
+	{
+		Name = "ChronosBoltOrbit2Reverse_Curse"
+		InheritFrom = "ChronosBoltOrbit2_Curse"
+		ArcEnd = 3240
+	}
+	{
+		Name = "ChronosBoltOrbit3_Curse"
+		InheritFrom = "ChronosBoltOrbit1"
+		Range = 1100
+		Speed = 100
+		Fuse = 6
+	}
+	{
+		Name = "ChronosBoltOrbit3Reverse_Curse"
+		InheritFrom = "ChronosBoltOrbit3_Curse"
+		ArcEnd = 3240
+	}
+	{
+		Name = "ChronosBoltDefense"
+		InheritFrom = "ChronosBoltOrbit1"
+		Type = "STRAIGHT"
+		Range = 99999
+		Fuse = 3.15
+		Speed = 900
+		Acceleration = -80
+		SpinRate = 120
+		SpeedScaleY = 0.6
+		//StartDelay = 1.3
+	}
+	{
+		Name = "ChronosBoltDefenseEM"
+		InheritFrom = "ChronosBoltDefense"
+		Fuse = 1.45
+		Speed = 900
+		SpinRate = 240
+		Acceleration = -160
+	}
+	{
+		Name = "ChronosScytheThrow"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "ARC"
+		DissipateFx = "ChronosScytheThrowFade"
+		DeathFx = "ChronosScytheThrowFade"
+		ImpactFx = "MageProjectileExplosion_LightRanged"
+		Fuse = 2.0
+		ImmunityDuration = 0.3
+		Range = 700
+		ArcStart = 180
+		ArcEnd = -130
+		ArcScaleY = 0.5
+		Speed = 300
+		UseArmor = true
+		UseVulnerability = true
+		Damage = 35
+		DrawDuringPause = false
+		UnpauseResetLocation = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		MultipleUnitCollisions = true
+		GroupName = "Standing"
+		ReflectFx = "GrenadeBounceSpark"
+		NumJumps = 4
+		JumpType = "OBSTACLE_ONLY"
+		Thing =
+		{
+			Graphic = "ChronosScytheThrowFx"
+			AttachedAnim = "ChronosScytheThrowShadow"
+			Tallness = 60
+			UseBoundsForSortDrawArea = true
+			RotateGeometry = false
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = -250
+					Y = -130
+				}
+				{
+					X = -400
+					Y = 0
+				}
+				{
+					X = -250
+					Y = 130
+				}
+				{
+					X = 250
+					Y = 130
+				}
+				{
+					X = 400
+					Y = 0
+				}
+				{
+					X = 250
+					Y = -130
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = false
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "ChronosScytheThrowReverse"
+		InheritFrom = "ChronosScytheThrow"
+		ArcEnd = 130
+		ArcStart = -180
+		Speed = 400
+	}
+	{
+		Name = "ChronosScytheThrowLarge"
+		InheritFrom = "ChronosScytheThrow"
+		Range = 1100
+		Thing =
+		{
+			Scale = 1.8
+		}
+	}
+	{
+		Name = "ChronosScytheThrowClose"
+		InheritFrom = "ChronosScytheThrow"
+		ArcEnd = 130
+		ArcStart = -180
+		Range = 300
+		Speed = 400
+	}
+	{
+		Name = "ChronosScytheThrowMid"
+		InheritFrom = "ChronosScytheThrow"
+		Range = 450
+		Speed = 400
+	}
+	{
+		Name = "ChronosScytheThrowFar"
+		InheritFrom = "ChronosScytheThrow"
+		ArcEnd = 130
+		ArcStart = -180
+		Range = 1100
+		Speed = 400
+	}
+	{
+		Name = "ChronosGrindWall"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "STRAIGHT"
+		DetonateSound = "/Leftovers/SFX/BeaconTeleportSFX"
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		MultipleUnitCollisions = true
+		UnlimitedObstaclePenetration = true
+		Damage = 17
+		TotalFuse = 4
+		ImmunityDuration = 0.20
+		DieWithOwner = true
+		AttachToOwner = true
+		RotateWithOwner = true
+		GroupName = "FX_Standing_Add"
+		Thing =
+		{
+			Graphic = "ChronosGrindWallCharge"
+			OffsetZ = 30
+			GeometryScaleY = 0.6
+			RotateGeometry = true
+			Grip = 999999
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 200
+					Y = 200
+				}
+				{
+					X = 200
+					Y = -200
+				}
+				{
+					X = 0
+					Y = -50
+				}
+				{
+					X = 0
+					Y = 50
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.1
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "ChronosGrindWallReverse"
+		InheritFrom = "ChronosGrindWall"
+		Thing =
+		{
+			Graphic = "ChronosGrindWallProjectileChargeReverse"
+			Points =
+			[
+				{
+					X = -200
+					Y = -200
+				}
+				{
+					X = -200
+					Y = 200
+				}
+				{
+					X = 0
+					Y = 50
+				}
+				{
+					X = 0
+					Y = -50
+				}
+			]
+		}
+	}
+	{
+		Name = "ChronosGrindWallForward"
+		InheritFrom = "ChronosGrindWall"
+		Damage = 27
+		Speed = 2500
+		DieWithOwner = false
+		AttachToOwner = false
+		RotateWithOwner = false
+		UnlimitedObstaclePenetration = false
+		MultipleUnitCollisions = false
+		IgnoreCoverageAngles = false
+		Thing =
+		{
+			Graphic = "ChronosGrindWallProjectile"
+			OffsetZ = 0
+			GeometryScaleY = 0.6
+			Points =
+			[
+				{
+					X = 220
+					Y = -180
+				}
+				{
+					X = 220
+					Y = 180
+				}
+				{
+					X = -100
+					Y = 240
+				}
+				{
+					X = 40
+					Y = -240
+				}
+			]
+		}
+	}
+	{
+		Name = "ChronosGrindVacuum"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "STRAIGHT"
+		IgnoreDodge = true
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		MultipleUnitCollisions = true
+		CanHitWithoutDamage = true
+		AttachToOwner = true
+		RotateWithOwner = true
+		MultiDetonate = true
+		TotalFuse = 3.90
+		ImmunityDuration = 0.133
+		Damage = 0
+		ImpactVelocity = 750
+		ImpactVelocityAngleOffset = -180
+		GroupName = "FX_Standing"
+		Thing =
+		{
+			Graphic = "ChronosVacuumIn"
+			AttachedAnim = "null"
+			Grip = 999999
+			UseBoundsForSortDrawArea = true
+			RotateGeometry = true
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 0
+					Y = 100
+				}
+				{
+					X = 1500
+					Y = 250
+				}
+				{
+					X = 1500
+					Y = -250
+				}
+				{
+					X = 0
+					Y = -100
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "ScreamerSlow"
+				Type = "SPEED"
+				Duration = 0.35
+				Modifier = 0.70
+				Active = true
+				CanAffectInvulnerable = false
+				FrontFx = "null"
+			}
+		]
+	}
+	{
+		Name = "ChronosGrindVacuumWeak"
+		InheritFrom = "ChronosGrindVacuum"
+		ImpactVelocity = 500
+		TotalFuse = 1.0
+	}
+	{
+		Name = "ChronosGrindVacuumStrong"
+		InheritFrom = "ChronosGrindVacuum"
+		ImpactVelocity = 2500
+		TotalFuse = 0.3
+		ImmunityDuration = 0.3
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.4
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = false
+				FrontFx = "DionysusStunnedFx"
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.2
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "ChronosGrindVacuumReverse"
+		InheritFrom = "ChronosGrindVacuum"
+		Thing =
+		{
+			Graphic = "ChronosVacuumReverse"
+			Points =
+			[
+				{
+					X = 0
+					Y = -100
+				}
+				{
+					X = -1500
+					Y = -250
+				}
+				{
+					X = -1500
+					Y = 250
+				}
+				{
+					X = 0
+					Y = 100
+				}
+			]
+		}
+	}
+	{
+		Name = "ChronosGrindVacuumReverseWeak"
+		InheritFrom = "ChronosGrindVacuumReverse"
+		ImpactVelocity = 500
+		TotalFuse = 1.0
+	}
+	{
+		Name = "ChronosMiniRiftStasis"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		DetonateFx = "null"
+		Type = "STRAIGHT"
+		AffectsFriends = true
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		AttachToOwner = false
+		NumPenetrations = 99999
+		TotalFuse = 2.5
+		BlastDuration = 2.5
+		Fuse = 0.2
+		FlashBeforeExpireDuration = 1
+		DamageRadiusScaleY = 0.6
+		DamageRadiusScaleX = 1.1
+		Damage = 0
+		DamageRadius = 295
+		BlastSpeed = 3000
+		ExpandBlastDuringDetonation = true
+		AnimIgnoreBlastRadius = true
+		UseDetonationForProjectileDefense = true
+		ResetCollisionOutsideDetonation = true
+		IgnoreCancelAttachedProjectiles = true
+		MultipleUnitCollisions = true
+		MultipleObstacleCollisions = true
+		ImmunityDuration = 0.1
+		DissipateFx = "TimeTrapSandBubbleOut"
+		ImpactFx = null
+		MultiDetonate = true
+		Thing =
+		{
+			Graphic = "TimeElementalSandBubble"
+			Grip = 999999
+			ExtentScale = 3.5
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "StasisStun"
+				Duration = 0.3
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				HaltOnStart = true
+				ImmuneToForce = true
+				Active = true
+				CanAffectInvulnerable = true
+				Cancelable = false
+				FrontFx = "TimeTrapStasisFrontFx"
+				ExtendDurationOnReapply = true
+				IgnoreImmuneToStun = true
+			}
+		]
+	}
+	{
+		Name = "ChronosMiniRiftStasisSmall"
+		InheritFrom = "ChronosMiniRiftStasis"
+		DamageRadius = 195
+	}
+	{
+		Name = "ChronosMiniRiftStasisExtended"
+		InheritFrom = "ChronosMiniRiftStasis"
+		TotalFuse = 6
+		BlastDuration = 6
+	}
+	{
+		Name = "ChronosDashStasis"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "STRAIGHT"
+		AffectsFriends = true
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		AttachToOwner = false
+		NumPenetrations = 99999
+		TotalFuse = 2.5
+		BlastDuration = 2.5
+		Fuse = 0.2
+		FlashBeforeExpireDuration = 1
+		DamageRadiusScaleY = 0.6
+		DamageRadiusScaleX = 1.1
+		Damage = 0
+		DamageRadius = 500
+		BlastSpeed = 3000
+		ExpandBlastDuringDetonation = true
+		AnimIgnoreBlastRadius = true
+		UseDetonationForProjectileDefense = true
+		ResetCollisionOutsideDetonation = true
+		IgnoreCancelAttachedProjectiles = true
+		MultipleUnitCollisions = true
+		MultipleObstacleCollisions = true
+		ImmunityDuration = 0.1
+		DissipateFx = "TimeTrapSandBubbleOut"
+		MultiDetonate = true
+		Thing =
+		{
+			Graphic = "TimeElementalSandBubble"
+			Grip = 999999
+			ExtentScale = 3.5
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "StasisStun"
+				Duration = 0.3
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				HaltOnStart = true
+				ImmuneToForce = true
+				Active = true
+				CanAffectInvulnerable = true
+				Cancelable = false
+				FrontFx = "TimeTrapStasisFrontFx"
+				ExtendDurationOnReapply = true
+				IgnoreImmuneToStun = true
+			}
+		]
+	}
+	{
+		Name = "ChronosStasisExtended"
+		InheritFrom = "ChronosDashStasis"
+		TotalFuse = 8
+		BlastDuration = 8
+	}
+	{
+		Name = "ChronosScytheSlam"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		InheritOwnerElapsedTimeMultiplier = false
+		BlastDuration = 0.15
+		BlastSpeed = 3000
+		DamageRadius = 400
+		Damage = 35
+		DamageRadiusScaleX = 1.175
+		DamageRadiusScaleY = 0.6
+		UseRadialImpact = true
+		UseVulnerability = false
+		ResetCollisionOutsideDetonation = true
+		GroupName = "FX_Standing_Add"
+		Thing =
+		{
+			Graphic = "ChronosRadial2Detonate"
+			Grip = 999999
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "ChronosScytheSlamLarge"
+		InheritFrom = "ChronosScytheSlam"
+		DamageRadius = 400
+		Thing =
+		{
+			Scale = 1.5
+		}
+	}
+	{
+		Name = "ChronosScytheDrag"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		Speed = 3000
+		Fuse = 0.2
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 29
+		NumPenetrations = 99999
+		UseArmor = true
+		UseVulnerability = true
+		InvulnerableImpactOwnerVelocity = 300
+		UseRadialImpact = false
+		ImpactLineOfSightFromOwner = true
+		ImpactVelocity = 1500
+		ImpactVelocityAngleOffset = -160
+		Thing =
+		{
+			Graphic = "ChronosScytheDrag"
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = -700
+					Y = -200
+				}
+				{
+					X = -700
+					Y = 200
+				}
+				{
+					X = 0
+					Y = 150
+				}
+				{
+					X = 300
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -150
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = false
+				FrontFx = "DionysusStunnedFx"
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WringerGrab"
+		InheritFrom = "1_BaseEnemyProjectileUnblockable"
+		Type = "STRAIGHT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		AttachToOwner = true
+		StartDelay = 0.08
+		Fuse = 0.3
+		Damage = 14
+		InflictedDamageFx = "SwarmerBiteFx"
+		ImmunityDuration = 1.5
+		ImpactLineOfSightFromOwner = true
+		Thing =
+		{
+			Graphic = null
+			RotateGeometry = true
+			Grip = 99999
+			ExtentScale = 1.5
+	        Points = [
+	          {
+	            X = 110
+	            Y = 40
+	          }
+	          {
+	            X = 110
+	            Y = -40
+	          }
+	          {
+	            X = -10
+	            Y = -60
+	          }
+	          {
+	            X = -10
+	            Y = 60
+	          }
+	        ]
+		}
+		Effect = {
+			Name = "WringerOnHitStun"
+			Duration = 1.1
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = true
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = false
+			FrontFx = "EnemyWringerChainGrab"
+			BackFx = "EnemyWringerChainGrabBack"
+			OnlyAffectName = "_PlayerUnit"
+			ClearOnAttack = true
+		}
+	}
+]}

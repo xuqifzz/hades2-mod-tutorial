@@ -434,6 +434,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Shop",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapLogic",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Bldg_2",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -587,7 +600,8 @@
         "Traps",
         "Breakables",
         "Bldg_1",
-        "Bldg_2"
+        "Bldg_2",
+        "Shop"
       ],
       "Id": "MapLogic",
       "NumSelectedAsDraw": 0,
@@ -604,5 +618,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

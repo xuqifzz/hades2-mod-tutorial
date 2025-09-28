@@ -1,4 +1,4 @@
-function ApplyWeaponPropertyChange( unit, weaponName, propertyChange, reverse )
+function ApplyWeaponPropertyChange( unit, weaponName, propertyChange, reverse, skipWeaponUpdates)
 
 	if propertyChange.LegalWeapons ~= nil then
 		if not Contains( propertyChange.LegalWeapons, weaponName ) then
@@ -21,6 +21,13 @@ function ApplyWeaponPropertyChange( unit, weaponName, propertyChange, reverse )
 	if propertyChange.TraitName ~= nil then
 		if not HeroHasTrait(propertyChange.TraitName) then
 			return
+		end
+	end
+	if propertyChange.TraitNames ~= nil then
+		for i, traitName in pairs(propertyChange.TraitNames) do
+			if not HeroHasTrait(traitName) then
+				return
+			end
 		end
 	end
 	if propertyChange.FalseTraitName ~= nil then
@@ -51,16 +58,16 @@ function ApplyWeaponPropertyChange( unit, weaponName, propertyChange, reverse )
 
 	if propertyChange.WeaponProperty ~= nil then
 		local wasWeaponCharging = false
-		if propertyChange.WeaponProperty == "ChargeTime" and GetWeaponChargeFraction({ Name = weaponName }) > 0 then
+		if not skipWeaponUpdates and propertyChange.WeaponProperty == "ChargeTime" and GetWeaponChargeFraction({ Name = weaponName }) > 0 then
 			SetWeaponProperty({ WeaponName = weaponName, DestinationId = unit.ObjectId, Property = "ChargeTimeRemaining", Value = changeValue, ValueChangeType = propertyChange.ChangeType, DataValue = false })
 			wasWeaponCharging = true
 		end
 		SetWeaponProperty({ WeaponName = weaponName, DestinationId = unit.ObjectId, Property = propertyChange.WeaponProperty, Value = changeValue, ValueChangeType = propertyChange.ChangeType })
-		if propertyChange.WeaponProperty == "ChargeTime" and not wasWeaponCharging then
+		if not skipWeaponUpdates and propertyChange.WeaponProperty == "ChargeTime" and not wasWeaponCharging then
 			RunWeaponMethod({ Id = unit.ObjectId, Weapon = weaponName, Method = "cancelCharge"})
 		end
 		
-		if propertyChange.WeaponProperty == "ClipSize" then
+		if not skipWeaponUpdates and propertyChange.WeaponProperty == "ClipSize" then
 			RunWeaponMethod({ Id = unit.ObjectId, Weapon = "WeaponBlink", Method = "forceReload" })
 		end
 	end
@@ -75,23 +82,25 @@ function ApplyWeaponPropertyChange( unit, weaponName, propertyChange, reverse )
 	if linkedWeapons and not propertyChange.ExcludeLinked then
 		for k, linkedWeaponName in pairs( linkedWeapons ) do
 			--DebugPrint({ Text = "Applying linked upgrade to "..linkedWeaponName, LogOnly = true })
-			ApplyWeaponPropertyChange( unit, linkedWeaponName, propertyChange, reverse )
+			if MapState.EquippedWeapons[linkedWeaponName] then
+				ApplyWeaponPropertyChange( unit, linkedWeaponName, propertyChange, reverse, skipWeaponUpdates )
+			end
 		end
 	end
 end
 
-function ApplyUnitPropertyChanges( unit, propertyChanges, applyLuaUpgrades, reverse )
+function ApplyUnitPropertyChanges( unit, propertyChanges, applyLuaUpgrades, reverse, skipWeaponUpdates )
 
 	if propertyChanges == nil then
 		return
 	end
 
 	for k, propertyChange in ipairs( propertyChanges ) do
-		ApplyUnitPropertyChange( unit, propertyChange, applyLuaUpgrades, reverse )
+		ApplyUnitPropertyChange( unit, propertyChange, applyLuaUpgrades, reverse, skipWeaponUpdates )
 	end
 end
 
-function ApplyUnitPropertyChange( unit, propertyChange, applyLuaUpgrades, reverse )
+function ApplyUnitPropertyChange( unit, propertyChange, applyLuaUpgrades, reverse, skipWeaponUpdates )
 	if propertyChange.LegalUnits ~= nil then
 		if not Contains( propertyChange.LegalUnits, unit.Name ) then
 			return
@@ -196,7 +205,7 @@ function ApplyUnitPropertyChange( unit, propertyChange, applyLuaUpgrades, revers
 		end
 		if propertyChange.LuaProperty == "MaxHealth" or propertyChange.LuaProperty == "Health" then
 			ValidateMaxHealth( propertyChange.BlockHealing )
-			thread( UpdateHealthUI )
+			FrameState.RequestUpdateHealthUI = true
 		end
 		if propertyChange.LuaProperty == "MaxMana" then
 			CurrentRun.Hero.Mana = CurrentRun.Hero.Mana + changeValue
@@ -204,18 +213,22 @@ function ApplyUnitPropertyChange( unit, propertyChange, applyLuaUpgrades, revers
 			thread( UpdateManaMeterUI )
 			if HasHeroTraitValue("MaxManaToMaxHealthConversion") then
 				ValidateMaxHealth()
-				thread( UpdateHealthUI )
+				FrameState.RequestUpdateHealthUI = true
 			end
 		end
 	end
 
 	if propertyChange.WeaponName ~= nil then
-		ApplyWeaponPropertyChange( unit, propertyChange.WeaponName, propertyChange, reverse)
+		if MapState.EquippedWeapons[propertyChange.WeaponName] then
+			ApplyWeaponPropertyChange( unit, propertyChange.WeaponName, propertyChange, reverse, skipWeaponUpdates )
+		end
 	end
 
 	if propertyChange.WeaponNames ~= nil then
 		for k, weaponName in pairs( propertyChange.WeaponNames ) do
-			ApplyWeaponPropertyChange( unit, weaponName, propertyChange, reverse)
+			if MapState.EquippedWeapons[propertyChange.WeaponName] then
+				ApplyWeaponPropertyChange( unit, weaponName, propertyChange, reverse, skipWeaponUpdates )
+			end
 		end
 	end
 
@@ -227,15 +240,10 @@ end
 
 function ApplyAllTraitWeapons( hero )
 	for k, traitData in pairs( hero.Traits ) do
-		AddAssistWeapons( hero, traitData )
 		if traitData.ReplacementGrannyModels ~= nil then
 			for originalModel, attachmentModel in pairs(traitData.ReplacementGrannyModels) do
 				SetThingProperty({ Property = "GrannyAlternateModelAttachment", Value = attachmentModel, OriginalAttachmentModel = originalModel, DestinationId = hero.ObjectId })
 			end
-		end
-		for weaponName, v in pairs( hero.Weapons ) do
-			AddOnDamageWeapons( hero, weaponName, traitData)
-			AddOnFireWeapons( hero, weaponName, traitData)		
 		end
 	end
 end
@@ -275,205 +283,6 @@ function ClampSprintSpeed( hero )
 			Value = baseSpeed * HeroData.SpeedMultiplierCap,
 		})
 	end
-end
-
-function AddOnDamageWeapons( hero, weaponName, upgradeData )
-	if upgradeData.AddOnDamageWeapons == nil then
-		return
-	end
-
-	if upgradeData.LegalOnDamageWeapons == nil or Contains( upgradeData.LegalOnDamageWeapons, weaponName ) then
-		for k, onDamageWeapon in pairs( upgradeData.AddOnDamageWeapons ) do
-			if hero.OnDamageWeapons == nil then
-				hero.OnDamageWeapons = {}
-			end
-			if hero.OnDamageWeapons[weaponName] == nil then
-				hero.OnDamageWeapons[weaponName] = {}
-			end
-			if not hero.OnDamageWeapons[weaponName][onDamageWeapon] then
-				hero.OnDamageWeapons[weaponName][onDamageWeapon] = upgradeData.OnDamageWeaponProperties or true
-			end
-		end
-	end
-
-	local linkedWeapons = WeaponSets.LinkedWeaponUpgrades[weaponName]
-	if linkedWeapons then
-		for k, linkedWeaponName in pairs( linkedWeapons ) do
-			AddOnDamageWeapons( hero, linkedWeaponName, upgradeData )
-		end
-	end
-end
-
-function RemoveOnDamageWeapons( hero, weaponName, upgradeData )
-	if upgradeData.AddOnDamageWeapons == nil or hero.OnDamageWeapons == nil then
-		return
-	end
-
-	if upgradeData.LegalOnDamageWeapons == nil or Contains( upgradeData.LegalOnDamageWeapons, weaponName ) then
-		for k, onDamageWeapon in pairs( upgradeData.AddOnDamageWeapons ) do
-			if hero.OnDamageWeapons[weaponName] ~= nil then
-				hero.OnDamageWeapons[weaponName] = {}
-			end
-		end
-	end
-
-	local linkedWeapons = WeaponSets.LinkedWeaponUpgrades[weaponName]
-	if linkedWeapons then
-		for k, linkedWeaponName in pairs( linkedWeapons ) do
-			RemoveOnDamageWeapons( hero, linkedWeaponName, upgradeData )
-		end
-	end
-end
-
-function AddOnFireWeapons( hero, weaponName, upgradeData )
-	if upgradeData.AddOnFireWeapons == nil then
-		return
-	end
-
-	for k, onFireWeapon in pairs( upgradeData.AddOnFireWeapons ) do
-		if hero.OnFireWeapons == nil then
-			hero.OnFireWeapons = {}
-		end
-		if hero.OnFireWeapons[weaponName] == nil then
-			hero.OnFireWeapons[weaponName] = {}
-		end
-		if not hero.OnFireWeapons[weaponName][onFireWeapon] and Contains( upgradeData.LegalOnFireWeapons, weaponName ) then
-			if upgradeData.AddOnFireWeaponArgs then
-				hero.OnFireWeapons[weaponName][onFireWeapon] = DeepCopyTable( upgradeData.AddOnFireWeaponArgs )
-			else
-				hero.OnFireWeapons[weaponName][onFireWeapon] = true
-			end
-		end
-	end
-
-	local linkedWeapons = WeaponSets.LinkedWeaponUpgrades[weaponName]
-	if linkedWeapons then
-		for k, linkedWeaponName in pairs( linkedWeapons ) do
-			AddOnFireWeapons( hero, linkedWeaponName, upgradeData )
-		end
-	end
-end
-
-function RemoveOnFireWeapons( hero, upgradeData )
-	if upgradeData.AddOnFireWeapons == nil then
-		return
-	end
-
-	if hero.OnFireWeapons == nil then
-		hero.OnFireWeapons = {}
-	end
-	for k, weaponName in pairs( upgradeData.LegalOnFireWeapons ) do
-		hero.OnFireWeapons[weaponName] = nil
-
-		local linkedWeapons = WeaponSets.LinkedWeaponUpgrades[weaponName]
-		if linkedWeapons then
-			for k, linkedWeaponName in pairs( linkedWeapons ) do
-				hero.OnFireWeapons[linkedWeaponName] = nil
-			end
-		end
-	end
-end
-
-function AddOnHitWeapons( hero, upgradeData )
-	if upgradeData.AddOnHitWeapons == nil then
-		return
-	end
-
-	if upgradeData.AddOnHitWeapons ~= nil then
-		if hero.OnHitWeapons == nil then
-			hero.OnHitWeapons = {}
-		end
-		for k, onHitWeaponName in pairs( upgradeData.AddOnHitWeapons ) do
-			hero.OnHitWeapons[onHitWeaponName] = upgradeData.OnHitWeaponProperties or true
-		end
-	end
-end
-
-function RemoveOnHitWeapons( hero, upgradeData )
-	if upgradeData.AddOnHitWeapons == nil then
-		return
-	end
-	if upgradeData.AddOnHitWeapons ~= nil then
-		if hero.OnHitWeapons == nil then
-			hero.OnHitWeapons = {}
-		end
-		for k, onHitWeaponName in pairs( upgradeData.AddOnHitWeapons ) do
-			hero.OnHitWeapons[onHitWeaponName] = nil
-		end
-	end
-end
-
-function AddOnDeathWeapon( unit, weaponName )
-	if weaponName == nil then
-		return
-	end
-
-	if unit.OnDeathWeapons == nil then
-		unit.OnDeathWeapons = {}
-	end
-	unit.OnDeathWeapons[weaponName] = true
-end
-
-function RemoveOnDeathWeapons( unit )
-	unit.OnDeathWeapons = nil
-end
-
-function ApplyMetaUpgrades( hero, applyLuaUpgrades )
-	local hasBeenApplied = {}
-	for upgradeName in pairs( CurrentRun.MetaUpgrades or GameState.MetaUpgrades ) do
-		local upgradeData = MetaUpgradeData[upgradeName]
-		if upgradeData ~= nil then
-			for i = 1, GetNumMetaUpgrades(upgradeName) do
-				ApplyMetaUpgrade( upgradeData, applyLuaUpgrades, hasBeenApplied[upgradeName] == nil )
-				hasBeenApplied[upgradeName] = true
-			end
-		end
-	end
-end
-
-function ReapplyWeaponSwitchMetaUpgrades()
-	local hasBeenApplied = {}
-	for upgradeName in pairs( CurrentRun.MetaUpgrades or GameState.MetaUpgrades ) do
-		local upgradeData = MetaUpgradeData[upgradeName]
-		if upgradeData ~= nil and upgradeData.ReapplyOnWeaponSwitch then
-			for i = 1, GetNumMetaUpgrades(upgradeName) do
-				ApplyMetaUpgrade( upgradeData, applyLuaUpgrades, hasBeenApplied[upgradeName] == nil )
-				hasBeenApplied[upgradeName] = true
-			end
-		end
-	end
-end
-
-function ApplyMetaUpgrade( upgradeData, applyLuaUpgrade, firstApplied, reverse )
-
-	if upgradeData.OnDuplicatePropertyChanges == nil or firstApplied then
-		if upgradeData.PreEquipWeapon then
-			EquipWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = upgradeData.PreEquipWeapon })
-		end
-		ApplyUnitPropertyChanges( CurrentRun.Hero, upgradeData.PropertyChanges, applyLuaUpgrade, reverse )
-	else
-		ApplyUnitPropertyChanges( CurrentRun.Hero, upgradeData.OnDuplicatePropertyChanges, applyLuaUpgrade, reverse )
-	end
-
-	if applyLuaUpgrade and upgradeData.AddOutgoingDamageModifiers then
-		if CurrentRun.Hero.OutgoingDamageModifiers == nil then
-			CurrentRun.Hero.OutgoingDamageModifiers = {}
-		end
-		if reverse then
-			for i, modifier in pairs(CurrentRun.Hero.OutgoingDamageModifiers) do
-				if modifier.Name == upgradeData.Name then
-					CurrentRun.Hero.OutgoingDamageModifiers[i] = nil
-					break
-				end
-			end
-		else
-
-			local data = DeepCopyTable( upgradeData.AddOutgoingDamageModifiers )
-			data.Name = upgradeData.Name
-			table.insert( CurrentRun.Hero.OutgoingDamageModifiers, data )
-		end
-	end
-
 end
 
 function RecordTraitPropertyChange( traitName, propertyChange, weaponName )
@@ -644,7 +453,7 @@ function ReorderPropertyChanges ( propertyChanges )
 		end
 		iterations = iterations + 1
 	end
-	DebugAssert({ Condition = iterations < 100, Text = "Unable to resolve circular dependency in trait list! Last trait processed: " .. lastTraitName, Owner = "Alice" })
+	--DebugAssert({ Condition = iterations < 100, Text = "Unable to resolve circular dependency in trait list! Last trait processed: " .. lastTraitName, Owner = "Alice" })
 end
 
 function OrderAndApplyPropertyChanges(weaponNames)
@@ -654,27 +463,31 @@ function OrderAndApplyPropertyChanges(weaponNames)
 	-- apply property changes in order
 
 	for weaponName, weaponNamePropertyChanges in pairs( weaponPropertyChanges ) do
-		local orderedPropertyChanges = KeysToList(weaponNamePropertyChanges)
-		table.sort( orderedPropertyChanges, GetPropertyOrderingValue )
-
-		for i, propertyName in ipairs( orderedPropertyChanges ) do
-			local propertyChanges = weaponNamePropertyChanges[propertyName]
-			if not weaponNames or weaponNames[ weaponName ] then
-				ReorderPropertyChanges( propertyChanges )
-				for _, propertyChange in ipairs( propertyChanges ) do
-					ApplyWeaponPropertyChange( CurrentRun.Hero, weaponName, propertyChange )
+		if MapState.EquippedWeapons[weaponName] then
+			local orderedPropertyChanges = KeysToList(weaponNamePropertyChanges)
+			table.sort( orderedPropertyChanges, GetPropertyOrderingValue )
+			for i, propertyName in ipairs( orderedPropertyChanges ) do
+				local propertyChanges = weaponNamePropertyChanges[propertyName]
+				if not weaponNames or weaponNames[ weaponName ] then
+					ReorderPropertyChanges( propertyChanges )
+					for _, propertyChange in ipairs( propertyChanges ) do
+						ApplyWeaponPropertyChange( CurrentRun.Hero, weaponName, propertyChange )
+					end
 				end
 			end
 		end
 	end
+
 	ApplyProjectilePropertyChanges( weaponNames, projectilePropertyChanges)
 	for weaponName, weaponNamePropertyChanges in pairs( effectPropertyChanges ) do
-		for effectName, effectNamePropertyChanges in pairs( weaponNamePropertyChanges ) do
-			for effectPropertyName, propertyChanges in pairs( effectNamePropertyChanges ) do
-			if not weaponNames or weaponNames[ weaponName ] then
-					ReorderPropertyChanges( propertyChanges )
-					for _, propertyChange in ipairs( propertyChanges ) do
-						ApplyWeaponPropertyChange( CurrentRun.Hero, weaponName, propertyChange )
+		if MapState.EquippedWeapons[weaponName] then
+			for effectName, effectNamePropertyChanges in pairs( weaponNamePropertyChanges ) do
+				for effectPropertyName, propertyChanges in pairs( effectNamePropertyChanges ) do
+				if not weaponNames or weaponNames[ weaponName ] then
+						ReorderPropertyChanges( propertyChanges )
+						for _, propertyChange in ipairs( propertyChanges ) do
+							ApplyWeaponPropertyChange( CurrentRun.Hero, weaponName, propertyChange )
+						end
 					end
 				end
 			end
@@ -684,13 +497,15 @@ end
 
 function ApplyProjectilePropertyChanges( weaponNames, projectilePropertyChanges )
 	for weaponName, weaponNamePropertyChanges in pairs( projectilePropertyChanges ) do
-		local orderedPropertyChanges = KeysToList(weaponNamePropertyChanges)
-		table.sort( orderedPropertyChanges, GetPropertyOrderingValue )
-		for i, propertyName in ipairs( orderedPropertyChanges ) do
-			if not weaponNames or weaponNames[ weaponName ] then
-				ReorderPropertyChanges( weaponNamePropertyChanges[propertyName] )
-				for _, propertyChange in ipairs( weaponNamePropertyChanges[propertyName] ) do
-					ApplyWeaponPropertyChange( CurrentRun.Hero, weaponName, propertyChange )
+		if MapState.EquippedWeapons[weaponName] then
+			local orderedPropertyChanges = KeysToList(weaponNamePropertyChanges)
+			table.sort( orderedPropertyChanges, GetPropertyOrderingValue )
+			for i, propertyName in ipairs( orderedPropertyChanges ) do
+				if not weaponNames or weaponNames[ weaponName ] then
+					ReorderPropertyChanges( weaponNamePropertyChanges[propertyName] )
+					for _, propertyChange in ipairs( weaponNamePropertyChanges[propertyName] ) do
+						ApplyWeaponPropertyChange( CurrentRun.Hero, weaponName, propertyChange )
+					end
 				end
 			end
 		end
@@ -703,7 +518,7 @@ function GetDerivedPropertyChangeValues( args )
 	local derivedValue = { PropertyChanges = {} , ThingPropertyChanges = {} }
 	local allValues = {}
 	local projectileName = args.ProjectileName
-	DebugAssert({ Condition = (valueType == "Projectile"), Text = "GetDerivedPropertyChangeValue not supported for anything other than projectiles at the moment! "})
+	--DebugAssert({ Condition = (valueType == "Projectile"), Text = "GetDerivedPropertyChangeValue not supported for anything other than projectiles at the moment! "})
 	local projectilePropertyChanges = SessionState.PropertyChangeList.ProjectileChanges
 	local weaponNamePropertyChanges = projectilePropertyChanges[args.WeaponName]
 	if IsEmpty(weaponNamePropertyChanges) then
@@ -748,7 +563,6 @@ function ApplyTraitUpgrade( unit, applyLuaUpgrades )
 	local traitList = DeepCopyTable( unit.Traits )
 	for k, trait in pairs( traitList ) do
 		EquipReferencedWeapons( trait )
-		AddOnHitWeapons( unit, trait )
 		if trait.SpeakerNames ~= nil then
 			LoadVoiceBank({ Names = trait.SpeakerNames })
 		end
@@ -820,16 +634,16 @@ function ProcessHeroTraitChanges( trait, reverse )
 	if trait.ManaOverTimeSource and reverse then
 		if trait.SetupFunction and trait.SetupFunction.Args then
 			local manaRegenName = trait.SetupFunction.Args.Name 
-			if CurrentRun.Hero.ManaRegenSources [ manaRegenName ]  then
-				CurrentRun.Hero.ManaRegenSources [ manaRegenName ] = nil
+			if manaRegenName ~= nil then
+				CurrentRun.Hero.ManaRegenSources[manaRegenName] = nil
 			end
 		end
 		if trait.SetupFunctions then
 			for _, traitSetupFunctionData in pairs (trait.SetupFunctions) do
 				if traitSetupFunctionData.Name == "ManaRegenSetup" and traitSetupFunctionData.Args then
 					local manaRegenName = traitSetupFunctionData.Args.Name 
-					if CurrentRun.Hero.ManaRegenSources [ manaRegenName ]  then
-						CurrentRun.Hero.ManaRegenSources [ manaRegenName ] = nil
+					if manaRegenName ~= nil then
+						CurrentRun.Hero.ManaRegenSources[manaRegenName] = nil
 					end
 				end
 			end
@@ -842,10 +656,8 @@ function ProcessHeroTraitChanges( trait, reverse )
 	end
 
 	if trait.Costume and reverse then
-		if CurrentRun.Hero.HeroTraitValuesCache and CurrentRun.Hero.HeroTraitValuesCache.Costume then
-			CurrentRun.Hero.HeroTraitValuesCache.Costume = nil
-		end
-		if IsEmpty(MapState.TransformArgs) then
+		CurrentRun.Hero.HeroTraitValuesCache.Costume = nil
+		if IsEmpty( MapState.TransformArgs ) then
 			SetThingProperty({ Property = "GrannyTexture", Value = "null", DestinationId = CurrentRun.Hero.ObjectId })
 			SetupCostume( MapState.HostilePolymorph )
 		end
@@ -909,16 +721,18 @@ function ProcessHeroTraitChanges( trait, reverse )
 					affectedWeapons = AddLinkedWeapons( affectedWeapons )
 				end
 
-				for i, weaponName in pairs(affectedWeapons) do
-					table.insert( localWeapons, weaponName )		
-					local newPropertyChange = DeepCopyTable(propertyChange)
-					newPropertyChange.ExcludeLinked = true
-					newPropertyChange.WeaponName = weaponName
-					newPropertyChange.WeaponNames = nil
-					if not reverse then
-						RecordTraitPropertyChange( trait.Name, newPropertyChange )
-					else
-						RemoveTraitPropertyChange( trait.Name, newPropertyChange, weaponName )
+				for i, weaponName in ipairs( affectedWeapons ) do
+					if MapState.EquippedWeapons[weaponName] then
+						table.insert( localWeapons, weaponName )		
+						local newPropertyChange = DeepCopyTable(propertyChange)
+						newPropertyChange.ExcludeLinked = true
+						newPropertyChange.WeaponName = weaponName
+						newPropertyChange.WeaponNames = nil
+						if not reverse then
+							RecordTraitPropertyChange( trait.Name, newPropertyChange )
+						else
+							RemoveTraitPropertyChange( trait.Name, newPropertyChange, weaponName )
+						end
 					end
 				end
 			end
@@ -946,11 +760,13 @@ function ProcessHeroTraitChanges( trait, reverse )
 	
 	if CurrentRun.Hero.ObjectId then
 		for weaponName in pairs( referencedWeapons ) do
-			local enabledStatus = GetWeaponDataValue({ WeaponName = weaponName, Id = CurrentRun.Hero.ObjectId, Property = "Enabled" })
-			ResetWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = weaponName })
-			local weaponData = GetWeaponData( CurrentRun.Hero, weaponName)
-			if weaponData then
-				SetWeaponProperty({ WeaponName = weaponData.Name, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = enabledStatus })
+			if MapState.EquippedWeapons[weaponName] then
+				local enabledStatus = GetWeaponDataValue({ WeaponName = weaponName, Id = CurrentRun.Hero.ObjectId, Property = "Enabled" })
+				ResetWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = weaponName })
+				local weaponData = GetWeaponData( CurrentRun.Hero, weaponName)
+				if weaponData then
+					SetWeaponProperty({ WeaponName = weaponData.Name, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = enabledStatus })
+				end
 			end
 		end
 	end
@@ -960,33 +776,9 @@ end
 
 
 function ApplyEnemyTraits( currentRun, enemy )
-	for k, trait in pairs( currentRun.Hero.Traits ) do
-		ApplyEnemyTrait( currentRun, trait, enemy )
-	end
-end
-
-function ApplyEnemyTrait( currentRun, trait, enemy )
-	if trait ~= nil then
-		if trait.EnemyPropertyChanges ~= nil then
-			ApplyUnitPropertyChanges( enemy, trait.EnemyPropertyChanges, true )
-		end
+	for k, trait in ipairs( CurrentRun.Hero.Traits ) do
 		if trait.EnemySetupFunctionName ~= nil then
 			CallFunctionName( trait.EnemySetupFunctionName, trait, enemy, trait.EnemySetupFunctionArgs )
-		end
-		
-		if trait.EnemyIncomingDamageModifiers and not enemy.SkipModifiers then
-			local modifierData = DeepCopyTable( trait.EnemyIncomingDamageModifiers )
-			modifierData.Name = trait.Name
-			AddIncomingDamageModifier( enemy, modifierData )
-		end
-	end
-end
-
-function ApplyMetaModifierHeroUpgrades( hero, applyLuaUpgrades )
-	for k, upgradeName in pairs( CurrentRun.EnemyUpgrades ) do
-		local upgradeData = EnemyUpgradeData[upgradeName]
-		if upgradeData.HeroPropertyChanges ~= nil then
-			ApplyUnitPropertyChanges( hero, upgradeData.HeroPropertyChanges, applyLuaUpgrades )
 		end
 	end
 end
@@ -1015,43 +807,26 @@ function GatherAndEquipWeapons( currentRun )
 	for k, weaponName in ipairs( weaponNames ) do
 		--DebugPrint({ Text = "Equipping = "..weaponName })
 		EquipWeapon({ Name = weaponName, DestinationId = currentRun.Hero.ObjectId, LoadPackages = not GameData.MissingPackages[weaponName] })
+		MapState.EquippedWeapons[weaponName] = true
 		local linkedWeaponNames = WeaponSets.HeroWeaponSets[weaponName]
 		if linkedWeaponNames ~= nil then
 			for k, linkedWeaponName in ipairs( linkedWeaponNames ) do
 				EquipWeapon({ DestinationId = currentRun.Hero.ObjectId, Name = linkedWeaponName })
+				MapState.EquippedWeapons[linkedWeaponName] = true
 			end
 		end
 	end	
-	HandleWeaponAnimSwaps()
+
 end
 
 function HandleWeaponAnimSwaps()
-	if CurrentHubRoom ~= nil and not CurrentHubRoom.AllowWeapons then
-		return
-	end
 	for weaponName, v in pairs( CurrentRun.Hero.Weapons ) do
-		local weaponData = WeaponData[weaponName]
+		local weaponData = GetWeaponData( CurrentRun.Hero, weaponName )
 		if weaponData ~= nil and weaponData.SwapAnimations ~= nil then
 			for fromAnim, toAnim in pairs( weaponData.SwapAnimations ) do
 				SwapAnimation({ Name = fromAnim, DestinationName = toAnim })
 			end
 		end
-	end
-end
-
-function EquipDumbFireWeapons( newEnemy, upgradeData )
-	if upgradeData == nil then
-		return
-	end
-
-	if upgradeData.AddDumbFireWeapons == nil or type(upgradeData.AddDumbFireWeapons) ~= "table" then
-		return
-	end
-
-	for weaponType, weaponName in pairs( upgradeData.AddDumbFireWeapons ) do
-		newEnemy.DumbFireWeapons = newEnemy.DumbFireWeapons or {}
-		EquipWeapon({ Name = weaponName, DestinationId = newEnemy.ObjectId })
-		table.insert( newEnemy.DumbFireWeapons, weaponName )
 	end
 end
 
@@ -1062,12 +837,14 @@ function IsBonusUnusedWeapon( weaponName )
 	return false
 end
 
-function GetRandomUnequippedWeapon()
+function GetRandomUnequippedWeapon( prevRun )
 	local unusedWeapons = {}
 	local hasWeaponEquipped = HasMeleeWeapon( CurrentRun )
 	for k, weaponName in ipairs( WeaponSets.HeroPrimaryWeapons ) do
-		if ( not hasWeaponEquipped and weaponName ~= CurrentRun.Hero.DefaultWeapon) or (hasWeaponEquipped and CurrentRun.Hero.Weapons[weaponName] == nil and IsWeaponEligible(CurrentRun, WeaponData[weaponName])) then
-			table.insert(unusedWeapons, weaponName)
+		if prevRun ~= nil and weaponName ~= prevRun.BonusUnusedWeaponName then
+			if ( not hasWeaponEquipped and weaponName ~= CurrentRun.Hero.DefaultWeapon) or (hasWeaponEquipped and CurrentRun.Hero.Weapons[weaponName] == nil and IsWeaponEligible(CurrentRun, WeaponData[weaponName])) then
+				table.insert(unusedWeapons, weaponName)
+			end
 		end
 	end
 	return GetRandomValue(unusedWeapons)
@@ -1080,30 +857,3 @@ end
 function IsWeaponUnlocked( weaponName )
 	return GameState.WeaponsUnlocked[weaponName]
 end
-
-function GetNumLockedWeapons()
-	local numLocked = 0
-	for k, weaponName in ipairs( WeaponSets.HeroPrimaryWeapons ) do
-		if not IsWeaponUnlocked( weaponName ) then
-			numLocked = numLocked + 1
-		end
-	end
-	return numLocked
-end
-
-function AddEnemyUpgrade( upgradeName )
-	table.insert( CurrentRun.EnemyUpgrades, upgradeName )
-	local upgradeData = EnemyUpgradeData[upgradeName]
-	if upgradeData.HeroPropertyChanges ~= nil then
-		ApplyUnitPropertyChanges( CurrentRun.Hero, upgradeData.HeroPropertyChanges, true )
-	end
-end
-
-function RemoveEnemyUpgrade( upgradeName )
-	RemoveValue( CurrentRun.EnemyUpgrades, upgradeName )
-	local upgradeData = EnemyUpgradeData[upgradeName]
-	if upgradeData.HeroPropertyChanges ~= nil then
-		ApplyUnitPropertyChanges( CurrentRun.Hero, upgradeData.HeroPropertyChanges, true, true )
-	end
-end
-

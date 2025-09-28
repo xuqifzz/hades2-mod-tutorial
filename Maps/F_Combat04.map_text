@@ -247,6 +247,19 @@
       "Visible": true
     },
     {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "FX_Standing_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
       "BlendMode": 11,
       "ChildGroups": [],
       "Id": "Lightercolor_01",
@@ -347,6 +360,7 @@
         "Moonlight_01",
         "Lighting_01",
         "Lightercolor_01",
+        "FX_Standing_01",
         "Standing",
         "Fog",
         "Terrain_Lighting_01",
@@ -534,5 +548,6 @@
     "X": 7102.773,
     "Y": 8715.130
   },
-  "TimeLapseCameraZoom": 0.263
+  "TimeLapseCameraZoom": 0.263,
+  "ShadowPlaneDepth": 0.000
 }

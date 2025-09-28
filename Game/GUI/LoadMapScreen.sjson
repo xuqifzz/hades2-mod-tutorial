@@ -13,7 +13,7 @@
     Back =
     {
       Width = 5120
-      Height = 1440
+      Height = 1920
       Justification = "Left"
       VerticalJustification = "Top"
       Red = 0
@@ -167,8 +167,8 @@
       SelectedBlue = 0.2
       Scale = 0.7
       TextJustification = "Left"
-      ToggleOnSound = "/SFX/Menu Sounds/MirrorMenuStatIncrease"
-      ToggleOffSound = "/SFX/Menu Sounds/MirrorMenuStatLower"
+      ToggleOnSound = "/SFX/Menu Sounds/IrisMenuConfirm"
+      ToggleOffSound = "/SFX/Menu Sounds/IrisMenuBack"
       PressTopAnimation = "InvincibleHitSpark"
     }
 

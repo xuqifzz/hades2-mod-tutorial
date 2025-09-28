@@ -28,6 +28,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Base",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Terrain_Beneath_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -236,7 +249,33 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Standing_FX_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "FX_Standing_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "OLD_Wall",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -275,7 +314,7 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
-      "Id": "Overlay_02",
+      "Id": "Fog_02",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -340,6 +379,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "Foreground_03",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "FX_Foreground_02",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -354,14 +406,17 @@
       "BlendMode": 0,
       "ChildGroups": [
         "FX_Foreground_02",
+        "Foreground_03",
         "Foreground_02",
         "FX_Foreground_01",
         "Shading_01",
         "Foreground_01",
-        "Overlay_02",
+        "Fog_02",
         "Overlay_01",
         "Lighting_01",
+        "OLD_Wall",
         "FX_Standing_01",
+        "Standing_FX_01",
         "Standing",
         "Terrain_Lighting_01",
         "Terrain_WaterOverlay_01",
@@ -378,6 +433,7 @@
         "Terrain_Base",
         "Water_01",
         "Terrain_Beneath_01",
+        "Base",
         "Water_02"
       ],
       "Id": "MapArt",
@@ -620,37 +676,12 @@
       "NumThingsVisible": 0,
       "ParentGroup": "",
       "Visible": true
-    },
-    {
-      "BlendMode": 2033848,
-      "ChildGroups": [],
-      "Id": "Walkway",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "",
-      "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
-      "Id": "DELETE",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "",
-      "Visible": true
     }
   ],
   "TimeLapseCameraLocation": {
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

@@ -75,14 +75,6 @@ EncounterSets =
 		"ArtemisCombatG2",
 		"ArtemisCombatG2",
 		"ArtemisCombatG2",
-		"ArtemisCombatG2",
-		"ArtemisCombatG2",
-		"ArtemisCombatG2",
-		"ArtemisCombatG2",
-		"ArtemisCombatG2",
-		"ArtemisCombatG2",
-		"ArtemisCombatG2",
-		"ArtemisCombatG2",
 
 		"ArachneCombatG",
 
@@ -126,6 +118,7 @@ EncounterSets =
 		"GeneratedI",
 		"GeneratedI_GoalReward",
 		"GeneratedIChronosIntro",
+		"NemesisCombatI",
 	},
 
 	IEncountersSmaller =
@@ -135,6 +128,7 @@ EncounterSets =
 		"GeneratedI_Small",
 		"GeneratedI_Small_GoalReward",
 		"GeneratedI_SmallChronosIntro",
+		"NemesisCombatI",
 	},
 
 	NEncountersDefault =
@@ -145,12 +139,17 @@ EncounterSets =
 		"GeneratedN",
 		"GeneratedN",
 		"GeneratedN",
+		"GeneratedN",
+		"GeneratedN",
+		"GeneratedN",
+		"GeneratedN",
 
 		"HeraclesCombatIntro",
 		"HeraclesCombatIntro",
 		"HeraclesCombatIntro",
 		"HeraclesCombatIntro",
 
+		"ArtemisCombatN",
 		"ArtemisCombatN",
 
 		"ArtemisCombatN2", -- fallback if it's been a while
@@ -159,11 +158,7 @@ EncounterSets =
 		"ArtemisCombatN2",
 
 		"HeraclesCombatN",
-
 		"HeraclesCombatN2", -- fallback if it's been a while
-		"HeraclesCombatN2",
-		"HeraclesCombatN2",
-		"HeraclesCombatN2",
 	},
 
 	NEncountersSmaller =
@@ -174,7 +169,12 @@ EncounterSets =
 		"GeneratedN_Smaller",
 		"GeneratedN_Smaller",
 		"GeneratedN_Smaller",
+		"GeneratedN_Smaller",
+		"GeneratedN_Smaller",
+		"GeneratedN_Smaller",
+		"GeneratedN_Smaller",
 
+		"ArtemisCombatN",
 		"ArtemisCombatN",
 
 		"ArtemisCombatN2", -- fallback if it's been a while
@@ -183,11 +183,7 @@ EncounterSets =
 		"ArtemisCombatN2",
 
 		"HeraclesCombatN",
-
 		"HeraclesCombatN2", -- fallback if it's been a while
-		"HeraclesCombatN2",
-		"HeraclesCombatN2",
-		"HeraclesCombatN2",
 	},
 	NEncountersBigger =
 	{
@@ -197,7 +193,12 @@ EncounterSets =
 		"GeneratedN_Bigger",
 		"GeneratedN_Bigger",
 		"GeneratedN_Bigger",
+		"GeneratedN_Bigger",
+		"GeneratedN_Bigger",
+		"GeneratedN_Bigger",
+		"GeneratedN_Bigger",
 
+		"ArtemisCombatN",
 		"ArtemisCombatN",
 
 		"ArtemisCombatN2", -- fallback if it's been a while
@@ -206,11 +207,7 @@ EncounterSets =
 		"ArtemisCombatN2",
 		
 		"HeraclesCombatN",
-
 		"HeraclesCombatN2", -- fallback if it's been a while
-		"HeraclesCombatN2",
-		"HeraclesCombatN2",
-		"HeraclesCombatN2",
 	},
 
 	NEncountersSubRoom =
@@ -301,13 +298,11 @@ EncounterSets =
 		"HeraclesCombatO",
 
 		"HeraclesCombatO2",
-		"HeraclesCombatO2",
-		"HeraclesCombatO2",
-		"HeraclesCombatO2",
 	},
 
 	PEncountersDefault =
 	{
+		"GeneratedP",
 		"GeneratedP",
 		"GeneratedP",
 		"GeneratedP",
@@ -328,6 +323,7 @@ EncounterSets =
 		"GeneratedP_Large",
 		"GeneratedP_Large",
 		"GeneratedP_Large",
+		"GeneratedP_Large",
 
 		"AthenaCombatIntro",
 		"AthenaCombatIntro",
@@ -342,8 +338,6 @@ EncounterSets =
 		"AthenaCombatP",
 		"AthenaCombatP",
 		
-		"AthenaCombatP02",
-		"AthenaCombatP02",
 		"AthenaCombatP02",
 		"AthenaCombatP02",
 		"AthenaCombatP02",
@@ -368,6 +362,18 @@ EncounterSets =
 	QEncountersDefault =
 	{
 		"GeneratedQ",
+		"TyphonIntro",
+	},
+
+	QEncountersIslands =
+	{
+		"GeneratedQ_Islands",
+	},
+
+	QEncountersPreBoss =
+	{
+		"GeneratedQ_Large",
+		"TyphonIntro",
 	},
 
 	AnomalyEncountersB =
@@ -414,9 +420,49 @@ EncounterSets =
 			Args =
 			{
 				ActivateUnitsByType = { "NPC_Charon_01", },
-				ActivateIdsByType = { "Shop", "Boat" },
+				ActivateIdsByGroup = { "Shop", "Boat" },
 			},
 		},
+		{
+			FunctionName = "SpawnZagContract",
+			Args =
+			{
+				ActivateGroups = { "Contract" },
+			},
+			GameStateRequirements =
+			{
+				NamedRequirements = { "InfernalContractUnlocked" },
+				NamedRequirementsFalse = { "StandardPackageBountyActive" },
+				{
+					PathFalse = { "CurrentRun", "RoomCountCache", "C_Boss01" }
+				},
+				ChanceToPlay = 0.40,
+			},
+		},
+		{
+			FunctionName = "SpawnZagContractRewards",
+			Args =
+			{
+				ActivateGroups = { "Contract" },
+			},
+			GameStateRequirements =
+			{
+				NamedRequirements = { "InfernalContractUnlocked" },
+			},
+		},
+	},
+
+	ShopRoomEvents_N =
+	{
+		{
+			FunctionName = "SetupWorldShop",
+			Args =
+			{
+				ActivateUnitsByType = { "NPC_Charon_01", },
+				ActivateIdsByGroup = { "Shop", "Boat" },
+			},
+		},
+		{ FunctionName = "SpawnSoulPylon", GameStateRequirements = { ChanceToPlay = 1.0 }, Args = { SpawnName = "SoulPylon" } }
 	},
 
 	EncounterEventsDefault =
@@ -432,7 +478,7 @@ EncounterSets =
 	{
 		{ FunctionName = "EncounterAudio" },
 		{ FunctionName = "HandleEnemySpawns" },
-		{ FunctionName = "CheckForEncounterEnemiesDead", Args = { EndEncounterAfter = true } },
+		{ FunctionName = "CheckForEncounterEnemiesDead", Args = { EndEncounterAfter = true, RequiredRemainingCount = 0 } },
 		{ FunctionName = "PostCombatAudio" },
 		{ FunctionName = "FieldsEncounterEndPresentation" },
 	},
@@ -464,16 +510,6 @@ EncounterSets =
 			},
 		},
 		{ FunctionName = "WaitForNextEncounterReady" },
-	},
-
-	EncounterEventsInvasion =
-	{
-		{ FunctionName = "InvasionEncounterStartPresentation" },
-		{ FunctionName = "EncounterAudio" },
-		{ FunctionName = "HandleEnemySpawns" },
-		{ FunctionName = "CheckForAllEnemiesDead" },
-		{ FunctionName = "PostCombatAudio" },
-		{ FunctionName = "SpawnRoomReward" },
 	},
 
 	EncounterEventsSurvival =
@@ -532,6 +568,7 @@ EncounterSets =
 			Args =
 			{
 				LoadVoiceBanks = { "Icarus" },
+				LoadPackages = { "Icarus" },
 				IgnoreAssert = true,
 			},
 		},
@@ -549,6 +586,7 @@ EncounterSets =
 			Args =
 			{
 				LoadVoiceBanks = { "Icarus" },
+				LoadPackages = { "Icarus" },
 				IgnoreAssert = true,
 			},
 		},
@@ -603,7 +641,7 @@ EncounterSets =
 
 	EncounterEventsNemesisCombatFields =
 	{
-		{ FunctionName = "HandleNemesisCombatSpawn" },
+		{ FunctionName = "HandleNemesisCombatSpawn", Args = { SpawnNearPlayer = true, } },
 		{ FunctionName = "NemesisEncounterStartPresentation" },
 		{ FunctionName = "BeginNemesisEncounter" },
 		{ FunctionName = "HandleEnemySpawns" },
@@ -613,15 +651,16 @@ EncounterSets =
 		{ FunctionName = "HandleNemesisEncounterReward" },
 	},
 
-	EncounterEventsTraversal =
+	EncounterEventsMiniBossWaterUnit =
 	{
 		{ FunctionName = "EncounterAudio" },
-		{ FunctionName = "UnlockRoomExits" },
 		{ FunctionName = "HandleEnemySpawns" },
+		{ FunctionName = "CheckForAllEnemiesDead" },
+		{ FunctionName = "StopMiniBossMusic" },
 		{ FunctionName = "PostCombatAudio" },
+		{ FunctionName = "SpawnRoomReward" },
 	},
-
-	EncounterEventsMiniBossWaterUnit =
+	EncounterEventsMiniBossJellyfish =
 	{
 		{ FunctionName = "EncounterAudio" },
 		{ FunctionName = "HandleEnemySpawns" },
@@ -649,6 +688,16 @@ EncounterSets =
 		{ FunctionName = "SpawnRoomReward" },
 	},
 
+	EncounterEventsMiniBossTyphonTail =
+	{
+		{ FunctionName = "WaitForTyphonTailStart" },
+		{ FunctionName = "EncounterAudio" },
+		{ FunctionName = "HandleEnemySpawns" },
+		{ FunctionName = "CheckForAllEnemiesDead" },
+		{ FunctionName = "PostCombatAudio" },
+		{ FunctionName = "SpawnRoomReward" },
+	},
+
 	EncounterEventsExtraDoorUnlock =
 	{
 		{ FunctionName = "ActivateNemesisPostRandomEventCombat"},
@@ -664,7 +713,7 @@ EncounterSets =
 		{ FunctionName = "ChallengeEncounterStartPresentation" },
 		{ FunctionName = "EncounterAudio" },
 		{ FunctionName = "HandleEnemySpawns" },
-		{ FunctionName = "CheckForEncounterEnemiesDead", Args = { EndEncounterAfter = true } },
+		{ FunctionName = "CheckForEncounterEnemiesDead", Args = { EndEncounterAfter = true, RequiredRemainingCount = 0 } },
 		{ FunctionName = "PostCombatAudio" },
 		{ FunctionName = "DisableRoomTraps" },
 		{ FunctionName = "EndChallengeEncounter" },
@@ -708,7 +757,7 @@ EncounterSets =
 	EncounterEventsEliteChallenge =
 	{
 		{ FunctionName = "EliteEncounterStartPresentation" },
-		{ FunctionName = "EncounterAudio" },
+		-- { FunctionName = "EncounterAudio" },
 		{ FunctionName = "BeginEliteChallenge" },
 		{ FunctionName = "HandleEnemySpawns" },
 		{ FunctionName = "CheckForAllEnemiesDead" },
@@ -741,9 +790,6 @@ EncounterSets =
 		"TimeChallengeSwitch_Money",
 		"TimeChallengeSwitch_Money",
 		"TimeChallengeSwitch_Money",
-
-		"TimeChallengeSwitch_Money",
-		"TimeChallengeSwitch_Money",
 		"TimeChallengeSwitch_Money",
 	},
 
@@ -751,6 +797,8 @@ EncounterSets =
 	{
 		"PerfectClearChallengeSwitch_Pom",
 		"PerfectClearChallengeSwitch_Pom",
+		"PerfectClearChallengeSwitch_Pom",
+
 		"PerfectClearChallengeSwitch_MaxHealth",
 	},
 
@@ -758,6 +806,11 @@ EncounterSets =
 	{
 		"EliteChallengeSwitch_Talent",
 		"EliteChallengeSwitch_Talent",
+		"EliteChallengeSwitch_Talent",
+		"EliteChallengeSwitch_Talent",
+		"EliteChallengeSwitch_Talent",
+
+		"EliteChallengeSwitch_MaxMana",
 		"EliteChallengeSwitch_MaxMana",
 	},
 }

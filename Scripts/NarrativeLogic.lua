@@ -13,22 +13,6 @@ function GetNarrativeDataValue( source, key )
 	return narrativeData[key]
 end
 
-function HasPlayedAnyTextLines( run, textLineSets )
-
-	if textLineSets == nil then
-		return
-	end
-
-	for textLinesName, textLines in pairs( textLineSets ) do
-		if run.TextLinesRecord[textLinesName] then
-			return true
-		end
-	end
-
-	return false
-
-end
-
 function GetRandomEligibleTextLines( source, textLineSets, priorities, args )
 
 	if textLineSets == nil then
@@ -119,6 +103,9 @@ function CheckPartnerConversationData( textLines )
 	if textLines.Partner ~= nil and textLines[1] == nil then
 		-- Actual data is on Partner
 		local partnerData = EnemyData[textLines.Partner]
+		if textLines.PartnerVariant ~= nil then
+			partnerData = NPCVariantData[textLines.PartnerVariant]
+		end
 		textLines = partnerData.InteractTextLineSets[textLines.Name]
 	end
 	return textLines
@@ -127,24 +114,24 @@ end
 function CheckPartnerConversations( unit, textLines )
 
 	if unit.NextInteractLines == nil then
-		return false
+		return nil
 	end
 
 	for partnerId, partnerUnit in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 		if partnerUnit.Name == unit.NextInteractLines.Partner then
 			local allTextLineSets = partnerUnit.InteractTextLineSets
-			for partnerTextLinesName, partnerTextLines in pairs( allTextLineSets  ) do
+			for partnerTextLinesName, partnerConversation in pairs( allTextLineSets ) do
 				-- Partner conversation overrides any other conversation chosen
 				if partnerTextLinesName == unit.NextInteractLines.Name then
-					SetNextInteractLines( partnerUnit, partnerTextLines )
+					SetNextInteractLines( partnerUnit, partnerConversation )
 					OnPartnerConversationSet( unit, partnerUnit )
-					return true
+					return partnerUnit
 				end
 			end
 		end
 	end
 
-	return false
+	return nil
 end
 
 function OnPartnerConversationSet( unit, partnerUnit )
@@ -155,58 +142,44 @@ function OnPartnerConversationSet( unit, partnerUnit )
 		partnerUnit.NextInteractLines.BlockDistanceTriggers = unit.NextInteractLines.BlockDistanceTriggers
 	end
 	partnerUnit.CanReceiveGift = false
-	unit.CanReceiveGift = false
+	if not unit.AllowSpecialInteractInPartnerConversation then
+		unit.CanReceiveGift = false
+	end
 	partnerUnit.InPartnerConversation = true
 	unit.InPartnerConversation = true
 end
 
-function GetTextLinesUseableStatus( source, textLineSets )
-	if textLineSets == nil then
-		return false
-	end
-
-	local useable = true
-	local conversationAvailable = false
-	for k, textLineSet in pairs( textLineSets ) do
-		if CurrentRun.TextLinesRecord[textLineSet.Name] then
-			-- Conversation completed
-			if textLineSet.UseableOffSource then
-				useable = false
-			end
-		elseif IsTextLineEligible( CurrentRun, source, textLineSet ) then
-			-- Conversation available
-			conversationAvailable = true
-		end
-	end
-	return conversationAvailable and useable
-end
-
-function NeedsUseableOff( source )
+function NeedsUseableOff( source, textLineSets )
 
 	-- Already had a UseableOff conversation
 
 	if source.GiftTextLineSets ~= nil then
 		for k, textLineSet in pairs( source.GiftTextLineSets ) do
 			if CurrentRun.TextLinesRecord[textLineSet.Name] and textLineSet.UseableOffSource then
+				--DebugPrint({ Text = "NeedsUseableOff from: "..textLineSet.Name })
 				return true
 			end
 		end
 	end
 
-	if source.InteractTextLineSets ~= nil then
-		for k, textLineSet in pairs( source.InteractTextLineSets ) do
-			if textLineSet.UseableOffSource then
+	textLineSets = textLineSets or source.InteractTextLineSets
+	if textLineSets ~= nil then
+		for k, textLineSet in pairs( textLineSets ) do
+			if textLineSet.UseableOffSource or ( textLineSet.UseableOffSourceRequirements ~= nil and IsGameStateEligible( source, textLineSet.UseableOffSourceRequirements ) ) then
 				if source.SplitHubUseableOffSource and CurrentHubRoom ~= nil then
 					if CurrentRun.HubTextLinesRecord[textLineSet.Name] then
+						--DebugPrint({ Text = "NeedsUseableOff from: "..textLineSet.Name })
 						return true
 					end
 				else
 					if CurrentRun.TextLinesRecord[textLineSet.Name] then
+						--DebugPrint({ Text = "NeedsUseableOff from: "..textLineSet.Name })
 						return true
 					end
 				end
 			end
 			if textLineSet.RoomUseableOffSource and CurrentRun.CurrentRoom.TextLinesRecord[textLineSet.Name] then
+				--DebugPrint({ Text = "NeedsUseableOff from: "..textLineSet.Name })
 				return true
 			end
 		end
@@ -245,28 +218,37 @@ function PlayTextLines( source, textLines, args )
 	FreezePlayerUnit( "PlayTextLines", { DisableTray = false, StopRotation = false } )
 	CurrentRun.Hero.UntargetableFlags.PlayTextLines = true
 	SetPlayerInvulnerable( "PlayTextLines" )
+	local nativelyInvulnerable = GetLifeDataValue({ Property = "Invulnerable", Id = source.ObjectId })
+	if not nativelyInvulnerable then
+		SetUnitInvulnerable( source, "PlayTextLines", { Silent = true } )
+	end
+	if SetThreadWait( "InfoBanner", 0.01 ) then
+		wait( 0.3 )
+	end
 
 	GameState.NPCInteractions[source.Name] = (GameState.NPCInteractions[source.Name] or 0) + 1
 	CurrentRun.NPCInteractions[source.Name] = (CurrentRun.NPCInteractions[source.Name] or 0) + 1
 	source.ConversationThisRun = true
 	RecordMapState( (CurrentHubRoom or CurrentRun.CurrentRoom).Name, source.ObjectId, "ConversationThisRun", source.ConversationThisRun )
 
-	waitUnmodified( textLines.PreEventWait )
 	if textLines.PreEventFunctionName ~= nil then
 		CallFunctionName( textLines.PreEventFunctionName, source, textLines.PreEventFunctionArgs, textLines )
 	end
-	if source.PreEventFunctionName ~= nil then
+	if source.PreEventFunctionName ~= nil and not textLines.SkipPreEventFunction then
 		CallFunctionName( source.PreEventFunctionName, source, source.PreEventFunctionArgs, textLines )
 	end
-	if not textLines.SkipPresention then
+	if not textLines.SkipPresentation then
 		StartedTextLinesPresentation( source, textLines )
 	end
 
 	PlayingTextLines = true
 	local screen = DeepCopyTable( ScreenData.Dialog )
+	screen.ClipboardText = textLines.Name
 	screen.Source = source
+	screen.StartTime = _worldTime
 	screen.LastLineStartTime = _worldTime
 	OverwriteTableKeys( screen, args.ScreenArgs )
+	ModifySubtitles({ SuppressLyrics = true })
 	OnScreenOpened( screen )
 	
 	if PlayTextLine( screen, textLines, nil, nil, source, args ) then
@@ -275,7 +257,7 @@ function PlayTextLines( source, textLines, args )
 	CallFunctionName( textLines.PrePortraitExitFunctionName, source, textLines.PrePortraitExitFunctionArgs, screen )
 
 	local artExiting = false
-	if screen.CurrentContextArt ~= nil then
+	if screen.CurrentContextArt ~= nil and not args.PreserveContextArt then
 		SetAnimation({ DestinationId = screen.ContextArtId, Name = screen.CurrentContextArt.."_Out" })
 		artExiting = true
 	end
@@ -289,19 +271,31 @@ function PlayTextLines( source, textLines, args )
 	if artExiting then
 		waitUnmodified(0.2)
 	end
-	Destroy({ Id = screen.ContextArtId })
+	if args.PreserveContextArt then
+		args.ContextArtId = screen.ContextArtId
+	else
+		Destroy({ Id = screen.ContextArtId })
+	end
 	Destroy({ Id = screen.PortraitId })
+	Destroy({ Ids = screen.LeakedIds })
 	
 	OnScreenCloseStarted( screen )
 	OnScreenCloseFinished( screen )
+	ModifySubtitles({ SuppressLyrics = false })
 	FinishedTextLinesPresentation( source, textLines )
 	if not source.TextLinesIgnoreQuests then
-		thread( CheckQuestStatus )
+		if not screen.SkipQuestStatusCheck then
+			thread( CheckQuestStatus )
+		end
+		thread( CheckProgressAchievements )
 	end
 	AltAspectRatioFramesHide()
 	RemoveInputBlock({ Name = "PlayTextLines" })
 	UnfreezePlayerUnit( "PlayTextLines" )
 	SetPlayerVulnerable( "PlayTextLines" )
+	if not nativelyInvulnerable then
+		SetUnitVulnerable( source, "PlayTextLines" )
+	end
 	CurrentRun.Hero.UntargetableFlags.PlayTextLines = nil
 	PlayingTextLines = false
 
@@ -324,6 +318,7 @@ function PlayTextLines( source, textLines, args )
 	waitUnmodified( textLines.EndWait )
 
 	args.ElapsedTime = _worldTime - screen.LastLineStartTime
+	args.TotalElapsedTime = _worldTime - screen.StartTime
 	DebugPrint({ Text = "args.ElapsedTime = "..args.ElapsedTime })
 
 	if textLines.EndCue ~= nil and (textLines.EndCueCooldownName == nil or CheckCooldown( textLines.EndCueCooldownName, textLines.EndCueCooldownTime ) ) then
@@ -344,12 +339,15 @@ function PlayTextLines( source, textLines, args )
 		end
 	end
 	if textLines.EndVoiceLines ~= nil then
-		thread( PlayVoiceLines, textLines.EndVoiceLines, nil, source, args )
+		thread( PlayEndVoiceLines, textLines.EndVoiceLines, source, args )
 	end
 	if textLines.EndGlobalVoiceLines ~= nil then
-		thread( PlayVoiceLines, GlobalVoiceLines[textLines.EndGlobalVoiceLines], nil, source, args )
+		thread( PlayEndVoiceLines, GlobalVoiceLines[textLines.EndGlobalVoiceLines], source, args )
 	end
 	CallFunctionName( textLines.EndFunctionName, source, textLines.EndFunctionArgs )
+	if textLines.EndEvents ~= nil then
+		RunEventsGeneric( textLines.EndEvents, source, args )
+	end
 	if source.TextLinesEndEvents ~= nil then
 		RunEventsGeneric( source.TextLinesEndEvents, source, args )
 	end
@@ -364,19 +362,23 @@ function PlayTextLines( source, textLines, args )
 	return playedSomething
 end
 
+function PlayEndVoiceLines( voiceLines, source, args )
+	source.PlayingEndVoiceLines = true
+	PlayVoiceLines( voiceLines, nil, source, args )
+	source.PlayingEndVoiceLines = nil
+end
+
 function PlayTextLine( screen, textLines, prevLine, parentLine, source, args )
 
+	args = args or {}
 	DebugAssert({ Condition = textLines.Name ~= nil, Text = "TextLines being played without a name!" })
-	if textLines.Name ~= nil then
+	if textLines.Name ~= nil and not args.SkipRecords then
 		GameState.TextLinesRecord[textLines.Name] = true
 		CurrentRun.TextLinesRecord[textLines.Name] = true
 		if CurrentHubRoom ~= nil then
 			CurrentRun.HubTextLinesRecord[textLines.Name] = true
 		elseif CurrentRun.CurrentRoom ~= nil then
 			CurrentRun.CurrentRoom.TextLinesRecord[textLines.Name] = true
-		end
-		if textLines.PlayOnce then
-			GameState.LastPlayOnceTextLinesGamePhaseTicksRecord[source.Name] = GameState.GamePhaseLifetimeTicks
 		end
 	end
 
@@ -423,6 +425,13 @@ function PlayTextLine( screen, textLines, prevLine, parentLine, source, args )
 			end
 			if line.MusicMutedStems ~= nil then
 				SetSoundCueValue({ Names = line.MusicMutedStems, Id = AudioState.MusicId, Value = 0, Duration = line.MusicMutedStemsDuration or 1 })
+			end
+			if line.EndSecretMusic ~= nil then
+				SetSoundCueValue({ Names = { "Section" }, Id = AudioState.SecretMusicId, Value = 10 })
+				StopSound({ Id = AudioState.SecretMusicId, Duration = 5 })
+				AudioState.SecretMusicId = nil
+				AudioState.SecretMusicName = nil
+				ResumeMusic()
 			end
 			if line.StartSound ~= nil then
 				PlaySound({ Name = line.StartSound })
@@ -497,14 +506,16 @@ function PlayTextLine( screen, textLines, prevLine, parentLine, source, args )
 					end
 					SetAnimation({ Name = playLine.PreLineAnim, DestinationId = targetId })
 				end
+				-- intentionally delayed a bit vs. AngleHeroTowardTargetId
+				if playLine.PreLineAngleHeroTowardTargetId ~= nil then
+					AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = playLine.PreLineAngleHeroTowardTargetId })
+				end
 
 				waitUnmodified( playLine.PreLineWait )
 
 				local played = DisplayTextLine( screen, source, playLine, textLines, textLines[lineIndex + 1], args )
 				if played then
 					playedSomething = true
-					-- Intentionally leaving this on raw data for now to be wiped out on load
-					playLine.LastPlayTime = _worldTime
 
 					waitUnmodified( playLine.PostLineWait or 0.1 )
 
@@ -561,28 +572,46 @@ function IsTextLineEligible( currentRun, source, line, prevLine, parentLine, arg
 		return false
 	end
 
+	if args.RequireNoTeleportToId and line.TeleportToId ~= nil then
+		return false
+	end
+
+	if args.PlayOnceFlag and line.PlayOnce and not line[args.PlayOnceFlag] then
+		return false
+	end
+
 	if line.Force then
 		return true
 	end
 
-	if line.Partner ~= nil and not args.IgnorePartnerExists then
-		local typeIds = GetIdsByType({ Name = args.PartnerName or line.Partner })
-		if IsEmpty( typeIds ) then
-			args.FirstFailedRequirement = "Partner doesn't exist"
-			return false
-		end
-		for k, typeId in pairs( typeIds ) do
-			local partner = ActiveEnemies[typeId]
-			if partner == nil then
+	if line.Partner ~= nil then
+		if args.IgnorePartnerExists then
+			-- Still need to check if partner will be able to talk after they spawn
+			local partnerData = EnemyData[line.Partner]
+			if partnerData ~= nil and NeedsUseableOff( partnerData ) then
+				args.FirstFailedRequirement = "Partner is UseableOff already"
+				return false
+			end
+		else
+			local typeIds = GetIdsByType({ Name = args.PartnerName or line.Partner })
+			if IsEmpty( typeIds ) then
 				args.FirstFailedRequirement = "Partner doesn't exist"
 				return false
 			end
-			if partner.NextInteractLines ~= nil and partner.NextInteractLines.PlayOnce and partner.NextInteractLines.Name ~= line.Name then
-				args.FirstFailedRequirement = "Partner is already busy with a non-repeatable conversation"
-				return false
-			end
-			if NeedsUseableOff( partner ) then
-				return false
+			for k, typeId in pairs( typeIds ) do
+				local partner = ActiveEnemies[typeId]
+				if partner == nil then
+					args.FirstFailedRequirement = "Partner doesn't exist"
+					return false
+				end
+				if partner.NextInteractLines ~= nil and partner.NextInteractLines.PlayOnce and partner.NextInteractLines.Name ~= line.Name then
+					args.FirstFailedRequirement = "Partner is already busy with a non-repeatable conversation"
+					return false
+				end
+				if NeedsUseableOff( partner ) then
+					args.FirstFailedRequirement = "Partner is UseableOff already"
+					return false
+				end
 			end
 		end
 	end
@@ -636,7 +665,7 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine, args )
 	local text = nil
 
 	-- Look up the text line without the '/VO/' prefix
-	if line.Cue then
+	if line.Cue ~= nil then
 		local helpTextId = line.Cue
 		if line.Cue ~= "/EmptyCue" then
 			helpTextId = string.sub( line.Cue, 5 )
@@ -647,6 +676,9 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine, args )
 			rawText = line.Text
 			text = nil
 		end
+	elseif line.IgnoreRawText then
+		rawText = nil
+		text = line.Text
 	end
 
 	screen.LastLineStartTime = _worldTime
@@ -659,11 +691,24 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine, args )
 		source = CurrentRun.Hero
 	end
 
-	local speakerName = line.SpeakerNameplateId or line.Speaker or source.Speaker or source.Name
-	table.insert( CurrentRun.LineHistory, { SpeakerName = source.LineHistoryName or line.LineHistoryName or speakerName, SourceName = source.Name, Text = text, RawText = rawText,
-		SubtitleColor = line.SubtitleColor or source.NarrativeFadeInColor or source.SubtitleColor } )
+	local speakerName = line.SpeakerNameplateId or line.Speaker or source.Speaker or source.Name	
+	
+	-- Always prioritize line data over source data
+	local lineHistoryName = line.LineHistoryName or line.SpeakerNameplateId or line.Speaker or source.LineHistoryName or source.Speaker or source.Name
+	local speakerSource = EnemyData[speakerName] or LootData[speakerName]
+	local speakerSourceSubtitleColor = nil
+	if speakerSource ~= nil then
+		speakerSourceSubtitleColor = speakerSource.NarrativeFadeInColor or speakerSource.SubtitleColor
+	end
+	local lineHistorySubtitleColor = line.SubtitleColor or speakerSourceSubtitleColor or source.NarrativeFadeInColor or source.SubtitleColor
+	table.insert( CurrentRun.LineHistory, { SpeakerName = lineHistoryName, SourceName = source.Name, Text = text, RawText = rawText,
+		SubtitleColor = lineHistorySubtitleColor } )
 
 	local portrait = line.Portrait or source.Portrait
+	if source.PortraitSwapMap ~= nil then
+		portrait = source.PortraitSwapMap[portrait] or portrait
+	end
+
 	local speakerLabelOffsetY = line.SpeakerLabelOffsetY or source.SpeakerLabelOffsetY or 5
 
 	for id, v in pairs( AudioState.ActiveSpeechIds ) do
@@ -680,18 +725,18 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine, args )
 	local exitAnimation = nil
 	local textShadowColor = {0.890, 0.871, 0.851, 1.0}
 
-	local speechSource = source
-
 	if portrait ~= nil and not line.SkipPortrait then
 		-- Dialogue with portrait
+		local portraitAnchorX = ScreenCenterX - 490
+		local portraitAnchorY = ScreenCenterY + 105
 		if screen.ContextArtId == nil then
-			screen.ContextArtId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX, Y = ScreenCenterY, Group = args.Group or screen.DefaultGroup })
+			screen.ContextArtId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX, Y = ScreenCenterY, Group = args.Group or "Combat_Menu" })
 		end
 		if screen.PortraitId == nil then
-			screen.PortraitId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX - 490, Y = ScreenCenterY + 105, Group = args.Group or screen.DefaultGroup })
+			screen.PortraitId = CreateScreenObstacle({ Name = "BlankObstacle", X = portraitAnchorX, Y = portraitAnchorY, Group = args.Group or "Combat_Menu" })
 		end
 		AltAspectRatioFramesShow()
-		if screen.CurrentPortrait ~= nil and screen.CurrentPortrait ~= portrait then
+		if screen.CurrentPortrait ~= nil and screen.CurrentPortrait ~= portrait and not line.SkipPrevPortraitExit then
 			SetAnimation({ DestinationId = screen.PortraitId, Name = screen.CurrentPortrait.."_Exit" })
 			waitUnmodified( line.PortraitExitWait or 0.3 )
 		end
@@ -699,6 +744,9 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine, args )
 			local currentRoom = (CurrentHubRoom or CurrentRun.CurrentRoom)
 			local roomData = RoomData[currentRoom.Name] or HubRoomData[currentRoom.Name]
 			local contextArt = line.NarrativeContextArt or source.NarrativeContextArt or roomData.NarrativeContextArt
+			if line.UseRoomContextArt then
+				contextArt = roomData.NarrativeContextArt
+			end
 			local contextArtFlippable = roomData.NarrativeContextArtFlippable or source.NarrativeContextArtFlippable
 			if contextArt ~= nil then
 				screen.CurrentContextArt = contextArt
@@ -714,11 +762,18 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine, args )
 		end
 		local prevPortrait = screen.CurrentPortrait
 		screen.CurrentPortrait = portrait
+
+		if source.PortraitOverrides ~= nil or screen.LastPortraitHadOverrides then
+			local overrides = source.PortraitOverrides or { OffsetX = 0, OffsetY = 0, Scale = 1.0 }
+			Teleport({ Id = screen.PortraitId, OffsetX = portraitAnchorX + overrides.OffsetX, OffsetY = portraitAnchorY + overrides.OffsetY })
+			SetScale({ Id = screen.PortraitId, Fraction = overrides.Scale })
+		end
+		screen.LastPortraitHadOverrides = (source.PortraitOverrides ~= nil)
+
 		SetAnimation({ DestinationId = screen.PortraitId, Name = screen.CurrentPortrait })
 		if source.OnPortraitSetFunctionName ~= nil then
 			CallFunctionName( source.OnPortraitSetFunctionName, source, source.OnPortraitSetFunctionArgs, screen, line )
 		end
-		speechSource = { Name = source.Name, ObjectId = screen.PortraitId }
 		narrationBoxOffsetX = 198
 		if screen.DialogueGlowBackgroundId == nil then
 			screen.DialogueGlowBackgroundId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX + 200, Y = ScreenCenterY + 300, Group = args.Group or screen.DefaultGroup })
@@ -767,31 +822,41 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine, args )
 			screen.NameplateDescriptionId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX - 8, Y = ScreenCenterY + 146, Group = args.Group or screen.DefaultGroup })
 		end
 
-		CreateTextBox(MergeTables({
+		CreateTextBox({
 			Id = screen.NameplateId,
 			Text = speakerName,
 			FontSize = 32,
-			OffsetY = speakerLabelOffsetY + GetLocalizedValue( 0, LocalizationData.Narrative.SpeakerDisplayName.LangOffsetY ),
+			OffsetY = speakerLabelOffsetY + GetLocalizedValue( 0, screen.ComponentData.SpeakerDisplayName.LangOffsetY ),
 			Font = "CaesarDressing",
 			Color = source.NameplateSpeakerNameColor or Color.DialogueSpeakerName,
 			ShadowBlur = 1, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
 			Justification = "CENTER",
-		}, LocalizationData.Narrative.SpeakerDisplayName ))
+		})
 
-		CreateTextBox(MergeTables({
+		CreateTextBox({
 			Id = screen.NameplateDescriptionId,
 			Text = speakerName,
 			FontSize = 22,
-			OffsetY = 3 + GetLocalizedValue( 0, LocalizationData.Narrative.SpeakerDescription.LangOffsetY ),
+			OffsetY = 3 + GetLocalizedValue( 0, screen.ComponentData.SpeakerDescription.angOffsetY ),
 			Font = "P22UndergroundSCMedium",
 			Color = source.NameplateDescriptionColor or {120, 220, 180, 192},
 			UseDescription = true,
-		}, LocalizationData.Narrative.SpeakerDescription ))
+		})
 
 	else
 		-- Narration
+		if screen.DialogueGlowBackgroundId == nil then
+			screen.DialogueGlowBackgroundId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX + 200, Y = ScreenCenterY + 300, Group = args.Group or screen.DefaultGroup })
+			SetAnimation({ DestinationId = screen.DialogueGlowBackgroundId, Name = "NarrationBackgroundGlow" })
+			SetAlpha({ Id = screen.DialogueGlowBackgroundId, Fraction = 0 })
+			SetAlpha({ Id = screen.DialogueGlowBackgroundId, Fraction = 1, Duration = 0.25  })
+		end
 		if screen.BackgroundId == nil then
-			screen.BackgroundId = CreateScreenObstacle({ Name = "NarrationBubble", X = ScreenCenterX + (line.BoxOffsetX or narrationBoxOffsetX), Y = ScreenCenterY + (line.BoxOffsetY or 304), Group = args.Group or screen.DefaultGroup })
+			screen.BackgroundId = CreateScreenObstacle({ Name = "NarrationBubble",
+				X = ScreenCenterX + (line.BoxOffsetX or narrationBoxOffsetX),
+				Y = ScreenCenterY + (line.BoxOffsetY or 264),
+				Animation = line.BoxAnimation,
+				Group = args.Group or screen.DefaultGroup })
 		end
 		if line.BoxAnimation ~= nil then
 			SetAnimation({ Name = line.BoxAnimation, DestinationId = screen.BackgroundId })
@@ -800,8 +865,7 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine, args )
 		textColor = Color.NarrationText
 		textShadowColor = {0,0,0, 1.0}
 		narrationTextOffsetX = 0
-		narrationTextOffsetY = 15
-		promptOffsetY = 440
+		narrationTextOffsetY = -10
 	end
 
 	if line.Append then
@@ -832,7 +896,7 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine, args )
 			CharacterFadeGreen = fadeInColor[2] / 255,
 			CharacterFadeBlue = fadeInColor[3] / 255,
 		}
-		if fadeInSource.DisableCharacterFadeColorLag then
+		if line.DisableCharacterFadeColorLag or fadeInSource.DisableCharacterFadeColorLag then
 			fadeInProperties = 
 			{
 				CharacterFadeTime = 0.0125,
@@ -860,15 +924,45 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine, args )
 	screen.PromptId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX + 390 + narrationBoxOffsetX, Y = ScreenCenterY + promptOffsetY, Group = args.Group or screen.DefaultGroup })
 	table.insert( anchorIds, screen.PromptId )
 
-	ModifySubtitles({ SuppressLyrics = true })
+	local listenStartTime = _worldTime
 
 	local speechId = PlaySpeechCue( cue, nil, nil, "Interrupt", false )
-	if source.SpeakingAnimation ~= nil and line.Portrait == nil and speechId ~= nil and speechId > 0 then
-		SetAnimation({ DestinationId = screen.PortraitId, Name = source.SpeakingAnimation, SoundId = speechId })
-		thread( CancelSpeakingAnimation, screen, source, cue )
+	if speechId > 0 then
+		CurrentRun.CurrentRoom.SpeechRecord[cue] = (CurrentRun.CurrentRoom.SpeechRecord[cue] or 0) + 1
+		-- Extra back-compat due to GameState.PatchedSpeechRecords2 somehow missing some cases
+		if GameState.SpeechRecord[cue] ~= nil and type(GameState.SpeechRecord[cue]) == "boolean" then
+			GameState.SpeechRecord[cue] = 1
+		end
+		if CurrentRun.SpeechRecord[cue] ~= nil and type(CurrentRun.SpeechRecord[cue]) == "boolean" then
+			CurrentRun.SpeechRecord[cue] = 1
+		end
+		GameState.SpeechRecord[cue] = (GameState.SpeechRecord[cue] or 0) + 1
+		CurrentRun.SpeechRecord[cue] = (CurrentRun.SpeechRecord[cue] or 0) + 1
 	end
-	if not line.AutoAdvance and not GetConfigOptionValue({ Name = "AutoAdvanceNarration" }) then
+	if not line.AutoAdvance and not line.IgnoreContinueArrow and not GetConfigOptionValue({ Name = "AutoAdvanceNarration" }) then
 		thread( ShowContinueArrow, screen, source, cue )
+	end
+
+	local selectedChoice = nil
+	local choiceMap = {}
+	local choiceHotkeyControls = {}
+
+	if line.Choices ~= nil then
+		local firstChoice = false
+		for k, choice in ipairs( line.Choices ) do
+			local choiceButtonData = ShallowCopyTable( screen.ComponentData.ChoiceButtons[k] )
+			choiceButtonData.TextArgs.Text = choice.ChoiceText
+			choiceButtonData.GroupName = args.Group or screen.DefaultGroup or choiceButtonData.GroupName
+			local component = CreateComponentFromData( screen.ComponentData, choiceButtonData )
+			component.Screen = screen
+			choiceMap[component.Id] = choice
+			for i, hotkeyName in ipairs( component.ControlHotkeys ) do
+				choiceMap[hotkeyName] = choice
+			end
+			table.insert( screen.ChoiceIds, component.Id )
+			ConcatTableValues( choiceHotkeyControls, component.ControlHotkeys )
+		end
+
 	end
 
 	waitUnmodified(0.04)
@@ -894,42 +988,67 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine, args )
 		RemoveInputBlock({ Name = "PlayTextLines" })
 		EnableGamepadCursor( screen.Name )
 		notifyName = "NarrativeLineChoiceInput"
-		NotifyOnInteract({ Ids = GetAllKeys( choiceMap ), Notify = notifyName })
-		screen.AllowAdvancedTooltip = true
-		--NotifyOnControlPressed({ Names = hotkeyControls, Notify = notifyName })
+		NotifyOnInteract({ Ids = screen.ChoiceIds, Notify = notifyName })
+		NotifyOnControlPressed({ Names = choiceHotkeyControls, Notify = notifyName })
+		--screen.AllowAdvancedTooltip = true
+		screen.BlockPause = true
 		waitUntil( notifyName )
-		screen.AllowAdvancedTooltip = false
+		--screen.AllowAdvancedTooltip = false
+		screen.BlockPause = false
 		local selectedId = NotifyResultsTable[notifyName]
 		selectedChoice = choiceMap[selectedId]
+		CurrentRun.TextLinesChoiceRecord[parentLine.Name] = selectedChoice.ChoiceText
+		GameState.TextLinesChoiceRecord[parentLine.Name] = selectedChoice.ChoiceText
+		Destroy({ Ids = screen.ChoiceIds })
+		screen.ChoiceIds = {}
 		AddInputBlock({ Name = "PlayTextLines" })
 		DisableGamepadCursor( screen.Name )
 	end
-	ModifySubtitles({ SuppressLyrics = false })
 
 	killTaggedThreads( NarrativeThreadName )
 	killWaitUntilThreads( cue )
+
+	GameState.TextLinePanelCount[parentLine.Name] = (GameState.TextLinePanelCount[parentLine.Name] or 0) + 1
+	local listenEndTime = _worldTime
+	local listenElapsedTime = listenEndTime - listenStartTime
+	if listenElapsedTime < NarrativeConstantData.ListenSkipThreshold then
+		GameState.TextLinePanelSkipCount[parentLine.Name] = (GameState.TextLinePanelSkipCount[parentLine.Name] or 0) + 1
+	end
 
 	if nextLine ~= nil and nextLine.Append then
 		-- Do nothing
 	else
 		DestroyTextBox({ Ids = anchorIds })
 		SetAnimation({ DestinationId = screen.BackgroundId, Name = exitAnimation })
-		if line.PortraitExitAnimation ~= nil then
-			SetAnimation({ DestinationId = screen.PortraitId, Name = line.PortraitExitAnimation })
+		StopAnimation({ DestinationId = screen.BackgroundId, Name = "DialogueSpeechBubbleFx" })
+		StopAnimation({ DestinationId = screen.BackgroundId, Name = "DialogueSpeechBubbleFxLight" })
+		if line.ExitPortraitImmediately ~= nil and screen.CurrentPortrait ~= nil then
+			SetAnimation({ DestinationId = screen.PortraitId, Name = screen.CurrentPortrait.."_Exit" })
 			screen.CurrentPortrait = nil
 		end
-		if screen.CurrentContextArt ~= nil and ( line.PostLineRemoveContextArt or (nextLine ~= nil and nextLine.IsNarration) ) then
+		if line.PortraitExitAnimation ~= nil then
+			local exitAnimation = line.PortraitExitAnimation
+			if source.PortraitSwapMap ~= nil then
+				exitAnimation = source.PortraitSwapMap[exitAnimation] or exitAnimation
+			end
+			SetAnimation({ DestinationId = screen.PortraitId, Name = exitAnimation })
+			screen.CurrentPortrait = nil
+		end
+		if line.PortraitExitSound ~= nil then
+			PlaySound({ Name = line.PortraitExitSound, Id = screen.PortraitId })
+		end
+		if screen.CurrentContextArt ~= nil and ( line.PostLineRemoveContextArt or (nextLine ~= nil and nextLine.IsNarration and not nextLine.KeepContextArt) ) then
 			SetAnimation({ DestinationId = screen.ContextArtId, Name = screen.CurrentContextArt.."_Out" })
 			screen.CurrentContextArt = nil
 		end
 		if screen.DialogueGlowBackgroundId ~= nil then
-			-- SetAnimation({ DestinationId = screen.DialogueGlowBackgroundId, Name = "DialogueSpeechBubbleBackgroundGlowFade" })
 			SetAlpha({ Id = screen.DialogueGlowBackgroundId, Fraction = 0, Duration = 0.12 })
+			table.insert( screen.LeakedIds, screen.DialogueGlowBackgroundId )
 			screen.DialogueGlowBackgroundId = nil
 		end
 	end
 
-	waitUnmodified(0.12)
+	waitUnmodified(0.15)
 	if nextLine ~= nil and nextLine.Append then
 		-- Do nothing
 	else
@@ -937,17 +1056,14 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine, args )
 		screen.BackgroundId = nil
 		screen.NameplateId = nil
 		screen.NameplateDescriptionId = nil
-		if choiceBackground ~= nil then
-			Destroy({ Id = choiceBackground })
-		end
 	end
 
 	StopSound({ Id = speechId, Duration = 0.15 })
 
 	if selectedChoice ~= nil then
-		PlaySound({ Name = "/SFX/Menu Sounds/GodBoonMenuClose" })
+		PlaySound({ Name = "/SFX/Menu Sounds/IrisMenuBack" })
 		selectedChoice.Name = parentLine.Name..selectedChoice.ChoiceText
-		PlayTextLine( screen, selectedChoice, line, line, source )
+		PlayTextLine( screen, selectedChoice, line, line, source, { SkipRecords = true } )
 	end
 
 	return true
@@ -1008,13 +1124,6 @@ function PlayRandomRemainingTextLines( source, textLineSets )
 
 end
 
-function CancelSpeakingAnimation( screen, source, cue )
-	if cue ~= nil then
-		waitUntil( cue )
-	end
-	SetAnimation({ DestinationId = screen.PortraitId, Name = source.Portrait })
-end
-
 function ShowContinueArrow( screen, source, cue )
 	if cue ~= nil then
 		waitUntil( cue )
@@ -1024,7 +1133,11 @@ end
 
 function AutoAdvanceNarration( screen, source, cue )
 	if cue ~= nil then
-		waitUntil( cue )
+		if cue == "/EmptyCue" then
+			wait( 3.0, NarrativeThreadName )
+		else
+			waitUntil( cue )
+		end
 	end
 	notifyExistingWaiters( "NarrativeLineNextInput" )
 	waitUnmodified( 0.2 )

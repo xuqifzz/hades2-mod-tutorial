@@ -6,7 +6,7 @@
     TransitionOffTime = 0.15
     OpenSound = "/SFX/Menu Sounds/HadesLocationTextAppear"
     CloseSound = "null"
-    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    SelectionSound = "/SFX/Menu Sounds/IrisMenuToggle2"
     ForceShowCursor = true
     GamepadCursorControl = true
 
@@ -18,7 +18,7 @@
       Green = 0
       Blue = 0
       Width = 5120
-      Height = 1440
+      Height = 1920
       Alpha = 0.8
     }
 

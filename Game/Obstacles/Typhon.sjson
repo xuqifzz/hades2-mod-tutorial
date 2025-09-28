@@ -1,0 +1,2068 @@
+{
+  Obstacles = [
+  
+    {
+      Name = "TyphonExitDoor"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonExitDoor"
+        Interact = 
+        {
+          Distance = 170.0
+        }
+        Scale = 1.25
+        Tallness = 593
+        Offset = { X = 0 Y = -210 }
+        Points = [
+          { X = -127 Y = -35 }
+          { X = 139 Y = 102 }
+          { X = 181 Y = 77 }
+          { X = -75 Y = -54 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonEntrancePit01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonEntranceDoorClose"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "FortressMainDoor"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "FortressMainDoorClosed"
+        Interact = 
+        {
+          Distance = 170.0
+        }
+        Tallness = 1555
+        Offset = { X = 0 Y = -805 }
+        Points = [
+          { X = -770 Y = -21 }
+          { X = -771 Y = 39 }
+          { X = 565 Y = 40 }
+          { X = 562 Y = -13 }
+        ]
+      }
+    }
+    
+    {
+      Name = "Breakable_Q"
+      AutoLockable = false
+      DisplayInEditor = true
+      Life = 
+      {
+        HomingEligible = false
+        JumpTargetEligible = false
+        RequiresDamageToAffect = true
+        HitSound = "/EmptyCue"
+        ProjectilesAlwaysPenetrate = true
+        TriggerOnHit = true
+      }
+      Thing = 
+      {
+        StopsProjectiles = true
+        StopsUnits = true
+        StopsLight = true
+        Tallness = 100.0
+        UseBoundsForSortDrawArea = true
+        EditorOutlineDrawBounds = false
+        ExtentScale = 0.5
+        Graphic = "Breakable_Q01"
+        Points = [
+          { X = 32 Y = 44 }
+          { X = 96 Y = 12 }
+          { X = 96 Y = -20 }
+          { X = 32 Y = -52 }
+          { X = -32 Y = -52 }
+          { X = -96 Y = -20 }
+          { X = -96 Y = 12 }
+          { X = -32 Y = 44 }
+        ]
+      }
+    }
+    
+    {
+      Name = "TyphonDestructiblePillar01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonDestructiblePillar01_Idle"
+        CausesOcclusion = true
+        Tallness = 310
+        Offset = { X = 0 Y = -70 }
+        Points = [
+          { X = 102 Y = 25 }
+          { X = 65 Y = -32 }
+          { X = -41 Y = -44 }
+          { X = -114 Y = 7 }
+          { X = -4 Y = 76 }
+        ]
+      }
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
+    }
+    
+    {
+      Name = "TyphonDestructiblePillar01_Destroyed"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonDestructiblePillar01_Destroyed"
+        Tallness = 310
+        Offset = { X = 0 Y = -70 }
+        Points = [
+          { X = 102 Y = 25 }
+          { X = 65 Y = -32 }
+          { X = -41 Y = -44 }
+          { X = -114 Y = 7 }
+          { X = -4 Y = 76 }
+        ]
+      }
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
+    }
+
+    {
+      Name = "TyphonDestructiblePillar02"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonDestructiblePillar02_Idle"
+        CausesOcclusion = true
+        Tallness = 398
+        Offset = { X = 0 Y = -70 }
+        Points = [
+          { X = -254 Y = -53 }
+          { X = -218 Y = 7 }
+          { X = 105 Y = 181 }
+          { X = 240 Y = 114 }
+          { X = -127 Y = -105 }
+        ]
+      }
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
+    }
+    
+    {
+      Name = "TyphonDestructiblePillar02_Destroyed"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonDestructiblePillar02_Destroyed"
+        CausesOcclusion = true
+        Tallness = 398
+        Offset = { X = 0 Y = -70 }
+        Points = [
+          { X = -254 Y = -53 }
+          { X = -218 Y = 7 }
+          { X = 105 Y = 181 }
+          { X = 240 Y = 114 }
+          { X = -127 Y = -105 }
+        ]
+      }
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
+    }
+    
+    {
+      Name = "TyphonDestructiblePillar03_Destroyed"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonDestructiblePillar03_Destroyed"
+        CausesOcclusion = true
+        Tallness = 437
+        Offset = { X = 0 Y = -165 }
+        Points = [
+          { X = -200 Y = 8 }
+          { X = -5 Y = 111 }
+          { X = 172 Y = 27 }
+          { X = -6 Y = -89 }
+        ]
+      }
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
+    }
+
+    {
+      Name = "TyphonDestructiblePillar03"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonDestructiblePillar03_Idle"
+        Tallness = 277
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -221 Y = 13 }
+          { X = 102 Y = 163 }
+          { X = 208 Y = 123 }
+          { X = -109 Y = -40 }
+        ]
+      }
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
+    }
+
+    {
+      Name = "TyphonDestructiblePillar04"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonDestructiblePillar04_Idle"
+        CausesOcclusion = true
+        Tallness = 437
+        Offset = { X = 0 Y = -165 }
+        Points = [
+          { X = -200 Y = 8 }
+          { X = -5 Y = 111 }
+          { X = 172 Y = 27 }
+          { X = -6 Y = -89 }
+        ]
+      }
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
+    }
+    
+    {
+      Name = "TyphonDestructiblePillar04_Destroyed"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonDestructiblePillar04_Destroyed"
+        CausesOcclusion = true
+        Tallness = 437
+        Offset = { X = 0 Y = -165 }
+        Points = [
+          { X = -200 Y = 8 }
+          { X = -5 Y = 111 }
+          { X = 172 Y = 27 }
+          { X = -6 Y = -89 }
+        ]
+      }
+      Life = 
+      {
+        ConsiderInvulnerableForSilentImpact = true
+      }
+    }
+
+    {
+      Name = "TyphonWall01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Wall_01"
+        Tallness = 644
+        Offset = { X = 0 Y = -405 }
+        Points = [
+          { X = -940 Y = 44 }
+          { X = -254 Y = 319 }
+          { X = 589 Y = 340 }
+          { X = 920 Y = 102 }
+          { X = 845 Y = -121 }
+          { X = 295 Y = -490 }
+          { X = -622 Y = -534 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonWall01a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Wall_01a"
+        Tallness = 644
+        Offset = { X = 0 Y = -405 }
+        Points = [
+          { X = -940 Y = 44 }
+          { X = -254 Y = 319 }
+          { X = 589 Y = 340 }
+          { X = 920 Y = 102 }
+          { X = 845 Y = -121 }
+          { X = 295 Y = -490 }
+          { X = -622 Y = -534 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonForegroundSnake01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_ForegroundSnake_01"
+        Tallness = 644
+        Offset = { X = 0 Y = -405 }
+      }
+    }
+
+  {
+      Name = "TyphonWallSnake01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Wall_Snake_01"
+        Tallness = 644
+        Offset = { X = 0 Y = -102 }
+      }
+    }
+
+  {
+      Name = "TyphonWallSnake01a"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Wall_Snake_01a"
+        Tallness = 644
+        Offset = { X = 0 Y = -125 }
+      }
+    }
+
+  {
+      Name = "TyphonWallSnake02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Wall_Snake_02"
+        Tallness = 644
+        Offset = { X = 0 Y = -125 }
+      }
+    }
+
+  {
+      Name = "TyphonWallSnake03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Wall_Snake_03"
+        Tallness = 644
+        Offset = { X = 0 Y = -125 }
+      }
+    }
+
+  {
+      Name = "TyphonStairs01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Stairs_01"
+        Tallness = 125
+        Offset = { X = 0 Y = -107 }
+        Points = [
+          { X = 404 Y = -17 }
+          { X = -148 Y = 265 }
+          { X = -405 Y = -83 }
+          { X = -364 Y = -320 }
+          { X = 57 Y = -402 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonStairs01a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Stairs_01a"
+        Tallness = 125
+        Offset = { X = 0 Y = 8 }
+      }
+    }
+
+  {
+      Name = "TyphonStairs01b"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Stairs_01b"
+        Tallness = 125
+        Offset = { X = 0 Y = 15 }
+      }
+    }
+
+  {
+      Name = "TyphonStairs02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Stairs_02"
+        Tallness = 541
+        Offset = { X = 0 Y = -210 }
+        Points = [
+          { X = 357 Y = 95 }
+          { X = 158 Y = 183 }
+          { X = -440 Y = -52 }
+          { X = -193 Y = -190 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonStairs03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Stairs_03"
+        Tallness = 541
+        Offset = { X = 0 Y = 16 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainTile06"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Tile_06"
+        Tallness = 541
+        Offset = { X = 0 Y = 16 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainEdge02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Edge_02"
+        Tallness = 541
+        Offset = { X = 0 Y = 16 }
+      }
+    }
+
+  {
+      Name = "TyphonWall02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Wall_02"
+        Tallness = 842
+        Offset = { X = 0 Y = -170 }
+        Points = [
+          { X = -780 Y = 244 }
+          { X = -334 Y = 640 }
+          { X = -79 Y = 612 }
+          { X = 841 Y = 59 }
+          { X = 233 Y = -298 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonBridge01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Bridge_01"
+        Tallness = 1097
+        Offset = { X = 0 Y = -170 }
+        Points = [
+          { X = -1057 Y = 471 }
+          { X = -526 Y = 730 }
+          { X = 1063 Y = -54 }
+          { X = 535 Y = -343 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonPillarBase01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Pillar_Base_01"
+		UseBoundsForSortDrawArea = true
+		SortBoundsScale = 0.85
+        Tallness = 615
+        Offset = { X = 0 Y = -229 }
+        Points = [
+          { X = -470 Y = 9 }
+          { X = -424 Y = 78 }
+          { X = -72 Y = 262 }
+          { X = 69 Y = 262 }
+          { X = 418 Y = 76 }
+          { X = 465 Y = 5 }
+          { X = 46 Y = -198 }
+          { X = -90 Y = -188 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonSpiralStaircase01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_SpiralStaircase_01"
+        Tallness = 1638
+        Offset = { X = 0 Y = -229 }
+        Points = [
+          { X = 347 Y = 733 }
+          { X = 639 Y = 482 }
+          { X = 207 Y = 104 }
+          { X = -361 Y = 275 }
+          { X = -320 Y = 507 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonPillar01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Pillar_01"
+        Tallness = 996
+        Offset = { X = 0 Y = -360 }
+        Points = [
+          { X = -266 Y = 71 }
+          { X = 4 Y = 186 }
+          { X = 271 Y = 47 }
+          { X = -4 Y = -83 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonPillar01b"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Pillar_01b"
+        Tallness = 1708
+        Offset = { X = 0 Y = -649 }
+        Points = [
+          { X = -276 Y = 86 }
+          { X = 0 Y = 223 }
+          { X = 281 Y = 82 }
+          { X = 7 Y = -55 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonPillar01c"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Pillar_01c"
+        Tallness = 1568
+        Offset = { X = 0 Y = -641 }
+        Points = [
+          { X = -234 Y = 45 }
+          { X = -185 Y = 108 }
+          { X = -77 Y = 150 }
+          { X = 92 Y = 149 }
+          { X = 208 Y = 100 }
+          { X = 243 Y = 33 }
+          { X = 128 Y = -55 }
+          { X = -131 Y = -51 }
+          { X = -208 Y = -8 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonCapital01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Capital_01"
+        Tallness = 449
+        Offset = { X = 0 Y = -159 }
+        Points = [
+          { X = -202 Y = 59 }
+          { X = 9 Y = 152 }
+          { X = 197 Y = 47 }
+          { X = -2 Y = -49 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonPedestal01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Pedestal_01"
+        Tallness = 104
+        Offset = { X = 0 Y = -159 }
+        Points = [
+          { X = -370 Y = -72 }
+          { X = -320 Y = 13 }
+          { X = -178 Y = 88 }
+          { X = 2 Y = 111 }
+          { X = 173 Y = 89 }
+          { X = 289 Y = 34 }
+          { X = 368 Y = -56 }
+          { X = 350 Y = -179 }
+          { X = 236 Y = -304 }
+          { X = 33 Y = -345 }
+          { X = -187 Y = -328 }
+          { X = -318 Y = -218 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonPillar03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Pillar_03"
+        Tallness = 1641
+        Offset = { X = 0 Y = -360 }
+        Points = [
+          { X = -571 Y = 314 }
+          { X = -301 Y = 429 }
+          { X = -34 Y = 290 }
+          { X = -309 Y = 160 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonPillar02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Pillar_02"
+        Tallness = 1677
+        Offset = { X = 0 Y = -568 }
+        Points = [
+          { X = -154 Y = 95 }
+          { X = 48 Y = 220 }
+          { X = 414 Y = 210 }
+          { X = 573 Y = 8 }
+          { X = 197 Y = -146 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonStatue01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Statue_01"
+        Tallness = 804
+        Offset = { X = 0 Y = -271 }
+        Points = [
+          { X = -402 Y = 116 }
+          { X = -134 Y = 238 }
+          { X = 341 Y = 164 }
+          { X = 531 Y = -39 }
+          { X = 144 Y = -193 }
+          { X = -323 Y = -188 }
+          { X = -506 Y = -16 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonStatue03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Statue_03"
+        Tallness = 1830
+        Offset = { X = 0 Y = -645 }
+        Points = [
+          { X = -402 Y = 188 }
+          { X = -155 Y = 314 }
+          { X = 121 Y = 403 }
+          { X = 465 Y = 102 }
+          { X = 37 Y = -165 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonPillar01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Pillar_01a"
+        Tallness = 272
+        Offset = { X = 0 Y = -41 }
+        Points = [
+          { X = -480 Y = 5 }
+          { X = -265 Y = 163 }
+          { X = 136 Y = 255 }
+          { X = 388 Y = 252 }
+          { X = 479 Y = 135 }
+          { X = -154 Y = -189 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonRubble03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Rubble_03"
+        Tallness = 168
+        Offset = { X = 0 Y = -41 }
+        Points = [
+          { X = -765 Y = 5 }
+          { X = -24 Y = 307 }
+          { X = 571 Y = 304 }
+          { X = 729 Y = 137 }
+          { X = 431 Y = -67 }
+          { X = -142 Y = -180 }
+          { X = -501 Y = -98 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonArch01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Arch_01"
+        Tallness = 852
+        Offset = { X = 0 Y = -170 }
+        Points = [
+          { X = -780 Y = 244 }
+          { X = -630 Y = 435 }
+          { X = -216 Y = 467 }
+          { X = 222 Y = 260 }
+          { X = 163 Y = 70 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonClouds01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Clouds_01"
+        Tallness = 852
+        Offset = { X = 0 Y = -170 }
+      }
+    }
+
+  {
+      Name = "TyphonClouds02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Clouds_02"
+        Tallness = 852
+        Offset = { X = 0 Y = -170 }
+      }
+    }
+
+  {
+      Name = "TyphonWall03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Wall_03"
+        Tallness = 1670
+        Offset = { X = 0 Y = -514 }
+        Points = [
+          { X = -707 Y = 325 }
+          { X = -389 Y = 501 }
+          { X = 329 Y = 279 }
+          { X = 719 Y = -74 }
+          { X = 440 Y = -299 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonWall05"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Wall_05"
+        Tallness = 1670
+        Offset = { X = 0 Y = -514 }
+        Points = [
+          { X = -707 Y = 325 }
+          { X = -389 Y = 501 }
+          { X = 329 Y = 279 }
+          { X = 719 Y = -74 }
+          { X = 440 Y = -299 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonBrazier01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Brazier_01"
+        Tallness = 1209
+        Offset = { X = 0 Y = -510 }
+        Points = [
+          { X = -350 Y = 182 }
+          { X = 333 Y = 189 }
+          { X = 275 Y = -137 }
+          { X = -192 Y = -165 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonVase01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Vase_01"
+        Tallness = 620
+        Offset = { X = 0 Y = -247 }
+        Points = [
+          { X = -62 Y = 54 }
+          { X = -29 Y = 65 }
+          { X = 49 Y = 67 }
+          { X = 84 Y = 33 }
+          { X = 90 Y = -15 }
+          { X = 17 Y = -28 }
+          { X = -79 Y = -10 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonWall06"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Wall_06"
+        Tallness = 1226
+        Offset = { X = 0 Y = -514 }
+        Points = [
+          { X = -968 Y = -47 }
+          { X = -842 Y = 155 }
+          { X = -158 Y = 385 }
+          { X = 652 Y = 84 }
+          { X = 765 Y = 7 }
+          { X = 951 Y = -193 }
+          { X = 163 Y = -556 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonWall07"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Wall_07"
+        Tallness = 1670
+        Offset = { X = 0 Y = -514 }
+        Points = [
+          { X = -707 Y = 325 }
+          { X = -389 Y = 501 }
+          { X = 329 Y = 279 }
+          { X = 719 Y = -74 }
+          { X = 440 Y = -299 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonWall08"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Wall_08"
+        Tallness = 888
+        Offset = { X = 0 Y = -252 }
+        Points = [
+          { X = 364 Y = -566 }
+          { X = 959 Y = 31 }
+          { X = 706 Y = 609 }
+          { X = 233 Y = 781 }
+          { X = -949 Y = 188 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonWall06a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Wall_06a"
+        Tallness = 1148
+        Offset = { X = 0 Y = -252 }
+        Points = [
+          { X = 383 Y = -547 }
+          { X = 908 Y = -24 }
+          { X = 593 Y = 526 }
+          { X = 217 Y = 703 }
+          { X = -948 Y = 122 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonWallBrick01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_WallBrick_01"
+        Tallness = 1279
+        Offset = { X = 0 Y = -555 }
+        Points = [
+          { X = -766 Y = 203 }
+          { X = -374 Y = 399 }
+          { X = 822 Y = -196 }
+          { X = 427 Y = -394 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonWallBrick01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_WallBrick_01a"
+        Tallness = 1279
+        Offset = { X = 0 Y = -555 }
+        Points = [
+          { X = -744 Y = -15 }
+          { X = -396 Y = 155 }
+          { X = 658 Y = -311 }
+          { X = 298 Y = -498 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonWallBrick02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_WallBrick_02"
+        Tallness = 1279
+        Offset = { X = 0 Y = -555 }
+        Points = [
+          { X = -648 Y = 108 }
+          { X = -615 Y = -121 }
+          { X = 589 Y = -108 }
+          { X = 587 Y = 128 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonWallBrick03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_WallBrick_03"
+        Tallness = 857
+        Offset = { X = 0 Y = -228 }
+        Points = [
+          { X = -397 Y = 33 }
+          { X = -129 Y = 146 }
+          { X = 368 Y = -123 }
+          { X = 115 Y = -242 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonWallBrick04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_WallBrick_04"
+        Tallness = 284
+        Offset = { X = 0 Y = -111 }
+        Points = [
+          { X = -639 Y = 205 }
+          { X = -311 Y = 369 }
+          { X = 627 Y = -100 }
+          { X = 627 Y = -229 }
+          { X = 404 Y = -341 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonWallBrick05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_WallBrick_05"
+        Tallness = 1484
+        Offset = { X = 0 Y = -553 }
+        Points = [
+          { X = 221 Y = -53 }
+          { X = -212 Y = 140 }
+          { X = -452 Y = 21 }
+          { X = -41 Y = -184 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonWallBrick06"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_WallBrick_06"
+        Tallness = 367
+        Offset = { X = 0 Y = -162 }
+        Points = [
+          { X = -486 Y = -17 }
+          { X = -109 Y = 172 }
+          { X = 538 Y = -151 }
+          { X = 161 Y = -340 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonWallBrick07"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_WallBrick_07"
+        Tallness = 367
+        Offset = { X = 0 Y = -162 }
+        Points = [
+          { X = -460 Y = 45 }
+          { X = -194 Y = 178 }
+          { X = 464 Y = -151 }
+          { X = 199 Y = -284 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonTree01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Tree_01"
+        Tallness = 1279
+        Offset = { X = 0 Y = -555 }
+        Points = [
+          { X = -750 Y = 195 }
+          { X = -408 Y = 382 }
+          { X = 632 Y = -150 }
+          { X = 255 Y = -355 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonArchitrave01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Architrave_01"
+        Tallness = 400
+        Offset = { X = 0 Y = -183 }
+        Points = [
+          { X = -800 Y = 238 }
+          { X = -454 Y = 398 }
+          { X = 795 Y = -220 }
+          { X = 428 Y = -390 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonArchitrave02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Architrave_02"
+        Tallness = 400
+        Offset = { X = 0 Y = -183 }
+        Points = [
+          { X = -800 Y = 238 }
+          { X = -454 Y = 398 }
+          { X = 795 Y = -220 }
+          { X = 428 Y = -390 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonArchway01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Archway_01"
+        Tallness = 1873
+        Offset = { X = 0 Y = -770 }
+        Points = [
+          { X = 33 Y = 118 }
+          { X = 220 Y = 212 }
+          { X = 305 Y = 170 }
+          { X = 117 Y = 76 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonArchway01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Archway_01a"
+        Tallness = 1845
+        Offset = { X = 0 Y = -861 }
+        Points = [
+          { X = -185 Y = -58 }
+          { X = -92 Y = -5 }
+          { X = -13 Y = -55 }
+          { X = -90 Y = -111 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonRubble01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Rubble_01"
+        Tallness = 311
+        Offset = { X = 0 Y = -144 }
+        Points = [
+          { X = -424 Y = 173 }
+          { X = -217 Y = 240 }
+          { X = 256 Y = 236 }
+          { X = 474 Y = 56 }
+          { X = 408 Y = -186 }
+          { X = 115 Y = -248 }
+          { X = -222 Y = -57 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonRubble02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Rubble_02"
+        Tallness = 311
+        Offset = { X = 0 Y = -144 }
+        Points = [
+          { X = -608 Y = -57 }
+          { X = -126 Y = 187 }
+          { X = 139 Y = 294 }
+          { X = 519 Y = 182 }
+          { X = 363 Y = -76 }
+          { X = 115 Y = -248 }
+          { X = -247 Y = -249 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonWall04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        CausesOcclusion = true
+        Graphic = "Tilesets\Typhon\Typhon_Wall_04"
+        Tallness = 1727
+        Offset = { X = 0 Y = -514 }
+        Points = [
+          { X = -607 Y = 312 }
+          { X = -564 Y = 356 }
+          { X = -14 Y = 435 }
+          { X = 616 Y = -23 }
+          { X = 291 Y = -174 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonStatue02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Statue_02"
+        Tallness = 819
+        Offset = { X = 0 Y = -40 }
+        Points = [
+          { X = 757 Y = 544 }
+          { X = -742 Y = 220 }
+          { X = -969 Y = -5 }
+          { X = -659 Y = -358 }
+          { X = -10 Y = -306 }
+          { X = 897 Y = 131 }
+          { X = 1029 Y = 318 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonRubble04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Rubble_04"
+        Tallness = 263
+        Offset = { X = 0 Y = -40 }
+        Points = [
+          { X = -487 Y = 29 }
+          { X = -413 Y = 125 }
+          { X = -155 Y = 276 }
+          { X = 2 Y = 317 }
+          { X = 496 Y = 73 }
+          { X = 321 Y = -69 }
+          { X = -154 Y = -151 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonRubble05"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Rubble_05"
+        Tallness = 263
+        Offset = { X = 0 Y = -40 }
+        Points = [
+          { X = -487 Y = 29 }
+          { X = -413 Y = 125 }
+          { X = -155 Y = 276 }
+          { X = 2 Y = 317 }
+          { X = 496 Y = 73 }
+          { X = 321 Y = -69 }
+          { X = -154 Y = -151 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonCliffWall01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_CliffWall_01"
+        Tallness = 1230
+        Offset = { X = 0 Y = -514 }
+        Points = [
+          { X = -529 Y = -46 }
+          { X = -308 Y = 149 }
+          { X = 63 Y = 247 }
+          { X = 544 Y = 54 }
+          { X = -178 Y = -210 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonCliffWall02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_CliffWall_02"
+        Tallness = 1163
+        Offset = { X = 0 Y = -514 }
+        Points = [
+          { X = -376 Y = -53 }
+          { X = -254 Y = 129 }
+          { X = 117 Y = 235 }
+          { X = 414 Y = 65 }
+          { X = 258 Y = -218 }
+          { X = -206 Y = -239 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonSnakes01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Snakes_01"
+        Tallness = 732
+        Offset = { X = 0 Y = -170 }
+        Points = [
+          { X = -1028 Y = -91 }
+          { X = -637 Y = 207 }
+          { X = -50 Y = 338 }
+          { X = 421 Y = 259 }
+          { X = 800 Y = 140 }
+          { X = 971 Y = -88 }
+          { X = -30 Y = -356 }
+          { X = -666 Y = -267 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonSnakes02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Snakes_02"
+        Tallness = 357
+        Offset = { X = 0 Y = -170 }
+        Points = [
+          { X = -950 Y = -98 }
+          { X = -615 Y = 144 }
+          { X = 29 Y = 303 }
+          { X = 375 Y = 242 }
+          { X = 802 Y = 59 }
+          { X = 893 Y = -269 }
+          { X = -23 Y = -423 }
+          { X = -597 Y = -326 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonTerrainDecor01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Decor_01"
+        Tallness = 46
+        Offset = { X = 0 Y = 79 }
+        Points = [
+          { X = -1091 Y = 453 }
+          { X = -1033 Y = 616 }
+          { X = -826 Y = 623 }
+          { X = 161 Y = 397 }
+          { X = 1067 Y = -263 }
+          { X = 932 Y = -379 }
+          { X = 452 Y = -401 }
+          { X = -309 Y = -175 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonTerrainDecor02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Decor_02"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainDecor05"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Decor_05"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainDecor06"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Decor_06"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainDestruction01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Destruction_01"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainDecor03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Decor_03"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainCrack04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Crack_04"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainBase01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Base_01"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainCrack01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Crack_01"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainCrater01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Crater_01"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainCrack02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Crack_02"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainDestruction03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Destruction_03"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainTile05"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Tile_05"
+        Tallness = 189
+        Offset = { X = 0 Y = -59 }
+        Points = [
+          { X = -896 Y = -91 }
+          { X = -287 Y = 291 }
+          { X = 159 Y = 461 }
+          { X = 698 Y = 284 }
+          { X = 863 Y = 135 }
+          { X = 569 Y = -240 }
+          { X = -335 Y = -431 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonSpike"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Life =
+      {
+        HitSound = "/SFX/MetalBoneSmash"
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TyphonMineSpike"
+        Tallness = 354
+        Offset = { X = 0 Y = -71 }
+        Points = [
+          { X = -43 Y = -27 }
+          { X = -48 Y = 6 }
+          { X = -7 Y = 20 }
+          { X = 32 Y = 1 }
+          { X = 10 Y = -31 }
+        ]
+      }
+    }
+  
+  {
+    Name = "TyphonMineDepleted"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "TyphonMineDepleted"
+      Scale = 1.0
+      Tallness = 21
+          Offset = { X = 0 Y = -57 }
+          Points = [
+            { X = 2 Y = -40 }
+            { X = -37 Y = -35 }
+            { X = -62 Y = -10 }
+            { X = -15 Y = 24 }
+            { X = 40 Y = 13 }
+            { X = 30 Y = -23 }
+          ]
+      }
+  }
+
+  {
+      Name = "TyphonTerrainTile05a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Tile_05a"
+        Tallness = 189
+        Offset = { X = 0 Y = -59 }
+        Points = [
+          { X = -896 Y = -91 }
+          { X = -287 Y = 291 }
+          { X = 159 Y = 461 }
+          { X = 698 Y = 284 }
+          { X = 863 Y = 135 }
+          { X = 569 Y = -240 }
+          { X = -335 Y = -431 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonTerrainDestruction04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Destruction_04"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainTile01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Tile_01"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainCrack03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Crack_03"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainTile02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Tile_02"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainStoneRubbleEdge01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_StoneRubbleEdge_01"
+        Tallness = 980
+        Offset = { X = 0 Y = -125 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainStoneRubbleEdge01b"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_StoneRubbleEdge_01b"
+        Tallness = 980
+        Offset = { X = 0 Y = -128 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainStoneRubbleEdge01c"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_StoneRubbleEdge_01c"
+        Tallness = 66
+        Offset = { X = 0 Y = -35 }
+        Points = [
+          { X = -266 Y = -8 }
+          { X = -225 Y = 50 }
+          { X = 50 Y = 78 }
+          { X = 257 Y = 2 }
+          { X = 238 Y = -49 }
+          { X = -72 Y = -45 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonTerrainStoneRubbleEdge02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_StoneRubbleEdge_02"
+        Tallness = 111
+        Offset = { X = 0 Y = 79 }
+        Points = [
+          { X = -261 Y = 191 }
+          { X = -159 Y = 248 }
+          { X = -74 Y = 238 }
+          { X = 196 Y = 122 }
+          { X = 265 Y = 32 }
+          { X = 97 Y = -17 }
+          { X = -114 Y = 57 }
+        ]
+      }
+    }
+
+  {
+      Name = "TyphonTerrainEdge01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Edge_01"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainTile03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Tile_03"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainTile04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Tile_04"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainTile07"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Tile_07"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainTile07b"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Tile_07b"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainTile07c"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Tile_07c"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainTile07a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Tile_07a"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainTile05b"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Tile_05b"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainDecor04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Decor_04"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainBricks01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Bricks_01"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+  {
+      Name = "TyphonTerrainDestruction02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Typhon\Typhon_Terrain_Destruction_02"
+        Tallness = 980
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+
+
+
+    {
+      Name = "TyphonTailOverlook"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        OffsetZ = 0
+        EditorOutlineDrawBounds = false
+        Graphic = "Enemy_TyphonTail_Hidden"
+        GrannyModel = "TyphonTail_Mesh"
+        Color = { Red = 0.10 Green = 0.10 Blue = 0.10 Alpha = 0.7 }
+      }
+    }
+
+    {
+      Name = "ShadeTyphonIdle01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionAlphaOutDuration = 0.1
+      CollisionEndedAlphaInDuration = 3.0
+      DisplayInEditor = true
+      UseCollisionShift = false
+      IgnoredByPathfinders = true
+      Life = 
+      {
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+        ConsiderInvulnerableForSilentImpact = true
+        TriggerOnHit = false
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "ShadeTyphonIdle"
+        StopsLight = false
+        Tallness = 192
+        Offset = { X = 0 Y = -47 }
+        Points = [
+          { X = 37 Y = -7 }
+          { X = 14 Y = -25 }
+          { X = -19 Y = -25 }
+          { X = -36 Y = -6 }
+          { X = -18 Y = 20 }
+          { X = 20 Y = 17 }
+        ]
+      }
+    }
+
+  ]
+}

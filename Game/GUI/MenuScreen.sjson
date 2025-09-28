@@ -16,9 +16,9 @@
     AlertHeaderFormat = {
       Font = "LatoSemibold"
       FontSize = 20
-      TextRed = 0
-      TextGreen = 1
-      TextBlue = 0.39
+      TextRed = 0.32
+      TextGreen = 0.82
+      TextBlue = 0.55
       TextOutlineRed = 0
       TextOutlineGreen = 0
       TextOutlineBlue = 0
@@ -33,7 +33,7 @@
     AlertSigFormat = {
       Font = "P22UndergroundSCMedium"
       FontSize = 24
-      NonEnglishScaleModifier = 1.0
+      
       TextRed = 1.0
       TextGreen = 0.57
       TextBlue = 0.07
@@ -51,9 +51,9 @@
     AlertHighlightFormat = {
       Font = "LatoMedium"
       FontSize = 20
-      TextRed = 0.97
-      TextGreen = 0.84
-      TextBlue = 0.22
+      TextRed = 0.88
+      TextGreen = 0.57
+      TextBlue = 0.31
       TextOutlineRed = 0
       TextOutlineGreen = 0
       TextOutlineBlue = 0
@@ -108,7 +108,7 @@
     SpecialMenuSettingLightFormat = {
       Font = "P22UndergroundSCMedium"
       FontSize = 21
-      NonEnglishScaleModifier = 1.0
+      LineSpacingBottom = -20
       TextRed = 1
       TextGreen = 0.95
       TextBlue = 0.4
@@ -139,7 +139,7 @@
     SpecialMenuSettingDarkFormat = {
       Font = "P22UndergroundSCMedium"
       FontSize = 21
-      NonEnglishScaleModifier = 1.0
+      
       TextRed = 0.95
       TextGreen = 0.0
       TextBlue = 0.0
@@ -269,59 +269,6 @@
       ShadowBlur = 0
       ShadowOffsetY = 0
       OutlineThickness = 4
-    }
-    LegendaryFormat = {
-      TextRed = 0.9
-      TextGreen = 0.9
-      TextBlue = 0.9
-      Font = "P22UndergroundSCHeavy"
-      FontSize = 20
-      TextOutlineRed = 0.55
-      TextOutlineGreen = 0.55
-      TextOutlineBlue = 0.55
-      ShadowRed = 0
-      ShadowBlue = 0
-      ShadowGreen = 0
-      ShadowAlpha = 1
-      ShadowBlur = 3
-      ShadowOffsetY = 1
-      ShadowOffsetX = 0
-      OutlineThickness = 0
-    }
-    EpicFormat = {
-      Font = "LatoBold"
-      FontSize = 20
-      TextRed = 0.57
-      TextGreen = 0.56
-      TextBlue = 0.55
-      LineSpacingBottom = 0
-    }
-    RareFormat = {
-      Justification = "Left"
-      VerticalJustification = "Top"
-      TextRed = 0.85
-      TextGreen = 0.45
-      TextBlue = 0.1
-      Font = "LatoBold"
-      FontSize = 18
-      LineSpacingBottom = 6
-      TextOutlineRed = 0.3
-      TextOutlineGreen = 0.28
-      TextOutlineBlue = 0.25
-      OutlineThickness = 2
-      ShadowRed = 0
-      ShadowGreen = 0
-      ShadowBlue = 0
-      ShadowOffsetY = 1
-      ShadowBlur = 1
-      ShadowAlpha = 1
-    }
-    CommonFormat = {
-      Font = "LatoMedium"
-      FontSize = 18
-      TextRed = 0.298
-      TextGreen = 0.682
-      TextBlue = 0.557
     }
     ItalicFormat = {
       TextOffsetX = 55

@@ -19,11 +19,25 @@
 	}
 
 	{
+		Name = "Enemy_CharybdisTentacle_Dance"
+		InheritFrom = "EnemyCharybdisTentacleBaseAnimation"
+		GrannyAnimation = "CharybdisTentacle_Base_Dance_C_00"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_CharybdisTentacle2_WhipPostFire"
+				Duration = 24
+			}
+		]
+	}
+
+	{
 		Name = "Enemy_CharybdisTentacle_Burrow"
 		InheritFrom = "EnemyCharybdisTentacleBaseAnimation"
 		GrannyAnimation = "CharybdisTentacle_Base_Burrow_C_00"
 		ChainTo = "Enemy_CharybdisTentacle_Hidden"
-		CreateAnimation = "RubbleFallImpactDecal"
+		CreateAnimation = "RubbleFallImpactDecal_CharybdisTentacle"
 		Sound = "/SFX/Enemy Sounds/RangedBurrower/DraconSubmerge"
 		Frames =
 		[
@@ -59,6 +73,10 @@
 				Duration = 4
 			}
 			{
+				BlendTransitionFrom = "Enemy_CharybdisTentacle_Dance"
+				Duration = 12
+			}
+			{
 				BlendTransitionFrom = "Enemy_CharybdisTentacle_OnHit"
 				Duration = 4
 			}
@@ -70,6 +88,50 @@
 	}
 
 	{
+		Name = "Enemy_CharybdisTentacle2_Burrow"
+		InheritFrom = "Enemy_CharybdisTentacle_Burrow"
+		CreateAnimation = null
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 1
+				VerticalMask = 1.0
+				Sound = "/SFX/Enemy Sounds/Charybdis/EmoteRetreating"
+			}
+			{
+				Frame = 10
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 24
+				VerticalMask = 0.65
+			}
+			{
+				Frame = 32
+				VerticalMask = 0.4
+				Sound = "/SFX/Enemy Sounds/WaterUnit/WaterUnitSubmergeSplash"
+			}
+			{
+				Frame = 35
+				VerticalMask = 0.3
+				CreateAnimation = "OceanusEnemySplashLarge"
+			}
+			{
+				Frame = 55
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 59
+				VerticalMask = 0.0
+			}
+		]
+	}
+	{
 		Name = "Enemy_CharybdisTentacle_Hidden"
 		InheritFrom = "EnemyCharybdisTentacleBaseAnimation"
 		GrannyAnimation = "CharybdisTentacle_Base_Idle_C_00"
@@ -77,24 +139,31 @@
 		Alpha = 0.0
 		OwnerInvulnerable = true
 		OwnerUntargetable = true
-		OwnerHasNoUnitCollision = true
+		OwnerHasNoCollision = true
 	}
 
 	{
 		Name = "Enemy_CharybdisTentacle_Surface"
 		InheritFrom = "EnemyCharybdisTentacleBaseAnimation"
 		GrannyAnimation = "CharybdisTentacle_Base_Surface_C_00"
-		CreateAnimation = "RubbleFallImpactDecal"
+		CreateAnimation = "RubbleFallImpactDecal_CharybdisTentacle"
 		Sound = "/SFX/PillarBoulderImpact"
 		Frames =
 		[
 			{
 				Frame = 0
 				VerticalMask = 0.0
+				FrameSpeed = 0.1
+			}
+			{
+				Frame = 1
+				VerticalMask = 0.166
+				FrameSpeed = 1
 			}
 			{
 				Frame = 3
 				VerticalMask = 0.5
+				CreateAnimation = "OceanusEnemySplashLarge"
 			}
 			{
 				Frame = 5
@@ -113,11 +182,18 @@
 	}
 
 	{
+		Name = "Enemy_CharybdisTentacle2_Surface"
+		InheritFrom = "Enemy_CharybdisTentacle_Surface"
+		CreateAnimation = null
+		Sound = "/SFX/Enemy Sounds/WaterUnit/WaterUnitSpawnSplash"
+	}
+
+	{
 		Name = "Enemy_CharybdisTentacle_OnHit"
 		InheritFrom = "EnemyCharybdisTentacleBaseAnimation"
 		GrannyAnimation = "CharybdisTentacle_Base_GetHit_C_00"
 		AllowRestart = true
-		ChainTo = "Enemy_CharybdisTentacle_Idle"
+		//ChainTo = "Enemy_CharybdisTentacle_Idle"
 		Sound = "/SFX/Enemy Sounds/Charybdis/EmoteHurt"
 		Frames =
 		[
@@ -151,6 +227,10 @@
 				Duration = 16
 			}
 			{
+				BlendTransitionFrom = "Enemy_CharybdisTentacle_Dance"
+				Duration = 18
+			}
+			{
 				BlendTransitionFrom = "Enemy_CharybdisTentacle_OnHit"
 				Duration = 4
 			}
@@ -180,7 +260,7 @@
 		Name = "Enemy_CharybdisTentacle_SlapPostFire"
 		InheritFrom = "EnemyCharybdisTentacleBaseAnimation"
 		GrannyAnimation = "CharybdisTentacle_Base_SlapPostFire_C_01"
-		ChainTo = "Enemy_CharybdisTentacle_Idle"
+		//ChainTo = "Enemy_CharybdisTentacle_Idle"
 	}
 
 	// SPIKE
@@ -195,6 +275,10 @@
 			{
 				BlendTransitionFrom = "Enemy_CharybdisTentacle_Idle"
 				Duration = 16
+			}
+			{
+				BlendTransitionFrom = "Enemy_CharybdisTentacle_Dance"
+				Duration = 18
 			}
 			{
 				BlendTransitionFrom = "Enemy_CharybdisTentacle_OnHit"
@@ -220,7 +304,7 @@
 		InheritFrom = "EnemyCharybdisTentacleBaseAnimation"
 		GrannyAnimation = "CharybdisTentacle_Base_SpikePostFire_C_01"
 		GrannyAnimationSpeed = 2.0
-		ChainTo = "Enemy_CharybdisTentacle_Idle"
+		//ChainTo = "Enemy_CharybdisTentacle_Idle"
 	}
 
 	// STAB
@@ -235,6 +319,10 @@
 			{
 				BlendTransitionFrom = "Enemy_CharybdisTentacle_Idle"
 				Duration = 16
+			}
+			{
+				BlendTransitionFrom = "Enemy_CharybdisTentacle_Dance"
+				Duration = 18
 			}
 			{
 				BlendTransitionFrom = "Enemy_CharybdisTentacle_OnHit"
@@ -260,7 +348,7 @@
 		InheritFrom = "EnemyCharybdisTentacleBaseAnimation"
 		GrannyAnimation = "CharybdisTentacle_Base_SpikePostFire_C_00"
 		GrannyAnimationSpeed = 2.0
-		ChainTo = "Enemy_CharybdisTentacle_Idle"
+		//ChainTo = "Enemy_CharybdisTentacle_Idle"
 	}
 
 	// WHIP
@@ -275,6 +363,10 @@
 			{
 				BlendTransitionFrom = "Enemy_CharybdisTentacle_Idle"
 				Duration = 16
+			}
+			{
+				BlendTransitionFrom = "Enemy_CharybdisTentacle_Dance"
+				Duration = 18
 			}
 			{
 				BlendTransitionFrom = "Enemy_CharybdisTentacle_OnHit"
@@ -298,7 +390,55 @@
 		Name = "Enemy_CharybdisTentacle_WhipPostFire"
 		InheritFrom = "EnemyCharybdisTentacleBaseAnimation"
 		GrannyAnimation = "CharybdisTentacle_Base_WhipPostFire_C_00"
-		ChainTo = "Enemy_CharybdisTentacle_Idle"
+		//ChainTo = "Enemy_CharybdisTentacle_Idle"
+	}
+
+	{
+		Name = "Enemy_CharybdisTentacle2_WhipPostFire"
+		InheritFrom = "EnemyCharybdisTentacleBaseAnimation"
+		GrannyAnimation = "CharybdisTentacle_Base_WhipPostFire_C_00"
+		//ChainTo = "Enemy_CharybdisTentacle_Idle"
+		Frames =
+		[
+			{
+				Frame = 65
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_CharybdisTentacle_Death"
+		InheritFrom = "Enemy_CharybdisTentacle_OnHit"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 2.0
+		GrannyAnimationSpeed = 0.25
+		DeathFxFrameDuration = 90
+		DeathFxColor = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
 	}
 
 ] }

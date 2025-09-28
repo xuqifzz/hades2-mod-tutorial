@@ -45,13 +45,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Charybdis/EmoteAttackingMelee" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.17, Fraction = 1.00, LerpTime = 0 },
-		},
 	},
 
 	CharybdisTentacleBurrow =
@@ -92,13 +85,6 @@ WeaponSetData =
 			{
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.17, Fraction = 1.00, LerpTime = 0 },
-		},
 	},
 
 	CharybdisTentacleSlap =
@@ -109,15 +95,16 @@ WeaponSetData =
 
 			FireProjectileStartDelay = 0.1,
 
+			ProjectileName = "TentacleSlamWave",
 			AttackSlots =
 			{
-				{ ProjectileName = "TentacleSlamWave", AIDataOverrides = { SpawnFromMarker = "CharybdisTentacle_Rig:tail_06_M_JNT", FireProjectileAngleRelative = -90 }  },
-				{ ProjectileName = "TentacleSlamWave", AIDataOverrides = { SpawnFromMarker = "CharybdisTentacle_Rig:tail_06_M_JNT", FireProjectileAngleRelative = 90 }, PauseDuration = 0.025,  },
-				{ ProjectileName = "TentacleSlamWave", AIDataOverrides = { SpawnFromMarker = "CharybdisTentacle_Rig:tail_14_M_JNT", FireProjectileAngleRelative = -90 } },
-				{ ProjectileName = "TentacleSlamWave", AIDataOverrides = { SpawnFromMarker = "CharybdisTentacle_Rig:tail_14_M_JNT", FireProjectileAngleRelative = 90 }, PauseDuration = 0.02 },
-				{ ProjectileName = "TentacleSlamWave", AIDataOverrides = { SpawnFromMarker = "CharybdisTentacle_Rig:spike_01_M_JNT", FireProjectileAngleRelative = -90 }  },
-				{ ProjectileName = "TentacleSlamWave", AIDataOverrides = { SpawnFromMarker = "CharybdisTentacle_Rig:spike_01_M_JNT", FireProjectileAngleRelative = 90 }  },
-				{ ProjectileName = "TentacleSlamWave", AIDataOverrides = { SpawnFromMarker = "CharybdisTentacle_Rig:spike_01_M_JNT", FireProjectileAngleRelative = 0 }  },
+				{ AIDataOverrides = { SpawnFromMarker = "CharybdisTentacle_Rig:tail_06_M_JNT", FireProjectileAngleRelative = -90 }  },
+				{ AIDataOverrides = { SpawnFromMarker = "CharybdisTentacle_Rig:tail_14_M_JNT", FireProjectileAngleRelative = -90 } },
+				{ AIDataOverrides = { SpawnFromMarker = "CharybdisTentacle_Rig:tail_06_M_JNT", FireProjectileAngleRelative = 90 }, PauseDuration = 0.025,  },
+				{ AIDataOverrides = { SpawnFromMarker = "CharybdisTentacle_Rig:tail_14_M_JNT", FireProjectileAngleRelative = 90 }, PauseDuration = 0.02 },
+				{ AIDataOverrides = { SpawnFromMarker = "CharybdisTentacle_Rig:spike_01_M_JNT", FireProjectileAngleRelative = -90 }  },
+				{ AIDataOverrides = { SpawnFromMarker = "CharybdisTentacle_Rig:spike_01_M_JNT", FireProjectileAngleRelative = 90 }  },
+				{ AIDataOverrides = { SpawnFromMarker = "CharybdisTentacle_Rig:spike_01_M_JNT", FireProjectileAngleRelative = 0 }  },
 			},
 
 			WaitForAngleTowardTarget = true,
@@ -147,14 +134,22 @@ WeaponSetData =
 			FireSounds =
 			{
 				{ Name = "/SFX/Enemy Sounds/Charybdis/EmoteAttackingMelee" },
+				{ Name = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFistWindmillWhoosh" },
 			},
 		},
+	},
 
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
+	CharybdisTentacleSlap2 =
+	{
+		InheritFrom = { "CharybdisTentacleSlap" },
+
+		AIData =
 		{
-			{ ScreenPreWait = 0.08, Fraction = 0.12, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.00, LerpTime = 0.06 },
+			DeepInheritance = true,
+
+			ProjectileName = "TentacleSlamWave2",
+
+			PostAttackDuration = 1.5,
 		},
 	},
 
@@ -165,8 +160,10 @@ WeaponSetData =
 			DeepInheritance = true,
 
 			ProjectileName = "TentacleSpike",
-
+			PreAttackFx = "EnemyChargeFxIn_CharybdisTentacle",
+			PreAttackStop = true,
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.06,
 			StopBeforeFire = true,
@@ -192,6 +189,7 @@ WeaponSetData =
 		{
 			FireSounds =
 			{
+				{ Name = "/SFX/Enemy Sounds/HydraHead/HydraEggSpit" },
 				{ Name = "/SFX/ArcherTrapProjectileFireShoot" },
 				{ Name = "/SFX/Enemy Sounds/Charybdis/EmoteAttackingRange" },
 			},
@@ -200,6 +198,67 @@ WeaponSetData =
 		Requirements =
 		{
 			--MinPlayerDistance = 400,
+		},
+
+	},
+
+	CharybdisTentacleSpike2 =
+	{
+		InheritFrom = { "CharybdisTentacleSpike" },
+
+		Requirements =
+		{
+			MaxPlayerDistance = 1300,
+			MaxPlayerDistanceScaleY = 0.6,
+			MinPlayerDistance = 950,
+			MinPlayerDistanceScaleY = 0.6,
+		},
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "MapState", "Flags", "TentacleSpike" },
+				UseLength = true,
+				Comparison = "<",
+				Value = 2,
+			},
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			PreAttackSetMapFlags =
+			{
+				{ FlagName = "TentacleSpike", Duration = 3.0 },
+			},
+
+			ProjectileName = "TentacleSpike2",
+
+			PostAttackDurationMin = 1.35,
+		},
+
+	},
+
+	CharybdisTentacleSpike2_Ally =
+	{
+		InheritFrom = { "CharybdisTentacleSpike2" },
+
+		Requirements =
+		{
+		},
+
+		GameStateRequirements =
+		{
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "TentacleSpike2",
+
+			PostAttackDurationMin = 1.35,
 		},
 
 	},
@@ -241,14 +300,60 @@ WeaponSetData =
 			FireSounds =
 			{
 				{ Name = "/SFX/Enemy Sounds/Charybdis/EmoteAttackingMelee" },
+				{ Name = "/SFX/Enemy Sounds/Polyphemus/PolyphemusKick" },
 			},
 		},
+	},
 
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
+	CharybdisTentacleWhip2 =
+	{
+		InheritFrom = { "CharybdisTentacleWhip" },
+
+		Requirements =
 		{
-			{ ScreenPreWait = 0.08, Fraction = 0.12, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.00, LerpTime = 0.06 },
+			MaxPlayerDistance = 650,
+			MaxPlayerDistanceScaleY = 0.6,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "Tentacle360Whip2",
+			PreAttackAngleTowardTarget = false,
+			WaitForAngleTowardTarget = false,
+			PostAttackAnimation = "Enemy_CharybdisTentacle2_WhipPostFire",
+
+			PreAttackDuration = 1.0,
+			PreAttackAnimationSpeed = 1.5,
+			PostAttackDurationMin = "nil",
+			PostAttackDurationMax = "nil",
+			PostAttackDuration = 1.7,
+			PostAttackMinWaitTime = 1.53,
+		},
+
+	},
+
+	CharybdisTentacleWait =
+	{
+		Requirements =
+		{
+			MinPlayerDistance = 650,
+			MinPlayerDistanceScaleY = 0.6,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			MoveWithinRange = false,
+			PreAttackAngleTowardTarget = false,
+			SkipFireWeapon = true,
+
+			PreAttackDuration = 0.0,
+			FireDuration = 0.0,
+			PostAttackDuration = 0.0,
+			PostAttackCooldown = 1.0,
 		},
 	},
 
@@ -288,7 +393,7 @@ WeaponSetData =
 			FireSounds =
 			{
 				{ Name = "/SFX/Enemy Sounds/Charybdis/EmoteAttackingMelee" },
-				{ Name = "/SFX/SawTrapFireSound" },
+				{ Name = "/SFX/Enemy Sounds/HydraHead/HydraEggSpit" },
 			},
 		},
 	},
@@ -333,6 +438,212 @@ WeaponSetData =
 			FireDuration = 0.65,
 			PostAttackDurationMin = 11.0,
 			PostAttackDurationMax = 14.0,
+		},
+	},
+
+	CharybdisSpitScyllaEasy_P1 =
+	{
+		InheritFrom = { "CharybdisSpit1" },
+
+		Requirements =
+		{
+			MaxPlayerDistance = 3900,
+			MaxPlayerDistanceScaleY = 0.65,
+			GroupHealthPercentMax = 1.00,
+			GroupHealthPercentMin = 0.75,
+		},
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "MapState", "Flags", "CharybdisBoost" },
+				UseLength = true,
+				Comparison = "<",
+				Value = 1,
+			},
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			ProjectileName = "CharybdisRangedTransportSmallScylla",
+
+			FireTicksMin = 1,
+			FireTicksMax = 1,
+			FireInterval = 0.5,
+
+			FireDuration = 0.65,
+			PostAttackDurationMin = 11.0,
+			PostAttackDurationMax = 13.0,
+		},
+	},
+	CharybdisSpitScyllaHard_P1 =
+	{
+		InheritFrom = { "CharybdisSpit1" },
+
+		Requirements =
+		{
+			MaxPlayerDistance = 3900,
+			MaxPlayerDistanceScaleY = 0.65,
+			GroupHealthPercentMax = 0.75,
+			GroupHealthPercentMin = 0.50,
+		},
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "MapState", "Flags", "CharybdisBoost" },
+				UseLength = true,
+				Comparison = "<",
+				Value = 1,
+			},
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			ProjectileName = "CharybdisRangedTransportSmallScylla",
+
+			FireTicksMin = 2,
+			FireTicksMax = 2,
+			FireInterval = 0.5,
+
+			FireDuration = 0.65,
+			PostAttackDurationMin = 7.0,
+			PostAttackDurationMax = 9.0,
+		},
+	},
+
+	CharybdisSpitScyllaEasy_P2 =
+	{
+		InheritFrom = { "CharybdisSpit1" },
+
+		Requirements =
+		{
+			MaxPlayerDistance = 3900,
+			MaxPlayerDistanceScaleY = 0.65,
+			GroupHealthPercentMax = 0.50,
+			GroupHealthPercentMin = 0.25,
+		},
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "MapState", "Flags", "CharybdisBoost" },
+				UseLength = true,
+				Comparison = "<",
+				Value = 1,
+			},
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			ProjectileName = "CharybdisRangedTransportSmallScylla",
+
+			FireTicksMin = 1,
+			FireTicksMax = 1,
+			FireInterval = 0.5,
+
+			FireDuration = 0.65,
+			PostAttackDurationMin = 11.0,
+			PostAttackDurationMax = 13.0,
+		},
+	},
+	CharybdisSpitScyllaHard_P2 =
+	{
+		InheritFrom = { "CharybdisSpit1" },
+
+		Requirements =
+		{
+			MaxPlayerDistance = 3900,
+			MaxPlayerDistanceScaleY = 0.65,
+			GroupHealthPercentMax = 0.25,
+			GroupHealthPercentMin = 0.0,
+		},
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "MapState", "Flags", "CharybdisBoost" },
+				UseLength = true,
+				Comparison = "<",
+				Value = 1,
+			},
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			ProjectileName = "CharybdisRangedTransportSmallScylla",
+
+			FireTicksMin = 2,
+			FireTicksMax = 2,
+			FireInterval = 0.5,
+
+			FireDuration = 0.65,
+			PostAttackDurationMin = 7.0,
+			PostAttackDurationMax = 9.0,
+			PostAttackMinWaitTime = 6.5,
+		},
+	},
+
+	CharybdisSpitScyllaBoosted =
+	{
+		InheritFrom = { "CharybdisSpit1" },
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "MapState", "Flags", "CharybdisBoost" },
+				UseLength = true,
+				Comparison = ">=",
+				Value = 1,
+			},
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			ProjectileName = "CharybdisRangedTransportScylla",
+
+			FireTicksMin = 4,
+			FireTicksMax = 4,
+			FireInterval = 3,
+
+			PreAttackDuration = 1.25,
+			FireDuration = 0.65,
+			PostAttackDuration = 8.0,
+			PostAttackMinWaitTime = 7.5,
+
+
+			PreAttackAnimation = "Enemy_Charybdis_SpitPreFire_Fast",
+		},
+	},
+
+	CharybdisWait =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			MoveWithinRange = false,
+			SkipFireWeapon = true,
+
+			PreAttackDuration = 0.0,
+			FireDuration = 0.0,
+			PostAttackDuration = 0.0,
+			PostAttackCooldown = 1.0,
 		},
 	},
 }

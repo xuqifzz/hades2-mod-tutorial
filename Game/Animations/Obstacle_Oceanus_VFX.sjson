@@ -25,18 +25,24 @@
 
 	{
 		Name = "OceanusExitDoorOpen"
-		CreateAnimation = "OceanusManholeOpen"
-		FilePath = "Tilesets\DrownedChambers\DrownedChambers_ManholeOpen_01"
+		FilePath = "Fx\OceanusManholeOpen\OceanusManholeOpen"
+		NumFrames = 12
+		PlaySpeed = 30
+		ChainTo = "OceanusExitDoorOpenLoop"
+		Scale = 1.1
 		GroupName = "FX_Terrain"
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		Scale = 0.28
-		Duration = 2
-		Loop = true
 		OwnerHasNoCollision = false
 		Sound = "/Leftovers/Object Ambiences/WaterRushingBloodRiver2"
 		StopSoundOnFinishFade = 0.3
+	}
+
+	{
+		Name = "OceanusExitDoorOpenLoop"
+		InheritFrom = "OceanusExitDoorOpen"
+		FilePath = "Fx\OceanusManholeOpenLoop\OceanusManholeOpenLoop"
+		NumFrames = 29
+		Loop = true
+		ChainTo = null
 	}
 
 	{
@@ -45,7 +51,6 @@
 		ChildAnimation = "null"
 		Sound = null
 	}
-	
 
 	{
 		Name = "OceanusKelpCocoon"
@@ -225,6 +230,13 @@
 	}
 
 	{
+		Name = "ScyllaStadiumSteamer"
+		InheritFrom = "OceanusSteamWallTrap"
+		ChainTo = "null"
+		CreateAnimation = "null"
+	}
+
+	{
 		Name = "OceanusSteamWallTrapDisplacement"
 		InheritFrom = "OceanusSteamWallTrap"
 		ChainTo = null
@@ -280,8 +292,8 @@
 		FilePath = "Particles\particle_circle"
 		Alpha = 0
 		VisualFx = "OceanusBubbles"
-		VisualFxIntervalMin = 1
-		VisualFxIntervalMax = 1.1
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 1.0
 	}
 
 	{
@@ -297,7 +309,7 @@
 	{
 		Name = "OceanusBubblesA"
 		FilePath = "Fx\OceanusBubblesA\OceanusBubblesA"
-		NumFrames = 98
+		NumFrames = 75
 		RandomPlaySpeedMin = 30
 		RandomPlaySpeedMax = 36
 		RandomFlipHorizontal = true
@@ -433,6 +445,23 @@
 	}
 
 	{
+		Name = "CalmRipple_ScyllaDeath"
+		InheritFrom = "CalmRipple"
+		GroupName = "Combat_Menu_Additive"
+		Scale = 2
+		RandomOffsetX = 200
+		RandomOffsetY = 100
+		StartRed = 0
+		StartGreen = 0.3
+		StartBlue = 0.6
+		EndRed = 0.01
+		EndGreen = 0.5
+		EndBlue = 0.8
+		StartAlpha = 0.2
+		EndAlpha = 0.5
+	}
+
+	{
 		Name = "ScyllaClamDefenseRipple"
 		InheritFrom = "CalmRipple"
 		Scale = 3
@@ -550,6 +579,7 @@
 		RandomOffsetX = 6
 		RandomOffsetY = 3
 		OffsetZ = 6
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 		CreateAnimations =
 		[
 			{ Name = "WaterIdleFootRippleDisplacement" }
@@ -754,6 +784,7 @@
 		OffsetY = -55
 		UseOwnAngle = false
 		HoldLastFrame = true
+		ColorFromOwner = "Take"
 		CreateAnimations =
 		[
 			{ Name = "WaterSplashFootstep"}
@@ -799,25 +830,6 @@
 		Ambient = 0.25
 		ScaleY = 0.66
 		FlipWithMap = true
-	}
-
-	{
-		Name = "OceanusManholeOpen"
-		FilePath = "Fx\OceanusManholeOpen\OceanusManholeOpen"
-		NumFrames = 12
-		PlaySpeed = 30
-		ChainTo = "OceanusManholeLoop"
-		Scale = 1.1
-		GroupName = "FX_Terrain"
-	}
-
-	{
-		Name = "OceanusManholeLoop"
-		InheritFrom = "OceanusManholeOpen"
-		FilePath = "Fx\OceanusManholeOpenLoop\OceanusManholeOpenLoop"
-		NumFrames = 29
-		Loop = true
-		ChainTo = null
 	}
 	
 	{
@@ -918,8 +930,11 @@
 		NumFrames = 40
 		FilePath = "Fx\ScyllaStatueSubmergeFrontFx\ScyllaStatueSubmergeFrontFx"
 		VisualFx = null
-		OffsetY = -150
-		OffsetX = 10
+		OffsetX = 0
+		OffsetY = 0
+		OriginX = 126
+		OriginY = 344
+		UseAttachedShake = false
 		ClearCreateAnimations = true
 		DieWithOwner = false
 		ChainTo = null
@@ -1089,5 +1104,417 @@
 		Color = { Red = 0.3 Green = 0.3 Blue = 1.0 }
 	}
 
+	{
+		Name = "DrownedChambersScyllaSign01"
+		FilePath = "Tilesets\DrownedChambers\DrownedChambers_Scylla_Sign_01"
+		StartRed = 1.0
+		StartBlue = 1.0
+		StartGreen = 1.0
+		EndRed = 0.0
+		EndBlue = 0.0
+		EndGreen = 0.0
+		PingPongColor = true
+		RandomDurationMin = 0.1
+		RandomDurationMax = 4.0
+		Loop = true
+	}
 
+	{
+		Name = "ScyllaStageLightFlash"
+		FilePath = "Tilesets\Atmosphere\Atmosphere_StageLight_01"
+		RandomDurationMin = 0.05
+		RandomDurationMax = 1
+		OriginX = 0
+		OriginY = 200
+		Loop = true
+		ColorFromOwner = "Maintain"
+	}
+
+	{
+		Name = "ScyllaStageLightFlash02"
+		FilePath = "Tilesets\Atmosphere\Atmosphere_StageLight_01"
+		StartRed = 1.0
+		StartBlue = 1.0
+		StartGreen = 1.0
+		EndRed = 0.0
+		EndBlue = 0.0
+		EndGreen = 0.0
+		StartAngle = 0
+		EndAngle = 0
+		PingPongColor = true
+		RandomDurationMin = 0.05
+		RandomDurationMax = 1
+		OriginX = 0
+		OriginY = 266
+		Loop = true
+	}
+
+	{
+		Name = "DrownedChambersFanSign01Float"
+		FilePath = "Tilesets\DrownedChambers\DrownedChambers_FanSign_01"
+		
+		RandomDurationMin = 5
+		RandomDurationMax = 10
+		StartAngle = -1
+		EndAngle = 1
+		PingPongAngle = true
+		StartOffsetZ = -25
+		EndOffsetZ = 25
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "DrownedChambersFanSign01aFloat"
+		FilePath = "Tilesets\DrownedChambers\DrownedChambers_FanSign_01a"
+		
+		RandomDurationMin = 5
+		RandomDurationMax = 10
+		StartAngle = -1
+		EndAngle = 1
+		PingPongAngle = true
+		StartOffsetZ = -25
+		EndOffsetZ = 25
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "EMScyllaFlameEmitter"
+		FilePath = "Backgrounds\rectangle_01"
+		Duration = 1
+		Loop = true
+		VisualFx = "EMScyllaFlame"
+		VisualFxIntervalMin = 2
+		VisualFxIntervalMax = 2
+		VisualFxManagerCap = 500
+		VisualFxManagerFrameCap = 20
+		ScaleX = 0.5
+		ScaleY = 1.6
+		OriginX = 240
+		OriginY = 225
+		Alpha = 0
+		ColorFromOwner = "Maintain"
+		DieWithOwner = true
+	}
+
+	{
+		Name = "EMScyllaFlame"
+		FilePath = "Fx\EMScyllaFlame\EMScyllaFlame"
+		NumFrames = 70
+		Material = "Unlit"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 32
+		RandomFlipHorizontal = true
+		OriginX = 120
+		OriginY = 400
+		ColorFromOwner = "Maintain"
+		VisualFxManagerCap = 500
+		VisualFxManagerFrameCap = 20
+		TimeModifierFraction = 0
+		DieWithOwner = true
+		CreateAnimations = [
+			{ Name = "EMScyllaFlameGlow" }
+		]
+	}
+
+	{
+		Name = "EMScyllaFlameGlow"
+		FilePath = "Particles\particle_glow_egg"
+		Duration = 1.2
+		StartAlpha = 0
+		EndAlpha = 0.33
+		PingPongColor = true
+		EndRed = 1
+		EndGreen = 0.5
+		EndBlue = 0.1
+		StartRed = 0.999
+		StartGreen = 0.1
+		StartBlue = 0
+		GroupName = "FX_Standing_Add"
+		Scale = 4
+		EaseIn = 0.9
+		EaseOut = 1
+		StartOffsetZ = 100
+		EndOffsetZ = 150
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+	}
+
+
+	{
+		Name = "EMScyllaFireworksEmitter"
+		FilePath = "Backgrounds\rectangle_01"
+		Duration = 1
+		Loop = true
+		VisualFx = "EMScyllaFireworksBurst"
+		VisualFxIntervalMin = 2
+		VisualFxIntervalMax = 4
+		ScaleX = 0.56
+		ScaleY = 1.0
+		Alpha = 0
+		Scale = 2
+		CreateAnimation = "EMScyllaFireworksBurst"
+	}
+
+	{
+		Name = "EMScyllaFireworksBurst"
+		FilePath = "Fx\EMScyllaFireworks\EMScyllaFireworks"
+		NumFrames = 55
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		AddColor = true
+		// GroupName = "FX_Standing_Add"
+		CreateAnimation = "EMScyllaFireworksBurstGlow"
+	}
+
+	{
+		Name = "EMScyllaFireworksBurstGlow"
+		FilePath = "Particles\particle_glow"
+		Scale = 3
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 1
+		EndScale = 1.2
+		Duration = 2
+		EaseIn = 0.99
+		EaseOut = 1.0
+		// GroupName = "FX_Add_Top"
+		OffsetZ = 300
+	}
+
+	{
+		Name = "EMScyllaFireworksStreakEmitter"
+		FilePath = "Particles\particle_arrow"
+		Duration = 1
+		Loop = true
+		Alpha = 0.01
+		ScaleX = 2
+		Scale = 0.75
+		VisualFxIntervalMin = 2
+		VisualFxIntervalMax = 2
+		VisualFx = "EMScyllaFireworksStreakHead"
+		CreateAnimation = "EMScyllaFireworksStreakHead"
+	}
+
+	{
+		Name = "EMScyllaFireworksStreakHead"
+		FilePath = "Particles\particle_gold_streak"
+		Saturation = -1
+		Duration = 1.0
+		AngleFromOwner = "Take"
+		VelocityMin = 2000
+		VelocityMax = 2500
+		Acceleration = -800
+		Gravity = 500
+		// GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		StartScale = 1
+		EndScale = 0
+		VisualFx = "EMScyllaFireworksStreakParticles"
+		VisualFxDistanceMin = 150
+		VisualFxDistanceMax = 220
+		VisualFxUse3DAngle = true
+		AddColor = true
+	}
+
+	{
+		Name = "EMScyllaFireworksStreakParticles"
+		Random = [
+			{ Name = "EMScyllaFireworksStreakParticleA" }
+			{ Name = "EMScyllaFireworksStreakParticleB" }
+			{ Name = "EMScyllaFireworksStreakParticleC" }
+		]
+	}
+	{
+		Name = "EMScyllaFireworksStreakParticleA"
+		FilePath = "Fx\EMScyllaFireworkStreakA\EMScyllaFireworkStreakA"
+		NumFrames = 40
+		RandomFlipVertical = true
+		AddColor = true
+		// GroupName = "FX_Standing_Add"
+		RandomPlaySpeedMin = 35
+		RandomPlaySpeedMax = 60
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		Scale = 1.5
+		ScaleFromOwner = "Ignore"
+		OriginX = 32
+		OriginY = 64
+		StartScale = 1
+		EndScale = 1.5
+	}
+	{
+		Name = "EMScyllaFireworksStreakParticleB"
+		InheritFrom = "EMScyllaFireworksStreakParticleA"
+		FilePath = "Fx\EMScyllaFireworkStreakB\EMScyllaFireworkStreakB"
+	}
+	{
+		Name = "EMScyllaFireworksStreakParticleC"
+		InheritFrom = "EMScyllaFireworksStreakParticleA"
+		FilePath = "Fx\EMScyllaFireworkStreakC\EMScyllaFireworkStreakC"
+	}
+
+	{
+		Name = "EMScyllaConfettiEmitterContinuous"
+		FilePath = "Backgrounds\rectangle_01"
+		VisualFxIntervalMin = 0.8
+		VisualFxIntervalMax = 1.2
+		VisualFx = "EMScyllaConfettiRandom"
+		Duration = 1
+		ScaleX = 0.8
+		Alpha = 0
+		Loop = true
+	}
+
+	{
+		Name = "EMScyllaConfettiEmitterBurst"
+		InheritFrom = "EMScyllaConfettiEmitterContinuous"
+		VisualFxIntervalMin = 3
+		VisualFxIntervalMax = 3
+		VisualFx = "EMScyllaConfettiBurst"
+		CreateAnimation = "EMScyllaConfettiBurst"
+	}
+
+	{
+		Name = "EMScyllaConfettiBurst"
+		FilePath = "Dev\blank_invisible"
+		DurationFrames = 1
+		CreateAnimations = [
+			{ Name = "EMScyllaConfettiRandomBurst" }
+			{ Name = "EMScyllaConfettiRandomBurst" }
+			{ Name = "EMScyllaConfettiRandomBurst" }
+			{ Name = "EMScyllaConfettiRandomBurst" }
+			{ Name = "EMScyllaConfettiRandomBurst" }
+			{ Name = "EMScyllaConfettiRandomBurst" }
+		]
+	}
+
+	{
+		Name = "EMScyllaConfettiRandom"
+		Random = [
+			{ Name = "EMScyllaConfettiA" }
+			{ Name = "EMScyllaConfettiB" }
+		]
+	}
+	{
+		Name = "EMScyllaConfettiA"
+		FilePath = "Fx\EMScyllaConfettiA\EMScyllaConfettiA"
+		NumFrames = 75
+		RandomPlaySpeedMin = 28
+		RandomPlaySpeedMax = 32
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		Material = "Unlit"
+	}
+	{
+		Name = "EMScyllaConfettiB"
+		InheritFrom = "EMScyllaConfettiA"
+		FilePath = "Fx\EMScyllaConfettiB\EMScyllaConfettiB"
+	}
+
+	{
+		Name = "EMScyllaConfettiRandomBurst"
+		Random = [
+			{ Name = "EMScyllaConfettiBurstA" }
+			{ Name = "EMScyllaConfettiBurstB" }
+		]
+	}
+	{
+		Name = "EMScyllaConfettiBurstA"
+		FilePath = "Fx\EMScyllaConfettiA\EMScyllaConfettiA"
+		NumFrames = 70
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 32
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = true
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		Material = "Unlit"
+		RandomOffsetX = 150
+		RandomOffsetY = 75
+		StartFrame = 5
+		Gravity = 15
+		AngleMin = -5
+		AngleMax = 5
+		//RandomStartFrame = true
+	}
+	{
+		Name = "EMScyllaConfettiBurstB"
+		InheritFrom = "EMScyllaConfettiBurstA"
+		FilePath = "Fx\EMScyllaConfettiB\EMScyllaConfettiB"
+	}
+
+	{
+		Name = "OceanusManholeLockIdle"
+		FilePath = "Fx\OceanusManholeUnlock\OceanusManholeUnlock0001"
+		Duration = 1
+		Loop = true
+		VisualFx = "OceanusManholeLockIdleGlow"
+		VisualFxIntervalMin = 1
+		VisualFxIntervalMax = 1
+	}
+
+	{
+		Name = "OceanusManholeLockIdleIn"
+		FilePath = "Fx\OceanusManholeUnlock\OceanusManholeUnlock0001"
+		ChainTo = "OceanusManholeLockIdle"
+		Duration = 0.2
+		StartAlpha = 0
+		EndAlpha = 1.0
+	}
+
+	{
+		Name = "OceanusManholeLockIdleGlow"
+		FilePath = "Fx\OceanusManholeLockIdleGlow\OceanusManholeLockIdleGlow"
+		NumFrames = 15
+		PlaySpeed = 45
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+	}
+
+
+	{
+		Name = "OceanusManholeUnlock"
+		FilePath = "Fx\OceanusManholeUnlock\OceanusManholeUnlock"
+		NumFrames = 36
+		PlaySpeed = 30
+		VisualFx = "OceanusRandomRipples"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		CreateAnimations = [
+			{ Name = "OceanusProjectileSplash" }
+			{ Name = "OceanusManholeUnlockRipple" }
+		]
+	}
+
+	{
+		Name = "OceanusManholeUnlockRipple"
+		FilePath = "Fx\WaterSplashRipple\WaterSplashRipple"
+		NumFrames = 30
+		PostRotateScaleY = 0.5
+		Scale = 3.5
+		GroupName = "FX_Terrain"
+		ColorFromOwner = "Ignore"
+		PlaySpeed = 24
+		OffsetZ = -20
+		StartAlpha = 0.6
+		EndAlpha = 0.3
+	}
 ]}

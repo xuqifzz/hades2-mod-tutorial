@@ -10,6 +10,7 @@ UnitSetData.FishmanMelee =
 		ActivateFxPreSpawn = "WaterUnitSurface",
 		ActivateFadeInDuration = 0.1,
 		ActivateFxPreSpawnDelay = 0.5,
+		PostActivateScreenshake = { Distance = 6, Speed = 300, FalloffSpeed = 0, Duration = 0.24, Angle = 90, DistanceThreshold = 200 },
 
 		DeathAnimation = "Enemy_FishmanMelee_Death",
 		MaxHealth = 615,
@@ -61,6 +62,7 @@ UnitSetData.FishmanMelee =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_0078", Text = "Lurkers." },
@@ -77,7 +79,7 @@ UnitSetData.FishmanMelee =
 
 		IsAggroedSound = "/SFX/Enemy Sounds/FishmanMelee/EmoteTaunting",
 
-		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Hex" }),
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Hex", "Metallic" }),
 
 		DefaultAIData =
 		{
@@ -90,6 +92,44 @@ UnitSetData.FishmanMelee =
 			"FishmanImpale_Elite",
 		},
 		]]
+
+		GeneratorData =
+		{
+			DifficultyRating = 105,
+			BlockEnemyTypes = {"FishmanMelee"}
+		},
+	},
+
+	FishmanMelee2 =
+	{
+		InheritFrom = { "Elite", "FishmanMelee" },
+		GenusName = "FishmanMelee_Elite",
+		MaxHealth = 2600,
+		HealthBuffer = 2600,
+
+		GrannyTexture = "GR2/FishmanMeleeTyphon_Color",
+
+		IsAggroedSound = "/SFX/Enemy Sounds/FishmanMelee/EmoteTaunting",
+
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Hex", "Metallic" }),
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+		},
+
+		WeaponOptions =
+		{
+			"Fishman2Impale",
+		},
+
+		SpellSummonDataOverrides =
+		{
+			WeaponOptions =
+			{
+				"Fishman2Impale_Ally"
+			},
+		},
 
 		GeneratorData =
 		{

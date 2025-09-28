@@ -33,6 +33,10 @@ function CheckObjectiveSet( objectiveSetName, checkTrigger, extraDelay )
 		return false
 	end
 
+	if SessionMapState.PendingObjectiveSetName ~= nil then
+		return false
+	end
+
 	if GameState.ActiveObjectiveSet ~= nil and not objectiveSetInfo.OverrideExistingObjective then
 		return false
 	end
@@ -80,9 +84,9 @@ function ShowObjectiveSet( objectiveSetName, extraDelay )
 		objectiveSetData.StartDelay = objectiveSetData.StartDelay + extraDelay
 	end
 	if objectiveSetData.StartDelay ~= nil and objectiveSetData.ObjectiveIndex == nil then
-		objectiveSetData.IsDelaying = true
+		SessionMapState.PendingObjectiveSetName = objectiveSetName
 		wait( objectiveSetData.StartDelay, RoomThreadName )
-		objectiveSetData.IsDelaying = false
+		SessionMapState.PendingObjectiveSetName = nil
 		if not IsObjectiveSetEligible( objectiveSetName, objectiveSetData ) or ( objectiveSetData.GameStateRequirements ~= nil and not IsGameStateEligible( objectiveSetData, objectiveSetData.GameStateRequirements ) ) then
 			return
 		end
@@ -104,7 +108,7 @@ end
 function ClearObjectives()
 	ScreenAnchors.Objectives = nil
 	HideObjectivesUI()
-	CurrentRun.ActiveObjectives = {}
+	ScreenState.ActiveObjectives = {}
 end
 
 function ResetObjectives()
@@ -119,11 +123,11 @@ function AddActiveObjective( objectiveName, objectiveSetName )
 	local activeObjective = ShallowCopyTable( ObjectiveData[objectiveName] )
 
 	activeObjective.Status = "Active"
-	CurrentRun.ActiveObjectives[objectiveName] = activeObjective
+	ScreenState.ActiveObjectives[objectiveName] = activeObjective
 end
 
 function ShowObjective( objectiveData, objectId )
-	local stringColor = Color.White
+	local stringColor = {0.8, 0.8, 0.8, 1.0}
 	if objectiveData.Status == "Complete" then
 		stringColor = Color.DimGray
 	end
@@ -133,21 +137,27 @@ function ShowObjective( objectiveData, objectId )
 		descriptionText = SessionState.ObjectiveSwaps[objectiveData.Name]
 	end
 
-	local objectiveDistance = 480
+	local objectiveDistance = 320
 	Teleport({ Id = objectId, UseCurrentLocation = true, DestinationIsScreenRelative = true, OffsetX = objectiveDistance })
 	PlaySound({ Name = "/SFX/Menu Sounds/ObjectiveActivateShk", Id = objectId })
 	SetAlpha({ Id = objectId, Fraction = 0, Duration = 0.0 })
-	CreateTextBox({ Id = objectId, Text = descriptionText, OffsetX = 20, Color = Color.Yellow,
-					Font = "LatoBold", FontSize = 45, ShadowRed = 0, ShadowBlue = 0, ShadowGreen = 0,
-					ShadowAlpha = 1.0, ShadowBlur = 0, ShadowOffsetY = 3, ShadowOffsetX = 0, 
-					OutlineColor = {0, 0, 0, 1}, OutlineThickness = 0,
-					LuaKey = objectiveData.LuaKey, LuaValue = objectiveData.StartingLuaValue,
-					TextSymbolScale = 0.80,
-					Justification = "Left"})
+	CreateTextBox({
+		Id = objectId, Text = descriptionText, OffsetX = 20, Color = {0, 255, 64, 255},
+		Font = "LatoMedium", FontSize = 40, ShadowRed = 0, ShadowBlue = 0, ShadowGreen = 0,
+		ShadowAlpha = 1.0, ShadowBlur = 0, ShadowOffsetY = 3, ShadowOffsetX = 0, 
+		OutlineColor = {0, 0, 0, 1}, OutlineThickness = 0,
+		LuaKey = objectiveData.LuaKey, LuaValue = objectiveData.StartingLuaValue,
+		TextSymbolScale = 0.80,
+		Justification = "Left",
+		DataProperties =
+		{
+			TextSymbolUseLineColor = true,
+		},
+	})
 	
 	local scaleTarget = 0.45
-	ModifyTextBox({ Id = objectId, ScaleTarget = objectiveData.StartingScaleTarget or scaleTarget, ScaleDuration = 0.2, ColorTarget = stringColor, ColorDuration = 0.5 })
-	if IsEmpty( MapState.CombatUIHide ) then
+	ModifyTextBox({ Id = objectId, ScaleTarget = objectiveData.StartingScaleTarget or scaleTarget, ScaleDuration = 0.0, ColorTarget = stringColor, ColorDuration = 0.5, EaseIn = 0.9, EaseOut = 1.0 })
+	if IsEmpty( MapState.CombatUIHide ) and IsEmpty( MapState.ObjectiveUIHide ) then
 		SetAlpha({ Id = objectId, Fraction = 1.0, Duration = 0.05 })
 	end
 	local postDisplayWait = objectiveData.PostDisplayWait or 1.2
@@ -156,42 +166,44 @@ function ShowObjective( objectiveData, objectId )
 	if objectiveData.Status == "Complete" then
 		stringColor = Color.DimGray
 	end
-	ModifyTextBox({ Id = objectId, ScaleTarget = scaleTarget, ScaleDuration = 0.4, ColorTarget = stringColor, ColorDuration = 0.5 })
+	ModifyTextBox({ Id = objectId, ScaleTarget = scaleTarget, ScaleDuration = 0.0, ColorTarget = stringColor, ColorDuration = 0.5 })
 	PlaySound({ Name = "/SFX/Menu Sounds/ObjectiveActivateShk2", Id = objectId, Delay = 0.25 })
-	Move({ Id = objectId, Distance = objectiveDistance, Angle = 180, Duration = 0.75, EaseIn = 0.0, EaseOut = 1.0 })
+	Move({ Id = objectId, Distance = objectiveDistance, Angle = 180, Duration = 0.5, EaseIn = 0.95, EaseOut = 1.0 })
 
 end
 
 function UpdateObjective( objectiveName, luaKey, luaValue, args )
 
-	local activeObjective = CurrentRun.ActiveObjectives[objectiveName]
+	local activeObjective = ScreenState.ActiveObjectives[objectiveName]
 	if activeObjective == nil then
 		return
 	end
 
 	args = args or {}
 
+	local scaleTargetOriginal = ObjectiveData[objectiveName].StartingScaleTarget or 0.45
+
 	ModifyTextBox({ Id = activeObjective.ObjectId, LuaKey = luaKey, LuaValue = luaValue, })
 	if args.Pulse then
-		ModifyTextBox({ Id = activeObjective.ObjectId, ColorTarget = {1, 0.8, 0, 1}, ColorDuration = 0.2 })
+		ModifyTextBox({ Id = activeObjective.ObjectId, ColorTarget = {0, 1.0, 0.9, 1}, ColorDuration = 0.2 })
 		ModifyTextBox({ Id = activeObjective.ObjectId, ColorTarget = {1, 1, 1, 1}, ColorDuration = 0.5, Delay = 0.2 })
 		if args.PulseSound then
 			PlaySound({ Name = args.PulseSound })
 		end
-		thread(PulseText, {Id = activeObjective.ObjectId, ScaleOriginal = 0.4, ScaleTarget = 0.55, ScaleDuration = 0.5, HoldDuration = 0.0})
+		thread(PulseText, {Id = activeObjective.ObjectId, ScaleOriginal = scaleTargetOriginal, ScaleTarget = 0.55, ScaleDuration = 0.5, HoldDuration = 0.0})
 	end
 	if args.PulseNegative then
-		ModifyTextBox({ Id = activeObjective.ObjectId, ColorTarget = {1, 0.2, 0, 1}, ColorDuration = 0.2 })
+		ModifyTextBox({ Id = activeObjective.ObjectId, ColorTarget = {0, 1.0, 0.9, 1}, ColorDuration = 0.2 })
 		ModifyTextBox({ Id = activeObjective.ObjectId, ColorTarget = {1, 1, 1, 1}, ColorDuration = 0.5, Delay = 0.2 })
 		PlaySound({ Name = args.PulseSound })
-		thread(PulseText, {Id = activeObjective.ObjectId, ScaleOriginal = 0.4, ScaleTarget = 0.55, ScaleDuration = 0.5, HoldDuration = 0.0})
+		thread(PulseText, {Id = activeObjective.ObjectId, ScaleOriginal = scaleTargetOriginal, ScaleTarget = 0.55, ScaleDuration = 0.5, HoldDuration = 0.0})
 	end
 
 end
 
 function UpdateObjectiveDescription( objectiveName, newDescription, luaKey, luaValue )
 
-	local activeObjective = CurrentRun.ActiveObjectives[objectiveName]
+	local activeObjective = ScreenState.ActiveObjectives[objectiveName]
 	if activeObjective == nil then
 		return
 	end
@@ -200,7 +212,7 @@ function UpdateObjectiveDescription( objectiveName, newDescription, luaKey, luaV
 
 end
 
-function CreateObjectiveUI()
+function CreateObjectiveUI( args )
 	local room = CurrentHubRoom or CurrentRun.CurrentRoom
 	if room == nil then
 		return
@@ -209,12 +221,12 @@ function CreateObjectiveUI()
 		ScreenAnchors.Objectives = {}
 	end
 
-	local startOffsetY = room.ObjectiveStartY or HUDScreen.ObjectiveStartY
-	local k = 1
 	local objectiveSet = ObjectiveSetData[GameState.ActiveObjectiveSet]
+	local startOffsetY = objectiveSet.StartY or room.ObjectiveStartY or HUDScreen.ObjectiveStartY
+	local k = 1	
 	for k, objectiveName in ipairs( objectiveSet.Objectives[objectiveSet.ObjectiveIndex] ) do
-		local activeObjective = CurrentRun.ActiveObjectives[objectiveName]
-		if ScreenAnchors.Objectives == nil or CurrentRun.ActiveObjectives[objectiveName] == nil then
+		local activeObjective = ScreenState.ActiveObjectives[objectiveName]
+		if ScreenAnchors.Objectives == nil or ScreenState.ActiveObjectives[objectiveName] == nil then
 			-- Requested hidden mid-loop
 			break
 		end
@@ -225,12 +237,12 @@ function CreateObjectiveUI()
 
 			if activeObjective.Status == "Active" then
 				SetAnimation({ DestinationId = ScreenAnchors.Objectives[k], Name = "ObjectiveBackground" })
-				CreateAnimation({ DestinationId = ScreenAnchors.Objectives[k], Name = "NewObjectiveFlare" })
+				CreateAnimation({ DestinationId = ScreenAnchors.Objectives[k], Name = "NewObjectiveFlare", Group = "Combat_Menu_TraitTray_Overlay_Additive" })
 			else
 				SetAnimation({ DestinationId = ScreenAnchors.Objectives[k], Name = "ObjectiveBackground_Fulfilled" })
 			end
 			thread( ShowObjective, activeObjective, ScreenAnchors.Objectives[k] )
-			wait( 0.1, RoomThreadName )
+			wait( 0.075, RoomThreadName )
 			k = k + 1
 		end
 	end
@@ -247,7 +259,7 @@ function MarkObjectivesComplete( objectiveNames )
 end
 
 function MarkObjectiveComplete( objectiveName )
-	local objectiveData = CurrentRun.ActiveObjectives[objectiveName]
+	local objectiveData = ScreenState.ActiveObjectives[objectiveName]
 	if objectiveData == nil then
 		return
 	end
@@ -259,16 +271,25 @@ function MarkObjectiveComplete( objectiveName )
 		objectiveData.Status = "Complete"
 		SetAnimation({ DestinationId = objectiveData.ObjectId, Name = "ObjectiveBackground_Fulfilled" })
 		PlaySound({ Name = "/SFX/Menu Sounds/ObjectiveCompletedSparkles", Id = objectiveData.ObjectId })
-		ModifyTextBox({ Id = objectiveData.ObjectId, ScaleTarget = 0.65, ScaleDuration = 0.15, ColorTarget = Color.Gold, ColorDuration = 0.15 })
+		ModifyTextBox({ Id = objectiveData.ObjectId, ScaleTarget = 0.50, ScaleDuration = 0.15, ColorTarget = {0.3, 1, 0.9, 1.0}, ColorDuration = 0.15 })
+		SetAnimation({ DestinationId = objectiveData.ObjectId, Name = "ObjectiveBackgroundComplete" })
 		wait( 0.5, RoomThreadName )
-		ModifyTextBox({ Id = objectiveData.ObjectId, ScaleTarget = 0.45, ScaleDuration = 1.25, ColorTarget = Color.DimGray, ColorDuration = 1.25 })
+		ModifyTextBox({ Id = objectiveData.ObjectId,
+			ScaleTarget = 0.45, ScaleDuration = 1.25,
+			ColorTarget = Color.DimGray, ColorDuration = 1.25,
+			EaseIn = 0, EaseOut = 1,
+			DataProperties =
+			{
+				IgnoreFormatters = true,
+			},
+		})
 	end
 	wait( 0.52, RoomThreadName )
 	CheckActiveObjectivesStatus()
 end
 
 function MarkObjectiveFailed( objectiveName, endSet )
-	local objectiveData = CurrentRun.ActiveObjectives[objectiveName]
+	local objectiveData = ScreenState.ActiveObjectives[objectiveName]
 	if objectiveData == nil then
 		return
 	end
@@ -298,8 +319,8 @@ end
 
 function CheckActiveObjectivesStatus()
 	local currentCompletedObjectives = 0
-	local totalActiveObjectives = TableLength( CurrentRun.ActiveObjectives )
-	for objectId, objectiveData in pairs( CurrentRun.ActiveObjectives ) do
+	local totalActiveObjectives = TableLength( ScreenState.ActiveObjectives )
+	for objectId, objectiveData in pairs( ScreenState.ActiveObjectives ) do
 		if objectiveData.Status == "Complete" then
 			currentCompletedObjectives = currentCompletedObjectives + 1
 		end
@@ -312,7 +333,7 @@ function CheckActiveObjectivesStatus()
 			ClearObjectives()
 			return
 		end
-		if objectiveSetData.IsDelaying then
+		if SessionMapState.PendingObjectiveSetName == objectiveSetName then
 			return
 		end
 		ClearObjectives()
@@ -332,42 +353,24 @@ function CheckActiveObjectivesStatus()
 	end
 end
 
-function HideObjectivesUI()
-	for objectiveName, objectiveData in pairs( CurrentRun.ActiveObjectives ) do
-		SetAlpha({ Id = objectiveData.ObjectId, Fraction = 0, Duration = 0.3 })
+function HideObjectivesUI( flag )
+	if flag ~= nil then
+		MapState.ObjectiveUIHide[flag] = true
+	end
+	for objectiveName, objective in pairs( ScreenState.ActiveObjectives ) do
+		objective.Hidden = true
+		SetAlpha({ Id = objective.ObjectId, Fraction = 0, Duration = 0.3 })
 	end
 end
 
-function ShowObjectivesUI()
-	for objectiveName, objectiveData in pairs( CurrentRun.ActiveObjectives ) do
-		SetAlpha({ Id = objectiveData.ObjectId, Fraction = 1, Duration = 0.3 })
+function ShowObjectivesUI( flag )
+	if flag ~= nil then
+		MapState.ObjectiveUIHide[flag] = nil
 	end
-end
-
-function PulseObjectivePositive( objectiveName )
-	local objectiveData = CurrentRun.ActiveObjectives[objectiveName]
-	if objectiveData == nil then
-		return
-	end
-
-	if objectiveData.Status == "Active" then
-		PlaySound({ Name = "/SFX/Menu Sounds/ObjectiveCompletedSparkles", Id = objectiveData.ObjectId })
-		ModifyTextBox({ Id = objectiveData.ObjectId, ScaleTarget = 0.65, ScaleDuration = 0.15, ColorTarget = Color.Gold, ColorDuration = 0.15 })
-		wait( 0.5, RoomThreadName )
-		ModifyTextBox({ Id = objectiveData.ObjectId, ScaleTarget = 0.45, ScaleDuration = 1.25, ColorTarget = {100, 100, 100, 255}, ColorDuration = 1.25 })
-	end
-end
-
-function PulseObjectiveNegative( objectiveName )
-	local objectiveData = CurrentRun.ActiveObjectives[objectiveName]
-	if objectiveData == nil then
-		return
-	end
-
-	if objectiveData.Status == "Active" then
-		PlaySound({ Name = "/SFX/Menu Sounds/HadesLocationTextAppear", Id = objectiveData.ObjectId })
-		ModifyTextBox({ Id = objectiveData.ObjectId, ScaleTarget = 0.65, ScaleDuration = 0.15, ColorTarget = Color.Red, ColorDuration = 0.15 })
-		wait( 0.5, RoomThreadName )
-		ModifyTextBox({ Id = objectiveData.ObjectId, ScaleTarget = 0.45, ScaleDuration = 1.25, ColorTarget = Color.Red, ColorDuration = 1.25 })
+	if IsEmpty( MapState.ObjectiveUIHide ) then
+		for objectiveName, objective in pairs( ScreenState.ActiveObjectives ) do
+			objective.Hidden = nil
+			SetAlpha({ Id = objective.ObjectId, Fraction = 1, Duration = 0.3 })
+		end
 	end
 end

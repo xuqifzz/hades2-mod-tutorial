@@ -65,6 +65,7 @@
 		ScaleFromOwner = "Ignore"
 		Ambient = 0.0
 		OverlayVfx = true
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 		TimeModifierFraction = 0.05
 		RandomFlipHorizontal = true
 		UseAttachedShake = false
@@ -94,11 +95,13 @@
 		RandomFlipHorizontal = true
 		ScaleMin = 0.5
 		ScaleMax = 1.1
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 		GroupName = "FX_Standing_Add"
 		UseOwnAngle = false
 		SortFromOwner = "Take"
 		SortMode = "FromParent"
 		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
 		Scale = 1.5
 	}
 
@@ -111,11 +114,19 @@
 		GroupName = "FX_Terrain"
 		RandomRotation = true
 		Scale = 1.2
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 		TimeModifierFraction = 0.05
 		Sound = "/SFX/Player Sounds/HephaestusSparkShower"
 		UseAttachedShake = false
 		UseAttachedFlasher = false
 		UseAttachedAddColor = false
+	}
+
+	{
+		Name = "HephMassiveHitTerrainStaff"
+		InheritFrom = "HephMassiveHitTerrain"
+		Sound = "null"
+		LocationFromOwner = "Ignore"
 	}
 	
 	{
@@ -142,6 +153,7 @@
 		ScaleFromOwner = "Ignore"
 		Ambient = 0.0
 		TimeModifierFraction = 0.05
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 	}
 
 	{
@@ -267,6 +279,12 @@
 		VisualFxCap = 1
 		Sound = "/SFX/Player Sounds/HephaestusAmorActivate"
 	}
+	{
+		Name = "HephaestusArmorOut"
+		InheritFrom = "HephaestusArmorUp"
+		PlayBackwards = true
+		PlaySpeed = 38
+	}
 
 	{
 		Name = "HephaestusArmorUpFlash"
@@ -348,6 +366,25 @@
 		EaseIn = 0
 		EaseOut = 1
 		ScaleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/HephaestusHammerAppear"
+	}
+	{
+		Name = "HephMassiveHitHammerTalent"
+		FilePath = "Fx\Hephaestus\HephMassiveHitHammer\HephMassiveHitHammer"
+		NumFrames = 34
+		PlaySpeed = 34
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Standing"
+		StartOffsetZ = -50
+		EndOffsetZ = 0
+		OffsetZ = 200.0
+		EaseIn = 0
+		TimeModifierFraction = 1
+		EaseOut = 1
+		ScaleFromOwner = "Ignore"
+		Scale = 2
 		Sound = "/SFX/Player Sounds/HephaestusHammerAppear"
 	}
 	{
@@ -529,6 +566,7 @@
 		EaseIn = 0.99
 		EaseOut = 1.0
 		PlaySpeed = 90
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 		LocationZFromOwner = "Ignore"
 		GroupName = "FX_Standing"
 		PostRotateScaleY = 0.5
@@ -551,8 +589,8 @@
 		LocationFromOwner = "Ignore"
 		AngleFromOwner = "Take"
 		Material = "Unlit"
-		RandomPlaySpeedMin = 50
-		RandomPlaySpeedMax = 70
+		RandomPlaySpeedMin = 70
+		RandomPlaySpeedMax = 100
 		EaseIn = 0.9
 		EaseOut = 1.0
 		FlipHorizontal = true
@@ -842,6 +880,96 @@
 	}
 
 	{
+		Name = "HephaestusSpecialReadyFx"
+		FilePath = "Fx\Hephaestus\HephAttackReady\HephAttackReady"
+		NumFrames = 35
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_L_JNT"
+		GrannyDrawBehindMarkerLocation = "Melinoe_Rig:root_00_M_JNT"
+		Material = "Unlit"
+		Loop = true
+		Scale = 1.5
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		CreateAnimations = [
+			{ Name = "HephaestusSpecialReadyFxStart" }
+		]
+	}
+
+	{
+		Name = "HephaestusSpecialReadyFxStart"
+		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
+		NumFrames = 38
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+		StartScale = 2
+		EndScale = 0.5
+		GroupName = "FX_Standing_Add"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_L_JNT"
+	}
+
+	{
+		Name = "HephaestusSpecialReadyFx_Dark"
+		InheritFrom = "HephaestusSpecialReadyFx"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		PlaySpeed = 30
+		Scale = 0.75
+		Sound = "/SFX/Player Sounds/HephaestusReadyLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "HephaestusSprintReadyFx"
+		FilePath = "Fx\Hephaestus\HephAttackReady\HephAttackReady"
+		NumFrames = 35
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:ankle_00_L_JNT"
+		GrannyDrawBehindMarkerLocation = "Melinoe_Rig:root_00_M_JNT"
+		Material = "Unlit"
+		Loop = true
+		Scale = 1.5
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		CreateAnimations = [
+			{ Name = "HephaestusSprintReadyFxStart" }
+		]
+	}
+
+	{
+		Name = "HephaestusSprintReadyFxStart"
+		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
+		NumFrames = 38
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+		StartScale = 2
+		EndScale = 0.5
+		GroupName = "FX_Standing_Add"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:ankle_00_L_JNT"
+	}
+
+	{
+		Name = "HephaestusSprintReadyFx_Dark"
+		InheritFrom = "HephaestusSprintReadyFx"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		PlaySpeed = 30
+		Scale = 0.75
+		Sound = "/SFX/Player Sounds/HephaestusReadyLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
 		Name = "HephaestusVentDecal"
 		Duration = 4
 		FilePath = "Fx\Hephaestus\HephaestusCircle\HephaestusCircle0029"
@@ -854,7 +982,7 @@
 		Green = 0.01
 		Blue = 0
 		ChildAnimation = "HephaestusVentDecalB"
-		Scale = 1.0
+		Scale = 0.66
 		ScaleFromOwner = "Ignore"
 		ChainTo = "HephaestusVentDecalOut"
 		AngleFromOwner = "Ignore"

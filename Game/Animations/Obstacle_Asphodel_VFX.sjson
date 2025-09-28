@@ -221,6 +221,7 @@
 		ScaleMax = 1.2
 		ScaleMin = 0.8
 		Ambient = 0.0
+		GroupName = "FX_Dark"
 	}
 	
 	{
@@ -345,6 +346,9 @@
 		EndFrame = 48
 		NumFrames = 48
 		StartFrame = 1
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.2
 		Slides =
 		[
 			{ DurationFrames = 1 Frame = 15 VisualFx = "DustRingFrontAsphodel" }
@@ -506,11 +510,17 @@
 		OnlyWhenVisible = true
 		Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
 	}
+
+	{
+		Name = "AsphodelEmberSpawnerTintable"
+		InheritFrom = "AsphodelEmberSpawner"
+		VisualFx = "AsphodelEmbersTintable"
+		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+	}
 	
 	{
 		Name = "AsphodelEmber01"
 		FilePath = "Particles\particle_ember_01_glow"
-		
 		AngleFromOwner = "Ignore"
 		AngleMax = 330.0
 		AngleMin = 300.0
@@ -560,7 +570,6 @@
 	{
 		Name = "AsphodelEmbers"
 		FilePath = "Animations\AsphodelEmbers\AsphodelEmbers"
-		
 		EndFrame = 1
 		NumFrames = 1
 		StartFrame = 1
@@ -571,6 +580,38 @@
 			{ Name = "AsphodelEmber03" }
 		]
 	}
+
+	{
+		Name = "AsphodelEmberTintable01"
+		InheritFrom = "AsphodelEmber01"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+	}	
+	{
+		Name = "AsphodelEmberTintable02"
+		InheritFrom = "AsphodelEmberTintable01"
+		FilePath = "Particles\particle_ember_02_glow"
+	}
+	{
+		Name = "AsphodelEmberTintable03"
+		InheritFrom = "AsphodelEmberTintable01"
+		FilePath = "Particles\particle_ember_03_glow"
+	}
+
+	{
+		Name = "AsphodelEmbersTintable"
+		Random =
+		[
+			{ Name = "AsphodelEmberTintable01" }
+			{ Name = "AsphodelEmberTintable02" }
+			{ Name = "AsphodelEmberTintable03" }
+		]
+	}
+
 
 	{
 		Name = "LavaBubble"
@@ -880,4 +921,416 @@
 		OffsetY = -100.0
 		Scale = 0.2
 	}
+
+	{
+		Name = "ChronosAnomalyPoint"
+		FilePath = "Fx\ChronosAnomaly\ChronosAnomalyPoint\ChronosAnomalyPoint"
+		NumFrames = 50
+		Material = "Unlit"
+		Loop = true
+		PlaySpeed = 30
+		Sound = "/SFX/Enemy Sounds/ChronosRemainsSFX"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations = [
+			{ Name = "ChronosAnomalyPointShadow" }
+		]
+	}
+
+	{
+		Name = "ChronosAnomalyPointShadow"
+		InheritFrom = "ChronosAnomalyPoint"
+		GroupName = "Shadows"
+		Red = 0
+		Green = 0
+		Blue = 0
+		PostRotateScaleY = 0.5
+		DieWithOwner = true
+		ClearCreateAnimations = true
+		LocationZFromOwner = "Ignore"
+		Alpha = 0.5
+		StartOffsetZ = 0
+		EndOffsetZ = 0.001
+	}
+
+	{
+		Name = "CapturePointOutFx"
+		FilePath = "Fx\Chronos\ChronosOrbitProjectileImpact\ChronosOrbitProjectileImpact"
+		NumFrames = 31
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+		DieWithOwner = false
+		StartScale = 1
+		EndScale = 1.5
+		EaseIn = 0.999
+		EaseOut = 1.0
+		CreateAnimations = [
+			{ Name = "TeleportDisplace" }
+		]
+	}
+
+	{
+		Name = "ChronosAnomalyCircle"
+		FilePath = "Fx\ChronosAnomaly\OuterRing"
+		GroupName = "FX_Terrain_Add"
+		DieWithOwner = true
+		PostRotateScaleY = 0.5
+		Scale = 0.975
+		Ambient = 0.0
+		ChildAnimation = "ChronosAnomalyCircleA"
+		RotationSpeed = 2
+		StartAlpha = 0.5
+		EndAlpha = 1.0
+		EaseIn = 0
+		EaseOut = 1
+		PingPongColor = true
+		RandomDurationMin = 1.5
+		RandomDurationMax = 3.0
+		Loop= true
+		VisualFx = "ChronosAnomalyCircleDisplacement"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.3
+		CreateAnimations = [
+			{ Name = "ChronosAnomalyCircleSandIn" }
+			{ Name = "ChronosAnomalyNova" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+			{ Name = "ChronosAnomalyCircleActivatedParticles" }
+
+		]
+	}
+
+	{
+		Name = "ChronosAnomalyCircleActivatedParticles"
+		Random = [
+			{ Name = "ChronosAnomalyCircleActivatedParticleA" }
+			{ Name = "ChronosAnomalyCircleActivatedParticleB" }
+		]
+	}
+
+	{
+		Name = "ChronosAnomalyCircleActivatedParticleA"
+		FilePath = "Particles\particle_addFlake"
+		Material = "Unlit"
+		Red = 0
+		Green = 1
+		Blue = 0.5
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = true
+		ScaleMin = 0.3
+		ScaleMax = 1.5
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 300
+		RadialOffsetMax = 400
+		RadialOffsetScaleY = 0.5
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		VelocityMin = 500
+		VelocityMax = 1200
+		RandomAccelerationMin = -2400
+		RandomAccelerationMax = -1200
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 0
+		AddColor = true
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ChronosAnomalyCircleActivatedParticleB"
+		InheritFrom = "ChronosAnomalyCircleActivatedParticleA"
+		AddColor = false
+	}
+
+	{
+		Name = "ChronosAnomalyNova"
+		FilePath = "Fx\AxeNova\AxeNova"
+		GroupName = "FX_Terrain_Add"
+		Alpha = 0.5
+		AddColor = true
+		PostRotateScaleY = 0.5
+		NumFrames = 36
+		Scale = 1.8
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+	}
+
+	{
+		Name = "ChronosAnomalyCircleDisplacement"
+		FilePath = "Fx\RadialDisplacement\RadialDisplacement"
+		NumFrames = 60
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Displacement"
+		StartAlpha = 0
+		EndAlpha = 0.45
+		EaseIn = 0
+		EaseOut = 1
+		Scale = 6
+		RandomRotation = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		PlaySpeed = 30
+	}
+
+	{
+		Name = "ChronosAnomalyCircleA"
+		InheritFrom = "ChronosAnomalyCircle"
+		FilePath = "Fx\ChronosAnomaly\InnerRing"
+		ChildAnimation = "ChronosAnomalyCircleB"
+		RotationSpeed = -5
+		ClearCreateAnimations = true
+		VisualFx = "ChronosAnomalyCircleAFx"
+	}
+
+	{
+		Name = "ChronosAnomalyCircleAFx"
+		FilePath = "Fx\ChronosAnomaly\InnerRing"
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		Duration = 1
+		StartScale = 1
+		EndScale = 1.2
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "FX_Terrain_Add"
+		PostRotateScaleY = 0.5
+		RandomRotation = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		Alpha = 0.5
+
+	}
+
+	{
+		Name = "ChronosAnomalyCircleB"
+		InheritFrom = "ChronosAnomalyCircle"
+		VisualFx = null
+		ChildAnimation = null
+		FilePath = "Fx\ChronosAnomaly\Center"
+		RotationSpeed = 5
+		ClearCreateAnimations = true
+	}
+
+	{
+		Name = "ChronosAnomalyCircleSand"
+		FilePath = "Fx\ChronosAnomaly\ChronosAnomalySandActive\ChronosAnomalySandActive"
+		NumFrames = 50
+		Loop = true
+		PlaySpeed = 50
+		GroupName = "FX_Terrain_Top"
+		Scale = 1.5
+		OffsetY = -10
+		Material = "Unlit"
+		DieWithOwner = true
+		ChainTo = "ChronosAnomalyCircleSandFade"
+		TransferFrameFromThis = true
+		ColorFromOwner = "Ignore"
+		VisualFx = "ChronosAnomalySandParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+	}
+
+	{
+		Name = "ChronosAnomalyCircleSandFade"
+		InheritFrom = "ChronosAnomalyCircleSand"
+		TransferFrameToThis = true
+		StartAlpha = 1
+		EndAlpha = 0
+		LoopFramesOnly = true
+		Loop = false
+		Duration = 0.33
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		ChainTo = null
+	}
+
+
+	{
+		Name = "ChronosAnomalyCircleSandIn"
+		InheritFrom = "ChronosAnomalyCircleSandFade"
+		ChainTo = "ChronosAnomalyCircleSand"
+		StartAlpha = 0
+		EndAlpha = 1
+		Duration = 0.25
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+	}
+
+	{
+		Name = "ChronosAnomalySandParticles"
+		Random = [
+			{ Name = "ChronosAnomalySandParticleA" }
+			{ Name = "ChronosAnomalySandParticleB" }
+		]
+	}
+	{
+		Name = "ChronosAnomalySandParticleA"
+		FilePath = "Fx\SatyrRocketSmokeA\SatyrRocketSmokeA"
+		Material = "Unlit"
+		NumFrames = 32
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		PingPongColor = true
+		StartScale = 1
+		EndScale = 1.3
+		EaseIn = 0
+		EaseOut = 1
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 410
+		RadialOffsetMax = 430
+		VelocityMin = 25
+		VelocityMax = 50
+		Acceleration = -200
+		RadialOffsetScaleY = 0.5
+		RandomFlipVertical = true
+		ScaleMin = 0.6
+		ScaleMax = 1.2
+		GroupName = "FX_Terrain_Top"
+		ScaleFromOwner = "Ignore"
+		Red = 0.9
+		Green = 0.7
+		Blue = 0.5
+		AlphaMin = 0.1
+		AlphaMax = 0.6
+		PostRotateScaleY = 0.5
+		ScaleY = 2
+		Scale = 1.5
+	}
+
+	{
+		Name = "ChronosAnomalySandParticleB"
+		InheritFrom = "ChronosAnomalySandParticleA"
+		FilePath = "Fx\SatyrRocketSmokeB\SatyrRocketSmokeB"
+	}
+
+	{
+		Name = "ChronosAnomalySandParticlesInward"
+		Random = [
+			{ Name = "ChronosAnomalySandParticleInwardA" }
+			{ Name = "ChronosAnomalySandParticleInwardB" }
+		]
+	}
+
+	{
+		Name = "ChronosAnomalySandParticleInwardA"
+		InheritFrom = "ChronosAnomalySandParticleA"
+		FlipHorizontal = true
+		AngleMin = 0
+		AngleMax = -360
+	}
+	{
+		Name = "ChronosAnomalySandParticleInwardB"
+		InheritFrom = "ChronosAnomalySandParticleInwardA"
+		FilePath = "Fx\SatyrRocketSmokeB\SatyrRocketSmokeB"
+	}
+
+	{
+		Name = "ChronosAnomalyCircleInactive"
+		InheritFrom = "ChronosAnomalyCircle"
+		Hue = 0.6
+		ChildAnimation = "ChronosAnomalyCircleInactiveA"
+		ClearCreateAnimations = true
+		VisualFx = "ChronosAnomalySandParticlesInward"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		CreateAnimation = "ChronosAnomalyCircleSandFade"
+	}
+
+	{
+		Name = "ChronosAnomalyCircleInactiveA"
+		InheritFrom = "ChronosAnomalyCircleA"
+		ChildAnimation = "ChronosAnomalyCircleInactiveB"
+		VisualFx = null
+		Hue = 0.6
+	}	
+
+	{
+		Name = "ChronosAnomalyCircleInactiveB"
+		InheritFrom = "ChronosAnomalyCircleB"
+		Hue = 0.6
+	}
+	{
+		Name = "AsphodelTerrainRockCollapse"
+		FilePath = "Fx\LavaJellyCollapse\LavaJellyCollapse"
+		Angle = 90.0
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Take"
+		EndFrame = 37
+		NumFrames = 37
+		RandomPlaySpeedMax = 45.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OffsetY = -50.0
+		CreateAnimation = "RubbleFallImpactDebris"
+		OffsetZ = 30.0
+		Scale = 0.8
+		ScaleFromOwner = "Ignore"
+		Ambient = 1.0
+		Saturation = -0.8
+		Color = { Red = 0.4 Green = 0.35 Blue = 0.30 }
+	}
+
+	{
+		Name = "AsphodelSkullDeathFx"
+		FilePath = "Fx\AsphodelSkullDeath\AsphodelSkullDeath"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		EndFrame = 33
+		NumFrames = 33
+		PlaySpeed = 30.0
+		StartFrame = 1
+		Angle = 0
+		OriginX = 110.0
+		OriginY = 190.0
+		Scale = 1.05
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+
 ]}

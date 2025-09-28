@@ -1,6 +1,5 @@
 { Animations = [
 
-
 	{
 		Name = "NPCCerberusBaseAnimation"
 		GrannyAnimation = "null"
@@ -26,4 +25,86 @@
 		Loop = true
 		CancelOnOwnerMove = true
 	}
+
+	{
+		Name = "Cerberus_PetDecline"
+		InheritFrom = "NPCCerberusBaseAnimation"
+		GrannyAnimation = "Cerberus_Base_PetDecline_C_00"
+		ChainTo = "Cerberus_Idle_Laying"
+
+		Frames =
+		[
+			{
+				Frame = 15
+				Sound = "/VO/CerberusBarks"
+			}
+			{
+				Frame = 30
+				Sound = "/VO/CerberusGrowl"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Cerberus_Idle_Laying"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Cerberus_Pet"
+		InheritFrom = "NPCCerberusBaseAnimation"
+		GrannyAnimation = "Cerberus_Base_Pet_C_00"
+		ChainTo = "Cerberus_Idle_Laying"
+
+		Frames =
+		[
+			{
+				Frame = 47
+				Sound = "/VO/CerberusCry"
+			}
+			{
+				Frame = 120
+				Sound = "/VO/CerberusCuteGrowl_2"
+			}
+			{
+				Frame = 160
+				Sound = "/VO/CerberusWhineHappy"
+			}
+			{
+				Frame = 210
+				Sound = "/VO/CerberusCuteWhine_3"
+			}
+			{
+				Frame = 290
+				Sound = "/VO/CerberusSnarls"
+			}
+			{
+				Frame = 360
+				Sound = "/VO/CerberusCry"
+			}
+			{
+				Frame = 420
+				Sound = "/VO/CerberusCuteGrowl_3"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Cerberus_Idle_Laying"
+				Duration = 6
+			}
+		]
+	}
+
 ]}

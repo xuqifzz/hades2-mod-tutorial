@@ -13,16 +13,17 @@
 	CloseSound = "/SFX/Menu Sounds/GeneralWhooshMENULoudLow",
 
 	TooltipX = 1686,
-	TooltipY = 260,
+	TooltipBottomOffset = 866,
 
-	TotalPinSpace = 600,
+	TotalPinSpace = 719,
+	PinHeight = 225,
 	DefaultPins = 3,
 	DefaultPinSpacing = 230,
 	MaxPins = 8,
 	MaxAutoPins = 5,
 	PinCollapseSpeed = 1000,
 	PinOffsetX = 970,
-	PinOffsetY = 50,	
+	PinOffsetY = 45,	
 
 	AllowAdvancedTooltip = true,
 	IgnoreOtherScreenInput = true,
@@ -49,9 +50,8 @@
 	CategoryStartBottomOffset = 972,
 	CategorySpacingX = 110,
 
-	CategoryIconScale = 0.8,
-	CategoryIconOffsetX = 0,
-	CategoryIconOffsetY = 1,
+	CategoryIconOffsetX = -18,
+	CategoryIconOffsetY = -2,
 
 	BountyIconShiftX = 370,
 
@@ -77,7 +77,7 @@
 		Color = Color.White,
 		FontSize = 24,
 		Justification = "Left",
-		OffsetX = 10,
+		OffsetX = 5,
 		OffsetY = -38,
 		ShadowRed = 0.1, ShadowBlue = 0.1, ShadowGreen = 0.1,
 		OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 2,
@@ -100,6 +100,7 @@
 		FreeFormSelectRepeatDelay = 0.6,
 		FreeFormSelectRepeatInterval = 0.1,
 		FreeFormSelecSearchFromId = 0,
+		TooltipHideDelay = 0.01,
 	},
 
 	ItemCategories =
@@ -118,6 +119,7 @@
 			Name = "TraitTray_Category_OverflowTraits",
 			DisplayName = "TraitTray_Label_OverflowTraits",
 			Icon = "GUI\\Icons\\Boon",
+			IconScale = 0.51,
 			BackgroundAnimation = "GUI\\HUD\\TraitTrayBacking",
 			GameStateRequirements =
 			{
@@ -144,7 +146,7 @@
 			DisplayFunctionName = "TraitTrayShowMetaUpgrades",
 			TraitStartX = 70,
 			TraitStartBottomOffset = 870,
-			TraitSpacingX = 110,
+			TraitSpacingX = 100,
 			TraitSpacingY = 135,
 			TraitsPerColumn = 5,
 			TraitsNeededForExtendedSpacing = 21,
@@ -207,6 +209,9 @@
 			X = 245,
 			BottomOffset = 583,
 			Scale = 0.5,
+			Alpha = 0.0,
+			AlphaTarget = 1.0,
+			AlphaTargetDuration = 0.2,
 		},
 
 		CategoryTitleText = 
@@ -214,6 +219,9 @@
 			X = 46,
 			BottomOffset = 1040,
 			Graphic = "TraitTrayHeader",
+			Alpha = 0.0,
+			AlphaTarget = 1.0,
+			AlphaTargetDuration = 0.2,
 			TextArgs =
 			{
 				FontSize = 26,
@@ -251,6 +259,25 @@
 				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
 				Justification = "Left",
 				TextSymbolScale = 0.8,
+			}
+		},
+
+		ChaosLock =
+		{
+			X = 244,
+			BottomOffset = 700,
+			Scale = 0.5,
+			Alpha = 0.0,
+			AnimationName = "GUI\\LockChaos",
+			TextArgs =
+			{
+				Text = "TraitTray_MetaUpgrades_LockedByChaosCurse",
+				FontSize = 22,
+				Color = Color.White,
+				Font = "P22UndergroundSCMedium",
+				OffsetY = 130,
+				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
+				Justification = "Center",
 			}
 		},
 
@@ -370,14 +397,18 @@
 						-- Dummy button
 					},
 					Text = "Menu_TraitPin",
+					AltText = "Menu_TraitUnPin",
 					TextArgs = UIData.ContextualButtonFormatRight,
 				},
 
 				InfoButton =
 				{
 					Graphic = "ContextualActionButton",
+					AnimationName = "ActionBarInfoButtonExtraBacking",
+					GroupName = "HUD_Overlay",
 					BottomOffset = UIData.ContextualButtonBottomOffset,
 					Alpha = 0.0,
+					UseableOff = true,
 					Data =
 					{
 						OnPressedFunctionName = "TraitTrayScreenInfo",

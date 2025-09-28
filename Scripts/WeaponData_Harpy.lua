@@ -15,8 +15,7 @@ WeaponSetData =
 
 			ChargeSelfVelocity = 3000.0,
 
-			PreAttackEndShake = true,
-			PreAttackDuration = 1.0,
+			PreAttackDuration = 0.65,
 			FireDuration = 0.6,
 			PostAttackDuration = 0.85, -- animation is 0.73
 
@@ -25,9 +24,11 @@ WeaponSetData =
 
 			PreAttackStop = true,
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.25,
 			StopBeforeFire = true,
 
-			AttackDistance = 450,
+			AttackDistance = 750,
+			AttackDistanceScaleY = 0.65,
 			RequireUnitLoS = true,
 			LoSBuffer = 80,
 			LoSEndBuffer = 32,
@@ -55,7 +56,10 @@ WeaponSetData =
 				{ ProjectileName = "HarpySlice2", PauseDuration = 0.1 },
 				{ ProjectileName = "HarpySlice2" },
 			},
+
+      		PreAttackSound = "/SFX/Enemy Sounds/HarpyDropper/EmoteCharging",
 		},
+
 	},
 
 	HarpyWind =
@@ -118,79 +122,6 @@ WeaponSetData =
 		},
 	},
 
-	HarpyFlap =
-	{
-		Requirements =
-		{
-			MaxAttackers = 3,
-		},
-
-		AIData =
-		{
-			DeepInheritance = true,
-
-			ProjectileName = "HarpyFlap",
-			FireProjectileStartDelay = 0.1,
-			BarrelLength = 150,
-			EndScale = 3,
-			ScaleDuration = 3,
-      		FireSelfVelocity = 1100.0,
-      		FireSelfVelocityAngleOffset = 180,
-
-			PreAttackDuration = 0.8,
-			FireDuration = 0.3,
-			PostAttackDuration = 1.2, -- animation is 1.05
-
-			AttackDistance = 900,
-			RequireProjectileLoS = true,
-			LoSBuffer = 80,
-			LoSEndBuffer = 32,
-
-			PreAttackSound = "/SFX/Enemy Sounds/HarpyCutter/EmoteCharging",
-			PreAttackFlashSound = "/Leftovers/SFX/AuraOnLoud",
-			PreAttackAnimation = "Enemy_HarpyCutter_FlapPreFire_Alt",
-			FireAnimation = "Enemy_HarpyCutter_FlapFire_Alt",
-			PostAttackAnimation = "Enemy_HarpyCutter_FlapPostFire_Alt",
-
-			-- Rifts ban
-			DumbFireWeapons = {},
-		},
-
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0.1 },
-		},
-
-		Sounds =
-		{
-			FireSounds =
-			{
-				{ Name = "/SFX/Enemy Sounds/HarpyCutter/EmoteAttacking" },
-				{ Name = "/SFX/Enemy Sounds/Carrion/CarrionAttackWhoosh" },
-			},
-		},
-
-		Requirements =
-		{
-			MaxConsecutiveUses = 2,
-		},
-
-	},
-
-	HarpyFlap_Elite =
-	{
-		InheritFrom = { "HarpyFlap" },
-		AIData =
-		{
-			DeepInheritance = true,
-
-			FireTicks = 3,
-			FireInterval = 0.5,
-			Spread = 45,
-		},
-	},
-
 	HarpyFlapFast =
 	{
 		Requirements =
@@ -214,7 +145,7 @@ WeaponSetData =
 			ProjectileName = "HarpyFlapFast",
 			FireProjectileStartDelay = 0.1,
 			BarrelLength = 150,
-			EndScale = 3,
+			EndScale = 2.5,
 			ScaleDuration = 1,
 			FireSelfVelocity = 1100.0,
 			FireSelfVelocityAngleOffset = 180,
@@ -235,7 +166,7 @@ WeaponSetData =
 			LoSBuffer = 80,
 			LoSEndBuffer = 32,
 
-			PreAttackSound = "/SFX/Enemy Sounds/HarpyCutter/EmoteCharging",
+			PreAttackSound = "/SFX/Enemy Sounds/HarpyDropper/EmoteCharging",
 			PreAttackFlashSound = "/Leftovers/SFX/AuraOnLoud",
 			PreAttackAnimation = "Enemy_HarpyCutter_FlapPreFire_Alt",
 			FireAnimation = "Enemy_HarpyCutter_FlapFire_Alt",
@@ -245,18 +176,12 @@ WeaponSetData =
 			DumbFireWeapons = {},
 		},
 
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0.1 },
-		},
-
 		Sounds =
 		{
 			FireSounds =
 			{
-				{ Name = "/SFX/Enemy Sounds/HarpyCutter/EmoteAttacking" },
-				{ Name = "/SFX/Enemy Sounds/Carrion/CarrionAttackWhoosh" },
+				{ Name = "/SFX/Enemy Sounds/HarpyDropper/EmoteAttacking" },
+				{ Name = "/Leftovers/SFX/AuraThrowLarge" },
 			},
 		},
 	},
@@ -281,7 +206,7 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
-			FireSelfVelocity = 2200,
+			FireSelfVelocity = 2600,
 			FireSelfVelocityAngleOffset = -60,
 			ApplyEffectsOnWeaponFire =
 			{
@@ -293,12 +218,14 @@ WeaponSetData =
 			NoProjectile = true,
 
 			PreAttackDuration = 0.05,
-			FireDuration = 0.45,
-			PostAttackDuration = 0.2, -- total anim is 0.6
+			FireDuration = 0.35,
+			PostAttackDuration = 0.0, -- total anim is 0.6
 
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.2,
+			PreAttackStop = true,
 			TrackTargetDuringCharge = true,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
 			PostAttackStop = true,
 
 			SkipSurroundAICount = true,

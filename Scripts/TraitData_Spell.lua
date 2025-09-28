@@ -5,7 +5,7 @@ OverwriteTableKeys( TraitData, {
 	{
 		Slot = "Spell",	
 		ShowInHUD = true,
-		
+		DebugOnly = true,
 		CheckChargeFunctionName = "SpellCheckCharges",
 	},
 
@@ -13,7 +13,7 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "SpellTrait" },
 		Icon = "Boon_Selene_34",
-		PreEquipWeapons = { "WeaponSpellTransform", "WeaponTransformAttack", "WeaponTransformSpecial", "WeaponTransformBlink"  },
+		PreEquipWeapons = { "WeaponSpellTransform", "WeaponTransformAttack", "WeaponTransformSpecial"  },
 		StatLines =
 		{
 			"ManaSpendCostStatDisplay1",
@@ -21,13 +21,14 @@ OverwriteTableKeys( TraitData, {
 		PropertyChanges = 
 		{
 			{
+				FalseTraitName = "AxeFreeSpinTrait",
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "RemoveControlOnCharge2",
+				WeaponProperty = "RemoveControlOnCharge3",
 				ChangeValue = "WeaponSpellTransform",
 			},
 			{
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "AddControlOnFireEnd2",
+				WeaponProperty = "AddControlOnFireEnd3",
 				ChangeValue = "WeaponSpellTransform",
 			},
 		},
@@ -62,13 +63,13 @@ OverwriteTableKeys( TraitData, {
 				PreLineWait = 0.4,
 				Queue = "Always",
 				SuccessiveChanceToPlayAll = 0.66,
-				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", "SeleneAnyQuipSpeech" },
 
 				{ Cue = "/VO/Selene_0206", Text = "{#Emph}Dark Side." },
 				{ Cue = "/VO/Selene_0207", Text = "{#Emph}Dark Side.", PlayFirst = true },
 				{ Cue = "/VO/Selene_0208", Text = "Your terrifying form.", BreakIfPlayed = true },
 			},
-			[2] = GlobalVoiceLines.PickedMoonSpellVoiceLines
+			{ GlobalVoiceLines = "PickedMoonSpellVoiceLines" },
 		},
 
 	},
@@ -103,13 +104,14 @@ OverwriteTableKeys( TraitData, {
 				DeriveValueFrom = "DeriveSource"
 			},
 			{
+				FalseTraitName = "AxeFreeSpinTrait",
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "RemoveControlOnCharge2",
+				WeaponProperty = "RemoveControlOnCharge3",
 				ChangeValue = "WeaponSpellPolymorph",
 			},
 			{
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "AddControlOnFireEnd2",
+				WeaponProperty = "AddControlOnFireEnd3",
 				ChangeValue = "WeaponSpellPolymorph",
 			},
 		},
@@ -121,8 +123,11 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "ManaCost",
 			},
 			{
-				Key = "ReportedDuration",
-				ExtractAs = "Duration",
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "PolymorphTag",
+				BaseProperty = "Duration",
+				ExtractAs = "PolymorphDuration",
 			},
 			{
 				External = true,
@@ -131,6 +136,14 @@ OverwriteTableKeys( TraitData, {
 				BaseProperty = "NumJumps",
 				Format = "TotalTargets",
 				ExtractAs = "Bounces",
+				SkipAutoExtract = true,
+			},
+			{
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "MorphDamageProjectile",
+				BaseProperty = "Damage",
+				ExtractAs = "PolymorphDamage",
 				SkipAutoExtract = true,
 			},
 		},
@@ -142,16 +155,16 @@ OverwriteTableKeys( TraitData, {
 				PreLineWait = 0.4,
 				Queue = "Always",
 				SuccessiveChanceToPlayAll = 0.66,
-				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", "SeleneAnyQuipSpeech" },
 
 				{ Cue = "/VO/Selene_0184", Text = "{#Emph}Twilight Curse." },
 				{ Cue = "/VO/Selene_0185", Text = "{#Emph}Twilight Curse.", PlayFirst = true, },
-				{ Cue = "/VO/Selene_0186", Text = "The Twilight Curse is yours to use." },
-				{ Cue = "/VO/Selene_0187", Text = "Then let us turn our foes." },
+				{ Cue = "/VO/Selene_0186", Text = "The Twilight Curse is yours to use.", BreakIfPlayed = true },
+				{ Cue = "/VO/Selene_0187", Text = "Then let us turn our foes.", BreakIfPlayed = true },
 				-- { Cue = "/VO/Selene_0127", Text = "{#Emph}Night Curse.", PlayFirst = true },
 				-- { Cue = "/VO/Selene_0050", Text = "On this phase I see that the hex of Shadow Servant shall be yours.", BreakIfPlayed = true },
 			},
-			[2] = GlobalVoiceLines.PickedMoonSpellVoiceLines
+			{ GlobalVoiceLines = "PickedMoonSpellVoiceLines" },
 		},
 	},
 
@@ -169,13 +182,14 @@ OverwriteTableKeys( TraitData, {
 				ReportValues = { ReportedDamage = "ChangeValue" },
 			},
 			{
+				FalseTraitName = "AxeFreeSpinTrait",
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "RemoveControlOnCharge2",
+				WeaponProperty = "RemoveControlOnCharge3",
 				ChangeValue = "WeaponSpellLaser",
 			},
 			{
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "AddControlOnFireEnd2",
+				WeaponProperty = "AddControlOnFireEnd3",
 				ChangeValue = "WeaponSpellLaser",
 			}
 		},
@@ -225,20 +239,21 @@ OverwriteTableKeys( TraitData, {
 		UpgradePickedVoiceLines =
 		{
 			{
+				BreakIfPlayed = true,
 				RandomRemaining = true,
 				PreLineWait = 0.4,
 				Queue = "Always",
 				SuccessiveChanceToPlayAll = 0.66,
-				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", "SeleneAnyQuipSpeech" },
 
 				{ Cue = "/VO/Selene_0128", Text = "{#Emph}Lunar Ray.", PlayFirst = true },
 				{ Cue = "/VO/Selene_0188", Text = "{#Emph}Lunar Ray." },
 				{ Cue = "/VO/Selene_0189", Text = "{#Emph}Lunar Ray.", PlayFirst = true, },
 				{ Cue = "/VO/Selene_0048", Text = "On this phase I can see you may direct the Lunar Ray.", BreakIfPlayed = true },
 				{ Cue = "/VO/Selene_0049", Text = "On this phase you may once again direct the Lunar Ray.", BreakIfPlayed = true },
-				{ Cue = "/VO/Selene_0190", Text = "Then wield my light with grace." },
+				{ Cue = "/VO/Selene_0190", Text = "Then wield my light with grace.", BreakIfPlayed = true },
 			},
-			[2] = GlobalVoiceLines.PickedMoonSpellVoiceLines
+			{ GlobalVoiceLines = "PickedMoonSpellVoiceLines" },
 		},
 	},
 
@@ -262,13 +277,14 @@ OverwriteTableKeys( TraitData, {
 				ReportValues = { ReportedFuse = "ChangeValue" },
 			},
 			{
+				FalseTraitName = "AxeFreeSpinTrait",
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "RemoveControlOnCharge2",
+				WeaponProperty = "RemoveControlOnCharge3",
 				ChangeValue = "WeaponSpellMeteor",
 			},
 			{
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "AddControlOnFireEnd2",
+				WeaponProperty = "AddControlOnFireEnd3",
 				ChangeValue = "WeaponSpellMeteor",
 			}
 		},
@@ -314,13 +330,13 @@ OverwriteTableKeys( TraitData, {
 				PreLineWait = 0.4,
 				Queue = "Always",
 				SuccessiveChanceToPlayAll = 0.66,
-				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", "SeleneAnyQuipSpeech" },
 
 				{ Cue = "/VO/Selene_0203", Text = "{#Emph}Total Eclipse." },
 				{ Cue = "/VO/Selene_0204", Text = "{#Emph}Total Eclipse.", PlayFirst = true },
 				{ Cue = "/VO/Selene_0205", Text = "My greatest strength is yours.", BreakIfPlayed = true },
 			},
-			[2] = GlobalVoiceLines.PickedMoonSpellVoiceLines
+			{ GlobalVoiceLines = "PickedMoonSpellVoiceLines" },
 		},
 	},
 
@@ -341,13 +357,14 @@ OverwriteTableKeys( TraitData, {
 		PropertyChanges = 
 		{
 			{
+				FalseTraitName = "AxeFreeSpinTrait",
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "RemoveControlOnCharge2",
+				WeaponProperty = "RemoveControlOnCharge3",
 				ChangeValue = "WeaponSpellSummon",
 			},
 			{
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "AddControlOnFireEnd2",
+				WeaponProperty = "AddControlOnFireEnd3",
 				ChangeValue = "WeaponSpellSummon",
 			},
 		},
@@ -383,13 +400,13 @@ OverwriteTableKeys( TraitData, {
 				PreLineWait = 0.4,
 				Queue = "Always",
 				SuccessiveChanceToPlayAll = 0.66,
-				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", "SeleneAnyQuipSpeech" },
 
 				{ Cue = "/VO/Selene_0191", Text = "{#Emph}Night Bloom." },
 				{ Cue = "/VO/Selene_0192", Text = "{#Emph}Night Bloom.", PlayFirst = true },
 				{ Cue = "/VO/Selene_0193", Text = "The dead shall rise.", BreakIfPlayed = true },
 			},
-			[2] = GlobalVoiceLines.PickedMoonSpellVoiceLines
+			{ GlobalVoiceLines = "PickedMoonSpellVoiceLines" },
 		},
 	},
 	
@@ -405,13 +422,14 @@ OverwriteTableKeys( TraitData, {
 		PropertyChanges = 
 		{
 			{
+				FalseTraitName = "AxeFreeSpinTrait",
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "RemoveControlOnCharge2",
+				WeaponProperty = "RemoveControlOnCharge3",
 				ChangeValue = "WeaponSpellTimeSlow",
 			},
 			{
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "AddControlOnFireEnd2",
+				WeaponProperty = "AddControlOnFireEnd3",
 				ChangeValue = "WeaponSpellTimeSlow",
 			},
 		},
@@ -447,13 +465,13 @@ OverwriteTableKeys( TraitData, {
 				PreLineWait = 0.4,
 				Queue = "Always",
 				SuccessiveChanceToPlayAll = 0.66,
-				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", "SeleneAnyQuipSpeech" },
 
 				{ Cue = "/VO/Selene_0194", Text = "{#Emph}Phase Shift." },
 				{ Cue = "/VO/Selene_0195", Text = "{#Emph}Phase Shift.", PlayFirst = true },
 				{ Cue = "/VO/Selene_0196", Text = "Time can be controlled...", BreakIfPlayed = true },
 			},
-			[2] = GlobalVoiceLines.PickedMoonSpellVoiceLines
+			{ GlobalVoiceLines = "PickedMoonSpellVoiceLines" },
 		},
 	},
 
@@ -470,16 +488,26 @@ OverwriteTableKeys( TraitData, {
 		{
 			"ManaSpendCostStatDisplay1",
 		},
+		CustomStatLinesWithShrineUpgrade = 
+		{
+			ShrineUpgradeName = "HealingReductionShrineUpgrade",
+			StatLines = 
+			{
+				"ManaSpendCostStatDisplay1",
+				"HealingReductionNotice",
+			},
+		},
 		PropertyChanges = 
 		{
 			{
+				FalseTraitName = "AxeFreeSpinTrait",
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "RemoveControlOnCharge2",
+				WeaponProperty = "RemoveControlOnCharge3",
 				ChangeValue = "WeaponSpellPotion",
 			},
 			{
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "AddControlOnFireEnd2",
+				WeaponProperty = "AddControlOnFireEnd3",
 				ChangeValue = "WeaponSpellPotion",
 			},
 		},
@@ -491,6 +519,7 @@ OverwriteTableKeys( TraitData, {
 				BaseName = "WeaponSpellPotion",
 				BaseProperty = "HealingAmount",
 				ExtractAs = "HealingAmount",
+				Format = "FlatHeal",
 				SkipAutoExtract = true,
 			},
 			{
@@ -512,13 +541,14 @@ OverwriteTableKeys( TraitData, {
 				PreLineWait = 0.4,
 				Queue = "Always",
 				SuccessiveChanceToPlayAll = 0.66,
-				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", "SeleneAnyQuipSpeech" },
 
 				{ Cue = "/VO/Selene_0197", Text = "{#Emph}Moon Water.", PlayFirst = true },
 				{ Cue = "/VO/Selene_0198", Text = "{#Emph}Moon Water." },
+				{ Cue = "/VO/Selene_0198_ALT", Text = "{#Emph}Moon Water." },
 				{ Cue = "/VO/Selene_0199", Text = "Drink deep and persevere.", BreakIfPlayed = true },
 			},
-			[2] = GlobalVoiceLines.PickedMoonSpellVoiceLines
+			{ GlobalVoiceLines = "PickedMoonSpellVoiceLines" },
 		},
 	},
 
@@ -537,13 +567,14 @@ OverwriteTableKeys( TraitData, {
 				ReportValues = { ReportedDamage = "ChangeValue" },
 			},
 			{
+				FalseTraitName = "AxeFreeSpinTrait",
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "RemoveControlOnCharge2",
+				WeaponProperty = "RemoveControlOnCharge3",
 				ChangeValue = "WeaponSpellLeap",
 			},
 			{
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "AddControlOnFireEnd2",
+				WeaponProperty = "AddControlOnFireEnd3",
 				ChangeValue = "WeaponSpellLeap",
 			}
 		},
@@ -572,13 +603,13 @@ OverwriteTableKeys( TraitData, {
 				PreLineWait = 0.4,
 				Queue = "Always",
 				SuccessiveChanceToPlayAll = 0.66,
-				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech", "SeleneAnyQuipSpeech" },
 
 				{ Cue = "/VO/Selene_0200", Text = "{#Emph}Wolf Howl.", PlayFirst = true, },
 				{ Cue = "/VO/Selene_0201", Text = "{#Emph}Wolf Howl." },
 				{ Cue = "/VO/Selene_0202", Text = "Your foes shall shudder.", BreakIfPlayed = true },
 			},
-			[2] = GlobalVoiceLines.PickedMoonSpellVoiceLines
+			{ GlobalVoiceLines = "PickedMoonSpellVoiceLines" },
 		},
 	},
 	
@@ -593,23 +624,19 @@ OverwriteTableKeys( TraitData, {
 		},
 		CodexGameStateRequirements =
 		{
-			{
-				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeWeaponUpgradeSystem" },
-			},
-			{
-				PathTrue = { "GameState", "WeaponsUnlocked", "WeaponSuit" },
-			},
+			NamedRequirements = { "SuitAspectsRevealed" },
 		},
 		PropertyChanges = 
 		{
 			{
+				FalseTraitName = "AxeFreeSpinTrait",
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "RemoveControlOnCharge2",
+				WeaponProperty = "RemoveControlOnCharge3",
 				ChangeValue = "WeaponSpellMoonBeam",
 			},
 			{
 				WeaponName = "WeaponAxeSpin",
-				WeaponProperty = "AddControlOnFireEnd2",
+				WeaponProperty = "AddControlOnFireEnd3",
 				ChangeValue = "WeaponSpellMoonBeam",
 			},
 		},

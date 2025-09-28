@@ -27,10 +27,12 @@ WeaponSetData =
 			PostAttackDuration = 0.1,
 
 			TrackTargetDuringCharge = true,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
+			PostAttackStop = true,
 			CreateOwnTargetFromOriginalTarget = true,
 			UseTargetAngle = true,
 			TargetOffsetDistance = 500,
+			DeaggroAfterAttack = true,
 
 			--PreAttackAnimation = "Enemy_Sheep_DashPreFire",
 			FireAnimation = "Enemy_Sheep_DashPreFire",
@@ -56,6 +58,7 @@ WeaponSetData =
 
 			PreAttackDuration = 0.7,
 			PreAttackEndShake = true,
+			PreAttackFlashSound = "/SFX/Enemy Sounds/CorruptedShadeMedium/ChargeShort",
 			FireDuration = 0.3,
 			PostAttackDuration = 1.0,
 
@@ -90,6 +93,7 @@ WeaponSetData =
 			PreAttackEndShake = true,
 			PreAttackEndDuration = 0.5,
 
+			PreAttackLoopingSound = "/SFX/BombFusePreExplode",
 			PreAttackSound = "/SFX/Enemy Sounds/MudmanEye/EmoteActivated",
 			PreAttackDuration = 0.6,
 			FireDuration = 0.0,
@@ -107,13 +111,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/MudmanEye/MudmanEyeExplode" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.05, Fraction = 1.0, LerpTime = 0.1 },
-		},		
 	},
 
 	SheepSickSkip =
@@ -141,7 +138,8 @@ WeaponSetData =
 			PostAttackDuration = 2.0,
 
 			TrackTargetDuringCharge = true,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
+			PostAttackStop = true,
 			CreateOwnTargetFromOriginalTarget = true,
 			UseTargetAngle = true,
 			TargetOffsetDistance = 500,
@@ -167,8 +165,6 @@ WeaponSetData =
 			MoveWithinRange = false,
 			AttackDistance = 9999,
 		},
-
-		HitScreenshake = { Distance = 4, Speed = 600, Duration = 0.3, FalloffSpeed = 3000, Angle = 0 },
 	},
 }
 

@@ -17,10 +17,10 @@ UnitSetData.Drunk =
 		ActivateStartAlpha = 1.0, 
 		ActivateDuration = 0.5,
 		ActivateStartOffsetZ = 2000,
-		--PostActivateDuration = 1.1,
 		PostActivateStop = true,
 		--ActivateGravity = 9000,
 		--ActivateFallForce = 2500,
+		PostActivateScreenshake = { Distance = 3, Speed = 200, FalloffSpeed = 0, Duration = 0.18, Angle = 90, DistanceThreshold = 200 },
 		DeathSound = "/SFX/Enemy Sounds/DeadSeaDrunk/EmoteDying",
 		DeathAnimation = "Enemy_Drunk_Death",
 		DeathFx = "EnemyDeathFxUndead",
@@ -87,6 +87,7 @@ UnitSetData.Drunk =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_2171", Text = "Boozers." },

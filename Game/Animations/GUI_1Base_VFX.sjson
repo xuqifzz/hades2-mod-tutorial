@@ -23,18 +23,7 @@
 		EndScale = 1.05
 		Material = "Unlit"
 		Color = { Red = 0.30 Green = 0.30 Blue = 0.30 }
-		Sound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
-	}
-	{
-		Name = "EpilogueBaseAnim"
-		FilePath = "Dev\blank_invisible"
-		
-		Duration = 48.0
-		EaseOut = 1.0
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		Ambient = 0.0
+		Sound = "/SFX/Menu Sounds/IrisMenuToggle2"
 	}
 
 ]}

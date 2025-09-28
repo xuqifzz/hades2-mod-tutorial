@@ -1,0 +1,1875 @@
+{ Projectiles = [
+
+	// Swab
+	{
+		Name = "SwabShockwave"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = "SwabAnchorNova"
+		Type = "INSTANT"
+		Damage = 22
+		DamageRadius = 600
+		DamageRadiusScaleY = 0.5
+		BlastSpeed = 1800
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		MaxVictimZ = 9999
+		SpawnRadius = 0
+		GroupName = "FX_Terrain"
+		Thing =
+		{
+			Graphic = null
+			RotateGeometry = false
+			Scale = 1.4
+			Points = [ { X = 0 Y = 0 } ]
+		}
+	}
+	{
+		Name = "SwabShockwaveWarning"
+		InheritFrom = "SwabShockwave"
+		DetonateAnimation = "SwabShockwaveWarning"
+		DetonateFx = null
+		Damage = 0
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		BlastSpeed = null
+		DieWithOwner = true
+		BlastDuration = 1.73
+	}
+	{
+		Name = "SwabShockwavePull"
+		InheritFrom = "SwabShockwave"
+		DetonateFx = "SwabAnchorNovaQuick"
+		IgnoreCoverageAngles = true
+	}
+	{
+		Name = "SwabShockwave_Elite"
+		InheritFrom = "SwabShockwave"
+		DetonateFx = "SwabAnchorNova_Elite"
+		DamageRadius = 720
+		Thing =
+		{
+			Scale = 1.68
+		}
+	}
+	{
+		Name = "SwabShockwaveWarning_Elite"
+		InheritFrom = "SwabShockwaveWarning"
+		//DetonateAnimation = "SwabShockwaveRingWarning_Elite"
+		BlastDuration = 1.1
+		DamageRadius = 720
+	}
+	{
+		Name = "SwabShockwavePullElite"
+		InheritFrom = "SwabShockwave_Elite"
+		DetonateFx = "SwabAnchorNovaQuick"
+		IgnoreCoverageAngles = true
+	}
+
+	// Drunk
+	{
+		Name = "DrunkStab"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		Fuse = 0.4
+		AttachToOwner = true
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 16
+		ImpactLineOfSight = true
+		Thing =
+		{
+			Graphic = "EnemyHeavySlashWretchAssassin"
+			GeometryScaleY = 0.6
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 275
+					Y = 60
+				}
+				{
+					X = 275
+					Y = -60
+				}
+				{
+					X = -10
+					Y = -20
+				}
+				{
+					X = -10
+					Y = 20
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "DrunkSwingLeft"
+		InheritFrom = "1_BaseEnemyProjectile"
+		StartFx = "ShipsSwordSwipeRight"
+		Type = "ARC"
+		AttachToOwner = true
+		ImpactVelocity = 300
+		ArcStart = 120
+		ArcEnd = -40
+		Speed = -1700
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		CanHitWithoutDamage = true
+		Damage = 16
+		NumPenetrations = 99999
+		UseArmor = true
+		UseVulnerability = false
+		InvulnerableImpactOwnerVelocity = 0
+		ImpactLineOfSightFromOwner = true
+		Thing =
+		{
+			Graphic = "null"
+			GeometryScaleY = 0.6
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 0
+					Y = 0
+				}
+				{
+					X = 175
+					Y = 25
+				}
+				{
+					X = 275
+					Y = 0
+				}
+				{
+					X = 175
+					Y = -25
+				}
+			]
+		}
+	}
+	{
+		Name = "DrunkSwingRight"
+		InheritFrom = "DrunkSwingLeft"
+		StartFx = "ShipsSwordSwipeLeft"
+		ArcStart = -90
+		ArcEnd = 70
+		Speed = 1600
+	}
+
+	// Scimiterror
+	{
+		Name = "ScimiterrorSlashRight"
+		InheritFrom = "1_BaseEnemyProjectile"
+		StartFx = "ScimiterrorSlashRight"
+		Type = "ARC"
+		AttachToOwner = true
+		ImpactVelocity = 300
+		ArcStart = 120
+		ArcEnd = -120
+		Speed = -2500
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		CanHitWithoutDamage = true
+		Damage = 17
+		NumPenetrations = 99999
+		UseArmor = true
+		UseVulnerability = false
+		InvulnerableImpactOwnerVelocity = 0
+		ImpactLineOfSightFromOwner = true
+		Thing =
+		{
+			Graphic = "null"
+			GeometryScaleY = 0.6
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 0
+					Y = 0
+				}
+				{
+					X = 100
+					Y = 25
+				}
+				{
+					X = 175
+					Y = 0
+				}
+				{
+					X = 100
+					Y = -25
+				}
+			]
+		}
+	}
+	{
+		Name = "ScimiterrorSlashLeft"
+		InheritFrom = "ScimiterrorSlashRight"
+		StartFx = "ScimiterrorSlashLeft"
+		ArcStart = -50
+		ArcEnd = 120
+		Speed = 2000
+	}
+	{
+		Name = "ScimiterrorSlashRight_Elite"
+		InheritFrom = "ScimiterrorSlashRight"
+		Thing =
+		{
+			Scale = 1.2
+		}
+	}
+	{
+		Name = "ScimiterrorSlashLeft_Elite"
+		InheritFrom = "ScimiterrorSlashLeft"
+		Thing =
+		{
+			Scale = 1.2
+		}
+	}
+	{
+		Name = "ScimiterrorChop"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		Fuse = 0.1
+		AttachToOwner = true
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 11
+		ImpactLineOfSight = true
+		Thing =
+		{
+			Graphic = "EnemyHeavySlashWretchAssassin"
+			GeometryScaleY = 0.6
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 200
+					Y = 60
+				}
+				{
+					X = 200
+					Y = -60
+				}
+				{
+					X = -10
+					Y = -20
+				}
+				{
+					X = -10
+					Y = 20
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "ScimiterrorStab"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		AttachToOwner = true
+		Fuse = 0.3
+		Damage = 11
+		UseArmor = true
+		UseVulnerability = true
+		Thing =
+		{
+			Graphic = "EnemyHeavySlashWretchAssassin"
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 50
+					Y = 40
+				}
+				{
+					X = 50
+					Y = -40
+				}
+				{
+					X = -10
+					Y = -40
+				}
+				{
+					X = -10
+					Y = 40
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = true
+			Cancelable = true
+		}
+	}
+
+	// Mage2
+	{
+		Name = "Mage2Ranged"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "HOMING"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UseRadialImpact = false
+		UnlimitedUnitPenetration = false
+		DissipateFx = "MageProjectileDissipate"
+		ImpactFx = "MageProjectileExplosion"
+		DetonateSound = "/SFX/FlameTrapFire"
+		Range = 1600
+		Fuse = 8
+		Speed = 560
+		Damage = 8
+		UnpauseResetLocation = true
+		GroupName = "FX_Standing_Add"
+		InheritOwnerElapsedTimeMultiplier = false
+		Thing =
+		{
+			Graphic = "MageProjectile"
+			OffsetZ = 50
+			Tallness = 60
+			AttachedAnim = "null"
+			Grip = 999999
+			UseBoundsForSortDrawArea = true
+			RotateGeometry = true
+			Scale = 1.5
+			Points =
+			[
+				{
+					X = -24
+					Y = 0
+				}
+				{
+					X = 24
+					Y = 24
+				}
+				{
+					X = 24
+					Y = -24
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = false
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+
+	// WaterElemental
+	{
+		Name = "WaterElementalBite"
+		InheritFrom = "1_BaseEnemyProjectile"
+		StartFx = "WaterElementalDashStreak"
+		DetonateFx = "null"
+		Type = "STRAIGHT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		AttachToOwner = true
+		Fuse = 0.3
+		Damage = 9
+		UseArmor = true
+		UseVulnerability = true
+		InflictedDamageFx = "SwarmerBiteFx"
+		Thing =
+		{
+			Graphic = "null"
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 50
+					Y = 40
+				}
+				{
+					X = 50
+					Y = -40
+				}
+				{
+					X = -10
+					Y = -40
+				}
+				{
+					X = -10
+					Y = 40
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = true
+			Cancelable = true
+		}
+	}
+
+	// Stickler
+	{
+		Name = "SticklerThrow"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "STRAIGHT"
+		ImpactFx = "EnemyProjectileImpact"
+		DissipateFx = "SticklerSpearDissipate"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = false
+		Range = 1400
+		Speed = 610
+		Damage = 15
+		InheritOwnerElapsedTimeMultiplier = false
+		Thing =
+		{
+			Graphic = "SticklerSpear"
+			OffsetZ = 100
+			AttachedAnim = "SticklerSpearShadow"
+			Grip = 999999
+			Scale = 0.75
+			Points =
+			[
+				{
+					X = 0
+					Y = 24
+				}
+				{
+					X = 48
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -24
+				}
+				{
+					X = -48
+					Y = 0
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "SticklerThrow_Elite"
+		InheritFrom = "SticklerThrow"
+		Range = 210
+		DissipateFx = "SticklerSpearDissipate_Elite"
+		SpawnOnDissipate = "SticklerThrow"
+		SpawnCount = 3
+		SpawnType = "PROJECTILE"
+		SpawnArc = 30
+		SpawnsEvenlySpaced = true
+	}
+	{
+		Name = "SticklerLeap"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = "SticklerLeapNova"
+		Type = "INSTANT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		Fuse = 0.05
+		DamageRadius = 230
+		Damage = 0
+		Range = 1.0
+		BlastSpeed = 1000
+		DamageRadiusScaleY = 0.6
+		AttachToOwner = false
+		UseRadialImpact = true
+		ImpactVelocity = 2200
+		DamageRadiusScaleX = 1.175
+		GroupName = "FX_Terrain_Add"
+		Thing =
+		{
+			Graphic = "null"
+			Grip = 999999
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+
+	// HarpyCutter
+	{
+		Name = "HarpySlice"
+		InheritFrom = "1_BaseEnemyProjectile"
+		StartFx = "HarpySliceFx"
+		Type = "STRAIGHT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		AttachToOwner = true
+		Fuse = 0.3
+		Damage = 14
+		UseArmor = true
+		UseVulnerability = true
+		InflictedDamageFx = "SwarmerBiteFx"
+		Thing =
+		{
+			Graphic = "null"
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 200
+					Y = 55
+				}
+				{
+					X = 200
+					Y = -55
+				}
+				{
+					X = -10
+					Y = -40
+				}
+				{
+					X = -10
+					Y = 40
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = true
+			Cancelable = true
+		}
+	}
+
+	// CharybdisTentacle
+	{
+		Name = "TentacleSlamWave"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		Fuse = 0.35
+		Speed = 800
+		Acceleration = -250
+		ImpactVelocity = 0
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		CanBeReflected = false
+		SpawnsSpeedModifierScaleY = 0.55
+		Damage = 13
+		GroupName = "FX_Terrain_Add"
+		ImmunityDuration = 0.4
+		DissipateFx = null
+		Thing =
+		{
+			Graphic = "CharybdisSlamWave"
+			RotateGeometry = true
+			GeometryScaleY = 0.5
+			AttachedAnim = "null"
+			Grip = 999999
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 50
+					Y = 125
+				}
+				{
+					X = 50
+					Y = -125
+				}
+				{
+					X = -50
+					Y = -125
+				}
+				{
+					X = -50
+					Y = 125
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "TentacleSlamWave2"
+		InheritFrom = "TentacleSlamWave"
+		Speed = 700
+		Acceleration = -50
+		Fuse = 0.8
+	}
+	{
+		Name = "TentacleSpike"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "STRAIGHT"
+		ImpactFx = "EnemyProjectileImpact"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = false
+		Range = 5000
+		Speed = 915
+		Damage = 16
+		GroupName = "FX_Standing_Add"
+		Thing =
+		{
+			Graphic = "CharybdisTentacleSpikeIn"
+			OffsetZ = 70
+			RotateGeometry = true
+			AttachedAnim = "CharybdisTentacleSpikeShadow"
+			Grip = 999999
+			Scale = 1.2
+			Points =
+			[
+				{
+					X = 48
+					Y = 24
+				}
+				{
+					X = 48
+					Y = -24
+				}
+				{
+					X = -48
+					Y = 0
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "TentacleSpike2"
+		InheritFrom = "TentacleSpike"
+		Type = "HOMING"
+		MaxAdjustRate = 10
+		DamageRadius = 200
+		DetonateLineOfSight = true
+		DetonateFx = "FishmanRangedProjectileDetonate"
+		DetonateSound = "/SFX/Explosion1"
+	}
+	{
+		Name = "Tentacle360Whip"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "STRAIGHT"
+		DetonateSound = "/Leftovers/SFX/BeaconTeleportSFX"
+		Fuse = 0.18
+		AttachToOwner = true
+		ImpactVelocity = 100
+		NumPenetrations = 9999
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 23
+		DamageRadius = 600
+		DamageRadiusScaleY = 0.65
+		DetonateFx = "CharybdisTentacle360WhipFx"
+		ImpactLineOfSight = true
+		DieWithOwner = true
+		Thing =
+		{
+			Graphic = "null"
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+		}
+		Effects =
+		[
+			{
+				Name = "MeleeAttackVictimGrip"
+				Type = "GRIP"
+				Duration = 0.3
+				Modifier = 0.05
+				HaltOnEnd = true
+				Active = true
+			}
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "Tentacle360Whip2"
+		InheritFrom = "Tentacle360Whip"
+		Damage = 14
+	}
+	{
+		Name = "TentacleShockwave"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = "TentacleUnburrowNova"
+		Type = "INSTANT"
+		Damage = 9
+		DamageRadius = 240
+		DamageRadiusScaleY = 0.5
+		Fuse = 0.15
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		DetonateSound = "null"
+		MaxVictimZ = 9999
+		SpawnRadius = 0
+		GroupName = "FX_Terrain"
+		Thing =
+		{
+			Graphic = null
+			RotateGeometry = false
+			Scale = 1.0
+			Points = [ { X = 0 Y = 0 } ]
+		}
+	}
+
+	// Charybdis
+	{
+		Name = "CharybdisRanged"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "HOMING"
+		ImpactFx = "DustRingFrontPetrified"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = false
+		Range = 99999
+		Fuse = 4.0
+		FlashBeforeExpireDuration = 1
+		Speed = 650
+		MaxSpeed = 650
+		Acceleration = -30
+		AllowTargetInvulnerable = true
+		MaxAdjustRate = 1000
+		AdjustRateAcceleration = 50
+		DetonateLineOfSight = true
+		DetonateFx = "CharybdisSpitRangedProjectileDetonate"
+		DetonateSound = "/SFX/Explosion1"
+		BlastSpeed = 1110
+		DamageRadius = 320
+		DamageRadiusScaleY = 0.58
+		Damage = 13
+		HideGraphicOnDetonate = true
+		UnpauseResetLocation = true
+		GroupName = "Standing"
+		Thing =
+		{
+			Graphic = "CharybdisRangedProjectileIn"
+			OffsetZ = 110
+			OffsetX = 0
+			Scale = 1.25
+			AttachedAnim = "CharybdisRangedProjectileShadow"
+			Points =
+			[
+				{
+					X = 0
+					Y = 16
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -16
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = true
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "CharybdisRangedTransport"
+		InheritFrom = "CharybdisRanged"
+		DetonateSound = "/SFX/HellFireImpactQuiet"
+		MaxSpeed = 700
+		Speed = 700
+		Fuse = 2.5
+		CheckObstacleImpact = false
+		SpawnOnDetonate = "CharybdisRanged"
+		SpawnCount = 10
+		SpawnsEvenlySpaced = true
+		CheckUnitImpact = false
+		Thing =
+		{
+			Scale = 2
+			AttachedAnim = null
+		}
+	}
+	{
+		Name = "CharybdisRangedTransportSmall"
+		InheritFrom = "CharybdisRangedTransport"
+		Fuse = 2.5
+		SpawnOnDetonate = "CharybdisRangedShort"
+		SpawnCount = 5
+		Thing =
+		{
+			Scale = 1.5
+			AttachedAnim = "CharybdisRangedProjectileShadow"
+		}
+	}
+	{
+		Name = "CharybdisRangedTransportScylla"
+		InheritFrom = "CharybdisRangedTransport"
+		Speed = 900
+		MaxSpeed = 900
+		Fuse = 3.25
+		MaxAdjustRate = 700
+		SpawnOnDetonate = "CharybdisRanged2"
+	}
+	{
+		Name = "CharybdisRangedTransportSmallScylla"
+		InheritFrom = "CharybdisRangedTransportSmall"
+	}
+	{
+		Name = "CharybdisRangedShort"
+		InheritFrom = "CharybdisRanged"
+		Fuse = 2.0
+	}
+	{
+		Name = "CharybdisRanged2"
+		InheritFrom = "CharybdisRanged"
+		Fuse = 3
+		MaxAdjustRate = 500
+	}
+	{
+		Name = "CharybdisSpit"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "INSTANT"
+		DetonateFx = "CharybdisSpitDetonateFx"
+		DetonateSound = "/SFX/HellFireImpactQuiet"
+		DamageRadius = 325
+		DamageRadiusScaleY = 0.5
+		BlastSpeed = 1330
+		Damage = 16
+		UseRadialImpact = true
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		ImpactVelocity = 1000
+		HollowBlastRadiusBand = 40
+		UnlimitedUnitPenetration = true
+		GroupName = "Dark_FX"
+		Thing =
+		{
+			Graphic = null
+			RotateGeometry = false
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 0
+					Y = 8
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -8
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+	}
+
+	// Captain
+	{
+		Name = "CaptainPistolShot"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "STRAIGHT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = false
+		NumPenetrations = 0
+		Range = 2000
+		Fuse = 5
+		Speed = 2700
+		Damage = 15
+		DamageRadius = 300
+		BlastSpeed = 3000
+		BlastDuration = 0.2
+		DetonateSound = "/SFX/Explosion1"
+		DetonateFx = "IrisExplosionA"
+		GroupName = "FX_Standing_Add"
+		BounceFx = "CaptainPistolShotRicochet"
+		JumpType = "OBSTACLE_ONLY"
+		NumJumps = 1
+		AllowRepeatedJumpHit = true
+		ResetCollisionOutsideImpact = true
+		JumpSpeedMultiplier = 0.75
+		Thing =
+		{
+			Graphic = "CaptainProjectile"
+			OffsetZ = 150
+			Tallness = 100
+			AttachedAnim = "null"
+			Grip = 999999
+			UseBoundsForSortDrawArea = true
+			RotateGeometry = true
+			Points =
+			[
+				{
+					X = -24
+					Y = 0
+				}
+				{
+					X = 24
+					Y = 24
+				}
+				{
+					X = 24
+					Y = -24
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "HeroOnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = false
+			Active = false
+			CanAffectInvulnerable = false
+			Cancelable = true
+		}
+	}
+	{
+		Name = "CaptainSwordSwing"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "ARC"
+		AttachToOwner = true
+		ImpactVelocity = 1000
+		ArcStart = -75
+		ArcEnd = 65
+		Speed = 950
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Damage = 29
+		NumPenetrations = 99999
+		UseArmor = true
+		UseVulnerability = false
+		InvulnerableImpactOwnerVelocity = 0
+		UseRadialImpact = false
+		ImpactLineOfSightFromOwner = true
+		Thing =
+		{
+			Graphic = "ChronosSwingRight"
+			Scale = 1.0
+			GeometryScaleY = 0.5
+			OffsetZ = 70
+			RotateGeometry = true
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 0
+					Y = 0
+				}
+				{
+					X = 700
+					Y = 150
+				}
+				{
+					X = 700
+					Y = -150
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "RushGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.1
+				HaltOnEnd = true
+				Active = false
+			}
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = true
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "CaptainShrapnel"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		DetonateFx = "IcarusBombardImpact"
+		DetonateSound = "/SFX/Enemy Sounds/ZombieCaptain/ExplodeWithDebris"
+		DamageRadius = 250
+		DamageRadiusScaleY = 0.5
+		BlastSpeed = 1330
+		Damage = 18
+		UseRadialImpact = true
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		CanBeReflected = false
+		ImpactVelocity = 1000
+		UnlimitedUnitPenetration = true
+		GroupName = "Dark_FX"
+		Thing =
+		{
+			Graphic = null
+			RotateGeometry = false
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 0
+					Y = 8
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -8
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+	}
+
+	// Eris
+	{
+		Name = "GunWeapon"
+		InheritFrom = "1_BaseEnemyProjectileReflectable"
+		Type = "HOMING"
+		ImpactFx = "GunWeaponImpact"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		NumPenetrations = 0
+		MaxAdjustRate = 0
+		Range = 1060.0
+		Speed = 6000.0
+		DamageRadius = 0
+		Damage = 10
+		UseArmor = true
+		UseVulnerability = true
+		GroupName = "FX_Standing_Add"
+		Thing =
+		{
+			Graphic = "GunWeaponProjectile"
+			OffsetZ = 130
+			AttachedAnim = "GunProjectileLight"
+			Grip = 999999
+			RotateGeometry = true
+			UseBoundsForSortDrawArea = true
+			SortBoundsScale = 0.33
+			Tallness = 50
+			Points =
+			[
+				{
+					X = 24
+					Y = 24
+				}
+				{
+					X = 24
+					Y = -24
+				}
+				{
+					X = -24
+					Y = -24
+				}
+				{
+					X = -24
+					Y = 24
+				}
+			]
+		}
+		/* Slowing Variant instead of Stun */
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Type = "SPEED"
+				Modifier = 0.7
+				Duration = 0.1
+				DisableMove = false
+				DisableRotate = false
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "GunWeaponSpray"
+		InheritFrom = "GunWeapon"
+	}
+	{
+		Name = "GunWeaponSpread"
+		InheritFrom = "GunWeapon"
+	}
+	{
+		Name = "GunWeaponDash"
+		InheritFrom = "GunWeapon"
+	}
+	{
+		Name = "GunWeaponRelocate"
+		InheritFrom = "GunWeapon"
+	}
+	{
+		Name = "SniperGunWeapon"
+		InheritFrom = "GunWeapon"
+		Range = 3000
+		Damage = 30
+		Thing =
+		{
+			Graphic = "GunWeaponProjectile_Sniper"
+			OffsetZ = 140
+			AttachedAnim = "SniperPowerShot"
+			Grip = 999999
+			RotateGeometry = true
+			UseBoundsForSortDrawArea = true
+			SortBoundsScale = 0.33
+			Tallness = 50
+			Points =
+			[
+				{
+					X = 24
+					Y = 24
+				}
+				{
+					X = 24
+					Y = -24
+				}
+				{
+					X = -24
+					Y = -24
+				}
+				{
+					X = -24
+					Y = 24
+				}
+			]
+		}
+	}
+	{
+		Name = "GunGrenadeToss"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = "ErisExplosion"
+		DetonateSound = "/SFX/PlayerHammerExplosions"
+		ReticleGraphic = "GunGrenadeWarningDecalEnemy"
+		Type = "LOB"
+		Damage = 50
+		DamageRadius = 600.0
+		DamageRadiusScaleY = 0.5
+		AutoAdjustForTarget = true
+		SpinRate = -360
+		Speed = 1250
+		Gravity = 1350
+		MinRange = 0.0
+		Range = 600
+		ImpactVelocity = 0.0
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		UseVulnerability = false
+		ReflectFx = "GrenadeBounceSpark"
+		Thing =
+		{
+			Graphic = "GunGrenade"
+			OffsetZ = 101
+			AttachedAnim = "GrenadierShadow"
+			RotateGeometry = true
+			Points = [
+				{
+					X = 32
+					Y = 24
+				}
+				{
+					X = 32
+					Y = -24
+				}
+				{
+					X = -32
+					Y = -24
+				}
+				{
+					X = -32
+					Y = 24
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "GunGrenadeTossSelf"
+		InheritFrom = "GunGrenadeToss"
+		Range = 1
+		Speed = 1250
+		Gravity = 1000
+		AutoAdjustForTarget = false
+		LaunchAngle = 90
+		DamageRadius = 800.0
+		SpawnOnDetonate = "GunGrenadeSelfDamage"
+		SpawnType = "PROJECTILE"
+		CanBeProjectileDefenseDestroyedByName2 = "null"
+		CanBeProjectileDefenseDestroyedByLayer = "null"
+		CanBeReflected = false
+	}
+	{
+		Name = "GunGrenadeTossSelfFinal"
+		InheritFrom = "GunGrenadeTossSelf"
+		DamageRadius = 1500.0
+		Gravity = 1000
+		SpawnOnDetonate = "GunGrenadeSelfDamage"
+		SpawnType = "PROJECTILE"
+	}
+	{
+		Name = "GunGrenadeSelfDamage"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		AffectsEnemies = false
+		AffectsSelf = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		GaussianSpawnDistribution = true
+		SpawnRadius = 0
+		DamageRadius = 400
+		Damage = 0
+		ImpactVelocity = 0
+		Range = 0
+		GroupName = "FX_Standing_Top"
+		DamageRadiusScaleY = 0.6
+		UseVulnerability = false
+		Thing =
+		{
+			Graphic = "ErisPowerUpStart"
+			OffsetZ = 0
+			Grip = 999999
+			Points =
+			[
+				{
+					X = 90
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -45
+				}
+				{
+					X = -90
+					Y = 0
+				}
+				{
+					X = 0
+					Y = 45
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "ErisSelfBuff"
+				Type = "DAMAGE_OUTPUT"
+				Duration = 12
+				Modifier = 2.0
+				Active = true
+				CanAffectInvulnerable = true
+				IgnoreName = "_PlayerUnit"
+				FrontFx = "ErisPowerUpFx"
+				FlashFrontFxWhenExpiring = true
+			}
+		]
+	}
+	{
+		Name = "ErisKnockback"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "STRAIGHT"
+		DetonateFx = "null"
+		DetonateSound = "null"
+		Damage = 20
+		Fuse = 0.5
+		ImpactVelocity = 6000
+		ImmunityDuration = 1.0
+		AttachToOwner = true
+		UseRadialImpact = true
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 9999
+		CanHitWithoutDamage = true
+		Thing =
+		{
+			Graphic = "null"
+			RotateGeometry = true
+			Points =
+			[
+				{
+					X = 150
+					Y = 60
+				}
+				{
+					X = 150
+					Y = -60
+				}
+				{
+					X = -10
+					Y = -40
+				}
+				{
+					X = -10
+					Y = 40
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.95
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = false
+				FrontFx = "DionysusStunnedFx"
+				OnlyAffectName = "_PlayerUnit"
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.1
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "ErisWindBuffet"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "INSTANT"
+		CheckUnitImpact = true
+		CheckObstacleImpact = false
+		UnlimitedUnitPenetration = true
+		NumPenetrations = 99999
+		TotalFuse = 0.5
+		Fuse = 0.1
+		ImmunityDuration = 0.51
+		MultiDetonate = true
+		ExpandBlastDuringDetonation = true
+		AnimIgnoreBlastRadius = true
+		DamageRadius = 800
+		BlastSpeed = 5000
+		Damage = 0
+		CanHitWithoutDamage = true
+		Range = 1.0
+		DamageRadiusScaleY = 0.5
+		AttachToOwner = false
+		UseRadialImpact = true
+		ImpactVelocity = 2800
+		DamageRadiusScaleX = 1.175
+		GroupName = "FX_Terrain_Add"
+		Thing =
+		{
+			Graphic = "ErisWindFx"
+			AttachedAnim = "ErisWindFxShadow"
+			Grip = 999999
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.3
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = false
+				FrontFx = "DionysusStunnedFx"
+			}
+			{
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.2
+				Modifier = 0.01
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "ErisBombardment"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "INSTANT"
+		DetonateFx = "ErisBombardmentImpact"
+		DetonateSound = "/Leftovers/SFX/MeteorStrike"
+		DamageRadius = 300
+		DamageRadiusScaleY = 0.5
+		BlastSpeed = 1330
+		Damage = 20
+		UseRadialImpact = true
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		ImpactVelocity = 1000
+		HollowBlastRadiusBand = 40
+		UnlimitedUnitPenetration = true
+		GroupName = "Dark_FX"
+		Thing =
+		{
+			Graphic = null
+			RotateGeometry = false
+			Scale = 1.0
+			Points =
+			[
+				{
+					X = 0
+					Y = 8
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -8
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+	}
+
+	{
+		Name = "ErisBombardmentEM"
+		InheritFrom = "ErisBombardment"
+	}
+
+	{
+		Name = "ErisLaser"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		Type = "BEAM"
+		AttachToOwner = true
+		AutoAdjustForTarget = false
+		ImpactFx = "GunWeaponImpact"
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		MultipleUnitCollisions = true
+		MultipleObstacleCollisions = true
+		NumPenetrations = 99999
+		MaxAdjustRate = 0
+		Range = 1500.0
+		Speed = 0.0
+		Fuse = 0.8
+		Damage = 30
+		UseArmor = true
+		UseVulnerability = true
+		GroupName = "FX_Standing_Add"
+		ArcSize = 100
+		ImmunityDuration = 0.25
+		DrawAsBeam = true
+		BeamStartAnimSkipsImpact = false
+		TipFx = "GunLaserTipFlare"
+		DissipateFx = "GunLaserEnd"
+		Thing =
+		{
+			Graphic = "GunLaser"
+			OffsetZ = 130
+			AttachedAnim = "GunLaserOriginFlare"
+			Grip = 999999
+			RotateGeometry = true
+			UseBoundsForSortDrawArea = true
+			SortBoundsScale = 0.33
+			Tallness = 50
+			Points =
+			[
+				{
+					X = 24
+					Y = 24
+				}
+				{
+					X = 24
+					Y = -24
+				}
+				{
+					X = -24
+					Y = -24
+				}
+				{
+					X = -24
+					Y = 24
+				}
+			]
+		}
+		/* Slowing Variant instead of Stun */
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Type = "SPEED"
+				Modifier = 0.7
+				Duration = 0.1
+				DisableMove = false
+				DisableRotate = false
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "ErisLaserSweep"
+		InheritFrom = "ErisLaser"
+		Fuse = 0.7
+	}
+	{
+		Name = "ErisLaserStrafe"
+		InheritFrom = "ErisLaser"
+		RotateWithOwner = false
+		Fuse = 0.5
+	}
+	{
+		Name = "ErisLaserFast"
+		InheritFrom = "ErisLaser"
+		RotateWithOwner = false
+		Fuse = 0.4
+	}
+	{
+		Name = "ErisLaserDash"
+		InheritFrom = "ErisLaser"
+		RotateWithOwner = false
+		Fuse = 0.08
+		Range = 1000
+	}
+	{
+		Name = "GunGrenadeTossLucifer"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = null
+		DetonateSound = null
+		ReticleGraphic = "GunGrenadeWarningDecalEnemy"
+		Type = "LOB"
+		Damage = 0
+		DamageRadius = 400
+		DamageRadiusScaleY = 0.5
+		AutoAdjustForTarget = true
+		SpinRate = -360
+		Speed = 1937.5
+		Gravity = 3750
+		MinRange = 0.0
+		Range = 600
+		ImpactVelocity = 0.0
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		UseVulnerability = false
+		ReflectFx = "GrenadeBounceSpark"
+		SpawnCap = 6
+		FizzleOldSpawnsOnDetonate = true
+		HideGraphicOnDetonate = true
+		SpawnsInheritGroups = false
+		SkipSpawnsIfBlocked = true
+		SpawnGroup = "Standing"
+		SpawnType = "UNIT"
+		SpawnOnDetonate = "GunBombUnit"
+		Thing =
+		{
+			Graphic = "GunGrenadeLuciferOrb"
+			OffsetZ = 101
+			AttachedAnim = "MedusaShadow"
+			RotateGeometry = true
+			Points = [
+				{
+					X = 32
+					Y = 24
+				}
+				{
+					X = 32
+					Y = -24
+				}
+				{
+					X = -32
+					Y = -24
+				}
+				{
+					X = -32
+					Y = 24
+				}
+			]
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+
+	{
+		Name = "GunBombWeapon"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = "ZagGrenadeExplosionBase"
+		DetonateSound = "/SFX/LuciferBombExplosion"
+		Type = "STRAIGHT"
+		AffectsEnemies = true
+		AffectsFriends = true
+		AffectsSelf = false
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		Fuse = 0.01
+		Range = 50
+		DamageRadius = 400
+		BlastSpeed = 3000
+		Damage = 35
+		ImpactVelocity = 0
+		ClearOnAttackEffects = false
+		DamageRadiusScaleY = 0.6
+		DamageRadiusScaleX = 1.0
+		Thing =
+		{
+			Graphic = "null"
+			OffsetZ = 70
+			Grip = 999999
+		}
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Duration = 0.2
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+
+	{
+		Name = "GunBombImmolation"
+		InheritFrom = "1_BaseEnemyProjectileUndestroyable"
+		DetonateFx = "LuciferOrbAoE"
+		DetonateSound = "/SFX/Player Sounds/ZagreusLuciferBombPulse"
+		Type = "STRAIGHT"
+		AffectsEnemies = true
+		AffectsFriends = true
+		AffectsSelf = false
+		DoesNotAffectName = "GunBombUnit"
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		Fuse = 0.01
+		Range = 50
+		DamageRadius = 400
+		BlastSpeed = 3000
+		Damage = 11
+		ImpactVelocity = 0
+		ClearOnAttackEffects = false
+		DamageRadiusScaleY = 0.5
+		DamageRadiusScaleX = 1.0
+		//ImpactSound = "/SFX/BurnDamage"
+		Thing =
+		{
+			Graphic = "null"
+			OffsetZ = 70
+			Grip = 999999
+		}
+		/* Slowing Variant instead of Stun */
+		Effects =
+		[
+			{
+				Name = "HeroOnHitStun"
+				Type = "SPEED"
+				Modifier = 0.7
+				Duration = 0.2
+				DisableMove = false
+				DisableRotate = false
+				DisableAttack = false
+				Active = true
+				CanAffectInvulnerable = false
+				Cancelable = true
+			}
+		]
+	}
+]}

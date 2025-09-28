@@ -20,6 +20,12 @@ function TableLength( table, nilIsZero )
 
 end
 
+function TableClear( table )
+	for k,v in pairs(table) do
+		table[k] = nil
+	end
+end
+
 function CalcTotalNumEntries( table, trace )
 
 	if table == nil then
@@ -131,12 +137,14 @@ function DeepMergeTables( baseTable, incomingTable )
 
 	local returnTable = DeepCopyTable( baseTable )
 	for k, v in pairs( incomingTable ) do
-		if type(v) == "table" and next(v) == nil then
-			returnTable[k] = {}
-		elseif returnTable[k] == nil then
-			returnTable[k] = v
-		elseif type(v) == "table" then
-			returnTable[k] = DeepMergeTables( returnTable[k], v )
+		if type(v) == "table" then
+			if next(v) == nil then
+				returnTable[k] = {}
+			else
+				returnTable[k] = DeepMergeTables( returnTable[k], v )
+			end
+		elseif v == "nil" then
+			returnTable[k] = nil
 		else
 			returnTable[k] = v
 		end
@@ -187,23 +195,6 @@ function CombineTablesIPairs( table1, table2 )
 	end
 	for k, v in ipairs( table2 ) do
 		table.insert( returnTable, v )
-	end
-
-	return returnTable
-
-end
-
-function CombineAllValues( tables )
-
-	if tables == nil then
-		return
-	end
-
-	local returnTable = {}
-	for k, subTable in pairs( tables ) do
-		for k, value in pairs( subTable ) do
-			table.insert( returnTable, value )
-		end
 	end
 
 	return returnTable
@@ -292,6 +283,12 @@ function OverwritePrimitiveTableKeys( tableToOverwrite, tableToTake )
 	end
 end
 
+function RemoveTableValues( tableToRemoveFrom, tableOfValues )
+	for key, value in pairs( tableOfValues ) do
+		tableToRemoveFrom[value] = nil
+	end
+end
+
 function AddTableKeysCheckDupes( tableToOverwrite, tableToTake )
 
 	if tableToTake == nil then
@@ -312,6 +309,22 @@ function AddTableKeysCheckDupes( tableToOverwrite, tableToTake )
 	end
 end
 
+function ValidateDuplicateValues( table )
+	
+	if table == nil then
+		return
+	end
+
+	local values = {}
+	for key, value in pairs( table ) do
+		if values[value] then
+			DebugAssert({ false, Text = "Duplicate value found: "..value })
+		end
+		values[value] = true
+	end
+
+end
+
 function CollapseTable( tableArg )
 
 	if tableArg == nil then
@@ -321,26 +334,6 @@ function CollapseTable( tableArg )
 	local collapsedTable = {}
 	local index = 1
 	for k, v in pairs( tableArg ) do
-		collapsedTable[index] = v
-		index = index + 1
-	end
-
-	return collapsedTable
-
-end
-
-function CollapseTableOrderedByKeys( tableArg )
-
-	-- Determinism notice: You normally want to use CollapseTableOrdered() unless you need to iterate over a table that
-	-- can contain multiple empty tables (read: the memory addresses are compared by cmp_multitype). However, you will
-	-- need to make sure that they keys that you are sorting are not dependent upon non-deterministic behavior.
-	if tableArg == nil then
-		return
-	end
-
-	local collapsedTable = {}
-	local index = 1
-	for k, v in orderedPairs( tableArg ) do
 		collapsedTable[index] = v
 		index = index + 1
 	end
@@ -474,56 +467,6 @@ function DebugContains( tableArg, value )
 
 	return false
 
-end
-
-function RemoveValuesFromTable( tableToSearch, valuesToRemove )
-
-	if tableToSearch == nil or valuesToRemove == nil then
-		return
-	end
-
-	for key, value in pairs( valuesToRemove ) do
-		RemoveValue( tableToSearch, value )
-	end
-end
-
-function FindMatchingPair( searchId, pairsTable )
-
-	if pairsTable == nil then
-		return
-	end
-
-	local matchingPair = 0
-
-	for id1, id2 in pairs( pairsTable ) do
-
-		if searchId == id1 then
-			matchingPair = id2
-		end
-
-		if searchId == id2 then
-			matchingPair = id1
-		end
-	end
-
-	return matchingPair
-
-end
-
-function CountKeys( tableArg, key )
-
-	if tableArg == nil then
-		return
-	end
-
-	local count = 0
-	for k,v in pairs( tableArg ) do
-
-		if k == key then
-			count = count + 1
-		end
-	end
-	return count
 end
 
 function IsEmpty( tableArg )
@@ -699,70 +642,6 @@ function Lerp( start, finish, fraction )
       return start + (finish - start) * fraction
 end
 
-function CountValues( tableArg, value )
-
-	if tableArg == nil or value == nil then
-		return
-	end
-
-	local countValues = 0
-	for key, tableValue in pairs( tableArg ) do
-
-		if tableValue == value then
-			countValues = countValues + 1
-		end
-	end
-	return countValues
-
-end
-
-function GetAverageDistance( tableArg )
-
-	if tableArg == nil then
-		return
-	end
-
-	local total = 0
-	local numObjects = #tableArg
-	local average = 0
-
-	for index = 1, numObjects, 1 do
-		if tableArg[index + 1] ~= nil then
-			local distanceBetweenTargets = GetDistance({ Id = tableArg[index], DestinationId = tableArg[index + 1] })
-			total = total + distanceBetweenTargets
-		end
-	end
-	average = total / numObjects
-	if average ~= nil then
-		return average
-	end
-
-end
-
-function GetMaxDistance( tableArg )
-
-	if tableArg == nil then
-		return
-	end
-
-	local total = 0
-	local numObjects = #tableArg
-	local highest = 0
-	local distanceBetweenTargets = 0
-
-	for k, v in pairs(tableArg) do
-		for key, value in pairs(tableArg) do
-			distanceBetweenTargets = GetDistance({ Id = v, DestinationId = value })
-			if distanceBetweenTargets > highest then
-				highest = distanceBetweenTargets
-			end
-		end
-	end
-
-	return highest
-
-end
-
 function GetRandomEligiblePrioritizedItem( items, priorities, playedStore, randomRemainingStore, args )
 
 	if items == nil then
@@ -792,24 +671,26 @@ function GetRandomEligiblePrioritizedItem( items, priorities, playedStore, rando
 	end
 
 	-- Priorities only apply to completely unplayed items
-	for k, priority in ipairs( priorities ) do
-		if type(priority) == "table" then
-			local eligiblePriorityItems = {}
-			for j, itemName in ipairs( priority ) do
-				if not playedStore[itemName] and eligibleItems[itemName] then
-					table.insert( eligiblePriorityItems, itemName )
+	if priorities ~= nil then
+		for k, priority in ipairs( priorities ) do
+			if type(priority) == "table" then
+				local eligiblePriorityItems = {}
+				for j, itemName in ipairs( priority ) do
+					if not playedStore[itemName] and eligibleItems[itemName] then
+						table.insert( eligiblePriorityItems, itemName )
+					end
 				end
+				if not IsEmpty( eligiblePriorityItems ) then
+					local randomPriorityConversation = GetRandomValue( eligiblePriorityItems )
+					DebugPrint({ Text = "Random Priority Item: "..randomPriorityConversation })
+					return items[randomPriorityConversation]
+				end
+			elseif not playedStore[priority] and eligibleItems[priority] then
+				DebugPrint({ Text = "Priority Item: "..priority })
+				return items[priority]
 			end
-			if not IsEmpty( eligiblePriorityItems ) then
-				local randomPriorityConversation = GetRandomValue( eligiblePriorityItems )
-				DebugPrint({ Text = "Random Priority Item: "..randomPriorityConversation })
-				return items[randomPriorityConversation]
-			end
-		elseif not playedStore[priority] and eligibleItems[priority] then
-			DebugPrint({ Text = "Priority Item: "..priority })
-			return items[priority]
 		end
-	end	
+	end
 
 	if not IsEmpty( eligibleOneTimeItems ) then
 		return GetRandomValue( eligibleOneTimeItems )
@@ -839,7 +720,7 @@ end
 
 function CalcOffset( angle, distance )
 
-	offset = {}
+	local offset = {}
 
 	offset.X = math.cos( angle ) * distance
 	offset.Y = -math.sin( angle ) * distance
@@ -851,34 +732,6 @@ end
 function round( num, idp )
 	local mult = 10^(idp or 0)
 	return math.floor(num * mult + 0.5) / mult
-end
-
-function GetTimerStringHours( totalSeconds, args )
-	local hours = math.floor( totalSeconds / 3600 )
-	local minutes = math.floor( (totalSeconds - (hours * 3600)) / 60 )
-	local seconds = totalSeconds - (hours * 3600) - (minutes * 60)
-	local str = ""
-	if args.Hours then
-		if hours < 10 then
-			str = str.."0"
-		end
-		str = str..hours
-	end
-	if args.Minutes then
-		str = str..":"
-		if minutes < 10 then
-			str = str.."0"
-		end
-		str = str..minutes
-	end
-	if args.Seconds then
-		str = str..":"
-		if seconds < 10 then
-			str = str.."0"
-		end
-		str = str..round( seconds, decimals )
-	end
-	return str
 end
 
 function GetTimerString( totalSeconds, decimals )
@@ -908,14 +761,18 @@ function GetTimerString( totalSeconds, decimals )
 	return str
 end
 
+function GetTwoDigitString( num )
+	local string = ""
+	if num <= 9 then
+		string = string.."0"
+	end
+	string = string..num
+	return string
+end
+
 function stringends(String,End)
 	return End=='' or string.sub(String,-string.len(End))==End
 end
-
-function isint(n)
-  return n==math.floor(n)
-end
-
 
 function Clamp( number, low, high )
 
@@ -926,92 +783,6 @@ function Clamp( number, low, high )
 	end
 
 	return number
-
-end
-
--- http://www.splinter.com.au/converting-hsv-to-rgb-colour-using-c/
-function HSVtoRGB( h, S, V )
-
-	local H = h
-	while( H < 0 ) do
-		H = H + 360
-	end
-	while( H >= 360 ) do
-		H = H - 360
-	end
-	local R, G, B = 0
-	if( V <= 0 ) then
-		R = 0
-		G = 0
-		B = 0
-	elseif( S <= 0 ) then
-		R = V
-		G = V
-		B = V
-	else
-		local hf = H / 60.0
-		local i = math.floor( hf )
-		local f = hf - i;
-		local pv = V * (1 - S)
-		local qv = V * (1 - S * f);
-		local tv = V * (1 - S * (1 - f))
-
-		-- Red is the dominant color
-		if i == 0 then
-			R = V;
-			G = tv;
-			B = pv;
-		-- Green is the dominant color
-		elseif i == 1 then
-			R = qv;
-			G = V;
-			B = pv;
-		elseif i == 2 then
-			R = pv;
-			G = V;
-			B = tv;
-		-- Blue is the dominant color
-		elseif i == 3 then
-			R = pv;
-			G = qv;
-			B = V;
-		elseif i == 4 then
-			R = tv;
-			G = pv;
-			B = V;
-		-- Red is the dominant color
-		elseif i == 5 then
-			R = V;
-			G = pv;
-			B = qv;
-		-- Just in case we overshoot on our math by a little, we put these here. Since its a switch it won't slow us down at all to put these here.
-		elseif i == 6 then
-			R = V;
-			G = tv;
-			B = pv;
-		elseif i == -1 then
-			R = V;
-			G = pv;
-			B = qv;
-		-- The color is not defined, we should throw an error.
-		end
-	end
-	local r = ColorClamp( R * 255.0 )
-	local g = ColorClamp( G * 255.0 )
-	local b = ColorClamp( B * 255.0 )
-	return { r, g, b, 255 }
-
-end
-
-function ColorClamp( i )
-
-	if i < 0 then
-		return 0
-	elseif i > 255 then
-		return 255
-	else
-		return i
-	end
 
 end
 
@@ -1029,38 +800,6 @@ function Contains( tableArg, value )
 	end
 
 	return false
-
-end
-
-function ArrayContains( arrayArg, value )
-
-	if arrayArg == nil or value == nil then
-		return
-	end
-
-	for i=1,#arrayArg do
-		if arrayArg[i] == value then
-			return true
-		end
-	end
-
-	return false
-
-end
-
-function FlashLightBar( playerIndex, color, duration, frequency )
-
-	local frequency = frequency or 25 -- default to 25hz
-	local period = 1.0 / frequency
-	local count = (duration * frequency) / 2
-	for i=1, count do
-		SetLightBarColor({ PlayerIndex = playerIndex, Color = color })
-		wait( period )
-		SetLightBarColor({ PlayerIndex = playerIndex, Color = {15, 15, 15} })
-		wait( period )
-	end
-
-	SetLightBarColor({ PlayerIndex = playerIndex, Color = color })
 
 end
 
@@ -1133,14 +872,20 @@ function ResetCooldown( name )
 end
 
 -- Check if this has been called with this name threshold times in the last window seconds
-function CheckCountInWindow( name, window, threshold )
-
+function CheckCountInWindow( name, window, threshold, args )
+	args = args or {}
 	if SessionState.GlobalCounts[name] == nil then
 		SessionState.GlobalCounts[name] = {}
 	end
-
-	table.insert( SessionState.GlobalCounts[name], _worldTime )
-
+	
+	if not args.NoTrigger then
+		table.insert( SessionState.GlobalCounts[name], _worldTime )
+	end
+	
+	if args.TriggerOnly then
+		return
+	end
+	
 	local count = 0
 	for k = #SessionState.GlobalCounts[name], 1, -1 do
 		count = count + 1
@@ -1153,24 +898,6 @@ function CheckCountInWindow( name, window, threshold )
 
 	return false
 
-end
-
-function AllRumble( params )
-
-	local params2 = ShallowCopyTable( params )
-
-	params.PlayerIndex = 1
-	Rumble( params )
-
-	params2.PlayerIndex = 2
-	Rumble( params2 )
-
-end
-
--- https://www.rosettacode.org/wiki/Strip_a_set_of_characters_from_a_string#Lua
-function StripChars(str, chrs)
-  local s = str:gsub("["..chrs:gsub("%W","%%%1").."]", '')
-  return s
 end
 
 function CompareGameDataTables( table1, table2 )
@@ -1313,6 +1040,18 @@ function GetRandomValue( tableArg, rng )
 
 end
 
+function GetRandomArrayValue( tableArg, rng )
+	if tableArg == nil then
+		return
+	end
+	if verboseLogging and #tableArg ~= TableLength(tableArg) then
+		DebugAssert({ Condition = false , Text = "GetRandomArrayValue used with a non-array table", Owner = "Gavin" })
+	end
+	rng = rng or GetGlobalRng()
+	local randomIndex = rng:Random( #tableArg )
+	return tableArg[randomIndex]
+end
+
 function GetRandomKey( tableArg, rng )
 
 	if tableArg == nil then
@@ -1381,10 +1120,10 @@ function RemoveRandomValue( tableArg, rng )
 
 end
 
-function GetRandomEligibleValueFromWeightedList( tableArg, rng )
+function GetRandomEligibleValueFromWeightedList( tableArg, args )
 	local weightedList = {}
 	for k, option in pairs( tableArg ) do
-		if option.GameStateRequirements == nil or IsGameStateEligible( option, option.GameStateRequirements ) then
+		if option.GameStateRequirements == nil or IsGameStateEligible( option, option.GameStateRequirements, args ) then
 			weightedList[k] = option.Weight
 		end
 	end
@@ -1414,22 +1153,6 @@ function GetRandomValueFromWeightedList( tableArg, rng )
 	return nil
 end
 
-function RandomTableCycle( tableToCycle, rng )
-
-	if tableToCycle == nil then
-		return
-	end
-
-	rng = rng or GetGlobalRng()
-	local numCycles = rng:Random( #tableToCycle )
-	for index = 1, numCycles, 1 do
-		local frontItem = tableToCycle[1]
-		table.remove( tableToCycle, 1 )
-		table.insert( tableToCycle, frontItem )
-	end
-
-end
-
 function IncrementTableValue( tableArg, key, amount )
 
 	if amount == nil then
@@ -1443,7 +1166,6 @@ function IncrementTableValue( tableArg, key, amount )
 	tableArg[key] = tableArg[key] + amount
 
 end
-
 
 function DecrementTableValue( tableArg, key, amount )
 
@@ -1473,82 +1195,6 @@ function SetPathValue( source, args )
 	end
 end
 
-function StringToJSONLiteral( str )
-	return str:gsub("%\\","\\\\")
-end
-
-function TableToJSONString( tableArg, keyBlacklist, name, depth, maxDepth )
-
-	-- Validating with: https://jsonformatter.curiousconcept.com/
-
-	if tableArg == nil then
-		return "null"
-	end
-
-	if depth == nil then
-		depth = 0
-	end
-	if maxDepth == nil then
-		maxDepth = 5
-	end
-	if depth > maxDepth then
-		return "null"
-	end
-	if keyBlacklist == nil then
-		keyBlacklist = {}
-	end
-
-	local outStr = "{"
-	local tableQueue = {
-		[1] =
-		{
-			Name = name,
-			Table = tableArg
-		}
-	}
-	local index = 0
-	while index < #tableQueue do
-		index = index + 1
-		local currentTable = tableQueue[index]
-
-		if depth == 0 then
-			outStr = outStr.."\""..tostring(currentTable.Name).."\": ".."{"
-		end
-
-		local tableLength = TableLength(currentTable.Table)
-		local entries = 0
-
-		for key, value in pairs(currentTable.Table) do
-
-			if not Contains(keyBlacklist, key) then
-				if type(value) == "table" then
-					outStr = outStr.."\""..tostring(key).."\": "..TableToJSONString( value, keyBlacklist, tostring(key), depth + 1, maxDepth )
-				else
-					if type(value) == "number" or type(value) == "boolean" then
-						outStr = outStr.."\""..tostring(key).."\": "..tostring(value)
-					elseif type(value) == "string" then
-						outStr = outStr.."\""..tostring(key).."\": \""..value.."\""
-					end
-				end
-
-				if entries < tableLength - 1 and tableLength > 1 then
-					outStr = outStr..","
-				end
-			end
-
-			entries = entries + 1
-		end
-
-		if depth == 0 then
-			outStr = outStr.."}"
-		end
-	end
-	outStr = outStr.."}"
-
-	return outStr
-
-end
-
 function CalcArcDistance( angle1, angle2 )
 	local smallAngle = math.min( angle1, angle2 )
 	local largeAngle = math.max( angle1, angle2 )
@@ -1562,24 +1208,50 @@ function CalcAngleDifference( angle1, angle2)
 	 return (( angle1 - angle2 + 180 * 3 ) % 360) - 180
 end
 
-function StripForwardSlashes( str )
-	return string.gsub( str, "/", "" )
+function LuaGetAngleBetween( x1, y1, x2, y2 )
+	local angle = math.atan2( y2 - y1, x2 - x1 )
+	if angle < 0 then
+		angle = angle + 2 * math.pi
+	end
+	return math.deg(angle)
 end
 
 -- Debug
-
-function ValidateIds( ids )
-	if ids ~= nil then
-		for _, id in pairs(ids) do
-			assert( IdExists({ Id = id }), "Missing id: "..id )
-		end
-	end
-end
 
 function ValidateOrderData( dataSet, orderData )
 	for itemName, itemData in pairs( dataSet ) do
 		if not itemData.DebugOnly and not Contains( orderData, itemName ) then
 			DebugAssert({ Text = itemName.." not added to its OrderData" })
+		end
+	end
+end
+
+function ValidatePriorityData( dataSet, priorityData )
+	local allPriorities = {}
+	for i, priority in ipairs( priorityData ) do
+		if type(priority) == "table" then
+			for j, subPriority in ipairs( priority ) do
+				if not dataSet[subPriority] then
+					DebugAssert({ Condition = false, Text = "Priority found with no data: "..subPriority, Owner = "Greg" })
+				end
+				if allPriorities[subPriority] then
+					DebugAssert({ Condition = false, Text = "Duplicate priority found: "..subPriority, Owner = "Greg" })
+				end
+				allPriorities[subPriority] = true
+			end
+		else
+			if not dataSet[priority] then
+				DebugAssert({ Condition = false, Text = "Priority found with no data: "..priority, Owner = "Greg" })
+			end
+			if allPriorities[priority] then
+				DebugAssert({ Condition = false, Text = "Duplicate priority found: "..priority, Owner = "Greg" })
+			end
+			allPriorities[priority] = true
+		end
+	end
+	for itemName, itemData in pairs( dataSet ) do
+		if not itemData.DebugOnly and not allPriorities[itemName] then
+			DebugAssert({ Text = "Data found with no priority: "..itemName, Owner = "Greg" })
 		end
 	end
 end

@@ -3,26 +3,42 @@ WeaponSetData =
 	ErisSnipe =
 	{
 		ChainChance = 0.75,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+				Comparison = "<",
+				Value = 2,
+			}
+		},
 		AIData =
 		{
 			DeepInheritance = true,
 
 			ProjectileName = "SniperGunWeapon",
 			BarrelLength = 150,
-			PreAttackFx = "ScyllaAimLine",
+			PreAttackFx = "ErisLaserAimLineSnipe",
+			FireFx = "GunWeaponMuzzleFlashSniper",
 			EndPreAttackFx = true,
 
 			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 1.0,
+			PreAttackStop = true,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.27,
 			--StopBeforeFire = true,
+			PostAttackStop = true,
 
-			PreAttackSound = "/SFX/Enemy Sounds/Eris/EmoteCharging",
+			PreAttackLoopingSound = "/SFX/Enemy Sounds/Eris/ErisAimLine",
 			PreAttackAnimation = "Enemy_Eris_SnipePreFire",
 			FireAnimation = "Enemy_Eris_SnipeFire",
 			PostAttackAnimation = "Enemy_Eris_SnipePostFire",
 			PreAttackDurationMin = 1.75,
 			PreAttackDurationMax = 3.15,
+			PreAttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "ErisSniperAimVoiceLines" },
+			},
 			FireDuration = 0.7,
 			--PostAttackDuration = 0.82,
 			PostAttackDuration = 1.5,
@@ -36,9 +52,9 @@ WeaponSetData =
 			LoSBuffer = 80,
 			LoSEndBuffer = 32,
 
-			PreAttackVoiceLines =
+			AttackVoiceLines =
 			{
-				[1] = { GlobalVoiceLines = "ErisAttackVoiceLines" },
+				{ GlobalVoiceLines = "ErisSniperFireVoiceLines" },
 			},
 		},
 
@@ -50,7 +66,6 @@ WeaponSetData =
 			},
 		},
 	},
-
 	ErisSnipe1 =
 	{
 		InheritFrom = { "ErisSnipe" },
@@ -60,7 +75,6 @@ WeaponSetData =
 			MaxUses = 1,
 		},
 	},
-
 	ErisSnipe2 =
 	{
 		InheritFrom = { "ErisSnipe" },
@@ -70,7 +84,6 @@ WeaponSetData =
 			MaxUses = 1,
 		},
 	},
-
 	ErisSnipe3 =
 	{
 		InheritFrom = { "ErisSnipe" },
@@ -88,14 +101,19 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
-			PreAttackFx = "ErisSprayPreview",
+			PreAttackFx = "ErisLaserAimline",
 			EndPreAttackFx = true,
 
-			ProjectileName = "GunWeapon",
+			ProjectileName = "GunWeaponSpray",
+			FireFx = "GunWeaponMuzzleFlash",
 			FireTicksMin = 15,
 			FireTicksMax = 15,
 			FireInterval = 0.15,
 			Spread = 7,
+			CancelOnNoLosBetweenTicksChance = 0.33,
+			MinTicksBeforeEarlyCancel = 3,
+			ForceWeaponOnLoSCancel = "ErisGrenadeCluster01",
+			CancelChainedWeaponOnLoSCancel = "ErisGrenadeCluster01",
 
 			FireTickSelfVelocity = 690,
 			FireTickSelfVelocityAngleOffset = 180,
@@ -109,8 +127,8 @@ WeaponSetData =
 			WaitForAngleTowardTargetTimeOut = 0.7,
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.18,
-			AngleTowardsTargetWhileFiring = true,
-			FireRotationDampening = 0.09,
+			TrackTargetDuringFire = true,
+			FireRotationDampening = 0.12,
 			StopMoveWithinRange = true,
 			PostAttackStop = true,
 
@@ -121,6 +139,8 @@ WeaponSetData =
 			FireAnimation = "Enemy_Eris_SprayFire",
 			PostAttackAnimation = "Enemy_Eris_SprayPostFire",
 			PreAttackDuration = 0.83,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackStartMinWaitTime = 0.275,
 			FireDuration = 0.23,
 			PostAttackDuration = 0.82,
 
@@ -132,8 +152,8 @@ WeaponSetData =
 
 			PreAttackVoiceLines =
 			{
-				[1] = { GlobalVoiceLines = "ErisAttackVoiceLines" },
-			},			
+				{ GlobalVoiceLines = "ErisAttackVoiceLines" },
+			},
 		},
 
 		Requirements =
@@ -148,24 +168,17 @@ WeaponSetData =
 				{ Name = "/SFX/Player Sounds/ZagreusGunFire" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.05, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0 },
-		},
 	},
-
 	ErisSpreadFire =
 	{
 		AIData =
 		{
 			--DeepInheritance = true,
 
-			ProjectileName = "GunWeapon",
+			ProjectileName = "GunWeaponSpread",
+			FireFx = "GunWeaponMuzzleFlash",
 
-			PreAttackFx = "ErisSprayPreview",
+			PreAttackFx = "ErisSpreadFirePreviewDecal",
 			EndPreAttackFx = true,
 
 			AttackSlots =
@@ -188,12 +201,16 @@ WeaponSetData =
 			Spread = 0,
 			BarrelLength = 100,
 
+			CancelOnNoLosBetweenTicksChance = 0.33,
+			MinTicksBeforeEarlyCancel = 1,
+			ForceWeaponOnLoSCancel = "ErisGrenadeCluster01",
+
 			WaitForAngleTowardTarget = true,
 			WaitForAngleTowardTargetTimeOut = 0.7,
 
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.16,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.11,
 			StopMoveWithinRange = true,
 			PostAttackStop = true,
@@ -205,6 +222,8 @@ WeaponSetData =
 			FireAnimation = "Enemy_Eris_SpreadFire",
 			PostAttackAnimation = "Enemy_Eris_SpreadPostFire",
 			PreAttackDuration = 0.83,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackStartMinWaitTime = 0.275,
 			FireDuration = 0.23,
 			PostAttackDuration = 0.82,
 
@@ -215,7 +234,8 @@ WeaponSetData =
 
 			PreAttackVoiceLines =
 			{
-				[1] = { GlobalVoiceLines = "ErisAttackVoiceLines" },
+				{ GlobalVoiceLines = "ErisShotgunVoiceLines" },
+				{ GlobalVoiceLines = "ErisAttackVoiceLines" },
 			},
 		},
 
@@ -231,28 +251,6 @@ WeaponSetData =
 				{ Name = "/SFX/Player Sounds/ZagreusGunFire" },
 				{ Name = "/SFX/Player Sounds/AphroditeLoveShotgunBlast" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.05, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0 },
-		},
-	},
-
-	ErisRicochet =
-	{	
-		InheritFrom = { "ErisSpray" },
-		AIData =
-		{
-			DeepInheritance = true,
-
-			ProjectileName = "GunWeaponBounce",
-			FireTicksMin = 40,
-			FireTicksMax = 40,
-			FireInterval = 0.05,
-			Spread = 1,		
 		},
 	},
 
@@ -273,16 +271,28 @@ WeaponSetData =
 
 			FireAnimation = "Enemy_Eris_Reload",
 
-			ChainedWeapon = "ErisReloadJam",
-
-			--ChainedWeapon = "ErisSpray",
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						ChanceToPlay = 0.33
+					},
+					Data =
+					{
+						ChainedWeapon = "ErisReloadJam",
+						PreAttackThreadedFunctionName = "ErisReloadJamPresentation",
+						PreAttackThreadedFunctionArgs = {},
+					},
+				},
+			},
 
 			PreAttackVoiceLines =
 			{	
 				RandomRemaining = true,
 				BreakIfPlayed = true,
-				PreLineWait = 0.4,
-				SuccessiveChanceToPlay = 0.33,
+				PreLineWait = 0.3,
+				SuccessiveChanceToPlay = 0.5,
 				GameStateRequirements =
 				{
 					{
@@ -293,28 +303,37 @@ WeaponSetData =
 				},
 				Cooldowns =
 				{
-					{ Name = "ErisSpokeRecently", Time = 8 },
+					{ Name = "ErisReloadedRecently", Time = 12 },
 				},
+				TriggerCooldowns = { "ErisSpokeRecently" },
 
-				{ Cue = "/VO/ErisField_0082", Text = "Reloading!" },
+				{ Cue = "/VO/ErisField_0082", Text = "Reloading!", PlayFirst = true },
 				{ Cue = "/VO/ErisField_0083", Text = "Reloading...!" },
 				{ Cue = "/VO/ErisField_0084", Text = "Plenty more!" },
 				{ Cue = "/VO/ErisField_0087", Text = "Fresh out..." },
 				{ Cue = "/VO/ErisField_0088", Text = "I'm out..." },
 				{ Cue = "/VO/ErisField_0089", Text = "Empty..." },
+				{ Cue = "/VO/ErisField_0177", Text = "Loading up..." },
+				{ Cue = "/VO/ErisField_0178", Text = "Loading up...!" },
+				{ Cue = "/VO/ErisField_0179", Text = "Empty again?" },
+				{ Cue = "/VO/ErisField_0180", Text = "Chamber's empty..." },
+				{ Cue = "/VO/ErisField_0181", Text = "Plenty of ammo!" },
+				{ Cue = "/VO/ErisField_0182", Text = "Out of ammo..." },
+				{ Cue = "/VO/ErisField_0183", Text = "Out of ammo?" },
+				{ Cue = "/VO/ErisField_0184", Text = "Hang on, reloading!" },
 			},
 
 		},
 
 		Requirements =
 		{
-			MinAttacksBetweenUse = 2,
+			MinAttacksBetweenUse = 4,
 		},
 	},
-
 	ErisReloadJam =
 	{
-		ChainChance = 0.33,
+		GenusName = "ErisReload",
+		
 		AIData =
 		{
 			DeepInheritance = true,
@@ -329,14 +348,12 @@ WeaponSetData =
 
 			FireAnimation = "Enemy_Eris_ReloadJam",
 
-			--ChainedWeapon = "ErisSpray",
-
-			PreAttackVoiceLines =
+			AttackVoiceLines =
 			{	
+				Queue = "Interrupt",
 				RandomRemaining = true,
 				BreakIfPlayed = true,
-				PreLineWait = 0.4,
-				SuccessiveChanceToPlay = 0.33,
+				PreLineWait = 0.3,
 				GameStateRequirements =
 				{
 					{
@@ -345,12 +362,26 @@ WeaponSetData =
 						Value = 0.1,
 					},
 				},
-				TriggerCooldowns = { "ErisSpokeRecently" },
+				Cooldowns =
+				{
+					{ Name = "ErisReloadJammedRecently", Time = 12 },
+				},
+				TriggerCooldowns = { "ErisSpokeRecently", "ErisReloadedRecently" },
 
 				{ Cue = "/VO/ErisField_0085", Text = "{#Emph}Load{#Prev}, damn it!" },
 				{ Cue = "/VO/ErisField_0086", Text = "C'mon..." },
-			},
 
+				{ Cue = "/VO/ErisField_0185", Text = "C'mon, reload...!", PlayFirst = true },
+				{ Cue = "/VO/ErisField_0186", Text = "C'mon you stupid thing!" },
+				{ Cue = "/VO/ErisField_0187", Text = "Reload already!" },
+				{ Cue = "/VO/ErisField_0188", Text = "{#Emph}Re-load-ing!" },
+				{ Cue = "/VO/ErisField_0189", Text = "Jammed {#Emph}again?" },
+				{ Cue = "/VO/ErisField_0190", Text = "Why won't it shoot?!" },
+				{ Cue = "/VO/ErisField_0191", Text = "{#Emph}Ungh {#Prev}this thing is {#Emph}stuck!" },
+				{ Cue = "/VO/ErisField_0192", Text = "{#Emph}Augh {#Prev}this piece of {#Emph}junk!" },
+				{ Cue = "/VO/ErisField_0193", Text = "This thing is full of sand!" },
+				{ Cue = "/VO/ErisField_0194", Text = "Keeps getting stuck..." },
+			},
 		},
 	},
 
@@ -388,36 +419,8 @@ WeaponSetData =
 
 			PreAttackVoiceLines =
 			{	
-				RandomRemaining = true,
-				BreakIfPlayed = true,
-				PreLineWait = 0.4,
-				SuccessiveChanceToPlay = 0.33,
-				GameStateRequirements =
-				{
-					{
-						Path = { "CurrentRun", "BossHealthBarRecord", "Eris" },
-						Comparison = ">",
-						Value = 0.2,
-					},
-				},
-				Cooldowns =
-				{
-					{ Name = "ErisSpokeRecently", Time = 8 },
-				},
-
-				{ Cue = "/VO/ErisField_0070", Text = "Heads {#Emph}up!" },
-				{ Cue = "/VO/ErisField_0071", Text = "Bombs {#Emph}away!" },
-				{ Cue = "/VO/ErisField_0072", Text = "Catch!" },
-				{ Cue = "/VO/ErisField_0073", Text = "{#Emph}Boom!" },
+				{ GlobalVoiceLines = "ErisGrenadeVoiceLines" },
 			},
-
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.3, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.03 },
 		},
 
 		Sounds =
@@ -429,7 +432,6 @@ WeaponSetData =
 			},
 		},
 	},
-
 	ErisGrenadeCluster01 =
 	{
 		InheritFrom = { "ErisGrenade" },
@@ -447,6 +449,12 @@ WeaponSetData =
 			PreAttackSound = "/SFX/Enemy Sounds/Eris/EmoteAttacking",
 			AttackSlotInterval = 0.2,
 			NoProjectileAngle = true,
+
+			PreAttackVoiceLines =
+			{	
+				{ GlobalVoiceLines = "ErisGrenadeVoiceLines" },
+				{ GlobalVoiceLines = "ErisGrenadeClusterVoiceLines" },
+			},
 		},
 
 		Sounds =
@@ -457,7 +465,6 @@ WeaponSetData =
 			},
 		},
 	},
-
 	ErisGrenadeCluster02 =
 	{
 		InheritFrom = { "ErisGrenade" },
@@ -477,6 +484,12 @@ WeaponSetData =
 			PreAttackSound = "/SFX/Enemy Sounds/Eris/EmoteAttacking",
 			AttackSlotInterval = 0.2,
 			NoProjectileAngle = true,
+
+			PreAttackVoiceLines =
+			{	
+				{ GlobalVoiceLines = "ErisGrenadeVoiceLines" },
+				{ GlobalVoiceLines = "ErisGrenadeClusterVoiceLines" },
+			},
 		},
 
 		Sounds =
@@ -487,7 +500,6 @@ WeaponSetData =
 			},
 		},
 	},
-
 	ErisGrenadeCluster03 =
 	{
 		InheritFrom = { "ErisGrenade" },
@@ -509,6 +521,12 @@ WeaponSetData =
 			PreAttackSound = "/SFX/Enemy Sounds/Eris/EmoteAttacking",
 			AttackSlotInterval = 0.2,
 			NoProjectileAngle = true,
+
+			PreAttackVoiceLines =
+			{	
+				{ GlobalVoiceLines = "ErisGrenadeVoiceLines" },
+				{ GlobalVoiceLines = "ErisGrenadeClusterVoiceLines" },
+			},
 		},
 
 		Sounds =
@@ -558,15 +576,16 @@ WeaponSetData =
 				{ Cue = "/VO/ErisField_0107", Text = "How about {#Emph}this?" },
 				{ Cue = "/VO/ErisField_0108", Text = "All right, {#Emph}fine!" },
 				{ Cue = "/VO/ErisField_0109", Text = "I've {#Emph}had {#Prev}it!!" },
+				{ Cue = "/VO/ErisField_0195", Text = "Got something for you!" },
+				{ Cue = "/VO/ErisField_0196", Text = "Come {#Emph}here{#Prev}, babe..." },
+				{ Cue = "/VO/ErisField_0197", Text = "Here comes my favorite part..." },
+				{ Cue = "/VO/ErisField_0198", Text = "All right, {#Emph}enough!" },
+				{ Cue = "/VO/ErisField_0199", Text = "Now watch {#Emph}this!" },
+				{ Cue = "/VO/ErisField_0200", Text = "Now it's {#Emph}my {#Prev}turn!" },
+				{ Cue = "/VO/ErisField_0201", Text = "I'll be {#Emph}right {#Prev}with you!" },
+				{ Cue = "/VO/ErisField_0202", Text = "Here it {#Emph}comes!" },
 			},
 
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.3, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.03 },
 		},
 
 		Sounds =
@@ -578,7 +597,6 @@ WeaponSetData =
 			},
 		},
 	},
-
 	ErisGrenadeSelfBuffFinal =
 	{
 		InheritFrom = { "ErisGrenadeSelfBuff" },
@@ -606,16 +624,56 @@ WeaponSetData =
 				{ Cue = "/VO/ErisField_0111", Text = "Catch {#Emph}this!" },
 				{ Cue = "/VO/ErisField_0112", Text = "One for the both of us!!" },
 				{ Cue = "/VO/ErisField_0113", Text = "Race you {#Emph}home!!" },
-
+				{ Cue = "/VO/ErisField_0208", Text = "Let's blow {#Emph}everything {#Prev}up!" },
+				{ Cue = "/VO/ErisField_0203", Text = "One... last... gasp!",
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "LastBossHealthBarRecord", "Eris" },
+							Comparison = "<=",
+							Value = 0,
+						},
+					},
+				},
+				{ Cue = "/VO/ErisField_0204", Text = "We're... not... {#Emph}through!",
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "LastBossHealthBarRecord", "Eris" },
+							Comparison = "<=",
+							Value = 0,
+						},
+					},
+				},
+				{ Cue = "/VO/ErisField_0205", Text = "No... you... don't!",
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "LastBossHealthBarRecord", "Eris" },
+							Comparison = "<=",
+							Value = 0,
+						},
+					},
+				},
+				{ Cue = "/VO/ErisField_0206", Text = "Die... die... {#Emph}die!",
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "LastBossHealthBarRecord", "Eris" },
+							Comparison = "<=",
+							Value = 0,
+						},
+					},
+				},
+				{ Cue = "/VO/ErisField_0207", Text = "We'll {#Emph}both {#Prev}go back to hell!",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "EnemyKills", "Eris" }
+						},
+					},
+				},
 			},
-
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.3, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.03 },
 		},
 
 		Sounds =
@@ -630,11 +688,19 @@ WeaponSetData =
 
 	ErisDash =
 	{
+		Requirements =
+		{
+			RequireUnitLoS = true,
+			LoSStopsUnits = false,
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
 
-			ProjectileName = "GunWeapon",
+			ProjectileName = "GunWeaponDash",
+			FireFx = "GunWeaponMuzzleFlash",
+			
 			AttackSlots =
 			{
 				{ AIDataOverrides = { FireProjectileAngleRelative = 40 } },
@@ -644,7 +710,7 @@ WeaponSetData =
 			FireInterval = 0.04,
 			FireProjectileTowardTarget = true,
 			Spread = 0,
-			BarrelLength = 200,
+			BarrelLength = 120,
 
 			PreAttackEndStop = true,
 
@@ -664,6 +730,8 @@ WeaponSetData =
 			FireAnimation = "Enemy_Eris_StrafeFire",
 			PostAttackAnimation = "Enemy_Eris_StrafePostFire",
 			PreAttackDuration = 1.0,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackStartMinWaitTime = 0.42,
 			PreAttackAnimationSpeed = 0.4,
 			FireDuration = 0.35,
 			PostAttackDuration = 1.5, -- animation is 0.92
@@ -681,7 +749,7 @@ WeaponSetData =
 
 			PreAttackVoiceLines =
 			{
-				[1] = { GlobalVoiceLines = "ErisAttackVoiceLines" },
+				{ GlobalVoiceLines = "ErisAttackVoiceLines" },
 			},
 		},
 
@@ -691,26 +759,6 @@ WeaponSetData =
 			{
 				{ Name = "/SFX/Player Sounds/ZagreusGunFire" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.02, Fraction = 1.00, LerpTime = 0.08 },
-		},
-	},
-
-	ErisDashOutOfFire =
-	{
-		InheritFrom = { "ErisDash" },
-
-		AIData =
-		{
-			DeepInheritance = true,
-
-			TargetSpawnPoints = true,
-			TargetSpawnPointsRadius = 700,
 		},
 	},
 
@@ -735,16 +783,6 @@ WeaponSetData =
 				--{ Name = "/SFX/Enemy Sounds/Polyphemus/EmotePowerAttacking" },
 			},
 		},
-
-		HitScreenshake = { Distance = 4, Speed = 600, Duration = 0.3, FalloffSpeed = 3000, Angle = 0 },
-		
-		--[[x
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.000, LerpTime = 0.0 },
-		},
-		]]
 	},
 
 	ErisSummonSelector =
@@ -753,7 +791,7 @@ WeaponSetData =
 		{
 			RequireTotalAttacks = 5,
 			MinAttacksBetweenUse = 12,
-			MaxUses = 4,
+			MaxUses = 2,
 		},
 
 		AIData =
@@ -766,18 +804,15 @@ WeaponSetData =
 			{
 				"ErisSummon01",
 				"ErisSummon02",
-				"ErisSummon03",
-				"ErisSummon04",
 			},
 		},
 	},
-
 	ErisSummonSelector2 =
 	{
 		Requirements =
 		{
 			MinAttacksBetweenUse = 16,
-			MaxUses = 4,
+			MaxUses = 2,
 		},
 
 		AIData =
@@ -788,10 +823,8 @@ WeaponSetData =
 
 			ChainedWeaponOptions =
 			{
-				"ErisSummon01_Elite",
-				"ErisSummon02_Elite",
-				"ErisSummon03_Elite",
-				"ErisSummon04_Elite",
+				"ErisSummon03",
+				"ErisSummon04",
 			},
 		},
 	},
@@ -803,7 +836,6 @@ WeaponSetData =
 			DeepInheritance = true,
 
 			MoveWithinRange = false,
-			DashIfOverDistance = 99999,
 			NoProjectile = true,
 
 			PreAttackAnimation = "Enemy_Eris_FlyUp_Start",
@@ -812,9 +844,14 @@ WeaponSetData =
 			FireSetZDuration = 0.55,
 
 			PostAttackThreadedFunctionName = "ErisFlyByPresentation",
-			PostAttackThreadedFunctionArgs = { FlyByDuration = 3.0, FlyBySpeedMultiplier = 15.0, FlyByScale = 9, TopGroup = true, FlybyZHeight = 100 },
+			PostAttackThreadedFunctionArgs = { FlyByDuration = 1.0, FlyBySpeedMultiplier = 7.0, FlyByScale = 3.5 },
 
 			PreAttackDuration = 0.45,
+			PreAttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "ErisSpawnWaveVoiceLines" },
+			},
+
 			FireDuration = 1.5,
 			PostAttackDuration = 3.5,
 
@@ -844,15 +881,7 @@ WeaponSetData =
 				{ Name = "/SFX/Player Sounds/ZagreusGunGrenadeLaunchFire" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
-		},
 	},
-
 	ErisSummon01 =
 	{
 		InheritFrom = { "ErisSummonBase" },
@@ -870,25 +899,6 @@ WeaponSetData =
 			SpawnerOptions = { "HarpyCutter" },
 		},
 	},
-
-	ErisSummon01_Elite =
-	{
-		InheritFrom = { "ErisSummonBase" },
-		Requirements =
-		{
-			MaxUses = 1,
-		},
-		AIData =
-		{
-			DeepInheritance = true,
-
-			SpawnsPerBurstMin = 1,
-			SpawnsPerBurstMax = 1,
-			MaxActiveSpawns = 6,
-			SpawnerOptions = { "HarpyCutter_Elite" },
-		},
-	},
-
 	ErisSummon02 =
 	{
 		InheritFrom = { "ErisSummonBase" },
@@ -906,25 +916,6 @@ WeaponSetData =
 			SpawnerOptions = { "Drunk" },
 		},
 	},
-
-	ErisSummon02_Elite =
-	{
-		InheritFrom = { "ErisSummonBase" },
-		Requirements =
-		{
-			MaxUses = 1,
-		},
-		AIData =
-		{
-			DeepInheritance = true,
-
-			SpawnsPerBurstMin = 1,
-			SpawnsPerBurstMax = 1,
-			MaxActiveSpawns = 6,
-			SpawnerOptions = { "Drunk_Elite" },
-		},
-	},
-
 	ErisSummon03 =
 	{
 		InheritFrom = { "ErisSummonBase" },
@@ -942,25 +933,6 @@ WeaponSetData =
 			SpawnerOptions = { "Stickler" },
 		},
 	},
-
-	ErisSummon03_Elite =
-	{
-		InheritFrom = { "ErisSummonBase" },
-		Requirements =
-		{
-			MaxUses = 1,
-		},
-		AIData =
-		{
-			DeepInheritance = true,
-
-			SpawnsPerBurstMin = 1,
-			SpawnsPerBurstMax = 1,
-			MaxActiveSpawns = 6,
-			SpawnerOptions = { "Stickler_Elite" },
-		},
-	},
-
 	ErisSummon04 =
 	{
 		InheritFrom = { "ErisSummonBase" },
@@ -979,9 +951,86 @@ WeaponSetData =
 		},
 	},
 
-	ErisSummon04_Elite =
+	ErisEMSummonSelector =
+	{
+		Requirements =
+		{
+			RequireTotalAttacks = 5,
+			MinAttacksBetweenUse = 20,
+			MaxUses = 2,
+		},
+
+		AIData =
+		{
+			SkipFireWeapon = true,
+			AttackDistance = 99999,
+			PreAttackAngleTowardTarget = false,
+			ForceUseIfReady = true,
+
+			ChainedWeaponOptions =
+			{
+				"ErisEMSummonHarpy",
+				"ErisEMSummonSwab",
+				"ErisEMSummonJellyfish",
+				"ErisEMSummonTurtle",
+			},
+		},
+	},
+	ErisEMSummonSelector2 =
+	{
+		Requirements =
+		{
+			MinAttacksBetweenUse = 20,
+			MaxUses = 2,
+		},
+
+		AIData =
+		{
+			SkipFireWeapon = true,
+			AttackDistance = 99999,
+			PreAttackAngleTowardTarget = false,
+			ForceUseIfReady = true,
+
+			ChainedWeaponOptions =
+			{
+				"ErisEMSummonFishmanRanged",
+				"ErisEMSummonFishmanMelee",
+				"ErisEMSummonFishSwarmer",
+				"ErisEMSummonAutomaton",
+			},
+		},
+	},
+	ErisEMSummonBase =
 	{
 		InheritFrom = { "ErisSummonBase" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			SpawnOnIdsOrdered = { 744610, 744615, 744609, 744616, 744608, 744617, 744607, 744618, },
+		}
+	},
+	ErisEMSummonHarpy =
+	{
+		InheritFrom = { "ErisEMSummonBase" },
+		Requirements =
+		{
+			MaxUses = 1,
+		},
+		AIData =
+		{
+			DeepInheritance = true,
+
+			SpawnsPerBurstMin = 2,
+			SpawnsPerBurstMax = 2,
+			MaxActiveSpawns = 6,
+			SpawnerOptions = { "HarpyCutter_Elite" },
+		},
+	},
+	ErisEMSummonSwab =
+	{
+		InheritFrom = { "ErisEMSummonBase" },
 		Requirements =
 		{
 			MaxUses = 1,
@@ -996,6 +1045,155 @@ WeaponSetData =
 			SpawnerOptions = { "Swab_Elite" },
 		},
 	},
+	ErisEMSummonTurtle =
+	{
+		InheritFrom = { "ErisEMSummonBase" },
+		Requirements =
+		{
+			MaxUses = 1,
+		},
+		AIData =
+		{
+			DeepInheritance = true,
+			SpawnsPerBurstMin = 4,
+			SpawnsPerBurstMax = 4,
+			MaxActiveSpawns = 6,
+			SpawnerOptions = { "Turtle_Elite" },
+			PreAttackVoiceLines =
+			{
+				-- { GlobalVoiceLines = "ErisAutomatonSpawnWaveVoiceLines" },
+				{ GlobalVoiceLines = "ErisFishSpawnWaveVoiceLines" },
+				{ GlobalVoiceLines = "ErisSpawnWaveVoiceLines" },
+			},
+		},
+	},
+	ErisEMSummonJellyfish =
+	{
+		InheritFrom = { "ErisEMSummonBase" },
+		Requirements =
+		{
+			MaxUses = 1,
+		},
+		AIData =
+		{
+			DeepInheritance = true,
+
+			SpawnOnIdsOrdered = "nil",
+			SpawnOverrides =
+			{
+				RequiredSpawnPoint = "EnemyPoint",
+			},
+
+			SpawnsPerBurstMin = 6,
+			SpawnsPerBurstMax = 6,
+			MaxActiveSpawns = 12,
+			SpawnerOptions = { "Jellyfish_Elite" },
+			PreAttackVoiceLines =
+			{
+				-- { GlobalVoiceLines = "ErisAutomatonSpawnWaveVoiceLines" },
+				{ GlobalVoiceLines = "ErisFishSpawnWaveVoiceLines" },
+				{ GlobalVoiceLines = "ErisSpawnWaveVoiceLines" },
+			},
+		},
+	},
+	ErisEMSummonFishmanRanged =
+	{
+		InheritFrom = { "ErisEMSummonBase" },
+		Requirements =
+		{
+			MaxUses = 1,
+		},
+		AIData =
+		{
+			DeepInheritance = true,
+
+			SpawnsPerBurstMin = 3,
+			SpawnsPerBurstMax = 3,
+			MaxActiveSpawns = 6,
+			SpawnerOptions = { "FishmanRanged_Elite" },
+			PreAttackVoiceLines =
+			{
+				-- { GlobalVoiceLines = "ErisAutomatonSpawnWaveVoiceLines" },
+				{ GlobalVoiceLines = "ErisFishSpawnWaveVoiceLines" },
+				{ GlobalVoiceLines = "ErisSpawnWaveVoiceLines" },
+			},
+		},
+	},
+	ErisEMSummonFishmanMelee =
+	{
+		InheritFrom = { "ErisEMSummonBase" },
+		Requirements =
+		{
+			MaxUses = 1,
+		},
+		AIData =
+		{
+			DeepInheritance = true,
+
+			SpawnsPerBurstMin = 3,
+			SpawnsPerBurstMax = 3,
+			MaxActiveSpawns = 6,
+			SpawnerOptions = { "FishmanMelee_Elite" },
+			PreAttackVoiceLines =
+			{
+				-- { GlobalVoiceLines = "ErisAutomatonSpawnWaveVoiceLines" },
+				{ GlobalVoiceLines = "ErisFishSpawnWaveVoiceLines" },
+				{ GlobalVoiceLines = "ErisSpawnWaveVoiceLines" },
+			},
+		},
+	},
+	ErisEMSummonFishSwarmer =
+	{
+		InheritFrom = { "ErisEMSummonBase" },
+		Requirements =
+		{
+			MaxUses = 1,
+		},
+		AIData =
+		{
+			DeepInheritance = true,
+
+			SpawnOnIdsOrdered = "nil",
+			SpawnOverrides =
+			{
+				RequiredSpawnPoint = "EnemyPoint",
+			},
+
+			SpawnsPerBurstMin = 6,
+			SpawnsPerBurstMax = 6,
+			MaxActiveSpawns = 12,
+			SpawnerOptions = { "FishSwarmer_Elite", },
+			PreAttackVoiceLines =
+			{
+				-- { GlobalVoiceLines = "ErisAutomatonSpawnWaveVoiceLines" },
+				{ GlobalVoiceLines = "ErisFishSpawnWaveVoiceLines" },
+				{ GlobalVoiceLines = "ErisSpawnWaveVoiceLines" },
+			},
+		},
+	},
+	ErisEMSummonAutomaton =
+	{
+		InheritFrom = { "ErisEMSummonBase" },
+		Requirements =
+		{
+			MaxUses = 1,
+		},
+		AIData =
+		{
+			DeepInheritance = true,
+
+			SpawnsPerBurstMin = 2,
+			SpawnsPerBurstMax = 2,
+			MaxActiveSpawns = 6,
+			SpawnerOptions = { "AutomatonBeamer_Elite", "AutomatonEnforcer_Elite" },
+			PreAttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "ErisAutomatonSpawnWaveVoiceLines" },
+				-- { GlobalVoiceLines = "ErisFishSpawnWaveVoiceLines" },
+				{ GlobalVoiceLines = "ErisSpawnWaveVoiceLines" },
+			},
+		},
+	},
 
 	ErisBombardment01 =
 	{
@@ -1003,8 +1201,29 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 2,
+							},
+						}
+					},
+					Data =
+					{
+						ProjectileName = "ErisBombardmentEM",
+					},
+				},
+			},
+
 			MoveWithinRange = false,
-			DashIfOverDistance = 99999,
 
 			ProjectileName = "ErisBombardment",
 			AttackSlotInterval = 0.125,
@@ -1059,19 +1278,10 @@ WeaponSetData =
 		{
 			FireSounds =
 			{
-				{ Name = "/SFX/Enemy Sounds/Eris/EmoteLaugh" },
 				{ Name = "/SFX/Player Sounds/ZagreusGunGrenadeLaunchFire" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
-		},
 	},
-
 	ErisBombardment02 =
 	{
 		InheritFrom = { "ErisBombardment01" },
@@ -1117,7 +1327,6 @@ WeaponSetData =
 			ChainedWeaponOptions = { "ErisFlyDown" },
 		},
 	},
-
 	ErisBombardment03 =
 	{
 		InheritFrom = { "ErisBombardment01" },
@@ -1157,7 +1366,6 @@ WeaponSetData =
 			ChainedWeaponOptions = { "ErisFlyDown" },
 		},
 	},
-
 	ErisBombardmentChase =
 	{
 		InheritFrom = { "ErisBombardment01" },
@@ -1166,9 +1374,9 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 			AttackSlots = "nil",
-			FireTicksMin = 20,
-			FireTicksMax = 30,
-			FireInterval = 0.4,
+			FireTicksMin = 10,
+			FireTicksMax = 15,
+			FireInterval = 0.25,
 
 			CreateOwnTargetFromOriginalTarget = true,
 			UseTargetAngle = true,
@@ -1179,15 +1387,130 @@ WeaponSetData =
 			PreAttackThreadedFunctionArgs = { FlyByDuration = 1.0, FlyBySpeedMultiplier = 4.0, FlyByScale = 2.0 },
 
 			ChainedWeaponOptions = { "ErisFlyDown" },
+
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 2,
+							},
+						}
+					},
+					Data =
+					{
+						FireTicksMin = 10,
+						FireTicksMax = 15,
+					},
+				},
+			},
+		},
+	},
+	ErisBombardmentEM01 =
+	{
+		InheritFrom = { "ErisBombardment01" },
+		AIData =
+		{
+			DeepInheritance = true,
+
+			AttackSlots =
+			{
+				{ UseMapObjectId = 792631  },
+				{ UseMapObjectId = 792632  },
+				{ UseMapObjectId = 792633  },
+
+				{ UseMapObjectId = 792639  },
+				{ UseMapObjectId = 792637  },
+				{ UseMapObjectId = 792638  },
+				
+				{ UseMapObjectId = 792642  },
+				{ UseMapObjectId = 792640  },
+				{ UseMapObjectId = 792641  },
+				
+				{ UseMapObjectId = 792645  },
+				{ UseMapObjectId = 792643  },
+				{ UseMapObjectId = 792644  },
+				
+				{ UseMapObjectId = 792648  },
+				{ UseMapObjectId = 792647  },
+				{ UseMapObjectId = 792646  },
+				
+				{ UseMapObjectId = 792648  },
+				{ UseMapObjectId = 792647  },
+				{ UseMapObjectId = 792646  },
+				
+				{ UseMapObjectId = 792651  },
+				{ UseMapObjectId = 792650  },
+				{ UseMapObjectId = 792649  },
+				
+				{ UseMapObjectId = 792654  },
+				{ UseMapObjectId = 792653  },
+				{ UseMapObjectId = 792649  },
+			},
+		},
+	},
+	ErisBombardmentEM02 =
+	{
+		InheritFrom = { "ErisBombardment01" },
+		AIData =
+		{
+			DeepInheritance = true,
+
+			AttackSlots =
+			{
+				{ UseMapObjectId = 792633  },
+				{ UseMapObjectId = 792637  },
+				{ UseMapObjectId = 792642  },
+				{ UseMapObjectId = 792643  },
+				{ UseMapObjectId = 792646  },
+				{ UseMapObjectId = 792650  },
+
+				{ UseMapObjectId = 792654  },
+				{ UseMapObjectId = 792653  },
+				{ UseMapObjectId = 792649  },
+				{ UseMapObjectId = 792647  },
+				{ UseMapObjectId = 792645  },
+				{ UseMapObjectId = 792640  },
+
+				{ UseMapObjectId = 792638  },
+				{ UseMapObjectId = 792632  },
+			},
 		},
 	},
 
 	ErisFlyUp =
 	{
-
 		AIData =
 		{
 			DeepInheritance = true,
+
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 2,
+							},
+						}
+					},
+					Data =
+					{
+						ChainedWeaponOptions = { "ErisBombardmentEM01", "ErisBombardmentEM02", "ErisBombardment02", "ErisBombardment03", },
+					},
+				},
+			},
 
 			PreAttackStop = true,
 			MoveWithinRange = false,
@@ -1195,6 +1518,7 @@ WeaponSetData =
 			AttackDistance = 9999,
 
 			PreAttackDuration = 0.45,
+			PreAttackEndMinWaitTime = 0.45,
 			FireDuration = 0.55,
 			PostAttackDuration = 0.6,
 
@@ -1216,13 +1540,42 @@ WeaponSetData =
 			RequireTotalAttacks = 4,
 		},
 	},
-
+	ErisFlyUp_P4 =
+	{
+		InheritFrom = { "ErisFlyUp", },
+		Requirements =
+		{
+			MaxUses = 1,
+		},
+	},
 	ErisFlyDown =
 	{
-
 		AIData =
 		{
 			DeepInheritance = true,
+
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 2,
+							},
+						}
+					},
+					Data =
+					{
+						PostAttackDuration = 0.35,
+						TeleportToSpawnPointType = "EnemyPointSupport",
+					},
+				},
+			},
 
 			PreAttackStop = true,
 			MoveWithinRange = false,
@@ -1232,7 +1585,7 @@ WeaponSetData =
 			PreAttackTeleport = true,
 			RequireTeleportTargetLoS = true,
 
-			ChainedWeapon = "ErisSnipe3",
+			ChainedWeaponOptions = { "ErisSnipe3", },
 
 			PreAttackDuration = 0.0,
 			FireDuration = 0.2,
@@ -1242,6 +1595,11 @@ WeaponSetData =
 			PreAttackSetZHeight = 800,
 			FireSetZHeight = 5,
 			FireSetZDuration = 0.19,
+
+			AttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "ErisSwoopInVoiceLines" },
+			},
 		}
 	},
 
@@ -1263,8 +1621,6 @@ WeaponSetData =
 			AttackDistance = 9999,
 		},
 	},
-
-
 	ErisPostBuffCombo2 =
 	{
 		WeaponComboOnly = true,
@@ -1300,10 +1656,8 @@ WeaponSetData =
 			AttackDistance = 9999,
 		},
 	},
-
 	ErisRelocateStrike =
 	{
-
 		AIData =
 		{
 			DeepInheritance = true,
@@ -1313,7 +1667,10 @@ WeaponSetData =
 			NoProjectile = true,
 			AttackDistance = 9999,
 
+			ClearAllEffects = true,
+
 			PreAttackDuration = 0.225,
+			PreAttackEndMinWaitTime = 0.225,
 			FireDuration = 0.275,
 			PostAttackDuration = 0,
 
@@ -1326,24 +1683,21 @@ WeaponSetData =
 			FireSetZDuration = 0.275,
 		},
 	},
-
 	ErisRelocateStrike2 =
 	{
-
 		AIData =
 		{
 			DeepInheritance = true,
 
 			PreAttackStop = true,
 			MoveWithinRange = false,
-			NoProjectile = true,
 			AttackDistance = 9999,
-
+			NoProjectile = true,
 			PreAttackTeleport = true,
 
 			RequireTeleportTargetLoS = true,
 
-			ChainedWeapon = "ErisRelocate3",
+			ChainedWeaponOptions = { "ErisRelocate3", "ErisLaserStrafeLeft3", "ErisLaserStrafeRight3" },
 
 			PreAttackDuration = 0.0,
 			FireDuration = 0.2,
@@ -1355,15 +1709,27 @@ WeaponSetData =
 			FireSetZDuration = 0.19,
 		}
 	},
-
 	ErisRelocate3 =
-	{	
+	{
 		InheritFrom = { "ErisSpray" },
+		GameStateRequirements =
+		{
+			{
+				FunctionName = "RequiredShrineLevel",
+				FunctionArgs =
+				{
+					ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+					Comparison = "<",
+					Value = 2,
+				},
+			},
+		},
 		AIData =
 		{
 			DeepInheritance = true,
 
-			--ProjectileName = "GunWeaponBounce",
+			ProjectileName = "GunWeaponRelocate",
+
 			FireTicksMin = 10,
 			FireTicksMax = 10,
 			FireInterval = 0.05,
@@ -1372,7 +1738,6 @@ WeaponSetData =
 			AttackDistance = 99999,
 
 			PreAttackRotationDampening = 0.09,
-			AngleTowardsTargetWhileFiring = true,
 
 			PostAttackDuration = 1.1,
 			ChainedWeaponOptions = { },
@@ -1381,7 +1746,6 @@ WeaponSetData =
 
 	ErisRelocate_Up =
 	{
-
 		AIData =
 		{
 			DeepInheritance = true,
@@ -1395,6 +1759,8 @@ WeaponSetData =
 			FireDuration = 0.275,
 			PostAttackDuration = 0.5,
 
+			ClearAllEffects = true,
+
 			ChainedWeaponOptions = { "ErisRelocate_Down", },
 
 			PreAttackAnimation = "Enemy_Eris_FlyUp_Start_Fast",
@@ -1402,15 +1768,49 @@ WeaponSetData =
 
 			FireSetZHeight = 800,
 			FireSetZDuration = 0.275,
+
+			AttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "ErisFireEscapeVoiceLines" },
+			},	
 		},
 	},
-
+	ErisRelocate_Up_P4 =
+	{
+		InheritFrom = { "ErisRelocate_Up", },
+		AIData =
+		{
+			ChainedWeaponOptions = { "ErisRelocate_Down_P4", },
+		},
+	},
 	ErisRelocate_Down =
 	{
-
 		AIData =
 		{
 			DeepInheritance = true,
+
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = ">=",
+								Value = 2,
+							},
+						}
+					},
+					Data =
+					{
+						TeleportToSpawnPointType = "EnemyPointSupport",
+						PostAttackDuration = 0.35,
+					},
+				},
+			},
 
 			PreAttackStop = true,
 			MoveWithinRange = false,
@@ -1430,6 +1830,564 @@ WeaponSetData =
 			FireSetZHeight = 5,
 			FireSetZDuration = 0.19,
 		}
+	},
+	ErisRelocate_Down_P4 =
+	{
+		InheritFrom = { "ErisRelocate_Down", },
+		AIData =
+		{
+			ChainedWeaponOptions = { "ErisLaserStrafeLeft3", "ErisLaserStrafeRight3", },
+		},
+	},
+
+	ErisWindBuffet =
+	{
+		Requirements =
+		{
+			MinPlayerArc = 60,
+			MaxPlayerDistance = 525,
+			MaxConsecutiveUses = 1,
+			MinAttacksBetweenUse = 6,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			PreAttackStop = true,
+			MoveWithinRange = false,
+			AngleTowardsTargetWhileFiring = false,
+			TrackTargetDuringCharge = false,
+
+			ProjectileName = "ErisWindBuffet",
+			FireProjectileAtSelf = true,
+
+			AttackDistance = 9999,
+
+			PreAttackFx = "ErisWindPreviewSpawner",
+
+			PreAttackDuration = 0.6,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackStartMinWaitTime = 0.08,
+			FireDuration = 0.5,
+			PostAttackDuration = 0.6,
+
+			PreAttackAnimation = "Enemy_Eris_Wind_Start",
+			FireAnimation = "Enemy_Eris_Wind_Fire",
+			PostAttackAnimation = "Enemy_Eris_Wind_End"
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Tisiphone/TisiphoneHarpySlowBeam" },
+			},
+		},
+	},
+
+
+	ErisLaserStrafeLeft =
+	{
+		Requirements =
+		{
+			MaxPlayerDistance = 700,
+		},
+
+		GameStateRequirements =
+		{
+			{
+				FunctionName = "RequiredShrineLevel",
+				FunctionArgs =
+				{
+					ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+					Comparison = ">=",
+					Value = 2,
+				},
+			},
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ExpireProjectilesOnHitStun = true,
+
+			PreAttackFx = "ErisLaserAimLineLucifer",
+			EndPreAttackFx = true,
+
+			ProjectileName = "ErisLaser",
+			--FireFx = "GunWeaponMuzzleFlash",
+
+			FireSelfVelocity = 2000,
+			FireSelfVelocityAngleOffset = 50,
+			ApplyEffectsOnWeaponFire =
+			{
+				WeaponEffectData.AttackLowGripLong,
+			},
+			TargetPlayer = true,
+			CreateOwnTargetFromOriginalTarget = true,
+
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.7,
+			TrackTargetDuringCharge = true,
+			TrackTargetDuringFire = true,
+			FireRotationDampening = 0.25,
+			StopMoveWithinRange = true,
+			PostAttackStop = true,
+
+			PreAttackEndShake = true,
+
+			PreAttackSound = "/SFX/Player Sounds/ZagreusLuciferPreAttack",
+			PreAttackAnimation = "Enemy_Eris_SprayPreFire",
+			FireAnimation = "Enemy_Eris_SprayFire",
+			PostAttackAnimation = "Enemy_Eris_SprayPostFire_Fast",
+			PreAttackDuration = 0.72,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackStartMinWaitTime = 0.01,
+			FireDuration = 0.5,
+			PostAttackDuration = 0.92,
+
+			RequireProjectileLoS = true,
+			LoSBuffer = 100,
+			LoSEndBuffer = 32,
+			AttackDistance = 700,
+			AttackDistanceScaleY = 0.8,
+
+			PreAttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "ErisAttackVoiceLines" },
+			},			
+
+			WeaponFireLoopingSound = "/SFX/Player Sounds/ZagreusLuciferFireStartAndLoop",
+		},
+	},
+	ErisLaserStrafeRight =
+	{
+		InheritFrom = { "ErisLaserStrafeLeft" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			FireSelfVelocityAngleOffset = -50,
+		},
+	},
+	ErisLaserStrafeLeft2 =
+	{
+		InheritFrom = { "ErisLaserStrafeLeft" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			NumProjectiles = 3,
+			ProjectileAngleInterval = 20,
+		},
+	},
+	ErisLaserStrafeRight2 =
+	{
+		InheritFrom = { "ErisLaserStrafeRight" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			NumProjectiles = 3,
+			ProjectileAngleInterval = 20,
+		},
+	},
+
+	ErisLaserStrafeLeft3 =
+	{
+		InheritFrom = { "ErisLaserStrafeLeft2" },
+		Requirements = {},
+		AIData =
+		{
+			DeepInheritance = true,
+			PostAttackMinWaitTime = 0.83,
+		},
+	},
+	ErisLaserStrafeRight3 =
+	{
+		InheritFrom = { "ErisLaserStrafeRight2" },
+		Requirements = {},
+		AIData =
+		{
+			DeepInheritance = true,
+			PostAttackMinWaitTime = 0.83,
+		},
+	},
+
+	ErisLaserSweepLeft =
+	{
+		Requirements =
+		{
+			MinPlayerDistance = 700,
+		},
+
+		GameStateRequirements =
+		{
+			{
+				FunctionName = "RequiredShrineLevel",
+				FunctionArgs =
+				{
+					ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+					Comparison = ">=",
+					Value = 2,
+				},
+			},
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ExpireProjectilesOnHitStun = true,
+
+			PreAttackFx = "ErisLaserAimLineLucifer",
+			EndPreAttackFx = true,
+
+			ProjectileName = "ErisLaserSweep",
+
+			FireSelfVelocity = 690,
+			FireSelfVelocityAngleOffset = 180,
+			FireSelfVelocityConsecutiveMultiplier = 0.995,
+
+			PreAttackAngleTowardTarget = true,
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.7,
+			TrackTargetDuringCharge = false,
+			AngleTowardsTargetWhileFiring = false,
+			FireRotationDampening = 0.13,
+			FireSetGoalAngleOffset = 90,
+
+			CreateOwnTargetFromOriginalTarget = true,
+			UseAngleBetweenTarget = true,
+			TargetAngleOffset = -90,
+			TargetOffsetDistance = 500,
+
+			PreAttackEndShake = true,
+
+			PreAttackSound = "/SFX/Player Sounds/ZagreusLuciferPreAttack",
+			PreAttackAnimation = "Enemy_Eris_SprayPreFire",
+			FireAnimation = "Enemy_Eris_SprayFire",
+			PostAttackAnimation = "Enemy_Eris_SprayPostFire_Fast",
+			PreAttackDuration = 0.72,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackStartMinWaitTime = 0.01,
+			FireDuration = 0.7,
+			PostAttackDuration = 0.92,
+
+			RequireProjectileLoS = false,
+			AttackDistance = 9999,
+			MoveWithinRange = false,
+
+			PreAttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "ErisAttackVoiceLines" },
+			},			
+
+			WeaponFireLoopingSound = "/SFX/Player Sounds/ZagreusLuciferFireStartAndLoop",
+		},
+	},
+	ErisLaserSweepRight =
+	{
+		InheritFrom = { "ErisLaserSweepLeft" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			FireSetGoalAngleOffset = -90,
+
+			TargetAngleOffset = 90,
+			TargetOffsetDistance = 500,
+		},
+	},
+	ErisLaserSweepLeft2 =
+	{
+		InheritFrom = { "ErisLaserSweepLeft" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			NumProjectiles = 3,
+			ProjectileAngleInterval = 15,
+		},
+	},
+	ErisLaserSweepRight2 =
+	{
+		InheritFrom = { "ErisLaserSweepRight" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			NumProjectiles = 3,
+			ProjectileAngleInterval = 15,
+		},
+	},
+
+	ErisDashLucifer =
+	{
+		InheritFrom = { "ErisDash" },
+
+		Requirements =
+		{
+			RequireUnitLoS = true,
+			LoSStopsUnits = false,
+			MaxConsecutiveUses = 1,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "ErisLaserDash",
+			AttackSlots =
+			{
+				{ AIDataOverrides = { FireProjectileAngleRelative = 40 } },
+				{ AIDataOverrides = { FireProjectileAngleRelative = -40 } },
+			},
+			BarrelLength = 25,
+
+			FireTicks = 5,
+			FireSelfVelocity = 1900,
+			FireInterval = 0.08,
+
+			PostAttackAnimation = "Enemy_Eris_StrafePostFire_Fast",
+			PostAttackDuration = 0.92,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				--{ Name = "/SFX/Player Sounds/ZagreusGunFire" },
+			},
+		},
+	},
+
+	ErisBombClear =
+	{
+		InheritFrom = { "ErisDashLucifer" },
+
+		Requirements =
+		{
+			RequireMinIdsOfTypes =
+			{
+				Names = { "GunBombUnit" },
+				Count = 6,
+			},
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			TargetClosestOfTypes = { "GunBombUnit" },
+		},
+	},
+
+	ErisBackDashLucifer =
+	{
+		Requirements =
+		{
+			MinAttacksBetweenUse = 7,
+			MaxPlayerDistance = 550,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			ProjectileName = "GunGrenadeTossLucifer",
+			FireProjectileAtTarget = true,
+			FireTicks = 1,
+			FireInterval = 0.1,
+			Spread = 10,
+			CreateOwnTarget = true,
+			TargetOffsetDistance = 300,
+			ResetTargetPerTick = true,
+			ImmuneToProjectileSlow = true,
+
+			PreAttackEndStop = true,
+
+			FireSelfVelocity = 2400,
+			FireSelfVelocityAngleOffset = 180,
+			ApplyEffectsOnWeaponFire =
+			{
+				{
+					EffectName = "AttackLowGrip",
+					DataProperties = 
+					{
+						Type = "GRIP",
+						Duration = 0.24,
+						Modifier = 0.6,
+						HaltOnEnd = true,
+					}
+				},
+			},
+
+			WaitForAngleTowardTarget = true,
+
+			PreAttackEndShake = true,
+			PreAttackEndDuration = 0.35,
+
+			PreAttackSound = "/SFX/Enemy Sounds/Eris/EmoteCharging",
+			PreAttackAnimation = "Enemy_Eris_GrenadePreFire_Fast",
+			FireAnimation = "Enemy_Eris_GrenadeFire",
+			PostAttackAnimation = "Enemy_Eris_GrenadePostFire_Fast",
+			PreAttackDuration = 0.415,
+			FireDuration = 0.35,
+			PostAttackDuration = 0.42,
+
+			--DumbFireWeapons = { "ErisKnockback" },
+
+			PreAttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "ErisAttackVoiceLines" },
+			},
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Player Sounds/ZagreusGunFire" },
+			},
+		},
+	},
+	ErisBackDashCombo =
+	{
+		WeaponComboOnly = true,
+		AIData =
+		{
+			SkipFireWeapon = true,
+		},
+
+		WeaponCombo =
+		{
+			{ WeaponName = "ErisBackDashLucifer", IgnoreRequirements = true, DataOverrides = { PostAttackDuration = 0.1 }, },
+			{ WeaponName = "ErisLaserSweepLeft", IgnoreRequirements = true, DataOverrides = { TargetSelf = true, UseAngleBetweenTarget = false, FireSetGoalAngleOffset = 60, TargetAngleOffset = -25, }, },
+		},
+	},
+
+	ErisGrenadeLucifer =
+	{
+		InheritFrom = { "ErisGrenade" },
+
+		Requirements =
+		{
+			MinAttacksBetweenUse = 9,
+		},
+
+		GameStateRequirements =
+		{
+			{
+				FunctionName = "RequiredShrineLevel",
+				FunctionArgs =
+				{
+					ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+					Comparison = ">=",
+					Value = 2,
+				},
+			},
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			ProjectileName = "GunGrenadeTossLucifer",
+
+			FireProjectileStartDelay = 0.05,
+
+			PreAttackDuration = 0.415,
+			PreAttackAnimation = "Enemy_Eris_GrenadePreFire_Fast",
+			FireDuration = 0.26,
+			PostAttackDuration = 0.42,
+			PostAttackAnimation = "Enemy_Eris_GrenadePostFire_Fast",
+			PreAttackVoiceLines =
+			{
+				{ GlobalVoiceLines = "ErisGrenadeVoiceLines" },
+			},
+		},
+	},
+	ErisGrenadeLuciferCluster01 =
+	{
+		InheritFrom = { "ErisGrenade" },
+
+		Requirements =
+		{
+			MinAttacksBetweenUse = 5,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			FireTicks = 3,
+			FireInterval = 0.55,
+			FireProjectileAtTarget = true,
+
+			ProjectileName = "GunGrenadeTossLucifer",
+			FireProjectileStartDelay = 0.05,
+			FireDuration = 0.26,
+			PostAttackDuration = 0.42,
+			PostAttackAnimation = "Enemy_Eris_GrenadePostFire_Fast",
+
+			PreAttackVoiceLines =
+			{	
+				{ GlobalVoiceLines = "ErisGrenadeClusterVoiceLines" },
+				{ GlobalVoiceLines = "ErisGrenadeVoiceLines" },
+			},
+
+			ChainedWeaponOptions = { "ErisEMSummonSelector" },
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Player Sounds/ZagreusGunGrenadeLaunchFire" },
+			},
+		},
+	},
+	ErisGrenadeLuciferCluster02 =
+	{
+		InheritFrom = { "ErisGrenadeLuciferCluster01" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			FireTicks = 5,
+
+			ChainedWeaponOptions = { "ErisEMSummonSelector2" },
+		},
+	},
+	ErisGrenadeLuciferCluster03 =
+	{
+		InheritFrom = { "ErisGrenadeLuciferCluster01" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			FireTicks = 7,
+
+			ChainedWeaponOptions = { "ErisBombClear", "ErisLaserStrafeLeft2", "ErisLaserStrafeRight2", "ErisLaserSweepLeft2", "ErisLaserSweepRight2" },
+		},
 	},
 }
 

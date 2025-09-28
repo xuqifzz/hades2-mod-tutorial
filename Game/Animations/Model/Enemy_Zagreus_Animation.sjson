@@ -1,0 +1,1505 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyZagreusBaseAnimation"
+		
+		GrannyModel = "ZagreusPresent_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+
+		ExtraGrannyAnimations =
+		[
+			{ Name = "ZagreusPast" }
+		]
+	}
+	{
+		Name = "ZagreusPast"
+		GrannyModel = "ZagreusPast_Mesh"
+	}
+
+	{
+		Name = "GigarosBase"
+		GrannyModel = "WeaponGigaros_Mesh"
+		GrannyAnimation = null
+		GrannyAnimationSpeed = 1.0
+	}
+
+
+	// Idle
+	{
+		Name = "Gigaros_Idle"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_Idle_C_01"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Idle"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_Idle_C_01"
+		Loop = true
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Idle"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_RunStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Run"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab1_Fire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab2_Fire"
+				Duration = 6
+			}
+		]
+	}
+	
+
+	{
+		Name = "Gigaros_Equip"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_Idle_Credits_ToSpearIdle_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 40
+				FrameSpeed = 3
+			}
+			{
+				Frame = 100
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Equip"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_Idle_Credits_ToSpearIdle_C_00"
+		ChainTo = "Enemy_Zagreus_Spear_Idle"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Equip"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 40
+				FrameSpeed = 3
+			}
+			{
+				Frame = 95
+				Sound = "/SFX/Enemy Sounds/Hades/HadesSpearEmerge"
+				FrameSpeed = 3
+			}
+			{
+				Frame = 100
+				FrameSpeed = 1
+			}
+			{
+				Frame = 172
+				Sound = "/SFX/Player Sounds/MelinoeAxeSwing"
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Hidden"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_Idle_C_01"
+		CancelOnOwnerMove = false
+		Loop = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		Alpha = 0
+	}
+
+	// Run
+	{
+		Name = "Gigaros_RunStart"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_RunStart_C_01"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 3
+			}
+			{
+				Frame = 28
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_RunStart"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_RunStart_C_01"
+		NativeMoveSpeed = 640
+		ChainTo = "Enemy_Zagreus_Spear_Run"
+		Attachments =
+		[
+			{
+				Name = "Gigaros_RunStart"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_RunStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_DashAttack_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Spin_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Cast_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab1_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab2_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab3_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Dash_Cancelable"
+				Duration = 3
+			}
+		]
+	}
+
+	{
+		Name = "Gigaros_Run"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_Run_C_00"
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 6
+				FrameSpeed = 2
+			}
+			{
+				Frame = 16
+				FrameSpeed = 1
+			}
+			{
+				Frame = 21
+				FrameSpeed = 2
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Run"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_Run_C_01"
+		NativeMoveSpeed = 640
+		Loop = true
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Run"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_DashAttack_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Spin_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Cast_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab1_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab2_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab3_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Dash_Cancelable"
+				Duration = 3
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 2
+				FootstepSound = "/SFX/Enemy Sounds/Theseus/TheseusFootstepsHardSurface"
+				FootstepFxR = "ZagreusFireFootstepR-Spawner"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 17
+				FootstepSound = "/SFX/Enemy Sounds/Theseus/TheseusFootstepsHardSurface"
+				FootstepFxR = ""
+				FootstepFxL = "ZagreusFireFootstepL-Spawner"
+			}
+		]
+	}
+
+	{
+		Name = "Gigaros_RunStop"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_RunStop_C_01"
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_RunStop"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_RunStop_C_01"
+		CancelOnOwnerMove = true
+		NativeMoveSpeed = 640
+		ChainTo = "Enemy_Zagreus_Spear_Idle"
+		Attachments =
+		[
+			{
+				Name = "Gigaros_RunStop"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Enemy_Zagreus_Spear_Dash_Cancelable" }
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_RunStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Run"
+				Duration = 6
+			}
+		]
+	}
+
+	// Dash
+	{
+		Name = "Gigaros_Dash"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_Dash_C_01"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 17
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Dash"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_Dash_C_01"
+		ChainTo = "Enemy_Zagreus_Spear_Dash_Cancelable"
+		OwnerInvulnerable = true
+		OwnerHasNoUnitCollision = true,
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Dash"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 17
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Gigaros_Dash_Cancelable"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_Dash_C_01"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 17
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Dash_Cancelable"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_Dash_C_01"
+		ChainTo = "Enemy_Zagreus_Spear_Idle"
+		CancelOnOwnerMove = true
+		OwnerHasNoUnitCollision = true,
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Dash_Cancelable"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 17
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Gigaros_DashAttack_Fire"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_LunarDashAttack_C_01"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 25
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_DashAttack_Fire"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_LunarDashAttack_C_01"
+		ChainTo = "Enemy_Zagreus_Spear_DashAttack_End"
+		Attachments =
+		[
+			{
+				Name = "Gigaros_DashAttack_Fire"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 25
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Dash"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Dash_Cancelable"
+				Duration = 3
+			}
+		]
+	}
+
+	{
+		Name = "Gigaros_DashAttack_End"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_LunarDashAttack_C_01"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 26
+				FrameSpeed = 1.5
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_DashAttack_End"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_LunarDashAttack_C_01"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Zagreus_Spear_Idle"
+		Attachments =
+		[
+			{
+				Name = "Gigaros_DashAttack_End"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 26
+				FrameSpeed = 1.5
+			}
+		]
+	}
+
+	// Spear Spin
+	{
+		Name = "Gigaros_Spin_Start"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_SpinStart_C_01"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.25
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Spin_Start"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_SpinStart_C_01"
+		Sound = "/VO/ZagreusEmotes/EmoteHeavyShieldCharge"
+		StopSoundOnFinishFade = 0.2
+		HoldLastFrame = true
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Spin_Start"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.25
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_RunStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Run"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_RunStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_DashAttack_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Spin_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Cast_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab1_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab2_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab3_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Dash_Cancelable"
+				Duration = 3
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Zagreus_Spear_Spin_Start_Fast"
+		InheritFrom = "Enemy_Zagreus_Spear_Spin_Start"
+		GrannyAnimationSpeed = 2
+	}
+
+	{
+		Name = "Gigaros_Spin_Fire"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_SpinAttack_C_01"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Spin_Fire"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_SpinAttack_C_01"
+		ChainTo = "Enemy_Zagreus_Spear_Spin_End"
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Spin_Fire"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	{
+		Name = "Gigaros_Spin_End"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_SpinEnd_C_01"
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Spin_End"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_SpinEnd_C_01"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Zagreus_Spear_Idle"
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Spin_End"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 8
+				Sound = "/SFX/SpikeTrapFireSPEARRETRACTshort"
+			}
+		]
+	}
+
+	// Spear Stab
+	{
+		Name = "Gigaros_Spear_Stab1_Start"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_LunarThrust1_C_01"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.15
+			}
+			{
+				Frame = 7
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Stab1_Start"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_LunarThrust1_C_01"
+		HoldLastFrame = true
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Spear_Stab1_Start"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.15
+			}
+			{
+				Frame = 1
+				Sound = "/VO/ZagreusEmotes/EmoteCharging"
+				FrameSpeed = 0.15
+			}
+			{
+				Frame = 5
+				Sound = "/Leftovers/SFX/GeneralWhooshReverse2"
+				FrameSpeed = 0.15
+			}
+			{
+				Frame = 7
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_RunStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Run"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_RunStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_DashAttack_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Spin_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Cast_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab1_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab2_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab3_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Dash_Cancelable"
+				Duration = 3
+			}
+		]
+	}
+
+	{
+		Name = "Gigaros_Spear_Stab1_Fire"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_LunarThrust1_C_01"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 7
+				FrameSpeed = 1
+			}
+			{
+				Frame = 24
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Stab1_Fire"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_LunarThrust1_C_01"
+		ChainTo = "Enemy_Zagreus_Spear_Stab1_End"
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Spear_Stab1_Fire"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 7
+				FrameSpeed = 1
+			}
+			{
+				Frame = 24
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Gigaros_Spear_Stab1_End"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_LunarThrust1_C_01"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 25
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Stab1_End"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_LunarThrust1_C_01"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Zagreus_Spear_Idle"
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Spear_Stab1_End"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 25
+				FrameSpeed = 1
+			}
+		]
+	}
+
+
+	{
+		Name = "Gigaros_Spear_Stab2_Start"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_LunarThrust2_C_01"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.825
+			}
+			{
+				Frame = 20
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Stab2_Start"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_LunarThrust2_C_01"
+		HoldLastFrame = true
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Spear_Stab2_Start"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.825
+			}
+			{
+				Frame = 1
+				Sound = "/VO/ZagreusEmotes/EmoteCharging"
+				FrameSpeed = 0.825
+			}
+			{
+				Frame = 5
+				Sound = "/Leftovers/SFX/GeneralWhooshReverse2"
+				FrameSpeed = 0.825
+			}
+			{
+				Frame = 20
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab1_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_RunStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Run"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_RunStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Dash_Cancelable"
+				Duration = 3
+			}
+		]
+	}
+
+
+	{
+		Name = "Gigaros_Spear_Stab2_Fire"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_LunarThrust2_C_01"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 20
+				FrameSpeed = 1
+			}
+			{
+				Frame = 39
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Stab2_Fire"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_LunarThrust2_C_01"
+		ChainTo = "Enemy_Zagreus_Spear_Stab2_End"
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Spear_Stab2_Fire"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 20
+				FrameSpeed = 1
+			}
+			{
+				Frame = 39
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Gigaros_Spear_Stab2_End"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_LunarThrust2_C_01"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 40
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Stab2_End"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_LunarThrust2_C_01"
+		ChainTo = "Enemy_Zagreus_Spear_Idle"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Spear_Stab2_End"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 40
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Gigaros_Spear_Stab3_Start"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_LunarThrust3_C_01"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.25
+			}
+			{
+				Frame = 30
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Stab3_Start"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_LunarThrust3_C_01"
+		HoldLastFrame = true
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Spear_Stab3_Start"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.25
+			}
+			{
+				Frame = 1
+				Sound = "/VO/ZagreusEmotes/EmoteCharging"
+				FrameSpeed = 1.25
+			}
+			{
+				Frame = 5
+				Sound = "/Leftovers/SFX/GeneralWhooshReverse2"
+				FrameSpeed = 1.25
+			}
+			{
+				Frame = 30
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab2_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_RunStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Run"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_RunStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Dash_Cancelable"
+				Duration = 3
+			}
+		]
+	}
+	{
+		Name = "Gigaros_Spear_Stab3_Fire"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_LunarThrust3_C_01"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 30
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 49
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Stab3_Fire"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_LunarThrust3_C_01"
+		ChainTo = "Enemy_Zagreus_Spear_Stab3_End"
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Spear_Stab3_Fire"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 30
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 49
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Gigaros_Spear_Stab3_End"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_LunarThrust3_C_01"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 50
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Stab3_End"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_LunarThrust3_C_01"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Zagreus_Spear_Idle"
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Spear_Stab3_End"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 50
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	// Cast
+
+	{
+		Name = "Gigaros_Cast_Start"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_RangedWeapon_FireStart_C_02"
+	}
+	{
+		Name = "Enemy_Zagreus_Cast_Start"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_RangedWeapon_FireStart_C_02"
+		HoldLastFrame = true
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Cast_Start"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_RunStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Run"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_RunStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_DashAttack_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Spin_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Cast_Fire"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Cast_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab1_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab2_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab3_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Dash_Cancelable"
+				Duration = 3
+			}
+		]
+	}
+	{
+		Name = "Gigaros_Cast_Fire"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_RangedWeapon_Fire_C_02"
+	}
+	{
+		Name = "Enemy_Zagreus_Cast_Fire"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_RangedWeapon_Fire_C_02"
+		ChainTo = "Enemy_Zagreus_Cast_End"
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Cast_Fire"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+	{
+		Name = "Gigaros_Cast_End"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_RangedWeapon_FireReturnToIdle_C_02"
+	}
+	{
+		Name = "Enemy_Zagreus_Cast_End"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_RangedWeapon_FireReturnToIdle_C_02"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Zagreus_Spear_Idle"
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Cast_End"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	// Darkness
+
+	{
+		Name = "Gigaros_Darkness"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_SpinStart_C_01"
+	}
+	{
+		Name = "Enemy_Zagreus_Spear_Darkness"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_SpinStart_C_01"
+		HoldLastFrame = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Darkness"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_RunStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Run"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_RunStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_DashAttack_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Spin_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Cast_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab1_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab2_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Stab3_End"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Dash_Cancelable"
+				Duration = 3
+			}
+		]
+	}
+
+	// Death
+	{
+		Name = "Enemy_Zagreus_Death_Start"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_KnockedDown_Start_C_01"
+		ChainTo = "Enemy_Zagreus_Death_Loop"
+		OwnerImmobile = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		Frames =
+		[
+			{
+				Frame = 2
+				Sound = "/VO/ZagreusEmotes/EmoteAttacking_BowRapidShot"
+			}
+			{
+				Frame = 18
+				Sound = "/SFX/Enemy Sounds/Hades/HadesCollapse"
+			}
+			{
+				Frame = 20
+				Sound = "/Leftovers/SFX/RobeFlutterInScene"
+			}
+			{
+				Frame = 31
+				Sound = "/Leftovers/World Sounds/QuickSnap2"
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zagreus_Death_Loop"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_KnockedDown_BreatheLoop_C_01"
+		OwnerImmobile = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		DisableOwnerRotation = true
+		Loop = true
+	}
+	{
+		Name = "Enemy_Zagreus_Death_Disappear"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_KnockedDown_End_C_01"
+		OwnerImmobile = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		DisableOwnerRotation = true
+		ChainTo = "Enemy_Zagreus_Hidden"
+		VerticalMaskInModelSpace = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.5
+				VerticalMask = 1
+			}
+			{
+				Frame = 45
+				FrameSpeed = 1.5
+				VerticalMask = 1
+			}
+			{
+				Frame = 72
+				FrameSpeed = 0
+				VerticalMask = 0
+			}
+			{
+				Frame = 76
+				FrameSpeed = 0
+				VerticalMask = 0
+			}
+		]
+	}
+
+	
+	{
+		Name = "Enemy_Zagreus_DeathDefiance"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Base_DeathDefiance_C_00"
+		Frames =
+		[
+			{
+				Frame = 8
+				Sound = "/VO/ZagreusEmotes/EmotePoweringUp"
+			}
+		]
+	}
+
+	// Threaten
+
+	{
+		Name = "Gigaros_Threaten"
+		InheritFrom = "GigarosBase"
+		GrannyAnimation = "Spear_ThrowStart_C_00"
+		GrannyAnimationSpeed = 0.15
+	}
+	{
+		Name = "Enemy_Zagreus_Threaten"
+		InheritFrom = "EnemyZagreusBaseAnimation"
+		GrannyAnimation = "Zagreus_Spear_ThrowStart_C_00"
+		GrannyAnimationSpeed = 0.15
+		HoldLastFrame = true
+		Attachments =
+		[
+			{
+				Name = "Gigaros_Threaten"
+				ToBone = "Zagreus_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zagreus_Spear_Idle"
+				Duration = 6
+			}
+		]
+	}
+] }

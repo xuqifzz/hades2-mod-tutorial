@@ -2,11 +2,11 @@
   AnnouncementScreen =
   {
     Platform = "default"
-    OpenSound = "/SFX/Menu Sounds/GodBoonMenuClose"
-    CloseSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+    OpenSound = "/SFX/Menu Sounds/IrisMenuOpen"
+    CloseSound = "/SFX/Menu Sounds/IrisMenuBack"
     SelectionSound = "null"
-    TransitionOnTime = 0.1
-    TransitionOffTime = 0.15
+    TransitionOnTime = 0.3
+    TransitionOffTime = 0.35
     ForceShowCursor = true
 
     Back =
@@ -18,23 +18,14 @@
       Blue = 0
       Alpha = 0.8
       Width = 5120
-      Height = 1440
-    }
-
-    Background =
-    {
-      X = 960
-      Y = 540
-      Graphic = "Launch\load_bg_blank"
-      Justification = "Center"
-      VerticalJustification = "Center"
+      Height = 1920
     }
 
     AnimatedBackground =
     {
       X = 960
       Y = 540
-      Graphic = "AnnouncementBox"
+      Graphic = "ShellHalfScreenIn"
       Justification = "Center"
       VerticalJustification = "Center"
     }
@@ -48,7 +39,6 @@
       Font = "SpectralSCLightTitling"
       Width = 800
       NonEnglishFont = "SpectralSCLight"
-      LangDeScaleModifier = 1.0
       FontSize = 36
       TextRed = 1
       TextGreen = 1
@@ -93,9 +83,7 @@
       MouseWheelScrollSpeed = 30
       TextSymbolScale = 0.8
       LineSpacingBottom = 8
-      LangCnScaleModifier = 1.0
-      NonEnglishScaleModifier = 1.0
-      LangJaScaleModifier = 1.0
+      
     }
 
     ScrollBar = 
@@ -159,16 +147,14 @@
       ShadowOffsetY = 2
       ShadowAlpha = 1
       ShadowBlur = 0
-      Width = 720
+      Width = 721
       Height = 625
       UseLineFading = true
       ScrollSpeed = 400
       MouseWheelScrollSpeed = 30
       TextSymbolScale = 0.8
       LineSpacingBottom = 8
-      LangCnScaleModifier = 1.0
-      NonEnglishScaleModifier = 1.0
-      LangJaScaleModifier = 1.0
+      
     }
 
     SignatureText =
@@ -197,7 +183,7 @@
       FlashRed = 0.6
       FlashGreen = 0.4
       FlashBlue = 0.0
-      MouseOverSound = "/SFX/Menu Sounds/DialoguePanelOut"
+      MouseOverSound = "/SFX/Menu Sounds/IrisMenuToggle2"
       PressSound = "null"
 	  Scale = 0.8
     }

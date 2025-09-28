@@ -26,12 +26,15 @@ WeaponSets =
 		"WeaponAxe",
 		"WeaponAxe2",
 		"WeaponAxe3",
+		"WeaponAxe4",
+		"WeaponAxe5",
 		"WeaponAxeDash",
 		"WeaponAxeSpin",
 		"WeaponDagger",
 		"WeaponDaggerDash",
 		"WeaponSuit",
 		"WeaponSuit2",
+		"WeaponSuitDouble",
 	},
 
 	HeroPrimaryWeapons =
@@ -105,6 +108,7 @@ WeaponSets =
 
 		"WeaponSuit",
 		"WeaponSuit2",
+		"WeaponSuitDouble",
 		"WeaponSuitDash",
 	},
 	
@@ -173,8 +177,6 @@ WeaponSets =
 	{
 		"WeaponTransformAttack", 
 		"WeaponTransformSpecial", 
-		"WeaponTransformCast", 
-		"WeaponTransformBlink"
 	},
 
 	HeroWeaponSets =
@@ -184,32 +186,29 @@ WeaponSets =
 		WeaponDagger = {"WeaponDaggerThrow", "WeaponDaggerBlink", "WeaponDaggerDash", "WeaponDagger2", "WeaponDagger5", "WeaponDaggerDouble", "WeaponDaggerMultiStab"},
 		WeaponTorch = {  "WeaponTorchSpecial" },		
 		WeaponLob = { "WeaponLobSpecial", "WeaponLobChargedPulse", "WeaponSkullImpulse" },
-		WeaponSuit = { "WeaponSuit2", "WeaponSuitCharged", "WeaponSuitDash", "WeaponSuitRanged" },
+		WeaponSuit = { "WeaponSuit2", "WeaponSuitDouble", "WeaponSuitCharged", "WeaponSuitDash", "WeaponSuitRanged" },
 	},
 
 	LinkedWeaponUpgrades =
 	{
 		WeaponStaffSwing = { "WeaponStaffSwing2","WeaponStaffSwing3","WeaponStaffSwing5", "WeaponStaffDash" },
-		WeaponStaffBall = { "WeaponStaffBall2" },
+		WeaponStaffBall = {},
 		WeaponDagger = { "WeaponDagger2", "WeaponDagger5", "WeaponDaggerDash", "WeaponDaggerDouble", "WeaponDaggerMultiStab"},
 		WeaponDaggerThrow = {},
-		WeaponAxe = { "WeaponAxeDash", "WeaponAxe2", "WeaponAxe3", "WeaponAxeSpin"},
+		WeaponAxe = { "WeaponAxeDash", "WeaponAxe2", "WeaponAxe3", "WeaponAxe4", "WeaponAxe5", "WeaponAxeSpin"},
 		WeaponAxeSpecial = { "WeaponAxeSpecialSwing" },
-		WeaponTorch = {},
+		WeaponTorch = { },
 		WeaponTorchSpecial = {},
 		WeaponLob = { "WeaponLobPulse", "WeaponLobChargedPulse" },
 		WeaponLobSpecial = { "WeaponSkullImpulse" },
 		WeaponBlink = { "WeaponSprint" },
 		WeaponCast = { "WeaponCastArm" },
-		WeaponSuit = { "WeaponSuit2", "WeaponSuitDash", "WeaponSuitCharged" },
+		WeaponSuit = { "WeaponSuit2", "WeaponSuitDouble", "WeaponSuitDash", "WeaponSuitCharged" },
 	},
 
 	TrapWeapons =
 	{
-		"ExplosiveBlast",
 		"BlastCubeExplosion",
-		"DartTrapWeapon",
-		"SpikeWallWeapon",
 		"SpikeTrapWeapon",
 		"SmokeTrapWeapon",
 		"LavaSplash",
@@ -219,29 +218,47 @@ WeaponSets =
 	{
 		"LightningAura",
 	},
-	EnemyCollisionWeapons =
-	{
-		"BaseCollisionWeapon"
-	},
+	
 	TimeSlowExpireProjectileExcludeProjectileNames = --merged with below in rundata
 	{
 	"ProjectileStaffBall",
 	"ProjectileStaffBallCharged",
+	"ProjectileStaffSingle",
+	"ProjectileStaffWall",
 	"ProjectileLob",
 	"ProjectileLobCharged",
 	"ProjectileTorchBall",
+	"ProjectileTorchBallEos",
+	"ProjectileTorchGhost",
+	"ProjectileTorchWave",
+	"ProjectileTorchGhostLarge",
+	"ProjectileTorchSupayBallEx",
 	"ProjectileCast",
 	"ApolloCast",
+	"DemeterCastStorm",
 	"DemeterSprintStorm",
+	"AphroditeBurst",
+	"ProjectileDaggerThrow",
+	"ProjectileDaggerThrowCharged",
 	"ProjectileTorchRepeatStrike",
-	"ProjectileTorchBallLarge",
-	"ProjectileTorchRepeatStrikeLarge",
-	"ProjectileTorchSpiral",
 	"ProjectileTorchOrbit",
+	"ProjectileTorchOrbitEx",
 	"ProjectileAxeSpin",
+	"ProjectileAxeBlock2",
+	"ProjectileSuitRangedUnguided",
+	"ProjectileSuitRangedGuided",
+	"ProjectileSuitRangedChargedUnguided",
+	"ProjectileSuitRangedCharged",
+	"ProjectileSuitRangedChargedSplit",
+	"ProjectileSuitRangedGuidedSplit",
+	"ProjectileSuitGrenade",
+	"ProjectileSuitBomb",
+	"ProjectileSuitGrenadeStraight",
+	"ProjectileSuitBombStraight",
 	},
 	ExpireProjectileExcludeProjectileNames =
 	{
+	"FamiliarLinkLaser",
 	"ProjectileLob",
 	"ProjectileLobCharged",
 	"LavaTileWeapon",
@@ -252,8 +269,6 @@ WeaponSets =
 	"ThanatosDeathCurseAoE",
 	"NPC_Sisyphus_01_Assist",
 	"TheseusSpearThrow",
-	"HadesCastBeam",
-	"HadesCastBeamNoTracking",
 	"HadesCerberusAssist",
 	"GhostWall",
 	"SafeZoneDefense",
@@ -304,8 +319,6 @@ WeaponSets =
 	"NPC_Thanatos_01_Assist",
 	"NPC_Sisyphus_01_Assist",
 	"TheseusSpearThrow",
-	"HadesCastBeam",
-	"HadesCastBeamNoTracking"
 	},
 
 	LavaWeaponNames = 
@@ -315,6 +328,135 @@ WeaponSets =
 	"LavaTileTriangle02Weapon",
 	"LavaSplash",	
 	},
+	SprintProjectileNames = 
+	{
+		"AphroditeRushProjectile",
+		"ProjectileAresSwordWake",
+		"AthenaRushProjectile",
+		"DemeterSprintStorm",
+		"HephSprintBlast",
+		"HeraSprintProjectile",
+		"HestiaSprintPuddle",
+		"PoseidonSprintBlast",
+		"PoseidonSprintSecondaryBlast",
+		"ZeusSprintStrike",
+	},
+	SpellProjectileNames = 
+	{
+		"ProjectileMoonBeam",
+		"ProjectileBloodMoonBeam",
+		
+		"ProjectileSpellLaser",
+	
+		"SpellLeapBlast",
+
+		"ProjectileTransformSwing",
+		"ProjectileTransformRing",
+
+		"ProjectileSpellMeteor",
+		"ProjectileSpellMiniMeteor",
+
+		"PolymorphNova",
+		"ProjectileSpellPolymorph",
+		"MorphDamageProjectile",
+	},
+	OlympianEffectNames = 
+	{ 
+		"DamageShareDeath", 
+		"BurnEffect", 
+		"DamageOverTime" 
+	},
+	CastProjectileNames = 
+	{
+		-- Cast boons (Hestia is handled seperately)
+		"AphroditeCastProjectile",
+		"ApolloSingleCastStrike",
+		"ProjectileAresSwordCast",
+		"DemeterCastBlast",
+		"HephCastBlast",
+		"HeraCastDamageProjectile",
+		"PoseidonCastSplashSplinter",
+		"ZeusCastStrike",
+	},
+	OlympianProjectileNames = 
+	{
+		"AphroditeBurst",
+		"AphroditeCastProjectile",
+		"AphroditeRushProjectile",
+
+		"ApolloSingleCastStrike",
+		"ApolloPerfectDashStrike",
+		"ApolloRetaliateStrike",
+		"ApolloCast",
+		"ApolloCastRapid",
+
+		"AresProjectile",
+		"ProjectileAresSwordWake",
+		"ProjectileAresSwordCast",
+		"ProjectileAresSwordEx",
+
+		"ArtemisCastVolley",
+		"ArtemisSupportingFire",
+
+		"AthenaRushProjectile",
+		"AthenaDeflectingProjectile",
+		"AthenaCastProjectile",
+		"ProjectileAthenaManaSpear",
+
+		"DemeterSprintStorm",
+		"DemeterCastStorm",
+		"DemeterCastBlast",
+
+		"ProjectileCastLob",
+
+		"MassiveSlamBlast",
+		"HephCastBlast",
+		"HephSprintBlast",
+		"HephLeapBlast",
+		"MassiveSlamBlastCast",
+
+		"HeraCastDamageProjectile",
+		"HeraCastSummonProjectile",
+		"HeraSprintProjectile",
+		"HeraDamageShareProjectile",
+		"ProjectileHeraOmega",
+
+		"ProjectileCastFireball",
+		"HestiaSprintPuddle",
+		"BurnNova",
+		"ProjectileFireball",
+		"WeaponCastProjectile",
+
+		"PoseidonCastSplashSplinter",
+		"PoseidonOmegaWave",
+		"PoseidonSplashSplinter",
+		"PoseidonSplashBackSplinter",
+		"PoseidonCast",
+		"PoseidonSprintBlast",
+		"PoseidonSprintSecondaryBlast",
+
+		"ZeusEchoStrike",
+		"ZeusCastStrike",
+		"ZeusRootStrike",
+		"ZeusSprintStrike",
+		"ZeusZeroManaStrike",
+		"ZeusRetaliateStrike",
+		"ProjectileZeusSpark",
+		"ZeusCastAnywhereBlast",
+
+		"SteamBlast",
+		"ManaRestoreBlast",
+		"DemeterMiniStorm",
+		"ProjectileSprintBall",
+		"ZeusApolloSynergyStrike",
+
+		-- Traps
+		"ZeusStatueLightningBolt",
+		"ZeusStatueChasingStorm",
+		"HestiaStatueFireball",
+		"PoseidonStatueWave",
+		"DemeterStatueFrostStorm",
+	},
 }
 
 UnitSets = 
@@ -323,9 +465,9 @@ UnitSets =
 	{
 		NPC_Thanatos_Field_01 = true,
 		SwarmerSummon = true,
-		SummonSelfDestruct = true,
 		CatFamiliar = true,
 		FrogFamiliar = true,
 		RavenFamiliar = true,
+		PolecatFamiliar = true,
 	}
 }

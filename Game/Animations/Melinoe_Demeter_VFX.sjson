@@ -52,7 +52,7 @@
 		Name = "DemeterCastArea"
 		FilePath = "Particles\particle_glow"
 		GroupName = "FX_Terrain"
-		
+		Material = "Unlit"
 		VisualFx = "DemeterIceRain"
 		Sound = "/SFX/Player Sounds/DemeterBlizzardVortexSmall"
 		StopSoundOnFinishFade = 0.2
@@ -64,7 +64,7 @@
 		ScaleRadius = 128.0
 		VisualFxIntervalMax = 0.25
 		VisualFxIntervalMin = 0.25
-		Color = { Red = 0.8 Green = 0.70 Blue = 1.0 }
+		Color = { Red = 0.4 Green = 0.35 Blue = 1.0 }
 	}
 	
 	{
@@ -152,6 +152,13 @@
 			{ DurationFrames = 2 }
 		]
 	}
+	{
+		Name = "DemeterIceRainExact"
+		InheritFrom = "DemeterIceRain"
+		RandomOffsetX = 0.0
+		RandomOffsetY = 0.0
+		RandomOffsetScaleRadius = 0
+	}
 	
 	{
 		Name = "DemeterIceRainImpact"
@@ -178,10 +185,10 @@
 		CreateAnimations =
 		[
 			{ Name = "DemeterIceDecal" }
-			{ Name = "DemeterIceFog" }
+			// { Name = "DemeterIceFog" }
 			{ Name = "DemeterIceRainImpactFlare" }
-			{ Name = "DemeterIceRainImpactBranches" }
-			{ Name = "DemeterIceRainImpactBranches" }
+			//{ Name = "DemeterIceRainImpactBranches" }
+			//{ Name = "DemeterIceRainImpactBranches" }
 			{ Name = "DemeterIceRainImpactBranches" }
 		]
 	}
@@ -574,10 +581,11 @@
 		NumFrames = 10
 		PlaySpeed = 60.0
 		StartFrame = 1
-		OffsetZ = 120.0
 		SortMode = "FromParent"
 		ScaleFromOwner = "Ignore"
 		Ambient = 0.0
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:root_00_M_JNT"
+		OffsetY = 80
 	}
 	
 	{
@@ -782,9 +790,14 @@
 	{
 		Name = "DemeterIceCloudDirectionalStill"
 		InheritFrom = "DemeterIceCloudDirectional"
-		VelocityMin = 0
-		VelocityMax = 10
-		ScaleY = 1.5
+		VelocityMin = 30
+		VelocityMax = 40
+		StartScaleY = 1.0
+		EndScaleY = 1.5
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 60
+		AlphaMin = 0.2
+		AlphaMax = 0.6
 	}
 
 
@@ -856,6 +869,14 @@
 		UseAttachedFlasher = false
 		UseAttachedShake = false
 		Material = "Unlit"
+		GroupName = "FX_Standing"
+	}
+
+	{
+		Name = "DemeterIceCloudRadialFast"
+		InheritFrom = "DemeterIceCloudRadial"
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
 	}
 
 	{
@@ -916,6 +937,7 @@
 		VisualFx = "DemeterRootFxIceCloud"
 		VisualFxIntervalMin = 0.5
 		VisualFxIntervalMax = 1.0
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 		CreateAnimations =
 		[
 			// { Name = "DemeterRootFxBack" }
@@ -975,7 +997,7 @@
 		EndBlue = 0.999
 		Material = "Unlit"
 		ScaleFromOwner = "Ignore"
-		Scale = 3
+		Scale = 1.5
 		GroupName = "FX_Standing_Add"
 		StartAlpha = 0.3
 		EndAlpha = 0
@@ -1183,29 +1205,43 @@
 		EaseIn = 0.9
 		EaseOut = 1.0
 	}
-
 	{
 		Name = "DemeterSprintStormFx"
 		FilePath = "Fx\Demeter\DemeterWhirlwind\DemeterWhirlwind"
 		NumFrames = 60
-		RandomPlaySpeedMin = 45
-		RandomPlaySpeedMax = 55
+		PlaySpeed = 36
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
 		ReRandomizeOnLoop = false
 		Loop = true
 		Material = "Unlit"
-		ScaleRadius = 80
+		ScaleRadius = 165
 		TransferFrameFromThis = true
-		Sound = "/SFX/Player Sounds/DemeterBlizzardVortexSmall"
-		StopSoundOnFinishFade = 0.2
 		VisualFx = "DemeterSprintStormIceClouds"
 		VisualFxIntervalMin = 0.1
 		VisualFxIntervalMax = 0.2
 		OverlayVfx = true
 		ChildAnimation = "DemeterSprintStormFxTrailEmitter"
 		ChainTo = "DemeterSprintStormFxDissipate"
-		Alpha = 0.6
+		Alpha = 1
+		OriginX = 260
+		OriginY = 230
+		Saturation = 0.2
+		ColorFromOwner = "Take"
+	}
+
+	{
+		Name = "DemeterSprintStormFxIn"
+		InheritFrom = "DemeterSprintStormFx"
+		Loop = false
+		StartScale = 0.1
+		EndScale = 1.0
+		Scale = 2
+		ScaleRadius = null
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 1
+		ChainTo = "DemeterSprintStormFx"
 		CreateAnimations =
 		[
 			{ Name = "DemeterSprintStormFxGlow" }
@@ -1219,8 +1255,129 @@
 		VisualFx = "DemeterSprintStormIceCloudsTrail"
 		VisualFxDistanceMin = 25
 		VisualFxDistanceMax = 25
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
 		Duration = 1
 		Loop = true
+	}
+
+	{
+		Name = "DemeterWhirlwindHitsparkRandomDelay"
+		FilePath = "Dev\blank_invisible"
+		RandomDurationMin = 0
+		RandomDurationMax = 0.1
+		CreateAnimationOnEnd = "DemeterWhirlwindHitspark"
+	}
+
+	{
+		Name = "DemeterWhirlwindHitspark"
+		Random = [
+			{ Name = "DemeterWhirlwindHitsparkA"}
+			{ Name = "DemeterWhirlwindHitsparkB"}
+		]
+	}
+
+	{
+		Name = "DemeterHitSparkDirectional"
+		FilePath = "Fx\DemeterHitSpark\DemeterHitSpark"
+		NumFrames = 17
+		Material = "Unlit"
+		AngleFromOwner = "Take"
+		RandomFlipHorizontal = true
+		AngleMin = 60
+		AngleMax = 120
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 120
+		ScaleMin = 0.3
+		ScaleMax = 0.85
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "DemeterWhirlwindHitsparkA"
+		FilePath = "Fx\Demeter\DemeterProjectileImpact\DemeterProjectileImpact"
+		NumFrames = 45
+		RandomRotation = true
+		Material = "Unlit"
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		Scale = 2
+		StartScale = 0
+		EndScale = 1
+		ScaleMin = 0.1
+		ScaleMax = 0.5
+		RandomOffsetX = 20
+		RandomOffsetY = 10
+		AngleMin = 0
+		AngleMax = 360
+		EaseIn = 0.9
+		EaseOut = 1.0
+		IsometricSkew = "Y"
+		CreateAnimations = [
+			{ Name = "DemeterIceCloudRadialFast" }
+			{ Name = "DemeterHitSparkDirectional" }
+		]
+		Slides = [
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+		]
+	}
+
+	{
+		Name = "DemeterWhirlwindHitsparkB"
+		InheritFrom = "DemeterWhirlwindHitsparkA"
+		IsometricSkew = "None"
+		PostRotateScaleY = 0.6
 	}
 
 	{ 
@@ -1266,12 +1423,6 @@
 		LoopFramesOnly = true
 		Loop = false
 		ChainTo = null
-		StartRed = 1
-		StartGreen = 1
-		StartBlue = 1
-		EndRed = 0.6
-		EndGreen = 0.7
-		EndBlue = 0.8
 		VisualFx = null
 		PlaySpeed = 30
 		Sound = null
@@ -1279,26 +1430,34 @@
 
 	{
 		Name = "DemeterSprintStormFxEdges"
-		InheritFrom = "DemeterSprintStormFxDissipate"
-		TransferFrameToThis = false
-		RandomStartFrame = true
-		ScaleRadius = 0
-		PingPongColor = true
+		FilePath = "Fx\TorchSpecialStartSwirl\TorchSpecialStartSwirl"
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		AlphaMin = 0.33
+		AlphaMax = 0.66
 		StartAlpha = 0
-		EndAlpha = 0.6
-		StartScale = 0.5
-		EndScale = 0.6
-		ScaleMin = 1
-		ScaleMax = 1.1
-		RandomDurationMin = 0.5
-		RandomDurationMax = 1.0
-		StartRed = 0
-		StartGreen = 0.4
+		EndAlpha = 0.66
+		NumFrames = 50
+		AddColor = true
+		StartRed = 0.5
+		StartGreen = 0.7
 		StartBlue = 1.0
-		EndRed = 0.999
-		EndGreen = 0.999
+		EndRed = 0.7
+		EndGreen = 0.5
 		EndBlue = 0.999
-		GroupName = "FX_Dark"
+		FlipHorizontal = true
+		FlipVertical = true
+		ScaleMin = 0.25
+		ScaleMax = 0.35
+		StartScale = 2
+		EndScale = 1.4
+		EaseIn = 0.0
+		EaseOut = 1.0
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		StartOffsetY = -50
+		EndOffsetY = 0
+
 	}
 
 	{
@@ -1332,6 +1491,7 @@
 		SortMode = "Secondary"
 		AlphaMin = 0.5
 		AlphaMax = 1.0
+		ColorFromOwner = "Take"
 		CreateAnimations =
 		[
 			{ Name = "DemeterSprintStormParticles" }
@@ -1489,7 +1649,6 @@
 		ScaleRadius = 150.0
 		Ambient = 0.0
 		Sound = "/SFX/Player Sounds/DemeterBlizzardVortex"
-		ChildAnimation = "DemeterWrathSwirlC-Devotion"
 		VisualFx = "DemeterDevotionDetonateFx"
 		Alpha = 1.0
 		Value = 0.8
@@ -2165,6 +2324,230 @@
 		VisualFxIntervalMax = 0.41
 		VisualFxIntervalMin = 0.4
 		Hue = 0.45
+	}
+
+
+	{
+		Name = "DemeterManaBoonFx"
+		FilePath = "Fx\DemeterIceDecal\DemeterIceDecal"
+		NumFrames = 27
+		PlaySpeed = 27
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = true
+		Scale = 1.5
+		HoldLastFrame = true
+		PostRotateScaleY = 0.5
+		Material = "Unlit"
+		RotationSpeed = 10
+		OffsetZ = 0
+		Hue = -0.05
+		Saturation = 0.3
+		StartOffsetZ = 0
+		EndOffsetZ = 1
+		EaseIn = 0.9
+		EaseOut = 1
+		StartAlpha = 0
+		EndAlpha = 0.4
+		StartScale = 0.5
+		EndScale = 1.0
+		VisualFx = "DemeterManaBoonFxA"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.4
+		GroupName = "FX_Terrain_Add"
+		ChainTo = "DemeterManaBoonFxFade"
+		Sound = "/SFX/Player Sounds/DemeterTranquilGainLoop"
+		StopSoundOnFinishFade = 0.2
+		ChildAnimation = "DemeterManaBoonFxB"
+		CreateAnimations = [
+			{ Name = "DemeterManaBoonFxA" }
+			{ Name = "DemeterManaBoonFxC" }
+		]
+	}
+
+	{
+		Name = "DemeterManaBoonFxB"
+		InheritFrom = "DemeterManaBoonFx"
+		Sound = null
+		Angle = 30
+		EndAlpha = 0.8
+		ChildAnimation = null
+		ClearCreateAnimations = true
+		Scale = 1.0
+		DieWithOwner = true
+		VisualFx = "DemeterManaBoonFxC"
+		VisualFxIntervalMin = 0.6
+		VisualFxIntervalMax = 0.8
+		// CreateAnimation = "DemeterManaBoonFxC"
+		ChainTo = "DemeterManaBoonFxBFade"
+	}
+
+	{
+		Name = "DemeterManaBoonFxC"
+		FilePath = "Fx\WitchyMist\WitchyMist"
+		NumFrames = 50
+		StartFrame = 50
+		AngleMin = 0
+		AngleMax = 360
+		IsometricSkew = "X"
+		Duration = 1.5
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		EaseIn = 0.0
+		EaseOut = 1.0
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = true
+		RandomFlipHorizontal = true
+		GroupName = "FX_Terrain_Add"
+		Scale = 1.5
+		FlipVertical = true
+		OffsetZ = 40
+		ScaleMin = 1
+		ScaleMax = 1.2
+		Hue = 0.3
+		Value = 0.5
+		Saturation = -0.5
+		StartScaleY = 1
+		EndScaleY = 1.85
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+	}
+
+	{
+		Name = "DemeterManaBoonFxFade"
+		InheritFrom = "DemeterManaBoonFx"
+		ChildAnimation = null
+		ClearCreateAnimations = true
+		StartAlpha = 0.4
+		EndAlpha = 0
+		NumFrames = 1
+		FilePath = "Fx\DemeterIceDecal\DemeterIceDecal0027"
+		Duration = 0.3
+		VisualFx = null
+		ChainTo = null
+		StartScale = 0.9999
+		Sound = null
+	}
+
+	{
+		Name = "DemeterManaBoonFxBFade"
+		InheritFrom = "DemeterManaBoonFxFade"
+		Scale = 1.0
+		StartAlpha = 0.8
+	}
+
+	{
+		Name = "DemeterManaBoonFxA"
+		FilePath = "Fx\Demeter\DemeterIceCloudB\DemeterIceCloudB"
+		NumFrames = 45
+		Material = "Unlit"
+		GroupName = "FX_Standing"
+		LocationFromOwner = "Maintain"
+		LocationZFromOwner = "Maintain"
+		Scale = 1.5
+		ColorFromOwner = "Ignore"
+		PlaySpeed = 30
+		AngleFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		ScaleMin = 0.8
+		ScaleMax = 1.5
+		StartOffsetZ = 0
+		EndOffsetZ = 60
+		VisualFx = "DemeterManaBoonFxSparkles"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.3
+		CreateAnimation = "DemeterManaBoonFxSparkles"
+	}
+
+	{
+		Name = "DemeterManaBoonFxSparkles"
+		Random = [
+			{ Name = "DemeterManaBoonFxSparkleA" }
+			{ Name = "DemeterManaBoonFxSparkleA" }
+			{ Name = "DemeterManaBoonFxSparkleB" }
+		]
+	}
+
+	{
+		Name = "DemeterManaBoonFxSparkleA"
+		FilePath = "Particles\particle_addSparkle_02"
+		AddColor = true
+		Red = 0
+		Green = 0.2
+		Blue = 1.0
+		StartScale = 0
+		EndScale = 1
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		Scale = 0.2
+		RandomOffsetY = 80
+		RandomOffsetX = 40
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		VelocityMin = 60
+		VelocityMax = 120
+		Acceleration = -120
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.6
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		PingPongScale = true
+		OffsetZ = 60
+	}
+
+	{
+		Name = "DemeterManaBoonFxSparkleB"
+		InheritFrom = "DemeterManaBoonFxSparkleA"
+		FilePath = "Particles\particle_streak_boosted"
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.0
+		RandomOffsetX = 20
+		AddColor = true
+		UseOwnAngle = true
+		StartScale = 0.999
+		StartScaleY = 0
+		EndScaleY = 1
+		ScaleX = 0.5
+		Scale = 1
+		Red = 0.1
+		Green = 0.05
+		Blue = 1.0
+		OriginX = 128
+		OriginY = 32
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		VelocityMin = 30
+		VelocityMax = 60
+		Acceleration = -10
+	}
+
+	{
+		Name = "DemeterManaBoonEndFx"
+		FilePath = "Fx\DemeterSmokeA\DemeterSmokeA"
+		NumFrames = 47
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		StartAlpha = 0
+		EndAlpha = 0.1
+		PingPongColor = true
+		OffsetZ = 0
+		PlaySpeed = 90
+		AddColor = true
+		Red = 0.3
+		Green = 0.2
+		Blue = 0.5
+		ScaleY = 0.66
+		StartScale = 0.7
+		EndScale = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Sound = "/SFX/Player Sounds/DemeterTranquilGainEnd"
 	}
 
 ]}

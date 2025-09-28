@@ -34,6 +34,10 @@
 		GrannyModel = "WeaponDaggerA_Pan_Mesh"
 	}
 	{
+		Name = "WeaponDaggerA_Morrigan"
+		GrannyModel = "WeaponDaggerA_Morrigan_Mesh"
+	}
+	{
 		Name = "WeaponDaggerRBase"
 		GrannyModel = "WeaponDaggerA_Mesh"
 		Scale = 1.2
@@ -41,6 +45,7 @@
 		[
 			{ Name = "WeaponDaggerA_Artemis" }
 			{ Name = "WeaponDaggerA_Pan" }
+			{ Name = "WeaponDaggerA_Morrigan" }
 		]
 	}
 	{
@@ -52,6 +57,10 @@
 		GrannyModel = "WeaponDaggerB_Pan_Mesh"
 	}
 	{
+		Name = "WeaponDaggerB_Morrigan"
+		GrannyModel = "WeaponDaggerB_Morrigan_Mesh"
+	}
+	{
 		Name = "WeaponDaggerLBase"	
 		GrannyModel = "WeaponDaggerB_Mesh"
 		Scale = 1.2
@@ -59,6 +68,7 @@
 		[
 			{Name = "WeaponDaggerB_Artemis"}
 			{Name = "WeaponDaggerB_Pan"}
+			{Name = "WeaponDaggerB_Morrigan"}
 		]
 	}
 
@@ -154,6 +164,15 @@
 			{ Name = "Melinoe_Dagger_Special_StartLoop" }
 			{ Name = "Melinoe_Dagger_Special_Fire" }
 			{ Name = "Melinoe_Dagger_SpecialEx_Fire" }
+			{ Name = "Melinoe_Dagger_Morrigan_AttackStabs_Start" }
+			{ Name = "Melinoe_Dagger_Morrigan_AttackStabs_Fire" }
+			{ Name = "Melinoe_Dagger_Morrigan_AttackStabs_FireLoop" }
+			{ Name = "Melinoe_Dagger_Morrigan_AttackDouble_Start" }
+			{ Name = "Melinoe_Dagger_Morrigan_AttackDouble_Fire" }
+			{ Name = "Melinoe_Dagger_Morrigan_BlinkAttack_Fire" }
+			{ Name = "Melinoe_Dagger_Morrigan_Attack1_Start" }
+			{ Name = "Melinoe_Dagger_Morrigan_Attack1_Fire" }
+			{ Name = "Melinoe_Dagger_Morrigan_Attack1_FireFast" }
 			{ Name = "Melinoe_Dagger_Cast_Start" }
 			{ Name = "Melinoe_Dagger_Cast_QuickCompleteFire" }
 			{ Name = "Melinoe_Dagger_Cast_Fire2" }
@@ -168,6 +187,25 @@
 			{ Name = "Melinoe_ForwardCast_Fire" }
 			{ Name = "Melinoe_ForwardCast_FireLoop" }
 			{ Name = "Melinoe_ForwardCast_FireLoop2" }
+		]
+	}
+	{
+		Name = "Melinoe_Dagger_GetHit_LastStand"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_GetHit_C_00"
+		DisableOwnerManualInteract = true
+		TimeModifierFraction = 0
+		ChainTo = "Melinoe_Dagger_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 3
+				FrameSpeed = 6
+			}
 		]
 	}
 
@@ -237,6 +275,13 @@
 				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
 			}
 		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_InteractToEquip"
+				Duration = 6
+			}
+		]
 	}
 
 	{
@@ -254,6 +299,7 @@
 		InheritFrom = "MelinoeBaseDaggerAnimations"
 		GrannyAnimation = "Melinoe_Dagger_Base_DaggerUnEquipIdle_00"
 		ChainTo = "MelinoeIdleWeaponless"
+		CancelOnOwnerMove = true
 		RequireCurrentAnimationNotContains =
 		[
 			{ Name = "MelinoeInteract" }

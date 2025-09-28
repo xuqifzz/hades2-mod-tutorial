@@ -16,6 +16,8 @@ OverwriteTableKeys( WeaponData,
 		NoBountyAvailableText = "ShrineScreen_NoBountyAvailable_Staff",
 		DummyTraitName = "DummyWeaponStaff",
 		Using = { GrannyModel = "WeaponBlurWheel_Mesh" },
+
+		CompleteObjectivesOnFire = { },
 		
 		SwapAnimations =
 		{
@@ -27,7 +29,7 @@ OverwriteTableKeys( WeaponData,
 			["MelinoeRun"] = "Melinoe_Staff_Run_FireLoop",
 			["MelinoeStop"] = "Melinoe_Staff_Run_End",
 			["MelinoeGetHit"] = "Melinoe_Staff_GetHit",
-			["MelinoeGetHitFinal"] = "MelinoeStaffGetHitFinal",
+			["Melinoe_GetHit_LastStand"] = "Melinoe_Staff_GetHit_LastStand",
 
 			["Melinoe_Cast_Start"] = "Melinoe_Staff_Cast_Start",
 			["Melinoe_Cast_StartLoop"] = "Melinoe_Staff_Cast_StartLoop",
@@ -49,10 +51,7 @@ OverwriteTableKeys( WeaponData,
 		ExpireDashWeaponOnDash = true,
 		DashWeapon = "WeaponStaffDash",
 		SecondaryWeapon = "WeaponStaffBall",
-		--ShowStaffUI = true,
 
-		CompleteObjectivesOnFire = { "SwordWeapon", "SwordWeaponArthur" },
-		
 		DefaultKnockbackForce = 720,
 		DefaultKnockbackScale = 0.9,
 
@@ -60,7 +59,8 @@ OverwriteTableKeys( WeaponData,
 
 		CauseImpactReaction = true,
 
-		--FireScreenshake = { Distance = 2, Speed = 200, FalloffSpeed = 1400, Duration = 0.1, Angle = 225 },
+		--FireScreenshake = { Distance = 2, Speed = 200, FalloffSpeed = 1400, Duration = 0.1, Angle = 225 }
+		ManaChanges = { Disabled = {}, Enabled = {} },
 
 		HitSimSlowCooldown = 0.3,
 		HitSimSlowParameters =
@@ -73,7 +73,8 @@ OverwriteTableKeys( WeaponData,
 		{
 			{ ScreenPreWait = 0.02, RightFraction = 0.17, Duration = 0.18 },
 		},
-
+		FireScreenshake = { },
+				
 		HitScreenshake = { Distance = 4, Speed = 250, FalloffSpeed = 0, Duration = 0.08, Angle = 0 },
 
 		EquipVoiceLines =
@@ -93,13 +94,14 @@ OverwriteTableKeys( WeaponData,
 			{
 				Invulnerable = "/SFX/SwordWallHitClank",
 				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-				Bone = "/SFX/MetalBoneSmash",
-				Brick = "/SFX/MetalStoneClang",
-				Stone = "/SFX/MetalStoneClang",
-				Organic = "/SFX/StabSplatterSmall",
-				StoneObstacle = "/SFX/SwordWallHitClank",
-				BrickObstacle = "/SFX/SwordWallHitClank",
-				MetalObstacle = "/SFX/SwordWallHitClank",
+				Bone = "/SFX/StaffImpact",
+				Robot = "/SFX/MetalStoneClangShort",
+				Brick = "/SFX/MetalStoneClangShort",
+				Stone = "/SFX/MetalStoneClangShort",
+				Organic = "/SFX/StaffImpact",
+				StoneObstacle = "/SFX/StaffImpact",
+				BrickObstacle = "/SFX/StaffImpact",
+				MetalObstacle = "/SFX/StaffImpact",
 				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
 				Shell = "/SFX/ShellImpact",
 			},
@@ -110,7 +112,7 @@ OverwriteTableKeys( WeaponData,
 		InheritFrom = { "WeaponStaffSwing", },
 
 		SkipAttackNotReadySounds = true,
-		OnChargeFunctionName = "BlockDashDisable",
+		OnChargeFunctionNames = { "BlockDashDisable", },
 
 		CauseImpactReaction = true,
 
@@ -152,13 +154,14 @@ OverwriteTableKeys( WeaponData,
 			{
 				Invulnerable = "/SFX/SwordWallHitClank",
 				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-				Bone = "/SFX/MetalBoneSmash",
-				Brick = "/SFX/MetalStoneClang",
-				Stone = "/SFX/MetalStoneClang",
-				Organic = "/SFX/StabSplatterSmall",
-				StoneObstacle = "/SFX/SwordWallHitClank",
-				BrickObstacle = "/SFX/SwordWallHitClank",
-				MetalObstacle = "/SFX/SwordWallHitClank",
+				Bone = "/SFX/StaffImpact",
+				Robot = "/SFX/MetalStoneClangShort",
+				Brick = "/SFX/MetalStoneClangShort",
+				Stone = "/SFX/MetalStoneClangShort",
+				Organic = "/SFX/StaffImpact",
+				StoneObstacle = "/SFX/StaffImpactSmall",
+				BrickObstacle = "/SFX/StaffImpactSmall",
+				MetalObstacle = "/SFX/StaffImpactSmall",
 				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
 				Shell = "/SFX/ShellImpact",
 			},
@@ -169,7 +172,7 @@ OverwriteTableKeys( WeaponData,
 		InheritFrom = { "WeaponStaffSwing", },
 
 		SkipAttackNotReadySounds = true,
-		OnChargeFunctionName = "BlockDashDisable",
+		OnChargeFunctionNames = { "BlockDashDisable", },
 
 		CauseImpactReaction = true,
 
@@ -219,13 +222,14 @@ OverwriteTableKeys( WeaponData,
 			{
 				Invulnerable = "/SFX/SwordWallHitClank",
 				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-				Bone = "/SFX/MetalBoneSmash",
-				Brick = "/SFX/MetalStoneClang",
-				Stone = "/SFX/MetalStoneClang",
-				Organic = "/SFX/StabSplatterSmall",
-				StoneObstacle = "/SFX/SwordWallHitClank",
-				BrickObstacle = "/SFX/SwordWallHitClank",
-				MetalObstacle = "/SFX/SwordWallHitClank",
+				Bone = "/SFX/StaffImpactBig",
+				Robot = "/SFX/MetalStoneClangShort",
+				Brick = "/SFX/MetalStoneClangShort",
+				Stone = "/SFX/MetalStoneClangShort",
+				Organic = "/SFX/StaffImpactBig",
+				StoneObstacle = "/SFX/StaffImpactSmall",
+				BrickObstacle = "/SFX/StaffImpactSmall",
+				MetalObstacle = "/SFX/StaffImpactSmall",
 				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
 				Shell = "/SFX/ShellImpact",
 			},
@@ -239,8 +243,6 @@ OverwriteTableKeys( WeaponData,
 
 		SkipAttackNotReadySounds = true,
 
-		--OnChargeFunctionName = "StartWeaponSlowMotion",
-		--OnChargeFunctionArgs = { Modifier = 0.1,  VignetteFadeInDuration = 0.15 },
 		OutOfManaFunctionName = "WeaponCooldownOutOfMana",
 		OutOfManaFunctionArgs = { Cooldown = 0.85 },
 		CauseImpactReaction = true,
@@ -248,7 +250,6 @@ OverwriteTableKeys( WeaponData,
 		DefaultKnockbackForce = 720,
 		DefaultKnockbackScale = 0.9,
 
-		--FireScreenshake = { Distance = 2, Speed = 200, FalloffSpeed = 1400, Duration = 0.1, Angle = 225 },
 		FireScreenshake = { Distance = 4, Speed = 400, FalloffSpeed = 1400, Duration = 0.16, Angle = 225, ScreenPreWait = 0.19 },
 
 		ChargeScreenshake = { Distance = 2, Speed = 100, FalloffSpeed = 2000, Duration = 1.0 },
@@ -267,13 +268,14 @@ OverwriteTableKeys( WeaponData,
 		HitSimSlowCooldown = 0.01,
 		HitSimSlowParameters =
 		{
-			{ ScreenPreWait = 0.04, Fraction = 0.06, LerpTime = 0.06 },
+			{ ScreenPreWait = 0.05, Fraction = 0.12, LerpTime = 0.06 },
 			--{ ScreenPreWait = 0.02, Fraction = 0.08, LerpTime = 0.08 },
-			{ ScreenPreWait = 0.02, Fraction = 1.0, LerpTime = 0.03 },
+			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.03 },
 		},
 
 		--HitScreenshake = { Distance = 6, Speed = 300, FalloffSpeed = 0, Duration = 0.2, Angle = 90 },
 
+		RepeatFireSound = "/SFX/Player Sounds/MelStaffFissureCOMBINED",
 		Sounds =
 		{		
 			ChargeSounds =
@@ -289,20 +291,21 @@ OverwriteTableKeys( WeaponData,
 			},
 			FireSounds =
 			{
-				{ Name = "/SFX/DoorCloseSlamDown" },
 				{ Name = "/VO/MelinoeEmotes/EmotePoweringUp" },
+				{ Name = "/SFX/Player Sounds/MelStaffFissureCOMBINED",}
 			},
 			ImpactSounds =
 			{
 				Invulnerable = "/SFX/SwordWallHitClank",
 				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-				Bone = "/SFX/CharonOarImpact",
-				Brick = "/SFX/MetalStoneClang",
-				Stone = "/SFX/MetalStoneClang",
-				Organic = "/SFX/CharonOarImpact",
-				StoneObstacle = "/SFX/SwordWallHitClank",
-				BrickObstacle = "/SFX/SwordWallHitClank",
-				MetalObstacle = "/SFX/SwordWallHitClank",
+				Bone = "/SFX/StaffImpactBig",
+				Robot = "/SFX/MetalStoneClangShort",
+				Brick = "/SFX/MetalStoneClangShort",
+				Stone = "/SFX/MetalStoneClangShort",
+				Organic = "/SFX/StaffImpactBig",
+				StoneObstacle = "/SFX/StaffImpactSmall",
+				BrickObstacle = "/SFX/StaffImpactSmall",
+				MetalObstacle = "/SFX/StaffImpactSmall",
 				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
 				Shell = "/SFX/ShellImpact",
 			},
@@ -315,6 +318,7 @@ OverwriteTableKeys( WeaponData,
 
 		DefaultKnockbackForce = 720,
 		DefaultKnockbackScale = 0.9,
+		ManaChanges = { Disabled = {}, Enabled = {} },
 
 		HitRumbleParameters =
 		{
@@ -339,13 +343,14 @@ OverwriteTableKeys( WeaponData,
 			{
 				Invulnerable = "/SFX/SwordWallHitClank",
 				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-				Bone = "/SFX/MetalBoneSmash",
-				Brick = "/SFX/MetalStoneClang",
-				Stone = "/SFX/MetalStoneClang",
-				Organic = "/SFX/StabSplatterSmall",
-				StoneObstacle = "/SFX/SwordWallHitClank",
-				BrickObstacle = "/SFX/SwordWallHitClank",
-				MetalObstacle = "/SFX/SwordWallHitClank",
+				Bone = "/SFX/StaffImpact",
+				Robot = "/SFX/MetalStoneClangShort",
+				Brick = "/SFX/MetalStoneClangShort",
+				Stone = "/SFX/MetalStoneClangShort",
+				Organic = "/SFX/StaffImpact",
+				StoneObstacle = "/SFX/StaffImpactSmall",
+				BrickObstacle = "/SFX/StaffImpactSmall",
+				MetalObstacle = "/SFX/StaffImpactSmall",
 				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
 				Shell = "/SFX/ShellImpact",
 			},
@@ -449,8 +454,11 @@ OverwriteTableKeys( WeaponData,
 		InheritFrom = { "WeaponStaffBolt", },
 		ShowManaIndicator = true,
 		HideChargeDuration = 0.325,
-		OnChargeFunctionName = "DoWeaponCharge",
+		OnChargeFunctionNames = { "DoWeaponCharge", },
 		CustomChannelSlowEvent = "StaffBallSlow",
+		
+		CompleteObjectivesOnNonStagedFire = { },
+		CompleteObjectivesOnFire = {  },
 		
 		CheckPostFireFail = true,
 		ChargeWeaponData =
@@ -459,13 +467,25 @@ OverwriteTableKeys( WeaponData,
 			OnStageReachedFunctionName = "StaffChargeStage"
 		},
 		CompleteObjectivesOnStagedFire = { "WeaponStaffBall2" },
+		RepeatFireSound = "/SFX/Player Sounds/StaffSpecialNew",
+		
+		CustomManaIndicatorOffsetY = -190,
 		ChargeWeaponStages = 
 		{
 			{ 
 				ManaCost = 10, 
 				Wait = 0.65, 
 				 
-				WeaponProperties = { Projectile = "ProjectileStaffBallCharged", AdditionalProjectileWaveChance = 0},
+				WeaponProperties =
+				{
+					Projectile = "ProjectileStaffBallCharged",
+					AdditionalProjectileWaveChance = 0,
+					Cooldown = 0.31,
+					ClipRegenInterval = 0,
+					FireGraphic = "Melinoe_Staff_SpecialEx1_Fire",
+					SelfVelocity = 0,
+				},
+				ApplyEffects = { "Special1DisableMoveHold", },
 				--AnimOnStart = "Melinoe_Staff_Special1_Start", 
 				FxOnStart = "StaffBoltCharge", 
 				ChargeRumbleParameters =
@@ -483,6 +503,7 @@ OverwriteTableKeys( WeaponData,
 		{
 			ChargeSounds =
 			{
+				-- { Name = "/VO/MelinoeEmotes/EmoteCharging" },
 				{
 					Name = "/SFX/Player Sounds/MelMagicalChargeLoop",
 					StoppedBy = { "ChargeCancel", "Fired" }
@@ -504,8 +525,7 @@ OverwriteTableKeys( WeaponData,
 				{
 					{ Name = "/Leftovers/SFX/AuraPerfectThrow" },
 				},
-				{ Name = "/VO/MelinoeEmotes/EmoteCastingAlt" },
-				{ Name = "/SFX/Player Sounds/MelDaggerMagicAttack" },
+				{ Name = "/VO/MelinoeEmotes/EmoteLaunchingSuit" },
 			},
 			FireStageSounds = 
 			{
@@ -527,69 +547,13 @@ OverwriteTableKeys( WeaponData,
 			{
 				WeaponProperty = "Cooldown",
 			},
+			{
+				WeaponProperty = "ClipRegenInterval",
+			},
 		},
 	},
 	WeaponStaffBall2 =
 	{
-		InheritFrom = { "WeaponStaffBolt", },
-		SwapUnchargedWeapon = "WeaponStaffBolt",
-		SourceWeapon = "WeaponStaffBall",
-		HideOutOfManaPresentation = true,
-		OnFiredFunctionName = "StaffBall2FiredFunction",
-
-		--ChargeScreenshake = { Distance = 2, Speed = 90, FalloffSpeed = 2000, Duration = 1.3 },
-		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 1.05, Duration = 1.3, HoldDuration = 0.01, RestoreDefaultDuration = 0.4 },
-
-		--OnChargeFunctionName = "StartWeaponSlowMotion",
-		--OnChargeFunctionArgs = { Modifier = 0.5,  VignetteFadeInDuration = 0.15 },
-
-		ChargeRumbleParameters =
-		{
-		--	{ ScreenPreWait = 0.02, LeftFraction = 0.14, Duration = 1.0 },
-		},
-	
-		FireScreenshake = { Distance = 3, Speed = 300, FalloffSpeed = 1000, Duration = 0.1 },
-		HitScreenshake = { Distance = 6, Speed = 300, FalloffSpeed = 0, Duration = 0.34, Angle = 90, DistanceThreshold = 200 },
-		RumbleDistanceThreshold = 280,
-		HitRumbleParameters =
-		{
-			{ ScreenPreWait = 0.02, LeftFraction = 0.125, Duration = 0.15 },
-		},
-
-		SimSlowDistanceThreshold = 280,
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.08, Fraction = 0.1, LerpTime = 0.0 },
-			{ ScreenPreWait = 0.39, Fraction = 1.0, LerpTime = 0.07 },
-		},
-
-		Sounds =
-		{
-			ChargeSounds =
-			{
-				{ Name = "/VO/MelinoeEmotes/EmoteCharging" },
-				{
-					Name = "/SFX/Player Sounds/MelMagicalCharge",
-					StoppedBy = { "ChargeCancel", "Fired" }
-				},
-			},
-			FireSounds =
-			{
-				{ Name = "/VO/MelinoeEmotes/EmoteAttackingAxe" },
-				{ Name = "/SFX/Player Sounds/ZagreusSwordSwipe" },
-			},
-
-			-- ImpactSounds handled in ProjectileData 
-		},
-		SpeedPropertyChanges = 
-		{
-			{
-				ProjectileProperty = "Acceleration",
-				InvertSource = true,
-			},
-			{
-				WeaponProperty = "ChargeTime",
-			},
-		},
-	},	
+		-- Only used for misnamed objective
+	}
 })

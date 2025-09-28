@@ -1,13 +1,19 @@
 Import "RequirementsData.lua"
 
+function DebugTestAllRequirements( source, requirements, args )
+	for i = 1, #requirements do
+		local debugResult = IsGameStateEligible( source, requirements, { ExclusiveTestIndex = i } )
+	end
+end
+
 function IsGameStateEligible( source, requirements, args )
 
 	args = args or {}
 	source = source or { Name = "Unknown" }
 
-	if verboseLogging and requirements == nil then
-		DebugAssert({ Condition = false, Text = "IsGameStateEligible called with no requirements on "..tostring(source.Name), Owner = "Gavin" })
-	end
+	--if verboseLogging and requirements == nil then
+		--DebugAssert({ Condition = false, Text = "IsGameStateEligible called with no requirements on "..tostring(source.Name), Owner = "Gavin" })
+	--end
 
 	if IsEmpty( requirements ) then
 		return true
@@ -35,7 +41,7 @@ function IsGameStateEligible( source, requirements, args )
 
 	if requirements.NamedRequirements ~= nil then
 		for k, name in ipairs( requirements.NamedRequirements ) do
-			DebugAssert({ Condition = NamedRequirementsData[name] ~= nil, Text = name.." is not a named requirement.", Owner = "Greg", })
+			--DebugAssert({ Condition = NamedRequirementsData[name] ~= nil, Text = name.." is not a named requirement.", Owner = "Greg", })
 			if not IsGameStateEligible( source, NamedRequirementsData[name], args ) then
 				return false
 			end
@@ -43,15 +49,29 @@ function IsGameStateEligible( source, requirements, args )
 	end
 	if requirements.NamedRequirementsFalse ~= nil then
 		for k, name in ipairs( requirements.NamedRequirementsFalse ) do
-			DebugAssert({ Condition = NamedRequirementsData[name] ~= nil, Text = name.." is not a named requirement.", Owner = "Greg", })
+			--DebugAssert({ Condition = NamedRequirementsData[name] ~= nil, Text = name.." is not a named requirement.", Owner = "Greg", })
 			if IsGameStateEligible( source, NamedRequirementsData[name], args ) then
 				return false
 			end
 		end
 	end
 
+	if requirements.OrRequirements ~= nil then
+		local anyTrue = false
+		for k, orRequirement in ipairs( requirements.OrRequirements ) do
+			if IsGameStateEligible( source, orRequirement, args ) then
+				anyTrue = true
+				break
+			end
+		end
+		if not anyTrue then
+			return false
+		end
+	end
+
 	-- Generic state value checks
 
+	--[[
 	if verboseLogging then
 		for key, value in pairs( DebugData.LegalGenericRequirementKeys ) do
 			if requirements[key] then
@@ -64,16 +84,19 @@ function IsGameStateEligible( source, requirements, args )
 			end
 		end
 	end
+	]]
 
 	for requirementIndex, requirement in ipairs( requirements ) do
 
-		if verboseLogging and DebugData.LegalGenericRequirementKeys then
+		--[[
+		if verboseLogging then
 			for key, value in pairs( requirement ) do
 				if not DebugData.LegalGenericRequirementKeys[key] then
 					DebugAssert({ Condition = false, Text = "Unrecognized key ("..key..") used in generic GameStateRequirements on "..tostring(source.Name or source.ObjectId), Owner = "Greg" })
 				end
 			end
 		end
+		]]
 
 		local expectedKeys = 1
 		local valueToCheck = _G
@@ -83,21 +106,33 @@ function IsGameStateEligible( source, requirements, args )
 		elseif requirement.PathFromArgs then
 			valueToCheck = args
 			expectedKeys = expectedKeys + 1
+		elseif requirement.HintId then
+			expectedKeys = expectedKeys + 1
 		end
 
+		--[[
+		if verboseLogging and args.ExclusiveTestIndex ~= nil and requirementIndex ~= args.ExclusiveTestIndex then
+			-- Continue
+		else
+		]]
 		if requirement.FunctionName ~= nil then
 			if not CallFunctionName( requirement.FunctionName, source, requirement.FunctionArgs, args ) then
+				args.FirstFailedRequirement = requirement.FunctionName
 				return false
 			end
 		elseif requirement.PathFalse ~= nil then
+			--[[
 			if verboseLogging and TableLength( requirement ) > expectedKeys then
 				DebugPrintTable( requirement, true )
 				DebugAssert({ Condition = false, Text = "Using PathFalse with other keys on "..tostring(source.Name), Owner = "Greg", })
 			end
+			]]
 			for j, subTable in ipairs( requirement.PathFalse ) do
+				--[[
 				if verboseLogging and type(valueToCheck) == "string" then
 					DebugAssert({ Condition = false, Text = "Using string "..valueToCheck.." inside PathFalse on "..tostring(source.Name), Owner = "Gavin", })
 				end
+				]]
 				valueToCheck = valueToCheck[subTable]
 				if valueToCheck == nil then
 					break
@@ -120,17 +155,22 @@ function IsGameStateEligible( source, requirements, args )
 					end
 					args.FirstFailedRequirement = keyString.." == false (Current: "..tostring(valueToCheck)..")"
 				end
+				args.FailedRequirementIndex = requirementIndex
 				return false
 			end
 		elseif requirement.PathTrue ~= nil then
+			--[[
 			if verboseLogging and TableLength( requirement ) > expectedKeys then
 				DebugPrintTable( requirement, true )
 				DebugAssert({ Condition = false, Text = "Using PathTrue with other keys on "..tostring(source.Name), Owner = "Greg", })
 			end
+			]]
 			for j, subTable in ipairs( requirement.PathTrue ) do
+				--[[
 				if verboseLogging and type(valueToCheck) == "string" then
 					DebugAssert({ Condition = false, Text = "Using string "..valueToCheck.." inside PathTrue on "..tostring(source.Name), Owner = "Gavin", })
 				end
+				]]
 				valueToCheck = valueToCheck[subTable]
 				if (not valueToCheck) or valueToCheck == 0 then
 					if verboseLogging then
@@ -265,18 +305,6 @@ function IsGameStateEligible( source, requirements, args )
 				end
 				--DebugPrint({ Text = "MaxOf = "..max })
 				valueToCheck = max
-			elseif requirement.SubtractFromPath ~= nil then
-				local subtractFromValue = _G
-				for k, subTable in ipairs( requirement.SubtractFromPath ) do
-					subtractFromValue = subtractFromValue[subTable]
-					if subtractFromValue == nil then
-						break
-					end
-				end
-				--DebugPrint({ Text = "valueToCheck = "..tostring(valueToCheck) })
-				--DebugPrint({ Text = "subtractFromValue = "..tostring(subtractFromValue) })
-				valueToCheck = (subtractFromValue or 0) - (valueToCheck or 0)
-				--DebugPrint({ Text = "valueToCheck = "..tostring(valueToCheck) })
 			end
 
 			if requirement.SumPrevRooms ~= nil then
@@ -342,7 +370,11 @@ function IsGameStateEligible( source, requirements, args )
 				end
 				local prevRunSum = 0
 				--DebugPrint({ Text = "Summing previous runs" })
-				for runsBack = 0, requirement.SumPrevRuns - 1 do
+				local startingRunsBack = 0
+				if requirement.IgnoreCurrentRun then
+					startingRunsBack = 1
+				end
+				for runsBack = startingRunsBack, requirement.SumPrevRuns - 1 do
 					local prevRun = nil
 					if runsBack == 0 then
 						prevRun = CurrentRun
@@ -359,7 +391,7 @@ function IsGameStateEligible( source, requirements, args )
 					for k, subTable in ipairs( requirement.Path ) do
 						valueToCheck = valueToCheck[subTable]
 						if valueToCheck == nil then
-							if verboseLogging and k == 1 then
+							if verboseLogging and k == 1 and subTable ~= "Cleared" and subTable ~= "ActiveBounty" then
 								DebugAssert({ Condition = false, Text = "First key ("..subTable..") on SumPrevRuns is nil on "..tostring(source.Name), Owner = "Gavin", })
 							end
 							break
@@ -387,6 +419,14 @@ function IsGameStateEligible( source, requirements, args )
 							prevRunSum = prevRunSum + 1
 						end
 					else
+						if verboseLogging and valueToCheck ~= nil and type(valueToCheck) ~= "number" then
+							local pathString = "{ "
+							for i, subTable in ipairs( requirement.Path ) do
+								pathString = pathString.."\""..subTable.."\","
+							end
+							pathString = pathString.." }"
+							DebugAssert({ Condition = false, Text = "SumPrevRuns trying to count non-number value "..pathString.." on "..tostring(source.Name).." (needs CountPathTrue)", Owner = "Greg", })
+						end
 						prevRunSum = prevRunSum + (valueToCheck or 0)
 					end
 					--DebugPrint({ Text = "run valueToCheck = "..tostring(valueToCheck) })
@@ -578,11 +618,13 @@ function IsGameStateEligible( source, requirements, args )
 				DebugAssert({ Condition = false, Text = "Requirement missing Value on "..tostring(source.Name), Owner = "Greg" })
 			end
 		else
+			--[[
 			if verboseLogging then
 				if requirement.HasNone ~= nil or requirement.HasAny ~= nil or requirement.HasAll ~= nil or requirement.IsNone ~= nil  or requirement.IsAny ~= nil then
 					DebugAssert({ Condition = false, Text = "Missing Path for requirement on "..GetTableString(source), Owner = "Greg", })
 				end
 			end
+			]]
 		end
 
 	end
@@ -629,10 +671,10 @@ function RequiredConsecutiveDeathsInRoom( source, args )
 		DebugAssert({ Condition = false, Text = "RequiredConsecutiveDeathsInRoom args.Count = "..args.Count.." (Max is 10)", Owner = "Gavin" })
 	end
 
-	local currentRun = CurrentRun
+	local roomNames = args.Names or { args.Name }
 	local consecutiveDeathsInRoom = 0
-	if HasSeenRoomEarlierInRun( currentRun, args.Name ) then
-		if not currentRun.Cleared and currentRun.EndingRoomName == args.Name then
+	if ContainsAnyKey( CurrentRun.RoomCountCache, roomNames ) then
+		if not CurrentRun.Cleared and not CurrentRun.BountyCleared and Contains( roomNames, CurrentRun.EndingRoomName ) then
 			-- Saw the room this run and died in it, streak continues
 			consecutiveDeathsInRoom = consecutiveDeathsInRoom + 1
 		else
@@ -640,10 +682,10 @@ function RequiredConsecutiveDeathsInRoom( source, args )
 			return false
 		end
 	end
-	for i = #GameState.RunHistory, 1 , -1 do
+	for i = #GameState.RunHistory, 1, -1 do
 		local run = GameState.RunHistory[i]
-		if HasSeenRoomInRun( run, args.Name ) then
-			if not run.Cleared and run.EndingRoomName == args.Name then
+		if run.RoomsEntered ~= nil and run.EndingRoomName ~= nil and ContainsAnyKey( run.RoomsEntered, roomNames ) then
+			if not run.Cleared and not run.BountyCleared and Contains( roomNames, run.EndingRoomName ) then
 				-- Saw the room this run and died in it, streak continues
 				consecutiveDeathsInRoom = consecutiveDeathsInRoom + 1
 			else
@@ -666,11 +708,10 @@ function RequiredConsecutiveClearsOfRoom( source, args )
 		DebugAssert({ Condition = false, Text = "RequiredConsecutiveClearsOfRoom args.Count = "..args.Count.." (Max is 10)", Owner = "Gavin" })
 	end
 
-	local currentRun = CurrentRun
+	local roomNames = args.Names or { args.Name }
 	local consecutiveClearsOfRoom = 0
-
-	if HasSeenRoomEarlierInRun( currentRun, args.Name ) then
-		if currentRun.Cleared or currentRun.EndingRoomName ~= args.Name then
+	if ContainsAnyKey( CurrentRun.RoomCountCache, roomNames ) then
+		if CurrentRun.Cleared or CurrentRun.BountyCleared or not Contains( roomNames, CurrentRun.EndingRoomName ) then
 			-- Saw the room this run and didn't die in it, streak continues
 			consecutiveClearsOfRoom = consecutiveClearsOfRoom + 1
 		else
@@ -678,10 +719,10 @@ function RequiredConsecutiveClearsOfRoom( source, args )
 			return false
 		end
 	end
-	for i = #GameState.RunHistory, 1 , -1 do
+	for i = #GameState.RunHistory, 1, -1 do
 		local run = GameState.RunHistory[i]
-		if HasSeenRoomInRun( run, args.Name ) then
-			if run.Cleared or run.EndingRoomName ~= args.Name then
+		if run.RoomsEntered ~= nil and run.EndingRoomName ~= nil and ContainsAnyKey( run.RoomsEntered, roomNames ) then
+			if run.Cleared or CurrentRun.BountyCleared or not Contains( roomNames, run.EndingRoomName ) then
 				-- Saw the room this run and didn't die in it, streak continues
 				consecutiveClearsOfRoom = consecutiveClearsOfRoom + 1
 			else
@@ -690,6 +731,7 @@ function RequiredConsecutiveClearsOfRoom( source, args )
 			end
 		end
 	end
+
 	if consecutiveClearsOfRoom < args.Count then
 		return false
 	end
@@ -746,15 +788,15 @@ function RequiredAlive( source, args )
 	end
 
 	if args.Ids ~= nil then
-		for i, id in pairs( args.Ids ) do
-			if not ( IsAlive({ Id = id }) == args.Alive ) then
+		for i, id in ipairs( args.Ids ) do
+			if IsAlive({ Id = id }) ~= args.Alive then
 				return false
 			end
 		end
-
 	elseif args.Units ~= nil then
 		for i, unit in ipairs( args.Units ) do
-			if not ( IsAlive({ Id = GetIdsByType({ Name = unit }) }) == args.Alive ) then
+			local unitIsAlive = not IsEmpty( GetIdsByType({ Name = unit }) )
+			if unitIsAlive ~= args.Alive then
 				return false
 			end
 		end
@@ -785,39 +827,43 @@ function RequiredBossPhase( source, args )
 end
 
 function RequiredHealthFraction( source, args )
-
 	local currentHealthFraction = CurrentRun.Hero.Health / CurrentRun.Hero.MaxHealth
-	local comparison = args.Comparison
-	local value = args.Value
+	return DoComparison( currentHealthFraction, args.Comparison, args.Value )
+end
 
-	if comparison == nil or comparison == "==" or comparison == "=" then
-		if currentHealthFraction ~= value then
+function RequiredShrineLevel( source, args )
+	local numShrineUpgrades = GetNumShrineUpgrades( args.ShrineUpgradeName )
+	return DoComparison( numShrineUpgrades, args.Comparison, args.Value )
+end
+
+function DoComparison( value1, comparison, value2 )
+	if comparison == "==" then
+		if value1 ~= value2 then
 			return false
 		end
-	elseif comparison == "~=" or comparison == "!=" then
-		if currentHealthFraction == value then
+	elseif comparison == "~=" then
+		if value1 == value2 then
 			return false
 		end
 	elseif comparison == ">=" then
-		if currentHealthFraction < value then
+		if value1 < value2 then
 			return false
 		end
 	elseif comparison == ">" then
-		if currentHealthFraction <= value then
+		if value1 <= value2 then
 			return false
 		end
 	elseif comparison == "<=" then
-		if currentHealthFraction > value then
+		if value1 > value2 then
 			return false
 		end
 	elseif comparison == "<" then
-		if currentHealthFraction >= value then
+		if value1 >= value2 then
 			return false
 		end
 	else
 		DebugAssert({ Condition = false, Text = "Invalid requirements comparison: "..tostring(comparison), Owner = "Greg", })
 	end
-
 	return true
 end
 
@@ -863,6 +909,19 @@ function RequiredRewardTypeInRoom( source, args )
 	end
 
 	return true
+end
+
+function RequiredRewardCountInRoom( source, args )
+	local count = 0
+	for i, roomObject in pairs( MapState.RoomRequiredObjects ) do
+		if not Contains( args.ExcludeNames, roomObject.Name ) then
+			count = count + 1
+		end
+	end
+	if count == args.Value then
+		return true
+	end
+	return false
 end
 
 function RequireQuestWithStatus( source, args )
@@ -932,6 +991,10 @@ end
 
 function RequireAffordableMetaUpgrade( source, args )
 
+	-- Account for first open pity
+	if not GameState.ScreensViewed.MetaUpgradeCardLayout then
+		return true
+	end
 	local canAffordAny = false
 	if CanIncreaseMetaUpgradeCardLimit() then
 		canAffordAny = true
@@ -962,6 +1025,17 @@ function RequireAffordableMetaUpgrade( source, args )
 	return true
 end
 
+function RequireAllMetaUpgradesAtMaxLevel( source, args )
+	for row, rowData in pairs( GameState.MetaUpgradeCardLayout ) do
+		for column, cardName in pairs( rowData ) do
+			if not MetaUpgradeAtMaxLevel( cardName ) then
+				return false
+			end
+		end
+	end
+	return true
+end
+
 function RequireRunsSinceTextLines( source, args )
 
 	if verboseLogging and ( args.Min ~= nil and args.Min >= 10 ) or (args.Max ~= nil and args.Max >= 10 ) then
@@ -984,6 +1058,9 @@ function RequireRunsSinceTextLines( source, args )
 			if args.Max == nil and runsSinceOccurred >= args.Min then
 				-- No max test and already past Min
 				break
+			elseif args.Min == nil and runsSinceOccurred >= args.Max then
+				-- No min test and already past Max
+				return false
 			end
 		end
 	end
@@ -1007,23 +1084,22 @@ function RequiredConfigOptions( source, args )
 	return true
 end
 
-function RequiredWeaponUpgrades( source, args )
-
-	local currentRun = CurrentRun
-	local numUpgrades = 0
-
-	if currentRun.LootTypeHistory and currentRun.LootTypeHistory.WeaponUpgrade then
-		numUpgrades = currentRun.LootTypeHistory.WeaponUpgrade
+function RequiredMissingLastStands( source, args )
+	local currentLastStandNum = TableLength( CurrentRun.Hero.LastStands )
+	local maxLastStands = CurrentRun.Hero.MaxLastStands or 0
+	if HeroHasTrait("FocusLastStandBoon") then
+		local hasAthenaLastStand = false
+		for i, lastStand in ipairs( CurrentRun.Hero.LastStands ) do
+			if lastStand.Name == "Athena"  then
+				hasAthenaLastStand = true
+				break
+			end
+		end
+		if not hasAthenaLastStand then
+			currentLastStandNum = currentLastStandNum + 1
+		end
 	end
-	if currentRun.CurrentRoom ~= nil and currentRun.CurrentRoom.ChosenRewardType == "WeaponUpgrade" then
-		numUpgrades = numUpgrades + 1
-	end
-
-	if ( args.Min ~= nil and numUpgrades < args.Min ) or ( args.Max ~= nil and numUpgrades > args.Max ) then
-		return false
-	end
-
-	return true
+	return currentLastStandNum < maxLastStands
 end
 
 function RequiredNotInStore( source, args )
@@ -1085,15 +1161,6 @@ function RequiredDistanceFromHero( source, dataArgs, contextArgs )
 		end
 	end
 	return true
-end
-
-function RequiredOfferedDoorWithReward( source, args )
-	for id, door in pairs( MapState.OfferedExitDoors ) do
-		if door.Room ~= nil and door.Room.ChosenRewardType == args.RewardType then
-			return true
-		end
-	end
-	return false
 end
 
 function RequiredOfferedDoorWitRoomSetName( source, args )

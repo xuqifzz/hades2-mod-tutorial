@@ -586,6 +586,7 @@
 		StartGreen = 1.0
 		StartBlue = 0.7
 		LocationZFromOwner = "Ignore"
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 	}
 
 	{
@@ -693,6 +694,7 @@
 		VisualFxCap = 8
 		VisualFxManagerCap = 300
 		VisualFxManagerFrameCap = 14
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 		Slides =
 		[
 			
@@ -757,7 +759,7 @@
 	
 	{
 		Name = "ArmorBreakFlare"
-		FilePath = "Particles\particle_quickflashIris"
+		FilePath = "Particles\particle_quickFlashIris"
 		ScaleFromOwner = "Ignore"
 		Duration = 0.2
 		EndFrame = 1
@@ -834,6 +836,11 @@
 		VisualFx = "null"
 		Sound = "/SFX/Player Sounds/ZagreusGunGrenadeBounce"
 		LocationZFromOwner = "Take"
+	}
+	{
+		Name = "GrenadeBounceSparkSilent"
+		InheritFrom = "GrenadeBounceSpark"
+		Sound = "null"
 	}
 	{
 		Name = "InvincibleHitSparkDynamic"
@@ -967,7 +974,7 @@
 			FilePath = "Fx\Backstab\Backstab"
 			GroupName = "FX_Standing_Add"
 			
-			VisualFx = "QuickFlashRed"
+			// VisualFx = "QuickFlashRed"
 			AngleFromOwner = "Take"
 			AddColor = true
 			ColorFromOwner = "Ignore"
@@ -983,6 +990,7 @@
 			VisualFxIntervalMax = 0.002
 			VisualFxIntervalMin = 0.001
 			TimeModifierFraction = 1.0
+			ElapsedTimeMultiplierFromOwner = "Ignore"
 			Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
 		}
 	{
@@ -1005,6 +1013,7 @@
 		
 		Alpha = 0.85
 		ColorFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
 		Duration = 0.25
 		EaseIn = 0.9
 		EaseOut = 1.0
@@ -1055,7 +1064,7 @@
 	{
 		Name = "QuickFlashRed"
 		InheritFrom = "QuickFlash"
-		FilePath = "Particles\particle_quickflashIris"
+		FilePath = "Particles\particle_quickFlashIris"
 		AddColor = false
 		EndBlue = 0.0
 		EndGreen = 0.0
@@ -1067,6 +1076,7 @@
 		StartScale = 1.2
 		TimeModifierFraction = 1.0
 		RandomRotation = true
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 	}
 	
 	{
@@ -1716,6 +1726,17 @@
 		Ambient = 0.0
 		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
 	}
+
+	{
+		Name = "HollowBlastWarningDecal"
+		FilePath = "Dev\Ring"
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		ScaleRadius = 350
+		Loop = true
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
+	}
+
 	{
 		Name = "RadialNovaSwordParry"
 		InheritFrom = "RadialNova"
@@ -1786,7 +1807,13 @@
 		Name = "Cone90Large"
 		InheritFrom = "Cone90"
 		PostRotateScaleY = 1.0
-		ScaleX = 3.0
+		Scale = 2.0
+	}
+
+	{
+		Name = "Cone90LargeFast"
+		InheritFrom = "Cone90Large"
+		PlaySpeed = 120.0
 	}
 	
 	{

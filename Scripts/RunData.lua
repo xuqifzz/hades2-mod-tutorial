@@ -1,5 +1,4 @@
 GameData = GameData or {}
-GameData.AchievementData = GameData.AchievementData or {}
 
 RoomData = RoomData or {}
 RoomSetData = RoomSetData or {}
@@ -16,8 +15,6 @@ LootData = LootData or {}
 FieldLootData = FieldLootData or {}
 LootSetData = LootSetData or {}
 BountyData = BountyData or {}
-
-EnemyUpgradeData = EnemyUpgradeData or {}
 
 ScreenData = ScreenData or {}
 ScreenData.Shrine = ScreenData.Shrine or {}
@@ -51,6 +48,7 @@ Import "TraitTrayData.lua"
 Import "HUDData.lua"
 Import "NarrativeData.lua"
 Import "AudioData.lua"
+Import "MusicData.lua"
 Import "KeywordData.lua"
 Import "EffectData.lua"
 Import "WeaponData.lua"
@@ -77,6 +75,7 @@ if fullGame then
 	Import "EnemyData_Turtle.lua"
 	Import "EnemyData_WaterUnit.lua"
 	Import "EnemyData_DespairElemental.lua"
+	Import "EnemyData_Eyeball.lua"
 	Import "EnemyData_Vampire.lua"
 	Import "EnemyData_Lovesick.lua"
 	Import "EnemyData_Lamia.lua"
@@ -96,10 +95,20 @@ if fullGame then
 	Import "EnemyData_Mudman.lua"
 	Import "EnemyData_Harpy.lua"
 	Import "EnemyData_Eris.lua"
+	Import "EnemyData_Medea.lua"
+	Import "EnemyData_Heracles.lua"
 	Import "EnemyData_Prometheus.lua"
+	Import "EnemyData_TyphonHead.lua"
+	Import "EnemyData_TyphonHeadAdd.lua"
+	Import "EnemyData_TyphonArm.lua"
+	Import "EnemyData_TyphonTail.lua"
+	Import "EnemyData_TyphonEye.lua"
 	Import "EnemyData_Eagle.lua"
+	Import "EnemyData_Mati.lua"
+	Import "EnemyData_EarthElemental.lua"
 	Import "EnemyData_Stickler.lua"
 	Import "EnemyData_Swab.lua"
+	Import "EnemyData_Captain.lua"
 	Import "EnemyData_Scimiterror.lua"
 	Import "EnemyData_Drunk.lua"
 	Import "EnemyData_WaterElemental.lua"
@@ -108,8 +117,10 @@ if fullGame then
 	Import "EnemyData_AutomatonBeamer.lua"
 	Import "EnemyData_AutomatonEnforcer.lua"
 	Import "EnemyData_Dragon.lua"
+	Import "EnemyData_DragonBurrower.lua"
 	Import "EnemyData_InfestedCerberus.lua"
 	Import "EnemyData_Chronos.lua"
+	Import "EnemyData_Zagreus.lua"
 	Import "EnemyData_BloodlessNaked.lua"
 	Import "EnemyData_BloodlessGrenadier.lua"
 	Import "EnemyData_Scylla.lua"
@@ -119,13 +130,22 @@ if fullGame then
 	Import "EnemyData_Sheep.lua"
 	Import "EnemyData_Charybdis.lua"
 	Import "EnemyData_SatyrCrossbow.lua"
+	Import "EnemyData_Boar.lua"
 	Import "EnemyData_ClockworkHeavyMelee.lua"
+	Import "EnemyData_Wringer.lua"
 	Import "EnemyData_GoldElemental.lua"
 	Import "EnemyData_TimeElemental.lua"
 	Import "EnemyData_SatyrLancer.lua"
 	Import "EnemyData_SatyrSapper.lua"
 	Import "EnemyData_SatyrRatCatcher.lua"
+	Import "EnemyData_SatyrCultist.lua"
 	Import "EnemyData_Swarmer.lua"
+	Import "EnemyData_Simple.lua"
+	Import "EnemyData_Stalker.lua"
+	Import "EnemyData_Brute.lua"
+	Import "EnemyData_Jellyfish.lua"
+	Import "EnemyData_Octofish.lua"
+	Import "EnemyData_Pig.lua"
 end
 
 Import "NPCData.lua"
@@ -163,6 +183,7 @@ Import "RoomDataF.lua"
 
 if fullGame then
 	Import "RoomDataAnomaly.lua"
+	Import "RoomDataC.lua"
 	Import "RoomDataChaos.lua"
 	Import "RoomDataG.lua"
 	Import "RoomDataH.lua"
@@ -170,6 +191,7 @@ if fullGame then
 	Import "RoomDataN.lua"
 	Import "RoomDataO.lua"
 	Import "RoomDataP.lua"
+	Import "RoomDataQ.lua"
 	if _isdebug() then
 		Import "RoomDataTest.lua"
 	end
@@ -185,6 +207,7 @@ Import "LootData_Demeter.lua"
 Import "LootData_Aphrodite.lua"
 Import "LootData_Hestia.lua"
 Import "LootData_Hephaestus.lua"
+Import "LootData_Ares.lua"
 Import "LootData_Selene.lua"
 if fullGame then
 	Import "LootData_Hera.lua"
@@ -200,6 +223,7 @@ Import "TraitData_Suit.lua"
 Import "TraitData_Torch.lua"
 Import "TraitData_Lob.lua"
 Import "TraitData_Arachne.lua"
+Import "TraitData_Ares.lua"
 Import "TraitData_Artemis.lua"
 Import "TraitData_Aphrodite.lua"
 Import "TraitData_Apollo.lua"
@@ -210,7 +234,6 @@ Import "TraitData_Hestia.lua"
 Import "TraitData_Poseidon.lua"
 Import "TraitData_Zeus.lua"
 Import "TraitData_Spell.lua"
-Import "TraitData_Mana.lua"
 Import "TraitData_Keepsake.lua"
 Import "TraitData_Store.lua"
 Import "TraitData_MetaUpgrade.lua"
@@ -261,7 +284,6 @@ Import "WeaponData_Mage.lua"
 Import "WeaponData_Radiator.lua"
 Import "WeaponData_Screamer.lua"
 Import "WeaponData_SiegeVines.lua"
-Import "WeaponData_TrapsEnemies.lua"
 Import "WeaponData_Treant.lua"
 
 if fullGame then
@@ -275,10 +297,12 @@ if fullGame then
 	Import "WeaponData_Chronos.lua"
 	Import "WeaponData_Corrupted.lua"
 	Import "WeaponData_Crawler.lua"
+	Import "WeaponData_Zagreus.lua"
 	Import "WeaponData_Devotion.lua"
 	Import "WeaponData_Drunk.lua"
 	Import "WeaponData_Elemental.lua"
 	Import "WeaponData_Eris.lua"
+	Import "WeaponData_Medea.lua"
 	Import "WeaponData_Fishman.lua"
 	Import "WeaponData_FishSwarmer.lua"
 	Import "WeaponData_Harpy.lua"
@@ -310,22 +334,20 @@ end
 Import "WeaponDataAllies.lua"
 Import "ProjectileData.lua"
 if fullGame then
-	Import "ProjectileData_Chronos.lua"
-	Import "ProjectileData_Elemental.lua"
-	Import "ProjectileData_Eris.lua"
-	Import "ProjectileData_G.lua"
-	Import "ProjectileData_Hera.lua"
-	Import "ProjectileData_Heracles.lua"
-	Import "ProjectileData_Icarus.lua"
-	Import "ProjectileData_InfestedCerberus.lua"
-	Import "ProjectileData_N.lua"
-	Import "ProjectileData_O.lua"
-	Import "ProjectileData_Polyphemus.lua"
-	Import "ProjectileData_Satyr.lua"
-	Import "ProjectileData_Scylla.lua"
-end
-if fullGame then
-	Import "EnemyUpgradeData.lua"
+	Import "ProjectileData_EnemyF.lua"
+	Import "ProjectileData_EnemyG.lua"
+	Import "ProjectileData_EnemyH.lua"
+	Import "ProjectileData_EnemyI.lua"
+	Import "ProjectileData_EnemyN.lua"
+	Import "ProjectileData_EnemyO.lua"
+	Import "ProjectileData_EnemyP.lua"
+	Import "ProjectileData_EnemyQ.lua"
+	Import "ProjectileData_EnemyB.lua"
+	Import "ProjectileData_Familiar.lua"
+	Import "ProjectileData_Gods.lua"
+	Import "ProjectileData_Melinoe.lua"
+	Import "ProjectileData_NPC.lua"
+	Import "ProjectileData_Traps.lua"
 end
 Import "ConsumableData.lua"
 Import "WorldUpgradeData.lua"
@@ -348,6 +370,7 @@ Import "CosmeticsData.lua"
 Import "CostumeData.lua"
 Import "WeaponShopData.lua"
 Import "FamiliarShopData.lua"
+Import "FamiliarCostumeData.lua"
 Import "WeaponUpgradeData.lua"
 Import "SpellData.lua"
 Import "ObstacleData.lua"
@@ -358,6 +381,7 @@ if fullGame then
 	Import "ObstacleDataN.lua"
 	Import "ObstacleDataO.lua"
 	Import "ObstacleDataP.lua"
+	Import "ObstacleDataQ.lua"
 end
 Import "NPCData_Hecate.lua"
 Import "NPCData_Odysseus.lua"
@@ -405,7 +429,6 @@ if fullGame then
 end
 Import "ObjectiveData.lua"
 
-Import "FishingData.lua"
 Import "HarvestData.lua"
 Import "GardenData.lua"
 Import "DeathLoopData.lua"
@@ -420,6 +443,7 @@ Import "CodexData.lua"
 Import "GameStatsData.lua"
 Import "RunHistoryData.lua"
 Import "MusicPlayerData.lua"
+Import "CreditsData.lua"
 
 Import "GiftLogic.lua"
 Import "GiftPresentation.lua"
@@ -433,7 +457,7 @@ Import "PowersLogic.lua"
 Import "WeaponLogic.lua"
 Import "EffectLogic.lua"
 Import "ManaLogic.lua"
-Import "AssistLogic.lua"
+Import "HealthLogic.lua"
 Import "UpgradeLogic.lua"
 Import "RequirementsLogic.lua"
 
@@ -492,21 +516,21 @@ function SetupRunData( args )
 		enemyData.Name = enemyName
 		ProcessDataInheritance( enemyData, EnemyData )
 		if enemyData.OutgoingDamageModifiers then
-			for i, modifierData in pairs(enemyData.OutgoingDamageModifiers) do
+			for i, modifierData in ipairs( enemyData.OutgoingDamageModifiers ) do
 				if modifierData.ValidWeapons and not modifierData.ValidWeaponsLookup then
 					modifierData.ValidWeaponsLookup = ToLookup( modifierData.ValidWeapons )
 				end
 			end
 		end
 		if enemyData.OutgoingCritModifiers then
-			for i, modifierData in pairs(enemyData.OutgoingCritModifiers) do
+			for i, modifierData in ipairs( enemyData.OutgoingCritModifiers ) do
 				if modifierData.ValidWeapons and not modifierData.ValidWeaponsLookup then
 					modifierData.ValidWeaponsLookup = ToLookup( modifierData.ValidWeapons )
 				end
 			end
 		end
 		if enemyData.IncomingDamageModifiers then
-			for i, modifierData in pairs(enemyData.IncomingDamageModifiers) do
+			for i, modifierData in ipairs( enemyData.IncomingDamageModifiers ) do
 				if modifierData.ValidWeapons then
 					modifierData.ValidWeaponsLookup = ToLookup( modifierData.ValidWeapons )
 				end
@@ -526,8 +550,10 @@ function SetupRunData( args )
 		if enemyData.TreatAsGodLootByShops and not IsEmpty( enemyData.Traits ) then
 			FieldLootData[enemyData.Name] = 
 				{ 
+					Name = enemyData.Name,
 					TraitIndex = ToLookup(enemyData.Traits),
 					TreatAsGodLootByShops = enemyData.TreatAsGodLootByShops,
+					IgnoreRestrictBoonChoices = enemyData.IgnoreRestrictBoonChoices,
 					ExcludeFromLastRunBoon = enemyData.ExcludeFromLastRunBoon,
 					GodLoot = enemyData.GodLoot,
 				}
@@ -538,6 +564,8 @@ function SetupRunData( args )
 			for i, traitName in pairs( enemyData.Traits ) do
 				ScreenData.BoonInfo.TraitDictionary[enemyData.Name][traitName] = true
 			end
+			ScreenData.BoonInfo.TraitSortOrder[enemyData.Name] = {}
+			ScreenData.BoonInfo.TraitSortOrder[enemyData.Name] = ConcatTableValuesIPairs( ScreenData.BoonInfo.TraitSortOrder[enemyData.Name], enemyData.Traits )
 		end
 
 	end
@@ -546,7 +574,7 @@ function SetupRunData( args )
 		--variantData.Name = variantName
 		--DebugPrint({ Text = "variantName = "..variantName })
 		ProcessDataInheritance( variantData, NPCVariantData )
-		ProcessTextLines( variantData, variantData.InteractTextLineSets, variantData.InteractTextLinePriorities )
+		ProcessTextLines( variantData, variantData.InteractTextLineSets, variantData.InteractTextLinePriorities, { DefaultStatusAnimation = StatusAnimations.WantsToTalk, IgnoreValidation = args.IgnoreValidation } )
 	end
 	
 	PropertyOrderingValuesLookup = {}
@@ -596,7 +624,7 @@ function SetupRunData( args )
 					if weaponNames == nil then
 						weaponNames = { propertyChange.WeaponName }
 					end
-					for q, weaponName in pairs(propertyChange.WeaponNames) do
+					for q, weaponName in pairs(weaponNames) do
 					
 						local newPropertyChanges = DeepCopyTable(WeaponData.DefaultWeaponValues.DefaultSpeedPropertyChanges)
 						if WeaponData[weaponName] and WeaponData[weaponName].SpeedPropertyChanges then
@@ -627,8 +655,6 @@ function SetupRunData( args )
 			end
 		end
 		if not traitData.ExcludeLinked then
-			traitData.LegalOnFireWeapons = AddLinkedWeapons( traitData.LegalOnFireWeapons )
-			traitData.LegalOnDamageWeapons = AddLinkedWeapons( traitData.LegalOnDamageWeapons )
 			if traitData.DamageOnFireWeapons and not traitData.DamageOnFireWeapons.ExcludeLinked then
 				traitData.DamageOnFireWeapons.WeaponNames = AddLinkedWeapons( traitData.DamageOnFireWeapons.WeaponNames )
 			end
@@ -668,12 +694,52 @@ function SetupRunData( args )
 					end
 				end
 			end
+
+			if traitData.AddOutgoingDamageModifiersArray then
+				for i, data in pairs(traitData.AddOutgoingDamageModifiersArray) do
+					if data.ValidWeapons then
+						if not data.ExcludeLinked then
+							data.ValidWeapons = AddLinkedWeapons( data.ValidWeapons )
+						end
+						data.ValidWeaponsLookup = ToLookup( data.ValidWeapons )
+					end
+					if data.ValidProjectiles then
+						data.ValidProjectilesLookup = ToLookup( data.ValidProjectiles )
+					end
+					if data.ValidEnchantments and not data.ExcludeLinked then
+						for key, weaponNames in pairs(data.ValidEnchantments.TraitDependentWeapons ) do
+							data.ValidEnchantments.TraitDependentWeapons[key] = AddLinkedWeapons( weaponNames )
+						end
+
+						if data.ValidEnchantments.ValidWeapons then
+							data.ValidEnchantments.ValidWeapons = AddLinkedWeapons( data.ValidEnchantments.ValidWeapons )
+						end
+					end
+					if data.EmptySlotValidData then
+						for key, weaponNames in pairs(data.EmptySlotValidData) do
+							data.EmptySlotValidData[key] = AddLinkedWeapons( weaponNames )
+						end
+					end
+				end
+			end
+
 			if traitData.AddOutgoingCritModifiers then
 				if traitData.AddOutgoingCritModifiers.ValidWeapons then
 					if not traitData.AddOutgoingCritModifiers.ExcludeLinked then
 						traitData.AddOutgoingCritModifiers.ValidWeapons = AddLinkedWeapons( traitData.AddOutgoingCritModifiers.ValidWeapons )
 					end
 					traitData.AddOutgoingCritModifiers.ValidWeaponsLookup = ToLookup( traitData.AddOutgoingCritModifiers.ValidWeapons )
+				end
+				if traitData.AddOutgoingCritModifiers.ValidProjectiles then
+					traitData.AddOutgoingCritModifiers.ValidProjectilesLookup = ToLookup( traitData.AddOutgoingCritModifiers.ValidProjectiles )
+				end
+			end
+			if traitData.AddOutgoingDoubleDamageModifiers then
+				if traitData.AddOutgoingDoubleDamageModifiers.ValidWeapons then
+					if not traitData.AddOutgoingDoubleDamageModifiers.ExcludeLinked then
+						traitData.AddOutgoingDoubleDamageModifiers.ValidWeapons = AddLinkedWeapons( traitData.AddOutgoingDoubleDamageModifiers.ValidWeapons )
+					end
+					traitData.AddOutgoingDoubleDamageModifiers.ValidWeaponsLookup = ToLookup( traitData.AddOutgoingDoubleDamageModifiers.ValidWeapons )
 				end
 			end
 			
@@ -683,6 +749,17 @@ function SetupRunData( args )
 						traitData.ChargeStageModifiers.ValidWeapons = AddLinkedWeapons( traitData.ChargeStageModifiers.ValidWeapons )
 					end
 					traitData.ChargeStageModifiers.ValidWeaponsLookup = ToLookup( traitData.ChargeStageModifiers.ValidWeapons )
+				end
+			end
+			
+			if traitData.ChargeStageModifiersArray then
+				for i, data in pairs( traitData.ChargeStageModifiersArray ) do
+					if data.ValidWeapons then
+						if not data.ExcludeLinked then
+							data.ValidWeapons = AddLinkedWeapons( data.ValidWeapons )
+						end
+						data.ValidWeaponsLookup = ToLookup( data.ValidWeapons )
+					end
 				end
 			end
 			
@@ -698,6 +775,7 @@ function SetupRunData( args )
 					if not traitData.OnWeaponFiredFunctions.ExcludeLinked then
 						traitData.OnWeaponFiredFunctions.ValidWeapons = AddLinkedWeapons( traitData.OnWeaponFiredFunctions.ValidWeapons )
 					end
+					traitData.OnWeaponFiredFunctions.ValidWeaponsLookup = ToLookup( traitData.OnWeaponFiredFunctions.ValidWeapons )
 				end
 			end
 			if traitData.OnWeaponChargeCanceledFunctions then
@@ -754,6 +832,15 @@ function SetupRunData( args )
 						end
 						traitData.OnEnemyDamagedAction.Args.MultihitWeaponWhitelistLookup = ToLookup( traitData.OnEnemyDamagedAction.Args.MultihitWeaponWhitelist )
 					end
+					if traitData.OnEnemyDamagedAction.Args.MultihitProjectileWhitelist then
+						traitData.OnEnemyDamagedAction.Args.MultihitProjectileWhitelistLookup = ToLookup( traitData.OnEnemyDamagedAction.Args.MultihitProjectileWhitelist )
+					end
+					if traitData.OnEnemyDamagedAction.Args.ValidProjectiles then
+						traitData.OnEnemyDamagedAction.Args.ValidProjectilesLookup = ToLookup( traitData.OnEnemyDamagedAction.Args.ValidProjectiles )
+					end
+					if traitData.OnEnemyDamagedAction.Args.ValidEffectNames then
+						traitData.OnEnemyDamagedAction.Args.ValidEffectNamesLookup = ToLookup( traitData.OnEnemyDamagedAction.Args.ValidEffectNames )
+					end
 				end
 			end
 		end
@@ -782,15 +869,22 @@ function SetupRunData( args )
 		if traitData.OnResourceMaxHealth then
 			traitData.OnResourceMaxHealth.ResourceNamesLookup = ToLookup( traitData.OnResourceMaxHealth.ResourceNames )
 		end
+		if traitData.OnResourceMaxMana then
+			traitData.OnResourceMaxMana.ResourceNamesLookup = ToLookup( traitData.OnResourceMaxMana.ResourceNames )
+		end
 		if traitData.WeaponDataOverride then
 			for weaponName, weaponData in pairs(traitData.WeaponDataOverride) do
 
-				if weaponData.Sounds ~= nil and weaponData.Sounds.ChargeSounds ~= nil then
-					for k, soundElement in pairs( weaponData.Sounds.ChargeSounds ) do
-						if soundElement.StoppedBy ~= nil then
-							soundElement.StoppedByLookup = soundElement.StoppedByLookup or {}
-							for k, eventName in pairs( soundElement.StoppedBy ) do
-								soundElement.StoppedByLookup[eventName] = true
+				if weaponData.Sounds ~= nil then
+					for _, key in pairs ({"ChargeSounds", "ChargeStageSounds"}) do 
+						if weaponData.Sounds[key] then
+							for k, soundElement in pairs( weaponData.Sounds[key] ) do
+								if soundElement.StoppedBy ~= nil then
+									soundElement.StoppedByLookup = soundElement.StoppedByLookup or {}
+									for k, eventName in pairs( soundElement.StoppedBy ) do
+										soundElement.StoppedByLookup[eventName] = true
+									end
+								end
 							end
 						end
 					end
@@ -801,6 +895,7 @@ function SetupRunData( args )
 		{
 			DoorHeal = "CheckDoorHealTrait",
 			DoorHealFixed = "CheckDoorHealTrait",
+			DoorHealIgnorePenaltyFixed = "CheckDoorHealTrait",
 			DoorFullHealThreshold = "CheckDoorHealTrait", 
 			DoorHealThreshold = "CheckDoorHealTrait",
 			DoorHealReserve = "CheckDoorHealTrait",
@@ -912,16 +1007,12 @@ function SetupRunData( args )
 	ProcessDataStore( WeaponShopItemData )
 	ProcessDataStore( FamiliarShopItemData )
 	ProcessDataStore( CostumeData )
+	ProcessDataStore( AchievementData )
 
-	ScreenData.BoonInfo.TraitDictionary.NPC_Charon_01 = ScreenData.BoonInfo.TraitDictionary.NPC_Charon_01 or {}
-	for traitIndex, traitName in pairs( StoreData.RoomShop.Traits ) do
-		ScreenData.BoonInfo.TraitDictionary.NPC_Charon_01[traitName] = true
-	end
-	for consumableIndex, consumableName in pairs( StoreData.RoomShop.Consumables ) do
-		ScreenData.BoonInfo.TraitDictionary.NPC_Charon_01[consumableName] = true
-	end
-	for offerIndex, offer in pairs( StoreData.RoomShop.HealingOffers.WeightedList ) do
-		ScreenData.BoonInfo.TraitDictionary.NPC_Charon_01[offer.Name] = true
+	ScreenData.BoonInfo.TraitSortOrder.NPC_Charon_01 = ShallowCopyTable( StoreData.RoomShop.BoonInfoSortOrder )
+	ScreenData.BoonInfo.TraitDictionary.NPC_Charon_01 = {}
+	for i, name in ipairs( ScreenData.BoonInfo.TraitSortOrder.NPC_Charon_01 ) do
+		ScreenData.BoonInfo.TraitDictionary.NPC_Charon_01[name] = true
 	end
 	
 	ProcessDataStore( ResourceData )
@@ -985,15 +1076,15 @@ function SetupRunData( args )
 	-- For use with Forget-Me-Not
 	MetaUpgradeCostDataStore = {}
 	for i, data in pairs( MetaUpgradeCostData.MetaUpgradeLevelData ) do
-		MetaUpgradeCostDataStore["MetaUpgradeLevelData"..i] = data
+		data.Name = "MetaUpgradeLevelData"..i
+		MetaUpgradeCostDataStore[data.Name] = MergeTables( data, ScreenData.MetaUpgradeCardLayout.PinnedMetaUpgradeLevelData )
 	end
 
 	for weaponName, weaponData in pairs( WeaponData ) do
 		weaponData.Name = weaponName
 		ProcessDataInheritance( weaponData, WeaponData )
-		if weaponData.AIData and weaponData.AIData.ProjectileName and weaponData.AIData.ProjectileName ~= "nil" then
-			ProjectileData[weaponName] = ProjectileData[weaponName] or {}
-			ProjectileData[weaponName].SourceAIWeapon = weaponName
+		if weaponData.AIData ~= nil and ( weaponData.HitSimSlowParameters ~= nil or weaponData.HitScreenshake ~= nil ) then
+			DebugAssert({ Condition = false, Text = "Weapon "..weaponData.Name.." is using ProjectileData parameters. Please migrate to the correct ProjectileData entry.", Owner = "James" })
 		end
 		if weaponData.Upgrades ~= nil then
 			for upgradeName, upgradeData in pairs( weaponData.Upgrades ) do
@@ -1013,13 +1104,22 @@ function SetupRunData( args )
 				end
 			end
 		end
+		if weaponData.ChargeWeaponStages then
+			for i, stageData in pairs( weaponData.ChargeWeaponStages ) do
+				stageData.Stage = i
+			end
+		end
 		ObjectiveData[weaponName] = { } -- automatically generate an objective for each weapon
 	end
 
 	ProcessDataStore( ProjectileData )
 	ProcessDataStore( EffectData )
-	ProcessDataStore( ToolData )
 
+	for key, effectData in pairs(EffectData) do
+		if effectData.ProjectileNameBlacklist then
+			effectData.ProjectileNameBlacklistLookup = ToLookup(effectData.ProjectileNameBlacklist)
+		end
+	end
 	-- Pre-create links back as well
 	for weaponName, weaponLinks in pairs( WeaponSets.LinkedWeaponUpgrades ) do
 		for k, weaponLink in pairs( weaponLinks ) do
@@ -1027,16 +1127,17 @@ function SetupRunData( args )
 		end
 	end
 
-	WeaponSets.TimeSlowExpireProjectileExcludeProjectileNames = 
-	ConcatTableValues( 	WeaponSets.TimeSlowExpireProjectileExcludeProjectileNames, WeaponSets.ExpireProjectileExcludeProjectileNames)
+	WeaponSets.TimeSlowExpireProjectileExcludeProjectileNames = ConcatTableValues( WeaponSets.TimeSlowExpireProjectileExcludeProjectileNames, WeaponSets.ExpireProjectileExcludeProjectileNames )
+	WeaponSets.SecondaryAndRangedWeapons = ConcatTableValues( ShallowCopyTable( WeaponSets.HeroSecondaryWeapons ), WeaponSets.HeroRangedWeapons )
 	
 	WeaponSetLookups = {}
 	for key, weaponSet in pairs( WeaponSets ) do
 		WeaponSetLookups[key] = ToLookup(weaponSet)
+		WeaponSetLookups[key.."Linked"] = ShallowCopyTable( WeaponSetLookups[key] )
+		WeaponSetLookups[key.."Linked"] = MergeTables( WeaponSetLookups[key.."Linked"], ToLookup( AddLinkedWeapons( weaponSet )) )
 	end
 	ScreenData.BoonInfo.TraitDictionary.SpellDrop = {}
-	ScreenData.BoonInfo.TraitSortOrder.SpellDrop = {}
-	ScreenData.BoonInfo.CustomSortFunction.SpellDrop = "BoonInfoSpellSort"
+	ScreenData.BoonInfo.TraitSortOrder.SpellDrop = ShallowCopyTable( SpellDisplayData.TraitSortOrder )
 
 	for spellName, spellData in pairs( SpellData ) do
 		spellData.Name = spellName
@@ -1050,7 +1151,7 @@ function SetupRunData( args )
 			for talentCategoryName, talentCategory in pairs( spellData.Talents ) do
 				for i, talentName in ipairs( talentCategory ) do
 					ScreenData.BoonInfo.TraitDictionary.SpellDrop[talentName] = true
-					if TraitData[talentName] then
+					if TraitData[talentName] and not TraitData[talentName].IsDuoBoon then
 						TraitData[talentName].TalentCategory = talentCategoryName
 					end
 					TraitRequirements[talentName] = TraitRequirements[talentName] or { OneOf = {} }
@@ -1066,18 +1167,8 @@ function SetupRunData( args )
 			end
 		end
 	end
-
-	for upgradeName, upgradeData in pairs( EnemyUpgradeData ) do
-		upgradeData.Name = upgradeName
-		ProcessDataInheritance( upgradeData, EnemyUpgradeData )
-		if upgradeData.PropertyChanges ~= nil then
-			for k, propertyChange in pairs( upgradeData.PropertyChanges ) do
-				AddFormattedPercentageChangeValues(propertyChange)
-			end
-		end
-		AddFormattedPercentageChangeValues(upgradeData, "MoneyMultiplier")
-		AddFormattedPercentageChangeValues(upgradeData, "MetaPointMultiplier")
-		AddFormattedPercentageChangeValues(upgradeData, "MythPointMultiplier")
+	for talentTreeName, talentTreeData in pairs( SpellTalentData.TalentTreeStructures ) do
+		talentTreeData.Name = talentTreeName 
 	end
 
 	for objectiveSetName, objectiveSetData in pairs( ObjectiveSetData ) do
@@ -1110,12 +1201,20 @@ function SetupRunData( args )
 		ProcessDataInheritance( data, FishingData.FishValues )
 	end
 
-	for name, data in pairs( GameData.BadgeData ) do
+	for name, data in pairs( BadgeData ) do
 		data.Name = name
-		ProcessDataInheritance( data, GameData.BadgeData )
+		ProcessDataInheritance( data, BadgeData )
+	end
+
+	for name, data in pairs( CreditsData.Formats ) do
+		data.Name = name
+		ProcessDataInheritance( data, CreditsData.Formats )
 	end
 
 	MetaUpgradeCardUpgradeData = {}
+
+	MetaUpgradeUnequipPatchData = {}
+	
 	for name, data in pairs( MetaUpgradeCardData ) do
 		data.Name = name
 		ProcessDataInheritance( data, MetaUpgradeCardData )
@@ -1134,12 +1233,19 @@ function SetupRunData( args )
 				}
 			end
 		end
+
+		if data.Cost and data.Cost > 0 then
+			MetaUpgradeUnequipPatchData[data.Cost] = MetaUpgradeUnequipPatchData[data.Cost] or {}
+			table.insert( MetaUpgradeUnequipPatchData[data.Cost], data.Name )
+		end
 	end
 
 	ResetKeywords()
 
 	if verboseLogging then
 		ValidateOrderData( QuestData, QuestOrderData )
+		ValidatePriorityData( GameOutroData, GameOutroPriorities )
+		ValidatePriorityData( GameData.RunClearMessageData, ScreenData.RunClear.MessagePriorities )
 		ValidateGlobalFormats()
 	end
 
@@ -1182,20 +1288,16 @@ function ResetKeywords()
 	end
 end
 
-function AddLinkedWeapons(weaponData)
-	if weaponData == nil then
+function AddLinkedWeapons( weaponList )
+	if weaponList == nil then
 		return
 	end
 	local output = {}
-	if type(weaponData) ~= "table" then
-		DebugAssert("Unable to load linked data " .. weaponData )
-	end
-
-	for i, weaponName in pairs(weaponData) do
-		output[ weaponName ] = true
+	for i, weaponName in pairs( weaponList ) do
+		output[weaponName] = true
 		if WeaponSets.LinkedWeaponUpgrades[weaponName] ~= nil then
-			for s, linkedWeaponName in pairs(WeaponSets.LinkedWeaponUpgrades[weaponName]) do
-				output[ linkedWeaponName ] = true
+			for s, linkedWeaponName in pairs( WeaponSets.LinkedWeaponUpgrades[weaponName] ) do
+				output[linkedWeaponName] = true
 			end
 		end
 	end
@@ -1241,6 +1343,9 @@ function ProcessSimpleExtractValues( data )
 			end
 			if extractData.Add ~= nil then
 				newValue = newValue + extractData.Add
+			end
+			if extractData.NegativePercentDelta ~= nil then
+				newValue = 100 - newValue * 100 
 			end
 			if extractData.UseTimeString then
 				newValue = GetTimerString( newValue, 0 )
@@ -1310,48 +1415,6 @@ function DeepInheritData( data, parentData )
 
 end
 
-function ProcessDirecetInheritance( data, parentData )
-
-	if parentData == nil then
-		return
-	end
-
-	local originalValues = {}
-	for k, ignoreKey in pairs( inheritanceIgnores ) do
-		originalValues[ignoreKey] = data[ignoreKey]
-	end
-
-	for parentKey, parentValue in pairs( parentData ) do
-		if data[parentKey] == nil then
-			if type(parentValue) == "table" then
-				data[parentKey] = DeepCopyTable( parentValue )
-			else
-				data[parentKey] = parentValue
-			end
-		end
-	end
-
-	for k, ignoreKey in pairs( inheritanceIgnores ) do
-		data[ignoreKey] = originalValues[ignoreKey]
-	end
-
-end
-
-function HasPriority( name, piorities )
-	for i, priority in ipairs( piorities ) do
-		if type(priority) == "table" then
-			for j, subPriority in ipairs( priority ) do
-				if subPriority == name then
-					return true
-				end
-			end
-		elseif priority == name then
-			return true
-		end
-	end
-	return false
-end
-
 function ProcessTextLines( source, textLineSet, prioritiesName, args )
 
 	if IsEmpty( textLineSet ) then
@@ -1366,6 +1429,34 @@ function ProcessTextLines( source, textLineSet, prioritiesName, args )
 		if textLines.StatusAnimation == nil and textLines.PlayOnce then
 			textLines.StatusAnimation = args.DefaultStatusAnimation
 		end
+		if verboseLogging then
+			local requirements = textLines.GameStateRequirements
+			if requirements ~= nil then
+				for requirementIndex, requirement in ipairs( requirements ) do
+					if requirement.Path ~= nil then
+						for i, subTable in ipairs( requirement.Path ) do
+							if subTable == textLinesName then
+								DebugAssert({ Condition = false, Text = "Circular dependency detected on "..textLinesName, Owner = "Greg", })
+							end
+						end
+					end
+					if requirement.PathTrue ~= nil then
+						for i, subTable in ipairs( requirement.PathTrue ) do
+							if subTable == textLinesName then
+								DebugAssert({ Condition = false, Text = "Circular dependency detected on "..textLinesName, Owner = "Greg", })
+							end
+						end
+					end
+					if requirement.PathFalse ~= nil then
+						for i, subTable in ipairs( requirement.PathFalse ) do
+							if subTable == textLinesName then
+								DebugAssert({ Condition = false, Text = "Circular dependency detected on "..textLinesName, Owner = "Greg", })
+							end
+						end
+					end
+				end
+			end
+		end
 	end
 
 	if verboseLogging and prioritiesName ~= nil and not args.IgnoreValidation then
@@ -1376,13 +1467,13 @@ function ProcessTextLines( source, textLineSet, prioritiesName, args )
 
 		local narrativeData = NarrativeData[name]
 		if narrativeData == nil then
-			DebugAssert({ Condition = (not fullGame), Text = name.." has no NarrativeData entry" })
+			DebugAssert({ Condition = (not fullGame), Text = name.." has no NarrativeData entry", Owner = "Greg" })
 			return
 		end
 
 		local priorities = narrativeData[prioritiesName]
 		if priorities == nil then
-			DebugAssert({ Condition = false, Text = name.." has no NarrativeData "..prioritiesName })
+			DebugAssert({ Condition = false, Text = name.." has no NarrativeData "..prioritiesName, Owner = "Greg" })
 			return
 		end
 
@@ -1391,19 +1482,19 @@ function ProcessTextLines( source, textLineSet, prioritiesName, args )
 			if type(priority) == "table" then
 				for j, subPriority in ipairs( priority ) do
 					if not textLineSet[subPriority] then
-						DebugAssert({ Condition = false, Text = "Priority found with no data: "..subPriority })
+						DebugAssert({ Condition = false, Text = "Priority found with no data: "..subPriority, Owner = "Greg" })
 					end
 					if allPriorities[subPriority] then
-						DebugAssert({ Condition = false, Text = "Duplicate priority found: "..subPriority })
+						DebugAssert({ Condition = false, Text = "Duplicate priority found: "..subPriority, Owner = "Greg" })
 					end
 					allPriorities[subPriority] = true
 				end
 			else
 				if not textLineSet[priority] then
-					DebugAssert({ Condition = false, Text = "Priority found with no data: "..priority })
+					DebugAssert({ Condition = false, Text = "Priority found with no data: "..priority, Owner = "Greg" })
 				end
 				if allPriorities[priority] then
-					DebugAssert({ Condition = false, Text = "Duplicate priority found: "..priority })
+					DebugAssert({ Condition = false, Text = "Duplicate priority found: "..priority, Owner = "Greg" })
 				end
 				allPriorities[priority] = true
 			end

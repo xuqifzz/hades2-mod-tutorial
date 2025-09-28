@@ -2,15 +2,16 @@
 	thread( DoRumble, {{ RightFraction = 0.17, Duration = 0.3 }} )
 end
 
-function WeaponChargeStageStartPresentation( triggerArgs, weaponData, args, stageData )
-
+function WeaponChargeStageStartPresentation( triggerArgs, weaponData, args, stageData, stage )
+	args = args or {}
 	if stageData.FxOnStart then
 		CreateAnimation({ Name = stageData.FxOnStart, DestinationId = CurrentRun.Hero.ObjectId } )
 	end
 	if stageData.AnimOnStart then
 		SetAnimation({ Name = stageData.AnimOnStart, DestinationId = CurrentRun.Hero.ObjectId } )
 	end
-	if stageData.ResetIndicator and MapState.ManaChargeIndicatorIds and MapState.ManaChargeIndicatorIds.BackingId then
+	if (args.ResetIndicator or stageData.ResetIndicator ) and MapState.ManaChargeIndicatorIds and MapState.ManaChargeIndicatorIds.BackingId then
+		SetManaIndicatorAllowed( weaponData.Name )
 		SetAnimationFrameTarget({ Name = ManaIndicatorPresentation.Hold.Fill, DestinationId = MapState.ManaChargeIndicatorIds.BackingId, Fraction = 0, Instant = true })
 		SetAnimation({ Name = ManaIndicatorPresentation.Hold.Fill, DestinationId = MapState.ManaChargeIndicatorIds.BackingId , PlaySpeed = 1 / ( stageData.Wait * GetLuaWeaponSpeedMultiplier( weaponData.Name )), Scale = 1.0, OffsetY = -50 })
 		SetAnimationFrameTarget({ Name = ManaIndicatorPresentation.Hold.Fill, DestinationId = MapState.ManaChargeIndicatorIds.BackingId, Fraction = 1})
@@ -27,7 +28,8 @@ end
 function WeaponChargeStageReachedPresentation( triggerArgs, weaponData, args, stageData, stage, maxStage )
 	local maxStageReached = stage == maxStage
 	if MapState.ManaChargeIndicatorIds and MapState.ManaChargeIndicatorIds.BackingId then
-		ModifyTextBox({ Id = MapState.ManaChargeIndicatorIds.BackingId, Text = GetManaCost( weaponData, false, { ManaCostOverride = stageData.ManaCost } ) })	PlaySound({ Name = "/SFX/MelinoeAxeSpinCharge", Id = CurrentRun.Hero.ObjectId })
+		ModifyTextBox({ Id = MapState.ManaChargeIndicatorIds.BackingId, Text = GetManaCost( weaponData, false, { ManaCostOverride = stageData.ManaCost } ) })
+		PlaySound({ Name = "/SFX/MelinoeAxeSpinCharge", Id = CurrentRun.Hero.ObjectId })
 	end
 	if maxStageReached then
 		Flash({ Id = CurrentRun.Hero.ObjectId, Speed = 4, MinFraction = 0.5, MaxFraction = 0.6, Color = Color.White, Duration = 0.3 })
@@ -48,7 +50,10 @@ function WeaponChargeStageReachedPresentation( triggerArgs, weaponData, args, st
 
 	if weaponData.ManaIndicatorUsesStageProgression and not IsEmpty( MapState.ManaChargeIndicatorIds ) then
 		SetAnimationFrameTarget({ Name = ManaIndicatorPresentation.Hold.Fill, DestinationId = MapState.ManaChargeIndicatorIds.BackingId, Fraction = stage/maxStage, Instant = true })
-		SetAnimation({ Name = ManaIndicatorPresentation.Hold.Fill, DestinationId = MapState.ManaChargeIndicatorIds.BackingId , PlaySpeed = 0, Scale = 1.0, OffsetY = -50 })		
+		if not maxStageReached then
+			SetAnimation({ Name = ManaIndicatorPresentation.Hold.Fill, DestinationId = MapState.ManaChargeIndicatorIds.BackingId , PlaySpeed = 0, Scale = 1.0, OffsetY = -50 })		
+		end
+		MapState.ShowManaChargeIndicator = true
 	end
 end
 
@@ -60,18 +65,15 @@ function SuitMaxMissilesLockedPresentation( weaponData )
 end
 
 function StartPlayerBlinkAlpha()
+	SetPlayerNotStopsProjectiles( "WeaponBlink" )
 	SetPlayerFade({ Flag = "Blink", Fraction = 0.55, Duration = 0.09 })
-	if IsEmpty(MapState.TransformArgs) then
-		SetThingProperty({ Property = "GrannyTexture", Value ="Models/Melinoe/MelinoeTransform_Color", DestinationId = CurrentRun.Hero.ObjectId })
-	end
+	SetPlayerDarkside("Blink")
 end
 
 function EndPlayerBlinkAlpha()
 	ClearPlayerFade("Blink")
-	if IsEmpty(MapState.TransformArgs) then
-		SetThingProperty({ Property = "GrannyTexture", Value = "null", DestinationId = CurrentRun.Hero.ObjectId })
-		SetupCostume( MapState.HostilePolymorph )
-	end
+	SetPlayerUnDarkside("Blink")
+	SetPlayerStopsProjectiles( "WeaponBlink" )
 end
 
 function ClearBlinkAlpha( triggerArgs )
@@ -82,25 +84,28 @@ end
 
 function NoSuitSpecialTargetPresentation( weaponData )
 	if not IsEmpty( MapState.ManaChargeIndicatorIds ) then
-		StopFlashing({ Id =  MapState.ManaChargeIndicatorIds.PipId})
-		StopFlashing({ Id =  MapState.ManaChargeIndicatorIds.BackingId})
+		StopFlashing({ Id = MapState.ManaChargeIndicatorIds.BackingId })
 	end
 	SessionMapState.ManaIndicatorCustomColor = weaponData.NoTargetColor
+	SessionMapState.ManaIndicatorCustomHSV = weaponData.NoTargetHSV
 	SetColor({ Id = MapState.ManaChargeIndicatorIds.BackingId, Color = SessionMapState.ManaIndicatorCustomColor })
+	if SessionMapState.ManaIndicatorCustomHSV then
+		SetHSV({ Id = MapState.ManaChargeIndicatorIds.BackingId, HSV = SessionMapState.ManaIndicatorCustomHSV, ValueChangeType = "Absolute" })
+	end
 	waitUnmodified(0.05)
 	if IsEmpty(SessionMapState.TargetedEnemies) then
-		thread(SetManaIndicatorCustomColor, weaponData.Name, SessionMapState.ManaIndicatorCustomColor )
+		thread(SetManaIndicatorCustomColor, weaponData.Name, SessionMapState.ManaIndicatorCustomColor, SessionMapState.ManaIndicatorCustomHSV )
 	end
 end
 function NoSuitSpecialTargetCombatText( weaponData )
 	wait(1.0, "NoSuitTarget")
 	PlaySound({ Name = "/Leftovers/SFX/InvincibleOnHit", Id = CurrentRun.Hero.ObjectId })
 	thread( PlayVoiceLines, HeroVoiceLines.WeaponSuitNoTargetVoiceLines, true )
-	thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "SuitNoTarget", Duration = 1.5, SkipRise = true, ShadowScale = 0.6, PreDelay = 0.1, Duration = 1.5, OffsetY = -190} )
+	thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "SuitNoTarget", Duration = 1.5, SkipRise = true, ShadowScale = 0.6, PreDelay = 0.1, OffsetY = -190} )
 end
 
 function NyxBuffReadyPresentation()
-	PlaySound({ Name = "/Leftovers/Menu Sounds/RosterPickup", Id = CurrentRun.Hero.ObjectId })
+	PlaySound({ Name = "/SFX/Player Sounds/NyxTurboBoost", Id = CurrentRun.Hero.ObjectId })
 	CreateAnimation({Name = "NyxBlastReadyEffect", DestinationId = CurrentRun.Hero.ObjectId })
 	CreateAnimation({Name = "NyxBlastReadyEffect2", DestinationId = CurrentRun.Hero.ObjectId })
 	thread( DoRumble, { { ScreenPreWait = 0.02, RightFraction = 0.17, Duration = 0.15 }, } )
@@ -128,4 +133,13 @@ end
 function NyxBuffEndPresentation( duration )
 	SetAnimation({ Name = "StaffReloadTimerOut", DestinationId = ScreenAnchors.SuitUI})
 	PlaySound({ Name = "/SFX/Player Sounds/DarknessCollectionPickupSMALL", Id = CurrentRun.Hero.ObjectId })
+end
+
+function TorchExEmpowerPresentationStart()
+	ShakeScreen({ Speed = 400, Distance = 4, Duration = 0.23, FalloffSpeed = 1400, Angle = 0 })
+	thread( DoRumble, { { ScreenPreWait = 0.02, RightFraction = 0.17, Duration = 0.23 }, } )
+end
+
+function TorchExEmpowerPresentationEnd()
+	CreateAnimation({ Name = "SupayEXEnd", DestinationId = CurrentRun.Hero.ObjectId })
 end

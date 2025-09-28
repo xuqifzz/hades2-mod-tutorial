@@ -6,16 +6,26 @@ UnitSetData.NPC_Echo =
 		InheritFrom = { "NPC_Neutral", "NPC_Giftable" },
 
 		Portrait = "Portrait_Echo_Default_01",
-		AnimOffsetZ = 250,
+		AnimOffsetZ = 25,
 		Groups = { "NPCs" },
 		LineHistoryName = "NPC_Echo_01",
 		SpeakerName = "Echo",
+		LoadPackages = { "Echo" },
 		SubtitleColor = Color.EchoVoice,
+		EmoteOffsetY = -205,
+		EmoteOffsetX = 10,
 		DisableCharacterFadeColorLag = true,
+
+		UpgradeScreenOpenSound = "/SFX/Menu Sounds/PortraitEmoteCheerfulSFX",
+		UpgradeSelectedSound = "/SFX/Menu Sounds/KeepsakeEchoStone2",
+
 		MenuTitle = "EchoChoiceMenu_Title",
 		BoonInfoTitleText = "Codex_BoonInfo_Echo",
 		LastRewardEligible = false,
 		AllowInteractDuringEndVoiceLines = true,
+		TurnInPlaceAnimation = "Echo_Greeting_Turn",
+		-- TurnInPlaceDelay = 1.17,
+		PreEventFunctionName = "AngleNPCToHero",
 
 		SetupEvents =
 		{
@@ -45,9 +55,11 @@ UnitSetData.NPC_Echo =
 			"EchoLastRunBoon",
 			"EchoDeathDefianceRefill",
 			"EchoDoubleLevelBoon",
-			-- "EchoRepeatKeepsakeBoon",
 			"DiminishingDodgeBoon",
 			"DiminishingHealthAndManaBoon",
+			"EchoDoubleShop",
+
+			"EchoRepeatKeepsakeBoon",
 		},
 
 		RequiredRoomInteraction = true,
@@ -89,7 +101,7 @@ UnitSetData.NPC_Echo =
 		InteractVoiceLines =
 		{
 			{
-				PreLineWait = 0.2,
+				PreLineWait = 0.4,
 				UsePlayerSource = true,
 				RandomRemaining = true,
 				Cooldowns =
@@ -120,7 +132,7 @@ UnitSetData.NPC_Echo =
 			},
 			{
 				RandomRemaining = true,
-				PreLineWait = 0.4,
+				-- PreLineWait = 0.4,
 				ObjectType = "NPC_Echo_01",
 
 				{ Cue = "/VO/Echo_0081", Text = "Be at peace... {#Echo1}at peace... {#Prev}{#Echo2}at peace...",
@@ -322,6 +334,36 @@ UnitSetData.NPC_Echo =
 				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Echo",
 			},
+			EchoAboutHelp02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				PreBlockSpecialInteract = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "EchoGift08" },
+					},
+				},
+				-- OnQueuedThreadedFunctionName = "AmbientChatting",
+				-- OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
+
+				{ Cue = "/VO/Echo_0128",
+					Text = "A gathering of Shades... {#Echo1}gathering of Shades... {#Prev}{#Echo2}gathering of Shades..." },
+
+				{ Cue = "/VO/MelinoeField_4642", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Empathetic_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "They're here to see you, aren't they? Thank you for consoling them... for bringing them a sense of peace." },
+
+				{ Cue = "/VO/Echo_0129",
+					Text = "A sense of peace... {#Echo1}a sense of peace... {#Prev}{#Echo2}a sense of peace..." },
+				PrePortraitExitFunctionName = "EchoChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Echo",
+			},
 
 			EchoAboutNymphs01 =
 			{
@@ -343,6 +385,10 @@ UnitSetData.NPC_Echo =
 				{ Cue = "/VO/MelinoeField_0750", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+
+					Portrait = "Portrait_Mel_Casual_01",
+					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "None", Portrait = "Portrait_Mel_Default_01", WaitTime = 2.2 },
+
 					Text = "It's Echo! Echo! Echo! You're an Oread, aren't you? Though you're not speaking in the customary way of Mountain Nymphs... some sort of curse?" },
 				{ Cue = "/VO/Echo_0014",
 					Text = "Some sort of curse... {#Echo1}sort of curse... curse... {#Prev}{#Echo2}curse..." },
@@ -429,7 +475,82 @@ UnitSetData.NPC_Echo =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I know you didn't always speak this way... without the full use of your voice. But you possess such strength, despite the change. My words, perhaps, but the intent is yours." },
 				{ Cue = "/VO/Echo_0078",
-					Text = "...My words... but the intent is yours... {#Prev}{#Echo2}my words... but the intent is yours..." },
+					Text = "...My words... but the intent is yours... {#Prev}{#Echo1}my words... but the intent is yours..." },
+				PrePortraitExitFunctionName = "EchoChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Echo",
+			},
+			EchoAboutCurse02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				PreBlockSpecialInteract = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "EchoGift07" },
+					},
+				},
+				-- OnQueuedThreadedFunctionName = "AmbientChatting",
+				-- OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
+
+				{ Cue = "/VO/Echo_0155",
+					Portrait = "Portrait_Echo_Default_01",
+					Text = "Don't give in... {#Echo1}don't give in... {#Prev}{#Echo2}don't give in..." },
+
+				{ Cue = "/VO/MelinoeField_4633", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I'm still amazed you spoke to me last time, Echo. In words of your own choosing, I mean! It was wonderful to hear from you, however briefly... perhaps we have the makings of a cure." },
+
+				{ Cue = "/VO/Echo_0120",
+					Portrait = "Portrait_Echo_Default_01",
+					Text = "The makings of a cure... {#Echo1}of a cure... {#Prev}{#Echo2}of a cure..." },
+
+				PrePortraitExitFunctionName = "EchoChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Echo",
+			},
+			EchoAboutCurse03 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				PreBlockSpecialInteract = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "EchoGift08" },
+					},
+				},
+				-- OnQueuedThreadedFunctionName = "AmbientChatting",
+				-- OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
+
+				{ Cue = "/VO/Echo_0125",
+					Text = "Are you back...?  {#Echo1}Are you back...? {#Prev}{#Echo2}Are you back...?" },
+
+				{ Cue = "/VO/MelinoeField_4639", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Empathetic_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I am... and so are you. No more Ambrosia then, and... all these Shades nearby... you're helping them, aren't you? To work through their sorrow." },
+
+				{ Cue = "/VO/Echo_0126",
+					PreLineAnim = "Echo_Greeting_Start",
+					PostLineAnim = "Echo_Greeting_End",
+					Text = "Work through their sorrow... {#Echo1}their sorrow... {#Prev}{#Echo2}their sorrow..." },
+
+				{ Cue = "/VO/MelinoeField_4640", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Empathetic_01",
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I'm glad... a lot of Shades likely could use your aid. It seems like it must be a difficult job, but a rewarding one." },
+
+				{ Cue = "/VO/Echo_0127",
+					Text = "A rewarding one... {#Echo1}rewarding one... {#Prev}{#Echo2}rewarding one..." },
+
 				PrePortraitExitFunctionName = "EchoChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Echo",
@@ -473,6 +594,9 @@ UnitSetData.NPC_Echo =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "GameState", "TextLinesRecord", "EchoGift01" },
 					},
 					{
@@ -494,6 +618,7 @@ UnitSetData.NPC_Echo =
 				{ Cue = "/VO/MelinoeField_1186", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					Text = "Yes, Echo. Please don't tell anyone, but... I come from Erebus, all the way across the outskirts of the Underworld. I seek the House of Hades... to slay the usurper of the throne." },
 				{ Cue = "/VO/Echo_0069",
 					Text = "...usurper of the throne... {#Echo1}slay the usurper of the throne... {#Prev}{#Echo2}slay the usurper..." },
@@ -522,7 +647,8 @@ UnitSetData.NPC_Echo =
 				GameStateRequirements =
 				{
 					{
-						Path = { "GameState", "RoomsEntered", "H_Boss01" },
+						Path = { "GameState", "RoomsEntered" },
+						SumOf = { "H_Boss01", "H_Boss02" },
 						Comparison = ">=",
 						Value = 4,
 					},
@@ -555,12 +681,11 @@ UnitSetData.NPC_Echo =
 				GameStateRequirements =
 				{
 					{
-						Path = { "GameState", "UseRecord", "NPC_Narcissus_01", },
-						Comparison = ">=",
-						Value = 4,
+						PathTrue = { "CurrentRun", "UseRecord", "NPC_Narcissus_01" }
 					},
 					{
-						PathTrue = { "CurrentRun", "UseRecord", "NPC_Narcissus_01" }
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "EchoGift01", "NarcissusGift01" },
 					},
 				},
 
@@ -653,6 +778,7 @@ UnitSetData.NPC_Echo =
 				{ Cue = "/VO/Echo_0052",
 					Text = "I wanted to say... {#Echo1}wanted to say... {#Prev}{#Echo2}wanted to say..." },
 				{ Cue = "/VO/MelinoeField_1171", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "It's really nothing, but... a, {#Emph}erm{#Prev}, wise fellow with a very keen sense of self-worth once told me... {#Emph}I hope you find someone who loves you like I love myself." },
@@ -706,10 +832,14 @@ UnitSetData.NPC_Echo =
 				{ Cue = "/VO/Echo_0058",
 					Text = "All alone this time... {#Echo1}alone this time... {#Prev}{#Echo2}this time..." },
 				{ Cue = "/VO/MelinoeField_1176", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Empathetic_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "How was your meeting with Narcissus? I'm glad he was decent enough to pay you a visit. I know it must have hurt, but... I hope it helped to see him again." },
 				{ Cue = "/VO/Echo_0059",
+					-- added automatically from here
+					-- Portrait = "Portrait_Echo_Smiling_01",
+					-- Speaker = "NPC_Echo_02",
 					Text = "It helped to see him again... {#Echo1}helped to see him again... {#Prev}{#Echo2}to see him again." },
 				PrePortraitExitFunctionName = "EchoChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
@@ -731,20 +861,30 @@ UnitSetData.NPC_Echo =
 
 				{ Cue = "/VO/Echo_0092",
 					Text = "I have to talk to you... {#Echo1}to talk to you... {#Prev}{#Echo2}to talk to you..." },
+
 				{ Cue = "/VO/MelinoeField_1696", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I was able to assist Narcissus with a certain plight. And you seem to have let go of him yourself. But as for {#Emph}you... {#Prev}the way you are... I sense that you don't ever want to change." },
+
 				{ Cue = "/VO/Echo_0093",
 					Portrait = "Portrait_Echo_Smiling_01", Speaker = "NPC_Echo_02",
 					Text = "...don't ever want to change, I... {#Echo1}don't ever want to change... {#Prev}{#Echo2}I don't ever want to change..." },
+
 				{ Cue = "/VO/MelinoeField_1697", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "We each are cursed with our experiences. I am nothing without mine. Thank you for reflecting my thoughts and sharing your feelings, Echo. But are you all right to remain here?" },
+
 				{ Cue = "/VO/Echo_0094",
 					Portrait = "Portrait_Echo_Smiling_01", Speaker = "NPC_Echo_02",
+
+					-- heart unlock
+					PostLineThreadedFunctionName = "RelationshipAdvancedPresentation",
+					PostLineThreadedFunctionArgs = { Delay = 0.25 },
+
 					Text = "All right to remain here... {#Echo1}all right to remain here... {#Prev}{#Echo2}all right to remain..." },
+
 				PrePortraitExitFunctionName = "EchoChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Echo",
@@ -816,6 +956,42 @@ UnitSetData.NPC_Echo =
 				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Echo",
 			},
+			EchoAboutOlympus01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				PreBlockSpecialInteract = true,
+				GameStateRequirements =
+				{
+					{
+						SumPrevRuns = 4,
+						IgnoreCurrentRun = true,
+						Path = { "BiomesReached", "N" },
+						CountPathTrue = true,
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "H_PostBoss01" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "EchoGift02" },
+					},
+				},
+
+				{ Cue = "/VO/Echo_0111",
+					Text = "It's been too long! {#Echo1}Too long! {#Prev}{#Echo2}Too long!" },
+				{ Cue = "/VO/MelinoeField_4624", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Yes... for I have matters not just in the depths of Tartarus, but also far above... on the besieged summit of Olympus. Rightful home of Lord Zeus and Queen Hera." },
+				{ Cue = "/VO/Echo_0112",
+					Text = "Zeus and Queen Hera... {#Echo1}Queen Hera... {#Prev}{#Echo2}Queen Hera..." },
+				PrePortraitExitFunctionName = "EchoChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Echo",
+			},
 
 			EchoAboutCharon01 =
 			{
@@ -825,19 +1001,25 @@ UnitSetData.NPC_Echo =
 				PreBlockSpecialInteract = true,
 				GameStateRequirements =
 				{
-					-- @ update with real prereqs
 					{
-						Path = { "GameState", "RoomCountCache", "H_PreBoss01" },
+						Path = { "GameState", "RoomsEntered", "H_PreBoss01" },
 						Comparison = ">=",
 						Value = 4,
+					},
+					{
+						Path = { "GameState", "EncountersOccurredCache", "BridgeShop" },
+						Comparison = ">",
+						Value = 1,
 					},
 				},
 				{ Cue = "/VO/Echo_0060",
 					Text = "Good evening to you! {#Echo1}Evening to you! {#Prev}{#Echo2}Evening to you!" },
+
 				{ Cue = "/VO/MelinoeField_1178", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You know, you're never around when the Boatman Charon's in the area. Fear not, for he's a friend. Though, not always easy to talk to." },
+
 				{ Cue = "/VO/Echo_0061",
 					Text = "Always easy to talk to... {#Echo1}easy to talk to... {#Prev}{#Echo2}to talk to..." },
 				PrePortraitExitFunctionName = "EchoChoice",
@@ -853,10 +1035,11 @@ UnitSetData.NPC_Echo =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "EncountersOccurredCache", "NemesisCombatH" },
+						PathTrue = { "CurrentRun", "EncountersOccurredCache", "NemesisCombatH" },
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "NemesisPostCombatAboutCerberus01" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = {  "NemesisGetFreeItemIntroBridge01", "NemesisPostCombatAboutCerberus01" },
 					},
 				},
 				{ Cue = "/VO/Echo_0075",
@@ -867,6 +1050,51 @@ UnitSetData.NPC_Echo =
 					Text = "You must have hidden back when Nemesis was here. Big dark-haired daughter of Nyx that sometimes storms through these Fields? But you don't have to be afraid of her." },
 				{ Cue = "/VO/Echo_0076",
 					Text = "...afraid of her... {#Echo1}don't have to be afraid of her... {#Prev}{#Echo2}don't be afraid of her..." },
+				PrePortraitExitFunctionName = "EchoChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Echo",
+			},
+
+			EchoPostTrueEnding01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				PreBlockSpecialInteract = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "EchoAboutEcho01" },
+					},
+				},
+
+				{ Cue = "/VO/Echo_0132",
+					Portrait = "Portrait_Echo_Smiling_01",
+					Text = "We did it...! {#Echo1}We did it...! {#Prev}{#Echo2}We did it...!" },
+
+				{ Cue = "/VO/MelinoeField_4646", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Casual_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "The House of Hades is restored! The Underworld King and Queen won't let this place languish as it has...! In time, I'm certain it shall be better here for everyone." },
+
+				{ Cue = "/VO/Echo_0133",
+					Portrait = "Portrait_Echo_Smiling_01",
+					Text = "Better here for everyone... {#Echo1}for everyone... {#Prev}{#Echo2}for everyone..." },
+
+				{ Cue = "/VO/MelinoeField_4647", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Yes. But for now, I may continue passing through much like before. I have to visit Tartarus to ensure everything's all right." },
+
+				{ Cue = "/VO/Echo_0134",
+					Portrait = "Portrait_Echo_Smiling_01",
+					Text = "Everything's all right... {#Echo1}all right... {#Prev}{#Echo2}all right..." },
+
 				PrePortraitExitFunctionName = "EchoChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Echo",
@@ -908,7 +1136,9 @@ UnitSetData.NPC_Echo =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I'm pleased to see you here, the both of you! The energy feels completely different than usual — in a good way! Echo, {#Emph}erm... {#Prev}I hope that everything's OK?" },
 
-				{ Cue = "/VO/Echo_0056", Portrait = "Portrait_Echo_Smiling_01", Speaker = "NPC_Echo_02",
+				{ Cue = "/VO/Echo_0056",
+					Portrait = "Portrait_Echo_Smiling_01",
+					Speaker = "NPC_Echo_02",
 					Text = "Everything's OK? {#Echo1}Everything's OK! {#Prev}{#Echo2} Everything's OK." },
 				PrePortraitExitFunctionName = "EchoChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
@@ -958,7 +1188,7 @@ UnitSetData.NPC_Echo =
 					Text = "Oh you don't have to say that! But I'm glad you feel the same way. So like maybe... we can still be friends?" },
 
 				{ Cue = "/VO/Echo_0100",
-					Text = "We can still be friends...? {#Echo1}Still be friends...? {#Prev}{#Echo2} Be friends..." },
+					Text = "We can still be friends...? {#Echo1}Still be friends...? {#Prev}{#Echo2}Be friends..." },
 
 				{ Cue = "/VO/Narcissus_0245", Portrait = "Portrait_Narcissus_Default_01", Speaker = "NPC_Narcissus_01",
 					Emote = "PortraitEmoteSparkly",
@@ -966,6 +1196,53 @@ UnitSetData.NPC_Echo =
 
 				{ Cue = "/VO/Echo_0101",
 					Text = "I like this bridge... {#Echo2}this bridge... {#Prev}{#Echo3}this bridge." },
+
+				PrePortraitExitFunctionName = "EchoChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Echo",
+			},
+
+			NarcissusWithEcho03 =
+			{
+				PlayOnce = true,
+				Partner = "NPC_Narcissus_Field_01",
+				StatusAnimation = false,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NarcissusWithEcho02", "EchoGift08", "NarcissusGift07" }
+					},
+					NamedRequirements = { "NarcissusInFields" },
+				},
+				UseText = "UseListenNPC",
+				BlockDistanceTriggers = true,
+				IgnoreSourceEndTextLinesThreadedFunctionName = true,
+				UseableOffSource = true,
+				InteractDistance = 450,
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusFieldsGreeting,
+
+				{ Cue = "/VO/Narcissus_0285", Portrait = "Portrait_Narcissus_Default_01", Speaker = "NPC_Narcissus_01",
+					Text = "Looks like you've put down roots here, {#Emph}huh? {#Prev}Pretty nice spot! The River Styx right over there, the rustle of the wheat..." },
+
+				{ Cue = "/VO/Echo_0158", Speaker = "NPC_Echo_01",
+					Portrait = "Portrait_Echo_Smiling_01",
+					Text = "Rustle of the wheat... {#Echo1}rustle of the wheat... {#Prev}{#Echo2}rustle of the wheat... " },
+
+				{ Cue = "/VO/Narcissus_0286", Portrait = "Portrait_Narcissus_Default_01", Speaker = "NPC_Narcissus_01",
+					Text = "{#Emph}Yeah{#Prev}, kind of like back when we were up top! The trees, the flowers, and all that. You ever miss those times?" },
+
+				{ Cue = "/VO/Echo_0159",
+					Portrait = "Portrait_Echo_Smiling_01",
+					Text = "Ever miss those times? {#Echo1}Miss those times? {#Prev}{#Echo2}Miss those times?" },
+
+				{ Cue = "/VO/Narcissus_0287", Portrait = "Portrait_Narcissus_Default_01", Speaker = "NPC_Narcissus_01",
+					Text = "Well personally not so much, I guess. I mean, look at all this! I'd say we have it pretty good!" },
+
+				{ Cue = "/VO/Echo_0160",
+					Portrait = "Portrait_Echo_Smiling_01",
+					Text = "We have it pretty good! {#Echo1}Pretty good! {#Prev}{#Echo2}Pretty good!" },
 
 				PrePortraitExitFunctionName = "EchoChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
@@ -1211,7 +1488,7 @@ UnitSetData.NPC_Echo =
 						PathTrue = { "PrevRun", "Cleared" }
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "EchoGift01" },
+						PathTrue = { "GameState", "TextLinesRecord", "EchoGift07" },
 					},
 					{
 						FunctionName = "RequiredHealthFraction",
@@ -1248,6 +1525,78 @@ UnitSetData.NPC_Echo =
 				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Echo",
 			},
+			EchoChat19 =
+			{
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				PreBlockSpecialInteract = true,
+				-- OnQueuedThreadedFunctionName = "AmbientChatting",
+				-- OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringRepeatable,
+
+				{ Cue = "/VO/Echo_0138",
+					Text = "You're not alone... {#Echo1}not alone... {#Prev}{#Echo2}not alone." },
+				PrePortraitExitFunctionName = "EchoChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Echo",
+			},
+			EchoChat20 =
+			{
+				PlayFirst = true,
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				PreBlockSpecialInteract = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "EchoGift07" }
+					},
+				},
+				-- OnQueuedThreadedFunctionName = "AmbientChatting",
+				-- OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringRepeatable,
+
+				{ Cue = "/VO/Echo_0139",
+					Text = "You're looking well...! {#Echo1}Looking well...! {#Prev}{#Echo2}Looking well...!" },
+				PrePortraitExitFunctionName = "EchoChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Echo",
+			},
+			EchoChat21 =
+			{
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				PreBlockSpecialInteract = true,
+				-- OnQueuedThreadedFunctionName = "AmbientChatting",
+				-- OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringRepeatable,
+
+				{ Cue = "/VO/Echo_0141",
+					Text = "Moonlight guide you... {#Echo1}guide you... {#Prev}{#Echo2}guide you..." },
+				PrePortraitExitFunctionName = "EchoChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Echo",
+			},
+			EchoChat22 =
+			{
+				PlayFirst = true,
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				PreBlockSpecialInteract = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "EchoGift06" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+				},
+
+				{ Cue = "/VO/Echo_0145",
+					Text = "Just passing through... {#Echo1}passing through... {#Prev}{#Echo2}passing through..." },
+				PrePortraitExitFunctionName = "EchoChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.EchoBenefitChoices,
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Echo",
+			},
+
 
 		},
 
@@ -1272,16 +1621,19 @@ UnitSetData.NPC_Echo =
 				{ Cue = "/VO/MelinoeField_0758", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					Text = "Even in a place of sorrow such as this, there's beauty... gentleness. I know not how to ease your burden yet, though perhaps this will help." },
 				{ Cue = "/VO/Echo_0022",
+					PreLineAnim = "Echo_Greeting_Start",
+					PostLineAnim = "Echo_Greeting_End",
 					Text = "Perhaps this will help... {#Echo1}this will help... {#Prev}{#Echo2}this will help..." },
 			},
 			EchoGift02 =
 			{
 				PlayOnce = true,
 				OnGiftTrack = true,
-				UnfilledIcon = "EmptyHeartIcon",
-				FilledIcon = "FilledHeartIcon",
+				UnfilledIcon = "EmptyHeartWithProphecyIcon",
+				FilledIcon = "FilledHeartWithProphecyIcon",
 				Cost =
 				{
 					GiftPoints = 1,
@@ -1293,10 +1645,13 @@ UnitSetData.NPC_Echo =
 					},
 				},
 				{ Cue = "/VO/MelinoeField_1196", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "It means a lot to see your friendly face. May this Nectar sweeten your time here! Look how vast these Fields are. Plenty of room for more than just sorrow!" },
+					Text = "It means a lot to see your gentle face! May this Nectar sweeten your time here. Look how vast these Fields are! Plenty of room for more than just sorrow." },
 				{ Cue = "/VO/Echo_0079",
+					PreLineAnim = "Echo_Greeting_Start",
+					PostLineAnim = "Echo_Greeting_End",
 					Text = "More than just sorrow... {#Echo1}just sorrow... {#Prev}{#Echo2}just sorrow..." },
 			},
 			EchoGift03 =
@@ -1318,27 +1673,255 @@ UnitSetData.NPC_Echo =
 				{ Cue = "/VO/MelinoeField_1197", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Empathetic_01",
 					Text = "I have more Nectar for you, Echo, if you please! Where I am from, it's a small gift we offer those we care about. I don't know about you, but even just handing over this stuff, I feel a bit better." },
 				{ Cue = "/VO/Echo_0080",
+					PreLineAnim = "Echo_Greeting_Start",
+					PostLineAnim = "Echo_Greeting_End",
 					Portrait = "Portrait_Echo_Smiling_01",
 					Text = "I feel a bit better... {#Echo1}bit better... {#Prev}{#Echo2}bit better..." },
 			},
-
-			-- placeholder
-			EchoGiftTemp =
+			EchoGift04 =
 			{
 				PlayOnce = true,
-				UseableOffSource = true,
 				OnGiftTrack = true,
-				UnfilledIcon = "UnavailableHeartIcon",
-				HintId = "Codex_UnavailableHint",
+				UnfilledIcon = "EmptyHeartIcon",
+				FilledIcon = "FilledHeartIcon",
 				Cost =
 				{
-					MysteryResource = 1,
+					GiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "NPC_Echo_01" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_4625", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Vulnerable_01",
+
+					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "None", Portrait = "Portrait_Mel_Proud_01", WaitTime = 2.8 },
+
+					Text = "I suppose not even Nectar is enough to lift the mood here. Though you're surrounded by stone monuments at least. If you're from the mountains, perhaps it's like being at home." },
+
+				{ Cue = "/VO/Echo_0113",
+					PreLineAnim = "Echo_Greeting_Start",
+					PostLineAnim = "Echo_Greeting_End",
+					Portrait = "Portrait_Echo_Smiling_01",
+					Text = "It's like being at home... {#Echo1}like being at home... {#Prev}{#Echo2}like being at home..." },
+			},
+			EchoGift05 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				UnfilledIcon = "EmptyHeartIcon",
+				FilledIcon = "FilledHeartIcon",
+				Cost =
+				{
+					GiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "NPC_Echo_01" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_4626", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Empathetic_01",
+
+					Text = "Please let me know somehow if there is anything I could get you or do for you one of these nights. At least it seems safe here. For now, I hope this Nectar is enough." },
+
+				{ Cue = "/VO/Echo_0114",
+					PreLineAnim = "Echo_Greeting_Start",
+					PostLineAnim = "Echo_Greeting_End",
+					Portrait = "Portrait_Echo_Smiling_01",
+					Text = "This Nectar is enough... {#Echo1}is enough... {#Prev}{#Echo2}is enough..." },
+			},
+			EchoGift06 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				UnfilledIcon = "EmptyHeartIcon",
+				FilledIcon = "FilledHeartIcon",
+				Cost =
+				{
+					GiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "UseRecord", "NPC_Echo_01" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_4627", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Empathetic_01",
+
+					Text = "Thank you for reminding me just how much can be said using few words or even none at all. When you respond, the words may be mine, but I know what you mean. And I know you understand me, too." },
+
+				{ Cue = "/VO/Echo_0115",
+					PreLineAnim = "Echo_Greeting_Start",
+					PostLineAnim = "Echo_Greeting_End",
+					Portrait = "Portrait_Echo_Smiling_01",
+					Text = "You understand me, too... {#Echo1}understand me, too... {#Prev}{#Echo2}you understand..." },
+			},
+			EchoGift07 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				LockedHintId = "Codex_EchoUnlockHint01",
+				UnfilledIcon = "EmptyHeartWithAmbrosiaIcon",
+				FilledIcon = "FilledHeartWithAmbrosiaIcon",
+				Cost =
+				{
+					SuperGiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "EchoGift06", "EchoAboutNarcissus07" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_4628", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Empathetic_01",
+
+					Text = "As we've grown to know each other more, Echo, I wanted to get you something special if you're up for it. This is Ambrosia, from the tallest peaks of Mount Olympus." },
+
+				{ Cue = "/VO/Echo_0116",
+					PreLineAnim = "Echo_Greeting_Start",
+					PostLineAnim = "Echo_Greeting_End",
+					Portrait = "Portrait_Echo_Smiling_01",
+
+					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "PortraitEmoteFiredUp", Portrait = "Portrait_Echo_Default_01", WaitTime = 5 },
+
+					Text = "The tallest peaks of Mount Olympus... {#Echo1}peaks of Mount Olympus... {#Prev}{#Echo2}the tallest peaks of, {#Prev}I... {#Emph}ngh..." },
+
+				{ Cue = "/VO/MelinoeField_4629", UsePlayerSource = true,
+					Emote = "PortraitEmoteSurprise",
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+
+					Text = "{#Emph}Echo! {#Prev}Did you just...? You {#Emph}said {#Prev}something! You said {#Emph}I{#Prev}, in your own words! I know I heard you say it!" },
+
+				{ Cue = "/VO/Echo_0117",
+					Portrait = "Portrait_Echo_Default_01",
+					Text = "...heard you say it... I... I know, I hear you, and... I thank you. This Ambrosia, it's... it's doing this for me, I think, but I... {#Echo1}but I... {#Prev}{#Echo2}but I... {#Prev}don't think that it will last for long... {#Echo1}for long..." },
+
+				{ Cue = "/VO/MelinoeField_4630", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Empathetic_01",
+
+					Text = "Then I shall get more! Echo, this is amazing! I knew Ambrosia could be good, but not this good!" },
+
+				{ Cue = "/VO/Echo_0118",
+					Portrait = "Portrait_Echo_Default_01",
+					Text = "Not this good... {#Echo1}not this, {#Prev}{#Echo1Italic}guh... {#Prev}this is hard for me to explain, but... I don't need any... {#Echo1}don't need any... {#Prev}{#Echo2}don't need any..." },
+
+				{ Cue = "/VO/MelinoeField_4631", UsePlayerSource = true,
+					PreLineWait = 0.35,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Vulnerable_01",
+
+					Text = "Echo, what happened...? The Ambrosia. You don't need anymore for now...? It was too much..." },
+
+				{ Cue = "/VO/Echo_0119",
+					Portrait = "Portrait_Echo_Default_01",
+					Text = "It was too much... {#Echo1}too much... {#Prev}{#Echo2}too much..." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.41,
+						UsePlayerSource = true,
+						{ Cue = "/VO/MelinoeField_4632", Text = "...All right. I'll return." },
+					},
 				},
 			},
+			-- bond forged
+			EchoGift08 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				UnfilledIcon = "EmptyHeartWithAmbrosiaIcon",
+				FilledIcon = "FilledHeartWithAmbrosiaIcon",
+				CompletedHintId = "Codex_BondForgedEcho",
+				Cost =
+				{
+					SuperGiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "EchoGift07" },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_4634", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Empathetic_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 
+					Text = "All right, Echo, we need to sort this out. It must have been Ambrosia that gave you back your voice last time, so perhaps it shall work again. Is it doing anything?" },
+
+				{ Cue = "/VO/Echo_0121",
+					PreLineAnim = "Echo_Greeting_Start",
+					PostLineAnim = "Echo_Greeting_End",
+					Portrait = "Portrait_Echo_Default_01",
+
+					Text = "Is it doing anything...? {#Echo1}Doing anything... {#Prev}{#Echo2}anything, {#Prev}is it... I... {#Echo1}I{#Prev}, Melinoë, look. {#Echo1}Look{#Prev}, I haven't stayed here because I need help... {#Echo1}need help... {#Prev}{#Echo2}need help..." },
+
+				{ Cue = "/VO/MelinoeField_4635", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+
+					Text = "Echo, it's you! Then, what do you need? I don't understand. Who would wish to wallow in a place like this?" },
+
+				{ Cue = "/VO/Echo_0122",
+					Portrait = "Portrait_Echo_Smiling_01",
+					Text = "A place like... this is where I can help... {#Echo1}I can help... {#Prev}{#Echo2}I can help... {#Prev}others, who... have no one to talk to. To turn to. Because I found... I can reflect their feelings, and their thoughts... {#Echo1}and their thoughts... {#Prev}{#Echo2}and their thoughts..." },
+
+				{ Cue = "/VO/MelinoeField_4636", UsePlayerSource = true,
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Vulnerable_01",
+
+					Text = "The way that you've reflected mine. But, we have to find a way to give you back your voice. We're close to a breakthrough!" },
+
+				{ Cue = "/VO/Echo_0123",
+					Portrait = "Portrait_Echo_Smiling_01",
+
+					PostLineThreadedFunctionName = "MaxedRelationshipPresentation",
+					PostLineThreadedFunctionArgs = { Text = "NPC_Echo_01", Icon = "Keepsake_Echo" },
+
+					Text = "A breakthrough... {#Echo1}a break... {#Prev}no. No, back when I could speak... like this... {#Echo1}like this... {#Prev}{#Echo2}like this... {#Prev}I couldn't hear myself or others. Not like now. So please... I already have what I want, I promise you... {#Echo1}I promise you... {#Prev}{#Echo2}I promise..." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.45,
+						UsePlayerSource = true,
+						{ Cue = "/VO/MelinoeField_4637", Text = "Echo... I... I see. And... I understand." },
+					},
+					{
+						ObjectType = "NPC_Echo_01",
+						{ Cue = "/VO/Echo_0124", Text = "I understand... {#Echo1}I understand... {#Prev}{#Echo2}I understand..." },
+					},
+				},
+			},
 		},
+
 		GiftGivenVoiceLines =
 		{
 			{
@@ -1348,11 +1931,10 @@ UnitSetData.NPC_Echo =
 				{ Cue = "/VO/MelinoeField_0759", Text = "You're giving this to me? It's an honor." },
 			},
 			{
-				PreLineWait = 0.3,
 				ObjectType = "NPC_Echo_01",
 
 				{ Cue = "/VO/Echo_0023", Text = "An honor... {#Echo1}an honor... {#Prev}{#Echo2}an honor..." },
-			}
+			},
 		},
 
 		MissingDistanceTrigger =
@@ -1549,6 +2131,26 @@ GlobalVoiceLines.MiscEndVoiceLines_Echo =
 				PreLineWait = 1.8,
 				{ Cue = "/VO/MelinoeField_2856", Text = "Now they're getting somewhere..." },
 			}
+		},
+	},
+	{
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "CurrentRoom", "TextLinesRecord", "NarcissusWithEcho03" },
+			}
+		},
+		{
+			{
+				UsePlayerSource = true,
+				PreLineWait = 0.4,
+				{ Cue = "/VO/MelinoeField_4662", Text = "Take care, you two." },
+			},
+			{
+				PreLineWait = 0.4,
+				ObjectType = "NPC_Echo_01",
+				{ Cue = "/VO/Echo_0149", Text = "You, too... {#Echo1}you, too... {#Prev}{#Echo2}you, too..." },
+			},
 		},
 	},
 	{

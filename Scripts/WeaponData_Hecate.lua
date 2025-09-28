@@ -10,7 +10,9 @@ WeaponSetData =
 			BarrelLength = 100,
 
 			TrackTargetDuringCharge = true,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
+			PostAttackStop = true,
+
 			PreAttackEndShake = true,
 			PreAttackDuration = 1.75,
 			FireDuration = 0.2,
@@ -55,6 +57,16 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Hecate/EmoteCasting" },
 				{ Name = "/SFX/Enemy Sounds/Charon/CharonGroundBlastFire" },
 			},
+		},
+	},
+
+	HecatePolymorph_EM =
+	{
+		InheritFrom = { "HecatePolymorph", },
+		AIData =
+		{
+			DeepInheritance = true,
+			ProjectileName = "HecatePolymorph_EM",
 		},
 	},
 
@@ -138,14 +150,27 @@ WeaponSetData =
 				},
 				{ GlobalVoiceLines = "HecateHexVoiceLines" },
 			},
-
 		},
+	},
 
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
+	HecateMeteorShower_EM =
+	{
+		InheritFrom = { "HecateMeteorShower" },
+
+		AIData =
 		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.1 },
+			DeepInheritance = true,
+
+			AttackSlots =
+			{
+				{ OffsetX = 0, OffsetY = 0, },
+				{ OffsetX = 650, OffsetY = 0, },
+				{ OffsetX = -650, OffsetY = 0, },
+				{ OffsetX = 0, OffsetY = 370, },
+				{ OffsetX = 0, OffsetY = -370, },
+			},
+			AttackSlotsPerTick = 3,
+			AttackSlotInterval = 0.1,
 		},
 	},
 
@@ -160,7 +185,6 @@ WeaponSetData =
 			FireTicksMax = 10,
 			FireIntervalMin = 0.5,
 			FireIntervalMax = 0.5,
-			FireDuration = 5,
 			PostAttackDuration = 1.6,
 
 			ProjectileLeadTarget = false,
@@ -178,6 +202,35 @@ WeaponSetData =
 				Comparison = ">=",
 				Value = 1,
 			},
+		},
+	},
+
+	HecateMeteorSmallShower_EM =
+	{
+		InheritFrom = { "HecateMeteorSmallShower" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			CreateOwnTargetFromOriginalTarget = true,
+			UseTargetAngle = true,
+			TargetOffsetDistance = 300,
+
+			SkipIfInvalidLocation = true,
+
+			AttackSlots =
+			{
+				{ Angle = 0, AnchorAngleOffset = 0, OffsetRadius = 0, OffsetScaleY = 0.55 },
+				{ Angle = 0, AnchorAngleOffset = 400, OffsetRadius = 0, OffsetScaleY = 0.55 },
+				{ Angle = 60, AnchorAngleOffset = 400, OffsetRadius = 0, OffsetScaleY = 0.55 },
+				{ Angle = 120, AnchorAngleOffset = 400, OffsetRadius = 0, OffsetScaleY = 0.55 },
+				{ Angle = 180, AnchorAngleOffset = 400, OffsetRadius = 0, OffsetScaleY = 0.55 },
+				{ Angle = 240, AnchorAngleOffset = 400, OffsetRadius = 0, OffsetScaleY = 0.55 },
+				{ Angle = 300, AnchorAngleOffset = 400, OffsetRadius = 0, OffsetScaleY = 0.55 },
+			},
+			AttackSlotsPerTick = 5,
+			AttackSlotInterval = 0.2,
 		},
 	},
 
@@ -241,6 +294,9 @@ WeaponSetData =
 			FireDuration = 5.35,
 			PostAttackDuration = 0.8,
 
+			TrackTargetDuringCharge = true,
+			StopBeforeFire = true,
+
 			PreAttackAnimation = "Hecate_Combat_Meteor_Start",
 			FireAnimation = "Hecate_Combat_Meteor_FireLoop1",
 			PostAttackAnimation = "Hecate_Combat_Meteor_End",
@@ -260,87 +316,24 @@ WeaponSetData =
 		},
 	},
 
-	HecateRanged =
+	HecateLaser_EM =
 	{
+		InheritFrom = { "HecateLaser" },
+
 		AIData =
 		{
 			DeepInheritance = true,
 
-			ProjectileName = "HecateRanged",
-			BarrelLength = 55,
-
-			PreAttackDuration = 0.6,
-			FireDuration = 0.2,
-			PostAttackDuration = 0.8,
-
-			PreAttackSound = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastStartup",
-			PreAttackAnimation = "HecateRangedTorchStartLeft",
-			FireAnimation = "HecateRangedTorchLoopLeft",
-			PostAttackAnimation = "HecateRangedTorchReturnToIdleLeft",
-			FireFx = "StaffProjectileFireFx1_Hecate",
-			AttackDistance = 1000,
-			RequireProjectileLoS = true,
-			LoSBuffer = 40,
-		},
-
-		Sounds =
-		{
-			FireSounds =
+			PreAttackFx = "nil",
+			AttackSlots =
 			{
-				{ Name = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastFire" },
+				{ ProjectileName = "HecateLaser", },
+				{ ProjectileName = "HecateLaser2", },
+				{ ProjectileName = "HecateLaser3", },
+				{ ProjectileName = "HecateLaser4", },
+				{ ProjectileName = "HecateLaser5", },
+				{ ProjectileName = "HecateLaser6", },
 			},
-		},
-		
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.1 },
-		},
-
-	},
-
-	HecateRangedTorchesSpread =
-	{
-		AIData =
-		{
-			DeepInheritance = true,
-
-			ProjectileName = "HecateRangedSmall",
-			BarrelLength = 200,
-			FireTicks = 10,
-			FireInterval = 0.15,
-			Spread = 30,
-
-			TargetId = 510277,
-
-			PreAttackDuration = 0.6,
-			PreAttackSound = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastStartup",
-			FireDuration = 0.0,
-			PostAttackDuration = 2.2,
-
-			PreAttackAnimation = "HecateRangedTorchStartLeft",
-			FireAnimation = "HecateRangedTorchLoopLeft",
-			PostAttackAnimation = "HecateRangedTorchReturnToIdleLeft",
-
-			AttackDistance = 1000,
-			RequireProjectileLoS = true,
-			LoSBuffer = 40,
-		},
-
-		Sounds =
-		{
-			FireSounds =
-			{
-				{ Name = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastFire" },
-			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.1 },
 		},
 	},
 
@@ -362,7 +355,7 @@ WeaponSetData =
 
 			PreAttackDuration = 1.0,
 			PreAttackAnimationSpeed = 0.5,
-			PreAttackSound = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastStartup",
+			PreAttackSound = "/SFX/Enemy Sounds/Hecate/HecatePreFire",
 			FireDuration = 0.0,
 			PostAttackDuration = 2.2,
 
@@ -385,7 +378,7 @@ WeaponSetData =
 		{
 			FireSounds =
 			{
-				{ Name = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastFire" },
+				{ Name = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastFire2" },
 			},
 		},
 	},
@@ -408,7 +401,7 @@ WeaponSetData =
 
 			PreAttackDuration = 1.0,
 			PreAttackAnimationSpeed = 0.5,
-			PreAttackSound = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastStartup",
+			PreAttackSound = "/SFX/Enemy Sounds/Hecate/HecatePreFire",
 			PreAttackLoopingSound = "/SFX/Enemy Sounds/Hecate/HecateFlameLoop",
 			FireDuration = 0.0,
 			PostAttackDuration = 2.2,
@@ -432,30 +425,27 @@ WeaponSetData =
 		{
 			FireSounds =
 			{
-				{ Name = "/SFX/HellFireImpactQuiet" },
+				{ Name = "/SFX/Enemy Sounds/Megaera/MegaeraFlameBurst" },
 			},
 		},
 	},
 
-	HecateRangedTorchesSpirals =
+	HecateRangedTorchesHoming =
 	{
 		AIData =
 		{
 			DeepInheritance = true,
 
-			ProjectileName = "HecateRangedSmallSpirals",
+			ProjectileName = "HecateRangedSmallHoming",
 			SpawnFromMarker = "WeaponHecateL_Rig:flame01_C_joint",
 			NumProjectiles = 18,
-			--ProjectileAngleInterval = 15,
 			ProjectileInterval = 0.17,
-
-			TargetId = 510277,
 
 			TrackTargetDuringCharge = false,
 
 			PreAttackDuration = 1.0,
 			PreAttackAnimationSpeed = 0.5,
-			PreAttackSound = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastStartup",
+			PreAttackSound = "/SFX/Enemy Sounds/Hecate/HecatePreFire",
 			FireDuration = 3.5,
 			PostAttackDuration = 2.2,
 
@@ -472,8 +462,22 @@ WeaponSetData =
 		{
 			FireSounds =
 			{
-				{ Name = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastFire" },
+				{ Name = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastFire2" },
 			},
+		},
+	},
+
+	HecateRangedTorchesHoming_Short =
+	{
+		InheritFrom = { "HecateRangedTorchesHoming" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			NumProjectiles = 9,
+			FireDuration = 1.75,
+			PostAttackDuration = 0.5,
 		},
 	},
 
@@ -483,7 +487,7 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
-			ProjectileName = "HecateRangedSmallSpirals",
+			ProjectileName = "HecateRangedSmallHoming",
 			SpawnFromMarker = "WeaponHecateL_Rig:flame01_C_joint",
 			NumProjectiles = 36,
 			ProjectileAngleInterval = 180,
@@ -492,13 +496,13 @@ WeaponSetData =
 			ClearWeaponFireEffectsOnFireEnd = true,
 
 			TrackTargetDuringCharge = true,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.09,
 			PostAttackStop = true,
 
 			PreAttackDuration = 1.0,
 			PreAttackAnimationSpeed = 0.5,
-			PreAttackSound = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastStartup",
+			PreAttackSound = "/SFX/Enemy Sounds/Hecate/HecatePreFire",
 			PreAttackVoiceLines =
 			{
 				{ GlobalVoiceLines = "HecateHexVoiceLines" },
@@ -519,15 +523,8 @@ WeaponSetData =
 		{
 			FireSounds =
 			{
-				{ Name = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastFire" },
+				{ Name = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastFire2" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.1 },
 		},
 
 		GameStateRequirements =
@@ -540,18 +537,38 @@ WeaponSetData =
 		},
 	},
 
+	HecateRangedTorchesSpiralsPhase_EM =
+	{
+		InheritFrom = { "HecateRangedTorchesSpiralsPhase" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "HecateRangedSmallHoming_Bounce",
+			ProjectileInterval = 0.0425,
+			ProjectileAngleInterval = 90,
+		},
+	},
+
 	HecateRangedTorchesCone =
 	{
+		Requirements =
+		{
+			MaxConsecutiveUses = 1,
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
 
 			AttackSlots =
 			{
-				{ ProjectileName = "HecateMeleeCone", AIDataOverrides = { FireProjectileAngleRelative = 0, BarrelLength = 200, }  },
-				{ ProjectileName = "HecateMeleeCone", AIDataOverrides = { FireProjectileAngleRelative = 40, BarrelLength = 200, }  },
-				{ ProjectileName = "HecateMeleeCone", AIDataOverrides = { FireProjectileAngleRelative = -40, BarrelLength = 200, }  },
+				{ AIDataOverrides = { FireProjectileAngleRelative = 0, BarrelLength = 200, }  },
+				{ AIDataOverrides = { FireProjectileAngleRelative = 40, BarrelLength = 200, }  },
+				{ AIDataOverrides = { FireProjectileAngleRelative = -40, BarrelLength = 200, }  },
 			},
+			ProjectileName = "HecateMeleeCone",
 			BarrelLength = 0,
 			FireTicks = 10,
 			FireInterval = 0.15,
@@ -561,7 +578,7 @@ WeaponSetData =
 			FireRotationDampening = 0.12,
 
 			PreAttackDuration = 2.25,
-			PreAttackSound = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastStartup",
+			PreAttackSound = "/SFX/Enemy Sounds/Hecate/HecatePreFire",
 			PreAttackEndShake = true,
 			PreAttackEndFlashFraction = 0.8,
 			FireDuration = 2.0,
@@ -574,8 +591,6 @@ WeaponSetData =
 			AttackDistance = 2000,
 			RequireProjectileLoS = true,
 			LoSBuffer = 40,
-
-			MaxConsecutiveUses = 1,
 		},
 
 		Sounds =
@@ -614,6 +629,23 @@ WeaponSetData =
 		},
 	},
 
+	HecateRangedTorchesConePhase_EM =
+	{
+		InheritFrom = { "HecateRangedTorchesConePhase" },
+		AIData =
+		{
+			DeepInheritance = true,
+
+			Spread = 30,
+			ProjectileName = "HecateMeleeCone_EM",
+
+			FireTicks = 10,
+			FireInterval = 0.3,
+			FireDuration = 0.0,
+			PostAttackDuration = 5.0,
+		},
+	},
+
 	HecateRangedTorchesRing =
 	{
 		Requirements =
@@ -628,7 +660,7 @@ WeaponSetData =
 			BarrelLength = 0,
 
 			PreAttackDuration = 1.4,
-			PreAttackSound = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastStartup",
+			PreAttackSound = "/SFX/Enemy Sounds/Hecate/HecatePreFire",
 			FireDuration = 3.0,
 			PostAttackDuration = 1.8,
 
@@ -694,7 +726,6 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-			MoveWithinRange = false,
 			ProjectileName = "HecateTorchRingPhase",
 
 			PostAttackDuration = 3.6,
@@ -710,6 +741,17 @@ WeaponSetData =
 				Comparison = ">=",
 				Value = 2,
 			},
+		},
+	},
+
+	HecateRangedTorchesRingPhase_EM =
+	{
+		InheritFrom = { "HecateRangedTorchesRingPhase" },
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "HecateTorchRingPhase_EM",
 		},
 	},
 
@@ -737,6 +779,7 @@ WeaponSetData =
 							"HecateBossAboutChronos03",
 							"HecateBossAbouotArachneOutfit01",
 							"HecateBossAboutFailure01",
+							"HecateBossAboutArachne02",
 						},
 					},
 				},
@@ -773,7 +816,11 @@ WeaponSetData =
 			PreTeleportWait = 0.5,
 			PostTeleportWait = 0.8,
 
-			PostAttackTeleportToSpawnPoints = true,
+			PreAttackDuration = 0.0,
+			FireDuration = 0.0,
+			PostAttackDuration = 0.0,
+
+			PostAttackEndTeleport = true,
 			TeleportMaxDistance = 200,
 			TeleportationInterval = 0,
 			TeleportPreWaitAnimation = "HecateTeleportOut",
@@ -793,6 +840,25 @@ WeaponSetData =
 			},
 		},
 
+	},
+
+	HecateTeleport2 =
+	{
+		InheritFrom = {"HecateTeleport"},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			PreAttackAngleTowardTarget = false,
+
+			TeleportMinDistance = 350,
+			TeleportMaxDistance = 2000,
+			TeleportToSpawnPointType = "EnemyPointSupport",
+			ChainedWeaponOptions = "nil",
+
+			--PostAttackCooldown = 1.0,
+		},
 	},
 
 	HecateMelee1 =
@@ -815,6 +881,8 @@ WeaponSetData =
 			FireSelfVelocity = -2100,
 
 			PreAttackDuration = 0.7,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackStartMinWaitTime = 0.16,
 			PreAttackSound = "/SFX/Enemy Sounds/Hecate/EmoteCharging",
 			FireDuration = 0.2,
 			PostAttackDuration = 2.2,
@@ -877,6 +945,8 @@ WeaponSetData =
 
 
 			PreAttackDuration = 0.85,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackStartMinWaitTime = 0.29,
 			PreAttackSound = "/SFX/Enemy Sounds/Hecate/EmoteCharging",
 			FireDuration = 0.4,
 			PostAttackDuration = 0.35,
@@ -900,13 +970,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Hecate/EmoteAttacking" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0 },
-		},
 	},
 
 	HecateMeleeArcLeft =
@@ -924,6 +987,7 @@ WeaponSetData =
 			AttackDistance = 9999,
 
 			PreAttackDuration = 0.5,
+			PreAttackEndMinWaitTime = 0.42,
 			PreAttackEndShake = true,
 			PreAttackEndFlashFraction = 0.8,
 			PreAttackSound = "/SFX/Enemy Sounds/Hecate/EmoteEvading",
@@ -947,12 +1011,140 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Hecate/EmoteAttacking" },
 			},
 		},
+	},
 
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
+	HecateEM_MeleeCombo =
+	{
+		WeaponComboOnly = true,
+		AIData =
 		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0 },
+			SkipFireWeapon = true,
+		},
+
+		WeaponCombo =
+		{
+			{ WeaponOptions = { "HecateEM_MeleeRight", "HecateEM_MeleeLeft", }, GameStateRequirements = { ChanceToPlay = 0.5, }, },
+			{ WeaponOptions = { "HecateEM_MeleeRight", "HecateEM_MeleeLeft", }, GameStateRequirements = { ChanceToPlay = 0.5, }, },
+			{ WeaponOptions = { "HecateEM_MeleeRight", "HecateEM_MeleeLeft", "HecateEM_MeleeDouble", }, DataOverrides = { PostAttackDuration = 0.9, PostAttackMinWaitTime = 0.9 }, },
+		},
+
+	},
+
+	HecateEM_MeleeRight =
+	{
+		Requirements =
+		{
+			MinAttacksBetweenUse = 1,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			MoveWithinRange = true,
+			AttackDistance = 500,
+			DashIfOverDistance = 500,
+			DashWeapon = "HecateDash",
+
+			ProjectileName = "HecateMelee1",
+			BarrelLength = 100,
+
+			PreAttackDuration = 0.65,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackStartMinWaitTime = 0.125,
+			PreAttackSound = "/SFX/Enemy Sounds/Hecate/EmoteChargingFierce",
+			FireDuration = 0.2,
+			PostAttackDuration = 0.05,
+
+			WaitForAngleTowardTarget = true,
+			TrackTargetDuringCharge = true,
+			PreAttackRotationDampening = 0.07,
+			StopBeforeFire = true,
+
+			PreAttackEndShake = true,
+			PreAttackEndFlashFraction = 0.8,
+			PreAttackAnimation = "HecateMeleeAttack1_PreAttack",
+			FireAnimation = "Hecate_Combat_MeleeRight_Fire_Fast",
+			PostAttackAnimation = "HecateMeleeAttack1_ReturnToIdle",
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Hecate/EmoteAttackingFierce" },
+			},
+		},
+	},
+
+	HecateEM_MeleeLeft =
+	{
+		InheritFrom = { "HecateEM_MeleeRight", },
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "HecateMelee2",
+
+			PreAttackSound = "/SFX/Enemy Sounds/Hecate/EmoteCharging",
+			PreAttackAnimation = "HecateMeleeAttack2_PreAttack",
+			FireAnimation = "Hecate_Combat_MeleeLeft_Fire_Fast",
+			PostAttackAnimation = "HecateMeleeAttack2_ReturnToIdle",
+		},
+	},
+
+	HecateEM_MeleeDouble =
+	{
+		Requirements =
+		{
+			MinAttacksBetweenUse = 1,
+		},
+		AIData =
+		{
+			DeepInheritance = true,
+
+			MoveWithinRange = true,
+			AttackDistance = 500,
+			DashIfOverDistance = 500,
+			DashWeapon = "HecateDash",
+
+			AttackSlots =
+			{
+				{ ProjectileName = "HecateMelee1", AIDataOverrides = { FireProjectileAngleRelative = 37, }  },
+				{ ProjectileName = "HecateMelee2", AIDataOverrides = { FireProjectileAngleRelative = -35, }  },
+			},
+			BarrelLength = 100,
+
+			FireSelfVelocity = -2100,
+
+			WaitForAngleTowardTarget = true,
+			TrackTargetDuringCharge = true,
+			PreAttackRotationDampening = 0.07,
+			StopBeforeFire = true,
+
+			PreAttackDuration = 0.7,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackStartMinWaitTime = 0.16,
+			PreAttackSound = "/SFX/Enemy Sounds/Hecate/EmoteCharging",
+			FireDuration = 0.2,
+			PostAttackDuration = 0.5,
+			PostAttackMinWaitTime = 0.5,
+
+			PreAttackEndShake = true,
+			PreAttackEndFlashFraction = 0.8,
+			PreAttackAnimation = "HecateMeleeAttack3_PreAttack",
+			FireAnimation = "HecateMeleeAttack3_Fire",
+			PostAttackAnimation = "HecateMeleeAttack3_ReturnToIdle",
+			FireFx = "StaffProjectileFireFx1_Hecate",
+			FireFxOffset = 400,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Hecate/EmoteAttackingFierce2" },
+			},
 		},
 	},
 
@@ -977,7 +1169,7 @@ WeaponSetData =
 
 			PreTeleportWait = 0.0,
 			PostTeleportWait = 0.0,
-			TeleportToSpawnPoints = true,
+			PreMoveTeleport = true,
 			TeleportMinDistance = 350,
 			TeleportMaxDistance = 2000,
 			TeleportationInterval = 0,
@@ -1018,15 +1210,23 @@ WeaponSetData =
 					{ Name = "HecateSpokeRecently", Time = 16 },
 				},
 
-				{ Cue = "/VO/Hecate_0144", Text = "Face all of me!" },
+				{ Cue = "/VO/Hecate_0144", Text = "Face all of me!", PlayFirst = true },
 				{ Cue = "/VO/Hecate_0146", Text = "We are three!" },
 				{ Cue = "/VO/Hecate_0147", Text = "Three-fold!", PlayFirst = true },
-				{ Cue = "/VO/Hecate_0354", Text = "Three against one..." },
+				{ Cue = "/VO/Hecate_0354", Text = "Three against one...", PlayFirst = true },
 				{ Cue = "/VO/Hecate_0355", Text = "Divide and strike." },
 				{ Cue = "/VO/HecateField_0026", Text = "{#Emph}Triple Divide!" },
 				{ Cue = "/VO/HecateField_0027", Text = "{#Emph}Triple Divide...!" },
 				{ Cue = "/VO/HecateField_0028", Text = "Past, present, {#Emph}future...!" },
-				{ Cue = "/VO/HecateField_0029", Text = "We are as one." },
+				{ Cue = "/VO/HecateField_0029", Text = "We are as one!" },
+				{ Cue = "/VO/HecateField_0311", Text = "Here I am!" },
+				{ Cue = "/VO/HecateField_0312", Text = "Here we are!" },
+				{ Cue = "/VO/HecateField_0313", Text = "I am everywhere..." },
+				{ Cue = "/VO/HecateField_0314", Text = "All around you..." },
+				{ Cue = "/VO/HecateField_0315", Text = "Three as one!" },
+				{ Cue = "/VO/HecateField_0316", Text = "We are one." },
+				{ Cue = "/VO/HecateField_0317", Text = "You're surrounded!" },
+				{ Cue = "/VO/HecateField_0318", Text = "Together we shine...!" },
 			},
 		},
 
@@ -1051,7 +1251,7 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-			ChainedWeaponOptions = { "HecateRangedTorchesSpirals", "HecateRangedTorchesFork" },
+			ChainedWeaponOptions = { "HecateRangedTorchesHoming", "HecateRangedTorchesFork" },
 		},
 	},
 
@@ -1062,12 +1262,365 @@ WeaponSetData =
 		Requirements =
 		{
 			MinAttacksBetweenUse = 2,
+			RequireMaxIdsOfType = { Name = "LightRanged", Count = 0 },
 		},
 
 		AIData =
 		{
 			DeepInheritance = true,
 			ChainedWeaponOptions = { "HecateRangedTorchesRingChained" },
+		},
+	},
+
+	HecateEMSplit =
+	{
+		InheritFrom = { "HecateSplit1" },
+		Requirements =
+		{
+			RequireMaxIdsOfType = { Name = "HecateCopyEM", Count = 0 }
+		},
+		
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			SpawnedUnit = "HecateCopyEM",
+			PreferredSpawnPointType = "EnemyPointRanged",
+			--ChainedWeaponOptions = "nil",
+			SyncChainedWeapons = true,
+			PostAttackDuration = 0.0,
+			--ChainedWeaponOptions = "nil",
+		},
+	},
+
+	HecateComboBreakerSplit =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			FireFunctionName = "HecateComboBreakerSplit",
+
+			MoveWithinRange = true,
+			NoProjectile = true,
+			PreAttackDuration = 0.0,
+			FireDuration = 0.0,
+			PostAttackDuration = 0.0,
+		},
+	},
+
+	HecateDash =
+	{
+		Requirements =
+		{
+			MaxConsecutiveUses = 1,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+
+			NoProjectile = true,
+
+			ApplyEffectsOnPreAttackStart =
+			{
+				{
+					EffectName = "QuickRotate",
+					DataProperties = 
+					{
+						Duration = 0.2,
+						RotationMultiplier = 10.0,
+					}
+				},
+			},
+
+			ApplyEffectsOnWeaponFire =
+			{
+				{
+					EffectName = "DashGrip",
+					DataProperties = 
+					{
+						Type = "GRIP",
+						Duration = 0.15,
+						Modifier = 0.1,
+						HaltOnEnd = true,
+					}
+				},
+			},
+
+			WaitForAngleTowardTarget = true,
+			TrackTargetDuringCharge = true,
+			StopBeforeFire = true,
+
+			FireSelfVelocity = 3000,
+
+			PreAttackDuration = 0.25,
+			FireDuration = 0.13,
+			PostAttackDuration = 0.27,
+
+			PreAttackAnimation = "Hecate_Combat_Dash_Start",
+			FireAnimation = "Hecate_Combat_Dash_Fire",
+			PostAttackAnimation = "Hecate_Combat_Dash_End",
+
+			MoveWithinRange = false,
+			AttackDistance = 9999,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Hades/HadesDash" },
+				{ Name = "/SFX/Enemy Sounds/Hecate/EmoteEvading2" },
+			},
+		},
+	},
+
+	HecateDarkSideTransform =
+	{
+		Requirements =
+		{
+			MinAttacksBetweenUse = 16,
+			MaxUses = 3,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			ProjectileName = "HecateDSRing",
+
+			ApplyEffectsOnWeaponFire =
+			{
+				{
+					EffectName = "HecateDarkSide",
+					DataProperties =
+					{
+						Type = "TAG",
+						Duration = 10,
+					}
+				}
+			},
+
+			FireProjectileStartDelay = 0.8,
+			PreAttackDuration = 0.0,
+			FireDuration = 2.0,
+			PostAttackDuration = 0.5,
+
+			FireAnimation = "Hecate_Combat_Transform",
+
+			MoveWithinRange = false,
+			AttackDistance = 9999,
+		},
+	},
+	HecateDarkSideTransform2 =
+	{
+		InheritFrom = { "HecateDarkSideTransform" },
+		Requirements =
+		{
+			MinAttacksBetweenUse = 10,
+		},
+	},
+
+	HecateDarkSideRanged =
+	{
+		Requirements =
+		{
+			HasEffect = "HecateDarkSide",
+			MinAttacksBetweenUse = 1,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "HecateDSRanged",
+
+			PreAttackSound = "/SFX/Enemy Sounds/Hecate/EmoteChargingFierce",
+			PreAttackDuration = 1.0,
+			FireDuration = 1.76,
+			PostAttackDuration = 1.5,
+			PostAttackMinWaitTime = 1.5,
+
+			NumProjectiles = 8,
+			ProjectileInterval = 0.22,
+			Spread = 10,
+			BarrelLength = 100,
+			ProjectileFireSound = "/SFX/Player Sounds/TransformAttackFire",
+			CancelProjectilesOnTransition = true,
+			AIThreadName = "HecateDarkSideRangedThread",
+
+			TrackTargetDuringCharge = true,
+			TrackTargetDuringFire = true,
+			FireRotationDampening = 0.12,
+			PostAttackStop = true,
+
+			PreAttackAnimation = "Hecate_Combat_DSRanged_Start",
+			FireAnimation = "Hecate_Combat_DSRanged_Fire",
+			PostAttackAnimation = "Hecate_Combat_DSRanged_End",
+
+			MoveWithinRange = true,
+			AttackDistance = 1600,
+			DashIfOverDistance = 900,
+			DashWeapon = "HecateDash",
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Player Sounds/TransformAttackFire" },
+			}
+		}
+	},
+
+	HecateDarkSideRangedExtended =
+	{
+		InheritFrom = { "HecateDarkSideRanged", },
+		GenusName = "HecateDarkSideRanged",
+		AIData =
+		{
+			DeepInheritance = true,
+
+			FireDuration = 3.52,
+
+			NumProjectiles = 16,
+			ProjectileInterval = 0.22,
+		},
+	},
+
+	HecateDarkSideRangedNoDash =
+	{
+		InheritFrom = { "HecateDarkSideRanged", },
+		GenusName = "HecateDarkSideRanged",
+		AIData =
+		{
+			DeepInheritance = true,
+
+			MoveWithinRange = false,
+			DashIfOverDistance = "nil",
+			DashWeapon = "nil",
+		},
+	},
+
+	HecateDarkSideRing =
+	{
+		Requirements =
+		{
+			HasEffect = "HecateDarkSide",
+			MinAttacksBetweenUse = 1,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "HecateDSRing",
+			BarrelLength = 0,
+			FireProjectileAtSelf = true,
+
+			PreAttackDuration = 0.7,
+			PreAttackEndMinWaitTime = 0.42,
+			PreAttackStartMinWaitTime = 0.16,
+			PreAttackSound = "/SFX/Enemy Sounds/Hecate/HecatePreFire",
+			FireDuration = 1.365,
+			PostAttackDuration = 0.3,
+			PostAttackMinWaitTime = 0.3,
+
+			PreAttackAnimation = "Hecate_Combat_DSRing",
+
+			MoveWithinRange = true,
+			AttackDistance = 500,
+			DashIfOverDistance = 600,
+			DashWeapon = "HecateDash",
+
+			ChainedWeaponOptions = { "HecateDarkSideRangedNoDash", },
+
+			PreAttackVoiceLines =
+			{
+				{
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PreLineWait = 0.35,
+					SuccessiveChanceToPlay = 0.5,
+					ObjectType = "Hecate",
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "BossHealthBarRecord", "Hecate" },
+							Comparison = ">",
+							Value = 0.2,
+						},
+					},
+					Cooldowns =
+					{
+						{ Name = "HecateBurnedRecently", Time = 80 },
+						{ Name = "HecateSpokeRecently", Time = 12 },
+					},
+
+					{ Cue = "/VO/Hecate_0347", Text = "Beware!" },
+					{ Cue = "/VO/Hecate_0348", Text = "{#Emph}Burn!" },
+					{ Cue = "/VO/Hecate_0349", Text = "{#Emph}Fire!" },
+					{ Cue = "/VO/Hecate_0350", Text = "{#Emph}Fire...!" },
+					{ Cue = "/VO/Hecate_0351", Text = "Bathe in flame!" },
+				},
+				{ GlobalVoiceLines = "HecateHexVoiceLines" },
+			},
+
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Hecate/HecateShockwaveRingSFX" },
+			},
+		},
+	},
+
+	HecateWolfHowl =
+	{
+		Requirements =
+		{
+			MinAttacksBetweenUse = 9,
+			MaxPlayerDistance = 430,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			ProjectileName = "HecateWolfHowlBlast",
+
+			TargetSpawnPoints = true,
+			TargetSpawnPointsRadius = 350,
+			OccupyTargetSpawnPoint = true,
+
+			PreAttackFunctionName = "HecateWolfHowl",
+			RiseDistance = 400,
+			PreLeapTime = 0.16,
+			RiseTime = 0.4,			--Ascent duration
+			HangTime = 0.5,				--Pause at apex duration
+			LandingTime = 0.175,			--Descent duration
+			LeapRiseSound = "/SFX/Enemy Sounds/Hecate/EmoteCharging",
+			LeapFlightSound = "/SFX/Enemy Sounds/Hecate/EmoteAttacking",
+			LeapLandingSound = "/SFX/Player Sounds/LeapTraitImpact",
+			PreLeapAnimation = "Hecate_Combat_WolfHowl_Start",
+			LeapAnimation = "Hecate_Combat_WolfHowl_Fire",
+
+			PreAttackDuration = 0,
+			FireDuration = 0.0,
+			PostAttackDuration = 1.5,
+			PostAttackMinWaitTime = 1.5,
+
+			WaitForAngleTowardTarget = true,
+
+			MoveWithinRange = true,
+			AttackDistance = 1300,
 		},
 	},
 }

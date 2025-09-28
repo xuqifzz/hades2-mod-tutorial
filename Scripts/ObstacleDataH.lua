@@ -7,7 +7,7 @@ OverwriteTableKeys( ObstacleData, {
 		RewardPreviewOffsetZ = 145,
 		RewardPreviewOffsetY = 0,
 		RewardPreviewOffsetX = 0,
-		ExitThroughCenter = true,
+		ExitThroughCenter = false,
 
 		LockedUseSound = "/Leftovers/World Sounds/CaravanBumpHard",
 		CannotUseText = "ExitBlockedByFieldsLoot",
@@ -63,6 +63,10 @@ OverwriteTableKeys( ObstacleData, {
 						GameStateRequirements =
 						{
 							{
+								Path = { "CurrentRun", "CurrentRoom", "Name" },
+								IsNone = { "H_Intro" },
+							},
+							{
 								Path = { "CurrentRun", "BiomeDepthCache" },
 								Comparison = "<=",
 								Value = 3,
@@ -81,6 +85,7 @@ OverwriteTableKeys( ObstacleData, {
 					RandomRemaining = true,
 					PreLineWait = 0.35,
 					SuccessiveChanceToPlay = 0.5,
+					SuccessiveChanceToPlayAll = 0.25,
 					GameStateRequirements =
 					{
 						{
@@ -94,17 +99,18 @@ OverwriteTableKeys( ObstacleData, {
 							IsNone = { "H_Intro", "H_Bridge01", "H_MiniBoss01", "H_MiniBoss02", "H_PreBoss01" },
 						},
 					},
+					SkipCooldownCheckIfNonePlayed = true,
 					Cooldowns =
 					{
-						{ Name = "MelinoeFieldsRewardHintSpeech", Time = 10 },
+						{ Name = "MelinoeFieldsRewardHintSpeech", Time = 180 },
+						{ Name = "MelinoeAnyQuipSpeech" },
 					},
-					TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
 
-					{ Cue = "/VO/MelinoeField_1076", Text = "Still prizes to be claimed.", PlayFirst = true },
-					{ Cue = "/VO/MelinoeField_1077", Text = "There's more to find here still." },
-					{ Cue = "/VO/MelinoeField_1078", Text = "I've prizes left to claim.", PlayFirst = true },
+					-- { Cue = "/VO/MelinoeField_1076", Text = "Still prizes to be claimed." },
+					{ Cue = "/VO/MelinoeField_1077", Text = "There's more to find here still.", PlayFirst = true },
+					-- { Cue = "/VO/MelinoeField_1078", Text = "I've prizes left to claim." },
 					{ Cue = "/VO/MelinoeField_1079", Text = "I've more rewards to find." },
-					{ Cue = "/VO/MelinoeField_1080", Text = "Still Boons and such to find.", PlayFirst = true },
+					{ Cue = "/VO/MelinoeField_1080", Text = "Still Boons and such to find." },
 					{ Cue = "/VO/MelinoeField_1081", Text = "Not leaving here just yet." },
 				},
 				{
@@ -122,10 +128,6 @@ OverwriteTableKeys( ObstacleData, {
 							Path = { "CurrentRun", "CurrentRoom", "Name" },
 							IsNone = { "H_Bridge01" },
 						},
-					},
-					Cooldowns =
-					{
-						{ Name = "MelinoeAnyQuipSpeech" },
 					},
 
 					{ Cue = "/VO/MelinoeField_0856", Text = "Not letting me past." },
@@ -155,7 +157,7 @@ OverwriteTableKeys( ObstacleData, {
 				BreakIfPlayed = true,
 				PreLineWait = 0.5,
 				UsePlayerSource = true,
-				SuccessiveChanceToPlayAll = 0.2,
+				-- SuccessiveChanceToPlayAll = 0.2,
 
 				{ Cue = "/VO/MelinoeField_1246", Text = "It's watching me...", PlayFirst = true },
 				{ Cue = "/VO/MelinoeField_1247", Text = "Can you see me in there?", PlayFirst = true,
@@ -200,12 +202,9 @@ OverwriteTableKeys( ObstacleData, {
 		{
 			PreTriggerWait = 0.1,
 			WithinDistance = 800,
+			Repeat = true,
 			GameStateRequirements =
 			{
-				{
-					PathEmpty = { "RequiredKillEnemies" },
-				},
-				-- backwards compatibility
 				{
 					PathFalse = { "GameState", "RoomsEntered", "H_PostBoss01" },
 				},
@@ -213,6 +212,12 @@ OverwriteTableKeys( ObstacleData, {
 			VoiceLines =
 			{
 				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "EnemyKills", "InfestedCerberus" },
+					},
+				},
 				{ Cue = "/VO/MelinoeField_0945", Text = "He was guarding the gates..." },
 			},
 		},
@@ -322,7 +327,7 @@ OverwriteTableKeys( ObstacleData, {
 	{
 		OnUsedFunctionName = "StartFieldsEncounter",
 		LegalEncounters = EncounterSets.HEncountersDefault,
-		UseText = "UseEncounterCost",
+		UseText = "UseFieldsRewardCage",
 		OnUsedAnimation = "CorruptionCageAgitated",
 		UnlockedAnimation = "CorruptionCageDepleted",
 
@@ -353,6 +358,10 @@ OverwriteTableKeys( ObstacleData, {
 							Path = { "CurrentRun", "RoomsEntered", "F_Opening03" },
 							Comparison = "<=",
 							Value = 4,
+						},
+						{
+							Path = { "CurrentRun", "CurrentRoom", "Name" },
+							IsNone = { "H_MiniBoss01", "H_MiniBoss02" },
 						},
 					},
 					Cooldowns =
@@ -393,6 +402,8 @@ OverwriteTableKeys( ObstacleData, {
 			VoiceLines =
 			{
 				{
+					PlayOnce = true,
+					PlayOnceContext = "WitheredBoughVO",
 					UsePlayerSource = true,
 					BreakIfPlayed = true,
 					RandomRemaining = true,
@@ -413,7 +424,7 @@ OverwriteTableKeys( ObstacleData, {
 					},
 					TriggerCooldowns = { "MelinoeAnyQuipSpeech",  },
 
-					{ Cue = "/VO/MelinoeField_0826", Text = "A withered bough...", PlayOnceThisRun = true, },
+					{ Cue = "/VO/MelinoeField_0826", Text = "A withered bough...", },
 					{ Cue = "/VO/MelinoeField_0827", Text = "Should be able to revive that bough...", PlayFirst = true,
 						GameStateRequirements =
 						{
@@ -509,36 +520,6 @@ OverwriteTableKeys( ObstacleData, {
 			{
 				ThingProperty = "DrawVfxOnTop",
 				ChangeValue = true,
-			},
-		},
-	},
-
-	MiasmaGeyser =
-	{
-		DistanceTrigger =
-		{
-			PreTriggerWait = 0.1,
-			WithinDistance = 500,
-			VoiceLines =
-			{
-				{
-					PlayOnceFromTableThisRun = true,
-					UsePlayerSource = true,
-					RandomRemaining = true,
-					SuccessiveChanceToPlay = 0.05,
-					GameStateRequirements =
-					{
-						{
-							PathEmpty = { "RequiredKillEnemies" },
-						},
-					},
-					Cooldowns =
-					{
-						{ Name = "MelinoeAnyQuipSpeech" },
-					},
-					{ Cue = "/VO/MelinoeField_0866", Text = "Miasma...", PlayFirst = true },
-					{ Cue = "/VO/MelinoeField_0867", Text = "More Miasma..." },
-				},
 			},
 		},
 	},
@@ -649,6 +630,7 @@ OverwriteTableKeys( ObstacleData, {
 	ShadeFieldsGreyIdle01=
 	{
 		InheritFrom = { "BaseGhost", "SmallEmotes" },
+		EmoteOffsetZ = 70,
 	},
 	ShadeFieldsRedIdle01=
 	{
@@ -680,4 +662,95 @@ OverwriteTableKeys( ObstacleData, {
 	{
 		InheritFrom = { "FieldsStatueHead01Eyeball" },
 	},
+
+	DieHardFanShade =
+	{
+		SetupGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EnemyKills", "InfestedCerberus" },
+			},
+			{
+				PathFalse = { "GameState", "ExorcisedNames", "DieHardFanShade" }
+			},
+		},
+		DestroyIfNotSetup = true,
+
+		SetupEvents =
+		{
+			{
+				GameStateRequirements =
+				{
+					NamedRequirements = { "DieHardFanShadeRecruitable" },
+				},
+				FunctionName = "GenericPresentation",
+				Args =
+				{
+					CreateAnimation = "ExorcismPointAvailable",
+					OverwriteSourceKeys = { Animation = "DieHardFanShade" },
+					EndFunctionName = "ExorcismPointChosenPresentation",
+				},
+			},
+		},
+
+		OnUsedFunctionName = "UseExorcismPoint",
+		OnUsedFunctionArgs =
+		{
+			DisallowFamiliar = true,
+			SkipResourceGain = true,
+			ShowSpecialEmote = true,
+		},
+		UseText = "UseExorcismPoint",
+		OnUsedGameStateRequirements =
+		{
+			NamedRequirements = { "DieHardFanShadeRecruitable" },
+		},
+
+		SpecialInteractFunctionName = "SpecialInteractDieHardFanShade",
+		UseTextSpecial = "SpecialInteractShade",
+		SpecialInteractGameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "EnemyKills", "InfestedCerberus" },
+			},
+			NamedRequirementsFalse = { "DieHardFanShadeRecruitable" },
+		},
+
+		-- UseSound = "/Leftovers/World Sounds/CaravanCreak",
+		-- ShakeSelf = true,
+		InteractDistance = 200,
+		EmoteOffsetZ = 30,
+
+		-- Exorcism Data
+		AttemptsRemaining = 9999,
+		InputCheckInterval = 0.1,
+		TotalCheckFails = 999,
+		ConsecutiveCheckFails = 13,
+		MoveSequence =
+		{
+			{ Left = true,  Right = false, Duration = 2.0, Index = 1 },
+			{ Left = false, Right = true, Duration = 2.0, Index = 2 },
+			{ Left = true,  Right = true, Duration = 2.0, Index = 3 },
+			{ Left = false,  Right = true, Duration = 2.0, Index = 4 },
+			{ Left = true,  Right = false, Duration = 2.0, Index = 5 },
+		},
+
+		ExitsUnlockedFunctionName = "CheckDistanceTriggerThread",
+		ExitsUnlockedFunctionArgs =
+		{
+			WithinDistance = 1400,
+			SuccessiveChanceToPlay = 0.75,
+			TriggerOnceThisRun = true,
+			FunctionName = "PlayEmoteSimple",
+			Args =
+			{
+				AnimationName = "StatusIconGriefRed",
+				OffsetZ = 30,
+				DurationMin = 1.75,
+				DurationMax = 2.55,
+				ChanceToPlay = 0.66,
+			},
+		},
+	},
+
 })

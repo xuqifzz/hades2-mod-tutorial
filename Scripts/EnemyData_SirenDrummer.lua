@@ -4,19 +4,21 @@ UnitSetData.SirenDrummer =
 	{
 		InheritFrom = { "BaseBossEnemy", "BaseVulnerableEnemy"},
 		--Portrait = "Portrait_Scylla_Default_01",
-		Groups = { "NPCs" },
+		Groups = { "NPCs", "GroundEnemies" },
 		AnimOffsetZ = 260,
 		ForceAllowRaiseDead = true,
 		UniqueRaise = true,
+		ImmobileRaise = true,
+		SkipDisableAllyUnitsOnDeath = true,
+		RunHistoryKilledByName = "Scylla",
 		
-		MaxHealth = 5950,
+		MaxHealth = 7100,
 		AISetupDelay = 1.5,
 		EmoteOffsetX = 0,
 		EmoteOffsetY = -220,
 		EffectVfxOffsetZ = 60,
 		SpeechCooldownTime = 11,
 
-		Groups = { "GroundEnemies" },
 		ClearChillOnDeath = true,
 
 		SpawnAnimation = "Enemy_SirenDrummer_IdleA",
@@ -26,12 +28,57 @@ UnitSetData.SirenDrummer =
 		HealthBarOffsetY = -205,
 		IgnoreInvincibubbleOnHit = true,
 
+		SkipDamagedFx = true,
+		SkipUnitHitFlash = true,
+
 		MusicStem = "Drums",
 		MusicStemOff = true,
+
+		SetupEvents =
+		{
+			{
+				FunctionName = "OverwriteSelf",
+				Args =
+				{
+					GrannyTexture = "GR2/SirenDrummerEM_Color",
+					GrannyAttachmentTexture = { MeshName = "SirensInstrumentDrums_Mesh", GrannyTexture = "GR2/DrumsEM_Color", },
+					OnDamagedEvents =
+					{
+						{
+							FunctionName = "CheckComboBreakerDamageInWindow",
+							Args =
+							{
+								Threshold = 590,
+								Window = 1.0,
+								ComboBreakerCooldown = 10.0,
+								ForcedWeaponInterrupt = "SirenDrummerCircle_EM",
+							},
+						},
+					},
+				},
+				GameStateRequirements =
+				{
+					{
+						FunctionName = "RequiredShrineLevel",
+						FunctionArgs =
+						{
+							ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+							Comparison = ">=",
+							Value = 2,
+						},
+					},
+				},
+			},
+			{
+				FunctionName = "PickSpawnAngle",
+			},
+		},
+		BossDifficultyShrineRequiredCount = 2,
 
 		OnDeathFunctionName = "SirenKillPresentation",
 		OnDeathThreadedFunctionName = "RemoveScyllaFightSpotlight",
 
+		ManualDeathAnimation = false,
 		DeathAnimation = "Enemy_SirenDrummer_Death",
 		DeathSound = "/SFX/Enemy Sounds/Scylla/SirenDrumStemOffSFX",
 
@@ -54,12 +101,23 @@ UnitSetData.SirenDrummer =
 					},
 				},
 			},
+			SpawnAnglePerMap =
+			{
+				G_Boss01 = 310,
+				G_Boss02 = 228,
+			},
 		},
-		SpellSummonSpawnOnId = 558524,
+		SpellSummonSpawnOnIdPerMap =
+		{
+			G_Boss01 = 558524,
+			G_Boss02 = 569054,
+		},
 
 		DefaultAIData =
 		{
 			DeepInheritance = true,
+
+			MoveWithinRange = false,
 		},
 		WeaponOptions =
 		{
@@ -85,13 +143,39 @@ UnitSetData.SirenDrummer =
 		AIEndHealthThreshold = 0.5,
 		AIStages =
 		{
+			-- Phase 1
 			{
 				RandomAIFunctionNames = { "AttackerAI" },
+				EMStageDataOverrides =
+				{
+					AIDataOverrides =
+					{
+						PreAttackThreadedFunctionName = "FireFloodTraps",
+						PreAttackThreadedFunctionArgs =
+						{
+							MaxPlayerDistance = 500,
+						}
+					},
+					DataOverrides =
+					{
+						ForcedNextWeapon = "SirenDrummerBeatConeOut_EM",
+					},
+					UnequipAllWeapons = true,
+					EquipWeapons =
+					{
+						"SirenDrummerCircleCombo01",
+						"SirenDrummerCircleCombo02",
+
+						"SirenDrummerBeatConeIn_EM",
+						"SirenDrummerBeatConeOut_EM",
+					},
+				},
 				AIData =
 				{
 					AIEndHealthThreshold = 0.5,
 				},
 			},
+			-- Wait for all incapacitated
 			{
 				RandomAIFunctionNames = { "IdleAIStage" },
 				TransitionFunction = "BossStageTransition",
@@ -121,17 +205,44 @@ UnitSetData.SirenDrummer =
 						{ Cue = "/VO/Scylla_0157", Text = "Come {#Emph}on{#Prev}, Rox!" },
 						{ Cue = "/VO/Scylla_0161", Text = "Our {#Emph}percussion!" },
 						{ Cue = "/VO/Scylla_0162", Text = "The {#Emph}drums!" },
+						{ Cue = "/VO/Scylla_0388", Text = "Roxy...!" },
+						{ Cue = "/VO/Scylla_0389", Text = "{#Emph}Really{#Prev}, Roxy?" },
+						{ Cue = "/VO/Scylla_0390", Text = "Our rhythm!" },
+						{ Cue = "/VO/Scylla_0391", Text = "Our beat!" },
 					},
-					[2] = { GlobalVoiceLines = "ScyllaSirenKOReactionVoiceLines" },
+					{ GlobalVoiceLines = "ScyllaSirenKOReactionVoiceLines" },
 				},
 			},
+			-- Phase 2
 			{
 				RandomAIFunctionNames = { "AttackerAI" },
 				TransitionFunction = "BossStageTransition",
 				TransitionAnimation = "Enemy_SirenDrummer_IncapacitateReturnToIdle",
 				NewVulnerability = true,
+				PlaySound = "/SFX/InvincibubbleBreak",
 				WaitDuration = 2.2,
-				EquipWeapons = { "SirenDrummerSpotlightPassive", "SirenDrummerSpotlightCombo",
+				EMStageDataOverrides =
+				{
+					EquipWeapons =
+					{
+						-- If spotlighted
+						"SirenDrummerSpotlightPassive",
+						"SirenDrummerSpotlightCombo",
+
+						"SirenDrummerCircleCombo01",
+						"SirenDrummerCircleCombo02",
+						"SirenDrummerBeatOpener",
+						"SirenDrummerBeatConeIn_EM",
+						"SirenDrummerBeatConeOut_EM",
+						"SirenDrummerBeatClawClose",
+						"SirenDrummerBeatClawMid",
+						"SirenDrummerBeatClawFar",
+						"SirenDrummerBeatCoralClose",
+						"SirenDrummerBeatCoralFar"
+					},
+				},
+				UnequipAllWeapons = true,
+				EquipWeapons = { "SirenDrummerSpotlightPassive", "SirenDrummerSpotlightCombo", -- If spotlighted
 								"SirenDrummerCircleCombo01", "SirenDrummerCircleCombo02", "SirenDrummerBeatOpener",
 								"SirenDrummerBeatConeIn",	"SirenDrummerBeatConeOut", "SirenDrummerBeatClawClose", "SirenDrummerBeatClawMid", "SirenDrummerBeatClawFar", "SirenDrummerBeatCoralClose", "SirenDrummerBeatCoralFar" },
 				AIData =

@@ -1,9 +1,8 @@
 function BadgePurchasePresentation( usee, badgeData )
 
-	DebugPrint({ Text = "Badge level = "..GameState.BadgeRank })
+	DebugPrint({ Text = "GameState.BadgeRank = "..GameState.BadgeRank })
 
 	local args = { WaitTime = 0.5 }
-	thread( PowerWordPresentationWorld )
 
 	StopAnimation({ Name = badgeData.Icon, DestinationId = usee.ObjectId })
 	DestroyTextBox({ Id = usee.ObjectId })
@@ -19,11 +18,7 @@ function BadgePurchasePresentation( usee, badgeData )
 	local ghostAdminId = GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = "BartenderGhost01", Distance = 400 })
 	PlaySound({ Name = "/SFX/GhostEvaporate", Id = ghostAdminId, Delay = 1.5 })
 
-	--PlaySound({ Name = "/SFX/Menu Sounds/ContractorItemPurchase" }) -- moved to BadgeResourceSpendPresentation
-
-	-- preactivate presentation
-	--local cameraTarget = SpawnObstacle({ Name = "BlankObstacle", DestinationId = CurrentRun.Hero.ObjectId, OffsetY = -200 })
-	--PanCamera({ Id = cameraTarget, Duration = badgeData.PanDuration or 1.0, Retarget = true, FromCurrentLocation = true })
+	thread( PostRevealTavernaPresentation )
 
 	if badgeData.RevealGlobalVoiceLines then
 		thread( PlayVoiceLines, GlobalVoiceLines[badgeData.RevealGlobalVoiceLines] )
@@ -34,24 +29,34 @@ function BadgePurchasePresentation( usee, badgeData )
 
 	if badgeData.UseUnlockText then
 		thread( DisplayInfoBanner, usee, {
-			TitleText = badgeData.UnlockTextId or "BadgePurchased",
+			TitleText = badgeData.UnlockTextId or "BadgeSeller_Purchase",
 			SubtitleText = badgeData.Name,
+			TextOffsetY = 5,
+			SubtitleOffsetY = 100,
 			Icon = badgeData.Icon,
 			TextRevealSound = "/SFX/Menu Sounds/WeaponUnlockBoom",
 			Delay = 1.2,
 			Duration = 3.5,
 			FontScale = 1,
 			IconMoveSpeed = 0.00001,
-			IconScale = badgeData.BadgeIconScale or 0.4,
-			IconOffsetX = badgeData.BadgeIconOffsetX or 0,
-			IconOffsetY = badgeData.BadgeIconOffsetY or 14,
+			IconScale = .58,
+			IconOffsetX = badgeData.BadgeIconOffsetX,
+			IconOffsetY = 25,
+			AnimationName = "LocationBackingIrisSmallIn",
+			AnimationOutName = "LocationBackingIrisSmallOut",
+			AdditionalAnimation = "GodHoodRays",
 		})
 	end
+
 	if badgeData.SetPlayerAnimation then
 		SetAnimation({ Name = badgeData.SetPlayerAnimation, DestinationId = CurrentRun.Hero.ObjectId })
 	end
 
 	wait( badgeData.PreActivationHoldDuration or 0.5 )
+
+	thread( PowerWordPresentationWorld )
+
+	wait(1.0)
 
 	if badgeData.ItemPreActivationVfx then
 		CreateAnimation({ Name = badgeData.ItemPreActivationVfx, DestinationId = id })
@@ -71,10 +76,12 @@ function BadgePurchasePresentation( usee, badgeData )
 
 	wait( badgeData.PostActivationHoldDuration or 0.5 )
 
-	--wait(0.25)
+	if badgeData.EndPlayerAnimation then
+		SetAnimation({ Name = badgeData.EndPlayerAnimation, DestinationId = CurrentRun.Hero.ObjectId })
+	end
 
 	--PanCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 1.0 })
-	wait(0.75)
+	wait(0.35)
 	RemoveInputBlock({ Name = "BadgePurchasePresentation" })
 	MapState.CosmeticPresentationActive = false
 	UnfreezePlayerUnit( "BadgePurchasePresentation" )
@@ -85,23 +92,12 @@ function BadgePurchasePresentation( usee, badgeData )
 end
 
 function BadgeResourceSpendPresentation( usee, resourceCost )
-	PlayInteractAnimation( usee.ObjectId, { SkipInputBlock = true })
-	local resourceData = ResourceData[resourceCost.Name]
-	PlaySound({ Name = resourceData.SpendSound or "/SFX/Menu Sounds/ContractorItemPurchase" })
+	PlayInteractAnimation( usee.ObjectId, { SkipInputBlock = true } )
+	--local resourceData = ResourceData[resourceCost.Name]
+	PlaySound({ Name = "/SFX/Menu Sounds/ContractorItemPurchase" })
 	wait(0.35)
 end
 
-function BadgeCannotAffordPresentation( usee, nextBadgeData )
-
-	PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo" })
-	Shake({ Id = usee.ObjectId, Distance = 1, Speed = 100, Duration = 0.3 })
-	thread( DoRumble, { { ScreenPreWait = 0.02, RightFraction = 0.15, Duration = 0.15 }, } )
-	--thread( PlayVoiceLines,  GlobalVoiceLines.CannotAffordBadgeVoiceLines, true )
-	if CheckCooldown( "FailedToBuyBadge", 4.0 ) then
-		thread( PlayEmote, { TargetId = usee.ObjectId, AnimationName = usee.NoSaleEmote, OffsetZ = usee.EmoteOffsetZ, Delay = 0.4 } )
-	end
-	ModifyTextBox({ Id = usee.ObjectId, ColorTarget = Color.GhostWhite, ScaleTarget = 1.05 })
-	wait( 0.1 )
-	ModifyTextBox({ Id = usee.ObjectId, ColorTarget = Color.Red, ColorDuration = 0.2, ScaleTarget = 1.0 })
-
+function BadgeCannotAffordPresentation( usee )
+	CantAffordPresentation( usee )
 end

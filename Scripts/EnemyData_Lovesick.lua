@@ -50,7 +50,7 @@ UnitSetData.Lovesick =
 		{
 			DeepInheritance = true,
 
-			SurroundRetaliateDistance = 500,
+			SurroundRetaliateDistance = 300,
 			SurroundRefreshInterval = 0.4,
 			MaxAttackers = 3,
 		},
@@ -81,6 +81,7 @@ UnitSetData.Lovesick =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_1032", Text = "Holehearts...!", PlayFirst = true },
@@ -161,9 +162,8 @@ UnitSetData.Lovesick =
 		FuseWarningProjectileName = "LovesickHeartMineBlast",
 		FlashOnFuse = true,
 		FuseDuration = 0.6,
-		--TriggerDistance = 225,
-		--WakeUpDelay = 1.5,
 		TriggerDistance = 310,
+		TriggerDistanceScaleY = 0.5,
 		WakeUpDelay = 0.15,
 		ExpirationDuration = 12.0,
 
@@ -173,7 +173,6 @@ UnitSetData.Lovesick =
 		},
 		AttackDistance = 100,
 
-		CleanupAnimation = "Blank",
 		OutgoingDamageModifiers =
 		{
 			{
@@ -187,6 +186,11 @@ UnitSetData.Lovesick =
 	{
 		InheritFrom = { "LovesickHeart", },
 		GenusName = "Lovesick_Elite",
+
+		OnDeathFireWeapons = { "LovesickHeartMineBlast_Elite" },
+		FuseWarningProjectileName = "LovesickHeartMineBlast_Elite",
+
+		TriggerDistance = 420,
 	},
 }
 

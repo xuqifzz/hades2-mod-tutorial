@@ -171,7 +171,6 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
-
 			{
 				WeaponName = "WeaponStaffDash",
 				ProjectileName = "ProjectileStaffDash",
@@ -182,16 +181,48 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponStaffSwing5",
-				ProjectileName = "ProjectileSwing5Magic",
-				ProjectileProperty = "DetonateFx",
-				ChangeValue = "StaffChargedAttackFx_Zeus",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "StaffChargedAttackFxEmitter_Zeus",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
-
+			{
+				WeaponName = "WeaponStaffSwing5",
+				TraitName = "StaffRaiseDeadAspect",
+				ProjectileName = "ProjectileStaffWall",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "StaffWallIn_Zeus",
+				ChangeType = "Absolute",
+			},			
 
 			{
+				WeaponName = "WeaponStaffSwing5",
+				TraitName = "StaffRaiseDeadAspect",
+				ProjectileName = "ProjectileStaffWall",
+				ProjectileProperty = "ImpactFx",
+				ChangeValue = "AnubisWallImpactFx_Zeus",
+				ChangeType = "Absolute",
+			},
+
+			{
+				WeaponName = "WeaponStaffSwing",
+				TraitName = "StaffRaiseDeadAspect",
+				ProjectileName = "ProjectileStaffSingle",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "AnubisRingFx_Zeus",
+				ChangeType = "Absolute",
+			},			
+
+			{
+				WeaponName = "WeaponStaffSwing",
+				TraitName = "StaffRaiseDeadAspect",
+				WeaponProperty = "FireFx",
+				ChangeValue = "StaffProjectileFireFx3_Zeus",
+				ChangeType = "Absolute",
+			},
+			{
 				WeaponName = "WeaponDagger",
+				FalseTraitName = "DaggerTripleAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "DaggerSwipeFast_Zeus",
 				ChangeType = "Absolute",
@@ -214,6 +245,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponDaggerDash",
+				FalseTraitName = "DaggerTripleAspect",
 				ProjectileName = "ProjectileDaggerDash",
 				WeaponProperty = "FireFx",
 				ChangeValue = "DaggerSwipeFastFlipDash_Zeus",
@@ -257,9 +289,37 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+			{
+				WeaponName = "WeaponDagger",
+				TraitName = "DaggerTripleAspect",
+				ProjectileName = "ProjectileDaggerSpinMorrigan",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "DaggerMorriganSpin_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponDaggerDash",
+				TraitName = "DaggerTripleAspect",
+				ProjectileName = "ProjectileDaggerSpinMorrigan",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "DaggerMorriganSpin_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponDagger5",
+				TraitName = "DaggerTripleAspect",
+				ProjectileName = "ProjectileDaggerExecuteMorrigan",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "DaggerSwipeDouble_Morrigan_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
 
 			{
 				WeaponName = "WeaponAxe",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSwipe1_Zeus",
 				ChangeType = "Absolute",
@@ -267,6 +327,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponAxe2",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSwipe2_Zeus",
 				ChangeType = "Absolute",
@@ -274,6 +335,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponAxe3",
+				FalseTraitName = "AxeRallyAspect",
 				ProjectileName = "ProjectileAxeOverhead",
 				ProjectileProperty = "DetonateFx",
 				ChangeValue = "AxeNova_Zeus",
@@ -282,6 +344,7 @@ OverwriteTableKeys( TraitData, {
 			},	
 			{
 				WeaponName = "WeaponAxeDash",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSwipeUpper_Zeus",
 				ChangeType = "Absolute",
@@ -295,6 +358,62 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+
+			{
+				WeaponName = "WeaponAxe",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalSlow",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe2",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe3",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe4",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe5",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFast",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxeDash",
+				TraitName = "AxeRallyAspect",
+				ProjectileName = "ProjectileAxeNergalFastDash",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNovaNergal_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+
 			{
 				WeaponName = "WeaponLob",
 				ProjectileName = "ProjectileLob",
@@ -308,6 +427,32 @@ OverwriteTableKeys( TraitData, {
 				ProjectileName = "ProjectileLob",
 				ProjectileProperty = "BounceFx",
 				ChangeValue = "LobProjectileBounceFx_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobBullet",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobProjectileBullet_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobBullet",
+				ProjectileProperty = "DeathFx",
+				ChangeValue = "LobProjectileBulletFade_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLobOverheat",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobSpecialFx_Hel_Zeus",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
@@ -388,27 +533,26 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 
-
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBall",
+				ProjectileName = "ProjectileTorchGhost",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchProjectileSmallIn_Zeus",
+				ChangeValue = "TorchProjectileGhostIn_Zeus",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
 			{
 				WeaponName = "WeaponTorch",
 				FalseTraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchGhostLarge",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchProjectileLargeIn_Zeus",
+				ChangeValue = "TorchProjectileGhostLargeIn_Zeus",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},			
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBall",
+				ProjectileName = "ProjectileTorchGhost",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "TorchProjectileShadow_Zeus",
 				ChangeType = "Absolute",
@@ -417,7 +561,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponTorch",
 				FalseTraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchGhostLarge",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "TorchProjectileShadowLarge_Zeus",
 				ChangeType = "Absolute",
@@ -425,7 +569,7 @@ OverwriteTableKeys( TraitData, {
 			},			
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBall",
+				ProjectileName = "ProjectileTorchGhost",
 				ProjectileProperty = "DissipateFx",
 				ChangeValue = "TorchProjectileDissipate_Zeus",
 				ChangeType = "Absolute",
@@ -433,12 +577,80 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchGhostLarge",
 				ProjectileProperty = "DissipateFx",
 				ChangeValue = "TorchProjectileDissipate_Zeus",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchBallIn_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchBallGroundGlow_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchBallDissipate_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchWave",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWave_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},		
+			{
+				TraitName = "TorchEnhancedAttackTrait",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchWave",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWaveReturn_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},		
+			{
+				TraitName = "TorchEnhancedAttackTrait",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchSupayBallEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWaveReturn_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},	
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchWave",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchBallGroundGlowWave_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "ImpactFx",
+				ChangeValue = "TorchImpactFx_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+
+
 			{
 				WeaponName = "WeaponTorch",
 				ProjectileName = "ProjectileTorchRepeatStrike",
@@ -449,16 +661,8 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchRepeatStrikeLarge",
-				ProjectileProperty = "DetonateFx",
-				ChangeValue = "RadialNovaPentagramCharged_Zeus",
-				ChangeType = "Absolute",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponTorch",
 				TraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchBallEos",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "EosProjectile_Zeus_In",
 				ChangeType = "Absolute",
@@ -466,27 +670,46 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponTorch",
 				TraitName = "TorchSprintRecallAspect",
-				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileName = "ProjectileTorchBallEos",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "EosProjectileShadow",
 				ChangeType = "Absolute",
 			},	
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchExplosion",
+				ProjectileName = "ProjectileTorchGhostExplosion",
 				ProjectileProperty = "DetonateFx",
-				ChangeValue = "AxeNova_Zeus",
+				ChangeValue = "ProjectileTorchGhostExplosion_Zeus",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},	
 			{
 				WeaponName = "WeaponTorch",
-				ProjectileName = "ProjectileTorchExplosionLarge",
+				ProjectileName = "ProjectileTorchGhostLargeExplosion",
 				ProjectileProperty = "DetonateFx",
-				ChangeValue = "AxeNova_Zeus",
+				ChangeValue = "ProjectileTorchGhostExplosion_Zeus",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
-			},	
+			},
+			{
+				FalseTraitName = "TorchEnhancedAttackTrait",
+				TraitName = "TorchAutofireAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchSupayBallEx",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ProjectileTorchWave_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "TorchAutofireAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchSupayBallEx",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchBallGroundGlowWave_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
 
 			{
 				WeaponName = "WeaponSuit",
@@ -503,13 +726,36 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitDouble",
+				ProjectileName = "ProjectileSuitDouble",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitPunch_Zeus",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitDouble",
+				WeaponProperty = "FireFx",
+				ChangeValue = "SuitPunchFlare_R_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitDouble",
+				WeaponProperty = "FireFx2",
+				ChangeValue = "SuitPunchFlare_L_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
 				WeaponName = "WeaponSuitCharged",
 				ProjectileProperty = "StartFx",
 				ChangeValue = "SuitPunchLarge_Zeus",
 				ChangeType = "Absolute",
 			},
 			{
-				FalseTraitName = "SuitDashAttackTrait",
 				WeaponName = "WeaponSuitDash",
 				ProjectileName = "ProjectileSuitDash",
 				ProjectileProperty = "StartFx",
@@ -521,15 +767,7 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponSuitDash",
 				ProjectileName = "ProjectileSuitDash",
 				ProjectileProperty = "DetonateFx",
-				ChangeValue = "SuitNovaBurn_Zeus",
-				ChangeType = "Absolute",
-			},
-			{
-				TraitName = "SuitDashAttackTrait",
-				WeaponName = "WeaponSuitDash",
-				ProjectileName = "ProjectileSuitDash",
-				ProjectileProperty = "StartFx",
-				ChangeValue = "Null",
+				ChangeValue = "SuitNovaBurnRapid_Zeus",
 				ChangeType = "Absolute",
 			},
 			{
@@ -554,21 +792,20 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.4,
+				Multiplier = 1.3,
 			},
 			Epic =
 			{
-				Multiplier = 1.8,
+				Multiplier = 1.6,
 			},
 			Heroic =
 			{
-				Multiplier = 2.2,
+				Multiplier = 1.9,
 			},
 		},
 		OnEnemyDamagedAction = 
 		{
 			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
-			ExcludeProjectiles = {"ProjectileSuitRangedGuidedSplit", "ProjectileSuitSplit", "ProjectileSuitSplit2" },
 			EffectName = "DamageEchoEffect",
 			Args = 
 			{
@@ -577,9 +814,9 @@ OverwriteTableKeys( TraitData, {
 					BaseValue = 1.00,
 					AbsoluteStackValues =
 					{
-						[1] = 0.4,
-						[2] = 0.3,
-						[3] = 0.2,
+						[1] = 0.3,
+						[2] = 0.2,
+						[3] = 0.1,
 					},
 				},
 				ReportValues = { ReportedMultiplier  = "Modifier"}
@@ -615,6 +852,15 @@ OverwriteTableKeys( TraitData, {
 				BaseName = "DamageEchoEffect",
 				BaseProperty = "DamageThreshold",
 			},
+		},
+		ChargeStageModifiers = 
+		{
+			ValidWeapons = { "WeaponTorchSpecial"},
+			ExcludeLinked = true,
+			AddWeaponProperties = 
+			{
+				FireFx = "TorchOrbitStartSwirl_Zeus",
+			}
 		},
 		PropertyChanges = {
 			{
@@ -681,17 +927,35 @@ OverwriteTableKeys( TraitData, {
 			},
 
 			{
+				FalseTraitName = "DaggerTripleAspect",
 				WeaponName = "WeaponDaggerThrow",
 				ProjectileName = "ProjectileDaggerThrow",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "DaggerProjectileCurved_Zeus", 
+				ChangeValue = "DaggerProjectileCurved_Zeus",
 				ChangeType = "Absolute",
 			},
 			{
+				TraitName = "DaggerTripleAspect",
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrow",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerThrowMorrigan_Zeus",
+				ChangeType = "Absolute",
+			},
+			{
+				FalseTraitName = "DaggerTripleAspect",
 				WeaponName = "WeaponDaggerThrow",
 				ProjectileName = "ProjectileDaggerThrowCharged",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "DaggerProjectileFx_Zeus", 
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "DaggerTripleAspect",
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerThrowMorrigan_Zeus",
 				ChangeType = "Absolute",
 			},
 			{
@@ -715,7 +979,12 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
-
+			{
+				WeaponName = "WeaponDaggerThrow",
+				WeaponProperty = "FireSound",
+				ChangeValue = "/SFX/Player Sounds/ZeusLightningSlash",
+				ChangeType = "Absolute",
+			},
 			{
 				WeaponName = "WeaponAxeBlock2",
 				ProjectileProperty = "DetonateFx",
@@ -724,7 +993,7 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 			{
-				FalseTraitName = "AxeBlockEmpowerTrait",
+				FalseTraitNames = { "AxeBlockEmpowerTrait", "AxeRallyAspect", },
 				WeaponName = "WeaponAxeSpecial",
 				WeaponProperty = "FireFx",
 				ChangeValue = "AxeSpinDouble_Zeus",
@@ -732,7 +1001,26 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true
 			},
 			{
+				TraitName = "AxeRallyAspect",
+				FalseTraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "null",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
+				TraitName = "AxeRallyAspect",
+				FalseTraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				WeaponProperty = "FireFx",
+				ChangeValue = "AxeSwipeUpper_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
 				TraitName = "AxeBlockEmpowerTrait",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxeSpecial",
 				WeaponProperty = "FireFx",
 				ChangeValue = "null",
@@ -741,9 +1029,18 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				TraitName = "AxeBlockEmpowerTrait",
+				FalseTraitName = "AxeRallyAspect",
 				WeaponName = "WeaponAxeSpecial",
 				ProjectileProperty = "StartFx",
 				ChangeValue = "AxeSpinDouble_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
+				TraitNames = { "AxeBlockEmpowerTrait", "AxeRallyAspect" },
+				WeaponName = "WeaponAxeSpecial",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "AxeSwipeUpper_Zeus",
 				ChangeType = "Absolute",
 				ExcludeLinked = true
 			},
@@ -756,10 +1053,19 @@ OverwriteTableKeys( TraitData, {
 			},
 
 			{
+				FalseTraitName = "LobGunAspect",
 				WeaponName = "WeaponLobSpecial",
 				ProjectileName = "ProjectileThrowCharged",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "LobSpecialFx_Zeus",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobSpecialFx_Hel_Zeus",
 				ChangeType = "Absolute",
 			},
 			{
@@ -770,17 +1076,18 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileLobGunRift",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobProjectile_Zeus",
+				ChangeType = "Absolute",
+			},
+			{
 				WeaponName = "WeaponSkullImpulse",
 				ProjectileName = "ProjectileSkullImpulse",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "DashLobTrailEmitter_Zeus",
-				ChangeType = "Absolute",
-			},	
-			{
-				WeaponName = "WeaponSkullImpulse",
-				ProjectileName = "ProjectileSkullImpulseWave",
-				ProjectileProperty = "Graphic",
-				ChangeValue = "LobSpecialFx_Zeus",
 				ChangeType = "Absolute",
 			},
 			{
@@ -789,47 +1096,78 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = "LobCharge_Zeus",
 				ChangeType = "Absolute",
 			},
+
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchOrbit",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchOrbitIn_Zeus",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchOrbit",
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchOrbitOut_Zeus",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileNames = { "ProjectileTorchOrbit", "ProjectileTorchOrbitEx", },
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchOrbitOut_Zeus",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchOrbit",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchOrbitShadow_Zeus",
+				ChangeType = "Absolute",
+			},				
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchOrbitEx",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchOrbitShadow_Zeus",
+				ChangeType = "Absolute",
+			},	
 			
 			{
 				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
+				ProjectileName = "ProjectileTorchOrbitEx",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchSpecialProjectileIn_Zeus",
+				ChangeValue = "TorchOrbitInEX_Zeus",
 				ChangeType = "Absolute",
-			},			
+			},
 			{
 				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
-				ProjectileProperty = "AttachedAnim",
-				ChangeValue = "TorchSpecialProjectileGroundGlow_Zeus",
+				WeaponProperty = "FireFx",
+				ChangeValue = "TorchOrbitStartSwirl_Single_Zeus",
 				ChangeType = "Absolute",
-			},			
+			},
 			{
 				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
-				ProjectileProperty = "DissipateFx",
-				ChangeValue = "TorchSpecialProjectileDissipate_Zeus",
-				ChangeType = "Absolute",
-			},			
-			{
-				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchOrbit",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbitEx",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchSpecialProjectileIn_Zeus",
+				ChangeValue = "TorchSpecialProjectileIn_Moros_Zeus",
 				ChangeType = "Absolute",
-			},			
+			},
 			{
 				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchOrbit",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbitEx",
 				ProjectileProperty = "AttachedAnim",
-				ChangeValue = "TorchSpecialProjectileGroundGlow_Zeus",
+				ChangeValue = "TorchSpecialProjectileGroundGlow_Moros_Zeus",
 				ChangeType = "Absolute",
-			},			
+			},
 			{
 				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchOrbit",
+				TraitName = "TorchDetonateAspect",
+				ProjectileName = "ProjectileTorchOrbitEx",
 				ProjectileProperty = "DissipateFx",
-				ChangeValue = "TorchSpecialProjectileDissipate_Zeus",
+				ChangeValue = "TorchSpecialProjectileDissipate_Moros_Zeus",
 				ChangeType = "Absolute",
 			},
 			{
@@ -875,6 +1213,78 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 			},
 			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenade",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenade_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenade",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBomb",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenadeBig_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBomb",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenadeStraight",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenade_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitGrenadeStraight",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBombStraight",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "ShivaGrenadeBig_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "SuitComboAspect",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitBombStraight",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "GrenadeExplosion_Zeus",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
 				TraitName = "SuitSpecialJumpTrait",
 				WeaponName = "WeaponSuitRanged",
 				ProjectileName = "ProjectileSuitRangedGuided",
@@ -905,18 +1315,36 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.25,
+				Multiplier = 30/25,
 			},
 			Epic =
 			{
-				Multiplier = 1.50,
+				Multiplier = 35/25,
 			},
 			Heroic =
 			{
-				Multiplier = 1.75,
+				Multiplier = 40/25,
 			},
 		},
-		
+		PropertyChanges =
+		{
+			{
+				WeaponName = "WeaponCast",
+				WeaponProperty = "FireFx",
+				ChangeValue = "QuickFlashYellow",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponCast",
+				ProjectileProperties = 
+				{
+					Graphic = "CastCircleInZeus",
+					ArmedGraphic = "CastCircleArmedZeus",
+					DetonateFx = "CastCircleOutZeus",
+					HideGraphicOnDetonate = false
+				}
+			},
+		},
 		OnWeaponFiredFunctions =
 		{
 			ValidWeapons = WeaponSets.HeroNonPhysicalWeapons,
@@ -930,127 +1358,11 @@ OverwriteTableKeys( TraitData, {
 					BaseValue = 1.0,
 					AbsoluteStackValues =
 					{
-						[1] = 0.25,
-						[2] = 0.20,
-						[3] = 0.15,
+						[1] = 0.2,
 					},
 				},
 				Range = 440,
-				StrikeInterval = 0.25,
-				ReportValues = 
-				{ 
-					ReportedMultiplier = "DamageMultiplier",
-					ReportedStrikes = "StrikeCount",
-					ReportedInterval = "StrikeInterval",
-				},
-			}
-		},
-		StatLines =
-		{
-			"BoltDamageStatDisplay2",
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedMultiplier",
-				ExtractAs = "Damage",
-				Format = "MultiplyByBase",
-				BaseType = "Projectile",
-				BaseName = "ZeusCastStrike",
-				BaseProperty = "Damage",
-			},
-			{
-				Key = "ReportedInterval",
-				ExtractAs = "Interval",
-				DecimalPlaces = 2,
-			}
-		}
-	},
-
-	-- Cut
-	ZeusExCastBoon =
-	{
-		Icon = "Boon_Zeus_35",
-		InheritFrom = { "BaseTrait", "AirBoon" },
-		RequiredFalseTraits = { "PoseidonExCastBoon", "ApolloExCastBoon"},
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.00,
-			},
-			Rare =
-			{
-				Multiplier = 1.5,
-			},
-			Epic =
-			{
-				Multiplier = 2.0,
-			},
-			Heroic =
-			{
-				Multiplier = 2.50,
-			},
-		},
-		
-		WeaponDataOverride =
-		{
-			WeaponCast =
-			{
-
-				HitScreenshake = {},
-				HitSimSlowParameters =
-				{
-				},
-
-				Sounds =
-				{
-					ChargeSounds =
-					{
-						{ Name = "/VO/MelinoeEmotes/EmoteCasting" },
-						{ Name = "/SFX/Player Sounds/MelMagicalCharge",
-							StoppedBy = { "ChargeCancel", "Fired" } },
-					},
-					FireSounds =
-					{
-						{ Name = "/VO/MelinoeEmotes/EmoteCasting" },
-						{ Name = "/Leftovers/SFX/WyrmCastAttack" },
-					},
-
-					ImpactSounds =
-					{
-						Invulnerable = "/SFX/Player Sounds/ElectricZapSmall",
-						Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-						Bone = "/SFX/Player Sounds/ElectricZapSmall",
-						Brick = "/SFX/Player Sounds/ElectricZapSmall",
-						Stone = "/SFX/Player Sounds/ElectricZapSmall",
-						Organic = "/SFX/Player Sounds/ElectricZapSmall",
-						StoneObstacle = "/SFX/Player Sounds/ElectricZapSmall",
-						BrickObstacle = "/SFX/Player Sounds/ElectricZapSmall",
-						MetalObstacle = "/SFX/Player Sounds/ElectricZapSmall",
-						BushObstacle = "/SFX/Player Sounds/ElectricZapSmall",
-					},
-				},
-			},
-		},
-		OnProjectileArmFunction =
-		{
-			FunctionName = "OnZeusCastArmed",
-			FunctionArgs = 
-			{
-				SourceName = "ProjectileCast",
-				ProjectileName = "ZeusCastStrike",
-				DamageMultiplier =
-				{
-					BaseValue = 1,
-					AbsoluteStackValues =
-					{
-						[1] = 0.334,
-						[2] = 0.167,
-					},
-				},
-				Range = 440,
-				StrikeInterval = 0.25,
+				StrikeInterval = 0.35,
 				ReportValues = 
 				{ 
 					ReportedMultiplier = "DamageMultiplier",
@@ -1107,15 +1419,14 @@ OverwriteTableKeys( TraitData, {
 		},
 		OnWeaponFiredFunctions = 
 		{
-			ValidWeapons = {"WeaponSprint"},
+			ValidWeapons = {"WeaponBlink", "WeaponSprint"},
 			FunctionName = "ZeusSprintZap",
 			FunctionArgs = 
 			{
 				ProjectileName = "ZeusSprintStrike",
-				Cooldown = 0.15,
-				CostPerStrike = 3,
+				Cooldown = 0.35,
 				RunFunctionNameOnTarget = "ZeusSprintSpend",
-				Range = 380,
+				Range = 455,
 				DamageMultiplier =
 				{
 					BaseValue = 1,
@@ -1145,11 +1456,6 @@ OverwriteTableKeys( TraitData, {
 				BaseType = "Projectile",
 				BaseName = "ZeusSprintStrike",
 				BaseProperty = "Damage",
-			},
-			{
-				SkipAutoExtract = true,
-					Key = "ReportedCost",
-					ExtractAs = "ManaCost",
 			},
 			{
 				ExtractAs = "Fuse",
@@ -1220,7 +1526,8 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedInterval",
 				ExtractAs = "Amount",
-				DecimalPlaces = 2,
+				DecimalPlaces = 1,
+				Format = "SpeedModifiedDuration",
 			},
 		}
 	},
@@ -1237,15 +1544,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.25,
+				Multiplier = 40/30,
 			},
 			Epic =
 			{
-				Multiplier = 1.50,
+				Multiplier = 50/30,
 			},
 			Heroic =
 			{
-				Multiplier = 1.75,
+				Multiplier = 60/30,
 			},
 		},
 	
@@ -1260,9 +1567,11 @@ OverwriteTableKeys( TraitData, {
 				DamageMultiplier =
 				{
 					BaseValue = 1,
-					IdenticalMultiplier =
+					AbsoluteStackValues =
 					{
-						Value = -0.75,
+						[1] = 10/30,
+						[2] = 10/30,
+						[3] = 5/30,
 					},
 				},
 				ReportValues = 
@@ -1337,7 +1646,7 @@ OverwriteTableKeys( TraitData, {
 				Key = "ReportedStrikeChance",
 				ExtractAs = "StrikeChance",
 				SkipAutoExtract = true,
-				Format = "Percent",
+				Format = "LuckModifiedPercent",
 			},
 			{
 				ExtractAs = "Damage",
@@ -1359,7 +1668,7 @@ OverwriteTableKeys( TraitData, {
 		{
 			{
 				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				HasNone = { "CastProjectileBoon", "HadesCastProjectileBoon", "CastAttachBoon", "CastLobBoon" },
+				HasNone = { "CastProjectileBoon", "HadesCastProjectileBoon", "CastLobBoon", "SelfCastBoon" },
 			},
 		},
 		RarityLevels =
@@ -1531,7 +1840,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				ProjectileName = "ProjectileZeusSpark",
 				FirstHitOnly = true,
-				WindowCount = 5, -- "clip fire cooldown. no more than Count projectiles every Duration"
+				WindowCount = 3, -- "clip fire cooldown. no more than Count projectiles every Duration"
 				WindowDuration = 0.75,
 				DamageMultiplier =
 				{
@@ -1539,6 +1848,8 @@ OverwriteTableKeys( TraitData, {
 					AbsoluteStackValues =
 					{
 						[1] = 0.50,
+						[2] = 0.30,
+						[3] = 0.20,
 					},
 				},
 				ReportValues = 
@@ -1560,6 +1871,11 @@ OverwriteTableKeys( TraitData, {
 				}
 			},
 		},
+		OnExpire = 
+		{
+			FunctionName = "TraitUnreserveMana",
+			FunctionArgs = { Name = "FocusLightningBoon" },
+		},
 		StatLines =
 		{
 			"LightningDamageStatDisplay1",
@@ -1574,6 +1890,15 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "Damage",
 			},
 			{
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "ProjectileZeusSpark",
+				BaseProperty = "NumJumps",
+				Format = "TotalTargets",
+				ExtractAs = "Bounces",
+				SkipAutoExtract = true,
+			},
+			{
 				Key = "ReportedCost",
 				ExtractAs = "TooltipCost",
 				SkipAutoExtract = true,
@@ -1586,6 +1911,7 @@ OverwriteTableKeys( TraitData, {
 		Icon = "Boon_Zeus_37",
 		InheritFrom = { "BaseTrait", "LegacyTrait", "AirBoon" },
 		God = "Zeus",
+		NumStrikes = 2, -- used only for text
 		RarityLevels =
 		{
 			Common =
@@ -1618,13 +1944,13 @@ OverwriteTableKeys( TraitData, {
 		},
 		StatLines = 
 		{
-			"DoublBoltChanceStatDisplay1"
+			"DoubleBoltChanceStatDisplay1"
 		},
 		ExtractValues = {
 			{
 				Key = "DoubleBoltChance",
 				ExtractAs = "DoubleChance",
-				Format = "Percent"
+				Format = "LuckModifiedPercent"
 			},
 		}
 	},
@@ -1637,28 +1963,37 @@ OverwriteTableKeys( TraitData, {
 		{
 			Common =
 			{
-				Multiplier = 0.75/0.75,
+				Multiplier = 1,
 			},
 			Rare =
 			{
-				Multiplier = 1/0.75,
+				Multiplier = 40/30,
 			},
 			Epic =
 			{
-				Multiplier = 1.25/0.75,
+				Multiplier = 50/30,
 			},
 			Heroic =
 			{
-				Multiplier = 1.5/0.75,
+				Multiplier = 60/30,
 			},
 		},
-		EchoExpirationMultiplier = 
+		DamageEchoOmegaDamageBonus =
 		{
-			BaseValue = 0.75,
-			IdenticalMultiplier =
+			BaseValue = 1.3,
+			SourceIsMultiplier = true,
+			AbsoluteStackValues =
 			{
-				Value = -0.75,
+				[1] = 1.10,
+				[2] = 1.05,
+				[3] = 1.03,
+				[4] = 1.02,
 			},
+		},
+		OnEnemyDamagedAction = 
+		{
+			FunctionName = "CheckOmegaBlitzTrigger",
+			ValidWeapons = WeaponSets.HeroAllWeaponsAndSprint,
 		},
 		StatLines =
 		{
@@ -1667,10 +2002,9 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues =
 		{
 			{
-				Key = "EchoExpirationMultiplier",
+				Key = "DamageEchoOmegaDamageBonus",
 				ExtractAs = "Damage",
-				Format = "Percent",
-				HideSigns = true,
+				Format = "PercentDelta",
 			},
 			{
 				ExtractAs = "EchoDuration",
@@ -1703,50 +2037,48 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.5,
+				Multiplier = 1.25,
 			},
 			Epic =
 			{
-				Multiplier = 2,
+				Multiplier = 1.50,
 			},
 			Heroic =
 			{
-				Multiplier = 2.5,
+				Multiplier = 1.75,
 			},
 		},
-		OnEnemyDamagedAction = 
+		AddOutgoingDamageModifiers = 
 		{
-			FunctionName = "CheckZeusProjectile",
-			ValidProjectiles = {"ZeusEchoStrike"},
-			FirstHitOnly = true,
-			Args = 
+			ValidProjectiles = {"ProjectileZeusSpark"},
+			ValidWeaponMultiplier =
 			{
-				ProjectileName = "ProjectileZeusSpark",
-				WindowCount = 3, -- "clip fire cooldown. no more than Count projectiles every Duration"
-				WindowDuration = 0.75,
-				DamageMultiplier =
+				BaseValue = 1.2,
+				SourceIsMultiplier = true,
+				AbsoluteStackValues =
 				{
-					BaseValue = 1,
+					[1] = 1.10,
+					[2] = 1.05,
 				},
-				ReportValues = 
-				{ 
-					ReportedMultiplier = "DamageMultiplier",
-				}
 			},
+			ReportValues = { ReportedMultiplier = "ValidWeaponMultiplier" },
 		},
+		ZeusSparkBonusBounces = 3,
 		StatLines =
 		{
-			"LightningDamageStatDisplay1",
+			"LightningDamageStatDisplay2",
 		},
 		ExtractValues =
 		{
 			{
 				Key = "ReportedMultiplier",
-				Format = "MultiplyByBase",
-				BaseType = "Projectile",
-				BaseName = "ProjectileZeusSpark",
-				BaseProperty = "Damage",
+				Format = "PercentDelta",
 				ExtractAs = "Damage",
+			},
+			{
+				Key = "ZeusSparkBonusBounces",
+				ExtractAs = "Bounces",
+				SkipAutoExtract = true,
 			},
 			{
 				ExtractAs = "EchoDuration",
@@ -1776,9 +2108,10 @@ OverwriteTableKeys( TraitData, {
 			FunctionName = "CheckSpawnZeusDamage",
 			Args = 
 			{
-				Chance = 0.20,
+				Chance = 0.25,
 				Damage = 9999,
 				Vfx = "ZeusLightningIris",
+				ExcludeProjectileName = "MedeaCurse",
 				ReportValues = { ReportedChance = "Chance" },
 			}
 		},
@@ -1791,7 +2124,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedChance",
 				ExtractAs = "Chance",
-				Format = "Percent",
+				Format = "LuckModifiedPercent",
 				HideSigns = true,
 			},
 		},

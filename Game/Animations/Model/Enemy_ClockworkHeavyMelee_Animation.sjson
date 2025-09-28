@@ -197,6 +197,7 @@
 		InheritFrom = "EnemyCWHeavyMeleeBaseAnimation"
 		GrannyAnimation = "WretchThug_Base_AxeSwipePreFire_C_00"
 		Sound = "/SFX/Enemy Sounds/WretchedThug/ThugChargeUp"
+		GrannyAnimationSpeed = 1.2
 		StopSoundOnFinishFade = 0.1
 		HoldLastFrame = true
 		Blends = 
@@ -262,7 +263,7 @@
 		Name = "Enemy_CWHeavyMelee_SwipePostFire_Alt"
 		InheritFrom = "EnemyCWHeavyMeleeBaseAnimation"
 		GrannyAnimation = "WretchThug_Base_AxeSwipePostFire_C_00"
-		GrannyAnimationSpeed = 4.0
+		GrannyAnimationSpeed = 8.0
 		ChainTo = "Enemy_CWHeavyMelee_Idle"
 		Frames =
 		[
@@ -281,7 +282,7 @@
 		Name = "Enemy_CWHeavyMelee_SwipePreFire_Alt"
 		InheritFrom = "EnemyCWHeavyMeleeBaseAnimation"
 		GrannyAnimation = "WretchThug_Base_AxeSwipePreFire_Alt_C_00"
-		GrannyAnimationSpeed = 3.0
+		GrannyAnimationSpeed = 2.4
 		HoldLastFrame = true
 		Sound = "/SFX/Enemy Sounds/WretchedThug/ThugChargeUp"
 		StopSoundOnFinishFade = 0.2

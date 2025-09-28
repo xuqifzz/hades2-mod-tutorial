@@ -146,6 +146,12 @@
 		Transparent3DModel = true
 		Enable3DShadow = false
 		CreateAnimation = "DiscoBallReflections"
+	}	
+
+	{
+		Name = "DiscoBallRotate_SkipEncounter"
+		InheritFrom = "DiscoBallRotate"
+		CreateAnimation = "DiscoBallReflections_SkipEncounter"
 	}
 
 ]}

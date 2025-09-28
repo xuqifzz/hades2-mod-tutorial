@@ -8,6 +8,9 @@ end
 
 function OpenQuestLogScreen( args )
 	ResetKeywords()
+
+	AltAspectRatioFramesShow()
+
 	local screen = DeepCopyTable( ScreenData.QuestLog )
 	ScreenAnchors.QuestLogScreen = screen
 	local components = screen.Components
@@ -16,7 +19,7 @@ function OpenQuestLogScreen( args )
 	OnScreenOpened( screen )
 	CreateScreenFromData( screen, screen.ComponentData )
 
-	--wait(0.2)
+	wait(0.3)
 
 	screen.ItemStartX = screen.ItemStartX + ScreenCenterNativeOffsetX
 	screen.ItemStartY = screen.ItemStartY + ScreenCenterNativeOffsetY
@@ -30,6 +33,10 @@ function OpenQuestLogScreen( args )
 
 	for k, questName in ipairs( QuestOrderData ) do
 		local questData = QuestData[questName]
+		if questData.SetupEvents ~= nil then
+			questData = ShallowCopyTable( questData )
+			RunEventsGeneric( questData.SetupEvents, questData )
+		end
 		if GameState.QuestStatus[questData.Name] == "CashedOut" then
 			table.insert( cashedOutQuests, questData )
 		-- @ for testing, adjust this requirement to show all
@@ -45,15 +52,16 @@ function OpenQuestLogScreen( args )
 	screen.NumItems = 0
 	screen.AnyNew = false
 	screen.NumToCashOut = 0
+	screen.ViewedQuestProgress = {}
 
 	for k, questData in ipairs( readyToCashOutQuests ) do
 
 		-- QuestButton
 		screen.NumItems = screen.NumItems + 1
 		local questButtonKey = "QuestButton"..screen.NumItems
-		local button = CreateScreenComponent({ Name = "BlankInteractableObstacle", Scale = 1, X = itemLocationX, Y = itemLocationY, Group = "Combat_Menu" })
+		local button = CreateScreenComponent({ Name = "BlankInteractableObstacle", Scale = 1, X = itemLocationX, Y = itemLocationY, Group = screen.ComponentData.DefaultGroup })
 		components[questButtonKey] = button
-		components[questButtonKey].MouseOverSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+		components[questButtonKey].MouseOverSound = "/Leftovers/World Sounds/Caravan Interior/CardsInteract"
 		components[questButtonKey].OnPressedFunctionName = "CashOutQuest"
 		components[questButtonKey].OnMouseOverFunctionName = "MouseOverQuest"
 		components[questButtonKey].OnMouseOffFunctionName = "MouseOffQuest"
@@ -61,18 +69,20 @@ function OpenQuestLogScreen( args )
 		components[questButtonKey].Index = screen.NumItems
 		button.Screen = screen
 		AttachLua({ Id = components[questButtonKey].Id, Table = components[questButtonKey] })
+		SetInteractProperty({ DestinationId = button.Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
+		SetInteractProperty({ DestinationId = button.Id, Property = "FreeFormSelectInputMultiplierX", Value = 0.0 })
 
 		local newButtonKey = "NewIcon"..screen.NumItems
 		if not GameState.QuestsViewed[questData.Name] then
 			-- New icon
 			screen.AnyNew = true
-			components[newButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu" })
+			components[newButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup })
 			SetAnimation({ DestinationId = components[newButtonKey].Id , Name = "QuestLogNewQuest" })
 			Attach({ Id = components[newButtonKey].Id, DestinationId = components[questButtonKey].Id, OffsetX = screen.NewIconOffsetX, OffsetY = 0 })
 		end
 
 		local strikethroughKey = "Strikethrough"..screen.NumItems
-		components[strikethroughKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", Animation = "QuestLogStrikethrough", Alpha = 0.0 })
+		components[strikethroughKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_Overlay", Alpha = 0.0 })
 		Attach({ Id = components[strikethroughKey].Id, DestinationId = components[questButtonKey].Id })
 
 		local readyToCashOutFormat = screen.ReadyToCashOutFormat
@@ -95,21 +105,23 @@ function OpenQuestLogScreen( args )
 		-- QuestButton
 		screen.NumItems = screen.NumItems + 1
 		local questButtonKey = "QuestButton"..screen.NumItems
-		local button = CreateScreenComponent({ Name = "BlankInteractableObstacle", Scale = 1, X = itemLocationX, Y = itemLocationY, Group = "Combat_Menu" })
+		local button = CreateScreenComponent({ Name = "BlankInteractableObstacle", Scale = 1, X = itemLocationX, Y = itemLocationY, Group = screen.ComponentData.DefaultGroup })
 		components[questButtonKey] = button
-		components[questButtonKey].MouseOverSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+		components[questButtonKey].MouseOverSound = "/Leftovers/World Sounds/Caravan Interior/CardsInteract"
 		components[questButtonKey].OnMouseOverFunctionName = "MouseOverQuest"
 		components[questButtonKey].OnMouseOffFunctionName = "MouseOffQuest"
 		components[questButtonKey].Data = questData
 		components[questButtonKey].Index = screen.NumItems
 		button.Screen = screen
 		AttachLua({ Id = components[questButtonKey].Id, Table = components[questButtonKey] })
+		SetInteractProperty({ DestinationId = button.Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
+		SetInteractProperty({ DestinationId = button.Id, Property = "FreeFormSelectInputMultiplierX", Value = 0.0 })
 
 		local newButtonKey = "NewIcon"..screen.NumItems
 		if not GameState.QuestsViewed[questData.Name] then
 			-- New icon
 			screen.AnyNew = true
-			components[newButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu" })
+			components[newButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup })
 			SetAnimation({ DestinationId = components[newButtonKey].Id , Name = "QuestLogNewQuest" })
 			Attach({ Id = components[newButtonKey].Id, DestinationId = components[questButtonKey].Id, OffsetX = screen.NewIconOffsetX, OffsetY = 0 })
 		end
@@ -128,18 +140,20 @@ function OpenQuestLogScreen( args )
 		-- QuestButton
 		screen.NumItems = screen.NumItems + 1
 		local questButtonKey = "QuestButton"..screen.NumItems
-		local button = CreateScreenComponent({ Name = "BlankInteractableObstacle", Scale = 1, X = itemLocationX, Y = itemLocationY, Group = "Combat_Menu" })
+		local button = CreateScreenComponent({ Name = "BlankInteractableObstacle", Scale = 1, X = itemLocationX, Y = itemLocationY, Group = screen.ComponentData.DefaultGroup })
 		components[questButtonKey] = button
-		components[questButtonKey].MouseOverSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+		components[questButtonKey].MouseOverSound = "/Leftovers/World Sounds/Caravan Interior/CardsInteract"
 		components[questButtonKey].OnMouseOverFunctionName = "MouseOverQuest"
 		components[questButtonKey].OnMouseOffFunctionName = "MouseOffQuest"
 		components[questButtonKey].Data = questData
 		components[questButtonKey].Index = screen.NumItems
 		button.Screen = screen
 		AttachLua({ Id = components[questButtonKey].Id, Table = components[questButtonKey] })
+		SetInteractProperty({ DestinationId = button.Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
+		SetInteractProperty({ DestinationId = button.Id, Property = "FreeFormSelectInputMultiplierX", Value = 0.0 })
 
 		local strikethroughKey = "Strikethrough"..screen.NumItems
-		components[strikethroughKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", Animation = "QuestLogStrikethrough", Alpha = 0.0 })
+		components[strikethroughKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_Overlay", Animation = "QuestLogScreenStrikethrough", Alpha = 0.0 })
 		Attach({ Id = components[strikethroughKey].Id, DestinationId = components[questButtonKey].Id })
 
 		local cashedOutFormat = screen.CashedOutFormat
@@ -151,9 +165,9 @@ function OpenQuestLogScreen( args )
 
 	end
 
-	QuestLogUpdateVisibility( screen )
+	QuestLogUpdateVisibility( screen, { ScrolledDown = true } )
 
-	wait( 0.1 )
+	wait( 0.02 )
 	TeleportCursor({ OffsetX = screen.ItemStartX, OffsetY = screen.ItemStartY, ForceUseCheck = true })
 	wait( 0.1 )
 
@@ -184,18 +198,19 @@ function CashOutQuest( screen, button )
 	justCashedOutFormat.Id = button.Id
 	ModifyTextBox( justCashedOutFormat )
 
-	ModifyTextBox({ Id = screen.Components.RewardText.Id, Color = screen.RewardCashedOutColor })
+	SetAlpha({ Id = screen.Components.RewardText.Id, Fraction = 0.0, Duration = 0.2 })
+	SetAlpha({ Id = screen.Components.RewardClaimedIcon.Id, Fraction = 1.0, Duration = 0.2 })
 
 end
 
 function CloseQuestLogScreen( screen, button )
-	--SetAnimation({ DestinationId = screen.Components.ShopBackground.Id, Name = screen.CloseAnimation })
-	killTaggedThreads("QuestLogPulse")
+	killTaggedThreads( "QuestLogPulse" )
+	AltAspectRatioFramesHide()
 	OnScreenCloseStarted( screen )
-	CloseScreen( GetAllIds( screen.Components ), 0.1 )
+	QuestLogScreenClosePresentation( screen, button )
+	CloseScreen( GetAllIds( screen.Components ), 0.1, screen )
 	OnScreenCloseFinished( screen )
 	ShowCombatUI( screen.Name )
-	thread( CheckProgressAchievements )
 end
 
 function HasActiveQuestForName( name )
@@ -219,24 +234,6 @@ function HasActiveQuestForName( name )
 				end
 			end
 		end
-	end
-
-	return false
-
-end
-
-function HasActiveQuestForItem( name )
-
-	local requirements =
-	{
-		NamedRequirements = { "QuestLogUnlocked", },
-	}
-	if not IsGameStateEligible( nil, requirements ) then
-		return false
-	end
-
-	for k, questName in ipairs( QuestOrderData ) do
-		-- @todo
 	end
 
 	return false
@@ -268,19 +265,6 @@ function HasAnyQuestWithStatus( status )
 
 end
 
-function HasAllQuestsWithStatus( status )
-
-	for k, questName in ipairs( QuestOrderData ) do
-		local questData = QuestData[questName]
-		if GameState.QuestStatus[questData.Name] ~= status then
-			return false
-		end
-	end
-
-	return true
-
-end
-
 function QuestLogHideScrollButtons( screen, args )
 	if args.HideLeft then
 		SetAlpha({ Id = screen.Components.ScrollLeft.Id, Fraction = 0.0, Duration = 0.2 })
@@ -289,14 +273,14 @@ function QuestLogHideScrollButtons( screen, args )
 	if args.HideRight then
 		SetAlpha({ Id = screen.Components.ScrollRight.Id, Fraction = 0.0, Duration = 0.2 })
 		screen.Components.ScrollRight.Visible = false
-		killTaggedThreads("QuestLogPulse")
+		killTaggedThreads( "QuestLogPulse" )
 		MouseOffContextualAction( screen.Components.ScrollRight )
 	end
 end
 
 function ShowQuestProgress( screen, questData, requirements )
 
-	requirements = requirements or questData.CompleteGameStateRequirements
+	requirements = requirements or questData.DisplayedCompleteGameStateRequirements or questData.CompleteGameStateRequirements
 
 	local index = 0
 	local visibleIndex = 1
@@ -317,7 +301,7 @@ function ShowQuestProgress( screen, questData, requirements )
 		local completionRequirementFormat = ShallowCopyTable( screen.CompletionRequirementFormat )
 		completionRequirementFormat.Id = screen.Components.DescriptionBox.Id
 		completionRequirementFormat.Text = questData.CustomCompleteString
-		completionRequirementFormat.OffsetX = screen.CompleteRequirementsOffsetX + ( ( currentColumn - 1 ) * columnWidth )
+		completionRequirementFormat.OffsetX = 0
 		completionRequirementFormat.OffsetY = offsetY
 		completionRequirementFormat.Color = completeColor
 		CreateTextBox( completionRequirementFormat )
@@ -331,7 +315,7 @@ function ShowQuestProgress( screen, questData, requirements )
 		local completionRequirementFormat = ShallowCopyTable( screen.CompletionRequirementFormat )
 		completionRequirementFormat.Id = screen.Components.DescriptionBox.Id
 		completionRequirementFormat.Text = questData.CustomIncompleteString
-		completionRequirementFormat.OffsetX = screen.CompleteRequirementsOffsetX + ( ( currentColumn - 1 ) * columnWidth )
+		completionRequirementFormat.OffsetX = 0
 		completionRequirementFormat.OffsetY = offsetY
 		completionRequirementFormat.Color = incompleteColor
 		CreateTextBox( completionRequirementFormat )
@@ -385,7 +369,7 @@ function ShowQuestProgress( screen, questData, requirements )
 				local completionRequirementFormat = ShallowCopyTable( screen.CompletionRequirementFormat )
 				completionRequirementFormat.Id = screen.Components.DescriptionBox.Id
 				completionRequirementFormat.Text = text
-				completionRequirementFormat.OffsetX = screen.CompleteRequirementsOffsetX + ( ( currentColumn - 1 ) * columnWidth )
+				completionRequirementFormat.OffsetX = ( currentColumn - 1 ) * columnWidth
 				completionRequirementFormat.OffsetY = offsetY
 				completionRequirementFormat.Color = color
 				completionRequirementFormat.TextSymbolScale = questData.CompletionRequirementTextSymbolScale or completionRequirementFormat.TextSymbolScale
@@ -404,6 +388,9 @@ function ShowQuestProgress( screen, questData, requirements )
 		elseif requirement.PathTrue then
 			local numKeys = #requirement.PathTrue
 			local finalKey = requirement.PathTrue[numKeys]
+			if questData.DisplaySemiFinalRequirementKey then
+				finalKey = requirement.PathTrue[numKeys - 1]
+			end
 			local color = completeColor
 			local text = "QuestLog_QuestProgressComplete"
 			local completionText = nil
@@ -413,6 +400,7 @@ function ShowQuestProgress( screen, questData, requirements )
 				completionText = questData.IncompleteName
 			end
 
+			index = index + 1
 			if index >= firstVisibleIndex and index <= maxVisibleIndex then
 
 				local bulletPointFormat = ShallowCopyTable( screen.BulletPointFormat )
@@ -443,13 +431,20 @@ function ShowQuestProgress( screen, questData, requirements )
 			end
 		elseif requirement.HasAll ~= nil then
 			for k, key in ipairs( requirement.HasAll ) do
+				local complete = false
+				if valueToCheck ~= nil and ( valueToCheck[key] or ( requirement.AllowSubstitutions ~= nil and valueToCheck[requirement.AllowSubstitutions[key]] ) ) then
+					complete = true
+				end
 				local color = completeColor
 				local text = "QuestLog_QuestProgressComplete"
 				local completionText = nil
-				if valueToCheck == nil or not valueToCheck[key] then
+				if not complete then
 					color = incompleteColor
 					text = "QuestLog_QuestProgressIncomplete"
 					completionText = questData.IncompleteName
+				end
+				if questData.MetaUpgradeNotUnlockedName ~= nil and not GameState.MetaUpgradeState[key].Unlocked then
+					completionText = questData.MetaUpgradeNotUnlockedName
 				end
 
 				index = index + 1
@@ -540,7 +535,9 @@ function ShowQuestProgress( screen, questData, requirements )
 		SetAlpha({ Id = screen.Components.ScrollRight.Id, Fraction = 1.0, Duration = 0.2 })
 		if not screen.Components.ScrollRight.Visible then
 			screen.Components.ScrollRight.Visible = true
-			thread( QuestLogPulsePageButton, screen.Components.ScrollRight )
+			if not screen.ViewedQuestProgress[questData.Name] then
+				thread( PulseContextActionPresentation, screen.Components.ScrollRight, { ThreadName = "QuestLogPulse" } )
+			end
 		end
 	else
 		QuestLogHideScrollButtons( screen, { HideRight = true } )
@@ -589,6 +586,7 @@ function CheckQuestStatus( args )
 			if IsGameStateEligible( questData, questData.CompleteGameStateRequirements ) then
 				-- Completed
 				GameState.QuestStatus[questData.Name] = "Complete"
+				GameState.QuestsCompleted[questData.Name] = true
 				questCompleted = true
 				-- If you simultaneously unlock and complete a quest, skip the unlock presentation.
 				if thisQuestAdded then
@@ -606,6 +604,7 @@ function CheckQuestStatus( args )
 		if questCompleted then
 			QuestCompletedPresentation( nil, threadName )
 			wait( 0.2, threadName )
+			thread( CheckProgressAchievements )
 		end
 		if questAdded then
 			QuestAddedPresentation( nil, threadName )
@@ -620,9 +619,10 @@ function QuestLogScrollUp( screen, button )
 		return
 	end
 	screen.ScrollOffset = screen.ScrollOffset - screen.ItemsPerPage
-	QuestLogUpdateVisibility( screen )
+	QuestLogUpdateVisibility( screen, { ScrolledUp = true } )
+	--GenericScrollPresentation( screen, button )
+	wait( 0.02 )
 	TeleportCursor({ OffsetX = screen.ItemStartX, OffsetY = screen.ItemStartY + ((screen.ItemsPerPage - 1) * screen.ItemSpacingY), ForceUseCheck = true })
-	GenericScrollPresentation( screen, button )
 end
 
 function QuestLogScrollDown( screen, button )
@@ -630,14 +630,21 @@ function QuestLogScrollDown( screen, button )
 		return
 	end
 	screen.ScrollOffset = screen.ScrollOffset + screen.ItemsPerPage
-	QuestLogUpdateVisibility( screen )
+	QuestLogUpdateVisibility( screen, { ScrolledDown = true } )
+	--GenericScrollPresentation( screen, button )
+	wait( 0.02 )
 	TeleportCursor({ OffsetX = screen.ItemStartX, OffsetY = screen.ItemStartY, ForceUseCheck = true })
-	GenericScrollPresentation( screen, button )
 end
 
-function QuestLogUpdateVisibility( screen )
+function QuestLogUpdateVisibility( screen, args )
 
+	args = args or {}
 	local components = screen.Components
+
+	GhostAdminUpdateScrollbarPresentation( screen, { AnimateSlider = true } )
+
+	SetAlpha({ Id = components.SelectionMarker.Id, Fraction = 0 })
+
 	for index = 1, screen.NumItems do
 		local questButtonKey = (screen.ButtonName or "QuestButton")..index
 		local newButtonKey = "NewIcon"..index
@@ -656,6 +663,11 @@ function QuestLogUpdateVisibility( screen )
 				SetAlpha({ Id = components[strikethroughKey].Id, Fraction = 1 })
 			end
 			UseableOn({ Id = components[questButtonKey].Id })
+			if visibleIndex == 1 and args.ScrolledDown then
+				MouseOverQuest( components[questButtonKey] )
+			elseif visibleIndex == screen.ItemsPerPage and args.ScrolledUp then
+				MouseOverQuest( components[questButtonKey] )
+			end
 		else
 			-- Page out of view
 			SetAlpha({ Id = components[questButtonKey].Id, Fraction = 0 })
@@ -669,20 +681,17 @@ function QuestLogUpdateVisibility( screen )
 		end
 	end
 
-	if screen.ScrollOffset <= 0 then
-		SetAlpha({ Id = components.ScrollUp.Id, Fraction = 0, Duration = 0.1 })
-		UseableOff({ Id = components.ScrollUp.Id })
-	else
-		SetAlpha({ Id = components.ScrollUp.Id, Fraction = 1, Duration = 0.1 })
-		UseableOn({ Id = components.ScrollUp.Id })
-	end
+end
 
-	if screen.ScrollOffset + screen.ItemsPerPage >= screen.NumItems then
-		SetAlpha({ Id = components.ScrollDown.Id, Fraction = 0, Duration = 0.1 })
-		UseableOff({ Id = components.ScrollDown.Id })
-	else
-		SetAlpha({ Id = components.ScrollDown.Id, Fraction = 1, Duration = 0.1 })
-		UseableOn({ Id = components.ScrollDown.Id })
+function ValidateQuestData()
+	if not verboseLogging then
+		return
 	end
-
+	for i, questName in ipairs( QuestOrderData ) do
+		local questData = QuestData[questName]
+		DebugAssert({ Condition = questData ~= nil, Text = "Non-existent quest included in QuestOrderData: "..questName, Owner = "Greg" })
+		if questData ~= nil then
+			DebugAssert({ Condition = questData.Decal ~= nil, Text = questName.." is missing a Decal!", Owner = "Greg" })
+		end
+	end
 end

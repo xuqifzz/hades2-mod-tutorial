@@ -5,9 +5,9 @@ UnitSetData.Treant =
 	{
 		InheritFrom = { "Elite", "BaseVulnerableEnemy" },
 
-		ActivateFx = "EnemyPreSpawnTerrainMedium",
-		ActivateFx2 = "EnemyPreSpawnStandingMedium",
-		ActivateFxPreSpawn = "EnemySpawnBurstMedium",
+		ActivateFx = "EnemyPreSpawnTerrainLarge",
+		ActivateFx2 = "EnemyPreSpawnStandingLarge",
+		ActivateFxPreSpawn = "EnemySpawnBurstLarge",
 		ActivateAnimation = "Enemy_Treant_Spawn",
 		DeathFx = "EnemyDeathFx_Medium",
 		DeathAnimation = "Enemy_Treant_Death",
@@ -16,8 +16,9 @@ UnitSetData.Treant =
 		BlockRespawnShrineUpgrade = true,
 
 		MaxHealth = 450,
-		HealthBuffer = 1110,
-		HealthBarOffsetY = -300,
+		HealthBuffer = 1220,
+		HealthBarAttachToMarkerName = "head_fxMarker_00_M_JNT",
+		HealthBarOffsetY = -180,
 		HealthBarType = "Large",
 
 		IsAggroedSound = "/SFX/Enemy Sounds/Treant/EmoteTaunting",
@@ -52,8 +53,10 @@ UnitSetData.Treant =
 
 		WeaponOptions =
 		{
-			"TreantRangedSpray", "TreantRangedRoots", "TreantTailSpawn", "TreantMelee"
+			"TreantRangedSpray", "TreantRangedRoots", "TreantTailSpawn", "TreantMelee", "TreantRangedRootsTriple",
 		},
+
+		BlockAttributes = { "Frenzy", },
 
 		GeneratorData =
 		{
@@ -68,7 +71,7 @@ UnitSetData.Treant =
 
 		WeaponOptions =
 		{
-			"TreantRangedSpray", "TreantRangedRoots", "TreantTailSpawn_Shadow", "TreantMelee"
+			"TreantRangedSpray", "TreantRangedRoots", "TreantTailSpawn_Shadow", "TreantMelee", "TreantRangedRootsTriple",
 		},
 	},
 
@@ -152,6 +155,9 @@ UnitSetData.Treant =
 		ActivateTintDuration = 0.5,
 		ActivateStartAlpha = 0, 
 		ActivateDuration = 0.75,
+
+		HealthBarAttachToMarkerName = "nil",
+		HealthBarOffsetY = -300,
 		
 		KillEnemyEvents =
 		{
@@ -167,7 +173,9 @@ UnitSetData.Treant =
 
 		WeaponOptions =
 		{
-			"Treant2RangedSpray", "Treant2RangedRoots", "Treant2TailSpawn", "TreantMelee",
+			"Treant2RangedSpray", --"Treant2RangedRoots", 
+			"Treant2TailSpawn", 
+			"TreantMelee",
 		},
 
 		GameStateRequirements =
@@ -203,6 +211,31 @@ UnitSetData.Treant =
 		{
 			DifficultyRating = 50,
 		},
+	},
+
+	Treant2_SuperElite =
+	{
+		InheritFrom = { "SuperElite", "Treant2", },
+		GenusName = "Treant2",
+
+		MaxHealth = 1000,
+		HealthBuffer = 5000,
+		BlockRaiseDead = false,
+
+		WeaponOptions =
+		{
+			"Treant2RangedSpray", "Treant2RangedRoots", "Treant2SuperEliteTailSpawn", "TreantMelee",
+		},
+	},
+
+	TreantTail2_SuperElite =
+	{
+		InheritFrom = { "TreantTail2" },
+		GenusName = "Treant2",
+
+		MaxHealth = 200,
+		HealthBuffer = 1000,
+		BlockRaiseDead = false,
 	},
 }
 

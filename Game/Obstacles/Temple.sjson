@@ -22,7 +22,6 @@
     {
       Name = "CharonTogglePillar"
       InheritFrom = "1_BaseInvulnerableObstacle"
-      AllowStoppingImpacts = false
       DisplayInEditor = true
       Life = 
       {

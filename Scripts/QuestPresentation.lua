@@ -15,10 +15,11 @@ function QuestIncompletePresentation( button )
 end
 
 function MouseOverQuest( button )
-
 	local screen = button.Screen
-	screen.ProgressPageOffset = 0
-	QuestScreenShowDescription( button )
+	if screen.SelectedButton ~= button then
+		screen.ProgressPageOffset = 0
+		QuestScreenShowDescription( button )
+	end
 end
 
 function QuestScreenShowDescription( button )
@@ -30,6 +31,7 @@ function QuestScreenShowDescription( button )
 	local screen = button.Screen
 	QuestScreenRemoveDescription( screen.SelectedButton )
 	screen.SelectedButton = button
+	screen.ClipboardText = button.Data.Name
 
 	ModifyTextBox({ Id = button.Id, ScaleTarget = screen.MouseOverScaleTarget, ScaleDuration = screen.MouseOverScaleDuration })
 
@@ -37,48 +39,36 @@ function QuestScreenShowDescription( button )
 	SetAlpha({ Id = screen.Components.SelectionMarker.Id, Fraction = 1.0, Duration = 0.2 })
 
 	-- Remove previous description
-	DestroyTextBox({ Id = button.Screen.Components.DescriptionBox.Id })
+	DestroyTextBox({ Id = screen.Components.DescriptionBox.Id })
 
 	GenericMouseOverPresentation( button )
 
-	ModifyTextBox({ Id = button.Screen.Components.InfoBoxTitle.Id, Text = button.Data.Name })
+	ModifyTextBox({ Id = screen.Components.InfoBoxTitle.Id, Text = button.Data.Name })
 	SetAlpha({ Id = screen.Components.InfoBoxTitle.Id, Fraction = 1.0, Duration = 0.2 })
 
-	ModifyTextBox({ Id = button.Screen.Components.InfoBoxDescription.Id, Text = button.Data.Name, UseDescription = true })
+	ModifyTextBox({ Id = screen.Components.InfoBoxDescription.Id, Text = button.Data.Name, UseDescription = true })
 	SetAlpha({ Id = screen.Components.InfoBoxDescription.Id, Fraction = 1.0, Duration = 0.2 })
 
 	-- Reward
-	local rewardColor = screen.RewardAvailableColor
 	if GameState.QuestStatus[button.Data.Name] == "CashedOut" then
-		rewardColor = screen.RewardCashedOutColor
+		SetAlpha({ Id = screen.Components.RewardClaimedIcon.Id, Fraction = 1.0, Duration = 0.1 })
 	else
+		SetAlpha({ Id = screen.Components.RewardText.Id, Fraction = 1.0, Duration = 0.1 })
 		if IsGameStateEligible( button.Data, button.Data.CompleteGameStateRequirements ) then
-			-- Hint
-			--[[
-			CreateTextBox({ Id = button.Screen.Components.DescriptionBox.Id,
-				Text = "QuestLog_CashOutHint",
-				FontSize = 22,
-				OffsetX = 250, OffsetY = 185,
-				Color = rewardColor,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 2},
-				Justification = "Left" })]]
-			SetAlpha({ Id = button.Screen.Components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
+			SetAlpha({ Id = screen.Components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
 		end
+		local resourceData = ResourceData[button.Data.RewardResourceName]
+		ModifyTextBox({ Id = screen.Components.RewardText.Id,
+			LuaKey = "TempTextData",
+			LuaValue = { Icon = resourceData.TextIconPath or resourceData.IconPath, Amount = button.Data.RewardResourceAmount },
+		})
 	end
 
-	local resourceData = ResourceData[button.Data.RewardResourceName]
-	
-	SetAlpha({ Id = button.Screen.Components.RewardText.Id, Fraction = 1.0, Duration = 0.2 })
-	ModifyTextBox({ Id = button.Screen.Components.RewardText.Id, 
-		LuaKey = "TempTextData",
-		LuaValue = { Icon = resourceData.TextIconPath or resourceData.IconPath, Amount = button.Data.RewardResourceAmount },
-		Color = rewardColor,
-		})
+	SetAnimation({ DestinationId = screen.Components.ShopBackgroundDecal.Id, Name = button.Data.Decal or "Blank" })
 
 	local newButtonKey = "NewIcon"..button.Index
-	if button.Screen.Components[newButtonKey] ~= nil then
-		SetAlpha({ Id = button.Screen.Components[newButtonKey].Id, Fraction = 0, Duration = 0.2 })
+	if screen.Components[newButtonKey] ~= nil then
+		SetAlpha({ Id = screen.Components[newButtonKey].Id, Fraction = 0, Duration = 0.2 })
 	end
 	if button.Data.OnViewedVoiceLines ~= nil then
 		thread( PlayVoiceLines, button.Data.OnViewedVoiceLines, true, CurrentRun.Hero, { RecheckRequirementsPostWait = true } )
@@ -94,7 +84,7 @@ function QuestScreenShowDescription( button )
 	end
 	GameState.QuestsViewed[button.Data.Name] = true
 
-	ShowQuestProgress( button.Screen, button.Data )
+	ShowQuestProgress( screen, button.Data )
 end
 
 function MouseOffQuest( button )
@@ -107,9 +97,10 @@ function QuestScreenRemoveDescription( button )
 	end
 	local screen = button.Screen
 	ModifyTextBox({ Id = button.Id, ScaleTarget = 1.0, ScaleDuration = 0.2 })
-	DestroyTextBox({ Id = button.Screen.Components.DescriptionBox.Id })
-	SetAlpha({ Id = button.Screen.Components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
-	SetAlpha({ Id = button.Screen.Components.RewardText.Id, Fraction = 0.0, Duration = 0.2 })
+	DestroyTextBox({ Id = screen.Components.DescriptionBox.Id })
+	SetAlpha({ Id = screen.Components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
+	SetAlpha({ Id = screen.Components.RewardText.Id, Fraction = 0.0, Duration = 0.2 })
+	SetAlpha({ Id = screen.Components.RewardClaimedIcon.Id, Fraction = 0.0, Duration = 0.2 })
 	SetAlpha({ Id = screen.Components.SelectionMarker.Id, Fraction = 0.0, Duration = 0.2 })
 end
 
@@ -122,6 +113,7 @@ function QuestLogPrevProgressPage( screen, button )
 	if prevOffset == screen.ProgressPageOffset then
 		return
 	end
+	PlaySound({ Name = "/SFX/Menu Sounds/DialoguePanelOutMenu", Id = button.Id })
 	QuestScreenRemoveDescription( screen.SelectedButton )
 	QuestScreenShowDescription( screen.SelectedButton )
 end
@@ -139,42 +131,13 @@ function QuestLogNextProgressPage( screen, button )
 	if prevOffset == screen.ProgressPageOffset then
 		return
 	end
+	PlaySound({ Name = "/SFX/Menu Sounds/DialoguePanelOutMenu", Id = button.Id })
 	QuestScreenRemoveDescription( screen.SelectedButton )
 	QuestScreenShowDescription( screen.SelectedButton )
-end
 
-function QuestLogPulsePageButton( button )
-	waitUnmodified(1.0, "QuestLogPulse")
-	while button and button.Visible and button.Screen and not button.Screen.Closing do
-		SetAnimation({ Name = "SkillProcFeedbackFx", DestinationId = button.Id, GroupName = "ScreenOverlay", OffsetX = -150 })
-		PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteExcitementShort", Id = button.Id })
-		PulseText({ Id = button.Id, Color = Color.BoonPatchRare, OriginalColor = Color.ContextActionLabel, ScaleTarget = 1.25, ScaleDuration = 0.2, HoldDuration = 0.1, StartColorDuration = 0.1, EndColorDuration = 2, ResetDuration = 4.0 })
-		waitUnmodified(5.0, "QuestLogPulse")
-	end
+	screen.ViewedQuestProgress[screen.SelectedButton.Data.Name] = true
+	killTaggedThreads( "QuestLogPulse" )
 end
-
---[[
-function MouseOffQuestPresentation( button )
-	if GetConfigOptionValue({ Name = "UseMouse" }) then
-
-		local text ="QuestLog_SelectHint"
-		if HasAllQuestsWithStatus( "CashedOut" ) then
-			text ="QuestLog_SelectHintAllClear"
-		end
-		if button ~= nil then
-			CreateTextBox({ Id = button.Screen.Components.DescriptionBox.Id,
-				Text = text,
-				FontSize = 34,
-				OffsetX = 365, OffsetY = 245,
-				Color = Color.White,
-				TextSymbolScale = 0.9,
-				Font = "P22UndergroundSCHeavy",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0.7}, ShadowOffset={0, 2},
-				Justification = "Center" })
-		end
-	end
-end
-]]
 
 function QuestAddedPresentation( questData, threadName )
 
@@ -267,9 +230,12 @@ function QuestCashedOutPresentation( screen, button )
 		SetAlpha({ Id = screen.Components[newButtonKey].Id, Fraction = 0, Duration = 0.1 })
 	end
 
-	SetAlpha({ Id = screen.Components["Strikethrough"..button.Index].Id, Fraction = 1.0, Duration = 0.1 })
+	SetAlpha({ Id = screen.Components["Strikethrough"..button.Index].Id, Fraction = 1.0, Duration = 0.0 })
+	SetAnimation({ DestinationId = screen.Components["Strikethrough"..button.Index].Id, Name = "QuestLogScreenStrikethroughCashIn" }) --nopkg
 
-	PlaySound({ Name = "/SFX/Menu Sounds/QuestCashIn" })
+	SetAlpha({ Id = screen.Components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
+
+	PlaySound({ Name = "/Leftovers/Menu Sounds/ListStrikethrough", Id = button.Id })
 
 	local morosId = GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = "NPC_Moros_01" })
 	local moros = ActiveEnemies[morosId]
@@ -280,4 +246,8 @@ function QuestCashedOutPresentation( screen, button )
 	else
 		thread( PlayVoiceLines, HeroVoiceLines.CashedOutQuestVoiceLines, true )
 	end
+end
+
+function QuestLogScreenClosePresentation( screen, button )
+	SetAnimation({ DestinationId = screen.Components.ShopBackground.Id, Name = "QuestLogScreenOut" })
 end

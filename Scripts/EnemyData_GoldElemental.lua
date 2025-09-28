@@ -15,6 +15,7 @@ UnitSetData.GoldElemental =
 		IsAggroedSound = "/SFX/Enemy Sounds/GoldElemental/EmoteAlerted",
 		DeathSound = "/SFX/Enemy Sounds/GoldElemental/EmoteDying",
 		DeathFx = "EnemyDeathFxChronos",
+		HealthDamageSound = "/SFX/Enemy Sounds/GoldElemental/EmoteHurt",
 		DeathAnimation = "Enemy_GoldElemental_Death",
 
 		Groups = { "GroundEnemies" },
@@ -57,11 +58,11 @@ UnitSetData.GoldElemental =
 		ActiveCapWeight = 0.25,
 		GeneratorData =
 		{
-			DifficultyRating = 38,
+			DifficultyRating = 44,
 			BlockEnemyTypes = {"GoldElemental_Elite"}
 		},
 
-		BlockAttributes = { "Tracking" },
+		BlockAttributes = { "Tracking", "ExtraDamage" },
 
 		EnemySightedVoiceLines =
 		{
@@ -76,6 +77,7 @@ UnitSetData.GoldElemental =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
+			TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 			SuccessiveChanceToPlay = 0.1,
 
 			{ Cue = "/VO/MelinoeField_1655", Text = "Goldwraiths." },
@@ -105,7 +107,7 @@ UnitSetData.GoldElemental =
 
 		GeneratorData =
 		{
-			DifficultyRating = 75,
+			DifficultyRating = 88,
 			BlockEnemyTypes = {"GoldElemental"}
 		},
 	},
@@ -115,26 +117,25 @@ UnitSetData.GoldElemental =
 		InheritFrom = { "Elite", "GoldElemental" },
 		MaxHealth = 3100,
 		HealthBuffer = 8250,
-		HealthBarOffsetY = -270,
+		HealthBarAttachToMarkerName = "GoldElemental_Rig:root_00_M_JNT",
+		HealthBarOffsetY = -150,
 		HealthBarType = "Large",
 		
 		BlockRespawnShrineUpgrade = true,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/GoldElementalMiniboss/EmoteTaunting",
 		DeathSound = "/SFX/Enemy Sounds/GoldElementalMiniboss/EmoteDying",
+		HealthDamageSound = "/SFX/Enemy Sounds/GoldElementalMiniboss/EmoteHurt",
 
 		DefaultAIData =
 		{
 			DeepInheritance = true,
-
-			DashIfOverDistance = 100,
-			DashWeapon = "GoldElementalSky"
 		},
 		PostAggroAI = "AttackerAI",
 
 		WeaponOptions =
 		{
-			"GoldElementalBeam_MiniBoss", "GoldElementalSky", "GoldElementalGround"
+			"GoldElementalBeam_MiniBoss", "GoldElementalJumpCombo", "GoldElementalGround"
 		},
 
 		GeneratorData =
@@ -167,6 +168,7 @@ UnitSetData.GoldElemental =
 			BlockEnemyTypes = {"GoldElemental"}
 		},
 	},
+
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.GoldElemental )

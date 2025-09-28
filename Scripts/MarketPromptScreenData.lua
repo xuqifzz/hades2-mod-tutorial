@@ -3,7 +3,7 @@ ScreenData.MarketSellAllLayout =
 	Components = {},
 
 	OpenSound = "/SFX/Menu Sounds/HadesLocationTextAppear",
-	CloseSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+	CloseSound = "/SFX/Menu Sounds/IrisMenuBack",
 
 	ComponentData = 
 	{
@@ -76,13 +76,14 @@ ScreenData.MarketSellAllLayout =
 					Graphic = "ButtonDefault",
 					GroupName = "Combat_Menu_TraitTray",
 					Scale = 1.0,
-					OffsetX = 200,
+					OffsetX = -200,
 					OffsetY = 200,
 					Text = "MarketScreen_ConfirmSellAll",
 					TextArgs =
 					{
 						FontSize = 22,
 						Width = 600,
+						OffsetY = -4,
 						Color = Color.White,
 						Font = "P22UndergroundSCMedium",
 						ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
@@ -90,7 +91,7 @@ ScreenData.MarketSellAllLayout =
 					Data =
 					{
 						OnPressedFunctionName = "ConfirmSellAllMarketPromptScreen",
-						PressSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+						PressSound = "/SFX/Menu Sounds/IrisMenuBack",
 					}
 				},
 				CloseButton = 
@@ -98,13 +99,14 @@ ScreenData.MarketSellAllLayout =
 					Graphic = "ButtonDefault",
 					GroupName = "Combat_Menu_TraitTray",
 					Scale = 1.0,
-					OffsetX = -200,
+					OffsetX = 200,
 					OffsetY = 200,
 					Text = "MarketScreen_CancelSellAll",
 					TextArgs =
 					{
 						FontSize = 22,
 						Width = 600,
+						OffsetY = -4,
 						Color = Color.White,
 						Font = "P22UndergroundSCMedium",
 						ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
@@ -112,7 +114,7 @@ ScreenData.MarketSellAllLayout =
 					Data =
 					{
 						OnPressedFunctionName = "CancelSellAllMarketPromptScreen",
-						PressSound = "/SFX/Menu Sounds/GodBoonMenuClose",
+						PressSound = "/SFX/Menu Sounds/IrisMenuBack",
 					}
 				},
 			}

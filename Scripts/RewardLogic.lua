@@ -61,6 +61,8 @@ end
 function ChooseRoomReward( run, room, rewardStoreName, previouslyChosenRewards, args )
 	args = args or {}
 
+	local roomData = RoomData[room.Name] or room
+
 	if not args.IgnoreForcedReward then
 		if room.NoReward then
 			return nil
@@ -68,8 +70,8 @@ function ChooseRoomReward( run, room, rewardStoreName, previouslyChosenRewards, 
 
 		if CurrentRun.ActiveBounty ~= nil then
 			local bountyData = BountyData[CurrentRun.ActiveBounty]
-			if bountyData ~= nil and Contains( room.LegalEncounters, bountyData.Encounter ) then
-				if GameState.BountiesCompleted[bountyData.Name] then
+			if bountyData ~= nil and bountyData.LootOptions == nil and ContainsAny( room.LegalEncounters, bountyData.Encounters ) then
+				if GameState.PackagedBountyClears[bountyData.Name] ~= nil then
 					return bountyData.ForcedRewardRepeat
 				else
 					return bountyData.ForcedReward
@@ -115,7 +117,7 @@ function ChooseRoomReward( run, room, rewardStoreName, previouslyChosenRewards, 
 			end
 		end
 
-		local forcedRewards = args.ForcedRewards or room.ForcedRewards
+		local forcedRewards = args.ForcedRewards or roomData.ForcedRewards
 		if forcedRewards ~= nil then
 			for k, forcedReward in pairs( forcedRewards ) do
 				if forcedReward.GameStateRequirements == nil or IsGameStateEligible( forcedReward, forcedReward.GameStateRequirements ) then
@@ -129,7 +131,8 @@ function ChooseRoomReward( run, room, rewardStoreName, previouslyChosenRewards, 
 		end
 	end
 
-	RandomSynchronize( 4 + run.NumRerolls )
+	local rngOffset = 4 + run.NumRerolls + (args.RandomOffset or 0)
+	RandomSynchronize( rngOffset )
 	local eligibleRewardKeys = {}
 	for key, reward in ipairs( run.RewardStores[rewardStoreName] ) do
 		if IsRoomRewardEligible( CurrentRun, room, reward, previouslyChosenRewards, args ) then
@@ -231,9 +234,13 @@ function SetupRoomReward( currentRun, room, previouslyChosenRewards, args )
 		-- Pre-generate specific type
 		local lootData = ChooseLoot( excludeLootNames )
 		if not args.IgnoreForceLootName then
-			for k, trait in pairs( CurrentRun.Hero.Traits ) do
-				if trait ~= nil and trait.ForceBoonName ~= nil and trait.Uses > 0 and not Contains(excludeLootNames, trait.ForceBoonName) then
+			for k, trait in ipairs( CurrentRun.Hero.Traits ) do
+				if trait ~= nil and trait.ForceBoonName ~= nil and not trait.DidBoonForce and trait.Uses > 0 and not Contains(excludeLootNames, trait.ForceBoonName) then
 					lootData = { Name = trait.ForceBoonName }
+					room.ForcedBoonNames[trait.ForceBoonName] = true
+					trait.DidBoonForce = true
+					thread( ForceBoonChosenPresentation, trait, lootData )
+					break
 				end
 			end
 		end
@@ -255,7 +262,7 @@ function SetupRoomReward( currentRun, room, previouslyChosenRewards, args )
 		currentRun.LastDevotionDepth = currentRun.RunDepthCache
 
 		room.Encounter.LootAName = prevOfferedReward.LootAName or GetInteractedGodThisRun() or GetRandomValue( GetEligibleLootNames() )
-		for k, trait in pairs( CurrentRun.Hero.Traits ) do
+		for k, trait in ipairs( CurrentRun.Hero.Traits ) do
 			if trait ~= nil and trait.ForceBoonName ~= nil and trait.Uses > 0 and Contains(GetInteractedGodsThisRun(), trait.ForceBoonName) then
 				room.Encounter.LootAName = trait.ForceBoonName
 			end
@@ -296,6 +303,7 @@ function SpawnRoomReward( eventSource, args )
 
 	local currentRun = CurrentRun
 	local currentRoom = CurrentRun.CurrentRoom
+	local roomData = RoomData[currentRoom.Name] or currentRoom
 	local currentEncounter = CurrentRun.CurrentRoom.Encounter
 
 	if currentRoom.Reward ~= nil and currentRoom.Reward.FunctionName ~= nil then
@@ -333,6 +341,10 @@ function SpawnRoomReward( eventSource, args )
 
 	local reward = nil
 
+	if roomData.SpawnRewardOnLootPoint and not args.IgnoreRoomSpawnOnLootPoint then
+		lootPointId = RemoveRandomValue(GetIdsByType({ Name = "LootPoint" }))
+	end
+
 	if args.SpawnRewardOnId == nil and currentRoom.SpawnRewardOnId == nil then
 		angle = GetAngleBetween({ Id = currentRun.Hero.ObjectId, DestinationId = offsetTowardId })
 		lootOffset = CalcOffset( math.rad(angle), 110 )
@@ -351,15 +363,12 @@ function SpawnRoomReward( eventSource, args )
 				SuppressSpawnSounds = currentRoom.SuppressRewardSpawnSounds, AutoLoadPackages = args.AutoLoadPackages })
 		end
 	elseif rewardType == "Boon" then
-		reward = CheckBoonSkipShrineUpgrade( eventSource, { LootPointId = lootPointId, LootOffset = lootOffset } )
+		local forceLootName = args.LootName or currentRoom.ForceLootName
+		reward = CheckBoonSkipShrineUpgrade( eventSource, { LootPointId = lootPointId, LootOffset = lootOffset, ForceLootName = forceLootName } )
 		if reward == nil then
-			reward = GiveLoot({ ForceLootName = args.LootName or currentRoom.ForceLootName, SpawnPoint = lootPointId, OffsetX = lootOffset.X, OffsetY = lootOffset.Y,
+			reward = GiveLoot({ ForceLootName = forceLootName, SpawnPoint = lootPointId, OffsetX = lootOffset.X, OffsetY = lootOffset.Y,
 				SuppressSpawnSounds = currentRoom.SuppressRewardSpawnSounds, AutoLoadPackages = args.AutoLoadPackages })
 			if currentRoom.ForcedReward ~= nil then
-				if currentRoom.ForcedReward.ForcedTextLines ~= nil then
-					ProcessTextLines( currentRoom.ForcedReward, currentRoom.ForcedReward.ForcedTextLines )
-					reward.ForcedTextLines = currentRoom.ForcedReward.ForcedTextLines
-				end
 				if currentRoom.ForcedReward.ForcedUpgradeOptions ~= nil then
 					reward.UpgradeOptions = currentRoom.ForcedReward.ForcedUpgradeOptions
 					reward.BlockReroll = true
@@ -381,7 +390,7 @@ function SpawnRoomReward( eventSource, args )
 		reward = GiveLoot({ ForceLootName = "TrialUpgrade", SpawnPoint = lootPointId,
 			OffsetX = lootOffset.X, OffsetY = lootOffset.Y, AutoLoadPackages = args.AutoLoadPackages })
 	elseif rewardType == "Devotion" then
-		reward = GiveLoot({ ForceLootName = currentEncounter.SpurnedGodName, ExchangeOnlyFromLootName = currentEncounter.ChosenGodName, SpawnPoint = lootPointId,
+		reward = GiveLoot({ ForceLootName = currentEncounter.SpurnedGodName, ExchangeOnlyFromLootName = currentEncounter.ChosenGodName, BlockRarities = { Duo = true }, SpawnPoint = lootPointId,
 			OffsetX = lootOffset.X, OffsetY = lootOffset.Y, AutoLoadPackages = args.AutoLoadPackages })
 		reward.CanReceiveGift = false
 	else
@@ -408,16 +417,30 @@ function SpawnRoomReward( eventSource, args )
 		end
 	end
 
+	--DebugPrint({ Text = "lootPointId = "..lootPointId })
 	MapState.RewardPointsUsed[lootPointId] = reward.ObjectId
+	--DebugPrint({ Text = "offsetTowardId = "..tostring(offsetTowardId) })
+	if offsetTowardId ~= nil then
+		MapState.RewardPointsUsed[offsetTowardId] = reward.ObjectId
+	end
 
 	RoomRewardSpawnPresentation( reward, args )
 	currentRun.BiomeRewardsSpawned = (currentRun.BiomeRewardsSpawned or 0) + 1
 
-	--local rewardOverrides = currentRoom.BoonRaritiesOverride or currentRoom.RewardConsumableOverrides or currentRoom.RewardOverrides or {}
-
 	if currentRoom.DisableRewardMagnetisim then
 		SetObstacleProperty({ Property = "MagnetismWhileBlocked", Value = 0, DestinationId = reward.ObjectId })
 	end
+
+	if roomData.OnRoomRewardSpawnedFunctionName ~= nil then
+		CallFunctionName( roomData.OnRoomRewardSpawnedFunctionName, currentRoom, roomData.OnRoomRewardSpawnedFunctionArgs )
+	end
+	for i, trait in ipairs( CurrentRun.Hero.Traits ) do
+		if trait.OnRoomRewardSpawnedFunctionName ~= nil then
+			CallFunctionName( trait.OnRoomRewardSpawnedFunctionName, trait, trait.OnRoomRewardSpawnedFunctionArgs )
+		end
+	end
+	CheckShrineBounties()
+	CheckRandomBounties()
 
 	if args.WaitUntilPickup then
 		if reward.MenuNotify ~= nil then
@@ -436,8 +459,6 @@ function SpawnPerfectClearRoomReward( eventSource, args )
 
 	if encounter.PlayerTookDamage then
 		CurrentRun.CurrentRoom.ChangeReward = "RoomRewardConsolationPrize"
-	else
-		CheckAchievement( { Name = "AchClearHeatGate" })
 	end
 	SpawnRoomReward(eventSource, args)
 end
@@ -488,4 +509,23 @@ end
 
 function RewardStoreAddPriority( args, trait )
 	table.insert( CurrentRun.RewardPriorities, args.Name )
+
+	local rewardStoreName = args.RewardStoreName or "RunProgress"
+
+	if CurrentRun.RewardStores ~= nil then
+		local storeHasPriority = false
+		for i, reward in ipairs( CurrentRun.RewardStores[rewardStoreName] ) do
+			if reward.Name == args.Name then
+				storeHasPriority = true
+				break
+			end
+		end
+		if not storeHasPriority then
+			-- Priority isn't in carousel, add another set (no need to throw out the ineligible rewards remaining)
+			local rewardStoreData = GetRewardStoreData( rewardStoreName )
+			local newRewardSet = DeepCopyTable( rewardStoreData )
+			ConcatTableValues( CurrentRun.RewardStores[rewardStoreName], newRewardSet )
+		end
+	end
+	
 end

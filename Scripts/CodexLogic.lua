@@ -40,10 +40,10 @@ function CheckCodexUnlock( chapterName, entryName, args )
 			elseif entry.UnlockGameStateRequirements ~= nil and IsGameStateEligible( entry, entry.UnlockGameStateRequirements ) then
 
 				CodexStatus[chapterName][entryName][entryIndex].Unlocked = true
-				DebugPrint({ Text = "CodexUnlock: "..chapterName.." - "..entryName.." - Entry "..entryIndex })
+				--DebugPrint({ Text = "CodexUnlock: "..chapterName.." - "..entryName.." - Entry "..entryIndex })
 
 				-- Auto-select once Codex has been opened once
-				if GameState.ScreensViewed.Codex then
+				if GameState.ScreensViewed.Codex and not IsScreenOpen( "Codex" ) then
 					CodexStatus.SelectedChapterName = chapterName
 					CodexStatus.SelectedEntryNames[chapterName] = entryName
 				end
@@ -52,7 +52,7 @@ function CheckCodexUnlock( chapterName, entryName, args )
 				CodexStatus[chapterName].New = true
 				CodexStatus[chapterName][entryName].New = true
 
-				if CodexStatus.Enabled then
+				if CodexStatus.Enabled and not SessionState.InFlashback and not SessionMapState.BlockCodexUnlockPresentation then
 					if args.DeferShowUpdate or IsCombatEncounterActive( CurrentRun ) then
 						MapState.PendingCodexUpdate = true
 					else
@@ -68,7 +68,9 @@ function CheckCodexUnlock( chapterName, entryName, args )
 		thread( CheckQuestStatus )
 	end
 
-	GameState.CodexEntriesUnlockedCache = CalcNumCodexEntriesUnlocked()
+	if not args.SkipEntriesUnlockedCacheUpdate then
+		GameState.CodexEntriesUnlockedCache = CalcNumCodexEntriesUnlocked()
+	end
 
 end
 
@@ -184,6 +186,16 @@ function OpenCodexScreen()
 		return
 	end
 
+	AddInputBlock({ Name = "OpenCodexScreen" })
+	SetPlayerInvulnerable( "Codex" )
+	AddPlayerImmuneToForce( "Codex" )
+	CurrentRun.Hero.UntargetableFlags.Codex = true
+
+	SessionMapState.BlockInfoBanners = true
+	if SetThreadWait( "InfoBanner", 0.01 ) then
+		wait( 0.2 )
+	end
+
 	if not HasNewEntries() or ( OnlyBoonScreenOpen() and CurrentLootData ) then
 		SelectNearbyUnlockedEntry()
 	end
@@ -197,9 +209,10 @@ function OpenCodexScreen()
 	OnScreenOpened( screen )
 	HideCombatUI( screen.Name )
 	CreateScreenFromData( screen, screen.ComponentData )
+
+	CodexScreenOpenedPresentation( screen )
 	
 	local components = screen.Components
-	
 	local selectedChapterName = CodexStatus.SelectedChapterName
 	if components[selectedChapterName] == nil then
 		selectedChapterName = screen.DefaultChapter
@@ -209,13 +222,14 @@ function OpenCodexScreen()
 	screen.KeepOpen = true
 	screen.AllowInput = true
 	wait( 0.1 )
+	RemoveInputBlock({ Name = "OpenCodexScreen" })
+
 	HandleScreenInput( screen )
 
 end
 
 function CodexScreenCreateChapters( screen )
 
-	local chapterSpacing = screen.ChapterSpacingX
 	local chapterX = screen.ChapterX
 	local chapterY = screen.ChapterY
 	local components = screen.Components
@@ -225,18 +239,18 @@ function CodexScreenCreateChapters( screen )
 	for index = 1, numChapters do
 		local chapterName = CodexOrdering.Order[index]
 		if HasUnlockedEntries( chapterName ) then
-			--DebugPrint({ Text = "chapterName = "..chapterName })
+
 			local chapterData = CodexData[chapterName]
 
 			local tab = screen.Tabs[index]
 			local offsetX = tab.X
 			local offsetY = tab.Y
-			local anim = tab.Animation
 
 			local chapterButton = CreateScreenComponent({ Name = "BlankInteractableObstacle",
 				X = chapterX + offsetX,
 				Y = chapterY + offsetY,
-				Animation = anim,
+				Animation = tab.Animation,
+				Alpha = 0.0,
 				Group = screen.ComponentData.DefaultGroup })
 			chapterButton.ChapterName = chapterName
 			chapterButton.ChapterData = chapterData
@@ -264,13 +278,14 @@ function CodexScreenCreateChapters( screen )
 			local categoryButtonIcon = CreateScreenComponent({ Name = "BlankObstacle", Scale = screen.CategoryIconScale,
 				X = chapterX + screen.CategoryIconOffsetX + offsetX,
 				Y = chapterY + screen.CategoryIconOffsetY + offsetY,
+				Alpha = 0.0,
 				Group = screen.ComponentData.DefaultGroup })
 			chapterButton.IconId = categoryButtonIcon.Id
 			chapterButton.IconShiftRequests = {}
 			SetAnimation({ DestinationId = categoryButtonIcon.Id, Name = chapterData.Icon })
 			screen.Components["CategoryIcon"..chapterName] = categoryButtonIcon
 
-			chapterX = chapterX + chapterSpacing
+			chapterX = chapterX + screen.ChapterSpacingX
 		end
 	end
 
@@ -333,8 +348,8 @@ function CodexOpenChapter( screen, button, args )
 	CodexStatus.SelectedChapterName = button.ChapterName
 
 	-- Highlight new category
-	SetAlpha({ Id = button.ActiveOverlayId, Fraction = 1.0, Duration = 0.1 })
-	SetAlpha({ Id = screen.Components.CategoryTitleText.Id, Fraction = 1.0, Duration = 0.1 })
+	SetAlpha({ Id = button.ActiveOverlayId, Fraction = 1.0, Duration = 0.1, EaseIn = 0, EaseOut = 1 })
+	SetAlpha({ Id = screen.Components.CategoryTitleText.Id, Fraction = 1.0, Duration = 0.1, EaseIn = 0, EaseOut = 1 })
 	ModifyTextBox({ Id = screen.Components.CategoryTitleText.Id, Text = button.ChapterData.TitleText })
 	local previousShift = not IsEmpty( button.IconShiftRequests )
 	button.IconShiftRequests.Open = true
@@ -382,16 +397,15 @@ function CodexOpenChapter( screen, button, args )
 			entry.ChapterName = button.ChapterName
 			entry.EntryName = entryName
 			entry.EntryData = entryData
-			entry.OnPressedFunctionName = "CodexOpenEntry"
 			entry.OnMouseOverFunctionName = "MouseOverCodexEntry"
 			entry.OnMouseOffFunctionName = "MouseOffCodexEntry"
 			entry.EntryXLocation = entryX
 			entry.EntryYLocation = entryY
 			entry.Screen = screen
 			AttachLua({ Id = entry.Id, Table = entry })
-			table.insert( button.EntryButtonIds, screen.Components[entryName].Id )
+			table.insert( button.EntryButtonIds, entry.Id )
 
-			local entryTextFormat = ShallowCopyTable( screen.EntryTextFormat )
+			local entryTextFormat = ApplyLocalizedProperties( ShallowCopyTable( screen.EntryTextFormat ) )
 
 			firstEntryName = firstEntryName or entryName
 			CodexStatus.SelectedEntryNames[button.ChapterName] = CodexStatus.SelectedEntryNames[button.ChapterName] or entryName
@@ -404,13 +418,19 @@ function CodexOpenChapter( screen, button, args )
 			if not GameState.CodexEntriesViewed[entryName] then
 				OverwriteTableKeys( entryTextFormat, screen.UnreadUnselectedFormat )
 			end
+
+			if entryData.AltImage ~= nil and IsGameStateEligible( entryData, entryData.AltImageRequirements ) then
+				entry.Portrait = entryData.AltImage
+			else
+				entry.Portrait = entryData.Image
+			end
 			
-			entryTextFormat.Id = screen.Components[entryName].Id
+			entryTextFormat.Id = entry.Id
 			entryTextFormat.Text = text
 			CreateTextBox( entryTextFormat )
 
 			screen.NumItems = screen.NumItems + 1
-			screen.Components[entryName].EntryIndex = screen.NumItems
+			entry.EntryIndex = screen.NumItems
 			table.insert( screen.ActiveEntries, entryName )
 			entryY = entryY + screen.ItemSpacingY
 		else
@@ -423,6 +443,10 @@ function CodexOpenChapter( screen, button, args )
 	end
 
 	local selectedEntryName = CodexStatus.SelectedEntryNames[button.ChapterName] or firstEntryName
+	if selectedEntryName ~= nil and screen.Components[selectedEntryName] == nil then
+		selectedEntryName = firstEntryName
+	end
+
 	if selectedEntryName ~= nil and screen.Components[selectedEntryName] ~= nil then
 		local selectedFormat = screen.SelectedFormat
 		selectedFormat.Id = screen.Components[selectedEntryName].Id
@@ -437,14 +461,15 @@ function CodexOpenChapter( screen, button, args )
 	CodexUpdateVisibility( screen )
 	
 	if selectedEntryName ~= nil then
-		DebugPrint({ Text = "selectedEntryName = "..selectedEntryName })
+		--DebugPrint({ Text = "selectedEntryName = "..selectedEntryName })
 		local entry = screen.Components[selectedEntryName]
 		if entry ~= nil then
-			wait( 0.02 )
 			TeleportCursor({ OffsetX = entry.EntryXLocation, OffsetY = entry.EntryYLocation, ForceUseCheck = true })
+			Teleport({ Id = screen.Components.CategoryEntryBacking.Id, OffsetX = entry.EntryXLocation, OffsetY = entry.EntryYLocation })
 		else
 			TeleportCursor({ OffsetX = screen.ItemStartX, OffsetY = screen.ItemStartY, ForceUseCheck = true })
 		end
+		SetAlpha({ Id = screen.Components.CategoryEntryBacking.Id, Fraction = 1, Duration = 0.1 })
 	else
 		TeleportCursor({ OffsetX = screen.ItemStartX, OffsetY = screen.ItemStartY, ForceUseCheck = true })
 	end
@@ -458,9 +483,11 @@ function CodexOpenEntry( screen, button, args )
 		return
 	end
 
-	if button.EntryName == screen.OpenEntryName and screen.Components.EntryText ~= nil then
-		-- Already open
-		return
+	if not args.LanguageChanged then
+		if button.EntryName == screen.OpenEntryName and screen.Components.EntryText ~= nil then
+			-- Already open
+			return
+		end
 	end
 	screen.OpenEntryName = button.EntryName
 	--DebugPrint({ Text = "Opening: "..button.EntryName })
@@ -471,23 +498,19 @@ function CodexOpenEntry( screen, button, args )
 	Destroy({ Id = screen.Components[button.EntryName].UnreadStarId })
 	screen.Components[button.EntryName].UnreadStarId = nil
 
+	SetAnimation({ DestinationId = screen.Components.CategoryEntryBacking.Id, Name = "CodexBackingEntry" })
+
 	local selectedFormat = screen.SelectedFormat
 	selectedFormat.Id = screen.Components[button.EntryName].Id
 	ModifyTextBox( selectedFormat )
-
-	CodexScreenOpenEntryPresentation( screen, button, args )
 
 	CreateRelationshipBar( screen, button.EntryName )
 	if CodexData[button.ChapterName].ShowKillCount then
 		InitKillCountText( screen, button.EntryData )
 	end
 
-	SetAlpha({ Id = screen.Components.Image.Id, Fraction = 1 })
-	SetAlpha({ Id = screen.Components.ImageShadow.Id, Fraction = 1.0 })
-
-	if button.EntryData.Image ~= nil then
-		SetAnimation({ DestinationId = screen.Components.Image.Id, Name = button.EntryData.Image })
-		SetAnimation({ DestinationId = screen.Components.ImageShadow.Id, Name = button.EntryData.Image })
+	if not args.LanguageChanged then
+		CodexScreenSwapPortraitPresentation( screen, button )
 	end
 
 	if button.EntryData.Entries ~= nil then
@@ -506,7 +529,7 @@ function CodexOpenEntry( screen, button, args )
 
 		local lang = GetLanguage({})
 		if complete then
-			if Contains(LocalizationData.CodexScripts.EntryCompleteSkipNewLines, lang) then
+			if Contains(ScreenData.Codex.EntryCompleteSkipNewLines, lang) then
 				text = text .. " " .. GetDisplayName({Text = "Codex_Complete"})
 			else
 				text = text .. " \\n " .. GetDisplayName({Text = "Codex_Complete"})
@@ -518,9 +541,9 @@ function CodexOpenEntry( screen, button, args )
 			threshold = 1
 		end
 
-		SetAlpha({ Id = screen.Components.EntryText.Id, Fraction = 1, Duration = 0.2 })
+		SetAlpha({ Id = screen.Components.EntryText.Id, Fraction = 1, Duration = 0.12, EaseIn = 0, EaseOut = 1 })
 		ModifyTextBox({ Id = screen.Components.EntryText.Id, Text = text, LuaKey = "TempTextData", LuaValue = { Amount = threshold, Name = button.EntryName } })
-		SetAlpha({ Id = screen.Components.EntryTitle.Id, Fraction = 1, Duration = 0.2 })
+		SetAlpha({ Id = screen.Components.EntryTitle.Id, Fraction = 1, Duration = 0.12, EaseIn = 0, EaseOut = 1 })
 		ModifyTextBox({ Id = screen.Components.EntryTitle.Id, Text = button.EntryName })
 
 	end
@@ -528,7 +551,10 @@ function CodexOpenEntry( screen, button, args )
 	if button.EntryData.EntryReadVoiceLines ~= nil then
 		thread( PlayVoiceLines, button.EntryData.EntryReadVoiceLines )
 	end
-	
+
+	SetAlpha({ Id = screen.Components.CategoryEntryBacking.Id, Fraction = 1, Duration = 0.1 })
+	Teleport({ Id = screen.Components.CategoryEntryBacking.Id, DestinationId = button.Id })
+
 	UpdateCodexContextualAction( screen, button )
 
 end
@@ -541,14 +567,14 @@ function CodexCloseChapter( screen, chapterName, chapterData, args )
 	args = args or {}
 
 	CodexCloseEntry( screen )
-
-	SetAlpha({ Id = screen.Components.CategoryTitleText.Id, Fraction = 0.0, Duration = 0.1 })
+	SetAlpha({ Id = screen.Components.CategoryEntryBacking.Id, Fraction = 0.0, Duration = 0.06 })
+	SetAlpha({ Id = screen.Components.CategoryTitleText.Id, Fraction = 0.0, Duration = 0.06, EaseIn = 0, EaseOut = 1 })
 	for entryName, entryData in pairs( chapterData.Entries ) do
 		if screen.Components[entryName] ~= nil then
 			if screen.Components[entryName].UnreadStarId then
-				SetAlpha({ Id = screen.Components[entryName].UnreadStarId, Fraction = 0.0, Duration = 0.1 })
+				SetAlpha({ Id = screen.Components[entryName].UnreadStarId, Fraction = 0.0, Duration = 0.06, EaseIn = 0, EaseOut = 1 })
 			end
-			SetAlpha({ Id = screen.Components[entryName].Id, Fraction = 0.0, Duration = 0.1 })
+			SetAlpha({ Id = screen.Components[entryName].Id, Fraction = 0.0, Duration = 0.06, EaseIn = 0, EaseOut = 1 })
 		end
 	end
 	wait( 0.1 )
@@ -573,7 +599,7 @@ function CodexCloseChapter( screen, chapterName, chapterData, args )
 	end
 	local chapterButton = screen.Components[chapterName]
 	if chapterButton ~= nil then
-		SetAlpha({ Id = chapterButton.ActiveOverlayId, Fraction = 0.0, Duration = 0.1 })
+		SetAlpha({ Id = chapterButton.ActiveOverlayId, Fraction = 0.0, Duration = 0.06, EaseIn = 0, EaseOut = 1 })
 		local previousShift = not IsEmpty( chapterButton.IconShiftRequests )
 		chapterButton.IconShiftRequests.Open = nil
 		if previousShift and IsEmpty( chapterButton.IconShiftRequests ) then
@@ -585,12 +611,10 @@ end
 
 function CodexCloseEntry( screen, entryName )
 
-	SetAlpha({ Id = screen.Components.EntryText.Id, Fraction = 0, Duration = 0.1 })
-	SetAlpha({ Id = screen.Components.EntryTitle.Id, Fraction = 0, Duration = 0.1 })
-	SetAlpha({ Id = screen.Components.RelationshipBarHint.Id, Fraction = 0, Duration = 0.1 })
-	SetAlpha({ Id = screen.Components.EnemyStatsText.Id, Fraction = 0, Duration = 0.1 })
-	SetAlpha({ Id = screen.Components.Image.Id, Fraction = 0.0, Duration = 0.1 })
-	SetAlpha({ Id = screen.Components.ImageShadow.Id, Fraction = 0.0, Duration = 0.1 })
+	SetAlpha({ Id = screen.Components.EntryText.Id, Fraction = 0, Duration = 0.06, EaseIn = 0, EaseOut = 1 })
+	SetAlpha({ Id = screen.Components.EntryTitle.Id, Fraction = 0, Duration = 0.06, EaseIn = 0, EaseOut = 1 })
+	SetAlpha({ Id = screen.Components.RelationshipBarHint.Id, Fraction = 0, Duration = 0.06, EaseIn = 0, EaseOut = 1 })
+	SetAlpha({ Id = screen.Components.EnemyStatsText.Id, Fraction = 0, Duration = 0.06, EaseIn = 0, EaseOut = 1 })
 
 	if screen.Components.RelationshipBar ~= nil then
 		Destroy({ Id = screen.Components.RelationshipBar.Id })
@@ -614,9 +638,15 @@ function CloseCodexScreen( screen, button )
 	if not screen or not screen.AllowInput then
 		return
 	end
+
+	SetPlayerVulnerable( "Codex" )
+	RemovePlayerImmuneToForce( "Codex" )
+	CurrentRun.Hero.UntargetableFlags.Codex = nil
 	
 	screen.AllowInput = false
 	screen.CloseTriggered = true
+
+	SessionMapState.BlockInfoBanners = false
 
 	local destroyIds = GetAllIds( screen.Components )
 	if screen.Components.RelationshipIcons then
@@ -631,41 +661,50 @@ function CloseCodexScreen( screen, button )
 	end
 	UseableOff({ Ids = destroyIds })
 	OnScreenCloseStarted( screen )
-	CloseScreen( destroyIds , 0.15 )
-
+	CodexScreenClosedPresentation( screen, button )
+	CloseScreen( destroyIds, nil, screen )
 	OnScreenCloseFinished( screen )
 	ShowCombatUI( screen.Name )
-	
-	if ScreenAnchors.ChoiceScreen ~= nil then
-		local screenIds = GetAllIds({ 
-			ScreenAnchors.ChoiceScreen.Components.PurchaseButton1, 
-			ScreenAnchors.ChoiceScreen.Components.PurchaseButton2, 
-			ScreenAnchors.ChoiceScreen.Components.PurchaseButton3 })
-		
-		if screenIds[1] then
-			TeleportCursor({ DestinationId = screenIds[1], ForceUseCheck = true })
-		end
-	end
+
 end
 
 function CreateRelationshipBar( screen, entryName )
 
-	if NarrativeData[entryName] == nil then
+	local narrativeData = NarrativeData[entryName]
+	if narrativeData == nil then
 		return false
 	end
+
 	if not GameState.WorldUpgradesAdded.WorldUpgradeRelationshipBar then
 		return false
 	end
 
-	local giftEvents = NarrativeData[entryName].GiftTextLinePriorities
-	if giftEvents == nil then
+	if narrativeData.HideRelationshipBar or narrativeData.GiftTextLinePriorities == nil then
 		return false
 	end
 
 	screen.Components.RelationshipIcons = {}
 
-	local giftTrackArgs = { Name = entryName, }
+	local giftTrackArgs = { EntryName = narrativeData.GiftTrackEntryName or entryName, CharacterName = entryName }
+
+	local specialGiftTrackEligible = false
+	if narrativeData.SpecialGiftTrackHintRequirements ~= nil then
+		if IsGameStateEligible( narrativeData, narrativeData.SpecialGiftTrackHintRequirements ) then
+			specialGiftTrackEligible = true
+			giftTrackArgs.FullHeartTrack = narrativeData.SpecialGiftTrackFullHearts
+		else
+			giftTrackArgs.SpecialGiftTrackLockedHintId = narrativeData.SpecialGiftTrackLockedHintId
+		end
+	end
+	if narrativeData.SpecialKeepsakeEventRequirements ~= nil and IsGameStateEligible( narrativeData, narrativeData.SpecialKeepsakeEventRequirements ) then
+		giftTrackArgs.HasSpecialKeepsakeEvent = true
+	end
+
 	CreateGiftTrack( screen, giftTrackArgs )
+
+	if specialGiftTrackEligible then
+		giftTrackArgs.HintId = narrativeData.SpecialGiftTrackHintId
+	end
 
 	if giftTrackArgs.HintId == nil then
 		return false
@@ -675,9 +714,8 @@ function CreateRelationshipBar( screen, entryName )
 		Id = screen.Components.RelationshipBarHint.Id,
 		Text = giftTrackArgs.HintId,
 		LuaKey = "TempTextData",
-		LuaValue = giftTrackArgs.HintValues or {},
+		LuaValue = giftTrackArgs.HintValues or { CharacterName = entryName },
 	})
-	wait( 0.03 ) -- Need to give 1 frame to render at new position
 	SetAlpha({ Id = screen.Components.RelationshipBarHint.Id, Fraction = 1, Duration = 0.2 })
 
 	return true
@@ -685,102 +723,232 @@ end
 
 function CreateGiftTrack( screen, args )
 
-	local entryName = args.Name
+	local entryName = args.EntryName
+	local characterName = args.CharacterName
 	local giftTrackIds = {}
 	local group = args.GroupName or screen.ComponentData.DefaultGroup
+	local questLogUnlocked = IsGameStateEligible( nil, { NamedRequirements = { "QuestLogUnlocked" } } )
 
 	local giftEvents = NarrativeData[entryName].GiftTextLinePriorities
 
 	local locationX = screen.GiftTrackX + ScreenCenterNativeOffsetX
 	local locationY = screen.GiftTrackY + ScreenCenterNativeOffsetY
-	local iconCount = 0
-	local row = 1
 
 	local npcTarget = ActiveEnemies[GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = entryName })]
-	if npcTarget ~= nil then
-		local giftable = true
-		if npcTarget.NextInteractLines ~= nil and npcTarget.NextInteractLines.InitialGiftableOffSource ~= nil then
-			giftable = false
-		end
-		if npcTarget.InteractTextLineSets ~= nil then
-			for k, textLineSet in pairs( npcTarget.InteractTextLineSets ) do
-				if CurrentRun.TextLinesRecord[textLineSet.Name] and textLineSet.GiftableOffSource then
-					giftable = false
-					break
+	if npcTarget == nil and EnemyData[entryName] ~= nil and EnemyData[entryName].GiftTrackNPCVariant ~= nil then
+		npcTarget = ActiveEnemies[GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = EnemyData[entryName].GiftTrackNPCVariant })]
+	end
+
+	local giftSource = npcTarget or EnemyData[entryName] or LootData[entryName] or ConsumableData[entryName]
+
+	local completedEvents = {}
+	local availableEvents = {} -- Only next single event for each resource type
+	local lockedEvents = {}
+
+	for i, eventName in ipairs( giftEvents ) do
+		
+		local giftEventData = giftSource.GiftTextLineSets[eventName]
+		if giftEventData.OnGiftTrack then
+			local requirementsArgs = {}
+			if GameState.TextLinesRecord[giftEventData.Name] then
+				table.insert( completedEvents, giftEventData )
+			elseif giftEventData.GameStateRequirements ~= nil and not IsGameStateEligible( giftSource, giftEventData.GameStateRequirements, requirementsArgs ) then
+				table.insert( lockedEvents, { GiftEventData = giftEventData, RequirementsArgs = requirementsArgs } )
+			elseif giftEventData.AlwaysLocked then
+				table.insert( lockedEvents, { GiftEventData = giftEventData, RequirementsArgs = requirementsArgs } )
+			else
+				local resourceData = nil
+				for resourceName, resourceAmount in pairs( giftEventData.Cost ) do
+					resourceData = ResourceData[resourceName]
+				end
+				if availableEvents[resourceData.Name] == nil then
+					availableEvents[resourceData.Name] = giftEventData
+				else
+					-- Not really locked, but has another event of the same resource type ahead of it
+					table.insert( lockedEvents, { GiftEventData = giftEventData, RequirementsArgs = requirementsArgs } )
 				end
 			end
 		end
-		if not giftable then
-			args.HintId = "Codex_DoesntWantGiftHint"
-			args.HintValues = { CharacterName = entryName }
+	end
+
+	local completedEventsInOrder = {}
+	if GameState.GiftTextLinesOrderRecord[entryName] ~= nil then
+		for i, conversationName in ipairs( GameState.GiftTextLinesOrderRecord[entryName] ) do
+			local giftEventData = RemoveEventWithName( completedEvents, conversationName )
+			if giftEventData ~= nil then
+				table.insert( completedEventsInOrder, giftEventData )
+			end
+		end
+	end
+	-- Add anything missed remaining (likely from back-compat)
+	for i, giftEventData in ipairs( completedEvents ) do
+		table.insert( completedEventsInOrder, giftEventData )
+	end
+
+	-- Hackery for Zagreus's unique setup
+	if args.HasSpecialKeepsakeEvent ~= nil then
+		table.insert( completedEventsInOrder, { FilledIcon = "FilledHeartWithGiftIcon" } )
+	end
+	if args.FullHeartTrack then
+		local dummyEvent = {}
+		for i=1,16 do
+			table.insert( completedEventsInOrder, dummyEvent )
+		end
+	end
+	if args.SpecialGiftTrackLockedHintId ~= nil then
+		table.insert( lockedEvents,
+		{
+			GiftEventData =
+			{
+				Name = "DummyLockedEvent",
+				LockedHintId = args.SpecialGiftTrackLockedHintId,
+				Cost =
+				{
+					GiftPoints = 1,
+				},
+			},
+			RequirementsArgs = {},
+		} )
+	end
+
+	for i, giftEventData in ipairs( completedEventsInOrder ) do
+		if giftEventData.StartBecomingCloserTrack then
+			local arrowIconName = "HeartDividerIcon"
+			local arrowIconId = CreateScreenComponent({ Name = "BlankObstacle", Group = group, X = locationX, Y = locationY, Animation = arrowIconName, Alpha = 0, AlphaTarget = 1.0, AlphaTargetDuration = 0.2 }).Id
+			table.insert( screen.Components.RelationshipIcons, arrowIconId )
+			locationX = locationX + screen.GiftTrackSpacingX
+		end
+
+		local iconName = giftEventData.FilledIcon or "FilledHeartIcon"
+		if iconName == "FilledHeartWithProphecyIcon" and not questLogUnlocked then
+			iconName = "FilledHeartIcon"
+		end
+		local newIconId = CreateScreenComponent({ Name = "BlankObstacle", Group = group, X = locationX, Y = locationY, Animation = iconName, Alpha = 0, AlphaTarget = 1.0, AlphaTargetDuration = 0.2 }).Id
+		table.insert( screen.Components.RelationshipIcons, newIconId )
+		locationX = locationX + screen.GiftTrackSpacingX
+
+		if giftEventData.CompletedHintId ~= nil then
+			args.HintId = giftEventData.CompletedHintId
+			args.HintValues = { CharacterName = characterName }
 		end
 	end
 
-	for i, eventName in ipairs( giftEvents ) do
-		local giftSource = npcTarget or EnemyData[entryName] or LootData[entryName] or ConsumableData[entryName]
-		local giftEventData = giftSource.GiftTextLineSets[eventName]
-		local onGiftTrack = giftEventData.OnGiftTrack
-		if giftEventData.AltGiftTrackEvent ~= nil then
-			local altGiftEventData = giftSource.GiftTextLineSets[giftEventData.AltGiftTrackEvent]
-			if GameState.TextLinesRecord[giftEventData.AltGiftTrackEvent] or 
-				( not IsGameStateEligible( giftSource, giftEventData.GameStateRequirements ) and IsGameStateEligible( giftSource, altGiftEventData.GameStateRequirements ) ) then
-				--DebugPrint({ Text = "giftEventData.AltGiftTrackEvent = "..giftEventData.AltGiftTrackEvent })
-				giftEventData = altGiftEventData
+	if args.HintId == nil then
+		if CurrentRun.RelationshipsAdvanced[entryName] then
+			args.HintId = "Codex_TrustDeepened01"
+			args.HintValues = { CharacterName = characterName }
+		elseif not IsEmpty( CurrentRun.GiftRecord[entryName] ) and giftSource.UnlimitedGifts == nil then
+			args.HintId = "Codex_AlreadyReceivedGift"
+			args.HintValues = { CharacterName = characterName }
+		elseif npcTarget ~= nil then
+			local giftable = true
+			if npcTarget.NextInteractLines ~= nil and npcTarget.NextInteractLines.InitialGiftableOffSource ~= nil then
+				giftable = false
+			end
+			if npcTarget.InteractTextLineSets ~= nil then
+				for k, textLineSet in pairs( npcTarget.InteractTextLineSets ) do
+					if CurrentRun.TextLinesRecord[textLineSet.Name] and textLineSet.GiftableOffSource then
+						giftable = false
+						break
+					end
+				end
+			end
+			if not giftable then
+				args.HintId = "Codex_DoesntWantGiftHint"
+				args.HintValues = { CharacterName = characterName }
 			end
 		end
-		if onGiftTrack then
+	end
+
+	local availableEventResourceOrder = { "GiftPoints", "SuperGiftPoints", "GiftPointsEpic", "GiftPointsRare", "IcarusPoints" }
+	for i, resourceName in ipairs( availableEventResourceOrder ) do
+		local giftEventData = availableEvents[resourceName]
+		if giftEventData ~= nil then
+			if giftEventData.StartBecomingCloserTrack then
+				local arrowIconName = "HeartDividerIcon"
+				local arrowIconId = CreateScreenComponent({ Name = "BlankObstacle", Group = group, X = locationX, Y = locationY, Animation = arrowIconName, Alpha = 0, AlphaTarget = 1.0, AlphaTargetDuration = 0.2 }).Id
+				table.insert( screen.Components.RelationshipIcons, arrowIconId )
+				locationX = locationX + screen.GiftTrackSpacingX
+			end
+
+			local iconName = giftEventData.UnfilledIcon or "EmptyHeartIcon"
+			if iconName == "EmptyHeartWithProphecyIcon" and not questLogUnlocked then
+				iconName = "EmptyHeartIcon"
+			end
+			local newIconId = CreateScreenComponent({ Name = "BlankObstacle", Group = group, X = locationX, Y = locationY, Animation = iconName, Alpha = 0, AlphaTarget = 1.0, AlphaTargetDuration = 0.2 }).Id
+			table.insert( screen.Components.RelationshipIcons, newIconId )
+			locationX = locationX + screen.GiftTrackSpacingX
+
 			local resourceData = nil
 			for resourceName, resourceAmount in pairs( giftEventData.Cost ) do
 				resourceData = ResourceData[resourceName]
 			end
-			iconCount = iconCount + 1
 
-			local newIconId = CreateScreenComponent({ Name = "BlankObstacle", Group = group, X = locationX, Y = locationY, Angle = screen.GiftTrackAngle }).Id
-			table.insert( screen.Components.RelationshipIcons, newIconId )
-			
-			local requirementsArgs = {}
-			if GameState.TextLinesRecord[giftEventData.Name] then
-				local iconName = giftEventData.FilledIcon or "FilledHeartIcon"
-				SetAnimation({ Name = iconName, DestinationId = newIconId })
-			elseif giftEventData.GameStateRequirements ~= nil and not IsGameStateEligible( giftSource, giftEventData.GameStateRequirements, requirementsArgs ) then
-				local iconName = "LockedHeartIcon"
-				SetAnimation({ Name = iconName, DestinationId = newIconId })
-				if args.HintId == nil and giftEventData.LockedHintId ~= nil then
-					if requirementsArgs.FailedRequirementIndex ~= nil and giftEventData.GameStateRequirements[requirementsArgs.FailedRequirementIndex].HintId ~= nil then
-						args.HintId = giftEventData.GameStateRequirements[requirementsArgs.FailedRequirementIndex].HintId
-					else
-						args.HintId = giftEventData.LockedHintId
-					end
-					DebugPrint({ Text = "Locked args.HintId = "..args.HintId..", eventName = "..eventName })
-					args.HintValues = { CharacterName = entryName, ResourceName = resourceData.Name, ResourceIcon = resourceData.TextIconPath }
-					Flash({ Id = newIconId, Speed = 0.8, MinFraction = 0.1, MaxFraction = 0.3, Color = Color.White })
-				end	
-			else
-				local iconName = giftEventData.UnfilledIcon or "EmptyHeartIcon"
-				SetAnimation({ Name = iconName, DestinationId = newIconId })
-				if args.HintId == nil then
-					args.HintId = giftEventData.HintId or "Codex_DefaultGiftHint"
-					DebugPrint({ Text = "Unlocked args.HintId = "..args.HintId..", eventName = "..eventName })
-					args.HintValues = { CharacterName = entryName, ResourceName = resourceData.Name, ResourceIcon = resourceData.TextIconPath }
-					Flash({ Id = newIconId, Speed = 0.8, MinFraction = 0.1, MaxFraction = 0.3, Color = Color.White })
-				end
+			if args.HintId == nil then
+				args.HintId = giftEventData.HintId or "Codex_DefaultGiftHint"
+				DebugPrint({ Text = "Unlocked args.HintId = "..args.HintId..", giftEventData.Name = "..giftEventData.Name })
+				args.HintValues = { CharacterName = characterName, ResourceName = resourceData.Name, ResourceIcon = resourceData.TextIconPath }
+				Flash({ Id = newIconId, Speed = 0.8, MinFraction = 0.1, MaxFraction = 0.3, Color = Color.White })
 			end
-
-			if iconCount % screen.GiftTrackIconsPerRow == 0 then
-				locationX = screen.GiftTrackX + ScreenCenterNativeOffsetX
-				locationY = screen.GiftTrackY + ScreenCenterNativeOffsetY
-				local offset = CalcOffset( math.rad( screen.GiftTrackAngle - 90 ), screen.GiftTrackSpacingY )
-				locationX = locationX + (offset.X * row)
-				locationY = locationY + (offset.Y * row)
-				row = row + 1
-			else
-				local offset = CalcOffset( math.rad( screen.GiftTrackAngle ), screen.GiftTrackSpacingX )
-				locationX = locationX + offset.X
-				locationY = locationY + offset.Y
-			end
-
 		end
 	end
+
+	for i, lockedData in ipairs( lockedEvents ) do
+
+		local giftEventData = lockedData.GiftEventData
+		--DebugPrint({ Text = "Locked giftEventData.Name = "..giftEventData.Name })
+		local requirementsArgs = lockedData.RequirementsArgs
+
+		local iconName = giftEventData.LockedIcon or "LockedHeartIcon"
+		local newIconId = CreateScreenComponent({ Name = "BlankObstacle", Group = group, X = locationX, Y = locationY, Animation = iconName, Alpha = 0, AlphaTarget = 1.0, AlphaTargetDuration = 0.2 }).Id
+		table.insert( screen.Components.RelationshipIcons, newIconId )
+		locationX = locationX + screen.GiftTrackSpacingX
+
+		local resourceData = nil
+		for resourceName, resourceAmount in pairs( giftEventData.Cost ) do
+			resourceData = ResourceData[resourceName]
+		end
+
+		if args.HintId == nil then
+			if requirementsArgs.FailedRequirementIndex ~= nil and giftEventData.GameStateRequirements[requirementsArgs.FailedRequirementIndex] ~= nil and giftEventData.GameStateRequirements[requirementsArgs.FailedRequirementIndex].HintId ~= nil then
+				args.HintId = giftEventData.GameStateRequirements[requirementsArgs.FailedRequirementIndex].HintId
+			elseif giftEventData.LockedHintId ~= nil  then
+				args.HintId = giftEventData.LockedHintId
+			end
+			DebugPrint({ Text = "Locked args.HintId = "..tostring(args.HintId)..", giftEventData.Name = "..giftEventData.Name })
+			args.HintValues = { CharacterName = characterName, ResourceName = resourceData.Name, ResourceIcon = resourceData.TextIconPath }
+			Flash({ Id = newIconId, Speed = 0.8, MinFraction = 0.1, MaxFraction = 0.3, Color = Color.White })
+		end
+
+		break -- Only ever show a single lock
+
+	end
+
+	if #lockedEvents > 1 then
+		local newIconId = CreateScreenComponent({ Name = "BlankObstacle", Group = group, X = locationX + screen.GiftTrackMysteryHeartSpacingX, Y = locationY, Animation = "MysteryHeartIcon", Alpha = 0, AlphaTarget = 1.0, AlphaTargetDuration = 0.2 }).Id
+		table.insert( screen.Components.RelationshipIcons, newIconId )
+	end
+
+end
+
+function RemoveNextEventWithResource( completedEvents, resourceName )
+	for i, giftEventData in ipairs( completedEvents ) do
+		if giftEventData.Cost[resourceName] ~= nil then
+			RemoveValueAndCollapse( completedEvents, giftEventData )
+			return giftEventData
+		end
+	end
+	return nil
+end
+
+function RemoveEventWithName( completedEvents, conversationName )
+	for i, giftEventData in ipairs( completedEvents ) do
+		if giftEventData.Name == conversationName then
+			RemoveValueAndCollapse( completedEvents, giftEventData )
+			return giftEventData
+		end
+	end
+	return nil
 end
 
 function InitKillCountText( screen, entryData )
@@ -801,25 +969,22 @@ function InitKillCountText( screen, entryData )
 end
 
 function CanOpenCodex()
-	if not CodexStatus.Enabled or MapState.InOverlook then
+	if not CodexStatus.Enabled or MapState.InOverlook or SessionState.InFlashback or SessionMapState.BlockCodex then
 		return false
 	end
 
-	if not CurrentRun.Hero.IsDead then
-		if not CurrentRun.CurrentRoom.AllowInventoryInCombat and ( IsCombatEncounterActive( CurrentRun, { IgnoreMainEncounter = CurrentRun.CurrentRoom.IgnoreMainEncounterForInventory } ) or not IsEmpty( RequiredKillEnemies ) or IsAggroedUnitBlockingInteract() ) then
+	if not CurrentRun.Hero.IsDead and not CurrentRun.CurrentRoom.AllowInventoryInCombat then
+		if IsCombatEncounterActive( CurrentRun, { IgnoreMainEncounter = CurrentRun.CurrentRoom.IgnoreMainEncounterForInventory, CheckBlockCodexBeforeStart = true } ) then
 			return false
 		end
-		if CurrentRun.CurrentRoom.StartedChallengeEncounter and not CurrentRun.CurrentRoom.ChallengeEncounter.Completed then
+		if not IsEmpty( RequiredKillEnemies ) then
 			return false
 		end
-		if CurrentRun.CurrentRoom.Encounter ~= nil then
-			local encounterData = EncounterData[CurrentRun.CurrentRoom.Encounter.Name] or CurrentRun.CurrentRoom.Encounter
-			if encounterData.BlockCodexBeforeStart and not CurrentRun.CurrentRoom.Encounter.Completed then
-				return false
-			end
+		if IsAggroedUnitBlockingInteract() then
+			return false
 		end
 	end
-	return ( not AreScreensActive() or OnlyBoonScreenOpen()) and IsInputAllowed({})
+	return ( not AreScreensActive() or OnlyBoonScreenOpen() ) and IsInputAllowed({})
 end
 
 function OnlyBoonScreenOpen()
@@ -849,36 +1014,8 @@ function AttemptOpenCodexBoonInfo( codexScreen, button )
 
 	local currentEntryName = CodexStatus.SelectedEntryNames[CodexStatus.SelectedChapterName]
 	local entryData = CodexData[CodexStatus.SelectedChapterName].Entries[currentEntryName]
-	ShowBoonInfoScreen( entryData.BoonInfoEnemyName or entryData.BoonInfoLootName or currentEntryName, codexScreen, currentEntryName, entryData )
+	ShowBoonInfoScreen( { LootName = entryData.BoonInfoEnemyName or entryData.BoonInfoLootName or currentEntryName, CodexScreen = codexScreen, CodexEntryName = currentEntryName, CodexEntryData = entryData } )
 
-end
-
-function HasCodexEntryBeenFound( requiredEntryName, requiredEntryIndex )
-	local codexEntryFound = false
-	for chapterName, chapterData in pairs( CodexData ) do
-		for entryName in pairs( CodexData[chapterName].Entries ) do
-			if entryName == requiredEntryName then
-				if CodexStatus[chapterName] == nil or CodexStatus[chapterName][entryName] == nil or CodexStatus[chapterName][entryName][requiredEntryIndex] == nil or not CodexStatus[chapterName][entryName][requiredEntryIndex].Unlocked or CodexStatus[chapterName][entryName].New then
-					return false
-				else
-					local allUnlocked = true
-					for i = 1, requiredEntryIndex do
-						if not CodexStatus[chapterName][entryName][i] or not CodexStatus[chapterName][entryName][i].Unlocked then
-							allUnlocked = false
-							break
-						end
-					end
-					if allUnlocked then
-						codexEntryFound = true
-					end
-				end
-			end
-		end
-	end
-	if not codexEntryFound then
-		return false
-	end
-	return true
 end
 
 function CodexScrollUp( screen, button )
@@ -886,13 +1023,9 @@ function CodexScrollUp( screen, button )
 		return
 	end
 	screen.ScrollOffset = screen.ScrollOffset - screen.MaxVisibleEntries
-	CodexUpdateVisibility( screen )
-	thread( CodexUpdateCursorUp, screen, button )
-end
-
-function CodexUpdateCursorUp( screen, button )
-	-- @hack Need to wait for screen to re-allow input again
-	wait(0.04)
+	GenericScrollPresentation( screen, button )
+	CodexUpdateVisibility( screen, { AutoOpen = true, ScrolledUp = true } )
+	wait(0.02)
 	TeleportCursor({ OffsetX = screen.ItemStartX, OffsetY = screen.ItemStartY + ((screen.MaxVisibleEntries - 1) * screen.ItemSpacingY), ForceUseCheck = true })
 end
 
@@ -901,13 +1034,9 @@ function CodexScrollDown( screen, button )
 		return
 	end
 	screen.ScrollOffset = screen.ScrollOffset + screen.MaxVisibleEntries
-	CodexUpdateVisibility( screen )
-	thread( CodexUpdateCursorDown, screen, button )	
-end
-
-function CodexUpdateCursorDown( screen, button )
-	-- @hack Need to wait for screen to re-allow input again
-	wait(0.04)
+	GenericScrollPresentation( screen, button )
+	CodexUpdateVisibility( screen, { AutoOpen = true, ScrolledDown = true } )
+	wait(0.02)
 	TeleportCursor({ OffsetX = screen.ItemStartX, OffsetY = screen.ItemStartY, ForceUseCheck = true })
 end
 
@@ -936,6 +1065,11 @@ function CodexUpdateVisibility( screen, args )
 				if item.UnreadStarId ~= nil then
 					--Teleport({ Id = item.UnreadStarId, OffsetX = screen.ItemStartX + screen.UnreadStarOffsetX, OffsetY = screen.ItemStartY + ((visibleIndex - 1) * screen.ItemSpacingY) })
 					table.insert( onIds, item.UnreadStarId )
+				end
+				if visibleIndex == 1 and args.ScrolledDown then
+					CodexOpenEntry( screen, item )
+				elseif visibleIndex == screen.MaxVisibleEntries and args.ScrolledUp then
+					CodexOpenEntry( screen, item )
 				end
 			end
 

@@ -262,6 +262,7 @@
 		GrannyAnimation = "Melinoe_PickAxe_Base_MineReturnToIdle_C_00"
 		ChainTo = "MelinoeEquip"
 		CancelOnOwnerMove = true
+		CreateAnimation = "MelUnequipPickaxe"
 		Attachments =
 		[
 			{
@@ -641,12 +642,14 @@
 		Name = "Tablet_ReturnToIdle"
 		GrannyModel = "ToolTablet_Mesh"
 		GrannyAnimation = "Tablet_Tool_Base_ExorcismReturn_C_00"
+		CreateAnimation = "MelUnequipTablet"
 	}	
 	{
 		Name = "Melinoe_Tablet_ReturnToIdle"
 		InheritFrom = "MelinoeBaseAnimation"
 		GrannyAnimation = "Melinoe_Tablet_Base_ExorcismReturn_C_00"
 		ChainTo = "MelinoeEquip"
+		CancelOnOwnerMove = true
 		Attachments =
 		[
 			{
@@ -802,6 +805,14 @@
 		CancelOnOwnerMove = true
 		ChainTo = "MelinoeEquip"
 
+		Frames =
+		[
+			{
+				Frame = 165
+				CreateAnimation = "MelUnequipRod"
+			}
+		]
+
 		Attachments =
 		[
 			{
@@ -828,6 +839,14 @@
 			{
 				Name = "Rod_Failure"
 				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 83
+				CreateAnimation = "MelUnequipRod"
 			}
 		]
 
