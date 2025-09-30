@@ -600,6 +600,15 @@ function DoPatches()
 		end
 
 		GameState.AchievementsUnlocked.AchExorciseShades = nil
+
+		if not GameState.UseRecord.HadesSpear01 then
+			GameState.Resources.HadesSpearPoints = nil
+			GameState.LifetimeResourcesGained.HadesSpearPoints = nil
+		end
+		if not GameState.TyphonDefeatedWithStormStop then
+			GameState.Resources.MixerMythic = nil
+			GameState.LifetimeResourcesGained.MixerMythic = nil
+		end
 		
 	end
 

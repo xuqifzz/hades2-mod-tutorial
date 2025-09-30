@@ -109,6 +109,8 @@
 		VisualFx = "TimeTrapSandBubbleSandRain"
 		VisualFxIntervalMin = 0.05
 		VisualFxIntervalMax = 0.06
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		CreateAnimations =
 		[
 			{ Name = "TimeTrapSandBubbleIn" }
@@ -160,8 +162,8 @@
 		VisualFx = "TimeElementalSandBubbleSandRain"
 		VisualFxIntervalMin = 0.10
 		VisualFxIntervalMax = 0.12
-		VisualFxManagerCap = 400
-		VisualFxManagerFrameCap = 18
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		CreateAnimations =
 		[
 			{ Name = "TimeTrapSandBubbleIn" }
@@ -269,6 +271,7 @@
 		AngleMax = 135
 		AlphaMin = 0.4
 		AlphaMax = 1.0
+		IgnoreIfMinConfigPreset = true
 	}
 
 	{

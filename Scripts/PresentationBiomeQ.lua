@@ -1,5 +1,6 @@
 ﻿function TyphonHeadKillPresentation( unit, args )
-
+	
+	SetPlayerInvulnerable( "TyphonHeadKillPresentation" )
 	AddInputBlock({ Name = "TyphonHeadKillPresentation" })
 	killTaggedThreads( "TyphonHeadWeaponCameraThread" )
 	LockCamera({ Ids = heroId, Duration = 0.0, Retarget = true })
@@ -35,7 +36,7 @@
 	Activate({ Ids = GetInactiveIds({ Name = "ExitPathReveal" }) })
 	UseableOn({ Id = 768210 }) -- Exit door
 	RemoveInputBlock({ Name = "TyphonHeadKillPresentation" })
-
+	SetPlayerVulnerable("TyphonHeadKillPresentation")
 	OpenRunClearScreen()
 
 end

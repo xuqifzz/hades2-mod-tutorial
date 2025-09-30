@@ -1492,6 +1492,8 @@
 		AlphaMin = 0.5
 		AlphaMax = 1.0
 		ColorFromOwner = "Take"
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
 		CreateAnimations =
 		[
 			{ Name = "DemeterSprintStormParticles" }

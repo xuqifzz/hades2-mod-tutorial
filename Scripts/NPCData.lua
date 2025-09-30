@@ -4898,11 +4898,9 @@ UnitSetData.NPCs =
 		InteractVoiceLines =
 		{
 			{
-				PlayOnceThisRun = true,
 				PreLineWait = 0.25,
 				RandomRemaining = true,
 				UsePlayerSource = true,
-				SuccessiveChanceToPlay = 0.2,
 				Cooldowns =
 				{
 					{ Name = "MelinoeSaluteSpeech", Time = 4 },
@@ -4915,32 +4913,16 @@ UnitSetData.NPCs =
 				{ Cue = "/VO/Melinoe_5072", Text = "I am honored, O Night." },
 				{ Cue = "/VO/Melinoe_5073", Text = "Thank you for everything." },
 			},
-			{ GlobalVoiceLines = "SaluteVoiceLines" },
 			{
 				RandomRemaining = true,
 				PreLineWait = 0.3,
 				-- PreLineAnim = "Hades_Hello",
 				ObjectType = "NPC_Nyx_Story_01",
 
-				{ Cue = "/VO/Nyx_0018", Text = "{#Emph}Hmm.",
-					GameStateRequirements =
-					{
-						{
-							Path = { "LastLinePlayed" },
-							IsAny = { "/VO/Melinoe_5068" },
-						},
-					},
-				},
-				{ Cue = "/VO/Nyx_0019", Text = "{#Emph}Hm.",
-					GameStateRequirements =
-					{
-						{
-							Path = { "LastLinePlayed" },
-							IsAny = { "/VO/Melinoe_5068" },
-						},
-					},
-				},
+				{ Cue = "/VO/Nyx_0018", Text = "{#Emph}Hmm." },
+				{ Cue = "/VO/Nyx_0019", Text = "{#Emph}Hm." },
 				{ Cue = "/VO/Nyx_0020", Text = "I accept it.",
+					PlayFirst = true,
 					GameStateRequirements =
 					{
 						{
@@ -4950,6 +4932,7 @@ UnitSetData.NPCs =
 					},
 				},
 				{ Cue = "/VO/Nyx_0021", Text = "You in kind.",
+					PlayFirst = true,
 					GameStateRequirements =
 					{
 						{
@@ -4959,6 +4942,7 @@ UnitSetData.NPCs =
 					},
 				},
 				{ Cue = "/VO/Nyx_0022", Text = "I shall.",
+					PlayFirst = true,
 					GameStateRequirements =
 					{
 						{
@@ -4968,6 +4952,7 @@ UnitSetData.NPCs =
 					},
 				},
 				{ Cue = "/VO/Nyx_0023", Text = "I am grateful.",
+					PlayFirst = true,
 					GameStateRequirements =
 					{
 						{
@@ -4977,6 +4962,7 @@ UnitSetData.NPCs =
 					},
 				},
 				{ Cue = "/VO/Nyx_0024", Text = "You are welcome.",
+					PlayFirst = true,
 					GameStateRequirements =
 					{
 						{

@@ -720,7 +720,7 @@ UnitSetData.NPC_Dionysus =
 					},
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAny = { "DoraBathHouse01", "HecateBathHouse01", "OdysseusBathHouse01", "MorosBathHous01", "NemesisBathHouse01", "ErisBathHouse01" }
+						HasAny = { "DoraBathHouse01", "HecateBathHouse01", "OdysseusBathHouse01", "MorosBathHouse01", "NemesisBathHouse01", "ErisBathHouse01" }
 					},
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",

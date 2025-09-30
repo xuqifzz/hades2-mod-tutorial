@@ -55,7 +55,8 @@ OverwriteTableKeys( NarrativeData, {
 			"HecateAboutStormStop01",
 			-- Typhon Clear 3
 			"HecateAboutUltimateProgress01",
-			"HecateAboutUltimateProgress03",
+			"HecateAboutUltimateProgress03_A", -- requires HadesSpearPoints, higher-prio version of previous
+			"HecateAboutUltimateProgress03", -- requires HadesSpearPoints
 			"HecateAboutUltimateProgress02",
 			"HecateAboutStormStop01_B",
 
@@ -6413,10 +6414,11 @@ OverwriteTableKeys( NarrativeData, {
 	{
 		BossIntroTextLinePriorities =
 		{
-			"PolyphemusAboutOdysseusQuest01",
-
 			"PolyphemusAboutAltFight01",
 			"PolyphemusAboutAltFight01_B",
+
+			"PolyphemusAboutOdysseusQuest01",
+
 			"PolyphemusAboutAltFight02",
 			"PolyphemusAltFightMetMedeaEarlier01",
 

@@ -191,6 +191,7 @@ end
 
 function NarcissusAdmirersPresentation( source, args )
 	local shadeIds = GetIdsByType({ Name = "ShadeHubMIdle01" })
+	SetObstacleProperty({ DestinationIds = shadeIds, Property = "IgnoredByPathfinders", Value = true })
 	while true do
 		local shadeId = GetRandomValue( shadeIds )
 		NarcissusAdmirerHeartPresentation( shadeId )

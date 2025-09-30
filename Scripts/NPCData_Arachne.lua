@@ -3062,7 +3062,7 @@
 					{
 						PathFalse = { "GameState", "TextLinesRecord", "ArachneWithHecateInHub02" }
 					},
-					NamedRequirementsFalse = { "ArachneBrooding", "ClearBeforeTrueEnding" },
+					NamedRequirementsFalse = { "ArachneBrooding", "ClearBeforeTrueEnding", "HecateMissing" },
 				},
 
 				OnQueuedFunctionName = "SetupArachneDangling",
@@ -3120,7 +3120,7 @@
 					{
 						PathFalse = { "CurrentRun", "TextLinesRecord", "ArachneAboutCurse03" },
 					},
-					NamedRequirementsFalse = { "ArachneBrooding", "ClearBeforeTrueEnding" },
+					NamedRequirementsFalse = { "ArachneBrooding", "ClearBeforeTrueEnding", "HecateMissing" },
 				},
 
 				OnQueuedFunctionName = "SetupArachneDangling",

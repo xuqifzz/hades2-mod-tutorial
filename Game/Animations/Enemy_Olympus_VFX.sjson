@@ -10197,8 +10197,8 @@
 		VisualFx = "PrometheusMemoryFlameSmall"
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.04
-		VisualFxManagerCap = 500
-		VisualFxManagerFrameCap = 20
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		VisualFxCap = 3
 		CreateAnimations = [
 			{ Name = "PrometheusMemoryFireAB" }
@@ -10393,6 +10393,7 @@
 
 	{
 		Name = "PrometheusMemoryFlameSmall"
+		IgnoreIfMinConfigPreset = true
 		Random = [
 			{ Name = "PrometheusMemoryFlameSmallA" }
 			{ Name = "PrometheusMemoryFlameSmallB" }
@@ -10427,6 +10428,7 @@
 		VelocityMin = 300
 		VelocityMax = 600
 		Acceleration = -200
+		IgnoreIfMinConfigPreset = true
 		
 	}
 

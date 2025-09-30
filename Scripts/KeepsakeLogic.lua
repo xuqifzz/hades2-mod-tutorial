@@ -862,7 +862,7 @@ function KeepsakeScreenShowInfo( screen, button )
 		text = button.TraitData.CustomTrayText
 	end
 	
-	local rarityName = button.TraitData.Rarity
+	local rarityName = button.TraitData.Rarity or "Common"
 	local rarityColor = Color["BoonPatch"..rarityName]
 	ModifyTextBox({ Id = components.InfoBoxName.Id,
 		Text = text,

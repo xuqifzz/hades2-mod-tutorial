@@ -79,10 +79,10 @@ function BountyBoardScreenDisplayCategory( screen, categoryIndex )
 
 	for i, bountyName in ipairs( screen.ItemCategories[screen.ActiveCategoryIndex] ) do
 		local bountyData = BountyData[bountyName]
-		if not bountyData.DebugOnly then
+		if not bountyData.DebugOnly and IsGameStateEligible( bountyData, bountyData.UnlockGameStateRequirements ) then
 			if GameState.PackagedBountyClears[bountyName] ~= nil then
 				table.insert( completedBounties, bountyData )
-			elseif IsGameStateEligible( bountyData, bountyData.UnlockGameStateRequirements ) then
+			else
 				table.insert( activeBounties, bountyData )
 			end
 		end

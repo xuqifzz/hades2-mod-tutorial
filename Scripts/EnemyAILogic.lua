@@ -144,7 +144,7 @@ function GuardAI( enemy )
 		end
 
 		-- If disabled while waiting
-		if not IsAIActive( enemy ) then
+		if not IsAIActive( enemy ) and aiData.DisabledAnimation ~= nil then
 			SetAnimation({ DestinationId = enemy.ObjectId, Name = aiData.DisabledAnimation })
 			break
 		end

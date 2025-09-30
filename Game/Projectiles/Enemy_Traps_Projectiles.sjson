@@ -1837,6 +1837,7 @@
 		Damage = 5
 		ImpactVelocity = 400
 		CanBeReflected = false
+		IgnoreTargetsWithGroup = "HeroTeam"
 		Thing =
 		{
 			Graphic = "GhostProjectileAnim"

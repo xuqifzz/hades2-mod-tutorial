@@ -428,6 +428,7 @@ OverwriteTableKeys( HubRoomData, {
 						"HecateAboutChronosBossW01",
 						"HecateAboutChronosBossW01Cont1",
 						"HecateAboutStormStop01_B",
+						"HecateAboutUltimateProgress03_A",
 						"HecateAboutUltimateProgress03",
 						"HecateAboutUltimateProgress02",
 						"HecateAboutUltimateProgress01",

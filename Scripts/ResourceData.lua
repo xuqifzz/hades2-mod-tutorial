@@ -2630,7 +2630,7 @@ ResourceData =
 			GameStateRequirements =
 			{
 				{
-					PathFalse = { "GameState", "TextLinesRecord", "ZagreusPastMeeting06" }
+					PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
 				},
 			},
 			Cooldowns =

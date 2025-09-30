@@ -351,9 +351,6 @@ if fullGame then
 end
 Import "ConsumableData.lua"
 Import "WorldUpgradeData.lua"
-if fullGame then
-	Import "AchievementData.lua"
-end
 Import "RunClearData.lua"
 Import "BadgeData.lua"
 Import "ResourceData.lua"
@@ -365,6 +362,9 @@ end
 Import "GhostAdminData.lua"
 if fullGame then
 	Import "GhostAdminData_Items.lua"
+end
+if fullGame then
+	Import "AchievementData.lua"
 end
 Import "CosmeticsData.lua"
 Import "CostumeData.lua"

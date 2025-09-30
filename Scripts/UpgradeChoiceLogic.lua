@@ -1270,10 +1270,12 @@ function TryUpgradeBoon( lootData, screen, button )
 	local traitData = button.Data
 	local sacrificeTrait = traitData.SacrificedTraitName
 	local validUpgradeIndex = false
-	for i, upgradeData in pairs(lootData.UpgradeOptions) do
-		if not traitData.BlockMenuRarify and traitData.Name == upgradeData.ItemName and GetUpgradedRarity(traitData.Rarity) ~= nil and traitData.RarityLevels[GetUpgradedRarity(traitData.Rarity)] ~= nil then
-			upgradeData.Rarity = GetUpgradedRarity(traitData.Rarity)
-			validUpgradeIndex = i
+	if lootData.UpgradeOptions ~= nil then
+		for i, upgradeData in pairs( lootData.UpgradeOptions ) do
+			if not traitData.BlockMenuRarify and traitData.Name == upgradeData.ItemName and GetUpgradedRarity(traitData.Rarity) ~= nil and traitData.RarityLevels[GetUpgradedRarity(traitData.Rarity)] ~= nil then
+				upgradeData.Rarity = GetUpgradedRarity(traitData.Rarity)
+				validUpgradeIndex = i
+			end
 		end
 	end
 	if validUpgradeIndex then

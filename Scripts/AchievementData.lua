@@ -100,7 +100,7 @@ AchievementData =
 		{
 			{
 				Path = { "GameState", "WorldUpgradesAdded" },
-				UseLength = true,
+				CountOf = ScreenData.GhostAdmin.ItemCategories[1],
 				Comparison = ">=",
 				Value = 50,
 			},
@@ -114,7 +114,7 @@ AchievementData =
 		{
 			{
 				Path = { "GameState", "TextLinesRecord", },
-				HasAny = { "DoraBathHouse01", "HecateBathHouse01", "OdysseusBathHouse01", "MorosBathHous01", "NemesisBathHouse01", "ErisBathHouse01", "IcarusBathHouse01" }
+				HasAny = { "DoraBathHouse01", "HecateBathHouse01", "OdysseusBathHouse01", "MorosBathHouse01", "NemesisBathHouse01", "ErisBathHouse01", "IcarusBathHouse01" }
 			},
 		},
 	},

@@ -2106,5 +2106,25 @@ ConsumableData =
 
 		SpawnSound = "/SFX/GemDropSFX",
 		ConsumeSound = "/SFX/GemPickup",
+
+		OnUseEvents =
+		{
+			{
+				FunctionName = "GenericPresentation",
+				Threaded = true,
+				Args =
+				{
+					InputBlock = "AnomalyGemPickup",
+					PreWait = 2.0,
+				},
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name", },
+						IsAny = { "C_Boss01" },
+					},
+				},
+			},
+		},
 	},
 }

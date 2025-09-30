@@ -133,6 +133,8 @@ OverwriteTableKeys( ProjectileData, {
 
 	LycanSummonHowl =
 	{
+		BypassRetaliate = true,
+	
 		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
 		HitSimSlowParameters =
 		{

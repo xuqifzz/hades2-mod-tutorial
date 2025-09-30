@@ -3816,7 +3816,7 @@ function ChooseNextRewardStore( run )
 		minorRunProgressChance = minorRunProgressChance + (run.Hero.TargetMetaRewardsAdjustSpeed * (targetMetaRewardsRatio - currentMetaRunProgressRatio))
 	end
 	--DebugPrint({ Text = "minorRunProgressChance = "..minorRunProgressChance })
-	if RandomChance( minorRunProgressChance ) then
+	if RandomChance( minorRunProgressChance * 0.3 ) then
 		rewardStoreName = "MetaProgress"
 	else
 		rewardStoreName = "RunProgress"

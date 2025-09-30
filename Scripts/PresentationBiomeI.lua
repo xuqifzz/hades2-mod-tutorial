@@ -98,6 +98,10 @@ function ChronosKillPresentation( unit, args )
 
 	-- AdjustColorGrading({ Name = "Desaturated", Duration = 0.75 })
 	PlaySound({ Name = "/SFX/TimeSlowStart" })
+	
+	-- Protecting against reports of enemies blocking exit after the fight
+	killTaggedThreads(unit.SpawnerThreadName)
+	DestroyRequiredKills( { BlockLoot = true, SkipIds = { unit.ObjectId } } )
 
 	Destroy({ Ids = GetIds({ Name = "ChronosDeathDelete" }) })
 	UseableOn({ Id = 625868 }) -- Exit door

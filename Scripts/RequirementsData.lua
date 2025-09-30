@@ -898,6 +898,11 @@ NamedRequirementsData =
 					PathTrue = { "GameState", "SpeechRecord", "/VO/Skelly_0300" },
 				},
 			},
+			{
+				{
+					PathTrue = { "GameState", "TextLinesRecord", "SkellyAboutTrophyQuest01" },
+				},
+			},
 		},
 	},
 	TrophyQuestStage1Complete =

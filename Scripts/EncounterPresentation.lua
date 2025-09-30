@@ -1440,6 +1440,9 @@ function AthenaSpawnPresentation(encounter, args)
 	if args.RarityLevelBonus then
 		overrideRarity[TraitRarityData.WeaponRarityUpgradeOrder[args.RarityLevelBonus]] = 1
 		athena.BoonRaritiesOverride = overrideRarity
+		if args.RarityLevelBonus > 1 then
+			athena.IgnoreTempRarityBonus = true
+		end
 	end
 	SetupUnit( athena, CurrentRun, { IgnoreAI = true, IgnorePackages = true, } )
 	SetAlpha({ Id = athena.ObjectId, Fraction = 0.0, Duration = 0 })

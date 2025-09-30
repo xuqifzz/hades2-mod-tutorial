@@ -1315,7 +1315,8 @@ function CreateAlliedEnemy( enemyName, args )
 	AddIncomingDamageModifier( newEnemy,
 	{
 		Name = "EnemyDeathDefense",
-		NonPlayerMultiplier = 0.5,
+		NonPlayerMultiplier = 0,
+		Multiplicative = true
 	})	
 	SetLifeProperty({ DestinationId = newEnemy.ObjectId, Property = "JumpTargetEligible", Value = false })
 	SetLifeProperty({ DestinationId = newEnemy.ObjectId, Property = "HomingEligible", Value = false })
@@ -4867,6 +4868,7 @@ function AddRandomChaosBlessing( rarityName )
 end
 
 function GiveRandomHadesBoonAndBoostBoons( args, traitData )
+	RandomSynchronize()
 	if not CurrentRun.Hero.IsDead and IsFateValid() then
 		local eligibleTraits = {}
 		for i, traitName in pairs( UnitSetData.NPC_Hades.NPC_Hades_Field_01.Traits ) do
@@ -5479,6 +5481,10 @@ function RecordSecondStageApolloCast(victim, functionArgs, triggerArgs )
 end
 
 function CheckArmedApolloCast( triggerArgs, functionArgs )
+	if CurrentRun.CurrentRoom.Encounter and CurrentRun.CurrentRoom.Encounter.BossKillPresentation then
+		return
+	end
+
 	if triggerArgs.name == functionArgs.ValidProjectileName and triggerArgs.Armed and triggerArgs.LocationX and triggerArgs.LocationY and triggerArgs.Detonated then
 		if SessionMapState.InvalidRepeatCastIds[triggerArgs.ProjectileId] then
 			return
@@ -6378,6 +6384,7 @@ function TorchPrimaryAutofire( args )
 end
 
 function LogTorchAutofireProjectile ( projectileId, skipFireEventLog )
+	local weaponName = "WeaponTorch"
 	SessionMapState.ExProjectileIds[projectileId] = true
 	if SessionMapState.SprintBonusEx then
 		SessionMapState.SprintBonusProjectiles[ projectileId ] = true

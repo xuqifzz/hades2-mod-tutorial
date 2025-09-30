@@ -1507,7 +1507,7 @@ function EchoLastReward( args )
 		SetObstacleProperty({ Property = "MagnetismWhileBlocked", Value = 0, DestinationId = consumableId })
 	else
 		LoadVoiceBanks(CurrentRun.LastReward.Name, nil, true )
-		local loot = CreateLoot({ Name = CurrentRun.LastReward.Name, SpawnPoint = spawnPoint })
+		local loot = CreateLoot({ Name = CurrentRun.LastReward.Name, SpawnPoint = spawnPoint, AutoLoadPackages = true })
 		SetObstacleProperty({ Property = "MagnetismWhileBlocked", Value = 0, DestinationId = loot.ObjectId })
 	end
 end

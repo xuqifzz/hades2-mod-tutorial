@@ -1451,11 +1451,12 @@
 		{
 			{
 				BreakIfPlayed = true,
-				RandomRemaining = true,
 				PreLineWait = 0.25,
+				PreLineFunctionName = "UnmuteSpeakerPermanent",
 
 				-- Hidden Aspect Quests
-				{ Cue = "/VO/MelinoeField_3553", Text = "{#Emph}Great Anubis, grant me and Descura now abyssal strength.", PreLineThreadedFunctionName = "LegendaryAspectPresentation",
+				{ Cue = "/VO/MelinoeField_3553", Text = "{#Emph}Great Anubis, grant me and Descura now abyssal strength.",
+					PreLineThreadedFunctionName = "LegendaryAspectPresentation",
 					PreLineThreadedFunctionArgs = { WaitTime = 4.9, SoundName = "/Leftovers/Menu Sounds/EmoteAscendedAnubis" },
 					PreLineWait = 2.0,
 					PlayFirst = true,

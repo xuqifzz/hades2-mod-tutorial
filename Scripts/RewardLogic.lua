@@ -235,10 +235,9 @@ function SetupRoomReward( currentRun, room, previouslyChosenRewards, args )
 		local lootData = ChooseLoot( excludeLootNames )
 		if not args.IgnoreForceLootName then
 			for k, trait in ipairs( CurrentRun.Hero.Traits ) do
-				if trait ~= nil and trait.ForceBoonName ~= nil and not trait.DidBoonForce and trait.Uses > 0 and not Contains(excludeLootNames, trait.ForceBoonName) then
+				if trait ~= nil and trait.ForceBoonName ~= nil and trait.Uses > 0 and not Contains(excludeLootNames, trait.ForceBoonName) then
 					lootData = { Name = trait.ForceBoonName }
 					room.ForcedBoonNames[trait.ForceBoonName] = true
-					trait.DidBoonForce = true
 					thread( ForceBoonChosenPresentation, trait, lootData )
 					break
 				end

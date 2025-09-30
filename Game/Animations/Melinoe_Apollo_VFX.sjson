@@ -692,6 +692,7 @@
 		InheritFrom = "ApolloAoEStrikeA"
 		FilePath = "Dev\blank_invisible"
 		NumFrames = 1
+		Duration = 1.0
 		ClearCreateAnimations = true
 		ChildAnimation = null
 		VisualFx = null

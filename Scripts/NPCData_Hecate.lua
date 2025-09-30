@@ -1664,6 +1664,70 @@
 					},
 				},
 			},
+
+			-- alt of the next event w/ more context
+			HecateAboutUltimateProgress03_A =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "WorldUpgradesRevealed" },
+						HasAll = { "WorldUpgradeStormStop" },
+					},
+					{
+						PathFalse = { "GameState", "LifetimeResourcesGained", "MixerMythic" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = {
+								"HecateAboutUltimateProgress03",
+								"HecateAboutChronosBossW04",
+								"HecateAboutChronosBossW04_A",
+								"HecateAboutChronosBossW04_B",
+							},
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ZeusPalaceMeeting03", "ZeusPalaceMeeting03_A", "ZeusPalaceMeeting03_B" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ZagreusPastMeeting05" },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.HecateGreeting,
+
+				{ Cue = "/VO/Melinoe_4733", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "My father's spear, Gigaros... it was there in the Prince's chambers for me to find. Zagreus must have gotten access to it in his time, as I have now. One final step, then?" },
+
+				{ Cue = "/VO/Hecate_0788_B",
+					PreLineAnim = "HecateHubGreet",
+					Text = "Not quite. We have one opportunity to use it against Chronos, and shall take every precaution to ensure it shall have the intended result." },
+
+				{ Cue = "/VO/Melinoe_5016", UsePlayerSource = true,
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Entropy is the last reagent we require for the Dissolution of Time, but... where am I supposed to find it? I've found no trace as yet... even from Typhon." },
+					
+				{ Cue = "/VO/Hecate_0795",
+					PreLineAnim = "Hecate_Hub_Explaining_Start",
+					PostLineAnim = "Hecate_Hub_Explaining_End",
+					Text = "Where are you supposed to {#Emph}create {#Prev}it is the correct question to be asking. A powerful enough force must be put entirely to rest. Do you catch my meaning?" },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+						{ Cue = "/VO/Melinoe_5017", Text = "...I believe so. Back to the surface, then." },
+					},
+				},
+			},
+
 			HecateAboutUltimateProgress03 =
 			{
 				PlayOnce = true,
@@ -1676,6 +1740,9 @@
 					},
 					{
 						PathFalse = { "GameState", "LifetimeResourcesGained", "MixerMythic" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "HecateAboutUltimateProgress03_A" }
 					},
 					{
 						Path = { "GameState", "TextLinesRecord" },
@@ -2309,6 +2376,7 @@
 			HecateAboutChronosBossW01 =
 			{
 				PlayOnce = true,
+				InitialGiftableOffSource = true,
 				UseableOffSourceRequirements =
 				{
 					{
@@ -5769,10 +5837,6 @@
 				{
 					{
 						PathTrue = { "GameState", "ReachedTrueEnding" },
-					},
-					{
-						FunctionName = "RequireRunsSinceTextLines",
-						FunctionArgs = { TextLines = { "TrueEndingFinale01" }, Max = 4 },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",

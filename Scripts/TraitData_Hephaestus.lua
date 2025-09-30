@@ -1740,6 +1740,7 @@ OverwriteTableKeys( TraitData, {
 						[4] = 2,
 					}
 				},
+				Source = "Renewable",
 				ManaReservationCost = 30,
 				ReportValues = 
 				{ 

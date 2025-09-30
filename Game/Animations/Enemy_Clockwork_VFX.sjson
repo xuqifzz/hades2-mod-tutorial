@@ -5924,6 +5924,8 @@
 		Name = "ChronosRadial2Detonate"
 		FilePath = "Dev\blank_invisible"
 		DurationFrames = 1
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		CreateAnimations =
 		[
 			{ Name = "ChronosRadial2Nova" }
@@ -6544,6 +6546,8 @@
 		VisualFx = null
 		VisualFxIntervalMin = 0.32
 		VisualFxIntervalMax = 0.48
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		Scale = 0.55
 		ColorFromOwner = "Ignore"
 		UseAttachedFlasher = false
@@ -6980,6 +6984,8 @@
 		VisualFx = "ChronosRadial3DangerZone"
 		VisualFxIntervalMin = 0.9
 		VisualFxIntervalMax = 0.9
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		Duration = 1
 		Loop = true
 	}

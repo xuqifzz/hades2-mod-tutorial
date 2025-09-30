@@ -165,14 +165,6 @@
 		UnthreadedEvents = {},
 		StartRoomUnthreadedEvents =
 		{
-			-- post-ending
-			{ FunctionName = "ActivatePrePlaced",
-				Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "NPC_Nemesis_01" }, },
-				GameStateRequirements =
-				{
-					NamedRequirements = { "SpawnNemesisWithNeoChronos" },
-				},
-			},
 			{
 				FunctionName = "CheckPriorityConversations",
 				GameStateRequirements =
@@ -190,6 +182,7 @@
 				},
 				Args =
 				{
+					IgnorePartnerExists = true,
 					Conversations = GameData.NeoChronosErebusEvents,
 				},
 			},

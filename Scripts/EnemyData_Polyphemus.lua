@@ -1910,31 +1910,6 @@ UnitSetData.Polyphemus =
 						Path = { "CurrentRun", "Hero", "TraitDictionary" },
 						HasAny = { "BossPreDamageKeepsake" },
 					},
-					OrRequirements =
-					{
-						{
-							{
-								Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
-								Comparison = "<",
-								Value = 1,
-							},
-							{
-								Path = { "GameState", "TextLinesRecord" },
-								HasAny = { "PolyphemusAboutAltFight01", "PolyphemusAboutAltFight01_B" },
-							},
-						},
-						{
-							{
-								Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
-								Comparison = ">=",
-								Value = 0,
-							},
-							{
-								Path = { "GameState", "TextLinesRecord" },
-								HasNone = { "PolyphemusAboutAltFight01", "PolyphemusAboutAltFight01_B" },
-							},
-						}
-					},
 				},
 
 				{ Cue = "/VO/Polyphemus_0515",

@@ -2968,7 +2968,7 @@ function AddRarityToTraits( source, args )
 	
 	if LootObjects then
 		for itemId, item in pairs( LootObjects ) do
-			if IsAlive({ Id = itemId }) then
+			if IsAlive({ Id = itemId }) and ( not ScreenAnchors.ChoiceScreen or ScreenAnchors.ChoiceScreen.Source ~= item ) then
 				item.UpgradeOptions = nil
 			end
 		end
