@@ -2798,6 +2798,9 @@ UnitSetData.NPC_Athena =
 						{
 							PathTrue = { "CurrentRun", "BiomesReached", "N" },
 						},
+						{
+							PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" },
+						},
 					},
 				},
 			},

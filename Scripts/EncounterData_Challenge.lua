@@ -275,7 +275,7 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "PerfectClearChallenge", "GeneratedF" },
 		EnemySet = EnemySets.BiomeF,
 		
-		ActiveEnemyCapBase = 2.3,
+		ActiveEnemyCapBase = 5.1,
 		ActiveEnemyCapMax = 8,
 		ActiveEnemyCapDepthRamp = 0.35,
 		DepthDifficultyRamp = 11,
@@ -292,7 +292,7 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "PerfectClearChallenge", "GeneratedG" },
 		EnemySet = EnemySets.BiomeG,
 		
-		ActiveEnemyCapBase = 2.3,
+		ActiveEnemyCapBase = 2.6,
 		ActiveEnemyCapMax = 8,
 		ActiveEnemyCapDepthRamp = 0.35,
 
@@ -306,7 +306,7 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "PerfectClearChallenge", "GeneratedH" },
 		EnemySet = EnemySets.BiomeH,
 		
-		ActiveEnemyCapBase = 2.3,
+		ActiveEnemyCapBase = 2.6,
 		ActiveEnemyCapMax = 8,
 		ActiveEnemyCapDepthRamp = 0.35,
 
@@ -320,7 +320,7 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "PerfectClearChallenge", "GeneratedI" },
 		EnemySet = EnemySets.BiomeI,
 		
-		ActiveEnemyCapBase = 2.3,
+		ActiveEnemyCapBase = 5.1,
 		ActiveEnemyCapMax = 8,
 		ActiveEnemyCapDepthRamp = 0.35,
 
@@ -334,7 +334,7 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "PerfectClearChallenge", "GeneratedN" },
 		EnemySet = EnemySets.BiomeN,
 		
-		ActiveEnemyCapBase = 2.3,
+		ActiveEnemyCapBase = 2.6,
 		ActiveEnemyCapMax = 8,
 		ActiveEnemyCapDepthRamp = 0.35,
 
@@ -349,7 +349,7 @@ OverwriteTableKeys( EncounterData,
 		DelayedStart = false,
 		EnemySet = EnemySets.BiomeO,
 		
-		ActiveEnemyCapBase = 2.3,
+		ActiveEnemyCapBase = 2.6,
 		ActiveEnemyCapMax = 8,
 		ActiveEnemyCapDepthRamp = 0.55,
 
@@ -363,7 +363,7 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "PerfectClearChallenge", "GeneratedP" },
 		EnemySet = EnemySets.BiomeP,
 		
-		ActiveEnemyCapBase = 2.3,
+		ActiveEnemyCapBase = 4.1,
 		ActiveEnemyCapMax = 8,
 		ActiveEnemyCapDepthRamp = 0.35,
 
@@ -377,7 +377,7 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "PerfectClearChallenge", "GeneratedQ" },
 		EnemySet = EnemySets.BiomeQ,
 		
-		ActiveEnemyCapBase = 2.3,
+		ActiveEnemyCapBase = 2.6,
 		ActiveEnemyCapMax = 8,
 		ActiveEnemyCapDepthRamp = 0.35,
 

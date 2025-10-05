@@ -1147,9 +1147,6 @@ LootSetData.Poseidon =
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = { "PoseidonAboutSurface01" },
 					},
-					{
-						PathFalse = { "GameState", "RoomsEntered", "P_PostBoss01" },
-					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 

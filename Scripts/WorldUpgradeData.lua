@@ -3038,6 +3038,7 @@ WorldUpgradeData =
 		Icon = "GUI\\Screens\\CriticalItemShop\\Icons\\cauldron_relationship",
 		OnPurchasedFunctionName = "CheckQuestStatus",
 		OnPurchasedFunctionArgs = { Silent = true, },
+		AlwaysRevealImmediately = true,
 		Cost =
 		{
 			PlantHMyrtle = 3,

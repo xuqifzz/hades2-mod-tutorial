@@ -610,7 +610,7 @@ function CosmeticShopAllowViewItem( screen, category, cosmeticData )
 		return false
 	end
 
-	if CurrentRun.ViewableWorldUpgrades[cosmeticData.Name] then
+	if CurrentRun.ViewableWorldUpgrades[cosmeticData.Name] or GameState.WorldUpgradesAdded[cosmeticData.Name] then
 		return true
 	end
 

@@ -5105,7 +5105,9 @@ end
 function HandleStoredProjectileDeath(projectileData, triggerArgs)
 	local victim = triggerArgs.TriggeredByTable
 	local attacker = triggerArgs.AttackerTable
-
+	if not attacker then
+		return
+	end
 	local storedAmmo = {}
 	storedAmmo.Id = _worldTime
 	storedAmmo.AttackerId = attacker.ObjectId

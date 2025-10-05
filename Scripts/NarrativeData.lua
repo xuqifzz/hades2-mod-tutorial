@@ -7342,6 +7342,7 @@ GameData.AllBondForgedEvents =
 	"HecateBathHouseEpilogue01",
 	"IcarusGift10",
 	"SkellyGift09",
+	"CharonGift08",
 
 	"ArachneGift09",
 	"NarcissusGift07",
@@ -7349,6 +7350,8 @@ GameData.AllBondForgedEvents =
 	"HeraclesGift07",
 	"MedeaGift08",
 	"CirceGift08",
+	"DionysusGift07",
+	"AthenaGift07",
 
 	"HadesWithPersephoneGift06",
 	"NeoChronosGift04",

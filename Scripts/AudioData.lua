@@ -9452,16 +9452,18 @@ GlobalVoiceLines.CrawlerMiniBossEncounterStartVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					PathTrue = { "GameState", "TextLinesRecord", "OdysseusAboutVerminMiniboss01" },
-				}
+					Path = { "GameState", "TextLinesRecord" },
+					HasAny = { "OdysseusAboutVerminMiniboss01", "OdysseusAboutVerminMiniboss01_B" },
+				},
 			},
 		},
 		{ Cue = "/VO/MelinoeField_0176", Text = "Hail, O King.",
 			GameStateRequirements =
 			{
 				{
-					PathTrue = { "GameState", "TextLinesRecord", "OdysseusAboutVerminMiniboss01" },
-				}
+					Path = { "GameState", "TextLinesRecord" },
+					HasAny = { "OdysseusAboutVerminMiniboss01", "OdysseusAboutVerminMiniboss01_B" },
+				},
 			},
 		},
 		{ Cue = "/VO/MelinoeField_0177", Text = "At last, a worthy opponent." },
@@ -9469,8 +9471,9 @@ GlobalVoiceLines.CrawlerMiniBossEncounterStartVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					PathTrue = { "GameState", "TextLinesRecord", "OdysseusAboutVerminMiniboss01" },
-				}
+					Path = { "GameState", "TextLinesRecord" },
+					HasAny = { "OdysseusAboutVerminMiniboss01", "OdysseusAboutVerminMiniboss01_B" },
+				},
 			},
 		},
 		{ Cue = "/VO/MelinoeField_2085", Text = "Toula, time to shine.",
@@ -9487,6 +9490,10 @@ GlobalVoiceLines.CrawlerMiniBossEncounterStartVoiceLines =
 			PlayFirst = true,
 			GameStateRequirements =
 			{
+				{
+					Path = { "GameState", "TextLinesRecord" },
+					HasAny = { "OdysseusAboutVerminMiniboss01", "OdysseusAboutVerminMiniboss01_B" },
+				},
 				{
 					Path = { "GameState", "EquippedFamiliar" },
 					IsAny = { "CatFamiliar" },

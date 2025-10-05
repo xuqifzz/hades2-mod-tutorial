@@ -953,14 +953,15 @@ function KeepsakeScreenShowInfo( screen, button )
 		else
 			SetAnimation({Name = "Blank", DestinationId = components.Sticker.Id })
 		end
-
-
+		
+		local upgradeName = button.Data.Gift		
+		if upgradeName then
+			GameState.NewKeepsakeItem[upgradeName] = nil
+		end
 		if button.Blocked then
 			--
 		else
 			SetScale({ Id = button.Id, Fraction = screen.HoverIconScale, Duration = 0.1, EaseIn = 0, EaseOut = 1, SkipGeometryUpdate = true })
-			local upgradeName = button.Data.Gift			
-			GameState.NewKeepsakeItem[upgradeName] = nil
 		end
 		if button and button.ButtonKey and components[button.ButtonKey.."Bar"] and TraitData[button.Data.Gift].Slot ~= "Assist" then
 			SetAlpha({ Id = components[button.ButtonKey.."Bar"].Id, Fraction = 1, Duration = 0.1 })

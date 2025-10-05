@@ -809,7 +809,7 @@ RewardStoreData =
 			Name = "WeaponUpgrade",
 			GameStateRequirements =
 			{
-			--	NamedRequirements = { "HammerLootRequirements" },
+				NamedRequirements = { "HammerLootRequirements" },
 			}
 		},
 		{
@@ -1595,7 +1595,7 @@ RewardStoreData =
 			Name = "WeaponUpgrade",
 			GameStateRequirements =
 			{
-			--	NamedRequirements = { "HammerLootRequirements" },
+				NamedRequirements = { "HammerLootRequirements" },
 			}
 		},
 		{
@@ -1888,7 +1888,7 @@ RewardStoreData =
 			Name = "WeaponUpgrade",
 			GameStateRequirements =
 			{
-			--	NamedRequirements = { "HammerLootRequirements" },
+				NamedRequirements = { "HammerLootRequirements" },
 			}
 		},
 		{
@@ -2003,7 +2003,7 @@ RewardStoreData =
 			Name = "WeaponUpgrade",
 			GameStateRequirements =
 			{
-			--	NamedRequirements = { "HammerLootRequirements" },
+				NamedRequirements = { "HammerLootRequirements" },
 			}
 		},
 		{

@@ -984,6 +984,12 @@ function DreamBedPresentation( usee, args, user )
 	RemoveInputBlock({ Name = "MelUsedSystemObject" })
 end
 
+function PingHadesSpear( source, args )
+	if CurrentRun.UseRecord.DreamBed01 and not CurrentRun.UseRecord.HadesSpear01 then
+		thread( DirectionHintPresentation, { ObjectId = source.ObjectId }, { Cooldown = 5.0, Delay = 0 } )
+	end
+end
+
 function UseHadesSpearPresentation( usee, args, user )
 	AddInputBlock({ Name = "UseHadesSpearPresentation" })
 	Stop({ Id = CurrentRun.Hero.ObjectId })

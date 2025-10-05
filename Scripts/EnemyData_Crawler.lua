@@ -129,7 +129,8 @@ UnitSetData.Crawler =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "OdysseusAboutVerminMiniboss01" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "OdysseusAboutVerminMiniboss01", "OdysseusAboutVerminMiniboss01_B" },
 					}
 				},
 			},
@@ -140,7 +141,8 @@ UnitSetData.Crawler =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "OdysseusAboutVerminMiniboss01" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "OdysseusAboutVerminMiniboss01", "OdysseusAboutVerminMiniboss01_B" },
 					}
 				},
 			},

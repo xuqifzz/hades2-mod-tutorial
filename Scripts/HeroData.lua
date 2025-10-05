@@ -3,7 +3,7 @@
 	Name = "Default",
 	DefaultWeapon = "WeaponStaffSwing",
 	TempArmorVfx = "HephaestusLaurels",
-	MaxHealth = 100,
+	MaxHealth = 30,
 	MaxHealthMultiplier = 1,
 	MaxMana = 50,
 	ReserveManaSources = {},

@@ -2927,6 +2927,8 @@ UnitSetData.NPC_Chronos =
 			{
 				PlayOnce = true,
 				OnGiftTrack = true,
+				UnfilledIcon = "EmptyHeartWithGiftIcon",
+				FilledIcon = "FilledHeartWithGiftIcon",
 				LockedHintId = "Codex_ChronosGiftHint",
 				Cost =
 				{

@@ -3523,6 +3523,8 @@ UnitSetData.NPC_Hades =
 				PlayOnce = true,
 				OnGiftTrack = true,
 				LockedHintId = "Codex_HadesGiftHint",
+				UnfilledIcon = "EmptyHeartWithGiftIcon",
+				FilledIcon = "FilledHeartWithGiftIcon",
 				Cost =
 				{
 					GiftPoints = 1,
@@ -5199,6 +5201,9 @@ GlobalVoiceLines.HadesHarvestReactionVoiceLines =
 		},
 		{
 			PathTrue = { "CurrentRun", "UseRecord", "NPC_Hades_Field_01" },
+		},
+		{
+			PathFalse = { "CurrentRun", "TextLinesRecord", "HadesGiftDecline01" },
 		},
 	},
 	Cooldowns =

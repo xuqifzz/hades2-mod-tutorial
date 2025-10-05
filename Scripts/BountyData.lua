@@ -5860,7 +5860,7 @@ BountyData =
 					"BountyShrineStaffGBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -5896,7 +5896,7 @@ BountyData =
 					"BountyShrineStaffNBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -5990,7 +5990,7 @@ BountyData =
 					"BountyShrineStaffHBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -6088,7 +6088,7 @@ BountyData =
 					"BountyShrineStaffIBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -6150,7 +6150,7 @@ BountyData =
 					"BountyShrineDaggerGBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -6185,7 +6185,7 @@ BountyData =
 					"BountyShrineDaggerNBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -6269,7 +6269,7 @@ BountyData =
 					"BountyShrineDaggerHBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -6371,7 +6371,7 @@ BountyData =
 					"BountyShrineDaggerFBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -6452,7 +6452,7 @@ BountyData =
 			{
 				PathTrue = { "GameState", "WeaponsUnlocked", "WeaponAxe", },
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -6486,7 +6486,7 @@ BountyData =
 					"BountyShrineAxeNBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -6554,7 +6554,7 @@ BountyData =
 					"BountyShrineAxeHBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -6757,7 +6757,7 @@ BountyData =
 					"BountyShrineAxeIBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -6786,7 +6786,7 @@ BountyData =
 			{
 				PathTrue = { "GameState", "WeaponsUnlocked", "WeaponTorch", },
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -6852,7 +6852,7 @@ BountyData =
 					"BountyShrineTorchHBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -6987,7 +6987,7 @@ BountyData =
 					"BountyShrineTorchGBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -7039,7 +7039,7 @@ BountyData =
 					"BountyShrineTorchNBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -7151,7 +7151,7 @@ BountyData =
 					"BountyShrineLobHBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -7270,7 +7270,7 @@ BountyData =
 					"BountyShrineLobGBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -7321,7 +7321,7 @@ BountyData =
 					"BountyShrineLobNBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -7425,7 +7425,7 @@ BountyData =
 					"BountyShrineLobIBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -7453,7 +7453,7 @@ BountyData =
 			{
 				PathTrue = { "GameState", "WeaponsUnlocked", "WeaponSuit", },
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -7556,7 +7556,7 @@ BountyData =
 					"BountyShrineSuitGBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -7606,7 +7606,7 @@ BountyData =
 					"BountyShrineSuitNBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{
@@ -7708,7 +7708,7 @@ BountyData =
 					"BountyShrineSuitHBoss",
 				},
 			},
-			NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
+			NamedRequirementsFalse = { "SurfaceBountyLockedByTyphonKill" },
 		},
 		CompleteGameStateRequirements =
 		{

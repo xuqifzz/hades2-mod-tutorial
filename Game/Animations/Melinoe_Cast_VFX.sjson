@@ -1838,6 +1838,7 @@
 		EndRed = 0.299
 		EndGreen = 0.099
 		EndBlue = 0.299
+		DieWithOwner = true
 		ChainTo = "CastCircleAphroditeA_Out"
 	}
 

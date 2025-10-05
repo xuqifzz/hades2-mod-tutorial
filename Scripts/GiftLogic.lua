@@ -87,7 +87,7 @@ OnControlPressed{ "SpecialInteract",
 		if target ~= nil and CanSpecialInteract( target ) then
 			EndAutoSprint({ Halt = true, EndWeapon = true })
 			
-			if CanGoldifyReward( target ) then
+			if CanGoldifyReward( target ) and IsUseable({ Id = target.ObjectId }) then
 				UseableOff({ Id = target.ObjectId })
 				target.GoldConversionEligible = false
 				local previouslyRequired = false

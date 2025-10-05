@@ -2555,6 +2555,7 @@
 
 	{
 		Name = "CyclopsDirtClump"
+		IgnoreIfMinConfigPreset = true
 		Random =
 		[
 			{ Name = "CyclopsDirtClumpA" }
@@ -2587,6 +2588,7 @@
 		RadialOffsetScaleY = 0.5
 		AngleMin = 0
 		AngleMax = 360
+		IgnoreIfMinConfigPreset = true
 	}
 
 	{
@@ -3462,8 +3464,8 @@
 		VisualFx = "CyclopsDirtClump"
 		VisualFxIntervalMin = 0.12
 		VisualFxIntervalMax = 0.12
-		VisualFxManagerCap = 400
-		VisualFxManagerFrameCap = 18
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		CreateAnimations =
 		[
 			{ Name = "PolyphemusLeapTouchdownFxDark" }
@@ -3477,8 +3479,8 @@
 		VisualFx = "CyclopsDirtClump"
 		VisualFxIntervalMin = 0.12
 		VisualFxIntervalMax = 0.12
-		VisualFxManagerCap = 400
-		VisualFxManagerFrameCap = 18
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		CreateAnimations =
 		[
 			{ Name = "PolyphemusLeapTouchdownFxDark" }

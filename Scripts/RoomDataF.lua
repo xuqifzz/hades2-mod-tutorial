@@ -656,7 +656,8 @@
 				GameStateRequirements =
 				{
 					{
-						PathFalse = { "GameState", "TextLinesRecord", "ZeusPostTrueEnding01" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "ZeusPostTrueEnding01", "ZeusPalacePostTrueEnding01" },
 					},
 					{
 						PathTrue = { "GameState", "ReachedTrueEnding" },

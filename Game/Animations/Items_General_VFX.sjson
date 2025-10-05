@@ -1265,6 +1265,8 @@
 		InheritFrom = "StackUpgrade"
 		OffsetX = 20
 		Scale = 0.8
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		CreateAnimations =
 		[
 			{ Name = "StackUpgradeBigOffset" }
@@ -1285,6 +1287,8 @@
 		OffsetX = -20
 		OffsetY = -5
 		Scale = 0.53
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		CreateAnimations =
 		[
 			{ Name = "StackUpgradeTripleOffset1" }
@@ -1487,6 +1491,8 @@
 		VisualFx = "SpellDropFx"
 		VisualFxIntervalMin = 0.33
 		VisualFxIntervalMax = 0.50
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		ChildAnimation = "SpellDropGlowEmitter"
 		Sound = "/Leftovers/Object Ambiences/MoonDropAmbientLoop"
 		StopSoundOnFinishFade = 0.2
@@ -7751,6 +7757,8 @@
 		OffsetX = -15
 		OffsetY = -5
 		Scale = 0.8
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		CreateAnimations =
 		[
 			{ Name = "RoomMoneyBigDropOffset" }
@@ -7772,6 +7780,8 @@
 		OffsetX = -20
 		OffsetY = -5
 		Scale = 0.6
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		CreateAnimations =
 		[
 			{ Name = "RoomMoneyTripleDropOffset1" }

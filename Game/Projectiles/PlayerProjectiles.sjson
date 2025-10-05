@@ -4905,6 +4905,7 @@
 		DetonateSound = "/SFX/Player Sounds/StaffRangedDetonate"
 		GroupName = "Standing"
 		UseVulnerability = true
+		IgnoreObstacleImpactDuration = 0.1
 		Thing =
 		{
 			Graphic = "LobProjectileBullet"

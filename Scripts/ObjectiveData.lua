@@ -999,6 +999,10 @@ ObjectiveSetData =
 			{
 				FunctionName = "AnyFamiliarUpgradesAvailable",
 			},
+			{
+				Path = { "ScreenState", "ActiveObjectives" },
+				HasNone = { "KillChronos", "KillTyphon" },
+			},
 		},
 	},
 

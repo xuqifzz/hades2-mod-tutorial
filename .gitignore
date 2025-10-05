@@ -7,3 +7,4 @@
 /Shaders
 /Game/Text/*/
 !/Game/Text/zh-CN/
+MyScripts.lua

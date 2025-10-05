@@ -1540,9 +1540,7 @@
 				PreLineWait = 0.25,
 				GameStateRequirements =
 				{
-					{
-						PathTrue = { "GameState", "EncountersOccurredCache", "BossHecateKidnapping" },
-					},
+					NamedRequirements = { "HecateMissing" },
 				},
 				PreLineFunctionName = "UnmuteSpeakerPermanent",
 				{ Cue = "/VO/MelinoeField_3876", Text = "{#Emph}Pah! {#Prev}Where is she?!" },
@@ -3276,6 +3274,16 @@
 							SetAlpha = 0.0,
 							UseableOff = true,
 						},
+					},
+				},
+
+				DistanceTriggers =
+				{
+					{
+						TriggerObjectType = "MetaUpgradeScreen",
+						WithinDistance = 150,
+						Repeat = true,
+						FunctionName = "PingHadesSpear",
 					},
 				},
 			},

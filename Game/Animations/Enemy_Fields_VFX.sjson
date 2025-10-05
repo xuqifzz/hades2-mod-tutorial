@@ -5601,6 +5601,8 @@
 		VisualFx = "CerbAoEDecalPulse"
 		VisualFxIntervalMin = 0.5
 		VisualFxIntervalMax = 0.5
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		StartRed = 0.8
 		StartGreen = 0.2
 		StartBlue = 0

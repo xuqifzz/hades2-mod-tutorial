@@ -14,6 +14,7 @@
 	EntranceFunctionNamePriorities =
 	{
 		"RoomEntranceCrawlerMiniBoss",
+		"RoomEntranceCharybdis",
 		"EntranceFromAnomalyPresentation",
 		"RoomEntrancePortal",
 		"ShipsRoomEntrancePresentation",

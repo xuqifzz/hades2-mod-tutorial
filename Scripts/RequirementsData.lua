@@ -372,7 +372,22 @@ NamedRequirementsData =
 		-- RequiredMinAnyTextLines counterpart example
 		{
 			Path = { "GameState", "TextLinesRecord" },
-			CountOf = { "ZeusAboutSurface01", "ZeusAboutSurface02", "HermesAboutSurface02", "AphroditeAboutSurface02", "AphroditeAboutSurface03", "PoseidonAboutSurface03" },
+			CountOf = {
+				"ZeusAboutSurface01",
+				"ZeusAboutSurface02",
+				"HeraAboutSurface01",
+				"PoseidonAboutSurface01",
+				"PoseidonAboutSurface03",
+				"ApolloAboutSurface01",
+				"DemeterAboutSurface01",
+				"DemeterAboutSurface02",
+				"HestiaAboutSurface01",
+				"HephaestusAboutSurfaceIntro01",
+				"HermesAboutSurface02",
+				"HermesAboutSurface02B",
+				"AphroditeAboutSurface02",
+				"AphroditeAboutSurface03",
+			},
 			Comparison = ">=",
 			Value = 2,
 		},
@@ -2496,7 +2511,7 @@ NamedRequirementsData =
 		},
 		{
 			Path = { "GameState", "TextLinesRecord" },
-			HasAll = { "NemesisPostTrueEnding02", "NemesisPostCombatAboutTartarus03" },
+			HasAll = { "NemesisPostTrueEnding02", "NemesisPostCombatAboutTartarus03", "NemesisPostCombatPostTrueEnding01" },
 		},
 		{
 			PathFalse = { "GameState", "TextLinesRecord", "NeoChronosWithNemesis01" },
@@ -2574,6 +2589,19 @@ NamedRequirementsData =
 
 	SurfaceRouteLockedByTyphonKill =
 	{
+		{
+			PathTrue = { "GameState", "TyphonDefeatedWithStormStop" },
+		},
+		{
+			PathFalse = { "GameState", "ReachedTrueEnding" },
+		},
+	},
+
+	SurfaceBountyLockedByTyphonKill =
+	{
+		{
+			PathTrue = { "CurrentRun", "Hero", "IsDead" },
+		},
 		{
 			PathTrue = { "GameState", "TyphonDefeatedWithStormStop" },
 		},

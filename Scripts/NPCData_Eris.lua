@@ -1739,16 +1739,7 @@ UnitSetData.NPC_Eris =
 					},
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						CountOf =
-						{
-							"ErisBathHouse01",
-							"ErisBathHouse02",
-							"ErisFishing01",
-							"ErisTaverna01",
-							"ErisGift06",
-						},
-						Comparison = ">=",
-						Value = 3,
+						HasAll = { "ErisGift06", "ErisBathHouse01", "ErisTaverna01" },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -2475,7 +2466,13 @@ UnitSetData.NPC_Eris =
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "ErisTaverna02" },
+						HasAll =
+						{
+							"ErisTaverna02",
+							-- back-compat
+							"ErisBathHouse02",
+							"ErisFishing01",
+						},
 					},
 					{
 						PathTrue = { "CurrentRun", "EnemyKills", "Eris" },
@@ -3665,7 +3662,7 @@ UnitSetData.NPC_Eris =
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "ErisGift08" },
+						HasAll = { "ErisGift08", "ErisBathHouse02", "ErisFishing01" },
 					},
 				},
 
