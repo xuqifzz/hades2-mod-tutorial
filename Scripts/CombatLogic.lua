@@ -528,7 +528,7 @@ function CalculateDamageMultipliers( attacker, victim, weaponData, triggerArgs )
 				if modifierData.BossDamageMultiplier and attacker and ( attacker.IsBoss or attacker.IsBossDamage ) then
 					addDamageMultiplier( modifierData, modifierData.BossDamageMultiplier)
 				end
-				if modifierData.NoLastStandDamageTakenMultiplier ~= nil and not HasLastStand( victim ) then
+				if modifierData.NoLastStandDamageTakenMultiplier ~= nil then
 					addDamageMultiplier( modifierData, modifierData.NoLastStandDamageTakenMultiplier)
 				end
 				if modifierData.TrapDamageTakenMultiplier ~= nil and (( attacker ~= nil and attacker.DamageType == "Neutral" ) or (attacker == nil and triggerArgs.AttackerName ~= nil and EnemyData[triggerArgs.AttackerName] ~= nil and EnemyData[triggerArgs.AttackerName].DamageType == "Neutral" )) then
@@ -729,7 +729,7 @@ function CalculateDamageMultipliers( attacker, victim, weaponData, triggerArgs )
 					addDamageMultiplier( modifierData, modifierData.ProximityMultiplier)
 					triggerArgs.TriggeredProximityMultiplier = true
 				end
-				if modifierData.NoLastStandDamageOutputMultiplier ~= nil and not HasLastStand( attacker ) then
+				if modifierData.NoLastStandDamageOutputMultiplier ~= nil then
 					addDamageMultiplier( modifierData, modifierData.NoLastStandDamageOutputMultiplier)
 				end
 				if modifierData.MaxHealthMultiplier and attacker.MaxHealth ~= nil then
