@@ -1385,6 +1385,8 @@ function CodexMain(triggerArgs)
 	CurrentRun.OtherUpgradeList ={
 		"WeaponUpgrade",
 		"HermesUpgrade",
+    "SpellDrop",
+    "TalentDrop"
 	}
 	local selection = CodexStatus.SelectedEntryNames[CodexStatus.SelectedChapterName]
 	if(Contains(CurrentRun.XBoonList,selection) or Contains(CurrentRun.OtherUpgradeList,selection)) then
@@ -1392,6 +1394,17 @@ function CodexMain(triggerArgs)
 		CloseCodexScreen(ActiveScreens["Codex"])
 	end
 
+  if(selection=="PlayerUnit") then
+    CurrentRun.NextReollForceReward = "WeaponUpgrade"
+    CloseCodexScreen(ActiveScreens["Codex"])
+    return
+  end
+
+  if(selection=="NPC_Hecate_01") then
+    CurrentRun.NextReollForceReward = "TalentDrop"
+    CloseCodexScreen(ActiveScreens["Codex"])
+    return
+  end
 
 end
 
