@@ -1963,6 +1963,14 @@ function SetTraitsOnLoot( lootData, args )
 			blockReroll = false
 		end
 	end
+  if(#CurrentRun.RoomHistory == 0) then
+    for _,v in pairs(upgradeOptions) do
+        if( TraitData[v.ItemName] and TraitData[v.ItemName].RarityLevels and TraitData[v.ItemName].RarityLevels.Epic) then
+            v.Rarity="Epic"
+        end
+    end
+  end
+
 	lootData.BlockReroll = blockReroll
 	lootData.UpgradeOptions = upgradeOptions
 end
