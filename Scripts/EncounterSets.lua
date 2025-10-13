@@ -436,7 +436,7 @@ EncounterSets =
 				{
 					PathFalse = { "CurrentRun", "RoomCountCache", "C_Boss01" }
 				},
-				ChanceToPlay = 0.40,
+				ChanceToPlay = 1.0,
 			},
 		},
 		{
@@ -813,4 +813,5 @@ EncounterSets =
 		"EliteChallengeSwitch_MaxMana",
 		"EliteChallengeSwitch_MaxMana",
 	},
+
 }
