@@ -927,7 +927,7 @@ function EchoChoice( source, args, screen )
 	RandomSynchronize( 9 )
 
 	source.UpgradeOptions = {}
-	source.BlockReroll = true
+	source.BlockReroll = false
 	local options = ShallowCopyTable( args.UpgradeOptions )
 	local eligibleOptions = {}
 	for i, option in pairs(options) do
@@ -964,7 +964,7 @@ function ArachneCostumeChoice( source, args, screen )
 	RandomSynchronize( 9 )
 
 	source.UpgradeOptions = {}
-	source.BlockReroll = true
+	source.BlockReroll = false
 	local options = ShallowCopyTable( args.UpgradeOptions )
 	local eligibleOptions = {}
 	local priorityOptions = {}
@@ -1010,7 +1010,7 @@ function NarcissusBenefitChoice( source, args, screen )
 	RandomSynchronize( 9 )
 
 	source.UpgradeOptions = {}
-	source.BlockReroll = true
+	source.BlockReroll = false
 	local options = ShallowCopyTable( args.UpgradeOptions )
 	local eligibleOptions = {}
 	local priorityOptions = {}
@@ -1055,7 +1055,7 @@ function MedeaCurseChoice( source, args, screen )
 	RandomSynchronize( 9 )
 
 	source.UpgradeOptions = {}
-	source.BlockReroll = true
+	source.BlockReroll = false
 	local options = ShallowCopyTable( args.UpgradeOptions )
 	local eligibleOptions = {}
 	local priorityOptions = {}
@@ -1101,7 +1101,7 @@ function CirceBlessingChoice( source, args, screen )
 	RandomSynchronize( 9 )
 
 	source.UpgradeOptions = {}
-	source.BlockReroll = true
+	source.BlockReroll = false
 	local options = ShallowCopyTable( args.UpgradeOptions )
 	local eligibleOptions = {}
 	local priorityOptions = {}
@@ -1169,7 +1169,7 @@ function IcarusBenefitChoice( source, args, screen )
 	RandomSynchronize( 9 )
 
 	source.UpgradeOptions = {}
-	source.BlockReroll = true
+	source.BlockReroll = false
 	local options = ShallowCopyTable( args.UpgradeOptions )
 	local eligibleOptions = {}
 	local priorityOptions = {}
@@ -1542,7 +1542,7 @@ function EchoLastRunBoon( args, sourceTraitData )
 	RandomSynchronize( 9 )
 
 	source.UpgradeOptions = {}
-	source.BlockReroll = true
+	source.BlockReroll = false
 
 	RandomSynchronize( 11 )
 
