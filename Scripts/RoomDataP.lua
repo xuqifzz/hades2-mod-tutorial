@@ -2120,6 +2120,7 @@ RoomSetData.P =
 		ForcedReward = "Story",
 		NoReroll = true,
 		MaxCreationsThisRun = 1,
+    AlwaysForce = true,
 		NarrativeContextArt = "nil",
 
 		SecretSpawnChance = 0.00,

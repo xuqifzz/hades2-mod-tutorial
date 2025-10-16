@@ -2956,7 +2956,7 @@
 		NoReroll = true,
 		MaxCreationsThisRun = 1,
 		ForceIfUnseenForRuns = 3,
-
+    AlwaysForce = true,
 		IntroSequenceDuration = 0.9,
 
 		GameStateRequirements =

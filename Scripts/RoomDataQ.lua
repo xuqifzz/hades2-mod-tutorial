@@ -2708,7 +2708,7 @@ RoomSetData.Q =
 		Ambience = "/Leftovers/Object Ambiences/CommonwealthAmbience",
 		NarrativeContextArt = "DialogueBackground_Olympus_Silent",
 		NarrativeContextArtFlippable = false,
-
+    AlwaysForce = true,
 		IgnoreMusic = true,
 		SwapSounds =
 		{

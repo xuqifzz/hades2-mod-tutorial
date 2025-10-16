@@ -2592,6 +2592,7 @@ RoomSetData.O =
 		ForcedReward = "Story",
 		NoReroll = true,
 		MaxCreationsThisRun = 1,
+    AlwaysForce = true,
 		NarrativeContextArt = "nil",
 
 		FishingPointChance = 0.40,
