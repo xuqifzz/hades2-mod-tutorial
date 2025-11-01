@@ -1378,6 +1378,43 @@ function AttemptReroll( run, target )
 	RemoveInputBlock({ Name = "AttemptReroll" })
 end
 
+function CodexMain(triggerArgs)
+	if not IsScreenOpen("Codex") or not CurrentRun  then
+		return
+	end
+	CurrentRun.XBoonList = {"ZeusUpgrade","HeraUpgrade", "PoseidonUpgrade", "DemeterUpgrade","ApolloUpgrade","AphroditeUpgrade","HephaestusUpgrade","HestiaUpgrade","AresUpgrade"}
+	CurrentRun.OtherUpgradeList ={
+		"WeaponUpgrade",
+		"HermesUpgrade",
+    "SpellDrop",
+    "TalentDrop"
+	}
+	local selection = CodexStatus.SelectedEntryNames[CodexStatus.SelectedChapterName]
+	if(Contains(CurrentRun.XBoonList,selection) or Contains(CurrentRun.OtherUpgradeList,selection)) then
+		CurrentRun.NextReollForceReward = selection
+		CloseCodexScreen(ActiveScreens["Codex"])
+	end
+
+  if(selection=="PlayerUnit") then
+    CurrentRun.NextReollForceReward = "WeaponUpgrade"
+    CloseCodexScreen(ActiveScreens["Codex"])
+    return
+  end
+
+  if(selection=="NPC_Hecate_01") then
+    CurrentRun.NextReollForceReward = "TalentDrop"
+    CloseCodexScreen(ActiveScreens["Codex"])
+    return
+  end
+
+end
+
+OnControlPressed{ "Confirm",
+	function( triggerArgs )
+		CodexMain(triggerArgs)
+	end
+}
+
 function AttemptRerollDoor( run, door )
 
 	local room = door.Room
@@ -1420,6 +1457,19 @@ function AttemptRerollDoor( run, door )
 
 	run.CurrentRoom.DeferReward = false
 	room.ChosenRewardType = ChooseRoomReward( run, room, room.RewardStoreName, rewardsChosen, { IgnoreGameStateRequirements = false, } )
+
+  local isForceBoon = false;
+	if(CurrentRun.NextReollForceReward) then
+		if(Contains(CurrentRun.XBoonList,CurrentRun.NextReollForceReward)) then
+			isForceBoon = true
+			room.ChosenRewardType = "Boon"
+      room.ForceLootName = CurrentRun.NextReollForceReward
+		else
+			room.ChosenRewardType = CurrentRun.NextReollForceReward
+		end
+	end
+  CurrentRun.NumRerolls = CurrentRun.NumRerolls + 1
+  CurrentRun.NextReollForceReward = nil
 	SetupRoomReward( run, room, rewardsChosen )
 	run.CurrentRoom.OfferedRewards[door.ObjectId] = { Type = room.ChosenRewardType, ForceLootName = room.ForceLootName, UseOptionalOverrides = room.UseOptionalOverrides }
 
