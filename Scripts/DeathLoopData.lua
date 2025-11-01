@@ -45,17 +45,27 @@ OverwriteTableKeys( HubRoomData, {
 								PlayOnce = true,
 								SkipContextArt = true,
 
-								{ Cue = "/VO/Melinoe_4475",
+								{ Cue = "/VO/Melinoe_5736",
 									UsePlayerSource = true,
 									Portrait = "Portrait_Mel_Proud_01",
 									PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "None", Portrait = "Portrait_Mel_Empathetic_01", WaitTime = 2.4 },
 									PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 									PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 
-									Text = "May it all turn out that way in time, Homer. Though, what am I going to do with myself now that my task is finally complete? Well... I suppose I have eternity to figure it out." },
+									Text = "May it all turn out that way in time, Homer. Though, we're not there yet, especially not with the Fates still missing. We achieved something important, but more is to be done." },
 
 								EndFunctionName = "DisplayTrueEndingInfoBanner",
 								EndFunctionArgs = { Title = "TrueEndingReached", PreWait = 0.1, PostCreditsMusicFadeOutDuration = 0.3, Stinger = "/Music/IrisVictoryStingerLARGE", EndFunctionName = "RestoreMusicianMusic" },
+
+								EndVoiceLines =
+								{
+									{
+										PreLineWait = 3.4,
+										UsePlayerSource = true,
+										{ Cue = "/VO/Melinoe_5737", Text = "...I said we're not finished!" },
+									},
+								},
+
 							},
 						},
 					},
@@ -66,7 +76,27 @@ OverwriteTableKeys( HubRoomData, {
 						PathTrue = { "CurrentRun", "RoomsEntered", "I_DeathAreaRestored" },
 					},
 					{
+						PathFalse = { "CurrentRun", "UsedStoryReset" },
+					},
+					{
 						PathFalse = { "CurrentHubRoom", },
+					},
+				},
+				BreakIfPlayed = true,
+			},
+			{
+				FunctionName = "StartDeathLoop",
+				Args =
+				{
+					PresentationFunctionName = "HubPostStoryResetStartPresentation",
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "UsedStoryReset" },
+					},
+					{
+						PathFalse = { "CurrentHubRoom" },
 					},
 				},
 				BreakIfPlayed = true,
@@ -410,6 +440,8 @@ OverwriteTableKeys( HubRoomData, {
 						"HecateBathHouseEpilogue01",
 						"HecatePostTrueEnding01",
 						"HecatePostTrueEnding02",
+						"HecatePostTrueEnding04",
+						"HecatePostTrueEnding03",
 
 						"HecateAboutTyphonDeath01",
 						"HecateAboutStormStop01",
@@ -422,16 +454,18 @@ OverwriteTableKeys( HubRoomData, {
 						"HecateAboutChronosBossW04_A",
 						"HecateAboutChronosBossW04_B",
 
-						"HecateAboutTimeStop01",
 						"HecateAboutChronosBossW03",
 						"HecateAboutChronosBossW02",
 						"HecateAboutChronosBossW01",
 						"HecateAboutChronosBossW01Cont1",
+						"HecateAboutTimeStop01",
 						"HecateAboutStormStop01_B",
 						"HecateAboutUltimateProgress03_A",
 						"HecateAboutUltimateProgress03",
+						"HecateAboutUltimateProgress04",
 						"HecateAboutUltimateProgress02",
 						"HecateAboutUltimateProgress01",
+						"HecateAboutStormStopNotCast01",
 
 						"HecateAboutPalace01",
 						"HecateUnderworldRunCleared01",
@@ -446,7 +480,6 @@ OverwriteTableKeys( HubRoomData, {
 						"HecateAboutHermes01",
 						"HecateAboutQuestLog02",
 						"HecateAboutSurface03",
-						"HecateAboutIcarus01",
 						"HecateAboutTyphonAltFightW01",
 
 						-- Odysseus key events
@@ -488,6 +521,7 @@ OverwriteTableKeys( HubRoomData, {
 						"MorosAboutEpilogueProgress01",
 						"MorosPostEpilogue01",
 						"MorosPostTrueEnding01",
+						"MorosPostTrueEnding02",
 						"MorosAboutHecateKidnapped01",
 						"MorosAboutTyphonDeath01",
 
@@ -725,6 +759,9 @@ OverwriteTableKeys( HubRoomData, {
 				{
 					{
 						PathFalse = { "CurrentRun", "ArtemisHubSong" }, -- handled below
+					},
+					{
+						PathFalse = { "PreviousDeathAreaRoom" },
 					},
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "NPC_Artemis_Field_01" },
@@ -1973,8 +2010,18 @@ OverwriteTableKeys( HubRoomData, {
 				FunctionName = "RestoreMusicianMusic",
 				GameStateRequirements =
 				{
+					OrRequirements =
 					{
-						PathFalse = { "CurrentRun", "PlayedTrueEnding" },
+						{
+							{
+								PathFalse = { "CurrentRun", "PlayedTrueEnding" },
+							},
+						},
+						{
+							{
+								PathTrue = { "PreviousDeathAreaRoom" },
+							},
+						},
 					},
 				},
 			},
@@ -2701,6 +2748,42 @@ OverwriteTableKeys( HubRoomData, {
 				},
 			},
 
+			-- Inspect: Hades Fountain / Fountain of the Dead (StoryReset)
+			[800770] =
+			{
+				PlayOnce = true,
+				UseText = "UseExamineMisc",
+				SetupGameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeStoryReset" },
+					},
+				},
+				InteractTextLineSets =
+				{
+					InspectHadesFountain02 =
+					{
+						{ Cue = "/VO/Storyteller_0526",
+							PreLineAngleHeroTowardTargetId = 743214,
+							PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+							PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+							PostLineFunctionName = "SetupStoryResetObject",
+							Text = "{#Emph}There are no second chances in this world. The Titan Chronos once intoned that there is no undoing past mistakes... mere fleeting possibilities, lost to Time." },
+						EndVoiceLines =
+						{
+							PreLineWait = 0.4,
+							UsePlayerSource = true,
+							RequiredMinElapsedTime = 3,
+							{ Cue = "/VO/Melinoe_5764", Text = "Possibilities that could have been..." },
+							-- { Cue = "/VO/Melinoe_5762", Text = "My task..." },
+						},
+					},
+				},
+			},
+
 			-- Inspect: Eris passage / Eris gate
 			[558340] =
 			{
@@ -2760,7 +2843,7 @@ OverwriteTableKeys( HubRoomData, {
 					},
 					{
 						FunctionName = "RequiredAlive",
-						FunctionArgs = { Ids =  { 585573, }, },
+						FunctionArgs = { Ids = { 585573, }, },
 					},
 				},
 				InteractTextLineSets =
@@ -2853,7 +2936,7 @@ OverwriteTableKeys( HubRoomData, {
 					},
 					{
 						FunctionName = "RequiredAlive",
-						FunctionArgs = { Ids =  { 557112, }, },
+						FunctionArgs = { Ids = { 557112, }, },
 					},
 					{
 						PathFalse = { "SessionMapState", "OdysseusAtTaverna" }
@@ -2903,7 +2986,7 @@ OverwriteTableKeys( HubRoomData, {
 					},
 					{
 						FunctionName = "RequiredAlive",
-						FunctionArgs = { Ids =  { 557113, }, },
+						FunctionArgs = { Ids = { 557113, }, },
 					},
 				},
 				InteractTextLineSets =
@@ -2949,7 +3032,7 @@ OverwriteTableKeys( HubRoomData, {
 					},
 					{
 						FunctionName = "RequiredAlive",
-						FunctionArgs = { Ids =  { 560612, }, },
+						FunctionArgs = { Ids = { 560612, }, },
 					},
 				},
 				InteractTextLineSets =
@@ -2997,7 +3080,7 @@ OverwriteTableKeys( HubRoomData, {
 					},
 					{
 						FunctionName = "RequiredAlive",
-						FunctionArgs = { Ids =  { 566832, }, },
+						FunctionArgs = { Ids = { 566832, }, },
 					},
 				},
 				InteractTextLineSets =
@@ -3101,7 +3184,7 @@ OverwriteTableKeys( HubRoomData, {
 				{
 					{
 						FunctionName = "RequiredAlive",
-						FunctionArgs = { Ids =  { 558096, }, },
+						FunctionArgs = { Ids = { 558096, }, },
 					},
 					{
 						PathFalse = { "GameState", "ReachedTrueEnding" },
@@ -3141,7 +3224,7 @@ OverwriteTableKeys( HubRoomData, {
 					},
 					{
 						FunctionName = "RequiredAlive",
-						FunctionArgs = { Ids =  { 589466, }, },
+						FunctionArgs = { Ids = { 589466, }, },
 					},
 				},
 				InteractTextLineSets =
@@ -3175,7 +3258,7 @@ OverwriteTableKeys( HubRoomData, {
 					},
 					{
 						FunctionName = "RequiredAlive",
-						FunctionArgs = { Ids =  { 589467, }, },
+						FunctionArgs = { Ids = { 589467, }, },
 					},
 				},
 				InteractTextLineSets =
@@ -3209,7 +3292,7 @@ OverwriteTableKeys( HubRoomData, {
 					},
 					{
 						FunctionName = "RequiredAlive",
-						FunctionArgs = { Ids =  { 738510, }, },
+						FunctionArgs = { Ids = { 738510, }, },
 					},
 				},
 				InteractTextLineSets =
@@ -3590,7 +3673,7 @@ OverwriteTableKeys( HubRoomData, {
 			{
 				Name = "RunHistoryScreen",
 				AnimOffsetZ = 150,
-				EmoteOffsetZ = 120,
+				EmoteOffsetZ = 80,
 				Activate = true,
 				SkipDefaultSetup = true, -- Handled by WorldUpgrade
 				InteractDistance = 250,
@@ -3647,7 +3730,7 @@ OverwriteTableKeys( HubRoomData, {
 						Args =
 						{
 							AnimationName = "StatusIconEmbarrassed",
-							OffsetZ = 50,
+							OffsetZ = 80,
 						},
 					},
 				}
@@ -3810,7 +3893,7 @@ OverwriteTableKeys( HubRoomData, {
 								{
 									{
 										FunctionName = "RequiredAlive",
-										FunctionArgs = { Ids =  { 558096 }, },
+										FunctionArgs = { Ids = { 558096 }, },
 									},
 								},
 							},
@@ -4317,7 +4400,7 @@ OverwriteTableKeys( HubRoomData, {
 				{
 					{
 						FunctionName = "RequiredAlive",
-						FunctionArgs = { Ids =  { 556921 }, },
+						FunctionArgs = { Ids = { 556921 }, },
 					},
 				},
 				DestroyIfNotSetup = true,
@@ -4329,7 +4412,7 @@ OverwriteTableKeys( HubRoomData, {
 				{
 					{
 						FunctionName = "RequiredAlive",
-						FunctionArgs = { Ids =  { 556921 }, },
+						FunctionArgs = { Ids = { 556921 }, },
 					},
 				},
 				DestroyIfNotSetup = true,
@@ -4399,14 +4482,14 @@ OverwriteTableKeys( HubRoomData, {
 										FunctionArgs = { IsAny = GameData.BlockPreRunExitDoorEvents },
 									},
 								},
-								-- block the exit if one of the key incantations is affordable and not yet purchased
+								-- block the exit if the TimeStop incantation is affordable and not yet purchased
 								{
 									{
 										FunctionName = "RequireAffordableGhostAdminItems",
 										FunctionArgs =
 										{
 											CategoryIndex = 1,
-											HasAny = { "WorldUpgradeStormStop", "WorldUpgradeTimeStop" },
+											HasAny = { "WorldUpgradeTimeStop" },
 										},
 									},
 								},
@@ -4439,7 +4522,7 @@ OverwriteTableKeys( HubRoomData, {
 												FunctionArgs =
 												{
 													CategoryIndex = 1,
-													HasAny = { "WorldUpgradeStormStop", "WorldUpgradeTimeStop" },
+													HasAny = { "WorldUpgradeTimeStop" },
 												},
 											},
 										}
@@ -4452,7 +4535,7 @@ OverwriteTableKeys( HubRoomData, {
 												FunctionArgs =
 												{
 													CategoryIndex = 1,
-													HasAny = { "WorldUpgradeStormStop", "WorldUpgradeTimeStop" },
+													HasAny = { "WorldUpgradeTimeStop" },
 												},
 											},
 										}
@@ -4656,18 +4739,15 @@ OverwriteTableKeys( HubRoomData, {
 			[742624] =
 			{
 				Name = "CrossroadsFountainWall01",
-				UseText = "NPCUseTextSpecial",
+				UseTextSpecial = "NPCUseTextSpecial",
+				UseTextTalkAndSpecial = "UseStoryResetAndSpecial",
+				UseText = "UseStoryReset",
 				SpecialInteractFunctionName = "UseHadesFountain",
-				SpecialInteractCooldown = 60,
+				SpecialInteractCooldown = 30,
 				InteractDistance = 200,
 				InteractOffsetX = -50,
 				InteractOffsetY = -50,
 				Activate = true,
-				DestroyIfNotSetup = true,
-				SetupGameStateRequirements =
-				{
-					-- NamedRequirements = { "HecateFamiliarsInHub" },
-				},
 				DistanceTriggers =
 				{
 					{
@@ -4703,7 +4783,19 @@ OverwriteTableKeys( HubRoomData, {
 						{
 							Animation = "Blank",
 						},
-					}
+					},
+					{
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "GameState", "ReachedTrueEnding" },
+							},
+							{
+								PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeStoryReset" },
+							},
+						},
+						FunctionName = "SetupStoryResetObject",
+					},
 				},
 			},
 			-- fountain bench
@@ -4798,6 +4890,32 @@ OverwriteTableKeys( HubRoomData, {
 				},
 			},
 
+			-- Dora Point
+			[800388] =
+			{
+				Name = "DoraPoint01",
+				DistanceTriggers =
+				{
+					{
+						Repeat = true,
+						WithinDistance = 400,
+						VoiceLines =
+						{
+							UsePlayerSource = true,
+							PlayOnce = true,
+							PreLineWait = 0.3,
+							GameStateRequirements =
+							{
+								{
+									PathTrue = { "CurrentRun", "WorldUpgradesAdded", "WorldUpgradeDoraMemory" },
+								},
+							},
+							{ Cue = "/VO/Melinoe_5723", Text = "Dora's gone... just needs a little time." },
+						},
+					},
+				},
+			},
+
 			-- Hypnos Point
 			[800742] =
 			{
@@ -4877,6 +4995,9 @@ OverwriteTableKeys( HubRoomData, {
 						GameStateRequirements =
 						{
 							{
+								PathTrue = { "GameState", "ReachedTrueEnding", },
+							},
+							{
 								PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBadgeSeller" },
 							},
 							{
@@ -4892,6 +5013,9 @@ OverwriteTableKeys( HubRoomData, {
 						FunctionName = "BadgeSellerSetupUseText",
 						GameStateRequirements =
 						{
+							{
+								PathTrue = { "GameState", "ReachedTrueEnding", },
+							},
 							{
 								PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBadgeSeller" },
 							}
@@ -5840,7 +5964,7 @@ OverwriteTableKeys( HubRoomData, {
 						PathTrue = { "CurrentRun", "TextLinesRecord", "TrueEndingFinale01" },
 					},
 					{
-						PathFalse = { "GameState", "SpeechRecord", "/VO/Melinoe_5672" },
+						PathFalse = { "GameState", "SpeechRecord", "/VO/Melinoe_5740" },
 					},
 				},
 			},
@@ -5924,6 +6048,78 @@ OverwriteTableKeys( HubRoomData, {
 					},
 					NamedRequirementsFalse = { "TrophyQuestUnlocked" },
 					-- NamedRequirementsFalse = { "ShrineUnlocked" },
+				},
+			},
+
+			-- skelly quest progress
+			{
+				BreakIfPlayed = true,
+				FunctionName = "GenericPresentation",
+				Args =
+				{
+					VoiceLines =
+					{
+						{
+							PlayOnce = true,
+							BreakIfPlayed = true,
+							PreLineWait = 1.2,
+							GameStateRequirements =
+							{
+								NamedRequirements = { "TrophyQuestStage1CheckA" }
+							},
+							{ Cue = "/VO/Melinoe_3293", Text = "Halfway to Night's Gift..." },
+						},
+						{
+							PlayOnce = true,
+							BreakIfPlayed = true,
+							PreLineWait = 1.2,
+							GameStateRequirements =
+							{
+								NamedRequirements = { "TrophyQuestStage1CheckB" }
+							},
+							{ Cue = "/VO/Melinoe_3293", Text = "Halfway to Night's Gift..." },
+						},
+						{
+							PlayOnce = true,
+							BreakIfPlayed = true,
+							PreLineWait = 1.2,
+							GameStateRequirements =
+							{
+								NamedRequirements = { "TrophyQuestStage2CheckA" }
+							},
+							{ Cue = "/VO/Melinoe_3294", Text = "I'm part of the way there." },
+						},
+						{
+							PlayOnce = true,
+							BreakIfPlayed = true,
+							PreLineWait = 1.2,
+							GameStateRequirements =
+							{
+								NamedRequirements = { "TrophyQuestStage2CheckB" }
+							},
+							{ Cue = "/VO/Melinoe_3294", Text = "I'm part of the way there." },
+						},
+						{
+							PlayOnce = true,
+							BreakIfPlayed = true,
+							PreLineWait = 1.2,
+							GameStateRequirements =
+							{
+								NamedRequirements = { "TrophyQuestStage3CheckA" }
+							},
+							{ Cue = "/VO/Melinoe_3295", Text = "Night's Gift awaits..." },
+						},
+						{
+							PlayOnce = true,
+							BreakIfPlayed = true,
+							PreLineWait = 1.2,
+							GameStateRequirements =
+							{
+								NamedRequirements = { "TrophyQuestStage3CheckB" }
+							},
+							{ Cue = "/VO/Melinoe_3295", Text = "Night's Gift awaits..." },
+						},
+					},
 				},
 			},
 		},
@@ -6216,7 +6412,7 @@ OverwriteTableKeys( HubRoomData, {
 							{
 								PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBountyBoard" },
 							},
-							NamedRequirementsFalse = { "HecateMissing" },
+							NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
 						},
 						FailedFunctionName = "GenericPresentation",
 						FailedFunctionArgs =
@@ -6245,7 +6441,7 @@ OverwriteTableKeys( HubRoomData, {
 									},
 								},
 							},
-							NamedRequirementsFalse = { "HecateMissing" },
+							NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
 						},
 					},
 				},
@@ -6255,13 +6451,12 @@ OverwriteTableKeys( HubRoomData, {
 					{
 						GameStateRequirements =
 						{
-							NamedRequirements = { "HecateMissing" },
+							NamedRequirements = { "SurfaceRouteLockedByTyphonKill" },
 						},
 						WithinDistance = 250,
 						VoiceLines =
 						{
 							UsePlayerSource = true,
-							RandomRemaining = true,
 							Cooldowns =
 							{
 								{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
@@ -6287,7 +6482,7 @@ OverwriteTableKeys( HubRoomData, {
 					{
 						FunctionName = "HasUnclearedBounty",
 					},
-					NamedRequirementsFalse = { "HecateMissing" },
+					NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
 				},
 			},
 			-- Shrine / Oath of the Unseen / Pact / Pact of Punishment (Note: Shadow decal below)
@@ -6702,72 +6897,6 @@ OverwriteTableKeys( HubRoomData, {
 					},
 				},
 			},
-		},
-
-
-		EnterVoiceLines =
-		{
-			{
-				PlayOnce = true,
-				BreakIfPlayed = true,
-				PreLineWait = 1.2,
-				GameStateRequirements =
-				{
-					NamedRequirements = { "TrophyQuestStage1CheckA" }
-				},
-				{ Cue = "/VO/Melinoe_3293", Text = "Halfway to Night's Gift..." },
-			},
-			{
-				PlayOnce = true,
-				BreakIfPlayed = true,
-				PreLineWait = 1.2,
-				GameStateRequirements =
-				{
-					NamedRequirements = { "TrophyQuestStage1CheckB" }
-				},
-				{ Cue = "/VO/Melinoe_3293", Text = "Halfway to Night's Gift..." },
-			},
-			{
-				PlayOnce = true,
-				BreakIfPlayed = true,
-				PreLineWait = 1.2,
-				GameStateRequirements =
-				{
-					NamedRequirements = { "TrophyQuestStage2CheckA" }
-				},
-				{ Cue = "/VO/Melinoe_3294", Text = "I'm part of the way there." },
-			},
-			{
-				PlayOnce = true,
-				BreakIfPlayed = true,
-				PreLineWait = 1.2,
-				GameStateRequirements =
-				{
-					NamedRequirements = { "TrophyQuestStage2CheckB" }
-				},
-				{ Cue = "/VO/Melinoe_3294", Text = "I'm part of the way there." },
-			},
-			{
-				PlayOnce = true,
-				BreakIfPlayed = true,
-				PreLineWait = 1.2,
-				GameStateRequirements =
-				{
-					NamedRequirements = { "TrophyQuestStage3CheckA" }
-				},
-				{ Cue = "/VO/Melinoe_3295", Text = "Night's Gift awaits..." },
-			},
-			{
-				PlayOnce = true,
-				BreakIfPlayed = true,
-				PreLineWait = 1.2,
-				GameStateRequirements =
-				{
-					NamedRequirements = { "TrophyQuestStage3CheckB" }
-				},
-				{ Cue = "/VO/Melinoe_3295", Text = "Night's Gift awaits..." },
-			},
-
 		},
 
 		OverlookData =
@@ -9495,6 +9624,21 @@ GlobalVoiceLines.DeathReturnVoiceLines =
 	{
 		Queue = "Always",
 		BreakIfPlayed = true,
+		PreLineWait = 0.4,
+		Source = { LineHistoryName = "NPC_Zagreus_01", SubtitleColor = Color.ZagreusVoice },
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "TextLinesRecord" },
+				HasAny = { "ZagreusPastMeeting04_2" },
+			},
+		},
+
+		{ Cue = "/VO/Zagreus_0450", Text = "I'd settle for the latter bit..." },
+	},
+	{
+		Queue = "Always",
+		BreakIfPlayed = true,
 		PreLineWait = 0.35,
 		Source = { LineHistoryName = "NPC_Zagreus_01", SubtitleColor = Color.ZagreusVoice },
 		GameStateRequirements =
@@ -9951,7 +10095,6 @@ GlobalVoiceLines.DeathReturnVoiceLines =
 		Queue = "Always",
 		BreakIfPlayed = true,
 		RandomRemaining = true,
-		SuccessiveChanceToPlayAll = 0.25,
 		GameStateRequirements =
 		{
 			{
@@ -10193,6 +10336,7 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			},
 		},
 
+		-- pastfirstmeeting
 		{ Cue = "/VO/Melinoe_4831", Text = "{#Emph}<Gasp> {#Prev}...Brother... I found him...",
 			GameStateRequirements =
 			{
@@ -10201,27 +10345,63 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 				},
 			},
 		},
+		-- pastmeeting02
 		{ Cue = "/VO/Melinoe_5707", Text = "{#Emph}<Gasp> {#Prev}Zagreus... I'm counting on you...",
 			GameStateRequirements =
 			{
 				{
-					PathTrue = { "CurrentRun", "RoomsEntered", "I_PostBoss01" },
+					PathTrue = { "CurrentRun", "TextLinesRecord", "ZagreusPastMeeting02" },
 				},
 			},
 		},
-		{ Cue = "/VO/Melinoe_4832", Text = "{#Emph}<Gasp> {#Prev}...From out of the abyss...",
+		-- pastmeeting02_2
+		{ Cue = "/VO/Melinoe_5769", Text = "{#Emph}<Gasp> {#Prev}...To hell and back... the heavens next?",
 			GameStateRequirements =
 			{
 				{
-					PathTrue = { "CurrentRun", "RoomsEntered", "I_PostBoss01" },
+					PathTrue = { "CurrentRun", "TextLinesRecord", "ZagreusPastMeeting02_2" },
+				},
+				{
+					Path = { "GameState", "TextLinesRecord" },
+					HasNone = {
+						"ZeusPalaceFirstMeeting",
+					},
 				},
 			},
 		},
-		{ Cue = "/VO/Melinoe_4835", Text = "{#Emph}<Gasp> {#Prev}...We're counting on you, Brother...",
+		{ Cue = "/VO/Melinoe_5766", Text = "{#Emph}<Gasp> {#Prev}...Work with me, Brother...",
 			GameStateRequirements =
 			{
 				{
-					PathTrue = { "CurrentRun", "RoomsEntered", "I_PostBoss01" },
+					PathTrue = { "CurrentRun", "TextLinesRecord", "ZagreusPastMeeting02_2" },
+				},
+			},
+		},
+		-- pastmeeting03
+		{ Cue = "/VO/Melinoe_5765", Text = "{#Emph}<Gasp> {#Prev}...I'm getting through to him... I think.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "TextLinesRecord", "ZagreusPastMeeting03" }
+				},
+			},
+		},
+
+		-- pastmeeting04
+		{ Cue = "/VO/Melinoe_5767", Text = "{#Emph}<Gasp> {#Prev}...Perhaps a visit to Olympus next...?",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
+				},
+				{
+					PathTrue = { "CurrentRun", "TextLinesRecord", "ZagreusPastMeeting04" }
+				},
+				{
+					Path = { "GameState", "TextLinesRecord" },
+					HasNone = {
+						"ZeusPalaceMeeting02",
+					},
 				},
 			},
 		},
@@ -10229,24 +10409,93 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					PathTrue = { "CurrentRun", "RoomsEntered", "I_PostBoss01" },
+					PathTrue = { "CurrentRun", "TextLinesRecord", "ZagreusPastMeeting04" }
 				},
 			},
 		},
-		{ Cue = "/VO/Melinoe_4839", Text = "{#Emph}<Gasp> {#Prev}...should have what I need now.",
-			PlayFirst = true,
+
+		-- pastmeeting04_2
+		{ Cue = "/VO/Melinoe_5725", Text = "{#Emph}<Gasp> {#Prev}...Brother... we shouldn't be fighting...",
 			GameStateRequirements =
 			{
 				{
-					PathTrue = { "GameState", "TextLinesRecord", "ZagreusPastMeeting05" },
+					PathTrue = { "CurrentRun", "TextLinesRecord", "ZagreusPastMeeting04_2" }
+				},
+			},
+		},
+
+		-- pastmeeting04_3
+		{ Cue = "/VO/Melinoe_5727", Text = "{#Emph}<Gasp> {#Prev}...That's a bit more like it.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "TextLinesRecord", "ZagreusPastMeeting04_3" }
+				},
+			},
+		},
+
+		-- pastmeeting05
+		{ Cue = "/VO/Melinoe_4839", Text = "{#Emph}<Gasp> {#Prev}...Should have what I need now.",
+			PostLineFunctionName = "FrogFamiliarReaction",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "TextLinesRecord", "ZagreusPastMeeting05" },
 				},
 				{
 					PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeStormStop" },
 				},
+				{
+					FunctionName = "RequiredAlive",
+					FunctionArgs = { Ids = { 566831 } },
+				},
 			},
 		},
+		{ Cue = "/VO/Melinoe_5768", Text = "{#Emph}<Gasp> {#Prev}...I felt... I'm needed on the surface now.",
+			PostLineFunctionName = "FrogFamiliarReaction",
+			GameStateRequirements =
+			{
+				{
+					FunctionName = "RequiredAlive",
+					FunctionArgs = { Ids = { 566831 } },
+				},
+				OrRequirements =
+				{
+					{
+						{
+							Path = { "CurrentRun", "TextLinesRecord" },
+							HasAny = {
+								"ZagreusPastMeeting05"
+							},
+						},
+						{
+							PathFalse = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeStormStop" },
+						},
+					},
+					{
+						{
+							PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+						},
+						{
+							Path = { "CurrentRun", "TextLinesRecord" },
+							HasAny = {
+								"ZagreusPastMeeting05",
+								"ZagreusPastMeeting07",
+								"ZagreusPastMeeting08",
+								"ZagreusPastMeetingRepeatable01",
+								"ZagreusPastMeetingRepeatable02",
+								"ZagreusPastMeetingRepeatable03",
+								"ZagreusPastMeetingRepeatable04",
+								"ZagreusPastMeetingRepeatable05",
+							},
+						},
+					},
+				},
+			},
+		},
+
+		-- pastmeeting07 + & optional
 		{ Cue = "/VO/Melinoe_4836", Text = "{#Emph}<Gasp> {#Prev}...I should come back to him. Olympus first.",
-			PlayFirst = true,
 			GameStateRequirements =
 			{
 				{
@@ -10257,6 +10506,41 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 				},
 			},
 		},
+		{ Cue = "/VO/Melinoe_4832", Text = "{#Emph}<Gasp> {#Prev}...From out of the abyss...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "TextLinesRecord" },
+					HasAny = {
+						"ZagreusPastMeeting07",
+						"ZagreusPastMeeting08",
+						"ZagreusPastMeetingRepeatable01",
+						"ZagreusPastMeetingRepeatable02",
+						"ZagreusPastMeetingRepeatable03",
+						"ZagreusPastMeetingRepeatable04",
+						"ZagreusPastMeetingRepeatable05",
+					},
+				},
+			},
+		},
+		{ Cue = "/VO/Melinoe_4835", Text = "{#Emph}<Gasp> {#Prev}...We're counting on you, Brother...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "TextLinesRecord" },
+					HasAny = {
+						"ZagreusPastMeeting07",
+						"ZagreusPastMeeting08",
+						"ZagreusPastMeetingRepeatable01",
+						"ZagreusPastMeetingRepeatable02",
+						"ZagreusPastMeetingRepeatable03",
+						"ZagreusPastMeetingRepeatable04",
+						"ZagreusPastMeetingRepeatable05",
+					},
+				},
+			},
+		},
+
 	},
 	-- true ending path - surface - cleared the run
 	{
@@ -10294,6 +10578,18 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 				},
 			},
 		},
+		{ Cue = "/VO/Melinoe_5770", Text = "{#Emph}Mm... {#Prev}closer to the incantations we require.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "RoomsEntered", "Q_Story01" },
+				},
+				{
+					Path = { "GameState", "WorldUpgradesRevealed" },
+					HasAll = { "WorldUpgradeTimeStop", "WorldUpgradeStormStop" },
+				},
+			},
+		},
 		{ Cue = "/VO/Melinoe_4834", Text = "{#Emph}<Gasp> {#Prev}...We're getting somewhere...",
 			GameStateRequirements =
 			{
@@ -10321,6 +10617,8 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 				},
 			},
 		},
+
+
 	},
 	-- post-moros relationship
 	{
@@ -10554,7 +10852,7 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			{
 				{
 					FunctionName = "RequiredAlive",
-					FunctionArgs = { Ids =  { 566831 } },
+					FunctionArgs = { Ids = { 566831 } },
 				},
 			},
 		},
@@ -11043,7 +11341,7 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+					Path = { "CurrentRun", "ShrineUpgradesCache", "BossDifficultyShrineUpgrade" },
 					Comparison = ">=",
 					Value = 1,
 				},
@@ -11053,7 +11351,7 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+					Path = { "CurrentRun", "ShrineUpgradesCache", "BossDifficultyShrineUpgrade" },
 					Comparison = ">=",
 					Value = 1,
 				},
@@ -11089,7 +11387,7 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+					Path = { "CurrentRun", "ShrineUpgradesCache", "BossDifficultyShrineUpgrade" },
 					Comparison = ">=",
 					Value = 2,
 				},
@@ -11099,7 +11397,7 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+					Path = { "CurrentRun", "ShrineUpgradesCache", "BossDifficultyShrineUpgrade" },
 					Comparison = ">=",
 					Value = 2,
 				},
@@ -11141,7 +11439,7 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+					Path = { "CurrentRun", "ShrineUpgradesCache", "BossDifficultyShrineUpgrade" },
 					Comparison = ">=",
 					Value = 3,
 				},
@@ -11152,7 +11450,7 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+					Path = { "CurrentRun", "ShrineUpgradesCache", "BossDifficultyShrineUpgrade" },
 					Comparison = ">=",
 					Value = 3,
 				},
@@ -11201,7 +11499,7 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+					Path = { "CurrentRun", "ShrineUpgradesCache", "BossDifficultyShrineUpgrade" },
 					Comparison = ">=",
 					Value = 4,
 				},
@@ -11258,19 +11556,23 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+					Path = { "CurrentRun", "ShrineUpgradesCache", "BossDifficultyShrineUpgrade" },
 					Comparison = ">=",
-					Value = 3,
+					Value = 1,
 				},
 			},
 		},
 		{ Cue = "/VO/Melinoe_5122", Text = "{#Emph}Bleh... {#Prev}they're an odd pairing...",
+			PlayFirst = true,
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+					Path = { "CurrentRun", "ShrineUpgradesCache", "BossDifficultyShrineUpgrade" },
 					Comparison = ">=",
-					Value = 3,
+					Value = 1,
+				},
+				{
+					PathTrue = { "GameState", "SpeechRecord", "/VO/Melinoe_5121" },
 				},
 			},
 		},
@@ -11327,7 +11629,7 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+					Path = { "CurrentRun", "ShrineUpgradesCache", "BossDifficultyShrineUpgrade" },
 					Comparison = ">=",
 					Value = 3,
 				},
@@ -11338,7 +11640,7 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+					Path = { "CurrentRun", "ShrineUpgradesCache", "BossDifficultyShrineUpgrade" },
 					Comparison = ">=",
 					Value = 3,
 				},
@@ -11411,9 +11713,8 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
-					Comparison = ">=",
-					Value = 4,
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "Q_Boss02" },
 				},
 			},
 		},
@@ -11422,7 +11723,7 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+					Path = { "CurrentRun", "ShrineUpgradesCache", "BossDifficultyShrineUpgrade" },
 					Comparison = ">=",
 					Value = 4,
 				},
@@ -11430,7 +11731,6 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 		},
 	},
 	-- lost to the champion of elysium
-	-- lost to prometheus
 	{
 		GameStateRequirements =
 		{
@@ -11802,7 +12102,7 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			{
 				{
 					FunctionName = "RequiredAlive",
-					FunctionArgs = { Ids =  { 566831 } },
+					FunctionArgs = { Ids = { 566831 } },
 				},
 			},
 		},
@@ -11852,7 +12152,7 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 			{
 				{
 					FunctionName = "RequiredAlive",
-					FunctionArgs = { Ids =  { 566831 } },
+					FunctionArgs = { Ids = { 566831 } },
 				},
 			},
 		},

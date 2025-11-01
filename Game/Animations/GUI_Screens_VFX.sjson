@@ -427,8 +427,8 @@
 		FilePath = "Screens\Codex\Codex"
 		VideoTexture = "Codex"
 		StartFrame = 171
-		NumFrames = 10
-		PlaySpeed = 45
+		NumFrames = 13
+		PlaySpeed = 60
 		Material = "Unlit"
 		ColorFromOwner = "Ignore"
 	}
@@ -789,7 +789,13 @@
 		EndFrame = 1
 		StartFrame = 1
 	}
-
+	{
+		Name = "Codex_Portrait_InfestedCerberus"
+		InheritFrom = "Codex_Portrait_Base_01"
+		FilePath = "Portraits\Codex\CodexPortrait_InfestedCerberus"
+		EndFrame = 1
+		StartFrame = 1
+	}
 	{
 		Name = "Codex_Portrait_Typhon"
 		InheritFrom = "Codex_Portrait_Base_01"
@@ -1706,6 +1712,41 @@
 		Name = "Codex_Portrait_SatyrLancer2"
 		InheritFrom = "Codex_Portrait_Base_01"
 		FilePath = "Portraits\Codex\CodexPortrait_SatyrLancer2"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Codex_Portrait_Achilles"
+		InheritFrom = "Codex_Portrait_Base_01"
+		FilePath = "Portraits\Codex\CodexPortrait_Achilles"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Codex_Portrait_Dusa"
+		InheritFrom = "Codex_Portrait_Base_01"
+		FilePath = "Portraits\Codex\CodexPortrait_Dusa"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Codex_Portrait_Megaera"
+		InheritFrom = "Codex_Portrait_Base_01"
+		FilePath = "Portraits\Codex\CodexPortrait_Megaera"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Codex_Portrait_Orpheus"
+		InheritFrom = "Codex_Portrait_Base_01"
+		FilePath = "Portraits\Codex\CodexPortrait_Orpheus"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Codex_Portrait_Thanatos"
+		InheritFrom = "Codex_Portrait_Base_01"
+		FilePath = "Portraits\Codex\CodexPortrait_Thanatos"
 		EndFrame = 1
 		StartFrame = 1
 	}
@@ -3128,7 +3169,7 @@
 		Name = "EasyModeIcon"
 		FilePath = "GUI\Shell\EasyMode"
 		Material = "Unlit"
-	}	
+	}
 
 	{
 		Name = "LockedKeepsakeIcon"
@@ -3396,10 +3437,10 @@
 		Name = "WeaponShopIn"
 		FilePath = "Screens\WeaponShop\WeaponShop"
 		VideoTexture = "WeaponShopScreen"
-		NumFrames = 15
-		PlaySpeed = 45
+		NumFrames = 20
+		PlaySpeed = 60
 		StartFrame = 1
-		EndFrame = 15
+		EndFrame = 20
 		Material = "Unlit"
 		ChainTo = "WeaponShopLoop"
 		Sound = "/SFX/Menu Sounds/SilverPoolOpen"
@@ -3409,8 +3450,8 @@
 		Name = "WeaponShopLoop"
 		FilePath = "Screens\WeaponShop\WeaponShop"
 		VideoTexture = "WeaponShopScreen"
-		StartFrame = 16
-		EndFrame = 165 
+		StartFrame = 21
+		EndFrame = 170
 		NumFrames = 150
 		PlaySpeed = 30
 		Loop = true
@@ -3421,10 +3462,10 @@
 		Name = "WeaponShopOut"
 		FilePath = "Screens\WeaponShop\WeaponShop"
 		VideoTexture = "WeaponShopScreen"
-		StartFrame = 166
-		EndFrame = 175
-		NumFrames = 10
-		PlaySpeed = 45
+		StartFrame = 171
+		EndFrame = 183
+		NumFrames = 13
+		PlaySpeed = 60
 		Material = "Unlit"
 	}
 
@@ -3572,10 +3613,10 @@
 		Name = "SurfaceShopIn"
 		FilePath = "Screens\SurfaceShop\SurfaceShop"
 		VideoTexture = "SurfaceShopScreen"
-		NumFrames = 20
-		PlaySpeed = 30
+		NumFrames = 40
+		PlaySpeed = 60
 		StartFrame = 1
-		EndFrame = 20
+		EndFrame = 40
 		Material = "Unlit"
 		ChainTo = "SurfaceShopLoop"
 	}
@@ -3584,8 +3625,8 @@
 		Name = "SurfaceShopLoop"
 		FilePath = "Screens\SurfaceShop\SurfaceShop"
 		VideoTexture = "SurfaceShopScreen"
-		StartFrame = 21
-		EndFrame = 170
+		StartFrame = 41
+		EndFrame = 190
 		NumFrames = 150
 		PlaySpeed = 30
 		Loop = true
@@ -3597,10 +3638,10 @@
 		Name = "SurfaceShopOut"
 		FilePath = "Screens\SurfaceShop\SurfaceShop"
 		VideoTexture = "SurfaceShopScreen"
-		StartFrame = 171
-		EndFrame = 190
-		NumFrames = 20
-		PlaySpeed = 45
+		StartFrame = 191
+		EndFrame = 217
+		NumFrames = 27
+		PlaySpeed = 60
 		Material = "Unlit"
 	}
 
@@ -4402,10 +4443,10 @@
 		FilePath = "Screens\QuestLogScreen\QuestLogScreen"
 		VideoTexture = "QuestLogScreenScreen"
 		ChildAnimation = "QuestLogCinderEmitter"
-		NumFrames = 24
-		PlaySpeed = 30
+		NumFrames = 48
+		PlaySpeed = 60
 		StartFrame = 1
-		EndFrame = 24
+		EndFrame = 48
 		Material = "Unlit"
 		ChainTo = "QuestLogScreenLoop"
 	}
@@ -4414,8 +4455,8 @@
 		Name = "QuestLogScreenLoop"
 		FilePath = "Screens\QuestLogScreen\QuestLogScreen"
 		VideoTexture = "QuestLogScreenScreen"
-		StartFrame = 25
-		EndFrame = 174
+		StartFrame = 49
+		EndFrame = 198
 		NumFrames = 150
 		PlaySpeed = 30
 		Loop = true
@@ -4426,10 +4467,10 @@
 		Name = "QuestLogScreenOut"
 		FilePath = "Screens\QuestLogScreen\QuestLogScreen"
 		VideoTexture = "QuestLogScreenScreen"
-		StartFrame = 175
-		EndFrame = 187
-		NumFrames = 20
-		PlaySpeed = 45
+		StartFrame = 199
+		EndFrame = 215
+		NumFrames = 16
+		PlaySpeed = 60
 		Material = "Unlit"
 		ColorFromOwner = "Ignore"
 	}
@@ -4595,8 +4636,8 @@
 		FilePath = "Screens\InventoryScreenGrid\InventoryScreenGrid"		
 		VideoTexture = "InventoryScreenGrid"
 		StartFrame = 166
-		NumFrames = 10
-		PlaySpeed = 45
+		NumFrames = 13
+		PlaySpeed = 60
 		Material = "Unlit"
 		ColorFromOwner = "Ignore"
 	}
@@ -4605,8 +4646,8 @@
 		FilePath = "Screens\InventoryScreenBlank\InventoryScreenBlank"		
 		VideoTexture = "InventoryScreenBlank"
 		StartFrame = 166
-		NumFrames = 10
-		PlaySpeed = 45
+		NumFrames = 13
+		PlaySpeed = 60
 		Material = "Unlit"
 		ColorFromOwner = "Ignore"
 	}
@@ -4615,8 +4656,8 @@
 		FilePath = "Screens\InventoryScreenLog\InventoryScreenLog"		
 		VideoTexture = "InventoryScreenLog"
 		StartFrame = 166
-		NumFrames = 10
-		PlaySpeed = 45
+		NumFrames = 13
+		PlaySpeed = 60
 		Material = "Unlit"
 		ColorFromOwner = "Ignore"
 	}
@@ -6714,8 +6755,9 @@
 		Name = "ShrineIn"
 		FilePath = "Screens\ShrineScreen\ShrineScreen"
 		VideoTexture = "ShrineScreen"
-		NumFrames = 20
-		PlaySpeed = 45
+		StartFrame = 1
+		NumFrames = 26
+		PlaySpeed = 60
 		Material = "Unlit"
 		ChainTo = "ShrineLoop"
 	}
@@ -6723,9 +6765,9 @@
 		Name = "ShrineLoop"
 		FilePath = "Screens\ShrineScreen\ShrineScreen"
 		VideoTexture = "ShrineScreen"
-		StartFrame = 21
-		NumFrames = 120
-		PlaySpeed = 30
+		StartFrame = 27
+		NumFrames = 240
+		PlaySpeed = 60
 		Loop = true
 		Material = "Unlit"
 		Sound = "/SFX/Menu Sounds/MirrorAmbienceLoop2"
@@ -6735,9 +6777,9 @@
 		Name = "ShrineOut"
 		FilePath = "Screens\ShrineScreen\ShrineScreen"
 		VideoTexture = "ShrineScreen"
-		StartFrame = 141
-		NumFrames = 10
-		PlaySpeed = 45
+		StartFrame = 268
+		NumFrames = 13
+		PlaySpeed = 60
 		Material = "Unlit"
 		ColorFromOwner = "Ignore"
 	}
@@ -16280,4 +16322,34 @@
 		FilePath = "Fx\DustFlyers\DustG"
 	}
 
+	{
+		Name = "EndingFlashback"
+		FilePath = "Screens\EndingFlashback\EndingFlashback"
+		StartFrame = 1
+		NumFrames = 2090
+		PlaySpeed = 30
+		Material = "Unlit"
+		Loop = false
+		VideoTexture = "EndingFlashback"
+		Slides =
+		[
+			{ DurationFrames = 1 Sound = "/Leftovers/Menu Sounds/TimeTunnelWarpNoChime" Frame = 1 }
+			{ DurationFrames = 1 Sound = "/Leftovers/Menu Sounds/TimeTunnelChime2" Frame = 95 }
+			{ DurationFrames = 1 Sound = "/VO/CerberusBarks2" Frame = 230 }
+			{ DurationFrames = 1 Sound = "/VO/CerberusCuteGrowl_2" Frame = 295 }
+			{ DurationFrames = 1 Sound = "/Leftovers/Menu Sounds/TimeTunnelChime2" Frame = 325 }
+			{ DurationFrames = 1 Sound = "/SFX/DaggerImpactOrganic" Frame = 360 }
+			{ DurationFrames = 1 Sound = "/SFX/DaggerImpactOrganic" Frame = 366 }
+			{ DurationFrames = 1 Sound = "/SFX/DaggerImpactOrganic" Frame = 372 }
+			{ DurationFrames = 1 Sound = "/SFX/Player Sounds/ZagreusCriticalFire" Frame = 380 }
+			{ DurationFrames = 1 Sound = "/SFX/DaggerImpactOrganic" Frame = 383 }
+			{ DurationFrames = 1 Sound = "/Leftovers/Menu Sounds/TimeTunnelChime2" Frame = 560 }
+			{ DurationFrames = 1 Sound = "/Leftovers/Menu Sounds/TimeTunnelChime2" Frame = 820 }
+			{ DurationFrames = 1 Sound = "/Leftovers/Menu Sounds/TimeTunnelChime2" Frame = 1050 }
+			{ DurationFrames = 1 Sound = "/Leftovers/Menu Sounds/TimeTunnelChime2" Frame = 1307 }
+			{ DurationFrames = 1 Sound = "/Leftovers/Menu Sounds/TimeTunnelChime2" Frame = 1550 }
+			{ DurationFrames = 1 Sound = "/Leftovers/Menu Sounds/TimeTunnelChime2" Frame = 1790 }
+			{ DurationFrames = 1 Sound = "/Leftovers/Menu Sounds/TimeTunnelChime2" Frame = 2020 }
+		]
+	}
 ]}

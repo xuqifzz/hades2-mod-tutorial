@@ -582,27 +582,6 @@
 			OffsetZ = 70
 			Grip = 999999
 		}
-		Effects =
-		[
-			{
-				Name = "RushGrip"
-				Type = "GRIP"
-				Duration = 0.35
-				Modifier = 0.1
-				HaltOnEnd = true
-				Active = false
-			}
-			{
-				Name = "OnHitStun"
-				Duration = 0.5
-				DisableMove = true
-				DisableRotate = true
-				DisableAttack = true
-				Active = true
-				CanAffectInvulnerable = false
-				FrontFx = "null"
-			}
-		]
 	}
 	{
 		Name = "ApolloCast"
@@ -739,7 +718,7 @@
 		ImpactVelocity = 0
 		ImpactFx = "CastCircleUnitFxFront"
 		DeathFx = "null"
-		UseVulnerability = false
+		UseVulnerability = true
 		DetonateFx = "RadialNovaPentagramCharged"
 		DetonateSound = "/SFX/Player Sounds/MelTorchFireOmega"
 		MultiDetonate = true
@@ -752,7 +731,6 @@
 		UseStartLocation = true
 		SpawnType = "PROJECTILE"
 		SilentImpactOnInvulnerable = true
-		IgnoreCoverageAngles = true
 		Thing =
 		{
 			OffsetZ = 0
@@ -987,7 +965,7 @@
 		Name = "ProjectileAresSwordCast"
 		InheritFrom = "1_BaseDamagingProjectile"
 		Type = "INSTANT"
-		Damage = 80
+		Damage = 100
 		DamageRadius = 230
 		DamageRadiusScaleY = 0.5
 		CheckUnitImpact = false
@@ -1299,7 +1277,7 @@
 		NumPenetrations = 9999
 		ImpactVelocity = 0
 		ImpactFx = "HeraUnitFx"
-		UseVulnerability = false
+		UseVulnerability = true
 		//DetonateFx = "StaffChargedAttackFx"
 		SilentImpactOnInvulnerable = true
 		UseStartLocation = true
@@ -1399,7 +1377,7 @@
 		UseOwnerAngle = true
 		Damage = 20
 		UseArmor = false
-		UseVulnerability = false
+		UseVulnerability = true
 		UseDetonationForProjectileDefense = true
 		RequireHitCenter = false
 		GroupName = "FX_Terrain_Add"
@@ -1436,7 +1414,7 @@
 		MultipleUnitCollisions = true
 		ImpactVelocity = 0
 		ImpactFx = "AnubisWallImpactFx_Base"
-		UseVulnerability = false
+		UseVulnerability = true
 		SilentImpactOnInvulnerable = true
 		UseStartLocation = true
 		DrawDuringPause = true
@@ -2572,6 +2550,7 @@
 		NumJumps = 0
 		Speed = 600
 		Range = 1000
+		IgnoreObstacleImpactDuration = 0.15
 		Thing = 
 		{
 			Graphic = "ShivaGrenade"
@@ -2589,6 +2568,7 @@
 		AutoAdjustForTarget = false
 		CheckUnitImpact = true
 		CheckObstacleImpact = true
+		IgnoreObstacleImpactDuration = 0.15
 		Thing = 
 		{
 			Graphic = "ShivaGrenadeBig"
@@ -2870,7 +2850,7 @@
 		UseDetonationForProjectileDefense = true
 		Damage = 120
 		ImpactVelocity = 0
-		
+		RequireHitCenter = false
 		UseArmor = false
 		UseVulnerability = true
 		Thing =
@@ -3715,7 +3695,7 @@
 		Damage = 160
 		ImpactVelocity = 0
 		UseArmor = false
-		UseVulnerability = false
+		UseVulnerability = true
 		UseDetonationForProjectileDefense = true
 		Thing =
 		{
@@ -3778,7 +3758,7 @@
 		ImpactVelocity = 0
 		
 		UseArmor = false
-		UseVulnerability = false
+		UseVulnerability = true
 		UseDetonationForProjectileDefense = true
 		Thing =
 		{
@@ -3867,7 +3847,7 @@
 		Damage = 140
 		ImpactVelocity = 0			
 		UseArmor = false
-		UseVulnerability = false
+		UseVulnerability = true
 		UseStartLocation = true
 		UseDetonationForProjectileDefense = true
 		Thing =
@@ -4192,7 +4172,7 @@
 		ArcScaleY = 0.5
 		DetonateOnImpact = false
 		CollisionLayer = "Lyre"
-		UseVulnerability = false
+		UseVulnerability = true
 		UnlimitedUnitPenetration = true
 		NumJumps = 99999
 		JumpType = "OBSTACLE_ONLY"
@@ -4277,7 +4257,7 @@
 		ArcScaleY = 0.5
 		DetonateOnImpact = false
 		CollisionLayer = "Lyre"
-		UseVulnerability = false
+		UseVulnerability = true
 		UnlimitedUnitPenetration = true
 		NumJumps = 0
 		JumpType = "OBSTACLE_ONLY"
@@ -4288,6 +4268,7 @@
 		MultipleUnitCollisions = false
 		MultipleObstacleCollisions = true
 		StartFx = "null"
+		IgnoreObstacleImpactDuration = 0.15
 		DissipateFx = "TorchSpecialProjectileDissipate"
 		Thing =
 		{
@@ -4398,7 +4379,7 @@
 		ArcScaleY = 0.5
 		DetonateOnImpact = false
 		CollisionLayer = "Lyre"
-		UseVulnerability = false
+		UseVulnerability = true
 		UnlimitedUnitPenetration = true
 		NumJumps = 99999
 		JumpType = "OBSTACLE_ONLY"
@@ -4410,6 +4391,7 @@
 		MultipleObstacleCollisions = true
 		StartFx = "null"
 		DissipateFx = "TorchProjectileDissipate"
+		IgnoreObstacleImpactDuration = 0.15
 		Thing =
 		{
 			Graphic = "TorchProjectileGhostLargeIn"
@@ -4837,6 +4819,7 @@
 		UseVulnerability = true
 		RequireHitCenter = false
 		IgnoreObstacleImpactDuration = 0.05,
+		ObstacleCollisionCheck = "PolygonContainsPoint"
 		Effects =
 		[
 			{
@@ -5306,7 +5289,7 @@
 		Fuse = 5
 		Range = 9999
 		ReturnToOwnerAfterInactiveSeconds = 1.2
-
+		IgnoreObstacleImpactDuration = 0.15
 		NoJumpTargetRandomSpread = 10
 		UnlimitedObstaclePenetration = true
 		UseVulnerability = true
@@ -7393,7 +7376,7 @@
 		Type = "STRAIGHT"
 		Fuse = 0.0
 		Range = 0
-		Damage = 50
+		Damage = 60
 		DamageRadius = 250.0
 		DamageRadiusScaleY = 0.5
 		BlastSpeed = 2000

@@ -2824,15 +2824,14 @@
 		UnlimitedUnitPenetration = true
 		NumPenetrations = 99999
 		Fuse = 0.05
-		DamageRadius = 600
+		DamageRadius = 700
 		BlastSpeed = 1000
 		ImpactVelocity = 1200
 		Damage = 66
 		Range = 1.0
-		DamageRadiusScaleY = 0.6
+		DamageRadiusScaleY = 0.5
 		AttachToOwner = false
 		UseRadialImpact = true
-		DamageRadiusScaleX = 1.175
 		ProjectileDefenseRadius = 0
 		UseArmor = true
 		UseVulnerability = false
@@ -2843,7 +2842,7 @@
 		GroupName = "FX_Terrain_Add"
 		Thing =
 		{
-			Graphic = "FogEmitterSlamNova"
+			Graphic = "HeraclesEMLeapPassiveNova"
 			Grip = 999999
 		}
 		Effect =

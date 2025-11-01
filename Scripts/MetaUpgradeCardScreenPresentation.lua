@@ -65,12 +65,6 @@ function InvalidMetaUpgradeCardAction( screen, button )
 end
 
 function CannotUpgradeMaxLevelMetaUpgradePresentation( screen, button )
-	SetColor({ Id = button.CardArtId, Color = {0.1, 0.1, 0.1, 1.0}, Duration = 0 })
-	SetColor({ Id = button.CardArtId, Color = {1,1,1,1}, Duration = 0.25 })
-	CreateAnimation({ Name = "CardCannotUpgradeMaxLevelFlash", DestinationId = button.Id, GroupName = "Combat_Menu_TraitTray_Overlay_Additive" })
-	Flash({ Id = button.Id, Speed = 6, MinFraction = 0.5, MaxFraction = 0, Color = Color.White, Duration = 0.125, ExpireAfterCycle = true })
-	thread(PulseText, {Id = button.Screen.Components.MetaUpgradeCardMaxLevel.Id, ScaleTarget = 1.25, ScaleDuration = 0.25, HoldDuration = 0.15, PulseBias = 0.05 })
-	PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo", Id = button.Id })
 end
 
 function CannotAffordMetaUpgradeLimitPresentation( screen, button )
@@ -204,7 +198,6 @@ function DoMetaUpgradeCardReveal( screen, args )
 	end
 	if expandPsyche then
 		OpenGraspLimitScreen( screen )
-		thread( PlayVoiceLines, GlobalVoiceLines.ReachedMemLimitVoiceLines )
 		MetaUpgradeCardScreenResetCursor( screen )
 	end
 end

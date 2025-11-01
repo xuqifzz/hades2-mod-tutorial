@@ -90,7 +90,12 @@ function UpdateEffectStacks( unit, effectName )
 				SetAlpha({ Id = backingId, Fraction = 0, Duration = 0 })
 				
 				if effectData.ShowDuration and effectData.EffectData and effectData.EffectData.Duration then
-					local timerId = SpawnObstacle({Name = "BlankObstacle", Group = "Combat_UI_World", DestinationId = unitId })
+					local timerId = nil
+					if unit.UseBossHealthBar and not ( effectData.AttachIconToUnit or unit.UseGroupHealthBar) then
+						timerId = CreateScreenObstacle({Name = "BlankObstacle", Group = "Combat_Menu", DestinationId = unitId })
+					else
+						timerId = SpawnObstacle({Name = "BlankObstacle", Group = "Combat_UI_World", DestinationId = unitId })
+					end
 					Attach({ Id = timerId, DestinationId = backingId })
 					SetAnimation({ Name = "PortraitRespawnFill10", DestinationId = timerId, PlaySpeed = 1 / effectData.EffectData.Duration, Scale = 0.37 })
 					local timeRemaining = GetEffectTimeRemaining({ Id = unitId, EffectName = effectData.Name})

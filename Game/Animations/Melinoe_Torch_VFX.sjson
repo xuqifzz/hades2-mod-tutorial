@@ -1002,6 +1002,31 @@
 	}
 
 	{
+		Name = "MelEquipSparkleTorchSupayLSpawner"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.3
+		ChainTo = "MelEquipSparkleTorchSupayL"
+	}
+	{
+		Name = "MelEquipSparkleTorchSupayL"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:main_C_joint"
+		Scale = 0.4
+	}
+	{
+		Name = "MelEquipSparkleTorchSupayRSpawner"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.25
+		ChainTo = "MelEquipSparkleTorchSupayR"
+	}
+	{
+		Name = "MelEquipSparkleTorchSupayR"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:main_C_joint"
+		Scale = 0.4
+	}
+
+	{
 		Name = "MelInteractUnequipSparkleTorchSupayL"
 		FilePath = "Dev\blank_invisible"
 		Duration = 0.01
@@ -9414,6 +9439,7 @@
 		OwnerVelocityFraction = 1
 		StartAlpha = 0.4
 		EndAlpha = 0
+		GroupName = "FX_Standing"
 
 	}
 

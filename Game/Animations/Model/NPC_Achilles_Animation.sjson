@@ -1,0 +1,70 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCAchillesBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Achilles_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 2.47
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Achilles_Idle"
+		InheritFrom = "NPCAchillesBaseAnimation"
+		GrannyAnimation = "Achilles_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+	// Greet
+	{
+		Name = "Achilles_Greet_Start"
+		InheritFrom = "NPCAchillesBaseAnimation"
+		GrannyAnimation = "Achilles_Base_GreetStart_C_00"
+		ChainTo = "Achilles_Greet_FireLoop"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Achilles_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Achilles_Greet_FireLoop"
+		InheritFrom = "NPCAchillesBaseAnimation"
+		GrannyAnimation = "Achilles_Base_GreetLoop_C_00"
+		ChainTo = "Achilles_Greet_End"
+//		Loop = true
+	}
+	{
+		Name = "Achilles_Greet_End"
+		InheritFrom = "NPCAchillesBaseAnimation"
+		GrannyAnimation = "Achilles_Base_GreetReturnToIdle_C_00"
+		ChainTo = "Achilles_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Achilles_Greet_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Achilles_Greet_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Achilles_Greet_Full"
+		InheritFrom = "Achilles_Greet_Start"
+		ChainTo = "Achilles_Greet_End"
+	}
+	
+]}

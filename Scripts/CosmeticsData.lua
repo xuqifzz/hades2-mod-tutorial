@@ -232,7 +232,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 160,
+			CosmeticsPoints = 120,
 		},
 
 		RevealReactionVoiceLines =
@@ -269,7 +269,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 180,
+			CosmeticsPoints = 120,
 			MixerNBoss = 1,
 		},
 		RevealReactionVoiceLines =
@@ -297,7 +297,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1350,
+			CosmeticsPoints = 650,
 			MixerPBoss = 1,
 		},
 
@@ -362,7 +362,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 650,
+			CosmeticsPoints = 350,
 		},
 
 		RevealReactionVoiceLines =
@@ -402,7 +402,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1100,
+			CosmeticsPoints = 600,
 			MixerHBoss = 1,
 		},
 		RevealReactionVoiceLines =
@@ -464,7 +464,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 110,
+			CosmeticsPoints = 100,
 		},
 
 		RevealReactionVoiceLines =
@@ -561,7 +561,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 140,
+			CosmeticsPoints = 100,
 			MixerFBoss = 1,
 		},
 
@@ -589,7 +589,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 110,
+			CosmeticsPoints = 100,
 		},
 
 		RevealReactionVoiceLines =
@@ -639,7 +639,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 400,
+			CosmeticsPoints = 180,
 			CardUpgradePoints = 1,
 		},
 
@@ -674,7 +674,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 650,
+			CosmeticsPoints = 300,
 			MixerOBoss = 1,
 		},
 
@@ -713,7 +713,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 550,
+			CosmeticsPoints = 280,
 			MixerGBoss = 1,
 		},
 
@@ -756,7 +756,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 600,
+			CosmeticsPoints = 300,
 			CardUpgradePoints = 1,
 		},
 
@@ -799,7 +799,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 650,
+			CosmeticsPoints = 300,
 			MixerPBoss = 1,
 		},
 
@@ -923,7 +923,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 390,
+			CosmeticsPoints = 180,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -959,7 +959,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 410,
+			CosmeticsPoints = 180,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -983,12 +983,15 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
+				PathTrue = { "GameState", "ReachedTrueEnding" },
+			},
+			{
 				PathTrue = { "GameState", "TextLinesRecord", "NeoChronosGift04" },
 			},
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1900,
+			CosmeticsPoints = 1000,
 			MixerIBoss = 1,
 		},
 		RevealReactionVoiceLines =
@@ -1017,7 +1020,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1450,
+			CosmeticsPoints = 700,
 			MixerPBoss = 1,
 		},
 		RevealReactionVoiceLines =
@@ -1048,7 +1051,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1650,
+			CosmeticsPoints = 900,
 			MixerPBoss = 1,
 		},
 		RevealReactionVoiceLines =
@@ -1079,7 +1082,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1450,
+			CosmeticsPoints = 700,
 			MixerShadow = 1,
 		},
 		RevealReactionVoiceLines =
@@ -1129,7 +1132,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 600,
+			CosmeticsPoints = 300,
 		},
 
 		OnRevealFunctionName = "FrogFamiliarReaction",
@@ -1164,7 +1167,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 550,
+			CosmeticsPoints = 280,
 			PlantGCattail = 1,
 		},
 
@@ -1202,7 +1205,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 750,
+			CosmeticsPoints = 400,
 			MixerFBoss = 1,
 		},
 
@@ -1239,7 +1242,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 850,
+			CosmeticsPoints = 400,
 			GiftPoints = 1,
 		},
 
@@ -1277,7 +1280,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 850,
+			CosmeticsPoints = 400,
 			GiftPoints = 1,
 		},
 
@@ -1314,7 +1317,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 850,
+			CosmeticsPoints = 450,
 			GiftPoints = 1,
 		},
 
@@ -1347,7 +1350,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 600,
+			CosmeticsPoints = 300,
 			MetaFabric = 1,
 		},
 
@@ -1386,7 +1389,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 550,
+			CosmeticsPoints = 280,
 			MetaFabric = 1,
 		},
 
@@ -1425,7 +1428,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 650,
+			CosmeticsPoints = 300,
 			MetaFabric = 3,
 		},
 
@@ -1464,7 +1467,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 350,
+			CosmeticsPoints = 200,
 			MetaFabric = 1,
 		},
 
@@ -1504,7 +1507,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1100,
+			CosmeticsPoints = 500,
 			MetaFabric = 1,
 		},
 
@@ -1544,7 +1547,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 180,
+			CosmeticsPoints = 150,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -1587,7 +1590,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 700,
+			CosmeticsPoints = 400,
 			MixerHBoss = 1,
 		},
 
@@ -1625,7 +1628,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 400,
+			CosmeticsPoints = 200,
 			MixerNBoss = 1,
 		},
 
@@ -1664,7 +1667,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 500,
+			CosmeticsPoints = 250,
 			MixerHBoss = 1,
 		},
 
@@ -1708,7 +1711,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 800,
+			CosmeticsPoints = 400,
 			MixerFBoss = 1,
 		},
 
@@ -1748,7 +1751,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 850,
+			CosmeticsPoints = 400,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -1787,7 +1790,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 160,
+			CosmeticsPoints = 120,
 			MixerNBoss = 1,
 		},
 
@@ -1836,7 +1839,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 190,
+			CosmeticsPoints = 150,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -1905,7 +1908,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1000,
+			CosmeticsPoints = 500,
 			MixerOBoss = 1,
 		},
 
@@ -1952,7 +1955,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 550,
+			CosmeticsPoints = 280,
 			MetaCardPointsCommon = 10,
 		},
 
@@ -2000,7 +2003,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1950,
+			CosmeticsPoints = 1000,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -2049,7 +2052,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 400,
+			CosmeticsPoints = 200,
 			MixerOBoss = 1,
 		},
 
@@ -2109,7 +2112,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 950,
+			CosmeticsPoints = 450,
 			MixerOBoss = 1,
 		},
 
@@ -2151,7 +2154,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 250,
+			CosmeticsPoints = 150,
 		},
 
 		RevealReactionVoiceLines =
@@ -2347,7 +2350,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 450,
+			CosmeticsPoints = 200,
 		},
 
 		RevealReactionVoiceLines =
@@ -2394,7 +2397,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 350,
+			CosmeticsPoints = 180,
 			MixerFBoss = 2,
 		},
 
@@ -2442,7 +2445,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 370,
+			CosmeticsPoints = 180,
 			MixerFBoss = 1,
 			CardUpgradePoints = 1,
 		},
@@ -2496,7 +2499,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1600,
+			CosmeticsPoints = 800,
 			MixerFBoss = 1,
 			Mixer5Common = 1,
 		},
@@ -2550,7 +2553,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 310,
+			CosmeticsPoints = 160,
 			MixerPBoss = 1,
 		},
 
@@ -2587,7 +2590,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 330,
+			CosmeticsPoints = 160,
 			CardUpgradePoints = 1,
 		},
 
@@ -2651,7 +2654,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 170,
+			CosmeticsPoints = 120,
 			MixerFBoss = 1,
 		},
 		RevealReactionVoiceLines =
@@ -2689,7 +2692,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1600,
+			CosmeticsPoints = 800,
 			GiftPoints = 4,
 		},
 		RevealReactionVoiceLines =
@@ -2728,7 +2731,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1800,
+			CosmeticsPoints = 900,
 			PlantQSnakereed = 2,
 		},
 		RevealReactionVoiceLines =
@@ -2774,7 +2777,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 250,
+			CosmeticsPoints = 150,
 		},
 
 		RevealReactionVoiceLines =
@@ -2818,7 +2821,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 300,
+			CosmeticsPoints = 180,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -2875,7 +2878,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1200,
+			CosmeticsPoints = 600,
 			MetaFabric = 5,
 		},
 		RevealReactionVoiceLines =
@@ -2910,7 +2913,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 450,
+			CosmeticsPoints = 250,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -2939,7 +2942,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 400,
+			CosmeticsPoints = 200,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -2976,7 +2979,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 200,
+			CosmeticsPoints = 150,
 		},
 
 		RevealReactionVoiceLines =
@@ -3014,7 +3017,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 250,
+			CosmeticsPoints = 150,
 		},
 
 		RevealReactionVoiceLines =
@@ -3052,7 +3055,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 350,
+			CosmeticsPoints = 200,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -3082,7 +3085,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 500,
+			CosmeticsPoints = 250,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -3134,7 +3137,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 3200,
+			CosmeticsPoints = 1900,
 			Mixer5Common = 5,
 		},
 
@@ -3178,7 +3181,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 3400,
+			CosmeticsPoints = 2000,
 			MixerShadow = 1,
 		},
 
@@ -3211,6 +3214,9 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
+				PathTrue = { "GameState", "ReachedTrueEnding" },
+			},
+			{
 				PathTrue = { "GameState", "TextLinesRecord", "HecateFishing02" },
 			},
 			{
@@ -3220,7 +3226,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1050,
+			CosmeticsPoints = 800,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -3275,7 +3281,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 500,
+			CosmeticsPoints = 250,
 			CardUpgradePoints = 1,
 		},
 
@@ -3318,7 +3324,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 550,
+			CosmeticsPoints = 250,
 			MixerOBoss = 1,
 		},
 
@@ -3380,7 +3386,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 600,
+			CosmeticsPoints = 300,
 			Mixer6Common = 1,
 		},
 
@@ -3418,7 +3424,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 650,
+			CosmeticsPoints = 300,
 			CardUpgradePoints = 1,
 		},
 
@@ -3453,13 +3459,13 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "ReachedTrueEnding" }
+				PathTrue = { "GameState", "ReachedTrueEnding" },
 			},
 			NamedRequirements = { "T3Cosmetic" },
 		},
 		Cost =
 		{
-			CosmeticsPoints = 700,
+			CosmeticsPoints = 400,
 			MixerIBoss = 1,
 		},
 
@@ -3500,7 +3506,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 200,
+			CosmeticsPoints = 150,
 		},
 
 		RevealReactionVoiceLines =
@@ -3538,7 +3544,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 250,
+			CosmeticsPoints = 150,
 			MixerGBoss = 1,
 		},
 
@@ -3576,7 +3582,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 350,
+			CosmeticsPoints = 180,
 			GiftPointsRare = 1,
 		},
 
@@ -3634,7 +3640,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 110,
+			CosmeticsPoints = 100,
 		},
 
 		RevealReactionVoiceLines =
@@ -3672,7 +3678,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 150,
+			CosmeticsPoints = 100,
 			MixerOBoss = 1,
 		},
 
@@ -3725,7 +3731,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 650,
+			CosmeticsPoints = 300,
 			MixerHBoss = 1,
 		},
 
@@ -3756,7 +3762,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 200,
+			CosmeticsPoints = 150,
 			MixerNBoss = 1,
 		},
 
@@ -3817,7 +3823,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 500,
+			CosmeticsPoints = 250,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -3874,7 +3880,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 500,
+			CosmeticsPoints = 250,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -3911,7 +3917,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 180,
+			CosmeticsPoints = 120,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -3946,7 +3952,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 450,
+			CosmeticsPoints = 200,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -3981,7 +3987,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 850,
+			CosmeticsPoints = 450,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -4012,7 +4018,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 150,
+			CosmeticsPoints = 110,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -4059,7 +4065,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 800,
+			CosmeticsPoints = 400,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -4098,7 +4104,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 150,
+			CosmeticsPoints = 100,
 		},
 
 		RevealReactionVoiceLines =
@@ -4136,7 +4142,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 250,
+			CosmeticsPoints = 150,
 		},
 
 		RevealReactionVoiceLines =
@@ -4180,7 +4186,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 350,
+			CosmeticsPoints = 200,
 		},
 
 		RevealReactionVoiceLines =
@@ -4221,7 +4227,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 450,
+			CosmeticsPoints = 250,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -4268,7 +4274,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 900,
+			CosmeticsPoints = 500,
 			MixerGBoss = 1,
 		},
 
@@ -4310,7 +4316,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 750,
+			CosmeticsPoints = 400,
 			MixerHBoss = 1,
 		},
 		RevealReactionVoiceLines =
@@ -4340,7 +4346,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "ReachedTrueEnding" }
+				PathTrue = { "GameState", "ReachedTrueEnding" },
 			},
 			{
 				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeFishingPoint" }
@@ -4354,7 +4360,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 750,
+			CosmeticsPoints = 400,
 			MixerIBoss = 1,
 		},
 		RevealReactionVoiceLines =
@@ -4396,7 +4402,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 750,
+			CosmeticsPoints = 400,
 			MixerNBoss = 1,
 		},
 		RevealReactionVoiceLines =
@@ -4453,7 +4459,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1200,
+			CosmeticsPoints = 500,
 			SuperGiftPoints = 1,
 		},
 
@@ -4492,7 +4498,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1400,
+			CosmeticsPoints = 600,
 			CardUpgradePoints = 1,
 		},
 
@@ -4531,7 +4537,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1250,
+			CosmeticsPoints = 500,
 			CardUpgradePoints = 1,
 		},
 		RevealReactionVoiceLines =
@@ -4586,7 +4592,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 220,
+			CosmeticsPoints = 120,
 		},
 
 		RevealReactionVoiceLines =
@@ -4624,7 +4630,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 260,
+			CosmeticsPoints = 150,
 		},
 
 		RevealReactionVoiceLines =
@@ -4662,7 +4668,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 280,
+			CosmeticsPoints = 160,
 			CardUpgradePoints = 1,
 		},
 		RevealReactionVoiceLines =
@@ -4693,7 +4699,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1500,
+			CosmeticsPoints = 800,
 			MixerFBoss = 1,
 			MixerHBoss = 1,
 		},
@@ -4736,7 +4742,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 300,
+			CosmeticsPoints = 180,
 			MixerOBoss = 1,
 		},
 		RevealReactionVoiceLines =
@@ -4782,7 +4788,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 400,
+			CosmeticsPoints = 200,
 			MixerHBoss = 1,
 		},
 		RevealReactionVoiceLines =
@@ -4814,7 +4820,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 150,
+			CosmeticsPoints = 110,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -4860,7 +4866,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 400,
+			CosmeticsPoints = 180,
 		},
 		RevealReactionVoiceLines =
 		{
@@ -4910,7 +4916,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 220,
+			CosmeticsPoints = 120,
 			MixerHBoss = 1,
 		},
 
@@ -4952,7 +4958,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 240,
+			CosmeticsPoints = 150,
 			MixerFBoss = 1,
 		},
 
@@ -5008,13 +5014,13 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "ReachedTrueEnding" }
+				PathTrue = { "GameState", "ReachedTrueEnding" },
 			},
 			NamedRequirements = { "T5Cosmetic" },
 		},
 		Cost =
 		{
-			CosmeticsPoints = 2000,
+			CosmeticsPoints = 1000,
 			MixerIBoss = 1,
 		},
 
@@ -5060,7 +5066,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1850,
+			CosmeticsPoints = 900,
 			MixerPBoss = 1,
 		},
 
@@ -5102,7 +5108,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1300,
+			CosmeticsPoints = 650,
 			MixerNBoss = 1,
 		},
 
@@ -5136,7 +5142,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1300,
+			CosmeticsPoints = 650,
 			GiftPoints = 1,
 		},
 
@@ -5176,7 +5182,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 900,
+			CosmeticsPoints = 450,
 			WeaponPointsRare = 1,
 		},
 
@@ -5215,7 +5221,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 900,
+			CosmeticsPoints = 450,
 			WeaponPointsRare = 1,
 		},
 		RevealReactionVoiceLines =
@@ -5252,7 +5258,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 900,
+			CosmeticsPoints = 450,
 			WeaponPointsRare = 1,
 		},
 		RevealReactionVoiceLines =
@@ -5289,7 +5295,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 900,
+			CosmeticsPoints = 450,
 			WeaponPointsRare = 1,
 		},
 		RevealReactionVoiceLines =
@@ -5326,7 +5332,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 900,
+			CosmeticsPoints = 450,
 			WeaponPointsRare = 1,
 		},
 		RevealReactionVoiceLines =
@@ -5356,7 +5362,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 2200,
+			CosmeticsPoints = 2000,
 			Mixer6Common = 1,
 		},
 		RevealReactionVoiceLines =
@@ -5382,7 +5388,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		ActivateFunctionName = "CosmeticCritterRandomizeAnimations",
 		ActivateRoomObstacleIds = { 743399 },
 		Removable = false,
-		ToggleShadows = true,
+		ToggleCollision = true,
 		InspectPointId = 743479,
 
 		GameStateRequirements =
@@ -5394,7 +5400,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1450,
+			CosmeticsPoints = 700,
 			GiftPoints = 1,
 		},
 
@@ -5438,7 +5444,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1050,
+			CosmeticsPoints = 600,
 			GiftPoints = 1,
 		},
 
@@ -5479,7 +5485,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 350,
+			CosmeticsPoints = 180,
 			GiftPoints = 1,
 		},
 
@@ -5517,12 +5523,9 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "ReachedTrueEnding" }
-			},
-			{
 				PathTrue = { "GameState", "TextLinesRecord", "OdysseusFishing02" },
 			},
-			NamedRequirements = { "T5Cosmetic" },
+			NamedRequirements = { "T5Cosmetic", "HasEverReachedTrueEnding" },
 		},
 		Cost =
 		{
@@ -5549,15 +5552,12 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "ReachedTrueEnding" }
-			},
-			{
 				PathTrue = { "GameState", "TextLinesRecord", "SkellyGift09" },
 			},
 			{
 				PathFalse = { "CurrentRun", "TextLinesRecord", "SkellyGift09" },
 			},
-			NamedRequirements = { "T5Cosmetic" },
+			NamedRequirements = { "T5Cosmetic", "HasEverReachedTrueEnding" },
 		},
 		Cost =
 		{
@@ -5584,15 +5584,12 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "ReachedTrueEnding" }
-			},
-			{
 				PathTrue = { "GameState", "TextLinesRecord", "MorosTaverna02" },
 			},
 			{
 				PathFalse = { "CurrentRun", "TextLinesRecord", "MorosTaverna02" },
 			},
-			NamedRequirements = { "T5Cosmetic" },
+			NamedRequirements = { "T5Cosmetic", "HasEverReachedTrueEnding" },
 		},
 		Cost =
 		{
@@ -5619,15 +5616,12 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "ReachedTrueEnding" }
-			},
-			{
 				PathTrue = { "GameState", "TextLinesRecord", "HecateBathHouseEpilogue01" },
 			},
 			{
 				PathFalse = { "CurrentRun", "TextLinesRecord", "HecateBathHouseEpilogue01" },
 			},
-			NamedRequirements = { "T5Cosmetic" },
+			NamedRequirements = { "T5Cosmetic", "HasEverReachedTrueEnding" },
 		},
 		Cost =
 		{
@@ -5654,15 +5648,12 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "ReachedTrueEnding" }
-			},
-			{
 				PathTrue = { "GameState", "TextLinesRecord", "NemesisBathHouse03" },
 			},
 			{
 				PathFalse = { "CurrentRun", "TextLinesRecord", "NemesisBathHouse03" },
 			},
-			NamedRequirements = { "T5Cosmetic" },
+			NamedRequirements = { "T5Cosmetic", "HasEverReachedTrueEnding" },
 		},
 		Cost =
 		{
@@ -5689,15 +5680,12 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "ReachedTrueEnding" }
-			},
-			{
 				PathTrue = { "GameState", "TextLinesRecord", "CharonGift08" },
 			},
 			{
 				PathFalse = { "CurrentRun", "TextLinesRecord", "CharonGift08" },
 			},
-			NamedRequirements = { "T5Cosmetic" },
+			NamedRequirements = { "T5Cosmetic", "HasEverReachedTrueEnding" },
 		},
 		Cost =
 		{
@@ -5724,15 +5712,12 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "ReachedTrueEnding" }
-			},
-			{
 				PathTrue = { "GameState", "TextLinesRecord", "IcarusGift10" },
 			},
 			{
 				PathFalse = { "CurrentRun", "TextLinesRecord", "IcarusGift10 "}
 			},
-			NamedRequirements = { "T5Cosmetic" },
+			NamedRequirements = { "T5Cosmetic", "HasEverReachedTrueEnding" },
 		},
 		Cost =
 		{
@@ -5759,15 +5744,12 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "ReachedTrueEnding" }
-			},
-			{
 				PathTrue = { "GameState", "TextLinesRecord", "ArtemisGift10" },
 			},
 			{
 				PathFalse = { "CurrentRun", "TextLinesRecord", "ArtemisGift10" },
 			},
-			NamedRequirements = { "T5Cosmetic" },
+			NamedRequirements = { "T5Cosmetic", "HasEverReachedTrueEnding" },
 		},
 		Cost =
 		{
@@ -5794,15 +5776,12 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "ReachedTrueEnding" }
-			},
-			{
 				PathTrue = { "GameState", "TextLinesRecord", "ErisTaverna02" },
 			},
 			{
 				PathFalse = { "CurrentRun", "TextLinesRecord", "ErisTaverna02" },
 			},
-			NamedRequirements = { "T5Cosmetic" },
+			NamedRequirements = { "T5Cosmetic", "HasEverReachedTrueEnding" },
 		},
 		Cost =
 		{
@@ -5829,15 +5808,12 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "ReachedTrueEnding" }
-			},
-			{
 				PathTrue = { "GameState", "TextLinesRecord", "DoraBathHouse03" },
 			},
 			{
 				PathFalse = { "CurrentRun", "TextLinesRecord", "DoraBathHouse03" },
 			},
-			NamedRequirements = { "T5Cosmetic" },
+			NamedRequirements = { "T5Cosmetic", "HasEverReachedTrueEnding" },
 		},
 		Cost =
 		{
@@ -5864,15 +5840,12 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "ReachedTrueEnding" }
-			},
-			{
 				PathTrue = { "GameState", "TextLinesRecord", "SeleneGift09" },
 			},
 			{
 				PathFalse = { "CurrentRun", "TextLinesRecord", "SeleneGift09" },
 			},
-			NamedRequirements = { "T5Cosmetic" },
+			NamedRequirements = { "T5Cosmetic", "HasEverReachedTrueEnding" },
 		},
 		Cost =
 		{
@@ -5919,7 +5892,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 500,
+			CosmeticsPoints = 300,
 		},
 
 		RevealReactionVoiceLines = "nil",
@@ -5954,7 +5927,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 900,
+			CosmeticsPoints = 400,
 			Mixer6Common = 1,
 		},
 
@@ -5997,7 +5970,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1100,
+			CosmeticsPoints = 500,
 			CardUpgradePoints = 1,
 		},
 		PreRevealVoiceLines =
@@ -6022,10 +5995,10 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "ReachedTrueEnding" }
+				PathTrue = { "GameState", "WorldUpgrades", "Cosmetic_CardDeck03" },
 			},
 			{
-				PathTrue = { "GameState", "WorldUpgrades", "Cosmetic_CardDeck03" },
+				PathTrue = { "GameState", "ReachedTrueEnding" },
 			},
 			{
 				Path = { "GameState", "WeaponsUnlocked" },
@@ -6038,11 +6011,11 @@ OverwriteTableKeys( WorldUpgradeData,
 					"LobImpulseAspect",
 					"SuitMarkCritAspect",
 				},
-			}
+			},
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1400,
+			CosmeticsPoints = 600,
 			MixerIBoss = 1,
 		},
 		PreRevealVoiceLines =
@@ -6076,7 +6049,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1600,
+			CosmeticsPoints = 900,
 			FamiliarPoints = 1,
 		},
 		PreRevealVoiceLines =
@@ -6123,7 +6096,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 1800,
+			CosmeticsPoints = 1000,
 			MixerShadow = 1,
 		},
 		PreRevealVoiceLines =
@@ -6157,7 +6130,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		Cost =
 		{
-			CosmeticsPoints = 2200,
+			CosmeticsPoints = 2000,
 			MixerShadow = 1,
 		},
 		PreRevealVoiceLines =
@@ -6184,9 +6157,7 @@ OverwriteTableKeys( WorldUpgradeData,
 			{
 				PathTrue = { "GameState", "WorldUpgrades", "Cosmetic_CardDeck01" },
 			},
-			{
-				PathTrue = { "GameState", "ReachedTrueEnding" }
-			},
+			NamedRequirements = { "HasEverReachedTrueEnding" },
 		},
 		Cost =
 		{

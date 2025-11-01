@@ -2039,7 +2039,7 @@ UnitSetData.NPC_Artemis =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "UseRecord", "NPC_Athena_01" },
+						PathTrue = { "CurrentRun", "UseRecord", "NPC_Athena_01" },
 					},
 					{
 						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AthenaEncounterKeepsake" },
@@ -2406,6 +2406,9 @@ UnitSetData.NPC_Artemis =
 					{
 						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ZagreusPastMeeting04_3" }
+					},
 				},
 				{ Cue = "/VO/Artemis_0157",
 					PreLineThreadedFunctionName = "PlayCharacterAnim",
@@ -2516,7 +2519,8 @@ UnitSetData.NPC_Artemis =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "ZagreusPastMeeting05" }
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ZagreusPastMeeting05" }
 					},
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "F" },
@@ -2589,7 +2593,7 @@ UnitSetData.NPC_Artemis =
 					Text = "The Titan of Foresight, fighting for the Titan of Time... perhaps merely against the gods who punished him. He may have his reasons, but he's in my way." },
 				{ Cue = "/VO/Artemis_0213",
 					PreLineAnim = "Artemis_Shrug",
-					Text = "I know precisely what you mean. Though if he truly knows the future, wouldn't he choose the winning side...? Careful with him, Sister..." },
+					Text = "I know precisely what you mean. Though if he really knows the future, wouldn't he choose the winning side...? Careful with him, Sister..." },
 			},
 			ArtemisAboutPrometheus02 =
 			{
@@ -3540,7 +3544,7 @@ UnitSetData.NPC_Artemis =
 					},
 				},
 				{ Cue = "/VO/Artemis_0162",
-					Text = "A full Moon... Sister Selene's power at its peak. On nights like this, I truly feel my immortality. May our combined strength be enough." },
+					Text = "A full Moon... Sister Selene's power at its peak. On nights like this, I really feel my immortality. May our combined strength be enough." },
 			},
 			ArtemisSendOff01 =
 			{

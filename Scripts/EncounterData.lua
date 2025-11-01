@@ -1048,6 +1048,9 @@ EncounterData =
 					PreWait = 1.0,
 				},
 			},
+			{
+				FunctionName = "TriggerPostBossEvents"
+			}
 		},
 	},
 
@@ -1063,6 +1066,9 @@ EncounterData =
 
 		UnthreadedEvents =
 		{
+			{
+				FunctionName = "TriggerPostBossEvents"
+			}
 		},
 	},
 

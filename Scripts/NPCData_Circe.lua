@@ -2285,7 +2285,8 @@ UnitSetData.NPC_Circe =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "HecateBathHouseEpilogue01" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "FatesEpilogue01", "HecateBathHouseEpilogue01" }
 					},
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",

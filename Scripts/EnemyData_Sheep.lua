@@ -92,6 +92,7 @@ UnitSetData.Sheep =
 	Sheep_Zombie =
 	{
 		InheritFrom = { "Sheep" },
+		RunHistoryKilledByName = "Polyphemus",
 		IsAggroedSound = "/SFX/Enemy Sounds/SheepZombie/EmoteAlerted",
 		DeathSound = "/SFX/Enemy Sounds/SheepZombie/EmoteDying",
 
@@ -173,6 +174,7 @@ UnitSetData.Sheep =
 	Sheep_Explosive =
 	{
 		InheritFrom = { "Sheep" },
+		RunHistoryKilledByName = "Polyphemus",
 		IsAggroedSound = "/SFX/Enemy Sounds/SheepExploding/EmoteAlerted",
 		-- DeathSound = "/SFX/Enemy Sounds/SheepExploding/EmoteDying",
 
@@ -251,6 +253,7 @@ UnitSetData.Sheep =
 	Sheep_Sick =
 	{
 		InheritFrom = { "Sheep" },
+		RunHistoryKilledByName = "Polyphemus",
 		IsAggroedSound = "/SFX/Enemy Sounds/SheepSick/EmoteAlerted",
 		DeathSound = "/SFX/Enemy Sounds/SheepSick/EmoteDying",
 

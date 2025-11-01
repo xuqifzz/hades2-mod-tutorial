@@ -65,7 +65,7 @@ function StartRoomPresentation( currentRun, currentRoom, metaPointsAwarded )
 	end
 	if prevRoom then
 		nextRoomEntranceFunctionName = prevRoom.NextRoomEntranceFunctionNameOverride or nextRoomEntranceFunctionName
-		nextRoomEntranceFunctionArgs = prevRoom.NextRoomEntranceFunctionArgsOverride or nextRoomEntranceFunctionName
+		nextRoomEntranceFunctionArgs = prevRoom.NextRoomEntranceFunctionArgsOverride or nextRoomEntranceFunctionArgs
 	end
 	roomEntranceFunctionName = nextRoomEntranceFunctionName or roomEntranceFunctionName
 	roomEntranceFunctionArgs = nextRoomEntranceFunctionArgs
@@ -1222,6 +1222,9 @@ function DeathPresentation( currentRun, killer, args )
 			notifyExistingWaiters(encounter.Name.."GroupHealthBarDead")
 		end
 	end
+	if SessionMapState.ChronosTimeSlowActive then
+		thread( CallFunctionName, "ChronosEndTimeSlowPresentation" )
+	end
 	StopAmbientSound({ All = true })
 	StopSound({ Id = AudioState.SecretMusicId, Duration = 0.25 })
 	StopSound({ Id = AudioState.AmbientMusicId, Duration = 0.25 })
@@ -1748,6 +1751,12 @@ function EndEarlyAccessPresentation()
 
 	AddInputBlock({ Name = "EndEarlyAccessPresentation" })
 	SetPlayerInvulnerable( "EndEarlyAccessPresentation" )
+
+	for _, enemy in pairs( MapState.SpellSummons ) do
+		if not enemy.IsDead and ActiveEnemies[ enemy.ObjectId ] then
+			thread( Kill, enemy, { SuppressSounds = true, SkipDeathWeapons = true })
+		end
+	end
 
 	CurrentRun.Hero.Mute = true
 	CurrentRun.ActiveBiomeTimer = false
@@ -3115,6 +3124,8 @@ end
 
 function EntranceFromAnomalyPresentation(currentRun, currentRoom, args)
 
+	args = args or {}
+
 	AddInputBlock({ Name = "EntranceFromAnomalyPresentation" })
 	local roomData = RoomData[currentRoom.Name] or currentRoom
 	local roomIntroSequenceDuration = roomData.IntroSequenceDuration or RoomData.BaseRoom.IntroSequenceDuration or 0.0
@@ -3143,9 +3154,11 @@ function EntranceFromAnomalyPresentation(currentRun, currentRoom, args)
 	waitUnmodified( 0.4 )
 	SetAnimation({ DestinationId = currentRun.Hero.ObjectId, Name = "Melinoe_Combat_Return_ReEnter" })
 
-	-- thread( HadesSpeakingPresentation, {}, { StartDelay = 0, SubtitleColor = Color.ChronosVoice, BlockColorGrade = true, OverlayAnim = "ChronosOverlay", VoiceLines = { GlobalVoiceLines = "AnomalyConcludedVoiceLines" }, StartSound = "/SFX/TimeSlowStart" } )
-	thread( PlayVoiceLines, GlobalVoiceLines.ReturnedFromElysiumVoiceLines, true )
-	thread( PlayVoiceLines, GlobalVoiceLines.AnomalyConcludedVoiceLines, true )
+	if args.ReturningFromElysium then
+		thread( PlayVoiceLines, GlobalVoiceLines.ReturnedFromElysiumVoiceLines, true )
+	else
+		thread( PlayVoiceLines, GlobalVoiceLines.AnomalyConcludedVoiceLines, true )
+	end
 
 	if currentRoom.LocationText and not currentRoom.Encounter.BlockLocationText then
 		thread( DisplayInfoBanner, nil, { Text = currentRoom.LocationText, Delay = 0.65, FadeColor = currentRoom.LocationTextColor or { 255, 0, 0, 255 }, Duration = 2.0, AnimationName = currentRoom.LocationAnimName, AnimationOutName = currentRoom.LocationAnimOutName, IconBackingAnimationName = currentRoom.LocationTextAnimName, IconBackingAnimationOutName = currentRoom.LocationTextAnimOutName, } )
@@ -3605,7 +3618,7 @@ function ContractExitPresentation(currentRun, exitDoor, args)
 	local firstVisitRequirements =
 	{
 		{
-			PathFalse = { "GameState", "RoomsEntered", "C_Boss01" }
+			PathFalse = { "GameState", "TextLinesRecord", "ZagreusBossFirstMeeting" }
 		},
 	}
 	-- longer the first time

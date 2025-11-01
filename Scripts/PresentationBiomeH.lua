@@ -807,7 +807,7 @@ GlobalVoiceLines.AcquireMixerForMedeaQuestVoiceLines =
 	},
 	TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
 
-	{ Cue = "/VO/MelinoeField_4337", Text = "These Tears are for Lady Medea alone." },
+	{ Cue = "/VO/MelinoeField_4337", Text = "These Tears are for Lady Medea alone.", IgnoreMute = true },
 }
 
 function OnMixerHBossAdded( name, amount, source, args )

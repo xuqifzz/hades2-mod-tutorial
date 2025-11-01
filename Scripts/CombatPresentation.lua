@@ -730,7 +730,9 @@ end
 
 function PlayerLastStandProcText( args )
 	waitUnmodified(  0.2 )
-	if args.HasLastStand or not CurrentRun.Hero.MaxLastStands or CurrentRun.Hero.MaxLastStands == 1 then
+	if args.InfiniteDeathDefiance  then
+		thread( InCombatText, CurrentRun.Hero.ObjectId, "Hint_ExtraChance_Special_A", 0.9, { ShadowScale = 0.66, OffsetY = 75 } )	
+	elseif args.HasLastStand or not CurrentRun.Hero.MaxLastStands or CurrentRun.Hero.MaxLastStands == 1 or SessionMapState.InfiniteDeathDefiance then
 		thread( InCombatText, CurrentRun.Hero.ObjectId, "Hint_ExtraChance", 0.9, { ShadowScale = 0.66, OffsetY = 75 } )	
 	else
 		thread( InCombatText, CurrentRun.Hero.ObjectId, "Hint_LastChance", 0.9, { ShadowScale = 0.66, OffsetY = 75 } )
@@ -783,6 +785,16 @@ function PlayerLastStandVoicelines( args )
 		end
 	end
 end
+function PlayerInfiniteLastStandVoicelines( args )
+	CurrentRun.Hero.Mute = false
+	PlayVoiceLines( HeroVoiceLines.InfiniteLastStandVoiceLines, nil, CurrentRun.Hero, args )
+	CurrentRun.Hero.Mute = true
+	for k, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
+		if enemy.LastStandReactionVoiceLines ~= nil then
+			thread( PlayVoiceLines, enemy.LastStandReactionVoiceLines, true, enemy )
+		end
+	end
+end
 
 function PlayerLastStandHealingText( args )
 	waitUnmodified(  0.2 )
@@ -796,6 +808,12 @@ function PlayerLastStandManaGainText( args )
 		waitUnmodified( args.Delay )
 	end
 	thread(PopOverheadText, {Amount = args.Amount, Text = "HealingAmount", Color = Color.RoyalBlue, SkipShadow = true, OffsetY = 40 })
+end
+
+function PlayerInfiniteLastStandSFX()
+	PlaySound({ Name = "/SFX/DeathDefianceActivate", Id = CurrentRun.Hero.ObjectId })
+	PlaySound({ Name = "/SFX/Menu Sounds/CauldronSpellCastNoPoof", Id = CurrentRun.Hero.ObjectId })
+	PlaySound({ Name = "/VO/MelinoeEmotes/EmoteHowlSlam", Id = CurrentRun.Hero.ObjectId })
 end
 
 function PlayerLastStandSFX()
@@ -840,8 +858,10 @@ function LostLastStandPresentation( )
 		return
 	end
 	local index = TableLength( CurrentRun.Hero.LastStands )
-
-	CreateAnimation({ Name = "SkillProcFeedbackFx", DestinationId = ScreenAnchors.LifePipIds[ index ], GroupName = "Overlay" })
+	if not SessionMapState.InfiniteDeathDefiance then
+		-- This is already somehwat inaccurate but let's just mute this since any issues are exacerbated during the infinite death defiance
+		CreateAnimation({ Name = "SkillProcFeedbackFx", DestinationId = ScreenAnchors.LifePipIds[ index ], GroupName = "Overlay" })
+	end
 end
 
 -- Engraved Pin / Moros Keepsake / BlockDeathPresentation
@@ -1078,6 +1098,74 @@ function PlayerBlockDeathVoicelines( args )
 			thread( PlayVoiceLines, enemy.BlockDeathReactionVoiceLines, true, enemy )
 		end
 	end
+end
+
+function InfiniteLastStandPresentationStart( args )
+	wait( 0.06, RoomThreadName )
+	local secondChanceFxInTime = 0.08
+
+	-- put up screen vfx
+	ScreenAnchors.LastStandVignette = SpawnObstacle({ Name = "BlankObstacle", DestinationId = CurrentRun.Hero.ObjectId, Group = "FX_Standing_Top" })
+	CreateAnimation({ Name = "LastStandVignette", DestinationId = ScreenAnchors.LastStandVignette })
+	AdjustColorGrading({ Name = "DeathDefianceSubtle", Duration = secondChanceFxInTime })
+
+	RemoveFromGroup({ Id = CurrentRun.Hero.ObjectId, Names = { "Standing" } })
+	AddToGroup({ Id = CurrentRun.Hero.ObjectId, Name = "Combat_Menu", DrawGroup = true })
+	
+	local lastStandAnim = CurrentRun.Hero.LastStandAnimationOverride or "Melinoe_GetHit_LastStand" 
+	SetAnimation({ DestinationId = CurrentRun.Hero.ObjectId, Name = lastStandAnim })
+
+	-- camera
+	if IsEmpty(SessionMapState.LockCameraMotion) then
+		PanCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 0.01 })
+		FocusCamera({ Fraction = 1.03, Duration = 0.045, ZoomType = "Ease" })
+	end
+
+	-- pause the game
+	AddSimSpeedChange( "LastStand", { Fraction = 0.005, LerpTime = 0.0001, Priority = true } )
+
+	-- play voiceover
+	thread( PlayerInfiniteLastStandVoicelines )
+	thread( PlayerInfiniteLastStandSFX )
+	waitUnmodified( 0.3, RoomThreadName )
+
+	-- pop the death defiance
+	LostLastStandPresentation()
+	UpdateLifePips()
+	thread( PlayerLastStandProcText, args )
+
+	waitUnmodified( 1.1, RoomThreadName )
+
+	CreateAnimation({ Name = "MelInfiniteLastStandFx", DestinationId = CurrentRun.Hero.ObjectId })
+end
+
+function InfiniteLastStandPresentationEnd()
+	RemoveFromGroup({ Id = CurrentRun.Hero.ObjectId, Names = { "Combat_Menu" } })
+	AddToGroup({ Id = CurrentRun.Hero.ObjectId, Name = "Standing", DrawGroup = true })
+	SetPlayerDarkside( "LastStand" )
+	local secondChanceFxOutTime = 0.4
+	AdjustRadialBlurStrength({ Fraction = 0, Duration = secondChanceFxOutTime  })
+	AdjustFrame({ Duration = secondChanceFxOutTime, Fraction = 0 })
+	RemoveSimSpeedChange( "LastStand", { LerpTime = secondChanceFxOutTime } )
+	AdjustFullscreenBloom({ Name = "DesaturatedLight", Duration = secondChanceFxOutTime * 0.1 })
+
+	SetAlpha({ Id = ScreenAnchors.LastStandVignette, Fraction = 0, Duration = 0.06 })
+	if CurrentRun.Hero.LastStandTimeMultiplier then
+		SetThingProperty({ Property = "ElapsedTimeMultiplier", Value = 1/CurrentRun.Hero.LastStandTimeMultiplier, ValueChangeType = "Multiply", DataValue = false, DestinationNames = { "HeroTeam" } })
+		CurrentRun.Hero.LastStandTimeMultiplier = nil
+	end
+
+	if IsEmpty(SessionMapState.LockCameraMotion) then
+		FocusCamera({ Fraction = CurrentRun.CurrentRoom.ZoomFraction or 1.0, Duration = secondChanceFxOutTime, ZoomType = "Ease" })
+	end
+
+	AdjustColorGrading({ Name = "None", Duration = secondChanceFxOutTime })
+
+	thread( function()
+		wait( secondChanceFxOutTime * 0.1 )
+		AdjustFullscreenBloom({ Name = "Off", Duration = secondChanceFxOutTime * 0.5, })
+	end )
+
 end
 
 function LowHealthCombatTextPresentation( unitId, texts )

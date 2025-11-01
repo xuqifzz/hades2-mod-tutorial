@@ -1716,6 +1716,48 @@ function PostCombatAudio( eventSource )
 
 end
 
+function TriggerPostBossEvents( eventSource, args )
+	local delay = 0.5
+	local keepsakeDelay = 3.5
+	if GetTotalHeroTraitValue("PostBossCards") > 0 then
+		AddRandomMetaUpgrades( GetTotalHeroTraitValue("PostBossCards"), { Delay = delay })
+		delay = delay + keepsakeDelay
+	end
+		
+	if HeroHasTrait("BossMetaUpgradeKeepsake") then
+		local upgradeTrait = GetHeroTrait("BossMetaUpgradeKeepsake")
+		if upgradeTrait.RemainingUses > 0 then
+			AddRandomMetaUpgrades(2, { RarityLevel = GetTotalHeroTraitValue("PostBossCardRarity"), Delay = delay })
+			UseHeroTraitsWithValue( "PostBossCardRarity" )
+			upgradeTrait.CustomName = upgradeTrait.ZeroBonusTrayText or "BossMetaUpgradeKeepsake_Expired"
+		end
+	end
+	for k, trait in ipairs( CurrentRun.Hero.Traits ) do
+		if trait.UsesAsBosses then
+			trait.RemainingUses = trait.RemainingUses - 1
+			if trait.RemainingUses <= 0 then
+				table.insert( traitsToRemove, trait )
+			end
+			TraitUIUpdateText( trait )
+		end
+		if trait.Name == "LowHealthCritKeepsake" and IsTraitActive( trait ) then
+			trait.CustomName = trait.ZeroBonusTrayText
+			ReduceTraitUses( trait, { Force = true })
+
+			trait.MaxHealthMultiplier = 1
+			trait.CapMaxHealth = -1
+			if trait.PropertyChanges and trait.PropertyChanges[1] then
+				ApplyUnitPropertyChange( CurrentRun.Hero, trait.PropertyChanges[1], true, true)
+				trait.PropertyChanges[1].ChangeValue = 1
+			end
+			ValidateMaxHealth()
+			FrameState.RequestUpdateHealthUI = true
+			if not currentEncounter or not currentEncounter.BlockPostBossKeepsakeExpiration then
+				thread( LowHealthCritKeepsakeExpiredPresentation, trait )
+			end
+		end
+	end
+end
 function StartDevotionTest( currentEncounter, args )
  
 	thread( PlayVoiceLines, GlobalVoiceLines.DevotionLootGrantedVoiceLines )

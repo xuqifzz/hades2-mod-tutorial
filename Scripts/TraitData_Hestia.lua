@@ -1071,7 +1071,15 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponLobSpecial",
 				ProjectileName = "ProjectileLobGunRift",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "LobProjectile_Hestia",
+				ChangeValue = "LobProjectileHel_Hestia",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileLobSpecialBounce",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobProjectileHel_Hestia",
 				ChangeType = "Absolute",
 			},
 			{
@@ -1401,7 +1409,7 @@ OverwriteTableKeys( TraitData, {
 			},
 
 		},
-		OnEffectApplyFunction = 
+		OnCastEffectApplyFunction = 
 		{
 			FunctionName = "CheckCastBurnApply",
 			FunctionArgs = 
@@ -1938,7 +1946,6 @@ OverwriteTableKeys( TraitData, {
 						[1] = 0.50,
 						[2] = 0.40,
 						[3] = 0.30,
-						[4] = 0.20,
 					},
 				},
 				ReportValues = 

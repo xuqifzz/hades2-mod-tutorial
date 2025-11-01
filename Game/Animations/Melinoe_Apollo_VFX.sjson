@@ -1556,6 +1556,7 @@
 		VisualFxIntervalMin = 0.1
 		VisualFxIntervalMax = 0.2
 		GrannyAttachedMarkerLocation = "head_fxMarker_00_M_JNT"
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 		CreateAnimations =
 		[
 			{ Name = "ApolloBlindDebuffFlare" }
@@ -1606,6 +1607,7 @@
 		EaseOut = 1.0
 		ScaleFromOwner = "Ignore"
 		Sound = "/SFX/Player Sounds/ApolloBlindStart"
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 	}
 
 	{

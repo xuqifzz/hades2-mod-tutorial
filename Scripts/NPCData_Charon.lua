@@ -536,7 +536,7 @@ UnitSetData.NPC_Charon =
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeWellShops" },
 					},
 					{
-						PathTrue = { "GameState", "ScreensViewed", "WellShop" }
+						PathTrue = { "CurrentRun", "UseRecord", "WellShop" }
 					},
 					{
 						PathFalse = { "CurrentRun", "Hero", "IsDead" }
@@ -979,9 +979,6 @@ UnitSetData.NPC_Charon =
 				GameStateRequirements =
 				{
 					{
-						PathFalse = { "GameState", "ReachedTrueEnding" },
-					},
-					{
 						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
 					},
 					{
@@ -1010,7 +1007,7 @@ UnitSetData.NPC_Charon =
 				GameStateRequirements =
 				{
 					{
-						PathFalse = { "GameState", "ReachedTrueEnding" },
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
 					},
 					OrRequirements =
 					{
@@ -1811,7 +1808,13 @@ UnitSetData.NPC_Charon =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "RoomsEntered", "C_Boss01" },
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						SumPrevRuns = 4,
+						Path = { "RoomsEntered", "C_Boss01" },
+						Comparison = ">=",
+						Value = 1,
 					},
 				},
 				{ Cue = "/VO/MelinoeField_5037", UsePlayerSource = true,
@@ -2235,6 +2238,7 @@ UnitSetData.NPC_Charon =
 					PreLineAnim = "Charon_Thanking",
 					Text = "{#Emph}Auuggggghhhhhh..." },
 				{ Cue = "/VO/Melinoe_3383", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I know you require only Gold, my lord. Nevertheless, I wanted to give you something more! I've always found your commitment to the realm and to your discipline inspiring." },

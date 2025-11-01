@@ -227,6 +227,7 @@ function GameStateInit()
 	GameState.KeepsakeChambers = GameState.KeepsakeChambers or {}
 	GameState.ClearedFullRunWithKeepsakes = GameState.ClearedFullRunWithKeepsakes or {}
 	GameState.Resources = GameState.Resources or {}
+	GameState.ResourcesInEscrow = GameState.ResourcesInEscrow or {}
 	GameState.LifetimeResourcesGained = GameState.LifetimeResourcesGained or {}
 	GameState.LifetimeResourcesSpent = GameState.LifetimeResourcesSpent or {}
 	GameState.ResourcesViewed = GameState.ResourcesViewed or {}
@@ -301,6 +302,8 @@ function GameStateInit()
 
 	GameState.GamePhase = GameState.GamePhase or GamePhaseData.StartingGamePhase
 	GameState.GamePhaseRunsRemaining = GameState.GamePhaseRunsRemaining or GamePhaseData.StartingGamePhaseRunsRemaining
+
+	GameState.StoryResetCount = (GameState.StoryResetCount or 0)
 end
 
 function StartNewGame( mapName )
@@ -418,6 +421,7 @@ function RunStateInit()
 	CurrentRun.WorldUpgradesAdded = CurrentRun.WorldUpgradesAdded or {}
 	CurrentRun.WorldUpgradesViewed = CurrentRun.WorldUpgradesViewed or {}
 	CurrentRun.WorldUpgradesRevealed = CurrentRun.WorldUpgradesRevealed or {}
+	CurrentRun.WorldUpgradesAffordable = CurrentRun.WorldUpgradesAffordable or {}
 	CurrentRun.SpellCharge = CurrentRun.SpellCharge or 0
 
 	if CurrentRun.Hero ~= nil then
@@ -637,6 +641,10 @@ function CreateRoom( roomData, args )
 
 	if room.LockExtraExitsChance ~= nil and not room.ChallengeChanceSuccess then
 		room.LockExtraExits = RandomChance( room.LockExtraExitsChance )
+	end
+
+	if room.ZagContractDestinationId ~= nil and IsGameStateEligible(room, StoreData.ZagreusContractRequirement) then
+		room.ZagreusContractSuccess = true
 	end
 
 	room.HarvestPointsAllowed = 0
@@ -2431,6 +2439,7 @@ function UpdateConfigOptionCache()
 		"MusicVolume",
 		"SprintAutoHold",
 		"EasyModeResistanceCap",
+		"LowHealthPulse",
 
 	}
 	for k, optionName in pairs( optionsToCache ) do

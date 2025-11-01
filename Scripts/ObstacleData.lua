@@ -939,6 +939,10 @@ ObstacleData =
 							FunctionName = "RequiredHealthFraction",
 							FunctionArgs = { Comparison = ">=", Value = 0.2, },
 						},
+						{
+							Path = { "CurrentRun", "ActiveBounty" },
+							IsNone = GameData.AllRandomPackagedBounties,
+						},
 					},
 
 					Cooldowns =

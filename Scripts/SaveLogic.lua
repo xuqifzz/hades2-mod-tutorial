@@ -33,6 +33,7 @@ MainRunSaveWhitelist = ToLookup(
 	"GameplayTime",
 	"ActiveBounty",
 	"VictoryMessage",
+	"UsedStoryReset",
 })
 
 RecentRunSaveWhitelist = ToLookup(

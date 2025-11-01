@@ -962,7 +962,7 @@ RoomSetData.G =
 			{
 				Template = "GiftRack",
 				Activate = true,
-				ActivateIds = { 616853, 616854, 616855, 616856, },
+				ActivateIds = { 616853, 616854, 616855, 616856, 768630 },
 				SetupGameStateRequirements =
 				{
 					{
@@ -974,6 +974,7 @@ RoomSetData.G =
 			{
 				Template = "ChallengeSwitchBase",
 				Activate = true,
+				ActivateIds = { 768632 },
 				SetupGameStateRequirements =
 				{
 					{
@@ -985,6 +986,7 @@ RoomSetData.G =
 			{
 				Template = "ChallengeSwitchBase",
 				Activate = true,
+				ActivateIds = { 768631 },
 				SetupGameStateRequirements =
 				{
 					{

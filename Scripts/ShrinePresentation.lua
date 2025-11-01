@@ -267,6 +267,11 @@ function ShrineScreenRankDownPresentation( screen, button, args )
 	ShrineScreenUpdateItems( screen, button, false )
 	if screen.SelectedItem == button then
 		ShrineScreenMouseOverItem( button, true )
+	elseif args.RemoveNameHighlight then
+		local selectedFormat = ShallowCopyTable( screen.ShortNameFormat )
+		selectedFormat.Id = button.Id
+		selectedFormat.AffectText = button.Data.Name.."_Short"
+		ModifyTextBox( selectedFormat )
 	end
 	ShrineScreenUpdateNextRankText( button )
 	ShrineScreenUpdateRankActions( button )

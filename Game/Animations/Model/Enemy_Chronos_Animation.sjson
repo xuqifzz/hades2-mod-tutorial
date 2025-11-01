@@ -1754,6 +1754,20 @@
 		]
 	}
 
+	{
+		Name = "Enemy_Chronos_Knockdown_Frustrated"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_DefeatedFidget_C_00"
+		ChainTo = "Enemy_Chronos_Knockdown_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Knockdown_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+
 	/* Battle Outro / Death */
 	{
 		Name = "Enemy_Chronos_BattleOutro_Start"
@@ -1848,6 +1862,57 @@
 		OwnerHasNoCollision = true
 		OwnerImmobile = true
 		CreateAnimation = "ChronosBattleOutroDeathFx"
+		BlockNewOwnerAnims = true
+	}
+
+
+	{
+		Name = "Enemy_Chronos_GigarosKill_Death"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_BattleOutroEnd_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_BattleOutro_FireLoop"
+				Duration = 4
+			}
+		]
+
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2Flip"
+		DeathFxFrameDuration = 60
+		DeathFxColor = { Red = 0.41 Green = 0.35 Blue = 0.21 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		HoldLastFrame = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		CreateAnimation = "ChronosBattleOutroDeathFxGigaros"
 		BlockNewOwnerAnims = true
 	}
 

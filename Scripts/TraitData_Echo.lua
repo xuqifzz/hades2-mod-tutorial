@@ -157,7 +157,7 @@ OverwriteTableKeys( TraitData, {
 		AcquireFunctionName = "EchoIncreaseStats",
 		AcquireFunctionArgs = 
 		{
-			StartFraction = 0.50,
+			StartFraction = 0.60,
 			Decay = 0.05,
 			ReportValues = 
 			{ 

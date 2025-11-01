@@ -1134,6 +1134,35 @@ GlobalVoiceLines.OpenedAwardMenuVoiceLines =
 	{
 		SkipAnim = true,
 		PlayOnce = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.65,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "StoryResetCount" },
+				Comparison = ">=",
+				Value = 1,
+			},
+			{
+				PathFalse = { "GameState", "ReachedTrueEnding" },
+			},
+			{
+				Path = { "GameState", "TextLinesRecord" },
+				CountOf =
+				{
+					"HadesWithPersephoneGift01",
+					"NeoChronosGift01",
+					"ZagreusBossGrantsBondForged01",
+				},
+				Comparison = ">=",
+				Value = 2,
+			},
+		},
+		{ Cue = "/VO/Melinoe_5781", Text = "These Keepsakes, have I... had them all this time...?" },
+	},
+	{
+		SkipAnim = true,
+		PlayOnce = true,
 		PlayOnceContext = "KeepsakeFavoritesAddedVO",
 		BreakIfPlayed = true,
 		PreLineWait = 0.65,

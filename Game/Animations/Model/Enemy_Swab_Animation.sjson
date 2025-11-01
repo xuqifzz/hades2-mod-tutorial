@@ -27,6 +27,10 @@
 				BlendTransitionFrom = "Enemy_Swab_Move"
 				Duration = 4
 			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 8
+			}
 		]
 	}
 

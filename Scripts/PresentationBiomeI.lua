@@ -13,6 +13,7 @@ function ChronosKillPresentation( unit, args )
 	ClearPauseMenuTakeover()
 	RecordEncounterClearStats()
 
+	CurrentRun.Hero.Mute = false
 	if SessionState.GameplaySlows["ChronosTimeSlow"] ~= nil then
 		thread(ChronosEndTimeSlowPresentation)
 		GameplaySetElapsedTimeMultiplier( { ElapsedTimeMultiplier = 0.3, Reverse = true, Name = "ChronosTimeSlow", ApplyToPlayerUnits = true, Ignore = unit } )
@@ -30,6 +31,17 @@ function ChronosKillPresentation( unit, args )
 
 	SetUnitInvulnerable( unit )
 	thread( LastKillPresentation, unit )
+	if IsGameStateEligible( unit, args.GigarosKillRequirements ) then
+		local fadeIds = GetIds({ Names = { "Terrain_LighterColor_02", "Terrain_ClockBroken_01", "Terrain_ClockBroken_02", "Terrain_ClockBroken_03", "Terrain_ClockBroken_04", "Terrain_FX_Sand_01", "Terrain_Displacement_02" } })
+		local exceptionIds = { 778354, 778586, 778180, 778186, 778113, 778106, 778564, 778587, 778214, 778130, 778187, 778190, 778189, 778192, 778191, 778188, 778109, 778112, 778111, 778105, 778108, 778110, 778108, 778116, 778117, 794361, 778183, 778179, 778182, 778632, 778633, 778640, 778114, 778115 }
+
+		for k, removeId in ipairs(exceptionIds) do
+			RemoveValueAndCollapse(fadeIds, removeId)
+		end
+
+		SetAlpha({ Ids = fadeIds, Fraction = 0, Duration = 0.2 })
+	end
+
 	SetPlayerInvulnerable( "ChronosKillPresentation" )
 	AddInputBlock({ Name = "ChronosKillPresentation" })
 	AddTimerBlock( CurrentRun, "ChronosKillPresentation" )
@@ -42,7 +54,7 @@ function ChronosKillPresentation( unit, args )
 		TraitTrayScreenClose( ActiveScreens.TraitTrayScreen, nil, { IgnoreHUDShow = true } )
 	end
 
-	if GetNumShrineUpgrades("BossDifficultyShrineUpgrade") >= 4 then
+	if GetNumShrineUpgrades("BossDifficultyShrineUpgrade") >= 4 or unit.CurrentPhase == 3 then
 		SetMusicSection( 5 )
 	else
 		SetMusicSection( 3 )
@@ -58,7 +70,9 @@ function ChronosKillPresentation( unit, args )
 	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = unit.ObjectId })
 	thread( PlayVoiceLines, unit.PhaseEndedVoiceLines, nil, unit )
 
-	if GameState.TextLinesRecord.ChronosBossOutro01 then
+	if unit.CurrentPhase == 3 and IsGameStateEligible(unit, { NamedRequirements = { "HecateMissing" } }) then
+		wait( 4.0, RoomThreadName )
+	elseif GameState.TextLinesRecord.ChronosBossOutro01 then
 		wait( 2.8, RoomThreadName )
 	else
 		wait( 4.0, RoomThreadName )
@@ -67,8 +81,12 @@ function ChronosKillPresentation( unit, args )
 	local textLines = GetRandomEligibleTextLines( unit, unit.BossOutroTextLineSets, GetNarrativeDataValue( unit, "BossOutroTextLinePriorities" ) )
 	unit.TextLinesUseWeaponIdle = nil
 	PlayTextLines( unit, textLines )
-
-	if IsGameStateEligible( unit, args.SpecialKillRequirements ) then
+	if IsGameStateEligible( unit, args.GigarosKillRequirements ) then
+		ChronosGigarosKillPresentation( unit, args )
+		unit.DeathAnimation = args.GigarosKillDeathAnimation or unit.DeathAnimation
+		args.Message = args.GigarosKillMessage
+		args.SubtitleText = args.GigarosKillSubtitle
+	elseif IsGameStateEligible( unit, args.SpecialKillRequirements ) then
 		ChronosSpecialKillPresentation( unit, args )
 	end
 
@@ -83,14 +101,27 @@ function ChronosKillPresentation( unit, args )
 	end
 
 	if IsGameStateEligible( unit, args.SpawnChronosRemainsRequirements ) then
-		local chronosRemains = DeepCopyTable( ObstacleData.ChronosRemains )
-		chronosRemains.ObjectId = SpawnObstacle({ Name = "ChronosRemains", Group = "Standing", DestinationId = args.VictimTeleportId })
+		local remainsType = "ChronosRemains"
+		if IsGameStateEligible( unit, { NamedRequirements = { "HecateMissing" }} ) then
+			remainsType = "ChronosRemainsBroken"
+		end
+		local chronosRemains = DeepCopyTable( ObstacleData[remainsType] )
+		chronosRemains.ObjectId = SpawnObstacle({ Name = remainsType, Group = "Standing", DestinationId = args.VictimTeleportId })
 		CurrentRun.CurrentRoom.Encounter.ObstaclesToRestore = CurrentRun.CurrentRoom.Encounter.ObstaclesToRestore or {}
-		table.insert( CurrentRun.CurrentRoom.Encounter.ObstaclesToRestore, { Name = "ChronosRemains", DestinationId = args.VictimTeleportId } )
+		table.insert( CurrentRun.CurrentRoom.Encounter.ObstaclesToRestore, { Name = remainsType, DestinationId = args.VictimTeleportId } )
+	end
+
+	local chronosParticleEmitterAnimationName = "ChronosBattleOutroDeathParticleEmitter"
+
+	if IsGameStateEligible( unit, args.GigarosKillRequirements ) then
+		chronosParticleEmitterAnimationName = "ChronosBattleOutroDeathParticleEmitterGigarosKill"
+		local chronosRemainsKernel = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = unit.ObjectId, Group = "Combat_Menu_TraitTray_Overlay_Additive", })
+		SetScale({ Id = chronosRemainsKernel, Fraction = 0, Duration = 4 })
+		SetAnimation({ Name = "ChronosRemainsKernel", DestinationId = chronosRemainsKernel })
 	end
 
 	local chronosParticleEmitter = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = unit.ObjectId, Group = "Combat_Menu_TraitTray_Overlay", })
-	SetAnimation({ Name = "ChronosBattleOutroDeathParticleEmitter", DestinationId = chronosParticleEmitter })
+	SetAnimation({ Name = chronosParticleEmitterAnimationName, DestinationId = chronosParticleEmitter })
 	Move({ Id = chronosParticleEmitter, Distance = 200, Angle = 90, Duration = 5 })
 
 	GenericBossKillPresentation( unit, args )
@@ -114,6 +145,60 @@ function ChronosKillPresentation( unit, args )
 	OpenRunClearScreen()
 	ClearCameraClamp({ LerpTime = 1.0 }) -- the map bounds are more restrictive during the fight
 
+end
+
+function ChronosGigarosKillPresentation( chronos, args )
+	-- center 797656, mel spot 797655
+
+	SetAnimation({ Name = "Melinoe_ChronosKill_Start", DestinationId = CurrentRun.Hero.ObjectId })
+	FocusCamera({ Fraction = CurrentRun.CurrentRoom.ZoomFraction * 1.1, Duration = 1.25, ZoomType = "Ease" })
+
+	HideCombatUI("ChronosGigarosKillPresentation")
+	if SessionMapState.SpellWorldReadyFx then
+		SessionMapState.SpellWorldReadyFx = nil
+		StopAnimation({ Names = { "SorceryReadyMoonLoopIn", "SorceryReadyMoonLoop" }, DestinationId = CurrentRun.Hero.ObjectId, PreventChain = true })
+	end
+
+	thread( PlayVoiceLines, HeroVoiceLines.ChronosFatalityVoiceLines, true )
+	wait( 1.05 )
+
+	ShakeScreen({ Speed = 200, Distance = 6, FalloffSpeed = 500, Angle = 90, Duration = 0.2 })
+	wait( 0.8 )
+
+	local cameraPanId = SpawnObstacle({ Name = "InvisibleTarget", Group = "Standing", DestinationId = 797656, OffsetY = -1150 })
+
+	ClearCameraClamp({ LerpTime = 0 })
+
+	PanCamera({ Id = cameraPanId, Duration = 2.5, Retarget = true })
+	FocusCamera({ Fraction = 1.2, Duration = 3, ZoomType = "Ease" })
+
+	wait( 1.0 )
+
+	Teleport({ Id = chronos.ObjectId, DestinationId = 797656 })
+	Teleport({ Id = CurrentRun.Hero.ObjectId, DestinationId = 797655 })
+	SetGoalAngle({ Id = CurrentRun.Hero.ObjectId, Angle = 45, CompleteAngle = true })
+	AdjustZLocation({ Id = CurrentRun.Hero.ObjectId, Distance = 1100 - GetZLocation({ Id = CurrentRun.Hero.ObjectId }), Duration = 0.4 })
+
+	wait( 0.4 )
+
+	AdjustZLocation({ Id = CurrentRun.Hero.ObjectId, Distance = 1200 - GetZLocation({ Id = CurrentRun.Hero.ObjectId }), Duration = 1.30 })
+
+	wait( 1.25 )
+
+	PanCamera({ Id = 797656, Duration = 0.4, OffsetY = -50, Retarget = true })
+
+	wait( 0.15 )
+
+	AdjustZLocation({ Id = CurrentRun.Hero.ObjectId, Distance = 0 - GetZLocation({ Id = CurrentRun.Hero.ObjectId }), Duration = 0.2 })
+
+	wait( 0.2 )
+	
+	CreateAnimation({ Name = "ChronosGigarosKillFx", DestinationId = chronos.ObjectId })
+
+	wait( 0.05 )
+
+	ShowCombatUI("ChronosGigarosKillPresentation")
+	Destroy({ Id = cameraPanId })
 end
 
 function ChronosSpecialKillPresentation( chronos, args )
@@ -307,7 +392,7 @@ function ChronosRemainsPresentation( usee, args )
 	HideUseButton( usee.ObjectId, usee )
 
 	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = usee.ObjectId })
-	thread( PlayVoiceLines, HeroVoiceLines[args.VoiceLines] or HeroVoiceLines.LockedQuestLogVoiceLines, true )
+	thread( PlayVoiceLines, HeroVoiceLines[args.VoiceLines] or HeroVoiceLines.LockedQuestLogVoiceLines )
 
 	local unequipAnimation = GetEquippedWeaponValue("UnequipAnimation") or "MelinoeIdleWeaponless"
 	SetAnimation({ Name = unequipAnimation, DestinationId = CurrentRun.Hero.ObjectId })
@@ -642,7 +727,13 @@ function ChronosPhaseTransition( boss, currentRun, aiStage )
 
 	thread( SetHeroAngleWithMoveOrder, { ObjectId = boss.ObjectId, Timeout = 0.405 } )
 
-	wait( 1.25, boss.AIThreadName )
+	if boss.CurrentPhase == 3 and IsGameStateEligible(boss, { NamedRequirements = { "HecateMissing" } }) then
+		AddTimerBlock( CurrentRun, "ChronosHecateMissing" )
+		ClearPauseMenuTakeover()
+		wait( 4.0, boss.AIThreadName )
+	else
+		wait( 1.25, boss.AIThreadName )
+	end
 
 	local textLines = GetRandomEligibleTextLines( boss, boss.BossPhaseChangeTextLineSets, GetNarrativeDataValue( boss, "BossPhaseChangeTextLinePriorities" ) )
 	boss.TextLinesUseWeaponIdle = true
@@ -708,6 +799,7 @@ function ChronosPhaseTransition( boss, currentRun, aiStage )
 		SetCameraClamp({ Ids = GetIds({ Name = "CameraClamps2" }), SoftClamp = 0.75 })
 	elseif boss.CurrentPhase == 3 then
 
+		CurrentRun.Hero.Mute = true
 		if CurrentRun.Hero.Weapons.WeaponLob then
 			ReloadAmmo({Name = "WeaponLob"})
 			UpdateWeaponAmmo( "WeaponLob", 0 )
@@ -736,6 +828,13 @@ function ChronosPhaseTransition( boss, currentRun, aiStage )
 			AngleTowardTarget({ Id = MapState.FamiliarUnit.ObjectId, DestinationId = boss.ObjectId })
 		end
 		SetCameraClamp({ Ids = GetIds({ Name = "CameraClamps3" }), SoftClamp = 0.75 })
+
+		thread(ChronosHealthBarTextTransition, boss)
+		
+		if IsGameStateEligible( room, NamedRequirementsData.InfiniteChronosDeathDefiance ) then
+			SessionMapState.InfiniteDeathDefiance = true
+			UpdateLifePips( CurrentRun.Hero)
+		end
 	end
 
 	wait( 0.5, boss.AIThreadName )
@@ -885,12 +984,15 @@ end
 
 GlobalVoiceLines.GigarosFoundVoiceLines =
 {
-	Queue = "Interrupt",
-	UsePlayerSource = true,
-	PreLineWait = 0.45,
+	{
+		Queue = "Interrupt",
+		UsePlayerSource = true,
+		PreLineWait = 0.45,
 
-	{ Cue = "/VO/MelinoeField_3857", Text = "Gigaros... this must be {#Emph}it...!" },
-	{ Cue = "/VO/MelinoeField_3858", Text = "Our bond is strong by touch alone..." },
+		{ Cue = "/VO/MelinoeField_3857", Text = "Gigaros... this must be {#Emph}it...!" },
+		-- { Cue = "/VO/MelinoeField_3858", Text = "Our bond is strong by touch alone..." },
+		{ Cue = "/VO/MelinoeField_5120", Text = "No mere dream... its essence is real..." },
+	},
 }
 
 function RoomEntranceIPostBoss( currentRun, currentRoom )
@@ -1204,6 +1306,7 @@ function BedroomToChronosSanctumPresentation( source, args )
 			SubtitleText = "Location_Sanctum_Subtitle",
 			Delay = 1.5,
 			SubtitleDelay = 0.5,
+			SubtitleOffsetY = 15,
 			Duration = 3.5,
 			Layer = "Overlay",
 			AnimationName = "LocationBackingIrisSmallIn",
@@ -1241,7 +1344,6 @@ function BedroomToChronosSanctumPresentation( source, args )
 	waitUnmodified( 14.0 )
 	PanCamera({ Id = 800310, Duration = 9, })
 	waitUnmodified( 3.0 )
-	thread( PlayVoiceLines, GlobalVoiceLines.ChronosSanctumGreetingLines )
 
 	MoveHeroToRoomPosition({ MoverId = zagreusId, DestinationId = 772234, DisableCollision = true, Speed = 500 })
 
@@ -1382,7 +1484,6 @@ end
 GlobalVoiceLines.ChronosCorneredVoiceLines =
 {
 	{
-		PlayOnce = true,
 		ObjectTypes = { "NPC_Zagreus_Past_01" },
 		PreLineWait = 0.76,
 		AllowTalkOverTextLines = true,
@@ -1390,7 +1491,6 @@ GlobalVoiceLines.ChronosCorneredVoiceLines =
 		{ Cue = "/VO/Zagreus_0111", Text = "...That's it, I'm stabbing you." },
 	},
 	{
-		PlayOnce = true,
 		ObjectTypes = { "NPC_Chronos_01", "NPC_Chronos_Story_01" },
 		AllowTalkOverTextLines = true,
 
@@ -1414,8 +1514,8 @@ function ChronosSanctumExitPresentation( source, args )
 	thread( PlayVoiceLines, GlobalVoiceLines.ChronosCorneredVoiceLines )
 	wait( 1.65 )
 	SetAnimation({ Name = "Enemy_Zagreus_Threaten", DestinationId = 741734 })
-
-	FullScreenFadeOutAnimation( "RoomTransitionIn_TimeWarp_Slow" )
+	wait( 0.25 )
+	FullScreenFadeOutAnimation( "RoomTransitionIn_TimeWarp_Alt", "ChronosSand" )
 	PlaySound({ Name = "/SFX/Menu Sounds/HadesTextDisappearFade" })
 	AdjustRadialBlurDistance({ Fraction = 0, Duration = 1 })
 	AdjustRadialBlurStrength({ Fraction = 0, Duration = 1 })
@@ -1437,9 +1537,11 @@ GlobalVoiceLines.SanctumToBedroomVoiceLines =
 {
 	{
 		UsePlayerSource = true,
-		PreLineWait = 0.5,
-		{ Cue = "/VO/MelinoeField_4271", Text = "{#Emph}<Gasp> {#Prev}Still here. Oh, gods... Zagreus..." },
-		{ Cue = "/VO/MelinoeField_4272", Text = "Something's going on out there...", PreLineWait = 0.9 },
+		PreLineWait = 0.8,
+		{ Cue = "/VO/MelinoeField_5141", Text = "{#Emph}<Gasp> {#Prev}I... remember... all of that?" },
+		{ Cue = "/VO/MelinoeField_5214", Text = "My life... the way it could have been...?", PreLineWait = 1.0 },
+		{ Cue = "/VO/MelinoeField_5142", Text = "Oh gods... Zagreus... did it work...?", PreLineWait = 1.2 },
+		{ Cue = "/VO/MelinoeField_5143", Text = "What's going on out there...?", PreLineWait = 1.1 },
 	},
 }
 
@@ -1449,30 +1551,8 @@ function MelBackToBedroomPresentation( source, args )
 	-- Conclude flashback
 	SessionState.InFlashback = false
 
-	StopSound({ Id = AudioState.SecretMusicId, Duration = 5 })
-	AudioState.SecretMusicId = nil
-	AudioState.SecretMusicName = nil
-
-	-- PlaySound({ Name = "/Leftovers/Menu Sounds/TextReveal5FilterSweep" })
-
-	if MapState.InitialSpeed ~= nil then
-		SetUnitProperty({ Property = "Speed", Value = MapState.InitialSpeed, DestinationId = CurrentRun.Hero.ObjectId })
-		MapState.InitialSpeed = nil
-	end
-
-	wait(1.35)
-
-	thread( DoRumble, { { ScreenPreWait = 0.02, Fraction = 0.15, Duration = 0.1 }, } )
-	ShakeScreen({ Speed = 50, Distance = 4, FalloffSpeed = 1000, Duration = 0.1, Angle = 90 })
-	PlaySound({ Name = "/SFX/Player Sounds/TagSFX", Id = 816998 })
-
-	wait(3.15)
-
-	FullScreenFadeOutAnimation( "RoomTransitionIn_TimeWarp_Slow" )
-
 	wait( 0.8 )
 
-	AdjustColorGrading({ Name = "Off", Duration = 0.3 })
 	DestroyCameraWalls({ })
 
 	-- Restore Mel to her normal self
@@ -1496,6 +1576,7 @@ function MelBackToBedroomPresentation( source, args )
 	-- Move Mel next to the bed, facing it
 	Teleport({ Id = CurrentRun.Hero.ObjectId, DestinationId = 746922 })
 	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = 310036 })
+	SetAnimation({ Name = "Melinoe_KnockedDown_FireLoop", DestinationId = CurrentRun.Hero.ObjectId })
 
 	SetAudioEffectState({ Name = "Reverb", Value = -1 })
 	SetAudioEffectState({ Name = "GlobalEcho", Value = 0 })
@@ -1508,11 +1589,21 @@ function MelBackToBedroomPresentation( source, args )
 
 	waitUnmodified( 1.0 )
 
-	LockCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 5.0, OffsetY = -150, Retarget = true })
+	LockCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 14.0, OffsetY = -150, Retarget = true })
 
+	FadeIn({ Duration = 0.0 })
 	FullScreenFadeInAnimation( "RoomTransitionOut_TimeWarp_Slow" )
+	AdjustColorGrading({ Name = "Sepia", Duration = 0.01 })
+	wait(0.01)
+	AdjustColorGrading({ Name = "Off", Duration = 4 })
 
-	waitUnmodified( 1.0 )
+	waitUnmodified( 0.5 )
+
+	thread( PlayVoiceLines, GlobalVoiceLines.SanctumToBedroomVoiceLines )
+
+	waitUnmodified( 8.5 )
+
+	SetAnimation({ Name = "Melinoe_KnockedDown_End", DestinationId = CurrentRun.Hero.ObjectId })
 
 	thread( DisplayInfoBanner, nil, { Text = "PostNightmareMessage", SubtitleText = "PostNightmareMessage_Subtitle", Delay = 0.5, Layer = "Overlay",
 		AnimationName = "LocationBackingIrisSmallIn",
@@ -1523,11 +1614,18 @@ function MelBackToBedroomPresentation( source, args )
 		SubtitleDelay = 0.5,
 	} )
 
-	thread( PlayVoiceLines, GlobalVoiceLines.SanctumToBedroomVoiceLines )
 
 	waitUnmodified( 0.45 )
 
 	RemoveInputBlock({ Name = "MelBackToBedroomPresentation" })
+
+end
+
+function StartTrueEndingMusic()
+
+	SecretMusicPlayer( "/Music/MusicHadesReset2_MC" )
+	SetSoundCueValue({ Names = { "Section" }, Id = AudioState.SecretMusicId, Value = 0 })
+	SetSoundCueValue({ Names = { "Drums", "Bass" }, Id = AudioState.SecretMusicId, Value = 0 })
 
 end
 
@@ -1650,7 +1748,7 @@ GlobalVoiceLines.FamilyUnfrozenVoiceLinesZag =
 	{
 		PlayOverTextLines = true,
 		AllowTalkOverTextLines = true,
-		StatusAnimation = "StatusIconSpeaking_Zagreus_Suspended",
+		SkipAnim = true,
 		ObjectType = "NPC_Zagreus_01",
 
 		{ Cue = "/VO/Zagreus_0112", Text = "{#Emph}<Gasp>" },
@@ -1684,7 +1782,7 @@ function SummonFamilyMembers( source, args )
 	CreateAnimation({ DestinationId = persephoneId, Name = "ChronosTeleportFxFront" })
 	UseableOff({ Id = persephoneId })
 
-	wait( 5.0 )
+	wait( 5.3 )
 	CreateDialogueBackground()
 
 end
@@ -1744,7 +1842,7 @@ function FamilyRescuePresentation( source, args )
 
 	wait( 2.8 )
 
-	local offset = CalcOffset( math.rad( GetAngle({ Id = persephoneId }) ), 120 )
+	local offset = CalcOffset( math.rad( GetAngle({ Id = persephoneId }) ), 135 )
 	offset.Y = offset.Y * 0.5
 	local offsetPointId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = persephoneId, OffsetX = offset.X, OffsetY = offset.Y })
 	local notifyDistance = 10
@@ -1753,7 +1851,7 @@ function FamilyRescuePresentation( source, args )
 	end
 	thread( DestroyOnDelay, { offsetPointId }, 5 )
 
-	SetGoalAngle({ Id = CurrentRun.Hero.ObjectId, Angle = 70 })
+	SetGoalAngle({ Id = CurrentRun.Hero.ObjectId, Angle = 145 })
 	SetAnimation({ Name = "Melinoe_Assist", DestinationId = CurrentRun.Hero.ObjectId })
 
 	wait( 3.2 )
@@ -1764,13 +1862,6 @@ function FamilyRescuePresentation( source, args )
 
 end
 
-function FamilyRescueFacingAdjustment( source, args )
-	-- thread( GenericPresentation, CurrentRun.Hero, { PreWait = 0.85, AngleTowardTarget = 774365 } )
-	thread( GenericPresentation, CurrentRun.Hero, { PreWait = 0.85, AngleTowardTarget = 774442 } )
-	wait(0.5)
-	SetAnimation({ Name = "MelTalkBrooding01", DestinationId = CurrentRun.Hero.ObjectId })
-end
-
 function HadesOfficialDecree()
 
 	Destroy({ Id = ScreenAnchors.DialogueBackgroundId })
@@ -1778,12 +1869,12 @@ function HadesOfficialDecree()
 	SecretMusicPlayer( "/Music/EndThemeORCHESTRAL" )
 	wait( 0.4 )
 
-	local hadesId = 774441
-	SetAnimation({ DestinationId = hadesId, Name = "Hades_Hello_Ending", SpeedMultiplier = 0.805 })
+	--local hadesId = 774441
+	SetAnimation({ DestinationId = CurrentRun.Hero.ObjectId, Name = "MelTalkPensive01", SpeedMultiplier = 0.35 })
+	PlaySound({ Name = "/VO/Melinoe_0337", Id = CurrentRun.Hero.ObjectId, Delay = 1.0 })
 
 	wait( 2.79 )
 	CreateDialogueBackground()
-
 end
 
 GlobalVoiceLines.DeathAreaRestorationVoiceLines =
@@ -1798,7 +1889,7 @@ GlobalVoiceLines.DeathAreaRestorationVoiceLines =
 	},
 	{
 		PreLineWait = 3.55,
-		Source = { LineHistoryName = "Speaker_Anonymous", SubtitleColor = Color.NarratorVoice },
+		Source = { LineHistoryName = "Speaker_Homer", SubtitleColor = Color.NarratorVoice },
 
 		{ Cue = "/VO/Storyteller_0523", Text = "{#Emph}And so, the Princess of the Dead remained in the House of Hades with the Titan of Time and the rest, to aid in the recovery of however much was not forever lost.", TextLimit = 300, NoTarget = true },
 		{ Cue = "/VO/Storyteller_0517", PreLineWait = 1.25, Text = "{#Emph}The rightful Underworld King and Queen were swift to organize this relatively painless task, and Shades of the Dead still loyal to their cause answered the call.", TextLimit = 300, NoTarget = true },
@@ -1848,7 +1939,8 @@ function DeathAreaRestorationPresentation( source, args )
 	-- teleport the characters
 	local persephoneId = 774443
 	SetAnimation({ DestinationId = persephoneId, Name = "Persephone_Idle" })
-	Teleport({ Id = persephoneId, DestinationId = 393485 })
+	-- Teleport({ Id = persephoneId, DestinationId = 800751 })
+	Teleport({ Id = persephoneId, DestinationId = 800751 })
 	UseableOn({ Id = persephoneId })
 	SetInteractProperty({ DestinationId = persephoneId, Property = "OffsetX", Value = -10 })
 	SetInteractProperty({ DestinationId = persephoneId, Property = "OffsetY", Value = 110 })
@@ -1896,6 +1988,21 @@ function DeathAreaRestorationPresentation( source, args )
 
 end
 
+function BlockAchillesInteraction( source, args )
+	wait( 0.02 )
+	AddInteractBlock( source, "BlockAchillesInteraction" )
+	StopStatusAnimation( source )
+end
+
+function RestoreAchillesInteraction()
+
+	local achillesId = GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = "NPC_Achilles_01" })
+	local achilles = ActiveEnemies[achillesId]
+	RemoveInteractBlock( achilles, "BlockAchillesInteraction" )
+	PlayStatusAnimation( achilles, { Animation = StatusAnimations.WantsToTalk } )
+
+end
+
 Using "HouseRenovation"
 function DeathAreaRestorationIllustrationPresentation()
 
@@ -1903,11 +2010,11 @@ function DeathAreaRestorationIllustrationPresentation()
 
 	PlaySound({ Name = "/SFX/Menu Sounds/AdminConstructionSound", Delay = 0.25 })
 	AltAspectRatioFramesShow()
-	FullScreenFadeInAnimation( "RoomTransitionOut_Left" )
+	FullScreenFadeInAnimation( "RoomTransitionOut_Right" )
 
 	local loopingSoundId = PlaySound({ Name = "/Leftovers/Object Ambiences/ReconstructionAmbience" })
 
-	SetAlpha({ Id = illustrationId, Fraction = 1.0, Duration = 0.4 })
+	SetAlpha({ Id = illustrationId, Fraction = 1.0, Duration = 0.01 })
 	Shift({ Id = illustrationId, OffsetX = -1920, OffsetY = 0, Duration = 44.0, EaseIn = 0, EaseOut = 1.0 })
 	waitUnmodified( 43.0 )
 
@@ -1925,12 +2032,18 @@ end
 function DeathAreaRestoredUpdateHallwayBlocks( source, args )
 	local firstImpassabilityId = 800606
 	local secondImpassabilityId = 800607
-	if IsAlive({ Id = firstImpassabilityId }) and CurrentRun.TextLinesRecord.HadesTrueEnding01 and CurrentRun.TextLinesRecord.ZagreusTrueEnding01 and CurrentRun.TextLinesRecord.CerberusTrueEnding01 then
-		SetAlpha({ Ids = GetIds({ Names = { "HallwayDimmers01" } }), Fraction = 0.0, Duration = 0.35 })
+	if IsAlive({ Id = firstImpassabilityId }) and CurrentRun.TextLinesRecord.ZagreusTrueEnding01 and CurrentRun.TextLinesRecord.AchillesTrueEnding01 and CurrentRun.TextLinesRecord.CerberusTrueEnding01 and CurrentRun.TextLinesRecord.PersephoneTrueEnding01 then
+		local hiderIds = GetIds({ Names = { "HallwayDimmers01" } })
+		SetAlpha({ Ids = hiderIds, Fraction = 0.0, Duration = 0.35 })
+		thread( DestroyOnDelay, hiderIds, 0.35 )
 		Destroy({ Id = firstImpassabilityId })
-		PlayStatusAnimation( ActiveEnemies[774443], { Animation = "StatusIconWantsToTalk" } ) -- persephone
-	elseif IsAlive({ Id = secondImpassabilityId }) and CurrentRun.TextLinesRecord.PersephoneTrueEnding01 then
-		SetAlpha({ Ids = GetIds({ Names = { "HallwayDimmers02" } }), Fraction = 0.0, Duration = 0.35 })
+		-- PlayStatusAnimation( ActiveEnemies[774443], { Animation = "StatusIconWantsToTalk" } ) -- persephone
+		PlayStatusAnimation( ActiveEnemies[774463], { Animation = "StatusIconWantsToTalk" } ) -- hades
+		-- PlayStatusAnimation( ActiveEnemies[800752], { Animation = "StatusIconWantsToTalk" } ) -- achilles
+	elseif IsAlive({ Id = secondImpassabilityId }) and CurrentRun.TextLinesRecord.HadesTrueEnding01 then
+		local hiderIds = GetIds({ Names = { "HallwayDimmers02" } })
+		SetAlpha({ Ids = hiderIds, Fraction = 0.0, Duration = 0.35 })
+		thread( DestroyOnDelay, hiderIds, 0.35 )
 		Destroy({ Id = secondImpassabilityId })
 		PlayStatusAnimation( ActiveEnemies[774446], { Animation = "StatusIconWantsToTalk" } ) -- nyx
 	end
@@ -2053,6 +2166,7 @@ function DeathAreaRestoredToCreditsPresentation()
 	RemoveInputBlock({ Name = "ChariotDeparturePresentation" })
 	local nextRoom = CreateRoom( RoomData.EndCredits01 )
 	CurrentRun.CurrentRoom = nextRoom
+	UnloadPackages({ Names = { "Achilles" } }) -- Just need to get back under limit
 	RequestSave({ StartNextMap = nextRoom.Name, SaveName = "_Temp", DevSaveName = CreateDevSaveName( CurrentRun ) })
 	LoadMap({ Name = nextRoom.Name, LoadBackgroundColor = nextRoom.LoadBackgroundColor })
 
@@ -2314,7 +2428,11 @@ function EndCreditsExitTimer()
 	-- The End
 	CurrentRun.PlayedTrueEnding = true
 	GameState.ReachedTrueEnding = true
-	UnlockWorldUpgrade( "Cosmetic_SunMoonTimeSculpture01" ) -- automatically unlock this special cosmetic
+
+	-- automatically unlock this special cosmetic
+	UnlockWorldUpgrade( "Cosmetic_SunMoonTimeSculpture01" )
+	GameState.WorldUpgrades.Cosmetic_SunMoonTimeSculpture01 = true
+
 	Kill( CurrentRun.Hero )
 
 end
@@ -2404,7 +2522,7 @@ end
 
 function AttemptPetCerberusThread( cerberus )
 	-- @ ending
-	if not GameState.RoomsEntered.I_DeathAreaRestored then
+	if not GameState.TextLinesRecord.CerberusTrueEnding01 then
 		thread( FailToPetCerberus, cerberus )
 	else
 		thread( PetCerberus, cerberus )

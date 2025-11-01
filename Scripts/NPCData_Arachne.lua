@@ -1278,7 +1278,7 @@
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "ArachneAboutCurse05", "AthenaAboutArachne03" },
+						HasAll = { "AthenaAboutArachne03" },
 					},
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",
@@ -1520,6 +1520,9 @@
 					{
 						Path = { "GameState", "TextLinesRecord" },
 						HasAny = { "ArachneAboutGods05" }
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ArachneWithHecateInHub02" },
 					},
 					{
 						PathTrue = { "PrevRun", "UseRecord", "NPC_Hecate_01" }
@@ -3299,8 +3302,7 @@ GlobalVoiceLines.CostumeDestroyedVoiceLines =
 		{
 			{
 				Path = { "CurrentRun", "Hero", "LastBrokenArmorTraitName" },
-				IsAny = { "AgilityCostume", "ManaCostume", "VitalityCostume", "CastDamageCostume", "IncomeCostume", "HighArmorCostume", "SpellCostume", "EscalatingCostume",
- },
+				IsAny = { "AgilityCostume", "ManaCostume", "VitalityCostume", "CastDamageCostume", "IncomeCostume", "HighArmorCostume", "SpellCostume", "EscalatingCostume",},
 			},
 		},
 		{ Cue = "/VO/Melinoe_1916", Text = "My outfit!" },
@@ -3339,6 +3341,10 @@ GlobalVoiceLines.CostumeDestroyedVoiceLines =
 				Comparison = ">=",
 				Value = 0.35,
 			},
+			{
+				Path = { "CurrentRun", "Hero", "LastBrokenArmorTraitName" },
+				IsAny = { "AgilityCostume", "ManaCostume", "VitalityCostume", "CastDamageCostume", "IncomeCostume", "HighArmorCostume", "SpellCostume", "EscalatingCostume",},
+			},
 		},
 		SkipCooldownCheckIfNonePlayed = true,
 		Cooldowns =
@@ -3367,7 +3373,13 @@ GlobalVoiceLines.CostumeDestroyedVoiceLines =
 		PreLineWait = 0.35,
 		SuccessiveChanceToPlayAll = 0.5,
 		ObjectType = "NPC_Arachne_01",
-
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "LastBrokenArmorTraitName" },
+				IsAny = { "AgilityCostume", "ManaCostume", "VitalityCostume", "CastDamageCostume", "IncomeCostume", "HighArmorCostume", "SpellCostume", "EscalatingCostume",},
+			},
+		},
 		{ Cue = "/VO/Arachne_0268", Text = "Limit one per evening, I'm afraid...", PlayFirst = true },
 		{ Cue = "/VO/Arachne_0269", Text = "Hey, I'm not made of those you know!" },
 		{ Cue = "/VO/Arachne_0270", Text = "Oh, now that's a shame..." },

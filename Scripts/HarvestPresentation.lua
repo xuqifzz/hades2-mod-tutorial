@@ -1072,7 +1072,9 @@ function FishingEndPresentation( fishData, fishingAnimationPointId, args )
 	else
 		AdjustZoom({ Fraction = 1.0, LerpTime = 1.5 })
 	end
-	PanCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 0.5 })
+	if not MapState.InOverlook then
+		PanCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 0.5 })
+	end
 	if not roomData.IgnoreFishingCameraClamps then
 		local cameraClamps = roomData.CameraClamps or GetDefaultClampIds()
 		SetCameraClamp({ Ids = cameraClamps, SoftClamp = roomData.SoftClamp })

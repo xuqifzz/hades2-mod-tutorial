@@ -1141,6 +1141,8 @@
 		EndFrame = 1
 		NumFrames = 1
 		StartFrame = 1
+		Duration = 1
+		Loop = true
 	}
 	{
 		Name = "ChallengeSwitchFailed"

@@ -338,7 +338,7 @@ UnitSetData.NPC_Moros =
 					Portrait = "Portrait_Mel_Vulnerable_01",
 					Text = "Their curse was... palpable. I never intended to stay for long. Just long enough to lend my relatives support. But it seems your sisters insist that I do no such thing." },
 				{ Cue = "/VO/Moros_0298",
-					Text = "Well... I don't see them around right now, do you? Incidentally, there once was an incantation that I happened upon, which was not intended for my eyes. But I now choose to think that it was intended for yours.",
+					Text = "Well... I don't see them around right now, do you? Incidentally, there was once an incantation that I happened upon, which was not intended for my eyes. But I now choose to think that it was intended for yours.",
 					PostLineThreadedFunctionName = "HideDoomContextArtPresentation" },
 				EndFunctionName = "DisplayInfoToast",
 				EndFunctionArgs = { Duration = 2, Title = "WorldUpgradeAdded", Text = "SurfacePenaltyCure_Subtitle" },
@@ -5555,7 +5555,7 @@ UnitSetData.NPC_Moros =
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "MorosGift07" },
+						HasAll = { "MorosGift07", "MorosFishing01", "MorosBathHouse02" },
 					},
 				},
 				{ Cue = "/VO/Melinoe_4606", UsePlayerSource = true,
@@ -6279,7 +6279,9 @@ UnitSetData.NPC_Moros =
 					Text = "I can certainly appreciate that part. And now we wait...",
 					PortraitExitAnimation = "Portrait_Moros_Default_01_Exit",
 					PostLineFunctionName = "GiftActivityFishing",
-					PostLineFunctionArgs = { FishingPointId = 585640 }, },
+					PostLineFunctionArgs = { FishingPointId = 585640 },
+					PostLineThreadedFunctionName = "TimePassesPresentation",
+					PostLineThreadedFunctionArgs = { TimeTicks = 16, IncludeFishingSFX = true }, },
 
 				{ Cue = "/VO/Moros_0361",
 					PreLineFunctionName = "FishingPierEndPresentation",

@@ -136,7 +136,7 @@ UnitSetData.NPC_Dora =
 			},
 			{
 				FunctionName = "RequiredQueuedTextLine",
-				FunctionArgs = { IsNone = { "DoraAboutPrometheus02", "DoraListless02" }, },
+				FunctionArgs = { IsNone = { "DoraAboutPrometheus02", "DoraAboutMemories01", "DoraListless02" }, },
 			},
 		},
 
@@ -151,7 +151,7 @@ UnitSetData.NPC_Dora =
 			},
 			{
 				FunctionName = "RequiredQueuedTextLine",
-				FunctionArgs = { IsNone = { "DoraListless01", "DoraListless02", "DoraListless03", "DoraAboutPrometheus02", "DoraWithMoros01", "DoraWithMoros02", "DoraWithMoros03", "DoraWithSkelly01" }, },
+				FunctionArgs = { IsNone = { "DoraListless01", "DoraListless02", "DoraListless03", "DoraAboutPrometheus02", "DoraAboutMemories01", "DoraWithMoros01", "DoraWithMoros02", "DoraWithMoros03", "DoraWithSkelly01" }, },
 			},
 		},
 
@@ -1253,6 +1253,9 @@ UnitSetData.NPC_Dora =
 						FunctionName = "RequireRunsSinceTextLines",
 						FunctionArgs = { TextLines = { "DoraWithMoros02" }, Min = 3 },
 					},
+					{
+						PathFalse = { "SessionMapState", "OdysseusAtTaverna" },
+					},
 				},
 
 				{ Cue = "/VO/Melinoe_2034", UsePlayerSource = true,
@@ -1307,6 +1310,9 @@ UnitSetData.NPC_Dora =
 					{
 						FunctionName = "RequireRunsSinceTextLines",
 						FunctionArgs = { TextLines = { "DoraWithMoros02" }, Min = 3 },
+					},
+					{
+						PathFalse = { "SessionMapState", "OdysseusAtTaverna" },
 					},
 				},
 				OnQueuedFunctionName = "GenericPresentation",
@@ -1869,7 +1875,7 @@ UnitSetData.NPC_Dora =
 					},
 					{
 						FunctionName = "RequireRunsSinceTextLines",
-						FunctionArgs = { TextLines = { "DoraAboutChronosBossW01" }, Max = 2 },
+						FunctionArgs = { TextLines = { "DoraAboutChronosBossW01" }, Min = 3 },
 					},
 				},
 
@@ -2156,7 +2162,7 @@ UnitSetData.NPC_Dora =
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					Text = "He gave me the impression you forgot about him, and much more, by choice. If that's true, perhaps it's for the best. If only for the sake of your past self." },
 				{ Cue = "/VO/Dora_0332",
-					Portrait = "Portrait_Dora_Thoughtful_01",
+					-- Portrait = "Portrait_Dora_Thoughtful_01",
 					Text = "Forget my {#Emph}past {#Prev}self, Mel, my {#Emph}current {#Prev}self is pretty caught up now in getting to the bottom of all this! Isn't there some sort of {#Emph}witch-spell {#Prev}you could do to jog my memory, or something?" },
 				{ Cue = "/VO/Melinoe_3717", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01ReturnToIdle", PreLineAnimTarget = "Hero",
@@ -2235,6 +2241,20 @@ UnitSetData.NPC_Dora =
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeDoraMemory" },
 					},
 				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs =
+				{
+					WithinDistance = 500,
+					VoiceLines =
+					{
+						UsePlayerSource = true,
+						PlayOnceFromTableThisRun = true,
+						PreLineWait = 0.15,
+
+						{ Cue = "/VO/Melinoe_4830", Text = "Dora..." },
+					},
+				},
+
 				{ Cue = "/VO/Dora_0577",
 					PreLineWait = 0.35,
 					Portrait = "Portrait_Dora_Thoughtful_01",
@@ -2259,6 +2279,7 @@ UnitSetData.NPC_Dora =
 					Text = "What are you talking about? That couldn't possibly be true!" },
 
 				{ Cue = "/VO/Dora_0579",
+					AngleTowardHero = true,
 					Portrait = "Portrait_Dora_Thoughtful_01",
 					Text = "Well, imagine there was once this big storage jar, right? Like you'd keep pickles in, except the gods loaded it full of everything that could possibly go wrong. Hate, heartbreak, hair loss, halitosis... you name it." },
 
@@ -2533,7 +2554,7 @@ UnitSetData.NPC_Dora =
 
 					-- heart unlock
 					PostLineThreadedFunctionName = "RelationshipAdvancedPresentation",
-					PostLineThreadedFunctionArgs = { Delay = 3.5 },
+					PostLineThreadedFunctionArgs = { Delay = 2.0 },
 
 					Text = "I guess so, but the other stuff's just not as interesting, you know? Anyway it's all just history. This is me now." },
 
@@ -4994,7 +5015,9 @@ UnitSetData.NPC_Dora =
 					Text = "Then if they don't like it any better up here, that's on them...",
 					PortraitExitAnimation = "Portrait_Dora_Default_01_Exit",
 					PostLineFunctionName = "GiftActivityFishing",
-					PostLineFunctionArgs = { FishingPointId = 585640 }, },
+					PostLineFunctionArgs = { FishingPointId = 585640 },
+					PostLineThreadedFunctionName = "TimePassesPresentation",
+					PostLineThreadedFunctionArgs = { TimeTicks = 16, IncludeFishingSFX = true }, },
 
 				{ Cue = "/VO/Dora_0099",
 					PreLineFunctionName = "FishingPierEndPresentation",
@@ -5240,7 +5263,8 @@ UnitSetData.NPC_Dora =
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBathHouse" },
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "DoraAboutMemoryQuest01" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "DoraGift08", "DoraAboutMemoryQuest01" },
 					},
 					{
 						PathFalse = { "CurrentRun", "TimePassageOccurred" },
@@ -5542,21 +5566,6 @@ GlobalVoiceLines.DoraSummonedVoiceLines =
 		BreakIfPlayed = true,
 		PreLineWait = 0.15,
 		PlayOnceFromTableThisRun = true,
-		UsePlayerSource = true,
-		SkipCooldownCheckIfNonePlayed = true,
-		GameStateRequirements =
-		{
-			{
-				FunctionName = "RequiredQueuedTextLine",
-				FunctionArgs = { IsAny = { "DoraAboutMemories01", }, },
-			},
-		},
-		{ Cue = "/VO/Melinoe_4830", Text = "Dora..." },
-	},
-	{
-		BreakIfPlayed = true,
-		PreLineWait = 0.15,
-		PlayOnceFromTableThisRun = true,
 		ObjectType = "NPC_Dora_01",
 		GameStateRequirements =
 		{
@@ -5646,7 +5655,7 @@ GlobalVoiceLines.DoraSummonedVoiceLines =
 		RandomRemaining = true,
 		BreakIfPlayed = true,
 		PreLineWait = 0.15,
-		SuccessiveChanceToPlay = 0.25,
+		SuccessiveChanceToPlay = 0.15,
 		PlayOnceFromTableThisRun = true,
 		ObjectType = "NPC_Dora_01",
 		GameStateRequirements =

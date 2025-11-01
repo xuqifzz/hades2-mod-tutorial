@@ -1565,9 +1565,14 @@ function EchoLastRunBoon( args, sourceTraitData )
 	source.MenuTitle = "EchoChoiceMenu_LastRun"
 	source.FlavorTextIds = {"EchoChoiceMenu_LastRun_FlavorText"}
 	source.OnPressedFunctionNameOverride = "SelectEchoBoon"
-	OpenUpgradeChoiceMenu( source, { OverwriteTableKeys = { OnCloseFinishedFunctionName = "EchoPostChoicePresentation" }, UseNarrativeContextArt = true } )
+	OpenUpgradeChoiceMenu( source, { OverwriteTableKeys = { OnCloseFinishedFunctionName = "EchoPostLastRunBoonChoice" }, UseNarrativeContextArt = true } )
 end
 
+
+function EchoPostLastRunBoonChoice( screen, args )
+	CheckAndAddOlympianDuo( screen )
+	EchoPostChoicePresentation( screen, args )
+end
 
 function SelectEchoBoon( screen, button, args )
 	local buttonId = button.Id
@@ -1815,6 +1820,10 @@ function SpawnZagContract(room, args)
 	local roomData = RoomData[room.Name] or room
 
 	if roomData.ZagContractDestinationId == nil then
+		return
+	end
+
+	if not room.ZagreusContractSuccess then
 		return
 	end
 	

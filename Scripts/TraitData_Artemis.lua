@@ -218,15 +218,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.25,
+				Multiplier = 1.2,
 			},
 			Epic =
 			{
-				Multiplier = 1.5,
+				Multiplier = 1.4,
 			},
 			Heroic =
 			{
-				Multiplier = 1.75,
+				Multiplier = 1.6,
 			},
 		},		
 		OnSprintAction = 
@@ -237,7 +237,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				EffectName = "OmegaDamageBuffEffect",
 				EffectArgs = { 
-					Modifier = { BaseValue = 0.08 },
+					Modifier = { BaseValue = 0.10 },
 					Duration = 2,
 					ReportValues = 
 					{

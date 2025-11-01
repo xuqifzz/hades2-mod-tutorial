@@ -734,9 +734,6 @@ RoomSetData.O =
 				PathFalse = { "CurrentRun", "RoomsEntered", "O_Shop01", },
 			},
 			{
-				PathFalse = { "CurrentRun", "RoomsEntered", "O_Reprieve01", },
-			},
-			{
 				PathFalse = { "CurrentRun", "RoomsEntered", "O_Story01" },
 			},
 		},
@@ -1503,6 +1500,7 @@ RoomSetData.O =
 		EligibleRewards = { "Boon" },
 		BoonRaritiesOverride = { Legendary = 0.05, Epic = 0.10, Rare = 0.90 },
 		ForceDoorAllowReroll = true,
+		DisableRewardMagnetisim = true,
 
 		StartUnthreadedEvents =
 		{
@@ -2530,24 +2528,6 @@ RoomSetData.O =
 			},
 		},
 
-		AlwaysForceRequirements =
-		{
-			{
-				Path = { "CurrentRun", "BiomeDepthCache" },
-				Comparison = "==",
-				Value = 5,
-			},
-			{
-				PathFalse = { "CurrentRun", "RoomsEntered", "O_Shop01", },
-			},
-			{
-				PathFalse = { "CurrentRun", "RoomsEntered", "O_Reprieve01", },
-			},
-			{
-				PathFalse = { "CurrentRun", "RoomsEntered", "O_Story01" },
-			},
-		},
-
 		EnterGlobalVoiceLines = "EnteredReprieveRoomVoiceLines",
 		-- Ambience = "/Leftovers/Ambience/StillWaterAmbience",
 
@@ -2722,9 +2702,6 @@ RoomSetData.O =
 			},
 			{
 				PathFalse = { "CurrentRun", "RoomsEntered", "O_Shop01", },
-			},
-			{
-				PathFalse = { "CurrentRun", "RoomsEntered", "O_Reprieve01", },
 			},
 			{
 				PathFalse = { "CurrentRun", "RoomsEntered", "O_Story01" },

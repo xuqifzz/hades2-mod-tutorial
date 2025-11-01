@@ -4606,9 +4606,9 @@
 		Name = "Portrait_Mel_Hesitant_Blink"
 		SortMode = "Id"
 		FilePath = "Dev\blank_invisible"
-		EndFrame = 6
+		EndFrame = 7
 		Loop = true
-		NumFrames = 6
+		NumFrames = 7
 		StartFrame = 1
 		Scale = 0.8
 		OffsetY = -100
@@ -4619,6 +4619,7 @@
 			{ DurationFrames = 4 FilePath = "Portraits\Melinoe\MelinoeHesitant\MelinoeHesitantBlink\MelinoeHesitantBlink0003" }
 			{ DurationFrames = 2 FilePath = "Portraits\Melinoe\MelinoeHesitant\MelinoeHesitantBlink\MelinoeHesitantBlink0004" }
 			{ DurationFrames = 2 FilePath = "Portraits\Melinoe\MelinoeHesitant\MelinoeHesitantBlink\MelinoeHesitantBlink0005" }
+			{ DurationFrames = 2 FilePath = "Portraits\Melinoe\MelinoeHesitant\MelinoeHesitantBlink\MelinoeHesitantBlink0006" }
 			
 		]
 	}
@@ -24713,7 +24714,7 @@
 		OffsetY = 45
 		Slides =
 		[
-			{ DurationFrames = 2 }
+			{ DurationFrames = 10 }
 			{ DurationFrames = 2 }
 			{ DurationFrames = 2 }
 			{ DurationFrames = 2 }
@@ -28647,7 +28648,294 @@
 		Scale = 1.6
 	}
 
-	
+	// Achilles
+
+	{
+		Name = "Portrait_Achilles_Blink"
+		SortMode = "Id"
+		FilePath = "Dev\blank_invisible"
+		EndFrame = 7
+		Loop = true
+		NumFrames = 7
+		StartFrame = 1
+		Scale = 0.8
+	  	OffsetX = -125
+		OffsetY = -100
+		Slides = [
+			{ DurationFrames = 1 FilePath = "Portraits\Achilles\AchillesBlink\AchillesBlink0001" }
+			{ DurationFrames = 1 FilePath = "Portraits\Achilles\AchillesBlink\AchillesBlink0001" Scale = 0 RandomDurationFramesMax = 250 RandomDurationFramesMin = 120 }
+			{ DurationFrames = 2 FilePath = "Portraits\Achilles\AchillesBlink\AchillesBlink0002" }
+			{ DurationFrames = 4 FilePath = "Portraits\Achilles\AchillesBlink\AchillesBlink0003" }
+			{ DurationFrames = 2 FilePath = "Portraits\Achilles\AchillesBlink\AchillesBlink0004" }
+			{ DurationFrames = 2 FilePath = "Portraits\Achilles\AchillesBlink\AchillesBlink0005" }
+			{ DurationFrames = 2 FilePath = "Portraits\Achilles\AchillesBlink\AchillesBlink0006" }
+			
+		]
+	}
+
+
+
+	{
+		Name = "Portrait_Achilles_MoonGlow_In"
+		DieWithOwner = true
+		LocationFromOwner = "Maintain"
+		TransferSortScore = true
+		FilePath = "Portraits\Achilles\AchillesMoonGlow\AchillesMoonGlow0001"
+		StartOffsetX = -20
+		EndOffsetX = 0
+		Duration = 0.15
+		StartAlpha = 0
+		EndAlpha = 1
+		ChainTo = "Portrait_Achilles_MoonGlow"
+		GroupName = "Combat_Menu_Additive"
+		OffsetX = -29
+		OffsetY = -167
+		Scale = 1
+	}
+
+	{
+		Name = "Portrait_Achilles_MoonGlow"			
+		FilePath = "Portraits\Achilles\AchillesMoonGlow\AchillesMoonGlow"
+		LocationFromOwner = "Maintain"
+		TransferSortScore = true
+		NumFrames = 40
+		Loop = true
+		PlaySpeed = 30
+		Material = "Unlit"
+		OffsetX = -29
+		OffsetY = -167
+		Scale = 1
+		GroupName = "Combat_Menu_Additive"
+	}
+
+	{
+		Name = "Portrait_Achilles_Wiggle1_In"	
+		SortMode = "Id"		
+		FilePath = "Portraits\Achilles\AchillesWiggle1\AchillesWiggle1"
+		LocationFromOwner = "Maintain"
+		TransferSortScore = true
+		StartOffsetX = -20
+		EndOffsetX = 0
+		Duration = 0.15
+		StartAlpha = 0
+		EndAlpha = 1
+		NumFrames = 15
+		PlaySpeed = 30
+		Material = "Unlit"
+		ChainTo = "Portrait_Achilles_Wiggle1"
+		OffsetX = 32
+		OffsetY = -272
+		Scale = 1.25
+	}
+
+	{
+		Name = "Portrait_Achilles_Wiggle1"
+		SortMode = "Id"			
+		FilePath = "Portraits\Achilles\AchillesWiggle1\AchillesWiggle1"
+		LocationFromOwner = "Maintain"
+		TransferSortScore = true
+		NumFrames = 15
+		Loop = true
+		PlaySpeed = 30
+		Material = "Unlit"
+		OffsetX = 32
+		OffsetY = -272
+		Scale = 1.25
+	}
+
+	{
+		Name = "Portrait_Achilles_Wiggle2_In"	
+		SortMode = "Id"		
+		FilePath = "Portraits\Achilles\AchillesWiggle2\AchillesWiggle2"
+		LocationFromOwner = "Maintain"
+		TransferSortScore = true
+		StartOffsetX = -20
+		EndOffsetX = 0
+		Duration = 0.15
+		StartAlpha = 0
+		EndAlpha = 1
+		NumFrames = 15
+		PlaySpeed = 30
+		Material = "Unlit"
+		ChainTo = "Portrait_Achilles_Wiggle2"
+		OffsetX = -209
+		OffsetY = 218
+		Scale = 1.25
+	}
+
+	{
+		Name = "Portrait_Achilles_Wiggle2"
+		SortMode = "Id"			
+		FilePath = "Portraits\Achilles\AchillesWiggle2\AchillesWiggle2"
+		LocationFromOwner = "Maintain"
+		TransferSortScore = true
+		NumFrames = 15
+		Loop = true
+		PlaySpeed = 30
+		Material = "Unlit"
+		OffsetX = -209
+		OffsetY = 218
+		Scale = 1.25
+	}
+
+	{
+		Name = "Portrait_Achilles_Wiggle3_In"	
+		SortMode = "Id"		
+		FilePath = "Portraits\Achilles\AchillesWiggle3\AchillesWiggle3"
+		LocationFromOwner = "Maintain"
+		TransferSortScore = true
+		StartOffsetX = -20
+		EndOffsetX = 0
+		Duration = 0.15
+		StartAlpha = 0
+		EndAlpha = 1
+		NumFrames = 15
+		PlaySpeed = 30
+		Material = "Unlit"
+		ChainTo = "Portrait_Achilles_Wiggle3"
+		OffsetX = 75
+		OffsetY = 212
+		Scale = 1.25
+	}
+
+	{
+		Name = "Portrait_Achilles_Wiggle3"
+		SortMode = "Id"			
+		FilePath = "Portraits\Achilles\AchillesWiggle3\AchillesWiggle3"
+		LocationFromOwner = "Maintain"
+		TransferSortScore = true
+		NumFrames = 15
+		Loop = true
+		PlaySpeed = 30
+		Material = "Unlit"
+		OffsetX = 75
+		OffsetY = 212
+		Scale = 1.25
+	}
+
+	{
+		Name = "Portrait_Achilles_Wiggle4_In"	
+		SortMode = "Id"		
+		FilePath = "Portraits\Achilles\AchillesWiggle4\AchillesWiggle4"
+		LocationFromOwner = "Maintain"
+		TransferSortScore = true
+		StartOffsetX = -20
+		EndOffsetX = 0
+		Duration = 0.15
+		StartAlpha = 0
+		EndAlpha = 1
+		NumFrames = 15
+		PlaySpeed = 30
+		Material = "Unlit"
+		ChainTo = "Portrait_Achilles_Wiggle4"
+		OffsetX = -130
+		OffsetY = -580
+		Scale = 1.25
+	}
+
+	{
+		Name = "Portrait_Achilles_Wiggle4"
+		SortMode = "Id"			
+		FilePath = "Portraits\Achilles\AchillesWiggle4\AchillesWiggle4"
+		LocationFromOwner = "Maintain"
+		TransferSortScore = true
+		NumFrames = 15
+		Loop = true
+		PlaySpeed = 30
+		Material = "Unlit"
+		OffsetX = -130
+		OffsetY = -580
+		Scale = 1.25
+	}
+
+	{
+		Name = "Portrait_Achilles_MainGlow"
+		DieWithOwner = true
+		LocationFromOwner = "Maintain"
+		FilePath = "Portraits\Achilles\AchillesGlowMain\AchillesGlowMain0001"
+		StartAlpha = 0.3
+		EndAlpha = 0.4
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+		RandomDurationMin = 1.5
+		RandomDurationMax = 2.5
+		GroupName = "Combat_Menu_Additive"
+		Loop = true
+		Scale = 1.6
+		OffsetX = -55
+		OffsetY = -350
+	}
+
+	{
+		Name = "Portrait_Achilles_Glint"
+		DieWithOwner = true
+		LocationFromOwner = "Maintain"
+		FilePath = "Portraits\Achilles\AchillesGlint\AchillesGlint"
+		NumFrames = 50
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		Loop = true
+		GroupName = "Combat_Menu_Additive"
+		Scale = 1.6
+		OffsetX = 2
+		OffsetY = -95
+		Slides =
+		[
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 RandomDurationFramesMin = 120 RandomDurationFramesMax = 420 }
+		]
+	}
 
 
 
@@ -29211,6 +29499,31 @@
 		OffsetX = 0
 		OffsetY = -205
 	}
+
+	{
+		Name = "Portrait_Hec_Averted_01"
+		InheritFrom = "Portrait_Base_01"
+		FilePath = "Portraits\Hecate\Portraits_Hecate_Averted_01"
+		OffsetX = 0
+		OffsetY = -205
+		CreateAnimations = [
+			{ Name = "Portrait_Hecate_Wiggle1_In" }
+			{ Name = "Portrait_Hecate_Wiggle2_In" }
+			{ Name = "Portrait_Hecate_MainGlow"}
+			{ Name = "Portrait_Hecate_AccentsGlow"}
+		]
+	}
+
+	{
+		Name = "Portrait_Hec_Averted_01_Exit"
+		InheritFrom = "Portrait_Base_01_Exit"
+		FilePath = "Portraits\Hecate\Portraits_Hecate_Averted_01"
+		EndFrame = 1
+		StartFrame = 1
+		OffsetX = 0
+		OffsetY = -205
+	}
+
 
 	{
 		Name = "Portrait_Odysseus_Default_01"
@@ -35596,5 +35909,31 @@
 		StartFrame = 1
 		SortMode = "Id"
 	}
+	{
+		Name = "Portrait_Achilles_Default_01"			
+		InheritFrom = "Portrait_Base_01"
+		FilePath = "Portraits\Achilles\Portraits_Achilles_01"
+		OffsetX = -125
+		OffsetY = -100
+		EndFrame = 1
+		StartFrame = 1
+		CreateAnimations = [
+			{ Name = "Portrait_Achilles_Wiggle1_In" }
+			{ Name = "Portrait_Achilles_Wiggle2_In" }
+			{ Name = "Portrait_Achilles_Wiggle3_In" }
+			{ Name = "Portrait_Achilles_Wiggle4_In" }
+			{ Name = "Portrait_Achilles_Blink" }
+			{ Name = "Portrait_Achilles_MainGlow"}
+			{ Name = "Portrait_Achilles_Glint" }
+			{ Name = "Portrait_Achilles_MoonGlow_In" }
+		]
 
+	}
+	{
+		Name = "Portrait_Achilles_Default_01_Exit"
+		InheritFrom = "Portrait_Base_01_Exit"
+		FilePath = "Portraits\Achilles\Portraits_Achilles_01"
+		OffsetX = -125
+		OffsetY = -100
+	}
 ]}

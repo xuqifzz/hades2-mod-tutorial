@@ -321,6 +321,7 @@ KeywordList =
 	"ExtraLivesWarning",
 	"RandomWarning",
 	"RandomWarningAlt",
+	"BlockedByEnding",
 	"HadesSweep",
 	"FirstTimeSpell",
 	"FirstTimeSpell2",

@@ -25,7 +25,7 @@ UnitSetData.Vampire =
 		OutgoingLifestealModifiers =
 		{
 			{
-				ValidMultiplier = 80.0,
+				ValidMultiplier = 40.0,
 			}
 		},
 		

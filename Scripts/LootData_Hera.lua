@@ -2402,7 +2402,7 @@ LootSetData.Hera =
 						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 					{
-						PathTrue = { "GameState", "RoomsEntered", "Q_Story01" },
+						PathTrue = { "GameState", "TextLinesRecord", "ZeusPalaceFirstMeeting" },
 					},
 				},
 
@@ -2913,6 +2913,9 @@ LootSetData.Hera =
 			{
 				GameStateRequirements =
 				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "HeraUpgrade" }
 					},
@@ -3685,6 +3688,9 @@ LootSetData.Hera =
 				},
 				GameStateRequirements =
 				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
 					{
 						PathTrue = { "GameState", "UseRecord", "HeraUpgrade" },
 					},

@@ -291,6 +291,7 @@
 			GodLootOnly = true,
 			Rare = 1,
 			Epic = 0.25,
+			Duo = 0.1,
 			Legendary = 0.1,
 		},
 		RemainingUses = 1,
@@ -454,6 +455,7 @@
 		},
 		OnManaSpendAction = 
 		{
+			ManaDrainTriggers = true,
 			FunctionName = "CheckOverTimeManaRefund",
 			FunctionArgs = 
 			{

@@ -215,6 +215,10 @@ function ArtemisMusic( source, args )
 		CancelArtemisSinging( source )
 	else
 		CurrentRun.SuppressAmbientMusic = "MusicPlayer"
+		local musician = MapState.ActiveObstacles[738510]
+		if musician ~= nil then
+			MusicPlayerStopSongPresentation( musician )
+		end
 		ArtemisStartSingingPresentation( source )
 		MusicianMusic( CurrentRun.ArtemisHubSong, args )
 		OverwriteSelf( source, source.SingingOverwriteSelf )
@@ -810,7 +814,7 @@ function PlayVoiceLine( line, prevLine, parentLine, source, args, originalArgs )
 		end
 		if playedSpeechId > 0 then
 			local textId = string.sub( line.Cue, 5 )
-			table.insert( CurrentRun.LineHistory, { SpeakerName = source.LineHistoryName, SourceName = source.Name, Text = textId, SubtitleColor = source.NarrativeFadeInColor or source.SubtitleColor } )
+			table.insert( CurrentRun.LineHistory, { SpeakerName = line.LineHistoryName or source.LineHistoryName, SourceName = source.Name, Text = textId, SubtitleColor = source.NarrativeFadeInColor or source.SubtitleColor } )
 			prevLine = line
 			LastLinePlayed = line.Cue
 			playedSomething = line.Cue

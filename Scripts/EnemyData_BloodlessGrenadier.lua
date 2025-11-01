@@ -29,6 +29,8 @@ UnitSetData.BloodlessGrenadier =
 		DeathAnimation = "EnemyDeathFx_Medium",
 		DeathFx = "EnemyDeathFx",
 		DeathSound = "/SFX/Enemy Sounds/Bloodless02/EmoteDying",
+		
+		BlockAttributes = { "Blink", "Fog" },
 
 		DefaultAIData =
 		{

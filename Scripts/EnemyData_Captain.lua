@@ -4,6 +4,7 @@ UnitSetData.Captain =
 	Captain =
 	{
 		InheritFrom = { "Elite", "BaseVulnerableEnemy" },
+		RunHistoryKilledByName = "Captain",
 		
 		BlockRespawnShrineUpgrade = true,
 		BlockRaiseDead = true,
@@ -30,6 +31,8 @@ UnitSetData.Captain =
 
 		IsAggroedSound = "/SFX/Enemy Sounds/ZombieCaptain/EmoteAlerted",
 		DeathSound = "/SFX/Enemy Sounds/ZombieCaptain/EmoteDying",
+		DeathAnimation = "Enemy_Captain_Death",
+		DeathFx = "EnemyDeathFxUndead",
 
 		StunAnimations = 
 		{

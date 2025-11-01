@@ -486,6 +486,7 @@
 		VisualFxUse3DAngle = true
 		Sound = "/SFX/Enemy Sounds/WaterUnit/WaterUnitProjectileSFX"
 		StopSoundOnFinishFade = 0.2
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 	}
 
 	{
@@ -4802,7 +4803,7 @@
 		VisualFxIntervalMax = 0.04
 		VisualFxIntervalMin = 0.02
 		GroupName = "FX_Terrain_Add"
-		Alpha = 0.5
+		Alpha = 0.25
 		OriginX = 512
 		OriginY = 512
 		PostRotateScaleY = 0.5
@@ -6729,6 +6730,7 @@
 		ChildAnimation = null
 		FilePath = "Tilesets\DrownedChambers\DrownedChambers_SteamCubeFused_Destroyed"
 		Sound = "null"
+		OffsetY = -215
 	}
 
 	{

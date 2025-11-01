@@ -189,6 +189,14 @@ function HoldSprintUntilInput()
 	local endSprintControls = { "Shout", "Attack1", "Attack2", "Attack3" }
 	if not IsControlDown({ Names = {"Up", "Down", "Left", "Right" }}) or SessionMapState.WaitUntilAutoSprintInput or EndSprintControlDown() or SessionMapState.SpellInProgress then
 		SessionMapState.SprintActive = nil
+		
+		if SessionMapState.WaitUntilAutoSprintInput and not MapState.ChargedManaWeapons.WeaponSprint and HeroHasTrait("SuitMarkCritAspect") then
+			local weaponName = "WeaponSprint"
+			notifyExistingWaiters( "Empty"..weaponName.."Stage" )	
+			notifyExistingWaiters( weaponName.."IndicatorFire" )
+			thread( HandleManaChargeIndicator, { name = "WeaponSprint" } )
+			thread( DoWeaponCharge, {name = "WeaponSprint"}, GetWeaponData(CurrentRun.Hero, "WeaponSprint"))
+		end
 		return
 	end
 	SessionMapState.LockSprintActive = true
@@ -642,7 +650,7 @@ function CheckSelfBuffBlast( triggerArgs, functionArgs )
 			
 	ApplyEffect( { DestinationId = CurrentRun.Hero.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = effectName, DataProperties = dataProperties } )
 	local repeatManaCost = GetTotalHeroTraitValue("SelfBuffBlastManaCost")
-	if repeatManaCost > 0 and triggerArgs.ProjectileId ~= SessionMapState.LastCreatedBlastId then
+	if repeatManaCost > 0 and triggerArgs.ProjectileId ~= SessionMapState.LastCreatedBlastId and not ( CurrentRun.CurrentRoom.Encounter and CurrentRun.CurrentRoom.Encounter.BossKillPresentation ) then
 	
 		local cost = repeatManaCost
 		if cost > CurrentRun.Hero.Mana and not LastMomentManaRestoreEligible( cost ) then
@@ -2449,7 +2457,7 @@ function EmptySuitAttackCharge( weaponName, stageReached, stageData )
 		else
 			SessionMapState.CancelSuitExBlinkForce = nil
 		end
-		if not HeroHasTrait("SuitComboAspect") then
+		if not HeroHasTrait("SuitComboAspect") or HeroHasTrait("SuitAttackRangeTrait") then
 			DetachProjectiles({ Ids = GetAllKeys(SessionMapState.SuitChargedAttackIds), DestinationId = CurrentRun.Hero.ObjectId })
 		end
 		SessionMapState.ElapsedTimeMultiplierIgnores.SuitExAttack = nil

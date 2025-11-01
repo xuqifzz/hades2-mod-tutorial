@@ -869,6 +869,11 @@ TextFormats =
 
 	},
 
+	WarningHighlightFormat = 
+	{
+		Graft = true,
+		Color = { 29, 255, 176, 255 },
+	},
 	-- End Credits (Shell credits are in AboutScreen.sjson)
 	EndCreditsInlineCreditTitle =
 	{

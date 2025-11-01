@@ -988,7 +988,11 @@ UnitSetData.NPC_Dionysus =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "PrevRun", "RoomsEntered", "P_Boss01" }
+						SumPrevRuns = 3,
+						-- IgnoreCurrentRun = true,
+						Path = { "RoomsEntered", "P_Boss01" },
+						Comparison = ">=",
+						Value = 1,
 					},
 					{
 						PathFalse = { "GameState", "ReachedTrueEnding" },
@@ -1023,7 +1027,8 @@ UnitSetData.NPC_Dionysus =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "DionysusAboutPrometheus01" }
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "DionysusAboutPrometheus01", "DionysusGift03" }
 					},
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",

@@ -480,7 +480,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		OnWeaponFiredFunctions =
 		{
-			ValidWeapons = { "WeaponAxe", "WeaponAxe2", "WeaponAxe3", "WeaponAxe4" , "WeaponAxe5"  },
+			ValidWeapons = { "WeaponAxe", "WeaponAxe2", "WeaponAxe3", "WeaponAxe4" , "WeaponAxe5", "WeaponAxeDash"  },
 			ExcludeLinked = true,
 			FunctionName = "CheckAxeNova",
 			FunctionArgs = 

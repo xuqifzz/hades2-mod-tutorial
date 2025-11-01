@@ -910,6 +910,9 @@ function TraitTrayScreenClose( screen, button, args )
 	end
 	if not screen.HideBounty then
 		Move({ Id = HUDScreen.Components.BountyActive.Id, Distance = screen.BountyIconShiftX - HUDScreen.Components.BountyActive.OffsetX, Angle = 180, Duration = 0.2, EaseIn = 0.0, EaseOut = 1.0 })
+		if CurrentRun.ActiveBounty and CurrentHubRoom == nil then
+			SetAlpha({ Id = HUDScreen.Components.BountyActive.Id, Fraction = ConfigOptionCache.HUDOpacity, Duration = 0.2 })
+		end
 		ModifyTextBox({ Id = HUDScreen.Components.BountyActive.Id, FadeTarget = 0.0, FadeDuration = 0.2 })
 	end
 
@@ -927,10 +930,6 @@ function TraitTrayScreenClose( screen, button, args )
 	SetAlpha({ Ids = { HUDScreen.Components.WeaponSlotIcon.Id, HUDScreen.Components.FamiliarSlotIcon.Id }, Duration = HUDScreen.FadeOutDuration, Fraction = 0 })
 	if CurrentHubRoom ~= nil then 
 		HideTraitUI( { KeepActiveComponents = true } )
-	else
-		if CurrentRun.ActiveBounty then
-			SetAlpha({ Id = HUDScreen.Components.BountyActive.Id, Fraction = ConfigOptionCache.HUDOpacity, Duration = 0.2 })
-		end
 	end
 	if TableLength( ActiveScreens ) <= 1 and not args.IgnoreHUDShow then
 		ShowTraitUI( { SkipTraitActivateCheck = true, FadeDuration = 0.3 } )
@@ -1512,6 +1511,16 @@ function SetTraitTrayDetails( args )
 					Id = button.Id,
 					UseDescription = true,
 					TextSymbolScale = 0,
+					Color = Color.Transparent,
+				})
+			end
+			
+			if traitData.BlockedByEnding and not IsGameStateEligible( traitData, { NamedRequirementsFalse = {"SurfaceRouteLockedByTyphonKill"}} ) then
+				CreateTextBox({ 
+					Id = button.Id,
+					Text = "BlockedByEnding_Tooltip",
+					UseDescription = true,
+					OffsetX = 0, OffsetY = 0,
 					Color = Color.Transparent,
 				})
 			end

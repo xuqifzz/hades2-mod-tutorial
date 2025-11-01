@@ -129,6 +129,9 @@
 	end
 	if getItemData.DropMoney ~= nil then
 		local moneyMultiplier = GetTotalHeroTraitValue( "MoneyMultiplier", { IsMultiplier = true } )
+		if giveItemData.MoneyMultiplier then
+			moneyMultiplier = moneyMultiplier - ( giveItemData.MoneyMultiplier - 1 )
+		end
 		getItemData.DropMoney = round(getItemData.DropMoney * moneyMultiplier)
 	end
 

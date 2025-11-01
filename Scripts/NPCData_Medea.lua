@@ -296,8 +296,8 @@
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				InitialGiftableOffSource = true,
-				GiftableOffSource = true,
+				-- InitialGiftableOffSource = true,
+				-- GiftableOffSource = true,
 				GameStateRequirements =
 				{
 					{
@@ -1499,7 +1499,7 @@
 					Text = "You apparently can handle {#Emph}anything. {#Prev}My only fear is that this means we may not see each other quite as often as we have, and... shall I be forced to leave Ephyra soon? So that mortals may then rob this city of its character..." },
 
 				{ Cue = "/VO/MelinoeField_4230", UsePlayerSource = true,
-					Portrait = "Portrait_Mel_Proud_01",
+					-- Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "That won't be an immediate concern. The Underworld will not go back to how it used to be for quite some time; the dead shall have to wallow for a while longer." },
@@ -2041,6 +2041,11 @@
 					{
 						PathTrue = { "GameState", "UseRecord", "NPC_Medea_01" },
 					},
+					{
+						Path = { "GameState", "RoomsEntered", "N_Story01" },
+						Comparison = ">=",
+						Value = 2,
+					},
 				},
 				{ Cue = "/VO/Melinoe_3303", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2064,6 +2069,11 @@
 					{
 						PathTrue = { "GameState", "UseRecord", "NPC_Medea_01" },
 					},
+					{
+						Path = { "GameState", "RoomsEntered", "N_Story01" },
+						Comparison = ">=",
+						Value = 2,
+					},
 				},
 				{ Cue = "/VO/Medea_0057",
 					Text = "Another Nectar bottle you can spare on my behalf? Oh, this shall be a splendid complement with several much less pleasant ingredients, whose aroma this ought to disguise!" },
@@ -2084,6 +2094,11 @@
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "NPC_Medea_01" },
+					},
+					{
+						Path = { "GameState", "RoomsEntered", "N_Story01" },
+						Comparison = ">=",
+						Value = 2,
 					},
 				},
 				{ Cue = "/VO/Medea_0058",
@@ -2106,6 +2121,11 @@
 					{
 						PathTrue = { "GameState", "UseRecord", "NPC_Medea_01" },
 					},
+					{
+						Path = { "GameState", "RoomsEntered", "N_Story01" },
+						Comparison = ">=",
+						Value = 2,
+					},
 				},
 				{ Cue = "/VO/Medea_0059",
 					Text = "The gods of Olympus have not always been particularly kind. Yet you, a true-blood relative of theirs, would show me favor for little more than carrying out my oath to Great Hecate? Unnecessary, this; I've only curses in return." },
@@ -2126,6 +2146,11 @@
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "NPC_Medea_01" },
+					},
+					{
+						Path = { "GameState", "RoomsEntered", "N_Story01" },
+						Comparison = ">=",
+						Value = 2,
 					},
 				},
 				{ Cue = "/VO/Medea_0233",
@@ -2148,6 +2173,11 @@
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "NPC_Medea_01" },
+					},
+					{
+						Path = { "GameState", "RoomsEntered", "N_Story01" },
+						Comparison = ">=",
+						Value = 2,
 					},
 				},
 				{ Cue = "/VO/Medea_0234",

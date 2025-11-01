@@ -1080,7 +1080,15 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponLobSpecial",
 				ProjectileName = "ProjectileLobGunRift",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "LobProjectile_Zeus",
+				ChangeValue = "LobProjectileHel_Zeus",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileLobSpecialBounce",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobProjectileHel_Zeus",
 				ChangeType = "Absolute",
 			},
 			{

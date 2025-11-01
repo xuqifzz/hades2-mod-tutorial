@@ -29,7 +29,7 @@
 		SkipDamagedFx = true,
 		SkipUnitHitFlash = true,
 
-		NoTargetWanderDistance = 0.1,
+		NoTargetWanderDuration = 0.1,
 		DefaultAIData =
 		{
 			DeepInheritance = true,
@@ -770,19 +770,23 @@
 					{
 						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AxePerfectCriticalAspect" },
 					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "AchillesTrueEnding01" },
+					},
 				},
-				{ Cue = "/VO/Zagreus_0133",
+				{ Cue = "/VO/Zagreus_0486",
 					PreLineAnim = "Zagreus_Talk_Start",
-					Text = "I happen to know the son of Nyx and incarnate of Death to whom that rather sinister scythe belongs. I could give it back to him if you like?" },
+					Text = "Say, I know the son of Nyx and incarnate of Death to whom that rather sinister scythe belongs. As do you, in a way! I could give it back to him, rather than getting sliced?" },
 
-				{ Cue = "/VO/MelinoeField_4546", UsePlayerSource = true,
-					Text = "Thank you for the generous offer, but I have need of it right now. Besides, Nyx knows where to find me if her son ever needs it back. Are you and Thanatos quite close?" },
+				{ Cue = "/VO/MelinoeField_5175", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					Text = "Thank you for the generous offer, but I have need of it right now. Besides, Nyx knows where to find me if her son ever needs it back. How are you and Thanatos doing lately anyhow?" },
 
-				{ Cue = "/VO/Zagreus_0134",
+				{ Cue = "/VO/Zagreus_0487",
 					PreContentSound = "/Leftovers/Menu Sounds/TextReveal3",
 					PreLineThreadedFunctionName = "PlayZagreusTauntAnim",
 					PostLineFunctionName = "StartZagreusBossFight", PreLineWait = 0.25,
-					Text = "Oh you could say that. He used to aid in my attempts at breaking out of here, quite unlike Megaera the Fury, you'd like her. Anyway he wanted me to tell you cheers! Or rather, {#Emph}tell the Princess that she has my gratitude." },
+					Text = "Oh we're good. Much better now that we're not frozen in time, same for Megaera. They miss you! She says hello, while he says {#Emph}tell the Princess that she has my gratitude." },
 
 				EndVoiceLines =
 				{
@@ -807,7 +811,7 @@
 				{ Cue = "/VO/Zagreus_0127",
 					Portrait = "Portrait_ZagPresent_Defiant_01",
 					PreLineAnim = "Zagreus_Talk_Start",
-					Text = "So you can just... go to the surface, and head all the way up to Olympus, and not die? I never could get very far." },
+					Text = "So you can just... go to the surface, and head all the way up to Olympus, and not die? I could never get very far." },
 
 				{ Cue = "/VO/MelinoeField_4607", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
@@ -835,7 +839,8 @@
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "RarifyKeepsake" },
+						Path = { "GameState", "LastAwardTrait" },
+						IsAny = { "RarifyKeepsake" },
 					},
 				},
 				{ Cue = "/VO/Zagreus_0135",
@@ -917,32 +922,33 @@
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "HadesWithPersephone01" }
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "HadesWithPersephone01", "AchillesTrueEnding01" },
 					},
 				},
-				{ Cue = "/VO/MelinoeField_4609", UsePlayerSource = true,
+				{ Cue = "/VO/MelinoeField_5173", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "How are the Houseservants recovering? Everybody back on their feet by now? I'd like to meet them at some point." },
+					Text = "How are the Houseservants recovering, everybody back on their feet by now? I have fond memories of them... glimpses all through my childhood and growing up." },
 
-				{ Cue = "/VO/Zagreus_0137",
+				{ Cue = "/VO/Zagreus_0483",
 					Portrait = "Portrait_ZagPresent_Defiant_01",
 					PreLineAnim = "Zagreus_Talk_Start",
-					Text = "Well then perhaps you should have stayed at the House rather than returning to that Crossroads place! But yes, everybody's on their feet... besides Dusa, who doesn't have any." },
+					Text = "They have similarly kind things to say, whenever they're not bewildered by what happened. But yes, everybody's back on their feet, thanks... besides Dusa who doesn't have any." },
 
-				{ Cue = "/VO/MelinoeField_4610", UsePlayerSource = true,
-					-- Portrait = "Portrait_Mel_Empathetic_01",
-					Portrait = "Portrait_Mel_Vulnerable_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+				{ Cue = "/VO/MelinoeField_5174", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "You're not supposed to speak to them of me, are you? I can't exactly spread fear from the shadows to any would-be threats if everybody knew me for who I am." },
+					Text = "I'm glad to hear it, besides the bewilderment part. You're not officially supposed to speak of what happened, are you? But please tell Dusa and the rest I said hello." },
 
-				{ Cue = "/VO/Zagreus_0138",
+				{ Cue = "/VO/Zagreus_0484",
 					Portrait = "Portrait_ZagPresent_Empathetic_01",
 					PreContentSound = "/Leftovers/Menu Sounds/TextReveal3",
 					PreLineThreadedFunctionName = "PlayZagreusTauntAnim",
 					PostLineFunctionName = "StartZagreusBossFight", PreLineWait = 0.25,
-					Text = "Oh you've a terrifying reputation, worry not. For one, our rumor-spreading court musician Orpheus already got wind of rather frightful tales of dark Melinoë. And for another, you're about to show off your daemonic prowess here!" },
+					Text = "You got it. And officially or not, you're getting quite the terrifying reputation! Our rumor-spreading court musician Orpheus especially enjoys the tales of dark Melinoë. I take it you're about to show off your daemonic prowess here!" },
 			},
 
 			ZagreusBossAboutParents01 =
@@ -1026,25 +1032,25 @@
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "HypnosFinalDreamMeeting01" },
 					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "AchillesTrueEnding01" },
+					},
 				},
 				{ Cue = "/VO/Zagreus_0129",
 					Text = "Hypnos recently returned to us! You've no idea how grateful he was to be back. Practically jumped right into my arms, although that might have been from abject fear." },
 
 				{ Cue = "/VO/MelinoeField_4544", UsePlayerSource = true,
-					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 
-					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "None", Portrait = "Portrait_Mel_Hesitant_01", WaitTime = 6.6 },
+					Text = "I'm uncertain whether he realized the House of Hades was out of commission for most of the time he was asleep. He left before I could explain. Do you know if he remembers the other past we saw...?" },
 
-					Text = "I'm uncertain whether he realized the House of Hades was out of commission for most of the time he was asleep. He left before I could explain. Is he always so... {#Emph}erm..." },
-
-				{ Cue = "/VO/Zagreus_0130",
+				{ Cue = "/VO/Zagreus_0485",
 					Portrait = "Portrait_ZagPresent_Empathetic_01",
 					PreContentSound = "/Leftovers/Menu Sounds/TextReveal3",
 					PreLineThreadedFunctionName = "PlayZagreusTauntAnim",
 					PostLineFunctionName = "StartZagreusBossFight", PreLineWait = 0.25,
-					Text = "Whatever you're about to say, yes. He loves when I return to the House in failure, and keeps track of all my deaths... so if you'd like to do him {#Emph}another {#Prev}favor, here's your shot." },
+					Text = "I think so? He's still a bit frazzled from everything... perhaps keyed up from having overslept a bit. He still loves when I return to the House in failure, keeping track of all my deaths. So if you'd like to do him another favor, here's your shot!" },
 			},
 			ZagreusBossAboutSkelly01 =
 			{
@@ -1188,7 +1194,7 @@
 					PostLineThreadedFunctionName = "MaxedRelationshipPresentation",
 					PostLineThreadedFunctionArgs = { Text = "NPC_Zagreus_01", Icon = "Keepsake_Zagreus" },
 
-					Text = "Of course, but don't you think we've been through quite a bit together at this point? Especially in my case, I've known {#Emph}you {#Prev}for ages! But here, we can make it official if you like!" },
+					Text = "Of course, but... we've been through quite a bit together at this point! And I've known you since before you were born. But here, we can make it official if you like!" },
 
 				EndVoiceLines =
 				{
@@ -1676,6 +1682,9 @@ GlobalVoiceLines.ZagreusRarifyVoiceLines =
 	GameStateRequirements =
 	{
 		{
+			PathTrue = { "GameState", "ReachedTrueEnding" },
+		},
+		{
 			PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "RarifyKeepsake" },
 		},
 	},
@@ -1796,7 +1805,7 @@ GlobalVoiceLines.ZagreusBossGreetingLines =
 			--
 		},
 
-		{ Cue = "/VO/MelinoeField_4236", Text = "{#Emph}Wha... {#Prev}Brother!", PlayOnce = true },
+		{ Cue = "/VO/MelinoeField_4236", Text = "{#Emph}Wha... {#Prev}Brother!", PlayOnce = true, PlayOnceContext = "ZagreusBossFirstMeetingVO" },
 	},
 	{
 		RandomRemaining = true,

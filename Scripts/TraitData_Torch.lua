@@ -93,29 +93,8 @@ OverwriteTableKeys( TraitData, {
 			{
 				FalseTraitName = "TorchSprintRecallAspect",
 				WeaponName = "WeaponTorchSpecial",
-				WeaponProperty = "ActiveProjectileCap",
-				ChangeValue = 4,
-				ChangeType = "Absolute",
-			},
-			{
-				FalseTraitName = "TorchSprintRecallAspect",
-				WeaponName = "WeaponTorchSpecial",
 				WeaponProperty = "ActiveProjectileCap2",
-				ChangeValue = 4,
-				ChangeType = "Absolute",
-			},
-			{
-				TraitName = "TorchSprintRecallAspect",
-				WeaponName = "WeaponTorchSpecial",
-				WeaponProperty = "ActiveProjectileCap",
-				ChangeValue = 8,
-				ChangeType = "Absolute",
-			},
-			{
-				TraitName = "TorchSprintRecallAspect",
-				WeaponName = "WeaponTorchSpecial",
-				WeaponProperty = "ActiveProjectileCap2",
-				ChangeValue = 8,
+				ChangeValue = 3,
 				ChangeType = "Absolute",
 			},
 			{
@@ -515,7 +494,14 @@ OverwriteTableKeys( TraitData, {
 					ProjectileTorchGhostLarge = "ProjectileTorchGhostLargeSplit",
 					ProjectileTorchSupayBallEx = "ProjectileTorchSupayBallExSplit",
 				},
-			ReportValues = { ReportedSpawnCount = "SpawnCount"},
+				TraitDependentProperties = 
+				{
+					TorchEnhancedAttackTrait = 
+					{
+						UnlimitedUnitPenetration = true
+					}
+				},
+				ReportValues = { ReportedSpawnCount = "SpawnCount"},
 			}
 		},
 		ExtractValues =

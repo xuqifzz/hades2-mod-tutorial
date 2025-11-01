@@ -57,6 +57,7 @@ UnitSetData.TyphonArm =
 		RunHistoryPortrait = "Codex_Portrait_TyphonArm",
 		CannotDieFromDamage = true,
 		IgnoreSprintPhasingStasisStun = true,
+		IgnoreCastSummonDamage = true,
 		MaxHealth = 1,
 
 		ExitAnimation = "Enemy_TyphonArm_Exit",

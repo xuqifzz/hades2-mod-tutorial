@@ -842,5 +842,24 @@
       BaseSaturation = 1
     }
 
+    {
+      Name = "Flashback03TransitionA"
+      BloomThreshold = 0
+      BlurAmount = 0.01
+      BloomIntensity = 1
+      BaseIntensity = 0
+      BloomSaturation = 1
+      BaseSaturation = 1
+    }
+    {
+      Name = "Flashback03TransitionB"
+      BloomThreshold = 0
+      BlurAmount = 32
+      BloomIntensity = 0
+      BaseIntensity = 0
+      BloomSaturation = 0
+      BaseSaturation = 0
+    }
+
   ]
 }

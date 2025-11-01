@@ -14,7 +14,7 @@ CodexOrdering =
 	},
 	OtherDenizens =
 	{
-		"NPC_Chronos_01", "NPC_Chronos_02", "NPC_Hades_Field_01", "NPC_Persephone_01", "NPC_Zagreus_01", "NPC_Cerberus_01", "TyphonHead", "Prometheus", "NPC_Heracles_01", "NPC_Eris_01",  "Polyphemus", "Scylla", "NPC_Narcissus_01", "NPC_Echo_01", "NPC_Arachne_01", "NPC_Hypnos_01", "NPC_FateSisters_01", "TrialUpgrade",
+		"NPC_Chronos_01", "NPC_Chronos_02", "NPC_Hades_Field_01", "NPC_Persephone_01", "NPC_Zagreus_01", "NPC_Cerberus_01", "TyphonHead", "Prometheus", "NPC_Heracles_01", "NPC_Eris_01",  "Polyphemus", "Scylla", "NPC_Narcissus_01", "NPC_Echo_01", "NPC_Arachne_01", "NPC_Hypnos_01", "NPC_Thanatos_01", "NPC_Megaera_01", "NPC_Achilles_01", "NPC_Orpheus_01", "NPC_Dusa_01", "TrialUpgrade", "NPC_FateSisters_01",
 	},
 	Familiars =
 	{
@@ -957,6 +957,91 @@ CodexData =
 					},
 				},
 				Image = "Codex_Portrait_Hypnos",
+			},
+
+			NPC_Achilles_01 =
+			{
+				Entries =
+				{
+					{
+						UnlockGameStateRequirements =
+						{
+							{
+								PathTrue = { "GameState", "TextLinesRecord", "AchillesTrueEnding01" },
+							},
+						},
+						Text = "CodexData_Achilles_01",
+					},
+				},
+				Image = "Codex_Portrait_Achilles",
+			},
+
+			NPC_Thanatos_01 =
+			{
+				Entries =
+				{
+					{
+						UnlockGameStateRequirements =
+						{
+							{
+								PathTrue = { "GameState", "TextLinesRecord", "AchillesTrueEnding01" },
+							},
+						},
+						Text = "CodexData_Thanatos_01",
+					},
+				},
+				Image = "Codex_Portrait_Thanatos",
+			},
+
+			NPC_Megaera_01 =
+			{
+				Entries =
+				{
+					{
+						UnlockGameStateRequirements =
+						{
+							{
+								PathTrue = { "GameState", "TextLinesRecord", "AchillesTrueEnding01" },
+							},
+						},
+						Text = "CodexData_Megaera_01",
+					},
+				},
+				Image = "Codex_Portrait_Megaera",
+			},
+
+			NPC_Orpheus_01 =
+			{
+				Entries =
+				{
+					{
+						UnlockGameStateRequirements =
+						{
+							{
+								PathTrue = { "GameState", "TextLinesRecord", "AchillesTrueEnding01" },
+							},
+						},
+						Text = "CodexData_Orpheus_01",
+					},
+				},
+				Image = "Codex_Portrait_Orpheus",
+			},
+
+			NPC_Dusa_01 =
+			{
+				Entries =
+				{
+					{
+						UnlockGameStateRequirements =
+						{
+							{
+								PathTrue = { "GameState", "TextLinesRecord", "AchillesTrueEnding01" },
+							},
+						},
+						Text = "CodexData_Dusa_01",
+					},
+				},
+				Image = "Codex_Portrait_Dusa",
 			},
 
 			NPC_Arachne_01 =

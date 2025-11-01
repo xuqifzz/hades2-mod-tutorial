@@ -1044,15 +1044,20 @@
 
 		Ambience = "/Leftovers/Ambience/Ambience1",
 
-		-- This room actually has water, so don't play the sand fishing SFX
+		-- This room actually has water, so don't play the sand fishing SFX/VFX
 		SwapSounds =
 		{
 			["/Leftovers/SFX/FootstepsWheat2Small"] = "/SFX/Player Sounds/FootstepsHardSurface",
 			["/Leftovers/SFX/FootstepsWheat"] = "/SFX/Player Sounds/FootstepsHardSurfaceRun",
 		},
-		FishingStartSound = nil,
-		FishingDunkSound = nil,
-		FishingFailSound = nil,
+		SwapAnimations =
+		{
+			["SuitExhaustSprintDust"] = "SuitExhaustSprintDust_CWT",
+			["OlympusSnowExplosionDecal"] = "ExplosionScorchDecal",
+		},
+		FishingStartSound = "nil",
+		FishingDunkSound = "nil",
+		FishingFailSound = "nil",
 
 		StartUnthreadedEvents =
 		{
@@ -1061,8 +1066,8 @@
 				FunctionName = "GenericPresentation",
 				Args =
 				{
-					LoadPackages = { "Chronos" },
-					LoadVoiceBanks = { "Chronos" },
+					LoadPackages = { "Chronos", "Selene", },
+					LoadVoiceBanks = { "Chronos", "Selene", },
 				},
 			},
 			{
@@ -1302,6 +1307,7 @@
 						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
+					NamedRequirementsFalse = { "HecateMissing" },
 				},
 				InteractTextLineSets =
 				{
@@ -1333,6 +1339,7 @@
 						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
+					NamedRequirementsFalse = { "HecateMissing" },
 				},
 				InteractTextLineSets =
 				{
@@ -1363,6 +1370,7 @@
 						Value = 4,
 					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
+					NamedRequirementsFalse = { "HecateMissing" },
 				},
 				InteractTextLineSets =
 				{
@@ -1396,6 +1404,7 @@
 						Value = 4,
 					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
+					NamedRequirementsFalse = { "HecateMissing" },
 				},
 				InteractTextLineSets =
 				{
@@ -1413,6 +1422,34 @@
 					},
 				},
 			},
+			[797657] =
+			{
+				PlayOnce = true,
+				UseText = "UseExamineMisc",
+				SetupGameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					NamedRequirements = { "HecateMissing" },
+				},
+				InteractTextLineSets =
+				{
+					Inspect_I_Boss01TrueEnding_01 =
+					{
+						{ Cue = "/VO/Storyteller_0527",
+							Text = "{#Emph}For the moment, Time stands still... stricken by the enchanted spear Gigaros, and temporarily susceptible to one final step the Princess of the Dead has planned." },
+						EndVoiceLines =
+						{
+							PreLineWait = 0.4,
+							UsePlayerSource = true,
+							-- RequiredMinElapsedTime = 3,
+
+							{ Cue = "/VO/MelinoeField_3881", Text = "...now for Zagreus to do his part." },
+						},
+					},
+				},
+			},
 			[797653] =
 			{
 				PlayOnce = true,
@@ -1426,6 +1463,7 @@
 						PathTrue = { "GameState", "TextLinesRecord", "ChronosBossOutroPostTrueEnding01" },
 					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
+					NamedRequirementsFalse = { "HecateMissing" },
 				},
 				InteractTextLineSets =
 				{
@@ -1535,11 +1573,12 @@
 				},
 			},
 			{
-				BreakIfPlayed = true,
-				PlayOnce = true,
 				PreLineWait = 0.25,
 				GameStateRequirements =
 				{
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ChronosBossAboutHecateKidnapped01" },
+					},
 					NamedRequirements = { "HecateMissing" },
 				},
 				PreLineFunctionName = "UnmuteSpeakerPermanent",
@@ -1548,6 +1587,12 @@
 			{
 				RandomRemaining = true,
 				PreLineWait = 0.25,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "SpeechRecord", "/VO/MelinoeField_3876" },
+					},
+				},
 
 				{ Cue = "/VO/MelinoeField_1305", Text = "{#Emph}<Gasp> {#Prev}Pff..." },
 				{ Cue = "/VO/MelinoeField_1306", Text = "{#Emph}<Gasp> {#Prev}...I'm home..." },
@@ -1604,6 +1649,39 @@
 				},
 			},
 			{
+				BreakIfPlayed = true,
+				PreLineWait = 2.0,
+				ObjectType = "Chronos",
+				PreLineAnim = "Enemy_Chronos_SittingGreeting",
+				GameStateRequirements =
+				{
+					{
+						PathFromArgs = true,
+						Path = { "Chronos", "QueuedBossIntroTextLines", "Name" },
+						IsAny = { "ChronosBossAboutHecateKidnapped01" },
+					},
+				},
+				{ Cue = "/VO/Chronos_1517", Text = "{#Emph}She {#Prev}is now my guest." },
+			},
+			{
+				PlayOnce = true,
+				PlayOnceContext = "ChronosHecKidnappedIntroVO",
+				BreakIfPlayed = true,
+				PreLineWait = 2.0,
+				ObjectType = "Chronos",
+				PreLineAnim = "Enemy_Chronos_SittingGreeting",
+				GameStateRequirements =
+				{
+					{
+						PathFromArgs = true,
+						Path = { "Chronos", "QueuedBossIntroTextLines", "Name" },
+						IsAny = { "ChronosBossAboutHecateKidnapped01" },
+					},
+					NamedRequirements = { "HecateMissing" },
+				},
+				{ Cue = "/VO/Chronos_0984", Text = "Looking for someone?" },
+			},
+			{
 				PlayOnce = true,
 				PlayOnceContext = "ChronosEarlyIntroVO",
 				BreakIfPlayed = true,
@@ -1641,19 +1719,6 @@
 			},
 			{
 				PlayOnce = true,
-				PlayOnceContext = "ChronosHecKidnappedIntroVO",
-				BreakIfPlayed = true,
-				PreLineWait = 2.0,
-				ObjectType = "Chronos",
-				PreLineAnim = "Enemy_Chronos_SittingGreeting",
-				GameStateRequirements =
-				{
-					NamedRequirements = { "HecateMissing" },
-				},
-				{ Cue = "/VO/Chronos_0984", Text = "Looking for someone?" },
-			},
-			{
-				PlayOnce = true,
 				PlayOnceContext = "ChronosPostEndingIntroVO",
 				BreakIfPlayed = true,
 				PreLineWait = 2.0,
@@ -1669,6 +1734,7 @@
 			},
 			{
 				PlayOnce = true,
+				PlayOnceContext = "ChronosPreFightTyphonDeathVO",
 				BreakIfPlayed = true,
 				PreLineWait = 2.0,
 				ObjectType = "Chronos",
@@ -2053,6 +2119,7 @@
 			},
 		},
 
+		Using = { "ChronosRemainsBroken", "ChronosBattleOutroDeathParticleEmitter", "ChronosGigarosKillFx", "ChronosBattleOutroDeathParticleEmitterGigarosKill", },
 	},
 
 	I_Shop01 =
@@ -2124,15 +2191,20 @@
 		ExorcismPointChance = 0.16,
 		FishingPointChance = 0.12,
 
-		-- This room actually has water, so don't play the sand fishing SFX
+		-- This room actually has water, so don't play the sand fishing SFX/VFX
 		SwapSounds =
 		{
 			["/Leftovers/SFX/FootstepsWheat2Small"] = "/SFX/Player Sounds/FootstepsHardSurface",
 			["/Leftovers/SFX/FootstepsWheat"] = "/SFX/Player Sounds/FootstepsHardSurfaceRun",
 		},
-		FishingStartSound = nil,
-		FishingDunkSound = nil,
-		FishingFailSound = nil,
+		SwapAnimations =
+		{
+			["SuitExhaustSprintDust"] = "SuitExhaustSprintDust_CWT",
+			["OlympusSnowExplosionDecal"] = "ExplosionScorchDecal",
+		},
+		FishingStartSound = "nil",
+		FishingDunkSound = "nil",
+		FishingFailSound = "nil",
 
 		StartThreadedEvents =
 		{
@@ -3163,11 +3235,14 @@
 					Conversations =
 					{
 						"ZagreusPastMeeting06",
+						"ZagreusPastMeeting06_B",
 						"ZagreusPastFirstMeeting",
 						"ZagreusPastMeeting02",
 						"ZagreusPastMeeting02_2",
 						"ZagreusPastMeeting03",
 						"ZagreusPastMeeting04",
+						"ZagreusPastMeeting04_2",
+						"ZagreusPastMeeting04_3",
 						"ZagreusPastMeeting05",
 						-- optional
 						"ZagreusPastMeeting07",
@@ -3257,7 +3332,8 @@
 				SetupGameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "ZagreusPastMeeting04" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ZagreusPastMeeting04_3" },
 					},
 					{
 						PathFalse = { "GameState", "TextLinesRecord", "ZagreusPastMeeting05" },
@@ -3335,7 +3411,8 @@
 									PathTrue = { "CurrentRun", "CurrentRoom", "InDreamState" },
 								},
 								{
-									PathFalse = { "CurrentRun", "TextLinesRecord", "ZagreusPastMeeting06" },
+									Path = { "CurrentRun", "TextLinesRecord" },
+									HasNone = { "ZagreusPastMeeting06", "ZagreusPastMeeting06_B" },
 								},
 							},
 							Cooldowns =
@@ -3494,11 +3571,11 @@
 	I_ChronosFlashback01 =
 	{
 		InheritFrom = { "BaseI" },
-		RichPresence = "#RichPresence_PostBossUnderworld",
+		RichPresence = "#RichPresence_Dream",
 		LegalEncounters = { "Empty" },
 		-- Ambience = "/Ambience/MusicExploration4AMBIENCEIris",
 		NarrativeContextArt = nil,
-		SpeakerName = "Chronos",
+		SpeakerName = { "Chronos", "Persephone", "Achilles", "Nyx" },
 
 		HeroOverwrites =
 		{
@@ -3609,7 +3686,7 @@
 				DistanceTrigger =
 				{
 					PreTriggerWait = 0.1,
-					WithinDistance = 400,
+					WithinDistance = 500,
 					VoiceLines =
 					{
 						Queue = "Never",
@@ -3750,127 +3827,222 @@
 						TrueEnding02 =
 						{
 							SkipContextArt = true,
-							{ Cue = "/VO/Persephone_0066",
+							{ Cue = "/VO/Persephone_0132",
 								Emote = "PortraitEmoteSurprise",
 								Source = "NPC_Persephone_01",
 								Portrait = "Portrait_Persephone_Queen_Joyful_01",
 								PortraitExitAnimation = "Portrait_Persephone_Queen_Joyful_01_Exit",
-								Text = "Melinoë...! You're... you're all grown up? I... {#Emph}oh{#Prev}, my heart..." },
+								Text = "Melinoë...! You're... you're all grown up? But then... of course you are. I... {#Emph}oh{#Prev}, my heart..." },
 
-							{ Cue = "/VO/Zagreus_0401",
+							{ Cue = "/VO/Zagreus_0478",
 								PreLineWait = 0.35,
 								Source = "NPC_Zagreus_01",
 								Portrait = "Portrait_ZagPresent_Pained_01",
-								Text = "{#Emph}Heh... heheh{#Prev}, Melinoë, it's you...! You did it...! Me, I... nicely asked Grandfather to stand down after all. Long before you were even born. {#Emph}Augh{#Prev}, my head..." },
+								Text = "{#Emph}Hah... hahah{#Prev}, Melinoë, it's really you...! You look just like your nightmare reflection did... so long ago, before the little you was even born. Did we succeed...? {#Emph}Augh{#Prev}, I'm shaking..." },
 
-							{ Cue = "/VO/Chronos_1378",
+							{ Cue = "/VO/Chronos_1470",
 								Source = "NPC_Chronos_01",
 								Portrait = "Portrait_Chronos_Confused_01",
 								PreLineWait = 0.35,
-
-								Text = "They shall recover; give them time. Now send {#Emph}me {#Prev}to the blasted void, already! {#Emph}You{#Prev}, Son, or that witch, or {#Emph}you{#Prev}, Granddaughter, one of you! I am weary of incessant bickering. You long for a world without me? It is {#Emph}yours!" },
-
-							{ Cue = "/VO/Zagreus_0402",
-								Source = "NPC_Zagreus_01",
-								Portrait = "Portrait_ZagPresent_Unwell_01",
-								Emote = "PortraitEmoteFiredUp",
-								Text = "Wait, {#Emph}no...! {#Prev}Sister, don't... don't you remember? Grandfather, he was there when you were growing up! Was it a dream? It couldn't have only been a dream, just... please, give him a chance." },
-
-							{ Cue = "/VO/Chronos_1379",
-								Source = "NPC_Chronos_01",
-								Portrait = "Portrait_Chronos_Confused_01",
-								ExitPortraitImmediately = true,
-
-								EndSecretMusic = true,
-
-								Text = "Zagreus, you need not advocate for me again. What we experienced was a possibility and nothing more. And you, Melinoë... to think I... put you through all this. Take your vengeance." },
-
-							{ Cue = "/VO/MelinoeField_5062",
-								UsePlayerSource = true,
-								PreLineWait = 0.5,
-								-- Emote = "PortraitEmoteFiredUp",
-								Portrait = "Portrait_Mel_Intense_01",
-								PreLineFunctionName = "FamilyRescueFacingAdjustment",
-								PreLineAnim = "Melinoe_Assist_End", PreLineAnimTarget = "Hero",
-
 								SecretMusic = "/Music/MusicHadesReset2_MC",
 								SecretMusicSection = 0,
 								SecretMusicActiveStems = { "Guitar", },
 								SecretMusicMutedStems = { "Drums", "Bass" },
 
-								Text = "...I ought to take my vengeance on you both. Zagreus... I trusted you, with our entire family's future...! And no, I don't remember any of what you and this Titan claim. How convenient that only you seem to recall it!" },
+								Text = "They shall recover, give them time... and give me {#Emph}death! {#Prev}Go on and send me to the blasted void, already! {#Emph}You{#Prev}, Son, or that witch, or {#Emph}you{#Prev}, Granddaughter, one of you! For I am {#Emph}weary {#Prev}of it all! You long for a world without me — it is {#Emph}yours!" },
 
-							{ Cue = "/VO/Zagreus_0437",
+							{ Cue = "/VO/Zagreus_0479",
 								Source = "NPC_Zagreus_01",
 								Portrait = "Portrait_ZagPresent_Unwell_01",
-								Emote = "PortraitEmoteFiredUp",
-								PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
-								Text = "{#Emph}How convenient?! {#Prev}You cast your dream-time-witch-magick on {#Emph}us! {#Prev}And if you still think destroying Grandfather will make this ridiculous family's problems go away, then no wonder your fancy spell didn't quite work out!" },
+								PreLineAnim = "Zagreus_KnockedDown_End", PreLineAnimTarget = 774442,
+								Text = "Grandfather, no...! How could you say that after all we've been through together? I swore you'd be under my protection, and... oh, gods... what happened to this place?" },
 
-							{ Cue = "/VO/Hades_0393",
-								Portrait = "Portrait_Hades_Chained_01",
+							{ Cue = "/VO/Chronos_1471",
+								Source = "NPC_Chronos_01",
+								Portrait = "Portrait_Chronos_Confused_01",
 								ExitPortraitImmediately = true,
+								PreLineAnim = "Enemy_Chronos_Knockdown_Frustrated", PreLineAnimTarget = 774365,
+
+								-- SecretMusicActiveStems = { "Drums" },
+
+								Text = "I {#Emph}took {#Prev}this place, is what, Zagreus. And {#Emph}ruined {#Prev}it! You need not advocate for me again. You never knew my real self. Merely a... {#Emph}possibility{#Prev}, and nothing more. And you, Melinoë... to think I... put you through all this. Take your vengeance." },
+
+							{ Cue = "/VO/MelinoeField_5190",
+								UsePlayerSource = true,
+								PreLineWait = 0.65,
+								-- Emote = "PortraitEmoteFiredUp",
+								Portrait = "Portrait_Mel_Intense_01",
+								PreLineAnim = "Melinoe_Assist_End", PreLineAnimTarget = "Hero",
+								SecretMusic = "/Music/MusicPlayer/PersephoneThemeMusicPlayer",
+
+								Text = "...No. Our family's had enough for now. Who else recalls what happened? Memories, as vivid as any you hold dear, but of a separate life we might have lived...! Mother, do you remember?" },
+
+							{ Cue = "/VO/Persephone_0133",
+								Source = "NPC_Persephone_01",
+								Portrait = "Portrait_Persephone_Queen_Apprehensive_01",
+								PortraitExitAnimation = "Portrait_Persephone_Queen_Apprehensive_01_Exit",
+								PreLineAnim = "Persephone_Sitting_End", PreLineAnimTarget = 774443,
+								Text = "I... I do. You were... insatiably curious as a child, and... sometimes too much even for me to handle, so... Zagreus, and Chronos, they... often helped take care of you." },
+
+							{ Cue = "/VO/Hades_0405",
+								Portrait = "Portrait_Hades_Chained_02",
 								Source = "NPC_Hades_Story_01",
-								Emote = "PortraitEmoteAngerTrueEnding",
-								PreLineAnim = "Hades_Blessing_Short",
-								PreLineAnimTarget = 774441,
+								PreLineWait = 0.5,
+								Text = "...I, too, remember now. That Father was with us, after Zagreus discovered him and took him in. Yet all the while... I have been a prisoner. {#Emph}His {#Prev}prisoner, {#Emph}here {#Prev}in this time of ours..." },
 
-								Text = "{#Emph}Enough! {#Prev}No fighting is permitted in this blasted House. Especially not between the two of {#Emph}you! {#Prev}Do you intend to wind up old and wretched and wrathful, like {#Emph}him? {#Prev}Like {#Emph}me?" },
+							{ Cue = "/VO/HecateField_0431",
+								Source = "NPC_Hecate_01",
 
-							{ Cue = "/VO/MelinoeField_5063",
+								SecretMusic = "/Music/RemembranceScreenAmbience2",
+
+								PreLineAnim = "Hecate_Hub_Affirm",
+								PreLineAnimTarget = 774366, -- Hecate
+
+								Text = "Queen Persephone, Lord Hades, do {#Emph}not {#Prev}believe these {#Emph}falsehoods {#Prev}coursing through your minds! Even your son and daughter seem susceptible. You {#Emph}all {#Prev}have been manipulated by the Titan's spell!" },
+
+							{ Cue = "/VO/MelinoeField_5151",
 								UsePlayerSource = true,
 								PreLineWait = 0.5,
 								Portrait = "Portrait_Mel_Intense_01",
+								AngleId = 560366,
+								AngleTowardTargetId = 774366,
+								PreLineAnim = "Melinoe_Defiant", PreLineAnimTarget = "Hero",
+								PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "None", Portrait = "Portrait_Mel_Vulnerable_01", WaitTime = 6.2 },
+
+								Text = "Headmistress, that's not true! Don't you understand? The Dissolution of Time... this is how I manifested it. You always said the task was mine, as were the methods I employed. This was the path I chose." },
+
+							{ Cue = "/VO/HecateField_0432",
+								Source = "NPC_Hecate_01",
+								Emote = "PortraitEmoteAnger",
+
+								SecretMusic = "/Music/MusicHadesReset3_MC",
+								SecretMusicSection = 0,
+								SecretMusicActiveStems = { "Guitar", "Drums" },
+								SecretMusicMutedStems = { "Bass" },
+
+								PreLineAnim = "Hecate_Hub_Stern_Start",
+								PreLineAnimTarget = 774366, -- Hecate
+								PostLineAnim = "Hecate_Hub_Stern_End",
+								PostLineAnimTarget = 774366, -- Hecate
+
+								Text = "Then you failed! {#Emph}Death to Chronos {#Prev}was the task, yet {#Emph}there {#Prev}he is! Melinoë... what could possibly have compelled you to take such a course?" },
+
+							{ Cue = "/VO/MelinoeField_5152",
+								UsePlayerSource = true,
+								Emote = "PortraitEmoteFiredUp",
+								Portrait = "Portrait_Mel_Vulnerable_01",
+								ExitPortraitImmediately = true,
 								PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 								PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 
-								Text = "...Lord Father... it was my wrath that brought me to this point. And how can you possibly compare yourself? Look what the Titan did to you!" },
+								SecretMusicMutedStems = { "Drums" },
 
-							{ Cue = "/VO/Hades_0394",
-								Portrait = "Portrait_Hades_Chained_01",
+								Text = "Your own teachings! To think for myself, not just... do as I'm told! But if you still believe destroying Chronos will make our problems go away... then what are you waiting for?" },
+
+							{ Cue = "/VO/HecateField_0433",
+								Source = "NPC_Hecate_01",
+								PreLineWait = 1.0,
+								PreLineAnim = "Hecate_Hub_Scoff",
+								PreLineAnimTarget = 774366, -- Hecate
+								ExitPortraitImmediately = true,
+
+								EndSecretMusic = true,
+
+								Text = "...I shall never forgive this Titan for what he has done... to this world, your family, you, or me." },
+
+							{ Cue = "/VO/Persephone_0134",
+								Source = "NPC_Persephone_01",
+								PreLineWait = 0.85,
+								Portrait = "Portrait_Persephone_Queen_Apprehensive_01",
+								ExitPortraitImmediately = true,
+								PreLineAnim = "Persephone_DismissQuick_Start",
+								PreLineAnimTarget = 774443,
+								SecretMusic = "/Music/MusicPlayer/Iris/EndThemeACOUSTICMusicPlayer",
+
+								Text = "Dear Hecate... my handmaiden. Who said anything about forgiveness? I've never heard such pain in you. Last I recall, in this life... just before Chronos struck, your task was to protect our daughter at all costs... and you did...! You did!" },
+
+							{ Cue = "/VO/Hades_0406",
+								Portrait = "Portrait_Hades_Chained_02",
 								ExitPortraitImmediately = true,
 								Source = "NPC_Hades_Story_01",
-								Text = "We did this to {#Emph}each other. {#Prev}Gods and Titans... doomed to live forever, yet learn nothing all the while. Do as you must... but take no vengeance in my name." },
+								PreLineWait = 0.35,
 
-							{ Cue = "/VO/MelinoeField_5064",
-								UsePlayerSource = true,
-								Portrait = "Portrait_Mel_Intense_01",
-								PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-								PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+								Text = "...In our moment of peril, you were the only one we could count on, esteemed Witch of the Crossroads. For that and more, you have our gratitude. For all eternity." },
+								
+							{ Cue = "/VO/HecateField_0434",
+								Portrait = "Portrait_Hec_Averted_01",
+								Source = "NPC_Hecate_01",
+								PreLineAnim = "HecateHubGreet",
+								PreLineAnimTarget = 774366, -- Hecate
 
 								ExitPortraitImmediately = true,
 								PostLineFunctionName = "HadesOfficialDecree",
 
-								EndSecretMusic = true,
+								PreLineWait = 0.85,
+
+								Text = "...I did no more than was my charge, O King and Queen. And I remain, as ever, at your service.... Well then, Melinoë... what now...?" },
+
+							{ Cue = "/VO/MelinoeField_5153",
+								UsePlayerSource = true,
+								AngleId = 560366,
+								AngleTowardTargetId = 774443,
+								PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+								PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 
 								PreLineWait = 0.85,
 
-								Text = "...I may yet take vengeance in my own name... but let us first make certain Chronos shall undo the harm he caused. All of it! Zagreus wants to give him a chance... I want him to give us back the time we were denied." },
+								Text = "What now...? There is so much to be done... bringing this House to order, for one thing! Mother... Father... you've seen what was possible. Let us give Chronos one chance to make himself useful, starting with our restoration efforts. Would you grant me that?" },
 
-							{ Cue = "/VO/Hades_0395",
+							{ Cue = "/VO/Persephone_0135",
+								Source = "NPC_Persephone_01",
+								Portrait = "Portrait_Persephone_Queen_01",
+								PreLineAnim = "Persephone_Greet_Full",
+								PreLineAnimTarget = 774443,
+								PreLineWait = 0.5,
+								Text = "...Granted! We're not finished with you, Chronos. They say Time heals all wounds. Prove it." },
+
+							{ Cue = "/VO/Hades_0407",
 								Portrait = "Portrait_Hades_Chained_01",
-								ExitPortraitImmediately = true,
 								Source = "NPC_Hades_Story_01",
-								PreLineWait = 0.35,
-								Text = "...Then he shall have his chance! You hear that, Father? By the grace of the Princess of the Underworld, you have one chance to return what you took. Bring this House to order, to start with! My eyes burn at the very sight of this place!" },
+								PreLineWait = 0.5,
+								Text = "...Granted. But only this one chance. By the grace of the Princess of the Underworld." },
 
-							{ Cue = "/VO/Chronos_1426",
+							{ Cue = "/VO/Chronos_1472",
 								Source = "NPC_Chronos_01",
 								Portrait = "Portrait_Chronos_Confused_01",
 								-- PostLineRemoveContextArt = true,
 								ExitPortraitImmediately = true,
 								PreLineWait = 0.8,
-								Text = "I cannot change what already occurred, Hades. I am an old Titan, as you say! All I have ever known is how to move forward. But if you and my grandchildren would have it... I can make time... for this House of yours, and everything." },
+								Text = "...You would... permit me such a chance? But I cannot change what already occurred... cannot undo the unforgivable decisions I have made." },
+
+							{ Cue = "/VO/MelinoeField_5154",
+								UsePlayerSource = true,
+								Portrait = "Portrait_Mel_Default_01",
+								AngleId = 560366,
+								AngleTowardTargetId = 774365,
+								PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+								PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+
+								Text = "You're Time itself. We're not demanding you move backward. We're demanding you move forward." },
+
+							{ Cue = "/VO/Chronos_1527",
+								Source = "NPC_Chronos_01",
+								Portrait = "Portrait_Chronos_Confused_01",
+								-- PostLineRemoveContextArt = true,
+								ExitPortraitImmediately = true,
+								PreLineWait = 0.8,
+								Text = "To move forward... that is all I have ever known. Then I shall make time... both for this House... and everything." },
 
 							EndFunctionName = "DeathAreaRestorationPresentation",
 							EndFunctionArgs =
 							{
 								Conversations =
 								{
-									"HadesTrueEnding01",
 									"ZagreusTrueEnding01",
 									"CerberusTrueEnding01",
 									"PersephoneTrueEnding01",
+									"AchillesTrueEnding01",
+									"HadesTrueEnding01",
 									"SeleneTrueEnding01",
 								},
 							},
@@ -3878,6 +4050,83 @@
 					},
 				},
 			},
+
+			-- Procrastination Point 1
+			[772631] =
+			{
+				Name = "ProcrastinationPoint01",
+				DistanceTriggers =
+				{
+					{
+						Repeat = true,
+						WithinDistance = 300,
+						VoiceLines =
+						{
+							PlayOnce = true,
+							PlayOnceContext = "TrueEndingMiscVO",
+							ObjectType = "NPC_Hades_Story_01",
+							GameStateRequirements =
+							{
+								{
+									PathTrue = { "GameState", "TextLinesRecord", "TrueEnding01" },
+								},
+							},
+							{ Cue = "/VO/Hades_0404", Text = "Daughter, please..." },
+						},
+					},
+				},
+			},
+			-- Procrastination Point 2
+			[560377] =
+			{
+				Name = "ProcrastinationPoint02",
+				DistanceTriggers =
+				{
+					{
+						Repeat = true,
+						WithinDistance = 750,
+						VoiceLines =
+						{
+							PlayOnce = true,
+							PlayOnceContext = "TrueEndingMiscVO",
+							ObjectType = "NPC_Hecate_Story_01",
+							GameStateRequirements =
+							{
+								{
+									PathTrue = { "GameState", "TextLinesRecord", "TrueEnding01" },
+								},
+							},
+							{ Cue = "/VO/HecateField_0429", Text = "What are you waiting for...?" },
+						},
+					},
+				},
+			},
+			-- Procrastination Point 3
+			[772593] =
+			{
+				Name = "ProcrastinationPoint03",
+				DistanceTriggers =
+				{
+					{
+						Repeat = true,
+						WithinDistance = 250,
+						VoiceLines =
+						{
+							PlayOnce = true,
+							PlayOnceContext = "TrueEndingMiscVO",
+							ObjectType = "NPC_Hecate_Story_01",
+							GameStateRequirements =
+							{
+								{
+									PathTrue = { "GameState", "TextLinesRecord", "TrueEnding01" },
+								},
+							},
+							{ Cue = "/VO/HecateField_0430", Text = "Melinoë...!" },
+						},
+					},
+				},
+			},
+
 		},
 
 		EnterVoiceLines =
@@ -3899,7 +4148,7 @@
 					ObjectTypes = { "NPC_Chronos_01", "NPC_Chronos_Story_01" },
 					PreLineWait = 0.7,
 
-					{ Cue = "/VO/Chronos_1425", Text = "{#Emph}<Gasp> {#Prev}Go on..." },
+					{ Cue = "/VO/Chronos_1463", Text = "{#Emph}<Gasp> {#Prev}Wha... I..." },
 				},
 			},
 		},

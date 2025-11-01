@@ -1122,8 +1122,8 @@ UnitSetData.Prometheus =
 						},
 					},
 				},
-				{ Cue = "/VO/MelinoeField_3743", Text = "What are they scheming...",
-					PlayFirst = true, PlayOnce = true,
+				{ Cue = "/VO/MelinoeField_5202", Text = "They're tough...",
+					PlayFirst = true,
 					GameStateRequirements =
 					{
 						{
@@ -1133,6 +1133,35 @@ UnitSetData.Prometheus =
 						},
 						{
 							PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_3742" },
+						},
+					},
+				},
+				{ Cue = "/VO/MelinoeField_5203", Text = "How long have they conspired...?",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+							Comparison = ">=",
+							Value = 3,
+						},
+						{
+							PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_3742" },
+						},
+					},
+				},
+				{ Cue = "/VO/MelinoeField_5204", Text = "So long, you two...!",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+							Comparison = ">=",
+							Value = 3,
+						},
+						{
+							Path = { "GameState", "SpeechRecord" },
+							HasAll = { "/VO/MelinoeField_5202", "/VO/MelinoeField_5203" },
 						},
 					},
 				},
@@ -1187,6 +1216,9 @@ UnitSetData.Prometheus =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "RoomsEntered", "Q_Boss01" },
+					},
+					{
 						Path = { "GameState", "LastBossHealthBarRecord", "Prometheus" },
 						Comparison = "<=",
 						Value = 0,
@@ -1197,8 +1229,10 @@ UnitSetData.Prometheus =
 				},
 				{ Cue = "/VO/Prometheus_0007",
 					Text = "You know what lies beyond, and still returned. I knew you would, of course, yet I don't know why. Because you won't tell me..." },
+
 				{ Cue = "/VO/MelinoeField_2384", UsePlayerSource = true,
 					Text = "That's right. Your nonsense riddles are a bigger threat to my health than you, or your blasted Eagle pet for that matter." },
+
 				{ Cue = "/VO/Prometheus_0008",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -1232,6 +1266,11 @@ UnitSetData.Prometheus =
 				{
 					{
 						PathFalse = { "GameState", "EnemyKills", "Prometheus" },
+					},
+					{
+						Path = { "GameState", "RoomsEntered", "P_Boss01" },
+						Comparison = ">=",
+						Value = 3,
 					},
 				},
 				{ Cue = "/VO/Prometheus_0009",
@@ -1937,9 +1976,11 @@ UnitSetData.Prometheus =
 				},
 				{ Cue = "/VO/Prometheus_0130",
 					Text = "How can you hope to surpass me in such a wretched state? Perhaps if I were bound in chains and my liver half-eaten this would have been more of an even match." },
+
 				{ Cue = "/VO/MelinoeField_2884", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					Text = "I'm not under the impression that you seek sporting competition here, Prometheus. Now let's get on with it." },
+
 				{ Cue = "/VO/Prometheus_0131",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -1999,9 +2040,11 @@ UnitSetData.Prometheus =
 				},
 				{ Cue = "/VO/Prometheus_0037",
 					Text = "You gods coerced all mortalkind into worshiping you, and for what? You've nothing to gain by slaughtering them at your whim. Leave them be!" },
+
 				{ Cue = "/VO/MelinoeField_2724", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					Text = "I'll be sure to put in the request with my Lord Uncle Zeus, if you could go ahead and let me past so I can pay him a visit." },
+
 				{ Cue = "/VO/Prometheus_0038",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -2012,16 +2055,21 @@ UnitSetData.Prometheus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					--
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "DoraBathHouse03" },
+					},
 				},
 				{ Cue = "/VO/MelinoeField_2725", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					Text = "Why do you care so much for mortals, anyhow? Their lives are short, their flesh is weak. Only in death do many of them finally begin to gain some sense." },
+
 				{ Cue = "/VO/Prometheus_0039",
 					Text = "Any laborer of skill cares for their work. Mortals! Poor sods created in the image of the gods, yet forced to be inferior, so that they could never achieve what my master and I now intend." },
+
 				{ Cue = "/VO/MelinoeField_2726", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					Text = "You mean to say that {#Emph}you {#Prev}fashioned mortalkind? Then stole the fire from this mountain for {#Emph}their {#Prev}sake? Absurd." },
+
 				{ Cue = "/VO/Prometheus_0040",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -2036,8 +2084,10 @@ UnitSetData.Prometheus =
 				},
 				{ Cue = "/VO/Prometheus_0118",
 					Text = "Gods could learn something from mortals, you know. For all their many failings, they have an admirable tendency to cling to hope; a certain quality we deathless often lack." },
+
 				{ Cue = "/VO/MelinoeField_2737", UsePlayerSource = true,
 					Text = "Hope can be the salve for the naive. So many mortals hope they'll never die; a feeling born of delusion and fear." },
+
 				{ Cue = "/VO/Prometheus_0119",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -2072,8 +2122,10 @@ UnitSetData.Prometheus =
 				},
 				{ Cue = "/VO/Prometheus_0114",
 					Text = "Resist all you like, yet the age of gods shall end! {#Emph}Time {#Prev}shall see to it. And thereafter, a Golden Age of enlightenment shall begin, in which you gods hold far less sway." },
+
 				{ Cue = "/VO/MelinoeField_2735", UsePlayerSource = true,
 					Text = "If I somehow gave you the impression that I'm interested in your doomsaying and false prophecies, I assure you, I'm not." },
+
 				{ Cue = "/VO/Prometheus_0115",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -2091,8 +2143,10 @@ UnitSetData.Prometheus =
 				},
 				{ Cue = "/VO/Prometheus_0035",
 					Text = "My master's plan of course requires time. The objective here is not to stop you permanently, but to slow you down." },
+
 				{ Cue = "/VO/MelinoeField_2723", UsePlayerSource = true,
 					Text = "Unless you just can't help revealing vital information to your enemies, I'm going to assume you're spouting this drivel to mislead me. Either way, my own objective remains the same." },
+
 				{ Cue = "/VO/Prometheus_0036",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -2253,8 +2307,11 @@ UnitSetData.Prometheus =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "PrometheusAboutChronos01", "PrometheusAboutMortals03" }
+						HasAll = { "PrometheusAboutChronos01", "PrometheusAboutMortals02" }
 					},
 				},
 				{ Cue = "/VO/Prometheus_0126",
@@ -2323,7 +2380,7 @@ UnitSetData.Prometheus =
 				{ Cue = "/VO/Prometheus_0139",
 					Text = "Your companion, Dora... she does not remember me, not yet. But she shall! And in so doing, remember why she chose to forget me to begin with... and forget so much more." },
 				{ Cue = "/VO/MelinoeField_2888", UsePlayerSource = true,
-					Portrait = "Portrait_Mel_Vulnerable_01",
+					-- Portrait = "Portrait_Mel_Vulnerable_01",
 					Text = "You say she's not to blame for the failings of mortalkind, as though she could have carried such a burden to begin with. What happened? How do you know her?" },
 				{ Cue = "/VO/Prometheus_0140",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
@@ -2405,6 +2462,9 @@ UnitSetData.Prometheus =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						Path = { "GameState", "EnemyKills", "Prometheus" },
 						Comparison = ">=",
 						Value = 3,
@@ -2414,17 +2474,17 @@ UnitSetData.Prometheus =
 						Comparison = "<=",
 						Value = 0,
 					},
-					{
-						PathFalse = { "GameState", "ReachedTrueEnding" },
-					},
 				},
 				{ Cue = "/VO/MelinoeField_2731", UsePlayerSource = true,
 					Text = "Perhaps your so-called master Chronos wants for you to fail... to suffer more than you already have. He seeks vengeance on the gods for overthrowing him before. When you were their ally!" },
+
 				{ Cue = "/VO/Prometheus_0047",
 					Text = "I don't seek my master's forgiveness, nor assume his loyalty. Alliances are born of shared goals, perhaps ideals; whereas the gods and I are at cross purposes." },
+
 				{ Cue = "/VO/MelinoeField_2732", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					Text = "Because they punished you for crimes you knowingly committed? What else could they have done after you deceived them, and took from them?" },
+
 				{ Cue = "/VO/Prometheus_0048",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -2437,6 +2497,9 @@ UnitSetData.Prometheus =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" },
 					},
 					{
@@ -2444,14 +2507,13 @@ UnitSetData.Prometheus =
 						Comparison = "<=",
 						Value = 3,
 					},
-					{
-						PathFalse = { "GameState", "ReachedTrueEnding" },
-					},
 				},
 				{ Cue = "/VO/Prometheus_0147",
 					Text = "I'm but a Titan, and unarmed. Should you get past me, however... I know that you know you're certainly no match for what awaits." },
+
 				{ Cue = "/VO/MelinoeField_2969", UsePlayerSource = true,
 					Text = "Perhaps you simply know less than you think. And now you're going to call me arrogant or something, I suppose?" },
+
 				{ Cue = "/VO/Prometheus_0148",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -2484,6 +2546,9 @@ UnitSetData.Prometheus =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
 						PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" },
 					},
 					{
@@ -2494,14 +2559,13 @@ UnitSetData.Prometheus =
 						Comparison = "<=",
 						Value = 0,
 					},
-					{
-						PathFalse = { "GameState", "ReachedTrueEnding" },
-					},
 				},
 				{ Cue = "/VO/Prometheus_0296",
 					Text = "Do you hear that? Typhon climbs the dark side of the mountain even now. Impressive that you cast him down before... but he shall not rest till the Palace of Zeus lies in ruin." },
+
 				{ Cue = "/VO/MelinoeField_3781", UsePlayerSource = true,
 					Text = "He'll be destroyed. You along with him if that's what it takes. If he were truly unstoppable, you wouldn't be impeding my ascent. You're buying him time." },
+
 				{ Cue = "/VO/Prometheus_0297",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -2527,8 +2591,10 @@ UnitSetData.Prometheus =
 				},
 				{ Cue = "/VO/Prometheus_0298",
 					Text = "It may have taken all your godly relatives, but they were able to resist the monster Typhon's wrath, despite the blunders that you made. Yet now you hurry back." },
+
 				{ Cue = "/VO/MelinoeField_3782", UsePlayerSource = true,
 					Text = "I realize this must be complicated for you, as someone whose loyalties are mostly to an Eagle, but I am not about to let that thing destroy everything my family built." },
+
 				{ Cue = "/VO/Prometheus_0299",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -2676,9 +2742,11 @@ UnitSetData.Prometheus =
 				},
 				{ Cue = "/VO/Prometheus_0051",
 					Text = "The future is a series of fixed points. Not even my master believes this to be true, but I have seen the many possibilities. The only question is... which is our destination?" },
+
 				{ Cue = "/VO/MelinoeField_2734", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					Text = "You fill my mind with this nonsense. Not even the Three Fates know entirely what the future holds, for they are always weaving." },
+
 				{ Cue = "/VO/Prometheus_0052",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -2694,15 +2762,17 @@ UnitSetData.Prometheus =
 					},
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "PrometheusAboutFates01", "PrometheusAboutMortals02" },
+						HasAll = { "PrometheusAboutFates01" },
 					},
 					NamedRequirementsFalse = { "ReachedEpilogue" },
 				},
 				{ Cue = "/VO/Prometheus_0354",
 					Text = "Where do you suppose they are, Agent of Change? The Fates, I mean. They, who set the Titans and the gods against each other to begin with, long ago." },
+
 				{ Cue = "/VO/MelinoeField_3964", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					Text = "Wherever they are, pray they can't hear you speaking ill of them. Though why ask me? You're the one who knows everything, including whether they'll ever be located or not." },
+
 				{ Cue = "/VO/Prometheus_0355",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -2862,17 +2932,22 @@ UnitSetData.Prometheus =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = { "ZeusPalaceFirstMeeting" },
 					},
 					{
-						PathFalse = { "GameState", "ReachedTrueEnding" },
+						PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeTimeStop" },
 					},
 				},
 				{ Cue = "/VO/Prometheus_0340",
 					Text = "My master does not realize what shall become of him once all is said and done; do you? How abhorrent, to try and steal away one's immortality." },
+
 				{ Cue = "/VO/MelinoeField_3983", UsePlayerSource = true,
 					Text = "I've truly heard it all. A {#Emph}thief{#Prev}, lecturing me about {#Emph}stealing! {#Prev}Chronos took my family, and more... he should realize what shall become of him." },
+
 				{ Cue = "/VO/Prometheus_0341",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -2910,11 +2985,14 @@ UnitSetData.Prometheus =
 				{ Cue = "/VO/MelinoeField_3958", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					Text = "The gods are grudgingly {#Emph}permitting {#Prev}this behavior of yours, Titan? The vandalizing of their mountain... the perpetual assaults on their defenses... fighting me?" },
+
 				{ Cue = "/VO/Prometheus_0346",
 					Text = "My master, or perhaps my {#Emph}former {#Prev}master as I now should say, wishes to undo certain perceived wrongs, as you are well aware. I merely have a part to play in this." },
+
 				{ Cue = "/VO/MelinoeField_3959", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					Text = "And you're prepared to fight eternally against me, then? For my grandfather to be absolved of the mistakes of his past, and for the future of the gods to be secured?" },
+
 				{ Cue = "/VO/Prometheus_0347",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -2937,10 +3015,13 @@ UnitSetData.Prometheus =
 				{ Cue = "/VO/MelinoeField_3961", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					Text = "The war is over, Titan! Drop the act. You still refer to Chronos as your master, and seem no less charitable towards the gods, despite now doing this for their sake not just yours." },
+
 				{ Cue = "/VO/Prometheus_0350",
 					Text = "You know as well as I that the conditions of your climb need to approximate your prior path, if you are going to succeed. And I admit that the result I seek would otherwise not be possible. Thus, here we find ourselves." },
+
 				{ Cue = "/VO/MelinoeField_3962", UsePlayerSource = true,
 					Text = "The result you seek involves me repeatedly beating you up? Perhaps all you really {#Emph}do {#Prev}want is a proper thrashing, under the guise of acting like some sort of savior." },
+
 				{ Cue = "/VO/Prometheus_0351",
 					PreLineThreadedFunctionName = "PlayPrometheusTauntAnim",
 					PreLineFunctionName = "StartBossRoomMusic",

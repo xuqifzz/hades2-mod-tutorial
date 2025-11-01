@@ -736,4 +736,147 @@
 			}
 		]
 	}
+
+	// Chronos Kill
+
+	{
+		Name = "Gigaros_ChronosKill_Start"
+		GrannyModel = "WeaponGigaros_Mesh"
+		GrannyAnimation = "Weapon_Gigaros_Base_ChronosFinalKillStart_C_00"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		Frames =
+		[
+			{
+				Frame = 180
+				FrameSpeed = 0.104
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_ChronosKill_Start"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_ChronosFinalKillStart_C_00"
+		ChainTo = "Melinoe_ChronosKill_Fire"
+		Attachments =
+		[
+			{
+				Name = "Gigaros_ChronosKill_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 26
+				Sound = "/SFX/Enemy Sounds/Hades/HadesSpearEmerge"
+			}
+			{
+				Frame = 60
+				FrameSpeed = 1.0
+				FootstepFxR = "ChronosSpecialKillGigarosRevealFx"
+			}
+			{
+				Frame = 129
+				FrameSpeed = 1
+				FootstepFxR = "ChronosSpecialKillMelSpearGrabFlare"
+			}
+			{
+				Frame = 159
+				Sound = "/SFX/Enemy Sounds/Chronos/ChronosGigarosChargeup"
+			}			
+			{
+				Frame = 160
+				FrameSpeed = 1.0
+				FootstepFxR = "ChronosSpecialKillMelSpearCharge"
+			}
+			{
+				Frame = 175
+				FrameSpeed = 1.0
+				CreateAnimation = "MelChronosKillStartStreak"
+			}
+			{
+				Frame = 180
+				FrameSpeed = 0.104
+			}
+		]
+	}
+
+	{
+		Name = "Gigaros_ChronosKill_Fire"
+		GrannyModel = "WeaponGigaros_Mesh"
+		GrannyAnimation = "Weapon_Gigaros_Base_ChronosFinalKillFire_C_00"
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/StabSplatterEndSequence"
+			}
+			{
+				Frame = 9
+				FrameSpeed = 0.5
+			}
+			{
+				Frame = 12
+				FrameSpeed = 0.1
+			}
+			{
+				Frame = 13
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_ChronosKill_Fire"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_ChronosFinalKillFire_C_00"
+		ChainTo = "Melinoe_ChronosKill_End"
+		Attachments =
+		[
+			{
+				Name = "Gigaros_ChronosKill_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 9
+				FrameSpeed = 0.5
+				FootstepFxR = "MelChronosKillEndStreak"
+			}
+			{
+				Frame = 12
+				FrameSpeed = 0.1
+			}
+			{
+				Frame = 13
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_ChronosKill_End"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_ChronosFinalKillReturn_C_00"
+		ChainTo = "MelinoeIdleWeaponless"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+
  ]}

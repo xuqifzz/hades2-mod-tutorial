@@ -1481,6 +1481,7 @@
 					{
 						PathFalse = { "CurrentRun", "Cleared" }
 					},
+					NamedRequirementsFalse = { "OdysseusWandering" },
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -1704,6 +1705,7 @@
 						Comparison = "<=",
 						Value = 3,
 					},
+					NamedRequirementsFalse = { "OdysseusWandering" },
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -1746,6 +1748,7 @@
 					{
 						PathTrue = { "CurrentRun", "Cleared" },
 					},
+					NamedRequirementsFalse = { "OdysseusWandering" },
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -1879,6 +1882,7 @@
 					{
 						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
+					NamedRequirementsFalse = { "OdysseusWandering" },
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -4587,20 +4591,20 @@
 					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "You found a path to victory and got us there. Wouldn't have been much of a plan if it didn't leave room to improvise! Of course our plan now also has this {#Emph}other {#Prev}phase as a result..." },
 
-				{ Cue = "/VO/Melinoe_5053", UsePlayerSource = true,
+				{ Cue = "/VO/Melinoe_5738", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero", 
-					Text = "Cleaning up after Chronos. I know you thought I would get rid of him, but... my family is better off not knowing such a thing could even be done, except to real monsters." },
+					Text = "Cleaning up after Chronos... we all thought I would get rid of him. But, I found another way... one I think shall leave my family better off, if not the rest of the world, eventually." },
 
 				{ Cue = "/VO/Odysseus_0597",
 					PreLineAnim = "Odysseus_Pensive_Start",
 					PostLineAnim = "Odysseus_Pensive_End",
 					Text = "I well and truly understand, Goddess, and do believe your choice was wise. As for what's next, everything is ready for you to proceed if and when you are." },
 
-				{ Cue = "/VO/Melinoe_5684", UsePlayerSource = true,
+				{ Cue = "/VO/Melinoe_5739", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero", 
-					Text = "I want your counsel here, Odysseus... should we be doing this? Ensuring {#Emph}time flows freely forward? {#Prev}The remnants of the Titan's legions likely won't be happy to see me, retracing my steps like nothing happened." },
+					Text = "Eliminating real possibilities that we could have failed... ensuring {#Emph}time flows freely forth{#Prev}, as Chronos puts it. I don't quite know what to expect, but the change we're fighting for won't happen overnight. What do you make of it?" },
 
 				{ Cue = "/VO/Odysseus_0598",
 					PreLineAnim = "Odysseus_Explaining",
@@ -5018,6 +5022,9 @@
 				GameStateRequirements =
 				{
 					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = {  "ScyllaAboutOdysseusQuest01", "PolyphemusAboutOdysseusQuest01", "CirceAboutOdysseusQuest01" },
 					},
@@ -5145,7 +5152,7 @@
 
 					-- heart unlock
 					PostLineThreadedFunctionName = "RelationshipAdvancedPresentation",
-					PostLineThreadedFunctionArgs = { Delay = 3.5 },
+					PostLineThreadedFunctionArgs = { Delay = 2.0 },
 
 					Text = "Aye, we know it {#Emph}isn't {#Prev}weakness, but... we have to fight our instincts there a bit, don't we? Though mainly, what I wished to say was, {#Emph}thank you. {#Prev}For the aid you've given me. You needn't have gone out of your way." },
 
@@ -5481,6 +5488,7 @@
 					PreLineAnim = "Odysseus_Explaining",
 					Text = "You've recruited that one shifty-looking Shade for the renewal project! A scrappy start is still a start, I'm... pleased to see it underway!" },
 				{ Cue = "/VO/Melinoe_3802", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "I thought you might say that! It gives Dora something practical to do. And means the project needn't be a hopeless dream." },
@@ -5756,6 +5764,9 @@
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
 					{
 						PathTrue = { "CurrentRun", "Cleared" }
 					},
@@ -6859,6 +6870,9 @@
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						Path = { "GameState", "CompletedRunsCache" },
 						Comparison = ">=",
 						Value = 12,
@@ -7756,6 +7770,7 @@
 					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "Oh {#Emph}I see {#Prev}what you're up to, here, Goddess! If you continue to exploit my weakness to this stuff, I may yet learn to turn it to a strength. Good plan!" },
 				{ Cue = "/VO/Melinoe_0476", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "What can I say? I learned from the best. May you grow stronger and stronger." },
@@ -8181,7 +8196,9 @@
 					Text = "Well, we shall see about that last bit, but for the rest! Perhaps I got all of the wanderlust out of my system whilst I lived and breathed. Most of it, anyhow!",
 					PortraitExitAnimation = "Portrait_Odysseus_Default_01_Exit",
 					PostLineFunctionName = "GiftActivityFishing",
-					PostLineFunctionArgs = { FishingPointId = 585640 }, },
+					PostLineFunctionArgs = { FishingPointId = 585640 },
+					PostLineThreadedFunctionName = "TimePassesPresentation",
+					PostLineThreadedFunctionArgs = { TimeTicks = 16, IncludeFishingSFX = true }, },
 
 				{ Cue = "/VO/Odysseus_0084",
 					PreLineFunctionName = "FishingPierEndPresentation",
@@ -8277,7 +8294,9 @@
 					Text = "{#Emph}Augh{#Prev}, you're as bad as those gossiping Shades, except I can't have {#Emph}you {#Prev}banished for your conduct. Now, what do you say we scoop some fish out of these waters, aye?",
 					PortraitExitAnimation = "Portrait_Odysseus_Default_01_Exit",
 					PostLineFunctionName = "GiftActivityFishing",
-					PostLineFunctionArgs = { FishingPointId = 585640 }, },
+					PostLineFunctionArgs = { FishingPointId = 585640 },
+					PostLineThreadedFunctionName = "TimePassesPresentation",
+					PostLineThreadedFunctionArgs = { TimeTicks = 16, IncludeFishingSFX = true }, },
 
 				{ Cue = "/VO/Odysseus_0562",
 					PreLineFunctionName = "FishingPierEndPresentation",
@@ -8454,7 +8473,7 @@
 					Text = "Circe used to study under Headmistress, always with her crystals. And Calypso... she's a Nymph, correct? A lesser goddess I suppose." },
 				{ Cue = "/VO/Odysseus_0061", Portrait = "Portrait_Odysseus_Bath_01",
 					PortraitExitAnimation = "Portrait_Odysseus_Bath_01_Exit",
-					Emote = "PortraitEmoteSurprise",
+					-- Emote = "PortraitEmoteSurprise",
 					Text = "Nothing lesser about her, with respect. These goddesses, they... enthralled me each in their own right. Almost made me forget myself. Forget my family." },
 				{ Cue = "/VO/Melinoe_0469", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Bath_01",

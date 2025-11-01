@@ -399,6 +399,9 @@ function StartCastSlow( projectileId, duration )
 				ApplyEffect( impactSlowEffect )
 				impactGripEffect.DestinationId = id
 				ApplyEffect( impactGripEffect )
+				for i, data in ipairs( CurrentRun.Hero.HeroTraitValuesCache.OnCastEffectApplyFunction ) do
+					CallFunctionName( data.FunctionName, victim, data.FunctionArgs, projectileId )
+				end
 			end
 		end
 		if not IsEmpty( GetInProjectilesBlast({ Id = CurrentRun.Hero.ObjectId, DestinationName = "ProjectileCast", UseDamageRadius = true, ReturnFirst = true }) ) then

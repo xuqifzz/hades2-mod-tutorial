@@ -192,6 +192,7 @@ ScreenData.UpgradeChoice =
 		},
 		LangLineSpacingBottom =
 		{
+			{ Code = "zh-CN", Value = -10 },
 			{ Code = "zh-TW", Value = -10 },
 		},
 		Width = 900,

@@ -64,7 +64,6 @@
 	MetaUpgradeCardScreenOpenPresentation( screen )	
 	if CanIncreaseMetaUpgradeCardLimit() and GetCurrentMetaUpgradeLimitLevel() == 0 and GetMaximumUnlockedMetaUpgradeCost() > GetMaxMetaUpgradeCost() then
 		OpenGraspLimitScreen( screen, { UnlockedCards = true } )
-		thread( PlayVoiceLines, GlobalVoiceLines.ReachedMemLimitVoiceLines )
 		MetaUpgradeCardScreenResetCursor( screen )
 		CreateAnimation({ Name = "MEMCanAffordBadge", DestinationId = screen.Components.MemCostModule.Id, OffsetY = -210})
 	elseif CanIncreaseMetaUpgradeCardLimit() and GetCurrentMetaUpgradeLimitLevel() == 0 then
@@ -201,7 +200,7 @@ function MetaUpgradeCardScreenResetCursor( screen, args )
 	local destination = nil
 	if args ~= nil and args.Destination ~= nil then
 		destination = args.Destination
-	elseif screen.SelectedButton ~= nil then
+	elseif screen.SelectedButton ~= nil and screen.SelectedButton.Name ~= "MetaUpgradeMemCostBackground" then
 		destination = screen.SelectedButton
 	else
 		destination = screen.Components[GetMetaUpgradeKey(1, 1)]

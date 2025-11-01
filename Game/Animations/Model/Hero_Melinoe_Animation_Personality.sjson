@@ -255,6 +255,21 @@
 	}
 
 	{
+		Name = "Melinoe_Defiant"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_Defiant_00"
+		ChainTo = "MelinoeIdleWeaponless"
+		CancelOnOwnerMove = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 4
+			}
+		]
+	}
+
+	{
 		Name = "MelinoeSalute"
 		InheritFrom = "MelinoeBaseAnimation"
 		ChainTo = "MelinoeIdleWeaponless"
@@ -1466,7 +1481,7 @@
 		Name = "Melinoe_Assist_End"
 		InheritFrom = "MelinoeBaseAnimation"
 		GrannyAnimation = "Cat_Base_PetCat_C_00"
-		ChainTo = "MelTalkBrooding01"
+		ChainTo = "MelinoeIdleWeaponless"
 		CancelOnOwnerMove = true
 		Blends =
 		[	
@@ -1484,7 +1499,7 @@
 			}
 			{
 				Frame = 280
-				FrameSpeed = 2
+				FrameSpeed = 1
 			}
 		]
 	}
@@ -1542,6 +1557,28 @@
 			{
 				Frame = 280
 				FrameSpeed = 1
+			}
+		]
+	}
+
+
+	{
+		Name = "Melinoe_KnockedDown_FireLoop"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_MemorFloodIdle_00"
+		Loop = true
+	}
+	{
+		Name = "Melinoe_KnockedDown_End"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_MemorFloodReturn_00"
+		ChainTo = "MelinoeIdleWeaponless"
+		CancelOnOwnerMove = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Melinoe_KnockedDown_FireLoop"
+				Duration = 12
 			}
 		]
 	}

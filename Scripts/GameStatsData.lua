@@ -122,7 +122,7 @@ ScreenData.GameStats =
 
 	ComponentData =
 	{
-		DefaultGroup = "Combat_Menu",
+		DefaultGroup = "Combat_Menu_Overlay",
 		UseNativeScreenCenter = true,
 
 		Order =

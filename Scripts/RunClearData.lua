@@ -422,20 +422,6 @@ GameData.RunClearMessageData =
 			},
 		},
 	},
-	ClearAllUnderworldShopRooms =
-	{
-		InheritFrom = { "DefaultMessage" },
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "RoomCountCache", },
-				HasAll = { "F_Shop01", "G_Shop01", "H_Bridge01", "I_Shop01", },
-			},
-			{
-				PathTrue = { "CurrentRun", "EncountersCompletedCache", "BridgeShop" }
-			},
-		},
-	},
 
 	ClearRequiredIntactArachneDress =
 	{
@@ -1019,7 +1005,6 @@ ScreenData.RunClear =
 			"ClearAllUnderworldStoryRooms",
 			"ClearAllSurfaceStoryRooms",
 			"ClearAllUnderworldReprieveRooms",
-			"ClearAllUnderworldShopRooms",
 			"ClearNoNPCs",
 
 			"ClearRequiredTraitsZeus",
@@ -1141,6 +1126,7 @@ ScreenData.RunClear =
 		PoseidonSprintSecondaryBlast = "WeaponBlink",
 		HeraSprintProjectile = "WeaponBlink",
 		ProjectileAresSwordWake = "WeaponBlink",
+		AthenaRushProjectile = "WeaponBlink",
 
 		-- Staff
 		WeaponStaffSwing2 = "WeaponStaffSwing",

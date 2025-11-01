@@ -25,6 +25,7 @@ UnitSetData.BloodlessNaked =
 			Default = "Enemy_BloodlessNaked_OnHit",
 			Heavy = "Enemy_BloodlessNaked_OnHit_Heavy",
 		},
+		BlockAttributes = { "Blink", "Fog" },
 
 		DefaultAIData =
 		{

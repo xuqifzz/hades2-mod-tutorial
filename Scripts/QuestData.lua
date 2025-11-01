@@ -56,7 +56,6 @@ QuestOrderData =
 	"QuestToolsUnlocks",
 	"QuestToolsUpgrades",
 	"QuestCosmeticsSmall",
-	"QuestExorcisedAllGhosts",
 	"QuestShadeMercRecruits",
 	"QuestMiniBossKills",
 	"QuestMiniBossKillsSurface",
@@ -268,6 +267,9 @@ OverwriteTableKeys( QuestData, {
 		RewardResourceAmount = 3,
 		UnlockGameStateRequirements =
 		{
+			{
+				PathTrue = { "GameState", "ReachedTrueEnding" },
+			},
 			{
 				PathTrue = { "GameState", "TextLinesRecord", "OdysseusLooseEndsQuest02" },
 			},
@@ -1462,7 +1464,7 @@ OverwriteTableKeys( QuestData, {
 					"OmegaCastVolleyBoon",
 					"FocusCritBoon",
 					"TimedCritVulnerabilityBoon",
-					"SorceryCritBoon",
+					-- "SorceryCritBoon",
 				},
 			},
 		},
@@ -2963,7 +2965,14 @@ OverwriteTableKeys( QuestData, {
 		UnlockGameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "TextLinesRecord", "HecateBossAboutArcana01" },
+				Path = { "GameState", "MaxMetaUpgradeCostCache" },
+				Comparison = ">=",
+				Value = 18,
+			},
+			{
+				Path = { "GameState", "EnemyKills", "Hecate" },
+				Comparison = ">=",
+				Value = 8,
 			},
 			{
 				Path = { "GameState", "QuestStatus", "QuestBeatHecate" },
@@ -3756,7 +3765,7 @@ OverwriteTableKeys( QuestData, {
 					"NarcissusE",
 					"NarcissusF",
 					-- "NarcissusG",
-					"NarcissusH",
+					-- "NarcissusH",
 					"NarcissusI",
 				},
 			},
@@ -4810,7 +4819,8 @@ OverwriteTableKeys( QuestData, {
 		UnlockGameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutKeepsakeQuest01" },
+				Path = { "GameState", "TextLinesRecord" },
+				HasAny = { "ChaosAboutKeepsakeQuest01", "ChaosAboutKeepsakeQuest01_B" },
 			},
 		},
 		CompleteGameStateRequirements =
@@ -4984,66 +4994,6 @@ OverwriteTableKeys( QuestData, {
 			},
 		},
 	},
-
-	QuestExorcisedAllGhosts =
-	{
-		InheritFrom = { "DefaultQuestItem", "DefaultUnseenQuest" },
-		RewardResourceName = "Mixer5Common",
-		RewardResourceAmount = 1,
-		UnlockGameStateRequirements =
-		{
-			{
-				Path = { "GameState", "BiomesVisits", "P" },
-				Comparison = ">=",
-				Value = 1,
-			},
-			{
-				Path = { "GameState", "BiomesVisits", "I" },
-				Comparison = ">=",
-				Value = 1,
-			},
-			{
-				Path = { "GameState", "ExorcisedNames" },
-				HasAll =
-				{
-					"ShadeErebusIdle",
-					"ShadeEphyraIdle",
-				},
-			},
-		},
-		CompleteGameStateRequirements =
-		{
-			{
-				Path = { "GameState", "ExorcisedNames" },
-				HasAll =
-				{
-					"ShadeErebusIdle",
-					"ShadeOceanusSIdle",
-					"ShadeFieldsGreyIdle",
-					"ShadeClockworkIdle",
-					"ShadeEphyraIdle",
-					"ShadeShipsOneIdle",
-					"ShadeTyphonIdle",
-				},
-			},
-		},
-
-		CashedOutVoiceLines =
-		{
-			{
-				PreLineWait = 0.4,
-				Cooldowns =
-				{
-					{ Name = "MorosProphecyFulfilledSpeech", Time = 3 },
-				},
-				SkipAnim = true,
-				RequiredSourceValueFalse = "InPartnerConversation",
-				ObjectType = "NPC_Moros_01",
-
-				{ Cue = "/VO/Moros_0618", Text = "Shades from each realm shall join you in your cause." },
-			},
-		},
-	},
 })
 
 ScreenData.QuestLog =
@@ -5173,7 +5123,7 @@ ScreenData.QuestLog =
 	RequirementCompleteColor = { 255, 232, 122,255 },
 	RequirementIncompleteColor = { 45, 32, 14, 255 },
 
-	CompleteRequirementsOffsetX = 36,
+	CompleteRequirementsOffsetX = 40,
 	CompleteRequirementsOffsetY = 
 	{
 		{ Code = "en", Value = 0 },
@@ -5194,6 +5144,7 @@ ScreenData.QuestLog =
 		TextSymbolScale = 1.0,
 		ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset = {0, 2},
 		Justification = "Left",
+		VerticalJustification = "Top",
 		Width = 1200,
 		DataProperties =
 		{
@@ -5209,6 +5160,7 @@ ScreenData.QuestLog =
 		TextSymbolScale = 1.0,
 		ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset = {0, 2},
 		Justification = "Left",
+		VerticalJustification = "Top",
 		Width = 825,
 		DataProperties =
 		{
@@ -5386,7 +5338,7 @@ ScreenData.QuestLog =
 		DescriptionBox = 
 		{
 			X = 650,
-			Y = 400,
+			Y = 375,
 		},
 
 		SelectionMarker =

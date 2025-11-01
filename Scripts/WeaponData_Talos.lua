@@ -11,7 +11,7 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
-			FireProjectileStartDelay = 0.14,
+			FireProjectileStartDelay = 0.05,
 
 			AngleTowardsTargetWhileFiring = true,
 			PreAttackStop = true,
@@ -19,7 +19,7 @@ WeaponSetData =
 
 			AttackSlots =
 			{
-				{ ProjectileName = "TalosShieldThrowRight", UseAttackerAngle = true, OffsetDistance = 850, OffsetScaleY = 0.48, OffsetFromAttacker = true, OffsetAngle = -60, PauseDuration = 0.03 },
+				{ ProjectileName = "TalosShieldThrowRight", UseAttackerAngle = true, OffsetDistance = 850, OffsetScaleY = 0.48, OffsetFromAttacker = true, OffsetAngle = -60, },
 				{ ProjectileName = "TalosShieldThrowLeft", UseAttackerAngle = true, OffsetDistance = 850, OffsetScaleY = 0.48, OffsetFromAttacker = true, OffsetAngle = 60 },
 			},
 			BarrelLength = 50,
@@ -73,7 +73,7 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
-			FireProjectileStartDelay = 0.15,
+			FireProjectileStartDelay = 0.05,
 
 			WaitForAngleTowardTarget = true,
 			WaitForAngleTowardTargetTimeOut = 1.0,
@@ -116,6 +116,7 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
+			FireProjectileStartDelay = 0.06,
 			ProjectileName = "TalosShieldThrowStraight",
 			PreAttackAnimation = "Enemy_Talos_ThrowRightPreFire",
 			FireAnimation = "Enemy_Talos_ThrowRightFire",

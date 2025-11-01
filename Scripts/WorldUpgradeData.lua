@@ -299,21 +299,35 @@ WorldUpgradeData =
 	{
 		InheritFrom = { "DefaultMajorItem", "DefaultCriticalItem", "EndGameItem", },
 		Icon = "GUI\\Screens\\CriticalItemShop\\Icons\\cauldron_chronos",
+		AlwaysRevealImmediately = true,
 		Cost =
 		{
-			MixerIBoss = 5,
+			MixerIBoss = 7,
 			MixerMythic = 1,
 		},
 
 		GameStateRequirements =
 		{
+			OrRequirements =
 			{
-				PathTrue = { "GameState", "TextLinesRecord", "ChronosBossWonAgainstHim01" },
-			},
-			{
-				Path = { "GameState", "LifetimeResourcesGained", "MixerIBoss" },
-				Comparison = ">=",
-				Value = 1,
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ChronosBossWonAgainstHim01" },
+					},
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "MixerIBoss" },
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				{
+					-- unlocked from the start for resets
+					{
+						Path = { "GameState", "StoryResetCount" },
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
 			},
 		},
 
@@ -367,24 +381,35 @@ WorldUpgradeData =
 
 		GameStateRequirements =
 		{
-			-- three paths to stop the storm
+			OrRequirements =
 			{
-				Path = { "GameState", "TextLinesRecord" },
-				HasAny =
 				{
-					-- returned from Typhon, after ZagreusPastMeeting02 & ZeusPalaceMeeting02; clear not required
-					"HecateAboutStormStop01",
+					-- three paths to stop the storm
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny =
+						{
+							-- returned from Typhon, after ZagreusPastMeeting02 & ZeusPalaceMeeting02; clear not required
+							"HecateAboutStormStop01",
 
-					-- significant wins against Chronos, some vs. Typhon, returned from Typhon; requires ZagreusPastMeeting05 via HecateAboutChronosBossW04_B
-					"HecateAboutStormStop01_B",
+							-- significant wins against Chronos, some vs. Typhon, returned from Typhon; requires ZagreusPastMeeting05 via HecateAboutChronosBossW04_B
+							"HecateAboutStormStop01_B",
 
-					-- after ZagreusPastMeeting05, if you have ZeusPalaceMeeting02
-					"HecateAboutChronosBossW04"
+							-- after ZagreusPastMeeting05, if you have ZeusPalaceMeeting02
+							"HecateAboutChronosBossW04"
+						},
+					},
+				},
+				{
+					-- unlocked from the start for resets
+					{
+						Path = { "GameState", "StoryResetCount" },
+						Comparison = ">=",
+						Value = 1,
+					},
 				},
 			},
 		},
-
-		OnActivateFinishedFunctionName = "UnblockHubExitForNarrative",
 
 		OfferedVoiceLines =
 		{
@@ -1610,10 +1635,6 @@ WorldUpgradeData =
 			{
 				PathTrue = { "GameState", "RoomsEntered", "H_PostBoss01" },
 			},
-			-- don't show this for existing players who used Pool already
-			{
-				PathFalse = { "GameState", "ScreensViewed", "SellTraits" },
-			},
 		},
 
 		IncantationVoiceLines =
@@ -2597,10 +2618,22 @@ WorldUpgradeData =
 				Comparison = ">=",
 				Value = 1,
 			},
+			OrRequirements =
 			{
-				Path = { "GameState", "LifetimeResourcesGained", "PlantHWheat" },
-				Comparison = ">=",
-				Value = 1,
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantHWheat" },
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantHWheatSeed" },
+						Comparison = ">=",
+						Value = 6,
+					},
+				},
 			},
 		},
 
@@ -2749,24 +2782,9 @@ WorldUpgradeData =
 		GameStateRequirements =
 		{
 			{
-				Path = { "GameState", "FamiliarUpgrades" },
-				HasAll = GameData.AllFrogFamiliarUpgrades,
-			},
-			{
-				Path = { "GameState", "FamiliarUpgrades" },
-				HasAll = GameData.AllRavenFamiliarUpgrades,
-			},
-			{
-				Path = { "GameState", "FamiliarUpgrades" },
-				HasAll = GameData.AllCatFamiliarUpgrades,
-			},
-			{
-				Path = { "GameState", "FamiliarUpgrades" },
-				HasAll = GameData.AllHoundFamiliarUpgrades,
-			},
-			{
-				Path = { "GameState", "FamiliarUpgrades" },
-				HasAll = GameData.AllPolecatFamiliarUpgrades,
+				Path = { "GameState", "LifetimeResourcesSpent", "FamiliarPoints" },
+				Comparison = ">=",
+				Value = 30,
 			},
 			{
 				Path = { "GameState", "LifetimeResourcesGained" },
@@ -3321,8 +3339,12 @@ WorldUpgradeData =
 			{
 				PathTrue = { "GameState", "TextLinesRecord", "DoraAboutPrometheus04" }
 			},
+			-- back-compat
 			{
-				PathTrue = { "GameState", "TextLinesRecord", "DoraAboutPrometheus03" }, -- for back-compat
+				PathTrue = { "GameState", "TextLinesRecord", "DoraAboutPrometheus03" },
+			},
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "DoraGrantsCosmeticsShop01" },
 			},
 		},
 
@@ -3338,6 +3360,7 @@ WorldUpgradeData =
 		UnthreadPreRevealVoiceLines = true,
 		PreRevealVoiceLines =
 		{
+			Queue = "Interrupt",
 			{
 				PreLineWait = 0.05,
 				UsePlayerSource = true,
@@ -3374,6 +3397,75 @@ WorldUpgradeData =
 		PanDuration = 1.25,
 		PanHoldDuration = 5.0,
 		CameraFocusId = 566832, -- Dora
+	},
+
+	WorldUpgradeStoryReset =
+	{
+		InheritFrom = { "DefaultMajorItem", "DefaultHubItem" },
+		Icon = "GUI\\Screens\\CriticalItemShop\\Icons\\cauldron_hadesfountain",
+		AlwaysRevealImmediately = true,
+
+		Cost =
+		{
+			MetaFabric = 3,
+			Mixer5Common = 1,
+		},
+		
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "ReachedTrueEnding" },
+			},
+			OrRequirements =
+			{
+				{
+					{
+						PathFalse = { "CurrentRun", "PlayedTrueEnding" },
+					},
+				},
+				{
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ZagreusPastMeeting04_2" },
+					},
+				},
+			},
+		},
+
+		OfferedVoiceLines =
+		{
+			PreLineWait = 0.7,
+			PlayOnce = true,
+			TriggerCooldowns = { "MelCauldronSpellRevealedSpeech" },
+
+			{ Cue = "/VO/Melinoe_5751", Text = "By now I've learned something of dreams and time..." },
+		},
+
+		-- UnthreadPreRevealVoiceLines = true,
+		IncantationVoiceLines =
+		{
+			{
+				PlayOnce = true,
+				BreakIfPlayed = true,
+				PreLineWait = 0.3,
+				{ Cue = "/VO/Melinoe_5752", Text = "{#Emph}If Time flows freely forth, then I would see; \n {#Emph}A prior point, a possibility." },
+
+			},
+		},
+
+		OnActivateFunctionName = "SetupStoryResetObject",
+
+		PanDuration = 2,
+		PanHoldDuration = 2.0,
+		CameraFocusId = 567074,
+		InspectPointId = 800770,
+
+		PostRevealVoiceLines =
+		{
+			PreLineWait = 0.55,
+			UsePlayerSource = true,
+
+			{ Cue = "/VO/Melinoe_5753", Text = "Through dreams and time, the past reveals itself..." },
+		},
 	},
 
 	-- hub expansions

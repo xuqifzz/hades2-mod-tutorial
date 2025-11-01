@@ -1976,7 +1976,6 @@ function Retreat( enemy, aiData, retreatFromId, args )
 			enemy.AINotifyName = "WaitForRotation"..enemy.ObjectId
 			NotifyOnRotationComplete({ Id = enemy.ObjectId, Cosmetic = true, Notify = enemy.AINotifyName, Timeout = 2.0 })
 			waitUntil( enemy.AINotifyName )
-			wait(0.5)
 
 			enemy.WeaponName = aiData.DashWeapon or GetRandomValue(aiData.DashWeapons)
 			local dashWeaponAIData = GetWeaponAIData(enemy)
@@ -2068,7 +2067,7 @@ function DoAttack( enemy, aiData )
 
 	-- PRE ATTACK
 	if aiData.PreAttackSetInvulnerable then
-		SetUnitInvulnerable( enemy )
+		SetUnitInvulnerable( enemy, nil, aiData.PreAttackSetInvulnerableArgs )
 	end
 
 	if aiData.PreAttackStop then
@@ -2994,7 +2993,7 @@ function AmbientBattleAggroAI( enemy )
 
 		DoAttackerAILoop(enemy, aiData)
 
-		if GetDistance({ Id = enemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId }) <= enemy.AIAggroRange then
+		if not CurrentRun.CurrentRoom.BlockAggro and GetDistance({ Id = enemy.ObjectId, DestinationId = CurrentRun.Hero.ObjectId }) <= enemy.AIAggroRange then
 			enemy.InAmbientBattle = false
 			return AggroUnit( enemy )
 		end
@@ -6125,6 +6124,7 @@ function PolyphemusPickup( enemy, aiData, args )
 		ApplyUpwardForce({ Id = CurrentRun.Hero.ObjectId, Speed = 400 })
 		wait( 0.31, enemy.AIThreadName )
 		Teleport({ Id = CurrentRun.Hero.ObjectId, DestinationId = enemy.ObjectId, OffsetY = -110 })
+		AddPlayerImmuneToForce("PolyphemusPickup")
 		thread( PlayVoiceLines, GlobalVoiceLines.PolyphemusGrabbedPlayerVoiceLines )
 		wait(0.35, enemy.AIThreadName)
 		--AdjustFullscreenBloom({ Name = "Default", Duration = AIPickupDuration })
@@ -6133,6 +6133,7 @@ function PolyphemusPickup( enemy, aiData, args )
 		ClearEffect({ Id = CurrentRun.Hero.ObjectId, Name = "PolyphemusPlayerGrab" })
 		RemoveIncomingDamageModifier( CurrentRun.Hero, "GrabImmunity")
 		SetLifeProperty({ Property = "ConsecutiveHits", Value = 0, ValueChangeType = "Absolute", DestinationId = CurrentRun.Hero.ObjectId, DataValue = false })
+		RemovePlayerImmuneToForce("PolyphemusPickup")
 		RemoveInputBlock({ Name = "PolyphemusPlayerPreGrab" })
 		RemoveEffectBlock({ Id = CurrentRun.Hero.ObjectId, Name = "MedeaPoison" })
 		RemoveValue(enemy.ActiveInputBlocks, "PolyphemusPlayerPreGrab")
@@ -6373,6 +6374,7 @@ function CheckWeaponInterrupt( enemy )
 end
 
 function ChronosTimeSlow( enemy, aiData, CurrentRun, args )
+	SessionMapState.ChronosTimeSlowActive = true
 	GameplaySetElapsedTimeMultiplier( { ElapsedTimeMultiplier = 0.3, Name = "ChronosTimeSlow", ApplyToPlayerUnits = true, SkipPresentation = true, Ignore = enemy } )
 	thread( CallFunctionName, "ChronosTimeSlowPresentation" )
 	thread( EndChronosTimeSlow, enemy, aiData )
@@ -6383,6 +6385,7 @@ function EndChronosTimeSlow( enemy, aiData )
 	waitUnmodified( aiData.TimeSlowDuration or 10, enemy.AIThreadName )
 	thread( CallFunctionName, "ChronosEndTimeSlowPresentation" )
 	GameplaySetElapsedTimeMultiplier( { ElapsedTimeMultiplier = 0.3, Reverse = true, Name = "ChronosTimeSlow", ApplyToPlayerUnits = true, Ignore = enemy } )
+	SessionMapState.ChronosTimeSlowActive = nil
 end
 
 function OilPuddleOnHit( enemy, args )
@@ -6661,6 +6664,7 @@ end
 
 function PrometheusPostAttackForesight(enemy, aiData, currentRun, args)
 
+	waitUnmodified(0.05)
 	if CheckCooldownNoTrigger( "PrometheusForesight", aiData.ForesightCooldown ) and RandomChance( aiData.ForesightChance ) then
 		if IsEmpty( MapState.ChargedManaWeapons ) then
 			waitUntil("ChargeManaWeaponFire", enemy.AIThreadName)
@@ -6698,7 +6702,6 @@ function HecateWolfHowl(hecate, aiData)
 	Halt({ Id = hecate.ObjectId })
 	local distanceToTarget = GetDistance({ Id = hecate.ObjectId, DestinationId = aiData.TargetId })
 
-	--SetThingProperty({ DestinationId = CurrentRun.Hero.ObjectId, Property = "ImmuneToForce", Value = true })
 	AngleTowardTarget({ Id = hecate.ObjectId, DestinationId = aiData.TargetId })
 
 	SetAnimation({ Name = aiData.PreLeapAnimation, DestinationId = hecate.ObjectId })
@@ -6713,7 +6716,6 @@ function HecateWolfHowl(hecate, aiData)
 	AdjustZLocation({ Id = hecate.ObjectId, Distance = aiData.RiseDistance, Duration = aiData.RiseTime, EaseIn = 0.85, EaseOut = 1.0 })
 	wait( aiData.RiseTime + aiData.HangTime, hecate.AIThreadName )
 
-	--SetAnimation({ Name = weaponData.LeapFlightAnimation, DestinationId = CurrentRun.Hero.ObjectId })
 	CreateAnimation({ Name = "SorceryLeapFlightStreakEmitter", DestinationId = hecate.ObjectId })
 	CreateAnimation({ Name = "SorceryLeapFlightStreakEmitterBright", DestinationId = hecate.ObjectId })
 	CreateAnimation({ Name = "SorceryLeapFlightStreakEmitterDisplace", DestinationId = hecate.ObjectId })

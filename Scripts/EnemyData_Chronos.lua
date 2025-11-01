@@ -42,6 +42,17 @@ UnitSetData.Chronos =
 			KillerEndAngle = 30,
 			KillerTeleportId = 609240,
 			VictimTeleportId = 713403,
+
+			GigarosKillMessage = "ChronosDefeatedMessageAlt",
+			GigarosKillSubtitle = "ChronosDefeatedMessageAltSubtitle",
+			GigarosKillDeathAnimation = "Enemy_Chronos_GigarosKill_Death",
+			GigarosKillRequirements =
+			{
+				{
+					PathTrue = { "GameState", "TextLinesRecord", "HecateBossKidnapped01" },
+				},
+				NamedRequirements = { "NearTrueEnding" },
+			},
 			SpecialKillRequirements =
 			{
 				{
@@ -64,6 +75,7 @@ UnitSetData.Chronos =
 
 		Material = "Organic",
 		HealthBarTextId = "Chronos_Full",
+		Phase3HealthBarTextId = "Chronos_Full_Alt",
 
 		InvulnerableHitFx = "Chronos360BlockFront",
 		
@@ -143,6 +155,17 @@ UnitSetData.Chronos =
 			},
 			{
 				FunctionName = "CheckElapsedTimeMultiplierIgnores",
+			},
+			{
+				FunctionName = "OverwriteSelf",
+				Args =
+				{
+					Phases = 3,
+				},
+				GameStateRequirements =
+				{
+					NamedRequirements = { "HecateMissing" },
+				},
 			},
 		},
 
@@ -470,6 +493,79 @@ UnitSetData.Chronos =
 		},
 		LastStandReactionVoiceLines =
 		{
+			{
+				PlayOnce = true,
+				PlayOnceContext = "ChronosFinalFightLastStandVO",
+				PreLineWait = 0.55,
+				GameStateRequirements =
+				{
+					{
+						FunctionName = "RequiredBossPhase",
+						FunctionArgs = { Phase = 3 },
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathFalse = { "CurrentRun", "EnemyKills", "Chronos" },
+					},
+					NamedRequirements = { "HecateMissing" },
+				},
+				TriggerCooldowns = { "ChronosSpokeRecently" },
+				RecheckRequirementsForSubLines = true,
+
+				{ Cue = "/VO/Chronos_1507", Text = "What...? You should be {#Emph}gone!" },
+				{ Cue = "/VO/Chronos_1508", Text = "{#Emph}How {#Prev}are you {#Emph}resisting {#Prev}all of this?", PreLineWait = 1.3 },
+				{ Cue = "/VO/Chronos_1509", Text = "Impossible... ", BreakIfPlayed = true, PreLineWait = 1.4 },
+			},
+			{
+				PlayOnce = true,
+				PlayOnceContext = "ChronosFinalFightLastStandVO",
+				PreLineWait = 0.55,
+				GameStateRequirements =
+				{
+					{
+						FunctionName = "RequiredBossPhase",
+						FunctionArgs = { Phase = 3 },
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathFalse = { "CurrentRun", "EnemyKills", "Chronos" },
+					},
+					NamedRequirements = { "HecateMissing" },
+				},
+				TriggerCooldowns = { "ChronosSpokeRecently" },
+				RecheckRequirementsForSubLines = true,
+
+				{ Cue = "/VO/Chronos_1521", Text = "You would destroy me, truly, then..." },
+				{ Cue = "/VO/Chronos_1522", Text = "Fine! {#Emph}Do it!", PreLineWait = 1.2 },
+				{ Cue = "/VO/Chronos_1524", Text = "Make me forever gone!", PreLineWait = 1.0 },
+				{ Cue = "/VO/Chronos_1523", Text = "{#Emph}Come on{#Prev}, Granddaughter!", PreLineWait = 1.2 },
+				{ Cue = "/VO/Chronos_1525", Text = "I care not!", BreakIfPlayed = true, PreLineWait = 1.2 },
+			},
+			{
+				PlayOnce = true,
+				PlayOnceContext = "ChronosFinalFightLastStandVO",
+				BreakIfPlayed = true,
+				PreLineWait = 0.45,
+				GameStateRequirements =
+				{
+					{
+						FunctionName = "RequiredBossPhase",
+						FunctionArgs = { Phase = 3 },
+					},
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					NamedRequirements = { "HecateMissing" },
+				},
+				TriggerCooldowns = { "ChronosSpokeRecently" },
+
+				{ Cue = "/VO/Chronos_1505", Text = "{#Emph}Gah...! {#Prev}But this is... my domain!" },
+				{ Cue = "/VO/Chronos_1506", Text = "{#Emph}Augh...! {#Prev}How utterly mortifying...!" },
+			},
 			{
 				RandomRemaining = true,
 				BreakIfPlayed = true,
@@ -908,6 +1004,7 @@ UnitSetData.Chronos =
 
 		PhaseEndedVoiceLines =
 		{
+			Queue = "Interrupt",
 			{
 				RandomRemaining = true,
 				UsePlayerSource = true,
@@ -930,6 +1027,26 @@ UnitSetData.Chronos =
 				},
 
 				{ Cue = "/VO/MelinoeField_1408", Text = "Fall!" },
+			},
+			{
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				PreLineWait = 0.35,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeTimeStop" },
+					},
+					{
+						FunctionName = "RequiredBossPhase",
+						FunctionArgs = { Phase = 3 },
+					},
+				},
+
+				{ Cue = "/VO/Chronos_1526", Text = "{#Emph}Aaaugh... impossible...!" },
 			},
 			{
 				BreakIfPlayed = true,
@@ -1036,6 +1153,46 @@ UnitSetData.Chronos =
 					{ Cue = "/VO/Chronos_0877", Text = "You... are... {#Emph}done." },
 				},
 				{
+					PreLineWait = 1.0,
+					-- SuccessiveChanceToPlay = 0.66,
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredBossPhase",
+							FunctionArgs = { Phase = 3 },
+						},
+						{
+							PathFalse = { "GameState", "ReachedTrueEnding" },
+						},
+						{
+							PathFalse = { "CurrentRun", "EnemyKills", "Chronos" },
+						},
+						NamedRequirements = { "HecateMissing" },
+					},
+					TriggerCooldowns = { "ChronosSpokeRecently" },
+					RecheckRequirementsForSubLines = true,
+
+					{ Cue = "/VO/Chronos_1486", Text = "Come finish what your father started, Granddaughter!", PreLineWait = 1.1 },
+					{ Cue = "/VO/Chronos_1487", Text = "And do take a good look around...", PreLineWait = 1.3 },
+					{ Cue = "/VO/Chronos_1488", Text = "Ask yourself... where do you think you are?", PreLineWait = 1.3 },
+					{ Cue = "/VO/Chronos_1489", Text = "Or perhaps the better question is {#Emph}when?", PreLineWait = 1.3 },
+					{ Cue = "/VO/Chronos_1490", Text = "What is it that you think you see?", PreLineWait = 1.3 },
+					{ Cue = "/VO/Chronos_1491", Text = "Who exactly do you think I am? Do you take me for?!", PreLineWait = 1.3 },
+					{ Cue = "/VO/Chronos_1492", Text = "And how could you {#Emph}possibly {#Prev}think {#Emph}you {#Prev}could bring about my destruction?!", PreLineWait = 1.3 },
+					{ Cue = "/VO/Chronos_1493", Text = "But by all means, {#Emph}please{#Prev}, go ahead and try! Or {#Emph}do {#Prev}it, better yet!" },
+					{ Cue = "/VO/Chronos_1494", Text = "Bring this entire blasted world screaming to a halt!" },
+					{ Cue = "/VO/Chronos_1495", Text = "Better than to leave the world in careless hands!" },
+					{ Cue = "/VO/Chronos_1496", Text = "You would be doing me a {#Emph}mercy!" },
+					{ Cue = "/VO/Chronos_1497", Text = "And saving me a great deal of trouble." },
+					{ Cue = "/VO/Chronos_1498", Text = "Come on, {#Emph}stop {#Prev}me!", PreLineWait = 1.3 },
+					{ Cue = "/VO/Chronos_1499", Text = "But understand one thing..." },
+					{ Cue = "/VO/Chronos_1500", Text = "I shall {#Emph}always {#Prev}be one step ahead of you!", PreLineWait = 1.3 },
+					{ Cue = "/VO/Chronos_1501", Text = "{#Emph}All {#Prev}of you!" },
+					{ Cue = "/VO/Chronos_1502", Text = "And always remember...", PreLineWait = 1.3 },
+					{ Cue = "/VO/Chronos_1503", Text = "Time is the one thing in this life... which, once discarded..." },
+					{ Cue = "/VO/Chronos_1504", Text = "...can {#Emph}never be recovered!", BreakIfPlayed = true },
+				},
+				{
 					RandomRemaining = true,
 					BreakIfPlayed = true,
 					PreLineWait = 1.0,
@@ -1046,6 +1203,10 @@ UnitSetData.Chronos =
 							FunctionName = "RequiredBossPhase",
 							FunctionArgs = { Phase = 3 },
 						},
+						{
+							PathFalse = { "CurrentRun", "EnemyKills", "Chronos" },
+						},
+						NamedRequirements = { "HecateMissing" },
 					},
 					TriggerCooldowns = { "ChronosSpokeRecently" },
 
@@ -1057,7 +1218,7 @@ UnitSetData.Chronos =
 					{ Cue = "/VO/Chronos_0993", Text = "All... returns... to {#Emph}dust!" },
 					{ Cue = "/VO/Chronos_0994", Text = "This... cannot... {#Emph}be!" },
 					{ Cue = "/VO/Chronos_0995", Text = "This... is... the {#Emph}end!" },
-					{ Cue = "/VO/Chronos_0996", Text = "You wish to see the end of Time? {#Emph}Here {#Prev}it is!", PlayFirst = true },
+					{ Cue = "/VO/Chronos_0996", Text = "You wish to see the End of Time? {#Emph}Here {#Prev}it is!", PlayFirst = true },
 				},
 			},
 		},
@@ -1066,14 +1227,123 @@ UnitSetData.Chronos =
 			Queue = "Interrupt",
 			{
 				BreakIfPlayed = true,
+				PreLineWait = 1.0,
+				SkipAnim = true,
+				Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "TextLinesRecord", "ChronosBossOutro01" },
+					},
+				},
+
+				{ Cue = "/VO/Chronos_0275", Text = "Time... cannot... be stopped...!" },
+			},
+			{
+				BreakIfPlayed = true,
+				PreLineWait = 1.0,
+				SkipAnim = true,
+				Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "TextLinesRecord", "ChronosBossOutroUltimateProgress01" },
+					},
+				},
+
+				{ Cue = "/VO/Chronos_1451", Text = "Mark... my... words..." },
+			},
+			{
+				BreakIfPlayed = true,
+				PreLineWait = 1.0,
+				SkipAnim = true,
+				Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "TextLinesRecord", "ChronosBossOutroUltimateProgress02" },
+					},
+				},
+
+				{ Cue = "/VO/Chronos_0277", Text = "But, Time... cannot... be stopped..." },
+
+			},
+			{
+				BreakIfPlayed = true,
+				PreLineWait = 1.0,
+				SkipAnim = true,
+				Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "TextLinesRecord", "ChronosBossOutroUltimateProgress03" },
+					},
+				},
+
+				{ Cue = "/VO/Chronos_1447", Text = "Leave... me... be..." },
+			},
+			{
+				BreakIfPlayed = true,
+				PreLineWait = 1.0,
+				SkipAnim = true,
+				Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "TextLinesRecord", "ChronosBossOutroUltimateProgress04" },
+					},
+				},
+
+				{ Cue = "/VO/Chronos_1450", Text = "You... shall... see..." },
+			},
+			{
+				BreakIfPlayed = true,
+				PreLineWait = 1.0,
+				SkipAnim = true,
+				Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "TextLinesRecord", "ChronosBossOutroUltimateProgress05" },
+					},
+				},
+
+				{ Cue = "/VO/Chronos_1454", Text = "What... is this... about...?" },
+			},
+			{
+				BreakIfPlayed = true,
+				PreLineWait = 1.3,
+				SkipAnim = true,
+				Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "TextLinesRecord", "ChronosBossOutroAfterHecateKidnapped01" },
+					},
+				},
+
+				{ Cue = "/VO/Chronos_1457", Text = "Future... family... I..." },
+			},
+			{
+				BreakIfPlayed = true,
 				RandomRemaining = true,
 				PreLineWait = 1.0,
 				SkipAnim = true,
 				Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
 
-				{ Cue = "/VO/Chronos_0275", Text = "Time... cannot... be stopped...!", PlayFirst = true },
+				{ Cue = "/VO/Chronos_0275", Text = "Time... cannot... be stopped...!", PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							SumPrevRuns = 8,
+							Path = { "SpeechRecord", "/VO/Chronos_0275" },
+							CountPathTrue = true,
+							Comparison = "<=",
+							Value = 0,
+						},
+					},
+				},
 				{ Cue = "/VO/Chronos_0276", Text = "Time... cannot... be stopped..." },
-				{ Cue = "/VO/Chronos_0277", Text = "But, Time... cannot... be stopped..." },
 				{ Cue = "/VO/Chronos_0278", Text = "You... shall not... succeed..." },
 				{ Cue = "/VO/Chronos_0279", Text = "{#Emph}Hah, haha, hahah..." },
 				{ Cue = "/VO/Chronos_0280", Text = "{#Emph}Hahaha, hah, hah..." },
@@ -1608,8 +1878,8 @@ UnitSetData.Chronos =
 				GameStateRequirements =
 				{
 					{
-						Path = { "CurrentRun", "Hero", "TraitDictionary" },
-						HasAny = { "GoldifyKeepsake" },
+						Path = { "GameState", "LastAwardTrait" },
+						IsAny = { "GoldifyKeepsake" },
 					},
 				},
 				{ Cue = "/VO/Chronos_1384",
@@ -1853,6 +2123,112 @@ UnitSetData.Chronos =
 					PostLineFunctionName = "StartFinalBossChronos",
 					PreContentSound = "/Leftovers/Menu Sounds/TextReveal3",
 					Text = "{#Emph}Pah! {#Prev}They sought power I refused to share. They had not worked for it! Perhaps if they asked nicely, none of this would have elapsed. But there is no undoing past mistakes." },
+			},
+
+			ChronosBossAboutFamily02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ChronosBossAboutFamily01", "ZagreusPastMeeting02_2" },
+					},
+				},
+				{ Cue = "/VO/Chronos_1436",
+					Text = "You were never meant to be involved in this, Granddaughter! You must have been a mere babe when first I arrived here, alas too late to meet. Yet even now you are too young to understand." },
+
+				{ Cue = "/VO/MelinoeField_5083", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					Text = "I would have been imprisoned with the rest. Though enlighten me... what it is that I'm still too young to understand?" },
+
+				{ Cue = "/VO/Chronos_1437",
+					PostLineFunctionName = "StartFinalBossChronos",
+					PreContentSound = "/Leftovers/Menu Sounds/TextReveal3",
+					Text = "You are too young to understand the disappointment and dejection that only family can provide. But the more of us you meet... the more of us you know... the sooner you shall learn." },
+			},
+
+			ChronosBossAboutFamily03 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ChronosBossAboutFamily02", "ZagreusPastMeeting03" },
+					},
+				},
+				{ Cue = "/VO/Chronos_1438",
+					Text = "I must say, I am quite unaccustomed to so many frequent visits from my kin! Perhaps if Hades and the others deigned to call as often, our relationships would not have been as strained." },
+
+				{ Cue = "/VO/MelinoeField_5084", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					Text = "Oh this is not that sort of call. Though I didn't realize you were merely lonesome! Are your Satyr worshipers not stimulating enough as House guests?" },
+
+				{ Cue = "/VO/Chronos_1439",
+					Text = "They are worshipers, not kin! You were unfortunately caught in the midst of a dispute, and do not know the difference between having family around or not." },
+
+				{ Cue = "/VO/MelinoeField_5085", UsePlayerSource = true,
+					Emote = "PortraitEmoteFiredUp",
+					Portrait = "Portrait_Mel_Intense_01",
+					Text = "Because of {#Emph}you! {#Prev}And this {#Emph}dispute {#Prev}of yours! And now you'll be destroyed for what you've done. Was it worth it?" },
+
+				{ Cue = "/VO/Chronos_1440",
+					PostLineFunctionName = "StartFinalBossChronos",
+					PreContentSound = "/Leftovers/Menu Sounds/TextReveal3",
+					Text = "Well, when you put it {#Emph}that {#Prev}way, {#Emph}no! {#Prev}Had I not made any mistakes, we would not be here {#Emph}now{#Prev}, would we? Certainly not as such vicious foes! Yet here we are, each in turn facing the consequences of the past." },
+			},
+
+			ChronosBossAboutFamily04 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ChronosBossAboutFamily03", "ZagreusPastMeeting04" },
+					},
+				},
+
+				{ Cue = "/VO/MelinoeField_5086", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					Text = "You spoke before about the consequences of the past... of your own mistakes. Yet {#Emph}this {#Prev}is how you choose to rectify them? Your entire family is against you...!" },
+
+				{ Cue = "/VO/Chronos_1441",
+					Text = "As ever! The only difference now is there are even {#Emph}more {#Prev}of you, all falling in line. You would excise me from my own family? Then, very well! But {#Emph}this {#Prev}is the result!" },
+
+				{ Cue = "/VO/MelinoeField_5087", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					Text = "You don't even want to rule the Underworld or the surface, do you? You just want to get back at your children. How petty... and pathetic." },
+
+				{ Cue = "/VO/Chronos_1442",
+					PostLineFunctionName = "StartFinalBossChronos",
+					PreContentSound = "/Leftovers/Menu Sounds/TextReveal3",
+					Text = "Each passing generation, even quicker to judge than the last! Was I the {#Emph}perfect father? {#Prev}No. Otherwise my children would have been perfect as well! And now even you are caught in this spiral!" },
+			},
+
+			ChronosBossAboutFamily05 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ChronosBossAboutFamily04", "ZagreusPastMeeting04_2" },
+					},
+				},
+
+				{ Cue = "/VO/Chronos_1443",
+					Text = "{#Emph}I {#Prev}know why you continue to return! You seek {#Emph}more {#Prev}than these conversations of ours, but also that Mirror in those squalid chambers down the hall... the single artifact I could not budge! But it is {#Emph}useless {#Prev}without Night herself!" },
+
+				{ Cue = "/VO/MelinoeField_5206", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					Text = "I'm not here for this House's former furnishings. You should know, you have at least one relative who would be most distraught if you're destroyed. You alone can prevent that... if you would end all this." },
+
+				{ Cue = "/VO/Chronos_1458_B",
+					PostLineFunctionName = "StartFinalBossChronos",
+					PreContentSound = "/Leftovers/Menu Sounds/TextReveal3",
+					Text = "{#Emph}Oh{#Prev}, I intend to! But we are far past the point of preventing the distress of this {#Emph}supposed {#Prev}relative to whom you refer! What was already done is done, and there is no turning back, regrets be damned: that is the very {#Emph}nature {#Prev}of Time." },
 			},
 
 			-- about characters / about other characters
@@ -2835,6 +3211,24 @@ UnitSetData.Chronos =
 
 		BossPhaseChangeTextLineSets =
 		{
+			ChronosBossPreTrueEndingFinalPhase01 =
+			{
+				PlayOnce = true,
+				SkipContextArt = true,
+				GameStateRequirements = 
+				{
+					{
+						FunctionName = "RequiredBossPhase",
+						FunctionArgs = { Phase = 3 },
+					},
+					NamedRequirements = { "HecateMissing" },
+				},
+				{ Cue = "/VO/Chronos_1485",
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Chronos_Pained_01",
+					Text = "{#Emph}<Scoff> {#Prev}...You wish to bring about the end of Time...? Well then, {#Emph}observe... {#Prev}for I shall give you... but a {#Emph}glimpse...!" },
+			},
+
 			ChronosBossR2Outro01 =
 			{
 				PlayOnce = true,
@@ -2850,6 +3244,7 @@ UnitSetData.Chronos =
 						FunctionName = "RequiredBossPhase",
 						FunctionArgs = { Phase = 3 },
 					},
+					NamedRequirementsFalse = { "HecateMissing" },
 				},
 				{ Cue = "/VO/Chronos_0987",
 					Portrait = "Portrait_Chronos_Pained_01",
@@ -2980,6 +3375,7 @@ UnitSetData.Chronos =
 			{
 				PlayOnce = true,
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -2989,8 +3385,6 @@ UnitSetData.Chronos =
 					PreLineThreadedFunctionName = "PowerWordPresentation", PreLineThreadedFunctionArgs = { WaitTime = 0.35 },
 					Text = "{#Emph}<Gasp> {#Prev}I thought... {#Emph}none {#Prev}could resist the ravages of Time... but, {#Emph}you? How...?" },
 				{ Cue = "/VO/MelinoeField_1404", UsePlayerSource = true,
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Portrait = "Portrait_Mel_Intense_01",
 					Text = "You'll get no answers from me, and no mercy, either. Now {#Emph}die{#Prev}, already. And I'll collect the ichor from your veins. Or whatever flows through them." },
 				{ Cue = "/VO/Chronos_0218",
@@ -2998,16 +3392,12 @@ UnitSetData.Chronos =
 					Portrait = "Portrait_Chronos_Pained_01",
 					Text = "{#Emph}Hah, hah, hah! {#Prev}What is death to the deathless? A mere nuisance! This House is {#Emph}mine. {#Prev}Once I am gone... you shall be cast away." },
 				{ Cue = "/VO/MelinoeField_1405",  UsePlayerSource = true,
-					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Portrait = "Portrait_Mel_Intense_01",
 					Text = "I expect so. And you'll be re-made and back on the throne before I can return. But I {#Emph}shall {#Prev}return. And I'll slay you again, and again, and {#Emph}again{#Prev}, if I must." },
 				{ Cue = "/VO/Chronos_0219",
 					Portrait = "Portrait_Chronos_Pained_01",
 					Text = "Even if, in so doing, it meant that you would never see your dear old family again? Because the mercy I have shown to them thus far is something I may have to re-evaluate." },
 				{ Cue = "/VO/MelinoeField_1406",  UsePlayerSource = true,
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Portrait = "Portrait_Mel_Intense_01",
 					Text = "{#Emph}Our {#Prev}family. And what do I care? I don't even know them. But I {#Emph}do {#Prev}know you ought be dead here in another moment; any last words?" },
 				{ Cue = "/VO/Chronos_0892",
@@ -3020,6 +3410,7 @@ UnitSetData.Chronos =
 			{
 				PlayOnce = true,
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 					{
@@ -3034,8 +3425,6 @@ UnitSetData.Chronos =
 					Text = "{#Emph}Argh... {#Prev}some family {#Emph}you {#Prev}are! Go on and try to cast me out as they once did! See what good shall come of it!" },
 
 				{ Cue = "/VO/MelinoeField_5044", UsePlayerSource = true,
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Portrait = "Portrait_Mel_Intense_01",
 					Text = "I intend to. Though if you wished to be part of the family so much, perhaps you oughtn't have waged war with them." },
 
@@ -3047,6 +3436,7 @@ UnitSetData.Chronos =
 			{
 				PlayOnce = true,
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 					{
@@ -3061,8 +3451,6 @@ UnitSetData.Chronos =
 					Text = "{#Emph}Gah... {#Prev}you gods learn nothing from the past! Recklessly changed everything to suit your whim!" },
 
 				{ Cue = "/VO/MelinoeField_5045", UsePlayerSource = true,
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Portrait = "Portrait_Mel_Intense_01",
 					Text = "You're the one who's learned nothing. Despite all the time you've had to think on it." },
 
@@ -3071,18 +3459,137 @@ UnitSetData.Chronos =
 					Text = "Oh on the contrary... I know change is inevitable, with Time... the only question is... which sort..." },
 			},
 
-			-- alt below
-			ChronosBossOutroPreTrueEnding01 =
+			ChronosBossOutroUltimateProgress03 =
+			{
+				PlayOnce = true,
+				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
+				GameStateRequirements = 
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ChronosBossOutroUltimateProgress02" },
+					},
+				},
+				{ Cue = "/VO/Chronos_1445",
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Chronos_Pained_01",
+					PreLineThreadedFunctionName = "PowerWordPresentation", PreLineThreadedFunctionArgs = { WaitTime = 0.35 },
+
+					Text = "{#Emph}Augh...! {#Prev}My own family has done worse to me before... well, I am vastly stronger now! Stronger with each passing night...!" },
+
+				{ Cue = "/VO/MelinoeField_5089", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					Text = "You're old and tired. You don't even know why you're fighting anymore. To prove something to your children?" },
+
+				{ Cue = "/VO/Chronos_1446",
+					Portrait = "Portrait_Chronos_Pained_01",
+					Text = "They took {#Emph}everything {#Prev}from me! Everything and more. Now they seek for you to take the {#Emph}rest. {#Prev}Such a wretched family, this..." },
+			},
+
+			ChronosBossOutroUltimateProgress04 =
+			{
+				PlayOnce = true,
+				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
+				GameStateRequirements = 
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ChronosBossOutroUltimateProgress03" },
+					},
+				},
+				{ Cue = "/VO/Chronos_1448",
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Chronos_Pained_01",
+					PreLineThreadedFunctionName = "PowerWordPresentation", PreLineThreadedFunctionArgs = { WaitTime = 0.35 },
+
+					Text = "{#Emph}Gah...! {#Prev}Well, this was certainly a treat, Granddaughter. Again tomorrow night, perhaps...?" },
+
+				{ Cue = "/VO/MelinoeField_5090", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					Text = "Perhaps. So tell me, Titan... is {#Emph}this {#Prev}what having family about is like? Bitter feuds and snide remarks?" },
+
+				{ Cue = "/VO/Chronos_1449",
+					Portrait = "Portrait_Chronos_Pained_01",
+					Text = "Oh {#Emph}yes! {#Prev}This is the whole of it! I may have denied it to you... but I was doing you a {#Emph}favor! {#Prev}You shall see..." },
+			},
+
+			ChronosBossOutroUltimateProgress05 =
+			{
+				PlayOnce = true,
+				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
+				GameStateRequirements = 
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ChronosBossOutroUltimateProgress04" },
+					},
+				},
+				{ Cue = "/VO/Chronos_1452",
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Chronos_Pained_01",
+					PreLineThreadedFunctionName = "PowerWordPresentation", PreLineThreadedFunctionArgs = { WaitTime = 0.35 },
+
+					Text = "{#Emph}Nrgh...! {#Prev}You truly think... you {#Emph}gods... {#Prev}are better fit to rule this world than I...?" },
+
+				{ Cue = "/VO/MelinoeField_5091", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					Text = "We both know that is {#Emph}not {#Prev}what this is about, Titan. And all that plagues this world is not getting any better while we perpetuate it." },
+
+				{ Cue = "/VO/Chronos_1453",
+					Portrait = "Portrait_Chronos_Pained_01",
+					Text = "If not this world, my girl... then what {#Emph}is {#Prev}this about... do you suppose...?" },
+			},
+
+			-- 
+			ChronosBossOutroAfterHecateKidnapped01 =
 			{
 				PlayOnce = true,
 				SkipContextArt = true,
 				GameStateRequirements = 
 				{
 					{
+						PathTrue = { "GameState", "TextLinesRecord", "ZagreusPastMeeting05" },
+					},
+					NamedRequirements = { "HecateMissing" },
+				},
+				{ Cue = "/VO/MelinoeField_5092", UsePlayerSource = true,
+					-- PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Intense_01",
+					Text = "My mother's handmaiden... you give her back. Right now." },
+
+				{ Cue = "/VO/Chronos_1455",
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Chronos_Pained_01",
+					PreLineThreadedFunctionName = "PowerWordPresentation", PreLineThreadedFunctionArgs = { WaitTime = 0.35 },
+
+					Text = "{#Emph}Urgh...! {#Prev}You care so much... for this {#Emph}witch-handmaiden {#Prev}of yours. Would that a single relative of mine... showed me even an iota of concern...!" },
+
+				{ Cue = "/VO/MelinoeField_5093", UsePlayerSource = true,
+					-- PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					-- PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Intense_01",
+					Text = "What reason would they have to care? Look what you've done! You're trying to take {#Emph}everything {#Prev}from us! Our future!" },
+
+				{ Cue = "/VO/Chronos_1456",
+					Portrait = "Portrait_Chronos_Pained_01",
+					Text = "We are {#Emph}family... {#Prev}we do not take, we {#Emph}share! {#Prev}Destroy me, then! If you possess such strength. And see what {#Emph}future {#Prev}you shall bring about..." },
+			},
+
+			-- alt below
+			-- misnomer, no longer pre-True Ending
+			ChronosBossOutroPreTrueEnding01 =
+			{
+				PlayOnce = true,
+				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
+				GameStateRequirements = 
+				{
+					{
 						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 					{
-						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeTimeStop" },
+						PathTrue = { "GameState", "TextLinesRecord", "ChronosBossAboutFamily05" },
 					},
 					{
 						Path = { "GameState", "TextLinesRecord" },
@@ -3096,27 +3603,26 @@ UnitSetData.Chronos =
 
 					Text = "{#Emph}...Gah. Hah, hah! {#Prev}Again you lay me low. And again you waste your {#Emph}time. {#Prev}I know what it is you seek..." },
 
-				{ Cue = "/VO/MelinoeField_3880", UsePlayerSource = true,
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Portrait = "Portrait_Mel_Intense_01",
-					Text = "Shut up and die, Titan. And know these moments as you writhe shall be your last. Mere void awaits." },
+				{ Cue = "/VO/MelinoeField_5207", UsePlayerSource = true,
+					-- Portrait = "Portrait_Mel_Intense_01",
+					Text = "Of course you do. By now I think we've each made our desires rather clear." },
 
-				{ Cue = "/VO/Chronos_1276",
+				{ Cue = "/VO/Chronos_1529",
 					Portrait = "Portrait_Chronos_Pained_01",
-					Text = "You truly think... the Mirror of Night shall grant you such power? Nyx holds no sway here any longer! You shall see..." },
+					Text = "Then go... and take a good look in that Mirror whilst you flail! And do hurry... for I shall never be gone... for long." },
 			},
 			ChronosBossOutroPreTrueEnding01_B =
 			{
 				PlayOnce = true,
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 					{
 						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 					{
-						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeTimeStop" },
+						PathTrue = { "GameState", "TextLinesRecord", "ChronosBossAboutFamily05" },
 					},
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChronosBossAboutTyphonDeath01" },
@@ -3132,11 +3638,9 @@ UnitSetData.Chronos =
 
 					Text = "{#Emph}...Gah. Hah, hah! {#Prev}Again you lay me low. And again you waste your {#Emph}time. {#Prev}I know what it is you seek..." },
 
-				{ Cue = "/VO/MelinoeField_3880", UsePlayerSource = true,
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Portrait = "Portrait_Mel_Intense_01",
-					Text = "Shut up and die, Titan. And know these moments as you writhe shall be your last. Mere void awaits." },
+				{ Cue = "/VO/MelinoeField_5207", UsePlayerSource = true,
+					-- Portrait = "Portrait_Mel_Intense_01",
+					Text = "Of course you do. By now I think we've each made our desires rather clear." },
 
 				{ Cue = "/VO/Chronos_1277",
 					Portrait = "Portrait_Chronos_Pained_01",
@@ -3147,6 +3651,7 @@ UnitSetData.Chronos =
 			{
 				PlayOnce = true,
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 					{
@@ -3184,6 +3689,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat01 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3195,6 +3701,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat02 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3206,6 +3713,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat03 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3217,6 +3725,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat04 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 					{
@@ -3233,6 +3742,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat05 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3244,6 +3754,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat06 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3255,6 +3766,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat07 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3266,6 +3778,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat08 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3277,6 +3790,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat09 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3288,6 +3802,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat10 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3299,6 +3814,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat11 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3310,6 +3826,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat12 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3321,6 +3838,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat13 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3332,6 +3850,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat14 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3343,6 +3862,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat15 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3354,6 +3874,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat16 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3365,6 +3886,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat17 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3376,6 +3898,7 @@ UnitSetData.Chronos =
 			ChronosBossMiscDefeat18 =
 			{
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 				},
@@ -3389,6 +3912,7 @@ UnitSetData.Chronos =
 			{
 				PlayFirst = true,
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 					{
@@ -3406,6 +3930,7 @@ UnitSetData.Chronos =
 			{
 				PlayFirst = true,
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 					{
@@ -3423,6 +3948,7 @@ UnitSetData.Chronos =
 			{
 				PlayFirst = true,
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 					{
@@ -3440,6 +3966,7 @@ UnitSetData.Chronos =
 			{
 				PlayFirst = true,
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 					{
@@ -3457,6 +3984,7 @@ UnitSetData.Chronos =
 			{
 				PlayFirst = true,
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 					OrRequirements =
@@ -3488,6 +4016,7 @@ UnitSetData.Chronos =
 			{
 				PlayFirst = true,
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 					OrRequirements =
@@ -3519,6 +4048,7 @@ UnitSetData.Chronos =
 			{
 				PlayFirst = true,
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 					OrRequirements =
@@ -3554,6 +4084,7 @@ UnitSetData.Chronos =
 			{
 				PlayFirst = true,
 				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
 				GameStateRequirements = 
 				{
 					OrRequirements =
@@ -3584,6 +4115,195 @@ UnitSetData.Chronos =
 					Portrait = "Portrait_Chronos_Pained_01",
 					PreLineThreadedFunctionName = "PowerWordPresentation", PreLineThreadedFunctionArgs = { WaitTime = 1.0 },
 					Text = "{#Emph}Ngh... {#Prev}such haste... I have not seen such haste since..." },
+			},
+			ChronosBossAltFightMiscDefeat09 =
+			{
+				PlayFirst = true,
+				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
+				GameStateRequirements = 
+				{
+					{
+						Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+						Comparison = ">=",
+						Value = 4,
+					},
+				},
+				{ Cue = "/VO/Chronos_1510",
+					Portrait = "Portrait_Chronos_Pained_01",
+					PreLineThreadedFunctionName = "PowerWordPresentation", PreLineThreadedFunctionArgs = { WaitTime = 1.0 },
+					Text = "{#Emph}Augh... {#Prev}not even... my full strength... sufficed..." },
+			},
+			ChronosBossAltFightMiscDefeat10 =
+			{
+				PlayFirst = true,
+				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
+				GameStateRequirements = 
+				{
+					{
+						Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+						Comparison = ">=",
+						Value = 4,
+					},
+				},
+				{ Cue = "/VO/Chronos_1511",
+					Portrait = "Portrait_Chronos_Pained_01",
+					PreLineThreadedFunctionName = "PowerWordPresentation", PreLineThreadedFunctionArgs = { WaitTime = 1.0 },
+					Text = "{#Emph}Argh... {#Prev}even here... at the very end... of Time? Was this... inevitable, after all...?" },
+			},
+			ChronosBossAltFightMiscDefeat11 =
+			{
+				PlayFirst = true,
+				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
+				GameStateRequirements = 
+				{
+					OrRequirements =
+					{
+						{
+							{
+								PathTrue = { "CurrentRun", "EncounterClearStats", "BossChronos01" }
+							},
+							{
+								PathFalse = { "CurrentRun", "EncounterClearStats", "BossChronos01", "TookDamage" }
+							},
+						},
+						{
+							{
+								PathTrue = { "CurrentRun", "EncounterClearStats", "BossChronos02" }
+							},
+							{
+								PathFalse = { "CurrentRun", "EncounterClearStats", "BossChronos02", "TookDamage" }
+							},
+						},
+					},
+				},
+				{ Cue = "/VO/Chronos_1512",
+					Portrait = "Portrait_Chronos_Pained_01",
+					PreLineThreadedFunctionName = "PowerWordPresentation", PreLineThreadedFunctionArgs = { WaitTime = 1.0 },
+					Text = "{#Emph}Gah...! {#Prev}I was evaded... {#Emph}constantly... {#Prev}as though you always were... a step ahead..." },
+			},
+			ChronosBossAltFightMiscDefeat12 =
+			{
+				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
+				GameStateRequirements = 
+				{
+					OrRequirements =
+					{
+						{
+							{
+								PathTrue = { "CurrentRun", "EncounterClearStats", "BossChronos01" }
+							},
+							{
+								PathFalse = { "CurrentRun", "EncounterClearStats", "BossChronos01", "TookDamage" }
+							},
+						},
+						{
+							{
+								PathTrue = { "CurrentRun", "EncounterClearStats", "BossChronos02" }
+							},
+							{
+								PathFalse = { "CurrentRun", "EncounterClearStats", "BossChronos02", "TookDamage" }
+							},
+						},
+					},
+				},
+				{ Cue = "/VO/Chronos_1516",
+					Portrait = "Portrait_Chronos_Pained_01",
+					PreLineThreadedFunctionName = "PowerWordPresentation", PreLineThreadedFunctionArgs = { WaitTime = 1.0 },
+					Text = "{#Emph}Argh...! {#Prev}I was too slow... but at least I fade, knowing... Time only flies... when you are having {#Emph}fun!" },
+			},
+			ChronosBossAltFightMiscDefeat13 =
+			{
+				PlayFirst = true,
+				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
+				GameStateRequirements = 
+				{
+					{
+						Path = { "GameState", "ShrineUpgrades", "BossDifficultyShrineUpgrade" },
+						Comparison = ">=",
+						Value = 4,
+					},
+				},
+				{ Cue = "/VO/Chronos_1513",
+					Portrait = "Portrait_Chronos_Pained_01",
+					PreLineThreadedFunctionName = "PowerWordPresentation", PreLineThreadedFunctionArgs = { WaitTime = 1.0 },
+					Text = "{#Emph}Ungh...! {#Prev}You think... you reached the End of Time... yet fail to see... that it is also... the beginning...!" },
+			},
+			ChronosBossAltFightMiscDefeat14 =
+			{
+				PlayFirst = true,
+				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
+				GameStateRequirements = 
+				{
+					OrRequirements =
+					{
+						{
+							{
+								PathTrue = { "CurrentRun", "EncounterClearStats", "BossChronos01" }
+							},
+							{
+								Path = { "CurrentRun", "EncounterClearStats", "BossChronos01", "ClearTime" },
+								Comparison = "<=",
+								Value = 40.0
+							},
+						},
+						{
+							{
+								PathTrue = { "CurrentRun", "EncounterClearStats", "BossChronos02" }
+							},
+							{
+								Path = { "CurrentRun", "EncounterClearStats", "BossChronos02", "ClearTime" },
+								Comparison = "<=",
+								Value = 40.0
+							},
+						},
+					},
+				},
+				{ Cue = "/VO/Chronos_1514",
+					Portrait = "Portrait_Chronos_Pained_01",
+					PreLineThreadedFunctionName = "PowerWordPresentation", PreLineThreadedFunctionArgs = { WaitTime = 1.0 },
+					Text = "{#Emph}Nraugh...! {#Prev}How could you... be so swift...? Or am I... now too slow...?" },
+			},
+			ChronosBossAltFightMiscDefeat15 =
+			{
+				PlayFirst = true,
+				SkipContextArt = true,
+				SkipPreNarrativeUnequip = true,
+				GameStateRequirements = 
+				{
+					OrRequirements =
+					{
+						{
+							{
+								PathTrue = { "CurrentRun", "EncounterClearStats", "BossChronos01" }
+							},
+							{
+								Path = { "CurrentRun", "EncounterClearStats", "BossChronos01", "ClearTime" },
+								Comparison = "<=",
+								Value = 40.0
+							},
+						},
+						{
+							{
+								PathTrue = { "CurrentRun", "EncounterClearStats", "BossChronos02" }
+							},
+							{
+								Path = { "CurrentRun", "EncounterClearStats", "BossChronos02", "ClearTime" },
+								Comparison = "<=",
+								Value = 40.0
+							},
+						},
+					},
+				},
+				{ Cue = "/VO/Chronos_1515",
+					Portrait = "Portrait_Chronos_Pained_01",
+					PreLineThreadedFunctionName = "PowerWordPresentation", PreLineThreadedFunctionArgs = { WaitTime = 1.0 },
+					Text = "{#Emph}Augh...! {#Prev}Such impossible haste... with which you struck...! Faster than Time...!" },
 			},
 		},
 		Using = { Spawn = "ChronosRemains"},
@@ -3903,6 +4623,9 @@ GlobalVoiceLines.ChronosInvulnerableVoiceLines =
 			PathFromArgs = true,
 			Path = { "SourceProjectile", },
 			IsNone = { "FrogFamiliarLand", "CatFamiliarPounce", "RavenFamiliarMelee", "HoundFamiliarBark", "PolecatFamiliarMelee" },
+		},
+		{
+			PathFalse = { "CurrentRun", "SpeechRecord", "/VO/Chronos_1486" }
 		},
 		OrRequirements =
 		{

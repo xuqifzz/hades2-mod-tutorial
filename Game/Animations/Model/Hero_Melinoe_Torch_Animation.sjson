@@ -575,8 +575,8 @@
 		CancelOnOwnerMove = true
 		CreateAnimations =
 		[
-			{ Name = "MelEquipSparkleTorchLSpawner" }
-			{ Name = "MelEquipSparkleTorchRSpawner" }
+			{ Name = "MelEquipSparkleTorchSupayLSpawner" }
+			{ Name = "MelEquipSparkleTorchSupayRSpawner" }
 		]
 		Attachments =
 		[

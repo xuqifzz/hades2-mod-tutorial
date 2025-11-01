@@ -362,6 +362,7 @@ function GhostAdminUpdateVisibility( screen, args )
 			formatName = "ItemPurchasedNameFormat"
 		elseif HasResources( itemData.Cost ) then
 			formatName = "ItemAvailableAffordableNameFormat"
+			CurrentRun.WorldUpgradesAffordable[displayName] = true
 		else
 			formatName = "ItemAvailableUnaffordableNameFormat"
 		end

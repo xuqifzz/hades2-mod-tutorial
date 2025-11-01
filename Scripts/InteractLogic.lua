@@ -643,6 +643,7 @@ function UseLoot( usee, args, user )
 		end
 
 		AddInputBlock({ Name = "UseLoot" })
+		usee.GoldConversionEligible = false
 			
 		CurrentRun.Hero.UntargetableFlags.UseLoot = true
 		SetPlayerInvulnerable( "UseLoot" )
@@ -722,7 +723,7 @@ function HandleLootPickup( currentRun, loot, args )
 	if loot.PostPickupFunctionName ~= nil then
 		CallFunctionName( loot.PostPickupFunctionName, loot, loot.PostPickupFunctionArgs )
 	end
-	CheckAndAddOlympianDuo()
+	CheckAndAddOlympianDuo( loot )
 	SetPlayerVulnerable( "HandleLootPickup" )
 
 end

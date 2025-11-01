@@ -173,9 +173,6 @@ NamedRequirementsData =
 		{
 			PathTrue = { "GameState", "TextLinesRecord", "IcarusAboutCrossroads01" },
 		},
-		{
-			PathFalse = { "CurrentRun", "TrueEndingFinale01" },
-		},
 	},
 	IcarusLeavesHubAfterBecomingCloser =
 	{
@@ -248,7 +245,7 @@ NamedRequirementsData =
 		{
 			Path = { "GameState", "EnemyKills", "Scylla" },
 			Comparison = ">=",
-			Value = 20,
+			Value = 14,
 		},
 		{
 			Path = { "GameState", "TextLinesRecord" },
@@ -308,6 +305,16 @@ NamedRequirementsData =
 	{
 		{
 			PathTrue = { "GameState", "TextLinesRecord", "EchoAboutNarcissus04" },
+		},
+		--[[
+		{
+			Path = { "GameState", "TextLinesRecord" },
+			HasAll = { "NarcissusGift03", "EchoGift03" },
+		},
+		]]--
+		{
+			Path = { "GameState", "TextLinesRecord" },
+			HasAny = { "NarcissusAboutEcho01", "NarcissusAboutEcho01B", "NarcissusAboutEcho02" },
 		},
 		{
 			PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeNarcissusWaters" },
@@ -557,12 +564,11 @@ NamedRequirementsData =
 	TrueFatesQuestUnlocked =
 	{
 		{
-			Path = { "GameState", "TextLinesRecord" },
-			HasAll = { "MorosPostTrueEnding02" },
+			PathTrue = { "GameState", "ReachedTrueEnding" },
 		},
 		{
-			Path = { "CurrentRun", "TextLinesRecord" },
-			HasNone = { "MorosPostTrueEnding02" }
+			Path = { "GameState", "TextLinesRecord" },
+			HasAll = { "MorosPostTrueEnding02" },
 		},
 	},
 	TrueFatesQuestCanBeCompleted =
@@ -581,7 +587,6 @@ NamedRequirementsData =
 					"MorosTaverna02",
 					"MorosAboutEpilogueProgress01",
 					-- see also MorosAboutEpilogueProgress01
-					-- "PrometheusAboutMortals02",
 					-- "PrometheusAboutFates02",
 					-- "HeraclesFieldAboutFates01",
 					-- "MorosPostTrueEnding02",
@@ -616,14 +621,14 @@ NamedRequirementsData =
 			PathFalse = { "CurrentRun", "RoomsEntered", "G_Story01" }
 		},
 		{
-			PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutWaters03" },
+			PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutWaters02" },
 		},
 		{
 			Path = { "CurrentRun", "TextLinesRecord" },
 			HasNone = { "NarcissusAboutWaters03" },
 		},
 		{
-			PathFalse = { "GameState", "TextLinesRecord", "NarcissusWithEcho02" },
+			PathFalse = { "GameState", "TextLinesRecord", "NarcissusWithEcho03" },
 		},
 	},
 
@@ -857,27 +862,28 @@ NamedRequirementsData =
 			PathTrue = { "GameState", "RoomsEntered", "I_Boss01" },
 		},
 		{
-			Path = { "GameState", "EnemyKills", "Chronos" },
-			Comparison = ">=",
-			Value = 1,
-		},
-		{
 			Path = { "GameState", "ClearedRunsCache" },
 			Comparison = ">=",
 			Value = 1,
 		},
-		--[[ @ these can be used as well
+		OrRequirements =
 		{
-			Path = { "GameState", "ClearedUnderworldRunsCache" },
-			Comparison = ">=",
-			Value = 1,
+			{
+				{
+					Path = { "GameState", "EnemyKills", "Chronos" },
+					Comparison = ">=",
+					Value = 1,
+				},
+			},
+			{
+				-- unlocked from the start for resets
+				{
+					Path = { "GameState", "StoryResetCount" },
+					Comparison = ">=",
+					Value = 1,
+				},
+			},
 		},
-		{
-			Path = { "GameState", "ClearedSurfaceRunsCache" },
-			Comparison = ">=",
-			Value = 1,
-		},
-		]]--
 	},
 	AllShrineBountiesCompleted =
 	{
@@ -1377,7 +1383,7 @@ NamedRequirementsData =
 	NoRecentNemesisEncounter =
 	{
 		{
-			SumPrevRooms = 24,
+			SumPrevRooms = 99,
 			Path = { "EncountersOccurredCache", },
 			TableValuesToCount = { "NemesisCombatIntro", "NemesisCombatF", "NemesisCombatG", "NemesisCombatH", "NemesisCombatI", "NemesisRandomEvent", "BridgeNemesisRandomEvent", },
 			Comparison = "<=",
@@ -2381,6 +2387,7 @@ NamedRequirementsData =
 				-- "ZagreusPastMeeting04",
 				-- "ZagreusPastMeeting05",
 				"ZagreusPastMeeting06",
+				"ZagreusPastMeeting06_B",
 				"ZeusPalaceFirstMeeting",
 				-- "ZeusPalaceMeeting02",
 				-- "ZeusPalaceMeeting03",
@@ -2393,7 +2400,16 @@ NamedRequirementsData =
 			}
 		}
 	},
-
+	
+	InfiniteChronosDeathDefiance =
+	{
+		{
+			PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeTimeStop" }
+		},
+		{
+			PathFalse = { "GameState", "ReachedTrueEnding" },
+		},
+	},
 	ClearBeforeTrueEnding =
 	{
 		{
@@ -2437,6 +2453,25 @@ NamedRequirementsData =
 				{
 					FunctionName = "RequireRunsSinceTextLines",
 					FunctionArgs = { TextLines = { "TrueEndingFinale01" }, Max = 2 },
+				},
+			},
+		},
+	},
+
+	HasEverReachedTrueEnding =
+	{
+		OrRequirements =
+		{
+			{
+				{
+					PathTrue = { "GameState", "ReachedTrueEnding" },
+				},
+			},
+			{
+				{
+					Path = { "GameState", "StoryResetCount" },
+					Comparison = ">=",
+					Value = 1,
 				},
 			},
 		},
@@ -2522,8 +2557,12 @@ NamedRequirementsData =
 	NyxUnlockedInChaos =
 	{
 		{
+			PathTrue = { "GameState", "ReachedTrueEnding" },
+		},
+		{
 			PathTrue = { "GameState", "TextLinesRecord", "NyxWithNemesis01" },
 		},
+		NamedRequirementsFalse = { "StandardPackageBountyActive" },
 	},
 
 	InfernalContractUnlocked =
@@ -2613,11 +2652,17 @@ NamedRequirementsData =
 	ReachedEpilogue =
 	{
 		{
+			PathTrue = { "GameState", "ReachedTrueEnding" },
+		},
+		{
 			PathTrue = { "GameState", "TextLinesRecord", "FatesEpilogue01" },
 		},
 	},
 	ReachedEpilogueRecently =
 	{
+		{
+			PathTrue = { "GameState", "ReachedTrueEnding" },
+		},
 		{
 			PathTrue = { "GameState", "TextLinesRecord", "FatesEpilogue01" },
 		},

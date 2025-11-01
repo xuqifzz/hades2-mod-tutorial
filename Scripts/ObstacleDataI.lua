@@ -151,9 +151,24 @@ OverwriteTableKeys( ObstacleData, {
 
 			{ Cue = "/VO/MelinoeField_1605", Text = "Impossible..." },
 			{ Cue = "/VO/MelinoeField_1606", Text = "Not going to work." },
-			{ Cue = "/VO/MelinoeField_1607", Text = "Got you, you wretch.", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_1608", Text = "Stay dead!" },
-			{ Cue = "/VO/MelinoeField_1609", Text = "You're back where you belong." },
+			{ Cue = "/VO/MelinoeField_1607", Text = "Got you, you wretch.", PlayFirst = true,
+				GameStateRequirements =
+				{
+					NamedRequirementsFalse = { "HecateMissing" },
+				},
+			},
+			{ Cue = "/VO/MelinoeField_1608", Text = "Stay dead!",
+				GameStateRequirements =
+				{
+					NamedRequirementsFalse = { "HecateMissing" },
+				},
+			},
+			{ Cue = "/VO/MelinoeField_1609", Text = "You're back where you belong.",
+				GameStateRequirements =
+				{
+					NamedRequirementsFalse = { "HecateMissing" },
+				},
+			},
 		},
 
 		DistanceTriggers =
@@ -166,6 +181,11 @@ OverwriteTableKeys( ObstacleData, {
 				Repeat = true,
 			},
 		},
+	},
+
+	ChronosRemainsBroken =
+	{
+		InheritFrom = { "ChronosRemains" },
 	},
 
 	Breakable_I =

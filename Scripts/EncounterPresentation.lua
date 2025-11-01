@@ -761,7 +761,7 @@ function ChronosPolymorphChallengeEndPresentation( encounter )
 	if CurrentRun.Hero.IsDead then
 		return
 	end
-
+	SessionMapState.ChronosPolymorphChallengeEndPresentation = true
 	AddInputBlock({ Name = "ChronosPolymorphChallengeEndPresentation" })
 	SetPlayerInvulnerable("ChronosPolymorphChallengeEndPresentation")
 	HideCombatUI( "ChronosPolymorphChallengeEndPresentation" )
@@ -864,6 +864,8 @@ function ChronosPolymorphChallengeEndPresentation( encounter )
 	SetPlayerVulnerable( "ChronosPolymorphChallengeEndPresentation" )
 	SetUnitVulnerable( typhon, "TyphonHeadChronosCurse" )
 	
+	SessionMapState.ChronosPolymorphChallengeEndPresentation = nil
+
 	local roomData = RoomData[CurrentRun.CurrentRoom.Name] or CurrentRun.CurrentRoom
 	local cameraClamps = roomData.CameraClamps or GetDefaultClampIds()
 	DebugAssert({ Condition = #cameraClamps ~= 1, Text = "Exactly one camera clamp on a map is nonsensical" })
@@ -871,7 +873,7 @@ function ChronosPolymorphChallengeEndPresentation( encounter )
 	LockCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 1.0 })
 
 	-- resume Typhon
-	typhon.ForcedWeaponInterrupt = "TyphonHeadCenterEye"
+	--typhon.ForcedWeaponInterrupt = "TyphonHeadCenterEye"
 	typhon.ChainedWeapon = nil
 	typhon.ChainedWeaponOptions = nil
 	SetThreadWait(typhon.AIThreadName, 0.01)

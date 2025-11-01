@@ -578,6 +578,7 @@ TraitSetData.Keepsakes =
 		EquipSound = "/SFX/Menu Sounds/KeepsakeSeleneMoonbeam",
 		ZeroBonusTrayText = "SpellTalentKeepsake_Expired",
 		PartialActiveTrayText = "SpellTalentKeepsake_Inactive",
+		BlockedByEnding = true,
 		RarityLevels =
 		{
 			Common =
@@ -933,6 +934,7 @@ TraitSetData.Keepsakes =
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = { "HecateGift04" },
 					},
+					NamedRequirementsFalse = { "HecateMissing" },
 					ChanceToPlay = 0.33,
 				},
 				Cooldowns =
@@ -1144,8 +1146,7 @@ TraitSetData.Keepsakes =
 					GameStateRequirements =
 					{
 						{
-							FunctionName = "RequireRunsSinceTextLines",
-							FunctionArgs = { TextLines = { "NarcissusAboutFriendship06" }, Max = 9 },
+							PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship06" },
 						},
 					},
 				},
@@ -1153,8 +1154,7 @@ TraitSetData.Keepsakes =
 					GameStateRequirements =
 					{
 						{
-							FunctionName = "RequireRunsSinceTextLines",
-							FunctionArgs = { TextLines = { "NarcissusAboutFriendship06" }, Max = 9 },
+							PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship06" },
 						},
 					},
 				},
@@ -2188,6 +2188,7 @@ TraitSetData.Keepsakes =
 		RemainingUses = 1,
 		SpeakerNames = { "Athena" },
 		PackageNames = { "NPC_Athena_01" },
+		BlockedByEnding = true,
 		Using =
 		{
 			SpawnUnit = "NPC_Athena_01",
@@ -2368,6 +2369,9 @@ TraitSetData.Keepsakes =
 				GameStateRequirements =
 				{
 					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "GameState", "TextLinesRecord", "ZagreusBossGrantsBondForged01" },
 					},
 					ChanceToPlay = 0.33,
@@ -2456,6 +2460,9 @@ TraitSetData.Keepsakes =
 				GameStateRequirements =
 				{
 					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "GameState", "TextLinesRecord", "HadesWithPersephoneGift03" },
 					},
 					ChanceToPlay = 0.33,
@@ -2535,6 +2542,9 @@ TraitSetData.Keepsakes =
 				Source = { LineHistoryName = "NPC_Chronos_02", SubtitleColor = Color.ChronosVoice },
 				GameStateRequirements =
 				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "NeoChronosGift03" },
 					},

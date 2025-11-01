@@ -780,6 +780,14 @@ function RavenFamiliarAI( familiar, args )
 					RavenFamiliarDropExitPresentation( familiar )
 				end
 				wait( RandomFloat( minTimeBetweenAttacks, maxTimeBetweenAttacks ), familiar.AIThreadName )
+
+				-- Remain idle in the air during boss kill presentations.
+				-- The victory presentation will reenable Raki's AI.
+				if CurrentRun.CurrentRoom ~= nil and CurrentRun.CurrentRoom.Encounter ~= nil and CurrentRun.CurrentRoom.Encounter.BossKillPresentation then
+					RavenFamiliarStopAI( familiar )
+					return
+				end
+
 				Stop({ Id = familiar.ObjectId })
 				RavenFamiliarDropEnterPresentation( familiar )
 			end

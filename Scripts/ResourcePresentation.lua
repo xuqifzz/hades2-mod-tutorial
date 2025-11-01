@@ -64,7 +64,7 @@ function MouseOverResourceItem( button )
 							NumLineBreaks = 2,
 							FadeTarget = 1.0,
 						})
-					else
+					elseif not extraDescription.HideIfRequirementsFailed then
 						ModifyTextBox({ Id = components.InfoBoxDetails.Id,
 							Text = "InventoryScreen_UnknownDetails",
 							Append = true,

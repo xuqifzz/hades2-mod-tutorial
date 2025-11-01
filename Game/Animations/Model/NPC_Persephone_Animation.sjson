@@ -60,7 +60,12 @@
 			}
 		]
 	}
-
+	{
+		Name = "Persephone_Greet_Full"
+		InheritFrom = "Persephone_Greet_Start"
+		ChainTo = "Persephone_Greet_End"
+	}
+	
 	// Dismiss
 	{
 		Name = "Persephone_DismissA_Start"
@@ -127,6 +132,52 @@
 			{
 				BlendTransitionFrom = "Persephone_DismissB_FireLoop"
 				Duration = 6
+			}
+		]
+	}
+
+
+	{
+		Name = "Persephone_DismissQuick_Start"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "PersephoneEnding_Base_DismissStart_C_01"
+		ChainTo = "Persephone_DismissQuick_End"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Persephone_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Persephone_DismissQuick_End"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "PersephoneEnding_Base_DismissStart_C_01"
+		PlayBackwards = true
+		ChainTo = "Persephone_Idle"
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 25
+				FrameSpeed = 1
+			}
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Persephone_DismissQuick_Start"
+				Duration = 15
 			}
 		]
 	}
@@ -227,6 +278,19 @@
 		GrannyAnimation = "Persephone_Base_Ending_Loop_C_00"
 		Loop = true
 	}
+	{
+		Name = "Persephone_Sitting_End"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "Persephone_Base_StandUp_C_00"
+		ChainTo = "Persephone_Idle"
+	}
 
-	
+	// Turn
+
+	{
+		Name = "Persephone_Turn"
+		InheritFrom = "NPCPersephoneBaseAnimation"
+		GrannyAnimation = "Persephone_Base_Turn_C_00"
+		ChainTo = "Persephone_Idle"
+	}	
 ]}

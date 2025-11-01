@@ -1214,15 +1214,7 @@ UnitSetData.NPC_Heracles =
 					},
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "HeraclesGift04", "MorosPostTrueEnding02" },
-					},
-					{
-						Path = { "GameState", "TextLinesRecord" },
-						HasAny = { "HecateAboutFates01", "HecateBossAboutFates01" },
-					},
-					{
-						FunctionName = "RequireRunsSinceTextLines",
-						FunctionArgs = { TextLines = { "HecateAboutFates01", "HecateBossAboutFates01" }, Min = 3 },
+						HasAll = { "HeraclesGift03", "MorosPostTrueEnding02" },
 					},
 					NamedRequirementsFalse = { "ReachedEpilogue" },
 				},

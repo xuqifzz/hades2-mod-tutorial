@@ -6965,8 +6965,12 @@
 		Name = "MedeaPoisonDamage"
 		InheritFrom = "MedeaPoisonBuffFx"
 		ChainTo = "MedeaPoisonFxFade"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+		ColorFromOwner = "Ignore"
 		Duration = 1
 		Loop = false
+		VisualFx = null
 		GrannyAttachedMarkerLocation = "head_fxMarker_00_M_JNT"
 	}
 	{

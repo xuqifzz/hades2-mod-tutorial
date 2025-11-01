@@ -1,5 +1,16 @@
 StoreData =
 {
+
+	ZagreusContractRequirement = 
+	{
+		NamedRequirements = { "InfernalContractUnlocked" },
+		NamedRequirementsFalse = { "StandardPackageBountyActive" },
+		{
+			PathFalse = { "CurrentRun", "RoomCountCache", "C_Boss01" }
+		},
+		ChanceToPlay = 0.4,
+	},
+
 	RoomShop =
 	{
 		-- @ for testing specific items, see FillInShopOptions() or ShowSurfaceShopScreen()
@@ -279,6 +290,7 @@ StoreData =
 							{
 								PathFalse = { "CurrentRun", "PendingSpellDrop" },
 							},
+							NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" },
 						}
 					},
 					{

@@ -14,6 +14,8 @@ OverwriteTableKeys( NarrativeData, {
 			"HecateBathHouseEpilogue01",
 			"HecatePostTrueEnding01",
 			"HecatePostTrueEnding02",
+			"HecatePostTrueEnding04",
+			"HecatePostTrueEnding03",
 
 			"NyxWithHecate01",
 			"NemesisWithHecate02",
@@ -21,6 +23,8 @@ OverwriteTableKeys( NarrativeData, {
 			"HecateAboutChronosBossEarlyL01",
 			"HecateAboutChronosBossL01",
 			"HecateAboutChronosBossL02",
+
+			"HecateAboutStormStopNotCast01",
 
 			-- true ending path
 
@@ -37,10 +41,17 @@ OverwriteTableKeys( NarrativeData, {
 			"HecateAboutChronosBossW03",
 			-- Chronos Clear 4 (i.e. 5)
 			"HecateAboutTimeStop01",
+
+			-- Chronos Clear 4_2 (i.e. 5)
+
+			-- Chronos Clear 4_3 (i.e. 5)
+
+
 			-- Chronos Clear 5 (i.e. 6)
 			"HecateAboutChronosBossW04",
 			"HecateAboutChronosBossW04_A",
 			"HecateAboutChronosBossW04_B",
+			"HecateAboutUltimateProgress04",
 
 			-- Chronos Clear 2_5
 			"HecateUnderworldRunCleared01",
@@ -284,7 +295,7 @@ OverwriteTableKeys( NarrativeData, {
 			"HecateHideAndSeek03",
 
 			-- @ ending
-			"HadesTrueEnding01",
+			"PersephoneTrueEnding01",
 		},
 
 		GiftTextLinePriorities =
@@ -897,7 +908,7 @@ OverwriteTableKeys( NarrativeData, {
 			},
 			-- lower priority story
 			{
-				"NemesisAboutTask03",
+				"NemesisAboutTask04",
 			},
 			{
 				"NemesisAboutNyx01",
@@ -918,10 +929,10 @@ OverwriteTableKeys( NarrativeData, {
 				"NemesisAboutCharon01",
 			},
 			{
+				"NemesisAboutTask03",
 				"NemesisAboutTask02",
 				"NemesisAboutEvil02",
 				"NemesisAboutWeapons01",
-				"NemesisAboutTask04",
 			},
 			-- evergreen
 			{
@@ -965,6 +976,8 @@ OverwriteTableKeys( NarrativeData, {
 			"NemesisPostCombatAboutTartarus02",
 			{
 				"NemesisPostCombatAboutCerberus01",
+			},
+			{
 				"NemesisPostCombatAboutChronos01",
 			},
 			{
@@ -1024,9 +1037,9 @@ OverwriteTableKeys( NarrativeData, {
 			"MorosPostTrueEnding01",
 			"MorosAboutHecateKidnapped01",
 			"MorosAboutTyphonDeath01",
-			"MorosPostTrueEnding02",
+			"MorosPostTrueEnding02", -- epilogue
 
-			"MorosAboutEpilogueProgress01",
+			"MorosAboutEpilogueProgress01", -- epilogue
 			"MorosAboutPostEndingChronosBossW01",
 			"MorosAboutPostEndingTyphonW01",
 			"MorosPostEpilogue02",
@@ -1206,8 +1219,10 @@ OverwriteTableKeys( NarrativeData, {
 		{
 			"HypnosHideAndSeek01",
 
+			"HypnosPostTrueEnding02",
 			"HypnosPostTrueEnding01",
 			"HypnosFirstMeeting",
+			"HypnosAboutStoryReset01",
 			"HypnosAboutUltimateProgress01",
 			"HypnosAboutPoppies01",
 			"HypnosAboutUltimateProgress02",
@@ -1279,6 +1294,7 @@ OverwriteTableKeys( NarrativeData, {
 			"SkellyAboutHealthQuest04",
 
 			"SkellyPostTrueEnding01",
+			"SkellyPostTrueEnding02",
 
 			"SkellyAboutZagreusFight01",
 
@@ -1780,7 +1796,6 @@ OverwriteTableKeys( NarrativeData, {
 
 			"HadesWithPersephonePostEpilogue03",
 			
-			"HadesAboutNemesis01",
 			"HadesWithPersephone02",
 			"HadesWithPersephone03",
 
@@ -1796,13 +1811,11 @@ OverwriteTableKeys( NarrativeData, {
 			{
 				"HadesAboutPersephoneAway01",
 			},
-			{
-				"HadesAboutChronosBossW01",
-				"HadesAboutChronosBossW01_B",
-			},
+			"HadesAboutChronosBossW01_B",
+			"HadesAboutChronosBossW01",
 			{
 				"HadesAboutChronosNightmare01",
-				"HadesAboutChronosNightmare01_B",
+				"HadesAboutStoryReset01",
 			},
 			-- priority story
 			"HadesMeeting02",
@@ -1810,6 +1823,11 @@ OverwriteTableKeys( NarrativeData, {
 				"HadesAboutTyphon01",
 				"HadesAboutTyphon01_B",
 			},
+			"HadesAboutUltimateProgress03",
+			"HadesAboutUltimateProgress02",
+			"HadesAboutUltimateProgress01",
+
+			"HadesAboutNemesis01",
 			"HadesMeeting03",
 			{
 				"HadesAboutCerberus01",
@@ -1821,13 +1839,20 @@ OverwriteTableKeys( NarrativeData, {
 				"HadesAboutCharon01",
 				"HadesWithPersephoneAboutHypnosWakeUp01",
 			},
+			"HadesWithPersephoneAboutPersephoneAspect02",
 			"HadesWithPersephoneAboutPersephoneAspect01",
+			"HadesWithPersephoneAboutNyxAspect01",
 			"HadesWithPersephoneAboutZagreusFight01",
+			"HadesWithPersephoneAboutZagreusFight02",
 			"HadesAboutNeoChronos01",
 			"HadesAboutNeoChronos02",
 			"HadesWithPersephoneAboutLegions01",
+			"HadesWithPersephoneAboutAchilles01",
+			"HadesWithPersephoneAboutAltChildhood01",
 			"HadesWithPersephoneAboutBlessings01",
 			"HadesWithPersephoneAboutUnseen01",
+			"HadesWithPersephoneAboutCerberus01",
+			"HadesWithPersephoneAboutBackstory01",
 			"HadesWithPersephonePostEpilogue02",
 			"HadesWithPersephoneAboutDemeter01",
 			"HadesWithPersephoneAboutRenovations01",
@@ -1920,10 +1945,17 @@ OverwriteTableKeys( NarrativeData, {
 
 			"HadesWithPersephoneAboutHypnosWakeUp01",
 			"HadesWithPersephoneAboutZagreusFight01",
+			"HadesWithPersephoneAboutZagreusFight02",
 			"HadesWithPersephoneAboutLegions01",
+			"HadesWithPersephoneAboutAchilles01",
+			"HadesWithPersephoneAboutAltChildhood01",
 			"HadesWithPersephoneAboutBlessings01",
 			"HadesWithPersephoneAboutUnseen01",
+			"HadesWithPersephoneAboutPersephoneAspect02",
 			"HadesWithPersephoneAboutPersephoneAspect01",
+			"HadesWithPersephoneAboutNyxAspect01",
+			"HadesWithPersephoneAboutCerberus01",
+			"HadesWithPersephoneAboutBackstory01",
 			"HadesWithPersephonePostEpilogue02",
 			"HadesWithPersephoneAboutDemeter01",
 			"HadesWithPersephoneAboutRenovations01",
@@ -2518,6 +2550,7 @@ OverwriteTableKeys( NarrativeData, {
 				"PoseidonDevotionIntro01",
 				"PoseidonAboutSurfaceThreat01",
 				"PoseidonAboutSurfaceThreat02",
+				"PoseidonAboutSurfaceHelp01",
 			},
 			{
 				"PoseidonPostTrueEnding02",
@@ -4074,9 +4107,11 @@ OverwriteTableKeys( NarrativeData, {
 			{
 				"HecateBossAboutFamiliarSystem01",
 			},
-			{
-				"HecateBossAboutEndingPath01"
-			},
+			"HecateBossAboutEndingPath01",
+			"HecateBossAboutEndingPath02",
+			"HecateBossAboutEndingPath03",
+			"HecateBossAboutEndingPath04",
+			"HecateBossAboutEndingPath00",
 			{
 				"HecateBossAboutArachne01",
 			},
@@ -4384,9 +4419,9 @@ OverwriteTableKeys( NarrativeData, {
 	{
 		InteractTextLinePriorities =
 		{
-			"AthenaAboutKeepsake01",
 			"AthenaAboutArachneQuestComplete01",
 			"AthenaFirstMeeting",
+			"AthenaPostTrueEnding01",
 
 			-- gorgon amulet events
 			{
@@ -4399,8 +4434,9 @@ OverwriteTableKeys( NarrativeData, {
 				"AthenaAboutSummit01",
 				"AthenaAboutSummit02",
 			},
+			"AthenaAboutKeepsake01",
+
 			-- mission critical
-			"AthenaPostTrueEnding01",
 			"AthenaAboutPalace01",
 			"AthenaPostEpilogue01",
 			"AthenaPostTrueEnding02",
@@ -4416,9 +4452,6 @@ OverwriteTableKeys( NarrativeData, {
 				"AthenaAboutTyphonW01",
 			},
 			{
-				"AthenaAboutTyphonW02",
-			},
-			{
 				"AthenaGrantsReward01",
 			},
 			{
@@ -4426,27 +4459,26 @@ OverwriteTableKeys( NarrativeData, {
 			},
 			{
 				"AthenaAboutPrometheus01",
-				"AthenaAboutPrometheusL01",
 			},
 			{
-				"AthenaAboutCirce01",
-				"AthenaAboutCirce01_B",
-				"AthenaAboutCirce02",
-				"AthenaAboutCirce02_B",
+				"AthenaAboutArachne01",
+				"AthenaAboutArachne02",
+				"AthenaAboutArachne03",
+			},
+			{
+				"AthenaAboutPrometheusL01",
+				"AthenaAboutTyphonW02",
 			},
 
 			-- priority story
 			{
 				"AthenaAboutSurfaceThreat01",
 				"AthenaAboutPrometheus02",
-				"AthenaAboutAres01",
 			},
 			{
-				"AthenaAboutAres02",
 				"AthenaPostEpilogue02",
 			},
 			{
-				"AthenaAboutAutomatons01",
 				"AthenaAboutOlympians01",
 				"AthenaAboutZeus01",
 			},
@@ -4456,24 +4488,32 @@ OverwriteTableKeys( NarrativeData, {
 
 			-- high-priority contextual
 			{
-				"AthenaAboutArachne01",
-				"AthenaAboutArachne02",
-				"AthenaAboutArachne03",
+				"AthenaAboutChronosBossW01",
 			},
 			{
-				"AthenaAboutChronosBossW01",
+				"AthenaAboutAres01",
+				"AthenaAboutAres02",
 			},
 			{
 				"AthenaAboutTimePassing01",
 			},
 			{
-				"AthenaAboutTalos01",
+				"AthenaAboutCirce01",
+				"AthenaAboutCirce01_B",
+				"AthenaAboutCirce02",
+				"AthenaAboutCirce02_B",
 			},
 
-			-- lower-priority contextual
+			-- non-ending-sensitive
 			{
 				"AthenaAboutFates01",
 			},
+			{
+				"AthenaAboutTalos01",
+				"AthenaAboutAutomatons01",
+			},
+
+			-- lower-priority contextual
 			{
 				"AthenaAboutHera01",
 				"AthenaAboutHeracles01",
@@ -4575,6 +4615,10 @@ OverwriteTableKeys( NarrativeData, {
 			{
 				"ChaosAboutBounties01",
 			},
+
+			"ChaosAboutSurface01",
+			"ChaosGrantsBountyBoard01",
+			"ChaosGrantsDarkness01_B",
 			{
 				"ChaosAboutBounties02",
 				"ChaosAboutBounties03",
@@ -4582,15 +4626,11 @@ OverwriteTableKeys( NarrativeData, {
 				"ChaosAboutBountyProgress01",
 			},
 
-			"ChaosAboutSurface01",
-			"ChaosGrantsBountyBoard01",
+			"ChaosAboutSurface02",
+			"ChaosGrantsDarkness01",
 
 			"ChaosAboutChronosNightmare01",
 			"ChaosAboutChronosNightmare01_B",
-
-			"ChaosAboutSurface02",
-			"ChaosGrantsDarkness01",
-			"ChaosGrantsDarkness01_B",
 			{
 				"ChaosUnderworldRunCleared01",
 				"ChaosAboutChronosFight01",
@@ -4606,7 +4646,6 @@ OverwriteTableKeys( NarrativeData, {
 			"ChaosAboutBountyBoard01",
 
 			"ChaosPostTrueEndingRunCleared01",
-			"ChaosPostTrueEndingAboutUnderworld01",
 
 			-- priority story
 			"ChaosAboutZagreus01",
@@ -4620,6 +4659,9 @@ OverwriteTableKeys( NarrativeData, {
 
 			-- high-priority contextual
 			{
+				"ChaosAboutKeepsakeQuest01_B",
+			},
+			{
 				"ChaosAboutChaosGateItem01",
 			},
 			{
@@ -4627,6 +4669,9 @@ OverwriteTableKeys( NarrativeData, {
 				"ChaosAboutKeepsake02",
 				"ChaosAboutNemesis01",
 				"ChaosAboutHades01",
+			},
+			{
+				"ChaosPostTrueEndingAboutUnderworld01",
 			},
 			{
 				"ChaosPostTrueEndingAboutUnderworld02",
@@ -4650,10 +4695,7 @@ OverwriteTableKeys( NarrativeData, {
 
 			-- health
 			{
-				"ChaosLowHealth01",
-				"ChaosLowHealth02",
 				"ChaosLowHealth03",
-				"ChaosLowHealth04",
 			},
 
 			-- priority contextual
@@ -4671,6 +4713,11 @@ OverwriteTableKeys( NarrativeData, {
 				"ChaosAboutNyx01",
 				"ChaosAboutNyx02",
 				"ChaosAboutChronos02",
+			},
+			{
+				"ChaosLowHealth01",
+				"ChaosLowHealth02",
+				"ChaosLowHealth04",
 			},
 
 			-- about other gods
@@ -4803,23 +4850,23 @@ OverwriteTableKeys( NarrativeData, {
 	{
 		InteractTextLinePriorities =
 		{
-			"PersephoneTrueEnding01",
+			"HadesTrueEnding01",
 			"ZeusPalacePostTrueEnding01",
 
 			-- erebus events
 			"NeoChronosPostEpilogue01",
 			"NeoChronosWithNemesis01",
 			"NeoChronosAboutNemesis01",
-			"NeoChronosAboutErebus01_B",
 			"NeoChronosAboutErebus01",
-			"NeoChronosAboutFates01",
+			"NeoChronosAboutFates01", -- epilogue
 			"NeoChronosAboutFailure01",
 			"NeoChronosAboutChronos01",
 			"NeoChronosAboutAnomaly01",
-			"NeoChronosAboutPrometheus01",
-			"NeoChronosAboutTyphon01",
 			"NeoChronosAboutKeepsake01",
 			"NeoChronosAboutPast01",
+			"NeoChronosAboutPrometheus01",
+			"NeoChronosAboutGoldenAge01",
+			"NeoChronosAboutTyphon01",
 			"NeoChronosPostEpilogue02",
 			"NeoChronosAboutBoons01",
 			"NeoChronosAboutNewJob01",
@@ -4865,6 +4912,8 @@ OverwriteTableKeys( NarrativeData, {
 			"ChronosBossFirstMeeting_B",
 			"ChronosBossFirstMeeting",
 			"ChronosBossLostAgainstHim01",
+
+			-- after 1st win
 			"ChronosBossWonAgainstHim01",
 
 			-- immediate-contextual
@@ -4881,6 +4930,19 @@ OverwriteTableKeys( NarrativeData, {
 				"ChronosBossAboutHades02",
 				"ChronosBossAboutGameplayTimer02",
 			},
+
+			-- priority story
+			"ChronosBossAboutHades01",
+			-- after 2nd win
+			"ChronosBossAboutFamily01",
+			-- after 3rd win
+			"ChronosBossAboutFamily02",
+			-- after 4th win
+			"ChronosBossAboutFamily03",
+			-- after 5th win
+			"ChronosBossAboutFamily04",
+			-- after 6th win
+			"ChronosBossAboutFamily05",
 			{
 				"ChronosBossAboutPausing01",
 			},
@@ -4890,12 +4952,6 @@ OverwriteTableKeys( NarrativeData, {
 			},
 			{
 				"ChronosBossAboutTyphon04",
-			},
-
-			-- priority story
-			{
-				"ChronosBossAboutHades01",
-				"ChronosBossAboutFamily01",
 			},
 			-- health
 			{
@@ -4910,6 +4966,11 @@ OverwriteTableKeys( NarrativeData, {
 			-- about other gods
 			{
 			},
+			-- additional story
+			{
+				"ChronosBossAboutGoldenAge01",
+				"ChronosBossAboutGoldenAge02",
+			},
 			-- lower-priority contextual
 			{
 				"ChronosBossAboutPrometheus02",
@@ -4919,16 +4980,12 @@ OverwriteTableKeys( NarrativeData, {
 			{
 				"ChronosBossAboutChaos01",
 				"ChronosBossAboutHistory01",
-				"ChronosBossAboutGoldenAge02",
 				"ChronosBossAboutEris01",
 				"ChronosBossAboutPrometheus01",
 				"ChronosBossAboutGameplayTimer01",
 				"ChronosBossAboutThessaly01",
 			},
 			-- lower-priority story
-			{
-				"ChronosBossAboutGoldenAge01",
-			},
 			{
 				"ChronosBossAboutCerberus01",
 				"ChronosBossAboutMelinoe01",
@@ -4962,6 +5019,7 @@ OverwriteTableKeys( NarrativeData, {
 
 		BossPhaseChangeTextLinePriorities =
 		{
+			"ChronosBossPreTrueEndingFinalPhase01",
 			"ChronosBossR2Outro01",
 			"ChronosR1FirstWin",
 			{
@@ -4978,12 +5036,24 @@ OverwriteTableKeys( NarrativeData, {
 
 		BossOutroTextLinePriorities =
 		{
+			-- before pastfirstmeeting
 			"ChronosBossOutro01",
+			-- pastmeeting06
+			"ChronosBossOutroAfterHecateKidnapped01",
+			-- after true ending
+			"ChronosBossOutroPostTrueEnding01",
+			-- pastmeeting02
+			"ChronosBossOutroUltimateProgress01",
+			-- pastmeeting02_2
+			"ChronosBossOutroUltimateProgress02",
 			"ChronosBossOutroPreTrueEnding01",
 			"ChronosBossOutroPreTrueEnding01_B",
-			"ChronosBossOutroPostTrueEnding01",
-			"ChronosBossOutroUltimateProgress01",
-			"ChronosBossOutroUltimateProgress02",
+			-- pastmeeting03
+			"ChronosBossOutroUltimateProgress03",
+			-- pastmeeting04
+			"ChronosBossOutroUltimateProgress04",
+			-- pastmeeting04_2
+			"ChronosBossOutroUltimateProgress05",
 		},
 	},
 
@@ -5173,7 +5243,6 @@ OverwriteTableKeys( NarrativeData, {
 				"DionysusAboutAmbrosia02",
 			},
 			"DionysusPostTrueEnding02",
-			"DionysusAboutPrometheus02",
 
 			-- priority story
 			{
@@ -5184,14 +5253,16 @@ OverwriteTableKeys( NarrativeData, {
 
 			"DionysusAboutPrometheus01",
 
+			"DionysusAboutZagreus01",
+			"DionysusAboutZagreus02",
+
 			"DionysusAboutFeast03",
 			"DionysusAboutFeast05",
 
 			"DionysusAboutAutomatons01",
-
-			"DionysusAboutZagreus01",
-			"DionysusAboutZagreus02",
 			"DionysusAboutMortals01",
+
+			"DionysusAboutPrometheus02",
 
 			-- lower-priority contextual
 			{
@@ -5765,7 +5836,6 @@ OverwriteTableKeys( NarrativeData, {
 			"HeraclesFieldAboutReturning01",
 
 			"HeraclesFieldAboutAltFightWin01",
-			"HeraclesFieldAboutTrueEnding02",
 			"HeraclesFieldAboutEpilogue02",
 
 			"HeraclesFieldAboutTyphon01",
@@ -5774,9 +5844,10 @@ OverwriteTableKeys( NarrativeData, {
 			"HeraclesFieldAboutIcarus02",
 
 			-- priority story
-			"HeraclesFieldAboutFates01",
+			"HeraclesFieldAboutFates01", -- epilogue
 			"HeraclesFieldAboutPolyphemus01",
 			"HeraclesFieldAboutFathers01",
+			"HeraclesFieldAboutTrueEnding02",
 
 			-- priority contextual
 			"HeraclesFieldAboutHera01",
@@ -6038,8 +6109,6 @@ OverwriteTableKeys( NarrativeData, {
 			"IcarusAboutOlympus02",
 			"IcarusAboutEris02",
 			"IcarusAboutFlying04",
-			"IcarusPostTrueEnding03",
-			"IcarusAboutUnderworld01",
 
 			"IcarusAboutCrossroads02",
 			-- immediate-contextual
@@ -6059,47 +6128,34 @@ OverwriteTableKeys( NarrativeData, {
 				"IcarusAboutTyphon01",
 				"IcarusAboutTyphon02",
 			},
-			{
-				"IcarusAboutOdysseus01",
-			},
-			{
-				"IcarusAboutKeepsake01",
-				"IcarusAboutHiddenAspects01",
-				"IcarusLowHealth01",
-			},
-			{
-				"IcarusAboutTyphon03",
-			},
-			{
-				"IcarusAboutEris01",
-			},
+			"IcarusAboutOdysseus01",
+			"IcarusAboutTyphon03",
 			-- priority story
 			{
 				"IcarusAboutFlying02",
 				"IcarusAboutFlying02_B",
 			},
+			"IcarusPostTrueEnding03",
+			"IcarusAboutUnderworld01",
+			"IcarusAboutSurfaceCurse01",
+			"IcarusAboutMelinoe01",
 			{
-				"IcarusAboutSurfaceCurse01",
-			},
-			{
-				"IcarusAboutMelinoe01",
 				"IcarusAboutFlying01",
 				"IcarusAboutFlying01_B",
 				"IcarusAboutReturning02",
 			},
-			{
-				"IcarusAboutFlying03",
-			},
-			{
-				"IcarusAboutReturning01",
-			},
-			{
-				"IcarusAboutDaedalus01",
-			},
+			"IcarusAboutFlying03",
+			"IcarusAboutReturning01",
+			"IcarusAboutDaedalus01",
+
 			-- lower-priority contextual
 			{
-				"IcarusAboutTimePassing01",
+				"IcarusAboutKeepsake01",
+				"IcarusAboutHiddenAspects01",
+				"IcarusLowHealth01",
 			},
+			"IcarusAboutEris01",
+			"IcarusAboutTimePassing01",
 			{
 				"IcarusAboutKeepsake02",
 				"IcarusAboutHammers01",
@@ -6284,6 +6340,9 @@ OverwriteTableKeys( NarrativeData, {
 			"NarcissusFirstMeeting",
 			"NemesisWithNarcissus01_FollowUp",
 
+			"NarcissusAboutWaters05",
+			"NarcissusGrantsReward01",
+
 			"NarcissusAboutFriendship04",
 			"NarcissusAboutFriendship05",
 			"NarcissusAboutFriendship06",
@@ -6305,20 +6364,24 @@ OverwriteTableKeys( NarrativeData, {
 				"NarcissusAboutWaters03",
 				"NarcissusAboutWaters04",
 				"NarcissusAboutWaters04_2",
-				"NarcissusAboutWaters05",
-				"NarcissusGrantsReward01",
 			},
 			{
 				"NarcissusAboutStillDirtyWaters01",
+				"NarcissusAboutEcho01",
+				"NarcissusAboutEcho01B",
 				"NarcissusAboutEcho02",
 				"NarcissusAboutEcho03",
 				"NarcissusAboutEcho04",
 			},
 			{
 				"NarcissusAboutKeepsake01",
+				"NarcissusAboutNemesis01",
 			},
 
 			-- priority story
+			{
+				"NarcissusAboutChronos01",
+			},
 			{
 				"NarcissusAboutLooks02",
 				"NarcissusAboutReflection01",
@@ -6328,17 +6391,11 @@ OverwriteTableKeys( NarrativeData, {
 			},
 			{
 				"NarcissusAboutDanger01",
-				"NarcissusAboutChronos01",
 			},
 			{
 				"NarcissusAboutSolitude01",
 			},
 			-- priority contextual
-			{
-				"NarcissusAboutEcho01",
-				"NarcissusAboutEcho01B",
-			},
-			"NarcissusAboutNemesis01",
 			{
 				"NarcissusAboutEcho05",
 				"NarcissusAboutEcho06",
@@ -6349,6 +6406,9 @@ OverwriteTableKeys( NarrativeData, {
 				"NarcissusLowHealth02",
 			},
 			-- lower priority story
+			{
+				"NarcissusAboutBeauty01",
+			},
 			{
 				"NarcissusAboutOceanus01",
 				"NarcissusAboutLove01",
@@ -6362,7 +6422,6 @@ OverwriteTableKeys( NarrativeData, {
 				"NarcissusAboutFriendship03",
 			},
 			{
-				"NarcissusAboutBeauty01",
 				"NarcissusAboutSirens01",
 			},
 			{
@@ -6451,6 +6510,7 @@ OverwriteTableKeys( NarrativeData, {
 				"PolyphemusAboutNobody03",
 			},
 
+			"PolyphemusWonAgainstHim01",
 			"PolyphemusAboutTyphon01",
 			"PolyphemusPostTrueEnding03",
 
@@ -6471,7 +6531,6 @@ OverwriteTableKeys( NarrativeData, {
 				"PolyphemusLowHealth02",
 			},
 			{
-				"PolyphemusWonAgainstHim01",
 				"PolyphemusWonAgainstHim02",
 			},
 			{
@@ -6563,7 +6622,6 @@ OverwriteTableKeys( NarrativeData, {
 			"PrometheusAboutUltimateProgress01",
 			"PrometheusAboutEpilogue01",
 
-			"PrometheusAboutShrineBounty02",
 			"PrometheusPackagedBounties01",
 
 			"PrometheusPostTrueEnding01",
@@ -6574,45 +6632,29 @@ OverwriteTableKeys( NarrativeData, {
 			"PrometheusAboutEpilogue02",
 			"PrometheusAboutEpilogue03",
 
-			"PrometheusAboutFates02",
-
 			"PrometheusAboutAltFight03",
 
 			"PrometheusPostTrueEnding03",
 
-			"PrometheusPostTrueEnding02",
+			"PrometheusAboutFates02", -- epilogue
 
 			"PrometheusLostAgainstHim01",
 			"PrometheusAboutTyphon01",
 			"PrometheusAboutTyphonL01",
 			"PrometheusAboutTyphon03",
 			"PrometheusWonAgainstHim01",
-			"PrometheusAboutTyphon02",
 			"PrometheusAboutChronos01",
 			"PrometheusAboutGoldenAge01",
 			"PrometheusAboutUltimateProgress02",
 
 			"PrometheusAboutDora02",
 
-
 			"PrometheusAboutAltFight09",
-			"PrometheusAboutAltFight05",
-			"PrometheusAboutAltFight07",
-
-			"PrometheusAboutPostTyphon02",
 
 			-- health & immediate contextual
 			{
-				"PrometheusAboutShrineBounty01",
-				"PrometheusAboutRandomBounty01",
-			},
-
-			{
 				"PrometheusAboutDionysus02",
 				"PrometheusAboutDora04",
-			},
-			{
-				"PrometheusWonAgainstHim02",
 			},
 			{
 				"PrometheusLowHealth03",
@@ -6626,10 +6668,24 @@ OverwriteTableKeys( NarrativeData, {
 			"PrometheusAboutMortals01",
 			"PrometheusAboutFire01",
 			"PrometheusAboutMortals02",
+			"PrometheusAboutFates01", -- epilogue
 			"PrometheusAboutMortals03",
-			"PrometheusAboutFates01",
+
+			"PrometheusPostTrueEnding02",
+			"PrometheusAboutPostTyphon02",
 
 			-- priority contextual
+			"PrometheusAboutAltFight05",
+			"PrometheusAboutAltFight07",
+			"PrometheusAboutTyphon02",
+
+			"PrometheusAboutShrineBounty02",
+			{
+				"PrometheusAboutShrineBounty01",
+				"PrometheusAboutRandomBounty01",
+			},
+			"PrometheusWonAgainstHim02",
+
 			"PrometheusAboutPostTyphon01",
 			"PrometheusAboutAltFight06",
 			"PrometheusAboutAltFight05_2",
@@ -6734,10 +6790,7 @@ OverwriteTableKeys( NarrativeData, {
 
 			"ScyllaAboutBallad02",
 
-			"ScyllaAboutAltFight02",
 			"ScyllaAboutAltFight03",
-			"ScyllaAboutAltFight04",
-			"ScyllaAboutAltFight05",
 
 			"ScyllaAboutSongs02",
 			"ScyllaPostTrueEnding01",
@@ -6753,8 +6806,6 @@ OverwriteTableKeys( NarrativeData, {
 			{
 				"ScyllaLowHealth01",
 				"ScyllaLowHealth02",
-				"ScyllaLowHealth03",
-				"ScyllaLowHealth04",
 			},
 			-- priority story
 			{
@@ -6771,24 +6822,41 @@ OverwriteTableKeys( NarrativeData, {
 				"ScyllaAboutNoShow01",
 			},
 			{
-				"ScyllaAboutShrine01",
-				"ScyllaAboutShrine02",
+				"ScyllaAboutBallad03",
 			},
 			{
-				"ScyllaAboutBallad03",
+				"ScyllaAboutAgents01",
+			},
+			{
+				"ScyllaAboutChronos01",
+				"ScyllaAboutChronos02",
+				"ScyllaAboutSongs03",
+				"ScyllaAboutSongs04",
 			},
 			-- lower priority contextual
 			{
+				"ScyllaAboutAltFight04",
+				"ScyllaAboutAltFight08",
+			},
+			{
+				"ScyllaAboutCharybdis01",
 				"ScyllaAboutDying01",
 				"ScyllaAboutThessaly01",
-				"ScyllaAboutCharybdis01",
-				"ScyllaAboutAltFight06",
-				"ScyllaAboutAltFight07",
-				"ScyllaAboutAltFight08",
 				"ScyllaAboutMerch01",
 				"ScyllaAboutShrineBounty02",
 				"ScyllaAboutGreenRoom01",
-				"ScyllaAboutRumors01",
+			},
+			{
+				"ScyllaAboutAltFight02",
+				"ScyllaAboutAltFight05",
+			},
+			{
+				"ScyllaAboutAltFight06",
+				"ScyllaAboutAltFight07",
+			},
+			{
+				"ScyllaQuickMatch01",
+				"ScyllaNoHitMatch01",
 			},
 			{
 				"ScyllaAboutCurse01",
@@ -6796,20 +6864,16 @@ OverwriteTableKeys( NarrativeData, {
 				"ScyllaAboutCharybdis02",
 			},
 			{
-				"ScyllaQuickMatch01",
-				"ScyllaNoHitMatch01",
+				"ScyllaAboutShrine01",
+				"ScyllaAboutShrine02",
+			},
+			{
+				"ScyllaLowHealth03",
+				"ScyllaLowHealth04",
 			},
 			-- lower priority story
 			{
-				"ScyllaAboutAgents01",
-				"ScyllaAboutChronos01",
-				"ScyllaAboutChronos02",
-			},
-			{
-				"ScyllaAboutSongs03",
-				"ScyllaAboutSongs04",
-			},
-			{
+				"ScyllaAboutRumors01",
 				"ScyllaAboutDiving01",
 			},
 			{
@@ -6856,6 +6920,7 @@ OverwriteTableKeys( NarrativeData, {
 			"NyxInChaosPostEpilogue01",
 
 			"NyxInChaosAboutBadgeProgress01",
+			"NyxInChaosAboutShrine02",
 			"NyxInChaosAboutHypnosWakeUp01",
 
 			"NyxInChaosAboutNyxAspect01",
@@ -6863,7 +6928,6 @@ OverwriteTableKeys( NarrativeData, {
 
 			"NyxInChaosAboutFates01",
 
-			"NyxInChaosAboutShrine02",
 			"NyxInChaosAboutShrine01",
 			"NyxInChaosAboutTrophyQuestComplete01",
 
@@ -6909,8 +6973,12 @@ OverwriteTableKeys( NarrativeData, {
 			"ZagreusPastMeeting02_2",
 			"ZagreusPastMeeting03",
 			"ZagreusPastMeeting04",
+			"ZagreusPastMeeting06_B",
+			"ZagreusPastMeeting04_2",
+			"ZagreusPastMeeting04_3",
 			"ZagreusPastMeeting05",
 			"ZagreusPastMeeting06",
+
 			-- optional
 			"ZagreusPastMeeting07",
 			"ZagreusPastMeeting08",
@@ -7022,7 +7090,17 @@ OverwriteTableKeys( NarrativeData, {
 		{
 			"DemeterPalaceFirstMeeting",
 			"DemeterPalacePostTrueEnding01",
+			"DemeterPalacePostTrueEnding01_B",
 			"DemeterPalaceAboutTyphonDeath01",
+		},
+	},
+
+	-- Achilles
+	NPC_Achilles_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			"AchillesTrueEnding01",
 		},
 	},
 
@@ -7101,6 +7179,8 @@ NarrativeData.ConversationOrder =
 	"NPC_Apollo_Story_01",
 	"NPC_Demeter_Story_01",
 	"NPC_Melinoe_Story_01",
+
+	"NPC_Achilles_01",
 }
 
 -- Event Tables
@@ -7436,6 +7516,18 @@ GameData.ArachneUpsetEvents =
 	-- "ArachneAboutGods05"
 	"ArachneCurseQuestComplete01",
 }
+GameData.AthenaKeepsakeEvents =
+{
+	"AthenaAboutErebus01",
+	"AthenaAboutOceanus01",
+	"AthenaAboutFields01",
+	"AthenaAboutTartarus01",
+	"AthenaAboutEphyra01",
+	"AthenaAboutThessaly01",
+	"AthenaAboutSummit01",
+	"AthenaAboutSummit02",
+	"AthenaAboutKeepsake01",
+}
 GameData.ChronosFinalPhaseTauntEvents =
 {
 	"TyphonAltFightFinalRound01",
@@ -7466,12 +7558,12 @@ GameData.NeoChronosErebusEvents =
 	"NeoChronosPostEpilogue01",
 	"NeoChronosWithNemesis01",
 	"NeoChronosAboutNemesis01",
-	"NeoChronosAboutErebus01_B",
 	"NeoChronosAboutErebus01",
 	"NeoChronosAboutFates01",
 	"NeoChronosAboutFailure01",
 	"NeoChronosAboutChronos01",
 	"NeoChronosAboutAnomaly01",
+	"NeoChronosAboutGoldenAge01",
 	"NeoChronosAboutPrometheus01",
 	"NeoChronosAboutTyphon01",
 	"NeoChronosAboutKeepsake01",

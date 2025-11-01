@@ -321,6 +321,9 @@ function PlayTextLines( source, textLines, args )
 	args.TotalElapsedTime = _worldTime - screen.StartTime
 	DebugPrint({ Text = "args.ElapsedTime = "..args.ElapsedTime })
 
+	args.PlayOnceLine = textLines.PlayOnce
+	--DebugPrint({ Text = "args.PlayOnceLine = "..tostring(args.PlayOnceLine) })
+
 	if textLines.EndCue ~= nil and (textLines.EndCueCooldownName == nil or CheckCooldown( textLines.EndCueCooldownName, textLines.EndCueCooldownTime ) ) then
 		-- These EndCue lines should not repeat per run
 		if not CurrentRun.SpeechRecord[textLines.EndCue] then

@@ -1,6 +1,7 @@
 ﻿function BiomeMapPresentation( source, args, contextArgs )
 
 	contextArgs = contextArgs or {}
+	args = ShallowCopyTable( args ) -- Prevent leaks as args is written to during the sequence
 	local labelData =
 	{
 		{

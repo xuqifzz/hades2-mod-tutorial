@@ -1277,7 +1277,7 @@
 		ShowInvincububble = false,
         Vfx = "AthenaProtectionFront",
 		BackVfx = "AthenaProtectionBack",
-		StopVfxesPreventChainOnCancel = { "AthenaProtectionFront", "AthenaProtectionBack" },
+		StopVfxesPreventChainOnCancel = { "AthenaProtectionFront", "AthenaProtectionFrontOut", "AthenaProtectionBack", "AthenaProtectionBackOut" },
 		DataProperties = {
 			Type = "INVULNERABLE",
 			Duration = 8,

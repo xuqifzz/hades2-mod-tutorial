@@ -426,6 +426,7 @@ ObjectiveSetData =
 		ManualActivationOnly = true,
 
 		OverrideExistingObjective = true,
+		BlockWeaponObjectives = true,
 		Objectives =
 		{
 			{ "KillSkelly" }

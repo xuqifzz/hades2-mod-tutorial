@@ -56,6 +56,13 @@ function DeferredUIScripts()
 	if UIScriptsDeferred.ElementalCountDirty and not UIScriptsDeferred.IgnoreElementalCountDirty then
 		thread( ElementalTraitUpdatedPresentationReal )
 	end
+	if UIScriptsDeferred.KillBuffDirty then
+		local trait = GetHeroTrait( "TimedKillBuffBoon" )
+		if trait then
+			UpdateTraitNumber( trait )	
+		end
+		UIScriptsDeferred.KillBuffDirty = nil
+	end
 end
 
 OnMenuOpened{ "PauseScreen",

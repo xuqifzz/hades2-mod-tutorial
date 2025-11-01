@@ -75,6 +75,8 @@ function SpellFailToFirePresentation( triggerArgs )
 				thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "Spell_NotReady_NoValidSummon", PreDelay = 0.35, Duration = 1.25, Cooldown = 2.0 } )
 			elseif not CanChargeSpell() then
 				thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "UseBlockedByMisc", PreDelay = 0.35, Duration = 1.25, Cooldown = 2.0 } )
+			elseif MapState.HostilePolymorph then
+				thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "UseBlockedByMisc", PreDelay = 0.35, Duration = 1.25, Cooldown = 2.0 } )
 			else
 				thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "Spell_NotReady", PreDelay = 0.35, Duration = 1.25, Cooldown = 2.0 } )
 			end

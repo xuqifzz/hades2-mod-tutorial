@@ -1144,7 +1144,7 @@
 						FunctionArgs = { TextLines = { "NarcissusAboutNemesis01" }, Min = 2 },
 					},
 					NamedRequirements = { "NoRecentNemesisEncounter" },
-					NamedRequirementsFalse = { "NarcissusDirtyWater" },
+					-- NamedRequirementsFalse = { "NarcissusDirtyWater" },
 				},
 				-- OnQueuedThreadedFunctionName = "AmbientChatting",
 				-- OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
@@ -1177,7 +1177,7 @@
 						FunctionArgs = { TextLines = { "NemesisWithNarcissus01_FollowUp" }, Min = 2 },
 					},
 					NamedRequirements = { "NoRecentNemesisEncounter" },
-					NamedRequirementsFalse = { "NarcissusDirtyWater" },
+					-- NamedRequirementsFalse = { "NarcissusDirtyWater" },
 				},
 				-- OnQueuedThreadedFunctionName = "AmbientChatting",
 				-- OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
@@ -1241,13 +1241,13 @@
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutReflection01" }
 					},
 					{
 						PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutFriendship06" },
-					},
-					{
-						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 					NamedRequirementsFalse = { "NarcissusDirtyWater" },
 				},
@@ -1298,6 +1298,7 @@
 				PrePortraitExitFunctionArgs = PresetEventArgs.NarcissusBenefitChoices,
 			},
 
+			-- alt below
 			NarcissusAboutEcho01 =
 			{
 				PlayOnce = true,
@@ -1305,15 +1306,8 @@
 				GameStateRequirements =
 				{
 					{
-						Path = { "GameState", "UseRecord", "NPC_Narcissus_01", },
-						Comparison = ">=",
-						Value = 3,
-					},
-					{
-						PathFalse = { "GameState", "TextLinesRecord", "EchoAboutEcho01" },
-					},
-					{
-						PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutEcho01B" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "EchoAboutEcho01", "NarcissusAboutEcho01B", "NarcissusAboutEcho02" },
 					},
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",
@@ -1344,15 +1338,11 @@
 				GameStateRequirements =
 				{
 					{
-						Path = { "GameState", "UseRecord", "NPC_Narcissus_01", },
-						Comparison = ">=",
-						Value = 3,
-					},
-					{
 						PathTrue = { "GameState", "TextLinesRecord", "EchoAboutEcho01" },
 					},
 					{
-						PathFalse = { "GameState", "TextLinesRecord", "NarcissusAboutEcho01" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "NarcissusAboutEcho01", "NarcissusAboutEcho02" },
 					},
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",
@@ -1386,6 +1376,12 @@
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "EchoAboutNarcissus01" },
 					},
+					--[[
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "NarcissusAboutEcho01", "NarcissusAboutEcho01_B" },
+					},
+					]]--
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",
 				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
@@ -1661,6 +1657,9 @@
 					NamedRequirements = { "NarcissusDirtyWater" },
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutWaters02" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NarcissusWithEcho01" }
 					},
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",
@@ -2723,13 +2722,25 @@
 			{
 				Partner = "NPC_Echo_01",
 				PlayOnce = true,
-				CopyDataFromPartner = true,
+				UseableOffSource = true,
+				GiftableOffSource = true,
+				PreBlockSpecialInteract = true,
+				PostBlockSpecialInteract = true,
+
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusFieldsGreeting,
 			},
 			NarcissusWithEcho03 =
 			{
 				Partner = "NPC_Echo_01",
 				PlayOnce = true,
-				CopyDataFromPartner = true,
+				UseableOffSource = true,
+				GiftableOffSource = true,
+				PreBlockSpecialInteract = true,
+				PostBlockSpecialInteract = true,
+
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NarcissusFieldsGreeting,
 			},
 		}
 	}

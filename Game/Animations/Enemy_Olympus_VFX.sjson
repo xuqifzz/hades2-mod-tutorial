@@ -2464,6 +2464,7 @@
 		VisualFxUse3DAngle = true
 		Sound = "/SFX/Enemy Sounds/InvincibleProjectileLoop"
 		StopSoundOnFinishFade = 0.2
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 	}
 
 	{
@@ -11790,6 +11791,146 @@
 		ScaleX = 2
 		Ambient = 0.0
 	}
+
+	{
+		Name = "HeraclesEMLeapPassiveNova"
+		FilePath = "Fx\FogEmitterSlamNova\FogEmitterSlamNova"
+		NumFrames = 30
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		PlaySpeed = 20
+		ScaleRadius = 205
+		CreateAnimations =
+		[
+			{ Name = "HeraclesEMLeapPassiveNovaDark" }
+			{ Name = "TreantTailBurstDirtA" }
+			{ Name = "TreantTailBurstDirtB" }
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "HeraclesEMLeapPassiveDustFront" }
+			{ Name = "HeraclesEMLeapPassiveDustBack" }
+			{ Name = "HeraclesEMLeapPassiveHole" }
+			{ Name = "HeraclesEMLeapPassiveSpikeA" }
+			{ Name = "HeraclesEMLeapPassiveSpikeB" }
+		]
+	}
+
+	{
+		Name = "HeraclesEMLeapPassiveNovaDark"
+		InheritFrom = "HeraclesEMLeapPassiveNova"
+		GroupName = "FX_Terrain"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ChildAnimation = null
+		VisualFx = null
+	}
+
+	{
+		Name = "HeraclesEMLeapPassiveDustFront"
+		InheritFrom = "HecateMeteorDustFront"
+		Hue = -0.2
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 2
+		CreateAnimation = null
+	}
+
+	{
+		Name = "HeraclesEMLeapPassiveDustBack"
+		InheritFrom = "HecateMeteorDustBack"
+		Hue = -0.2
+		Duration = 1
+		StartAlpha = 2
+		EndAlpha = 0
+	}
+
+	{
+		Name = "HeraclesEMLeapPassiveSpikeA"
+		FilePath = "Particles\particle_banished_spike"
+		Material = "Unlit"
+		Red = 1
+		Green = 0
+		Blue = 0.3
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		OriginX = 192
+		OriginY = 800
+		GroupName = "FX_Standing_Add"
+		Duration = 0.3
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		Scale = 0.6
+	}
+
+	{
+		Name = "HeraclesEMLeapPassiveSpikeB"
+		InheritFrom = "HeraclesEMLeapPassiveSpikeA"
+		ColorFromOwner = "Ignore"
+		Red = 1
+		Green = 1
+		Blue = 1
+		Duration = 0.15
+		Scale = 0.2
+		ScaleY = 2
+	}
+
+	{
+		Name = "HeraclesEMLeapPassiveHole"
+		Random =
+		[
+			{ Name = "HeraclesEMLeapPassiveHoleA" }
+			{ Name = "HeraclesEMLeapPassiveHoleB" }
+		]
+	}
+
+	{
+		Name = "HeraclesEMLeapPassiveHoleA"
+		FilePath = "Fx\FogEmitterSlamNova\Hole"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Duration = 30
+		ChainTo = "HeraclesEMLeapPassiveHoleFadeA"
+		GroupName = "FX_Terrain"
+		ScaleMin = 0.5
+		ScaleMax = 0.7
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "HeraclesEMLeapPassiveHoleFadeA"
+		InheritFrom = "HeraclesEMLeapPassiveHoleA"
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 1.0
+		ChainTo = null
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
+	{
+		Name = "HeraclesEMLeapPassiveHoleB"
+		InheritFrom = "HeraclesEMLeapPassiveHoleA"
+		FlipHorizontal = true
+		ChainTo = "HeraclesEMLeapPassiveHoleFadeB"
+	}
+
+	{
+		Name = "HeraclesEMLeapPassiveHoleFadeB"
+		InheritFrom = "HeraclesEMLeapPassiveHoleFadeA"
+		FlipHorizontal = true
+	}
+
 
 	{
 		Name = "HeraclesEMWaveFx"

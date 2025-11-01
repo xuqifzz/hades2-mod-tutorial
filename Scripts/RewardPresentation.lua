@@ -290,6 +290,24 @@ function PopulateDoorRewardPreviewSubIcons( exitDoor, args )
 			end
 		end
 
+		
+		if room.ZagreusContractSuccess then
+			table.insert( subIcons, { Name = "RoomRewardSubIcon_Contract"})
+		end
+
+		local existingContractIconId = exitDoor.AdditionalIcons.RoomRewardSubIcon_Contract
+		if existingContractIconId ~= nil then
+			if room.ZagreusContractSuccess then
+				SetAlpha({ Id = existingContractIconId, Fraction = 1.0, Duration = 0.2 })
+			else
+				SetAlpha({ Id = existingContractIconId, Fraction = 0.0, Duration = 0.2 })
+			end
+		end
+
+		if room.ConditionalSubIcon ~= nil and room.ConditionalSubIconRequirements ~= nil and IsGameStateEligible( room, room.ConditionalSubIconRequirements ) then
+			table.insert( subIcons, { Name = room.ConditionalSubIcon } )
+		end
+
 		local hasQuestIcon = false
 		local encountersChecked = {}
 		if room.LegalEncounters ~= nil then

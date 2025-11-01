@@ -573,7 +573,7 @@
 					},
 					{
 						FunctionName = "RequireRunsSinceTextLines",
-						FunctionArgs = { TextLines = { "MorosSecondAppearance" }, Max = 3 },
+						FunctionArgs = { TextLines = { "MorosSecondAppearance" }, Max = 4 },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -822,11 +822,14 @@
 				GameStateRequirements =
 				{
 					{
-						PathFalse = { "GameState", "EnemyKills", "Chronos" },
+						-- PathFalse = { "GameState", "EnemyKills", "Chronos" },
 					},
 					{
 						Path = { "CurrentRun" },
 						HasNone = { "Cleared", "BountyCleared" }
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NemesisGift08" }
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -854,16 +857,15 @@
 				GameStateRequirements =
 				{
 					{
-						Path = { "CurrentRun" },
-						HasNone = { "Cleared", "BountyCleared" }
+						PathFalse = { "GameState", "EnemyKills", "Chronos" },
 					},
 					{
-						PathFalse = { "CurrentRun", "RoomsEntered", "I_Boss01" },
+						PathTrue = { "CurrentRun", "BiomesReached", "F" },
 					},
 					{
 						Path = { "GameState", "CompletedRunsCache" },
 						Comparison = ">=",
-						Value = 15,
+						Value = 10,
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -2124,7 +2126,6 @@
 				},
 			},
 
-
 			NemesisAboutHecate01 =
 			{
 				GameStateRequirements =
@@ -2187,7 +2188,7 @@
 					AngleTowardHero = true,
 					PreLineAnim = "Nemesis_Hub_Glare_Start",
 					PostLineAnim = "Nemesis_Hub_Glare_End",
-					Portrait = "Portrait_Nemesis_Averted_01",
+					-- Portrait = "Portrait_Nemesis_Averted_01",
 					Text = "I {#Emph}am {#Prev}doing something about it! I'm honoring my vow to Mother Nyx. Else I'd be long gone, much to your disappointment, I'm sure." },
 				EndVoiceLines =
 				{
@@ -2556,7 +2557,8 @@
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "NarcissusWithEcho01" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisAboutNarcissus01", "NarcissusWithEcho01" },
 					},
 					{
 						Path = { "CurrentRun", "UseRecord" },
@@ -3744,12 +3746,12 @@
 					PreLineAnim = "Nemesis_Hub_Greet",
 					Text = "Don't see why he can't be both. This was never part of the task, and not like you to stray from the objective. We sure this supposedly-neutralized Titan of Time is to be trusted?" },
 
-				{ Cue = "/VO/Melinoe_5014", UsePlayerSource = true,
+				{ Cue = "/VO/Melinoe_5763", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Proud_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "None", Portrait = "Portrait_Mel_Proud_01", WaitTime = 2.6 },
-					Text = "Headmistress sealed his strongest powers just in case. At any rate, we did it, Nem. The task is finally complete!" },
+					Text = "Headmistress sealed his strongest powers just in case. At any rate... we did it, Nem!" },
 
 				{ Cue = "/VO/Nemesis_0410",
 					AngleTowardHero = true,
@@ -4090,6 +4092,11 @@
 					},
 					{
 						PathTrue = { "GameState", "UseRecord", "NPC_Hypnos_01" },
+					},
+
+					-- @ true ending
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 				},
 
@@ -5383,7 +5390,8 @@
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift08" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "NemesisGift08", "NemesisFishing01" },
 					},
 					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
@@ -6030,7 +6038,9 @@
 					Text = "We'd have to put a bit more structure into who decides how mortals are born. Or how their souls come back to life. Topic for a different time. Think I saw a bit of movement over there.",
 					PortraitExitAnimation = "Portrait_Nemesis_Default_01_Exit",
 					PostLineFunctionName = "GiftActivityFishing",
-					PostLineFunctionArgs = { FishingPointId = 585640 }, },
+					PostLineFunctionArgs = { FishingPointId = 585640 },
+					PostLineThreadedFunctionName = "TimePassesPresentation",
+					PostLineThreadedFunctionArgs = { TimeTicks = 16, IncludeFishingSFX = true }, },
 
 				{ Cue = "/VO/Nemesis_0202",
 					PreLineFunctionName = "FishingPierEndPresentation",
@@ -7161,6 +7171,9 @@ VariantSetData.NPC_Nemesis_01 =
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NemesisWithHecate02" },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -9818,6 +9831,12 @@ VariantSetData.NPC_Nemesis_01 =
 						HasAny = { "BridgeNemesisRandomEvent", "NemesisCombatH" },
 					},
 					{
+						PathFalse = { "GameState", "TextLinesRecord", "NemesisGift08" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "NemesisPostCombatAboutTartarus01" }
+					},
+					{
 						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
 						IsNone = { "H" },
 					},
@@ -9845,7 +9864,7 @@ VariantSetData.NPC_Nemesis_01 =
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "NemesisPostCombatAboutChronos01", "NemesisPostCombatAboutCerberus01" },
+						HasAll = { "NemesisPostCombatAboutChronos01" },
 					},
 					{
 						PathTrue = { "GameState", "RoomsEntered", "I_Intro" },

@@ -1071,7 +1071,7 @@ function CalculateLifestealModifiers( attacker, victim, weaponData, triggerArgs 
 	if unmultipliedLifeSteal > 0 then
 		expectedHeal = round((lifesteal - unmultipliedLifeSteal) * healingMultiplier + unmultipliedLifeSteal)
 	end
-	local expectedLimitedHeal = round(limitedLifestealContribution * healingMultiplier)
+	local expectedLimitedHeal = round(limitedLifestealContribution)
 	local maxHealth = attacker.MaxHealth
 	if attacker == CurrentRun.Hero then
 		maxHealth = GetHeroMaxAvailableHealth()
@@ -2254,7 +2254,7 @@ function RemoveLastStand( heroUnit, name )
 end
 function CheckLastStand( victim, triggerArgs )
 
-	if not HasLastStand( victim ) then
+	if not HasLastStand( victim ) and not SessionMapState.InfiniteDeathDefiance then
 		return false
 	end
 
@@ -2271,7 +2271,17 @@ function CheckLastStand( victim, triggerArgs )
 
 	local lastStandData = nil
 	local blockDeathLastStand = false
-	if HasHeroTraitValue( "BlockDeathTimer" ) and not MapState.UsedBlockDeath then
+	if SessionMapState.InfiniteDeathDefiance then
+		lastStandData = 
+		{
+			ManaFraction = 0.9,
+			HealFraction = 0.9,
+			StartPresentationFunctionName = "InfiniteLastStandPresentationStart",
+			EndPresentationFunctionName = "InfiniteLastStandPresentationEnd",
+		}
+		AddOutgoingDamageModifier( CurrentRun.Hero, { ValidWeaponMultiplier = 1.3, Temporary = true })
+		triggerArgs.InfiniteDeathDefiance = true
+	elseif HasHeroTraitValue( "BlockDeathTimer" ) and not MapState.UsedBlockDeath then
 		blockDeathLastStand = true
 		MapState.UsedBlockDeath = true
 		CurrentRun.CurrentRoom.UsedBlockDeath = true
@@ -2283,7 +2293,7 @@ function CheckLastStand( victim, triggerArgs )
 			StartPresentationFunctionName = "BlockDeathLastStandPresentationStart",
 			EndPresentationFunctionName = "BlockDeathLastStandPresentationEnd"
 		}
-	else
+	elseif not IsEmpty(victim.LastStands ) then
 		lastStandData = table.remove( victim.LastStands )
 	end
 	lastStandData.Name = lastStandData.Name or "Default"
@@ -2375,7 +2385,7 @@ function CheckLastStand( victim, triggerArgs )
 	end
 
 	wait( 1.5, RoomThreadName )
-	if not HasLastStand( CurrentRun.Hero ) then
+	if not HasLastStand( CurrentRun.Hero ) and not SessionMapState.InfiniteDeathDefiance then
 		thread( LowHealthBonusBuffStatePresentation )
 	end
 	SetPlayerUnDarkside("LastStand")

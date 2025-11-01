@@ -187,6 +187,9 @@ LootSetData.Zeus =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						FunctionName = "RequiredTraitNameInRoom",
 						FunctionArgs = { Name = "LightningVulnerabilityBoon" },
 					},
@@ -2031,6 +2034,9 @@ LootSetData.Zeus =
 						PathFalse = { "CurrentRun", "UseRecord", "ZeusUpgrade" }
 					},
 					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
 						PathTrue = { "PrevRun", "Cleared" },
 					},
 					{
@@ -2040,9 +2046,6 @@ LootSetData.Zeus =
 						Path = { "GameState", "RoomsEntered", "Q_Boss01" },
 						Comparison = ">=",
 						Value = 3,
-					},
-					{
-						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -2144,7 +2147,8 @@ LootSetData.Zeus =
 						PathFalse = { "CurrentRun", "UseRecord", "ZeusUpgrade" }
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "ZeusPalacePostTrueEnding01" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ZeusPalacePostTrueEnding01", "ChronosBossOutroPostTrueEnding01" },
 					},
 					{
 						FunctionName = "RequireRunsSinceTextLines",
@@ -4143,6 +4147,9 @@ LootSetData.Zeus =
 				GameStateRequirements =
 				{
 					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "GameState", "UseRecord", "ZeusUpgrade" },
 					},
 					{
@@ -4161,7 +4168,7 @@ LootSetData.Zeus =
 					PostLineFunctionName = "BoonInteractPresentation",
 					PostLineFunctionArgs = { SkipAnim = true },
 					PostLineRemoveContextArt = true,
-					Text = "A gift in honor of our victory, Lord Uncle! We never could have achieved this if not for your leadership and relentless conviction, and your lightning bolts! May this Ambrosia help bring us closer together in times of peace." },
+					Text = "A gift in honor of our victory, Lord Uncle! We could never have achieved this if not for your leadership and relentless conviction, and your lightning bolts! May this Ambrosia help bring us closer together in times of peace." },
 				{ Cue = "/VO/Zeus_0314",
 					PortraitExitWait = 1.0,
 					NarrativeContextArt = "DialogueBackground_Olympus",

@@ -369,6 +369,19 @@ WeaponSetData =
 			MaxUses = 3,
 		},
 
+		GameStateRequirements =
+		{
+			{
+				FunctionName = "RequiredShrineLevel",
+				FunctionArgs =
+				{
+					ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+					Comparison = ">=",
+					Value = 4,
+				},
+			}
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
@@ -2412,6 +2425,30 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
+			ConditionalData =
+			{
+				{
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredShrineLevel",
+							FunctionArgs =
+							{
+								ShrineUpgradeName = "BossDifficultyShrineUpgrade",
+								Comparison = "<",
+								Value = 4,
+							},
+						},
+					},
+					Data =
+					{
+						ProjectileName = "nil",
+						AttackSlots = {},
+						ChainedWeaponOptions = "nil",
+					},
+				},
+			},
+
 			ProjectileName = "ChronosRadialOut",
 
 			AttackSlots =
@@ -3280,8 +3317,9 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
+			ConditionalData = {},
 			PostAttackDuration = 1.0,
-			ChainedWeaponOptions = { "ChronosTelescopeSwingRight_P3", "ChronosRushRipple_P3", },
+			ChainedWeaponOptions = { "ChronosTelescopeSwingRight_P3", },
 		},
 	},
 	ChronosClockFaceCast =

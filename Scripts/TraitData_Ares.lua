@@ -35,7 +35,7 @@
 				TextColor = Color.AresDamage,
 				FunctionName = "AresRendApplyPresentation",
 				HitSimSlowParametersFalseTraitName = "StaffRaiseDeadAspect",
-				SimSlowDistanceThreshold = 400,
+				SimSlowDistanceThreshold = 180,
 				HitSimSlowCooldown = 0.8,
 				HitSimSlowParameters =
 				{
@@ -616,6 +616,7 @@
 			},
 
 			{
+				FalseTraitName = "LobCloseAttackAspect",
 				WeaponName = "WeaponLob",
 				ProjectileName = "ProjectileLob",
 				ProjectileProperty = "Graphic",
@@ -842,7 +843,7 @@
 				TextStartColor = Color.AresDamageLight,
 				TextColor = Color.AresDamage,
 				FunctionName = "AresRendApplyPresentation",
-				SimSlowDistanceThreshold = 400,
+				SimSlowDistanceThreshold = 180,
 				HitSimSlowCooldown = 0.8,
 				HitSimSlowParameters =
 				{
@@ -1210,7 +1211,15 @@
 				WeaponName = "WeaponLobSpecial",
 				ProjectileName = "ProjectileLobGunRift",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "LobProjectile_Ares",
+				ChangeValue = "LobProjectileHel_Ares",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileLobSpecialBounce",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobProjectileHel_Ares",
 				ChangeType = "Absolute",
 			},
 			{
@@ -1452,15 +1461,15 @@
 			},
 			Rare =
 			{
-				Multiplier = 110/80,
+				Multiplier = 140/100,
 			},
 			Epic =
 			{
-				Multiplier = 140/80,
+				Multiplier = 180/100,
 			},
 			Heroic =
 			{
-				Multiplier = 170/80,
+				Multiplier = 220/100,
 			},
 		},
 		OnEffectApplyFunction = 
@@ -1474,9 +1483,9 @@
 					BaseValue = 1,
 					AbsoluteStackValues =
 					{
-						[1] = 0.37, -- 30/80
-						[2] = 20/80,
-						[3] = 15/80,
+						[1] = 40/100,
+						[2] = 30/100,
+						[3] = 20/100,
 					},
 				},
 				ReportValues = { ReportedDamage = "DamageMultiplier" }

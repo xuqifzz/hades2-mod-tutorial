@@ -601,7 +601,11 @@ function SpawnStoreItemInWorld( itemData, kitId )
 	if itemData.Name == "WeaponUpgradeDrop" then
 		spawnedItem = CreateWeaponLoot({ SpawnPoint = kitId, ResourceCosts = itemData.ResourceCosts or GetProcessedValue( ConsumableData[itemData.Name].ResourceCosts ), DoesNotBlockExit = true, SuppressSpawnSounds = true, } )
 	elseif itemData.Name == "ShopHermesUpgrade" then
-		spawnedItem = CreateHermesLoot({ SpawnPoint = kitId, ResourceCosts = itemData.ResourceCosts or GetProcessedValue( ConsumableData[itemData.Name].ResourceCosts ), DoesNotBlockExit = true, SuppressSpawnSounds = true, BoughtFromShop = true, AddBoostedAnimation = itemData.AddBoostedAnimation, BoonRaritiesOverride = itemData.BoonRaritiesOverride })
+		local boonRarities = itemData.BoonRaritiesOverride
+		if not boonRarities and itemData.Args then
+			boonRarities = itemData.Args.BoonRaritiesOverride 
+		end
+		spawnedItem = CreateHermesLoot({ SpawnPoint = kitId, ResourceCosts = itemData.ResourceCosts or GetProcessedValue( ConsumableData[itemData.Name].ResourceCosts ), DoesNotBlockExit = true, SuppressSpawnSounds = true, BoughtFromShop = true, AddBoostedAnimation = itemData.AddBoostedAnimation, BoonRaritiesOverride = boonRarities })
 		spawnedItem.CanReceiveGift = false
 		SetThingProperty({ Property = "SortBoundsScale", Value = 1.0, DestinationId = spawnedItem.ObjectId })
 	elseif itemData.Type == "Consumable" then

@@ -17,6 +17,25 @@
 	{
 		InheritFrom = {"SpellTalentTrait"},
 		Icon = "Boon_Selene_132",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Rare =
+			{
+				Multiplier = 1,
+			},
+			Epic =	
+			{
+				Multiplier = 1,
+			},
+			Heroic =
+			{
+				Multiplier = 1,
+			},
+		},
 		OlympianSpellCountBossAddition = { BaseValue = 1 },
 		ExtractValues = 
 		{
@@ -2102,7 +2121,7 @@
 			{
 				Key = "ReportedCritChance",
 				ExtractAs = "CritChance",
-				Format = "Percent",
+				Format = "LuckModifiedPercent",
 				SkipAutoExtract = true,
 			},
 			{

@@ -5723,7 +5723,7 @@
 		HoldLastFrame = true
 		Material = "Unlit"
 		PostRotateScaleY = 0.5
-		ScaleRadius = 540
+		ScaleRadius = 520
 		AngleFromOwner = "Ignore"
 		GroupName = "FX_Terrain_Top"
 		AddColor = true

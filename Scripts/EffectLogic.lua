@@ -222,7 +222,7 @@ function ProcessDamageShare( victim, triggerArgs)
 		local range = EffectData.DamageShareEffect.Range
 		local damageAmount = triggerArgs.DamageAmount * victim.DamageShareAmount		
 		for id, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
-			if enemy and victim and enemy ~= victim and not enemy.IsDead and IsEmpty( enemy.InvulnerableFlags )
+			if enemy and victim and enemy ~= victim and not enemy.IsDead and not enemy.AlwaysTraitor and not IsInvulnerable({ Id = enemy.ObjectId })
 				and HasEffectWithEffectGroup( enemy, "DamageShare") and GetDistance({ Id = victim.ObjectId, DestinationId = enemy.ObjectId}) <= range then
 				CreateAnimationsBetween({ 
 					Animation = "HeraRope", DestinationId = enemy.ObjectId, Id = victim.ObjectId, 

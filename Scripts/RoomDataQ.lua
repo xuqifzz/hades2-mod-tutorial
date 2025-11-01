@@ -44,6 +44,12 @@ RoomSetData.Q =
 		LocationAnimName = "InfoBannerTyphonIn",
 		LocationAnimOutName = "InfoBannerTyphonOut",
 
+		TimeChallengeSwitchRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeChallengeSwitchesSurface1" },
+			},
+		},
 		TimeChallengeEncounterOptions = { "TimeChallengeQ" },
 		PerfectClearEncounterOptions = { "PerfectClearChallengeQ" },
 		EliteChallengeEncounterOptions = { "EliteChallengeQ" },
@@ -552,6 +558,7 @@ RoomSetData.Q =
 				TriggerCooldowns = { "MelinoeAnyQuipSpeech", },
 
 				{ Cue = "/VO/MelinoeField_4198", Text = "{#Emph}Whew... {#Prev}I'm back." },
+				{ Cue = "/VO/Melinoe_5724", Text = "All right, Grandfather... let's put your theories to the test..." },
 			},
 			{
 				BreakIfPlayed = true,
@@ -1220,6 +1227,7 @@ RoomSetData.Q =
 			},
 		},
 
+		Using = { UnitName = "NPC_Hermes_01" },
 	},
 
 	Q_BaseMiniBoss =

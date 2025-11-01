@@ -217,6 +217,7 @@
 		UseVulnerability = false
 		SpawnOnDetonate = "ZombieHRFire"
 		SpawnType = "PROJECTILE"
+		SkipSpawnsIfBlocked = true
 		Thing =
 		{
 			Graphic = "FireBarrelZombieProjectile"

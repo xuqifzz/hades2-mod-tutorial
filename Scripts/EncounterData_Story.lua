@@ -737,7 +737,7 @@
 						FunctionName = "RequiredQueuedTextLine",
 						FunctionArgs = { IsNone = { "NemesisWithNarcissus01_FollowUp", "NemesisWithNarcissus02_FollowUp" }, },
 					},
-					NamedRequirementsFalse = { "NarcissusDirtyWater" },
+					-- NamedRequirementsFalse = { "NarcissusDirtyWater" },
 				},
 
 				VoiceLines =
@@ -782,7 +782,7 @@
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "RoomCountCache", "H_Boss01" },
+				PathTrue = { "GameState", "RoomsEntered", "H_Boss01" },
 			},
 			{
 				PathFalse = { "CurrentRun", "Hero", "MutePermanent" },
@@ -1987,6 +1987,7 @@
 						"ZeusPalaceMeeting04_B",
 						"ZeusPalaceAboutTyphonDeath01",
 						"DemeterPalacePostTrueEnding01",
+						"DemeterPalacePostTrueEnding01_B",
 						"DemeterPalaceAboutTyphonDeath01",
 						"ZeusPalacePostTrueEnding01",
 					},
@@ -2030,8 +2031,8 @@
 				FunctionName = "GenericPresentation",
 				Args =
 				{
-					LoadVoiceBanks = { "Zagreus", "Hades", "Persephone", "Selene", "Nyx" },
-					LoadPackages = { "Zagreus", "Hades", "Persephone", "Selene", "Nyx", "Cerberus" },
+					LoadVoiceBanks = { "Zagreus", "Hades", "Persephone", "Selene", "Nyx", "Achilles", },
+					LoadPackages = { "Zagreus", "Hades", "Persephone", "Selene", "Nyx", "Cerberus", "Achilles", },
 				},
 			},
 			{
@@ -2083,97 +2084,135 @@
 								-- Emote = "PortraitEmoteFiredUp",
 								Text = "Prepare to suffer for all that you've done, wretch! Or shall I stay my hand merely because you made the mistake of loosening your hold on me?" },
 
-							{ Cue = "/VO/Chronos_1372",
+							{ Cue = "/VO/Chronos_1520",
 								PreLineWait = 0.35,
 								Source = "NPC_Chronos_01",
 								Portrait = "Portrait_Chronos_Confused_01",
-								Text = "...{#Emph}Oh {#Prev}this was no mistake... nor shall I seek mercy from the likes of you, {#Emph}witch! {#Prev}Do with me as you must... I care not." },
+								Text = "...All of these... newfound thoughts... within my mind...! Was all of this {#Emph}your {#Prev}doing, witch? I... have no memory of you, and yet.... Who {#Emph}are {#Prev}you...?" },
 
-							{ Cue = "/VO/MelinoeField_3570",
+							{ Cue = "/VO/MelinoeField_5144",
 								UsePlayerSource = true,
 								Portrait = "Portrait_Mel_Intense_01",
-								PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-								PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
-								Text = "Chronos! Headmistress! What happened? What's going on?!" },
+								PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+								PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+
+								SecretMusicMutedStems = { "Bass" },
+
+								Text = "Chronos...! Headmistress, {#Emph}wait! {#Prev}I can... I think I can explain." },
 
 							{ Cue = "/VO/HecateField_0324",
 								Source = "NPC_Hecate_01",
 								Emote = "PortraitEmoteSurprise",
-								Text = "Melinoë...! Where are we? One instant I discovered that our enemy invaded Erebus, then the next I know he's groveling about my feet! How is this possible? What have you done...?" },
+								Text = "Melinoë! Where are we? One instant I discovered that our enemy invaded Erebus, then next I know he's groveling about my feet! How is this possible? What have you done...?" },
 
-							{ Cue = "/VO/MelinoeField_4975",
+							{ Cue = "/VO/MelinoeField_5188",
 								UsePlayerSource = true,
-								PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-								PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
-								Portrait = "Portrait_Mel_Intense_01",
-								Text = "I did everything as planned! But Zagreus, I told him... I {#Emph}warned {#Prev}him! In his time he was supposed to run the Titan through, and {#Emph}end {#Prev}all this!" },
+								PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+								PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+								Portrait = "Portrait_Mel_Vulnerable_01",
 
-							{ Cue = "/VO/Chronos_1373",
+								PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "None", Portrait = "Portrait_Mel_Intense_01", WaitTime = 5.85 },
+
+								Text = "Headmistress, you... you don't remember... because you weren't there with me. But as for you, Chronos! Who am I now to you...?" },
+
+							{ Cue = "/VO/Chronos_1465",
+								PreLineWait = 0.5,
 								Source = "NPC_Chronos_01",
 								Portrait = "Portrait_Chronos_Confused_01",
-								Emote = "PortraitEmoteFiredUp",
-								Text = "Zagreus {#Emph}spared {#Prev}me! Took me in! And from that point... I led what came to be an altogether different life... which I now realize... was but a dream. A {#Emph}delusion! {#Prev}Yet, still... you changed my course...!" },
+								Text = "You are... my granddaughter... Melinoë... whom I know both from this life, and an altogether different one... which I now realize... was but a dream. A {#Emph}delusion! {#Prev}So then... all I have left... is {#Emph}this?" },
 
-							{ Cue = "/VO/MelinoeField_4976",
+							{ Cue = "/VO/MelinoeField_5189",
 								UsePlayerSource = true,
-								PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-								PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+								PreLineAnim = "Melinoe_Defiant", PreLineAnimTarget = "Hero",
 								Portrait = "Portrait_Mel_Intense_01",
-								Text = "And you take me for a fool! You suddenly recall having this chat with Zagreus a while back, and now you're having all these second thoughts?" },
 
-							{ Cue = "/VO/Chronos_1374",
+								SecretMusicActiveStems = { "Bass" },
+
+								Text = "All that you see is what you wrought! As for this other life... how much of it do you recall?" },
+
+							{ Cue = "/VO/Chronos_1466",
+								PreLineWait = 0.5,
 								Source = "NPC_Chronos_01",
 								Portrait = "Portrait_Chronos_Confused_01",
-								Text = "Second thoughts? Oh far, far more. Here, in this House... you had delighted in a hiding-game when you were very small. And you and Zagreus would fight... but out of love... not in the bitter way {#Emph}we {#Prev}fought. I did not realize there could have been this other past of mine... this {#Emph}better {#Prev}past." },
 
-							{ Cue = "/VO/MelinoeField_5061",
+								SecretMusicMutedStems = { "Guitar" },
+
+								Text = "...Your youth, here in this House, with me. How you delighted in a hiding-game, when you were but a girl! How you and Zagreus would fight, but out of love... not in the way we fought this very night. I did not realize there could have been this {#Emph}other {#Prev}past we shared... this {#Emph}better {#Prev}past." },
+
+							{ Cue = "/VO/HecateField_0427",
+								Source = "NPC_Hecate_01",
+								-- Emote = "PortraitEmoteFiredUp",
+
+								SecretMusicActiveStems = { "Guitar", "Drums" },
+
+								Text = "A better past...? {#Emph}Nonsense! {#Prev}None of it occurred! Nothing has {#Emph}changed! {#Prev}You should be {#Emph}gone{#Prev}, Titan...! Not flooded with false memories!" },
+
+							{ Cue = "/VO/MelinoeField_5147",
 								UsePlayerSource = true,
 								Portrait = "Portrait_Mel_Vulnerable_01",
 								PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 								PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 
-								Text = "A {#Emph}better past...? {#Prev}But, none of it occurred... nothing {#Emph}changed! {#Prev}You should be {#Emph}gone... {#Prev}not flooded with false memories. I would never have grown up cheerily with you! I don't understand..." },
+								SecretMusicMutedStems = { "Drums" },
 
-							{ Cue = "/VO/HecateField_0325",
-								Source = "NPC_Hecate_01",
-								PreLineWait = 0.25,
-								Text = "None of us understand ourselves entirely; Melinoë, this wretch is overcome, and shan't be using his old tricks again! {#Emph}End him." },
+								Text = "...All these memories that sprang to his mind... I remember them as well. A life I could have lived... had the Titan never struck." },
 
-							{ Cue = "/VO/Chronos_1375",
+							{ Cue = "/VO/Chronos_1467",
 								Source = "NPC_Chronos_01",
 								Portrait = "Portrait_Chronos_Confused_01",
-								--Emote = "PortraitEmoteFiredUp",
-								Text = "{#Emph}Yes! {#Prev}Finish what you set your mind to, Granddaughter! For I have no desire to exist in such a world, with all of you, like {#Emph}this! {#Prev}Not for one moment longer...!" },
+								-- Emote = "PortraitEmoteFiredUp",
+								PreLineAnim = "Enemy_Chronos_Knockdown_Frustrated", PreLineAnimTarget = 774365,
 
-							{ Cue = "/VO/MelinoeField_4978",
+								SecretMusicActiveStems = { "Drums", },
+								-- SecretMusicMutedStems = { "Drums" },
+
+								Text = "But I {#Emph}struck! {#Prev}Ever-hated and shunned! Finish what you set your mind to, Granddaughter! For I have no desire to exist in such a world, with all of you, like {#Emph}this! {#Prev}Not for one moment longer...!" },
+
+							{ Cue = "/VO/HecateField_0428",
+								Source = "NPC_Hecate_01",
+								Emote = "PortraitEmoteAnger",
+								-- PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+
+								-- SecretMusicActiveStems = { "Drums", },
+								SecretMusicMutedStems = { "Guitar" },
+
+								Text = "{#Emph}Silence! {#Prev}Melinoë, come to your senses. Whatever you did, this wretch is finished, and shan't be using his old tricks again! {#Emph}End him!" },
+
+							{ Cue = "/VO/MelinoeField_5148",
 								UsePlayerSource = true,
 								Portrait = "Portrait_Mel_Intense_01",
-								PreLineAnim = "MelTalkFlustered01", PreLineAnimTarget = "Hero",
-								Emote = "PortraitEmoteFiredUp",
-								-- PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
-								Text = "{#Emph}Silence! {#Prev}You'll exist in this world until I say otherwise. Now, enough talk. Release our family from your hold!" },
+								PreLineAnim = "Melinoe_Defiant", PreLineAnimTarget = "Hero",
 
-							{ Cue = "/VO/Chronos_1020_B",
+								SecretMusicMutedStems = { "Drums" },
+
+								Text = "Wait, please, let me prove this to you...! Chronos! Grandfather. Listen to me: Steady yourself. Use what power you yet have, and release our family from your hold!" },
+
+							{ Cue = "/VO/Chronos_1468",
 								PreLineWait = 0.35,
+								Emote = "PortraitEmoteSurprise",
 								Source = "NPC_Chronos_01",
 								Portrait = "Portrait_Chronos_Confused_01",
 								PortraitExitAnimation = "Portrait_Chronos_Confused_01_Exit",
 								PostLineFunctionName = "SummonFamilyMembers",
 								PostLineRemoveContextArt = true,
-								Text = "Our family...? Granddaughter, I... shall not release them, no. You shall. And I await their judgment, and your own." },
 
-							{ Cue = "/VO/Hades_0208",
+								SecretMusicActiveStems = { "Guitar", },
+								SecretMusicMutedStems = { "Bass" },
+
+								Text = "{#Emph}<Gasp> {#Prev}Our family...? They... why, they are bound as yet! I had them bound... for all this time. What have I done...?" },
+
+							{ Cue = "/VO/Hades_0403",
 								Emote = "PortraitEmoteFiredUp",
 								Portrait = "Portrait_Hades_Chained_02",
 								Source = "NPC_Hades_Story_01",
-								PreLineWait = 0.5,
-								Text = "Father, what... why have you brought me here? And the others...! What is the meaning of all this?" },
+								PreLineWait = 0.2,
+								Text = "My family...! Where are we...? Is this... my {#Emph}House? {#Prev}Father...! What is the meaning of all this?!" },
 
-							{ Cue = "/VO/Chronos_1376",
+							{ Cue = "/VO/Chronos_1469",
 								Source = "NPC_Chronos_01",
 								Portrait = "Portrait_Chronos_Confused_01",
 								PostLineFunctionName = "SetupFamilyRescueCamera",
-								Text = "Ask your daughter, Hades! Perhaps she can explain better than I. As for the Queen, and Prince, and all the rest... the Princess needs but to remind them who they are." },
+								Text = "{#Emph}Oh{#Prev}, Hades... perhaps the Princess can explain. As for the Queen, and Prince, and all the rest... Melinoë, they need but hear your voice. And I await their judgment, and your own." },
 						},
 						-- the story continues in FamilyRescuePresentation & TrueEnding02
 					},
@@ -2232,16 +2271,25 @@
 								Speaker = "NPC_Chronos_01",
 								Text = "...I do appreciate the ride upon your gleaming chariot, O Moon; but it is time for me to go. Perhaps my conversations with Hades have prepared me to face my other sons..." },
 
-							{ Cue = "/VO/MelinoeField_5069", UsePlayerSource = true,
-								Text = "Lord Uncle Zeus asked that you come alone. He and Olympus may not be quite as merciful as Father was, but how you act with them shall help determine that. They ought to be expecting you by now." },
+							{ Cue = "/VO/MelinoeField_5172", UsePlayerSource = true,
+								Text = "We've informed Lord Uncle Zeus of what happened, and given our recommendations, though he'll have many questions for you. And ought to be expecting you by now. Remember the chance you've been given, Grandfather." },
 
-							{ Cue = "/VO/Chronos_1429",
+							{ Cue = "/VO/Chronos_1479_B",
+								Source = "NPC_Chronos_02",
+								Speaker = "NPC_Chronos_01",
+
+								Text = "Time cannot forget, and ought never to be late. May Zeus at least permit me to assist you from here on, knowing there were real possibilities this all could have gone worse." },
+
+							{ Cue = "/VO/MelinoeField_5218_B", UsePlayerSource = true,
+								Text = "To think that the entire flow of Time has fractured because of what occurred..." },
+
+							{ Cue = "/VO/Chronos_1528",
 								Source = "NPC_Chronos_02",
 								Speaker = "NPC_Chronos_01",
 								PortraitExitAnimation = "Portrait_Chronos_Default_02_Exit",
 								PostLineFunctionName = "TwinsEntrancePresentation",
 
-								Text = "And I ought never to be late. Perhaps they shall at least permit me to assist you from here on in case you do retrace your steps. Till then, farewell. And thank you, Granddaughter. My Time Keeper." },
+								Text = "I would liken it more to a moment of self-discovery on my part! Despite my advanced age, it seems I did not know all that there is to know about myself. But then again... who does? Now, farewell. And thank you, Granddaughter." },
 
 							-- Twins Enter
 							{ Cue = "/VO/MelinoeField_3907", UsePlayerSource = true,

@@ -503,22 +503,19 @@
 			AttachedAnim = "SticklerSpearShadow"
 			Grip = 999999
 			Scale = 0.75
+			RotateGeometry = true
 			Points =
 			[
 				{
-					X = 0
-					Y = 24
-				}
-				{
-					X = 48
-					Y = 0
-				}
-				{
-					X = 0
+					X = 60
 					Y = -24
 				}
 				{
-					X = -48
+					X = 60
+					Y = 24
+				}
+				{
+					X = -150
 					Y = 0
 				}
 			]

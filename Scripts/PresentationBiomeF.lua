@@ -475,11 +475,6 @@ function SummonAthena( source, args )
 
 	Destroy({ Id = ScreenAnchors.DialogueBackgroundId })
 
-	SetSoundCueValue({ Names = { "Section" }, Id = AudioState.SecretMusicId, Value = 10 })
-	StopSound({ Id = AudioState.SecretMusicId, Duration = 1 })
-	AudioState.SecretMusicId = nil
-	AudioState.SecretMusicName = nil
-
 	SecretMusicPlayer( "/Music/MusicPlayer/Iris/IrisMusicBiomeStartOlympusMusicPlayer" )
 
 	SetupUnit( athena, CurrentRun, { IgnoreAI = true, IgnoreAssert = true, } )
@@ -539,10 +534,7 @@ function UnSummonAthena( source, args )
 
 	SetAnimation({ Name = "Athena_Leap_Exit", DestinationId = athenaId })
 
-	SetSoundCueValue({ Names = { "Section" }, Id = AudioState.SecretMusicId, Value = 10 })
-	StopSound({ Id = AudioState.SecretMusicId, Duration = 5 })
-	AudioState.SecretMusicId = nil
-	AudioState.SecretMusicName = nil
+	SecretMusicPlayer( "/Music/BlankMusicCue" )
 
 	wait ( 0.45 )
 	AdjustZLocation({ Id = athenaId, Distance = 2000 - GetZLocation({ Id = athenaId }), Duration = 0.1 })
@@ -560,4 +552,9 @@ function UnSummonAthena( source, args )
 	ActiveEnemies[athenaId] = nil
 	Destroy({ Id = athenaId })
 
+end
+
+function SetupHecateBossIntroTextLines( source, args )
+	source.QueuedBossIntroTextLines = GetRandomEligibleTextLines( source, source.BossIntroTextLineSets, GetNarrativeDataValue( source, "BossIntroTextLinePriorities" ) )
+	SessionMapState.QueuedBossIntroTextLines = source.QueuedBossIntroTextLines
 end

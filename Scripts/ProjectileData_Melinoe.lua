@@ -476,7 +476,10 @@ OverwriteTableKeys( ProjectileData, {
 	},
 	SpearWeaponSpin = 
 	{
-
+		CancelHitSpark = true,
+		CancelUnitHitFlash = true,
+		CancelArmorSpark = true,
+		IgnoreIndestructibleHitPresentation = true,
 	},
 	MedeaStatusStrike = 
 	{

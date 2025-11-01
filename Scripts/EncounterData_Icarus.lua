@@ -84,6 +84,7 @@ OverwriteTableKeys( EncounterData,
 
 		UnthreadedEvents = EncounterSets.EncounterEventsIcarusShipsCombat,
 
+		BlockCodexBeforeStart = false,
 		SkipShipsBombardment = true,
 	},
 

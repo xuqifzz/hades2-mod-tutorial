@@ -771,6 +771,12 @@ function AttemptUseDoor( door, args )
 			PlaySound({ Name = "/SFX/OceanusTrapDoorUnlock" })
 			CreateAnimation({ DestinationId = door.ObjectId, Name = "OceanusManholeUnlock", Group = "FX_Terrain_Top" })
 			RefreshUseButton(door.ObjectId, door)
+			for id, offeredExitDoor in pairs( MapState.OfferedExitDoors ) do
+				if offeredExitDoor ~= door then
+					offeredExitDoor.PrevCanBeRerolled = offeredExitDoor.CanBeRerolled
+					offeredExitDoor.CanBeRerolled = false
+				end
+			end
 
 			StartEncounter(CurrentRun, CurrentRun.CurrentRoom, doorEncounter)
 
@@ -780,10 +786,11 @@ function AttemptUseDoor( door, args )
 			end
 			CreateDoorRewardPreview( door )
 			thread( ExitDoorUnlockedPresentation, door )
-			if not IsEmpty( MapState.OfferedExitDoors ) then
-				for id, door in pairs(MapState.OfferedExitDoors) do
-					RefreshUseButton( id, door )
+			for id, offeredExitDoor in pairs( MapState.OfferedExitDoors ) do
+				if offeredExitDoor ~= door then
+					offeredExitDoor.CanBeRerolled = offeredExitDoor.PrevCanBeRerolled
 				end
+				RefreshUseButton( id, offeredExitDoor )
 			end
 			return
 		end
@@ -2666,7 +2673,9 @@ function ClearUpgrades( args )
 	
 	for metaUpgradeName, metaUpgradeData in pairs( GameState.MetaUpgradeState ) do
 		if metaUpgradeData.Equipped and MetaUpgradeCardData[ metaUpgradeName ].TraitName and MetaUpgradeCardData[ metaUpgradeName ].ActiveWhileDead then
-			AddTraitToHero({ TraitName = MetaUpgradeCardData[ metaUpgradeName ].TraitName })
+			AddTraitToHero({ 
+				TraitName = MetaUpgradeCardData[ metaUpgradeName ].TraitName,
+				Rarity = TraitRarityData.RarityUpgradeOrder[ GetMetaUpgradeLevel( metaUpgradeName )],})
 		end
 	end
 
@@ -3954,7 +3963,7 @@ function DoUnlockRoomExits( run, room )
 
 	for index, door in ipairs( exitDoorsIPairs ) do
 		if door.PreExitsUnlockedFunctionName ~= nil then
-			thread( CallFunctionName, door.PreExitsUnlockedFunctionName, door, door.PreExitsUnlockedFunctionArgs )
+			thread( CallFunctionName, door.PreExitsUnlockedFunctionName, door, door.PreExitsUnlockedFunctionArgs, index )
 		end
 	end
 
@@ -4092,7 +4101,9 @@ function AssignRoomToExitDoor( door, room )
 
 end
 
-function CheckExitPreUnlock( door, args )
+function CheckExitPreUnlock( door, args, doorIndex )
+
+	RandomSynchronize( doorIndex )
 
 	local currentRoom = CurrentRun.CurrentRoom
 	currentRoom.FirstExitChosen = currentRoom.FirstExitChosen or false -- Make sure at least one exit opens

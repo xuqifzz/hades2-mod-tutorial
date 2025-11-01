@@ -864,7 +864,7 @@ function ShrineLogicResetAll( screen, button )
 		local button = components["ItemButton"..itemIndex]
 		if (GameState.ShrineUpgrades[button.Data.Name] or 0) >= 1 then
 			GameState.ShrineUpgrades[button.Data.Name] = 0
-			ShrineScreenRankDownPresentation( screen, button, { Silent = true } )
+			ShrineScreenRankDownPresentation( screen, button, { Silent = true, RemoveNameHighlight = true } )
 			ShrineUpgradeExtractValues( button.Data.Name )
 		end
 	end

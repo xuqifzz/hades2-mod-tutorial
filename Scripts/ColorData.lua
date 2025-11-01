@@ -317,6 +317,11 @@ Color =
 	PersephoneVoice = { 224, 213, 64, 255 },
 	NyxVoice = { 184, 24, 215, 255 },
 	FatesVoice = { 228, 74, 74, 255 },
+	AchillesVoice = { 171, 164, 87, 255 },
+	MegVoice = { 37, 124, 255, 255 },
+	ThanatosVoice = { 198, 164, 255, 255 },
+	DusaVoice = { 146, 255, 92, 255 },
+	OrpheusVoice = { 107, 115, 158, 255 },
 	-- do you believe in Bouldy?
 	BouldyVoice = { 109, 185, 116, 255 },
 	BoonInfoUnacquired = {159, 159, 159, 255},

@@ -18,7 +18,7 @@ UnitSetData.ZombieHeavyRanged =
 		ActivateFadeIn = false,
 		ActivateTint = false,
 		ActivateStartAlpha = 1.0,
-		ActivateDuration = 2.5,
+		ActivateWaitForAnimation = true,
 
 		DamagedFxStyles =
 		{

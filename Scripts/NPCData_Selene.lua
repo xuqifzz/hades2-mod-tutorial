@@ -163,6 +163,7 @@
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.SeleneGreeting,
+				OnQueuedThreadedFunctionName = "CenterInteractRange",
 
 				{ Cue = "/VO/Selene_0106",
 					Text = "It gladdens me to see you, Hecate. I have observed the stalemate upon Olympus holds, although the Titan Chronos musters forces in Ephyra still. Shall I continue monitoring them?" },
@@ -256,7 +257,7 @@
 				InitialGiftableOffSource = true,
 				GiftableOffSource = true,
 				StatusAnimation = false,
-				InteractDistance = 600,
+				InteractDistance = 350,
 
 				GameStateRequirements =
 				{
@@ -266,6 +267,7 @@
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.SeleneTrueEndingGreeting,
+				OnQueuedThreadedFunctionName = "CenterInteractRange",
 				
 				PreEventFunctionName = "OverwriteSelf",
 				PreEventFunctionArgs =
@@ -273,6 +275,38 @@
 					BlockChatting = true,
 				},
 
+				{ Cue = "/VO/Nyx_0032",
+					Source = "NPC_Nyx_Story_01",
+					PreLineFunctionName = "SetupEndSceneZoom",
+					PreLineWait = 0.35,
+					PreLineAnim = "Nyx_Greeting",
+					PreLineAnimTarget = 774446,
+					Text = "...My faithful Eye of Night, my child, thank you for ensuring that our realm remains secure, and keeping watch above it all. I never doubted that I could count on you." },
+
+				{ Cue = "/VO/Selene_0372",
+					Text = "But Mother, had our watch been more dependable, then none of this would have transpired..." },
+
+				{ Cue = "/VO/Nyx_0122",
+					Source = "NPC_Nyx_Story_01",
+					Text = "Trying times shall always come about, testing our resolve. Thus we grow strong, as do the bonds we share. Even now, I sense the powerful connection between you and the Princess of the Underworld." },
+
+				{ Cue = "/VO/MelinoeField_5170", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Portrait = "Portrait_Mel_Proud_01",
+					Text = "It was my honor to work with Sister Selene, O Nyx. She has always been my guiding light. I'm so pleased that you could finally see each other again." },
+
+				{ Cue = "/VO/Nyx_0123",
+					Source = "NPC_Nyx_Story_01",
+					Text = "A reunion you made possible, with Hecate and the Unseen. Your services shall be remembered, O Melinoë, Princess. Now go... for there are more reunions to be had." },
+
+				{ Cue = "/VO/Selene_0373",
+					PortraitExitAnimation = "Portrait_Selene_InPerson_01_Exit",
+					-- PostLineRemoveContextArt = true,
+					-- PostLineFunctionName = "NyxFarewellPresentation",
+					Text = "Thank you, Mother, and farewell for now." },
+
+				--[[
 				{ Cue = "/VO/Nyx_0032",
 					Source = "NPC_Nyx_Story_01",
 					PreLineFunctionName = "SetupEndSceneZoom",
@@ -293,13 +327,14 @@
 					PostLineRemoveContextArt = true,
 					PostLineFunctionName = "NyxFarewellPresentation",
 					Text = "Thank you, Mother, and farewell for now." },
+					]]--
 
-				{ Cue = "/VO/MelinoeField_3902",
+				{ Cue = "/VO/MelinoeField_5171",
 					UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Proud_01",
 					PortraitExitAnimation = "Portrait_Mel_Proud_01_Exit",
 					PostLineFunctionName = "EnsembleRidersEnterPresentation",
-					Text = "I must say, I did not expect that we could ever draw you down this far, Sister. Perhaps not even Headmistress in all her experience." },
+					Text = "I must say, I did not expect that we could ever draw you down this far, Sister Selene. I thought perhaps not even Headmistress could in all her experience!" },
 
 				{ Cue = "/VO/Selene_0374",
 					PreLineThreadedFunctionName = "EnsembleFamilyEnterPresentation",
@@ -321,6 +356,13 @@
 
 						{ Cue = "/VO/Selene_0377", Text = "Then let us ride into the dark above." },
 						{ Cue = "/VO/Selene_0378", Text = "...And do be careful to hold on as we depart.", PreLineWait = 0.8 },
+					},
+					{
+						PreLineWait = 0.8,
+						ObjectType = "NPC_Nyx_Story_01",
+						PreLineAnim = "Nyx_Greeting",
+
+						{ Cue = "/VO/Nyx_0034", Text = "Farewell." },
 					},
 					{
 						PreLineWait = 0.5,

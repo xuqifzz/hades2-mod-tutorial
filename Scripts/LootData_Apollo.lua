@@ -1335,6 +1335,9 @@ LootSetData.Apollo =
 						PathFalse = { "CurrentRun", "UseRecord", "ApolloUpgrade" }
 					},
 					{
+						PathFalse = { "GameState", "RoomsEntered", "Q_Boss01" }
+					},
+					{
 						PathTrue = { "CurrentRun", "BiomesReached", "N" },
 					},
 				},
@@ -1480,6 +1483,9 @@ LootSetData.Apollo =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "ApolloUpgrade" }
 					},

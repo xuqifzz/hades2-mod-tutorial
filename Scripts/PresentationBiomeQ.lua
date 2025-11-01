@@ -65,7 +65,8 @@ function TyphonSpecialKillPresentation( unit, args )
 	end
 
 	BlockProjectileSpawns({ ExcludeWeaponName = "WeaponLob" })
-	ExpireProjectiles({ ExcludeNames = WeaponSets.ExpireProjectileExcludeProjectileNames, BlockSpawns = true })
+	ExpireProjectiles({ ExcludeNames = WeaponSets.ExpireProjectileExcludeProjectileNames, BlockSpawns = true, CancelQueuedProjectilesOnId = CurrentRun.Hero.ObjectId })
+	
 	Destroy({ Ids = GetIdsByType({ Names = { "ManaDropZeus", "PowerDrinkDrop" }})})
 
 	SetPlayerInvulnerable( "TyphonSpecialKillPresentation" )
@@ -462,7 +463,7 @@ function TyphonFakeDeathKillPresentation( unit, args )
 	end
 
 	PlaySound({ Name = args.StartSound })
-
+	
 	SetThingProperty({ Property = "ElapsedTimeMultiplier", Value = 0.0, IgnoreAnimations = true, DataValue = false, DestinationId = killerId })
 	SetThingProperty({ Property = "Grip", Value = 99999, DestinationId = victimId })
 	thread( VictimDeathHold, victimId, 0.02, 0.5 )
@@ -528,6 +529,7 @@ function TyphonFakeDeathKillPresentation( unit, args )
 	end
 
 	local heroTeleportId = 50059
+	Stop({ Id = killerId })
 	Teleport({ Id = killerId, DestinationId = heroTeleportId })
 
 	SetAlpha({ Ids = GetIds({ Name = "StartFX" }), Fraction = 1.0, Duration = 0.0 })
@@ -568,6 +570,15 @@ function TyphonFakeDeathKillPresentation( unit, args )
 	ShowCombatUI("BossKill")
 	ClearEffect({ Ids = { killerId }, All = true })
 	
+	if SessionMapState.ManaDropId then
+		Destroy({ Id = SessionMapState.ManaDropId })
+		SessionMapState.ManaDropId = nil
+	end
+	if SessionMapState.DrinkDropId then
+		Destroy({ Id = SessionMapState.DrinkDropId })
+		SessionMapState.DrinkDropId = nil
+	end
+
 	CurrentRun.CurrentRoom.Encounter.BossKillPresentation = false
 	ToggleCombatControl( CombatControlsDefaults, true, "BossKill" )
 	SetThingProperty({ Property = "AllowAnyFire", Value = true, DestinationId = CurrentRun.Hero.ObjectId, DataValue = false })
@@ -1767,6 +1778,7 @@ function TyphonHeadStageTransitionEM( typhon, args )
 
 	DestroyRequiredKills( { BlockLoot = true, SkipIds = { typhon.ObjectId } } )
 	ExpireProjectiles({ ExcludeNames = WeaponSets.ExpireProjectileExcludeProjectileNames, BlockSpawns = true })
+	ExpireProjectiles({ Names = { "ChronosRipple", "ChronosRushRipple", "ChronosGrindVacuum", "ChronosGrindWall" }, BlockSpawns = true })
 	killTaggedThreads("TyphonHeadIncursionThread")
 	if typhon.IncursionUnitId ~= nil and ActiveEnemies[typhon.IncursionUnitId] ~= nil and IsAlive({ Id = typhon.IncursionUnitId }) then
 		if ActiveEnemies[typhon.IncursionUnitId].ExitAnimation ~= nil then
@@ -2712,6 +2724,29 @@ function ActivateApollo()
 	apollo.NextInteractLines = GetRandomEligibleTextLines( apollo, apollo.InteractTextLineSets, GetNarrativeDataValue( apollo, "InteractTextLinePriorities" ) )
 	SetNextInteractLines( apollo, apollo.NextInteractLines )
 	SetAvailableUseText( apollo )
+
+end
+
+function SetupZeusHeraFinalInteraction( source, args )
+	wait( 0.02 )
+	local heraId = GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = "NPC_Hera_Story_01" })
+	local hera = ActiveEnemies[heraId]
+	hera.BlockDeathToChronosSalute = true
+end
+
+function BlockDemeterInteraction( source, args )
+	wait( 0.02 )
+	AddInteractBlock( source, "BlockDemeterInteraction" )
+	StopStatusAnimation( source )
+end
+
+function RestoreDemeterInteraction()
+
+	local demeterId = GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = "NPC_Demeter_Story_01" })
+	local demeter = ActiveEnemies[demeterId]
+	RemoveInteractBlock( demeter, "BlockDemeterInteraction" )
+	PlayStatusAnimation( demeter, { Animation = StatusAnimations.WantsToTalk } )
+	demeter.BlockDeathToChronosSalute = true
 
 end
 

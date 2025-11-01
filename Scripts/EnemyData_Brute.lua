@@ -128,6 +128,7 @@ UnitSetData.Brute =
 	Brute_Miniboss =
 	{
 		InheritFrom = { "BaseBossEnemy", "Brute" },
+		RunHistoryKilledByName = "BruteMinibossCodex",
 		WakeUpDelay = 0,
 		MaxHealth = 25000,
 		HealthBarOffsetY = -370,
@@ -258,6 +259,7 @@ UnitSetData.Brute =
 	{
 		InheritFrom = { "Brute_Elite" },
 		GenusName = "Brute_Elite",
+		RunHistoryKilledByName = "Brute",
 		MaxHealth = 2800,
 		HealthBuffer = 2800,
 

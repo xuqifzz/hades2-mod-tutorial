@@ -255,6 +255,10 @@ LootSetData.Hermes =
 						Comparison = "<=",
 						Value = 3.35,
 					},
+					{
+						PathFromArgs = true,
+						PathTrue = { "PlayOnceLine" },
+					},
 				},
 			}
 		},
@@ -942,6 +946,9 @@ LootSetData.Hermes =
 					{
 						Path = { "GameState", "TextLinesRecord" },
 						HasAny = { "PrometheusAboutAltFight01", "PrometheusAboutAltFight01_B" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "OdysseusAboutPrometheusAltFight01" }
 					},
 					{
 						SumPrevRuns = 3,
@@ -1942,7 +1949,7 @@ LootSetData.Hermes =
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
 				{ Cue = "/VO/Hermes_0219",
-					Text = "Notice you're not timing yourself anymore, and M? It breaks my heart. Not really, mind. Just find your speed, but still! Want to know how fast you are, there's one way to find out." },
+					Text = "Notice you're not timing yourself anymore, and M? It breaks my heart. Not really, mind. Just find your speed, but still! Want to know how fast you are, there's only one way to find out." },
 			},
 
 			HermesAboutPackageBounty01 =
@@ -2878,7 +2885,12 @@ LootSetData.Hermes =
 					},
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsNone = { "H_Bridge01", "Q_PreBoss01" },
+						IsNone = { "H_Bridge01" },
+					},
+					{
+						HintId = "Codex_DoesntWantGiftHint",
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "Q_PreBoss01" },
 					},
 				},
 
@@ -2912,7 +2924,12 @@ LootSetData.Hermes =
 					},
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsNone = { "H_Bridge01", "Q_PreBoss01" },
+						IsNone = { "H_Bridge01" },
+					},
+					{
+						HintId = "Codex_DoesntWantGiftHint",
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "Q_PreBoss01" },
 					},
 				},
 
@@ -2946,7 +2963,12 @@ LootSetData.Hermes =
 					},
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsNone = { "H_Bridge01", "Q_PreBoss01" },
+						IsNone = { "H_Bridge01" },
+					},
+					{
+						HintId = "Codex_DoesntWantGiftHint",
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "Q_PreBoss01" },
 					},
 				},
 
@@ -2979,9 +3001,10 @@ LootSetData.Hermes =
 					},
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsNone = { "H_Bridge01", "Q_PreBoss01" },
+						IsNone = { "H_Bridge01" },
 					},
 					{
+						HintId = "Codex_DoesntWantGiftHint",
 						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
 						IsNone = { "P", "Q" },
 					},
@@ -3017,7 +3040,12 @@ LootSetData.Hermes =
 					},
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsNone = { "H_Bridge01", "Q_PreBoss01" },
+						IsNone = { "H_Bridge01" },
+					},
+					{
+						HintId = "Codex_DoesntWantGiftHint",
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "Q_PreBoss01" },
 					},
 				},
 
@@ -3051,7 +3079,12 @@ LootSetData.Hermes =
 					},
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsNone = { "H_Bridge01", "Q_PreBoss01" },
+						IsNone = { "H_Bridge01" },
+					},
+					{
+						HintId = "Codex_DoesntWantGiftHint",
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "Q_PreBoss01" },
 					},
 				},
 
@@ -3081,6 +3114,9 @@ LootSetData.Hermes =
 				},
 				GameStateRequirements =
 				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
 					{
 						PathTrue = { "GameState", "UseRecord", "HermesUpgrade" },
 					},
@@ -3125,7 +3161,12 @@ LootSetData.Hermes =
 					},
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsNone = { "H_Bridge01", "Q_PreBoss01" },
+						IsNone = { "H_Bridge01" },
+					},
+					{
+						HintId = "Codex_DoesntWantGiftHint",
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "Q_PreBoss01" },
 					},
 					{
 						Path = { "GameState", "TextLinesRecord" },

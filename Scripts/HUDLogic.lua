@@ -165,6 +165,9 @@ function RecreateLifePips()
 			numLastStands = numLastStands + 1
 		end
 	end
+	if SessionMapState.InfiniteDeathDefiance then
+		numLastStands = numLastStands + 1
+	end
 	for i = 1, numLastStands do
 		CreateLifePip(i)
 	end
@@ -185,14 +188,19 @@ function UpdateLifePips( heroUnit )
 		local lastIcon = nil
 		local lastStandCount = 0
 		local addedBlockDeath = false
-		for i, lifePipId in pairs( ScreenAnchors.LifePipIds ) do
-			local lastStandData = unit.LastStands[i]
+		local addedInfiniteDefiance = false
+		for i, lifePipId in ipairs( ScreenAnchors.LifePipIds ) do
+			local index = i
+			local lastStandData = unit.LastStands[index]
 			local icon = "ExtraLifeEmpty"
 			if lastStandData then
 				icon = lastStandData.Icon
 			elseif HeroHasTrait("BlockDeathKeepsake") and not MapState.UsedBlockDeath and not addedBlockDeath then
 				icon = "ExtraLifeMoros"
 				addedBlockDeath = true
+			elseif SessionMapState.InfiniteDeathDefiance and not addedInfiniteDefiance then
+				icon = "ExtraLifeReplenish"
+				addedInfiniteDefiance = true
 			end
 			if icon == lastIcon then
 				lastStandCount = lastStandCount + 1
@@ -219,7 +227,7 @@ function UpdateLifePips( heroUnit )
 		if GameState.LastAwardTrait == "BlockDeathKeepsake" then
 			numLastStands  = numLastStands + 1
 		end
-		for i, lifePipId in pairs( ScreenAnchors.LifePipIds ) do
+		for i, lifePipId in ipairs( ScreenAnchors.LifePipIds ) do
 			if i <= numLastStands then
 				local lastStandData = unit.LastStands[i]
 				local icon = "ExtraLifeMel"
@@ -1184,6 +1192,9 @@ function TraitUICreateText( trait, args )
 		time = trait.BoonConversionUses
 	end
 	local hasSubtitle = ( time ~= nil ) or ( traitCount > 1) or ( trait.RoomsPerUpgrade and IsTraitActive( trait ) ) or ( trait.CustomLabel ) or (trait.TotalManaRecovered ~= nil) or (trait.DoorHealReserve ~= nil)
+	if trait.BlockedByEnding and IsGameStateEligible( trait, { NamedRequirements = { "SurfaceRouteLockedByTyphonKill" } } ) then
+		hasSubtitle = false
+	end
 
 	if not hasSubtitle then
 		SetAlpha({ Id = trait.TraitInfoCardId, Fraction = 0, Duration = 0.2 })
@@ -1440,6 +1451,7 @@ end
 function TraitUIActivateTraits( args )
 
 	thread( UpdateSpellActiveStatus )
+	local blockedByEndingTrait = nil
 	for i, traitData in ipairs( CurrentRun.Hero.Traits ) do
 		local thresholdData = traitData.LowHealthThresholdText
 		if thresholdData ~= nil then
@@ -1454,6 +1466,9 @@ function TraitUIActivateTraits( args )
 		thresholdData = traitData.HighHealthThresholdText
 		if thresholdData ~= nil and CurrentRun.Hero.Health/CurrentRun.Hero.MaxHealth >= thresholdData.PercentThreshold then
 			TraitUIActivateTrait( traitData, args )
+		end
+		if blockedByEndingTrait == nil and traitData.BlockedByEnding and not IsGameStateEligible( traitData, { NamedRequirementsFalse = { "SurfaceRouteLockedByTyphonKill" } } ) then
+			blockedByEndingTrait = traitData
 		end
 	end
 	for _, traitName in ipairs( { "HephaestusWeaponBoon", "HephaestusSpecialBoon", "HephaestusSprintBoon" } ) do
@@ -1546,6 +1561,9 @@ function TraitUIActivateTraits( args )
 	if HeroHasTrait("DummyBloodDisplayBoon") then
 		local traitData = GetHeroTrait("DummyBloodDisplayBoon")
 		UpdateTraitNumber( traitData )
+	end
+	if blockedByEndingTrait ~= nil then
+		TraitUIActivateTrait( blockedByEndingTrait, { CustomAnimation = "LockedKeepsakeIcon" } )
 	end
 end
 

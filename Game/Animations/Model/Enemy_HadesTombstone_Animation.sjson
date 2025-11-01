@@ -26,7 +26,7 @@
       Material = "Unlit"
       AngleFromOwner = "Ignore"
       CreateAnimation = "QuickFlashGreen"
-      Sound = "/Leftovers/Menu Sounds/PlayerKilledLong_Small"
+      Sound = "/SFX/Enemy Sounds/Hades/HadesLostSoulHandsShort"
       HoldLastFrame = true
       OriginX = 120
       OriginY = 253

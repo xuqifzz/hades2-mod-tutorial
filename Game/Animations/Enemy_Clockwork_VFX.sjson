@@ -516,6 +516,7 @@
 		EndScaleY = 1.0
 		PingPongScale = true
 		Loop = true
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 	}
 
 	{
@@ -8485,6 +8486,170 @@
 	}
 
 	{
+		Name = "ChronosRemainsBroken"
+		InheritFrom = "ChronosRemains"
+		FilePath = "Fx\Chronos\ChronosRemainsBroken\ChronosRemainsBroken"
+		VisualFx = "ChronosRemainsBrokenParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		CreateAnimations =
+		[
+			{ Name = "ChronosRemainsBrokenMelCast" }
+			{ Name = "ChronosRemainsBrokenShadow" }
+			{ Name = "ChronosRemainsDisplacement" }
+			{ Name = "ChronosRemainsLightBroken" }
+		]
+	}
+
+	{
+		Name = "ChronosRemainsLightBroken"
+		InheritFrom = "ChronosRemainsLight"
+		Scale = 4
+		EaseIn = 0
+		EaseOut = 1
+		StartScale = 1
+		EndScale = 1.02
+		StartAlpha = 0.9
+		EndAlpha = 1.0
+		PingPongColor = true
+		PingPongScale = true
+		RandomDurationMin = 0.1
+		RandomDurationMax = 0.2
+		Alpha = 0.33
+		Loop = true
+		VisualFx = "ChronosRemainsDarkStreaks"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+	}
+
+	{
+		Name = "ChronosRemainsDarkStreaks"
+		Random = [
+			{ Name = "ChronosRemainsDarkStreakA" }
+			{ Name = "ChronosRemainsDarkStreakB" }
+		]
+	}
+
+	{
+		Name = "ChronosRemainsDarkStreakA"
+		FilePath = "Fx\WitchyMist\WitchyMist"
+		Red = 0
+		Green = 0
+		Blue = 0
+		StartScale = 1.5
+		EndScale = 0
+		RandomRotation = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		NumFrames = 100
+		EaseIn = 0
+		EaseOut = 1
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Dark"
+		ScaleMin = 1
+		ScaleMax = 3
+		PostRotateScaleY = 0.5
+		StartAlpha = 0.0
+		EndAlpha = 1
+		StartAngle = 0
+		EndAngle = -270
+	}
+
+	{
+		Name = "ChronosRemainsDarkStreakB"
+		InheritFrom = "ChronosRemainsDarkStreakA"
+		PostRotateScaleY = 1
+		IsometricSkew = "Y"
+		AngleMin = 0
+		AngleMax = 360
+	}
+
+	{
+		Name = "ChronosRemainsDisplacement"
+		FilePath = "Fx\RadialDisplacement\RadialDisplacement"
+		NumFrames = 60
+		PlaySpeed = 30
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		StartScale = 2
+		EndScale = 1
+		Alpha = 0.5
+		Material = "Unlit"
+		GroupName = "FX_Displacement"
+		AngleFromOwner = "Ignore"
+		PlayBackwards = true
+	}
+
+	{
+		Name = "ChronosRemainsBrokenShadow"
+		InheritFrom = "ChronosRemainsShadow"
+		FilePath = "Fx\Chronos\ChronosRemainsBroken\ChronosRemainsBroken"
+		VisualFx = "ChronosRemainsDisplacement"
+		VisualFxIntervalMin = 0.4
+		VisualFxIntervalMax = 0.6
+	}
+
+	{
+		Name = "ChronosRemainsBrokenParticles"
+		Random = [
+			{ Name = "ChronosRemainsBrokenParticleA" }
+			{ Name = "ChronosRemainsBrokenParticleA" }
+			{ Name = "ChronosRemainsBrokenParticleA" }
+			{ Name = "ChronosRemainsBrokenParticleB" }
+		]
+	}
+
+	{
+		Name = "ChronosRemainsBrokenParticleA"
+		FilePath = "Particles\particle_circle_04"
+		AddColor = true
+		AngleMin = 88
+		AngleMax = 92
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -100
+		Scale = 1.5
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		EaseIn = 0.99
+		EaseOut = 1.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.2
+		OffsetZ = 320
+		RandomOffsetY = 200
+		StartRed = 1
+		StartGreen = 0.85
+		StartBlue = 0.4
+		EndRed = 0.5
+		EndGreen = 0.3
+		EndBlue = 0.1
+		ScaleY = 0.5
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+	}
+
+	{
+		Name = "ChronosRemainsBrokenParticleB"
+		InheritFrom = "ChronosRemainsBrokenParticleA"
+		AngleMin = 268
+		AngleMax = 272
+		OffsetZ = 0
+		Acceleration = -500
+		RandomOffsetY = 20
+	}
+
+	{
 		Name = "ChronosRadialPreview"
 		FilePath = "Fx\Cyclops\CyclopsStompRing"
 		Material = "Unlit"
@@ -8554,8 +8719,54 @@
 		VisualFx = "ChronosDeathParticles"
 		VisualFxIntervalMin = 0.1
 		VisualFxIntervalMax = 0.12
-		Duration = 5.0
+		Duration = 3.0
 	}
+
+	{
+		Name = "ChronosBattleOutroDeathParticleEmitterGigarosKill"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.5
+		ChainTo = "ChronosBattleOutroDeathParticleEmitterGigarosKillStart"
+	}
+
+	{
+		Name = "ChronosBattleOutroDeathParticleEmitterGigarosKillStart"
+		InheritFrom = "ChronosBattleOutroDeathParticleEmitter"
+		VisualFx = "ChronosDeathParticlesGigaros"
+		VisualFxIntervalMin = 0.03
+		VisualFxIntervalMax = 0.04
+		Duration = 1.5
+		ChildAnimation = "ChronosDeathParticlesGigarosSandEmitter"
+	}
+
+	{
+		Name = "ChronosDeathParticlesGigarosSandEmitter"
+		InheritFrom = "ChronosBattleOutroDeathParticleEmitter"
+		Duration = 1.5
+		VisualFx = "ChronosDeathSandDissipateGigaros"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.25
+		ChildAnimation = "ChronosDeathParticlesGigarosFlareEmitter"
+	}
+
+	{
+		Name = "ChronosDeathParticlesGigarosFlareEmitter"
+		InheritFrom = "ChronosDeathParticlesGigarosSandEmitter"
+		VisualFx = "ChronosDeathSandFlare"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.11
+		ChildAnimation = "ChronosDeathEnergyEmitter"
+	}	
+
+	{
+		Name = "ChronosDeathEnergyEmitter"
+		InheritFrom = "ChronosDeathParticlesGigarosSandEmitter"
+		VisualFx = "ChronosDeathEnergy"
+		VisualFxIntervalMin = 0.02
+		VisualFxIntervalMax = 0.03
+		ChildAnimation = null
+	}
+
 
 	{
 		Name = "ChronosBattleOutroDeathFx"
@@ -8567,6 +8778,16 @@
 		Duration = 3.5
 		CreateAnimations = [
 			{ Name = "ChronosBattleOutroSandCloudEmitter" }
+			{ Name = "ChronosBattleOutroDust" }
+		]
+	}	
+
+	{
+		Name = "ChronosBattleOutroDeathFxGigaros"
+		InheritFrom = "ChronosBattleOutroDeathFx"
+		Duration = 1.5
+		CreateAnimations = [
+			{ Name = "ChronosBattleOutroSandCloudEmitterGigaros" }
 			{ Name = "ChronosBattleOutroDust" }
 		]
 	}
@@ -8666,6 +8887,19 @@
 	}
 
 	{
+		Name = "ChronosBattleOutroSandCloudEmitterGigaros"
+		InheritFrom = "ChronosBattleOutroSandCloudEmitter"
+		Duration = 2
+		VisualFx = "ChronosBattleOutroSandCloudsGigaros"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.15
+		CreateAnimations = [
+			{ Name = "ChronosBattleOutroSandCloudsGigaros" }
+			{ Name = "ChronosBattleOutroSandCloudsGigaros" }
+		]
+	}
+
+	{
 		Name = "ChronosBattleOutroSandClouds"
 		FilePath = "Fx\CWSandCloud\CWSandCloud"
 		NumFrames = 99
@@ -8698,6 +8932,21 @@
 		AlphaMax = 0.4
 		StartScaleX = 0.5
 		EndScaleX = 1.5
+	}
+
+	{
+		Name = "ChronosBattleOutroSandCloudsGigaros"
+		InheritFrom = "ChronosBattleOutroSandClouds"
+		AlphaMin = 0.1
+		AlphaMax = 0.33
+		AngleMin = 20
+		AngleMax = 160
+		RadialOffsetMin = 50
+		RadialOffsetMax = 300
+		RandomOffsetY = 0
+		VelocityMin = 50
+		VelocityMax = 200
+		Acceleration = -50
 	}
 
 	{
@@ -9902,4 +10151,1180 @@
 		Scale = 2.7
 		ScaleX = 1.3
 	}
+
+	{
+		Name = "ChronosGigarosKillFx"
+		FilePath = "Fx\BiomeStateMeteor\Flare\Flare"
+		NumFrames = 4
+		PlaySpeed = 30
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		OriginX = 202
+		OriginY = 505
+		VisualFxIntervalMin = 0.002
+		VisualFxIntervalMax = 0.005
+		Scale = 1.5
+		Hue = -0.1
+		GroupName = "Combat_Menu_TraitTray_Additive"
+		VisualFx = "ChronosGigarosKillParticles"
+		CreateAnimation = "ChronosGigarosKillFlareDelay"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+		TimeModifierFraction = 0.125
+		StartScale = 1
+		EndScale = 0
+		ChildAnimation = "ChronosGigarosKillFxIntroStreakEmitter"
+	}
+
+	{
+		Name = "ChronosGigarosKillFxIntroStreakEmitter"
+		FilePath = "Particles\particle_glow_egg"
+		StartAlpha = 0.25
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetZ = 120
+		EndAlpha = 0
+		Red = 1
+		Green = 0
+		Blue = 0
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1
+		Scale = 12
+		Material = "Unlit"
+		TimeModifierFraction = 0
+		CreateAnimations = [
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }			
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+			{ Name = "ChronosGigarosKillFxIntroStreaks" }
+
+		]
+	}
+
+	{
+		Name = "ChronosGigarosKillFxIntroStreaks"
+		FilePath = "Fx\EnemyLaserPreview\EnemyLaserPreview"
+		NumFrames = 30
+		StartFrame = 30
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		RandomStartFrame = true
+		PlaySpeed = 0.0001
+		RandomDurationMin = 0.45
+		RandomDurationMax = 0.5
+		LoopFramesOnly = true
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		Red = 1
+		Green = 0
+		Blue = 0
+		OriginX = 512
+		OriginY = 64
+		AngleMin = 220
+		AngleMax = 320
+		ScaleMin = 0.4
+		ScaleMax = 3
+		ScaleY = 0.5
+		ScaleX = 2
+		StartScaleX = 1
+		EndScaleX = 0
+		RandomFlipVertical = true
+		RandomRotationSpeedMin = -50
+		RandomRotationSpeedMax = 50
+		TimeModifierFraction = 0
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		GroupName = "Combat_Menu_TraitTray_Additive"
+	}
+
+	{
+		Name = "ChronosGigarosKillFlareDelay"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.1
+		ChainTo = "ChronosGigarosKillFlare"
+	}
+
+	{
+		Name = "ChronosGigarosKillFlare"
+		FilePath = "Particles\particle_flareSpike"
+		Material = "Unlit"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.8
+		EndRed = 1
+		EndGreen = 0.0
+		EndBlue = 0.0
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		OriginX = 211
+		OriginY = 128
+		Duration = 0.2
+		Angle = 90
+		Scale = 10
+		StartScaleY = 1
+		EndScaleY = 0
+		StartScaleX = 0.5
+		EndScaleX = 1
+		AngleFromOwner = "Ignore"
+		GroupName = "Combat_Menu_TraitTray_Additive"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		ScaleFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+		ColorFromOwner = "Ignore"
+
+		CreateAnimations = [	
+			{ Name = "ChronosGigarosKillFlareGlow" }
+			{ Name = "ChronosGigarosKillFlareGlowLarge" }
+			{ Name = "ChronosGigarosKillFlareWide" }
+			{ Name = "ChronosGigarosKillLineA" }
+			{ Name = "ChronosGigarosKillLineA" }
+			{ Name = "ChronosGigarosKillLineA" }
+			{ Name = "ChronosGigarosKillLineA" }
+			{ Name = "ChronosGigarosKillLineA" }
+			{ Name = "ChronosGigarosKillLineA" }
+			{ Name = "ChronosGigarosKillLineA" }
+			{ Name = "ChronosGigarosKillLineA" }
+			{ Name = "ChronosGigarosKillLineA" }
+			{ Name = "ChronosGigarosKillLineA" }
+			{ Name = "ChronosGigarosKillLineA" }
+			{ Name = "ChronosGigarosKillLineA" }
+			{ Name = "ChronosGigarosKillLineA" }
+			{ Name = "ChronosGigarosKillLineA" }
+			{ Name = "ChronosGigarosKillLineA" }
+
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+			{ Name = "ChronosGigarosKillLineB" }
+
+		]
+	}
+
+	{
+		Name = "ChronosGigarosKillLineA"
+		FilePath = "Fx\CastCircleLine\CastCircleLine"
+		NumFrames = 120
+		AddColor = true
+		GroupName = "Combat_Menu_TraitTray_Additive"
+		Red = 1
+		Green = 0.85
+		Blue = 0.33
+		AngleMin = 10
+		AngleMax = 170
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 120
+		StartScaleY = 1
+		EndScaleY = 0
+		ScaleX = 1.5
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		OriginX = 0
+		OriginY = 16
+		EaseIn = 0.99
+		EaseOut = 1.0
+		PostRotateScaleY = 2
+		StartAlpha = 1
+		EndAlpha = 0
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+	}
+
+	{
+		Name = "ChronosGigarosKillLineB"
+		InheritFrom = "ChronosGigarosKillLineA"
+		ScaleY = 6
+		AlphaMin = 0.2
+		AlphaMax = 0.6
+	}
+
+	{
+		Name = "ChronosGigarosKillFlareGlow"
+		FilePath = "Particles\particle_glow_egg"
+		Material = "Unlit"
+		GroupName = "Combat_Menu_TraitTray_Additive"
+		Red = 1
+		Green = 0.8
+		Blue = 0.33
+		Scale = 6
+		AngleFromOwner = "Ignore"
+		StartAlpha = 0.6
+		EndAlpha = 0
+		EaseIn = 0.99
+		EaseOut = 1
+		Duration = 1
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+		VisualFx = "ChronosGigarosKillNova"
+		VisualFxIntervalMin = 0.02
+		VisualFxIntervalMax = 0.03
+		CreateAnimation = "ChronosGigarosKillNova"
+		VisualFxCap = 4
+	}
+
+	{
+		Name = "ChronosGigarosKillFlareGlowLarge"
+		InheritFrom = "ChronosGigarosKillFlareGlow"
+		StartAlpha = 0.6
+		Scale = 12
+		GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
+	}
+
+	{
+		Name = "ChronosGigarosKillParticles"
+		FilePath = "Particles\particle_circle_04"
+		LocationFromOwner = "Ignore"
+		AddColor = true
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		AngleChangeSpeedMin = -90
+		AngleChangeSpeedMax = 90
+		AngleChangeAcceleration = 90
+		Red = 1
+		Green = 0
+		Blue = 0
+		StartScale = 2
+		EndScale = 0
+		ScaleMin = 0.2
+		ScaleMax = 0.5
+		RadialOffsetMin = 400
+		RadialOffsetMax = 900
+		RadialOffsetScaleY = 0.33
+		StartScaleX = 3
+		EndScaleX = 1
+		EaseIn = 0.99
+		EaseOut = 1.0
+		AngleMin = 0
+		AngleMax = 360
+		Material = "Unlit"
+		GroupName = "Combat_Menu_TraitTray_Additive"
+		VelocityMin = 1200
+		VelocityMax = 1600
+		Acceleration = -500
+		RandomDurationMin = 1
+		RandomDurationMax = 4
+		OffsetZ = 80
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+		ColorFromOwner = "Ignore"
+		CreateAnimation = "ChronosDeathParticlesGigaros"
+		TimeModifierFraction = 0.5
+	}
+
+	{
+		Name = "ChronosGigarosKillNova"
+		FilePath = "Fx\EnemyNova\EnemyNova"
+		NumFrames = 50
+		StartFrame = 10
+		Hue = 0.11
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.99
+		EaseOut = 1
+		StartScale = 0.8
+		EndScale = 1.0
+		RandomPlaySpeedMin = 35
+		RandomPlaySpeedMax = 120
+		RandomRotation = true
+		Scale = 0.5
+		ScaleY = 0.5
+		GroupName = "Combat_Menu_TraitTray_Additive"
+		AddColor = false
+		ScaleMin = 0.8
+		ScaleMax = 1.3
+		ColorFromOwner = "Ignore"
+		Material = "Unlit"
+		CreateAnimation = "ChronosGigarosKillNovaDark"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+	}
+
+	{
+		Name = "ChronosGigarosKillNovaDark"
+		InheritFrom = "ChronosGigarosKillNova"
+		CreateAnimation = null
+		StartFrame = 15
+		NumFrames = 45
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "Combat_Menu_TraitTray"
+		AddColor = false
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 3
+		ScaleMax = 5
+		ColorFromOwner = "Ignore"
+		Value = -1
+		EndAlpha = 0.99
+	}
+
+	{
+		Name = "ChronosDeathParticlesGigaros"
+		Random = [
+			{ Name = "ChronosDeathParticlesGigarosA" }
+			{ Name = "ChronosDeathParticlesGigarosB" }
+			{ Name = "ChronosDeathParticlesGigarosC" }
+			{ Name = "ChronosDeathParticlesGigarosD" }
+			{ Name = "ChronosDeathParticlesGigarosE" }
+			{ Name = "ChronosDeathParticlesGigarosF" }
+		]
+	}
+
+	{
+		Name = "ChronosDeathParticlesGigarosA"
+		FilePath = "Fx\BossDeathParticlesA\BossDeathParticlesA"
+		NumFrames = 48
+		Material = "Unlit"
+		RandomPlaySpeedMin = 36
+		RandomPlaySpeedMax = 48
+		RandomFlipVertical = true
+		RadialOffsetMin = 100
+		RadialOffsetMax = 250
+		StartRed=0.44
+		StartGreen=0.35
+		StartBlue=0.25
+		EndRed=0.22
+		EndGreen=0.15
+		EndBlue=0.02
+		AngleMin = 0
+		AngleMax = 180
+		VelocityMin = 240
+		VelocityMax = 480
+		Acceleration = -240
+		AngleFromOwner = "Ignore"
+		ScaleMin = 0.5
+		ScaleMax = 0.75
+		ScaleFromOwner = "Ignore"
+		StartOffsetZ = -50
+		EndOffsetZ = 25
+		RandomOffsetY = 20
+		StartScale = 1
+		EndScale = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Gravity = 25
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+		StartScaleX = 3
+		EndScaleX = 1
+		GroupName = "Combat_Menu_TraitTray_Overlay"
+		CreateAnimations = [
+			{ Name = "ChronosDeathParticleSparkleGigaros" }
+			{ Name = "ChronosDeathRayGigaros" }
+		]
+	}
+	{
+		Name = "ChronosDeathParticlesGigarosB"
+		InheritFrom = "ChronosDeathParticlesGigarosA"
+		FilePath = "Fx\BossDeathParticlesB\BossDeathParticlesB"
+	}
+	{
+		Name = "ChronosDeathParticlesGigarosC"
+		InheritFrom = "ChronosDeathParticlesGigarosA"
+		FilePath = "Fx\BossDeathParticlesC\BossDeathParticlesC"
+	}
+	{
+		Name = "ChronosDeathParticlesGigarosD"
+		InheritFrom = "ChronosDeathParticlesGigarosA"
+		FilePath = "Fx\BossDeathParticlesD\BossDeathParticlesD"
+	}
+	{
+		Name = "ChronosDeathParticlesGigarosE"
+		InheritFrom = "ChronosDeathParticlesGigarosA"
+		FilePath = "Fx\BossDeathParticlesC\BossDeathParticlesC"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.75
+		EndRed=0.886 
+		EndGreen=0.773 
+		EndBlue=0.510	
+	}
+	{
+		Name = "ChronosDeathParticlesGigarosF"
+		InheritFrom = "ChronosDeathParticlesGigarosA"
+		FilePath = "Fx\BossDeathParticlesD\BossDeathParticlesD"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.75
+		EndRed=0.886 
+		EndGreen=0.773 
+		EndBlue=0.510	
+	}
+
+	{
+		Name = "ChronosDeathParticleSparkleGigaros"
+		Random = [
+			{ Name = "ChronosDeathParticleSparkleGigarosA" }
+			{ Name = "ChronosDeathParticleSparkleGigarosB" }
+		]
+	}
+
+	{
+		Name = "ChronosDeathParticleSparkleGigarosA"
+		FilePath = "Particles\particle_glintFlare"
+		StartRed=0.439 
+		StartGreen=0.322 
+		StartBlue=0.047
+		EndRed=0.886 
+		EndGreen=0.773 
+		EndBlue=0.510
+		StartScale = 1
+		EndScale = 0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		AngleMin = -60
+		AngleMax = 60
+		ScaleMin = 0.02
+		ScaleMax = 0.04
+		RandomDurationMin = 1
+		RandomDurationMax = 3
+		GroupName = "Combat_Menu_TraitTray_Additive"
+		VelocityMin = 100
+		VelocityMax = 300
+		AngleFromOwner = "Ignore"
+		Acceleration = -50
+		RandomRotation = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+		PingPongScale = false
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+	}
+
+	{
+		Name = "ChronosDeathParticleSparkleGigarosB"
+		InheritFrom = "ChronosDeathParticleSparkleA"
+		FilePath = "Particles\particle_gold_streak"
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		ScaleMin = 0.1
+		ScaleMax = 0.2
+		AddColor = false
+		RandomRotation = false
+		UseOwnAngle = false
+	}
+
+	{
+		Name = "ChronosGigarosKillFlareWide"
+		FilePath = "Fx\CritFlare\CritFlare"
+		NumFrames = 12
+		Hue = 0.11
+		AngleFromOwner = "Ignore"
+		ScaleX = 2
+		Scale = 2
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+		GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
+		PlaySpeed = 60
+		DieWithOwner = false
+		StartScaleY = 1
+		EndScaleY = 0
+		AddColor = false
+	}
+
+	{
+		Name = "ChronosRemainsBrokenMelCast"
+		FilePath = "Fx\CastCircleIn\CastCircleIn0015"
+		Duration = 2
+		Loop = true
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		LocationZFromOwner = "Ignore"
+		Hue = 0.45
+		StartAlpha = 0.5
+		EndAlpha = 1.0
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		VisualFx = "ChronosRemainsBrokenMelCastFxA"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+		Scale = 0.75
+	}
+
+	{
+		Name = "ChronosRemainsBrokenMelCastFxA"
+		FilePath = "Fx\CastCircleIn\CastCircleArmedOverlay"
+		Material = "Unlit"
+		StartAlpha = 0
+		EndAlpha = 1.0
+		PingPongColor = true
+		Duration = 1
+		GroupName = "FX_Terrain_Add"
+		StartScale = 1.0
+		EndScale = 0.9
+		Scale = 1.25
+		Hue = 0.45
+		LocationZFromOwner = "Ignore"
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0
+		EndRed = 0.999
+		EndGreen = 1
+		EndBlue = 1
+		CreateAnimation = "ChronosRemainsBrokenMelCastFxB"
+	}
+
+	{
+		Name = "ChronosRemainsBrokenMelCastFxB"
+		FilePath = "Fx\CastCircleOut\CastCircleOutFade"
+		Red = 1
+		Green = 0.85
+		Blue = 0.4
+		Scale = 1
+		AddColor = true
+		StartScale = 1
+		EndScale = 0.8
+		EaseIn = 0
+		EaseOut = 1
+		AlphaMin = 0.3
+		AlphaMax = 1.0
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		Duration = 1.5
+		LocationZFromOwner = "Ignore"
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		RandomRotationSpeedMin = -10
+		RandomRotationSpeedMax = -10
+		StartOffsetZ = 0
+		EndOffsetZ = 70
+	}
+
+
+	{
+		Name = "ChronosDeathParticlesGigarosKill"
+		Random = [
+			{ Name = "ChronosDeathParticlesGigarosKillA" }
+			{ Name = "ChronosDeathParticlesGigarosKillB" }
+			{ Name = "ChronosDeathParticlesGigarosKillC" }
+			{ Name = "ChronosDeathParticlesGigarosKillD" }
+			{ Name = "ChronosDeathParticlesGigarosKillE" }
+			{ Name = "ChronosDeathParticlesGigarosKillF" }
+		]
+	}
+
+	{
+		Name = "ChronosDeathParticlesGigarosKillA"
+		FilePath = "Fx\BossDeathParticlesA\BossDeathParticlesA"
+		NumFrames = 48
+		Material = "Unlit"
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 36
+		RandomFlipVertical = true
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -200
+		RadialOffsetMin = 340
+		RadialOffsetMax = 520
+		StartRed=0.886
+		StartGreen=0.773
+		StartBlue=0.510
+		EndRed=0.439
+		EndGreen=0.322
+		EndBlue=0.047
+		AngleMin = 0
+		AngleMax = 180
+		AngleFromOwner = "Ignore"
+		ScaleMin = 0.75
+		ScaleMax = 1.2
+		ScaleFromOwner = "Ignore"
+		StartOffsetZ = -50
+		EndOffsetZ = 25
+		RandomOffsetY = 20
+		StartScale = 1
+		EndScale = 1.5
+		Scale = 2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		GroupName = "Combat_Menu_TraitTray_Overlay"
+		CreateAnimations = [
+			{ Name = "ChronosDeathParticlesGigarosKillSparkle" }
+		]
+	}
+	{
+		Name = "ChronosDeathParticlesGigarosKillB"
+		InheritFrom = "ChronosDeathParticlesGigarosKillA"
+		FilePath = "Fx\BossDeathParticlesB\BossDeathParticlesB"
+	}
+	{
+		Name = "ChronosDeathParticlesGigarosKillC"
+		InheritFrom = "ChronosDeathParticlesGigarosKillA"
+		FilePath = "Fx\BossDeathParticlesC\BossDeathParticlesC"
+	}
+	{
+		Name = "ChronosDeathParticlesGigarosKillD"
+		InheritFrom = "ChronosDeathParticlesGigarosKillA"
+		FilePath = "Fx\BossDeathParticlesD\BossDeathParticlesD"
+	}
+	{
+		Name = "ChronosDeathParticlesGigarosKillE"
+		InheritFrom = "ChronosDeathParticlesGigarosKillA"
+		FilePath = "Fx\BossDeathParticlesC\BossDeathParticlesC"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.75
+		EndRed=0.886 
+		EndGreen=0.773 
+		EndBlue=0.510	
+	}
+	{
+		Name = "ChronosDeathParticlesGigarosKillF"
+		InheritFrom = "ChronosDeathParticlesGigarosKillA"
+		FilePath = "Fx\BossDeathParticlesD\BossDeathParticlesD"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.75
+		EndRed=0.886 
+		EndGreen=0.773 
+		EndBlue=0.510	
+	}
+
+	{
+		Name = "ChronosDeathParticlesGigarosKillSparkle"
+		Random = [
+			{ Name = "ChronosDeathParticlesGigarosKillSparkleA" }
+			{ Name = "ChronosDeathParticlesGigarosKillSparkleB" }
+		]
+	}
+
+	{
+		Name = "ChronosDeathParticlesGigarosKillSparkleA"
+		FilePath = "Particles\particle_glintFlare"
+		StartRed=0.439 
+		StartGreen=0.322 
+		StartBlue=0.047
+		EndRed=0.886 
+		EndGreen=0.773 
+		EndBlue=0.510
+		StartScale = 0
+		EndScale = 1
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		AngleMin = -60
+		AngleMax = 60
+		ScaleMin = 0.02
+		ScaleMax = 0.04
+		RandomDurationMin = 1
+		RandomDurationMax = 3
+		GroupName = "Combat_Menu_TraitTray_Additive"
+		VelocityMin = 20
+		VelocityMax = 60
+		AngleFromOwner = "Ignore"
+		Acceleration = -10
+		RandomRotation = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+		PingPongScale = true
+		AddColor = true
+	}
+
+	{
+		Name = "ChronosDeathParticlesGigarosKillSparkleB"
+		InheritFrom = "ChronosDeathParticlesGigarosKillSparkleA"
+		FilePath = "Particles\particle_gold_streak"
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		ScaleMin = 0.1
+		ScaleMax = 0.2
+		AddColor = false
+		RandomRotation = false
+		UseOwnAngle = false
+	}
+
+	{
+		Name = "ChronosDeathRayGigaros"
+		Random = [
+			{ Name = "ChronosDeathRayGigarosA" }
+			{ Name = "ChronosDeathRayGigarosB" }
+		]
+	}
+
+	{
+		Name = "ChronosDeathRayGigarosA"
+		FilePath = "Fx\ItemConsumeFxStreak\ItemConsumeFxStreak"
+		NumFrames = 43
+		GroupName = "Combat_Menu_TraitTray_Additive"
+		OriginY = 64
+		AngleMin = 20
+		AngleMax = 160
+		ScaleMin = 0.75
+		ScaleMax = 1.5
+		OriginX = 600
+		StartScaleX = 1
+		EndScaleX = 0.25
+		RadialOffsetMin = 350
+		RadialOffsetMax = 400
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		Material = "Unlit"
+		StartScaleY = 0.2
+		EndScaleY = 0.01
+		PingPongColor = true
+		StartAlpha = 0
+		EndAlpha = 1
+		EndRed = 1
+		EndGreen = 0.8
+		EndBlue = 0.6
+		StartRed = 0.999
+		StartGreen = 0.5
+		StartBlue = 0.3
+		EaseIn = 0.0
+		EaseOut = 1
+	}
+
+	{
+		Name = "ChronosDeathRayGigarosB"
+		InheritFrom = "ChronosDeathRayGigarosA"
+		StartScaleX = 2
+		StartScaleY = 0.1
+		OriginX = 500
+		RadialOffsetMin = 250
+		RadialOffsetMax = 300
+	}
+
+	{
+		Name = "ChronosDeathSandDissipateGigaros"
+		FilePath = "Fx\EnemyDeathPopSand\EnemyDeathPopSand"
+		NumFrames = 70
+		RandomFlipHorizontal = true
+		Material = "Unlit"
+		GroupName = "Combat_Menu_TraitTray_Overlay"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		StartScale = 0.9
+		EndScale = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomOffsetX = 100
+		ScaleMin = 0.7
+		ScaleMax = 1.1
+		ScaleY = 1.25
+		Saturation = 0.05
+		Value = 0.05
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		CreateAnimations = [
+			{ Name = "ChronosDeathNovaSand" }
+			{ Name = "ChronosDeathNovaSand" }
+			{ Name = "ChronosDeathNovaGroundFxA" }
+			{ Name = "ChronosDeathNovaGroundFxB" }
+			{ Name = "ChronosDeathNovaGroundFxC" }
+			{ Name = "ChronosDeathNovaSandDissipate" }
+			{ Name = "ChronosDeathNovaSpectral" }
+			{ Name = "ChronosRadialExplosionDeathA" }
+		]
+	}
+
+	{
+		Name = "ChronosDeathNovaGroundFxA"
+		FilePath = "Fx\Chronos\ChronosRadialIn\ChronosRadialCircleBright"
+		PostRotateScaleY = 0.5
+		RandomRotation = true
+		LocationZFromOwner = "Ignore"
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.2
+		EaseIn = 0.9
+		EaseOut = 1
+		Material = "Unlit"
+		GroupName = "Combat_Menu_TraitTray"
+		StartScale = 1
+		EndScale = 0.98
+		Scale = 0.4
+		OffsetZ = -120
+	}
+
+	{
+		Name = "ChronosDeathNovaGroundFxB"
+		InheritFrom = "ChronosDeathNovaGroundFxA"
+		FilePath = "Fx\Chronos\ChronosRadial\Center2"
+		Scale = 1
+		Duration = 0.3
+		EndScale = 1.05
+
+	}	
+
+	{
+		Name = "ChronosDeathNovaGroundFxC"
+		InheritFrom = "ChronosDeathNovaGroundFxB"
+		FilePath = "Fx\Chronos\ChronosRadial\Outer2"
+		Scale = 0.33
+	}
+
+
+	{
+		Name = "ChronosRadialExplosionDeathA"
+		FilePath = "Fx\Chronos\ChronosRadialExplosionB\ChronosRadialExplosionB"
+		GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
+		Material = "Unlit"
+		NumFrames = 45
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 75
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		ScaleMin = 0.5
+		ScaleMax = 0.7
+		//StartScale = 1
+		//EndScale = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Scale = 1.2
+		OffsetZ = -30
+		ScaleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+	}
+
+	{
+		Name = "ChronosDeathNovaSpectral"
+		FilePath = "Particles\particle_spectral_hoop"
+		Material = "Unlit"
+		ScaleMin = 1
+		ScaleMax = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AlphaMin = 0.5
+		AlphaMax = 0.7
+		Scale = 2.5
+		StartScale = 1
+		EndScale = 1.25
+		GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		RandomDurationMin = 0.5
+		RandomDurationMax = 0.6
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
+	{
+		Name = "ChronosDeathNovaSand"
+		FilePath = "Fx\AxeNova\AxeNova"
+		NumFrames = 36
+		Material = "Unlit"
+		RandomPlaySpeedMin = 120
+		RandomPlaySpeedMax = 240
+		StartScaleX = 1
+		EndScaleX = 0.75
+		EaseIn = 0.99
+		EaseOut = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = true
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.7
+		StartBlue = 0.5
+		EndRed=0.99
+		EndGreen=0.6
+		EndBlue=0.3
+		GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
+		ScaleMin = 0.7
+		ScaleMax = 1.5
+	}
+
+	{
+		Name = "ChronosDeathNovaSandDissipate"
+		Random = [
+			{ Name = "ChronosDeathNovaSandDissipateA" }
+			{ Name = "ChronosDeathNovaSandDissipateB" }
+		]
+	}
+
+	{
+		Name = "ChronosDeathNovaSandDissipateA"
+		FilePath = "Fx\AxeNova\AxeNovaDissipate"
+		PostRotateScaleY = 0.5
+		RandomDurationMin = 1.25
+		RandomDurationMax = 3
+		StartScale = 1
+		EndScale = 1.25
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = true
+		AngleMin = 0
+		AngleMax = 360
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.7
+		StartBlue = 0.5
+		EndRed=0.99
+		EndGreen=0.5
+		EndBlue=0.2
+		GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
+		ScaleMin = 2.2
+		ScaleMax = 3
+		LocationZFromOwner = "Ignore"
+		AlphaMin = 0.2
+		AlphaMax = 0.5
+	}
+
+	{
+		Name = "ChronosDeathNovaSandDissipateB"
+		InheritFrom = "ChronosDeathNovaSandDissipateA"
+		PostRotateScaleY = 1
+		IsometricSkew = "X"
+	}
+
+	{
+		Name = "ChronosDeathSandFlare"
+		FilePath = "Fx\PickupFlareA\PickupFlareA"
+		Material = "Unlit"
+		Hue = 0.45
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0.7
+		EndBlue = 0.1
+		Scale = 0.5
+		GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
+		ScaleMin = 0.15
+		ScaleMax = 1.3
+		StartScaleY = 2
+		EndScaleY = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomPlaySpeedMin = 120
+		RandomPlaySpeedMax = 160
+		NumFrames = 30
+		Saturation = -0.5
+		CreateAnimations = [
+			{ Name = "ChronosDeathSandFlareB" }
+			{ Name = "ChronosDeathSandFlareC" }
+		]
+	}
+
+	{
+		Name = "ChronosDeathSandFlareB"
+		FilePath = "Particles\particle_glintFlare"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.75
+		EndRed=0.886 
+		EndGreen=0.773 
+		EndBlue=0.510
+		AddColor = true
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.6
+		EaseIn = 0.9
+		EaseOut = 1.0
+		GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
+		StartScale = 1
+		EndScale = 0
+		ScaleMin = 0.33
+		ScaleMax = 2
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+	}
+
+	{
+		Name = "ChronosDeathSandFlareC"
+		FilePath = "Particles\particle_glow"
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.6
+		EndRed=0.99
+		EndGreen=0.7
+		EndBlue=0.5
+		GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.6
+		Material = "Unlit"
+		StartScale = 1
+		EndScale = 1.5
+		StartAlpha = 1
+		EndAlpha = 0
+		AlphaMin = 0.15
+		AlphaMax = 0.5
+		EaseIn = 0.99
+		EaseOut = 1
+		ScaleMin = 1
+		ScaleMax = 2
+		Scale = 3
+	}
+
+	{
+		Name = "ChronosDeathEnergy"
+		Random = [
+			{ Name = "ChronosDeathEnergyA" }
+		]
+	}
+
+	{
+		Name = "ChronosDeathEnergyA"
+		FilePath = "Fx\FogCloudB\FogCloudB"
+		GroupName = "Combat_Menu_TraitTray_Backing"
+		NumFrames = 45
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ScaleMin = 0.5
+		ScaleMax = 1
+		StartScale = 0.3
+		EndScale = 1
+		Scale = 1
+		ScaleX = 2.5
+		StartScaleY = 0.33
+		EndScaleY = 0.5
+		EaseIn = 0.9
+		EaseOut = 1
+		VelocityMin = 900
+		VelocityMax = 1800
+		Acceleration = -1300
+		LocationFromOwner = "Ignore"
+		RadialOffsetMin = 100
+		RadialOffsetMax = 250
+		//OffsetX = -250
+		//OffsetY = 150
+		AngleMin = -20
+		AngleMax = 200
+		//AngleChangeSpeedMin = -60
+		//AngleChangeSpeedMax = 60
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		Red = 1
+		Green = 0.6
+		Blue = 0.3
+		OriginX = 128
+		OriginY = 256
+		ScaleFromOwner = "Ignore"
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+		AlphaMin = 0.05
+		AlphaMax = 0.25
+		Hue = 0.06
+		OnlyWhenVisible = true
+	}
+
+
+	{
+		Name = "ChronosRemainsKernel"
+		FilePath = "Particles\particle_glow_gamma"
+		Red = 1
+		Green = 0.8
+		Blue = 0.5
+		Material = "Unlit"
+		GroupName = "Combat_Menu_TraitTray_Additive"
+		StartAlpha = 0.8
+		EndAlpha = 1.0
+		PingPongColor = true
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+		StartScale = 0.9
+		EndScale = 1.0
+		Scale = 0.3
+		ScaleFromOwner = "Maintain"
+		ColorFromOwner = "Ignore"
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.5
+		OffsetZ = 120
+		Loop = true
+		VisualFx = "ChronosRemainsKernelParticles"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		VisualFxCap = 32
+	}
+
+	{
+		Name = "ChronosRemainsKernelParticles"
+		InheritFrom = "ChronosRemainsKernel"
+		FilePath = "Particles\particle_ember_03_glow"
+		VisualFx = null
+		Loop = false
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 5
+		VelocityMax = 10
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.5
+		StartScale = 0
+		EndScale = 1
+		Scale = 1
+		//PingPongScale = false
+		ScaleMin = 0.3
+		ScaleMax = 0.9
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		OffsetZ = 0
+	}
+
+
 ]}

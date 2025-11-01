@@ -311,7 +311,7 @@ WeaponSetData =
 			WaitForAngleTowardTarget = true,
 			WaitForAngleTowardTargetTimeOut = 0.1,
 			TrackTargetDuringCharge = true,
-			PreAttackRotationDampening = 0.09,
+			PreAttackRotationDampening = 0.13,
 			StopBeforeFire = true,
 
 			PreAttackDuration = 0.8,
@@ -378,9 +378,9 @@ WeaponSetData =
 			PostAttackAnimation = "Enemy_Zagreus_Spear_Stab2_End",
 
 			WaitForAngleTowardTarget = true,
-			WaitForAngleTowardTargetTimeOut = 0.1,
+			WaitForAngleTowardTargetTimeOut = 0.12,
 			TrackTargetDuringCharge = true,
-			PreAttackRotationDampening = 0.13,
+			PreAttackRotationDampening = 0.23,
 			StopBeforeFire = true,
 
 			PreAttackDuration = 0.4,
@@ -447,9 +447,9 @@ WeaponSetData =
 			PostAttackAnimation = "Enemy_Zagreus_Spear_Stab3_End",
 
 			WaitForAngleTowardTarget = true,
-			WaitForAngleTowardTargetTimeOut = 0.1,
+			WaitForAngleTowardTargetTimeOut = 0.12,
 			TrackTargetDuringCharge = true,
-			PreAttackRotationDampening = 0.13,
+			PreAttackRotationDampening = 0.23,
 			StopBeforeFire = true,
 
 			PreAttackDuration = 0.4,

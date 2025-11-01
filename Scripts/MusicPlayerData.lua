@@ -272,7 +272,7 @@ ScreenData.MusicPlayer =
 				InfoBoxDescription =
 				{
 					OffsetX = -300,
-					OffsetY = -35,
+					OffsetY = -6,
 					TextArgs =
 					{
 						FontSize = 20,
@@ -280,7 +280,7 @@ ScreenData.MusicPlayer =
 						Font = "LatoMedium",
 						VariableAutoFormat = "BoldFormatGraftDark",
 						Justification = "Left",
-						VerticalJustification = "Top",
+						VerticalJustification = "Center",
 						Width = 610,
 						FadeOpacity = 0.0,
 						FadeTarget = 0.0,
@@ -479,6 +479,7 @@ ScreenData.MusicPlayer =
 		"Song_IcarusTheme",
 		"Song_DionysusMusic",
 		"Song_HypnosMusic",
+		"Song_ChaosTheme",
 
 		"Song_Exploration1",
 		"Song_Exploration2",
@@ -579,7 +580,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 350,
+			CosmeticsPoints = 200,
 			MixerFBoss = 1,
 		},
 		GameStateRequirements =
@@ -594,7 +595,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 350,
+			CosmeticsPoints = 200,
 			MixerFBoss = 1,
 		},
 		GameStateRequirements =
@@ -611,7 +612,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 350,
+			CosmeticsPoints = 200,
 			MixerFBoss = 1,
 		},
 		GameStateRequirements =
@@ -630,7 +631,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 250,
+			CosmeticsPoints = 150,
 			MetaFabric = 1,
 		},
 		GameStateRequirements =
@@ -647,7 +648,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 300,
+			CosmeticsPoints = 150,
 		},
 		GameStateRequirements =
 		{
@@ -663,7 +664,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 250,
+			CosmeticsPoints = 150,
 		},
 		GameStateRequirements =
 		{
@@ -680,13 +681,29 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 150,
+			CosmeticsPoints = 100,
 			CharonPoints = 1,
 		},
 		GameStateRequirements =
 		{
 			{
 				PathTrue = { "GameState", "TextLinesRecord", "CharonGift03" },
+			},
+		},
+	},
+	Song_ChaosTheme =
+	{
+		InheritFrom = { "DefaultSongItem" },
+		TrackName = "/Music/MusicPlayer/Iris/ChaosThemeMusicPlayer",
+
+		Cost =
+		{
+			CosmeticsPoints = 100,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "ChaosGift03" },
 			},
 		},
 	},
@@ -697,7 +714,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 150,
+			CosmeticsPoints = 100,
 			MixerGBoss = 1,
 		},
 		GameStateRequirements =
@@ -717,7 +734,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 550,
+			CosmeticsPoints = 250,
 			MixerGBoss = 1,
 		},
 		GameStateRequirements =
@@ -748,7 +765,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 150,
+			CosmeticsPoints = 100,
 			MixerGBoss = 1,
 		},
 		GameStateRequirements =
@@ -771,7 +788,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 550,
+			CosmeticsPoints = 250,
 			MixerGBoss = 1,
 		},
 		GameStateRequirements =
@@ -807,7 +824,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 350,
+			CosmeticsPoints = 200,
 			MixerGBoss = 1,
 		},
 		GameStateRequirements =
@@ -827,7 +844,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 850,
+			CosmeticsPoints = 400,
 			MixerGBoss = 1,
 		},
 		GameStateRequirements =
@@ -847,7 +864,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 350,
+			CosmeticsPoints = 200,
 			MixerGBoss = 1,
 		},
 		GameStateRequirements =
@@ -865,7 +882,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 850,
+			CosmeticsPoints = 400,
 			MixerGBoss = 1,
 		},
 		GameStateRequirements =
@@ -883,7 +900,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 300,
+			CosmeticsPoints = 150,
 			MixerHBoss = 1,
 		},
 		GameStateRequirements =
@@ -901,7 +918,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 300,
+			CosmeticsPoints = 150,
 			MixerHBoss = 1,
 		},
 		GameStateRequirements =
@@ -921,7 +938,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 400,
+			CosmeticsPoints = 200,
 			MixerIBoss = 1,
 		},
 		GameStateRequirements =
@@ -942,7 +959,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 400,
+			CosmeticsPoints = 200,
 			MixerIBoss = 1,
 		},
 		GameStateRequirements =
@@ -964,7 +981,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 2400,
+			CosmeticsPoints = 1200,
 			MixerIBoss = 1,
 		},
 		GameStateRequirements =
@@ -986,7 +1003,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 3200,
+			CosmeticsPoints = 1500,
 			MixerIBoss = 1,
 		},
 		GameStateRequirements =
@@ -1008,7 +1025,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 600,
+			CosmeticsPoints = 300,
 		},
 		GameStateRequirements =
 		{
@@ -1034,7 +1051,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 1400,
+			CosmeticsPoints = 700,
 
 		},
 		GameStateRequirements =
@@ -1053,7 +1070,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 200,
+			CosmeticsPoints = 150,
 		},
 		GameStateRequirements =
 		{
@@ -1069,7 +1086,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 200,
+			CosmeticsPoints = 150,
 		},
 		GameStateRequirements =
 		{
@@ -1099,7 +1116,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 200,
+			CosmeticsPoints = 150,
 		},
 		GameStateRequirements =
 		{
@@ -1116,7 +1133,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 500,
+			CosmeticsPoints = 250,
 			MixerNBoss = 1,
 		},
 		GameStateRequirements =
@@ -1135,7 +1152,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 500,
+			CosmeticsPoints = 250,
 			MixerNBoss = 1,
 		},
 		GameStateRequirements =
@@ -1154,7 +1171,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 500,
+			CosmeticsPoints = 250,
 			MixerNBoss = 1,
 		},
 		GameStateRequirements =
@@ -1174,7 +1191,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 250,
+			CosmeticsPoints = 150,
 		},
 		GameStateRequirements =
 		{
@@ -1190,7 +1207,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 250,
+			CosmeticsPoints = 150,
 		},
 		GameStateRequirements =
 		{
@@ -1206,7 +1223,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 250,
+			CosmeticsPoints = 150,
 		},
 		GameStateRequirements =
 		{
@@ -1222,7 +1239,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 400,
+			CosmeticsPoints = 200,
 			MixerOBoss = 1,
 		},
 		GameStateRequirements =
@@ -1242,7 +1259,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 400,
+			CosmeticsPoints = 200,
 			MixerOBoss = 1,
 		},
 		GameStateRequirements =
@@ -1261,7 +1278,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 800,
+			CosmeticsPoints = 400,
 			MixerOBoss = 1,
 		},
 		GameStateRequirements =
@@ -1281,7 +1298,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 800,
+			CosmeticsPoints = 400,
 			MixerPBoss = 1,
 		},
 		GameStateRequirements =
@@ -1300,7 +1317,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 800,
+			CosmeticsPoints = 400,
 			MixerPBoss = 1,
 		},
 		GameStateRequirements =
@@ -1319,7 +1336,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 700,
+			CosmeticsPoints = 300,
 			PlantIPoppy = 1,
 		},
 		GameStateRequirements =
@@ -1336,7 +1353,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 700,
+			CosmeticsPoints = 300,
 			SuperGiftPoints = 1,
 		},
 		GameStateRequirements =
@@ -1353,7 +1370,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 250,
+			CosmeticsPoints = 150,
 		},
 		GameStateRequirements =
 		{
@@ -1369,7 +1386,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 250,
+			CosmeticsPoints = 150,
 		},
 		GameStateRequirements =
 		{
@@ -1385,7 +1402,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 250,
+			CosmeticsPoints = 150,
 		},
 		GameStateRequirements =
 		{
@@ -1401,7 +1418,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 500,
+			CosmeticsPoints = 250,
 			SuperGiftPoints = 1,
 		},
 		GameStateRequirements =
@@ -1422,7 +1439,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 500,
+			CosmeticsPoints = 250,
 			SuperGiftPoints = 1,
 		},
 		GameStateRequirements =
@@ -1443,7 +1460,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		Rocking = true,
 		Cost =
 		{
-			CosmeticsPoints = 2600,
+			CosmeticsPoints = 1300,
 		},
 		GameStateRequirements =
 		{
@@ -1461,7 +1478,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		TrackName = "/Music/MusicPlayer/Iris/IrisEndThemeAcousticeMusicPlayer",
 		Cost =
 		{
-			CosmeticsPoints = 2000,
+			CosmeticsPoints = 1000,
 		},
 		GameStateRequirements =
 		{
@@ -1484,7 +1501,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 2200,
+			CosmeticsPoints = 1100,
 			Mixer6Common = 1,
 		},
 		GameStateRequirements =
@@ -1503,7 +1520,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 1200,
+			CosmeticsPoints = 600,
 			MixerPBoss = 1,
 		},
 		GameStateRequirements =
@@ -1523,7 +1540,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 2400,
+			CosmeticsPoints = 1200,
 			MixerQBoss = 1,
 		},
 		GameStateRequirements =
@@ -1546,7 +1563,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		Cost =
 		{
-			CosmeticsPoints = 2300,
+			CosmeticsPoints = 1100,
 			MixerQBoss = 1,
 		},
 		GameStateRequirements =

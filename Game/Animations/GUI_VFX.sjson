@@ -2452,6 +2452,11 @@
 		FilePath = "GUI\Icons\RoomReward\SubIcon_Onion"
 	}
 	{
+		Name = "RoomRewardSubIcon_Contract"
+		InheritFrom = "RoomRewardSubIcon_Boss"
+		FilePath = "GUI\Icons\RoomReward\SubIcon_Contract"
+	}
+	{
 		Name = "GodMode"
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\godmode"
@@ -3145,7 +3150,12 @@
 		VideoTexture = "RoomTransitionInTimeWarp"
 		NumFrames = 45
 		Sound = "/SFX/Enemy Sounds/Chronos/TimeWarpTransition1"
-	}	
+	}
+	{
+		Name = "RoomTransitionIn_TimeWarp_Alt"
+		InheritFrom = "RoomTransitionIn_TimeWarp"
+		Sound = "/SFX/Menu Sounds/ScreenTransition1"
+	}
 	{
 		Name = "RoomTransitionOut_TimeWarp"
 		InheritFrom = "RoomTransitionOut_Radial"
@@ -3153,7 +3163,12 @@
 		VideoTexture = "RoomTransitionOutTimeWarp"
 		NumFrames = 58
 		Sound = "/SFX/Enemy Sounds/Chronos/TimeWarpTransition2"
-	}	
+	}
+	{
+		Name = "RoomTransitionOut_TimeWarp_Alt"
+		InheritFrom = "RoomTransitionOut_TimeWarp"
+		Sound = "/SFX/Menu Sounds/ScreenTransition2"
+	}
 	{
 		Name = "RoomTransitionIn_TimeWarp_Slow"
 		InheritFrom = "RoomTransitionIn_Radial"

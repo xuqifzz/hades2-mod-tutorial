@@ -126,7 +126,7 @@ function StartDeathLoopPresentation( currentRun )
 	AudioState.RespawnSoundId = PlaySound({ Name = "/SFX/Player Sounds/PlayerRespawnHoverLoop", Id = CurrentRun.Hero.ObjectId })
 
 	StartRoomAmbience( currentRun, CurrentHubRoom )
-	TentEnterPresentation()
+	TentEnterPresentation( nil, { AmbientMusicParamsDuration = 0 } )
 	local dimmerIds = GetIds({ Name = "TentIntroDimmer_01" })
 	SetAlpha({ Ids = dimmerIds, Fraction = 1.0 })
 
@@ -952,14 +952,9 @@ function FishingPierEndPresentation( source, args )
 	-- FadeOut({ Color = Color.Black, Duration = 0.75 })
 	waitUnmodified( 0.35 )
 
-	CurrentRun.TimePassageOccurred = true
-
-	local timeTicks = 16
-	GardenTimeTick( { Ticks = timeTicks, UpdatePlotPresentation = true, PanDuration = 0.0, SkipCameraPan = true, SkipSound = true, TickInterval = 0.0 } )
-	CookTimeTick( { Ticks = timeTicks, UpdatePresentation = true, TickInterval = 0.0, } )
-	MailboxTimeTick( { Ticks = timeTicks, UpdatePresentation = true, TickInterval = 0.0, } )
-
 	TeleportToConversationStartingPoint( source, args )
+
+	waitUnmodified( 5.0 )
 
 	-- PlaySound({ Name = "/Leftovers/World Sounds/MapZoomInShortHigh" })
 	-- FadeIn({ Duration = 2.0 })
@@ -1068,6 +1063,10 @@ function TimePassesPresentation( source, args )
 		thread( PlayVoiceLines, GlobalVoiceLines[args.GlobalVoiceLines] )
 	end
 
+	if args.IncludeFishingSFX then
+		thread( TimePassesFishingSFX, source, args )
+	end
+
 	wait( args.PreTextWait or 1.0 )
 
 	local currentRoom = CurrentHubRoom or CurrentRun.CurrentRoom
@@ -1080,10 +1079,6 @@ function TimePassesPresentation( source, args )
 
 	if args.HeroAnim ~= nil then
 		SetAnimation({ Name = args.HeroAnim, DestinationId = CurrentRun.Hero.ObjectId })
-	end
-
-	if args.IncludeFishingSFX ~= nil then
-		thread( TimePassesFishingSFX, source, args )
 	end
 
 	thread( DisplayInfoBanner, nil, {
@@ -1119,19 +1114,21 @@ function TimePassesPresentation( source, args )
 end
 
 function TimePassesFishingSFX( source, args )
-
-	wait(1.5)
+	wait(0.25)
 	PlaySound({ Name = "/Leftovers/SFX/FishSpawnSplash" })
 	wait(0.5)
-	PlaySound({ Name = "/SFX/Menu Sounds/Lounge_BeerBottleOpen" })
+	PlaySound({ Name = "/Leftovers/World Sounds/CaravanJump" })
+	wait(1.6)
+	PlaySound({ Name = "/Leftovers/SFX/FishingPlunk" })
 	wait(0.5)
 	PlaySound({ Name = "/Leftovers/SFX/FishSpawnSplash" })
+	wait(0.5)
+	PlaySound({ Name = "/Leftovers/World Sounds/CaravanWaterBuck1" })
 	wait(1.0)
-	PlaySound({ Name = "/Leftovers/World Sounds/Caravan Interior/SwallowDrink" })
-	wait(0.5)
 	PlaySound({ Name = "/Leftovers/SFX/FishSpawnSplash" })
 	wait(0.5)
-
+	PlaySound({ Name = "/Leftovers/World Sounds/CaravanWaterBuck2" })
+	wait(1.0)
 end
 
 GlobalVoiceLines.LoungeRevelryVoiceLines =
@@ -1307,9 +1304,10 @@ function LoungeRevelryPresentation( source, args )
 	end
 
 	if args.TimeTicks then
-		GardenTimeTick( { Ticks = args.TimeTicks, UpdatePlotPresentation = true, PanDuration = 0.0, SkipCameraPan = true, SkipSound = true, TickInterval = 0.0 } )
-		CookTimeTick( { Ticks = args.TimeTicks, UpdatePresentation = true, TickInterval = 0.0, } )
-		MailboxTimeTick( { Ticks = args.TimeTicks, UpdatePresentation = true, TickInterval = 0.0, } )
+		local shouldUpdatePresentation = ( CurrentHubRoom ~= nil )
+		GardenTimeTick( { Ticks = args.TimeTicks, UpdatePlotPresentation = shouldUpdatePresentation, PanDuration = 0.0, SkipCameraPan = true, SkipSound = true, TickInterval = 0.0 } )
+		CookTimeTick( { Ticks = args.TimeTicks, UpdatePresentation = shouldUpdatePresentation, TickInterval = 0.0, } )
+		MailboxTimeTick( { Ticks = args.TimeTicks, UpdatePresentation = shouldUpdatePresentation, TickInterval = 0.0, } )
 	end
 
 	thread( PlayVoiceLines, GlobalVoiceLines.LoungeRevelryVoiceLines, false )
@@ -2522,8 +2520,9 @@ function HypnosDream01EndPresentation( source, args )
 	wait(1.4)
 	PlaySound({ Name = "/SFX/WindGust" })
 
+	local hypnosId = 370024
 	if args.WakeUp then
-		SetAnimation({ DestinationId = 370024, Name = "Hypnos_Sleep_Idle_Silent_NoZs" })
+		SetAnimation({ DestinationId = hypnosId, Name = "Hypnos_Sleep_Idle_Silent_NoZs" })
 	end
 
 	waitUnmodified( args.WaitTime or 2.8 )
@@ -2549,7 +2548,7 @@ function HypnosDream01EndPresentation( source, args )
 	CookTimeTick( { Ticks = ticks, UpdatePresentation = true, TickInterval = 0.0, } )
 	MailboxTimeTick( { Ticks = ticks, UpdatePresentation = true, TickInterval = 0.0, } )
 
-	TeleportToConversationStartingPoint( source, { HeroOnly = true } )
+	TeleportToConversationStartingPoint( source, { HeroOnly = true, AngleHeroTowardTargetId = hypnosId } )
 
 	waitUnmodified( 1.0 )
 	SetAnimation({ DestinationId = CurrentRun.Hero.ObjectId, Name = "MelTalkPensive01" })
@@ -2658,10 +2657,11 @@ function StartNewRunPresentation( runDoor, args )
 	EndFixedDashPresentationValues()
 end
 
-function TentEnterPresentation()
+function TentEnterPresentation( source, args )
 	if SessionMapState.InTent then
 		return
 	end
+	args = args or {}
 	SessionMapState.InTent = true
 	SetAlpha({ Ids = GetIds({ Name = "MainDimmer_01" }), Fraction = 1.0, Duration = 0.3 })
 	SetAlpha({ Ids = GetIds({ Name = "TentDimmer_01" }), Fraction = 0.0, Duration = 0.3 })
@@ -2671,7 +2671,7 @@ function TentEnterPresentation()
 		SetSoundCueValue({ Name = "Tent", Value = 1.0, Id = AudioState.AmbienceId, Duration = 0.7 })
 	end
 	if AudioState.AmbientMusicId ~= nil then
-		UpdateAmbientMusicParameters( { Params = CurrentHubRoom.AmbientMusicParamsInTent, Duration = 0.7 } )
+		UpdateAmbientMusicParameters( { Params = CurrentHubRoom.AmbientMusicParamsInTent, Duration = args.AmbientMusicParamsDuration or 0.7 } )
 	end
 	if GameState.NextBiomeStateName ~= nil then
 		local biomeStateData = BiomeStateData.BiomeStates[GameState.NextBiomeStateName]
@@ -2819,6 +2819,10 @@ GlobalVoiceLines.PetCerberusVoiceLines =
 					Path = { "GameState", "EquippedFamiliar" },
 					IsAny = { "HoundFamiliar" },
 				},
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "I_Story01" },
+				},
 			},
 		},
 	},
@@ -2827,7 +2831,14 @@ GlobalVoiceLines.PetCerberusVoiceLines =
 		RandomRemaining = true,
 		BreakIfPlayed = true,
 		ObjectTypes = { "NPC_Hades_02", "NPC_Hades_Field_01" },
-		SucceiveChanceToPlay = 0.5,
+		SuccessiveChanceToPlay = 0.5,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsAny = { "I_Story01" },
+			},
+		},
 		Cooldowns =
 		{
 			{ Name = "HadesSpokeRecently", Time = 8 },
@@ -2920,13 +2931,6 @@ GlobalVoiceLines.PetCerberusVoiceLines =
 		RandomRemaining = true,
 		BreakIfPlayed = true,
 		ObjectType = "NPC_Persephone_01",
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsAny = { "I_Story01" },
-			},
-		},
 		Cooldowns =
 		{
 			{ Name = "PersephoneSpokeRecently", Time = 8 },
@@ -3727,7 +3731,6 @@ end
 function UseHadesFountain( usee, args )
 	args = args or {}
 	AddInputBlock({ Name = "SpecialInteractFountain" })
-	UseableOff({ Id = usee.ObjectId })
 	HideUseButton( usee.ObjectId, usee )
 
 	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = usee.ObjectId })
@@ -3736,13 +3739,6 @@ function UseHadesFountain( usee, args )
 
 	wait( 1.25 )
 	RemoveInputBlock({ Name = "SpecialInteractFountain" })
-	wait( 30.75, RoomThreadName )
-	if not usee.UseableToggleBlocked then
-		UseableOn({ Id = usee.ObjectId })
-		if args.LinkedIds ~= nil then
-			UseableOn({ Ids = args.LinkedIds })
-		end
-	end
 end
 
 function UseSunMoonTimeSculpture( usee, args )
@@ -4508,7 +4504,10 @@ function DoraTeleportHub( args )
 		Teleport({ Id = dora.ObjectId, DestinationId = args.DestinationId })
 		CreateAnimation({ DestinationId = args.DestinationId, Name = "EnemyDeathFx_DoraTeleport" })
 		dora.DefaultCategoryIndex = args.CategoryIndex
-		dora.SpecialInteractBlockedUntilTeleport = nil
+		if dora.SpecialInteractBlockedUntilTeleport then
+			dora.SpecialInteractBlockedUntilTeleport = nil
+			SetAvailableUseText( dora )
+		end
 	end
 end
 
@@ -4531,6 +4530,7 @@ function DoraTeleportExit( source, args )
 
 	source.NextInteractLines = nil
 	source.SpecialInteractFunctionName = nil
+	source.RepulseOnMeleeInvulnerableHit = nil
 	UseableOff({ Id = source.ObjectId })
 	RemoveFromGroup({ Id = source.ObjectId, Name = "NPCs" })
 	RefreshUseButton( source.ObjectId, source )
@@ -4634,12 +4634,12 @@ end
 
 function LearnedSageReaction( args )
 	PlaySound({ Name = "/SFX/GhostEmotes/EmbarrassedTINY", Id = 589466 })
-	thread( PlayEmoteSimple, source, { TargetId = 589466, AnimationName = "StatusIconSmile", OffsetZ = 150 })
+	thread( PlayEmoteSimple, source, { TargetId = 589466, AnimationName = "StatusIconSmile", OffsetZ = 80 })
 end
 
 function RecordKeeperReaction( args )
 	PlaySound({ Name = "/SFX/GhostEmotes/SmileTINY", Id = 589467 })
-	thread( PlayEmoteSimple, source, { TargetId = 589467, AnimationName = "StatusIconOhBoy", OffsetZ = 50 })
+	thread( PlayEmoteSimple, source, { TargetId = 589467, AnimationName = "StatusIconOhBoy", OffsetZ = 0 })
 end
 
 function MusicMakerReaction( args )
@@ -4667,10 +4667,13 @@ function SkellyHitQuestCompletePresentation( victim )
 	thread( PlayVoiceLines, GlobalVoiceLines.SkellyHitQuestCompleteVoiceLines, nil, victim )
 end
 
-function ErisCenterInteractRange( eris, args )
-	SetInteractProperty({ DestinationId = eris.ObjectId, Property = "OffsetX", Value = 0 })
-	SetInteractProperty({ DestinationId = eris.ObjectId, Property = "OffsetY", Value = 0 })
-	SetInteractProperty({ DestinationId = eris.ObjectId, Property = "Distance", Value = 250 })
+function CenterInteractRange( npc, args )
+	args = args or {}
+	SetInteractProperty({ DestinationId = npc.ObjectId, Property = "OffsetX", Value = 0 })
+	SetInteractProperty({ DestinationId = npc.ObjectId, Property = "OffsetY", Value = 0 })
+	if args.Distance ~= nil then
+		SetInteractProperty({ DestinationId = npc.ObjectId, Property = "Distance", Value = args.Distance })
+	end
 end
 
 function ErisExitPresentation( eris, args )
@@ -4938,6 +4941,79 @@ function HubPostCreditsStartPresentation( currentRun, args )
 	ProcessTextLines( portrait, args.PostPortraitTextLines )
 	PlayRandomRemainingTextLines( portrait, args.PostPortraitTextLines )
 
+	-- restore resources formerly in escrow
+	if GameState.ResourcesInEscrow.MixerIBoss ~= nil then
+		AddResource( "MixerIBoss", GameState.ResourcesInEscrow.MixerIBoss, "Escrow", { Silent = true, SkipVoiceLines = true } )
+	end
+	if GameState.ResourcesInEscrow.MixerQBoss ~= nil then
+		AddResource( "MixerQBoss", GameState.ResourcesInEscrow.MixerQBoss, "Escrow", { Silent = true, SkipVoiceLines = true } )
+	end
+	GameState.ResourcesInEscrow.MixerIBoss = nil
+	GameState.ResourcesInEscrow.MixerQBoss = nil
+
+	TeleportCursor({ OffsetX = ScreenCenterX, OffsetY = ScreenCenterY })
+	UnzeroMouseTether( "DeathPresentation" )
+	RemoveInputBlock({ Name = "DeathWalkBlock" })
+
+end
+
+function HubPostStoryResetStartPresentation( currentRun, args )
+
+	args = args or {}
+
+	TentExitPresentation( nil, { Override = true } )
+
+	AddInputBlock({ Name = "DeathWalkBlock" })
+	ZeroMouseTether("DeathPresentation")
+	TeleportCursor({ OffsetX = ScreenCenterX, OffsetY = ScreenCenterY })
+
+	-- unit
+	local initialSpeed = GetUnitDataValue({ Id = CurrentRun.Hero.ObjectId, Property = "Speed"})
+	SetUnitProperty({ Property = "Speed", Value = 0, DestinationId = CurrentRun.Hero.ObjectId })
+	SetGoalAngle({ Id = CurrentRun.Hero.ObjectId, Angle = 45 })
+	SetUnitProperty({ Property = "CollideWithObstacles", Value = false, DestinationId = CurrentRun.Hero.ObjectId })
+	SetAlpha({ Id = CurrentRun.Hero.ObjectId, Fraction = 1.0, Duration = 0 })
+	Teleport({ Id = CurrentRun.Hero.ObjectId, DestinationId = 743556, OffsetX = 200 })
+	SetAnimation({ DestinationId = CurrentRun.Hero.ObjectId, Name = "Melinoe_DeathHover_Start" })
+
+	StartRoomAmbience( CurrentRun, CurrentHubRoom )
+
+	wait(0.3)
+
+	SetUnitProperty({ Property = "Speed", Value = initialSpeed, DestinationId = CurrentRun.Hero.ObjectId })
+	SetUnitProperty({ Property = "CollideWithObstacles", Value = true, DestinationId = CurrentRun.Hero.ObjectId })
+	
+	local cameraClamps = CurrentHubRoom.CameraClamps or GetDefaultClampIds()
+	DebugAssert({ Condition = #cameraClamps ~= 1, Text = "Exactly one camera clamp on a map is nonsensical" })
+	SetCameraClamp({ Ids = cameraClamps, SoftClamp = CurrentHubRoom.SoftClamp })
+
+	if CurrentHubRoom.CameraWalls then
+		CreateCameraWalls({ })
+	end
+
+	FadeIn({ Duration = 0.5 })
+	FullScreenFadeInAnimation("RoomTransitionOut_TimeWarp")
+
+	thread( PlayVoiceLines, HeroVoiceLines.StoryResetEndVoiceLines )
+
+	wait( 0.8 )
+
+	SetAnimation({ Name = "MelinoeDeathReEnterToIdle", DestinationId = CurrentRun.Hero.ObjectId })
+	AdjustColorGrading({ Name = "Off", Duration = 0.3 })
+
+	thread( DisplayInfoBanner, nil, {
+		Text = "Location_Home",
+		SubtitleText = "Location_Crossroads_StoryReset",
+		SubtitleOffsetY = 15,
+		SubtitleDelay = 0.75,
+		Color = Color.White,
+		FadeColor = Color.Red,
+		AnimationName = "LocationBackingIrisDeathIn",
+		AnimationOutName = "LocationBackingIrisDeathOut",
+		Delay = 1.2,
+		Duration = 4.25,
+	} )
+
 	TeleportCursor({ OffsetX = ScreenCenterX, OffsetY = ScreenCenterY })
 	UnzeroMouseTether( "DeathPresentation" )
 	RemoveInputBlock({ Name = "DeathWalkBlock" })
@@ -5040,4 +5116,17 @@ function FamiliarPointsGiftedPresentation( args )
 	thread( PlayVoiceLines, args.VoiceLines )
 	killTaggedThreads( CombatUI.HideThreadName )
 	CheckObjectiveSet( "FamiliarPrompt" )
+end
+
+function SetupStoryResetObject()
+	local storyResetObject = MapState.ActiveObstacles[742624]
+	if storyResetObject ~= nil then
+		if GameState.TextLinesRecord.InspectHadesFountain02 then
+			storyResetObject.OnUsedFunctionName = "OpenStoryResetPromptScreen"
+		end
+		SetAnimation({ DestinationId = 741509, Name = "Tilesets\\Crossroads\\Crossroads_FountainWall_02" })
+		SetAnimation({ DestinationId = 743214, Name = "Tilesets\\Crossroads\\Crossroads_FountainWall_02b" })
+		SetAnimation({ DestinationIds = { 743226, 743215, 743461 }, Name = "Tilesets\\Crossroads\\Crossroads_FountainWall_02a" })
+		SetColor({ Ids = { 743217, 743216 }, Color = { 82, 59, 36, 255 }, SetBase = true })
+	end
 end

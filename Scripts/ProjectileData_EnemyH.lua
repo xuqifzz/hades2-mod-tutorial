@@ -308,6 +308,7 @@ OverwriteTableKeys( ProjectileData, {
 	{
 		Fuse = 3.0,
 		ReticleAnimation = "CerbAoEDecal_In",
+		ReticleGroupName = "FX_Terrain",
 		CancelIfOwnerAIStageEnd = true,
 
 		HitScreenshake = { Distance = 12, Speed = 800, Duration = 1.2, FalloffSpeed = 3000 },

@@ -144,6 +144,7 @@ UnitSetData.Lamia =
 	Lamia_Miniboss =
 	{
 		InheritFrom = { "Elite", "Lamia" },
+		RunHistoryKilledByName = "Lamia_Miniboss",
 		HealthBuffer = 3950,
 
 		HealthBarAttachToMarkerName = "head_fxMarker_00_M_JNT",

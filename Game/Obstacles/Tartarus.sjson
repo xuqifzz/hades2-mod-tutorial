@@ -1406,7 +1406,8 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Tartarus\Tartarus_Urn_01"
-        Tallness = 50.0
+        RotateGeometry = true
+        Tallness = 1679
         Offset = { X = 0 Y = -823 }
         Points = [
           { X = 219 Y = 1 }

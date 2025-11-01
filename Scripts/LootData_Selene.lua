@@ -215,6 +215,9 @@ LootSetData.Selene =
 					{
 						PathTrue = { "SessionMapState", "DuoTalentEligible" },
 					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "SeleneGrantsOlympianDuos01" },
+					},
 				},
 				Cooldowns =
 				{
@@ -472,10 +475,10 @@ LootSetData.Selene =
 				GameStateRequirements =
 				{
 					{
-						PathFalse = { "GameState", "RoomsEntered", "P_PostBoss01" },
+						PathFalse = { "GameState", "RoomsEntered", "Q_Intro" },
 					},
 					{
-						PathFalse = { "GameState", "RoomsEntered", "Q_Boss01" },
+						PathTrue = { "GameState", "RoomsEntered", "N_Opening01" },
 					},
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -769,7 +772,7 @@ LootSetData.Selene =
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Selene_0345",
-					Text = "The hidden Aspects of the Arms of Night... I understand they come from distant gods, and goddesses of darkness... all obscure, some likely bearers yet-to-be. Perhaps there is an even deeper pattern that they share..." },
+					Text = "The hidden Aspects of the Arms of Night... I understand they come from distant gods and goddesses of darkness... all obscure, some likely bearers yet-to-be. Perhaps there is an even deeper pattern that they share..." },
 			},
 
 			SeleneAboutLunarCycle01 =
@@ -1687,6 +1690,9 @@ LootSetData.Selene =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						SumPrevRuns = 2,
 						Path = { "RoomsEntered" },
 						TableValuesToCount = { "N_Boss01", "N_Boss02" },
@@ -1814,7 +1820,7 @@ LootSetData.Selene =
 						PathTrue = { "CurrentRun", "BiomesReached", "N" },
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "PrometheusAboutMortals02" }
+						PathTrue = { "GameState", "TextLinesRecord", "PrometheusAboutMortals01" }
 					},
 					{
 						PathFalse = { "GameState", "TextLinesRecord", "SelenePostEpilogue01" },
@@ -2119,12 +2125,7 @@ LootSetData.Selene =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					{
-						Path = { "GameState", "ShrineBountiesCompleted" },
-						UseLength = true,
-						Comparison = ">=",
-						Value = 42,
-					},
+					NamedRequirements = { "AllShrineBountiesCompleted" },
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Selene_0361",
@@ -2880,7 +2881,7 @@ LootSetData.Selene =
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Selene_0369",
-					Text = "Now that your father's throne has been restored and Mother Nyx is free, perhaps Charon shall resume transporting Shades of the dead to their eternal resting-place. Although I think he still shall see to it that you are well-supplied." },
+					Text = "Now that your father's throne has been restored and Mother Nyx is free, perhaps Charon shall resume transporting Shades of the dead to their eternal resting-place. Although I think he shall still see to it that you are well-supplied." },
 			},
 
 			SeleneAboutCardUpgradePoints01 =
@@ -4112,6 +4113,7 @@ LootSetData.Selene =
 					},
 				},
 				{ Cue = "/VO/Melinoe_0486", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Empathetic_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					PostLineFunctionName = "BoonInteractPresentation",

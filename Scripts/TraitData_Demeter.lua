@@ -1091,7 +1091,15 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponLobSpecial",
 				ProjectileName = "ProjectileLobGunRift",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "LobProjectile_Demeter",
+				ChangeValue = "LobProjectileHel_Demeter",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileLobSpecialBounce",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobProjectileHel_Demeter",
 				ChangeType = "Absolute",
 			},
 			{
@@ -1912,6 +1920,7 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 		CurrentRoom = 0,
+		OnLevelOrRarityChangeFunctionName = "CreditAccumulatedTime",
 		StatLines =
 		{
 			"EncounterRarityStatDisplay1",

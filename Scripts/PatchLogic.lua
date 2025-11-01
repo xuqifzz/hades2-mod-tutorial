@@ -178,9 +178,12 @@ function DoPatches()
 			GameState.WorldUpgradesAdded[upgradeName] = nil
 		end
 
-		GameState.ShrineUpgrades.FirstDamageShrineUpgrade = nil
-		GameState.ShrineUpgrades.RoomStartManaShrineUpgrade = nil
-		GameState.ShrineUpgrades.NoMetaUpgradesShrineUpgrade = nil
+		for shrineUpgrade, value in pairs( GameState.ShrineUpgrades ) do
+			if MetaUpgradeData[shrineUpgrade] == nil then
+				GameState.ShrineUpgrades[shrineUpgrade] = nil
+			end
+		end
+
 		GameState.SpentShrinePointsCache = GetTotalSpentShrinePoints()
 
 		if Revision <= 94275 then
@@ -608,6 +611,40 @@ function DoPatches()
 		if not GameState.TyphonDefeatedWithStormStop then
 			GameState.Resources.MixerMythic = nil
 			GameState.LifetimeResourcesGained.MixerMythic = nil
+		end
+
+		if GameState.WorldUpgradesAdded.WorldUpgradePostBossSellTraitShops and not GameState.WorldUpgradesAdded.WorldUpgradeRestoreSellTraitShop then
+			UnlockWorldUpgrade( "WorldUpgradeRestoreSellTraitShop" )
+		end
+
+		if not GameState.PatchedCosmeticRefunds then
+			PatchCosmeticRefunds()
+			GameState.PatchedCosmeticRefunds = true
+		end
+
+		if not GameState.PatchedPostGigarosMixerIBoss then
+			if GameState.TextLinesRecord.ZagreusPastMeeting05 and not GameState.TextLinesRecord.ZagreusPastMeeting04_3 and not GameState.WorldUpgradesAdded.WorldUpgradeTimeStop then
+				local amountNeededForIncantations = WorldUpgradeData.WorldUpgradeTimeStop.Cost.MixerIBoss
+				if not GameState.WorldUpgradesAdded.WorldUpgradeStormStop then
+					amountNeededForIncantations = amountNeededForIncantations + WorldUpgradeData.WorldUpgradeStormStop.Cost.MixerIBoss
+				end
+				if amountNeededForIncantations > GameState.Resources.MixerIBoss then
+					AddResource( "MixerIBoss", amountNeededForIncantations - GameState.Resources.MixerIBoss, "Patch", { Silent = true, SkipVoiceLines = true, SkipInventoryObjective = true } )
+				end
+			end
+			GameState.PatchedPostGigarosMixerIBoss = true
+		end
+
+		if GameState.TextLinesRecord.ZagreusPastMeeting06_B then
+			GameState.TextLinesRecord.ZagreusPastMeeting06 = true
+		end
+
+		if GameState.StoryResetCount > 0 and GameState.WorldUpgradesRevealed.WorldUpgradeAmbrosia then
+			GameState.TextLinesRecord.DemeterPalacePostTrueEnding01 = true
+		end
+
+		if not GameState.ReachedTrueEnding and GameState.SpeechRecord["/VO/Chronos_1058"] then
+			GameState.SpeechRecord["/VO/Chronos_1058"] = nil
 		end
 		
 	end
@@ -1079,10 +1116,16 @@ function DoPatches()
 					addTraitToUpdate( trait )
 				elseif trait.Name == "DoubleExManaBoon" and Revision <= 123614 then
 					addTraitToUpdate( trait )
+				elseif trait.Name == "ChaosSpeedBlessing" and Revision <= 132769 then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "ChaosExSpeedBlessing" and Revision <= 132769 then
+					addTraitToUpdate( trait )
 				elseif trait.Name == "PotionPoseidonTalent" and Revision <= 122512 then
 					addTraitToUpdate( trait )
 				elseif trait.Name == "ChaosManaFocusCurse" and trait.OnExpire and not trait.OnExpire.RemoveReservedMana then
 					trait.OnExpire.RemoveReservedMana = TraitData[trait.Name].OnExpire.RemoveReservedMana
+				elseif trait.Name == "ChaosCommonCurse" and trait.OnExpire and not trait.OnExpire.RecheckBoons then
+					trait.OnExpire.RecheckBoons = TraitData[trait.Name].OnExpire.RecheckBoons
 				elseif trait.Name == "UnusedWeaponBonusTrait2" and trait.BossEncounterEndFunctionName ~= nil then
 					addTraitToUpdate( trait )
 				elseif trait.Name == "DemeterSprintBoon" and trait.OnWeaponFiredFunctions and trait.OnWeaponFiredFunctions.FunctionArgs and IsEmpty( trait.OnWeaponFiredFunctions.FunctionArgs.ProjectileNames ) then
@@ -1301,6 +1344,10 @@ function DoPatches()
 			CurrentRun.ArtemisSingingInHub = nil
 		end
 
+		if CurrentRun.TextLinesRecord.ZagreusPastMeeting06_B then
+			CurrentRun.TextLinesRecord.ZagreusPastMeeting06 = true
+		end
+
 		if CurrentRun.LootTypeHistory ~= nil and not CurrentRun.Hero.IsDead then
 			for lootName, i in pairs( CurrentRun.LootTypeHistory ) do
 				if not GameData.MissingPackages[lootName] then
@@ -1386,5 +1433,190 @@ function SplitUpDamageDealtRecord( state )
 			state.DamageDealtByHeroRecord[source] = damageDealt
 		end
 	end
+
+end
+
+function PatchCosmeticRefunds()
+	local originalCosts =
+	{
+		Cosmetic_AmbientCats = 1050,
+		Cosmetic_AmbientDogs = 1450,
+		Cosmetic_AmbientFrogs = 350,
+		Cosmetic_ApolloLyre = 1350,
+		Cosmetic_Aquarium = 900,
+		Cosmetic_ArachneTapestry = 1200,
+		Cosmetic_ArtemisAmaranthus = 500,
+		Cosmetic_ArtemisFlowerCircle01 = 200,
+		Cosmetic_ArtemisFlowerCircle01a = 250,
+		Cosmetic_ArtemisFlowerCircle01b = 350,
+		Cosmetic_ArtemisLyre = 450,
+		Cosmetic_ArtemisTarget = 400,
+		Cosmetic_BathChangingScreens = 200,
+		Cosmetic_BathSoaps = 350,
+		Cosmetic_BathTowelRacks = 250,
+		Cosmetic_BirdHouse = 1300,
+		Cosmetic_BrokerLantern01 = 170,
+		Cosmetic_BrokerWagon01 = 1600,
+		Cosmetic_BrokerWagon02 = 1800,
+		Cosmetic_CardDeck01 = 500,
+		Cosmetic_CardDeck02 = 900,
+		Cosmetic_CardDeck03 = 1100,
+		Cosmetic_CardDeck04 = 1400,
+		Cosmetic_CardDeck05 = 1600,
+		Cosmetic_CardDeck06 = 1800,
+		Cosmetic_CardDeck07 = 2200,
+		Cosmetic_CatScratcher = 1300,
+		Cosmetic_Cauldron01a = 3200,
+		Cosmetic_Cauldron01b = 3400,
+		Cosmetic_CauldronPillars01a = 600,
+		Cosmetic_CauldronPillars01b = 650,
+		Cosmetic_CauldronPillars01c = 700,
+		Cosmetic_CauldronRing01a = 500,
+		Cosmetic_CauldronRing01b = 550,
+		Cosmetic_ChronosHourglass = 1900,
+		Cosmetic_EmployeeOfTheMonth = 650,
+		Cosmetic_ErisJerkyShelf = 250,
+		Cosmetic_ErisTrashcan = 400,
+		Cosmetic_ErisWarningSign01 = 950,
+		Cosmetic_ExitCharm = 900,
+		Cosmetic_ExitCharm02 = 900,
+		Cosmetic_ExitCharm03 = 900,
+		Cosmetic_ExitCharm04 = 900,
+		Cosmetic_ExitCharm05 = 900,
+		Cosmetic_FallenLeaves01 = 250,
+		Cosmetic_FallenLeaves02 = 300,
+		Cosmetic_FamiliarEffigy01 = 850,
+		Cosmetic_FamiliarEffigy01a = 850,
+		Cosmetic_FamiliarEffigy01b = 850,
+		Cosmetic_FanPoster01 = 550,
+		Cosmetic_FanPoster01a = 600,
+		Cosmetic_FanPoster01b = 650,
+		Cosmetic_FarmBench01 = 180,
+		Cosmetic_FarmGardenTools01 = 150,
+		Cosmetic_FarmPillars01 = 450,
+		Cosmetic_FarmWell01 = 850,
+		Cosmetic_FishingSign01 = 750,
+		Cosmetic_FishingSign01a = 750,
+		Cosmetic_FishingSign01b = 750,
+		Cosmetic_FrinosRock01a = 600,
+		Cosmetic_FrinosRock01b = 550,
+		Cosmetic_HecateKey = 1050,
+		Cosmetic_HermesShoes = 1450,
+		Cosmetic_HypnosLanterns01a = 110,
+		Cosmetic_HypnosLanterns01b = 150,
+		Cosmetic_HypnosPedestal01a = 500,
+		Cosmetic_HypnosPedestal01b = 500,
+		Cosmetic_HypnosPillars01a = 650,
+		Cosmetic_HypnosRug = 200,
+		Cosmetic_IcarusBombs01 = 350,
+		Cosmetic_IcarusMaps = 450,
+		Cosmetic_IcarusRug01 = 150,
+		Cosmetic_IcarusRug02 = 250,
+		Cosmetic_IcarusTable01 = 800,
+		Cosmetic_IcarusWings = 1650,
+		Cosmetic_MainHangingRope01a = 450,
+		Cosmetic_MainLanterns01a = 310,
+		Cosmetic_MainLanterns01b = 330,
+		Cosmetic_MainTeaLights = 1600,
+		Cosmetic_MorosChaise = 600,
+		Cosmetic_MorosRug = 350,
+		Cosmetic_MorosScrolls = 650,
+		Cosmetic_MorosSpools = 1100,
+		Cosmetic_MorosTentCanopy = 550,
+		Cosmetic_MorosTerrain = 180,
+		Cosmetic_NemesisBraziers = 800,
+		Cosmetic_NemesisChair = 700,
+		Cosmetic_NemesisGrindstone = 500,
+		Cosmetic_NemesisRug = 400,
+		Cosmetic_NemesisScales = 850,
+		Cosmetic_OdysseusRug = 160,
+		Cosmetic_OdysseusRug02 = 190,
+		Cosmetic_OdysseusTable01a = 1000,
+		Cosmetic_OdysseusTrojanHorse = 1950,
+		Cosmetic_OdysseusVase = 550,
+		Cosmetic_PandoraJar = 1450,
+		Cosmetic_RespawnCircleFlowers = 750,
+		Cosmetic_RiverLanterns = 350,
+		Cosmetic_RiverLanterns02 = 370,
+		Cosmetic_SkellyFloor01a = 220,
+		Cosmetic_SkellyFloor01b = 240,
+		Cosmetic_SkellyZagreusStatue = 2200,
+		Cosmetic_TavernaCauldron02 = 400,
+		Cosmetic_TavernaChairs01a = 220,
+		Cosmetic_TavernaChairs01b = 260,
+		Cosmetic_TavernaChairs01c = 280,
+		Cosmetic_TavernaMusicStage01 = 300,
+		Cosmetic_TavernaMusicStage02 = 400,
+		Cosmetic_TavernaShrimpCocktails = 150,
+		Cosmetic_TavernaStarMosaic = 1500,
+		Cosmetic_TavernaTables01a = 1200,
+		Cosmetic_TavernaTables01b = 1400,
+		Cosmetic_TavernaTables01c = 1250,
+		Cosmetic_TentBlanket01b = 160,
+		Cosmetic_TentBlanket01c = 180,
+		Cosmetic_TentCandle01b = 140,
+		Cosmetic_TentQuilt = 110,
+		Cosmetic_TentShelf01a = 400,
+		Cosmetic_TentShelf01b = 650,
+		Cosmetic_TentTable01b = 390,
+		Cosmetic_TentTable01c = 410,
+		Cosmetic_ThanPoster = 1100,
+		Cosmetic_TrainingDummy01a = 2000,
+		Cosmetic_TrainingDummy01b = 1850,
+		Cosmetic_WitchTrinkets02 = 110,
+		Song_ArachneTheme = 250,
+		Song_ArtemisSong = 500,
+		Song_ArtemisTheme = 300,
+		Song_BiomeStartOlympus = 800,
+		Song_CharonShopTheme = 150,
+		Song_CirceTheme = 250,
+		Song_ClockworkTartarusMiniboss = 400,
+		Song_ClockworkTartarusRegular = 400,
+		Song_DionysusMusic = 700,
+		Song_EchoTheme = 250,
+		Song_EndThemeAcoustic = 600,
+		Song_Ephyra2 = 500,
+		Song_Ephyra3 = 500,
+		Song_Erebus2 = 350,
+		Song_Exploration1 = 350,
+		Song_Exploration2 = 350,
+		Song_FilthyArp = 500,
+		Song_FishingMusicLoop = 200,
+		Song_HeraclesTheme = 250,
+		Song_HypnosMusic = 700,
+		Song_IcarusTheme = 250,
+		Song_MedeaTheme = 250,
+		Song_MinibossTheme = 200,
+		Song_MourningFields1 = 300,
+		Song_MourningFields2 = 300,
+		Song_NarcissusTheme = 250,
+		Song_NemesisTheme = 250,
+		Song_Olympus1 = 800,
+		Song_Olympus2 = 800,
+		Song_Scylla1a = 150,
+		Song_Scylla1b = 550,
+		Song_Scylla2a = 150,
+		Song_Scylla2b = 550,
+		Song_Scylla3a = 350,
+		Song_Scylla3b = 850,
+		Song_Scylla4a = 350,
+		Song_Scylla4b = 850,
+		Song_Ships1 = 400,
+		Song_Ships2 = 400,
+		Song_TimedEncounter = 200,
+	}
+
+	local amountOwed = 0
+	for cosmeticName, originalCost in pairs( originalCosts ) do
+		if GameState.WorldUpgradesAdded[cosmeticName] and WorldUpgradeData[cosmeticName] ~= nil then
+			local currentCost = WorldUpgradeData[cosmeticName].Cost.CosmeticsPoints or 0
+			if currentCost < originalCost then
+				amountOwed = amountOwed + (originalCost - currentCost)
+				--DebugPrint({ Text = "Owed "..(originalCost - currentCost).." for "..cosmeticName })
+			end
+		end
+	end
+
+	AddResource( "CosmeticsPoints", amountOwed, "Patch", { Silent = true, SkipVoiceLines = true, SkipInventoryObjective = true } )
 
 end

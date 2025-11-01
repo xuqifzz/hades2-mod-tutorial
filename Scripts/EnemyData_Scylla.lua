@@ -1698,7 +1698,22 @@ UnitSetData.Scylla =
 						Path = { "CurrentRun", "Hero", "TraitDictionary" },
 						HasAny = { "BossPreDamageKeepsake" },
 					},
-					NamedRequirementsFalse = { "OdysseusWandering" },
+					OrRequirements =
+					{
+						-- hasn't left for his journey yet
+						{
+							{
+								PathFalse = { "GameState", "TextLinesRecord", "OdysseusLooseEndsQuestComplete01" },
+							},
+						},
+						-- returned and reunited
+						{
+							{
+								PathTrue = { "GameState", "TextLinesRecord", "OdysseusAboutReturn01" },
+							},
+						},
+					},
+					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 
 				{ Cue = "/VO/MelinoeField_4355",
@@ -1921,10 +1936,6 @@ UnitSetData.Scylla =
 						PathFalse = { "GameState", "TextLinesRecord", "ScyllaAboutAltFight01" }
 					},
 					]]--
-					{
-						FunctionName = "RequireRunsSinceTextLines",
-						FunctionArgs = { TextLines = { "ScyllaAboutThessaly01" }, Min = 2 },
-					},
 				},
 				{ Cue = "/VO/Scylla_0203",
 					Text = "We used to play the {#Emph}surface{#Prev}, you know! That's when we {#Emph}really {#Prev}started to hit it big! Even had {#Emph}Charybdis {#Prev}open for us a few times, can you imagine?" },
@@ -2042,10 +2053,6 @@ UnitSetData.Scylla =
 						Comparison = ">=",
 						Value = 2,
 					},
-					{
-						FunctionName = "RequireRunsSinceTextLines",
-						FunctionArgs = { TextLines = { "ScyllaAboutCharybdis01" }, Min = 2 },
-					},
 				},
 				{ Cue = "/VO/Scylla_0201",
 					Text = "{#Emph}Ohh{#Prev}, it's only {#Emph}you! {#Prev}Not just another one of those sailors we've been seeing more and more of lately here. Look at this {#Emph}crowd! {#Prev}We've been causing a {#Emph}real {#Prev}stir!" },
@@ -2103,6 +2110,9 @@ UnitSetData.Scylla =
 				GameStateRequirements = 
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						Path = { "GameState", "LastBossHealthBarRecord", "Scylla" },
 						Comparison = "<=",
 						Value = 0,
@@ -2113,7 +2123,7 @@ UnitSetData.Scylla =
 						Value = 3,
 					},
 					{
-						PathFalse = { "GameState", "ReachedTrueEnding" },
+						PathTrue = { "GameState", "EnemyKills", "Chronos" },
 					},
 				},
 				{ Cue = "/VO/Scylla_0193",
@@ -2240,10 +2250,8 @@ UnitSetData.Scylla =
 				GameStateRequirements =
 				{
 					{
-					},
-					{
 						FunctionName = "RequiredHealthFraction",
-						FunctionArgs = { Comparison = "<=", Value = 0.33, },
+						FunctionArgs = { Comparison = "<=", Value = 0.66, },
 					},
 				},
 				{ Cue = "/VO/Scylla_0032",
@@ -2369,10 +2377,12 @@ UnitSetData.Scylla =
 				{ Cue = "/VO/Scylla_0311",
 					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "PortraitEmoteFiredUp", DoShake = true, WaitTime = 5.8 },
 					Text = "This is gonna be our night! Can't you just {#Emph}feel {#Prev}it, gals? Don't know about you all but {#Emph}I {#Prev}am feeling even more {#Emph}unstoppable {#Prev}than normal! {#Emph}Ohh{#Prev}, and just in {#Emph}time..." },
+
 				{ Cue = "/VO/MelinoeField_3588", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Oh you're still stoppable, although the will of Night has made you stronger, yes. Shall we find out to what extent?" },
+
 				{ Cue = "/VO/Scylla_0312",
 					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
 					PostLineFunctionName = "StartBossRoomMusic",
@@ -2400,10 +2410,12 @@ UnitSetData.Scylla =
 				{ Cue = "/VO/Scylla_0313",
 					Emote = "PortraitEmoteFiredUp",
 					Text = "{#Emph}Ooh! {#Prev}So glad you just decided to show up, lady, because you're really in for it tonight! We're {#Emph}fresh {#Prev}from rehearsing our {#Emph}best {#Prev}moves and can't {#Emph}wait {#Prev}to try them in concert...!" },
+
 				{ Cue = "/VO/MelinoeField_3589", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Go on and do it, then. Though I already know all the ways in which you're going to be stronger than you used to be." },
+
 				{ Cue = "/VO/Scylla_0314",
 					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
 					PostLineFunctionName = "StartBossRoomMusic",

@@ -134,6 +134,8 @@ UnitSetData.SatyrRatCatcher =
 	SatyrRatCatcher_Miniboss =
 	{
 		InheritFrom = { "Elite", "SatyrRatCatcher" },
+		RunHistoryKilledByName = "SatyrRatCatcher_Miniboss",
+
 		MaxHealth = 3200,
 		HealthBuffer = 5000,
 		HealthBarAttachToMarkerName = "head_fxMarker_00_M_JNT",

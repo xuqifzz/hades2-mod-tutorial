@@ -2140,6 +2140,35 @@ LootSetData.Poseidon =
 					Text = "The others say we face enormous {#Emph}Typhon {#Prev}as a threat, but I've seen no such thing! Of course I've lately not seen much of anything due to the cataclysmic storm up here! Though I {#Emph}am {#Prev}hearing a lot of low guttural roars!" },
 			},
 
+			PoseidonAboutSurfaceHelp01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "ZeusPalaceMeeting03", "ZeusPalaceMeeting03_A", "ZeusPalaceMeeting03_B" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ZagreusPastMeeting04_2" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "F" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Poseidon_0433",
+					Emote = "PortraitEmoteFiredUp",
+					Text = "Whatever you have done to rile up old Chronos, he's taking it out on {#Emph}us! {#Prev}At least his forces on this mountain are! But fear not, for I have called for reinforcements! Several times!" },
+			},
+
 			PoseidonAboutPalace01 =
 			{
 				PlayOnce = true,
@@ -2149,14 +2178,14 @@ LootSetData.Poseidon =
 						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
 					},
 					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
 						Path = { "PrevRun", "RoomsEntered" },
 						HasAny = { "Q_Boss01", "Q_Boss02" },
 					},
 					{
 						PathTrue = { "PrevRun", "Cleared" },
-					},
-					{
-						PathFalse = { "GameState", "TextLinesRecord", "ZeusPalaceAboutTyphonDeath01" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },

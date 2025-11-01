@@ -3268,6 +3268,7 @@
       Thing = 
       {
         EditorOutlineDrawBounds = false
+        DrawEmbeddedBehind = true
         Graphic = "Tilesets\Crossroads\Crossroads_Oven_01"
         Tallness = 748
         Offset = { X = 0 Y = -407 }
@@ -3898,16 +3899,16 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Crossroads\Crossroads_Speakerstack_02"
-        Tallness = 1116
+        Tallness = 412
         Offset = { X = 0 Y = -271 }
         Points = [
           { X = 171 Y = -209 }
-          { X = 116 Y = -379 }
-          { X = -60 Y = -323 }
-          { X = -147 Y = -149 }
-          { X = -131 Y = 24 }
+          { X = 33 Y = -278 }
+          { X = -89 Y = -224 }
+          { X = -156 Y = -183 }
+          { X = -158 Y = 1 }
           { X = -71 Y = 71 }
-          { X = 42 Y = -9 }
+          { X = 45 Y = 10 }
         ]
       }
     }
@@ -3920,13 +3921,13 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Crossroads\Crossroads_Speakerstack_01"
-        Tallness = 1116
+        Tallness = 517
         Offset = { X = 0 Y = -244 }
         Points = [
-          { X = 187 Y = -59 }
-          { X = 51 Y = -150 }
-          { X = -165 Y = -29 }
-          { X = -40 Y = 66 }
+          { X = 127 Y = -42 }
+          { X = 6 Y = -102 }
+          { X = -142 Y = -28 }
+          { X = -21 Y = 32 }
         ]
       }
     }
@@ -7901,15 +7902,15 @@
         Graphic = "ShadeBard_Idle"
         GrannyModel = "ShadeBard_Mesh"
         StopsUnits = true
-        Tallness = 200
+        Tallness = 156
         Points = [
-          { X = 70 Y = -12 }
-          { X = 57 Y = -36 }
-          { X = 25 Y = -49 }
-          { X = -31 Y = -41 }
-          { X = -60 Y = -9 }
-          { X = -36 Y = 14 }
-          { X = 11 Y = 20 }
+          { X = 49 Y = -3 }
+          { X = 45 Y = -28 }
+          { X = 18 Y = -38 }
+          { X = -14 Y = -38 }
+          { X = -33 Y = -16 }
+          { X = -23 Y = 12 }
+          { X = 10 Y = 16 }
         ]
       }
     }
@@ -8799,13 +8800,13 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Crossroads\Crossroads_Asphodel_Leaves_01"
-        Tallness = 436
+        Tallness = 329
         Offset = { X = 0 Y = -178 }
         Points = [
-          { X = 33 Y = 97 }
-          { X = 229 Y = -1 }
-          { X = 26 Y = -103 }
-          { X = -170 Y = -5 }
+          { X = 39 Y = 83 }
+          { X = 150 Y = 28 }
+          { X = 26 Y = -34 }
+          { X = -85 Y = 21 }
         ]
       }
     }
@@ -9076,17 +9077,13 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Crossroads\Crossroads_Bramble_01"
-        Tallness = 1418
+        Tallness = 250
         Offset = { X = 0 Y = -51 }
         Points = [
-          { X = 201 Y = -75 }
-          { X = 122 Y = -97 }
-          { X = -29 Y = -45 }
-          { X = -144 Y = 38 }
-          { X = -166 Y = 122 }
-          { X = -84 Y = 130 }
-          { X = 93 Y = 74 }
-          { X = 196 Y = -16 }
+          { X = 187 Y = -27 }
+          { X = 137 Y = -52 }
+          { X = -209 Y = 121 }
+          { X = -159 Y = 146 }
         ]
       }
     }

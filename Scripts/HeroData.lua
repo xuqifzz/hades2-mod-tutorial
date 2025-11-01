@@ -270,6 +270,7 @@ PreCacheTraitValues = ToLookup(
 	"OnWeaponChargeCanceledFunctions",
 	"EnemySetupFunctionName",
 	"OnEffectApplyFunction",
+	"OnCastEffectApplyFunction",
 	"OnEffectClearFunction",
 	"OnDamageEnemyFunction",
 	"OnPlayerHealthChangedFunctionName",
@@ -400,6 +401,9 @@ HeroVoiceLines =
 			{
 				{
 					PathFalse = { "SessionState", "InFlashback" },
+				},
+				{
+					PathFalse = { "MapState", "BabyPolymorph" },
 				},
 				{
 					PathNotEmpty = { "RequiredKillEnemies" },
@@ -1461,6 +1465,7 @@ HeroVoiceLines =
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 0.25,
+			SuccessiveChanceToPlay = 0.66,
 			GameStateRequirements =
 			{
 				{
@@ -1482,6 +1487,7 @@ HeroVoiceLines =
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 0.25,
+			SuccessiveChanceToPlay = 0.66,
 			GameStateRequirements =
 			{
 				{
@@ -1505,6 +1511,7 @@ HeroVoiceLines =
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 0.25,
+			SuccessiveChanceToPlay = 0.66,
 			GameStateRequirements =
 			{
 				{
@@ -1527,6 +1534,7 @@ HeroVoiceLines =
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 0.25,
+			SuccessiveChanceToPlay = 0.66,
 			GameStateRequirements =
 			{
 				{
@@ -1552,6 +1560,7 @@ HeroVoiceLines =
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 0.25,
+			SuccessiveChanceToPlay = 0.66,
 			GameStateRequirements =
 			{
 				{
@@ -1589,11 +1598,12 @@ HeroVoiceLines =
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 0.85,
+			SuccessiveChanceToPlay = 0.33,
 			GameStateRequirements =
 			{
 				{
 					Path = { "GameState", "EquippedFamiliar" },
-					IsNone = { "CatFamiliar", "HoundFamiliar" },
+					IsNone = { "CatFamiliar", "HoundFamiliar", "PolecatFamiliar" },
 				},
 				{
 					Path = { "CurrentRun", "CurrentRoom", "Name" },
@@ -1645,11 +1655,12 @@ HeroVoiceLines =
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 0.85,
+			SuccessiveChanceToPlay = 0.33,
 			GameStateRequirements =
 			{
 				{
 					Path = { "GameState", "EquippedFamiliar" },
-					IsAny = { "CatFamiliar", "HoundFamiliar" },
+					IsAny = { "CatFamiliar", "HoundFamiliar", "PolecatFamiliar" },
 				},
 				{
 					Path = { "CurrentRun", "CurrentRoom", "Name" },
@@ -2002,15 +2013,6 @@ HeroVoiceLines =
 			{
 				{ Name = "MelinoeAnyQuipSpeech", Time = 4 },
 			},
-
-			{ Cue = "/VO/MelinoeField_2938", Text = "{#Emph}To all our family, welcome." },
-			{ Cue = "/VO/MelinoeField_2939", Text = "The Fortress of the Gods...." },
-			{ Cue = "/VO/MelinoeField_2940", Text = "Shelter from the storm." },
-			{ Cue = "/VO/MelinoeField_2941", Text = "{#Emph}<Exhale>", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_2942", Text = "...Ominous..." },
-			{ Cue = "/VO/MelinoeField_2943", Text = "I'll show myself in." },
-
-
 			{ Cue = "/VO/MelinoeField_3107", Text = "...This is it.", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_3108", Text = "{#Emph}<Exhale>" },
 			{ Cue = "/VO/MelinoeField_3109", Text = "OK..." },
@@ -2283,6 +2285,7 @@ HeroVoiceLines =
 	{
 		{
 			PlayOnce = true,
+			PlayOnceContext = "ChronosRemainsVO",
 			BreakIfPlayed = true,
 			GameStateRequirements =
 			{
@@ -2291,9 +2294,10 @@ HeroVoiceLines =
 				},
 				{
 					PathFalse = { "GameState", "ReachedTrueEnding" },
-				},				
+				},
 			},
 
+			{ Cue = "/VO/MelinoeField_5096", Text = "That ought to hold you. A little extra time for what comes next." },
 			{ Cue = "/VO/MelinoeField_3882", Text = "Not here... the past provides the guarantee." },
 		},
 		{
@@ -3035,6 +3039,7 @@ HeroVoiceLines =
 		Queue = "Interrupt",
 		{
 			PlayOnce = true,
+			PlayOnceContext = "FirstInfernalContractVO",
 			PreLineWait = 0.25,
 
 			{ Cue = "/VO/MelinoeField_4282", Text = "{#Emph}Whosoever claims this contract shall forthwith... <Scoff> {#Prev}I'm not reading all this..." },
@@ -3068,6 +3073,7 @@ HeroVoiceLines =
 		Queue = "Always",
 		{
 			PlayOnce = true,
+			PlayOnceContext = "UniqueRunClearedVO",
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			PreLineWait = 1.35,
@@ -3087,9 +3093,9 @@ HeroVoiceLines =
 		},
 		{
 			PlayOnce = true,
+			PlayOnceContext = "FinalChronosKillVO",
+			PreLineWait = 1.2,
 			BreakIfPlayed = true,
-			RandomRemaining = true,
-			PreLineWait = 1.35,
 			GameStateRequirements =
 			{
 				{
@@ -3102,7 +3108,8 @@ HeroVoiceLines =
 					PathFalse = { "GameState", "ReachedTrueEnding" },
 				},
 			},
-			{ Cue = "/VO/MelinoeField_3881", Text = "...now for Zagreus to do his part." },
+
+			{ Cue = "/VO/MelinoeField_5097", Text = "Done here. Now for the final step." },
 		},
 		{
 			RandomRemaining = true,
@@ -3113,7 +3120,8 @@ HeroVoiceLines =
 			GameStateRequirements =
 			{
 				{
-					PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutKeepsakeQuest01" },
+					Path = { "GameState", "TextLinesRecord" },
+					HasAny = { "ChaosAboutKeepsakeQuest01", "ChaosAboutKeepsakeQuest01_B" },
 				},
 				{
 					Path = { "CurrentRun", "KeepsakeCache" },
@@ -3190,7 +3198,8 @@ HeroVoiceLines =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "HecateBathHouseEpilogue01" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "FatesEpilogue01", "HecateBathHouseEpilogue01" }
 					},
 				},
 			},
@@ -4031,6 +4040,20 @@ HeroVoiceLines =
 			{ Cue = "/VO/MelinoeField_0716", Text = "{#Emph}Ungh{#Prev}, this is it!" },
 		},
 	},
+	InfiniteLastStandVoiceLines =
+	{
+		Queue = "Interrupt",
+		{
+			PlayOnceThisRun = true,
+			PlayOnceContext = "InfiniteLastStandUsedVO",
+			BreakIfPlayed = true,
+			PreLineWait = 0.65,
+			TriggerCooldowns = { Name = "MelinoeAnyQuipSpeech" },
+
+			{ Cue = "/VO/MelinoeField_5197", Text = "{#Emph}Chronos! Enough!!" },
+			{ Cue = "/VO/MelinoeField_5198", Text = "I said {#Emph}stop!" },
+		},
+	},
 	BlockDeathVoiceLines =
 	{
 		GameStateRequirements =
@@ -4060,6 +4083,19 @@ HeroVoiceLines =
 			{ Cue = "/VO/Melinoe_2004", Text = "It's now or never...!" },
 			{ Cue = "/VO/Melinoe_2005", Text = "Forestall my doom...!" },
 			{ Cue = "/VO/Melinoe_2006", Text = "My doom forestalled again...!" },
+		},
+	},
+
+	ChronosFatalityVoiceLines =
+	{
+		{
+			PreLineWait = 1.0,
+			{ Cue = "/VO/MelinoeField_5094", Text = "Then {#Emph}this {#Prev}is for that future..." },
+		},
+		{
+			PreLineWait = 0.4,
+			SkipAnim = true,
+			{ Cue = "/VO/MelinoeField_5095", Text = "...{#Emph}and our family!" },
 		},
 	},
 
@@ -5936,8 +5972,10 @@ HeroVoiceLines =
 			PreLineWait = 0.85,
 			TriggerCooldowns = { Name = "MelinoeAnyQuipSpeech" },
 
-			{ Cue = "/VO/Melinoe_5672", Text = "Grandfather should be somewhere up ahead..." },
-			{ Cue = "/VO/Melinoe_5671", Text = "Let's see how this goes...", PreLineWait = 1.0 },
+			{ Cue = "/VO/Melinoe_5740", Text = "All right. Time to put Grandfather's theories to the test..." },
+			{ Cue = "/VO/Melinoe_5741", Text = "Only question is where to begin.", PreLineWait = 1.0 },
+			-- { Cue = "/VO/Melinoe_5672", Text = "Grandfather should be somewhere up ahead..." },
+			-- { Cue = "/VO/Melinoe_5671", Text = "Let's see how this goes...", PreLineWait = 1.0 },
 		},
 	},
 
@@ -7987,6 +8025,7 @@ HeroVoiceLines =
 			},
 		},
 		{
+			PlayOnceFromTableThisRun = true,
 			GameStateRequirements =
 			{
 				{
@@ -8413,16 +8452,94 @@ HeroVoiceLines =
 			},
 		},		
 	},
+
+	OverlookLeaveVoiceLines =
+	{
+		{
+			PlayOnce = true,
+			BreakIfPlayed = true,
+			PreLineWait = 3.0,
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "GameState", "ReachedTrueEnding" },
+				},
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsAny = { "Q_PostBoss01" },
+				},
+				{
+					PathTrue = { "GameState", "TextLinesRecord", "ZeusPalaceFirstMeeting" },
+				},
+			},
+
+			{ Cue = "/VO/MelinoeField_5227", Text = "Does Chronos truly wish for such a place to be destroyed...?",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ZagreusPastFirstMeeting" },
+					},
+				},
+			},
+			{ Cue = "/VO/MelinoeField_5228", Text = "I did tell Zagreus preparing Gigaros may take a little while..." ,
+				PlayFirst = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ZagreusPastMeeting05" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone =
+						{
+							"ZeusPalaceMeeting03",
+							"ZeusPalaceMeeting03_A",
+							"ZeusPalaceMeeting03_B",
+						},
+					},
+				},
+			},
+			{ Cue = "/VO/MelinoeField_5229", Text = "First we settle things here, then Chronos last...",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ZagreusPastMeeting05" },
+					},
+					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+				},
+			},
+			{ Cue = "/VO/MelinoeField_5230", Text = "Zagreus... if only you could see this for yourself...",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ZagreusPastMeeting03" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone =
+						{
+							"ZeusPalaceMeeting04",
+							"ZeusPalaceMeeting04_B",
+						},
+					},
+				},
+			},
+		},
+
+	},
+
 	UsedFamilyPortraitVoiceLines =
 	{
 		-- @ ending
 		{
-			PlayOnce = true,
+			PlayOnceFromTableThisRun = true,
 			PreLineWait = 0.9,
 			GameStateRequirements =
 			{
 				{
-					PathTrue = { "GameState", "ReachedTrueEnding" }
+					PathTrue = { "CurrentRun", "PlayedTrueEnding" }
 				},
 			},
 			Source = { LineHistoryName = "Speaker_Homer", SubtitleColor = Color.NarratorVoice },
@@ -8505,6 +8622,9 @@ HeroVoiceLines =
 				{
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChronosBossOutro01" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ZagreusPastMeeting05" },
 					},
 				},
 			},
@@ -8598,11 +8718,43 @@ HeroVoiceLines =
 					},
 				},
 			},
-			{ Cue = "/VO/Melinoe_2934", Text = "This memory of all you lost... it stokes your want for vengeance even now." },
+			{ Cue = "/VO/Melinoe_5779", Text = "Chronos... is this what he wants? His family back? Odd way of showing it.",
+				PlayFirst = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ChronosBossAboutFamily03" },
+					},
+				},
+			},
+			{ Cue = "/VO/Melinoe_5780", Text = "The power to destroy a member of your family... it can't be the only way.",
+				PlayFirst = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ChronosBossAboutFamily05" },
+					},
+				},
+			},
+			{ Cue = "/VO/Melinoe_2934", Text = "This memory of all you lost... it stokes your want for vengeance even now.",
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ZagreusPastMeeting05" }
+					},
+				},
+			},
 			{ Cue = "/VO/Melinoe_2937", Text = "The Titan has your family in his thrall, or worse... what has he done with them?" },
 			{ Cue = "/VO/Melinoe_2933", Text = "Father... Mother... Brother... please be safe. Please..." },
 			{ Cue = "/VO/Melinoe_2941", Text = "{#Emph}All that you lost is all that you are{#Prev}, as Headmistress would say..." },
-			{ Cue = "/VO/Melinoe_2942", Text = "This family... lost to you since you were born. They deserve their vengeance, and so do you." },
+			{ Cue = "/VO/Melinoe_2942", Text = "This family... lost to you since you were born. They deserve their vengeance, and so do you.",
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ZagreusPastMeeting05" }
+					},
+				},
+			},
 		},
 		{
 			RandomRemaining = true,
@@ -8621,8 +8773,23 @@ HeroVoiceLines =
 
 			{ Cue = "/VO/Melinoe_2944", Text = "{#Emph}<Sigh>" },
 			{ Cue = "/VO/Melinoe_2945", Text = "{#Emph}<Sigh>" },
-			{ Cue = "/VO/Melinoe_1607", Text = "Vengeance for my family." },
-			{ Cue = "/VO/Melinoe_0347", Text = "Vengeance for my father." },
+			{ Cue = "/VO/Melinoe_1607", Text = "Vengeance for my family.",
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ZagreusPastMeeting05" }
+					},
+				},
+			},
+			{ Cue = "/VO/Melinoe_0347", Text = "Vengeance for my father.",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "HadesAboutUltimateProgress01", "ZagreusPastMeeting05" },
+					},
+				},
+			},
 			-- { Cue = "/VO/Melinoe_0121", Text = "Hold on, everyone." },
 		},
 		{
@@ -8646,7 +8813,24 @@ HeroVoiceLines =
 				},
 			},
 
+			{ Cue = "/VO/Melinoe_5715", Text = "Mother and Father... we'll see each other again soon.",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "RoomsEntered", "I_Story01" },
+					},
+				},
+			},
 			{ Cue = "/VO/Melinoe_5714", Text = "How happy we all seem... and in that moment in time, we truly were...", PlayFirst = true },
+			{ Cue = "/VO/Melinoe_5717", Text = "Good evening, everyone... be well all right?",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "Cleared" }
+					},
+				},
+			},
+			{ Cue = "/VO/Melinoe_5719", Text = "May the Underworld renovations go smoothly..." },
 			{ Cue = "/VO/Melinoe_5179", Text = "Your family... you may not be living under the same roof, though you're together still." },
 			{ Cue = "/VO/Melinoe_5180", Text = "The memory of your reunion, committed to canvas in such a beautiful way..." },
 			{ Cue = "/VO/Melinoe_5181", Text = "Don't know how they managed to get Cerberus to sit still long enough for this..." },
@@ -8685,7 +8869,7 @@ HeroVoiceLines =
 				{
 					{
 						Path = { "GameState", "SpeechRecord" },
-						HasAll = { "/VO/Melinoe_5179", "/VO/Melinoe_5180", "/VO/Melinoe_5181", "/VO/Melinoe_5182", "/VO/Melinoe_5183", "/VO/Melinoe_5184", "/VO/Melinoe_5185", "/VO/Melinoe_5186", "/VO/Melinoe_5187" },
+						HasAll = { "/VO/Melinoe_5179", "/VO/Melinoe_5180", "/VO/Melinoe_5181", "/VO/Melinoe_5182", "/VO/Melinoe_5184", "/VO/Melinoe_5185", "/VO/Melinoe_5186", "/VO/Melinoe_5187" },
 					},
 				},
 			},
@@ -8694,7 +8878,7 @@ HeroVoiceLines =
 				{
 					{
 						Path = { "GameState", "SpeechRecord" },
-						HasAll = { "/VO/Melinoe_5179", "/VO/Melinoe_5180", "/VO/Melinoe_5181", "/VO/Melinoe_5182", "/VO/Melinoe_5183", "/VO/Melinoe_5184", "/VO/Melinoe_5185", "/VO/Melinoe_5186", "/VO/Melinoe_5187" },
+						HasAll = { "/VO/Melinoe_5179", "/VO/Melinoe_5180", "/VO/Melinoe_5181", "/VO/Melinoe_5182", "/VO/Melinoe_5184", "/VO/Melinoe_5185", "/VO/Melinoe_5186", "/VO/Melinoe_5187" },
 					},
 				},
 			},
@@ -8703,7 +8887,7 @@ HeroVoiceLines =
 				{
 					{
 						Path = { "GameState", "SpeechRecord" },
-						HasAll = { "/VO/Melinoe_5179", "/VO/Melinoe_5180", "/VO/Melinoe_5181", "/VO/Melinoe_5182", "/VO/Melinoe_5183", "/VO/Melinoe_5184", "/VO/Melinoe_5185", "/VO/Melinoe_5186", "/VO/Melinoe_5187" },
+						HasAll = { "/VO/Melinoe_5179", "/VO/Melinoe_5180", "/VO/Melinoe_5181", "/VO/Melinoe_5182", "/VO/Melinoe_5184", "/VO/Melinoe_5185", "/VO/Melinoe_5186", "/VO/Melinoe_5187" },
 					},
 				},
 			},
@@ -8729,6 +8913,26 @@ HeroVoiceLines =
 			{ Cue = "/VO/Melinoe_3992", Text = "See you all." },
 		},
 	},
+
+	StoryResetStartVoiceLines =
+	{
+		{
+			BreakIfPlayed = true,
+			PreLineWait = 0.35,
+
+			{ Cue = "/VO/Melinoe_5754", Text = "{#Emph}I shall return!" },
+		},
+	},
+	StoryResetEndVoiceLines =
+	{
+		{
+			BreakIfPlayed = true,
+			PreLineWait = 0.8,
+
+			{ Cue = "/VO/Melinoe_5755", Text = "{#Emph}Ungh... {#Prev}head hurts... {#Emph}Death to Chronos." },
+		},
+	},
+
 	TavernaVictoryVoiceLines =
 	{
 		BreakIfPlayed = true,
@@ -8749,6 +8953,7 @@ HeroVoiceLines =
 				Value = 2,
 			},
 		},
+		TriggerCooldowns = { Name = "MelinoeAnyQuipSpeech", "AnyGreetingSpeech" },
 
 		{ Cue = "/VO/Melinoe_5696", Text = "Don't mind me, everyone." },
 		{ Cue = "/VO/Melinoe_5697", Text = "You all enjoy yourselves!" },
@@ -10294,6 +10499,10 @@ HeroVoiceLines =
 					{
 						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "ZagreusPastMeeting05", "HadesAboutUltimateProgress01" },
+					},
 				},
 			},
 			{ Cue = "/VO/Melinoe_0349", Text = "You are welcome here and you are safe.",
@@ -11115,6 +11324,7 @@ GameOutroPriorities =
 	"Outro_PostTrueEnding03",
 
 	"Outro_Epilogue01",
+	"Outro_StoryReset01",
 	"Outro_TechTest02",
 
 	"Outro_EarlyEnd_Typhon01",
@@ -11343,6 +11553,26 @@ GameOutroData =
 		},
 	},
 
+	Outro_StoryReset01 =
+	{
+		FadeOutWait = 26,
+		PauseMusic = true,
+		SubtitleColor = Color.NarratorVoice,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "UsedStoryReset" },
+			},
+		},
+
+		VoiceLines =
+		{
+			{ Cue = "/VO/Storyteller_0528", Text = "{#Emph}Few tales are told of Hades, especially whilst he is bound in chains, in Tartarus... a prisoner of Time, no longer ruler of the Underworld.", PreLineWait = 0.72, NoTarget = true },
+			{ Cue = "/VO/Storyteller_0530", Text = "{#Emph}His sole salvation, and our own, is the fierce Princess of the Dead. She has at last confronted both of her great foes...", PreLineWait = 0.8, NoTarget = true },
+			{ Cue = "/VO/Storyteller_0531", Text = "{#Emph}...scheming Chronos, the Titan of Time; and colossal Typhon, the Father of All Monsters — confronted, but not vanquished either one. Yet.", PreLineWait = 0.5, NoTarget = true },
+		},
+	},
+
 	-- Kiosk Mode
 	Outro_TechTest02 =
 	{
@@ -11429,7 +11659,6 @@ GameOutroData =
 		},
 	},
 
-	-- @v1.0
 	Outro_EarlyEnd_Mystery =
 	{
 		FadeOutWait = 10,
@@ -11438,6 +11667,9 @@ GameOutroData =
 		{
 			{
 				PathTrue = { "CurrentRun", "BiomesReached", "I" },
+			},
+			{
+				PathFalse = { "GameState", "ReachedTrueEnding" },
 			},
 		},
 
@@ -11753,7 +11985,6 @@ GameOutroData =
 			{ Cue = "/VO/Storyteller_0284", Text = "{#Emph}The summit of Olympus looms so close, and yet... try as she might, the surface-scouring Princess can climb no closer for the time. Although it never hurts to try.", TextLimit = 300, PreLineWait = 0.8, NoTarget = true },
 		},
 	},
-	-- @v1.0
 	Outro_EarlyEnd_Foes =
 	{
 		FadeOutWait = 7.9,

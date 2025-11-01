@@ -1477,6 +1477,7 @@ Animations =
 		UseAttachedShake = false
 		Sound = "/SFX/Player Sounds/ZeusBlitzStatusLoop"
 		StopSoundOnFinishFade = 0.2
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 	}
 	{
 		Name = "ZeusEchoDebuffOut"

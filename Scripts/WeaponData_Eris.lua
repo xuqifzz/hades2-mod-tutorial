@@ -843,6 +843,9 @@ WeaponSetData =
 			FireSetZHeight = 800,
 			FireSetZDuration = 0.55,
 
+
+			PreAttackSetInvulnerable = true,
+			PreAttackSetInvulnerableArgs = { Silent = true },
 			PostAttackThreadedFunctionName = "ErisFlyByPresentation",
 			PostAttackThreadedFunctionArgs = { FlyByDuration = 1.0, FlyBySpeedMultiplier = 7.0, FlyByScale = 3.5 },
 
@@ -1523,6 +1526,8 @@ WeaponSetData =
 			PostAttackDuration = 0.6,
 
 			ClearAllEffects = true,
+			PreAttackSetInvulnerable = true,
+			PreAttackSetInvulnerableArgs = { Silent = true },
 
 			ChainedWeaponOptions = { "ErisBombardment01", "ErisBombardment02", "ErisBombardment03", "ErisBombardmentChase" },
 			--ChainedWeaponOptions = { "ErisBombardmentChase", },
@@ -1576,6 +1581,8 @@ WeaponSetData =
 					},
 				},
 			},
+
+			PostAttackStartSetVulnerable = true,
 
 			PreAttackStop = true,
 			MoveWithinRange = false,

@@ -5086,7 +5086,7 @@
 		StartFrame = 1
 		OffsetZ = -150.0
 		DieWithOwner = true
-		SortMode = "Isometric"
+		SortMode = "FromParent"
 		RandomRotation = true
 		EndScale = 2.2
 		PingPongScale = true
@@ -7794,6 +7794,8 @@
 		OffsetX = 10
 		OffsetY = -20
 		Scale = 0.6
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
 		DieWithOwner = true
 	}
 	{
@@ -7802,6 +7804,8 @@
 		OffsetX = 5
 		OffsetY = 10
 		Scale = 0.6
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
 		DieWithOwner = true
 	}
 

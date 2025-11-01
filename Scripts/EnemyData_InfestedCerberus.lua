@@ -29,6 +29,7 @@ UnitSetData.InfestedCerberus =
 
 		MaxHitShields = 25,
 		LoadPackages = { "Cerberus", },
+		RunHistoryPortrait = "Codex_Portrait_InfestedCerberus",
 
 		Material = "Organic",
 		HealthBarTextId = "InfestedCerberus",

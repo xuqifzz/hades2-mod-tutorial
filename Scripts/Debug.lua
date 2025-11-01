@@ -1824,6 +1824,13 @@ OnKeyPressed{ "ControlAlt N", Name = "AnimationTest",
 	end
 }
 
+OnKeyPressed{ "ControlAlt M", Name = "Show Memory Sequence",
+	function( triggerArgs )
+
+		ShowMemorySequence()
+	end
+}
+
 function DebugSpawnConsumables( eventSource, args )
 	local spawnPointIds = GetIds({ Name = "ConsumablePoints" })
 	table.sort( spawnPointIds )

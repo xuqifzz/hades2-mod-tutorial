@@ -666,6 +666,7 @@
 		Scale = 1.0
 		ScaleFromOwner = "Ignore"
 		Material = "Unlit"
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 	}
 
 	{
@@ -1293,31 +1294,12 @@
 	{
 		Name = "StatusIconSpeaking_Persephone_Falling"
 		InheritFrom = "StatusIconSpeaking"
-		StartOffsetZ = 0
-		EndOffsetZ = -120
+		OffsetZ = -60
 	}
 	{
 		Name = "StatusIconSpeaking_Persephone_Falling_End"
 		InheritFrom = "StatusIconSpeaking_End"
-		OffsetZ = -70
-	}
-	{
-		Name = "StatusIconSpeaking_Zagreus_Suspended"
-		InheritFrom = "StatusIconSpeaking"
-		ChainTo = "StatusIconSpeaking_Zagreus_Falling"
-		HoldLastFrame = false
-	}
-	{
-		Name = "StatusIconSpeaking_Zagreus_Falling"
-		InheritFrom = "StatusIconSpeaking"
-		StartAlpha = 1.0
-		StartOffsetZ = 0
-		EndOffsetZ = -120
-	}
-	{
-		Name = "StatusIconSpeaking_Zagreus_Suspended_End"
-		InheritFrom = "StatusIconSpeaking_End"
-		OffsetZ = -70
+		OffsetZ = -60
 	}
 
 	{

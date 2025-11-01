@@ -4355,6 +4355,7 @@
 			Invulnerable = true
 			TriggerOnHit = true
 			ProjectilesAlwaysPenetrate = true
+			SilentImpact = true
 		}
 		Thing = 
 		{

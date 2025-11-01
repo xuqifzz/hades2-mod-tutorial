@@ -2534,6 +2534,11 @@ UnitSetData.Polyphemus =
 						Comparison = "<=",
 						Value = 0,
 					},
+					{
+						Path = { "GameState", "EnemyKills", "Polyphemus" },
+						Comparison = "<=",
+						Value = 10,
+					},
 				},
 				{ Cue = "/VO/Polyphemus_0111",
 					Text = "Oh, {#Emph}hey! {#Prev}I wanted to say thanks. Gave me a real zinger there last time, you know that?" },

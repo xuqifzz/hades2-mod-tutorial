@@ -106,7 +106,15 @@ UnitSetData.Zombie =
 			{ Cue = "/VO/MelinoeField_0451", Text = "Shamblers." },
 			{ Cue = "/VO/MelinoeField_0452", Text = "Shamblers!", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_0453", Text = "Shamblers..." },
-			{ Cue = "/VO/MelinoeField_0454", Text = "Shamblers ahead..." },
+			{ Cue = "/VO/MelinoeField_0454", Text = "Shamblers ahead...",
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsNone = { "O" },
+					},
+				},
+			},
 		},
 	},
 

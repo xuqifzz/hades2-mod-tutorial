@@ -28,6 +28,12 @@
 	DeadEndChance = 0.2,	-- chance for a first column talent to link to no additional talents.
 	MaxPreReqs = 2,			--
 	DuoChance = 1,		-- If eligible, the chance a duo will be served
+	ServeDuoGameRequirements = 
+	{
+		{
+			PathTrue = { "GameState", "TextLinesRecord", "SeleneGrantsOlympianDuos01" },
+		},
+	},
 	--DuplicateChance = 0.1,
 	TalentTreeStructures = 
 	{

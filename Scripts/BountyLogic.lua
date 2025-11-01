@@ -506,7 +506,7 @@ end
 function StoredGameStateInit( originalState )
 	StoredGameState = {}
 	StoredGameState.PrimaryWeaponName = originalState.PrimaryWeaponName
-	StoredGameState.LastWeaponUpgradeName = originalState.LastWeaponUpgradeName
+	StoredGameState.LastWeaponUpgradeName = ShallowCopyTable( originalState.LastWeaponUpgradeName ) or {}
 	StoredGameState.LastAwardTrait = originalState.LastAwardTrait
 	StoredGameState.EquippedFamiliar = originalState.EquippedFamiliar
 	StoredGameState.ShrineUpgrades = ShallowCopyTable( originalState.ShrineUpgrades ) or {}

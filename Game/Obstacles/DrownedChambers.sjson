@@ -181,6 +181,7 @@
         Scale = 0.55
         UseBoundsForSortDrawArea = true
         Tallness = 39
+        OffsetY = -10
         Points = [
           { X = -5 Y = 139 }
           { X = 222 Y = 19 }

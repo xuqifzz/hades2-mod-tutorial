@@ -219,6 +219,13 @@ function ShowRunHistory( screen, button )
 				killedByImage = enemyData.RunHistoryPortrait
 			elseif enemyData.RunHistoryKilledByName ~= nil then
 				killedByName = enemyData.RunHistoryKilledByName
+			elseif Contains( enemyData.InheritFrom, "Shadow" ) then
+				for i, parentName in ipairs( enemyData.InheritFrom ) do
+					if parentName ~= "Shadow" then
+						killedByName = parentName
+						break
+					end
+				end
 			elseif Contains( enemyData.InheritFrom, "Elite" ) then
 				for i, parentName in ipairs( enemyData.InheritFrom ) do
 					if parentName ~= "Elite" then
@@ -226,6 +233,8 @@ function ShowRunHistory( screen, button )
 						break
 					end
 				end
+			elseif enemyData.GenusName ~= nil then
+				killedByName = enemyData.GenusName
 			end
 		end
 		if killedByName ~= nil and killedByImage == nil then

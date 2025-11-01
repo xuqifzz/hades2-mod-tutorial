@@ -697,6 +697,12 @@
 			GrannyModel = "Selene_Mesh"
 			Grip = 5000.0
 			Tallness = 175.0
+			Interact =
+			{
+				Distance = 140
+				OffsetX = -110
+				OffsetY = 110
+			}
 		}
 	}
 
@@ -970,6 +976,7 @@
 		{
 			Graphic = "Hades_Unchained_Idle"
 			GrannyModel = "HadesEnding_Mesh"
+			SortBoundsScale = 1.2
 			Interact = 
 			{
 				OffsetX = 50.0
@@ -1326,6 +1333,26 @@
 			}
 		}
 	}
-
+	{
+		Name = "NPC_Achilles_01"
+		InheritFrom = "BaseNPC"
+		DisplayInEditor = true
+		FriendlyToPlayer = false 
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			EditorOutlineDrawBounds = false
+			GrannyModel = "Achilles_Mesh"
+			Graphic = "Achilles_Idle"
+			Tallness = 165.0
+			Points =
+			[
+				{ X = 4 Y = 26 }
+				{ X = 68 Y = -6 }
+				{ X = -8 Y = -44 }
+				{ X = -72 Y = -12 }
+			]
+		}
+	}
 
 ]}

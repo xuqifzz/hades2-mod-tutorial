@@ -215,7 +215,7 @@ UnitSetData.NPC_Eris =
 							-- shouldn't throw trash if these events are queued
 							{
 								FunctionName = "RequiredQueuedTextLine",
-								FunctionArgs = { IsNone = { "ErisAboutRelationship01" }, },
+								FunctionArgs = { IsNone = { "ErisAboutRelationship01", "MorosWithEris01" }, },
 							},
 						},
 						WithinDistance = 420,
@@ -1660,7 +1660,7 @@ UnitSetData.NPC_Eris =
 				{ Cue = "/VO/Eris_0186",
 					Emote = "PortraitEmoteCheerful",
 					PreLineAnim = "Enemy_Eris_Hub_Flattered",
-					Text = "{#Emph}Aw, thanks! {#Prev}Whenever you accomplish something important it's like you're putting a {#Emph}knife {#Prev}right in my heart. Though, good to know you'll come around to check up on my {#Emph}corpse!" },
+					Text = "{#Emph}Aw, thanks! {#Prev}Whenever you accomplish something important it's like you're putting a {#Emph}knife {#Prev}right in my heart. Though, good to know you'll come around and check up on my {#Emph}corpse!" },
 				EndVoiceLines =
 				{
 					{
@@ -1728,8 +1728,8 @@ UnitSetData.NPC_Eris =
 				UseableOffSource = true,
 				InitialGiftableOffSource = true,
 				GiftableOffSource = true,
-				-- PreBlockSpecialInteract = true,
-				PostBlockSpecialInteract = true,
+				PreBlockSpecialInteract = true,
+				-- PostBlockSpecialInteract = true,
 				GameStateRequirements =
 				{
 					{
@@ -1799,8 +1799,8 @@ UnitSetData.NPC_Eris =
 					{
 						PreLineWait = 0.3,
 						ObjectType = "NPC_Eris_01",
-						PostLineThreadedFunctionName = "ErisExitPresentation",
-						PostLineThreadedFunctionArgs = { NoLaugh = true },
+						-- PostLineThreadedFunctionName = "ErisExitPresentation",
+						-- PostLineThreadedFunctionArgs = { NoLaugh = true },
 						{ Cue = "/VO/Eris_0259", Text = "I just {#Emph}do!" },
 					},
 				},
@@ -2386,6 +2386,9 @@ UnitSetData.NPC_Eris =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "HypnosFinalDreamMeeting01" },
 					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ErisGift02" },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ErisGreeting,
@@ -2404,7 +2407,7 @@ UnitSetData.NPC_Eris =
 					PreLineAnim = "Enemy_Eris_Hub_Flattered",
 					Text = "Why don't you let me kill you next time we're out there on the Rift, and chances are, you'll wash on down into the River Styx, and wind up right in front of him again? He's the greeter at the House of Hades isn't he?" },
 				{ Cue = "/VO/Melinoe_4940", UsePlayerSource = true,
-					Emote = "PortraitEmoteSurprise",
+					-- Emote = "PortraitEmoteSurprise",
 					Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
@@ -2827,6 +2830,10 @@ UnitSetData.NPC_Eris =
 						PathTrue = { "GameState", "ReachedTrueEnding" },
 					},
 					{
+						Path = { "CurrentRun", "RoomsEntered" },
+						HasAny = { "O_Boss01", "O_Boss02" },
+					},
+					{
 						PathTrue = { "GameState", "TextLinesRecord", "ErisGift04" },
 					},
 				},
@@ -2926,7 +2933,8 @@ UnitSetData.NPC_Eris =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "HecateBathHouseEpilogue01" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "FatesEpilogue01", "HecateBathHouseEpilogue01" }
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -3029,7 +3037,7 @@ UnitSetData.NPC_Eris =
 						PathTrue = { "GameState", "TextLinesRecord", "ErisAboutHecate01" }
 					},
 				},
-				OnQueuedFunctionName = "ErisCenterInteractRange",
+				OnQueuedFunctionName = "CenterInteractRange",
 
 				{ Cue = "/VO/Eris_0245", PreLineWait = 0.35,
 					PreLineAnim = "Enemy_Eris_Hub_Scoff",
@@ -3081,7 +3089,7 @@ UnitSetData.NPC_Eris =
 				Partner = "NPC_Moros_01",
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- StatusAnimation = false,
+				StatusAnimation = false,
 				PreBlockSpecialInteract = true,
 				PostBlockSpecialInteract = true,
 				InitialGiftableOffSource = true,
@@ -4302,7 +4310,9 @@ UnitSetData.NPC_Eris =
 					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "PortraitEmoteSurprise", WaitTime = 4.2 },
 					Text = "All {#Emph}you {#Prev}are gonna catch is my {#Emph}fist {#Prev}in your {#Emph}face {#Prev}if you keep on mouthing off to me, babe! Though wait, {#Emph}shut up! {#Prev}Think I just saw something swim by!",
 					PostLineFunctionName = "GiftActivityFishing",
-					PostLineFunctionArgs = { FishingPointId = 585640 }, },
+					PostLineFunctionArgs = { FishingPointId = 585640 },
+					PostLineThreadedFunctionName = "TimePassesPresentation",
+					PostLineThreadedFunctionArgs = { TimeTicks = 16, IncludeFishingSFX = true }, },
 
 				{ Cue = "/VO/Eris_0237",
 					PreLineFunctionName = "FishingPierEndPresentation",
@@ -4509,7 +4519,8 @@ VariantSetData.NPC_Eris_01 =
 		SetupEvents =
 		{
 			{
-				FunctionName = "ErisCenterInteractRange",
+				FunctionName = "CenterInteractRange",
+				Args = { Distance = 250 },
 			},
 		},
 

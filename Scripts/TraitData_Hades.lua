@@ -9,9 +9,10 @@ OverwriteTableKeys( TraitData, {
 		BlockInRunRarify = true,
 		AddOutgoingLifestealModifiers =
 		{
-			LimitedUse = 125,
+			LimitedUse = 150,
 			ValidMultiplier = 0.01,
 			MinLifesteal = 1,
+			Unmultiplied = true,
 			ReportValues = 
 			{ 
 				ReportedLifeStealAmount = "ValidMultiplier",
@@ -26,20 +27,6 @@ OverwriteTableKeys( TraitData, {
 		{
 			"CurrentLimitedLifeStealStatDisplay1",
 		},
-		CustomStatLinesWithShrineUpgrade = 
-		{
-			ShrineUpgradeName = "HealingReductionShrineUpgrade",
-			StatLines = 
-			{
-				"LimitedLifeStealStatDisplay1",
-				"HealingReductionNotice",
-			},
-			TrayStatLines =
-			{
-				"CurrentLimitedLifeStealStatDisplay1",
-				"HealingReductionNotice",
-			},
-		},
 		SetupFunction =
 		{
 			Name = "CacheCurrentLifestealUses",
@@ -49,7 +36,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedLifeStealAmount",
 				ExtractAs = "Lifesteal",
-				Format = "PercentHeal"
+				Format = "Percent"
 			},
 			{
 				Key = "ReportedLimit",
@@ -391,6 +378,9 @@ OverwriteTableKeys( TraitData, {
 			{
 				PathFalse = { "GameState", "TraitsSeen", "HadesInvisibilityRetaliateBoon" },
 			},
+			{
+				PathFalse = { "CurrentRun", "Hero", "TraitDictionary", "HadesInvisibilityRetaliateBoon" },
+			},
 		},
 		BlockInRunRarify = true,
 		ShowInHUD = true,
@@ -462,7 +452,7 @@ OverwriteTableKeys( TraitData, {
 		{
 			SpentLastStandMultiplier =
 			{
-				BaseValue = 0.08,
+				BaseValue = 0.10,
 				IdenticalMultiplier =
 				{
 					Value = DuplicateMultiplier,

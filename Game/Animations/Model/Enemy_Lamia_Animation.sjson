@@ -182,6 +182,7 @@
 		VisualFx = "LamiaStaffCastingFx"
 		VisualFxIntervalMin = 0.33
 		VisualFxIntervalMax = 0.33
+		ElapsedTimeMultiplierFromOwner = "Ignore"
 	}
 
 	{

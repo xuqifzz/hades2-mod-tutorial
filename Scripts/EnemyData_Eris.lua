@@ -1097,6 +1097,7 @@ UnitSetData.Eris =
 					Text = "I must say, especially for someone who claims to thrive on pure disorder, you {#Emph}are {#Prev}very punctual and consistent, Eris. Every time I've crossed the Rift, you've been right here." },
 				{ Cue = "/VO/ErisField_0169",
 					PreLineAnim = "Enemy_Eris_Hub_Scoff",
+					Portrait = "Portrait_Eris_Unsure_01",
 					Text = "No need to rub it in! Look, I know this is becoming a problem, but I swear, I can get it under control. Just promise me you won't tell anybody?" },
 				{ Cue = "/VO/MelinoeField_3083", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Hesitant_01",
@@ -1560,6 +1561,11 @@ UnitSetData.Eris =
 						FunctionName = "RequiredHealthFraction",
 						FunctionArgs = { Comparison = "<=", Value = 0.33, },
 					},
+					{
+						Path = { "GameState", "ShrineUpgrades", "HealingReductionShrineUpgrade" },
+						Comparison = "<",
+						Value = 3,
+					},
 					NamedRequirementsFalse = { "StandardPackageBountyActive" },
 				},
 				{ Cue = "/VO/ErisField_0370",
@@ -1881,6 +1887,11 @@ UnitSetData.Eris =
 							"BountyShrineLobOBoss",
 							"BountyShrineSuitOBoss",
 						},
+					},
+					{
+						Path = { "GameState", "EnemyKills", "Eris" },
+						Comparison = ">",
+						Value = 2,
 					},
 					-- back compat
 					{

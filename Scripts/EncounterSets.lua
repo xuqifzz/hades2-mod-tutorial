@@ -429,15 +429,6 @@ EncounterSets =
 			{
 				ActivateGroups = { "Contract" },
 			},
-			GameStateRequirements =
-			{
-				NamedRequirements = { "InfernalContractUnlocked" },
-				NamedRequirementsFalse = { "StandardPackageBountyActive" },
-				{
-					PathFalse = { "CurrentRun", "RoomCountCache", "C_Boss01" }
-				},
-				ChanceToPlay = 0.40,
-			},
 		},
 		{
 			FunctionName = "SpawnZagContractRewards",

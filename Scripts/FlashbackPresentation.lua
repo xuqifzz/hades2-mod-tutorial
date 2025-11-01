@@ -345,6 +345,15 @@ GlobalVoiceLines.ChronosRemembranceVoiceLines =
 		{ Cue = "/VO/Chronos_1406", Text = "All this time... for naught. Perhaps the Fates themselves always knew my plans would be undone, again." },
 	},
 }
+GlobalVoiceLines.ChronosBetterPastVoiceLines =
+{
+	{
+		PreLineWait = 1.75,
+		Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+
+		{ Cue = "/VO/Chronos_1519", Text = "Is this... the future...? Or is it the past...? Not merely mine... but yours, Granddaughter...? Everybody in this House...?" },
+	},
+}
 function SetupFlashback03( source, args )
 
 	SessionState.InFlashback = true
@@ -375,13 +384,15 @@ function SetupFlashback03( source, args )
 
 	wait(0.3)
 
-	--WIP
 	PlayVoiceLines( GlobalVoiceLines.ChronosRemembranceVoiceLines )
 	FadeIn({ Duration = 0.0 })
 	local fullscreenBlackImageId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX, Y = ScreenCenterY, Group = "Overlay", Animation = "Backgrounds/rectangle_01", Scale = 10, Color = Color.Black })
-	FullScreenFadeInAnimation( "RoomTransitionIn_TimeWarp_Slow" )
 
-	wait(3)
+	wait(1.0)
+	FullScreenFadeInAnimation( "RoomTransitionIn_TimeWarp_Alt", "ChronosSand" )
+
+	-- PlaySound({ Name = "/Leftovers/Menu Sounds/TimeTunnelChime" })
+	wait(1.5)
 
 	local voiceLines =
 	{
@@ -397,7 +408,7 @@ function SetupFlashback03( source, args )
 
 	Destroy({ Id = fullscreenBlackImageId })
 	FadeIn({ Duration = 0.0 })
-	FullScreenFadeInAnimation( "RoomTransitionOut_TimeWarp_Slow" )
+	FullScreenFadeInAnimation( "RoomTransitionOut_Down" )
 	LockCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 6.0, OffsetY = -150, Retarget = true })
 
 	wait( 0.8 )
@@ -472,6 +483,212 @@ function ChronosCrouchPresentation( source, args )
 	RemoveInputBlock({ Name = "ChronosCrouchPresentation" })
 
 	wait( 0.3 )
+end
+
+Using "EndingFlashback"
+function Flashback03MemoryPresentation( source, args )
+
+	AddInputBlock({ Name = "Flashback03MemoryPresentation" })
+	killTaggedThreads( "NightmareScreenEffects" )
+
+	local removeIds = { 813561 }
+
+	if MapState.InitialSpeed ~= nil then
+		SetUnitProperty({ Property = "Speed", Value = MapState.InitialSpeed, DestinationId = CurrentRun.Hero.ObjectId })
+		MapState.InitialSpeed = nil
+	end
+
+	PanCamera({ Ids = { CurrentRun.Hero.ObjectId, source.ObjectId }, Duration = 40, OffsetY = -600, Retarget = true })
+
+	SetSoundCueValue({ Names = { "Section" }, Id = AudioState.SecretMusicId, Value = 10 })
+	AudioState.SecretMusicId = nil
+	AudioState.SecretMusicName = nil
+
+	wait(1.35)
+
+	thread( DoRumble, { { ScreenPreWait = 0.02, Fraction = 0.15, Duration = 0.1 }, } )
+	ShakeScreen({ Speed = 50, Distance = 4, FalloffSpeed = 1000, Duration = 0.1, Angle = 90 })
+	PlaySound({ Name = "/SFX/Player Sounds/TagSFX", Id = 816998 })
+
+	wait(5.15)
+
+	PlaySound({ Name = "/Leftovers/Menu Sounds/TimeTunnelChime" })
+
+	SecretMusicPlayer( "/Music/MusicPlayer/OrpheusSong1MusicPlayer2" )
+
+	AdjustColorGrading({ Name = "Sepia", Duration = 3 })
+	AdjustFullscreenBloom({ Name = "Flashback03TransitionA", Duration = 0 })
+	SetAlpha({ Id = ScreenAnchors.FullscreenAlertFxAnchor, Fraction = 0, Duration = 8})
+	AdjustFullscreenBloom({ Name = "Flashback03TransitionB", Duration = 10 })
+
+	PlayVoiceLines( GlobalVoiceLines.ChronosBetterPastVoiceLines )
+
+	wait( 1.1 )
+	AltAspectRatioFramesShow()
+	wait( 0.2 )
+
+	Destroy({ Ids = removeIds })
+
+	AdjustFullscreenBloom({ Name = "Off", Duration = 0.01 })
+	AdjustColorGrading({ Name = "Off", Duration = 0.01 })
+	ShowMemorySequence()
+
+	AltAspectRatioFramesHide()
+	RemoveInputBlock({ Name = "Flashback03MemoryPresentation" })
+	MelBackToBedroomPresentation( source, args )
+end
+
+-- Flashback03 -- Chronos -- MemorySequence
+GlobalVoiceLines.MemorySequenceVoiceLines =
+{
+	Queue = false,
+	UsePlayerSource = true,
+
+	-- persephone & cerberus
+	{ Cue = "/VO/MelinoeField_5132", Text = "{#Emph}Hahah! {#Prev}Yay!", LineHistoryName = "PlayerUnit_Flashback",
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 8.3 }, },
+
+	-- martial training
+	{ Cue = "/VO/MelinoeField_5133", Text = "Take that!", LineHistoryName = "PlayerUnit_Flashback",
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 0.3 }, },
+
+	-- pool of styx
+	{ Cue = "/VO/MelinoeField_5134", Text = "Right this way please!", LineHistoryName = "PlayerUnit_Flashback",
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 4.5 }, },
+
+	-- history lesson
+	{ Cue = "/VO/MelinoeField_5135", Text = "What happened then...?", LineHistoryName = "PlayerUnit_Flashback",
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 4.6 }, },
+
+	-- lounge time
+	{ Cue = "/VO/MelinoeField_5137", Text = "I don't know if that's {#Emph}me...", LineHistoryName = "PlayerUnit_Flashback",
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 6.3 }, },
+
+	-- game table
+	{ Cue = "/VO/MelinoeField_5138", Text = "I finally won!", LineHistoryName = "PlayerUnit_Flashback",
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 4.1 }, },
+
+	-- singing with orpheus
+	{ Cue = "/VO/MelinoeField_5139", Text = "{!Icons.Music}It's in the blood...{!Icons.Music}", LineHistoryName = "PlayerUnit_Flashback",
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 4.2 }, },
+
+	-- the mirror of night
+	{ Cue = "/VO/MelinoeField_5140", Text = "Night and Darkness guide me...", LineHistoryName = "PlayerUnit_Flashback",
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 5.4  }, },
+}
+GlobalVoiceLines.MemorySequenceVoiceLines2 =
+{
+	Queue = false,
+
+	-- persephone & cerberus
+	{ Cue = "/VO/Persephone_0145", Text = "{#Emph}Hahah! {#Prev}Easy there, Cerberus!",
+		Source = { LineHistoryName = "NPC_Persephone_01", SubtitleColor = Color.PersephoneVoice },
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 4.8 }, },
+
+	-- martial training
+	{ Cue = "/VO/Achilles_0002", Text = "That's it, lass! Just like we trained!",
+		Source = { LineHistoryName = "NPC_Achilles_01", SubtitleColor = Color.AchillesVoice },
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 3.4 }, },
+
+	-- pool of styx
+	{ Cue = "/VO/Achilles_0009", Text = "Unbelievable.",
+		Source = { LineHistoryName = "NPC_Thanatos_01", SubtitleColor = Color.ThanatosVoice },
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 3.8 }, },
+
+	-- history lesson
+	{ Cue = "/VO/Chronos_1462", Text = "Why, the bloodiest part!",
+		Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 4.1 }, },
+
+	-- lounge time
+	{ Cue = "/VO/Achilles_0007", Text = "I got you something.",
+		Source = { LineHistoryName = "NPC_Megaera_01", SubtitleColor = Color.MegVoice },
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 1.1 }, },
+
+	{ Cue = "/VO/Achilles_0010", Text = "{#Emph}Ooh!",
+		Source = { LineHistoryName = "NPC_Dusa_01", SubtitleColor = Color.DusaVoice },
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 0.1 }, },
+
+	-- game table
+	{ Cue = "/VO/Zagreus_0477", Text = "{#Emph}Hahaha{#Prev}, blast...",
+		Source = { LineHistoryName = "NPC_Zagreus_01", SubtitleColor = Color.ZagreusVoice },
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 2.9 }, },
+
+	-- singing with orpheus
+	{ Cue = "/VO/Achilles_0008", Text = "{#Emph}Ah.",
+		Source = { LineHistoryName = "NPC_Orpheus_01", SubtitleColor = Color.OrpheusVoice },
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 5.1 }, },
+
+	-- the mirror of night
+	{ Cue = "/VO/Nyx_0125", Text = "Focus...",
+		Source = { LineHistoryName = "NPC_Nyx_01", SubtitleColor = Color.NyxVoice },
+
+	PreLineFunctionName = "GenericPresentation",
+	PreLineFunctionArgs = { PreWait = 2.9 }, },
+}
+-- Time Tunnel
+function ShowMemorySequence()
+
+	CurrentRun.Hero.SubtitleColor = Color.White 
+	CurrentRun.Hero.NarrativeFadeInColor = Color.Teal
+
+	thread( PlayVoiceLines, GlobalVoiceLines.MemorySequenceVoiceLines )
+	thread( PlayVoiceLines, GlobalVoiceLines.MemorySequenceVoiceLines2 )
+
+	local illustrationId = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Combat_Menu_Overlay", Animation = "EndingFlashback", X = ScreenCenterX, Y = ScreenCenterY, Alpha = 0.0 })
+	SetAlpha({ Id = illustrationId, Fraction = 1.0, Duration = 0.0 })
+
+
+	wait( 0.75 )
+	-- FullScreenFadeInAnimation()
+
+	--local loopingSoundId = PlaySound({ Name = "/Leftovers/Object Ambiences/ReconstructionAmbience" })
+
+	waitUnmodified( 67.0 )
+
+	StopSound({ Id = AudioState.SecretMusicId, Duration = 5 })
+	AudioState.SecretMusicId = nil
+	AudioState.SecretMusicName = nil
+
+	--StopSound({ Id = loopingSoundId, Duration = 0.4 })
+	--loopingSoundId = nil
+
+	FullScreenFadeOutAnimation( "RoomTransitionIn_TimeWarp_Slow" )
+	waitUnmodified( 1.1 )
+
+	Destroy({ Id = illustrationId })
 end
 
 -- Helpers
@@ -555,9 +772,9 @@ function NightmareScreenEffects( source, args )
 
 	while SessionState.InFlashback and (CurrentHubRoom == nil or CurrentHubRoom.Name ~= "Flashback_Hub_Main") do
 		AdjustColorGrading({ Name = "NightmareLC", Duration = 3 })
-		wait( 3, RoomThreadName )
+		wait( 3, "NightmareScreenEffects" )
 		AdjustColorGrading({ Name = "NightmareHalf", Duration = 3 })
-		wait( 3, RoomThreadName )
+		wait( 3, "NightmareScreenEffects" )
 	end
 end
 

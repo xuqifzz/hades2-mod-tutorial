@@ -22,6 +22,7 @@ UnitSetData.NPC_Echo =
 		MenuTitle = "EchoChoiceMenu_Title",
 		BoonInfoTitleText = "Codex_BoonInfo_Echo",
 		LastRewardEligible = false,
+		IgnoreStackBoost = true,
 		AllowInteractDuringEndVoiceLines = true,
 		TurnInPlaceAnimation = "Echo_Greeting_Turn",
 		-- TurnInPlaceDelay = 1.17,
@@ -1039,7 +1040,7 @@ UnitSetData.NPC_Echo =
 					},
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = {  "NemesisGetFreeItemIntroBridge01", "NemesisPostCombatAboutCerberus01" },
+						HasAny = {  "NemesisGetFreeItemIntroBridge01", "NemesisPostCombatAboutCerberus01" },
 					},
 				},
 				{ Cue = "/VO/Echo_0075",
@@ -1118,8 +1119,6 @@ UnitSetData.NPC_Echo =
 				UseableOffSource = true,
 				GiftableOffSource = true,
 				InteractDistance = 450,
-				OnQueuedFunctionName = "CheckDistanceTriggerThread",
-				OnQueuedFunctionArgs = PresetEventArgs.NarcissusFieldsGreeting,
 
 				{ Cue = "/VO/Echo_0054", Portrait = "Portrait_Echo_Smiling_01", Speaker = "NPC_Echo_01",
 					Text = "Narcissus! {#Echo1}Narcissus! {#Prev}{#Echo2}Narcissus!" },
@@ -1165,8 +1164,6 @@ UnitSetData.NPC_Echo =
 				IgnoreSourceEndTextLinesThreadedFunctionName = true,
 				UseableOffSource = true,
 				InteractDistance = 450,
-				OnQueuedFunctionName = "CheckDistanceTriggerThread",
-				OnQueuedFunctionArgs = PresetEventArgs.NarcissusFieldsGreeting,
 
 				{ Cue = "/VO/Narcissus_0242", Portrait = "Portrait_Narcissus_Default_01", Speaker = "NPC_Narcissus_01",
 					Emote = "PortraitEmoteDepressed",
@@ -1220,8 +1217,6 @@ UnitSetData.NPC_Echo =
 				IgnoreSourceEndTextLinesThreadedFunctionName = true,
 				UseableOffSource = true,
 				InteractDistance = 450,
-				OnQueuedFunctionName = "CheckDistanceTriggerThread",
-				OnQueuedFunctionArgs = PresetEventArgs.NarcissusFieldsGreeting,
 
 				{ Cue = "/VO/Narcissus_0285", Portrait = "Portrait_Narcissus_Default_01", Speaker = "NPC_Narcissus_01",
 					Text = "Looks like you've put down roots here, {#Emph}huh? {#Prev}Pretty nice spot! The River Styx right over there, the rustle of the wheat..." },
@@ -2101,6 +2096,7 @@ GlobalVoiceLines.MiscEndVoiceLines_Echo =
 				{ Cue = "/VO/MelinoeField_1174", Text = "It's Melinoë! Forget it..." },
 			},
 			{
+				BreakIfPlayed = true,
 				PreLineWait = 0.4,
 				ObjectType = "NPC_Echo_01",
 				{ Cue = "/VO/Echo_0057", Text = "Melinoë, forget it... {#Echo1}forget it... {#Prev}{#Echo2}forget it..." },
@@ -2147,6 +2143,7 @@ GlobalVoiceLines.MiscEndVoiceLines_Echo =
 				{ Cue = "/VO/MelinoeField_4662", Text = "Take care, you two." },
 			},
 			{
+				BreakIfPlayed = true,
 				PreLineWait = 0.4,
 				ObjectType = "NPC_Echo_01",
 				{ Cue = "/VO/Echo_0149", Text = "You, too... {#Echo1}you, too... {#Prev}{#Echo2}you, too..." },
@@ -2177,6 +2174,13 @@ GlobalVoiceLines.MiscEndVoiceLines_Echo =
 	},
 	{
 		RandomRemaining = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "TextLinesRecord" },
+				HasNone = { "NarcissusWithEcho01", "NarcissusWithEcho02", "NarcissusWithEcho03" },
+			},
+		},
 		{
 			GameStateRequirements =
 			{

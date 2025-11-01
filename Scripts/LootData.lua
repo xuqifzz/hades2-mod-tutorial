@@ -65,6 +65,7 @@
 			{
 				PathFalse = { "CurrentRun", "HadBoughtLootConversation" },
 			},
+			NamedRequirementsFalse = { "StandardPackageBountyActive", "JustBeforeOrAfterTrueEnding" },
 		},
 	},
 
@@ -603,6 +604,9 @@
 					{
 						{
 							PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponAxe" },
+						},
+						{
+							PathFalse = { "CurrentRun", "Hero", "TraitDictionary", "AxeRallyAspect" },
 						},
 					},
 				},

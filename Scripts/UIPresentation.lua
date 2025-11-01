@@ -250,12 +250,23 @@ function RunInterstitialPresentation( data, args )
 	if ambienceId ~= nil then
 		StopSound({ Id = ambienceId, Duration = 15.8 })
 	end
-
+	local lang = GetLanguage({})
+	local fontSize = 86
+	if lang == "pl" then
+		local charLen = utf8strlen(GetDisplayName({ Text = text }))
+		if charLen >= 14 then
+			fontSize = 58
+		elseif charLen >= 10 then
+			fontSize = 65
+		else
+			fontSize = 86
+		end
+	end
 	local promptId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX , Y = ScreenCenterY + 260, Group = groupName })
 	CreateTextBox({	Id = promptId, Text = text, Justification = "CENTER",
 			ShadowColor = {0, 0, 0, 128}, ShadowOffset = {0, 2}, ShadowBlur = 0,
 			OutlineThickness = 0, OutlineColor = {1, 1, 1, 1},
-			Font = "SpectralSCLightTitling", FontSize = 86, Color = data.TextColor1 or {0.729,0.702,0.631,255},
+			Font = "SpectralSCLightTitling", FontSize = fontSize, Color = data.TextColor1 or {0.729,0.702,0.631,255},
 			CharacterFadeTime = 0, CharacterFadeInterval = 0,
 			})
 	ModifyTextBox({ Id = promptId, ScaleTarget = 1.2, ScaleDuration = 70 })
@@ -591,4 +602,13 @@ function PulseContextActionPresentation( button, args )
 		end
 		waitUnmodified( args.TimeBetweenPulses or 5.0, threadName )
 	end
+end
+
+function ChronosHealthBarTextTransition(boss)
+
+	ModifyTextBox({ Id = ScreenAnchors.BossHealthBack, FadeTarget = 0.0, FadeDuration = 0.66 })
+
+	wait(0.66)
+
+	ModifyTextBox({ Id = ScreenAnchors.BossHealthBack, Text = boss.Phase3HealthBarTextId, FadeTarget = 1.0, FadeDuration = 0.33 })
 end

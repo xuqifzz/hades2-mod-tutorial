@@ -1074,8 +1074,21 @@ function AddTraitData( unit, traitData, args )
 	end
 	
 	MergeWeaponDataOverride( unit, traitData )
-	
 
+	if unit == CurrentRun.Hero then
+		local hasManaChanges = false
+		if traitData.WeaponDataOverride then
+			for weapon, changeData in pairs(traitData.WeaponDataOverride) do
+				if changeData.ManaChanges then
+					hasManaChanges = true	
+					break
+				end
+			end
+			if hasManaChanges then
+				UpdateWeaponMana()
+			end
+		end
+	end
 	if traitData.AddEffectMultiplier then
 		if not unit.EffectMultipliers then
 			unit.EffectMultipliers = {}
@@ -1309,6 +1322,14 @@ function RemoveTraitData( unit, trait, args )
 				local trait = GetHeroTrait("MetaToRunMetaUpgrade")
 				local metaConversionUses = CurrentRun.MetaConversionUses or 0
 				trait.MetaConversionUses = trait.MetaConversionUses - metaConversionUses
+			end
+		end
+		if expiringActions.RecheckBoons then
+			if HeroHasTrait("ElementalRarityUpgradeBoon") then
+				local trait = GetHeroTrait("ElementalRarityUpgradeBoon")
+				if trait.Activated then
+					thread( UpgradeAllCommon, trait.OnActivationFunction.Args, trait )
+				end
 			end
 		end
 		if expiringActions.SpawnShopItem then
@@ -2324,8 +2345,12 @@ function FormatExtractedValue(value, extractData)
 	if extractData.MultiplyByMissingLastStands and CurrentRun.Hero.MaxLastStands and TableLength( CurrentRun.Hero.LastStands ) then
 		value = value * (CurrentRun.Hero.MaxLastStands - TableLength( CurrentRun.Hero.LastStands ))
 	end
-	if extractData.MultiplyBySpentLastStands and CurrentRun.Hero.LastStandsUsed then
-		value = value * CurrentRun.Hero.LastStandsUsed
+	if extractData.MultiplyBySpentLastStands then
+		if CurrentRun.Hero.LastStandsUsed  then
+			value = value * CurrentRun.Hero.LastStandsUsed
+		else
+			value = 0
+		end
 	end
 	local precision = 0
 	if extractData.DecimalPlaces ~= nil then
@@ -2636,6 +2661,12 @@ function UpgradeAllCommon( args, origTraitData )
 				CurrentRun.Hero.HeroTraitValuesCache[name] = nil
 			end
 		end
+	end	
+	if HeroHasTrait("CommonGlobalDamageBoon") then
+		local trait = GetHeroTrait("CommonGlobalDamageBoon")
+		if not trait.Activated then
+			CheckActivatedTraits( CurrentRun.Hero, { OnlyCheckTraitName = trait.Name } )
+		end
 	end
 end
 
@@ -2791,6 +2822,17 @@ function CreditMissingStacksThread( traitData, stacksToAdd, delay  )
 	thread(AddStackToTraits, { TraitName = traitData.Name, NumStacks = stacksToAdd, Silent = true })
 	IncreaseTraitLevel( traitData, stacksToAdd)
 	HeraTraitRarityPresentation( traitData.Name, stacksToAdd, delay )
+end
+
+function CreditAccumulatedTime( traitData, oldTraitData, delay )
+	if oldTraitData.RoomsPerUpgrade and oldTraitData.RoomsPerUpgrade.Amount and oldTraitData.CurrentRoom then
+		local lastRemaining = oldTraitData.RoomsPerUpgrade.Amount - oldTraitData.CurrentRoom
+		if lastRemaining < traitData.RoomsPerUpgrade.Amount then
+			local trait = GetHeroTrait( traitData.Name )
+			trait.CurrentRoom = traitData.RoomsPerUpgrade.Amount - lastRemaining
+			UpdateTraitNumber( trait )
+		end
+	end
 end
 
 function UpdateUpgradableTraitCount( args, traitData)

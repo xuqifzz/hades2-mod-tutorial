@@ -1051,7 +1051,7 @@
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "IcarusAboutOdysseus01", "HecateAboutIcarus01"}
+						HasAll = { "IcarusAboutOdysseus01" }
 					},
 				},
 
@@ -1254,10 +1254,12 @@
 
 				{ Cue = "/VO/Icarus_0146",
 					Text = "I saw huge plumes of fire shooting from the summit of Olympus recently. Thought the whole mountain was erupting! But on closer inspection, it was you! Fighting someone. And then some deranged eagle chased me off." },
+
 				{ Cue = "/VO/MelinoeField_3091", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "That was Prometheus the Titan and his pet. He's turned against the gods, and is personally leading the siege of Olympus. Claims to know the future, and to fight for mortalkind... using the flames he stole from my family." },
+
 				{ Cue = "/VO/Icarus_0147",
 					PreLineAnim = "Icarus_Explaining_Start",
 					PostLineAnim = "Icarus_Explaining_End",
@@ -1388,7 +1390,7 @@
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "HeraclesAboutIcarus01" },
+						HasAll = { "HeraclesFieldAboutIcarus01" },
 					},
 				},
 
@@ -1428,7 +1430,7 @@
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "HeraclesAboutIcarus02" },
+						HasAll = { "HeraclesFieldAboutIcarus02" },
 					},
 				},
 
@@ -1462,7 +1464,7 @@
 				GameStateRequirements =
 				{
 					{
-						PathFalse = { "GameState", "ReachedTrueEnding" },
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
 					},
 					{
 						PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" },
@@ -1499,7 +1501,7 @@
 				GameStateRequirements =
 				{
 					{
-						PathFalse = { "GameState", "ReachedTrueEnding" },
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
 					},
 					{
 						Path = { "GameState", "LastBossHealthBarRecord", "TyphonHead" },
@@ -1543,7 +1545,7 @@
 				GameStateRequirements =
 				{
 					{
-						PathFalse = { "GameState", "ReachedTrueEnding" },
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
 					},
 					{
 						SumPrevRuns = 3,
@@ -2186,9 +2188,6 @@
 					{
 						PathTrue = { "GameState", "ReachedTrueEnding" },
 					},
-					{
-						PathTrue = { "GameState", "TextLinesRecord", "IcarusAboutFlying01" },
-					},
 				},
 
 				{ Cue = "/VO/MelinoeField_4051", UsePlayerSource = true,
@@ -2729,7 +2728,8 @@
 				{ Cue = "/VO/Icarus_0078",
 					PreLineAnim = "Icarus_Pensive_Start",
 					PostLineAnim = "Icarus_Pensive_End",
-					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "None", Portrait = "Portrait_Icarus_Pleased_01", WaitTime = 5.5 },
+					Portrait = "Portrait_Icarus_Pleased_01",
+					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "None", Portrait = "Portrait_Icarus_Default_01", WaitTime = 4.3 },
 					Text = "As a mortal kid confined to a tower, I was relatively well provided for, but {#Emph}this? {#Prev}I know better than to envy the gods, especially with what they're going through lately... but they definitely know their drink." },
 				{ Cue = "/VO/Melinoe_3499", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -3452,7 +3452,9 @@
 					PortraitExitAnimation = "Portrait_Icarus_Default_01_Exit",
 					Text = "{#Emph}Haha. {#Prev}Well I understand it's necessary to be silent... so, why don't you provide a demonstration and I'll carefully observe.",
 					PostLineFunctionName = "GiftActivityFishing",
-					PostLineFunctionArgs = { FishingPointId = 585640 }, },
+					PostLineFunctionArgs = { FishingPointId = 585640 },
+					PostLineThreadedFunctionName = "TimePassesPresentation",
+					PostLineThreadedFunctionArgs = { TimeTicks = 16, IncludeFishingSFX = true }, },
 
 				{ Cue = "/VO/Icarus_0206",
 					PreLineFunctionName = "FishingPierEndPresentation",
@@ -3719,6 +3721,9 @@
 						},
 						{
 							PathTrue = { "GameState", "TextLinesRecord", "IcarusHomeFirstMeeting" }
+						},
+						{
+							PathFalse = { "CurrentRun", "UsedStoryReset" },
 						},
 					},
 					Cooldowns =
@@ -4940,8 +4945,8 @@ VariantSetData.NPC_Icarus_01 =
 				PlayOnce = true,
 				UseableOffSource = true,
 				-- InitialGiftableOffSource = true,
-				GiftableOffSource = true,
-				PostBlockSpecialInteract = true,
+				-- GiftableOffSource = true,
+				-- PostBlockSpecialInteract = true,
 				PreEventFunctionName = "AngleNPCToHero",
 				GameStateRequirements =
 				{
@@ -5043,7 +5048,7 @@ VariantSetData.NPC_Icarus_01 =
 				{ Cue = "/VO/Icarus_0427",
 					PreLineAnim = "Icarus_Pensive_Start",
 					PostLineAnim = "Icarus_Pensive_End",
-					Text = "You know, I thought that once Chronos was out and the Underworld King and Queen were back, you'd have to join them in House of Hades. Be the princess you were always meant to be." },
+					Text = "You know, I thought that once Chronos was out and the Underworld King and Queen were back, you'd have to join them in the House of Hades. Be the princess you were always meant to be." },
 				{ Cue = "/VO/Melinoe_4848", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Pleased_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
@@ -5112,7 +5117,8 @@ VariantSetData.NPC_Icarus_01 =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "HecateBathHouseEpilogue01" }
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "FatesEpilogue01", "HecateBathHouseEpilogue01" }
 					},
 					{
 						FunctionName = "RequireRunsSinceTextLines",

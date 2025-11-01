@@ -1292,7 +1292,7 @@
 		Name = "BloodDrop"
 		InheritFrom = "BaseLoot"
 		DisplayInEditor = true
-		Magnetism = 1.0
+		Magnetism = 300.0
 		MagnetismSpeedMin = 1500.0
 		MagnetismSpeedMax = 1700.0
 		MagnetismWhileBlockedDistance = 9999.0

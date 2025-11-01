@@ -948,6 +948,7 @@
 					Text = "I sense the Embryo you have of mine has grown to some extent. It shall not come of age for quite some time; but you have nurtured it, and it has been of some small service in exchange. I wonder have you given it a name...?" },
 			},
 
+			-- alt below
 			ChaosAboutKeepsakeQuest01 =
 			{
 				PlayOnce = true,
@@ -955,6 +956,9 @@
 				{
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ChaosAboutKeepsakeQuest01_B" },
 					},
 					{
 						Path = { "GameState", "TextLinesRecord" },
@@ -984,6 +988,47 @@
 					PreContentSound = "/SFX/Menu Sounds/ChaosBoonChange",
 					Text = "Take it from the beginning of your journey to the end. Do not replace it on the way, but reach your destination with it there; in the Underworld or on the surface, we care not. This shall serve only to amuse the Embryo and me, and perhaps you." },
 			},
+			ChaosAboutKeepsakeQuest01_B =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ChaosAboutKeepsakeQuest01" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ChaosAboutSurfaceAppearance01", "ChaosGift02" },
+					},
+					{
+						Path = { "GameState", "ClearedUnderworldRunsCache" },
+						Comparison = ">=",
+						Value = 1,
+					},
+					{
+						Path = { "GameState", "ClearedSurfaceRunsCache" },
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Chaos_0357",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
+					Text = "The Embryo you have of mine: I would see you journey farther with it still. Would you consider the specifics of my thoughts? Respond." },
+				{ Cue = "/VO/MelinoeField_3645", UsePlayerSource = true,
+					SecretMusicMutedStems = { "ChaosBass" },
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "If there is something I may do for you, Almighty Chaos, then you need but ask. Where might I take the Embryo?" },
+				{ Cue = "/VO/Chaos_0294",
+					SecretMusicActiveStems = { "ChaosBass" },
+					PreContentSound = "/SFX/Menu Sounds/ChaosBoonChange",
+					Text = "Take it from the beginning of your journey to the end. Do not replace it on the way, but reach your destination with it there; in the Underworld or on the surface, we care not. This shall serve only to amuse the Embryo and me, and perhaps you." },
+			},
 			ChaosAboutKeepsakeQuest02 =
 			{
 				PlayOnce = true,
@@ -993,7 +1038,8 @@
 						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutKeepsakeQuest01" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ChaosAboutKeepsakeQuest01", "ChaosAboutKeepsakeQuest01_B" },
 					},
 					{
 						Path = { "GameState", "QuestStatus", "QuestChaosKeepsakeFullRun" },
@@ -3235,6 +3281,8 @@
 			{
 				PlayOnce = true,
 				OnGiftTrack = true,
+				UnfilledIcon = "EmptyHeartWithProphecyIcon",
+				FilledIcon = "FilledHeartWithProphecyIcon",
 				SkipGiftPresentationPost = true,
 				Cost =
 				{

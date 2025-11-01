@@ -292,7 +292,7 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData, args 
 	local tooltipData = nil
 	local stackNum = 0
 	upgradeData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = itemData.ItemName, Rarity = itemData.Rarity })
-	if not upgradeData.BlockStacking and IsGodTrait(itemData.ItemName) then
+	if not upgradeData.BlockStacking and IsGodTrait(itemData.ItemName) and not lootData.IgnoreStackBoost then
 		if itemData.StackNum then
 			stackNum = itemData.StackNum
 		else

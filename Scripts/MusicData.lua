@@ -524,7 +524,18 @@ RoomStartMusicEvents =
 		{
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsAny = { "Q_Intro", "Q_MiniBoss03", "Q_Boss01", "Q_Boss02" },
+				IsAny = { "Q_Intro" },
+			},
+		},
+		MusicMutedStems = { "Guitar", "Bass" },
+		MusicMutedStemsDuration = 0,
+	},
+	{
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsAny = { "Q_MiniBoss03", "Q_Boss01", "Q_Boss02" },
 			},
 		},
 		MusicMutedStems = { "Guitar", "Bass" },

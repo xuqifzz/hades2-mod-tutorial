@@ -14,7 +14,7 @@
 	end
 	if spellData.Talents and spellData.Talents.Legendary then
 		for i, talentName in pairs( spellData.Talents.Legendary ) do
-			if not TraitData[talentName].GameStateRequirements or IsGameStateEligible( TraitData[talentName], TraitData[talentName].GameStateRequirements ) then
+			if not TraitData[talentName].GameStateRequirements or ( IsGameStateEligible( TraitData[talentName], TraitData[talentName].GameStateRequirements ) and IsGameStateEligible(source, SpellTalentData.ServeDuoGameRequirements ) ) then
 				if TraitData[talentName].IsDuoBoon then
 					table.insert( duoTalents, talentName )
 				else
@@ -132,8 +132,11 @@
 	return treeStructure
 end
 
-function CheckAndAddOlympianDuo()
+function CheckAndAddOlympianDuo( source )
 	if not CurrentRun.Hero.SlottedSpell or not CurrentRun.Hero.SlottedSpell.Talents.Name then
+		return
+	end
+	if not IsGameStateEligible(source, SpellTalentData.ServeDuoGameRequirements ) then
 		return
 	end
 	local duoTalents = {}
@@ -1085,7 +1088,9 @@ function SpellSummon( triggerArgs, weaponData )
 				local validSummon = damageModifierData.ValidSummons == nil or Contains(damageModifierData.ValidSummons, newEnemy.Name )
 				local validFirst = modifierData.FirstOnly == nil or ( modifierData.FirstOnly and wasFirst )
 				if validSummon and validFirst then
-					AddOutgoingCritModifier( newEnemy, damageModifierData )
+					local modifierData = ShallowCopyTable( damageModifierData )
+					modifierData.Chance = modifierData.Chance * GetTotalHeroTraitValue( "LuckMultiplier", { IsMultiplier = true })
+					AddOutgoingCritModifier( newEnemy, modifierData )
 				end
 			end
 		end
@@ -1388,6 +1393,8 @@ function ApplySelfBuff(weaponData, traitArgs, triggerArgs )
 end
 
 function SpellTransform( user, weaponData, functionArgs, triggerArgs )
+	local threadName = "SpellTransformTimer"
+	SessionMapState.ElapsedTimeMultiplierIgnores[threadName] = true
 	SpellReloadStarted( user, weaponData)
 	SetPlayerDarkside("SpellTransform")
 	if functionArgs.TransformGraphic then
@@ -1460,13 +1467,13 @@ function SpellTransform( user, weaponData, functionArgs, triggerArgs )
 	CreateAnimation({ Name = functionArgs.Vfx, DestinationId = CurrentRun.Hero.ObjectId })
 	CreateAnimation({ Name = functionArgs.StartVfx, DestinationId = CurrentRun.Hero.ObjectId })
 	local totalDuration = weaponData.Duration + GetTotalHeroTraitValue("TransformDurationIncrease")
-	waitUnmodified( totalDuration - 3 )
+	wait( totalDuration - 3, threadName)
 	thread(SpellTransformWarnPresentation)
-	waitUnmodified(1)
+	wait(1, threadName)
 	thread(SpellTransformWarnPresentation)
-	waitUnmodified(1)
+	wait(1, threadName)
 	thread(SpellTransformWarnPresentation)
-	waitUnmodified(1)
+	wait(1, threadName)
 	EndSpellTransform(functionArgs)
 end
 
@@ -2089,9 +2096,8 @@ function SetupSpellLeap( owner, weaponData, functionArgs, triggerArgs )
 	Halt({ Id = CurrentRun.Hero.ObjectId })
 	local lockedTargetId = SpawnObstacle({ Name = "InvisibleTarget", LocationX = triggerArgs.TargetX, LocationY = triggerArgs.TargetY })
 	local distanceToTarget = GetDistance({ Id = CurrentRun.Hero.ObjectId, DestinationId = lockedTargetId })
-	local immuneToForceReset = GetThingDataValue({ Id = CurrentRun.Hero.ObjectId, Property = "ImmuneToForce" })
-
-	SetThingProperty({ DestinationId = CurrentRun.Hero.ObjectId, Property = "ImmuneToForce", Value = true })
+	
+	AddPlayerImmuneToForce( "SpellLeap" )
 
 	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = lockedTargetId })
 	SetUnitProperty({ DestinationId = CurrentRun.Hero.ObjectId, Property = "CollideWithObstacles", Value = false })
@@ -2158,7 +2164,7 @@ function SetupSpellLeap( owner, weaponData, functionArgs, triggerArgs )
 	SetUnitProperty({ DestinationId = CurrentRun.Hero.ObjectId, Property = "CollideWithObstacles", Value = true })
 	SetUnitProperty({ DestinationId = CurrentRun.Hero.ObjectId, Property = "CollideWithUnits", Value = true })
 	SetPlayerStopsProjectiles( "SpellLeap" )
-	SetThingProperty({ DestinationId = CurrentRun.Hero.ObjectId, Property = "ImmuneToForce", Value = immuneToForceReset })
+	RemovePlayerImmuneToForce( "SpellLeap" )
 	SetWeaponProperty({ WeaponName = "WeaponBlink", DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = true })
 	SetWeaponProperty({ WeaponName = "WeaponSprint", DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = true })
 	
@@ -2484,7 +2490,7 @@ function MeteorCheckInvulnerability( weaponData, args, triggerArgs )
 end
 
 function MeteorStartVulnerability( weaponData, args, triggerArgs )
-	local touchdownPoint = SpawnObstacle({ Name = "InvisibleTarget", LocationX = triggerArgs.ProjectileX, LocationY = triggerArgs.ProjectileY, Group = "Scripting"})
+	local touchdownPoint = SpawnObstacle({ Name = "InvisibleTarget", LocationX = triggerArgs.TargetX, LocationY = triggerArgs.TargetY, Group = "Scripting"})
 	thread( MeteorVulnerabilityThread, touchdownPoint, weaponData, args )
 end
 
@@ -2534,6 +2540,9 @@ function MeteorPreattackThread( destinationId, weaponData, args)
 end
 
 function MeteorExCast( triggerArgs, functionArgs )
+	if CurrentRun.CurrentRoom and CurrentRun.CurrentRoom.Encounter and CurrentRun.CurrentRoom.Encounter.BossKillPresentation then
+		return
+	end
 	if triggerArgs.LocationX and triggerArgs.LocationY then
 		local weaponName = "WeaponCast"
 		local projectileName = "ProjectileCast"

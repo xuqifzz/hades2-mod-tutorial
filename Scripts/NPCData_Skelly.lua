@@ -1428,12 +1428,11 @@
 						PathTrue = { "CurrentRun", "RoomsEntered", "I_Boss01" },
 					},
 					{
-						Path = { "GameState", "EnemyKills", "Chronos" },
-						Comparison = ">=",
-						Value = 1,
+						PathTrue = { "CurrentRun", "Cleared" }
 					},
 					{
-						PathTrue = { "CurrentRun", "Cleared" }
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "ZagreusPastMeeting04_3", "ZagreusPastMeeting05" },
 					},
 				},
 
@@ -1467,11 +1466,6 @@
 					},
 					{
 						PathTrue = { "CurrentRun", "RoomsEntered", "I_Boss01" },
-					},
-					{
-						Path = { "GameState", "EnemyKills", "Chronos" },
-						Comparison = ">=",
-						Value = 1,
 					},
 					{
 						PathTrue = { "CurrentRun", "Cleared" }
@@ -1510,9 +1504,8 @@
 						PathTrue = { "CurrentRun", "RoomsEntered", "I_Boss01" },
 					},
 					{
-						Path = { "GameState", "EnemyKills", "Chronos" },
-						Comparison = ">=",
-						Value = 3,
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ZagreusPastMeeting02_2" },
 					},
 				},
 
@@ -1805,9 +1798,11 @@
 						HasAny = { "Q_Boss01", "Q_Boss02" },
 					},
 					{
-						Path = { "GameState", "EnemyKills", "TyphonHead" },
-						Comparison = ">=",
-						Value = 2,
+						PathTrue = { "GameState", "TextLinesRecord", "SkellyAboutTyphonW01" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ZeusPalaceMeeting03", "ZeusPalaceMeeting03_A", "ZeusPalaceMeeting03_B" },
 					},
 					{
 						SumPrevRuns = 3,
@@ -2294,6 +2289,9 @@
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
+					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
 					{
 						Path = { "GameState", "ExorcismSuccessesManual" },
 						Comparison = ">=",
@@ -3890,7 +3888,7 @@
 						HasAny = { "ToolExorcismBook", "ToolShovel" },
 					},
 					{
-						PathFalse = { "GameState", "TextLinesRecord", "WorldUpgradeSurfacePenaltyCure" }
+						PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" }
 					},
 				},
 				{ Cue = "/VO/Skelly_0364",
@@ -4462,8 +4460,11 @@
 						PathTrue = { "GameState", "ReachedTrueEnding" },
 					},
 					{
-						Path = { "GameState", "TextLinesRecord" },
-						HasNone = { "NeoChronosAboutTartarus01", "NeoChronosAboutOlympus01" },
+						SumPrevRuns = 5,
+						Path = { "TextLinesRecord", "TrueEndingFinale01" },
+						CountPathTrue = true,
+						Comparison = "==",
+						Value = 1,
 					},
 				},
 				{ Cue = "/VO/Skelly_0644",
@@ -4488,6 +4489,47 @@
 						{ Cue = "/VO/Skelly_0646", Text = "Yeah I'm not going anywhere." },
 					},
 				},
+			},
+			SkellyPostTrueEnding02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "AchillesTrueEnding01" },
+					},
+				},
+				{ Cue = "/VO/Melinoe_5760", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkPensive01ReturnToIdle", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "I meant to note... I had an unusual experience at the House of Hades. I heard no mention of you there, despite your distinguished status. Only of a skeleton who would stand watch outside... {#Emph}Schele... Schelae... {#Prev}perhaps akin to that?" },
+
+				{ Cue = "/VO/Skelly_0756",
+					Emote = "PortraitEmoteSurprise",
+					PreLineAnim = "Skelly_Babbling",
+					Text = "{#Emph}Wha?! {#Prev}Kiddo. You think we skeletons are all the same? That's {#Emph}way {#Prev}over the line, pal! Come on, I would have thought... {#Emph}Bwuh! {#Prev}Unbelievable!" },
+
+				{ Cue = "/VO/Melinoe_5761", UsePlayerSource = true,
+					Emote = "PortraitEmoteSurprise",
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "What, I... I didn't mean to suggest... {#Emph}eugh{#Prev}, I apologize." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.3,
+						ObjectType = "NPC_Skelly_01",
+						{ Cue = "/VO/Skelly_0757", Text = "{#Emph}Psh. {#Prev}I mean, I swear..." },
+					},
+				},
+
 			},
 
 			SkellyPostEpilogue01 =

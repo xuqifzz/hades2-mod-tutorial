@@ -5,7 +5,7 @@ WeaponSetData =
 		Requirements =
 		{
 			MinPlayerDistance = 450,
-			MaxConsecutiveUses = 1,
+			MinAttacksBetweenUse = 2,
 		},
 
 		AIData =

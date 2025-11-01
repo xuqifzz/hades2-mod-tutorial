@@ -391,7 +391,7 @@ function IsGameStateEligible( source, requirements, args )
 					for k, subTable in ipairs( requirement.Path ) do
 						valueToCheck = valueToCheck[subTable]
 						if valueToCheck == nil then
-							if verboseLogging and k == 1 and subTable ~= "Cleared" and subTable ~= "ActiveBounty" then
+							if verboseLogging and k == 1 and subTable ~= "Cleared" and subTable ~= "ActiveBounty" and subTable ~= "UsedStoryReset" then
 								DebugAssert({ Condition = false, Text = "First key ("..subTable..") on SumPrevRuns is nil on "..tostring(source.Name), Owner = "Gavin", })
 							end
 							break

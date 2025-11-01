@@ -62,6 +62,7 @@ OverwriteTableKeys( EncounterData,
 				UsePlayerSource = true,
 				PreLineWait = 1.0,
 				PlayOnce = true,
+				PlayOnceContext = "CerberusSecondFightVO",
 				GameStateRequirements =
 				{
 					{

@@ -4,6 +4,7 @@ UnitSetData.Treant =
 	Treant =
 	{
 		InheritFrom = { "Elite", "BaseVulnerableEnemy" },
+		RunHistoryKilledByName = "Treant",
 
 		ActivateFx = "EnemyPreSpawnTerrainLarge",
 		ActivateFx2 = "EnemyPreSpawnStandingLarge",

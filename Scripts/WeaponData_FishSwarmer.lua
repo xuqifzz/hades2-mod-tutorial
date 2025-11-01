@@ -25,7 +25,7 @@ WeaponSetData =
 			AttackStaggerDelay = 0.05,
 
 			AttackDistance = 380,
-			RequireUnitLoS = true,
+			RequireProjectileLoS = true, -- Changed from UnitLoS because other fish would block LoS after landing inside one another's extents
 			LoSBuffer = 10,
 
 			PreAttackStop = true,

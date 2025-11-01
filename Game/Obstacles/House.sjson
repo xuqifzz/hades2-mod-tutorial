@@ -5510,15 +5510,15 @@
         MeshType = "Vertical"
         StopsProjectiles = true
         StopsUnits = true
-        Tallness = 874.0
         TouchdownSound = "/EmptyCue"
+        Tallness = 874
         Offset = { X = 0 Y = -291 }
         Points = [
-          { X = 837 Y = 154 }
-          { X = -124 Y = -240 }
-          { X = -871 Y = 29 }
-          { X = -198 Y = 424 }
-          { X = 768 Y = 389 }
+          { X = 897 Y = 363 }
+          { X = -152 Y = -162 }
+          { X = -829 Y = 176 }
+          { X = -242 Y = 472 }
+          { X = 688 Y = 467 }
         ]
       }
     }
@@ -5717,6 +5717,7 @@
         OcclusionInterpolateDuration = 0.0
         OcclusionOpacity = 0.0
         StopsLight = false
+        Tallness = 316
         Offset = { X = 0 Y = -36 }
         Points = [
           { X = -26 Y = -81 }

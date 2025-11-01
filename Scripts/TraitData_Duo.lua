@@ -1550,7 +1550,7 @@ OverwriteTableKeys( TraitData, {
 				TextStartColor = Color.AresDamageLight,
 				TextColor = Color.AresDamage,
 				FunctionName = "AresRendApplyPresentation",
-				SimSlowDistanceThreshold = 400,
+				SimSlowDistanceThreshold = 180,
 				HitSimSlowCooldown = 0.8,
 				HitSimSlowParameters =
 				{
@@ -1599,7 +1599,7 @@ OverwriteTableKeys( TraitData, {
 	{
 		Icon = "Boon_Ares_49",
 		InheritFrom = { "SynergyTrait" },
-		DropManaBurstChance = 0.25,
+		DropManaBurstChance = 0.35,
 		ManaBurstArgs = 
 		{
 			ProjectileName = "AphroditeBurst",

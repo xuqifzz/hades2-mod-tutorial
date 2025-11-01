@@ -2034,4 +2034,104 @@
 		Scale = 0.6
 	}
 
+	{
+		Name = "MelChronosKillStartStreak"
+		FilePath = "Fx\MelBlinkStreak\MelBlinkStreak"
+		AddColor = true
+		NumFrames = 22
+		OriginX = 300
+		OriginY = 120
+		OffsetZ = -100
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		PlaySpeed = 45
+		ScaleX = 5
+		ScaleY = 0.55
+		ScaleFromOwner = "Ignore"
+		Red = 1
+		Green = 0
+		Blue = 0
+		CreateAnimation = "MelChronosKillStartStreakDark"
+	}
+
+	{
+		Name = "MelChronosKillStartStreakDark"
+		InheritFrom = "MelChronosKillStartStreak"
+		FilePath = "Fx\MelBlinkDarkStreak\MelBlinkDarkStreak"
+		NumFrames = 14
+		GroupName = "FX_Dark"
+		CreateAnimation = null
+	}
+
+	{
+		Name = "MelChronosKillEndStreak"
+		InheritFrom = "MelChronosKillStartStreak"
+		Angle = 270
+		PlaySpeed = 60
+		CreateAnimation = "MelChronosKillEndStreakDark"
+		OriginX = 333
+		OffsetZ = 300
+	}
+
+	{
+		Name = "MelChronosKillEndStreakDark"
+		InheritFrom = "MelChronosKillStartStreakDark"
+		Angle = 270
+		PlaySpeed = 60
+		OffsetZ = 300
+	}
+
+	{
+		Name = "MelInfiniteLastStandFx"
+		FilePath = "Screens\CauldronEndSpellSequence\CauldronEndSpellSequence"
+		NumFrames = 99
+		Material = "Unlit"
+		StartFrame = 61
+		EndFrame = 160
+		PlaySpeed = 30
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		VideoTexture = "CauldronEndSpellSequence"
+		ScaleFromOwner = "Ignore"
+		Scale = 0.75
+		OffsetZ = 50
+		CreateAnimation = "MelInfiniteLastStandEndBeams"
+		Sound = "/SFX/Menu Sounds/CauldronMegaSpell"
+	}
+
+
+	{
+		Name = "MelInfiniteLastStandEndBeams"
+		FilePath = "Fx\CauldronVignette\CauldronEndBeams\CauldronEndBeams"
+		NumFrames = 70
+		PlaySpeed = 120
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		ScaleY = 10
+		Scale = 4
+		OffsetZ = 250
+		GroupName = "Combat_UI_World_Add"
+		CreateAnimations = [
+			{ Name = "MelInfiniteLastStandEndBeamsGlow" }
+		]
+	}
+
+	{
+		Name = "MelInfiniteLastStandEndBeamsGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 0.1
+		Green = 1.0
+		Blue = 0.4
+		GroupName = "Combat_UI_World_Add"
+		Material = "Unlit"
+		Scale = 5
+		StartAlpha = 0.5
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 2
+	}
+
 ]}

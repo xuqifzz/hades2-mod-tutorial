@@ -899,6 +899,135 @@
 		ChildAnimation = "HelSpecialFx"
 	}
 	
+	
+	{
+		Name = "HelOverheatFx"
+		FilePath = "Fx\WeaponAspects\Hel\HelOverheatStatus\HelOverheatStatus"
+		NumFrames = 1
+		NumAngles = 64
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		Duration = 1
+		Loop = true
+		DieWithOwner = true
+		StartAlpha = 0.8
+		EndAlpha = 1.0
+		StartRed = 1
+		StartGreen = 0.6
+		StartBlue = 0.4
+		EndRed = 0.999
+		EndGreen = 1
+		EndBlue = 1
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		OffsetZ = 120
+		StartOffsetZ = 0
+		EndOffsetZ = 5
+		Sound = "/Leftovers/SFX/AuraAmbientLoop"
+		StopSoundOnFinishFade = 0.2
+		PingPongShiftOverDuration = true
+		VisualFx = "HelOverheatFxB"
+		VisualFxIntervalMin = 0.04
+		VisualFxIntervalMax = 0.06
+		CreateAnimations = [
+			{ Name = "HelOverheatFxGlint" }
+			{ Name = "HelOverheatFxGlint" }
+			{ Name = "HelOverheatFxGlintB" }
+		]
+	}
+	{
+		Name = "HelSpecialFx"
+		InheritFrom = "HelOverheatFx"
+		OffsetZ = 20
+		VisualFx = null
+	}
+
+	{
+		Name = "HelOverheatFxGlint"
+		FilePath = "Particles\particle_glintFlare"
+		AddColor = true
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.7
+		StartScale = 0.1
+		EndScale = 0.5
+		Material = "Unlit"
+		Red = 1
+		Green = 0.3
+		Blue = 0
+		Scale = 1
+		Loop = true
+		PingPongScale = true
+		RandomRotation = true
+		OffsetZ = 0
+		AngleMin = 0
+		AngleMax = 360
+		IsometricSkew = "Y"
+		AngleFromOwner = "Ignore"
+		RotationSpeed = 60
+		GrannyAttachedMarkerLocation = "WeaponLob_Rig:base_00_M_JNT"
+		GroupName = "FX_Standing_Add"
+		DieWithOwner = true
+	}
+
+	{
+		Name = "HelOverheatFxGlintB"
+		InheritFrom = "HelOverheatFxGlint"
+		PostRotateScaleY = 0.5
+		IsometricSkew = "None"
+	}
+
+	{
+		Name = "HelOverheatFxB"
+		Random = [
+			{ Name = "HelOverheatFxB1" }
+			{ Name = "HelOverheatFxB2" }
+		]
+	}
+	{
+		Name = "HelOverheatFxB1"
+		FilePath = "Fx\WitchyMist\WitchyMist"
+		StartFrame = 50
+		NumFrames = 50
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		LoopFramesOnly = true
+		RandomDurationMin = 0.5
+		RandomDurationMax = 0.75
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		ColorFromOwner = "Ignore"
+		EaseIn = 0.9
+		EaseOut = 1
+		Scale = 1
+		StartScale = 0.7
+		EndScale = 1.6
+		RadialOffsetMin = 45
+		RadialOffsetMax = 90
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		PostRotateScaleY = 0.7
+		Hue = 0.65
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Maintain"
+		RandomRotation = true
+		ScaleMin = 0.25
+		ScaleMax = 1.3
+		OffsetZ = 120
+		AngleFromOwner = "Take"
+		Angle = 180
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+	}
+
+	{
+		Name = "HelOverheatFxB2"
+		InheritFrom = "HelOverheatFxB1"
+		PostRotateScaleY = 1
+		IsometricSkew = "Y"
+	}
 
 	{
 		Name = "LobProjectileDarkTrailEmitter"
@@ -2255,6 +2384,20 @@
 	}
 
 	{
+		Name = "LobProjectileHel_Apollo"
+		InheritFrom = "LobProjectile_Apollo"
+		ChildAnimation = "HelSpecialFx_Apollo"
+	}
+
+	{
+		Name = "HelSpecialFx_Apollo"
+		InheritFrom = "HelOverheatFx"
+		ChildAnimation = "LobProjectileDarkTrailEmitter"
+		OffsetZ = 20
+		VisualFx = null
+	}
+
+	{
 		Name = "LobProjectileHalo_Apollo"
 		FilePath = "Particles\particle_spectral_shimmer_02"
 		Material = "Unlit"
@@ -3240,6 +3383,20 @@
 	}
 
 	{
+		Name = "LobProjectileHel_Hestia"
+		InheritFrom = "LobProjectile_Hestia"
+		ChildAnimation = "HelSpecialFx_Hestia"
+	}
+
+	{
+		Name = "HelSpecialFx_Hestia"
+		InheritFrom = "HelOverheatFx"
+		ChildAnimation = "LobProjectileDarkTrailEmitter_Hestia"
+		OffsetZ = 20
+		VisualFx = null
+	}
+
+	{
 		Name = "LobProjectileDarkTrailEmitter_Hestia"
 		InheritFrom = "LobProjectileDarkTrailEmitter"
 		ChildAnimation = "LobProjectileHestiaFlameEmitter"
@@ -4213,6 +4370,20 @@
 			{ Name = "LobProjectileStartDisplacement" }
 			{ Name = "LobProjectileGlow_Demeter" }
 		]
+	}
+
+	{
+		Name = "LobProjectileHel_Demeter"
+		InheritFrom = "LobProjectile_Demeter"
+		ChildAnimation = "HelSpecialFx_Demeter"
+	}
+
+	{
+		Name = "HelSpecialFx_Demeter"
+		InheritFrom = "HelOverheatFx"
+		ChildAnimation = "LobProjectileDarkTrailEmitter_Demeter"
+		OffsetZ = 20
+		VisualFx = null
 	}
 
 	{
@@ -5211,6 +5382,20 @@
 			{ Name = "LobProjectileStartDisplacement" }
 			{ Name = "LobProjectileGlow_Hera" }
 		]
+	}
+
+	{
+		Name = "LobProjectileHel_Hera"
+		InheritFrom = "LobProjectile_Hera"
+		ChildAnimation = "HelSpecialFx_Hera"
+	}
+
+	{
+		Name = "HelSpecialFx_Hera"
+		InheritFrom = "HelOverheatFx"
+		ChildAnimation = "LobProjectileDarkTrailEmitter_Hera"
+		OffsetZ = 20
+		VisualFx = null
 	}
 
 	{
@@ -6349,6 +6534,20 @@
 	}
 
 	{
+		Name = "LobProjectileHel_Aphrodite"
+		InheritFrom = "LobProjectile_Aphrodite"
+		ChildAnimation = "HelSpecialFx_Aphrodite"
+	}
+
+	{
+		Name = "HelSpecialFx_Aphrodite"
+		InheritFrom = "HelOverheatFx"
+		ChildAnimation = "LobProjectileDarkTrailEmitter_Aphrodite"
+		OffsetZ = 20
+		VisualFx = null
+	}
+
+	{
 		Name = "LobProjectileDarkTrailEmitter_Aphrodite"
 		InheritFrom = "LobProjectileDarkTrailEmitter"
 		ChildAnimation = "LobProjectileAphroditeTrailEmitter"
@@ -7433,6 +7632,20 @@
 			{ Name = "LobProjectileStartDisplacement" }
 			{ Name = "LobProjectileGlow_Poseidon" }
 		]
+	}
+
+	{
+		Name = "LobProjectileHel_Poseidon"
+		InheritFrom = "LobProjectile_Poseidon"
+		ChildAnimation = "HelSpecialFx_Poseidon"
+	}
+
+	{
+		Name = "HelSpecialFx_Poseidon"
+		InheritFrom = "HelOverheatFx"
+		ChildAnimation = "LobProjectileDarkTrailEmitter_Poseidon"
+		OffsetZ = 20
+		VisualFx = null
 	}
 
 	{
@@ -8615,6 +8828,20 @@
 	}
 
 	{
+		Name = "LobProjectileHel_Zeus"
+		InheritFrom = "LobProjectile_Zeus"
+		ChildAnimation = "HelSpecialFx_Zeus"
+	}
+
+	{
+		Name = "HelSpecialFx_Zeus"
+		InheritFrom = "HelOverheatFx"
+		ChildAnimation = "LobProjectileDarkTrailEmitter_Zeus"
+		OffsetZ = 20
+		VisualFx = null
+	}
+
+	{
 		Name = "LobProjectileDarkTrailEmitter_Zeus"
 		InheritFrom = "LobProjectileDarkTrailEmitter"
 		ChildAnimation = "LobProjectileZeusTrailEmitter"
@@ -9636,6 +9863,20 @@
 	}
 
 	{
+		Name = "LobProjectileHel_Hephaestus"
+		InheritFrom = "LobProjectile_Hephaestus"
+		ChildAnimation = "HelSpecialFx_Hephaestus"
+	}
+
+	{
+		Name = "HelSpecialFx_Hephaestus"
+		InheritFrom = "HelOverheatFx"
+		ChildAnimation = "LobProjectileDarkTrailEmitter_Hephaestus"
+		OffsetZ = 20
+		VisualFx = null
+	}
+
+	{
 		Name = "LobProjectileDarkTrailEmitter_Hephaestus"
 		InheritFrom = "LobProjectileDarkTrailEmitter"
 		ChildAnimation = "LobProjectileHephaestusTrailEmitter"
@@ -10622,6 +10863,20 @@
 			{ Name = "LobProjectileStartDisplacement" }
 			{ Name = "LobProjectileGlow_Ares" }
 		]
+	}
+	
+	{
+		Name = "LobProjectileHel_Ares"
+		InheritFrom = "LobProjectile_Ares"
+		ChildAnimation = "HelSpecialFx_Ares"
+	}
+
+	{
+		Name = "HelSpecialFx_Ares"
+		InheritFrom = "HelOverheatFx"
+		ChildAnimation = "LobProjectileDarkTrailEmitter_Ares"
+		OffsetZ = 20
+		VisualFx = null
 	}
 
 	{
@@ -13024,7 +13279,7 @@
 		ClearCreateAnimations = true
 		CreateAnimations =
 		[
-			{ Name = "LobSpecialSkull_Hephaestus" }
+			{ Name = "LobSpecialSkull_Hel_Hephaestus" }
 			{ Name = "LobSpecialCrescentA_Hephaestus" }
 			{ Name = "LobSpecialCrescentB" }
 			{ Name = "LobSpecialCrescentC" }
@@ -13057,7 +13312,7 @@
 		ClearCreateAnimations = true
 		CreateAnimations =
 		[
-			{ Name = "LobSpecialSkull_Hera" }
+			{ Name = "LobSpecialSkull_Hel_Hera" }
 			{ Name = "LobSpecialCrescentA_Hera" }
 			{ Name = "LobSpecialCrescentB" }
 			{ Name = "LobSpecialCrescentC" }
@@ -13090,7 +13345,7 @@
 		ClearCreateAnimations = true
 		CreateAnimations =
 		[
-			{ Name = "LobSpecialSkull_Hestia" }
+			{ Name = "LobSpecialSkull_Hel_Hestia" }
 			{ Name = "LobSpecialCrescentA_Hestia" }
 			{ Name = "LobSpecialCrescentB" }
 			{ Name = "LobSpecialCrescentC" }
@@ -13123,7 +13378,7 @@
 		ClearCreateAnimations = true
 		CreateAnimations =
 		[
-			{ Name = "LobSpecialSkull_Poseidon" }
+			{ Name = "LobSpecialSkull_Hel_Poseidon" }
 			{ Name = "LobSpecialCrescentA_Poseidon" }
 			{ Name = "LobSpecialCrescentB" }
 			{ Name = "LobSpecialCrescentC" }
@@ -13156,7 +13411,7 @@
 		ClearCreateAnimations = true
 		CreateAnimations =
 		[
-			{ Name = "LobSpecialSkull_Zeus" }
+			{ Name = "LobSpecialSkull_Hel_Zeus" }
 			{ Name = "LobSpecialCrescentA_Zeus" }
 			{ Name = "LobSpecialCrescentB" }
 			{ Name = "LobSpecialCrescentC" }
@@ -13181,135 +13436,6 @@
         EndRed = 0.9999
         EndGreen = 0.8
         EndBlue = 0.5
-	}
-
-	{
-		Name = "HelOverheatFx"
-		FilePath = "Fx\WeaponAspects\Hel\HelOverheatStatus\HelOverheatStatus"
-		NumFrames = 1
-		NumAngles = 64
-		Material = "Unlit"
-		GroupName = "FX_Standing_Add"
-		Duration = 1
-		Loop = true
-		DieWithOwner = true
-		StartAlpha = 0.8
-		EndAlpha = 1.0
-		StartRed = 1
-		StartGreen = 0.6
-		StartBlue = 0.4
-		EndRed = 0.999
-		EndGreen = 1
-		EndBlue = 1
-		PingPongColor = true
-		EaseIn = 0
-		EaseOut = 1
-		OffsetZ = 120
-		StartOffsetZ = 0
-		EndOffsetZ = 5
-		Sound = "/Leftovers/SFX/AuraAmbientLoop"
-		StopSoundOnFinishFade = 0.2
-		PingPongShiftOverDuration = true
-		VisualFx = "HelOverheatFxB"
-		VisualFxIntervalMin = 0.04
-		VisualFxIntervalMax = 0.06
-		CreateAnimations = [
-			{ Name = "HelOverheatFxGlint" }
-			{ Name = "HelOverheatFxGlint" }
-			{ Name = "HelOverheatFxGlintB" }
-		]
-	}
-	{
-		Name = "HelSpecialFx"
-		InheritFrom = "HelOverheatFx"
-		OffsetZ = 20
-		VisualFx = null
-	}
-
-	{
-		Name = "HelOverheatFxGlint"
-		FilePath = "Particles\particle_glintFlare"
-		AddColor = true
-		RandomDurationMin = 0.4
-		RandomDurationMax = 0.7
-		StartScale = 0.1
-		EndScale = 0.5
-		Material = "Unlit"
-		Red = 1
-		Green = 0.3
-		Blue = 0
-		Scale = 1
-		Loop = true
-		PingPongScale = true
-		RandomRotation = true
-		OffsetZ = 0
-		AngleMin = 0
-		AngleMax = 360
-		IsometricSkew = "Y"
-		AngleFromOwner = "Ignore"
-		RotationSpeed = 60
-		GrannyAttachedMarkerLocation = "WeaponLob_Rig:base_00_M_JNT"
-		GroupName = "FX_Standing_Add"
-		DieWithOwner = true
-	}
-
-	{
-		Name = "HelOverheatFxGlintB"
-		InheritFrom = "HelOverheatFxGlint"
-		PostRotateScaleY = 0.5
-		IsometricSkew = "None"
-	}
-
-	{
-		Name = "HelOverheatFxB"
-		Random = [
-			{ Name = "HelOverheatFxB1" }
-			{ Name = "HelOverheatFxB2" }
-		]
-	}
-	{
-		Name = "HelOverheatFxB1"
-		FilePath = "Fx\WitchyMist\WitchyMist"
-		StartFrame = 50
-		NumFrames = 50
-		RandomPlaySpeedMin = 24
-		RandomPlaySpeedMax = 30
-		LoopFramesOnly = true
-		RandomDurationMin = 0.5
-		RandomDurationMax = 0.75
-		StartAlpha = 0
-		EndAlpha = 1
-		PingPongColor = true
-		ColorFromOwner = "Ignore"
-		EaseIn = 0.9
-		EaseOut = 1
-		Scale = 1
-		StartScale = 0.7
-		EndScale = 1.6
-		RadialOffsetMin = 45
-		RadialOffsetMax = 90
-		RandomFlipVertical = true
-		RandomFlipHorizontal = true
-		PostRotateScaleY = 0.7
-		Hue = 0.65
-		Material = "Unlit"
-		LocationZFromOwner = "Take"
-		LocationFromOwner = "Maintain"
-		RandomRotation = true
-		ScaleMin = 0.25
-		ScaleMax = 1.3
-		OffsetZ = 120
-		AngleFromOwner = "Take"
-		Angle = 180
-		AlphaMin = 0.2
-		AlphaMax = 1.0
-	}
-
-	{
-		Name = "HelOverheatFxB2"
-		InheritFrom = "HelOverheatFxB1"
-		PostRotateScaleY = 1
-		IsometricSkew = "Y"
 	}
 
 ]}

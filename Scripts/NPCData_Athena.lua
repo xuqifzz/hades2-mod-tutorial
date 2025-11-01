@@ -493,7 +493,7 @@ UnitSetData.NPC_Athena =
 					},
 					{
 						PathFalse = { "GameState", "ReachedTrueEnding" },
-					},					
+					},
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "AthenaAboutPrometheus01" },
 					},
@@ -509,10 +509,12 @@ UnitSetData.NPC_Athena =
 
 				{ Cue = "/VO/Athena_0160",
 					Text = "Even if you're thwarted by the Titan Prometheus, it is a benefit to our war effort. For if he's having to confront you, then he's unable to cause his mayhem elsewhere." },
+
 				{ Cue = "/VO/MelinoeField_2404", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "That is of little consolation to me, Lady Athena. This is not his first crime against Olympus and our family; thus his punishment is to be even more severe." },
+
 				{ Cue = "/VO/Athena_0161",
 					PreLineAnim = "Athena_Proud_Start",
 					PostLineAnim = "Athena_Proud_End",
@@ -631,17 +633,21 @@ UnitSetData.NPC_Athena =
 
 				{ Cue = "/VO/Athena_0200",
 					Text = "My half-brother Ares must be having the time of his life, wherever he resides. He relishes a good protracted war... why would he work with us to put an end to it?" },
+
 				{ Cue = "/VO/MelinoeField_2432", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Do you suspect betrayal? If Ares isn't here, and the war rages... perhaps he's stoking the conflict on the other side." },
+
 				{ Cue = "/VO/Athena_0201",
 					PreLineAnim = "Athena_Proud_Start",
 					Text = "The thought has certainly occurred to me, except... our enemy is no more interested in a war that lasts forever than we are. Whereas Ares wants only for the war to perpetuate, not for a victor to emerge." },
+
 				{ Cue = "/VO/MelinoeField_2433", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You know who else wants that is Eris. She's mentioned Ares before. You don't suppose they're working together?" },
+
 				{ Cue = "/VO/Athena_0202",
 					PreLineAnim = "Athena_Proud_End",
 					Text = "From what I know of Strife, she's not prone to alliances. Yet, I cannot rule out the possibility. She's been impeding you along your route... perhaps she'll let slip some detail." },
@@ -853,10 +859,10 @@ UnitSetData.NPC_Athena =
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "AthenaGift02", "HecateBossAboutArachne01" }
+						HasAll = { "ArachneAboutCurse02" }
 					},
 					{
-						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+						-- PathTrue = { "CurrentRun", "BiomesReached", "N" },
 					},
 				},
 
@@ -873,7 +879,7 @@ UnitSetData.NPC_Athena =
 					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
-					Text = "Well... she lives down in Erebus now, near where I reside, and... she's so wretched about her appearance, which I understand is from a curse you wrought... doubtless entirely deserved, but... have mercy on her, Lady Athena. Please." },
+					Text = "Well... she lives in Erebus now, near where I reside, and... she's so wretched about her appearance, which I understand is from a curse you wrought... doubtless entirely deserved, but... have mercy on her, Lady Athena. Please." },
 
 				{ Cue = "/VO/Athena_0210",
 					PreLineAnim = "Athena_Proud_End",
@@ -888,10 +894,6 @@ UnitSetData.NPC_Athena =
 					{
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = { "AthenaAboutArachne01", "AthenaGift03" },
-					},
-					{
-						FunctionName = "RequireRunsSinceTextLines",
-						FunctionArgs = { TextLines = { "AthenaAboutArachne01" }, Min = 3 },
 					},
 				},
 
@@ -916,7 +918,7 @@ UnitSetData.NPC_Athena =
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "AthenaAboutArachne02", "ArachneAboutCurse05", "AthenaGift05" },
+						HasAll = { "AthenaAboutArachne02", "ArachneAboutCurse05", "AthenaGift04" },
 					},
 					NamedRequirementsFalse = { "NearTrueEnding" },
 				},
@@ -1008,10 +1010,10 @@ UnitSetData.NPC_Athena =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "CurrentRun", "BiomesReached", "P" },
+						PathFalse = { "GameState", "ReachedTrueEnding" },
 					},
 					{
-						PathFalse = { "GameState", "ReachedTrueEnding" },
+						PathTrue = { "CurrentRun", "BiomesReached", "P" },
 					},
 					{
 						Path = { "GameState", "RoomsEntered", "P_Intro" },
@@ -1121,10 +1123,12 @@ UnitSetData.NPC_Athena =
 
 				{ Cue = "/VO/Athena_0224",
 					Text = "Thank the Fates that you eluded Typhon's fury. And you created enough of a diversion that we were able to fortify our defenses and keep that monstrosity at bay, for now." },
+
 				{ Cue = "/VO/MelinoeField_3169", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "But he'll be back. Have you discovered any weaknesses of note? I'd rather do more than distract him." },
+
 				{ Cue = "/VO/Athena_0225",
 					PreLineAnim = "Athena_Brooding",
 					Text = "A being of that size will not have many weaknesses... although no creature likes to be jabbed in the eyes; and Typhon has a great many of them, for better or worse. And if we muster all our powers... perhaps we can drive him back." },
@@ -1149,10 +1153,12 @@ UnitSetData.NPC_Athena =
 
 				{ Cue = "/VO/Athena_0226",
 					Text = "We were able to repel that monstrous Typhon thanks to your aid! So it {#Emph}can {#Prev}be done! Only the contemptible thing soon recovered and commenced his climb once more..." },
+
 				{ Cue = "/VO/MelinoeField_3170", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "There has to be a way to vanquish Typhon utterly, not just slow him down. But if slowing him's the best result we can achieve for now... so be it." },
+
 				{ Cue = "/VO/Athena_0227",
 					PreLineAnim = "Athena_Brooding",
 					Text = "The so-called {#Emph}Father of All Monsters... {#Prev}I heard the tales many times of course, but {#Emph}seeing {#Prev}him... I felt my courage almost falter; which was more frightening even than the thing itself..." },
@@ -1167,11 +1173,7 @@ UnitSetData.NPC_Athena =
 						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
 					},
 					{
-						Path = { "PrevRun", "RoomsEntered" },
-						HasAny = { "Q_Boss01", "Q_Boss02" },
-					},
-					{
-						PathTrue = { "PrevRun", "Cleared" }
+						PathTrue = { "PrevRun", "EnemyKills", "TyphonHead" },
 					},
 					{
 						Path = { "GameState", "EnemyKills", "TyphonHead" },
@@ -1183,10 +1185,12 @@ UnitSetData.NPC_Athena =
 				{ Cue = "/VO/Athena_0228",
 					PreLineAnim = "Athena_Brooding",
 					Text = "That Typhon seems only to grow angrier each time we withstand his rage. A clever ploy for Chronos to set such a thing on us... keeping us occupied, while he plots his next move." },
+
 				{ Cue = "/VO/MelinoeField_3171", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Whether clever or reckless, I'm not yet convinced. Chronos is counting on Typhon turning all his violence against Olympus, but after that...? Not even {#Emph}he {#Prev}can control such an abomination." },
+
 				{ Cue = "/VO/Athena_0229",
 					Text = "Perhaps Chronos means to seal the monster away once we are no longer a threat. At any rate, we don't intend to let any such outcome transpire." },
 			},
@@ -1270,10 +1274,12 @@ UnitSetData.NPC_Athena =
 
 				{ Cue = "/VO/Athena_0170",
 					Text = "I must apologize about your confrontation with the particularly large and dangerous Automaton called Talos. It detects traces of the Underworld on you, and, well..." },
+
 				{ Cue = "/VO/MelinoeField_2410", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "It's a magnificent creation, and Lord Hephaestus should be proud... though, the methods by which his Automatons detect threats could probably use a comprehensive rework." },
+
 				{ Cue = "/VO/Athena_0171",
 					PreLineAnim = "Athena_Brooding",
 					Text = "I shall be certain to relay the suggestion. Unfortunately Lord Hephaestus prioritized a self-repairing system in Talos over threat-detection, so it may continue to be an issue for now." },
@@ -1409,10 +1415,12 @@ UnitSetData.NPC_Athena =
 
 				{ Cue = "/VO/Athena_0190",
 					Text = "The Three Fates themselves are gone, Hermes has said. Our situation grows that much more desperate, then. And yet... I never could depend on outside influence in my success; I trust you take no offense." },
+
 				{ Cue = "/VO/MelinoeField_2427", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "No, I understand what you mean. Chronos feared some sort of Fated prophecy would do him in again, like when our fathers overthrew his rule. But if the Fates no longer are setting the course of what transpires... then we shall." },
+
 				{ Cue = "/VO/Athena_0191",
 					PreLineAnim = "Athena_Proud_Start",
 					PostLineAnim = "Athena_Proud_End",
@@ -1452,6 +1460,10 @@ UnitSetData.NPC_Athena =
 					{
 						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AthenaEncounterKeepsake" },
 					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = GameData.AthenaKeepsakeEvents, Min = 3 },
+					},
 				},
 
 				{ Cue = "/VO/Athena_0203",
@@ -1476,6 +1488,10 @@ UnitSetData.NPC_Athena =
 					},
 					{
 						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AthenaEncounterKeepsake" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = GameData.AthenaKeepsakeEvents, Min = 3 },
 					},
 				},
 
@@ -1502,6 +1518,10 @@ UnitSetData.NPC_Athena =
 					{
 						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AthenaEncounterKeepsake" },
 					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = GameData.AthenaKeepsakeEvents, Min = 3 },
+					},
 				},
 
 				{ Cue = "/VO/Athena_0274",
@@ -1525,6 +1545,10 @@ UnitSetData.NPC_Athena =
 					},
 					{
 						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AthenaEncounterKeepsake" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = GameData.AthenaKeepsakeEvents, Min = 3 },
 					},
 				},
 
@@ -1552,6 +1576,10 @@ UnitSetData.NPC_Athena =
 					},
 					{
 						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AthenaEncounterKeepsake" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = GameData.AthenaKeepsakeEvents, Min = 3 },
 					},
 				},
 
@@ -1582,6 +1610,10 @@ UnitSetData.NPC_Athena =
 					{
 						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AthenaEncounterKeepsake" },
 					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = GameData.AthenaKeepsakeEvents, Min = 3 },
+					},
 				},
 
 				{ Cue = "/VO/Athena_0280",
@@ -1610,6 +1642,10 @@ UnitSetData.NPC_Athena =
 					},
 					{
 						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AthenaEncounterKeepsake" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = GameData.AthenaKeepsakeEvents, Min = 3 },
 					},
 				},
 
@@ -1644,6 +1680,12 @@ UnitSetData.NPC_Athena =
 					{
 						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AthenaEncounterKeepsake" },
 					},
+					--[[ intentionally omitted
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = GameData.AthenaKeepsakeEvents, Min = 3 },
+					},
+					]]--
 				},
 
 				{ Cue = "/VO/Athena_0284",
@@ -1676,6 +1718,10 @@ UnitSetData.NPC_Athena =
 					},
 					{
 						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AthenaEncounterKeepsake" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = GameData.AthenaKeepsakeEvents, Min = 3 },
 					},
 				},
 
@@ -1737,10 +1783,12 @@ UnitSetData.NPC_Athena =
 
 				{ Cue = "/VO/Athena_0172",
 					Text = "Have you felt the growing tremors during your approach, Cousin? I don't care for them at all. Lord Uncle Poseidon at first acted as though they were his doing, but not even he seems to know the source..." },
+
 				{ Cue = "/VO/MelinoeField_2411", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "In the Underworld, we experience tremors all the time, for the Earth is all around us, living and breathing. But I'm surprised such shaking could be felt all the way up here..." },
+
 				{ Cue = "/VO/Athena_0289",
 					PreLineAnim = "Athena_Brooding",
 					Text = "Perhaps because it's more than the Earth living and breathing. Our enemy is behind this, I am certain of it." },
@@ -1753,11 +1801,10 @@ UnitSetData.NPC_Athena =
 				GameStateRequirements =
 				{
 					{
-						Path = { "PrevRun", "RoomsEntered" },
-						HasAny = { "Q_Boss01", "Q_Boss02" },
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
 					},
 					{
-						PathTrue = { "PrevRun", "Cleared" }
+						PathTrue = { "PrevRun", "EnemyKills", "TyphonHead" },
 					},
 					{
 						SumPrevRuns = 3,
@@ -1773,10 +1820,12 @@ UnitSetData.NPC_Athena =
 					PreLineThreadedFunctionArgs = { Name = "Athena_Proud_Start", WaitTime = 1.0 },
 
 					Text = "First you vanquished Chronos in your father's realm, then in turn you toppled Typhon from our mountain's heights. I must admit, I underestimated you when first we met." },
+
 				{ Cue = "/VO/MelinoeField_3172", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I've trained my entire life for this eventuality, Lady Athena. It's what should be expected of me, and besides... our war isn't over yet." },
+
 				{ Cue = "/VO/Athena_0234",
 					PreLineAnim = "Athena_Proud_End",
 					Text = "You trained with Hecate to vanquish Chronos, that I know. But Typhon was never part of your practice routine. Yet I, too, dislike compliments especially when, to your point, our war is not yet won." },
@@ -1831,10 +1880,12 @@ UnitSetData.NPC_Athena =
 
 				{ Cue = "/VO/Athena_0174",
 					Text = "You are a welcome sight, Melinoë, for it has been some nights since last we met upon the battlefield like this. How fares the war beneath the Earth?" },
+
 				{ Cue = "/VO/MelinoeField_2412", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "It rages on. Night after night the Titan's legions regroup, while he asserts that he cannot be stopped. But I am working on disproving that. And what news here?" },
+
 				{ Cue = "/VO/Athena_0175",
 					PreLineAnim = "Athena_Proud_Start",
 					PostLineAnim = "Athena_Proud_End",
@@ -2660,6 +2711,9 @@ UnitSetData.NPC_Athena =
 				},
 				GameStateRequirements =
 				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
 					{
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = { "AthenaGift06", "AthenaAboutTyphonDeath01" }

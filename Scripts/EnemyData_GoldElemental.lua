@@ -115,6 +115,7 @@ UnitSetData.GoldElemental =
 	GoldElemental_MiniBoss =
 	{
 		InheritFrom = { "Elite", "GoldElemental" },
+		RunHistoryKilledByName = "GoldElemental_MiniBoss",
 		MaxHealth = 3100,
 		HealthBuffer = 8250,
 		HealthBarAttachToMarkerName = "GoldElemental_Rig:root_00_M_JNT",

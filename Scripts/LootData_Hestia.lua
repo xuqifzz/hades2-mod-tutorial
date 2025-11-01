@@ -1258,6 +1258,9 @@ LootSetData.Hestia =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ZeusPostTrueEnding03" },
  					},
+ 					{
+ 						PathFalse = { "CurrentRun", "TextLinesRecord", "ZeusPostTrueEnding03" },
+ 					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },

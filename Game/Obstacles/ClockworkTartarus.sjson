@@ -60,6 +60,14 @@
         ]        
       }
     }
+
+    {
+      Name = "ChronosRemainsBroken"
+      InheritFrom = "ChronosRemains"
+      Thing = {
+        Graphic = "ChronosRemainsBroken"
+      }
+    }
     
     {
       Name = "CWTartarusRubble01"

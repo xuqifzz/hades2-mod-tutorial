@@ -278,26 +278,30 @@ UnitSetData.NPC_Chronos =
 					Text = "Damn you, Chronos...!" },
 				EndVoiceLines =
 				{
+					RecheckRequirementsForSubLines = true,
+					RecheckRequirementsPostWait = true,
+					GameStateRequirements =
 					{
+						{
+							PathFalse = { "CurrentRun", "TextLinesRecord", "ChronosRevealFollowUp" },
+						},
+					},
+
+					{ Cue = "/VO/Chronos_0020", Text = "The Fates cannot help you now...",
 						PreLineWait = 0.35,
-						PreLineAnim = "Enemy_Chronos_Shadowed_Greeting",
-						{ Cue = "/VO/Chronos_0020", Text = "The Fates cannot help you now..." },
-					},
-					{
+						PreLineAnim = "Enemy_Chronos_Shadowed_Greeting" },
+
+					{ Cue = "/VO/Chronos_0301", Text = "Time is running out...",
 						PreLineWait = 4,
-						PreLineAnim = "Enemy_Chronos_Shadowed_Greeting",
-						{ Cue = "/VO/Chronos_0301", Text = "Time is running out..." },
-					},
-					{
+						PreLineAnim = "Enemy_Chronos_Shadowed_Greeting" },
+
+					{ Cue = "/VO/Chronos_0333", Text = "Embarrassing.",
 						PreLineWait = 4,
-						PreLineAnim = "Enemy_Chronos_Shadowed_Greeting",
-						{ Cue = "/VO/Chronos_0333", Text = "Embarrassing." },
-					},
-					{
+						PreLineAnim = "Enemy_Chronos_Shadowed_Greeting" },
+
+					{ Cue = "/VO/Chronos_0591", Text = "Then let us wait...",
 						PreLineWait = 5,
-						PreLineAnim = "Enemy_Chronos_Shadowed_Greeting",
-						{ Cue = "/VO/Chronos_0591", Text = "Then let us wait..." },
-					},
+						PreLineAnim = "Enemy_Chronos_Shadowed_Greeting" },
 				},
 			},
 
@@ -1104,6 +1108,9 @@ UnitSetData.NPC_Chronos =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
 						PathTrue = { "GameState", "RoomsEntered", "Q_Intro" },
 					},
 					{
@@ -1137,6 +1144,9 @@ UnitSetData.NPC_Chronos =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
+					{
 						Path = { "PrevRun", "RoomsEntered" },
 						HasAny = { "Q_Boss01", "Q_Boss02" },
 					},
@@ -1166,6 +1176,9 @@ UnitSetData.NPC_Chronos =
 				SkipPreNarrativeUnequip = true,
 				GameStateRequirements =
 				{
+					{
+						PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+					},
 					{
 						PathTrue = { "GameState", "RoomsEntered", "Q_Boss01" },
 					},
@@ -1261,26 +1274,30 @@ UnitSetData.NPC_Chronos =
 					Text = "Damn you, Chronos...!" },
 				EndVoiceLines =
 				{
+					RecheckRequirementsForSubLines = true,
+					RecheckRequirementsPostWait = true,
+					GameStateRequirements =
 					{
+						{
+							PathFalse = { "CurrentRun", "TextLinesRecord", "ChronosRevealFollowUp" },
+						},
+					},
+
+					{ Cue = "/VO/Chronos_0020", Text = "The Fates cannot help you now...",
 						PreLineWait = 0.35,
-						PreLineAnim = "Enemy_Chronos_Shadowed_Greeting",
-						{ Cue = "/VO/Chronos_0020", Text = "The Fates cannot help you now..." },
-					},
-					{
+						PreLineAnim = "Enemy_Chronos_Shadowed_Greeting" },
+
+					{ Cue = "/VO/Chronos_0301", Text = "Time is running out...",
 						PreLineWait = 4,
-						PreLineAnim = "Enemy_Chronos_Shadowed_Greeting",
-						{ Cue = "/VO/Chronos_0301", Text = "Time is running out..." },
-					},
-					{
+						PreLineAnim = "Enemy_Chronos_Shadowed_Greeting" },
+
+					{ Cue = "/VO/Chronos_0333", Text = "Embarrassing.",
 						PreLineWait = 4,
-						PreLineAnim = "Enemy_Chronos_Shadowed_Greeting",
-						{ Cue = "/VO/Chronos_0333", Text = "Embarrassing." },
-					},
-					{
+						PreLineAnim = "Enemy_Chronos_Shadowed_Greeting" },
+
+					{ Cue = "/VO/Chronos_0591", Text = "Then let us wait...",
 						PreLineWait = 5,
-						PreLineAnim = "Enemy_Chronos_Shadowed_Greeting",
-						{ Cue = "/VO/Chronos_0591", Text = "Then let us wait..." },
-					},
+						PreLineAnim = "Enemy_Chronos_Shadowed_Greeting" },
 				},
 			},
 
@@ -1511,7 +1528,8 @@ UnitSetData.NPC_Chronos =
 					{ Name = "MelinoeSaluteSpeech", Time = 4 },
 				},
 
-				{ Cue = "/VO/MelinoeField_0269_B", Text = "Stay where you are." },
+				{ Cue = "/VO/MelinoeField_5149", Text = "This had better work." },
+				-- { Cue = "/VO/MelinoeField_0269_B", Text = "Stay where you are." },
 			},
 		},
 
@@ -1863,7 +1881,6 @@ UnitSetData.NPC_Chronos =
 		InteractTextLineSets =
 		{
 			-- f_postboss events
-			-- alt below
 			NeoChronosAboutErebus01 =
 			{
 				PlayOnce = true,
@@ -1872,17 +1889,13 @@ UnitSetData.NPC_Chronos =
 				GiftableOffSource = true,
 				GameStateRequirements =
 				{
-					{
-						Path = { "GameState", "TextLinesRecord" },
-						HasNone = { "NeoChronosAboutErebus01_B", "ChronosBossFirstMeeting_B" },
-					},
 					NamedRequirements = { "NeoChronosCanSpawnInErebus" },
 				},
 				OnQueuedFunctionName = "NeoChronosNPCSetup",
 				OnQueuedFunctionArgs = { RequiredRoomInteraction = true },
 
-				{ Cue = "/VO/Chronos_1081",
-					Text = "Is it all right if I occasionally meet you thus, Granddaughter? I know our prior conversations here in Erebus were fraught, but I would dearly like to start anew..." },
+				{ Cue = "/VO/Chronos_1480",
+					Text = "Would you permit that we occasionally meet thus, Granddaughter? I realize our prior conversations here in Erebus were fraught... but perhaps we may yet start anew, here in this life." },
 
 				{ Cue = "/VO/MelinoeField_4137", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Proud_01",
@@ -1890,15 +1903,14 @@ UnitSetData.NPC_Chronos =
 					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "I'll have to learn not to attack you here on sight, but let's give it a shot. What is it about this place that's so special?" },
 
-				{ Cue = "/VO/Chronos_1430",
+				{ Cue = "/VO/Chronos_1481",
 					PreLineAnim = "NPC_Chronos_Enlightened_Explaining",
-					Text = "Well it is rather sentimental, but... this was where you and I first met. In our time. Now that my memories are all mixed up, it is a moment which I realize I cherish. For I had already heard so much about you. Seen you grow up..." },
+					Text = "Well I know how to find it, for one! And you tend to pass through it, for two! At any rate, you now have seen the real possibilities that linger on Olympus and below. Let us eliminate the ones that would have led to ruin." },
 
-				{ Cue = "/VO/MelinoeField_5070", UsePlayerSource = true,
-					Portrait = "Portrait_Mel_Empathetic_01",
+				{ Cue = "/VO/MelinoeField_5181", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
-					Text = "It must feel strange to have known of me before I was even born. In any case, I'll see you when I'm closer to our goal." },
+					Text = "I do like preventing ruin. You'll be closely watched by Olympus and the Underworld every step of the way. Don't squander the chance you've been given." },
 
 				EndVoiceLines =
 				{
@@ -1907,58 +1919,7 @@ UnitSetData.NPC_Chronos =
 						ObjectType = "NPC_Chronos_02",
 						PostLineFunctionName = "ChronosExit",
 						PostLineFunctionArgs = { WaitTime = 3 },
-						{ Cue = "/VO/Chronos_1084", Text = "I shall be looking forward to it." },
-					},
-				},
-				-- EndGlobalVoiceLines = "MiscEndVoiceLines_Chronos",
-			},
-			NeoChronosAboutErebus01_B =
-			{
-				PlayOnce = true,
-				RoomUseableOffSource = true,
-				InitialGiftableOffSource = true,
-				GiftableOffSource = true,
-				GameStateRequirements =
-				{
-					{
-						Path = { "GameState", "TextLinesRecord" },
-						HasNone = { "NeoChronosAboutErebus01" },
-					},
-					{
-						PathTrue = { "GameState", "TextLinesRecord", "ChronosBossFirstMeeting_B" },
-					},
-					NamedRequirements = { "NeoChronosCanSpawnInErebus" },
-				},
-				OnQueuedFunctionName = "NeoChronosNPCSetup",
-				OnQueuedFunctionArgs = { RequiredRoomInteraction = true },
-
-				{ Cue = "/VO/Chronos_1081",
-					Text = "Is it all right if I occasionally meet you thus, Granddaughter? I know our prior conversations here in Erebus were fraught, but I would dearly like to start anew..." },
-
-				{ Cue = "/VO/MelinoeField_4137", UsePlayerSource = true,
-					Portrait = "Portrait_Mel_Proud_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
-					Text = "I'll have to learn not to attack you here on sight, but let's give it a shot. What is it about this place that's so special?" },
-
-				{ Cue = "/VO/Chronos_1431",
-					PreLineAnim = "NPC_Chronos_Enlightened_Explaining",
-					Text = "Well it is rather sentimental, but... this was where I first attempted to find you, in our time. Now that my memories are all mixed up, it is a moment which I realize I cherish. I had heard so much about you. Seen you grow..." },
-
-				{ Cue = "/VO/MelinoeField_5070", UsePlayerSource = true,
-					Portrait = "Portrait_Mel_Empathetic_01",
-					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
-					Text = "It must feel strange to have known of me before I was even born. In any case, I'll see you when I'm closer to our goal." },
-
-				EndVoiceLines =
-				{
-					{
-						PreLineWait = 0.37,
-						ObjectType = "NPC_Chronos_02",
-						PostLineFunctionName = "ChronosExit",
-						PostLineFunctionArgs = { WaitTime = 3 },
-						{ Cue = "/VO/Chronos_1084", Text = "I shall be looking forward to it." },
+						{ Cue = "/VO/Chronos_1482", Text = "I keep telling myself the same!" },
 					},
 				},
 				-- EndGlobalVoiceLines = "MiscEndVoiceLines_Chronos",
@@ -2141,7 +2102,7 @@ UnitSetData.NPC_Chronos =
 				{ Cue = "/VO/MelinoeField_5030", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
-					Text = "I see, and I won't press you on it, but... this may be strange to ask, though did you and Typhon know each other well? " },
+					Text = "I see, and I won't press you on it, but... this may be strange to ask, though did you and Typhon know each other well?" },
 
 				{ Cue = "/VO/Chronos_1388",
 					PreLineAnim = "NPC_Chronos_Enlightened_Explaining",
@@ -2215,6 +2176,58 @@ UnitSetData.NPC_Chronos =
 				},
 				-- EndGlobalVoiceLines = "MiscEndVoiceLines_Chronos",
 			},
+
+			NeoChronosAboutGoldenAge01 =
+			{
+				PlayOnce = true,
+				RoomUseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "DoraBathHouse03" },
+					},
+					{
+						SumPrevRuns = 2,
+						Path = { "BiomesReached", "P" },
+						CountPathTrue = true,
+						Comparison = ">=",
+						Value = 1,
+					},
+					NamedRequirements = { "NeoChronosCanSpawnInErebus" },
+				},
+				OnQueuedFunctionName = "NeoChronosNPCSetup",
+				OnQueuedFunctionArgs = { RequiredRoomInteraction = true },
+
+				{ Cue = "/VO/MelinoeField_5182", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					Text = "For what it's worth, Grandfather... I think the bitter war you waged against Olympus may have been eye-opening for some of our relatives, at least. They may be gods... but they know they're not perfect." },
+
+				{ Cue = "/VO/Chronos_1483",
+					-- PreLineAnim = "NPC_Chronos_Enlightened_Greet",
+					PreLineAnim = "NPC_Chronos_Enlightened_Explaining",
+					Text = "Well... perfection, to my knowledge, cannot be achieved! Merely striven for. My children could be obstinate about their weaknesses, but most likely they inherited that trait from {#Emph}me." },
+
+				{ Cue = "/VO/MelinoeField_5183", UsePlayerSource = true,
+					-- Portrait = "Portrait_Mel_Hesitant_01",
+					PreLineAnim = "MelTalkPensive01ReturnToIdle", PreLineAnimTarget = "Hero",
+					Text = "Even still... with the war finally ended, there's much to be done on the surface as well as here. I'm realizing that our renovation effort in the Underworld to some extent is worldwide." },
+
+				{ Cue = "/VO/Chronos_1484",
+					PostLineThreadedFunctionName = "ChronosExit",
+					PostLineFunctionArgs = { WaitTime = 3.3 },
+
+					Text = "When you get to be my age, you may yet wistfully recall the way the world used to be. It is a curse of growing old, perhaps! May our family yet guide this world into more-prosperous times." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						{ Cue = "/VO/MelinoeField_5184", Text = "May that be so." },
+					},
+				},
+			},
+
 
 			NeoChronosAboutChronos01 =
 			{
@@ -2560,7 +2573,7 @@ UnitSetData.NPC_Chronos =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "NeoChronosGift03" },
+						PathTrue = { "GameState", "TextLinesRecord", "NeoChronosGift01" },
 					},
 				},
 				OnQueuedFunctionName = "NeoChronosNPCSetup",
@@ -2906,12 +2919,13 @@ UnitSetData.NPC_Chronos =
 			},
 
 			-- partner conversations
-			PersephoneTrueEnding01 =
+			HadesTrueEnding01 =
 			{
-				Partner = "NPC_Persephone_01",
+				Partner = "NPC_Hades_02",
 				PlayOnce = true,
 				UseableOffSource = true,
 				StatusAnimation = false,
+				UseText = "UseListenNPC",
 			},
 			ZeusPalacePostTrueEnding01 =
 			{
@@ -2948,7 +2962,7 @@ UnitSetData.NPC_Chronos =
 					PreLineAnim = "NPC_Chronos_Enlightened_Explaining",
 					PostLineThreadedFunctionName = "ChronosExit",
 					PostLineThreadedFunctionArgs = { WaitTime = 6.0, FromGiftEvent = true },
-					Text = "{#Emph}Oh{#Prev}, what a precious bottle, thank you, Granddaughter! Nectar from Olympus... but, it does look rather good. The custom now is to provide some sort of gift in kind, is that not so? Then here, if you please." },
+					Text = "{#Emph}Oh{#Prev}, what a precious bottle, thank you, Granddaughter! Nectar from Olympus... but, it does look rather good. The custom still is to provide some sort of gift in kind, is that not so? Then here, if you please." },
 			},
 			NeoChronosGift02 =
 			{
@@ -2999,7 +3013,7 @@ UnitSetData.NPC_Chronos =
 				},
 				{ Cue = "/VO/Chronos_1286",
 					PreLineAnim = "NPC_Chronos_Enlightened_Explaining",
-					Text = "This bottle's golden hue... I cannot imagine a more beauteous color, truly. I did not realize Olympus delighted in gold the way I do. Although you seem to prefer silver, Granddaughter..." },
+					Text = "This bottle's golden hue... I cannot imagine a more beauteous color, truly. In this life, I did not realize Olympus delighted in gold the way I do. Although you seem to prefer silver, Granddaughter..." },
 
 				{ Cue = "/VO/MelinoeField_4366", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Proud_01",
@@ -3136,6 +3150,9 @@ GlobalVoiceLines.ChronosLaunchVoiceLines =
 					Comparison = ">=",
 					Value = 4,
 				},
+				{
+					PathTrue = { "GameState", "TextLinesRecord", "TyphonBossAltFight01" },
+				},
 			},
 		},
 		{ Cue = "/VO/Chronos_1336", Text = "Time to go.",
@@ -3195,9 +3212,14 @@ GlobalVoiceLines.ChronosGoldifyVoiceLines =
 {
 	{
 		RandomRemaining = true,
-		BreakIfPlayed = true,
 		PreLineWait = 0.25,
 		Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "ReachedTrueEnding" }
+			},
+		},
 		Cooldowns =
 		{
 			{ Name = "RewardGoldifiedSpeech", Time = 30 },
@@ -3405,6 +3427,25 @@ GlobalVoiceLines.ChronosGoldifyVoiceLines =
 				},
 			},
 		},
+	},
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.45,
+		ObjectType = "NPC_Nyx_Story_01",
+		PreLineAnim = "Nyx_Greeting",
+		-- SkipCooldownCheckIfNonePlayed = true,
+		Cooldowns =
+		{
+			{ Name = "NyxSpokeRecently", Time = 6 },
+		},
+
+		{ Cue = "/VO/Nyx_0151", Text = "Oh..." },
+		{ Cue = "/VO/Nyx_0152", Text = "Odd..." },
+		{ Cue = "/VO/Nyx_0153", Text = "Unusual..." },
+		{ Cue = "/VO/Nyx_0154", Text = "Creation..." },
+		{ Cue = "/VO/Nyx_0155", Text = "Chaos...?", PlayFirst = true },
+		{ Cue = "/VO/Nyx_0156", Text = "{#Emph}Hmm..." },
 	},
 }
 
@@ -3982,7 +4023,7 @@ GlobalVoiceLines.ChronosAlertVoiceLines =
 					PathTrue = { "GameState", "SpeechRecord", "/VO/Intercom_7352" }
 				},
 				{
-					SumPrevRuns = 4,
+					SumPrevRuns = 6,
 					IgnoreCurrentRun = true,
 					Path = { "RoomsEntered", "I_Intro" },
 					Comparison = "==",

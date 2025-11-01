@@ -223,6 +223,7 @@ WeaponSetData =
 
 			NoProjectile = true,
 			MoveWithinRange = false,
+			TargetSelf = true,
 
 			PreAttackAlpha = 0,
 			PreAttackDurationMin = 0.8,

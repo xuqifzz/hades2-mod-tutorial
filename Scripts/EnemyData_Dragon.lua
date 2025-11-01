@@ -145,6 +145,7 @@ UnitSetData.Dragon =
 	Dragon_MiniBoss =
 	{
 		InheritFrom = { "Elite", "Dragon" },
+		RunHistoryKilledByName = "Dragon_MiniBoss",
 		MaxHealth = 3850,
 		HealthBuffer = 10150,
 		HealthBarAttachToMarkerName = "head_fxMarker_00_M_JNT",

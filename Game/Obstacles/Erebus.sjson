@@ -251,16 +251,15 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Erebus\Erebus_PostbossDoor_01"
+        DrawEmbeddedBehind = true
         Tallness = 1052
         Offset = { X = 0 Y = -386 }
         Points = [
-          { X = 278 Y = 158 }
-          { X = 78 Y = 205 }
-          { X = -137 Y = 149 }
-          { X = -161 Y = 53 }
-          { X = -57 Y = -60 }
-          { X = 203 Y = -83 }
-          { X = 362 Y = 40 }
+          { X = 386 Y = 73 }
+          { X = 69 Y = 210 }
+          { X = -192 Y = 93 }
+          { X = -37 Y = 11 }
+          { X = 266 Y = 6 }
         ]
       }
     }

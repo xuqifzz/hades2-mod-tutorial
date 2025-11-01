@@ -52,6 +52,11 @@ OverwriteTableKeys( TraitData, {
 						[2] = -1,
 					},
 				},
+				MultihitProjectileWhitelist = 
+				{
+					"ProjectileStaffSingle",
+					"ProjectileStaffWall",
+				},
 				BlastDelay = 0.08,
 				DamageMultiplier = 2.0,
 				ReportValues = 
@@ -73,6 +78,7 @@ OverwriteTableKeys( TraitData, {
 				Key = "ReportedCooldown",
 				ExtractAs = "Cooldown",
 				Format = "SpeedModifiedDuration",
+				DecimalPlaces = 1,
 			},
 			{
 				Key = "ReportedMultiplier",
@@ -880,6 +886,7 @@ OverwriteTableKeys( TraitData, {
 					Key = "ReportedCooldown",
 					ExtractAs = "Cooldown",
 					Format = "SpeedModifiedDuration",
+				DecimalPlaces = 1,
 			},
 			{
 				Key = "ReportedMultiplier",
@@ -1111,7 +1118,15 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponLobSpecial",
 				ProjectileName = "ProjectileLobGunRift",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "LobProjectile_Hephaestus",
+				ChangeValue = "LobProjectileHel_Hephaestus",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "LobGunAspect",
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileLobSpecialBounce",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobProjectileHel_Hephaestus",
 				ChangeType = "Absolute",
 			},
 			{
@@ -1354,15 +1369,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.4,
+				Multiplier = 70/60,
 			},
 			Epic =
 			{
-				Multiplier = 1.6,
+				Multiplier = 80/60,
 			},
 			Heroic =
 			{
-				Multiplier = 1.8,
+				Multiplier = 90/60,
 			},
 		},
 		WeaponDataOverride =
@@ -1399,12 +1414,13 @@ OverwriteTableKeys( TraitData, {
 				DamageMultiplier = 
 				{
 					BaseValue = 1,
+					DecimalPlaces = 3,
 					AbsoluteStackValues = 
 					{
-						[1] = 20/50,
-						[2] = 15/50,
-						[3] = 10/50,
-						[4] = 5/50,
+						[1] = 20/60,
+						[2] = 15/60,
+						[3] = 10/60,
+						[4] = 5/60,
 					},
 				},
 				ReportValues = 

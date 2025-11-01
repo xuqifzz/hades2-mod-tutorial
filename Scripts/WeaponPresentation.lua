@@ -11,6 +11,7 @@ function WeaponChargeStageStartPresentation( triggerArgs, weaponData, args, stag
 		SetAnimation({ Name = stageData.AnimOnStart, DestinationId = CurrentRun.Hero.ObjectId } )
 	end
 	if (args.ResetIndicator or stageData.ResetIndicator ) and MapState.ManaChargeIndicatorIds and MapState.ManaChargeIndicatorIds.BackingId then
+		MapState.ShowManaChargeIndicator = true
 		SetManaIndicatorAllowed( weaponData.Name )
 		SetAnimationFrameTarget({ Name = ManaIndicatorPresentation.Hold.Fill, DestinationId = MapState.ManaChargeIndicatorIds.BackingId, Fraction = 0, Instant = true })
 		SetAnimation({ Name = ManaIndicatorPresentation.Hold.Fill, DestinationId = MapState.ManaChargeIndicatorIds.BackingId , PlaySpeed = 1 / ( stageData.Wait * GetLuaWeaponSpeedMultiplier( weaponData.Name )), Scale = 1.0, OffsetY = -50 })

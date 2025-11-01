@@ -88,6 +88,7 @@ UnitSetData.Octofish =
 	Octofish_Miniboss =
 	{
 		InheritFrom = { "Elite", "Octofish" },
+		RunHistoryKilledByName = "Octofish_Miniboss",
 		MaxHealth = 500,
 		HealthBuffer = 3000,
 		HealthBarAttachToMarkerName = "head_fxMarker_00_M_JNT",

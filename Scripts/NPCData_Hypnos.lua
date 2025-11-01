@@ -222,13 +222,6 @@ UnitSetData.NPC_Hypnos =
 					{
 						PathTrue = { "GameState", "ReachedTrueEnding" }
 					},
-					{
-						SumPrevRuns = 8,
-						Path = { "TextLinesRecord", "TrueEndingFinale01" },
-						CountPathTrue = true,
-						Comparison = ">=",
-						Value = 1,
-					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.Sleeping,
@@ -241,6 +234,71 @@ UnitSetData.NPC_Hypnos =
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Your mother and the rest are safe, Lord Hypnos! They'll surely be expecting your return, and presumed you'd wake after all this, but... you're still sound asleep. Well don't worry... I made you a promise, and I intend to keep it." },
+			},
+			HypnosPostTrueEnding02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "AchillesTrueEnding01" }
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.Sleeping,
+
+				{ Cue = "/VO/Hypnos_0007_C",
+					Text = "{#Emph}Zzzz... zzz... zzzz..." },
+
+				{ Cue = "/VO/Melinoe_5747", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "My memories of you from that potential past I experienced in the House of Hades... you were... so {#Emph}different{#Prev}, Lord Hypnos. Who {#Emph}are {#Prev}you, truly...? How can I finally get through to you...?" },
+			},
+
+			HypnosAboutStoryReset01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "StoryResetCount" },
+						Comparison = ">=",
+						Value = 1,
+					},
+					{
+						SumPrevRuns = 4,
+						Path = { "UsedStoryReset" },
+						IgnoreCurrentRun = true,
+						CountPathTrue = true,
+						Comparison = ">=",
+						Value = 1,
+					},
+					{
+						PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeWakeHypnos" }
+					},
+					{
+						-- has hypnos ever woken up?
+						PathTrue = { "GameState", "AchievementsUnlocked", "AchHelpHypnos" },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.Sleeping,
+
+				{ Cue = "/VO/Hypnos_0006_B",
+					Text = "{#Emph}Zzzzz, zzzzz{#Prev}..." },
+
+				{ Cue = "/VO/Melinoe_5778", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Lord Hypnos, for a moment, I thought... I almost forgot you were still here, as though... I dreamt you had already woken up...? {#Emph}Augh{#Prev}, it's nonsense. I must be weary." },
 			},
 
 			HypnosHideAndSeek01 =

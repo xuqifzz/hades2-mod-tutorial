@@ -872,8 +872,8 @@ GlobalVoiceLines.AcquireMixerForCirceQuestVoiceLines =
 	},
 	TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
 
-	{ Cue = "/VO/MelinoeField_4335", Text = "Circe wanted me to curse one of these Pearls..." },
-	{ Cue = "/VO/MelinoeField_4336", Text = "{#Emph}May your ambitions... {#Prev}no. I mustn't...", PreLineWait = 0.65, BreakIfPlayed = true },
+	{ Cue = "/VO/MelinoeField_4335", Text = "Circe wanted me to curse one of these Pearls...", IgnoreMute = true, },
+	{ Cue = "/VO/MelinoeField_4336", Text = "{#Emph}May your ambitions... {#Prev}no. I mustn't...", PreLineWait = 0.65, IgnoreMute = true, BreakIfPlayed = true },
 }
 
 function UseScyllaPearl( usee, args, user )

@@ -226,7 +226,7 @@ function ApplyUnitPropertyChange( unit, propertyChange, applyLuaUpgrades, revers
 
 	if propertyChange.WeaponNames ~= nil then
 		for k, weaponName in pairs( propertyChange.WeaponNames ) do
-			if MapState.EquippedWeapons[propertyChange.WeaponName] then
+			if MapState.EquippedWeapons[weaponName] then	
 				ApplyWeaponPropertyChange( unit, weaponName, propertyChange, reverse, skipWeaponUpdates )
 			end
 		end

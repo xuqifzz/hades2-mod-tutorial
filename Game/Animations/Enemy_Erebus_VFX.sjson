@@ -4722,7 +4722,8 @@
 		CreateAnimations =
 		[
 			{ Name = "HecateSlowFlameFlare" }
-			//{ Name = "HecateSlowFlameInFlip_Add" }
+			{ Name = "HecateSlowFlameInFlip_Add" }
+			{ Name = "HecateSlowFlameDisplacement" }
 		]
 	}
 

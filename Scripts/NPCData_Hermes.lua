@@ -551,6 +551,9 @@ UnitSetData.NPC_Hermes =
 				GameStateRequirements =
 				{
 					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsAny = { "Q_PreBoss01" },
 					},
@@ -583,7 +586,7 @@ UnitSetData.NPC_Hermes =
 
 				{ Cue = "/VO/MelinoeField_4225", UsePlayerSource = true,
 					PreLineWait = 0.35,
-					Portrait = "Portrait_Mel_Hesitant_01",
+					-- Portrait = "Portrait_Mel_Hesitant_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "My impression is that may take a while. Father is meticulous about taking stock of everything that's changed, and doesn't want to rush into reopening till everything is prepared." },

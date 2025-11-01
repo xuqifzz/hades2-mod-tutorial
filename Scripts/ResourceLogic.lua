@@ -567,6 +567,9 @@ function InventoryScreenDisplayCategory( screen, categoryIndex, args )
 								X = resourceLocation.X + screen.SeedPinIconOffsetX,
 								Y = resourceLocation.Y + screen.SeedPinIconOffsetY,
 								Animation = pinAnimation,
+								Alpha = 0.0,
+								AlphaTarget = 1.0,
+								AlphaTargetDuration = 0.2,
 							})
 							components[resourceName.."PinIcon"] = button.PinIcon
 						end

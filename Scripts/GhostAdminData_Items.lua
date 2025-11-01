@@ -107,6 +107,7 @@ ScreenData.GhostAdmin.ItemCategories =
 		"WorldUpgradeMusicPlayerShuffle",
 		"WorldUpgradeRunHistory",
 		"WorldUpgradeGameStats",
+		"WorldUpgradeStoryReset",
 		"WorldUpgradeErisTrashPickup",
 	},		
 	{
@@ -121,7 +122,7 @@ ScreenData.GhostAdmin.ItemCategories =
 				FunctionArgs =
 				{
 					CategoryIndex = 1,
-					HasNone = { "WorldUpgradeStormStop", "WorldUpgradeTimeStop" },
+					HasNone = { "WorldUpgradeTimeStop" },
 				},
 			},
 		},

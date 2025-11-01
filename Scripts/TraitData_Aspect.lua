@@ -1094,7 +1094,7 @@
 		},
 		OnWeaponFiredFunctions = 
 		{
-			ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,
+			ValidWeapons = CombineTables( WeaponSets.HeroPrimarySecondaryWeapons, {"WeaponTransformAttack","WeaponTransformSpecial", } ),
 			FunctionName = "CheckDaggerCritCharges",
 		},
 		WeaponSpeedMultiplier = 
@@ -4338,7 +4338,6 @@
 					ChargeTime = 0.15,
 					ChargeStartAnimation = "Melinoe_Axe_Nergal_Special_Start",
 					FireGraphic = "Melinoe_Axe_Nergal_Special_Fire",
-					ChargeCancelGraphic = "Melinoe_Axe_Nergal_Special_End",
 					FireFx = "null",
 
 					RootOwnerWhileFiring = false,
@@ -5314,6 +5313,7 @@
 					ClipSize = 1,
 					ChargeTime = 0.1,
 					ClipRegenInterval = 0.4,
+					AcceptTriggerLockRequests = true,
 				},
 				ExcludeLinked = true,
 			},

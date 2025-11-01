@@ -463,17 +463,19 @@ function HeroLowHealthBarPulseThread()
 	end
 	SessionMapState.LowHealthBarPulsing = true
 	local healthBackId = HUDScreen.Components.HealthBack.Id
+	local firstPulse = false
 	while not IsHealthHidden() and SessionMapState.LowHealthPresentation and not CurrentRun.Hero.IsDead do
-		if ShowingCombatUI then
+		if ShowingCombatUI and (ConfigOptionCache.LowHealthPulse or not firstPulse) then
 			CreateAnimation({ Name = "HealthBarLowPulseA", DestinationId = healthBackId, GroupName = "Combat_UI_Additive" })
 			ModifyTextBox({ Id = healthBackId, ColorTarget = Color.Red, ColorDuration = 0.5 })
 			PulseText({ Id = healthBackId, ScaleTarget = 1.25, ScaleDuration = 0.1, HoldDuration = 0.0, PulseBias = 0.02 })
 		end
 		wait( 0.15, RoomThreadName )
-		if ShowingCombatUI then
+		if ShowingCombatUI and (ConfigOptionCache.LowHealthPulse or not firstPulse) then
 			CreateAnimation({ Name = "HealthBarLowPulseB", DestinationId = healthBackId, GroupName = "Combat_Menu_Overlay" })
 			PulseText({ Id = healthBackId, ScaleTarget = 1.15, ScaleDuration = 0.15, HoldDuration = 0.05, PulseBias = 0.3 })
 		end
+		firstPulse = true
 		wait( 1.5, RoomThreadName )
 	end
 	ModifyTextBox({ Id = healthBackId, ColorTarget = Color.White, ColorDuration = 0.5 })
@@ -523,7 +525,7 @@ function HeroLowHealthShroudPulseThread()
 	end
 	SessionMapState.LowHealthShouldPulsing = true
 	while not IsHealthHidden() and SessionMapState.LowHealthPresentation and not CurrentRun.Hero.IsDead and not ConfigOptionCache.EditingMode do
-		if CurrentRun.CurrentRoom.Encounter and ( not CurrentRun.CurrentRoom.Encounter.Completed or ( CurrentRun.CurrentRoom.ChallengeEncounter ~= nil and CurrentRun.CurrentRoom.ChallengeEncounter.InProgress )) then
+		if ConfigOptionCache.LowHealthPulse and (CurrentRun.CurrentRoom.Encounter and ( not CurrentRun.CurrentRoom.Encounter.Completed or ( CurrentRun.CurrentRoom.ChallengeEncounter ~= nil and CurrentRun.CurrentRoom.ChallengeEncounter.InProgress )) ) then
 			CreateHealthShroud()
 		else
 			DestroyHealthShroud()
@@ -3115,11 +3117,17 @@ function OverheatStartPresentation( triggerArgs )
 end
 
 function PerfectDamageBoonRenewed()
+	if CurrentRun.CurrentRoom.Encounter and CurrentRun.CurrentRoom.Encounter.BossKillPresentation then
+		return
+	end
 	PlaySound({ Name = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastStartup", Id = CurrentRun.Hero.ObjectId})
 	thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "PerfectDamageBonusBoon_Triggered", Duration = 1.45, PreDelay = 0.1, LuaKey = "TempTextData", LuaValue = { TimeLeft = threshold } } )
 end
 
 function PerfectDamageBoonExpire()
+	if CurrentRun.CurrentRoom.Encounter and CurrentRun.CurrentRoom.Encounter.BossKillPresentation then
+		return
+	end
 	PlaySound({ Name = "/SFX/WrathOver", Id = CurrentRun.Hero.ObjectId })
 	thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "PerfectDamageBonusBoon_Expired", Duration = 1.45, PreDelay = 0.1, LuaKey = "TempTextData", LuaValue = { TimeLeft = threshold } } )
 end
@@ -3749,12 +3757,25 @@ function FatedValidityStatePresentation( delay )
 	wait( delay )
 	local offsetY = -100
 	if PreRunIsFateValid() then
-		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "NoRerollEffectActivated", ShadowScaleX = 1.5, SkipRise = false, SkipFlash = false, Duration = 1.5, OffsetY = offsetY, LuaKey = "TempTextData", LuaValue = { Name = "LowHealthBuffMetaUpgrade" }})	
+		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "NoRerollEffectActivated", ShadowScaleX = 1.5, SkipRise = false, SkipFlash = false, Duration = 1.5, OffsetY = offsetY })	
 		PlaySound({ Name = "/Leftovers/SFX/PlayerMovementPower", Id = CurrentRun.Hero.ObjectId })
 	else
-		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "NoRerollEffectDeactivated", ShadowScaleX = 1.5, SkipRise = false, SkipFlash = false, Duration = 1.5, OffsetY = offsetY, LuaKey = "TempTextData", LuaValue = { Name = "LowHealthBuffMetaUpgrade" }})	
+		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "NoRerollEffectDeactivated", ShadowScaleX = 1.5, SkipRise = false, SkipFlash = false, Duration = 1.5, OffsetY = offsetY })	
 		PlaySound({ Name = "/SFX/WrathOver", Id = CurrentRun.Hero.ObjectId })
 	end
+end
+function InRunFateDisabledPresentation( delay )
+	wait( delay )
+	local offsetY = -100
+	thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "NoRerollEffectDeactivated", ShadowScaleX = 1.5, SkipRise = false, SkipFlash = false, Duration = 1.5, OffsetY = offsetY })	
+	PlaySound({ Name = "/SFX/WrathOver", Id = CurrentRun.Hero.ObjectId })
+end
+
+function InRunHadesBoonRemoved( traitName, delay )
+	wait( delay )
+	local offsetY = -100
+	thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "HadesBoonRemoved", ShadowScaleX = 1.5, SkipRise = false, SkipFlash = false, Duration = 1.5, OffsetY = offsetY, LuaKey = "TempTextData", LuaValue = { Name = traitName }})	
+	PlaySound({ Name = "/SFX/WrathOver", Id = CurrentRun.Hero.ObjectId })
 end
 
 function BankPayoutPresentation( amount, delay ) 

@@ -2141,6 +2141,7 @@
 						PathTrue = { "PrevRun", "UseRecord", "NPC_Chronos_01", },
 					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
+					NamedRequirementsFalse = { "HecateMissing" },
 				},
 				InteractTextLineSets =
 				{
@@ -2319,6 +2320,7 @@
 				SetupGameStateRequirements =
 				{
 					NamedRequirements = { "NoRecentInspectPointUsed" },
+					NamedRequirementsFalse = { "HecateMissing" },
 				},
 				InteractTextLineSets =
 				{
@@ -2346,6 +2348,7 @@
 						PathTrue = { "GameState", "TextLinesRecord", "Inspect_F_Boss02_01" }
 					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
+					NamedRequirementsFalse = { "HecateMissing" },
 				},
 				InteractTextLineSets =
 				{
@@ -2811,6 +2814,22 @@
 		FishingPointChance = 0.18,
 
 		IgnoreHarvestBiomeSpawnLimit = true,
+
+		ConditionalSubIcon = "RoomRewardSubIcon_FatedList",
+		ConditionalSubIconRequirements =
+		{
+			{
+				PathFalse = { "GameState", "FamiliarsUnlocked", "RavenFamiliar" },
+			},
+			{
+				Path = { "GameState", "RoomsEntered", "F_Reprieve01" },
+				Comparison = ">",
+				Value = 1,
+			},
+			{
+				PathFalse = { "CurrentRun", "ActiveBounty" },
+			},
+		},
 
 		StartThreadedEvents =
 		{

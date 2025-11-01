@@ -435,7 +435,7 @@ TraitSetData.Chaos =
 		{
 			{
 				Key = "ReportedWeaponMultiplier",
-				ExtractAs = "TooltipSpeed",
+				ExtractAs = "TooltipWeaponSpeed",
 				Format = "NegativePercentDelta"
 			},
 		}
@@ -591,7 +591,7 @@ TraitSetData.Chaos =
 		{
 			{
 				Key = "ReportedBaseSpeed",
-				ExtractAs = "TooltipSpeed",
+				ExtractAs = "TooltipSpeedBonus",
 				Format = "PercentDelta",
 			},
 		}
@@ -784,7 +784,7 @@ TraitSetData.Chaos =
 		{
 			{
 				Key = "ReportedHealthCurse",
-				Format = "MaxHealth",
+				Format = "MaxHealthIgnoreCap",
 				ExtractAs = "TooltipHealthCurse",
 				SkipAutoExtract = true,
 			},
@@ -962,7 +962,7 @@ TraitSetData.Chaos =
 		{
 			{
 				Key = "ReportedBaseSpeed",
-				ExtractAs = "TooltipSpeed",
+				ExtractAs = "TooltipSpeedPenalty",
 				Format = "NegativePercentDelta",
 			},
 		}
@@ -1006,6 +1006,10 @@ TraitSetData.Chaos =
 		Icon = "Boon_Chaos_36",
 		RemainingUses = { BaseMin = 2, BaseMax = 3, AsInt = true },
 		ForceCommon = true,
+		OnExpire = 
+		{
+			RecheckBoons = true
+		},
 		ExtractValues =
 		{
 			{

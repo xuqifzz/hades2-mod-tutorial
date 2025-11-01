@@ -822,11 +822,16 @@ function PolecatFamiliarGuardPresentation( familiar, args )
 
 	waitUnmodified( 0.06, familiar.AIThreadName )
 
-	GameplaySetElapsedTimeMultiplier( { ElapsedTimeMultiplier = 0.01, Name = "PolecatTimeSlow", ApplyToPlayerUnits = true, SkipPresentation = true, Ignore = familiar } )
-
 	PlaySound({ Name = "/Leftovers/SFX/MidAirCollision", Id = CurrentRun.Hero.ObjectId })
 	CreateAnimation({ Name = "QuickFlashInvincible", DestinationId = familiar.ObjectId, OffsetY = -200 })
 	thread( InCombatText, familiar.ObjectId, "BlockHit", 0.4, { SkipShadow = true } )
+
+	-- handle edge case where GuardEnd is called during the waitUnmodified above
+	if not familiar.Guarding then
+		return
+	end
+
+	GameplaySetElapsedTimeMultiplier( { ElapsedTimeMultiplier = 0.01, Name = "PolecatTimeSlow", ApplyToPlayerUnits = true, SkipPresentation = true, Ignore = familiar } )
 
 	waitUnmodified( 0.3, familiar.AIThreadName )
 	PlaySound({ DestinationId = familiar.ObjectId, Name = "/SFX/Familiars/PolecatAngry" })
@@ -843,6 +848,7 @@ function PolecatFamiliarGuardEndPresentation( familiar, args )
 
 	GameplaySetElapsedTimeMultiplier( { ElapsedTimeMultiplier = 0.01, Reverse = true, Name = "PolecatTimeSlow", ApplyToPlayerUnits = true, Ignore = familiar } )
 	RemoveFromGroup({ Id = familiar.ObjectId, Names = { "Combat_Menu" } })
+	SetScale({ Id = familiar.ObjectId, Fraction = 1.0, Duration = 0.1 })
 
 	AddToGroup({ Id = familiar.ObjectId, Name = "Standing", DrawGroup = true })
 

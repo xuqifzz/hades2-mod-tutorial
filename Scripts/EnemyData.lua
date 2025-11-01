@@ -743,6 +743,7 @@ UnitSetData.Enemies =
 	ZeusUpgradeRoomWeapon =
 	{
 		InheritFrom = { "PassiveRoomWeapon" },
+		RunHistoryKilledByName = "ZeusUpgrade",
 
 		DefaultAIData =
 		{
@@ -758,6 +759,7 @@ UnitSetData.Enemies =
 	PoseidonUpgradeRoomWeapon =
 	{
 		InheritFrom = { "PassiveRoomWeapon" },
+		RunHistoryKilledByName = "PoseidonUpgrade",
 
 		DefaultAIData =
 		{
@@ -773,6 +775,7 @@ UnitSetData.Enemies =
 	HestiaUpgradeRoomWeapon =
 	{
 		InheritFrom = { "PassiveRoomWeapon" },
+		RunHistoryKilledByName = "HestiaUpgrade",
 
 		DefaultAIData =
 		{
@@ -788,6 +791,7 @@ UnitSetData.Enemies =
 	ApolloUpgradeRoomWeapon =
 	{
 		InheritFrom = { "PassiveRoomWeapon" },
+		RunHistoryKilledByName = "ApolloUpgrade",
 
 		DefaultAIData =
 		{
@@ -803,6 +807,7 @@ UnitSetData.Enemies =
 	HeraUpgradeRoomWeapon =
 	{
 		InheritFrom = { "PassiveRoomWeapon" },
+		RunHistoryKilledByName = "HeraUpgrade",
 
 		DefaultAIData =
 		{
@@ -818,6 +823,7 @@ UnitSetData.Enemies =
 	DemeterUpgradeRoomWeapon =
 	{
 		InheritFrom = { "PassiveRoomWeapon" },
+		RunHistoryKilledByName = "DemeterUpgrade",
 
 		DefaultAIData =
 		{
@@ -833,6 +839,7 @@ UnitSetData.Enemies =
 	AphroditeUpgradeRoomWeapon =
 	{
 		InheritFrom = { "PassiveRoomWeapon" },
+		RunHistoryKilledByName = "AphroditeUpgrade",
 
 		DefaultAIData =
 		{
@@ -848,6 +855,7 @@ UnitSetData.Enemies =
 	HephaestusUpgradeRoomWeapon =
 	{
 		InheritFrom = { "PassiveRoomWeapon" },
+		RunHistoryKilledByName = "HephaestusUpgrade",
 
 		DefaultAIData =
 		{
@@ -863,6 +871,7 @@ UnitSetData.Enemies =
 	AresUpgradeRoomWeapon =
 	{
 		InheritFrom = { "PassiveRoomWeapon" },
+		RunHistoryKilledByName = "AresUpgrade",
 
 		DefaultAIData =
 		{

@@ -4,6 +4,7 @@ UnitSetData.Jellyfish =
 	Jellyfish =
 	{
 		InheritFrom = { "OceanusUnitData", "BaseVulnerableEnemy" },
+		RunHistoryKilledByName = "Octofish_Miniboss",
 
 		ActivateAnimation = "Enemy_Jellyfish_Spawn",
 
@@ -80,6 +81,7 @@ UnitSetData.Jellyfish =
 	{
 		InheritFrom = { "Jellyfish_Elite" },
 		GenusName = "Jellyfish_Elite",
+		RunHistoryKilledByName = "Scylla",
 
 		DefaultAIData =
 		{

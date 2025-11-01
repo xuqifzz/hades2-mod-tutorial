@@ -94,7 +94,7 @@
     PromptText =
     {
       X = 580
-      Y = 400
+      Y = 375
       Justification = "Left"
       VerticalJustification = "Top"
       Font = "LatoMedium"

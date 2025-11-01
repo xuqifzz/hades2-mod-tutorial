@@ -177,6 +177,8 @@ ScreenData.RunHistory =
 		Font = "P22UndergroundSCMedium",
 		ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
 		Justification = "Left",
+		LineSpacingBottom = -20,
+		Width = 400,
 		FadeOpacity = 0.0,
 		FadeTarget = 0.49,
 		FadeTargetDuration = 0.2,

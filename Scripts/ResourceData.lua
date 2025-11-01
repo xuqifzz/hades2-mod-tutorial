@@ -142,6 +142,7 @@ ResourceData =
 					{
 						PathEmpty = { "RequiredKillEnemies" },
 					},
+					NamedRequirementsFalse = { "HecateMissing" },
 				},
 				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
@@ -156,6 +157,21 @@ ResourceData =
 			},
 			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
+
+		ExtraDescriptions =
+		{
+			{
+				TextId = "MixerIBoss_ExtraDetails1",
+				HideIfRequirementsFailed = true,
+				Requirements =
+				{
+					{
+						PathTrue = { "GameState", "ResourcesInEscrow", "MixerIBoss" },
+					},
+				},
+			}
+		},
+
 	},
 
 	MixerNBoss =
@@ -300,8 +316,73 @@ ResourceData =
 		TooltipId = "MixerQBossIcon",
 		CostTextId = "MixerQBoss_Short",
 
+		ExtraDescriptions =
+		{
+			{
+				TextId = "MixerQBoss_ExtraDetails1",
+				HideIfRequirementsFailed = true,
+				Requirements =
+				{
+					{
+						PathTrue = { "GameState", "ResourcesInEscrow", "MixerQBoss" },
+					},
+				},
+			}
+		},
+
 		OnAddVoiceLines =
 		{
+			{
+				PlayOnce = true,
+				PlayOnceContext = "VoidLensPickupVO",
+				PreLineWait = 0.35,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "Resources", "MixerQBoss" },
+						Comparison = ">=",
+						Value = 2,
+					},
+				},
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+				{ Cue = "/VO/MelinoeField_5199", Text = "Few more of these and Gigaros can be put to the test...",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "Resources", "HadesSpearPoints" },
+						},
+						{
+							Path = { "GameState", "Resources", "MixerQBoss" },
+							Comparison = "<=",
+							Value = 2,
+						},	
+					},
+				},
+				{ Cue = "/VO/MelinoeField_5200", Text = "Closer to Disintegration of Monstrosity...",
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+						},
+						{
+							PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeStormStop" },
+						},
+					},
+				},
+				{ Cue = "/VO/MelinoeField_5201", Text = "If only Zagreus could see me now...",
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+						},
+						{
+							PathTrue = { "GameState", "TextLinesRecord", "ZagreusPastMeeting04_3" },
+						},
+					},
+				},
+			},
 			{
 				RandomRemaining = true,
 				BreakIfPlayed = true,
@@ -315,6 +396,9 @@ ResourceData =
 					{
 						Path = { "CurrentRun", "Hero", "TraitDictionary" },
 						HasNone = { "SurfacePenalty" },
+					},
+					{
+						PathFalse = { "CurrentRun", "SpeechRecord", "/VO/MelinoeField_4176" },
 					},
 				},
 				SkipCooldownCheckIfNonePlayed = true,
@@ -1003,6 +1087,29 @@ ResourceData =
 				{ Cue = "/VO/Medea_0309", Text = "Garlic, I think..." },
 				{ Cue = "/VO/Medea_0310", Text = "{#Emph}Ooh{#Prev}, Garlic...", PlayFirst = true },
 			},
+			{
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.25,
+				PreLineWait = 0.1,
+				GameStateRequirements =
+				{
+					{
+						PathEmpty = { "RequiredKillEnemies" },
+					},
+					{
+						Path = { "CurrentRun", "Hero", "TraitDictionary" },
+						HasNone = { "SurfacePenalty" },
+					},
+				},
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+				{ Cue = "/VO/Melinoe_5788", Text = "A Garlic Bulb..." },
+				{ Cue = "/VO/Melinoe_5789", Text = "A bulb of Garlic..." },
+			},
 			{ GlobalVoiceLines = "FoundSeedVoiceLines" },
 			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
@@ -1536,7 +1643,20 @@ ResourceData =
 						},
 					},
 				},
-			}
+			},
+			{
+				TextId = "SeedMystery_ExtraDetails2",
+				Requirements =
+				{
+					{
+						Path = { "GameState", "UseRecord" },
+						HasAll =
+						{
+							"SeedMysteryRange",
+						},
+					},
+				},
+			},
 		},
 
 		OnAddVoiceLines =
@@ -1973,6 +2093,19 @@ ResourceData =
 					},
 				},
 			},
+			{
+				TextId = "MetaCardPointsCommon_ExtraDetails3",
+				Requirements =
+				{
+					{
+						Path = { "GameState", "UseRecord" },
+						HasAll =
+						{
+							"MetaCurrencyRange",
+						},
+					},
+				},
+			},
 		},
 
 		InventoryVoiceLines =
@@ -2022,20 +2155,24 @@ ResourceData =
 				},
 			},
 			{
+				TextId = "MetaCardPointsCommon_ExtraDetails2",
+				Requirements =
+				{
+					{
+						Path = { "GameState", "UseRecord" },
+						HasAll =
+						{
+							"MetaCardPointsCommonRange",
+						},
+					},
+				},
+			},
+			{
 				TextId = "ResourceDetails_Mailbox",
 				Requirements =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "Mailbox" }
-					},
-				},
-			},
-			{
-				TextId = "MetaCardPointsCommon_ExtraDetails2",
-				Requirements =
-				{
-					{
-						PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeUnusedWeaponBonus" },
 					},
 				},
 			},
@@ -2102,7 +2239,16 @@ ResourceData =
 				{ Cue = "/VO/Melinoe_1661", Text = "Ash of the Dead.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_1662", Text = "Ashes." },
 				{ Cue = "/VO/Melinoe_1663", Text = "More Ashes." },
-				{ Cue = "/VO/Melinoe_1664", Text = "Ash for my Arcana." },
+				{ Cue = "/VO/Melinoe_1664", Text = "Ash for my Arcana.",
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "MetaUpgradeUnlockedCountCache" },
+							Comparison = "<",
+							Value = 25,
+						},
+					},
+				},
 			},
 			{ GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
@@ -2613,12 +2759,17 @@ ResourceData =
 		TooltipId = "HadesSpearPointsIcon",
 		-- CostTextId = "HadesSpearPoints_Short",
 		AddTimerTicks = 16, -- used for text
+
+		RevealGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "ZagreusPastMeeting04" },
+			},
+		},
 		CostRevealRequirements =
 		{
 			{
-				Path = { "GameState", "LifetimeResourcesGained", "HadesSpearPoints" },
-				Comparison = ">=",
-				Value = 1,
+				PathTrue = { "GameState", "TextLinesRecord", "ZagreusPastMeeting04" },
 			},
 		},
 
@@ -3183,18 +3334,13 @@ ResourceData =
 		RevealGameStateRequirements =
 		{
 			{
-				Path = { "GameState", "LifetimeResourcesGained", "HadesSpearPoints" },
-				Comparison = ">=",
-				Value = 1,
+				PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeStormStop" },
 			},
 		},
-
 		CostRevealRequirements =
 		{
 			{
-				Path = { "GameState", "LifetimeResourcesGained", "HadesSpearPoints" },
-				Comparison = ">=",
-				Value = 1,
+				PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradeStormStop" },
 			},
 		},
 

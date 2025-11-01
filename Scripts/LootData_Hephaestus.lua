@@ -710,7 +710,7 @@ LootSetData.Hephaestus =
 
 				{ Cue = "/VO/Hephaestus_0041",
 					
-					Text = "Right clever of old man Chronos to recruit a bunch of bitter dead against us, aint't it? We got them killed in wars and such... reckon the payback's only fair. More chances for my handiwork to shine!" },
+					Text = "Right clever of old man Chronos to recruit a bunch of bitter dead against us, ain't it? We got them killed in wars and such... reckon the payback's only fair. More chances for my handiwork to shine!" },
 			},
 
 			HephaestusAboutOlympians01 =

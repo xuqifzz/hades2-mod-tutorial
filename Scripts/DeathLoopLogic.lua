@@ -449,6 +449,7 @@ function StartOver( args )
 			RunOverrides = args.RunOverrides,
 			StartingRoomOverrides = args.StartingRoomOverrides,
 		})
+	GameState.LocationName = currentRun.CurrentRoom.SaveProfileLocationText
 	StopMusicianMusic( { Duration = 1.0 } )
 	ResetObjectives()
 

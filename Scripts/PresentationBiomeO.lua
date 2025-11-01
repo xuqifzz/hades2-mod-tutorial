@@ -4,7 +4,7 @@
 		startId = 793977
 	end
 	Teleport({ Id = enemy.ObjectId, DestinationId = startId })
-	SetUnitInvulnerable( enemy, "ErisFlyByPresentation" )
+	SetUnitInvulnerable( enemy, "ErisFlyByPresentation", { Silent = true } )
 	ClearEffect({ Id = enemy.ObjectId, All = true })
 	EffectPostClearAll( enemy )
 	local zHeight = args.FlybyZHeight or 500

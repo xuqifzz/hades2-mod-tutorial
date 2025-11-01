@@ -291,7 +291,7 @@ function CreateSpellButtons( screen )
 		end
 
 		for _, traitName in pairs( SpellData[spellName].Talents.Legendary) do
-			if TraitData[traitName].IsDuoBoon and IsGameStateEligible( spellItem, TraitData[traitName].GameStateRequirements ) then
+			if TraitData[traitName].IsDuoBoon and IsGameStateEligible( spellItem, TraitData[traitName].GameStateRequirements ) and IsGameStateEligible(spellItem, SpellTalentData.ServeDuoGameRequirements ) then
 				CreateAnimation({ Name = "BoonEntranceDuo", DestinationId = components[purchaseButtonKey].Id })
 				
 				components[purchaseButtonKey.."OlympianDuo"] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", 
@@ -357,7 +357,7 @@ function AcceptAndCloseSpellScreen( screen, button )
 
 	local traitData = AddTraitToHero({ TraitName = button.TraitName, SkipNewTraitHighlight = true })
 	CurrentRun.Hero.SlottedSpell = DeepCopyTable( SpellData[button.SpellName] )
-	CurrentRun.Hero.SlottedSpell.HasDuoTalent = SessionMapState.DuoTalentEligibleSpell[button.SpellName]
+	CurrentRun.Hero.SlottedSpell.HasDuoTalent = SessionMapState.DuoTalentEligibleSpell[button.SpellName] and IsGameStateEligible(source, SpellTalentData.ServeDuoGameRequirements )
 	CurrentRun.Hero.SlottedSpell.Talents = DeepCopyTable( CreateTalentTree( SpellData[button.SpellName] ) )
 	local spellData = CurrentRun.Hero.SlottedSpell
 	UpdateTalentPointInvestedCache()

@@ -127,7 +127,7 @@
 
     AnnouncementText =
     {
-      X = 610
+      X = 600
       Y = 305
       Justification = "Left"
       VerticalJustification = "Top"
@@ -147,7 +147,7 @@
       ShadowOffsetY = 2
       ShadowAlpha = 1
       ShadowBlur = 0
-      Width = 721
+      Width = 723
       Height = 625
       UseLineFading = true
       ScrollSpeed = 400

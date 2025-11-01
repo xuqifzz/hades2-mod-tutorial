@@ -6353,8 +6353,8 @@
 		VisualFx = "TyphonImpaleRingBright"
 		VisualFxIntervalMin = 0.1
 		VisualFxIntervalMax = 0.2
-		VisualFxManagerCap = 400
-		VisualFxManagerFrameCap = 18
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		PostRotateScaleY = 0.5
 		RandomRotation = true
 		UseAttachedFlasher = false
@@ -6419,8 +6419,8 @@
 		VisualFx = "TyphonImpaleShockwaveDebris"
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.01
-		VisualFxManagerCap = 400
-		VisualFxManagerFrameCap = 18
+		VisualFxManagerCap = 999
+		VisualFxManagerFrameCap = 99
 		RandomRotationSpeedMin = -5
 		RandomRotationSpeedMax = 5
 		VisualFxCap = 20
@@ -6716,6 +6716,7 @@
 		RadialOffsetScaleY = 0.5
 		RadialOffsetMin = 100
 		RadialOffsetMax = 104
+		IgnoreIfMinConfigPreset = true
 	}
 	{
 		Name = "TyphonImpaleShockwaveDebrisB"
@@ -7492,6 +7493,8 @@
 		AngleFromOwner = "Ignore"
 		SortFromOwner = "Ignore"
 		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+		ColorFromOwner = "Ignore"
 		UseOwnAngle = false
 		GroupName = "FX_Terrain_Top"
 		Scale = 1.3
@@ -7554,6 +7557,7 @@
 		Duration = 2
 		LoopFramesOnly = true
 		Loop = false
+		UseAttachedAddColor = false
 		CreateAnimations = [
 			{ Name = "TyphonTailGroundBibbingFront" }
 			{ Name = "TyphonTailGroundBibbingBack" }
@@ -7752,6 +7756,8 @@
 		AngleFromOwner = "Ignore"
 		SortFromOwner = "Ignore"
 		UseAttachedFlasher = false
+		UseAttachedAddColor = false
+		ColorFromOwner = "Ignore"
 		UseOwnAngle = false
 		GroupName = "FX_Terrain"
 		Scale = 0.5
@@ -9773,6 +9779,157 @@
 	}
 
 	{
+		Name = "ChronosSpecialKillMelSpearCharge"
+		FilePath = "Particles\particle_glow_gamma"
+		Red = 1
+		Green = 0
+		Blue = 0
+		Duration = 2.0
+		StartAlpha = 0
+		EndAlpha = 1
+		StartScale = 1
+		EndScale = 2
+		Scale = 3
+		EaseIn = 0
+		EaseOut = 0.5
+		VisualFx = "ChronosSpecialKillMelSpearChargeStreaks"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		Material = "Unlit"
+		LocationZFromOwner = "Maintain"
+		LocationFromOwner = "Maintain"
+		GroupName = "Combat_Menu_Overlay_Additive"
+		GrannyAttachedMarkerLocation = "WeaponGigaros_Rig:bidentSpikeB_01_M_JNT"
+		CreateAnimations = [
+			{ Name = "ChronosSpecialKillMelSpearChargeB" }
+		]
+	}
+
+	{
+		Name = "ChronosSpecialKillMelSpearChargeB"
+		InheritFrom = "ChronosSpecialKillMelSpearCharge"
+		FilePath = "Particles\particle_glintFlare"
+		VisualFx = "TyphonSpecialKillMelSpearChargeFx"
+		AddColor = true
+		Scale = 0.66
+		EndScale = 1.1
+		ClearCreateAnimations = true
+		StartScale = 0.99
+		ColorFromOwner = "Ignore"
+		Green = 1
+		Blue = 1
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.1
+		VisualFxCap = 16
+	}
+
+	{
+		Name = "ChronosSpecialKillGigarosRevealFx"
+		FilePath = "Particles\particle_glow_egg_horizontal"
+		Red = 1
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Add_Top"
+		Angle = 90
+		OriginX = 150
+		OriginY = 84
+		AngleFromOwner = "Ignore"
+		StartAlpha = 0
+		EndAlpha = 0.5
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		StartScaleY = 0.2
+		EndScaleY = 1
+		ScaleX = 1
+		Scale = 2
+		ScaleFromOwner = "Ignore"
+		Duration = 1
+		GrannyAttachedMarkerLocation = "WeaponGigaros_Rig:root_00_M_JNT"
+		VisualFx = "ChronosSpecialKillGigarosRevealFxNova"
+		VisualFxCap = 1
+		VisualFxIntervalMin = 0.125
+		VisualFxIntervalMax = 0.125
+		ChildAnimation = "ChronosSpecialKillGigarosRevealFxB"
+	}
+
+	{
+		Name = "ChronosSpecialKillGigarosRevealFxB"
+		InheritFrom = "ChronosSpecialKillGigarosRevealFx"
+		ChildAnimation = null
+		ScaleY = 1
+		Alpha = 0.5
+		VisualFx = "ChronosSpecialKillGigarosRevealFlare"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.3
+	}
+
+	{
+		Name = "ChronosSpecialKillGigarosRevealFlare"
+		FilePath = "Fx\TintableRadialFlare\TintableRadialFlare"
+		NumFrames = 45
+		Material = "Unlit"
+		AddColor = true
+		Red = 1
+		Green = 0
+		Blue = 0
+		GrannyAttachedMarkerLocation = "WeaponGigaros_Rig:bidentSpikeB_01_M_JNT"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 0.5
+	}
+
+	{
+		Name = "ChronosSpecialKillGigarosRevealFxNova"
+		FilePath = "Fx\RadialNovaPentagram\RadialNovaPentagram"
+		NumFrames = 30
+		Material = "Unlit"
+		GroupName = "FX_Add_Top"
+		Red = 1
+		Green = 0
+		Blue = 0
+		AngleFromOwner = "Ignore"
+		PlaySpeed = 60
+		ScaleY = 2
+		Scale = 0.25
+		OffsetZ = -75
+		GrannyAttachedMarkerLocation = "WeaponGigaros_Rig:root_00_M_JNT"
+		CreateAnimations = [
+			{ Name = "ChronosSpecialKillGigarosRevealFxStreaksA" }
+			{ Name = "ChronosSpecialKillGigarosRevealFxStreaksB" }
+			{ Name = "ChronosSpecialKillGigarosRevealFxStreaksC" }
+		]
+	}
+
+	{
+		Name = "ChronosSpecialKillGigarosRevealFxStreaksA"
+		FilePath = "Fx\TyphonTailCannonProjectileFxA\TyphonTailCannonProjectileFxA"
+		NumFrames = 45
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		Angle = 90
+		ScaleX = 1.5
+		Hue = 0.06
+		GroupName = "FX_Add_Top"
+		GrannyAttachedMarkerLocation = "WeaponGigaros_Rig:root_00_M_JNT"
+	}
+
+	{
+		Name = "ChronosSpecialKillGigarosRevealFxStreaksB"
+		InheritFrom = "ChronosSpecialKillGigarosRevealFxStreaksA"
+		FilePath = "Fx\TyphonTailCannonProjectileFxB\TyphonTailCannonProjectileFxB"
+		FlipVertical = true
+	}
+
+	{
+		Name = "ChronosSpecialKillGigarosRevealFxStreaksC"
+		InheritFrom = "ChronosSpecialKillGigarosRevealFxStreaksA"
+		ScaleX = 2.2
+		ScaleY = 0.5
+		PlaySpeed = 90
+	}
+
+	{
 		Name = "TyphonSpecialKillMelSpearCharge"
 		FilePath = "Particles\particle_glow_gamma"
 		Red = 1
@@ -9837,6 +9994,55 @@
 	}
 
 	{
+		Name = "ChronosSpecialKillMelSpearChargeStreaks"
+		Random = [
+			{ Name = "ChronosSpecialKillMelSpearChargeStreakA" }
+			{ Name = "ChronosSpecialKillMelSpearChargeStreakA" }
+			{ Name = "ChronosSpecialKillMelSpearChargeStreakB" }
+			{ Name = "ChronosSpecialKillMelSpearChargeStreakC" }
+		]
+	}
+
+	{
+		Name = "ChronosSpecialKillMelSpearChargeStreakA"
+		InheritFrom = "TyphonSpecialKillMelSpearChargeStreaks"
+	}
+	{
+		Name = "ChronosSpecialKillMelSpearChargeStreakB"
+		FilePath = "Particles\particle_flareSpike"
+		Red = 1
+		Green = 0
+		Blue = 0
+		AddColor = true
+		Material = "Unlit"
+		
+		ScaleMin = 0.25
+		ScaleMax = 0.5
+		AngleMin = 0
+		AngleMax = 360
+		AngleChangeSpeedMin = -45
+		AngleChangeSpeedMax = 45
+		AngleFromOwner = "Ignore"
+		GroupName = "Combat_Menu_Overlay_Additive"
+		StartScaleY = 0
+		EndScaleY = 1
+		ScaleX = 3
+		PingPongScale = true
+		RandomDurationMin = 0.15
+		RandomDurationMax = 0.3
+		OriginX = 100
+		OriginY = 128
+		ScaleY = 0.1
+		GrannyAttachedMarkerLocation = "WeaponGigaros_Rig:bidentSpikeB_01_M_JNT"
+	}
+
+	{
+		Name = "ChronosSpecialKillMelSpearChargeStreakC"
+		InheritFrom = "ChronosSpecialKillMelSpearChargeStreakB"
+		AddColor = false
+	}
+
+	{
 		Name = "TyphonSpecialKillMelSpearChargeFx"
 		FilePath = "Fx\HecateChargeFx\HecateChargeFx"
 		NumFrames = 30
@@ -9877,7 +10083,26 @@
 		EndRed = 0.2
 		EndGreen = 0
 		EndBlue = 0
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedAddColor = false
 		GroupName = "Combat_Menu_Overlay_Additive"
 		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+	}
+
+	{
+		Name = "ChronosSpecialKillMelSpearGrabFlare"
+		InheritFrom = "TyphonSpecialKillMelSpearGrabFlare"
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0
+		EndBlue = 0
+		StartScale = 1
+		Duration = 0.25
+		AddColor = true
+		Sound = "/SFX/Player Sounds/ZagreusShieldCatch"
+
 	}
 ]}

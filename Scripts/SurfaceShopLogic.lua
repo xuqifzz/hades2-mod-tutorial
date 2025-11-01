@@ -1,11 +1,12 @@
 ﻿
-function ShowSurfaceShopScreen()
+function ShowSurfaceShopScreen( openedFrom )
 
 	local screen = DeepCopyTable( ScreenData.SurfaceShop )
 	if IsScreenOpen( screen.Name ) then
 		return
 	end
 
+	screen.OpenedFrom = openedFrom
 	AltAspectRatioFramesShow()
 	
 	killTaggedThreads( CombatUI.HideThreadName )
@@ -519,6 +520,7 @@ end
 
 function CloseSurfaceShopScreen( screen, button )
 	local closeItems = DeepCopyTable( screen.OnCloseItems )
+	AddInteractBlock( screen.OpenedFrom, "CloseSurfaceShopScreen" )
 	CloseStoreScreen( screen, button )
 	
 	local startIndex = 1
@@ -540,6 +542,8 @@ function CloseSurfaceShopScreen( screen, button )
 			RemoveTraitData( CurrentRun.Hero, condemnedTrait, { SkipExpire = true })
 		end
 	end
+	wait( 0.1 )
+	RemoveInteractBlock( screen.OpenedFrom, "CloseSurfaceShopScreen" )
 end
 
 function LoadResourcesForPendingDeliveryItem( unit, args, contextArgs, trait )

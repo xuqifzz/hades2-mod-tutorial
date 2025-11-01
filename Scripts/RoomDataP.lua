@@ -1673,16 +1673,20 @@ RoomSetData.P =
 				SetupGameStateRequirements =
 				{
 					{
+						PathFalse = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "GameState", "EncountersCompletedCache", "OlympusIntro" },
 					},
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Kills" },
-						HasAny = { "SentryBot", "AutomatonBeamer", "AtuomatonEnforcer" },
+						HasAny = { "SentryBot", "AutomatonBeamer", "AutomatonEnforcer" },
 					},
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Kills" },
 						HasAny = { "ZombieOlympus", "SatyrSapper", "HarpyDropper" },
 					},
+					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
 				{

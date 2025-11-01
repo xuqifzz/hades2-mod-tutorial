@@ -835,6 +835,9 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 							FontSize = 22,
 							TextSymbolScale = 0.75,
 							OffsetY = 100,
+							LangOffsetY = {
+								{ Code = "ja", Value = 110 },
+							},
 							OffsetX = -35,
 							Width = 570,
 							LangWidth = {

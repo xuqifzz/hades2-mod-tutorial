@@ -374,7 +374,7 @@
 		GrannyModel = "MudmanProjectile_Mesh"
 		GrannyAnimation = "null"
 		GrannyAnimationSpeed = 1.0
-		Scale = 1.0
+		Scale = 1.2
 		OffsetZ = 30
 		Loop = false
 		Enable3DShadow = true

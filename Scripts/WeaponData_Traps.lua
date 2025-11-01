@@ -983,6 +983,7 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
+			ImmuneToProjectileSlow = true,
 
 			ProjectileName = "ZeusStatueLightningBolt",
 			FireProjectileAtTarget = true,
@@ -1037,6 +1038,7 @@ WeaponSetData =
 
 			ProjectileName = "ZeusStatueChasingStorm",
 			FireProjectileAtTarget = true,
+			ImmuneToProjectileSlow = true,
 
 			FireTicksMin = 3,
 			FireTicksMax = 12,
@@ -1077,6 +1079,7 @@ WeaponSetData =
 			FireProjectileAtTarget = true,
 			TargetRequiredKillEnemy = true,
 			TargetClosest = true,
+			ImmuneToProjectileSlow = true,
 
 			ProjectileDestinationOffsetFromTarget = true,
 			ProjectileOffsetRandomAngle = true,
@@ -1113,6 +1116,7 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 			WeaponName = "HestiaStatueFireballs",
+			ImmuneToProjectileSlow = true,
 
 			ProjectileName = "HestiaStatueFireball",
 			BarrelLength = 170,
@@ -1145,7 +1149,8 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 			WeaponName = "PoseidonStatueWave",
-
+			ImmuneToProjectileSlow = true,
+			
 			ProjectileName = "PoseidonStatueWave",
 
 			BarrelLength = 50,
@@ -1178,6 +1183,7 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 			WeaponName = "DemeterStatueFrostStorm",
+			ImmuneToProjectileSlow = true,
 
 			ProjectileName = "DemeterStatueFrostStorm",
 			BarrelLength = 200,
@@ -1368,14 +1374,6 @@ WeaponSetData =
 
 			-- Rifts ban
 			DumbFireWeapons = {},
-		},
-
-		Sounds =
-		{
-			FireSounds =
-			{
-				{ Name = "/SFX/Enemy Sounds/Chronos/ChronosScytheWhirlStart" },
-			},
 		},
 	},
 

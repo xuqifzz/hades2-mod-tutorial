@@ -1877,7 +1877,11 @@ RoomSetData.N =
 								{
 									{
 										PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_0639" },
-									}
+									},
+									{
+										Path = { "GameState", "TextLinesRecord" },
+										HasNone = { "HadesAboutUltimateProgress01", "ZagreusPastMeeting05" },
+									},
 								},
 								{ Cue = "/VO/Melinoe_0347", Text = "Vengeance for my father." },
 							},

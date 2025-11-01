@@ -1711,6 +1711,7 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 			ProjectileName = "PrometheusMemory_P2",
+			ImmuneToProjectileSlow = true,
 
 			TargetId = 751892,
 			FireFromTarget = true,
@@ -1750,6 +1751,7 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 			ProjectileName = "PrometheusMemory_P2",
+			ImmuneToProjectileSlow = true,
 
 			AttackSlots =
 			{

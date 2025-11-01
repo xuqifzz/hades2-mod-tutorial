@@ -322,8 +322,6 @@ end
 
 function MailboxScreenUpdateResourceStatus( screen, button )
 
-	local category = screen.ItemCategories[screen.ActiveCategoryIndex]
-
 	ModifyTextBox({ Id = screen.Components.BasicResourceButton.Id, Text = GameState.Resources[screen.Components.BasicResourceButton.ResourceName] or 0, })
 
 	for itemIndex = 1, screen.NumItems do
@@ -331,29 +329,15 @@ function MailboxScreenUpdateResourceStatus( screen, button )
 		if button ~= nil then
 			local item = button.Data
 			if not item.SoldOut and item.Showing then
-				local buyResourceData = ResourceData[item.BuyName]
-				local costDisplay = item.Cost
-				local itemNameColor = Color.CostAffordableShop
 				local costColor = Color.White
-				if category.FlipSides then
-					for resourceName, resourceAmount in pairs( item.Cost ) do
-						buyResourceData = ResourceData[resourceName]
-						costDisplay = {}
-						costDisplay[item.BuyName] = item.BuyAmount
-					end
-				else
-					if not HasResources( costDisplay ) then
-						costColor = Color.CostUnaffordable
-						itemNameColor = Color.CostUnaffordable
-					end
+				if not HasResources( item.Cost ) then
+					costColor = Color.CostUnaffordable
 				end
-			
-				ModifyTextBox({ Id = screen.Components["PurchaseButton"..itemIndex].Id, ColorTarget = itemNameColor, ColorDuration = 0.1 })
 				ModifyTextBox({ Id = screen.Components["PurchaseButtonTitle"..itemIndex.."SellText"].Id, ColorTarget = costColor, ColorDuration = 0.1 })
-				ModifyTextBox({ Id = screen.Components["CurrentAmount"..itemIndex].Id, Text = GameState.Resources[buyResourceData.Name] or 0 })
 			end
 		end
 	end
+
 end
 
 function UpdateMailboxScreenInteractionText( screen, button )

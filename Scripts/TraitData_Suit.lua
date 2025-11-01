@@ -669,7 +669,7 @@
 			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
 			ValidBaseDamageAddition = 
 			{ 
-				BaseValue = 10,
+				BaseValue = 30,
 			},
 			ReportValues = 
 			{ 
@@ -855,7 +855,7 @@
 		},
 		AddOutgoingDamageModifiers = 
 		{
-			WeaponName = "WeaponSuitDash",
+			ValidWeapons = {"WeaponSuitDash"},
 			ValidWeaponMultiplier = 
 			{ 
 				BaseValue = 1.4,
@@ -922,7 +922,7 @@
 		{
 			PerfectChargeMultiplier =
 			{
-				BaseValue = 1.8,
+				BaseValue = 2.5,
 				SourceIsMultiplier = true,
 			},
 			ReportValues = { ReportedWeaponMultiplier = "PerfectChargeMultiplier"},

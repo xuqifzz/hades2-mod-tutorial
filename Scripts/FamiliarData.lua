@@ -17,6 +17,7 @@ FamiliarData =
 			Force = true,
 		},
 		IgnoreInvisibility = true, -- Skip HadesInvisibility emote presentation
+		IgnoreCastSummonDamage = true,
 
 		-- AI
 		DamageType = "Ally",
@@ -412,19 +413,6 @@ FamiliarData =
 					{ Cue = "/VO/Melinoe_5200", Text = "Last night was like a dream... the last part anyway. I wonder if Lord Moros is around." },
 				},
 
-				-- post-flashback01
-				{
-					BreakIfPlayed = true,
-					PreLineWait = 0.4,
-					GameStateRequirements =
-					{
-						{
-							PathTrue = { "CurrentRun", "TextLinesRecord", "HecateHideAndSeek01" },
-						},
-					},
-
-					{ Cue = "/VO/Melinoe_2132", Text = "All my life I've prepared, and I'm nowhere near ready, am I..." },
-				},
 				-- post-flashback02
 				{
 					BreakIfPlayed = true,
@@ -471,7 +459,7 @@ FamiliarData =
 					BreakIfPlayed = true,
 					PreLineWait = 0.4,
 					{ Cue = "/VO/Melinoe_5198", Text = "Don't think I forgot about you, little one. We really did it, didn't we?",
-						PlayOnce = true,
+						PlayOnce = true, PlayOnceContext = "FrinosUniqueVO",
 						GameStateRequirements =
 						{
 							{
@@ -485,14 +473,207 @@ FamiliarData =
 					BreakIfPlayed = true,
 					PreLineWait = 0.4,
 					{ Cue = "/VO/Melinoe_5199", Text = "Not every night you meet the Fates... perhaps I'm still in a bit of shock.",
-						PlayOnce = true,
+						PlayOnce = true, PlayOnceContext = "FrinosUniqueVO",
 						GameStateRequirements =
 						{
 							NamedRequirements = { "ReachedEpilogue" },
 						},
 					},
 				},
+				-- story reset
+				{
+					PlayOnce = true,
+					PlayOnceContext = "FrinosUniqueVO",
+					BreakIfPlayed = true,
+					PreLineWait = 0.4,
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "StoryResetCount" },
+							Comparison = ">=",
+							Value = 1,
+						},
+						{
+							SumPrevRuns = 4,
+							Path = { "SpeechRecord", "/VO/Melinoe_5754" },
+							CountPathTrue = true,
+							Comparison = ">=",
+							Value = 1,
+						},
+					},
+
+					{ Cue = "/VO/Melinoe_5776", Text = "It's strange... ever get the feeling all this has already happened before, Frinos...?" },
+				},
+
+				-- dissolution of time hint
+				{
+					PlayOnce = true,
+					PlayOnceContext = "FrinosUniqueVO",
+					BreakIfPlayed = true,
+					PreLineWait = 0.4,
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "CurrentRun", "BiomesReached", "F" }
+						},
+						{
+							Path = { "GameState", "Resources", "MixerIBoss" },
+							Comparison = ">=",
+							Value = 7,
+						},
+						{
+							PathTrue = { "GameState", "Resources", "HadesSpearPoints" },
+						},
+						{
+							PathFalse = { "GameState", "Resources", "MixerMythic" },
+						},
+						{
+							Path = { "GameState", "WorldUpgradesRevealed" },
+							HasAny = { "WorldUpgradeTimeStop" },
+						},
+					},
+
+					{ Cue = "/VO/Melinoe_5771", Text = "I need one more reagent for the Dissolution of Time... but I won't find it in the Underworld." },
+				},
 				-- successful clears
+				{
+					BreakIfPlayed = true,
+					PreLineWait = 0.4,
+					-- SuccessiveChanceToPlayAll = 0.25,
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "CurrentRun", "Cleared" },
+						},
+					},
+
+					{ Cue = "/VO/Melinoe_5193", Text = "Such a night! Chronos, vanquished, and after that... you'd not believe it anyhow.",
+						PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "GameState", "ReachedTrueEnding" },
+							},
+							{
+								Path = { "CurrentRun", "TextLinesRecord" },
+								HasAny = { "ZagreusPastFirstMeeting" },
+							},
+						},
+					},
+					{ Cue = "/VO/Melinoe_5726", Text = "I understand where Zagreus is coming from but... he hasn't had to go through any of this.",
+						GameStateRequirements =
+						{
+							{
+								Path = { "CurrentRun", "TextLinesRecord" },
+								HasAny = { "ZagreusPastMeeting04_2" },
+							},
+						},
+					},
+					{ Cue = "/VO/Melinoe_5728", Text = "I think my brother might be coming around. Perhaps I am. There has to be a way...",
+						GameStateRequirements =
+						{
+							{
+								Path = { "CurrentRun", "TextLinesRecord" },
+								HasAny = { "ZagreusPastMeeting04_3" },
+							},
+						},
+					},
+					{ Cue = "/VO/Melinoe_5773", Text = "My task, my methods... I just hope it works... and that Headmistress will understand.",
+						PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								Path = { "CurrentRun", "TextLinesRecord" },
+								HasAny = { "ZagreusPastMeeting05" },
+							},
+							{
+								Path = { "CurrentRun", "TextLinesRecord" },
+								HasAll = { "ZagreusPastMeeting04_2", "ZagreusPastMeeting04_3" },
+							},
+						},
+					},
+					{ Cue = "/VO/Melinoe_5194", Text = "We're getting somewhere, Frinos... soon all this may finally be over.",
+						PlayOnce = true,
+						PlayOnceContext = "FrinosUniqueVO",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "GameState", "TextLinesRecord", "ZagreusPastMeeting05" },
+							},
+							{
+								Path = { "CurrentRun", "TextLinesRecord" },
+								HasAny =
+								{
+									"ZeusPalaceMeeting02",
+									"ZeusPalaceMeeting03",
+									"ZeusPalaceMeeting03_A",
+									"ZeusPalaceMeeting03_B",
+									"ZeusPalaceMeeting04",
+									"ZeusPalaceMeeting04_B",
+								},
+							},
+						},
+					},
+					{ Cue = "/VO/Melinoe_5775", Text = "Typhon is destroyed, Frinos...! Soon, I can end all this...",
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "GameState", "ReachedTrueEnding" },
+							},
+							{
+								PathTrue = { "CurrentRun", "TextLinesRecord", "ZeusPalaceAboutTyphonDeath01" },
+							},
+						},
+					},
+				},
+				-- additional progress
+				{
+					PlayOnce = true,
+					PlayOnceContext = "FrinosUniqueVO",
+					BreakIfPlayed = true,
+					PreLineWait = 0.4,
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "GameState", "TyphonDefeatedWithStormStop" },
+						},
+						{
+							PathTrue = { "GameState", "Resources", "HadesSpearPoints" },
+						},
+						{
+							PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
+						},
+						{
+							PathTrue = { "CurrentRun", "BiomesReached", "F" }
+						},
+					},
+
+					{ Cue = "/VO/Melinoe_5772", Text = "The Underworld and Zagreus shall have to wait a bit... I've business on Olympus still." },
+				},
+				{
+					PlayOnce = true,
+					PlayOnceContext = "FrinosUniqueVO",
+					BreakIfPlayed = true,
+					PreLineWait = 0.4,
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "GameState", "ReachedTrueEnding" },
+						},
+						{
+							PathTrue = { "GameState", "TextLinesRecord", "ZagreusPastMeeting05" },
+						},
+						{
+							Path = { "CurrentRun", "TextLinesRecord" },
+							HasAll = { "ZagreusPastMeeting04_2", "ZagreusPastMeeting04_3" },
+						},
+						{
+							PathTrue = { "CurrentRun", "BiomesReached", "F" }
+						},
+					},
+
+					{ Cue = "/VO/Melinoe_5774", Text = "Frinos... if we could stop Chronos without destroying him... then shouldn't we...?" },
+				},
 				{
 					RandomRemaining = true,
 					BreakIfPlayed = true,
@@ -529,33 +710,15 @@ FamiliarData =
 							},
 						},
 					},
-					{ Cue = "/VO/Melinoe_5193", Text = "Such a night! Chronos, vanquished, and after that... you'd not believe it anyhow.",
-						PlayFirst = true,
-						GameStateRequirements =
-						{
-							{
-								Path = { "CurrentRun", "RoomsEntered" },
-								HasAny = { "I_Boss01", },
-							},
-						},
-					},
-					{ Cue = "/VO/Melinoe_5194", Text = "We're getting somewhere, Frinos... soon all this may finally be over.",
-						PlayFirst = true,
-						GameStateRequirements =
-						{
-							{
-								PathFalse = { "GameState", "ReachedTrueEnding" },
-							},
-							{
-								PathTrue = { "GameState", "TextLinesRecord", "ZagreusPastMeeting05" },
-							},
-						},
-					},
 					{ Cue = "/VO/Melinoe_2845", Text = "Can you believe it, little one? I did it... I got him...! What now...?",
+						PlayFirst = true,
 						GameStateRequirements =
 						{
 							{
 								PathFalse = { "GameState", "ReachedTrueEnding" },
+							},
+							{
+								PathFalse = { "GameState", "TextLinesRecord", "ZagreusPastMeeting03" }
 							},
 							{
 								Path = { "CurrentRun", "RoomsEntered" },
@@ -584,6 +747,9 @@ FamiliarData =
 					{ Cue = "/VO/Melinoe_2931", Text = "I suppose you'd not have liked it, living in that House instead of here...",
 						GameStateRequirements =
 						{
+							{
+								PathFalse = { "GameState", "ReachedTrueEnding" },
+							},
 							{
 								PathTrue = { "CurrentRun", "RoomsEntered", "I_Boss01" },
 							},
@@ -644,6 +810,19 @@ FamiliarData =
 					},
 
 					{ Cue = "/VO/Melinoe_4025", Text = "Haven't heard our old song in a while, have you? Well enjoy it while she's here!" },
+				},
+				-- post-flashback01
+				{
+					BreakIfPlayed = true,
+					PreLineWait = 0.4,
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "CurrentRun", "TextLinesRecord", "HecateHideAndSeek01" },
+						},
+					},
+
+					{ Cue = "/VO/Melinoe_2132", Text = "All my life I've prepared, and I'm nowhere near ready, am I..." },
 				},
 				-- considering recruiting Frinos
 				{
@@ -991,7 +1170,15 @@ FamiliarData =
 						},
 					},
 					{ Cue = "/VO/Melinoe_2837", Text = "Almost got there, but then, almost isn't good enough, is it?" },
-					{ Cue = "/VO/Melinoe_2838", Text = "What have they done to Tartarus, Frinos? It's not like how I heard..." },
+					{ Cue = "/VO/Melinoe_2838", Text = "What have they done to Tartarus, Frinos? It's not like how I heard...",
+						PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "GameState", "ReachedTrueEnding" },
+							},
+						},
+					},
 					{ Cue = "/VO/Melinoe_2839", Text = "I expected the worst down in Tartarus, and I got it all right..." },
 				},
 
@@ -1289,6 +1476,9 @@ FamiliarData =
 					SuccessiveChanceToPlay = 0.1,
 					GameStateRequirements =
 					{
+						{
+							PathTrue = { "GameState", "ReachedTrueEnding" },
+						},
 						{
 							Path = { "CurrentRun", "CurrentRoom", "Name", },
 							IsAny = { "C_Boss01" },

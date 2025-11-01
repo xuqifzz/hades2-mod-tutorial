@@ -4531,7 +4531,7 @@ GlobalVoiceLines.ToolPickaxeUpgradedVoiceLines =
 		{ Cue = "/VO/Melinoe_2557", Text = "The Crescent Pick achieves a greater form..." },
 	},
 	{ GlobalVoiceLines = "AnyToolUpgradedVoiceLines" },
-	{ GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
+	{ GlobalVoiceLines = "SkellyToolUnlockReactionVoiceLines" },
 }
 GlobalVoiceLines.ToolExorcismBookUpgradedVoiceLines =
 {
@@ -4548,7 +4548,7 @@ GlobalVoiceLines.ToolExorcismBookUpgradedVoiceLines =
 		{ Cue = "/VO/Melinoe_2559", Text = "New life for the Tablet of Peace." },
 	},
 	{ GlobalVoiceLines = "AnyToolUpgradedVoiceLines" },
-	{ GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
+	{ GlobalVoiceLines = "SkellyToolUnlockReactionVoiceLines" },
 }
 GlobalVoiceLines.ToolShovelUpgradedVoiceLines =
 {
@@ -4565,7 +4565,7 @@ GlobalVoiceLines.ToolShovelUpgradedVoiceLines =
 		{ Cue = "/VO/Melinoe_2558", Text = "The Silver Spade shines even brighter now." },
 	},
 	{ GlobalVoiceLines = "AnyToolUpgradedVoiceLines" },
-	{ GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
+	{ GlobalVoiceLines = "SkellyToolUnlockReactionVoiceLines" },
 }
 GlobalVoiceLines.ToolFishingRodUpgradedVoiceLines =
 {
@@ -4582,5 +4582,5 @@ GlobalVoiceLines.ToolFishingRodUpgradedVoiceLines =
 		{ Cue = "/VO/Melinoe_2560", Text = "The Rod of Fishing should be stronger now." },
 	},
 	{ GlobalVoiceLines = "AnyToolUpgradedVoiceLines" },
-	{ GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
+	{ GlobalVoiceLines = "SkellyToolUnlockReactionVoiceLines" },
 }

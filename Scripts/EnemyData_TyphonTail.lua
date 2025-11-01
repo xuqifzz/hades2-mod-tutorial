@@ -97,6 +97,7 @@ UnitSetData.TyphonTail =
 		RunHistoryPortrait = "Codex_Portrait_TyphonTail",
 		CannotDieFromDamage = true,
 		IgnoreSprintPhasingStasisStun = true,
+		IgnoreCastSummonDamage = true,
 		MaxHealth = 1,
 
 		AngleMin = 250,
@@ -120,6 +121,7 @@ UnitSetData.TyphonTail =
 	{
 		InheritFrom = { "BaseTrap" },
 		GenusName = "TyphonTail",
+		RunHistoryPortrait = "Codex_Portrait_TyphonTail",
 		MaxHealth = 1,
 
 		ActivateFuseIfNoSpawner = true,

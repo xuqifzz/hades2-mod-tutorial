@@ -70,6 +70,16 @@ UnitSetData.Mourner =
 			"MournerScream",
 		},
 
+		SpellSummonDataOverrides =
+		{
+			OutgoingDamageModifiers =
+			{
+				{
+					NonPlayerMultiplier = 0.2,
+				},
+			},
+		},
+
 		ActiveCapWeight = 1.0,
 		GeneratorData =
 		{

@@ -2174,10 +2174,12 @@ function DrinkPickup( interactableObject, functionArgs, user )
 	-- UnfreezePlayerUnit("DrinkPickup")
 	-- RemoveInputBlock({ Name = "DrinkPickup" })
 
-	if sourceBoon and not MapState.HostilePolymorph then
+	if sourceBoon then
+		if not MapState.HostilePolymorph then
 		SessionMapState.DrinkCritCharges = sourceBoon.DrinkCritCount
-		if sourceBoon.DrinkCritVfx then
-			CreateAnimation({ Name = sourceBoon.DrinkCritVfx, DestinationId = CurrentRun.Hero.ObjectId })
+			if sourceBoon.DrinkCritVfx then
+				CreateAnimation({ Name = sourceBoon.DrinkCritVfx, DestinationId = CurrentRun.Hero.ObjectId })
+			end
 		end
 		for pointId, dropId in pairs(SessionMapState.OccupiedSpawnPoints) do
 			if dropId == SessionMapState.DrinkDropId then
@@ -2282,12 +2284,16 @@ function HeraSprintLink( functionArgs )
 	if not SessionMapState.SprintActive or not SessionMapState.SprintStartTime or ( functionArgs.StartDelay and (_worldTimeUnmodified - SessionMapState.SprintStartTime) < functionArgs.StartDelay ) then
 		return
 	end
-	if  CheckCooldown( "HeraSprintSuction", functionArgs.Cooldown) then
-		local enemyId = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationName = "EnemyTeam", IgnoreInvulnerable = true, IgnoreHomingIneligible = true, Distance = functionArgs.Radius })
+	if CheckCooldown( "HeraSprintSuction", functionArgs.Cooldown) then
+		local enemyId = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationName = "EnemyTeam", IgnoreInvulnerable = true, IgnoreHomingIneligible = true, StopsProjectiles = true, Distance = functionArgs.Radius})
 		CreateAnimation({ Name = functionArgs.Vfx, DestinationId = CurrentRun.Hero.ObjectId })
 		if enemyId and ActiveEnemies[enemyId] and not ActiveEnemies[enemyId].IsDead then
-			local firstApplication = (ActiveEnemies[enemyId].ActiveEffects and not ActiveEnemies[enemyId].ActiveEffects[functionArgs.EffectName])
-			ApplyDamageShare( ActiveEnemies[enemyId], functionArgs )
+			local enemy = ActiveEnemies[enemyId]
+			if enemy.DamageSurrogate ~= nil then
+				enemy = enemy.DamageSurrogate
+			end
+			local firstApplication = (enemy.ActiveEffects and not enemy.ActiveEffects[functionArgs.EffectName])
+			ApplyDamageShare( enemy, functionArgs )
 			if firstApplication and functionArgs.ProjectileName then
 				thread( DelayFireSprintLinkProjectile, enemyId, functionArgs )
 			end
@@ -2357,8 +2363,8 @@ function RemoveRootActiveEffectBlock( victim, delay, effectName )
 	end
 end
 
-function CheckCastBurnApply( victim, functionArgs, triggerArgs )
-	if triggerArgs.EffectName == "ImpactSlow" and CheckCooldown("CastBurnApply"..victim.ObjectId, functionArgs.Cooldown ) then
+function CheckCastBurnApply( victim, functionArgs, projectileId )
+	if CheckCooldown("CastBurnApply"..victim.ObjectId..projectileId, functionArgs.Cooldown ) then
 		local damageMultiplier = CalculateDamageMultipliers( CurrentRun.Hero, victim, WeaponData.WeaponCast, { SourceWeapon = "WeaponCast", ExplicitMultipliersOnly = true })
 		functionArgs = ShallowCopyTable(functionArgs)
 		functionArgs.NumStacks = round(functionArgs.NumStacks * damageMultiplier)
@@ -2775,12 +2781,8 @@ function CheckTimedKillBuff (enemy, args )
 		end
 		SessionMapState.TimedBuff = SessionMapState.TimedBuff + 1
 		table.insert( SessionMapState.TimedBuffStartTimes, _worldTime )
-		thread(ReduceKillBuff, args )
-		
-		if HeroHasTrait( "TimedKillBuffBoon" ) then
-			local trait = GetHeroTrait( "TimedKillBuffBoon")
-			UpdateTraitNumber( trait )
-		end
+		thread(ReduceKillBuff, args )	
+		UIScriptsDeferred.KillBuffDirty = true
 	end
 end
 
@@ -2788,10 +2790,7 @@ function ReduceKillBuff( args )
 	waitUnmodified( args.Duration, RoomThreadName )
 	SessionMapState.TimedBuff = SessionMapState.TimedBuff - 1
 	table.remove( SessionMapState.TimedBuffStartTimes, 1 )
-	if HeroHasTrait( "TimedKillBuffBoon" ) then
-		local trait = GetHeroTrait( "TimedKillBuffBoon")
-		UpdateTraitNumber( trait )
-	end
+	UIScriptsDeferred.KillBuffDirty = true
 	if SessionMapState.TimedBuff <= 0 then
 		StopAnimation({ Name = args.Fx, DestinationId = CurrentRun.Hero.ObjectId })
 	end
@@ -2883,7 +2882,9 @@ function ManageProjectilePull( traitArgs, centerId, projectileId )
 			GetClosestIds({ Id = centerId, DestinationName = "EnemyTeam", IgnoreInvulnerable = true, IgnoreHomingIneligible = true, Distance = radius, PreciseCollision = true })
 		CreateAnimation({ Name = traitArgs.PullVfx, DestinationId = centerId, ScaleRadius = damageRadius })
 		for i, id in pairs(nearestEnemyTargetIds) do
-			ApplyForce({ Id = id, Speed = GetRequiredForceToEnemy( id, centerId, -traitArgs.DeadZoneRadius, traitArgs.DistanceMultiplier ), Angle = GetAngleBetween({ Id = id, DestinationId = centerId }) })
+			if ActiveEnemies[id] and not ActiveEnemies[id].IsDead then
+				ApplyForce({ Id = id, Speed = GetRequiredForceToEnemy( id, centerId, -traitArgs.DeadZoneRadius, traitArgs.DistanceMultiplier ), Angle = GetAngleBetween({ Id = id, DestinationId = centerId }) })
+			end
 		end
 		wait( traitArgs.Interval, RoomThreadName)
 	end
@@ -3286,7 +3287,7 @@ end
 
 function CheckMassiveAttack( victim, functionArgs, triggerArgs )
 	local cooldown = functionArgs.Cooldown * GetTotalHeroTraitValue("OlympianRechargeMultiplier", { IsMultiplier = true })
-	if CheckCooldownNoTrigger( functionArgs.Name, cooldown ) and ( not ProjectileHasUnitHit( triggerArgs.ProjectileId, "MassiveAttack") or (triggerArgs.SourceWeapon == nil or (functionArgs.MultihitWeaponWhitelistLookup and functionArgs.MultihitWeaponWhitelistLookup[triggerArgs.SourceWeapon]))) then
+	if CheckCooldownNoTrigger( functionArgs.Name, cooldown ) and ( not ProjectileHasUnitHit( triggerArgs.ProjectileId, "MassiveAttack") or (triggerArgs.SourceWeapon == nil or (functionArgs.MultihitProjectileWhitelistLookup and functionArgs.MultihitProjectileWhitelistLookup[triggerArgs.SourceProjectile]) or (functionArgs.MultihitWeaponWhitelistLookup and functionArgs.MultihitWeaponWhitelistLookup[triggerArgs.SourceWeapon]))) then
 		local timeSinceCooldown = 100000
 		if SessionState.GlobalCooldowns[functionArgs.Name] then 
 			timeSinceCooldown = _worldTime - SessionState.GlobalCooldowns[functionArgs.Name] - cooldown
@@ -3953,11 +3954,19 @@ function CheckPotionClearCast( weaponData, functionArgs, triggerArgs )
 end
 
 
+local clearCastManaRefundInvalidWeapons  = 
+{
+	WeaponStaffSwing = true,
+	WeaponStaffSwing2 = true,
+	WeaponStaffSwing3 = true,
+	WeaponStaffDash = true,
+	WeaponAxe3 = true
+}
 function CheckClearCastManaRefund( functionArgs, manaDelta, triggerArgs )
 	if IsEmpty(MapState.ClearCastWeapons) and not ClearCastRestoreEligible(manaDelta) then
 		return
 	end
-	if triggerArgs and ( triggerArgs.Source == "WeaponStaffSwing" or triggerArgs.Source == "WeaponStaffDash" or triggerArgs.Source == "WeaponAxe3") 
+	if triggerArgs and clearCastManaRefundInvalidWeapons [triggerArgs.Source]
 		and not ( CurrentRun.Hero.ActiveEffects.ClearCastPoseidon or CurrentRun.Hero.ActiveEffects.ClearCast ) then
 		return
 	end
@@ -4518,9 +4527,6 @@ function CheckWeaponAmmoFire( weaponData, functionArgs, triggerArgs )
 	if SessionMapState.AmmoAtFireStart and CurrentRun.Hero.Ammo[weaponData.Name] then
 		if triggerArgs.ProjectileVolley then
 			SessionMapState.AmmoVolleys[ triggerArgs.ProjectileVolley ] = { AmmoCount = SessionMapState.AmmoAtFireStart, Count = triggerArgs.NumProjectiles }
-			if CurrentRun.Hero.Ammo[weaponData.Name] <= 0 then
-				thread(LastShotFiredPresentation, triggerArgs)
-			end
 		end
 	end
 end
@@ -4719,7 +4725,10 @@ function CheckSpawnArmorDamage( enemy, traitArgs )
 	end
 	local damageAmount = 0
 	if enemy.HealthBuffer then
-		damageAmount = enemy.HealthBuffer * traitArgs.Multiplier
+		local healthMultiplier = enemy.HealthMultiplier or 1
+		healthMultiplier = healthMultiplier + (MetaUpgradeData.EnemyHealthShrineUpgrade.ChangeValue - 1)
+
+		damageAmount = enemy.HealthBuffer * healthMultiplier * traitArgs.Multiplier
 		thread( DoCurseDamage, enemy, traitArgs, damageAmount, true)
 	end
 end
@@ -4836,7 +4845,7 @@ function AddRandomHammer( args )
 	traitData.RemainingUses = args.Duration
 	traitData.UsesAsEncounters = true
 	traitData.OnExpire = { FunctionName = "HammerKeepsakeLostPresentation", FunctionArgs = traitName }
-	AddTraitToHero({ TraitData = traitData, SkipUIUpdate = true })
+	AddTraitToHero({ TraitData = traitData, SkipAddToHUD = true, SkipNewTraitHighlight = true})
 	UpdateHeroTraitDictionary()
 	return traitData
 end
@@ -4870,6 +4879,9 @@ end
 function GiveRandomHadesBoonAndBoostBoons( args, traitData )
 	RandomSynchronize()
 	if not CurrentRun.Hero.IsDead and IsFateValid() then
+		if not CurrentRun.DeathDefianceDamageBoonEligible and GameState.MetaUpgradeState and GameState.MetaUpgradeState.LastStand and GameState.MetaUpgradeState.LastStand.Equipped then
+			CurrentRun.DeathDefianceDamageBoonEligible = true
+		end
 		local eligibleTraits = {}
 		for i, traitName in pairs( UnitSetData.NPC_Hades.NPC_Hades_Field_01.Traits ) do
 			if IsTraitEligible( TraitData[traitName] ) then
@@ -5130,7 +5142,7 @@ function CheckAxeCastArm( triggerArgs, args )
 				thread( CallFunctionName, data.FunctionName, projectileId, data.FunctionArgs )
 			end
 		end
-		ArmAndDetonateProjectiles({ Ids = intersectionProjectiles, BlastMultiplier = args.BlastMultiplier })
+		ArmAndDetonateProjectiles({ Ids = intersectionProjectiles, BlastMultiplier = args.BlastMultiplier, Duration = 0.2, ForceDetonate = true })
 		for _, projectileId in pairs( intersectionProjectiles) do	
 			SessionState.EarlyDetonationProjectileIds[ projectileId ] = true
 			--ExpireProjectiles({ ProjectileIds = { projectileId })
@@ -5619,6 +5631,13 @@ function CheckProjectileSpawn( triggerArgs, functionArgs )
 			Type = "Projectile",
 			MatchProjectileName = matchProjectileName,
 		})
+		if functionArgs.TraitDependentProperties then
+			for traitName, data in pairs( functionArgs.TraitDependentProperties ) do
+				if HeroHasTrait( traitName ) then
+					derivedValues.PropertyChanges = MergeTables( derivedValues.PropertyChanges, data )
+				end
+			end
+		end
 		local impactIgnore = nil
 		if functionArgs.IgnoreImpactId then
 			impactIgnore = triggerArgs.triggeredById
@@ -5688,6 +5707,9 @@ end
 
 function CreateManaBurst( traitArgs, totalBursts )
 	waitUnmodified( traitArgs.StartDelay, "ManaBurstDelay" )
+	if CurrentRun.CurrentRoom.Encounter and CurrentRun.CurrentRoom.Encounter.BossKillPresentation then
+		return
+	end
 	for i = 1, totalBursts do
 		CreateProjectileFromUnit({ Name = traitArgs.ProjectileName, Id = CurrentRun.Hero.ObjectId, DestinationId = CurrentRun.Hero.ObjectId,
 			DamageMultiplier = traitArgs.DamageMultiplier, Angle = GetAngle({ Id = CurrentRun.Hero.ObjectId }) + 180 + i * 360/totalBursts, FizzleOldestProjectileCount = 6 })
@@ -5969,6 +5991,9 @@ function AthenaInvulnerabilitySetup( hero, args )
 end
 
 function AthenaRetaliate( unit, args, triggerArgs )
+	if CurrentRun.CurrentRoom.Encounter and CurrentRun.CurrentRoom.Encounter.BossKillPresentation then
+		return
+	end
 	local victim = triggerArgs.Victim
 	if not victim or not victim.Health or victim.Health < 0 or victim.IsDead then
 		return
@@ -6249,6 +6274,9 @@ function TorchPrimaryAutofire( args )
 		WeaponName = weaponName,
 		Type = "Projectile",
 	})
+	if HasThread(threadName) then
+		return
+	end
 	SessionMapState.TorchPrimaryCacheDirty = nil
 	SessionMapState.ElapsedTimeMultiplierIgnores[threadName] = true
 	while CurrentRun and CurrentRun.Hero and CurrentRun.Hero.ObjectId and (not CurrentRun.Hero.IsDead or (CurrentHubRoom ~= nil and CurrentHubRoom.AllowEnemyAIActive)) do
@@ -6405,7 +6433,11 @@ function TorchSpecialAutofire( args )
 	local weaponName = "WeaponTorchSpecial"
 	local projectileName = "ProjectileTorchOrbit"
 	local lastSpecialCount = 0
-	threadName = "SupaySpecialAutofire"
+	local threadName = "SupaySpecialAutofire"
+	if HasThread(threadName) then
+		return
+	end
+	
 	SessionMapState.ElapsedTimeMultiplierIgnores[threadName] = true
 	local derivedValues = GetDerivedPropertyChangeValues({
 		ProjectileName = projectileName,
@@ -6661,5 +6693,5 @@ function GetRewardGoldifyValue( reward )
 	if reward.AddBoostedAnimation then
 		value = value + 150
 	end
-	return value * GetTotalHeroTraitValue("MoneyMultiplier", { IsMultiplier = true })
+	return round( value * GetTotalHeroTraitValue("MoneyMultiplier", { IsMultiplier = true }))
 end

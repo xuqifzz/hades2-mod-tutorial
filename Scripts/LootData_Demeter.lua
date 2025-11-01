@@ -2213,6 +2213,7 @@
 							"DemeterPalaceFirstMeeting",
 							"DemeterPalaceAboutTyphonDeath01",
 							"DemeterPalacePostTrueEnding01",
+							"DemeterPalacePostTrueEnding01_B",
 						},
 					},
 					{
@@ -2221,6 +2222,7 @@
 							"DemeterPalaceFirstMeeting",
 							"DemeterPalaceAboutTyphonDeath01",
 							"DemeterPalacePostTrueEnding01",
+							"DemeterPalacePostTrueEnding01_B",
 						}, Max = 8 },
 					},
 				},
@@ -3498,6 +3500,9 @@
 				GameStateRequirements =
 				{
 					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
+					{
 						PathTrue = { "GameState", "UseRecord", "DemeterUpgrade" },
 					},
 					{
@@ -3536,6 +3541,9 @@
 				},
 				GameStateRequirements =
 				{
+					{
+						PathTrue = { "GameState", "ReachedTrueEnding" },
+					},
 					{
 						PathTrue = { "GameState", "UseRecord", "DemeterUpgrade" },
 					},

@@ -444,6 +444,7 @@ Import "GameStatsData.lua"
 Import "RunHistoryData.lua"
 Import "MusicPlayerData.lua"
 Import "CreditsData.lua"
+Import "StoryResetData.lua"
 
 Import "GiftLogic.lua"
 Import "GiftPresentation.lua"
@@ -460,6 +461,7 @@ Import "ManaLogic.lua"
 Import "HealthLogic.lua"
 Import "UpgradeLogic.lua"
 Import "RequirementsLogic.lua"
+Import "StoryResetLogic.lua"
 
 GlobalVoiceLines = GlobalVoiceLines or {}
 GlobalTextLines = GlobalTextLines or {}

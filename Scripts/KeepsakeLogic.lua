@@ -257,6 +257,7 @@ function AdvanceKeepsake( fromTrait )
 		end
 		if (CurrentRun and CurrentRun.Hero and startingKeepsakeLevel ~= GetKeepsakeLevel( traitName, true )) or fromTrait then
 			local persistentValues = {}
+			local lastRarifyCount = nil
 			for i, traitData in ipairs( CurrentRun.Hero.Traits ) do
 				if traitData.Name == traitName then
 					for _, key in pairs( PersistentKeepsakeKeys ) do
@@ -264,6 +265,9 @@ function AdvanceKeepsake( fromTrait )
 							traitData[key] = round(traitData[key])
 						end
 						persistentValues[key] = traitData[key]					
+					end
+					if traitName == "RarifyKeepsake" and traitData.RarityUpgradeData then
+						lastRarifyCount = traitData.RarityUpgradeData.Uses
 					end
 				end
 			end
@@ -301,6 +305,18 @@ function AdvanceKeepsake( fromTrait )
 					end
 					if traitData.Name == "RarifyKeepsake" then
 						traitData.CustomName = nil
+						if lastRarifyCount then
+							-- Value hard-coded to match the increment per level of Calling Card to avoid expensive comparison calculations
+							traitData.RarityUpgradeData.Uses = lastRarifyCount + 2
+						end
+					end
+					if traitData.Name == "SpellTalentKeepsake" then
+						-- Another hard-coded optimization
+						local count = 1
+						if GetKeepsakeLevel( traitData.Name ) == 4 then
+							count = 2
+						end
+						AddTalentPoints( { Count = count }, traitData )
 					end
 					if traitData.Name == "DecayingBoostKeepsake" then
 						traitData.CurrentKeepsakeDamageBonus = traitData.InitialKeepsakeDamageBonus
@@ -363,7 +379,7 @@ function DamageAfterInterval( timer, damage )
 				return
 			end
 		end
-		if PlayingTextLines or SessionMapState.TyphonStaggerPresentation then
+		if PlayingTextLines or SessionMapState.TyphonStaggerPresentation or SessionMapState.ChronosPolymorphChallengeEndPresentation then
 			wait( 0.3 )
 		else
 			TickBlockDeathPresentation( dummySource, tollTimes )
@@ -371,6 +387,11 @@ function DamageAfterInterval( timer, damage )
 			tollTimes = tollTimes - 1
 		end
 	end
+	-- Possible to be here while other presentation is active
+	while SessionMapState.TyphonStaggerPresentation or SessionMapState.ChronosPolymorphChallengeEndPresentation do
+		wait( 0.3 )
+	end
+	
 	SetPlayerVulnerable( "BlockDeath" )
 	if encounter.BossKillPresentation or (encounter.Completed and not encounterAlreadyCompleted) or CurrentRun.CurrentRoom.Leaving or encounter.ChronosTransition then
 		BlockDeathCanceled( dummySource )
@@ -680,7 +701,6 @@ function CreateKeepsakeIcon( screen, components, args )
 			local text = "RandomWarningAlt_Tooltip"
 			local validFateState = IsFateValid()
 			if CurrentRun.Hero.IsDead then
-				validFateState = PreRunIsFateValid()
 				text = "RandomWarning_Tooltip"
 			end
 			if not validFateState then
@@ -692,6 +712,16 @@ function CreateKeepsakeIcon( screen, components, args )
 					Color = Color.Transparent,
 				})
 			end
+		end
+		
+		if TraitData[upgradeData.Gift].BlockedByEnding and not IsGameStateEligible( upgradeData, { NamedRequirementsFalse = {"SurfaceRouteLockedByTyphonKill"}} ) then
+				CreateTextBox({ 
+					Id = components[buttonKey].Id,
+					Text = "BlockedByEnding_Tooltip",
+					UseDescription = true,
+					OffsetX = 0, OffsetY = 0,
+					Color = Color.Transparent,
+				})
 		end
 
 		screen.HasUnlocked = true
@@ -719,10 +749,15 @@ function CreateKeepsakeIcon( screen, components, args )
 		local icon = TraitData[upgradeData.Gift].InRackIcon or TraitData[upgradeData.Gift].Icon
 		SetAnimation({ DestinationId = components[buttonKey].Id, Name = icon })
 		local blocked = ( Contains(CurrentRun.BlockedKeepsakes, upgradeData.Gift) or ( CurrentRun.UseRecord.NPC_Athena_01 and not HeroHasTrait("AthenaEncounterKeepsake") and upgradeData.Gift == "AthenaEncounterKeepsake" ) ) 
+		local blockedByEnding = false
 		if not IsFateValid() and FatedEnableKeepsakes[upgradeData.Gift] then
 			blocked = true
 		end
-		if not CanFreeSwapKeepsakes() and blocked then
+		if TraitData[upgradeData.Gift].BlockedByEnding and not IsGameStateEligible( upgradeData, { NamedRequirementsFalse = {"SurfaceRouteLockedByTyphonKill"}} ) then
+			blockedByEnding = true
+		end
+
+		if (not CanFreeSwapKeepsakes() and blocked) or blockedByEnding then
 			components[buttonKey.."Lock"] = CreateScreenComponent({ Name = "BlankObstacle", X = localx, Y = localy, Group = "Combat_Menu_Overlay", Animation = "LockedKeepsakeIcon" })
 			SetColor({ Id = components[buttonKey].Id, Color = Color.DarkSlateGray })
 			if components[buttonKey.."Sticker"] then
@@ -1102,6 +1137,39 @@ function KeepsakeScreenClose( screen, button )
 				screen.Source.UseText = "UseLockedGiftRack"
 				SetAnimation({ Name = "GiftRackClosed", DestinationId = screen.Source.ObjectId })
 			end
+
+			if GameState.FatedStatus == "Fated" and FatedDisableKeepsakes[GameState.LastAwardTrait] then
+				delay = delay + 0.5
+
+				if HeroHasTrait("HadesAndPersephoneKeepsake") then
+					local trait = GetHeroTrait("HadesAndPersephoneKeepsake")
+					trait.ShowInHUD = nil
+					TraitUIRemove( trait )
+				end
+				if HeroHasTrait("RarifyKeepsake") then
+					local trait = GetHeroTrait("RarifyKeepsake")
+					trait.ShowInHUD = nil
+					trait.RarityUpgradeData.Uses = 0
+					TraitUIRemove( trait )
+				end
+				
+				if HeroHasTrait("GoldifyKeepsake") then
+					local trait = GetHeroTrait("GoldifyKeepsake")
+					trait.ShowInHUD = nil
+					trait.BoonConversionUses = 0
+					TraitUIRemove( trait )
+				end
+				thread( InRunFateDisabledPresentation, delay )
+				
+				for i, trait in pairs(CurrentRun.Hero.Traits) do
+					if trait.GrantedTrait then
+						RemoveTrait(CurrentRun.Hero, trait.Name )
+						delay = delay + 0.5
+						thread( InRunHadesBoonRemoved, trait.Name, delay )
+						break
+					end
+				end
+			end
 		else
 			local delay = 0.5
 			if screen.StartingHasLastStand ~= HasLastStand(CurrentRun.Hero) then
@@ -1134,6 +1202,7 @@ function KeepsakeScreenClose( screen, button )
 	ShowCombatUI( screen.Name )
 	UpdateGiftRackShineStatus( screen.Source )
 	UpdateFateStatus()
+	CheckAndAddOlympianDuo( screen.Source )
 
 	if GameState.LastAwardTrait ~= nil then
 		thread( MarkObjectiveComplete, "KeepsakePrompt" )
