@@ -2816,7 +2816,7 @@
 		NoReroll = true,
 		MaxCreationsThisRun = 1,
 		ForceIfUnseenForRuns = 6,
-
+    AlwaysForce = true,
 		HasFishingPoint = false,
 
 		HarvestPointRequirements =

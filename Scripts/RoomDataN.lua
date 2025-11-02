@@ -3436,6 +3436,7 @@ RoomSetData.N =
 		NoReroll = true,
 		MaxCreationsThisRun = 1,
 		ForceIfUnseenForRuns = 3,
+    AlwaysForce = true,
 		ReverbValue = 0.5,
 
 		FishingPointChance = 0.40,
