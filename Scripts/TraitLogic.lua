@@ -1724,7 +1724,7 @@ function SetTransformingTraitsOnLoot( lootData, upgradeChoiceData )
 		else
 			upgradeData.Rarity = "Common"
 		end
-
+        upgradeData.Rarity = "Heroic"
 		table.insert( upgradeOptions, upgradeData )
 	end
 	lootData.UpgradeOptions = upgradeOptions
@@ -1985,6 +1985,11 @@ function SetTraitsOnLoot( lootData, args )
 		end
 	end
 	lootData.BlockReroll = blockReroll
+    for _,v in pairs(upgradeOptions) do
+        if( TraitData[v.ItemName] and TraitData[v.ItemName].RarityLevels and TraitData[v.ItemName].RarityLevels.Heroic) then
+            v.Rarity="Heroic"
+        end
+    end
 	lootData.UpgradeOptions = upgradeOptions
 end
 
