@@ -3974,36 +3974,7 @@
 						ManaCost = 10, 
 						WeaponProperties = 
 						{ 
-							NumProjectiles = 1, 
-							ProjectileBlastIncrement = 0.15, 
-							ProjectileIntervalStart = 0.44, ProjectileInterval = 0.44 
-						}, 
-						ProjectileProperties = 
-						{ 
-							DamageMultiplier = 3,
-						}, 
-						Wait = 0.32, 
-						ChannelSlowEventOnEnter = true, 
-						HideStageReachedFx = true 
-					},
-					{ 
-						ManaCost = 15, 
-						WeaponProperties = 
-						{
-							NumProjectiles  = 3
-						}, 
-						ProjectileProperties = 
-						{ 
-							DamageMultiplier = 2 
-						}, 
-						Wait = 0.15, 
-						HideStageReachedFx = true 
-						},
-					{ 
-						ManaCost = 20, 
-						WeaponProperties = 
-						{ 
-							NumProjectiles  = 5
+							NumProjectiles  = 20
 						}, 
 						ProjectileProperties = 
 						{
