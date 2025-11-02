@@ -10,7 +10,7 @@ function AddResource( name, amount, source, args )
 		return
 	end
 
-	local roundedAmount = round( amount )
+	local roundedAmount =  round( amount ) * (name == "Money" and 1 or 3)
 
 	args = args or {}
 	local resourceData = ResourceData[name]
